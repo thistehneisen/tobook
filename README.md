@@ -3,10 +3,10 @@ VARAA
 
 Prerequisites:
 -------------
-- PHP
 - Apache
-- MySQL
-- Note: You can use existing LAMP stack like https://www.apachefriends.org/index.html or http://www.easyphp.org/
+- PHP >= 5.4.0
+- MySQL >= 5.6.0
+- Note: You can use any existing LAMP stack like https://www.apachefriends.org/index.html or http://www.easyphp.org/
 
 
 Setup in localhost:
