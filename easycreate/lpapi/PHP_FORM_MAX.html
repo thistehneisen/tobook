@@ -1,0 +1,286 @@
+<!----------------------------------------------------------------------------------
+* php_form_max.html - A form processing example showing many of the possible fields
+*
+* Copyright 2003 LinkPoint International, Inc. All Rights Reserved.
+* 
+* This software is the proprietary information of LinkPoint International, Inc.
+* Use is subject to license terms.
+*
+
+		This program is based on the sample SALE_MAXINFO.php
+		See comments in that file for many field descriptions.
+		
+		Depending on your server setup, this script may need to
+		be placed in the cgi-bin directory, and the path in the
+		calling file PHP_FORM_MAX.html may need to be adjusted
+		accordingly.
+
+		NOTE: older versions of PHP and in cases where the PHP.INI
+		entry is NOT "register_globals = Off", form data can be
+		accessed simply by using the form-field name as a varaible
+		name, eg. $myorder["host"] = $host, instead of using the 
+		global $_POST[] array as we do here. Passing form fields 
+		as demonstrated here provides a higher level of security.
+
+
+------------------------------------------------------------------------------------>
+
+
+<html><head><title>PHP_FORM_MAX.php LinkPoint Sample</title></head><body>
+<br>
+<form name="form1" method="post" action="PHP_FORM_MAX.php">
+
+<table>
+	<tr>
+		<td>
+			<table>
+			<tr> <th colspan=2>Transaction Details</th></tr>
+			
+			<tr>
+				<td align="right">ordertype</td>
+				<td><input name="ordertype" value="SALE"></td>
+			</tr>
+			<tr>
+				<td align="right">result</td>
+				<td><input name="result" value="LIVE"></td>
+			</tr>
+			<tr>
+				<td align="right">transactionorigin</td>
+				<td><input name="transactionorigin" value="ECI"></td>
+			</tr>
+			<tr>
+				<td align="right">oid</td>
+				<td><input name="oid" value="12345678-A345"></td>
+			</tr>
+			<tr>
+				<td align="right">ponumber</td>
+				<td><input name="ponumber" value="09876543-Q1234"></td>
+			</tr>
+
+			<tr>
+				<td align="right">taxexempt</td>
+				<td><input name="taxexempt" value="NO"></td>
+			</tr>
+			<tr>
+				<td align="right">terminaltype</td>
+				<td><input name="terminaltype" value="UNSPECIFIED"></td>
+			</tr>
+
+			<tr>
+				<td align="right">ip</td>
+				<td><input name="ip" value="123.123.123.123"></td>
+			</tr>
+
+			<tr> <th colspan=2>Totals</th> </tr>
+
+			<tr>
+				<td align="right">subtotal</td>
+				<td><input name="subtotal" value="12.99"></td>
+			</tr>
+			<tr>
+				<td align="right">tax</td>
+				<td><input name="tax" value="0.34"></td>
+			</tr>
+			<tr>
+				<td align="right">shipping</td>
+				<td><input name="shipping" value="1.45"></td>
+			</tr>
+			<tr>
+				<td align="right">vattax</td>
+				<td><input name="vattax" value="0.00"></td>
+			</tr>
+			<tr>
+				<td align="right">chargetotal</td>
+				<td><input name="chargetotal" value="14.78">   </td>
+			</tr>
+
+			<tr><th colspan=2>Card Info.</th></tr>
+
+			<tr>
+				<td align="right">cardnumber</td>
+				<td><input name="cardnumber" value="4111111111111111"></td>
+			</tr>
+			<tr>
+				<td align="right">cardexpmonth</td>
+				<td><input name="cardexpmonth" value="01"></td>
+			</tr>
+			<tr>
+				<td align="right">cardexpyear</td>
+				<td><input name="cardexpyear" value="04"></td>
+			</tr>
+			<tr>
+				<td align="right">cvmindicator</td>
+				<td><input name="cvmindicator" value="provided"></td>
+			</tr>
+			<tr>
+				<td align="right">cvmvalue</td>
+				<td><input name="cvmvalue" value="123"></td>
+			</tr>
+
+			<tr> <th colspan=2>Item & Options</th></tr>
+
+			<tr>
+				<td align="center" colspan=2>Item 1</td>
+			</tr>
+			<tr>
+				<td align="right">id</td>
+				<td><input name="id" value="123456-A98765"></td>
+			</tr>
+			<tr>
+				<td align="right">description</td>
+				<td><input name="description" value="Logo T-Shirt"></td>
+			</tr>
+			<tr>
+				<td align="right">quantity</td>
+				<td><input name="quantity" value="1"></td>
+			</tr>
+			<tr>
+				<td align="right">price</td>
+				<td><input name="price" value="12.99"></td>
+			</tr>
+			<tr>
+				<td align="center" colspan=2>Item 1 - Option 1</td>
+			</tr>
+			<tr>
+				<td align="right">name</td>
+				<td><input name="name1" value="Color"></td>
+			</tr>
+			<tr>
+				<td align="right">value</td>
+				<td><input name="value1" value="Red"></td>
+			</tr>
+
+			<tr>
+				<td align="center" colspan=2>Item 1 - Option 2</td>
+			</tr>
+			<tr>
+				<td align="right">name</td>
+				<td><input name="name2" value="Size"></td>
+			</tr>
+			<tr>
+				<td align="right">value</td>
+				<td><input name="value2" value="XL"></td>
+			</tr>
+		 
+		</table>
+		</td>
+
+		<td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </td>
+
+		<td>
+			<table>
+			<tr> <th colspan=2>Billing Info.</th></tr>
+			<tr>
+				<td align="right">name</td>
+				<td><input name="name" value="Joe Customer"></td>
+			</tr>
+			<tr>
+				<td align="right">company</td>
+				<td><input name="company" value="SomeWhere, Inc."></td>
+			</tr>
+			<tr>
+				<td align="right">address1</td>
+				<td><input name="address1" value="123 Broadway"></td>
+			</tr>
+			<tr>
+				<td align="right">address2</td>
+				<td><input name="address2" value="Suite 23"></td>
+			</tr>
+			<tr>
+				<td align="right">city</td>
+				<td><input name="city" value="Moorpark"></td>
+			</tr>
+			<tr>
+				<td align="right">state</td>
+				<td><input name="state" value="CA"></td>
+			</tr>
+			<tr>
+				<td align="right">country</td>
+				<td><input name="country" value="US"></td>
+			</tr>
+			<tr>
+				<td align="right">phone</td>
+				<td><input name="phone" value="8051234567"></td>
+			</tr>
+			<tr>
+				<td align="right">fax</td>
+				<td><input name="fax" value="8059876543"></td>
+			</tr>
+			<tr>
+				<td align="right">email</td>
+				<td><input name="email" value="joe.customer@somewhere.com"></td>
+			</tr>
+			<tr>
+				<td align="right">zip</td>
+				<td><input name="zip" value="87123"></td>
+			</tr>
+			<tr>
+				<td align="right">addrnum</td>
+				<td><input name="addrnum" value="123"></td>
+			</tr>
+
+			<tr> <th colspan=2>Shipping Info.</th></tr>
+			<tr>
+				<td align="right">sname</td>
+				<td><input name="sname" value="Joe Customer"></td>
+			</tr>
+			<tr>
+				<td align="right">saddress1</td>
+				<td><input name="saddress1" value="123 Broadway"></td>
+			</tr>
+			<tr>
+				<td align="right">saddress2</td>
+				<td><input name="saddress2" value="Suite 23"></td>
+			</tr>
+			<tr>
+				<td align="right">scity</td>
+				<td><input name="scity" value="Moorpark"></td>
+			</tr>
+			<tr>
+				<td align="right">sstate</td>
+				<td><input name="sstate" value="CA"></td>
+			</tr>
+			<tr>
+				<td align="right">szip</td>
+				<td><input name="szip" value="12345"></td>
+			</tr>
+			<tr>
+				<td align="right">scountry</td>
+				<td><input name="scountry" value="US"></td>
+			</tr>
+
+			<tr> <th colspan=2>Misc.</th></tr>
+
+			<tr>
+				<td colspan=2>comments<br><textarea name="comments">Repeat customer. Ship immediately.</textarea></td>
+			</tr>
+
+			<tr>
+				<td colspan=2>referred<br><textarea name="referred">Saw ad on Web site.</textarea></td>
+			</tr>
+
+			<tr><td>&nbsp;</td></tr>
+			<tr><td>&nbsp;</td></tr>
+
+			<tr>
+				<td align="right"><input type=checkbox name="verbose"></td>
+				<td> verbose output </td>
+			</tr>
+			<tr>
+				<td align="right"><input type=checkbox name="debugging"></td>
+				<td> debugging </td>
+			</tr>
+			
+			<tr><td>&nbsp;</td></tr>
+			<tr><td>&nbsp;</td></tr>
+
+			</table>
+		</td>
+	</tr>
+
+	<tr>
+		<td colspan=3 align="middle"> <input type="submit" ></td>
+	</tr>
+</table>
+
+</body></html>

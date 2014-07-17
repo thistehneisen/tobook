@@ -1,0 +1,57 @@
+//  ========== 
+//  = Forms for the HairPress HTML template = 
+//  ==========
+
+select, 
+textarea, 
+input[type="text"], 
+input[type="password"], 
+input[type="datetime"], 
+input[type="datetime-local"],
+input[type="date"], 
+input[type="month"], 
+input[type="time"], 
+input[type="week"], 
+input[type="number"], 
+input[type="email"], 
+input[type="url"], 
+input[type="search"], 
+input[type="tel"], 
+input[type="color"], 
+.uneditable-input {
+  padding-top: 9px;
+  padding-bottom: 9px;
+  @include border-radius(3px);
+  
+  &:focus {
+    border-color: $theme-clr;
+    @include box-shadow(0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 1px lighten($theme-clr, 20%));
+  }
+}
+
+
+.form {
+  &.appointment { // appointment form
+    margin: 30px 0;
+  }
+  
+  .icon {
+    vertical-align: baseline;
+    margin-left: 10px;
+  }
+  
+  .pad-top {
+    padding-top: 36px;
+  }
+  
+  .row {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    color: $grayDark;
+    font-weight: bold;
+  }
+}
+
+

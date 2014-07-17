@@ -1,0 +1,113 @@
+.gallery-item.style2 .view .item_img {
+   -webkit-transition: all 0.2s ease-in;
+   -moz-transition: all 0.2s ease-in;
+   -o-transition: all 0.2s ease-in;
+   -ms-transition: all 0.2s ease-in;
+   transition: all 0.2s ease-in;
+}
+.gallery-item.style2 .view .content {
+   color: #fff;
+}
+.gallery-item.style2 .view .mask {
+   background-color:#000;
+   background-color: rgba(0,0,0, 0.7);
+   width: 150%;
+   height: 250%;
+   -ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=0)";
+   filter: alpha(opacity=0);
+   opacity: 0;
+   -webkit-transform: translate(265px, 145px) rotate(45deg);
+   -moz-transform: translate(265px, 145px) rotate(45deg);
+   -o-transform: translate(265px, 145px) rotate(45deg);
+   -ms-transform: translate(265px, 145px) rotate(45deg);
+   transform: translate(265px, 145px) rotate(45deg);
+   -webkit-transition: all 0.2s ease-in-out;
+   -moz-transition: all 0.2s ease-in-out;
+   -o-transition: all 0.2s ease-in-out;
+   -ms-transition: all 0.2s ease-in-out;
+   transition: all 0.2s ease-in-out;
+}
+.gallery-item.style2 .view .item_title{
+   background: transparent;
+   -webkit-transform: translate(200px, -200px);
+   -moz-transform: translate(200px, -200px);
+   -o-transform: translate(200px, -200px);
+   -ms-transform: translate(200px, -200px);
+   transform: translate(200px, -200px);
+   -webkit-transition: all 0.2s ease-in-out;
+   -moz-transition: all 0.2s ease-in-out;
+   -o-transition: all 0.2s ease-in-out;
+   -ms-transition: all 0.2s ease-in-out;
+   transition: all 0.2s ease-in-out;
+}
+.gallery-item.style2 .view .item_introtext {
+   -webkit-transform: translate(-200px, 200px);
+   -moz-transform: translate(-200px, 200px);
+   -o-transform: translate(-200px, 200px);
+   -ms-transform: translate(-200px, 200px);
+   transform: translate(-200px, 200px);
+   -webkit-transition: all 0.2s ease-in-out;
+   -moz-transition: all 0.2s ease-in-out;
+   -o-transition: all 0.2s ease-in-out;
+   -ms-transition: all 0.2s ease-in-out;
+   transition: all 0.2s ease-in-out;
+}
+.gallery-item.style2 .view .item_more {
+   -webkit-transform: translate(0px, 100px);
+   -moz-transform: translate(0px, 100px);
+   -o-transform: translate(0px, 100px);
+   -ms-transform: translate(0px, 100px);
+   transform: translate(0px, 100px);
+   -webkit-transition: all 0.2s 0.1s ease-in-out;
+   -moz-transition: all 0.2s 0.1s ease-in-out;
+   -o-transition: all 0.2s 0.1s ease-in-out;
+   -ms-transition: all 0.2s 0.1s ease-in-out;
+   transition: all 0.2s 0.1s ease-in-out;
+}
+.gallery-item.style2 .view:hover .mask {
+   -ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=100)";
+   filter: alpha(opacity=100);
+   opacity: 1;
+   -webkit-transform: translate(-17%, -31%) rotate(45deg);
+   -moz-transform: translate(-17%, -31%) rotate(45deg);
+   -o-transform: translate(-17%, -31%) rotate(45deg);
+   -ms-transform: translate(-17%, -31%) rotate(45deg);
+   transform: translate(-17%, -31%) rotate(45deg);
+}
+.gallery-item.style2 .view:hover .item_title{
+   -webkit-transform: translate(0px,0px);
+   -moz-transform: translate(0px,0px);
+   -o-transform: translate(0px,0px);
+   -ms-transform: translate(0px,0px);
+   transform: translate(0px,0px);
+   -webkit-transition-delay: 0.3s;
+   -moz-transition-delay: 0.3s;
+   -o-transition-delay: 0.3s;
+   -ms-transition-delay: 0.3s;
+   transition-delay: 0.3s;
+}
+.gallery-item.style2 .view:hover .item_introtext {
+   -webkit-transform: translate(0px,0px);
+   -moz-transform: translate(0px,0px);
+   -o-transform: translate(0px,0px);
+   -ms-transform: translate(0px,0px);
+   transform: translate(0px,0px);
+   -webkit-transition-delay: 0.4s;
+   -moz-transition-delay: 0.4s;
+   -o-transition-delay: 0.4s;
+   -ms-transition-delay: 0.4s;
+   transition-delay: 0.4s;
+}
+.gallery-item.style2 .view:hover .item_more {
+   -webkit-transform: translate(0px,0px);
+   -moz-transform: translate(0px,0px);
+   -o-transform: translate(0px,0px);
+   -ms-transform: translate(0px,0px);
+   transform: translate(0px,0px);
+   -webkit-transition-delay: 0.5s;
+   -moz-transition-delay: 0.5s;
+   -o-transition-delay: 0.5s;
+   -ms-transition-delay: 0.5s;
+   transition-delay: 0.5s;
+}
+				

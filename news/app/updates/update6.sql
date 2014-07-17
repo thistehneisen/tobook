@@ -1,0 +1,12 @@
+ALTER TABLE `configurations` DROP `smtp`;
+ALTER TABLE `configurations` ADD `delivery` INT NOT NULL DEFAULT '1';
+ALTER TABLE `configurations` ADD `aws_access_key` VARCHAR( 255 ) NOT NULL;
+ALTER TABLE `configurations` ADD `aws_secret_key` VARCHAR( 255 ) NOT NULL;
+ALTER TABLE `configurations` ADD `sendmail_path` VARCHAR( 500 ) NOT NULL;
+ALTER TABLE `subscribers` CHANGE `custom1` `custom1` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL;
+ALTER TABLE `subscribers` CHANGE `custom2` `custom2` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL;
+ALTER TABLE `subscribers` CHANGE `custom3` `custom3` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL;
+ALTER TABLE `subscribers` CHANGE `custom4` `custom4` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL;
+ALTER TABLE `mails` CHANGE `delay` `delay` INT( 11 ) NULL ;
+DELETE FROM `categories` WHERE `name` IS NULL;
+ALTER TABLE `categories` CHANGE `name` `name` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ;

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="template" version="1.0">
+<name>ucotheme</name>
+<author>Uco Team</author>
+<license>Uco</license>
+<version>1.0.0</version>
+<description>Uco Test Theme</description>
+
+    <files>
+            <filedata>
+                <filename>index.html</filename>
+                <filealias>index</filealias>
+            </filedata>
+            <filedata>
+                <filename>subpage.html</filename>
+                <filealias>subpage</filealias>
+            </filedata>
+	</files>
+
+
+	<themes>
+		<theme1>
+			<name>Dark Theme</name>
+			<style>styles/style.css</style>
+			<homepageimage>images/Subbotina.jpg</homepageimage>
+			<thumbnail>images/Subbotina.jpg</thumbnail>
+			<subpageimage>images/Subbotina.jpg</subpageimage>
+			<currenttheme>true</currenttheme>
+			<themecolor>#76bd46</themecolor>
+		</theme1>		 
+	</themes>
+
+	<panels>
+		<header>header</header>
+		<maincontent>maincontent</maincontent>
+		<footer>footer</footer>
+		
+	</panels>
+ 
+</mosinstall>

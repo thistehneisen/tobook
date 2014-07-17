@@ -1,0 +1,510 @@
+@CHARSET "UTF-8";
+.asContainer{
+	color: #848687;
+	font: normal 100% PTSansRegular, sans-serif;
+	line-height: 22px;
+	overflow: hidden;
+}
+.asContainer .asFloatLeft{float: left;}
+.asContainer .asFloatRight{float: right;}
+.asContainer .asFloatNone{float: none;}
+.asContainer .asClearLeft{clear: left;}
+.asContainer .asClearRight{clear: right;}
+.asContainer .asClearBoth{clear: both;}
+.asContainer .asOverflowHidden{overflow: hidden;}
+.asContainer .asAlignLeft{text-align: left;}
+.asContainer .asAlignCenter{text-align: center;}
+.asContainer .asAlignRight{text-align: right;}
+
+.asContainer .asContainerInner{
+
+}
+header{
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    margin: 20px 0;
+}
+#logo{
+	float: left;
+	margin: 0 20px;
+}
+.banner{
+    display: inline-block;
+    margin: 10px 20px;
+}
+.asContainer .asBox{
+}
+.ui-dialog {
+	font-size: 14px !important;
+}
+.asContainer .asCalendarOuter{
+	width: 25%;
+}
+.asContainer .asCalendarInner{
+	background-color: #ECF0F1;
+	border-radius: 10px;
+	margin: 0 10px 0 0;
+	padding: 0 0 10px;
+}
+.asContainer .asCalendar{
+	overflow: hidden;
+}
+.asContainer .asSelectorCalendar{
+	width: 100%;
+	height: auto;
+}
+.asContainer .asCartOuter{
+	width: 25%;
+}
+.asContainer .asCartInner{
+	background-color: #ECF0F1;
+	border-radius: 10px;
+	margin: 10px 10px 0 0;
+}
+.asContainer .asCartInnerPreview{
+	margin-top: 0;
+}
+.asContainer .asServicesOuter{
+	float: right;
+	width: 75%;
+}
+.asContainer .asServicesInner{
+	background-color: #ECF0F1;
+	border-radius: 10px;
+}
+.asContainer .asHeading{
+	background-color: #fff;
+	border: solid 1px #E2E6E7;
+	border-radius: 10px 10px 0 0;
+	color: #1e0a0a;
+	font: normal 1em PTSansBold, sans-serif;
+	padding: 12px 14px;
+	text-transform: uppercase;
+}
+.asContainer .asHeading a:link,
+.asContainer .asHeading a:active,
+.asContainer .asHeading a:visited{
+	color: #0082ce;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+.asContainer .asHeading a:hover{
+	text-decoration: underline;
+}
+
+.asContainer .asElement{
+	border-radius: 10px;
+	background-color: #fff;
+	box-shadow: 1px 2px 1px #E0E4E5;
+	padding: 12px;
+}
+.asContainer .asElementOutline{
+	margin: 12px;
+	overflow: hidden;
+}
+.asContainer .asServiceName,
+.asContainer .asEmployeeName{
+	color: #0082ce;
+	font: normal 1.2em PTSansBold, sans-serif;
+	margin: 0 0 10px;
+}
+.asContainer .asServiceDetails{
+	overflow: hidden;
+	margin: 0 0 5px;
+}
+.asContainer .asServiceAvailability{
+	float: right;
+}
+.asContainer .asElementTag{
+	background-color: #ECF0F1;
+	border-radius: 6px;
+	border: solid 1px #D7DDDD;
+	box-shadow: inset 1px 2px 0px 0px #E4E8E7;
+	box-sizing: border-box;
+	color: #000;
+	text-shadow: 1px 1px 1px #fff;
+	font-weight: bold;
+	height: 38px;
+	line-height: 38px;
+}
+.asContainer .asServicePrice,
+.asContainer .asServiceTime{
+	float: left;
+	margin: 0 5px 5px 0;
+	padding: 0 10px 0 45px;
+}
+.asContainer .asServiceDesc{
+
+}
+.asContainer a.asServiceLink:link,
+.asContainer a.asServiceLink:active,
+.asContainer a.asServiceLink:visited{
+	color: #0082ce;
+	text-decoration: none;
+	text-transform: lowercase;
+}
+.asContainer a.asServiceLink:hover{
+	text-decoration: underline;
+}
+.asContainer .asEmployeeName{
+}
+.asContainer .asEmployeeNotes{
+	font-size: 0.9em;
+	margin: 0 0 5px;
+}
+.asContainer .asEmployeeHint{
+	font-size: 0.9em;
+	margin: 0 0 5px;
+	color: #429721;
+}
+.asContainer .asEmployeeHint a.asServiceLink{
+	text-transform: none;
+}
+.asContainer .asEmployeeAvatar{
+	float: left;
+	width: 20%;
+	box-sizing: border-box;
+}
+.asContainer .asEmployeeAvatar img{
+	border: none;
+	width: 100px;
+	height: 100px;
+	vertical-align: middle;
+}
+.asContainer .asEmployeeDetailsRight{
+	display: none;
+}
+.asContainer .asEmployeeAvatar .asEmployeeDetails{
+	margin: 5px 0 0;
+	overflow: hidden;
+}
+.asContainer .asEmployeeInfo{
+	background-color: inherit;
+	float: right;
+	width: 80%;
+	box-sizing: border-box;
+}
+.asContainer .asEmployeeNA{
+	font-family: PTSansBold, sans-serif;
+	text-transform: uppercase;
+}
+.asContainer .asEmployeeTimeslots{
+	overflow: hidden;
+	margin: 0 0 10px;
+}
+.asContainer .asEmployeeTime{
+	margin: 0 0 5px;
+	overflow: hidden;
+	padding: 0 10px;
+	width: 45%;
+}
+.asContainer .asEmployeeTimeLabel{
+	color: #777;
+	font-weight: normal;
+	float: left;
+}
+.asContainer .asEmployeeTimeValue{
+	float: right;
+}
+/* Button */
+.asContainer .asButton,
+.asContainer a.asButton{
+	border-radius: 5px;
+	box-sizing: border-box;
+	cursor: pointer;
+	display: inline-block;
+	font: normal 1em PTSansBold, sans-serif;
+	height: 38px;
+	line-height: 34px;
+	margin: 0 0 1px;
+	outline: none;
+	padding: 0 20px;
+	text-align: center;
+	text-decoration: none !important;
+	vertical-align: middle;
+}
+/* Green */
+.asContainer .asButtonGreen,
+.asContainer a.asButtonGreen{
+	border: solid 1px #5bc133;
+	box-shadow: inset 1px 1px 1px #ade398;
+	color: #fff;
+	text-shadow: 1px -1px 1px #6eb157;
+}
+.asContainer .asButtonGreen:focus,
+.asContainer a.asButtonGreen:focus{
+	border: solid 1px #429721;
+	box-shadow: inset 1px 1px 1px #9ed589, 0 0 4px #bbb;
+	text-shadow: 1px -1px 1px rgba(101, 151, 81, 0.37);
+}
+.asContainer .asButtonGreen:hover,
+.asContainer a.asButtonGreen:hover{
+	border: solid 1px #429721;
+	box-shadow: inset 1px 1px 1px #9ed589;
+	text-shadow: 1px -1px 1px rgba(101, 151, 81, 0.37);
+}
+.asContainer .asButtonGreen:active,
+.asContainer a.asButtonGreen:active{
+	position: relative;
+	top: 1px;
+}
+.asContainer .asButtonGreen:disabled,
+.asContainer a.asButtonGreen:disabled{
+	border: solid 1px #b9d7ad;
+	box-shadow: inset 1px 1px 1px #e5f6de;
+	cursor: default;
+	text-shadow: 1px -1px 1px rgba(101, 151, 81, 0.37);
+	position: relative;
+	top: 0;
+}
+/* Gray */
+.asContainer .asButtonGray,
+.asContainer a.asButtonGray{
+	border: solid 1px #8a9092;
+	box-shadow: inset 1px 1px 1px #bfc9cb;
+	color: #fff;
+	text-shadow: 1px -1px 1px #707476;
+}
+.asContainer .asButtonGray:focus,
+.asContainer a.asButtonGray:focus{
+	border: solid 1px #555c5e;
+	box-shadow: inset 1px 1px 1px #bfc9cb, 0 0 4px #bbb;
+	color: #fff;
+	text-shadow: 1px -1px 1px #707476;
+}
+.asContainer .asButtonGray:hover,
+.asContainer a.asButtonGray:hover{
+	border: solid 1px #5d6567;
+	box-shadow: inset 1px 1px 1px #b2b9bb;
+	text-shadow: 1px -1px 1px #666f72;
+}
+.asContainer .asButtonGray:active,
+.asContainer a.asButtonGray:active{
+	position: relative;
+	top: 1px;
+}
+.asContainer .asButtonGray:disabled,
+.asContainer a.asButtonGray:disabled{
+	border: solid 1px #bec4c6;
+	box-shadow: inset 1px 1px 1px #e0e5e6;
+	color: #ebeeef;
+	cursor: default;
+	text-shadow: 1px -1px 1px #bbc9be;
+	position: relative;
+	top: 0;
+}
+/* Cart */
+.asContainer .asCartService{
+	color: #0082ce;
+	font: normal 1em PTSansBold, sans-serif;
+	margin: 0 0 10px;
+}
+.asContainer .asCartInfo,
+.asContainer .asCartInfo2{
+	font-size: 0.9em;
+	overflow: hidden;
+}
+.asContainer .asCartInfo2{
+	display: none;
+}
+.asContainer .asCartTotal,
+.asContainer .asCartTotalPrice,
+.asContainer .asCartDate,
+.asContainer .asCartStart,
+.asContainer .asCartEnd,
+.asContainer .asCartPrice,
+.asContainer .asCartRemove{
+	float: left;
+}
+.asContainer .asCartTotal{width: 70%; text-transform: uppercase; font-family: PTSansBold}
+.asContainer .asCartTotalPrice{width: 25%; text-align: right; font-family: PTSansBold; color: #000}
+.asContainer .asCartDate{width: 28%}
+.asContainer .asCartStart{width: 20%}
+.asContainer .asCartEnd{width: 20%}
+.asContainer .asCartPrice{width: 24%; text-align: right; font-family: PTSansBold; color: #000}
+.asContainer .asCartRemove{width: 8%; text-align: center}
+.asContainer .asCartRemove a{
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	text-decoration: none;
+	vertical-align: text-top;
+}
+.asContainer .asCartDate.asCartFix{width: 38%}
+.asContainer .asCartStart.asCartFix{width: 26%}
+.asContainer .asCartEnd.asCartFix{width: 26%}
+.asContainer .asCartRemove.asCartFix{width: 10%}
+
+/* Slots */
+.asContainer .asSlotBlock{
+	float: left; 
+	display: inline-block;
+	font-size: 0.8em; 
+	width: 44px; 
+	height: 30px; 
+	line-height: 30px; 
+	text-align: center;
+	margin: 0 1px 1px 0; 
+}
+.asContainer .asSlotBlockWide{
+	width: 67px !important;
+}
+.asContainer .asSlotAvailable{
+	background-color: #def9cd;
+	color: #414748;
+	cursor: pointer;
+	text-shadow: 1px 1px 1px #fff;
+}
+.asContainer .asSlotBooked{
+	background-color: #DA384B;
+	color: #fff;
+}
+.asContainer .asSlotCart{
+	background-color: #01A2FF;
+	color: #fff;
+}
+.asContainer .asSlotUnavailable{
+	background-color: #dedede;
+	color: #414748;
+}
+.asContainer .asSlotSelected{
+	background-color: #0082ce;
+	color: #fff;
+	text-shadow: none;
+}
+.asContainer .asSlotNotAccept{
+	cursor: default !important;
+}
+/* Form */
+.asContainer .asRow{
+	overflow: hidden;
+	margin: 0 0 10px;
+}
+.asContainer .asLabel{
+	color: #000;
+	float: left;
+	display: inline-block;
+	padding: 8px 0 0 0;
+	width: 20%;
+}
+.asContainer .asValue{
+	float: left;
+	display: inline-block;
+	padding: 8px 0 0 0;
+	width: 80%;
+}
+.asContainer .asRowControl {
+	float: left;
+	display: inline-block;
+	width: 80%;
+}
+.asContainer em {
+	clear: left;
+	display: block;
+	padding: 8px 0 6px;
+	margin: 0;
+	margin-left: 20%;
+}
+.asContainer input,
+.asContainer select,
+.asContainer textarea,
+.asContainer button
+.asContainer .asFormField{
+	background-image: none;
+	background-color: #f4f8f9;
+	border: solid 1px #d7dcdd;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+	border-radius: 7px;
+	-moz-box-shadow: inset 0 1px 5px #ebeff0;
+	-webkit-box-shadow: inset 0 1px 5px #ebeff0;
+	box-shadow: inset 0 1px 5px #ebeff0;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 8px 11px;
+	
+	font-size: 100%;
+	font-family: inherit;
+	outline: none;
+}
+.asContainer .asAsterisk{
+	color: #ECA606;	
+}
+.asContainer input.asValid,
+.asContainer select.asValid,
+.asContainer textarea.asValid{
+	background-color: #DFF3D8;
+	border: solid 1px #5BC133;
+	color: #006600;
+}
+.asContainer input.asError,
+.asContainer select.asError,
+.asContainer textarea.asError{
+	background-color: #F6D5D4;
+	border: solid 1px #EEABAA;
+	box-shadow: none;
+	color: #660000;
+}
+.asContainer label.asError {
+	background-color: #fff;
+	border: solid 1px #F6D5D4;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+	border-radius: 7px;
+	box-shadow: none;
+	font-size: 0.9em;
+	box-shadow: none;
+	color: #990000;
+	display: block;
+	width: auto;
+	padding: 5px;
+	margin: 0;
+	text-shadow: none;
+}
+.asContainer .asStretch{
+	width: 100%;
+}
+
+.accordion-title{
+	cursor: pointer;
+	margin: 0;
+	color: #444;
+}
+#accordion-category .accordion-body{
+    border-top: 1px solid #CCCCCC;
+    padding: 10px;	
+}
+#accordion-category .accordion-body .accordion-title{
+	line-height: 35px;
+	border-top: 1px solid #CCCCCC;
+}
+#accordion-category .accordion-body .panel-group:first-child .accordion-title{
+	border: 0;
+}
+#accordion-category .accordion-body .asServiceAvailability{
+	float: none;
+}
+#accordion-category .subDesc{
+	line-height: 38px;
+}
+#asContainer_1 .asEmployee .asElement{
+	margin: 5px;
+}
+.asContainer .asEmployee .asEmployeeAvatar .asEmployeeDetailsRight{
+	display: inline-block;
+	margin: 0;
+}
+.asContainer .asEmployee .asEmployeeAvatar img{
+	margin: 0 5px 5px 0;
+}
+.asContainer .asEmployee .asEmployeeTime{
+	width: 100%;
+}
+.asContainer .asEmployee .asButtonGreen, 
+.asContainer .asEmployee a.asButtonGreen{
+	width: 100%;
+	margin-top: 5px;
+}

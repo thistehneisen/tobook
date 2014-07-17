@@ -1,0 +1,2779 @@
+#
+#  <>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2011-04-20 11:42+0200\n"
+"PO-Revision-Date: 2011-06-04 21:38+0100\n"
+"Last-Translator: \n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: /app_controller.php:1;1;1;1;1;1;1;1;1;1;1
+#: /app_controller_1.php:88;93;98;103;108;113;117;122;127;132;137
+msgid "Function Disabled! (DEMO)"
+msgstr "Deze functie is uitgeschakeld! (DEMO)"
+
+#: /app_controller.php:1
+#: /app_controller_1.php:142
+msgid "You can't send a newsletter! Use the send test mail function to test the newsletter! (DEMO)"
+msgstr "U kunt geen nieuwsbrieven versturen! Gebruik test mail optie om uw nieuwsbrief te testen! (DEMO)"
+
+#: /controllers/campaigns_controller.php:18;36
+msgid "The campaign has been saved"
+msgstr "De campagne is opgeslagen"
+
+#: /controllers/campaigns_controller.php:21;43
+msgid "The campaign could not be saved. Please, try again."
+msgstr "De campagne kon niet worden opgeslagen. Probeer het nog een keer."
+
+#: /controllers/campaigns_controller.php:31
+msgid "Invalid campaign"
+msgstr "Ongeldige campagne"
+
+#: /controllers/campaigns_controller.php:55
+msgid "Invalid id for campaign"
+msgstr "Ongeldige id voor de campagne"
+
+#: /controllers/campaigns_controller.php:59
+msgid "Campaign deleted"
+msgstr "Campagne verwijderd"
+
+#: /controllers/campaigns_controller.php:62
+msgid "Campaign was not deleted"
+msgstr "Campagne is niet verwijderd"
+
+#: /controllers/categories_controller.php:13;37
+msgid "Invalid category"
+msgstr "Ongeldige categorie"
+
+#: /controllers/categories_controller.php:24;42
+msgid "The category has been saved"
+msgstr "De categorie is opgeslagen"
+
+#: /controllers/categories_controller.php:27;45
+msgid "The category could not be saved. Please, try again."
+msgstr "De categorie kon niet worden opgeslagen. Probeer het nog een keer."
+
+#: /controllers/categories_controller.php:59
+msgid "Invalid id for category"
+msgstr "Ongeldige id voor de categorie"
+
+#: /controllers/categories_controller.php:63
+msgid "Category deleted"
+msgstr "Categorie is verwijderd"
+
+#: /controllers/categories_controller.php:66
+msgid "Category was not deleted"
+msgstr "Categorie werd niet verwijderd"
+
+#: /controllers/configurations_controller.php:11
+#: /controllers/users_controller.php:9
+msgid "Access Denied"
+msgstr "Toegang Geweigerd"
+
+#: /controllers/configurations_controller.php:38
+msgid "All mails servers checked"
+msgstr "Alle e-mails servers zijn gecontroleerd"
+
+#: /controllers/configurations_controller.php:51;212
+msgid "Function imap_open does not exist"
+msgstr "Functie imap_open bestaat niet"
+
+#: /controllers/configurations_controller.php:61;162;181;306
+msgid "Invalid configuration"
+msgstr "Ongeldige configuratie"
+
+#: /controllers/configurations_controller.php:72
+#: /controllers/mails_controller.php:533
+#: /controllers/test/mails_controller.php:495
+msgid "Please wait for"
+msgstr "Wachten nog voor"
+
+#: /controllers/configurations_controller.php:72
+#: /controllers/mails_controller.php:533
+#: /controllers/test/mails_controller.php:495
+#: /views/mails/sendstatus.ctp:80
+msgid "seconds"
+msgstr "seconden"
+
+#: /controllers/configurations_controller.php:81
+msgid "No inbox"
+msgstr "Geen inbox"
+
+#: /controllers/configurations_controller.php:102
+msgid "Error: cannot open mailbox"
+msgstr "Fout: de mailbox kan niet worden geopend"
+
+#: /controllers/configurations_controller.php:152
+msgid "Found %s bounce mails"
+msgstr "Er zijn %s bounced email gevonden"
+
+#: /controllers/configurations_controller.php:217
+msgid "Curl plugin missing"
+msgstr "Curl plugin ontbreekt"
+
+#: /controllers/configurations_controller.php:225
+msgid "Unable to connect to Amazone SES"
+msgstr "Niet in staat om verbinding te maken met Amazon SES"
+
+#: /controllers/configurations_controller.php:230
+msgid "not verified"
+msgstr "niet geverifiëerd"
+
+#: /controllers/configurations_controller.php:230
+msgid "Verify Now"
+msgstr "Nu verifiëren"
+
+#: /controllers/configurations_controller.php:271
+msgid "Inbox:"
+msgstr "Inbox:"
+
+#: /controllers/configurations_controller.php:282;289;314;319
+msgid "The configuration could not be saved. Please, try again."
+msgstr "De instellingen kon niet worden opgeslagen. Probeer het nog een keer."
+
+#: /controllers/configurations_controller.php:286;316
+msgid "The configuration has been saved"
+msgstr "Intellingen zijn opgeslagen"
+
+#: /controllers/configurations_controller.php:330
+msgid "Invalid id for configuration"
+msgstr "Ongeldige id voor de instelling"
+
+#: /controllers/configurations_controller.php:334
+msgid "Configuration deleted"
+msgstr "Instellingen zijn verwijderd"
+
+#: /controllers/configurations_controller.php:337
+msgid "Configuration was not deleted"
+msgstr "Instellingen waren niet opgeslagen"
+
+#: /controllers/forms_controller.php:76;79
+msgid "Invalide name, use characters A-Z"
+msgstr "Ongeldige naam, gebruik alleen letters"
+
+#: /controllers/forms_controller.php:83;86
+msgid "Invalide mail addresse"
+msgstr "Ongeldige e-mailadres"
+
+#: /controllers/forms_controller.php:103
+msgid "A Friend Sent You A Message"
+msgstr "U Heeft Een E-mail Gekregen Van Een Bekende"
+
+#: /controllers/forms_controller.php:175;414;436
+msgid "Invalid form"
+msgstr "Ongeldige formulier"
+
+#: /controllers/forms_controller.php:338
+msgid "Unknown error please contact webmaster."
+msgstr "Onbekende fout. Neem contact op met uw leverenacier of webmaster."
+
+#: /controllers/forms_controller.php:407;420;425;444
+msgid "The form could not be saved. Please, try again."
+msgstr "Het formulier kan niet worden opgeslagen. probeer het nog een keer."
+
+#: /controllers/forms_controller.php:419
+msgid "Please select at least on category"
+msgstr "Selecteer ten minste een categorie"
+
+#: /controllers/forms_controller.php:422;441
+msgid "The form has been saved"
+msgstr "Het formulier is opgeslagen"
+
+#: /controllers/forms_controller.php:458
+msgid "Invalid id for form"
+msgstr "Ongeldige id voor het formulier"
+
+#: /controllers/forms_controller.php:462
+msgid "There must be at least one subscription form"
+msgstr "Er moet ten minste een inschrijfformulier aangemaakt zijn"
+
+#: /controllers/forms_controller.php:465
+msgid "Form deleted"
+msgstr "Het formulier is verwijderd"
+
+#: /controllers/forms_controller.php:468
+msgid "Form was not deleted"
+msgstr "Het formulier werd niet verwijderd"
+
+#: /controllers/images_controller.php:52;73
+msgid "The image was successfully uploaded."
+msgstr "De afbeelding werd met succes geüpload."
+
+#: /controllers/images_controller.php:52;73
+msgid "Use this Image"
+msgstr "Gebruik deze afbeelding"
+
+#: /controllers/images_controller.php:58
+msgid "cURL is NOT installed"
+msgstr "cURL is NIET geïnstalleerd"
+
+#: /controllers/images_controller.php:75
+#: /controllers/templates_controller.php:164
+msgid "There was an error with the uploaded file."
+msgstr "Er was een fout met het geüploade bestand."
+
+#: /controllers/importtasks_controller.php:46;61;79;97;133
+msgid "The import task could not be saved. Please, try again."
+msgstr "De import taak kan niet worden opgeslagen. Probeer het nog een keer."
+
+#: /controllers/importtasks_controller.php:53;71;89;125
+msgid "Invalid import task"
+msgstr "Ongeldige import taak"
+
+#: /controllers/importtasks_controller.php:76
+msgid "Connection Successful"
+msgstr "Succesvol Verbonden"
+
+#: /controllers/importtasks_controller.php:112;148;209
+#: /plugins/install/controllers/install_controller.php:125;166
+msgid "Could not connect to database."
+msgstr "Kan geen verbinding maken met de database."
+
+#: /controllers/importtasks_controller.php:130
+msgid "The import task has been saved"
+msgstr "De import taak is opgeslagen"
+
+#: /controllers/importtasks_controller.php:157;219
+msgid "Error in Query: "
+msgstr "Fout in Query"
+
+#: /controllers/importtasks_controller.php:181
+msgid "Invalid id for import task"
+msgstr "Ongeldige ID voor de import taak"
+
+#: /controllers/importtasks_controller.php:185
+msgid "Import task deleted"
+msgstr "De import taak is verwijderd"
+
+#: /controllers/importtasks_controller.php:188
+msgid "Import task was not deleted"
+msgstr "De import taak werd niet verwijderd"
+
+#: /controllers/mails_controller.php:68;77;238;436;519;875
+#: /controllers/test/mails_controller.php:68;77;205;398;481;817
+msgid "Invalid mail"
+msgstr "Ongeldige e-mail"
+
+#: /controllers/mails_controller.php:183;253
+#: /controllers/test/mails_controller.php:184;218
+msgid "The mail could not be saved. Please, try again."
+msgstr "De e-mail kon niet worden opgeslagen. probeer het nog een keer."
+
+#: /controllers/mails_controller.php:498
+#: /controllers/test/mails_controller.php:460
+msgid "Job done!"
+msgstr "Uitgevoerd!"
+
+#: /controllers/mails_controller.php:501
+#: /controllers/test/mails_controller.php:463
+msgid "There is nothing to do..."
+msgstr "Er is niets te doen."
+
+#: /controllers/mails_controller.php:621;623;918
+#: /controllers/test/mails_controller.php:583;585;860
+msgid "Unable to connect to server"
+msgstr "Kan geen verbinding maken met server"
+
+#: /controllers/mails_controller.php:628;630
+#: /controllers/test/mails_controller.php:590;592
+msgid "Error failed to send mails"
+msgstr "Fout, e-mails kunnen niet verzonden worden"
+
+#: /controllers/mails_controller.php:867
+#: /controllers/test/mails_controller.php:809
+msgid "The mail could not be duplicate. Please, try again."
+msgstr "De e-mail kon niet worden gedupliceerd. Probeer het nog een keer."
+
+#: /controllers/mails_controller.php:914
+#: /controllers/test/mails_controller.php:856
+msgid "Test mail sent"
+msgstr "Test e-mail is verstuurd"
+
+#: /controllers/mails_controller.php:916;922
+#: /controllers/test/mails_controller.php:858;864
+msgid "Error failed to send test mail"
+msgstr "Fout, test e-mail kan niet verzonden worden"
+
+#: /controllers/mails_controller.php:929
+#: /controllers/test/mails_controller.php:871
+msgid "Invalid id for mail"
+msgstr "Ongeldige ID voor de e-mail"
+
+#: /controllers/mails_controller.php:933
+#: /controllers/test/mails_controller.php:875
+msgid "Mail deleted"
+msgstr "E-mail is verwijderd"
+
+#: /controllers/mails_controller.php:936
+#: /controllers/test/mails_controller.php:878
+msgid "Mail was not deleted"
+msgstr "E-mail werd niet verwijderd"
+
+#: /controllers/recipients_controller.php:68
+#: /views/recipients/index.ctp:262
+msgid "Country"
+msgstr "Land"
+
+#: /controllers/recipients_controller.php:68
+msgid "Read On"
+msgstr "Gelezen Op"
+
+#: /controllers/recipients_controller.php:68
+#: /views/recipients/index.ctp:282
+#: /views/subscribers/view.ctp:113
+msgid "Open Count"
+msgstr "Geopend"
+
+#: /controllers/recipients_controller.php:68
+#: /controllers/subscribers_controller.php:117
+#: /views/forms/edit.ctp:21
+#: /views/home/index.ctp:81
+#: /views/importtasks/edit3.ctp:29
+#: /views/recipients/index.ctp:278
+#: /views/subscribers/add.ctp:5
+#: /views/subscribers/import2.ctp:34
+#: /views/subscribers/view.ctp:19
+msgid "First Name"
+msgstr "Voornaam"
+
+#: /controllers/recipients_controller.php:68
+#: /controllers/subscribers_controller.php:117
+#: /views/forms/edit.ctp:28
+#: /views/home/index.ctp:82
+#: /views/importtasks/edit3.ctp:29
+#: /views/recipients/index.ctp:279
+#: /views/subscribers/add.ctp:7
+#: /views/subscribers/import2.ctp:34
+#: /views/subscribers/view.ctp:26
+msgid "Last Name"
+msgstr "Achternaam"
+
+#: /controllers/recipients_controller.php:68
+#: /controllers/subscribers_controller.php:117
+#: /views/home/index.ctp:83
+#: /views/importtasks/edit3.ctp:29
+#: /views/subscribers/import2.ctp:34
+#: /views/subscribers/view.ctp:33
+msgid "Mail Address"
+msgstr "E-mailadres"
+
+#: /controllers/recipients_controller.php:68
+#: /controllers/subscribers_controller.php:117
+#: /views/importtasks/edit3.ctp:29
+#: /views/subscribers/add.ctp:14
+#: /views/subscribers/import2.ctp:34
+#: /views/subscribers/view.ctp:40
+msgid "Notes"
+msgstr "Opmerkingen"
+
+#: /controllers/recipients_controller.php:69
+#: /controllers/subscribers_controller.php:118
+#: /views/forms/edit.ctp:52
+#: /views/importtasks/edit3.ctp:30
+#: /views/subscribers/add.ctp:10
+#: /views/subscribers/edit.ctp:9
+#: /views/subscribers/import2.ctp:35
+#: /views/subscribers/view.ctp:64
+msgid "Custom Field 1"
+msgstr "Bedrijf"
+
+#: /controllers/recipients_controller.php:69
+#: /controllers/subscribers_controller.php:118
+#: /views/forms/edit.ctp:65
+#: /views/importtasks/edit3.ctp:30
+#: /views/subscribers/add.ctp:11
+#: /views/subscribers/edit.ctp:10
+#: /views/subscribers/import2.ctp:35
+#: /views/subscribers/view.ctp:71
+msgid "Custom Field 2"
+msgstr "Telefoonnummer"
+
+#: /controllers/recipients_controller.php:69
+#: /controllers/subscribers_controller.php:118
+#: /views/forms/edit.ctp:79
+#: /views/importtasks/edit3.ctp:30
+#: /views/subscribers/add.ctp:12
+#: /views/subscribers/edit.ctp:11
+#: /views/subscribers/import2.ctp:35
+#: /views/subscribers/view.ctp:78
+msgid "Custom Field 3"
+msgstr "Plaats"
+
+#: /controllers/recipients_controller.php:69
+#: /controllers/subscribers_controller.php:118
+#: /views/forms/edit.ctp:92
+#: /views/importtasks/edit3.ctp:30
+#: /views/subscribers/add.ctp:13
+#: /views/subscribers/edit.ctp:12
+#: /views/subscribers/import2.ctp:35
+#: /views/subscribers/view.ctp:85
+msgid "Custom Field 4"
+msgstr "Optioneel"
+
+#: /controllers/recipients_controller.php:74
+#: /controllers/subscribers_controller.php:123
+msgid "Please select a least one column"
+msgstr "Selecteer minimaal een kolom"
+
+#: /controllers/recipients_controller.php:98
+msgid "No subscribers"
+msgstr "Geen abonnees"
+
+#: /controllers/subscribers_controller.php:42
+msgid "Done"
+msgstr "Klaar"
+
+#: /controllers/subscribers_controller.php:48
+#: /views/mails/view.ctp:54
+#: /views/subscribers/add.ctp:16
+#: /views/subscribers/edit.ctp:14
+msgid "Unsubscribed"
+msgstr "Uitgeschreven"
+
+#: /controllers/subscribers_controller.php:72
+msgid "Please select a least one row"
+msgstr "Selecteer ten minste een rij"
+
+#: /controllers/subscribers_controller.php:108
+msgid "Please select an action"
+msgstr "Selecteer een actie"
+
+#: /controllers/subscribers_controller.php:127
+msgid "Please select a least one category"
+msgstr "Selecteer ten minste een categorie"
+
+#: /controllers/subscribers_controller.php:158
+msgid "No subscribers in these categories"
+msgstr "Geen abonnees in deze categorie(ën)"
+
+#: /controllers/subscribers_controller.php:207
+#: /views/subscribers/index.ctp:23
+msgid "Uncategorized"
+msgstr "Niet Gecategoriseerd"
+
+#: /controllers/subscribers_controller.php:229
+msgid "Invalide path"
+msgstr "Ongeldige pad"
+
+#: /controllers/subscribers_controller.php:296
+msgid "Refresh and Import"
+msgstr "Vernieuwen en Importeren"
+
+#: /controllers/subscribers_controller.php:368
+msgid "Data imported<br /> "
+msgstr "data is geimporteerd<br /> "
+
+#: /controllers/subscribers_controller.php:372
+msgid "Please select a category"
+msgstr "Selecteer een categorie"
+
+#: /controllers/subscribers_controller.php:384;459
+msgid "Invalid subscriber"
+msgstr "Ongeldige abonnee"
+
+#: /controllers/subscribers_controller.php:443;464
+msgid "The subscriber has been saved"
+msgstr "De abonnee is opgeslagen"
+
+#: /controllers/subscribers_controller.php:447;467
+msgid "The subscriber could not be saved. Please, try again."
+msgstr "De abonnee kan niet worden opgeslagen. Probere het nog een keer."
+
+#: /controllers/subscribers_controller.php:479
+msgid "Invalid id for subscriber"
+msgstr "Ongeldige id voor de abonnee"
+
+#: /controllers/subscribers_controller.php:483
+msgid "Subscriber deleted"
+msgstr "Abonnee is verwijderd"
+
+#: /controllers/subscribers_controller.php:486
+msgid "Subscriber was not deleted"
+msgstr "Abonnee is niet verwijderd"
+
+#: /controllers/templates_controller.php:18;56;97;120;153
+msgid "Invalid template"
+msgstr "Ongeldig sjabloon"
+
+#: /controllers/templates_controller.php:46;109;126
+msgid "The template has been saved"
+msgstr "Het sjabloon is opgeslagen"
+
+#: /controllers/templates_controller.php:49;112;129
+msgid "The template could not be saved. Please, try again."
+msgstr "Het sjabloon kan niet worden opgeslagen. Probeer het nog een keer."
+
+#: /controllers/templates_controller.php:140
+msgid "Invalid id for template"
+msgstr "Ongeldige id voor sjabloon"
+
+#: /controllers/templates_controller.php:144
+msgid "Template deleted"
+msgstr "Sjabloon verwijderd"
+
+#: /controllers/templates_controller.php:147
+msgid "Template was not deleted"
+msgstr "Sjabloon is niet verwijderd"
+
+#: /controllers/templates_controller.php:198
+msgid "No missing images in this template"
+msgstr "Geen ontbrekende afbeeldingen in dit sjabloon"
+
+#: /controllers/users_controller.php:33;48
+msgid "The user has been saved"
+msgstr "De gebruiker is opgeslagen"
+
+#: /controllers/users_controller.php:36;51
+msgid "The user could not be saved. Please, try again."
+msgstr "De gebruiker kan niet worden opgeslagen. Probeer het nog een keer."
+
+#: /controllers/users_controller.php:43
+msgid "Invalid user"
+msgstr "Ongeldige gebruiker"
+
+#: /controllers/users_controller.php:61
+msgid "Invalid id for user"
+msgstr "Ongeldige id voor de gebruiker"
+
+#: /controllers/users_controller.php:65
+msgid "There must be at least one user"
+msgstr "Er moet ten minste een gebruiker aangemaakt zijn"
+
+#: /controllers/users_controller.php:68
+msgid "User deleted"
+msgstr "Gebruiker verwijderd"
+
+#: /controllers/users_controller.php:71
+msgid "User was not deleted"
+msgstr "Gebruiker is niet verwijderd"
+
+#: /plugins/activate/controllers/activate_controller.php:1
+msgid "Activate"
+msgstr "Activeren"
+
+#: /plugins/install/controllers/install_controller.php:94
+msgid "Installation: Welcome"
+msgstr "Installatie: Wekom"
+
+#: /plugins/install/controllers/install_controller.php:109
+msgid "Step 1: Database"
+msgstr "Stap 1: Database"
+
+#: /plugins/install/controllers/install_controller.php:146
+msgid "Could not write database.php file."
+msgstr "Het bestand database.php is niet schrijfbaar."
+
+#: /plugins/install/controllers/install_controller.php:158
+msgid "Step 2: Build database"
+msgstr "Stap 2: Database Aanmaken"
+
+#: /plugins/install/controllers/install_controller.php:197
+msgid "Installation completed successfully"
+msgstr "De installatie is voltooid"
+
+#: /plugins/install/controllers/install_controller.php:202
+msgid "Installation files deleted successfully."
+msgstr "Installatiebestanden met succes verwijderd."
+
+#: /plugins/install/controllers/install_controller.php:205
+msgid "Could not delete installation files."
+msgstr "Installatiebestanden kunnen niet verwijderd worden."
+
+#: /plugins/install/views/install/data.ctp:5
+msgid "Click here to build your database"
+msgstr "Klik hier om uw database aan te maken"
+
+#: /plugins/install/views/install/index.ctp:8
+msgid "Your tmp directory is writable."
+msgstr "Uw tmp map is schrijfbaar."
+
+#: /plugins/install/views/install/index.ctp:11
+msgid "Your tmp directory is NOT writable."
+msgstr "Uw tmp map is NIET schrijfbaar."
+
+#: /plugins/install/views/install/index.ctp:16
+msgid "Your config directory is writable."
+msgstr "Uw config map is schrijfbaar."
+
+#: /plugins/install/views/install/index.ctp:19
+msgid "Your config directory is NOT writable."
+msgstr "Uw config map is NIET schrijfbaar."
+
+#: /plugins/install/views/install/index.ctp:24
+msgid "PHP version %s > 5.2"
+msgstr "PHP versie %s > 5.2"
+
+#: /plugins/install/views/install/index.ctp:27
+msgid "PHP version %s < 5.2"
+msgstr "PHP versie %s < 5.2"
+
+#: /plugins/install/views/install/index.ctp:31
+msgid "Your core.php is writable."
+msgstr "Uw core.php bestand is schrijfbaar."
+
+#: /plugins/install/views/install/index.ctp:34
+msgid "Your core.php is NOT writable."
+msgstr "Uw core.php bestand is NIET schrijfbaar."
+
+#: /plugins/install/views/install/index.ctp:39
+msgid "Your database.php is writable."
+msgstr "Uw database.php bestand is schrijfbaar."
+
+#: /plugins/install/views/install/index.ctp:42
+msgid "Your database.php is NOT writable."
+msgstr "Uw database.php bestand is NIET schrijfbaar."
+
+#: /plugins/install/views/install/index.ctp:46;49;53;56
+msgid "Your "
+msgstr "Uw"
+
+#: /plugins/install/views/install/index.ctp:63
+msgid "Installation cannot continue as minimum requirements are not met."
+msgstr "De installatie kan niet doorgaan omdat aan een of meer minimale vereisten voor de installatie Magic Letter niet is voldaan"
+
+#: /views/campaigns/add.ctp:3
+msgid "Add Campaign"
+msgstr "Campagne Toevoegen"
+
+#: /views/campaigns/add.ctp:5
+#: /views/configurations/add.ctp:5
+#: /views/configurations/edit.ctp:6
+#: /views/importtasks/add.ctp:5
+#: /views/importtasks/edit.ctp:7
+#: /views/importtasks/edit1.ctp:6;37
+#: /views/importtasks/edit2.ctp:6
+#: /views/importtasks/edit3.ctp:6
+#: /views/mails/view.ctp:108
+#: /views/templates/view.ctp:9
+msgid "Name"
+msgstr "Naam"
+
+#: /views/campaigns/add.ctp:6
+#: /views/configurations/add.ctp:7
+#: /views/configurations/edit.ctp:8
+#: /views/importtasks/add.ctp:5
+#: /views/importtasks/edit.ctp:7
+#: /views/importtasks/edit1.ctp:6
+#: /views/importtasks/edit2.ctp:6
+#: /views/importtasks/edit3.ctp:6
+#: /views/mails/view.ctp:109
+msgid "Description"
+msgstr "Omschrijving"
+
+#: /views/campaigns/add.ctp:7
+msgid "Start"
+msgstr "Begin"
+
+#: /views/campaigns/add.ctp:8
+msgid "End"
+msgstr "Eind"
+
+#: /views/campaigns/add.ctp:9
+msgid "Forever"
+msgstr "Altijd"
+
+#: /views/campaigns/add.ctp:12
+#: /views/categories/index.ctp:2
+#: /views/forms/edit.ctp:109
+#: /views/layouts/default.ctp:143;143
+#: /views/subscribers/export.ctp:19
+msgid "Categories"
+msgstr "Categorieën"
+
+#: /views/campaigns/add.ctp:22
+msgid "Send to subscribers"
+msgstr "Verzenden naar abonnees"
+
+#: /views/campaigns/add.ctp:22
+msgid "subscribed before start date"
+msgstr "aangemeld vóór startdatum"
+
+#: /views/campaigns/add.ctp:27
+#: /views/campaigns/edit.ctp:26
+#: /views/categories/add.ctp:11
+#: /views/categories/edit.ctp:11
+#: /views/configurations/add.ctp:107
+#: /views/configurations/edit.ctp:108
+#: /views/forms/add.ctp:10
+#: /views/forms/edit.ctp:145
+#: /views/forms/editm.ctp:30
+#: /views/subscribers/add.ctp:22
+#: /views/subscribers/edit.ctp:20
+#: /views/templates/add.ctp:43
+#: /views/templates/edit.ctp:44
+#: /views/users/add.ctp:14
+#: /views/users/edit.ctp:15
+msgid "Save"
+msgstr "Opslaan"
+
+#: /views/campaigns/edit.ctp:3
+#: /views/campaigns/index.ctp:59;59
+#: /views/categories/edit.ctp:3
+#: /views/categories/index.ctp:28
+#: /views/configurations/edit.ctp:3
+#: /views/configurations/index.ctp:41;41
+#: /views/forms/edit.ctp:3
+#: /views/forms/editm.ctp:3
+#: /views/forms/index.ctp:28;28
+#: /views/home/index.ctp:60;60;114;114
+#: /views/importtasks/edit.ctp:4
+#: /views/importtasks/edit1.ctp:3
+#: /views/importtasks/edit2.ctp:3
+#: /views/importtasks/edit3.ctp:3
+#: /views/importtasks/index.ctp:29;29
+#: /views/mails/campaign.ctp:142;142
+#: /views/mails/index.ctp:58;58
+#: /views/mails/step1.ctp:3
+#: /views/mails/step2.ctp:1
+#: /views/mails/step3.ctp:25
+#: /views/mails/step4.ctp:1
+#: /views/mails/step5.ctp:1
+#: /views/mails/view.ctp:89;129
+#: /views/subscribers/edit.ctp:3
+#: /views/subscribers/index.ctp:83;83;99
+#: /views/templates/edit.ctp:3
+#: /views/templates/index.ctp:18;18
+#: /views/users/edit.ctp:3
+#: /views/users/index.ctp:32;32
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: /views/campaigns/edit.ctp:3
+#: /views/campaigns/index.ctp:59
+#: /views/categories/edit.ctp:3
+#: /views/categories/index.ctp:28
+#: /views/configurations/edit.ctp:3
+#: /views/configurations/index.ctp:41
+#: /views/forms/edit.ctp:3
+#: /views/forms/editm.ctp:3
+#: /views/forms/index.ctp:28
+#: /views/home/index.ctp:60;114
+#: /views/importtasks/edit.ctp:4
+#: /views/importtasks/edit1.ctp:3
+#: /views/importtasks/edit2.ctp:3
+#: /views/importtasks/edit3.ctp:3
+#: /views/importtasks/index.ctp:29
+#: /views/mails/campaign.ctp:142
+#: /views/mails/index.ctp:58
+#: /views/mails/step1.ctp:3
+#: /views/mails/step2.ctp:1
+#: /views/mails/step3.ctp:25
+#: /views/mails/step4.ctp:1
+#: /views/mails/step5.ctp:1
+#: /views/mails/view.ctp:89;129
+#: /views/subscribers/edit.ctp:3
+#: /views/subscribers/index.ctp:83
+#: /views/templates/edit.ctp:3
+#: /views/templates/index.ctp:18
+#: /views/users/edit.ctp:3
+#: /views/users/index.ctp:32
+msgid "Are you sure you want to delete # %s?"
+msgstr "Weet u zeker dat u # %s wilt verwijderen?"
+
+#: /views/campaigns/edit.ctp:5
+#: /views/mails/campaign.ctp:9
+msgid "Edit Campaign"
+msgstr "Campagne Bewerken"
+
+#: /views/campaigns/index.ctp:2
+msgid "New Campaign"
+msgstr "Nieuwe Campagne"
+
+#: /views/campaigns/index.ctp:3
+#: /views/home/index.ctp:3
+#: /views/mails/campaign.ctp:11
+#: /views/mails/index.ctp:3
+msgid "Run newsletter mailing job"
+msgstr "Mailing Uitvoeren"
+
+#: /views/campaigns/index.ctp:5
+#: /views/layouts/default.ctp:169
+msgid "Campaigns"
+msgstr "Campagnes"
+
+#: /views/campaigns/index.ctp:8
+#: /views/home/index.ctp:13
+#: /views/mails/campaign.ctp:95
+msgid "Status"
+msgstr "Status"
+
+#: /views/campaigns/index.ctp:12
+#: /views/mails/campaign.ctp:46
+msgid "Time span"
+msgstr "Tijdsduur"
+
+#: /views/campaigns/index.ctp:13
+#: /views/categories/index.ctp:9
+#: /views/configurations/index.ctp:18
+#: /views/forms/index.ctp:8
+#: /views/home/index.ctp:20;87
+#: /views/importtasks/index.ctp:12
+#: /views/mails/campaign.ctp:102
+#: /views/mails/index.ctp:14
+#: /views/mails/view.ctp:71;111
+#: /views/recipients/index.ctp:285
+#: /views/subscribers/index.ctp:55
+#: /views/subscribers/view.ctp:114;161
+#: /views/users/index.ctp:12
+msgid "Actions"
+msgstr "Acties"
+
+#: /views/campaigns/index.ctp:36
+#: /views/mails/campaign.ctp:25
+msgid "Expired"
+msgstr "Verlopen"
+
+#: /views/campaigns/index.ctp:39
+#: /views/mails/campaign.ctp:28
+msgid "Active"
+msgstr "Actief"
+
+#: /views/campaigns/index.ctp:42
+#: /views/home/index.ctp:40
+#: /views/mails/campaign.ctp:31
+#: /views/mails/index.ctp:38
+msgid "Scheduled"
+msgstr "Gepland"
+
+#: /views/campaigns/index.ctp:50;52
+#: /views/mails/campaign.ctp:50;52
+msgid "to"
+msgstr "naar"
+
+#: /views/campaigns/index.ctp:52
+#: /views/mails/campaign.ctp:52
+msgid "an indefinite time"
+msgstr "onbepaalde tijd"
+
+#: /views/campaigns/index.ctp:57;57
+msgid "View Newsletters"
+msgstr "Bekijk Nieuwsbrieven"
+
+#: /views/campaigns/index.ctp:58;58
+#: /views/categories/index.ctp:27
+#: /views/configurations/index.ctp:39;39
+#: /views/home/index.ctp:58;58;113;113
+#: /views/importtasks/index.ctp:28;28
+#: /views/mails/campaign.ctp:114;140
+#: /views/mails/index.ctp:26;56
+#: /views/mails/view.ctp:88;128
+#: /views/subscribers/index.ctp:82;82
+#: /views/templates/index.ctp:17;17
+#: /views/users/index.ctp:31;31
+msgid "Edit"
+msgstr "Bewerken"
+
+#: /views/campaigns/index.ctp:67
+#: /views/categories/index.ctp:36
+#: /views/configurations/index.ctp:54
+#: /views/forms/index.ctp:37
+#: /views/importtasks/index.ctp:38
+#: /views/mails/campaign.ctp:150
+#: /views/mails/index.ctp:66
+#: /views/recipients/index.ctp:328
+#: /views/subscribers/index.ctp:115
+#: /views/templates/index.ctp:31
+#: /views/users/index.ctp:40
+msgid "Page %page% of %pages%, showing %current% records out of %count% total, starting on record %start%, ending on %end%"
+msgstr "Pagina %page% van %pages%, toont %current% gegevens van %count% totaal, begint met %start%, beeindigd op %end%"
+
+#: /views/campaigns/index.ctp:72
+#: /views/categories/index.ctp:41
+#: /views/configurations/index.ctp:59
+#: /views/forms/index.ctp:42
+#: /views/importtasks/index.ctp:43
+#: /views/mails/campaign.ctp:155
+#: /views/mails/index.ctp:71
+#: /views/recipients/index.ctp:333
+#: /views/subscribers/index.ctp:120
+#: /views/templates/index.ctp:36
+#: /views/users/index.ctp:45
+msgid "previous"
+msgstr "vorige"
+
+#: /views/campaigns/index.ctp:75
+#: /views/categories/index.ctp:44
+#: /views/configurations/index.ctp:62
+#: /views/forms/index.ctp:45
+#: /views/importtasks/index.ctp:46
+#: /views/mails/campaign.ctp:158
+#: /views/mails/index.ctp:74
+#: /views/recipients/index.ctp:336
+#: /views/subscribers/index.ctp:123
+#: /views/templates/index.ctp:39
+#: /views/users/index.ctp:48
+msgid "next"
+msgstr "volgende"
+
+#: /views/categories/add.ctp:3
+msgid "Add Category"
+msgstr "Categorie Toeovegen"
+
+#: /views/categories/edit.ctp:3
+msgid "Edit Category"
+msgstr "Categorie Bewerken"
+
+#: /views/categories/index.ctp:2
+#: /views/forms/index.ctp:2
+#: /views/home/index.ctp:2
+#: /views/mails/campaign.ctp:92
+#: /views/mails/index.ctp:2
+#: /views/subscribers/index.ctp:4
+#: /views/templates/index.ctp:3
+#: /views/users/index.ctp:2
+msgid "Add"
+msgstr "Toevoegen"
+
+#: /views/categories/index.ctp:2
+#: /views/mails/view.ctp:138
+msgid "New Category"
+msgstr "Nieuwe Categorie"
+
+#: /views/categories/index.ctp:25
+#: /views/home/index.ctp:112;112
+#: /views/mails/view.ctp:87;127
+#: /views/recipients/index.ctp:320;320
+#: /views/subscribers/index.ctp:81;81
+msgid "View"
+msgstr "Bekijk"
+
+#: /views/configurations/add.ctp:3
+msgid "Add Configuration"
+msgstr "Configuratie Toevoegen"
+
+#: /views/configurations/add.ctp:9
+#: /views/configurations/edit.ctp:10
+msgid "From"
+msgstr "Van"
+
+#: /views/configurations/add.ctp:13
+#: /views/configurations/edit.ctp:14
+msgid "You can set the display name by using this tag: Display Name &lt;email@domain.com&gt;"
+msgstr "U kunt de weergegeven naam aangeven met behulp van deze tag: Display Name &lt;email@domain.com&gt;"
+
+#: /views/configurations/add.ctp:16
+#: /views/configurations/edit.ctp:17
+msgid "Reply To"
+msgstr "Beantwoorden Op"
+
+#: /views/configurations/add.ctp:21
+#: /views/configurations/edit.ctp:22
+msgid "SMTP Settings"
+msgstr "SMTP Instellingen"
+
+#: /views/configurations/add.ctp:22
+#: /views/configurations/edit.ctp:23
+#: /views/importtasks/edit1.ctp:31
+msgid "Host"
+msgstr "Host"
+
+#: /views/configurations/add.ctp:26
+#: /views/configurations/edit.ctp:27
+msgid "For example ssl://smtp.gmail.com"
+msgstr "Bijvoorbeeld ssl://smtp.gmail.com"
+
+#: /views/configurations/add.ctp:29
+#: /views/configurations/edit.ctp:30
+msgid "Port"
+msgstr "Port"
+
+#: /views/configurations/add.ctp:31
+#: /views/configurations/edit.ctp:32
+msgid "Smtp Auth"
+msgstr "SMTP Authenticatie"
+
+#: /views/configurations/add.ctp:33
+#: /views/configurations/edit.ctp:34
+#: /views/users/add.ctp:5
+msgid "Username"
+msgstr "Loginnaam"
+
+#: /views/configurations/add.ctp:35
+#: /views/configurations/edit.ctp:36
+#: /views/importtasks/edit1.ctp:35
+#: /views/users/add.ctp:6
+msgid "Password"
+msgstr "Wachtwoord"
+
+#: /views/configurations/add.ctp:40
+#: /views/configurations/edit.ctp:41
+msgid "Amazon Simple Email Service (Amazon SES)"
+msgstr "Amazon Simple Email Service (Amazon SES)"
+
+#: /views/configurations/add.ctp:42
+#: /views/configurations/edit.ctp:43
+msgid "Aws Access Key"
+msgstr "Aws Access Key"
+
+#: /views/configurations/add.ctp:44
+#: /views/configurations/edit.ctp:45
+msgid "Aws Secret Key"
+msgstr "Aws Secret Key"
+
+#: /views/configurations/add.ctp:49
+#: /views/configurations/edit.ctp:50
+msgid "Sendmail"
+msgstr "Sendmail"
+
+#: /views/configurations/add.ctp:51
+#: /views/configurations/edit.ctp:52
+msgid "Sendmail Path"
+msgstr "Sendmail Pad"
+
+#: /views/configurations/add.ctp:55
+#: /views/configurations/edit.ctp:56
+msgid "Most servers use: /usr/sbin/sendmail -bs"
+msgstr "Meeste servers gebruiken de volgende: /usr/sbin/sendmail -bs"
+
+#: /views/configurations/add.ctp:62
+#: /views/configurations/edit.ctp:63
+msgid "Mails Per Connection"
+msgstr "E-Mail Per Verbinding"
+
+#: /views/configurations/add.ctp:67
+#: /views/configurations/edit.ctp:68
+msgid "Limits"
+msgstr "Limits"
+
+#: /views/configurations/add.ctp:67
+#: /views/configurations/edit.ctp:68
+msgid "mails per"
+msgstr "email per"
+
+#: /views/configurations/add.ctp:67
+#: /views/configurations/edit.ctp:68
+msgid "minutes"
+msgstr "minuten"
+
+#: /views/configurations/add.ctp:69
+#: /views/configurations/edit.ctp:70
+msgid "Please enter a number"
+msgstr "Voer een getal in"
+
+#: /views/configurations/add.ctp:71
+#: /views/configurations/edit.ctp:72
+msgid "Inbox connection"
+msgstr "Inbox verbinding"
+
+#: /views/configurations/add.ctp:72
+#: /views/configurations/edit.ctp:73
+msgid "Inbox"
+msgstr "Inbox"
+
+#: /views/configurations/add.ctp:74
+#: /views/configurations/edit.ctp:75
+msgid "Inbox Host"
+msgstr "Inbox Host"
+
+#: /views/configurations/add.ctp:76
+#: /views/configurations/edit.ctp:77
+msgid "Inbox Port"
+msgstr "Inbox Port"
+
+#: /views/configurations/add.ctp:78
+#: /views/configurations/edit.ctp:79
+msgid "Inbox Service"
+msgstr "Inbox Service"
+
+#: /views/configurations/add.ctp:80
+#: /views/configurations/edit.ctp:81
+msgid "Inbox Settings"
+msgstr "Inbox Instellingen"
+
+#: /views/configurations/add.ctp:82
+#: /views/configurations/edit.ctp:83
+msgid "do not use rsh or ssh to establish a preauthenticated IMAP session"
+msgstr "geen gebruik maken van rsh of ssh om een preauthenticated IMAP sessie tot stand te brengen"
+
+#: /views/configurations/add.ctp:83
+#: /views/configurations/edit.ctp:84
+msgid "use the Secure Socket Layer to encrypt the session"
+msgstr "gebruik maken van de Secure Socket Layer om de sessie te versleutelen"
+
+#: /views/configurations/add.ctp:84
+#: /views/configurations/edit.ctp:85
+msgid "do not validate certificates from TLS/SSL server, needed if server uses self-signed certificates"
+msgstr "certificaten van TLS / SSL server niet valideren als de server gebruikt maakt van self-signed certificaten"
+
+#: /views/configurations/add.ctp:85
+#: /views/configurations/edit.ctp:86
+msgid "force use of start-TLS to encrypt the session, and reject connection to servers that do not support it"
+msgstr "gebruik van start-TSL forceren om sessies te versluitelen en de servers negeren die deze fuctie niet ondersteunen"
+
+#: /views/configurations/add.ctp:86
+#: /views/configurations/edit.ctp:87
+msgid "do not do start-TLS to encrypt the session, even with servers that support it"
+msgstr "maak niet gebruik van start-TSL om sessies te versluitelen ondanks de servers die deze functie wel ondersteunen"
+
+#: /views/configurations/add.ctp:87
+#: /views/configurations/edit.ctp:88
+msgid "request read-only mailbox open (IMAP only; ignored on NNTP, and an error POP3)"
+msgstr "verzoek om emailbox als alleen-lezen te openen (IMAP alleen, wordt genegeerd door NNTP en POP3 geeft een foutmelding)"
+
+#: /views/configurations/add.ctp:91
+#: /views/configurations/edit.ctp:92
+msgid "Mailbox"
+msgstr "E-mailbox"
+
+#: /views/configurations/add.ctp:95
+#: /views/configurations/edit.ctp:96
+msgid "Mostly empty"
+msgstr "Meestal leeg"
+
+#: /views/configurations/add.ctp:98
+#: /views/configurations/edit.ctp:99
+msgid "Inbox Username"
+msgstr "Inbox Loginnaam"
+
+#: /views/configurations/add.ctp:100
+#: /views/configurations/edit.ctp:101
+msgid "Inbox Password"
+msgstr "Inbox Wachtwoord"
+
+#: /views/configurations/add.ctp:102
+#: /views/configurations/edit.ctp:103
+msgid "Inbox Wait"
+msgstr "Inbox Wachttijd"
+
+#: /views/configurations/edit.ctp:3
+msgid "Edit Configuration"
+msgstr "Intellingen Bewerken"
+
+#: /views/configurations/index.ctp:4;6
+#: /views/home/index.ctp:3;4;5
+#: /views/importtasks/index.ctp:2;3
+#: /views/mails/campaign.ctp:9;11
+#: /views/mails/index.ctp:3
+#: /views/mails/sendstatus.ctp:26
+#: /views/recipients/index.ctp:244
+#: /views/subscribers/cleanup.ctp:3
+msgid "conf"
+msgstr "configuratie"
+
+#: /views/configurations/index.ctp:4
+msgid "New Configuration"
+msgstr "Nieuwe Configuratie"
+
+#: /views/configurations/index.ctp:6
+msgid "Look for bounce mails on all servers"
+msgstr "Zoek voor bounced e-mails op alle servers"
+
+#: /views/configurations/index.ctp:9
+#: /views/layouts/default.ctp:100
+msgid "Configurations"
+msgstr "Configuraties"
+
+#: /views/configurations/index.ctp:12
+msgid "OUT"
+msgstr "UIT"
+
+#: /views/configurations/index.ctp:13
+msgid "IN"
+msgstr "IN"
+
+#: /views/configurations/index.ctp:30;31;31
+msgid "Wait"
+msgstr "Wachten"
+
+#: /views/configurations/index.ctp:30
+msgid "You can send"
+msgstr "U kunt verzenden"
+
+#: /views/configurations/index.ctp:30;31
+#: /views/mails/campaign.ctp:124;127
+msgid "Ready"
+msgstr "Klaar"
+
+#: /views/configurations/index.ctp:43;43
+msgid "Unblock"
+msgstr "Deblokkeren"
+
+#: /views/configurations/index.ctp:43
+msgid "Are you sure you want to unblock # %s?"
+msgstr "Weet u zeker dat u # %s wilt deblokkeren?"
+
+#: /views/configurations/index.ctp:45
+msgid "Test"
+msgstr "Test"
+
+#: /views/configurations/index.ctp:45
+msgid "Test settings"
+msgstr "Test instellingen"
+
+#: /views/configurations/index.ctp:46
+msgid "Check bounce"
+msgstr "Check bounce"
+
+#: /views/configurations/index.ctp:46
+msgid "Look for bounce mails on"
+msgstr "Zoek voor bounced e-mails op"
+
+#: /views/errors/error404.ctp:22
+#: /views/errors/error500.ctp:22
+msgid "Error"
+msgstr "Fout"
+
+#: /views/errors/error404.ctp:23
+msgid "The requested address %s was not found on this server."
+msgstr "Het gevraagde adres %s  is niet gevonden op deze server"
+
+#: /views/errors/error500.ctp:23
+msgid "An Internal Error Has Occurred."
+msgstr "Er is een interne fout opgetreden."
+
+#: /views/forms/add.ctp:3
+msgid "Add Form"
+msgstr "Formulier Toeovegen"
+
+#: /views/forms/edit.ctp:3
+msgid "Edit Form"
+msgstr "Formulier Bewerken"
+
+#: /views/forms/edit.ctp:7
+#: /views/importtasks/edit3.ctp:17
+#: /views/subscribers/import2.ctp:19
+msgid "Subscription Form"
+msgstr "Inschrijfformulier"
+
+#: /views/forms/edit.ctp:10
+msgid "E-Mail"
+msgstr "E-Mail"
+
+#: /views/forms/edit.ctp:11
+msgid "E-mail Label"
+msgstr "Label E-mail"
+
+#: /views/forms/edit.ctp:14
+msgid "E-mail Exists"
+msgstr "E-mail Bestaat"
+
+#: /views/forms/edit.ctp:17
+msgid "Update Subscriber"
+msgstr "Update Abonnee"
+
+#: /views/forms/edit.ctp:19
+msgid "E-mail Error"
+msgstr "Foutmelding E-mail"
+
+#: /views/forms/edit.ctp:22
+msgid "First Name Label"
+msgstr "Label Voornaam"
+
+#: /views/forms/edit.ctp:24
+msgid "First Name Error"
+msgstr "Foutmelding Voornaam"
+
+#: /views/forms/edit.ctp:26
+msgid "First Name Required"
+msgstr "Voornaam Verplicht"
+
+#: /views/forms/edit.ctp:29
+msgid "Last Name Label"
+msgstr "Label Achternaam"
+
+#: /views/forms/edit.ctp:31
+msgid "Last Name Error"
+msgstr "Foutmelding Achternaam"
+
+#: /views/forms/edit.ctp:33
+msgid "Last Name Required"
+msgstr "Achternaam Verplicht"
+
+#: /views/forms/edit.ctp:36;41
+msgid "Captcha"
+msgstr "Captcha Beveliging"
+
+#: /views/forms/edit.ctp:37
+msgid "Captcha Label"
+msgstr "Label Captcha"
+
+#: /views/forms/edit.ctp:39
+msgid "Captcha Error"
+msgstr "Foutmelding Captcha"
+
+#: /views/forms/edit.ctp:44
+msgid "Required Checkbox"
+msgstr "Checkbox Verplicht"
+
+#: /views/forms/edit.ctp:45
+msgid "Checkbox Label"
+msgstr "Label Checkbox"
+
+#: /views/forms/edit.ctp:47
+msgid "Checkbox Error"
+msgstr "Foutmelding Checkbox"
+
+#: /views/forms/edit.ctp:49
+msgid "Checkbox Show"
+msgstr "Checkbox Zichtbaar"
+
+#: /views/forms/edit.ctp:53
+msgid "Custom Field 1 Label"
+msgstr "Label Bedrijf"
+
+#: /views/forms/edit.ctp:54
+msgid "Custom Field 1 Options"
+msgstr "Opties Bedrijf"
+
+#: /views/forms/edit.ctp:57;70;84;97
+msgid "Seperate options using a semicolon: Option 1;Option 2"
+msgstr "Gebruik meerdere opties gscheiden door puntkomma: Optie 1;Optie 2"
+
+#: /views/forms/edit.ctp:60
+msgid "Custom Field 1 Error"
+msgstr "Foutmelding Bedrijf"
+
+#: /views/forms/edit.ctp:62
+msgid "Custom Field 1 Required"
+msgstr "Bedrijfsnaam Verplicht"
+
+#: /views/forms/edit.ctp:63
+msgid "Custom Field 1 in Top"
+msgstr "Bedrijfsnaam Bovenaan"
+
+#: /views/forms/edit.ctp:66
+msgid "Custom Field 2 Label"
+msgstr "Label Telefoonnummer"
+
+#: /views/forms/edit.ctp:67
+msgid "Custom Field 2 Options"
+msgstr "Opties Tel"
+
+#: /views/forms/edit.ctp:73
+msgid "Custom Field 2 Error"
+msgstr "Foutmelding Tel"
+
+#: /views/forms/edit.ctp:75
+msgid "Custom Field 2 Required"
+msgstr "Telefoonnnumer Verplicht"
+
+#: /views/forms/edit.ctp:76
+msgid "Custom Field 2 in Top"
+msgstr "Telefoonnummer Bovenaan"
+
+#: /views/forms/edit.ctp:80
+msgid "Custom Field 3 Label"
+msgstr "Label Plaats"
+
+#: /views/forms/edit.ctp:81
+msgid "Custom Field 3 Options"
+msgstr "Opties Plaats"
+
+#: /views/forms/edit.ctp:87
+msgid "Custom Field 3 Error"
+msgstr "Foutmelding Plaats"
+
+#: /views/forms/edit.ctp:89
+msgid "Custom Field 3 Required"
+msgstr "Plaatsnaam Verplicht"
+
+#: /views/forms/edit.ctp:90
+msgid "Custom Field 3 in Top"
+msgstr "Plaatsnaam Bovenaan"
+
+#: /views/forms/edit.ctp:93
+msgid "Custom Field 4 Label"
+msgstr "Label Optioneel"
+
+#: /views/forms/edit.ctp:94
+msgid "Custom Field 4 Options"
+msgstr "Opties Optioneel"
+
+#: /views/forms/edit.ctp:100
+msgid "Custom Field 4 Error"
+msgstr "Foutmelding Optioneel"
+
+#: /views/forms/edit.ctp:102
+msgid "Custom Field 4 Required"
+msgstr "Optioneel Vedl Verplicht"
+
+#: /views/forms/edit.ctp:103
+msgid "Custom Field 4 in Top"
+msgstr "Optioneel Veld Bovenaan"
+
+#: /views/forms/edit.ctp:110
+msgid "Categories Label"
+msgstr "Label Categories"
+
+#: /views/forms/edit.ctp:112
+msgid "Categories Error"
+msgstr "Foutmelding Categories"
+
+#: /views/forms/edit.ctp:114
+msgid "User Can Choose"
+msgstr "Abonnee Mag Kiezen"
+
+#: /views/forms/edit.ctp:117
+msgid "Add to this categories"
+msgstr "Toevoegen aan deze categorien"
+
+#: /views/forms/edit.ctp:119
+msgid "Submit Button"
+msgstr "Naam Button"
+
+#: /views/forms/edit.ctp:121
+msgid "Thanks"
+msgstr "Bedankt"
+
+#: /views/forms/edit.ctp:122
+msgid "Thanks Page Url"
+msgstr "URL Bedanktpagina"
+
+#: /views/forms/edit.ctp:124
+msgid "Thanks Title"
+msgstr "Title Bedankt"
+
+#: /views/forms/edit.ctp:126
+msgid "Thanks Text"
+msgstr "Bedanktekst"
+
+#: /views/forms/edit.ctp:128
+msgid "Message if subscriber needs to confirm subscription"
+msgstr "Bericht als abonnee zijn/haar abonnement moet bevestigen "
+
+#: /views/forms/edit.ctp:129
+msgid "Confirm Page Url"
+msgstr "URL Bevestigingspagina"
+
+#: /views/forms/edit.ctp:131
+msgid "Confirm Title"
+msgstr "Title Bevestiging"
+
+#: /views/forms/edit.ctp:133
+msgid "Confirm Text"
+msgstr "Bevestigingstekst"
+
+#: /views/forms/edit.ctp:135
+#: /views/subscribers/index.ctp:99
+msgid "Unsubscribe"
+msgstr "Uitschrijven"
+
+#: /views/forms/edit.ctp:136
+msgid "Unsubscribe Page Url"
+msgstr "URL Uitschrijvingspagina"
+
+#: /views/forms/edit.ctp:138
+msgid "Unsubscribe Title"
+msgstr "Title Uitschrijven"
+
+#: /views/forms/edit.ctp:140
+msgid "Unsubscribe Text"
+msgstr "Utschrijvingstekst"
+
+#: /views/forms/editm.ctp:4
+msgid "Edit Mails related to Form"
+msgstr "E-mails Bewerken Die Gerelateerd Zijn Aan Dit Formulier"
+
+#: /views/forms/editm.ctp:9
+#: /views/mails/step1.ctp:32
+#: /views/mails/view.ctp:44
+msgid "Configuration"
+msgstr "Instellingen"
+
+#: /views/forms/editm.ctp:12
+msgid "Confirm subscriber"
+msgstr "Inschrijving Bevestigen"
+
+#: /views/forms/editm.ctp:13
+msgid "Title"
+msgstr "Title"
+
+#: /views/forms/editm.ctp:14
+#: /views/templates/view.ctp:14
+msgid "Content"
+msgstr "Content"
+
+#: /views/forms/editm.ctp:21
+msgid "New Subscription Notify Mail"
+msgstr "Informatie E-mail Nieuwe Abonnee"
+
+#: /views/forms/editm.ctp:22
+msgid "Send mail notification"
+msgstr "Informatie E-mail versturen"
+
+#: /views/forms/editm.ctp:23
+msgid "Notify Addresse"
+msgstr "Naar E-mailadres"
+
+#: /views/forms/index.ctp:2
+msgid "New Form"
+msgstr "Nieuw Formulier"
+
+#: /views/forms/index.ctp:2
+msgid "Forms"
+msgstr "Formulieren"
+
+#: /views/forms/index.ctp:23;23
+msgid "Copy link"
+msgstr "Kopieer link"
+
+#: /views/forms/index.ctp:24;24
+msgid "Preview form"
+msgstr "Voorbeeldweergave Formulier"
+
+#: /views/forms/index.ctp:25;25
+msgid "Preview unsubscribe"
+msgstr "Voorbeeldweergave Uitschrijven"
+
+#: /views/forms/index.ctp:26;26
+msgid "Edit form"
+msgstr "Formulier Bewerken"
+
+#: /views/forms/index.ctp:27;27
+msgid "Edit mails"
+msgstr "E-mails Bewerken"
+
+#: /views/forms/index.ctp:55
+msgid "Standalon form"
+msgstr "Standalone formulier"
+
+#: /views/forms/index.ctp:59
+msgid "Inframe form"
+msgstr "Inframe formulier"
+
+#: /views/forms/sendtof.ctp:2
+msgid "Send to friend"
+msgstr "Stuur naar een bekende"
+
+#: /views/forms/sendtof.ctp:8
+msgid "Your Name"
+msgstr "Uw Voor en Achternaam"
+
+#: /views/forms/sendtof.ctp:9
+msgid "Your Mail"
+msgstr "Uw E-mailadres"
+
+#: /views/forms/sendtof.ctp:10
+msgid "Friend's Name"
+msgstr "Voor en Achternaam Van Uw Kennis"
+
+#: /views/forms/sendtof.ctp:11
+msgid "Friend's Mail"
+msgstr "E-Mailadres van Uw Kennis"
+
+#: /views/forms/sendtof.ctp:12
+msgid "Message"
+msgstr "Bericht"
+
+#: /views/forms/sendtof.ctp:12
+msgid "I thought you'd like this newsletter"
+msgstr "Dit will je niet missen"
+
+#: /views/forms/sendtof.ctp:13
+#: /views/mails/campaign.ctp:98
+#: /views/mails/sendstatus.ctp:80;83;87
+#: /views/mails/step1.ctp:43
+msgid "Send"
+msgstr "Verzenden"
+
+#: /views/forms/sendtof.ctp:15
+msgid "Thank you for forwarding this newsletter."
+msgstr "Hartelijk dankl voor het doorsturen van deze nieuwsbrief."
+
+#: /views/forms/sendtof.ctp:17
+msgid "Oops! something went wrong!!"
+msgstr "Er ging iets mis. Sorry voor het ongemak."
+
+#: /views/helpers/form.php:367;1309
+msgid "Submit"
+msgstr "Verzenden"
+
+#: /views/helpers/form.php:513
+msgid "Error in field %s"
+msgstr "Fout in het veld %s"
+
+#: /views/helpers/form.php:630
+msgid "New %s"
+msgstr "Nieuw %s"
+
+#: /views/helpers/form.php:636
+msgid "Edit %s"
+msgstr "Bewerk %s"
+
+#: /views/helpers/form.php:2121
+msgid "January"
+msgstr "Januari"
+
+#: /views/helpers/form.php:2122
+msgid "February"
+msgstr "Fabruari"
+
+#: /views/helpers/form.php:2123
+msgid "March"
+msgstr "Maart"
+
+#: /views/helpers/form.php:2124
+msgid "April"
+msgstr "April"
+
+#: /views/helpers/form.php:2125
+msgid "May"
+msgstr "Mei"
+
+#: /views/helpers/form.php:2126
+msgid "June"
+msgstr "Juni"
+
+#: /views/helpers/form.php:2127
+msgid "July"
+msgstr "Juli"
+
+#: /views/helpers/form.php:2128
+msgid "August"
+msgstr "Augustus"
+
+#: /views/helpers/form.php:2129
+msgid "September"
+msgstr "September"
+
+#: /views/helpers/form.php:2130
+msgid "October"
+msgstr "Oktober"
+
+#: /views/helpers/form.php:2131
+msgid "November"
+msgstr "November"
+
+#: /views/helpers/form.php:2132
+msgid "December"
+msgstr "December"
+
+#: /views/helpers/time.php:230
+msgid "Today, %s"
+msgstr "Vandaag, %s"
+
+#: /views/helpers/time.php:232
+msgid "Yesterday, %s"
+msgstr "Gisteren, %s"
+
+#: /views/helpers/time.php:579
+msgid "on %s"
+msgstr "op %s"
+
+#: /views/helpers/time.php:613
+msgid "%s ago"
+msgstr "%s geleden"
+
+#: /views/helpers/time.php:649
+msgid "days"
+msgstr "dagen"
+
+#: /views/helpers/time.php:583
+#: /views/helpers/time.php:584;589
+#: /views/helpers/time.php:585;590;594
+#: /views/helpers/time.php:586;591;595;598
+#: /views/helpers/time.php:599;602
+#: /views/helpers/time.php:603;606
+#: /views/helpers/time.php:609
+#: /views/helpers/time.php:61
+msgid "abday"
+msgstr "abday"
+
+#: /views/helpers/time.php:67
+msgid "day"
+msgstr "day"
+
+#: /views/helpers/time.php:73
+msgid "d_t_fmt"
+msgstr "d_t_fmt"
+
+#: /views/helpers/time.php:86
+msgid "abmon"
+msgstr "abmon"
+
+#: /views/helpers/time.php:92
+msgid "mon"
+msgstr "mon"
+
+#: /views/helpers/time.php:103
+msgid "am_pm"
+msgstr "am_pm"
+
+#: /views/helpers/time.php:110
+msgid "t_fmt_ampm"
+msgstr "t_fmt_ampm"
+
+#: /views/helpers/time.php:124
+msgid "d_fmt"
+msgstr "d_fmt"
+
+#: /views/helpers/time.php:130
+msgid "t_fmt"
+msgstr "t_fmt"
+
+#: /views/home/index.ctp:1
+msgid "Common Tasks"
+msgstr "Algemene Taken"
+
+#: /views/home/index.ctp:2
+msgid "Create a new newsletter"
+msgstr "Maak een nieuwe nieuwsbrief aan"
+
+#: /views/home/index.ctp:4
+msgid "Look for bounce mails"
+msgstr "Zoek voor bounced e-mails"
+
+#: /views/home/index.ctp:5
+msgid "Run all import tasks"
+msgstr "Alle Import Taken Uitvoeren"
+
+#: /views/home/index.ctp:9
+msgid "Last 5 Newsletter"
+msgstr "Laatste 5 Nieuwsbrieven"
+
+#: /views/home/index.ctp:14
+#: /views/mails/campaign.ctp:96
+#: /views/mails/view.ctp:9
+#: /views/subscribers/view.ctp:109;157
+msgid "Subject"
+msgstr "Onderwerp"
+
+#: /views/home/index.ctp:16
+msgid "Modified"
+msgstr "Bewerkt"
+
+#: /views/home/index.ctp:37
+#: /views/mails/campaign.ctp:121
+#: /views/mails/index.ctp:35
+msgid "Draft"
+msgstr "Draft"
+
+#: /views/home/index.ctp:42
+#: /views/mails/index.ctp:40
+msgid "Sending"
+msgstr "Verzenden"
+
+#: /views/home/index.ctp:45
+#: /views/mails/campaign.ctp:40
+#: /views/mails/index.ctp:43
+#: /views/mails/sendstatus.ctp:32
+#: /views/mails/view.ctp:34
+#: /views/subscribers/view.ctp:111;127;159
+msgid "Sent"
+msgstr "Verzonden"
+
+#: /views/home/index.ctp:57;57
+#: /views/mails/campaign.ctp:139;139
+#: /views/mails/index.ctp:55;55
+#: /views/subscribers/view.ctp:142;177
+#: /views/templates/index.ctp:15;15
+#: /views/templates/view.ctp:24
+msgid "Preview"
+msgstr "Voorbeeldweergave"
+
+#: /views/home/index.ctp:59;59
+#: /views/mails/campaign.ctp:141;141
+#: /views/mails/index.ctp:57;57
+msgid "Duplicate"
+msgstr "Dupliceer"
+
+#: /views/home/index.ctp:59
+#: /views/mails/campaign.ctp:141
+#: /views/mails/index.ctp:57
+#: /views/mails/sendstatus.ctp:90
+msgid "Are you sure you want to duplicate # %s?"
+msgstr "Weet u zeker dat u # %s wilt dupliceren?"
+
+#: /views/home/index.ctp:72
+msgid "See all newsletter"
+msgstr "Bekijk alle nieuwsbrieven"
+
+#: /views/home/index.ctp:77
+msgid "Last 5 Subscribers"
+msgstr "Laatste 5 Abonnees"
+
+#: /views/home/index.ctp:85
+#: /views/subscribers/view.ctp:47
+msgid "Subscribed"
+msgstr "Geabonneerd"
+
+#: /views/home/index.ctp:126
+msgid "See all subscribers"
+msgstr "Bekijk alle abonnees"
+
+#: /views/home/index.ctp:129
+msgid "Cron Jobs"
+msgstr "Cron Jobs"
+
+#: /views/home/index.ctp:130
+msgid "Bounce mail check command:"
+msgstr "Controleer bounce e-mail commando:"
+
+#: /views/home/index.ctp:132
+msgid "Send mails command:"
+msgstr "Stuur e-mail commando:"
+
+#: /views/home/index.ctp:134
+msgid "Api"
+msgstr "API"
+
+#: /views/home/index.ctp:135
+msgid "API Key:"
+msgstr "API Sleutel:"
+
+#: /views/home/index.ctp:143
+msgid "Show code"
+msgstr "Toon code"
+
+#: /views/home/index.ctp:143
+msgid "Download API"
+msgstr "Download API"
+
+#: /views/home/index.ctp:145
+msgid "Sample Code:"
+msgstr "Voorbeeld Code:"
+
+#: /views/images/index.ctp:33
+msgid "Upload image"
+msgstr "Afbeelding Uploaden"
+
+#: /views/images/index.ctp:41
+msgid "Image Url"
+msgstr "URL Afbeelding"
+
+#: /views/images/index.ctp:43
+#: /views/subscribers/import.ctp:21
+msgid "Upload"
+msgstr "Uploaden"
+
+#: /views/importtasks/add.ctp:3
+msgid "Add Import Task"
+msgstr "Import Taak Toevoegen"
+
+#: /views/importtasks/add.ctp:5
+#: /views/importtasks/edit.ctp:7
+#: /views/importtasks/edit1.ctp:6
+#: /views/importtasks/edit2.ctp:6
+#: /views/importtasks/edit3.ctp:6
+#: /views/mails/step1.ctp:7
+#: /views/mails/step2.ctp:3
+#: /views/mails/step3.ctp:28
+#: /views/mails/step4.ctp:3
+#: /views/mails/step5.ctp:3
+msgid "Step 1: Base Settings"
+msgstr "Stap 1: Basisinstellingen"
+
+#: /views/importtasks/add.ctp:6
+#: /views/importtasks/edit.ctp:8
+#: /views/importtasks/edit1.ctp:7
+#: /views/importtasks/edit2.ctp:7
+#: /views/importtasks/edit3.ctp:7
+msgid "Step 2: Connection to DB"
+msgstr "Stap 2: Verbinding met Database"
+
+#: /views/importtasks/add.ctp:6
+#: /views/importtasks/edit.ctp:8
+#: /views/importtasks/edit1.ctp:7
+#: /views/importtasks/edit2.ctp:7
+#: /views/importtasks/edit3.ctp:7
+msgid "Server Host and Port"
+msgstr "Server Host en Port"
+
+#: /views/importtasks/add.ctp:6
+#: /views/importtasks/edit.ctp:8
+#: /views/importtasks/edit1.ctp:7
+#: /views/importtasks/edit2.ctp:7
+#: /views/importtasks/edit3.ctp:7
+msgid "User/Password"
+msgstr "Gebruiker/Wachtwoord"
+
+#: /views/importtasks/add.ctp:7
+#: /views/importtasks/edit.ctp:9
+#: /views/importtasks/edit1.ctp:8
+#: /views/importtasks/edit2.ctp:8
+#: /views/importtasks/edit3.ctp:8
+msgid "Step 3: Query"
+msgstr "Step 3: Query"
+
+#: /views/importtasks/add.ctp:7
+#: /views/importtasks/edit.ctp:9
+#: /views/importtasks/edit1.ctp:8
+#: /views/importtasks/edit2.ctp:8
+#: /views/importtasks/edit3.ctp:8
+msgid "Enter SQL Query"
+msgstr "Voer SQL Query In"
+
+#: /views/importtasks/add.ctp:9
+#: /views/importtasks/edit.ctp:11
+#: /views/importtasks/edit1.ctp:10
+#: /views/importtasks/edit2.ctp:10
+#: /views/importtasks/edit3.ctp:10
+msgid "Step 4: Settings"
+msgstr "Stap 4: Instellingen"
+
+#: /views/importtasks/add.ctp:9
+#: /views/importtasks/edit.ctp:11
+#: /views/importtasks/edit1.ctp:10
+#: /views/importtasks/edit2.ctp:10
+#: /views/importtasks/edit3.ctp:10
+msgid "See Results"
+msgstr "Bekijk Resultaten"
+
+#: /views/importtasks/add.ctp:9
+#: /views/importtasks/edit.ctp:11
+#: /views/importtasks/edit1.ctp:10
+#: /views/importtasks/edit2.ctp:10
+#: /views/importtasks/edit3.ctp:10
+msgid "Select Categories"
+msgstr "Selecteer Categorieën"
+
+#: /views/importtasks/add.ctp:14
+#: /views/importtasks/edit.ctp:18
+#: /views/importtasks/edit1.ctp:41;43
+#: /views/importtasks/edit2.ctp:15;16
+#: /views/mails/step1.ctp:48
+#: /views/mails/step2.ctp:50;51
+#: /views/mails/step3.ctp:133;134
+#: /views/mails/step4.ctp:21
+msgid "Next"
+msgstr "Volgende"
+
+#: /views/importtasks/edit.ctp:5
+msgid "Edit Import Task"
+msgstr "Import Taak Bewerken"
+
+#: /views/importtasks/edit1.ctp:33
+msgid "User / Login"
+msgstr "Gebruiker/Loginnaam"
+
+#: /views/importtasks/edit1.ctp:39
+msgid "Port (leave blank if unknown)"
+msgstr "Port (leeg laten indien niet bekend)"
+
+#: /views/importtasks/edit1.ctp:43
+#: /views/importtasks/edit2.ctp:16
+#: /views/importtasks/edit3.ctp:47
+#: /views/mails/sendstatus.ctp:28
+#: /views/mails/step2.ctp:51
+#: /views/mails/step3.ctp:134
+#: /views/mails/step4.ctp:21
+#: /views/recipients/export.ctp:1
+#: /views/recipients/index.ctp:246
+msgid "Back"
+msgstr "Terug"
+
+#: /views/importtasks/edit2.ctp:13
+msgid "Query"
+msgstr "Query"
+
+#: /views/importtasks/edit3.ctp:15
+#: /views/subscribers/import2.ctp:21
+msgid "Ignore"
+msgstr "Negeer"
+
+#: /views/importtasks/edit3.ctp:15
+#: /views/subscribers/import2.ctp:21
+msgid "Update categories"
+msgstr "Categorieën Updaten"
+
+#: /views/importtasks/edit3.ctp:15
+msgid "Overwrite categories"
+msgstr "Categorieën Overschrijven"
+
+#: /views/importtasks/edit3.ctp:15
+#: /views/subscribers/import2.ctp:21
+msgid "Existing subscribers"
+msgstr "Bestaande abonnees"
+
+#: /views/importtasks/edit3.ctp:22
+#: /views/subscribers/import2.ctp:28
+msgid "Data"
+msgstr "Data"
+
+#: /views/importtasks/edit3.ctp:44
+msgid "NO DATA"
+msgstr "GEEN DATA"
+
+#: /views/importtasks/edit3.ctp:45;47
+msgid "Save Task"
+msgstr "Taak Opslaan"
+
+#: /views/importtasks/importjob.ctp:1
+msgid "Run Import Task"
+msgstr "Import Taken Uitvoeren"
+
+#: /views/importtasks/importjob.ctp:2
+#: /views/subscribers/cleanup.ctp:5
+msgid "Live ticker"
+msgstr "Live ticker"
+
+#: /views/importtasks/index.ctp:2
+msgid "New Import Task"
+msgstr "Nieuwe Import taak"
+
+#: /views/importtasks/index.ctp:3
+msgid "Run All Tasks"
+msgstr "Alle Taken Uitvoeren"
+
+#: /views/importtasks/index.ctp:4
+msgid "Import Tasks"
+msgstr "Import Taken"
+
+#: /views/importtasks/index.ctp:30;30
+msgid "Run Task"
+msgstr "Taak Uitvoeren"
+
+#: /views/layouts/default.ctp:26
+msgid "Newsletter Mailer"
+msgstr "Magic Letter"
+
+#: /views/layouts/default.ctp:85;85
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: /views/layouts/default.ctp:90;165
+#: /views/mails/sendstatus.ctp:29
+msgid "Newsletter"
+msgstr "Nieuwsbrief"
+
+#: /views/layouts/default.ctp:90;165
+#: /views/mails/campaign.ctp:91
+#: /views/mails/index.ctp:4
+msgid "Newsletters"
+msgstr "Nieuwsbrieven"
+
+#: /views/layouts/default.ctp:95;95;139;139;148;151
+#: /views/subscribers/index.ctp:7;10
+msgid "Subscribers"
+msgstr "Abonnees"
+
+#: /views/layouts/default.ctp:100
+msgid "Settings"
+msgstr "Instellingen"
+
+#: /views/layouts/default.ctp:107
+msgid "Hello"
+msgstr "Welkom"
+
+#: /views/layouts/default.ctp:108
+msgid "Logout"
+msgstr "Afmelden"
+
+#: /views/layouts/default.ctp:121
+msgid "SMTP"
+msgstr "SMTP"
+
+#: /views/layouts/default.ctp:121
+msgid "Mail Server Configurations"
+msgstr "Mail Server Instellingen"
+
+#: /views/layouts/default.ctp:126;126
+#: /views/users/index.ctp:2
+msgid "Users"
+msgstr "Gebruikers"
+
+#: /views/layouts/default.ctp:132
+msgid "Form"
+msgstr "Formulier"
+
+#: /views/layouts/default.ctp:132
+msgid "Subscription Forms"
+msgstr "Inschrijfformulieren"
+
+#: /views/layouts/default.ctp:148
+msgid "Import Subscribers"
+msgstr "Abonnees Importeren"
+
+#: /views/layouts/default.ctp:151
+msgid "Export Subscribers"
+msgstr "Abonnees Exporteren"
+
+#: /views/layouts/default.ctp:154;154
+msgid "Update from other DB"
+msgstr "Update Van Andere Database"
+
+#: /views/layouts/default.ctp:157;157
+msgid "Clean Up Subscribers"
+msgstr "Abonnees Opruimen"
+
+#: /views/layouts/default.ctp:169
+#: /views/mails/campaign.ctp:35
+msgid "Campaign"
+msgstr "Campagne"
+
+#: /views/layouts/default.ctp:174
+#: /views/mails/step2.ctp:27
+#: /views/templates/view.ctp:2
+msgid "Template"
+msgstr "Sjabloon"
+
+#: /views/layouts/default.ctp:174
+#: /views/templates/index.ctp:3
+msgid "Templates"
+msgstr "Sjablonen"
+
+#: /views/mails/campaign.ctp:39
+#: /views/mails/sendstatus.ctp:31
+msgid "Sent &amp; Read"
+msgstr "Verzonden &amp; Gelezen"
+
+#: /views/mails/campaign.ctp:40
+#: /views/mails/sendstatus.ctp:32
+msgid "Failed"
+msgstr "Mislukt"
+
+#: /views/mails/campaign.ctp:41
+#: /views/mails/sendstatus.ctp:33
+msgid "Unsent"
+msgstr "Niet-verzonden"
+
+#: /views/mails/campaign.ctp:57
+msgid "Unique recipients"
+msgstr "Unieke ontvangers"
+
+#: /views/mails/campaign.ctp:62
+#: /views/mails/sendstatus.ctp:43
+msgid "Newsletters sent"
+msgstr "Nieuwsbrieven verzonden"
+
+#: /views/mails/campaign.ctp:67
+#: /views/mails/sendstatus.ctp:48
+msgid "Newsletters read"
+msgstr "Nieuwsbrieven gelezen"
+
+#: /views/mails/campaign.ctp:72
+#: /views/mails/sendstatus.ctp:53
+msgid "Newsletters failed"
+msgstr "Nieuwsbrieven mislukt"
+
+#: /views/mails/campaign.ctp:78
+#: /views/mails/sendstatus.ctp:59
+msgid "Unsubscribes"
+msgstr "Uitgeschreven"
+
+#: /views/mails/campaign.ctp:84
+#: /views/mails/sendstatus.ctp:65
+msgid "Sent to Friends"
+msgstr "Verzonden Naar Bekenden"
+
+#: /views/mails/campaign.ctp:92
+#: /views/mails/index.ctp:2
+msgid "Create new newsletter"
+msgstr "Maak een nieuwe nieuwsbrief aan"
+
+#: /views/mails/campaign.ctp:112
+#: /views/mails/index.ctp:24
+msgid "Info"
+msgstr "Info"
+
+#: /views/mails/campaign.ctp:132
+#: /views/mails/step1.ctp:43
+msgid "days after subscription"
+msgstr "dagen na de inschrijving"
+
+#: /views/mails/campaign.ctp:160
+msgid "Timeline"
+msgstr "Tijdlijn"
+
+#: /views/mails/sendstatus.ctp:4;176
+#: /views/recipients/index.ctp:255
+#: /views/subscribers/index.ctp:21;23;27
+#: /views/subscribers/view.ctp:5;99
+msgid "cat"
+msgstr "cat"
+
+#: /views/mails/sendstatus.ctp:4
+msgid "Newsletter is scheduled"
+msgstr "Nieuwsbrief staat gepland"
+
+#: /views/mails/sendstatus.ctp:26
+msgid "Who opened the newsletter?"
+msgstr "Wie heeft de nieuwsbrief geopened?"
+
+#: /views/mails/sendstatus.ctp:38
+msgid "Total recipients"
+msgstr "Totaal ontvangers"
+
+#: /views/mails/sendstatus.ctp:80
+msgid "Send next newsletters in"
+msgstr "Stuur de volgende nieuwsbrieven in"
+
+#: /views/mails/sendstatus.ctp:83
+msgid "Send next "
+msgstr "Stuur de volgende"
+
+#: /views/mails/sendstatus.ctp:87
+msgid "Go back to edit"
+msgstr "Ga terug om te bewerken"
+
+#: /views/mails/sendstatus.ctp:90;90
+msgid "Duplicate Newsletter"
+msgstr "Dupliceer Nieuwsbrief"
+
+#: /views/mails/sendstatus.ctp:94;115
+msgid "Open"
+msgstr "Open"
+
+#: /views/mails/sendstatus.ctp:94
+msgid "Open Newsletter"
+msgstr "Open Nieuwsbrief"
+
+#: /views/mails/sendstatus.ctp:96
+msgid "Tracked links"
+msgstr "Bijgehouden links"
+
+#: /views/mails/sendstatus.ctp:99
+msgid "Url"
+msgstr "URL"
+
+#: /views/mails/sendstatus.ctp:99
+msgid "Clicks"
+msgstr "Klikken"
+
+#: /views/mails/sendstatus.ctp:115
+msgid "Open Newsletter with click overlay"
+msgstr "Bekijk nieuwsbrief met click overlay"
+
+#: /views/mails/sendstatus.ctp:170
+msgid "Categories sent to"
+msgstr "Categorieën verzonden naar"
+
+#: /views/mails/step1.ctp:5
+#: /views/mails/step2.ctp:1
+#: /views/mails/step3.ctp:26
+#: /views/mails/step4.ctp:1
+#: /views/mails/step5.ctp:1
+msgid "Create Newsletter"
+msgstr "Nieuwsbrief Aanmaken"
+
+#: /views/mails/step1.ctp:7
+#: /views/mails/step2.ctp:3
+#: /views/mails/step3.ctp:28
+#: /views/mails/step4.ctp:3
+#: /views/mails/step5.ctp:3
+msgid "Set subject"
+msgstr "Onderwerp invullen"
+
+#: /views/mails/step1.ctp:7
+#: /views/mails/step2.ctp:3
+#: /views/mails/step3.ctp:30
+#: /views/mails/step4.ctp:3
+#: /views/mails/step5.ctp:3
+msgid "Select recipients"
+msgstr "Geadresseerden selecteren"
+
+#: /views/mails/step1.ctp:7
+#: /views/mails/step2.ctp:3
+#: /views/mails/step3.ctp:32
+#: /views/mails/step4.ctp:3
+#: /views/mails/step5.ctp:3
+msgid "Set delay"
+msgstr "Vertraging instellen"
+
+#: /views/mails/step1.ctp:8
+#: /views/mails/step2.ctp:4
+#: /views/mails/step3.ctp:35
+#: /views/mails/step4.ctp:4
+#: /views/mails/step5.ctp:4
+msgid "Step 2: Template"
+msgstr "Stap 2: Sjabloon"
+
+#: /views/mails/step1.ctp:8
+#: /views/mails/step2.ctp:4
+#: /views/mails/step3.ctp:35
+#: /views/mails/step4.ctp:4
+#: /views/mails/step5.ctp:4
+msgid "Choose newsletter template and type"
+msgstr "Kies nieuwsbriefsjabloon en type"
+
+#: /views/mails/step1.ctp:9
+#: /views/mails/step2.ctp:5
+#: /views/mails/step3.ctp:36
+#: /views/mails/step4.ctp:5
+#: /views/mails/step5.ctp:5
+msgid "Step 3: Content"
+msgstr "Stap 3: Inhoud"
+
+#: /views/mails/step1.ctp:9
+#: /views/mails/step2.ctp:5
+#: /views/mails/step3.ctp:36
+#: /views/mails/step4.ctp:5
+#: /views/mails/step5.ctp:5
+msgid "Fill in content"
+msgstr "Content Invullen"
+
+#: /views/mails/step1.ctp:11
+#: /views/mails/step2.ctp:7
+#: /views/mails/step3.ctp:38
+#: /views/mails/step4.ctp:7
+#: /views/mails/step5.ctp:7
+msgid "Step 4: Preview and Test"
+msgstr "Stap 4: Voorbeeldweergave en Test"
+
+#: /views/mails/step1.ctp:11
+#: /views/mails/step2.ctp:7
+#: /views/mails/step3.ctp:38
+#: /views/mails/step4.ctp:7
+#: /views/mails/step5.ctp:7
+msgid "Preview newsletter"
+msgstr "Voorbeeldweergave nieuwsbrief"
+
+#: /views/mails/step1.ctp:11
+#: /views/mails/step2.ctp:7
+#: /views/mails/step3.ctp:38
+#: /views/mails/step4.ctp:7
+#: /views/mails/step5.ctp:7
+msgid "Send test newsletter"
+msgstr "Stuur test nieuwsbrief"
+
+#: /views/mails/step1.ctp:12
+#: /views/mails/step2.ctp:8
+#: /views/mails/step3.ctp:40
+#: /views/mails/step4.ctp:8
+#: /views/mails/step5.ctp:8
+msgid "Step 5: Send newsletter"
+msgstr "Stap 5: Nieuwsbrief Versturen"
+
+#: /views/mails/step1.ctp:12
+#: /views/mails/step2.ctp:8
+#: /views/mails/step3.ctp:40
+#: /views/mails/step4.ctp:8
+#: /views/mails/step5.ctp:8
+msgid "Choose tracked links"
+msgstr "Kies bijgehouden links"
+
+#: /views/mails/step1.ctp:12
+#: /views/mails/step2.ctp:8
+#: /views/mails/step3.ctp:42
+#: /views/mails/step4.ctp:8
+#: /views/mails/step5.ctp:8
+msgid "Send or schedule"
+msgstr "Verzenden of plannen"
+
+#: /views/mails/step1.ctp:12
+#: /views/mails/step2.ctp:8
+#: /views/mails/step3.ctp:44
+#: /views/mails/step4.ctp:8
+#: /views/mails/step5.ctp:8
+msgid "Publish newsletter"
+msgstr "Nieuwsbrief publiceren"
+
+#: /views/mails/step1.ctp:27
+msgid "You can personalize the newsletter subject using these tags:"
+msgstr "U kunt uw nieuwsbrief nog persoonlijker maken met behulp van deze tags:"
+
+#: /views/mails/step1.ctp:28
+msgid "Subscribers first name"
+msgstr "Abonnees voornaam"
+
+#: /views/mails/step1.ctp:29
+msgid "Subscribers last name"
+msgstr "Abonnees achternaam"
+
+#: /views/mails/step1.ctp:36
+msgid "Select mail server to send the newsletter"
+msgstr "Selecteer een mailserver om nieuwsbrief te verzenden"
+
+#: /views/mails/step1.ctp:39
+msgid "Category"
+msgstr "Categorie"
+
+#: /views/mails/step2.ctp:17
+msgid "type"
+msgstr "type"
+
+#: /views/mails/step2.ctp:20
+msgid "Most modern graphic email clients allow the use of HTML for the message body."
+msgstr "De meeste moderne e-mailclients (Microsoft Outlook, Hotmail, G-Mail) kunnen het gebruik van HTML ondersteunen."
+
+#: /views/mails/step3.ctp:124
+msgid "Plain Text"
+msgstr "Alleen Tekst"
+
+#: /views/mails/step3.ctp:125
+msgid "Load plain text from HTML"
+msgstr "Gewone tekst inladen vanuit een HTML bestand"
+
+#: /views/mails/step4.ctp:14
+msgid "Test address"
+msgstr "Test E-mailadres"
+
+#: /views/mails/step4.ctp:18
+msgid "Send test mail"
+msgstr "Stuur test e-mail"
+
+#: /views/mails/step4.ctp:26
+msgid "Html Preview"
+msgstr "HTML Voorbeeldweergave"
+
+#: /views/mails/step4.ctp:32
+msgid "Text Preview"
+msgstr "Tekst Voorbeeldweergave"
+
+#: /views/mails/step5.ctp:15
+msgid "Tracked Links"
+msgstr "Bijgehouden Links"
+
+#: /views/mails/step5.ctp:26
+msgid "There are no links in the newsletter."
+msgstr "Er zijn geen links in de nieuwsbrief."
+
+#: /views/mails/step5.ctp:39
+msgid "Schedule newsletter"
+msgstr "Plan Nieuwsbrief"
+
+#: /views/mails/step5.ctp:44
+msgid "Server Time"
+msgstr "Tijd Op De E-mailserver"
+
+#: /views/mails/step5.ctp:51
+msgid "Send newsletter"
+msgstr "Nieuwsbrief Verzenden"
+
+#: /views/mails/step5.ctp:53
+msgid "Publish newsletter in campaign"
+msgstr "Publiceer nieuwsbrief in campagne"
+
+#: /views/mails/view.ctp:2
+msgid "Mail"
+msgstr "E-mail"
+
+#: /views/mails/view.ctp:4;67;107
+#: /views/subscribers/view.ctp:12
+#: /views/templates/view.ctp:4
+msgid "Id"
+msgstr "ID"
+
+#: /views/mails/view.ctp:14
+msgid "Content Html"
+msgstr "Content als Html"
+
+#: /views/mails/view.ctp:19
+msgid "Content Text"
+msgstr "Content als Tekst"
+
+#: /views/mails/view.ctp:24;70
+msgid "Created"
+msgstr "Aangemaakt"
+
+#: /views/mails/view.ctp:29
+msgid "Send Date"
+msgstr "Verzenddatum"
+
+#: /views/mails/view.ctp:39
+#: /views/templates/view.ctp:19
+msgid "Type"
+msgstr "Type"
+
+#: /views/mails/view.ctp:49
+#: /views/users/add.ctp:10
+#: /views/users/edit.ctp:7
+#: /views/users/index.ctp:16
+msgid "User"
+msgstr "Gebruiker"
+
+#: /views/mails/view.ctp:63
+msgid "Related Clicks"
+msgstr "Gerelateerde Klikken"
+
+#: /views/mails/view.ctp:68
+msgid "Mail Id"
+msgstr "E-mail ID"
+
+#: /views/mails/view.ctp:69
+msgid "Subscriber Id"
+msgstr "Abonnee ID"
+
+#: /views/mails/view.ctp:98
+msgid "New Click"
+msgstr "Nieuwe Klik"
+
+#: /views/mails/view.ctp:103
+msgid "Related Categories"
+msgstr "Gerelateerde Categorieen"
+
+#: /views/mails/view.ctp:110
+msgid "Deleted"
+msgstr "Verwijderd"
+
+#: /views/recipients/export.ctp:2
+msgid "Export Who opened the newsletter to CSV"
+msgstr "Export -Wie heeft de nieuwsbrief geopened- naar CSV"
+
+#: /views/recipients/export.ctp:16
+#: /views/subscribers/export.ctp:15
+msgid "Column"
+msgstr "Kolom"
+
+#: /views/recipients/export.ctp:21
+#: /views/subscribers/export.ctp:21
+msgid "Download"
+msgstr "Download"
+
+#: /views/recipients/index.ctp:244
+msgid "Export to CSV"
+msgstr "Exporteren naar CSV"
+
+#: /views/recipients/index.ctp:247
+msgid "Who opened the newsletter"
+msgstr "Wie heeft de nieuwsbrief geopened"
+
+#: /views/recipients/index.ctp:255
+#: /views/subscribers/index.ctp:8;21
+msgid "Search"
+msgstr "Zoeken"
+
+#: /views/recipients/index.ctp:260
+#: /views/subscribers/index.ctp:33
+msgid "Subscriber Search"
+msgstr "Abonnee Zoeken"
+
+#: /views/recipients/index.ctp:264;265;266
+#: /views/subscribers/index.ctp:35;36;37
+msgid " wildcard is *"
+msgstr "jokerteken is *"
+
+#: /views/recipients/index.ctp:268;283
+msgid "Read on"
+msgstr "Gelezen op"
+
+#: /views/recipients/index.ctp:280
+#: /views/subscribers/add.ctp:9
+#: /views/subscribers/edit.ctp:8
+msgid "Mail Addresse"
+msgstr "E-mailadres"
+
+#: /views/subscribers/add.ctp:3
+msgid "Add Subscriber"
+msgstr "Abonnee Toevoegen"
+
+#: /views/subscribers/cleanup.ctp:3
+msgid "Start Clean Up"
+msgstr "Begin Met Opruimen"
+
+#: /views/subscribers/cleanup.ctp:4
+msgid "Unsubscribe invalide subscribers"
+msgstr "Ongeldige abonnees uitschrijven"
+
+#: /views/subscribers/edit.ctp:3
+msgid "Edit Subscriber"
+msgstr "Abonnee Bewerken"
+
+#: /views/subscribers/import.ctp:1
+#: /views/subscribers/import2.ctp:1
+msgid "Import Subscribers from CSV"
+msgstr "Import Abonnees van CSV"
+
+#: /views/subscribers/import.ctp:13
+msgid "File"
+msgstr "Bestand"
+
+#: /views/subscribers/import2.ctp:14
+msgid "Delimiter"
+msgstr "Scheidingsteken"
+
+#: /views/subscribers/import2.ctp:15
+msgid "Enclosure"
+msgstr "Omsluiting"
+
+#: /views/subscribers/import2.ctp:27
+msgid "Add to this category"
+msgstr "Toevoegen aan deze categorie"
+
+#: /views/subscribers/import2.ctp:29
+msgid "Remove first row"
+msgstr "Verwijder de eerste rij"
+
+#: /views/subscribers/import2.ctp:51
+msgid "Refresh"
+msgstr "Vernieuwen"
+
+#: /views/subscribers/index.ctp:4
+msgid "New Subscriber"
+msgstr "Nieuwe Abonnee"
+
+#: /views/subscribers/index.ctp:99
+msgid "Subscribe"
+msgstr "Aanmelden"
+
+#: /views/subscribers/index.ctp:101
+msgid "Remove from this Categorie"
+msgstr "Verwijderen uit deze categorie"
+
+#: /views/subscribers/index.ctp:103
+msgid "Move to"
+msgstr "Verplaats naar"
+
+#: /views/subscribers/index.ctp:105
+msgid "Add to"
+msgstr "Toevoegen aan"
+
+#: /views/subscribers/index.ctp:106
+msgid "Overwrite category with"
+msgstr "Categorie overschrijven met"
+
+#: /views/subscribers/index.ctp:109
+msgid "Run Action"
+msgstr "Actie Uitvoeren"
+
+#: /views/subscribers/view.ctp:8
+msgid "Subscriber"
+msgstr "Abonnee"
+
+#: /views/subscribers/view.ctp:55
+msgid "Unsubscribe Code"
+msgstr "Code Uitschrijven"
+
+#: /views/subscribers/view.ctp:93
+msgid "Subscribed Categories"
+msgstr "Geabonneerd Categorieën"
+
+#: /views/subscribers/view.ctp:104
+msgid "Sent Newsletters"
+msgstr "Verzonden Nieuwsbrieven"
+
+#: /views/subscribers/view.ctp:112;129
+msgid "Read"
+msgstr "Gelezen"
+
+#: /views/subscribers/view.ctp:152
+msgid "Failured Newsletters"
+msgstr "Mislukte Nieuwsbrieven"
+
+#: /views/templates/add.ctp:3
+msgid "Add Template"
+msgstr "Sjabloon Toevoegen"
+
+#: /views/templates/add.ctp:7
+#: /views/templates/edit.ctp:8
+msgid "content"
+msgstr "content"
+
+#: /views/templates/add.ctp:11
+#: /views/templates/edit.ctp:12
+msgid ""
+"The Newsletter Mailer uses the <a href=\"http://www.smarty.net/\">SMARTY</a> template engine.<br />\n"
+"\n"
+"      Insert field: {$<b>fieldname</b>}<br />\n"
+"      Start repeating block: <?php echo htmlspecialchars(\"<!---\");?>foreach name=<b>groupname</b> item=<b>anyname</b> from=<b>groupname</b><?php echo htmlspecialchars(\"--->\");?><br />\n"
+"      Insert field in block: {$<b>anyname</b>.<b>fieldname</b>}<br />\n"
+"      End repeating block:  <?php echo htmlspecialchars(\"<!---\");?>/foreach<?php echo htmlspecialchars(\"--->\");?><br />\n"
+"      Conditons:<br />\n"
+"      -Not empty:  <?php echo htmlspecialchars(\"<!---\");?>if !empty($<b>fieldname</b>)<?php echo htmlspecialchars(\"--->\");?><br />\n"
+"      End conditon block:  <?php echo htmlspecialchars(\"<!---\");?>/if<?php echo htmlspecialchars(\"--->\");?><br />\n"
+"      Image: [image src={$<b>fieldname</b>} w=<b>width</b> h=<b>height</b> border=<b>border</b> bcolor=<b>bordercolor</b> ]"
+msgstr ""
+"Magic Letter maakt gebruik van <a href=\"http://www.smarty.net/\">SMARTY</a> sjabloonmaker.<br />\n"
+"\n"
+"     Veld Toeovegen: {$<b>fieldname</b>}<br />\n"
+"      Begin te herhalen blok: <?php echo htmlspecialchars(\"<!---\");?>foreach name=<b>groupname</b> item=<b>anyname</b> from=<b>groupname</b><?php echo htmlspecialchars(\"--->\");?><br />\n"
+"      Veld toevoegen in blok: {$<b>anyname</b>.<b>fieldname</b>}<br />\n"
+"      Einde te herhalen blok:  <?php echo htmlspecialchars(\"<!---\");?>/foreach<?php echo htmlspecialchars(\"--->\");?><br />\n"
+"      Voorwaarden:<br />\n"
+"      -Niet leeg:  <?php echo htmlspecialchars(\"<!---\");?>if !empty($<b>fieldname</b>)<?php echo htmlspecialchars(\"--->\");?><br />\n"
+"     Einde voorwaarde blok:  <?php echo htmlspecialchars(\"<!---\");?>/if<?php echo htmlspecialchars(\"--->\");?><br />\n"
+"      Afbeelding: [image src={$<b>fieldname</b>} w=<b>width</b> h=<b>height</b> border=<b>border</b> bcolor=<b>bordercolor</b> ]"
+
+#: /views/templates/add.ctp:23
+#: /views/templates/edit.ctp:24
+msgid "Parse Css"
+msgstr "Analyseer CSS"
+
+#: /views/templates/add.ctp:27
+#: /views/templates/edit.ctp:28
+msgid "If this checkbox is checked the Newsletter Mailer will apply the css style of the template to the HTML code.(Most mail clients don't parse css)"
+msgstr "Als dit selectievakje is aangevinkt zal Magic Letter de CSS van het sjabloon toepassen in de HTML code. (De meeste e-mail clients kunnen CSS niet analyseren)"
+
+#: /views/templates/add.ctp:31
+#: /views/templates/edit.ctp:32
+msgid "Fields"
+msgstr "Velden"
+
+#: /views/templates/add.ctp:35
+#: /views/templates/edit.ctp:36
+msgid ""
+"Write only one field name per line. The fields can be grouped in repeating blocks using HTML like tags &lt;<b>groupname</b>&gt; &lt;/<b>groupname</b>&gt;<br/>\n"
+"        Field types:<br /><b>-Textfield</b>: Field name starts lower case\n"
+"        <br />\n"
+"        <b>-Image chooser</b>: Field name starts lower case and ends with \"_imgchooser\"\n"
+"        <br /><b>-Html editor</b>: Field name starts upper case\n"
+"        <br /><b>-Simple Html editor</b>: Field name  ends with \"_lite\""
+msgstr ""
+"Schrijf slechts een veldnaam per regel. De velden kunnen worden gegroepeerd in blokken om te herhalen met behulp van HTML tags zoals &lt;<b>groupname</b>&gt; &lt;/<b>groupname</b>&gt;<br/>\n"
+"        Veldtypen:<br /><b>-Tekstveld</b>:Veldnaam begint met de kleine letters\n"
+"        <br />\n"
+"        <b>-Afbeeldingr</b>: Veldnaam begint met de kleine letters en eindigt met \"_imgchooser\"\n"
+"        <br /><b>-Html editor</b>: Veldnaam begint met de hoofdletters\n"
+"        <br /><b>-Simple Html editor</b>: Veldnaam eindigd met \"_lite\""
+
+#: /views/templates/edit.ctp:3
+msgid "Edit Template"
+msgstr "Sjabloon Bewerken"
+
+#: /views/templates/images.ctp:9
+msgid "Upload missing images"
+msgstr "Upload ontbrekende afbeeldingen"
+
+#: /views/templates/import.ctp:1
+#: /views/templates/index.ctp:2
+msgid "Import Template"
+msgstr "Sjabloon importeren"
+
+#: /views/templates/index.ctp:2
+msgid "Import"
+msgstr "Import"
+
+#: /views/templates/index.ctp:3
+msgid "New Template"
+msgstr "Nieuwe Sjabloon"
+
+#: /views/templates/index.ctp:14
+msgid "images"
+msgstr "afbeeldingen"
+
+#: /views/templates/index.ctp:14
+msgid "Upload missing image for"
+msgstr "Upload ontbrekende afbeeldingen voor"
+
+#: /views/templates/index.ctp:19
+msgid "export"
+msgstr "export"
+
+#: /views/templates/index.ctp:19
+msgid "Export Template "
+msgstr "Sjabloon Exporteren"
+
+#: /views/users/add.ctp:3
+msgid "Add User"
+msgstr "Gebruiker Toevoegen"
+
+#: /views/users/add.ctp:7
+msgid "Level"
+msgstr "Niveau"
+
+#: /views/users/add.ctp:10
+#: /views/users/edit.ctp:7
+#: /views/users/index.ctp:16
+msgid "Superadmin (Can change configurations)"
+msgstr "Superadmin (Kan alles)"
+
+#: /views/users/edit.ctp:3
+msgid "Edit User"
+msgstr "Gebruiker Bewerken"
+
+#: /views/users/edit.ctp:9
+msgid "Change Password"
+msgstr "Wachtwoord Veranderen"
+
+#: /views/users/index.ctp:2
+msgid "New User"
+msgstr "Nieuwe Gebruiker"
+
+#: /views/users/index.ctp:9
+msgid "Last Login"
+msgstr "Laatst Ingelogd"
+
+#: /views/users/login.ctp:8
+msgid "Login"
+msgstr "Inloggen"
+
+#: /webroot/test.php:88
+msgid "Debug setting does not allow access to this url."
+msgstr "Debug instellingen geven geen toegang tot dit URL"
+

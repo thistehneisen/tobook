@@ -1,0 +1,1 @@
+ALTER TABLE `mails` ADD `private` BOOLEAN NOT NULL 

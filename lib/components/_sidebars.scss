@@ -1,0 +1,156 @@
+//  ========== 
+//  = Sidebars for the HairPress HTML template = 
+//  ==========
+
+// variables
+$gallery-side-padding: 26px;
+
+
+// styles
+
+.sidebar {
+  &.left {
+    
+  }
+  &.right {
+    .sidebar-item {
+      &.gallery-menu {
+        @include background(linear-gradient(right, $white, darken($white, 3%)));
+
+        .nav-pills {
+          > li {
+            > a {
+              position: relative;
+              margin-left: -$gallery-side-padding - 10px;
+              margin-right: -$gallery-side-padding;
+              padding-left: $gallery-side-padding + 10px;
+            }
+            &.active {
+              a,
+              a:hover {
+                &:before,
+                &:after {
+                  left: -7px;
+                  width: 10px;
+                }
+                
+                &:before {
+                  top: -4px;
+                  @include transform(rotate(30deg));
+                }
+                &:after {
+                  bottom: -4px;
+                  @include transform(rotate(-30deg));
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.sidebar-item {
+  margin-bottom: 30px;
+  
+  &.opening-time {
+    margin-top: -43px;
+  }
+  &.gallery-menu,
+  &.menu {
+    background-color: darken($white, 2%);
+    @include background(linear-gradient(left, $white, darken($white, 3%)));
+    @include box-shadow(0 0 2px rgba(0,0,0,0.2));
+    padding: 24px $gallery-side-padding;
+    
+    h3 {
+      margin: 0 0 15px;
+    }
+    .nav-pills {
+      margin-bottom: 0;
+      > li {
+        > a {
+          position: relative;
+          margin-left: -$gallery-side-padding;
+          margin-right: -$gallery-side-padding - 10px;
+          @include border-radius(0);
+          padding-left: $gallery-side-padding;
+          font-weight: bold;
+          color: $textColor;
+          
+          &:hover {
+            color: $theme-txt-clr;
+            background: none;
+          }
+        }
+        &.active {
+          a,
+          a:hover {
+            background-color: $btn-clr;
+            @include background(linear-gradient(top, lighten($btn-clr, 5%), darken($btn-clr, 10%)));
+            color: $white;
+            
+            &:before,
+            &:after {
+              position: absolute;
+              z-index: 3;
+              content: " ";
+              right: -7px;
+              background-color: $bodyBackground;
+              width: 10px;
+              height: 80%;
+            }
+            
+            &:before {
+              top: -4px;
+              @include transform(rotate(-30deg));
+            }
+            &:after {
+              bottom: -4px;
+              @include transform(rotate(30deg));
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  &.last-comments {
+    ul > li {
+      margin-bottom: 10px;
+      
+      a {
+        font-weight: bold;
+      }
+    }
+  }
+  &.archive {
+    a {
+      font-weight: bold;
+    }
+  }
+  &.search {
+    .search-width {
+      width: 165px;
+    }
+     @media (min-width: 1200px) {
+      .search-width {
+        width: 215px;
+      }
+    }
+    @media (max-width: 979px) {
+      .search-width {
+        width: 111px;
+      }
+    }
+    @media (max-width: 767px) {
+      .search-width {
+        width: 50%;
+      }
+    }
+  }
+}
+
+
+

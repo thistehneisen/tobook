@@ -1,0 +1,133 @@
+body {
+    background:#f1f5fb url(../img/bg.jpg);
+
+}
+
+.header {
+    background:#C3D9FF;
+    -moz-border-radius:4px 4px 0 0;
+    border-radius:4px 4px 0 0;
+}
+
+.foot {
+    -moz-border-radius:0 0 4px 4px;
+    border-radius:0 0 4px 4px;
+}
+
+.logintab {
+    background:#E5ECF9;
+    color:#6B6A60;
+    -moz-border-radius:4px;
+    border-radius:4px;
+    margin-top:4px;
+    margin-bottom:15px;
+    margin-right:12px;
+    padding:6px;
+}
+
+#menu {
+    padding-bottom:19px;
+    padding-left:10px;
+    padding-top:39px;
+    margin:0;
+}
+
+#menu ul,#menu li {
+    display:inline;
+    list-style-type:none;
+    margin:0;
+    padding:0;
+}
+
+
+
+#menu a:link,#menu a:visited {
+    background:#E5ECF9;
+    -moz-border-radius:4px 4px 0 0;
+    border-radius:4px 4px 0 0;
+    color:#A8A897;
+    float:left;
+    font-size:small;
+    font-weight:700;
+    line-height:14px;
+    margin-right:8px;
+    text-decoration:none;
+    padding:8px 13px;
+}
+
+#menu a:link.active,#menu a:visited.active {
+    background:#fff;
+    color:#000;
+}
+
+#menu a:hover {
+    background:#D4DDD6;
+    color:#717572;
+}
+
+#menu a.sel {
+    background:#C3D9FF;
+    color:#242827;
+}
+
+.topmenu a {
+    display:inline-block;
+    padding-left:5px;
+    padding-right:5px;
+    margin-left:0;
+    right:0;
+    margin-right:3px;
+    text-decoration:none;
+    font-size:small;
+    font-weight:700;
+    color: #444444;
+}
+.topmenu a:hover {
+    color: #000;
+}
+.login {
+    margin-top:60px;
+    width:350px;
+    text-align:center;
+}
+
+.centerblock {
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.lbox,.lbox1 {
+    margin-top: 5px;
+    -moz-border-radius:11px;
+    -khtml-border-radius:11px;
+    -webkit-border-radius:11px;
+    border-radius:5px;
+    background:#fff;
+    border:1px solid #e5e5e5;
+    -moz-box-shadow:#CFCEBA 0 4px 18px;
+    -webkit-box-shadow:#CFCEBA 0 4px 18px;
+    -khtml-box-shadow:#CFCEBA 0 4px 18px;
+    box-shadow:#CFCEBA 0 4px 18px;
+    padding:25px 12px 12px;
+}
+
+.lbox input {
+    width:100%;
+}
+
+.lbox form div label {
+    display:block;
+    width:316px;
+    padding-bottom: 12px;
+    font-size: 18px;
+}
+
+.sbutton{
+    float: left; top: 2px !important; padding: 1px 5px !important; bottom: 0px !important; font-size: 9px !important; margin-right: 4px !important;
+}
+.version{
+    float:right;padding-right:10px;padding-bottom:10px;font-size:9px
+}
+table tr.rowHighlight td{
+    background:#FFF6BF;
+}

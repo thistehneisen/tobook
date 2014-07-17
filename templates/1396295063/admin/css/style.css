@@ -1,0 +1,33 @@
+/**
+ * @subpackage  ol_anteez Template
+ */
+ 
+.color				{background:url(../images/colorpicker.png) no-repeat left center;}
+.color:focus		{background-image:none;}
+					
+
+/*textarea*/
+.my_textarea		{width:90%;}
+
+.param_headings 	{display:block;
+					font-weight:bold;
+					text-transform:uppercase;
+					font-size:92%;
+					background:#369;
+					color:#fff;
+					padding:5px 15px;
+					-moz-border-radius:5px;
+					-webkit-border-radius:5px;
+					border-radius:5px;
+					text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);}
+
+/*container decription*/
+.desc_container		{width:80%;
+					float:left;}
+
+
+/*decription list*/
+ul.desc_list		{margin:0;
+					padding:0;}
+ul.desc_list li		{list-style:square;
+					margin:0 0 0 25px;}

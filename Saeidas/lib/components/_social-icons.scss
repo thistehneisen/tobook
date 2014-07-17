@@ -1,0 +1,53 @@
+//  ========== 
+//  = Social icons = 
+//  ========== 
+
+
+// create sprites using Compass
+$inactive-sprite-dimensions: true;
+$active-sprite-dimensions: true;
+
+@import "social-icons/inactive/*.png";
+@import "social-icons/active/*.png";
+
+.social-icons {
+  position: absolute;
+  bottom: 10px;
+  right: 0;
+  z-index: 99; 
+  
+  > a {
+    display: inline-block;
+    @include transition(background 1s ease-in-out);
+    
+    > .inactive {
+      display: inline-block;
+      @include transition(opacity 0.3s ease-in-out);
+    }
+    &:hover > .inactive {
+      @include opacity(0);
+    }
+  }
+  
+  .twitter {
+    @include active-sprite(twitter);
+    
+    > .inactive {
+      @include inactive-sprite(twitter);
+    }
+  }
+  .facebook {
+    @include active-sprite(facebook);
+    
+    > .inactive {
+      @include inactive-sprite(facebook);
+    }
+  }
+  .youtube {
+    @include active-sprite(youtube);
+    
+    > .inactive {
+      @include inactive-sprite(youtube);
+    }
+  }
+}

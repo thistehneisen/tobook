@@ -1,0 +1,518 @@
+DROP TABLE IF EXISTS `restaurant_booking_bookings`;
+CREATE TABLE IF NOT EXISTS `restaurant_booking_bookings` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `uuid` int(10) unsigned default NULL,
+  `dt` datetime default NULL,
+  `dt_to` datetime default NULL,
+  `people` smallint(5) unsigned default NULL,
+  `code` varchar(255) default NULL,
+  `total` decimal(9,2) unsigned default NULL,
+  `payment_method` enum('paypal','authorize','creditcard','cash') default NULL,
+  `is_paid` enum('total','none') default 'none',
+  `status` enum('complete','confirmed','cancelled','pending','enquiry') default 'pending',
+  `txn_id` varchar(255) default NULL,
+  `processed_on` datetime default NULL,
+  `created` datetime default NULL,
+  `c_title` varchar(255) default NULL,
+  `c_fname` varchar(255) default NULL,
+  `c_lname` varchar(255) default NULL,
+  `c_phone` varchar(255) default NULL,
+  `c_email` varchar(255) default NULL,
+  `c_company` varchar(255) default NULL,
+  `c_notes` text,
+  `c_address` varchar(255) default NULL,
+  `c_city` varchar(255) default NULL,
+  `c_state` varchar(255) default NULL,
+  `c_zip` varchar(255) default NULL,
+  `c_country` int(10) unsigned default NULL,
+  `cc_type` varchar(255) default NULL,
+  `cc_num` varchar(255) default NULL,
+  `cc_exp` varchar(255) default NULL,
+  `cc_code` varchar(255) default NULL,
+  `reminder_email` tinyint(1) unsigned default '0',
+  `reminder_sms` tinyint(1) unsigned default '0',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `uuid` (`uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `restaurant_booking_bookings_tables`;
+CREATE TABLE IF NOT EXISTS `restaurant_booking_bookings_tables` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `booking_id` int(10) unsigned default NULL,
+  `table_id` int(10) unsigned default NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `booking_id` (`booking_id`,`table_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `restaurant_booking_template`;
+CREATE TABLE IF NOT EXISTS `restaurant_booking_template` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(250) CHARACTER SET utf8 DEFAULT NULL,
+  `subject` varchar(250) CHARACTER SET utf8 DEFAULT NULL,
+  `message` text CHARACTER SET utf8,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+
+DROP TABLE IF EXISTS `restaurant_booking_service`;
+CREATE TABLE IF NOT EXISTS `restaurant_booking_service` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `s_name` varchar(254) DEFAULT NULL,
+  `start_time` time DEFAULT NULL,
+  `end_time` time DEFAULT NULL,
+  `s_length` smallint(6) DEFAULT NULL,
+  `s_price` int(11) NOT NULL,
+  `s_seats` smallint(6) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+
+INSERT INTO `restaurant_booking_service` (`id`, `s_name`, `start_time`, `end_time`, `s_length`, `s_price`, `s_seats`) VALUES
+(6, 'Breakfast', '08:00:00', '10:59:00', 1, 20, 30),
+(7, 'Lunch', '11:00:00', '13:59:00', 1, 30, 30),
+(8, 'Afterlunch', '14:00:00', '16:59:00', 2, 30, 30),
+(9, 'Dinner', '17:00:00', '23:59:00', 3, 40, 30);
+
+
+DROP TABLE IF EXISTS `restaurant_booking_countries`;
+CREATE TABLE IF NOT EXISTS `restaurant_booking_countries` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `country_title` varchar(255) default NULL,
+  `status` enum('T','F') NOT NULL default 'T',
+  PRIMARY KEY  (`id`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+INSERT INTO `restaurant_booking_countries` (`id`, `country_title`, `status`) VALUES
+(1, 'Afghanistan', 'T'),
+(2, 'Albania', 'T'),
+(3, 'Algeria', 'T'),
+(4, 'American Samoa', 'T'),
+(5, 'Andorra', 'T'),
+(6, 'Angola', 'T'),
+(7, 'Anguilla', 'T'),
+(8, 'Antarctica', 'T'),
+(9, 'Antigua and Barbuda', 'T'),
+(10, 'Argentina', 'T'),
+(11, 'Armenia', 'T'),
+(12, 'Arctic Ocean', 'T'),
+(13, 'Aruba', 'T'),
+(14, 'Ashmore and Cartier Islands', 'T'),
+(15, 'Atlantic Ocean', 'T'),
+(16, 'Australia', 'T'),
+(17, 'Austria', 'T'),
+(18, 'Azerbaijan', 'T'),
+(19, 'Bahamas', 'T'),
+(20, 'Bahrain', 'T'),
+(21, 'Baker Island', 'T'),
+(22, 'Bangladesh', 'T'),
+(23, 'Barbados', 'T'),
+(24, 'Bassas da India', 'T'),
+(25, 'Belarus', 'T'),
+(26, 'Belgium', 'T'),
+(27, 'Belize', 'T'),
+(28, 'Benin', 'T'),
+(29, 'Bermuda', 'T'),
+(30, 'Bhutan', 'T'),
+(31, 'Bolivia', 'T'),
+(32, 'Borneo', 'T'),
+(33, 'Bosnia and Herzegovina', 'T'),
+(34, 'Botswana', 'T'),
+(35, 'Bouvet Island', 'T'),
+(36, 'Brazil', 'T'),
+(37, 'British Virgin Islands', 'T'),
+(38, 'Brunei', 'T'),
+(39, 'Bulgaria', 'T'),
+(40, 'Burkina Faso', 'T'),
+(41, 'Burundi', 'T'),
+(42, 'Cambodia', 'T'),
+(43, 'Cameroon', 'T'),
+(44, 'Canada', 'T'),
+(45, 'Cape Verde', 'T'),
+(46, 'Cayman Islands', 'T'),
+(47, 'Central African Republic', 'T'),
+(48, 'Chad', 'T'),
+(49, 'Chile', 'T'),
+(50, 'China', 'T'),
+(51, 'Christmas Island', 'T'),
+(52, 'Clipperton Island', 'T'),
+(53, 'Cocos Islands', 'T'),
+(54, 'Colombia', 'T'),
+(55, 'Comoros', 'T'),
+(56, 'Cook Islands', 'T'),
+(57, 'Coral Sea Islands', 'T'),
+(58, 'Costa Rica', 'T'),
+(59, 'Cote d''Ivoire', 'T'),
+(60, 'Croatia', 'T'),
+(61, 'Cuba', 'T'),
+(62, 'Cyprus', 'T'),
+(63, 'Czech Republic', 'T'),
+(64, 'Denmark', 'T'),
+(65, 'Democratic Republic of the Congo', 'T'),
+(66, 'Djibouti', 'T'),
+(67, 'Dominica', 'T'),
+(68, 'Dominican Republic', 'T'),
+(69, 'East Timor', 'T'),
+(70, 'Ecuador', 'T'),
+(71, 'Egypt', 'T'),
+(72, 'El Salvador', 'T'),
+(73, 'Equatorial Guinea', 'T'),
+(74, 'Eritrea', 'T'),
+(75, 'Estonia', 'T'),
+(76, 'Ethiopia', 'T'),
+(77, 'Europa Island', 'T'),
+(78, 'Falkland Islands (Islas Malvinas)', 'T'),
+(79, 'Faroe Islands', 'T'),
+(80, 'Fiji', 'T'),
+(81, 'Finland', 'T'),
+(82, 'France', 'T'),
+(83, 'French Guiana', 'T'),
+(84, 'French Polynesia', 'T'),
+(85, 'French Southern and Antarctic Lands', 'T'),
+(86, 'Gabon', 'T'),
+(87, 'Gambia', 'T'),
+(88, 'Gaza Strip', 'T'),
+(89, 'Georgia', 'T'),
+(90, 'Germany', 'T'),
+(91, 'Ghana', 'T'),
+(92, 'Gibraltar', 'T'),
+(93, 'Glorioso Islands', 'T'),
+(94, 'Greece', 'T'),
+(95, 'Greenland', 'T'),
+(96, 'Grenada', 'T'),
+(97, 'Guadeloupe', 'T'),
+(98, 'Guam', 'T'),
+(99, 'Guatemala', 'T'),
+(100, 'Guernsey', 'T'),
+(101, 'Guinea', 'T'),
+(102, 'Guinea-Bissau', 'T'),
+(103, 'Guyana', 'T'),
+(104, 'Haiti', 'T'),
+(105, 'Heard Island and McDonald Islands', 'T'),
+(106, 'Honduras', 'T'),
+(107, 'Hong Kong', 'T'),
+(108, 'Howland Island', 'T'),
+(109, 'Hungary', 'T'),
+(110, 'Iceland', 'T'),
+(111, 'India', 'T'),
+(112, 'Indian Ocean', 'T'),
+(113, 'Indonesia', 'T'),
+(114, 'Iran', 'T'),
+(115, 'Iraq', 'T'),
+(116, 'Ireland', 'T'),
+(117, 'Isle of Man', 'T'),
+(118, 'Israel', 'T'),
+(119, 'Italy', 'T'),
+(120, 'Jamaica', 'T'),
+(121, 'Jan Mayen', 'T'),
+(122, 'Japan', 'T'),
+(123, 'Jarvis Island', 'T'),
+(124, 'Jersey', 'T'),
+(125, 'Johnston Atoll', 'T'),
+(126, 'Jordan', 'T'),
+(127, 'Juan de Nova Island', 'T'),
+(128, 'Kazakhstan', 'T'),
+(129, 'Kenya', 'T'),
+(130, 'Kingman Reef', 'T'),
+(131, 'Kiribati', 'T'),
+(132, 'Kerguelen Archipelago', 'T'),
+(133, 'Kosovo', 'T'),
+(134, 'Kuwait', 'T'),
+(135, 'Kyrgyzstan', 'T'),
+(136, 'Laos', 'T'),
+(137, 'Latvia', 'T'),
+(138, 'Lebanon', 'T'),
+(139, 'Lesotho', 'T'),
+(140, 'Liberia', 'T'),
+(141, 'Libya', 'T'),
+(142, 'Liechtenstein', 'T'),
+(143, 'Lithuania', 'T'),
+(144, 'Luxembourg', 'T'),
+(145, 'Macau', 'T'),
+(146, 'Macedonia', 'T'),
+(147, 'Madagascar', 'T'),
+(148, 'Malawi', 'T'),
+(149, 'Malaysia', 'T'),
+(150, 'Maldives', 'T'),
+(151, 'Mali', 'T'),
+(152, 'Malta', 'T'),
+(153, 'Marshall Islands', 'T'),
+(154, 'Martinique', 'T'),
+(155, 'Mauritania', 'T'),
+(156, 'Mauritius', 'T'),
+(157, 'Mayotte', 'T'),
+(158, 'Mediterranean Sea', 'T'),
+(159, 'Mexico', 'T'),
+(160, 'Micronesia', 'T'),
+(161, 'Midway Islands', 'T'),
+(162, 'Moldova', 'T'),
+(163, 'Monaco', 'T'),
+(164, 'Mongolia', 'T'),
+(165, 'Montenegro', 'T'),
+(166, 'Montserrat', 'T'),
+(167, 'Morocco', 'T'),
+(168, 'Mozambique', 'T'),
+(169, 'Myanmar', 'T'),
+(170, 'Namibia', 'T'),
+(171, 'Nauru', 'T'),
+(172, 'Navassa Island', 'T'),
+(173, 'Nepal', 'T'),
+(174, 'Netherlands', 'T'),
+(175, 'Netherlands Antilles', 'T'),
+(176, 'New Caledonia', 'T'),
+(177, 'New Zealand', 'T'),
+(178, 'Nicaragua', 'T'),
+(179, 'Niger', 'T'),
+(180, 'Nigeria', 'T'),
+(181, 'Niue', 'T'),
+(182, 'Norfolk Island', 'T'),
+(183, 'North Korea', 'T'),
+(184, 'North Sea', 'T'),
+(185, 'Northern Mariana Islands', 'T'),
+(186, 'Norway', 'T'),
+(187, 'Oman', 'T'),
+(188, 'Pacific Ocean', 'T'),
+(189, 'Pakistan', 'T'),
+(190, 'Palau', 'T'),
+(191, 'Palmyra Atoll', 'T'),
+(192, 'Panama', 'T'),
+(193, 'Papua New Guinea', 'T'),
+(194, 'Paracel Islands', 'T'),
+(195, 'Paraguay', 'T'),
+(196, 'Peru', 'T'),
+(197, 'Philippines', 'T'),
+(198, 'Pitcairn Islands', 'T'),
+(199, 'Poland', 'T'),
+(200, 'Portugal', 'T'),
+(201, 'Puerto Rico', 'T'),
+(202, 'Qatar', 'T'),
+(203, 'Reunion', 'T'),
+(204, 'Republic of the Congo', 'T'),
+(205, 'Romania', 'T'),
+(206, 'Ross Sea', 'T'),
+(207, 'Russia', 'T'),
+(208, 'Rwanda', 'T'),
+(209, 'Saint Helena', 'T'),
+(210, 'Saint Kitts and Nevis', 'T'),
+(211, 'Saint Lucia', 'T'),
+(212, 'Saint Pierre and Miquelon', 'T'),
+(213, 'Saint Vincent and the Grenadines', 'T'),
+(214, 'Samoa', 'T'),
+(215, 'San Marino', 'T'),
+(216, 'Sao Tome and Principe', 'T'),
+(217, 'Saudi Arabia', 'T'),
+(218, 'Senegal', 'T'),
+(219, 'Serbia', 'T'),
+(220, 'Seychelles', 'T'),
+(221, 'Sierra Leone', 'T'),
+(222, 'Singapore', 'T'),
+(223, 'Slovakia', 'T'),
+(224, 'Slovenia', 'T'),
+(225, 'Solomon Islands', 'T'),
+(226, 'Somalia', 'T'),
+(227, 'South Africa', 'T'),
+(228, 'South Georgia and the South Sandwich Islands', 'T'),
+(229, 'South Korea', 'T'),
+(230, 'Southern Ocean', 'T'),
+(231, 'Spain', 'T'),
+(232, 'Spratly Islands', 'T'),
+(233, 'Sri Lanka', 'T'),
+(234, 'Sudan', 'T'),
+(235, 'Suriname', 'T'),
+(236, 'Svalbard', 'T'),
+(237, 'Swaziland', 'T'),
+(238, 'Sweden', 'T'),
+(239, 'Switzerland', 'T'),
+(240, 'Syria', 'T'),
+(241, 'Taiwan', 'T'),
+(242, 'Tajikistan', 'T'),
+(243, 'Tanzania', 'T'),
+(244, 'Tasman Sea', 'T'),
+(245, 'Thailand', 'T'),
+(246, 'Togo', 'T'),
+(247, 'Tokelau', 'T'),
+(248, 'Tonga', 'T'),
+(249, 'Trinidad and Tobago', 'T'),
+(250, 'Tromelin Island', 'T'),
+(251, 'Tunisia', 'T'),
+(252, 'Turkey', 'T'),
+(253, 'Turkmenistan', 'T'),
+(254, 'Turks and Caicos Islands', 'T'),
+(255, 'Tuvalu', 'T'),
+(256, 'Uganda', 'T'),
+(257, 'Ukraine', 'T'),
+(258, 'United Arab Emirates', 'T'),
+(259, 'United Kingdom', 'T'),
+(260, 'USA', 'T'),
+(261, 'Uruguay', 'T'),
+(262, 'Uzbekistan', 'T'),
+(263, 'Vanuatu', 'T'),
+(264, 'Venezuela', 'T'),
+(265, 'Viet Nam', 'T'),
+(266, 'Virgin Islands', 'T'),
+(267, 'Wake Island', 'T'),
+(268, 'Wallis and Futuna', 'T'),
+(269, 'West Bank', 'T'),
+(270, 'Western Sahara', 'T'),
+(271, 'Yemen', 'T'),
+(272, 'Zambia', 'T'),
+(273, 'Zimbabwe', 'T');
+
+DROP TABLE IF EXISTS `restaurant_booking_dates`;
+CREATE TABLE IF NOT EXISTS `restaurant_booking_dates` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `date` date NOT NULL default '0000-00-00',
+  `start_time` time default NULL,
+  `end_time` time default NULL,
+  `is_dayoff` enum('T','F') default 'F',
+  `message` text,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `date` (`date`),
+  KEY `is_dayoff` (`is_dayoff`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `restaurant_booking_options`;
+CREATE TABLE IF NOT EXISTS `restaurant_booking_options` (
+  `key` varchar(255) NOT NULL default '',
+  `tab_id` tinyint(3) unsigned default NULL,
+  `group` enum('borders','colors','fonts','sizes') default NULL,
+  `value` text,
+  `description` text,
+  `label` text,
+  `type` enum('string','text','int','float','enum','color','bool') default 'string',
+  `order` int(10) unsigned default NULL,
+  `style` varchar(255) default NULL,
+  `is_visible` tinyint(1) unsigned default '1',
+  PRIMARY KEY  (`key`),
+  KEY `tab_id` (`tab_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `restaurant_booking_roles`;
+CREATE TABLE IF NOT EXISTS `restaurant_booking_roles` (
+  `id` tinyint(3) unsigned NOT NULL auto_increment,
+  `role` varchar(255) default NULL,
+  `status` enum('T','F') NOT NULL default 'T',
+  PRIMARY KEY  (`id`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+INSERT INTO `restaurant_booking_roles` (`id`, `role`, `status`) VALUES
+(1, 'admin', 'T');
+
+DROP TABLE IF EXISTS `restaurant_booking_tables`;
+CREATE TABLE IF NOT EXISTS `restaurant_booking_tables` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `width` smallint(5) unsigned default NULL,
+  `height` smallint(5) unsigned default NULL,
+  `top` smallint(5) unsigned default NULL,
+  `left` smallint(5) unsigned default NULL,
+  `name` varchar(255) default NULL,
+  `seats` smallint(5) unsigned default NULL,
+  `minimum` smallint(5) unsigned default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `restaurant_booking_users`;
+CREATE TABLE IF NOT EXISTS `restaurant_booking_users` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `role_id` int(10) unsigned default NULL,
+  `email` varchar(255) default NULL,
+  `password` varchar(255) default NULL,
+  `name` varchar(255) default NULL,
+  `created` datetime default NULL,
+  `last_login` datetime default NULL,
+  `status` enum('T','F') default 'T',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `email` (`email`),
+  KEY `role_id` (`role_id`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+INSERT INTO `restaurant_booking_users` (`id`, `role_id`, `email`, `password`, `name`, `created`, `last_login`, `status`) VALUES
+(1, 1, 'admin@admin.com', 'pass', 'Administrator', '2012-06-21 04:54:47', '2012-06-21 07:54:50', 'T');
+
+DROP TABLE IF EXISTS `restaurant_booking_vouchers`;
+CREATE TABLE IF NOT EXISTS `restaurant_booking_vouchers` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `code` varchar(255) default NULL,
+  `type` enum('amount','percent') default NULL,
+  `discount` decimal(9,2) unsigned default NULL,
+  `valid` enum('fixed','period','recurring') default NULL,
+  `date_from` date default NULL,
+  `date_to` date default NULL,
+  `time_from` time default NULL,
+  `time_to` time default NULL,
+  `every` enum('monday','tuesday','wednesday','thursday','friday','saturday','sunday') default NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `code` (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `restaurant_booking_tables_group`;
+CREATE TABLE IF NOT EXISTS `restaurant_booking_tables_group` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(254) NOT NULL,
+  `tables_id` varchar(250) CHARACTER SET utf8 NOT NULL,
+  `description` text CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+DROP TABLE IF EXISTS `restaurant_booking_bookings_tables_group`;
+CREATE TABLE IF NOT EXISTS `restaurant_booking_bookings_tables_group` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `booking_id` int(11) NOT NULL,
+  `tables_group_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+DROP TABLE IF EXISTS `restaurant_booking_menu`;
+CREATE TABLE IF NOT EXISTS `restaurant_booking_menu` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `m_name` varchar(254) CHARACTER SET utf8 NOT NULL,
+  `m_type` enum('starters','main_course','desert') CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+
+DROP TABLE IF EXISTS `restaurant_booking_bookings_menu`;
+CREATE TABLE IF NOT EXISTS `restaurant_booking_bookings_menu` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `booking_id` int(11) NOT NULL,
+  `menu_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+--
+-- Dumping data for table `wp_restaurant_booking_menu`
+--
+
+INSERT INTO `restaurant_booking_menu` (`id`, `m_name`, `m_type`) VALUES
+(3, 'Steak', 'main_course'),
+(5, 'Chicken Salad', 'starters'),
+(11, 'Chocolate cake', 'desert');
+
+DROP TABLE IF EXISTS `restaurant_booking_working_times`;
+CREATE TABLE IF NOT EXISTS `restaurant_booking_working_times` (
+  `id` int(10) unsigned NOT NULL default '0',
+  `monday_from` time default NULL,
+  `monday_to` time default NULL,
+  `monday_dayoff` enum('T','F') default 'F',
+  `tuesday_from` time default NULL,
+  `tuesday_to` time default NULL,
+  `tuesday_dayoff` enum('T','F') default 'F',
+  `wednesday_from` time default NULL,
+  `wednesday_to` time default NULL,
+  `wednesday_dayoff` enum('T','F') default 'F',
+  `thursday_from` time default NULL,
+  `thursday_to` time default NULL,
+  `thursday_dayoff` enum('T','F') default 'F',
+  `friday_from` time default NULL,
+  `friday_to` time default NULL,
+  `friday_dayoff` enum('T','F') default 'F',
+  `saturday_from` time default NULL,
+  `saturday_to` time default NULL,
+  `saturday_dayoff` enum('T','F') default 'F',
+  `sunday_from` time default NULL,
+  `sunday_to` time default NULL,
+  `sunday_dayoff` enum('T','F') default 'F',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `restaurant_booking_working_times` (`id`, `monday_from`, `monday_to`, `monday_dayoff`, `tuesday_from`, `tuesday_to`, `tuesday_dayoff`, `wednesday_from`, `wednesday_to`, `wednesday_dayoff`, `thursday_from`, `thursday_to`, `thursday_dayoff`, `friday_from`, `friday_to`, `friday_dayoff`, `saturday_from`, `saturday_to`, `saturday_dayoff`, `sunday_from`, `sunday_to`, `sunday_dayoff`) VALUES
+(1, '09:00:00', '23:00:00', 'F', '09:00:00', '23:00:00', 'F', '09:00:00', '23:00:00', 'F', '09:00:00', '23:00:00', 'F', '09:00:00', '23:00:00', 'F', '09:00:00', '23:00:00', 'F', NULL, NULL, 'T');

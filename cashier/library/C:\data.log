@@ -1,0 +1,53 @@
+SELECT DATE_FORMAT( date,  '%e' ) AS date
+		 , SUM(if( t2.product_type = 'products', t3.paid + t3.paid_giftcard + t3.cc_no, 0)) productTotal
+		, SUM(if( t2.product_type = 'services', t3.paid + t3.paid_giftcard + t3.cc_no, 0)) servicesTotal
+		, SUM(if( t2.product_type = 'giftcard', t3.paid + t3.paid_giftcard + t3.cc_no, 0)) giftcardTotal
+		, SUM(if( t3.paid_by = 'cash' or t3.paid_by = 'cashCC' or t3.paid_by = 'cashGC', t3.paid, 0)) cashTotal
+		, SUM(if( t3.paid_by = 'CC' or t3.paid_by = 'CCGC' or t3.paid_by = 'cashCC', t3.cc_no, 0)) ccTotal
+		, SUM(if( t3.paid_by = 'GC' or t3.paid_by = 'CCGC' or t3.paid_by = 'cashGC', t3.paid_giftcard, 0)) gcTotal
+		, SUM(COALESCE( t3.paid + t3.paid_giftcard + t3.cc_no, 0 )) total
+		, SUM( COALESCE( t1.val_tax, 0 ) ) AS productTax
+		FROM jenistar_sma_sale_items t1, jenistar_sma_products t2, jenistar_sma_sales t3
+		WHERE t1.product_id = t2.id
+		AND t3.id = t1.sale_id
+		AND DATE_FORMAT( date,  '%Y-%m' ) =  '2014-07'
+		GROUP BY DATE_FORMAT( date,  '%e' )SELECT DATE_FORMAT( date,  '%e' ) AS date
+		 , SUM(if( t2.product_type = 'products', t3.paid + t3.paid_giftcard + t3.cc_no, 0)) productTotal
+		, SUM(if( t2.product_type = 'services', t3.paid + t3.paid_giftcard + t3.cc_no, 0)) servicesTotal
+		, SUM(if( t2.product_type = 'giftcard', t3.paid + t3.paid_giftcard + t3.cc_no, 0)) giftcardTotal
+		, SUM(if( t3.paid_by = 'cash' or t3.paid_by = 'cashCC' or t3.paid_by = 'cashGC', t3.paid, 0)) cashTotal
+		, SUM(if( t3.paid_by = 'CC' or t3.paid_by = 'CCGC' or t3.paid_by = 'cashCC', t3.cc_no, 0)) ccTotal
+		, SUM(if( t3.paid_by = 'GC' or t3.paid_by = 'CCGC' or t3.paid_by = 'cashGC', t3.paid_giftcard, 0)) gcTotal
+		, SUM(COALESCE( t3.paid + t3.paid_giftcard + t3.cc_no, 0 )) total
+		, SUM( COALESCE( t1.val_tax, 0 ) ) AS productTax
+		FROM hehkuvat_sma_sale_items t1, hehkuvat_sma_products t2, hehkuvat_sma_sales t3
+		WHERE t1.product_id = t2.id
+		AND t3.id = t1.sale_id
+		AND DATE_FORMAT( date,  '%Y-%m' ) =  '2014-07'
+		GROUP BY DATE_FORMAT( date,  '%e' )SELECT DATE_FORMAT( date,  '%e' ) AS date
+		 , SUM(if( t2.product_type = 'products', t3.paid + t3.paid_giftcard + t3.cc_no, 0)) productTotal
+		, SUM(if( t2.product_type = 'services', t3.paid + t3.paid_giftcard + t3.cc_no, 0)) servicesTotal
+		, SUM(if( t2.product_type = 'giftcard', t3.paid + t3.paid_giftcard + t3.cc_no, 0)) giftcardTotal
+		, SUM(if( t3.paid_by = 'cash' or t3.paid_by = 'cashCC' or t3.paid_by = 'cashGC', t3.paid, 0)) cashTotal
+		, SUM(if( t3.paid_by = 'CC' or t3.paid_by = 'CCGC' or t3.paid_by = 'cashCC', t3.cc_no, 0)) ccTotal
+		, SUM(if( t3.paid_by = 'GC' or t3.paid_by = 'CCGC' or t3.paid_by = 'cashGC', t3.paid_giftcard, 0)) gcTotal
+		, SUM(COALESCE( t3.paid + t3.paid_giftcard + t3.cc_no, 0 )) total
+		, SUM( COALESCE( t1.val_tax, 0 ) ) AS productTax
+		FROM hehkuvat_sma_sale_items t1, hehkuvat_sma_products t2, hehkuvat_sma_sales t3
+		WHERE t1.product_id = t2.id
+		AND t3.id = t1.sale_id
+		AND DATE_FORMAT( date,  '%Y-%m' ) =  '2014-07'
+		GROUP BY DATE_FORMAT( date,  '%e' )SELECT DATE_FORMAT( date,  '%e' ) AS date
+		 , SUM(if( t2.product_type = 'products', t3.paid + t3.paid_giftcard + t3.cc_no, 0)) productTotal
+		, SUM(if( t2.product_type = 'services', t3.paid + t3.paid_giftcard + t3.cc_no, 0)) servicesTotal
+		, SUM(if( t2.product_type = 'giftcard', t3.paid + t3.paid_giftcard + t3.cc_no, 0)) giftcardTotal
+		, SUM(if( t3.paid_by = 'cash' or t3.paid_by = 'cashCC' or t3.paid_by = 'cashGC', t3.paid, 0)) cashTotal
+		, SUM(if( t3.paid_by = 'CC' or t3.paid_by = 'CCGC' or t3.paid_by = 'cashCC', t3.cc_no, 0)) ccTotal
+		, SUM(if( t3.paid_by = 'GC' or t3.paid_by = 'CCGC' or t3.paid_by = 'cashGC', t3.paid_giftcard, 0)) gcTotal
+		, SUM(COALESCE( t3.paid + t3.paid_giftcard + t3.cc_no, 0 )) total
+		, SUM( COALESCE( t1.val_tax, 0 ) ) AS productTax
+		FROM hehkuvat_sma_sale_items t1, hehkuvat_sma_products t2, hehkuvat_sma_sales t3
+		WHERE t1.product_id = t2.id
+		AND t3.id = t1.sale_id
+		AND DATE_FORMAT( date,  '%Y-%m' ) =  '2014-07'
+		GROUP BY DATE_FORMAT( date,  '%e' )

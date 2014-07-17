@@ -1,0 +1,108 @@
+<html><head>
+   <title>System Requirements</title>
+   <meta name="generator"  content="HelpMaker.net" >
+   <meta name="keywords"  content="" ></head>
+<body bgcolor="FFFCEA" >
+<table width="100%"  border="0"  cellspacing="0"  cellpadding="2"  bgcolor="DFDFDF" >
+  <tr>
+    <td align="left" >
+      </span><font face="Arial"  color="#010101"  size="4" ><span style="font-size:14pt" >API</span></font><font color="#010101" ></font><br>
+
+    </td>
+    <td align="right" >
+      <font face="Arial"  size="2" >
+        <a href="managingpayments.htm">Previous</a>&nbsp;&nbsp;
+      </font>
+    </td>
+  </tr></table>
+<hr>
+</span>
+<font face="Arial"  color="#010101" ><span style="font-size:12pt" ><b>To add a user to the iScripts EasyCreate 3.0 from your program you can use either one of the following methods</b></span></font>
+<br>
+<br>
+<font face="Arial"  color="#010101" ><span style="font-size:12pt" ><b>1) Simple User Addition</b></span></font><br>
+<font face="Arial"  color="#010101" ><span style="font-size:12pt" >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To add a user in the iScripts EasyCreate 3.0 from your site please cut and paste the following 2 line of code.<br>
+<br>
+//====================== iScripts EasyCreate 3.0 User Addition ==================<br>
+
+include("api/useradd.php"); <br>
+userAdd('login-name','password','first-name','email-address');<br>
+
+//====================== End iScripts EasyCreate 3.0 User Addition ==============<br>
+
+
+<br><br>
+<b>Note :</b><br> 1) include the path of useradd.php in the api folder on the first line.<br>
+2) Please provide the values for name, password, company-name, email, on the second line. These values are mandatory.<br>
+<br>
+<font face="Arial"  color="#010101" ><span style="font-size:12pt" ><b>2) Advanced User Addition</b></span></font><br>
+<font face="Arial"  color="#010101" ><span style="font-size:12pt" >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In order to use the API, please send the user information- username, password, company name, and email to the URL.<br>  </span></font>
+<br>
+
+&lt;?xml version="1.0"?&gt;<br>
+&lt;users&gt;<br>
+&lt;function&gt;add&lt;/function&gt;<br>
+&lt;values&gt;<br>
+&lt;username&gt;username&lt;/username&gt;<br>
+&lt;password&gt;password&lt;/password&gt;<br>
+&lt;email&gt;email&lt;/email&gt;<br>
+&lt;firstname&gt;firstname&lt;/firstname&gt;<br>
+&lt;/values&gt;<br>
+&lt;/users&gt;<br>
+
+<br><br>
+You will receive a response from the API in the following format: 
+
+<br><br>
+ &lt;?xml version="1.0"?&gt;<br>
+&lt;results&gt;<br>
+&lt;response&gt;&lt;/response&gt;<br>
+&lt;error&gt;104&lt;/error&gt;<br>
+&lt;/results&gt;<br>this is then copied into your database.
+<br><br>
+
+
+<b>The following variations of request are possible</b><br>
+<br>
+1) To add a user the function should be <function><strong>add</strong></function> <br>
+2) To update a user the function should be <function><strong>update</strong></function><br>
+3) To delete a user the function should be <function><strong>delete</strong></function><br>
+
+<br><br>
+<b>The output parameters</b>
+<br><br>
+1) On successful execution the <response> tag will contain values like <response>user 
+
+added</response>, <response>user updated</response> ,<response>user deleted</response> and
+the <error> tag will contain <error>0</error>
+<br>
+2) On unsuccessful execution the <response> tag will be empty and the <error> tag will display an error 
+
+number whose meaning could be varified by looking at the return code meanings shown below.
+
+<br><br>
+<b>Conditions</b>
+<br><br>
+1) Please send in data in the exact format as shown above.<br>
+2) We do not guarantee that the api works correctly for all servers
+   proper working of the api will depend on the server security settings etc.
+
+<br>
+<br>
+<b>Return Codes</b><br><br>
+0   ->  No Error<br>
+100 ->  API Error<br>
+101 ->  Missing or Malformed Starting Tags<br>
+102 ->  Missing or Malformed Ending Tags<br>
+103 ->  Funcion Not Recognized<br>
+104 - > Missing values<br>
+105 - > Invalid Request<br>
+106 - > Invalid Company<br>
+107 - > Duplicate User<br>
+108 - > Invalid User<br></span></font>
+
+<font color="#010101" ></font><br>
+<div align="left" ><br></div>
+</body></html>

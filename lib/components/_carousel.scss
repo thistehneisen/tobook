@@ -1,0 +1,43 @@
+//  ========== 
+//  = Carousel for the HairPress HTML template = 
+//  ==========
+
+.carousel {
+  .slide {
+    float: left;
+    width: 220px;
+  }
+}
+
+.carousel-wide {
+  .slide {
+    width: 940px;
+  }
+}
+
+
+@media (min-width: 1200px) {
+  .carousel .slide {
+    width: 270px;
+  }
+  .carousel-wide .slide {
+    width: 1170px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+  .carousel .slide {
+    width: 166px;
+  }
+  .carousel-wide .slide {
+    width: 724px;
+  }
+}
+@media (max-width: 767px) {
+  .carousel .slide {
+    width: 100%;
+  }
+  .carousel-wide .slide {
+    width: 100%;
+  }
+}

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="template" version="1.0">
+<name>whiterock</name>
+<author>PossPooja</author>
+<license>PossPooja</license>
+<version>1.0.0</version>
+<description>Whiterock Theme</description>
+
+    <files>
+		<filedata>
+			<filename>index.html</filename>
+			<filealias>index</filealias>
+		</filedata>
+		<filedata>
+			<filename>subpage.html</filename>
+			<filealias>subpage</filealias>
+		</filedata>
+	
+	</files>
+
+
+	<themes>
+		<theme1>
+			<name>Default Theme</name>
+			<style>styles/style.css</style>
+			<homepageimage>images/homepageimage.jpg</homepageimage>
+			<thumbnail>images/homethumb.jpg</thumbnail>
+			<subpageimage>images/subpagetemplate.jpg</subpageimage>
+			<currenttheme>true</currenttheme>
+			<themecolor>#ababab</themecolor>
+		</theme1>
+
+	</themes>
+
+	<panels>
+		<header>header</header>
+		<banner>banner</banner>
+		<menu>menu</menu>
+		<box1>box1</box1>
+		<box2>box2</box2>
+		<box3>box3</box3>
+		<metabox>metabox</metabox>
+		<mailchimp>mailchimp</mailchimp>
+		<address>address</address>
+		<hours>hours</hours>
+		<footerlogo>footerlogo</footerlogo>
+		<footermenu>footermenu</footermenu>
+		<pagetitle>pagetitle</pagetitle>
+		<maincontent>maincontent</maincontent>
+	
+	</panels>
+ 
+</mosinstall>

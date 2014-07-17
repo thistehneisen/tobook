@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="template" version="1.0">
+<name>Beauty Center</name>
+<author>Ucodice Team</author>
+<license>ucodice</license>
+<version>1.0.0</version>
+<description>Ucodice Test Theme</description>
+
+    <files>
+            <filedata>
+                <filename>index.html</filename>
+                <filealias>index</filealias>
+            </filedata>
+            <filedata>
+                <filename>subpage.html</filename>
+                <filealias>subpage</filealias>
+            </filedata>
+	</files>
+
+
+	<themes>
+		<theme1>
+			<name>Beauty Center Theme</name>
+			<style>style/style.css</style>
+			<homepageimage>images/home.png</homepageimage>
+			<thumbnail>images/home_1.png</thumbnail>
+			<subpageimage>images/services.png</subpageimage>
+			<currenttheme>true</currenttheme>
+			<themecolor>#76bd46</themecolor>
+		</theme1>		 
+	</themes>
+
+	<panels>
+		<header>header</header>
+		<navigation>navigation</navigation>
+		<slider>slider</slider>
+		<Content>Content</Content>
+		<footer>footer</footer>
+	</panels>
+ 
+</mosinstall>

@@ -1,0 +1,70 @@
+//  ========== 
+//  = Dark stripe for the HairPress HTML template = 
+//  ========== 
+
+
+
+.dark-stripe {
+  background-color: ($stripe-dark+$stripe-light)/2;
+  @include background(
+    image-url("shadow-top.png") no-repeat center top,
+    image-url("shadow-bottom.png") no-repeat center bottom,
+    linear-gradient(left, $stripe-dark 0%, $stripe-light 50%, $stripe-dark 100%)
+  );
+  padding: 20px 0;
+  margin: 30px 0;
+  
+  .lined {
+    text-align: center;
+    color: $white;
+    border-bottom-color: $stripe-bd;
+    
+    a {
+      color: $white;
+      
+      &:hover {
+        color: darken($white, 5%);
+      }
+    }
+    
+    .icon {
+      @include opacity(25);
+      @include transition(opacity 0.2s ease);
+      
+      &:hover {
+        @include opacity(75);
+      }
+    }
+    
+    .icons-arrow-left-white {
+      margin-right: 24px;
+    }
+    .icons-arrow-right-white {
+      margin-left: 24px;
+    }
+    .bolded-line {
+      margin-left: auto;
+      margin-right: auto;
+      background-color: $white;
+    }
+  }
+  h2 {
+    color: $white;
+  }
+  h5 {
+    color: $stripe-txt; 
+  }
+  .thumbnails {
+    text-align: center;
+    
+    h4 {
+      font-size: 12px;
+      margin-bottom: 0;
+    }
+    .title {
+      font-style: italic;
+      color: $white;
+    }
+  }
+}
+

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="template" version="1.0">
+<name>testtheme</name>
+<author>Anis Tuhin</author>
+<license>Md. Anisur Rahman</license>
+<version>1.0.0</version>
+<description>Test Theme</description>
+
+    <files>
+            <filedata>
+                <filename>index.html</filename>
+                <filealias>index</filealias>
+            </filedata>
+            <filedata>
+                <filename>about.html</filename>
+                <filealias>about</filealias>
+            </filedata>
+            <filedata>
+                <filename>menu.html</filename>
+                <filealias>menu</filealias>
+            </filedata>
+            <filedata>
+                <filename>contact.html</filename>
+                <filealias>contact</filealias>
+            </filedata>
+            <filedata>
+                <filename>subpage.html</filename>
+                <filealias>subpage</filealias>
+            </filedata>
+	</files>
+
+
+	<themes>
+	
+		<theme1>
+			<name>Black Theme</name>
+			<style>styles/black_styles.css</style>
+			<homepageimage>images/black_home.jpg</homepageimage>
+			<thumbnail>images/black_thumb.jpg</thumbnail>
+			<subpageimage>images/black_sub.jpg</subpageimage>
+			<currenttheme>true</currenttheme>
+			<themecolor>#1D1D1D</themecolor>
+		</theme1>	
+		 
+		
+		<theme2>
+			<name>Breakfast Theme</name>
+			<style>styles/breakfast_styles.css</style>
+			<homepageimage>images/breakfast_home.jpg</homepageimage>
+			<thumbnail>images/breakfast_thumb.jpg</thumbnail>
+			<subpageimage>images/breakfast_sub.jpg</subpageimage>
+			<themecolor>#d48b2e</themecolor>
+		</theme2>
+
+
+		<theme3>
+			<name>Seafood Theme</name>
+			<style>styles/seafood_styles.css</style>
+			<homepageimage>images/seafood_home.jpg</homepageimage>
+			<thumbnail>images/seafood_thumb.jpg</thumbnail>
+			<subpageimage>images/seafood_sub.jpg</subpageimage>
+			<themecolor>#5a89a6</themecolor>
+		</theme3>
+		
+		
+		<theme4>
+			<name>Blank Theme</name>
+			<style>styles/blank_styles.css</style>
+			<homepageimage>images/blank_home.jpg</homepageimage>
+			<thumbnail>images/blank_thumb.jpg</thumbnail>
+			<subpageimage>images/blank_sub.jpg</subpageimage>
+			<themecolor>#2e2720</themecolor>
+		</theme4>
+		
+		
+		<theme5>
+			<name>Coffee Theme</name>
+			<style>styles/coffee_styles.css</style>
+			<homepageimage>images/coffee_home.jpg</homepageimage>
+			<thumbnail>images/coffee_thumb.jpg</thumbnail>
+			<subpageimage>images/coffee_sub.jpg</subpageimage>
+			<themecolor>#5f1e04</themecolor>
+		</theme5>
+		 
+		
+	</themes>
+
+	<panels>
+		<header>header</header>
+		<topmenu>topmenu</topmenu>
+		<sidebar>sidebar</sidebar>
+		<welcome>welcome</welcome>
+		<banner>banner</banner>
+		<firstcell>firstcell</firstcell>
+		<menui>menui</menui>
+		<map>map</map>
+		<maincontent>maincontent</maincontent>
+		<footer>footer</footer>	
+	</panels>
+ 
+</mosinstall>

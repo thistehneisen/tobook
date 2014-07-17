@@ -1,0 +1,87 @@
+To add a user to the iScripts EasyCreate 1.1 from your program you can use either one of the following methods
+
+
+1) Simple User Addition
+-----------------------
+
+To add a user in the iScripts EasyCreate 1.1from your site please cut and paste the following 2 line of code
+
+
+
+//====================== iScripts EasyCreate 1.1 User Addition ==================
+
+include("api/useradd.php");
+userAdd('login-name','password','first-name','email-address');
+
+//====================== End iScripts EasyCreate 1.1 User Addition ==============
+
+
+
+Note : 1) include the path of useradd.php in the api folder on the first line.
+       2) mandatorily provide the values for name,password,company-name,email-address on the second         line
+
+
+
+1) Advanced User Addition
+--------------------------
+To use the API please sent the  user informations namely username,password,company and email to the URL http://yourhelpdeskinstallationfolder/api/usermanage.php in the following xml format using cURL.
+
+
+
+<?xml version="1.0"?>
+<users>
+<function>add</function>
+<values>
+<username>username</username>
+<password>password</password>
+<email>email</email>
+<firstname>firstname</firstname>
+</values>
+</users>
+
+You will get the response from the api in the following format whcih could be parsed to manipulate your database
+
+
+ <?xml version="1.0"?>
+<results>
+<response></response>
+<error>104</error>
+</results>
+
+
+
+The following variations of request are possible
+------------------------------------------------
+
+1) To add a user the function should be <function>add</function>
+2) To update a user the function should be <function>update</function>
+3) To delete a user the function should be <function>delete</function>
+
+
+The output parameters
+---------------------
+1) On successful execution the <response> tag will contain values like <response>user added</response>, <response>user updated</response> ,<response>user deleted</response> and
+the <error> tag will contain <error>0</error>
+
+2) On unsuccessful execution the <response> tag will be empty and the <error> tag will display an error number whose meaning could be varified by looking at the return code meanings shown below.
+
+
+Conditions
+----------
+1) Please send in data in the exact format as shown above.
+2) We do not guerentee that the api works correctly for all servers
+   proper working of the api will depend on the server security settings etc.
+
+
+Return Codes
+------------
+0   ->    No Error
+100 ->  API Error
+101 ->  Missing or Malformed Starting Tags
+102 ->  Missing or Malformed Ending Tags
+103 ->  Funcion Not Recognized
+104 - > Missing values
+105 - > Invalid Request
+106 - > Invalid Company
+107 - > Duplicate User
+108 - > Invalid User

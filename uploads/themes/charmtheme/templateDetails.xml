@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="template" version="1.0">
+<name>charmtheme</name>
+<author>PossPooja</author>
+<license>PossPooja</license>
+<version>1.0.0</version>
+<description>PossPooja Charm theme</description>
+
+    <files>
+		<filedata>
+			<filename>index.html</filename>
+			<filealias>index</filealias>
+		</filedata>
+		<filedata>
+			<filename>subpage.html</filename>
+			<filealias>subpage</filealias>
+		</filedata>
+	
+	</files>
+
+
+	<themes>
+		<theme1>
+			<name>Default Theme</name>
+			<style>styles/style.css</style>
+			<homepageimage>images/homepageimage.jpg</homepageimage>
+			<thumbnail>images/thumbnail.jpg</thumbnail>
+			<subpageimage>images/subpageimage.jpg</subpageimage>
+			<currenttheme>true</currenttheme>
+			<themecolor>#3f1445</themecolor>
+		</theme1>
+
+	</themes>
+
+	<panels>
+		<header>header</header>
+		<banner>banner</banner>
+		<menu>menu</menu>
+		<welcome>welcome</welcome>
+		<ournews>ournews</ournews>
+		<box1>box1</box1>
+		<box2>box2</box2>
+		<box3>box3</box3>
+		<copyright>address</copyright>
+		<maincontent>maincontent</maincontent>
+	
+	</panels>
+ 
+</mosinstall>

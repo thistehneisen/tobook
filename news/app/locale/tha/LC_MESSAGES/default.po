@@ -1,0 +1,3290 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# 
+# Translators:
+#   <nolifelover@gmail.com>, 2011.
+#   <pornchai29@gmail.com>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: Newsletter Mailer\n"
+"POT-Creation-Date: 2011-11-09 18:47+0100\n"
+"PO-Revision-Date: 2011-11-16 09:08+0000\n"
+"Last-Translator: acaz <pornchai29@gmail.com>\n"
+"Language-Team: Thai (Thailand) (http://www.transifex.net/projects/p/newslettermailer/language/th_TH/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: th_TH\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+
+#: /app_controller.php1;1;1;1;1;1;1;1;1;1;1
+#: /app_controller_1.php94;99;104;109;114;119;123;128;133;138;143
+#: /app_controller_auto.php94;99;104;109;114;119;123;128;133;138;143
+#: /w2/app_controller.php1;1;1;1;1;1;1;1;1;1;1
+#: /w2/app_controller_1.php94;99;104;109;114;119;123;128;133;138;143
+msgid "Function Disabled! (DEMO)"
+msgstr "ฟังก์ชันปิดใช้งาน (ตัวอย่าง)"
+
+#: /app_controller.php:1 /app_controller_1.php:148
+#: /app_controller_auto.php:148 /w2/app_controller.php:1
+#: /w2/app_controller_1.php:148
+msgid ""
+"You can't send a newsletter! Use the send test mail function to test the "
+"newsletter! (DEMO)"
+msgstr "คุณไม่สามารถส่งจดหมายข่าว! ใช้การทดสอบฟังก์ชั่นส่งอีเมลเพื่อทดสอบการส่ง!  \nจดหมายข่าว! (ตัวอย่าง)"
+
+#: /app_controller.php1;1 /app_controller_1.php216;218
+#: /app_controller_auto.php236;238 /w2/app_controller.php1;1
+#: /w2/app_controller_1.php213;215
+msgid "setlocale"
+msgstr ""
+
+#: /controllers/campaigns_controller.php18;36
+#: /w2/controllers/campaigns_controller.php18;36
+msgid "The campaign has been saved"
+msgstr "บันทึกแคมเปญแล้ว"
+
+#: /controllers/campaigns_controller.php21;43
+#: /w2/controllers/campaigns_controller.php21;43
+msgid "The campaign could not be saved. Please, try again."
+msgstr "ไม่สามารถบันทึกแคมเปญ. กรุณาลองใหม่อีกครั้ง"
+
+#: /controllers/campaigns_controller.php:31
+#: /w2/controllers/campaigns_controller.php:31
+msgid "Invalid campaign"
+msgstr "แคมเปญที่ไม่ถูกต้อง"
+
+#: /controllers/campaigns_controller.php:55
+#: /w2/controllers/campaigns_controller.php:55
+msgid "Invalid id for campaign"
+msgstr "ID แคมเปญที่ไม่ถูกต้อง"
+
+#: /controllers/campaigns_controller.php:59
+#: /w2/controllers/campaigns_controller.php:59
+msgid "Campaign deleted"
+msgstr "ลบแคมเปญแล้ว"
+
+#: /controllers/campaigns_controller.php:62
+#: /w2/controllers/campaigns_controller.php:62
+msgid "Campaign was not deleted"
+msgstr "ไม่สามารถลบแคมเปญได้"
+
+#: /controllers/categories_controller.php14;63;87
+#: /w2/controllers/categories_controller.php14;63;87
+msgid "Invalid category"
+msgstr "หมวดหมู่ไม่ถูกต้อง"
+
+#: /controllers/categories_controller.php:55
+#: /w2/controllers/categories_controller.php:55
+msgid "Category split"
+msgstr "แบ่งหมวดหมู่"
+
+#: /controllers/categories_controller.php74;92
+#: /w2/controllers/categories_controller.php74;92
+msgid "The category has been saved"
+msgstr "บันทึกหมวดหมู่แล้ว"
+
+#: /controllers/categories_controller.php77;95
+#: /w2/controllers/categories_controller.php77;95
+msgid "The category could not be saved. Please, try again."
+msgstr "ไม่สามารถบันทึกหมวดหมู่. กรุณาลองใหม่อีกครั้ง"
+
+#: /controllers/categories_controller.php:109
+#: /w2/controllers/categories_controller.php:109
+msgid "Invalid id for category"
+msgstr "ID หมวดหมู่ที่ไม่ถูกต้อง"
+
+#: /controllers/categories_controller.php:113
+#: /w2/controllers/categories_controller.php:113
+msgid "Category deleted"
+msgstr "ลบหมวดหมู่แล้ว"
+
+#: /controllers/categories_controller.php:116
+#: /w2/controllers/categories_controller.php:116
+msgid "Category was not deleted"
+msgstr "ไม่สามารถลบหมวดหมู่ได้"
+
+#: /controllers/configurations_controller.php:11
+#: /controllers/users_controller.php:9
+#: /w2/controllers/configurations_controller.php:15
+#: /w2/controllers/users_controller.php:9
+msgid "Access Denied"
+msgstr "การเข้าถึงถูกปฎิเสธ"
+
+#: /controllers/configurations_controller.php:16
+#: /views/layouts/default.ctp:121
+#: /w2/controllers/configurations_controller.php:20
+msgid "SMTP"
+msgstr "SMTP"
+
+#: /controllers/configurations_controller.php:16
+#: /w2/controllers/configurations_controller.php:20
+msgid "PHP mail()"
+msgstr "PHP mail()"
+
+#: /controllers/configurations_controller.php:16
+#: /views/configurations/add.ctp:41 /views/configurations/edit.ctp:42
+#: /w2/controllers/configurations_controller.php:20
+#: /w2/views/configurations/add.ctp:51 /w2/views/configurations/edit.ctp:54
+msgid "Amazon Simple Email Service (Amazon SES)"
+msgstr "Amazon Simple Email Service (Amazon SES)"
+
+#: /controllers/configurations_controller.php:16
+#: /views/configurations/add.ctp:50 /views/configurations/edit.ctp:51
+#: /w2/controllers/configurations_controller.php:20
+#: /w2/views/configurations/add.ctp:60 /w2/views/configurations/edit.ctp:63
+msgid "Sendmail"
+msgstr "ส่งอีเมล"
+
+#: /controllers/configurations_controller.php:39
+#: /w2/controllers/configurations_controller.php:221
+msgid "All mails servers checked"
+msgstr "ทุกเซิร์ฟเวอร์อีเมลได้รับการตรวจสอบ"
+
+#: /controllers/configurations_controller.php52;213
+#: /w2/controllers/configurations_controller.php234;350;527
+msgid "Function imap_open does not exist"
+msgstr "ฟังก์ชัน imap_open ไม่ได้เปิดอยู่"
+
+#: /controllers/configurations_controller.php62;163;182;304
+#: /w2/controllers/configurations_controller.php76;103;136;244;360;477;496;621
+msgid "Invalid configuration"
+msgstr "การตั้งค่าไม่ถูกต้อง"
+
+#: /controllers/configurations_controller.php:73
+#: /controllers/mails_controller.php:610
+#: /w2/controllers/configurations_controller.php:255
+#: /w2/controllers/mails_controller.php:642
+msgid "Please wait for"
+msgstr "กรุณารอสักครู่สำหรับ"
+
+#: /controllers/configurations_controller.php:73
+#: /controllers/mails_controller.php:610 /views/mails/sendstatus.ctp:80
+#: /w2/controllers/configurations_controller.php:255
+#: /w2/controllers/mails_controller.php:642 /w2/views/mails/sendstatus.ctp:200
+msgid "seconds"
+msgstr "วินาที"
+
+#: /controllers/configurations_controller.php:82
+#: /w2/controllers/configurations_controller.php264;371
+msgid "No inbox"
+msgstr "ไม่มีจดหมาย"
+
+#: /controllers/configurations_controller.php:103
+#: /w2/controllers/configurations_controller.php285;392
+msgid "Error: cannot open mailbox"
+msgstr "ข้อผิดพลาด : ไม่สามารถเปิดกล่องจดหมาย"
+
+#: /controllers/configurations_controller.php:153
+#: /w2/controllers/configurations_controller.php:335
+msgid "Found %s bounce mails"
+msgstr "พบ %s อีเมลตีกลับ"
+
+#: /controllers/configurations_controller.php:218
+#: /w2/controllers/configurations_controller.php:532
+msgid "Curl plugin missing"
+msgstr "ไม่พบ Curl plugin"
+
+#: /controllers/configurations_controller.php:228
+#: /w2/controllers/configurations_controller.php:545
+msgid "not verified"
+msgstr "ไม่ผ่านการตรวจสอบ"
+
+#: /controllers/configurations_controller.php:228
+#: /w2/controllers/configurations_controller.php:545
+msgid "Verify Now"
+msgstr "ยืนยันทันที"
+
+#: /controllers/configurations_controller.php:269
+#: /w2/controllers/configurations_controller.php:586
+msgid "Inbox:"
+msgstr "กล่องจดหมาย"
+
+#: /controllers/configurations_controller.php269;270
+#: /w2/controllers/configurations_controller.php586;587
+msgid "No Tested"
+msgstr "ยังไม่มีการทดสอบ"
+
+#: /controllers/configurations_controller.php269;270
+#: /w2/controllers/configurations_controller.php586;587
+msgid "Working"
+msgstr "ทำงานได้"
+
+#: /controllers/configurations_controller.php269;270
+#: /views/mails/campaign.ctp:40 /views/mails/sendstatus.ctp:32
+#: /w2/controllers/configurations_controller.php586;587
+#: /w2/views/mails/campaign.ctp:131 /w2/views/mails/sendstatus.ctp:153
+msgid "Failed"
+msgstr "ล้มเหลว"
+
+#: /controllers/configurations_controller.php280;287;312;317
+#: /w2/controllers/configurations_controller.php597;604;629;634
+msgid "The configuration could not be saved. Please, try again."
+msgstr "การกำหนดค่าไม่สามารถบันทึก โปรดลองอีกครั้ง"
+
+#: /controllers/configurations_controller.php284;314
+#: /w2/controllers/configurations_controller.php601;631
+msgid "The configuration has been saved"
+msgstr "บันทึกการกำหนดค่าแล้ว"
+
+#: /controllers/configurations_controller.php:328
+#: /w2/controllers/configurations_controller.php:645
+msgid "Invalid id for configuration"
+msgstr "ID การกำหนดค่าไม่ถูกต้อง"
+
+#: /controllers/configurations_controller.php:332
+#: /w2/controllers/configurations_controller.php:649
+msgid "Configuration deleted"
+msgstr "ลบการกำหนดค่าแล้ว"
+
+#: /controllers/configurations_controller.php:335
+#: /w2/controllers/configurations_controller.php:652
+msgid "Configuration was not deleted"
+msgstr "ไม่สามารถลบการกำหนดค่าได้"
+
+#: /controllers/forms_controller.php80;83
+#: /w2/controllers/forms_controller.php80;83
+msgid "Invalide name, use characters A-Z"
+msgstr "ชื่อไม่ถูกต้อง ใช้ตัวอักษร A-Z"
+
+#: /controllers/forms_controller.php:87
+#: /w2/controllers/forms_controller.php:87
+msgid "Invalide mail addresse"
+msgstr "อีเมล์ไม่ถูกต้อง"
+
+#: /controllers/forms_controller.php:105
+#: /w2/controllers/forms_controller.php:105
+msgid "A Friend Sent You A Message"
+msgstr "เพื่อนส่งข้อความถึงคุณ"
+
+#: /controllers/forms_controller.php185;486;508
+#: /w2/controllers/forms_controller.php185;486;508
+msgid "Invalid form"
+msgstr "แบบฟอร์มไม่ถูกต้อง"
+
+#: /controllers/forms_controller.php:402
+#: /w2/controllers/forms_controller.php:402
+msgid "Unknown error please contact webmaster."
+msgstr "ไม่ทราบข้อผิดพลาด กรุณาติดต่อเว็บมาสเตอร์."
+
+#: /controllers/forms_controller.php479;492;497;516
+#: /w2/controllers/forms_controller.php479;492;497;516
+msgid "The form could not be saved. Please, try again."
+msgstr "ไม่สามารถบันทึกแบบฟอร์ม กรุณาลองใหม่อีกครั้ง"
+
+#: /controllers/forms_controller.php:491
+#: /w2/controllers/forms_controller.php:491
+msgid "Please select at least on category"
+msgstr "โปรดเลือกอย่างน้อยหนึ่งประเภท"
+
+#: /controllers/forms_controller.php494;513
+#: /w2/controllers/forms_controller.php494;513
+msgid "The form has been saved"
+msgstr "บันทึกแบบฟอร์มแล้ว"
+
+#: /controllers/forms_controller.php:530
+#: /w2/controllers/forms_controller.php:530
+msgid "Invalid id for form"
+msgstr "ID แบบฟอร์มไม่ถูกต้อง"
+
+#: /controllers/forms_controller.php:534
+#: /w2/controllers/forms_controller.php:534
+msgid "There must be at least one subscription form"
+msgstr "จะต้องมีแบบฟอร์มการสมัครสมาชิกอย่างน้อยหนึ่งแบบฟอร์ม"
+
+#: /controllers/forms_controller.php:537
+#: /w2/controllers/forms_controller.php:537
+msgid "Form deleted"
+msgstr "ลบแบบฟอร์มแล้ว"
+
+#: /controllers/forms_controller.php:540
+#: /w2/controllers/forms_controller.php:540
+msgid "Form was not deleted"
+msgstr "ไม่สามารถลบแบบฟอร์ม"
+
+#: /controllers/images_controller.php52;73
+#: /w2/controllers/images_controller.php52;73
+msgid "The image was successfully uploaded."
+msgstr "อัพโหลดรูปภาพสำเร็จ"
+
+#: /controllers/images_controller.php52;73
+#: /w2/controllers/images_controller.php52;73
+msgid "Use this Image"
+msgstr "ใช้ภาพนี้"
+
+#: /controllers/images_controller.php:58
+#: /w2/controllers/images_controller.php:58
+msgid "cURL is NOT installed"
+msgstr "cURL ไม่ได้ติดตั้ง"
+
+#: /controllers/images_controller.php:75
+#: /controllers/templates_controller.php:163
+#: /w2/controllers/images_controller.php:75
+#: /w2/controllers/templates_controller.php:170
+msgid "There was an error with the uploaded file."
+msgstr "มีข้อผิดพลาดกับไฟล์ที่อัพโหลด"
+
+#: /controllers/importtasks_controller.php44;59;77;95;131
+#: /w2/controllers/importtasks_controller.php44;59;77;95;131
+msgid "The import task could not be saved. Please, try again."
+msgstr "ไม่สามารถบันทึกการนำเข้าข้อมูล. กรุณาลองใหม่อีกครั้ง"
+
+#: /controllers/importtasks_controller.php51;69;87;123
+#: /w2/controllers/importtasks_controller.php51;69;87;123
+msgid "Invalid import task"
+msgstr "การนำเข้าข้อมูลไม่ถูกต้อง"
+
+#: /controllers/importtasks_controller.php:74
+#: /w2/controllers/importtasks_controller.php:74
+msgid "Connection Successful"
+msgstr "การเชื่อมต่อที่ประสบความสำเร็จ"
+
+#: /controllers/importtasks_controller.php110;146;206
+#: /plugins/install/controllers/install_controller.php125;166
+#: /w2/controllers/importtasks_controller.php110;146;206
+#: /w2/plugins/install/controllers/install_controller.php125;166
+msgid "Could not connect to database."
+msgstr "ไม่สามารถเชื่อมต่อไปยังฐานข้อมูล"
+
+#: /controllers/importtasks_controller.php:128
+#: /w2/controllers/importtasks_controller.php:128
+msgid "The import task has been saved"
+msgstr "การนำเข้าข้อมูลได้รับการบันทึกแล้ว"
+
+#: /controllers/importtasks_controller.php155;216
+#: /w2/controllers/importtasks_controller.php155;216
+msgid "Error in Query: "
+msgstr "ผิดพลาด Query:"
+
+#: /controllers/importtasks_controller.php:179
+#: /w2/controllers/importtasks_controller.php:179
+msgid "Invalid id for import task"
+msgstr "ID การนำเข้าไม่ถูกต้อง"
+
+#: /controllers/importtasks_controller.php:183
+#: /w2/controllers/importtasks_controller.php:183
+msgid "Import task deleted"
+msgstr "ลบการนำเข้าข้อมูลแล้ว"
+
+#: /controllers/importtasks_controller.php:186
+#: /w2/controllers/importtasks_controller.php:186
+msgid "Import task was not deleted"
+msgstr "ไม่สามารถลบการนำเข้าข้อมูล"
+
+#: /controllers/mails_controller.php85;94;259;514;596;1001
+#: /w2/controllers/configurations_controller.php109;142
+#: /w2/controllers/mails_controller.php91;100;271;526;628;1026;1036
+msgid "Invalid mail"
+msgstr "อีเมล์ไม่ถูกต้อง"
+
+#: /controllers/mails_controller.php204;274
+#: /w2/controllers/mails_controller.php216;286
+msgid "The mail could not be saved. Please, try again."
+msgstr "ไม่สามารถบันทึกอีเมล์ กรุณาลองใหม่อีกครั้ง"
+
+#: /controllers/mails_controller.php:313
+#: /w2/controllers/mails_controller.php:325
+msgid "Html and Text"
+msgstr "HTML และข้อความ"
+
+#: /controllers/mails_controller.php:313
+#: /w2/controllers/mails_controller.php:325
+msgid "Html only"
+msgstr "HTML เท่านั้น"
+
+#: /controllers/mails_controller.php:313
+#: /w2/controllers/mails_controller.php:325
+msgid "Text only"
+msgstr "ข้อความเท่านั้น"
+
+#: /controllers/mails_controller.php:577
+#: /w2/controllers/mails_controller.php:609
+msgid "Job done!"
+msgstr "ชิ้นงานเสร็จแล้ว!"
+
+#: /controllers/mails_controller.php:580
+#: /w2/controllers/mails_controller.php:612
+msgid "There is nothing to do :-)"
+msgstr "ไม่มีอะไรที่ต้องทำ :-)"
+
+#: /controllers/mails_controller.php707;709;1045
+#: /w2/controllers/mails_controller.php749;751;1096
+msgid "Unable to connect to server"
+msgstr "ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์"
+
+#: /controllers/mails_controller.php714;716
+#: /w2/controllers/mails_controller.php756;758
+msgid "Error failed to send mails"
+msgstr "ข้อผิดพลาดล้มเหลวในการส่งอีเมล"
+
+#: /controllers/mails_controller.php:993
+#: /w2/controllers/mails_controller.php:1018
+msgid "The mail could not be duplicate. Please, try again."
+msgstr "ไม่สามารถทำซ้ำอีเมล์. กรุณาลองใหม่อีกครั้ง"
+
+#: /controllers/mails_controller.php:1041
+#: /w2/controllers/mails_controller.php:1090
+msgid "Test mail sent"
+msgstr "ทดสอบส่งจดหมาย"
+
+#: /controllers/mails_controller.php1043;1049
+#: /w2/controllers/mails_controller.php1093;1100
+msgid "Error failed to send test mail"
+msgstr "ข้อผิดพลาด : ล้มเหลวในการทดสอบส่งจดหมาย"
+
+#: /controllers/mails_controller.php:1063
+#: /w2/controllers/mails_controller.php:1112
+msgid "Invalid id for mail"
+msgstr "ID อีเมล์ไม่ถูกต้อง"
+
+#: /controllers/mails_controller.php:1067
+#: /w2/controllers/mails_controller.php:1116
+msgid "Mail deleted"
+msgstr "ลบอีเมล์แล้ว"
+
+#: /controllers/mails_controller.php:1070
+#: /w2/controllers/mails_controller.php:1119
+msgid "Mail was not deleted"
+msgstr "ไม่สามารถลบอีเมล์"
+
+#: /controllers/recipients_controller.php:93 /views/recipients/index.ctp:256
+#: /w2/controllers/recipients_controller.php:103
+#: /w2/views/clicktrack/link.ctp:271 /w2/views/recipients/index.ctp:272
+msgid "Country"
+msgstr "ประเทศ"
+
+#: /controllers/recipients_controller.php:93
+#: /w2/controllers/recipients_controller.php:103
+msgid "Read On"
+msgstr "อ่านเมื่อ"
+
+#: /controllers/recipients_controller.php:93 /views/recipients/index.ctp:279
+#: /views/subscribers/view.ctp:135
+#: /w2/controllers/recipients_controller.php:103
+#: /w2/views/recipients/index.ctp:296 /w2/views/subscribers/view.ctp:141
+msgid "Open Count"
+msgstr "จำนวนเปิด"
+
+#: /controllers/recipients_controller.php:93
+#: /controllers/subscribers_controller.php:290 /views/forms/edit.ctp:23
+#: /views/home/index.ctp:83 /views/importtasks/edit3.ctp:27
+#: /views/recipients/index.ctp:275 /views/subscribers/add.ctp:5
+#: /views/subscribers/import2.ctp:29 /views/subscribers/view.ctp:19
+#: /w2/controllers/recipients_controller.php:103
+#: /w2/controllers/subscribers_controller.php:214
+#: /w2/views/clicktrack/link.ctp:288 /w2/views/forms/edit.ctp:35
+#: /w2/views/home/index.ctp:132 /w2/views/importtasks/edit3.ctp:38
+#: /w2/views/subscribers/add.ctp:14 /w2/views/subscribers/import2.ctp:41
+#: /w2/views/subscribers/view.ctp:29
+msgid "First Name"
+msgstr "ชื่อ"
+
+#: /controllers/recipients_controller.php:93
+#: /controllers/subscribers_controller.php:290 /views/forms/edit.ctp:30
+#: /views/home/index.ctp:84 /views/importtasks/edit3.ctp:27
+#: /views/recipients/index.ctp:276 /views/subscribers/add.ctp:7
+#: /views/subscribers/import2.ctp:29 /views/subscribers/view.ctp:26
+#: /w2/controllers/recipients_controller.php:103
+#: /w2/controllers/subscribers_controller.php:214
+#: /w2/views/clicktrack/link.ctp:289 /w2/views/forms/edit.ctp:42
+#: /w2/views/home/index.ctp:133 /w2/views/importtasks/edit3.ctp:38
+#: /w2/views/recipients/index.ctp:291 /w2/views/subscribers/add.ctp:16
+#: /w2/views/subscribers/import2.ctp:41 /w2/views/subscribers/view.ctp:34
+msgid "Last Name"
+msgstr "นามสกุล"
+
+#: /controllers/recipients_controller.php:93
+#: /controllers/subscribers_controller.php:290 /views/home/index.ctp:85
+#: /views/importtasks/edit3.ctp:27 /views/subscribers/import2.ctp:29
+#: /views/subscribers/view.ctp:33
+#: /w2/controllers/recipients_controller.php:103
+#: /w2/controllers/subscribers_controller.php:214 /w2/views/home/index.ctp:134
+#: /w2/views/importtasks/edit3.ctp:38 /w2/views/subscribers/import2.ctp:41
+#: /w2/views/subscribers/view.ctp:39
+msgid "Mail Address"
+msgstr "ที่อยู่อีเมล์"
+
+#: /controllers/recipients_controller.php:93
+#: /controllers/subscribers_controller.php:290 /views/importtasks/edit3.ctp:27
+#: /views/subscribers/add.ctp:22 /views/subscribers/import2.ctp:29
+#: /views/subscribers/view.ctp:40
+#: /w2/controllers/recipients_controller.php:103
+#: /w2/controllers/subscribers_controller.php:214
+#: /w2/views/importtasks/edit3.ctp:38 /w2/views/subscribers/add.ctp:31
+#: /w2/views/subscribers/import2.ctp:41 /w2/views/subscribers/view.ctp:44
+msgid "Notes"
+msgstr "บันทึก"
+
+#: /controllers/recipients_controller.php:94
+#: /w2/controllers/recipients_controller.php:104
+msgid "Custom Field 1"
+msgstr "ฟิลด์ที่กำหนดเอง 1"
+
+#: /controllers/recipients_controller.php:94
+#: /w2/controllers/recipients_controller.php:104
+msgid "Custom Field 2"
+msgstr "ฟิลด์ที่กำหนดเอง 2"
+
+#: /controllers/recipients_controller.php:94
+#: /w2/controllers/recipients_controller.php:104
+msgid "Custom Field 3"
+msgstr "ฟิลด์ที่กำหนดเอง 3"
+
+#: /controllers/recipients_controller.php:94
+#: /w2/controllers/recipients_controller.php:104
+msgid "Custom Field 4"
+msgstr "ฟิลด์ที่กำหนดเอง 4"
+
+#: /controllers/recipients_controller.php:99
+#: /controllers/subscribers_controller.php:307
+#: /w2/controllers/recipients_controller.php:109
+#: /w2/controllers/subscribers_controller.php:231
+msgid "Please select a least one column"
+msgstr "โปรดเลือกอย่างน้อยหนึ่งคอลัมน์"
+
+#: /controllers/recipients_controller.php:172
+#: /w2/controllers/recipients_controller.php:182
+msgid "No subscribers"
+msgstr "ไม่มีสมาชิก"
+
+#: /controllers/settings_controller.php:14
+#: /w2/controllers/settings_controller.php14;44
+msgid "Settings saved!!!"
+msgstr "บันทึกการตั้งค่าเรียบร้อย"
+
+#: /controllers/settings_controller.php:52
+#: /w2/controllers/settings_controller.php:68
+msgid "Cache cleaned!!!"
+msgstr "อัพแคชเรียบร้อย!"
+
+#: /controllers/subscribers_controller.php53;72;82;96;115;123
+#: /w2/controllers/subscribers_controller.php:43
+msgid "Done"
+msgstr "เสร็จ"
+
+#: /controllers/subscribers_controller.php59;102 /views/subscribers/add.ctp:24
+#: /views/subscribers/edit.ctp:22
+#: /w2/controllers/subscribers_controller.php:49
+#: /w2/views/subscribers/add.ctp:33 /w2/views/subscribers/edit.ctp:33
+msgid "Unsubscribed"
+msgstr "ยกเลิกการเป็นสมาชิก"
+
+#: /controllers/subscribers_controller.php:148
+#: /w2/controllers/subscribers_controller.php:73
+msgid "Please select a least one row"
+msgstr "โปรดเลือกอย่างน้อยหนึ่งแถว"
+
+#: /controllers/subscribers_controller.php179;188;195;204;236;244;253;261;270;525
+#: /w2/controllers/subscribers_controller.php104;113;120;129;161;169;178;186;195;446
+msgid "Please select a category"
+msgstr "กรุณาเลือกหมวดหมู่"
+
+#: /controllers/subscribers_controller.php212;279
+#: /w2/controllers/subscribers_controller.php137;204
+msgid "Please select an action"
+msgstr "กรุณาเลือกกำดำเนินการ"
+
+#: /controllers/subscribers_controller.php:311
+#: /w2/controllers/subscribers_controller.php:235
+msgid "Please select a least one category"
+msgstr "โปรดเลือกอย่างน้อยหนึ่งหมวดหมู่"
+
+#: /controllers/subscribers_controller.php:342
+#: /w2/controllers/subscribers_controller.php:266
+msgid "No subscribers in these categories"
+msgstr "ไม่มีสมาชิกในประเภทเหล่านี้"
+
+#: /controllers/subscribers_controller.php:423 /views/subscribers/index.ctp:23
+#: /w2/controllers/subscribers_controller.php:346
+#: /w2/views/subscribers/index.ctp:19
+msgid "Uncategorized"
+msgstr "ไม่มีหมวดหมู่"
+
+#: /controllers/subscribers_controller.php:449
+#: /w2/controllers/subscribers_controller.php:370
+msgid "Invalide path"
+msgstr "Path ไม่ถูกต้อง"
+
+#: /controllers/subscribers_controller.php:516
+#: /w2/controllers/subscribers_controller.php:437
+msgid "Refresh and Import"
+msgstr "รีเฟรชและนำเข้า"
+
+#: /controllers/subscribers_controller.php:539
+#: /w2/controllers/subscribers_controller.php:459
+msgid "Import Done"
+msgstr "นำเข้าเสร็จ"
+
+#: /controllers/subscribers_controller.php667;743
+#: /w2/controllers/subscribers_controller.php584;659
+msgid "Invalid subscriber"
+msgstr "สมาชิกไม่ถูกต้อง"
+
+#: /controllers/subscribers_controller.php726;748
+#: /w2/controllers/subscribers_controller.php643;664
+msgid "The subscriber has been saved"
+msgstr "บันทึกสมาชิกแล้ว"
+
+#: /controllers/subscribers_controller.php730;751
+#: /w2/controllers/subscribers_controller.php647;667
+msgid "The subscriber could not be saved. Please, try again."
+msgstr "ไม่สามารถบันทึกสมาชิกได้. กรุณาลองใหม่อีกครั้ง"
+
+#: /controllers/subscribers_controller.php:764
+#: /w2/controllers/subscribers_controller.php:679
+msgid "Invalid id for subscriber"
+msgstr "ID สมาชิกผิดพลาด"
+
+#: /controllers/subscribers_controller.php:768
+#: /w2/controllers/subscribers_controller.php:683
+msgid "Subscriber deleted"
+msgstr "ลบสมาชิกแล้ว"
+
+#: /controllers/subscribers_controller.php:771
+#: /w2/controllers/subscribers_controller.php:686
+msgid "Subscriber was not deleted"
+msgstr "ไม่สามารถลบข้อมูลสมาชิก"
+
+#: /controllers/templates_controller.php17;55;96;119;152
+#: /w2/controllers/templates_controller.php24;62;103;126;159
+msgid "Invalid template"
+msgstr "แม่แบบไม่ถูกต้อง"
+
+#: /controllers/templates_controller.php45;108;125
+#: /w2/controllers/templates_controller.php52;115;132
+msgid "The template has been saved"
+msgstr "บันทึกแม่แบบแล้ว"
+
+#: /controllers/templates_controller.php48;111;128
+#: /w2/controllers/templates_controller.php55;118;135
+msgid "The template could not be saved. Please, try again."
+msgstr "ไม่สามารถบันทึกแม่แบบ, กรุณาลองอีกครั้ง"
+
+#: /controllers/templates_controller.php:139
+#: /w2/controllers/templates_controller.php:146
+msgid "Invalid id for template"
+msgstr "ID แม่แบบไม่ถูกต้อง"
+
+#: /controllers/templates_controller.php:143
+#: /w2/controllers/templates_controller.php:150
+msgid "Template deleted"
+msgstr "ลบข้อมูลแม่แบบแล้ว"
+
+#: /controllers/templates_controller.php:146
+#: /w2/controllers/templates_controller.php:153
+msgid "Template was not deleted"
+msgstr "ไม่สามารถลบข้อมูลแม่แบบได้"
+
+#: /controllers/templates_controller.php:197
+#: /w2/controllers/templates_controller.php:204
+msgid "No missing images in this template"
+msgstr "ไม่พบภาพที่ผิดพลาดในแม่แบบนี้"
+
+#: /controllers/users_controller.php33;48
+#: /w2/controllers/users_controller.php33;48
+msgid "The user has been saved"
+msgstr "บันทึกผู้ใช้งานแล้ว"
+
+#: /controllers/users_controller.php36;51
+#: /w2/controllers/users_controller.php36;51
+msgid "The user could not be saved. Please, try again."
+msgstr "ไม่สามารถบันทึกข้อมูลผู้ใช้ กรุณาลองใหม่อีกครั้ง"
+
+#: /controllers/users_controller.php:43
+#: /w2/controllers/users_controller.php:43
+msgid "Invalid user"
+msgstr "ผู้ใช้งานไม่ถูกต้อง"
+
+#: /controllers/users_controller.php:61
+#: /w2/controllers/users_controller.php:61
+msgid "Invalid id for user"
+msgstr "ID ผุ้ใช้งานไม่ถูกต้อง"
+
+#: /controllers/users_controller.php:65
+#: /w2/controllers/users_controller.php:65
+msgid "There must be at least one user"
+msgstr "จะต้องมีผู้ใช้อย่างน้อยหนึ่งคน"
+
+#: /controllers/users_controller.php:68
+#: /w2/controllers/users_controller.php:68
+msgid "User deleted"
+msgstr "ลบผู้ใช้งานแล้ว"
+
+#: /controllers/users_controller.php:71
+#: /w2/controllers/users_controller.php:71
+msgid "User was not deleted"
+msgstr "ไม่สามารถลบข้อมูลผู้ใช้ได้"
+
+#: /plugins/activate/controllers/activate_controller.php:1
+#: /plugins/activate/controllers/activate_controller_1.php:83
+#: /plugins/autoactivate/controllers/autoactivate_controller.php:1
+#: /plugins/autoactivate/controllers/autoactivate_controller_1.php:83
+#: /w2/plugins/activate/controllers/activate_controller.php:1
+#: /w2/plugins/activate/controllers/activate_controller_1.php:83
+msgid "Activate"
+msgstr "ยืนยัน"
+
+#: /plugins/install/controllers/install_controller.php:94
+#: /w2/plugins/install/controllers/install_controller.php:94
+msgid "Installation: Welcome"
+msgstr "การติดตั้ง : ยินดีต้อนรับ"
+
+#: /plugins/install/controllers/install_controller.php:109
+#: /w2/plugins/install/controllers/install_controller.php:109
+msgid "Step 1: Database"
+msgstr "ขั้นตอนที่ 1 : ฐานข้อมูล"
+
+#: /plugins/install/controllers/install_controller.php:146
+#: /w2/plugins/install/controllers/install_controller.php:146
+msgid "Could not write database.php file."
+msgstr "ไม่สามารถเขียนไฟล์ database.php"
+
+#: /plugins/install/controllers/install_controller.php:158
+#: /w2/plugins/install/controllers/install_controller.php:158
+msgid "Step 2: Build database"
+msgstr "ขั้นตอนที่ 2 : สร้างฐานข้อมูล"
+
+#: /plugins/install/controllers/install_controller.php:197
+#: /w2/plugins/install/controllers/install_controller.php:197
+msgid "Installation completed successfully"
+msgstr "การติดตั้งเสร็จเรียบร้อยแล้ว"
+
+#: /plugins/install/controllers/install_controller.php:202
+#: /w2/plugins/install/controllers/install_controller.php:202
+msgid "Installation files deleted successfully."
+msgstr "ไฟล์ติดตั้งถูกลบเรียบร้อยแล้ว"
+
+#: /plugins/install/controllers/install_controller.php:205
+#: /w2/plugins/install/controllers/install_controller.php:205
+msgid "Could not delete installation files."
+msgstr "ไฟล์ติดตั้งยังไม่ถูกลบ"
+
+#: /plugins/install/views/install/data.ctp:5
+#: /w2/plugins/install/views/install/data.ctp:5
+msgid "Click here to build your database"
+msgstr "คลิกที่นี่เพื่อสร้างฐานข้อมูลของคุณ"
+
+#: /plugins/install/views/install/index.ctp:8
+#: /w2/plugins/install/views/install/index.ctp:8
+msgid "Your tmp directory is writable."
+msgstr "ไดเรกทอรี tmp สามารถเขียนได้"
+
+#: /plugins/install/views/install/index.ctp:11
+#: /w2/plugins/install/views/install/index.ctp:11
+msgid "Your tmp directory is NOT writable."
+msgstr "ไดเรกทอรี tmp ไม่สามารถเขียนได้"
+
+#: /plugins/install/views/install/index.ctp:16
+#: /w2/plugins/install/views/install/index.ctp:16
+msgid "Your config directory is writable."
+msgstr "ไดเรกทอรี config ของคุณสามารถเขียนได้"
+
+#: /plugins/install/views/install/index.ctp:19
+#: /w2/plugins/install/views/install/index.ctp:19
+msgid "Your config directory is NOT writable."
+msgstr "ไดเรกทอรี config ของคุณไม่สามารถเขียนได้"
+
+#: /plugins/install/views/install/index.ctp:24
+#: /w2/plugins/install/views/install/index.ctp:24
+msgid "PHP version %s > 5.2"
+msgstr "เวอร์ชั่นของ PHP %s > 5.2"
+
+#: /plugins/install/views/install/index.ctp:27
+#: /w2/plugins/install/views/install/index.ctp:27
+msgid "PHP version %s < 5.2"
+msgstr "PHP version %s < 5.2"
+
+#: /plugins/install/views/install/index.ctp:31
+#: /w2/plugins/install/views/install/index.ctp:31
+msgid "Your core.php is writable."
+msgstr "ไฟล์ core.php ของคุณสามารถเขียนได้"
+
+#: /plugins/install/views/install/index.ctp:34
+#: /w2/plugins/install/views/install/index.ctp:34
+msgid "Your core.php is NOT writable."
+msgstr "ไฟล์ core.php ของคุณไม่สามารถเขียนได้"
+
+#: /plugins/install/views/install/index.ctp:39
+#: /w2/plugins/install/views/install/index.ctp:39
+msgid "Your database.php is writable."
+msgstr "ไฟล์ database.php ของคุณสามารถเขียนได้"
+
+#: /plugins/install/views/install/index.ctp:42
+#: /w2/plugins/install/views/install/index.ctp:42
+msgid "Your database.php is NOT writable."
+msgstr "ไฟล์ database.php ของคุณไม่สามารถเขียนได้"
+
+#: /plugins/install/views/install/index.ctp46;49;53;56
+#: /w2/plugins/install/views/install/index.ctp46;49;53;56
+msgid "Your "
+msgstr "ของคุณ"
+
+#: /plugins/install/views/install/index.ctp:63
+#: /w2/plugins/install/views/install/index.ctp:63
+msgid "Installation cannot continue as minimum requirements are not met."
+msgstr ""
+
+#: /views/campaigns/add.ctp:3 /w2/views/campaigns/add.ctp:6
+msgid "Add Campaign"
+msgstr "เพิ่มแคมเปญ"
+
+#: /views/campaigns/add.ctp:5 /views/configurations/add.ctp:5
+#: /views/configurations/edit.ctp:6 /views/importtasks/add.ctp:5
+#: /views/importtasks/edit.ctp:7 /views/importtasks/edit1.ctp6;37
+#: /views/importtasks/edit2.ctp:6 /views/importtasks/edit3.ctp:6
+#: /views/templates/view.ctp:9 /w2/views/campaigns/add.ctp:15
+#: /w2/views/configurations/add.ctp:15 /w2/views/configurations/edit.ctp:18
+#: /w2/views/importtasks/edit1.ctp:49 /w2/views/templates/view.ctp:9
+msgid "Name"
+msgstr "ชื่อ"
+
+#: /views/campaigns/add.ctp:6 /views/configurations/add.ctp:7
+#: /views/configurations/edit.ctp:8 /views/importtasks/add.ctp:5
+#: /views/importtasks/edit.ctp:7 /views/importtasks/edit1.ctp:6
+#: /views/importtasks/edit2.ctp:6 /views/importtasks/edit3.ctp:6
+#: /w2/views/campaigns/add.ctp:16 /w2/views/configurations/add.ctp:17
+#: /w2/views/configurations/edit.ctp:20
+msgid "Description"
+msgstr "คำอธิบาย"
+
+#: /views/campaigns/add.ctp:7 /w2/views/campaigns/add.ctp:17
+msgid "Start"
+msgstr "เริ่ม"
+
+#: /views/campaigns/add.ctp:8 /w2/views/campaigns/add.ctp:18
+msgid "End"
+msgstr "สิ้นสุด"
+
+#: /views/campaigns/add.ctp:9 /w2/views/campaigns/add.ctp:19
+msgid "Forever"
+msgstr "ตลอดเวลา"
+
+#: /views/campaigns/add.ctp:12 /views/categories/index.ctp:2
+#: /views/forms/edit.ctp:75 /views/layouts/default.ctp153;153
+#: /views/subscribers/export.ctp:19 /w2/views/campaigns/add.ctp:22
+#: /w2/views/categories/index.ctp:5 /w2/views/forms/edit.ctp:87
+#: /w2/views/home/index.ctp:21 /w2/views/layouts/default.ctp182;225
+#: /w2/views/subscribers/export.ctp:31 /w2/views/subscribers/index.ctp:4
+msgid "Categories"
+msgstr "หมวดหมู่"
+
+#: /views/campaigns/add.ctp:22 /w2/views/campaigns/add.ctp:32
+msgid "Send to subscribers"
+msgstr "ส่งให้กับสมาชิกรับจดหมายข่าว"
+
+#: /views/campaigns/add.ctp:22 /w2/views/campaigns/add.ctp:32
+msgid "subscribed before start date"
+msgstr "สมัครก่อนวันเริ่มต้น"
+
+#: /views/campaigns/add.ctp:27 /views/campaigns/edit.ctp:26
+#: /views/categories/add.ctp:11 /views/categories/edit.ctp:11
+#: /views/configurations/add.ctp:108 /views/configurations/edit.ctp:109
+#: /views/forms/add.ctp:10 /views/forms/edit.ctp:111 /views/forms/editm.ctp:30
+#: /views/settings/index.ctp:36 /views/subscribers/add.ctp:30
+#: /views/subscribers/edit.ctp:28 /views/templates/add.ctp:48
+#: /views/templates/edit.ctp:51 /views/users/add.ctp:14
+#: /views/users/edit.ctp:15 /w2/views/campaigns/add.ctp:37
+#: /w2/views/campaigns/edit.ctp:36 /w2/views/categories/add.ctp:20
+#: /w2/views/categories/edit.ctp:22 /w2/views/configurations/add.ctp:118
+#: /w2/views/configurations/edit.ctp:121 /w2/views/forms/add.ctp:20
+#: /w2/views/forms/edit.ctp:123 /w2/views/forms/editm.ctp:39
+#: /w2/views/settings/index.ctp:48 /w2/views/subscribers/add.ctp:39
+#: /w2/views/subscribers/edit.ctp:39 /w2/views/templates/add.ctp:61
+#: /w2/views/templates/edit.ctp:66 /w2/views/users/add.ctp:20
+#: /w2/views/users/edit.ctp:24
+msgid "Save"
+msgstr "บันทึก"
+
+#: /views/campaigns/edit.ctp:3 /views/campaigns/index.ctp59;59
+#: /views/categories/edit.ctp:3 /views/categories/index.ctp:30
+#: /views/configurations/edit.ctp:3 /views/configurations/index.ctp41;41
+#: /views/forms/edit.ctp:3 /views/forms/editm.ctp:3
+#: /views/forms/index.ctp28;28 /views/home/index.ctp62;62;116;116
+#: /views/importtasks/edit.ctp:4 /views/importtasks/edit1.ctp:3
+#: /views/importtasks/edit2.ctp:3 /views/importtasks/edit3.ctp:3
+#: /views/importtasks/index.ctp29;29 /views/mails/campaign.ctp142;142
+#: /views/mails/index.ctp62;62 /views/mails/step1.ctp:3
+#: /views/mails/step2.ctp:1 /views/mails/step3.ctp:27 /views/mails/step4.ctp:1
+#: /views/mails/step5.ctp:1 /views/subscribers/edit.ctp:3
+#: /views/subscribers/index.ctp88;88;105 /views/templates/edit.ctp:3
+#: /views/templates/index.ctp18;18 /views/users/edit.ctp:3
+#: /views/users/index.ctp32;32 /w2/views/campaigns/edit.ctp:9
+#: /w2/views/campaigns/index.ctp77;77 /w2/views/categories/edit.ctp:8
+#: /w2/views/categories/index.ctp48;48 /w2/views/configurations/edit.ctp:9
+#: /w2/views/configurations/inbox.ctp43;43
+#: /w2/views/configurations/index.ctp66;66 /w2/views/forms/edit.ctp:9
+#: /w2/views/forms/editm.ctp:8 /w2/views/forms/index.ctp55;55
+#: /w2/views/home/index.ctp97;97;167;167 /w2/views/importtasks/edit.ctp:18
+#: /w2/views/importtasks/edit1.ctp:18 /w2/views/importtasks/edit2.ctp:18
+#: /w2/views/importtasks/edit3.ctp:18 /w2/views/importtasks/index.ctp47;47
+#: /w2/views/mails/campaign.ctp236;236 /w2/views/mails/index.ctp95;95
+#: /w2/views/mails/step1.ctp:23 /w2/views/mails/step2.ctp:24
+#: /w2/views/mails/step3.ctp:63 /w2/views/mails/step4.ctp:23
+#: /w2/views/mails/step5.ctp:23 /w2/views/subscribers/edit.ctp:8
+#: /w2/views/subscribers/index.ctp100;100;124
+#: /w2/views/subscribers/view.ctp:18 /w2/views/templates/edit.ctp:9
+#: /w2/views/templates/index.ctp52;52 /w2/views/users/edit.ctp:8
+#: /w2/views/users/index.ctp52;52
+msgid "Delete"
+msgstr "ลบ"
+
+#: /views/campaigns/edit.ctp:3 /views/campaigns/index.ctp:59
+#: /views/categories/edit.ctp:3 /views/categories/index.ctp:30
+#: /views/configurations/edit.ctp:3 /views/configurations/index.ctp:41
+#: /views/forms/edit.ctp:3 /views/forms/editm.ctp:3 /views/forms/index.ctp:28
+#: /views/home/index.ctp62;116 /views/importtasks/edit.ctp:4
+#: /views/importtasks/edit1.ctp:3 /views/importtasks/edit2.ctp:3
+#: /views/importtasks/edit3.ctp:3 /views/importtasks/index.ctp:29
+#: /views/mails/campaign.ctp:142 /views/mails/index.ctp:62
+#: /views/mails/step1.ctp:3 /views/mails/step2.ctp:1 /views/mails/step3.ctp:27
+#: /views/mails/step4.ctp:1 /views/mails/step5.ctp:1
+#: /views/subscribers/edit.ctp:3 /views/subscribers/index.ctp:88
+#: /views/templates/edit.ctp:3 /views/templates/index.ctp:18
+#: /views/users/edit.ctp:3 /views/users/index.ctp:32
+#: /w2/views/campaigns/edit.ctp:9 /w2/views/campaigns/index.ctp:77
+#: /w2/views/categories/edit.ctp:8 /w2/views/categories/index.ctp:48
+#: /w2/views/configurations/edit.ctp:9 /w2/views/configurations/inbox.ctp:43
+#: /w2/views/configurations/index.ctp:66 /w2/views/forms/edit.ctp:9
+#: /w2/views/forms/editm.ctp:8 /w2/views/forms/index.ctp:55
+#: /w2/views/home/index.ctp97;167 /w2/views/importtasks/edit.ctp:18
+#: /w2/views/importtasks/edit1.ctp:18 /w2/views/importtasks/edit2.ctp:18
+#: /w2/views/importtasks/edit3.ctp:18 /w2/views/importtasks/index.ctp:47
+#: /w2/views/mails/campaign.ctp:236 /w2/views/mails/index.ctp:95
+#: /w2/views/mails/step1.ctp:23 /w2/views/mails/step2.ctp:24
+#: /w2/views/mails/step3.ctp:63 /w2/views/mails/step4.ctp:23
+#: /w2/views/mails/step5.ctp:23 /w2/views/subscribers/edit.ctp:8
+#: /w2/views/subscribers/index.ctp:100 /w2/views/subscribers/view.ctp:18
+#: /w2/views/templates/edit.ctp:9 /w2/views/templates/index.ctp:52
+#: /w2/views/users/edit.ctp:8 /w2/views/users/index.ctp:52
+msgid "Are you sure you want to delete # %s?"
+msgstr "คุณแน่ใจว่าต้องการลบ # %s?"
+
+#: /views/campaigns/edit.ctp:5 /views/mails/campaign.ctp:9
+#: /w2/views/campaigns/edit.ctp:6 /w2/views/mails/campaign.ctp:42
+msgid "Edit Campaign"
+msgstr "แก้ไขแคมเปญ"
+
+#: /views/campaigns/index.ctp:2 /w2/views/campaigns/index.ctp:14
+msgid "New Campaign"
+msgstr "แคมเปญใหม่"
+
+#: /views/campaigns/index.ctp:3 /views/home/index.ctp:3
+#: /views/mails/campaign.ctp:11 /views/mails/index.ctp:4
+#: /w2/views/campaigns/index.ctp:15
+msgid "Run newsletter mailing job"
+msgstr "เริ่มงานส่งจดหมายข่าว"
+
+#: /views/campaigns/index.ctp:5 /views/layouts/default.ctp:179
+#: /w2/views/campaigns/index.ctp:6 /w2/views/home/index.ctp:17
+#: /w2/views/layouts/default.ctp169;223
+msgid "Campaigns"
+msgstr "แคมเปญ"
+
+#: /views/campaigns/index.ctp:8 /views/home/index.ctp:13
+#: /views/mails/campaign.ctp:95 /views/subscribers/index.ctp:40
+#: /w2/views/campaigns/index.ctp:25 /w2/views/home/index.ctp:48
+#: /w2/views/mails/campaign.ctp:177 /w2/views/subscribers/index.ctp:151
+msgid "Status"
+msgstr "สถานะ"
+
+#: /views/campaigns/index.ctp:12 /views/mails/campaign.ctp:46
+#: /w2/views/campaigns/index.ctp:29 /w2/views/mails/campaign.ctp:56
+msgid "Time span"
+msgstr "ช่วงเวลา"
+
+#: /views/campaigns/index.ctp:13 /views/categories/index.ctp:9
+#: /views/configurations/index.ctp:18 /views/forms/index.ctp:8
+#: /views/home/index.ctp20;89 /views/importtasks/index.ctp:12
+#: /views/mails/campaign.ctp:102 /views/mails/index.ctp:15
+#: /views/recipients/index.ctp:282 /views/subscribers/index.ctp:56
+#: /views/subscribers/view.ctp136;183 /views/users/index.ctp:12
+#: /w2/views/campaigns/index.ctp:30 /w2/views/categories/index.ctp:27
+#: /w2/views/clicktrack/link.ctp:295 /w2/views/configurations/inbox.ctp:24
+#: /w2/views/configurations/index.ctp:36 /w2/views/forms/index.ctp:28
+#: /w2/views/home/index.ctp55;138 /w2/views/importtasks/index.ctp:30
+#: /w2/views/mails/campaign.ctp:184 /w2/views/mails/index.ctp:49
+#: /w2/views/recipients/index.ctp:297 /w2/views/subscribers/index.ctp:67
+#: /w2/views/subscribers/view.ctp142;198 /w2/views/users/index.ctp:33
+msgid "Actions"
+msgstr "ดำเนินการ"
+
+#: /views/campaigns/index.ctp:36 /views/mails/campaign.ctp:25
+#: /w2/views/campaigns/index.ctp:54 /w2/views/mails/campaign.ctp:30
+msgid "Expired"
+msgstr "หมดอายุ"
+
+#: /views/campaigns/index.ctp:39 /views/mails/campaign.ctp:28
+#: /w2/views/campaigns/index.ctp:57 /w2/views/mails/campaign.ctp:33
+msgid "Active"
+msgstr "ทำงานอยู่"
+
+#: /views/campaigns/index.ctp:42 /views/home/index.ctp:40
+#: /views/mails/campaign.ctp:31 /views/mails/index.ctp:40
+#: /w2/views/campaigns/index.ctp:59 /w2/views/home/index.ctp:77
+#: /w2/views/mails/campaign.ctp:35 /w2/views/mails/index.ctp:73
+msgid "Scheduled"
+msgstr "ตารางการดำเนินงาน"
+
+#: /views/campaigns/index.ctp50;52 /views/mails/campaign.ctp50;52
+#: /w2/views/campaigns/index.ctp68;70 /w2/views/mails/campaign.ctp61;63
+msgid "to"
+msgstr "ถึง"
+
+#: /views/campaigns/index.ctp:52 /views/mails/campaign.ctp:52
+#: /w2/views/campaigns/index.ctp:70 /w2/views/mails/campaign.ctp:63
+msgid "an indefinite time"
+msgstr "ยังไม่การกำหนดเวลา"
+
+#: /views/campaigns/index.ctp57;57 /w2/views/campaigns/index.ctp75;75
+msgid "View Newsletters"
+msgstr "ดูจดหมายข่าว"
+
+#: /views/campaigns/index.ctp58;58 /views/categories/index.ctp:29
+#: /views/configurations/index.ctp39;39 /views/home/index.ctp60;60;115;115
+#: /views/importtasks/index.ctp28;28 /views/mails/campaign.ctp114;140
+#: /views/mails/index.ctp27;60 /views/subscribers/index.ctp87;87
+#: /views/templates/index.ctp17;17 /views/users/index.ctp31;31
+#: /w2/views/campaigns/index.ctp76;76 /w2/views/categories/index.ctp47;47
+#: /w2/views/configurations/index.ctp65;65 /w2/views/forms/index.ctp51;51
+#: /w2/views/home/index.ctp67;166;166 /w2/views/importtasks/index.ctp46;46
+#: /w2/views/mails/campaign.ctp196;202 /w2/views/mails/index.ctp:61
+#: /w2/views/subscribers/index.ctp99;99 /w2/views/templates/index.ctp51;51
+#: /w2/views/users/index.ctp51;51
+msgid "Edit"
+msgstr "แก้ไข"
+
+#: /views/campaigns/index.ctp:67 /views/categories/index.ctp:38
+#: /views/configurations/index.ctp:54 /views/forms/index.ctp:37
+#: /views/importtasks/index.ctp:38 /views/mails/campaign.ctp:150
+#: /views/mails/index.ctp:70 /views/recipients/index.ctp:325
+#: /views/subscribers/index.ctp:123 /views/templates/index.ctp:31
+#: /views/users/index.ctp:40
+msgid ""
+"Page %page% of %pages%, showing %current% records out of %count% total, "
+"starting on record %start%, ending on %end%"
+msgstr "หน้า %page% จากทั้งหมด %pages%, แสดง %current% รายการจากทั้งหมด %count% รายการ, เริ่มต้นรายการที่ %start%, สิ้นสุดรายการที่ %end%"
+
+#: /views/campaigns/index.ctp:72 /views/categories/index.ctp:43
+#: /views/configurations/index.ctp:59 /views/forms/index.ctp:42
+#: /views/importtasks/index.ctp:43 /views/mails/campaign.ctp:155
+#: /views/mails/index.ctp:75 /views/recipients/index.ctp:330
+#: /views/subscribers/index.ctp:128 /views/templates/index.ctp:36
+#: /views/users/index.ctp:45 /w2/views/campaigns/index.ctp:83
+#: /w2/views/categories/index.ctp:54 /w2/views/clicktrack/link.ctp:339
+#: /w2/views/clicktrack/recipient.ctp:46 /w2/views/configurations/inbox.ctp:54
+#: /w2/views/configurations/index.ctp:79 /w2/views/forms/index.ctp:62
+#: /w2/views/importtasks/index.ctp:54 /w2/views/mails/campaign.ctp:242
+#: /w2/views/mails/index.ctp:102 /w2/views/recipients/index.ctp:342
+#: /w2/views/subscribers/index.ctp:108 /w2/views/users/index.ctp:58
+msgid "previous"
+msgstr "หน้าที่แล้ว"
+
+#: /views/campaigns/index.ctp:75 /views/categories/index.ctp:46
+#: /views/configurations/index.ctp:62 /views/forms/index.ctp:45
+#: /views/importtasks/index.ctp:46 /views/mails/campaign.ctp:158
+#: /views/mails/index.ctp:78 /views/recipients/index.ctp:333
+#: /views/subscribers/index.ctp:131 /views/templates/index.ctp:39
+#: /views/users/index.ctp:48 /w2/views/campaigns/index.ctp:86
+#: /w2/views/categories/index.ctp:57 /w2/views/clicktrack/link.ctp:342
+#: /w2/views/clicktrack/recipient.ctp:49 /w2/views/configurations/inbox.ctp:60
+#: /w2/views/configurations/index.ctp:82 /w2/views/forms/index.ctp:65
+#: /w2/views/importtasks/index.ctp:57 /w2/views/mails/campaign.ctp:245
+#: /w2/views/mails/index.ctp:105 /w2/views/recipients/index.ctp:345
+#: /w2/views/subscribers/index.ctp:111 /w2/views/users/index.ctp:61
+msgid "next"
+msgstr "หน้าต่อไป"
+
+#: /views/categories/add.ctp:3 /w2/views/categories/add.ctp:5
+msgid "Add Category"
+msgstr "เพิ่มหมวดหมู่"
+
+#: /views/categories/edit.ctp:3 /w2/views/categories/edit.ctp:5
+msgid "Edit Category"
+msgstr "หมวดหมู่แก้ไข"
+
+#: /views/categories/index.ctp:2 /views/forms/index.ctp:2
+#: /views/home/index.ctp:2 /views/mails/campaign.ctp:92
+#: /views/mails/index.ctp:3 /views/subscribers/index.ctp:4
+#: /views/templates/index.ctp:3 /views/users/index.ctp:2
+msgid "Add"
+msgstr "เพิ่ม"
+
+#: /views/categories/index.ctp:2 /w2/views/categories/index.ctp:13
+msgid "New Category"
+msgstr "หมวดหมู่ใหม่"
+
+#: /views/categories/index.ctp25;25 /w2/views/categories/index.ctp44;44
+msgid "Split in to A/B Category"
+msgstr "แบ่งเป็นหมวดหมู่ A/B"
+
+#: /views/categories/index.ctp:27 /views/home/index.ctp114;114
+#: /views/recipients/index.ctp317;317 /views/subscribers/index.ctp86;86
+#: /w2/views/categories/index.ctp45;45
+#: /w2/views/clicktrack/link.ctp330;330;331
+#: /w2/views/configurations/inbox.ctp42;42 /w2/views/forms/index.ctp46;46
+#: /w2/views/home/index.ctp96;165;165 /w2/views/mails/campaign.ctp:234
+#: /w2/views/mails/index.ctp:93 /w2/views/mails/sendstatus.ctp:273
+#: /w2/views/recipients/index.ctp333;333;334
+#: /w2/views/subscribers/index.ctp98;98
+msgid "View"
+msgstr "ดู"
+
+#: /views/categories/index.ctp:27
+msgid "List subscribers in"
+msgstr "รายชื่ออีเมล์ล่าสุดใน"
+
+#: /views/categories/index.ctp:29
+msgid "Edit category"
+msgstr "หมวดหมู่แก้ไข"
+
+#: /views/categories/index.ctp:30
+msgid "Delete category"
+msgstr "ลบหมวดหมู่"
+
+#: /views/configurations/add.ctp:3 /w2/views/configurations/add.ctp:6
+msgid "Add Configuration"
+msgstr "เพิ่มการตั้งค่าคอนฟิก"
+
+#: /views/configurations/add.ctp:9 /views/configurations/edit.ctp:10
+#: /w2/views/configurations/add.ctp:19 /w2/views/configurations/edit.ctp:22
+#: /w2/views/configurations/inbox.ctp:18
+msgid "From"
+msgstr "จาก"
+
+#: /views/configurations/add.ctp:13 /views/configurations/edit.ctp:14
+#: /w2/views/configurations/add.ctp:23 /w2/views/configurations/edit.ctp:26
+msgid ""
+"You can set the display name by using this tag: Display Name "
+"&lt;email@domain.com&gt;"
+msgstr "คุณสามารถตั้งชื่อที่แสดงในอีเมลโดยใช้แท็กนี้: ชื่อที่ต้องการให้แสดง &lt;email@domain.com&gt;"
+
+#: /views/configurations/add.ctp:16 /views/configurations/edit.ctp:17
+#: /w2/views/configurations/add.ctp:26 /w2/views/configurations/edit.ctp:29
+msgid "Reply To"
+msgstr "ตอบ"
+
+#: /views/configurations/add.ctp:18 /views/configurations/edit.ctp:19
+#: /w2/views/configurations/add.ctp:28 /w2/views/configurations/edit.ctp:31
+msgid "Delivery"
+msgstr "การส่ง"
+
+#: /views/configurations/add.ctp:22 /views/configurations/edit.ctp:23
+#: /w2/views/configurations/add.ctp:32 /w2/views/configurations/edit.ctp:35
+msgid "SMTP Settings"
+msgstr "ตั้งค่า SMTP"
+
+#: /views/configurations/add.ctp:23 /views/configurations/edit.ctp:24
+#: /views/importtasks/edit1.ctp:31 /w2/views/configurations/add.ctp:33
+#: /w2/views/configurations/edit.ctp:36 /w2/views/importtasks/edit1.ctp:43
+msgid "Host"
+msgstr "โฮสต์"
+
+#: /views/configurations/add.ctp:27 /views/configurations/edit.ctp:28
+#: /w2/views/configurations/add.ctp:37 /w2/views/configurations/edit.ctp:40
+msgid "For example ssl://smtp.gmail.com"
+msgstr "ตัวอย่าง ssl://smtp.gmail.com"
+
+#: /views/configurations/add.ctp:30 /views/configurations/edit.ctp:31
+#: /w2/views/configurations/add.ctp:40 /w2/views/configurations/edit.ctp:43
+msgid "Port"
+msgstr "พอร์ต"
+
+#: /views/configurations/add.ctp:32 /views/configurations/edit.ctp:33
+#: /w2/views/configurations/add.ctp:42 /w2/views/configurations/edit.ctp:45
+msgid "Smtp Auth"
+msgstr "Smtp Auth"
+
+#: /views/configurations/add.ctp:34 /views/configurations/edit.ctp:35
+#: /views/users/add.ctp:5 /w2/views/configurations/add.ctp:44
+#: /w2/views/configurations/edit.ctp:47 /w2/views/users/add.ctp:11
+msgid "Username"
+msgstr "ชื่อผู้ใช้"
+
+#: /views/configurations/add.ctp:36 /views/configurations/edit.ctp:37
+#: /views/importtasks/edit1.ctp:35 /views/users/add.ctp:6
+#: /w2/views/configurations/add.ctp:46 /w2/views/configurations/edit.ctp:49
+#: /w2/views/importtasks/edit1.ctp:47 /w2/views/users/add.ctp:12
+msgid "Password"
+msgstr "รหัสผ่าน"
+
+#: /views/configurations/add.ctp:43 /views/configurations/edit.ctp:44
+#: /w2/views/configurations/add.ctp:53 /w2/views/configurations/edit.ctp:56
+msgid "Aws Access Key"
+msgstr "Aws Access Key"
+
+#: /views/configurations/add.ctp:45 /views/configurations/edit.ctp:46
+#: /w2/views/configurations/add.ctp:55 /w2/views/configurations/edit.ctp:58
+msgid "Aws Secret Key"
+msgstr "Aws Secret Key"
+
+#: /views/configurations/add.ctp:52 /views/configurations/edit.ctp:53
+#: /w2/views/configurations/add.ctp:62 /w2/views/configurations/edit.ctp:65
+msgid "Sendmail Path"
+msgstr "พาทโปรแกรมส่งเมล"
+
+#: /views/configurations/add.ctp:56 /views/configurations/edit.ctp:57
+#: /w2/views/configurations/add.ctp:66 /w2/views/configurations/edit.ctp:69
+msgid "Most servers use: /usr/sbin/sendmail -bs"
+msgstr "เซิร์ฟเวอร์ส่วนใหญ่ใช้: /usr/sbin/sendmail -bs"
+
+#: /views/configurations/add.ctp:63 /views/configurations/edit.ctp:64
+#: /w2/views/configurations/add.ctp:73 /w2/views/configurations/edit.ctp:76
+msgid "Mails Per Connection"
+msgstr "อีเมลต่อการเชื่อมต่อ"
+
+#: /views/configurations/add.ctp:68 /views/configurations/edit.ctp:69
+#: /w2/views/configurations/add.ctp:78 /w2/views/configurations/edit.ctp:81
+msgid "Limits"
+msgstr "จำกัด"
+
+#: /views/configurations/add.ctp:68 /views/configurations/edit.ctp:69
+#: /w2/views/configurations/add.ctp:78 /w2/views/configurations/edit.ctp:81
+msgid "mails per"
+msgstr "ต่ออีเมล"
+
+#: /views/configurations/add.ctp:68 /views/configurations/edit.ctp:69
+#: /w2/views/configurations/add.ctp:78 /w2/views/configurations/edit.ctp:81
+msgid "minutes"
+msgstr "นาที"
+
+#: /views/configurations/add.ctp:70 /views/configurations/edit.ctp:71
+#: /w2/views/configurations/add.ctp:80 /w2/views/configurations/edit.ctp:83
+msgid "Please enter a number"
+msgstr "กรุณาใส่ตัวเลข"
+
+#: /views/configurations/add.ctp:72 /views/configurations/edit.ctp:73
+#: /w2/views/configurations/add.ctp:82 /w2/views/configurations/edit.ctp:85
+msgid "Inbox connection"
+msgstr "การเชื่อมต่อกล่องขาเข้า"
+
+#: /views/configurations/add.ctp:73 /views/configurations/edit.ctp:74
+#: /w2/views/configurations/add.ctp:83 /w2/views/configurations/edit.ctp:86
+#: /w2/views/configurations/inbox.ctp:8 /w2/views/home/index.ctp:22
+msgid "Inbox"
+msgstr "กล่องขาเข้า"
+
+#: /views/configurations/add.ctp:75 /views/configurations/edit.ctp:76
+#: /w2/views/configurations/add.ctp:85 /w2/views/configurations/edit.ctp:88
+msgid "Inbox Host"
+msgstr "โอสต์กล่องขาเข้า"
+
+#: /views/configurations/add.ctp:77 /views/configurations/edit.ctp:78
+#: /w2/views/configurations/add.ctp:87 /w2/views/configurations/edit.ctp:90
+msgid "Inbox Port"
+msgstr "พอร์ทกล่องขาเข้า"
+
+#: /views/configurations/add.ctp:79 /views/configurations/edit.ctp:80
+#: /w2/views/configurations/add.ctp:89 /w2/views/configurations/edit.ctp:92
+msgid "Inbox Service"
+msgstr "บริการกล่องขาเข้า"
+
+#: /views/configurations/add.ctp:81 /views/configurations/edit.ctp:82
+#: /w2/views/configurations/add.ctp:91 /w2/views/configurations/edit.ctp:94
+msgid "Inbox Settings"
+msgstr "ตั้งค่ากล่องขาเข้า"
+
+#: /views/configurations/add.ctp:83 /views/configurations/edit.ctp:84
+#: /w2/views/configurations/add.ctp:93 /w2/views/configurations/edit.ctp:96
+msgid "do not use rsh or ssh to establish a preauthenticated IMAP session"
+msgstr ""
+
+#: /views/configurations/add.ctp:84 /views/configurations/edit.ctp:85
+#: /w2/views/configurations/add.ctp:94 /w2/views/configurations/edit.ctp:97
+msgid "use the Secure Socket Layer to encrypt the session"
+msgstr ""
+
+#: /views/configurations/add.ctp:85 /views/configurations/edit.ctp:86
+#: /w2/views/configurations/add.ctp:95 /w2/views/configurations/edit.ctp:98
+msgid ""
+"do not validate certificates from TLS/SSL server, needed if server uses "
+"self-signed certificates"
+msgstr ""
+
+#: /views/configurations/add.ctp:86 /views/configurations/edit.ctp:87
+#: /w2/views/configurations/add.ctp:96 /w2/views/configurations/edit.ctp:99
+msgid ""
+"force use of start-TLS to encrypt the session, and reject connection to "
+"servers that do not support it"
+msgstr ""
+
+#: /views/configurations/add.ctp:87 /views/configurations/edit.ctp:88
+#: /w2/views/configurations/add.ctp:97 /w2/views/configurations/edit.ctp:100
+msgid ""
+"do not do start-TLS to encrypt the session, even with servers that support "
+"it"
+msgstr ""
+
+#: /views/configurations/add.ctp:88 /views/configurations/edit.ctp:89
+#: /w2/views/configurations/add.ctp:98 /w2/views/configurations/edit.ctp:101
+msgid ""
+"request read-only mailbox open (IMAP only; ignored on NNTP, and an error "
+"POP3)"
+msgstr ""
+
+#: /views/configurations/add.ctp:92 /views/configurations/edit.ctp:93
+#: /w2/views/configurations/add.ctp:102 /w2/views/configurations/edit.ctp:105
+msgid "Mailbox"
+msgstr "กล่องจดหมาย"
+
+#: /views/configurations/add.ctp:96 /views/configurations/edit.ctp:97
+#: /w2/views/configurations/add.ctp:106 /w2/views/configurations/edit.ctp:109
+msgid "Mostly empty"
+msgstr "ส่วนใหญ่ปล่อยว่างไว้"
+
+#: /views/configurations/add.ctp:99 /views/configurations/edit.ctp:100
+#: /w2/views/configurations/add.ctp:109 /w2/views/configurations/edit.ctp:112
+msgid "Inbox Username"
+msgstr "ชื่อผู้ใช้กล่องขาเข้า"
+
+#: /views/configurations/add.ctp:101 /views/configurations/edit.ctp:102
+#: /w2/views/configurations/add.ctp:111 /w2/views/configurations/edit.ctp:114
+msgid "Inbox Password"
+msgstr "รหัสผ่านผู้ใช้กล่องขาเข้า"
+
+#: /views/configurations/add.ctp:103 /views/configurations/edit.ctp:104
+#: /w2/views/configurations/add.ctp:113 /w2/views/configurations/edit.ctp:116
+msgid "Inbox Wait"
+msgstr "รอกล่องขาเข้า"
+
+#: /views/configurations/edit.ctp:3 /w2/views/configurations/edit.ctp:6
+msgid "Edit Configuration"
+msgstr "แก้ไขการตั้งค่า"
+
+#: /views/configurations/index.ctp4;6 /views/home/index.ctp3;4;5
+#: /views/importtasks/index.ctp2;3 /views/mails/campaign.ctp9;11
+#: /views/mails/index.ctp:4 /views/mails/sendstatus.ctp:26
+#: /views/recipients/index.ctp:244 /views/subscribers/cleanup.ctp3;4
+#: /w2/views/subscribers/cleanup.ctp:12
+msgid "conf"
+msgstr "conf"
+
+#: /views/configurations/index.ctp:4 /w2/views/configurations/index.ctp:17
+msgid "New Configuration"
+msgstr "ตั้งค่าคอนฟิกใหม่"
+
+#: /views/configurations/index.ctp:6 /w2/views/configurations/index.ctp:20
+msgid "Look for bounce mails on all servers"
+msgstr "ดูอีเมลตีกลับบนเซิร์ฟเวอร์ทั้งหมด"
+
+#: /views/configurations/index.ctp:9 /views/layouts/default.ctp:100
+#: /w2/views/configurations/index.ctp:6
+msgid "Configurations"
+msgstr "การกำหนดค่า"
+
+#: /views/configurations/index.ctp:12 /w2/views/configurations/index.ctp:30
+msgid "OUT"
+msgstr "ออก"
+
+#: /views/configurations/index.ctp:13 /w2/views/configurations/index.ctp:31
+msgid "IN"
+msgstr "เข้า"
+
+#: /views/configurations/index.ctp30;31;31
+#: /w2/views/configurations/index.ctp49;54;54
+msgid "Wait"
+msgstr "รอ"
+
+#: /views/configurations/index.ctp:30 /w2/views/configurations/index.ctp:49
+msgid "You can send %s Mails in the next"
+msgstr "คุณสามารถส่งอีเมล์ %s ในครั้งต่อไป"
+
+#: /views/configurations/index.ctp30;31 /views/mails/campaign.ctp124;127
+#: /w2/views/configurations/index.ctp51;56 /w2/views/mails/campaign.ctp218;220
+msgid "Ready"
+msgstr "พร้อม"
+
+#: /views/configurations/index.ctp43;43
+#: /w2/views/configurations/index.ctp67;67
+msgid "Unblock"
+msgstr "ปลดล๊อค"
+
+#: /views/configurations/index.ctp:43
+msgid "Are you sure you want to unblock # %s?"
+msgstr "คุณต้องการที่จะปลดล๊อค # %s?"
+
+#: /views/configurations/index.ctp:45
+msgid "Test"
+msgstr "ทดสอบ"
+
+#: /views/configurations/index.ctp:45
+#: /w2/views/configurations/index.ctp70;70;72
+msgid "Test settings"
+msgstr "ทดสอบการตั้งค่า"
+
+#: /views/configurations/index.ctp:46
+msgid "Check bounce"
+msgstr "ตรวจสอบการตีกลับ"
+
+#: /views/configurations/index.ctp:46
+msgid "Look for bounce mails on"
+msgstr "ดูอีเมลตีกลับบน"
+
+#: /views/errors/error404.ctp:22 /views/errors/error500.ctp:22
+#: /views/forms/edit.ctp:66 /w2/views/errors/error404.ctp:22
+#: /w2/views/errors/error500.ctp:22 /w2/views/forms/edit.ctp:78
+msgid "Error"
+msgstr "มีข้อผิดพลาด"
+
+#: /views/errors/error404.ctp:23 /w2/views/errors/error404.ctp:23
+msgid "The requested address %s was not found on this server."
+msgstr ""
+
+#: /views/errors/error500.ctp:23 /w2/views/errors/error500.ctp:23
+msgid "An Internal Error Has Occurred."
+msgstr ""
+
+#: /views/filemanager/index.ctp23;57 /views/forms/edit.ctp:123
+#: /views/forms/editm.ctp:41 /views/mails/step3.ctp177;201;227;251
+#: /views/templates/add.ctp:59 /views/templates/edit.ctp:62
+#: /w2/views/configurations/mail.ctp:47 /w2/views/filemanager/index.ctp23;57
+#: /w2/views/forms/edit.ctp:135 /w2/views/forms/editm.ctp:50
+#: /w2/views/mails/step3.ctp214;239;267;292 /w2/views/templates/add.ctp:72
+#: /w2/views/templates/edit.ctp:78
+msgid "en"
+msgstr ""
+
+#: /views/forms/add.ctp:3 /w2/views/forms/add.ctp:6
+msgid "Add Form"
+msgstr "เพิ่มฟอร์ม"
+
+#: /views/forms/edit.ctp:3 /w2/views/forms/edit.ctp:6
+msgid "Edit Form"
+msgstr "แก้ไขแบบฟอร์ม"
+
+#: /views/forms/edit.ctp:7 /views/importtasks/edit3.ctp:17
+#: /views/subscribers/import2.ctp:18 /w2/views/forms/edit.ctp:19
+#: /w2/views/importtasks/edit3.ctp:28 /w2/views/subscribers/import2.ctp:30
+msgid "Subscription Form"
+msgstr "แบบฟอร์มการสมัครรับจดหมายข่าว"
+
+#: /views/forms/edit.ctp:10 /w2/views/forms/edit.ctp:22
+msgid "E-Mail"
+msgstr "อีเมล"
+
+#: /views/forms/edit.ctp:11 /w2/views/forms/edit.ctp:23
+msgid "E-mail Label"
+msgstr "ชื่ออีเมล"
+
+#: /views/forms/edit.ctp:14 /w2/views/forms/edit.ctp:26
+msgid "E-mail Exist"
+msgstr "อีเมลนี้มีแล้ว"
+
+#: /views/forms/edit.ctp:15 /w2/views/forms/edit.ctp:27
+msgid "You have already subscribed this newsletter"
+msgstr "คุณได้สมัครรับจดหมายข่าวไว้แล้ว"
+
+#: /views/forms/edit.ctp:17 /w2/views/forms/edit.ctp:29
+msgid "Update Subscriptions"
+msgstr "อัพเดทสมาชิกรับจดหมายข่าว"
+
+#: /views/forms/edit.ctp:19 /w2/views/forms/edit.ctp:31
+msgid "Update Informations"
+msgstr "อัพเดทข้อมูล"
+
+#: /views/forms/edit.ctp:21 /w2/views/forms/edit.ctp:33
+msgid "E-mail Error"
+msgstr "มีข้อผิดพลาดของอีเมล"
+
+#: /views/forms/edit.ctp:24 /w2/views/forms/edit.ctp:36
+msgid "First Name Label"
+msgstr "ชื่อจริง"
+
+#: /views/forms/edit.ctp:26 /w2/views/forms/edit.ctp:38
+msgid "First Name Error"
+msgstr "มีข้อผิดพลาด ชื่อจริง"
+
+#: /views/forms/edit.ctp:28 /w2/views/forms/edit.ctp:40
+msgid "First Name Required"
+msgstr "จำเป็นต้องใส่ ชื่อจริง"
+
+#: /views/forms/edit.ctp:31 /w2/views/forms/edit.ctp:43
+msgid "Last Name Label"
+msgstr "นามสกุล"
+
+#: /views/forms/edit.ctp:33 /w2/views/forms/edit.ctp:45
+msgid "Last Name Error"
+msgstr "มีข้อผิดพลาด นามสกุล"
+
+#: /views/forms/edit.ctp:35 /w2/views/forms/edit.ctp:47
+msgid "Last Name Required"
+msgstr "จำเป็นต้องใส่ นามสกุล"
+
+#: /views/forms/edit.ctp:38 /w2/views/forms/edit.ctp:50
+msgid "Captcha"
+msgstr "Captcha"
+
+#: /views/forms/edit.ctp:39 /w2/views/forms/edit.ctp:51
+msgid "Captcha Label"
+msgstr "ชื่อ Captcha"
+
+#: /views/forms/edit.ctp:41 /w2/views/forms/edit.ctp:53
+msgid "Captcha Error"
+msgstr "มีข้อผิดพลาด Captcha"
+
+#: /views/forms/edit.ctp:42 /w2/views/forms/edit.ctp:54
+msgid "Please solve this captcha"
+msgstr ""
+
+#: /views/forms/edit.ctp:43 /w2/views/forms/edit.ctp:55
+msgid "Captcha Show"
+msgstr "แสดง Captcha"
+
+#: /views/forms/edit.ctp:46 /w2/views/forms/edit.ctp:58
+msgid "Required Checkbox"
+msgstr ""
+
+#: /views/forms/edit.ctp:47 /w2/views/forms/edit.ctp:59
+msgid "Checkbox Label"
+msgstr ""
+
+#: /views/forms/edit.ctp:48 /w2/views/forms/edit.ctp:60
+msgid "I accept the Terms of Service"
+msgstr "ฉันยอมรับข้อตกลงและเงื่อนไขในการให้บริการ"
+
+#: /views/forms/edit.ctp:49 /w2/views/forms/edit.ctp:61
+msgid "Checkbox Error"
+msgstr ""
+
+#: /views/forms/edit.ctp:50 /w2/views/forms/edit.ctp:62
+msgid "Please check this checkbox"
+msgstr ""
+
+#: /views/forms/edit.ctp:51 /w2/views/forms/edit.ctp:63
+msgid "Checkbox Show"
+msgstr ""
+
+#: /views/forms/edit.ctp:59 /w2/views/forms/edit.ctp:71
+msgid "Label"
+msgstr "ป้ายกำกับ"
+
+#: /views/forms/edit.ctp:60 /w2/views/forms/edit.ctp:72
+msgid "Options"
+msgstr "ตัวเลือก"
+
+#: /views/forms/edit.ctp:63 /w2/views/forms/edit.ctp:75
+msgid "Seperate options using a semicolon: Option 1;Option 2"
+msgstr ""
+
+#: /views/forms/edit.ctp:68 /w2/views/forms/edit.ctp:80
+msgid "Required"
+msgstr "จำเป็น"
+
+#: /views/forms/edit.ctp:69 /w2/views/forms/edit.ctp:81
+msgid "in Top"
+msgstr "ขึ้นบนสุด"
+
+#: /views/forms/edit.ctp:76 /w2/views/forms/edit.ctp:88
+msgid "Categories Label"
+msgstr "ป้ายหมวดหมู่"
+
+#: /views/forms/edit.ctp:78 /w2/views/forms/edit.ctp:90
+msgid "Categories Error"
+msgstr "หมวดหมู่เออเร่อ"
+
+#: /views/forms/edit.ctp:80 /w2/views/forms/edit.ctp:92
+msgid "User Can Choose"
+msgstr "ผู้ใช้สามารถเลืก"
+
+#: /views/forms/edit.ctp:83 /w2/views/forms/edit.ctp:95
+msgid "Add to this categories"
+msgstr "เพิ่มไปยังหมวดหมู่"
+
+#: /views/forms/edit.ctp:85 /w2/views/forms/edit.ctp:97
+msgid "Submit Button"
+msgstr "ปุ่มส่ง"
+
+#: /views/forms/edit.ctp:87 /w2/views/forms/edit.ctp:99
+msgid "Thanks"
+msgstr "ขอบคุณ"
+
+#: /views/forms/edit.ctp:88 /w2/views/forms/edit.ctp:100
+msgid "Thanks Page Url"
+msgstr "URL ของหน้าขอบคุณ"
+
+#: /views/forms/edit.ctp:90 /w2/views/forms/edit.ctp:102
+msgid "Thanks Title"
+msgstr "หัวข้อขอบคุณ"
+
+#: /views/forms/edit.ctp:92 /w2/views/forms/edit.ctp:104
+msgid "Thanks Text"
+msgstr "ข้อความขอบคุณ"
+
+#: /views/forms/edit.ctp:94 /w2/views/forms/edit.ctp:106
+msgid "Message if subscriber needs to confirm subscription"
+msgstr ""
+
+#: /views/forms/edit.ctp:95 /w2/views/forms/edit.ctp:107
+msgid "Confirm Page Url"
+msgstr "หน้า URL ยืนยัน"
+
+#: /views/forms/edit.ctp:97 /w2/views/forms/edit.ctp:109
+msgid "Confirm Title"
+msgstr "ชื่อหัวข้อยืนยัน"
+
+#: /views/forms/edit.ctp:99 /w2/views/forms/edit.ctp:111
+msgid "Confirm Text"
+msgstr "ข้อความยืนยัน"
+
+#: /views/forms/edit.ctp:101 /views/subscribers/index.ctp:105
+#: /w2/views/forms/edit.ctp:113 /w2/views/subscribers/index.ctp:124
+msgid "Unsubscribe"
+msgstr "ยกเลิกการเป็นสมาชิก"
+
+#: /views/forms/edit.ctp:102 /w2/views/forms/edit.ctp:114
+msgid "Unsubscribe Page Url"
+msgstr "หน้า URL ยกเลิกการเป็นสมาชิก"
+
+#: /views/forms/edit.ctp:104 /w2/views/forms/edit.ctp:116
+msgid "Unsubscribe Title"
+msgstr "ชื่อหัวข้อยกเลิกการเป็นสมาชิก"
+
+#: /views/forms/edit.ctp:106 /w2/views/forms/edit.ctp:118
+msgid "Unsubscribe Text"
+msgstr "ข้อความยกเลิกการเป็นสมาชิก"
+
+#: /views/forms/editm.ctp:4 /w2/views/forms/editm.ctp:5
+msgid "Edit Mails related to Form"
+msgstr "แก้ไขอีเมลที่เกี่ยวข้องกับแบบฟอร์ม"
+
+#: /views/forms/editm.ctp:9 /views/mails/step1.ctp:39
+#: /w2/views/forms/editm.ctp:18 /w2/views/mails/step1.ctp:63
+msgid "Configuration"
+msgstr "การตั้งค่าคอนฟิก"
+
+#: /views/forms/editm.ctp:12 /w2/views/forms/editm.ctp:21
+msgid "Confirm subscriber"
+msgstr "ยืนยันสมาชิก"
+
+#: /views/forms/editm.ctp:13 /w2/views/forms/editm.ctp:22
+msgid "Title"
+msgstr "หัวข้อ"
+
+#: /views/forms/editm.ctp:14 /views/templates/view.ctp:14
+#: /w2/views/forms/editm.ctp:23 /w2/views/mails/step1.ctp:7
+#: /w2/views/mails/step2.ctp:8 /w2/views/mails/step3.ctp:45
+#: /w2/views/mails/step4.ctp:7 /w2/views/mails/step5.ctp:7
+#: /w2/views/templates/view.ctp:14
+msgid "Content"
+msgstr "เนื้อหา"
+
+#: /views/forms/editm.ctp:21 /w2/views/forms/editm.ctp:30
+msgid "New Subscription Notify Mail"
+msgstr ""
+
+#: /views/forms/editm.ctp:22 /w2/views/forms/editm.ctp:31
+msgid "Send mail notification"
+msgstr "ส่งอีเมล์แจ้งเตือน"
+
+#: /views/forms/editm.ctp:23 /w2/views/forms/editm.ctp:32
+msgid "Notify Addresse"
+msgstr "แก้ไขที่อยุ่"
+
+#: /views/forms/index.ctp:2 /w2/views/forms/index.ctp:14
+msgid "New Form"
+msgstr "แบบฟอร์มใหม่"
+
+#: /views/forms/index.ctp:2 /w2/views/forms/index.ctp:6
+msgid "Forms"
+msgstr "แบบฟอร์ม"
+
+#: /views/forms/index.ctp23;23 /w2/views/forms/index.ctp44;44
+msgid "Copy link"
+msgstr "คัดลอกลิงค์"
+
+#: /views/forms/index.ctp24;24
+msgid "Preview form"
+msgstr "ตัวอย่างแบบฟอร์ม"
+
+#: /views/forms/index.ctp25;25 /w2/views/forms/index.ctp48;48
+msgid "Preview unsubscribe"
+msgstr "แสดงตัวอย่างยกเลิกการรับจดหมายข่าว"
+
+#: /views/forms/index.ctp26;26
+msgid "Edit form"
+msgstr "แก้ไขฟอร์ม"
+
+#: /views/forms/index.ctp27;27 /w2/views/forms/index.ctp52;52
+msgid "Edit mails"
+msgstr "แก้ไขอีเมล"
+
+#: /views/forms/index.ctp:55 /w2/views/forms/index.ctp:75
+msgid "Standalon form"
+msgstr "แบบฟอร์มสแตนด์อโลน"
+
+#: /views/forms/index.ctp:59 /w2/views/forms/index.ctp:79
+msgid "Inframe form"
+msgstr ""
+
+#: /views/forms/sendtof.ctp:2 /w2/views/forms/sendtof.ctp:2
+msgid "Send to friend"
+msgstr "ส่งให้เพื่อน"
+
+#: /views/forms/sendtof.ctp:8 /w2/views/forms/sendtof.ctp:8
+msgid "Your Name"
+msgstr "ชื่อของคุณ"
+
+#: /views/forms/sendtof.ctp:9 /w2/views/forms/sendtof.ctp:9
+msgid "Your Mail"
+msgstr "อีเมล์ของคุณ"
+
+#: /views/forms/sendtof.ctp:10 /w2/views/forms/sendtof.ctp:10
+msgid "Friend's Name"
+msgstr "ชื่อเพื่อน"
+
+#: /views/forms/sendtof.ctp:11 /w2/views/forms/sendtof.ctp:11
+msgid "Friend's Mail"
+msgstr "อีเมลของเพื่อน"
+
+#: /views/forms/sendtof.ctp:12 /w2/views/forms/sendtof.ctp:12
+msgid "Message"
+msgstr "ข้อความ"
+
+#: /views/forms/sendtof.ctp:12 /w2/views/forms/sendtof.ctp:12
+msgid "I thought you'd like this newsletter"
+msgstr "ฉันคิดว่าคุณสนใจจดหมายข่าวฉบับนี้"
+
+#: /views/forms/sendtof.ctp:13 /views/mails/campaign.ctp:98
+#: /views/mails/sendstatus.ctp80;83;87 /views/mails/step1.ctp:50
+#: /w2/views/configurations/mail.ctp:35 /w2/views/forms/sendtof.ctp:13
+#: /w2/views/mails/campaign.ctp:180 /w2/views/mails/step1.ctp:74
+msgid "Send"
+msgstr "ส่งจดหมาย"
+
+#: /views/forms/sendtof.ctp:15 /w2/views/forms/sendtof.ctp:15
+msgid "Thank you for forwarding this newsletter."
+msgstr "ขอบคุณสำหรับการส่งต่อจดหมายข่าว."
+
+#: /views/forms/sendtof.ctp:17 /w2/views/forms/sendtof.ctp:17
+msgid "Oops! something went wrong!!"
+msgstr "อุ๊บ! พบข้อผิดพลาด"
+
+#: /views/helpers/form.php367;1309 /w2/views/helpers/form.php367;1309
+msgid "Submit"
+msgstr "ส่ง"
+
+#: /views/helpers/form.php:513 /w2/views/helpers/form.php:513
+msgid "Error in field %s"
+msgstr "พบข้อผิดพลาดในฟิลด์ %s"
+
+#: /views/helpers/form.php:630 /w2/views/helpers/form.php:630
+msgid "New %s"
+msgstr "ใหม่ %s"
+
+#: /views/helpers/form.php:636 /w2/views/helpers/form.php:636
+msgid "Edit %s"
+msgstr "แก้ไข %s"
+
+#: /views/helpers/form.php:2121 /w2/views/helpers/form.php:2121
+msgid "January"
+msgstr "มกราคม"
+
+#: /views/helpers/form.php:2122 /w2/views/helpers/form.php:2122
+msgid "February"
+msgstr "กุมภาพันธ์"
+
+#: /views/helpers/form.php:2123 /w2/views/helpers/form.php:2123
+msgid "March"
+msgstr "มีนาคม"
+
+#: /views/helpers/form.php:2124 /w2/views/helpers/form.php:2124
+msgid "April"
+msgstr "เมษายน"
+
+#: /views/helpers/form.php:2125 /w2/views/helpers/form.php:2125
+msgid "May"
+msgstr "พฤษภาคม"
+
+#: /views/helpers/form.php:2126 /w2/views/helpers/form.php:2126
+msgid "June"
+msgstr "มิถุนายน"
+
+#: /views/helpers/form.php:2127 /w2/views/helpers/form.php:2127
+msgid "July"
+msgstr "กรกฎาคม"
+
+#: /views/helpers/form.php:2128 /w2/views/helpers/form.php:2128
+msgid "August"
+msgstr "สิงหาคม"
+
+#: /views/helpers/form.php:2129 /w2/views/helpers/form.php:2129
+msgid "September"
+msgstr "กันยายน"
+
+#: /views/helpers/form.php:2130 /w2/views/helpers/form.php:2130
+msgid "October"
+msgstr "ตุลาคม"
+
+#: /views/helpers/form.php:2131 /w2/views/helpers/form.php:2131
+msgid "November"
+msgstr "พฤศจิกายน"
+
+#: /views/helpers/form.php:2132 /w2/views/helpers/form.php:2132
+msgid "December"
+msgstr "ธันวาคม"
+
+#: /views/home/index.ctp:1 /w2/views/home/index.ctp:4
+#: /w2/views/mails/index.ctp:4 /w2/views/mails/sendstatus.ctp:181
+msgid "Common Tasks"
+msgstr "งานทั่วไป"
+
+#: /views/home/index.ctp:2
+msgid "Create a new newsletter"
+msgstr "สร้างจดหมายใหม่"
+
+#: /views/home/index.ctp:4 /w2/views/configurations/index.ctp71;71
+msgid "Look for bounce mails"
+msgstr "ดูอีเมลตีกลับ"
+
+#: /views/home/index.ctp:5
+msgid "Run all import tasks"
+msgstr "เริ่มนำเข้าทั้งหมด"
+
+#: /views/home/index.ctp:9 /w2/views/home/index.ctp:29
+msgid "Last 5 Newsletter"
+msgstr "ครั้งสุดท้าย 5 วัน"
+
+#: /views/home/index.ctp:14 /views/mails/campaign.ctp:96
+#: /views/subscribers/view.ctp131;179 /w2/views/configurations/inbox.ctp:20
+#: /w2/views/home/index.ctp:49 /w2/views/mails/campaign.ctp:178
+#: /w2/views/subscribers/view.ctp137;194
+msgid "Subject"
+msgstr "ชื่อจดหมายข่าว"
+
+#: /views/home/index.ctp:16 /w2/views/home/index.ctp:51
+msgid "Modified"
+msgstr "การเปลี่ยนเปลง"
+
+#: /views/home/index.ctp:37 /views/mails/campaign.ctp:121
+#: /views/mails/index.ctp:37 /w2/views/home/index.ctp:74
+#: /w2/views/mails/campaign.ctp:215 /w2/views/mails/index.ctp:70
+msgid "Draft"
+msgstr "เขียน"
+
+#: /views/home/index.ctp:42 /views/mails/index.ctp:42
+#: /w2/views/home/index.ctp:79 /w2/views/mails/index.ctp:75
+msgid "Sending"
+msgstr "กำลังส่ง"
+
+#: /views/home/index.ctp:45 /views/mails/campaign.ctp:40
+#: /views/mails/index.ctp:45 /views/mails/sendstatus.ctp:32
+#: /views/subscribers/view.ctp133;149;181 /w2/views/home/index.ctp:82
+#: /w2/views/mails/campaign.ctp:126 /w2/views/mails/index.ctp:78
+#: /w2/views/mails/sendstatus.ctp148;332
+#: /w2/views/subscribers/view.ctp139;155;196
+msgid "Sent"
+msgstr "ส่งแล้ว"
+
+#: /views/home/index.ctp:47 /views/mails/index.ctp:47
+#: /w2/views/home/index.ctp:84 /w2/views/mails/campaign.ctp:222
+#: /w2/views/mails/index.ctp:80
+msgid "Stopped"
+msgstr "หยุดการทำงาน"
+
+#: /views/home/index.ctp59;59 /views/mails/campaign.ctp139;139
+#: /views/mails/index.ctp59;59 /views/subscribers/view.ctp164;199
+#: /views/templates/index.ctp15;15 /views/templates/view.ctp:24
+#: /w2/views/home/index.ctp:96 /w2/views/mails/campaign.ctp:234
+#: /w2/views/mails/index.ctp:93 /w2/views/subscribers/view.ctp170;214
+#: /w2/views/templates/index.ctp49;49 /w2/views/templates/view.ctp:24
+msgid "Preview"
+msgstr "ตัวอย่าง"
+
+#: /views/home/index.ctp61;61 /views/mails/campaign.ctp141;141
+#: /views/mails/index.ctp61;61
+msgid "Duplicate"
+msgstr "คักลอกซ้ำ"
+
+#: /views/home/index.ctp:61 /views/mails/campaign.ctp:141
+#: /views/mails/index.ctp:61 /views/mails/sendstatus.ctp:92
+msgid "Are you sure you want to duplicate # %s?"
+msgstr "คุณต้องการที่จะคัดลอก # %s? ซ้ำ"
+
+#: /views/home/index.ctp:74 /w2/views/home/index.ctp:33
+msgid "See all newsletter"
+msgstr "ดูจดหมายข่าวทั้งหมด"
+
+#: /views/home/index.ctp:79 /w2/views/home/index.ctp:114
+msgid "Last 5 Subscribers"
+msgstr "5 สมาชิกรับจดหมายข่าวล่าสุด"
+
+#: /views/home/index.ctp:87 /views/subscribers/index.ctp39;54
+#: /views/subscribers/view.ctp:47 /w2/views/home/index.ctp:136
+#: /w2/views/subscribers/index.ctp65;150 /w2/views/subscribers/view.ctp:49
+msgid "Subscribed"
+msgstr "เป็นสมาชิก"
+
+#: /views/home/index.ctp:128 /w2/views/home/index.ctp:118
+msgid "See all subscribers"
+msgstr "ดูสมาชิกรับจดหมายข่าวทั้งหมด"
+
+#: /views/home/index.ctp:132 /w2/views/home/index.ctp:184
+msgid "Cron Jobs"
+msgstr "Cron Jobs"
+
+#: /views/home/index.ctp:133 /w2/views/home/index.ctp:194
+msgid "Bounce mail check command:"
+msgstr "คำสั่งตรวจสอบอีเมลตีกลับ :"
+
+#: /views/home/index.ctp:135 /w2/views/home/index.ctp:196
+msgid "Send mails command:"
+msgstr "คำสั่งส่งอีเมล :"
+
+#: /views/home/index.ctp:137
+msgid "Clean up failed subscribers:"
+msgstr "เคลียร์สมาชิกที่ผิดพลาด:"
+
+#: /views/home/index.ctp:139
+msgid "Clean up inactive subscribers:"
+msgstr "เคลียร์สมาชิกที่ไม่ได้ใช้งาน:"
+
+#: /views/home/index.ctp:144 /w2/views/home/index.ctp:204
+msgid "Api"
+msgstr "Api"
+
+#: /views/home/index.ctp:145 /w2/views/home/index.ctp:222
+msgid "API Key:"
+msgstr "คีย์ API:"
+
+#: /views/home/index.ctp:154 /w2/views/home/index.ctp:209
+msgid "Show code"
+msgstr "แสดงโค๊ด"
+
+#: /views/home/index.ctp:154 /w2/views/home/index.ctp:211
+msgid "Download API"
+msgstr "ดาวน์โหลด API"
+
+#: /views/home/index.ctp:156 /w2/views/home/index.ctp:233
+msgid "Sample Code:"
+msgstr "โค๊ดตัวอย่าง :"
+
+#: /views/images/index.ctp:33 /w2/views/images/index.ctp:33
+msgid "Upload image"
+msgstr "อัพโหลดรูป"
+
+#: /views/images/index.ctp:41 /w2/views/images/index.ctp:41
+msgid "Image Url"
+msgstr "URL ของภาพ"
+
+#: /views/images/index.ctp:43 /views/subscribers/import.ctp:21
+#: /views/subscribers/import2.ctp:56 /w2/views/images/index.ctp:43
+#: /w2/views/subscribers/import.ctp:32 /w2/views/subscribers/import2.ctp:68
+msgid "Upload"
+msgstr "อัปโหลด"
+
+#: /views/importtasks/add.ctp:3 /w2/views/importtasks/add.ctp:15
+msgid "Add Import Task"
+msgstr "เพิ่มรายการนำเข้า"
+
+#: /views/importtasks/add.ctp:5 /views/importtasks/edit.ctp:7
+#: /views/importtasks/edit1.ctp:6 /views/importtasks/edit2.ctp:6
+#: /views/importtasks/edit3.ctp:6 /views/mails/step1.ctp:7
+#: /views/mails/step2.ctp:3 /views/mails/step3.ctp:30 /views/mails/step4.ctp:3
+#: /views/mails/step5.ctp:3
+msgid "Step 1: Base Settings"
+msgstr "ขั้นตอนที่ 1 : การตั้งค่าพื้นฐาน"
+
+#: /views/importtasks/add.ctp:6 /views/importtasks/edit.ctp:8
+#: /views/importtasks/edit1.ctp:7 /views/importtasks/edit2.ctp:7
+#: /views/importtasks/edit3.ctp:7
+msgid "Step 2: Connection to DB"
+msgstr "ขั้นตอนที่ 2 : เชื่อมต่อกับ DB"
+
+#: /views/importtasks/add.ctp:6 /views/importtasks/edit.ctp:8
+#: /views/importtasks/edit1.ctp:7 /views/importtasks/edit2.ctp:7
+#: /views/importtasks/edit3.ctp:7
+msgid "Server Host and Port"
+msgstr "โฮสต์เซิร์ฟเวอร์และพอร์ต"
+
+#: /views/importtasks/add.ctp:6 /views/importtasks/edit.ctp:8
+#: /views/importtasks/edit1.ctp:7 /views/importtasks/edit2.ctp:7
+#: /views/importtasks/edit3.ctp:7
+msgid "User/Password"
+msgstr "ผู้ใช้/รหัสผ่าน"
+
+#: /views/importtasks/add.ctp:7 /views/importtasks/edit.ctp:9
+#: /views/importtasks/edit1.ctp:8 /views/importtasks/edit2.ctp:8
+#: /views/importtasks/edit3.ctp:8
+msgid "Step 3: Query"
+msgstr "ขั้นตอนที่ 3 : Query"
+
+#: /views/importtasks/add.ctp:7 /views/importtasks/edit.ctp:9
+#: /views/importtasks/edit1.ctp:8 /views/importtasks/edit2.ctp:8
+#: /views/importtasks/edit3.ctp:8
+msgid "Enter SQL Query"
+msgstr "ป้อน SQL คิวรี่"
+
+#: /views/importtasks/add.ctp:9 /views/importtasks/edit.ctp:11
+#: /views/importtasks/edit1.ctp:10 /views/importtasks/edit2.ctp:10
+#: /views/importtasks/edit3.ctp:10
+msgid "Step 4: Settings"
+msgstr "ขั้นตอนที่ 4 : การตั้งค่า"
+
+#: /views/importtasks/add.ctp:9 /views/importtasks/edit.ctp:11
+#: /views/importtasks/edit1.ctp:10 /views/importtasks/edit2.ctp:10
+#: /views/importtasks/edit3.ctp:10
+msgid "See Results"
+msgstr "เห็นผลลัพท์"
+
+#: /views/importtasks/add.ctp:9 /views/importtasks/edit.ctp:11
+#: /views/importtasks/edit1.ctp:10 /views/importtasks/edit2.ctp:10
+#: /views/importtasks/edit3.ctp:10
+msgid "Select Categories"
+msgstr "เลือกหมวดหมู่"
+
+#: /views/importtasks/add.ctp:14 /views/importtasks/edit.ctp:18
+#: /views/importtasks/edit1.ctp41;43 /views/importtasks/edit2.ctp15;16
+#: /views/mails/step1.ctp:55 /views/mails/step2.ctp50;51
+#: /views/mails/step3.ctp144;145 /views/mails/step4.ctp:21
+#: /w2/views/importtasks/add.ctp:24 /w2/views/importtasks/edit.ctp:29
+#: /w2/views/importtasks/edit1.ctp53;55 /w2/views/importtasks/edit2.ctp26;27
+#: /w2/views/mails/step1.ctp:79 /w2/views/mails/step2.ctp101;102
+#: /w2/views/mails/step3.ctp181;182 /w2/views/mails/step4.ctp:60
+msgid "Next"
+msgstr "ต่อไป"
+
+#: /views/importtasks/edit.ctp:5 /w2/views/importtasks/edit.ctp:15
+msgid "Edit Import Task"
+msgstr "แก้ไขรายการนำเข้า"
+
+#: /views/importtasks/edit1.ctp:33 /w2/views/importtasks/edit1.ctp:45
+msgid "User / Login"
+msgstr "ชื่อผู้ใช้ / เข้าสู่ระบบ"
+
+#: /views/importtasks/edit1.ctp:39 /w2/views/importtasks/edit1.ctp:51
+msgid "Port (leave blank if unknown)"
+msgstr "พอร์ต (ปล่อยว่างถ้าไม่รู้จัก)"
+
+#: /views/importtasks/edit1.ctp:43 /views/importtasks/edit2.ctp:16
+#: /views/importtasks/edit3.ctp:58 /views/mails/sendstatus.ctp:28
+#: /views/mails/step2.ctp:51 /views/mails/step3.ctp:145
+#: /views/mails/step4.ctp:21 /views/recipients/export.ctp:1
+#: /views/recipients/index.ctp:246 /w2/views/clicktrack/link.ctp:254
+#: /w2/views/clicktrack/recipient.ctp:10 /w2/views/importtasks/edit1.ctp:55
+#: /w2/views/importtasks/edit2.ctp:27 /w2/views/importtasks/edit3.ctp:69
+#: /w2/views/mails/step2.ctp:102 /w2/views/mails/step3.ctp:182
+#: /w2/views/mails/step4.ctp:60 /w2/views/recipients/export.ctp:9
+#: /w2/views/recipients/index.ctp:254
+msgid "Back"
+msgstr "กลับ"
+
+#: /views/importtasks/edit2.ctp:13 /w2/views/importtasks/add.ctp:7
+#: /w2/views/importtasks/edit.ctp:7 /w2/views/importtasks/edit1.ctp:7
+#: /w2/views/importtasks/edit2.ctp7;24 /w2/views/importtasks/edit3.ctp:7
+msgid "Query"
+msgstr "คิวรี่"
+
+#: /views/importtasks/edit3.ctp:15 /views/subscribers/import2.ctp:20
+#: /w2/views/importtasks/edit3.ctp:26 /w2/views/subscribers/import2.ctp:32
+msgid "Ignore"
+msgstr "ไม่สนใจ"
+
+#: /views/importtasks/edit3.ctp:15 /views/subscribers/import2.ctp:20
+#: /w2/views/importtasks/edit3.ctp:26 /w2/views/subscribers/import2.ctp:32
+msgid "Update categories"
+msgstr "อัพเดทหมวดหมู่"
+
+#: /views/importtasks/edit3.ctp:15 /views/subscribers/import2.ctp:20
+#: /w2/views/importtasks/edit3.ctp:26 /w2/views/subscribers/import2.ctp:32
+msgid "Overwrite categories"
+msgstr "เขียนทับหมวดหมู่"
+
+#: /views/importtasks/edit3.ctp:15 /views/subscribers/import2.ctp:20
+#: /w2/views/importtasks/edit3.ctp:26 /w2/views/subscribers/import2.ctp:32
+msgid "Existing subscribers"
+msgstr "สมาชิกรับจดหมายข่าวที่มีอยู่"
+
+#: /views/importtasks/edit3.ctp:18 /views/subscribers/import2.ctp:22
+#: /w2/views/importtasks/edit3.ctp:29 /w2/views/subscribers/import2.ctp:34
+msgid "Resubscribe"
+msgstr ""
+
+#: /views/importtasks/edit3.ctp:23 /views/subscribers/import2.ctp:26
+#: /w2/views/importtasks/edit3.ctp:34 /w2/views/subscribers/import2.ctp:38
+msgid "Data"
+msgstr "ข้อมูล"
+
+#: /views/importtasks/edit3.ctp:55 /w2/views/importtasks/edit3.ctp:66
+msgid "NO DATA"
+msgstr "ไม่มีข้อมูล"
+
+#: /views/importtasks/edit3.ctp56;58 /w2/views/importtasks/edit3.ctp67;69
+msgid "Save Task"
+msgstr "บันทึกงาน"
+
+#: /views/importtasks/importjob.ctp:1 /w2/views/importtasks/importjob.ctp:5
+msgid "Run Import Task"
+msgstr "เริ่มนำเข้า"
+
+#: /views/importtasks/importjob.ctp:2 /views/subscribers/cleanup.ctp:6
+#: /w2/views/importtasks/importjob.ctp:12 /w2/views/subscribers/cleanup.ctp:14
+msgid "Live ticker"
+msgstr "กำลังเชื่อมต่อและนำเข้า, กรุณารอ..."
+
+#: /views/importtasks/index.ctp:2 /w2/views/importtasks/index.ctp:14
+msgid "New Import Task"
+msgstr "เพิ่มรายการนำเข้าใหม่"
+
+#: /views/importtasks/index.ctp:3 /w2/views/importtasks/index.ctp:15
+msgid "Run All Tasks"
+msgstr "เริ่มทำงานทั้งหมด"
+
+#: /views/importtasks/index.ctp:4 /w2/views/importtasks/index.ctp:6
+msgid "Import Tasks"
+msgstr "รายการที่นำเข้า"
+
+#: /views/importtasks/index.ctp30;30 /w2/views/importtasks/index.ctp48;48
+msgid "Run Task"
+msgstr "เริ่มทำงาน"
+
+#: /views/layouts/default.ctp:26
+msgid "Newsletter Mailer"
+msgstr ""
+
+#: /views/layouts/default.ctp:26
+msgid "Home"
+msgstr "หน้าแรก"
+
+#: /views/layouts/default.ctp85;85 /views/settings/index.ctp:21
+#: /w2/views/layouts/default.ctp:161 /w2/views/settings/index.ctp:32
+msgid "Dashboard"
+msgstr "แดชบอร์ด"
+
+#: /views/layouts/default.ctp90;175 /views/mails/sendstatus.ctp:29
+#: /w2/views/mails/sendstatus.ctp:65
+msgid "Newsletter"
+msgstr "จดหมายข่าว"
+
+#: /views/layouts/default.ctp90;175 /views/mails/campaign.ctp:91
+#: /views/mails/index.ctp:5 /w2/views/layouts/default.ctp165;220
+#: /w2/views/mails/campaign.ctp:160 /w2/views/mails/index.ctp:25
+msgid "Newsletters"
+msgstr "จดหมายข่าว"
+
+#: /views/layouts/default.ctp95;95;149;149;158;161
+#: /views/subscribers/index.ctp7;10 /w2/views/home/index.ctp:20
+#: /w2/views/layouts/default.ctp178;221 /w2/views/subscribers/index.ctp31;34
+msgid "Subscribers"
+msgstr "รายชื่ออีเมล์"
+
+#: /views/layouts/default.ctp100;137 /views/settings/index.ctp:4
+#: /w2/views/importtasks/add.ctp:8 /w2/views/importtasks/edit.ctp:8
+#: /w2/views/importtasks/edit1.ctp:8 /w2/views/importtasks/edit2.ctp:8
+#: /w2/views/importtasks/edit3.ctp:8 /w2/views/layouts/default.ctp194;222
+msgid "Settings"
+msgstr "ตั้งค่า"
+
+#: /views/layouts/default.ctp:107
+msgid "Hello"
+msgstr "สวัสดี"
+
+#: /views/layouts/default.ctp:108 /w2/views/home/index.ctp:23
+msgid "Logout"
+msgstr "ออกจากระบบ"
+
+#: /views/layouts/default.ctp:121
+msgid "Mail Server Configurations"
+msgstr "การกำหนดค่าอีเมลเซิร์ฟเวอร์"
+
+#: /views/layouts/default.ctp126;126 /views/users/index.ctp:2
+#: /w2/views/layouts/default.ctp198;230 /w2/views/users/index.ctp:5
+msgid "Users"
+msgstr "ผู้ใช้งาน"
+
+#: /views/layouts/default.ctp:132
+msgid "Form"
+msgstr "จาก"
+
+#: /views/layouts/default.ctp:132 /w2/views/layouts/default.ctp202;231
+msgid "Subscription Forms"
+msgstr "แบบฟอร์มการสมัครสมาชิกรับจดหมายข่าว"
+
+#: /views/layouts/default.ctp:137
+msgid "Application Settings"
+msgstr "ตั้งค่าโปรแกรม"
+
+#: /views/layouts/default.ctp:158 /w2/views/layouts/default.ctp183;226
+msgid "Import Subscribers"
+msgstr "นำเข้าสมาชิกรับจดหมายข่าว"
+
+#: /views/layouts/default.ctp:161 /w2/views/layouts/default.ctp184;227
+msgid "Export Subscribers"
+msgstr "ส่งออก"
+
+#: /views/layouts/default.ctp164;164 /w2/views/layouts/default.ctp185;228
+msgid "Update from other DB"
+msgstr "อัพเดทจากฐานข้อมูลอื่น"
+
+#: /views/layouts/default.ctp167;167 /w2/views/layouts/default.ctp186;229
+msgid "Clean Up Subscribers"
+msgstr "เคลียร์สมาชิก"
+
+#: /views/layouts/default.ctp:179 /views/mails/campaign.ctp:35
+#: /w2/views/mails/campaign.ctp:37
+msgid "Campaign"
+msgstr "แคมเปญ"
+
+#: /views/layouts/default.ctp:184 /views/mails/step2.ctp:27
+#: /views/templates/view.ctp:2 /w2/views/mails/step1.ctp:6
+#: /w2/views/mails/step2.ctp7;57 /w2/views/mails/step3.ctp:44
+#: /w2/views/mails/step4.ctp:6 /w2/views/mails/step5.ctp:6
+#: /w2/views/templates/view.ctp:2
+msgid "Template"
+msgstr "แม่แบบ"
+
+#: /views/layouts/default.ctp:184 /views/templates/index.ctp:3
+#: /w2/views/home/index.ctp:19 /w2/views/layouts/default.ctp170;224
+#: /w2/views/templates/index.ctp:5
+msgid "Templates"
+msgstr "แม่แบบ"
+
+#: /views/mails/campaign.ctp:39 /views/mails/sendstatus.ctp:31
+msgid "Sent &amp; Read"
+msgstr "ส่ง &amp; อ่าน"
+
+#: /views/mails/campaign.ctp:41 /views/mails/sendstatus.ctp:33
+msgid "Unsent"
+msgstr "ยังไม่ได้ส่ง"
+
+#: /views/mails/campaign.ctp:57 /w2/views/mails/campaign.ctp:68
+msgid "Unique recipients"
+msgstr "ผู้รับที่ไม่ซ้ำกัน"
+
+#: /views/mails/campaign.ctp:62 /views/mails/sendstatus.ctp:43
+#: /w2/views/mails/campaign.ctp:74 /w2/views/mails/sendstatus.ctp:87
+msgid "Newsletters sent"
+msgstr "ส่งจดหมายข่าวแล้ว"
+
+#: /views/mails/campaign.ctp:67 /views/mails/sendstatus.ctp:48
+#: /w2/views/mails/campaign.ctp:79 /w2/views/mails/sendstatus.ctp:92
+msgid "Newsletters read"
+msgstr "จดหมายข่าวเปิดอ่านแล้ว"
+
+#: /views/mails/campaign.ctp:72 /views/mails/sendstatus.ctp:53
+#: /w2/views/mails/campaign.ctp:84 /w2/views/mails/sendstatus.ctp:98
+msgid "Newsletters failed"
+msgstr "จดหมายข่าวที่ล้มเหลว"
+
+#: /views/mails/campaign.ctp:78 /views/mails/sendstatus.ctp:59
+#: /w2/views/mails/campaign.ctp:90 /w2/views/mails/sendstatus.ctp:104
+msgid "Unsubscribes"
+msgstr "ยกเลิกการรับจดหมายข่าว"
+
+#: /views/mails/campaign.ctp:84 /views/mails/sendstatus.ctp:65
+#: /w2/views/mails/campaign.ctp:96 /w2/views/mails/sendstatus.ctp:111
+msgid "Sent to Friends"
+msgstr "ส่งต่อให้เพื่อน"
+
+#: /views/mails/campaign.ctp:92 /views/mails/index.ctp:3
+#: /w2/views/mails/campaign.ctp:166
+msgid "Create new newsletter"
+msgstr "สร้างจดหมายใหม่"
+
+#: /views/mails/campaign.ctp:112 /views/mails/index.ctp:25
+#: /w2/views/home/index.ctp:65 /w2/views/mails/campaign.ctp194;200
+#: /w2/views/mails/index.ctp:59
+msgid "Info"
+msgstr "ข้อมูล"
+
+#: /views/mails/campaign.ctp:132 /views/mails/step1.ctp:50
+#: /w2/views/mails/campaign.ctp:227 /w2/views/mails/step1.ctp:74
+msgid "days after subscription"
+msgstr ""
+
+#: /views/mails/campaign.ctp:160 /w2/views/mails/sendstatus.ctp:299
+msgid "Timeline"
+msgstr "ช่วงเวลา"
+
+#: /views/mails/index.ctp:1 /w2/views/mails/index.ctp:109
+msgid "Link"
+msgstr "ฃิงค์"
+
+#: /views/mails/index.ctp:1
+msgid ""
+"Sent Newsletters RSS Feed (%link%). You can edit the rss chanel in the "
+"application settings."
+msgstr ""
+
+#: /views/mails/sendstatus.ctp4;182 /views/subscribers/index.ctp21;23;27
+#: /views/subscribers/view.ctp5;121 /w2/views/subscribers/index.ctp19;23
+#: /w2/views/subscribers/view.ctp:120
+msgid "cat"
+msgstr ""
+
+#: /views/mails/sendstatus.ctp:4 /w2/views/mails/sendstatus.ctp:34
+msgid "Newsletter is scheduled"
+msgstr ""
+
+#: /views/mails/sendstatus.ctp:26
+msgid "More Recipent Information"
+msgstr ""
+
+#: /views/mails/sendstatus.ctp:38 /w2/views/mails/sendstatus.ctp:81
+msgid "Total recipients"
+msgstr "ผู้รับทั้งหมด"
+
+#: /views/mails/sendstatus.ctp:80 /w2/views/mails/sendstatus.ctp:200
+msgid "Send next newsletters in"
+msgstr "ส่งจดหมายข่าวครั้งต่อไป"
+
+#: /views/mails/sendstatus.ctp:83 /w2/views/mails/sendstatus.ctp:205
+msgid "Send next "
+msgstr "ส่งต่อไป"
+
+#: /views/mails/sendstatus.ctp:87 /w2/views/mails/sendstatus.ctp:212
+msgid "Go back to edit"
+msgstr "ย้อนกลับเพื่อแก้ไข"
+
+#: /views/mails/sendstatus.ctp89;89 /w2/views/mails/sendstatus.ctp:217
+msgid "Stop Sending"
+msgstr "หยุดการส่ง"
+
+#: /views/mails/sendstatus.ctp92;92 /w2/views/mails/sendstatus.ctp:67
+msgid "Duplicate Newsletter"
+msgstr "จดหมายข่าวที่ซ้ำ"
+
+#: /views/mails/sendstatus.ctp93;93
+msgid "Reactivate Newsletter"
+msgstr "เปิดการทำงานจดหมายข่าวใหม่"
+
+#: /views/mails/sendstatus.ctp93;95
+msgid "Are you sure you want to reactivate # %s?"
+msgstr "คุณแน่ใจหรือว่าต้องการเปิดการทำงานจดหมายข่าวนี้ # %s??"
+
+#: /views/mails/sendstatus.ctp95;95
+msgid "Reactivate Failed"
+msgstr "การกลับเปิดการใช้งานใหม่ล้มเหลว"
+
+#: /views/mails/sendstatus.ctp99;120
+msgid "Open"
+msgstr "เปิด"
+
+#: /views/mails/sendstatus.ctp:99 /w2/views/mails/sendstatus.ctp:190
+msgid "Open Newsletter"
+msgstr "เปิดจดหมายข่าว"
+
+#: /views/mails/sendstatus.ctp:101 /w2/views/mails/sendstatus.ctp:246
+msgid "Tracked links"
+msgstr "ลิงค์ที่ต้องการติดตาม"
+
+#: /views/mails/sendstatus.ctp:104 /w2/views/clicktrack/recipient.ctp:22
+#: /w2/views/mails/sendstatus.ctp:263
+msgid "Url"
+msgstr "Url"
+
+#: /views/mails/sendstatus.ctp:104 /w2/views/mails/sendstatus.ctp:263
+msgid "Clicks"
+msgstr "คลิ๊ก"
+
+#: /views/mails/sendstatus.ctp:120 /w2/views/mails/sendstatus.ctp:250
+msgid "Open Newsletter with click overlay"
+msgstr ""
+
+#: /views/mails/sendstatus.ctp:176
+msgid "Categories sent to"
+msgstr "ส่งไปยังหมวดหมู่"
+
+#: /views/mails/step1.ctp:5 /views/mails/step2.ctp:1 /views/mails/step3.ctp:28
+#: /views/mails/step4.ctp:1 /views/mails/step5.ctp:1
+#: /w2/views/mails/step1.ctp:17 /w2/views/mails/step2.ctp:18
+#: /w2/views/mails/step3.ctp:57 /w2/views/mails/step4.ctp:17
+#: /w2/views/mails/step5.ctp:17
+msgid "Create Newsletter"
+msgstr "สร้างจดหมายข่าว"
+
+#: /views/mails/step1.ctp:7 /views/mails/step2.ctp:3 /views/mails/step3.ctp:30
+#: /views/mails/step4.ctp:3 /views/mails/step5.ctp:3
+msgid "Set subject"
+msgstr "ตั้งชื่ออีเมล"
+
+#: /views/mails/step1.ctp:7 /views/mails/step2.ctp:3 /views/mails/step3.ctp:32
+#: /views/mails/step4.ctp:3 /views/mails/step5.ctp:3
+msgid "Select recipients"
+msgstr "เลือกผู้รับ"
+
+#: /views/mails/step1.ctp:7 /views/mails/step2.ctp:3 /views/mails/step3.ctp:34
+#: /views/mails/step4.ctp:3 /views/mails/step5.ctp:3
+msgid "Set delay"
+msgstr ""
+
+#: /views/mails/step1.ctp:8 /views/mails/step2.ctp:4 /views/mails/step3.ctp:37
+#: /views/mails/step4.ctp:4 /views/mails/step5.ctp:4
+msgid "Step 2: Template"
+msgstr "ขั้นตอนที่ 2 : แม่แบบ"
+
+#: /views/mails/step1.ctp:8 /views/mails/step2.ctp:4 /views/mails/step3.ctp:37
+#: /views/mails/step4.ctp:4 /views/mails/step5.ctp:4
+msgid "Choose newsletter template and type"
+msgstr "เลือกรูปแบบและประเภทของจดหมายข่าว"
+
+#: /views/mails/step1.ctp:9 /views/mails/step2.ctp:5 /views/mails/step3.ctp:38
+#: /views/mails/step4.ctp:5 /views/mails/step5.ctp:5
+msgid "Step 3: Content"
+msgstr "ขั้นตอนที่ 3 : เนื้อหา"
+
+#: /views/mails/step1.ctp:9 /views/mails/step2.ctp:5 /views/mails/step3.ctp:38
+#: /views/mails/step4.ctp:5 /views/mails/step5.ctp:5
+msgid "Fill in content"
+msgstr "ใส่รายละเอียดเนื้อหา"
+
+#: /views/mails/step1.ctp:11 /views/mails/step2.ctp:7
+#: /views/mails/step3.ctp:40 /views/mails/step4.ctp:7 /views/mails/step5.ctp:7
+msgid "Step 4: Preview and Test"
+msgstr "ขั้นตอนที่ 4 : ดูตัวอย่างและการทดสอบ"
+
+#: /views/mails/step1.ctp:11 /views/mails/step2.ctp:7
+#: /views/mails/step3.ctp:40 /views/mails/step4.ctp:7 /views/mails/step5.ctp:7
+msgid "Preview newsletter"
+msgstr "ตัวอย่างจดหมายข่าว"
+
+#: /views/mails/step1.ctp:11 /views/mails/step2.ctp:7
+#: /views/mails/step3.ctp:40 /views/mails/step4.ctp:7 /views/mails/step5.ctp:7
+msgid "Send test newsletter"
+msgstr "ทดสอบส่งจดหมายข่าว"
+
+#: /views/mails/step1.ctp:12 /views/mails/step2.ctp:8
+#: /views/mails/step3.ctp:42 /views/mails/step4.ctp:8 /views/mails/step5.ctp:8
+msgid "Step 5: Send newsletter"
+msgstr "ขั้นตอนที่ 5 : ส่งจดหมายข่าว"
+
+#: /views/mails/step1.ctp:12 /views/mails/step2.ctp:8
+#: /views/mails/step3.ctp:42 /views/mails/step4.ctp:8 /views/mails/step5.ctp:8
+msgid "Choose tracked links"
+msgstr "เลือกลิงค์ที่ต้องการติดตาม"
+
+#: /views/mails/step1.ctp:12 /views/mails/step2.ctp:8
+#: /views/mails/step3.ctp:44 /views/mails/step4.ctp:8 /views/mails/step5.ctp:8
+msgid "Send or schedule"
+msgstr "ส่งหรือตั้งเวลาการส่ง"
+
+#: /views/mails/step1.ctp:12 /views/mails/step2.ctp:8
+#: /views/mails/step3.ctp:46 /views/mails/step4.ctp:8 /views/mails/step5.ctp:8
+msgid "Publish newsletter"
+msgstr "เผยแพร่จดหมายข่าว"
+
+#: /views/mails/step1.ctp:27 /w2/views/mails/step1.ctp:52
+msgid "You can personalize the newsletter subject using these tags:"
+msgstr "คุณสามารถปรับแต่งชื่อหัวข้อจดหมายข่าวโดยใช้แท็กเหล่านี้ :"
+
+#: /views/mails/step1.ctp:28 /w2/views/mails/step1.ctp:53
+msgid "Subscribers first name"
+msgstr "ชื่อ"
+
+#: /views/mails/step1.ctp:29 /w2/views/mails/step1.ctp:54
+msgid "Subscribers last name"
+msgstr "นามสกุล"
+
+#: /views/mails/step1.ctp:32 /w2/views/mails/step1.ctp:57
+msgid "Private Mail"
+msgstr "อีเมลส่วนตัว"
+
+#: /views/mails/step1.ctp:36 /w2/views/mails/step1.ctp:60
+msgid "No public link, Hidde in RSS"
+msgstr "ไม่มีการเชื่อมโยงออกสาธารณะ, ซ่อนใน RSS"
+
+#: /views/mails/step1.ctp:43 /w2/views/mails/step1.ctp:67
+msgid "Select mail server to send the newsletter"
+msgstr "เลือกอีเมลเซิร์ฟเวอร์สำหรับส่งจดหมายข่าวนี้"
+
+#: /views/mails/step1.ctp:46 /w2/views/mails/step1.ctp:70
+#: /w2/views/templates/add.ctp:45 /w2/views/templates/edit.ctp:50
+msgid "Category"
+msgstr "หมวดหมู่"
+
+#: /views/mails/step2.ctp:17 /w2/views/mails/step2.ctp:45
+msgid "type"
+msgstr "ประเภท"
+
+#: /views/mails/step2.ctp:20 /w2/views/mails/step2.ctp:48
+msgid ""
+"Most modern graphic email clients allow the use of HTML for the message "
+"body."
+msgstr "เพื่อความทันสมัยในการส่งอีเมลถึงสมาชิก คุณสามารถใช้ HTML ใส่กราฟฟิกในเนื้อหาของจดหมาย"
+
+#: /views/mails/step3.ctp84;85 /w2/views/mails/step3.ctp111;112
+msgid "Add Item"
+msgstr ""
+
+#: /views/mails/step3.ctp:134 /w2/views/mails/step3.ctp:161
+msgid "Plain Text"
+msgstr "รูปแบบ Plain Text"
+
+#: /views/mails/step3.ctp:135 /w2/views/mails/step3.ctp:162
+msgid "Load plain text from HTML"
+msgstr "โหลดเป็นข้อความธรรมดาจาก HTML"
+
+#: /views/mails/step4.ctp:14 /w2/views/mails/step4.ctp:41
+msgid "Test address"
+msgstr "อีเมลสำหรับทดสอบ"
+
+#: /views/mails/step4.ctp:18 /w2/views/mails/step4.ctp:45
+msgid "Send test mail"
+msgstr "ทดสอบการส่งอีเมล"
+
+#: /views/mails/step4.ctp:26 /w2/views/mails/step4.ctp:65
+msgid "Html Preview"
+msgstr "ตัวอย่าง html"
+
+#: /views/mails/step4.ctp:32 /w2/views/mails/step4.ctp:71
+msgid "Text Preview"
+msgstr "ตัวอย่างข้อความ"
+
+#: /views/mails/step5.ctp:15 /w2/views/mails/step5.ctp:42
+msgid "Tracked Links"
+msgstr "ติดตามลิงค์"
+
+#: /views/mails/step5.ctp:26 /w2/views/mails/step5.ctp:53
+msgid "There are no links in the newsletter."
+msgstr "มีการเชื่อมโยงที่ไม่มีในจดหมายข่าวที่มีการ"
+
+#: /views/mails/step5.ctp:39 /w2/views/mails/step5.ctp:66
+msgid "Schedule newsletter"
+msgstr "ตั้งเวลาส่งจดหมายข่าว"
+
+#: /views/mails/step5.ctp:44 /w2/views/mails/step5.ctp:71
+msgid "Server Time"
+msgstr "เวลาของเซิร์ฟเวอร์"
+
+#: /views/mails/step5.ctp:51 /w2/views/mails/step1.ctp:9
+#: /w2/views/mails/step2.ctp:10 /w2/views/mails/step3.ctp:47
+#: /w2/views/mails/step4.ctp:9 /w2/views/mails/step5.ctp9;78
+msgid "Send newsletter"
+msgstr "ส่งจดหมายข่าว"
+
+#: /views/mails/step5.ctp:53 /w2/views/mails/step5.ctp:80
+msgid "Publish newsletter in campaign"
+msgstr "ส่งจดหมายข่าวในแคมเปญ"
+
+#: /views/recipients/export.ctp:2 /w2/views/recipients/export.ctp:7
+msgid "Export View"
+msgstr ""
+
+#: /views/recipients/export.ctp:16 /views/subscribers/export.ctp:15
+#: /w2/views/recipients/export.ctp:29 /w2/views/subscribers/export.ctp:27
+msgid "Column"
+msgstr "คอลัมน์"
+
+#: /views/recipients/export.ctp:18 /views/subscribers/export.ctp:17
+#: /w2/views/recipients/export.ctp:31 /w2/views/subscribers/export.ctp:29
+msgid "Columns"
+msgstr "คอลัมน์"
+
+#: /views/recipients/export.ctp:21 /views/subscribers/export.ctp:21
+#: /w2/views/recipients/export.ctp:34 /w2/views/subscribers/export.ctp:33
+msgid "Download"
+msgstr "ดาวน์โหลด"
+
+#: /views/recipients/index.ctp:244 /w2/views/recipients/index.ctp:258
+msgid "Export this view"
+msgstr ""
+
+#: /views/recipients/index.ctp:247 /w2/views/recipients/index.ctp:246
+msgid "Recipients of the Newsletter"
+msgstr ""
+
+#: /views/recipients/index.ctp:254
+msgid "Filter Recipients"
+msgstr ""
+
+#: /views/recipients/index.ctp258;259;260 /views/subscribers/index.ctp35;36;37
+#: /w2/views/clicktrack/link.ctp273;274;275
+#: /w2/views/recipients/index.ctp274;275;276
+#: /w2/views/subscribers/index.ctp146;147;148
+msgid " wildcard is *"
+msgstr " wildcard is *"
+
+#: /views/recipients/index.ctp262;280 /w2/views/clicktrack/link.ctp277;293
+#: /w2/views/recipients/index.ctp278;295
+msgid "Read on"
+msgstr "อ่านต่อไป"
+
+#: /views/recipients/index.ctp:262 /views/subscribers/index.ctp:39
+#: /w2/views/clicktrack/link.ctp:277 /w2/views/recipients/index.ctp:278
+#: /w2/views/subscribers/index.ctp:150
+msgid " eg: >= 1 week ago"
+msgstr " ตย: >= 1 สัปดาห์ที่ผ่านมา"
+
+#: /views/recipients/index.ctp:264 /w2/views/recipients/index.ctp:280
+msgid "Newsletter Status"
+msgstr "สถานะจดหมายข่าว"
+
+#: /views/recipients/index.ctp:264 /w2/views/recipients/index.ctp:280
+msgid "Newsletter opened"
+msgstr "จดหมายข่าวที่เปิดแล้ว"
+
+#: /views/recipients/index.ctp:264 /w2/views/recipients/index.ctp:280
+msgid "Newsletter sent"
+msgstr "จดหมายข่าวที่ส่งแล้ว"
+
+#: /views/recipients/index.ctp:264 /w2/views/recipients/index.ctp:280
+msgid "Newsletter not sent"
+msgstr "จดหมายข่าวที่ไม่ได้ส่ง"
+
+#: /views/recipients/index.ctp:264 /w2/views/recipients/index.ctp:280
+msgid "Newsletter sending failed"
+msgstr "จดหมายข่าวที่ส่งผิดพลาด"
+
+#: /views/recipients/index.ctp:264 /w2/views/recipients/index.ctp:280
+msgid "Show all recipents"
+msgstr "แสดงผู้รับทั้งหมด"
+
+#: /views/recipients/index.ctp:265 /w2/views/recipients/index.ctp:281
+msgid "Subscriber Status"
+msgstr "สถานะ"
+
+#: /views/recipients/index.ctp:265 /views/subscribers/index.ctp:40
+#: /w2/views/recipients/index.ctp:281 /w2/views/subscribers/index.ctp:151
+msgid "Subscribed/Unsubscribed"
+msgstr "เป็นสมาชิก/ยกเลิกการเป็นสมาชิก"
+
+#: /views/recipients/index.ctp:265 /views/subscribers/index.ctp:40
+#: /w2/views/recipients/index.ctp:281 /w2/views/subscribers/index.ctp:151
+msgid "Only Subscribed"
+msgstr "เป็นสมาชิกเท่านั้น"
+
+#: /views/recipients/index.ctp:265 /views/subscribers/index.ctp:40
+#: /w2/views/recipients/index.ctp:281 /w2/views/subscribers/index.ctp:151
+msgid "Only Unsubscribed"
+msgstr "ยกเลิกการเป็นสมาชิกเท่านั้น"
+
+#: /views/recipients/index.ctp:267 /w2/views/clicktrack/link.ctp:280
+#: /w2/views/recipients/index.ctp:283
+msgid "Filter"
+msgstr ""
+
+#: /views/recipients/index.ctp:277 /views/subscribers/add.ctp:9
+#: /views/subscribers/edit.ctp:8 /views/subscribers/index.ctp37;52
+#: /w2/views/clicktrack/link.ctp:290 /w2/views/recipients/index.ctp:292
+#: /w2/views/subscribers/add.ctp:18 /w2/views/subscribers/edit.ctp:19
+#: /w2/views/subscribers/index.ctp63;148
+msgid "Mail Addresse"
+msgstr "ที่อยู่อีเมล"
+
+#: /views/settings/index.ctp:3 /w2/views/settings/index.ctp:9
+msgid "Clean Cache"
+msgstr ""
+
+#: /views/settings/index.ctp:7 /w2/views/settings/index.ctp:18
+msgid "Application"
+msgstr "โปรแกรม"
+
+#: /views/settings/index.ctp:8 /w2/views/layouts/default.ctp:103
+#: /w2/views/settings/index.ctp:19
+msgid "Language"
+msgstr "ภาษา"
+
+#: /views/settings/index.ctp:11 /w2/views/settings/index.ctp:22
+msgid "Custom Fields"
+msgstr "ฟิลด์ที่กำหนดเอง"
+
+#: /views/settings/index.ctp13;15;17;19
+#: /w2/views/settings/index.ctp24;26;28;30
+msgid "Custom 1 Label"
+msgstr "ฟิลด์ที่กำหนดเอง 1"
+
+#: /views/settings/index.ctp:14 /w2/views/settings/index.ctp:25
+msgid "Show Custom 1"
+msgstr "แสดงที่กำหนดเอง 1"
+
+#: /views/settings/index.ctp:16 /w2/views/settings/index.ctp:27
+msgid "Show Custom 2"
+msgstr "แสดงฟิลด์ที่กำหนดเอง 2"
+
+#: /views/settings/index.ctp:18 /w2/views/settings/index.ctp:29
+msgid "Show Custom 3"
+msgstr "แสดงฟิลด์ที่กำหนดเอง 3"
+
+#: /views/settings/index.ctp:20 /w2/views/settings/index.ctp:31
+msgid "Show Custom 4"
+msgstr "แสดงฟิลด์ที่กำหนดเอง 4"
+
+#: /views/settings/index.ctp:23 /w2/views/settings/index.ctp:34
+msgid "Show API to User"
+msgstr "แสดง API ของผู้ใช้"
+
+#: /views/settings/index.ctp:24 /w2/views/settings/index.ctp:35
+msgid "Show Cronjob to User"
+msgstr ""
+
+#: /views/settings/index.ctp:25 /w2/views/settings/index.ctp:36
+msgid "Rss Feed"
+msgstr "Rss Feed"
+
+#: /views/settings/index.ctp:27 /w2/views/settings/index.ctp:38
+msgid "Disable RSS"
+msgstr "ปิดการใช้งาน RSS"
+
+#: /views/settings/index.ctp:28 /w2/views/settings/index.ctp:40
+msgid "Channel Title"
+msgstr "ชื่อ Channel"
+
+#: /views/settings/index.ctp:29 /w2/views/settings/index.ctp:41
+msgid "Channel Description"
+msgstr "คำอธิบายชาเนล"
+
+#: /views/settings/index.ctp:30 /w2/views/settings/index.ctp:42
+msgid "Channel Link"
+msgstr "ลิงค์ของ Channel"
+
+#: /views/settings/index.ctp:31 /w2/views/settings/index.ctp:43
+msgid "Author"
+msgstr "เจ้าของ"
+
+#: /views/settings/index.ctp:32 /w2/views/settings/index.ctp:44
+msgid "Rss Items"
+msgstr ""
+
+#: /views/settings/index.ctp:33 /w2/views/settings/index.ctp:45
+msgid "Show Stopped Newsletters"
+msgstr ""
+
+#: /views/subscribers/add.ctp:3 /w2/views/subscribers/add.ctp:5
+msgid "Add Subscriber"
+msgstr "เพิ่มสมาชิก"
+
+#: /views/subscribers/cleanup.ctp:3
+msgid "Remove Failed Subscribers"
+msgstr "ลบสมาชิกที่ผิดพลาด"
+
+#: /views/subscribers/cleanup.ctp:4
+msgid "Remove Inactive Subscribers"
+msgstr "ลบสมาชิกที่ไม่ใช้งาน"
+
+#: /views/subscribers/cleanup.ctp:5 /w2/views/subscribers/cleanup.ctp:5
+msgid "Unsubscribe invalide subscribers"
+msgstr "ยกเลิกการเป็นสมาชิกไม่ถูกต้อง"
+
+#: /views/subscribers/edit.ctp:3 /w2/views/subscribers/edit.ctp:5
+msgid "Edit Subscriber"
+msgstr "แก้ไขสมาชิก"
+
+#: /views/subscribers/import.ctp:1 /views/subscribers/import2.ctp:1
+#: /views/subscribers/import3.ctp:1 /w2/views/subscribers/import.ctp:7
+#: /w2/views/subscribers/import2.ctp:7 /w2/views/subscribers/import3.ctp:8
+msgid "Import Subscribers from CSV"
+msgstr "นำเข้าจาก CSV"
+
+#: /views/subscribers/import.ctp:13 /w2/views/subscribers/import.ctp:24
+msgid "File"
+msgstr "ไฟล์"
+
+#: /views/subscribers/import2.ctp:13 /w2/views/subscribers/import2.ctp:25
+msgid "Delimiter"
+msgstr ""
+
+#: /views/subscribers/import2.ctp:14 /w2/views/subscribers/import2.ctp:26
+msgid "Enclosure"
+msgstr ""
+
+#: /views/subscribers/import2.ctp:25 /w2/views/subscribers/import2.ctp:37
+msgid "Add to this category"
+msgstr "เพิ่มไปยังหมวดหมู่นี้"
+
+#: /views/subscribers/import2.ctp:27 /w2/views/subscribers/import2.ctp:39
+msgid "Remove first row"
+msgstr "ลบที่แถวแรก"
+
+#: /views/subscribers/import2.ctp:57 /w2/views/subscribers/import2.ctp:69
+msgid "Refresh"
+msgstr "รีเฟรช"
+
+#: /views/subscribers/import3.ctp:3 /w2/views/subscribers/import3.ctp:17
+msgid "Lines Loaded"
+msgstr ""
+
+#: /views/subscribers/index.ctp:4 /w2/views/subscribers/index.ctp:47
+msgid "New Subscriber"
+msgstr "สมาชิกรับจดหมายข่าวใหม่"
+
+#: /views/subscribers/index.ctp8;21 /w2/views/subscribers/index.ctp:32
+msgid "Search"
+msgstr "ค้นหา"
+
+#: /views/subscribers/index.ctp:33
+msgid "Subscriber Search"
+msgstr "ค้นหาสมาชิก"
+
+#: /views/subscribers/index.ctp:60 /w2/views/subscribers/index.ctp:71
+msgid "Select all %s records"
+msgstr "เลือกบันทึก %s ทั้งหมด"
+
+#: /views/subscribers/index.ctp:105 /w2/views/subscribers/index.ctp:124
+msgid "Subscribe"
+msgstr ""
+
+#: /views/subscribers/index.ctp:107 /w2/views/subscribers/index.ctp:126
+msgid "Remove from this Categorie"
+msgstr "ลบออกจากหมวดหมู่นี้"
+
+#: /views/subscribers/index.ctp:109 /w2/views/subscribers/index.ctp:128
+msgid "Move to"
+msgstr "ย้ายเข้มไปยัง"
+
+#: /views/subscribers/index.ctp:111 /w2/views/subscribers/index.ctp:130
+msgid "Remove from"
+msgstr "ลบออกจาก"
+
+#: /views/subscribers/index.ctp:112 /w2/views/subscribers/index.ctp:131
+msgid "Add to"
+msgstr "เพิ่มเข้าไปยัง"
+
+#: /views/subscribers/index.ctp:113 /w2/views/subscribers/index.ctp:132
+msgid "Overwrite category with"
+msgstr "เขียนทับลงไปในหมวดหมู่นี้"
+
+#: /views/subscribers/index.ctp:117 /w2/views/subscribers/index.ctp:136
+msgid "Run Action"
+msgstr "เริ่มดำเนินการ"
+
+#: /views/subscribers/view.ctp:5 /w2/views/subscribers/view.ctp:8
+msgid "This user unsubscribed your newsletter."
+msgstr "ผู้ใช้ท่านนี้ยกเลิกการเป็นสมาชิกจดหมายข่าวของคุณ"
+
+#: /views/subscribers/view.ctp:8 /w2/views/subscribers/view.ctp:15
+msgid "Subscriber"
+msgstr "สมาชิกรับจดหมายข่าว"
+
+#: /views/subscribers/view.ctp:12 /views/templates/view.ctp:4
+#: /w2/views/subscribers/view.ctp:24 /w2/views/templates/view.ctp:4
+msgid "Id"
+msgstr "Id"
+
+#: /views/subscribers/view.ctp:55 /w2/views/subscribers/view.ctp:55
+msgid "Unsubscribe Code"
+msgstr ""
+
+#: /views/subscribers/view.ctp:115 /w2/views/subscribers/view.ctp:109
+msgid "Subscribed Categories"
+msgstr "หมวดหมู่รายชื่ออีเมล์สมาชิก"
+
+#: /views/subscribers/view.ctp:126 /w2/views/subscribers/view.ctp:126
+msgid "Sent Newsletters"
+msgstr "ส่งจดหมายข่าว"
+
+#: /views/subscribers/view.ctp134;151 /w2/views/mails/campaign.ctp:129
+#: /w2/views/mails/sendstatus.ctp151;346 /w2/views/subscribers/view.ctp140;157
+msgid "Read"
+msgstr "อ่าน"
+
+#: /views/subscribers/view.ctp:174 /w2/views/subscribers/view.ctp:183
+msgid "Failured Newsletters"
+msgstr ""
+
+#: /views/templates/add.ctp:3 /w2/views/templates/add.ctp:6
+msgid "Add Template"
+msgstr "เพิ่มแม่แบบ"
+
+#: /views/templates/add.ctp:7 /views/templates/edit.ctp:8
+#: /w2/views/templates/add.ctp:17 /w2/views/templates/edit.ctp:20
+msgid "content"
+msgstr "เนื้อหา"
+
+#: /views/templates/add.ctp:14 /views/templates/edit.ctp:15
+#: /w2/views/templates/add.ctp:24 /w2/views/templates/edit.ctp:27
+msgid ""
+"The Newsletter Mailer uses the <a href=\"http://www.smarty.net/\">SMARTY</a> template engine.<br />\n"
+"\n"
+"      Insert field: {$<b>fieldname</b>}<br />\n"
+"      Start repeating block: <?php echo htmlspecialchars(\"<!---\");?>foreach name=<b>groupname</b> item=<b>anyname</b> from=<b>groupname</b><?php echo htmlspecialchars(\"--->\");?><br />\n"
+"      Insert field in block: {$<b>anyname</b>.<b>fieldname</b>}<br />\n"
+"      End repeating block:  <?php echo htmlspecialchars(\"<!---\");?>/foreach<?php echo htmlspecialchars(\"--->\");?><br />\n"
+"      Conditons:<br />\n"
+"      -Not empty:  <?php echo htmlspecialchars(\"<!---\");?>if !empty($<b>fieldname</b>)<?php echo htmlspecialchars(\"--->\");?><br />\n"
+"      End conditon block:  <?php echo htmlspecialchars(\"<!---\");?>/if<?php echo htmlspecialchars(\"--->\");?><br />\n"
+"      Image: [image src={$<b>fieldname</b>} w=<b>width</b> h=<b>height</b> border=<b>border</b> bcolor=<b>bordercolor</b> ]"
+msgstr ""
+
+#: /views/templates/add.ctp:24 /views/templates/edit.ctp:26
+#: /w2/views/templates/add.ctp:34 /w2/views/templates/edit.ctp:38
+msgid ""
+"Load Website: [load url=<b>url to page</b> script=<b>Leave javascript=>1, "
+"Remove javacript=>0 </b>]"
+msgstr ""
+
+#: /views/templates/add.ctp:27 /views/templates/edit.ctp:30
+#: /w2/views/templates/add.ctp:37 /w2/views/templates/edit.ctp:42
+msgid "Parse Css"
+msgstr "แยก CSS"
+
+#: /views/templates/add.ctp:31 /views/templates/edit.ctp:34
+#: /w2/views/templates/add.ctp:42 /w2/views/templates/edit.ctp:47
+msgid ""
+"If this checkbox is checked the Newsletter Mailer will apply the css style "
+"of the template to the HTML code.(Most mail clients don't parse css)"
+msgstr ""
+
+#: /views/templates/add.ctp:35 /views/templates/edit.ctp:38
+#: /w2/views/templates/add.ctp:48 /w2/views/templates/edit.ctp:53
+msgid "Fields"
+msgstr "ฟิลด์"
+
+#: /views/templates/add.ctp:39 /views/templates/edit.ctp:42
+#: /w2/views/templates/add.ctp:52 /w2/views/templates/edit.ctp:57
+msgid ""
+"Write only one field name per line. The fields can be grouped in repeating blocks using HTML like tags &lt;<b>groupname</b>&gt; &lt;/<b>groupname</b>&gt;<br/>\n"
+"        Field types:<br /><b>-Textfield</b>: Field name starts lower case\n"
+"        <br />\n"
+"        <b>-Image chooser</b>: Field name starts lower case and ends with \"_imgchooser\"\n"
+"        <br /><b>-Html editor</b>: Field name starts upper case\n"
+"        <br /><b>-Simple Html editor</b>: Field name  ends with \"_lite\""
+msgstr ""
+
+#: /views/templates/add.ctp:45 /views/templates/edit.ctp:48
+#: /w2/views/templates/add.ctp:58 /w2/views/templates/edit.ctp:63
+msgid "<br /><b>-Textarea</b>: Field name  ends with \"_raw\""
+msgstr ""
+
+#: /views/templates/edit.ctp:3 /w2/views/settings/index.ctp:6
+#: /w2/views/templates/edit.ctp:6
+msgid "Edit Template"
+msgstr "แก้ไขแม่แบบ"
+
+#: /views/templates/images.ctp:9 /w2/views/templates/images.ctp:7
+msgid "Upload missing images"
+msgstr "อัพโหลดรูป"
+
+#: /views/templates/import.ctp:1 /views/templates/index.ctp:2
+#: /w2/views/templates/import.ctp:7 /w2/views/templates/index.ctp:11
+msgid "Import Template"
+msgstr "นำเข้าแม่แบบ"
+
+#: /views/templates/index.ctp:2
+msgid "Import"
+msgstr "นำเข้า"
+
+#: /views/templates/index.ctp:3 /w2/views/templates/index.ctp:12
+msgid "New Template"
+msgstr "แม่แบบใหม่"
+
+#: /views/templates/index.ctp:14
+msgid "images"
+msgstr "รูปภาพ"
+
+#: /views/templates/index.ctp:14 /w2/views/templates/index.ctp48;48
+msgid "Upload missing image for"
+msgstr "อัพโหลดรูปสำหรับ"
+
+#: /views/templates/index.ctp:19
+msgid "export"
+msgstr "ส่งออก"
+
+#: /views/templates/index.ctp:19 /w2/views/templates/index.ctp:53
+msgid "Export Template "
+msgstr "ส่งออกแม่แบบ"
+
+#: /views/templates/view.ctp:19 /w2/views/templates/view.ctp:19
+msgid "Type"
+msgstr "ประเภท"
+
+#: /views/users/add.ctp:3 /w2/views/users/add.ctp:5
+msgid "Add User"
+msgstr "เพิ่มผู้ใช้"
+
+#: /views/users/add.ctp:7 /w2/views/users/add.ctp:13
+msgid "Level"
+msgstr "ระดับ"
+
+#: /views/users/add.ctp:10 /views/users/edit.ctp:7 /views/users/index.ctp:16
+#: /w2/views/users/add.ctp:16 /w2/views/users/edit.ctp:16
+#: /w2/views/users/index.ctp:37
+msgid "Superadmin (Can change configurations)"
+msgstr "ผู้ดูแลสูงสุด (สามารถเปลี่ยนการตั้งค่าได้)"
+
+#: /views/users/add.ctp:10 /views/users/edit.ctp:7 /views/users/index.ctp:16
+#: /w2/views/users/add.ctp:16 /w2/views/users/edit.ctp:16
+#: /w2/views/users/index.ctp:37
+msgid "User"
+msgstr "ผู้ใช้งาน"
+
+#: /views/users/edit.ctp:3 /w2/views/users/edit.ctp:5
+msgid "Edit User"
+msgstr "แก้ไขผู้ใช้"
+
+#: /views/users/edit.ctp:9 /w2/views/users/edit.ctp:18
+msgid "Change Password"
+msgstr "เปลี่ยนรหัสผ่าน"
+
+#: /views/users/index.ctp:2 /w2/views/users/index.ctp:13
+msgid "New User"
+msgstr "ผู้ใช้งานใหม่"
+
+#: /views/users/index.ctp:9 /w2/views/users/index.ctp:30
+msgid "Last Login"
+msgstr "เข้าสู่ระบบครั้งสุดท้าย"
+
+#: /views/users/login.ctp:8 /w2/views/users/login.ctp:12
+msgid "Login"
+msgstr "เข้าสู่ระบบ"
+
+#: /w2/controllers/clicktrack_controller.php:20
+#: /w2/controllers/recipients_controller.php:34
+#: /w2/controllers/templates_controller.php:15
+msgid "Modul Installed"
+msgstr "โมดูลที่ติดตั้ง"
+
+#: /w2/controllers/configurations_controller.php92;125;158
+msgid "No connection"
+msgstr "ไม่มีการเชื่อมต่อ"
+
+#: /w2/controllers/configurations_controller.php:129
+msgid "Message deleted"
+msgstr "ข้อความที่ถูกลบ"
+
+#: /w2/controllers/configurations_controller.php180;182
+msgid "Reply to"
+msgstr "ตอบกลับ"
+
+#: /w2/controllers/configurations_controller.php185;188
+msgid "Message Sent"
+msgstr "ข้อความที่ส่ง"
+
+#: /w2/controllers/configurations_controller.php:540
+msgid "Unable to connect to Amazone SES"
+msgstr "ไม่สามารถเชื่อมต่อ Amazone SES"
+
+#: /w2/views/campaigns/index.ctp:8 /w2/views/categories/index.ctp:7
+#: /w2/views/clicktrack/link.ctp:248 /w2/views/clicktrack/recipient.ctp:6
+#: /w2/views/configurations/index.ctp:8 /w2/views/forms/index.ctp:8
+#: /w2/views/importtasks/index.ctp:8 /w2/views/mails/campaign.ctp:162
+#: /w2/views/mails/index.ctp:27 /w2/views/recipients/index.ctp:248
+#: /w2/views/subscribers/index.ctp:39 /w2/views/users/index.ctp:7
+msgid "%count%"
+msgstr "%count%"
+
+#: /w2/views/clicktrack/link.ctp:246
+msgid "Who clicked on"
+msgstr ""
+
+#: /w2/views/clicktrack/link.ctp:331 /w2/views/clicktrack/recipient.ctp:4
+#: /w2/views/recipients/index.ctp:334
+msgid "Links clicked by"
+msgstr ""
+
+#: /w2/views/clicktrack/recipient.ctp:23
+msgid "Click Count"
+msgstr "จำนวนคลิ๊ก"
+
+#: /w2/views/clicktrack/recipient.ctp:25
+msgid "First click on"
+msgstr ""
+
+#: /w2/views/configurations/inbox.ctp:21
+msgid "Arrived"
+msgstr ""
+
+#: /w2/views/configurations/index.ctp:72
+msgid "Open Inbox"
+msgstr "เปิดกล่องขาเข้า"
+
+#: /w2/views/configurations/mail.ctp:22
+msgid "Reply"
+msgstr "ตอบ"
+
+#: /w2/views/configurations/remaining.ctp3;5
+msgid "in the next"
+msgstr "ในครั้งต่อไป"
+
+#: /w2/views/home/index.ctp:15 /w2/views/mails/index.ctp:15
+msgid "New Newsletter"
+msgstr "จดหมายข่าวใหม่"
+
+#: /w2/views/home/index.ctp:16
+msgid "Newsletter History"
+msgstr "ประวัติจดหมายข่าว"
+
+#: /w2/views/importtasks/add.ctp:5 /w2/views/importtasks/edit.ctp:5
+#: /w2/views/importtasks/edit1.ctp:5 /w2/views/importtasks/edit2.ctp:5
+#: /w2/views/importtasks/edit3.ctp:5 /w2/views/mails/step1.ctp:5
+#: /w2/views/mails/step2.ctp:6 /w2/views/mails/step3.ctp:43
+#: /w2/views/mails/step4.ctp:5 /w2/views/mails/step5.ctp:5
+msgid "Base Settings"
+msgstr "ตั่งค่าพื้นฐาน"
+
+#: /w2/views/importtasks/add.ctp:6 /w2/views/importtasks/edit.ctp:6
+#: /w2/views/importtasks/edit1.ctp:6 /w2/views/importtasks/edit2.ctp:6
+#: /w2/views/importtasks/edit3.ctp:6
+msgid "Connection to DB"
+msgstr "เชื่อมต่อกับ DB"
+
+#: /w2/views/importtasks/edit1.ctp:15
+msgid "Configure to DB server"
+msgstr "การกำหนดค่าเซิร์ฟเวอร์ไปยัง DB"
+
+#: /w2/views/importtasks/edit2.ctp:15
+msgid "Edit SQL Query"
+msgstr "แก้ไข SQL คิวรี่"
+
+#: /w2/views/importtasks/edit3.ctp:15
+msgid "Setup import form DB"
+msgstr "เริ่มการนำเข้าจากฐานข้อมูล"
+
+#: /w2/views/layouts/default.ctp:61
+msgid "Interesting Newsletter \"{$subject}\" {$publiclink}"
+msgstr ""
+
+#: /w2/views/layouts/default.ctp:119
+msgid "Style"
+msgstr "สไตล์"
+
+#: /w2/views/layouts/default.ctp:122
+msgid "Blue"
+msgstr "สีน้ำเงิน"
+
+#: /w2/views/layouts/default.ctp:123
+msgid "Red"
+msgstr "สีแดง"
+
+#: /w2/views/layouts/default.ctp:124
+msgid "Dark"
+msgstr "ที่มืด"
+
+#: /w2/views/layouts/default.ctp:125
+msgid "Green"
+msgstr "สีเขียว"
+
+#: /w2/views/layouts/default.ctp:126
+msgid "Purple"
+msgstr "สีม่วง"
+
+#: /w2/views/layouts/default.ctp:127
+msgid "Brown"
+msgstr "สีน้ำตาล"
+
+#: /w2/views/layouts/default.ctp:137
+msgid "Width"
+msgstr "ความกว้าง"
+
+#: /w2/views/layouts/default.ctp:141
+msgid "Fluid"
+msgstr "Fluid"
+
+#: /w2/views/layouts/default.ctp:142
+msgid "Fixed"
+msgstr ""
+
+#: /w2/views/mails/campaign.ctp:44
+msgid "Send Mails"
+msgstr "ส่งอีเมล"
+
+#: /w2/views/mails/campaign.ctp:128 /w2/views/mails/sendstatus.ctp:150
+msgid "Not send"
+msgstr "ไม่ได้ส่ง"
+
+#: /w2/views/mails/campaign.ctp:130 /w2/views/mails/sendstatus.ctp:152
+msgid "Unread"
+msgstr "ไม่ได้อ่าน"
+
+#: /w2/views/mails/index.ctp:16
+msgid "Run Send Job"
+msgstr "เริ่มการส่ง"
+
+#: /w2/views/mails/index.ctp:17
+msgid "Check Bounce Mails"
+msgstr ""
+
+#: /w2/views/mails/index.ctp:18
+msgid "Run Import Job"
+msgstr "เริ่มการนำเข้า"
+
+#: /w2/views/mails/index.ctp:109
+msgid ""
+"Sent Newsletters RSS Feed (%link%). You can edit the rss channel in the "
+"application settings."
+msgstr "ส่ง RSS Feed จดหมายข่าว (%link%). คุณสามารถแก้ไข rss channel ได้ในการตั้งค่าโปรแกรม."
+
+#: /w2/views/mails/sendstatus.ctp16;17;17;19
+msgid "Other"
+msgstr " อื่นๆ"
+
+#: /w2/views/mails/sendstatus.ctp:134
+msgid "Send Statistics"
+msgstr "ส่งสถิติ"
+
+#: /w2/views/mails/sendstatus.ctp:159
+msgid "Mails"
+msgstr "อีเมล"
+
+#: /w2/views/mails/sendstatus.ctp:192
+msgid "Recipent Information"
+msgstr "ข้อมูลผู้รับ"
+
+#: /w2/views/mails/sendstatus.ctp:222
+msgid "Reactivate"
+msgstr "เปิดใช้งานอีกครั้ง"
+
+#: /w2/views/mails/sendstatus.ctp:273
+msgid "Who clicked on "
+msgstr ""
+
+#: /w2/views/mails/sendstatus.ctp:303
+msgid "Line"
+msgstr "บรรทัด"
+
+#: /w2/views/mails/sendstatus.ctp:304
+msgid "Area"
+msgstr "บริเวณ"
+
+#: /w2/views/mails/sendstatus.ctp:307
+msgid "Bars"
+msgstr "บาร์"
+
+#: /w2/views/mails/sendstatus.ctp:408
+msgid "Mail Clients"
+msgstr "อีเมลลูกค้า"
+
+#: /w2/views/mails/sendstatus.ctp425;468
+msgid "No Data"
+msgstr "ไม่มีข้อมูล"
+
+#: /w2/views/mails/sendstatus.ctp:450
+msgid "Operating Systems"
+msgstr "ระบบปฏิบัติการ"
+
+#: /w2/views/mails/step1.ctp:8 /w2/views/mails/step2.ctp:9
+#: /w2/views/mails/step3.ctp:46 /w2/views/mails/step4.ctp:8
+#: /w2/views/mails/step5.ctp:8
+msgid "Preview and Test"
+msgstr "ดูตัวอย่างและการทดสอบ"
+
+#: /w2/views/mails/step2.ctp:59
+msgid "Show All"
+msgstr "แสดงทั้งหมด"
+
+#: /w2/views/mails/step4.ctp:56
+msgid "Spam Filter Check"
+msgstr "ตรวจสอบตัวกรองสแปม"
+
+#: /w2/views/subscribers/cleanup.ctp:12
+msgid "Start Clean Up"
+msgstr "เริ่มเคลียร์ข้อมูล"
+
+#: /w2/views/subscribers/export.ctp:7
+msgid "Export Subscribers to CSV"
+msgstr "ส่งออกสมาชิกรับจดหมายข่าวไปยัง CSV"
+
+#: /w2/views/subscribers/index.ctp:45
+msgid "List"
+msgstr "รายการ"
+
+#: /w2/views/subscribers/index.ctp:46
+msgid "Search Subscriber"
+msgstr "ค้นหาสมาชิกรับจดหมายข่าว"
+
+#: /w2/views/templates/add.ctp:21 /w2/views/templates/edit.ctp:24
+msgid "Load Editor"
+msgstr "โหลดตัวแก้ไข"
+
+#: /w2/views/templates/index.ctp:53
+msgid "Export"
+msgstr "ส่งออก"
+
+#: /w2/views/users/login.ctp:28
+msgid "Enter your username"
+msgstr "ใส่ชื่อผู้ใช้"
+
+#: /w2/views/users/login.ctp:32
+msgid "Enter your password"
+msgstr "ใส่รหัสผ่านผู้ใช่"
+
+#: /w2/webroot/test.php:88 /webroot/test.php:88
+msgid "Debug setting does not allow access to this url."
+msgstr ""

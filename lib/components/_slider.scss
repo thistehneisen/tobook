@@ -1,0 +1,132 @@
+//  ========== 
+//  = Slider for the HairPress HTML template = 
+//  ========== 
+
+$slider-bg : #eeeeee;
+
+.slider,
+.fullwidthbanner-container {
+  font-family: 'PT Sans';
+  height: 530px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  @include background-size(cover);
+  .row {
+    position: absolute;
+    top: 0;
+    z-index:99;
+    height: 530px; 
+  }
+  
+  .opening-time {
+    position: absolute;
+    top: 120px;
+    right: 0;
+    z-index: 99; 
+  }
+  .custom-cap {
+    visibility: hidden;
+  }
+}
+
+// slider title
+.slider-title {
+  top: 215px;
+  font-size: 66px;
+  line-height: 110px;
+  font-weight: bold;
+  position: absolute;
+  color: $grayDark;
+  line-height: 1.3;
+  width: 100%;
+  
+  .icons-double-line {
+    display: block;
+    margin: 7px 0;
+  }
+  
+  .nav-icons {
+    font-size: 20px;
+    a {
+      @include opacity(25);
+      @include transition(opacity 0.3s ease);
+      
+      &:hover {
+        @include opacity(100);
+      }
+    }
+  }
+}
+.semi-white-bg {
+  @include background(rgba(0,0,0,0.25));
+  color: #fff;
+  width: 64%;
+  padding: 0 2%;
+  @include border-radius(3px);
+  max-height: 172px;
+  overflow: hidden;
+  min-height: 50px;
+}
+
+
+// time table
+.opening-time {
+  background: image-url("lanes.png") no-repeat center top;
+  width: 215px;
+  padding-top: image-height("lanes.png");
+  color: $white;
+  
+  .time-table {
+    background-color: darken($grayDark, 1%);
+    @include border-radius(2px);
+    padding-bottom: 8px;
+    
+    h3 {
+      font-size: 18px;
+      margin: 0;
+      text-align: center;
+      color: $white;
+      line-height: 2.2;
+    }
+    
+    > .inner-bg {
+      margin: 0 8px;
+      padding: 0 3px;
+      background: image-url("opening-time.gif") repeat;
+      @include border-radius(2px);
+      border-bottom: 1px solid #444444;
+      @include box-shadow(inset 0 2px 3px rgba(0,0,0,0.6));
+    } 
+  }
+  .week-day {
+    padding: 7px 10px;
+    @include border-radius(3px);
+    margin: 0;
+    
+    &.light-bg {
+      background-image: image-url("opening-time-light.gif");
+    }
+    
+    dt {
+      width: 50%;
+      float: left;
+    }
+    dd {
+      text-align: right;
+      text-transform: uppercase;
+    }
+    
+    &.today {
+      dt {
+        color: $theme-clr;
+      }
+    }
+    &.closed {
+      dt,
+      dd {
+        color: lighten($gray, 7%);
+      }
+    }
+  }
+}
+

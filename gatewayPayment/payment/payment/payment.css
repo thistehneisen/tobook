@@ -1,0 +1,835 @@
+body{
+  margin:0;
+  //background-color: #c6c6c6;
+  color:#3a3a3a;
+  font:14px/18px Arial, Helvetica, sans-serif;
+  min-width:604px;
+}
+img{border-style:none;}
+a{
+  text-decoration:none;
+  color:#0049c3;
+}
+a:hover{text-decoration:underline;}
+input,
+textarea,
+select{
+  font:18px Arial, Helvetica, sans-serif;
+  vertical-align:middle;
+  color:#000000;
+}
+input::-webkit-input-placeholder{ color:#929292; }
+.placeholder{ color:#929292; }
+form,
+fieldset{
+  margin:0;
+  padding:0;
+  border-style:none;
+  overflow: hidden;
+}
+.subscribe-form label.error {float: none; clear: left; display: block; height: 30px; line-height: 30px; color: red; font-size:14px;}
+#wrapper{
+  width:604px;
+  margin:0 auto 30px;
+}
+#header{
+  background: linear-gradient(135deg, #43ade0 0%,#3291d5 100%);
+  -moz-border-radius-bottomleft: 6px;
+  -moz-border-radius-bottomright: 6px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  margin: 0 5px 14px;
+  padding: 10px 20px;
+  box-shadow: 0 0 4px #333;
+  -webkit-box-shadow: 0 0 4px #333;
+  -moz-box-shadow: 0 0 4px #333;
+}
+h1.company_name {
+    margin: 18px 0px;
+    color: yellow;
+}
+.logo {
+  max-width: 555px;
+}
+.logo a{
+  display:block;
+  height:100%;
+}
+#content{
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  box-shadow: 0 0 4px #333;
+  -webkit-box-shadow: 0 0 4px #333;
+  -moz-box-shadow: 0 0 4px #333;
+  margin: 0 5px;
+  background-color: #ffffff;
+  position: relative;
+}
+.hide { display:none }
+.left { float: left }
+.right { float: right }
+.block-header {
+  padding: 0 40px 0;
+  overflow: hidden;
+  text-shadow: #333 1px 1px 1px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  background: linear-gradient(135deg, #43ade0 0%,#3291d5 100%); 
+  color:white;
+}
+
+.block-header .description {
+  width: 300px;
+}
+.block-header h2 {
+  font-weight: normal;
+}
+h2.primary {
+    font-size: 29px !important;
+    line-height: 30px !important;
+    word-wrap: break-word !important;
+    font-weight: bold;
+}
+.block-header h2.em {
+    font-size: 19px;
+    font-style: italic;
+    line-height: 49px;
+    font-weight: bold;
+}
+.block {
+  overflow: hidden;
+  background: url(images/bg-content.png) repeat;
+}
+.box {
+  background: url(images/bg-border.gif) repeat-x 0 100%;
+  overflow: hidden;
+}
+.box:last-child {
+  padding-bottom: 0;
+}
+.box .box-row {
+  margin-left: -39px;
+  padding: 5px 39px;
+  width: 100%;
+  min-height: 50px;
+  overflow: hidden;
+  font-size: 18px;
+  line-height: 50px;
+}
+.block-header + .block, .box .box-row-striped:first-child {
+  box-shadow: inset 0px 5px 6px -6px;
+  background-color: white;
+}
+.block{
+    overflow: hidden;
+    background: url(images/bg-content.png) repeat;
+}
+.box .box-row-striped:last-child {
+  box-shadow: inset 0 -8px 7px -10px;
+}
+.with_trial #subscription_price {
+  display: block;
+  line-height: 21px;
+}
+.box .box-row-striped {
+  background: #fafafa;
+}
+.box .box-row-striped:nth-child(2n) {
+  background-color: #f3f3f3;
+}
+.box .box-row .description {
+  float: left;
+  width: 300px;
+}
+.box .box-row input[type="checkbox"] {
+  margin: 0 5px 0 0;
+  padding: 0;
+}
+.box .box-row .qty {
+  padding-top: 5px;
+  float: left;
+  line-height: 17px;
+  text-align: center;
+}
+.box .box-row .qty .base, .box .box-row .qty .multiplier {
+  display: block;
+}
+.box .box-row .qty .label {
+  display: block;
+  width: 100%;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: bold;
+}
+.box .box-row .qty .number {
+  font-size: 16px;
+}
+.box .box-row .qty-editable label {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.box .box-row .qty-editable input[type="text"] {
+  width: 54px;
+}
+.box .box-row .price {
+  display: block;
+  float: right;
+}
+.box .box-row .price-disabled {
+  color: gray;
+}
+.box .box-row.selected .price-disabled {
+  color: black;
+}
+.box .box-row.box-bold {
+  font-weight: bold;
+}
+.box .box-row-hero {
+  font-size: 27px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: #333 1px 1px 1px;
+  background: #43ade0; /* Old browsers */
+  background: -webkit-linear-gradient(-45deg,  #43ade0 0%,#3291d5 100%); /* Chrome10+,Safari5.1+ */
+  background: -ms-linear-gradient(-45deg,  #43ade0 0%,#3291d5 100%); /* IE10+ */
+  background: linear-gradient(135deg,  #43ade0 0%,#3291d5 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#43ade0', endColorstr='#3291d5',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+.box .box-row-primary {
+  min-height: 75px;
+  font-size: 24px;
+}
+.box .box-row-primary .trial {
+  display: block;
+  text-align: right;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 27px;
+}
+.box .box-row-secondary {
+  min-height: 25px;
+  line-height: 25px;
+  margin-bottom: 14px;
+}
+.box .box-row-mini {
+  margin: 0;
+  padding: 5px 0;
+  min-height: 25px;
+  line-height: 20px;
+}
+.box .box-row-mini .description {
+  width: 155px;
+}
+#order_summary_w {
+  overflow: hidden;
+  padding: 15px 0;
+}
+.box, .subscribe-form .agreement, .testsite {
+  margin: 0;
+  padding: 16px 39px 23px 39px;
+  width: 516px;
+}
+.testsite {
+  padding-bottom: 8px;
+  background: #fff url(/assets/transition/notice_icon.png) no-repeat 540px 10px;
+}
+.subscribe-form h3, .subscribe-confirmation h3{
+  margin:0 0 8px;
+  font-size:18px;
+  width:100%;
+  line-height:22px;
+}
+.subscribe-form .row-holder{
+  width:330px;
+  float:left;
+}
+.subscribe-form .aside{
+  float:right;
+  width:186px;
+  padding:2px 0 0;
+}
+.payments{
+  padding:0 0 4px 0;
+  background:#d9d9d9 url(/assets/transition/hosted/bg-payments.gif) no-repeat 0 100%;
+}
+.payments-holder{
+  background:url(/assets/transition/hosted/bg-payments.gif) no-repeat 100% 0;
+  padding:0 4px 0 0;
+}
+.payments-frame{
+  border:1px solid #8b8b8b;
+  background:#e7e7e6;
+  padding:2px;
+}
+.payments-info{
+  background:#fffffe;
+  color:#393939;
+  font-size:12px;
+  padding:6px 7px;
+}
+.payments .secure3d-logos {
+  margin-top: 3px;
+  border-top: 1px dashed #CCC;
+  text-align: center;
+}
+#secure3d-visa { width: 67px; }
+#secure3d-master { width: 80px; }
+.payments p{margin: 0 0 3px; }
+.payments .card-image .nomatch { opacity: .25; }
+.payments .card-image .match { opacity: 1; }
+.payments .secure3d-logos .nomatch { opacity: .25; }
+.payments .secure3d-logos .match { opacity: 1; }
+.payments .card-image img{ margin: 0 2px 4px 0;}
+.subscribe-form .aside img{vertical-align:top;}
+.subscribe-form .row{
+  margin-bottom:0 0 5px;
+  min-height: 36px;
+}
+.subscribe-form .agreement .row {
+  min-height: 0;
+}
+.subscribe-form input[type="text"], .subscribe-form input[type="email"] {
+  background-color: #ffffff;
+  border: 1px #a5a39f solid;
+}
+#credit_card_section input, #contact_section input, #credit_card_section textarea {
+  margin: 2px 8px 2px 0;
+  padding: 4px 6px;
+  float: left;
+  width: 306px;
+}
+
+.payment_method input {
+  float: none;
+  width: 20px;
+  margin: 0 5px 0 100px;
+}
+
+.payment_method {
+  margin: 0 0 10px 0;
+}
+
+.subscribe-form input.error{
+  border: 1px #f28027 solid;
+  -webkit-box-shadow: 0 0 5px #f5cdae;
+  -moz-box-shadow: 0 0 5px #f5cdae;
+  box-shadow: 0 0 5px #f5cdae;
+}
+.subscribe-form input:focus, .subscribe-form input.error:focus {
+  border: 1px #2799f2 solid;
+  -moz-box-shadow: 0 0 5px #c3dff6;
+  box-shadow: 0px 0px 5px #c3dff6;
+}
+.subscribe-form .error input {background-position:0 -252px;}
+#credit_card_section .name, #contact_section .name{width:142px;}
+#credit_card_section .card{width:199px;}
+#credit_card_section .cvv{width:85px;}
+#credit_card_section .zip{width:86px;}
+#credit_card_section .quantity{width:86px;}
+#credit_card_section .state{width:198px;}
+#credit_card_section .tax{width:266px;}
+#credit_card_section select{
+  color:#333;
+  float:left;
+  margin:4px 10px 0 0;
+  padding: 1px;
+  font-size:14px;
+}
+#credit_card_section label {
+    font-size: 16px;
+    line-height: 27px;
+    float: left;
+    clear: left;
+    margin-top: 7px;
+    margin-right: 10px;
+}
+#billing_info_country{
+  margin:0 0 0 2px;
+  width:318px;
+}
+.subscribe-block{
+  background: url(images/bg-footer.png) repeat-x;
+  height:50px;
+  padding:23px;
+  -moz-border-radius-bottomleft: 6px;
+  border-bottom-left-radius: 6px;
+  -moz-border-radius-bottomright: 6px;
+  border-bottom-right-radius: 6px;
+  width: 548px;
+  background-color: white;
+}
+.country-code{
+  position: relative;
+  margin: 2px -2px 0 0;
+  padding: 6px 8px;
+  border: 1px solid #a5a39f;
+  border-right: 0;
+  float: left;
+  width: 22px;
+  height: 17px;
+}
+.hint{
+  background:#000 url(/assets/transition/hosted/bg-hint.gif) no-repeat;
+  float:right;
+  color:#fff;
+  font-size:14px;
+  font-weight:normal;
+  padding:7px 10px 10px;
+  width:173px;
+  height:18px;
+  margin:0 1px 0 0;
+  display:inline;
+}
+.agreement input{
+  width:15px;
+  height:16px;
+  clear:both;
+  position:relative;
+  margin:2px 8px 0 0;
+  background:#fff;
+  padding:0;
+  color:#000;
+}
+.agreement label{
+  font-size:16px;
+  line-height:18px;
+  clear: none;
+}
+/* Subscribe Button (Older) */
+.subscribe-block input, .subscribe-block .subscribe-button{
+  padding: 8px 24px;
+  float: right;
+  width: auto;
+  cursor:pointer;
+  position:relative;
+  font-size:26px;
+  line-height:28px;
+  font-weight:bold;
+  color:#151515;
+  margin:0 0 0 19px;
+  border-radius: 13px;
+  -moz-border-radius: 13px;
+  -webkit-border-radius: 13px;
+  box-shadow: 1px 1px 3px #9d9d9d;
+  -webkit-box-shadow: 1px 1px 3px #9d9d9d;
+  -moz-box-shadow: 1px 1px 3px #9d9d9d;
+  text-shadow: 0 1px 2px #ffd334;
+}
+.subscribe-block .subscribe-button {
+  background: #f78d1d;
+  background: -webkit-gradient(linear, left top, left bottom, from(#ffd408), to(#ca7a06));
+  background: -moz-linear-gradient(top,  #ffd408,  #ca7a06);
+  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd408', endColorstr='#ca7a06');
+}
+.subscribe-block .subscribe-button:hover {
+  background: #f47c20;
+  background: -webkit-gradient(linear, left top, left bottom, from(#ffe66d), to(#e0962a));
+  background: -moz-linear-gradient(top,  #ffe66d,  #e0962a);
+  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffe66d', endColorstr='#e0962a');
+}
+.subscribe-block .subscribe-button:active {
+  background: -webkit-gradient(linear, left top, left bottom, from(#ca7a06), to(#ffd408));
+  background: -moz-linear-gradient(top,  #ca7a06,  #ffd408);
+  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ca7a06', endColorstr='#ffd408');
+}
+.subscribe-block .subscribe-button[disabled] {
+  background: #f78d1d;
+  background: -webkit-gradient(linear, left top, left bottom, from(#af9105), to(#ca7a06));
+  background: -moz-linear-gradient(top,  #af9105,  #ca7a06);
+  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#af9105', endColorstr='#ca7a06');
+}
+/* End: Subscribe Button (Older) */
+/* Subscribe Button (New) */
+button.pay {
+    /* === Layout ==== */
+    position:relative;
+    height: 46px;
+    max-width: 600px;
+    padding: 0 10px;
+
+    /* === Typography ==== */
+    font-size: 15px;
+    font-weight: 700;
+    color: #302106;
+    text-shadow: rgba(255,255,255, .5694) 0 1px 0;
+    text-align: center;
+
+    /* === Style ==== */
+    border: 1px solid #767674;
+    background: #e7a500;
+
+    /* === Round Buttons ==== */
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+
+    /* === Remove Outlines & Accidential Drags ==== */
+    -webkit-user-select: none;
+    -moz-user-select: -moz-none;
+    cursor: default;
+    outline: none;
+
+    /* === Button Fill Colors ==== */
+    /* For WebKit (Safari, Google Chrome etc) */
+    background-image:-webkit-gradient(linear, 0% 20%, 0% 100%, from(#FECD00), to(#CE7B00));
+    /* For Mozilla/Gecko (Firefox etc) */
+    background: -moz-linear-gradient(top, #fecd00, #ce7b00);
+    /* For Internet Explorer 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#fecd00, endColorstr=#ce7b00);
+    /* For Internet Explorer 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#fecd00, endColorstr=#ce7b00)";
+
+    /* === Shadows, Inset and Drop ==== */
+    /* For WebKit (Safari, Google Chrome etc) */
+    -webkit-background-clip: padding-box;
+    -webkit-box-shadow:
+      rgba(255, 255, 255, 0.699219) 0px 1px 0px inset,
+      rgba(0,0,0, 0.269219) 0px 2px 3px;
+    /* For Mozilla/Gecko (Firefox etc) */
+    -moz-box-shadow:
+      0px 2px 3px rgba(0,0,0, 0.269219),
+      0px 1px 0px 0px rgba(255, 255, 255, 0.699219) inset;
+    /* So That Torch Burns Brightly */
+    box-shadow:
+        rgba(255, 255, 255, 0.699219) 0px 1px 0px inset,
+        rgba(0,0,0, 0.269219) 0px 2px 3px;
+}
+
+button.pay span {
+    font-weight: 500;
+    font-size: 13px;
+}
+
+button.pay:hover {
+    cursor: default;
+    color: #555;
+}
+
+button.pay:active {
+     /* === Layout ==== */
+    top:2px;
+
+    /* === Typography ==== */
+    color: #302106;
+    text-shadow: rgba(255,255,255, .5694) 0 -1px 0;
+
+    /* === Remove Outlines & Accidential Drags ==== */
+    -webkit-user-select: none;
+    -moz-user-select: -moz-none;
+    cursor: default;
+    outline: none;
+
+    /* === Button Fill Colors - INVERTED for Click, Do Not Remove! ==== */
+    /* For WebKit (Safari, Google Chrome etc) */
+    background-image:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#CE7B00), to(#FECD00));
+    /* For Mozilla/Gecko (Firefox etc) */
+    background: -moz-linear-gradient(top, #ce7b00, #fecd00);
+    /* For Internet Explorer 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ce7b00, endColorstr=#fecd00);
+    /* For Internet Explorer 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ce7b00, endColorstr=#fecd00)";
+
+    /* === Shadows, Inset and Drop - INVERTED for Click, Do Not Remove!  ==== */
+    /* For WebKit (Safari, Google Chrome etc) */
+    -webkit-background-clip: padding-box;
+    -webkit-box-shadow:
+        rgba(255, 255, 255, 0.699219) 0px -1px 0px inset,
+        rgba(0,0,0, 0.269219) 0px 2px 3px;
+    /* For Mozilla/Gecko (Firefox etc) */
+    -moz-box-shadow:
+      0px 2px 3px rgba(0,0,0, 0.269219),
+      0px -1px 0px 0px rgba(255, 255, 255, 0.699219) inset;
+    /* So That Torch Burns Brightly */
+    box-shadow:
+        rgba(255, 255, 255, 0.699219) 0px -1px 0px inset,
+        rgba(0,0,0, 0.269219) 0px 2px 3px;
+}
+
+
+
+button.pay[disabled] {
+    /* === Layout ==== */
+    position:relative;
+    height: 46px;
+    max-width: 600px;
+    padding: 0 10px;
+
+    /* === Typography ==== */
+    font-size: 15px;
+    font-weight: 700;
+    color: #555 !important;
+    text-shadow: rgba(255,255,255, .5694) 0 1px 0;
+    text-align: center;
+
+    /* === Style ==== */
+    opacity: .75;
+    border: 1px solid #767674;
+    background: #e7a500;
+
+    /* === Round Buttons ==== */
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+
+    /* === Remove Outlines & Accidential Drags ==== */
+    -webkit-user-select: none;
+    -moz-user-select: -moz-none;
+    cursor: default;
+    outline: none;
+
+    /* === Button Fill Colors - INVERTED for Click, Do Not Remove! ==== */
+    /* For WebKit (Safari, Google Chrome etc) */
+    background-image:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#DBD9D2), to(#999)) !important;
+    /* For Mozilla/Gecko (Firefox etc) */
+    background: -moz-linear-gradient(top, #DBD9D2, #999999) !important;
+    /* For Internet Explorer 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#DBD9D2, endColorstr=#999999) !important;
+    /* For Internet Explorer 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#DBD9D2, endColorstr=#999999)" !important;
+
+    /* === Shadows, Inset and Drop ==== */
+    /* For WebKit (Safari, Google Chrome etc) */
+    -webkit-background-clip: padding-box;
+    -webkit-box-shadow:
+      rgba(255, 255, 255, 0.699219) 0px 1px 0px inset,
+      rgba(0,0,0, 0.269219) 0px 2px 3px;
+    /* For Mozilla/Gecko (Firefox etc) */
+    -moz-box-shadow:
+      0px 2px 3px rgba(0,0,0, 0.269219),
+      0px 1px 0px 0px rgba(255, 255, 255, 0.699219) inset;
+    /* So That Torch Burns Brightly */
+    box-shadow:
+        rgba(255, 255, 255, 0.699219) 0px 1px 0px inset,
+        rgba(0,0,0, 0.269219) 0px 2px 3px;
+}
+
+button.pay span {
+    font-weight: 500;
+    font-size: 13px;
+}
+
+button.pay:hover {
+    cursor: default;
+    color: #555;
+}
+
+#paypal-p {
+ padding: 0 10px 0 0;
+ vertical-align:-7px;
+}
+
+.large {
+ font-size: 19px !important;
+}
+
+.small {
+ font-size: 14px !important;
+}
+
+/* Absolutely Required to Kill a bad FF 3.6 Bug */
+button::-moz-focus-inner { border: 0; }
+/* End: Subscribe Button (Older) */
+.secure-payment{
+  width:153px;
+  height:38px;
+  float:left;
+  margin:11px 10px 0;
+  text-indent:-9999px;
+  background:url(images/logo-footer.gif) no-repeat;
+}
+#pay-creditcard, #pay-paypal {
+  float: right;
+}
+#site-not-enabled, p.error-message {
+  color: red;
+  font-size: 16px;
+  font-style: italic;
+}
+
+/* Helper annotations */
+div.test-data {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: #eee;
+  border: 1px solid #777;
+  padding: 5px;
+  -webkit-box-shadow: 3px 3px 0px rgba(0,0,0,0.3);
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  opacity: 0.9;
+}
+
+div.test-data h2 {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  margin: 0;
+  cursor: pointer;
+}
+
+div.test-data summary {
+  display: block;
+  background: #eee;
+  color: #111;
+  margin: 0;
+  padding: 10px;
+  border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+  font-size: 12pt;
+  -webkit-box-shadow: 1px 1px 0px rgba(255,255,255,0.5);
+}
+
+div.test-data dl {
+  display: block;
+  margin: 0;
+  padding: 5px;
+  border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+  background: #fff;
+}
+
+div.test-data dt {
+  margin: 6px 0px;
+  margin-top: 8px;
+  padding: 3px;
+  background: #000;
+  color: white;
+  border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+  padding-left: 10px;
+  cursor: pointer;
+}
+
+div.test-data dd {
+  margin: 6px 0px;
+  padding: 3px;
+  padding-right: 6px;
+  display: block;
+  text-align: left;
+  padding-left: 10px;
+}
+
+p.only-test {
+  font-weight: bold;
+  text-align: center;
+  padding: 0px 10px;
+}
+
+.with_trial #subscription_price,
+.with_trial .subscription_add_on .price,
+.with_trial #coupon_w .price,
+.with_trial #coupon_discount .price {
+  text-decoration: line-through;
+}
+/* Special exception, discount is applied to the setup fee */
+.with_trial.with_setup_fee #coupon_discount .price {
+  text-decoration: none;
+}
+
+#coupon_w #subscription_coupon_code {
+  width: 150px;
+}
+
+#coupon_w #check_coupon {
+  margin-left: 5px;
+  display: inline-block;
+  vertical-align: middle;
+  width: 38px;
+  height: 38px;
+  background: url(/assets/transition/hosted/btn_coupon.png) center center no-repeat;
+  cursor: pointer;
+}
+#coupon_w.working #check_coupon {
+  background: url(/assets/transition/hosted/btn_coupon_blank.png) center center no-repeat;
+}
+#coupon_w.valid #check_coupon {
+  background: url(/assets/transition/hosted/btn_del_coupon.png) center center no-repeat;
+}
+#coupon_w.disabled #check_coupon {
+  opacity: 0.35;
+  cursor: default;
+}
+#coupon_w #check_coupon .throbber {
+  display: none;
+  width: 38px;
+  height: 38px;
+  background: url(/assets/transition/hosted/throbber.gif) center center no-repeat;
+}
+#coupon_w.working #check_coupon .throbber {
+  display: block;
+}
+#coupon_w #coupon_status {
+  display: block;
+}
+#coupon_w.invalid #coupon_status {
+  color: red;
+}
+/* Payment Methods: Credit card or PayPal */
+
+.box#payment-method {
+  padding: 0;
+  margin: 0;
+  margin-top: -4px;
+  background: none;
+  width: 594px;
+  height: 58px;
+}
+#method-card {
+  width: 297px;
+  height: 58px;
+  float: left;
+  background: url('/assets/transition/hosted/tabs/tab-credit-disabled.png') no-repeat;
+  overflow: hidden;
+}
+#method-card.selected {
+  background: url('/assets/transition/hosted/tabs/tab-credit-selected.png') no-repeat;
+}
+#method-paypal {
+  width: 297px;
+  height: 58px;
+  float: left;
+  background: url('/assets/transition/hosted/tabs/tab-paypal-disabled.png') no-repeat;
+  overflow: hidden;
+}
+#method-paypal.selected {
+  background: url('/assets/transition/hosted/tabs/tab-paypal-selected.png') no-repeat;
+}
+.box#payment-method label {
+  display: block;
+  float: none;
+  margin: 0;
+  padding: 16px 0 0 106px;
+  height: 58px;
+  color: #545454;
+  font-weight: bold;
+  cursor: hand;
+  overflow: hidden;
+  z-index: 5;
+}
+#currency_selector_w {
+  position: absolute;
+  top: -64px;
+  right: 10px;
+  z-index: 1337;
+  margin: 0 auto;
+}
+
+#secure-3d-frame {
+  border: 0;
+  width: 564px;
+  padding: 16px;
+}
+input.radio_inline {
+    width: 20px !important;
+}
+select{height:32px;}

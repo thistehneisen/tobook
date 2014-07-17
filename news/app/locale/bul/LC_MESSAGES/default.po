@@ -1,0 +1,3290 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# 
+# Translators:
+#   <daniel.danoff@abv.bg>, 2012.
+#   <ynhwebdev@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Newsletter Mailer\n"
+"POT-Creation-Date: 2011-11-09 18:47+0100\n"
+"PO-Revision-Date: 2012-08-28 11:50+0000\n"
+"Last-Translator: ynhwebdev <ynhwebdev@gmail.com>\n"
+"Language-Team: Bulgarian (http://www.transifex.com/projects/p/newslettermailer/language/bg/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: bg\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: /app_controller.php1;1;1;1;1;1;1;1;1;1;1
+#: /app_controller_1.php94;99;104;109;114;119;123;128;133;138;143
+#: /app_controller_auto.php94;99;104;109;114;119;123;128;133;138;143
+#: /w2/app_controller.php1;1;1;1;1;1;1;1;1;1;1
+#: /w2/app_controller_1.php94;99;104;109;114;119;123;128;133;138;143
+msgid "Function Disabled! (DEMO)"
+msgstr "Тази функционалност е деактивирана! (ДЕМО)"
+
+#: /app_controller.php:1 /app_controller_1.php:148
+#: /app_controller_auto.php:148 /w2/app_controller.php:1
+#: /w2/app_controller_1.php:148
+msgid ""
+"You can't send a newsletter! Use the send test mail function to test the "
+"newsletter! (DEMO)"
+msgstr "Не можете да изпратите бюлетин! Използвайте функцията за изпращане на тестови бюлетин! (ДЕМО)"
+
+#: /app_controller.php1;1 /app_controller_1.php216;218
+#: /app_controller_auto.php236;238 /w2/app_controller.php1;1
+#: /w2/app_controller_1.php213;215
+msgid "setlocale"
+msgstr "[\"bg_BG.UTF-8\",\"bg_BG\",\"bulgarian\"]"
+
+#: /controllers/campaigns_controller.php18;36
+#: /w2/controllers/campaigns_controller.php18;36
+msgid "The campaign has been saved"
+msgstr "Кампанията беше записана"
+
+#: /controllers/campaigns_controller.php21;43
+#: /w2/controllers/campaigns_controller.php21;43
+msgid "The campaign could not be saved. Please, try again."
+msgstr "Кампанията не може да бъде записана. Моля да опитате отново"
+
+#: /controllers/campaigns_controller.php:31
+#: /w2/controllers/campaigns_controller.php:31
+msgid "Invalid campaign"
+msgstr "Невалидна кампания"
+
+#: /controllers/campaigns_controller.php:55
+#: /w2/controllers/campaigns_controller.php:55
+msgid "Invalid id for campaign"
+msgstr "Невалидно id на кампания"
+
+#: /controllers/campaigns_controller.php:59
+#: /w2/controllers/campaigns_controller.php:59
+msgid "Campaign deleted"
+msgstr "Кампанията е изтрита"
+
+#: /controllers/campaigns_controller.php:62
+#: /w2/controllers/campaigns_controller.php:62
+msgid "Campaign was not deleted"
+msgstr "Кампанията не беше изтрита"
+
+#: /controllers/categories_controller.php14;63;87
+#: /w2/controllers/categories_controller.php14;63;87
+msgid "Invalid category"
+msgstr "Невалидна категория"
+
+#: /controllers/categories_controller.php:55
+#: /w2/controllers/categories_controller.php:55
+msgid "Category split"
+msgstr "Разделяне на категорията"
+
+#: /controllers/categories_controller.php74;92
+#: /w2/controllers/categories_controller.php74;92
+msgid "The category has been saved"
+msgstr "Категорията беше записана"
+
+#: /controllers/categories_controller.php77;95
+#: /w2/controllers/categories_controller.php77;95
+msgid "The category could not be saved. Please, try again."
+msgstr "Категорията не може да бъде записана. Моля да опитате отново."
+
+#: /controllers/categories_controller.php:109
+#: /w2/controllers/categories_controller.php:109
+msgid "Invalid id for category"
+msgstr "Невалидно id на категория"
+
+#: /controllers/categories_controller.php:113
+#: /w2/controllers/categories_controller.php:113
+msgid "Category deleted"
+msgstr "Категорията е изтрита"
+
+#: /controllers/categories_controller.php:116
+#: /w2/controllers/categories_controller.php:116
+msgid "Category was not deleted"
+msgstr "Категорията не беше изтрита"
+
+#: /controllers/configurations_controller.php:11
+#: /controllers/users_controller.php:9
+#: /w2/controllers/configurations_controller.php:15
+#: /w2/controllers/users_controller.php:9
+msgid "Access Denied"
+msgstr "Достъпът е забранен"
+
+#: /controllers/configurations_controller.php:16
+#: /views/layouts/default.ctp:121
+#: /w2/controllers/configurations_controller.php:20
+msgid "SMTP"
+msgstr "SMTP"
+
+#: /controllers/configurations_controller.php:16
+#: /w2/controllers/configurations_controller.php:20
+msgid "PHP mail()"
+msgstr "PHP mail()"
+
+#: /controllers/configurations_controller.php:16
+#: /views/configurations/add.ctp:41 /views/configurations/edit.ctp:42
+#: /w2/controllers/configurations_controller.php:20
+#: /w2/views/configurations/add.ctp:51 /w2/views/configurations/edit.ctp:54
+msgid "Amazon Simple Email Service (Amazon SES)"
+msgstr "Amazon Simple Email Service (Amazon SES)"
+
+#: /controllers/configurations_controller.php:16
+#: /views/configurations/add.ctp:50 /views/configurations/edit.ctp:51
+#: /w2/controllers/configurations_controller.php:20
+#: /w2/views/configurations/add.ctp:60 /w2/views/configurations/edit.ctp:63
+msgid "Sendmail"
+msgstr "Sendmail"
+
+#: /controllers/configurations_controller.php:39
+#: /w2/controllers/configurations_controller.php:221
+msgid "All mails servers checked"
+msgstr "Всички mail сървъри са маркирани"
+
+#: /controllers/configurations_controller.php52;213
+#: /w2/controllers/configurations_controller.php234;350;527
+msgid "Function imap_open does not exist"
+msgstr "Функцията imap_open не е налична"
+
+#: /controllers/configurations_controller.php62;163;182;304
+#: /w2/controllers/configurations_controller.php76;103;136;244;360;477;496;621
+msgid "Invalid configuration"
+msgstr "Невалидна конфигурация"
+
+#: /controllers/configurations_controller.php:73
+#: /controllers/mails_controller.php:610
+#: /w2/controllers/configurations_controller.php:255
+#: /w2/controllers/mails_controller.php:642
+msgid "Please wait for"
+msgstr "Моля да изчакате"
+
+#: /controllers/configurations_controller.php:73
+#: /controllers/mails_controller.php:610 /views/mails/sendstatus.ctp:80
+#: /w2/controllers/configurations_controller.php:255
+#: /w2/controllers/mails_controller.php:642 /w2/views/mails/sendstatus.ctp:200
+msgid "seconds"
+msgstr "секунди"
+
+#: /controllers/configurations_controller.php:82
+#: /w2/controllers/configurations_controller.php264;371
+msgid "No inbox"
+msgstr "Няма входяща поща"
+
+#: /controllers/configurations_controller.php:103
+#: /w2/controllers/configurations_controller.php285;392
+msgid "Error: cannot open mailbox"
+msgstr "Грешка: не може да бъде отворена пощенската кутия"
+
+#: /controllers/configurations_controller.php:153
+#: /w2/controllers/configurations_controller.php:335
+msgid "Found %s bounce mails"
+msgstr "Намерени %s скачащи мейли"
+
+#: /controllers/configurations_controller.php:218
+#: /w2/controllers/configurations_controller.php:532
+msgid "Curl plugin missing"
+msgstr "Curl разширението липсва"
+
+#: /controllers/configurations_controller.php:228
+#: /w2/controllers/configurations_controller.php:545
+msgid "not verified"
+msgstr "не е осъществено верифициране"
+
+#: /controllers/configurations_controller.php:228
+#: /w2/controllers/configurations_controller.php:545
+msgid "Verify Now"
+msgstr "Верифицирайте сега"
+
+#: /controllers/configurations_controller.php:269
+#: /w2/controllers/configurations_controller.php:586
+msgid "Inbox:"
+msgstr "Входяща кутия:"
+
+#: /controllers/configurations_controller.php269;270
+#: /w2/controllers/configurations_controller.php586;587
+msgid "No Tested"
+msgstr "Не е тестван"
+
+#: /controllers/configurations_controller.php269;270
+#: /w2/controllers/configurations_controller.php586;587
+msgid "Working"
+msgstr "Работи"
+
+#: /controllers/configurations_controller.php269;270
+#: /views/mails/campaign.ctp:40 /views/mails/sendstatus.ctp:32
+#: /w2/controllers/configurations_controller.php586;587
+#: /w2/views/mails/campaign.ctp:131 /w2/views/mails/sendstatus.ctp:153
+msgid "Failed"
+msgstr "Провален"
+
+#: /controllers/configurations_controller.php280;287;312;317
+#: /w2/controllers/configurations_controller.php597;604;629;634
+msgid "The configuration could not be saved. Please, try again."
+msgstr "Конфигурацията не може да бъде записана. Моля да опитате отново."
+
+#: /controllers/configurations_controller.php284;314
+#: /w2/controllers/configurations_controller.php601;631
+msgid "The configuration has been saved"
+msgstr "Конфигурацията беше записана"
+
+#: /controllers/configurations_controller.php:328
+#: /w2/controllers/configurations_controller.php:645
+msgid "Invalid id for configuration"
+msgstr "Невалидно id за конфигурация"
+
+#: /controllers/configurations_controller.php:332
+#: /w2/controllers/configurations_controller.php:649
+msgid "Configuration deleted"
+msgstr "Конфигурацията беше изтрита"
+
+#: /controllers/configurations_controller.php:335
+#: /w2/controllers/configurations_controller.php:652
+msgid "Configuration was not deleted"
+msgstr "Конфигурацията не беше изтрита"
+
+#: /controllers/forms_controller.php80;83
+#: /w2/controllers/forms_controller.php80;83
+msgid "Invalide name, use characters A-Z"
+msgstr "Невалидно име, използвайте символи А-Я"
+
+#: /controllers/forms_controller.php:87
+#: /w2/controllers/forms_controller.php:87
+msgid "Invalide mail addresse"
+msgstr "Невалиден имейл адрес"
+
+#: /controllers/forms_controller.php:105
+#: /w2/controllers/forms_controller.php:105
+msgid "A Friend Sent You A Message"
+msgstr "Приятел Ви изпрати съобщение"
+
+#: /controllers/forms_controller.php185;486;508
+#: /w2/controllers/forms_controller.php185;486;508
+msgid "Invalid form"
+msgstr "Невалидна форма"
+
+#: /controllers/forms_controller.php:402
+#: /w2/controllers/forms_controller.php:402
+msgid "Unknown error please contact webmaster."
+msgstr "Неизвестна грешка, моля да се свържете с уеб мастъра."
+
+#: /controllers/forms_controller.php479;492;497;516
+#: /w2/controllers/forms_controller.php479;492;497;516
+msgid "The form could not be saved. Please, try again."
+msgstr "Формата не може да бъде записана. Моля да опитате отново."
+
+#: /controllers/forms_controller.php:491
+#: /w2/controllers/forms_controller.php:491
+msgid "Please select at least on category"
+msgstr "Моля да изберете поне една категория"
+
+#: /controllers/forms_controller.php494;513
+#: /w2/controllers/forms_controller.php494;513
+msgid "The form has been saved"
+msgstr "Формата беше записана"
+
+#: /controllers/forms_controller.php:530
+#: /w2/controllers/forms_controller.php:530
+msgid "Invalid id for form"
+msgstr "Невалидно id за форма"
+
+#: /controllers/forms_controller.php:534
+#: /w2/controllers/forms_controller.php:534
+msgid "There must be at least one subscription form"
+msgstr "Трябва да има поне една форма за абониране"
+
+#: /controllers/forms_controller.php:537
+#: /w2/controllers/forms_controller.php:537
+msgid "Form deleted"
+msgstr "Формата беше изтрита"
+
+#: /controllers/forms_controller.php:540
+#: /w2/controllers/forms_controller.php:540
+msgid "Form was not deleted"
+msgstr "Формата не беше изтрита"
+
+#: /controllers/images_controller.php52;73
+#: /w2/controllers/images_controller.php52;73
+msgid "The image was successfully uploaded."
+msgstr "Снимката беше качена успешно"
+
+#: /controllers/images_controller.php52;73
+#: /w2/controllers/images_controller.php52;73
+msgid "Use this Image"
+msgstr "Използвай тази снимка"
+
+#: /controllers/images_controller.php:58
+#: /w2/controllers/images_controller.php:58
+msgid "cURL is NOT installed"
+msgstr "cURL не е инсталирана"
+
+#: /controllers/images_controller.php:75
+#: /controllers/templates_controller.php:163
+#: /w2/controllers/images_controller.php:75
+#: /w2/controllers/templates_controller.php:170
+msgid "There was an error with the uploaded file."
+msgstr "Възникна грешка с качения файл."
+
+#: /controllers/importtasks_controller.php44;59;77;95;131
+#: /w2/controllers/importtasks_controller.php44;59;77;95;131
+msgid "The import task could not be saved. Please, try again."
+msgstr "Задачата за вмъкване не може да бъде записана. Моля да опитате отново."
+
+#: /controllers/importtasks_controller.php51;69;87;123
+#: /w2/controllers/importtasks_controller.php51;69;87;123
+msgid "Invalid import task"
+msgstr "Невалидна задача за вмъкване"
+
+#: /controllers/importtasks_controller.php:74
+#: /w2/controllers/importtasks_controller.php:74
+msgid "Connection Successful"
+msgstr "Връзката е осъществена успешно"
+
+#: /controllers/importtasks_controller.php110;146;206
+#: /plugins/install/controllers/install_controller.php125;166
+#: /w2/controllers/importtasks_controller.php110;146;206
+#: /w2/plugins/install/controllers/install_controller.php125;166
+msgid "Could not connect to database."
+msgstr "Не може да бъде осъществена връзка с базата данни"
+
+#: /controllers/importtasks_controller.php:128
+#: /w2/controllers/importtasks_controller.php:128
+msgid "The import task has been saved"
+msgstr "Import задачата беше запазена"
+
+#: /controllers/importtasks_controller.php155;216
+#: /w2/controllers/importtasks_controller.php155;216
+msgid "Error in Query: "
+msgstr "Грешка при заявка:"
+
+#: /controllers/importtasks_controller.php:179
+#: /w2/controllers/importtasks_controller.php:179
+msgid "Invalid id for import task"
+msgstr "Невалидно id за import задача"
+
+#: /controllers/importtasks_controller.php:183
+#: /w2/controllers/importtasks_controller.php:183
+msgid "Import task deleted"
+msgstr "Import задачата беше изтрита"
+
+#: /controllers/importtasks_controller.php:186
+#: /w2/controllers/importtasks_controller.php:186
+msgid "Import task was not deleted"
+msgstr "Import задачата не беше изтрита"
+
+#: /controllers/mails_controller.php85;94;259;514;596;1001
+#: /w2/controllers/configurations_controller.php109;142
+#: /w2/controllers/mails_controller.php91;100;271;526;628;1026;1036
+msgid "Invalid mail"
+msgstr "Невалиден мейл"
+
+#: /controllers/mails_controller.php204;274
+#: /w2/controllers/mails_controller.php216;286
+msgid "The mail could not be saved. Please, try again."
+msgstr "Мейлът не може да бъде записан. Моля да опитате отново."
+
+#: /controllers/mails_controller.php:313
+#: /w2/controllers/mails_controller.php:325
+msgid "Html and Text"
+msgstr "HTML и текст"
+
+#: /controllers/mails_controller.php:313
+#: /w2/controllers/mails_controller.php:325
+msgid "Html only"
+msgstr "само HTML"
+
+#: /controllers/mails_controller.php:313
+#: /w2/controllers/mails_controller.php:325
+msgid "Text only"
+msgstr "само текст"
+
+#: /controllers/mails_controller.php:577
+#: /w2/controllers/mails_controller.php:609
+msgid "Job done!"
+msgstr "Работата е завършена!"
+
+#: /controllers/mails_controller.php:580
+#: /w2/controllers/mails_controller.php:612
+msgid "There is nothing to do :-)"
+msgstr "Няма нищо за правене :-)"
+
+#: /controllers/mails_controller.php707;709;1045
+#: /w2/controllers/mails_controller.php749;751;1096
+msgid "Unable to connect to server"
+msgstr "Не е възможно да бъде осъществена връзка със сървъра"
+
+#: /controllers/mails_controller.php714;716
+#: /w2/controllers/mails_controller.php756;758
+msgid "Error failed to send mails"
+msgstr "Грешка при изпращане на мейли"
+
+#: /controllers/mails_controller.php:993
+#: /w2/controllers/mails_controller.php:1018
+msgid "The mail could not be duplicate. Please, try again."
+msgstr "Мейлът не може да бъде дублиран. Моля да опитате отново."
+
+#: /controllers/mails_controller.php:1041
+#: /w2/controllers/mails_controller.php:1090
+msgid "Test mail sent"
+msgstr "Тестовият мейл беше изпратен"
+
+#: /controllers/mails_controller.php1043;1049
+#: /w2/controllers/mails_controller.php1093;1100
+msgid "Error failed to send test mail"
+msgstr "Възникна грешка при изпращане на тестовия мейл"
+
+#: /controllers/mails_controller.php:1063
+#: /w2/controllers/mails_controller.php:1112
+msgid "Invalid id for mail"
+msgstr "Невалидно id за мейл"
+
+#: /controllers/mails_controller.php:1067
+#: /w2/controllers/mails_controller.php:1116
+msgid "Mail deleted"
+msgstr "Мейлът беше изтрит"
+
+#: /controllers/mails_controller.php:1070
+#: /w2/controllers/mails_controller.php:1119
+msgid "Mail was not deleted"
+msgstr "Мейлът не беше изтрит"
+
+#: /controllers/recipients_controller.php:93 /views/recipients/index.ctp:256
+#: /w2/controllers/recipients_controller.php:103
+#: /w2/views/clicktrack/link.ctp:271 /w2/views/recipients/index.ctp:272
+msgid "Country"
+msgstr "Държава"
+
+#: /controllers/recipients_controller.php:93
+#: /w2/controllers/recipients_controller.php:103
+msgid "Read On"
+msgstr "За четене"
+
+#: /controllers/recipients_controller.php:93 /views/recipients/index.ctp:279
+#: /views/subscribers/view.ctp:135
+#: /w2/controllers/recipients_controller.php:103
+#: /w2/views/recipients/index.ctp:296 /w2/views/subscribers/view.ctp:141
+msgid "Open Count"
+msgstr "Отваряне на преброяване"
+
+#: /controllers/recipients_controller.php:93
+#: /controllers/subscribers_controller.php:290 /views/forms/edit.ctp:23
+#: /views/home/index.ctp:83 /views/importtasks/edit3.ctp:27
+#: /views/recipients/index.ctp:275 /views/subscribers/add.ctp:5
+#: /views/subscribers/import2.ctp:29 /views/subscribers/view.ctp:19
+#: /w2/controllers/recipients_controller.php:103
+#: /w2/controllers/subscribers_controller.php:214
+#: /w2/views/clicktrack/link.ctp:288 /w2/views/forms/edit.ctp:35
+#: /w2/views/home/index.ctp:132 /w2/views/importtasks/edit3.ctp:38
+#: /w2/views/subscribers/add.ctp:14 /w2/views/subscribers/import2.ctp:41
+#: /w2/views/subscribers/view.ctp:29
+msgid "First Name"
+msgstr "Първо име"
+
+#: /controllers/recipients_controller.php:93
+#: /controllers/subscribers_controller.php:290 /views/forms/edit.ctp:30
+#: /views/home/index.ctp:84 /views/importtasks/edit3.ctp:27
+#: /views/recipients/index.ctp:276 /views/subscribers/add.ctp:7
+#: /views/subscribers/import2.ctp:29 /views/subscribers/view.ctp:26
+#: /w2/controllers/recipients_controller.php:103
+#: /w2/controllers/subscribers_controller.php:214
+#: /w2/views/clicktrack/link.ctp:289 /w2/views/forms/edit.ctp:42
+#: /w2/views/home/index.ctp:133 /w2/views/importtasks/edit3.ctp:38
+#: /w2/views/recipients/index.ctp:291 /w2/views/subscribers/add.ctp:16
+#: /w2/views/subscribers/import2.ctp:41 /w2/views/subscribers/view.ctp:34
+msgid "Last Name"
+msgstr "Фамилия"
+
+#: /controllers/recipients_controller.php:93
+#: /controllers/subscribers_controller.php:290 /views/home/index.ctp:85
+#: /views/importtasks/edit3.ctp:27 /views/subscribers/import2.ctp:29
+#: /views/subscribers/view.ctp:33
+#: /w2/controllers/recipients_controller.php:103
+#: /w2/controllers/subscribers_controller.php:214 /w2/views/home/index.ctp:134
+#: /w2/views/importtasks/edit3.ctp:38 /w2/views/subscribers/import2.ctp:41
+#: /w2/views/subscribers/view.ctp:39
+msgid "Mail Address"
+msgstr "Мейл адрес"
+
+#: /controllers/recipients_controller.php:93
+#: /controllers/subscribers_controller.php:290 /views/importtasks/edit3.ctp:27
+#: /views/subscribers/add.ctp:22 /views/subscribers/import2.ctp:29
+#: /views/subscribers/view.ctp:40
+#: /w2/controllers/recipients_controller.php:103
+#: /w2/controllers/subscribers_controller.php:214
+#: /w2/views/importtasks/edit3.ctp:38 /w2/views/subscribers/add.ctp:31
+#: /w2/views/subscribers/import2.ctp:41 /w2/views/subscribers/view.ctp:44
+msgid "Notes"
+msgstr "Бележки"
+
+#: /controllers/recipients_controller.php:94
+#: /w2/controllers/recipients_controller.php:104
+msgid "Custom Field 1"
+msgstr "Персонализирано поле 1"
+
+#: /controllers/recipients_controller.php:94
+#: /w2/controllers/recipients_controller.php:104
+msgid "Custom Field 2"
+msgstr "Персонализирано поле 2"
+
+#: /controllers/recipients_controller.php:94
+#: /w2/controllers/recipients_controller.php:104
+msgid "Custom Field 3"
+msgstr "Персонализирано поле 3"
+
+#: /controllers/recipients_controller.php:94
+#: /w2/controllers/recipients_controller.php:104
+msgid "Custom Field 4"
+msgstr "Персонализирано поле 4"
+
+#: /controllers/recipients_controller.php:99
+#: /controllers/subscribers_controller.php:307
+#: /w2/controllers/recipients_controller.php:109
+#: /w2/controllers/subscribers_controller.php:231
+msgid "Please select a least one column"
+msgstr "Моля да изберете поне една колона"
+
+#: /controllers/recipients_controller.php:172
+#: /w2/controllers/recipients_controller.php:182
+msgid "No subscribers"
+msgstr "Няма абонирани потребители"
+
+#: /controllers/settings_controller.php:14
+#: /w2/controllers/settings_controller.php14;44
+msgid "Settings saved!!!"
+msgstr "Настройките са записани!"
+
+#: /controllers/settings_controller.php:52
+#: /w2/controllers/settings_controller.php:68
+msgid "Cache cleaned!!!"
+msgstr "Кешът е изчистен!"
+
+#: /controllers/subscribers_controller.php53;72;82;96;115;123
+#: /w2/controllers/subscribers_controller.php:43
+msgid "Done"
+msgstr "Готово"
+
+#: /controllers/subscribers_controller.php59;102 /views/subscribers/add.ctp:24
+#: /views/subscribers/edit.ctp:22
+#: /w2/controllers/subscribers_controller.php:49
+#: /w2/views/subscribers/add.ctp:33 /w2/views/subscribers/edit.ctp:33
+msgid "Unsubscribed"
+msgstr "Отписани потребители"
+
+#: /controllers/subscribers_controller.php:148
+#: /w2/controllers/subscribers_controller.php:73
+msgid "Please select a least one row"
+msgstr "Моля да изберете поне един ред"
+
+#: /controllers/subscribers_controller.php179;188;195;204;236;244;253;261;270;525
+#: /w2/controllers/subscribers_controller.php104;113;120;129;161;169;178;186;195;446
+msgid "Please select a category"
+msgstr "Моля да изберете категория"
+
+#: /controllers/subscribers_controller.php212;279
+#: /w2/controllers/subscribers_controller.php137;204
+msgid "Please select an action"
+msgstr "Моля да изберете действие"
+
+#: /controllers/subscribers_controller.php:311
+#: /w2/controllers/subscribers_controller.php:235
+msgid "Please select a least one category"
+msgstr "Моля да изберете поне една категория"
+
+#: /controllers/subscribers_controller.php:342
+#: /w2/controllers/subscribers_controller.php:266
+msgid "No subscribers in these categories"
+msgstr "Няма абонирани потребители в тези категории"
+
+#: /controllers/subscribers_controller.php:423 /views/subscribers/index.ctp:23
+#: /w2/controllers/subscribers_controller.php:346
+#: /w2/views/subscribers/index.ctp:19
+msgid "Uncategorized"
+msgstr "Без категория"
+
+#: /controllers/subscribers_controller.php:449
+#: /w2/controllers/subscribers_controller.php:370
+msgid "Invalide path"
+msgstr "Невалиден път"
+
+#: /controllers/subscribers_controller.php:516
+#: /w2/controllers/subscribers_controller.php:437
+msgid "Refresh and Import"
+msgstr "Рефрешвайте и импортвайте"
+
+#: /controllers/subscribers_controller.php:539
+#: /w2/controllers/subscribers_controller.php:459
+msgid "Import Done"
+msgstr "Импортването е завършено"
+
+#: /controllers/subscribers_controller.php667;743
+#: /w2/controllers/subscribers_controller.php584;659
+msgid "Invalid subscriber"
+msgstr "Невалиден абониран потребител"
+
+#: /controllers/subscribers_controller.php726;748
+#: /w2/controllers/subscribers_controller.php643;664
+msgid "The subscriber has been saved"
+msgstr "Абонираният потребител беше запазен"
+
+#: /controllers/subscribers_controller.php730;751
+#: /w2/controllers/subscribers_controller.php647;667
+msgid "The subscriber could not be saved. Please, try again."
+msgstr "Абонираният потребител не беше запазен. Моля да опитате отново."
+
+#: /controllers/subscribers_controller.php:764
+#: /w2/controllers/subscribers_controller.php:679
+msgid "Invalid id for subscriber"
+msgstr "Невалидно id за абониран потребител"
+
+#: /controllers/subscribers_controller.php:768
+#: /w2/controllers/subscribers_controller.php:683
+msgid "Subscriber deleted"
+msgstr "Абонираният потребител беше изтрит"
+
+#: /controllers/subscribers_controller.php:771
+#: /w2/controllers/subscribers_controller.php:686
+msgid "Subscriber was not deleted"
+msgstr "Абонираният потребител не беше изтрит"
+
+#: /controllers/templates_controller.php17;55;96;119;152
+#: /w2/controllers/templates_controller.php24;62;103;126;159
+msgid "Invalid template"
+msgstr "Невалиден шаблон"
+
+#: /controllers/templates_controller.php45;108;125
+#: /w2/controllers/templates_controller.php52;115;132
+msgid "The template has been saved"
+msgstr "Шаблонът беше записан"
+
+#: /controllers/templates_controller.php48;111;128
+#: /w2/controllers/templates_controller.php55;118;135
+msgid "The template could not be saved. Please, try again."
+msgstr "Шаблонът не може да бъде записан. Моля да опитате отново."
+
+#: /controllers/templates_controller.php:139
+#: /w2/controllers/templates_controller.php:146
+msgid "Invalid id for template"
+msgstr "Невалидно id за шаблон"
+
+#: /controllers/templates_controller.php:143
+#: /w2/controllers/templates_controller.php:150
+msgid "Template deleted"
+msgstr "Шаблонът беше изтрит"
+
+#: /controllers/templates_controller.php:146
+#: /w2/controllers/templates_controller.php:153
+msgid "Template was not deleted"
+msgstr "Шаблонът не беше изтрит"
+
+#: /controllers/templates_controller.php:197
+#: /w2/controllers/templates_controller.php:204
+msgid "No missing images in this template"
+msgstr "Няма липсващи снимки в този шаблон"
+
+#: /controllers/users_controller.php33;48
+#: /w2/controllers/users_controller.php33;48
+msgid "The user has been saved"
+msgstr "Потребителят беше записан"
+
+#: /controllers/users_controller.php36;51
+#: /w2/controllers/users_controller.php36;51
+msgid "The user could not be saved. Please, try again."
+msgstr "Потребителят не може да бъде записан. Моля да опитате отново."
+
+#: /controllers/users_controller.php:43
+#: /w2/controllers/users_controller.php:43
+msgid "Invalid user"
+msgstr "Невалиден потребител"
+
+#: /controllers/users_controller.php:61
+#: /w2/controllers/users_controller.php:61
+msgid "Invalid id for user"
+msgstr "Невалидно id за потребител"
+
+#: /controllers/users_controller.php:65
+#: /w2/controllers/users_controller.php:65
+msgid "There must be at least one user"
+msgstr "Трябва да има поне един потребител"
+
+#: /controllers/users_controller.php:68
+#: /w2/controllers/users_controller.php:68
+msgid "User deleted"
+msgstr "Потребителят беше изтрит"
+
+#: /controllers/users_controller.php:71
+#: /w2/controllers/users_controller.php:71
+msgid "User was not deleted"
+msgstr "Потребителят не беше изтрит"
+
+#: /plugins/activate/controllers/activate_controller.php:1
+#: /plugins/activate/controllers/activate_controller_1.php:83
+#: /plugins/autoactivate/controllers/autoactivate_controller.php:1
+#: /plugins/autoactivate/controllers/autoactivate_controller_1.php:83
+#: /w2/plugins/activate/controllers/activate_controller.php:1
+#: /w2/plugins/activate/controllers/activate_controller_1.php:83
+msgid "Activate"
+msgstr "Активиране"
+
+#: /plugins/install/controllers/install_controller.php:94
+#: /w2/plugins/install/controllers/install_controller.php:94
+msgid "Installation: Welcome"
+msgstr "Инсталация: Добре дошли"
+
+#: /plugins/install/controllers/install_controller.php:109
+#: /w2/plugins/install/controllers/install_controller.php:109
+msgid "Step 1: Database"
+msgstr "Стъпка 1: База Данни"
+
+#: /plugins/install/controllers/install_controller.php:146
+#: /w2/plugins/install/controllers/install_controller.php:146
+msgid "Could not write database.php file."
+msgstr "Не може да бъде осъществено записване във файла database.php"
+
+#: /plugins/install/controllers/install_controller.php:158
+#: /w2/plugins/install/controllers/install_controller.php:158
+msgid "Step 2: Build database"
+msgstr "Стъпка 2: Изграждане на базата данни"
+
+#: /plugins/install/controllers/install_controller.php:197
+#: /w2/plugins/install/controllers/install_controller.php:197
+msgid "Installation completed successfully"
+msgstr "Инсталацията е завършена успешно"
+
+#: /plugins/install/controllers/install_controller.php:202
+#: /w2/plugins/install/controllers/install_controller.php:202
+msgid "Installation files deleted successfully."
+msgstr "Инсталационните файлове са изтрити успешно"
+
+#: /plugins/install/controllers/install_controller.php:205
+#: /w2/plugins/install/controllers/install_controller.php:205
+msgid "Could not delete installation files."
+msgstr "Не могат да бъдат изтрити инсталационните файлове."
+
+#: /plugins/install/views/install/data.ctp:5
+#: /w2/plugins/install/views/install/data.ctp:5
+msgid "Click here to build your database"
+msgstr "Кликнете тук за да изградите Вашата база данни"
+
+#: /plugins/install/views/install/index.ctp:8
+#: /w2/plugins/install/views/install/index.ctp:8
+msgid "Your tmp directory is writable."
+msgstr "Във Вашата tmp директория може да се записва."
+
+#: /plugins/install/views/install/index.ctp:11
+#: /w2/plugins/install/views/install/index.ctp:11
+msgid "Your tmp directory is NOT writable."
+msgstr "Във Вашата tmp директория не може да се записва."
+
+#: /plugins/install/views/install/index.ctp:16
+#: /w2/plugins/install/views/install/index.ctp:16
+msgid "Your config directory is writable."
+msgstr "Във Вашата config директория може да се записва."
+
+#: /plugins/install/views/install/index.ctp:19
+#: /w2/plugins/install/views/install/index.ctp:19
+msgid "Your config directory is NOT writable."
+msgstr "Във Вашата config директория не може да се записва."
+
+#: /plugins/install/views/install/index.ctp:24
+#: /w2/plugins/install/views/install/index.ctp:24
+msgid "PHP version %s > 5.2"
+msgstr "Версия на PHP %s > 5.2"
+
+#: /plugins/install/views/install/index.ctp:27
+#: /w2/plugins/install/views/install/index.ctp:27
+msgid "PHP version %s < 5.2"
+msgstr "Версия на PHP %s < 5.2"
+
+#: /plugins/install/views/install/index.ctp:31
+#: /w2/plugins/install/views/install/index.ctp:31
+msgid "Your core.php is writable."
+msgstr "Във файла core.php може да се записва."
+
+#: /plugins/install/views/install/index.ctp:34
+#: /w2/plugins/install/views/install/index.ctp:34
+msgid "Your core.php is NOT writable."
+msgstr "Във файла core.php не може да се записва."
+
+#: /plugins/install/views/install/index.ctp:39
+#: /w2/plugins/install/views/install/index.ctp:39
+msgid "Your database.php is writable."
+msgstr "Във файла database.php може да се записва."
+
+#: /plugins/install/views/install/index.ctp:42
+#: /w2/plugins/install/views/install/index.ctp:42
+msgid "Your database.php is NOT writable."
+msgstr "Във файла database.php не може да се записва."
+
+#: /plugins/install/views/install/index.ctp46;49;53;56
+#: /w2/plugins/install/views/install/index.ctp46;49;53;56
+msgid "Your "
+msgstr "Вашите"
+
+#: /plugins/install/views/install/index.ctp:63
+#: /w2/plugins/install/views/install/index.ctp:63
+msgid "Installation cannot continue as minimum requirements are not met."
+msgstr "Инсталацията не може да продължи тъй като не покривате минималните изисквания."
+
+#: /views/campaigns/add.ctp:3 /w2/views/campaigns/add.ctp:6
+msgid "Add Campaign"
+msgstr "Добавяне на кампания"
+
+#: /views/campaigns/add.ctp:5 /views/configurations/add.ctp:5
+#: /views/configurations/edit.ctp:6 /views/importtasks/add.ctp:5
+#: /views/importtasks/edit.ctp:7 /views/importtasks/edit1.ctp6;37
+#: /views/importtasks/edit2.ctp:6 /views/importtasks/edit3.ctp:6
+#: /views/templates/view.ctp:9 /w2/views/campaigns/add.ctp:15
+#: /w2/views/configurations/add.ctp:15 /w2/views/configurations/edit.ctp:18
+#: /w2/views/importtasks/edit1.ctp:49 /w2/views/templates/view.ctp:9
+msgid "Name"
+msgstr "Име"
+
+#: /views/campaigns/add.ctp:6 /views/configurations/add.ctp:7
+#: /views/configurations/edit.ctp:8 /views/importtasks/add.ctp:5
+#: /views/importtasks/edit.ctp:7 /views/importtasks/edit1.ctp:6
+#: /views/importtasks/edit2.ctp:6 /views/importtasks/edit3.ctp:6
+#: /w2/views/campaigns/add.ctp:16 /w2/views/configurations/add.ctp:17
+#: /w2/views/configurations/edit.ctp:20
+msgid "Description"
+msgstr "Описание"
+
+#: /views/campaigns/add.ctp:7 /w2/views/campaigns/add.ctp:17
+msgid "Start"
+msgstr "Старт"
+
+#: /views/campaigns/add.ctp:8 /w2/views/campaigns/add.ctp:18
+msgid "End"
+msgstr "Край"
+
+#: /views/campaigns/add.ctp:9 /w2/views/campaigns/add.ctp:19
+msgid "Forever"
+msgstr "Завинаги"
+
+#: /views/campaigns/add.ctp:12 /views/categories/index.ctp:2
+#: /views/forms/edit.ctp:75 /views/layouts/default.ctp153;153
+#: /views/subscribers/export.ctp:19 /w2/views/campaigns/add.ctp:22
+#: /w2/views/categories/index.ctp:5 /w2/views/forms/edit.ctp:87
+#: /w2/views/home/index.ctp:21 /w2/views/layouts/default.ctp182;225
+#: /w2/views/subscribers/export.ctp:31 /w2/views/subscribers/index.ctp:4
+msgid "Categories"
+msgstr "Категории"
+
+#: /views/campaigns/add.ctp:22 /w2/views/campaigns/add.ctp:32
+msgid "Send to subscribers"
+msgstr "Изпращане до абонираните"
+
+#: /views/campaigns/add.ctp:22 /w2/views/campaigns/add.ctp:32
+msgid "subscribed before start date"
+msgstr "абонирани преди стартовата дата"
+
+#: /views/campaigns/add.ctp:27 /views/campaigns/edit.ctp:26
+#: /views/categories/add.ctp:11 /views/categories/edit.ctp:11
+#: /views/configurations/add.ctp:108 /views/configurations/edit.ctp:109
+#: /views/forms/add.ctp:10 /views/forms/edit.ctp:111 /views/forms/editm.ctp:30
+#: /views/settings/index.ctp:36 /views/subscribers/add.ctp:30
+#: /views/subscribers/edit.ctp:28 /views/templates/add.ctp:48
+#: /views/templates/edit.ctp:51 /views/users/add.ctp:14
+#: /views/users/edit.ctp:15 /w2/views/campaigns/add.ctp:37
+#: /w2/views/campaigns/edit.ctp:36 /w2/views/categories/add.ctp:20
+#: /w2/views/categories/edit.ctp:22 /w2/views/configurations/add.ctp:118
+#: /w2/views/configurations/edit.ctp:121 /w2/views/forms/add.ctp:20
+#: /w2/views/forms/edit.ctp:123 /w2/views/forms/editm.ctp:39
+#: /w2/views/settings/index.ctp:48 /w2/views/subscribers/add.ctp:39
+#: /w2/views/subscribers/edit.ctp:39 /w2/views/templates/add.ctp:61
+#: /w2/views/templates/edit.ctp:66 /w2/views/users/add.ctp:20
+#: /w2/views/users/edit.ctp:24
+msgid "Save"
+msgstr "Записване"
+
+#: /views/campaigns/edit.ctp:3 /views/campaigns/index.ctp59;59
+#: /views/categories/edit.ctp:3 /views/categories/index.ctp:30
+#: /views/configurations/edit.ctp:3 /views/configurations/index.ctp41;41
+#: /views/forms/edit.ctp:3 /views/forms/editm.ctp:3
+#: /views/forms/index.ctp28;28 /views/home/index.ctp62;62;116;116
+#: /views/importtasks/edit.ctp:4 /views/importtasks/edit1.ctp:3
+#: /views/importtasks/edit2.ctp:3 /views/importtasks/edit3.ctp:3
+#: /views/importtasks/index.ctp29;29 /views/mails/campaign.ctp142;142
+#: /views/mails/index.ctp62;62 /views/mails/step1.ctp:3
+#: /views/mails/step2.ctp:1 /views/mails/step3.ctp:27 /views/mails/step4.ctp:1
+#: /views/mails/step5.ctp:1 /views/subscribers/edit.ctp:3
+#: /views/subscribers/index.ctp88;88;105 /views/templates/edit.ctp:3
+#: /views/templates/index.ctp18;18 /views/users/edit.ctp:3
+#: /views/users/index.ctp32;32 /w2/views/campaigns/edit.ctp:9
+#: /w2/views/campaigns/index.ctp77;77 /w2/views/categories/edit.ctp:8
+#: /w2/views/categories/index.ctp48;48 /w2/views/configurations/edit.ctp:9
+#: /w2/views/configurations/inbox.ctp43;43
+#: /w2/views/configurations/index.ctp66;66 /w2/views/forms/edit.ctp:9
+#: /w2/views/forms/editm.ctp:8 /w2/views/forms/index.ctp55;55
+#: /w2/views/home/index.ctp97;97;167;167 /w2/views/importtasks/edit.ctp:18
+#: /w2/views/importtasks/edit1.ctp:18 /w2/views/importtasks/edit2.ctp:18
+#: /w2/views/importtasks/edit3.ctp:18 /w2/views/importtasks/index.ctp47;47
+#: /w2/views/mails/campaign.ctp236;236 /w2/views/mails/index.ctp95;95
+#: /w2/views/mails/step1.ctp:23 /w2/views/mails/step2.ctp:24
+#: /w2/views/mails/step3.ctp:63 /w2/views/mails/step4.ctp:23
+#: /w2/views/mails/step5.ctp:23 /w2/views/subscribers/edit.ctp:8
+#: /w2/views/subscribers/index.ctp100;100;124
+#: /w2/views/subscribers/view.ctp:18 /w2/views/templates/edit.ctp:9
+#: /w2/views/templates/index.ctp52;52 /w2/views/users/edit.ctp:8
+#: /w2/views/users/index.ctp52;52
+msgid "Delete"
+msgstr "Изтриване"
+
+#: /views/campaigns/edit.ctp:3 /views/campaigns/index.ctp:59
+#: /views/categories/edit.ctp:3 /views/categories/index.ctp:30
+#: /views/configurations/edit.ctp:3 /views/configurations/index.ctp:41
+#: /views/forms/edit.ctp:3 /views/forms/editm.ctp:3 /views/forms/index.ctp:28
+#: /views/home/index.ctp62;116 /views/importtasks/edit.ctp:4
+#: /views/importtasks/edit1.ctp:3 /views/importtasks/edit2.ctp:3
+#: /views/importtasks/edit3.ctp:3 /views/importtasks/index.ctp:29
+#: /views/mails/campaign.ctp:142 /views/mails/index.ctp:62
+#: /views/mails/step1.ctp:3 /views/mails/step2.ctp:1 /views/mails/step3.ctp:27
+#: /views/mails/step4.ctp:1 /views/mails/step5.ctp:1
+#: /views/subscribers/edit.ctp:3 /views/subscribers/index.ctp:88
+#: /views/templates/edit.ctp:3 /views/templates/index.ctp:18
+#: /views/users/edit.ctp:3 /views/users/index.ctp:32
+#: /w2/views/campaigns/edit.ctp:9 /w2/views/campaigns/index.ctp:77
+#: /w2/views/categories/edit.ctp:8 /w2/views/categories/index.ctp:48
+#: /w2/views/configurations/edit.ctp:9 /w2/views/configurations/inbox.ctp:43
+#: /w2/views/configurations/index.ctp:66 /w2/views/forms/edit.ctp:9
+#: /w2/views/forms/editm.ctp:8 /w2/views/forms/index.ctp:55
+#: /w2/views/home/index.ctp97;167 /w2/views/importtasks/edit.ctp:18
+#: /w2/views/importtasks/edit1.ctp:18 /w2/views/importtasks/edit2.ctp:18
+#: /w2/views/importtasks/edit3.ctp:18 /w2/views/importtasks/index.ctp:47
+#: /w2/views/mails/campaign.ctp:236 /w2/views/mails/index.ctp:95
+#: /w2/views/mails/step1.ctp:23 /w2/views/mails/step2.ctp:24
+#: /w2/views/mails/step3.ctp:63 /w2/views/mails/step4.ctp:23
+#: /w2/views/mails/step5.ctp:23 /w2/views/subscribers/edit.ctp:8
+#: /w2/views/subscribers/index.ctp:100 /w2/views/subscribers/view.ctp:18
+#: /w2/views/templates/edit.ctp:9 /w2/views/templates/index.ctp:52
+#: /w2/views/users/edit.ctp:8 /w2/views/users/index.ctp:52
+msgid "Are you sure you want to delete # %s?"
+msgstr "Сигурни ли сте, че желаете да изтриете # %s?"
+
+#: /views/campaigns/edit.ctp:5 /views/mails/campaign.ctp:9
+#: /w2/views/campaigns/edit.ctp:6 /w2/views/mails/campaign.ctp:42
+msgid "Edit Campaign"
+msgstr "Редактиране на кампания"
+
+#: /views/campaigns/index.ctp:2 /w2/views/campaigns/index.ctp:14
+msgid "New Campaign"
+msgstr "Нова кампания"
+
+#: /views/campaigns/index.ctp:3 /views/home/index.ctp:3
+#: /views/mails/campaign.ctp:11 /views/mails/index.ctp:4
+#: /w2/views/campaigns/index.ctp:15
+msgid "Run newsletter mailing job"
+msgstr "Стартиране на задача по изпращане на бюлетин"
+
+#: /views/campaigns/index.ctp:5 /views/layouts/default.ctp:179
+#: /w2/views/campaigns/index.ctp:6 /w2/views/home/index.ctp:17
+#: /w2/views/layouts/default.ctp169;223
+msgid "Campaigns"
+msgstr "Кампании"
+
+#: /views/campaigns/index.ctp:8 /views/home/index.ctp:13
+#: /views/mails/campaign.ctp:95 /views/subscribers/index.ctp:40
+#: /w2/views/campaigns/index.ctp:25 /w2/views/home/index.ctp:48
+#: /w2/views/mails/campaign.ctp:177 /w2/views/subscribers/index.ctp:151
+msgid "Status"
+msgstr "Статус"
+
+#: /views/campaigns/index.ctp:12 /views/mails/campaign.ctp:46
+#: /w2/views/campaigns/index.ctp:29 /w2/views/mails/campaign.ctp:56
+msgid "Time span"
+msgstr "Времетраене"
+
+#: /views/campaigns/index.ctp:13 /views/categories/index.ctp:9
+#: /views/configurations/index.ctp:18 /views/forms/index.ctp:8
+#: /views/home/index.ctp20;89 /views/importtasks/index.ctp:12
+#: /views/mails/campaign.ctp:102 /views/mails/index.ctp:15
+#: /views/recipients/index.ctp:282 /views/subscribers/index.ctp:56
+#: /views/subscribers/view.ctp136;183 /views/users/index.ctp:12
+#: /w2/views/campaigns/index.ctp:30 /w2/views/categories/index.ctp:27
+#: /w2/views/clicktrack/link.ctp:295 /w2/views/configurations/inbox.ctp:24
+#: /w2/views/configurations/index.ctp:36 /w2/views/forms/index.ctp:28
+#: /w2/views/home/index.ctp55;138 /w2/views/importtasks/index.ctp:30
+#: /w2/views/mails/campaign.ctp:184 /w2/views/mails/index.ctp:49
+#: /w2/views/recipients/index.ctp:297 /w2/views/subscribers/index.ctp:67
+#: /w2/views/subscribers/view.ctp142;198 /w2/views/users/index.ctp:33
+msgid "Actions"
+msgstr "Действия"
+
+#: /views/campaigns/index.ctp:36 /views/mails/campaign.ctp:25
+#: /w2/views/campaigns/index.ctp:54 /w2/views/mails/campaign.ctp:30
+msgid "Expired"
+msgstr "Изтекли"
+
+#: /views/campaigns/index.ctp:39 /views/mails/campaign.ctp:28
+#: /w2/views/campaigns/index.ctp:57 /w2/views/mails/campaign.ctp:33
+msgid "Active"
+msgstr "Активни"
+
+#: /views/campaigns/index.ctp:42 /views/home/index.ctp:40
+#: /views/mails/campaign.ctp:31 /views/mails/index.ctp:40
+#: /w2/views/campaigns/index.ctp:59 /w2/views/home/index.ctp:77
+#: /w2/views/mails/campaign.ctp:35 /w2/views/mails/index.ctp:73
+msgid "Scheduled"
+msgstr "Насрочени"
+
+#: /views/campaigns/index.ctp50;52 /views/mails/campaign.ctp50;52
+#: /w2/views/campaigns/index.ctp68;70 /w2/views/mails/campaign.ctp61;63
+msgid "to"
+msgstr "до"
+
+#: /views/campaigns/index.ctp:52 /views/mails/campaign.ctp:52
+#: /w2/views/campaigns/index.ctp:70 /w2/views/mails/campaign.ctp:63
+msgid "an indefinite time"
+msgstr "неопределено време"
+
+#: /views/campaigns/index.ctp57;57 /w2/views/campaigns/index.ctp75;75
+msgid "View Newsletters"
+msgstr "Виж бюлетините"
+
+#: /views/campaigns/index.ctp58;58 /views/categories/index.ctp:29
+#: /views/configurations/index.ctp39;39 /views/home/index.ctp60;60;115;115
+#: /views/importtasks/index.ctp28;28 /views/mails/campaign.ctp114;140
+#: /views/mails/index.ctp27;60 /views/subscribers/index.ctp87;87
+#: /views/templates/index.ctp17;17 /views/users/index.ctp31;31
+#: /w2/views/campaigns/index.ctp76;76 /w2/views/categories/index.ctp47;47
+#: /w2/views/configurations/index.ctp65;65 /w2/views/forms/index.ctp51;51
+#: /w2/views/home/index.ctp67;166;166 /w2/views/importtasks/index.ctp46;46
+#: /w2/views/mails/campaign.ctp196;202 /w2/views/mails/index.ctp:61
+#: /w2/views/subscribers/index.ctp99;99 /w2/views/templates/index.ctp51;51
+#: /w2/views/users/index.ctp51;51
+msgid "Edit"
+msgstr "Редактиране"
+
+#: /views/campaigns/index.ctp:67 /views/categories/index.ctp:38
+#: /views/configurations/index.ctp:54 /views/forms/index.ctp:37
+#: /views/importtasks/index.ctp:38 /views/mails/campaign.ctp:150
+#: /views/mails/index.ctp:70 /views/recipients/index.ctp:325
+#: /views/subscribers/index.ctp:123 /views/templates/index.ctp:31
+#: /views/users/index.ctp:40
+msgid ""
+"Page %page% of %pages%, showing %current% records out of %count% total, "
+"starting on record %start%, ending on %end%"
+msgstr "Страница %page% от %pages%, показване на %current% записа от общо %count%, стартиращи от запис %start% и завършващи със запис %end%"
+
+#: /views/campaigns/index.ctp:72 /views/categories/index.ctp:43
+#: /views/configurations/index.ctp:59 /views/forms/index.ctp:42
+#: /views/importtasks/index.ctp:43 /views/mails/campaign.ctp:155
+#: /views/mails/index.ctp:75 /views/recipients/index.ctp:330
+#: /views/subscribers/index.ctp:128 /views/templates/index.ctp:36
+#: /views/users/index.ctp:45 /w2/views/campaigns/index.ctp:83
+#: /w2/views/categories/index.ctp:54 /w2/views/clicktrack/link.ctp:339
+#: /w2/views/clicktrack/recipient.ctp:46 /w2/views/configurations/inbox.ctp:54
+#: /w2/views/configurations/index.ctp:79 /w2/views/forms/index.ctp:62
+#: /w2/views/importtasks/index.ctp:54 /w2/views/mails/campaign.ctp:242
+#: /w2/views/mails/index.ctp:102 /w2/views/recipients/index.ctp:342
+#: /w2/views/subscribers/index.ctp:108 /w2/views/users/index.ctp:58
+msgid "previous"
+msgstr "Назад"
+
+#: /views/campaigns/index.ctp:75 /views/categories/index.ctp:46
+#: /views/configurations/index.ctp:62 /views/forms/index.ctp:45
+#: /views/importtasks/index.ctp:46 /views/mails/campaign.ctp:158
+#: /views/mails/index.ctp:78 /views/recipients/index.ctp:333
+#: /views/subscribers/index.ctp:131 /views/templates/index.ctp:39
+#: /views/users/index.ctp:48 /w2/views/campaigns/index.ctp:86
+#: /w2/views/categories/index.ctp:57 /w2/views/clicktrack/link.ctp:342
+#: /w2/views/clicktrack/recipient.ctp:49 /w2/views/configurations/inbox.ctp:60
+#: /w2/views/configurations/index.ctp:82 /w2/views/forms/index.ctp:65
+#: /w2/views/importtasks/index.ctp:57 /w2/views/mails/campaign.ctp:245
+#: /w2/views/mails/index.ctp:105 /w2/views/recipients/index.ctp:345
+#: /w2/views/subscribers/index.ctp:111 /w2/views/users/index.ctp:61
+msgid "next"
+msgstr "Напред"
+
+#: /views/categories/add.ctp:3 /w2/views/categories/add.ctp:5
+msgid "Add Category"
+msgstr "Добави категория"
+
+#: /views/categories/edit.ctp:3 /w2/views/categories/edit.ctp:5
+msgid "Edit Category"
+msgstr "Редактирай категория"
+
+#: /views/categories/index.ctp:2 /views/forms/index.ctp:2
+#: /views/home/index.ctp:2 /views/mails/campaign.ctp:92
+#: /views/mails/index.ctp:3 /views/subscribers/index.ctp:4
+#: /views/templates/index.ctp:3 /views/users/index.ctp:2
+msgid "Add"
+msgstr "Добави"
+
+#: /views/categories/index.ctp:2 /w2/views/categories/index.ctp:13
+msgid "New Category"
+msgstr "Нова категория"
+
+#: /views/categories/index.ctp25;25 /w2/views/categories/index.ctp44;44
+msgid "Split in to A/B Category"
+msgstr "Раздели на A/B категория"
+
+#: /views/categories/index.ctp:27 /views/home/index.ctp114;114
+#: /views/recipients/index.ctp317;317 /views/subscribers/index.ctp86;86
+#: /w2/views/categories/index.ctp45;45
+#: /w2/views/clicktrack/link.ctp330;330;331
+#: /w2/views/configurations/inbox.ctp42;42 /w2/views/forms/index.ctp46;46
+#: /w2/views/home/index.ctp96;165;165 /w2/views/mails/campaign.ctp:234
+#: /w2/views/mails/index.ctp:93 /w2/views/mails/sendstatus.ctp:273
+#: /w2/views/recipients/index.ctp333;333;334
+#: /w2/views/subscribers/index.ctp98;98
+msgid "View"
+msgstr "Виж"
+
+#: /views/categories/index.ctp:27
+msgid "List subscribers in"
+msgstr "Листване на абонатите на"
+
+#: /views/categories/index.ctp:29
+msgid "Edit category"
+msgstr "Редактиране на категория"
+
+#: /views/categories/index.ctp:30
+msgid "Delete category"
+msgstr "Изтриване на категория"
+
+#: /views/configurations/add.ctp:3 /w2/views/configurations/add.ctp:6
+msgid "Add Configuration"
+msgstr "Добави конфигурация"
+
+#: /views/configurations/add.ctp:9 /views/configurations/edit.ctp:10
+#: /w2/views/configurations/add.ctp:19 /w2/views/configurations/edit.ctp:22
+#: /w2/views/configurations/inbox.ctp:18
+msgid "From"
+msgstr "От"
+
+#: /views/configurations/add.ctp:13 /views/configurations/edit.ctp:14
+#: /w2/views/configurations/add.ctp:23 /w2/views/configurations/edit.ctp:26
+msgid ""
+"You can set the display name by using this tag: Display Name "
+"&lt;email@domain.com&gt;"
+msgstr "Можете да поставите име, което да се показва като използвате следния таг: Име &lt;email@domain.com&gt;"
+
+#: /views/configurations/add.ctp:16 /views/configurations/edit.ctp:17
+#: /w2/views/configurations/add.ctp:26 /w2/views/configurations/edit.ctp:29
+msgid "Reply To"
+msgstr "Отговори на"
+
+#: /views/configurations/add.ctp:18 /views/configurations/edit.ctp:19
+#: /w2/views/configurations/add.ctp:28 /w2/views/configurations/edit.ctp:31
+msgid "Delivery"
+msgstr "Доставка"
+
+#: /views/configurations/add.ctp:22 /views/configurations/edit.ctp:23
+#: /w2/views/configurations/add.ctp:32 /w2/views/configurations/edit.ctp:35
+msgid "SMTP Settings"
+msgstr "Настройки на SMTP"
+
+#: /views/configurations/add.ctp:23 /views/configurations/edit.ctp:24
+#: /views/importtasks/edit1.ctp:31 /w2/views/configurations/add.ctp:33
+#: /w2/views/configurations/edit.ctp:36 /w2/views/importtasks/edit1.ctp:43
+msgid "Host"
+msgstr "Хост"
+
+#: /views/configurations/add.ctp:27 /views/configurations/edit.ctp:28
+#: /w2/views/configurations/add.ctp:37 /w2/views/configurations/edit.ctp:40
+msgid "For example ssl://smtp.gmail.com"
+msgstr "Например ssl://smtp.gmail.com"
+
+#: /views/configurations/add.ctp:30 /views/configurations/edit.ctp:31
+#: /w2/views/configurations/add.ctp:40 /w2/views/configurations/edit.ctp:43
+msgid "Port"
+msgstr "Порт"
+
+#: /views/configurations/add.ctp:32 /views/configurations/edit.ctp:33
+#: /w2/views/configurations/add.ctp:42 /w2/views/configurations/edit.ctp:45
+msgid "Smtp Auth"
+msgstr "SMTH Auth"
+
+#: /views/configurations/add.ctp:34 /views/configurations/edit.ctp:35
+#: /views/users/add.ctp:5 /w2/views/configurations/add.ctp:44
+#: /w2/views/configurations/edit.ctp:47 /w2/views/users/add.ctp:11
+msgid "Username"
+msgstr "Потребителско име"
+
+#: /views/configurations/add.ctp:36 /views/configurations/edit.ctp:37
+#: /views/importtasks/edit1.ctp:35 /views/users/add.ctp:6
+#: /w2/views/configurations/add.ctp:46 /w2/views/configurations/edit.ctp:49
+#: /w2/views/importtasks/edit1.ctp:47 /w2/views/users/add.ctp:12
+msgid "Password"
+msgstr "Парола"
+
+#: /views/configurations/add.ctp:43 /views/configurations/edit.ctp:44
+#: /w2/views/configurations/add.ctp:53 /w2/views/configurations/edit.ctp:56
+msgid "Aws Access Key"
+msgstr "Aws Access Key"
+
+#: /views/configurations/add.ctp:45 /views/configurations/edit.ctp:46
+#: /w2/views/configurations/add.ctp:55 /w2/views/configurations/edit.ctp:58
+msgid "Aws Secret Key"
+msgstr "Aws Secret Key"
+
+#: /views/configurations/add.ctp:52 /views/configurations/edit.ctp:53
+#: /w2/views/configurations/add.ctp:62 /w2/views/configurations/edit.ctp:65
+msgid "Sendmail Path"
+msgstr "Sendmail Path"
+
+#: /views/configurations/add.ctp:56 /views/configurations/edit.ctp:57
+#: /w2/views/configurations/add.ctp:66 /w2/views/configurations/edit.ctp:69
+msgid "Most servers use: /usr/sbin/sendmail -bs"
+msgstr "Повечето сървъри ползват: /usr/sbin/sendmail -bs"
+
+#: /views/configurations/add.ctp:63 /views/configurations/edit.ctp:64
+#: /w2/views/configurations/add.ctp:73 /w2/views/configurations/edit.ctp:76
+msgid "Mails Per Connection"
+msgstr "Мейла на връзка"
+
+#: /views/configurations/add.ctp:68 /views/configurations/edit.ctp:69
+#: /w2/views/configurations/add.ctp:78 /w2/views/configurations/edit.ctp:81
+msgid "Limits"
+msgstr "Лимити"
+
+#: /views/configurations/add.ctp:68 /views/configurations/edit.ctp:69
+#: /w2/views/configurations/add.ctp:78 /w2/views/configurations/edit.ctp:81
+msgid "mails per"
+msgstr "мейла на"
+
+#: /views/configurations/add.ctp:68 /views/configurations/edit.ctp:69
+#: /w2/views/configurations/add.ctp:78 /w2/views/configurations/edit.ctp:81
+msgid "minutes"
+msgstr "минути"
+
+#: /views/configurations/add.ctp:70 /views/configurations/edit.ctp:71
+#: /w2/views/configurations/add.ctp:80 /w2/views/configurations/edit.ctp:83
+msgid "Please enter a number"
+msgstr "Моля да въведете брой"
+
+#: /views/configurations/add.ctp:72 /views/configurations/edit.ctp:73
+#: /w2/views/configurations/add.ctp:82 /w2/views/configurations/edit.ctp:85
+msgid "Inbox connection"
+msgstr "Връзка с кутията"
+
+#: /views/configurations/add.ctp:73 /views/configurations/edit.ctp:74
+#: /w2/views/configurations/add.ctp:83 /w2/views/configurations/edit.ctp:86
+#: /w2/views/configurations/inbox.ctp:8 /w2/views/home/index.ctp:22
+msgid "Inbox"
+msgstr "Кутия"
+
+#: /views/configurations/add.ctp:75 /views/configurations/edit.ctp:76
+#: /w2/views/configurations/add.ctp:85 /w2/views/configurations/edit.ctp:88
+msgid "Inbox Host"
+msgstr "Хост на кутията"
+
+#: /views/configurations/add.ctp:77 /views/configurations/edit.ctp:78
+#: /w2/views/configurations/add.ctp:87 /w2/views/configurations/edit.ctp:90
+msgid "Inbox Port"
+msgstr "Порт на кутията"
+
+#: /views/configurations/add.ctp:79 /views/configurations/edit.ctp:80
+#: /w2/views/configurations/add.ctp:89 /w2/views/configurations/edit.ctp:92
+msgid "Inbox Service"
+msgstr "Service на кутията"
+
+#: /views/configurations/add.ctp:81 /views/configurations/edit.ctp:82
+#: /w2/views/configurations/add.ctp:91 /w2/views/configurations/edit.ctp:94
+msgid "Inbox Settings"
+msgstr "Настройки на кутията"
+
+#: /views/configurations/add.ctp:83 /views/configurations/edit.ctp:84
+#: /w2/views/configurations/add.ctp:93 /w2/views/configurations/edit.ctp:96
+msgid "do not use rsh or ssh to establish a preauthenticated IMAP session"
+msgstr "не използвайте rsh или ssh за да установите повторна оторизираща IMAP сесия"
+
+#: /views/configurations/add.ctp:84 /views/configurations/edit.ctp:85
+#: /w2/views/configurations/add.ctp:94 /w2/views/configurations/edit.ctp:97
+msgid "use the Secure Socket Layer to encrypt the session"
+msgstr "използвайте Secure Socket Layer SSL, за да криптирате тази сесия"
+
+#: /views/configurations/add.ctp:85 /views/configurations/edit.ctp:86
+#: /w2/views/configurations/add.ctp:95 /w2/views/configurations/edit.ctp:98
+msgid ""
+"do not validate certificates from TLS/SSL server, needed if server uses "
+"self-signed certificates"
+msgstr "не валидирайте сертификати от TLS/SSL сървър, изисква се само ако сървърът използва сертификати, които вие сами сте генерирали, а не закупени от лицензирани доставчици"
+
+#: /views/configurations/add.ctp:86 /views/configurations/edit.ctp:87
+#: /w2/views/configurations/add.ctp:96 /w2/views/configurations/edit.ctp:99
+msgid ""
+"force use of start-TLS to encrypt the session, and reject connection to "
+"servers that do not support it"
+msgstr "предизвикайте старт на криптираща TLS сесия и откажете връзката към сървъри, които не я поддържат"
+
+#: /views/configurations/add.ctp:87 /views/configurations/edit.ctp:88
+#: /w2/views/configurations/add.ctp:97 /w2/views/configurations/edit.ctp:100
+msgid ""
+"do not do start-TLS to encrypt the session, even with servers that support "
+"it"
+msgstr "не предизвикайте старт на криптираща TLS сесия, дори към сървъри, които я поддържат"
+
+#: /views/configurations/add.ctp:88 /views/configurations/edit.ctp:89
+#: /w2/views/configurations/add.ctp:98 /w2/views/configurations/edit.ctp:101
+msgid ""
+"request read-only mailbox open (IMAP only; ignored on NNTP, and an error "
+"POP3)"
+msgstr "отваряне на поща само за четене (само IMAP; отхвърля се при NNTP и възниква грешка при POP3)"
+
+#: /views/configurations/add.ctp:92 /views/configurations/edit.ctp:93
+#: /w2/views/configurations/add.ctp:102 /w2/views/configurations/edit.ctp:105
+msgid "Mailbox"
+msgstr "Пощенска кутия"
+
+#: /views/configurations/add.ctp:96 /views/configurations/edit.ctp:97
+#: /w2/views/configurations/add.ctp:106 /w2/views/configurations/edit.ctp:109
+msgid "Mostly empty"
+msgstr "Предимно празна"
+
+#: /views/configurations/add.ctp:99 /views/configurations/edit.ctp:100
+#: /w2/views/configurations/add.ctp:109 /w2/views/configurations/edit.ctp:112
+msgid "Inbox Username"
+msgstr "Потребителско име за кутията"
+
+#: /views/configurations/add.ctp:101 /views/configurations/edit.ctp:102
+#: /w2/views/configurations/add.ctp:111 /w2/views/configurations/edit.ctp:114
+msgid "Inbox Password"
+msgstr "Парола за кутията"
+
+#: /views/configurations/add.ctp:103 /views/configurations/edit.ctp:104
+#: /w2/views/configurations/add.ctp:113 /w2/views/configurations/edit.ctp:116
+msgid "Inbox Wait"
+msgstr "Изчакване за кутията"
+
+#: /views/configurations/edit.ctp:3 /w2/views/configurations/edit.ctp:6
+msgid "Edit Configuration"
+msgstr "Редактиране на конфигурацията"
+
+#: /views/configurations/index.ctp4;6 /views/home/index.ctp3;4;5
+#: /views/importtasks/index.ctp2;3 /views/mails/campaign.ctp9;11
+#: /views/mails/index.ctp:4 /views/mails/sendstatus.ctp:26
+#: /views/recipients/index.ctp:244 /views/subscribers/cleanup.ctp3;4
+#: /w2/views/subscribers/cleanup.ctp:12
+msgid "conf"
+msgstr "конфиг"
+
+#: /views/configurations/index.ctp:4 /w2/views/configurations/index.ctp:17
+msgid "New Configuration"
+msgstr "Нова конфигурация"
+
+#: /views/configurations/index.ctp:6 /w2/views/configurations/index.ctp:20
+msgid "Look for bounce mails on all servers"
+msgstr "Вижте за скачаща поща на всички сървъри"
+
+#: /views/configurations/index.ctp:9 /views/layouts/default.ctp:100
+#: /w2/views/configurations/index.ctp:6
+msgid "Configurations"
+msgstr "Конфигурации"
+
+#: /views/configurations/index.ctp:12 /w2/views/configurations/index.ctp:30
+msgid "OUT"
+msgstr "Външни"
+
+#: /views/configurations/index.ctp:13 /w2/views/configurations/index.ctp:31
+msgid "IN"
+msgstr "Вътрешни"
+
+#: /views/configurations/index.ctp30;31;31
+#: /w2/views/configurations/index.ctp49;54;54
+msgid "Wait"
+msgstr "Изчакващи"
+
+#: /views/configurations/index.ctp:30 /w2/views/configurations/index.ctp:49
+msgid "You can send %s Mails in the next"
+msgstr "Можете да изпратите %s мейла в следващите"
+
+#: /views/configurations/index.ctp30;31 /views/mails/campaign.ctp124;127
+#: /w2/views/configurations/index.ctp51;56 /w2/views/mails/campaign.ctp218;220
+msgid "Ready"
+msgstr "Готови"
+
+#: /views/configurations/index.ctp43;43
+#: /w2/views/configurations/index.ctp67;67
+msgid "Unblock"
+msgstr "Отбклокиране"
+
+#: /views/configurations/index.ctp:43
+msgid "Are you sure you want to unblock # %s?"
+msgstr "Сигурни ли сте, че желаете да отблокирате # %s?"
+
+#: /views/configurations/index.ctp:45
+msgid "Test"
+msgstr "Тестване"
+
+#: /views/configurations/index.ctp:45
+#: /w2/views/configurations/index.ctp70;70;72
+msgid "Test settings"
+msgstr "Настройки за тестване"
+
+#: /views/configurations/index.ctp:46
+msgid "Check bounce"
+msgstr "Проверка на bounce"
+
+#: /views/configurations/index.ctp:46
+msgid "Look for bounce mails on"
+msgstr "Провери за идващи bounce мейли"
+
+#: /views/errors/error404.ctp:22 /views/errors/error500.ctp:22
+#: /views/forms/edit.ctp:66 /w2/views/errors/error404.ctp:22
+#: /w2/views/errors/error500.ctp:22 /w2/views/forms/edit.ctp:78
+msgid "Error"
+msgstr "Грешка"
+
+#: /views/errors/error404.ctp:23 /w2/views/errors/error404.ctp:23
+msgid "The requested address %s was not found on this server."
+msgstr "Изисканият адрес %s не беше открит на този сървър."
+
+#: /views/errors/error500.ctp:23 /w2/views/errors/error500.ctp:23
+msgid "An Internal Error Has Occurred."
+msgstr "Възникна вътрешна грешка."
+
+#: /views/filemanager/index.ctp23;57 /views/forms/edit.ctp:123
+#: /views/forms/editm.ctp:41 /views/mails/step3.ctp177;201;227;251
+#: /views/templates/add.ctp:59 /views/templates/edit.ctp:62
+#: /w2/views/configurations/mail.ctp:47 /w2/views/filemanager/index.ctp23;57
+#: /w2/views/forms/edit.ctp:135 /w2/views/forms/editm.ctp:50
+#: /w2/views/mails/step3.ctp214;239;267;292 /w2/views/templates/add.ctp:72
+#: /w2/views/templates/edit.ctp:78
+msgid "en"
+msgstr "en"
+
+#: /views/forms/add.ctp:3 /w2/views/forms/add.ctp:6
+msgid "Add Form"
+msgstr "Добавяне на форма"
+
+#: /views/forms/edit.ctp:3 /w2/views/forms/edit.ctp:6
+msgid "Edit Form"
+msgstr "Редактиране на форма"
+
+#: /views/forms/edit.ctp:7 /views/importtasks/edit3.ctp:17
+#: /views/subscribers/import2.ctp:18 /w2/views/forms/edit.ctp:19
+#: /w2/views/importtasks/edit3.ctp:28 /w2/views/subscribers/import2.ctp:30
+msgid "Subscription Form"
+msgstr "Форма за абониране"
+
+#: /views/forms/edit.ctp:10 /w2/views/forms/edit.ctp:22
+msgid "E-Mail"
+msgstr "Имейл адрес"
+
+#: /views/forms/edit.ctp:11 /w2/views/forms/edit.ctp:23
+msgid "E-mail Label"
+msgstr "Етикет за имейла"
+
+#: /views/forms/edit.ctp:14 /w2/views/forms/edit.ctp:26
+msgid "E-mail Exist"
+msgstr "Имейлът вече съществува"
+
+#: /views/forms/edit.ctp:15 /w2/views/forms/edit.ctp:27
+msgid "You have already subscribed this newsletter"
+msgstr "Вие вече имате абонамент за този бюлетин"
+
+#: /views/forms/edit.ctp:17 /w2/views/forms/edit.ctp:29
+msgid "Update Subscriptions"
+msgstr "Обновяване на списъка с абонаменти"
+
+#: /views/forms/edit.ctp:19 /w2/views/forms/edit.ctp:31
+msgid "Update Informations"
+msgstr "Обновяване на информацията"
+
+#: /views/forms/edit.ctp:21 /w2/views/forms/edit.ctp:33
+msgid "E-mail Error"
+msgstr "Имейл грешка"
+
+#: /views/forms/edit.ctp:24 /w2/views/forms/edit.ctp:36
+msgid "First Name Label"
+msgstr "Етикет за първото име"
+
+#: /views/forms/edit.ctp:26 /w2/views/forms/edit.ctp:38
+msgid "First Name Error"
+msgstr "Грешка за първото име"
+
+#: /views/forms/edit.ctp:28 /w2/views/forms/edit.ctp:40
+msgid "First Name Required"
+msgstr "Първото име е задължително"
+
+#: /views/forms/edit.ctp:31 /w2/views/forms/edit.ctp:43
+msgid "Last Name Label"
+msgstr "Етикет за фамилното име"
+
+#: /views/forms/edit.ctp:33 /w2/views/forms/edit.ctp:45
+msgid "Last Name Error"
+msgstr "Грешка за фамилното име"
+
+#: /views/forms/edit.ctp:35 /w2/views/forms/edit.ctp:47
+msgid "Last Name Required"
+msgstr "Фамилното име е задължително"
+
+#: /views/forms/edit.ctp:38 /w2/views/forms/edit.ctp:50
+msgid "Captcha"
+msgstr "Код за сигурност"
+
+#: /views/forms/edit.ctp:39 /w2/views/forms/edit.ctp:51
+msgid "Captcha Label"
+msgstr "Етикет за кода за сигурност"
+
+#: /views/forms/edit.ctp:41 /w2/views/forms/edit.ctp:53
+msgid "Captcha Error"
+msgstr "Грешка при кода за сигурност"
+
+#: /views/forms/edit.ctp:42 /w2/views/forms/edit.ctp:54
+msgid "Please solve this captcha"
+msgstr "Моля да въведете кода за сигурност"
+
+#: /views/forms/edit.ctp:43 /w2/views/forms/edit.ctp:55
+msgid "Captcha Show"
+msgstr "Показване на код за сигурност"
+
+#: /views/forms/edit.ctp:46 /w2/views/forms/edit.ctp:58
+msgid "Required Checkbox"
+msgstr "Задължителен чекбокс"
+
+#: /views/forms/edit.ctp:47 /w2/views/forms/edit.ctp:59
+msgid "Checkbox Label"
+msgstr "Етикет за чекбокса"
+
+#: /views/forms/edit.ctp:48 /w2/views/forms/edit.ctp:60
+msgid "I accept the Terms of Service"
+msgstr "Приемам Условията за ползване"
+
+#: /views/forms/edit.ctp:49 /w2/views/forms/edit.ctp:61
+msgid "Checkbox Error"
+msgstr "Грешка при чекбокса"
+
+#: /views/forms/edit.ctp:50 /w2/views/forms/edit.ctp:62
+msgid "Please check this checkbox"
+msgstr "Моля да чекнете този чекбокс"
+
+#: /views/forms/edit.ctp:51 /w2/views/forms/edit.ctp:63
+msgid "Checkbox Show"
+msgstr "Показване на чекбокса"
+
+#: /views/forms/edit.ctp:59 /w2/views/forms/edit.ctp:71
+msgid "Label"
+msgstr "Етикет"
+
+#: /views/forms/edit.ctp:60 /w2/views/forms/edit.ctp:72
+msgid "Options"
+msgstr "Опции"
+
+#: /views/forms/edit.ctp:63 /w2/views/forms/edit.ctp:75
+msgid "Seperate options using a semicolon: Option 1;Option 2"
+msgstr "Отделни опции разделени с точка и запетая: Опция 1;Опция2"
+
+#: /views/forms/edit.ctp:68 /w2/views/forms/edit.ctp:80
+msgid "Required"
+msgstr "Задължително"
+
+#: /views/forms/edit.ctp:69 /w2/views/forms/edit.ctp:81
+msgid "in Top"
+msgstr "отгоре"
+
+#: /views/forms/edit.ctp:76 /w2/views/forms/edit.ctp:88
+msgid "Categories Label"
+msgstr "Етикет за категориите"
+
+#: /views/forms/edit.ctp:78 /w2/views/forms/edit.ctp:90
+msgid "Categories Error"
+msgstr "Грешка за категориите"
+
+#: /views/forms/edit.ctp:80 /w2/views/forms/edit.ctp:92
+msgid "User Can Choose"
+msgstr "Потребителят може да избере"
+
+#: /views/forms/edit.ctp:83 /w2/views/forms/edit.ctp:95
+msgid "Add to this categories"
+msgstr "Добавяне към тези категории"
+
+#: /views/forms/edit.ctp:85 /w2/views/forms/edit.ctp:97
+msgid "Submit Button"
+msgstr "Бутон за изпращане"
+
+#: /views/forms/edit.ctp:87 /w2/views/forms/edit.ctp:99
+msgid "Thanks"
+msgstr "Текст за благодарности"
+
+#: /views/forms/edit.ctp:88 /w2/views/forms/edit.ctp:100
+msgid "Thanks Page Url"
+msgstr "URL адрес за благодарствената страница"
+
+#: /views/forms/edit.ctp:90 /w2/views/forms/edit.ctp:102
+msgid "Thanks Title"
+msgstr "Благодарствено заглавие"
+
+#: /views/forms/edit.ctp:92 /w2/views/forms/edit.ctp:104
+msgid "Thanks Text"
+msgstr "Благодарствен текст"
+
+#: /views/forms/edit.ctp:94 /w2/views/forms/edit.ctp:106
+msgid "Message if subscriber needs to confirm subscription"
+msgstr "Съобщение ако абонираният потребител се нуждае от потвърждение на абонамента"
+
+#: /views/forms/edit.ctp:95 /w2/views/forms/edit.ctp:107
+msgid "Confirm Page Url"
+msgstr "URL адрес на страницата за потвърждение"
+
+#: /views/forms/edit.ctp:97 /w2/views/forms/edit.ctp:109
+msgid "Confirm Title"
+msgstr "Заглавие на страницата за потвърждение"
+
+#: /views/forms/edit.ctp:99 /w2/views/forms/edit.ctp:111
+msgid "Confirm Text"
+msgstr "Съдържание на страницата за потвърждение"
+
+#: /views/forms/edit.ctp:101 /views/subscribers/index.ctp:105
+#: /w2/views/forms/edit.ctp:113 /w2/views/subscribers/index.ctp:124
+msgid "Unsubscribe"
+msgstr "Отписване от бюлетина"
+
+#: /views/forms/edit.ctp:102 /w2/views/forms/edit.ctp:114
+msgid "Unsubscribe Page Url"
+msgstr "URL адрес на страницата за отписване от бюлетина"
+
+#: /views/forms/edit.ctp:104 /w2/views/forms/edit.ctp:116
+msgid "Unsubscribe Title"
+msgstr "Заглавие на страницата за отписване от бюлетина"
+
+#: /views/forms/edit.ctp:106 /w2/views/forms/edit.ctp:118
+msgid "Unsubscribe Text"
+msgstr "Съдържание на страницата за отписване от бюлетина"
+
+#: /views/forms/editm.ctp:4 /w2/views/forms/editm.ctp:5
+msgid "Edit Mails related to Form"
+msgstr "Редактиране на мейли, които са свързани с формата"
+
+#: /views/forms/editm.ctp:9 /views/mails/step1.ctp:39
+#: /w2/views/forms/editm.ctp:18 /w2/views/mails/step1.ctp:63
+msgid "Configuration"
+msgstr "Конфигурация"
+
+#: /views/forms/editm.ctp:12 /w2/views/forms/editm.ctp:21
+msgid "Confirm subscriber"
+msgstr "Потвърдете абонирания потребител"
+
+#: /views/forms/editm.ctp:13 /w2/views/forms/editm.ctp:22
+msgid "Title"
+msgstr "Заглавие"
+
+#: /views/forms/editm.ctp:14 /views/templates/view.ctp:14
+#: /w2/views/forms/editm.ctp:23 /w2/views/mails/step1.ctp:7
+#: /w2/views/mails/step2.ctp:8 /w2/views/mails/step3.ctp:45
+#: /w2/views/mails/step4.ctp:7 /w2/views/mails/step5.ctp:7
+#: /w2/views/templates/view.ctp:14
+msgid "Content"
+msgstr "Съдържание"
+
+#: /views/forms/editm.ctp:21 /w2/views/forms/editm.ctp:30
+msgid "New Subscription Notify Mail"
+msgstr "Нов мейл за предупреждение при абониране от потребител"
+
+#: /views/forms/editm.ctp:22 /w2/views/forms/editm.ctp:31
+msgid "Send mail notification"
+msgstr "Изпрати ми известие"
+
+#: /views/forms/editm.ctp:23 /w2/views/forms/editm.ctp:32
+msgid "Notify Addresse"
+msgstr "Извести адрес"
+
+#: /views/forms/index.ctp:2 /w2/views/forms/index.ctp:14
+msgid "New Form"
+msgstr "Нова форма"
+
+#: /views/forms/index.ctp:2 /w2/views/forms/index.ctp:6
+msgid "Forms"
+msgstr "Форми"
+
+#: /views/forms/index.ctp23;23 /w2/views/forms/index.ctp44;44
+msgid "Copy link"
+msgstr "Копирай линк"
+
+#: /views/forms/index.ctp24;24
+msgid "Preview form"
+msgstr "Преглед на формата"
+
+#: /views/forms/index.ctp25;25 /w2/views/forms/index.ctp48;48
+msgid "Preview unsubscribe"
+msgstr "Преглед на формата за отписване"
+
+#: /views/forms/index.ctp26;26
+msgid "Edit form"
+msgstr "Редактиране на формата"
+
+#: /views/forms/index.ctp27;27 /w2/views/forms/index.ctp52;52
+msgid "Edit mails"
+msgstr "Редактиране на мейлите"
+
+#: /views/forms/index.ctp:55 /w2/views/forms/index.ctp:75
+msgid "Standalon form"
+msgstr "Самостоятелна форма"
+
+#: /views/forms/index.ctp:59 /w2/views/forms/index.ctp:79
+msgid "Inframe form"
+msgstr "Форма вградена във фрейм"
+
+#: /views/forms/sendtof.ctp:2 /w2/views/forms/sendtof.ctp:2
+msgid "Send to friend"
+msgstr "Изпрати на приятел"
+
+#: /views/forms/sendtof.ctp:8 /w2/views/forms/sendtof.ctp:8
+msgid "Your Name"
+msgstr "Вашето име"
+
+#: /views/forms/sendtof.ctp:9 /w2/views/forms/sendtof.ctp:9
+msgid "Your Mail"
+msgstr "Вашият мейл"
+
+#: /views/forms/sendtof.ctp:10 /w2/views/forms/sendtof.ctp:10
+msgid "Friend's Name"
+msgstr "Име на Вашия приятел"
+
+#: /views/forms/sendtof.ctp:11 /w2/views/forms/sendtof.ctp:11
+msgid "Friend's Mail"
+msgstr "Мейл адрес на Вашия приятел"
+
+#: /views/forms/sendtof.ctp:12 /w2/views/forms/sendtof.ctp:12
+msgid "Message"
+msgstr "Съобщение"
+
+#: /views/forms/sendtof.ctp:12 /w2/views/forms/sendtof.ctp:12
+msgid "I thought you'd like this newsletter"
+msgstr "Мисля, че би харесал този бюлетин"
+
+#: /views/forms/sendtof.ctp:13 /views/mails/campaign.ctp:98
+#: /views/mails/sendstatus.ctp80;83;87 /views/mails/step1.ctp:50
+#: /w2/views/configurations/mail.ctp:35 /w2/views/forms/sendtof.ctp:13
+#: /w2/views/mails/campaign.ctp:180 /w2/views/mails/step1.ctp:74
+msgid "Send"
+msgstr "Изпрати"
+
+#: /views/forms/sendtof.ctp:15 /w2/views/forms/sendtof.ctp:15
+msgid "Thank you for forwarding this newsletter."
+msgstr "Благодарим Ви, че препратихте бюлетина."
+
+#: /views/forms/sendtof.ctp:17 /w2/views/forms/sendtof.ctp:17
+msgid "Oops! something went wrong!!"
+msgstr "Упс! нещо се обърка!"
+
+#: /views/helpers/form.php367;1309 /w2/views/helpers/form.php367;1309
+msgid "Submit"
+msgstr "Подаване"
+
+#: /views/helpers/form.php:513 /w2/views/helpers/form.php:513
+msgid "Error in field %s"
+msgstr "Грешка при поле %s"
+
+#: /views/helpers/form.php:630 /w2/views/helpers/form.php:630
+msgid "New %s"
+msgstr "Ново %s"
+
+#: /views/helpers/form.php:636 /w2/views/helpers/form.php:636
+msgid "Edit %s"
+msgstr "Редактиране на %s"
+
+#: /views/helpers/form.php:2121 /w2/views/helpers/form.php:2121
+msgid "January"
+msgstr "Януари"
+
+#: /views/helpers/form.php:2122 /w2/views/helpers/form.php:2122
+msgid "February"
+msgstr "Февруари"
+
+#: /views/helpers/form.php:2123 /w2/views/helpers/form.php:2123
+msgid "March"
+msgstr "Март"
+
+#: /views/helpers/form.php:2124 /w2/views/helpers/form.php:2124
+msgid "April"
+msgstr "Април"
+
+#: /views/helpers/form.php:2125 /w2/views/helpers/form.php:2125
+msgid "May"
+msgstr "Май"
+
+#: /views/helpers/form.php:2126 /w2/views/helpers/form.php:2126
+msgid "June"
+msgstr "Юни"
+
+#: /views/helpers/form.php:2127 /w2/views/helpers/form.php:2127
+msgid "July"
+msgstr "Юли"
+
+#: /views/helpers/form.php:2128 /w2/views/helpers/form.php:2128
+msgid "August"
+msgstr "Август"
+
+#: /views/helpers/form.php:2129 /w2/views/helpers/form.php:2129
+msgid "September"
+msgstr "Септември"
+
+#: /views/helpers/form.php:2130 /w2/views/helpers/form.php:2130
+msgid "October"
+msgstr "Октомври"
+
+#: /views/helpers/form.php:2131 /w2/views/helpers/form.php:2131
+msgid "November"
+msgstr "Ноември"
+
+#: /views/helpers/form.php:2132 /w2/views/helpers/form.php:2132
+msgid "December"
+msgstr "Декември"
+
+#: /views/home/index.ctp:1 /w2/views/home/index.ctp:4
+#: /w2/views/mails/index.ctp:4 /w2/views/mails/sendstatus.ctp:181
+msgid "Common Tasks"
+msgstr "Общи задачи"
+
+#: /views/home/index.ctp:2
+msgid "Create a new newsletter"
+msgstr "Създаване на нов бюлетин"
+
+#: /views/home/index.ctp:4 /w2/views/configurations/index.ctp71;71
+msgid "Look for bounce mails"
+msgstr "Преглед за bounce мейли"
+
+#: /views/home/index.ctp:5
+msgid "Run all import tasks"
+msgstr "Стартиране на всички import задачи"
+
+#: /views/home/index.ctp:9 /w2/views/home/index.ctp:29
+msgid "Last 5 Newsletter"
+msgstr "Последните 5 бюлетина"
+
+#: /views/home/index.ctp:14 /views/mails/campaign.ctp:96
+#: /views/subscribers/view.ctp131;179 /w2/views/configurations/inbox.ctp:20
+#: /w2/views/home/index.ctp:49 /w2/views/mails/campaign.ctp:178
+#: /w2/views/subscribers/view.ctp137;194
+msgid "Subject"
+msgstr "Относно"
+
+#: /views/home/index.ctp:16 /w2/views/home/index.ctp:51
+msgid "Modified"
+msgstr "Редактиран"
+
+#: /views/home/index.ctp:37 /views/mails/campaign.ctp:121
+#: /views/mails/index.ctp:37 /w2/views/home/index.ctp:74
+#: /w2/views/mails/campaign.ctp:215 /w2/views/mails/index.ctp:70
+msgid "Draft"
+msgstr "Недовършен"
+
+#: /views/home/index.ctp:42 /views/mails/index.ctp:42
+#: /w2/views/home/index.ctp:79 /w2/views/mails/index.ctp:75
+msgid "Sending"
+msgstr "Изпращане"
+
+#: /views/home/index.ctp:45 /views/mails/campaign.ctp:40
+#: /views/mails/index.ctp:45 /views/mails/sendstatus.ctp:32
+#: /views/subscribers/view.ctp133;149;181 /w2/views/home/index.ctp:82
+#: /w2/views/mails/campaign.ctp:126 /w2/views/mails/index.ctp:78
+#: /w2/views/mails/sendstatus.ctp148;332
+#: /w2/views/subscribers/view.ctp139;155;196
+msgid "Sent"
+msgstr "Изпратен"
+
+#: /views/home/index.ctp:47 /views/mails/index.ctp:47
+#: /w2/views/home/index.ctp:84 /w2/views/mails/campaign.ctp:222
+#: /w2/views/mails/index.ctp:80
+msgid "Stopped"
+msgstr "Спрян"
+
+#: /views/home/index.ctp59;59 /views/mails/campaign.ctp139;139
+#: /views/mails/index.ctp59;59 /views/subscribers/view.ctp164;199
+#: /views/templates/index.ctp15;15 /views/templates/view.ctp:24
+#: /w2/views/home/index.ctp:96 /w2/views/mails/campaign.ctp:234
+#: /w2/views/mails/index.ctp:93 /w2/views/subscribers/view.ctp170;214
+#: /w2/views/templates/index.ctp49;49 /w2/views/templates/view.ctp:24
+msgid "Preview"
+msgstr "Преглед"
+
+#: /views/home/index.ctp61;61 /views/mails/campaign.ctp141;141
+#: /views/mails/index.ctp61;61
+msgid "Duplicate"
+msgstr "Дублиране"
+
+#: /views/home/index.ctp:61 /views/mails/campaign.ctp:141
+#: /views/mails/index.ctp:61 /views/mails/sendstatus.ctp:92
+msgid "Are you sure you want to duplicate # %s?"
+msgstr "Сигурни ли сте, че искате да дублирате # %s?"
+
+#: /views/home/index.ctp:74 /w2/views/home/index.ctp:33
+msgid "See all newsletter"
+msgstr "Вижте всички бюлетини"
+
+#: /views/home/index.ctp:79 /w2/views/home/index.ctp:114
+msgid "Last 5 Subscribers"
+msgstr "Последните 5 абонирали се"
+
+#: /views/home/index.ctp:87 /views/subscribers/index.ctp39;54
+#: /views/subscribers/view.ctp:47 /w2/views/home/index.ctp:136
+#: /w2/views/subscribers/index.ctp65;150 /w2/views/subscribers/view.ctp:49
+msgid "Subscribed"
+msgstr "Абониран потребител"
+
+#: /views/home/index.ctp:128 /w2/views/home/index.ctp:118
+msgid "See all subscribers"
+msgstr "Виж всички абонирани потребители"
+
+#: /views/home/index.ctp:132 /w2/views/home/index.ctp:184
+msgid "Cron Jobs"
+msgstr "Cron Jobs"
+
+#: /views/home/index.ctp:133 /w2/views/home/index.ctp:194
+msgid "Bounce mail check command:"
+msgstr "Команда за проверка на bounce мейл"
+
+#: /views/home/index.ctp:135 /w2/views/home/index.ctp:196
+msgid "Send mails command:"
+msgstr "Команда за изпращане на имейли"
+
+#: /views/home/index.ctp:137
+msgid "Clean up failed subscribers:"
+msgstr "Зачистване на провалените абонати:"
+
+#: /views/home/index.ctp:139
+msgid "Clean up inactive subscribers:"
+msgstr "Зачистване на неактивните абонати:"
+
+#: /views/home/index.ctp:144 /w2/views/home/index.ctp:204
+msgid "Api"
+msgstr "Api"
+
+#: /views/home/index.ctp:145 /w2/views/home/index.ctp:222
+msgid "API Key:"
+msgstr "Ключ за API-то:"
+
+#: /views/home/index.ctp:154 /w2/views/home/index.ctp:209
+msgid "Show code"
+msgstr "Показване на кода"
+
+#: /views/home/index.ctp:154 /w2/views/home/index.ctp:211
+msgid "Download API"
+msgstr "Изтегляне на API"
+
+#: /views/home/index.ctp:156 /w2/views/home/index.ctp:233
+msgid "Sample Code:"
+msgstr "Примерен код:"
+
+#: /views/images/index.ctp:33 /w2/views/images/index.ctp:33
+msgid "Upload image"
+msgstr "Качване на снимка"
+
+#: /views/images/index.ctp:41 /w2/views/images/index.ctp:41
+msgid "Image Url"
+msgstr "URL aдрес на снимката"
+
+#: /views/images/index.ctp:43 /views/subscribers/import.ctp:21
+#: /views/subscribers/import2.ctp:56 /w2/views/images/index.ctp:43
+#: /w2/views/subscribers/import.ctp:32 /w2/views/subscribers/import2.ctp:68
+msgid "Upload"
+msgstr "Качване"
+
+#: /views/importtasks/add.ctp:3 /w2/views/importtasks/add.ctp:15
+msgid "Add Import Task"
+msgstr "Добави Import задача"
+
+#: /views/importtasks/add.ctp:5 /views/importtasks/edit.ctp:7
+#: /views/importtasks/edit1.ctp:6 /views/importtasks/edit2.ctp:6
+#: /views/importtasks/edit3.ctp:6 /views/mails/step1.ctp:7
+#: /views/mails/step2.ctp:3 /views/mails/step3.ctp:30 /views/mails/step4.ctp:3
+#: /views/mails/step5.ctp:3
+msgid "Step 1: Base Settings"
+msgstr "Стъпка 1: Общи настройки"
+
+#: /views/importtasks/add.ctp:6 /views/importtasks/edit.ctp:8
+#: /views/importtasks/edit1.ctp:7 /views/importtasks/edit2.ctp:7
+#: /views/importtasks/edit3.ctp:7
+msgid "Step 2: Connection to DB"
+msgstr "Стъпка 2: Свързване с базата данни"
+
+#: /views/importtasks/add.ctp:6 /views/importtasks/edit.ctp:8
+#: /views/importtasks/edit1.ctp:7 /views/importtasks/edit2.ctp:7
+#: /views/importtasks/edit3.ctp:7
+msgid "Server Host and Port"
+msgstr "Сървър хост и порт"
+
+#: /views/importtasks/add.ctp:6 /views/importtasks/edit.ctp:8
+#: /views/importtasks/edit1.ctp:7 /views/importtasks/edit2.ctp:7
+#: /views/importtasks/edit3.ctp:7
+msgid "User/Password"
+msgstr "Потребител/Парола"
+
+#: /views/importtasks/add.ctp:7 /views/importtasks/edit.ctp:9
+#: /views/importtasks/edit1.ctp:8 /views/importtasks/edit2.ctp:8
+#: /views/importtasks/edit3.ctp:8
+msgid "Step 3: Query"
+msgstr "Стъпка 3: Заявка"
+
+#: /views/importtasks/add.ctp:7 /views/importtasks/edit.ctp:9
+#: /views/importtasks/edit1.ctp:8 /views/importtasks/edit2.ctp:8
+#: /views/importtasks/edit3.ctp:8
+msgid "Enter SQL Query"
+msgstr "Въвеждане на SQL заявка"
+
+#: /views/importtasks/add.ctp:9 /views/importtasks/edit.ctp:11
+#: /views/importtasks/edit1.ctp:10 /views/importtasks/edit2.ctp:10
+#: /views/importtasks/edit3.ctp:10
+msgid "Step 4: Settings"
+msgstr "Стъпка 4: Настройки"
+
+#: /views/importtasks/add.ctp:9 /views/importtasks/edit.ctp:11
+#: /views/importtasks/edit1.ctp:10 /views/importtasks/edit2.ctp:10
+#: /views/importtasks/edit3.ctp:10
+msgid "See Results"
+msgstr "Показване на резултатите"
+
+#: /views/importtasks/add.ctp:9 /views/importtasks/edit.ctp:11
+#: /views/importtasks/edit1.ctp:10 /views/importtasks/edit2.ctp:10
+#: /views/importtasks/edit3.ctp:10
+msgid "Select Categories"
+msgstr "Избор на категории"
+
+#: /views/importtasks/add.ctp:14 /views/importtasks/edit.ctp:18
+#: /views/importtasks/edit1.ctp41;43 /views/importtasks/edit2.ctp15;16
+#: /views/mails/step1.ctp:55 /views/mails/step2.ctp50;51
+#: /views/mails/step3.ctp144;145 /views/mails/step4.ctp:21
+#: /w2/views/importtasks/add.ctp:24 /w2/views/importtasks/edit.ctp:29
+#: /w2/views/importtasks/edit1.ctp53;55 /w2/views/importtasks/edit2.ctp26;27
+#: /w2/views/mails/step1.ctp:79 /w2/views/mails/step2.ctp101;102
+#: /w2/views/mails/step3.ctp181;182 /w2/views/mails/step4.ctp:60
+msgid "Next"
+msgstr "Следваща стъпка"
+
+#: /views/importtasks/edit.ctp:5 /w2/views/importtasks/edit.ctp:15
+msgid "Edit Import Task"
+msgstr "Редактиране на Import задача"
+
+#: /views/importtasks/edit1.ctp:33 /w2/views/importtasks/edit1.ctp:45
+msgid "User / Login"
+msgstr "Потребител / Вход"
+
+#: /views/importtasks/edit1.ctp:39 /w2/views/importtasks/edit1.ctp:51
+msgid "Port (leave blank if unknown)"
+msgstr "Порт (оставете празно ако не го знаете)"
+
+#: /views/importtasks/edit1.ctp:43 /views/importtasks/edit2.ctp:16
+#: /views/importtasks/edit3.ctp:58 /views/mails/sendstatus.ctp:28
+#: /views/mails/step2.ctp:51 /views/mails/step3.ctp:145
+#: /views/mails/step4.ctp:21 /views/recipients/export.ctp:1
+#: /views/recipients/index.ctp:246 /w2/views/clicktrack/link.ctp:254
+#: /w2/views/clicktrack/recipient.ctp:10 /w2/views/importtasks/edit1.ctp:55
+#: /w2/views/importtasks/edit2.ctp:27 /w2/views/importtasks/edit3.ctp:69
+#: /w2/views/mails/step2.ctp:102 /w2/views/mails/step3.ctp:182
+#: /w2/views/mails/step4.ctp:60 /w2/views/recipients/export.ctp:9
+#: /w2/views/recipients/index.ctp:254
+msgid "Back"
+msgstr "Назад"
+
+#: /views/importtasks/edit2.ctp:13 /w2/views/importtasks/add.ctp:7
+#: /w2/views/importtasks/edit.ctp:7 /w2/views/importtasks/edit1.ctp:7
+#: /w2/views/importtasks/edit2.ctp7;24 /w2/views/importtasks/edit3.ctp:7
+msgid "Query"
+msgstr "Заявка"
+
+#: /views/importtasks/edit3.ctp:15 /views/subscribers/import2.ctp:20
+#: /w2/views/importtasks/edit3.ctp:26 /w2/views/subscribers/import2.ctp:32
+msgid "Ignore"
+msgstr "Отхвърли"
+
+#: /views/importtasks/edit3.ctp:15 /views/subscribers/import2.ctp:20
+#: /w2/views/importtasks/edit3.ctp:26 /w2/views/subscribers/import2.ctp:32
+msgid "Update categories"
+msgstr "Обнови категориите"
+
+#: /views/importtasks/edit3.ctp:15 /views/subscribers/import2.ctp:20
+#: /w2/views/importtasks/edit3.ctp:26 /w2/views/subscribers/import2.ctp:32
+msgid "Overwrite categories"
+msgstr "Презаписване на категории"
+
+#: /views/importtasks/edit3.ctp:15 /views/subscribers/import2.ctp:20
+#: /w2/views/importtasks/edit3.ctp:26 /w2/views/subscribers/import2.ctp:32
+msgid "Existing subscribers"
+msgstr "Съществуващи абонати"
+
+#: /views/importtasks/edit3.ctp:18 /views/subscribers/import2.ctp:22
+#: /w2/views/importtasks/edit3.ctp:29 /w2/views/subscribers/import2.ctp:34
+msgid "Resubscribe"
+msgstr "Абонирай се отново"
+
+#: /views/importtasks/edit3.ctp:23 /views/subscribers/import2.ctp:26
+#: /w2/views/importtasks/edit3.ctp:34 /w2/views/subscribers/import2.ctp:38
+msgid "Data"
+msgstr "Данни"
+
+#: /views/importtasks/edit3.ctp:55 /w2/views/importtasks/edit3.ctp:66
+msgid "NO DATA"
+msgstr "Няма данни"
+
+#: /views/importtasks/edit3.ctp56;58 /w2/views/importtasks/edit3.ctp67;69
+msgid "Save Task"
+msgstr "Записване на задачата"
+
+#: /views/importtasks/importjob.ctp:1 /w2/views/importtasks/importjob.ctp:5
+msgid "Run Import Task"
+msgstr "Стартиране на import задачата"
+
+#: /views/importtasks/importjob.ctp:2 /views/subscribers/cleanup.ctp:6
+#: /w2/views/importtasks/importjob.ctp:12 /w2/views/subscribers/cleanup.ctp:14
+msgid "Live ticker"
+msgstr "Live ticker"
+
+#: /views/importtasks/index.ctp:2 /w2/views/importtasks/index.ctp:14
+msgid "New Import Task"
+msgstr "Нова import задача"
+
+#: /views/importtasks/index.ctp:3 /w2/views/importtasks/index.ctp:15
+msgid "Run All Tasks"
+msgstr "Стартиране на всички задачи"
+
+#: /views/importtasks/index.ctp:4 /w2/views/importtasks/index.ctp:6
+msgid "Import Tasks"
+msgstr "Import задачи"
+
+#: /views/importtasks/index.ctp30;30 /w2/views/importtasks/index.ctp48;48
+msgid "Run Task"
+msgstr "Стартиране на задача"
+
+#: /views/layouts/default.ctp:26
+msgid "Newsletter Mailer"
+msgstr "Бюлетин мейлър"
+
+#: /views/layouts/default.ctp:26
+msgid "Home"
+msgstr "Начало"
+
+#: /views/layouts/default.ctp85;85 /views/settings/index.ctp:21
+#: /w2/views/layouts/default.ctp:161 /w2/views/settings/index.ctp:32
+msgid "Dashboard"
+msgstr "Табло със задачи"
+
+#: /views/layouts/default.ctp90;175 /views/mails/sendstatus.ctp:29
+#: /w2/views/mails/sendstatus.ctp:65
+msgid "Newsletter"
+msgstr "Бюлетин"
+
+#: /views/layouts/default.ctp90;175 /views/mails/campaign.ctp:91
+#: /views/mails/index.ctp:5 /w2/views/layouts/default.ctp165;220
+#: /w2/views/mails/campaign.ctp:160 /w2/views/mails/index.ctp:25
+msgid "Newsletters"
+msgstr "Бюлетини"
+
+#: /views/layouts/default.ctp95;95;149;149;158;161
+#: /views/subscribers/index.ctp7;10 /w2/views/home/index.ctp:20
+#: /w2/views/layouts/default.ctp178;221 /w2/views/subscribers/index.ctp31;34
+msgid "Subscribers"
+msgstr "Абонирани потребители"
+
+#: /views/layouts/default.ctp100;137 /views/settings/index.ctp:4
+#: /w2/views/importtasks/add.ctp:8 /w2/views/importtasks/edit.ctp:8
+#: /w2/views/importtasks/edit1.ctp:8 /w2/views/importtasks/edit2.ctp:8
+#: /w2/views/importtasks/edit3.ctp:8 /w2/views/layouts/default.ctp194;222
+msgid "Settings"
+msgstr "Настройки"
+
+#: /views/layouts/default.ctp:107
+msgid "Hello"
+msgstr "Здравей"
+
+#: /views/layouts/default.ctp:108 /w2/views/home/index.ctp:23
+msgid "Logout"
+msgstr "Изход"
+
+#: /views/layouts/default.ctp:121
+msgid "Mail Server Configurations"
+msgstr "Настройки на Мейл Сървъра"
+
+#: /views/layouts/default.ctp126;126 /views/users/index.ctp:2
+#: /w2/views/layouts/default.ctp198;230 /w2/views/users/index.ctp:5
+msgid "Users"
+msgstr "Потребители"
+
+#: /views/layouts/default.ctp:132
+msgid "Form"
+msgstr "Форма"
+
+#: /views/layouts/default.ctp:132 /w2/views/layouts/default.ctp202;231
+msgid "Subscription Forms"
+msgstr "Форми за абониране"
+
+#: /views/layouts/default.ctp:137
+msgid "Application Settings"
+msgstr "Настройки на системата"
+
+#: /views/layouts/default.ctp:158 /w2/views/layouts/default.ctp183;226
+msgid "Import Subscribers"
+msgstr "Импортване на абонати"
+
+#: /views/layouts/default.ctp:161 /w2/views/layouts/default.ctp184;227
+msgid "Export Subscribers"
+msgstr "Експортване на абонати"
+
+#: /views/layouts/default.ctp164;164 /w2/views/layouts/default.ctp185;228
+msgid "Update from other DB"
+msgstr "Обновяване от друга База Данни"
+
+#: /views/layouts/default.ctp167;167 /w2/views/layouts/default.ctp186;229
+msgid "Clean Up Subscribers"
+msgstr "Зачистване на абонатите"
+
+#: /views/layouts/default.ctp:179 /views/mails/campaign.ctp:35
+#: /w2/views/mails/campaign.ctp:37
+msgid "Campaign"
+msgstr "Кампания"
+
+#: /views/layouts/default.ctp:184 /views/mails/step2.ctp:27
+#: /views/templates/view.ctp:2 /w2/views/mails/step1.ctp:6
+#: /w2/views/mails/step2.ctp7;57 /w2/views/mails/step3.ctp:44
+#: /w2/views/mails/step4.ctp:6 /w2/views/mails/step5.ctp:6
+#: /w2/views/templates/view.ctp:2
+msgid "Template"
+msgstr "Шаблон"
+
+#: /views/layouts/default.ctp:184 /views/templates/index.ctp:3
+#: /w2/views/home/index.ctp:19 /w2/views/layouts/default.ctp170;224
+#: /w2/views/templates/index.ctp:5
+msgid "Templates"
+msgstr "Шаблони"
+
+#: /views/mails/campaign.ctp:39 /views/mails/sendstatus.ctp:31
+msgid "Sent &amp; Read"
+msgstr "Изпратен &amp; Прочетен"
+
+#: /views/mails/campaign.ctp:41 /views/mails/sendstatus.ctp:33
+msgid "Unsent"
+msgstr "Неизпратен"
+
+#: /views/mails/campaign.ctp:57 /w2/views/mails/campaign.ctp:68
+msgid "Unique recipients"
+msgstr "Уникални получатели"
+
+#: /views/mails/campaign.ctp:62 /views/mails/sendstatus.ctp:43
+#: /w2/views/mails/campaign.ctp:74 /w2/views/mails/sendstatus.ctp:87
+msgid "Newsletters sent"
+msgstr "Изпратени бюлетина"
+
+#: /views/mails/campaign.ctp:67 /views/mails/sendstatus.ctp:48
+#: /w2/views/mails/campaign.ctp:79 /w2/views/mails/sendstatus.ctp:92
+msgid "Newsletters read"
+msgstr "Прочетени бюлетина"
+
+#: /views/mails/campaign.ctp:72 /views/mails/sendstatus.ctp:53
+#: /w2/views/mails/campaign.ctp:84 /w2/views/mails/sendstatus.ctp:98
+msgid "Newsletters failed"
+msgstr "Провалени бюлетина"
+
+#: /views/mails/campaign.ctp:78 /views/mails/sendstatus.ctp:59
+#: /w2/views/mails/campaign.ctp:90 /w2/views/mails/sendstatus.ctp:104
+msgid "Unsubscribes"
+msgstr "се отписва"
+
+#: /views/mails/campaign.ctp:84 /views/mails/sendstatus.ctp:65
+#: /w2/views/mails/campaign.ctp:96 /w2/views/mails/sendstatus.ctp:111
+msgid "Sent to Friends"
+msgstr "Изпратен до приятелите"
+
+#: /views/mails/campaign.ctp:92 /views/mails/index.ctp:3
+#: /w2/views/mails/campaign.ctp:166
+msgid "Create new newsletter"
+msgstr "Създай нов бюлетин"
+
+#: /views/mails/campaign.ctp:112 /views/mails/index.ctp:25
+#: /w2/views/home/index.ctp:65 /w2/views/mails/campaign.ctp194;200
+#: /w2/views/mails/index.ctp:59
+msgid "Info"
+msgstr "Инфо"
+
+#: /views/mails/campaign.ctp:132 /views/mails/step1.ctp:50
+#: /w2/views/mails/campaign.ctp:227 /w2/views/mails/step1.ctp:74
+msgid "days after subscription"
+msgstr "дни след абонирането"
+
+#: /views/mails/campaign.ctp:160 /w2/views/mails/sendstatus.ctp:299
+msgid "Timeline"
+msgstr "Времева линия"
+
+#: /views/mails/index.ctp:1 /w2/views/mails/index.ctp:109
+msgid "Link"
+msgstr "Връзка"
+
+#: /views/mails/index.ctp:1
+msgid ""
+"Sent Newsletters RSS Feed (%link%). You can edit the rss chanel in the "
+"application settings."
+msgstr "Изпращане на RSS линка: (%link%). Можете да редактирате rss канала в настройките."
+
+#: /views/mails/sendstatus.ctp4;182 /views/subscribers/index.ctp21;23;27
+#: /views/subscribers/view.ctp5;121 /w2/views/subscribers/index.ctp19;23
+#: /w2/views/subscribers/view.ctp:120
+msgid "cat"
+msgstr "кат"
+
+#: /views/mails/sendstatus.ctp:4 /w2/views/mails/sendstatus.ctp:34
+msgid "Newsletter is scheduled"
+msgstr "Бюлетинът е насрочен"
+
+#: /views/mails/sendstatus.ctp:26
+msgid "More Recipent Information"
+msgstr "Повече информация за получател"
+
+#: /views/mails/sendstatus.ctp:38 /w2/views/mails/sendstatus.ctp:81
+msgid "Total recipients"
+msgstr "Общ брой получатели"
+
+#: /views/mails/sendstatus.ctp:80 /w2/views/mails/sendstatus.ctp:200
+msgid "Send next newsletters in"
+msgstr "Изпрати следващите бюлетини в"
+
+#: /views/mails/sendstatus.ctp:83 /w2/views/mails/sendstatus.ctp:205
+msgid "Send next "
+msgstr "Изпрати следващият"
+
+#: /views/mails/sendstatus.ctp:87 /w2/views/mails/sendstatus.ctp:212
+msgid "Go back to edit"
+msgstr "Върни се за да редактираш"
+
+#: /views/mails/sendstatus.ctp89;89 /w2/views/mails/sendstatus.ctp:217
+msgid "Stop Sending"
+msgstr "Спиране на изпращането"
+
+#: /views/mails/sendstatus.ctp92;92 /w2/views/mails/sendstatus.ctp:67
+msgid "Duplicate Newsletter"
+msgstr "Дублиране на бюлетина"
+
+#: /views/mails/sendstatus.ctp93;93
+msgid "Reactivate Newsletter"
+msgstr "Реактивиране на бюлетина"
+
+#: /views/mails/sendstatus.ctp93;95
+msgid "Are you sure you want to reactivate # %s?"
+msgstr "Сигурни ли сте, че желаете да реактивирате # %s?"
+
+#: /views/mails/sendstatus.ctp95;95
+msgid "Reactivate Failed"
+msgstr "Подновяването се провали"
+
+#: /views/mails/sendstatus.ctp99;120
+msgid "Open"
+msgstr "Отваряне"
+
+#: /views/mails/sendstatus.ctp:99 /w2/views/mails/sendstatus.ctp:190
+msgid "Open Newsletter"
+msgstr "Отваряне на бюлетина"
+
+#: /views/mails/sendstatus.ctp:101 /w2/views/mails/sendstatus.ctp:246
+msgid "Tracked links"
+msgstr "Проследени линкове"
+
+#: /views/mails/sendstatus.ctp:104 /w2/views/clicktrack/recipient.ctp:22
+#: /w2/views/mails/sendstatus.ctp:263
+msgid "Url"
+msgstr "Url адрес"
+
+#: /views/mails/sendstatus.ctp:104 /w2/views/mails/sendstatus.ctp:263
+msgid "Clicks"
+msgstr "Кликове"
+
+#: /views/mails/sendstatus.ctp:120 /w2/views/mails/sendstatus.ctp:250
+msgid "Open Newsletter with click overlay"
+msgstr "Отваряне на бюлетина с накликване"
+
+#: /views/mails/sendstatus.ctp:176
+msgid "Categories sent to"
+msgstr "Изпратен до категории"
+
+#: /views/mails/step1.ctp:5 /views/mails/step2.ctp:1 /views/mails/step3.ctp:28
+#: /views/mails/step4.ctp:1 /views/mails/step5.ctp:1
+#: /w2/views/mails/step1.ctp:17 /w2/views/mails/step2.ctp:18
+#: /w2/views/mails/step3.ctp:57 /w2/views/mails/step4.ctp:17
+#: /w2/views/mails/step5.ctp:17
+msgid "Create Newsletter"
+msgstr "Създаване на бюлетин"
+
+#: /views/mails/step1.ctp:7 /views/mails/step2.ctp:3 /views/mails/step3.ctp:30
+#: /views/mails/step4.ctp:3 /views/mails/step5.ctp:3
+msgid "Set subject"
+msgstr "Поставете subject"
+
+#: /views/mails/step1.ctp:7 /views/mails/step2.ctp:3 /views/mails/step3.ctp:32
+#: /views/mails/step4.ctp:3 /views/mails/step5.ctp:3
+msgid "Select recipients"
+msgstr "Изберете получатели"
+
+#: /views/mails/step1.ctp:7 /views/mails/step2.ctp:3 /views/mails/step3.ctp:34
+#: /views/mails/step4.ctp:3 /views/mails/step5.ctp:3
+msgid "Set delay"
+msgstr "Изберете забавяне"
+
+#: /views/mails/step1.ctp:8 /views/mails/step2.ctp:4 /views/mails/step3.ctp:37
+#: /views/mails/step4.ctp:4 /views/mails/step5.ctp:4
+msgid "Step 2: Template"
+msgstr "Стъпка 2: Шаблон"
+
+#: /views/mails/step1.ctp:8 /views/mails/step2.ctp:4 /views/mails/step3.ctp:37
+#: /views/mails/step4.ctp:4 /views/mails/step5.ctp:4
+msgid "Choose newsletter template and type"
+msgstr "Изберете тип и шаблон за бюлетина"
+
+#: /views/mails/step1.ctp:9 /views/mails/step2.ctp:5 /views/mails/step3.ctp:38
+#: /views/mails/step4.ctp:5 /views/mails/step5.ctp:5
+msgid "Step 3: Content"
+msgstr "Стъпка 3: Съдържание"
+
+#: /views/mails/step1.ctp:9 /views/mails/step2.ctp:5 /views/mails/step3.ctp:38
+#: /views/mails/step4.ctp:5 /views/mails/step5.ctp:5
+msgid "Fill in content"
+msgstr "Въведете съдържание"
+
+#: /views/mails/step1.ctp:11 /views/mails/step2.ctp:7
+#: /views/mails/step3.ctp:40 /views/mails/step4.ctp:7 /views/mails/step5.ctp:7
+msgid "Step 4: Preview and Test"
+msgstr "Стъпка 4: Преглеждане и тестване"
+
+#: /views/mails/step1.ctp:11 /views/mails/step2.ctp:7
+#: /views/mails/step3.ctp:40 /views/mails/step4.ctp:7 /views/mails/step5.ctp:7
+msgid "Preview newsletter"
+msgstr "Преглед на бюлетина"
+
+#: /views/mails/step1.ctp:11 /views/mails/step2.ctp:7
+#: /views/mails/step3.ctp:40 /views/mails/step4.ctp:7 /views/mails/step5.ctp:7
+msgid "Send test newsletter"
+msgstr "Изпращане на тестови бюлетин"
+
+#: /views/mails/step1.ctp:12 /views/mails/step2.ctp:8
+#: /views/mails/step3.ctp:42 /views/mails/step4.ctp:8 /views/mails/step5.ctp:8
+msgid "Step 5: Send newsletter"
+msgstr "Стъпка 5: Изпращане на бюлетин"
+
+#: /views/mails/step1.ctp:12 /views/mails/step2.ctp:8
+#: /views/mails/step3.ctp:42 /views/mails/step4.ctp:8 /views/mails/step5.ctp:8
+msgid "Choose tracked links"
+msgstr "Избор на проследими линкове"
+
+#: /views/mails/step1.ctp:12 /views/mails/step2.ctp:8
+#: /views/mails/step3.ctp:44 /views/mails/step4.ctp:8 /views/mails/step5.ctp:8
+msgid "Send or schedule"
+msgstr "Изпрати или задай разписание"
+
+#: /views/mails/step1.ctp:12 /views/mails/step2.ctp:8
+#: /views/mails/step3.ctp:46 /views/mails/step4.ctp:8 /views/mails/step5.ctp:8
+msgid "Publish newsletter"
+msgstr "Публикуване на бюлетина"
+
+#: /views/mails/step1.ctp:27 /w2/views/mails/step1.ctp:52
+msgid "You can personalize the newsletter subject using these tags:"
+msgstr "Можете да персонализиране subject на бюлетина като използвате следните етикети:"
+
+#: /views/mails/step1.ctp:28 /w2/views/mails/step1.ctp:53
+msgid "Subscribers first name"
+msgstr "Първото име на абонираните потребители"
+
+#: /views/mails/step1.ctp:29 /w2/views/mails/step1.ctp:54
+msgid "Subscribers last name"
+msgstr "Фамилното име на абонираните потребители"
+
+#: /views/mails/step1.ctp:32 /w2/views/mails/step1.ctp:57
+msgid "Private Mail"
+msgstr "Личен мейл"
+
+#: /views/mails/step1.ctp:36 /w2/views/mails/step1.ctp:60
+msgid "No public link, Hidde in RSS"
+msgstr "Няма публичен линк, скрит в RSS"
+
+#: /views/mails/step1.ctp:43 /w2/views/mails/step1.ctp:67
+msgid "Select mail server to send the newsletter"
+msgstr "Избор на мейл сървър за изпращане на бюлетин"
+
+#: /views/mails/step1.ctp:46 /w2/views/mails/step1.ctp:70
+#: /w2/views/templates/add.ctp:45 /w2/views/templates/edit.ctp:50
+msgid "Category"
+msgstr "Категория"
+
+#: /views/mails/step2.ctp:17 /w2/views/mails/step2.ctp:45
+msgid "type"
+msgstr "тип"
+
+#: /views/mails/step2.ctp:20 /w2/views/mails/step2.ctp:48
+msgid ""
+"Most modern graphic email clients allow the use of HTML for the message "
+"body."
+msgstr "Съвременните графични мейл клиенти позволяват използването на HTML в съдържанието на съобщението."
+
+#: /views/mails/step3.ctp84;85 /w2/views/mails/step3.ctp111;112
+msgid "Add Item"
+msgstr "Добавяне на атрибут"
+
+#: /views/mails/step3.ctp:134 /w2/views/mails/step3.ctp:161
+msgid "Plain Text"
+msgstr "Чист текст"
+
+#: /views/mails/step3.ctp:135 /w2/views/mails/step3.ctp:162
+msgid "Load plain text from HTML"
+msgstr "Зареждане на чист текст от HTML"
+
+#: /views/mails/step4.ctp:14 /w2/views/mails/step4.ctp:41
+msgid "Test address"
+msgstr "Тестване на адреса"
+
+#: /views/mails/step4.ctp:18 /w2/views/mails/step4.ctp:45
+msgid "Send test mail"
+msgstr "Изпращане на тестов мейл"
+
+#: /views/mails/step4.ctp:26 /w2/views/mails/step4.ctp:65
+msgid "Html Preview"
+msgstr "HTML преглед"
+
+#: /views/mails/step4.ctp:32 /w2/views/mails/step4.ctp:71
+msgid "Text Preview"
+msgstr "Преглед на текста"
+
+#: /views/mails/step5.ctp:15 /w2/views/mails/step5.ctp:42
+msgid "Tracked Links"
+msgstr "Проследени линкове"
+
+#: /views/mails/step5.ctp:26 /w2/views/mails/step5.ctp:53
+msgid "There are no links in the newsletter."
+msgstr "Няма линкове в бюлетина"
+
+#: /views/mails/step5.ctp:39 /w2/views/mails/step5.ctp:66
+msgid "Schedule newsletter"
+msgstr "Насрочи бюлетин"
+
+#: /views/mails/step5.ctp:44 /w2/views/mails/step5.ctp:71
+msgid "Server Time"
+msgstr "Сървърно време"
+
+#: /views/mails/step5.ctp:51 /w2/views/mails/step1.ctp:9
+#: /w2/views/mails/step2.ctp:10 /w2/views/mails/step3.ctp:47
+#: /w2/views/mails/step4.ctp:9 /w2/views/mails/step5.ctp9;78
+msgid "Send newsletter"
+msgstr "Изпрати бюлетин"
+
+#: /views/mails/step5.ctp:53 /w2/views/mails/step5.ctp:80
+msgid "Publish newsletter in campaign"
+msgstr "Публикувай бюлетина в кампания"
+
+#: /views/recipients/export.ctp:2 /w2/views/recipients/export.ctp:7
+msgid "Export View"
+msgstr "Export View"
+
+#: /views/recipients/export.ctp:16 /views/subscribers/export.ctp:15
+#: /w2/views/recipients/export.ctp:29 /w2/views/subscribers/export.ctp:27
+msgid "Column"
+msgstr "Колона"
+
+#: /views/recipients/export.ctp:18 /views/subscribers/export.ctp:17
+#: /w2/views/recipients/export.ctp:31 /w2/views/subscribers/export.ctp:29
+msgid "Columns"
+msgstr "Колони"
+
+#: /views/recipients/export.ctp:21 /views/subscribers/export.ctp:21
+#: /w2/views/recipients/export.ctp:34 /w2/views/subscribers/export.ctp:33
+msgid "Download"
+msgstr "Сваляне"
+
+#: /views/recipients/index.ctp:244 /w2/views/recipients/index.ctp:258
+msgid "Export this view"
+msgstr "Export this view"
+
+#: /views/recipients/index.ctp:247 /w2/views/recipients/index.ctp:246
+msgid "Recipients of the Newsletter"
+msgstr "Получатели на бюлетина"
+
+#: /views/recipients/index.ctp:254
+msgid "Filter Recipients"
+msgstr "Филтриране на получателите"
+
+#: /views/recipients/index.ctp258;259;260 /views/subscribers/index.ctp35;36;37
+#: /w2/views/clicktrack/link.ctp273;274;275
+#: /w2/views/recipients/index.ctp274;275;276
+#: /w2/views/subscribers/index.ctp146;147;148
+msgid " wildcard is *"
+msgstr "маската е *"
+
+#: /views/recipients/index.ctp262;280 /w2/views/clicktrack/link.ctp277;293
+#: /w2/views/recipients/index.ctp278;295
+msgid "Read on"
+msgstr "Прочетете за"
+
+#: /views/recipients/index.ctp:262 /views/subscribers/index.ctp:39
+#: /w2/views/clicktrack/link.ctp:277 /w2/views/recipients/index.ctp:278
+#: /w2/views/subscribers/index.ctp:150
+msgid " eg: >= 1 week ago"
+msgstr "напр. >= преди 1 седмица"
+
+#: /views/recipients/index.ctp:264 /w2/views/recipients/index.ctp:280
+msgid "Newsletter Status"
+msgstr "Статус на бюлетина"
+
+#: /views/recipients/index.ctp:264 /w2/views/recipients/index.ctp:280
+msgid "Newsletter opened"
+msgstr "Бюлетинът е отворен"
+
+#: /views/recipients/index.ctp:264 /w2/views/recipients/index.ctp:280
+msgid "Newsletter sent"
+msgstr "Бюлетинът е изпратен"
+
+#: /views/recipients/index.ctp:264 /w2/views/recipients/index.ctp:280
+msgid "Newsletter not sent"
+msgstr "Бюлетинът не беше изпратен"
+
+#: /views/recipients/index.ctp:264 /w2/views/recipients/index.ctp:280
+msgid "Newsletter sending failed"
+msgstr "Изпращането на бюлетина се провали"
+
+#: /views/recipients/index.ctp:264 /w2/views/recipients/index.ctp:280
+msgid "Show all recipents"
+msgstr "Показване на всички получатели"
+
+#: /views/recipients/index.ctp:265 /w2/views/recipients/index.ctp:281
+msgid "Subscriber Status"
+msgstr "Статус на абонирания потребител"
+
+#: /views/recipients/index.ctp:265 /views/subscribers/index.ctp:40
+#: /w2/views/recipients/index.ctp:281 /w2/views/subscribers/index.ctp:151
+msgid "Subscribed/Unsubscribed"
+msgstr "Абонирани/Отписани"
+
+#: /views/recipients/index.ctp:265 /views/subscribers/index.ctp:40
+#: /w2/views/recipients/index.ctp:281 /w2/views/subscribers/index.ctp:151
+msgid "Only Subscribed"
+msgstr "Само абонираните"
+
+#: /views/recipients/index.ctp:265 /views/subscribers/index.ctp:40
+#: /w2/views/recipients/index.ctp:281 /w2/views/subscribers/index.ctp:151
+msgid "Only Unsubscribed"
+msgstr "Само отписаните"
+
+#: /views/recipients/index.ctp:267 /w2/views/clicktrack/link.ctp:280
+#: /w2/views/recipients/index.ctp:283
+msgid "Filter"
+msgstr "Филтър"
+
+#: /views/recipients/index.ctp:277 /views/subscribers/add.ctp:9
+#: /views/subscribers/edit.ctp:8 /views/subscribers/index.ctp37;52
+#: /w2/views/clicktrack/link.ctp:290 /w2/views/recipients/index.ctp:292
+#: /w2/views/subscribers/add.ctp:18 /w2/views/subscribers/edit.ctp:19
+#: /w2/views/subscribers/index.ctp63;148
+msgid "Mail Addresse"
+msgstr "Мейл адрес"
+
+#: /views/settings/index.ctp:3 /w2/views/settings/index.ctp:9
+msgid "Clean Cache"
+msgstr "Изчисти кеша"
+
+#: /views/settings/index.ctp:7 /w2/views/settings/index.ctp:18
+msgid "Application"
+msgstr "Система"
+
+#: /views/settings/index.ctp:8 /w2/views/layouts/default.ctp:103
+#: /w2/views/settings/index.ctp:19
+msgid "Language"
+msgstr "Език"
+
+#: /views/settings/index.ctp:11 /w2/views/settings/index.ctp:22
+msgid "Custom Fields"
+msgstr "Потребителски полета"
+
+#: /views/settings/index.ctp13;15;17;19
+#: /w2/views/settings/index.ctp24;26;28;30
+msgid "Custom 1 Label"
+msgstr "Потребителски етикет 1"
+
+#: /views/settings/index.ctp:14 /w2/views/settings/index.ctp:25
+msgid "Show Custom 1"
+msgstr "Покажи Custom 1"
+
+#: /views/settings/index.ctp:16 /w2/views/settings/index.ctp:27
+msgid "Show Custom 2"
+msgstr "Покажи Custom 2"
+
+#: /views/settings/index.ctp:18 /w2/views/settings/index.ctp:29
+msgid "Show Custom 3"
+msgstr "Покажи Custom 3"
+
+#: /views/settings/index.ctp:20 /w2/views/settings/index.ctp:31
+msgid "Show Custom 4"
+msgstr "Покажи Custom 4"
+
+#: /views/settings/index.ctp:23 /w2/views/settings/index.ctp:34
+msgid "Show API to User"
+msgstr "Покажи API на потребителя"
+
+#: /views/settings/index.ctp:24 /w2/views/settings/index.ctp:35
+msgid "Show Cronjob to User"
+msgstr "Покажи Cron Job на потребителя"
+
+#: /views/settings/index.ctp:25 /w2/views/settings/index.ctp:36
+msgid "Rss Feed"
+msgstr "RSS"
+
+#: /views/settings/index.ctp:27 /w2/views/settings/index.ctp:38
+msgid "Disable RSS"
+msgstr "Деактивиране на RSS"
+
+#: /views/settings/index.ctp:28 /w2/views/settings/index.ctp:40
+msgid "Channel Title"
+msgstr "Заглавие на канала"
+
+#: /views/settings/index.ctp:29 /w2/views/settings/index.ctp:41
+msgid "Channel Description"
+msgstr "Описание на канала"
+
+#: /views/settings/index.ctp:30 /w2/views/settings/index.ctp:42
+msgid "Channel Link"
+msgstr "Линк към канала"
+
+#: /views/settings/index.ctp:31 /w2/views/settings/index.ctp:43
+msgid "Author"
+msgstr "Автор"
+
+#: /views/settings/index.ctp:32 /w2/views/settings/index.ctp:44
+msgid "Rss Items"
+msgstr "RSS средства"
+
+#: /views/settings/index.ctp:33 /w2/views/settings/index.ctp:45
+msgid "Show Stopped Newsletters"
+msgstr "Показване на спряните бюлетини"
+
+#: /views/subscribers/add.ctp:3 /w2/views/subscribers/add.ctp:5
+msgid "Add Subscriber"
+msgstr "Добави абонат"
+
+#: /views/subscribers/cleanup.ctp:3
+msgid "Remove Failed Subscribers"
+msgstr "Премахване на провалените абонаменти"
+
+#: /views/subscribers/cleanup.ctp:4
+msgid "Remove Inactive Subscribers"
+msgstr "Премахване на неактивните абонирани потребители"
+
+#: /views/subscribers/cleanup.ctp:5 /w2/views/subscribers/cleanup.ctp:5
+msgid "Unsubscribe invalide subscribers"
+msgstr "Отпиши невалидните абонати"
+
+#: /views/subscribers/edit.ctp:3 /w2/views/subscribers/edit.ctp:5
+msgid "Edit Subscriber"
+msgstr "Редактирай абонат"
+
+#: /views/subscribers/import.ctp:1 /views/subscribers/import2.ctp:1
+#: /views/subscribers/import3.ctp:1 /w2/views/subscribers/import.ctp:7
+#: /w2/views/subscribers/import2.ctp:7 /w2/views/subscribers/import3.ctp:8
+msgid "Import Subscribers from CSV"
+msgstr "Добави нови абонати от CSV"
+
+#: /views/subscribers/import.ctp:13 /w2/views/subscribers/import.ctp:24
+msgid "File"
+msgstr "Файл"
+
+#: /views/subscribers/import2.ctp:13 /w2/views/subscribers/import2.ctp:25
+msgid "Delimiter"
+msgstr "Разделител"
+
+#: /views/subscribers/import2.ctp:14 /w2/views/subscribers/import2.ctp:26
+msgid "Enclosure"
+msgstr "Ограждане"
+
+#: /views/subscribers/import2.ctp:25 /w2/views/subscribers/import2.ctp:37
+msgid "Add to this category"
+msgstr "Добави към тази категория"
+
+#: /views/subscribers/import2.ctp:27 /w2/views/subscribers/import2.ctp:39
+msgid "Remove first row"
+msgstr "Изтрий първия ред"
+
+#: /views/subscribers/import2.ctp:57 /w2/views/subscribers/import2.ctp:69
+msgid "Refresh"
+msgstr "Рефрешване"
+
+#: /views/subscribers/import3.ctp:3 /w2/views/subscribers/import3.ctp:17
+msgid "Lines Loaded"
+msgstr "Заредени редове"
+
+#: /views/subscribers/index.ctp:4 /w2/views/subscribers/index.ctp:47
+msgid "New Subscriber"
+msgstr "Нов абонат"
+
+#: /views/subscribers/index.ctp8;21 /w2/views/subscribers/index.ctp:32
+msgid "Search"
+msgstr "Търсене"
+
+#: /views/subscribers/index.ctp:33
+msgid "Subscriber Search"
+msgstr "Търсене на абониран потребител"
+
+#: /views/subscribers/index.ctp:60 /w2/views/subscribers/index.ctp:71
+msgid "Select all %s records"
+msgstr "Избери всички %s записа"
+
+#: /views/subscribers/index.ctp:105 /w2/views/subscribers/index.ctp:124
+msgid "Subscribe"
+msgstr "Абонирай се"
+
+#: /views/subscribers/index.ctp:107 /w2/views/subscribers/index.ctp:126
+msgid "Remove from this Categorie"
+msgstr "Премахни от тази категория"
+
+#: /views/subscribers/index.ctp:109 /w2/views/subscribers/index.ctp:128
+msgid "Move to"
+msgstr "Премести към"
+
+#: /views/subscribers/index.ctp:111 /w2/views/subscribers/index.ctp:130
+msgid "Remove from"
+msgstr "Изтриване от"
+
+#: /views/subscribers/index.ctp:112 /w2/views/subscribers/index.ctp:131
+msgid "Add to"
+msgstr "Добави към"
+
+#: /views/subscribers/index.ctp:113 /w2/views/subscribers/index.ctp:132
+msgid "Overwrite category with"
+msgstr "Презапиши категорията с"
+
+#: /views/subscribers/index.ctp:117 /w2/views/subscribers/index.ctp:136
+msgid "Run Action"
+msgstr "Стартирай действието"
+
+#: /views/subscribers/view.ctp:5 /w2/views/subscribers/view.ctp:8
+msgid "This user unsubscribed your newsletter."
+msgstr "Този потребител се е отписал от Вашия бюлетин."
+
+#: /views/subscribers/view.ctp:8 /w2/views/subscribers/view.ctp:15
+msgid "Subscriber"
+msgstr "Абониран потребител"
+
+#: /views/subscribers/view.ctp:12 /views/templates/view.ctp:4
+#: /w2/views/subscribers/view.ctp:24 /w2/views/templates/view.ctp:4
+msgid "Id"
+msgstr "Id"
+
+#: /views/subscribers/view.ctp:55 /w2/views/subscribers/view.ctp:55
+msgid "Unsubscribe Code"
+msgstr "Код за отказване от абонамента"
+
+#: /views/subscribers/view.ctp:115 /w2/views/subscribers/view.ctp:109
+msgid "Subscribed Categories"
+msgstr "Категории съдържащи абонаменти"
+
+#: /views/subscribers/view.ctp:126 /w2/views/subscribers/view.ctp:126
+msgid "Sent Newsletters"
+msgstr "Изпратени бюлетини"
+
+#: /views/subscribers/view.ctp134;151 /w2/views/mails/campaign.ctp:129
+#: /w2/views/mails/sendstatus.ctp151;346 /w2/views/subscribers/view.ctp140;157
+msgid "Read"
+msgstr "Прочети"
+
+#: /views/subscribers/view.ctp:174 /w2/views/subscribers/view.ctp:183
+msgid "Failured Newsletters"
+msgstr "Провалени бюлетини"
+
+#: /views/templates/add.ctp:3 /w2/views/templates/add.ctp:6
+msgid "Add Template"
+msgstr "Добави шаблон"
+
+#: /views/templates/add.ctp:7 /views/templates/edit.ctp:8
+#: /w2/views/templates/add.ctp:17 /w2/views/templates/edit.ctp:20
+msgid "content"
+msgstr "съдържание"
+
+#: /views/templates/add.ctp:14 /views/templates/edit.ctp:15
+#: /w2/views/templates/add.ctp:24 /w2/views/templates/edit.ctp:27
+msgid ""
+"The Newsletter Mailer uses the <a href=\"http://www.smarty.net/\">SMARTY</a> template engine.<br />\n"
+"\n"
+"      Insert field: {$<b>fieldname</b>}<br />\n"
+"      Start repeating block: <?php echo htmlspecialchars(\"<!---\");?>foreach name=<b>groupname</b> item=<b>anyname</b> from=<b>groupname</b><?php echo htmlspecialchars(\"--->\");?><br />\n"
+"      Insert field in block: {$<b>anyname</b>.<b>fieldname</b>}<br />\n"
+"      End repeating block:  <?php echo htmlspecialchars(\"<!---\");?>/foreach<?php echo htmlspecialchars(\"--->\");?><br />\n"
+"      Conditons:<br />\n"
+"      -Not empty:  <?php echo htmlspecialchars(\"<!---\");?>if !empty($<b>fieldname</b>)<?php echo htmlspecialchars(\"--->\");?><br />\n"
+"      End conditon block:  <?php echo htmlspecialchars(\"<!---\");?>/if<?php echo htmlspecialchars(\"--->\");?><br />\n"
+"      Image: [image src={$<b>fieldname</b>} w=<b>width</b> h=<b>height</b> border=<b>border</b> bcolor=<b>bordercolor</b> ]"
+msgstr "Системата използва <a href=\"http://www.smarty.net/\">SMARTY</a> системата за шаблони.<br />⏎ ⏎ IДобави поле: {$<b>fieldname</b>}<br />⏎ Стартиране на повтарящ се блок: <?php echo htmlspecialchars(\"<!---\");?>foreach name=<b>groupname</b> item=<b>anyname</b> from=<b>groupname</b><?php echo htmlspecialchars(\"--->\");?><br />⏎ Добавяне на блок: {$<b>anyname</b>.<b>fieldname</b>}<br />⏎ Край на повтарящия се блок: <?php echo htmlspecialchars(\"<!---\");?>/foreach<?php echo htmlspecialchars(\"--->\");?><br />⏎ Условия:<br />⏎ -Не трябва да е празно: <?php echo htmlspecialchars(\"<!---\");?>if !empty($<b>fieldname</b>)<?php echo htmlspecialchars(\"--->\");?><br />⏎ Край на условния блок: <?php echo htmlspecialchars(\"<!---\");?>/if<?php echo htmlspecialchars(\"--->\");?><br />⏎ Снимка: [image src={$<b>fieldname</b>} w=<b>width</b> h=<b>height</b> border=<b>border</b> bcolor=<b>bordercolor</b> ]"
+
+#: /views/templates/add.ctp:24 /views/templates/edit.ctp:26
+#: /w2/views/templates/add.ctp:34 /w2/views/templates/edit.ctp:38
+msgid ""
+"Load Website: [load url=<b>url to page</b> script=<b>Leave javascript=>1, "
+"Remove javacript=>0 </b>]"
+msgstr "Зареди уебсайт: [load url=<b>url to page</b> script=<b>Остави javascript=>1, Изтрий javacript=>0 </b>]"
+
+#: /views/templates/add.ctp:27 /views/templates/edit.ctp:30
+#: /w2/views/templates/add.ctp:37 /w2/views/templates/edit.ctp:42
+msgid "Parse Css"
+msgstr "Парсване на CSS кода"
+
+#: /views/templates/add.ctp:31 /views/templates/edit.ctp:34
+#: /w2/views/templates/add.ctp:42 /w2/views/templates/edit.ctp:47
+msgid ""
+"If this checkbox is checked the Newsletter Mailer will apply the css style "
+"of the template to the HTML code.(Most mail clients don't parse css)"
+msgstr "Ако този чекбокс е чекнат, системата ще добави CSS стила на шаблона към HTML кода (имайте предвид, че повечето мейл клиенти не парсват CSS)."
+
+#: /views/templates/add.ctp:35 /views/templates/edit.ctp:38
+#: /w2/views/templates/add.ctp:48 /w2/views/templates/edit.ctp:53
+msgid "Fields"
+msgstr "Полета"
+
+#: /views/templates/add.ctp:39 /views/templates/edit.ctp:42
+#: /w2/views/templates/add.ctp:52 /w2/views/templates/edit.ctp:57
+msgid ""
+"Write only one field name per line. The fields can be grouped in repeating blocks using HTML like tags &lt;<b>groupname</b>&gt; &lt;/<b>groupname</b>&gt;<br/>\n"
+"        Field types:<br /><b>-Textfield</b>: Field name starts lower case\n"
+"        <br />\n"
+"        <b>-Image chooser</b>: Field name starts lower case and ends with \"_imgchooser\"\n"
+"        <br /><b>-Html editor</b>: Field name starts upper case\n"
+"        <br /><b>-Simple Html editor</b>: Field name  ends with \"_lite\""
+msgstr "Въведете само едно поле на ред. Полетата могат да бъдат групирани на повтарящи се блокове чрез HTML като тагове &lt;<b>groupname</b>&gt; &lt;/<b>groupname</b>&gt;<br/>⏎ Типове на полетата:<br /><b>-Текстово поле</b>: Името на полето започва с малка буква⏎ <br />⏎ <b>-Избор на снимка</b>: Името на полето започва с малка буква и завършва с \"_imgchooser\"⏎ <br /><b>-Html редактор</b>: Името на полето започва с голяма буква⏎ <br /><b>-Обикновен Html редактор</b>: Името на полето завършва с \"_lite\""
+
+#: /views/templates/add.ctp:45 /views/templates/edit.ctp:48
+#: /w2/views/templates/add.ctp:58 /w2/views/templates/edit.ctp:63
+msgid "<br /><b>-Textarea</b>: Field name  ends with \"_raw\""
+msgstr "<br /><b>-Текстово поле</b>: Името на полето завършва с \"_raw\""
+
+#: /views/templates/edit.ctp:3 /w2/views/settings/index.ctp:6
+#: /w2/views/templates/edit.ctp:6
+msgid "Edit Template"
+msgstr "Редактиране на шаблона"
+
+#: /views/templates/images.ctp:9 /w2/views/templates/images.ctp:7
+msgid "Upload missing images"
+msgstr "Качване на липсващите снимки"
+
+#: /views/templates/import.ctp:1 /views/templates/index.ctp:2
+#: /w2/views/templates/import.ctp:7 /w2/views/templates/index.ctp:11
+msgid "Import Template"
+msgstr "Импортване на шаблон"
+
+#: /views/templates/index.ctp:2
+msgid "Import"
+msgstr "Импортване"
+
+#: /views/templates/index.ctp:3 /w2/views/templates/index.ctp:12
+msgid "New Template"
+msgstr "Нов шаблон"
+
+#: /views/templates/index.ctp:14
+msgid "images"
+msgstr "снимки"
+
+#: /views/templates/index.ctp:14 /w2/views/templates/index.ctp48;48
+msgid "Upload missing image for"
+msgstr "Качи липсваща снимка за "
+
+#: /views/templates/index.ctp:19
+msgid "export"
+msgstr "експорт"
+
+#: /views/templates/index.ctp:19 /w2/views/templates/index.ctp:53
+msgid "Export Template "
+msgstr "Експортване на шаблон"
+
+#: /views/templates/view.ctp:19 /w2/views/templates/view.ctp:19
+msgid "Type"
+msgstr "Тип"
+
+#: /views/users/add.ctp:3 /w2/views/users/add.ctp:5
+msgid "Add User"
+msgstr "Добавяне на потребител"
+
+#: /views/users/add.ctp:7 /w2/views/users/add.ctp:13
+msgid "Level"
+msgstr "Ниво"
+
+#: /views/users/add.ctp:10 /views/users/edit.ctp:7 /views/users/index.ctp:16
+#: /w2/views/users/add.ctp:16 /w2/views/users/edit.ctp:16
+#: /w2/views/users/index.ctp:37
+msgid "Superadmin (Can change configurations)"
+msgstr "Суперадмин (може да променя конфигурациите)"
+
+#: /views/users/add.ctp:10 /views/users/edit.ctp:7 /views/users/index.ctp:16
+#: /w2/views/users/add.ctp:16 /w2/views/users/edit.ctp:16
+#: /w2/views/users/index.ctp:37
+msgid "User"
+msgstr "Потребител"
+
+#: /views/users/edit.ctp:3 /w2/views/users/edit.ctp:5
+msgid "Edit User"
+msgstr "Редактиране на потребител"
+
+#: /views/users/edit.ctp:9 /w2/views/users/edit.ctp:18
+msgid "Change Password"
+msgstr "Промяна на паролата"
+
+#: /views/users/index.ctp:2 /w2/views/users/index.ctp:13
+msgid "New User"
+msgstr "Нов потребител"
+
+#: /views/users/index.ctp:9 /w2/views/users/index.ctp:30
+msgid "Last Login"
+msgstr "Последно влизане"
+
+#: /views/users/login.ctp:8 /w2/views/users/login.ctp:12
+msgid "Login"
+msgstr "Влизане"
+
+#: /w2/controllers/clicktrack_controller.php:20
+#: /w2/controllers/recipients_controller.php:34
+#: /w2/controllers/templates_controller.php:15
+msgid "Modul Installed"
+msgstr "Инсталиран модул"
+
+#: /w2/controllers/configurations_controller.php92;125;158
+msgid "No connection"
+msgstr "Няма връзка"
+
+#: /w2/controllers/configurations_controller.php:129
+msgid "Message deleted"
+msgstr "Съобщението е изтрито"
+
+#: /w2/controllers/configurations_controller.php180;182
+msgid "Reply to"
+msgstr "Отговори на"
+
+#: /w2/controllers/configurations_controller.php185;188
+msgid "Message Sent"
+msgstr "Съобщението е изпратено"
+
+#: /w2/controllers/configurations_controller.php:540
+msgid "Unable to connect to Amazone SES"
+msgstr "Не може да бъде осъществена връзка с Amazon SES"
+
+#: /w2/views/campaigns/index.ctp:8 /w2/views/categories/index.ctp:7
+#: /w2/views/clicktrack/link.ctp:248 /w2/views/clicktrack/recipient.ctp:6
+#: /w2/views/configurations/index.ctp:8 /w2/views/forms/index.ctp:8
+#: /w2/views/importtasks/index.ctp:8 /w2/views/mails/campaign.ctp:162
+#: /w2/views/mails/index.ctp:27 /w2/views/recipients/index.ctp:248
+#: /w2/views/subscribers/index.ctp:39 /w2/views/users/index.ctp:7
+msgid "%count%"
+msgstr "%count%"
+
+#: /w2/views/clicktrack/link.ctp:246
+msgid "Who clicked on"
+msgstr "Кой е кликнал"
+
+#: /w2/views/clicktrack/link.ctp:331 /w2/views/clicktrack/recipient.ctp:4
+#: /w2/views/recipients/index.ctp:334
+msgid "Links clicked by"
+msgstr "Линковете са кликнати от"
+
+#: /w2/views/clicktrack/recipient.ctp:23
+msgid "Click Count"
+msgstr "Брояч на кликовете"
+
+#: /w2/views/clicktrack/recipient.ctp:25
+msgid "First click on"
+msgstr "Първи клик"
+
+#: /w2/views/configurations/inbox.ctp:21
+msgid "Arrived"
+msgstr "Пристигна"
+
+#: /w2/views/configurations/index.ctp:72
+msgid "Open Inbox"
+msgstr "Отваряне на кутията"
+
+#: /w2/views/configurations/mail.ctp:22
+msgid "Reply"
+msgstr "Отговори"
+
+#: /w2/views/configurations/remaining.ctp3;5
+msgid "in the next"
+msgstr "в следващите"
+
+#: /w2/views/home/index.ctp:15 /w2/views/mails/index.ctp:15
+msgid "New Newsletter"
+msgstr "Нов бюлетин"
+
+#: /w2/views/home/index.ctp:16
+msgid "Newsletter History"
+msgstr "История на бюлетина"
+
+#: /w2/views/importtasks/add.ctp:5 /w2/views/importtasks/edit.ctp:5
+#: /w2/views/importtasks/edit1.ctp:5 /w2/views/importtasks/edit2.ctp:5
+#: /w2/views/importtasks/edit3.ctp:5 /w2/views/mails/step1.ctp:5
+#: /w2/views/mails/step2.ctp:6 /w2/views/mails/step3.ctp:43
+#: /w2/views/mails/step4.ctp:5 /w2/views/mails/step5.ctp:5
+msgid "Base Settings"
+msgstr "Базови настройки"
+
+#: /w2/views/importtasks/add.ctp:6 /w2/views/importtasks/edit.ctp:6
+#: /w2/views/importtasks/edit1.ctp:6 /w2/views/importtasks/edit2.ctp:6
+#: /w2/views/importtasks/edit3.ctp:6
+msgid "Connection to DB"
+msgstr "Връзка към базата данни"
+
+#: /w2/views/importtasks/edit1.ctp:15
+msgid "Configure to DB server"
+msgstr "Конфигуриране на сървъра с базата данни"
+
+#: /w2/views/importtasks/edit2.ctp:15
+msgid "Edit SQL Query"
+msgstr "Редактиране на SQL заявката"
+
+#: /w2/views/importtasks/edit3.ctp:15
+msgid "Setup import form DB"
+msgstr "Направете импорт от База Данни"
+
+#: /w2/views/layouts/default.ctp:61
+msgid "Interesting Newsletter \"{$subject}\" {$publiclink}"
+msgstr "Интересен бюлетин \"{$subject}\" {$publiclink}"
+
+#: /w2/views/layouts/default.ctp:119
+msgid "Style"
+msgstr "Стил"
+
+#: /w2/views/layouts/default.ctp:122
+msgid "Blue"
+msgstr "Син"
+
+#: /w2/views/layouts/default.ctp:123
+msgid "Red"
+msgstr "Червен"
+
+#: /w2/views/layouts/default.ctp:124
+msgid "Dark"
+msgstr "Тъмен"
+
+#: /w2/views/layouts/default.ctp:125
+msgid "Green"
+msgstr "Зелен"
+
+#: /w2/views/layouts/default.ctp:126
+msgid "Purple"
+msgstr "Лилав"
+
+#: /w2/views/layouts/default.ctp:127
+msgid "Brown"
+msgstr "Кафяв"
+
+#: /w2/views/layouts/default.ctp:137
+msgid "Width"
+msgstr "Широчина"
+
+#: /w2/views/layouts/default.ctp:141
+msgid "Fluid"
+msgstr "Плавен"
+
+#: /w2/views/layouts/default.ctp:142
+msgid "Fixed"
+msgstr "Фиксиран"
+
+#: /w2/views/mails/campaign.ctp:44
+msgid "Send Mails"
+msgstr "Изпрати мейли"
+
+#: /w2/views/mails/campaign.ctp:128 /w2/views/mails/sendstatus.ctp:150
+msgid "Not send"
+msgstr "Не е извършено изпращане"
+
+#: /w2/views/mails/campaign.ctp:130 /w2/views/mails/sendstatus.ctp:152
+msgid "Unread"
+msgstr "Не е извършено прочитане"
+
+#: /w2/views/mails/index.ctp:16
+msgid "Run Send Job"
+msgstr "Стартирай работата по изпращане"
+
+#: /w2/views/mails/index.ctp:17
+msgid "Check Bounce Mails"
+msgstr "Проверка на bounce мейлите"
+
+#: /w2/views/mails/index.ctp:18
+msgid "Run Import Job"
+msgstr "Стартирай работата по импортване"
+
+#: /w2/views/mails/index.ctp:109
+msgid ""
+"Sent Newsletters RSS Feed (%link%). You can edit the rss channel in the "
+"application settings."
+msgstr "Изпратен е RSS линкът: (%link%). Можете да редактирате rss канала от настройките."
+
+#: /w2/views/mails/sendstatus.ctp16;17;17;19
+msgid "Other"
+msgstr "Друго"
+
+#: /w2/views/mails/sendstatus.ctp:134
+msgid "Send Statistics"
+msgstr "Изпрати статистика"
+
+#: /w2/views/mails/sendstatus.ctp:159
+msgid "Mails"
+msgstr "Мейли"
+
+#: /w2/views/mails/sendstatus.ctp:192
+msgid "Recipent Information"
+msgstr "Информация за получателя"
+
+#: /w2/views/mails/sendstatus.ctp:222
+msgid "Reactivate"
+msgstr "Реактивиране"
+
+#: /w2/views/mails/sendstatus.ctp:273
+msgid "Who clicked on "
+msgstr "Кой е кликнал"
+
+#: /w2/views/mails/sendstatus.ctp:303
+msgid "Line"
+msgstr "Ред"
+
+#: /w2/views/mails/sendstatus.ctp:304
+msgid "Area"
+msgstr "Пространство"
+
+#: /w2/views/mails/sendstatus.ctp:307
+msgid "Bars"
+msgstr "Очертания"
+
+#: /w2/views/mails/sendstatus.ctp:408
+msgid "Mail Clients"
+msgstr "Мейл клиенти"
+
+#: /w2/views/mails/sendstatus.ctp425;468
+msgid "No Data"
+msgstr "Няма данни"
+
+#: /w2/views/mails/sendstatus.ctp:450
+msgid "Operating Systems"
+msgstr "Операционни системи"
+
+#: /w2/views/mails/step1.ctp:8 /w2/views/mails/step2.ctp:9
+#: /w2/views/mails/step3.ctp:46 /w2/views/mails/step4.ctp:8
+#: /w2/views/mails/step5.ctp:8
+msgid "Preview and Test"
+msgstr "Преглед и тестване"
+
+#: /w2/views/mails/step2.ctp:59
+msgid "Show All"
+msgstr "Покажи всички"
+
+#: /w2/views/mails/step4.ctp:56
+msgid "Spam Filter Check"
+msgstr "Филтър за проверка на SPAM"
+
+#: /w2/views/subscribers/cleanup.ctp:12
+msgid "Start Clean Up"
+msgstr "Стартирай зачистване"
+
+#: /w2/views/subscribers/export.ctp:7
+msgid "Export Subscribers to CSV"
+msgstr "Експортиране на абонатите чрез CSV"
+
+#: /w2/views/subscribers/index.ctp:45
+msgid "List"
+msgstr "Списък"
+
+#: /w2/views/subscribers/index.ctp:46
+msgid "Search Subscriber"
+msgstr "Търсене на абонат"
+
+#: /w2/views/templates/add.ctp:21 /w2/views/templates/edit.ctp:24
+msgid "Load Editor"
+msgstr "Зареди редактор"
+
+#: /w2/views/templates/index.ctp:53
+msgid "Export"
+msgstr "Експортиране"
+
+#: /w2/views/users/login.ctp:28
+msgid "Enter your username"
+msgstr "Въведете Вашето потребителско име"
+
+#: /w2/views/users/login.ctp:32
+msgid "Enter your password"
+msgstr "Въведете Вашата парола"
+
+#: /w2/webroot/test.php:88 /webroot/test.php:88
+msgid "Debug setting does not allow access to this url."
+msgstr "Настройките за дебъгване не позволяват достъп до този url адрес."

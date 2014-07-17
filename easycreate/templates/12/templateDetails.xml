@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="template" version="1.0">
+<name>testtheme</name>
+<author>Armia Team</author>
+<license>Armia</license>
+<version>1.0.0</version>
+<description>Test Theme</description>
+	
+<files>
+            <filedata>
+                <filename>index.html</filename>
+                <filealias>index</filealias>
+            </filedata>
+            <filedata>
+                <filename>aboutus.html</filename>
+                <filealias>aboutus</filealias>
+            </filedata>
+            <filedata>
+                <filename>gallery.html</filename>
+                <filealias>gallery</filealias>
+            </filedata>
+            <filedata>
+               <filename>subpage.html</filename>
+                <filealias>subpage</filealias>
+            </filedata>
+            <filedata>
+                <filename>contactus.html</filename>
+                <filealias>contactus</filealias>
+            </filedata>
+	</files>
+	<themes><theme1>
+			<name>Blue Theme</name>
+			<style>styles/style.css</style>
+			<homepageimage>images/blue_home.jpg</homepageimage>
+			<thumbnail>images/blue_thumb.jpg</thumbnail>
+			<subpageimage>images/blue_sub.jpg</subpageimage>
+			<currenttheme>true</currenttheme>
+			<themecolor>#296daa</themecolor>
+		</theme1>
+		<theme2>
+			<name>Violet Theme</name>
+			<style>styles/style.css</style>
+			<homepageimage>images/violet_home.jpg</homepageimage>
+			<thumbnail>images/violet_thumb.jpg</thumbnail>
+			<subpageimage>images/violet_sub.jpg</subpageimage>
+			<themecolor>#832189</themecolor>
+		</theme2>
+		<theme3>
+			<name>Rose Theme</name>
+			<style>styles/style_rose.css</style>
+			<homepageimage>images/rose_home.jpg</homepageimage>
+			<thumbnail>images/rose_thumb.jpg</thumbnail>
+			<subpageimage>images/rose_sub.jpg</subpageimage>
+			<themecolor>#df3696</themecolor>
+			
+		</theme3> 	
+		 
+			 
+	</themes>
+
+	<panels>
+		<header>header</header>
+		<maincontent>maincontent</maincontent>
+		<box>box</box>
+		<box1>box1</box1>
+		<box2>box2</box2>
+		<box3>box3</box3>
+		<footer>footer</footer>
+	</panels>
+ 
+</mosinstall>

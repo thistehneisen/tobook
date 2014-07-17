@@ -1,0 +1,22 @@
+//  ========== 
+//  = Buttons for the HairPress HTML template = 
+//  ========== 
+
+.btn-theme {
+  &.rounded-2 {
+    @include border-radius(2px);
+  }
+  &.rounded-6 {
+    @include border-radius(6px);
+  }
+  &.rounded-10 {
+    @include border-radius(10px);
+  }
+  &.rounded {
+    @include border-radius(99px);
+  }
+  &.high {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}

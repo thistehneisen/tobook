@@ -1,0 +1,26 @@
+//  ========== 
+//  = Breadcrumbs for the HairPress HTML template = 
+//  ==========
+
+.breadcrumbs-container {
+  @include background(linear-gradient(top, $white, darken($white, 4%)));
+  border-bottom: 1px solid $light-bd;
+  
+  .breadcrumb {
+    background: none;
+    padding: 10px 0;
+    margin: 0;
+  }
+  a {
+    color: $textColor;
+  }
+  .active a {
+    color: $grayDark;
+  }
+  .divider {
+    display: inline-block;
+    background: image-url('themes/' + $theme + '/bullet-arrow.png') center bottom no-repeat;
+    width: 5px;
+    height: 14px;
+  }
+}

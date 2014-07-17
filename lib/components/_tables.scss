@@ -1,0 +1,46 @@
+//  ========== 
+//  = Tables for the HairPress HTML template = 
+//  ========== 
+
+.table {
+  border: 1px solid $light-bd;
+  th {
+    @include background(linear-gradient(top, $white, darken($white, 3%)));
+    @include box-shadow(0 1px 0 rgba(0,0,0,0.1));
+    color: $grayDark;
+    font-family: "PT Sans";
+    font-size: 14px;
+  }
+  tbody {
+    td {
+      background-color: darken($white, 5%);
+      border-color: $light-bd;
+      
+      &:nth-of-type(even) {
+        background-color: $white;
+      }
+    }
+    .active {
+      border-left: 1px solid $theme-clr;
+      border-right: 1px solid $theme-clr;
+      
+      td {
+        border-top: 1px solid $theme-clr;
+        border-bottom: 1px solid $theme-clr;
+        color: $theme-txt-clr;
+        font-weight: bold;
+      }
+    }
+  }
+  td,
+  th {
+    padding: 8px 12px;
+    
+    &.align-center {
+      text-align: center;
+    }
+    .icon {
+      vertical-align: baseline;
+    }
+  }
+}

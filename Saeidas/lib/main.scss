@@ -1,0 +1,774 @@
+/* ========== */
+/* = Custom styles, HairPress HTML theme = */
+/* ========== */
+
+
+@import "compass/css3";
+@import "variables";
+@import "partials/mixins";
+
+
+//  ========== 
+//  = Base colors = 
+//  ==========
+
+// magenta
+
+$theme : "violet"; // name of the folder for the color icons  - placed in /images/themes/ 
+
+$theme-clr : #000;
+$btn-clr: #000;
+$theme-txt-clr : #000;
+
+@if $theme == "violet" {
+  $theme-clr : #ac6ed4;
+  $btn-clr: #7d5daf;
+  $theme-txt-clr : #805fb3;
+} @else if $theme == "blue" {
+  $theme-clr : #518df2;
+  $btn-clr: #518cf1;
+  $theme-txt-clr : #518df2;
+} @else if $theme == "olive" {
+  $theme-clr : #a2a572;
+  $btn-clr: #9fa091;
+  $theme-txt-clr : #a2a572;
+} @else if $theme == "orange" {
+  $theme-clr : #e0a900;
+  $btn-clr: #dfa900;
+  $theme-txt-clr : #e0a900;
+} @else if $theme == "oil" {
+  $theme-clr : #769ea0;
+  $btn-clr: #769ea0;
+  $theme-txt-clr : #769ea0;
+} @else {
+  // your custom theme color
+  //$theme-clr : #000000;
+  //$btn-clr: #000000;
+  //$theme-txt-clr : #000000;
+}
+
+
+
+// various colors
+$light-bd : #e5e5e5;
+$title-area: #eaeae5;
+
+// dark bg
+
+$stripe-dark : #0f0f0f;
+$stripe-light : #303030;
+$stripe-txt : #b4b4b4;
+$stripe-bd : #505050;
+
+
+// support for IE
+$legacy-support-for-ie7: true;
+$legacy-support-for-ie8: true;
+
+
+/* ========== */
+/* = Tags and helpers = */
+/* ========== */ 
+
+
+a {
+  color: $theme-txt-clr;
+  @include transition(color 0.2s ease);
+  font-family: "PT Sans";
+  
+  &:hover {
+    color: darken($theme-txt-clr, 15%);
+  }
+}
+
+p {
+  margin: 8px 0;
+}
+
+
+.theme-clr {
+  color: $theme-txt-clr;
+}
+.black-clr {
+  color: $grayDark;
+}
+.no-margin {
+  margin: 0;
+}
+.size-16 {
+  font-size: 16px;
+}
+
+
+/* ========== */
+/* = Sprites = */
+/* ========== */
+
+$icons-sprite-dimensions: true;
+@import "icons/*.png";
+@include all-icons-sprites;
+
+.icon {
+  @include inline-block;
+}
+
+
+/* ========== */
+/* = Images and galleries = */
+/* ========== */
+
+@import "components/images";
+
+/* ========== */
+/* = Theme buttons = */
+/* ========== */
+.btn {
+  font-family: 'PT Sans';
+  padding: 9px 12px;
+}
+.btn-theme {
+  @include buttonBackground($btn-clr, darken($btn-clr, 10%));
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: bold;
+  @include border-radius(3px);
+  
+  &.no-bevel {
+    @include box-shadow(none);
+  }
+}
+
+
+/* ========== */
+/* = Navbar = */
+/* ========== */
+
+
+.navbar {
+  .navbar-inner {
+    border-bottom: none;
+    font-family: 'PT Sans';
+  }
+  
+  .brand {
+    padding-top: 10px;
+    padding-bottom: 7px;
+    color: $white;
+    width: 200px;
+    
+    .logo {
+      float: left;
+    }
+    
+    .theme-clr {
+      color: $theme-clr;
+    }
+    
+    h1 {
+      color: $white;
+      margin: 5px 0 0;
+      @include inline-block;
+      font-size: 26px;
+      line-height: 26px;
+      font-family: Lobster;
+      font-weight: normal;
+    }
+    
+    .tagline {
+      display: block;
+      font-size: 12px;
+      font-weight: bold;
+      font-family: 'PT Sans';
+      display: block;
+    }
+  }
+  
+  // main navigation
+  .nav {
+    > li {
+      a {
+        font-weight: bold;
+        text-transform: uppercase;
+        color: darken($white, 6%);
+        padding-left: 14px;
+        padding-right: 14px;
+        filter: none;
+        
+        &:hover {
+          background: none;
+          color: $theme-clr;
+        }
+      }
+      &.active {
+        > a {
+          background: image-url('themes/' + $theme + '/active-arrow.png') center bottom no-repeat;
+          border-bottom: 6px solid $theme-clr;
+          @include box-shadow(none);
+          color: darken($white, 6%);
+          padding: (($navbarHeight - $baseLineHeight) / 2) 15px (($navbarHeight - $baseLineHeight) / 2) - 6px;
+          
+          &:hover {
+            background-color: transparent;
+            @include box-shadow(none);
+            color: $theme-clr;
+          }
+        }
+      }
+      
+      
+      &.dropdown {
+        > a {
+          background: image-url("dropdown-arrow.png") center ($navbarHeight / 2)+15px no-repeat;
+        }
+      }
+      
+      &.dropdown.open, 
+      &.dropdown.active, 
+      &.dropdown.open.active,
+      &.dropdown:hover {
+        > .dropdown-toggle {
+          background-image: image-url('themes/' + $theme + '/dropdown-arrow-active.png');
+          background-color: transparent;
+        }
+      }
+      
+      .dropdown-menu {
+        &:after,
+        &:before {
+          display: none;
+        }
+      }
+    }
+  }
+  .btn-large {
+    margin-top: ($navbarHeight / 2) - $baseLineHeight - 2px;
+  }
+}
+
+// on hover, not on click
+ul.nav li.dropdown:hover ul.dropdown-menu{
+    display: block;    
+}
+
+.nav-collapse {
+  float: right;
+}
+
+
+.dropdown-menu {
+  @include border-radius(0);
+  top: 100%;
+  margin-top: -6px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  @include box-shadow(none);
+  border: none;
+  border-top: 6px solid white;
+  @include background(rgba(0,0,0,0.8));
+  
+  > li {
+    border-bottom: 1px solid #414141;
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    > a {
+      padding: 9px 16px;
+      
+      &:hover {
+        color: $theme-clr;
+      }
+    }
+  }
+}
+
+.navbar-inverse .btn-navbar {
+  @include background(linear-gradient(top, $btn-clr, darken($btn-clr, 10%)));
+  @include border-radius(2px);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  
+  .icon-bar {
+    height: 3px;
+    @include border-radius(0);
+    width: 20px;
+  }
+}
+.btn-navbar .icon-bar + .icon-bar {
+  margin-top: 4px;
+}
+
+
+
+/* ========== */
+/* = Theme slider = */
+/* ========== */
+
+@import "components/slider";
+
+/* ========== */
+/* = Social icons = */
+/* ========== */
+
+@import "components/social-icons";
+
+
+/* ========== */
+/* = Title area = */
+/* ========== */
+
+.title-area {
+  padding-top: 115px;
+  padding-bottom: 55px;
+  background-color: $title-area;
+  
+  .row {
+    position: relative;
+  }
+  
+  h1 {
+    display: inline-block;
+    font-size: 66px;
+    text-transform: uppercase;
+    background: image-url("double-line-bottom.png") repeat-x center bottom;
+    @include background(image-url("double-line-top.png") repeat-x center top, image-url("double-line-bottom.png") repeat-x center bottom);
+  }
+  
+  .social-icons {
+    bottom: 0;
+  }
+}
+
+
+/* ========== */
+/* = Breadcrumbs = */
+/* ========== */
+
+@import "components/breadcrumbs";
+
+
+/* ========== */
+/* = Sidebars = */
+/* ========== */
+
+@import "components/sidebars";
+
+
+/* ========== */
+/* = Content = */
+/* ========== */
+
+.main-content {
+  padding-top: 45px;
+}
+
+// lines below te headings
+.lined {
+  border-bottom: 1px solid $light-bd;
+}
+.bolded-line {
+  display: block;
+  margin-bottom: -1px;
+  margin-top: 15px;
+  width: 22px;
+  height: 1px;
+  background-color: #727272;
+}
+
+// heading group and headings
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.3;
+  color: $grayDark;
+  font-family: 'PT Sans';
+  
+  .light {
+    font-weight: normal;
+  }
+}
+
+h1 {
+  font-size: 24px;
+}
+h2 {
+  font-size: 18px;
+}
+h3,
+h4 {
+  font-size: 14px;
+}
+h5,
+h6 {
+  font-size: 12px;
+  color: $textColor;
+}
+h6 {
+  font-weight: normal;
+}
+
+.lined {
+  margin-bottom: 15px;
+  
+  a {
+    color: $grayDark;
+    
+    &:hover {
+      color: $grayLight;
+      text-decoration: none;
+    }
+  }
+  
+  h2 {
+    color: $grayDark;
+    margin: 0;
+  }
+  h5,
+  .meta-data {
+    color: $grayLight;
+    margin: 0;
+    font-weight: normal;
+  }
+  .meta-data {
+    font-family: "PT Sans";
+    
+    a {
+      color: $theme-txt-clr;
+      font-weight: bold;
+    }
+  }
+  .btn,
+  .btn:hover {
+    color: $white;
+  }
+}
+
+.read-more {
+  font-weight: bold;
+}
+
+// horizontal line with scissors
+.divide-line {
+  position: relative;
+  border-bottom: 3px double $light-bd;
+  height: 15px;
+  margin: 20px 0 20px+16px;
+  overflow: visible;
+  
+  .icon {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    margin-left: -17px;
+    background-color: $bodyBackground;
+  }
+}
+
+
+// meta info
+.meta-info {
+  color: $grayLight;
+  font-size: 12px;
+}
+
+// small arrows for navigation
+nav.arrows {
+  font-size: 3px;
+  a {
+    @include opacity(25);
+    @include transition(opacity 0.2s ease);
+    
+    &:hover {
+      @include opacity(100);
+    }
+  }
+}
+
+// testimonials
+.quote {
+  text-align: center;
+  
+  .person {
+    font-weight: bold;
+    font-family: "PT Sans";
+    font-size: 14px;
+  }
+  .title {
+    font-style: italic;
+  }
+}
+blockquote {
+  background: $light-bd image-url("quote.png") no-repeat 5px 5px;
+  border: none;
+  @include border-radius(3px);
+  font-size: 12px;
+  padding: 5px 10px;
+  position: relative;
+  
+  &:after {
+    position: absolute;
+    content: " ";
+    display: block;
+    height: 10px;
+    background: image-url("quote-arrow.png") center top no-repeat;
+    width: 100%;
+    left: 0;
+    top: 100%;
+  }
+  p {
+    font-size: 12px;
+    line-height: 1.66;
+    margin: 10px 0;
+  }
+}
+
+
+// brands
+.brands {
+  text-align: center;
+  
+  a {
+    @include opacity(25);
+    @include transition(opacity 0.6s ease-in-out);
+    
+    &:hover {
+      @include opacity(100);
+    }
+  }
+}
+
+// meet the team
+.member-details {
+  .lined {
+    margin-top: 54px;
+  }
+  strong {
+    color: $grayDark;
+    font-family: "PT Sans";
+    font-size: 14px;
+  }
+  .bolded-line {
+    margin-top: 0;
+  }
+  p {
+    margin: 10px 0;
+  }
+}
+
+// contact
+.full-map {
+  width: 100%;
+  border: none;
+  margin: 0;
+  overflow: hidden;
+  height: 370px;
+}
+
+// blog
+.blog-content {
+  img.pull-right {
+    margin-left: 15px;
+  }
+  img.pull-left {
+    margin-right: 15px;
+  }
+}
+
+
+/* ========== */
+/* = Gallery = */
+/* ========== */
+
+@import "components/gallery";
+
+
+/* ========== */
+/* = Tabs / Collapse = */
+/* ========== */
+
+@import "components/tabs-accordion";
+
+
+/* ========== */
+/* = Forms = */
+/* ========== */
+
+@import "components/forms";
+
+
+/* ========== */
+/* = Tables = */
+/* ========== */
+
+@import "components/tables";
+
+
+/* ========== */
+/* = Buttons = */
+/* ========== */
+
+@import "components/buttons";
+
+
+/* ========== */
+/* = Dark stripe = */
+/* ========== */
+
+@import "components/dark-stripe";
+
+
+/* ========== */
+/* = Foot = */
+/* ========== */
+
+.foot {
+  background-color: $grayDark;
+  padding: 20px 0;
+  margin-top: 30px;
+  color: $white;
+  
+  .lined {
+    border-bottom-color: $stripe-bd;
+    
+    h2 {
+      color: $white;
+    }
+    .bolded-line {
+      background-color: $white;
+    }
+  }
+  
+  a {
+    color: $white;
+    
+    &.tweet_user,
+    &.read-more {
+      color: $theme-txt-clr;
+    }
+  }
+  
+  
+  .nav {
+    font-family: "PT Sans";
+    
+    a {
+      padding: 12px 0;
+      color: $white;
+      margin-bottom: 0 !important;
+      margin-top: 0;
+      font-size: 14px;
+      border-bottom: 1px solid $stripe-bd;
+      @include border-radius(0);
+      font-weight: bold;
+      
+      &:hover {
+        background: none;
+        color: $theme-txt-clr;
+      }
+    }
+    > li:first-child > a {
+      padding-top: 0;
+    }
+    > li:last-child > a {
+      border-bottom: none;
+    }
+  }
+  .fb-like-box,
+  .fb-like-box > span,
+  iframe {
+    width: 100% !important;
+  }
+}
+
+/* ========== */
+/* = Footer = */
+/* ========== */
+
+footer {
+  background-color: $grayDarker;
+  padding: 12px 0;
+  position: relative;
+  
+  #to-the-top {
+    position: absolute;
+    top: -23px;
+    left: 50%;
+    height: 23px;
+    width: 60px;
+    margin-left: -30px;
+    @include border-radius(3px 3px 0 0);
+    background: $grayDarker;
+    text-align: center;
+  }
+  
+  a {
+    font-weight: bold;
+    color: $white;
+  }
+}
+
+
+/* ========== */
+/* = Twitter = */
+/* ========== */
+
+@import "components/twitter";
+
+/* ========== */
+/* = Carousel = */
+/* ========== */
+
+@import "components/carousel";
+
+
+/* ========== */
+/* = Responsiveness= */
+/* ========== */
+
+@import "media";
+
+
+
+//  ========== 
+//  = IE specific = 
+//  ========== 
+
+.lt-ie9 {
+  .navbar {
+    .navbar-inner {
+      @include filter-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8));
+    }
+    .nav {
+      letter-spacing: -0.05em;
+      li {
+        a {
+          padding-left: 10px;
+          padding-right: 10px;
+          filter: none !important;
+        }
+      }
+      .dropdown-menu {
+        filter: none;
+        background: #000;
+      }
+    }
+  }
+  .semi-white-bg {
+    @include filter-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5));
+  }
+  .sidebar-item.gallery-menu .nav-pills > li > a {
+    margin-right: -$gallery-side-padding;
+  }
+  .sidebar.right .sidebar-item.gallery-menu .nav-pills > li > a {
+    margin-left: -$gallery-side-padding;
+  }
+  .tab-content {
+    border: 1px solid $light-bd;
+  }
+}

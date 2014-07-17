@@ -1,0 +1,208 @@
+
+@media only screen and (min-width: 1200px)
+{
+.phone p
+{
+margin-right:0;
+}
+
+
+.cameracaption1 {
+margin-right:13%;
+}
+
+
+
+.subscribefield
+{float:left;
+width:65%;
+margin-right:5px;
+}
+
+}
+
+
+
+@media only screen and (max-width: 1000px)
+{
+
+
+#menu li{
+padding:65px 10px 0 10px;
+}
+
+.circleimage1{
+width:220px;
+height:220px;
+}
+
+.circleimage2{
+width:220px;
+height:220px;
+}
+.footerheadline h4{
+background:  none;
+}
+
+
+.box:before, .box:after {
+display:none;
+}
+
+ .box:after {
+display:none;
+}
+
+
+.cameracaption1 p{
+display:none;
+}
+
+.headlinesidebar h4{
+background:  none;
+}
+
+
+
+}
+
+
+@media only screen and (max-width: 830px)
+{
+
+.menuwrapperdesktop{
+display:none;		
+}
+
+.menuwrappermobile{
+display:block;		
+}
+
+.recentnewsrow h4{
+line-height:1;
+margin-bottom:11px;
+}
+.recentnewsrow img{
+padding-bottom:21px;
+}
+.recentnewsrow {
+padding-bottom:21px;
+}
+
+.buypresent1{
+width:100%;
+}
+
+.buypresent2{
+width:100%;
+}
+
+
+.cameracaption1 h2{
+display:none;
+}
+.cameracaption1 h3{
+display:none;
+}
+.cameracaption1 p{
+display:none;
+}
+
+.buttoncameraslider  {
+display:none;
+}
+
+.cameracaption1 .buttonslider{
+display:none;
+}
+
+.tabs2 li{
+float:none;
+}
+
+.commentsright{
+}
+
+.comments a{
+margin-top:0;
+}
+.commentsright{
+float:none;
+
+}
+
+.footer {
+background:#6d0b45 url(../images/footermobile.png) repeat;
+}
+
+
+.sidebarabout4 .ch-grid3{
+float:none;
+margin-bottom:0;
+}
+
+
+
+
+}
+
+
+
+
+@media only screen and (max-width: 400px)
+{
+
+.reservation{
+height:auto;
+width:auto;
+background: #821e58;
+display:inline-block;
+padding:10px;
+border-radius:4px;
+-moz-border-radius:4px;
+-webkit-border-radius:4px;
+}
+
+
+.accordion1 .accordion-heading a{
+margin-left:35px;
+}
+
+
+.view a {
+margin-top:20px;
+}
+
+
+.columnheadline h3 span{
+padding-right:10px;
+background:#fff  ;
+}
+.columnheadlineabout h4 span{
+padding-right:10px;
+background:#fff  ;
+}
+
+.columnheadlineabout1 h4 span{
+padding-right:10px;
+background:#fff  ;
+}
+
+
+
+
+}
+
+
+@media only screen and (max-width: 300px)
+{
+.view h2 {
+display:none;
+}
+
+.view p {
+display:none;
+}
+
+
+}

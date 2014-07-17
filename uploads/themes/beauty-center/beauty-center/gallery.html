@@ -1,0 +1,295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1" />
+<meta name="author" content="" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<title>spa, beauty, hair</title>
+<link rel="stylesheet" type="text/css" media="all" href="style.css" />
+<link href='http://fonts.googleapis.com/css?family=Dosis:200' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="prettyphoto/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
+<!-- jQuery -->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<!-- Twitter Feed -->
+<script type="text/javascript" src="js/jquery.tweet.js" charset="utf-8"></script>
+<!-- Flickr Feed -->
+<script src="js/jflickrfeed.min.js"></script>
+<!-- PrettyPhoto -->
+<script src="js/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
+<!-- Sortable -->
+<script type="text/javascript" src="js/jquery.quicksand.js"></script>
+<script type="text/javascript" src="js/custom.quicksand.js"></script>
+<!-- DropDownMenu -->
+<script type="text/javascript" src="js/menu.js"></script>
+<script type="text/javascript" charset="utf-8">
+var $ = jQuery.noConflict(); 
+  $(window).load(function() {
+	$(function() {
+		$('.show_menu').click(function(){
+				$('.menu').fadeIn();
+				$('.show_menu').fadeOut();
+				$('.hide_menu').fadeIn();
+		});
+		$('.hide_menu').click(function(){
+				$('.menu').fadeOut();
+				$('.show_menu').fadeIn();
+				$('.hide_menu').fadeOut();
+		});
+	});
+
+  }); 
+  jQuery(function($){
+	$(".tweet").tweet({
+	  join_text: "auto",
+	  username: "famousthemes",
+	  count: 1,
+	  auto_join_text_default: "we said,",
+	  auto_join_text_ed: "we",
+	  auto_join_text_ing: "we were",
+	  auto_join_text_reply: "we replied",
+	  auto_join_text_url: "we were checking out",
+	  loading_text: "loading tweets..."
+	});
+	$('#basicuse').jflickrfeed({
+		limit: 6,
+		qstrings: {
+			id: '31408169@N04'
+		},
+		itemTemplate: '<li><a href="{{image_b}}"><img src="{{image_s}}" alt="{{title}}" /></a></li>'
+	});
+  });
+</script>
+</head>
+<body>
+<div id="main_container">
+    
+    <div class="header">
+    <div class="logo"><h1><a href="index.html">spa,saloon<span>center</span></a></h1></div>
+	<a class="show_menu" href="#">menu</a>
+    <a class="hide_menu" href="#">close menu</a>
+    <div class="menu">                                                                   
+        <ul id="main_menu">
+        	<li><a href="index.html">home</a></li>
+            <li><a href="aboutus.html">about us</a></li>
+			<li><a href="services.html">services</a></li>
+			<li><a class="selected" href="gallery.html">gallery</a></li>
+			<li><a href="contact.html">contact</a></li> 
+        </ul>
+     </div>
+    
+    </div>
+    
+    
+    <div id="page_content">
+    
+        <div class="right_content_gallery">
+        <h2>Photo <span>Gallery</span></h2>
+        <p>Beauty is a precarious trace that eternity causes to appear to us and that it takes away from us. A <strong><a href="#">manifestation of eternity</a></strong>, and a sign of death as well. Often it seems to me to be an evil flower of nothingness, or else the cry of the world as it dies...</p>
+        
+        
+          <ul class="filter_portfolio">       
+            <li class="segment-1 selected"><a href="#" data-value="all">Wiew all</a></li>
+            <li class="segment-2"><a href="#" data-value="makeup">Makeup</a></li>
+            <li class="segment-3"><a href="#" data-value="beauty">Beauty</a></li>
+            <li class="segment-4"><a href="#" data-value="trends">Trends</a></li>
+            <li class="segment-5"><a href="#" data-value="nails">Nails</a></li>
+            </ul> 
+
+    <ul class="portfolio_items">
+    
+        <li class="right13 makeup" data-id="id-1">
+        <div class="center_round_thumb">
+        <img src="images/thumb150.jpg" alt="" title="" class="thumb150" />
+        <div class="zoom"><a href="images/slider/slide1.jpg" rel="prettyPhoto[gallery]" title="Lorem ipsum sit amet"><img src="images/zoom.png" alt="" title="" /></a></div>
+        </div> 
+        <h3><a href="#">Beauty and folly</a></h3>
+        </li>
+        
+        <li class="right13 beauty" data-id="id-2">
+        <div class="center_round_thumb">
+        <img src="images/thumb150-2.jpg" alt="" title="" class="thumb150" />
+        <div class="zoom"><a href="images/slider/slide1.jpg" rel="prettyPhoto[gallery]" title="Lorem ipsum sit amet"><img src="images/zoom.png" alt="" title="" /></a></div>
+        </div> 
+        <h3><a href="#">Two hearts that beat</a></h3>
+        </li>
+        
+        <li class="right13_last trends" data-id="id-3">
+        <div class="center_round_thumb">
+        <img src="images/thumb150-3.jpg" alt="" title="" class="thumb150" />
+        <div class="zoom"><a href="images/slider/slide1.jpg" rel="prettyPhoto[gallery]" title="Lorem ipsum sit amet"><img src="images/zoom.png" alt="" title="" /></a></div>
+        </div> 
+        <h3><a href="#">Nisi ut aliquid ex</a></h3>
+        </li>   
+        
+        <li class="right13 makeup" data-id="id-4">
+        <div class="center_round_thumb">
+        <img src="images/thumb150-4.jpg" alt="" title="" class="thumb150" />
+        <div class="zoom"><a href="images/slider/slide1.jpg" rel="prettyPhoto[gallery]" title="Lorem ipsum sit amet"><img src="images/zoom.png" alt="" title="" /></a></div>
+        </div> 
+        <h3><a href="#">Love is composed</a></h3>
+        </li>
+        
+        <li class="right13 beauty" data-id="id-5">
+        <div class="center_round_thumb">
+        <img src="images/thumb150-5.jpg" alt="" title="" class="thumb150" />
+        <div class="zoom"><a href="images/slider/slide1.jpg" rel="prettyPhoto[gallery]" title="Lorem ipsum sit amet"><img src="images/zoom.png" alt="" title="" /></a></div>
+        </div> 
+        <h3><a href="#">Two hearts that beat</a></h3>
+        </li>
+        
+        <li class="right13_last nails" data-id="id-6">
+        <div class="center_round_thumb">
+        <img src="images/thumb150-6.jpg" alt="" title="" class="thumb150" />
+        <div class="zoom"><a href="images/slider/slide1.jpg" rel="prettyPhoto[gallery]" title="Lorem ipsum sit amet"><img src="images/zoom.png" alt="" title="" /></a></div>
+        </div> 
+        <h3><a href="#">Nisi ut aliquid ex</a></h3>
+        </li>
+        
+        <li class="right13 makeup" data-id="id-7">
+        <div class="center_round_thumb">
+        <img src="images/thumb150.jpg" alt="" title="" class="thumb150" />
+        <div class="zoom"><a href="images/slider/slide1.jpg" rel="prettyPhoto[gallery]" title="Lorem ipsum sit amet"><img src="images/zoom.png" alt="" title="" /></a></div>
+        </div> 
+        <h3><a href="#">Eternity causes to appear</a></h3>
+        </li>
+        
+        <li class="right13 beauty" data-id="id-8">
+        <div class="center_round_thumb">
+        <img src="images/thumb150-2.jpg" alt="" title="" class="thumb150" />
+        <div class="zoom"><a href="images/slider/slide1.jpg" rel="prettyPhoto[gallery]" title="Lorem ipsum sit amet"><img src="images/zoom.png" alt="" title="" /></a></div>
+        </div> 
+        <h3><a href="#">Two hearts that beat</a></h3>
+        </li>
+        
+        <li class="right13_last trends" data-id="id-9">
+        <div class="center_round_thumb">
+        <img src="images/thumb150-3.jpg" alt="" title="" class="thumb150" />
+        <div class="zoom"><a href="images/slider/slide1.jpg" rel="prettyPhoto[gallery]" title="Lorem ipsum sit amet"><img src="images/zoom.png" alt="" title="" /></a></div>
+        </div> 
+        <h3><a href="#">Nisi ut aliquid ex</a></h3>
+        </li> 
+          
+    </ul>       
+       
+        
+        
+        
+        
+        </div><!--end of right content-->
+    
+     
+        <div class="sidebar">
+        
+        <h2>Our main <span>services</span></h2>
+        <ul class="list">
+        <li>Acne solution facial</li>
+        <li>Polish your skin to perfection</li>
+        <li>Illuminate tired eyes</li>
+        <li>Saturate your skin with pure oxygen.</li>
+        <li>Expedite toxin drainage</li>
+        <li>Acne solution facial</li>
+        <li>Removing excess dead skin cells</li>
+        <li>Peel for the body</li>
+        </ul>
+        
+        
+        <h2>From the <span>blog</span></h2>
+        
+        <div class="post">
+            <div class="post_thumb_small"><a href="#"><img src="images/thumb50.jpg" alt="" title="" /></a></div>
+            <div class="post_right_small">
+            <h2><a href="#">Acne solution facial</a></h2>
+            <p>Ut enim ad minima veniam, quis nostru <strong>exercitationem</strong></p>
+            <a href="#" class="read_more">more</a>
+            </div>
+        </div>
+        <div class="post">
+            <div class="post_thumb_small"><a href="#"><img src="images/thumb50-2.jpg" alt="" title="" /></a></div>
+            <div class="post_right_small">
+            <h2><a href="#">Acne solution facial</a></h2>
+            <p>Ut enim ad minima veniam, quis nostru <strong>exercitationem</strong></p>
+            <a href="#" class="read_more">more</a>
+            </div>
+        </div>
+        
+        
+        <div class="sidebar_full">
+        
+        <h2>Flickr <span>photos</span></h2>
+            <div class="flickr_photos">
+            <ul id="basicuse" class="thumbs"></ul>
+            </div>
+        
+        </div>
+        
+        
+        </div>
+        
+
+        
+   
+    <div class="clear"></div>     
+    </div>
+    
+    
+    <div class="home_bottom">
+   		<div class="left13 fdivider">
+        <h2>Latest <span>Tweets</span></h2>       
+        <div class="tweet"></div>
+        </div>
+        
+   		<div class="left13 fdivider">
+        <h2>From the <span>Blog</span></h2>
+
+        <ul class="list">
+        <li><a href="#">Acne solution facial</a></li>
+        <li><a href="#">Polish your skin to perfection</a></li>
+        <li><a href="#">Illuminate tired eyes</a></li>
+        <li><a href="#">Saturate your skin with pure oxygen.</a></li>
+        </ul>
+
+        </div>
+        
+   		<div class="left13 fdivider_last">
+        <h2>Say <span>Hello!</span></h2>
+        <p><strong>Email:</strong> spacenter@email.com <br />
+<strong>Phone:</strong> 234 324 234 / 0678 </p>
+                <ul class="social_icons">
+                <li><a href="#"><img src="images/icons/icon_rss.png" alt="" title="" /></a></li>
+                <li><a href="#"><img src="images/icons/icon_facebook.png" alt="" title="" /></a></li>
+                <li><a href="#"><img src="images/icons/icon_twitter.png" alt="" title="" /></a></li>
+                <li><a href="#"><img src="images/icons/icon_google.png" alt="" title="" /></a></li>
+                </ul>
+        </div>    
+    </div>
+    
+    
+   <div class="footer">
+       <div class="footer_text">
+       ©2014  Aeron7 All Rights Reserved
+       </div>
+       <div class="footer_menu">
+           <ul>
+           <li><a href="index.html">Home</a></li>             
+           <li><a href="aboutus.html">About Us</a></li>             
+           <li><a href="services.html">Services</a></li>  
+		   <li class="selected"><a href="gallery.html">gallery</a></li>                          
+           <li><a href="contact.html">Contact us</a></li> 
+           </ul>
+       </div>
+       <div class="clear"></div>
+       
+   </div> 
+    
+    
+</div>
+<script type="text/javascript">
+var main_menu=new main_menu.dd("main_menu");
+main_menu.init("main_menu","menuhover");
+</script>
+</body>
+
+</html>

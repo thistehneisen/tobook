@@ -1,0 +1,1 @@
+ALTER TABLE `configurations` ADD `bounce_to` VARCHAR( 255 ) NOT NULL;

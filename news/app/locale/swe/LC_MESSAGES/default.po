@@ -1,0 +1,3290 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# 
+# Translators:
+#   <albert.sam@hotmail.se>, 2011.
+#   <ynhwebdev@gmail.com>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: Newsletter Mailer\n"
+"POT-Creation-Date: 2011-11-09 18:47+0100\n"
+"PO-Revision-Date: 2011-11-09 17:48+0000\n"
+"Last-Translator: ynhwebdev <ynhwebdev@gmail.com>\n"
+"Language-Team: Swedish (http://www.transifex.net/projects/p/newslettermailer/language/sv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: /app_controller.php1;1;1;1;1;1;1;1;1;1;1
+#: /app_controller_1.php94;99;104;109;114;119;123;128;133;138;143
+#: /app_controller_auto.php94;99;104;109;114;119;123;128;133;138;143
+#: /w2/app_controller.php1;1;1;1;1;1;1;1;1;1;1
+#: /w2/app_controller_1.php94;99;104;109;114;119;123;128;133;138;143
+msgid "Function Disabled! (DEMO)"
+msgstr "funktionen är Inaktiverad! (DEMO)"
+
+#: /app_controller.php:1 /app_controller_1.php:148
+#: /app_controller_auto.php:148 /w2/app_controller.php:1
+#: /w2/app_controller_1.php:148
+msgid ""
+"You can't send a newsletter! Use the send test mail function to test the "
+"newsletter! (DEMO)"
+msgstr "Du kan inte skicka nyhetsbrev! Använd test skicka funktionen för att testa nyhetsbrev! (DEMO)"
+
+#: /app_controller.php1;1 /app_controller_1.php216;218
+#: /app_controller_auto.php236;238 /w2/app_controller.php1;1
+#: /w2/app_controller_1.php213;215
+msgid "setlocale"
+msgstr "[\"sv_SE.utf-8\",\"swe\",\"swedish\",\"sv_SE\",\"sve\"]"
+
+#: /controllers/campaigns_controller.php18;36
+#: /w2/controllers/campaigns_controller.php18;36
+msgid "The campaign has been saved"
+msgstr "Kampanjen har sparats"
+
+#: /controllers/campaigns_controller.php21;43
+#: /w2/controllers/campaigns_controller.php21;43
+msgid "The campaign could not be saved. Please, try again."
+msgstr "Kampanjen kunde inte sparas. Vänligen, försök igen."
+
+#: /controllers/campaigns_controller.php:31
+#: /w2/controllers/campaigns_controller.php:31
+msgid "Invalid campaign"
+msgstr "Ogiltig kampanj"
+
+#: /controllers/campaigns_controller.php:55
+#: /w2/controllers/campaigns_controller.php:55
+msgid "Invalid id for campaign"
+msgstr "Ogiltigt ID för kampanj"
+
+#: /controllers/campaigns_controller.php:59
+#: /w2/controllers/campaigns_controller.php:59
+msgid "Campaign deleted"
+msgstr "kampanjen är borttagen"
+
+#: /controllers/campaigns_controller.php:62
+#: /w2/controllers/campaigns_controller.php:62
+msgid "Campaign was not deleted"
+msgstr "Kampanj har inte tagitsbort"
+
+#: /controllers/categories_controller.php14;63;87
+#: /w2/controllers/categories_controller.php14;63;87
+msgid "Invalid category"
+msgstr "Ogiltig kategori"
+
+#: /controllers/categories_controller.php:55
+#: /w2/controllers/categories_controller.php:55
+msgid "Category split"
+msgstr "Kategori split"
+
+#: /controllers/categories_controller.php74;92
+#: /w2/controllers/categories_controller.php74;92
+msgid "The category has been saved"
+msgstr "kategorin har sparats"
+
+#: /controllers/categories_controller.php77;95
+#: /w2/controllers/categories_controller.php77;95
+msgid "The category could not be saved. Please, try again."
+msgstr "Kategorin kunde inte sparas. Vänligen, försök igen."
+
+#: /controllers/categories_controller.php:109
+#: /w2/controllers/categories_controller.php:109
+msgid "Invalid id for category"
+msgstr "Ogiltigt ID för kategori"
+
+#: /controllers/categories_controller.php:113
+#: /w2/controllers/categories_controller.php:113
+msgid "Category deleted"
+msgstr "Kategorin borttagen"
+
+#: /controllers/categories_controller.php:116
+#: /w2/controllers/categories_controller.php:116
+msgid "Category was not deleted"
+msgstr "Kategori har inte tagits bort"
+
+#: /controllers/configurations_controller.php:11
+#: /controllers/users_controller.php:9
+#: /w2/controllers/configurations_controller.php:15
+#: /w2/controllers/users_controller.php:9
+msgid "Access Denied"
+msgstr "Nekat tillträde"
+
+#: /controllers/configurations_controller.php:16
+#: /views/layouts/default.ctp:121
+#: /w2/controllers/configurations_controller.php:20
+msgid "SMTP"
+msgstr "SMTP"
+
+#: /controllers/configurations_controller.php:16
+#: /w2/controllers/configurations_controller.php:20
+msgid "PHP mail()"
+msgstr "PHP mail()"
+
+#: /controllers/configurations_controller.php:16
+#: /views/configurations/add.ctp:41 /views/configurations/edit.ctp:42
+#: /w2/controllers/configurations_controller.php:20
+#: /w2/views/configurations/add.ctp:51 /w2/views/configurations/edit.ctp:54
+msgid "Amazon Simple Email Service (Amazon SES)"
+msgstr "Amazon Simple Email Service (Amazon SES)"
+
+#: /controllers/configurations_controller.php:16
+#: /views/configurations/add.ctp:50 /views/configurations/edit.ctp:51
+#: /w2/controllers/configurations_controller.php:20
+#: /w2/views/configurations/add.ctp:60 /w2/views/configurations/edit.ctp:63
+msgid "Sendmail"
+msgstr "Skicka e-post"
+
+#: /controllers/configurations_controller.php:39
+#: /w2/controllers/configurations_controller.php:221
+msgid "All mails servers checked"
+msgstr "Alla mail servrar kontrolleras"
+
+#: /controllers/configurations_controller.php52;213
+#: /w2/controllers/configurations_controller.php234;350;527
+msgid "Function imap_open does not exist"
+msgstr "Funktionen imap_open finns inte"
+
+#: /controllers/configurations_controller.php62;163;182;304
+#: /w2/controllers/configurations_controller.php76;103;136;244;360;477;496;621
+msgid "Invalid configuration"
+msgstr "Ogiltig konfiguration"
+
+#: /controllers/configurations_controller.php:73
+#: /controllers/mails_controller.php:610
+#: /w2/controllers/configurations_controller.php:255
+#: /w2/controllers/mails_controller.php:642
+msgid "Please wait for"
+msgstr "Vänligen vänta på"
+
+#: /controllers/configurations_controller.php:73
+#: /controllers/mails_controller.php:610 /views/mails/sendstatus.ctp:80
+#: /w2/controllers/configurations_controller.php:255
+#: /w2/controllers/mails_controller.php:642 /w2/views/mails/sendstatus.ctp:200
+msgid "seconds"
+msgstr "sekunder"
+
+#: /controllers/configurations_controller.php:82
+#: /w2/controllers/configurations_controller.php264;371
+msgid "No inbox"
+msgstr "Inga inkorg"
+
+#: /controllers/configurations_controller.php:103
+#: /w2/controllers/configurations_controller.php285;392
+msgid "Error: cannot open mailbox"
+msgstr "Fel: kan inte öppna brevlåda"
+
+#: /controllers/configurations_controller.php:153
+#: /w2/controllers/configurations_controller.php:335
+msgid "Found %s bounce mails"
+msgstr "Hittade%s ej levererade epostmeddelanden "
+
+#: /controllers/configurations_controller.php:218
+#: /w2/controllers/configurations_controller.php:532
+msgid "Curl plugin missing"
+msgstr "Curl plugin saknas"
+
+#: /controllers/configurations_controller.php:228
+#: /w2/controllers/configurations_controller.php:545
+msgid "not verified"
+msgstr "inte verifierats"
+
+#: /controllers/configurations_controller.php:228
+#: /w2/controllers/configurations_controller.php:545
+msgid "Verify Now"
+msgstr "Verifiera nu"
+
+#: /controllers/configurations_controller.php:269
+#: /w2/controllers/configurations_controller.php:586
+msgid "Inbox:"
+msgstr "Inkorgen:"
+
+#: /controllers/configurations_controller.php269;270
+#: /w2/controllers/configurations_controller.php586;587
+msgid "No Tested"
+msgstr "Inga Testad"
+
+#: /controllers/configurations_controller.php269;270
+#: /w2/controllers/configurations_controller.php586;587
+msgid "Working"
+msgstr "Arbetar"
+
+#: /controllers/configurations_controller.php269;270
+#: /views/mails/campaign.ctp:40 /views/mails/sendstatus.ctp:32
+#: /w2/controllers/configurations_controller.php586;587
+#: /w2/views/mails/campaign.ctp:131 /w2/views/mails/sendstatus.ctp:153
+msgid "Failed"
+msgstr "Misslyckades"
+
+#: /controllers/configurations_controller.php280;287;312;317
+#: /w2/controllers/configurations_controller.php597;604;629;634
+msgid "The configuration could not be saved. Please, try again."
+msgstr "Konfigurationen kunde inte sparas. Vänligen försök igen."
+
+#: /controllers/configurations_controller.php284;314
+#: /w2/controllers/configurations_controller.php601;631
+msgid "The configuration has been saved"
+msgstr "Konfigurationen har sparats"
+
+#: /controllers/configurations_controller.php:328
+#: /w2/controllers/configurations_controller.php:645
+msgid "Invalid id for configuration"
+msgstr "Ogiltigt ID för konfiguration"
+
+#: /controllers/configurations_controller.php:332
+#: /w2/controllers/configurations_controller.php:649
+msgid "Configuration deleted"
+msgstr "Konfiguration har tagits bort"
+
+#: /controllers/configurations_controller.php:335
+#: /w2/controllers/configurations_controller.php:652
+msgid "Configuration was not deleted"
+msgstr "Konfiguration har inte tagits bort"
+
+#: /controllers/forms_controller.php80;83
+#: /w2/controllers/forms_controller.php80;83
+msgid "Invalide name, use characters A-Z"
+msgstr "Ogiltigt namn, använda bokstäverna A-Z"
+
+#: /controllers/forms_controller.php:87
+#: /w2/controllers/forms_controller.php:87
+msgid "Invalide mail addresse"
+msgstr "Ogiltigt epost adress"
+
+#: /controllers/forms_controller.php:105
+#: /w2/controllers/forms_controller.php:105
+msgid "A Friend Sent You A Message"
+msgstr "En vän har skickat dig ett meddelande"
+
+#: /controllers/forms_controller.php185;486;508
+#: /w2/controllers/forms_controller.php185;486;508
+msgid "Invalid form"
+msgstr "Ogiltig formulärr"
+
+#: /controllers/forms_controller.php:402
+#: /w2/controllers/forms_controller.php:402
+msgid "Unknown error please contact webmaster."
+msgstr "Okänt fel! Vänligen kontakta webmaster."
+
+#: /controllers/forms_controller.php479;492;497;516
+#: /w2/controllers/forms_controller.php479;492;497;516
+msgid "The form could not be saved. Please, try again."
+msgstr "Formuläret kunde inte sparas. Vänligen, försök igen."
+
+#: /controllers/forms_controller.php:491
+#: /w2/controllers/forms_controller.php:491
+msgid "Please select at least on category"
+msgstr "Välj minst en kategori"
+
+#: /controllers/forms_controller.php494;513
+#: /w2/controllers/forms_controller.php494;513
+msgid "The form has been saved"
+msgstr "Formuläret har sparats"
+
+#: /controllers/forms_controller.php:530
+#: /w2/controllers/forms_controller.php:530
+msgid "Invalid id for form"
+msgstr "Ogiltigt ID för Formuläret "
+
+#: /controllers/forms_controller.php:534
+#: /w2/controllers/forms_controller.php:534
+msgid "There must be at least one subscription form"
+msgstr "Det måste finnas minst en prenumerations formulär"
+
+#: /controllers/forms_controller.php:537
+#: /w2/controllers/forms_controller.php:537
+msgid "Form deleted"
+msgstr "Formuläret har tagits bort"
+
+#: /controllers/forms_controller.php:540
+#: /w2/controllers/forms_controller.php:540
+msgid "Form was not deleted"
+msgstr "Formuläret har inte tagits bort"
+
+#: /controllers/images_controller.php52;73
+#: /w2/controllers/images_controller.php52;73
+msgid "The image was successfully uploaded."
+msgstr "Bilden har laddats upp."
+
+#: /controllers/images_controller.php52;73
+#: /w2/controllers/images_controller.php52;73
+msgid "Use this Image"
+msgstr "Använd denna bild"
+
+#: /controllers/images_controller.php:58
+#: /w2/controllers/images_controller.php:58
+msgid "cURL is NOT installed"
+msgstr "cURL är INTE installerad"
+
+#: /controllers/images_controller.php:75
+#: /controllers/templates_controller.php:163
+#: /w2/controllers/images_controller.php:75
+#: /w2/controllers/templates_controller.php:170
+msgid "There was an error with the uploaded file."
+msgstr "Det uppstod ett fel med den överförda filen."
+
+#: /controllers/importtasks_controller.php44;59;77;95;131
+#: /w2/controllers/importtasks_controller.php44;59;77;95;131
+msgid "The import task could not be saved. Please, try again."
+msgstr "Import uppgiften kunde inte sparas. Vänligen, försök igen."
+
+#: /controllers/importtasks_controller.php51;69;87;123
+#: /w2/controllers/importtasks_controller.php51;69;87;123
+msgid "Invalid import task"
+msgstr "Ogiltig importera uppgift"
+
+#: /controllers/importtasks_controller.php:74
+#: /w2/controllers/importtasks_controller.php:74
+msgid "Connection Successful"
+msgstr "Anslutningen lyckades "
+
+#: /controllers/importtasks_controller.php110;146;206
+#: /plugins/install/controllers/install_controller.php125;166
+#: /w2/controllers/importtasks_controller.php110;146;206
+#: /w2/plugins/install/controllers/install_controller.php125;166
+msgid "Could not connect to database."
+msgstr "Kunde inte ansluta till databasen."
+
+#: /controllers/importtasks_controller.php:128
+#: /w2/controllers/importtasks_controller.php:128
+msgid "The import task has been saved"
+msgstr "Import uppgiften har sparats"
+
+#: /controllers/importtasks_controller.php155;216
+#: /w2/controllers/importtasks_controller.php155;216
+msgid "Error in Query: "
+msgstr "Fel i Query:"
+
+#: /controllers/importtasks_controller.php:179
+#: /w2/controllers/importtasks_controller.php:179
+msgid "Invalid id for import task"
+msgstr "Ogiltigt ID för import uppgift"
+
+#: /controllers/importtasks_controller.php:183
+#: /w2/controllers/importtasks_controller.php:183
+msgid "Import task deleted"
+msgstr "Import uppgiften har raderats"
+
+#: /controllers/importtasks_controller.php:186
+#: /w2/controllers/importtasks_controller.php:186
+msgid "Import task was not deleted"
+msgstr "Import uppgiften har inte tagits bort"
+
+#: /controllers/mails_controller.php85;94;259;514;596;1001
+#: /w2/controllers/configurations_controller.php109;142
+#: /w2/controllers/mails_controller.php91;100;271;526;628;1026;1036
+msgid "Invalid mail"
+msgstr "Ogiltig e-post"
+
+#: /controllers/mails_controller.php204;274
+#: /w2/controllers/mails_controller.php216;286
+msgid "The mail could not be saved. Please, try again."
+msgstr "E-posten kunde inte sparas. Vänligen, försök igen."
+
+#: /controllers/mails_controller.php:313
+#: /w2/controllers/mails_controller.php:325
+msgid "Html and Text"
+msgstr "HTML och text"
+
+#: /controllers/mails_controller.php:313
+#: /w2/controllers/mails_controller.php:325
+msgid "Html only"
+msgstr "Endast Html "
+
+#: /controllers/mails_controller.php:313
+#: /w2/controllers/mails_controller.php:325
+msgid "Text only"
+msgstr "Endast text"
+
+#: /controllers/mails_controller.php:577
+#: /w2/controllers/mails_controller.php:609
+msgid "Job done!"
+msgstr "Job done!"
+
+#: /controllers/mails_controller.php:580
+#: /w2/controllers/mails_controller.php:612
+msgid "There is nothing to do :-)"
+msgstr "Det finns inget att göra :-)"
+
+#: /controllers/mails_controller.php707;709;1045
+#: /w2/controllers/mails_controller.php749;751;1096
+msgid "Unable to connect to server"
+msgstr "Kan inte ansluta till servern"
+
+#: /controllers/mails_controller.php714;716
+#: /w2/controllers/mails_controller.php756;758
+msgid "Error failed to send mails"
+msgstr "Fel! misslyckades med att skicka e-post"
+
+#: /controllers/mails_controller.php:993
+#: /w2/controllers/mails_controller.php:1018
+msgid "The mail could not be duplicate. Please, try again."
+msgstr "e-posten gick inte att kopiera. Vänligen, försök igen."
+
+#: /controllers/mails_controller.php:1041
+#: /w2/controllers/mails_controller.php:1090
+msgid "Test mail sent"
+msgstr "Testa e-post har skickats"
+
+#: /controllers/mails_controller.php1043;1049
+#: /w2/controllers/mails_controller.php1093;1100
+msgid "Error failed to send test mail"
+msgstr "Fel! misslyckades med att skicka test e-post"
+
+#: /controllers/mails_controller.php:1063
+#: /w2/controllers/mails_controller.php:1112
+msgid "Invalid id for mail"
+msgstr "Ogiltigt ID för e-post"
+
+#: /controllers/mails_controller.php:1067
+#: /w2/controllers/mails_controller.php:1116
+msgid "Mail deleted"
+msgstr "e-posten har raderats"
+
+#: /controllers/mails_controller.php:1070
+#: /w2/controllers/mails_controller.php:1119
+msgid "Mail was not deleted"
+msgstr "e-posten har inte tagits bort"
+
+#: /controllers/recipients_controller.php:93 /views/recipients/index.ctp:256
+#: /w2/controllers/recipients_controller.php:103
+#: /w2/views/clicktrack/link.ctp:271 /w2/views/recipients/index.ctp:272
+msgid "Country"
+msgstr "Land"
+
+#: /controllers/recipients_controller.php:93
+#: /w2/controllers/recipients_controller.php:103
+msgid "Read On"
+msgstr "Läst den"
+
+#: /controllers/recipients_controller.php:93 /views/recipients/index.ctp:279
+#: /views/subscribers/view.ctp:135
+#: /w2/controllers/recipients_controller.php:103
+#: /w2/views/recipients/index.ctp:296 /w2/views/subscribers/view.ctp:141
+msgid "Open Count"
+msgstr "Öppna Räkna"
+
+#: /controllers/recipients_controller.php:93
+#: /controllers/subscribers_controller.php:290 /views/forms/edit.ctp:23
+#: /views/home/index.ctp:83 /views/importtasks/edit3.ctp:27
+#: /views/recipients/index.ctp:275 /views/subscribers/add.ctp:5
+#: /views/subscribers/import2.ctp:29 /views/subscribers/view.ctp:19
+#: /w2/controllers/recipients_controller.php:103
+#: /w2/controllers/subscribers_controller.php:214
+#: /w2/views/clicktrack/link.ctp:288 /w2/views/forms/edit.ctp:35
+#: /w2/views/home/index.ctp:132 /w2/views/importtasks/edit3.ctp:38
+#: /w2/views/subscribers/add.ctp:14 /w2/views/subscribers/import2.ctp:41
+#: /w2/views/subscribers/view.ctp:29
+msgid "First Name"
+msgstr "Förnamn"
+
+#: /controllers/recipients_controller.php:93
+#: /controllers/subscribers_controller.php:290 /views/forms/edit.ctp:30
+#: /views/home/index.ctp:84 /views/importtasks/edit3.ctp:27
+#: /views/recipients/index.ctp:276 /views/subscribers/add.ctp:7
+#: /views/subscribers/import2.ctp:29 /views/subscribers/view.ctp:26
+#: /w2/controllers/recipients_controller.php:103
+#: /w2/controllers/subscribers_controller.php:214
+#: /w2/views/clicktrack/link.ctp:289 /w2/views/forms/edit.ctp:42
+#: /w2/views/home/index.ctp:133 /w2/views/importtasks/edit3.ctp:38
+#: /w2/views/recipients/index.ctp:291 /w2/views/subscribers/add.ctp:16
+#: /w2/views/subscribers/import2.ctp:41 /w2/views/subscribers/view.ctp:34
+msgid "Last Name"
+msgstr "Efternamn"
+
+#: /controllers/recipients_controller.php:93
+#: /controllers/subscribers_controller.php:290 /views/home/index.ctp:85
+#: /views/importtasks/edit3.ctp:27 /views/subscribers/import2.ctp:29
+#: /views/subscribers/view.ctp:33
+#: /w2/controllers/recipients_controller.php:103
+#: /w2/controllers/subscribers_controller.php:214 /w2/views/home/index.ctp:134
+#: /w2/views/importtasks/edit3.ctp:38 /w2/views/subscribers/import2.ctp:41
+#: /w2/views/subscribers/view.ctp:39
+msgid "Mail Address"
+msgstr "E-post adress"
+
+#: /controllers/recipients_controller.php:93
+#: /controllers/subscribers_controller.php:290 /views/importtasks/edit3.ctp:27
+#: /views/subscribers/add.ctp:22 /views/subscribers/import2.ctp:29
+#: /views/subscribers/view.ctp:40
+#: /w2/controllers/recipients_controller.php:103
+#: /w2/controllers/subscribers_controller.php:214
+#: /w2/views/importtasks/edit3.ctp:38 /w2/views/subscribers/add.ctp:31
+#: /w2/views/subscribers/import2.ctp:41 /w2/views/subscribers/view.ctp:44
+msgid "Notes"
+msgstr "Anteckningar"
+
+#: /controllers/recipients_controller.php:94
+#: /w2/controllers/recipients_controller.php:104
+msgid "Custom Field 1"
+msgstr "Anpassat fält 1"
+
+#: /controllers/recipients_controller.php:94
+#: /w2/controllers/recipients_controller.php:104
+msgid "Custom Field 2"
+msgstr "Anpassat fält 2"
+
+#: /controllers/recipients_controller.php:94
+#: /w2/controllers/recipients_controller.php:104
+msgid "Custom Field 3"
+msgstr "Anpassat fält 3"
+
+#: /controllers/recipients_controller.php:94
+#: /w2/controllers/recipients_controller.php:104
+msgid "Custom Field 4"
+msgstr "Anpassat fält 4"
+
+#: /controllers/recipients_controller.php:99
+#: /controllers/subscribers_controller.php:307
+#: /w2/controllers/recipients_controller.php:109
+#: /w2/controllers/subscribers_controller.php:231
+msgid "Please select a least one column"
+msgstr "Välj minst en kolumn"
+
+#: /controllers/recipients_controller.php:172
+#: /w2/controllers/recipients_controller.php:182
+msgid "No subscribers"
+msgstr "Inga prenumeranter"
+
+#: /controllers/settings_controller.php:14
+#: /w2/controllers/settings_controller.php14;44
+msgid "Settings saved!!!"
+msgstr "Inställningar har sparats!"
+
+#: /controllers/settings_controller.php:52
+#: /w2/controllers/settings_controller.php:68
+msgid "Cache cleaned!!!"
+msgstr "Cache har rensats!"
+
+#: /controllers/subscribers_controller.php53;72;82;96;115;123
+#: /w2/controllers/subscribers_controller.php:43
+msgid "Done"
+msgstr "Klar"
+
+#: /controllers/subscribers_controller.php59;102 /views/subscribers/add.ctp:24
+#: /views/subscribers/edit.ctp:22
+#: /w2/controllers/subscribers_controller.php:49
+#: /w2/views/subscribers/add.ctp:33 /w2/views/subscribers/edit.ctp:33
+msgid "Unsubscribed"
+msgstr "avslutat prenumerationen"
+
+#: /controllers/subscribers_controller.php:148
+#: /w2/controllers/subscribers_controller.php:73
+msgid "Please select a least one row"
+msgstr "Välj minst en rad"
+
+#: /controllers/subscribers_controller.php179;188;195;204;236;244;253;261;270;525
+#: /w2/controllers/subscribers_controller.php104;113;120;129;161;169;178;186;195;446
+msgid "Please select a category"
+msgstr "Välj en kategori"
+
+#: /controllers/subscribers_controller.php212;279
+#: /w2/controllers/subscribers_controller.php137;204
+msgid "Please select an action"
+msgstr "Välj en åtgärda"
+
+#: /controllers/subscribers_controller.php:311
+#: /w2/controllers/subscribers_controller.php:235
+msgid "Please select a least one category"
+msgstr "Välj minst en kategori"
+
+#: /controllers/subscribers_controller.php:342
+#: /w2/controllers/subscribers_controller.php:266
+msgid "No subscribers in these categories"
+msgstr "Inga prenumeranter i dessa kategorier"
+
+#: /controllers/subscribers_controller.php:423 /views/subscribers/index.ctp:23
+#: /w2/controllers/subscribers_controller.php:346
+#: /w2/views/subscribers/index.ctp:19
+msgid "Uncategorized"
+msgstr "Okategoriserade"
+
+#: /controllers/subscribers_controller.php:449
+#: /w2/controllers/subscribers_controller.php:370
+msgid "Invalide path"
+msgstr "ogiltig väg"
+
+#: /controllers/subscribers_controller.php:516
+#: /w2/controllers/subscribers_controller.php:437
+msgid "Refresh and Import"
+msgstr "Uppdatera och importera "
+
+#: /controllers/subscribers_controller.php:539
+#: /w2/controllers/subscribers_controller.php:459
+msgid "Import Done"
+msgstr "Importeringen är Klar"
+
+#: /controllers/subscribers_controller.php667;743
+#: /w2/controllers/subscribers_controller.php584;659
+msgid "Invalid subscriber"
+msgstr "Ogiltig prenumerant"
+
+#: /controllers/subscribers_controller.php726;748
+#: /w2/controllers/subscribers_controller.php643;664
+msgid "The subscriber has been saved"
+msgstr "prenumeranten har sparats"
+
+#: /controllers/subscribers_controller.php730;751
+#: /w2/controllers/subscribers_controller.php647;667
+msgid "The subscriber could not be saved. Please, try again."
+msgstr "prenumeranten kunde inte sparas. Vänligen, försök igen."
+
+#: /controllers/subscribers_controller.php:764
+#: /w2/controllers/subscribers_controller.php:679
+msgid "Invalid id for subscriber"
+msgstr "Ogiltigt ID för prenumeranten"
+
+#: /controllers/subscribers_controller.php:768
+#: /w2/controllers/subscribers_controller.php:683
+msgid "Subscriber deleted"
+msgstr "prenumeranten har tagits bort"
+
+#: /controllers/subscribers_controller.php:771
+#: /w2/controllers/subscribers_controller.php:686
+msgid "Subscriber was not deleted"
+msgstr "prenumeranten har inte tagits bort"
+
+#: /controllers/templates_controller.php17;55;96;119;152
+#: /w2/controllers/templates_controller.php24;62;103;126;159
+msgid "Invalid template"
+msgstr "Ogiltig mall"
+
+#: /controllers/templates_controller.php45;108;125
+#: /w2/controllers/templates_controller.php52;115;132
+msgid "The template has been saved"
+msgstr "Mallen har inte sparats"
+
+#: /controllers/templates_controller.php48;111;128
+#: /w2/controllers/templates_controller.php55;118;135
+msgid "The template could not be saved. Please, try again."
+msgstr "Mallen kunde inte sparas. vänligen, försök igen."
+
+#: /controllers/templates_controller.php:139
+#: /w2/controllers/templates_controller.php:146
+msgid "Invalid id for template"
+msgstr "Ogiltigt ID för mallen"
+
+#: /controllers/templates_controller.php:143
+#: /w2/controllers/templates_controller.php:150
+msgid "Template deleted"
+msgstr "Mall har tagits bort"
+
+#: /controllers/templates_controller.php:146
+#: /w2/controllers/templates_controller.php:153
+msgid "Template was not deleted"
+msgstr "Mallen har inte tagits bort"
+
+#: /controllers/templates_controller.php:197
+#: /w2/controllers/templates_controller.php:204
+msgid "No missing images in this template"
+msgstr "Inga bilder saknas i den här mallen"
+
+#: /controllers/users_controller.php33;48
+#: /w2/controllers/users_controller.php33;48
+msgid "The user has been saved"
+msgstr "Användaren har sparats"
+
+#: /controllers/users_controller.php36;51
+#: /w2/controllers/users_controller.php36;51
+msgid "The user could not be saved. Please, try again."
+msgstr "Användaren kunde inte sparas. vänligen, försök igen."
+
+#: /controllers/users_controller.php:43
+#: /w2/controllers/users_controller.php:43
+msgid "Invalid user"
+msgstr "Ogiltig användare"
+
+#: /controllers/users_controller.php:61
+#: /w2/controllers/users_controller.php:61
+msgid "Invalid id for user"
+msgstr "Ogiltigt ID för användare"
+
+#: /controllers/users_controller.php:65
+#: /w2/controllers/users_controller.php:65
+msgid "There must be at least one user"
+msgstr "Det måste finnas minst en användare"
+
+#: /controllers/users_controller.php:68
+#: /w2/controllers/users_controller.php:68
+msgid "User deleted"
+msgstr "Användaren har tagits bort"
+
+#: /controllers/users_controller.php:71
+#: /w2/controllers/users_controller.php:71
+msgid "User was not deleted"
+msgstr "Användaren har inte tagits bort"
+
+#: /plugins/activate/controllers/activate_controller.php:1
+#: /plugins/activate/controllers/activate_controller_1.php:83
+#: /plugins/autoactivate/controllers/autoactivate_controller.php:1
+#: /plugins/autoactivate/controllers/autoactivate_controller_1.php:83
+#: /w2/plugins/activate/controllers/activate_controller.php:1
+#: /w2/plugins/activate/controllers/activate_controller_1.php:83
+msgid "Activate"
+msgstr "Aktivera"
+
+#: /plugins/install/controllers/install_controller.php:94
+#: /w2/plugins/install/controllers/install_controller.php:94
+msgid "Installation: Welcome"
+msgstr "Installation: Välkommen"
+
+#: /plugins/install/controllers/install_controller.php:109
+#: /w2/plugins/install/controllers/install_controller.php:109
+msgid "Step 1: Database"
+msgstr "Steg 1: Databas"
+
+#: /plugins/install/controllers/install_controller.php:146
+#: /w2/plugins/install/controllers/install_controller.php:146
+msgid "Could not write database.php file."
+msgstr "Could not write database.php file."
+
+#: /plugins/install/controllers/install_controller.php:158
+#: /w2/plugins/install/controllers/install_controller.php:158
+msgid "Step 2: Build database"
+msgstr "Step 2: Build database"
+
+#: /plugins/install/controllers/install_controller.php:197
+#: /w2/plugins/install/controllers/install_controller.php:197
+msgid "Installation completed successfully"
+msgstr "Installationen har slutförts"
+
+#: /plugins/install/controllers/install_controller.php:202
+#: /w2/plugins/install/controllers/install_controller.php:202
+msgid "Installation files deleted successfully."
+msgstr "Installationsfiler raderats."
+
+#: /plugins/install/controllers/install_controller.php:205
+#: /w2/plugins/install/controllers/install_controller.php:205
+msgid "Could not delete installation files."
+msgstr "Kunde inte radera installationsfilerna."
+
+#: /plugins/install/views/install/data.ctp:5
+#: /w2/plugins/install/views/install/data.ctp:5
+msgid "Click here to build your database"
+msgstr "Click here to build your database"
+
+#: /plugins/install/views/install/index.ctp:8
+#: /w2/plugins/install/views/install/index.ctp:8
+msgid "Your tmp directory is writable."
+msgstr "Your tmp directory is writable."
+
+#: /plugins/install/views/install/index.ctp:11
+#: /w2/plugins/install/views/install/index.ctp:11
+msgid "Your tmp directory is NOT writable."
+msgstr "Your tmp directory is NOT writable."
+
+#: /plugins/install/views/install/index.ctp:16
+#: /w2/plugins/install/views/install/index.ctp:16
+msgid "Your config directory is writable."
+msgstr "Your config directory is writable."
+
+#: /plugins/install/views/install/index.ctp:19
+#: /w2/plugins/install/views/install/index.ctp:19
+msgid "Your config directory is NOT writable."
+msgstr "Your config directory is NOT writable."
+
+#: /plugins/install/views/install/index.ctp:24
+#: /w2/plugins/install/views/install/index.ctp:24
+msgid "PHP version %s > 5.2"
+msgstr "PHP version %s > 5.2"
+
+#: /plugins/install/views/install/index.ctp:27
+#: /w2/plugins/install/views/install/index.ctp:27
+msgid "PHP version %s < 5.2"
+msgstr "PHP version %s < 5.2"
+
+#: /plugins/install/views/install/index.ctp:31
+#: /w2/plugins/install/views/install/index.ctp:31
+msgid "Your core.php is writable."
+msgstr "Your core.php is writable."
+
+#: /plugins/install/views/install/index.ctp:34
+#: /w2/plugins/install/views/install/index.ctp:34
+msgid "Your core.php is NOT writable."
+msgstr "Your core.php is NOT writable."
+
+#: /plugins/install/views/install/index.ctp:39
+#: /w2/plugins/install/views/install/index.ctp:39
+msgid "Your database.php is writable."
+msgstr "Your database.php is writable."
+
+#: /plugins/install/views/install/index.ctp:42
+#: /w2/plugins/install/views/install/index.ctp:42
+msgid "Your database.php is NOT writable."
+msgstr "Your database.php is NOT writable."
+
+#: /plugins/install/views/install/index.ctp46;49;53;56
+#: /w2/plugins/install/views/install/index.ctp46;49;53;56
+msgid "Your "
+msgstr "Din"
+
+#: /plugins/install/views/install/index.ctp:63
+#: /w2/plugins/install/views/install/index.ctp:63
+msgid "Installation cannot continue as minimum requirements are not met."
+msgstr "Installation cannot continue as minimum requirements are not met."
+
+#: /views/campaigns/add.ctp:3 /w2/views/campaigns/add.ctp:6
+msgid "Add Campaign"
+msgstr "Lägg till kampanj"
+
+#: /views/campaigns/add.ctp:5 /views/configurations/add.ctp:5
+#: /views/configurations/edit.ctp:6 /views/importtasks/add.ctp:5
+#: /views/importtasks/edit.ctp:7 /views/importtasks/edit1.ctp6;37
+#: /views/importtasks/edit2.ctp:6 /views/importtasks/edit3.ctp:6
+#: /views/templates/view.ctp:9 /w2/views/campaigns/add.ctp:15
+#: /w2/views/configurations/add.ctp:15 /w2/views/configurations/edit.ctp:18
+#: /w2/views/importtasks/edit1.ctp:49 /w2/views/templates/view.ctp:9
+msgid "Name"
+msgstr "Namn"
+
+#: /views/campaigns/add.ctp:6 /views/configurations/add.ctp:7
+#: /views/configurations/edit.ctp:8 /views/importtasks/add.ctp:5
+#: /views/importtasks/edit.ctp:7 /views/importtasks/edit1.ctp:6
+#: /views/importtasks/edit2.ctp:6 /views/importtasks/edit3.ctp:6
+#: /w2/views/campaigns/add.ctp:16 /w2/views/configurations/add.ctp:17
+#: /w2/views/configurations/edit.ctp:20
+msgid "Description"
+msgstr "Beskrivning"
+
+#: /views/campaigns/add.ctp:7 /w2/views/campaigns/add.ctp:17
+msgid "Start"
+msgstr "Starta"
+
+#: /views/campaigns/add.ctp:8 /w2/views/campaigns/add.ctp:18
+msgid "End"
+msgstr "Avsluta"
+
+#: /views/campaigns/add.ctp:9 /w2/views/campaigns/add.ctp:19
+msgid "Forever"
+msgstr "För alltid"
+
+#: /views/campaigns/add.ctp:12 /views/categories/index.ctp:2
+#: /views/forms/edit.ctp:75 /views/layouts/default.ctp153;153
+#: /views/subscribers/export.ctp:19 /w2/views/campaigns/add.ctp:22
+#: /w2/views/categories/index.ctp:5 /w2/views/forms/edit.ctp:87
+#: /w2/views/home/index.ctp:21 /w2/views/layouts/default.ctp182;225
+#: /w2/views/subscribers/export.ctp:31 /w2/views/subscribers/index.ctp:4
+msgid "Categories"
+msgstr "Kategorier"
+
+#: /views/campaigns/add.ctp:22 /w2/views/campaigns/add.ctp:32
+msgid "Send to subscribers"
+msgstr "Skicka till prenumeranter"
+
+#: /views/campaigns/add.ctp:22 /w2/views/campaigns/add.ctp:32
+msgid "subscribed before start date"
+msgstr "prenumeranera före startdatum"
+
+#: /views/campaigns/add.ctp:27 /views/campaigns/edit.ctp:26
+#: /views/categories/add.ctp:11 /views/categories/edit.ctp:11
+#: /views/configurations/add.ctp:108 /views/configurations/edit.ctp:109
+#: /views/forms/add.ctp:10 /views/forms/edit.ctp:111 /views/forms/editm.ctp:30
+#: /views/settings/index.ctp:36 /views/subscribers/add.ctp:30
+#: /views/subscribers/edit.ctp:28 /views/templates/add.ctp:48
+#: /views/templates/edit.ctp:51 /views/users/add.ctp:14
+#: /views/users/edit.ctp:15 /w2/views/campaigns/add.ctp:37
+#: /w2/views/campaigns/edit.ctp:36 /w2/views/categories/add.ctp:20
+#: /w2/views/categories/edit.ctp:22 /w2/views/configurations/add.ctp:118
+#: /w2/views/configurations/edit.ctp:121 /w2/views/forms/add.ctp:20
+#: /w2/views/forms/edit.ctp:123 /w2/views/forms/editm.ctp:39
+#: /w2/views/settings/index.ctp:48 /w2/views/subscribers/add.ctp:39
+#: /w2/views/subscribers/edit.ctp:39 /w2/views/templates/add.ctp:61
+#: /w2/views/templates/edit.ctp:66 /w2/views/users/add.ctp:20
+#: /w2/views/users/edit.ctp:24
+msgid "Save"
+msgstr "Spara"
+
+#: /views/campaigns/edit.ctp:3 /views/campaigns/index.ctp59;59
+#: /views/categories/edit.ctp:3 /views/categories/index.ctp:30
+#: /views/configurations/edit.ctp:3 /views/configurations/index.ctp41;41
+#: /views/forms/edit.ctp:3 /views/forms/editm.ctp:3
+#: /views/forms/index.ctp28;28 /views/home/index.ctp62;62;116;116
+#: /views/importtasks/edit.ctp:4 /views/importtasks/edit1.ctp:3
+#: /views/importtasks/edit2.ctp:3 /views/importtasks/edit3.ctp:3
+#: /views/importtasks/index.ctp29;29 /views/mails/campaign.ctp142;142
+#: /views/mails/index.ctp62;62 /views/mails/step1.ctp:3
+#: /views/mails/step2.ctp:1 /views/mails/step3.ctp:27 /views/mails/step4.ctp:1
+#: /views/mails/step5.ctp:1 /views/subscribers/edit.ctp:3
+#: /views/subscribers/index.ctp88;88;105 /views/templates/edit.ctp:3
+#: /views/templates/index.ctp18;18 /views/users/edit.ctp:3
+#: /views/users/index.ctp32;32 /w2/views/campaigns/edit.ctp:9
+#: /w2/views/campaigns/index.ctp77;77 /w2/views/categories/edit.ctp:8
+#: /w2/views/categories/index.ctp48;48 /w2/views/configurations/edit.ctp:9
+#: /w2/views/configurations/inbox.ctp43;43
+#: /w2/views/configurations/index.ctp66;66 /w2/views/forms/edit.ctp:9
+#: /w2/views/forms/editm.ctp:8 /w2/views/forms/index.ctp55;55
+#: /w2/views/home/index.ctp97;97;167;167 /w2/views/importtasks/edit.ctp:18
+#: /w2/views/importtasks/edit1.ctp:18 /w2/views/importtasks/edit2.ctp:18
+#: /w2/views/importtasks/edit3.ctp:18 /w2/views/importtasks/index.ctp47;47
+#: /w2/views/mails/campaign.ctp236;236 /w2/views/mails/index.ctp95;95
+#: /w2/views/mails/step1.ctp:23 /w2/views/mails/step2.ctp:24
+#: /w2/views/mails/step3.ctp:63 /w2/views/mails/step4.ctp:23
+#: /w2/views/mails/step5.ctp:23 /w2/views/subscribers/edit.ctp:8
+#: /w2/views/subscribers/index.ctp100;100;124
+#: /w2/views/subscribers/view.ctp:18 /w2/views/templates/edit.ctp:9
+#: /w2/views/templates/index.ctp52;52 /w2/views/users/edit.ctp:8
+#: /w2/views/users/index.ctp52;52
+msgid "Delete"
+msgstr "Radera"
+
+#: /views/campaigns/edit.ctp:3 /views/campaigns/index.ctp:59
+#: /views/categories/edit.ctp:3 /views/categories/index.ctp:30
+#: /views/configurations/edit.ctp:3 /views/configurations/index.ctp:41
+#: /views/forms/edit.ctp:3 /views/forms/editm.ctp:3 /views/forms/index.ctp:28
+#: /views/home/index.ctp62;116 /views/importtasks/edit.ctp:4
+#: /views/importtasks/edit1.ctp:3 /views/importtasks/edit2.ctp:3
+#: /views/importtasks/edit3.ctp:3 /views/importtasks/index.ctp:29
+#: /views/mails/campaign.ctp:142 /views/mails/index.ctp:62
+#: /views/mails/step1.ctp:3 /views/mails/step2.ctp:1 /views/mails/step3.ctp:27
+#: /views/mails/step4.ctp:1 /views/mails/step5.ctp:1
+#: /views/subscribers/edit.ctp:3 /views/subscribers/index.ctp:88
+#: /views/templates/edit.ctp:3 /views/templates/index.ctp:18
+#: /views/users/edit.ctp:3 /views/users/index.ctp:32
+#: /w2/views/campaigns/edit.ctp:9 /w2/views/campaigns/index.ctp:77
+#: /w2/views/categories/edit.ctp:8 /w2/views/categories/index.ctp:48
+#: /w2/views/configurations/edit.ctp:9 /w2/views/configurations/inbox.ctp:43
+#: /w2/views/configurations/index.ctp:66 /w2/views/forms/edit.ctp:9
+#: /w2/views/forms/editm.ctp:8 /w2/views/forms/index.ctp:55
+#: /w2/views/home/index.ctp97;167 /w2/views/importtasks/edit.ctp:18
+#: /w2/views/importtasks/edit1.ctp:18 /w2/views/importtasks/edit2.ctp:18
+#: /w2/views/importtasks/edit3.ctp:18 /w2/views/importtasks/index.ctp:47
+#: /w2/views/mails/campaign.ctp:236 /w2/views/mails/index.ctp:95
+#: /w2/views/mails/step1.ctp:23 /w2/views/mails/step2.ctp:24
+#: /w2/views/mails/step3.ctp:63 /w2/views/mails/step4.ctp:23
+#: /w2/views/mails/step5.ctp:23 /w2/views/subscribers/edit.ctp:8
+#: /w2/views/subscribers/index.ctp:100 /w2/views/subscribers/view.ctp:18
+#: /w2/views/templates/edit.ctp:9 /w2/views/templates/index.ctp:52
+#: /w2/views/users/edit.ctp:8 /w2/views/users/index.ctp:52
+msgid "Are you sure you want to delete # %s?"
+msgstr "Är du säker på att du vill ta bort #%s?"
+
+#: /views/campaigns/edit.ctp:5 /views/mails/campaign.ctp:9
+#: /w2/views/campaigns/edit.ctp:6 /w2/views/mails/campaign.ctp:42
+msgid "Edit Campaign"
+msgstr "Redigera kampanjinställningar"
+
+#: /views/campaigns/index.ctp:2 /w2/views/campaigns/index.ctp:14
+msgid "New Campaign"
+msgstr "Ny kampanj"
+
+#: /views/campaigns/index.ctp:3 /views/home/index.ctp:3
+#: /views/mails/campaign.ctp:11 /views/mails/index.ctp:4
+#: /w2/views/campaigns/index.ctp:15
+msgid "Run newsletter mailing job"
+msgstr "Kör nyhetsutskicksprocess "
+
+#: /views/campaigns/index.ctp:5 /views/layouts/default.ctp:179
+#: /w2/views/campaigns/index.ctp:6 /w2/views/home/index.ctp:17
+#: /w2/views/layouts/default.ctp169;223
+msgid "Campaigns"
+msgstr "Kampanjer"
+
+#: /views/campaigns/index.ctp:8 /views/home/index.ctp:13
+#: /views/mails/campaign.ctp:95 /views/subscribers/index.ctp:40
+#: /w2/views/campaigns/index.ctp:25 /w2/views/home/index.ctp:48
+#: /w2/views/mails/campaign.ctp:177 /w2/views/subscribers/index.ctp:151
+msgid "Status"
+msgstr "Status"
+
+#: /views/campaigns/index.ctp:12 /views/mails/campaign.ctp:46
+#: /w2/views/campaigns/index.ctp:29 /w2/views/mails/campaign.ctp:56
+msgid "Time span"
+msgstr "Tidsintervall"
+
+#: /views/campaigns/index.ctp:13 /views/categories/index.ctp:9
+#: /views/configurations/index.ctp:18 /views/forms/index.ctp:8
+#: /views/home/index.ctp20;89 /views/importtasks/index.ctp:12
+#: /views/mails/campaign.ctp:102 /views/mails/index.ctp:15
+#: /views/recipients/index.ctp:282 /views/subscribers/index.ctp:56
+#: /views/subscribers/view.ctp136;183 /views/users/index.ctp:12
+#: /w2/views/campaigns/index.ctp:30 /w2/views/categories/index.ctp:27
+#: /w2/views/clicktrack/link.ctp:295 /w2/views/configurations/inbox.ctp:24
+#: /w2/views/configurations/index.ctp:36 /w2/views/forms/index.ctp:28
+#: /w2/views/home/index.ctp55;138 /w2/views/importtasks/index.ctp:30
+#: /w2/views/mails/campaign.ctp:184 /w2/views/mails/index.ctp:49
+#: /w2/views/recipients/index.ctp:297 /w2/views/subscribers/index.ctp:67
+#: /w2/views/subscribers/view.ctp142;198 /w2/views/users/index.ctp:33
+msgid "Actions"
+msgstr "Åtgärder"
+
+#: /views/campaigns/index.ctp:36 /views/mails/campaign.ctp:25
+#: /w2/views/campaigns/index.ctp:54 /w2/views/mails/campaign.ctp:30
+msgid "Expired"
+msgstr "Förfallna"
+
+#: /views/campaigns/index.ctp:39 /views/mails/campaign.ctp:28
+#: /w2/views/campaigns/index.ctp:57 /w2/views/mails/campaign.ctp:33
+msgid "Active"
+msgstr "Aktiv"
+
+#: /views/campaigns/index.ctp:42 /views/home/index.ctp:40
+#: /views/mails/campaign.ctp:31 /views/mails/index.ctp:40
+#: /w2/views/campaigns/index.ctp:59 /w2/views/home/index.ctp:77
+#: /w2/views/mails/campaign.ctp:35 /w2/views/mails/index.ctp:73
+msgid "Scheduled"
+msgstr "Schemalagd"
+
+#: /views/campaigns/index.ctp50;52 /views/mails/campaign.ctp50;52
+#: /w2/views/campaigns/index.ctp68;70 /w2/views/mails/campaign.ctp61;63
+msgid "to"
+msgstr "till"
+
+#: /views/campaigns/index.ctp:52 /views/mails/campaign.ctp:52
+#: /w2/views/campaigns/index.ctp:70 /w2/views/mails/campaign.ctp:63
+msgid "an indefinite time"
+msgstr "obestämd tid"
+
+#: /views/campaigns/index.ctp57;57 /w2/views/campaigns/index.ctp75;75
+msgid "View Newsletters"
+msgstr "Visa Nyhetsbrev"
+
+#: /views/campaigns/index.ctp58;58 /views/categories/index.ctp:29
+#: /views/configurations/index.ctp39;39 /views/home/index.ctp60;60;115;115
+#: /views/importtasks/index.ctp28;28 /views/mails/campaign.ctp114;140
+#: /views/mails/index.ctp27;60 /views/subscribers/index.ctp87;87
+#: /views/templates/index.ctp17;17 /views/users/index.ctp31;31
+#: /w2/views/campaigns/index.ctp76;76 /w2/views/categories/index.ctp47;47
+#: /w2/views/configurations/index.ctp65;65 /w2/views/forms/index.ctp51;51
+#: /w2/views/home/index.ctp67;166;166 /w2/views/importtasks/index.ctp46;46
+#: /w2/views/mails/campaign.ctp196;202 /w2/views/mails/index.ctp:61
+#: /w2/views/subscribers/index.ctp99;99 /w2/views/templates/index.ctp51;51
+#: /w2/views/users/index.ctp51;51
+msgid "Edit"
+msgstr "Redigera"
+
+#: /views/campaigns/index.ctp:67 /views/categories/index.ctp:38
+#: /views/configurations/index.ctp:54 /views/forms/index.ctp:37
+#: /views/importtasks/index.ctp:38 /views/mails/campaign.ctp:150
+#: /views/mails/index.ctp:70 /views/recipients/index.ctp:325
+#: /views/subscribers/index.ctp:123 /views/templates/index.ctp:31
+#: /views/users/index.ctp:40
+msgid ""
+"Page %page% of %pages%, showing %current% records out of %count% total, "
+"starting on record %start%, ending on %end%"
+msgstr "Page %page% of %pages%, showing %current% records out of %count% total, starting on record %start%, ending on %end%"
+
+#: /views/campaigns/index.ctp:72 /views/categories/index.ctp:43
+#: /views/configurations/index.ctp:59 /views/forms/index.ctp:42
+#: /views/importtasks/index.ctp:43 /views/mails/campaign.ctp:155
+#: /views/mails/index.ctp:75 /views/recipients/index.ctp:330
+#: /views/subscribers/index.ctp:128 /views/templates/index.ctp:36
+#: /views/users/index.ctp:45 /w2/views/campaigns/index.ctp:83
+#: /w2/views/categories/index.ctp:54 /w2/views/clicktrack/link.ctp:339
+#: /w2/views/clicktrack/recipient.ctp:46 /w2/views/configurations/inbox.ctp:54
+#: /w2/views/configurations/index.ctp:79 /w2/views/forms/index.ctp:62
+#: /w2/views/importtasks/index.ctp:54 /w2/views/mails/campaign.ctp:242
+#: /w2/views/mails/index.ctp:102 /w2/views/recipients/index.ctp:342
+#: /w2/views/subscribers/index.ctp:108 /w2/views/users/index.ctp:58
+msgid "previous"
+msgstr "tidigare"
+
+#: /views/campaigns/index.ctp:75 /views/categories/index.ctp:46
+#: /views/configurations/index.ctp:62 /views/forms/index.ctp:45
+#: /views/importtasks/index.ctp:46 /views/mails/campaign.ctp:158
+#: /views/mails/index.ctp:78 /views/recipients/index.ctp:333
+#: /views/subscribers/index.ctp:131 /views/templates/index.ctp:39
+#: /views/users/index.ctp:48 /w2/views/campaigns/index.ctp:86
+#: /w2/views/categories/index.ctp:57 /w2/views/clicktrack/link.ctp:342
+#: /w2/views/clicktrack/recipient.ctp:49 /w2/views/configurations/inbox.ctp:60
+#: /w2/views/configurations/index.ctp:82 /w2/views/forms/index.ctp:65
+#: /w2/views/importtasks/index.ctp:57 /w2/views/mails/campaign.ctp:245
+#: /w2/views/mails/index.ctp:105 /w2/views/recipients/index.ctp:345
+#: /w2/views/subscribers/index.ctp:111 /w2/views/users/index.ctp:61
+msgid "next"
+msgstr "nästa"
+
+#: /views/categories/add.ctp:3 /w2/views/categories/add.ctp:5
+msgid "Add Category"
+msgstr "Lägg till kategori"
+
+#: /views/categories/edit.ctp:3 /w2/views/categories/edit.ctp:5
+msgid "Edit Category"
+msgstr "Redigera kategori"
+
+#: /views/categories/index.ctp:2 /views/forms/index.ctp:2
+#: /views/home/index.ctp:2 /views/mails/campaign.ctp:92
+#: /views/mails/index.ctp:3 /views/subscribers/index.ctp:4
+#: /views/templates/index.ctp:3 /views/users/index.ctp:2
+msgid "Add"
+msgstr "Lägg till"
+
+#: /views/categories/index.ctp:2 /w2/views/categories/index.ctp:13
+msgid "New Category"
+msgstr "Ny kategori"
+
+#: /views/categories/index.ctp25;25 /w2/views/categories/index.ctp44;44
+msgid "Split in to A/B Category"
+msgstr "Splita till A / B Kategori"
+
+#: /views/categories/index.ctp:27 /views/home/index.ctp114;114
+#: /views/recipients/index.ctp317;317 /views/subscribers/index.ctp86;86
+#: /w2/views/categories/index.ctp45;45
+#: /w2/views/clicktrack/link.ctp330;330;331
+#: /w2/views/configurations/inbox.ctp42;42 /w2/views/forms/index.ctp46;46
+#: /w2/views/home/index.ctp96;165;165 /w2/views/mails/campaign.ctp:234
+#: /w2/views/mails/index.ctp:93 /w2/views/mails/sendstatus.ctp:273
+#: /w2/views/recipients/index.ctp333;333;334
+#: /w2/views/subscribers/index.ctp98;98
+msgid "View"
+msgstr "Visa"
+
+#: /views/categories/index.ctp:27
+msgid "List subscribers in"
+msgstr "Lista prenumeranterna i "
+
+#: /views/categories/index.ctp:29
+msgid "Edit category"
+msgstr "Redigera kategori"
+
+#: /views/categories/index.ctp:30
+msgid "Delete category"
+msgstr "Ta bort kategori"
+
+#: /views/configurations/add.ctp:3 /w2/views/configurations/add.ctp:6
+msgid "Add Configuration"
+msgstr "Lägg till konfiguration"
+
+#: /views/configurations/add.ctp:9 /views/configurations/edit.ctp:10
+#: /w2/views/configurations/add.ctp:19 /w2/views/configurations/edit.ctp:22
+#: /w2/views/configurations/inbox.ctp:18
+msgid "From"
+msgstr "Från"
+
+#: /views/configurations/add.ctp:13 /views/configurations/edit.ctp:14
+#: /w2/views/configurations/add.ctp:23 /w2/views/configurations/edit.ctp:26
+msgid ""
+"You can set the display name by using this tag: Display Name "
+"&lt;email@domain.com&gt;"
+msgstr "Du kan ställa in namnet genom att använda denna tagg: Visningsnamn &lt;email@domain.com&gt;"
+
+#: /views/configurations/add.ctp:16 /views/configurations/edit.ctp:17
+#: /w2/views/configurations/add.ctp:26 /w2/views/configurations/edit.ctp:29
+msgid "Reply To"
+msgstr "Svar till"
+
+#: /views/configurations/add.ctp:18 /views/configurations/edit.ctp:19
+#: /w2/views/configurations/add.ctp:28 /w2/views/configurations/edit.ctp:31
+msgid "Delivery"
+msgstr "Leverans"
+
+#: /views/configurations/add.ctp:22 /views/configurations/edit.ctp:23
+#: /w2/views/configurations/add.ctp:32 /w2/views/configurations/edit.ctp:35
+msgid "SMTP Settings"
+msgstr "SMTP-inställningar"
+
+#: /views/configurations/add.ctp:23 /views/configurations/edit.ctp:24
+#: /views/importtasks/edit1.ctp:31 /w2/views/configurations/add.ctp:33
+#: /w2/views/configurations/edit.ctp:36 /w2/views/importtasks/edit1.ctp:43
+msgid "Host"
+msgstr "Host"
+
+#: /views/configurations/add.ctp:27 /views/configurations/edit.ctp:28
+#: /w2/views/configurations/add.ctp:37 /w2/views/configurations/edit.ctp:40
+msgid "For example ssl://smtp.gmail.com"
+msgstr "Till exempel ssl://smtp.gmail.com"
+
+#: /views/configurations/add.ctp:30 /views/configurations/edit.ctp:31
+#: /w2/views/configurations/add.ctp:40 /w2/views/configurations/edit.ctp:43
+msgid "Port"
+msgstr "Port"
+
+#: /views/configurations/add.ctp:32 /views/configurations/edit.ctp:33
+#: /w2/views/configurations/add.ctp:42 /w2/views/configurations/edit.ctp:45
+msgid "Smtp Auth"
+msgstr "SMTP AUTH"
+
+#: /views/configurations/add.ctp:34 /views/configurations/edit.ctp:35
+#: /views/users/add.ctp:5 /w2/views/configurations/add.ctp:44
+#: /w2/views/configurations/edit.ctp:47 /w2/views/users/add.ctp:11
+msgid "Username"
+msgstr "Användarnamn"
+
+#: /views/configurations/add.ctp:36 /views/configurations/edit.ctp:37
+#: /views/importtasks/edit1.ctp:35 /views/users/add.ctp:6
+#: /w2/views/configurations/add.ctp:46 /w2/views/configurations/edit.ctp:49
+#: /w2/views/importtasks/edit1.ctp:47 /w2/views/users/add.ctp:12
+msgid "Password"
+msgstr "Lösenord"
+
+#: /views/configurations/add.ctp:43 /views/configurations/edit.ctp:44
+#: /w2/views/configurations/add.ctp:53 /w2/views/configurations/edit.ctp:56
+msgid "Aws Access Key"
+msgstr "Aws Access Key"
+
+#: /views/configurations/add.ctp:45 /views/configurations/edit.ctp:46
+#: /w2/views/configurations/add.ctp:55 /w2/views/configurations/edit.ctp:58
+msgid "Aws Secret Key"
+msgstr "Aws Secret Key"
+
+#: /views/configurations/add.ctp:52 /views/configurations/edit.ctp:53
+#: /w2/views/configurations/add.ctp:62 /w2/views/configurations/edit.ctp:65
+msgid "Sendmail Path"
+msgstr "Skicka e-post sökvägen"
+
+#: /views/configurations/add.ctp:56 /views/configurations/edit.ctp:57
+#: /w2/views/configurations/add.ctp:66 /w2/views/configurations/edit.ctp:69
+msgid "Most servers use: /usr/sbin/sendmail -bs"
+msgstr "De flesta servrar använder: /usr/sbin/sendmail -bs"
+
+#: /views/configurations/add.ctp:63 /views/configurations/edit.ctp:64
+#: /w2/views/configurations/add.ctp:73 /w2/views/configurations/edit.ctp:76
+msgid "Mails Per Connection"
+msgstr "E-postmeddelanden per anslutning"
+
+#: /views/configurations/add.ctp:68 /views/configurations/edit.ctp:69
+#: /w2/views/configurations/add.ctp:78 /w2/views/configurations/edit.ctp:81
+msgid "Limits"
+msgstr "Gränser"
+
+#: /views/configurations/add.ctp:68 /views/configurations/edit.ctp:69
+#: /w2/views/configurations/add.ctp:78 /w2/views/configurations/edit.ctp:81
+msgid "mails per"
+msgstr "e-postmeddelanden per"
+
+#: /views/configurations/add.ctp:68 /views/configurations/edit.ctp:69
+#: /w2/views/configurations/add.ctp:78 /w2/views/configurations/edit.ctp:81
+msgid "minutes"
+msgstr "minuter"
+
+#: /views/configurations/add.ctp:70 /views/configurations/edit.ctp:71
+#: /w2/views/configurations/add.ctp:80 /w2/views/configurations/edit.ctp:83
+msgid "Please enter a number"
+msgstr "Ange ett nummer"
+
+#: /views/configurations/add.ctp:72 /views/configurations/edit.ctp:73
+#: /w2/views/configurations/add.ctp:82 /w2/views/configurations/edit.ctp:85
+msgid "Inbox connection"
+msgstr "Inkorgen anslutning"
+
+#: /views/configurations/add.ctp:73 /views/configurations/edit.ctp:74
+#: /w2/views/configurations/add.ctp:83 /w2/views/configurations/edit.ctp:86
+#: /w2/views/configurations/inbox.ctp:8 /w2/views/home/index.ctp:22
+msgid "Inbox"
+msgstr "Inkorgen"
+
+#: /views/configurations/add.ctp:75 /views/configurations/edit.ctp:76
+#: /w2/views/configurations/add.ctp:85 /w2/views/configurations/edit.ctp:88
+msgid "Inbox Host"
+msgstr "Inkorgen värd"
+
+#: /views/configurations/add.ctp:77 /views/configurations/edit.ctp:78
+#: /w2/views/configurations/add.ctp:87 /w2/views/configurations/edit.ctp:90
+msgid "Inbox Port"
+msgstr "Inkorgen Port"
+
+#: /views/configurations/add.ctp:79 /views/configurations/edit.ctp:80
+#: /w2/views/configurations/add.ctp:89 /w2/views/configurations/edit.ctp:92
+msgid "Inbox Service"
+msgstr "Inkorgen Service"
+
+#: /views/configurations/add.ctp:81 /views/configurations/edit.ctp:82
+#: /w2/views/configurations/add.ctp:91 /w2/views/configurations/edit.ctp:94
+msgid "Inbox Settings"
+msgstr "Inkorgs inställningar "
+
+#: /views/configurations/add.ctp:83 /views/configurations/edit.ctp:84
+#: /w2/views/configurations/add.ctp:93 /w2/views/configurations/edit.ctp:96
+msgid "do not use rsh or ssh to establish a preauthenticated IMAP session"
+msgstr "Använd inte rsh eller ssh för att upprätta en pre autentiserade IMAP-session"
+
+#: /views/configurations/add.ctp:84 /views/configurations/edit.ctp:85
+#: /w2/views/configurations/add.ctp:94 /w2/views/configurations/edit.ctp:97
+msgid "use the Secure Socket Layer to encrypt the session"
+msgstr "use the Secure Socket Layer to encrypt the session"
+
+#: /views/configurations/add.ctp:85 /views/configurations/edit.ctp:86
+#: /w2/views/configurations/add.ctp:95 /w2/views/configurations/edit.ctp:98
+msgid ""
+"do not validate certificates from TLS/SSL server, needed if server uses "
+"self-signed certificates"
+msgstr "do not validate certificates from TLS/SSL server, needed if server uses self-signed certificates"
+
+#: /views/configurations/add.ctp:86 /views/configurations/edit.ctp:87
+#: /w2/views/configurations/add.ctp:96 /w2/views/configurations/edit.ctp:99
+msgid ""
+"force use of start-TLS to encrypt the session, and reject connection to "
+"servers that do not support it"
+msgstr "force use of start-TLS to encrypt the session, and reject connection to servers that do not support it"
+
+#: /views/configurations/add.ctp:87 /views/configurations/edit.ctp:88
+#: /w2/views/configurations/add.ctp:97 /w2/views/configurations/edit.ctp:100
+msgid ""
+"do not do start-TLS to encrypt the session, even with servers that support "
+"it"
+msgstr "gör inte start-TLS för att kryptera sessionen, även med servrar som stöder den"
+
+#: /views/configurations/add.ctp:88 /views/configurations/edit.ctp:89
+#: /w2/views/configurations/add.ctp:98 /w2/views/configurations/edit.ctp:101
+msgid ""
+"request read-only mailbox open (IMAP only; ignored on NNTP, and an error "
+"POP3)"
+msgstr "begäran skrivskyddad brevlåda öppen (IMAP bara; ignoreras på NNTP, och ett felmeddelande POP3)"
+
+#: /views/configurations/add.ctp:92 /views/configurations/edit.ctp:93
+#: /w2/views/configurations/add.ctp:102 /w2/views/configurations/edit.ctp:105
+msgid "Mailbox"
+msgstr "Brevlåda"
+
+#: /views/configurations/add.ctp:96 /views/configurations/edit.ctp:97
+#: /w2/views/configurations/add.ctp:106 /w2/views/configurations/edit.ctp:109
+msgid "Mostly empty"
+msgstr "största delen är tomd"
+
+#: /views/configurations/add.ctp:99 /views/configurations/edit.ctp:100
+#: /w2/views/configurations/add.ctp:109 /w2/views/configurations/edit.ctp:112
+msgid "Inbox Username"
+msgstr "Inkorgen Användarnamn"
+
+#: /views/configurations/add.ctp:101 /views/configurations/edit.ctp:102
+#: /w2/views/configurations/add.ctp:111 /w2/views/configurations/edit.ctp:114
+msgid "Inbox Password"
+msgstr "Inkorgen lösenord"
+
+#: /views/configurations/add.ctp:103 /views/configurations/edit.ctp:104
+#: /w2/views/configurations/add.ctp:113 /w2/views/configurations/edit.ctp:116
+msgid "Inbox Wait"
+msgstr "Inkorgen Vänta"
+
+#: /views/configurations/edit.ctp:3 /w2/views/configurations/edit.ctp:6
+msgid "Edit Configuration"
+msgstr "Redigera konfiguration"
+
+#: /views/configurations/index.ctp4;6 /views/home/index.ctp3;4;5
+#: /views/importtasks/index.ctp2;3 /views/mails/campaign.ctp9;11
+#: /views/mails/index.ctp:4 /views/mails/sendstatus.ctp:26
+#: /views/recipients/index.ctp:244 /views/subscribers/cleanup.ctp3;4
+#: /w2/views/subscribers/cleanup.ctp:12
+msgid "conf"
+msgstr "conf"
+
+#: /views/configurations/index.ctp:4 /w2/views/configurations/index.ctp:17
+msgid "New Configuration"
+msgstr "Ny konfiguration"
+
+#: /views/configurations/index.ctp:6 /w2/views/configurations/index.ctp:20
+msgid "Look for bounce mails on all servers"
+msgstr "Leta efter ej levererade epostmeddelanden på alla servrar"
+
+#: /views/configurations/index.ctp:9 /views/layouts/default.ctp:100
+#: /w2/views/configurations/index.ctp:6
+msgid "Configurations"
+msgstr "Konfigurationer"
+
+#: /views/configurations/index.ctp:12 /w2/views/configurations/index.ctp:30
+msgid "OUT"
+msgstr "UT"
+
+#: /views/configurations/index.ctp:13 /w2/views/configurations/index.ctp:31
+msgid "IN"
+msgstr "IN"
+
+#: /views/configurations/index.ctp30;31;31
+#: /w2/views/configurations/index.ctp49;54;54
+msgid "Wait"
+msgstr "Vänta"
+
+#: /views/configurations/index.ctp:30 /w2/views/configurations/index.ctp:49
+msgid "You can send %s Mails in the next"
+msgstr "Du kan skicka %s e-post i nästa"
+
+#: /views/configurations/index.ctp30;31 /views/mails/campaign.ctp124;127
+#: /w2/views/configurations/index.ctp51;56 /w2/views/mails/campaign.ctp218;220
+msgid "Ready"
+msgstr "Redo"
+
+#: /views/configurations/index.ctp43;43
+#: /w2/views/configurations/index.ctp67;67
+msgid "Unblock"
+msgstr "Avblockera"
+
+#: /views/configurations/index.ctp:43
+msgid "Are you sure you want to unblock # %s?"
+msgstr "Är du säker på att du vill häva blockeringen # %s?"
+
+#: /views/configurations/index.ctp:45
+msgid "Test"
+msgstr "Test"
+
+#: /views/configurations/index.ctp:45
+#: /w2/views/configurations/index.ctp70;70;72
+msgid "Test settings"
+msgstr "Testa inställningar"
+
+#: /views/configurations/index.ctp:46
+msgid "Check bounce"
+msgstr "Kontrollera ej levererade epostmeddelanden "
+
+#: /views/configurations/index.ctp:46
+msgid "Look for bounce mails on"
+msgstr "Leta efter ej levererade epostmeddelanden på"
+
+#: /views/errors/error404.ctp:22 /views/errors/error500.ctp:22
+#: /views/forms/edit.ctp:66 /w2/views/errors/error404.ctp:22
+#: /w2/views/errors/error500.ctp:22 /w2/views/forms/edit.ctp:78
+msgid "Error"
+msgstr "Fel"
+
+#: /views/errors/error404.ctp:23 /w2/views/errors/error404.ctp:23
+msgid "The requested address %s was not found on this server."
+msgstr "Den begärda adressen %s hittades inte på servern."
+
+#: /views/errors/error500.ctp:23 /w2/views/errors/error500.ctp:23
+msgid "An Internal Error Has Occurred."
+msgstr "Ett internt fel har uppstått."
+
+#: /views/filemanager/index.ctp23;57 /views/forms/edit.ctp:123
+#: /views/forms/editm.ctp:41 /views/mails/step3.ctp177;201;227;251
+#: /views/templates/add.ctp:59 /views/templates/edit.ctp:62
+#: /w2/views/configurations/mail.ctp:47 /w2/views/filemanager/index.ctp23;57
+#: /w2/views/forms/edit.ctp:135 /w2/views/forms/editm.ctp:50
+#: /w2/views/mails/step3.ctp214;239;267;292 /w2/views/templates/add.ctp:72
+#: /w2/views/templates/edit.ctp:78
+msgid "en"
+msgstr "sv"
+
+#: /views/forms/add.ctp:3 /w2/views/forms/add.ctp:6
+msgid "Add Form"
+msgstr "Lägg till formulär"
+
+#: /views/forms/edit.ctp:3 /w2/views/forms/edit.ctp:6
+msgid "Edit Form"
+msgstr "Redigera formulär"
+
+#: /views/forms/edit.ctp:7 /views/importtasks/edit3.ctp:17
+#: /views/subscribers/import2.ctp:18 /w2/views/forms/edit.ctp:19
+#: /w2/views/importtasks/edit3.ctp:28 /w2/views/subscribers/import2.ctp:30
+msgid "Subscription Form"
+msgstr "Prenumerations formulär"
+
+#: /views/forms/edit.ctp:10 /w2/views/forms/edit.ctp:22
+msgid "E-Mail"
+msgstr "E-post"
+
+#: /views/forms/edit.ctp:11 /w2/views/forms/edit.ctp:23
+msgid "E-mail Label"
+msgstr "E-post etikett"
+
+#: /views/forms/edit.ctp:14 /w2/views/forms/edit.ctp:26
+msgid "E-mail Exist"
+msgstr "E-posten finns redan"
+
+#: /views/forms/edit.ctp:15 /w2/views/forms/edit.ctp:27
+msgid "You have already subscribed this newsletter"
+msgstr "Du har redan prenumererat på nyhetsbrevet"
+
+#: /views/forms/edit.ctp:17 /w2/views/forms/edit.ctp:29
+msgid "Update Subscriptions"
+msgstr "Uppdatera prenumerationer"
+
+#: /views/forms/edit.ctp:19 /w2/views/forms/edit.ctp:31
+msgid "Update Informations"
+msgstr "Uppdatera Information"
+
+#: /views/forms/edit.ctp:21 /w2/views/forms/edit.ctp:33
+msgid "E-mail Error"
+msgstr "E-post Fel"
+
+#: /views/forms/edit.ctp:24 /w2/views/forms/edit.ctp:36
+msgid "First Name Label"
+msgstr "Förnamn Etikett"
+
+#: /views/forms/edit.ctp:26 /w2/views/forms/edit.ctp:38
+msgid "First Name Error"
+msgstr "Förnamn Fel"
+
+#: /views/forms/edit.ctp:28 /w2/views/forms/edit.ctp:40
+msgid "First Name Required"
+msgstr "Förnamn Obligatoriskt"
+
+#: /views/forms/edit.ctp:31 /w2/views/forms/edit.ctp:43
+msgid "Last Name Label"
+msgstr "Efternamn etikett"
+
+#: /views/forms/edit.ctp:33 /w2/views/forms/edit.ctp:45
+msgid "Last Name Error"
+msgstr "Efternamn Fel"
+
+#: /views/forms/edit.ctp:35 /w2/views/forms/edit.ctp:47
+msgid "Last Name Required"
+msgstr "Efternamn Obligatoriskt"
+
+#: /views/forms/edit.ctp:38 /w2/views/forms/edit.ctp:50
+msgid "Captcha"
+msgstr "Captcha"
+
+#: /views/forms/edit.ctp:39 /w2/views/forms/edit.ctp:51
+msgid "Captcha Label"
+msgstr "Captcha Label"
+
+#: /views/forms/edit.ctp:41 /w2/views/forms/edit.ctp:53
+msgid "Captcha Error"
+msgstr "Captcha fel"
+
+#: /views/forms/edit.ctp:42 /w2/views/forms/edit.ctp:54
+msgid "Please solve this captcha"
+msgstr "Vänligen lösa detta captcha"
+
+#: /views/forms/edit.ctp:43 /w2/views/forms/edit.ctp:55
+msgid "Captcha Show"
+msgstr "Visa captcha "
+
+#: /views/forms/edit.ctp:46 /w2/views/forms/edit.ctp:58
+msgid "Required Checkbox"
+msgstr "Kryssrutan är obligatorisk "
+
+#: /views/forms/edit.ctp:47 /w2/views/forms/edit.ctp:59
+msgid "Checkbox Label"
+msgstr "Kryssrutan etikett"
+
+#: /views/forms/edit.ctp:48 /w2/views/forms/edit.ctp:60
+msgid "I accept the Terms of Service"
+msgstr "Jag godkänner användarvillkoren"
+
+#: /views/forms/edit.ctp:49 /w2/views/forms/edit.ctp:61
+msgid "Checkbox Error"
+msgstr "Kryssruta Fel"
+
+#: /views/forms/edit.ctp:50 /w2/views/forms/edit.ctp:62
+msgid "Please check this checkbox"
+msgstr "Vänligen kontrollera kryssrutan"
+
+#: /views/forms/edit.ctp:51 /w2/views/forms/edit.ctp:63
+msgid "Checkbox Show"
+msgstr "Kryssrutan Visa"
+
+#: /views/forms/edit.ctp:59 /w2/views/forms/edit.ctp:71
+msgid "Label"
+msgstr "Etikett"
+
+#: /views/forms/edit.ctp:60 /w2/views/forms/edit.ctp:72
+msgid "Options"
+msgstr "Alternativ"
+
+#: /views/forms/edit.ctp:63 /w2/views/forms/edit.ctp:75
+msgid "Seperate options using a semicolon: Option 1;Option 2"
+msgstr "Seperate options using a semicolon: Option 1;Option 2"
+
+#: /views/forms/edit.ctp:68 /w2/views/forms/edit.ctp:80
+msgid "Required"
+msgstr "Obligatorisk"
+
+#: /views/forms/edit.ctp:69 /w2/views/forms/edit.ctp:81
+msgid "in Top"
+msgstr "i Top"
+
+#: /views/forms/edit.ctp:76 /w2/views/forms/edit.ctp:88
+msgid "Categories Label"
+msgstr "Kategorier etikett"
+
+#: /views/forms/edit.ctp:78 /w2/views/forms/edit.ctp:90
+msgid "Categories Error"
+msgstr "Kategorier Fel"
+
+#: /views/forms/edit.ctp:80 /w2/views/forms/edit.ctp:92
+msgid "User Can Choose"
+msgstr "Användaren kan välja"
+
+#: /views/forms/edit.ctp:83 /w2/views/forms/edit.ctp:95
+msgid "Add to this categories"
+msgstr "Lägg till denna kategori"
+
+#: /views/forms/edit.ctp:85 /w2/views/forms/edit.ctp:97
+msgid "Submit Button"
+msgstr "Skicka-knappen"
+
+#: /views/forms/edit.ctp:87 /w2/views/forms/edit.ctp:99
+msgid "Thanks"
+msgstr "Tack"
+
+#: /views/forms/edit.ctp:88 /w2/views/forms/edit.ctp:100
+msgid "Thanks Page Url"
+msgstr "Tack sida URL"
+
+#: /views/forms/edit.ctp:90 /w2/views/forms/edit.ctp:102
+msgid "Thanks Title"
+msgstr "Tack Titel"
+
+#: /views/forms/edit.ctp:92 /w2/views/forms/edit.ctp:104
+msgid "Thanks Text"
+msgstr "Tack Text"
+
+#: /views/forms/edit.ctp:94 /w2/views/forms/edit.ctp:106
+msgid "Message if subscriber needs to confirm subscription"
+msgstr "Meddelande om prenumeranterna behöver bekräfta prenumerationen"
+
+#: /views/forms/edit.ctp:95 /w2/views/forms/edit.ctp:107
+msgid "Confirm Page Url"
+msgstr "Bekräfta URL"
+
+#: /views/forms/edit.ctp:97 /w2/views/forms/edit.ctp:109
+msgid "Confirm Title"
+msgstr "Bekräfta Titel"
+
+#: /views/forms/edit.ctp:99 /w2/views/forms/edit.ctp:111
+msgid "Confirm Text"
+msgstr "Bekräfta Text"
+
+#: /views/forms/edit.ctp:101 /views/subscribers/index.ctp:105
+#: /w2/views/forms/edit.ctp:113 /w2/views/subscribers/index.ctp:124
+msgid "Unsubscribe"
+msgstr "Avsluta prenumeration"
+
+#: /views/forms/edit.ctp:102 /w2/views/forms/edit.ctp:114
+msgid "Unsubscribe Page Url"
+msgstr "Avanmälan URL"
+
+#: /views/forms/edit.ctp:104 /w2/views/forms/edit.ctp:116
+msgid "Unsubscribe Title"
+msgstr "Avanmälan Titel"
+
+#: /views/forms/edit.ctp:106 /w2/views/forms/edit.ctp:118
+msgid "Unsubscribe Text"
+msgstr "Avanmälan Text"
+
+#: /views/forms/editm.ctp:4 /w2/views/forms/editm.ctp:5
+msgid "Edit Mails related to Form"
+msgstr "Redigera e-posts relaterade till formulär "
+
+#: /views/forms/editm.ctp:9 /views/mails/step1.ctp:39
+#: /w2/views/forms/editm.ctp:18 /w2/views/mails/step1.ctp:63
+msgid "Configuration"
+msgstr "Konfiguration"
+
+#: /views/forms/editm.ctp:12 /w2/views/forms/editm.ctp:21
+msgid "Confirm subscriber"
+msgstr "Bekräfta prenumeranten"
+
+#: /views/forms/editm.ctp:13 /w2/views/forms/editm.ctp:22
+msgid "Title"
+msgstr "Titel"
+
+#: /views/forms/editm.ctp:14 /views/templates/view.ctp:14
+#: /w2/views/forms/editm.ctp:23 /w2/views/mails/step1.ctp:7
+#: /w2/views/mails/step2.ctp:8 /w2/views/mails/step3.ctp:45
+#: /w2/views/mails/step4.ctp:7 /w2/views/mails/step5.ctp:7
+#: /w2/views/templates/view.ctp:14
+msgid "Content"
+msgstr "Innehåll"
+
+#: /views/forms/editm.ctp:21 /w2/views/forms/editm.ctp:30
+msgid "New Subscription Notify Mail"
+msgstr "Ny prenumeration Meddela e-post"
+
+#: /views/forms/editm.ctp:22 /w2/views/forms/editm.ctp:31
+msgid "Send mail notification"
+msgstr "Skicka e-post meddelande"
+
+#: /views/forms/editm.ctp:23 /w2/views/forms/editm.ctp:32
+msgid "Notify Addresse"
+msgstr "Meddela adressen"
+
+#: /views/forms/index.ctp:2 /w2/views/forms/index.ctp:14
+msgid "New Form"
+msgstr "New formulär"
+
+#: /views/forms/index.ctp:2 /w2/views/forms/index.ctp:6
+msgid "Forms"
+msgstr "Formulär"
+
+#: /views/forms/index.ctp23;23 /w2/views/forms/index.ctp44;44
+msgid "Copy link"
+msgstr "Kopiera länken"
+
+#: /views/forms/index.ctp24;24
+msgid "Preview form"
+msgstr "Förhandsgranska formulär"
+
+#: /views/forms/index.ctp25;25 /w2/views/forms/index.ctp48;48
+msgid "Preview unsubscribe"
+msgstr "Förhandsgranska av registrerade prenumeranter "
+
+#: /views/forms/index.ctp26;26
+msgid "Edit form"
+msgstr "Redigera formulär"
+
+#: /views/forms/index.ctp27;27 /w2/views/forms/index.ctp52;52
+msgid "Edit mails"
+msgstr "Redigera e-post"
+
+#: /views/forms/index.ctp:55 /w2/views/forms/index.ctp:75
+msgid "Standalon form"
+msgstr "Standalon formulär"
+
+#: /views/forms/index.ctp:59 /w2/views/forms/index.ctp:79
+msgid "Inframe form"
+msgstr "Inframe form"
+
+#: /views/forms/sendtof.ctp:2 /w2/views/forms/sendtof.ctp:2
+msgid "Send to friend"
+msgstr "Skicka till en vän"
+
+#: /views/forms/sendtof.ctp:8 /w2/views/forms/sendtof.ctp:8
+msgid "Your Name"
+msgstr "Ditt namn"
+
+#: /views/forms/sendtof.ctp:9 /w2/views/forms/sendtof.ctp:9
+msgid "Your Mail"
+msgstr "Din e-post"
+
+#: /views/forms/sendtof.ctp:10 /w2/views/forms/sendtof.ctp:10
+msgid "Friend's Name"
+msgstr "Din väns namn"
+
+#: /views/forms/sendtof.ctp:11 /w2/views/forms/sendtof.ctp:11
+msgid "Friend's Mail"
+msgstr "Väns e-post"
+
+#: /views/forms/sendtof.ctp:12 /w2/views/forms/sendtof.ctp:12
+msgid "Message"
+msgstr "Meddelande"
+
+#: /views/forms/sendtof.ctp:12 /w2/views/forms/sendtof.ctp:12
+msgid "I thought you'd like this newsletter"
+msgstr "Jag trodde att du skulle gilla detta nyhetsbrev"
+
+#: /views/forms/sendtof.ctp:13 /views/mails/campaign.ctp:98
+#: /views/mails/sendstatus.ctp80;83;87 /views/mails/step1.ctp:50
+#: /w2/views/configurations/mail.ctp:35 /w2/views/forms/sendtof.ctp:13
+#: /w2/views/mails/campaign.ctp:180 /w2/views/mails/step1.ctp:74
+msgid "Send"
+msgstr "Skicka"
+
+#: /views/forms/sendtof.ctp:15 /w2/views/forms/sendtof.ctp:15
+msgid "Thank you for forwarding this newsletter."
+msgstr "Tack för att vidarebefordra detta nyhetsbrev."
+
+#: /views/forms/sendtof.ctp:17 /w2/views/forms/sendtof.ctp:17
+msgid "Oops! something went wrong!!"
+msgstr "Oops! något gick fel!"
+
+#: /views/helpers/form.php367;1309 /w2/views/helpers/form.php367;1309
+msgid "Submit"
+msgstr "Skicka"
+
+#: /views/helpers/form.php:513 /w2/views/helpers/form.php:513
+msgid "Error in field %s"
+msgstr "Fel i fältet %s"
+
+#: /views/helpers/form.php:630 /w2/views/helpers/form.php:630
+msgid "New %s"
+msgstr "Ny %s"
+
+#: /views/helpers/form.php:636 /w2/views/helpers/form.php:636
+msgid "Edit %s"
+msgstr "Redigera %s"
+
+#: /views/helpers/form.php:2121 /w2/views/helpers/form.php:2121
+msgid "January"
+msgstr "Januari"
+
+#: /views/helpers/form.php:2122 /w2/views/helpers/form.php:2122
+msgid "February"
+msgstr "Februari"
+
+#: /views/helpers/form.php:2123 /w2/views/helpers/form.php:2123
+msgid "March"
+msgstr "Mars"
+
+#: /views/helpers/form.php:2124 /w2/views/helpers/form.php:2124
+msgid "April"
+msgstr "April"
+
+#: /views/helpers/form.php:2125 /w2/views/helpers/form.php:2125
+msgid "May"
+msgstr "Maj"
+
+#: /views/helpers/form.php:2126 /w2/views/helpers/form.php:2126
+msgid "June"
+msgstr "Juni"
+
+#: /views/helpers/form.php:2127 /w2/views/helpers/form.php:2127
+msgid "July"
+msgstr "Juli"
+
+#: /views/helpers/form.php:2128 /w2/views/helpers/form.php:2128
+msgid "August"
+msgstr "Augusti"
+
+#: /views/helpers/form.php:2129 /w2/views/helpers/form.php:2129
+msgid "September"
+msgstr "September"
+
+#: /views/helpers/form.php:2130 /w2/views/helpers/form.php:2130
+msgid "October"
+msgstr "Oktober"
+
+#: /views/helpers/form.php:2131 /w2/views/helpers/form.php:2131
+msgid "November"
+msgstr "November"
+
+#: /views/helpers/form.php:2132 /w2/views/helpers/form.php:2132
+msgid "December"
+msgstr "December"
+
+#: /views/home/index.ctp:1 /w2/views/home/index.ctp:4
+#: /w2/views/mails/index.ctp:4 /w2/views/mails/sendstatus.ctp:181
+msgid "Common Tasks"
+msgstr "Allmänna jobb/processer "
+
+#: /views/home/index.ctp:2
+msgid "Create a new newsletter"
+msgstr "Skapa ett nytt nyhetsbrev"
+
+#: /views/home/index.ctp:4 /w2/views/configurations/index.ctp71;71
+msgid "Look for bounce mails"
+msgstr "Leta efter ej levererade epostmeddelanden "
+
+#: /views/home/index.ctp:5
+msgid "Run all import tasks"
+msgstr "Kör alla importeringssteg"
+
+#: /views/home/index.ctp:9 /w2/views/home/index.ctp:29
+msgid "Last 5 Newsletter"
+msgstr "Senast 5 Nyhetsbrev"
+
+#: /views/home/index.ctp:14 /views/mails/campaign.ctp:96
+#: /views/subscribers/view.ctp131;179 /w2/views/configurations/inbox.ctp:20
+#: /w2/views/home/index.ctp:49 /w2/views/mails/campaign.ctp:178
+#: /w2/views/subscribers/view.ctp137;194
+msgid "Subject"
+msgstr "Ämne"
+
+#: /views/home/index.ctp:16 /w2/views/home/index.ctp:51
+msgid "Modified"
+msgstr "Ändrad"
+
+#: /views/home/index.ctp:37 /views/mails/campaign.ctp:121
+#: /views/mails/index.ctp:37 /w2/views/home/index.ctp:74
+#: /w2/views/mails/campaign.ctp:215 /w2/views/mails/index.ctp:70
+msgid "Draft"
+msgstr "Utkast"
+
+#: /views/home/index.ctp:42 /views/mails/index.ctp:42
+#: /w2/views/home/index.ctp:79 /w2/views/mails/index.ctp:75
+msgid "Sending"
+msgstr "Sändning"
+
+#: /views/home/index.ctp:45 /views/mails/campaign.ctp:40
+#: /views/mails/index.ctp:45 /views/mails/sendstatus.ctp:32
+#: /views/subscribers/view.ctp133;149;181 /w2/views/home/index.ctp:82
+#: /w2/views/mails/campaign.ctp:126 /w2/views/mails/index.ctp:78
+#: /w2/views/mails/sendstatus.ctp148;332
+#: /w2/views/subscribers/view.ctp139;155;196
+msgid "Sent"
+msgstr "Skickat"
+
+#: /views/home/index.ctp:47 /views/mails/index.ctp:47
+#: /w2/views/home/index.ctp:84 /w2/views/mails/campaign.ctp:222
+#: /w2/views/mails/index.ctp:80
+msgid "Stopped"
+msgstr "Stoppad"
+
+#: /views/home/index.ctp59;59 /views/mails/campaign.ctp139;139
+#: /views/mails/index.ctp59;59 /views/subscribers/view.ctp164;199
+#: /views/templates/index.ctp15;15 /views/templates/view.ctp:24
+#: /w2/views/home/index.ctp:96 /w2/views/mails/campaign.ctp:234
+#: /w2/views/mails/index.ctp:93 /w2/views/subscribers/view.ctp170;214
+#: /w2/views/templates/index.ctp49;49 /w2/views/templates/view.ctp:24
+msgid "Preview"
+msgstr "Förhandsgranskning"
+
+#: /views/home/index.ctp61;61 /views/mails/campaign.ctp141;141
+#: /views/mails/index.ctp61;61
+msgid "Duplicate"
+msgstr "Duplicera"
+
+#: /views/home/index.ctp:61 /views/mails/campaign.ctp:141
+#: /views/mails/index.ctp:61 /views/mails/sendstatus.ctp:92
+msgid "Are you sure you want to duplicate # %s?"
+msgstr "Är du säker på att du vill duplicera # %s?"
+
+#: /views/home/index.ctp:74 /w2/views/home/index.ctp:33
+msgid "See all newsletter"
+msgstr "Se alla nyhetsbrev"
+
+#: /views/home/index.ctp:79 /w2/views/home/index.ctp:114
+msgid "Last 5 Subscribers"
+msgstr "Senast 5 prenumeranter"
+
+#: /views/home/index.ctp:87 /views/subscribers/index.ctp39;54
+#: /views/subscribers/view.ctp:47 /w2/views/home/index.ctp:136
+#: /w2/views/subscribers/index.ctp65;150 /w2/views/subscribers/view.ctp:49
+msgid "Subscribed"
+msgstr "Prenumeranter"
+
+#: /views/home/index.ctp:128 /w2/views/home/index.ctp:118
+msgid "See all subscribers"
+msgstr "Se alla prenumeranter"
+
+#: /views/home/index.ctp:132 /w2/views/home/index.ctp:184
+msgid "Cron Jobs"
+msgstr "Cron Jobs"
+
+#: /views/home/index.ctp:133 /w2/views/home/index.ctp:194
+msgid "Bounce mail check command:"
+msgstr "Bounce mail check command:"
+
+#: /views/home/index.ctp:135 /w2/views/home/index.ctp:196
+msgid "Send mails command:"
+msgstr "Send mails command:"
+
+#: /views/home/index.ctp:137
+msgid "Clean up failed subscribers:"
+msgstr ""
+
+#: /views/home/index.ctp:139
+msgid "Clean up inactive subscribers:"
+msgstr ""
+
+#: /views/home/index.ctp:144 /w2/views/home/index.ctp:204
+msgid "Api"
+msgstr "Api"
+
+#: /views/home/index.ctp:145 /w2/views/home/index.ctp:222
+msgid "API Key:"
+msgstr "API-nyckel:"
+
+#: /views/home/index.ctp:154 /w2/views/home/index.ctp:209
+msgid "Show code"
+msgstr "Visa koden"
+
+#: /views/home/index.ctp:154 /w2/views/home/index.ctp:211
+msgid "Download API"
+msgstr "Tanka ner API"
+
+#: /views/home/index.ctp:156 /w2/views/home/index.ctp:233
+msgid "Sample Code:"
+msgstr "Exempel på kod:"
+
+#: /views/images/index.ctp:33 /w2/views/images/index.ctp:33
+msgid "Upload image"
+msgstr "Ladda upp bild"
+
+#: /views/images/index.ctp:41 /w2/views/images/index.ctp:41
+msgid "Image Url"
+msgstr "Bild-URL"
+
+#: /views/images/index.ctp:43 /views/subscribers/import.ctp:21
+#: /views/subscribers/import2.ctp:56 /w2/views/images/index.ctp:43
+#: /w2/views/subscribers/import.ctp:32 /w2/views/subscribers/import2.ctp:68
+msgid "Upload"
+msgstr "Ladda upp"
+
+#: /views/importtasks/add.ctp:3 /w2/views/importtasks/add.ctp:15
+msgid "Add Import Task"
+msgstr "Lägg Importera uppgift"
+
+#: /views/importtasks/add.ctp:5 /views/importtasks/edit.ctp:7
+#: /views/importtasks/edit1.ctp:6 /views/importtasks/edit2.ctp:6
+#: /views/importtasks/edit3.ctp:6 /views/mails/step1.ctp:7
+#: /views/mails/step2.ctp:3 /views/mails/step3.ctp:30 /views/mails/step4.ctp:3
+#: /views/mails/step5.ctp:3
+msgid "Step 1: Base Settings"
+msgstr "Steg1: Bas inställningar"
+
+#: /views/importtasks/add.ctp:6 /views/importtasks/edit.ctp:8
+#: /views/importtasks/edit1.ctp:7 /views/importtasks/edit2.ctp:7
+#: /views/importtasks/edit3.ctp:7
+msgid "Step 2: Connection to DB"
+msgstr "Steg 2: Anslutning till DB"
+
+#: /views/importtasks/add.ctp:6 /views/importtasks/edit.ctp:8
+#: /views/importtasks/edit1.ctp:7 /views/importtasks/edit2.ctp:7
+#: /views/importtasks/edit3.ctp:7
+msgid "Server Host and Port"
+msgstr "Server Host och Port"
+
+#: /views/importtasks/add.ctp:6 /views/importtasks/edit.ctp:8
+#: /views/importtasks/edit1.ctp:7 /views/importtasks/edit2.ctp:7
+#: /views/importtasks/edit3.ctp:7
+msgid "User/Password"
+msgstr "Användare / Lösenord"
+
+#: /views/importtasks/add.ctp:7 /views/importtasks/edit.ctp:9
+#: /views/importtasks/edit1.ctp:8 /views/importtasks/edit2.ctp:8
+#: /views/importtasks/edit3.ctp:8
+msgid "Step 3: Query"
+msgstr "Step 3: Query"
+
+#: /views/importtasks/add.ctp:7 /views/importtasks/edit.ctp:9
+#: /views/importtasks/edit1.ctp:8 /views/importtasks/edit2.ctp:8
+#: /views/importtasks/edit3.ctp:8
+msgid "Enter SQL Query"
+msgstr "Enter SQL Query"
+
+#: /views/importtasks/add.ctp:9 /views/importtasks/edit.ctp:11
+#: /views/importtasks/edit1.ctp:10 /views/importtasks/edit2.ctp:10
+#: /views/importtasks/edit3.ctp:10
+msgid "Step 4: Settings"
+msgstr "Steg 4: Inställningar"
+
+#: /views/importtasks/add.ctp:9 /views/importtasks/edit.ctp:11
+#: /views/importtasks/edit1.ctp:10 /views/importtasks/edit2.ctp:10
+#: /views/importtasks/edit3.ctp:10
+msgid "See Results"
+msgstr "Se resultat"
+
+#: /views/importtasks/add.ctp:9 /views/importtasks/edit.ctp:11
+#: /views/importtasks/edit1.ctp:10 /views/importtasks/edit2.ctp:10
+#: /views/importtasks/edit3.ctp:10
+msgid "Select Categories"
+msgstr "Välj Kategorier"
+
+#: /views/importtasks/add.ctp:14 /views/importtasks/edit.ctp:18
+#: /views/importtasks/edit1.ctp41;43 /views/importtasks/edit2.ctp15;16
+#: /views/mails/step1.ctp:55 /views/mails/step2.ctp50;51
+#: /views/mails/step3.ctp144;145 /views/mails/step4.ctp:21
+#: /w2/views/importtasks/add.ctp:24 /w2/views/importtasks/edit.ctp:29
+#: /w2/views/importtasks/edit1.ctp53;55 /w2/views/importtasks/edit2.ctp26;27
+#: /w2/views/mails/step1.ctp:79 /w2/views/mails/step2.ctp101;102
+#: /w2/views/mails/step3.ctp181;182 /w2/views/mails/step4.ctp:60
+msgid "Next"
+msgstr "Nästa"
+
+#: /views/importtasks/edit.ctp:5 /w2/views/importtasks/edit.ctp:15
+msgid "Edit Import Task"
+msgstr "Redigera Importerade Task"
+
+#: /views/importtasks/edit1.ctp:33 /w2/views/importtasks/edit1.ctp:45
+msgid "User / Login"
+msgstr "Användare / Logga in"
+
+#: /views/importtasks/edit1.ctp:39 /w2/views/importtasks/edit1.ctp:51
+msgid "Port (leave blank if unknown)"
+msgstr "Port (lämna tomt om det är okänd)"
+
+#: /views/importtasks/edit1.ctp:43 /views/importtasks/edit2.ctp:16
+#: /views/importtasks/edit3.ctp:58 /views/mails/sendstatus.ctp:28
+#: /views/mails/step2.ctp:51 /views/mails/step3.ctp:145
+#: /views/mails/step4.ctp:21 /views/recipients/export.ctp:1
+#: /views/recipients/index.ctp:246 /w2/views/clicktrack/link.ctp:254
+#: /w2/views/clicktrack/recipient.ctp:10 /w2/views/importtasks/edit1.ctp:55
+#: /w2/views/importtasks/edit2.ctp:27 /w2/views/importtasks/edit3.ctp:69
+#: /w2/views/mails/step2.ctp:102 /w2/views/mails/step3.ctp:182
+#: /w2/views/mails/step4.ctp:60 /w2/views/recipients/export.ctp:9
+#: /w2/views/recipients/index.ctp:254
+msgid "Back"
+msgstr "Tillbaka"
+
+#: /views/importtasks/edit2.ctp:13 /w2/views/importtasks/add.ctp:7
+#: /w2/views/importtasks/edit.ctp:7 /w2/views/importtasks/edit1.ctp:7
+#: /w2/views/importtasks/edit2.ctp7;24 /w2/views/importtasks/edit3.ctp:7
+msgid "Query"
+msgstr "Query"
+
+#: /views/importtasks/edit3.ctp:15 /views/subscribers/import2.ctp:20
+#: /w2/views/importtasks/edit3.ctp:26 /w2/views/subscribers/import2.ctp:32
+msgid "Ignore"
+msgstr "Ignorera"
+
+#: /views/importtasks/edit3.ctp:15 /views/subscribers/import2.ctp:20
+#: /w2/views/importtasks/edit3.ctp:26 /w2/views/subscribers/import2.ctp:32
+msgid "Update categories"
+msgstr "Uppdatera kategorier"
+
+#: /views/importtasks/edit3.ctp:15 /views/subscribers/import2.ctp:20
+#: /w2/views/importtasks/edit3.ctp:26 /w2/views/subscribers/import2.ctp:32
+msgid "Overwrite categories"
+msgstr "Skriv över kategorier"
+
+#: /views/importtasks/edit3.ctp:15 /views/subscribers/import2.ctp:20
+#: /w2/views/importtasks/edit3.ctp:26 /w2/views/subscribers/import2.ctp:32
+msgid "Existing subscribers"
+msgstr "Befintliga prenumeranter"
+
+#: /views/importtasks/edit3.ctp:18 /views/subscribers/import2.ctp:22
+#: /w2/views/importtasks/edit3.ctp:29 /w2/views/subscribers/import2.ctp:34
+msgid "Resubscribe"
+msgstr "Prenumerera om"
+
+#: /views/importtasks/edit3.ctp:23 /views/subscribers/import2.ctp:26
+#: /w2/views/importtasks/edit3.ctp:34 /w2/views/subscribers/import2.ctp:38
+msgid "Data"
+msgstr "Data"
+
+#: /views/importtasks/edit3.ctp:55 /w2/views/importtasks/edit3.ctp:66
+msgid "NO DATA"
+msgstr "Inga data"
+
+#: /views/importtasks/edit3.ctp56;58 /w2/views/importtasks/edit3.ctp67;69
+msgid "Save Task"
+msgstr "Spara Task"
+
+#: /views/importtasks/importjob.ctp:1 /w2/views/importtasks/importjob.ctp:5
+msgid "Run Import Task"
+msgstr "Kör Importera uppgift"
+
+#: /views/importtasks/importjob.ctp:2 /views/subscribers/cleanup.ctp:6
+#: /w2/views/importtasks/importjob.ctp:12 /w2/views/subscribers/cleanup.ctp:14
+msgid "Live ticker"
+msgstr "Live ticker"
+
+#: /views/importtasks/index.ctp:2 /w2/views/importtasks/index.ctp:14
+msgid "New Import Task"
+msgstr "Nya Importerade uppgifter"
+
+#: /views/importtasks/index.ctp:3 /w2/views/importtasks/index.ctp:15
+msgid "Run All Tasks"
+msgstr "Kör Alla aktiviteter"
+
+#: /views/importtasks/index.ctp:4 /w2/views/importtasks/index.ctp:6
+msgid "Import Tasks"
+msgstr "Importera uppgifter"
+
+#: /views/importtasks/index.ctp30;30 /w2/views/importtasks/index.ctp48;48
+msgid "Run Task"
+msgstr "Kör Aktivitetshanteraren"
+
+#: /views/layouts/default.ctp:26
+msgid "Newsletter Mailer"
+msgstr "Nyhetsbrev Mailer"
+
+#: /views/layouts/default.ctp:26
+msgid "Home"
+msgstr ""
+
+#: /views/layouts/default.ctp85;85 /views/settings/index.ctp:21
+#: /w2/views/layouts/default.ctp:161 /w2/views/settings/index.ctp:32
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: /views/layouts/default.ctp90;175 /views/mails/sendstatus.ctp:29
+#: /w2/views/mails/sendstatus.ctp:65
+msgid "Newsletter"
+msgstr "Nyhetsbrev"
+
+#: /views/layouts/default.ctp90;175 /views/mails/campaign.ctp:91
+#: /views/mails/index.ctp:5 /w2/views/layouts/default.ctp165;220
+#: /w2/views/mails/campaign.ctp:160 /w2/views/mails/index.ctp:25
+msgid "Newsletters"
+msgstr "Nyhetsbrev"
+
+#: /views/layouts/default.ctp95;95;149;149;158;161
+#: /views/subscribers/index.ctp7;10 /w2/views/home/index.ctp:20
+#: /w2/views/layouts/default.ctp178;221 /w2/views/subscribers/index.ctp31;34
+msgid "Subscribers"
+msgstr "Prenumeranter"
+
+#: /views/layouts/default.ctp100;137 /views/settings/index.ctp:4
+#: /w2/views/importtasks/add.ctp:8 /w2/views/importtasks/edit.ctp:8
+#: /w2/views/importtasks/edit1.ctp:8 /w2/views/importtasks/edit2.ctp:8
+#: /w2/views/importtasks/edit3.ctp:8 /w2/views/layouts/default.ctp194;222
+msgid "Settings"
+msgstr "Inställningar"
+
+#: /views/layouts/default.ctp:107
+msgid "Hello"
+msgstr "Hallå"
+
+#: /views/layouts/default.ctp:108 /w2/views/home/index.ctp:23
+msgid "Logout"
+msgstr "Logga ut"
+
+#: /views/layouts/default.ctp:121
+msgid "Mail Server Configurations"
+msgstr "Mail serverkonfigurationer"
+
+#: /views/layouts/default.ctp126;126 /views/users/index.ctp:2
+#: /w2/views/layouts/default.ctp198;230 /w2/views/users/index.ctp:5
+msgid "Users"
+msgstr "Användare"
+
+#: /views/layouts/default.ctp:132
+msgid "Form"
+msgstr "Formulär"
+
+#: /views/layouts/default.ctp:132 /w2/views/layouts/default.ctp202;231
+msgid "Subscription Forms"
+msgstr "Prenumerations formulär"
+
+#: /views/layouts/default.ctp:137
+msgid "Application Settings"
+msgstr "Programinställningar"
+
+#: /views/layouts/default.ctp:158 /w2/views/layouts/default.ctp183;226
+msgid "Import Subscribers"
+msgstr "Importera prenumeranter"
+
+#: /views/layouts/default.ctp:161 /w2/views/layouts/default.ctp184;227
+msgid "Export Subscribers"
+msgstr "Exportera prenumeranter"
+
+#: /views/layouts/default.ctp164;164 /w2/views/layouts/default.ctp185;228
+msgid "Update from other DB"
+msgstr "Uppdatering från andra DB"
+
+#: /views/layouts/default.ctp167;167 /w2/views/layouts/default.ctp186;229
+msgid "Clean Up Subscribers"
+msgstr "Städa Up prenumeranter"
+
+#: /views/layouts/default.ctp:179 /views/mails/campaign.ctp:35
+#: /w2/views/mails/campaign.ctp:37
+msgid "Campaign"
+msgstr "Kampanj"
+
+#: /views/layouts/default.ctp:184 /views/mails/step2.ctp:27
+#: /views/templates/view.ctp:2 /w2/views/mails/step1.ctp:6
+#: /w2/views/mails/step2.ctp7;57 /w2/views/mails/step3.ctp:44
+#: /w2/views/mails/step4.ctp:6 /w2/views/mails/step5.ctp:6
+#: /w2/views/templates/view.ctp:2
+msgid "Template"
+msgstr "Mall"
+
+#: /views/layouts/default.ctp:184 /views/templates/index.ctp:3
+#: /w2/views/home/index.ctp:19 /w2/views/layouts/default.ctp170;224
+#: /w2/views/templates/index.ctp:5
+msgid "Templates"
+msgstr "Mallar"
+
+#: /views/mails/campaign.ctp:39 /views/mails/sendstatus.ctp:31
+msgid "Sent &amp; Read"
+msgstr "Skickat &amp; Läs"
+
+#: /views/mails/campaign.ctp:41 /views/mails/sendstatus.ctp:33
+msgid "Unsent"
+msgstr "Ej skickat"
+
+#: /views/mails/campaign.ctp:57 /w2/views/mails/campaign.ctp:68
+msgid "Unique recipients"
+msgstr "Unik mottagare"
+
+#: /views/mails/campaign.ctp:62 /views/mails/sendstatus.ctp:43
+#: /w2/views/mails/campaign.ctp:74 /w2/views/mails/sendstatus.ctp:87
+msgid "Newsletters sent"
+msgstr "Nyhetsbrev har skickats"
+
+#: /views/mails/campaign.ctp:67 /views/mails/sendstatus.ctp:48
+#: /w2/views/mails/campaign.ctp:79 /w2/views/mails/sendstatus.ctp:92
+msgid "Newsletters read"
+msgstr "Nyhetsbrev läst"
+
+#: /views/mails/campaign.ctp:72 /views/mails/sendstatus.ctp:53
+#: /w2/views/mails/campaign.ctp:84 /w2/views/mails/sendstatus.ctp:98
+msgid "Newsletters failed"
+msgstr "Nyhetsbrev misslyckades"
+
+#: /views/mails/campaign.ctp:78 /views/mails/sendstatus.ctp:59
+#: /w2/views/mails/campaign.ctp:90 /w2/views/mails/sendstatus.ctp:104
+msgid "Unsubscribes"
+msgstr "avslutat prenumerationen"
+
+#: /views/mails/campaign.ctp:84 /views/mails/sendstatus.ctp:65
+#: /w2/views/mails/campaign.ctp:96 /w2/views/mails/sendstatus.ctp:111
+msgid "Sent to Friends"
+msgstr "Skickade till vänner"
+
+#: /views/mails/campaign.ctp:92 /views/mails/index.ctp:3
+#: /w2/views/mails/campaign.ctp:166
+msgid "Create new newsletter"
+msgstr "Skapa nytt nyhetsbrev"
+
+#: /views/mails/campaign.ctp:112 /views/mails/index.ctp:25
+#: /w2/views/home/index.ctp:65 /w2/views/mails/campaign.ctp194;200
+#: /w2/views/mails/index.ctp:59
+msgid "Info"
+msgstr "Info"
+
+#: /views/mails/campaign.ctp:132 /views/mails/step1.ctp:50
+#: /w2/views/mails/campaign.ctp:227 /w2/views/mails/step1.ctp:74
+msgid "days after subscription"
+msgstr "dagar efter prenumerationen"
+
+#: /views/mails/campaign.ctp:160 /w2/views/mails/sendstatus.ctp:299
+msgid "Timeline"
+msgstr "Tidslinje"
+
+#: /views/mails/index.ctp:1 /w2/views/mails/index.ctp:109
+msgid "Link"
+msgstr "Länk"
+
+#: /views/mails/index.ctp:1
+msgid ""
+"Sent Newsletters RSS Feed (%link%). You can edit the rss chanel in the "
+"application settings."
+msgstr "Skickade Nyhetsbrev RSS-flöde (%link%). Du kan redigera rss kanal i inställningar."
+
+#: /views/mails/sendstatus.ctp4;182 /views/subscribers/index.ctp21;23;27
+#: /views/subscribers/view.ctp5;121 /w2/views/subscribers/index.ctp19;23
+#: /w2/views/subscribers/view.ctp:120
+msgid "cat"
+msgstr "katt"
+
+#: /views/mails/sendstatus.ctp:4 /w2/views/mails/sendstatus.ctp:34
+msgid "Newsletter is scheduled"
+msgstr "Nyhetsbrev är planerad"
+
+#: /views/mails/sendstatus.ctp:26
+msgid "More Recipent Information"
+msgstr "Mer Mottagarens information"
+
+#: /views/mails/sendstatus.ctp:38 /w2/views/mails/sendstatus.ctp:81
+msgid "Total recipients"
+msgstr "Totala mottagare"
+
+#: /views/mails/sendstatus.ctp:80 /w2/views/mails/sendstatus.ctp:200
+msgid "Send next newsletters in"
+msgstr "Skicka nästa nyhetsbrev"
+
+#: /views/mails/sendstatus.ctp:83 /w2/views/mails/sendstatus.ctp:205
+msgid "Send next "
+msgstr "Skicka nästa"
+
+#: /views/mails/sendstatus.ctp:87 /w2/views/mails/sendstatus.ctp:212
+msgid "Go back to edit"
+msgstr "Gå tillbaka för att redigera"
+
+#: /views/mails/sendstatus.ctp89;89 /w2/views/mails/sendstatus.ctp:217
+msgid "Stop Sending"
+msgstr "Stoppa sändingen"
+
+#: /views/mails/sendstatus.ctp92;92 /w2/views/mails/sendstatus.ctp:67
+msgid "Duplicate Newsletter"
+msgstr "Duplicera Nyhetsbrev"
+
+#: /views/mails/sendstatus.ctp93;93
+msgid "Reactivate Newsletter"
+msgstr ""
+
+#: /views/mails/sendstatus.ctp93;95
+msgid "Are you sure you want to reactivate # %s?"
+msgstr ""
+
+#: /views/mails/sendstatus.ctp95;95
+msgid "Reactivate Failed"
+msgstr ""
+
+#: /views/mails/sendstatus.ctp99;120
+msgid "Open"
+msgstr "öppna"
+
+#: /views/mails/sendstatus.ctp:99 /w2/views/mails/sendstatus.ctp:190
+msgid "Open Newsletter"
+msgstr "Öppna Nyhetsbrev"
+
+#: /views/mails/sendstatus.ctp:101 /w2/views/mails/sendstatus.ctp:246
+msgid "Tracked links"
+msgstr "Spårade länkar"
+
+#: /views/mails/sendstatus.ctp:104 /w2/views/clicktrack/recipient.ctp:22
+#: /w2/views/mails/sendstatus.ctp:263
+msgid "Url"
+msgstr "Url"
+
+#: /views/mails/sendstatus.ctp:104 /w2/views/mails/sendstatus.ctp:263
+msgid "Clicks"
+msgstr "Klick"
+
+#: /views/mails/sendstatus.ctp:120 /w2/views/mails/sendstatus.ctp:250
+msgid "Open Newsletter with click overlay"
+msgstr "Öppna Nyhetsbrev med klick överlägg"
+
+#: /views/mails/sendstatus.ctp:176
+msgid "Categories sent to"
+msgstr "Kategorier har skickat till"
+
+#: /views/mails/step1.ctp:5 /views/mails/step2.ctp:1 /views/mails/step3.ctp:28
+#: /views/mails/step4.ctp:1 /views/mails/step5.ctp:1
+#: /w2/views/mails/step1.ctp:17 /w2/views/mails/step2.ctp:18
+#: /w2/views/mails/step3.ctp:57 /w2/views/mails/step4.ctp:17
+#: /w2/views/mails/step5.ctp:17
+msgid "Create Newsletter"
+msgstr "Skapa nyhetsbrev"
+
+#: /views/mails/step1.ctp:7 /views/mails/step2.ctp:3 /views/mails/step3.ctp:30
+#: /views/mails/step4.ctp:3 /views/mails/step5.ctp:3
+msgid "Set subject"
+msgstr "Ställ in ämne"
+
+#: /views/mails/step1.ctp:7 /views/mails/step2.ctp:3 /views/mails/step3.ctp:32
+#: /views/mails/step4.ctp:3 /views/mails/step5.ctp:3
+msgid "Select recipients"
+msgstr "Välj mottagare"
+
+#: /views/mails/step1.ctp:7 /views/mails/step2.ctp:3 /views/mails/step3.ctp:34
+#: /views/mails/step4.ctp:3 /views/mails/step5.ctp:3
+msgid "Set delay"
+msgstr "Ställ in fördröjning"
+
+#: /views/mails/step1.ctp:8 /views/mails/step2.ctp:4 /views/mails/step3.ctp:37
+#: /views/mails/step4.ctp:4 /views/mails/step5.ctp:4
+msgid "Step 2: Template"
+msgstr "Steg 2: Mall"
+
+#: /views/mails/step1.ctp:8 /views/mails/step2.ctp:4 /views/mails/step3.ctp:37
+#: /views/mails/step4.ctp:4 /views/mails/step5.ctp:4
+msgid "Choose newsletter template and type"
+msgstr "Välj nyhetsbrev mall och typ"
+
+#: /views/mails/step1.ctp:9 /views/mails/step2.ctp:5 /views/mails/step3.ctp:38
+#: /views/mails/step4.ctp:5 /views/mails/step5.ctp:5
+msgid "Step 3: Content"
+msgstr "Steg 3: Innehåll"
+
+#: /views/mails/step1.ctp:9 /views/mails/step2.ctp:5 /views/mails/step3.ctp:38
+#: /views/mails/step4.ctp:5 /views/mails/step5.ctp:5
+msgid "Fill in content"
+msgstr "Fyll i innehåll"
+
+#: /views/mails/step1.ctp:11 /views/mails/step2.ctp:7
+#: /views/mails/step3.ctp:40 /views/mails/step4.ctp:7 /views/mails/step5.ctp:7
+msgid "Step 4: Preview and Test"
+msgstr "Steg 4: Förhandsgranska och Test"
+
+#: /views/mails/step1.ctp:11 /views/mails/step2.ctp:7
+#: /views/mails/step3.ctp:40 /views/mails/step4.ctp:7 /views/mails/step5.ctp:7
+msgid "Preview newsletter"
+msgstr "Förhandsgranska nyhetsbrev"
+
+#: /views/mails/step1.ctp:11 /views/mails/step2.ctp:7
+#: /views/mails/step3.ctp:40 /views/mails/step4.ctp:7 /views/mails/step5.ctp:7
+msgid "Send test newsletter"
+msgstr "Skicka test nyhetsbrev"
+
+#: /views/mails/step1.ctp:12 /views/mails/step2.ctp:8
+#: /views/mails/step3.ctp:42 /views/mails/step4.ctp:8 /views/mails/step5.ctp:8
+msgid "Step 5: Send newsletter"
+msgstr "Steg 5: Skicka nyhetsbrev"
+
+#: /views/mails/step1.ctp:12 /views/mails/step2.ctp:8
+#: /views/mails/step3.ctp:42 /views/mails/step4.ctp:8 /views/mails/step5.ctp:8
+msgid "Choose tracked links"
+msgstr "Välj spårade länkar"
+
+#: /views/mails/step1.ctp:12 /views/mails/step2.ctp:8
+#: /views/mails/step3.ctp:44 /views/mails/step4.ctp:8 /views/mails/step5.ctp:8
+msgid "Send or schedule"
+msgstr "Skicka eller schemalägg"
+
+#: /views/mails/step1.ctp:12 /views/mails/step2.ctp:8
+#: /views/mails/step3.ctp:46 /views/mails/step4.ctp:8 /views/mails/step5.ctp:8
+msgid "Publish newsletter"
+msgstr "Publicera nyhetsbrev"
+
+#: /views/mails/step1.ctp:27 /w2/views/mails/step1.ctp:52
+msgid "You can personalize the newsletter subject using these tags:"
+msgstr "Du kan anpassa nyhetsbrevet med hjälp av dessa taggar:"
+
+#: /views/mails/step1.ctp:28 /w2/views/mails/step1.ctp:53
+msgid "Subscribers first name"
+msgstr "Prenumeranters förnamn"
+
+#: /views/mails/step1.ctp:29 /w2/views/mails/step1.ctp:54
+msgid "Subscribers last name"
+msgstr "Prenumeranters  efternamn"
+
+#: /views/mails/step1.ctp:32 /w2/views/mails/step1.ctp:57
+msgid "Private Mail"
+msgstr ""
+
+#: /views/mails/step1.ctp:36 /w2/views/mails/step1.ctp:60
+msgid "No public link, Hidde in RSS"
+msgstr ""
+
+#: /views/mails/step1.ctp:43 /w2/views/mails/step1.ctp:67
+msgid "Select mail server to send the newsletter"
+msgstr "Välj e-postserver för att skicka nyhetsbrev"
+
+#: /views/mails/step1.ctp:46 /w2/views/mails/step1.ctp:70
+#: /w2/views/templates/add.ctp:45 /w2/views/templates/edit.ctp:50
+msgid "Category"
+msgstr "Kategori"
+
+#: /views/mails/step2.ctp:17 /w2/views/mails/step2.ctp:45
+msgid "type"
+msgstr "typ"
+
+#: /views/mails/step2.ctp:20 /w2/views/mails/step2.ctp:48
+msgid ""
+"Most modern graphic email clients allow the use of HTML for the message "
+"body."
+msgstr "De flesta moderna grafiska e-postklienter tillåter användning av HTML för meddelandetexten."
+
+#: /views/mails/step3.ctp84;85 /w2/views/mails/step3.ctp111;112
+msgid "Add Item"
+msgstr "Lägg till objekt"
+
+#: /views/mails/step3.ctp:134 /w2/views/mails/step3.ctp:161
+msgid "Plain Text"
+msgstr "VanligText"
+
+#: /views/mails/step3.ctp:135 /w2/views/mails/step3.ctp:162
+msgid "Load plain text from HTML"
+msgstr "Ladda vanlig text från HTML"
+
+#: /views/mails/step4.ctp:14 /w2/views/mails/step4.ctp:41
+msgid "Test address"
+msgstr "Testa adress"
+
+#: /views/mails/step4.ctp:18 /w2/views/mails/step4.ctp:45
+msgid "Send test mail"
+msgstr "Skicka test E-post"
+
+#: /views/mails/step4.ctp:26 /w2/views/mails/step4.ctp:65
+msgid "Html Preview"
+msgstr "Html Förhandsgranska"
+
+#: /views/mails/step4.ctp:32 /w2/views/mails/step4.ctp:71
+msgid "Text Preview"
+msgstr "Text Förhandsgranska"
+
+#: /views/mails/step5.ctp:15 /w2/views/mails/step5.ctp:42
+msgid "Tracked Links"
+msgstr "Spårade Länkar"
+
+#: /views/mails/step5.ctp:26 /w2/views/mails/step5.ctp:53
+msgid "There are no links in the newsletter."
+msgstr "Det finns inga länkar i nyhetsbrevet."
+
+#: /views/mails/step5.ctp:39 /w2/views/mails/step5.ctp:66
+msgid "Schedule newsletter"
+msgstr "Schemalägg nyhetsbrev"
+
+#: /views/mails/step5.ctp:44 /w2/views/mails/step5.ctp:71
+msgid "Server Time"
+msgstr "Server tid"
+
+#: /views/mails/step5.ctp:51 /w2/views/mails/step1.ctp:9
+#: /w2/views/mails/step2.ctp:10 /w2/views/mails/step3.ctp:47
+#: /w2/views/mails/step4.ctp:9 /w2/views/mails/step5.ctp9;78
+msgid "Send newsletter"
+msgstr "Skicka nyhetsbrev"
+
+#: /views/mails/step5.ctp:53 /w2/views/mails/step5.ctp:80
+msgid "Publish newsletter in campaign"
+msgstr "Publicera nyhetsbrev kampanj"
+
+#: /views/recipients/export.ctp:2 /w2/views/recipients/export.ctp:7
+msgid "Export View"
+msgstr "Export View"
+
+#: /views/recipients/export.ctp:16 /views/subscribers/export.ctp:15
+#: /w2/views/recipients/export.ctp:29 /w2/views/subscribers/export.ctp:27
+msgid "Column"
+msgstr "Kolumn"
+
+#: /views/recipients/export.ctp:18 /views/subscribers/export.ctp:17
+#: /w2/views/recipients/export.ctp:31 /w2/views/subscribers/export.ctp:29
+msgid "Columns"
+msgstr "Kolumner"
+
+#: /views/recipients/export.ctp:21 /views/subscribers/export.ctp:21
+#: /w2/views/recipients/export.ctp:34 /w2/views/subscribers/export.ctp:33
+msgid "Download"
+msgstr "Ladda ner"
+
+#: /views/recipients/index.ctp:244 /w2/views/recipients/index.ctp:258
+msgid "Export this view"
+msgstr "Exportera den här vyn"
+
+#: /views/recipients/index.ctp:247 /w2/views/recipients/index.ctp:246
+msgid "Recipients of the Newsletter"
+msgstr "Mottagare av nyhetsbrevet"
+
+#: /views/recipients/index.ctp:254
+msgid "Filter Recipients"
+msgstr "Filter Mottagare"
+
+#: /views/recipients/index.ctp258;259;260 /views/subscribers/index.ctp35;36;37
+#: /w2/views/clicktrack/link.ctp273;274;275
+#: /w2/views/recipients/index.ctp274;275;276
+#: /w2/views/subscribers/index.ctp146;147;148
+msgid " wildcard is *"
+msgstr " wildcard is *"
+
+#: /views/recipients/index.ctp262;280 /w2/views/clicktrack/link.ctp277;293
+#: /w2/views/recipients/index.ctp278;295
+msgid "Read on"
+msgstr "Läs vidare"
+
+#: /views/recipients/index.ctp:262 /views/subscribers/index.ctp:39
+#: /w2/views/clicktrack/link.ctp:277 /w2/views/recipients/index.ctp:278
+#: /w2/views/subscribers/index.ctp:150
+msgid " eg: >= 1 week ago"
+msgstr " eg: >= 1 Vecka sedan"
+
+#: /views/recipients/index.ctp:264 /w2/views/recipients/index.ctp:280
+msgid "Newsletter Status"
+msgstr "Nyhetsbrev Status"
+
+#: /views/recipients/index.ctp:264 /w2/views/recipients/index.ctp:280
+msgid "Newsletter opened"
+msgstr "Nyhetsbrev öppnas"
+
+#: /views/recipients/index.ctp:264 /w2/views/recipients/index.ctp:280
+msgid "Newsletter sent"
+msgstr "Nyhetsbrev har skickats"
+
+#: /views/recipients/index.ctp:264 /w2/views/recipients/index.ctp:280
+msgid "Newsletter not sent"
+msgstr "Nyhetsbrev skickades inte"
+
+#: /views/recipients/index.ctp:264 /w2/views/recipients/index.ctp:280
+msgid "Newsletter sending failed"
+msgstr "Nyhetsbrev utskick misslyckades"
+
+#: /views/recipients/index.ctp:264 /w2/views/recipients/index.ctp:280
+msgid "Show all recipents"
+msgstr "Visa alla mottagare"
+
+#: /views/recipients/index.ctp:265 /w2/views/recipients/index.ctp:281
+msgid "Subscriber Status"
+msgstr "Premenationens  Status"
+
+#: /views/recipients/index.ctp:265 /views/subscribers/index.ctp:40
+#: /w2/views/recipients/index.ctp:281 /w2/views/subscribers/index.ctp:151
+msgid "Subscribed/Unsubscribed"
+msgstr "Prenumerera/Avsluta prenumeration"
+
+#: /views/recipients/index.ctp:265 /views/subscribers/index.ctp:40
+#: /w2/views/recipients/index.ctp:281 /w2/views/subscribers/index.ctp:151
+msgid "Only Subscribed"
+msgstr "Endast prenumeranter "
+
+#: /views/recipients/index.ctp:265 /views/subscribers/index.ctp:40
+#: /w2/views/recipients/index.ctp:281 /w2/views/subscribers/index.ctp:151
+msgid "Only Unsubscribed"
+msgstr "Endast de som har avslutat sin prenumeration"
+
+#: /views/recipients/index.ctp:267 /w2/views/clicktrack/link.ctp:280
+#: /w2/views/recipients/index.ctp:283
+msgid "Filter"
+msgstr "Filtrera"
+
+#: /views/recipients/index.ctp:277 /views/subscribers/add.ctp:9
+#: /views/subscribers/edit.ctp:8 /views/subscribers/index.ctp37;52
+#: /w2/views/clicktrack/link.ctp:290 /w2/views/recipients/index.ctp:292
+#: /w2/views/subscribers/add.ctp:18 /w2/views/subscribers/edit.ctp:19
+#: /w2/views/subscribers/index.ctp63;148
+msgid "Mail Addresse"
+msgstr "E-post adress"
+
+#: /views/settings/index.ctp:3 /w2/views/settings/index.ctp:9
+msgid "Clean Cache"
+msgstr "Rengör Cache"
+
+#: /views/settings/index.ctp:7 /w2/views/settings/index.ctp:18
+msgid "Application"
+msgstr "Ansökan"
+
+#: /views/settings/index.ctp:8 /w2/views/layouts/default.ctp:103
+#: /w2/views/settings/index.ctp:19
+msgid "Language"
+msgstr "Språk"
+
+#: /views/settings/index.ctp:11 /w2/views/settings/index.ctp:22
+msgid "Custom Fields"
+msgstr "Anpassad fält"
+
+#: /views/settings/index.ctp13;15;17;19
+#: /w2/views/settings/index.ctp24;26;28;30
+msgid "Custom 1 Label"
+msgstr "Anpassad 1 Skivbolag"
+
+#: /views/settings/index.ctp:14 /w2/views/settings/index.ctp:25
+msgid "Show Custom 1"
+msgstr "Visa Anpassad 1"
+
+#: /views/settings/index.ctp:16 /w2/views/settings/index.ctp:27
+msgid "Show Custom 2"
+msgstr "Visa Anpassad 2"
+
+#: /views/settings/index.ctp:18 /w2/views/settings/index.ctp:29
+msgid "Show Custom 3"
+msgstr "Visa Anpassad 3"
+
+#: /views/settings/index.ctp:20 /w2/views/settings/index.ctp:31
+msgid "Show Custom 4"
+msgstr "Visa Custom 4"
+
+#: /views/settings/index.ctp:23 /w2/views/settings/index.ctp:34
+msgid "Show API to User"
+msgstr "Visa API till Användare"
+
+#: /views/settings/index.ctp:24 /w2/views/settings/index.ctp:35
+msgid "Show Cronjob to User"
+msgstr "Visa Cronjob till Användare"
+
+#: /views/settings/index.ctp:25 /w2/views/settings/index.ctp:36
+msgid "Rss Feed"
+msgstr "Rss Feed"
+
+#: /views/settings/index.ctp:27 /w2/views/settings/index.ctp:38
+msgid "Disable RSS"
+msgstr ""
+
+#: /views/settings/index.ctp:28 /w2/views/settings/index.ctp:40
+msgid "Channel Title"
+msgstr "Kanal Titel"
+
+#: /views/settings/index.ctp:29 /w2/views/settings/index.ctp:41
+msgid "Channel Description"
+msgstr "Kanal Beskrivning"
+
+#: /views/settings/index.ctp:30 /w2/views/settings/index.ctp:42
+msgid "Channel Link"
+msgstr "Kanal Länk"
+
+#: /views/settings/index.ctp:31 /w2/views/settings/index.ctp:43
+msgid "Author"
+msgstr "Författare"
+
+#: /views/settings/index.ctp:32 /w2/views/settings/index.ctp:44
+msgid "Rss Items"
+msgstr "Rss Objekt"
+
+#: /views/settings/index.ctp:33 /w2/views/settings/index.ctp:45
+msgid "Show Stopped Newsletters"
+msgstr "Visa stoppat Nyhetsbrev"
+
+#: /views/subscribers/add.ctp:3 /w2/views/subscribers/add.ctp:5
+msgid "Add Subscriber"
+msgstr "Lägg till prenumerant"
+
+#: /views/subscribers/cleanup.ctp:3
+msgid "Remove Failed Subscribers"
+msgstr ""
+
+#: /views/subscribers/cleanup.ctp:4
+msgid "Remove Inactive Subscribers"
+msgstr ""
+
+#: /views/subscribers/cleanup.ctp:5 /w2/views/subscribers/cleanup.ctp:5
+msgid "Unsubscribe invalide subscribers"
+msgstr "avregistrera ogiltiga prenumeranter"
+
+#: /views/subscribers/edit.ctp:3 /w2/views/subscribers/edit.ctp:5
+msgid "Edit Subscriber"
+msgstr "Redigera prenumeranter"
+
+#: /views/subscribers/import.ctp:1 /views/subscribers/import2.ctp:1
+#: /views/subscribers/import3.ctp:1 /w2/views/subscribers/import.ctp:7
+#: /w2/views/subscribers/import2.ctp:7 /w2/views/subscribers/import3.ctp:8
+msgid "Import Subscribers from CSV"
+msgstr "Importera prenumeranter från CSV"
+
+#: /views/subscribers/import.ctp:13 /w2/views/subscribers/import.ctp:24
+msgid "File"
+msgstr "Fil"
+
+#: /views/subscribers/import2.ctp:13 /w2/views/subscribers/import2.ctp:25
+msgid "Delimiter"
+msgstr "Avgränsare"
+
+#: /views/subscribers/import2.ctp:14 /w2/views/subscribers/import2.ctp:26
+msgid "Enclosure"
+msgstr "Kapsling"
+
+#: /views/subscribers/import2.ctp:25 /w2/views/subscribers/import2.ctp:37
+msgid "Add to this category"
+msgstr "Lägg till denna kategori"
+
+#: /views/subscribers/import2.ctp:27 /w2/views/subscribers/import2.ctp:39
+msgid "Remove first row"
+msgstr "Ta bort första raden"
+
+#: /views/subscribers/import2.ctp:57 /w2/views/subscribers/import2.ctp:69
+msgid "Refresh"
+msgstr "Uppdatera"
+
+#: /views/subscribers/import3.ctp:3 /w2/views/subscribers/import3.ctp:17
+msgid "Lines Loaded"
+msgstr "Lines Loaded"
+
+#: /views/subscribers/index.ctp:4 /w2/views/subscribers/index.ctp:47
+msgid "New Subscriber"
+msgstr "Ny prenumerant"
+
+#: /views/subscribers/index.ctp8;21 /w2/views/subscribers/index.ctp:32
+msgid "Search"
+msgstr "Sök"
+
+#: /views/subscribers/index.ctp:33
+msgid "Subscriber Search"
+msgstr "Prenumerant Sökning"
+
+#: /views/subscribers/index.ctp:60 /w2/views/subscribers/index.ctp:71
+msgid "Select all %s records"
+msgstr "Välj alla %s register"
+
+#: /views/subscribers/index.ctp:105 /w2/views/subscribers/index.ctp:124
+msgid "Subscribe"
+msgstr "Prenumerera"
+
+#: /views/subscribers/index.ctp:107 /w2/views/subscribers/index.ctp:126
+msgid "Remove from this Categorie"
+msgstr "Ta bort från denna kategori"
+
+#: /views/subscribers/index.ctp:109 /w2/views/subscribers/index.ctp:128
+msgid "Move to"
+msgstr "Flytta till"
+
+#: /views/subscribers/index.ctp:111 /w2/views/subscribers/index.ctp:130
+msgid "Remove from"
+msgstr "Ta bort från"
+
+#: /views/subscribers/index.ctp:112 /w2/views/subscribers/index.ctp:131
+msgid "Add to"
+msgstr "Lägg till"
+
+#: /views/subscribers/index.ctp:113 /w2/views/subscribers/index.ctp:132
+msgid "Overwrite category with"
+msgstr "Skriv över kategori med"
+
+#: /views/subscribers/index.ctp:117 /w2/views/subscribers/index.ctp:136
+msgid "Run Action"
+msgstr "Run Action"
+
+#: /views/subscribers/view.ctp:5 /w2/views/subscribers/view.ctp:8
+msgid "This user unsubscribed your newsletter."
+msgstr "Denna användare har avslutit premenationen på ditt nyhetsbrev."
+
+#: /views/subscribers/view.ctp:8 /w2/views/subscribers/view.ctp:15
+msgid "Subscriber"
+msgstr "Prenumeranter"
+
+#: /views/subscribers/view.ctp:12 /views/templates/view.ctp:4
+#: /w2/views/subscribers/view.ctp:24 /w2/views/templates/view.ctp:4
+msgid "Id"
+msgstr "Id"
+
+#: /views/subscribers/view.ctp:55 /w2/views/subscribers/view.ctp:55
+msgid "Unsubscribe Code"
+msgstr "Avregistrerings kod"
+
+#: /views/subscribers/view.ctp:115 /w2/views/subscribers/view.ctp:109
+msgid "Subscribed Categories"
+msgstr "Prenumerations Kategorier"
+
+#: /views/subscribers/view.ctp:126 /w2/views/subscribers/view.ctp:126
+msgid "Sent Newsletters"
+msgstr "Skickade Nyhetsbrev"
+
+#: /views/subscribers/view.ctp134;151 /w2/views/mails/campaign.ctp:129
+#: /w2/views/mails/sendstatus.ctp151;346 /w2/views/subscribers/view.ctp140;157
+msgid "Read"
+msgstr "Läs"
+
+#: /views/subscribers/view.ctp:174 /w2/views/subscribers/view.ctp:183
+msgid "Failured Newsletters"
+msgstr "Fel i Nyhetsbrev"
+
+#: /views/templates/add.ctp:3 /w2/views/templates/add.ctp:6
+msgid "Add Template"
+msgstr "Lägg till  Mall"
+
+#: /views/templates/add.ctp:7 /views/templates/edit.ctp:8
+#: /w2/views/templates/add.ctp:17 /w2/views/templates/edit.ctp:20
+msgid "content"
+msgstr "innehåll"
+
+#: /views/templates/add.ctp:14 /views/templates/edit.ctp:15
+#: /w2/views/templates/add.ctp:24 /w2/views/templates/edit.ctp:27
+msgid ""
+"The Newsletter Mailer uses the <a href=\"http://www.smarty.net/\">SMARTY</a> template engine.<br />\n"
+"\n"
+"      Insert field: {$<b>fieldname</b>}<br />\n"
+"      Start repeating block: <?php echo htmlspecialchars(\"<!---\");?>foreach name=<b>groupname</b> item=<b>anyname</b> from=<b>groupname</b><?php echo htmlspecialchars(\"--->\");?><br />\n"
+"      Insert field in block: {$<b>anyname</b>.<b>fieldname</b>}<br />\n"
+"      End repeating block:  <?php echo htmlspecialchars(\"<!---\");?>/foreach<?php echo htmlspecialchars(\"--->\");?><br />\n"
+"      Conditons:<br />\n"
+"      -Not empty:  <?php echo htmlspecialchars(\"<!---\");?>if !empty($<b>fieldname</b>)<?php echo htmlspecialchars(\"--->\");?><br />\n"
+"      End conditon block:  <?php echo htmlspecialchars(\"<!---\");?>/if<?php echo htmlspecialchars(\"--->\");?><br />\n"
+"      Image: [image src={$<b>fieldname</b>} w=<b>width</b> h=<b>height</b> border=<b>border</b> bcolor=<b>bordercolor</b> ]"
+msgstr "The Newsletter Mailer uses the <a href=\"http://www.smarty.net/\">SMARTY</a> template engine.<br />\n\n      Insert field: {$<b>fieldname</b>}<br />\n      Start repeating block: <?php echo htmlspecialchars(\"<!---\");?>foreach name=<b>groupname</b> item=<b>anyname</b> from=<b>groupname</b><?php echo htmlspecialchars(\"--->\");?><br />\n      Insert field in block: {$<b>anyname</b>.<b>fieldname</b>}<br />\n      End repeating block:  <?php echo htmlspecialchars(\"<!---\");?>/foreach<?php echo htmlspecialchars(\"--->\");?><br />\n      Conditons:<br />\n      -Not empty:  <?php echo htmlspecialchars(\"<!---\");?>if !empty($<b>fieldname</b>)<?php echo htmlspecialchars(\"--->\");?><br />\n      End conditon block:  <?php echo htmlspecialchars(\"<!---\");?>/if<?php echo htmlspecialchars(\"--->\");?><br />\n      Image: [image src={$<b>fieldname</b>} w=<b>width</b> h=<b>height</b> border=<b>border</b> bcolor=<b>bordercolor</b> ]"
+
+#: /views/templates/add.ctp:24 /views/templates/edit.ctp:26
+#: /w2/views/templates/add.ctp:34 /w2/views/templates/edit.ctp:38
+msgid ""
+"Load Website: [load url=<b>url to page</b> script=<b>Leave javascript=>1, "
+"Remove javacript=>0 </b>]"
+msgstr "Load Website: [load url=<b>url to page</b> script=<b>Leave javascript=>1, Remove javacript=>0 </b>]"
+
+#: /views/templates/add.ctp:27 /views/templates/edit.ctp:30
+#: /w2/views/templates/add.ctp:37 /w2/views/templates/edit.ctp:42
+msgid "Parse Css"
+msgstr "Analysera Css"
+
+#: /views/templates/add.ctp:31 /views/templates/edit.ctp:34
+#: /w2/views/templates/add.ctp:42 /w2/views/templates/edit.ctp:47
+msgid ""
+"If this checkbox is checked the Newsletter Mailer will apply the css style "
+"of the template to the HTML code.(Most mail clients don't parse css)"
+msgstr "Om kryssrutan är markerad kommer nyhetsbrev postverktyget att tillämpa css mallen till HTML-koden. (De flesta e-postklienter inte tolka CSS)"
+
+#: /views/templates/add.ctp:35 /views/templates/edit.ctp:38
+#: /w2/views/templates/add.ctp:48 /w2/views/templates/edit.ctp:53
+msgid "Fields"
+msgstr "Fält"
+
+#: /views/templates/add.ctp:39 /views/templates/edit.ctp:42
+#: /w2/views/templates/add.ctp:52 /w2/views/templates/edit.ctp:57
+msgid ""
+"Write only one field name per line. The fields can be grouped in repeating blocks using HTML like tags &lt;<b>groupname</b>&gt; &lt;/<b>groupname</b>&gt;<br/>\n"
+"        Field types:<br /><b>-Textfield</b>: Field name starts lower case\n"
+"        <br />\n"
+"        <b>-Image chooser</b>: Field name starts lower case and ends with \"_imgchooser\"\n"
+"        <br /><b>-Html editor</b>: Field name starts upper case\n"
+"        <br /><b>-Simple Html editor</b>: Field name  ends with \"_lite\""
+msgstr "Write only one field name per line. The fields can be grouped in repeating blocks using HTML like tags <<b>groupname</b>> </<b>groupname</b>><br/>\n        Field types:<br /><b>-Textfield</b>: Field name starts lower case\n        <br />\n        <b>-Image chooser</b>: Field name starts lower case and ends with \"_imgchooser\"\n        <br /><b>-Html editor</b>: Field name starts upper case\n        <br /><b>-Simple Html editor</b>: Field name  ends with \"_lite\""
+
+#: /views/templates/add.ctp:45 /views/templates/edit.ctp:48
+#: /w2/views/templates/add.ctp:58 /w2/views/templates/edit.ctp:63
+msgid "<br /><b>-Textarea</b>: Field name  ends with \"_raw\""
+msgstr "<br /><b>-Textarea</b>: Field name  ends with \"_raw\""
+
+#: /views/templates/edit.ctp:3 /w2/views/settings/index.ctp:6
+#: /w2/views/templates/edit.ctp:6
+msgid "Edit Template"
+msgstr "Redigera mall"
+
+#: /views/templates/images.ctp:9 /w2/views/templates/images.ctp:7
+msgid "Upload missing images"
+msgstr "Ladda upp bilder saknas"
+
+#: /views/templates/import.ctp:1 /views/templates/index.ctp:2
+#: /w2/views/templates/import.ctp:7 /w2/views/templates/index.ctp:11
+msgid "Import Template"
+msgstr "Importera Mall"
+
+#: /views/templates/index.ctp:2
+msgid "Import"
+msgstr "Importera"
+
+#: /views/templates/index.ctp:3 /w2/views/templates/index.ctp:12
+msgid "New Template"
+msgstr "Ny mall"
+
+#: /views/templates/index.ctp:14
+msgid "images"
+msgstr "bilder"
+
+#: /views/templates/index.ctp:14 /w2/views/templates/index.ctp48;48
+msgid "Upload missing image for"
+msgstr "Ladda saknas bilden för"
+
+#: /views/templates/index.ctp:19
+msgid "export"
+msgstr "export"
+
+#: /views/templates/index.ctp:19 /w2/views/templates/index.ctp:53
+msgid "Export Template "
+msgstr "Exportera Mall"
+
+#: /views/templates/view.ctp:19 /w2/views/templates/view.ctp:19
+msgid "Type"
+msgstr "Typ"
+
+#: /views/users/add.ctp:3 /w2/views/users/add.ctp:5
+msgid "Add User"
+msgstr "Lägg till användare"
+
+#: /views/users/add.ctp:7 /w2/views/users/add.ctp:13
+msgid "Level"
+msgstr "Nivå"
+
+#: /views/users/add.ctp:10 /views/users/edit.ctp:7 /views/users/index.ctp:16
+#: /w2/views/users/add.ctp:16 /w2/views/users/edit.ctp:16
+#: /w2/views/users/index.ctp:37
+msgid "Superadmin (Can change configurations)"
+msgstr "SuperAdmin (Kan ändra konfigurationer)"
+
+#: /views/users/add.ctp:10 /views/users/edit.ctp:7 /views/users/index.ctp:16
+#: /w2/views/users/add.ctp:16 /w2/views/users/edit.ctp:16
+#: /w2/views/users/index.ctp:37
+msgid "User"
+msgstr "Användare"
+
+#: /views/users/edit.ctp:3 /w2/views/users/edit.ctp:5
+msgid "Edit User"
+msgstr "Redigera användare"
+
+#: /views/users/edit.ctp:9 /w2/views/users/edit.ctp:18
+msgid "Change Password"
+msgstr "Ändra lösenord"
+
+#: /views/users/index.ctp:2 /w2/views/users/index.ctp:13
+msgid "New User"
+msgstr "Ny användare"
+
+#: /views/users/index.ctp:9 /w2/views/users/index.ctp:30
+msgid "Last Login"
+msgstr "Senaste inloggning"
+
+#: /views/users/login.ctp:8 /w2/views/users/login.ctp:12
+msgid "Login"
+msgstr "Logga in"
+
+#: /w2/controllers/clicktrack_controller.php:20
+#: /w2/controllers/recipients_controller.php:34
+#: /w2/controllers/templates_controller.php:15
+msgid "Modul Installed"
+msgstr ""
+
+#: /w2/controllers/configurations_controller.php92;125;158
+msgid "No connection"
+msgstr ""
+
+#: /w2/controllers/configurations_controller.php:129
+msgid "Message deleted"
+msgstr ""
+
+#: /w2/controllers/configurations_controller.php180;182
+msgid "Reply to"
+msgstr ""
+
+#: /w2/controllers/configurations_controller.php185;188
+msgid "Message Sent"
+msgstr ""
+
+#: /w2/controllers/configurations_controller.php:540
+msgid "Unable to connect to Amazone SES"
+msgstr "Kan inte ansluta till Amazone SES"
+
+#: /w2/views/campaigns/index.ctp:8 /w2/views/categories/index.ctp:7
+#: /w2/views/clicktrack/link.ctp:248 /w2/views/clicktrack/recipient.ctp:6
+#: /w2/views/configurations/index.ctp:8 /w2/views/forms/index.ctp:8
+#: /w2/views/importtasks/index.ctp:8 /w2/views/mails/campaign.ctp:162
+#: /w2/views/mails/index.ctp:27 /w2/views/recipients/index.ctp:248
+#: /w2/views/subscribers/index.ctp:39 /w2/views/users/index.ctp:7
+msgid "%count%"
+msgstr ""
+
+#: /w2/views/clicktrack/link.ctp:246
+msgid "Who clicked on"
+msgstr ""
+
+#: /w2/views/clicktrack/link.ctp:331 /w2/views/clicktrack/recipient.ctp:4
+#: /w2/views/recipients/index.ctp:334
+msgid "Links clicked by"
+msgstr ""
+
+#: /w2/views/clicktrack/recipient.ctp:23
+msgid "Click Count"
+msgstr ""
+
+#: /w2/views/clicktrack/recipient.ctp:25
+msgid "First click on"
+msgstr ""
+
+#: /w2/views/configurations/inbox.ctp:21
+msgid "Arrived"
+msgstr ""
+
+#: /w2/views/configurations/index.ctp:72
+msgid "Open Inbox"
+msgstr ""
+
+#: /w2/views/configurations/mail.ctp:22
+msgid "Reply"
+msgstr ""
+
+#: /w2/views/configurations/remaining.ctp3;5
+msgid "in the next"
+msgstr ""
+
+#: /w2/views/home/index.ctp:15 /w2/views/mails/index.ctp:15
+msgid "New Newsletter"
+msgstr ""
+
+#: /w2/views/home/index.ctp:16
+msgid "Newsletter History"
+msgstr ""
+
+#: /w2/views/importtasks/add.ctp:5 /w2/views/importtasks/edit.ctp:5
+#: /w2/views/importtasks/edit1.ctp:5 /w2/views/importtasks/edit2.ctp:5
+#: /w2/views/importtasks/edit3.ctp:5 /w2/views/mails/step1.ctp:5
+#: /w2/views/mails/step2.ctp:6 /w2/views/mails/step3.ctp:43
+#: /w2/views/mails/step4.ctp:5 /w2/views/mails/step5.ctp:5
+msgid "Base Settings"
+msgstr ""
+
+#: /w2/views/importtasks/add.ctp:6 /w2/views/importtasks/edit.ctp:6
+#: /w2/views/importtasks/edit1.ctp:6 /w2/views/importtasks/edit2.ctp:6
+#: /w2/views/importtasks/edit3.ctp:6
+msgid "Connection to DB"
+msgstr ""
+
+#: /w2/views/importtasks/edit1.ctp:15
+msgid "Configure to DB server"
+msgstr ""
+
+#: /w2/views/importtasks/edit2.ctp:15
+msgid "Edit SQL Query"
+msgstr ""
+
+#: /w2/views/importtasks/edit3.ctp:15
+msgid "Setup import form DB"
+msgstr ""
+
+#: /w2/views/layouts/default.ctp:61
+msgid "Interesting Newsletter \"{$subject}\" {$publiclink}"
+msgstr ""
+
+#: /w2/views/layouts/default.ctp:119
+msgid "Style"
+msgstr ""
+
+#: /w2/views/layouts/default.ctp:122
+msgid "Blue"
+msgstr ""
+
+#: /w2/views/layouts/default.ctp:123
+msgid "Red"
+msgstr ""
+
+#: /w2/views/layouts/default.ctp:124
+msgid "Dark"
+msgstr ""
+
+#: /w2/views/layouts/default.ctp:125
+msgid "Green"
+msgstr ""
+
+#: /w2/views/layouts/default.ctp:126
+msgid "Purple"
+msgstr ""
+
+#: /w2/views/layouts/default.ctp:127
+msgid "Brown"
+msgstr ""
+
+#: /w2/views/layouts/default.ctp:137
+msgid "Width"
+msgstr ""
+
+#: /w2/views/layouts/default.ctp:141
+msgid "Fluid"
+msgstr ""
+
+#: /w2/views/layouts/default.ctp:142
+msgid "Fixed"
+msgstr ""
+
+#: /w2/views/mails/campaign.ctp:44
+msgid "Send Mails"
+msgstr ""
+
+#: /w2/views/mails/campaign.ctp:128 /w2/views/mails/sendstatus.ctp:150
+msgid "Not send"
+msgstr ""
+
+#: /w2/views/mails/campaign.ctp:130 /w2/views/mails/sendstatus.ctp:152
+msgid "Unread"
+msgstr ""
+
+#: /w2/views/mails/index.ctp:16
+msgid "Run Send Job"
+msgstr ""
+
+#: /w2/views/mails/index.ctp:17
+msgid "Check Bounce Mails"
+msgstr ""
+
+#: /w2/views/mails/index.ctp:18
+msgid "Run Import Job"
+msgstr ""
+
+#: /w2/views/mails/index.ctp:109
+msgid ""
+"Sent Newsletters RSS Feed (%link%). You can edit the rss channel in the "
+"application settings."
+msgstr ""
+
+#: /w2/views/mails/sendstatus.ctp16;17;17;19
+msgid "Other"
+msgstr ""
+
+#: /w2/views/mails/sendstatus.ctp:134
+msgid "Send Statistics"
+msgstr ""
+
+#: /w2/views/mails/sendstatus.ctp:159
+msgid "Mails"
+msgstr ""
+
+#: /w2/views/mails/sendstatus.ctp:192
+msgid "Recipent Information"
+msgstr ""
+
+#: /w2/views/mails/sendstatus.ctp:222
+msgid "Reactivate"
+msgstr ""
+
+#: /w2/views/mails/sendstatus.ctp:273
+msgid "Who clicked on "
+msgstr ""
+
+#: /w2/views/mails/sendstatus.ctp:303
+msgid "Line"
+msgstr ""
+
+#: /w2/views/mails/sendstatus.ctp:304
+msgid "Area"
+msgstr ""
+
+#: /w2/views/mails/sendstatus.ctp:307
+msgid "Bars"
+msgstr ""
+
+#: /w2/views/mails/sendstatus.ctp:408
+msgid "Mail Clients"
+msgstr ""
+
+#: /w2/views/mails/sendstatus.ctp425;468
+msgid "No Data"
+msgstr ""
+
+#: /w2/views/mails/sendstatus.ctp:450
+msgid "Operating Systems"
+msgstr ""
+
+#: /w2/views/mails/step1.ctp:8 /w2/views/mails/step2.ctp:9
+#: /w2/views/mails/step3.ctp:46 /w2/views/mails/step4.ctp:8
+#: /w2/views/mails/step5.ctp:8
+msgid "Preview and Test"
+msgstr ""
+
+#: /w2/views/mails/step2.ctp:59
+msgid "Show All"
+msgstr ""
+
+#: /w2/views/mails/step4.ctp:56
+msgid "Spam Filter Check"
+msgstr ""
+
+#: /w2/views/subscribers/cleanup.ctp:12
+msgid "Start Clean Up"
+msgstr "Strata uppsätdningen "
+
+#: /w2/views/subscribers/export.ctp:7
+msgid "Export Subscribers to CSV"
+msgstr ""
+
+#: /w2/views/subscribers/index.ctp:45
+msgid "List"
+msgstr ""
+
+#: /w2/views/subscribers/index.ctp:46
+msgid "Search Subscriber"
+msgstr ""
+
+#: /w2/views/templates/add.ctp:21 /w2/views/templates/edit.ctp:24
+msgid "Load Editor"
+msgstr ""
+
+#: /w2/views/templates/index.ctp:53
+msgid "Export"
+msgstr ""
+
+#: /w2/views/users/login.ctp:28
+msgid "Enter your username"
+msgstr ""
+
+#: /w2/views/users/login.ctp:32
+msgid "Enter your password"
+msgstr ""
+
+#: /w2/webroot/test.php:88 /webroot/test.php:88
+msgid "Debug setting does not allow access to this url."
+msgstr "Debug inställning tillåter inte tillgång till denna url."

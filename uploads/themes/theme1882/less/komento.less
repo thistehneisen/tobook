@@ -1,0 +1,125 @@
+// Core variables and mixins
+@import "variables.less"; // Custom for this template
+@import "../../../media/jui/less/mixins.less";
+
+.page-blog{
+  .item{
+    >.kmt-readon{
+      display: none;
+    }
+  }
+}
+
+#section-kmt{
+  margin: 0;
+  padding: 40px 0 0;
+  #kmt-form{
+    .kmt-title{
+      font-size: 18px;
+      line-height: 21px;
+      margin: 0;
+      padding: 0 0 10px;
+      font-family: @headingsFontFamily;
+      font-weight: @headingsFontWeight;
+      color: @headingsColor;
+      background: none;
+      text-decoration: none;
+      text-transform: none;
+    }
+  }
+    .kmt-author{
+      font: inherit !important;
+      text-transform: none !important;
+      font-weight: bold !important;
+      margin-bottom: 0 !important;
+      border: none !important;
+      padding: 0 !important;
+      height: auto !important;
+      a{
+        height: auto !important;
+      }
+    }
+    .kmt-avatar{
+      width: 48px;
+      a{
+        width: 48px;
+      }
+    }
+  #kmt-fame{
+    margin: 0;
+  }
+  +div{
+    padding: 0 !important;
+    margin: 0;
+    text-align: right !important;
+    >a{
+      font-size: 10px;
+    }
+  }
+  .kmt-head{
+    height: auto !important;
+    padding-right: 35px !important;
+  }
+ .float-wrapper > span{
+  vertical-align: top;
+  float: none;
+  margin: 5px 5px 0 0 !important;
+  height: auto;
+  background-position: left 2px;
+  & + span{
+    background-position:left 2px;
+  }
+ }
+  .kmt-form-content{
+    .kmt-form-addon > div{
+      max-width: 90%;
+      b{
+        margin-bottom: 10px !important;
+      }
+      .input.kmt-location{
+        max-width: 100%;
+      }
+    }
+  }
+    .kmt-content{
+    .parentContainer{
+      left: -70px;
+      right: -15px;
+      .kmt-author{
+        margin-left: 7px;
+      }
+    }
+  }
+  .input[type="checkbox"]{
+    margin-top: 0;
+  }
+  .radio input[type="radio"], .checkbox input[type="checkbox"]{
+    margin-left: 0;
+    margin-right: 15px;
+  }
+  .radio, .checkbox{
+    padding: 0;
+    border: none !important;
+    background: none !important;
+  }
+  .kmt-profile-avatar{
+    width: 60px;
+  }
+  .kmt-profile-activity{
+    li{
+      padding: 15px 10px !important;
+      min-width: 0 !important;
+    }
+  }
+}
+
+.kmt-readon span.kmt-comment{
+  float: none;
+  padding: 0;
+  margin: 0;
+  background: none;
+}
+
+.kmt-timepermalink:hover{
+  text-decoration: underline !important;
+}

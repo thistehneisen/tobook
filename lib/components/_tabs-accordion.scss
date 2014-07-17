@@ -1,0 +1,69 @@
+//  ========== 
+//  = Tabs / accordion for the HairPress HTML template = 
+//  ========== 
+
+// tabs
+.nav-tabs-theme {
+  border-bottom: none;
+  margin-bottom: 0;
+  > li {
+    margin-bottom: 0;
+    > a {
+      position: relative;
+      font-weight: bold;
+    }
+  }
+  > .active {
+    > a,
+    > a:hover {
+      background-color: $btn-clr;
+      @include background(linear-gradient(top, lighten($btn-clr, 5%), darken($btn-clr, 10%)));
+      color: $white;
+      border-color: darken($btn-clr, 12%);
+    }
+  }
+}
+
+.tab-content {
+  @include box-shadow(0 0 2px rgba(0,0,0,0.2));
+  padding: 20px;
+}
+
+// accordion
+
+.accordion-heading {
+  a {
+    display: block;
+    font-size: 14px;
+    font-family: "PT Sans";
+    font-weight: bold;
+    
+    &:hover {
+      text-decoration: none;
+    }
+    .icon {
+      margin-right: 10px;
+      background-color: $grayDark;
+      @include border-radius(3px);
+      @include icons-sprite(plus);
+    }
+  }
+  &.open {
+    a {
+      .icon {
+        background-color: $theme-clr;
+        @include icons-sprite(minus);
+      }
+    }
+  }
+}
+.accordion-group {
+  margin: 10px 0;
+  
+  .bolded-line {
+    margin: 10px 0;
+  }
+}
+.accordion-inner {
+  padding: 5px 0;
+}

@@ -1,0 +1,53 @@
+.gallery-item.style4 .view .item_img {
+   -webkit-transition: all 0.3s ease-in-out;
+   -moz-transition: all 0.3s ease-in-out;
+   -o-transition: all 0.3s ease-in-out;
+   -ms-transition: all 0.3s ease-in-out;
+   transition: all 0.3s ease-in-out;
+}
+.gallery-item.style4 .view .mask {
+      background-color:#000;
+   -webkit-transform: translateX(-360px);
+   -moz-transform: translateX(-360px);
+   -o-transform: translateX(-360px);
+   -ms-transform: translateX(-360px);
+   transform: translateX(-360px);
+   -ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=100)";
+   filter: alpha(opacity=100);
+   opacity: 1;
+   -webkit-transition: all 0.3s ease-in-out;
+   -moz-transition: all 0.3s ease-in-out;
+   -o-transition: all 0.3s ease-in-out;
+   -ms-transition: all 0.3s ease-in-out;
+   transition: all 0.3s ease-in-out;
+   color: #fff;
+}
+.gallery-item.style4 .view .item_introtext {
+   -ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=0)";
+   filter: alpha(opacity=0);
+   opacity: 0;
+   -webkit-transition: all 0.2s linear;
+   -moz-transition: all 0.2s linear;
+   -o-transition: all 0.2s linear;
+   -ms-transition: all 0.2s linear;
+   transition: all 0.2s linear;
+}
+.gallery-item.style4 .view:hover .mask {
+   -webkit-transform: translateX(0px);
+   -moz-transform: translateX(0px);
+   -o-transform: translateX(0px);
+   -ms-transform: translateX(0px);
+   transform: translateX(0px);
+}
+.gallery-item.style4 .view:hover .item_img {
+   -webkit-transform: translateX(360px);
+   -moz-transform: translateX(360px);
+   -o-transform: translateX(360px);
+   -ms-transform: translateX(360px);
+   transform: translateX(360px);
+}
+.gallery-item.style4 .view:hover .item_introtext {
+   -ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=100)";
+   filter: alpha(opacity=100);
+   opacity: 1;
+}

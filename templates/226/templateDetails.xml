@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="template" version="1.0">
+<name>siren</name>
+<author>Poss Pooja</author>
+<license>PossPooja</license>
+<version>1.0.0</version>
+<description>Siren Barbershop Theme</description>
+
+    <files>
+            <filedata>
+                <filename>index.html</filename>
+                <filealias>index</filealias>
+            </filedata>
+			<filedata>
+                <filename>services.html</filename>
+                <filealias>services</filealias>
+            </filedata>
+			<filedata>
+                <filename>product.html</filename>
+                <filealias>product</filealias>
+            </filedata>
+			<filedata>
+                <filename>gallery.html</filename>
+                <filealias>gallery</filealias>
+            </filedata>
+			<filedata>
+                <filename>contact.html</filename>
+                <filealias>contact</filealias>
+            </filedata>			
+            <filedata>
+                <filename>subpage.html</filename>
+                <filealias>subpage</filealias>
+            </filedata>
+	</files>
+
+
+	<themes>
+		<theme1>
+			<name>Default Theme</name>
+			<style>styles/style.css</style>
+			<homepageimage>images/homepagetemplate.jpg</homepageimage>
+			<thumbnail>images/homethumb.jpg</thumbnail>
+			<subpageimage>images/subpagetemplate.jpg</subpageimage>
+			<currenttheme>true</currenttheme>
+			<themecolor>#767f84</themecolor>
+		</theme1>
+		<theme2>
+			<name>Green Theme</name>
+			<style>styles/style_green.css</style>
+			<homepageimage>images/green_home.jpg</homepageimage>
+			<thumbnail>images/green_thumb.jpg</thumbnail>
+			<subpageimage>images/green_sub.jpg</subpageimage>
+			<currenttheme>true</currenttheme>
+			<themecolor>#84a82f</themecolor>
+		</theme2>
+	</themes>
+
+	<panels>
+		<header>header</header>
+		<banner>banner</banner>
+		<menu>menu</menu>
+		<maincontent>maincontent</maincontent>
+		<footer>footer</footer>
+	</panels>
+ 
+</mosinstall>
