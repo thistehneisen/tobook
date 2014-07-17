@@ -11,7 +11,7 @@ def _deploy():
         run('git pull')
 
 
-@task(alias='rc')
+@task(alias='ds')
 @hosts('varaa.co')
 def deploy_stag():
     _deploy()
