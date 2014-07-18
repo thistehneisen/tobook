@@ -21,6 +21,11 @@
 	$MT_LANG['lastBookingDate'] = 'Last booking date';
 	$MT_LANG['automation'] = 'Automation';
 	
+	$MT_LANG['automationManagement'] = 'Automation Management';
+	$MT_LANG['campaignManagement'] = 'Campaign Management';
+	$MT_LANG['templateManagement'] = 'Template Management';
+	$MT_LANG['groupManagement'] = 'Group Management';
+	
 	/* Campaign List Page */
 	$MT_LANG['mainPage'] = 'Main page';
 	$MT_LANG['createCampaign'] = 'Create campaign';
@@ -76,4 +81,28 @@
 	$MT_LANG['templateName'] = 'Template Name';
 	$MT_LANG['saveTemplate'] = 'Save Template';
 	$MT_LANG['enterTemplateName'] = 'Enter Template Name';
+	
+	/* Group */
+	$MT_LANG['createGroup'] = 'Create Group';
+	$MT_LANG['deleteGroup'] = 'Delete Group';
+	$MT_LANG['groupList'] = 'Group List';
+	$MT_LANG['groupName'] = 'Group Name';
+	$MT_LANG['send'] = 'Send';
+	$MT_LANG['smsTitle'] = 'Sms Title';
+	$MT_LANG['smsText'] = 'Sms Text';
+	$MT_LANG['selectCampaignToSend'] = 'Select Campaign To Send';
+	$MT_LANG['sendNow'] = 'Send Now';
+	$MT_LANG['saveGroup'] = 'Save Group';
+	$MT_LANG['deleteMember'] = 'Delete Member';
+	$MT_LANG['memberList'] = 'Member List';
+	$MT_LANG['email'] = 'Email';
+	$MT_LANG['phone'] = 'Phone';
+	$MT_LANG['schedule'] = 'Schedule';
+	$MT_LANG['name'] = 'Name';
+	$MT_LANG['note'] = 'Note';
+	$MT_LANG['count'] = 'Count';
+	$MT_LANG['previousBookings'] = 'Previous Bookings';
+	$MT_LANG['join'] = 'Join';
+	$MT_LANG['customerInformation'] = 'Customer Information';
+	
 ?>

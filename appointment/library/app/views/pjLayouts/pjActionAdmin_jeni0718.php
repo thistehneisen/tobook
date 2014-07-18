@@ -16,22 +16,9 @@
 		<!--[if gte IE 9]>
   		<style type="text/css">.gradient {filter: none}</style>
 		<![endif]-->
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>		
-<script src="/asset/js/postMessage.js"></script>
+
 <!------ myTips tutorial builder ------>
 <script type="text/javascript">
-/* jQuery(document).resize(function() {
-    var newheight = Math.max($(document).height(), $(window).height());
-    $.postMessage (
-        newheight.toString(),
-        '*',
-        parent
-    );
-}); */
-jQuery(document).ajaxComplete(function() {
-	alert( 1 );
-});
 var myTipsSetup =
 {
     api_key: '19d0e075b6e97a324e77419f6a0c22693662c60d'
@@ -77,7 +64,7 @@ var myTipsSetup =
 			</div> <!-- middle -->
 		
 		</div> <!-- container -->
-		<div id="footer-wrap" style="display:none;">
+		<div id="footer-wrap">
 			<div id="footer">
 			   	<p>Copyright &copy; <?php echo date("Y"); ?> <a href="http://varaa.com/" target="_blank">varaa.com</a></p>
 	        </div>

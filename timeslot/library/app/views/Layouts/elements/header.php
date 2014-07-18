@@ -35,14 +35,14 @@
 	<body>
 	
 		<div id="container">
-    		<div id="header">
+    		<!-- div id="header">
 				<a href="http://varaa.com/" id="logo" target="_blank"><img src="<?php echo BASE_PATH . IMG_PATH; ?>logo.png" alt="Time Slots Booking Calendar" /></a>
 				<?php $currentLang = $_SESSION[ 'admin_language' ]; ?>
 				<select id="language" style="position:absolute; right: 00px; top: 80px; width: 120px;height:25px;" onchange="onChangeLanguage()">
 					<option value="en" <?php if( $currentLang == "en" ) echo " selected"; ?>>English</option>
 					<option value="fi" <?php if( $currentLang == "fi" ) echo " selected"; ?>>Finland</option>
 				</select>
-			</div>
+			</div -->
 			
 			<div id="middle">
 				<div id="leftmenu">

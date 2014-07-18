@@ -18,16 +18,8 @@ $curTab = 'dashboard';
 include "includes/session.php";
 include "includes/config.php";
 include "includes/userheader.php";
-
-$linkArray = array( TOP_LINKS_DASHBOARD =>'usermain.php',
-                    FOOTER_RES_BOOKING_MANAGER =>'res_booking_manager.php');
-echo getBreadCrumb($linkArray);
 ?>
-
-<h2><?php echo FOOTER_RES_BOOKING_MANAGER; ?></h2>
-
-<div class="cpanel_container">
-	
+<div>
 	<?php 	
 	
 	$table_prefix = $_SESSION["session_loginname"];
@@ -43,13 +35,9 @@ echo getBreadCrumb($linkArray);
 	global $userusername;
 	$userusername = $table_prefix;
 	?>	
-	<div style="width:1200px; margin-left: -150px;">
-		<!-- TODO: Provide markup for your options page here. -->
-	   	<iframe id="frame" src="<?php echo $plugins_url; ?>" width="100%" height="1000px" frameborder="0"></iframe>
-	</div>	
+	<iframe onLoad="calcHeight();" id="iFrame" width="100%" src="<?php echo $plugins_url; ?>"  height="1200" frameborder="0"></iframe>	
 </div>
 
-<!--div class="comm_div" align="left"><a href="usermain.php" class=subtext ><img src="./images/back.gif" border="0" width="54px" height="15px"></a></div-->
 <?php
 include "includes/userfooter.php";
 ?>

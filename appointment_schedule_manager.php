@@ -5,18 +5,10 @@ $curTab = 'dashboard';
 include "includes/session.php";
 include "includes/config.php";
 include "includes/userheader.php";
-
-$linkArray = array( TOP_LINKS_DASHBOARD =>'usermain.php',
-                    FOOTER_APP_SCHEDULE_MANAGER =>'appointment_schedule_manager.php');
-echo getBreadCrumb($linkArray);
 ?>
-
-<h2><?php echo FOOTER_APP_SCHEDULE_MANAGER; ?></h2>
-
-<div class="cpanel_container">
-	
-	<?php 	
-	
+<!-- div style="position:absolute;left:0px;top:110px;right:0px;bottom:35px;" -->
+<div>
+	<?php
 	$table_prefix = $_SESSION["session_loginname"]."_hey"."_";
 	$table_prefix = str_replace("-", "", $table_prefix);
 	$plugins_url = "http://".$_SERVER['SERVER_NAME']."/appointment/library/installation.php?prefix=".$table_prefix;
@@ -24,12 +16,18 @@ echo getBreadCrumb($linkArray);
 	global $userusername;
 	$userusername = $_SESSION["session_loginname"];
 	?>	
-	<div style="width:100%;">
-		<!-- TODO: Provide markup for your options page here. -->
-	   	<iframe id="frame" src="<?php echo $plugins_url; ?>" width="100%" height="1000px" frameborder="0"></iframe>
-	</div>	
+	<iframe onLoad="calcHeight();" id="iFrame" width="100%" src="<?php echo $plugins_url; ?>"  height="1200" frameborder="0"></iframe>	
 </div>
-
+<script>
+	/*
+	$.receiveMessage(
+        function(e) {
+            alert( "e.data : " + e.data ); 
+        	document.getElementById('iFrame').height = e.data;
+        }  
+    );
+    */	
+</script>
 <?php
 include "includes/userfooter.php";
 ?>

@@ -30,14 +30,14 @@
 		
 	<body>
 		<div id="container">
-    		<div id="header">
+    		<!-- div id="header">
 				<a href="http://varaa.com/" id="logo" target="_blank"><img src="<?php echo INSTALL_URL . IMG_PATH; ?>logo.png" alt="Restaurant Booking Script" /></a>
 				<?php $currentLang = $_SESSION[ 'language' ]; ?>
 				<select id="language" style="position:absolute; right: 00px; top: 80px; width: 120px;height:25px;" onchange="onChangeLanguage()">
 					<option value="en" <?php if( $currentLang == "en" ) echo " selected"; ?>>English</option>
 					<option value="fi" <?php if( $currentLang == "fi" ) echo " selected"; ?>>Finland</option>
 				</select>				
-			</div>
+			</div -->
 			
 			<div id="middle">
 				<div id="leftmenu">
@@ -74,10 +74,10 @@
 			</div> <!-- middle -->
 		
 		</div> <!-- container -->
-		<div id="footer-wrap">
+		<!-- div id="footer-wrap">
 			<div id="footer">
 			   	<p>Copyright &copy; <?php echo date("Y"); ?> <a href="http://varaa.com/" target="_blank">varaa.com</a></p>
 	        </div>
-        </div>
+        </div -->
 	</body>
 </html>

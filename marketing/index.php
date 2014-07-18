@@ -103,6 +103,14 @@ if (!headers_sent())
 	<input type="hidden" id="ownerId" value="<?php echo $ownerId;?>"/>
 	<input type="hidden" id="CREDITS_PRICE" value="<?php echo CREDITS_PRICE;?>"/>
 	<div class="container">
+			<div class="floatright" style="margin-bottom:10px;">
+	            <a class="btn btn-link" href='campaignList.php' style="font-weight:bold;"><?php echo $MT_LANG['campaignManagement'];?></a>
+	            &nbsp;|&nbsp;
+            	<a class="btn btn-link" href='automationList.php' style="font-weight:bold;"><?php echo $MT_LANG['automationManagement'];?></a>
+	            &nbsp;|&nbsp;
+            	<a class="btn btn-link" href='groupList.php' style="font-weight:bold;"><?php echo $MT_LANG['groupManagement'];?></a>            	
+            </div>
+            <div class="clearboth"></div>
 			<div class="panel panel-orange margin-bottom-40">
                 <div class="panel-heading">
                     <h3 class="panel-title"><i class="icon-search"></i> <?php echo $MT_LANG['searchCustomers'];?></h3>
@@ -155,12 +163,11 @@ if (!headers_sent())
             <div class="floatleft">
             	<button class="btn-u btn-u-orange" onclick="onOpenEmail()"><i class="icon-envelope"></i>&nbsp;<?php echo $MT_LANG['sendEmail'];?></button>
             	<button class="btn-u btn-u-orange" onclick="onOpenSMS()"><i class="icon-comment"></i>&nbsp;<?php echo $MT_LANG['sendSms'];?></button>
-            	<button class="btn-u btn-u-blue" onclick="window.location.href='campaignList.php'" style="margin-left: 15px;"><i class="icon-tags"></i>&nbsp;<?php echo $MT_LANG['campaignList'];?></button>
             	
-            	<button class="btn-u btn-u-blue" onclick="window.location.href='automationList.php'" style="margin-left: 15px;"><i class="icon-flag"></i>&nbsp;<?php echo $MT_LANG['automation'];?></button>
+            	<button class="btn-u btn-u-blue" onclick="onShowGroup()" style="margin-left:15px;"><i class="icon-group"></i>&nbsp;Join Group</button>
             </div>
             <div class="floatright">
-            	<span style="padding-right: 20px;"><span style="color:#e67e22; padding-right: 30px;font-size: 18px;"><b>You can buy <?php echo CREDITS_PRICE;?> Credits with 1 euro.</b></span><b><span id="cntCredits"><?php echo $credits;?></span> Credits</b></span>
+            	<span style="padding-right: 20px;"><span style="color:#e67e22; padding-right: 30px;font-size: 16px;"><b>1 Euro = <?php echo CREDITS_PRICE;?> Credits</b></span><b><span id="cntCredits"><?php echo $credits;?></span> Credits</b></span>
             	<button class="btn-u btn-u-blue" onclick="parent.onOpenPayment();"><i class="icon-money"></i>&nbsp;<?php echo $MT_LANG['buyCredits'];?></button>
             </div>
             <div class="clearboth"></div>	
@@ -204,7 +211,9 @@ if (!headers_sent())
 								?>
 							</td>
 							<td><?php echo $customerList[$i]['bookingTime']?></td>
-							<td><button class="btn btn-info btn-xs" onclick="onEditCustomer('<?php echo $customerList[$i]['planGroupCode']?>', <?php echo $customerList[$i]['cId']?> )">Edit</button></td>		
+							<td>
+								<button class="btn btn-info btn-xs" onclick="onEditCustomer('<?php echo $customerList[$i]['planGroupCode']?>', <?php echo $customerList[$i]['cId']?> )">Edit</button>
+							</td>		
 						</tr>
 						<?php } ?>																	
 					</tbody>
@@ -212,21 +221,21 @@ if (!headers_sent())
 			</div>             	
 	</div>
 	<div id="divSMSArea" class="unshow">
-		<span>SMS Title</span> <span style="padding-left:20px;">(&nbsp;<span id="lengthSMSTitle"></span>&nbsp;/&nbsp;40&nbsp;)</span>
+		<span><?php echo $MT_LANG['smsTitle'];?></span> <span style="padding-left:20px;">(&nbsp;<span id="lengthSMSTitle"></span>&nbsp;/&nbsp;40&nbsp;)</span>
 		<input type="text" class="form-control" id="titleSMS" style="margin-top:5px; margin-bottom: 15px;" maxlength="40">	
-		<span>SMS Text</span>
+		<span><?php echo $MT_LANG['smsText'];?></span>
 		<textarea class="form-control" id="txtSMS" rows="5" style="margin-top:5px; margin-bottom: 15px;" maxlength="160"></textarea>
 		<div class="floatleft">
 			<span style="color:#F00;">*</span>&nbsp;<span id="lengthSMSText"></span>&nbsp;/160
 		</div>
 		<div class="floatright">
-		<button class="btn-u btn-u-blue" onclick="onSendSMS()">Send</button>
-		<button class="btn-u btn-u-orange" onclick="onCloseSMS()">Cancel</button>
+		<button class="btn-u btn-u-blue" onclick="onSendSMS()"><?php echo $MT_LANG['send']?></button>
+		<button class="btn-u btn-u-orange" onclick="onCloseSMS()"><?php echo $MT_LANG['cancel']?></button>
 		</div>
 		<div class="clearboth"></div>
 	</div>
 	<div id="divEmailArea" class="unshow">
-		<div style="height: 45px;background:#3498db;color:#FFF; line-height: 45px; font-size: 20px; padding-left: 20px;">Select Campaign To Send</div>
+		<div style="height: 45px;background:#3498db;color:#FFF; line-height: 45px; font-size: 20px; padding-left: 20px;"><?php echo $MT_LANG['selectCampaignToSend'];?></div>
 		<?php
 			$sql = "select * from tbl_email_campaign where status = 'DRAFT'";
 			$dataCampaign = $db->queryArray( $sql );
@@ -251,11 +260,11 @@ if (!headers_sent())
 					<option value="<?php echo $i;?>"><?php echo $i<10?"0".$i:$i?></option>
 				<?php } ?>
 			</select>&nbsp;&nbsp;
-			<button class="btn-u btn-u-red" onclick="onEmailSchedule()">Schedule</button>
+			<button class="btn-u btn-u-red" onclick="onEmailSchedule()"><?php echo $MT_LANG['schedule']?></button>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<button class="btn-u btn-u-blue" onclick="onSendEmail()">Send Now</button>
+			<button class="btn-u btn-u-blue" onclick="onSendEmail()"><?php echo $MT_LANG['sendNow']?></button>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<button class="btn-u btn-u-orange" onclick="onCloseEmail()">Cancel</button>
+			<button class="btn-u btn-u-orange" onclick="onCloseEmail()"><?php echo $MT_LANG['cancel']?></button>
 		</div>
 		<div class="clearboth"></div>
 	</div>
@@ -266,40 +275,72 @@ if (!headers_sent())
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-	        <h4 class="modal-title">Customer Information</h4>
+	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?php echo $MT_LANG['close']?></span></button>
+	        <h4 class="modal-title"><?php echo $MT_LANG['customerInformation']?></h4>
 	      </div>
 	      <div class="modal-body">
 	      	<div style="width:70%;float:left;">
 		      	<input type="hidden" id="cId"/>
 		      	<input type="hidden" id="pGroupCode"/>
 		      	
-		        <div style="width:25%;float:left;font-weight:bold;text-align:right;line-height:30px;">Name : </div><div style="padding-left:5%;width:70%;float:left;"><input type="text" id="txtName" class="form-control"/></div><div style="clear:both;"></div>
+		        <div style="width:25%;float:left;font-weight:bold;text-align:right;line-height:30px;"><?php echo $MT_LANG['name']?> : </div><div style="padding-left:5%;width:70%;float:left;"><input type="text" id="txtName" class="form-control"/></div><div style="clear:both;"></div>
 		        <br/>
-		        <div style="width:25%;float:left;font-weight:bold;text-align:right;line-height:30px;">Email : </div><div style="padding-left:5%;width:70%;float:left;"><input type="text" id="txtEmail" class="form-control"/></div><div style="clear:both;"></div>
+		        <div style="width:25%;float:left;font-weight:bold;text-align:right;line-height:30px;"><?php echo $MT_LANG['email']?> : </div><div style="padding-left:5%;width:70%;float:left;"><input type="text" id="txtEmail" class="form-control"/></div><div style="clear:both;"></div>
 		        <br/>
-		        <div style="width:25%;float:left;font-weight:bold;text-align:right;line-height:30px;">Phone : </div><div style="padding-left:5%;width:70%;float:left;"><input type="text" id="txtPhone" class="form-control"/></div><div style="clear:both;"></div>
+		        <div style="width:25%;float:left;font-weight:bold;text-align:right;line-height:30px;"><?php echo $MT_LANG['phone']?> : </div><div style="padding-left:5%;width:70%;float:left;"><input type="text" id="txtPhone" class="form-control"/></div><div style="clear:both;"></div>
 		        <br/>
-		        <div style="width:25%;float:left;font-weight:bold;text-align:right;line-height:30px;">Note : </div>
+		        <div style="width:25%;float:left;font-weight:bold;text-align:right;line-height:30px;"><?php echo $MT_LANG['note']?> : </div>
 		        <div style="padding-left:5%;width:70%;float:left;"><textarea id="txtNote" class="form-control" rows="4"></textarea></div>
 		        <div style="clear:both;"></div>
 		        <br/>
-		        <div style="width:25%;float:left;font-weight:bold;text-align:right;line-height:30px;">Count : </div><div style="padding-left:5%;width:70%;float:left;"><input type="text" id="txtBookedCnt" readonly class="form-control"/></div><div style="clear:both;"></div>
+		        <div style="width:25%;float:left;font-weight:bold;text-align:right;line-height:30px;"><?php echo $MT_LANG['count']?> : </div><div style="padding-left:5%;width:70%;float:left;"><input type="text" id="txtBookedCnt" readonly class="form-control"/></div><div style="clear:both;"></div>
 		        <br/>		        
 	        </div>
 	        <div style="width:30%;float:left;">
-	        	<div><b>Previous Bookings</b></div>
+	        	<div><b><?php echo $MT_LANG['previousBookings']?></b></div>
 	        	<div id="bookingList"></div>
 	        </div>
 	        <div style="clear:both;"></div>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal" id="btnClose">Close</button>
-	        <button type="button" class="btn btn-primary" onclick="onSaveCustomer()">Save</button>
+	        <button type="button" class="btn btn-default" data-dismiss="modal" id="btnClose"><?php echo $MT_LANG['close']?></button>
+	        <button type="button" class="btn btn-primary" onclick="onSaveCustomer()"><?php echo $MT_LANG['save']?></button>
 	      </div>
 	    </div><!-- /.modal-content -->
 	  </div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
+	
+	<?php
+	$sql = "select * from tbl_marketing_group where owner = $ownerId";
+	$groupList = $db->queryArray( $sql );
+	
+	?>
+	<div class="modal fade" id="myModalGroupList">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	        <h4 class="modal-title">Group List</h4>
+	      </div>
+	      <div class="modal-body">
+			<div id="groupList">
+				<?php for( $i = 0 ; $i < count( $groupList ); $i ++ ){?>
+				<div id="groupItem" data="<?php echo $groupList[$i]['marketing_group'];?>" onclick="onClickGroupItem( this )">
+					<?php echo $groupList[$i]['group_name'];?>
+				</div>
+				<?php } ?>
+				<?php if( count( $groupList ) == 0 ){ ?>
+				<div>There is no group.</div>
+				<?php } ?>
+			</div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal" id="btnClose1"><?php echo $MT_LANG['close']?></button>
+	        <button type="button" class="btn btn-primary" onclick="onJoinGroup()"><?php echo $MT_LANG['join']?></button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->	
 
 </body>
 </html>
