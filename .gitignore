@@ -1,4 +1,8 @@
-*.pyc
+# Developer must create this file by using config.php.tpl
+config.php
+
+# Developer must create this file by using acceptance.suite.yml.tpl
+acceptance.suite.yml
 
 # Compiled source #
 ###################
@@ -8,6 +12,7 @@
 *.exe
 *.o
 *.so
+*.pyc
 
 # Packages #
 ############
@@ -38,8 +43,7 @@
 ehthumbs.db
 Thumbs.db
 
-# Developer must create this file by using config.php.tpl
-config.php
-
 # Ignore generated sites
 workarea/*
+
+tests/_output/*
