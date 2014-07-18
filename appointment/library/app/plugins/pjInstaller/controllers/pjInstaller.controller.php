@@ -9,17 +9,23 @@ require_once dirname(__FILE__) . '/pjInstallerAppController.controller.php';
 class pjInstaller extends pjInstallerAppController
 {
 	public $defaultInstaller = 'Installer';
-	
+
 	public $defaultErrors = 'Errors';
-	
+
 	public function __construct() {
-		
+		$file = realpath(ROOT_PATH . '/../../config.php');
+        if (!$file) {
+            die('Configuration file does not exist.');
+        }
+
+        $this->cfg = require_once $file;
+
 		$this->defaultInstaller = 'Installer_' . PREFIX;
 		$this->defaultErrors = 'Errors_' . PREFIX;
-		
+
 		$this->setLayout('pjActionInstall');
 	}
-	
+
 	public function beforeFilter()
 	{
 		$this->appendJs('jquery-1.8.3.min.js', $this->getConst('PLUGIN_LIBS_PATH'));
@@ -53,7 +59,7 @@ class pjInstaller extends pjInstallerAppController
 					'CREATE TABLE IF NOT EXISTS `'.$prefix.$scriptPrefix
 				),
 				$string);
-			
+
 			$arr = preg_split('/;(\s+)?\n/', $string);
 			mysql_query("START TRANSACTION");
 			foreach ($arr as $v)
@@ -77,7 +83,7 @@ class pjInstaller extends pjInstallerAppController
 	{
 		$absolutepath = str_replace("\\", "/", dirname(realpath(basename(getenv("SCRIPT_NAME")))));
 		$localpath = str_replace("\\", "/", dirname(getenv("SCRIPT_NAME")));
-		
+
 		$localpath = str_replace("\\", "/", $localpath);
 		$localpath = preg_replace('/^\//', '', $localpath, 1) . '/';
 		$localpath = !in_array($localpath, array('/', '\\')) ? $localpath : NULL;
@@ -97,7 +103,7 @@ class pjInstaller extends pjInstallerAppController
 	private static function pjActionCheckConfig($redirect=true)
 	{
 		return true;
-		
+
 		$filename = 'app/config/config.inc.php';
 		$content = @file_get_contents($filename);
 		if (strpos($content, 'PJ_HOST') === false && strpos($content, 'PJ_INSTALL_URL') === false)
@@ -112,7 +118,7 @@ class pjInstaller extends pjInstallerAppController
 			return false;
 		}
 	}
-	
+
 	private function pjActionCheckSession()
 	{
 		if (!isset($_SESSION[$this->defaultInstaller]))
@@ -120,7 +126,7 @@ class pjInstaller extends pjInstallerAppController
 			pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjInstaller&action=pjActionStep1&install=1");
 		}
 	}
-	
+
 	private function pjActionCheckTables($link)
 	{
 		ob_start();
@@ -149,7 +155,7 @@ class pjInstaller extends pjInstallerAppController
 		}
 		return true;
 	}
-	
+
 	public function pjActionStep0()
 	{
 		if (self::pjActionCheckConfig(false))
@@ -157,11 +163,11 @@ class pjInstaller extends pjInstallerAppController
 			pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjInstaller&action=pjActionStep1&install=1");
 		}
 	}
-	
+
 	public function pjActionStep1()
 	{
 		self::pjActionCheckConfig();
-		
+
 		if (!isset($_SESSION[$this->defaultInstaller]))
 		{
 			$_SESSION[$this->defaultInstaller] = array();
@@ -170,12 +176,12 @@ class pjInstaller extends pjInstallerAppController
 		{
 			$_SESSION[$this->defaultErrors] = array();
 		}
-		
+
 		ob_start();
 		phpinfo(INFO_MODULES);
 		$content = ob_get_contents();
 		ob_end_clean();
-		
+
 		// MySQL version -------------------
 		if (!PJ_DISABLE_MYSQL_CHECK)
 		{
@@ -190,7 +196,7 @@ class pjInstaller extends pjInstallerAppController
 					if (count($m) > 0)
 					{
 						$mysql_version = trim($m[1]);
-						
+
 						if (preg_match('/(\d+\.\d+\.\d+)/', $mysql_version, $m))
 						{
 							$mysql_version = $m[1];
@@ -205,7 +211,7 @@ class pjInstaller extends pjInstallerAppController
 			}
 			$this->set('mysql_check', $mysql_check);
 		}
-		
+
 		// PHP version -------------------
 		$php_check = true;
 		if (version_compare(phpversion(), '5.0.0', '<'))
@@ -213,7 +219,7 @@ class pjInstaller extends pjInstallerAppController
 			$php_check = false;
 		}
 		$this->set('php_check', $php_check);
-				
+
 		$filename = 'app/config/config.inc.php';
 		$err_arr = array();
 		if (!is_writable($filename))
@@ -229,7 +235,7 @@ class pjInstaller extends pjInstallerAppController
 				$err_arr[] = array('folder', $dir, 'You need to set write permissions (chmod 777) to directory located at');
 			}
 		}
-		
+
 		$STORAGE = &$_SESSION[$this->defaultInstaller];
 		$db_url = isset($_COOKIE['appointment_scheduler']) ? $_COOKIE['appointment_scheduler'] : array();
 		$dbp = isset($_COOKIE['appointment_scheduler_p']) ? $_COOKIE['appointment_scheduler_p'] : '';
@@ -237,95 +243,95 @@ class pjInstaller extends pjInstallerAppController
 
 		if (isset($db_url)) {
 			$db_url = urldecode($db_url);
-		
+
 			foreach ( explode('&', $db_url) as $value ) {
 				$_db = explode('=', $value);
 				$db[$_db[0]] = $_db[1];
 			}
 		}
-				
+
 		// from step 1
 		$_POST['step1'] = 1;
 		$_POST['php_version'] = 1;
 		$_POST['mysql_check'] = 1;
 		self::pjActionStep2( );
-		
 
-				
+
+
 		// from step 2
-		$_POST['step2'] = 1;		
+		$_POST['step2'] = 1;
 /* 		$_POST['hostname'] = isset($STORAGE['hostname']) ? htmlspecialchars($STORAGE['hostname']) : isset($db['h']) ? $db['h'] : 'localhost';
 		$_POST['username'] = isset($STORAGE['username']) ? htmlspecialchars($STORAGE['username']) : isset($db['u']) ? $db['u'] : NULL;
-		$_POST['password'] = $dbp; 
+		$_POST['password'] = $dbp;
 		$_POST['database'] = isset($STORAGE['database']) ? htmlspecialchars($STORAGE['database']) : isset($db['n']) ? $db['n'] : NULL; */
-		
-		$_POST['hostname'] = 'localhost';
-		$_POST['username'] = "varausja_1easy";
-		$_POST['password'] = 'wL1vreg9xLn,';
-		$_POST['database'] = 'varausja_easycreate';
-		
+
+		$_POST['hostname'] = $this->cfg['db']['host'];
+		$_POST['username'] = $this->cfg['db']['user'];
+		$_POST['password'] = $this->cfg['db']['password'];
+		$_POST['database'] = $this->cfg['db']['name'];
+
 		$_POST['prefix'] = $as_pf;
 		// self::pjActionStep3( );
-		
+
  		// from step 3
 		$_POST['step3'] = 1;
 		$_POST['install_folder'] = 'a';
 		$_POST['install_url'] = 'b';
 		$_POST['install_path'] = 'c';
 		self::pjActionStep4( );
-		
+
 		// from step 4
 		$_POST['step4'] = 1;
 		$_POST['admin_email'] = "admin@varaa.com";
 		$_POST['admin_password'] = "admin";
 		self::pjActionStep5( );
-		
-		// from step 5		
+
+		// from step 5
 		$_POST['step5'] = 1;
 		$_POST['license_key'] = 'a6bf7b1eb56f9b7a0a0a9ed4acaca1a4';
 		self::pjActionStep6( );
 		// self::pjActionSetConfig( );
 		self::pjActionSetDb( );
-		
+
 		// from step 6
 		$_POST['step6'] = 1;
 		self::pjActionStep7( );
-		
+
 	}
 
 	public function pjActionStep2()
 	{
 		self::pjActionCheckConfig();
-		
+
 		$this->pjActionCheckSession();
-		
+
 		if (isset($_POST['step1']))
 		{
 			$_SESSION[$this->defaultInstaller] = array_merge($_SESSION[$this->defaultInstaller], $_POST);
 		}
-		
+
 		if (!isset($_SESSION[$this->defaultInstaller]['step1']))
 		{
 			pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjInstaller&action=pjActionStep1&install=1");
 		}
-		
+
 		// $this->appendJs('jquery.validate.min.js', $this->getConst('PLUGIN_LIBS_PATH'));
 		// $this->appendJs('pjInstaller.js', $this->getConst('PLUGIN_JS_PATH'));
 	}
-	
+
 	public function pjActionStep3()
 	{
 		self::pjActionCheckConfig();
-		
+
 		$this->pjActionCheckSession();
-		
+
 		if (isset($_POST['step2']))
 		{
 			$_POST = pjSanitize::clean($_POST, array('encode' => false));
 			$_SESSION[$this->defaultInstaller] = array_merge($_SESSION[$this->defaultInstaller], $_POST);
-			
+
 			$err = NULL;
-			
+
 			if (!isset($_POST['hostname']) || !isset($_POST['username']) || !isset($_POST['database']) ||
 				!pjValidation::pjActionNotEmpty($_POST['hostname']) ||
 				!pjValidation::pjActionNotEmpty($_POST['username']) ||
@@ -347,11 +353,11 @@ class pjInstaller extends pjInstallerAppController
 						{
 							$this->set('warning', 1);
 						}
-						
+
 						$tempTable = 'stivasoft_temp_install';
-						
+
 						mysql_query("DROP TABLE IF EXISTS `$tempTable`;", $link);
-						
+
 						if (!mysql_query("CREATE TABLE IF NOT EXISTS `$tempTable` (`created` datetime DEFAULT NULL);", $link))
 						{
 							$err .= "CREATE command denied to current user<br />";
@@ -386,17 +392,17 @@ class pjInstaller extends pjInstallerAppController
 				$_SESSION[$this->defaultErrors][$time] = $err;
 				pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjInstaller&action=pjActionStep2&install=1&err=" . $time);
 			}
-			
+
 			$this->set('paths', self::pjActionGetPaths());
-			
+
 			$this->set('status', 'ok');
 		}
-		
+
 		if (!isset($_SESSION[$this->defaultInstaller]['step2']))
 		{
 			pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjInstaller&action=pjActionStep2&install=1");
 		}
-		
+
 		/* else if (isset($_SESSION[$this->defaultInstaller])) {
 			$this->set('status', 'ok');
 		}*/
@@ -405,9 +411,9 @@ class pjInstaller extends pjInstallerAppController
 	public function pjActionStep4()
 	{
 		self::pjActionCheckConfig();
-		
+
 		$this->pjActionCheckSession();
-		
+
 		if (isset($_POST['step3']))
 		{
 			if (!isset($_POST['install_folder']) || !isset($_POST['install_url']) || !isset($_POST['install_path']) ||
@@ -423,20 +429,20 @@ class pjInstaller extends pjInstallerAppController
 				$_SESSION[$this->defaultInstaller] = array_merge($_SESSION[$this->defaultInstaller], $_POST);
 			}
 		}
-		
+
 		if (!isset($_SESSION[$this->defaultInstaller]['step3']))
 		{
 			pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjInstaller&action=pjActionStep3&install=1");
 		}
-		
+
 	}
-	
+
 	public function pjActionStep5()
 	{
 		self::pjActionCheckConfig();
-		
+
 		$this->pjActionCheckSession();
-		
+
 		if (isset($_POST['step4']))
 		{
 			if (!isset($_POST['admin_email']) || !isset($_POST['admin_password']) ||
@@ -452,22 +458,22 @@ class pjInstaller extends pjInstallerAppController
 				$_SESSION[$this->defaultInstaller] = array_merge($_SESSION[$this->defaultInstaller], $_POST);
 			}
 		}
-		
+
 		if (!isset($_SESSION[$this->defaultInstaller]['step4']))
 		{
 			pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjInstaller&action=pjActionStep4&install=1");
 		}
-		
+
 	}
-	
+
 	public function pjActionStep6()
 	{
 		global $as_pf;
-		
+
 		self::pjActionCheckConfig();
-		
+
 		$this->pjActionCheckSession();
-		
+
 		/* Step 4 */
 		if (isset($_POST['step4']))
 		{
@@ -484,27 +490,27 @@ class pjInstaller extends pjInstallerAppController
 				$_SESSION[$this->defaultInstaller] = array_merge($_SESSION[$this->defaultInstaller], $_POST);
 			}
 		}
-		
+
 		if (!isset($_SESSION[$this->defaultInstaller]['step4']))
 		{
 			pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjInstaller&action=pjActionStep4&install=1");
 		}
 		/* End Step 4 */
-		
+
 		$_POST['step5'] 		= 1;
 		$_POST['license_key'] 	= 'a6bf7b1eb56f9b7a0a0a9ed4acaca1a4';
-		
+
 		if (isset($_POST['step5']))
 		{
 			if (!isset($_POST['license_key']) || !pjValidation::pjActionNotEmpty($_POST['license_key']))
-			{	
+			{
 				$time = time();
 				$_SESSION[$this->defaultErrors][$time] = "License Key is required and can't be empty.";
 				pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjInstaller&action=pjActionStep5&install=1&err=" . $time);
-			} else { 
+			} else {
 				$_POST = pjSanitize::clean($_POST, array('encode' => false));
 				$_SESSION[$this->defaultInstaller] = array_merge($_SESSION[$this->defaultInstaller], $_POST);
-				
+
 				$Http = new pjHttp();
 				$Http->request(base64_decode("aHR0cDovL3N1cHBvcnQuc3RpdmFzb2Z0LmNvbS8=") . 'index.php?controller=Api&action=newInstall&key=' . urlencode($_POST['license_key']) .
 					"&version=". urlencode(PJ_SCRIPT_VERSION) ."&script_id=" . urlencode(PJ_SCRIPT_ID) .
@@ -523,38 +529,38 @@ class pjInstaller extends pjInstallerAppController
 				}
 			}
 		}
-		
+
 		if (!isset($_SESSION[$this->defaultInstaller]['step5']))
 		{
 			pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjInstaller&action=pjActionStep5&install=1");
 		}
-		
+
 		setcookie("as_db_version" . $as_pf, "", time()-36000, "/", "");
 	}
-	
+
 	public function pjActionStep7()
 	{
 		$this->pjActionCheckSession();
-		
+
 		if (isset($_POST['step6']))
 		{
 			$_POST = pjSanitize::clean($_POST, array('encode' => false));
 			$_SESSION[$this->defaultInstaller] = array_merge($_SESSION[$this->defaultInstaller], $_POST);
 		}
-		
+
 		if (!isset($_SESSION[$this->defaultInstaller]['step6']))
 		{
 			pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjInstaller&action=pjActionStep6&install=1");
 		}
-		
+
 		unset($_SESSION[$this->defaultInstaller]);
 		unset($_SESSION[$this->defaultErrors]);
 	}
-	
+
 	public function pjActionSetDb()
 	{
 			set_time_limit(300); //5 minutes
-			
+
 			$resp = array();
 			$link = mysql_connect($_SESSION[$this->defaultInstaller]['hostname'], $_SESSION[$this->defaultInstaller]['username'], $_SESSION[$this->defaultInstaller]['password']);
 			if (!$link)
@@ -576,19 +582,19 @@ class pjInstaller extends pjInstallerAppController
 					{
 						$_GET['install'] = 2;
 						require 'app/config/options.inc.php';
-						
+
 						$result = $this->requestAction(array(
 							'controller' => 'pjAppController',
 							'action' => 'pjActionBeforeInstall'
 						), array('return'));
-						
+
 						if ($result !== NULL && isset($result['code']) && $result['code'] != 200 && isset($result['info']))
 						{
 							$resp['text'] = join("<br>", $result['info']);
 							$resp['code'] = 104;
 							self::pjActionDbError($resp);
 						}
-						
+
 						if (isset($CONFIG['plugins']))
 						{
 							if (is_array($CONFIG['plugins']))
@@ -604,7 +610,7 @@ class pjInstaller extends pjInstallerAppController
 											$resp['text'] = "File not found (or can't be read)";
 											self::pjActionDbError($resp);
 										} elseif ($pdb === true) {
-											
+
 										} else {
 											$resp['code'] = 103;
 											$resp['text'] = $pdb;
@@ -629,7 +635,7 @@ class pjInstaller extends pjInstallerAppController
 										'controller' => $plugin,
 										'action' => 'pjActionBeforeInstall'
 									), array('return'));
-									
+
 									if ($result !== NULL && isset($result['code']) && $result['code'] != 200 && isset($result['info']))
 									{
 										$resp['text'] = join("<br>", $result['info']);
@@ -647,7 +653,7 @@ class pjInstaller extends pjInstallerAppController
 										$resp['text'] = "File not found (or can't be read)";
 										self::pjActionDbError($resp);
 									} elseif ($pdb === true) {
-										
+
 									} else {
 										$resp['code'] = 103;
 										$resp['text'] = $pdb;
@@ -665,12 +671,12 @@ class pjInstaller extends pjInstallerAppController
 									$pluginModel = new $modelName;
 									$pluginModel->pjActionSetup();
 								}
-								
+
 								$result = $this->requestAction(array(
 									'controller' => $plugin,
 									'action' => 'pjActionBeforeInstall'
 								), array('return'));
-								
+
 								if ($result !== NULL && isset($result['code']) && $result['code'] != 200 && isset($result['info']))
 								{
 									$resp['text'] = join("<br>", $result['info']);
@@ -679,12 +685,12 @@ class pjInstaller extends pjInstallerAppController
 								}
 							}
 						}
-						
+
 						$result = $this->requestAction(array(
 							'controller' => 'pjAppController',
 							'action' => 'pjActionAfterInstall'
 						), array('return'));
-						
+
 						if ($result !== NULL && isset($result['code']) && $result['code'] != 200 && isset($result['info']))
 						{
 							$resp['text'] = join("<br>", $result['info']);
@@ -702,7 +708,7 @@ class pjInstaller extends pjInstallerAppController
 								'ip' => $_SERVER['REMOTE_ADDR']
 							))
 							->insert();
-						
+
 						pjOptionModel::factory()
 							->setPrefix($_SESSION[$this->defaultInstaller]['prefix'])
 							->setAttributes(array(
@@ -713,7 +719,7 @@ class pjInstaller extends pjInstallerAppController
 								'type' => 'string'
 							))
 							->insert();
-						
+
 						if (!isset($resp['code']))
 						{
 							$resp['code'] = 200;
@@ -729,23 +735,23 @@ class pjInstaller extends pjInstallerAppController
 					}
 				}
 			}
-			
+
 			if (isset($resp['code']) && $resp['code'] != 200)
 			{
 				self::pjActionDbError($resp);
 			}
 	}
-	
+
 	private static function pjActionDbError($resp)
 	{
 		@file_put_contents('app/config/config.inc.php', '');
 		pjAppController::jsonResponse($resp);
 	}
-	
+
 	public function pjActionSetConfig()
 	{
-			$resp = array();								
-			
+			$resp = array();
+
 			$Http = new pjHttp();
 			$Http->request(base64_decode("aHR0cDovL3N1cHBvcnQuc3RpdmFzb2Z0LmNvbS8=") . 'index.php?controller=Api&action=getInstall'.
 				"&key=" . urlencode($_SESSION[$this->defaultInstaller]['license_key']) .
@@ -755,7 +761,7 @@ class pjInstaller extends pjInstallerAppController
 			$response = $Http->getResponse();
 			$output = unserialize($response);
 	}
-	
+
 	public function pjActionLicense()
 	{
 		$arr = pjOptionModel::factory()
@@ -779,7 +785,7 @@ class pjInstaller extends pjInstallerAppController
 		{
 			printf('PJ_SCRIPT_ID: %s<br>', PJ_SCRIPT_ID);
 			printf('PJ_SCRIPT_BUILD: %s<br><br>', PJ_SCRIPT_BUILD);
-			
+
 			$plugins = pjRegistry::getInstance()->get('plugins');
 			foreach ($plugins as $plugin => $whtvr)
 			{
@@ -788,18 +794,18 @@ class pjInstaller extends pjInstallerAppController
 		}
 		exit;
 	}
-	
+
 	public function pjActionHash()
 	{
 		@set_time_limit(0);
-		
+
 		if (!function_exists('md5_file'))
 		{
 			die("Function <b>md5_file</b> doesn't exists");
 		}
-		
+
 		require 'app/config/config.inc.php';
-		
+
 		# Origin hash -------------
 		if (!is_file(PJ_CONFIG_PATH . 'files.check'))
 		{
@@ -813,7 +819,7 @@ class pjInstaller extends pjInstallerAppController
 			die("File <b>files.check</b> is empty or broken");
 		}
 		$origin = get_object_vars($data);
-				
+
 		# Current hash ------------
 		$data = array();
 		pjUtil::readDir($data, PJ_INSTALL_PATH);
@@ -822,7 +828,7 @@ class pjInstaller extends pjInstallerAppController
 		{
 			$current[str_replace(PJ_INSTALL_PATH, '', $file)] = md5_file($file);
 		}
-		
+
 		$html = '<style type="text/css">
 		table{border: solid 1px #000; border-collapse: collapse; font-family: Verdana, Arial, sans-serif; font-size: 14px}
 		td{border: solid 1px #000; padding: 3px 5px; background-color: #fff; color: #000}
@@ -838,7 +844,7 @@ class pjInstaller extends pjInstallerAppController
 			{
 				if ($current[$file] == $hash)
 				{
-					
+
 				} else {
 					$html .= '<tr><td>'. $file . '</td><td class="diff">changed</td></tr>';
 				}

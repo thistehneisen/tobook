@@ -34,18 +34,25 @@
 | the active record class
 */
 
+$file = realpath(BASEPATH . '/../../config.php');
+if (!$file) {
+    die('Configuration file does not exist.');
+}
+
+$config = require_once $file;
+
 // The following values will probably need to be changed.
-$db['default']['username'] = "varausja_1easy";
-$db['default']['password'] = "wL1vreg9xLn,";
-$db['default']['database'] = "varausja_easycreate";
+$db['default']['username'] = $config['db']['user'];
+$db['default']['password'] = $config['db']['password'];
+$db['default']['database'] = $config['db']['name'];
 
 // The following values can probably stay the same.
-$db['default']['hostname'] = "localhost";
+$db['default']['hostname'] = $config['db']['host'];
 $db['default']['dbdriver'] = "mysql";
 
 if ( defined('PREFIX') ) {
 	$db['default']['dbprefix'] = PREFIX . 'sma_';
-	
+
 } else $db['default']['dbprefix'] = "jack_sma_";
 
 $db['default']['pconnect'] = TRUE;
