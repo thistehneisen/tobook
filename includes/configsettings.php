@@ -1,13 +1,20 @@
-<?php 
+<?php
 
 error_reporting(0);
 
 define('ENVIRONMENT', 'GLOBAL');
 
-define('MYSQL_HOST',        'localhost');
-define('MYSQL_USERNAME',    'varausja_1easy');
-define('MYSQL_PASSWORD',    'wL1vreg9xLn,');
-define('MYSQL_DB',          'varausja_easycreate');
+$file = realpath(__DIR__ . '/../config.php');
+if (!$file) {
+    die('Configuration file does not exist.');
+}
+
+$config = require_once $file;
+
+define('MYSQL_HOST',        $config['db']['host']);
+define('MYSQL_USERNAME',    $config['db']['user']);
+define('MYSQL_PASSWORD',    $config['db']['password']);
+define('MYSQL_DB',          $config['db']['name']);
 define('MYSQL_TABLE_PREFIX','tbl_');
 define('BASE_URL_PART','');
 
