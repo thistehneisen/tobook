@@ -34,7 +34,7 @@
 | the active record class
 */
 
-$file = realpath(BASEPATH . '/../../../config.php');
+$file = realpath(__DIR__ . '/../../../../config.php');
 if (!$file) {
     die('Configuration file does not exist.');
 }
