@@ -13,12 +13,6 @@ class pjInstaller extends pjInstallerAppController
 	public $defaultErrors = 'Errors';
 
 	public function __construct() {
-		$file = realpath(ROOT_PATH . '/../../config.php');
-        if (!$file) {
-            die('Configuration file does not exist.');
-        }
-
-        $this->cfg = require_once $file;
 
 		$this->defaultInstaller = 'Installer_' . PREFIX;
 		$this->defaultErrors = 'Errors_' . PREFIX;
@@ -265,10 +259,17 @@ class pjInstaller extends pjInstallerAppController
 		$_POST['password'] = $dbp;
 		$_POST['database'] = isset($STORAGE['database']) ? htmlspecialchars($STORAGE['database']) : isset($db['n']) ? $db['n'] : NULL; */
 
-		$_POST['hostname'] = $this->cfg['db']['host'];
-		$_POST['username'] = $this->cfg['db']['user'];
-		$_POST['password'] = $this->cfg['db']['password'];
-		$_POST['database'] = $this->cfg['db']['name'];
+        $file = realpath(ROOT_PATH . '/../../config.php');
+        if (!$file) {
+            die('Configuration file does not exist.');
+        }
+
+        $config = require_once $file;
+
+		$_POST['hostname'] = $config['db']['host'];
+		$_POST['username'] = $config['db']['user'];
+		$_POST['password'] = $config['db']['password'];
+		$_POST['database'] = $config['db']['name'];
 
 		$_POST['prefix'] = $as_pf;
 		// self::pjActionStep3( );
