@@ -11,4 +11,5 @@ modules:
         - AcceptanceHelper
     config:
         PhpBrowser:
+            # your path to varaa app
             url: 'http://localhost/myapp/'
