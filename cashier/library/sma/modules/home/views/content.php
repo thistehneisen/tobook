@@ -11,12 +11,13 @@ $(function () {
 .cl_wday { text-align: center; font-weight:bold; }
 .cl_equal { width: 14%; }
 .day { width: 14%; }
-.day_num { width: 100%; text-align:left; margin: -8px; padding:8px; } 
+.day_num { width: 100%; text-align:left; margin: -8px; padding:8px; }
 .content { width: 100%;text-align:left; color: #2FA4E7; margin-top:10px; }
 .highlight { color: #0088CC; font-weight:bold; }
 #eann { display:inline-block; }
 </style>
-<?php   
+<?php
+if (isset($monthly_sales) && !empty($monthly_sales)) :
 		foreach($monthly_sales as $month_sale) {
 		$months[] = date('M-Y', strtotime($month_sale->month));
 		$sales[] = $month_sale->sales;
@@ -24,19 +25,15 @@ $(function () {
 		$tax2[] = $month_sale->tax2;
 		$purchases[] = $month_sale->purchases;
 		$tax3[] = $month_sale->ptax;
-		
-		} 
-		/*
-		foreach($monthly_purchases as $month_purchase) {
-		$purchases[] = $month_purchase->purchases;
-		} */
 
-?>   
+		}
+endif;
+?>
 <script src="<?php echo base_url(); ?>assets/js/sl/highcharts.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/sl/modules/exporting.js"></script>
 <script type="text/javascript">
 $(function () {
-		
+
 		$('#chart').highcharts({
             chart: {
             },
@@ -74,27 +71,27 @@ $(function () {
             series: [{
                 type: 'column',
                 name: '<?php echo $this->lang->line("sp_tax"); ?>',
-                data: [<?php 
+                data: [<?php
 				echo implode(', ', $tax1);
 				?>]
             },
 			{
                 type: 'column',
                 name: '<?php echo $this->lang->line("tax2"); ?>',
-                data: [<?php 
+                data: [<?php
 				echo implode(', ', $tax2);
 				?>]
             },
 			{
                 type: 'column',
                 name: '<?php echo $this->lang->line("sales"); ?>',
-                data: [<?php 
+                data: [<?php
 				echo implode(', ', $sales);
 				?>]
             },  {
                 type: 'spline',
                 name: '<?php echo $this->lang->line("purchases"); ?>',
-                data: [<?php 
+                data: [<?php
 				echo implode(', ', $purchases);
 				?>],
                 marker: {
@@ -110,7 +107,7 @@ $(function () {
             },  {
                 type: 'spline',
                 name: '<?php echo $this->lang->line("pp_tax"); ?>',
-                data: [<?php 
+                data: [<?php
 				echo implode(', ', $tax3);
 				?>],
                 marker: {
@@ -141,7 +138,7 @@ $(function () {
             }]
         });
     });
-	
+
 	$(function () {
     $('#tp').highcharts({
         chart: {
@@ -184,10 +181,10 @@ $(function () {
                 type: 'pie',
                 name: '<?=$this->lang->line('total_sold')?>',
                 data: [
-                    <?php 
+                    <?php
 				foreach($topProducts as $tp) {
 				echo "['".$tp->product_name." (".$tp->product_code.")', ".$tp->quantity."],";
-				
+
 				} ?>
                 ]
             }]
@@ -203,8 +200,8 @@ $(function () {
 
 
 <?php
-	$thankyou = "&lt;h4&gt;".$this->lang->line("thankyou1")." &lt;/h4&gt;&lt;p&gt;".$this->lang->line("thankyou2")."&lt;/p&gt;"; 
-	if ($com->comment) { echo "<div class=\"alert alert-info\" style='position:relative;'><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><i class='icon-remove'></i></button>".html_entity_decode($thankyou)."</div>"; } 
+	$thankyou = "&lt;h4&gt;".$this->lang->line("thankyou1")." &lt;/h4&gt;&lt;p&gt;".$this->lang->line("thankyou2")."&lt;/p&gt;";
+	if ($com->comment) { echo "<div class=\"alert alert-info\" style='position:relative;'><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><i class='icon-remove'></i></button>".html_entity_decode($thankyou)."</div>"; }
 ?>
 
 
@@ -213,22 +210,22 @@ $(function () {
 <div class="span8">
 <div class="well well-small">
 <div id="chart" style="width:100%; height:300px;"></div>
-</div>	
+</div>
 </div>
 
 
 <div class="span4">
 <div class="well well-small">
 <div id="tp" style="width:100%; height:300px;"></div>
-</div>	
+</div>
 </div>
 
 </div>
-	
-			
+
+
 						<?php if ($this->ion_auth->in_group(array('owner', 'admin'))) { ?>
                         <ul class="dash">
-                         
+
                         	<li>
 								<a class="tip" href="index.php?module=products&amp;prefix=<?php echo PREFIX; ?>" title="<?php echo $this->lang->line("products"); ?>">
 									<i><img src="<?php echo $this->config->base_url(); ?>assets/img/icons/products.png" alt="" /></i>
@@ -277,7 +274,7 @@ $(function () {
 									<i><img src="<?php echo $this->config->base_url(); ?>assets/img/icons/report.png" alt="" /></i>
 									<span><span><?php echo $this->lang->line("reports"); ?></span></span>
 								</a>
-							</li> 
+							</li>
                             <?php if ($this->ion_auth->in_group('owner')) { ?>
                             <li>
 								<a class="tip" href="index.php?module=settings&view=system_setting&amp;prefix=<?php echo PREFIX; ?>" title="<?php echo $this->lang->line("settings"); ?>">
@@ -316,7 +313,7 @@ $(function () {
 									<span><span><?php echo $this->lang->line("new_biller"); ?></span></span>
 								</a>
 							</li>
-                            
+
 							<li>
 								<a class="tip" href="index.php?module=customers&amp;prefix=<?php echo PREFIX; ?>" title="<?php echo $this->lang->line("customers"); ?>">
 									<i><img src="<?php echo $this->config->base_url(); ?>assets/img/icons/customers.png" alt="" /></i>
@@ -329,7 +326,7 @@ $(function () {
 									<span><span><?php echo $this->lang->line("new_customer"); ?></span></span>
 								</a>
 							</li>
-                            
+
                             <li>
 								<a class="tip" href="index.php?module=suppliers&amp;prefix=<?php echo PREFIX; ?>" title="<?php echo $this->lang->line("suppliers"); ?>">
 									<i><img src="<?php echo $this->config->base_url(); ?>assets/img/icons/suppliers.png" alt="" /></i>
@@ -342,28 +339,28 @@ $(function () {
 									<span><span><?php echo $this->lang->line("new_supplier"); ?></span></span>
 								</a>
 							</li>
-							
+
 							<li>
 								<a class="tip" href="index.php?module=auth&view=logout&amp;prefix=<?php echo PREFIX; ?>" title="<?php echo $this->lang->line("logout"); ?>">
 									<i><img src="<?php echo $this->config->base_url(); ?>assets/img/icons/logoff.png" alt="" /></i>
 									<span><span><?php echo $this->lang->line("logout"); ?></span></span>
 								</a>
 							</li>
-							
+
 						</ul>
                         <?php } ?>
-                       
-                        
+
+
                          <?php if ($this->ion_auth->in_group('purchaser')) { ?>
                          <ul class="dash">
-                         
+
                         	<li>
 								<a class="tip" href="index.php?module=products&amp;prefix=<?php echo PREFIX; ?>" title="<?php echo $this->lang->line("products"); ?>">
 									<i><img src="<?php echo $this->config->base_url(); ?>assets/img/icons/products.png" alt="" /></i>
 									<span><span><?php echo $this->lang->line("products"); ?></span></span>
 								</a>
 							</li>
-                            
+
 							<li>
 								<a class="tip" href="index.php?module=inventories&amp;prefix=<?php echo PREFIX; ?>" title="<?php echo $this->lang->line("inventories"); ?>">
 									<i><img src="<?php echo $this->config->base_url(); ?>assets/img/icons/puchase.png" alt="" /></i>
@@ -389,7 +386,7 @@ $(function () {
 									<span><span><?php echo $this->lang->line("reports"); ?></span></span>
 								</a>
 							</li>
-							
+
                             <li>
 								<a class="tip" href="index.php?module=auth&view=change_password&amp;prefix=<?php echo PREFIX; ?>" title="<?php echo $this->lang->line("change_password"); ?>">
 									<i><img src="<?php echo $this->config->base_url(); ?>assets/img/icons/user_edit.png" alt="" /></i>
@@ -402,23 +399,23 @@ $(function () {
 									<span><span><?php echo $this->lang->line("logout"); ?></span></span>
 								</a>
 							</li>
-							
+
                             </ul>
-                            
+
                             <div class="clearfix"></div>
-                            
+
                         <?php } ?>
-                        
+
                         <?php if ($this->ion_auth->in_group('salesman')) { ?>
                         <ul class="dash">
-                         
+
                         	<li>
 								<a class="tip" href="index.php?module=products&amp;prefix=<?php echo PREFIX; ?>" title="<?php echo $this->lang->line("products"); ?>">
 									<i><img src="<?php echo $this->config->base_url(); ?>assets/img/icons/products.png" alt="" /></i>
 									<span><span><?php echo $this->lang->line("products"); ?></span></span>
 								</a>
 							</li>
-                            
+
 							<li>
 								<a class="tip" href="index.php?module=sales&amp;prefix=<?php echo PREFIX; ?>" title="<?php echo $this->lang->line("invoices"); ?>">
 									<i><img src="<?php echo $this->config->base_url(); ?>assets/img/icons/sales.png" alt="" /></i>
@@ -444,7 +441,7 @@ $(function () {
 									<span><span><?php echo $this->lang->line("reports"); ?></span></span>
 								</a>
 							</li>
-							
+
                             <li>
 								<a class="tip" href="index.php?module=auth&view=change_password&amp;prefix=<?php echo PREFIX; ?>" title="<?php echo $this->lang->line("change_password"); ?>">
 									<i><img src="<?php echo $this->config->base_url(); ?>assets/img/icons/user_edit.png" alt="" /></i>
@@ -457,16 +454,16 @@ $(function () {
 									<span><span><?php echo $this->lang->line("logout"); ?></span></span>
 								</a>
 							</li>
-							
+
                             </ul>
-                            
+
                             <div class="clearfix"></div>
-                           
+
                         <?php } ?>
-                        
+
                          <?php if ($this->ion_auth->in_group('viewer')) { ?>
                        <ul class="dash">
-                         
+
                         	<li>
 								<a class="tip" href="index.php?module=products&amp;prefix=<?php echo PREFIX; ?>" title="<?php echo $this->lang->line("products"); ?>">
 									<i><img src="<?php echo $this->config->base_url(); ?>assets/img/icons/products.png" alt="" /></i>
@@ -486,7 +483,7 @@ $(function () {
 									<span><span><?php echo $this->lang->line("sales"); ?></span></span>
 								</a>
 							</li>
-                            
+
                             <li style="position:relative;">
 								<a class="tip" href="index.php?module=reports&view=products&amp;prefix=<?php echo PREFIX; ?>" title="<?php echo $this->lang->line("product_alerts"); ?>">
                                 <!--<span style="background:#C00; width: auto; position: absolute; top: -5px; right:5px; color:#FFF; border-radius: 5px; font-weight:bold; padding:2px 5px;"> </span>-->
@@ -494,7 +491,7 @@ $(function () {
 									<span><span><?php echo $this->lang->line("product_alerts"); ?></span></span>
 								</a>
 							</li>
-							
+
                             <li>
 								<a class="tip" href="index.php?module=auth&view=change_password&amp;prefix=<?php echo PREFIX; ?>" title="<?php echo $this->lang->line("change_password"); ?>">
 									<i><img src="<?php echo $this->config->base_url(); ?>assets/img/icons/user_edit.png" alt="" /></i>
@@ -507,13 +504,13 @@ $(function () {
 									<span><span><?php echo $this->lang->line("logout"); ?></span></span>
 								</a>
 							</li>
-							
+
                             </ul>
-                            
+
                             <div class="clearfix"></div>
-                           
+
                         <?php } ?>
-                        
+
 
 <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 <div class="modal-header">
@@ -528,5 +525,5 @@ $(function () {
 <button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo $this->lang->line("close"); ?></button>
 <button type="submit" class="btn btn-primary" id="ok" data-loading-text=""><?php echo $this->lang->line("submit"); ?></button>
 </div>
-<?php echo form_close(); ?> 
+<?php echo form_close(); ?>
 </div>
