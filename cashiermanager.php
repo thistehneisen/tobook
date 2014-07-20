@@ -11,7 +11,10 @@ include "includes/userheader.php";
 	<?php 
 	$table_prefix = $_SESSION["session_loginname"];
 	$table_prefix = str_replace("-", "", $table_prefix);
-	$sql = "SHOW TABLES like '".$table_prefix."_sma_billers'";
+
+	$username = $_SESSION['session_loginname'];
+	$userId = $_SESSION['session_userid'];
+	$sql = "SELECT * FROM sma_users WHERE username = '{$username}' AND owner_id = {$userId}";
 	if(mysql_num_rows(mysql_query( $sql ))==1)
 		$install = '&amp;module=home';
 	else 
