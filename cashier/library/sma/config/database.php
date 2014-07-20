@@ -49,12 +49,7 @@ $db['default']['database'] = $config['db']['name'];
 // The following values can probably stay the same.
 $db['default']['hostname'] = $config['db']['host'];
 $db['default']['dbdriver'] = "mysql";
-
-if ( defined('PREFIX') ) {
-	$db['default']['dbprefix'] = PREFIX . 'sma_';
-
-} else $db['default']['dbprefix'] = "jack_sma_";
-
+$db['default']['dbprefix'] = 'sma_';
 $db['default']['pconnect'] = TRUE;
 $db['default']['db_debug'] = FALSE;
 $db['default']['cache_on'] = FALSE;
