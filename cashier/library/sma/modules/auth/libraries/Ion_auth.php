@@ -135,11 +135,13 @@ class Ion_auth
 		define("TRANSFER_REF", $SETTING->transfer_prefix);
 		define("ALERT_NO", $this->ion_auth_model->get_total_results());
 		define("CAL_OPT", $SETTING->restrict_calendar);
-                define("BSTATESAVE", 0);
-                $user = $this->user()->row();
-			define("FIRST_NAME", $user->first_name);
-			define("USER_NAME", $user->first_name." ".$user->last_name);
-			define("USER_ID", $user->id);
+        define("BSTATESAVE", 0);
+
+        $user = $this->user()->row();
+		define("FIRST_NAME", isset($user->first_name) ? $user->first_name : '');
+		define("USER_NAME", isset($user->first_name) ? $user->first_name." ".$user->last_name : '');
+		define("USER_ID", isset($_SESSION['session_userid']) ? $_SESSION['session_userid'] : $user->id);
+
 		if ($cal = $this->ion_auth_model->getEvents()) {
 			$cal_d = '';
 			foreach($cal as $dt) {

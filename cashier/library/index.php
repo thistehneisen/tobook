@@ -18,8 +18,8 @@
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
-	define('ENVIRONMENT', 'production');
-	
+	define('ENVIRONMENT', 'development');
+
 	/*
 	 * Cookie
 	*
@@ -27,16 +27,16 @@
 	if ( isset($_GET['prefix']) && !empty($_GET['prefix']) ) {
 		$prefix = $_GET['prefix'];
 		setcookie("cashierpf", $prefix, time()+3600, "/", "");
-	
+
 	} else  $prefix = isset($_COOKIE['cashierpf']) ? $_COOKIE['cashierpf'] : null;
-	
+
 	if ( !isset($prefix) || empty($prefix) ) exit();
-	
+
 	if ( isset($_GET['install']) && $_GET['install'] == 1 ) {
 		header('Location: install/index.php?prefix=' . $prefix);
 		exit;
 	}
-	
+
 	define('PREFIX', $prefix);
 /*
  *---------------------------------------------------------------
@@ -54,7 +54,7 @@ if (defined('ENVIRONMENT'))
 		case 'development':
 			error_reporting(E_ALL);
 		break;
-	
+
 		case 'testing':
 		case 'production':
 			error_reporting(0);
@@ -75,7 +75,7 @@ if (defined('ENVIRONMENT'))
  */
 	$timezone = "Europe/Sarajevo";
 
-	if(function_exists('date_default_timezone_set')) date_default_timezone_set($timezone); 
+	if(function_exists('date_default_timezone_set')) date_default_timezone_set($timezone);
 
 /*
  *---------------------------------------------------------------
@@ -221,7 +221,7 @@ if (defined('ENVIRONMENT'))
 
 		define('APPPATH', BASEPATH.$application_folder.'/');
 	}
-	
+
 	/*// Include additional constants
 	$defines_mySettings = 'includes/defines_mySettings.php';
 	if (file_exists($defines_mySettings))
