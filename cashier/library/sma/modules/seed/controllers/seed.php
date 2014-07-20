@@ -13,6 +13,20 @@ class Seed extends MX_Controller {
 		}
 
 		$this->ownerId = (int) $_SESSION['session_userid'];
+
+		if ($this->isInstallable() === false)
+		{
+			$this->redirect();
+			exit;
+		}
+	}
+
+	public function isInstallable()
+	{
+		$query = $this->db->where('owner_id', $this->ownerId)
+			->where('username', $_SESSION['session_loginname'])
+			->get('users');
+		return $query->num_rows() <= 0;
 	}
 
 	/**
