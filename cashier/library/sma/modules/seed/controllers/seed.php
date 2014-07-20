@@ -31,7 +31,6 @@ class Seed extends MX_Controller {
 			'address' => 'Address',
 			'city'    => 'City'
 		));
-		echo 'Warehouse created #'.$warehouseId.'<br />';
 
 		$billerId = $this->seed('billers', array(
 			'name'           => 'Mian Saleem',
@@ -52,25 +51,21 @@ class Seed extends MX_Controller {
 			'cf5'            => '',
 			'cf6'            => '',
 		));
-		echo 'Biller created #'.$billerId.'<br />';
 
 		$categoryId = $this->seed('categories', array(
 			'code' => 'C1',
 			'name' => 'Category 1',
 		));
-		echo 'Category created #'.$categoryId.'<br />';
 
 		$subcategoryId = $this->seed('subcategories', array(
 			'category_id' => $categoryId,
 			'code'        => 'Sub-c1',
 			'name'        => 'sub category 1'
 		));
-		echo 'Category created #'.$subcategoryId.'<br />';
 
 		$this->seed('comments', array(
 			'comment' => '&lt;h4&gt;Thank you for Purchasing Stock Manager Advance 2.3 with POS Module &lt;/h4&gt;\r\n&lt;p&gt;\r\n              This is latest the latest release of Stock Manager Advance.\r\n&lt;/p&gt;'
 		));
-		echo 'Comment created <br />';
 
 		$customerId = $this->seed('customers', array(
 			'name'          => 'Test Customer',
@@ -91,7 +86,6 @@ class Seed extends MX_Controller {
 			'cf5'           => '',
 			'cf'            => '',
 		));
-		echo 'Customer created #'.$customerId.'<br />';
 
 		$this->seed('pos_settings', array(
 			'cat_limit'        => 22,
@@ -106,7 +100,6 @@ class Seed extends MX_Controller {
 			'cf_value2'        => ''
 		));
 
-		echo 'POS settings seeded <br />';
 
 		$supplierId = $this->seed('suppliers', array(
 			'name'        => 'Test Supplier',
@@ -125,7 +118,6 @@ class Seed extends MX_Controller {
 			'cf5'         => '-',
 			'cf6'         => '-'
 		));
-		echo 'Customer created #'.$supplierId.'<br />';
 
 		$taxRateId2 = $this->seed('tax_rates', array(
 			'name' => 'No Tax',
@@ -180,7 +172,7 @@ class Seed extends MX_Controller {
 			'bstatesave'           => 1
 		));
 
-		echo 'System settings created. Done!';
+		$this->redirect();
 	}
 
 	/**
@@ -275,7 +267,6 @@ class Seed extends MX_Controller {
 			'php' => 'd.m.Y',
 			'sql' => '%d.%m.%Y',
 		));
-		echo 'Date format created <br />';
 		return $dateFormatId;
 	}
 
@@ -305,8 +296,12 @@ class Seed extends MX_Controller {
 			'type'     => '1'
 		));
 
-		echo 'Discount seeded <br />';
 		return $discountId;
+	}
+
+	public function redirect()
+	{
+		return redirect(site_url().'?module=home');
 	}
 
 }

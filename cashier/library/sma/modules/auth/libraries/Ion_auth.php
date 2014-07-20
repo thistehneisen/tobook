@@ -84,58 +84,61 @@ class Ion_auth
 
 		// Site setting
 		$SETTING = $this->ion_auth_model->get_setting();
-		define("LOGO", $SETTING->logo);
-		define("LOGO2", $SETTING->logo2);
-		define("SITE_NAME", $SETTING->site_name);
-		define("VERSION", $SETTING->version);
-		define("THEME", $SETTING->theme);
-		if(get_cookie('sma_language')) {
-			if(file_exists('sma/language/'.get_cookie('sma_language').'/sma_lang.php') && is_dir('sma/language/'.get_cookie('sma_language'))) {
-			$this->lang->load('sma', get_cookie('sma_language'));
-			define("LANGUAGE", get_cookie('sma_language'));
+		if (!empty($SETTING))
+		{
+			define("LOGO", $SETTING->logo);
+			define("LOGO2", $SETTING->logo2);
+			define("SITE_NAME", $SETTING->site_name);
+			define("VERSION", $SETTING->version);
+			define("THEME", $SETTING->theme);
+			if(get_cookie('sma_language')) {
+				if(file_exists('sma/language/'.get_cookie('sma_language').'/sma_lang.php') && is_dir('sma/language/'.get_cookie('sma_language'))) {
+				$this->lang->load('sma', get_cookie('sma_language'));
+				define("LANGUAGE", get_cookie('sma_language'));
+				}
+			} else {
+				$this->lang->load('sma', $SETTING->language);
+				define("LANGUAGE", $SETTING->language);
 			}
-		} else {
-			$this->lang->load('sma', $SETTING->language);
-			define("LANGUAGE", $SETTING->language);
+
+
+			if ($this->logged_in()) {
+
+			if($df = $this->ion_auth_model->getDateFormat($SETTING->dateformat)) {
+				define("JS_DATE", $df->js);
+				define("PHP_DATE", $df->php);
+				define("MYSQL_DATE", $df->sql);
+			} else {
+				define("JS_DATE", 'mm-dd-yyyy');
+				define("PHP_DATE", 'm-d-Y');
+				define("MYSQL_DATE", '%m-%d-%Y');
+			}
+
+			define("DEFAULT_INVOICE", $SETTING->default_invoice_type);
+			define("DEFAULT_TAX", $SETTING->default_tax_rate);
+			define("DEFAULT_TAX2", $SETTING->default_tax_rate2);
+			define("TAX1", $SETTING->tax1);
+			define("TAX2", $SETTING->tax2);
+			define("DEFAULT_WAREHOUSE", $SETTING->default_warehouse);
+			define("CURRENCY_PREFIX", $SETTING->currency_prefix);
+			define("NO_OF_ROWS", $SETTING->no_of_rows);
+			define("TOTAL_ROWS", $SETTING->total_rows);
+			define("ROWS_PER_PAGE", $SETTING->rows_per_page);
+			define("PRODUCT_SERIAL", $SETTING->product_serial);
+			define("DEFAULT_DISCOUNT", $SETTING->default_discount);
+			define("DISCOUNT_OPTION", $SETTING->discount_option);
+			define("DISCOUNT_METHOD", $SETTING->discount_method);
+			define("BARCODE_SYMBOLOGY", $SETTING->barcode_symbology);
+			define("SALES_REF", $SETTING->sales_prefix);
+			define("QUOTE_REF", $SETTING->quote_prefix);
+			define("PURCHASE_REF", $SETTING->purchase_prefix);
+			define("RESTRICT_SALE", $SETTING->restrict_sale);
+			define("RESTRICT_USER", $SETTING->restrict_user);
+			define("TRANSFER_REF", $SETTING->transfer_prefix);
+			define("ALERT_NO", $this->ion_auth_model->get_total_results());
+			define("CAL_OPT", $SETTING->restrict_calendar);
+	        define("BSTATESAVE", 0);
 		}
-
-
-		if ($this->logged_in()) {
-
-		if($df = $this->ion_auth_model->getDateFormat($SETTING->dateformat)) {
-			define("JS_DATE", $df->js);
-			define("PHP_DATE", $df->php);
-			define("MYSQL_DATE", $df->sql);
-		} else {
-			define("JS_DATE", 'mm-dd-yyyy');
-			define("PHP_DATE", 'm-d-Y');
-			define("MYSQL_DATE", '%m-%d-%Y');
-		}
-
-		define("DEFAULT_INVOICE", $SETTING->default_invoice_type);
-		define("DEFAULT_TAX", $SETTING->default_tax_rate);
-		define("DEFAULT_TAX2", $SETTING->default_tax_rate2);
-		define("TAX1", $SETTING->tax1);
-		define("TAX2", $SETTING->tax2);
-		define("DEFAULT_WAREHOUSE", $SETTING->default_warehouse);
-		define("CURRENCY_PREFIX", $SETTING->currency_prefix);
-		define("NO_OF_ROWS", $SETTING->no_of_rows);
-		define("TOTAL_ROWS", $SETTING->total_rows);
-		define("ROWS_PER_PAGE", $SETTING->rows_per_page);
-		define("PRODUCT_SERIAL", $SETTING->product_serial);
-		define("DEFAULT_DISCOUNT", $SETTING->default_discount);
-		define("DISCOUNT_OPTION", $SETTING->discount_option);
-		define("DISCOUNT_METHOD", $SETTING->discount_method);
-		define("BARCODE_SYMBOLOGY", $SETTING->barcode_symbology);
-		define("SALES_REF", $SETTING->sales_prefix);
-		define("QUOTE_REF", $SETTING->quote_prefix);
-		define("PURCHASE_REF", $SETTING->purchase_prefix);
-		define("RESTRICT_SALE", $SETTING->restrict_sale);
-		define("RESTRICT_USER", $SETTING->restrict_user);
-		define("TRANSFER_REF", $SETTING->transfer_prefix);
-		define("ALERT_NO", $this->ion_auth_model->get_total_results());
-		define("CAL_OPT", $SETTING->restrict_calendar);
-        define("BSTATESAVE", 0);
 
         $user = $this->user()->row();
 		define("FIRST_NAME", isset($user->first_name) ? $user->first_name : '');

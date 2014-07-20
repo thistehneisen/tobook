@@ -15,7 +15,7 @@ include "includes/userheader.php";
 	if(mysql_num_rows(mysql_query( $sql ))==1)
 		$install = '&amp;module=home';
 	else 
-		$install = '&amp;install=1';
+		$install = '&amp;module=seed';
 	
 	$plugins_url = "http://".$_SERVER['SERVER_NAME']."/cashier".'/library/index.php?prefix='. $table_prefix."_" . $install;
 	?>	
