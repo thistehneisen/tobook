@@ -63,7 +63,7 @@ class Seed extends MX_Controller {
 			'name'        => 'sub category 1'
 		));
 
-		$this->seed('comments', array(
+		$this->seed('comment', array(
 			'comment' => '&lt;h4&gt;Thank you for Purchasing Stock Manager Advance 2.3 with POS Module &lt;/h4&gt;\r\n&lt;p&gt;\r\n              This is latest the latest release of Stock Manager Advance.\r\n&lt;/p&gt;'
 		));
 
