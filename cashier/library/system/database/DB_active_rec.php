@@ -1299,6 +1299,11 @@ class CI_DB_active_record extends CI_DB_driver {
             $table = $this->ar_from[0];
         }
 
+        if ($this->getByUser === true) {
+            @session_start();
+            $this->where('owner_id', (int) $_SESSION['session_userid']);
+        }
+
         if ($where != NULL)
         {
             $this->where($where);
@@ -1559,6 +1564,11 @@ class CI_DB_active_record extends CI_DB_driver {
         else
         {
             $table = $this->_protect_identifiers($table, TRUE, NULL, FALSE);
+        }
+
+        if ($this->getByUser === true) {
+            @session_start();
+            $this->where('owner_id', (int) $_SESSION['session_userid']);
         }
 
         if ($where != '')
