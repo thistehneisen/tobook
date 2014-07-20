@@ -43,6 +43,11 @@ acceptance.suite.yml
 ehthumbs.db
 Thumbs.db
 
+# Eclipse and editor files
+.buildpath
+.project
+.settings
+
 # Ignore generated sites
 workarea/*
 
