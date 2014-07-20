@@ -4,17 +4,37 @@ class Auth extends MX_Controller {
 
 	function __construct()
 	{
-		parent::__construct();
-		$this->load->library('ion_auth');
-		$this->load->library('session');
+        parent::__construct();
+        $this->load->library('ion_auth');
+        $this->load->library('session');
 		$this->load->library('form_validation');
 		$this->load->helper('url');
 		// Load MongoDB library instead of native db driver if required
 		$this->config->item('use_mongodb', 'ion_auth') ?
-			$this->load->library('mongo_db') :
-			$this->load->database();
-			
+		$this->load->library('mongo_db') :
+		$this->load->database();
+
+        $this->integrateLogin();
 	}
+
+    public function integrateLogin()
+    {
+        session_start();
+        // Check if there is logged-in user
+        if (isset($_SESSION['session_loginname'])
+            && $_SESSION['session_userid'])
+        {
+            // Auto-login by faking session data
+            $session_data = array(
+                'identity'       => $_SESSION['session_loginname'],
+                'username'       => $_SESSION['session_loginname'],
+                'email'          => $_SESSION['session_email'],
+                'user_id'        => $_SESSION['session_userid'],
+                'old_last_login' => null
+            );
+            $this->session->set_userdata($session_data);
+        }
+    }
 
 	//redirect if needed, otherwise display the user list
 	function index()
@@ -26,7 +46,7 @@ class Auth extends MX_Controller {
 					redirect('module=home');
 				else
 					redirect('module=auth&view=login');
-					
+
 			}else
 				redirect('module=auth&view=login');
 		} else {
@@ -42,26 +62,26 @@ class Auth extends MX_Controller {
 			$data['message'] = (validation_errors() ? validation_errors() : $this->session->flashdata('message'));
 			redirect('module=home', 'refresh');
 		}
-		
+
 		$this->user_check();
-		
+
 		$data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 		$data['success_message'] = $this->session->flashdata('success_message');
-		
+
 			//list the users
 			$data['users'] = $this->ion_auth->users()->result();
 			foreach ($data['users'] as $k => $user)
 			{
 				$data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
 			}
-			
+
 			$meta['page_title'] = 'Users';
 			$this->load->view('commons/header', $meta);
 
 			$this->load->view('index', $data);
-			
+
 			$this->load->view('commons/footer');
-			
+
 	}
 	//log the user in
 	function login()
@@ -116,7 +136,7 @@ class Auth extends MX_Controller {
 
 		//log the user out
 		$logout = $this->ion_auth->logout();
-		
+
 		$this->session->set_flashdata('success_message', $this->lang->line('logout_successful'));
 		redirect('module=auth&view=login', 'refresh');
 	}
@@ -124,13 +144,13 @@ class Auth extends MX_Controller {
 	//change password
 	function change_password()
 	{
-			if(DEMO) { 
+			if(DEMO) {
 				$this->session->set_flashdata('message', $this->lang->line('disabled_in_demo'));
 				redirect("module=home", 'refresh');
 			}
-		
+
 		$this->user_check();
-		
+
 		$this->form_validation->set_rules('old', $this->lang->line("old_pw"), 'required');
 		$this->form_validation->set_rules('new', $this->lang->line("new_pw"), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[new_confirm]');
 		$this->form_validation->set_rules('new_confirm', $this->lang->line("confirm_pw"), 'required');
@@ -172,9 +192,9 @@ class Auth extends MX_Controller {
 			$this->load->view('commons/header', $meta);
 
 			$this->load->view('auth/change_password', $data);
-			
+
 			$this->load->view('commons/footer');
-			
+
 		}
 		else
 		{
@@ -209,7 +229,7 @@ class Auth extends MX_Controller {
 			//set any errors and display the form
 			$data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 			$data['success_message'] = $this->session->flashdata('success_message');
-			
+
 			$this->load->view('auth/forgot_password', $data);
 		}
 		else
@@ -350,7 +370,7 @@ class Auth extends MX_Controller {
 			// insert csrf check
 			$data['csrf'] = $this->_get_csrf_nonce();
 			$data['user'] = $this->ion_auth->user($id)->row();
-			
+
 			$meta['page_title'] = "Deactivate User";
 			$this->load->view('commons/header', $meta);
 			$this->load->view('auth/deactivate_user', $data);
@@ -389,8 +409,8 @@ class Auth extends MX_Controller {
 			$data['message'] = (validation_errors() ? validation_errors() : $this->session->flashdata('message'));
 			redirect('module=home', 'refresh');
 		}
-	
-		$this->form_validation->set_message('is_natural_no_zero', 'The %s field is required.');		
+
+		$this->form_validation->set_message('is_natural_no_zero', 'The %s field is required.');
 		//validate form input
 		$this->form_validation->set_rules('first_name', $this->lang->line("first_name"), 'required|xss_clean');
 		$this->form_validation->set_rules('last_name', $this->lang->line("last_name"), 'required|xss_clean');
@@ -403,11 +423,11 @@ class Auth extends MX_Controller {
 
 		if ($this->form_validation->run() == true)
 		{
-			if(DEMO) { 
+			if(DEMO) {
 				$this->session->set_flashdata('message', $this->lang->line('disabled_in_demo'));
 				redirect("module=home", 'refresh');
 			}
-			
+
 			$username = strtolower($this->input->post('first_name')) . ' ' . strtolower($this->input->post('last_name'));
 			$email = $this->input->post('email');
 			$password = $this->input->post('password');
@@ -417,23 +437,23 @@ class Auth extends MX_Controller {
 				'company' => $this->input->post('company'),
 				'phone' => $this->input->post('phone'),
 			);
-			
-			$group = array($this->input->post('role')); 
+
+			$group = array($this->input->post('role'));
 			/*
 			$check_groups = array($owner, $admin, $purchaser, $salesman);
 			$groups = array_filter($check_groups, 'strlen');
 			if(empty($groups)) {
 				$groups = array('viewer');
 			}*/
-			
+
 			//$data['groups'] = $group;
 		}
-		
-		
+
+
 		if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data, $group))
 		{ //check to see if we are creating the user
 			//redirect them back to the admin page
-			
+
 			// added by jeni 20-05-2014
 			if( $this->session->userdata('username') != null ){
 				$this->session->set_flashdata('success_message', $this->lang->line("user_added"));
@@ -445,9 +465,9 @@ class Auth extends MX_Controller {
 		else
 		{ //display the create user form
 			//set the flash data error message if there is one
-		
+
 			$data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
-			
+
 			$data['first_name'] = array('name' => 'first_name',
 				'id' => 'first_name',
 				'type' => 'text',
@@ -483,15 +503,15 @@ class Auth extends MX_Controller {
 				'type' => 'password',
 				'value' => $this->form_validation->set_value('password_confirm'),
 			);
-			
+
 			$meta['page_title'] = $this->lang->line("new_user");
 			$data['title'] = $this->lang->line("new_user");
 			$this->load->view('commons/header', $meta);
 
 			$this->load->view('auth/create_user', $data);
-			
+
 			$this->load->view('commons/footer');
-			
+
 		}
 	}
 
@@ -527,12 +547,12 @@ class Auth extends MX_Controller {
 			redirect('module=auth&view=login', 'refresh');
 		}
 	}
-	
-	
+
+
 	function edit_user($id = NULL)
 	{
 		if($this->input->get('id')) { $id = $this->input->get('id'); }
-		
+
 		$groups = array('admin', 'purchaser', 'salesman', 'viewer');
 		if ($this->ion_auth->in_group($groups))
 		{
@@ -540,7 +560,7 @@ class Auth extends MX_Controller {
 			$data['message'] = (validation_errors() ? validation_errors() : $this->session->flashdata('message'));
 			redirect('module=auth&view=users', 'refresh');
 		}
-		
+
 
 		$this->form_validation->set_message('is_natural_no_zero', 'The %s field is required.');
 		//validate form input
@@ -555,11 +575,11 @@ class Auth extends MX_Controller {
 
 		if ($this->form_validation->run() == true)
 		{
-			if(DEMO) { 
+			if(DEMO) {
 				$this->session->set_flashdata('message', $this->lang->line('disabled_in_demo'));
 				redirect("module=home", 'refresh');
 			}
-			
+
 			$email = $this->input->post('email');
 			if($this->input->post('password')){
 			$password = $this->input->post('password');
@@ -571,12 +591,12 @@ class Auth extends MX_Controller {
 				'company' => $this->input->post('company'),
 				'phone' => $this->input->post('phone'),
 			);
-			$group = $this->input->post('role'); 
-			
-			
+			$group = $this->input->post('role');
+
+
 		}
-		
-		
+
+
 		if ($this->form_validation->run() == true && $this->ion_auth_model->updateUser($id, $email, $password, $additional_data, $group))
 		{ //check to see if we are creating the user
 			//redirect them back to the admin page
@@ -586,9 +606,9 @@ class Auth extends MX_Controller {
 		else
 		{ //display the create user form
 			//set the flash data error message if there is one
-		
+
 			$data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
-			
+
 			$data['first_name'] = array('name' => 'first_name',
 				'id' => 'first_name',
 				'type' => 'text',
@@ -624,11 +644,11 @@ class Auth extends MX_Controller {
 				'type' => 'password',
 				'value' => $this->form_validation->set_value('password_confirm'),
 			);
-			
-		
+
+
 		$data['user'] = $this->ion_auth_model->getUserByID($id);
 		$data['group'] = $this->ion_auth_model->getUserGroupByUserID($id);
-		
+
 
 		$meta['page_title'] = $this->lang->line("update_user");
 		$data['id'] = $id;
@@ -636,18 +656,18 @@ class Auth extends MX_Controller {
 		$this->load->view('commons/header', $meta);
 		$this->load->view('auth/edit_user', $data);
 		$this->load->view('commons/footer');
-		
+
 		}
 	}
-	
+
 	function delete_user($id = NULL)
 	{
 		if($this->input->get('id')) { $id = $this->input->get('id'); }
-		if(DEMO) { 
+		if(DEMO) {
 				$this->session->set_flashdata('message', $this->lang->line('disabled_in_demo'));
 				redirect("module=home", 'refresh');
 			}
-		
+
 		$groups = array('admin', 'purchaser', 'salesman', 'viewer');
 		if ($this->ion_auth->in_group($groups))
 		{
@@ -655,19 +675,19 @@ class Auth extends MX_Controller {
 			$data['message'] = (validation_errors() ? validation_errors() : $this->session->flashdata('message'));
 			redirect('module=auth&view=users', 'refresh');
 		}
-		
 
-		
+
+
 		if ( $this->ion_auth_model->deleteUser($id) )
 		{ //check to see if we are deleting the biller
 			//redirect them back to the admin page
 			$this->session->set_flashdata('success_message', $this->lang->line("user_deleted"));
 			redirect("module=auth&view=users", 'refresh');
 		}
-		
+
 	}
 
 }
 
-/* End of file auth.php */ 
+/* End of file auth.php */
 /* Location: ./sma/modules/auth/controllers/auth.php */

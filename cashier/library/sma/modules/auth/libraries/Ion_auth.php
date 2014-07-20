@@ -78,10 +78,10 @@ class Ion_auth
 		}
 
 		$this->ion_auth_model->trigger_events('library_constructor');
-		
-		
+
+
 		define("DEMO", 0);
-		
+
 		// Site setting
 		$SETTING = $this->ion_auth_model->get_setting();
 		define("LOGO", $SETTING->logo);
@@ -98,10 +98,10 @@ class Ion_auth
 			$this->lang->load('sma', $SETTING->language);
 			define("LANGUAGE", $SETTING->language);
 		}
-				
-		
+
+
 		if ($this->logged_in()) {
-			
+
 		if($df = $this->ion_auth_model->getDateFormat($SETTING->dateformat)) {
 			define("JS_DATE", $df->js);
 			define("PHP_DATE", $df->php);
@@ -111,7 +111,7 @@ class Ion_auth
 			define("PHP_DATE", 'm-d-Y');
 			define("MYSQL_DATE", '%m-%d-%Y');
 		}
-			
+
 		define("DEFAULT_INVOICE", $SETTING->default_invoice_type);
 		define("DEFAULT_TAX", $SETTING->default_tax_rate);
 		define("DEFAULT_TAX2", $SETTING->default_tax_rate2);
@@ -136,7 +136,7 @@ class Ion_auth
 		define("ALERT_NO", $this->ion_auth_model->get_total_results());
 		define("CAL_OPT", $SETTING->restrict_calendar);
                 define("BSTATESAVE", 0);
-                $user = $this->user()->row();	
+                $user = $this->user()->row();
 			define("FIRST_NAME", $user->first_name);
 			define("USER_NAME", $user->first_name." ".$user->last_name);
 			define("USER_ID", $user->id);
@@ -145,16 +145,16 @@ class Ion_auth
 			foreach($cal as $dt) {
 					$cal_d .= '<li><a href="#" onClick="javascript:event.preventDefault();" style="cursor:default;"><strong>'.date(PHP_DATE, strtotime($dt->date)).':</strong><br>'.$dt->data.'</span></a></li>';
 			}
-				
+
 			define("UP_EVENTS", $cal_d);
 		} else {
 			define("UP_EVENTS", NULL);
 		}
-			
+
 		}
-				
+
 	}
-	
+
 
 	/**
 	 * __call
@@ -501,6 +501,8 @@ class Ion_auth
 	 **/
 	public function in_group($check_group, $id=false)
 	{
+        return in_array('admin', (array) $check_group);
+
 		$this->ion_auth_model->trigger_events('in_group');
 
 		$users_groups = $this->ion_auth_model->get_users_groups($id)->result();
@@ -530,32 +532,32 @@ class Ion_auth
 
 		return FALSE;
 	}
-	
-	function formatMoney($number, $fractional=TRUE) { 
-		if ($fractional) { 
-			$number = sprintf('%.2f', $number); 
-		} 
-		while (true) { 
-			$replaced = preg_replace('/(-?\d+)(\d\d\d)/', '$1,$2', $number); 
-			if ($replaced != $number) { 
-				$number = $replaced; 
-			} else { 
-				break; 
-			} 
-		} 
-		return $number; 
-	} 
+
+	function formatMoney($number, $fractional=TRUE) {
+		if ($fractional) {
+			$number = sprintf('%.2f', $number);
+		}
+		while (true) {
+			$replaced = preg_replace('/(-?\d+)(\d\d\d)/', '$1,$2', $number);
+			if ($replaced != $number) {
+				$number = $replaced;
+			} else {
+				break;
+			}
+		}
+		return $number;
+	}
 
 
 	public function clear_tags($str)
 	{
 		return htmlentities(strip_tags($str, '<code><span><div><label><a><br><p><b><i><del><strike><u><img><video><audio><iframe><object><embed><param><blockquote><mark><cite><small><ul><ol><li><hr><dl><dt><dd><sup><sub><big><pre><code><figure><figcaption><strong><em><table><tr><td><th><tbody><thead><tfoot><h3><h4><h5><h6>'));
 	}
-        
+
         public function fsd($inv_date)
 	{
             if(JS_DATE == 'dd-mm-yyyy' || JS_DATE == 'dd/mm/yyyy' || JS_DATE == 'dd.mm.yyyy') {
-                    $date = substr($inv_date, -4)."-".substr($inv_date, 3, 2)."-".substr($inv_date, 0, 2); 
+                    $date = substr($inv_date, -4)."-".substr($inv_date, 3, 2)."-".substr($inv_date, 0, 2);
             } elseif(JS_DATE == 'mm-dd-yyyy' || JS_DATE == 'mm/dd/yyyy' || JS_DATE == 'mm.dd.yyyy') {
                     $date = substr($inv_date, -4)."-".substr($inv_date, 0, 2)."-".substr($inv_date, 3, 2);
             } else {
@@ -565,5 +567,5 @@ class Ion_auth
         }
 }
 
-/* End of file ion_auth.php */ 
+/* End of file ion_auth.php */
 /* Location: ./sma/modules/auth/libraries/ion_auth.php */
