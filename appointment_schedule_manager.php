@@ -1,7 +1,7 @@
 <?php
 $curTab = 'dashboard';
 
-//include files
+//include Files
 include "includes/session.php";
 include "includes/config.php";
 include "includes/userheader.php";
