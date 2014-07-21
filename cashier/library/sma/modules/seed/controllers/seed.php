@@ -29,6 +29,17 @@ class Seed extends MX_Controller {
 		return $query->num_rows() <= 0;
 	}
 
+	protected function auto_login($user)
+	{
+		// Auto-login
+		$this->load->config('auth/ion_auth', true);
+		$key = $this->config->item('identity', 'ion_auth');
+
+		$identity = $user->$key;
+		$password = $this->session->userdata('temp_password');
+		$a = Modules::run('auth/auth/_auto_login', $identity, $password);
+	}
+
 	/**
 	 * Seed some required data
 	 *
@@ -36,7 +47,8 @@ class Seed extends MX_Controller {
 	 */
 	public function index()
 	{
-		$this->seedUser();
+		$user = $this->seedUser();
+		$this->auto_login($user);
 
 		// Seed warehouse
 		$warehouseId = $this->seed('warehouses', array(
@@ -223,32 +235,36 @@ class Seed extends MX_Controller {
 			{
 				die('Cannot find user with ID #'.$this->ownerId);
 			}
+			
+			// Seeding groups also
+			$groupId = $this->seedGroup();
 
 			// Create new user
+			$password = uniqid();
+			// Set password into session, force user to change password
+			// IMMEDIATELY
+			$this->session->set_userdata(array(
+				'temp_password' => $password
+			));
 			$userId = Modules::run(
 				'auth/auth/_create_user',
 				$result->vuser_login,
-				uniqid(), // Random password, sorry
+				$password,
 				$result->vuser_email,
 				array(
 					'first_name' => $result->vuser_name,
 					'last_name' => $result->vuser_lastname
+				),
+				array (
+					$groupId
 				)
 			);
-
-			// Seeding groups also
-			$groupId = $this->seedGroup();
-			$this->seed('users_groups', array(
-				'user_id'  => $userId,
-				'group_id' => $groupId
-			));
 
 			// Get user, again
 			$user = $this->db->where('id', $userId)->get('users')->row();
 		}
 
-		// Store for future usage
-		$this->user = $user;
+		return $user;
 	}
 
 	protected function seedDateFormat()
@@ -355,9 +371,11 @@ class Seed extends MX_Controller {
 		return $groupId;
 	}
 
-	protected function redirect()
+	protected function redirect($endpoint = null)
 	{
-		return redirect(site_url().'?module=home');
+		return redirect(($endpoint !== null)
+			? $endpoint
+			: site_url().'?module=auth&view=change_password');
 	}
 
 }
