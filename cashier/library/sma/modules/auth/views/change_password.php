@@ -5,6 +5,14 @@
 
 <h3 class="title"><?php echo $page_title; ?></h3>
 
+<?php if ($this->session->userdata('temp_password')) : ?>
+<div class="alert alert-warning">
+	<strong>WARNING!</strong>
+	<p>Please change your password <strong>IMMEDIATELY!</strong></p>
+	<p>Your generated password is <code><?php echo $this->session->userdata('temp_password')  ?></code></p>
+</div>
+<?php endif; ?>
+
 <?php $attrib = array('class' => 'form-horizontal'); echo form_open("module=auth&view=change_password&prefix=" . PREFIX, $attrib);?>
 <div class="control-group">
   <label class="control-label" for="old_password"><?php echo $this->lang->line("old_pw"); ?></label>

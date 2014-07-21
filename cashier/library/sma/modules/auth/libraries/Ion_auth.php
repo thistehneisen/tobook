@@ -506,8 +506,6 @@ class Ion_auth
 	 **/
 	public function in_group($check_group, $id=false)
 	{
-        return in_array('owner', (array) $check_group);
-
 		$this->ion_auth_model->trigger_events('in_group');
 
 		$users_groups = $this->ion_auth_model->get_users_groups($id)->result();

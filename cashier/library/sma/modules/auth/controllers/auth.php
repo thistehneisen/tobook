@@ -13,28 +13,6 @@ class Auth extends MX_Controller {
         $this->config->item('use_mongodb', 'ion_auth') ?
         $this->load->library('mongo_db') :
         $this->load->database();
-
-        $this->integrateLogin();
-    }
-
-    public function integrateLogin()
-    {
-        // Suppress session warning
-        @session_start();
-        // Check if there is logged-in user
-        if (isset($_SESSION['session_loginname'])
-            && $_SESSION['session_userid'])
-        {
-            // Auto-login by faking session data
-            $session_data = array(
-                'identity'       => $_SESSION['session_loginname'],
-                'username'       => $_SESSION['session_loginname'],
-                'email'          => $_SESSION['session_email'],
-                'user_id'        => $_SESSION['session_userid'],
-                'old_last_login' => null
-            );
-            $this->session->set_userdata($session_data);
-        }
     }
 
     //redirect if needed, otherwise display the user list
@@ -702,6 +680,19 @@ class Auth extends MX_Controller {
     public function _create_user($username, $password, $email, $data = array(), $groups = array())
     {
         return $this->ion_auth->register($username, $password, $email, $data, $groups);
+    }
+
+    /**
+     * Open method for other controller to auto-login
+     *
+     * @param  string $identity 
+     * @param  string $password 
+     *
+     * @return bool
+     */
+    public function _auto_login($identity, $password)
+    {
+    	return $this->ion_auth->login($identity, $password);
     }
 
 }
