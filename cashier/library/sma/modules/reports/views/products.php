@@ -128,9 +128,11 @@ span.date { display: none; }
   <label class="control-label" for="product"><?php echo $this->lang->line("product"); ?></label>
   <div class="controls"> <?php 
 		$pr[0] = $this->lang->line("select")." ".$this->lang->line("product");
+	if (!empty($products)) :
 	  	foreach($products as $product){
     		$pr[$product->id] = $product->name;
 		}
+	endif;
 
 		echo form_dropdown('product', $pr, (isset($_POST['product']) ? $_POST['product'] : ""), 'class="form-control input-sm" id="product"'); ?> </div>
 </div>

@@ -1,4 +1,12 @@
-<?php   
+<?php
+	$months = array();
+	$sales = array();
+	$tax1 = array();
+	$tax2 = array();
+	$tax3 = array();
+	$purchases = array();
+	
+	if (!empty($monthly_sales)) : 
         foreach($monthly_sales as $month_sale) {
         $months[] = date('M-Y', strtotime($month_sale->month));
         $sales[] = $month_sale->sales;
@@ -8,6 +16,7 @@
         $tax3[] = $month_sale->ptax;
 
         } 
+    endif;
         /*
         foreach($monthly_purchases as $month_purchase) {
         $purchases[] = $month_purchase->purchases;

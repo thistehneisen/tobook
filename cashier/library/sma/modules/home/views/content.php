@@ -17,6 +17,12 @@ $(function () {
 #eann { display:inline-block; }
 </style>
 <?php
+$months    = array();
+$sales     = array();
+$tax1      = array();
+$tax2      = array();
+$purchases = array();
+$tax3      = array();
 if (isset($monthly_sales) && !empty($monthly_sales)) :
 		foreach($monthly_sales as $month_sale) {
 		$months[] = date('M-Y', strtotime($month_sale->month));
