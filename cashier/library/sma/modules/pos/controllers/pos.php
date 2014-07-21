@@ -653,22 +653,25 @@ class Pos extends MX_Controller {
 		$products = $this->pos_model->fetch_products ( $category_id, $config ["per_page"], $page );
 		$pro = 1;
 		$prods = "<div>";
-		foreach ( $products as $product ) {
-			$count = $product->id;
-			if ($count < 10) {
-				$count = "0" . ($count / 100) * 100;
+		if ($products)
+		{
+			foreach ( $products as $product ) {
+				$count = $product->id;
+				if ($count < 10) {
+					$count = "0" . ($count / 100) * 100;
+				}
+				if ($category_id < 10) {
+					$category_id = "0" . ($category_id / 100) * 100;
+				}
+				if ($product->image == 'no_image.jpg') {
+					$prods .= "
+				<button id=\"product-" . $category_id . $count . "\" type=\"button\" value='" . $product->code . "' class=\"green\" ><i><img src=\"assets/uploads/thumbs/default.png\"></i><span><span>" . $product->name . "</span></span></button>";
+				} else {
+					$prods .= "
+				<button id=\"product-" . $category_id . $count . "\" type=\"button\" value='" . $product->code . "' class=\"green\" ><i><img src=\"assets/uploads/thumbs/" . $product->image . "\"></i><span><span>" . $product->name . "</span></span></button>";
+				}
+				$pro ++;
 			}
-			if ($category_id < 10) {
-				$category_id = "0" . ($category_id / 100) * 100;
-			}
-			if ($product->image == 'no_image.jpg') {
-				$prods .= "
-			<button id=\"product-" . $category_id . $count . "\" type=\"button\" value='" . $product->code . "' class=\"green\" ><i><img src=\"assets/uploads/thumbs/default.png\"></i><span><span>" . $product->name . "</span></span></button>";
-			} else {
-				$prods .= "
-			<button id=\"product-" . $category_id . $count . "\" type=\"button\" value='" . $product->code . "' class=\"green\" ><i><img src=\"assets/uploads/thumbs/" . $product->image . "\"></i><span><span>" . $product->name . "</span></span></button>";
-			}
-			$pro ++;
 		}
 		
 		if ($pro <= PLIMIT) {

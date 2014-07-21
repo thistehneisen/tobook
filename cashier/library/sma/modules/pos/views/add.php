@@ -118,7 +118,7 @@ echo $this->lang->line("date") . " " . date(PHP_DATE, strtotime('today'));
                                 </div>
 							<div id="lefttop">
 								<div style="clear: left;"></div>
-								<input value="<?php echo $customer->name; ?>" id="customer"
+								<input value="<?php echo isset($customer->name) ? $customer->name : '' ?>" id="customer"
 									name="customer" class="customer"
 									style="width: 330px; float: left;"
 									placeholder="Customer - Type 2 char for suggestions"
