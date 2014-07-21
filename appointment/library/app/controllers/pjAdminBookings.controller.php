@@ -956,7 +956,7 @@ class pjAdminBookings extends pjAdmin
 			if ( isset($_GET['employee_id']) && $_GET['employee_id'] > 0 ) {
 				
 				$categories = pjServiceCategoryModel::factory()
-					->where('t1.show_front', 'on')
+					//->where('t1.show_front', 'on')
 					->join('pjService', "t2.category_id = t1.id AND t2.is_active = 1", 'inner')
 					->join('pjEmployeeService', "t3.service_id =t2.id AND t3.employee_id=". $_GET['employee_id'], 'inner')
 					->orderBy('t1.name ASC')
@@ -1002,7 +1002,7 @@ class pjAdminBookings extends pjAdmin
 			} else {
 				
 				$categories = pjServiceCategoryModel::factory()
-					->where('t1.show_front', 'on')
+					//->where('t1.show_front', 'on')
 					->orderBy('t1.name ASC')
 					->findAll()
 					->getData();
