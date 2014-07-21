@@ -600,6 +600,8 @@ CREATE TABLE `sma_users_groups` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` mediumint(8) unsigned NOT NULL,
   `group_id` mediumint(8) unsigned NOT NULL,
+  `owner_id` int(8) NOT NULL,
+  FOREIGN KEY fk_owner_id(owner_id) REFERENCES tbl_user_mast(nuser_id) ON DELETE CASCADE,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

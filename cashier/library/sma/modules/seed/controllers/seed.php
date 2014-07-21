@@ -236,6 +236,13 @@ class Seed extends MX_Controller {
 				)
 			);
 
+			// Seeding groups also
+			$groupId = $this->seedGroup();
+			$this->seed('users_groups', array(
+				'user_id'  => $userId,
+				'group_id' => $groupId
+			));
+
 			// Get user, again
 			$user = $this->db->where('id', $userId)->get('users')->row();
 		}
@@ -313,7 +320,42 @@ class Seed extends MX_Controller {
 		return $discountId;
 	}
 
-	public function redirect()
+	protected function seedGroup()
+	{
+		$groupId = $this->seed('groups', array(
+			'id' => 1,
+			'name' => 'owner',
+			'description' => 'Owner'
+		));
+
+		$this->seed('groups', array(
+			'id' => 2,
+			'name' => 'admin',
+			'description' => 'Administrator'
+		));
+
+		$this->seed('groups', array(
+			'id' => 3,
+			'name' => 'purchaser',
+			'description' => 'Purchasing Staff'
+		));
+
+		$this->seed('groups', array(
+			'id' => 4,
+			'name' => 'salesman',
+			'description' => 'Sales Staff'
+		));
+
+		$this->seed('groups', array(
+			'id' => 5,
+			'name' => 'viewer',
+			'description' => 'View Only User'
+		));
+
+		return $groupId;
+	}
+
+	protected function redirect()
 	{
 		return redirect(site_url().'?module=home');
 	}
