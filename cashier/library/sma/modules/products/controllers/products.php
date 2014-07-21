@@ -191,12 +191,15 @@ class Products extends MX_Controller {
 		$html = "";
 		$html .= '<table class="table table-bordered">
         <tbody><tr>';
+        if (!empty($products))
+        {
         	foreach($products as $pr) {
 				if($r != 1) {$rw = (bool)($r & 1);
 				$html .= $rw ? '</tr><tr>' : ''; }
 				$html .= '<td><h4>'.SITE_NAME.'</h4><strong>'.$pr->name.'</strong><br>'.$this->product_barcode($pr->code, 60, 300).'</td>';
 				$r++;
-			}
+			}        	
+        }
                         if(!(bool)($r & 1)) { $html .= '<td></td>'; }
         $html .= '</tr></tbody>
         </table>';
@@ -242,10 +245,12 @@ class Products extends MX_Controller {
 
 		$html = "";
 		$r = 1;
+		if (!empty($products)) {
         	foreach($products as $pr) {
-			$html .= '<div class="labels"><strong>'.$pr->name.'</strong><br>'.$this->product_barcode($pr->code, 30, 180).'</div>';
-			$r++;
-                }
+				$html .= '<div class="labels"><strong>'.$pr->name.'</strong><br>'.$this->product_barcode($pr->code, 30, 180).'</div>';
+				$r++;
+            }			
+		}
 
                 $data['r'] = $r;
 		$data['html'] = $html;
