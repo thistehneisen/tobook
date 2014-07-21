@@ -224,6 +224,9 @@ class Seed extends MX_Controller {
 				die('Cannot find user with ID #'.$this->ownerId);
 			}
 
+			// Seeding groups also
+			$groupId = $this->seedGroup();
+
 			// Create new user
 			$userId = Modules::run(
 				'auth/auth/_create_user',
@@ -233,15 +236,11 @@ class Seed extends MX_Controller {
 				array(
 					'first_name' => $result->vuser_name,
 					'last_name' => $result->vuser_lastname
+				),
+				array (
+					$groupId
 				)
 			);
-
-			// Seeding groups also
-			$groupId = $this->seedGroup();
-			$this->seed('users_groups', array(
-				'user_id'  => $userId,
-				'group_id' => $groupId
-			));
 
 			// Get user, again
 			$user = $this->db->where('id', $userId)->get('users')->row();

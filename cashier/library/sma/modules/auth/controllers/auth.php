@@ -695,12 +695,13 @@ class Auth extends MX_Controller {
      * @param  string $password
      * @param  string $email
      * @param  array  $data
+     * @param  array  $groups
      *
      * @return int ID of newly created user
      */
-    public function _create_user($username, $password, $email, $data)
+    public function _create_user($username, $password, $email, $data = array(), $groups = array())
     {
-        return $this->ion_auth->register($username, $password, $email, $data);
+        return $this->ion_auth->register($username, $password, $email, $data, $groups);
     }
 
 }
