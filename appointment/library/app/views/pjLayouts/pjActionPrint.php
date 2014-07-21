@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Appointment Scheduler by PHPJabbers.com</title>
+		<title>Ajanvarauksen tarjoaa varaa.com</title>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 		<?php
 		foreach ($controller->getCss() as $css)

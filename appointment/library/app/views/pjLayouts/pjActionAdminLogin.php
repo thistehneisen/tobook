@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Appointment Scheduler by PHPJabbers.com</title>
+		<title>Ajanvarauksen tarjoaa varaa.com</title>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 		<?php
 		foreach ($controller->getCss() as $css)
@@ -18,7 +18,7 @@
 	<body>
 		<div id="container">
 			<div id="header">
-				<a href="http://varaa.com/" id="logo" target="_blank"><img src="<?php echo PJ_INSTALL_URL . PJ_IMG_PATH; ?>backend/logo.png" alt="Appointment Scheduler by PHPJabbers.com" /></a>
+				<a href="http://varaa.com/" id="logo" target="_blank"><img src="<?php echo PJ_INSTALL_URL . PJ_IMG_PATH; ?>backend/logo.png" alt="Ajanvarauksen tarjoaa varaa.com" /></a>
 			</div>
 			<div id="middle">
 				<div id="login-content">
