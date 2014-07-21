@@ -31,13 +31,7 @@
                     
                     <div class="nav-collapse collapse">
                         <ul class="nav pull-right">
-                            <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi, <?php echo FIRST_NAME; ?>! <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="<?php echo base_url(); ?>index.php?module=auth&amp;view=change_password&amp;prefix=<?php echo PREFIX; ?>"><?php echo $this->lang->line('change_password'); ?></a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="<?php echo base_url(); ?>index.php?module=auth&amp;view=logout&amp;prefix=<?php echo PREFIX; ?>"><?php echo $this->lang->line('logout'); ?></a></li>
-                                </ul>
-                            </li>
+                            <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi, <?php echo FIRST_NAME; ?>! </a></li>
                             <li class="divider-vertical"></li>
                             <li class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#"><img src="<?php echo base_url(); ?>assets/img/<?php echo LANGUAGE; ?>.png" style="margin-top:-1px" align="middle"></a>
@@ -223,9 +217,6 @@
                                     <li><a href="<?php echo base_url(); ?>index.php?module=products&amp;prefix=<?php echo PREFIX; ?>"><?php echo $this->lang->line('list_products'); ?></a></li>
                                     <li><a href="<?php echo base_url(); ?>index.php?module=inventories&amp;prefix=<?php echo PREFIX; ?>"><?php echo $this->lang->line('list_purchases'); ?></a></li>
                                     <li><a href="<?php echo base_url(); ?>index.php?module=sales&amp;prefix=<?php echo PREFIX; ?>"><?php echo $this->lang->line('list_invoices'); ?></a></li>
-                                    <li><a href="<?php echo base_url(); ?>index.php?module=auth&view=change_password&amp;prefix=<?php echo PREFIX; ?>"><?php echo $this->lang->line('change_password'); ?></a></li>
-                                    <li><a href="<?php echo base_url(); ?>index.php?module=auth&view=logout&amp;prefix=<?php echo PREFIX; ?>"><?php echo $this->lang->line('logout'); ?></a></li>
-
                                 </ul>
                             </li>
                         </ul>
