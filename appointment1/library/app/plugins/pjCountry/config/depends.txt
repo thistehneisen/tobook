@@ -1,3 +1,0 @@
-jquery.validate
-jquery.multilang
-jquery.tipsy
