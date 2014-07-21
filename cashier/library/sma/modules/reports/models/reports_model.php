@@ -221,7 +221,7 @@ class Reports_model extends CI_Model
 		AND t3.id = t1.sale_id
 		AND DATE_FORMAT( date,  '%Y-%m' ) =  '{$year}-{$month}'
 		GROUP BY DATE_FORMAT( date,  '%e' )";		
-		error_log($myQuery, 3, "C:\data.log");
+		@error_log($myQuery, 3, "C:\data.log");
 		
 		$q = $this->db->query($myQuery, false);
 		if($q->num_rows() > 0) {
