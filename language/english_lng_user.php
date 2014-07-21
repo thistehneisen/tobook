@@ -4,169 +4,171 @@ error_reporting(0);
 /* -----------------------User ----------------------------- */
 //login
 
-define("USER_LOGIN","Väärä käyttäjänimi tai salasana");
-define("VAL_LOGIN_NAME","Syötä käyttäjänimi");
-define("VAL_PWD","Syötä salasana");
-define("VAL_LOGIN_NAME_EMPTY","Käyttäjänimi ei voi olla tyhjä");
-define("VAL_PWD_EMPTY","Salasana ei voi olla tyhjä");
+define("USER_LOGIN","Invalid Login Name / Password!");
+define("VAL_LOGIN_NAME","Enter login name");
+define("VAL_PWD","Enter password");
+define("VAL_LOGIN_NAME_EMPTY","Login Name cannot be empty");
+define("VAL_PWD_EMPTY","Password cannot be empty");
 
 
 //Signup validation
 
-define("SIGNUP_PWDS","Syötä salasanat");
-define("SIGNUP_SIMILAR_PWDS","Syötä salasanat");
-define("SIGNUP_LOG_NAME","Syötä käyttäjänimi");
-define("SIGNUP_LOGINEXISTS","Käyttäjänimi on jo olemassa. Yritä uudelleen!!");
-define("SIGNUP_EMAILEXISTS","Sähköposti on jo käytössä. Yritä uudelleen!");
+define("SIGNUP_PWDS","Please enter the passwords");
+define("SIGNUP_SIMILAR_PWDS","Please enter similar passwords");
+define("SIGNUP_LOG_NAME","Enter valid login name");
+define("SIGNUP_LOGINEXISTS","Login name already exists. Please try again!");
+define("SIGNUP_EMAILEXISTS","Email already exists. Please try again!");
 
-define("SIGNUP_WEL_MSG","Olemme iloisia, että olet rekisteröitynyt");
-define("LOGIN_INFO","Ohessa sisäänkirjautumistietosi");
-define("SIGNUP_USERNAME","Tunnus :");
-define("SIGNUP_PWD"," Salasana :");
-define("LOGIN_CLICK","Klikkaa");
+define("SIGNUP_WEL_MSG","We're excited that you have chosen to signup with");
+define("LOGIN_INFO","Your login information are as follows");
+define("SIGNUP_USERNAME","username :");
+define("SIGNUP_PWD"," password :");
+define("LOGIN_CLICK","Click");
 
 define("TO_LOGIN","to login.");
-define("THANKU","Kiitos kiinnostuksestasi ");
-define("REGARDS"," Terveisin");
-define("TEAM","Tiimi");
-define("VAL_LOGINNAME","Täytä käyttäjänimi");
+define("THANKU","Thank you again for your interest shown on ");
+define("REGARDS"," Regards");
+define("TEAM","Team");
+define("VAL_LOGINNAME","Login name cannot be empty");
 
-define("VAL_NAMELENGHTH","Käyttäjänimessä voi olla maksimissaan 15 merkkiä");
-define("VAL_SIGNUP_PWD","Täytä salasana ");
-define("VAL_SIGNUP_CFRMPWD","Salasana tulee vahvistaa");
-define("VAL_SIGNUP_FNAME_EMPTY","Etunimi ei voi olla tyhjä");
-define("VAL_SIGNUP_EMAIL_EMPTY","Täytä sähköposti");
+define("VAL_NAMELENGHTH","Login name length should be less than 15 characters");
+define("VAL_SIGNUP_PWD","Password cannot be empty ");
+define("VAL_SIGNUP_CFRMPWD","Confirm password cannot be empty");
+define("VAL_SIGNUP_FNAME_EMPTY","First Name cannot be empty");
+define("VAL_SIGNUP_EMAIL_EMPTY","Email cannot be empty");
 
-define("VAL_SIGNUP_EMAIL_FORMAT","Väärä sähköposti väärin");
-define("VAL_SIGNUP_LNAME_EMPTY","Täytä sukunimi");
-define("VAL_SIGNUP_ADDRESS","Täytä osoite");
-define("VAL_SIGNUP_ADDRESS2","Osoite 2 ei voi olla tyhjä");
-define("VAL_SIGNUP_CITY","Täytä kaupunki");
+define("VAL_SIGNUP_EMAIL_FORMAT","Invalid mail format");
+define("VAL_SIGNUP_LNAME_EMPTY","Last name cannot be empty");
+define("VAL_SIGNUP_ADDRESS","Address  cannot be empty");
+define("VAL_SIGNUP_ADDRESS2","Address 2 cannot be empty");
+define("VAL_SIGNUP_CITY","City cannot be empty");
 
-define("VAL_SIGNUP_STATE","Täytä kunta");
-define("VAL_SIGNUP_ZIP","Täytä postinumero");
-define("VAL_SIGNUP_PHONE","Täytä puhelinnumero");
-define("VAL_SIGNUP_FAX","Täytä fax");
+define("VAL_SIGNUP_STATE","State cannot be empty");
+define("VAL_SIGNUP_ZIP","Zip cannot be empty");
+define("VAL_SIGNUP_PHONE","Phone cannot be empty");
+define("VAL_SIGNUP_FAX","Fax cannot be empty");
 
 
 //UserMain
- define("SITE_MANAGER","Kotisivujen hallinta");
- define("WELCOME","Tervetuloa");
- define("WELCOME_TO","Tervetuloa to");
- define("WELCOME_NOTE","Tämän sivun avulla voit hallinnoida liiketoimintaasi helposti. Voit luoda kotisivuja, hallinnoida gallerioita, vastaanottamaan varauksia verkosta, lähettämään markkinointikampanjoita ja optimoimaan löydettävyyttäsi.");
- define("GALLERY_MANAGER","Galleria");
- define("PROFILE_MANAGER","Profiilin hallinta");
- define("PROMOTION_MANAGER","Näkyvyyden hallinta");
- define("CASHIER_MANAGER","Kassa");
- define("RESTAURANT_BOOKING_MANAGER","Ravintolakalenteri");
- define("TIMESLOT_BOOKING_MANAGER","Ryhmäkalenteri");
- define("APPOINTMENT_SCHEDULE_MANAGER","Palvelukalenteri");
- define("MARKETING_TOOL","Markkinointityökalut"); 
- define("MY_SITES","Minun sivustoni");
- define("DASHBOARD_SITE_NAME","Sivun nimi");
- define("DATE_CREATED","Luomispäivämäärä");
- define("STATUS","Tila");
- define("OPERATIONS","Toiminnot");
- define("PREVIEW","Esikatsele");
+ define("SITE_MANAGER","Site Manager");
+ define("WELCOME","Welcome");
+ define("WELCOME_TO","Welcome to");
+ define("WELCOME_NOTE","This site allows you to create your website with advanced components like  image gallery, social plugins, contact form etc.
+        It supports the promotion of your website by friend invitations, search engine submissions etc.");
+ define("GALLERY_MANAGER","Gallery Manager");
+ define("PROFILE_MANAGER","Profile Manager");
+ define("PROMOTION_MANAGER","Promotion Manager");
+ define("CASHIER_MANAGER","Cashier Manager");
+ define("RESTAURANT_BOOKING_MANAGER","Restaurant Booking");
+ define("TIMESLOT_BOOKING_MANAGER","Timeslot Booking");
+ define("APPOINTMENT_SCHEDULE_MANAGER","Appointment Scheduler");
+ define("MARKETING_TOOL","Marketing Tool");
+ define("LOYALTY_CARD","Loyalty Card");
+ define("MY_SITES","My Sites");
+ define("DASHBOARD_SITE_NAME","Site Name");
+ define("DATE_CREATED","Date Created");
+ define("STATUS","Status");
+ define("OPERATIONS","Operations");
+ define("PREVIEW","Preview");
  
  //usermain validation
- define("VAL_DELETE","Oletko varma, että haluat poistaa tämän sivun?");
+ define("VAL_DELETE","Are you sure you want to delete this site?");
  
  
  //gallery manager
- define("GALLERY_DESCRIPTION","Gallerian kautta voit hallinnoida kuvagalleriaasi joita voit käyttää esimerkiksi kotisivuillasi.");
- define("SELECT_IMAGE","Valitse kuva");
- define("UPLOAD_IMAGE","Lataa kuva");
- define("UPLOADING","Ladataan..");
- define("IMAGE","Kuva");
- define("TEXT","Teksti");
- define("ROTATE","Käännä");
+ define("GALLERY_DESCRIPTION","The Gallery Manager holds your collection of images. Here you can change the image properties while creating your site.");
+ define("SELECT_IMAGE","Select Image");
+ define("UPLOAD_IMAGE","Upload Image");
+ define("UPLOADING","Uploading..");
+ define("IMAGE","Image");
+ define("TEXT","Text");
+ define("ROTATE","Rotate");
  define("DEGREES","Degrees");
- define("BRIGHTNESS","Kirkkaus");
- define("CONTRAST","Kontrasti");
- define("WIDTH","Leveys");
- define("HEIGHT","Korkeus");
- define("CROP","Rajaa");
- define("FLIP","Käännä ympäri");
- define("EFFECTS","Efektit");
- define("SELECT","Valitse");
- define("NEGATIVE","Negatiivi");
- define("GREYSCALE","Harmaa");
+ define("BRIGHTNESS","Brightness");
+ define("CONTRAST","Contrast");
+ define("WIDTH","Width");
+ define("HEIGHT","Height");
+ define("CROP","Crop");
+ define("FLIP","Flip");
+ define("EFFECTS","Effects");
+ define("SELECT","Select");
+ define("NEGATIVE","Negative");
+ define("GREYSCALE","Greyscale");
  define("SMOOTH","Smooth");
  define("BLUR","Blur");
- define("CROP_IMAGE","Rajaa");
- define("CLICK","Klikkaa");
- define("APPLY","Suorita");
- define("SAVING_IMAGE","Tallenna kuva");
- define("CANCEL","Peru");
- define("RESET_SELECTION","Poistaaksesi valinta");
- define("FONT","Fontti");
- define("SIZE","Koko");
- define("COLOR","Väri");
- define("LOADING","Lataa..");
- define("REPLACE_FILE","Korvaa aiempi tiedosto");
- define("SAVE_NEWFILE","Tallenna uutena tiedostona");
+ define("CROP_IMAGE","Crop Image");
+ define("CLICK","Click");
+ define("APPLY","Apply");
+ define("SAVING_IMAGE","To Save Your Image.");
+ define("CANCEL","Cancel");
+ define("RESET_SELECTION","To reset Your Selection.");
+ define("FONT","Font");
+ define("SIZE","Size");
+ define("COLOR","Color");
+ define("LOADING","Loading..");
+ define("REPLACE_FILE","Replace Existing File");
+ define("SAVE_NEWFILE","Save as New File");
  
  //gallary validaton
  
- define("VAL_IMAGE","Järjestelmä tukee vain jpg | gif | png formaatteja!");
- define("VAL_NOIMAGE","Kuvia ei löytynyt.");
- define("VAL_IMAGE_SELECT","Valitse kuva");
- define("VAL_IMAGE_SUCC","Kuvan lataaminen onnistui");
- define("VAL_IMAGE_SAVE","Kaikki tallentamaton data häviää mikäli et tallenna.");
+ define("VAL_IMAGE","Only jpg | gif | png formats are supported!");
+ define("VAL_NOIMAGE","No Images Found.");
+ define("VAL_IMAGE_SELECT","Please select an image.");
+ define("VAL_IMAGE_SUCC","Image uploaded successfully");
+ define("VAL_IMAGE_SAVE","Any unsaved changes will be lost, do you wish to save your changes?");
  
  //Profile Manager
  
- define("EDIT_PROFILE","Muokkaa profiilia");
- define("EDIT_PROFILE_DESC","Olet antanut oheiset tiedot rekisteröintivaiheessa. Voit muokata tietoja tarvittaessa.");
- define("EDIT_PASSWORD","Muokkaa salasanaa");
- define("EDIT_PASSWORD_DESC","Täällä voit vaihtaa salasanaasi. Mikäli uskot kolmannen osapuolen tietävän salasanasi suosittelemme salasanan vaihtamista.");
- define("PAYMENT_DETAILS","Maksutiedot");
- define("PAYMENT_DETAILS_DESC","Esikatsele kaikki tiedot jotka liittyvät maksuihisi.");
+ define("EDIT_PROFILE","Edit Profile");
+ define("EDIT_PROFILE_DESC","This is the information you provided to the site at the time of registration.  Edit this information as you see fit.");
+ define("EDIT_PASSWORD","Edit Password");
+ define("EDIT_PASSWORD_DESC","Edit your password here. If you feel that your current password is known by someone else, please change your password as a precaution.");
+ define("PAYMENT_DETAILS","Payment Details");
+ define("PAYMENT_DETAILS_DESC","Review all payment details pertaining to your site.");
 
  //Edit Profile
  
- define("MANDATORY_PART1","Täytä oheiset tiedot (Oheiset tiedot");
- define("MANDATORY_PART2","ovat pakollisia ).");
- define("USER_LOGIN_NAME","Käyttäjänimi");
- define("USER_FIRST_NAME","Etunimi");
- define("USER_LAST_NAME","Sukunimi");
- define("USER_EMAIL","Salasana");
- define("USER_ADDRESS1","Osoite");
- define("USER_CITY","Kaupunki");
- define("USER_STATE","Kunta");
- define("USER_COUNTRY","Maa");
- define("USER_ZIP","Postinumero");
- define("USER_PHONE","Puhelinnumero");
+ define("MANDATORY_PART1","Please fill in the following details ( Fields marked");
+ define("MANDATORY_PART2","are mandatory ).");
+ define("USER_LOGIN_NAME","Login Name");
+ define("USER_FIRST_NAME","First Name");
+ define("USER_LAST_NAME","Last Name");
+ define("USER_EMAIL","Email");
+ define("USER_ADDRESS1","Address1");
+ define("USER_CITY","City");
+ define("USER_STATE","State");
+ define("USER_COUNTRY","Country");
+ define("USER_ZIP","ZIP");
+ define("USER_PHONE","Phone");
  
  //EDIT PROFILE VALIDATION
  
- define("VAL_FNAME","Nimi ei voi olla tyhjä");
- define("VAL_LNAME","Sukunimi ei voi olla tyhjä");
- define("VAL_ADDRESS","Osoite ei voi olla tyhjä");
- define("VAL_EMAIL","Sähköposti ei voi olla tyhjä");
- define("VAL_INVALID_MAIL","Sähköposti väärässä muodossa");
+ define("VAL_FNAME","Name cannot be empty");
+ define("VAL_LNAME","Lastname cannot be empty");
+ define("VAL_ADDRESS","Address cannot be empty");
+ define("VAL_EMAIL","Email cannot be empty");
+ define("VAL_INVALID_MAIL","Invalid mail format");
 
  
  //Edit Password
  
- define("USER_NEW_PASSWORD","Uusi salasana");
- define("USER_CONFIRM_PASSWORD","Vahvista salasana");
+ define("USER_NEW_PASSWORD","New Password");
+ define("USER_CONFIRM_PASSWORD","Confirm Password");
  
  //edit password validation
  
- define("VAL_PASSWORD_UPDATE","Olet päivittänyt salasanan onnistuneesti ja uusi salasanasi on: :");
- define("REGARDS","Terveisin");
+ define("VAL_PASSWORD_UPDATE","You have successfully updated your password & the new password is :");
+ define("REGARDS","Regards,");
  define("THE","The");
- define("TEAM","Tiimi");
- define("VAL_PWD","Päivitetty salasana");
- define("VAL_NEW_PASSWORD","Uusi salasana ei voi olla tyhjä");
+ define("TEAM","Team");
+ define("VAL_PWD","Updated Password");
+ define("VAL_NEW_PASSWORD","New password cannot be empty");
  define("VAL_CONFIRM_PASSWORD","Confirm password cannot be empty");
  define("VAL_PASSWORD_MISMATCH","Password mismatch");
  
  //Promotion Manager
  
- define("SEARCH_ENGINE_SUBMISSION","Toimita hakukoneille");
+ define("SEARCH_ENGINE_SUBMISSION","Search Engine Submission");
  define("SEARCH_ENGINE_DESCRIPTION","To enable your site be to searched out of a search engine results, 
 				you would require to submit your site to the search engine. 
 				Use 'Search Engine Submission' to submit your site to search engines.");
@@ -181,8 +183,8 @@ define("VAL_SIGNUP_FAX","Täytä fax");
  
  //validation site submission
  
- define("VAL_INDEX_SHORTLY","indeksoidaan pian");
- define("VAL_DOC_REMOVED","dokumentti on siirretty");
+ define("VAL_INDEX_SHORTLY","will be indexed shortly");
+ define("VAL_DOC_REMOVED","The document has moved");
  
  
  //Search Engine Submission
@@ -200,27 +202,27 @@ define("VAL_SIGNUP_FAX","Täytä fax");
         Always send mails to your known friends only. 
         You can use the below form to intimate your friends about your site.");
  define("YOUR_INFORMATION","Your Information");
- define("YOUR_NAME","Sinun nimi");
- define("YOUR_EMAIL","Sinun sähköposti");
- define("FRIEND_INFO","Ystäväsi tiedot");
- define("FRIEND_NAME","Ystäväsi nimi");
- define("FRIEND_EMAIL","Ystäväsi sähköposti");
- define("FRIEND_MAILCONTENT","Sähköposti sisältö");
- define("FRIEND_SUBJECT","Otsikko");
- define("FRIEND_CONTENT","Viesti");
- define("FRIEND_REPLACEINFO","Vaihda 'yoursite.com' sivustosi osoitteeseen.");
- define("SITE_LINK","Ole ystävällinen ja tutustu oheiseen sivustoon. Ohessa linkki: http://www.yoursite.com ");
+ define("YOUR_NAME","Your Name");
+ define("YOUR_EMAIL","Your Email");
+ define("FRIEND_INFO","Friend's Information");
+ define("FRIEND_NAME","Friend's Name");
+ define("FRIEND_EMAIL","Friend's Email");
+ define("FRIEND_MAILCONTENT","Mail Content");
+ define("FRIEND_SUBJECT","Subject");
+ define("FRIEND_CONTENT","Content");
+ define("FRIEND_REPLACEINFO","Please replace 'yoursite.com' with your site address");
+ define("SITE_LINK","Please have a look at the following site.Here is the Link: http://www.yoursite.com ");
  
  //VALIDATION TELLFRIEND
  
- define("VAL_MSG_SENT","Viesti on lähetetty ystävällesi.");
- define("VAL_NAME","Täytä nimesi");
- define("VAL_EMAIL","Täytä sähköpostisi");
- define("VAL_INVALIDMAIL","Väärä sähköposti formaatti");
- define("VAL_FRNDNAME","Täytä ystäväsi nimi");
- define("VAL_FRNDMAIL","Täytä ystäväsi sähköposti");
- define("VAL_FRIEND_EMAIL","Täytä aihe");
- define("VAL_FRIEND_MAILCONTENT","Täytä sisältö");
+ define("VAL_MSG_SENT","Message has been sent to your friend.");
+ define("VAL_NAME","Your name cannot be empty");
+ define("VAL_EMAIL","Your mail cannot be empty");
+ define("VAL_INVALIDMAIL","Invalid mail format");
+ define("VAL_FRNDNAME","Friend's name cannot be empty");
+ define("VAL_FRNDMAIL","Friend's mail cannot be empty");
+ define("VAL_FRIEND_EMAIL","Subject cannot be empty");
+ define("VAL_FRIEND_MAILCONTENT","Matter cannot be empty");
  
  
  //Meta Tag Generator
@@ -239,15 +241,15 @@ This meta tag generator will generate meta tags based on the inputs .
  define("SITE_DESCRIPTION_EG","A little, plain language description of the site/page. It is used by search engines to describe your document. Particularly important if your document has very little text. (E.g.: Yoursite.com is a place to sell roses.)");
  define("SITE_KEYWORDS","Site Keywords");
  define("SITE_KEYWORDS_EG","The keywords is useful as a way to reinforce the terms you think your site page is important for. (E.g.: roses, red roses, yellow roses, buy roses, purchase roses.)");
- define("ADDITIONAL_INFO","Lisätiedot");
+ define("ADDITIONAL_INFO","Additional Information");
  define("OPTIONAL","[Optional]");
- define("ROBOTS_OPTION","Robootti optiot");
- define("ROBOTS_OPTION1","Indeksoi sivut sekä seuraa linkkejä");
- define("ROBOTS_OPTION2","Älä indeksoi sivuja äläkä seuraa linkkejä");
+ define("ROBOTS_OPTION","Robots Option");
+ define("ROBOTS_OPTION1","Index this page and follow all links");
+ define("ROBOTS_OPTION2","Don't index this page and don't follow any links");
  define("ROBOTS_OPTION3","Index this page, but don't follow any links");
  define("ROBOTS_OPTION4","Don't index this page, but follow links");
- define("ROBOTS_DESCRIPTION","(Robots meta tag kertoo hakurobotille voiko robootti indeksoida sivut sekä käydä sivuston läpi kokonaisuudessaan parempia hakutuloksia varten.)");
- define("REFRESH_RATE","Päivitysaika sekunneissa.");
+ define("ROBOTS_DESCRIPTION","(The Robots META tag is a tag to tell a robot if it is ok to index this page or not. It also is used to invite a spider to walk down through all your pages.)");
+ define("REFRESH_RATE","Refresh rate in seconds");
  define("REFRESH_RATE_DESCRIPTION","(Specifies a delay in seconds before the browser automatically reloads the document.)");
  define("COPYRIGHT","Copyright line:");
  define("COPYRIGHT_DESCIPTION","(It tells the unqualified copyright statement for the site.)");
@@ -255,7 +257,7 @@ This meta tag generator will generate meta tags based on the inputs .
  define("AUTHOR_DESCRIPTION","(It represents the unqualified author's name who created the site. )");
  define("GENERATOR","Generator:");
  define("GENERATOR_DESCRIPTION","(It tells the unqualified copyright statement for the site.)");
- define("LANGUAGE","Kieli:");
+ define("LANGUAGE","Language:");
  define("BULGARIAN","Bulgarian");
  define("CZECH","Czech");
  define("DANISH","Danish");
@@ -321,58 +323,58 @@ This meta tag generator will generate meta tags based on the inputs .
  
  //editorheader
  
- define("EDITOR_LOADING","Ladataan editoria");
- define("EDITOR","(Editori)");
- define("EDITOR_WIDGETS","Lisäominaisuudet");
- define("EDITOR_PREVIEW","Esikatsele");
- define("EDITOR_HELP","Apua?");
- define("EDITOR_PAGES","Sivut");
- define("EDITOR_ADDEDIT","Lisää / Muokkaa sivua");
- define("EDITOR_FORM","Lomake");
+ define("EDITOR_LOADING"," Loading editor...");
+ define("EDITOR","(Editor)");
+ define("EDITOR_WIDGETS","Widgets");
+ define("EDITOR_PREVIEW","Preview");
+ define("EDITOR_HELP","Help");
+ define("EDITOR_PAGES","Pages");
+ define("EDITOR_ADDEDIT","Add/Edit Page");
+ define("EDITOR_FORM","Form");
  define("EDITOR_ADSENSE","Google Adsense");
- define("EDITOR_SLIDER","Slideri");
- define("EDITOR_CONTACT","Yhteydenottolomake");
- define("EDITOR_MENU","Valikko");
- define("EDITOR_SOCIALSHARE","Sosiaalinen media");
+ define("EDITOR_SLIDER","Slider");
+ define("EDITOR_CONTACT","Contact Form");
+ define("EDITOR_MENU","Menu");
+ define("EDITOR_SOCIALSHARE","Social share");
  define("EDITOR_HTML","HTML");
- define("EDITOR_DRAG","Vedä lisäominaisuus haluaamasi paikkaan.");
+ define("EDITOR_DRAG","Drag a widget into the layout to include it");
  
- define("EDITOR_PANEL","Muokkaa paneelin sisältöä");
- define("EDITOR_UPDATE","Päivitä");
- define("EDITOR_WIDGETS","Lisäominaisuudet");
- define("EDITOR_PREVIEW","Esikatsele");
- define("EDITOR_HELP","Apua?");
- define("EDITOR_PAGES","Sivut");
- define("EDITOR_ADDEDIT","Lisää / Muokkaa sivua");
- define("EDITOR_FORM","Lomake");
+ define("EDITOR_PANEL","Edit Panel Content");
+ define("EDITOR_UPDATE","Update");
+ define("EDITOR_WIDGETS","Widgets");
+ define("EDITOR_PREVIEW","Preview");
+ define("EDITOR_HELP","Help");
+ define("EDITOR_PAGES","Pages");
+ define("EDITOR_ADDEDIT","Add/Edit Page");
+ define("EDITOR_FORM","Form");
  
  
  //edit template
  
- define("EDITOR_HTML_VIEW","HTML näkymä");
- define("EDITOR_DESIGN","Suunnittelu näkymä");
+ define("EDITOR_HTML_VIEW","HTML View");
+ define("EDITOR_DESIGN","Design View");
  define("EDITOR_MENU_LABEL","Menu label");
- define("EDITOR_ADD_MENU","Lisää valikkoon");
- define("EDITOR_VIEW_ITEMS","Tarkistele valikkoa");
- define("EDITOR_LINK_TO","Linkitetty");
- define("EDITOR_POP_CANCEL","Peru");
- define("EDITOR_MENU_MANAGEMENT","Valikon hallinnointi");
+ define("EDITOR_ADD_MENU","Add Menu Item");
+ define("EDITOR_VIEW_ITEMS","View Menu Items");
+ define("EDITOR_LINK_TO","Linked to");
+ define("EDITOR_POP_CANCEL","cancel");
+ define("EDITOR_MENU_MANAGEMENT","Menu Management");
  define("EDITOR_LABEL","Label");
- define("EDITOR_ACTIONS","Toiminnot");
- define("EDITOR_CONTACTDETAILS","Yhteydenottolomakkeen tiedot");
- define("EDITOR_GUEST","Vieraskirja");
- define("EDITOR_IMAGE_SLIDE","Slideri");
- define("EDITOR_HTML","Html laatikko");
- define("EDITOR_PAGESETTINGS","Sivun asetukset");
- define("EDITOR_GOOGLE_ADSENSE","Google Adsense asetukset");
- define("EDITOR_CUSTOM_FORM","Räätälöidyn lomakkeen tiedot");
- define("EDITOR_FORMSETTINGS","Lomakkeiden asetukset");
- define("EDITOR_MENU_SETTINGS","Valikon asetukset");
- define("EDITOR_MANAGESOCIAL_SHARE","Sosiaalinen jako");
- define("EDITOR_SOCIAL_SHARE","Muokkaa sosiaalista jakoa");
- define("EDITOR_SLIDE_SHOW","Muokkaa slideria");
- define("EDITOR_IMAGE_SETTINGS","Kuva asetukset");
- define("EDITOR_MANGE_IMAGES","Muokkaa kuvia");
+ define("EDITOR_ACTIONS","Actions");
+ define("EDITOR_CONTACTDETAILS","Contact Form Details");
+ define("EDITOR_GUEST","Guest Book");
+ define("EDITOR_IMAGE_SLIDE","Image Slide Show");
+ define("EDITOR_HTML","Html Widget");
+ define("EDITOR_PAGESETTINGS","Page Settings");
+ define("EDITOR_GOOGLE_ADSENSE","Google Adsense Settings");
+ define("EDITOR_CUSTOM_FORM","Custom Form Settings");
+ define("EDITOR_FORMSETTINGS","Form Settings");
+ define("EDITOR_MENU_SETTINGS","Menu Settings");
+ define("EDITOR_MANAGESOCIAL_SHARE","Social Share");
+ define("EDITOR_SOCIAL_SHARE","Edit social share");
+ define("EDITOR_SLIDE_SHOW","Manage Slide Show");
+ define("EDITOR_IMAGE_SETTINGS","Image Settings");
+ define("EDITOR_MANGE_IMAGES","Manage Images");
  
  
  $uservalidation=array('EDITOR_MENU_MANAGEMENT'=>EDITOR_MENU_MANAGEMENT,
@@ -396,105 +398,105 @@ This meta tag generator will generate meta tags based on the inputs .
  );
  //FORGOT PASSWORD
  
- define("FORGOT_PWD","Unohditko salanasi?");
- define("FORGOT_VAL_MSG","Täytä käyttäjänimi nollataksesi salasana");
- define("FORGOT_USERNAME","Käyttäjänimi");
- define("FORGOT_MSG","Käyttäjänimi ei voi olla tyhjä");
+ define("FORGOT_PWD","Forgot Password?");
+ define("FORGOT_VAL_MSG","Please enter your username to reset your password");
+ define("FORGOT_USERNAME","Username");
+ define("FORGOT_MSG","Username name cannot be empty");
 
  
  //Show templates
  
- define("SELECT_TEMPLATE"," Valitse teema haluamastasi kategoriasta.");
- define("TEMPLATE_SELECT_CATEGORY"," Valitse kategoria");
- define("TEMPLATE_SELECTALL"," Valitse kaikki");
- define("TEMPLATE_CONTINUE","Jatka");
- define("TEMPLATE_SAVE","Takaisin");
- define("TEMP_SKIP","Skippaa");
- define("TEMP_PREVIEW","Esikatsele");
- define("TEMP_PUBLISH","Julkaise");
- define("TEMP_SAVE","Tallenna");
+ define("SELECT_TEMPLATE"," Select a template for your site from the given list.");
+ define("TEMPLATE_SELECT_CATEGORY"," Select category");
+ define("TEMPLATE_SELECTALL"," Select All");
+ define("TEMPLATE_CONTINUE","Continue");
+ define("TEMPLATE_SAVE","Back");
+ define("TEMP_SKIP","Skip");
+ define("TEMP_PREVIEW","Preview");
+ define("TEMP_PUBLISH","Publish");
+ define("TEMP_SAVE","Save");
  //VALIDATION SHOW TEMPLATES
  
- define("VAL_TEMPLATE_CHOOSE"," Valitse teema");
+ define("VAL_TEMPLATE_CHOOSE"," Please choose a template");
  
  
  //getsitedetails
- define("CUSTOM_APPEARANCE"," Muokkaa ulkoasua");
- define("CUSTOM_SITE_NAME","Sivuston nimi");
- define("CUSTOM_SITE_DESCRIPTION"," Nimeä sivustosi joka auttaa sinua jatkossa tunnistamaan sivustosi.");
- define("CUSTOM_SELECT_LOGO","Valitse logo");
- define("CUSTOM_NO_LOGOS","Valitse logo");
- define("CUSTOM_UPLOAD_LOGO","Lataa logosi");
- define("CUSTOM_UPLOAD_LOGO_DESC","Tämä logo tulee olemaan logosi sivustolla");
- define("CUSTOM_SELECT_SAMPLE"," Valitse malli logoista");
- define("CUSTOM_SELECT_SAMPLE_LOGO","Valitse logo valmiista malleistamme.");
- define("CUSTOM_YOUR_LOGO"," Sivun logo");
- define("CUSTOM_WEBSITE_TITLE","Sivuston otsikko");
- define("CUSTOM_SITE_TITLE"," Sivun otsikko");
- define("CUSTOM_SITE_TILEDESCRIPTION","Sivuston otsikko näkyy selaimen yläosassa ja on tärkeässä roolissa hakukone löydettävyydessä");
- define("CUSTOM_FONT"," Fontti");
- define("CUSTOM_SIZE","Koko");
- define("CUSTOM_COLOR","Väri");
- define("CUSTOM_STYLE4SITE","Käytä oheisiä tyylejä sivuillasi.");
- define("CUSTOM_SITE_COLOR","Sivun väri");
- define("CUSTOM_SELECT_BACKGROUND","Taustan väri");
- define("CUSTOM_BACKGROUND_DESCRIPTION","Sivun taustan väriä voit käytä personoidaksesi sivut yrityksesi näköisiksi.");
- define("CUSTOM_DESCRIPTION","Kuvaus");
- define("CUSTOM_SITE_DESC","Sivuston kuvaus");
- define("CUSTOM_DESCRIPTION_DETAIL","Kirjoita lyhyt kuvaus yrityksesi toiminnasta hakukoneita (Googlea yms.) varten.");
- define("CUSTOM_STYLE4DESCRIPTION","Käytä oheisiä tyylejä kotisivujesi kuvauksessa.");
- define("CUSTOM_OTHERS","Muut");
- define("CUSTOM_ANALYTICS","Google Analytics Koodi");
- define("CUSTOM_ANALYTICS_DESCRIPTION","Google Analytics (GA) Google Analyticsin avulla voit mitata myyntiä ja tuloksia sekä saada tuoreita tietoja siitä, miten kävijät käyttävät sivustoasi, miten he saapuvat sivustollesi ja miten saat heidät palaamaan takaisin. Koodi näyttää esim tältä: "."UA-XXXXX-Y"."");
- define("CUSTOM_GET_ANALYTICS","Hanki Google Analytics koodi");
- define("CUSTOM_META_TITLE","Meta otsikko");
- define("CUSTOM_META_TITLE_DESCRIPTION"," Etusivusi title-tunnisteessa voi lukea verkkosivustosi/yrityksesi nimi sekä muita tärkeitä tietoja, kuten yrityksen fyysinen sijainti tai ehkä muutamia sen pääaihealueista tai tuotteista (3)");
- define("CUSTOM_META_DESCRIPTION","Meta kuvaus");
- define("CUSTOM_META_DETAIL","Meta kuvauksessa tulee käytä ilmi lyhyesti yrityksesi toimintaa.");
- define("CUSTOM_META_KEYWORDS","Meta avainsanat");
- define("CUSTOM_META_KEYWORDS_DESCRIPTION"," Meta avainsanoihin tulee lisätät yrityksellesi tärkeimmät hakusanat jotka esiintyvät myös meta otsikossa ja meta kuvauksessa. ");
+ define("CUSTOM_APPEARANCE"," Customize Appearance");
+ define("CUSTOM_SITE_NAME","Site Name");
+ define("CUSTOM_SITE_DESCRIPTION"," Name your site. This will help to uniquely identify your site.");
+ define("CUSTOM_SELECT_LOGO","Select Logo");
+ define("CUSTOM_NO_LOGOS","No Logos");
+ define("CUSTOM_UPLOAD_LOGO","Upload Your Logo");
+ define("CUSTOM_UPLOAD_LOGO_DESC","This will be your logo of the site. Click 'Browse' to upload a new site logo.");
+ define("CUSTOM_SELECT_SAMPLE"," Select From Sample Logos");
+ define("CUSTOM_SELECT_SAMPLE_LOGO","Select your site logo from our sample logos.");
+ define("CUSTOM_YOUR_LOGO"," Your Logo");
+ define("CUSTOM_WEBSITE_TITLE","Website Title");
+ define("CUSTOM_SITE_TITLE"," Site Title");
+ define("CUSTOM_SITE_TILEDESCRIPTION","The site title might be the name of your company or organization. This title will appear at the top of your site and can be changed at any time.");
+ define("CUSTOM_FONT"," Font");
+ define("CUSTOM_SIZE","Size");
+ define("CUSTOM_COLOR","Color");
+ define("CUSTOM_STYLE4SITE","Use the above styles for the site title.");
+ define("CUSTOM_SITE_COLOR","Site Color");
+ define("CUSTOM_SELECT_BACKGROUND","Select Background Color");
+ define("CUSTOM_BACKGROUND_DESCRIPTION","This will be the background color of your site. Site color can be changed to make variations in the overall look and feel of the site. This effect can be viewed in site preview, not in Editor");
+ define("CUSTOM_DESCRIPTION","Description");
+ define("CUSTOM_SITE_DESC","Site Description");
+ define("CUSTOM_DESCRIPTION_DETAIL","Give a brief description of what your website is about. This will display in your site below the website title.");
+ define("CUSTOM_STYLE4DESCRIPTION","Use the above styles for the site description.");
+ define("CUSTOM_OTHERS","Others");
+ define("CUSTOM_ANALYTICS","Google Analytics Code");
+ define("CUSTOM_ANALYTICS_DESCRIPTION","Google Analytics (GA) is a free service offered by Google that generates detailed statistics about the visitors to a website.Code might look like "."UA-XXXXX-Y"."");
+ define("CUSTOM_GET_ANALYTICS","Get Google Analytics Code");
+ define("CUSTOM_META_TITLE","Meta Title");
+ define("CUSTOM_META_TITLE_DESCRIPTION"," Search engines will look at your meta titles to help decide what category your provision falls into. Your meta title should provide a description in a set of 3 or so phrases and will show in search engine results and will also be displayed at the top of the computer screen when visitors are browsing that page.");
+ define("CUSTOM_META_DESCRIPTION","Meta Description");
+ define("CUSTOM_META_DETAIL","The meta description tag is intented to be a brief summary of your page's content.");
+ define("CUSTOM_META_KEYWORDS","Meta Keywords");
+ define("CUSTOM_META_KEYWORDS_DESCRIPTION"," A meta keywords tag is supposed to be a brief and concise list of the most important terms of your page. Keep your list of keywords or keyword phrases down to 10 - 15 unique words or phrases and separate the words or phrases using a comma. ");
 
  //VALIDATION SITE DETAILS
  
- define("VAL_ERRMSG1","Sivustosi vie tilaa yli sallitun määrän. Käytetty tila: ");
- define("VAL_ERRMSG2","<br>Sallittu tila:");
- define("VAL_ERRMSG3","<br>Poista käyttämäsi kuvat järjestelmästä.<br>&nbsp;<br>");
- define("VAL_IMAGETYPE","Lataa vain .jpg,.gif,.png tyyppisiä kuvia");
+ define("VAL_ERRMSG1","The space taken by you has exceeded the allowed limit.<br>(Space taken by you: ");
+ define("VAL_ERRMSG2","<br>Allowed space:");
+ define("VAL_ERRMSG3","<br>Delete unused images or any/all of the sites created by you to proceed further.<br>&nbsp;<br>");
+ define("VAL_IMAGETYPE","Please upload only .jpg,.gif,.png image types");
  
  
  //PUBLISHPAGE
  
- define("BACK_EDITOR","Takaisin editoriin");
- define("BACK_PAYMENT","Takaisin maksuun");
- define("PUBLISH_AMOUNT","Summa :");
- define("PUBLISH_NOTE","Lisätiedot:");
- define("PUBLISH_WARNING","Varmista, että palaat sivustolle viimeistelläksesi sivuston julkaisun.");
- define("PUBLISH_WARNING2","Maksutapa ei ole käytössä");
- define("PUBLISH_WARNING3","Ota yhteyttä sivuston ylläpitäjään");
- define("PUBLISH_WAITING_INTERFACE","Odotetaan maksunpalvelun tarjoajaa ....");
+ define("BACK_EDITOR","Back To Editor");
+ define("BACK_PAYMENT","Back To Payment");
+ define("PUBLISH_AMOUNT","Amount :");
+ define("PUBLISH_NOTE","Note:");
+ define("PUBLISH_WARNING","Pleae make sure that you return back to this site, it is necessary to finish your order.");
+ define("PUBLISH_WARNING2","Payment Interface currently unavailable. Please");
+ define("PUBLISH_WARNING3","contact administrator");
+ define("PUBLISH_WAITING_INTERFACE","Waiting for the secure payment interface ....");
  define("PUBLISH_CHECKOUT","While using Google CheckOut as payment option, you have to wait for the approval from Administrator of the site for further steps even after successful payment. ");
- define("PUBLISH_FNAME","Etunimi :");
- define("PUBLISH_LNAME","Sukunimi :");
- define("PUBLISH_CNO","Luottokortin numero :");
- define("PUBLISH_VALID_CODE","Varmuuskoodi :");
- define("PUBLISH_VALID_YEAR","Voimassaoloaika :");
+ define("PUBLISH_FNAME","First Name :");
+ define("PUBLISH_LNAME","Last Name :");
+ define("PUBLISH_CNO","Card Number :");
+ define("PUBLISH_VALID_CODE","Validation Code :");
+ define("PUBLISH_VALID_YEAR","Expiration Date :");
  define("PUBLISH_VALID_YEAR_EG","(MM/YYYY)");
- define("BILLING_ADDRESS","Laskutustiedot");
- define("PUBLISH_COMPANY","Yritys:");
- define("PUBLISH_ADDRESS","Osoite:");
- define("PUBLISH_CITY","Kaupunki:");
- define("PUBLISH_STATE","Kunta : ");
- define("PUBLISH_PH","Puhelin :");
- define("PUBLISH_POSTAL","Postinumero :");
- define("PUBLISH_COUNTRY","Maa : ");
- define("PUBLISH_EMAIL","Sähköposti : ");
- define("KOREAN","Osoite:");
- define("DUTCH","Kunta : ");
- define("NORWEGIAN","Puhelin :");
- define("POLISH","Postinumero :");
- define("RUSSIAN","Maa : ");
- define("SWEDISH","Sähköposti : ");
- define("CHINESE","Laskutusosoite");
+ define("BILLING_ADDRESS","Billing Address Details");
+ define("PUBLISH_COMPANY","Company:");
+ define("PUBLISH_ADDRESS","Address:");
+ define("PUBLISH_CITY","City:");
+ define("PUBLISH_STATE","State/Province : ");
+ define("PUBLISH_PH","Phone No :");
+ define("PUBLISH_POSTAL","Postal Code :");
+ define("PUBLISH_COUNTRY","Country : ");
+ define("PUBLISH_EMAIL","Email : ");
+ define("KOREAN","Address:");
+ define("DUTCH","State/Province : ");
+ define("NORWEGIAN","Phone No :");
+ define("POLISH","Postal Code :");
+ define("RUSSIAN","Country : ");
+ define("SWEDISH","Email : ");
+ define("CHINESE","Billing Address Details");
  
  //VALIDATION PUBLISH PAGE
  

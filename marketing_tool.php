@@ -1,32 +1,12 @@
 <?php
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
-// +----------------------------------------------------------------------+
-// | PHP version 4/5                                                      |
-// +----------------------------------------------------------------------+
-// | Copyright (c) 2005-2006 ARMIA INC                                    |
-// +----------------------------------------------------------------------+
-// | This source file is a part of iScripts EasyCreate 1.1                 |
-// +----------------------------------------------------------------------+
-// | Authors: mahesh<mahesh.s@armia.com>              		              |
-// |          									                          |
-// +----------------------------------------------------------------------+
-?>
-<?php
 $curTab = 'dashboard';
 
 //include files
 include "includes/session.php";
 include "includes/config.php";
 include "includes/userheader.php";
-
-$linkArray = array( TOP_LINKS_DASHBOARD =>'usermain.php',
-                    FOOTER_MARKETING_TOOL =>'marketing_tool.php');
-echo getBreadCrumb($linkArray);
 ?>
-
-<h2><?php echo FOOTER_MARKETING_TOOL; ?></h2>
-
-<div class="cpanel_container">
+<div>
 	
 	<?php 	
 		$loginName = $_SESSION["session_loginname"];

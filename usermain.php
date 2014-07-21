@@ -149,6 +149,13 @@ table#tblSiteList tr th{ color: #ec7923; }
 			<a onclick="paymentStatus('as');" style="cursor:pointer;"><img border="0" src="images/appointment.jpg"></a>
 		</div>
 		
+		<div class="manage_box" style="margin-top: 20px;">
+			<div class="manage_box_hdr">
+				<a href="loyalty_card.php" style="cursor:pointer;"><h3><?php echo LOYALTY_CARD;?></h3></a>
+			</div>
+			<a href="loyalty_card.php" style="cursor:pointer;"><img border="0" src="images/loyaltyCard.jpg"></a>
+		</div>
+		
 		<div class="manage_box no_margin" style="margin-top: 20px;">
 			<div class="manage_box_hdr">
 				<a href="marketing_tool.php"><h3><?php echo MARKETING_TOOL ;?></h3></a>
