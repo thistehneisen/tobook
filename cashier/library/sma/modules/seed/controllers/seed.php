@@ -98,7 +98,7 @@ class Seed extends MX_Controller {
 			'cf3'           => '',
 			'cf4'           => '',
 			'cf5'           => '',
-			'cf'            => '',
+			'cf6'           => '',
 		));
 
 		$this->seed('pos_settings', array(
