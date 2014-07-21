@@ -6,6 +6,11 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+use Doctrine\DBAL\Configuration;
+use Doctrine\DBAL\DriverManager;
+
+use Cmd\Migrate\Cashier;
+
 class MigrateCommand extends Command {
 
 	protected function configure() {
@@ -15,11 +20,22 @@ class MigrateCommand extends Command {
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output) {
-		$output->writeln($this->green('Hello World'));
-	}
+		$config = require realpath(__DIR__.'/../config.php');
+		$db = DriverManager::getConnection([
+			'dbname'   => $config['db']['name'],
+			'user'     => $config['db']['user'],
+			'password' => $config['db']['password'],
+			'host'     => $config['db']['host'],
+			'driver'   => 'pdo_mysql',
+		], new Configuration);
 
-	protected function green($text)
-	{
-		return '<fg=green;options=bold>'.$text.'</fg=green;options=bold>';
+		// Fix unknow `enum` type
+		// http://wildlyinaccurate.com/doctrine-2-resolving-unknown-database-type-enum-requested
+		$platform = $db->getDatabasePlatform();
+		$platform->registerDoctrineTypeMapping('enum', 'string');
+
+		// @todo: Based on passed `module`, create corresponding class
+		$module = new Cashier($output, $db);
+		$module->run();
 	}
 }
