@@ -20,7 +20,7 @@
     }
 
     $data['accountCode'] = $accountCode;
-    $data['status'] = $status;//defined('BYPASS_PAYMENT') ? (int) BYPASS_PAYMENT : $status;
+    $data['status'] = defined('BYPASS_PAYMENT') ? (int) BYPASS_PAYMENT : $status;
     $data['result'] = $result;
     $data['error'] = $error;
     header('Content-Type: application/json');
