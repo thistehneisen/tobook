@@ -18,7 +18,8 @@
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
-	define('ENVIRONMENT', 'development');
+	$env = getenv('APP_ENV') !== false ? getenv('APP_ENV') : 'development';
+	define('ENVIRONMENT', $env);
 
 	/*
 	 * Cookie
