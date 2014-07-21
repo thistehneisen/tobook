@@ -240,7 +240,7 @@ class pjInstaller extends pjInstallerAppController
 
 			foreach ( explode('&', $db_url) as $value ) {
 				$_db = explode('=', $value);
-				$db[$_db[0]] = $_db[1];
+				// $db[$_db[0]] = $_db[1];
 			}
 		}
 
