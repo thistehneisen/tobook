@@ -1,34 +1,52 @@
-$(document).ready( function(){
-	$('#templateList').footable();		
-});
-function onCheckAllTemplate( obj ){
-	var status = obj.checked;
-	$(obj).parents("table").eq(0).find("input:checkbox").prop("checked", status);
-}
-function onDeleteTemplate( ){
-	var objChkList = $("#templateList").find("input#chkTemplate:checked");
-	var strTemplateIds = "";
-	for( var i = 0; i < objChkList.size(); i ++ ){
-		var templateId = objChkList.eq(i).parents("td").eq(0).find("#templateId").val();
-		strTemplateIds = templateId + ",";
-	}
-	if( strTemplateIds != "" ){
-		strTemplateIds = strTemplateIds.substr( 0, strTemplateIds.length - 1 );
+$(document).ready(function() {
+	$('#tblDataList').dataTable( {
+		"sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
+		// "sPaginationType": "bootstrap",
+		"aaSorting": [],
+		"oLanguage": {
+			"sLengthMenu": "_MENU_ records per page"
+		},
+        "aoColumnDefs": [
+                         { 
+                             "bSortable": false, 
+                             "aTargets": [ 0, 3, 4 ]
+                         } 
+                     ]
+	} );
+} );
+
+function onCheckAll( obj ){
+	if( obj.checked ){
+		$("table#tblDataList").find("input:checkbox").prop("checked", true);
 	}else{
-		alert("Please select template to delete.");
-		return;
+		$("table#tblDataList").find("input:checkbox").prop("checked", false);
 	}
-	
-	$.ajax({
-        url: "async-deleteTemplate.php",
+}
+
+function onDeleteConsumer( ){
+	var objList = $("table#tblDataList").find("input#chkConsumerId:checkbox:checked");
+	if( objList.length == 0 ){ alert("Please select consumers to delete."); return; }
+	var strIds = "";
+	for( var i = 0 ; i < objList.length; i ++ ){
+		strIds += objList.eq(i).val();
+		if( i != objList.length - 1 )
+			strIds += ",";
+	}
+	if( !confirm("Are you sure?") ){ return; }
+    $.ajax({
+        url: "async-deleteConsumer.php",
         dataType : "json",
         type : "POST",
-        data : { templateIds : strTemplateIds },
+        data : { consumerIds : strIds },
         success : function(data){
             if(data.result == "success"){
-            	alert("Template deleted successfully.");
-            	window.location.reload();
+            	alert("Consumers deleted succesfully.");
+            	window.location.reload(); 
             }
         }
-    });
+    });	
+}
+
+function onAddConsumer( ){
+	window.location.href = "consumerForm.php";
 }
