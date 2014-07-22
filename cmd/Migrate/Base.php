@@ -15,6 +15,12 @@ abstract class Base {
 
 	abstract public function run();
 
+	public function text($text)
+	{
+		$this->output->writeln($text);
+		return $this;
+	}
+
 	public function info($text)
 	{
 		$this->output->writeln('<info>'.$text.'</info>');
