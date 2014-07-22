@@ -169,7 +169,7 @@ class Seed extends MX_Controller {
 			'logo'                 => 'header_logo.png',
 			'logo2'                => 'login_logo.png',
 			'site_name'            => 'Stock Manager Advance',
-			'language'             => 'Finland',
+			'language'             => 'finland',
 			'default_warehouse'    => $warehouseId,
 			'currency_prefix'      => 'USD',
 			'default_invoice_type' => $taxRateId, // Start
