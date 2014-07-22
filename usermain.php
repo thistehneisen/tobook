@@ -37,7 +37,7 @@ if($_SESSION['session_lookupsitename'] == '')
 .mainTopNavigation a{ color: #000; margin-left:20px; margin-right:20px; font-size:18px;}
 .mainTopNavigation a:hover, .navSelected{ color: #ec7923 !important; }
 table#tblSiteList tr th{ color: #ec7923; } 
-.topNavigationMenu{ position:absolute;top:20px;right: 30px;font-family: Arial;font-size:12px; z-index:1000;}
+.topNavigationMenu{ position:absolute;top:30px;right: 30px;font-family: Arial;font-size:12px; z-index:1000;}
 .topNavigationMenu a{ color: #000; text-decoration:none; font-weight:bold;}
 .topNavigationMenu a:hover{ color: #FFF; text-decoration:none;}
 .topNavigationMenu a.selected{ color: #FFF; font-weight: bold;}
@@ -66,14 +66,11 @@ table#tblSiteList tr th{ color: #ec7923; }
 	<div class="guideTopTitle">
 		<span>Hallintapaneeli</span>
 	</div>
-	<div style="position:absolute;right:100px; bottom:30px;">
-	<?php if(isset($_SESSION["session_loginname"]) || $_SESSION["session_loginname"]!="") {?>
-			<div style="width:160px;text-align:center;margin-bottom:10px;">
-	        	<span style="color:#000;"><?php echo DASHBOARD_WELCOME; ?></span> <span ><?php echo ucwords($_SESSION['session_loginname']);?></span>
-	        </div>
-	        <div onclick="window.location.href='logout.php'" style="cursor:pointer;height:35px;width:160px;background:#000;color:#FFF;text-align:center;line-height:35px;">Kirjaudu Ulos</div>
-	<?php } ?>
+	<?php if(isset($_SESSION["session_loginname"]) || $_SESSION["session_loginname"]!="") { ?>
+	<div id="mainHeaderWelcome">
+		<?php echo DASHBOARD_WELCOME; ?> <span ><?php echo ucwords($_SESSION['session_loginname']);?></span>
 	</div>
+	<?php } ?>
 </div>
 <div class="greyDivider"></div>
 
