@@ -32,10 +32,11 @@ class Cashier extends Base {
 		foreach ($usernames as $username) {
 			$this->username = $username;
 
-			$this->info("Proccessing data of [{$username}]");
+			$this->info("Proccessing data of <fg=green;options=bold>{$username}</fg=green;options=bold>");
 			$this->migrateGroups();
 			$this->migrateUsers();
 			$this->migrateUserGroup();
+			$this->migrateWarehouses();
 		}
 	}
 
@@ -83,65 +84,16 @@ class Cashier extends Base {
 
 	public function migrateGroups()
 	{
-		$user = $this->getCurrentUser();
-		if ($user === false) {
-			return;
-		}
-
-		// Array to map old group IDs to new group IDs
-		$map = [];
-
-		$this->text('Migrating groups...');
-		// Get all existing groups
-		$stm = $this->queryBuilder()
+		return $this->migrate('groups', $this->queryBuilder()
 			->select('*')
-			->from($this->username.'_sma_groups', 'g')
-			->execute();
-		
-		while($row = $stm->fetch()) {
-			$oldId = $row['id'];
-			unset($row['id']);
-			$row['owner_id'] = $user['nuser_id'];
-			$this->db->insert('sma_groups', $row);
-
-			// Map old group ID to newly created ID
-			$map[$oldId] = $this->db->lastInsertId();
-		}
-
-		$this->map['groups'] = $map;
-		return $map;
+			->from($this->username.'_sma_groups', 'g'));
 	}
 
 	public function migrateUsers()
 	{
-		$user = $this->getCurrentUser();
-		if ($user === false) {
-			return;
-		}
-
-		$this->text("Migrating users...");
-		$map = [];
-
-		// Get all sub-users
-		$stm = $this->queryBuilder()
+		return $this->migrate('users', $this->queryBuilder()
 			->select('*')
-			->from($this->username.'_sma_users', 'u')
-			->execute();
-
-		while ($row = $stm->fetch()) {
-			$oldId = $row['id'];
-
-			unset($row['id']);
-			$row['owner_id'] = $user['nuser_id'];
-
-			// Move from old table to correct one
-			$this->db->insert('sma_users', $row);
-
-			$map[$oldId] = $this->db->lastInsertId();
-		}
-
-		$this->map['users'] = $map;
-		return $map;
+			->from($this->username.'_sma_users', 'u'));
 	}
 
 	public function migrateUserGroup()
@@ -173,6 +125,38 @@ class Cashier extends Base {
 
 			$this->db->insert('sma_users_groups', $row);
 		}
+	}
+
+	public function migrateWarehouses()
+	{
+		$query = $this->queryBuilder()
+			->select('*')
+			->from($this->username.'_sma_warehouses', 'w');
+		return $this->migrate('warehouses', $query);
+	}
+
+	protected function migrate($table, $query)
+	{
+		$user = $this->getCurrentUser();
+		if ($user === false) {
+			return;
+		}
+
+		$map = [];
+		$this->text('Migrating '.$table.'...');
+		$stm = $query->execute();
+
+		while ($row = $stm->fetch()) {
+			$oldId = $row['id'];
+			unset($row['id']);
+			$row['owner_id'] = $user['nuser_id'];
+
+			$this->db->insert('sma_'.$table, $row);
+			$map[$oldId] = $this->db->lastInsertId();
+		}
+
+		$this->map[$table] = $map;
+		return $map;
 	}
 
 }
