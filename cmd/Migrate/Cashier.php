@@ -33,10 +33,17 @@ class Cashier extends Base {
 			$this->username = $username;
 
 			$this->info("Proccessing data of <fg=green;options=bold>{$username}</fg=green;options=bold>");
-			$this->migrateGroups();
-			$this->migrateUsers();
+			$tables = [
+				'groups',
+				'users',
+				'warehouses',
+				'billers'
+			];
+			foreach ($tables as $table) {
+				$this->generalMigrate($table);
+			}
+			
 			$this->migrateUserGroup();
-			$this->migrateWarehouses();
 		}
 	}
 
@@ -82,20 +89,6 @@ class Cashier extends Base {
 		return $this->currentUser;
 	}
 
-	public function migrateGroups()
-	{
-		return $this->migrate('groups', $this->queryBuilder()
-			->select('*')
-			->from($this->username.'_sma_groups', 'g'));
-	}
-
-	public function migrateUsers()
-	{
-		return $this->migrate('users', $this->queryBuilder()
-			->select('*')
-			->from($this->username.'_sma_users', 'u'));
-	}
-
 	public function migrateUserGroup()
 	{
 		$this->text('Migrating users and groups relationship...');
@@ -127,13 +120,13 @@ class Cashier extends Base {
 		}
 	}
 
-	public function migrateWarehouses()
+	protected function generalMigrate($table)
 	{
-		$query = $this->queryBuilder()
+		return $this->migrate($table, $this->queryBuilder()
 			->select('*')
-			->from($this->username.'_sma_warehouses', 'w');
-		return $this->migrate('warehouses', $query);
+			->from($this->username.'_sma_'.$table, 't'));
 	}
+
 
 	protected function migrate($table, $query)
 	{
