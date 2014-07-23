@@ -1,4 +1,5 @@
 -- 2014-07-21
+DROP TABLE IF EXISTS `tbl_loyalty_consumer`;
 CREATE TABLE `tbl_loyalty_consumer` (                  
 	`loyalty_consumer` int(11) NOT NULL AUTO_INCREMENT,  
 	`owner` int(11) NOT NULL,                            
@@ -12,7 +13,8 @@ CREATE TABLE `tbl_loyalty_consumer` (
 	`updated_time` varchar(19) NOT NULL,                 
 	PRIMARY KEY (`loyalty_consumer`)                     
   ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
-  
+
+DROP TABLE IF EXISTS `tbl_loyalty_stamp`;
 CREATE TABLE `tbl_loyalty_stamp` (                  
 	 `loyalty_stamp` int(11) NOT NULL AUTO_INCREMENT,  
 	 `owner` int(11) NOT NULL,                         
@@ -24,7 +26,8 @@ CREATE TABLE `tbl_loyalty_stamp` (
 	 `updated_time` varchar(19) NOT NULL,              
 	 PRIMARY KEY (`loyalty_stamp`)                     
    ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
-   
+
+DROP TABLE IF EXISTS `tbl_loyalty_consumer_stamp`;
 CREATE TABLE `tbl_loyalty_consumer_stamp` (                  
   `loyalty_consumer_stamp` int(11) NOT NULL AUTO_INCREMENT,  
   `loyalty_consumer` int(11) NOT NULL,                       
@@ -34,6 +37,7 @@ CREATE TABLE `tbl_loyalty_consumer_stamp` (
   PRIMARY KEY (`loyalty_consumer_stamp`)                     
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
+DROP TABLE IF EXISTS `tbl_loyalty_point`;
  CREATE TABLE `tbl_loyalty_point` (                  
  `loyalty_point` int(11) NOT NULL AUTO_INCREMENT,  
  `owner` int(11) NOT NULL,                         
@@ -46,6 +50,7 @@ CREATE TABLE `tbl_loyalty_consumer_stamp` (
  PRIMARY KEY (`loyalty_point`)                     
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
+DROP TABLE IF EXISTS `tbl_loyalty_consumer_point`;
 CREATE TABLE `tbl_loyalty_consumer_point` (                  
   `loyalty_consumer_point` int(11) NOT NULL AUTO_INCREMENT,  
   `loyalty_consumer` int(11) NOT NULL,                       
@@ -55,3 +60,6 @@ CREATE TABLE `tbl_loyalty_consumer_point` (
   `updated_time` varchar(19) NOT NULL,                       
   PRIMARY KEY (`loyalty_consumer_point`)                     
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
+
+-- 2014-07-23
+alter table `tbl_loyalty_consumer` add column `current_score` int  DEFAULT '0' NOT NULL  after `city`;
