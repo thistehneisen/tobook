@@ -219,7 +219,6 @@ CREATE TABLE IF NOT EXISTS `appscheduler_employees` (
   `is_subscribed_sms` tinyint(1) unsigned DEFAULT '0',
   `is_active` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`),
   KEY `calendar_id` (`calendar_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
