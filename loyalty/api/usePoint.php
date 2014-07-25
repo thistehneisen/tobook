@@ -36,6 +36,7 @@
     }else{
     	$msg = "You don't have enough Point";
     	$error = "LC003";
+    	$result = "failed";
     }
     
     $data['msg'] = $msg;

@@ -13,10 +13,11 @@
     $stampId = mysql_escape_string( $_POST['stampId'] );
 
     $sql = "select * from tbl_loyalty_consumer_stamp where loyalty_consumer = $consumerId and loyalty_stamp = $stampId";
+
     $dataConsumerStamp = $db->queryArray( $sql );
     $dataConsumerStamp = $dataConsumerStamp[0];
     
-    if( $dataConsumerStamp['cnt_free'] != 0 ){
+    if( $dataConsumerStamp['cnt_free'] != "0" ){
     	$sql = "update tbl_loyalty_consumer_stamp
     			   set cnt_free = cnt_free - 1
     			 where loyalty_consumer = $consumerId
@@ -25,6 +26,7 @@
     }else{
     	$msg = "You don't have enough free Stamp.";
     	$error = "LC002";
+    	$result = "failed";
     }
     
     $data['msg'] = $msg;
