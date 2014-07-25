@@ -9,14 +9,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Doctrine\DBAL\Configuration;
 use Doctrine\DBAL\DriverManager;
 
-use Cmd\Migrate\Cashier;
-
 class MigrateCommand extends Command {
 
 	protected function configure() {
 		$this->setName('migrate')
 		->setDescription('Migrate old data to new database schema')
-		->addArgument('module', InputArgument::OPTIONAL);
+		->addArgument('module', InputArgument::REQUIRED, 'Module to be imported');
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output) {
@@ -35,7 +33,9 @@ class MigrateCommand extends Command {
 		$platform->registerDoctrineTypeMapping('enum', 'string');
 
 		// @todo: Based on passed `module`, create corresponding class
-		$module = new Cashier($output, $db);
-		$module->run();
+		$module = $input->getArgument('module');
+		$className = '\Cmd\Migrate\\'.ucfirst($module);
+
+		(new $className($output, $db))->run();
 	}
 }
