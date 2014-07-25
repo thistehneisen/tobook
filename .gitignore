@@ -51,3 +51,5 @@ Thumbs.db
 workarea/*
 
 tests/_output/*
+
+/vendor/
