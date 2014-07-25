@@ -34,10 +34,10 @@ class Cashier extends Base {
 
 			$this->info("Proccessing data of <fg=green;options=bold>{$username}</fg=green;options=bold>");
 			$tables = [
+				'billers',
 				'groups',
 				'users',
 				'warehouses',
-				'billers',
 				'categories',
 				'customers',
 				'suppliers',
@@ -46,7 +46,7 @@ class Cashier extends Base {
 				'date_format'
 			];
 			foreach ($tables as $table) {
-				$this->generalMigrate($table);
+				$this->migrateTable($table);
 			}
 			
 			$this->migrateUserGroup();
@@ -155,7 +155,7 @@ class Cashier extends Base {
 		}
 	}
 
-	protected function generalMigrate($table)
+	protected function migrateTable($table)
 	{
 		return $this->migrate($table, $this->queryBuilder()
 			->select('*')
