@@ -43,7 +43,10 @@ class Cashier extends Base {
 				'suppliers',
 				'tax_rates',
 				'discounts',
-				'date_format'
+				'date_format',
+				'comment',
+				'deliveries',
+				'invoice_types',
 			];
 			foreach ($tables as $table) {
 				$this->migrateTable($table);
@@ -53,8 +56,30 @@ class Cashier extends Base {
 				'user_id'  => 'users',
 				'group_id' => 'groups'
 			]);
+
 			$this->migrateTable('subcategories', [
 				'category_id' => 'categories'
+			]);
+
+			$this->migrateTable('calendar', [
+				'user_id' => 'users'
+			]);
+
+			$this->migrateTable('products', [
+				'category_id'    => 'categories',
+				'subcategory_id' => 'subcategories',
+				'tax_rate'       => 'tax_rates',
+			]);
+
+			$this->migrateTable('damage_products', [
+				'product_id'   => 'products',
+				'warehouse_id' => 'warehouses',
+			]);
+
+			$this->migrateTable('pos_settings', [
+				'default_category' => 'categories',
+				'default_customer' => 'customers',
+				'default_biller' => 'billers',
 			]);
 		}
 	}
@@ -151,8 +176,12 @@ class Cashier extends Base {
 		$stm = $query->execute();
 
 		while ($row = $stm->fetch()) {
-			$oldId = $row['id'];
-			unset($row['id']);
+			$mapped = isset($row['id']);
+			if ($mapped) {
+				$oldId = $row['id'];
+				unset($row['id']);
+			}
+
 			$row['owner_id'] = $user['nuser_id'];
 
 			// Quick fix for reserved keywords
@@ -169,7 +198,10 @@ class Cashier extends Base {
 			}
 
 			$this->db->insert('sma_'.$table, $row);
-			$map[$oldId] = $this->db->lastInsertId();
+
+			if ($mapped) {
+				$map[$oldId] = $this->db->lastInsertId();
+			}
 		}
 
 		$this->map[$table] = $map;
