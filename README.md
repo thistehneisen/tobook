@@ -1,6 +1,12 @@
 VARAA
 =====
 
+Instances:
+----------
+- Dev / staging: http://dev.varaa.co/
+- Prod: to be updated..
+
+
 Prerequisites:
 -------------
 - Apache
