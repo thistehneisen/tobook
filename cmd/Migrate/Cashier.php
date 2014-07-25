@@ -4,7 +4,6 @@
 class Cashier extends Base {
 
 	protected $schemaManager;
-	protected $currentUser;
 	protected $username;
 
 	/**
@@ -81,6 +80,84 @@ class Cashier extends Base {
 				'default_customer' => 'customers',
 				'default_biller' => 'billers',
 			]);
+
+			$this->migrateTable('purchases', [
+				'warehouse_id' => 'warehouses',
+				'supplier_id' => 'suppliers',
+			]);
+
+			$this->migrateTable('purchase_items', [
+				'purchase_id'    => 'purchases',
+				'product_id'     => 'products',
+				'default_biller' => 'billers',
+			]);
+
+			$this->migrateTable('quotes', [
+				'warehouse_id' => 'warehouses',
+				'biller_id'    => 'billers',
+				'discount_id'  => 'discounts',
+				'customer_id'  => 'customers',
+			]);
+
+			$this->migrateTable('quote_items', [
+				'quote_id'    => 'quotes',
+				'product_id'  => 'products',
+				'discount_id' => 'discounts',
+			]);
+
+			$this->migrateTable('sales', [
+				'warehouse_id' => 'warehouses',
+				'biller_id'    => 'billers',
+				'customer_id'  => 'customers',
+				'invoice_type' => 'invoice_types',
+				'tax_rate2_id' => 'tax_rates',
+				'discount_id'  => 'discounts',
+			]);
+
+			$this->migrateTable('sale_items', [
+				'sale_id'     => 'sales',
+				'product_id'  => 'products',
+				'tax_rate_id' => 'tax_rates',
+				'discount_id' => 'discounts',
+			]);
+
+			$this->migrateTable('settings', [
+				'default_warehouse'    => 'warehouses',
+				'default_invoice_type' => 'invoice_types',
+				'default_tax_rate'     => 'tax_rates',
+				'default_tax_rate2'    => 'tax_rates',
+				'default_discount'     => 'discounts',
+				'dateformat'           => 'date_format',
+			]);
+
+			$this->migrateTable('suspended_bills', [
+				'customer_id' => 'customers',
+			]);
+
+			$this->migrateTable('suspended_items', [
+				'suspend_id'  => 'suspended_bills',
+				'product_id'  => 'products',
+				'tax_rate_id' => 'tax_rates',
+				'discount_id' => 'discounts',
+			]);
+
+			$this->migrateTable('transfers', [
+				'from_warehouse_id' => 'warehouses',
+				'to_warehouse_id'   => 'warehouses',
+				'tax_rate_id'       => 'tax_rates',
+				'discount_id'       => 'discounts',
+			]);
+
+			$this->migrateTable('transfer_items', [
+				'transfer_id' => 'transfers',
+				'product_id'  => 'products',
+				'tax_rate_id' => 'tax_rates',
+			]);
+
+			$this->migrateTable('warehouses_products', [
+				'warehouse_id' => 'warehouses',
+				'product_id'   => 'products',
+			]);
 		}
 	}
 
@@ -101,29 +178,6 @@ class Cashier extends Base {
 		$this->text('Found '.count($usernames).' users');
 
 		return $usernames;
-	}
-
-	public function getCurrentUser()
-	{
-		if ($this->currentUser === false
-		 || $this->currentUser['vuser_login'] !== $this->username) {
-			// Get user information from tbl_user_mast
-			$stm = $this->queryBuilder()
-				->select('*')
-				->from('tbl_user_mast', 'u')
-				->where('u.vuser_login = ?')
-				->setParameter(0, $this->username)
-				->execute();
-
-			$user = $stm->fetch();
-			if ($user === false) {
-				$this->error("Cannot find information of $this->username. Retry later!");
-			}
-
-			$this->currentUser = $user;
-		}
-
-		return $this->currentUser;
 	}
 
 	/**
@@ -158,6 +212,8 @@ class Cashier extends Base {
 	 */
 	protected function migrate($table, $query, $relationships = [])
 	{
+		$this->text('Migrating `'.$table.'`...');
+
 		$user = $this->getCurrentUser();
 		if ($user === false) {
 			$this->error('ERROR: Cannot get data of current user');
@@ -172,8 +228,11 @@ class Cashier extends Base {
 		}
 
 		$map = [];
-		$this->text('Migrating `'.$table.'`...');
 		$stm = $query->execute();
+
+		if ($stm->rowCount() === 0) {
+			$this->comment("Table `$table` doesn't have data.");
+		}
 
 		while ($row = $stm->fetch()) {
 			$mapped = isset($row['id']);
@@ -192,9 +251,21 @@ class Cashier extends Base {
 			}
 
 			// Map relationships
+			$skip = false;
 			foreach ($relationships as $field => $tbl) {
 				$id = $row[$field];
+
+				// Cannot find ID in the map, maybe target relationship was
+				// deleted. So no need to keep this record.
+				if (!isset($this->map[$tbl][$id])) {
+					$skip = true;
+					break;
+				}
 				$row[$field] = $this->map[$tbl][$id];
+			}
+
+			if ($skip === true) {
+				continue;
 			}
 
 			$this->db->insert('sma_'.$table, $row);

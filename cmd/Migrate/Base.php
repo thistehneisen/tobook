@@ -6,6 +6,7 @@ use Doctrine\DBAL\Connection;
 abstract class Base {
 	protected $output;
 	protected $db;
+	protected $currentUser;
 
 	public function __construct(OutputInterface $output, Connection $db)
 	{
@@ -43,5 +44,28 @@ abstract class Base {
 	{
 		$this->output->writeln('<error>'.$text.'</error>');
 		return $this;		
+	}
+
+	public function getCurrentUser()
+	{
+		if ($this->currentUser === false
+		 || $this->currentUser['vuser_login'] !== $this->username) {
+			// Get user information from tbl_user_mast
+			$stm = $this->queryBuilder()
+				->select('*')
+				->from('tbl_user_mast', 'u')
+				->where('u.vuser_login = ?')
+				->setParameter(0, $this->username)
+				->execute();
+
+			$user = $stm->fetch();
+			if ($user === false) {
+				$this->error("Cannot find information of $this->username. Retry later!");
+			}
+
+			$this->currentUser = $user;
+		}
+
+		return $this->currentUser;
 	}
 }
