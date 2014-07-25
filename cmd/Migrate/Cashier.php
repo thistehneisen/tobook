@@ -49,8 +49,13 @@ class Cashier extends Base {
 				$this->migrateTable($table);
 			}
 			
-			$this->migrateUserGroup();
-			$this->migrateSubCategories();
+			$this->migrateTable('users_groups', [
+				'user_id'  => 'users',
+				'group_id' => 'groups'
+			]);
+			$this->migrateTable('subcategories', [
+				'category_id' => 'categories'
+			]);
 		}
 	}
 
@@ -96,78 +101,49 @@ class Cashier extends Base {
 		return $this->currentUser;
 	}
 
-	public function migrateUserGroup()
-	{
-		$this->text('Migrating users and groups relationship...');
-
-		$user = $this->getCurrentUser();
-		if ($user === false || 
-			empty($this->map['groups']) || 
-			empty($this->map['users'])) {
-			$this->error('ERROR: Either Group or User map is empty.');
-			return;
-		}
-
-		$stm = $this->queryBuilder()
-			->select('*')
-			->from($this->username.'_sma_users_groups', 'ug')
-			->execute();
-
-		while ($row = $stm->fetch()) {
-			unset ($row['id']);
-
-			$userId  = $row['user_id'];
-			$groupId = $row['group_id'];
-
-			$row['user_id']  = $this->map['users'][$userId];
-			$row['group_id'] = $this->map['groups'][$groupId];
-			$row['owner_id'] = $user['nuser_id'];
-
-			$this->db->insert('sma_users_groups', $row);
-		}
-	}
-
-	public function migrateSubCategories()
-	{
-		$this->text('Migrating sub-categories...');
-
-		$user = $this->getCurrentUser();
-		if ($user === false || empty($this->map['categories'])) {
-			$this->error('ERROR: Empty Categories map');
-			return;
-		}
-
-		$map = [];
-		$stm = $this->queryBuilder()
-			->select('*')
-			->from($this->username.'_sma_subcategories', 't')
-			->execute();
-
-		while ($row = $stm->fetch()) {
-			unset ($row['id']);
-
-			$categoryId = $row['category_id'];
-
-			$row['owner_id']    = $user['nuser_id'];
-			$row['category_id'] = $this->map['categories'][$categoryId];
-
-			$this->db->insert('sma_subcategories', $row);
-		}
-	}
-
-	protected function migrateTable($table)
+	/**
+	 * Shorter version of `migrate()`, in case you don't need to specify query
+	 *
+	 * @param  string $table         
+	 * @param  array $relationships 
+	 *
+	 * @return array
+	 */
+	protected function migrateTable($table, $relationships = [])
 	{
 		return $this->migrate($table, $this->queryBuilder()
 			->select('*')
-			->from($this->username.'_sma_'.$table, 't'));
+			->from($this->username.'_sma_'.$table, 't'), $relationships);
 	}
 
-
-	protected function migrate($table, $query)
+	/**
+	 * Migrate data of a table, store a map of old IDs to new IDs
+	 *
+	 * @param  string  $table         Table name, should be in plural without
+	 *                                `sma` prefix
+	 * @param  Stament $query         Statement to get data from that table
+	 * @param  array   $relationships Specify the relationships to other tables.
+	 * Example:
+	 * <code>
+	 * ['user_id'  => 'users',
+	 * 	'group_id' => 'groups']
+	 * </code>
+	 *
+	 * @return array The map of old IDs to new IDs
+	 */
+	protected function migrate($table, $query, $relationships = [])
 	{
 		$user = $this->getCurrentUser();
 		if ($user === false) {
+			$this->error('ERROR: Cannot get data of current user');
 			return;
+		}
+
+		foreach ($relationships as $tbl) {
+			if (empty($this->map[$tbl])) {
+				$this->error("ERROR: Empty map of `$tbl`.");
+				return;
+			}
 		}
 
 		$map = [];
@@ -184,6 +160,12 @@ class Cashier extends Base {
 				$quoted = $this->db->quoteIdentifier('sql');
 				$row[$quoted] = $row['sql'];
 				unset($row['sql']);
+			}
+
+			// Map relationships
+			foreach ($relationships as $field => $tbl) {
+				$id = $row[$field];
+				$row[$field] = $this->map[$tbl][$id];
 			}
 
 			$this->db->insert('sma_'.$table, $row);
