@@ -37,13 +37,20 @@ class Cashier extends Base {
 				'groups',
 				'users',
 				'warehouses',
-				'billers'
+				'billers',
+				'categories',
+				'customers',
+				'suppliers',
+				'tax_rates',
+				'discounts',
+				'date_format'
 			];
 			foreach ($tables as $table) {
 				$this->generalMigrate($table);
 			}
 			
 			$this->migrateUserGroup();
+			$this->migrateSubCategories();
 		}
 	}
 
@@ -120,6 +127,34 @@ class Cashier extends Base {
 		}
 	}
 
+	public function migrateSubCategories()
+	{
+		$this->text('Migrating sub-categories...');
+
+		$user = $this->getCurrentUser();
+		if ($user === false || empty($this->map['categories'])) {
+			$this->error('ERROR: Empty Categories map');
+			return;
+		}
+
+		$map = [];
+		$stm = $this->queryBuilder()
+			->select('*')
+			->from($this->username.'_sma_subcategories', 't')
+			->execute();
+
+		while ($row = $stm->fetch()) {
+			unset ($row['id']);
+
+			$categoryId = $row['category_id'];
+
+			$row['owner_id']    = $user['nuser_id'];
+			$row['category_id'] = $this->map['categories'][$categoryId];
+
+			$this->db->insert('sma_subcategories', $row);
+		}
+	}
+
 	protected function generalMigrate($table)
 	{
 		return $this->migrate($table, $this->queryBuilder()
@@ -136,13 +171,20 @@ class Cashier extends Base {
 		}
 
 		$map = [];
-		$this->text('Migrating '.$table.'...');
+		$this->text('Migrating `'.$table.'`...');
 		$stm = $query->execute();
 
 		while ($row = $stm->fetch()) {
 			$oldId = $row['id'];
 			unset($row['id']);
 			$row['owner_id'] = $user['nuser_id'];
+
+			// Quick fix for reserved keywords
+			if (isset($row['sql'])) {
+				$quoted = $this->db->quoteIdentifier('sql');
+				$row[$quoted] = $row['sql'];
+				unset($row['sql']);
+			}
 
 			$this->db->insert('sma_'.$table, $row);
 			$map[$oldId] = $this->db->lastInsertId();
