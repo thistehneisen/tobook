@@ -1,6 +1,6 @@
 <?php
-	require_once("../../marketing/common/DB_Connection.php");	
-    require_once("../../marketing/common/functions.php");
+	require_once("../../DB_Connection.php");
+	require_once("../common/functions.php");
 
     $result = "success";
     $error = "";
@@ -19,14 +19,24 @@
     $dataPoint = $dataPoint[0];
     $scoreRequired = $dataPoint['scoreRequired'];
     
-    $sql = "insert into tbl_loyalty_consumer_point( loyalty_consumer, loyalty_point, created_time, updated_time )
-    		value( '$consumerId', '$pointId', now(), now() )";
-    $db->queryInsert( $sql );
+    $sql = "select * from tbl_loyalty_consumer where loyalty_consumer = $consumerId";
+    $dataConsumer = $db->queryArray( $sql );
+    $dataConsumer = $dataConsumer[0];
+    $scoreCurrent = $dataConsumer['current_score'];
     
-    $sql = "update tbl_loyalty_consumer
-    		   set current_score = current_score - $scoreRequired
-    		 where loyalty_consumer = $consumerId";
-    $db->query( $sql );
+    if( $scoreCurrent >= $scoreRequired ){    
+	    $sql = "insert into tbl_loyalty_consumer_point( loyalty_consumer, loyalty_point, created_time, updated_time )
+	    		value( '$consumerId', '$pointId', now(), now() )";
+	    $db->queryInsert( $sql );
+	    
+	    $sql = "update tbl_loyalty_consumer
+	    		   set current_score = current_score - $scoreRequired
+	    		 where loyalty_consumer = $consumerId";
+	    $db->query( $sql );
+    }else{
+    	$msg = "You don't have enough Point";
+    	$error = "LC003";
+    }
     
     $data['msg'] = $msg;
     $data['result'] = $result;

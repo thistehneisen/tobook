@@ -1,6 +1,6 @@
 <?php
-	require_once("../../marketing/common/DB_Connection.php");	
-    require_once("../../marketing/common/functions.php");
+	require_once("../../DB_Connection.php");
+	require_once("../common/functions.php");
 
     $result = "success";
     $error = "";

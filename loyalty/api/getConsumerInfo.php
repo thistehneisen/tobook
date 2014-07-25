@@ -1,6 +1,6 @@
 <?php
-	require_once("../../marketing/common/DB_Connection.php");	
-    require_once("../../marketing/common/functions.php");
+	require_once("../../DB_Connection.php");
+	require_once("../common/functions.php");
 
     $result = "success";
     $error = "";
@@ -28,15 +28,10 @@
     $data['updatedTime'] = $dataConsumer['updatedTime'];
     $data['currentScore'] = $dataConsumer['currentScore'];
     
-    $sql = "select count(*) cntTotalUsed, loyalty_stamp
-    		  from tbl_loyalty_consumer_stamp
-    		 where loyalty_consumer = $consumerId
-    		 group by loyalty_stamp";
-    
     $sql = "select t1.loyalty_stamp as stampId, t1.stamp_name as stampName, t1.cnt_required as cntRequired, t1.cnt_free as cntFree
-    			 , t1.created_time as createdTime, ( ifnull( t2.cntTotalUsed, 0 ) % t1.cnt_required ) as cntCurrentUsed
+    			 , t1.created_time as createdTime, ifnull( t2.cnt_used, 0 ) as cntCurrentUsed, ifnull( t2.cnt_free, 0 ) as cntFreeUse
     		  from tbl_loyalty_stamp t1
-    		  left join ( $sql ) t2 on t1.loyalty_stamp = t2.loyalty_stamp";
+    		  left join tbl_loyalty_consumer_stamp t2 on t1.loyalty_stamp = t2.loyalty_stamp and t2.loyalty_consumer = $consumerId";
 	$usedStampList = $db->queryArray( $sql );
 	if( $usedStampList == null )
 		$usedStampList = array( );
