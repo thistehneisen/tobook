@@ -26,8 +26,7 @@ class Cashier extends Base {
 
 	public function run()
 	{
-		// $usernames = $this->getUsernames();
-		$usernames = ['jenistar'];
+		$usernames = $this->getUsernames();
 		foreach ($usernames as $username) {
 			$this->username = $username;
 
@@ -170,9 +169,9 @@ class Cashier extends Base {
 		$tables = $this->schemaManager->listTables();
 		foreach ($tables as $table)
 		{
-			$name = $table->getName();
-			if (strpos($name, '_sma_billers') !== false) {
-				$usernames[] = substr($name, 0, strpos($name, '_'));
+			preg_match('/([a-z0-9]+)_sma_billers/i', $table->getName(), $matches);
+			if (isset($matches[1])) {
+				$usernames[] = $matches[1];
 			}
 		}
 		$this->text('Found '.count($usernames).' users');
@@ -239,6 +238,11 @@ class Cashier extends Base {
 			if ($mapped) {
 				$oldId = $row['id'];
 				unset($row['id']);
+			}
+
+			// Specific for `pos_settings`
+			if (isset($row['pos_id'])) {
+				unset($row['pos_id']);
 			}
 
 			$row['owner_id'] = $user['nuser_id'];
