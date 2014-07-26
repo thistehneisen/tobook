@@ -104,12 +104,11 @@ abstract class Base {
 		{
 			preg_match($this->tablePattern, $table->getName(), $matches);
 			if (isset($matches[1])) {
-				$usernames[] = $matches[1];
+				$usernames[$matches[1]] = true;
 			}
 		}
-		$this->text('Found '.count($usernames).' users');
 
-		return $usernames;
+		return array_keys($usernames);
 	}
 
 	/**
