@@ -26,8 +26,7 @@ class Cashier extends Base {
 
 	public function run()
 	{
-		// $usernames = $this->getUsernames();
-		$usernames = ['kcjpop'];
+		$usernames = $this->getUsernames();
 		foreach ($usernames as $username) {
 			$this->username = $username;
 
@@ -238,12 +237,13 @@ class Cashier extends Base {
 			$mapped = isset($row['id']);
 			if ($mapped) {
 				$oldId = $row['id'];
-				unset($row['id']);
 			}
 
-			// Specific for `pos_settings`
-			if (isset($row['pos_id'])) {
-				unset($row['pos_id']);
+			// Some auto increment fields need to be removed
+			foreach (['setting_id', 'pos_id', 'id'] as $idField) {
+				if (isset($row[$idField])) {
+					unset($row[$idField]);
+				}
 			}
 
 			$row['owner_id'] = $user['nuser_id'];
