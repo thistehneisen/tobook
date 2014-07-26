@@ -501,7 +501,7 @@ class pjInvoice extends pjInvoiceAppController
 				}
 			}
 			$data = $_POST;
-			$data['owner_id'] = intval($_COOKIE['owner_id']);
+			$data['owner_id'] = intval($_SESSION['owner_id']);
 			$data['p_accept_payments'] = isset($_POST['p_accept_payments']) ? 1 : 0;
 			$data['p_accept_paypal'] = isset($_POST['p_accept_paypal']) ? 1 : 0;
 			$data['p_accept_authorize'] = isset($_POST['p_accept_authorize']) ? 1 : 0;
