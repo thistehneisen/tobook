@@ -15,7 +15,8 @@ class pjBackup extends pjBackupAppController
 		{
 			if (isset($_GET['id']) && !empty($_GET['id']))
 			{
-				$file = PJ_WEB_PATH . 'backup/' . basename($_GET['id']);
+				$owner_id = intval($_SESSION['owner_id']);
+				$file = PJ_WEB_PATH . 'backup/user_' . $owner_id. '/' . basename($_GET['id']);
 				clearstatcache();
 				if (is_file($file))
 				{
@@ -40,7 +41,8 @@ class pjBackup extends pjBackupAppController
 			{
 				foreach ($_POST['record'] as $item)
 				{
-					$file = PJ_WEB_PATH . 'backup/' . basename($item);
+					$owner_id = intval($_SESSION['owner_id']);
+					$file = PJ_WEB_PATH . 'backup/user_' . $owner_id . '/' . basename($item);
 					clearstatcache();
 					if (is_file($file))
 					{
@@ -63,8 +65,8 @@ class pjBackup extends pjBackupAppController
 			if (isset($_GET['id']) && !empty($_GET['id']))
 			{
 				$id = basename($_GET['id']);
-				
-				$file = PJ_WEB_PATH . 'backup/'.$id;
+				$owner_id = intval($_SESSION['owner_id']);
+				$file = PJ_WEB_PATH . 'backup/user_'. $owner_id . '/'.$id;
 				$buffer = "";
 				@clearstatcache();
 				if (is_file($file))
@@ -104,7 +106,7 @@ class pjBackup extends pjBackupAppController
 
 			$data = $id = $created = $type = array();
 			$owner_id = intval($_SESSION['owner_id']);
-			if ($handle = opendir(PJ_WEB_PATH . 'backup/user'. $owner_id))
+			if ($handle = opendir(PJ_WEB_PATH . 'backup/user_'. $owner_id))
 			{
 				$i = 0;
 				while (false !== ($entry = readdir($handle)))
@@ -210,10 +212,10 @@ class pjBackup extends pjBackupAppController
     			$content = join("", $sql);
     			error_reporting(E_ALL);
     			$owner_id = intval($_SESSION['owner_id']);
-				if(!file_exists(PJ_WEB_PATH . 'backup/user'.$owner_id)){
-					mkdir(PJ_WEB_PATH . 'backup/user'.$owner_id);
+				if(!file_exists(PJ_WEB_PATH . 'backup/user_'. $owner_id)){
+					mkdir(PJ_WEB_PATH . 'backup/user_'.$owner_id);
 				}
-    			if (!$handle = fopen(PJ_WEB_PATH . 'backup/user' . $owner_id . '/database-backup-'.time().'.sql', 'wb'))
+    			if (!$handle = fopen(PJ_WEB_PATH . 'backup/user_' . $owner_id . '/database-backup-'.time().'.sql', 'wb'))
     			{
     			} else {
 					if (fwrite($handle, $content) === FALSE)
@@ -233,7 +235,7 @@ class pjBackup extends pjBackupAppController
 				$zipName = 'files-backup-'.time().'.zip';
 				pjObject::import('Component', 'pjBackup:pjZipStream');
 				$zip = new pjZipStream();
-				$zip->setZipFile(PJ_WEB_PATH . 'backup/' . $zipName);
+				$zip->setZipFile(PJ_WEB_PATH . 'backup/user_' . $owner_id . '/' . $zipName);
 
 				foreach ($files as $file)
 				{
