@@ -103,7 +103,8 @@ class pjBackup extends pjBackupAppController
 			}
 
 			$data = $id = $created = $type = array();
-			if ($handle = opendir(PJ_WEB_PATH . 'backup'))
+			$owner_id = intval($_SESSION['owner_id']);
+			if ($handle = opendir(PJ_WEB_PATH . 'backup/user'. $owner_id))
 			{
 				$i = 0;
 				while (false !== ($entry = readdir($handle)))
@@ -155,7 +156,6 @@ class pjBackup extends pjBackupAppController
 	public function pjActionIndex()
 	{
 		$this->checkLogin();
-		
 		if (!$this->isAdmin())
 		{
 			$this->set('status', 2);
@@ -166,9 +166,11 @@ class pjBackup extends pjBackupAppController
 		{
 			set_time_limit(600); //10 min
 			$err = 'PBU04';
+
 			if (isset($_POST['db']))
 			{
 				$AppModel = pjAppModel::factory();
+				$owner_id = intval($_SESSION['owner_id']);
 				$arr = $AppModel->prepare(sprintf("SHOW TABLES FROM `%s`", PJ_DB))->exec()->getData();
 				
 				$sql = array();
@@ -183,7 +185,7 @@ class pjBackup extends pjBackupAppController
 						continue;
 					}
 
-					$result = $AppModel->reset()->prepare(sprintf("SELECT * FROM `%s`", $table))->exec()->getData();
+					$result = $AppModel->reset()->prepare(sprintf("SELECT * FROM `%s` WHERE `owner_id` = %d", $table, $owner_id))->exec()->getData();
     				$sql[] = sprintf("DROP TABLE IF EXISTS `%s`;\n\n", $table);
 
     				$create = $AppModel->reset()->prepare(sprintf("SHOW CREATE TABLE `%s`", $table))->exec()->getData();
@@ -206,8 +208,12 @@ class pjBackup extends pjBackupAppController
     				$sql[] = "\n";
 				}
     			$content = join("", $sql);
-    			
-    			if (!$handle = fopen(PJ_WEB_PATH . 'backup/database-backup-'.time().'.sql', 'wb'))
+    			error_reporting(E_ALL);
+    			$owner_id = intval($_SESSION['owner_id']);
+				if(!file_exists(PJ_WEB_PATH . 'backup/user'.$owner_id)){
+					mkdir(PJ_WEB_PATH . 'backup/user'.$owner_id);
+				}
+    			if (!$handle = fopen(PJ_WEB_PATH . 'backup/user' . $owner_id . '/database-backup-'.time().'.sql', 'wb'))
     			{
     			} else {
 					if (fwrite($handle, $content) === FALSE)
