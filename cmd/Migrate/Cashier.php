@@ -26,7 +26,8 @@ class Cashier extends Base {
 
 	public function run()
 	{
-		$usernames = $this->getUsernames();
+		// $usernames = $this->getUsernames();
+		$usernames = ['kcjpop'];
 		foreach ($usernames as $username) {
 			$this->username = $username;
 
@@ -122,7 +123,7 @@ class Cashier extends Base {
 
 			$this->migrateTable('settings', [
 				'default_warehouse'    => 'warehouses',
-				'default_invoice_type' => 'invoice_types',
+				'default_invoice_type' => 'tax_rates',
 				'default_tax_rate'     => 'tax_rates',
 				'default_tax_rate2'    => 'tax_rates',
 				'default_discount'     => 'discounts',
