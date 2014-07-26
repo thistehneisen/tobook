@@ -30,33 +30,34 @@ abstract class Base {
 
 	abstract public function run();
 
-	public function text($text)
+	public function text($text, $newLine = false)
 	{
-		$this->output->writeln($text);
+		$method = ($newLine) ? 'writeln' : 'write';
+		$this->output->$method($text);
 		return $this;
 	}
 
-	public function info($text)
+	public function info($text, $newLine = false)
 	{
-		$this->output->writeln('<info>'.$text.'</info>');
+		$this->text('<info>'.$text.'</info>', $newLine);
 		return $this;
 	}
 
-	public function comment($text)
+	public function comment($text, $newLine = false)
 	{
-		$this->output->writeln('<comment>'.$text.'</comment>');
+		$this->text('<comment>'.$text.'</comment>', $newLine);
 		return $this;		
 	}
 
-	public function question($text)
+	public function question($text, $newLine = false)
 	{
-		$this->output->writeln('<question>'.$text.'</question>');
+		$this->text('<question>'.$text.'</question>', $newLine);
 		return $this;		
 	}
 
-	public function error($text)
+	public function error($text, $newLine = false)
 	{
-		$this->output->writeln('<error>'.$text.'</error>');
+		$this->text('<error>'.$text.'</error>', $newLine);
 		return $this;		
 	}
 
@@ -149,13 +150,13 @@ abstract class Base {
 
 		$user = $this->getCurrentUser();
 		if ($user === false) {
-			$this->error('ERROR: Cannot get data of current user');
+			$this->error('ERROR: Cannot get data of current user', true);
 			return;
 		}
 
 		foreach ($relationships as $tbl) {
 			if (!is_array($tbl) && empty($this->map[$tbl])) {
-				$this->error("ERROR: Empty map of `$tbl`.");
+				$this->error("ERROR: Empty map of `$tbl`.", true);
 				return;
 			}
 		}
@@ -164,7 +165,7 @@ abstract class Base {
 		$stm = $query->execute();
 
 		if ($stm->rowCount() === 0) {
-			$this->comment("Table `$table` doesn't have data.");
+			$this->comment("WARNING: Table `$table` doesn't have data.");
 		}
 
 		while ($row = $stm->fetch()) {
@@ -232,6 +233,7 @@ abstract class Base {
 		}
 
 		$this->map[$table] = $map;
+		$this->output->writeln('<fg=green;option=bold>SUCCEEDED</fg=green;option=bold>');
 		return $map;
 	}
 
