@@ -1,6 +1,6 @@
 <?php
-	require_once("../../marketing/common/DB_Connection.php");	
-    require_once("../../marketing/common/functions.php");
+	require_once("../../DB_Connection.php");
+	require_once("../common/functions.php");
 
     $result = "success";
     $error = "";
@@ -11,10 +11,23 @@
     $customerId = base64_decode( base64_decode( $customerToken ) );
     $consumerId = mysql_escape_string( $_POST['consumerId'] );
     $stampId = mysql_escape_string( $_POST['stampId'] );
+
+    $sql = "select * from tbl_loyalty_consumer_stamp where loyalty_consumer = $consumerId and loyalty_stamp = $stampId";
+
+    $dataConsumerStamp = $db->queryArray( $sql );
+    $dataConsumerStamp = $dataConsumerStamp[0];
     
-    $sql = "insert into tbl_loyalty_consumer_stamp( loyalty_consumer, loyalty_stamp, created_time, updated_time )
-    		value( '$consumerId', '$stampId', now(), now() )";
-    $db->queryInsert( $sql );
+    if( $dataConsumerStamp['cnt_free'] != "0" ){
+    	$sql = "update tbl_loyalty_consumer_stamp
+    			   set cnt_free = cnt_free - 1
+    			 where loyalty_consumer = $consumerId
+    			   and loyalty_stamp = $stampId";
+    	$db->query( $sql );
+    }else{
+    	$msg = "You don't have enough free Stamp.";
+    	$error = "LC002";
+    	$result = "failed";
+    }
     
     $data['msg'] = $msg;
     $data['result'] = $result;

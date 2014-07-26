@@ -32,15 +32,15 @@ echo form_open("module=settings&view=system_setting&prefix=" . PREFIX, $attrib);
           'chinese' => 'æ™®é€šè¯�',
          */
         $lang = array(
-            'arabic' => 'Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©',
+            'arabic' => 'العربية',
             'english' => 'English',
-			'finland' => 'Finland',
-            'french' => 'Le FranÃ§ais',
-            'indonesian ' => 'Indonesian',
-            'bportuguese' => 'PortuguÃªs Do Brasil',
-            'eportuguese' => 'PortuguÃªs Europeu',
-            'romanian' => 'RomÃ¢nÄƒ',
-            'spanish' => 'EspaÃ±ol'
+			'finland' => 'Suomi',
+            'french' => 'Le Français',
+            'indonesian ' => 'Bahasa Indonesia',
+            'bportuguese' => 'Português Do Brasil',
+            'eportuguese' => 'Português Europeu',
+            'romanian' => 'Română',
+            'spanish' => 'Español'
         );
         echo form_dropdown('language', $lang, $settings->language, 'class="span11 tip chzn-select" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("language") . '" title="' . $this->lang->line("language_tip") . '" required="required" data-error="' . $this->lang->line("language") . ' ' . $this->lang->line("is_required") . '"');
         ?>

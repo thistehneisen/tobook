@@ -1,6 +1,12 @@
 VARAA
 =====
 
+Instances:
+----------
+- Dev / staging: http://dev.varaa.co/
+- Prod: to be updated..
+
+
 Prerequisites:
 -------------
 - Apache
@@ -50,6 +56,14 @@ Migrate modules with new database schema
 ---------
 
 - Import `db/cashier-update.sql`
-- `@todo` Run `php cmd/migrate.php cashier` to import old data.
+- Run `composer update` to install dependencies
+- Run `php runner migrate <module_name>` to import old data. For example:
+`php runner migrate cashier`.
 - Done
 
+How to write new command to migrate data
+========================================
+
+- Have a look at `cmd\Migrate\Cashier.php`
+- Create new class in `cmd\Migrate`, and it should extend from `Cmd\Migrate\Base`
+- Implement `run()`

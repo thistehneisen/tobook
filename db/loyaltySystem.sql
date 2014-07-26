@@ -63,3 +63,7 @@ CREATE TABLE `tbl_loyalty_consumer_point` (
 
 -- 2014-07-23
 alter table `tbl_loyalty_consumer` add column `current_score` int  DEFAULT '0' NOT NULL  after `city`;
+
+-- 2014-07-25
+alter table `tbl_loyalty_consumer_stamp` add column `cnt_used` int   NOT NULL  after `loyalty_stamp`;
+alter table `tbl_loyalty_consumer_stamp` add column `cnt_free` int   NOT NULL  after `cnt_used`;

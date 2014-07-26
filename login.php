@@ -52,11 +52,15 @@ if($act=="post") {
 
     if(mysql_num_rows($result) > 0) {
         while($row=mysql_fetch_array($result)) {
+
             //set sessions
             $_SESSION["session_loginname"]=$_POST["vuser_login"];
             $_SESSION["session_userid"]=$row["nuser_id"];
             $_SESSION["session_email"]=$row["vuser_email"];
             $_SESSION["session_style"]=$row["vuser_style"];
+
+            // Set `owner_id` for cashier module
+            $_SESSION["owner_id"]=$row["nuser_id"];
             $_SESSION["session_template_dir"] = getSettingsValue('template_dir');
 
             /* For setting editor path */
