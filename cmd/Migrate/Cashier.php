@@ -122,7 +122,7 @@ class Cashier extends Base {
 
 			$this->migrateTable('settings', [
 				'default_warehouse'    => 'warehouses',
-				'default_invoice_type' => 'invoice_types',
+				'default_invoice_type' => 'tax_rates',
 				'default_tax_rate'     => 'tax_rates',
 				'default_tax_rate2'    => 'tax_rates',
 				'default_discount'     => 'discounts',
@@ -237,12 +237,13 @@ class Cashier extends Base {
 			$mapped = isset($row['id']);
 			if ($mapped) {
 				$oldId = $row['id'];
-				unset($row['id']);
 			}
 
-			// Specific for `pos_settings`
-			if (isset($row['pos_id'])) {
-				unset($row['pos_id']);
+			// Some auto increment fields need to be removed
+			foreach (['setting_id', 'pos_id', 'id'] as $idField) {
+				if (isset($row[$idField])) {
+					unset($row[$idField]);
+				}
 			}
 
 			$row['owner_id'] = $user['nuser_id'];

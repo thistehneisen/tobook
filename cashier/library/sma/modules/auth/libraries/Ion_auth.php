@@ -141,9 +141,11 @@ class Ion_auth
 		}
 
         $user = $this->user()->row();
-		define("FIRST_NAME", isset($user->first_name) ? $user->first_name : '');
-		define("USER_NAME", isset($user->first_name) ? $user->first_name." ".$user->last_name : '');
-		define("USER_ID", isset($_SESSION['session_userid']) ? $_SESSION['session_userid'] : $user->id);
+        if (!empty($user)) {
+			define("FIRST_NAME", $user->first_name);
+			define("USER_NAME", $user->first_name." ".$user->last_name);
+			define("USER_ID",  $user->id);
+        }
 
 		if ($cal = $this->ion_auth_model->getEvents()) {
 			$cal_d = '';
