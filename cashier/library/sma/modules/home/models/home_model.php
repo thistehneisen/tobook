@@ -70,7 +70,8 @@ class Home_model extends CI_Model
 
 	public function getChartData()
 	{
-        $userId = $_SESSION['session_userid'];
+		@session_start();
+        $owner_id = $_SESSION['owner_id'];
 		$myQuery = "SELECT S.month,
 					   COALESCE(S.sales, 0) as sales,
 					   COALESCE( P.purchases, 0 ) as purchases,
@@ -83,13 +84,13 @@ class Home_model extends CI_Model
 								SUM(total_tax2) tax2
 						FROM ". $this->db->dbprefix('sales') ." AS sales
 						WHERE sales.date >= date_sub( now( ) , INTERVAL 12 MONTH )
-                            AND owner_id = {$userId}
+                            AND owner_id = {$owner_id}
 						GROUP BY date_format(date, '%Y-%m')) S
 					LEFT JOIN (	SELECT	date_format(date, '%Y-%m') Month,
 									SUM(total_tax) ptax,
 									SUM(total) purchases
 							FROM ". $this->db->dbprefix('purchases') ." AS purchases
-                            WHERE owner_id = {$userId}
+                            WHERE owner_id = {$owner_id}
 							GROUP BY date_format(date, '%Y-%m')) P
 					ON S.Month = P.Month
 					GROUP BY S.Month
