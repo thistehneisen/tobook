@@ -29,12 +29,11 @@ function onSearch( ){
 		alert("Please enter Search Date correcty.");
 		return;
 	}
-	var cm = $("#chkCashier").get(0).checked?"Y":"N";
 	var tb = $("#chkTimeslot").get(0).checked?"Y":"N";
 	var rb = $("#chkRestaurant").get(0).checked?"Y":"N";
 	var as = $("#chkAppointment").get(0).checked?"Y":"N";
 	var hb = $("#chkHairBeauty").get(0).checked?"Y":"N";
-	window.location.href="index.php?startDate=" + startDate + "&endDate=" + endDate + "&cm=" + cm + "&tb=" + tb + "&rb=" + rb + "&as=" + as + "&hb=" + hb;
+	window.location.href="index.php?startDate=" + startDate + "&endDate=" + endDate + "&tb=" + tb + "&rb=" + rb + "&as=" + as + "&hb=" + hb;
 	
 }
 function onSendEmail( ){
