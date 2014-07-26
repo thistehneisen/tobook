@@ -73,7 +73,8 @@ class pjAdminEmployees extends pjAdmin
 					$err = 'AE03';
 					if (isset($_POST['i18n']))
 					{
-						pjMultiLangModel::factory()->saveMultiLang($_POST['i18n'], $id, 'pjEmployee');
+						$owner_id = intval($_SESSION['owner_id']);
+						pjMultiLangModel::factory()->saveMultiLang($_POST['i18n'], $owner_id, $id, 'pjEmployee');
 					}
 				} else {
 					$err = 'AE04';
