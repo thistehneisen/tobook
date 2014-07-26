@@ -98,7 +98,7 @@ class pjAdminOptions extends pjAdmin
 	public function pjActionUpdate()
 	{
 		$this->checkLogin();
-
+		$owner_id = intval($_SESSION['owner_id']);
 		if ($this->isAdmin())
 		{
 			if (isset($_POST['options_update']))
@@ -107,7 +107,8 @@ class pjAdminOptions extends pjAdmin
 				{
 					if (isset($_POST['i18n']))
 					{
-						pjMultiLangModel::factory()->updateMultiLang($_POST['i18n'], $this->getForeignId(), 'pjCalendar', 'data');
+						$data = $_POST['i18n'];
+						pjMultiLangModel::factory()->updateMultiLang($data, $owner_id, $this->getForeignId(), 'pjCalendar', 'data');
 					}
 				} else {
 					$OptionModel = new pjOptionModel();
@@ -115,6 +116,7 @@ class pjAdminOptions extends pjAdmin
 						->where('foreign_id', $this->getForeignId())
 						->where('type', 'bool')
 						->where('tab_id', $_POST['tab'])
+						->where('owner_id', $owner_id)
 						->modifyAll(array('value' => '1|0::0'));
 						
 					foreach ($_POST as $key => $value)
@@ -128,6 +130,7 @@ class pjAdminOptions extends pjAdmin
 									->reset()
 									->where('foreign_id', $this->getForeignId())
 									->where('`key`', $k)
+									->where('owner_id', $owner_id)
 									->limit(1)
 									->modifyAll(array('value' => $value));
 							}

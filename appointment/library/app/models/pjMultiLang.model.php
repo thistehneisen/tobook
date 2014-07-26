@@ -21,7 +21,7 @@ class pjMultiLangModel extends pjAppModel
 		array('name' => 'source', 'type' => 'enum', 'default' => 'script')
 	);
 	
-	public function saveMultiLang($data, $foreign_id, $model, $source='data')
+	public function saveMultiLang($data, $owner_id, $foreign_id, $model, $source='data')
 	{
 		foreach ($data as $locale => $locale_arr)
 		{
@@ -29,6 +29,7 @@ class pjMultiLangModel extends pjAppModel
 			{
 				$insert_id = $this->reset()->setAttributes(array(
 					'foreign_id' => $foreign_id,
+					'owner_id' => $owner_id,
 					'model' => $model,
 					'locale' => $locale,
 					'field' => $field,
@@ -50,7 +51,7 @@ class pjMultiLangModel extends pjAppModel
 		}
 	}
 	
-	public function updateMultiLang($data, $foreign_id, $model, $source=NULL)
+	public function updateMultiLang($data, $owner_id, $foreign_id, $model, $source=NULL)
 	{
 		$fids = array();
 		foreach ($data as $locale => $locale_arr)
@@ -59,19 +60,19 @@ class pjMultiLangModel extends pjAppModel
 			{
 				if (!is_null($source))
 				{
-					$sql = sprintf("INSERT INTO `%1\$s` (`id`, `foreign_id`, `model`, `locale`, `field`, `content`, `source`)
-						VALUES (NULL, :foreign_id, :model, :locale, :field, :content, :source)
-						ON DUPLICATE KEY UPDATE `content` = :content, `source` = :source;",
+					$sql = sprintf("INSERT INTO `%1\$s` (`id`,`owner_id` ,`foreign_id`, `model`, `locale`, `field`, `content`, `source`)
+						VALUES (NULL,:owner_id, :foreign_id, :model, :locale, :field, :content, :source)
+						ON DUPLICATE KEY UPDATE `content` = :content, `source` = :source, `owner_id` = :owner_id;",
 						$this->getTable()
 					);
 				} else {
-					$sql = sprintf("INSERT INTO `%1\$s` (`id`, `foreign_id`, `model`, `locale`, `field`, `content`)
-						VALUES (NULL, :foreign_id, :model, :locale, :field, :content)
-						ON DUPLICATE KEY UPDATE `content` = :content;",
+					$sql = sprintf("INSERT INTO `%1\$s` (`id`, `owner_id`, `foreign_id`, `model`, `locale`, `field`, `content`)
+						VALUES (NULL, :owner_id, :foreign_id, :model, :locale, :field, :content)
+						ON DUPLICATE KEY UPDATE `content` = :content, `owner_id` = :owner_id;",
 						$this->getTable()
 					);
 				}
-				$modelObj = $this->prepare($sql)->exec(compact('foreign_id', 'model', 'locale', 'field', 'content', 'source'));
+				$modelObj = $this->prepare($sql)->exec(compact('owner_id','foreign_id', 'model', 'locale', 'field', 'content', 'source'));
 
 				if ($modelObj->getAffectedRows() > 0 || $modelObj->getInsertId() > 0)
 				{
