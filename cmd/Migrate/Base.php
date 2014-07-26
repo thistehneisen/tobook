@@ -183,10 +183,18 @@ abstract class Base {
 			$row['owner_id'] = $user['nuser_id'];
 
 			// Quick fix for reserved keywords
-			if (isset($row['sql'])) {
-				$quoted = $this->db->quoteIdentifier('sql');
-				$row[$quoted] = $row['sql'];
-				unset($row['sql']);
+			$keywords = [
+				'sql',
+				'order',
+				'key',
+				'before',
+				'after',
+			];
+			foreach ($keywords as $key) {
+				if (array_key_exists($key, $row)) {
+					$row["`$key`"] = $row[$key];
+					unset($row[$key]);
+				}
 			}
 
 			// Map relationships
