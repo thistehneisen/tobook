@@ -71,7 +71,8 @@ class pjAdminServices extends pjAdmin
 					$err = 'AS03';
 					if (isset($_POST['i18n']))
 					{
-						pjMultiLangModel::factory()->saveMultiLang($_POST['i18n'], $id, 'pjService');
+						$owner_id = intval($_SESSION['owner_id']);
+						pjMultiLangModel::factory()->saveMultiLang($_POST['i18n'], $owner_id, $id, 'pjService');
 					}
 				} else {
 					$err = 'AS04';
