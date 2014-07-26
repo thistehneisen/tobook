@@ -36,6 +36,10 @@ class MigrateCommand extends Command {
 		$module = $input->getArgument('module');
 		$className = '\Cmd\Migrate\\'.ucfirst($module);
 
+		if (!class_exists($className)) {
+			throw new \InvalidArgumentException("Cannot find module [$module]");
+		}
+
 		(new $className($output, $db))->run();
 	}
 }
