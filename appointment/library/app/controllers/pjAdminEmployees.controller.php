@@ -40,6 +40,7 @@ class pjAdminEmployees extends pjAdmin
 			{
 				$data = array();
 				$data['calendar_id'] = $this->getForeignId();
+				$data['owner_id'] = intval($_SESSION['owner_id']);
 				$id = pjEmployeeModel::factory(array_merge($_POST, $data))->insert()->getInsertId();
 				if ($id !== false && (int) $id > 0)
 				{
@@ -308,12 +309,10 @@ class pjAdminEmployees extends pjAdmin
 		$this->setAjax(true);
 		if ($this->isXHR() && $this->isLoged())
 		{
-			$owner_id =  $_COOKIE['owner_id'];
 			if ( isset($_GET['tyle']) && $_GET['tyle'] == 'freetime' ) {
 				$pjEmployeeFreetimeModel = pjEmployeeFreetimeModel::factory()
 						->select('t1.*, t2.*')
-						->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.employee_id AND t2.locale='".$this->getLocaleId()."'", 'left outer')
-						->where('t1.owner_id', $owner_id);
+						->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.employee_id AND t2.locale='".$this->getLocaleId()."'", 'left outer');
 						
 				$column = 'date';
 				$direction = 'DESC';
@@ -350,8 +349,7 @@ class pjAdminEmployees extends pjAdmin
 			} elseif ( isset($_GET['tyle']) && $_GET['tyle'] == 'customtime' ) {
 
 				$pjEmployeesCustomTimes = pjCustomTimesModel::factory()
-					->select('t1.*')
-					->where('t1.owner_id', $owner_id);
+					->select('t1.*');
 						
 				$column = 'name';
 				$direction = 'DESC';
@@ -380,7 +378,6 @@ class pjAdminEmployees extends pjAdmin
 				$pjEmployeeModel = pjEmployeeModel::factory()
 					->select('t1.*, t2.*')
 					->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
-					->where('t1.owner_id', $owner_id)
 					->where('t1.calendar_id', $this->getForeignId());
 				
 				if (isset($_GET['q']) && !empty($_GET['q']))
@@ -599,12 +596,13 @@ class pjAdminEmployees extends pjAdmin
 				$_POST['date'] = pjUtil::formatDate($_POST['date'], $this->option_arr['o_date_format']);
 				
 				if ( $_POST['end_ts'] > $_POST['start_ts'] ) {
-					
+					$data = $_POST;
+					$data['owner_id'] = intval($_SESSION['owner_id']);
 					if ( isset($_POST['id']) && !empty($_POST['id']) ) {
-						pjEmployeeFreetimeModel::factory()->set('id', $_POST['id'])->modify($_POST);
+						pjEmployeeFreetimeModel::factory()->set('id', $_POST['id'])->modify($data);
 						
 					} else 
-						pjEmployeeFreetimeModel::factory($_POST)->insert();
+						pjEmployeeFreetimeModel::factory($data)->insert();
 				}
 				
 				if ( isset($_POST['pjAdmin']) && !empty($_POST['pjAdmin']) ) {
@@ -673,7 +671,7 @@ class pjAdminEmployees extends pjAdmin
 				$data['end_time'] = join(":", array($_POST['end_hour'], $_POST['end_minute']));
 				$data['start_lunch'] = join(":", array($_POST['start_lunch_hour'], $_POST['start_lunch_minute']));
 				$data['end_lunch'] = join(":", array($_POST['end_lunch_hour'], $_POST['end_lunch_minute']));
-		
+				$data['owner_id'] = intval($_SESSION['owner_id']);
 				if ( isset($_POST['id']) && $_POST['id'] > 0 ) {
 					$data['is_dayoff'] = isset($_POST['is_dayoff']) ? 'T' : 'F';
 					pjCustomTimesModel::factory()->where('id', $_POST['id'])->modifyAll(array_merge($_POST, $data));
@@ -721,7 +719,7 @@ class pjAdminEmployees extends pjAdmin
 							$data['employee_id'] = $_array[2];
 							$data['customtime_id'] = $v;
 							$data['date'] = date('Y-m-d', strtotime(date('Y-m', strtotime($date)) . '-' . $_array[1]));
-							
+							$data['owner_id'] = intval($_SESSION['owner_id']);
 							$pjEmployeeCustomTime
 								->reset()
 								->where('employee_id', $data['employee_id'])

@@ -10,7 +10,6 @@ class pjAdminBookings extends pjAdmin
 	public function pjActionCreate()
 	{
 		$this->checkLogin();
-		
 		if ($this->isAdmin())
 		{
 			if (isset($_POST['booking_create']))
@@ -19,7 +18,7 @@ class pjAdminBookings extends pjAdmin
 				$data['calendar_id'] = $this->getForeignId();
 				$data['locale_id'] = $this->getLocaleId();
 				$data['ip'] = $_SERVER['REMOTE_ADDR'];
-				$data['owner_id'] = intval($_COOKIE['owner_id']);
+				$data['owner_id'] = intval($_SESSION['owner_id']);
 				if ($_POST['payment_method'] != "creditcard")
 				{
 					$data['cc_type'] = ':NULL';
@@ -545,13 +544,11 @@ class pjAdminBookings extends pjAdmin
 		$this->checkLogin();
 		
 		if ($this->isAdmin())
-		{
-			$owner_id = intval($_COOKIE['owner_id']);
+		{ 
 			$this->set('employee_arr', pjEmployeeModel::factory()
 				->select('t1.*, t2.content AS `name`')
 				->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
 				->orderBy('`name` ASC')
-				->where('t1.owner_id', $owner_id)
 				->findAll()
 				->getData()
 			);
@@ -1264,7 +1261,7 @@ class pjAdminBookings extends pjAdmin
 		$this->setAjax(true);
 		
 		if ($this->isXHR() && $this->isLoged()) {
-	
+			$owner_id = intval($_COOKIE['owner_id']);
 			if( isset($_GET['year']) ){
 				$year = $_GET['year'];
 					
@@ -1294,6 +1291,7 @@ class pjAdminBookings extends pjAdmin
 				->where('t2.booking_status', 'confirmed')
 				->where('t1.start_ts >=', $strtotime_fm)
 				->where('t1.start_ts <', $strtotime_lm)
+				->where('t1.owner_id', $owner_id)
 				->findAll()
 				->getData();
 			
@@ -1326,7 +1324,7 @@ class pjAdminBookings extends pjAdmin
 	public function pjActionGetMonthly() {
 		
 		$this->setAjax(true);
-		
+		$owner_id = intval($_SESSION['owner_id']);
 		if ($this->isXHR() && $this->isLoged()) {
 				
 			if ( isset($_GET['m']) && !empty($_GET['m']) ){
@@ -1355,6 +1353,7 @@ class pjAdminBookings extends pjAdmin
 				->where('t2.booking_status', 'confirmed')
 				->where('t1.start_ts >=', strtotime($_mfrom))
 				->where('t1.start_ts <', strtotime($_mto))
+				->where('t1.owner_id', $owner_id)
 				->findAll()
 				->getData();
 			
@@ -1362,6 +1361,7 @@ class pjAdminBookings extends pjAdmin
 				->select('t1.*, t2.content AS `name`')
 				->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
 				->where('t1.is_active', 1)
+				->where('t1.owner_id', $owner_id)
 				->orderBy('`name` ASC')
 				->findAll()
 				->getData();
@@ -1372,6 +1372,7 @@ class pjAdminBookings extends pjAdmin
 				$employee_arr = pjEmployeeModel::factory()
 					->where('t1.is_active', 1)
 					->where('t1.id', $_GET['employee_id'])
+					->where('t1.owner_id', $owner_id)
 					->find($_GET['employee_id'])
 					->getData();
 				

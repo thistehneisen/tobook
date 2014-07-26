@@ -102,13 +102,12 @@ class pjAdmin extends pjAppController
 		}
 	}
 
-	private function pjActionGetDashboard($isoDate, $owner_id)
+	private function pjActionGetDashboard($isoDate)
 	{
 		$service_arr = pjServiceModel::factory()
 			->select('t1.*, t2.content AS `name`')
 			->join('pjMultiLang', sprintf("t2.model='pjService' AND t2.foreign_id=t1.id AND t2.locale='%u' AND t2.field='name'", $this->getLocaleId()), 'left outer')
 			->where('t1.is_active', 1)
-			->where('t1.owner_id', $owner_id)
 			->findAll()
 			->getData();
 	
@@ -116,7 +115,6 @@ class pjAdmin extends pjAppController
 			->select('t1.*, t2.content AS `name`')
 			->join('pjMultiLang', sprintf("t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.locale='%u' AND t2.field='name'", $this->getLocaleId()), 'left outer')
 			->where('t1.is_active', 1)
-			->where('t1.owner_id', $owner_id)
 			->findAll()
 			->getData();
 	
@@ -156,7 +154,6 @@ class pjAdmin extends pjAppController
 			->where('t2.calendar_id', $this->getForeignId())
 			->where('t2.booking_status', 'confirmed')
 			->where('t1.date', $isoDate)
-			->where('t2.owner_id', $owner_id)
 			->where($this->isEmployee() ? sprintf("t1.service_id='%u'", $this->getUserId()) : "1=1")
 			->findAll()
 			->getData();
@@ -164,7 +161,6 @@ class pjAdmin extends pjAppController
 		foreach ($bs_arr as $k => $bs) {
 			$status = pjBookingStatus::factory()
 					->where('booking_id', $bs['booking_id'])
-					->where('owner_id', $owner_id)
 					->findAll()
 					->getDataPair(null, 'status');
 			
@@ -175,7 +171,6 @@ class pjAdmin extends pjAppController
 			
 			$bs_arr[$k]['extra_count'] = pjServiceExtraServiceModel::factory()
 				->where('t1.service_id', $bs['service_id'])
-				->where('t1.owner_id', $owner_id)
 				->findCount()
 				->getData();
 		}
@@ -863,8 +858,7 @@ class pjAdmin extends pjAppController
 			if ( isset($_GET['booking_id']) && $_GET['booking_id'] > 0 &&  isset($_GET['status']) ) {
 				$owner_id = $_COOKIE['owner_id'];
 				$pjBookingStatus = pjBookingStatus::factory()
-					->where('booking_id', $_GET['booking_id'])
-					->where('owner_id', $owner_id);
+					->where('booking_id', $_GET['booking_id']);
 				
 				$status = $pjBookingStatus->findAll()->getData();
 				

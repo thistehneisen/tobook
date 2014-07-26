@@ -313,13 +313,11 @@ class pjAdminServices extends pjAdmin
 	
 		if ($this->isXHR() && $this->isLoged())
 		{
-			$owner_id = intval($_COOKIE['owner_id']);
 			if ( isset($_GET['foreign_id']) && $_GET['foreign_id'] > 0 && isset($_GET['type']) && $_GET['type'] == 'service' ) {
 				
 				$pjServiceModel = pjServiceTimeModel::factory()
 				->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.foreign_id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
 				->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.foreign_id AND t3.field='description' AND t3.locale='".$this->getLocaleId()."'", 'left outer')
-				->where('t1.owner_id', $owner_id)
 				->where('t1.foreign_id', $_GET['foreign_id']);
 				
 				if (isset($_GET['q']) && !empty($_GET['q']))
@@ -359,8 +357,7 @@ class pjAdminServices extends pjAdmin
 				
 			} elseif ( isset($_GET['type']) && $_GET['type'] == 'category' ) {
 				
-				$pjServiceCategoryModel = pjServiceCategoryModel::factory()
-					->where('t1.owner_id', $owner_id);
+				$pjServiceCategoryModel = pjServiceCategoryModel::factory();
 				
 				$column = 'name';
 				$direction = 'ASC';
@@ -387,8 +384,7 @@ class pjAdminServices extends pjAdmin
 				
 			} elseif ( isset($_GET['type']) && $_GET['type'] == 'extraservice' ) {
 				
-				$pjExtraServiceModel = pjExtraServiceModel::factory()
-					->where('owner_id', $owner_id);;
+				$pjExtraServiceModel = pjExtraServiceModel::factory();
 				
 				$column = 'name';
 				$direction = 'ASC';
@@ -415,8 +411,7 @@ class pjAdminServices extends pjAdmin
 				
 			} elseif ( isset($_GET['type']) && $_GET['type'] == 'resources' ) {
 				
-					$pjResourcesModel = pjResourcesModel::factory()
-						->where('owner_id', $owner_id);;
+					$pjResourcesModel = pjResourcesModel::factory();
 				
 					$column = 'name';
 					$direction = 'ASC';
@@ -446,7 +441,6 @@ class pjAdminServices extends pjAdmin
 					->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
 					->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.id AND t3.field='description' AND t3.locale='".$this->getLocaleId()."'", 'left outer')
 					->join('pjServiceCategory', 't1.category_id=t4.id', 'left outer')
-					->where('t1.owner_id', $owner_id) //get from cookie
 					->where('t1.calendar_id', $this->getForeignId());
 				
 				if (isset($_GET['q']) && !empty($_GET['q']))
@@ -478,7 +472,7 @@ class pjAdminServices extends pjAdmin
 				{
 					$page = $pages;
 				}
-	
+				$owner_id = intval($_SESSION['owner_id']);
 				$data = $pjServiceModel
 					->select(sprintf("t1.*, t2.content AS `name`, t4.name AS `category`, 
 						(SELECT COUNT(es.id)
@@ -812,7 +806,7 @@ class pjAdminServices extends pjAdmin
 		
 				if ( !isset($_POST['show_front']) || empty($_POST['show_front']) ) $_POST['show_front'] = off;
 				$data = $_POST;
-				$data['owner_id'] = intval($_COOKIE['owner_id']);
+				$data['owner_id'] = intval($_SESSION['owner_id']);
 				pjServiceCategoryModel::factory($data)->insert();
 		
 				pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjAdminServices&action=pjActionCategory");
@@ -822,7 +816,7 @@ class pjAdminServices extends pjAdmin
 				if ( !isset($_POST['show_front']) || empty($_POST['show_front']) ) $_POST['show_front'] = off;
 				
 				$data = $_POST;
-				$data['owner_id'] = intval($_COOKIE['owner_id']);
+				$data['owner_id'] = intval($_SESSION['owner_id']);
 				pjServiceCategoryModel::factory()->set('id', $data['id'])->modify($data);
 		
 				pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjAdminServices&action=pjActionCategory");
@@ -872,8 +866,9 @@ class pjAdminServices extends pjAdmin
 		if ($this->isAdmin())
 		{
 			if (isset($_POST['service_resources'])) {
-	
-				pjResourcesModel::factory($_POST)->insert();
+				$data = $_POST;
+				$data['owner_id'] = intval($_SESSION['owner_id']);
+				pjResourcesModel::factory($data)->insert();
 	
 				pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjAdminServices&action=pjActionResources");
 					
@@ -928,11 +923,12 @@ class pjAdminServices extends pjAdmin
 		{
 			$pjExtraServiceModel = pjExtraServiceModel::factory();
 			if ( isset($_POST['extra_service']) && $_POST['extra_service'] == 1 ) {
-				
+				$data = $_POST;
+				$data['owner_id'] = intval($_SESSION['owner_id']);
 				if (isset($_POST['id']) && $_POST['id'] > 0 ) {
 					$pjExtraServiceModel->where('id', $_POST['id'])->modifyAll($_POST);
 					
-				} else pjExtraServiceModel::factory($_POST)->insert();
+				} else pjExtraServiceModel::factory($data)->insert();
 			}
 		
 			if ( isset($_GET['id']) && $_GET['id'] > 0 ) {

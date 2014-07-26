@@ -15,12 +15,10 @@ class pjAdminOptions extends pjAdmin
 		{
 			if (isset($_GET['tab']) && in_array((int) $_GET['tab'], array(5,6)))
 			{
-				$owner_id = intval($_GET['owner_id']);
 				pjObject::import('Model', array('pjLocale:pjLocale', 'pjLocale:pjLocaleLanguage'));
 				$locale_arr = pjLocaleModel::factory()->select('t1.*, t2.file')
 					->join('pjLocaleLanguage', 't2.iso=t1.language_iso', 'left')
 					->where('t2.file IS NOT NULL')
-					->where('t1.owner_id', $owner_id )
 					->orderBy('t1.sort ASC')->findAll()->getData();
 						
 				$lp_arr = array();
@@ -115,7 +113,6 @@ class pjAdminOptions extends pjAdmin
 					$OptionModel = new pjOptionModel();
 					$OptionModel
 						->where('foreign_id', $this->getForeignId())
-						->where('owner_id', $owner_id)
 						->where('type', 'bool')
 						->where('tab_id', $_POST['tab'])
 						->modifyAll(array('value' => '1|0::0'));
@@ -259,6 +256,7 @@ class pjAdminOptions extends pjAdmin
 		
 		if ($this->isAdmin())
 		{
+			$owner_id = intval($_COOKIE['owner_id']);
 			if ( isset($_POST['form_style']) && $_POST['form_style'] > 0 && isset($_POST['id']) && $_POST['id'] > 0 ) {
 				pjStyleModel::factory()->set('id', $_POST['id'])->modify($_POST);
 				

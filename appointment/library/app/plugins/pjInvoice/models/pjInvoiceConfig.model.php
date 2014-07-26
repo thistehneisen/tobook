@@ -13,6 +13,7 @@ class pjInvoiceConfigModel extends pjInvoiceAppModel
 	
 	protected $schema = array(
 		array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),
+		array('name' => 'owner_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'y_logo', 'type' => 'varchar', 'default' => ':NULL'),
 		array('name' => 'y_company', 'type' => 'varchar', 'default' => ':NULL'),
 		array('name' => 'y_name', 'type' => 'varchar', 'default' => ':NULL'),

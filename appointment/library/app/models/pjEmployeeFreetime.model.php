@@ -12,6 +12,7 @@ class pjEmployeeFreetimeModel extends pjAppModel
 	
 	protected $schema = array(
 		array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),
+		array('name' => 'owner_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'date', 'type' => 'date', 'default' => ':NULL'),
 		array('name' => 'start_ts', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'end_ts', 'type' => 'int', 'default' => ':NULL'),

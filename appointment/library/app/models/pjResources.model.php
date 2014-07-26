@@ -12,6 +12,7 @@ class pjResourcesModel extends pjAppModel
 	
 	protected $schema = array(
 		array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),
+		array('name' => 'owner_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'name', 'type' => 'varchar', 'default' => ':NULL'),
 		array('name' => 'message', 'type' => 'text', 'default' => ':NULL'),
 	);

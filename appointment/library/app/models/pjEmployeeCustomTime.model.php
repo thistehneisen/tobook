@@ -12,6 +12,7 @@ class pjEmployeeCustomTime extends pjAppModel
 	
 	protected $schema = array(
 		array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),
+		array('name' => 'owner_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'employee_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'customtime_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'date', 'type' => 'date', 'default' => ':NULL')

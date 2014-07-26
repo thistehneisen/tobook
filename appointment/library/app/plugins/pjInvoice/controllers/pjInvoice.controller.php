@@ -500,7 +500,8 @@ class pjInvoice extends pjInvoiceAppController
 					pjUtil::redirect(PJ_INSTALL_URL . "index.php?controller=pjInvoice&action=pjActionIndex&err=PIN03&errTime=" . $time);
 				}
 			}
-			$data = array();
+			$data = $_POST;
+			$data['owner_id'] = intval($_COOKIE['owner_id']);
 			$data['p_accept_payments'] = isset($_POST['p_accept_payments']) ? 1 : 0;
 			$data['p_accept_paypal'] = isset($_POST['p_accept_paypal']) ? 1 : 0;
 			$data['p_accept_authorize'] = isset($_POST['p_accept_authorize']) ? 1 : 0;
@@ -527,7 +528,7 @@ class pjInvoice extends pjInvoiceAppController
 			
 			pjInvoiceConfigModel::factory()
 				->set('id', 1)
-				->modify(array_merge($_POST, $data));
+				->modify($data);
 			
 			pjUtil::redirect(PJ_INSTALL_URL . "index.php?controller=pjInvoice&action=pjActionIndex&err=PIN02");
 		}

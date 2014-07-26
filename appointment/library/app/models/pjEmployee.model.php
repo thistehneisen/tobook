@@ -12,6 +12,7 @@ class pjEmployeeModel extends pjAppModel
 
 	protected $schema = array(
 		array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),
+		array('name' => 'owner_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'calendar_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'email', 'type' => 'varchar', 'default' => ':NULL'),
 		array('name' => 'password', 'type' => 'blob', 'default' => ':NULL', 'encrypt' => 'AES'),
