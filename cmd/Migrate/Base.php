@@ -2,6 +2,7 @@
 
 use Symfony\Component\Console\Output\OutputInterface;
 use Doctrine\DBAL\Connection;
+use Doctrine\Common\Inflector\Inflector;
 
 abstract class Base {
 	protected $output;
@@ -154,7 +155,7 @@ abstract class Base {
 		}
 
 		foreach ($relationships as $tbl) {
-			if (empty($this->map[$tbl])) {
+			if (!is_array($tbl) && empty($this->map[$tbl])) {
 				$this->error("ERROR: Empty map of `$tbl`.");
 				return;
 			}
@@ -202,13 +203,22 @@ abstract class Base {
 			foreach ($relationships as $field => $tbl) {
 				$id = $row[$field];
 
+				$target = $tbl;
+				if (is_array($tbl) && !empty($tbl)) {
+					// The first item is the field containing the target table
+					// Because the type in plural forms, so we need to change
+					// it first
+					$target = Inflector::pluralize($row[$tbl[0]]);
+				}
+
 				// Cannot find ID in the map, maybe target relationship was
 				// deleted. So no need to keep this record.
-				if (!isset($this->map[$tbl][$id])) {
+				if (!isset($this->map[$target][$id])) {
 					$skip = true;
 					break;
 				}
-				$row[$field] = $this->map[$tbl][$id];
+
+				$row[$field] = $this->map[$target][$id];
 			}
 
 			if ($skip === true) {

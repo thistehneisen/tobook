@@ -71,12 +71,14 @@ class AppScheduler extends Base {
 			'booking_id' => 'bookings',
 		]);
 
-		// $this->migrateTable('dates', [
-		// 	'foreign_id' => '',
-		// ]);
+		$this->migrateTable('dates', [
+			'foreign_id' => ['type'],
+		]);
+
 		// $this->migrateTable('multi_lang', [
 		// 	'foreign_id' => '',
 		// ]);
+		
 		// $this->migrateTable('options', [
 		// 	'foreign_id' => '',
 		// 	'tab_id' => '',
@@ -120,13 +122,14 @@ class AppScheduler extends Base {
 		// 	'foreign_id' => '',
 		// ]);
 
-		// $this->migrateTable('working_times', [
-		// 	'foreign_id' => '',
-		// ]);
+		$this->migrateTable('working_times', [
+			'foreign_id' => ['type'],
+		]);
 
 	}
 
-	public function migrateTable($table, $relationships = []) {
+	public function migrateTable($table, $relationships = [])
+	{
 		$query = $this->queryBuilder()
 			->select('*')
 			->from($this->username.'_hey_appscheduler_'.$table, 't');
