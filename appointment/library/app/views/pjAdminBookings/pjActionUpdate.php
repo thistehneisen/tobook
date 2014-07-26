@@ -29,6 +29,7 @@ if (isset($tpl['status']))
 			<input type="hidden" name="pjadmin" value="1" />
 		<?php } ?>
 		<input type="hidden" name="id" value="<?php echo $tpl['arr']['id']; ?>" />
+		<input type="hidden" name="booking_serivce_id" value="<?php echo $tpl['arr']['booking_serivce_id']; ?>" />
 		<?php $style_customer = isset($_GET['customer']) ? 'style="display: none;"' : ''; ?>
 		<div id="tabs">
 			<!-- 

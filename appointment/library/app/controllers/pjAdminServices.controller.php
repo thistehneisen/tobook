@@ -12,11 +12,13 @@ class pjAdminServices extends pjAdmin
 		
 		if ($this->isAdmin())
 		{
+			$owner_id = intval($_COOKIE['owner_id']);
 			if (isset($_POST['service_create']))
 			{
 				$data = array();
 				$data['calendar_id'] = $this->getForeignId();
-				$id = pjServiceModel::factory(array_merge($_POST, $data))->insert()->getInsertId();
+				$data['owner_id'] = $owner_id;
+ 				$id = pjServiceModel::factory(array_merge($_POST, $data))->insert()->getInsertId();
 				if ($id !== false && (int) $id > 0)
 				{
 					if (isset($_POST['employee_id']) && !empty($_POST['employee_id']))
@@ -80,6 +82,7 @@ class pjAdminServices extends pjAdmin
 				$locale_arr = pjLocaleModel::factory()->select('t1.*, t2.file')
 					->join('pjLocaleLanguage', 't2.iso=t1.language_iso', 'left')
 					->where('t2.file IS NOT NULL')
+					->where('t1.owner_id', $owner_id)
 					->orderBy('t1.sort ASC')->findAll()->getData();
 						
 				$lp_arr = array();
@@ -93,6 +96,7 @@ class pjAdminServices extends pjAdmin
 					->select('t1.*, t2.content AS `name`')
 					->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
 					->where('t1.is_active', 1)
+					->where('t1.owner_id', $owner_id)
 					->orderBy('`name` ASC')
 					->findAll()
 					->getData()
@@ -100,6 +104,7 @@ class pjAdminServices extends pjAdmin
 				
 				$this->set('category_arr', pjServiceCategoryModel::factory()
 						->select('t1.*')
+						->where('t1.owner_id', $owner_id)
 						->orderBy('t1.name ASC')
 						->findAll()
 						->getData()
@@ -107,6 +112,7 @@ class pjAdminServices extends pjAdmin
 				
 				$this->set('extra_arr', pjExtraServiceModel::factory()
 						->select('t1.*')
+						->where('t1.owner_id', $owner_id)
 						->orderBy('t1.name ASC')
 						->findAll()
 						->getData()
@@ -114,6 +120,7 @@ class pjAdminServices extends pjAdmin
 				
 				$this->set('resources_arr', pjResourcesModel::factory()
 						->select('t1.*')
+						->where('t1.owner_id', $owner_id)
 						->orderBy('t1.name ASC')
 						->findAll()
 						->getData()
@@ -306,12 +313,13 @@ class pjAdminServices extends pjAdmin
 	
 		if ($this->isXHR() && $this->isLoged())
 		{
-			
+			$owner_id = intval($_COOKIE['owner_id']);
 			if ( isset($_GET['foreign_id']) && $_GET['foreign_id'] > 0 && isset($_GET['type']) && $_GET['type'] == 'service' ) {
 				
 				$pjServiceModel = pjServiceTimeModel::factory()
 				->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.foreign_id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
 				->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.foreign_id AND t3.field='description' AND t3.locale='".$this->getLocaleId()."'", 'left outer')
+				->where('t1.owner_id', $owner_id)
 				->where('t1.foreign_id', $_GET['foreign_id']);
 				
 				if (isset($_GET['q']) && !empty($_GET['q']))
@@ -351,7 +359,8 @@ class pjAdminServices extends pjAdmin
 				
 			} elseif ( isset($_GET['type']) && $_GET['type'] == 'category' ) {
 				
-				$pjServiceCategoryModel = pjServiceCategoryModel::factory();
+				$pjServiceCategoryModel = pjServiceCategoryModel::factory()
+					->where('t1.owner_id', $owner_id);
 				
 				$column = 'name';
 				$direction = 'ASC';
@@ -378,7 +387,8 @@ class pjAdminServices extends pjAdmin
 				
 			} elseif ( isset($_GET['type']) && $_GET['type'] == 'extraservice' ) {
 				
-				$pjExtraServiceModel = pjExtraServiceModel::factory();
+				$pjExtraServiceModel = pjExtraServiceModel::factory()
+					->where('owner_id', $owner_id);;
 				
 				$column = 'name';
 				$direction = 'ASC';
@@ -405,7 +415,8 @@ class pjAdminServices extends pjAdmin
 				
 			} elseif ( isset($_GET['type']) && $_GET['type'] == 'resources' ) {
 				
-					$pjResourcesModel = pjResourcesModel::factory();
+					$pjResourcesModel = pjResourcesModel::factory()
+						->where('owner_id', $owner_id);;
 				
 					$column = 'name';
 					$direction = 'ASC';
@@ -435,6 +446,7 @@ class pjAdminServices extends pjAdmin
 					->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
 					->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.id AND t3.field='description' AND t3.locale='".$this->getLocaleId()."'", 'left outer')
 					->join('pjServiceCategory', 't1.category_id=t4.id', 'left outer')
+					->where('t1.owner_id', $owner_id) //get from cookie
 					->where('t1.calendar_id', $this->getForeignId());
 				
 				if (isset($_GET['q']) && !empty($_GET['q']))
@@ -473,10 +485,11 @@ class pjAdminServices extends pjAdmin
 							FROM `%1\$s` AS `es`
 							INNER JOIN `%2\$s` AS `e` ON `e`.`id` = `es`.`employee_id`
 							WHERE `es`.`service_id` = `t1`.`id`
+							AND `es`.`owner_id` = %3\$d
 							LIMIT 1) AS `employees`
-						", pjEmployeeServiceModel::factory()->getTable(), pjEmployeeModel::factory()->getTable()))
+						", pjEmployeeServiceModel::factory()->getTable(), pjEmployeeModel::factory()->getTable(), $owner_id))
 					->orderBy("$column $direction")->limit($rowCount, $offset)->findAll()->getData();
-					
+
 				foreach ($data as $k => $v)
 				{
 					$data[$k]['price_format'] = pjUtil::formatCurrencySign(number_format($v['price'], 2), $this->option_arr['o_currency']);
@@ -798,8 +811,9 @@ class pjAdminServices extends pjAdmin
 			if (isset($_POST['service_category'])) {
 		
 				if ( !isset($_POST['show_front']) || empty($_POST['show_front']) ) $_POST['show_front'] = off;
-					
-				pjServiceCategoryModel::factory($_POST)->insert();
+				$data = $_POST;
+				$data['owner_id'] = intval($_COOKIE['owner_id']);
+				pjServiceCategoryModel::factory($data)->insert();
 		
 				pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjAdminServices&action=pjActionCategory");
 					
@@ -807,7 +821,9 @@ class pjAdminServices extends pjAdmin
 		
 				if ( !isset($_POST['show_front']) || empty($_POST['show_front']) ) $_POST['show_front'] = off;
 				
-				pjServiceCategoryModel::factory()->set('id', $_POST['id'])->modify($_POST);
+				$data = $_POST;
+				$data['owner_id'] = intval($_COOKIE['owner_id']);
+				pjServiceCategoryModel::factory()->set('id', $data['id'])->modify($data);
 		
 				pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjAdminServices&action=pjActionCategory");
 					

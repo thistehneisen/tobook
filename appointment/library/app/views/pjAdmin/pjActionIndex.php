@@ -103,7 +103,7 @@ if (isset($tpl['status']))
 				$d = $d - $count_days;
 			}
 		?>
-			<li><a class="pj-button <?php echo $active; ?>" href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdmin&amp;action=pjActionIndex&amp;as_pf=<?php echo $as_pf; ?>&amp;date=<?php echo date('Y-m-d', strtotime($y . '-' . $m . '-' . $d)); ?>"><?php echo $day; ?></a></li>
+			<li><a class="pj-button <?php echo $active; ?>" href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdmin&amp;action=pjActionIndex&amp;as_pf=<?php echo $as_pf; ?>&amp;date=<?php echo date('Y-m-d', strtotime($y . '-' . $m . '-' . $d)); ?>&amp;owner_id=<?php echo $owner_id;?>"><?php echo $day; ?></a></li>
 		<?php $i++;
 		} ?>
 		</ul>

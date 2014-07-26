@@ -239,10 +239,11 @@ class pjFrontPublic extends pjFront
 			
 			$this->set('calendar', $this->getCalendar($_GET['cid'], $year, $month, $day))
 				->set('cart_arr', $this->getCart($_GET['cid']));
-				
+			$owner_id = intval($_GET['owner_id']);
 			$this->set('category_arr', 
 					pjServiceCategoryModel::factory()
 					->where('t1.show_front', 'on')
+					->where('owner_id', $owner_id)
 					->orderBy('t1.name ASC')
 					->findAll()
 					->getData()

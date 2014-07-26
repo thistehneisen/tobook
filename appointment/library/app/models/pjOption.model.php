@@ -12,6 +12,7 @@ class pjOptionModel extends pjAppModel
 	
 	protected $schema = array(
 		array('name' => 'foreign_id', 'type' => 'int', 'default' => ':NULL'),
+		array('name' => 'owner_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'key', 'type' => 'varchar', 'default' => ':NULL'),
 		array('name' => 'tab_id', 'type' => 'tinyint', 'default' => ':NULL'),
 		array('name' => 'value', 'type' => 'text', 'default' => ':NULL'),

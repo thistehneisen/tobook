@@ -1,4 +1,11 @@
 <?php
+global $owner_id;
+$owner_id = $_GET['owner_id'];
+if ( isset($_GET['owner_id']) && !empty($_GET['owner_id']) ) {
+	$as_pf = $_GET['owner_id'];
+	setcookie("owner_id", $owner_id, time()+3600, "/", "");
+} else  $owner_id = isset($_COOKIE['owner_id']) ? $_COOKIE['owner_id'] : null;
+
 if( !isset($_COOKIE['as_admin']) ){
 	setcookie( "as_admin", "admin",	time() + (10 * 365 * 24 * 60 * 60) );
 }
@@ -44,9 +51,8 @@ if (file_exists(ROOT_PATH . 'app/locale/en.php'))
 if (!isset($_GET['controller']) || empty($_GET['controller']))
 {
 	header("HTTP/1.1 301 Moved Permanently");
-	pjUtil::redirect(PJ_INSTALL_URL . basename($_SERVER['PHP_SELF'])."?controller=pjAdmin&action=pjActionIndex");
+	pjUtil::redirect(PJ_INSTALL_URL . basename($_SERVER['PHP_SELF'])."?controller=pjAdmin&action=pjActionIndex&owner_id=".$owner_id);
 }
-
 if (isset($_GET['controller']))
 {
 	require_once PJ_FRAMEWORK_PATH . 'pjObserver.class.php';

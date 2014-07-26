@@ -53,7 +53,7 @@ if (isset($tpl['status']))
 			<a id="installcontent" href="#" class="pj-button">Insert Content</a>
 			</div>
 			<p style="margin: 20px 0 7px; font-weight: bold"><?php __('lblInstallJs1_1'); ?></p>
-	<textarea class="pj-form-field w700 textarea_install" id="install_code" style="overflow: auto; height:80px"><iframe width="100%" height="1000px" src="<?php echo PJ_INSTALL_URL; ?>index.php?controller=pjAdminOptions&amp;action=pjActionPreview&amp;as_pf=<?php echo $as_pf; ?>"></textarea>
+	<textarea class="pj-form-field w700 textarea_install" id="install_code" style="overflow: auto; height:80px"><iframe width="100%" height="1000px" src="<?php echo PJ_INSTALL_URL; ?>index.php?controller=pjAdminOptions&amp;action=pjActionPreview&amp;as_pf=<?php echo $as_pf; ?>&owner_id=<?php echo $owner_id;?>"></textarea>
 
 			<div style="display:none" id="hidden_code">&lt;link href="<?php echo PJ_INSTALL_FOLDER; ?>index.php?controller=pjFrontEnd&action=pjActionLoadCss" type="text/css" rel="stylesheet" /&gt;
 &lt;script type="text/javascript" src="<?php echo PJ_INSTALL_FOLDER; ?>index.php?controller=pjFrontEnd&action=pjActionLoad"&gt;&lt;/script&gt;</div>

@@ -36,6 +36,11 @@ var jQuery_1_8_2 = jQuery_1_8_2 || $.noConflict();
 			
 		} else $as_pf = '';
 		
+		var $owner_id = 0;
+		if ( $_GET['as_pf'] != null ) {
+			$owner_id = '&owner_id=' + $_GET['owner_id'];
+		}
+
 		function getCookie(cname)
 		{
 			var name = cname + "=";
@@ -128,7 +133,7 @@ var jQuery_1_8_2 = jQuery_1_8_2 || $.noConflict();
 						          {text: myLabel.message, type: "text", sortable: true, editable: true},
 						          ],
 								  
-						dataUrl: "index.php?controller=pjAdminEmployees&action=pjActionGetEmployee&tyle=freetime" + $as_pf,
+						dataUrl: "index.php?controller=pjAdminEmployees&action=pjActionGetEmployee&tyle=freetime" + $owner_id + $as_pf,
 						dataType: "json",
 						fields: ['name', 'date', 'start_ts', 'end_ts', 'message'],
 						paginator: {
@@ -201,7 +206,7 @@ var jQuery_1_8_2 = jQuery_1_8_2 || $.noConflict();
 							                                                                                     {label: myLabel.active, value: 1}, 
 							                                                                                     {label: myLabel.inactive, value: 0}
 							                                                                                     ], applyClass: "pj-status"}],
-					dataUrl: "index.php?controller=pjAdminEmployees&action=pjActionGetEmployee" + $as_pf,
+					dataUrl: "index.php?controller=pjAdminEmployees&action=pjActionGetEmployee" + $as_pf + $owner_id,
 					dataType: "json",
 					fields: ['avatar', 'name', 'email', 'phone', 'services', 'is_active'],
 					paginator: {

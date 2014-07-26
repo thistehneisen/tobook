@@ -12,6 +12,7 @@ class pjBookingModel extends pjAppModel
 
 	protected $schema = array(
 		array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),
+		array('name' => 'owner_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'uuid', 'type' => 'varchar', 'default' => ':NULL'),
 		array('name' => 'calendar_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'booking_price', 'type' => 'decimal', 'default' => ':NULL'),

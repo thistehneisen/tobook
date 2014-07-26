@@ -394,7 +394,6 @@ class pjAppController extends pjController {
 		$pjWorkingTimeModel = pjWorkingTimeModel::factory();
 		$wt_data = $pjWorkingTimeModel->getWorkingTime($foreign_id, $type);
 		$wt_arr = $pjWorkingTimeModel->filterDateAdmin($wt_data, $date);
-			
 		if (empty($wt_arr))
 		{
 		# It's Day off

@@ -57,7 +57,7 @@ if (!headers_sent())
     	$sql3 = "select id as cId, c_email as cEmail, c_phone as cPhone, 'as' as planGroupCode, created as bookingTime
     			   from $prefix"."_hey_appscheduler_bookings
 				  group by cEmail, cPhone";
-
+		
      	$con1 = mysql_connect( DB_HOSTNAME, DB_USERNAME, DB_PASSWORD) or die ( mysql_error() );
     	$db1 = mysql_select_db( DB_DATABASE, $con1) or die( mysql_error() );
 

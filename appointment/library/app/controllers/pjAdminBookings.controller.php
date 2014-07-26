@@ -15,10 +15,11 @@ class pjAdminBookings extends pjAdmin
 		{
 			if (isset($_POST['booking_create']))
 			{
-				$data = array();
+				$data = $_POST;
 				$data['calendar_id'] = $this->getForeignId();
 				$data['locale_id'] = $this->getLocaleId();
 				$data['ip'] = $_SERVER['REMOTE_ADDR'];
+				$data['owner_id'] = intval($_COOKIE['owner_id']);
 				if ($_POST['payment_method'] != "creditcard")
 				{
 					$data['cc_type'] = ':NULL';
@@ -27,17 +28,19 @@ class pjAdminBookings extends pjAdmin
 					$data['cc_exp_year'] = ':NULL';
 					$data['cc_exp_month'] = ':NULL';
 				}
-				$id = pjBookingModel::factory(array_merge($_POST, $data))->insert()->getInsertId();
+				$id = pjBookingModel::factory($data)->insert()->getInsertId();
 				if ($id !== false && (int) $id > 0)
 				{
 					if (!empty($_POST['tmp_hash']))
 					{
 						pjBookingServiceModel::factory()
 							->where('tmp_hash', $_POST['tmp_hash'])
+							->where('owner_id', $owner_id)
 							->modifyAll(array('booking_id' => $id, 'tmp_hash' => ':NULL'));
 					}
-					
-					pjBookingStatus::factory(array('booking_id' => $id, 'admin' => 1))->insert();
+					$data['booking_id'] = $id;
+					pjBookingServiceModel::factory($data)->insert();
+					pjBookingStatus::factory(array('booking_id' => $id, 'admin' => 1, 'owner_id'=>$owner_id))->insert();
 					
 					$err = 'ABK03';
 				} else {
@@ -64,6 +67,7 @@ class pjAdminBookings extends pjAdmin
 					->select('t1.*, t2.content AS `name`')
 					->join('pjMultiLang', "t2.model='pjCountry' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
 					->where('t1.status', 'T')
+					->where('t1.owner_id', $owner_id)
 					->orderBy('`name` ASC')
 					->findAll()->getData());
 				
@@ -193,7 +197,7 @@ class pjAdminBookings extends pjAdmin
 	public function pjActionGetBooking()
 	{
 		$this->setAjax(true);
-	
+		$owner_id = intval($_COOKIE['owner_id']);
 		if ($this->isXHR() && $this->isLoged() && $this->isAdmin())
 		{
 			$pjBookingModel = pjBookingModel::factory();
@@ -264,6 +268,7 @@ class pjAdminBookings extends pjAdmin
 						LEFT JOIN `%2\$s` AS `m` ON m.model='pjService' AND m.foreign_id=bs.service_id AND m.field='name' AND m.locale='%3\$u'
 						WHERE bs.booking_id = t1.id) AS `items`
 					", $pjBookingServiceModel->getTable(), pjMultiLangModel::factory()->getTable(), $this->getLocaleId()))
+				->where('t1.owner_id', $owner_id)
 				->orderBy("$column $direction")->limit($rowCount, $offset)
 				->findAll()
 				->toArray('items', '~:~')
@@ -541,10 +546,12 @@ class pjAdminBookings extends pjAdmin
 		
 		if ($this->isAdmin())
 		{
+			$owner_id = intval($_COOKIE['owner_id']);
 			$this->set('employee_arr', pjEmployeeModel::factory()
 				->select('t1.*, t2.content AS `name`')
 				->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
 				->orderBy('`name` ASC')
+				->where('t1.owner_id', $owner_id)
 				->findAll()
 				->getData()
 			);
@@ -552,6 +559,7 @@ class pjAdminBookings extends pjAdmin
 			$this->set('service_arr', pjServiceModel::factory()
 				->select('t1.*, t2.content AS `name`')
 				->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
+				->where('t1.owner_id', $owner_id)
 				->orderBy('`name` ASC')
 				->findAll()
 				->getData()
@@ -570,10 +578,11 @@ class pjAdminBookings extends pjAdmin
 		
 		if ($this->isAdmin())
 		{
-				
+			$owner_id = intval($_COOKIE['owner_id']);
 			$booking_arr = pjBookingModel::factory()
 				->select('t1.*, COUNT(`t1`.`c_email`) as count')
 				->where('t1.booking_status', 'confirmed')
+				->where('t1.owner_id', $owner_id)
 				->orderBy('t1.c_name ASC')
 				->groupBy('t1.c_email')
 				->findAll()
@@ -585,6 +594,7 @@ class pjAdminBookings extends pjAdmin
 				->join('pjService', 't3.id=t1.service_id', 'inner')
 				->join('pjMultiLang', "t4.model='pjService' AND t4.foreign_id=t1.service_id AND t4.locale=t2.locale_id AND t4.field='name'", 'left outer')
 				->where('t2.booking_status', 'confirmed')
+				->where('t1.owner_id', $owner_id)
 				->findAll()
 				->getData();
 			
@@ -604,18 +614,20 @@ class pjAdminBookings extends pjAdmin
 		$this->setAjax(true);
 	
 		if ($this->isXHR() && $this->isLoged()) {
-				
+			$owner_id = intval($_COOKIE['owner_id']);
 			$search = isset($_GET['search']) ? $_GET['search'] : Null;
 			$pjBookingModel = pjBookingModel::factory()
 				->select('t1.c_name, t1.c_email, t1.c_phone')
 				->where('t1.booking_status', 'confirmed')
 				->where(sprintf("t1.c_name LIKE '%1\$s' OR t1.c_email LIKE '%1\$s'", "%$search%"))
+				->where('t1.owner_id', $owner_id)
 				->orderBy('t1.c_name ASC')
 				->groupBy('t1.c_email');
 			
 			$page = isset($_GET['page']) ? $_GET['page'] : 1;
 			$booking_arr = $pjBookingModel
 				->limit(10, ($page-1)*10)
+				->where('t1.owner_id', $owner_id)
 				->findAll()
 				->getData();
 			
@@ -628,10 +640,12 @@ class pjAdminBookings extends pjAdmin
 	}
 	
 	public function download_csv() {
-		
+		$owner_id = intval($_GET['owner_id']);
+
 		$booking_arr = pjBookingModel::factory()
 			->select('t1.*, COUNT(`t1`.`c_email`) as count')
 			->where('t1.booking_status', 'confirmed')
+			->where('t1.owner_id', $owner_id)
 			->orderBy('t1.c_name ASC')
 			->groupBy('t1.c_email')
 			->findAll()
@@ -643,6 +657,7 @@ class pjAdminBookings extends pjAdmin
 			->join('pjService', 't3.id=t1.service_id', 'inner')
 			->join('pjMultiLang', "t4.model='pjService' AND t4.foreign_id=t1.service_id AND t4.locale=t2.locale_id AND t4.field='name'", 'left outer')
 			->where('t2.booking_status', 'confirmed')
+			->where('t1.owner_id', $owner_id)
 			->findAll()
 			->getData();
 		
@@ -759,13 +774,13 @@ class pjAdminBookings extends pjAdmin
 	public function pjActionUpdate()
 	{
 		$this->checkLogin();
-		
+		$owner_id = intval($_COOKIE['owner_id']);
 		if ($this->isAdmin())
 		{
 			$pjBookingModel = pjBookingModel::factory();
 			if (isset($_REQUEST['id']) && (int) $_REQUEST['id'] > 0)
 			{
-				$pjBookingModel->where('t1.id', $_REQUEST['id']);
+				$pjBookingModel->where('t1.id', intval($_REQUEST['id']));
 			} elseif (isset($_GET['uuid']) && !empty($_GET['uuid'])) {
 				$pjBookingModel->where('t1.uuid', $_GET['uuid']);
 			}
@@ -773,13 +788,13 @@ class pjAdminBookings extends pjAdmin
 				->limit(1)
 				->findAll()
 				->getData();
-				
+			
 			if (empty($arr))
 			{
 				pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjAdminBookings&action=pjActionIndex&err=ABK08");
 			}
 			$arr = $arr[0];
-			
+
 			if (isset($_POST['booking_update']))
 			{
 				$data = array();
@@ -791,8 +806,9 @@ class pjAdminBookings extends pjAdmin
 					$data['cc_exp_year'] = ':NULL';
 					$data['cc_exp_month'] = ':NULL';
 				}
+				//$data['booking_id'] = intval($_POST['id']);
 				pjBookingModel::factory()->set('id', $_POST['id'])->modify(array_merge($_POST, $data));
-				
+				//pjBookingServiceModel::factory()->find(intval($_POST['booking_serivce_id']))->modify($data);
 				if (isset($_POST['pjadmin']) && $_POST['pjadmin'] == 1 ) {
 					//pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjAdmin&action=pjActionIndex");
 					
@@ -801,6 +817,10 @@ class pjAdminBookings extends pjAdmin
 				
 			} else {
 				pjObject::import('Model', 'pjCountry:pjCountry');
+				$pjBookingServiceModel = pjBookingServiceModel::factory();
+				$pjBookingService = $pjBookingServiceModel->where('t1.booking_id', intval($_REQUEST['id']))->limit(1)->findAll()->getData();
+				$arr['booking_serivce_id'] = $pjBookingService[0]['id'];
+
 				$this->set('arr', $arr)
 					->set('country_arr', pjCountryModel::factory()
 						->select('t1.*, t2.content AS `name`')
@@ -826,6 +846,7 @@ class pjAdminBookings extends pjAdmin
 						->join('pjMultiLang', "t5.model='pjEmployee' AND t5.foreign_id=t1.employee_id AND t5.locale=t2.locale_id AND t5.field='name'", 'left outer')
 						->where('t2.booking_status', 'confirmed')
 						->where('t2.c_email', $arr['c_email'])
+						->where('t1.owner_id', $owner_id)
 						->findAll()
 						->getData();
 					
@@ -872,14 +893,14 @@ class pjAdminBookings extends pjAdmin
 		if ($this->isXHR() && $this->isLoged())
 		{
 			$pjBookingServiceModel = pjBookingServiceModel::factory();
-			
+			$owner_id = intval($owner_id);
 			if (isset($_POST['item_add']))
 			{
 				if (isset($_POST['service_id']) && (int) $_POST['service_id'] > 0)
 				{
 					$date = pjUtil::formatDate($_POST['date'], $this->option_arr['o_date_format']);
 				
-					$service_arr = pjServiceModel::factory()->find($_POST['service_id'])->getData();
+					$service_arr = pjServiceModel::factory()->where('owner_id',$owner_id)->find($_POST['service_id'])->getData();
 					
 					if (isset($_POST['servicetime_id']) && (int) $_POST['servicetime_id'] > 0) {
 						$servicetime_arr = pjServiceTimeModel::factory()
@@ -899,6 +920,7 @@ class pjAdminBookings extends pjAdmin
 							->where('t3.service_id', $_POST['service_id'])
 							->where('t3.employee_id', $_POST['employee_id'])
 							->where('t1.is_active', 1)
+							->where('t1.owner_id', $owner_id)
 							->orderBy('`name` ASC')
 							->findAll()
 							->getData();
@@ -912,6 +934,7 @@ class pjAdminBookings extends pjAdmin
 					
 					$resources_ids = pjResourcesServiceModel::factory()
 						->where('t1.service_id', $_POST['service_id'])
+						->where('t1.owner_id', $owner_id)
 						->findAll()
 						->getDataPair(null, 'resources_id');
 						
@@ -922,6 +945,7 @@ class pjAdminBookings extends pjAdmin
 							->where('t1.date', $date)
 							->where('t1.start_ts >= ', $_POST['start_ts'])
 							->where('t1.start_ts < ', $_POST['start_ts'] + $service_arr['total']* 60)
+							->where('t1.owner_id', $owner_id)
 							->findAll()
 							->getDataPair(null, 'resources_id');
 						

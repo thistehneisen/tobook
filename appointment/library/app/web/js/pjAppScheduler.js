@@ -26,7 +26,7 @@
 		];
 	
 	/* $_GET Prefix */
-	var $_GET = {}, $as_pf;
+	var $_GET = {}, $as_pf, $owner_id;
 
 	document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
 	    function decode(s) {
@@ -46,6 +46,16 @@
 		
 	} else $as_pf = '';
 	
+	if ( $_GET['owner_id'] != null ) {
+		
+		$owner_id = "&owner_id=" + $_GET['owner_id'];
+		
+	} else if ( getCookie('owner_id') != '' ) {
+		
+		$owner_id = "&owner_id=" + getCookie('owner_id');
+		
+	} else $owner_id = '';
+
 	function getCookie(cname)
 	{
 		var name = cname + "=";
@@ -848,7 +858,7 @@
 		loadServices: function () {
 			var that = this;
 			this.disableButtons.call(this);
-			pjQ.$.get([this.options.folder, "index.php?controller=pjFrontPublic&action=pjActionServices" + $as_pf].join(""), {
+			pjQ.$.get([this.options.folder, "index.php?controller=pjFrontPublic&action=pjActionServices" + $as_pf + $owner_id].join(""), {
 				"cid": this.options.cid,
 				"layout": this.options.layout,
 				"date": this.date,
@@ -880,7 +890,7 @@
 		},
 		loadPreview: function () {
 			var that = this;
-			pjQ.$.get([this.options.folder, "index.php?controller=pjFrontPublic&action=pjActionPreview" + $as_pf].join(""), {
+			pjQ.$.get([this.options.folder, "index.php?controller=pjFrontPublic&action=pjActionPreview" + $as_pf + $owner_id].join(""), {
 				"cid": this.options.cid,
 				"layout": this.options.layout
 			}).done(function (data) {
@@ -912,7 +922,7 @@
 						submitHandler: function (form) {
 							that.disableButtons.call(that);
 							var $form = pjQ.$(form);
-							pjQ.$.post([that.options.folder, "index.php?controller=pjFrontEnd&action=pjActionProcessOrder" + $as_pf].join(""), $form.serialize()).done(function (data) {
+							pjQ.$.post([that.options.folder, "index.php?controller=pjFrontEnd&action=pjActionProcessOrder" + $as_pf + $owner_id].join(""), $form.serialize()).done(function (data) {
 								if (data.status == "OK") {
 									hashBang("#!/Booking/" + data.booking_uuid);
 								} else if (data.status == "ERR") {

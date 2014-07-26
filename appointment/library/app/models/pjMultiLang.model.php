@@ -12,6 +12,7 @@ class pjMultiLangModel extends pjAppModel
 	
 	protected $schema = array(
 		array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),
+		array('name' => 'owner_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'foreign_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'model', 'type' => 'varchar', 'default' => ':NULL'),
 		array('name' => 'locale', 'type' => 'tinyint', 'default' => ':NULL'),

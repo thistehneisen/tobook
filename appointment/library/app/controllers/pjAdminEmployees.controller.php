@@ -156,6 +156,7 @@ class pjAdminEmployees extends pjAdmin
 	
 	public function pjActionDeleteEmployee()
 	{
+		die('1');
 		$this->setAjax(true);
 	
 		if ($this->isXHR() && $this->isLoged())
@@ -305,13 +306,14 @@ class pjAdminEmployees extends pjAdmin
 	public function pjActionGetEmployee()
 	{
 		$this->setAjax(true);
-	
 		if ($this->isXHR() && $this->isLoged())
 		{
+			$owner_id =  $_COOKIE['owner_id'];
 			if ( isset($_GET['tyle']) && $_GET['tyle'] == 'freetime' ) {
-
 				$pjEmployeeFreetimeModel = pjEmployeeFreetimeModel::factory()
-						->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.employee_id AND t2.locale='".$this->getLocaleId()."'", 'left outer');
+						->select('t1.*, t2.*')
+						->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.employee_id AND t2.locale='".$this->getLocaleId()."'", 'left outer')
+						->where('t1.owner_id', $owner_id);
 						
 				$column = 'date';
 				$direction = 'DESC';
@@ -347,7 +349,9 @@ class pjAdminEmployees extends pjAdmin
 				
 			} elseif ( isset($_GET['tyle']) && $_GET['tyle'] == 'customtime' ) {
 
-				$pjEmployeesCustomTimes = pjCustomTimesModel::factory();
+				$pjEmployeesCustomTimes = pjCustomTimesModel::factory()
+					->select('t1.*')
+					->where('t1.owner_id', $owner_id);
 						
 				$column = 'name';
 				$direction = 'DESC';
@@ -374,7 +378,9 @@ class pjAdminEmployees extends pjAdmin
 				
 			} else {
 				$pjEmployeeModel = pjEmployeeModel::factory()
+					->select('t1.*, t2.*')
 					->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
+					->where('t1.owner_id', $owner_id)
 					->where('t1.calendar_id', $this->getForeignId());
 				
 				if (isset($_GET['q']) && !empty($_GET['q']))
@@ -586,7 +592,6 @@ class pjAdminEmployees extends pjAdmin
 	public function pjActionFreetime()
 	{
 		$this->checkLogin();
-	
 		if ($this->isAdmin())
 		{
 			if ( isset($_POST['freetime']) && $_POST['freetime'] == 1 ) {

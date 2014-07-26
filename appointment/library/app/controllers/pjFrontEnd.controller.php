@@ -322,7 +322,8 @@ class pjFrontEnd extends pjFront
 			$data['booking_deposit'] = $summary['deposit'];
 			$data['booking_tax'] = $summary['tax'];
 			$data['booking_total'] = $summary['total'];
-			
+			$data['owner_id'] = $_GET['owner_id'];
+
 			$pjBookingModel = pjBookingModel::factory();
 			if (!$pjBookingModel->validates($data))
 			{
@@ -330,6 +331,7 @@ class pjFrontEnd extends pjFront
 			}
 			
 			$booking_id = $pjBookingModel->setAttributes($data)->insert()->getInsertId();
+
 			if ($booking_id !== false && (int) $booking_id > 0)
 			{
 				

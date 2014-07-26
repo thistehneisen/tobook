@@ -52,7 +52,6 @@ class pjObserver
 		{
 			pjObject::import('Plugin', $GLOBALS['CONFIG']['plugins']);
 		}
-		
 		$Dispatcher = new pjDispatcher();
 		$Dispatcher->dispatch($_GET, array());
 		$this->controller = $Dispatcher->getController();

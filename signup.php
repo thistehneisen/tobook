@@ -95,7 +95,7 @@ if($act=="post"){ //if postback
                 vuser_name,vuser_lastname,vuser_address1,vuser_address2,vcity,vstate,vzip,vcountry,
                         vuser_email,vuser_phone,vuser_fax,
                         duser_join,vuser_style,naff_id,vdel_status) values
-          (  '', '".addslashes($_POST["vuser_login"])."','".md5(addslashes($_POST["vuser_password"]))."','".
+          (  NULL, '".addslashes($_POST["vuser_login"])."','".md5(addslashes($_POST["vuser_password"]))."','".
                   addslashes($_POST["txtFirstName"])."','".
                   addslashes($_POST["txtLastName"])."','".
                   addslashes($_POST["vuser_address1"])."','".

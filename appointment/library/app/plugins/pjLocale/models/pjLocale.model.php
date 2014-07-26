@@ -13,6 +13,7 @@ class pjLocaleModel extends pjLocaleAppModel
 	
 	protected $schema = array(
 		array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),
+		array('name' => 'owner_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'language_iso', 'type' => 'varchar', 'default' => ':NULL'),
 		array('name' => 'sort', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'is_default', 'type' => 'tinyint', 'default' => ':NULL')

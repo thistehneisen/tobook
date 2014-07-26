@@ -1,6 +1,7 @@
 <?php
 require_once("../../includes/configsettings.php");
 $prefix = $_GET['prefix'];
+$owner_id = $_GET['owner_id'];
 
 setcookie("as_db_version" . $prefix, "1", time()+3600, "/", "");
 
@@ -26,6 +27,6 @@ if(mysql_num_rows(mysql_query( $sql ))==1){
 setcookie("appointment_scheduler", $db, time()+36000, "/", "");
 setcookie("appointment_scheduler_p", $dbp, time()+36000, "/", "");
 
-header("location: index.php?as_pf=$prefix&firstYN=$firstYN");
+header("location: index.php?as_pf=$prefix&owner_id=$owner_id&firstYN=$firstYN");
 
 ?>

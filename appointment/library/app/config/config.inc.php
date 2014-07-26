@@ -10,10 +10,17 @@ if ( isset($_GET['as_pf']) ) {
 	setcookie("as_pf", $as_pf, time()+3600, "/", "");
 } else  $as_pf = isset($_COOKIE['as_pf']) ? $_COOKIE['as_pf'] : null;
 
-if ( isset($as_pf) ) {
-	if (!defined("PJ_PREFIX")) define("PJ_PREFIX", $as_pf);
-} else
-	if (!defined("PJ_PREFIX")) define("PJ_PREFIX", "jenistar_");
+if ( isset($_GET['owner_id']) ) {
+	$owner_id = $_GET['owner_id'];
+	setcookie("owner_id", $owner_id, time()+3600, "/", "");
+} else  $owner_id = isset($_COOKIE['owner_id']) ? $_COOKIE['owner_id'] : null;
+
+// if ( isset($as_pf) ) {
+// 	if (!defined("PJ_PREFIX")) define("PJ_PREFIX", $as_pf);
+// } else
+// 	if (!defined("PJ_PREFIX")) define("PJ_PREFIX", "jenistar_");
+
+if (!defined("PJ_PREFIX")) define("PJ_PREFIX", 'as_');
 
 if (!defined("PJ_INSTALL_FOLDER")) define("PJ_INSTALL_FOLDER", "/appointment/library/");
 if (!defined("PJ_INSTALL_PATH")) define("PJ_INSTALL_PATH", dirname(__FILE__)."/../../../../appointment/library/");

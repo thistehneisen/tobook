@@ -55,7 +55,8 @@ if (!defined("PJ_UPLOAD_PATH")) define("PJ_UPLOAD_PATH", "app/web/upload/");
 if (!defined("PJ_SCRIPT_VERSION")) define("PJ_SCRIPT_VERSION", "2.1");
 if (!defined("PJ_SCRIPT_ID")) define("PJ_SCRIPT_ID", "102");
 if (!defined("PJ_SCRIPT_BUILD")) define("PJ_SCRIPT_BUILD", "2.1.0");
-if (!defined("PJ_SCRIPT_PREFIX")) define("PJ_SCRIPT_PREFIX", "appscheduler_");
+// if (!defined("PJ_SCRIPT_PREFIX")) define("PJ_SCRIPT_PREFIX", "appscheduler_");
+if (!defined("PJ_SCRIPT_PREFIX")) define("PJ_SCRIPT_PREFIX", "");
 if (!defined("PJ_TEST_MODE")) define("PJ_TEST_MODE", false);
 if (!defined("PJ_DISABLE_MYSQL_CHECK")) define("PJ_DISABLE_MYSQL_CHECK", false);
 
