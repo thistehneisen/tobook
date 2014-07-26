@@ -3,26 +3,9 @@
 
 class Cashier extends Base {
 
-	protected $schemaManager;
-	protected $username;
-
-	/**
-	 * Contain map from old IDs to new IDs
-	 *
-	 * @var array
-	 */
-	protected $map = [];
-
-	public function __construct($output, $db)
-	{
-		parent::__construct($output, $db);
-		$this->schemaManager = $this->db->getSchemaManager();
-	}
-
-	protected function queryBuilder()
-	{
-		return $this->db->createQueryBuilder();
-	}
+	protected $autoIncrementFields = ['pos_id', 'setting_id', 'id'];
+	protected $tablePrefix = 'sma_';
+	protected $tablePattern = '/([a-z0-9]+)_sma_billers/i';
 
 	public function run()
 	{
@@ -30,7 +13,7 @@ class Cashier extends Base {
 		foreach ($usernames as $username) {
 			$this->username = $username;
 
-			$this->info("Proccessing data of <fg=green;options=bold>{$username}</fg=green;options=bold>");
+			$this->info("Proccessing data of <fg=green;options=bold>{$username}</fg=green;options=bold>", true);
 			$tables = [
 				'billers',
 				'groups',
@@ -159,129 +142,4 @@ class Cashier extends Base {
 			]);
 		}
 	}
-
-	protected function getUsernames()
-	{
-		$this->text('Getting a list of users to be proceeded...');
-		$usernames = [];
-
-		// Get the list of tables
-		$tables = $this->schemaManager->listTables();
-		foreach ($tables as $table)
-		{
-			preg_match('/([a-z0-9]+)_sma_billers/i', $table->getName(), $matches);
-			if (isset($matches[1])) {
-				$usernames[] = $matches[1];
-			}
-		}
-		$this->text('Found '.count($usernames).' users');
-
-		return $usernames;
-	}
-
-	/**
-	 * Shorter version of `migrate()`, in case you don't need to specify query
-	 *
-	 * @param  string $table         
-	 * @param  array $relationships 
-	 *
-	 * @return array
-	 */
-	protected function migrateTable($table, $relationships = [])
-	{
-		return $this->migrate($table, $this->queryBuilder()
-			->select('*')
-			->from($this->username.'_sma_'.$table, 't'), $relationships);
-	}
-
-	/**
-	 * Migrate data of a table, store a map of old IDs to new IDs
-	 *
-	 * @param  string  $table         Table name, should be in plural without
-	 *                                `sma` prefix
-	 * @param  Stament $query         Statement to get data from that table
-	 * @param  array   $relationships Specify the relationships to other tables.
-	 * Example:
-	 * <code>
-	 * ['user_id'  => 'users',
-	 * 	'group_id' => 'groups']
-	 * </code>
-	 *
-	 * @return array The map of old IDs to new IDs
-	 */
-	protected function migrate($table, $query, $relationships = [])
-	{
-		$this->text('Migrating `'.$table.'`...');
-
-		$user = $this->getCurrentUser();
-		if ($user === false) {
-			$this->error('ERROR: Cannot get data of current user');
-			return;
-		}
-
-		foreach ($relationships as $tbl) {
-			if (empty($this->map[$tbl])) {
-				$this->error("ERROR: Empty map of `$tbl`.");
-				return;
-			}
-		}
-
-		$map = [];
-		$stm = $query->execute();
-
-		if ($stm->rowCount() === 0) {
-			$this->comment("Table `$table` doesn't have data.");
-		}
-
-		while ($row = $stm->fetch()) {
-			$mapped = isset($row['id']);
-			if ($mapped) {
-				$oldId = $row['id'];
-			}
-
-			// Some auto increment fields need to be removed
-			foreach (['setting_id', 'pos_id', 'id'] as $idField) {
-				if (isset($row[$idField])) {
-					unset($row[$idField]);
-				}
-			}
-
-			$row['owner_id'] = $user['nuser_id'];
-
-			// Quick fix for reserved keywords
-			if (isset($row['sql'])) {
-				$quoted = $this->db->quoteIdentifier('sql');
-				$row[$quoted] = $row['sql'];
-				unset($row['sql']);
-			}
-
-			// Map relationships
-			$skip = false;
-			foreach ($relationships as $field => $tbl) {
-				$id = $row[$field];
-
-				// Cannot find ID in the map, maybe target relationship was
-				// deleted. So no need to keep this record.
-				if (!isset($this->map[$tbl][$id])) {
-					$skip = true;
-					break;
-				}
-				$row[$field] = $this->map[$tbl][$id];
-			}
-
-			if ($skip === true) {
-				continue;
-			}
-
-			$this->db->insert('sma_'.$table, $row);
-
-			if ($mapped) {
-				$map[$oldId] = $this->db->lastInsertId();
-			}
-		}
-
-		$this->map[$table] = $map;
-		return $map;
-	}
-
 }
