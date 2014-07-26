@@ -267,6 +267,8 @@ CREATE TABLE `as_options` (
   `order` int(10) unsigned DEFAULT NULL,
   `is_visible` tinyint(1) unsigned DEFAULT '1',
   `style` varchar(500) DEFAULT NULL,
+  `owner_id` int(8) NOT NULL,
+  FOREIGN KEY fk_owner_id(owner_id) REFERENCES tbl_user_mast(nuser_id) ON DELETE CASCADE,
   PRIMARY KEY (`foreign_id`,`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

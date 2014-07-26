@@ -26,6 +26,10 @@ class AppScheduler extends Base {
 			'plugin_log_config',
 			'plugin_one_admin',
 			'plugin_sms',
+			'options',
+			'plugin_invoice',
+			'plugin_invoice_items',
+			'services_time'
 		];
 		foreach ($tables as $table) {
 			$this->migrateTable($table);
@@ -75,14 +79,9 @@ class AppScheduler extends Base {
 			'foreign_id' => ['type'],
 		]);
 
-		// $this->migrateTable('multi_lang', [
-		// 	'foreign_id' => '',
-		// ]);
-		
-		// $this->migrateTable('options', [
-		// 	'foreign_id' => '',
-		// 	'tab_id' => '',
-		// ]);
+		$this->migrateTable('multi_lang', [
+			'foreign_id' => 'fields',
+		]);
 
 		$this->migrateTable('employees_custom_times', [
 			'employee_id' => 'employees',
@@ -98,16 +97,6 @@ class AppScheduler extends Base {
 			'service_id' => 'services',
 		]);
 
-		// $this->migrateTable('plugin_invoice', [
-		// 	'foreign_id' => '',
-		// 	'order_id' => '',
-		// ]);
-
-		// $this->migrateTable('plugin_invoice_items', [
-		// 	'invoice_id' => '',
-		// 	'order_id' => '',
-		// ]);
-
 		$this->migrateTable('resources_services', [
 			'resources_id' => 'resources',
 			'service_id' => 'services',
@@ -117,10 +106,6 @@ class AppScheduler extends Base {
 			'extra_id' => 'extra_service',
 			'service_id' => 'services',
 		]);
-
-		// $this->migrateTable('services_time', [
-		// 	'foreign_id' => '',
-		// ]);
 
 		$this->migrateTable('working_times', [
 			'foreign_id' => ['type'],
