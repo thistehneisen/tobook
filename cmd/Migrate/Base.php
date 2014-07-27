@@ -165,7 +165,7 @@ abstract class Base {
 		$stm = $query->execute();
 
 		if ($stm->rowCount() === 0) {
-			$this->comment("WARNING: Table `$table` doesn't have data.");
+			$this->comment("(WARNING: `$table` is empty) ");
 		}
 
 		while ($row = $stm->fetch()) {

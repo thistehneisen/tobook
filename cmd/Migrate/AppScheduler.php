@@ -30,7 +30,6 @@ class AppScheduler extends Base {
 				'plugin_sms',
 				'options',
 				'plugin_invoice',
-				'plugin_invoice_items',
 				'services_time'
 			];
 			foreach ($tables as $table) {
@@ -111,6 +110,10 @@ class AppScheduler extends Base {
 
 			$this->migrateTable('working_times', [
 				'foreign_id' => ['type'],
+			]);
+
+			$this->migrateTable('plugin_invoice_items', [
+				'invoice_id' => 'plugin_invoice',
 			]);
 		}
 	}
