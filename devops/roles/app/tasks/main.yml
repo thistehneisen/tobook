@@ -1,0 +1,8 @@
+---
+- name: ensure log directory
+  action: file dest={{ webapps_dir }}/{{ app_name }}/log state=directory
+
+#- name: Copy the code from repository
+#  git: repo={{ repository }} dest={{ webapps_dir }}/{{ app_name }}/src accept_hostkey=yes
+
+- include: sync_settings.yml

@@ -1,0 +1,4 @@
+- name: deploy the webapp
+  hosts: webservers
+  roles:
+    - app

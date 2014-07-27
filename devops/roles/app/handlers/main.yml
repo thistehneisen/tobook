@@ -1,0 +1,5 @@
+---
+- name: restart apache2
+  shell: apache2ctl graceful
+  sudo: yes
+  sudo_user: root

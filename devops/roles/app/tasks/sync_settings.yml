@@ -1,0 +1,39 @@
+- name: create local config
+  action: template src=server_config.php dest={{ webapps_dir }}/{{ app_name }}/src/config.php
+  tags: templated_settings
+
+#- name: create robots.txt
+#  action: template src=robots.txt dest={{ webapps_dir }}/{{ app_name }}/static/robots.txt mode=755
+#  tags: templated_settings
+
+#- name: create SSL key (prod only)
+#  action: template src=server.key dest=/etc/ssl/server.key
+#  when: env == 'prod'
+#  tags: templated_settings
+#  notify:
+#    - restart apache2
+
+#- name: create SSL crt (prod only)
+#  action: template src=SSL.crt dest=/etc/ssl/SSL.crt
+#  when: env == 'prod'
+#  tags: templated_settings
+#  notify:
+#    - restart apache2
+
+- name: apache2 config
+  action: template src=apache2.conf dest=/etc/apache2/apache2.conf
+  tags: templated_settings
+  notify:
+    - restart apache2
+
+- name: create vhost config
+  action: template src=vhost.conf dest=/etc/apache2/sites-available/{{ app_name }}.conf
+  tags: templated_settings
+  notify:
+    - restart apache2
+
+- name: enable vhost
+  shell: a2ensite {{ app_name }}
+  tags: templated_settings
+  notify:
+    - restart apache2
