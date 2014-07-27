@@ -11,7 +11,7 @@ var jQuery_1_8_2 = jQuery_1_8_2 || $.noConflict();
 			tipsy = ($.fn.tipsy !== undefined);
 		
 		/* $_GET Prefix */
-		var $_GET = {}, $as_pf, $owner_id;
+		var $_GET = {}, $as_pf;
 		
 		document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
 		    function decode(s) {
@@ -30,16 +30,6 @@ var jQuery_1_8_2 = jQuery_1_8_2 || $.noConflict();
 			$as_pf = "&as_pf=" + getCookie('as_pf');
 			
 		} else $as_pf = '';
-		
-		if ( $_GET['owner_id'] != null ) {
-		
-			$owner_id = "&owner_id=" + $_GET['owner_id'];
-		
-		} else if ( getCookie('owner_id') != '' ) {
-			
-			$owner_id = "&owner_id=" + getCookie('owner_id');
-			
-		} else $owner_id = '';
 
 		function getCookie(cname)
 		{
@@ -273,19 +263,19 @@ var jQuery_1_8_2 = jQuery_1_8_2 || $.noConflict();
 							                                                                                     {label: myLabel.active, value: 1}, 
 							                                                                                     {label: myLabel.inactive, value: 0}
 							                                                                                     ], applyClass: "pj-status"}],
-					dataUrl: "index.php?controller=pjAdminServices&action=pjActionGetService" + $as_pf + $owner_id,
+					dataUrl: "index.php?controller=pjAdminServices&action=pjActionGetService" + $as_pf,
 					dataType: "json",
 					fields: ['name', 'employees', 'price', 'length', 'total', 'category', 'is_active'],
 					paginator: {
 						actions: [
-						   {text: myLabel.delete_selected, url: "index.php?controller=pjAdminServices"+ $as_pf + $owner_id + "&action=pjActionDeleteServiceBulk", render: true, confirmation: myLabel.delete_confirmation}
+						   {text: myLabel.delete_selected, url: "index.php?controller=pjAdminServices"+ $as_pf + "&action=pjActionDeleteServiceBulk", render: true, confirmation: myLabel.delete_confirmation}
 						],
 						gotoPage: true,
 						paginate: true,
 						total: true,
 						rowCount: true
 					},
-					saveUrl: "index.php?controller=pjAdminServices"+ $as_pf + $owner_id + "&action=pjActionSaveService&id={:id}",
+					saveUrl: "index.php?controller=pjAdminServices"+ $as_pf + "&action=pjActionSaveService&id={:id}",
 					select: {
 						field: "id",
 						name: "record[]"

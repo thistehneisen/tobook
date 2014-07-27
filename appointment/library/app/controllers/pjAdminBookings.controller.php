@@ -14,11 +14,12 @@ class pjAdminBookings extends pjAdmin
 		{
 			if (isset($_POST['booking_create']))
 			{
+				$owner_id = intval($_SESSION['owner_id']);
 				$data = $_POST;
 				$data['calendar_id'] = $this->getForeignId();
 				$data['locale_id'] = $this->getLocaleId();
 				$data['ip'] = $_SERVER['REMOTE_ADDR'];
-				$data['owner_id'] = intval($_SESSION['owner_id']);
+				$data['owner_id'] = $owner_id;
 				if ($_POST['payment_method'] != "creditcard")
 				{
 					$data['cc_type'] = ':NULL';
@@ -267,7 +268,6 @@ class pjAdminBookings extends pjAdmin
 						LEFT JOIN `%2\$s` AS `m` ON m.model='pjService' AND m.foreign_id=bs.service_id AND m.field='name' AND m.locale='%3\$u'
 						WHERE bs.booking_id = t1.id) AS `items`
 					", $pjBookingServiceModel->getTable(), pjMultiLangModel::factory()->getTable(), $this->getLocaleId()))
-				->where('t1.owner_id', $owner_id)
 				->orderBy("$column $direction")->limit($rowCount, $offset)
 				->findAll()
 				->toArray('items', '~:~')
@@ -556,7 +556,6 @@ class pjAdminBookings extends pjAdmin
 			$this->set('service_arr', pjServiceModel::factory()
 				->select('t1.*, t2.content AS `name`')
 				->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
-				->where('t1.owner_id', $owner_id)
 				->orderBy('`name` ASC')
 				->findAll()
 				->getData()
@@ -579,7 +578,6 @@ class pjAdminBookings extends pjAdmin
 			$booking_arr = pjBookingModel::factory()
 				->select('t1.*, COUNT(`t1`.`c_email`) as count')
 				->where('t1.booking_status', 'confirmed')
-				->where('t1.owner_id', $owner_id)
 				->orderBy('t1.c_name ASC')
 				->groupBy('t1.c_email')
 				->findAll()
@@ -591,7 +589,6 @@ class pjAdminBookings extends pjAdmin
 				->join('pjService', 't3.id=t1.service_id', 'inner')
 				->join('pjMultiLang', "t4.model='pjService' AND t4.foreign_id=t1.service_id AND t4.locale=t2.locale_id AND t4.field='name'", 'left outer')
 				->where('t2.booking_status', 'confirmed')
-				->where('t1.owner_id', $owner_id)
 				->findAll()
 				->getData();
 			
@@ -617,14 +614,12 @@ class pjAdminBookings extends pjAdmin
 				->select('t1.c_name, t1.c_email, t1.c_phone')
 				->where('t1.booking_status', 'confirmed')
 				->where(sprintf("t1.c_name LIKE '%1\$s' OR t1.c_email LIKE '%1\$s'", "%$search%"))
-				->where('t1.owner_id', $owner_id)
 				->orderBy('t1.c_name ASC')
 				->groupBy('t1.c_email');
 			
 			$page = isset($_GET['page']) ? $_GET['page'] : 1;
 			$booking_arr = $pjBookingModel
 				->limit(10, ($page-1)*10)
-				->where('t1.owner_id', $owner_id)
 				->findAll()
 				->getData();
 			
@@ -637,12 +632,10 @@ class pjAdminBookings extends pjAdmin
 	}
 	
 	public function download_csv() {
-		$owner_id = intval($_GET['owner_id']);
 
 		$booking_arr = pjBookingModel::factory()
 			->select('t1.*, COUNT(`t1`.`c_email`) as count')
 			->where('t1.booking_status', 'confirmed')
-			->where('t1.owner_id', $owner_id)
 			->orderBy('t1.c_name ASC')
 			->groupBy('t1.c_email')
 			->findAll()
@@ -654,7 +647,6 @@ class pjAdminBookings extends pjAdmin
 			->join('pjService', 't3.id=t1.service_id', 'inner')
 			->join('pjMultiLang', "t4.model='pjService' AND t4.foreign_id=t1.service_id AND t4.locale=t2.locale_id AND t4.field='name'", 'left outer')
 			->where('t2.booking_status', 'confirmed')
-			->where('t1.owner_id', $owner_id)
 			->findAll()
 			->getData();
 		
@@ -754,7 +746,7 @@ class pjAdminBookings extends pjAdmin
 	public function pjActionSaveBooking()
 	{
 		$this->setAjax(true);
-	
+		$owner_id = intval($_SESSION['owner_id']);
 		if ($this->isXHR() && $this->isLoged())
 		{
 			$pjBookingModel = pjBookingModel::factory();
@@ -762,7 +754,7 @@ class pjAdminBookings extends pjAdmin
 			{
 				$pjBookingModel->set('id', $_GET['id'])->modify(array($_POST['column'] => $_POST['value']));
 			} else {
-				pjMultiLangModel::factory()->updateMultiLang(array($this->getLocaleId() => array($_POST['column'] => $_POST['value'])), $_GET['id'], 'pjBooking');
+				pjMultiLangModel::factory()->updateMultiLang(array($this->getLocaleId() => array($_POST['column'] => $_POST['value'])), $owner_id, $_GET['id'], 'pjBooking');
 			}
 		}
 		exit;
@@ -771,7 +763,6 @@ class pjAdminBookings extends pjAdmin
 	public function pjActionUpdate()
 	{
 		$this->checkLogin();
-		$owner_id = intval($_COOKIE['owner_id']);
 		if ($this->isAdmin())
 		{
 			$pjBookingModel = pjBookingModel::factory();
@@ -843,7 +834,6 @@ class pjAdminBookings extends pjAdmin
 						->join('pjMultiLang', "t5.model='pjEmployee' AND t5.foreign_id=t1.employee_id AND t5.locale=t2.locale_id AND t5.field='name'", 'left outer')
 						->where('t2.booking_status', 'confirmed')
 						->where('t2.c_email', $arr['c_email'])
-						->where('t1.owner_id', $owner_id)
 						->findAll()
 						->getData();
 					
@@ -890,14 +880,14 @@ class pjAdminBookings extends pjAdmin
 		if ($this->isXHR() && $this->isLoged())
 		{
 			$pjBookingServiceModel = pjBookingServiceModel::factory();
-			$owner_id = intval($owner_id);
+
 			if (isset($_POST['item_add']))
 			{
 				if (isset($_POST['service_id']) && (int) $_POST['service_id'] > 0)
 				{
 					$date = pjUtil::formatDate($_POST['date'], $this->option_arr['o_date_format']);
 				
-					$service_arr = pjServiceModel::factory()->where('owner_id',$owner_id)->find($_POST['service_id'])->getData();
+					$service_arr = pjServiceModel::factory()->find($_POST['service_id'])->getData();
 					
 					if (isset($_POST['servicetime_id']) && (int) $_POST['servicetime_id'] > 0) {
 						$servicetime_arr = pjServiceTimeModel::factory()
@@ -917,7 +907,6 @@ class pjAdminBookings extends pjAdmin
 							->where('t3.service_id', $_POST['service_id'])
 							->where('t3.employee_id', $_POST['employee_id'])
 							->where('t1.is_active', 1)
-							->where('t1.owner_id', $owner_id)
 							->orderBy('`name` ASC')
 							->findAll()
 							->getData();
@@ -931,7 +920,6 @@ class pjAdminBookings extends pjAdmin
 					
 					$resources_ids = pjResourcesServiceModel::factory()
 						->where('t1.service_id', $_POST['service_id'])
-						->where('t1.owner_id', $owner_id)
 						->findAll()
 						->getDataPair(null, 'resources_id');
 						
@@ -942,7 +930,6 @@ class pjAdminBookings extends pjAdmin
 							->where('t1.date', $date)
 							->where('t1.start_ts >= ', $_POST['start_ts'])
 							->where('t1.start_ts < ', $_POST['start_ts'] + $service_arr['total']* 60)
-							->where('t1.owner_id', $owner_id)
 							->findAll()
 							->getDataPair(null, 'resources_id');
 						
@@ -1261,7 +1248,6 @@ class pjAdminBookings extends pjAdmin
 		$this->setAjax(true);
 		
 		if ($this->isXHR() && $this->isLoged()) {
-			$owner_id = intval($_COOKIE['owner_id']);
 			if( isset($_GET['year']) ){
 				$year = $_GET['year'];
 					
@@ -1291,7 +1277,6 @@ class pjAdminBookings extends pjAdmin
 				->where('t2.booking_status', 'confirmed')
 				->where('t1.start_ts >=', $strtotime_fm)
 				->where('t1.start_ts <', $strtotime_lm)
-				->where('t1.owner_id', $owner_id)
 				->findAll()
 				->getData();
 			
@@ -1324,7 +1309,6 @@ class pjAdminBookings extends pjAdmin
 	public function pjActionGetMonthly() {
 		
 		$this->setAjax(true);
-		$owner_id = intval($_SESSION['owner_id']);
 		if ($this->isXHR() && $this->isLoged()) {
 				
 			if ( isset($_GET['m']) && !empty($_GET['m']) ){
@@ -1353,7 +1337,6 @@ class pjAdminBookings extends pjAdmin
 				->where('t2.booking_status', 'confirmed')
 				->where('t1.start_ts >=', strtotime($_mfrom))
 				->where('t1.start_ts <', strtotime($_mto))
-				->where('t1.owner_id', $owner_id)
 				->findAll()
 				->getData();
 			
@@ -1361,7 +1344,6 @@ class pjAdminBookings extends pjAdmin
 				->select('t1.*, t2.content AS `name`')
 				->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
 				->where('t1.is_active', 1)
-				->where('t1.owner_id', $owner_id)
 				->orderBy('`name` ASC')
 				->findAll()
 				->getData();
@@ -1372,7 +1354,6 @@ class pjAdminBookings extends pjAdmin
 				$employee_arr = pjEmployeeModel::factory()
 					->where('t1.is_active', 1)
 					->where('t1.id', $_GET['employee_id'])
-					->where('t1.owner_id', $owner_id)
 					->find($_GET['employee_id'])
 					->getData();
 				

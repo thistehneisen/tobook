@@ -12,6 +12,7 @@ class pjWorkingTimeModel extends pjAppModel
 	
 	protected $schema = array(
 		array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),
+		array('name' => 'owner_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'foreign_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'type', 'type' => 'enum', 'default' => ':NULL'),
 		array('name' => 'monday_admin_from', 'type' => 'time', 'default' => ':NULL'),

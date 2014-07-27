@@ -47,8 +47,9 @@ class pjFront extends pjAppController
 	
 	public function beforeFilter()
 	{
+		$owner_id = intval($_SESSION['owner_id']);
 		$pjOptionModel = pjOptionModel::factory();
-		$this->option_arr = $pjOptionModel->getPairs($this->getForeignId());
+		$this->option_arr = $pjOptionModel->getPairs($owner_id);
 		$this->set('option_arr', $this->option_arr);
 		$this->setTime();
 		if (isset($_GET['locale']) && (int) $_GET['locale'] > 0)
@@ -321,12 +322,14 @@ class pjFront extends pjAppController
 	
 	protected function getServices($cid, $page=1)
 	{
+		$owner_id = intval($_SESSION['owner_id']);
 		$data = pjServiceModel::factory()
 			->select("t1.*, t2.content AS `name`, t3.content AS `description`")
 			->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.locale='".$this->getLocaleId()."' AND t2.field='name'", 'left outer')
 			->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.id AND t3.locale='".$this->getLocaleId()."' AND t3.field='description'", 'left outer')
 			->where('t1.calendar_id', $cid)
 			->where('t1.is_active', 1)
+			->where('t1.owner_id', $owner_id)
 			->orderBy('`name` ASC')
 			->findAll()
 			->getData();

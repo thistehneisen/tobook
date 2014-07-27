@@ -40,7 +40,7 @@ class pjDateModel extends pjAppModel
 	public function getDailyWorkingTime($foreign_id, $date, $type='calendar')
 	{
 		$arr = $this->reset()
-			->where('t1.foreign_id', $foreign_id)
+			//->where('t1.foreign_id', $foreign_id)
 			->where('t1.type', $type)
 			->where('t1.date', $date)
 			->orderBy('t1.start_time ASC')

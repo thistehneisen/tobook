@@ -13,6 +13,7 @@ class pjAdminOptions extends pjAdmin
 
 		if ($this->isAdmin())
 		{
+			$owner_id = intval($_SESSION['owner_id']);
 			if (isset($_GET['tab']) && in_array((int) $_GET['tab'], array(5,6)))
 			{
 				pjObject::import('Model', array('pjLocale:pjLocale', 'pjLocale:pjLocaleLanguage'));
@@ -29,7 +30,7 @@ class pjAdminOptions extends pjAdmin
 				$this->set('lp_arr', $locale_arr);
 				
 				$arr = array();
-				$arr['i18n'] = pjMultiLangModel::factory()->getMultiLang($this->getForeignId(), 'pjCalendar');
+				$arr['i18n'] = pjMultiLangModel::factory()->where('owner_id', $owner_id)->getMultiLang($this->getForeignId(), 'pjCalendar');
 				$this->set('arr', $arr);
 				
 				if ((int) $this->option_arr['o_multi_lang'] === 1)
@@ -40,8 +41,9 @@ class pjAdminOptions extends pjAdmin
 			} else {
 				$tab_id = isset($_GET['tab']) && (int) $_GET['tab'] > 0 ? (int) $_GET['tab'] : 1;
 				$arr = pjOptionModel::factory()
-					->where('foreign_id', $this->getForeignId())
+					//->where('foreign_id', $this->getForeignId())
 					->where('tab_id', $tab_id)
+					->where('owner_id', $owner_id)
 					->orderBy('t1.order ASC')
 					->findAll()
 					->getData();
@@ -113,7 +115,7 @@ class pjAdminOptions extends pjAdmin
 				} else {
 					$OptionModel = new pjOptionModel();
 					$OptionModel
-						->where('foreign_id', $this->getForeignId())
+						//->where('foreign_id', $this->getForeignId())
 						->where('type', 'bool')
 						->where('tab_id', $_POST['tab'])
 						->where('owner_id', $owner_id)
@@ -128,7 +130,7 @@ class pjAdminOptions extends pjAdmin
 							{
 								$OptionModel
 									->reset()
-									->where('foreign_id', $this->getForeignId())
+									//->where('foreign_id', $this->getForeignId())
 									->where('`key`', $k)
 									->where('owner_id', $owner_id)
 									->limit(1)

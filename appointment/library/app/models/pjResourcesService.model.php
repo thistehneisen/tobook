@@ -12,6 +12,7 @@ class pjResourcesServiceModel extends pjAppModel
 	
 	protected $schema = array(
 		array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),
+		array('name' => 'owner_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'resources_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'service_id', 'type' => 'int', 'default' => ':NULL'),
 	);

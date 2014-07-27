@@ -46,6 +46,7 @@ class pjLocale extends pjLocaleAppController
 			$pjFieldModel = pjFieldModel::factory();
 			$MultiLangModel = pjMultiLangModel::factory();
 			$MultiLangModel->begin();
+			$owner_id = intval($_SESSION['owner_id']);
 			foreach ($_POST['i18n'] as $locale_id => $arr)
 			{
 				foreach ($arr as $foreign_id => $locale_arr)
@@ -56,7 +57,7 @@ class pjLocale extends pjLocaleAppController
 					{
 						$data[$locale_id][$name] = $content;
 					}
-					$fids = $MultiLangModel->updateMultiLang($data, $foreign_id, 'pjField');
+					$fids = $MultiLangModel->updateMultiLang($data, $owner_id, $foreign_id, 'pjField');
 					if (!empty($fids))
 					{
 						$pjFieldModel->reset()->whereIn('id', $fids)->limit(count($fids))->modifyAll(array('modified' => ':NOW()'));
@@ -85,10 +86,11 @@ class pjLocale extends pjLocaleAppController
 		if ($this->isXHR())
 		{
 			$response = array();
+			$owner_id = intval($_SESSION['owner_id']);
 			pjObject::import('Model', 'pjLocale:pjLocale');
 			if (pjLocaleModel::factory()->setAttributes(array('id' => $_GET['id']))->erase()->getAffectedRows() == 1)
 			{
-				pjMultiLangModel::factory()->where('locale', $_GET['id'])->eraseAll();
+				pjMultiLangModel::factory()->where('owner_id', $owner_id)->where('locale', $_GET['id'])->eraseAll();
 				$response['code'] = 200;
 				
 				$this->pjActionCheckDefault();

@@ -70,6 +70,8 @@ class pjFrontPublic extends pjFront
 	{
 		if ($this->isXHR() || isset($_GET['_escaped_fragment_']))
 		{
+			//error_reporting(E_ALL);
+			$owner_id = intval($_SESSION['owner_id']);
 			if (isset($_GET['id']) && (int) $_GET['id'] > 0)
 			{
 				$id = (int) $_GET['id'];
@@ -89,6 +91,7 @@ class pjFrontPublic extends pjFront
 				->join('pjEmployee', 't2.id=t1.employee_id AND t2.is_active=1', 'inner')
 				->join('pjMultiLang', "t3.model='pjEmployee' AND t3.foreign_id=t1.employee_id AND t3.field='name' AND t3.locale='".$this->getLocaleId()."'", 'left outer')
 				->where('t1.service_id', $id)
+				->where('t2.owner_id', $owner_id)
 				->orderBy('`name` ASC')
 				->findAll();
 			
@@ -129,6 +132,7 @@ class pjFrontPublic extends pjFront
 				->select("t1.*, t2.name, t2.message")
 				->join('pjResources', 't2.id=t1.resources_id', 'inner')
 				->where('t1.service_id', $id)
+				->where('t1.owner_id', $owner_id)
 				->orderBy('`name` ASC')
 				->findAll();
 				
@@ -243,7 +247,7 @@ class pjFrontPublic extends pjFront
 			$this->set('category_arr', 
 					pjServiceCategoryModel::factory()
 					->where('t1.show_front', 'on')
-					->where('owner_id', $owner_id)
+					->where('t1.owner_id', $owner_id)
 					->orderBy('t1.name ASC')
 					->findAll()
 					->getData()

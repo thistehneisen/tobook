@@ -35,12 +35,13 @@ class pjAdminEmployees extends pjAdmin
 		$this->checkLogin();
 		
 		if ($this->isAdmin())
-		{
+		{	
+			$owner_id = intval($_SESSION['owner_id']);
 			if (isset($_POST['employee_create']))
 			{
 				$data = array();
 				$data['calendar_id'] = $this->getForeignId();
-				$data['owner_id'] = intval($_SESSION['owner_id']);
+				$data['owner_id'] = $owner_id;
 				$id = pjEmployeeModel::factory(array_merge($_POST, $data))->insert()->getInsertId();
 				if ($id !== false && (int) $id > 0)
 				{
@@ -98,6 +99,7 @@ class pjAdminEmployees extends pjAdmin
 					->select('t1.*, t2.content AS `name`')
 					->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
 					->orderBy('`name` ASC')
+					->where('t1.owner_id', $owner_id)
 					->findAll()
 					->getData()
 				);
@@ -496,6 +498,7 @@ class pjAdminEmployees extends pjAdmin
 		
 		if ($this->isAdmin())
 		{
+			$owner_id = intval($_SESSION['owner_id']);
 			if (isset($_POST['employee_update']) && isset($_POST['id']) && (int) $_POST['id'] > 0)
 			{
 				$data = array();
@@ -548,6 +551,7 @@ class pjAdminEmployees extends pjAdmin
 				$locale_arr = pjLocaleModel::factory()->select('t1.*, t2.file')
 					->join('pjLocaleLanguage', 't2.iso=t1.language_iso', 'left')
 					->where('t2.file IS NOT NULL')
+					->where('t1.owner_id', $owner_id)
 					->orderBy('t1.sort ASC')->findAll()->getData();
 				
 				$lp_arr = array();
@@ -561,6 +565,7 @@ class pjAdminEmployees extends pjAdmin
 					->select('t1.*, t2.content AS `name`')
 					->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
 					->where('t1.is_active', 1)
+					->where('t1.owner_id', $owner_id)
 					->orderBy('`name` ASC')
 					->findAll()
 					->getData()

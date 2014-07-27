@@ -35,7 +35,8 @@ class pjOptionModel extends pjAppModel
 	
 	public function getPairs($foreign_id)
 	{
-		$_arr = $this->where('t1.foreign_id', $foreign_id)->findAll()->getData();
+		// $_arr = $this->where('t1.foreign_id', $foreign_id)->findAll()->getData();
+		$_arr = $this->findAll()->getData();
 		$arr = array();
 		foreach ($_arr as $row)
 		{

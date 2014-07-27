@@ -17,8 +17,9 @@ $dbp 		= MYSQL_PASSWORD;
 $con=mysql_connect(MYSQL_HOST,MYSQL_USERNAME,MYSQL_PASSWORD) or die (mysql_error());
 $db=mysql_select_db(MYSQL_DB,$con) or die(mysql_error());
 
-$sql = "SHOW TABLES like '".$prefix."appscheduler_bookings'";
-if(mysql_num_rows(mysql_query( $sql ))==1){
+$sql = sprintf("SELECT COUNT(*) FROM as_users WHERE owner_id = %d", $owner_id);
+
+if(mysql_result(mysql_query( $sql ), 0, 0)>0){
 	$firstYN = "N";
 }else{
 	$firstYN = "Y";

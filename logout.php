@@ -22,6 +22,7 @@ include "includes/session.php";
 $_SESSION["session_username"] = "";
 $_SESSION["session_affiliatename"] = "";
 $_SESSION["session_affiliate"] = "";
+$_SESSION['owner_id'] = "";
 session_unset();
 session_destroy();
 header("Location:index.php");

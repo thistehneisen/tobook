@@ -30,7 +30,14 @@ if (!$stop)
 
 	if ($firstYN == "Y")
 	{
-		pjUtil::redirect("index.php?controller=pjInstaller&action=pjActionStep1&install=1");
+		//pjUtil::redirect("index.php?controller=pjInstaller&action=pjActionStep1&install=1");
+		require dirname(__FILE__) . '/init.php';
+		$dns = sprintf("mysql:dbname=%s;host=%s", PJ_DB, PJ_HOST);
+		$user = PJ_USER;
+		$password = PJ_PASS;
+		$dbh = new PDO($dns, $user, $password);
+		$sth = $dbh->prepare(sprintf($sql, $_SESSION['owner_id']));
+		$sth->execute();
 	}
 }
 

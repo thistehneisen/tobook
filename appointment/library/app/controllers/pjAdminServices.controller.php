@@ -12,7 +12,7 @@ class pjAdminServices extends pjAdmin
 		
 		if ($this->isAdmin())
 		{
-			$owner_id = intval($_COOKIE['owner_id']);
+			$owner_id = intval($_SESSION['owner_id']);
 			if (isset($_POST['service_create']))
 			{
 				$data = array();
@@ -32,6 +32,7 @@ class pjAdminServices extends pjAdmin
 						
 						$es_arr = $pjEmployeeServiceModel
 						->where('t1.service_id', $id)
+						->where('t1.owner_id', $owner_id)
 						->findAll()
 						->getData();
 							
@@ -71,7 +72,6 @@ class pjAdminServices extends pjAdmin
 					$err = 'AS03';
 					if (isset($_POST['i18n']))
 					{
-						$owner_id = intval($_SESSION['owner_id']);
 						pjMultiLangModel::factory()->saveMultiLang($_POST['i18n'], $owner_id, $id, 'pjService');
 					}
 				} else {
@@ -357,7 +357,6 @@ class pjAdminServices extends pjAdmin
 				pjAppController::jsonResponse(compact('data', 'total', 'pages', 'page', 'rowCount', 'column', 'direction'));
 				
 			} elseif ( isset($_GET['type']) && $_GET['type'] == 'category' ) {
-				
 				$pjServiceCategoryModel = pjServiceCategoryModel::factory();
 				
 				$column = 'name';
@@ -513,7 +512,7 @@ class pjAdminServices extends pjAdmin
 	public function pjActionSaveService()
 	{
 		$this->setAjax(true);
-	
+		$owner_id = intval($_SESSION['owner_id']);
 		if ($this->isXHR() && $this->isLoged())
 		{
 			$pjServiceModel = pjServiceModel::factory();
@@ -521,7 +520,7 @@ class pjAdminServices extends pjAdmin
 			{
 				$pjServiceModel->set('id', $_GET['id'])->modify(array($_POST['column'] => $_POST['value']));
 			} else {
-				pjMultiLangModel::factory()->updateMultiLang(array($this->getLocaleId() => array($_POST['column'] => $_POST['value'])), $_GET['id'], 'pjService', 'data');
+				pjMultiLangModel::factory()->updateMultiLang(array($this->getLocaleId() => array($_POST['column'] => $_POST['value'])), $owner_id, $_GET['id'], 'pjService', 'data');
 			}
 		}
 		exit;
@@ -560,7 +559,7 @@ class pjAdminServices extends pjAdmin
 	public function pjActionSaveServiceCustomTime()
 	{
 		$this->setAjax(true);
-	
+		$owner_id = intval($_SESSION['owner_id']);
 		if ($this->isXHR() && $this->isLoged())
 		{
 			$pjServiceModel = pjServiceTimeModel::factory();
@@ -568,7 +567,7 @@ class pjAdminServices extends pjAdmin
 			{
 				$pjServiceModel->set('id', $_GET['id'])->modify(array($_POST['column'] => $_POST['value']));
 			} else {
-				pjMultiLangModel::factory()->updateMultiLang(array($this->getLocaleId() => array($_POST['column'] => $_POST['value'])), $_GET['id'], 'pjService', 'data');
+				pjMultiLangModel::factory()->updateMultiLang(array($this->getLocaleId() => array($_POST['column'] => $_POST['value'])), $owner_id, $_GET['id'], 'pjService', 'data');
 			}
 		}
 		exit;
@@ -580,12 +579,13 @@ class pjAdminServices extends pjAdmin
 		
 		if ($this->isAdmin())
 		{
+			$owner_id = intval($_SESSION['owner_id']);
 			if (isset($_POST['service_update']) && isset($_POST['id']) && (int) $_POST['id'] > 0)
 			{
 				pjServiceModel::factory()->set('id', $_POST['id'])->modify($_POST);
 				if (isset($_POST['i18n']))
 				{
-					pjMultiLangModel::factory()->updateMultiLang($_POST['i18n'], $_POST['id'], 'pjService', 'data');
+					pjMultiLangModel::factory()->updateMultiLang($_POST['i18n'], $owner_id, $_POST['id'], 'pjService', 'data');
 				}
 				
 				$pjEmployeeServiceModel = pjEmployeeServiceModel::factory();
@@ -667,6 +667,7 @@ class pjAdminServices extends pjAdmin
 					->select('t1.*, t2.content AS `name`')
 					->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
 					->where('t1.is_active', 1)
+					->where('t1.owner_id', $owner_id)
 					->orderBy('`name` ASC')
 					->findAll()
 					->getData()

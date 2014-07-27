@@ -109,6 +109,7 @@ if($act=="post"){ //if postback
                   addslashes($_POST["vuser_fax"])."',now(),'site.css','" . $var_naffid . "','0')";
 
       mysql_query($sql,$con);
+      	$_SESSION["owner_id"]=  mysql_insert_id();
 		$_SESSION["session_naffid"]="";
           //check if session alredy populated
           if($_SESSION["session_lookupsitename"] != "") {
