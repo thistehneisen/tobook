@@ -213,12 +213,16 @@ abstract class Base {
 
 				// Cannot find ID in the map, maybe target relationship was
 				// deleted. So no need to keep this record.
-				if (!isset($this->map[$target][$id])) {
+				if ($id > 0 && !isset($this->map[$target][$id])) {
 					$skip = true;
 					break;
 				}
 
-				$row[$field] = $this->map[$target][$id];
+				// Some fields, `subcategories_id` for example, have default
+				// value of 0, so we need to check it before mapping
+				if ($id > 0) {
+					$row[$field] = $this->map[$target][$id];
+				}
 			}
 
 			if ($skip === true) {
