@@ -13,7 +13,9 @@ class Cashier extends Base {
 		foreach ($usernames as $username) {
 			$this->username = $username;
 
+			$this->info('--------------------------------------------------');
 			$this->info("Proccessing data of <fg=green;options=bold>{$username}</fg=green;options=bold>", true);
+			$this->info('--------------------------------------------------');
 			$tables = [
 				'billers',
 				'groups',
