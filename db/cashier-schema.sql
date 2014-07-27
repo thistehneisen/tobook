@@ -225,7 +225,7 @@ CREATE TABLE `sma_products` (
   `owner_id` int(8) NOT NULL,
   FOREIGN KEY fk_owner_id(owner_id) REFERENCES tbl_user_mast(nuser_id) ON DELETE CASCADE,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `code` (`code`),
+  UNIQUE KEY `code` (`code`, `owner_id`),
   KEY `category_id` (`category_id`),
   KEY `id` (`id`),
   KEY `id_2` (`id`),
