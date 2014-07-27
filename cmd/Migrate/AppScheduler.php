@@ -11,8 +11,11 @@ class AppScheduler extends Base {
 		$usernames = $this->getUsernames();
 		foreach ($usernames as $username) {
 			$this->username = $username;
+			$this->info('----------------------------------------------------');
 			$this->info("Proccessing data of <fg=green;options=bold>{$username}</fg=green;options=bold>", true);
+			$this->info('----------------------------------------------------');
 			$tables = [
+				'multi_lang',
 				'roles',
 				'plugin_country',
 				'services_category',
@@ -30,7 +33,6 @@ class AppScheduler extends Base {
 				'plugin_sms',
 				'options',
 				'plugin_invoice',
-				'plugin_invoice_items',
 				'services_time'
 			];
 			foreach ($tables as $table) {
@@ -81,10 +83,6 @@ class AppScheduler extends Base {
 				'foreign_id' => ['type'],
 			]);
 
-			$this->migrateTable('multi_lang', [
-				'foreign_id' => 'fields',
-			]);
-
 			$this->migrateTable('employees_custom_times', [
 				'employee_id' => 'employees',
 				'customtime_id' => 'custom_times',
@@ -111,6 +109,10 @@ class AppScheduler extends Base {
 
 			$this->migrateTable('working_times', [
 				'foreign_id' => ['type'],
+			]);
+
+			$this->migrateTable('plugin_invoice_items', [
+				'invoice_id' => 'plugin_invoice',
 			]);
 		}
 	}

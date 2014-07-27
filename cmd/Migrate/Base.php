@@ -30,32 +30,32 @@ abstract class Base {
 
 	abstract public function run();
 
-	public function text($text, $newLine = false)
+	public function text($text, $newLine = true)
 	{
 		$method = ($newLine) ? 'writeln' : 'write';
 		$this->output->$method($text);
 		return $this;
 	}
 
-	public function info($text, $newLine = false)
+	public function info($text, $newLine = true)
 	{
 		$this->text('<info>'.$text.'</info>', $newLine);
 		return $this;
 	}
 
-	public function comment($text, $newLine = false)
+	public function comment($text, $newLine = true)
 	{
 		$this->text('<comment>'.$text.'</comment>', $newLine);
 		return $this;		
 	}
 
-	public function question($text, $newLine = false)
+	public function question($text, $newLine = true)
 	{
 		$this->text('<question>'.$text.'</question>', $newLine);
 		return $this;		
 	}
 
-	public function error($text, $newLine = false)
+	public function error($text, $newLine = true)
 	{
 		$this->text('<error>'.$text.'</error>', $newLine);
 		return $this;		
@@ -146,27 +146,26 @@ abstract class Base {
 	 */
 	protected function migrate($table, $query, $relationships = [])
 	{
-		$this->text('Migrating `'.$table.'`...');
+		$this->text("Migrating `$table`...", false);
 
 		$user = $this->getCurrentUser();
 		if ($user === false) {
-			$this->error('ERROR: Cannot get data of current user', true);
+			$this->error('ERROR: Cannot get data of current user');
 			return;
 		}
 
 		foreach ($relationships as $tbl) {
 			if (!is_array($tbl) && empty($this->map[$tbl])) {
-				$this->error("ERROR: Empty map of `$tbl`.", true);
-				return;
+				$this->error("No `$tbl` map.");
 			}
 		}
 
 		$map = [];
 		$stm = $query->execute();
 
-		if ($stm->rowCount() === 0) {
-			$this->comment("WARNING: Table `$table` doesn't have data.");
-		}
+		$rowCount = $stm->rowCount();
+		$method = ($rowCount) === 0 ? 'question' : 'comment';
+		$this->$method("$rowCount rows.", false);
 
 		while ($row = $stm->fetch()) {
 			$mapped = isset($row['id']);
@@ -212,17 +211,12 @@ abstract class Base {
 				}
 
 				// Cannot find ID in the map, maybe target relationship was
-				// deleted. So no need to keep this record.
-				if (!isset($this->map[$target][$id])) {
-					$skip = true;
-					break;
+				// deleted. So keep old values.
+				// Some fields, `subcategories_id` for example, have default
+				// value of 0, so we need to check it before mapping
+				if (!empty($id) && array_key_exists($id, $this->map[$target])) {
+					$row[$field] = $this->map[$target][$id];
 				}
-
-				$row[$field] = $this->map[$target][$id];
-			}
-
-			if ($skip === true) {
-				continue;
 			}
 
 			$this->db->insert($this->tablePrefix.$table, $row);
