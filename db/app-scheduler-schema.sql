@@ -221,7 +221,7 @@ CREATE TABLE `as_fields` (
   `owner_id` int(8) NOT NULL,
   FOREIGN KEY fk_owner_id(owner_id) REFERENCES tbl_user_mast(nuser_id) ON DELETE CASCADE,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `key` (`key`)
+  UNIQUE KEY `key` (`key`, `owner_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -252,7 +252,7 @@ CREATE TABLE `as_multi_lang` (
   `owner_id` int(8) NOT NULL,
   FOREIGN KEY fk_owner_id(owner_id) REFERENCES tbl_user_mast(nuser_id) ON DELETE CASCADE,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `foreign_id` (`foreign_id`,`model`,`locale`,`field`)
+  UNIQUE KEY `foreign_id` (`foreign_id`,`model`,`locale`,`field`, `owner_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -269,7 +269,7 @@ CREATE TABLE `as_options` (
   `style` varchar(500) DEFAULT NULL,
   `owner_id` int(8) NOT NULL,
   FOREIGN KEY fk_owner_id(owner_id) REFERENCES tbl_user_mast(nuser_id) ON DELETE CASCADE,
-  PRIMARY KEY (`foreign_id`,`key`)
+  PRIMARY KEY (`foreign_id`,`key`, `owner_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -434,7 +434,7 @@ CREATE TABLE `as_plugin_locale` (
   `owner_id` int(8) NOT NULL,
   FOREIGN KEY fk_owner_id(owner_id) REFERENCES tbl_user_mast(nuser_id) ON DELETE CASCADE,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `language_iso` (`language_iso`)
+  UNIQUE KEY `language_iso` (`language_iso`, `owner_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -609,7 +609,7 @@ CREATE TABLE `as_users` (
   `owner_id` int(8) NOT NULL,
   FOREIGN KEY fk_owner_id(owner_id) REFERENCES tbl_user_mast(nuser_id) ON DELETE CASCADE,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `email` (`email`, `owner_id`),
   KEY `role_id` (`role_id`),
   KEY `status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
