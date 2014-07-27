@@ -2,13 +2,17 @@ def main():
     with open('db_keys.txt') as f1, \
         open('current_keys.txt') as f2, \
         open('results.txt', 'w') as out:
-        l1 = f1.read().splitlines()
+        d1 = {}
+        for line in f1:
+            l = line.split()
+            d1[l[0]] = ' '.join(l[1:])
+        l1 = d1.keys()
         l2 = []
         for line in f2.read().splitlines():
             l2.append(line.replace('\'', '').split(' => ')[0])
 
         # compare 2 lists and sort
-        result = [item for item in l1 if item not in l2]#list(set(l1) - set(l2))
+        result = list(set(l1) - set(l2))
         result.sort()
 
         # print out
@@ -22,10 +26,13 @@ def main():
                     current = pair[0]
                     out.write(
                         "'%s' => array(\n    '%s' => '%s',\n"
-                        % (pair[0], pair[1], pair[1])
+                        % (pair[0], pair[1], d1[item].replace("'", "\\'"))
                     )
                 else:
-                    out.write("    '%s' => '%s',\n" % (pair[1], pair[1]))
+                    out.write(
+                        "    '%s' => '%s',\n" 
+                        % (pair[1], d1[item].replace("'", "\\'"))
+                    )
             else:
                 if current:
                     out.write("),\n")
