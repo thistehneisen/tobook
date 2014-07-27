@@ -11,6 +11,16 @@ SELECT LAST_INSERT_ID() INTO @user_id;
 INSERT INTO `as_calendars` (`id`, `user_id`) VALUES (NULL,  @user_id);
 SELECT LAST_INSERT_ID() INTO @calendar_id;
 
+INSERT INTO `as_employees` (`id`, `owner_id`,`calendar_id`, `email`, `password`, `phone`, `notes`, `avatar`, `last_login`, `is_subscribed`, `is_subscribed_sms`, `is_active`) VALUES
+(null, %1\$d, @calendar_id, 'employee1@gmail.com', 0xf097cfe82361bc1a0258f04dc627c49e, '123456789', 'Employee description', NULL, NULL, 0, 0, 1);
+
+SELECT LAST_INSERT_ID() INTO @employee_id;
+
+INSERT IGNORE INTO `as_working_times` SET `id` = NULL,`owner_id` = %1\$d,`foreign_id` = @employee_id,`type` = 'employee',`monday_admin_from` = '09:00:00',`monday_admin_to` = '20:00:00',`monday_from` = '09:00:00',`monday_to` = '18:00:00',`monday_lunch_from` = '12:30:00',`monday_lunch_to` = '13:30:00',`monday_dayoff` = 'F',`tuesday_admin_from` = '13:00:00',`tuesday_admin_to` = '20:00:00',`tuesday_from` = '09:00:00',`tuesday_to` = '18:00:00',`tuesday_lunch_from` = '12:30:00',`tuesday_lunch_to` = '13:30:00',`tuesday_dayoff` = 'F',`wednesday_admin_from` = '08:00:00',`wednesday_admin_to` = '20:00:00',`wednesday_from` = '09:00:00',`wednesday_to` = '18:00:00',`wednesday_lunch_from` = '12:30:00',`wednesday_lunch_to` = '13:30:00',`wednesday_dayoff` = 'F',`thursday_admin_from` = '16:00:00',`thursday_admin_to` = '20:00:00',`thursday_from` = '09:00:00',`thursday_to` = '18:00:00',`thursday_lunch_from` = '12:30:00',`thursday_lunch_to` = '13:30:00',`thursday_dayoff` = 'F',`friday_admin_from` = '19:00:00',`friday_admin_to` = '20:00:00',`friday_from` = '09:00:00',`friday_to` = '18:00:00',`friday_lunch_from` = '12:30:00',`friday_lunch_to` = '13:30:00',`friday_dayoff` = 'F',`saturday_admin_from` = '08:00:00',`saturday_admin_to` = '20:00:00',`saturday_from` = '10:00:00',`saturday_to` = '17:00:00',`saturday_lunch_from` = '12:00:00',`saturday_lunch_to` = '13:00:00',`saturday_dayoff` = 'F',`sunday_admin_from` = '08:00:00',`sunday_admin_to` = '20:00:00',`sunday_from` = '10:00:00',`sunday_to` = '17:00:00',`sunday_lunch_from` = '12:00:00',`sunday_lunch_to` = '13:00:00',`sunday_dayoff` = 'F';
+
+INSERT INTO `as_multi_lang`(`id`, `owner_id`, `foreign_id`, `model`, `locale`, `field`, `content`, `source`) 
+VALUES (NULL, %1\$d, @employee_id, 'pjEmployee', 1,'name', 'Employee 1','data');
+
 INSERT INTO `as_options` (`owner_id`,`foreign_id`, `key`, `tab_id`, `value`, `label`, `type`, `order`, `is_visible`, `style`) VALUES
 (%1\$d, @calendar_id, 'o_accept_bookings', 3, '1|0::1', NULL, 'bool', 1, 1, NULL),
 (%1\$d, @calendar_id, 'o_allow_authorize', 7, '1|0::1', NULL, 'bool', 18, 1, NULL),
