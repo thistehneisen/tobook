@@ -51,15 +51,12 @@ Tests:
 
 Migrate modules with new database schema
 ========================================
-
-`cashier`
----------
-
-- Import `db/cashier-update.sql`
+- Import the corresponding database schema in `db` folder, for example: 
+`db/cashier-schema.sql`
 - Run `composer update` to install dependencies
-- Run `php runner migrate <module_name>` to import old data. For example:
-`php runner migrate cashier`.
-- Done
+- Run `php runner migrate <module_name>` to import old data. Module name must be
+in CamelCase, i.e. `php runner migrate Cashier`.
+- Done (hopefully)
 
 How to write new command to migrate data
 ========================================
