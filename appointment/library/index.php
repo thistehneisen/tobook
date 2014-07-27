@@ -1,7 +1,6 @@
 <?php
-global $owner_id;
-$owner_id = $_GET['owner_id'];
 @session_start();
+
 if( !isset($_COOKIE['as_admin']) ){
 	setcookie( "as_admin", "admin",	time() + (10 * 365 * 24 * 60 * 60) );
 }
@@ -9,9 +8,7 @@ if (!headers_sent())
 {
 	session_name('AppointmentScheduler');
 }
-if(!isset($_SESSION['owner_id'])){
-	$_SESSION['owner_id'] = $owner_id;
-}
+
 if (in_array($_SERVER['SERVER_ADDR'], array('127.0.0.1', '192.185.5.15', '::1')))
 {
 	ini_set("display_errors", "On");
