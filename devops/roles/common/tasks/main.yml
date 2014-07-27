@@ -1,0 +1,24 @@
+---
+- name: ensure apt cache is up to date
+  action: apt update_cache=yes
+
+- name: install common packages needed for development
+  action: apt pkg={{ item }} state=installed
+  with_items:
+    - apache2
+    - git
+    - curl
+    - libcurl3
+    - libcurl3-dev
+    - php5-curl
+    - php5-mcrypt
+    - sendmail
+
+- name: remove default apache site
+  action: file path=/etc/apache2/sites-available/000-default.conf state=absent
+
+- name: remove default apache site
+  action: file path=/etc/apache2/sites-enabled/000-default.conf state=absent
+
+- name: start apache2 service and have it run during system startup
+  action: service name=apache2 state=started enabled=yes

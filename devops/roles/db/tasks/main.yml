@@ -1,0 +1,9 @@
+- name: install common packages needed for DB
+  action: apt pkg={{ item }} state=installed
+  with_items:
+    - mysql-server
+    - libapache2-mod-auth-mysql 
+    - php5-mysql
+    - python-mysqldb
+
+- include: create_db.yml
