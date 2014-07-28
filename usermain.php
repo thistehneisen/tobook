@@ -58,7 +58,6 @@ table#tblSiteList tr th{ color: #ec7923; }
 			<a href="login.php">KIRJAUDU</a>
 		</div>
 		<?php } ?>
-		
 <div class="guideTopArea" style="position:relative;">
 	<div class="guideTopVaraa">
 		<span>varaa</span><span class="fontBlack">.com</span>
