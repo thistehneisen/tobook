@@ -1,13 +1,15 @@
 VARAA
 =====
+The 1 ton solution for all small businesses.
 
-Instances:
-----------
+Instances
+---------
 - Dev / staging: http://dev.varaa.co/
-- Prod: to be updated..
+- Prod: http://varaa.co/
+- Old prod (DNS will be updated to be prod soon): http://klikkaaja.com/
 
 
-Prerequisites:
+Prerequisites
 -------------
 - Apache
 - PHP >= 5.4.0
@@ -17,8 +19,8 @@ Prerequisites:
   or `http://www.easyphp.org/` or vagrant if you are advanced user.
 
 
-Setup in localhost:
--------------------
+Setup in localhost
+------------------
 - Clone this repo to your localhost
 - Create a local domain and point to above folder, for example: `klikkaaja.loc`.
 It's crucial to have that name or the `appointment` module will not work.
@@ -29,8 +31,8 @@ It's crucial to have that name or the `appointment` module will not work.
 - Start hacking (or messing)!
 
 
-PHP coding convention:
-----------------------
+PHP coding convention
+---------------------
 - PSR-2 `http://www.php-fig.org/psr/psr-2/` for L4 or framework specific
 convention.
 - To be consistent with the rest of the project, let's use 1TBS
@@ -40,8 +42,8 @@ style for braces
 (a `.editorconfig` is already included in the repo).
 
 
-Tests:
-------
+Tests
+-----
 - Read http://codeception.com/docs/01-Introduction and http://codeception.com/docs/04-AcceptanceTests
 - Create and change test config: 
 `cp tests/acceptance.suite.yml.tpl tests/acceptance.suite.yml`
@@ -50,7 +52,7 @@ Tests:
 - Run the test: `php codecept.phar run`
 
 Migrate modules with new database schema
-========================================
+----------------------------------------
 - Import the corresponding database schema in `db` folder, for example: 
 `db/cashier-schema.sql`
 - Run `composer update` to install dependencies
@@ -59,8 +61,7 @@ in CamelCase, i.e. `php runner migrate Cashier`.
 - Done (hopefully)
 
 How to write new command to migrate data
-========================================
-
+----------------------------------------
 - Have a look at `cmd\Migrate\Cashier.php`
 - Create new class in `cmd\Migrate`, and it should extend from `Cmd\Migrate\Base`
 - Implement `run()`

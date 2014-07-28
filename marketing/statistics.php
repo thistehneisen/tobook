@@ -48,6 +48,7 @@
                 		<div class="col-md-2">
                 			<select class="form-control" id="employeeList">
                 				<option value="">All Employees</option>
+                				<option value="">Individual Employees</option>
                 			</select>
                 		</div>  
                 		<div class="col-md-2">
@@ -61,7 +62,7 @@
                 				<option value="daily">By Daily</option>
                 				<option value="weekly">By Weekly</option>
                 				<option value="monthly">By Monthly</option>
-                			</select>                			
+                			</select>
                 		</div>
                 		<div class="col-md-2">
                 			<button class="btn-u btn-u-blue btn-u-block" onclick="onCalculate()"><i class="icon-search"></i>&nbsp;Show Statistics</button>
@@ -70,6 +71,33 @@
                 		<div class="col-md-10 col-md-offset-1 divChart" id="divChart1"></div>
                 		<div class="col-md-10 col-md-offset-1 divChart" id="divChart2"></div>
                 		<div class="col-md-10 col-md-offset-1 divChart" id="divChart3"></div>
+                		<div class="col-md-10 col-md-offset-1 divChart" id="divChart4"></div>
+                		<div class="col-md-10 col-md-offset-1" style="margin-top: 30px;border: 1px solid #DDD;">
+							<div class="panel panel-grey margin-bottom-40" style="margin-top:30px;">
+								<div class="panel-heading">
+									<h3 class="panel-title"><i class="icon-globe"></i> Statistics Info</h3>
+								</div>
+								<div class="panel-body ">
+									<table class="table table-bordered" id="tblStatistics">
+										<thead>
+											<tr>
+												<th style="width:7%;text-align:center;">#</th>
+												<th style="width:13%;text-align:center;">Date</th>
+												<th style="width:15%;text-align:center;">Employee</th>
+												<th style="width:13%;text-align:center;">Revenue</th>
+												<th style="width:13%;text-align:center;">Number Of Booking</th>
+												<th style="width:13%;text-align:center;">Working Times</th>
+												<th style="width:13%;text-align:center;">Booking Hours</th>
+												<th style="width:13%;text-align:center;">Booking Rate</th>
+											</tr>
+										</thead>
+										<tbody>
+	
+										</tbody>
+									</table>
+								</div>						
+							</div>     
+						</div>           		
                 </div>
             </div>		
 	</div>

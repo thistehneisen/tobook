@@ -11,7 +11,7 @@ include "includes/userheader.php";
 	<?php
 	$table_prefix = $_SESSION["session_loginname"]."_hey"."_";
 	$table_prefix = str_replace("-", "", $table_prefix);
-	$plugins_url = "http://".$_SERVER['SERVER_NAME']."/appointment/library/installation.php?prefix=".$table_prefix . '&owner_id='. $_SESSION['owner_id'];
+	$plugins_url = "http://".$_SERVER['SERVER_NAME']."/appointment/library/installation.php?owner_id={$_SESSION['owner_id']}&prefix=".$table_prefix;
 	
 	global $userusername;
 	$userusername = $_SESSION["session_loginname"];

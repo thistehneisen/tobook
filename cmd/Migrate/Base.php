@@ -99,13 +99,19 @@ abstract class Base {
 		$this->text('Getting a list of users to be proceeded...');
 		$usernames = [];
 
-		// Get the list of tables
-		$tables = $this->schemaManager->listTables();
-		foreach ($tables as $table)
-		{
-			preg_match($this->tablePattern, $table->getName(), $matches);
-			if (isset($matches[1])) {
-				$usernames[$matches[1]] = true;
+		// Get all users
+		$stm = $this->queryBuilder()
+			->select('vuser_login')
+			->from('tbl_user_mast', 'u')			
+			->execute();
+
+		while ($row = $stm->fetch()) {
+			$username = $row['vuser_login'];
+			$table = $username.$this->tablePattern;
+
+			$result = $this->db->query("SHOW TABLES LIKE '$table'");
+			if ($result->fetch()) {
+				$usernames[$username] = true;
 			}
 		}
 
@@ -214,10 +220,15 @@ abstract class Base {
 				// deleted. So keep old values.
 				// Some fields, `subcategories_id` for example, have default
 				// value of 0, so we need to check it before mapping
-				if (!empty($id) && array_key_exists($id, $this->map[$target])) {
+				if ((int) $id > 0 && array_key_exists($id, $this->map[$target])) {
 					$row[$field] = $this->map[$target][$id];
+				} elseif ((int) $id > 0 && !array_key_exists($id, $this->map[$target])) {
+					// Not a zero, NULL, etc. value but cannot find a map -> skip it
+					$skip = true;
 				}
 			}
+
+			if ($skip) { continue; }
 
 			$this->db->insert($this->tablePrefix.$table, $row);
 
