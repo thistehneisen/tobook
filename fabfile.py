@@ -9,6 +9,8 @@ def _deploy():
     with cd('/srv/varaa/src'):
         # pull latest source
         run('git pull')
+        # install dependencies
+        run('composer install')
 
 
 @task(alias='ds')
