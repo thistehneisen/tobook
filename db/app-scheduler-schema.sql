@@ -193,7 +193,7 @@ CREATE TABLE `as_employees_services` (
   `owner_id` int(8) NOT NULL,
   FOREIGN KEY fk_owner_id(owner_id) REFERENCES tbl_user_mast(nuser_id) ON DELETE CASCADE,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `employee_id` (`employee_id`,`service_id`)
+  UNIQUE KEY `employee_id` (`employee_id`,`service_id`, `owner_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -234,6 +234,7 @@ CREATE TABLE `as_formstyle` (
   `background` varchar(250) DEFAULT NULL,
   `font` varchar(255) DEFAULT NULL,
   `message` text,
+  `headings` varchar(255),
   `owner_id` int(8) NOT NULL,
   FOREIGN KEY fk_owner_id(owner_id) REFERENCES tbl_user_mast(nuser_id) ON DELETE CASCADE,
   PRIMARY KEY (`id`)
@@ -672,7 +673,7 @@ CREATE TABLE `as_working_times` (
   `owner_id` int(8) NOT NULL,
   FOREIGN KEY fk_owner_id(owner_id) REFERENCES tbl_user_mast(nuser_id) ON DELETE CASCADE,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `foreign_id` (`foreign_id`,`type`)
+  UNIQUE KEY `foreign_id` (`foreign_id`,`type`, `owner_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

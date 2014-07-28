@@ -5,12 +5,13 @@ class Cashier extends Base {
 
 	protected $autoIncrementFields = ['pos_id', 'setting_id', 'id'];
 	protected $tablePrefix = 'sma_';
-	protected $tablePattern = '/([a-z0-9]+)_sma_billers/i';
+	protected $tablePattern = '_sma_billers';
 
 	public function run()
 	{
 		$usernames = $this->getUsernames();
 		foreach ($usernames as $username) {
+			$this->map = [];
 			$this->username = $username;
 
 			$this->info('--------------------------------------------------');
