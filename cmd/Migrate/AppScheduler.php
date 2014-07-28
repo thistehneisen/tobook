@@ -10,6 +10,8 @@ class AppScheduler extends Base {
 	{
 		$usernames = $this->getUsernames();
 		foreach ($usernames as $username) {
+			$this->map = [];
+			
 			$this->username = $username;
 			$this->info('----------------------------------------------------');
 			$this->info("Proccessing data of <fg=green;options=bold>{$username}</fg=green;options=bold>", true);

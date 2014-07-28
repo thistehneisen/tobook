@@ -11,6 +11,7 @@ class Cashier extends Base {
 	{
 		$usernames = $this->getUsernames();
 		foreach ($usernames as $username) {
+			$this->map = [];
 			$this->username = $username;
 
 			$this->info('--------------------------------------------------');
