@@ -46,26 +46,56 @@
 		union all
 		select employeeId, 7 as dayNo, sat as minute
 		  from ( $wtSql ) t7";
+    
+    $employeeList = array();
+    if( $employeeId == "individual" ) {
+    	$table_prefix = str_replace("-", "", $userName)."_hey_appscheduler";
+    	
+	    $sql = "select t1.id, t2.content as name
+	    		  from ".$table_prefix."_employees t1, ".$table_prefix."_multi_lang t2
+	    		 where t2.model = 'pjEmployee'
+	    		   and t2.locale = 1
+	    		   and t2.foreign_id = t1.id";
+	    $employeeList = $db->queryArray( $sql );
+    }
+    
+    $arrWtSql = array();
     if( $employeeId == "" ){
-    	$wtSql = "select dayNo, minute
-    			    from ( $wtSql ) t1
-    			   group by dayNo";
+    	$arrWtSql[] = "select dayNo, minute, 'All Employees' as employeeName
+    			    	 from ( $wtSql ) t1
+    			   	 	group by dayNo";
+    }else if( $employeeId == "individual" ){
+    	for( $i = 0; $i < count( $employeeList ); $i ++ ){
+    		$arrWtSql[] = "select dayNo, minute, '".$employeeList[$i]["name"]."' as employeeName
+    						 from ( $wtSql ) t1
+    					 	where t1.employeeId = '".$employeeList[$i]["id"]."'";    		    		
+    	}    	
     }else{
-    	$wtSql = "select dayNo, minute
-    				from ( $wtSql ) t1
-    			   where t1.employeeId = '$employeeId'";    	
+    	$arrWtSql[] = "select dayNo, minute, t2.content as employeeName
+    				from ( $wtSql ) t1, ".$table_prefix."_multi_lang t2
+    			   where t1.employeeId = '$employeeId'
+    				 and t2.model = 'pjEmployee'
+    		   		 and t2.locale = 1
+    				 and t2.foreign_id = t1.employeeId";
     }
     
     $sql = "select t1.employee_id as employeeId, t1.date, t1.total, t1.price
     		  from ".$table_prefix."_bookings_services t1
     		 where t1.date >= '$startDate' and t1.date <= '$endDate'";
-
+	$arrSql = array( );
     if( $employeeId == "" ){
-    	$sql = "select t1.date, ifnull(sum(t1.total), 0) as bookingHours, ifnull(sum(t1.price), 0) as revenue, count(*) cntBooking
+    	$arrSql[] = "select t1.date, ifnull(sum(t1.total), 0) as bookingHours, ifnull(sum(t1.price), 0) as revenue, count(*) cntBooking
     			  from ( $sql ) t1
     			 group by t1.date";
+    }else if( $employeeId == "individual" ){
+    	for( $i = 0; $i < count( $employeeList ); $i ++ ){
+	    	$arrSql[] = "select t1.date, ifnull(sum(t1.total), 0) as bookingHours, ifnull(sum(t1.price), 0) as revenue, count(*) cntBooking
+	    			  	   from ( $sql ) t1
+	    			 	  where t1.employeeId = '".$employeeList[$i]["id"]."'
+	    			 	  group by t1.date";
+    	}    	
     }else{
-    	$sql = "select t1.date, ifnull(sum(t1.total), 0) as bookingHours, ifnull(sum(t1.price), 0) as revenue, count(*) cntBooking
+    	$arrSql[] = "select t1.date, ifnull(sum(t1.total), 0) as bookingHours, ifnull(sum(t1.price), 0) as revenue, count(*) cntBooking
     			  from ( $sql ) t1
     			 where t1.employeeId = '$employeeId'
     			 group by t1.date";
@@ -83,20 +113,20 @@
     		$dateSql.=" union all ";
     	}
     }
-    
-    $sql = "select t2.date, ifnull( t1.bookingHours, 0) as bookingHours, ifnull( t1.revenue, 0) as revenue, ifnull( t1.cntBooking, 0) as cntBooking
-    		  from ( $sql ) t1
-    		 right join ( $dateSql ) t2 on t1.date = t2.date";
-    
-    $sql = "select t1.*, t2.minute as workingHours
-    		  from ( $sql ) t1, ( $wtSql ) t2 
-   			 where dayofweek(t1.date) = t2.dayNo";
-    
-    $chartList = $db->queryArray( $sql );
-    if( $chartList == null )
-    	$chartList = array( );
-    
-    $data['chartList'] = $chartList;
+    $employeeChartList = array( );
+    for( $i = 0; $i < count( $arrSql ); $i ++ ){   
+	    $arrSql[$i] = "select t2.date, ifnull( t1.bookingHours, 0) as bookingHours, ifnull( t1.revenue, 0) as revenue, ifnull( t1.cntBooking, 0) as cntBooking
+	    		  from ( ".$arrSql[$i]." ) t1
+	    		 right join ( $dateSql ) t2 on t1.date = t2.date";
+	    
+	    $arrSql[$i] = "select t1.*, t2.minute as workingHours, t2.employeeName
+	    		  from ( ".$arrSql[$i]." ) t1, ( ".$arrWtSql[$i]." ) t2 
+	   			 where dayofweek(t1.date) = t2.dayNo
+	    		 order by t1.date asc";
+	    $employeeChartList[] = $db->queryArray( $arrSql[$i] );
+    }
+           
+    $data['chartList'] = $employeeChartList;
     $data['result'] = $result;
     $data['error'] = $error;
     header('Content-Type: application/json');
