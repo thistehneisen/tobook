@@ -220,10 +220,15 @@ abstract class Base {
 				// deleted. So keep old values.
 				// Some fields, `subcategories_id` for example, have default
 				// value of 0, so we need to check it before mapping
-				if (!empty($id) && array_key_exists($id, $this->map[$target])) {
+				if ((int) $id > 0 && array_key_exists($id, $this->map[$target])) {
 					$row[$field] = $this->map[$target][$id];
+				} elseif ((int) $id > 0 && !array_key_exists($id, $this->map[$target])) {
+					// Not a zero, NULL, etc. value but cannot find a map -> skip it
+					$skip = true;
 				}
 			}
+
+			if ($skip) { continue; }
 
 			$this->db->insert($this->tablePrefix.$table, $row);
 
