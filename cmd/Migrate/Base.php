@@ -99,13 +99,19 @@ abstract class Base {
 		$this->text('Getting a list of users to be proceeded...');
 		$usernames = [];
 
-		// Get the list of tables
-		$tables = $this->schemaManager->listTables();
-		foreach ($tables as $table)
-		{
-			preg_match($this->tablePattern, $table->getName(), $matches);
-			if (isset($matches[1])) {
-				$usernames[$matches[1]] = true;
+		// Get all users
+		$stm = $this->queryBuilder()
+			->select('vuser_login')
+			->from('tbl_user_mast', 'u')			
+			->execute();
+
+		while ($row = $stm->fetch()) {
+			$username = $row['vuser_login'];
+			$table = $username.$this->tablePattern;
+
+			$result = $this->db->query("SHOW TABLES LIKE '$table'");
+			if ($result->fetch()) {
+				$usernames[$username] = true;
 			}
 		}
 

@@ -4,7 +4,7 @@ class AppScheduler extends Base {
 
 	protected $autoIncrementFields = ['id'];
 	protected $tablePrefix = 'as_';
-	protected $tablePattern = '/([a-z0-9]+)_hey_appscheduler_bookings/i';
+	protected $tablePattern = '_hey_appscheduler_bookings';
 
 	public function run()
 	{
