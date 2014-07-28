@@ -1,8 +1,5 @@
 <?php
 
-
-
-
 define("USER_API_KEY","3ICxkP6z0z2hyvROZuNz");
 
 define("USER_EMAIL",'mikael@varaa.com') ;
