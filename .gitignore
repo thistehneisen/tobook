@@ -13,6 +13,7 @@ acceptance.suite.yml
 *.o
 *.so
 *.pyc
+*.lock
 
 # Packages #
 ############
