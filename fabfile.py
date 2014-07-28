@@ -6,7 +6,7 @@ HOME = os.getenv('HOME')
 
 def _deploy():
     env.user = 'root'
-    with cd('/srv/varaa'):
+    with cd('/srv/varaa/src'):
         # pull latest source
         run('git pull')
 
@@ -17,6 +17,12 @@ def deploy_stag():
     _deploy()
 
 
+@task(alias='dp')
+@hosts('varaa.co')
+def deploy_prod():
+    _deploy()
+
+
 @task(alias='rc')
 @hosts('dev.varaa.co')
 def run_command(command='ls'):
@@ -24,5 +30,5 @@ def run_command(command='ls'):
     Run any command in server
     '''
     env.user = 'root'
-    with cd('/srv/varaa'):
+    with cd('/srv/varaa/src'):
         run(command)
