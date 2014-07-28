@@ -22,6 +22,7 @@ define('BASE_URL_PART','');
 $s = empty($_SERVER["HTTPS"]) ? '' : ($_SERVER["HTTPS"] == "on") ? "s" : "";
 $protocol = substr(strtolower($_SERVER["SERVER_PROTOCOL"]), 0, strpos(strtolower($_SERVER["SERVER_PROTOCOL"]), "/")) .$s . "://";
 $currentDomain =  $_SERVER['SERVER_NAME'];
+
 if(strlen($currentDomain) - 1 <> '/'){
     $currentDomain .= '/';
 }
