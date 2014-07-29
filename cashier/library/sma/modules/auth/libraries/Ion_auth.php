@@ -84,6 +84,7 @@ class Ion_auth
 
 		// Site setting
 		$SETTING = $this->ion_auth_model->get_setting();
+
 		if (!empty($SETTING))
 		{
 			define("LOGO", $SETTING->logo);
@@ -100,9 +101,6 @@ class Ion_auth
 				$this->lang->load('sma', $SETTING->language);
 				define("LANGUAGE", $SETTING->language);
 			}
-
-
-			if ($this->logged_in()) {
 
 			if($df = $this->ion_auth_model->getDateFormat($SETTING->dateformat)) {
 				define("JS_DATE", $df->js);
@@ -138,7 +136,6 @@ class Ion_auth
 			define("ALERT_NO", $this->ion_auth_model->get_total_results());
 			define("CAL_OPT", $SETTING->restrict_calendar);
 	        define("BSTATESAVE", 0);
-		}
 
         $user = $this->user()->row();
 
