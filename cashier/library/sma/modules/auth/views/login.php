@@ -85,21 +85,21 @@ body {
         <div class="controls">
         	<select class="from-controls" onchange="onChangeLanguage(this)">
         		<option>Select language here.</option>
-        		<option <?php if( $_COOKIE['sma_language'] == 'arabic') echo 'selected';?> value="arabic">Arabic</option>
-        		<option <?php if( $_COOKIE['sma_language'] == 'bportuguese') echo 'selected';?> value="bportuguese">Brazillian Portuguese</option>
-        		<option <?php if( $_COOKIE['sma_language'] == 'chinese') echo 'selected';?> value="chinese">Chinese</option>
-        		<option <?php if( $_COOKIE['sma_language'] == 'czech') echo 'selected';?> value="czech">Czech</option>
-        		<option <?php if( $_COOKIE['sma_language'] == 'english' || $_COOKIE['sma_language'] == '') echo 'selected';?> value="english">English</option>
-        		<option <?php if( $_COOKIE['sma_language'] == 'eportuguese') echo 'selected';?> value="eportuguese">European Portuguese</option>
-        		<option <?php if( $_COOKIE['sma_language'] == 'finland') echo 'selected';?> value="finland">Finland</option>
-        		<option <?php if( $_COOKIE['sma_language'] == 'french') echo 'selected';?> value="french">French</option>
-        		<option <?php if( $_COOKIE['sma_language'] == 'german') echo 'selected';?> value="german">German</option>
-        		<option <?php if( $_COOKIE['sma_language'] == 'indonesian') echo 'selected';?> value="indonesian">Indonesian</option>
-        		<option <?php if( $_COOKIE['sma_language'] == 'romanian') echo 'selected';?> value="romanian">Romanian</option>
-        		<option <?php if( $_COOKIE['sma_language'] == 'spanish') echo 'selected';?> value="spanish">Spanish</option>
-        		<option <?php if( $_COOKIE['sma_language'] == 'thai') echo 'selected';?> value="thai">Thai</option>
-        		<option <?php if( $_COOKIE['sma_language'] == 'turkish') echo 'selected';?> value="turkish">Turkish</option>
-        		<option <?php if( $_COOKIE['sma_language'] == 'vietnamese') echo 'selected';?> value="vietnamese">Vietnamese</option>
+        		<option <?php if( isset($_COOKIE['sma_language']) && $_COOKIE['sma_language'] == 'arabic') echo 'selected';?> value="arabic">Arabic</option>
+        		<option <?php if( isset($_COOKIE['sma_language']) && $_COOKIE['sma_language'] == 'bportuguese') echo 'selected';?> value="bportuguese">Brazillian Portuguese</option>
+        		<option <?php if( isset($_COOKIE['sma_language']) && $_COOKIE['sma_language'] == 'chinese') echo 'selected';?> value="chinese">Chinese</option>
+        		<option <?php if( isset($_COOKIE['sma_language']) && $_COOKIE['sma_language'] == 'czech') echo 'selected';?> value="czech">Czech</option>
+        		<option <?php if( isset($_COOKIE['sma_language']) && ($_COOKIE['sma_language'] == 'english' || $_COOKIE['sma_language'] == '')) echo 'selected';?> value="english">English</option>
+        		<option <?php if( isset($_COOKIE['sma_language']) && $_COOKIE['sma_language'] == 'eportuguese') echo 'selected';?> value="eportuguese">European Portuguese</option>
+        		<option <?php if( isset($_COOKIE['sma_language']) && $_COOKIE['sma_language'] == 'finland') echo 'selected';?> value="finland">Finland</option>
+        		<option <?php if( isset($_COOKIE['sma_language']) && $_COOKIE['sma_language'] == 'french') echo 'selected';?> value="french">French</option>
+        		<option <?php if( isset($_COOKIE['sma_language']) && $_COOKIE['sma_language'] == 'german') echo 'selected';?> value="german">German</option>
+        		<option <?php if( isset($_COOKIE['sma_language']) && $_COOKIE['sma_language'] == 'indonesian') echo 'selected';?> value="indonesian">Indonesian</option>
+        		<option <?php if( isset($_COOKIE['sma_language']) && $_COOKIE['sma_language'] == 'romanian') echo 'selected';?> value="romanian">Romanian</option>
+        		<option <?php if( isset($_COOKIE['sma_language']) && $_COOKIE['sma_language'] == 'spanish') echo 'selected';?> value="spanish">Spanish</option>
+        		<option <?php if( isset($_COOKIE['sma_language']) && $_COOKIE['sma_language'] == 'thai') echo 'selected';?> value="thai">Thai</option>
+        		<option <?php if( isset($_COOKIE['sma_language']) && $_COOKIE['sma_language'] == 'turkish') echo 'selected';?> value="turkish">Turkish</option>
+        		<option <?php if( isset($_COOKIE['sma_language']) && $_COOKIE['sma_language'] == 'vietnamese') echo 'selected';?> value="vietnamese">Vietnamese</option>
         	</select>
         </div>
       </div>      
