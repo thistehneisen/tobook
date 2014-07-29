@@ -4,7 +4,7 @@ if ( count($tpl['extra_arr']) > 0 ) { ?>
 		<input type="hidden" name="booking_id" value="<?php echo isset($_GET['booking_id']) ? $_GET['booking_id'] : null; ?>">
 		<input type="hidden" name="service_id" value="<?php echo isset($_GET['service_id']) ? $_GET['service_id'] : null; ?>">
 		<input type="hidden" name="booking_date" value="<?php echo isset($_GET['booking_date']) ? $_GET['booking_date'] : null; ?>">
-		<p><strong>Do you want extra service?</strong></p>
+		<p><strong><?php __('msgWantExtra');?></strong></p>
 		<p>
 			<select name="extra_id[]" class="pj-form-field" multiple>
 				<?php

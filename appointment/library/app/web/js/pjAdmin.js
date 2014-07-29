@@ -207,18 +207,18 @@
 						} else {
 							$html += '<tr class="pj-table-row-even">';
 							$html += '<td style="text-align: center;"><input type="radio" checked="checked" value="3" name="radio_view"></td>';
-							$html += '<td>Edit Time</td>';
+							$html += '<td>Muokkaa kestoa</td>';
 							$html += '</tr>';
 							
 							$html += '<tr class="pj-table-row-old">';
 							$html += '<td style="text-align: center;"><input type="radio" value="4" name="radio_view"></td>';
-							$html += '<td>Edit Status</td>';
+							$html += '<td> Muokkaa tilaa</td>';
 							$html += '</tr>';
 							
 							if ( typeof $extra_count != 'undefined' && $extra_count > 0 ) {
 								$html += '<tr class="pj-table-row-even">';
 								$html += '<td style="text-align: center;"><input type="radio" value="5" name="radio_view"></td>';
-								$html += '<td>Extra Service</td>';
+								$html += '<td>Lis‰‰ lis‰palvelu</td>';
 								$html += '</tr>';
 							}
 						}
