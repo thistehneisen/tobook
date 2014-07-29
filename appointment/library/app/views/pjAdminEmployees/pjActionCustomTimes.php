@@ -245,7 +245,7 @@ if (isset($tpl['status']))
 		<script type="text/javascript">
 		var pjGrid = pjGrid || {};
 		var myLabel = myLabel || {};
-		myLabel.name = "Name";
+		myLabel.name = "<?php __('name'); ?>";
 		myLabel.time_start = "<?php __('time_from', false, true); ?>";
 		myLabel.time_end = "<?php __('time_to', false, true); ?>";
 		myLabel.time_lunch_start = "<?php __('time_lunch_from', false, true); ?>";

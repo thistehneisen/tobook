@@ -54,8 +54,8 @@ if (isset($tpl['status']))
 			<thead>
 				<tr>
 					<th><?php __('time_day'); ?></th>
-					<th>Start Time(admin)</th>
-					<th>End Time(admin)</th>
+					<th><?php __('startTimeAdmin'); ?></th>
+					<th><?php __('endTimeAdmin'); ?></th>
 					<th><?php __('time_from'); ?></th>
 					<th><?php __('time_to'); ?></th>
 					<th><?php __('time_lunch_from'); ?></th>

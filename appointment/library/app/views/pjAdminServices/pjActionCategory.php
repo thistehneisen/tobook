@@ -43,22 +43,22 @@ if (isset($tpl['status']))
 		<input type="hidden" name="service_category" value="1" />
 		
 		<fieldset class="fieldset white">
-			<legend>Add Category</legend>
+			<legend><?php __("addCategory");?></legend>
 			
 			<p>
-				<label class="title">Category Name</label>
+				<label class="title"><?php __("categoryName");?></label>
 				<span class="pj-form-field-custom pj-form-field-custom-before">
 					<input type="text" name="name" id="name" class="pj-form-field required w200" value="" />
 				</span>
 			</p>
 			<p>
-				<label class="title">Show on (front end)</label>
+				<label class="title"><?php __("showOnFrontEnd");?></label>
 				<span class="pj-form-field-custom pj-form-field-custom-before">
 					<input type="checkbox" name="show_front" id="show_front" class="pj-form-field " />
 				</span>
 			</p>
 			<p>
-				<label class="title">Message</label>
+				<label class="title"><?php __("message");?></label>
 				<span class="inline_block">
 					<textarea name="message" id="message" class="pj-form-field w200" rows="" cols=""></textarea>
 				</span>
@@ -75,9 +75,9 @@ if (isset($tpl['status']))
 	<script type="text/javascript">
 	var pjGrid = pjGrid || {};
 	var myLabel = myLabel || {};
-	myLabel.name = "Category Name";
-	myLabel.show_front = "Show on";
-	myLabel.message = "Message";
+	myLabel.name = "<?php __("categoryName");?>";
+	myLabel.show_front = "<?php __("showOnFrontEnd");?>";
+	myLabel.message = "<?php __("message");?>";
 	myLabel.delete_selected = "<?php __('delete_selected', false, true); ?>";
 	myLabel.delete_confirmation = "<?php __('delete_confirmation', false, true); ?>";
 	</script>

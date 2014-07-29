@@ -27,7 +27,7 @@ if (isset($tpl['status']))
 							<input type="hidden" name="id" value="<?php echo $tpl['arr'][0]['id']; ?>">
 					<?php } ?>
 					<p><label class="title">Logo (url)</label><input type="text" name="logo" id="f_logo" class="pj-form-field w250" value="<?php echo isset($tpl['arr'][0]['logo']) ? $tpl['arr'][0]['logo'] : ''; ?>" /></p>
-					<p><label class="title">Banneri</label><input type="text" name="banner" id="banner" class="pj-form-field w250" value="<?php echo isset($tpl['arr'][0]['banner']) ? $tpl['arr'][0]['banner'] : ''; ?>" /></p>
+					<p><label class="title"><?php __('banner')?></label><input type="text" name="banner" id="banner" class="pj-form-field w250" value="<?php echo isset($tpl['arr'][0]['banner']) ? $tpl['arr'][0]['banner'] : ''; ?>" /></p>
 					<p><label class="title">Väri</label><input type="text" name="color" id="color" class="pj-form-field w250" value="<?php echo isset($tpl['arr'][0]['color']) ? $tpl['arr'][0]['color'] : ''; ?>" /></p>
 
 <p><label class="title">Headings color:</label><input type="text" name="color" id="color" class="pj-form-field w250" value="<?php echo isset($tpl['arr'][0]['headings']) ? $tpl['arr'][0]['headings'] : ''; ?>" /></p>

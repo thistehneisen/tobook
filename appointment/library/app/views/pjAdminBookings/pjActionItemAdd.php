@@ -65,7 +65,7 @@ if (count($tpl['service_arr']) > 0) {
 	<?php } ?>
 	
 	<div class="b10 p">
-		<label class="title">Categories</label>
+		<label class="title"><?php __('categories'); ?></label>
 		<select name="category_id" class="pj-form-field w300 stock-product">
 			<?php
 			foreach ($tpl['categories_arr'] as $category)
@@ -108,7 +108,7 @@ if (count($tpl['service_arr']) > 0) {
 				$service_before = $tpl['service_arr'][0]['before'] * 60;
 			}
 		?>
-		<label class="title">Service Time</label>
+		<label class="title"><?php __('serviceTime'); ?></label>
 		<select name="servicetime_id" class="pj-form-field w300 stock-product">
 			<option value=""
 			

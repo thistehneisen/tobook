@@ -43,16 +43,16 @@ if (isset($tpl['status']))
 		<input type="hidden" name="service_resources" value="1" />
 		
 		<fieldset class="fieldset white">
-			<legend>Add Resources</legend>
+			<legend><?php __("addResources")?></legend>
 			
 			<p>
-				<label class="title">Resources Name</label>
+				<label class="title"><?php __("resourcesName")?></label>
 				<span class="pj-form-field-custom pj-form-field-custom-before">
 					<input type="text" name="name" id="name" class="pj-form-field required w200" value="" />
 				</span>
 			</p>
 			<p>
-				<label class="title">Message</label>
+				<label class="title"><?php __("message")?></label>
 				<span class="inline_block">
 					<textarea name="message" id="message" class="pj-form-field w200" rows="" cols=""></textarea>
 				</span>

@@ -27,7 +27,7 @@ if (isset($tpl['status']))
 	
 	<div class="ui-tabs ui-widget ui-widget-content ui-corner-all b10">
 		<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-			<li class="ui-state-default ui-corner-top<?php echo $_GET['controller'] == 'pjAdminServices' && $_GET['action'] == 'pjActionCustomTime' ? $active : null; ?>"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminServices&amp;action=pjActionCustomTime&amp;type=service&amp;foreign_id=<?php echo $tpl['arr']['id']; ?>&amp;as_pf=<?php echo $as_pf; ?>">Custom Time</a></li>
+			<li class="ui-state-default ui-corner-top<?php echo $_GET['controller'] == 'pjAdminServices' && $_GET['action'] == 'pjActionCustomTime' ? $active : null; ?>"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminServices&amp;action=pjActionCustomTime&amp;type=service&amp;foreign_id=<?php echo $tpl['arr']['id']; ?>&amp;as_pf=<?php echo $as_pf; ?>"><?php __("customTime")?></a></li>
 		</ul>
 	</div>
 	<?php
@@ -124,7 +124,7 @@ if (isset($tpl['status']))
 			</span>
 		</p>
 		<p>
-			<label class="title">Category</label>
+			<label class="title"><?php __("category");?></label>
 			<span class="inline_block">
 				<select name="category_id" id="category_id" class="pj-form-field required">
 					<option value="">-- <?php __('lblChoose'); ?>--</option>
@@ -140,7 +140,7 @@ if (isset($tpl['status']))
 			</span>
 		</p>
 		<p>
-			<label class="title">Resources</label>
+			<label class="title"><?php __("resources");?></label>
 			<span class="inline_block">
 				<select name="resources_id[]" class="pj-form-field" multiple>
 					<?php
@@ -154,7 +154,7 @@ if (isset($tpl['status']))
 		</p>
 		
 		<p>
-			<label class="title">Extra Service</label>
+			<label class="title"><?php __("extraService");?></label>
 			<span class="inline_block">
 				<select name="extra_id[]" class="pj-form-field" multiple>
 					<?php

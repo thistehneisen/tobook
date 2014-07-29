@@ -45,10 +45,10 @@ if (isset($tpl['status']))
 		<input type="hidden" name="id" value="<?php echo $_GET['id']; ?>" />
 		<?php } ?>
 		<fieldset class="fieldset white">
-			<legend>Lisää lisäpalvelu</legend>
+			<legend><?php __("addExtraService")?></legend>
 			
 			<p>
-				<label class="title">lisäpalvelu</label>
+				<label class="title"><?php __("extraServiceName")?></label>
 				<span class="pj-form-field-custom pj-form-field-custom-before">
 					<input type="text" name="name" id="name" class="pj-form-field required w200" value="<?php echo isset($tpl['arr']['name']) ? $tpl['arr']['name'] : null; ?>" />
 				</span>
@@ -67,7 +67,7 @@ if (isset($tpl['status']))
 				</span>
 			</p>
 			<p>
-				<label class="title">Kuvaus</label>
+				<label class="title"><?php __('description')?></label>
 				<span class="inline_block">
 					<textarea name="message" id="message" class="pj-form-field w200" rows="" cols=""><?php echo isset($tpl['arr']['message']) ? $tpl['arr']['message'] : null; ?></textarea>
 				</span>
@@ -84,10 +84,10 @@ if (isset($tpl['status']))
 	<script type="text/javascript">
 	var pjGrid = pjGrid || {};
 	var myLabel = myLabel || {};
-	myLabel.name = "lisäpalvelu";
+	myLabel.name = "<?php __('lblName'); ?>";
 	myLabel.price = "<?php __('service_price'); ?>";
 	myLabel.length = "<?php __('service_length'); ?>";
-	myLabel.message = "Kuvaus";
+	myLabel.message = "<?php __('message'); ?>";
 	myLabel.delete_selected = "<?php __('delete_selected', false, true); ?>";
 	myLabel.delete_confirmation = "<?php __('delete_confirmation', false, true); ?>";
 	</script>

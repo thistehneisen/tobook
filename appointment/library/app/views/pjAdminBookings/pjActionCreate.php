@@ -92,7 +92,7 @@ if (isset($tpl['status']))
 							<input type="text" name="c_address_2" id="c_address_2" class="pj-form-field w180" />
 						</p>
 						<p>
-							<a class="addCustomerInfo pj-button" href="#" style="display: inline-block;">Hae asiakas</a>
+							<a class="addCustomerInfo pj-button" href="#" style="display: inline-block;"><?php __('addCustomer'); ?></a>
 						</p>
 						<div id="dialogAddCustomer" title="Asiakkaan tiedot" style="display: none;">
 							<div class="pj-form">

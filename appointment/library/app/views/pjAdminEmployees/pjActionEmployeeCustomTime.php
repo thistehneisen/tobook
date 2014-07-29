@@ -90,7 +90,7 @@ if (isset($tpl['status']))
 						if ( $week_start == date('l', strtotime($day) + 86400) ) { ?>
 													
 						<tr class="pj-table-row-week">
-							<td>Week hours</td>
+							<td><?php __("weekHours")?></td>
 							<td></td>
 							<td>
 							<?php 
