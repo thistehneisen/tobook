@@ -154,13 +154,17 @@ class Products_model extends CI_Model
 
 	public function addProduct($code, $name,  $photo, $data = array())
 	{
-		if( $data['tax_rate'] == 1 ){
-			$price = $data['price'];
-		}else if( $data['tax_rate'] == 2 ){
-			$price = round($data['price'] * 100 / 124, 2);
-		}else if( $data['tax_rate'] == 3 ){
-			$price = round($data['price'] * 100 / 106, 2);
+		$tax_rate = $this->db
+			->from('tax_rates')
+			->where('id', $data['tax_rate'])
+			->get()
+			->row_array();
+
+		$price = $data['price'];
+		if (!empty($tax_rate)) {
+			$price = round($data['price'] * 100 / (100 + (int) $tax_rate['rate']), 2);
 		}
+		
 		if($photo == NULL) {
 			// Product data
 			$productData = array(
@@ -239,12 +243,15 @@ class Products_model extends CI_Model
 
 	public function updateProduct($id, $photo, $data = array())
 	{
-		if( $data['tax_rate'] == 1 ){
-			$price = $data['price'];
-		}else if( $data['tax_rate'] == 2 ){
-			$price = round($data['price'] * 100 / 124, 2);
-		}else if( $data['tax_rate'] == 3 ){
-			$price = round($data['price'] * 100 / 106, 2);
+		$tax_rate = $this->db
+			->from('tax_rates')
+			->where('id', $data['tax_rate'])
+			->get()
+			->row_array();
+
+		$price = $data['price'];
+		if (!empty($tax_rate)) {
+			$price = round($data['price'] * 100 / (100 + (int) $tax_rate['rate']), 2);
 		}
 
 		if($photo == NULL) {
