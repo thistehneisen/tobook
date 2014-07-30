@@ -725,7 +725,7 @@ class pjInstaller extends pjInstallerAppController
 			$resp['text'] = "An error occurs while reading 'app/config/config.sample.php'";
 		} else {
 			$paths = self::pjActionGetPaths();
-				
+			var_dump($paths);die();
 			$string = str_replace('[hostname]', $_SESSION[$this->defaultInstaller]['hostname'], $string);
 			$string = str_replace('[username]', $_SESSION[$this->defaultInstaller]['username'], $string);
 			$string = str_replace('[password]', $_SESSION[$this->defaultInstaller]['password'], $string);
