@@ -89,9 +89,7 @@ if ($act == "post") { //if postback
         if (isset($_SESSION["session_naffid"]) && $_SESSION["session_naffid"] != "") {
             $var_naffid = $_SESSION["session_naffid"];
         }
-
-        var_dump($_POST);exit;
-
+        
         // create new account
         $sql = "insert into `tbl_user_mast` (nuser_id,vuser_login,vuser_password,
                 vuser_name,vuser_lastname,vuser_address1,vuser_address2,vcity,vstate,vzip,vcountry,
