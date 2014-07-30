@@ -34,7 +34,7 @@
 					Salasana*
 				</div>
 				<div class="floatleft frontLoginText">
-					<input type="text" id="password" placeholder="Salasana"/>
+					<input type="password" id="password" placeholder="Salasana"/>
 				</div>
 				<div class="clearboth"></div>
 				
