@@ -12,13 +12,23 @@ class Seed extends MX_Controller {
 			die('Sorry old fart. What get you here?');
 		}
 
-		$this->ownerId = (int) $_SESSION['session_userid'];
+		$this->getOwnerId();
 
 		if ($this->isInstallable() === false)
 		{
 			$this->redirect();
 			exit;
 		}
+	}
+
+	public function getOwnerId()
+	{
+		@session_start();
+		if (!isset($_SESSION['owner_id'])) {
+			die('You must login to use this feature');
+		}
+
+		$this->ownerId = (int) $_SESSION['owner_id'];
 	}
 
 	public function isInstallable()
