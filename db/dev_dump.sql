@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.12)
 # Database: varaa_dev_dump
-# Generation Time: 2014-07-30 05:01:58 +0000
+# Generation Time: 2014-07-30 22:49:27 +0000
 # ************************************************************
 
 
@@ -2217,7 +2217,7 @@ LOCK TABLES `tbl_lookup` WRITE;
 
 INSERT INTO `tbl_lookup` (`vname`, `vvalue`)
 VALUES
-	('admin_mail','mikael@varaa.com'),
+	('admin_mail','hieu@varaa.com'),
 	('admin_pass','d24e71a89b28f81cdece101a3b307031'),
 	('adsense_code',''),
 	('adsense_flag','NO'),
