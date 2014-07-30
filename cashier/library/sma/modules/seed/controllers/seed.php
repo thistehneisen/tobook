@@ -12,13 +12,23 @@ class Seed extends MX_Controller {
 			die('Sorry old fart. What get you here?');
 		}
 
-		$this->ownerId = (int) $_SESSION['session_userid'];
+		$this->getOwnerId();
 
 		if ($this->isInstallable() === false)
 		{
 			$this->redirect();
 			exit;
 		}
+	}
+
+	public function getOwnerId()
+	{
+		@session_start();
+		if (!isset($_SESSION['owner_id'])) {
+			die('You must login to use this feature');
+		}
+
+		$this->ownerId = (int) $_SESSION['owner_id'];
 	}
 
 	public function isInstallable()
@@ -339,31 +349,26 @@ class Seed extends MX_Controller {
 	protected function seedGroup()
 	{
 		$groupId = $this->seed('groups', array(
-			'id' => 1,
 			'name' => 'owner',
 			'description' => 'Owner'
 		));
 
 		$this->seed('groups', array(
-			'id' => 2,
 			'name' => 'admin',
 			'description' => 'Administrator'
 		));
 
 		$this->seed('groups', array(
-			'id' => 3,
 			'name' => 'purchaser',
 			'description' => 'Purchasing Staff'
 		));
 
 		$this->seed('groups', array(
-			'id' => 4,
 			'name' => 'salesman',
 			'description' => 'Sales Staff'
 		));
 
 		$this->seed('groups', array(
-			'id' => 5,
 			'name' => 'viewer',
 			'description' => 'View Only User'
 		));

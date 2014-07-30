@@ -9,5 +9,8 @@ return [
         'user'     => '{{ dbuser }}',
         'password' => '{{ dbpassword }}',
         'name'     => '{{ dbname }}'
+    ],
+    'smtp' => [
+        'password' => '{{ mandrill_password }}'
     ]
 ];
