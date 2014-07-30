@@ -715,21 +715,17 @@ class pjInstaller extends pjInstallerAppController
 		
 		$sample = 'app/config/config.sample.php';
 		$filename = 'app/config/config.inc.php';
+        $folder = 'app/config/';
+
 		ob_start();
 		readfile($sample);
 		$string = ob_get_contents();
 		ob_end_clean();
-		if ($string === FALSE)
-		{
+		if ($string === FALSE) {
 			$resp['code'] = 100;
 			$resp['text'] = "An error occurs while reading 'app/config/config.sample.php'";
 		} else {
 			$paths = self::pjActionGetPaths();
-			var_dump($paths);die();
-			$string = str_replace('[hostname]', $_SESSION[$this->defaultInstaller]['hostname'], $string);
-			$string = str_replace('[username]', $_SESSION[$this->defaultInstaller]['username'], $string);
-			$string = str_replace('[password]', $_SESSION[$this->defaultInstaller]['password'], $string);
-			$string = str_replace('[database]', $_SESSION[$this->defaultInstaller]['database'], $string);
 			$string = str_replace('[install_folder]', $paths['install_folder'], $string);
 			$string = str_replace('[install_path]', $paths['install_path'], $string);
 			$string = str_replace('[install_url]', $paths['install_url'], $string);
@@ -744,19 +740,15 @@ class pjInstaller extends pjInstallerAppController
 			$response = $Http->getResponse();
 			$output = unserialize($response);
 			
-			if (isset($output['hash']) && isset($output['code']) && $output['code'] == 200)
-			{
+			if (isset($output['hash']) && isset($output['code']) && $output['code'] == 200) {
 				$string = str_replace('[pj_installation]', $output['hash'], $string);
 			
-				if (is_writable($filename))
-				{
-				    if (!$handle = @fopen($filename, 'wb'))
-				    {
+				if (is_writable($folder)) {
+				    if (!$handle = @fopen($filename, 'wb')) {
 						$resp['code'] = 103;
 						$resp['text'] = "'app/config/config.inc.php' open fails";
 				    } else {
-					    if (fwrite($handle, $string) === FALSE)
-					    {
+					    if (fwrite($handle, $string) === FALSE) {
 							$resp['code'] = 102;
 							$resp['text'] = "An error occurs while writing to 'app/config/config.inc.php'";
 					    } else {
@@ -766,7 +758,7 @@ class pjInstaller extends pjInstallerAppController
 				    }
 				} else {
 					$resp['code'] = 101;
-					$resp['text'] = "'app/config/config.inc.php' do not exists or not writable";
+					$resp['text'] = "'app/config/' is not writable";
 				}
 			} else {
 				$resp['code'] = 104;

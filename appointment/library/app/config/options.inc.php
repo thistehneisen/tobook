@@ -1,43 +1,39 @@
 <?php
 $stop = false;
-if (isset($_GET['controller']) && $_GET['controller'] == 'pjInstaller')
-{
-	$stop = true;
-	if (isset($_GET['install']))
-	{
-		switch ($_GET['install'])
-		{
-			case 1:
-				$stop = true;
-				break;
-			default:
-				$stop = false;
-				break;
-		}
-	}
-	if (in_array($_GET['action'], array('pjActionLicense')))
-	{
-		$stop = false;
-	}
+if (isset($_GET['controller']) && $_GET['controller'] == 'pjInstaller') {
+    $stop = true;
+    if (isset($_GET['install'])) {
+        switch ($_GET['install']) {
+            case 1:
+                $stop = true;
+                break;
+            default:
+                $stop = false;
+                break;
+        }
+    }
+    if (in_array($_GET['action'], array('pjActionLicense'))) {
+        $stop = false;
+    }
 }
 global $as_pf;
 global $firstYN;
 $as_db_version = isset($_COOKIE['as_db_version' . $as_pf]) ? $_COOKIE['as_db_version' . $as_pf] : null;
 
-if (!$stop)
-{
-	require dirname(__FILE__) . '/config.inc.php';
+if (!$stop) {
+    if (file_exists(dirname(__FILE__) . '/config.inc.php')) {
+        require dirname(__FILE__) . '/config.inc.php';
 
-	if ($firstYN == "Y")
-	{
-		require dirname(__FILE__) . '/init.php';
-		$dns = sprintf("mysql:dbname=%s;host=%s", PJ_DB, PJ_HOST);
-		$user = PJ_USER;
-		$password = PJ_PASS;
-		$dbh = new PDO($dns, $user, $password);
-		$sth = $dbh->prepare(sprintf($sql, $_SESSION['owner_id']));
-		$sth->execute();
-	}
+        if ($firstYN == "Y") {
+            require dirname(__FILE__) . '/init.php';
+            $dns = sprintf("mysql:dbname=%s;host=%s", PJ_DB, PJ_HOST);
+            $user = PJ_USER;
+            $password = PJ_PASS;
+            $dbh = new PDO($dns, $user, $password);
+            $sth = $dbh->prepare(sprintf($sql, $_SESSION['owner_id']));
+            $sth->execute();
+        }
+    }
 }
 
 if (!defined("PJ_APP_PATH")) define("PJ_APP_PATH", ROOT_PATH . "app/");
@@ -70,4 +66,3 @@ if (!defined("PJ_RSA_PRIVATE")) define("PJ_RSA_PRIVATE", '7');
 
 $CONFIG = array();
 $CONFIG['plugins'] = array('pjLocale', 'pjBackup', 'pjLog', 'pjInstaller', 'pjOneAdmin', 'pjCountry', 'pjInvoice', 'pjAuthorize', 'pjPaypal', 'pjSms');
-?>

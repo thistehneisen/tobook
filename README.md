@@ -22,12 +22,13 @@ Prerequisites
 Setup in localhost
 ------------------
 - Clone this repo to your localhost
-- Create a local domain and point to above folder, for example: `klikkaaja.loc`.
-It's crucial to have that name or the `appointment` module will not work.
+- Create a local domain and point to above folder, for example: `yourlocaldomain.loc`
 - Create a new DB in your localhost
 - Import the DB dump: `db/dev_dump.sql`
 - Create local `config.php` and configure to match your localhost settings:
  `cp config.php.tpl config.php`
+- Create local config for Appointment Scheduler:
+  `php runner config yourlocaldomain.loc`
 - Start hacking (or messing)!
 
 
