@@ -658,9 +658,7 @@ echo "</div><button id=\"previous\" type=\"button\" class=\"blue\" style='z-inde
                         }
                     });
                     var productPrice = Number(totalPrice / ( taxRate + 100 ) * 100).toFixed(2);
-                    console.log( "J Product Price : " + productPrice );
                     var tax = Number(totalPrice * 1 - productPrice).toFixed(2);
-                    console.log( "J Tax : " + tax );
                     var data = { productPrice : productPrice, tax : tax};
                     return data;
             	}
@@ -1027,75 +1025,81 @@ echo "</div><button id=\"previous\" type=\"button\" class=\"blue\" style='z-inde
                                 $(this).parents("tr").eq(0).find("td").eq(2).find("input").click();
                                 return false;
                             }
-                        });                                                                        
+                        });
+
                         $("#saletbl").on("click", 'input[id^="price"]', function() {
                 			$(this).css("border", "1px solid #777");
                 			$(this).css("background", "#FFF");
                 			$(this).select();
-                			var qty = $(this).parents("tr").eq(0).find("td").eq(2).find("input").val() * 1;
-                			var pr_tax_id = $(this).parents("tr").eq(0).find("Td").eq(1).find("input").eq(2).val();
-							console.log("Total : " + total );
-                			var totalPrice =  $(this).val() * 1;
-                			console.log("Total Price: " + totalPrice );
-                			var tData ;
-                			if( $(this).val() * 1 == $(this).val() ){
-	                            tData = getJsonProductPrice( totalPrice, pr_tax_id );
-                				total -= ( tData.productPrice * 1 ) * qty;
-                			}
-                			console.log( tData );
-                			console.log( "Total 2: " + total );
+                			// var qty = $(this).parents("tr").eq(0).find("td").eq(2).find("input").val() * 1;
+                			// var pr_tax_id = $(this).parents("tr").eq(0).find("Td").eq(1).find("input").eq(2).val();
+                			// var totalPrice =  $(this).val() * 1;
+                			// var tData ;
+                			// if( $(this).val() * 1 == $(this).val() ){
+	                  //           tData = getJsonProductPrice( totalPrice, pr_tax_id );
+                			// 	total -= ( tData.productPrice * 1 ) * qty;
+                			// }
                             
-                            $.each(tax_rates, function() {
-                                if (this.id == pr_tax_id) {
-                                    new_tax_rate = parseFloat(this.rate);
-                                    new_tax_type = parseFloat(this.type);
-                                }
-                            });
-                            console.log("Tax1: " + tax_value );
-                            tax_value -= (tData.tax * 1) * qty;
-                            console.log("Tax2: " + tax_value );
+                   //          $.each(tax_rates, function() {
+                   //              if (this.id == pr_tax_id) {
+                   //                  new_tax_rate = parseFloat(this.rate);
+                   //                  new_tax_type = parseFloat(this.type);
+                   //              }
+                   //          });
+                   //          tax_value -= (tData.tax * 1) * qty;
                         });
-                        $("#saletbl").on("blur", 'input[id^="price"]', function() {
-                            if( $(this).val() * 1 == $(this).val() ){
-	                			$(this).attr("style", "");
-	                			
-	                			var pr_tax_id = $(this).parents("tr").eq(0).find("td").eq(1).find("input").eq(2).val();
-	                            var totalPrice =  $(this).val() * 1;
-	                            // console.log( totalPrice );
-	                            var priceData = getJsonProductPrice( totalPrice, pr_tax_id );
-	                            // console.log (priceData );
-	                            	                			
-	                			var qty = $(this).parents("tr").eq(0).find("td").eq(2).find("input").val() * 1;
-	                			// console.log( "Qty : " + qty );
-	                			var pr = priceData.productPrice * 1;
-	                			// console.log( "total1 : " + total );
-	                			total += pr * qty;
-	                			total = total.toFixed(2) * 1;
-	                            $.each(tax_rates, function() {
-	                                if (this.id == pr_tax_id) {
-	                                    new_tax_rate = parseFloat(this.rate);
-	                                }
-	                            });
-	                            // console.log( "total2 : " + total );
-	                            // console.log( "new tax_rate : " + new_tax_rate );
 
-	                            tax_value += priceData.tax * qty;
-	                            $("#tax").text( tax_value.toFixed(2) );
-	                            // tax_value = tax_value.toFixed(2) * 1;
-	
-	                            var g_total = total + tax_value + tax_value2 - total_discount;
-	                            grand_total = parseFloat(g_total).toFixed(2);
-	                            $("#total-payable").empty();
-	                            $("#total-payable").append(grand_total);
-	                            $("#total").empty();
-	                            $("#total").append(total);
-	                            $(this).parents("tr").eq(0).find("td").eq(2).find("input").focus();
-	                            
-                            }else{
-                                alert("You have enter Price correctly.");
-                                $(this).focus();
-                                return;
-                            }
+function calculateAll() {
+	var payable = 0.0, tax = 0.0, total = 0.0, counter = 0;
+
+	$("#saletbl").find('tr').each(function(idx, item) {
+		var $item = $(item),
+		price = +$item.find('input[name^=unit_price]').val(),
+		qty = +$item.find('input[name^=quantity]').val(),
+		taxRate = +$item.find('input[name^=tax_rate]').val();
+		data = getJsonProductPrice(price, taxRate);
+
+		total += +data.productPrice * qty;
+		tax += +data.tax * qty;
+		payable += price * qty;
+		counter += qty;
+	});
+
+	return {
+		payable: payable,
+		tax: tax,
+		total: total,
+		counter: counter
+	}
+}
+
+function displayData(result) {
+	var elPayable = $("#total-payable"),
+		elTotal = $('#total'),
+		elCount = $('#count'),
+		elTax = $('#tax');
+
+	elCount.html(result.count);
+	elPayable.html((result.payable - total_discount).toFixed(2));
+	elTotal.html((result.total).toFixed(2));
+	elTax.html((result.tax).toFixed(2));
+}
+                        $("#saletbl").on("blur", 'input[id^="price"]', function() {
+                        	var $this = $(this),
+                        		price = +$this.val(),
+                        		txtQty = $this.parents('tr').find('input[name^=quantity]');
+
+                    		if (typeof price === 'number' && price !== price) {
+                    			alert("You have enter Price correctly.");
+                    			$this.focus();
+                    			return;
+                    		}
+
+                    		$this.attr("style", "");
+                    		$this.val(price.toFixed(2));
+                    		displayData(calculateAll());
+                    		txtQty.focus();
+
                         });
 
 
@@ -1233,10 +1237,10 @@ echo "</div><button id=\"previous\" type=\"button\" class=\"blue\" style='z-inde
                                      an--;
                                      row_id = $("#row_" + rw_no);
                                      row_id.remove();
-                                     
-
+                                     displayData(calculateAll());
                         });
-
+								
+								
                                  $("#saletbl").on("focus", ".keyboard", function() {
                                      key_pad();
                                  });
@@ -1332,7 +1336,6 @@ echo "</div><button id=\"previous\" type=\"button\" class=\"blue\" style='z-inde
                                              }
                                              current_tax = parseFloat(tax_value).toFixed(2);
                                              tax_value = parseFloat(tax_value).toFixed(2) * 1;
-                                             console.log( "TTT Value" + tax_value );
                                              // alert( current_tax );
 <?php } ?>
 <?php if (TAX2) { ?>
@@ -1442,7 +1445,7 @@ echo "</div><button id=\"previous\" type=\"button\" class=\"blue\" style='z-inde
                                                  '1 2 3 {b}',
                                                  '4 5 6 {clear}',
                                                  '7 8 9 0',
-                                                 '{accept} {cancel}'
+                                                 '{accept}'
                                              ]
                                          },
                                          beforeClose: function(e, keyboard, el, accepted) {
@@ -1577,6 +1580,9 @@ echo "</div><button id=\"previous\" type=\"button\" class=\"blue\" style='z-inde
                                              $("#total-payable").append(grand_total);
                                              $("#total").append(current);
                                              $("#count").append(count - 1);
+                                             displayData(calculateAll());
+
+                                             
                                                                                       }
                                      });
 
@@ -1721,6 +1727,7 @@ echo "</div><button id=\"previous\" type=\"button\" class=\"blue\" style='z-inde
                                      $('#gmail_loading').hide();
                                      
                                      e.preventDefault();
+                                     displayData(calculateAll());
                                      return false;
                                  }
 
@@ -1769,6 +1776,7 @@ echo "</div><button id=\"previous\" type=\"button\" class=\"blue\" style='z-inde
                                      }
 
                                      });
+									displayData(calculateAll());
                                 });
                                  
 								$('#paymentModal').on('blur', '#giftcard_number', function(){ 
