@@ -1,7 +1,5 @@
 <?php
 
-error_reporting(0);
-
 require("install_config.php"); 
 
 require("configsettings.php"); 
@@ -66,6 +64,13 @@ else {
 
 $siteLanguageOption = getSettingsValue("site_language_option");
 
+// // Maybe errors reporting was disabled somewhere in those upper files
+// if (isset($_SERVER['APP_ENV']) && $_SERVER['APP_ENV'] === 'development') {
+// 	// Show all errors except deprecated warnings in development
+// 	error_reporting(E_ALL ^ E_DEPRECATED);
+// } else {
+// 	// I have nothing, nothing if I don't have you
+// 	error_reporting(0);
+// }
 
-
-?>
+error_reporting(0);

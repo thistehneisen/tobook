@@ -43,6 +43,17 @@ if (isset($_GET["act"])) {
     $act = $_GET["act"];
 }
 
+$vuser_login     = isset($_POST['vuser_login']) ? $_POST['vuser_login'] : '';
+$vuser_password  = isset($_POST['vuser_password']) ? $_POST['vuser_password'] : '';
+$vuser_password1 = isset($_POST['vuser_password1']) ? $_POST['vuser_password1'] : '';
+$txtFirstName    = isset($_POST['txtFirstName']) ? $_POST['txtFirstName'] : '';
+$txtLastName     = isset($_POST['txtLastName']) ? $_POST['txtLastName'] : '';
+$txtCity         = isset($_POST['txtCity']) ? $_POST['txtCity'] : '';
+$txtState        = isset($_POST['txtState']) ? $_POST['txtState'] : '';
+$txtZip          = isset($_POST['txtZip']) ? $_POST['txtZip'] : '';
+$vuser_email     = isset($_POST['vuser_email']) ? $_POST['vuser_email'] : '';
+$vuser_phone     = isset($_POST['vuser_phone']) ? $_POST['vuser_phone'] : '';
+
 if ($act == "post") { //if postback
     /* For setting editor path */
     $rootPath = getSettingsValue('rootpath');
@@ -78,6 +89,8 @@ if ($act == "post") { //if postback
         if (isset($_SESSION["session_naffid"]) && $_SESSION["session_naffid"] != "") {
             $var_naffid = $_SESSION["session_naffid"];
         }
+
+        var_dump($_POST);exit;
 
         // create new account
         $sql = "insert into `tbl_user_mast` (nuser_id,vuser_login,vuser_password,
@@ -265,7 +278,7 @@ include "includes/applicationheader.php";
                         </td>
                         <td width="4%"></td>
                         <td width="71%" align=left>
-                            <input type=text name="vuser_login" id="vuser_login" maxlength="15" value="<?php echo htmlentities($_POST[" vuser_login "]) ?>" size="30">
+                            <input type=text name="vuser_login" id="vuser_login" maxlength="15" value="<?php echo htmlentities($vuser_login) ?>" size="30">
                         </td>
                     </tr>
 
@@ -276,7 +289,7 @@ include "includes/applicationheader.php";
                         </td>
                         <td></td>
                         <td align=left>
-                            <input type=password name="vuser_password" id="vuser_password" maxlength="50" value="<?php echo htmlentities($_POST[" vuser_password "]) ?>" size="30">
+                            <input type=password name="vuser_password" id="vuser_password" maxlength="50" value="<?php echo $vuser_password ?>" size="30">
                         </td>
                     </tr>
 
@@ -288,7 +301,7 @@ include "includes/applicationheader.php";
                         </td>
                         <td></td>
                         <td align=left>
-                            <input type=password name="vuser_password1" id="vuser_password1" maxlength="50" value="<?php echo htmlentities($_POST[" vuser_password1 "]) ?>" size="30">
+                            <input type=password name="vuser_password1" id="vuser_password1" maxlength="50" value="<?php echo $vuser_password1 ?>" size="30">
                         </td>
                     </tr>
 
@@ -300,7 +313,7 @@ include "includes/applicationheader.php";
                         </td>
                         <td></td>
                         <td align=left>
-                            <input type=text name="txtFirstName" id="txtFirstName" maxlength="100" value="<?php echo htmlentities($_POST[" txtFirstName "]) ?>" size="30">
+                            <input type=text name="txtFirstName" id="txtFirstName" maxlength="100" value="<?php echo htmlentities($txtFirstName) ?>" size="30">
                         </td>
                     </tr>
 
@@ -315,7 +328,7 @@ include "includes/applicationheader.php";
                         </td>
                         <td></td>
                         <td align=left>
-                            <input type=text name="txtLastName" id="txtLastName" maxlength="100" value="<?php echo htmlentities($_POST[" txtLastName "]) ?>" size="30">
+                            <input type=text name="txtLastName" id="txtLastName" maxlength="100" value="<?php echo htmlentities($txtLastName) ?>" size="30">
                         </td>
                     </tr>
                     <?php } ?>
@@ -326,7 +339,7 @@ include "includes/applicationheader.php";
                         </td>
                         <td></td>
                         <td align=left>
-                            <input type=text value="<?php echo htmlentities($_POST[" vuser_email "]) ?>" name="vuser_email" id="vuser_email" maxlength="100" size="30">
+                            <input type=text value="<?php echo htmlentities($vuser_email) ?>" name="vuser_email" id="vuser_email" maxlength="100" size="30">
                         </td>
                     </tr>
                     <?php if (getFormFieldstatus($formfiledarray, 'address1', 0)) { ?>
@@ -339,25 +352,10 @@ include "includes/applicationheader.php";
                         </td>
                         <td></td>
                         <td align=left>
-                            <input type=text name="vuser_address1" value="<?php echo htmlentities($_POST[" vuser_address1 "]) ?>" id="vuser_address1" maxlength="200" size="30">
+                            <input type=text name="vuser_address1" value="<?php echo htmlentities($address1) ?>" id="vuser_address1" maxlength="200" size="30">
                         </td>
                     </tr>
                     <?php } ?>
-
-                    <?php /* if (getFormFieldstatus($formfiledarray, 'address2', 0)) { ?>
-                    <tr>
-                        <td align=left>
-                            <?php echo SIGNUP_ADDRESS2; ?>
-                            <?php if (getFormFieldstatus($formfiledarray, 'address2', 1)) { ?>
-                            <font color=red>*</font>
-                            <?php } ?>
-                        </td>
-                        <td></td>
-                        <td align=left>
-                            <input type=text value="<?php echo htmlentities($_POST[" vuser_address2 "]) ?>" name="vuser_address2" id="vuser_address2" maxlength="200" size="30">
-                        </td>
-                    </tr>
-                    <?php } */ ?>
 
                     <?php if (getFormFieldstatus($formfiledarray, 'city', 0)) { ?>
                     <tr>
@@ -369,7 +367,7 @@ include "includes/applicationheader.php";
                         </td>
                         <td></td>
                         <td align=left>
-                            <input type=text value="<?php echo htmlentities($_POST[" txtCity "]) ?>" name="txtCity" id="txtCity" maxlength="100" size="30">
+                            <input type=text value="<?php echo htmlentities($txtCity) ?>" name="txtCity" id="txtCity" maxlength="100" size="30">
                         </td>
                     </tr>
                     <?php } ?>
@@ -384,7 +382,7 @@ include "includes/applicationheader.php";
                         </td>
                         <td></td>
                         <td align=left>
-                            <input type=text value="<?php echo htmlentities($_POST[" txtState "]) ?>" name="txtState" id="txtState" maxlength="100" size="30">
+                            <input type=text value="<?php echo htmlentities($txtState) ?>" name="txtState" id="txtState" maxlength="100" size="30">
                         </td>
                     </tr>
                     <?php } ?>
@@ -415,7 +413,7 @@ include "includes/applicationheader.php";
                         </td>
                         <td></td>
                         <td align=left>
-                            <input type=text value="<?php echo htmlentities($_POST[" txtZip "]) ?>" name="txtZip" id="txtZip" maxlength="20" size="30">
+                            <input type=text value="<?php echo htmlentities($txtZip) ?>" name="txtZip" id="txtZip" maxlength="20" size="30">
                         </td>
                     </tr>
                     <?php } ?>
@@ -431,33 +429,19 @@ include "includes/applicationheader.php";
                         </td>
                         <td></td>
                         <td align=left>
-                            <input type=text name="vuser_phone" id="vuser_phone" maxlength="30" value="<?php echo htmlentities($_POST[" vuser_phone "]) ?>" size="30">
+                            <input type=text name="vuser_phone" id="vuser_phone" maxlength="30" value="<?php echo htmlentities($vuser_phone) ?>" size="30">
                         </td>
                     </tr>
                     <?php } ?>
-
-                    <?php /* if (getFormFieldstatus($formfiledarray, 'fax', 0)) { ?>
-                    <tr>
-                        <td align=left>
-                            <?php echo SIGNUP_FAX;?>
-                            <?php if (getFormFieldstatus($formfiledarray, 'fax', 1)) { ?>
-                            <font color=red>*</font>
-                            <?php } ?>
-                        </td>
-                        <td></td>
-                        <td align=left>
-                            <input type=text name="vuser_fax" id="vuser_fax" maxlength="30" value="<?php echo htmlentities($_POST[" vuser_fax "]) ?>" size="30">
-                        </td>
-                    </tr>
-                    <?php } */ ?>
-                    <!--commented for new design    -->
 
                     <tr>
                         <td valign="top" align="left" colspan="2" class="extrapadding"></td>
                         <td style="text-align:left;">
                             <p class="notetxt" style="font-size:11px; ">
                                 <?php echo SIGNUP_CONDITION; ?>
-                                <?php echo(htmlentities($_SESSION[ "session_lookupsitename"])); ?>
+                            <?php if (isset($_SESSION[ "session_lookupsitename"])) :
+                                echo(htmlentities($_SESSION[ "session_lookupsitename"]));
+                            endif; ?>
                                 <a href="terms.php" target=tos>
                                     <?php echo SIGNUP_TERMS; ?>
                                 </a>
@@ -609,18 +593,6 @@ include "includes/applicationheader.php";
             if (frm.vuser_address1.value == "" && proceedFlag == 1) {
                 alert("<?php echo VAL_SIGNUP_ADDRESS;?>");
                 frm.vuser_address1.focus();
-                return false;
-            }
-        }
-
-
-
-
-        if (frm.vuser_address2) {
-            var proceedFlag = <?php if (getFormFieldstatus($formfiledarray, 'address2', 1)) echo '1'; else echo '0'; ?>;
-            if (frm.vuser_address2.value == "" && proceedFlag == 1) {
-                alert("<?php echo VAL_SIGNUP_ADDRESS2;?>");
-                frm.vuser_address2.focus();
                 return false;
             }
         }
