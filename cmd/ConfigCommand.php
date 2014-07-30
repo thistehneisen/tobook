@@ -12,9 +12,9 @@ require realpath(__DIR__.'/../appointment/library/core/framework/components/pjTo
 
 class ConfigCommand extends Command {
 	protected function configure() {
-		$this->setName('config')
-		->setDescription('Set up proper config for Appointment Scheduler')
-		->addArgument('domain', InputArgument::REQUIRED, 'Domain to be installed');
+			$this->setName('config')
+			->setDescription('Set up proper config for Appointment Scheduler')
+			->addArgument('domain', InputArgument::REQUIRED, 'Domain to be installed');
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output) {
@@ -43,17 +43,17 @@ class ConfigCommand extends Command {
 		$string = str_replace('[salt]', \pjToolkit::getRandomPassword(8), $string);
 		
 		$response = file_get_contents(base64_decode("aHR0cDovL3N1cHBvcnQuc3RpdmFzb2Z0LmNvbS8=") . 'index.php?controller=Api&action=getInstall'.
-			"&key=" . urlencode($licenseKey) .
-			"&modulo=". urlencode(PJ_RSA_MODULO) .
-			"&private=" . urlencode(PJ_RSA_PRIVATE) .
-			"&server_name=" . urlencode($domain));
+				"&key=" . urlencode($licenseKey) .
+				"&modulo=". urlencode(PJ_RSA_MODULO) .
+				"&private=" . urlencode(PJ_RSA_PRIVATE) .
+				"&server_name=" . urlencode($domain));
 
 		$output = unserialize($response);
 
 		if (isset($output['hash']) && isset($output['code']) && $output['code'] == 200)
 		{
 			$string = str_replace('[pj_installation]', $output['hash'], $string);
-		
+	
 			if (is_writable($filename))
 			{
 				if (!$handle = @fopen($filename, 'wb'))
