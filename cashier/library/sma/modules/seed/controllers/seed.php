@@ -349,31 +349,26 @@ class Seed extends MX_Controller {
 	protected function seedGroup()
 	{
 		$groupId = $this->seed('groups', array(
-			'id' => 1,
 			'name' => 'owner',
 			'description' => 'Owner'
 		));
 
 		$this->seed('groups', array(
-			'id' => 2,
 			'name' => 'admin',
 			'description' => 'Administrator'
 		));
 
 		$this->seed('groups', array(
-			'id' => 3,
 			'name' => 'purchaser',
 			'description' => 'Purchasing Staff'
 		));
 
 		$this->seed('groups', array(
-			'id' => 4,
 			'name' => 'salesman',
 			'description' => 'Sales Staff'
 		));
 
 		$this->seed('groups', array(
-			'id' => 5,
 			'name' => 'viewer',
 			'description' => 'View Only User'
 		));
