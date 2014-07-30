@@ -183,7 +183,6 @@ if ($act == "post") { //if postback
                         $lookupsitename" . TEAM . "<br />
                     </td>
                  </tr>";
-        $admin_email = 'hieu@iki.fi';
         $msg1 = Swift_Message::newInstance("Welcome to $lookupsitename")
             ->setFrom(array($admin_email))
             ->setTo(array($_POST["vuser_email"]))
