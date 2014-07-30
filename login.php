@@ -186,7 +186,7 @@ include "includes/applicationheader.php";
 </div>
 <div class="greyDivider"></div>
 <div class="loginTopBody">
-	<div style="padding-top:100px;color:#ec7923;font-size:40px;font-weight:500;font-family:'Comfortaa';padding-left:200px;">Luo Tilin</div>
+	<div style="padding-top:100px;color:#ec7923;font-size:40px;font-weight:500;font-family:'Comfortaa';padding-left:200px;">Kirjaudu sis‰‰n</div>
 	<div style="padding-top:5px;color:#000;font-size:18px;font-weight:500;font-family:'Comfortaa';padding-left:200px;">T√§yt√§ seuraavat tiedot:</div>
 	<div class="common_box" align="center" style="margin-top:30px;">
 	

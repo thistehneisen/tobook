@@ -32,7 +32,7 @@
         <div id="links">
             <?php if( isset($_SESSION[ "session_loginname"]) ){?>
             <div class="topNavigationMenu">
-                <a href="websiteList.php" class="selected">Etusivu</a>&nbsp;|&nbsp;
+                <a href="usermain.php?succ=msg" class="selected">Etusivu</a>&nbsp;|&nbsp;
                 <a href="usermain.php?succ=msg">Hallintapaneeli</a>&nbsp;|&nbsp;
                 <a href="profilemanager.php">Omat tiedot</a>&nbsp;|&nbsp;
                 <a href="#" onclick="javascript:openWindow('http://www.klikkaaja.com/userhelp/index.html');">Apua</a>&nbsp;|&nbsp;
@@ -40,7 +40,7 @@
             </div>
             <?php }else{?>
             <div class="topNavigationMenu">
-                <a href="websiteList.php">ETUSIVU</a>&nbsp;|&nbsp;
+                <a href="index.php">ETUSIVU</a>&nbsp;|&nbsp;
                 <a href="signup.php">REKISTERÖIDY</a>&nbsp;|&nbsp;
                 <a href="login.php">KIRJAUDU</a>
             </div>
