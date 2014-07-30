@@ -23,6 +23,7 @@ $tax1      = array();
 $tax2      = array();
 $purchases = array();
 $tax3      = array();
+$topProducts = array();
 if (isset($monthly_sales) && !empty($monthly_sales)) :
 		foreach($monthly_sales as $month_sale) {
 		$months[] = date('M-Y', strtotime($month_sale->month));
