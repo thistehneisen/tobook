@@ -244,21 +244,6 @@ class pjInstaller extends pjInstallerAppController
 			}
 		}
 
-		// from step 1
-		$_POST['step1'] = 1;
-		$_POST['php_version'] = 1;
-		$_POST['mysql_check'] = 1;
-		self::pjActionStep2( );
-
-
-
-		// from step 2
-		$_POST['step2'] = 1;
-/* 		$_POST['hostname'] = isset($STORAGE['hostname']) ? htmlspecialchars($STORAGE['hostname']) : isset($db['h']) ? $db['h'] : 'localhost';
-		$_POST['username'] = isset($STORAGE['username']) ? htmlspecialchars($STORAGE['username']) : isset($db['u']) ? $db['u'] : NULL;
-		$_POST['password'] = $dbp;
-		$_POST['database'] = isset($STORAGE['database']) ? htmlspecialchars($STORAGE['database']) : isset($db['n']) ? $db['n'] : NULL; */
-
         $file = realpath(ROOT_PATH . '/../../config.php');
         if (!$file) {
             die('Configuration file does not exist.');
@@ -266,38 +251,13 @@ class pjInstaller extends pjInstallerAppController
 
         $config = require_once $file;
 
-		$_POST['hostname'] = $config['db']['host'];
-		$_POST['username'] = $config['db']['user'];
-		$_POST['password'] = $config['db']['password'];
-		$_POST['database'] = $config['db']['name'];
+		$_SESSION[$this->defaultInstaller]['hostname'] = $config['db']['host'];
+		$_SESSION[$this->defaultInstaller]['username'] = $config['db']['user'];
+		$_SESSION[$this->defaultInstaller]['password'] = $config['db']['password'];
+		$_SESSION[$this->defaultInstaller]['database'] = $config['db']['name'];
+		$_SESSION[$this->defaultInstaller]['license_key'] = 'a6bf7b1eb56f9b7a0a0a9ed4acaca1a4';
 
-		$_POST['prefix'] = $as_pf;
-		// self::pjActionStep3( );
-
- 		// from step 3
-		$_POST['step3'] = 1;
-		$_POST['install_folder'] = 'a';
-		$_POST['install_url'] = 'b';
-		$_POST['install_path'] = 'c';
-		self::pjActionStep4( );
-
-		// from step 4
-		$_POST['step4'] = 1;
-		$_POST['admin_email'] = "admin@varaa.com";
-		$_POST['admin_password'] = "admin";
-		self::pjActionStep5( );
-
-		// from step 5
-		$_POST['step5'] = 1;
-		$_POST['license_key'] = 'a6bf7b1eb56f9b7a0a0a9ed4acaca1a4';
-		self::pjActionStep6( );
-		// self::pjActionSetConfig( );
-		self::pjActionSetDb( );
-
-		// from step 6
-		$_POST['step6'] = 1;
-		self::pjActionStep7( );
-
+		self::pjActionSetConfig();
 	}
 
 	public function pjActionStep2()
@@ -751,8 +711,30 @@ class pjInstaller extends pjInstallerAppController
 
 	public function pjActionSetConfig()
 	{
-			$resp = array();
-
+		$resp = array();
+		
+		$sample = 'app/config/config.sample.php';
+		$filename = 'app/config/config.inc.php';
+		ob_start();
+		readfile($sample);
+		$string = ob_get_contents();
+		ob_end_clean();
+		if ($string === FALSE)
+		{
+			$resp['code'] = 100;
+			$resp['text'] = "An error occurs while reading 'app/config/config.sample.php'";
+		} else {
+			$paths = self::pjActionGetPaths();
+				
+			$string = str_replace('[hostname]', $_SESSION[$this->defaultInstaller]['hostname'], $string);
+			$string = str_replace('[username]', $_SESSION[$this->defaultInstaller]['username'], $string);
+			$string = str_replace('[password]', $_SESSION[$this->defaultInstaller]['password'], $string);
+			$string = str_replace('[database]', $_SESSION[$this->defaultInstaller]['database'], $string);
+			$string = str_replace('[install_folder]', $paths['install_folder'], $string);
+			$string = str_replace('[install_path]', $paths['install_path'], $string);
+			$string = str_replace('[install_url]', $paths['install_url'], $string);
+			$string = str_replace('[salt]', pjUtil::getRandomPassword(8), $string);
+				
 			$Http = new pjHttp();
 			$Http->request(base64_decode("aHR0cDovL3N1cHBvcnQuc3RpdmFzb2Z0LmNvbS8=") . 'index.php?controller=Api&action=getInstall'.
 				"&key=" . urlencode($_SESSION[$this->defaultInstaller]['license_key']) .
@@ -761,6 +743,38 @@ class pjInstaller extends pjInstallerAppController
 				"&server_name=" . urlencode($_SERVER['SERVER_NAME']));
 			$response = $Http->getResponse();
 			$output = unserialize($response);
+			
+			if (isset($output['hash']) && isset($output['code']) && $output['code'] == 200)
+			{
+				$string = str_replace('[pj_installation]', $output['hash'], $string);
+			
+				if (is_writable($filename))
+				{
+				    if (!$handle = @fopen($filename, 'wb'))
+				    {
+						$resp['code'] = 103;
+						$resp['text'] = "'app/config/config.inc.php' open fails";
+				    } else {
+					    if (fwrite($handle, $string) === FALSE)
+					    {
+							$resp['code'] = 102;
+							$resp['text'] = "An error occurs while writing to 'app/config/config.inc.php'";
+					    } else {
+				    		fclose($handle);
+				    		$resp['code'] = 200;
+					    }
+				    }
+				} else {
+					$resp['code'] = 101;
+					$resp['text'] = "'app/config/config.inc.php' do not exists or not writable";
+				}
+			} else {
+				$resp['code'] = 104;
+				$resp['text'] = "Security vulnerability detected";
+			}
+		}
+		pjAppController::jsonResponse($resp);
+		exit;
 	}
 
 	public function pjActionLicense()

@@ -1,20 +1,19 @@
 <?php
-require_once("../../includes/configsettings.php");
-if (!defined("PJ_HOST")) define("PJ_HOST", MYSQL_HOST);
-if (!defined("PJ_USER")) define("PJ_USER", MYSQL_USERNAME);
-if (!defined("PJ_PASS")) define("PJ_PASS", MYSQL_PASSWORD);
-if (!defined("PJ_DB")) define("PJ_DB", MYSQL_DB);
+if (!defined("PJ_HOST")) define("PJ_HOST", "localhost");
+if (!defined("PJ_USER")) define("PJ_USER", "root");
+if (!defined("PJ_PASS")) define("PJ_PASS", "");
+if (!defined("PJ_DB")) define("PJ_DB", "varaa");
 
-if (isset($_GET['as_pf'])) {
+if ( isset($_GET['as_pf']) ) {
 	$as_pf = $_GET['as_pf'];
 	setcookie("as_pf", $as_pf, time()+3600, "/", "");
-} else {
-    $as_pf = isset($_COOKIE['as_pf']) ? $_COOKIE['as_pf'] : null;
-}
+} else  $as_pf = isset($_COOKIE['as_pf']) ? $_COOKIE['as_pf'] : null;
 
-if (!defined("PJ_PREFIX")) define("PJ_PREFIX", 'as_');
+if (!defined("PJ_PREFIX")) define("PJ_PREFIX", "as_");
+
 if (!defined("PJ_INSTALL_FOLDER")) define("PJ_INSTALL_FOLDER", "/appointment/library/");
-if (!defined("PJ_INSTALL_PATH")) define("PJ_INSTALL_PATH", dirname(__FILE__)."/../../../../appointment/library/");
-if (!defined("PJ_INSTALL_URL")) define("PJ_INSTALL_URL", "http://".$_SERVER['SERVER_NAME']."/appointment/library/");
-if (!defined("PJ_SALT")) define("PJ_SALT", "13J9P33E");
-if (!defined("PJ_INSTALLATION")) define("PJ_INSTALLATION", "MTIyMjI1MjEwMjQ2NDM0NzgxMDU1MDg4NjgzNTgxNTA4NzM0MzQ1ODYzNDg0OTgyMDMwNTk0MDgxMzkwNTAxODk3NzYwMjUxNjIxNTQxMTM5MTk0ODU5MjczMTM3NTM2ODcwMSAxMTc2MjA4NDAwODQ2MTM0ODMzODQwMjgyNDg2MDIzMDMzMTQ0NDkxNDU0OTM4MDM3NDQ4MTU1OTMxMzg4NTgzMDA5NTk3MjQ0ODY0MTQ4ODY4MzExNjE0ODg5MzA5MjU1MzY2IDY3OTk3NzA0MzAxODEzMDQwNjk4NzU4MzMxMTIyNjAyMTk0NDYwMDYzMzc5MDY1NDczOTY1MTk5NzAwMTU0NzA4NzA4MjAzNzQ5ODgxNTczNDQ3MjAxMTA4NjUxNDE5NjI4OSA1NTU3Nzg1MDI2MjM4MjUzMDQwODc1OTEyMDY1Nzg1NjY2MzA5MjE4NzU2MTgxNjgyNDEwNDMxMjkwMjEyNTY1MDQ3MjU4NjE2NjUxMTg4MjY1MTMwNzY1OTg1NjM1NzgwNCA2ODYwMDIyMDM4MDA5OTk0ODE5OTMzMDAwOTg0NTg4ODg4MTIxNzA5ODU1NzQ1ODk3NTg4MDk3NDUyNTA3MzgwNjM4NDI1OTA4NzI4OTYyOTQyNTYxODg1NTU1MDgyMTE5NzggMTg1NzMzNDQ2NjIxNTc4NzM0OTQ2MTA2OTMzNjY4OTY2MDQ5MDk1MDI2MDA2OTI5MzgyODUxNzMxMjI3NDU0MzI2MDUzNDI5Mjc2NDg4ODI1MDA5ODA1ODg2NDY0NDYxNTE4");
+if (!defined("PJ_INSTALL_PATH")) define("PJ_INSTALL_PATH", "/Users/hungnq/code/php/varaa/appointment/library/");
+if (!defined("PJ_INSTALL_URL")) define("PJ_INSTALL_URL", "http://klikkaaja.loc/appointment/library/");
+if (!defined("PJ_SALT")) define("PJ_SALT", "UPK2C3AI");
+if (!defined("PJ_INSTALLATION")) define("PJ_INSTALLATION", "NjMyNDc4NzcxOTA5MTY4NzEzODMyNzk0MDkwNDc5ODI5OTIzMjg4NjY0ODY4MzQ3MTg1ODU4MDg1MDc2MjI3NTc5NTQ5NjczMjA1NjIzOTg2MTQzNDQxMTE3MjE5NTk4NTU5IDYxMTA1NjM5NDAwOTU2MzY1NzA0MTk0NzEwNTEyNjIwNTA4MDk2NDQ2NzExNzM4MDEwNzQ0ODI3OTA2ODY5NDA0OTU3NDEwNDEwOTk1NzEwNzYwNzc2NjAzNTQ4NjMxNzE3NyAxMjAyMDM2OTA2NDEwODcwMDYyOTUyMjUzNjEzNjc1NTE5MzU2MjY0MTA1OTczNzA1NDE0MzE0MzIzMjE2Nzg2NTM1OTI3Nzc0NjA4NjEyMDI5NzMzMDc2NDYyOTY5OTY0MDI0IDEwNDA5NzE4OTUyMDY3ODM3NTk2OTg3MDYxMzI2NTYyMzkyMjI5MzMxMjc2MjI0NzExOTM0NjExNTIxODEwNjE0OTI3NjExMTM4NTA5NTc0MzQwODg2NTk5OTUzNjE2NTM4NjQgNzcxMjA5NDg4NTUzNzgyNDE5ODUwMjU5MzYwMTgzNjUxMDI4NDk3NjU4NTQ3MjUyNDk1ODE5NDYzMzM2NzkyNTY1MDIxNTAwMzgxMTQ4OTkzMTI5Mjg0MTEzNDkxMTQ2NjM1");
+?>

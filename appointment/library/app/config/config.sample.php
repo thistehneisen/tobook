@@ -9,10 +9,7 @@ if ( isset($_GET['as_pf']) ) {
 	setcookie("as_pf", $as_pf, time()+3600, "/", "");
 } else  $as_pf = isset($_COOKIE['as_pf']) ? $_COOKIE['as_pf'] : null;
 
-if ( isset($as_pf) ) {
-	if (!defined("PJ_PREFIX")) define("PJ_PREFIX", $as_pf);
-} else
-	if (!defined("PJ_PREFIX")) define("PJ_PREFIX", "[prefix]");
+if (!defined("PJ_PREFIX")) define("PJ_PREFIX", "as_");
 
 if (!defined("PJ_INSTALL_FOLDER")) define("PJ_INSTALL_FOLDER", "[install_folder]");
 if (!defined("PJ_INSTALL_PATH")) define("PJ_INSTALL_PATH", "[install_path]");

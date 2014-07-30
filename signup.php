@@ -1,6 +1,5 @@
 <?php
 $curTab = 'signup';
-
 // include common files
 include "includes/session.php";
 include "includes/config.php";
