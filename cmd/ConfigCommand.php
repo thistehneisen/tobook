@@ -24,7 +24,7 @@ class ConfigCommand extends Command {
 		$domain = $input->getArgument('domain');
 
 		$installFolder = '/appointment/library/';
-		$installPath = realpath(__DIR__.'/../appointment/library');
+		$installPath = realpath(__DIR__.'/../appointment/library/');
 		$installUrl = 'http://' . $domain . $installFolder;
 		$licenseKey = 'a6bf7b1eb56f9b7a0a0a9ed4acaca1a4';
 
