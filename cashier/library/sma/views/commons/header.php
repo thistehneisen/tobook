@@ -42,9 +42,10 @@
                             <li class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#"><img src="<?php echo base_url(); ?>assets/img/<?php echo LANGUAGE; ?>.png" style="margin-top:-1px" align="middle"></a>
                                 <ul class="dropdown-menu pull-right" style="min-width: 60px;" role="menu" aria-labelledby="dLabel">
-                                <?php $scanned_lang_dir = array_diff(scandir('sma/language/'), array('..', '.', 'index.html')); foreach ($scanned_lang_dir as $entry) { ?>
-                                    <li><a href="<?php echo site_url('module=home&view=language&lang=' . $entry . '&prefix=' . PREFIX); ?>"><img src="<?php echo base_url(); ?>assets/img/<?php echo $entry; ?>.png" class="language-img"> &nbsp;&nbsp;<?php if ($entry == 'bportuguese') { echo "Brazilian Portuguese"; } elseif ($entry == 'eportuguese') { echo "European Portuguese"; } else { echo ucwords($entry); } ?></a></li>
-                                <?php } ?></ul>
+<?php $scanned_lang_dir = array_diff(scandir('sma/language/'), array('..', '.', 'index.html', '.DS_Store'));
+foreach ($scanned_lang_dir as $entry) { ?>
+    <li><a href="<?php echo site_url('module=home&view=language&lang=' . $entry . '&prefix=' . PREFIX); ?>"><img src="<?php echo base_url(); ?>assets/img/<?php echo $entry; ?>.png" class="language-img"> &nbsp;&nbsp;<?php if ($entry == 'bportuguese') { echo "Brazilian Portuguese"; } elseif ($entry == 'eportuguese') { echo "European Portuguese"; } else { echo ucwords($entry); } ?></a></li>
+<?php } ?></ul>
                             </li>
                         </ul>
                         <ul class="nav pull-right">
