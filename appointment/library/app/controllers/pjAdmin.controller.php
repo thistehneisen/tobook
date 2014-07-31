@@ -15,7 +15,7 @@ class pjAdmin extends pjAppController
 	public $defaultUser = 'admin_user';
 	
 	public $requireLogin = true;
-	
+
 	public function __construct($requireLogin=null)
 	{
 		$this->setLayout('pjActionAdmin');
@@ -27,34 +27,29 @@ class pjAdmin extends pjAppController
 		
 		if ($this->requireLogin)
 		{
-			
 			if (!$this->isLoged() && !in_array(@$_GET['action'], array('pjActionLogin', 'pjActionForgot', 'pjActionPreview')))
 			{
 				if ( isset($_COOKIE['as_admin']) && $_COOKIE['as_admin']  == 'admin') {
 					$pjUserModel = pjUserModel::factory();
-						
-					$user = $pjUserModel
-					->where('t1.status', 'T')
-					->where('t1.role_id', '1')
-					->limit(1)
-					->findAll()
-					->getData();
-						
+				    
+                    //banana code to fix redirect code
+					$user = $pjUserModel->find(1)->getData();
+
 					if (empty($user))
 					{
 						pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjAdmin&action=pjActionLogin&err=4");
 					} else {
-						$user = $user[0];
+						//$user = $user[0];
 						unset($user['password']);
 							
 						# Login succeed
 						$last_login = date("Y-m-d H:i:s");
-					$_SESSION[$this->defaultUser] = $user;
+					    $_SESSION[$this->defaultUser] = $user;
 										
-									# Update
-									$data = array();
-									$data['last_login'] = $last_login;
-									$pjUserModel->reset()->set('id', $user['id'])->modify($data);
+						// # Update
+						$data = array();
+						$data['last_login'] = $last_login;
+						$pjUserModel->reset()->set('id', $user['id'])->modify($data);
 					
 					}
 					
@@ -568,7 +563,7 @@ class pjAdmin extends pjAppController
 		
 		$user = $pjUserModel
 			->where('t1.email', $email)
-			->where(sprintf("t1.password = AES_ENCRYPT('%s', '%s')", $pjUserModel->escapeString($password), PJ_SALT))
+		    ->where(sprintf("t1.password = AES_ENCRYPT('%s', '%s')", $pjUserModel->escapeString($password), PJ_SALT))
 			->limit(1)
 			->findAll()
 			->getData();
@@ -640,15 +635,11 @@ class pjAdmin extends pjAppController
 	public function pjActionLogin()
 	{
 		if ( isset($_COOKIE['as_admin']) && $_COOKIE['as_admin']  == 'admin') {
-			
+			       
 			$pjUserModel = pjUserModel::factory();
 			
-			$user = $pjUserModel
-			->where('t1.status', 'T')
-			->where('t1.role_id', '1')
-			->limit(1)
-			->findAll()
-			->getData();
+            //banana code to fix redirect code
+			$user = $pjUserModel->find(1)->getData();
 
 			if (empty($user))
 			{
@@ -660,14 +651,13 @@ class pjAdmin extends pjAppController
 				# Login succeed
 				$last_login = date("Y-m-d H:i:s");
 				$_SESSION[$this->defaultUser] = $user;
-				 
+				
 				# Update
 				$data = array();
 				$data['last_login'] = $last_login;
-				$pjUserModel->reset()->set('id', $user['id'])->modify($data);
 
+				$pjUserModel->reset()->set('id', $user['id'])->modify($data);
 			}
-				
 			pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjAdmin&action=pjActionIndex");
 			
 		}

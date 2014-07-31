@@ -34,9 +34,7 @@ class pjAppModel extends pjModel
 	}
 
     public function join($model, $condition, $direction) {
-        if($this->isUseOwnerID) {
-            $this->where('t2.owner_id', (int) $_SESSION['owner_id']);
-        }
+        $this->setOwnerId();
         return parent::join($model, $condition, $direction);
     }
 

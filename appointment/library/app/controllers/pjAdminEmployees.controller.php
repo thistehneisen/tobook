@@ -318,7 +318,7 @@ class pjAdminEmployees extends pjAdmin
 				$pjEmployeeFreetimeModel = pjEmployeeFreetimeModel::factory()
 						->select('t1.*, t2.*')
                         ->where('t1.owner_id', $owner_id)
-						->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.employee_id AND t2.locale='".$this->getLocaleId()."'", 'left outer');
+						->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.employee_id AND t2.locale='".$this->getLocaleId()."'", 'left inner');
 						
 				$column = 'date';
 				$direction = 'DESC';
@@ -628,8 +628,6 @@ class pjAdminEmployees extends pjAdmin
 			$employee_arr = pjEmployeeModel::factory()
 					->select('t1.*, t2.content AS `name`')
 					->join('pjMultiLang', sprintf("t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.locale='%u' AND t2.field='name'", $this->getLocaleId()), 'left outer')
-                    ->where('t1.owner_id', $owner_id)
-					->where('t2.owner_id', $owner_id)
                     ->findAll()
 					->getData();
 			
