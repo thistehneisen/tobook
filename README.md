@@ -26,9 +26,12 @@ Setup in localhost
 - Create a new DB in your localhost
 - Import the DB dump: `db/dev_dump.sql`
 - Create local `config.php` and configure to match your localhost settings:
- `cp config.php.tpl config.php`
+`cp config.php.tpl config.php`
 - Create local config for Appointment Scheduler:
-  `php runner config yourlocaldomain.loc`
+`php runner config yourlocaldomain.loc`
+- Donwload and install `composer` https://getcomposer.org/download/
+- Install all packages in localhost: 
+`composer install`
 - Start hacking (or messing)!
 
 
