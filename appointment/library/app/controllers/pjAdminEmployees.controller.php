@@ -384,8 +384,9 @@ class pjAdminEmployees extends pjAdmin
 			} else {
 				$pjEmployeeModel = pjEmployeeModel::factory()
 					->select('t1.*, t2.*')
-					->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
-					->where('t1.owner_id', $owner_id);
+					->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer') 
+					->where('t1.owner_id', $owner_id)
+                    // Éo hiểu dòng này làm cái mẹ gì, nên thôi comment cho lành
                     // ->where('t1.calendar_id', $this->getForeignId());
 				
 				if (isset($_GET['q']) && !empty($_GET['q']))
