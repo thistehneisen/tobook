@@ -82,10 +82,10 @@ class pjAdminEmployees extends pjAdmin
 				}
 				pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjAdminEmployees&action=pjActionIndex&err=$err");
 			} else {
+
 				pjObject::import('Model', array('pjLocale:pjLocale', 'pjLocale:pjLocaleLanguage'));
-				$locale_arr = pjLocaleModel::factory()->select('t1.*, t2.file')
-					->join('pjLocaleLanguage', 't2.iso=t1.language_iso', 'left')
-					->where('t2.file IS NOT NULL')
+				$locale_arr = pjLocaleModel::factory()->select('t1.*')
+                    ->where('t1.owner_id', $owner_id)
 					->orderBy('t1.sort ASC')->findAll()->getData();
 						
 				$lp_arr = array();
@@ -99,7 +99,8 @@ class pjAdminEmployees extends pjAdmin
 					->select('t1.*, t2.content AS `name`')
 					->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
 					->orderBy('`name` ASC')
-					->where('t1.owner_id', $owner_id)
+                    ->where('t1.owner_id', $owner_id)
+					->where('t2.owner_id', $owner_id)
 					->findAll()
 					->getData()
 				);
@@ -384,8 +385,8 @@ class pjAdminEmployees extends pjAdmin
 				$pjEmployeeModel = pjEmployeeModel::factory()
 					->select('t1.*, t2.*')
 					->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
-					->where('t1.owner_id', $owner_id)
-                    ->where('t1.calendar_id', $this->getForeignId());
+					->where('t1.owner_id', $owner_id);
+                    // ->where('t1.calendar_id', $this->getForeignId());
 				
 				if (isset($_GET['q']) && !empty($_GET['q']))
 				{
@@ -626,7 +627,8 @@ class pjAdminEmployees extends pjAdmin
 			$employee_arr = pjEmployeeModel::factory()
 					->select('t1.*, t2.content AS `name`')
 					->join('pjMultiLang', sprintf("t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.locale='%u' AND t2.field='name'", $this->getLocaleId()), 'left outer')
-					->where('t1.owner_id', $owner_id)
+                    ->where('t1.owner_id', $owner_id)
+					->where('t2.owner_id', $owner_id)
                     ->findAll()
 					->getData();
 			

@@ -80,9 +80,7 @@ class pjAdminServices extends pjAdmin
 				pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjAdminServices&action=pjActionIndex&err=$err");
 			} else {
 				pjObject::import('Model', array('pjLocale:pjLocale', 'pjLocale:pjLocaleLanguage'));
-				$locale_arr = pjLocaleModel::factory()->select('t1.*, t2.file')
-					->join('pjLocaleLanguage', 't2.iso=t1.language_iso', 'left')
-					->where('t2.file IS NOT NULL')
+				$locale_arr = pjLocaleModel::factory()->select('t1.*')
 					->where('t1.owner_id', $owner_id)
 					->orderBy('t1.sort ASC')->findAll()->getData();
 						
