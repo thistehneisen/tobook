@@ -440,8 +440,8 @@ class pjAdminServices extends pjAdmin
 				$pjServiceModel = pjServiceModel::factory()
 					->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
 					->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.id AND t3.field='description' AND t3.locale='".$this->getLocaleId()."'", 'left outer')
-					->join('pjServiceCategory', 't1.category_id=t4.id', 'left outer')
-					->where('t1.calendar_id', $this->getForeignId());
+					->join('pjServiceCategory', 't1.category_id=t4.id', 'left outer');
+					// ->where('t1.calendar_id', $this->getForeignId());
 				
 				if (isset($_GET['q']) && !empty($_GET['q']))
 				{
