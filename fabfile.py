@@ -1,4 +1,4 @@
-from fabric.api import cd, run, task, hosts, env
+from fabric.api import cd, run, task, hosts, env, local
 import os
 
 HOME = os.getenv('HOME')
@@ -34,3 +34,14 @@ def run_command(command='ls'):
     env.user = 'root'
     with cd('/srv/varaa/src'):
         run(command)
+
+
+@task(alias='ss')
+def sync_server_settings():
+    '''
+    Sync the latest templates to the server app
+    '''
+    local(
+        'ansible-playbook devops/app.yml -i devops/hosts --ask-vault-pass '
+        '--tags templated_settings'
+    )
