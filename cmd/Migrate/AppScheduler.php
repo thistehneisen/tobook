@@ -1,4 +1,5 @@
 <?php namespace Cmd\Migrate;
+use Doctrine\Common\Inflector\Inflector;
 
 class AppScheduler extends Base {
 
@@ -17,7 +18,6 @@ class AppScheduler extends Base {
 			$this->info("Proccessing data of <fg=green;options=bold>{$username}</fg=green;options=bold>", true);
 			$this->info('----------------------------------------------------');
 			$tables = [
-				'multi_lang',
 				'roles',
 				'plugin_country',
 				'services_category',
@@ -116,6 +116,8 @@ class AppScheduler extends Base {
 			$this->migrateTable('plugin_invoice_items', [
 				'invoice_id' => 'plugin_invoice',
 			]);
+
+            $this->migrateMultiLang();
 		}
 	}
 
@@ -128,4 +130,44 @@ class AppScheduler extends Base {
 		return $this->migrate($table, $query, $relationships);
 	}
 
+
+    public function migrateMultiLang($skip = 0, $limit = 500)
+    {
+        $user = $this->getCurrentUser();
+
+        $this->text("Migrating `multi_lang`...", false);
+
+        $stm = $this->queryBuilder()
+            ->select('*')
+            ->from($this->username.'_hey_appscheduler_multi_lang', 't')
+            ->execute();
+
+        while ($row = $stm->fetch()) {
+            if ($row['model'] === 'pjCountry') {
+                $target = 'plugin_country';
+            } else {
+                $target = Inflector::pluralize(
+                    strtolower(
+                        str_replace('pj', '', $row['model'])
+                    )
+                );
+            }
+
+            // Unset ID
+            unset($row['id']);
+            $oldForeignId = $row['foreign_id'];
+            
+            if (!isset($this->map[$target][$oldForeignId])) {
+                // No need to migrate this obsolete row
+                continue;
+            }
+
+            $row['foreign_id'] = $this->map[$target][$oldForeignId];
+            $row['owner_id']   = $user['nuser_id'];
+
+            $this->db->insert($this->tablePrefix.'multi_lang', $row);
+        }
+
+        $this->output->writeln('<fg=green;option=bold>SUCCEEDED</fg=green;option=bold>');
+    }
 }
