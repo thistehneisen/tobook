@@ -194,7 +194,9 @@ abstract class Base {
 				'order',
 				'key',
 				'before',
-				'after',
+                'after',
+                'left',
+				'group',
 			];
 			foreach ($keywords as $key) {
 				if (array_key_exists($key, $row)) {
