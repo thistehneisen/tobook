@@ -131,7 +131,7 @@ class AppScheduler extends Base {
 	}
 
 
-    public function migrateMultiLang($skip = 0, $limit = 500)
+    public function migrateMultiLang()
     {
         $user = $this->getCurrentUser();
 
