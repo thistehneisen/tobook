@@ -1,17 +1,4 @@
-<?php
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
-// +----------------------------------------------------------------------+
-// | PHP version 4/5                                                      |
-// +----------------------------------------------------------------------+
-// | Copyright (c) 2005-2006 ARMIA INC                                    |
-// +----------------------------------------------------------------------+
-// | This source file is a part of iScripts EasyCreate 1.1                 |
-// +----------------------------------------------------------------------+
-// | Authors: mahesh<mahesh.s@armia.com>              		              |
-// |          									                          |
-// +----------------------------------------------------------------------+
-?>
-<?php
+﻿<?php
 
 $curTab = 'login';
 
@@ -31,18 +18,8 @@ if(sizeof($_POST)>0 AND isset($_POST['chekSelTemplate'])){
 
 $act=$_GET["act"];
 $message="";
-/* check whether the template selected*/
 $req=$_GET['req'];
 
-//if($req=="ts") {
-//    $_SESSION['session_templateselectedfromindex']="YES";
-//    $_SESSION['session_buildtype']=$_GET['ttype'];
-//    $_SESSION['session_locationurl']="showtemplates.php?type=T&templateid=".$_GET['tid']."&";
-//    if($_SESSION["session_loginname"] != "")
-//        Header("location:sitemanager.php");
-//}
-//echo $_SESSION['session_templateselectedfromindex'];
-/********************/
 
 if($act=="post") {
 
@@ -166,10 +143,6 @@ include "includes/applicationheader.php";
 </script>
 </head>
 <body>
-<!-- div class="headingstyle_new">
-    <h1><?php echo LOGIN_TITLE; ?></h1>
-    <h5><?php echo LOGIN_CAPTION; ?></h5>
-</div -->
 <div class="topNavigationMenu">
 	<a href="websiteList.php">ETUSIVU</a>&nbsp;|&nbsp;
 	<a href="signup.php">REKISTERÖIDY</a>&nbsp;|&nbsp;
@@ -186,7 +159,7 @@ include "includes/applicationheader.php";
 </div>
 <div class="greyDivider"></div>
 <div class="loginTopBody">
-	<div style="padding-top:100px;color:#ec7923;font-size:40px;font-weight:500;font-family:'Comfortaa';padding-left:200px;">Kirjaudu sis��n</div>
+	<div style="padding-top:100px;color:#ec7923;font-size:40px;font-weight:500;font-family:'Comfortaa';padding-left:200px;">Kirjaudu sisään</div>
 	<div style="padding-top:5px;color:#000;font-size:18px;font-weight:500;font-family:'Comfortaa';padding-left:200px;">Täytä seuraavat tiedot:</div>
 	<div class="common_box" align="center" style="margin-top:30px;">
 	
@@ -231,8 +204,5 @@ include "includes/applicationheader.php";
 </div>
 <div class="greyDivider"></div>
 <?php include "includes/footArea.php"; ?>
-<?php
-// include "includes/userfooter.php";
-?>
 </body>
 </html>
