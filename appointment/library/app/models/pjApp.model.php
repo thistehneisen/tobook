@@ -12,6 +12,12 @@ class pjAppModel extends pjModel
 		return new pjAppModel($attr);
 	}
 
+    public function findAll()
+    {
+        $this->setOwnerId();
+        return parent::findAll();
+    }
+
     public function findCount()
     {
         $this->setOwnerId();
@@ -26,6 +32,13 @@ class pjAppModel extends pjModel
 	public function disableOwnerID() {
 		$this->isUseOwnerID = false;
 	}
+
+    public function join($model, $condition, $direction) {
+        if($this->isUseOwnerID) {
+            $this->where('t2.owner_id', (int) $_SESSION['owner_id']);
+        }
+        return parent::join($model, $condition, $direction);
+    }
 
     protected function setOwnerId()
     {
