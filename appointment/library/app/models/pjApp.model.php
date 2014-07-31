@@ -12,16 +12,26 @@ class pjAppModel extends pjModel
 		return new pjAppModel($attr);
 	}
 
-	function getData(){
-		if($this->isUseOwnerID){
-			$owner_id = intval($_SESSION['owner_id']);
-			$this->where('t1.owner_id', $owner_id);
-		}
+    public function findCount()
+    {
+        $this->setOwnerId();
+        return parent::findCount();
+    }
+
+	public function getData(){
+		$this->setOwnerId();
 		return parent::getData();
 	}
 
-	function disableOwnerID(){
+	public function disableOwnerID() {
 		$this->isUseOwnerID = false;
 	}
+
+    protected function setOwnerId()
+    {
+        if($this->isUseOwnerID) {
+            $this->where('t1.owner_id', (int) $_SESSION['owner_id']);
+        }
+    }
 }
-?>
+
