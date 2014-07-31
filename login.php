@@ -1,7 +1,6 @@
 ﻿<?php
 
 $curTab = 'login';
-
 //include files
 include "includes/session.php";
 include "includes/config.php";

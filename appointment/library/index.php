@@ -14,7 +14,7 @@ if (!headers_sent())
 if (in_array($_SERVER['SERVER_ADDR'], array('127.0.0.1', '192.185.5.15', '::1')))
 {
 	ini_set("display_errors", "On");
-	error_reporting(E_ALL|E_STRICT);
+	//error_reporting(E_ALL|E_STRICT);
 } else {
 	error_reporting(0);
 }

@@ -312,9 +312,11 @@ class pjAdminEmployees extends pjAdmin
 		$this->setAjax(true);
 		if ($this->isXHR() && $this->isLoged())
 		{
+            $owner_id = intval($_SESSION['owner_id']);
 			if ( isset($_GET['tyle']) && $_GET['tyle'] == 'freetime' ) {
 				$pjEmployeeFreetimeModel = pjEmployeeFreetimeModel::factory()
 						->select('t1.*, t2.*')
+                        ->where('t1.owner_id', $owner_id)
 						->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.employee_id AND t2.locale='".$this->getLocaleId()."'", 'left outer');
 						
 				$column = 'date';
@@ -352,7 +354,8 @@ class pjAdminEmployees extends pjAdmin
 			} elseif ( isset($_GET['tyle']) && $_GET['tyle'] == 'customtime' ) {
 
 				$pjEmployeesCustomTimes = pjCustomTimesModel::factory()
-					->select('t1.*');
+					->select('t1.*')
+                    ->where('t1.owner_id', $owner_id);
 						
 				$column = 'name';
 				$direction = 'DESC';
@@ -381,7 +384,8 @@ class pjAdminEmployees extends pjAdmin
 				$pjEmployeeModel = pjEmployeeModel::factory()
 					->select('t1.*, t2.*')
 					->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
-					->where('t1.calendar_id', $this->getForeignId());
+					->where('t1.owner_id', $owner_id)
+                    ->where('t1.calendar_id', $this->getForeignId());
 				
 				if (isset($_GET['q']) && !empty($_GET['q']))
 				{
@@ -597,13 +601,14 @@ class pjAdminEmployees extends pjAdmin
 		$this->checkLogin();
 		if ($this->isAdmin())
 		{
+            $owner_id = intval($_SESSION['owner_id']);
 			if ( isset($_POST['freetime']) && $_POST['freetime'] == 1 ) {
 				
 				$_POST['date'] = pjUtil::formatDate($_POST['date'], $this->option_arr['o_date_format']);
 				
 				if ( $_POST['end_ts'] > $_POST['start_ts'] ) {
 					$data = $_POST;
-					$data['owner_id'] = intval($_SESSION['owner_id']);
+					$data['owner_id'] = $owner_id;
 					if ( isset($_POST['id']) && !empty($_POST['id']) ) {
 						pjEmployeeFreetimeModel::factory()->set('id', $_POST['id'])->modify($data);
 						
@@ -621,7 +626,8 @@ class pjAdminEmployees extends pjAdmin
 			$employee_arr = pjEmployeeModel::factory()
 					->select('t1.*, t2.content AS `name`')
 					->join('pjMultiLang', sprintf("t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.locale='%u' AND t2.field='name'", $this->getLocaleId()), 'left outer')
-					->findAll()
+					->where('t1.owner_id', $owner_id)
+                    ->findAll()
 					->getData();
 			
 			$ef_arr = array();

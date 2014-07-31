@@ -1,6 +1,6 @@
 <?php
 if ((defined('PHP_SESSION_NONE') && session_status() === PHP_SESSION_NONE) || session_id() === '') {
-    session_start();
+    @session_start();
 }
 
 // stripslashes from params
