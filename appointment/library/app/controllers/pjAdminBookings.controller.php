@@ -1273,7 +1273,8 @@ class pjAdminBookings extends pjAdmin
 			
 			$pjMonthlyCalendar->booking_arr = pjBookingServiceModel::factory()
 				->join('pjBooking', 't2.id=t1.booking_id', 'inner')
-				->where('t2.calendar_id', $this->getForeignId())
+                // banana code
+				// ->where('t2.calendar_id', $this->getForeignId())
 				->where('t2.booking_status', 'confirmed')
 				->where('t1.start_ts >=', $strtotime_fm)
 				->where('t1.start_ts <', $strtotime_lm)
@@ -1282,8 +1283,9 @@ class pjAdminBookings extends pjAdmin
 			
 			$pjMonthlyCalendar->employees = pjEmployeeModel::factory()
 			->select("t1.*, t2.content AS `name`")
-					->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
-					->where('t1.calendar_id', $this->getForeignId())
+					->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name'", 'left')
+					// banana code
+                    //->where('t1.calendar_id', $this->getForeignId())
 					->orderBy('name ASC')
 					->findAll()
 					->getData();
@@ -1333,7 +1335,8 @@ class pjAdminBookings extends pjAdmin
 				
 			$monthly_arr = pjBookingServiceModel::factory()
 				->join('pjBooking', 't2.id=t1.booking_id', 'inner')
-				->where('t2.calendar_id', $this->getForeignId())
+                // banana code
+				//->where('t2.calendar_id', $this->getForeignId())
 				->where('t2.booking_status', 'confirmed')
 				->where('t1.start_ts >=', strtotime($_mfrom))
 				->where('t1.start_ts <', strtotime($_mto))
@@ -1342,7 +1345,8 @@ class pjAdminBookings extends pjAdmin
 			
 			$employees_arr = pjEmployeeModel::factory()
 				->select('t1.*, t2.content AS `name`')
-				->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
+                // banana code
+				->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
 				->where('t1.is_active', 1)
 				->orderBy('`name` ASC')
 				->findAll()
