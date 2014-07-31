@@ -127,13 +127,14 @@ class Pos extends MX_Controller {
 			for($i = 1; $i <= 500; $i ++) {
 				$pTotalPrice = $this->input->post ( $unit_price . $i );
 				$pTax = $this->input->post ( $tax_rate . $i );
-				
-				if( $pTax == 1 )
-					$pRate = 1;
-				else if( $pTax == 2 )
-					$pRate = 1.24;
-				else if( $pTax == 3 )
-					$pRate = 1.06;
+                
+                $pRate = 1;
+                $row = $this->db->where('id', $pTax)
+                    ->get('tax_rates')
+                    ->row_array();
+                if (!empty($row)) {
+                    $pRate = (100 + (int) $row['rate']) / 100;
+                }
 				
 				$pUnitPrice = round($pTotalPrice / $pRate, 2);
 
