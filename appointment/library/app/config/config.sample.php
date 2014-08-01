@@ -13,7 +13,8 @@ if ( isset($_GET['as_pf']) ) {
 
 if (!defined("PJ_PREFIX")) define("PJ_PREFIX", "as_");
 if (!defined("PJ_INSTALL_FOLDER")) define("PJ_INSTALL_FOLDER", "[install_folder]");
-if (!defined("PJ_INSTALL_PATH")) define("PJ_INSTALL_PATH", "[install_path]");
+//if (!defined("PJ_INSTALL_PATH")) define("PJ_INSTALL_PATH", "[install_path]");
+if (!defined("PJ_INSTALL_PATH")) define("PJ_INSTALL_PATH", dirname(__FILE__)."/../../../../appointment/library/");
 if (!defined("PJ_INSTALL_URL")) define("PJ_INSTALL_URL", "[install_url]");
 if (!defined("PJ_SALT")) define("PJ_SALT", "[salt]");
 if (!defined("PJ_INSTALLATION")) define("PJ_INSTALLATION", "[pj_installation]");
