@@ -23,15 +23,16 @@ $as_db_version = isset($_COOKIE['as_db_version' . $as_pf]) ? $_COOKIE['as_db_ver
 if (!$stop) {
     if (file_exists(dirname(__FILE__) . '/config.inc.php')) {
         require dirname(__FILE__) . '/config.inc.php';
-
         if ($firstYN == "Y") {
-            require dirname(__FILE__) . '/init.php';
-            $dns = sprintf("mysql:dbname=%s;host=%s", PJ_DB, PJ_HOST);
-            $user = PJ_USER;
-            $password = PJ_PASS;
-            $dbh = new PDO($dns, $user, $password);
-            $sth = $dbh->prepare(sprintf($sql, $_SESSION['owner_id']));
-            $sth->execute();
+            try{
+                require dirname(__FILE__) . '/init.php';
+                $dns = sprintf("mysql:dbname=%s;host=%s", PJ_DB, PJ_HOST);
+                $dbh = new PDO($dns, PJ_USER, PJ_PASS);
+                $sth  = $dbh->prepare(sprintf($sql, $_SESSION['owner_id']));
+                $sth->execute();
+            } catch (Exception $ex){
+                echo $ex->getMessage();
+            }
         }
     }
 }

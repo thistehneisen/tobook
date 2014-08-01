@@ -24,7 +24,7 @@ if(mysql_result(mysql_query( $sql ), 0, 0)>0){
 }else{
 	$firstYN = "Y";
 }
-
+$firstYN = "Y";
 setcookie("appointment_scheduler", $db, time()+36000, "/", "");
 setcookie("appointment_scheduler_p", $dbp, time()+36000, "/", "");
 

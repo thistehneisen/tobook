@@ -1,6 +1,6 @@
 <?php 
 
-$sql = <<< SQL
+$sql = <<<SQL
 SELECT vuser_email INTO @user_email FROM tbl_user_mast WHERE nuser_id = %1\$d;
 
 INSERT INTO `as_users` (`id`, `owner_id`, `role_id`, `email`, `password`, `name`, `phone`,`created`) VALUES
@@ -8,9 +8,9 @@ INSERT INTO `as_users` (`id`, `owner_id`, `role_id`, `email`, `password`, `name`
 
 SELECT LAST_INSERT_ID() INTO @user_id;
 
-INSERT INTO `as_plugin_locale` ( `id`,`language_iso`,`sort`,`is_default`,`owner_id`) VALUES (NULL, 'gb', 1, 1, @user_id);
+INSERT INTO `as_plugin_locale` ( `id`,`language_iso`,`sort`,`is_default`,`owner_id`) VALUES (NULL, 'gb', 1, 1, %1\$d);
 
-INSERT INTO `as_calendars` (`id`, `user_id`) VALUES (NULL,  @user_id);
+INSERT INTO `as_calendars` (`id`, `user_id`, `owner_id`) VALUES (NULL,  @user_id, %1\$d);
 SELECT LAST_INSERT_ID() INTO @calendar_id;
 
 INSERT INTO `as_options` (`owner_id`,`foreign_id`, `key`, `tab_id`, `value`, `label`, `type`, `order`, `is_visible`, `style`) VALUES
@@ -73,3 +73,4 @@ INSERT INTO `as_options` (`owner_id`,`foreign_id`, `key`, `tab_id`, `value`, `la
 (%1\$d, @calendar_id, 'o_week_start', 1, '0|1|2|3|4|5|6::1', 'Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday', 'enum', 9, 1, NULL),
 (%1\$d, @calendar_id, 'private_key', 99, 'R9/Oloz+U9YjLmSfenqcRiISDlI09LDR1WViqtYe/vxshtThVDXLQFxA2U5mIkYd3vy42wtW1j6C33ndue/jpSe3DeV8NPZxVIS4B87R3cCCY7L1bGrLQL5P49l4FBfJzlncUYoE9dCq7h1EPZTjV7HS9mSvfiPnvdyXt0mE2PerPdl+LNFtmeefHkHpJei6FvELm01Cep3bVP5lq/fmTimq+gmj3SB92LbPdFQpYmAFn1+dTTOqb97zOpuMeqcf9J4+/vRwemasu1lx4nmeCH+h8j/f4FBdNZZbbJ7g7dmHF949qPpqE24kCP/YU3KgxDAhiy1m79qrqpnQE3Ey1A==', NULL, 'string', NULL, 1, 'string');
 SQL;
+
