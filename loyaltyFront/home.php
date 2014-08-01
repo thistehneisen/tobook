@@ -11,10 +11,12 @@
 			
 		<link rel='stylesheet' href="css/style.css" type='text/css' media='all'/>
 		
+		<script type="text/javascript" src="js/responsive.js"></script>
 		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 		<script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script src="js/jquery_cookie.js"></script>
+		<script src="js/respond.js"></script>
 				
 		<script type="text/javascript" src="js/home.js"></script>	
 		<title>NFC Desktop App</title>
@@ -30,16 +32,16 @@
 		<input type="hidden" id="customerToken" value="<?php echo $customerToken;?>">
 		<div class="frontTopBackground" style="position:relative;">
 			<div class="frontTopTitle">Kantiskortti</div>
-			<div onclick="onLogout()" style="position:absolute;color:#000;font-size:15px;right:50px; bottom:10px;font-weight:bold;cursor:pointer;">Kirjaudu ulos</div>
+			<div onclick="onLogout()" style="position:absolute;color:#000;font-size:15px;right:200px; bottom:10px;font-weight:bold;cursor:pointer;">Kirjaudu ulos</div>
 		</div>
 		<div class="greyDivider"></div>
 		
-		<div class="frontHomeBackground container" style="text-align:left;">
-			<div class="col-md-7 col-md-offset-1">
+		<div class="frontHomeBackground container" style="text-align:left;width:1000px;">
+			<div style="margin-left: 3%;width:60%;"  class="floatleft">
 				<div style="height:30px;"></div>
 				<div class="floatleft"><h3>Consumer List</h3></div>
 				<div class="floatright">
-					<button class="btn-u btn-u-blue" onclick="onAddConsumer()">ADD</button>
+					<button class="btn-u btn-u-blue" onclick="onAddConsumer()">ADD</button>&nbsp;
 					<button class="btn-u btn-u-red" onclick="onDeleteConsumer()">DELETE</button>
 				</div>
 				<div class="clearboth"></div>
@@ -52,7 +54,6 @@
 							<th>Email</th>
 							<th>Phone</th>
 							<th>Points</th>
-							<th>Registered</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -60,7 +61,7 @@
 					</tbody>
 				</table>				
 			</div>
-			<div class="col-md-3">
+			<div style="width:30%;display:none;margin-left:4%" id="divConsumerInfo" class="floatleft">
 				<div style="height:30px;"></div>
 				<h3 id="consumerName">&nbsp;</h3>
 				<span id="consumerEmail" style="color:#777;">&nbsp;</span>
@@ -79,17 +80,18 @@
 
 				</div>
 				<div style="height:10px;"></div>
-				<button class="btn-u btn-block btn-u-sea">Luo uusi kanta-asiakaskortti</button>
+				<button class="btn-u btn-block btn-u-sea" onclick="onWriteCard(this)">Luo uusi kanta-asiakaskortti</button>
 				<div style="height:10px;"></div>
 				<button class="btn-u btn-u-sea">Takaisin</button>
 			</div>
+			<div class="clearboth"></div>
 		</div>
 		
 		<div class="greyDivider"></div>
 		
 		<div id="cloneStampItem" style="display:none;">
 			<div class="col-md-4">
-				<button class="btn-u btn-u-blue btn-block" style="padding:2px;" onclick="onAddStamp(this)">Lis‰‰</button>
+				<button class="btn-u btn-u-blue btn-block" style="padding:2px;" onclick="onAddStamp(this)" id="btnAddStamp">Lis‰‰</button>
 				<button class="btn-u btn-u-blue btn-block" style="padding:2px;" onclick="onUseStamp(this)">K‰yt‰</button>
 			</div>
 			<div class="col-md-8">

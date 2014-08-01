@@ -9,9 +9,7 @@
 		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 		<script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 		<script src="js/jquery_cookie.js"></script>
-				
-		<script type="text/javascript" src="js/login.js"></script>		
-		
+		<script type="text/javascript" src="js/login.js"></script>
 	</head>
 	<body>
 		<div class="frontTopBackground">
@@ -21,6 +19,7 @@
 		
 		<div class="frontLoginBackground">
 			<div class="frontLoginContainer">
+				<div style="height:130px;"></div>
 				<div class="floatleft frontLoginLabel">
 					Käyttänimi*
 				</div>
@@ -28,7 +27,6 @@
 					<input type="text" id="username" placeholder="Käyttänimi"/>
 				</div>
 				<div class="clearboth"></div>
-				
 				<div style="height:30px;"></div>
 				<div class="floatleft frontLoginLabel">
 					Salasana*
@@ -45,6 +43,8 @@
 				<div class="floatleft frontLoginText" style="text-align:center;margin-left:15px;">
 					<input type="button" value="Login" onclick="onLogin()" style="width: 200px; background: #424242; color: #FFF; cursor: pointer;"/>
 				</div>
+				<div class="clearboth"></div>
+				<div style="height:30px;"></div>
 			</div>
 		</div>
 		
