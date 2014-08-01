@@ -108,7 +108,7 @@ class pjAdmin extends pjAppController
 	
 		$employee_arr = pjEmployeeModel::factory()
 			->select('t1.*, t2.content AS `name`')
-			->join('pjMultiLang', sprintf("t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.locale='%u' AND t2.field='name'", $this->getLocaleId()), 'left outer')
+			->join('pjMultiLang', sprintf("t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name'"), 'left outer')
 			->where('t1.is_active', 1)
 			->where('t1.owner_id', $owner_id)
 			->findAll()
