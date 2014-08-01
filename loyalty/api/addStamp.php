@@ -32,11 +32,15 @@
     	$cntStampRequired = $dataStamp['cnt_required'];
     	$cntStampFree = $dataStamp['cnt_free'];
     	
-    	if( ( $cntUsed + 1 ) % $cntStampRequired != 0 )
+    	if( ( $cntUsed + 1 ) % $cntStampRequired != 0 ){
     		$cntStampFree = 0;
+    		$subStr = "cnt_used + 1";
+    	}else{
+    		$subStr = "0";
+    	}
     	
     	$sql = "update tbl_loyalty_consumer_stamp
-    			   set cnt_used = cnt_used + 1
+    			   set cnt_used = $subStr
     				 , cnt_free = cnt_free + $cntStampFree
     			 where loyalty_consumer = $consumerId
     			   and loyalty_stamp = $stampId";
