@@ -518,7 +518,7 @@ class pjAdminServices extends pjAdmin
 			{
 				$pjServiceModel->set('id', $_GET['id'])->modify(array($_POST['column'] => $_POST['value']));
 			} else {
-				pjMultiLangModel::factory()->updateMultiLang(array($this->getLocaleId() => array($_POST['column'] => $_POST['value'])), $owner_id, $_GET['id'], 'pjService', 'data');
+				pjMultiLangModel::factory()->updateMultiLang(array(1 => array($_POST['column'] => $_POST['value'])), $owner_id, $_GET['id'], 'pjService', 'data');
 			}
 		}
 		exit;
@@ -656,8 +656,9 @@ class pjAdminServices extends pjAdmin
 					->orderBy('t1.sort ASC')->findAll()->getData();
 				
 				$lp_arr = array();
-				foreach ($locale_arr as $item)
+				foreach ($locale_arr as &$item)
 				{
+                    $item['id'] = 1;
 					$lp_arr[$item['id']."_"] = $item['file']; //Hack for jquery $.extend, to prevent (re)order of numeric keys in object
 				}
 				$this->set('lp_arr', $locale_arr);

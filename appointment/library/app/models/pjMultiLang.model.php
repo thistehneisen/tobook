@@ -31,7 +31,7 @@ class pjMultiLangModel extends pjAppModel
 					'foreign_id' => $foreign_id,
 					'owner_id' => $owner_id,
 					'model' => $model,
-					'locale' => $locale,
+					'locale' => 1,
 					'field' => $field,
 					'content' => $content,
 					'source' => $source
