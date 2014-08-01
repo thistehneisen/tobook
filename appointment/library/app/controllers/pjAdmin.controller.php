@@ -101,7 +101,7 @@ class pjAdmin extends pjAppController
 		$owner_id = intval($_SESSION['owner_id']);
 		$service_arr = pjServiceModel::factory()
 			->select('t1.*, t2.content AS `name`')
-			->join('pjMultiLang', sprintf("t2.model='pjService' AND t2.foreign_id=t1.id AND t2.locale='%u' AND t2.field='name'", $this->getLocaleId()), 'left outer')
+			->join('pjMultiLang', sprintf("t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name'"), 'left outer')
 			->where('t1.is_active', 1)
 			->findAll()
 			->getData();
@@ -188,7 +188,7 @@ class pjAdmin extends pjAppController
 			
 			$employee_arr = pjEmployeeModel::factory()
 					->select('t1.*, t2.content AS `name`')
-					->join('pjMultiLang', sprintf("t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.locale='%u' AND t2.field='name'", $this->getLocaleId()), 'left outer')
+					->join('pjMultiLang', sprintf("t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name'"), 'left outer')
 					->where('t1.id', $employee_id)
 					->where('t1.is_active', 1)
 					->findAll()
@@ -289,14 +289,14 @@ class pjAdmin extends pjAppController
 	{
 		$service_arr = pjServiceModel::factory()
 			->select('t1.*, t2.content AS `name`')
-			->join('pjMultiLang', sprintf("t2.model='pjService' AND t2.foreign_id=t1.id AND t2.locale='%u' AND t2.field='name'", $this->getLocaleId()), 'left outer')
+			->join('pjMultiLang', sprintf("t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name'"), 'left outer')
 			->where('t1.is_active', 1)
 			->findAll()
 			->getData();
 		
 		$employee_arr = pjEmployeeModel::factory()
 			->select('t1.*, t2.content AS `name`')
-			->join('pjMultiLang', sprintf("t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.locale='%u' AND t2.field='name'", $this->getLocaleId()), 'left outer')
+			->join('pjMultiLang', sprintf("t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name'"), 'left outer')
 			->where('t1.is_active', 1)
 			->findAll()
 			->getData();
@@ -778,7 +778,7 @@ class pjAdmin extends pjAppController
 				
 				$this->set('service_arr', pjServiceModel::factory()
 					->select('t1.*, t2.content AS `name`')
-					->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
+					->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
 					->orderBy('`name` ASC')
 					->findAll()
 					->getData()

@@ -65,7 +65,7 @@ class pjAdminBookings extends pjAdmin
 				pjObject::import('Model', 'pjCountry:pjCountry');
 				$this->set('country_arr', pjCountryModel::factory()
 					->select('t1.*, t2.content AS `name`')
-					->join('pjMultiLang', "t2.model='pjCountry' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
+					->join('pjMultiLang', "t2.model='pjCountry' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
 					->where('t1.status', 'T')
 					->where('t1.owner_id', $owner_id)
 					->orderBy('`name` ASC')
@@ -124,8 +124,8 @@ class pjAdminBookings extends pjAdmin
 				$booking_arr = pjBookingModel::factory()
 					->select('t1.*, t2.id AS `booking_service_id`, t2.service_id, t2.employee_id, t2.date, t2.start, t2.start_ts, t2.total, t2.price, t3.content AS `service`, t4.content AS `employee`')
 					->join('pjBookingService', 't2.booking_id=t1.id', 'left outer')
-					->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t2.service_id AND t3.field='name' AND t3.locale='".$this->getLocaleId()."'", 'left outer')
-					->join('pjMultiLang', "t4.model='pjEmployee' AND t4.foreign_id=t2.employee_id AND t4.field='name' AND t4.locale='".$this->getLocaleId()."'", 'left outer')
+					->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t2.service_id AND t3.field='name'", 'left outer')
+					->join('pjMultiLang', "t4.model='pjEmployee' AND t4.foreign_id=t2.employee_id AND t4.field='name'", 'left outer')
 					->whereIn('t1.id', $_POST['record'])
 					->orderBy('t1.id ASC')
 					->findAll()
@@ -265,9 +265,9 @@ class pjAdminBookings extends pjAdmin
 				->select(sprintf("t1.*,
 					(SELECT GROUP_CONCAT(CONCAT_WS('~.~', bs.service_id, DATE_FORMAT(FROM_UNIXTIME(bs.start_ts), '%%Y-%%m-%%d %%H:%%i:%%s'), m.content) SEPARATOR '~:~')
 						FROM `%1\$s` AS `bs`
-						LEFT JOIN `%2\$s` AS `m` ON m.model='pjService' AND m.foreign_id=bs.service_id AND m.field='name' AND m.locale='%3\$u'
+						LEFT JOIN `%2\$s` AS `m` ON m.model='pjService' AND m.foreign_id=bs.service_id AND m.field='name'
 						WHERE bs.booking_id = t1.id) AS `items`
-					", $pjBookingServiceModel->getTable(), pjMultiLangModel::factory()->getTable(), $this->getLocaleId()))
+					", $pjBookingServiceModel->getTable(), pjMultiLangModel::factory()->getTable()))
 				->orderBy("$column $direction")->limit($rowCount, $offset)
 				->findAll()
 				->toArray('items', '~:~')
@@ -358,7 +358,7 @@ class pjAdminBookings extends pjAdmin
 			$data = $pjBookingServiceModel
 				->select("t1.*, DATE_FORMAT(FROM_UNIXTIME(t1.start_ts), '%Y-%m-%d %H:%i:%s') AS `time`,
 					t2.uuid, t2.booking_status, t2.c_name, t2.c_email, t2.c_phone, t3.content AS `service_name`")
-				->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.service_id AND t3.field='name' AND t3.locale='".$this->getLocaleId()."'", 'left outer')
+				->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.service_id AND t3.field='name'", 'left outer')
 				->orderBy("$column $direction")->limit($rowCount, $offset)
 				->findAll()
 				->getData();
@@ -433,7 +433,7 @@ class pjAdminBookings extends pjAdmin
 				$pjEmployeeServiceModel = pjEmployeeServiceModel::factory()
 					->select("t1.*, t2.avatar, t2.calendar_id, t3.content AS `name`")
 					->join('pjEmployee', 't2.id=t1.employee_id AND t2.is_active=1', 'inner')
-					->join('pjMultiLang', "t3.model='pjEmployee' AND t3.foreign_id=t1.employee_id AND t3.field='name' AND t3.locale='".$this->getLocaleId()."'", 'left outer')
+					->join('pjMultiLang', "t3.model='pjEmployee' AND t3.foreign_id=t1.employee_id AND t3.field='name'", 'left outer')
 					->where('t1.service_id', $id)
 					->orderBy('`name` ASC')
 					->findAll();
@@ -487,8 +487,8 @@ class pjAdminBookings extends pjAdmin
 				} else {
 					$service_arr = pjServiceModel::factory()
 							->select('t1.*, t2.content AS `name`, t3.content AS `description`')
-							->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
-							->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.id AND t3.locale='".$this->getLocaleId()."' AND t3.field='description'", 'left outer')
+							->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
+							->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.id AND t3.field='description'", 'left outer')
 							->find($id)
 							->getData();
 				}
@@ -508,8 +508,8 @@ class pjAdminBookings extends pjAdmin
 					$service_arr = pjServiceModel::factory()
 						->select('t1.*, t3.content AS `name`, t4.content AS `description`')
 						->join('pjEmployeeService', "t2.service_id =t1.id AND t2.employee_id=". $_GET['employee_id'], 'inner')
-						->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.id AND t3.field='name' AND t3.locale='".$this->getLocaleId()."'", 'left outer')
-						->join('pjMultiLang', "t4.model='pjService' AND t4.foreign_id=t1.id AND t4.locale='".$this->getLocaleId()."' AND t4.field='description'", 'left outer')
+						->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.id AND t3.field='name'", 'left outer')
+						->join('pjMultiLang', "t4.model='pjService' AND t4.foreign_id=t1.id AND t4.field='description'", 'left outer')
 						->where('t1.is_active', 1)
 						->where('t1.category_id', (int) $_GET['category_id'])
 						->findAll()->getData();
@@ -517,8 +517,8 @@ class pjAdminBookings extends pjAdmin
 				} else {
 					$service_arr = pjServiceModel::factory()
 						->select('t1.*, t2.content AS `name`, t3.content AS `description`')
-						->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
-						->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.id AND t3.locale='".$this->getLocaleId()."' AND t3.field='description'", 'left outer')
+						->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
+						->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.id AND t3.field='description'", 'left outer')
 						->where('t1.is_active', 1)
 						->where('t1.category_id', (int) $_GET['category_id'])
 						->findAll()->getData();
@@ -547,7 +547,7 @@ class pjAdminBookings extends pjAdmin
 		{ 
 			$this->set('employee_arr', pjEmployeeModel::factory()
 				->select('t1.*, t2.content AS `name`')
-				->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
+				->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
 				->orderBy('`name` ASC')
 				->findAll()
 				->getData()
@@ -555,7 +555,7 @@ class pjAdminBookings extends pjAdmin
 		
 			$this->set('service_arr', pjServiceModel::factory()
 				->select('t1.*, t2.content AS `name`')
-				->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
+				->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
 				->orderBy('`name` ASC')
 				->findAll()
 				->getData()
@@ -608,10 +608,11 @@ class pjAdminBookings extends pjAdmin
 		$this->setAjax(true);
 	
 		if ($this->isXHR() && $this->isLoged()) {
-			$owner_id = intval($_COOKIE['owner_id']);
+			$owner_id = intval($_SESSION['owner_id']);
 			$search = isset($_GET['search']) ? $_GET['search'] : Null;
 			$pjBookingModel = pjBookingModel::factory()
 				->select('t1.c_name, t1.c_email, t1.c_phone')
+                ->where('t1.owner_id', $owner_id)
 				->where('t1.booking_status', 'confirmed')
 				->where(sprintf("t1.c_name LIKE '%1\$s' OR t1.c_email LIKE '%1\$s'", "%$search%"))
 				->orderBy('t1.c_name ASC')
@@ -727,7 +728,7 @@ class pjAdminBookings extends pjAdmin
 		{
 			$this->set('service_arr', pjServiceModel::factory()
 				->select('t1.*, t2.content AS `name`')
-				->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
+				->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
 				->orderBy('`name` ASC')
 				->where(sprintf("t1.id IN (SELECT `service_id` FROM `%s` WHERE `employee_id` = '%u')", pjEmployeeServiceModel::factory()->getTable(), $this->getUserId()))
 				->findAll()
@@ -812,7 +813,7 @@ class pjAdminBookings extends pjAdmin
 				$this->set('arr', $arr)
 					->set('country_arr', pjCountryModel::factory()
 						->select('t1.*, t2.content AS `name`')
-						->join('pjMultiLang', "t2.model='pjCountry' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
+						->join('pjMultiLang', "t2.model='pjCountry' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
 						->orderBy('`name` ASC')
 						->findAll()->getData());
 				
@@ -863,8 +864,8 @@ class pjAdminBookings extends pjAdmin
 				$arr = pjBookingServiceModel::factory()
 					->select('t2.*, t1.*, t3.content AS `service_name`, t4.content AS `country_name`')
 					->join('pjBooking', 't2.id=t1.booking_id', 'inner')
-					->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.service_id AND t3.field='name' AND t3.locale='".$this->getLocaleId()."'", 'left outer')
-					->join('pjMultiLang', "t4.model='pjCountry' AND t4.foreign_id=t2.c_country_id AND t4.field='name' AND t4.locale='".$this->getLocaleId()."'", 'left outer')
+					->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.service_id AND t3.field='name'", 'left outer')
+					->join('pjMultiLang', "t4.model='pjCountry' AND t4.foreign_id=t2.c_country_id AND t4.field='name'", 'left outer')
 					->find($_GET['id'])
 					->getData();
 				
@@ -902,7 +903,7 @@ class pjAdminBookings extends pjAdmin
 					if ( isset($_POST['employee_id']) ) {
 						$employee_plustime = pjEmployeeModel::factory()
 							->select('t1.*, t2.content AS `name`, t3.plustime')
-							->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
+							->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
 							->join('pjEmployeeService', 't3.employee_id = t1.id', 'inner')
 							->where('t3.service_id', $_POST['service_id'])
 							->where('t3.employee_id', $_POST['employee_id'])
@@ -976,8 +977,8 @@ class pjAdminBookings extends pjAdmin
 					$service_arr = pjServiceModel::factory()
 						->select('t1.*, t3.content AS `name`, t4.content AS `description`')
 						->join('pjEmployeeService', "t2.service_id =t1.id AND t2.employee_id=". $_GET['employee_id'], 'inner')
-						->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.id AND t3.field='name' AND t3.locale='".$this->getLocaleId()."'", 'left outer')
-						->join('pjMultiLang', "t4.model='pjService' AND t4.foreign_id=t1.id AND t4.locale='".$this->getLocaleId()."' AND t4.field='description'", 'left outer')
+						->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.id AND t3.field='name'", 'left outer')
+						->join('pjMultiLang', "t4.model='pjService' AND t4.foreign_id=t1.id AND t4.field='description'", 'left outer')
 						->where('t1.is_active', 1)
 						->where('t1.category_id', $categories[0]['id'])
 						->findAll()->getData();
@@ -986,8 +987,8 @@ class pjAdminBookings extends pjAdmin
 					$service_arr = pjServiceModel::factory()
 						->select('t1.*, t3.content AS `name`, t4.content AS `description`')
 						->join('pjEmployeeService', "t2.service_id =t1.id AND t2.employee_id=". $_GET['employee_id'], 'inner')
-						->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.id AND t3.field='name' AND t3.locale='".$this->getLocaleId()."'", 'left outer')
-						->join('pjMultiLang', "t4.model='pjService' AND t4.foreign_id=t1.id AND t4.locale='".$this->getLocaleId()."' AND t4.field='description'", 'left outer')
+						->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.id AND t3.field='name'", 'left outer')
+						->join('pjMultiLang', "t4.model='pjService' AND t4.foreign_id=t1.id AND t4.field='description'", 'left outer')
 						->where('t1.is_active', 1)
 						->findAll()->getData();
 				}
@@ -1000,7 +1001,7 @@ class pjAdminBookings extends pjAdmin
 				
 				$employee_arr = pjEmployeeModel::factory()
 					->select('t1.*, t2.content AS `name`')
-					->join('pjMultiLang', sprintf("t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.locale='%u' AND t2.field='name'", $this->getLocaleId()), 'left outer')
+					->join('pjMultiLang', sprintf("t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name'"), 'left outer')
 					->where('t1.id', $_GET['employee_id'])
 					->findAll()
 					->getData();
@@ -1018,8 +1019,8 @@ class pjAdminBookings extends pjAdmin
 				if ( isset($categories) && count($categories) > 0 ) {
 					$service_arr = pjServiceModel::factory()
 						->select('t1.*, t2.content AS `name`, t3.content AS `description`')
-						->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
-						->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.id AND t3.locale='".$this->getLocaleId()."' AND t3.field='description'", 'left outer')
+						->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
+						->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.id AND t3.field='description'", 'left outer')
 						->where('t1.is_active', 1)
 						// ->where('t1.category_id', $categories[0]['id'])
 						->findAll()->getData();
@@ -1027,8 +1028,8 @@ class pjAdminBookings extends pjAdmin
 				} else {
 					$service_arr = pjServiceModel::factory()
 						->select('t1.*, t2.content AS `name`, t3.content AS `description`')
-						->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
-						->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.id AND t3.locale='".$this->getLocaleId()."' AND t3.field='description'", 'left outer')
+						->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
+						->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.id AND t3.field='description'", 'left outer')
 						->where('t1.is_active', 1)
 						->findAll()->getData();
 				}
@@ -1073,8 +1074,8 @@ class pjAdminBookings extends pjAdmin
 		{
 			$pjBookingServiceModel = pjBookingServiceModel::factory()
 				->select("t1.*, t2.content AS `service`, t3.content AS `employee`")
-				->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.service_id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'")
-				->join('pjMultiLang', "t3.model='pjEmployee' AND t3.foreign_id=t1.employee_id AND t3.field='name' AND t3.locale='".$this->getLocaleId()."'");
+				->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.service_id AND t2.field='name'")
+				->join('pjMultiLang', "t3.model='pjEmployee' AND t3.foreign_id=t1.employee_id AND t3.field='name'");
 			
 			if (isset($_GET['booking_id']) && (int) $_GET['booking_id'] > 0)
 			{

@@ -97,7 +97,7 @@ class pjAdminEmployees extends pjAdmin
 				
 				$this->set('service_arr', pjServiceModel::factory()
 					->select('t1.*, t2.content AS `name`')
-					->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
+					->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id", 'left outer')
 					->orderBy('`name` ASC')
                     ->where('t1.owner_id', $owner_id)
 					->where('t2.owner_id', $owner_id)
@@ -551,13 +551,13 @@ class pjAdminEmployees extends pjAdmin
 					pjUtil::redirect(PJ_INSTALL_URL. "index.php?controller=pjAdminEmployees&action=pjActionIndex&err=AE08");
 				}
 				$arr['i18n'] = pjMultiLangModel::factory()->getMultiLang($arr['id'], 'pjEmployee');
+
 				$this->set('arr', $arr);
 				
 				pjObject::import('Model', array('pjLocale:pjLocale', 'pjLocale:pjLocaleLanguage'));
-				$locale_arr = pjLocaleModel::factory()->select('t1.*, t2.file')
-					->join('pjLocaleLanguage', 't2.iso=t1.language_iso', 'left')
-					->where('t2.file IS NOT NULL')
-					->where('t1.owner_id', $owner_id)
+				$locale_arr = pjLocaleModel::factory()->select('t1.*')
+					//->join('pjLocaleLanguage', 't2.iso=t1.language_iso', 'left')
+					//->where('t2.file IS NOT NULL')
 					->orderBy('t1.sort ASC')->findAll()->getData();
 				
 				$lp_arr = array();
@@ -569,9 +569,9 @@ class pjAdminEmployees extends pjAdmin
 				
 				$this->set('service_arr', pjServiceModel::factory()
 					->select('t1.*, t2.content AS `name`')
-					->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
+					->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
 					->where('t1.is_active', 1)
-					->where('t1.owner_id', $owner_id)
+					->where('t2.owner_id', $owner_id)
 					->orderBy('`name` ASC')
 					->findAll()
 					->getData()
@@ -627,7 +627,7 @@ class pjAdminEmployees extends pjAdmin
 			
 			$employee_arr = pjEmployeeModel::factory()
 					->select('t1.*, t2.content AS `name`')
-					->join('pjMultiLang', sprintf("t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.locale='%u' AND t2.field='name'", $this->getLocaleId()), 'left outer')
+					->join('pjMultiLang', sprintf("t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name'"), 'left outer')
                     ->findAll()
 					->getData();
 			
@@ -781,7 +781,7 @@ class pjAdminEmployees extends pjAdmin
 			
 			$pjEmployeeModel = pjEmployeeModel::factory()
 					->select('t1.*, t2.content AS `name`')
-					->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
+					->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
 					->where('t1.is_active', 1)
 					->orderBy('`name` ASC')
 					->findAll();

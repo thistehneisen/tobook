@@ -88,10 +88,10 @@ class pjMultiLangModel extends pjAppModel
 	{
 		$arr = array();
 		// $_arr = $this->where('foreign_id', $foreign_id)->where('model', $model)->findAll()->getData();
-		$_arr = $this->where('model', $model)->findAll()->getData();
+		$_arr = $this->where('foreign_id', $foreign_id)->where('model', $model)->findAll()->getData();
 		foreach ($_arr as $_k => $_v)
 		{
-			$arr[$_v['locale']][$_v['field']] = $_v['content'];
+			$arr[1][$_v['field']] = $_v['content'];
 		}
 		return $arr;
 	}

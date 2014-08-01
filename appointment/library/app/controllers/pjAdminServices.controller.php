@@ -315,8 +315,8 @@ class pjAdminServices extends pjAdmin
 			if ( isset($_GET['foreign_id']) && $_GET['foreign_id'] > 0 && isset($_GET['type']) && $_GET['type'] == 'service' ) {
 				
 				$pjServiceModel = pjServiceTimeModel::factory()
-				->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.foreign_id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
-				->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.foreign_id AND t3.field='description' AND t3.locale='".$this->getLocaleId()."'", 'left outer')
+				->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.foreign_id AND t2.field='name'", 'left outer')
+				->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.foreign_id AND t3.field='description'", 'left outer')
 				->where('t1.foreign_id', $_GET['foreign_id']);
 				
 				if (isset($_GET['q']) && !empty($_GET['q']))
@@ -436,8 +436,8 @@ class pjAdminServices extends pjAdmin
 				
 			} else {
 				$pjServiceModel = pjServiceModel::factory()
-					->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
-					->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.id AND t3.field='description' AND t3.locale='".$this->getLocaleId()."'", 'left outer')
+					->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
+					->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.id AND t3.field='description'", 'left outer')
 					->join('pjServiceCategory', 't1.category_id=t4.id', 'left outer');
 					// ->where('t1.calendar_id', $this->getForeignId());
 				
@@ -649,9 +649,10 @@ class pjAdminServices extends pjAdmin
 				$this->set('arr', $arr);
 				
 				pjObject::import('Model', array('pjLocale:pjLocale', 'pjLocale:pjLocaleLanguage'));
-				$locale_arr = pjLocaleModel::factory()->select('t1.*, t2.file')
-					->join('pjLocaleLanguage', 't2.iso=t1.language_iso', 'left')
-					->where('t2.file IS NOT NULL')
+                //remove join from pjLocaleLanguage to avoid repeated fields
+				$locale_arr = pjLocaleModel::factory()->select('t1.*')
+					// ->join('pjLocaleLanguage', 't2.iso=t1.language_iso', 'left')
+					// ->where('t2.file IS NOT NULL')
 					->orderBy('t1.sort ASC')->findAll()->getData();
 				
 				$lp_arr = array();
@@ -663,7 +664,7 @@ class pjAdminServices extends pjAdmin
 				
 				$this->set('employee_arr', pjEmployeeModel::factory()
 					->select('t1.*, t2.content AS `name`')
-					->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
+					->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
 					->where('t1.is_active', 1)
 					->where('t1.owner_id', $owner_id)
 					->orderBy('`name` ASC')
