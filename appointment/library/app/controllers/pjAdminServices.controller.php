@@ -23,10 +23,10 @@ class pjAdminServices extends pjAdmin
 				{
 					if (isset($_POST['employee_id']) && !empty($_POST['employee_id']))
 					{
-						$pjEmployeeServiceModel = pjEmployeeServiceModel::factory()->setBatchFields(array('employee_id', 'service_id'));
+						$pjEmployeeServiceModel = pjEmployeeServiceModel::factory()->setBatchFields(array('employee_id', 'service_id','owner_id'));
 						foreach ($_POST['employee_id'] as $employee_id)
 						{
-							$pjEmployeeServiceModel->addBatchRow(array($employee_id, $id));
+							$pjEmployeeServiceModel->addBatchRow(array($employee_id, $id, $owner_id));
 						}
 						$pjEmployeeServiceModel->insertBatch();
 						
@@ -49,10 +49,10 @@ class pjAdminServices extends pjAdmin
 					
 					if (isset($_POST['resources_id']) && !empty($_POST['resources_id']))
 					{
-						$pjResourcesServiceModel = pjResourcesServiceModel::factory()->setBatchFields(array('resources_id', 'service_id'));
+						$pjResourcesServiceModel = pjResourcesServiceModel::factory()->setBatchFields(array('resources_id', 'service_id','owner_id'));
 						foreach ($_POST['resources_id'] as $resources_id)
 						{
-							$pjResourcesServiceModel->addBatchRow(array($resources_id, $id));
+							$pjResourcesServiceModel->addBatchRow(array($resources_id, $id, $owner_id));
 						}
 						$pjResourcesServiceModel->insertBatch();
 					
@@ -60,10 +60,10 @@ class pjAdminServices extends pjAdmin
 					
 					if (isset($_POST['extra_id']) && !empty($_POST['extra_id']))
 					{
-						$pjServiceExtraServiceModel = pjServiceExtraServiceModel::factory()->setBatchFields(array('extra_id', 'service_id'));
+						$pjServiceExtraServiceModel = pjServiceExtraServiceModel::factory()->setBatchFields(array('extra_id', 'service_id', 'owner_id'));
 						foreach ($_POST['extra_id'] as $extra_id)
 						{
-							$pjServiceExtraServiceModel->addBatchRow(array($extra_id, $id));
+							$pjServiceExtraServiceModel->addBatchRow(array($extra_id, $id, $owner_id));
 						}
 						$pjServiceExtraServiceModel->insertBatch();
 							
@@ -93,7 +93,7 @@ class pjAdminServices extends pjAdmin
 				
 				$this->set('employee_arr', pjEmployeeModel::factory()
 					->select('t1.*, t2.content AS `name`')
-					->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
+					->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
 					->where('t1.is_active', 1)
 					->where('t1.owner_id', $owner_id)
 					->orderBy('`name` ASC')
@@ -590,10 +590,10 @@ class pjAdminServices extends pjAdmin
 				$pjEmployeeServiceModel->where('service_id', $_POST['id'])->eraseAll();
 				if (isset($_POST['employee_id']) && !empty($_POST['employee_id']))
 				{
-					$pjEmployeeServiceModel->reset()->setBatchFields(array('employee_id', 'service_id'));
+					$pjEmployeeServiceModel->reset()->setBatchFields(array('employee_id', 'service_id', 'owner_id'));
 					foreach ($_POST['employee_id'] as $employee_id)
 					{
-						$pjEmployeeServiceModel->addBatchRow(array($employee_id, $_POST['id']));
+						$pjEmployeeServiceModel->addBatchRow(array($employee_id, $_POST['id'], $owner_id));
 					}
 					$pjEmployeeServiceModel->insertBatch();
 					
@@ -617,10 +617,10 @@ class pjAdminServices extends pjAdmin
 				$pjResourcesServiceModel->where('service_id', $_POST['id'])->eraseAll();
 				if (isset($_POST['resources_id']) && !empty($_POST['resources_id']))
 				{
-					$pjResourcesServiceModel->reset()->setBatchFields(array('resources_id', 'service_id'));
+					$pjResourcesServiceModel->reset()->setBatchFields(array('resources_id', 'service_id', 'owner_id'));
 					foreach ($_POST['resources_id'] as $resources_id)
 					{
-						$pjResourcesServiceModel->addBatchRow(array($resources_id, $_POST['id']));
+						$pjResourcesServiceModel->addBatchRow(array($resources_id, $_POST['id'], $owner_id));
 					}
 					$pjResourcesServiceModel->insertBatch();
 				}
@@ -629,10 +629,10 @@ class pjAdminServices extends pjAdmin
 				$pjServiceExtraServiceModel->where('service_id', $_POST['id'])->eraseAll();
 				if (isset($_POST['extra_id']) && !empty($_POST['extra_id']))
 				{
-					$pjServiceExtraServiceModel->reset()->setBatchFields(array('extra_id', 'service_id'));
+					$pjServiceExtraServiceModel->reset()->setBatchFields(array('extra_id', 'service_id', 'owner_id'));
 					foreach ($_POST['extra_id'] as $extra_id)
 					{
-						$pjServiceExtraServiceModel->addBatchRow(array($extra_id, $_POST['id']));
+						$pjServiceExtraServiceModel->addBatchRow(array($extra_id, $_POST['id'], $owner_id));
 					}
 					$pjServiceExtraServiceModel->insertBatch();
 				}

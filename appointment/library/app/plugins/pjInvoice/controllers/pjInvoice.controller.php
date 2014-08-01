@@ -178,6 +178,7 @@ class pjInvoice extends pjInvoiceAppController
 				foreach ($params['items'] as $item)
 				{
 					$item['invoice_id'] = $invoice_id;
+                    $item['owner_id'] = $data['owner_id'];
 					$pjInvoiceItemModel->reset()->setAttributes($item)->insert();
 				}
 			}

@@ -280,9 +280,11 @@ class pjFrontEnd extends pjFront
 	public function pjActionProcessOrder()
 	{
 		$this->setAjax(true);
-		
+
 		if ($this->isXHR())
 		{
+            $owner_id = (int) $_GET['owner_id'];
+
 			if (!isset($_POST['as_preview']) || !isset($_SESSION[$this->defaultForm]) || empty($_SESSION[$this->defaultForm]))
 			{
 				pjAppController::jsonResponse(array('status' => 'ERR', 'code' => 109, 'text' => __('system_109', true)));
@@ -306,7 +308,7 @@ class pjFrontEnd extends pjFront
 			$data['uuid'] = pjUtil::uuid();
 			$data['ip'] = $_SERVER['REMOTE_ADDR'];
 			$data['locale_id'] = $this->getLocaleId();
-			
+			$data['owner_id'] = $owner_id;
 			$data = array_merge($_SESSION[$this->defaultForm], $data);
 			
 			if (isset($data['payment_method']) && $data['payment_method'] != 'creditcard')
@@ -322,7 +324,7 @@ class pjFrontEnd extends pjFront
 			$data['booking_deposit'] = $summary['deposit'];
 			$data['booking_tax'] = $summary['tax'];
 			$data['booking_total'] = $summary['total'];
-			$data['owner_id'] = $_GET['owner_id'];
+			$data['owner_id'] = (int) $_GET['owner_id'];
 
 			$pjBookingModel = pjBookingModel::factory();
 			if (!$pjBookingModel->validates($data))
@@ -336,7 +338,7 @@ class pjFrontEnd extends pjFront
 			{
 				
 				$pjBookingServiceModel = pjBookingServiceModel::factory()->setBatchFields(array(
-					'booking_id', 'service_id', 'employee_id', 'resources_id', 'date', 'start', 'start_ts', 'total', 'price', 'reminder_email', 'reminder_sms'
+					'booking_id', 'service_id', 'employee_id', 'resources_id', 'date', 'start', 'start_ts', 'total', 'price', 'reminder_email', 'reminder_sms', 'owner_id'
 				));
 				
 				foreach ($summary['services'] as $service)
@@ -365,23 +367,23 @@ class pjFrontEnd extends pjFront
 					$pjBookingServiceModel->addBatchRow(array(
 						$booking_id, $service['id'], $service['employee_id'], $resources_booking_ids[0],
 						$service['date'], @$service['start'], $service['start_ts'],
-						$service['total'], $service['price'], 0, 0
+						$service['total'], $service['price'], 0, 0, $owner_id
 					));
 					
 					if ( isset($service['extra']) && count($service['extra']) > 0 ) {
 							
 						$pjBookingExtraServiceModel = pjBookingExtraServiceModel::factory();
 							
-						$pjBookingExtraServiceModel->setBatchFields(array('booking_id', 'service_id', 'extra_id', 'date'));
+						$pjBookingExtraServiceModel->setBatchFields(array('booking_id', 'service_id', 'extra_id', 'date', 'owner_id'));
 						foreach ( $service['extra'] as $_extra) {
-							$pjBookingExtraServiceModel->addBatchRow(array($booking_id, $service['id'], $_extra['id'], $service['date']));
+							$pjBookingExtraServiceModel->addBatchRow(array($booking_id, $service['id'], $_extra['id'], $service['date'], $owner_id));
 						}
 						$pjBookingExtraServiceModel->insertBatch();
 					}
 				}
 				$pjBookingServiceModel->insertBatch();
 				
-				$invoice_arr = $this->pjActionGenerateInvoice($booking_id);
+				$invoice_arr = $this->pjActionGenerateInvoice($booking_id, $owner_id);
 				
 				# Confirmation email(s)
 				$booking_arr = $pjBookingModel

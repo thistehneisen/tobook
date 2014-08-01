@@ -11,7 +11,8 @@ class pjBookingServiceModel extends pjAppModel
 	protected $table = 'bookings_services';
 	
 	protected $schema = array(
-		array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),
+        array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),
+		array('name' => 'owner_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'tmp_hash', 'type' => 'varchar', 'default' => ':NULL'),
 		array('name' => 'booking_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'service_id', 'type' => 'int', 'default' => ':NULL'),

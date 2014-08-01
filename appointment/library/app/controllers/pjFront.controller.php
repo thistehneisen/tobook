@@ -144,7 +144,7 @@ class pjFront extends pjAppController
 		{
 			$service_arr = pjServiceModel::factory()
 				->select("t1.*, t2.content AS `name`")
-				->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.locale='".$this->getLocaleId()."' AND t2.field='name'", 'left outer')
+				->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
 				->whereIn('t1.id', $service_ids)
 				->groupBy('t1.id')
 				->findAll()
@@ -268,9 +268,9 @@ class pjFront extends pjAppController
 			{
 				$service_arr = pjServiceModel::factory()
 					->select('t1.*, t2.content AS `name`')
-					->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
+					->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
 					->whereIn('t1.id', $service_ids)
-					->where('t1.calendar_id', $cid)
+					// ->where('t1.calendar_id', $cid)
 					->findAll()
 					->getDataPair('id');
 			}
@@ -279,9 +279,9 @@ class pjFront extends pjAppController
 			{
 				$employee_arr = pjEmployeeModel::factory()
 					->select('t1.id, t1.email, t1.phone, t1.avatar, t2.content AS `name`')
-					->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
+					->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
 					->whereIn('t1.id', $employee_ids)
-					->where('t1.calendar_id', $cid)
+					// ->where('t1.calendar_id', $cid)
 					->findAll()
 					->getDataPair('id');
 			}
@@ -325,9 +325,9 @@ class pjFront extends pjAppController
 		$owner_id = intval($_SESSION['owner_id']);
 		$data = pjServiceModel::factory()
 			->select("t1.*, t2.content AS `name`, t3.content AS `description`")
-			->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.locale='".$this->getLocaleId()."' AND t2.field='name'", 'left outer')
-			->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.id AND t3.locale='".$this->getLocaleId()."' AND t3.field='description'", 'left outer')
-			->where('t1.calendar_id', $cid)
+			->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
+			->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.id AND t3.field='description'", 'left outer')
+			// ->where('t1.calendar_id', $cid)
 			->where('t1.is_active', 1)
 			->where('t1.owner_id', $owner_id)
 			->orderBy('`name` ASC')
@@ -352,8 +352,8 @@ class pjFront extends pjAppController
 			
 		$employeeModel = pjEmployeeModel::factory()
 			->select("t1.*, t2.content AS `name`")
-			->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.locale='".$this->getLocaleId()."' AND t2.field='name'", 'left outer')
-			->where('t1.calendar_id', $cid)
+			->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
+			// ->where('t1.calendar_id', $cid)
 			->where('t1.is_active', 1)
 			->orderBy('name ASC')
 			->findAll();

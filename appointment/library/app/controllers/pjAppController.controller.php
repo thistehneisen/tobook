@@ -235,7 +235,7 @@ class pjAppController extends pjController {
 		pjMultiLangModel::factory()->where("`locale` != '1'")->eraseAll();
 	}
 	
-	protected function pjActionGenerateInvoice($booking_id)
+	protected function pjActionGenerateInvoice($booking_id, $owner_id)
 	{
 		if (!isset($booking_id) || (int) $booking_id <= 0)
 		{
@@ -249,7 +249,7 @@ class pjAppController extends pjController {
 		
 		$bs_arr = pjBookingServiceModel::factory()
 			->select("t1.*, t2.content AS `name`")
-			->join('pjMultiLang', sprintf("t2.model='pjService' AND t2.foreign_id=t1.service_id AND t2.field='name' AND t2.locale='%u'", $arr['locale_id']), 'left outer')
+			->join('pjMultiLang', sprintf("t2.model='pjService' AND t2.foreign_id=t1.service_id AND t2.field='name'"), 'left outer')
 			->where('t1.booking_id', $booking_id)
 			->findAll()
 			->getData();
@@ -292,6 +292,7 @@ class pjAppController extends pjController {
 					// -------------------------------------------------
 					'uuid' => pjUtil::uuid(),
 					'order_id' => $arr['uuid'],
+                    'owner_id' => $owner_id,
 					'foreign_id' => $arr['calendar_id'],
 					'issue_date' => ':CURDATE()',
 					'due_date' => ':CURDATE()',

@@ -12,7 +12,8 @@ class pjInvoiceItemModel extends pjInvoiceAppModel
 	protected $table = 'plugin_invoice_items';
 	
 	protected $schema = array(
-		array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),
+        array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),
+		array('name' => 'owner_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'invoice_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'tmp', 'type' => 'varchar', 'default' => ':NULL'),
 		array('name' => 'name', 'type' => 'varchar', 'default' => ':NULL'),
