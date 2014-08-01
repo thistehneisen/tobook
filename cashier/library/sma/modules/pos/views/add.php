@@ -10,82 +10,82 @@
 <meta http-equiv="expires" content="0" />
 <meta http-equiv="pragma" content="no-cache" />
 <link rel="shortcut icon"
-	href="<?php echo $this->config->base_url(); ?>images/favicon.ico">
+    href="<?php echo $this->config->base_url(); ?>images/favicon.ico">
 <link rel="stylesheet"
-	href="<?php echo $this->config->base_url(); ?>assets/css/bootstrap-<?php echo THEME; ?>.css"
-	type="text/css" />
+    href="<?php echo $this->config->base_url(); ?>assets/css/bootstrap-<?php echo THEME; ?>.css"
+    type="text/css" />
 <link rel="stylesheet"
-	href="<?php echo $this->config->base_url(); ?>assets/pos/css/posajax.css"
-	type="text/css" />
+    href="<?php echo $this->config->base_url(); ?>assets/pos/css/posajax.css"
+    type="text/css" />
 <link rel="stylesheet"
-	href="<?php echo $this->config->base_url(); ?>assets/pos/css/print.css"
-	type="text/css" media="print" />
+    href="<?php echo $this->config->base_url(); ?>assets/pos/css/print.css"
+    type="text/css" media="print" />
 <script type="text/javascript"
-	src="<?php echo $this->config->base_url(); ?>assets/pos/js/jquery-1.7.2.min.js"></script>
+    src="<?php echo $this->config->base_url(); ?>assets/pos/js/jquery-1.7.2.min.js"></script>
 <!--[if lt IE 9]><link rel="stylesheet" type="text/css" href="<?php echo $this->config->base_url(); ?>assets/css/ie.css" /><![endif]-->
 <script type="text/javascript"
-	src="<?php echo $this->config->base_url(); ?>assets/js/bootstrap.min.js"></script>
+    src="<?php echo $this->config->base_url(); ?>assets/js/bootstrap.min.js"></script>
 <script type="text/javascript"
-	src="<?php echo $this->config->base_url(); ?>assets/js/jquery-ui.js"></script>
+    src="<?php echo $this->config->base_url(); ?>assets/js/jquery-ui.js"></script>
 <script type="text/javascript"
-	src="<?php echo $this->config->base_url(); ?>assets/pos/js/jquery.keyboard.js"></script>
+    src="<?php echo $this->config->base_url(); ?>assets/pos/js/jquery.keyboard.js"></script>
 <script type="text/javascript"
-	src="<?php echo $this->config->base_url(); ?>assets/pos/js/jquery.carouFredSel-6.2.1.js"></script>
+    src="<?php echo $this->config->base_url(); ?>assets/pos/js/jquery.carouFredSel-6.2.1.js"></script>
 <script type="text/javascript"
-	src="<?php echo $this->config->base_url(); ?>assets/pos/js/bootbox.min.js"></script>
+    src="<?php echo $this->config->base_url(); ?>assets/pos/js/bootbox.min.js"></script>
 <style type="text/css">
 .navbar-fixed-top {
-	position: static;
+    position: static;
 }
 
 #content {
-	padding-top: 10px;
+    padding-top: 10px;
 }
 </style>
 </head>
 <body>
-	<div id="wrapper">
-		<div class="navbar navbar-fixed-top">
-			<div class="navbar-inner" style="padding-left: 10px;">
-				<button type="button" class="btn btn-navbar" data-toggle="collapse"
-					data-target=".nav-collapse">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<button type="button" class="btn btn-navbar menu-collapse">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<div class="brand"><img src="<?php echo $this->config->base_url(); ?>assets/img/<?php echo LOGO; ?>" alt="<?php echo SITE_NAME; ?>" style="height:30px;"/></div>
-				<div class="nav-collapse collapse">
-					<ul class="nav pull-right">
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">Hi, <?php echo FIRST_NAME; ?>! <b
-								class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a
-									href="<?php echo $this->config->base_url(); ?>index.php?module=auth&amp;prefix=<?php echo PREFIX; ?>&amp;view=change_password"><?php echo $this->lang->line('change_password'); ?></a></li>
-								<li class="divider"></li>
-								<li><a
-									href="<?php echo $this->config->base_url(); ?>index.php?module=auth&amp;prefix=<?php echo PREFIX; ?>&amp;view=logout"><?php echo $this->lang->line('logout'); ?></a></li>
-							</ul></li>
-						<!--<li class="visible-desktop"><a class="external" href="http://www.tecdiary.net/support/pos-module/" target="_blank"><i class="icon-question-sign icon-white"></i></a></li>-->
-					</ul>
-					<ul class="nav pull-right">
-						<li><a class="hdate"><span id="theTime"></span></a></li>
-						<li><a href="index.php?module=home&amp;prefix=<?php echo PREFIX; ?>"><?php echo $this->lang->line('home'); ?></a></li>
-						<li><a
-							href="<?php echo $this->config->base_url(); ?>index.php?module=pos&amp;prefix=<?php echo PREFIX; ?>&amp;view=settings"><?php echo $this->lang->line('pos_settings'); ?></a></li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown"><?php echo $this->lang->line('sales'); ?> <b
-								class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a
-									href="<?php echo $this->config->base_url(); ?>index.php?module=sales&amp;prefix=<?php echo PREFIX; ?>"><?php echo $this->lang->line('sales'); ?></a></li>
-								<li><a
-									href="<?php echo $this->config->base_url(); ?>index.php?module=pos&amp;prefix=<?php echo PREFIX; ?>&amp;view=suspended_sales"><?php echo $this->lang->line('suspended_sales'); ?></a></li>
-							</ul></li>
-						<li><a class="btn btn-success hbtn" href="#" id="todaySale"><?php echo $this->lang->line('today_sale'); ?></a></li>
+    <div id="wrapper">
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner" style="padding-left: 10px;">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse"
+                    data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span> <span
+                        class="icon-bar"></span>
+                </button>
+                <button type="button" class="btn btn-navbar menu-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span> <span
+                        class="icon-bar"></span>
+                </button>
+                <div class="brand"><img src="<?php echo $this->config->base_url(); ?>assets/img/<?php echo LOGO; ?>" alt="<?php echo SITE_NAME; ?>" style="height:30px;"/></div>
+                <div class="nav-collapse collapse">
+                    <ul class="nav pull-right">
+                        <li class="dropdown"><a href="#" class="dropdown-toggle"
+                            data-toggle="dropdown">Hi, <?php echo FIRST_NAME; ?>! <b
+                                class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a
+                                    href="<?php echo $this->config->base_url(); ?>index.php?module=auth&amp;prefix=<?php echo PREFIX; ?>&amp;view=change_password"><?php echo $this->lang->line('change_password'); ?></a></li>
+                                <li class="divider"></li>
+                                <li><a
+                                    href="<?php echo $this->config->base_url(); ?>index.php?module=auth&amp;prefix=<?php echo PREFIX; ?>&amp;view=logout"><?php echo $this->lang->line('logout'); ?></a></li>
+                            </ul></li>
+                        <!--<li class="visible-desktop"><a class="external" href="http://www.tecdiary.net/support/pos-module/" target="_blank"><i class="icon-question-sign icon-white"></i></a></li>-->
+                    </ul>
+                    <ul class="nav pull-right">
+                        <li><a class="hdate"><span id="theTime"></span></a></li>
+                        <li><a href="index.php?module=home&amp;prefix=<?php echo PREFIX; ?>"><?php echo $this->lang->line('home'); ?></a></li>
+                        <li><a
+                            href="<?php echo $this->config->base_url(); ?>index.php?module=pos&amp;prefix=<?php echo PREFIX; ?>&amp;view=settings"><?php echo $this->lang->line('pos_settings'); ?></a></li>
+                        <li class="dropdown"><a href="#" class="dropdown-toggle"
+                            data-toggle="dropdown"><?php echo $this->lang->line('sales'); ?> <b
+                                class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a
+                                    href="<?php echo $this->config->base_url(); ?>index.php?module=sales&amp;prefix=<?php echo PREFIX; ?>"><?php echo $this->lang->line('sales'); ?></a></li>
+                                <li><a
+                                    href="<?php echo $this->config->base_url(); ?>index.php?module=pos&amp;prefix=<?php echo PREFIX; ?>&amp;view=suspended_sales"><?php echo $this->lang->line('suspended_sales'); ?></a></li>
+                            </ul></li>
+                        <li><a class="btn btn-success hbtn" href="#" id="todaySale"><?php echo $this->lang->line('today_sale'); ?></a></li>
                             <?php
                             if (ALERT_NO > 0) {
                                 echo "<li class=\"visible-desktop\"><a class=\"btn btn-warning hbtn\" href=\"index.php?module=reports&prefix=" . PREFIX . "&view=products\">" . ALERT_NO . " " . $this->lang->line('product_alerts') . "</a></li>";
@@ -95,13 +95,13 @@
                             }
                             ?>
                             <li class="divider-vertical"></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<div id="content">
-			<div class="c1">
-				<div class="pos">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="content">
+            <div class="c1">
+                <div class="pos">
                                     <?php if ($message) {
                                         echo "<div class=\"alert alert-error\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>" . $message . "</div>";
                                     } ?>
@@ -110,223 +110,223 @@
 } ?>
                         <div id="pos"> <?php echo form_open("module=pos&prefix=" . PREFIX); ?>
                             <div id="leftdiv">
-							<div id="printhead">
-								<h4 style="text-transform: uppercase;"><?php echo SITE_NAME; ?></h4>
+                            <div id="printhead">
+                                <h4 style="text-transform: uppercase;"><?php echo SITE_NAME; ?></h4>
 <?php echo "<h5 style=\"text-transform:uppercase;\">" . $this->lang->line('order_list') . "</h5>";
 echo $this->lang->line("date") . " " . date(PHP_DATE, strtotime('today'));
 ?>
                                 </div>
-							<div id="lefttop">
-								<div style="clear: left;"></div>
-								<input value="<?php echo isset($customer->name) ? $customer->name : '' ?>" id="customer"
-									name="customer" class="customer"
-									style="width: 330px; float: left;"
-									placeholder="Customer - Type 2 char for suggestions"
-									onClick="this.select();"> <a href="#" id="showCustomerModal"
-									role="button" data-toggle="modal"
-									style="float: right; width: 22px; height: 22px; margin-top: -1px; border: 0;"><img
-									src="assets/pos/images/plus-icon.png" alt="+"></a>
+                            <div id="lefttop">
+                                <div style="clear: left;"></div>
+                                <input value="<?php echo isset($customer->name) ? $customer->name : '' ?>" id="customer"
+                                    name="customer" class="customer"
+                                    style="width: 330px; float: left;"
+                                    placeholder="Customer - Type 2 char for suggestions"
+                                    onClick="this.select();"> <a href="#" id="showCustomerModal"
+                                    role="button" data-toggle="modal"
+                                    style="float: right; width: 22px; height: 22px; margin-top: -1px; border: 0;"><img
+                                    src="assets/pos/images/plus-icon.png" alt="+"></a>
 
-								<div style="clear: left;"></div>
-								<input id="scancode" name="code" class="scancode"
-									style="width: 370px; border: 1px solid #00ACED; color: #00ACED;"
-									placeholder="<?php echo $this->lang->line('barcode_scanner'); ?>"
-									autocomplete="off">
-								<div style="clear: both;"></div>
-							</div>
+                                <div style="clear: left;"></div>
+                                <input id="scancode" name="code" class="scancode"
+                                    style="width: 370px; border: 1px solid #00ACED; color: #00ACED;"
+                                    placeholder="<?php echo $this->lang->line('barcode_scanner'); ?>"
+                                    autocomplete="off">
+                                <div style="clear: both;"></div>
+                            </div>
 
-							<div id="print">
-								<div id="prodiv">
-									<div style="background-color: #333;">
-										<table id="title_table" border="0" cellpadding="0"
+                            <div id="print">
+                                <div id="prodiv">
+                                    <div style="background-color: #333;">
+                                        <table id="title_table" border="0" cellpadding="0"
 cellspacing="0">
-											<thead>
-												<tr>
-													<th
-														style="width: 30px; color: #FFF; padding: 5px 0; font-weight: normal;"><i
-														class="icon-trash icon-white"></i></th>
-													<th
-														style="width: 200px; color: #FFF; padding: 5px 0; font-weight: normal;"><?php echo $this->lang->line('product'); ?></th>
-													<th
-														style="width: 42px; color: #FFF; padding: 5px 0; font-weight: normal;"><?php echo $this->lang->line('qty'); ?></th>
-													<th
-														style="width: 82px; color: #FFF; padding: 5px 0; font-weight: normal;"><?php echo $this->lang->line('price'); ?></th>
-												</tr>
-											</thead>
-										</table>
-									</div>
-									<div id="protbldiv">
-										<table border="0" cellpadding="0" cellspacing="0"
-											class="protable" id="saletbl">
-											<tbody>
-											</tbody>
-										</table>
-										<div style="clear: both;"></div>
-									</div>
-								</div>
-								<div style="clear: both;"></div>
-								<table id="totalTable"
-									style="width: 100%; float: right; border: 1px solid #666; padding: 5px; font-size: 14px; color: #000; background: #FFF;">
-									<tr>
-										<td
-											style="padding-left: 10px; text-align: left; font-weight: normal;"><?php echo $this->lang->line('total_items'); ?></td>
-										<td
-											style="text-align: right; padding-right: 10px; font-size: 14px; font-weight: bold;"><span
-											id="count">0</span></td>
-										<td style="padding-left: 10px; text-align: left;"><?php echo $this->lang->line('total_x_tax'); ?></td>
-										<td
-											style="text-align: right; padding-right: 10px; font-size: 14px; font-weight: bold;"><span
-											id="total">0.00</span></td>
-									</tr>
+                                            <thead>
+                                                <tr>
+                                                    <th
+                                                        style="width: 30px; color: #FFF; padding: 5px 0; font-weight: normal;"><i
+                                                        class="icon-trash icon-white"></i></th>
+                                                    <th
+                                                        style="width: 200px; color: #FFF; padding: 5px 0; font-weight: normal;"><?php echo $this->lang->line('product'); ?></th>
+                                                    <th
+                                                        style="width: 42px; color: #FFF; padding: 5px 0; font-weight: normal;"><?php echo $this->lang->line('qty'); ?></th>
+                                                    <th
+                                                        style="width: 82px; color: #FFF; padding: 5px 0; font-weight: normal;"><?php echo $this->lang->line('price'); ?></th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                    <div id="protbldiv">
+                                        <table border="0" cellpadding="0" cellspacing="0"
+                                            class="protable" id="saletbl">
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                        <div style="clear: both;"></div>
+                                    </div>
+                                </div>
+                                <div style="clear: both;"></div>
+                                <table id="totalTable"
+                                    style="width: 100%; float: right; border: 1px solid #666; padding: 5px; font-size: 14px; color: #000; background: #FFF;">
+                                    <tr>
+                                        <td
+                                            style="padding-left: 10px; text-align: left; font-weight: normal;"><?php echo $this->lang->line('total_items'); ?></td>
+                                        <td
+                                            style="text-align: right; padding-right: 10px; font-size: 14px; font-weight: bold;"><span
+                                            id="count">0</span></td>
+                                        <td style="padding-left: 10px; text-align: left;"><?php echo $this->lang->line('total_x_tax'); ?></td>
+                                        <td
+                                            style="text-align: right; padding-right: 10px; font-size: 14px; font-weight: bold;"><span
+                                            id="total">0.00</span></td>
+                                    </tr>
 <?php if (TAX1 || TAX2) { ?>
                                             <tr>
                                                 <?php if (TAX1 && !TAX2) { ?>
                                                     <td></td>
-										<td></td>
-										<td
-											style="padding-left: 10px; text-align: left; font-weight: normal;"><?php echo $this->lang->line('tax1'); ?></td>
-										<td
-											style="text-align: right; padding-right: 10px; font-size: 14px; font-weight: bold;"><span
-											id="tax">0.00</span></td>
+                                        <td></td>
+                                        <td
+                                            style="padding-left: 10px; text-align: left; font-weight: normal;"><?php echo $this->lang->line('tax1'); ?></td>
+                                        <td
+                                            style="text-align: right; padding-right: 10px; font-size: 14px; font-weight: bold;"><span
+                                            id="tax">0.00</span></td>
                                                 <?php } ?>
                                                 <?php if (TAX2 && !TAX1) { ?>
                                                     <td></td>
-										<td></td>
-										<td
-											style="padding-left: 10px; text-align: left; font-weight: normal;"><?php echo $tax_name2; ?></td>
-										<td
-											style="text-align: right; padding-right: 10px; font-size: 14px; font-weight: bold;"><span
-											id="tax2">0.00</span></td>
+                                        <td></td>
+                                        <td
+                                            style="padding-left: 10px; text-align: left; font-weight: normal;"><?php echo $tax_name2; ?></td>
+                                        <td
+                                            style="text-align: right; padding-right: 10px; font-size: 14px; font-weight: bold;"><span
+                                            id="tax2">0.00</span></td>
     <?php } ?>
     <?php if (TAX1 && TAX2) { ?>
                                                     <td
-											style="padding-left: 10px; text-align: left; font-weight: normal;"><?php echo $this->lang->line('tax1'); ?></td>
-										<td
-											style="text-align: right; padding-right: 10px; font-size: 14px; font-weight: bold;"><span
-											id="tax">0.00</span></td>
-										<td
-											style="padding-left: 10px; text-align: left; font-weight: normal;"><?php echo $tax_name2; ?></td>
-										<td
-											style="text-align: right; padding-right: 10px; font-size: 14px; font-weight: bold;"><span
-											id="tax2">0.00</span></td>
+                                            style="padding-left: 10px; text-align: left; font-weight: normal;"><?php echo $this->lang->line('tax1'); ?></td>
+                                        <td
+                                            style="text-align: right; padding-right: 10px; font-size: 14px; font-weight: bold;"><span
+                                            id="tax">0.00</span></td>
+                                        <td
+                                            style="padding-left: 10px; text-align: left; font-weight: normal;"><?php echo $tax_name2; ?></td>
+                                        <td
+                                            style="text-align: right; padding-right: 10px; font-size: 14px; font-weight: bold;"><span
+                                            id="tax2">0.00</span></td>
     <?php } ?>
                                             </tr>
 <?php } ?>
                                         <tr style="display:none;">
-										<td style="padding-left: 10px; text-align: left;" colspan="2"><?php echo $this->lang->line('discount'); ?></td>
-										
-										<?php if (DISCOUNT_OPTION == 1) { ?>
-										<td>
-											<?php
-												$ds [""] = "";
-												foreach ( $discounts as $discount ) {
-													$ds [$discount->id] = $discount->name;
-												}
-												echo form_dropdown ( 'inv_discount', $ds, (isset ( $_POST ['inv_discount'] ) ? $_POST ['inv_discount'] : DEFAULT_DISCOUNT), 'id="discount_s" data-placeholder="' . $this->lang->line ( "select" ) . ' ' . $this->lang->line ( "discount" ) . '" required="required" data-error="' . $this->lang->line ( "discount" ) . ' ' . $this->lang->line ( "is_required" ) . '" style="margin: 0; width: 130px;"' );
-												?>
-										</td>
-											<?php } ?>
-										
-										<td
-											style="text-align: right; padding-right: 10px; font-weight: bold;"
-											colspan="2">
-											
-											<span id="ds">0.00</span></td>
-											
-									</tr>
-									
-									<tr>
-										<td
-											style="padding: 5px 0px 5px 10px; text-align: left; border-top: 1px solid #666; font-weight: bold; background: #333; color: #FFF;"
-											colspan="2"><?php echo $this->lang->line('total_payable'); ?></td>
-										<td
-											style="text-align: right; padding: 5px 10px 5px 0px; font-size: 14px; border-top: 1px solid #666; font-weight: bold; background: #333; color: #FFF;"
-											colspan="2"><span id="total-payable">0.00</span></td>
-									</tr>
-									
-								</table>
-							</div>
+                                        <td style="padding-left: 10px; text-align: left;" colspan="2"><?php echo $this->lang->line('discount'); ?></td>
+                                        
+                                        <?php if (DISCOUNT_OPTION == 1) { ?>
+                                        <td>
+                                            <?php
+                                                $ds [""] = "";
+                                                foreach ( $discounts as $discount ) {
+                                                    $ds [$discount->id] = $discount->name;
+                                                }
+                                                echo form_dropdown ( 'inv_discount', $ds, (isset ( $_POST ['inv_discount'] ) ? $_POST ['inv_discount'] : DEFAULT_DISCOUNT), 'id="discount_s" data-placeholder="' . $this->lang->line ( "select" ) . ' ' . $this->lang->line ( "discount" ) . '" required="required" data-error="' . $this->lang->line ( "discount" ) . ' ' . $this->lang->line ( "is_required" ) . '" style="margin: 0; width: 130px;"' );
+                                                ?>
+                                        </td>
+                                            <?php } ?>
+                                        
+                                        <td
+                                            style="text-align: right; padding-right: 10px; font-weight: bold;"
+                                            colspan="2">
+                                            
+                                            <span id="ds">0.00</span></td>
+                                            
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td
+                                            style="padding: 5px 0px 5px 10px; text-align: left; border-top: 1px solid #666; font-weight: bold; background: #333; color: #FFF;"
+                                            colspan="2"><?php echo $this->lang->line('total_payable'); ?></td>
+                                        <td
+                                            style="text-align: right; padding: 5px 10px 5px 0px; font-size: 14px; border-top: 1px solid #666; font-weight: bold; background: #333; color: #FFF;"
+                                            colspan="2"><span id="total-payable">0.00</span></td>
+                                    </tr>
+                                    
+                                </table>
+                            </div>
 
-							<!--<div id="printfooter"> <?php /* echo BILL_FOOTER; */ ?> </div>-->
-							<div id="botbuttons" style="text-align: center;">
-								<input type="hidden" name="biller" id="biller" value="<?php echo DBILLER; ?>" /> 
-								<input type="hidden" name="warehouse" id="warehouse" value="<?php echo DEFAULT_WAREHOUSE; ?>" /> 
-								<input type="hidden" name="paid_val" id="paid_val" value="" /> 
-								<input type="hidden" name="paid_giftcard_val" id="paid_giftcard_val" value="" />
-								<input type="hidden" name="paid_giftcard_munber" id="paid_giftcard_munber" value="" />
-								<input type="hidden" name="cc_no_val" id="cc_no_val" value="" /> 
-								<input type="hidden" name="cc_holder_val" id="cc_holder_val" value="" />
-								<input type="hidden" name="cheque_no_val" id="cheque_no_val" value="" />
-								
-								<button type="button" class="red bot" id="cancel"><?php echo $this->lang->line('cancel'); ?></button>
-								<button type="button" class="cyan bot" id="print"
-									onClick="onPrint();"><?php echo $this->lang->line('print'); ?></button>
-								<button type="button" class="yellow bot" id="suspend"
-									style="margin-right: 0;"><?php echo $this->lang->line('suspend'); ?></button>
-								<button type="button" class="pg" id="payment"
-									style="margin-left: auto; margin-right: auto; width: 100%;"><?php echo $this->lang->line('payment'); ?></button>
-							</div>
-							<div style="clear: both; height: 5px;"></div>
-							<div id="num">
-								<div id="icon"></div>
-							</div>
-							<span id="hidesuspend"></span> <input type="hidden"
-								name="rpaidby" id="rpaidby" value="cash" style="display: none;" />
-							<input type="hidden" name="count" id="total_item" value="0"
-								style="display: none;" /> <input type="submit" id="submit"
-								value="Submit Sale" style="display: none;" />
-						</div>
+                            <!--<div id="printfooter"> <?php /* echo BILL_FOOTER; */ ?> </div>-->
+                            <div id="botbuttons" style="text-align: center;">
+                                <input type="hidden" name="biller" id="biller" value="<?php echo DBILLER; ?>" /> 
+                                <input type="hidden" name="warehouse" id="warehouse" value="<?php echo DEFAULT_WAREHOUSE; ?>" /> 
+                                <input type="hidden" name="paid_val" id="paid_val" value="" /> 
+                                <input type="hidden" name="paid_giftcard_val" id="paid_giftcard_val" value="" />
+                                <input type="hidden" name="paid_giftcard_munber" id="paid_giftcard_munber" value="" />
+                                <input type="hidden" name="cc_no_val" id="cc_no_val" value="" /> 
+                                <input type="hidden" name="cc_holder_val" id="cc_holder_val" value="" />
+                                <input type="hidden" name="cheque_no_val" id="cheque_no_val" value="" />
+                                
+                                <button type="button" class="red bot" id="cancel"><?php echo $this->lang->line('cancel'); ?></button>
+                                <button type="button" class="cyan bot" id="print"
+                                    onClick="onPrint();"><?php echo $this->lang->line('print'); ?></button>
+                                <button type="button" class="yellow bot" id="suspend"
+                                    style="margin-right: 0;"><?php echo $this->lang->line('suspend'); ?></button>
+                                <button type="button" class="pg" id="payment"
+                                    style="margin-left: auto; margin-right: auto; width: 100%;"><?php echo $this->lang->line('payment'); ?></button>
+                            </div>
+                            <div style="clear: both; height: 5px;"></div>
+                            <div id="num">
+                                <div id="icon"></div>
+                            </div>
+                            <span id="hidesuspend"></span> <input type="hidden"
+                                name="rpaidby" id="rpaidby" value="cash" style="display: none;" />
+                            <input type="hidden" name="count" id="total_item" value="0"
+                                style="display: none;" /> <input type="submit" id="submit"
+                                value="Submit Sale" style="display: none;" />
+                        </div>
 <?php echo form_close(); ?>
                             <div id="cp">
-							<div id="cpinner">
-								<div id="catContainer">
-									<div class="list_carousel">
-										<ul id="cats">
+                            <div id="cpinner">
+                                <div id="catContainer">
+                                    <div class="list_carousel">
+                                        <ul id="cats">
                                                     <?php echo $categories; ?>
                                             </ul>
-										<a class="prev" id="prev2" href="#"><span>prev</span></a> <a
-											class="next" id="next2" href="#"><span>next</span></a>
-										<div class="pagination" id="pager2"></div>
-									</div>
-								</div>
-								<div class="quick-menu">
-									<div id="proContainer">
-										<div id="ajaxproducts">
-											<div id="proajax">
+                                        <a class="prev" id="prev2" href="#"><span>prev</span></a> <a
+                                            class="next" id="next2" href="#"><span>next</span></a>
+                                        <div class="pagination" id="pager2"></div>
+                                    </div>
+                                </div>
+                                <div class="quick-menu">
+                                    <div id="proContainer">
+                                        <div id="ajaxproducts">
+                                            <div id="proajax">
 <?php
 echo $products;
 
 echo "</div><button id=\"previous\" type=\"button\" class=\"blue\" style='z-index:10002;'><i><img src='assets/pos/images/previous.png' alt='previous' /></i><span><span>" . $this->lang->line('previous') . "</span></span></button><button id=\"next\" type=\"button\" class=\"blue\" style='z-index:10003;'><i><img src='assets/pos/images/next.png' alt='next' /></i><span><span>" . $this->lang->line('next') . "</span></span></button></div>";
 ?>
                                                 </div>
-										</div>
-										<div style="clear: both;"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div style="clear: both;"></div>
-					</div>
-					<div style="clear: both;"></div>
-				</div>
-				<div style="clear: both;"></div>
-			</div>
-		</div>
-	</div>
-	<div id="itemModal" class="modal hide fade" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true">A?</button>
-			<h3 id="myModalLabel"></h3>
-		</div>
-		<div class="modal-body">
-			<div class="form-horizontal">
-				<input type="hidden" id="itemRowId" value="">
+                                        </div>
+                                        <div style="clear: both;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+    </div>
+    <div id="itemModal" class="modal hide fade" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+                aria-hidden="true">A?</button>
+            <h3 id="myModalLabel"></h3>
+        </div>
+        <div class="modal-body">
+            <div class="form-horizontal">
+                <input type="hidden" id="itemRowId" value="">
                     <?php if (TAX1) { ?>
                         <div class="control-group">
-					<label class="control-label" for="tax1"><?php echo $this->lang->line("tax1"); ?></label>
-					<div class="controls">
+                    <label class="control-label" for="tax1"><?php echo $this->lang->line("tax1"); ?></label>
+                    <div class="controls">
     <?php
     foreach ($tax_rates as $tax) {
         $tr[$tax->id] = $tax->name;
@@ -334,12 +334,12 @@ echo "</div><button id=\"previous\" type=\"button\" class=\"blue\" style='z-inde
     echo form_dropdown('tax1', $tr, DEFAULT_TAX, 'id="item_tax"');
     ?>
                             </div>
-				</div>
+                </div>
                     <?php } ?>
                     <?php if (DISCOUNT_OPTION == 2) { ?>
                         <div class="control-group">
-					<label class="control-label" for="discount"><?php echo $this->lang->line("discount"); ?></label>
-					<div class="controls">
+                    <label class="control-label" for="discount"><?php echo $this->lang->line("discount"); ?></label>
+                    <div class="controls">
     <?php
     foreach ($discounts as $discount) {
         $ds[$discount->id] = $discount->name;
@@ -347,35 +347,35 @@ echo "</div><button id=\"previous\" type=\"button\" class=\"blue\" style='z-inde
     echo form_dropdown('discount', $ds, DEFAULT_DISCOUNT, 'id="item_discount" ');
     ?>
                             </div>
-				</div>
+                </div>
 <?php } ?>
 <?php if (PRODUCT_SERIAL) { ?>
                         <div class="control-group">
-					<label class="control-label" for="serial_no"><?php echo $this->lang->line("serial_no"); ?></label>
-					<div class="controls"> <?php echo form_input('serial_no', '', 'id="item_serial_no" '); ?> </div>
-				</div>
+                    <label class="control-label" for="serial_no"><?php echo $this->lang->line("serial_no"); ?></label>
+                    <div class="controls"> <?php echo form_input('serial_no', '', 'id="item_serial_no" '); ?> </div>
+                </div>
 <?php } ?>
                 </div>
-		</div>
-		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo $this->lang->line('close'); ?></button>
-			<button class="btn btn-primary" id="updateRow"><?php echo $this->lang->line('save'); ?></button>
-		</div>
-	</div>
-	<div id="paymentModal" class="modal hide fade" tabindex="-1"
-		role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true">A?</button>
-			<h3 id="paymentModalLabel"><?php echo $this->lang->line('finalize_sale'); ?></h3>
-		</div>
-		<div class="modal-body">
-			<div id="paymentdiv"></div>
-			<div class="well form-horizontal" style="margin-bottom: 0;">
-				<div class="control-group" style="font-weight: bold;">
-					<div class="control-group">
-						<label class="control-label" id="warehouse_l"><?php echo $this->lang->line("warehouse"); ?></label>
-						<div class="controls">  <?php
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo $this->lang->line('close'); ?></button>
+            <button class="btn btn-primary" id="updateRow"><?php echo $this->lang->line('save'); ?></button>
+        </div>
+    </div>
+    <div id="paymentModal" class="modal hide fade" tabindex="-1"
+        role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+                aria-hidden="true">A?</button>
+            <h3 id="paymentModalLabel"><?php echo $this->lang->line('finalize_sale'); ?></h3>
+        </div>
+        <div class="modal-body">
+            <div id="paymentdiv"></div>
+            <div class="well form-horizontal" style="margin-bottom: 0;">
+                <div class="control-group" style="font-weight: bold;">
+                    <div class="control-group">
+                        <label class="control-label" id="warehouse_l"><?php echo $this->lang->line("warehouse"); ?></label>
+                        <div class="controls">  <?php
                                 $wh[''] = $this->lang->line("select") . ' ' . $this->lang->line("warehouse");
                                 ;
                                 foreach ($warehouses as $warehouse) {
@@ -383,207 +383,207 @@ echo "</div><button id=\"previous\" type=\"button\" class=\"blue\" style='z-inde
                                 }
                                 echo form_dropdown('s_warehouse', $wh, (isset($_POST['s_warehouse']) ? $_POST['s_warehouse'] : DEFAULT_WAREHOUSE), 'id="s_warehouse" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("warehouse") . '" required="required" data-error="' . $this->lang->line("warehouse") . ' ' . $this->lang->line("is_required") . '"');
                                 ?> </div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" id="s_biller"><?php echo $this->lang->line("biller"); ?></label>
-						<div class="controls">  <?php
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" id="s_biller"><?php echo $this->lang->line("biller"); ?></label>
+                        <div class="controls">  <?php
                                 $bl[""] = $this->lang->line("select") . ' ' . $this->lang->line("biller");
                                 foreach ($billers as $biller) {
                                     $bl[$biller->id] = $biller->name;
                                 }
                                 echo form_dropdown('s_biller', $bl, (isset($_POST['s_biller']) ? $_POST['s_biller'] : DBILLER), 'id="s_biller" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("biller") . '" required="required" data-error="' . $this->lang->line("biller") . ' ' . $this->lang->line("is_required") . '"');
                                 ?> </div>
-					</div>
-					<div class="control-label"
-						style="padding-top: 0; font-weight: bold;"><?php echo $this->lang->line("total_payable"); ?>:</div>
-					<div class="controls">
-						<span
-							style="background: #FFFF99; border-radius: 5px; padding: 5px 10px; color: #000;"><span
-							id="twt"></span></span>
-					</div>
-				</div>
-				<div class="control-group" style="font-weight: bold;">
-					<div class="control-label"
-						style="padding-top: 0; font-weight: bold;"><?php echo $this->lang->line("total_items"); ?>:</div>
-					<div class="controls">
-						<span
-							style="background: #FFFF99; border-radius: 5px; padding: 5px 10px; color: #000;"><span
-							id="item_count"></span></span>
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label" for="paid_by"><?php echo $this->lang->line("paid_by"); ?></label>
-					<div class="controls">
-						<select name="paid_by" id="paid_by">
-							<option value="cash"><?php echo $this->lang->line("cash"); ?></option>
-							<option value="CC"><?php echo $this->lang->line("cc"); ?></option>
-							<option value="GC"><?php echo $this->lang->line("giftcard"); ?></option>
-							<option value="cashCC"><?php echo $this->lang->line("cash") . ' + ' . $this->lang->line("cc"); ?></option>
-							<option value="cashGC"><?php echo $this->lang->line("cash") . ' + ' . $this->lang->line("giftcard"); ?></option>
-							<option value="CCGC"><?php echo $this->lang->line("cc") . ' + ' . $this->lang->line("giftcard"); ?></option>
-							<option value="Cheque"><?php echo $this->lang->line("cheque"); ?></option>
-						</select>
-					</div>
-				</div>
-				<div class="pcash">
-					<div class="control-group">
-						<label class="control-label" for="paid-amount"><?php echo $this->lang->line("paid"); ?></label>
-						<div class="controls">
-							<input type="text" id="paid-amount" class="pa" />
-						</div>
-					</div>
-				</div>
-				<div class="pcc" style="display: none;">
-					<div class="control-group">
-						<label class="control-label" for="paid-amount"><?php echo $this->lang->line("paid") . ' by ' . $this->lang->line("cc"); ?></label>
-						<div class="controls">
-							<input type="text" id="pcc" value=""/>
-						</div>
-					</div>
-					<div class="control-group" style="display: none;">
-						<label class="control-label" for="paid-amount"><?php echo $this->lang->line("cc_holder"); ?></label>
-						<div class="controls">
-							<input type="text" id="pcc_holder" value="" />
-						</div>
-					</div>
-				</div>
+                    </div>
+                    <div class="control-label"
+                        style="padding-top: 0; font-weight: bold;"><?php echo $this->lang->line("total_payable"); ?>:</div>
+                    <div class="controls">
+                        <span
+                            style="background: #FFFF99; border-radius: 5px; padding: 5px 10px; color: #000;"><span
+                            id="twt"></span></span>
+                    </div>
+                </div>
+                <div class="control-group" style="font-weight: bold;">
+                    <div class="control-label"
+                        style="padding-top: 0; font-weight: bold;"><?php echo $this->lang->line("total_items"); ?>:</div>
+                    <div class="controls">
+                        <span
+                            style="background: #FFFF99; border-radius: 5px; padding: 5px 10px; color: #000;"><span
+                            id="item_count"></span></span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="paid_by"><?php echo $this->lang->line("paid_by"); ?></label>
+                    <div class="controls">
+                        <select name="paid_by" id="paid_by">
+                            <option value="cash"><?php echo $this->lang->line("cash"); ?></option>
+                            <option value="CC"><?php echo $this->lang->line("cc"); ?></option>
+                            <option value="GC"><?php echo $this->lang->line("giftcard"); ?></option>
+                            <option value="cashCC"><?php echo $this->lang->line("cash") . ' + ' . $this->lang->line("cc"); ?></option>
+                            <option value="cashGC"><?php echo $this->lang->line("cash") . ' + ' . $this->lang->line("giftcard"); ?></option>
+                            <option value="CCGC"><?php echo $this->lang->line("cc") . ' + ' . $this->lang->line("giftcard"); ?></option>
+                            <option value="Cheque"><?php echo $this->lang->line("cheque"); ?></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="pcash">
+                    <div class="control-group">
+                        <label class="control-label" for="paid-amount"><?php echo $this->lang->line("paid"); ?></label>
+                        <div class="controls">
+                            <input type="text" id="paid-amount" class="pa" />
+                        </div>
+                    </div>
+                </div>
+                <div class="pcc" style="display: none;">
+                    <div class="control-group">
+                        <label class="control-label" for="paid-amount"><?php echo $this->lang->line("paid") . ' by ' . $this->lang->line("cc"); ?></label>
+                        <div class="controls">
+                            <input type="text" id="pcc" value=""/>
+                        </div>
+                    </div>
+                    <div class="control-group" style="display: none;">
+                        <label class="control-label" for="paid-amount"><?php echo $this->lang->line("cc_holder"); ?></label>
+                        <div class="controls">
+                            <input type="text" id="pcc_holder" value="" />
+                        </div>
+                    </div>
+                </div>
 
-				<div class="pgiftcard" style="display: none;">
-					<div class="control-group control-group-gnc" style="display: none;">
-						<label class="control-label" for="giftcard_number_call"><?php echo $this->lang->line("giftcard_value"); ?></label>
-						<div class="controls">
-							<input type="text" disabled value="" id="giftcard_number_call" />
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="giftcard_number"><?php echo $this->lang->line("giftcard_number"); ?></label>
-						<div class="controls">
-							<input type="text" id="giftcard_number" />
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="paid-giftcard-amount"><?php echo $this->lang->line("paid") . ' by ' . $this->lang->line("giftcard"); ?></label>
-						<div class="controls">
-							<input type="text" id="paid-giftcard-amount" />
-						</div>
-					</div>
-				</div>
-				
-				<div class="pcheque" style="display: none;">
-					<div class="control-group">
-						<label class="control-label" for="paid-amount"><?php echo $this->lang->line("cheque_no"); ?></label>
-						<div class="controls">
-							<input type="text" id="cheque_no" />
-						</div>
-					</div>
-				</div>
-				
-				<div class="pchange">
-					<div class="control-group" style="font-weight: bold;">
-						<div class="control-label"
-							style="padding-top: 0; font-weight: bold;"><?php echo $this->lang->line("change"); ?>:</div>
-						<div class="controls">
-							<span
-								style="background: #FFFF99; border-radius: 5px; padding: 5px 10px; color: #000;"
-								id="balance"></span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo $this->lang->line('close'); ?></button>
-			<button class="btn btn-primary" id="submit-sale"><?php echo $this->lang->line('submit'); ?></button>
-		</div>
-	</div>
-	<div id="customerModal" class="modal hide fade" tabindex="-1"
-		role="dialog" aria-labelledby="customerModalLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true">A?</button>
-			<h3 id="customerModalLabel"><?php echo $this->lang->line('new_customer'); ?></h3>
-		</div>
-		<div class="modal-body">
-			<div id="customerError"></div>
-			<div class="control-group">
-				<label class="control-label" for="company"><?php echo $this->lang->line("company") . ": " . $this->lang->line("bypass"); ?></label>
-				<div class="controls"> <?php echo form_input('company', '', 'class="input-block-level tip" title="' . $this->lang->line("bypass") . '" id="company" '); ?> </div>
-			</div>
-			<div style="width: 100%">
-				<div style="width: 48%; float: left;">
-					<div class="control-group">
-						<label class="control-label" for="name"><?php echo $this->lang->line("name"); ?></label>
-						<div class="controls"> <?php echo form_input('name', '', 'class="input-block-level" id="name" '); ?> </div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="email_address"><?php echo $this->lang->line("email_address"); ?></label>
-						<div class="controls">
-							<input type="email" id="cusEmail" name="email"
-								class="input-block-level" />
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="phone"><?php echo $this->lang->line("phone"); ?></label>
-						<div class="controls">
-							<input type="tel" id="cusPhone" name="phone"
-								class="input-block-level" />
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="postal_code"><?php echo $this->lang->line("postal_code"); ?></label>
-						<div class="controls"> <?php echo form_input('postal_code', '', 'class="input-block-level" id="postal_code" '); ?> </div>
-					</div>
-				</div>
-				<div style="width: 48%; float: right;">
-					<div class="control-group">
-						<label class="control-label" for="address"><?php echo $this->lang->line("address"); ?></label>
-						<div class="controls"> <?php echo form_input('address', '', 'class="input-block-level" id="address" '); ?> </div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="city"><?php echo $this->lang->line("city"); ?></label>
-						<div class="controls"> <?php echo form_input('city', '', 'class="input-block-level" id="city" '); ?> </div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="state"><?php echo $this->lang->line("state"); ?></label>
-						<div class="controls"> <?php echo form_input('state', '', 'class="input-block-level" id="state" '); ?> </div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="country"><?php echo $this->lang->line("country"); ?></label>
-						<div class="controls"> <?php echo form_input('country', '', 'class="input-block-level" id="country"'); ?> </div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo $this->lang->line('close'); ?></button>
-			<button class="btn btn-primary" id="add-customer"><?php echo $this->lang->line('add_customer'); ?></button>
-		</div>
-	</div>
-	<div id="saleModal" class="modal hide fade" tabindex="-1" role="dialog"
-		aria-labelledby="saleModalLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true">A?</button>
-			<h3 id="saleModalLabel"><?php echo $this->lang->line('today_sale'); ?></h3>
-		</div>
-		<div class="modal-body">
-			<div id="salediv"></div>
-		</div>
-		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo $this->lang->line('close'); ?></button>
-		</div>
-	</div>
-	<div id="gmail_loading" style="display: none;">
-		<div class="blackbg"></div>
-		<div class="gmailLoader">
-			<img
-				src="<?php echo $this->config->base_url(); ?>assets/pos/images/gmail-loader.gif"
-				alt="Loading ..." /> <?php echo $this->lang->line('loading'); ?> </div>
-	</div>
-	<script type="text/javascript">
-	var grand_total;
-	var current;
-	var current_tax;
+                <div class="pgiftcard" style="display: none;">
+                    <div class="control-group control-group-gnc" style="display: none;">
+                        <label class="control-label" for="giftcard_number_call"><?php echo $this->lang->line("giftcard_value"); ?></label>
+                        <div class="controls">
+                            <input type="text" disabled value="" id="giftcard_number_call" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="giftcard_number"><?php echo $this->lang->line("giftcard_number"); ?></label>
+                        <div class="controls">
+                            <input type="text" id="giftcard_number" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="paid-giftcard-amount"><?php echo $this->lang->line("paid") . ' by ' . $this->lang->line("giftcard"); ?></label>
+                        <div class="controls">
+                            <input type="text" id="paid-giftcard-amount" />
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pcheque" style="display: none;">
+                    <div class="control-group">
+                        <label class="control-label" for="paid-amount"><?php echo $this->lang->line("cheque_no"); ?></label>
+                        <div class="controls">
+                            <input type="text" id="cheque_no" />
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pchange">
+                    <div class="control-group" style="font-weight: bold;">
+                        <div class="control-label"
+                            style="padding-top: 0; font-weight: bold;"><?php echo $this->lang->line("change"); ?>:</div>
+                        <div class="controls">
+                            <span
+                                style="background: #FFFF99; border-radius: 5px; padding: 5px 10px; color: #000;"
+                                id="balance"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo $this->lang->line('close'); ?></button>
+            <button class="btn btn-primary" id="submit-sale"><?php echo $this->lang->line('submit'); ?></button>
+        </div>
+    </div>
+    <div id="customerModal" class="modal hide fade" tabindex="-1"
+        role="dialog" aria-labelledby="customerModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+                aria-hidden="true">A?</button>
+            <h3 id="customerModalLabel"><?php echo $this->lang->line('new_customer'); ?></h3>
+        </div>
+        <div class="modal-body">
+            <div id="customerError"></div>
+            <div class="control-group">
+                <label class="control-label" for="company"><?php echo $this->lang->line("company") . ": " . $this->lang->line("bypass"); ?></label>
+                <div class="controls"> <?php echo form_input('company', '', 'class="input-block-level tip" title="' . $this->lang->line("bypass") . '" id="company" '); ?> </div>
+            </div>
+            <div style="width: 100%">
+                <div style="width: 48%; float: left;">
+                    <div class="control-group">
+                        <label class="control-label" for="name"><?php echo $this->lang->line("name"); ?></label>
+                        <div class="controls"> <?php echo form_input('name', '', 'class="input-block-level" id="name" '); ?> </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="email_address"><?php echo $this->lang->line("email_address"); ?></label>
+                        <div class="controls">
+                            <input type="email" id="cusEmail" name="email"
+                                class="input-block-level" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="phone"><?php echo $this->lang->line("phone"); ?></label>
+                        <div class="controls">
+                            <input type="tel" id="cusPhone" name="phone"
+                                class="input-block-level" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="postal_code"><?php echo $this->lang->line("postal_code"); ?></label>
+                        <div class="controls"> <?php echo form_input('postal_code', '', 'class="input-block-level" id="postal_code" '); ?> </div>
+                    </div>
+                </div>
+                <div style="width: 48%; float: right;">
+                    <div class="control-group">
+                        <label class="control-label" for="address"><?php echo $this->lang->line("address"); ?></label>
+                        <div class="controls"> <?php echo form_input('address', '', 'class="input-block-level" id="address" '); ?> </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="city"><?php echo $this->lang->line("city"); ?></label>
+                        <div class="controls"> <?php echo form_input('city', '', 'class="input-block-level" id="city" '); ?> </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="state"><?php echo $this->lang->line("state"); ?></label>
+                        <div class="controls"> <?php echo form_input('state', '', 'class="input-block-level" id="state" '); ?> </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="country"><?php echo $this->lang->line("country"); ?></label>
+                        <div class="controls"> <?php echo form_input('country', '', 'class="input-block-level" id="country"'); ?> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo $this->lang->line('close'); ?></button>
+            <button class="btn btn-primary" id="add-customer"><?php echo $this->lang->line('add_customer'); ?></button>
+        </div>
+    </div>
+    <div id="saleModal" class="modal hide fade" tabindex="-1" role="dialog"
+        aria-labelledby="saleModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+                aria-hidden="true">A?</button>
+            <h3 id="saleModalLabel"><?php echo $this->lang->line('today_sale'); ?></h3>
+        </div>
+        <div class="modal-body">
+            <div id="salediv"></div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo $this->lang->line('close'); ?></button>
+        </div>
+    </div>
+    <div id="gmail_loading" style="display: none;">
+        <div class="blackbg"></div>
+        <div class="gmailLoader">
+            <img
+                src="<?php echo $this->config->base_url(); ?>assets/pos/images/gmail-loader.gif"
+                alt="Loading ..." /> <?php echo $this->lang->line('loading'); ?> </div>
+    </div>
+    <script type="text/javascript">
+    var grand_total;
+    var current;
+    var current_tax;
             $(document).ready(function() {
                 var count = 1;
                 var total = 0;
@@ -634,42 +634,42 @@ echo "</div><button id=\"previous\" type=\"button\" class=\"blue\" style='z-inde
                 loadProducts();
 
                 function getJsonTotalPrice( productPrice, taxId ){
-            		productPrice = productPrice * 1;
-            		taxId = taxId * 1;
-            		var taxRate = 0;
+                    productPrice = productPrice * 1;
+                    taxId = taxId * 1;
+                    var taxRate = 0;
                     $.each(tax_rates, function() {
                         if (this.id == taxId) {
-                        	taxRate = parseFloat(this.rate);
+                            taxRate = parseFloat(this.rate);
                         }
                     });
                     var tax = Number(productPrice * taxRate / 100);
                     var totalPrice = Number(productPrice + tax).toFixed(2);
                     var data = { totalPrice : totalPrice, tax : tax};
                     return data;
-            	}
-            	
-            	function getJsonProductPrice( totalPrice, taxId ){
-            		totalPrice = totalPrice * 1;
-            		taxId = taxId * 1;		
-            		var taxRate = 0;
+                }
+                
+                function getJsonProductPrice( totalPrice, taxId ){
+                    totalPrice = totalPrice * 1;
+                    taxId = taxId * 1;      
+                    var taxRate = 0;
                     $.each(tax_rates, function() {
                         if (this.id == taxId) {
-                        	taxRate = parseFloat(this.rate);
+                            taxRate = parseFloat(this.rate);
                         }
                     });
                     var productPrice = Number(totalPrice / ( taxRate + 100 ) * 100).toFixed(2);
                     var tax = Number(totalPrice * 1 - productPrice).toFixed(2);
                     var data = { productPrice : productPrice, tax : tax};
                     return data;
-            	}
-            	function getTotalPrice( price, taxId ){
-            		var data = getJsonTotalPrice( price, taxId );
-            		return data.totalPrice;
-            	}
-            	function getProductPrice( totalPrice, taxId ){
-            		var data = getJsonProductPrice( totalPrice, taxId );
-            		return data.productPrice;
-            	}                
+                }
+                function getTotalPrice( price, taxId ){
+                    var data = getJsonTotalPrice( price, taxId );
+                    return data.totalPrice;
+                }
+                function getProductPrice( totalPrice, taxId ){
+                    var data = getJsonProductPrice( totalPrice, taxId );
+                    return data.productPrice;
+                }                
 
                 function loadProducts() {
                     $('button[id^="category"]').click(function() {
@@ -812,12 +812,12 @@ echo "</div><button id=\"previous\" type=\"button\" class=\"blue\" style='z-inde
                     $('#saleModal').modal();
                     return false;
                 });
-				
+                
 <?php if (DISCOUNT_OPTION == 1) { ?>
                            
                             $("#discount_s").change(function() {
                                 var nds_val = $("#discount_s").val();
-								
+                                
                                 $.each(discounts, function() {
                                     if (this.id == nds_val) {
                                         new_discount_rate = parseFloat(this.discount);
@@ -841,21 +841,21 @@ echo "</div><button id=\"previous\" type=\"button\" class=\"blue\" style='z-inde
                                     }
     <?php } ?>
 
-								discount = new_discount_rate;
-								discount_type = new_discount_type;
-								
+                                discount = new_discount_rate;
+                                discount_type = new_discount_type;
+                                
                                 total_discount = new_discount;
 
-								current_discount = Math.abs(total_discount).toFixed(2);
-								var g_total = (total + tax_value + tax_value2) - total_discount;
-								
-								grand_total = Math.abs(g_total).toFixed(2);
-								$("#total-payable").empty();
-								$("#total-payable").append(grand_total);
-								
-								$("#ds").empty();
+                                current_discount = Math.abs(total_discount).toFixed(2);
+                                var g_total = (total + tax_value + tax_value2) - total_discount;
+                                
+                                grand_total = Math.abs(g_total).toFixed(2);
+                                $("#total-payable").empty();
+                                $("#total-payable").append(grand_total);
+                                
+                                $("#ds").empty();
                                 $("#ds").append(current_discount);
-								
+                                
                             });
 <?php } ?>
 
@@ -1028,17 +1028,17 @@ echo "</div><button id=\"previous\" type=\"button\" class=\"blue\" style='z-inde
                         });
 
                         $("#saletbl").on("click", 'input[id^="price"]', function() {
-                			$(this).css("border", "1px solid #777");
-                			$(this).css("background", "#FFF");
-                			$(this).select();
-                			// var qty = $(this).parents("tr").eq(0).find("td").eq(2).find("input").val() * 1;
-                			// var pr_tax_id = $(this).parents("tr").eq(0).find("Td").eq(1).find("input").eq(2).val();
-                			// var totalPrice =  $(this).val() * 1;
-                			// var tData ;
-                			// if( $(this).val() * 1 == $(this).val() ){
-	                  //           tData = getJsonProductPrice( totalPrice, pr_tax_id );
-                			// 	total -= ( tData.productPrice * 1 ) * qty;
-                			// }
+                            $(this).css("border", "1px solid #777");
+                            $(this).css("background", "#FFF");
+                            $(this).select();
+                            // var qty = $(this).parents("tr").eq(0).find("td").eq(2).find("input").val() * 1;
+                            // var pr_tax_id = $(this).parents("tr").eq(0).find("Td").eq(1).find("input").eq(2).val();
+                            // var totalPrice =  $(this).val() * 1;
+                            // var tData ;
+                            // if( $(this).val() * 1 == $(this).val() ){
+                      //           tData = getJsonProductPrice( totalPrice, pr_tax_id );
+                            //  total -= ( tData.productPrice * 1 ) * qty;
+                            // }
                             
                    //          $.each(tax_rates, function() {
                    //              if (this.id == pr_tax_id) {
@@ -1050,55 +1050,55 @@ echo "</div><button id=\"previous\" type=\"button\" class=\"blue\" style='z-inde
                         });
 
 function calculateAll() {
-	var payable = 0.0, tax = 0.0, total = 0.0, counter = 0;
+    var payable = 0.0, tax = 0.0, total = 0.0, counter = 0;
 
-	$("#saletbl").find('tr').each(function(idx, item) {
-		var $item = $(item),
-		price = +$item.find('input[name^=unit_price]').val(),
-		qty = +$item.find('input[name^=quantity]').val(),
-		taxRate = +$item.find('input[name^=tax_rate]').val();
-		data = getJsonProductPrice(price, taxRate);
+    $("#saletbl").find('tr').each(function(idx, item) {
+        var $item = $(item),
+        price = +$item.find('input[name^=unit_price]').val(),
+        qty = +$item.find('input[name^=quantity]').val(),
+        taxRate = +$item.find('input[name^=tax_rate]').val();
+        data = getJsonProductPrice(price, taxRate);
 
-		total += +data.productPrice * qty;
-		tax += +data.tax * qty;
-		payable += price * qty;
-		counter += qty;
-	});
+        total += +data.productPrice * qty;
+        tax += +data.tax * qty;
+        payable += price * qty;
+        counter += qty;
+    });
 
-	return {
-		payable: payable,
-		tax: tax,
-		total: total,
-		counter: counter
-	}
+    return {
+        payable: payable,
+        tax: tax,
+        total: total,
+        counter: counter
+    }
 }
 
 function displayData(result) {
-	var elPayable = $("#total-payable"),
-		elTotal = $('#total'),
-		elCount = $('#count'),
-		elTax = $('#tax');
+    var elPayable = $("#total-payable"),
+        elTotal = $('#total'),
+        elCount = $('#count'),
+        elTax = $('#tax');
 
-	elCount.html(result.count);
-	elPayable.html((result.payable - total_discount).toFixed(2));
-	elTotal.html((result.total).toFixed(2));
-	elTax.html((result.tax).toFixed(2));
+    elCount.html(result.count);
+    elPayable.html((result.payable - total_discount).toFixed(2));
+    elTotal.html((result.total).toFixed(2));
+    elTax.html((result.tax).toFixed(2));
 }
                         $("#saletbl").on("blur", 'input[id^="price"]', function() {
-                        	var $this = $(this),
-                        		price = +$this.val(),
-                        		txtQty = $this.parents('tr').find('input[name^=quantity]');
+                            var $this = $(this),
+                                price = +$this.val(),
+                                txtQty = $this.parents('tr').find('input[name^=quantity]');
 
-                    		if (typeof price === 'number' && price !== price) {
-                    			alert("You have enter Price correctly.");
-                    			$this.focus();
-                    			return;
-                    		}
+                            if (typeof price === 'number' && price !== price) {
+                                alert("You have enter Price correctly.");
+                                $this.focus();
+                                return;
+                            }
 
-                    		$this.attr("style", "");
-                    		$this.val(price.toFixed(2));
-                    		displayData(calculateAll());
-                    		txtQty.focus();
+                            $this.attr("style", "");
+                            $this.val(price.toFixed(2));
+                            displayData(calculateAll());
+                            txtQty.focus();
 
                         });
 
@@ -1239,15 +1239,15 @@ function displayData(result) {
                                      row_id.remove();
                                      displayData(calculateAll());
                         });
-								
-								
+                                
+                                
                                  $("#saletbl").on("focus", ".keyboard", function() {
                                      key_pad();
                                  });
 
 
                                 function add_row() {
-									$('button[id^="product"]').click(function() {
+                                    $('button[id^="product"]').click(function() {
                                          if (count >= 1000) {
                                              bootbox.alert("<?php echo $this->lang->line('qty_limit'); ?>");
                                              return false;
@@ -1291,23 +1291,23 @@ function displayData(result) {
                                          var newTr = $('<tr id="row_' + count + last + '"></tr>');
                                          
                                          var strInnerHTML = '<td id="satu" style="text-align:center; width: 27px;">'
-                                             			  + '	<button type="button" class="del_row" id="del-' + count + last + '" value="' + item_price + '"><i class="icon-trash"></i></button>' 
-                                             			  + '</td>' 
-                                             			  + '<td>' 
-                                             			  + '	<input type="hidden" name="product' + count + '" value="' + prod_code + '" id="product-' + count + last + '">' 
-                                             			  + '	<input type="hidden" name="serial' + count + '" value="" id="serial-' + count + last + '">' 
-                                             			  + '	<input type="hidden" name="tax_rate' + count + '" value="' + pt + '" id="tax_rate-' + count + last + '">' 
-                                             			  + '<input type="hidden" name="discount' + count + '" value="<?php echo DEFAULT_DISCOUNT; ?>" id="discount-' + count + last + '">' 
-                                             			  + '<a href="#" id="model-' + count + last + '" class="code">' + prod_name + '</a>' 
-                                             			  + '<input type="hidden" name="price' + count + '" value="' + parseFloat(item_price).toFixed(2) + '" id="oprice-' + count + last + '">'
-                                             			  + '</td>' 
-                                             			  + '<td style="text-align:center;">' 
-                                             			  + '	<input class="keyboard" onClick="this.select();" name="quantity' + count + '" type="text" value="1" autocomplete="off" id="quantity-' + count + last + '">' 
-                                             			  + '</td>' 
-                                             			  + '<td style="padding-right: 10px; text-align:right;">' 
-                                             			  // + '	<input type="text" class="price" name="unit_price' + count + '" value="' + parseFloat(item_price).toFixed(2) + '" id="price-' + count + last + '">' 
-                                             			  + '	<input type="text" class="price" name="unit_price' + count + '" value="' + getTotalPrice(item_price, pt) + '" id="price-' + count + last + '">'
-                                             			  + '</td>';
+                                                          + '   <button type="button" class="del_row" id="del-' + count + last + '" value="' + item_price + '"><i class="icon-trash"></i></button>' 
+                                                          + '</td>' 
+                                                          + '<td>' 
+                                                          + '   <input type="hidden" name="product' + count + '" value="' + prod_code + '" id="product-' + count + last + '">' 
+                                                          + '   <input type="hidden" name="serial' + count + '" value="" id="serial-' + count + last + '">' 
+                                                          + '   <input type="hidden" name="tax_rate' + count + '" value="' + pt + '" id="tax_rate-' + count + last + '">' 
+                                                          + '<input type="hidden" name="discount' + count + '" value="<?php echo DEFAULT_DISCOUNT; ?>" id="discount-' + count + last + '">' 
+                                                          + '<a href="#" id="model-' + count + last + '" class="code">' + prod_name + '</a>' 
+                                                          + '<input type="hidden" name="price' + count + '" value="' + parseFloat(item_price).toFixed(2) + '" id="oprice-' + count + last + '">'
+                                                          + '</td>' 
+                                                          + '<td style="text-align:center;">' 
+                                                          + '   <input class="keyboard" onClick="this.select();" name="quantity' + count + '" type="text" value="1" autocomplete="off" id="quantity-' + count + last + '">' 
+                                                          + '</td>' 
+                                                          + '<td style="padding-right: 10px; text-align:right;">' 
+                                                          // + '    <input type="text" class="price" name="unit_price' + count + '" value="' + parseFloat(item_price).toFixed(2) + '" id="price-' + count + last + '">' 
+                                                          + '   <input type="text" class="price" name="unit_price' + count + '" value="' + getTotalPrice(item_price, pt) + '" id="price-' + count + last + '">'
+                                                          + '</td>';
                                          newTr.html( strInnerHTML );
 
                                          newTr.appendTo("#saletbl");
@@ -1733,7 +1733,7 @@ function displayData(result) {
 
 
                                 });
-								
+                                
                                 $('#scancode').bind('keypress', function(e) {
                                      if (e.keyCode == 13) {
                                          e.preventDefault();
@@ -1776,23 +1776,23 @@ function displayData(result) {
                                      }
 
                                      });
-									displayData(calculateAll());
+                                    displayData(calculateAll());
                                 });
                                  
-								$('#paymentModal').on('blur', '#giftcard_number', function(){ 
-                                     	if($('#giftcard_number').val().length != 0 ) {
-	                                 		$.get( "<?php echo base_url(); ?>index.php?module=customers&view=giftcard_number_call&prefix=<?php echo PREFIX; ?>", { giftcard_code: $('#giftcard_number').val() }).done( function( data ) {
-	                                 			$('#giftcard_number_call').val(data);
-	                                 			$('.control-group-gnc').css('display', 'block');
-	                                 		});
-                                     	} else {
-                                     		$('.control-group-gnc').css('display', 'none');
+                                $('#paymentModal').on('blur', '#giftcard_number', function(){ 
+                                        if($('#giftcard_number').val().length != 0 ) {
+                                            $.get( "<?php echo base_url(); ?>index.php?module=customers&view=giftcard_number_call&prefix=<?php echo PREFIX; ?>", { giftcard_code: $('#giftcard_number').val() }).done( function( data ) {
+                                                $('#giftcard_number_call').val(data);
+                                                $('.control-group-gnc').css('display', 'block');
+                                            });
+                                        } else {
+                                            $('.control-group-gnc').css('display', 'none');
                                          }
 
-                                     	$('#paid_giftcard_munber').val($(this).val());
+                                        $('#paid_giftcard_munber').val($(this).val());
                                 });
                                  
-                       				 $('#paymentModal').on('change', '#s_biller', function(){ $('#biller').val($(this).val()); });
+                                     $('#paymentModal').on('change', '#s_biller', function(){ $('#biller').val($(this).val()); });
                                      $('#paymentModal').on('change', '#s_warehouse', function(){ $('#warehouse').val($(this).val()); });
                                      $('#paymentModal').on('blur', '.pa', function(){ $('#paid_val').val($(this).val()); });
                                      $('#paymentModal').on('blur', '#paid-giftcard-amount', function(){ $('#paid_giftcard_val').val($(this).val()); });
@@ -1801,8 +1801,10 @@ function displayData(result) {
                                      $('#paymentModal').on('change', '#cheque_no', function(){ $('#cheque_no_val').val($(this).val()); });
                                  
                                 $("#payment").click(function() {
+                                    var result = calculateAll();
 
-                                     var twt = (total + tax_value + tax_value2) - total_discount;
+                                     // var twt = (total + tax_value + tax_value2) - total_discount;
+                                     var twt = result.payable.toFixed(2);
 
                                      count = count - 1;
                                      if (isNaN(twt) || twt == 0) {
@@ -1839,12 +1841,12 @@ function displayData(result) {
                                             $('.pchange').show();
                                             $('.pgiftcard').hide();
                                             
-                                            $("#paid-amount").val( "" );		// added by jeni 2014-05-18
-                                            $("#pcc").val( "" );		// added by jeni 2014-05-18
-                                            $("#paid-giftcard-amount").val( "" );		// added by jeni 2014-05-18
+                                            $("#paid-amount").val( "" );        // added by jeni 2014-05-18
+                                            $("#pcc").val( "" );        // added by jeni 2014-05-18
+                                            $("#paid-giftcard-amount").val( "" );       // added by jeni 2014-05-18
                                             
                                             if ( $('#paid-amount').val().length > 0 ) {
-                                            	paid += parseFloat($('#paid-amount').val());
+                                                paid += parseFloat($('#paid-amount').val());
                                             }
 
                                            /*
@@ -1865,23 +1867,23 @@ function displayData(result) {
                                                  }
                                              }); */
                                             
-                                     	} else if (p_val == 'GC') { 
+                                        } else if (p_val == 'GC') { 
                                              $('.pcheque').hide();
                                              $('.pgiftcard').show();
                                              $('.pchange').show();
                                              $('.pcash').hide();
                                              $('.pcc').hide();
 
-                                             $("#paid-giftcard-amount").val( totalPayable );		// added by jeni 2014-05-18
-                                             $("#paid-amount").val( "" );		// added by jeni 2014-05-18
-                                             $("#pcc").val( "" );		// added by jeni 2014-05-18
+                                             $("#paid-giftcard-amount").val( totalPayable );        // added by jeni 2014-05-18
+                                             $("#paid-amount").val( "" );       // added by jeni 2014-05-18
+                                             $("#pcc").val( "" );       // added by jeni 2014-05-18
                                                                                           
                                              if ( $('#paid-giftcard-amount').val().length > 0 ) {
-                                            	paid += parseFloat($('#paid-giftcard-amount').val());
+                                                paid += parseFloat($('#paid-giftcard-amount').val());
                                              }
 
                                             
-                                    	} else if (p_val == 'cashGC') { 
+                                        } else if (p_val == 'cashGC') { 
                                              $('.pcheque').hide();
                                              $('.pgiftcard').show();
                                              $('.pcash').show();
@@ -1889,18 +1891,18 @@ function displayData(result) {
                                              $('.pcc').hide();
                                              
                                              if ( $('#paid-giftcard-amount').val().length > 0 ) {
-                                             	paid += parseFloat($('#paid-giftcard-amount').val());
+                                                paid += parseFloat($('#paid-giftcard-amount').val());
                                              } 
 
-                                             $("#pcc").val( "" );		// added by jeni 2014-05-18
-                                             $("#paid-amount").val( "" );		// added by jeni 2014-05-18
-                                             $("#paid-giftcard-amount").val( "" );		// added by jeni 2014-05-18
+                                             $("#pcc").val( "" );       // added by jeni 2014-05-18
+                                             $("#paid-amount").val( "" );       // added by jeni 2014-05-18
+                                             $("#paid-giftcard-amount").val( "" );      // added by jeni 2014-05-18
                                              
                                              if ( $('#paid-amount').val().length > 0 ) {
                                                  paid += parseFloat($('#paid-amount').val());
                                              }                                             
                                              
-                                     	} else if (p_val == 'CCGC') { 
+                                        } else if (p_val == 'CCGC') { 
                                             $('.pcheque').hide();
                                             $('.pgiftcard').show();
                                             $('.pchange').show();
@@ -1908,36 +1910,36 @@ function displayData(result) {
                                             $('.pcc').show();
 
                                             if ( $('#pcc').val().length > 0 ) {
-                                            	paid += parseFloat($('#pcc').val());
+                                                paid += parseFloat($('#pcc').val());
                                             }
 
-                                            $("#pcc").val( "" );		// added by jeni 2014-05-18
-                                            $("#paid-amount").val( "" );		// added by jeni 2014-05-18
-                                            $("#paid-giftcard-amount").val( "" );		// added by jeni 2014-05-18
+                                            $("#pcc").val( "" );        // added by jeni 2014-05-18
+                                            $("#paid-amount").val( "" );        // added by jeni 2014-05-18
+                                            $("#paid-giftcard-amount").val( "" );       // added by jeni 2014-05-18
 
                                             if ( $('#paid-giftcard-amount').val().length > 0 ) {
-                                            	paid += parseFloat($('#paid-giftcard-amount').val());
+                                                paid += parseFloat($('#paid-giftcard-amount').val());
                                             }                                             
                                             
-                                    	} else if (p_val == 'cashCC') { 
-                                        	$('.pcheque').hide();
-                                        	$('.pgiftcard').hide();
-                                         	$('.pcash').show();
-                                         	$('.pcc').show();
-                                         	$('.pchange').show();
+                                        } else if (p_val == 'cashCC') { 
+                                            $('.pcheque').hide();
+                                            $('.pgiftcard').hide();
+                                            $('.pcash').show();
+                                            $('.pcc').show();
+                                            $('.pchange').show();
 
-                                         	if ( $('#pcc').val().length > 0 ) {
-                                         		paid += parseFloat($('#pcc').val());
-                                         	}
+                                            if ( $('#pcc').val().length > 0 ) {
+                                                paid += parseFloat($('#pcc').val());
+                                            }
 
-                                            $("#pcc").val( "" );		// added by jeni 2014-05-18
-                                            $("#paid-amount").val( "" );		// added by jeni 2014-05-18
-                                            $("#paid-giftcard-amount").val( "" );		// added by jeni 2014-05-18                                         	
+                                            $("#pcc").val( "" );        // added by jeni 2014-05-18
+                                            $("#paid-amount").val( "" );        // added by jeni 2014-05-18
+                                            $("#paid-giftcard-amount").val( "" );       // added by jeni 2014-05-18                                             
 
-                                         	if ( $('#paid-amount').val().length > 0 ) {
-                                         		paid += parseFloat($('#paid-amount').val());
-                                         	}                                          	
-                                         	
+                                            if ( $('#paid-amount').val().length > 0 ) {
+                                                paid += parseFloat($('#paid-amount').val());
+                                            }                                           
+                                            
                                         } else if (p_val == 'CC') { 
                                             $('.pcheque').hide();
                                             $('.pcash').hide();
@@ -1945,29 +1947,29 @@ function displayData(result) {
                                             $('.pchange').show();
                                             $('.pgiftcard').hide();
 
-                                            $("#pcc").val( totalPayable );		// added by jeni 2014-05-18
-                                            $("#paid-amount").val( "" );		// added by jeni 2014-05-18
-                                            $("#paid-giftcard-amount").val( "" );		// added by jeni 2014-05-18                                            
+                                            $("#pcc").val( totalPayable );      // added by jeni 2014-05-18
+                                            $("#paid-amount").val( "" );        // added by jeni 2014-05-18
+                                            $("#paid-giftcard-amount").val( "" );       // added by jeni 2014-05-18                                            
 
                                             if ( $('#pcc').val().length > 0 ) {
-                                         		paid += parseFloat($('#pcc').val());
-                                         	}
+                                                paid += parseFloat($('#pcc').val());
+                                            }
                                             
-                                    	} else if (p_val == 'Cheque') { 
-                                         	$('.pcc').hide();
-                                         	$('.pcash').hide();
-                                         	$('.pcheque').show();
-                                      		$('.pgiftcard').hide();
-                                      		$('.pchange').hide();
+                                        } else if (p_val == 'Cheque') { 
+                                            $('.pcc').hide();
+                                            $('.pcash').hide();
+                                            $('.pcheque').show();
+                                            $('.pgiftcard').hide();
+                                            $('.pchange').hide();
                                         } else {
-                                        	$('.pcheque').hide();
-                                        	$('.pcc').hide();
-                                        	$('.pcash').hide();
-                                        	$('.pgiftcard').hide();
-                                        	$('.pchange').hide();
+                                            $('.pcheque').hide();
+                                            $('.pcc').hide();
+                                            $('.pcash').hide();
+                                            $('.pgiftcard').hide();
+                                            $('.pchange').hide();
                                         }        
 
- 	 	 								
+                                        
                                          $("#balance").empty();
                                          var balance = paid - twt;
                                          balance = parseFloat(balance).toFixed(2);
@@ -2011,60 +2013,60 @@ function displayData(result) {
                                      
                                      $('#paymentModal').on('blur', '#paid-amount, #paid-giftcard-amount, #pcc', function(){
 
-                                    	 var p_val = $('#paid_by').val();
-                                    	 var paid = 0;
-                                    	 
-                                    	if (p_val == 'cash') {
+                                         var p_val = $('#paid_by').val();
+                                         var paid = 0;
+                                         
+                                        if (p_val == 'cash') {
 
                                               if ( $('#paid-amount').val().length > 0 ) {
-                                              		paid += parseFloat($('#paid-amount').val());
+                                                    paid += parseFloat($('#paid-amount').val());
                                               }
                                               
-                                       	} else if (p_val == 'GC') { 
+                                        } else if (p_val == 'GC') { 
 
                                                if ( $('#paid-giftcard-amount').val().length > 0 ) {
-                                              		paid += parseFloat($('#paid-giftcard-amount').val());
+                                                    paid += parseFloat($('#paid-giftcard-amount').val());
                                                }
                                               
-                                      	} else if (p_val == 'cashGC') { 
+                                        } else if (p_val == 'cashGC') { 
                                                
                                                if ( $('#paid-giftcard-amount').val().length > 0 ) {
-                                               		paid += parseFloat($('#paid-giftcard-amount').val());
+                                                    paid += parseFloat($('#paid-giftcard-amount').val());
                                                } 
 
                                                if ( $('#paid-amount').val().length > 0 ) {
                                                    paid += parseFloat($('#paid-amount').val());
                                                }
                                                
-                                       	} else if (p_val == 'CCGC') { 
+                                        } else if (p_val == 'CCGC') { 
 
                                               if ( $('#pcc').val().length > 0 ) {
-                                              	paid += parseFloat($('#pcc').val());
+                                                paid += parseFloat($('#pcc').val());
                                               } 
 
                                               if ( $('#paid-giftcard-amount').val().length > 0 ) {
-                                              	paid += parseFloat($('#paid-giftcard-amount').val());
+                                                paid += parseFloat($('#paid-giftcard-amount').val());
                                               }
                                               
-                                      	} else if (p_val == 'cashCC') { 
+                                        } else if (p_val == 'cashCC') { 
 
-                                           	if ( $('#pcc').val().length > 0 ) {
-                                           		paid += parseFloat($('#pcc').val());
-                                           	}
+                                            if ( $('#pcc').val().length > 0 ) {
+                                                paid += parseFloat($('#pcc').val());
+                                            }
 
-                                           	if ( $('#paid-amount').val().length > 0 ) {
-                                           		paid += parseFloat($('#paid-amount').val());
-                                           	}
-                                           	
+                                            if ( $('#paid-amount').val().length > 0 ) {
+                                                paid += parseFloat($('#paid-amount').val());
+                                            }
+                                            
                                           } else if (p_val == 'CC') { 
 
                                               if ( $('#pcc').val().length > 0 ) {
-                                           		paid += parseFloat($('#pcc').val());
-                                           	}
+                                                paid += parseFloat($('#pcc').val());
+                                            }
                                               
-                                      	}
-                                        	
-                                    	 $("#balance").empty();
+                                        }
+                                            
+                                         $("#balance").empty();
                                          var balance = paid - twt;
                                          balance = parseFloat(balance).toFixed(2);
                                          $("#balance").append(balance);
@@ -2076,47 +2078,47 @@ function displayData(result) {
 
                                 $("#paymentModal").on("click", '#submit-sale', function() {
 
-                                	 var giftcard = 0, giftcard_max = 0, p_val = $('#paid_by').val();
-                                	 
-									 if ( p_val == 'GC' || p_val == 'cashGC' || p_val == 'CCGC' ) {
-										
-										if ( $('#paid-giftcard-amount').val().length > 0 ) {
-											giftcard += parseFloat($('#paid-giftcard-amount').val());
-									   }
-									   
-									   if ( $('#giftcard_number').val().length > 0 ) {
-											giftcard_max += parseFloat($('#giftcard_number_call').val());
-									   }
-									   
-									   if (  isNaN(giftcard_max) ) {
-											giftcard_max = 0;
-									   }
+                                     var giftcard = 0, giftcard_max = 0, p_val = $('#paid_by').val();
+                                     
+                                     if ( p_val == 'GC' || p_val == 'cashGC' || p_val == 'CCGC' ) {
+                                        
+                                        if ( $('#paid-giftcard-amount').val().length > 0 ) {
+                                            giftcard += parseFloat($('#paid-giftcard-amount').val());
+                                       }
+                                       
+                                       if ( $('#giftcard_number').val().length > 0 ) {
+                                            giftcard_max += parseFloat($('#giftcard_number_call').val());
+                                       }
+                                       
+                                       if (  isNaN(giftcard_max) ) {
+                                            giftcard_max = 0;
+                                       }
 
-									   if ( giftcard > giftcard_max ) {
-											bootbox.confirm("Your giftcard value max is " + giftcard_max);
-											 return false;
-									   }
-									   
-									 }
+                                       if ( giftcard > giftcard_max ) {
+                                            bootbox.confirm("Your giftcard value max is " + giftcard_max);
+                                             return false;
+                                       }
+                                       
+                                     }
 
-									 var balance = 0;
+                                     var balance = 0;
 
-		    						if ( $('#balance').text().length > 0 ) {
-		    							balance = parseFloat($('#balance').text());
-		                            }
+                                    if ( $('#balance').text().length > 0 ) {
+                                        balance = parseFloat($('#balance').text());
+                                    }
 
-		                            if ( balance < 0 ) {
+                                    if ( balance < 0 ) {
 
-		                            	bootbox.alert("<?php echo $this->lang->line('paid_l_t_payable'); ?>");
-		                            	
-		                            	return false;
-		                            }
-			                            
-                					<?php if ($sid) { ?>
+                                        bootbox.alert("<?php echo $this->lang->line('paid_l_t_payable'); ?>");
+                                        
+                                        return false;
+                                    }
+                                        
+                                    <?php if ($sid) { ?>
                                          suspend = $('<span></span>');
                                          suspend.html('<input type="hidden" name="delete_id" value="<?php echo $sid; ?>" />');
                                          suspend.appendTo("#hidesuspend");
-									<?php } ?>
+                                    <?php } ?>
                                      $('#total_item').val(count);
                                      bootbox.confirm("<?php echo $this->lang->line('sure_to_submit_sale'); ?>", function(gotit) {
                                          if (gotit) {
@@ -2221,7 +2223,7 @@ function displayData(result) {
 
                                 });
 
-									$("#saletbl").html(sale_data);
+                                    $("#saletbl").html(sale_data);
                                      count = sale_count;
                                      an = sale_count;
                                      total = sale_total;
@@ -2248,7 +2250,7 @@ function displayData(result) {
     <?php } ?>
 
 <?php } ?>
-							
+                            
                         $('a').each(function() {
                             $(this).click(function() {
                                 if (($(this).attr("href") != '#' && an > 1) && $(this).attr("class") != 'external') {
@@ -2337,7 +2339,7 @@ function displayData(result) {
                         window.onload = sivamtime;
 <?php } ?>
 
-	
+    
         </script>
 </body>
 </html>
