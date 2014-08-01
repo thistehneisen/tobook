@@ -23,8 +23,9 @@ class pjAdminOptions extends pjAdmin
 					->orderBy('t1.sort ASC')->findAll()->getData();
 						
 				$lp_arr = array();
-				foreach ($locale_arr as $v)
+				foreach ($locale_arr as &$v)
 				{
+                    $v['id'] = 1;
 					$lp_arr[$v['id']."_"] = $v['file']; //Hack for jquery $.extend, to prevent (re)order of numeric keys in object
 				}
 				$this->set('lp_arr', $locale_arr);

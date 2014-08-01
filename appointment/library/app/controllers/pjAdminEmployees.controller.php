@@ -528,7 +528,7 @@ class pjAdminEmployees extends pjAdmin
 				pjEmployeeModel::factory()->set('id', $_POST['id'])->modify(array_merge($_POST, $data));
 				if (isset($_POST['i18n']))
 				{
-					pjMultiLangModel::factory()->updateMultiLang($_POST['i18n'], $_POST['id'], 'pjEmployee', 'data');
+					pjMultiLangModel::factory()->updateMultiLang($_POST['i18n'], $owner_id, $_POST['id'], 'pjEmployee', 'data');
 				}
 				
 				$pjEmployeeServiceModel = pjEmployeeServiceModel::factory();
@@ -562,8 +562,9 @@ class pjAdminEmployees extends pjAdmin
 					->orderBy('t1.sort ASC')->findAll()->getData();
 				
 				$lp_arr = array();
-				foreach ($locale_arr as $item)
+				foreach ($locale_arr as &$item)
 				{
+                    $item['id'] = 1;//banana code to enforce locale = 1 on UI
 					$lp_arr[$item['id']."_"] = $item['file']; //Hack for jquery $.extend, to prevent (re)order of numeric keys in object
 				}
 				$this->set('lp_arr', $locale_arr);

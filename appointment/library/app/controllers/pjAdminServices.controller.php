@@ -658,7 +658,7 @@ class pjAdminServices extends pjAdmin
 				$lp_arr = array();
 				foreach ($locale_arr as &$item)
 				{
-                    $item['id'] = 1;
+                    $item['id'] = 1;//banana code to enforce locale = 1 on UI
 					$lp_arr[$item['id']."_"] = $item['file']; //Hack for jquery $.extend, to prevent (re)order of numeric keys in object
 				}
 				$this->set('lp_arr', $locale_arr);
