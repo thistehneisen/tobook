@@ -8,6 +8,8 @@ INSERT INTO `as_users` (`id`, `owner_id`, `role_id`, `email`, `password`, `name`
 
 SELECT LAST_INSERT_ID() INTO @user_id;
 
+INSERT INTO `as_plugin_locale` ( `id`,`language_iso`,`sort`,`is_default`,`owner_id`) VALUES (NULL, 'gb', 1, 1, @user_id);
+
 INSERT INTO `as_calendars` (`id`, `user_id`) VALUES (NULL,  @user_id);
 SELECT LAST_INSERT_ID() INTO @calendar_id;
 

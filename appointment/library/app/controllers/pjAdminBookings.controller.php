@@ -881,7 +881,7 @@ class pjAdminBookings extends pjAdmin
 		if ($this->isXHR() && $this->isLoged())
 		{
 			$pjBookingServiceModel = pjBookingServiceModel::factory();
-
+            $owner_id = intval($_SESSION['owner_id']);
 			if (isset($_POST['item_add']))
 			{
 				if (isset($_POST['service_id']) && (int) $_POST['service_id'] > 0)
@@ -942,6 +942,7 @@ class pjAdminBookings extends pjAdmin
 					
 					$bs_id = $pjBookingServiceModel->reset()->setAttributes(array(
 						'tmp_hash' => @$_POST['tmp_hash'],
+                        'owner_id' => $owner_id,
 						'booking_id' => @$_POST['booking_id'],
 						'service_id' => $_POST['service_id'],
 						'employee_id' => $_POST['employee_id'],

@@ -63,10 +63,10 @@ class pjAdminEmployees extends pjAdmin
 					
 					if (isset($_POST['service_id']) && !empty($_POST['service_id']))
 					{
-						$pjEmployeeServiceModel = pjEmployeeServiceModel::factory()->setBatchFields(array('employee_id', 'service_id'));
+						$pjEmployeeServiceModel = pjEmployeeServiceModel::factory()->setBatchFields(array('employee_id', 'service_id', 'owner_id'));
 						foreach ($_POST['service_id'] as $service_id)
 						{
-							$pjEmployeeServiceModel->addBatchRow(array($id, $service_id));
+							$pjEmployeeServiceModel->addBatchRow(array($id, $service_id, $owner_id));
 						}
 						$pjEmployeeServiceModel->insertBatch();
 					}
@@ -93,6 +93,7 @@ class pjAdminEmployees extends pjAdmin
 				{
 					$lp_arr[$item['id']."_"] = $item['file']; //Hack for jquery $.extend, to prevent (re)order of numeric keys in object
 				}
+
 				$this->set('lp_arr', $locale_arr);
 				
 				$this->set('service_arr', pjServiceModel::factory()
