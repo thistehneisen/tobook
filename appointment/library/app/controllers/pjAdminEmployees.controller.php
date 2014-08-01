@@ -535,10 +535,10 @@ class pjAdminEmployees extends pjAdmin
 				$pjEmployeeServiceModel->where('employee_id', $_POST['id'])->eraseAll();
 				if (isset($_POST['service_id']) && !empty($_POST['service_id']))
 				{
-					$pjEmployeeServiceModel->reset()->setBatchFields(array('employee_id', 'service_id'));
+					$pjEmployeeServiceModel->reset()->setBatchFields(array('employee_id', 'service_id', 'owner_id'));
 					foreach ($_POST['service_id'] as $service_id)
 					{
-						$pjEmployeeServiceModel->addBatchRow(array($_POST['id'], $service_id));
+						$pjEmployeeServiceModel->addBatchRow(array($_POST['id'], $service_id, $owner_id));
 					}
 					$pjEmployeeServiceModel->insertBatch();
 				}

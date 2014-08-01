@@ -87,11 +87,10 @@ class pjMultiLangModel extends pjAppModel
 	public function getMultiLang($foreign_id, $model)
 	{
 		$arr = array();
-		// $_arr = $this->where('foreign_id', $foreign_id)->where('model', $model)->findAll()->getData();
 		$_arr = $this->where('foreign_id', $foreign_id)->where('model', $model)->findAll()->getData();
 		foreach ($_arr as $_k => $_v)
 		{
-			$arr[1][$_v['field']] = $_v['content'];
+			$arr[1][$_v['field']] = $_v['content'];//1 is fixed locale
 		}
 		return $arr;
 	}
