@@ -103,10 +103,10 @@ class pjUtil extends pjToolkit
 
 function __($key, $return=false, $escape=false) {   
     global $i18n;
-    if (file_exists(ROOT_PATH . 'app/locale/en.php') && isset($i18n[$key]) && !empty($i18n[$key])) {
+    if (file_exists(ROOT_PATH . 'app/locale/fi.php') && isset($i18n[$key]) && !empty($i18n[$key])) {
         $text = $i18n[$key];
     } else {
-        $text = $key; //)) . ' ('.pjUtil::field($key).')';
+        $text = $key; //pjUtil::field($key);
     }
     
     if ($return) {
