@@ -10,72 +10,73 @@ require_once("../../includes/configsettings.php");
 $stop = false;
 if (isset($_GET['controller']) && $_GET['controller'] == 'Installer')
 {
-	$stop = true;
-	if (isset($_GET['install']))
-	{
-		switch ($_GET['install'])
-		{
-			case 1:
-				$stop = true;
-				break;
-			default:
-				$stop = false;
-				break;
-		}
-	}
+    $stop = true;
+    if (isset($_GET['install']))
+    {
+        switch ($_GET['install'])
+        {
+            case 1:
+                $stop = true;
+                break;
+            default:
+                $stop = false;
+                break;
+        }
+    }
 }
 
 if (!$stop)
 {
-	$dbPrefix = $userPrefix."_";
-	if ($_SERVER['SERVER_ADDR'] == '127.0.0.1')
-	{
-		# LOCAL
-		define("DEFAULT_HOST",   MYSQL_HOST);
-		define("DEFAULT_USER",   MYSQL_USERNAME);
-		define("DEFAULT_PASS",   MYSQL_PASSWORD);
-		define("DEFAULT_DB",     MYSQL_DB);
-		define("DEFAULT_PREFIX", $dbPrefix );
-	} else {
-		# REMOTE
-		define("DEFAULT_HOST",   MYSQL_HOST);
-		define("DEFAULT_USER",   MYSQL_USERNAME);
-		define("DEFAULT_PASS",   MYSQL_PASSWORD);
-		define("DEFAULT_DB",     MYSQL_DB);
-		define("DEFAULT_PREFIX", $dbPrefix );
-	}
-	
-	if (preg_match('/\[hostname\]/', DEFAULT_HOST))
-	{
-		Util::redirect("index.php?controller=Installer&action=step0&install=1");
-	}
+    //$dbPrefix = $userPrefix."_";
+    $dbPrefix = "";
+    if ($_SERVER['SERVER_ADDR'] == '127.0.0.1')
+    {
+        # LOCAL
+        define("DEFAULT_HOST",   MYSQL_HOST);
+        define("DEFAULT_USER",   MYSQL_USERNAME);
+        define("DEFAULT_PASS",   MYSQL_PASSWORD);
+        define("DEFAULT_DB",     MYSQL_DB);
+        define("DEFAULT_PREFIX", $dbPrefix );
+    } else {
+        # REMOTE
+        define("DEFAULT_HOST",   MYSQL_HOST);
+        define("DEFAULT_USER",   MYSQL_USERNAME);
+        define("DEFAULT_PASS",   MYSQL_PASSWORD);
+        define("DEFAULT_DB",     MYSQL_DB);
+        define("DEFAULT_PREFIX", $dbPrefix );
+    }
+    
+    if (preg_match('/\[hostname\]/', DEFAULT_HOST))
+    {
+        Util::redirect("index.php?controller=Installer&action=step0&install=1");
+    }
 
-	$link = @mysql_connect(DEFAULT_HOST, DEFAULT_USER, DEFAULT_PASS);
-	if (!$link) {
-	    die('Could not connect: ' . mysql_error());
-	}
-	
-	# mysql_query("SET SESSION time_zone = '-0:00';");
-	mysql_query("SET NAMES 'utf8'", $link);
-	
-	$db_selected = mysql_select_db(DEFAULT_DB, $link);
-	if (!$db_selected) {
-	    die ('Can\'t select database: ' . mysql_error());
-	}
-	
-	if ($_SERVER['SERVER_ADDR'] == '127.0.0.1')
-	{
-		if (!defined("BASE_PATH")) define("BASE_PATH", "http://" . $_SERVER['SERVER_NAME'] . "/timeslot/library/");
-		if (!defined("INSTALL_FOLDER")) define("INSTALL_FOLDER", "/timeslot/library/");
-		if (!defined("INSTALL_PATH")) define("INSTALL_PATH", dirname(__FILE__)."/timeslot/library/");
-		if (!defined("INSTALL_URL")) define("INSTALL_URL", "http://".$_SERVER['SERVER_NAME']."/timeslot/library/");
-				
-	} else {
-		if (!defined("BASE_PATH")) define("BASE_PATH", "http://" . $_SERVER['SERVER_NAME'] . "/timeslot/library/");
-		if (!defined("INSTALL_FOLDER")) define("INSTALL_FOLDER", "/timeslot/library/");
-		if (!defined("INSTALL_PATH")) define("INSTALL_PATH", dirname(__FILE__)."/timeslot/library/");
-		if (!defined("INSTALL_URL")) define("INSTALL_URL", "http://".$_SERVER['SERVER_NAME']."/timeslot/library/");
-	}
+    $link = @mysql_connect(DEFAULT_HOST, DEFAULT_USER, DEFAULT_PASS);
+    if (!$link) {
+        die('Could not connect: ' . mysql_error());
+    }
+    
+    # mysql_query("SET SESSION time_zone = '-0:00';");
+    mysql_query("SET NAMES 'utf8'", $link);
+    
+    $db_selected = mysql_select_db(DEFAULT_DB, $link);
+    if (!$db_selected) {
+        die ('Can\'t select database: ' . mysql_error());
+    }
+    
+    if ($_SERVER['SERVER_ADDR'] == '127.0.0.1')
+    {
+        if (!defined("BASE_PATH")) define("BASE_PATH", "http://" . $_SERVER['SERVER_NAME'] . "/timeslot/library/");
+        if (!defined("INSTALL_FOLDER")) define("INSTALL_FOLDER", "/timeslot/library/");
+        if (!defined("INSTALL_PATH")) define("INSTALL_PATH", dirname(__FILE__)."/timeslot/library/");
+        if (!defined("INSTALL_URL")) define("INSTALL_URL", "http://".$_SERVER['SERVER_NAME']."/timeslot/library/");
+                
+    } else {
+        if (!defined("BASE_PATH")) define("BASE_PATH", "http://" . $_SERVER['SERVER_NAME'] . "/timeslot/library/");
+        if (!defined("INSTALL_FOLDER")) define("INSTALL_FOLDER", "/timeslot/library/");
+        if (!defined("INSTALL_PATH")) define("INSTALL_PATH", dirname(__FILE__)."/timeslot/library/");
+        if (!defined("INSTALL_URL")) define("INSTALL_URL", "http://".$_SERVER['SERVER_NAME']."/timeslot/library/");
+    }
 }
 
 if (!defined("APP_PATH")) define("APP_PATH", ROOT_PATH . "app/");

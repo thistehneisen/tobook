@@ -21,7 +21,7 @@ class RoleModel extends AppModel
  * @var string
  * @access protected
  */
-	var $table = 'ts_booking_roles';
+	var $table = 'ts_roles';
 /**
  * Table schema
  *
@@ -30,6 +30,7 @@ class RoleModel extends AppModel
  */
 	var $schema = array(
 		array('name' => 'id', 'type' => 'tinyint', 'default' => ''),
+        array('name' => 'owner_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'role', 'type' => 'varchar', 'default' => ':NULL'),
 		array('name' => 'status', 'type' => 'enum', 'default' => 'T')
 	);

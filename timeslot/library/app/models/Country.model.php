@@ -21,7 +21,7 @@ class CountryModel extends AppModel
  * @var string
  * @access protected
  */
-	var $table = 'ts_booking_countries';
+	var $table = 'ts_countries';
 /**
  * Table schema
  *

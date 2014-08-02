@@ -21,7 +21,7 @@ class CalendarModel extends AppModel
  * @var string
  * @access protected
  */
-	var $table = 'ts_booking_calendars';
+	var $table = 'ts_calendars';
 /**
  * Table schema
  *
@@ -30,6 +30,7 @@ class CalendarModel extends AppModel
  */
 	var $schema = array(
 		array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),
+        array('name' => 'owner_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'user_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'calendar_title', 'type' => 'varchar', 'default' => ':NULL')
 	);

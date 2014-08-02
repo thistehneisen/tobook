@@ -5,8 +5,8 @@ SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
-DROP TABLE IF EXISTS `ts_booking_bookings`;
-CREATE TABLE `ts_booking_bookings` (
+DROP TABLE IF EXISTS `ts_bookings`;
+CREATE TABLE `ts_bookings` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `calendar_id` int(10) unsigned DEFAULT NULL,
   `booking_total` decimal(9,2) unsigned DEFAULT NULL,
@@ -39,8 +39,8 @@ CREATE TABLE `ts_booking_bookings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `ts_booking_bookings_slots`;
-CREATE TABLE `ts_booking_bookings_slots` (
+DROP TABLE IF EXISTS `ts_bookings_slots`;
+CREATE TABLE `ts_bookings_slots` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `booking_id` int(10) unsigned NOT NULL,
   `booking_date` date NOT NULL,
@@ -55,8 +55,8 @@ CREATE TABLE `ts_booking_bookings_slots` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `ts_booking_calendars`;
-CREATE TABLE `ts_booking_calendars` (
+DROP TABLE IF EXISTS `ts_calendars`;
+CREATE TABLE `ts_calendars` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned DEFAULT NULL,
   `calendar_title` varchar(255) DEFAULT NULL,
@@ -67,20 +67,292 @@ CREATE TABLE `ts_booking_calendars` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `ts_booking_countries`;
-CREATE TABLE `ts_booking_countries` (
+DROP TABLE IF EXISTS `ts_countries`;
+CREATE TABLE `ts_countries` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `country_title` varchar(255) DEFAULT NULL,
   `status` enum('T','F') NOT NULL DEFAULT 'T',
-  `owner_id` int(8) NOT NULL,
-  FOREIGN KEY fk_owner_id(owner_id) REFERENCES tbl_user_mast(nuser_id) ON DELETE CASCADE,
   PRIMARY KEY (`id`),
   KEY `status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `ts_countries` (`id`, `country_title`, `status`) VALUES
+(1, 'Afghanistan', 'T'),
+(2, 'Albania', 'T'),
+(3, 'Algeria', 'T'),
+(4, 'American Samoa', 'T'),
+(5, 'Andorra', 'T'),
+(6, 'Angola', 'T'),
+(7, 'Anguilla', 'T'),
+(8, 'Antarctica', 'T'),
+(9, 'Antigua and Barbuda', 'T'),
+(10, 'Argentina', 'T'),
+(11, 'Armenia', 'T'),
+(12, 'Arctic Ocean', 'T'),
+(13, 'Aruba', 'T'),
+(14, 'Ashmore and Cartier Islands', 'T'),
+(15, 'Atlantic Ocean', 'T'),
+(16, 'Australia', 'T'),
+(17, 'Austria', 'T'),
+(18, 'Azerbaijan', 'T'),
+(19, 'Bahamas', 'T'),
+(20, 'Bahrain', 'T'),
+(21, 'Baker Island', 'T'),
+(22, 'Bangladesh', 'T'),
+(23, 'Barbados', 'T'),
+(24, 'Bassas da India', 'T'),
+(25, 'Belarus', 'T'),
+(26, 'Belgium', 'T'),
+(27, 'Belize', 'T'),
+(28, 'Benin', 'T'),
+(29, 'Bermuda', 'T'),
+(30, 'Bhutan', 'T'),
+(31, 'Bolivia', 'T'),
+(32, 'Borneo', 'T'),
+(33, 'Bosnia and Herzegovina', 'T'),
+(34, 'Botswana', 'T'),
+(35, 'Bouvet Island', 'T'),
+(36, 'Brazil', 'T'),
+(37, 'British Virgin Islands', 'T'),
+(38, 'Brunei', 'T'),
+(39, 'Bulgaria', 'T'),
+(40, 'Burkina Faso', 'T'),
+(41, 'Burundi', 'T'),
+(42, 'Cambodia', 'T'),
+(43, 'Cameroon', 'T'),
+(44, 'Canada', 'T'),
+(45, 'Cape Verde', 'T'),
+(46, 'Cayman Islands', 'T'),
+(47, 'Central African Republic', 'T'),
+(48, 'Chad', 'T'),
+(49, 'Chile', 'T'),
+(50, 'China', 'T'),
+(51, 'Christmas Island', 'T'),
+(52, 'Clipperton Island', 'T'),
+(53, 'Cocos Islands', 'T'),
+(54, 'Colombia', 'T'),
+(55, 'Comoros', 'T'),
+(56, 'Cook Islands', 'T'),
+(57, 'Coral Sea Islands', 'T'),
+(58, 'Costa Rica', 'T'),
+(59, 'Cote d''Ivoire', 'T'),
+(60, 'Croatia', 'T'),
+(61, 'Cuba', 'T'),
+(62, 'Cyprus', 'T'),
+(63, 'Czech Republic', 'T'),
+(64, 'Denmark', 'T'),
+(65, 'Democratic Republic of the Congo', 'T'),
+(66, 'Djibouti', 'T'),
+(67, 'Dominica', 'T'),
+(68, 'Dominican Republic', 'T'),
+(69, 'East Timor', 'T'),
+(70, 'Ecuador', 'T'),
+(71, 'Egypt', 'T'),
+(72, 'El Salvador', 'T'),
+(73, 'Equatorial Guinea', 'T'),
+(74, 'Eritrea', 'T'),
+(75, 'Estonia', 'T'),
+(76, 'Ethiopia', 'T'),
+(77, 'Europa Island', 'T'),
+(78, 'Falkland Islands (Islas Malvinas)', 'T'),
+(79, 'Faroe Islands', 'T'),
+(80, 'Fiji', 'T'),
+(81, 'Finland', 'T'),
+(82, 'France', 'T'),
+(83, 'French Guiana', 'T'),
+(84, 'French Polynesia', 'T'),
+(85, 'French Southern and Antarctic Lands', 'T'),
+(86, 'Gabon', 'T'),
+(87, 'Gambia', 'T'),
+(88, 'Gaza Strip', 'T'),
+(89, 'Georgia', 'T'),
+(90, 'Germany', 'T'),
+(91, 'Ghana', 'T'),
+(92, 'Gibraltar', 'T'),
+(93, 'Glorioso Islands', 'T'),
+(94, 'Greece', 'T'),
+(95, 'Greenland', 'T'),
+(96, 'Grenada', 'T'),
+(97, 'Guadeloupe', 'T'),
+(98, 'Guam', 'T'),
+(99, 'Guatemala', 'T'),
+(100, 'Guernsey', 'T'),
+(101, 'Guinea', 'T'),
+(102, 'Guinea-Bissau', 'T'),
+(103, 'Guyana', 'T'),
+(104, 'Haiti', 'T'),
+(105, 'Heard Island and McDonald Islands', 'T'),
+(106, 'Honduras', 'T'),
+(107, 'Hong Kong', 'T'),
+(108, 'Howland Island', 'T'),
+(109, 'Hungary', 'T'),
+(110, 'Iceland', 'T'),
+(111, 'India', 'T'),
+(112, 'Indian Ocean', 'T'),
+(113, 'Indonesia', 'T'),
+(114, 'Iran', 'T'),
+(115, 'Iraq', 'T'),
+(116, 'Ireland', 'T'),
+(117, 'Isle of Man', 'T'),
+(118, 'Israel', 'T'),
+(119, 'Italy', 'T'),
+(120, 'Jamaica', 'T'),
+(121, 'Jan Mayen', 'T'),
+(122, 'Japan', 'T'),
+(123, 'Jarvis Island', 'T'),
+(124, 'Jersey', 'T'),
+(125, 'Johnston Atoll', 'T'),
+(126, 'Jordan', 'T'),
+(127, 'Juan de Nova Island', 'T'),
+(128, 'Kazakhstan', 'T'),
+(129, 'Kenya', 'T'),
+(130, 'Kingman Reef', 'T'),
+(131, 'Kiribati', 'T'),
+(132, 'Kerguelen Archipelago', 'T'),
+(133, 'Kosovo', 'T'),
+(134, 'Kuwait', 'T'),
+(135, 'Kyrgyzstan', 'T'),
+(136, 'Laos', 'T'),
+(137, 'Latvia', 'T'),
+(138, 'Lebanon', 'T'),
+(139, 'Lesotho', 'T'),
+(140, 'Liberia', 'T'),
+(141, 'Libya', 'T'),
+(142, 'Liechtenstein', 'T'),
+(143, 'Lithuania', 'T'),
+(144, 'Luxembourg', 'T'),
+(145, 'Macau', 'T'),
+(146, 'Macedonia', 'T'),
+(147, 'Madagascar', 'T'),
+(148, 'Malawi', 'T'),
+(149, 'Malaysia', 'T'),
+(150, 'Maldives', 'T'),
+(151, 'Mali', 'T'),
+(152, 'Malta', 'T'),
+(153, 'Marshall Islands', 'T'),
+(154, 'Martinique', 'T'),
+(155, 'Mauritania', 'T'),
+(156, 'Mauritius', 'T'),
+(157, 'Mayotte', 'T'),
+(158, 'Mediterranean Sea', 'T'),
+(159, 'Mexico', 'T'),
+(160, 'Micronesia', 'T'),
+(161, 'Midway Islands', 'T'),
+(162, 'Moldova', 'T'),
+(163, 'Monaco', 'T'),
+(164, 'Mongolia', 'T'),
+(165, 'Montenegro', 'T'),
+(166, 'Montserrat', 'T'),
+(167, 'Morocco', 'T'),
+(168, 'Mozambique', 'T'),
+(169, 'Myanmar', 'T'),
+(170, 'Namibia', 'T'),
+(171, 'Nauru', 'T'),
+(172, 'Navassa Island', 'T'),
+(173, 'Nepal', 'T'),
+(174, 'Netherlands', 'T'),
+(175, 'Netherlands Antilles', 'T'),
+(176, 'New Caledonia', 'T'),
+(177, 'New Zealand', 'T'),
+(178, 'Nicaragua', 'T'),
+(179, 'Niger', 'T'),
+(180, 'Nigeria', 'T'),
+(181, 'Niue', 'T'),
+(182, 'Norfolk Island', 'T'),
+(183, 'North Korea', 'T'),
+(184, 'North Sea', 'T'),
+(185, 'Northern Mariana Islands', 'T'),
+(186, 'Norway', 'T'),
+(187, 'Oman', 'T'),
+(188, 'Pacific Ocean', 'T'),
+(189, 'Pakistan', 'T'),
+(190, 'Palau', 'T'),
+(191, 'Palmyra Atoll', 'T'),
+(192, 'Panama', 'T'),
+(193, 'Papua New Guinea', 'T'),
+(194, 'Paracel Islands', 'T'),
+(195, 'Paraguay', 'T'),
+(196, 'Peru', 'T'),
+(197, 'Philippines', 'T'),
+(198, 'Pitcairn Islands', 'T'),
+(199, 'Poland', 'T'),
+(200, 'Portugal', 'T'),
+(201, 'Puerto Rico', 'T'),
+(202, 'Qatar', 'T'),
+(203, 'Reunion', 'T'),
+(204, 'Republic of the Congo', 'T'),
+(205, 'Romania', 'T'),
+(206, 'Ross Sea', 'T'),
+(207, 'Russia', 'T'),
+(208, 'Rwanda', 'T'),
+(209, 'Saint Helena', 'T'),
+(210, 'Saint Kitts and Nevis', 'T'),
+(211, 'Saint Lucia', 'T'),
+(212, 'Saint Pierre and Miquelon', 'T'),
+(213, 'Saint Vincent and the Grenadines', 'T'),
+(214, 'Samoa', 'T'),
+(215, 'San Marino', 'T'),
+(216, 'Sao Tome and Principe', 'T'),
+(217, 'Saudi Arabia', 'T'),
+(218, 'Senegal', 'T'),
+(219, 'Serbia', 'T'),
+(220, 'Seychelles', 'T'),
+(221, 'Sierra Leone', 'T'),
+(222, 'Singapore', 'T'),
+(223, 'Slovakia', 'T'),
+(224, 'Slovenia', 'T'),
+(225, 'Solomon Islands', 'T'),
+(226, 'Somalia', 'T'),
+(227, 'South Africa', 'T'),
+(228, 'South Georgia and the South Sandwich Islands', 'T'),
+(229, 'South Korea', 'T'),
+(230, 'Southern Ocean', 'T'),
+(231, 'Spain', 'T'),
+(232, 'Spratly Islands', 'T'),
+(233, 'Sri Lanka', 'T'),
+(234, 'Sudan', 'T'),
+(235, 'Suriname', 'T'),
+(236, 'Svalbard', 'T'),
+(237, 'Swaziland', 'T'),
+(238, 'Sweden', 'T'),
+(239, 'Switzerland', 'T'),
+(240, 'Syria', 'T'),
+(241, 'Taiwan', 'T'),
+(242, 'Tajikistan', 'T'),
+(243, 'Tanzania', 'T'),
+(244, 'Tasman Sea', 'T'),
+(245, 'Thailand', 'T'),
+(246, 'Togo', 'T'),
+(247, 'Tokelau', 'T'),
+(248, 'Tonga', 'T'),
+(249, 'Trinidad and Tobago', 'T'),
+(250, 'Tromelin Island', 'T'),
+(251, 'Tunisia', 'T'),
+(252, 'Turkey', 'T'),
+(253, 'Turkmenistan', 'T'),
+(254, 'Turks and Caicos Islands', 'T'),
+(255, 'Tuvalu', 'T'),
+(256, 'Uganda', 'T'),
+(257, 'Ukraine', 'T'),
+(258, 'United Arab Emirates', 'T'),
+(259, 'United Kingdom', 'T'),
+(260, 'USA', 'T'),
+(261, 'Uruguay', 'T'),
+(262, 'Uzbekistan', 'T'),
+(263, 'Vanuatu', 'T'),
+(264, 'Venezuela', 'T'),
+(265, 'Viet Nam', 'T'),
+(266, 'Virgin Islands', 'T'),
+(267, 'Wake Island', 'T'),
+(268, 'Wallis and Futuna', 'T'),
+(269, 'West Bank', 'T'),
+(270, 'Western Sahara', 'T'),
+(271, 'Yemen', 'T'),
+(272, 'Zambia', 'T'),
+(273, 'Zimbabwe', 'T');
 
-DROP TABLE IF EXISTS `ts_booking_dates`;
-CREATE TABLE `ts_booking_dates` (
+DROP TABLE IF EXISTS `ts_dates`;
+CREATE TABLE `ts_dates` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `calendar_id` int(10) unsigned NOT NULL DEFAULT '0',
   `date` date NOT NULL DEFAULT '0000-00-00',
@@ -98,8 +370,8 @@ CREATE TABLE `ts_booking_dates` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `ts_booking_options`;
-CREATE TABLE `ts_booking_options` (
+DROP TABLE IF EXISTS `ts_options`;
+CREATE TABLE `ts_options` (
   `calendar_id` int(10) unsigned NOT NULL,
   `key` varchar(255) NOT NULL DEFAULT '',
   `tab_id` tinyint(3) unsigned DEFAULT NULL,
@@ -116,8 +388,8 @@ CREATE TABLE `ts_booking_options` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `ts_booking_prices`;
-CREATE TABLE `ts_booking_prices` (
+DROP TABLE IF EXISTS `ts_prices`;
+CREATE TABLE `ts_prices` (
   `calendar_id` int(10) unsigned NOT NULL DEFAULT '0',
   `date` date NOT NULL DEFAULT '0000-00-00',
   `start_time` time NOT NULL DEFAULT '00:00:00',
@@ -131,8 +403,8 @@ CREATE TABLE `ts_booking_prices` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `ts_booking_prices_days`;
-CREATE TABLE `ts_booking_prices_days` (
+DROP TABLE IF EXISTS `ts_prices_days`;
+CREATE TABLE `ts_prices_days` (
   `calendar_id` int(10) unsigned NOT NULL,
   `day` enum('monday','tuesday','wednesday','thursday','friday','saturday','sunday') NOT NULL,
   `start_time` time NOT NULL DEFAULT '00:00:00',
@@ -144,20 +416,19 @@ CREATE TABLE `ts_booking_prices_days` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `ts_booking_roles`;
-CREATE TABLE `ts_booking_roles` (
+DROP TABLE IF EXISTS `ts_roles`;
+CREATE TABLE `ts_roles` (
   `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `role` varchar(255) DEFAULT NULL,
   `status` enum('T','F') NOT NULL DEFAULT 'T',
-  `owner_id` int(8) NOT NULL,
-  FOREIGN KEY fk_owner_id(owner_id) REFERENCES tbl_user_mast(nuser_id) ON DELETE CASCADE,
   PRIMARY KEY (`id`),
   KEY `status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `ts_roles` (`id`, `role`, `status`) VALUES (1, 'admin', 'T'),(2, 'owner', 'T');
 
-DROP TABLE IF EXISTS `ts_booking_users`;
-CREATE TABLE `ts_booking_users` (
+DROP TABLE IF EXISTS `ts_users`;
+CREATE TABLE `ts_users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `role_id` int(10) unsigned NOT NULL,
   `session_id` varchar(32) NOT NULL DEFAULT '',
@@ -176,8 +447,8 @@ CREATE TABLE `ts_booking_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `ts_booking_working_times`;
-CREATE TABLE `ts_booking_working_times` (
+DROP TABLE IF EXISTS `ts_working_times`;
+CREATE TABLE `ts_working_times` (
   `calendar_id` int(10) unsigned NOT NULL DEFAULT '0',
   `monday_from` time DEFAULT NULL,
   `monday_to` time DEFAULT NULL,

@@ -4,10 +4,11 @@ class WorkingTimeModel extends AppModel
 {
 	var $primaryKey = 'calendar_id';
 	
-	var $table = 'ts_booking_working_times';
+	var $table = 'ts_working_times';
 	
 	var $schema = array(
-		array('name' => 'calendar_id', 'type' => 'int', 'default' => ':NULL'),
+        array('name' => 'calendar_id', 'type' => 'int', 'default' => ':NULL'),
+		array('name' => 'owner_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'monday_from', 'type' => 'time', 'default' => ':NULL'),
 		array('name' => 'monday_to', 'type' => 'time', 'default' => ':NULL'),
 		array('name' => 'monday_price', 'type' => 'decimal', 'default' => ':NULL'),
@@ -141,6 +142,7 @@ class WorkingTimeModel extends AppModel
 		$data['saturday_to']    = '18:00:00';
 		$data['sunday_from']    = '08:00:00';
 		$data['sunday_to']      = '18:00:00';
+        $data['owner_id']       =  intval($_SESSION['admin_user']['owner_id']);
 		return $this->save($data);
 	}
 }
