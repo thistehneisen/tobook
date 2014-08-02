@@ -100,7 +100,7 @@ class pjAdminEmployees extends pjAdmin
 				
 				$this->set('service_arr', pjServiceModel::factory()
 					->select('t1.*, t2.content AS `name`')
-					->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id", 'left outer')
+					->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
 					->orderBy('`name` ASC')
                     ->where('t1.owner_id', $owner_id)
 					->where('t2.owner_id', $owner_id)
