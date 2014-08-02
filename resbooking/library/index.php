@@ -1,9 +1,5 @@
 <?php
-if (!headers_sent())
-{
-	session_name('StivaSoft');
-	@session_start();
-}
+@session_start();
 if (!isset($_SERVER['SERVER_ADDR']) && function_exists('gethostbyname'))
 {
 	$_SERVER['SERVER_ADDR'] = gethostbyname($_SERVER['SERVER_NAME']);

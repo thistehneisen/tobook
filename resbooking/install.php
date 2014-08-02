@@ -1,21 +1,22 @@
 <?php
-    session_start();
-    require_once("../includes/configsettings.php");
-    error_reporting(E_ALL);
-    $owner_id = intval($_SESSION['owner_id']);
-    $dns = sprintf("mysql:dbname=%s;host=%s", MYSQL_DB, MYSQL_HOST);
-    $dbh = new PDO($dns, MYSQL_USERNAME, MYSQL_PASSWORD);
+session_start();
+require_once("../includes/configsettings.php");
+error_reporting(E_ALL);
+$owner_id = intval($_SESSION['owner_id']);
+$dns = sprintf("mysql:dbname=%s;host=%s", MYSQL_DB, MYSQL_HOST);
+$dbh = new PDO($dns, MYSQL_USERNAME, MYSQL_PASSWORD);
 
-    try{ 
+try { 
     $sql_user = <<<SQL
 SELECT vuser_email, vuser_login, vuser_password INTO @user_email, @username, @password FROM tbl_user_mast WHERE nuser_id = %1\$d;
 
-INSERT INTO `rb_restaurant_booking_users` (`id`, `owner_id`,`role_id`, `email`, `password`, `name`, `created`, `last_login`, `status`) VALUES
-(%1\$d, %1\$d, 1, @user_email, @password, @username, NOW(), NOW(), 'T');
+INSERT INTO `rb_restaurant_booking_users` (`owner_id`,`role_id`, `email`, `password`, `name`, `created`, `last_login`, `status`) VALUES
+(%1\$d, 1, @user_email, @password, @username, NOW(), NOW(), 'T');
 SQL;
 
     $sth = $dbh->prepare(sprintf($sql_user, $owner_id));
     $sth->execute();
+    $sth->closeCursor();
 
     $sql_opt = <<<SQL
 INSERT INTO `rb_restaurant_booking_options` (`owner_id`,`key`,`tab_id`, `group`, `value`, `description`, `label`, `type`, `order`, `style`, `is_visible`) VALUES
@@ -88,9 +89,10 @@ INSERT INTO `rb_restaurant_booking_options` (`owner_id`,`key`,`tab_id`, `group`,
 (%1\$d,'time_format', 1, NULL, 'H:i|G:i|h:i|h:i a|h:i A|g:i|g:i a|g:i A::H:i', 'Time format', 'H:i (09:45)|G:i (9:45)|h:i (09:45)|h:i a (09:45 am)|h:i A (09:45 AM)|g:i (9:45)|g:i a (9:45 am)|g:i A (9:45 AM)', 'enum', 4, NULL, 1),
 (%1\$d,'use_map', 99, NULL, '1|0::1', 'Use seat map', 'Yes|No', 'bool', NULL, NULL, 0);
 SQL;
-        $sth = $dbh->prepare(sprintf($sql_opt, $owner_id));
-        $sth->execute();
-        } catch(PDOException $e){
-            echo $e->getMessage();
-        }
-        header("location: library/session.php?owner_id={$owner_id}&username=".$_GET['username'] );
+    $sth = $dbh->prepare(sprintf($sql_opt, $owner_id));
+    $sth->execute();
+} catch(PDOException $e) {
+    echo $e->getMessage();
+}
+
+header("location: library/session.php");

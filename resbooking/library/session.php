@@ -1,13 +1,25 @@
 <?php
-    if (!headers_sent())
-    {
-        session_name('StivaSoft');
-        @session_start();
-    }
+@session_start();
 
-    $username = $_GET['username'];
-    $owner_id = $_GET['owner_id'];
+// Auto login here we go
+require_once("../../includes/configsettings.php");
+error_reporting(E_ALL);
+$owner_id = intval($_SESSION['owner_id']);
+$dns = sprintf("mysql:dbname=%s;host=%s", MYSQL_DB, MYSQL_HOST);
 
-    $_SESSION['session_loginname'] = $username;
-    $_SESSION['owner_id'] = $owner_id;
-    header("location: index.php");
+try {
+    $dbh = new PDO($dns, MYSQL_USERNAME, MYSQL_PASSWORD);
+
+    // Get user information
+    $stm = $dbh->prepare('SELECT * FROM `rb_restaurant_booking_users` WHERE `owner_id` = ?');
+    $stm->execute([$owner_id]);
+    $user = $stm->fetch();
+
+    // Set in session for auto-login
+    $_SESSION['admin_user'] = $user;
+
+} catch (Exception $ex) {
+    
+}
+
+header("location: index.php");
