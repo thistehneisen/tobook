@@ -11,10 +11,15 @@ if (!isset($_SERVER['SERVER_ADDR']) && function_exists('gethostbyname'))
 if (isset($_SERVER['SERVER_ADDR']) && $_SERVER['SERVER_ADDR'] == '127.0.0.1')
 {
 	ini_set("display_errors", "On");
-	error_reporting(E_ALL);
+    error_reporting(E_ALL);
 } else {
-	error_reporting(0);
+    if (isset($_SERVER['APP_ENV']) && $_SERVER['APP_ENV'] === 'development') {
+	   error_reporting(E_ALL);
+    } else {
+	   error_reporting(0);
+    }
 }
+
 header("Content-type: text/html; charset=utf-8");
 if (!defined("ROOT_PATH"))
 {
