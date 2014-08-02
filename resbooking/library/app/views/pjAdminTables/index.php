@@ -56,8 +56,8 @@ if (isset($tpl['status']))
 							<td><?php echo stripslashes($tpl['arr'][$i]['name']); ?></td>
 							<td class="align_center"><?php echo (int) $tpl['arr'][$i]['minimum']; ?></td>
 							<td class="align_center"><?php echo (int) $tpl['arr'][$i]['seats']; ?></td>
-							<td><a class="icon icon-edit" href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminTables&amp;action=update&amp;id=<?php echo $tpl['arr'][$i]['id']; ?>"><?php echo $RB_LANG['_edit']; ?></a></td>
-							<td><a class="icon icon-delete" rel="<?php echo $tpl['arr'][$i]['id']; ?>" href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminTables&amp;action=delete&amp;id=<?php echo $tpl['arr'][$i]['id']; ?>"><?php echo $RB_LANG['_delete']; ?></a></td>
+							<td><a class="icon icon-edit" href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminTables&amp;action=update&amp;id=<?php echo $tpl['arr'][$i]['id']; ?>&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $RB_LANG['_edit']; ?></a></td>
+							<td><a class="icon icon-delete" rel="<?php echo $tpl['arr'][$i]['id']; ?>" href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminTables&amp;action=delete&amp;id=<?php echo $tpl['arr'][$i]['id']; ?>&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $RB_LANG['_delete']; ?></a></td>
 						</tr>
 						<?php
 					}
@@ -74,9 +74,9 @@ if (isset($tpl['status']))
 						{
 							if ((isset($_GET['page']) && (int) $_GET['page'] == $i) || (!isset($_GET['page']) && $i == 1))
 							{
-								?><li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=<?php echo $_GET['controller']; ?>&amp;action=index&amp;page=<?php echo $i; ?>" class="focus"><?php echo $i; ?></a></li><?php
+								?><li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=<?php echo $_GET['controller']; ?>&amp;action=index&amp;page=<?php echo $i; ?>&amp;rbpf=<?php echo PREFIX; ?>" class="focus"><?php echo $i; ?></a></li><?php
 							} else {
-								?><li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=<?php echo $_GET['controller']; ?>&amp;action=index&amp;page=<?php echo $i; ?>"><?php echo $i; ?></a></li><?php
+								?><li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=<?php echo $_GET['controller']; ?>&amp;action=index&amp;page=<?php echo $i; ?>&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $i; ?></a></li><?php
 							}
 						}
 						?>
@@ -101,7 +101,7 @@ if (isset($tpl['status']))
 		</div> <!-- tabs-1 -->
 		<div id="tabs-2">
 			<?php pjUtil::printNotice($RB_LANG['info']['add_table']); ?>
-			<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminTables&amp;action=create" method="post" id="frmCreateTable" class="form">
+			<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminTables&amp;action=create&amp;rbpf=<?php echo PREFIX; ?>" method="post" id="frmCreateTable" class="form">
 				<input type="hidden" name="table_create" value="1" />
 				<p><label class="title"><?php echo $RB_LANG['table_name']; ?></label><input type="text" name="name" id="name" class="text w400 required" /></p>
 				<p><label class="title"><?php echo $RB_LANG['table_minimum']; ?></label><input type="text" name="minimum" id="minimum" class="text w80 align_right digit required" /></p>

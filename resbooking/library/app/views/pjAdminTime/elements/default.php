@@ -1,4 +1,4 @@
-<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminTime&amp;action=index" method="post" class="form">
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminTime&amp;action=index&amp;rbpf=<?php echo PREFIX; ?>" method="post" class="form">
 	<input type="hidden" name="working_time" value="1" />
 	<table class="table" cellpadding="0" cellspacing="0">
 		<thead>

@@ -17,7 +17,7 @@ class pjSMS {
 		
 	}
 	
-	public function sendSMS($send_address, $send_address, $message) {
+	public function sendSMS($send_address, $address, $message) {
 		# example:initialize-sms-client
 		$smsClient = new SmsClient(USERNAME, PASSWORD);
 		# ----------------------------------------------------------------------------------------------------
@@ -28,7 +28,7 @@ class pjSMS {
 		# example:prepare-message-without-notify-url
 		$smsMessage = new SMSRequest();
 		$smsMessage->senderAddress = $send_address;
-		$smsMessage->address = $send_address;
+		$smsMessage->address = $address;
 		$smsMessage->message = $message;
 		# ----------------------------------------------------------------------------------------------------
 		

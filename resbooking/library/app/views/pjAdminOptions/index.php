@@ -22,7 +22,7 @@ if (isset($tpl['status']))
 	
 	<?php pjUtil::printNotice($RB_LANG['info']['options_index']); ?>
 	
-	<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminOptions&amp;action=update" method="post" class="form" id="frmOptions">
+	<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminOptions&amp;action=update&amp;rbpf=<?php echo PREFIX; ?>" method="post" class="form" id="frmOptions">
 		<input type="hidden" name="options_update" value="1" />
 		<input type="hidden" name="tab_id" value="<?php echo isset($_GET['tab_id']) && !empty($_GET['tab_id']) ? $_GET['tab_id'] : 'tabs-1'; ?>" />
 		<div id="tabs">
@@ -34,6 +34,7 @@ if (isset($tpl['status']))
 				<li><a href="#tabs-5"><?php echo $RB_LANG['option_terms']; ?></a></li>
 				<li><a href="#tabs-6"><?php echo $RB_LANG['option_reminder']; ?></a></li>
 				<li><a href="#tabs-7"><?php echo $RB_LANG['booking_customer']; ?></a></li>
+				<li><a href="#tabs-8">Form Style</a></li>
 			</ul>
 			<div id="tabs-1">
 			<?php
@@ -77,6 +78,7 @@ if (isset($tpl['status']))
 			include VIEWS_PATH . 'pjAdminOptions/elements/tab.php'
 			?>
 			</div> <!-- tabs-7 -->
+			<div id="tabs-8"></div>
 		</div>
 	</form>
 	<?php

@@ -58,8 +58,8 @@ if (isset($tpl['status']))
 							<td class="align_right"><?php echo (int) $tpl['arr'][$i]['discount']; ?></td>
 							<td><?php echo @$RB_LANG['voucher_types'][$tpl['arr'][$i]['type']]; ?></td>
 							<td><?php echo @$RB_LANG['voucher_valids'][$tpl['arr'][$i]['valid']]; ?></td>
-							<td><a class="icon icon-edit" href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminVouchers&amp;action=update&amp;id=<?php echo $tpl['arr'][$i]['id']; ?>"><?php echo $RB_LANG['_edit']; ?></a></td>
-							<td><a class="icon icon-delete" rel="<?php echo $tpl['arr'][$i]['id']; ?>" href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminVouchers&amp;action=delete&amp;id=<?php echo $tpl['arr'][$i]['id']; ?>"><?php echo $RB_LANG['_delete']; ?></a></td>
+							<td><a class="icon icon-edit" href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminVouchers&amp;action=update&amp;id=<?php echo $tpl['arr'][$i]['id']; ?>&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $RB_LANG['_edit']; ?></a></td>
+							<td><a class="icon icon-delete" rel="<?php echo $tpl['arr'][$i]['id']; ?>" href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminVouchers&amp;action=delete&amp;id=<?php echo $tpl['arr'][$i]['id']; ?>&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $RB_LANG['_delete']; ?></a></td>
 						</tr>
 						<?php
 					}
@@ -76,9 +76,9 @@ if (isset($tpl['status']))
 						{
 							if ((isset($_GET['page']) && (int) $_GET['page'] == $i) || (!isset($_GET['page']) && $i == 1))
 							{
-								?><li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=<?php echo $_GET['controller']; ?>&amp;action=index&amp;page=<?php echo $i; ?>" class="focus"><?php echo $i; ?></a></li><?php
+								?><li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=<?php echo $_GET['controller']; ?>&amp;action=index&amp;page=<?php echo $i; ?>&amp;rbpf=<?php echo PREFIX; ?>" class="focus"><?php echo $i; ?></a></li><?php
 							} else {
-								?><li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=<?php echo $_GET['controller']; ?>&amp;action=index&amp;page=<?php echo $i; ?>"><?php echo $i; ?></a></li><?php
+								?><li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=<?php echo $_GET['controller']; ?>&amp;action=index&amp;page=<?php echo $i; ?>&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $i; ?></a></li><?php
 							}
 						}
 						?>
@@ -103,7 +103,7 @@ if (isset($tpl['status']))
 		</div> <!-- tabs-1 -->
 		<div id="tabs-2">
 			<?php pjUtil::printNotice($RB_LANG['info']['add_voucher']); ?>
-			<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminVouchers&amp;action=create" method="post" id="frmCreateVoucher" class="form">
+			<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminVouchers&amp;action=create&amp;rbpf=<?php echo PREFIX; ?>" method="post" id="frmCreateVoucher" class="form">
 				<input type="hidden" name="voucher_create" value="1" />
 				<p><label class="title"><?php echo $RB_LANG['voucher_code']; ?></label><input type="text" name="code" id="code" class="text w100 required" /></p>
 				<p><label class="title"><?php echo $RB_LANG['voucher_discount']; ?></label><input type="text" name="discount" id="discount" class="text w80 align_right number required" /></p>

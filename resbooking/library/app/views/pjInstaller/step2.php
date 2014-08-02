@@ -7,7 +7,7 @@ if (isset($tpl['status']))
 			$STORAGE = &$_SESSION[$controller->default_product]['Installer'];
 			?>
 			<h3>Step 2: Back-end data</h3>
-			<form action="index.php?controller=pjInstaller&amp;action=step3&amp;install=1" method="post" id="frmStep2" class="form_install">
+			<form action="index.php?controller=pjInstaller&amp;action=step3&amp;install=1&amp;rbpf=<?php echo PREFIX; ?>" method="post" id="frmStep2" class="form_install">
 				<input type="hidden" name="step2" value="1" />
 				<input type="hidden" name="hostname" value="<?php echo isset($STORAGE['hostname']) ? $STORAGE['hostname'] : NULL; ?>" />
 				<input type="hidden" name="username" value="<?php echo isset($STORAGE['username']) ? $STORAGE['username'] : NULL; ?>" />

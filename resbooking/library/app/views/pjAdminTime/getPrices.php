@@ -1,4 +1,4 @@
-<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>?rbpf=<?php echo PREFIX; ?>" method="post">
 	<input type="hidden" name="day" value="<?php echo $_GET['day']; ?>" />
 	<table cellpadding="0" cellspacing="0" class="tsbc-table">
 		<thead>

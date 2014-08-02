@@ -164,12 +164,11 @@ class pjController extends pjObject
  */
 	function getLanguage()
     {
-    	/* return isset($_SESSION[$this->default_product]) &&
+    	return isset($_SESSION[$this->default_product]) &&
     		isset($_SESSION[$this->default_product][$this->default_language]) &&
     		!empty($_SESSION[$this->default_product][$this->default_language]) ?
     			$_SESSION[$this->default_product][$this->default_language] :
-    			'en'; */
-    	return (!empty($_SESSION[$this->default_language])) ? $_SESSION[$this->default_language] : 'en';
+    			'en';
     }
 /**
  * Get user ID

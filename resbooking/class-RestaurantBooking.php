@@ -109,7 +109,7 @@ class RestaurantBooking {
 	 */
 	public static function activate( $network_wide ) {
 		// TODO: Define activation functionality here
-		global $wpdb;
+		global $wpdb, $table_prefix;
 		
 		$rb_db_version = get_option('rb_db_version');
 		
@@ -137,7 +137,7 @@ class RestaurantBooking {
 		$string = str_replace('[username]', DB_USER, $string);
 		$string = str_replace('[password]', DB_PASSWORD, $string);
 		$string = str_replace('[database]', DB_NAME, $string);
-		$string = str_replace('[prefix]', $wpdb->prefix, $string);
+		$string = str_replace('[prefix]', $table_prefix, $string);
 		
 		$string = str_replace('[install_folder]', '/'. $localpath .'wp-content/plugins/' . dirname(plugin_basename( __FILE__ )) . '/library/', $string);
 		$string = str_replace('[install_path]', plugin_dir_path( __FILE__ ) . 'library/', $string);
@@ -163,7 +163,7 @@ class RestaurantBooking {
 		$sql = file_get_contents(plugin_dir_path( __FILE__ ) . 'library/app/config/database.sql');
 		$sql = preg_replace(
 				array('/INSERT\s+INTO\s+`/', '/DROP\s+TABLE\s+IF\s+EXISTS\s+`/', '/CREATE\s+TABLE\s+IF\s+NOT\s+EXISTS\s+`/'),
-				array('INSERT INTO `'.$wpdb->prefix, 'DROP TABLE IF EXISTS `'.$wpdb->prefix, 'CREATE TABLE IF NOT EXISTS `'.$wpdb->prefix),
+				array('INSERT INTO `'.$table_prefix, 'DROP TABLE IF EXISTS `'.$table_prefix, 'CREATE TABLE IF NOT EXISTS `'.$table_prefix),
 				$sql);
 		
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
@@ -174,11 +174,11 @@ class RestaurantBooking {
 			$v = trim($v);
 			if (!empty($v))
 			{
-				dbDelta( $v );
+				$wpdb->query( $v );
 			}
 		} 
-		
-		$sql_opt = "INSERT INTO `".$wpdb->prefix."restaurant_booking_options` (`key`, `tab_id`, `group`, `value`, `description`, `label`, `type`, `order`, `style`, `is_visible`) VALUES
+		/*
+		$sql_opt = "INSERT INTO `".$table_prefix."restaurant_booking_options` (`key`, `tab_id`, `group`, `value`, `description`, `label`, `type`, `order`, `style`, `is_visible`) VALUES
 ('cm_include_address', 7, NULL, '1|2::1', 'Address', 'No|Yes', 'enum', 7, NULL, 1),
 ('cm_include_city', 7, NULL, '1|2::1', 'City', 'No|Yes', 'enum', 12, NULL, 1),
 ('cm_include_company', 7, NULL, '1|2::1', 'Company', 'No|Yes', 'enum', 6, NULL, 1),
@@ -248,9 +248,9 @@ class RestaurantBooking {
 ('time_format', 1, NULL, 'H:i|G:i|h:i|h:i a|h:i A|g:i|g:i a|g:i A::H:i', 'Time format', 'H:i (09:45)|G:i (9:45)|h:i (09:45)|h:i a (09:45 am)|h:i A (09:45 AM)|g:i (9:45)|g:i a (9:45 am)|g:i A (9:45 AM)', 'enum', 4, NULL, 1),
 ('use_map', 99, NULL, '1|0::1', 'Use seat map', 'Yes|No', 'bool', NULL, NULL, 0);";
 		
-		mysql_query($sql_opt) or die(mysql_error());
-		
-		$rows_affected = $wpdb->insert( $wpdb->prefix.'restaurant_booking_users', array( 'email' => 'admin@demo.com', 'name' => 'Administrator', 'role_id' => '1', 'password' => 'admin123', 'created' => current_time('mysql') ) );
+		//mysql_query($sql_opt) or die(mysql_error());
+		*/
+		$rows_affected = $wpdb->insert( $table_prefix.'restaurant_booking_users', array( 'email' => 'admin@demo.com', 'name' => 'Administrator', 'role_id' => '1', 'password' => 'admin123', 'created' => current_time('mysql') ) );
 		
 		add_option( "rb_db_version", '1' );
 	}
@@ -264,6 +264,8 @@ class RestaurantBooking {
 	 */
 	public static function deactivate( $network_wide ) {
 		// TODO: Define deactivation functionality here
+		
+		delete_option('rb_db_version');
 	}
 
 	/**
@@ -315,7 +317,7 @@ class RestaurantBooking {
 
 		$screen = get_current_screen();
 		if ( $screen->id == $this->plugin_screen_hook_suffix ) {
-			wp_enqueue_script( $this->plugin_slug . '-admin-script', plugins_url( 'assets/js/admin.js', __FILE__ ), array( 'jquery' ), $this->version );
+			//wp_enqueue_script( $this->plugin_slug . '-admin-script', plugins_url( 'assets/js/admin.js', __FILE__ ), array( 'jquery' ), $this->version );
 		}
 
 	}
@@ -326,7 +328,7 @@ class RestaurantBooking {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
-		wp_enqueue_style( $this->plugin_slug . '-plugin-styles', plugins_url( 'assets/css/public.css', __FILE__ ), array(), $this->version );
+		//wp_enqueue_style( $this->plugin_slug . '-plugin-styles', plugins_url( 'assets/css/public.css', __FILE__ ), array(), $this->version );
 	}
 
 	/**

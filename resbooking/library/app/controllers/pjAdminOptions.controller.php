@@ -1,4 +1,5 @@
 <?php
+use Zend\Crypt\PublicKey\Rsa\PublicKey;
 if (!defined("ROOT_PATH"))
 {
 	header("HTTP/1.1 403 Forbidden");
@@ -44,7 +45,37 @@ class pjAdminOptions extends pjAdmin
 		{
 			if ($this->isAdmin())
 			{
+				
+				$this->js [] = array (
+						'file' => 'jquery.ui.position.min.js',
+						'path' => LIBS_PATH . 'jquery/ui/js/'
+				);
+				
+				$this->js [] = array (
+						'file' => 'jquery.ui.dialog.min.js',
+						'path' => LIBS_PATH . 'jquery/ui/js/' 
+				);
+				$this->js [] = array (
+						'file' => 'jabb-0.4.1.js',
+						'path' => JS_PATH 
+				);
+				
+				$this->css [] = array (
+						'file' => 'jquery.ui.dialog.css',
+						'path' => LIBS_PATH . 'jquery/ui/css/smoothness/' 
+				);
+			
+				$this->js [] = array (
+						'file' => 'jquery.ui.button.min.js',
+						'path' => LIBS_PATH . 'jquery/ui/js/'
+				);
+				$this->css [] = array (
+						'file' => 'jquery.ui.button.css',
+						'path' => LIBS_PATH . 'jquery/ui/css/smoothness/'
+				);
+					
 				$this->js[] = array('file' => 'pjAdminOptions.js', 'path' => JS_PATH);
+				
 			} else {
 				$this->tpl['status'] = 2;
 			}
@@ -105,5 +136,55 @@ class pjAdminOptions extends pjAdmin
 		} else {
 			$this->tpl['status'] = 1;
 		}
+	}
+	
+	Public function getposts() {
+		$this->isAjax = true;
+		
+		if ($this->isXHR ()) {
+			pjObject::import ( 'Model', 'pjPosts' );
+			$pjPostsModel = new pjPostsModel ();
+			
+			$opts = array();
+			if ( isset($_GET['search']) ) {
+				$search = $_GET['search'];
+				$opts['t1.post_title'] = array( "'%$search%'", 'LIKE', 'null');	
+			}
+			
+			$diff = array('post', 'page');
+			
+			$this->tpl ['posts_arr'] = $pjPostsModel->getAll ( array_merge($opts, array (
+							'col_name' => 't1.post_title',
+							'direction' => 'asc',
+							't1.post_type' => array( "('".join("','", $diff)."')", 'IN', 'null')
+					)) ); 
+		}
+		
+	}
+	
+	public function pjActionInsertContent() {
+		$this->isAjax = true;
+		
+		if ($this->isXHR ()) {
+			
+			pjObject::import ( 'Model', 'pjPosts' );
+			$pjPostsModel = new pjPostsModel ();
+			
+			if (isset($_POST['id'])) {
+				
+				$post = $pjPostsModel->getAll ( array (
+						't1.ID' => $_POST['id']
+				) );
+				
+				if ( count($post) > 0 ) {
+					$post[0]['post_content'] = $post[0]['post_content'] . '<iframe src="' . INSTALL_URL . 'preview.php?rbpf=' . PREFIX .'" width="100%" height="800px"></iframe>';
+				}
+				//var_dump($post[0]);
+				$pjPostsModel->update($post[0]);
+			}
+			
+		}
+		
+		exit();
 	}
 }

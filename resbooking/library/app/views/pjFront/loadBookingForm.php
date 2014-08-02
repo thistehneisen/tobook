@@ -230,7 +230,7 @@ $STORAGE = &$_SESSION[$controller->default_product][$controller->default_order];
 					<p style="position: relative">
 						<label class="rbLabel"><?php echo $RB_LANG['front']['4_details_captcha']; ?> <span class="rbRed">*</span>:</label>
 						<input type="text" name="captcha" maxlength="6" class="rbText rbW80 rbFloatLeft rbMr5 rbRequired" rev="<?php echo htmlspecialchars($RB_LANG['front']['4_v_captcha']); ?>" data-err="<?php echo htmlspecialchars($RB_LANG['front']['4_v_captcha_err']); ?>" />
-						<img src="<?php echo INSTALL_FOLDER; ?>index.php?controller=pjFront&action=captcha&rand=<?php echo rand(1, 9999); ?>" alt="Captcha" style="border: solid 1px #E0E3E8; vertical-align: top; position: absolute; top: 0; left: 285px; margin-top: 2px" />
+						<img src="<?php echo INSTALL_FOLDER; ?>index.php?controller=pjFront&action=captcha&rand=<?php echo rand(1, 9999); ?>" alt="Captcha" style="border: 1px solid rgb(224, 227, 232); margin-top: 10px;"/>
 					</p>
 					<?php
 				}
