@@ -11,7 +11,7 @@ try {
     $dbh = new PDO($dns, MYSQL_USERNAME, MYSQL_PASSWORD);
 
     // Get user information
-    $stm = $dbh->prepare('SELECT * FROM `rb_restaurant_booking_users` WHERE `owner_id` = ?');
+    $stm = $dbh->prepare('SELECT * FROM `rb_users` WHERE `owner_id` = ?');
     $stm->execute([$owner_id]);
     $user = $stm->fetch();
 

@@ -10,7 +10,7 @@ try {
     $sql_user = <<<SQL
 SELECT vuser_email, vuser_login, vuser_password INTO @user_email, @username, @password FROM tbl_user_mast WHERE nuser_id = %1\$d;
 
-INSERT INTO `rb_restaurant_booking_users` (`owner_id`,`role_id`, `email`, `password`, `name`, `created`, `last_login`, `status`) VALUES
+INSERT INTO `rb_users` (`owner_id`,`role_id`, `email`, `password`, `name`, `created`, `last_login`, `status`) VALUES
 (%1\$d, 1, @user_email, @password, @username, NOW(), NOW(), 'T');
 SQL;
 
@@ -19,7 +19,7 @@ SQL;
     $sth->closeCursor();
 
     $sql_opt = <<<SQL
-INSERT INTO `rb_restaurant_booking_options` (`owner_id`,`key`,`tab_id`, `group`, `value`, `description`, `label`, `type`, `order`, `style`, `is_visible`) VALUES
+INSERT INTO `rb_options` (`owner_id`,`key`,`tab_id`, `group`, `value`, `description`, `label`, `type`, `order`, `style`, `is_visible`) VALUES
 (%1\$d,'cm_include_address', 7, NULL, '1|2::1', 'Address', 'No|Yes', 'enum', 7, NULL, 1),
 (%1\$d,'cm_include_city', 7, NULL, '1|2::1', 'City', 'No|Yes', 'enum', 12, NULL, 1),
 (%1\$d,'cm_include_company', 7, NULL, '1|2::1', 'Company', 'No|Yes', 'enum', 6, NULL, 1),
