@@ -9,7 +9,7 @@ class pjWorkingTimeModel extends pjAppModel
 {
 	var $primaryKey = 'id';
 	
-	var $table = 'restaurant_booking_working_times';
+	var $table = 'working_times';
 	
 	var $schema = array(
 		array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),

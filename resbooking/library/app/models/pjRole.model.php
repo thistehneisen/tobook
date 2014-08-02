@@ -20,7 +20,7 @@ class pjRoleModel extends pjAppModel
  * @var string
  * @access protected
  */
-	var $table = 'restaurant_booking_roles';
+	var $table = 'roles';
 /**
  * Table schema
  *

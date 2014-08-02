@@ -9,7 +9,7 @@ class pjFormStyleModel extends pjAppModel
 {
 	var $primaryKey = 'id';
 	
-	var $table = 'restaurant_booking_formstyle';
+	var $table = 'formstyle';
 	
 	var $schema = array(
 		array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),
