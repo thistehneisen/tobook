@@ -419,7 +419,7 @@ class pjAppController extends pjController {
 		$pjWorkingTimeModel = pjWorkingTimeModel::factory();
 		
 		$employee_arr = pjEmployeeModel::factory()
-			->where('t1.calendar_id', $calendar_id)
+			//->where('t1.calendar_id', $calendar_id)
 			->where('t1.is_active', 1)
 			->findAll()
 			->getData();
