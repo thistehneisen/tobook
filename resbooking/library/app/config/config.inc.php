@@ -30,10 +30,9 @@ if (!$stop)
 		define("DEFAULT_PASS",   $myConfig['db']['password']);
 		define("DEFAULT_DB",     $myConfig['db']['name']);
 		
-		if (defined('PREFIX')) {
+		if (defined('PREFIX') && !empty(PREFIX)) {
 			define("DEFAULT_PREFIX", PREFIX);
-		
-		} else define("DEFAULT_PREFIX", "wp_");
+		} else define("DEFAULT_PREFIX", "rb_");
 		
 	} else {
 		# REMOTE
@@ -42,13 +41,12 @@ if (!$stop)
         define("DEFAULT_PASS",   $myConfig['db']['password']);
         define("DEFAULT_DB",     $myConfig['db']['name']);
 		
-		if (defined('PREFIX')) {
-			define("DEFAULT_PREFIX", PREFIX);
-		
-		} else define("DEFAULT_PREFIX", "wp_");
-		
-	}
-	
+        if (defined('PREFIX') && !empty(PREFIX)) {
+            define("DEFAULT_PREFIX", PREFIX);
+        } else {
+            define("DEFAULT_PREFIX", "rb_");
+        }
+    }
 	if (preg_match('/\[hostname\]/', DEFAULT_HOST))
 	{
 		pjUtil::redirect("index.php?controller=pjInstaller&action=step0&install=1");
@@ -100,4 +98,3 @@ if (!defined("SCRIPT_VERSION")) define("SCRIPT_VERSION", "1.0");
 if (!defined("SCRIPT_ID")) define("SCRIPT_ID", "111");
 if (!defined("SCRIPT_BUILD")) define("SCRIPT_BUILD", "1.0.5");
 if (!defined("TEST_MODE")) define("TEST_MODE", false);
-?>
