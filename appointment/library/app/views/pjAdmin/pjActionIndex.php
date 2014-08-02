@@ -194,10 +194,6 @@ if (isset($tpl['status']))
 										}
 										
 										?><td class="dSlot <?php echo $class; ?>"><?php 
-                                        //var_dump($i);var_dump($employee['t_arr']['client']);
-										//var_dump($i);var_dump($employee['t_arr']['admin']['start_ts']);
-                                        // echo date('d.m.Y h:i:s', $i);
-                                        // echo date('d.m.Y h:i:s', $employee['t_arr']['admin']['start_ts']);
 										if ( $employee['t_arr']['admin'] != false && ($i < $employee['t_arr']['admin']['start_ts'] ||
 												$i > $employee['t_arr']['admin']['end_ts'])) {
 												
