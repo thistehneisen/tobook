@@ -105,7 +105,7 @@ class pjAdmin extends pjAppController
 			->where('t1.is_active', 1)
 			->findAll()
 			->getData();
-	
+
 		$employee_arr = pjEmployeeModel::factory()
 			->select('t1.*, t2.content AS `name`')
 			->join('pjMultiLang', sprintf("t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name'"), 'left outer')
@@ -147,8 +147,9 @@ class pjAdmin extends pjAppController
 			->select('t1.*, t2.booking_status, t2.c_name, t4.content AS `service_name`')
 			->join('pjBooking', 't2.id=t1.booking_id', 'inner')
 			->join('pjService', 't3.id=t1.service_id', 'inner')
-			->join('pjMultiLang', "t4.model='pjService' AND t4.foreign_id=t1.service_id AND t4.locale=t2.locale_id AND t4.field='name'", 'left outer')
-			->where('t2.calendar_id', $this->getForeignId())
+			->join('pjMultiLang', "t4.model='pjService' AND t4.foreign_id=t1.service_id AND t4.field='name'", 'left outer') // remove AND t4.locale=t2.locale_id 
+			// banana cocde
+            // ->where('t2.calendar_id', $this->getForeignId()) 
 			->where('t2.booking_status', 'confirmed')
 			->where('t1.date', $isoDate)
 			->where('t1.owner_id', $owner_id)
