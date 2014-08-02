@@ -20,11 +20,45 @@
 		return this;
 	}
 	
+	/* $_GET Prefix */
+	var $_GET = {}, $rbpf;
+
+	document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
+	    function decode(s) {
+	        return decodeURIComponent(s.split("+").join(" "));
+	    }
+
+	    $_GET[decode(arguments[1])] = decode(arguments[2]);
+	});
+	
+	if ( $_GET['rbpf'] != null ) {
+		
+		$rbpf = "&rbpf=" + $_GET['rbpf'];
+		
+	} else if ( getCookie('rbpf') != '' ) {
+		
+		$rbpf = "&rbpf=" + getCookie('rbpf');
+		
+	} else $rbpf = '';
+	
+	function getCookie(cname)
+	{
+		var name = cname + "=";
+		var ca = document.cookie.split(';');
+		for(var i=0; i<ca.length; i++)
+		  {
+		  var c = ca[i].trim();
+		  if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+		  }
+		return "";
+	} 
+	/* End Prefix */
+	
 	RBooking.prototype = {
 		addPromo: function (frm) {
 			var self = this,
 				code = frm.promo_code.value,
-				url = [self.options.folder, "index.php?controller=pjFront&action=addPromo&code=", code];
+				url = [self.options.folder, "index.php?controller=pjFront" + $rbpf + "&action=addPromo&code=", code];
 			JABB.Ajax.getJSON(url.join(""), function (data) {
 				if (!data.code) {
 					return;
@@ -147,7 +181,7 @@
 					}
 
 					if (frm.captcha) {
-						JABB.Ajax.getJSON([self.options.folder, "index.php?controller=pjFront&action=checkCaptcha&captcha=", frm.captcha.value].join(""), function (json) {
+						JABB.Ajax.getJSON([self.options.folder, "index.php?controller=pjFront" + $rbpf + "&action=checkCaptcha&captcha=", frm.captcha.value].join(""), function (json) {
 							switch (json.code) {
 								case 100:
 									self.errorHandler("\n" + frm.captcha.getAttribute("data-err"));
@@ -453,7 +487,7 @@
 						return;
 					}
 					
-					var url = [self.options.folder, "index.php?controller=pjFront&action=bookingSave"];
+					var url = [self.options.folder, "index.php?controller=pjFront" + $rbpf + "&action=bookingSave"];
 					JABB.Ajax.postJSON(url.join(""), function (data) {
 						if (!data.code) {
 							return;
@@ -517,7 +551,7 @@
 		},
 		checkPeople: function (people, frm, showMap) {
 			var self = this;
-			JABB.Ajax.postJSON(self.options.folder + "index.php?controller=pjFront&action=checkPeople", function (data) {
+			JABB.Ajax.postJSON(self.options.folder + "index.php?controller=pjFront&action=checkPeople" + $rbpf, function (data) {
 				if (!data.code) {
 					return;
 				}
@@ -532,7 +566,7 @@
 			}, JABB.Utils.serialize(frm));
 		},
 		checkWTime: function (qs, callback) {
-			JABB.Ajax.getJSON(this.options.folder + "index.php?controller=pjFront&action=checkWTime&" + qs, function (data) {
+			JABB.Ajax.getJSON(this.options.folder + "index.php?controller=pjFront&action=checkWTime&" + qs + $rbpf, function (data) {
 				callback(data);
 			});
 		},
@@ -597,7 +631,7 @@
 			}
 		},
 		getWTime: function (date, callback) {
-			JABB.Ajax.sendRequest(this.options.folder + "index.php?controller=pjFront&action=getWTime&date=" + encodeURIComponent(date), function (req) {
+			JABB.Ajax.sendRequest(this.options.folder + "index.php?controller=pjFront&action=getWTime&date=" + encodeURIComponent(date) + $rbpf, function (req) {
 				callback(req.responseText);
 			});
 		},
@@ -620,7 +654,7 @@
 				height: 480,
 				onBeforeOpen: function () {
 					var that = this;
-					JABB.Ajax.sendRequest(self.options.folder + "index.php?controller=pjFront&action=getTerms", function (req) {
+					JABB.Ajax.sendRequest(self.options.folder + "index.php?controller=pjFront" + $rbpf + "&action=getTerms" + $rbpf, function (req) {
 						that.content.innerHTML = req.responseText;
 					});
 				},
@@ -651,7 +685,7 @@
 				}
 				qs = ["&index=", self.options.index, "&date=", date, "&hour=", hour, "&minutes=", minutes, "&people=", people].join("");
 			}
-			JABB.Ajax.sendRequest(self.options.folder + "index.php?controller=pjFront&action=getMap" + qs, function (req) {
+			JABB.Ajax.sendRequest(self.options.folder + "index.php?controller=pjFront&action=getMap" + qs + $rbpf, function (req) {
 				var oBoxMiddle = document.getElementById("RBooking_OverlayBoxMiddle_" + self.options.index),
 					oBoxSeats = document.getElementById("RBooking_OverlayBoxSeats_" + self.options.index),
 					oBoxHead = document.getElementById("RBooking_OverlayBoxHead_" + self.options.index),
@@ -709,7 +743,7 @@
 		loadPaymentForm: function (obj) {
 			var self = this,
 				div;
-			JABB.Ajax.sendRequest(self.options.folder + "index.php?controller=pjFront&action=loadPayment", function (req) {
+			JABB.Ajax.sendRequest(self.options.folder + "index.php?controller=pjFront&action=loadPayment" + $rbpf, function (req) {
 				div = document.createElement("div");
 				div.innerHTML = req.responseText;
 				self.container.appendChild(div);
@@ -721,7 +755,7 @@
 		},
 		loadSearch: function () {
 			var self = this,
-				url = [self.options.folder, "index.php?controller=pjFront&action=loadSearch&index=", self.options.index];
+				url = [self.options.folder, "index.php?controller=pjFront" + $rbpf + "&action=loadSearch&index=", self.options.index];
 	
 			JABB.Ajax.sendRequest(url.join(""), function (req) {
 				self.container.innerHTML = req.responseText;
@@ -743,7 +777,7 @@
 		},
 		loadSummaryForm: function (post) {
 			var self = this,
-				url = [self.options.folder, "index.php?controller=pjFront&action=loadSummaryForm&index=", self.options.index];
+				url = [self.options.folder, "index.php?controller=pjFront" + $rbpf + "&action=loadSummaryForm&index=", self.options.index];
 	
 			JABB.Ajax.sendRequest(url.join(""), function (req) {
 				self.container.innerHTML = req.responseText;
@@ -873,7 +907,7 @@
 		removePromo: function (frm) {
 			var self = this,
 				code = frm.promo_code.value,
-				url = [self.options.folder, "index.php?controller=pjFront&action=removePromo"];
+				url = [self.options.folder, "index.php?controller=pjFront" + $rbpf + "&action=removePromo"];
 			JABB.Ajax.getJSON(url.join(""), function (data) {
 				if (!data.code) {
 					return;

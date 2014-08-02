@@ -17,7 +17,7 @@ if (isset($tpl['status']))
 	?>
 	<div class="ui-tabs ui-widget ui-widget-content ui-corner-all b10">
 		<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-			<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=reminder&amp;id=<?php echo $tpl['arr']['id']; ?>"><?php echo $RB_LANG['booking_remind']; ?></a></li>
+			<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=reminder&amp;id=<?php echo $tpl['arr']['id']; ?>&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $RB_LANG['booking_remind']; ?></a></li>
 		</ul>
 	</div>
 	<?php pjUtil::printNotice($RB_LANG['info']['booking_reminder']); ?>
@@ -35,7 +35,7 @@ if (isset($tpl['status']))
 					<li><a href="#tabs-<?php echo $i; ?>"><?php echo $template['name']; ?></a></li>
 			<?php } } ?>
 		</ul>
-		<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=reminder" method="post" class="form frmReminder" id="tabs-1">
+		<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=reminder&amp;rbpf=<?php echo PREFIX; ?>" method="post" class="form frmReminder" id="tabs-1">
 			<input type="hidden" name="reminder" value="1" />
 			<input type="hidden" name="id" value="<?php echo $tpl['arr']['id']; ?>" />
 			<p>
@@ -63,7 +63,7 @@ if (isset($tpl['status']))
 				$i++;
 				?>
 							
-				<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=reminder" method="post" class="form frmReminder" id="tabs-<?php echo $i; ?>">
+				<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=reminder&amp;rbpf=<?php echo PREFIX; ?>" method="post" class="form frmReminder" id="tabs-<?php echo $i; ?>">
 					<input type="hidden" name="reminder" value="1" />
 					<input type="hidden" name="id" value="<?php echo $tpl['arr']['id']; ?>" />
 					<p>

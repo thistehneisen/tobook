@@ -50,7 +50,7 @@
 						}
 						?>
 						<td class="meta"><?php echo $status; ?></td>
-						<td><a class="icon icon-delete" data-id="<?php echo $tpl['arr_group'][$i]['id']; ?>" href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=delete&amp;id=<?php echo $tpl['arr_group'][$i]['id']; ?>"><?php echo $RB_LANG['_delete']; ?></a></td>
+						<td><a class="icon icon-delete" data-id="<?php echo $tpl['arr_group'][$i]['id']; ?>" href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=delete&amp;id=<?php echo $tpl['arr_group'][$i]['id']; ?>&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $RB_LANG['_delete']; ?></a></td>
 					</tr>
 					<?php
 				}
@@ -67,9 +67,9 @@
 					{
 						if ((isset($_GET['page']) && (int) $_GET['page'] == $i) || (!isset($_GET['page']) && $i == 1))
 						{
-							?><li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=<?php echo $_GET['controller']; ?>&amp;action=index&amp;pageg=<?php echo $i; ?>" class="focus"><?php echo $i; ?></a></li><?php
+							?><li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=<?php echo $_GET['controller']; ?>&amp;action=index&amp;pageg=<?php echo $i; ?>&amp;rbpf=<?php echo PREFIX; ?>" class="focus"><?php echo $i; ?></a></li><?php
 						} else {
-							?><li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=<?php echo $_GET['controller']; ?>&amp;action=index&amp;pageg=<?php echo $i; ?>"><?php echo $i; ?></a></li><?php
+							?><li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=<?php echo $_GET['controller']; ?>&amp;action=index&amp;pageg=<?php echo $i; ?>&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $i; ?></a></li><?php
 						}
 					}
 					?>
@@ -94,7 +94,7 @@
 	</div>
 	<div id="sub-tabs-2">
 		<div class="form-email" style="display: inline-block; width: 100%; margin-bottom: 20px;">
-			<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=index" method="post" class="form" id="frmTemplate" style="float: left">
+			<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=index&amp;rbpf=<?php echo PREFIX; ?>" method="post" class="form" id="frmTemplate" style="float: left">
 				<input type="hidden" name="template" value="1" />
 				<p>
 					<label class="title">Name</label>
@@ -198,8 +198,8 @@
 						<td><?php echo $tpl['template_arr'][$i]['name']; ?></td>
 						<td><?php echo $tpl['template_arr'][$i]['subject']; ?></td>
 						<td><?php echo $tpl['template_arr'][$i]['message']; ?></td>
-						<td><a class="icon icon-edit" href="<?php echo  $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=tupdate&amp;id=<?php echo $tpl['template_arr'][$i]['id']; ?>"><?php echo $RB_LANG['_edit']; ?></a></td>
-						<td><a class="icon icon-delete" data-template="1" data-id="<?php echo $tpl['template_arr'][$i]['id']; ?>" href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=delete&amp;template=1&amp;id=<?php echo $tpl['template_arr'][$i]['id']; ?>"><?php echo $RB_LANG['_delete']; ?></a></td>
+						<td><a class="icon icon-edit" href="<?php echo  $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=tupdate&amp;id=<?php echo $tpl['template_arr'][$i]['id']; ?>&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $RB_LANG['_edit']; ?></a></td>
+						<td><a class="icon icon-delete" data-template="1" data-id="<?php echo $tpl['template_arr'][$i]['id']; ?>" href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=delete&amp;template=1&amp;id=<?php echo $tpl['template_arr'][$i]['id']; ?>&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $RB_LANG['_delete']; ?></a></td>
 					</tr>
 					<?php
 				}
@@ -215,9 +215,9 @@
 					{
 						if ((isset($_GET['tpage']) && (int) $_GET['tpage'] == $i) || (!isset($_GET['tpage']) && $i == 1))
 						{
-							?><li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=<?php echo $_GET['controller']; ?>&amp;action=index&amp;spage=<?php echo $i; ?>&amp;tab=6" class="focus"><?php echo $i; ?></a></li><?php
+							?><li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=<?php echo $_GET['controller']; ?>&amp;action=index&amp;spage=<?php echo $i; ?>&amp;tab=6&amp;rbpf=<?php echo PREFIX; ?>" class="focus"><?php echo $i; ?></a></li><?php
 						} else {
-							?><li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=<?php echo $_GET['controller']; ?>&amp;action=index&amp;spage=<?php echo $i; ?>&amp;tab=6"><?php echo $i; ?></a></li><?php
+							?><li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=<?php echo $_GET['controller']; ?>&amp;action=index&amp;spage=<?php echo $i; ?>&amp;tab=6&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $i; ?></a></li><?php
 						}
 					}
 					?>
@@ -232,7 +232,7 @@
 		} ?>
 	</div>
 	<div id="sub-tabs-3">
-		<form id="frmAddbooking" class="form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=schedule">
+		<form id="frmAddbooking" class="form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=schedule&amp;rbpf=<?php echo PREFIX; ?>">
 			<input type="hidden" value="1" name="rbBookingForm" class="error_title" rev="<?php echo $RB_LANG['front']['4_v_err_title']; ?>">
 			<input type="hidden" value="1" name="frmAddGroup">
 			<fieldset class="fieldset white">
@@ -271,7 +271,7 @@
 	
 	<div id="sub-tabs-4">
 		<div class="form-email" style="display: inline-block; width: 100%; margin-bottom: 20px;">
-			<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=index" method="post" class="form" id="frmMenu">
+			<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=index&amp;rbpf=<?php echo PREFIX; ?>" method="post" class="form" id="frmMenu">
 				<input type="hidden" name="menu" value="1" />
 				<p>
 					<label class="title">Name</label>
@@ -316,8 +316,8 @@
 					<tr class="<?php echo $i % 2 === 0 ? 'odd' : 'even'; ?>">
 						<td><?php echo $tpl['menu_arr'][$i]['m_name']; ?></td>
 						<td><?php echo $RB_LANG['menu_types'][$tpl['menu_arr'][$i]['m_type']]; ?></td>
-						<td><a class="icon icon-edit" href="<?php echo  $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=mupdate&amp;id=<?php echo $tpl['menu_arr'][$i]['id']; ?>"><?php echo $RB_LANG['_edit']; ?></a></td>
-						<td><a class="icon icon-delete" data-menu="1" data-id="<?php echo $tpl['menu_arr'][$i]['id']; ?>" href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=delete&amp;menu=1&amp;id=<?php echo $tpl['menu_arr'][$i]['id']; ?>"><?php echo $RB_LANG['_delete']; ?></a></td>
+						<td><a class="icon icon-edit" href="<?php echo  $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=mupdate&amp;id=<?php echo $tpl['menu_arr'][$i]['id']; ?>&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $RB_LANG['_edit']; ?></a></td>
+						<td><a class="icon icon-delete" data-menu="1" data-id="<?php echo $tpl['menu_arr'][$i]['id']; ?>" href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=delete&amp;menu=1&amp;id=<?php echo $tpl['menu_arr'][$i]['id']; ?>&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $RB_LANG['_delete']; ?></a></td>
 					</tr>
 					<?php
 				}
@@ -335,7 +335,7 @@
 	
 	<div id="sub-tabs-5">
 		<div class="form-email" style="display: inline-block; width: 100%; margin-bottom: 20px;">
-			<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=index" method="post" class="form" id="frmTablesGroup">
+			<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=index&amp;rbpf=<?php echo PREFIX; ?>" method="post" class="form" id="frmTablesGroup">
 				<input type="hidden" name="tables_group" value="1" />
 				<p>
 					<label class="title">Name</label>
@@ -400,8 +400,8 @@
 						<td><?php echo $tpl['tg_arr'][$i]['name']; ?></td>
 						<td><?php echo $tpl['tg_arr'][$i]['tables_id']; ?></td>
 						<td><?php echo $tpl['tg_arr'][$i]['description']; ?></td>
-						<td><a class="icon icon-edit" href="<?php echo  $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=tgupdate&amp;id=<?php echo $tpl['tg_arr'][$i]['id']; ?>"><?php echo $RB_LANG['_edit']; ?></a></td>
-						<td><a class="icon icon-delete" data-tables_group="1" data-id="<?php echo $tpl['tg_arr'][$i]['id']; ?>" href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=delete&amp;tables_group=1&amp;id=<?php echo $tpl['tg_arr'][$i]['id']; ?>"><?php echo $RB_LANG['_delete']; ?></a></td>
+						<td><a class="icon icon-edit" href="<?php echo  $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=tgupdate&amp;id=<?php echo $tpl['tg_arr'][$i]['id']; ?>&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $RB_LANG['_edit']; ?></a></td>
+						<td><a class="icon icon-delete" data-tables_group="1" data-id="<?php echo $tpl['tg_arr'][$i]['id']; ?>" href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=delete&amp;tables_group=1&amp;id=<?php echo $tpl['tg_arr'][$i]['id']; ?>&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $RB_LANG['_delete']; ?></a></td>
 					</tr>
 					<?php
 				}

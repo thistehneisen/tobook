@@ -1,13 +1,5 @@
 <?php
-if( !isset($_COOKIE['rbooking_admin']) ){
-	setcookie( "rbooking_admin", "admin",	time() + (10 * 365 * 24 * 60 * 60) );
-}
-if (!headers_sent())
-{
-	session_name('StivaSoft');
-	@session_start();
-}
-
+@session_start();
 if (!isset($_SERVER['SERVER_ADDR']) && function_exists('gethostbyname'))
 {
 	$_SERVER['SERVER_ADDR'] = gethostbyname($_SERVER['SERVER_NAME']);
@@ -15,20 +7,30 @@ if (!isset($_SERVER['SERVER_ADDR']) && function_exists('gethostbyname'))
 if (isset($_SERVER['SERVER_ADDR']) && $_SERVER['SERVER_ADDR'] == '127.0.0.1')
 {
 	ini_set("display_errors", "On");
-	error_reporting(E_ALL);
+    error_reporting(E_ALL);
 } else {
-	error_reporting(0);
+    if (isset($_SERVER['APP_ENV']) && $_SERVER['APP_ENV'] === 'development') {
+	   error_reporting(E_ALL);
+    } else {
+	   error_reporting(0);
+    }
 }
+
 header("Content-type: text/html; charset=utf-8");
 if (!defined("ROOT_PATH"))
 {
 	define("ROOT_PATH", dirname(__FILE__) . '/');
 }
-$userPrefix = $_SESSION['session_loginname'];
+
+if ( isset($_GET['rbpf']) && !empty($_GET['rbpf']) ) {
+	$rbpf = $_GET['rbpf'];
+	setcookie("rbpf", $rbpf, time()+3600, "/", "");
+} else  $rbpf = isset($_COOKIE['rbpf']) ? $_COOKIE['rbpf'] : null;
+
+define('PREFIX', $rbpf);
+
 require_once ROOT_PATH . 'app/config/config.inc.php';
 require ROOT_PATH . 'oneapi.php';
-// echo $_SESSION["session_loginname"]."abc";
-// exit();
 if (!isset($_GET['controller']) || empty($_GET['controller']))
 {
 	header("HTTP/1.1 301 Moved Permanently");
@@ -51,7 +53,7 @@ if (isset($_GET['controller']))
 		
 		if (is_object($controller))
 		{
-			$controller->setDefaultProduct('RestaurantBooking');
+			$controller->setDefaultProduct('RestaurantBooking_' . PREFIX );
 			$tpl = &$controller->tpl;
 			
 			if (isset($_GET['action']))

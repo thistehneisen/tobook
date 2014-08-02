@@ -9,7 +9,7 @@ class pjVoucherModel extends pjAppModel
 {
 	var $primaryKey = 'id';
 	
-	var $table = 'restaurant_booking_vouchers';
+	var $table = 'vouchers';
 	
 	var $schema = array(
 		array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),

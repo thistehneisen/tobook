@@ -9,7 +9,7 @@ class pjBookingMenuModel extends pjAppModel
 {
 	var $primaryKey = 'id';
 	
-	var $table = 'restaurant_booking_bookings_menu';
+	var $table = 'bookings_menu';
 	
 	var $schema = array(
 		array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),

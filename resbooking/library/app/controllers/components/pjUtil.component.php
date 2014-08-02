@@ -20,6 +20,9 @@ class pjUtil
 	static function redirect($url, $http_response_code = null, $exit = true)
 	{
 		//if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
+			
+		$url = $url . '&rbpf=' . PREFIX;
+		
 		if (strstr($_SERVER['SERVER_SOFTWARE'], 'Microsoft-IIS'))
 		{
 			echo '<html><head><title></title><script type="text/javascript">window.location.href="'.$url.'";</script></head><body></body></html>';

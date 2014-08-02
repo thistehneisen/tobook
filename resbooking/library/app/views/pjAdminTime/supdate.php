@@ -21,7 +21,7 @@ if (isset($tpl['status']))
 		</ul>
 		<div id="tabs-1">
 			<?php include_once VIEWS_PATH . 'pjHelpers/time.widget.php'; ?>
-			<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminTime&amp;action=index" method="post" class="form" id="frmTimeService">
+			<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminTime&amp;action=index&amp;rbpf=<?php echo PREFIX; ?>" method="post" class="form" id="frmTimeService">
 				<input type="hidden" name="service_time" value="1" />
 				<input type="hidden" name="id" value="<?php echo $tpl['arr']['id']; ?>" />
 				<p>

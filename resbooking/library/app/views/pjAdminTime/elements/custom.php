@@ -3,7 +3,7 @@ include_once VIEWS_PATH . 'pjHelpers/time.widget.php';
 $week_start = isset($tpl['option_arr']['week_start']) && in_array((int) $tpl['option_arr']['week_start'], range(0,6)) ? (int) $tpl['option_arr']['week_start'] : 0;
 $jqDateFormat = pjUtil::jqDateFormat($tpl['option_arr']['date_format']);
 ?>
-<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminTime&amp;action=index" method="post" class="form" id="frmTimeCustom">
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminTime&amp;action=index&amp;rbpf=<?php echo PREFIX; ?>" method="post" class="form" id="frmTimeCustom">
 	<input type="hidden" name="custom_time" value="1" />
 	<p>
 		<label class="title"><?php echo $RB_LANG['time_date']; ?></label>
@@ -67,8 +67,8 @@ if (isset($tpl['date_arr']))
 					<td><?php echo date($tpl['option_arr']['time_format'], strtotime($tpl['date_arr'][$i]['end_time'])); ?></td>
 					<td class="align_center"><?php echo @$RB_LANG['_yesno'][$tpl['date_arr'][$i]['is_dayoff']]; ?></td>
 					<td class="message"><?php echo $tpl['date_arr'][$i]['message']; ?></td>
-					<td><a class="icon icon-edit" href="<?php echo  $_SERVER['PHP_SELF']; ?>?controller=pjAdminTime&amp;action=update&amp;id=<?php echo $tpl['date_arr'][$i]['id']; ?>"><?php echo $RB_LANG['_edit']; ?></a></td>
-					<td><a class="custom-delete icon icon-delete" rel="<?php echo $tpl['date_arr'][$i]['id']; ?>" href="<?php echo  $_SERVER['PHP_SELF']; ?>?controller=pjAdminTime&amp;action=delete&amp;id=<?php echo $tpl['date_arr'][$i]['id']; ?>"><?php echo $RB_LANG['_delete']; ?></a></td>
+					<td><a class="icon icon-edit" href="<?php echo  $_SERVER['PHP_SELF']; ?>?controller=pjAdminTime&amp;action=update&amp;id=<?php echo $tpl['date_arr'][$i]['id']; ?>&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $RB_LANG['_edit']; ?></a></td>
+					<td><a class="custom-delete icon icon-delete" rel="<?php echo $tpl['date_arr'][$i]['id']; ?>" href="<?php echo  $_SERVER['PHP_SELF']; ?>?controller=pjAdminTime&amp;action=delete&amp;id=<?php echo $tpl['date_arr'][$i]['id']; ?>&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $RB_LANG['_delete']; ?></a></td>
 				</tr>
 				<?php
 			}
@@ -94,9 +94,9 @@ if (isset($tpl['date_arr']))
 				{
 					if ((isset($_GET['page']) && (int) $_GET['page'] == $i) || (!isset($_GET['page']) && $i == 1))
 					{
-						?><li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=<?php echo $_GET['controller']; ?>&amp;action=index&amp;page=<?php echo $i; ?>&amp;tab_id=tabs-2" class="focus"><?php echo $i; ?></a></li><?php
+						?><li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=<?php echo $_GET['controller']; ?>&amp;action=index&amp;page=<?php echo $i; ?>&amp;tab_id=tabs-2&amp;rbpf=<?php echo PREFIX; ?>" class="focus"><?php echo $i; ?></a></li><?php
 					} else {
-						?><li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=<?php echo $_GET['controller']; ?>&amp;action=index&amp;page=<?php echo $i; ?>&amp;tab_id=tabs-2"><?php echo $i; ?></a></li><?php
+						?><li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=<?php echo $_GET['controller']; ?>&amp;action=index&amp;page=<?php echo $i; ?>&amp;tab_id=tabs-2&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $i; ?></a></li><?php
 					}
 				}
 				?>

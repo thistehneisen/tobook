@@ -1276,6 +1276,56 @@ class pjAdminBookings extends pjAdmin {
 		}
 	}
 	
+	public function monthly() {
+		$this->isAjax = true;
+		
+		if ($this->isXHR ()) {
+			
+			pjObject::import ( 'Model', array (
+			'pjBooking',
+			'pjService'
+					) );
+			
+			$pjBookingModel = new pjBookingModel ();
+			$pjServiceModel = new pjServiceModel();
+			
+			$services = $pjServiceModel->getAll(array('col_name' => 't1.start_time', 'direction' => 'ASC'));
+			
+			$this->tpl ['services_arr'] = $services;
+			
+			if ( isset($_GET['m']) && !empty($_GET['m']) ){
+					$monthly = $_GET['m'];
+				
+				} else $monthly = date('m');
+			
+			$monthly_f = $monthly - 3;
+			$monthly_t = $monthly + 3;
+			
+			if ($monthly_f < 0) {
+				$monthly_f = 12 + $monthly_f;
+				$monthly_from = (date('Y') -1) . '-' . $monthly_f . '-1 00:00:00' ;
+				
+			} else $monthly_from = date('Y') . '-' . $monthly_f . '-1 00:00:00' ;
+			
+			if ( $monthly_t > 12 ) {
+				$monthly_t = $monthly_t - 12;
+				$monthly_to = (date('Y') + 1) . '-' . $monthly_t . '-1 00:00:00' ;
+				
+			} else $monthly_to = date('Y') . '-' . $monthly_t . '-1 00:00:00' ;
+			
+			$opts ['t1.status'] = array (
+					sprintf ( "('%s')", join ( "','", array('complete', 'confirmed') ) ),
+					'IN',
+					'null'
+			);
+			
+			$this->tpl ['monthly_arr'] = $pjBookingModel->getAll ( array_merge($opts, array (
+					'UNIX_TIMESTAMP(`t1`.`dt_to`)' => array( strtotime($monthly_from), '>=', 'datetime'),
+					'UNIX_TIMESTAMP(`t1`.`dt`)' => array( strtotime($monthly_to), '<', 'datetime'),
+			)) );
+		}
+	}
+	
 	function calendar() {
 		
 		$this->isAjax = true;
@@ -1398,9 +1448,11 @@ class pjAdminBookings extends pjAdmin {
 			
 			$phone = isset ( $option_arr ['reminder_sms_country_code'] ) ? $option_arr ['reminder_sms_country_code'] . $phone : $phone;
 			
+			$send_address = isset($option_arr['reminder_sms_send_address']) ? $option_arr['reminder_sms_send_address'] : $phone;
+			
 			$sendsms = new pjSMS ();
 			// Send to CLIENT
-			$sendsms->sendSMS ( $phone, $phone, $message );
+			$sendsms->sendSMS ( $send_address, $phone, $message );
 		}
 	}
 	function update() {
@@ -1769,6 +1821,32 @@ class pjAdminBookings extends pjAdmin {
 			}
 		} else {
 			$this->tpl['status'] = 1;
+		}
+	}
+	
+	public function formstyle() {
+		
+		if ($this->isLoged ()) {
+			if ($this->isAdmin ()) {
+				pjObject::import ( 'Model', array (
+						'pjFormStyle',
+					) );
+				
+				$pjFormStyleModel = new pjFormStyleModel ();
+		
+				if (isset($_POST['form_style'])) {
+					
+					if ( isset($_POST['id']) ){
+						$pjFormStyleModel->update($_POST);
+						
+					} else {
+						$pjFormStyleModel->save($_POST);
+					}
+					
+				}
+				
+				$this->tpl ['arr'] = $pjFormStyleModel->getAll();
+			}
 		}
 	}
 }

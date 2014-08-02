@@ -19,6 +19,10 @@ if (isset($_GET['controller']) && $_GET['controller'] == 'pjInstaller')
 	}
 }
 
+if (!defined('PREFIX')) {
+    define('PREFIX', 'rb_');
+}
+
 if (!$stop)
 {
 	if (isset($_SERVER['SERVER_ADDR']) && $_SERVER['SERVER_ADDR'] == '127.0.0.1')
@@ -28,14 +32,24 @@ if (!$stop)
 		define("DEFAULT_USER",   "[username]");
 		define("DEFAULT_PASS",   "[password]");
 		define("DEFAULT_DB",     "[database]");
-		define("DEFAULT_PREFIX", "[prefix]");
+		
+		if (defined('PREFIX')) {
+			define("DEFAULT_PREFIX", PREFIX);
+		
+		} else define("DEFAULT_PREFIX", "[prefix]");
+		
 	} else {
 		# REMOTE
 		define("DEFAULT_HOST",   "[hostname]");
 		define("DEFAULT_USER",   "[username]");
 		define("DEFAULT_PASS",   "[password]");
 		define("DEFAULT_DB",     "[database]");
-		define("DEFAULT_PREFIX", "[prefix]");
+		
+		if (defined('PREFIX')) {
+			define("DEFAULT_PREFIX", PREFIX);
+		
+		} else define("DEFAULT_PREFIX", "[prefix]");
+		
 	}
 	
 	if (preg_match('/\[hostname\]/', DEFAULT_HOST))

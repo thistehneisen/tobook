@@ -20,11 +20,11 @@ if (isset($tpl['status']))
     
 	<div class="ui-tabs ui-widget ui-widget-content ui-corner-all b10">
 		<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-			<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminSpaces&amp;action=update&amp;id=<?php echo $tpl['arr']['id']; ?>"><?php echo $RB_LANG['table_update']; ?></a></li>
+			<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminSpaces&amp;action=update&amp;id=<?php echo $tpl['arr']['id']; ?>&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $RB_LANG['table_update']; ?></a></li>
 		</ul>
 	</div>
 
-	<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminTables&amp;action=update&amp;id=<?php echo $tpl['arr']['id']; ?>" method="post" id="frmUpdateTable" class="form">
+	<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminTables&amp;action=update&amp;id=<?php echo $tpl['arr']['id']; ?>&amp;rbpf=<?php echo PREFIX; ?>" method="post" id="frmUpdateTable" class="form">
 		<input type="hidden" name="table_update" value="1" />
 		<input type="hidden" name="id" value="<?php echo $tpl['arr']['id']; ?>" />
 		<p><label class="title"><?php echo $RB_LANG['table_name']; ?></label><input type="text" name="name" id="name" class="text w400 required" value="<?php echo htmlspecialchars(stripslashes($tpl['arr']['name'])); ?>" /></p>

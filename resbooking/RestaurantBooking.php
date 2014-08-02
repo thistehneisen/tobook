@@ -25,6 +25,10 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+global $table_prefix;
+
+setcookie("rbpf", $table_prefix, time()+3600, "/", "");
+
 if ( is_admin() ){
 	setcookie("rbooking_admin", 'admin', time()+300, "/", "");
 } else {

@@ -2,7 +2,7 @@
 if (count($tpl['arr']) > 0)
 {
 	?>
-	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=printPaper&amp;date=<?php echo urlencode(isset($_GET['date']) && !empty($_GET['date']) ? $_GET['date'] : date($tpl['option_arr']['date_format'])); ?>" target="_blank"><?php echo $RB_LANG['booking_print']; ?></a>
+	<a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=printPaper&amp;date=<?php echo urlencode(isset($_GET['date']) && !empty($_GET['date']) ? $_GET['date'] : date($tpl['option_arr']['date_format'])); ?>&amp;rbpf=<?php echo PREFIX; ?>" target="_blank"><?php echo $RB_LANG['booking_print']; ?></a>
 	<table cellpadding="0" cellspacing="0" class="table t10">
 		<thead>
 			<tr>

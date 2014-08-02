@@ -19,7 +19,7 @@ if (isset($_GET['err']))
 } else {
 	?>
 	<h3>Update MySQL database</h3>
-	<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdmin&amp;action=updateDB" method="post" id="frmUpdate" class="form_install">
+	<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdmin&amp;action=updateDB&amp;rbpf=<?php echo PREFIX; ?>" method="post" id="frmUpdate" class="form_install">
 		<input type="hidden" name="update" value="1" />
 	
 		<p><label class="title">Current version:</label><span><?php echo $tpl['currentVersion']; ?></span></p>

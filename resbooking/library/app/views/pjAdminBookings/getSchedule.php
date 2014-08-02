@@ -18,7 +18,7 @@ if ($tpl['wt_arr'] === false)
 		<div class="cal-container">
 			<div id="date-message" style="display: none">
 				<?php if (isset($tpl['date_arr'][0]) && count($tpl['date_arr'][0]) > 0) {?>
-					<!-- <a style="float: right;" href="<?php echo  $_SERVER['PHP_SELF']; ?>?controller=pjAdminTime&amp;action=update&amp;id=<?php echo $tpl['date_arr'][0]['id']; ?>"><?php echo $RB_LANG['_edit']; ?></a>-->
+					<!-- <a style="float: right;" href="<?php echo  $_SERVER['PHP_SELF']; ?>?controller=pjAdminTime&amp;action=update&amp;id=<?php echo $tpl['date_arr'][0]['id']; ?>&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $RB_LANG['_edit']; ?></a>-->
 					<a style="float: right;" href="#editCustomTime" data-toggle="modal" data-id=<?php echo $tpl['date_arr'][0]['id']; ?>"><?php echo $RB_LANG['_edit']; ?></a>
 					<p><?php echo isset($tpl['date_arr'][0]['message']) ? $tpl['date_arr'][0]['message'] : ''; ?></p>
 				<?php } else { ?>
@@ -30,7 +30,7 @@ if ($tpl['wt_arr'] === false)
 				<?php
 				foreach ($tpl['arr'] as $k => $table)
 				{
-					?><div class="cal-title"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminTables&amp;action=update&amp;id=<?php echo $table['id']; ?>"><?php echo stripslashes($table['name']); ?> (<?php echo $table['seats']; ?>)</a></div><?php
+					?><div class="cal-title"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminTables&amp;action=update&amp;id=<?php echo $table['id']; ?>&amp;rbpf=<?php echo PREFIX; ?>"><?php echo stripslashes($table['name']); ?> (<?php echo $table['seats']; ?>)</a></div><?php
 				}
 				?>
 			</div>
@@ -39,7 +39,7 @@ if ($tpl['wt_arr'] === false)
 				<?php
 				foreach ($tpl['arr'] as $k => $table)
 				{
-					//var_dump($table);
+					
 					if ($k == 0)
 					{
 						?>
@@ -66,8 +66,18 @@ if ($tpl['wt_arr'] === false)
 					{
 		    	    	$class = pjUtil::getClass($table['hour_arr'], $i);
 		    	    	$label = $i < 24 ? $i : $i - $offset; //24h
-		    	    	if (isset($table['hour_arr'][$i]) && count($table['hour_arr'][$i]) > 0) { ?>
-		    	    		<?php if ( (!isset($table['hour_arr'][$i-1]['id'])) || $table['hour_arr'][$i-1]['id'] != $table['hour_arr'][$i]['id'] ) {?> 
+		    	    	
+		    	    	if (isset($table['hour_arr'][$i]) && count($table['hour_arr'][$i]) > 0) { 
+							?>
+		    	    		<?php if ( (!isset($table['hour_arr'][$i-1]['id'])) || $table['hour_arr'][$i-1]['id'] != $table['hour_arr'][$i]['id'] ) {
+		    	    			$min = date('i', strtotime($table['hour_arr'][$i]['dt']));
+		    	    			$min_to = date('i', strtotime($table['hour_arr'][$i]['dt_to']));
+		    	    				
+		    	    			if ( $min > 0 ) $class .= ' left';
+		    	    				
+		    	    			if ( $min_to > 0 ) $class .= ' right';
+		    	    			?> 
+		    	    			
 		    	    			<a href="#updatebooking" data-toggle="modal" data-id="<?php echo $table['hour_arr'][$i]['id']; ?>" class="customer-name <?php echo $class; ?>">
 		    	    		<?php }?>
 									<span ><?php echo $label; ?></span>
@@ -86,7 +96,14 @@ if ($tpl['wt_arr'] === false)
 									</span>
 								</a>
 							<?php } ?>
-						<?php } else { ?>
+						<?php } elseif ( (!isset($table['hour_arr'][$i]) || count($table['hour_arr'][$i]) == 0 ) &&
+											isset($table['hour_arr'][$i+1]) && 
+											count($table['hour_arr'][$i+1]) > 0 &&
+											(int) date('i', strtotime($table['hour_arr'][$i+1]['dt'])) > 0 
+										) { ?>
+									<span><?php //echo $label; ?></span>
+						<?php 	
+						}else { ?>
 							<a href="#addbooking"
 								data-toggle="modal" 
 								data-date="<?php echo $date; ?>" 
@@ -114,7 +131,7 @@ if ($tpl['wt_arr'] === false)
 					<div class="modal hide fade" id="addbooking" style="display: none;">
 						<div class="modal-body">
 							<link href="<?php echo INSTALL_FOLDER; ?>index.php?controller=pjFront&action=loadCss" type="text/css" rel="stylesheet" />
-							<form id="frmAddbooking" class="rbForm form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=schedule">
+							<form id="frmAddbooking" class="rbForm form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=schedule&amp;rbpf=<?php echo PREFIX; ?>">
 								<input type="hidden" value="1" name="rbBookingForm" class="error_title" rev="<?php echo $RB_LANG['front']['4_v_err_title']; ?>">
 								<input type="hidden" value="" name="rbBooking_date" class="rbBooking-date">
 								<input type="hidden" value="" name="rbBooking_hour" class="rbBooking-hour">
@@ -163,7 +180,7 @@ if ($tpl['wt_arr'] === false)
 					<div class="modal hide fade" id="addCustomTime" style="display: none;">
 						<div class="modal-body">
 							
-							<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminTime&amp;action=index" method="post" class="form" id="frmTimeCustom">
+							<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminTime&amp;action=index&amp;rbpf=<?php echo PREFIX; ?>" method="post" class="form" id="frmTimeCustom">
 								<input type="hidden" name="custom_time" value="1" />
 								<fieldset class="fieldset white">
 									<legend><?php echo $RB_LANG['time_custom']; ?></legend>

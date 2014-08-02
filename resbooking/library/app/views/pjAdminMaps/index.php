@@ -31,7 +31,7 @@ if (isset($tpl['status']))
 		}
 	}
 	?>
-	<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminMaps&amp;action=index" method="post" id="frmUpdateMap" class="form" enctype="multipart/form-data">
+	<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminMaps&amp;action=index&amp;rbpf=<?php echo PREFIX; ?>" method="post" id="frmUpdateMap" class="form" enctype="multipart/form-data">
 		<input type="hidden" name="map_update" value="1" />
 		<input type="hidden" name="id" value="1" />
 		<input type="hidden" name="tab_id" value="<?php echo isset($_GET['tab_id']) && !empty($_GET['tab_id']) ? $_GET['tab_id'] : 'tabs-1'; ?>" />

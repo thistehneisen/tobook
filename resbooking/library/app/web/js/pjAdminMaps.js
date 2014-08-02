@@ -8,6 +8,40 @@
 			$boxMap = $("#boxMap"),
 			$content = $("#content");
 			
+		/* $_GET Prefix */
+		var $_GET = {}, $rbpf;
+
+		document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
+		    function decode(s) {
+		        return decodeURIComponent(s.split("+").join(" "));
+		    }
+
+		    $_GET[decode(arguments[1])] = decode(arguments[2]);
+		});
+		
+		if ( $_GET['rbpf'] != null ) {
+			
+			$rbpf = "&rbpf=" + $_GET['rbpf'];
+			
+		} else if ( getCookie('rbpf') != '' ) {
+			
+			$rbpf = "&rbpf=" + getCookie('rbpf');
+			
+		} else $rbpf = '';
+		
+		function getCookie(cname)
+		{
+			var name = cname + "=";
+			var ca = document.cookie.split(';');
+			for(var i=0; i<ca.length; i++)
+			  {
+			  var c = ca[i].trim();
+			  if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+			  }
+			return "";
+		} 
+		/* End Prefix */
+		
 		if ($frmUpdateMap.length > 0) {
 			$frmUpdateMap.validate();
 			tOpts = $.extend(tOpts, {
@@ -33,7 +67,7 @@
 								data: {
 									id: $(this).data('rel')
 								},
-								url: "index.php?controller=pjAdminMaps&action=deleteFile",
+								url: "index.php?controller=pjAdminMaps&action=deleteFile" + $rbpf,
 								success: function (data) {
 									if (data.code && data.code == 7) {
 										
@@ -75,7 +109,7 @@
 								pSeats = $("#seat_seats").val(),
 								pMin = $("#seat_minimum").val(),
 								pHidden = $("#" + rel, $frmUpdateMap).val();
-							$.post("index.php?controller=pjAdminMaps&action=saveSeat", {
+							$.post("index.php?controller=pjAdminMaps&action=saveSeat" + $rbpf, {
 								"map_id": $(":input[name='id']", $frmUpdateMap).val(),
 								"hidden": pHidden,
 								"name": pName,
@@ -101,7 +135,7 @@
 						'Delete': function() {
 							var rel = $(this).data('rel');
 							if (rel.split("_")[0] == 'hi') {
-								$.post("index.php?controller=pjAdminMaps&action=deleteSeat", {
+								$.post("index.php?controller=pjAdminMaps&action=deleteSeat" + $rbpf, {
 									id: rel.split("_")[1]
 								});
 							}
