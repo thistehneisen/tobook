@@ -47,7 +47,7 @@ class AdminCalendars extends Admin
 				
 							$WorkingTimeModel->initWorkingTime($insert_id);
 							
-							$arr = $OptionModel->getAll(array('group_by' => 't1.key', 'col_name' => 't1.key', 'direction' => 'asc'));
+							$arr = $OptionModel->getAll(array('group_by' => 't1.key', 'col_name' => 't1.key', 'direction' => 'asc', 'owner_id' => $owner_id));
 							foreach ($arr as $v)
 							{
 								//FIXME Optimize (bulk save)!

@@ -143,6 +143,7 @@ class AdminTime extends Admin
 	{
 		if ($this->isLoged())
 		{
+            $owner_id = intval($_SESSION['admin_user']['owner_id']);
 			if ($this->isAdmin() || $this->isOwner())
 			{
 				Object::import('Model', array('WorkingTime', 'Date'));
@@ -160,7 +161,7 @@ class AdminTime extends Admin
 					
 					$data = array();
 					$data['calendar_id'] = $this->getCalendarId();
-
+                    $data['owner_id'] =  $owner_id;
 					$weekDays = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday');
 					foreach ($weekDays as $day)
 					{

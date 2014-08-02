@@ -8,7 +8,6 @@ include "includes/userheader.php";
 ?>
 <div>
 	<?php
-    error_reporting(E_ALL);
     $owner_id = (int) $_SESSION['owner_id'];
 	$sql = "SELECT COUNT(*) FROM ts_calendars WHERE owner_id = ". $owner_id;
 	if(mysql_result(mysql_query($sql), 0, 0) == 1){

@@ -27,7 +27,6 @@ if (isset($_GET['controller']) && $_GET['controller'] == 'Installer')
 
 if (!$stop)
 {
-    //$dbPrefix = $userPrefix."_";
     $dbPrefix = "";
     if ($_SERVER['SERVER_ADDR'] == '127.0.0.1')
     {
