@@ -9,6 +9,40 @@
 			$datepick = $(".datepick"),
 			dOpts = {};
 			
+		/* $_GET Prefix */
+		var $_GET = {}, $rbpf;
+
+		document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
+		    function decode(s) {
+		        return decodeURIComponent(s.split("+").join(" "));
+		    }
+
+		    $_GET[decode(arguments[1])] = decode(arguments[2]);
+		});
+		
+		if ( $_GET['rbpf'] != null ) {
+			
+			$rbpf = "&rbpf=" + $_GET['rbpf'];
+			
+		} else if ( getCookie('rbpf') != '' ) {
+			
+			$rbpf = "&rbpf=" + getCookie('rbpf');
+			
+		} else $rbpf = '';
+		
+		function getCookie(cname)
+		{
+			var name = cname + "=";
+			var ca = document.cookie.split(';');
+			for(var i=0; i<ca.length; i++)
+			  {
+			  var c = ca[i].trim();
+			  if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+			  }
+			return "";
+		} 
+		/* End Prefix */
+		
 		if ($datepick.length > 0) {
 			dOpts = $.extend(dOpts, {
 				firstDay: $datepick.attr("rel"),
@@ -61,7 +95,7 @@
 				modal: true,
 				buttons: {
 					'Delete': function() {
-						$.post("index.php?controller=pjAdminVouchers&action=delete", {
+						$.post("index.php?controller=pjAdminVouchers&action=delete" + $rbpf, {
 							id: $(this).data('id')
 						}).done(function (data) {
 							$content.html(data);

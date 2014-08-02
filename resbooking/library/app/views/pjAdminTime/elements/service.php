@@ -1,7 +1,7 @@
 <?php
 include_once VIEWS_PATH . 'pjHelpers/time.widget.php';
 ?>
-<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminTime&amp;action=index" method="post" class="form" id="frmTimeService">
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminTime&amp;action=index&amp;rbpf=<?php echo PREFIX; ?>" method="post" class="form" id="frmTimeService">
 	<input type="hidden" name="service_time" value="1" />
 	<p>
 		<label class="title"><?php echo $RB_LANG['service_name']; ?></label>
@@ -71,8 +71,8 @@ if (isset($tpl['service_arr']))
 					<td><?php echo $tpl['service_arr'][$i]['s_length']; ?></td>
 					<td><?php echo $tpl['service_arr'][$i]['s_price']; ?></td>
 					<td style="display: none; "><?php echo $tpl['service_arr'][$i]['s_seats']; ?></td>
-					<td><a class="icon icon-edit" href="<?php echo  $_SERVER['PHP_SELF']; ?>?controller=pjAdminTime&amp;action=supdate&amp;id=<?php echo $tpl['service_arr'][$i]['id']; ?>"><?php echo $RB_LANG['_edit']; ?></a></td>
-					<td><a class="service-delete icon icon-delete" rel="<?php echo $tpl['service_arr'][$i]['id']; ?>" href="<?php echo  $_SERVER['PHP_SELF']; ?>?controller=pjAdminTime&amp;action=sdelete&amp;id=<?php echo $tpl['service_arr'][$i]['id']; ?>"><?php echo $RB_LANG['_delete']; ?></a></td>
+					<td><a class="icon icon-edit" href="<?php echo  $_SERVER['PHP_SELF']; ?>?controller=pjAdminTime&amp;action=supdate&amp;id=<?php echo $tpl['service_arr'][$i]['id']; ?>&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $RB_LANG['_edit']; ?></a></td>
+					<td><a class="service-delete icon icon-delete" rel="<?php echo $tpl['service_arr'][$i]['id']; ?>" href="<?php echo  $_SERVER['PHP_SELF']; ?>?controller=pjAdminTime&amp;action=sdelete&amp;id=<?php echo $tpl['service_arr'][$i]['id']; ?>&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $RB_LANG['_delete']; ?></a></td>
 				</tr>
 				<?php
 			}
@@ -98,9 +98,9 @@ if (isset($tpl['service_arr']))
 				{
 					if ((isset($_GET['spage']) && (int) $_GET['spage'] == $i) || (!isset($_GET['spage']) && $i == 1))
 					{
-						?><li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=<?php echo $_GET['controller']; ?>&amp;action=index&amp;spage=<?php echo $i; ?>&amp;tab_id=tabs-2" class="focus"><?php echo $i; ?></a></li><?php
+						?><li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=<?php echo $_GET['controller']; ?>&amp;action=index&amp;spage=<?php echo $i; ?>&amp;tab_id=tabs-2&amp;rbpf=<?php echo PREFIX; ?>" class="focus"><?php echo $i; ?></a></li><?php
 					} else {
-						?><li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=<?php echo $_GET['controller']; ?>&amp;action=index&amp;spage=<?php echo $i; ?>&amp;tab_id=tabs-2"><?php echo $i; ?></a></li><?php
+						?><li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=<?php echo $_GET['controller']; ?>&amp;action=index&amp;spage=<?php echo $i; ?>&amp;tab_id=tabs-2&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $i; ?></a></li><?php
 					}
 				}
 				?>

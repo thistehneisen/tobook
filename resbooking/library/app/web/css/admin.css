@@ -11,7 +11,7 @@ html,body {
 	font-size: 12px;
 	font-weight: normal;
 	height: 100%;
-	/* max-width: 1100px; */
+	max-width: 1100px;
 }
 
 a:link,a:visited,a:active,a:hover {
@@ -735,9 +735,14 @@ img.ui-datepicker-trigger {
 	margin: 0;
 	background: none;
 }
-
+.cal-program a.customer-name.left span.name{
+	left: -27px;
+}
+.cal-program a.customer-name.right span.name{
+	right: 27px;
+}
 .cal-program a.customer-name span {
-	background: transparent;
+	/*background: transparent;*/
 	text-indent: -9999px;
 }
 
@@ -877,6 +882,10 @@ img.ui-datepicker-trigger {
 	display: inline-block;
     min-width: 25px;
 }
+#monthly-review span.lable{
+    display: inline-block;
+    width: 80px;
+}
 #graph {
 	height: 250px;
     margin: 0 auto 20px;
@@ -995,4 +1004,11 @@ div#calendar table.box-content .day_num {
 }
 div#calendar table.box-content .day p span {
     float: right;
+}
+.monthly-review .monthly-control {
+    color: #595A5C;
+    font-size: 70%;
+    line-height: 49px;
+    margin: 0 20px;
+    text-decoration: none;
 }

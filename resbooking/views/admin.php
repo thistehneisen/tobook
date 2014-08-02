@@ -11,6 +11,8 @@
  * @link      http://example.com
  * @copyright 2013 Your Name or Company Name
  */
+
+global $table_prefix;
 ?>
 <div class="wrap">
 
@@ -18,6 +20,6 @@
 	<!-- <h2><?php echo esc_html( get_admin_page_title() ); ?></h2> -->
 	
 	<!-- TODO: Provide markup for your options page here. -->
-	<iframe id="frame" src="<?php echo $plugins_url . '/library'; ?>" width="100%" height="1000px">
+	<iframe id="frame" src="<?php echo $plugins_url . '/library/index.php?rbpf='. $table_prefix; ?>" width="100%" height="1000px">
    	</iframe>
 </div>

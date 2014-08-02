@@ -205,6 +205,14 @@ class pjModel extends pjObject
 		}
 		return false;
 	}
+
+    protected function getOwnerId()
+    {
+        @session_start();
+        if (isset($_SESSION['owner_id'])) {
+            return (int) $_SESSION['owner_id'];
+        }
+    }
 /**
  * Execute 'SELECT...LIMIT 1' query
  *
@@ -225,6 +233,11 @@ class pjModel extends pjObject
 			$val = $this->escape($value[$key], $key);
 			$sql_conditions = " AND `t1`.`$key` = '$val'";
 		}
+
+        // Oh, yes
+        if ($ownerId = $this->getOwnerId()) {
+            $sql_conditions .= " AND `t1`.`owner_id` = $ownerId";
+        }
 		
 		$j = $this->buildJoins($a_arr);
 	    $sql_join = $j['join'];
@@ -328,6 +341,15 @@ class pjModel extends pjObject
 		$a_arr = array();
 		$opts = $this->buildOpts($options);
 		$sql_conditions = $opts['conditions'];
+        // Oh, yes
+        if ($ownerId = $this->getOwnerId()) {
+            $sql_conditions .= " AND `t1`.`owner_id` = $ownerId";
+        }
+
+        // Oh, yes
+        if ($ownerId = $this->getOwnerId()) {
+            $sql_conditions .= " AND `t1`.`owner_id` = $ownerId";
+        }
 		
 		$sql_limit = NULL;
 		if (array_key_exists('offset', $options) && array_key_exists('row_count', $options))
@@ -411,6 +433,10 @@ class pjModel extends pjObject
 		$a_arr = array();
 		$opts = $this->buildOpts($options);
 		$sql_conditions = $opts['conditions'];
+        // Oh, yes
+        if ($ownerId = $this->getOwnerId()) {
+            $sql_conditions .= " AND `t1`.`owner_id` = $ownerId";
+        }
 	
 		$sql_limit = NULL;
 		if (array_key_exists('offset', $options) && array_key_exists('row_count', $options))
@@ -475,76 +501,6 @@ class pjModel extends pjObject
 		}
 		return $arr;
 	}
-	/*	
-	function getcustomer($options=array())
-	{
-			$a_arr = array();
-		$opts = $this->buildOpts($options);
-		$sql_conditions = $opts['conditions'];
-		
-		$sql_limit = NULL;
-		if (array_key_exists('offset', $options) && array_key_exists('row_count', $options))
-		{
-			$sql_limit = "LIMIT " . intval($options['offset']) . ", " . intval($options['row_count']);
-		}
-		
-		if (!empty($options['col_name']) && !empty($options['direction']) && in_array(strtoupper($options['direction']), array('ASC', 'DESC')))
-		{
-			$sql_order = " ORDER BY ".$options['col_name']." " . strtoupper($options['direction']);
-		} else {
-			$sql_order = " ORDER BY `t1`.`id` DESC";
-		}
-		
-		$sql_group = NULL;
-		if (!empty($options['group_by']))
-		{
-			$sql_group = " GROUP BY " . $options['group_by'];
-		}
-		
-	    $j = $this->buildJoins($a_arr);
-	    $sql_join = $j['join'];
-	    $sql_join_fields = $j['fields'];
-    	
-		$sql_subquery = null;
-    	if (count($this->subqueries) > 0)
-    	{
-    		foreach ($this->subqueries as $v)
-    		{
-    			$sql_subquery .= ", (" . $v['query'] . ") AS `" . $v['alias'] . "`";
-    			$a_arr[] = $v['alias'];
-    		}
-    	}
-		
-		$arr = array();
-		$query = "SELECT `t1`.`c_email`, `t1`.`c_fname`, `t1`.`c_lname`, `t1`.`c_phone`, COUNT(`t1`.`c_email`)
-					FROM `".$this->getTable()."` AS `t1`
-					$sql_join
-					WHERE 1=1 $sql_conditions
-					$sql_group
-					$sql_order
-					$sql_limit
-					";
-		if ($this->debug) echo '<pre>'.$query.'</pre>';
-		
-		$r = mysql_query($query) or die(mysql_error());
-		if (mysql_num_rows($r) > 0)
-		{
-			$i = 0;
-			$f = $this->showColumns($this->getTable());
-			for($j = 0; $j < count($f); $j++)
-			{
-				$a_arr[] = $f[$j]['field'];
-			}
-			
-			while ($row = mysql_fetch_assoc($r))
-			{
-				$arr[$i] = $row;
-				$i++;
-			}
-		}
-		return $arr;
-	}
-	*/
 /**
  * Execute 'SELECT COUNT(*)' query
  *
@@ -556,6 +512,10 @@ class pjModel extends pjObject
 	{
 		$opts = $this->buildOpts($options);
 		$sql_conditions = $opts['conditions'];
+        // Oh, yes
+        if ($ownerId = $this->getOwnerId()) {
+            $sql_conditions .= " AND `t1`.`owner_id` = $ownerId";
+        }
 	
 		$a_arr = array();
 		$j = $this->buildJoins($a_arr);
@@ -579,6 +539,10 @@ class pjModel extends pjObject
 	{
 		$opts = $this->buildOpts($options);
 		$sql_conditions = $opts['conditions'];
+        // Oh, yes
+        if ($ownerId = $this->getOwnerId()) {
+            $sql_conditions .= " AND `t1`.`owner_id` = $ownerId";
+        }
 
 		$a_arr = array();
 		$j = $this->buildJoins($a_arr);
@@ -656,6 +620,16 @@ class pjModel extends pjObject
 	function save($data)
 	{
 		$save = array();
+        var_dump($data);
+        // Add owner_id to schema
+        $this->schema[] = [
+            'name' => 'owner_id',
+            'type' => 'int'
+        ];
+
+        if (!isset($data['owner_id']) && ($ownerId = $this->getOwnerId())) {
+            $data['owner_id'] = $ownerId;
+        }
 		
 		foreach ($this->schema as $field)
 		{
@@ -666,6 +640,7 @@ class pjModel extends pjObject
 				$save[] = "`".$field['name']."` = " . (strpos($field['default'], ":") === 0 ? substr($field['default'], 1) : "'".$this->escape($field['default'], null, $field['type'])."'");
 			}
 		}
+
 		if (count($save) > 0)
 		{
 			mysql_query("INSERT IGNORE INTO `".$this->getTable()."` SET " . join(",", $save)) or die(mysql_error());
@@ -720,6 +695,12 @@ class pjModel extends pjObject
 				$sql_conditions = " AND `".$this->primaryKey."` = '".$data[$this->primaryKey]."'";
 				$sql_limit = "LIMIT 1";
 			}
+
+            // Oh, yes
+            if ($ownerId = $this->getOwnerId()) {
+                $sql_conditions .= " AND `t1`.`owner_id` = $ownerId";
+            }
+
 			mysql_query("UPDATE `".$this->getTable()."`
 				SET " . join(",", $update) . "
 				WHERE 1=1 $sql_conditions
@@ -753,6 +734,10 @@ class pjModel extends pjObject
 			$sql_conditions = "AND `".$this->primaryKey."` = '$id'";
 			$row_count = "LIMIT 1";
 		}
+        // Oh, yes
+        if ($ownerId = $this->getOwnerId()) {
+            $sql_conditions .= " AND `t1`.`owner_id` = $ownerId";
+        }
 		
 		mysql_query("DELETE FROM `".$this->getTable()."` WHERE 1=1 $sql_conditions $row_count") or die(mysql_error());
 		return mysql_affected_rows();

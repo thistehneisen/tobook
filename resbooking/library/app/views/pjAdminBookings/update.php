@@ -25,11 +25,11 @@ if (isset($tpl['status']))
 	</style>
 	<div class="ui-tabs ui-widget ui-widget-content ui-corner-all b10">
 		<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-			<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=update&amp;id=<?php echo $tpl['arr']['id']; ?>"><?php echo $RB_LANG['booking_update']; ?></a></li>
+			<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=update&amp;id=<?php echo $tpl['arr']['id']; ?>&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $RB_LANG['booking_update']; ?></a></li>
 		</ul>
 	</div>
 	
-	<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=update&amp;id=<?php echo $tpl['arr']['id']; ?>" method="post" id="frmUpdateBooking" class="form">
+	<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=update&amp;id=<?php echo $tpl['arr']['id']; ?>&amp;rbpf=<?php echo PREFIX; ?>" method="post" id="frmUpdateBooking" class="form">
 		<input type="hidden" name="booking_update" value="1" />
 		<input type="hidden" name="id" value="<?php echo $tpl['arr']['id']; ?>" />
 		
@@ -42,8 +42,8 @@ if (isset($tpl['status']))
 		<fieldset class="fieldset white" <?php echo $customer_style; ?>>
 			<legend><?php echo $RB_LANG['booking_bookingz']; ?></legend>
 			<p class="float_right">
-				<a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=printer&amp;id=<?php echo $tpl['arr']['id']; ?>" target="_blank"><?php echo $RB_LANG['booking_print']; ?></a> |
-				<a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=reminder&amp;id=<?php echo $tpl['arr']['id']; ?>"><?php echo $RB_LANG['booking_remind']; ?></a>
+				<a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=printer&amp;id=<?php echo $tpl['arr']['id']; ?>&amp;rbpf=<?php echo PREFIX; ?>" target="_blank"><?php echo $RB_LANG['booking_print']; ?></a> |
+				<a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=reminder&amp;id=<?php echo $tpl['arr']['id']; ?>&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $RB_LANG['booking_remind']; ?></a>
 			</p>
 			
 			<p><label class="title"><?php echo $RB_LANG['booking_dt']; ?></label>
@@ -200,7 +200,7 @@ if (isset($tpl['status']))
 										?>
 									</select>
 								</td>
-								<td><a href="<?php echo $_SERVER['PHP_SELF']; ?>" class="btnRemoveTable"><img src="<?php echo INSTALL_URL . IMG_PATH; ?>icon-delete.png" alt="" /></a></td>
+								<td><a href="<?php echo $_SERVER['PHP_SELF']; ?>?rbpf=<?php echo PREFIX; ?>" class="btnRemoveTable"><img src="<?php echo INSTALL_URL . IMG_PATH; ?>icon-delete.png" alt="" /></a></td>
 							</tr>
 							<?php
 						}
@@ -218,7 +218,7 @@ if (isset($tpl['status']))
 									?>
 								</select>
 							</td>
-							<td><a href="<?php echo $_SERVER['PHP_SELF']; ?>" class="btnRemoveTable"><img src="<?php echo INSTALL_URL . IMG_PATH; ?>icon-delete.png" alt="" /></a></td>
+							<td><a href="<?php echo $_SERVER['PHP_SELF']; ?>?rbpf=<?php echo PREFIX; ?>" class="btnRemoveTable"><img src="<?php echo INSTALL_URL . IMG_PATH; ?>icon-delete.png" alt="" /></a></td>
 						</tr>
 						<?php
 					}
@@ -289,7 +289,7 @@ if (isset($tpl['status']))
 			
 			<p>
 				<label class="title">&nbsp;</label>
-				<a href="<?php echo $_SERVER['PHP_SELF']; ?>" class="btnAddTableGroup"><img src="<?php echo INSTALL_URL . IMG_PATH; ?>icon-add-table.png" alt="" class="align_middle" /></a>
+				<a href="<?php echo $_SERVER['PHP_SELF']; ?>?rbpf=<?php echo PREFIX; ?>" class="btnAddTableGroup"><img src="<?php echo INSTALL_URL . IMG_PATH; ?>icon-add-table.png" alt="" class="align_middle" /></a>
 			</p>
 			<p></p>
 			<?php } else { ?>
@@ -348,7 +348,7 @@ if (isset($tpl['status']))
 								}
 								?>
 								</td>
-								<td><a href="<?php echo $_SERVER['PHP_SELF']; ?>" class="btnRemoveTable"><img src="<?php echo INSTALL_URL . IMG_PATH; ?>icon-delete.png" alt="" /></a></td>
+								<td><a href="<?php echo $_SERVER['PHP_SELF']; ?>?rbpf=<?php echo PREFIX; ?>" class="btnRemoveTable"><img src="<?php echo INSTALL_URL . IMG_PATH; ?>icon-delete.png" alt="" /></a></td>
 							</tr>
 							<?php
 						}
@@ -368,7 +368,7 @@ if (isset($tpl['status']))
 							</td>
 							<td>-</td>
 							<td>-</td>
-							<td><a href="<?php echo $_SERVER['PHP_SELF']; ?>" class="btnRemoveTable"><img src="<?php echo INSTALL_URL . IMG_PATH; ?>icon-delete.png" alt="" /></a></td>
+							<td><a href="<?php echo $_SERVER['PHP_SELF']; ?>?rbpf=<?php echo PREFIX; ?>" class="btnRemoveTable"><img src="<?php echo INSTALL_URL . IMG_PATH; ?>icon-delete.png" alt="" /></a></td>
 						</tr>
 						<?php
 					}
@@ -379,8 +379,8 @@ if (isset($tpl['status']))
 			
 			<p>
 				<label class="title">&nbsp;</label>
-				<a href="<?php echo $_SERVER['PHP_SELF']; ?>" class="btnAddTable"><img src="<?php echo INSTALL_URL . IMG_PATH; ?>icon-add-table.png" alt="" class="align_middle" /></a>
-				<!-- <a href="<?php echo $_SERVER['PHP_SELF']; ?>" class="availability l5"><?php echo $RB_LANG['booking_view_availability']; ?></a>-->
+				<a href="<?php echo $_SERVER['PHP_SELF']; ?>?rbpf=<?php echo PREFIX; ?>" class="btnAddTable"><img src="<?php echo INSTALL_URL . IMG_PATH; ?>icon-add-table.png" alt="" class="align_middle" /></a>
+				<!-- <a href="<?php echo $_SERVER['PHP_SELF']; ?>?rbpf=<?php echo PREFIX; ?>" class="availability l5"><?php echo $RB_LANG['booking_view_availability']; ?></a>-->
 			</p>
 			<?php } ?>
 			<p>

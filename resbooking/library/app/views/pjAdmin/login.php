@@ -2,7 +2,7 @@
 	
 	<h3><?php echo $RB_LANG['login_login']; ?></h3>
 	
-	<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdmin&amp;action=login" method="post" id="frmLoginAdmin" class="form">
+	<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdmin&amp;action=login&amp;rbpf=<?php echo PREFIX; ?>" method="post" id="frmLoginAdmin" class="form">
 		<input type="hidden" name="login_user" value="1" />
 		<p><label class="title"><?php echo $RB_LANG['login_email']; ?>:</label><input name="login_email" type="text" class="text w300" id="login_email" /></p>
 		<p><label class="title"><?php echo $RB_LANG['login_password']; ?>:</label><input name="login_password" type="password" class="text w300" id="login_password" /></p>

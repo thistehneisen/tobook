@@ -1,8 +1,44 @@
 (function ($) {
 	$(function () {
+		
+		/* $_GET Prefix */
+		var $_GET = {}, $rbpf;
+
+		document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
+		    function decode(s) {
+		        return decodeURIComponent(s.split("+").join(" "));
+		    }
+
+		    $_GET[decode(arguments[1])] = decode(arguments[2]);
+		});
+		
+		if ( $_GET['rbpf'] != null ) {
+			
+			$rbpf = "&rbpf=" + $_GET['rbpf'];
+			
+		} else if ( getCookie('rbpf') != '' ) {
+			
+			$rbpf = "&rbpf=" + getCookie('rbpf');
+			
+		} else $rbpf = '';
+		
+		function getCookie(cname)
+		{
+			var name = cname + "=";
+			var ca = document.cookie.split(';');
+			for(var i=0; i<ca.length; i++)
+			  {
+			  var c = ca[i].trim();
+			  if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+			  }
+			return "";
+		} 
+		/* End Prefix */
+		
+		
 		$("#content").delegate(".working_day", "click", function () {
 			var checked = $(this).is(":checked"),
-				$tr = $(this).closest("tr");
+			$tr = $(this).closest("tr");
 			$tr.find("select, input[type='text']").attr("disabled", checked);
 			if (checked) {
 				$tr.find("a.day-price").addClass("disabled");
@@ -55,7 +91,7 @@
 				modal: true,
 				buttons: {
 					'Delete': function() {
-						$.post("index.php?controller=pjAdminTime&action=delete", {
+						$.post("index.php?controller=pjAdminTime&action=delete" + $rbpf, {
 							id: $(this).data("id")
 						}).done(function (data) {
 							$("#tabs-3").html(data);
@@ -93,7 +129,7 @@
 				modal: true,
 				buttons: {
 					'Delete': function() {
-						$.post("index.php?controller=pjAdminTime&action=sdelete", {
+						$.post("index.php?controller=pjAdminTime&action=sdelete" + $rbpf, {
 							id: $(this).data("id")
 						}).done(function (data) {
 							$("#tabs-2").html(data);

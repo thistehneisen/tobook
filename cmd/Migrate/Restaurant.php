@@ -19,41 +19,41 @@ class Restaurant extends Base {
             $this->info("Proccessing data of <fg=green;options=bold>{$username}</fg=green;options=bold>", true);
             $this->info('----------------------------------------------------');
             $tables = [
-                'restaurant_booking_bookings',
-                'restaurant_booking_menu',
-                'restaurant_booking_tables',
-                'restaurant_booking_countries',
-                'restaurant_booking_dates',
-                'restaurant_booking_options',
-                'restaurant_booking_roles',
-                'restaurant_booking_service',
-                'restaurant_booking_template',
-                'restaurant_booking_vouchers',
-                'restaurant_booking_working_times',
+                'bookings',
+                'menu',
+                'tables',
+                'countries',
+                'dates',
+                'options',
+                'roles',
+                'service',
+                'template',
+                'vouchers',
+                'working_times',
             ];
             foreach ($tables as $table) {
                 $this->migrateTable($table);
             }
 
-            $this->migrateTable('restaurant_booking_bookings_menu', [
-                'booking_id' => 'restaurant_booking_bookings',
-                'menu_id'    => 'restaurant_booking_menu'
+            $this->migrateTable('bookings_menu', [
+                'booking_id' => 'bookings',
+                'menu_id'    => 'menu'
             ]);
 
-            $this->migrateTable('restaurant_booking_bookings_tables', [
-                'booking_id' => 'restaurant_booking_bookings',
-                'table_id'    => 'restaurant_booking_menu'
+            $this->migrateTable('bookings_tables', [
+                'booking_id' => 'bookings',
+                'table_id'    => 'menu'
             ]);
             
             $this->migrateTablesGroup();
 
-            $this->migrateTable('restaurant_booking_bookings_tables_group', [
-                'booking_id'      => 'restaurant_booking_bookings',
-                'tables_group_id' => 'restaurant_booking_tables_group'
+            $this->migrateTable('bookings_tables_group', [
+                'booking_id'      => 'bookings',
+                'tables_group_id' => 'tables_group'
             ]);
 
-            $this->migrateTable('restaurant_booking_users', [
-                'role_id' => 'restaurant_booking_roles',
+            $this->migrateTable('users', [
+                'role_id' => 'roles',
             ]);
 
 
@@ -64,7 +64,7 @@ class Restaurant extends Base {
     {
         $query = $this->queryBuilder()
             ->select('*')
-            ->from($this->username.'_'.$table, 't');
+            ->from($this->username.'_restaurant_booking_'.$table, 't');
 
         return $this->migrate($table, $query, $relationships);
     }
@@ -73,7 +73,7 @@ class Restaurant extends Base {
     {
         $user = $this->getCurrentUser();
 
-        $this->text("Migrating `restaurant_booking_tables_group`...", false);
+        $this->text("Migrating `tables_group`...", false);
 
         $stm = $this->queryBuilder()
             ->select('*')
@@ -86,15 +86,15 @@ class Restaurant extends Base {
             $tableIds = [];
             foreach (explode(',', $row['tables_id']) as $tableId) {
                 $tableId = (int) $tableId;
-                if (isset($this->map['restaurant_booking_tables'][$tableId])) {
-                    $tableIds[] = $this->map['restaurant_booking_tables'][$tableId];
+                if (isset($this->map['tables'][$tableId])) {
+                    $tableIds[] = $this->map['tables'][$tableId];
                 }
             }
 
             $row['tables_id'] = implode(', ', $tableIds);
             $row['owner_id']  = $user['nuser_id'];
 
-            $this->db->insert($this->tablePrefix.'restaurant_booking_tables_group', $row);
+            $this->db->insert($this->tablePrefix.'tables_group', $row);
         }
 
         $this->output->writeln('<fg=green;option=bold>SUCCEEDED</fg=green;option=bold>');

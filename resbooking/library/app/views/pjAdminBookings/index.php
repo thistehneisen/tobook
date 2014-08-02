@@ -27,6 +27,7 @@ if (isset($tpl['status']))
 			<li><a href="#tabs-5"><?php echo $RB_LANG['booking_customer']; ?></a></li>
 			<li><a href="#tabs-6">Statistics</a></li>
 			<li><a href="#tabs-7">Group booking</a></li>
+			<!-- <li><a href="#tabs-8">Form Style</a></li>-->
 		</ul>
 		<div id="tabs-1"></div>
 		<div id="tabs-2">
@@ -59,7 +60,7 @@ if (isset($tpl['status']))
 							<td class="meta"><?php echo stripslashes($tpl['arr'][$i]['c_fname'] . " " . $tpl['arr'][$i]['c_lname']); ?></td>
 							<td class="meta"><?php echo stripslashes($tpl['arr'][$i]['c_email']); ?></td>
 							<td class="meta"><span class="booking-status booking-status-<?php echo $tpl['arr'][$i]['status']; ?>"><?php echo stripslashes($tpl['arr'][$i]['status']); ?></span></td>
-							<td><a class="icon icon-delete" data-id="<?php echo $tpl['arr'][$i]['id']; ?>" href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=delete&amp;id=<?php echo $tpl['arr'][$i]['id']; ?>"><?php echo $RB_LANG['_delete']; ?></a></td>
+							<td><a class="icon icon-delete" data-id="<?php echo $tpl['arr'][$i]['id']; ?>" href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=delete&amp;id=<?php echo $tpl['arr'][$i]['id']; ?>&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $RB_LANG['_delete']; ?></a></td>
 						</tr>
 						<?php
 					}
@@ -76,9 +77,9 @@ if (isset($tpl['status']))
 						{
 							if ((isset($_GET['page']) && (int) $_GET['page'] == $i) || (!isset($_GET['page']) && $i == 1))
 							{
-								?><li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=<?php echo $_GET['controller']; ?>&amp;action=index&amp;page=<?php echo $i; ?>" class="focus"><?php echo $i; ?></a></li><?php
+								?><li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=<?php echo $_GET['controller']; ?>&amp;action=index&amp;page=<?php echo $i; ?>&amp;rbpf=<?php echo PREFIX; ?>" class="focus"><?php echo $i; ?></a></li><?php
 							} else {
-								?><li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=<?php echo $_GET['controller']; ?>&amp;action=index&amp;page=<?php echo $i; ?>"><?php echo $i; ?></a></li><?php
+								?><li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=<?php echo $_GET['controller']; ?>&amp;action=index&amp;page=<?php echo $i; ?>&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $i; ?></a></li><?php
 							}
 						}
 						?>
@@ -94,7 +95,7 @@ if (isset($tpl['status']))
 		?>
 		</div>
 		<div id="tabs-3">
-			<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get" class="form">
+			<form action="<?php echo $_SERVER['PHP_SELF']; ?>?rbpf=<?php echo PREFIX; ?>" method="get" class="form">
 				<input type="hidden" name="controller" value="pjAdminBookings" />
 				<input type="hidden" name="action" value="index" />
 				<input type="hidden" name="tab" value="1" />
@@ -133,6 +134,7 @@ if (isset($tpl['status']))
 			<p><?php echo $RB_LANG['booking_del_body']; ?></p>
 		</div>
 		<?php } ?>
+		<div id="tabs-8"></div>
 	</div>
 	<?php
 }

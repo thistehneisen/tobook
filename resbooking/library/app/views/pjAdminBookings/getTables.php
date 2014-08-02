@@ -34,7 +34,7 @@ if ( isset($_GET['tablesgroup']) && $_GET['tablesgroup'] == 1 ) { ?>
 				?>
 			</select>
 		</td>
-		<td><a href="<?php echo $_SERVER['PHP_SELF']; ?>" class="btnRemoveTable"><img src="<?php echo INSTALL_URL . IMG_PATH; ?>icon-delete.png" alt="" /></a></td>
+		<td><a href="<?php echo $_SERVER['PHP_SELF']; ?>?rbpf=<?php echo PREFIX; ?>" class="btnRemoveTable"><img src="<?php echo INSTALL_URL . IMG_PATH; ?>icon-delete.png" alt="" /></a></td>
 	</tr>
 	
 <?php } else {
@@ -53,6 +53,6 @@ if ( isset($_GET['tablesgroup']) && $_GET['tablesgroup'] == 1 ) { ?>
 	</td>
 	<td>-</td>
 	<td>-</td>
-	<td><a href="<?php echo $_SERVER['PHP_SELF']; ?>" class="btnRemoveTable"><img src="<?php echo INSTALL_URL . IMG_PATH; ?>icon-delete.png" alt="" /></a></td>
+	<td><a href="<?php echo $_SERVER['PHP_SELF']; ?>?rbpf=<?php echo PREFIX; ?>" class="btnRemoveTable"><img src="<?php echo INSTALL_URL . IMG_PATH; ?>icon-delete.png" alt="" /></a></td>
 </tr>
 <?php } ?>

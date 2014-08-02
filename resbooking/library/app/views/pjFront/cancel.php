@@ -132,7 +132,7 @@
 					<tfoot>
 						<tr>
 							<td colspan="2">
-								<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjFront&amp;action=cancel" method="post">
+								<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjFront&amp;action=cancel&amp;rbpf=<?php echo PREFIX; ?>" method="post">
 									<input type="hidden" name="booking_cancel" value="1" />
 									<input type="hidden" name="id" value="<?php echo $_GET['id']; ?>" />
 									<input type="hidden" name="hash" value="<?php echo $_GET['hash']; ?>" />

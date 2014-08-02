@@ -3,9 +3,21 @@
 $STORAGE = &$_SESSION[$controller->default_product][$controller->default_order];
 ?>
 <div class="rbBox">
-	<div class="rbBoxWTop"><?php echo $RB_LANG['front']['1_title']; ?></div>
+	
+		<?php if (isset($tpl['formstyle'][0]['banner']) && !empty($tpl['formstyle'][0]['banner'])) { ?>
+		<div class="banner">
+			<img alt="" src="<?php echo $tpl['formstyle'][0]['banner']; ?>">
+		</div>
+		<?php } else { ?>
+		<div class="rbBoxWTop">
+			<?php echo $RB_LANG['front']['1_title']; ?>
+		</div>
+		<?php } ?>
+	
 	<div class="rbBoxMiddle">
-
+		<?php if (isset($tpl['formstyle'][0]['logo']) && !empty($tpl['formstyle'][0]['logo'])) { ?>
+			<div class="form-logo"><img alt="" src="<?php echo $tpl['formstyle'][0]['logo']; ?>"></div>
+		<?php } ?>
 		<form action="" method="post" class="rbForm" name="RBookingMap_<?php echo $_GET['index']; ?>">
 			<input type="hidden" name="rbSearch" value="1" />
 			<?php
@@ -22,9 +34,9 @@ $STORAGE = &$_SESSION[$controller->default_product][$controller->default_order];
 			}
 			?>
 			<p>
-				<label class="rbLabel"><?php echo $RB_LANG['front']['1_date']; ?></label>
+				<label class="rbLabel"><?php echo $RB_LANG['front']['1_date']; ?><a href="<?php echo $_SERVER['PHP_SELF']; ?>?rbpf=<?php echo PREFIX; ?>" class="rbDatepickerIcon" id="rbDate_<?php echo $_GET['index']; ?>"></a></label>
 				<input type="text" id="rb_date_<?php echo $_GET['index']; ?>" name="date" class="rbText rbPointer rbMr5 rbW100 rbFloatLeft" value="<?php echo isset($STORAGE) && isset($STORAGE['date']) ? htmlspecialchars($STORAGE['date']) : date($tpl['option_arr']['date_format'], strtotime("+1 day")); ?>" readonly="readonly" />
-				<a href="<?php echo $_SERVER['PHP_SELF']; ?>" class="rbDatepickerIcon" id="rbDate_<?php echo $_GET['index']; ?>"></a>
+				
 			</p>
 			
 			<?php if ( isset($tpl['option_arr']['booking_front_end']) && 
@@ -128,7 +140,6 @@ $STORAGE = &$_SESSION[$controller->default_product][$controller->default_order];
 				</span>
 			</p>
 			<p class="rbParagraph">
-				<label class="rbLabel rbFloatLeft rbW150 rbPt5">&nbsp;</label>
 				<input type="button" id="rbBtnContinue" value="" class="rbBtn rbBtnBook" />
 			</p>
 			<p class="rbError" style="display: none"></p>

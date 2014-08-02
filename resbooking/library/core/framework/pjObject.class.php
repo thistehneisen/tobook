@@ -170,7 +170,7 @@ class pjObject
  * @return void
  * @static
  */
-	function import($type, $name)
+	public static function import($type, $name)
 	{
 		$type = strtolower($type);
 		if (!in_array($type, array('model', 'component')))

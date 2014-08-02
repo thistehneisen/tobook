@@ -19,7 +19,7 @@ if (isset($tpl['status']))
 	?>
 	<div class="ui-tabs ui-widget ui-widget-content ui-corner-all b10">
 		<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-			<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminReports"><?php echo $RB_LANG['menu_reports']; ?></a></li>
+			<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminReports&amp;rbpf=<?php echo PREFIX; ?>"><?php echo $RB_LANG['menu_reports']; ?></a></li>
 		</ul>
 	</div>
 	
@@ -27,7 +27,7 @@ if (isset($tpl['status']))
 	
 	<fieldset class="fieldset white">
 		<legend><?php echo $RB_LANG['report_filter']; ?></legend>
-		<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get" class="form">
+		<form action="<?php echo $_SERVER['PHP_SELF']; ?>?rbpf=<?php echo PREFIX; ?>" method="get" class="form">
 			<input type="hidden" name="controller" value="pjAdminReports" />
 			<input type="hidden" name="action" value="index" />
 			<input type="hidden" name="report" value="1" />

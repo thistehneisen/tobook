@@ -12,12 +12,46 @@
 			$dialogAvailability = $("#dialogAvailability"),
 			$datepick = $(".datepick"),
 			$calendar = $('#calendar-month');
+			$monthly = $('#monthly-review');
 			dOpts = {};
 			$frmAddbooking = $('body').find('#frmAddbooking'),
 			$tooltip = $('body').find('.customer-name .notes'),
 			$code_graph = $('body').find(' #code-graph');
 			
+			/* $_GET Prefix */
+			var $_GET = {}, $rbpf;
 
+			document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
+			    function decode(s) {
+			        return decodeURIComponent(s.split("+").join(" "));
+			    }
+
+			    $_GET[decode(arguments[1])] = decode(arguments[2]);
+			});
+			
+			if ( $_GET['rbpf'] != null ) {
+				
+				$rbpf = "&rbpf=" + $_GET['rbpf'];
+				
+			} else if ( getCookie('rbpf') != '' ) {
+				
+				$rbpf = "&rbpf=" + getCookie('rbpf');
+				
+			} else $rbpf = '';
+			
+			function getCookie(cname)
+			{
+				var name = cname + "=";
+				var ca = document.cookie.split(';');
+				for(var i=0; i<ca.length; i++)
+				  {
+				  var c = ca[i].trim();
+				  if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+				  }
+				return "";
+			} 
+			/* End Prefix */
+			
 		if ($frmAddbooking.length > 0) {
 			$frmAddbooking.validate();
 		}
@@ -37,8 +71,16 @@
 		 
 		if ($calendar.length >0 ) {
 			
-			$.get("index.php?controller=pjAdminBookings&action=calendar").done(function (data) {
+			$.get("index.php?controller=pjAdminBookings&action=calendar" + $rbpf).done(function (data) {
 				$calendar.html(data);
+				
+			});
+		}
+		
+		if ($monthly.length >0 ) {
+			
+			$.get("index.php?controller=pjAdminBookings&action=monthly" + $rbpf).done(function (data) {
+				$monthly.html(data);
 				
 			});
 		}
@@ -56,6 +98,25 @@
 			});
 				
 			return false;
+		}).on('click', '.monthly-control', function (e) {
+			
+			if (e && e.preventDefault) {
+				e.preventDefault();
+			}
+			
+			$m = $(this).attr('data-m');
+			
+			if ( typeof $m === "undefined" ) 
+				$month = '';
+			
+			else $month = '&m=' + $m;
+			
+			$.get("index.php?controller=pjAdminBookings&action=monthly" + $rbpf + $month).done(function (data) {
+				$monthly.html('');
+				$monthly.html(data);
+				
+			});
+			
 		});
 		
 		if ($frmTemplate.length > 0) {
@@ -75,7 +136,7 @@
 				$bookingid = $(this).attr('data-id');
 				$customer = $(this).attr('data-customer');
 				
-				$url = "index.php?controller=pjAdminBookings&action=update";
+				$url = "index.php?controller=pjAdminBookings&action=update" + $rbpf;
 				
 				if ( typeof $bookingid != "undefined" ){
 					$url +=  "&id=" + $bookingid;
@@ -109,7 +170,7 @@
 				
 				$custom_id = $(this).attr('data-id');
 				
-				$url = "index.php?controller=pjAdminTime&action=update";
+				$url = "index.php?controller=pjAdminTime&action=update" + $rbpf;
 				
 				if ( typeof $custom_id != "undefined" ){
 					$url +=  "&id=" + $custom_id;
@@ -210,7 +271,7 @@
 			if (e && e.preventDefault) {
 				e.preventDefault();
 			}
-			$.post("index.php?controller=pjAdminBookings&action=getTables", $frmUpdateBooking.serialize()).done(function (data) {
+			$.post("index.php?controller=pjAdminBookings&action=getTables" + $rbpf, $frmUpdateBooking.serialize()).done(function (data) {
 				$("tbody", $("#tblBookingTables")).append(data);
 			});
 			return false;
@@ -219,7 +280,7 @@
 			if (e && e.preventDefault) {
 				e.preventDefault();
 			}
-			$.post("index.php?controller=pjAdminBookings&action=getTables&tablesgroup=1", $frmUpdateBooking.serialize()).done(function (data) {
+			$.post("index.php?controller=pjAdminBookings&action=getTables&tablesgroup=1" + $rbpf, $frmUpdateBooking.serialize()).done(function (data) {
 				$("tbody", $("#tblBookingTablesGroup")).append(data);
 			});
 			return false;
@@ -237,7 +298,7 @@
 		}).delegate("td.meta", "click", function () {
 			var meta = $(this).parent().metadata();
 			if (meta.id) {
-				window.location.href = "index.php?controller=pjAdminBookings&action=update&id=" + meta.id;
+				window.location.href = "index.php?controller=pjAdminBookings&action=update&id=" + meta.id + $rbpf;
 			}
 		}).delegate(".availability", "click", function (e) {
 			if (e && e.preventDefault) {
@@ -267,16 +328,19 @@
 					
 					switch (ui.index) {
 						case 0:
-							window.location.href = "index.php?controller=pjAdminBookings&action=schedule";
+							window.location.href = "index.php?controller=pjAdminBookings&action=schedule" + $rbpf;
 							break;
 						case 3:
-							window.location.href = "index.php?controller=pjAdminBookings&action=paper";
+							window.location.href = "index.php?controller=pjAdminBookings&action=paper" + $rbpf;
 							break;
 						case 4:
-							window.location.href = "index.php?controller=pjAdminBookings&action=customer";
+							window.location.href = "index.php?controller=pjAdminBookings&action=customer" + $rbpf;
 							break;
 						case 5:
-							window.location.href = "index.php?controller=pjAdminBookings&action=statistics";
+							window.location.href = "index.php?controller=pjAdminBookings&action=statistics" + $rbpf;
+							break;
+						case 7:
+							window.location.href = "index.php?controller=pjAdminBookings&action=formstyle" + $rbpf;
 							break;
 					}
 				}
@@ -326,7 +390,7 @@
 						}
 						
 						
-						$.post("index.php?controller=pjAdminBookings&action=delete", $option).done(function (data) {
+						$.post("index.php?controller=pjAdminBookings&action=delete" + $rbpf, $option).done(function (data) {
 							
 							if ( typeof $template != "undefined" || typeof $menu != "undefined" || typeof $tables_group != "undefined") { 
 								location.reload();
@@ -352,7 +416,7 @@
 		}
 		
 		function getSchedule(dateText) {
-			$.get("index.php?controller=pjAdminBookings&action=getSchedule", {
+			$.get("index.php?controller=pjAdminBookings&action=getSchedule" + $rbpf, {
 				date: dateText
 			}).done(function (data) {
 				$("#boxSchedule").html(data);
@@ -368,7 +432,7 @@
 		}
 		
 		function getPaper(dateText) {
-			$.get("index.php?controller=pjAdminBookings&action=getPaper", {
+			$.get("index.php?controller=pjAdminBookings&action=getPaper" + $rbpf, {
 				date: dateText
 			}).done(function (data) {
 				$("#boxPaper").html(data);
@@ -384,7 +448,7 @@
 				width: 800,
 				open: function () {
 					var $this = $(this);
-					$.get("index.php?controller=pjAdminBookings&action=getAvailability", {
+					$.get("index.php?controller=pjAdminBookings&action=getAvailability" + $rbpf, {
 						"id": $frmUpdateBooking.find("input[name='id']").val(),
 						"date": $frmUpdateBooking.find("#date").val(),
 						"hour": $frmUpdateBooking.find("#hour option:selected").val(),

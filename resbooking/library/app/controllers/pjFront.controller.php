@@ -589,9 +589,11 @@ class pjFront extends pjAppController
 			
 			$phone = isset($option_arr['reminder_sms_country_code']) ? $option_arr['reminder_sms_country_code'] . $phone : $phone;
 			
+			$send_address = isset($option_arr['reminder_sms_send_address']) ? $option_arr['reminder_sms_send_address'] : $phone;
+			
 			$sendsms = new pjSMS;
 			# Send to CLIENT
-			$sendsms->sendSMS($phone, $phone, $message);
+			$sendsms->sendSMS($send_address, $phone, $message);
 		}
 	}
 	
@@ -753,9 +755,14 @@ class pjFront extends pjAppController
 			$date = pjUtil::formatDate($this->_get('date'), $this->option_arr['date_format']);
 			$this->tpl['wt_arr'] = pjAppController::getWorkingTime($date);
 			
-			pjObject::import('Model', 'pjService');
+			pjObject::import('Model', array('pjService', 'pjFormStyle') );
+			
+			$pjFormStyleModel = new pjFormStyleModel();
+			$this->tpl ['formstyle'] = $pjFormStyleModel->getAll();
+			
 			$pjServiceModel = new pjServiceModel();
 			$this->tpl['service_arr'] = $pjServiceModel->getAll(array('col_name' => 't1.start_time', 'direction' => 'ASC'));
+			
 			
 			$table_id = $this->_get('table_id');
 			if ($table_id !== false && (int) $table_id > 0)

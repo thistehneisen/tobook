@@ -20,7 +20,7 @@ class pjOptionModel extends pjAppModel
  * @var string
  * @access protected
  */
-	var $table = 'restaurant_booking_options';
+	var $table = 'options';
 /**
  * Table schema
  *

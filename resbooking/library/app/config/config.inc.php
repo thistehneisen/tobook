@@ -1,6 +1,7 @@
 <?php
+$myConfig = require realpath(__DIR__.'/../../../../config.php');
 require_once(ROOT_PATH . 'app/controllers/components/pjUtil.component.php');
-require_once("../../includes/configsettings.php");
+
 $stop = false;
 if (isset($_GET['controller']) && $_GET['controller'] == 'pjInstaller')
 {
@@ -21,24 +22,31 @@ if (isset($_GET['controller']) && $_GET['controller'] == 'pjInstaller')
 
 if (!$stop)
 {
-	$dbPrefix = $userPrefix."_";
 	if (isset($_SERVER['SERVER_ADDR']) && $_SERVER['SERVER_ADDR'] == '127.0.0.1')
 	{
 		# LOCAL
-		define("DEFAULT_HOST",   MYSQL_HOST);
-		define("DEFAULT_USER",   MYSQL_USERNAME);
-		define("DEFAULT_PASS",   MYSQL_PASSWORD);
-		define("DEFAULT_DB",     MYSQL_DB);
-		define("DEFAULT_PREFIX", $dbPrefix );
+		define("DEFAULT_HOST",   $myConfig['db']['host']);
+		define("DEFAULT_USER",   $myConfig['db']['user']);
+		define("DEFAULT_PASS",   $myConfig['db']['password']);
+		define("DEFAULT_DB",     $myConfig['db']['name']);
+		
+		if (defined('PREFIX') && PREFIX) {
+			define("DEFAULT_PREFIX", PREFIX);
+		} else define("DEFAULT_PREFIX", "rb_");
+		
 	} else {
 		# REMOTE
-		define("DEFAULT_HOST",   MYSQL_HOST);
-		define("DEFAULT_USER",   MYSQL_USERNAME);
-		define("DEFAULT_PASS",   MYSQL_PASSWORD);
-		define("DEFAULT_DB",     MYSQL_DB);
-		define("DEFAULT_PREFIX", $dbPrefix );
-	}
-	
+        define("DEFAULT_HOST",   $myConfig['db']['host']);
+        define("DEFAULT_USER",   $myConfig['db']['user']);
+        define("DEFAULT_PASS",   $myConfig['db']['password']);
+        define("DEFAULT_DB",     $myConfig['db']['name']);
+		
+        if (defined('PREFIX') && PREFIX) {
+            define("DEFAULT_PREFIX", PREFIX);
+        } else {
+            define("DEFAULT_PREFIX", "rb_");
+        }
+    }
 	if (preg_match('/\[hostname\]/', DEFAULT_HOST))
 	{
 		pjUtil::redirect("index.php?controller=pjInstaller&action=step0&install=1");
@@ -59,16 +67,15 @@ if (!$stop)
 	
 	if (isset($_SERVER['SERVER_ADDR']) && $_SERVER['SERVER_ADDR'] == '127.0.0.1')
 	{
-/* 		if (!defined("INSTALL_FOLDER")) define("INSTALL_FOLDER", "/resbooking/library/");
-		if (!defined("INSTALL_PATH")) define("INSTALL_PATH", "D:\MyPhp\kika\resbooking/library/");
-		if (!defined("INSTALL_URL")) define("INSTALL_URL", "http://www.kika.localhost/resbooking/library/"); */
-		if (!defined("INSTALL_FOLDER")) define("INSTALL_FOLDER", "/resbooking/library/");
-		if (!defined("INSTALL_PATH")) define("INSTALL_PATH", dirname(__FILE__)."/resbooking/library/");
-		if (!defined("INSTALL_URL")) define("INSTALL_URL", "http://".$_SERVER['SERVER_NAME']."/resbooking/library/");		
+		if (!defined("INSTALL_FOLDER")) define("INSTALL_FOLDER", realpath(__DIR__.'/../../'));
+		if (!defined("INSTALL_PATH")) define("INSTALL_PATH", realpath(__DIR__.'/../../'));
+		if (!defined("INSTALL_URL")) define("INSTALL_URL", "./");
 	} else {
-		if (!defined("INSTALL_FOLDER")) define("INSTALL_FOLDER", "/resbooking/library/");
-		if (!defined("INSTALL_PATH")) define("INSTALL_PATH", dirname(__FILE__)."/resbooking/library/");
-		if (!defined("INSTALL_URL")) define("INSTALL_URL", "http://".$_SERVER['SERVER_NAME']."/resbooking/library/");
+		// if (!defined("INSTALL_FOLDER")) define("INSTALL_FOLDER", "/wp-content/plugins/RestaurantBooking-1-6-14/library/");
+		// if (!defined("INSTALL_PATH")) define("INSTALL_PATH", "/home/duongmau88/public_html/wp-content/plugins/RestaurantBooking-1-6-14/library/");
+        if (!defined("INSTALL_FOLDER")) define("INSTALL_FOLDER", realpath(__DIR__.'/../../'));
+        if (!defined("INSTALL_PATH")) define("INSTALL_PATH", realpath(__DIR__.'/../../'));   // 
+		if (!defined("INSTALL_URL")) define("INSTALL_URL", "./");
 	}
 }
 
@@ -91,4 +98,3 @@ if (!defined("SCRIPT_VERSION")) define("SCRIPT_VERSION", "1.0");
 if (!defined("SCRIPT_ID")) define("SCRIPT_ID", "111");
 if (!defined("SCRIPT_BUILD")) define("SCRIPT_BUILD", "1.0.5");
 if (!defined("TEST_MODE")) define("TEST_MODE", false);
-?>
