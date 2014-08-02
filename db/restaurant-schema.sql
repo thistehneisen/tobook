@@ -107,6 +107,20 @@ CREATE TABLE `rb_restaurant_booking_dates` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+DROP TABLE IF EXISTS `rb_restaurant_booking_formstyle`;
+CREATE TABLE `rb_restaurant_booking_formstyle` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `logo` varchar(255) DEFAULT NULL,
+  `banner` varchar(255) DEFAULT NULL,
+  `color` varchar(10) DEFAULT NULL,
+  `background` varchar(250) DEFAULT NULL,
+  `font` varchar(255) DEFAULT NULL,
+  `owner_id` int(8) NOT NULL,
+  FOREIGN KEY fk_owner_id(owner_id) REFERENCES tbl_user_mast(nuser_id) ON DELETE CASCADE,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 DROP TABLE IF EXISTS `rb_restaurant_booking_menu`;
 CREATE TABLE `rb_restaurant_booking_menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -272,4 +286,4 @@ CREATE TABLE `rb_restaurant_booking_working_times` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- 2014-07-31 10:22:31
+-- 2014-08-02 14:32:30
