@@ -106,7 +106,7 @@ class pjDateModel extends pjAppModel
 		
 		$arr = $this
 			->reset()
-			->where('t1.foreign_id', $foreign_id)
+			// ->where('t1.foreign_id', $foreign_id)
 			->where('t1.type', $type)
 			->where('t1.date >=', $date_from)
 			->where('t1.date <=', $date_to)

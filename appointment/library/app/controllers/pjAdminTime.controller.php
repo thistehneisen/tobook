@@ -17,6 +17,7 @@ class pjAdminTime extends pjAdmin
 		{
 			if (isset($_POST['working_time']))
 			{
+                $owner_id = intval($_SESSION['owner_id']);
 				$data = array();
 				$weekDays = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday');
 				foreach ($weekDays as $day)
@@ -50,6 +51,7 @@ class pjAdminTime extends pjAdmin
 						->limit(1)
 						->modifyAll(array_merge($_POST, $data));
 				} else {
+
 					if (isset($_POST['update_all']))
 					{
 						pjWorkingTimeModel::factory()
@@ -57,9 +59,7 @@ class pjAdminTime extends pjAdmin
 							->orWhere('type', 'employee')
 							->modifyAll($data);
 					} else {
-						pjWorkingTimeModel::factory()
-							->set('id', $_POST['id'])
-							->modify($data);
+                        pjWorkingTimeModel::factory()->set('id', $_POST['id'])->modify($data);
 					}
 				}
 

@@ -113,7 +113,7 @@ class pjAdmin extends pjAppController
 			->where('t1.owner_id', $owner_id)
 			->findAll()
 			->getData();
-	
+
 		if ( isset($employee_arr) && count($employee_arr) > 0 ) {
 			
 			$employees = $employee_arr;
@@ -152,7 +152,6 @@ class pjAdmin extends pjAppController
             // ->where('t2.calendar_id', $this->getForeignId()) 
 			->where('t2.booking_status', 'confirmed')
 			->where('t1.date', $isoDate)
-			->where('t1.owner_id', $owner_id)
 			->where($this->isEmployee() ? sprintf("t1.service_id='%u'", $this->getUserId()) : "1=1")
 			->findAll()
 			->getData();
@@ -175,7 +174,7 @@ class pjAdmin extends pjAppController
 				->findCount()
 				->getData();
 		}
-		
+
 		return compact('bs_arr', 't_arr', 'service_arr', 'employee_arr', 'date');
 	}
 	

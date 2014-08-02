@@ -185,7 +185,7 @@ if (isset($tpl['status']))
 											if ($i >= $_freetime['start_ts'] && $i < $_freetime['end_ts']) {
 												$class = "asSlotFreetime";
 												$freetime = $_freetime;
-												
+
 												if ($i - $step < $_freetime['start_ts']){
 													$ft_first = true;
 												}
@@ -194,7 +194,10 @@ if (isset($tpl['status']))
 										}
 										
 										?><td class="dSlot <?php echo $class; ?>"><?php 
-										//var_dump($i);var_dump($employee['t_arr']['client']);
+                                        //var_dump($i);var_dump($employee['t_arr']['client']);
+										//var_dump($i);var_dump($employee['t_arr']['admin']['start_ts']);
+                                        // echo date('d.m.Y h:i:s', $i);
+                                        // echo date('d.m.Y h:i:s', $employee['t_arr']['admin']['start_ts']);
 										if ( $employee['t_arr']['admin'] != false && ($i < $employee['t_arr']['admin']['start_ts'] ||
 												$i > $employee['t_arr']['admin']['end_ts'])) {
 												
@@ -202,10 +205,10 @@ if (isset($tpl['status']))
 										{
 											echo '<div style="text-align: center;">';
 											echo '<span style="float: left;">'. date($tpl['option_arr']['o_time_format'], $i) .'</span>';
-											
-											if ( count($freetime) > 0 && ($freetime['start_ts'] < $employee['t_arr']['client']['start_ts'] || $freetime['end_ts'] > $employee['t_arr']['client']['end_ts'])) {
+
+											if (isset($freetime) &&  count($freetime) > 0 && ($freetime['start_ts'] < $employee['t_arr']['client']['start_ts'] || $freetime['end_ts'] > $employee['t_arr']['client']['end_ts'])) {
 												echo $freetime['message'];
-												
+
 											} else {
 												echo '<a class="dashboardView" href="#" data-employee_id="'. $employee['id'] .'" data-start_ts="'. $i .'" >';
 												

@@ -219,41 +219,57 @@ class pjWorkingTimeModel extends pjAppModel
 		return $wt;
 	}
 	
-	public function init($foreign_id, $type='calendar')
+	public function init($foreign_id, $type='calendar', $owner_id = null)
 	{
 		$data = array();
 		$data['foreign_id']     = $foreign_id;
-		$data['type']           = $type;
+        $data['type']           = $type;
+		$data['owner_id']       = $owner_id;
 		
-		$data['monday_from']    = '08:00:00';
-		$data['monday_to']      = '18:00:00';
-		$data['tuesday_from']   = '08:00:00';
-		$data['tuesday_to']     = '18:00:00';
-		$data['wednesday_from'] = '08:00:00';
-		$data['wednesday_to']   = '18:00:00';
-		$data['thursday_from']  = '08:00:00';
-		$data['thursday_to']    = '18:00:00';
-		$data['friday_from']    = '08:00:00';
-		$data['friday_to']      = '18:00:00';
-		$data['saturday_from']  = '08:00:00';
-		$data['saturday_to']    = '18:00:00';
-		$data['sunday_from']    = '08:00:00';
-		$data['sunday_to']      = '18:00:00';
+		$data['monday_from']    = '08:00';
+        $data['monday_to']      = '18:00';
+		$data['tuesday_from']   = '08:00';
+		$data['tuesday_to']     = '18:00';
+		$data['wednesday_from'] = '08:00';
+		$data['wednesday_to']   = '18:00';
+		$data['thursday_from']  = '08:00';
+		$data['thursday_to']    = '18:00';
+		$data['friday_from']    = '08:00';
+		$data['friday_to']      = '18:00';
+		$data['saturday_from']  = '08:00';
+		$data['saturday_to']    = '18:00';
+		$data['sunday_from']    = '08:00';
+		$data['sunday_to']      = '18:00';
 		
-		$data['monday_lunch_from']    = '12:00:00';
-		$data['monday_lunch_to']      = '13:00:00';
-		$data['tuesday_lunch_from']   = '12:00:00';
-		$data['tuesday_lunch_to']     = '13:00:00';
-		$data['wednesday_lunch_from'] = '12:00:00';
-		$data['wednesday_lunch_to']   = '13:00:00';
-		$data['thursday_lunch_from']  = '12:00:00';
-		$data['thursday_lunch_to']    = '13:00:00';
-		$data['friday_lunch_from']    = '12:00:00';
-		$data['friday_lunch_to']      = '13:00:00';
-		$data['saturday_lunch_from']  = '12:00:00';
-		$data['saturday_lunch_to']    = '13:00:00';
-		$data['sunday_lunch_from']    = '12:00:00';
-		$data['sunday_lunch_to']      = '13:00:00';
+		$data['monday_lunch_from']    = '12:00';
+		$data['monday_lunch_to']      = '13:00';
+		$data['tuesday_lunch_from']   = '12:00';
+		$data['tuesday_lunch_to']     = '13:00';
+		$data['wednesday_lunch_from'] = '12:00';
+		$data['wednesday_lunch_to']   = '13:00';
+		$data['thursday_lunch_from']  = '12:00';
+		$data['thursday_lunch_to']    = '13:00';
+		$data['friday_lunch_from']    = '12:00';
+		$data['friday_lunch_to']      = '13:00';
+		$data['saturday_lunch_from']  = '12:00';
+		$data['saturday_lunch_to']    = '13:00';
+		$data['sunday_lunch_from']    = '12:00';
+		$data['sunday_lunch_to']      = '13:00';
+
+        $data['monday_admin_from']    = '08:00';
+        $data['monday_admin_to']      = '18:00';
+        $data['tuesday_admin_from']   = '08:00';
+        $data['tuesday_admin_to']     = '18:00';
+        $data['wednesday_admin_from'] = '08:00';
+        $data['wednesday_admin_to']   = '18:00';
+        $data['thursday_admin_from']  = '08:00';
+        $data['thursday_admin_to']    = '18:00';
+        $data['friday_admin_from']    = '08:00';
+        $data['friday_admin_to']      = '18:00';
+        $data['saturday_admin_from']  = '08:00';
+        $data['saturday_admin_to']    = '18:00';
+        $data['sunday_admin_from']    = '08:00';
+        $data['sunday_admin_to']      = '18:00';
 		
 		return $this->reset()->setAttributes($data)->insert()->getInsertId();
 	}

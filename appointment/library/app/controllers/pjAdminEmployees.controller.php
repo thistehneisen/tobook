@@ -43,6 +43,8 @@ class pjAdminEmployees extends pjAdmin
 				$data['calendar_id'] = $this->getForeignId();
 				$data['owner_id'] = $owner_id;
 				$id = pjEmployeeModel::factory(array_merge($_POST, $data))->insert()->getInsertId();
+                $pjWorkingTimeModel = pjWorkingTimeModel::factory()->init($id, 'employee', $owner_id);
+                
 				if ($id !== false && (int) $id > 0)
 				{
 					if (isset($_FILES['avatar']))
@@ -162,7 +164,6 @@ class pjAdminEmployees extends pjAdmin
 	
 	public function pjActionDeleteEmployee()
 	{
-		die('1');
 		$this->setAjax(true);
 	
 		if ($this->isXHR() && $this->isLoged())
