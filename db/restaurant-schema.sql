@@ -5,8 +5,8 @@ SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
-DROP TABLE IF EXISTS `rb_restaurant_booking_bookings`;
-CREATE TABLE `rb_restaurant_booking_bookings` (
+DROP TABLE IF EXISTS `rb_bookings`;
+CREATE TABLE `rb_bookings` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `uuid` int(10) unsigned DEFAULT NULL,
   `dt` datetime DEFAULT NULL,
@@ -45,8 +45,8 @@ CREATE TABLE `rb_restaurant_booking_bookings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `rb_restaurant_booking_bookings_menu`;
-CREATE TABLE `rb_restaurant_booking_bookings_menu` (
+DROP TABLE IF EXISTS `rb_bookings_menu`;
+CREATE TABLE `rb_bookings_menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `booking_id` int(11) NOT NULL,
   `menu_id` int(11) NOT NULL,
@@ -56,8 +56,8 @@ CREATE TABLE `rb_restaurant_booking_bookings_menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
-DROP TABLE IF EXISTS `rb_restaurant_booking_bookings_tables`;
-CREATE TABLE `rb_restaurant_booking_bookings_tables` (
+DROP TABLE IF EXISTS `rb_bookings_tables`;
+CREATE TABLE `rb_bookings_tables` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `booking_id` int(10) unsigned DEFAULT NULL,
   `table_id` int(10) unsigned DEFAULT NULL,
@@ -68,8 +68,8 @@ CREATE TABLE `rb_restaurant_booking_bookings_tables` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `rb_restaurant_booking_bookings_tables_group`;
-CREATE TABLE `rb_restaurant_booking_bookings_tables_group` (
+DROP TABLE IF EXISTS `rb_bookings_tables_group`;
+CREATE TABLE `rb_bookings_tables_group` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `booking_id` int(11) NOT NULL,
   `tables_group_id` int(11) NOT NULL,
@@ -79,8 +79,8 @@ CREATE TABLE `rb_restaurant_booking_bookings_tables_group` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
-DROP TABLE IF EXISTS `rb_restaurant_booking_countries`;
-CREATE TABLE `rb_restaurant_booking_countries` (
+DROP TABLE IF EXISTS `rb_countries`;
+CREATE TABLE `rb_countries` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `country_title` varchar(255) DEFAULT NULL,
   `status` enum('T','F') NOT NULL DEFAULT 'T',
@@ -91,8 +91,8 @@ CREATE TABLE `rb_restaurant_booking_countries` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `rb_restaurant_booking_dates`;
-CREATE TABLE `rb_restaurant_booking_dates` (
+DROP TABLE IF EXISTS `rb_dates`;
+CREATE TABLE `rb_dates` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL DEFAULT '0000-00-00',
   `start_time` time DEFAULT NULL,
@@ -107,8 +107,8 @@ CREATE TABLE `rb_restaurant_booking_dates` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `rb_restaurant_booking_formstyle`;
-CREATE TABLE `rb_restaurant_booking_formstyle` (
+DROP TABLE IF EXISTS `rb_formstyle`;
+CREATE TABLE `rb_formstyle` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `logo` varchar(255) DEFAULT NULL,
   `banner` varchar(255) DEFAULT NULL,
@@ -121,8 +121,8 @@ CREATE TABLE `rb_restaurant_booking_formstyle` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `rb_restaurant_booking_menu`;
-CREATE TABLE `rb_restaurant_booking_menu` (
+DROP TABLE IF EXISTS `rb_menu`;
+CREATE TABLE `rb_menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `m_name` varchar(254) CHARACTER SET utf8 NOT NULL,
   `m_type` enum('starters','main_course','desert') CHARACTER SET utf8 NOT NULL,
@@ -132,8 +132,8 @@ CREATE TABLE `rb_restaurant_booking_menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
-DROP TABLE IF EXISTS `rb_restaurant_booking_options`;
-CREATE TABLE `rb_restaurant_booking_options` (
+DROP TABLE IF EXISTS `rb_options`;
+CREATE TABLE `rb_options` (
   `key` varchar(255) NOT NULL DEFAULT '',
   `tab_id` tinyint(3) unsigned DEFAULT NULL,
   `group` enum('borders','colors','fonts','sizes') DEFAULT NULL,
@@ -151,8 +151,8 @@ CREATE TABLE `rb_restaurant_booking_options` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `rb_restaurant_booking_roles`;
-CREATE TABLE `rb_restaurant_booking_roles` (
+DROP TABLE IF EXISTS `rb_roles`;
+CREATE TABLE `rb_roles` (
   `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `role` varchar(255) DEFAULT NULL,
   `status` enum('T','F') NOT NULL DEFAULT 'T',
@@ -163,8 +163,8 @@ CREATE TABLE `rb_restaurant_booking_roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `rb_restaurant_booking_service`;
-CREATE TABLE `rb_restaurant_booking_service` (
+DROP TABLE IF EXISTS `rb_service`;
+CREATE TABLE `rb_service` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `s_name` varchar(254) DEFAULT NULL,
   `start_time` time DEFAULT NULL,
@@ -178,8 +178,8 @@ CREATE TABLE `rb_restaurant_booking_service` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `rb_restaurant_booking_tables`;
-CREATE TABLE `rb_restaurant_booking_tables` (
+DROP TABLE IF EXISTS `rb_tables`;
+CREATE TABLE `rb_tables` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `width` smallint(5) unsigned DEFAULT NULL,
   `height` smallint(5) unsigned DEFAULT NULL,
@@ -194,8 +194,8 @@ CREATE TABLE `rb_restaurant_booking_tables` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `rb_restaurant_booking_tables_group`;
-CREATE TABLE `rb_restaurant_booking_tables_group` (
+DROP TABLE IF EXISTS `rb_tables_group`;
+CREATE TABLE `rb_tables_group` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(254) NOT NULL,
   `tables_id` varchar(250) CHARACTER SET utf8 NOT NULL,
@@ -206,8 +206,8 @@ CREATE TABLE `rb_restaurant_booking_tables_group` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
-DROP TABLE IF EXISTS `rb_restaurant_booking_template`;
-CREATE TABLE `rb_restaurant_booking_template` (
+DROP TABLE IF EXISTS `rb_template`;
+CREATE TABLE `rb_template` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(250) CHARACTER SET utf8 DEFAULT NULL,
   `subject` varchar(250) CHARACTER SET utf8 DEFAULT NULL,
@@ -218,8 +218,8 @@ CREATE TABLE `rb_restaurant_booking_template` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
-DROP TABLE IF EXISTS `rb_restaurant_booking_users`;
-CREATE TABLE `rb_restaurant_booking_users` (
+DROP TABLE IF EXISTS `rb_users`;
+CREATE TABLE `rb_users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `role_id` int(10) unsigned DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
@@ -237,8 +237,8 @@ CREATE TABLE `rb_restaurant_booking_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `rb_restaurant_booking_vouchers`;
-CREATE TABLE `rb_restaurant_booking_vouchers` (
+DROP TABLE IF EXISTS `rb_vouchers`;
+CREATE TABLE `rb_vouchers` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `code` varchar(255) DEFAULT NULL,
   `type` enum('amount','percent') DEFAULT NULL,
@@ -256,8 +256,8 @@ CREATE TABLE `rb_restaurant_booking_vouchers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `rb_restaurant_booking_working_times`;
-CREATE TABLE `rb_restaurant_booking_working_times` (
+DROP TABLE IF EXISTS `rb_working_times`;
+CREATE TABLE `rb_working_times` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `monday_from` time DEFAULT NULL,
   `monday_to` time DEFAULT NULL,

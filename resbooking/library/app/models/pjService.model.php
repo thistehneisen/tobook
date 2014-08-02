@@ -9,7 +9,7 @@ class pjServiceModel extends pjAppModel
 {
 	var $primaryKey = 'id';
 	
-	var $table = 'restaurant_booking_service';
+	var $table = 'service';
 	
 	var $schema = array(
 		array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),

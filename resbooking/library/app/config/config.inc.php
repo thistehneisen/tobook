@@ -30,7 +30,7 @@ if (!$stop)
 		define("DEFAULT_PASS",   $myConfig['db']['password']);
 		define("DEFAULT_DB",     $myConfig['db']['name']);
 		
-		if (defined('PREFIX') && !empty(PREFIX)) {
+		if (defined('PREFIX') && PREFIX) {
 			define("DEFAULT_PREFIX", PREFIX);
 		} else define("DEFAULT_PREFIX", "rb_");
 		
@@ -41,7 +41,7 @@ if (!$stop)
         define("DEFAULT_PASS",   $myConfig['db']['password']);
         define("DEFAULT_DB",     $myConfig['db']['name']);
 		
-        if (defined('PREFIX') && !empty(PREFIX)) {
+        if (defined('PREFIX') && PREFIX) {
             define("DEFAULT_PREFIX", PREFIX);
         } else {
             define("DEFAULT_PREFIX", "rb_");

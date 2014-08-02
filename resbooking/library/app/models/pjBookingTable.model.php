@@ -9,7 +9,7 @@ class pjBookingTableModel extends pjAppModel
 {
 	var $primaryKey = 'id';
 	
-	var $table = 'restaurant_booking_bookings_tables';
+	var $table = 'bookings_tables';
 	
 	var $schema = array(
 		array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),

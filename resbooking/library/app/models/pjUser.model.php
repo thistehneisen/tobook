@@ -20,7 +20,7 @@ class pjUserModel extends pjAppModel
  * @var string
  * @access protected
  */
-	var $table = 'restaurant_booking_users';
+	var $table = 'users';
 /**
  * Table schema
  *
