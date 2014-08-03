@@ -39,7 +39,7 @@ class pjAdminBookings extends pjAdmin
 							->modifyAll(array('booking_id' => $id, 'tmp_hash' => ':NULL'));
 					}
 					$data['booking_id'] = $id;
-					pjBookingServiceModel::factory($data)->insert();
+					//pjBookingServiceModel::factory($data)->insert();
 					pjBookingStatus::factory(array('booking_id' => $id, 'admin' => 1, 'owner_id'=>$owner_id))->insert();
 					
 					$err = 'ABK03';
