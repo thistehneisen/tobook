@@ -6,6 +6,15 @@ class TimeSlot extends Base {
     protected $tablePrefix = 'ts_';
     protected $tablePattern = '_ts_booking_bookings';
 
+    public function migrateTable($table, $relationships = [])
+    {
+        $query = $this->queryBuilder()
+            ->select('*')
+            ->from($this->username.'_ts_booking_'.$table, 't');
+
+        return $this->migrate($table, $query, $relationships);
+    }
+
     public function run()
     {
         $usernames = $this->getUsernames();
@@ -17,45 +26,39 @@ class TimeSlot extends Base {
             $this->info("Proccessing data of <fg=green;options=bold>{$username}</fg=green;options=bold>", true);
             $this->info('----------------------------------------------------');
             $tables = [
-                'booking_roles',
-                'booking_countries',
+                'users',
             ];
 
             foreach ($tables as $table) {
                 $this->migrateTable($table);
             }
 
-            $this->migrateTable('booking_users', [
-                'role_id' => 'booking_roles',
+            $this->migrateTable('calendars', [
+                'user_id' => 'users',
             ]);
 
-            $this->migrateTable('booking_calendars', [
-                'user_id' => 'booking_users',
+            $this->migrateTable('bookings', [
+                'calendar_id' => 'calendars',
             ]);
 
-            $this->migrateTable('booking_bookings', [
-                'calendar_id' => 'booking_calendars',
-                'customer_country' => 'booking_countries',
+            $this->migrateTable('bookings_slots', [
+                'booking_id' => 'bookings',
             ]);
 
-            $this->migrateTable('booking_bookings_slots', [
-                'booking_id' => 'booking_bookings',
+            $this->migrateTable('dates', [
+                'calendar_id' => 'calendars',
             ]);
 
-            $this->migrateTable('booking_dates', [
-                'calendar_id' => 'booking_calendars',
+            $this->migrateTable('options', [
+                'calendar_id' => 'calendars',
             ]);
 
-            $this->migrateTable('booking_options', [
-                'calendar_id' => 'booking_calendars',
+            $this->migrateTable('prices', [
+                'calendar_id' => 'calendars',
             ]);
 
-            $this->migrateTable('booking_prices', [
-                'calendar_id' => 'booking_calendars',
-            ]);
-
-            $this->migrateTable('booking_working_times', [
-                'calendar_id' => 'booking_calendars',
+            $this->migrateTable('working_times', [
+                'calendar_id' => 'calendars',
             ]);
         }
     }
