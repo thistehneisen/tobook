@@ -55,6 +55,6 @@ require_once ROOT_PATH . 'core/framework/pjObject.class.php';
 		?>
 	</head>
 	<body>
-		<script type="text/javascript" src="<?php echo INSTALL_FOLDER; ?>index.php?controller=pjFront&action=load"></script>
+		<script type="text/javascript" src="<?php echo INSTALL_FOLDER; ?>index.php?controller=pjFront&action=load&v=<?php echo $_GET['v'] ?>"></script>
 	</body>
 </html>

@@ -5,6 +5,9 @@ if (!defined("ROOT_PATH"))
 	exit;
 }
 require_once CONTROLLERS_PATH . 'pjAppController.controller.php';
+require_once realpath(CONTROLLERS_PATH.'../../../../vendor/autoload.php');
+
+use Hashids\Hashids;
 class pjAdmin extends pjAppController
 {
 /**
@@ -80,6 +83,10 @@ class pjAdmin extends pjAppController
 				pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjAdmin&action=login");
 			}
 		}
+
+        $config = require realpath(CONTROLLERS_PATH.'../../../../config.php');
+        $hashids = new Hashids($config['secret_key'], 8);
+        $this->tpl['hash'] = $hashids->encrypt($_SESSION['owner_id']);
 	}
 /**
  * (non-PHPdoc)

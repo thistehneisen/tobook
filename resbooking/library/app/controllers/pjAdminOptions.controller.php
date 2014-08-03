@@ -1,5 +1,4 @@
 <?php
-use Zend\Crypt\PublicKey\Rsa\PublicKey;
 if (!defined("ROOT_PATH"))
 {
 	header("HTTP/1.1 403 Forbidden");
@@ -74,8 +73,7 @@ class pjAdminOptions extends pjAdmin
 						'path' => LIBS_PATH . 'jquery/ui/css/smoothness/'
 				);
 					
-				$this->js[] = array('file' => 'pjAdminOptions.js', 'path' => JS_PATH);
-				
+				$this->js[] = array('file' => 'pjAdminOptions.js', 'path' => JS_PATH);				
 			} else {
 				$this->tpl['status'] = 2;
 			}
