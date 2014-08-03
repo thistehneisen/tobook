@@ -75,7 +75,7 @@ if (!$stop)
 		// if (!defined("INSTALL_PATH")) define("INSTALL_PATH", "/home/duongmau88/public_html/wp-content/plugins/RestaurantBooking-1-6-14/library/");
         if (!defined("INSTALL_FOLDER")) define("INSTALL_FOLDER", './');
         if (!defined("INSTALL_PATH")) define("INSTALL_PATH", realpath(__DIR__.'/../../'));   // 
-		if (!defined("INSTALL_URL")) define("INSTALL_URL", "./");
+		if (!defined("INSTALL_URL")) define("INSTALL_URL", "$_SERVER[REQUEST_SCHEME]://$_SERVER[HTTP_HOST]/resbooking/library/");
 	}
 }
 
