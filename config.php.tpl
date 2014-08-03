@@ -1,6 +1,8 @@
 <?php
 // Remove this const if you don't want to bypass payment
-define('BYPASS_PAYMENT', true);
+if (!defined('BYPASS_PAYMENT')) {
+    define('BYPASS_PAYMENT', true);
+}
 
 return [
     'db' => [
@@ -8,5 +10,10 @@ return [
         'user'     => 'root',
         'password' => '',
         'name'     => 'varaa'
-    ]
+    ],
+    'mandrill' => [
+        'key' => 'bFOME-jAtMxIjYHaXtVbcQ'
+    ],
+    // Use to generate Hashids for iframe of Restaurant Booking
+    'secret_key' => 'TYQXavN3XmjLuuEf'
 ];

@@ -26,7 +26,7 @@ if (isset($tpl['status']))
 	<ul class="menu" style="display: inline-block; margin-bottom: 10px;"><li><a id="installcontent" href="#" style="margin: 0px; padding: 0px 10px;">Insert Content</a></li></ul>
 	<div class="form">
 	<textarea id="code" class="textarea textarea-install w700 h100 overflow"
-		><iframe src="<?php echo INSTALL_URL; ?>preview.php?rbpf=<?php echo PREFIX; ?>" width="100%" height="800px"></iframe>
+		><iframe src="<?php echo INSTALL_URL; ?>preview.php?v=<?php echo $tpl['hash'] ?>" width="100%" height="800px"></iframe>
 	</textarea>
 	<!-- 
 		<textarea id="code" class="textarea textarea-install w700 h100 overflow">
