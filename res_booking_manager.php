@@ -34,7 +34,7 @@ if ($noError === false) {
     die('System went down. Please contact the administrator.');
 }
 
-$user = $stm->fech();
+$user = $stm->fetch();
 if(!empty($user)) {
     $plugins_url = "http://".$_SERVER['SERVER_NAME']."/resbooking/library/session.php?owner_id={$owner_id}&username=".$table_prefix;
 } else {
