@@ -20,21 +20,29 @@ include "includes/config.php";
 include "includes/userheader.php";
 ?>
 <div>
-    <?php   
-    $table_prefix = $_SESSION["session_loginname"];
-    $table_prefix = str_replace("-", "", $table_prefix);
-    
-    $owner_id = intval($_SESSION['owner_id']);
-    $sql = sprintf("SELECT COUNT(*) FROM rs_users WHERE owner_id = %d", $owner_id);
-    if(mysql_result(mysql_query($sql), 0, 0)==1){
-        $plugins_url = "http://".$_SERVER['SERVER_NAME']."/resbooking/library/session.php?owner_id={$owner_id}&username=".$table_prefix;
-    }
-    else{
-        $plugins_url = "http://".$_SERVER['SERVER_NAME']."/resbooking/install.php?owner_id={$owner_id}&username=".$table_prefix;
-    }
-    global $userusername;
-    $userusername = $table_prefix;
-    ?>  
+<?php   
+$table_prefix = $_SESSION["session_loginname"];
+$table_prefix = str_replace("-", "", $table_prefix);
+
+$dns = sprintf("mysql:dbname=%s;host=%s", MYSQL_DB, MYSQL_HOST);
+$dbh = new PDO($dns, MYSQL_USERNAME, MYSQL_PASSWORD);
+$stm = $dbh->prepare('SELECT * FROM rb_users WHERE owner_id = ?');
+$owner_id = intval($_SESSION['owner_id']);
+$noError = $stm->execute([$owner_id]);
+
+if ($noError === false) {
+    die('System went down. Please contact the administrator.');
+}
+
+$user = $stm->fech();
+if(!empty($user)) {
+    $plugins_url = "http://".$_SERVER['SERVER_NAME']."/resbooking/library/session.php?owner_id={$owner_id}&username=".$table_prefix;
+} else {
+    $plugins_url = "http://".$_SERVER['SERVER_NAME']."/resbooking/install.php?owner_id={$owner_id}&username=".$table_prefix;
+}
+global $userusername;
+$userusername = $table_prefix;
+?>  
     <iframe onLoad="calcHeight();" id="iFrame" width="100%" src="<?php echo $plugins_url; ?>"  height="1200" frameborder="0"></iframe>  
 </div>
 

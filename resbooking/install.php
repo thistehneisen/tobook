@@ -6,7 +6,20 @@ $owner_id = intval($_SESSION['owner_id']);
 $dns = sprintf("mysql:dbname=%s;host=%s", MYSQL_DB, MYSQL_HOST);
 $dbh = new PDO($dns, MYSQL_USERNAME, MYSQL_PASSWORD);
 
-try { 
+try {
+    // Check user existence first
+    $sql = 'SELECT * FROM `rb_users` WHERE `owner_id` = ?';
+    $stm = $dbh->prepare($sql);
+    $stm->execute([$owner_id]);
+    $user = $stm->fetch();
+    if ($user) {
+        $stm->closeCursor();
+        // Cancel installation
+        header("location: library/session.php");
+        return;
+    }
+    $stm->closeCursor();
+
     $sql_user = <<<SQL
 SELECT vuser_email, vuser_login, vuser_password INTO @user_email, @username, @password FROM tbl_user_mast WHERE nuser_id = %1\$d;
 
