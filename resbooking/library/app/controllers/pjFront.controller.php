@@ -6,6 +6,9 @@ if (!defined("ROOT_PATH"))
 }
 
 require_once CONTROLLERS_PATH . 'pjAppController.controller.php';
+require_once realpath(CONTROLLERS_PATH.'../../../../vendor/autoload.php');
+
+use Hashids\Hashids;
 class pjFront extends pjAppController
 {
 	var $layout = 'front';
@@ -655,7 +658,21 @@ class pjFront extends pjAppController
 
 	function load()
 	{
+        if (!isset($_GET['v']) || empty($_GET['v'])) {
+            die;
+        }
+
 		ob_start();
+        $config = require realpath(CONTROLLERS_PATH.'../../../../config.php');
+        $hashids = new Hashids($config['secret_key']);
+        $content = $hashids->decrypt($_GET['v']);
+        if (!is_array($content) || !isset($content[0])) {
+            die;
+        }
+        $owner_id = $content[0];
+        @session_start();
+        $_SESSION['owner_id'] = $owner_id;
+
 		header("Content-type: text/javascript");
 		
 		pjObject::import('Model', array('pjWorkingTime', 'pjDate'));
