@@ -30,6 +30,7 @@ class Restaurant extends Base {
                 'template',
                 'vouchers',
                 'working_times',
+                'users'
             ];
             foreach ($tables as $table) {
                 $this->migrateTable($table);
@@ -51,12 +52,6 @@ class Restaurant extends Base {
                 'booking_id'      => 'bookings',
                 'tables_group_id' => 'tables_group'
             ]);
-
-            $this->migrateTable('users', [
-                'role_id' => 'roles',
-            ]);
-
-
         }
     }
 
