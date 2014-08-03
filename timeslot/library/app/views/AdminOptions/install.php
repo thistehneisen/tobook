@@ -34,7 +34,7 @@ if (isset($tpl['status']))
 
 					<p><span class="bold block b10"><?php echo $TS_LANG['o_install']['js'][2]; ?></span>
 					<textarea class="textarea textarea-install w600 h80 overflow">
-&lt;script type="text/javascript" src="<?php echo INSTALL_FOLDER; ?>index.php?controller=Front&amp;action=load&amp;cid=<?php echo $controller->getCalendarId(); ?>&amp;owner_id=<?php echo $controller->getOwnerId();?>"&gt;&lt;/script&gt;</textarea></p>
+&lt;script type="text/javascript" src="<?php echo INSTALL_FOLDER; ?>index.php?controller=Front&amp;action=load&amp;cid=<?php echo $controller->getCalendarId(); ?>"&gt;&lt;/script&gt;</textarea></p>
 
 			</form>
 		</div> <!-- tabs-1 -->

@@ -194,6 +194,7 @@ class AdminTime extends Admin
 						$data = array();
 						$data['calendar_id'] = $this->getCalendarId();
 						$data['date'] = $_POST['date'];
+                        $data['owner_id'] = $owner_id;
 						foreach ($_POST['price'] as $k => $v)
 						{
 							if (!empty($v))
@@ -214,7 +215,7 @@ class AdminTime extends Admin
 					$data['calendar_id'] = $this->getCalendarId();
 					$data['start_time'] = join(":", array($_POST['start_hour'], $_POST['start_minute']));
 					$data['end_time'] = join(":", array($_POST['end_hour'], $_POST['end_minute']));
-					
+					$data['owner_id'] = $owner_id;
 					$DateModel->save(array_merge($_POST, $data, $_data));
 					Util::redirect($_SERVER['PHP_SELF'] . "?controller=AdminTime&action=index&err=5&tab_id=tabs-2");
 				}

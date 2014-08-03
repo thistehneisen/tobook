@@ -21,7 +21,6 @@ $cid = isset($_GET['cid']) && (int) $_GET['cid'] > 0 ? (int) $_GET['cid'] : NULL
 		<script type="text/javascript" src="<?php echo INSTALL_FOLDER; ?>app/web/js/tsbc.js"></script>
 	</head>
 	<body>
-	
 		<script type="text/javascript" src="<?php echo INSTALL_FOLDER; ?>index.php?controller=Front&amp;action=load&amp;cid=<?php echo $cid; ?>"></script>
 		
 	</body>

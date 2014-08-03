@@ -70,7 +70,7 @@ class AdminBookings extends Admin
                                 {
                                     $data['cc_exp'] = $_POST['cc_exp_year'] . '-' . $_POST['cc_exp_month'];
                                 }
-                                    
+                                $data['owner_id'] = $this->getOwnerId();
                                 $insert_id = $BookingModel->save(array_merge($_POST, $data));
                                 if ($insert_id !== false && (int) $insert_id > 0)
                                 {
@@ -87,6 +87,7 @@ class AdminBookings extends Admin
                                             $slot['end_time'] = date("H:i:s", $end_ts);
                                             $slot['start_ts'] = $start_ts;
                                             $slot['end_ts'] = $end_ts;
+                                            $slot['owner_id'] = $this->getOwnerId();
                                             $BookingSlotModel->save($slot);
                                         }
                                      }
@@ -588,7 +589,7 @@ class AdminBookings extends Admin
                         $data['cc_num'] = array('NULL');
                         $data['cc_code'] = array('NULL');
                     }
-                    
+                    $data['owner_id'] = $this->getOwnerId();
                     $BookingModel->update(array_merge($_POST, $data));
                     
                     Object::import('Model', 'WorkingTime');
@@ -617,6 +618,7 @@ class AdminBookings extends Admin
                                     $slot['end_time'] = date("H:i:s", $end_ts);
                                     $slot['start_ts'] = $start_ts;
                                     $slot['end_ts'] = $end_ts;
+                                    $slot['owner_id'] = $this->getOwnerId();
                                     $BookingSlotModel->save($slot);
                                 }
                             }
