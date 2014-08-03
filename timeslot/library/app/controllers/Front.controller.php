@@ -135,7 +135,13 @@ class Front extends AppController
 			Object::import('Model', array('Booking', 'BookingSlot'));
 			$BookingModel = new BookingModel();
 			$BookingSlotModel = new BookingSlotModel();
-			
+            $cid = intval($_GET['cid']);
+
+            Object::import('Model', 'Calendar');
+            $calendarModel = new CalendarModel();
+            $calendar = $calendarModel->get($cid);
+            $owner_id = intval($calendar['owner_id']);
+
 			$passCheck = true;
 			foreach ($_SESSION[$this->cartName] as $cid => $date_arr)
 			{
@@ -156,14 +162,13 @@ class Front extends AppController
 						list($start_ts, $end_ts) = explode("|", $time);
 						if ($t_arr['slot_limit'] <= $BookingSlotModel->checkBooking($cid, $start_ts, $end_ts, $BookingModel, $this->option_arr['timezone']))
 						{
-						  
 							$passCheck = false;
 							break;
 						}
 					}
 				}
 			}
-			
+
 			if (!$passCheck)
 			{
 				$json = "{'code':101,'text':''}";
@@ -171,7 +176,7 @@ class Front extends AppController
 				echo $json;
 				exit;
 			}
-						
+	
 			$opts = AppController::getCartTotal($_GET['cid'], $this->cartName, $this->option_arr);
 			
 			$data = array();
@@ -184,14 +189,16 @@ class Front extends AppController
 			$data['booking_total']   = $opts['total'];
 			$data['booking_deposit'] = $opts['deposit'];
 			$data['booking_tax']     = $opts['tax'];
+            $data['owner_id'] = $owner_id;
 			$processing = $data['booking_deposit'] > 0 ? 1 : 0; 
 			
 			if (isset($_POST['payment_method']) && $_POST['payment_method'] == 'creditcard')
 			{
 				$data['cc_exp'] = $_POST['cc_exp_year'] . '-' . $_POST['cc_exp_month'];
 			}
-						
+
 			$insert_id = $BookingModel->save(array_merge($_POST, $data));
+
 			if ($insert_id !== false && (int) $insert_id > 0)
 			{
 				$data = array();
@@ -212,6 +219,7 @@ class Front extends AppController
 							$data['end_time'] = date("H:i:s", $end_ts);
 							$data['start_ts'] = $start_ts;
 							$data['end_ts'] = $end_ts;
+                            $data['owner_id'] = $owner_id;
 							$BookingSlotModel->save($data);
 						}
 					}
@@ -219,11 +227,15 @@ class Front extends AppController
 
 				$booking_arr = $BookingModel->get($insert_id);
 				if ($this->option_arr['reminder_enable'] = 'Yes') {
-					Front::confirmSend($this->option_arr, $booking_arr, $this->salt, 2);
+                    $error = '';
+                    try{
+					   Front::confirmSend($this->option_arr, $booking_arr, $this->salt, 2); 
+                    } catch (Exception $ex){
+                        $error = $ex->getMessage();
+                    }
 				}
-				
 				$_SESSION[$this->cartName] = array();
-				$json = "{'code':200,'text':'','booking_id': $insert_id, 'payment':'".@$_POST['payment_method']."', 'processing' : $processing}";
+				$json = "{'code':200,'text':'','booking_id': $insert_id, 'payment':'".@$_POST['payment_method']."', 'processing' : $processing, 'error': '$error'}";
 			} else {
 				$json = "{'code':100,'text':''}";
 			}

@@ -10,11 +10,10 @@ if (!headers_sent())
 	session_name('TSBookingCalendar');
 	@session_start();
 }
-if ($_SERVER['SERVER_ADDR'] == '127.0.0.1')
+if (in_array($_SERVER['SERVER_ADDR'], array('127.0.0.1', '192.185.5.15', '::1')) || true)
 {
 	ini_set("display_errors", "On");
-	//error_reporting(E_ALL);
-	error_reporting(0);
+	error_reporting(E_ALL);
 } else {
 	error_reporting(0);
 }

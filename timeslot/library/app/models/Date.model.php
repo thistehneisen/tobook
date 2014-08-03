@@ -21,7 +21,7 @@ class DateModel extends AppModel
  * @var string
  * @access protected
  */
-	var $table = 'ts_booking_dates';
+	var $table = 'ts_dates';
 /**
  * Table schema
  *
@@ -30,6 +30,7 @@ class DateModel extends AppModel
  */
 	var $schema = array(
 		array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),
+        array('name' => 'owner_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'calendar_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'date', 'type' => 'date', 'default' => ':NULL'),
 		array('name' => 'slot_length', 'type' => 'smallint', 'default' => ':NULL'),

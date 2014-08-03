@@ -69,6 +69,13 @@ class AppController extends Controller
     {
     	return isset($_SESSION[$this->default_user]) && array_key_exists('calendar_id', $_SESSION[$this->default_user]) ? $_SESSION[$this->default_user]['calendar_id'] : false;
     }
+
+    /**
+    * Get current owner id
+    */
+    function getOwnerId(){
+        return isset($_SESSION[$this->default_user]) && array_key_exists('owner_id', $_SESSION[$this->default_user]) ? $_SESSION[$this->default_user]['owner_id'] : false;
+    }
 /**
  * Return event dates as string
  *

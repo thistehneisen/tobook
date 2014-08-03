@@ -66,7 +66,7 @@ if ($controller->isMultiCalendar())
 		<?php
 		if ((int) $controller->getCalendarId() > 0)
 		{
-			?><li><a href="preview.php?cid=<?php echo $controller->getCalendarId(); ?>" target="_blank"><span class="tsbc-menu-preview">&nbsp;</span><?php echo $TS_LANG['menu_preview']; ?></a></li><?php
+			?><li><a href="preview.php?cid=<?php echo $controller->getCalendarId(); ?>&owner_id=<?php echo $controller->getOwnerId();?>" target="_blank"><span class="tsbc-menu-preview">&nbsp;</span><?php echo $TS_LANG['menu_preview']; ?></a></li><?php
 		}
 		?>
 		<!-- <li><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=Admin&amp;action=logout"><span class="tsbc-menu-logout">&nbsp;</span><?php echo $TS_LANG['menu_logout']; ?></a></li>-->

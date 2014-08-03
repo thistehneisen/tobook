@@ -21,7 +21,7 @@ class UserModel extends AppModel
  * @var string
  * @access protected
  */
-	var $table = 'ts_booking_users';
+	var $table = 'ts_users';
 /**
  * Table schema
  *
@@ -29,7 +29,8 @@ class UserModel extends AppModel
  * @access protected
  */
 	var $schema = array(
-		array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),
+        array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),
+		array('name' => 'owner_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'role_id', 'type' => 'int', 'default' => ''),
 		array('name' => 'session_id', 'type' => 'varchar', 'default' => ''),
 		array('name' => 'username', 'type' => 'varchar', 'default' => ''),

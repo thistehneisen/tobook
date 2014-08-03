@@ -21,7 +21,7 @@ class PriceDayModel extends AppModel
  * @var string
  * @access protected
  */
-	var $table = 'ts_booking_prices_days';
+	var $table = 'ts_prices_days';
 /**
  * Table schema
  *
@@ -30,6 +30,7 @@ class PriceDayModel extends AppModel
  */
 	var $schema = array(
 		array('name' => 'calendar_id', 'type' => 'int', 'default' => ':NULL'),
+        array('name' => 'owner_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'day', 'type' => 'enum', 'default' => ':NULL'),
 		array('name' => 'start_time', 'type' => 'time', 'default' => ':NULL'),
 		array('name' => 'end_time', 'type' => 'time', 'default' => ':NULL'),

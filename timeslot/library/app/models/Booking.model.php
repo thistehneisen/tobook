@@ -21,7 +21,7 @@ class BookingModel extends AppModel
  * @var string
  * @access protected
  */
-	var $table = 'ts_booking_bookings';
+	var $table = 'ts_bookings';
 /**
  * Table schema
  *
@@ -29,7 +29,8 @@ class BookingModel extends AppModel
  * @access protected
  */
 	var $schema = array(
-		array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),
+        array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),
+		array('name' => 'owner_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'calendar_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'booking_total', 'type' => 'decimal', 'default' => ':NULL'),
 		array('name' => 'booking_deposit', 'type' => 'decimal', 'default' => ':NULL'),

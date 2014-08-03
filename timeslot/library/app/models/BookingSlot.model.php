@@ -21,7 +21,7 @@ class BookingSlotModel extends AppModel
  * @var string
  * @access protected
  */
-	var $table = 'ts_booking_bookings_slots';
+	var $table = 'ts_bookings_slots';
 /**
  * Table schema
  *
@@ -30,6 +30,7 @@ class BookingSlotModel extends AppModel
  */
 	var $schema = array(
 		array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),
+        array('name' => 'owner_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'booking_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'booking_date', 'type' => 'date', 'default' => ':NULL'),
 		array('name' => 'start_time', 'type' => 'time', 'default' => ':NULL'),

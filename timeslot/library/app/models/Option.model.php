@@ -21,7 +21,7 @@ class OptionModel extends AppModel
  * @var string
  * @access protected
  */
-	var $table = 'ts_booking_options';
+	var $table = 'ts_options';
 /**
  * Table schema
  *
@@ -30,6 +30,7 @@ class OptionModel extends AppModel
  */
 	var $schema = array(
 		array('name' => 'calendar_id', 'type' => 'int', 'default' => ':NULL'),
+        array('name' => 'owner_id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'key', 'type' => 'varchar', 'default' => ':NULL'),
 		array('name' => 'tab_id', 'type' => 'tinyint', 'default' => ':NULL'),
 		array('name' => 'value', 'type' => 'text', 'default' => ':NULL'),

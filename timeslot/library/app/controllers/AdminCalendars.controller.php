@@ -21,6 +21,7 @@ class AdminCalendars extends Admin
 			if ($this->isAdmin() || $this->isOwner())
 			{
 				$err = NULL;
+                $owner_id = intval($_SESSION['admin_user']['owner_id']);
 				if (isset($_POST['calendar_create']))
 				{
 					if ($this->isDemo())
@@ -36,6 +37,7 @@ class AdminCalendars extends Admin
 						{
 							$data['user_id'] = $this->getUserId();
 						}
+                        $_POST['owner_id'] = $owner_id;
 						$insert_id = $CalendarModel->save(array_merge($_POST, $data));
 						if ($insert_id !== false && (int) $insert_id > 0)
 						{
@@ -45,7 +47,7 @@ class AdminCalendars extends Admin
 				
 							$WorkingTimeModel->initWorkingTime($insert_id);
 							
-							$arr = $OptionModel->getAll(array('group_by' => 't1.key', 'col_name' => 't1.key', 'direction' => 'asc'));
+							$arr = $OptionModel->getAll(array('group_by' => 't1.key', 'col_name' => 't1.key', 'direction' => 'asc', 'owner_id' => $owner_id));
 							foreach ($arr as $v)
 							{
 								//FIXME Optimize (bulk save)!
@@ -253,6 +255,7 @@ class AdminCalendars extends Admin
 	{
 		if ($this->isLoged())
 		{
+            $owner_id = intval($_SESSION['admin_user']['owner_id']);
 			if ($this->isAdmin() || $this->isOwner())
 			{
 				if (!$this->isMultiCalendar())
@@ -272,6 +275,8 @@ class AdminCalendars extends Admin
 					$opts['t1.user_id'] = $this->getUserId();
 				}
 				
+                $opts['t1.owner_id'] = $owner_id;
+
 				Object::import('Model', array('Calendar', 'User'));
 				$CalendarModel = new CalendarModel();
 				$UserModel = new UserModel();
@@ -287,7 +292,7 @@ class AdminCalendars extends Admin
 				
 				$this->tpl['arr'] = $arr;
 				$this->tpl['paginator'] = array('pages' => $pages, 'row_count' => $row_count, 'count' => $count);
-				$this->tpl['user_arr'] = $UserModel->getAll(array('t1.role_id' => 2, 'col_name' => 't1.username', 'direction' => 'asc'));
+				$this->tpl['user_arr'] = $UserModel->getAll(array_merge($opts, array('t1.role_id' => 2, 'col_name' => 't1.username', 'direction' => 'asc')));
 				
 				$this->js[] = array('file' => 'jquery.ui.button.min.js', 'path' => LIBS_PATH . 'jquery/ui/js/');
 				$this->js[] = array('file' => 'jquery.ui.position.min.js', 'path' => LIBS_PATH . 'jquery/ui/js/');
