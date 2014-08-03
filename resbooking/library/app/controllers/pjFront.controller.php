@@ -664,7 +664,7 @@ class pjFront extends pjAppController
 
 		ob_start();
         $config = require realpath(CONTROLLERS_PATH.'../../../../config.php');
-        $hashids = new Hashids($config['secret_key']);
+        $hashids = new Hashids($config['secret_key'], 8);
         $content = $hashids->decrypt($_GET['v']);
         if (!is_array($content) || !isset($content[0])) {
             die;

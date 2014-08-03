@@ -5,10 +5,6 @@ if (!defined("ROOT_PATH"))
 	exit;
 }
 require_once CONTROLLERS_PATH . 'pjAdmin.controller.php';
-require_once realpath(CONTROLLERS_PATH.'../../../../vendor/autoload.php');
-
-use Hashids\Hashids;
-
 class pjAdminOptions extends pjAdmin
 {
 	function index()
@@ -77,12 +73,7 @@ class pjAdminOptions extends pjAdmin
 						'path' => LIBS_PATH . 'jquery/ui/css/smoothness/'
 				);
 					
-				$this->js[] = array('file' => 'pjAdminOptions.js', 'path' => JS_PATH);
-
-                $config = require realpath(CONTROLLERS_PATH.'../../../../config.php');
-                $hashids = new Hashids($config['secret_key']);
-                $this->tpl['hash'] = $hashids->encrypt($_SESSION['owner_id']);
-				
+				$this->js[] = array('file' => 'pjAdminOptions.js', 'path' => JS_PATH);				
 			} else {
 				$this->tpl['status'] = 2;
 			}
