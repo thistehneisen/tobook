@@ -14,6 +14,12 @@
 			echo '<script src="'.(isset($js['remote']) && $js['remote'] ? NULL : PJ_INSTALL_URL).$js['path'].htmlspecialchars($js['file']).'"></script>';
 		}
 		?>
+        <style>
+            /*Change the size here*/
+            div.tooltip-inner {
+                max-width: 350px;
+            }
+        </style>
 		<!--[if gte IE 9]>
   		<style type="text/css">.gradient {filter: none}</style>
 		<![endif]-->
@@ -23,7 +29,10 @@
 <script src="/asset/js/postMessage.js"></script>
 <script type="text/javascript">
  $(document).ready(function(){
-   $('[data-toggle="tooltip"]').tooltip({'placement': 'top'});
+   $('[data-toggle="tooltip"]').tooltip({
+    'placement': 'top',
+    'container':'body'
+  });
  })
 </script>
 <!------ myTips tutorial builder ------>
