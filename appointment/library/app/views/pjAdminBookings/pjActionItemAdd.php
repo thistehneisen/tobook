@@ -10,6 +10,8 @@ if (count($tpl['service_arr']) > 0) {
 	<input type="hidden" name="item_add" value="1" />
 	<input type="hidden" name="booking_id" value="<?php echo (int) @$_GET['id']; ?>" />
 	<input type="hidden" name="tmp_hash" value="<?php echo @$_GET['tmp_hash']; ?>" />
+
+    <div class="float_left w260">
 	<div class="b10 p">
 		<label class="title"><?php __('booking_date'); ?></label>
 		<span class="pj-form-field-custom pj-form-field-custom-after float_left r5">
@@ -63,10 +65,12 @@ if (count($tpl['service_arr']) > 0) {
 			<input type="hidden" name="end_ts" value="" class="ignore" />
 		</div>
 	<?php } ?>
-	
+	</div>
+
+    <div class="float_right w300">
 	<div class="b10 p">
 		<label class="title"><?php __('categories'); ?></label>
-		<select name="category_id" class="pj-form-field w300 stock-product">
+		<select name="category_id" class="pj-form-field w200 stock-product">
 			<?php
 			foreach ($tpl['categories_arr'] as $category)
 			{
@@ -78,7 +82,7 @@ if (count($tpl['service_arr']) > 0) {
 	
 	<div class="b10 p" id="bookingServices">
 		<label class="title"><?php __('booking_service'); ?></label>
-		<select name="service_id" class="pj-form-field w300 stock-product">
+		<select name="service_id" class="pj-form-field w200 stock-product">
 			<?php if ( !isset($_GET['employee_id']) || $_GET['employee_id'] < 1 ) {?>
 			<option value="">-- <?php __('booking_service'); ?> --</option>
 			<?php } ?>
@@ -109,7 +113,7 @@ if (count($tpl['service_arr']) > 0) {
 			}
 		?>
 		<label class="title"><?php __('serviceTime'); ?></label>
-		<select name="servicetime_id" class="pj-form-field w300 stock-product">
+		<select name="servicetime_id" class="pj-form-field w200 stock-product">
 			<option value=""
 			
 			<?php if (isset($_GET['start_ts']) && $_GET['start_ts'] > 0) { ?>
@@ -136,6 +140,7 @@ if (count($tpl['service_arr']) > 0) {
 		</select>
 		<?php } ?>
 	</div>
+    </div>
 	<?php
 	if (empty($tpl['service_arr']))
 	{

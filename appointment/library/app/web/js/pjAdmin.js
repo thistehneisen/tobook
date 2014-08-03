@@ -218,7 +218,7 @@
 							if ( typeof $extra_count != 'undefined' && $extra_count > 0 ) {
 								$html += '<tr class="pj-table-row-even">';
 								$html += '<td style="text-align: center;"><input type="radio" value="5" name="radio_view"></td>';
-								$html += '<td>Lis‰‰ lis‰palvelu</td>';
+								$html += '<td>Lis√§√§ lis√§palvelu</td>';
 								$html += '</tr>';
 							}
 						}

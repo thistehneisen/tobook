@@ -61,7 +61,7 @@ if (isset($tpl['status']))
 						</p>
 						<p>
 							<label class="title"><?php __('booking_notes'); ?>:</label>
-							<textarea name="c_notes" id="c_notes" class="pj-form-field w200 h135"></textarea>
+							<textarea name="c_notes" id="c_notes" class="pj-form-field w200 h70"></textarea>
 						</p>
 					</div>
 					<div class="float_right w300">
@@ -205,12 +205,13 @@ if (isset($tpl['status']))
 						<div id="dialogItemAdd" title="<?php __('booking_service_add_title', false, true); ?>" style="display: none"></div>
 					</div>
 					<div id="serviceItemAdd"></div>
-					<p>
+                    <br class="clear_both" />
+					<div>
 						<label class="title">&nbsp;</label>
 						<input type="submit" value="<?php __('btnSave', false, true); ?>" class="pj-button" />
 						<input type="button" value="<?php __('booking_service_add', false, true); ?>" class="pj-button serviceAdd" />
 						<!-- <input type="button" value="<?php __('booking_recalc', false, true); ?>" class="pj-button order-calc" />-->
-					</p>
+					</div>
 				</fieldset>
 			</div>
 			<div id="tabs-2" style="display: none;">

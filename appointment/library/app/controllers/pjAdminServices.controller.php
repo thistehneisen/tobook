@@ -647,7 +647,7 @@ class pjAdminServices extends pjAdmin
 				}
 				$arr['i18n'] = pjMultiLangModel::factory()->getMultiLang($arr['id'], 'pjService');
 				$this->set('arr', $arr);
-				
+
 				pjObject::import('Model', array('pjLocale:pjLocale', 'pjLocale:pjLocaleLanguage'));
                 //remove join from pjLocaleLanguage to avoid repeated fields
 				$locale_arr = pjLocaleModel::factory()->select('t1.*')

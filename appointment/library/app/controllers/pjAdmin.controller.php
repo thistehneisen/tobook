@@ -849,21 +849,21 @@ class pjAdmin extends pjAppController
 		$this->setAjax(true);
 	
 		if ($this->isXHR()){
-				
 			if ( isset($_GET['booking_id']) && $_GET['booking_id'] > 0 &&  isset($_GET['status']) ) {
-				$owner_id = $_COOKIE['owner_id'];
+				$owner_id = intval($_SESSION['owner_id']);
 				$pjBookingStatus = pjBookingStatus::factory()
-					->where('booking_id', $_GET['booking_id']);
-				
+					->where('booking_id', $_GET['booking_id'])
+				    ->where('owner_id', $owner_id);
+
 				$status = $pjBookingStatus->findAll()->getData();
 				
 				if ( count($status) > 0 ) {
-					$pjBookingStatus->modifyAll( array('booking_id' => $_GET['booking_id'], 'onwer_id'=> $owner_id, 'status' => $_GET['status']));
+					$pjBookingStatus->modifyAll( array('booking_id' => $_GET['booking_id'], 'owner_id'=> $owner_id, 'status' => $_GET['status']));
 					
-				} else pjBookingStatus::factory( array('booking_id' => $_GET['booking_id'], 'onwer_id'=> $owner_id,'status' => $_GET['status']) )->insert();
+				} else pjBookingStatus::factory( array('booking_id' => $_GET['booking_id'], 'owner_id'=> $owner_id,'status' => $_GET['status']) )->insert();
 			
 				if ( $_GET['status'] == 'cancelled' ) {
-					pjBookingModel::factory()->where('id', $_GET['booking_id'])->modifyAll( array('id' => $_GET['booking_id'], 'booking_status' => $_GET['status']));
+					pjBookingModel::factory()->where('owner_id', $owner_id)->where('id', $_GET['booking_id'])->modifyAll( array('id' => $_GET['booking_id'], 'booking_status' => $_GET['status']));
 				}
 			} 
 			
