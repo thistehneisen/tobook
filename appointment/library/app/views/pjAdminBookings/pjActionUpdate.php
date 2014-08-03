@@ -215,12 +215,13 @@ if (isset($tpl['status']))
 						
 					</div>
 					<div id="serviceItemAdd"></div>
-					<p>
+					<br class="clear_both" />
+                    <div>
 						<label class="title">&nbsp;</label>
 						<input type="submit" value="<?php __('btnSave', false, true); ?>" class="pj-button" />
 						<input type="button" value="<?php __('booking_service_add', false, true); ?>" class="pj-button serviceAdd" />
 						<!-- <input type="button" value="<?php __('booking_recalc', false, true); ?>" class="pj-button order-calc" />-->
-					</p>
+					</div>
 				</fieldset>
 				
 				<?php
