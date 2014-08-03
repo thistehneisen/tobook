@@ -230,8 +230,12 @@ if (isset($tpl['status']))
 												} else $booking_status = $booking['booking_status'];
 												?>
 												<div class="">
-													<a class="editbooking" data-booking_id="<?php echo $booking['booking_id']; ?>" data-employee_id="<?php echo $employee['id']; ?>" data-start_ts="<?php echo $i; ?>" href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=pjActionUpdate&amp;as_pf=<?php echo $as_pf; ?>&amp;id=<?php echo $booking['booking_id']; ?>"><?php echo pjSanitize::html($booking['c_name']); ?>
-													<span class="fs11"> (<?php echo pjSanitize::html($booking['service_name']); ?>)</span>
+													<a class="editbooking" data-booking_id="<?php echo $booking['booking_id']; ?>" data-employee_id="<?php echo $employee['id']; ?>" data-start_ts="<?php echo $i; ?>" href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=pjActionUpdate&amp;as_pf=<?php echo $as_pf; ?>&amp;id=<?php echo $booking['booking_id']; ?>">
+                                                    <?php if (!empty($booking['c_notes'])):?>
+                                                    <span data-toggle="tooltip" data-placement="left" title="<?php echo pjSanitize::html($booking['c_notes']); ?>"><i class="glyphicon glyphicon-question-sign"></i></span>
+                                                    <?php endif;?>
+                                                    <?php echo pjSanitize::html($booking['c_name']); ?>
+                                                    <span class="fs11"> (<?php echo pjSanitize::html($booking['service_name']); ?>)</span>
 													</a>
 													<?php //if ( $tpl['option_arr']['o_custom_status'] == 1 ) { ?>
 													<a class="dashboardView moreBooking" data-booking_date="<?php echo $booking['date']; ?>" data-service_id="<?php echo $booking['service_id']; ?>" data-booking_id="<?php echo $booking['booking_id']; ?>" data-extra_count="<?php echo $booking['extra_count']; ?>" data-booking_status="<?php echo $booking_status; ?>" href="#">+</a>
@@ -268,3 +272,4 @@ if (isset($tpl['status']))
 	}
 }
 ?>
+

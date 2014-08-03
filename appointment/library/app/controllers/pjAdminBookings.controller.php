@@ -917,6 +917,7 @@ class pjAdminBookings extends pjAdmin
 								$service_arr['total'] += (int) $employee['plustime'];
 							}
 						}
+                        $service_arr['total'] += (int) $_POST['service_edittime'];
 					}
 					
 					$resources_ids = pjResourcesServiceModel::factory()

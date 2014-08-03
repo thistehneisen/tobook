@@ -3,6 +3,7 @@
 	<head>
 		<title>Ajanvarauksen tarjoaa varaa.com</title>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 		<?php
 		foreach ($controller->getCss() as $css)
 		{
@@ -17,8 +18,14 @@
   		<style type="text/css">.gradient {filter: none}</style>
 		<![endif]-->
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>		
+<script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="/asset/js/postMessage.js"></script>
+<script type="text/javascript">
+ $(document).ready(function(){
+   $('[data-toggle="tooltip"]').tooltip({'placement': 'top'});
+ })
+</script>
 <!------ myTips tutorial builder ------>
 <script type="text/javascript">
 /* jQuery(document).resize(function() {

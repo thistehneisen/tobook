@@ -124,7 +124,6 @@ if (count($tpl['service_arr']) > 0) {
 			><?php echo $tpl['service_arr'][0]['total']; ?> <?php __('front_minutes'); ?> <?php echo isset($tpl['service_arr'][0]['description']) && !empty($tpl['service_arr'][0]['description']) ? '(' . $tpl['service_arr'][0]['description'] . ')' : null; ?></option>
 			<?php
 			foreach ($tpl['st_arr'] as $st) {
-
 				$service_length = $st['total'] * 60;
 				$service_before = $st['before'] * 60;
 				?><option value="<?php echo $st['id']; ?>"
@@ -140,6 +139,22 @@ if (count($tpl['service_arr']) > 0) {
 		</select>
 		<?php } ?>
 	</div>
+    <div class="b10 p" id="bookingServiceEdit">
+        <label class="title">Muokkaa aikka</label>
+        <?php 
+            $time = array();
+            for ( $i = 0; $i <= 60; $i += $tpl['option_arr']['o_step']) {
+                $time[] = $i;
+                if($i > 0) $time[] = -$i;
+            }
+            sort($time);
+        ?>
+        <select name="service_edittime" class="pj-form-field w200 stock-product">
+            <?php foreach ( $time as $t ) { ?>
+                <option  <?php echo $t == 0 ? 'selected="selected"' : null; ?> value="<?php echo $t; ?>"><?php echo $t; ?> min</option>
+            <?php } ?>
+        </select>
+    </div>
     </div>
 	<?php
 	if (empty($tpl['service_arr']))

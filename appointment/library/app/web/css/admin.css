@@ -900,7 +900,7 @@ img.ui-datepicker-trigger {
 }
 .dWrapper .asSlotBooked > div,
 .dWrapper .asSlotFreetime > div{
-	height: 15px;
+	height: 24px;
     position: relative;
     /* width: 100%; */
 }
@@ -1148,7 +1148,7 @@ div#monthly-review #employee_id{
 }
 .layout_2 .dWrapper td > *{
 	min-width: 200px;
-	overflow: hidden;
+	/*overflow: hidden;*/
     text-overflow: ellipsis;
     white-space: nowrap;
     padding: 5px 10px 5px 5px;
