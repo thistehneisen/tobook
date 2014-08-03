@@ -31,14 +31,7 @@ if (isset($tpl['arr']))
 					if ($tab_id == 1)
 					{
 						?>
-						<tr class="odd">
-							<td class="align_top"><?php echo $RB_LANG['option_email']; ?></td>
-							<td class="align_top"><input type="text" name="email" value="<?php echo htmlspecialchars(stripslashes($_SESSION[$controller->default_user]['email'])); ?>" class="text w200" /></td>
-						</tr>
-						<tr class="even">
-							<td class="align_top"><?php echo $RB_LANG['option_password']; ?></td>
-							<td class="align_top"><input type="text" name="password" value="<?php echo htmlspecialchars(stripslashes($_SESSION[$controller->default_user]['password'])); ?>" class="text w200" /></td>
-						</tr>
+						
 						<?php
 					}
 				
