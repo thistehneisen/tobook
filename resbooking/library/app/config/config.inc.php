@@ -67,13 +67,13 @@ if (!$stop)
 	
 	if (isset($_SERVER['SERVER_ADDR']) && $_SERVER['SERVER_ADDR'] == '127.0.0.1')
 	{
-		if (!defined("INSTALL_FOLDER")) define("INSTALL_FOLDER", realpath(__DIR__.'/../../'));
+		if (!defined("INSTALL_FOLDER")) define("INSTALL_FOLDER", './');
 		if (!defined("INSTALL_PATH")) define("INSTALL_PATH", realpath(__DIR__.'/../../'));
 		if (!defined("INSTALL_URL")) define("INSTALL_URL", "./");
 	} else {
 		// if (!defined("INSTALL_FOLDER")) define("INSTALL_FOLDER", "/wp-content/plugins/RestaurantBooking-1-6-14/library/");
 		// if (!defined("INSTALL_PATH")) define("INSTALL_PATH", "/home/duongmau88/public_html/wp-content/plugins/RestaurantBooking-1-6-14/library/");
-        if (!defined("INSTALL_FOLDER")) define("INSTALL_FOLDER", realpath(__DIR__.'/../../'));
+        if (!defined("INSTALL_FOLDER")) define("INSTALL_FOLDER", './');
         if (!defined("INSTALL_PATH")) define("INSTALL_PATH", realpath(__DIR__.'/../../'));   // 
 		if (!defined("INSTALL_URL")) define("INSTALL_URL", "./");
 	}
