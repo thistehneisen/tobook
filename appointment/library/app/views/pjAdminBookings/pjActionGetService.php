@@ -3,7 +3,7 @@ if ( isset($_GET['category_id']) && (int) $_GET['category_id'] > 0 ) { ?>
 <div>
 	<div class="bookingServices">
 		<label class="title"><?php __('booking_service'); ?></label>
-		<select name="service_id" class="pj-form-field w300 stock-product">
+		<select name="service_id" class="pj-form-field w200 stock-product">
 			<?php if ( !isset($_GET['employee_id']) || $_GET['employee_id'] < 1 ) {?>
 			<option value="">-- <?php __('booking_service'); ?> --</option>
 			<?php } ?>
@@ -34,7 +34,7 @@ if ( isset($_GET['category_id']) && (int) $_GET['category_id'] > 0 ) { ?>
 			}
 		?>
 		<label class="title">Service Time</label>
-		<select name="servicetime_id" class="pj-form-field w300 stock-product">
+		<select name="servicetime_id" class="pj-form-field w200 stock-product">
 			<option value=""
 			
 			<?php if (isset($_GET['start_ts']) && $_GET['start_ts'] > 0) { ?>
@@ -72,7 +72,7 @@ if ( isset($_GET['category_id']) && (int) $_GET['category_id'] > 0 ) { ?>
 			$service_length = $tpl['service_arr']['total'] * 60;
 			$service_before = $tpl['service_arr']['before'] * 60;
 		?>
-		<select name="servicetime_id" class="pj-form-field w300 stock-product">
+		<select name="servicetime_id" class="pj-form-field w200 stock-product">
 			<option value=""
 			
 			<?php if (isset($_GET['start_ts']) && $_GET['start_ts'] > 0) { ?>

@@ -226,7 +226,7 @@ if (isset($tpl['status']))
 				
 				<?php
 				if ( !isset($_GET['pjAdmin']) || $_GET['pjAdmin'] != 1 ) {
-					if (pjObject::getPlugin('pjInvoice') !== NULL)
+                    if (pjObject::getPlugin('pjInvoice') !== NULL)
 					{
 						$map = array(
 							'completed' => 'paid',
