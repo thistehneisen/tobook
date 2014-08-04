@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+Route::get('/', [
+    'as' => 'home',
+    'uses' => 'App\Controllers\Home@index'
+]);
