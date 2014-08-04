@@ -8,17 +8,7 @@
 		<link rel="stylesheet" href="css/bootstrap.style.css">
 		<link rel="stylesheet" href="css/responsive.css">
 		<link rel="stylesheet" href="font-awesome/css/font-awesome.css">
-			
 		<link rel='stylesheet' href="css/style.css" type='text/css' media='all'/>
-		
-		<script type="text/javascript" src="js/responsive.js"></script>
-		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-		<script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js"></script>
-		<script src="js/jquery_cookie.js"></script>
-		<script src="js/respond.js"></script>
-				
-		<script type="text/javascript" src="js/home.js"></script>	
 		<title>NFC Desktop App</title>
 		<?php
 			if( isset( $_COOKIE['CUSTOMER_TOKEN'] ) ){
@@ -32,7 +22,7 @@
 		<input type="hidden" id="customerToken" value="<?php echo $customerToken;?>">
 		<div class="frontTopBackground" style="position:relative;">
 			<div class="frontTopTitle">Kantiskortti</div>
-			<div onclick="onLogout()" style="position:absolute;color:#000;font-size:15px;right:200px; bottom:10px;font-weight:bold;cursor:pointer;">Kirjaudu ulos</div>
+			<div id="btnLogout">Kirjaudu ulos</div>
 		</div>
 		<div class="greyDivider"></div>
 		
@@ -41,8 +31,8 @@
 				<div style="height:30px;"></div>
 				<div class="floatleft"><h3>Consumer List</h3></div>
 				<div class="floatright">
-					<button class="btn-u btn-u-blue" onclick="onAddConsumer()">ADD</button>&nbsp;
-					<button class="btn-u btn-u-red" onclick="onDeleteConsumer()">DELETE</button>
+					<button class="btn-u btn-u-blue" id="btnAddConsumer" >ADD</button>&nbsp;
+					<button class="btn-u btn-u-red" id="btnDeleteConsumer" >DELETE</button>
 				</div>
 				<div class="clearboth"></div>
 				<table class="table table-striped" id="tblDataList">
@@ -68,7 +58,7 @@
 				<span id="consumerPhone" style="color:#777;">&nbsp;</span>
 				<p id="consumerScore">&nbsp;</p>
 				<hr/>
-				<button class="btn-u btn-block btn-u-sea" onclick="onClickGiveScore()">Anna Pisteita</button>
+				<button class="btn-u btn-block btn-u-sea" id="btnOpenGiveScore">Anna Pisteita</button>
 				<div style="height:10px;"></div>
 				<h3>Palkinnot</h3>
 				<div id="pointList">
@@ -80,7 +70,7 @@
 
 				</div>
 				<div style="height:10px;"></div>
-				<button class="btn-u btn-block btn-u-sea" onclick="onWriteCard(this)">Luo uusi kanta-asiakaskortti</button>
+				<button class="btn-u btn-block btn-u-sea" id="btnWriteCard">Luo uusi kanta-asiakaskortti</button>
 				<div style="height:10px;"></div>
 				<button class="btn-u btn-u-sea">Takaisin</button>
 			</div>
@@ -91,8 +81,8 @@
 		
 		<div id="cloneStampItem" style="display:none;">
 			<div class="col-md-4">
-				<button class="btn-u btn-u-blue btn-block" style="padding:2px;" onclick="onAddStamp(this)" id="btnAddStamp">Lis‰‰</button>
-				<button class="btn-u btn-u-blue btn-block" style="padding:2px;" onclick="onUseStamp(this)">K‰yt‰</button>
+				<button class="btn-u btn-u-blue btn-block" style="padding:2px;" id="btnAddStamp" >Lis‰‰</button>
+				<button class="btn-u btn-u-blue btn-block" style="padding:2px;" id="btnUseStamp" >K‰yt‰</button>
 			</div>
 			<div class="col-md-8">
 				<span id="stampRequired"></span>&nbsp;<span id="stampName"></span>
@@ -105,7 +95,7 @@
 				<div id="pointName"></div>
 				<div id="scoreRequired"></div>
 			</div>
-			<div class="col-md-5"><button class="btn-u btn-u-blue btn-block" style="padding:5px;" onclick="onUsePoint(this)">K‰yt‰ etu</button></div>
+			<div class="col-md-5"><button class="btn-u btn-u-blue btn-block" style="padding:5px;" id="btnUsePoint" >K‰yt‰ etu</button></div>
 			<div class="clearboth"></div>
 		</div>
 		
@@ -143,7 +133,7 @@
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseDlgConsumerInfo">Close</button>
-		        <button type="button" class="btn btn-primary" onclick="onSaveConsumer()">Save</button>
+		        <button type="button" class="btn btn-primary" id="btnSaveConsumer" >Save</button>
 		      </div>
 		    </div><!-- /.modal-content -->
 		  </div><!-- /.modal-dialog -->
@@ -163,11 +153,18 @@
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseDlgGiveScore">Close</button>
-		        <button type="button" class="btn btn-primary" onclick="onGiveScore()">Save</button>
+		        <button type="button" class="btn btn-primary" id="btnGiveScore">Save</button>
 		      </div>
 		    </div><!-- /.modal-content -->
 		  </div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->				
 		
+		<script type="text/javascript" src="js/responsive.js"></script>
+		<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"></script>
+		<script type="text/javascript" src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/jquery_cookie.js"></script>
+		<script type="text/javascript" src="js/respond.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>			
 	</body>
 </html>

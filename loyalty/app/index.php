@@ -1,6 +1,6 @@
 <?php 
 	if( isset( $_COOKIE['CUSTOMER_TOKEN'] ) ){
-		header("location: home.php");
+		header("location: main.php");
 	}else{
 		header("location: login.php");
 	}
