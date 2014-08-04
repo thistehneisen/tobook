@@ -37,3 +37,9 @@
   tags: templated_settings
   notify:
     - restart apache2
+
+- name: mysql config
+  action: template src=my.cnf dest=/etc/mysql/my.cnf
+  tags: templated_settings
+  notify:
+    - restart mysql

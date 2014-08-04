@@ -1,6 +1,9 @@
 ---
-- name: ensure log directory
-  action: file dest={{ webapps_dir }}/{{ app_name }}/log state=directory
+- name: create apache log directory
+  action: file dest={{ webapps_dir }}/{{ app_name }}/log/apache state=directory
+
+- name: ensure mysql log directory
+  action: file dest={{ webapps_dir }}/{{ app_name }}/log/mysql state=directory owner=mysql group=mysql
 
 #- name: Copy the code from repository
 #  git: repo={{ repository }} dest={{ webapps_dir }}/{{ app_name }}/src accept_hostkey=yes
