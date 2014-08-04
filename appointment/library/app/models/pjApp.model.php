@@ -33,7 +33,7 @@ class pjAppModel extends pjModel
 		$this->isUseOwnerID = false;
 	}
 
-    public function join($model, $condition, $direction) {
+    public function join($model, $condition, $direction = null) {
         $this->setOwnerId();
         return parent::join($model, $condition, $direction);
     }
