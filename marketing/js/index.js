@@ -186,3 +186,90 @@ function onClickCampaignItem( obj ){
 	$("#campaignList").find("div#campaignItem").attr("class", "");
 	$(obj).addClass("campaignItemSelected");
 }
+function onEditCustomer( planGroupCode, cId ){
+	var ownerId = $("#ownerId").val();
+	$.ajax({
+        url: "async-getCustomerInfo.php",
+        dataType : "json",
+        type : "POST",
+        data : { planGroupCode : planGroupCode, cId : cId, ownerId : ownerId },
+        success : function(data){
+            if(data.result == "success"){
+            	$("#cId").val( cId );
+            	$("#pGroupCode").val( planGroupCode );
+            	
+            	$("#txtName").val( data.name );
+            	$("#txtEmail").val( data.email );
+            	$("#txtPhone").val( data.phoneNo );
+            	$("#txtNote").val( data.note );
+            	$("#txtBookedCnt").val( data.cnt );
+            	$("#myModal").modal( );
+            	$("#bookingList").html("");
+            	for( var i = 0; i < data.bookingList.length; i ++ ){
+            		$("#bookingList").append( $("<div>" + String( i + 1 ) + ". " + data.bookingList[i] +"</div>") );
+            	}
+            }
+        }
+    });
+}
+function onSaveCustomer( ){
+	var ownerId = $("#ownerId").val( );
+	var planGroupCode = $("#pGroupCode").val( );
+	var cId = $("#cId").val( );
+	var txtName = $("#txtName").val( );
+	var txtEmail = $("#txtEmail").val( );
+	var txtPhone = $("#txtPhone").val( );
+	var txtNote = $("#txtNote").val( );
+	
+	$.ajax({
+        url: "async-saveCustomerInfo.php",
+        dataType : "json",
+        type : "POST",
+        data : { planGroupCode : planGroupCode, cId : cId, ownerId : ownerId, txtName : txtName, txtEmail : txtEmail, txtPhone : txtPhone, txtNote : txtNote },
+        success : function(data){
+            if(data.result == "success"){
+            	alert("Customer info saved successfully.");
+            	$("#btnClose").click( );
+            }
+        }
+    });	
+}
+function onShowGroup(){
+	var objChkList = $("#customerList").find("tbody").find("input#chkCustomer:checked");
+	if( objChkList.length == 0 ){ alert("Please Select Customers to Join Group."); return; }
+	
+	$("#groupList").find("div#groupItem").removeClass("groupItemSelected");
+	$("#myModalGroupList").modal( );
+}
+function onClickGroupItem( obj ){
+	$("#groupList").find("div#groupItem").removeClass("groupItemSelected");
+	$(obj).addClass("groupItemSelected");
+}
+function onJoinGroup( ){
+	var objChkList = $("#customerList").find("input#chkCustomer:checked");
+	var customerList = [];
+	for( var i = 0; i < objChkList.size(); i ++ ){
+		var customerId = objChkList.eq(i).parents("td").eq(0).find("#customerId").val();
+		var planGroupCode = objChkList.eq(i).parents("td").eq(0).find("#planGroupCode").val();
+		var email = objChkList.eq(i).parents("tr").eq(0).find("td").eq(2).text();
+		var phone = objChkList.eq(i).parents("tr").eq(0).find("td").eq(3).text();
+		var data = { customerId : customerId, planGroupCode : planGroupCode, email : email, phone : phone };
+		customerList[ i ] = data;
+	}
+	var objGroup = $("#groupList").find("div.groupItemSelected");
+	if( objGroup.length == 0 ){ alert("Please select group."); return; }
+	var groupId = $(objGroup).attr("data");
+	
+	$.ajax({
+        url: "async-joinCustomerGroup.php",
+        dataType : "json",
+        type : "POST",
+        data : { groupId : groupId, customerList : customerList },
+        success : function(data){
+            if(data.result == "success"){
+            	alert("Customer joined successfully.");
+            	$("#btnClose1").click( );
+            }
+        }
+    });		
+}
