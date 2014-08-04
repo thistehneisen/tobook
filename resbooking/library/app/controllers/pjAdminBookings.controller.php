@@ -1046,7 +1046,10 @@ class pjAdminBookings extends pjAdmin {
 					
 					$data ['uuid'] = time ();
 					
-					$data ['status'] = 'enquiry';
+
+					$data ['status'] = ((int) $_POST['people'] > (int) $this->option_arr['booking_group_booking'])
+                        ? 'enquiry'
+                        : 'confirmed';
 					
 					$table_id = $_POST ['rbBooking_tableid'];
 					unset ( $_POST ['rbBooking_tableid'] );
