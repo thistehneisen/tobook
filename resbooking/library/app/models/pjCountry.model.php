@@ -20,7 +20,7 @@ class pjCountryModel extends pjAppModel
  * @var string
  * @access protected
  */
-	var $table = 'restaurant_booking_countries';
+	var $table = 'countries';
 /**
  * Table schema
  *
