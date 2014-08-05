@@ -12,7 +12,7 @@ return [
         'name'     => 'varaa'
     ],
     'mandrill' => [
-        'key' => 'bFOME-jAtMxIjYHaXtVbcQ'
+        'key' => 'CTzo04IR5HYpn9LjCGV-7A'
     ],
     // Use to generate Hashids for iframe of Restaurant Booking
     'secret_key' => 'TYQXavN3XmjLuuEf'

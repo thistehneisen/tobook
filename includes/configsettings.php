@@ -21,7 +21,7 @@ define('BASE_URL_PART','');
 define('SMTP_HOST', 'smtp.mandrillapp.com');
 define('SMTP_PORT', 587);
 define('SMTP_USERNAME', 'hieu@varaa.com');
-define('SMTP_PASSWORD', isset($config['smtp']['password']) ? $config['smtp']['password'] : 'CTzo04IR5HYpn9LjCGV-7A');
+define('SMTP_PASSWORD', isset($config['mandrill']['key']) ? $config['mandrill']['key'] : 'CTzo04IR5HYpn9LjCGV-7A');
 
 
 $s = empty($_SERVER["HTTPS"]) ? '' : ($_SERVER["HTTPS"] == "on") ? "s" : "";
