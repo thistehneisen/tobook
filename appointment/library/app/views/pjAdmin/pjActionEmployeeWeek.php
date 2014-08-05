@@ -152,24 +152,6 @@ if (isset($tpl['status']))
 							<strong><?php echo $day; ?>
 								<i style="font-weight: normal;">
 									<?php __(date('l', strtotime($day))); ?>
-									<?php
-										$dayName = date('l', strtotime($day));
-										
-										if( $dayName == "Monday" )
-											echo "Maanantai";
-										else if( $dayName == "Tuesday" )
-											echo "Tiistai";
-										else if( $dayName == "Wednesday" )
-											echo "Keskiviikko";
-										else if( $dayName == "Thursday" )
-											echo "Torstai";
-										else if( $dayName == "Friday" )
-											echo "Perjantai";
-										else if( $dayName == "Saturday" )
-											echo "Lauantai";
-										else if( $dayName == "Sunday" )
-											echo "Sunnuntai";
-									?>
 								</i></strong>
 						</td>
 						<?php } ?>
