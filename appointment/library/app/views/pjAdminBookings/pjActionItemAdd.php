@@ -11,7 +11,7 @@ if (count($tpl['service_arr']) > 0) {
 	<input type="hidden" name="booking_id" value="<?php echo (int) @$_GET['id']; ?>" />
 	<input type="hidden" name="tmp_hash" value="<?php echo @$_GET['tmp_hash']; ?>" />
 
-    <div class="float_left w260">
+    <div class="float_right w300">
 	<div class="b10 p">
 		<label class="title"><?php __('booking_date'); ?></label>
 		<span class="pj-form-field-custom pj-form-field-custom-after float_left r5">
@@ -67,7 +67,7 @@ if (count($tpl['service_arr']) > 0) {
 	<?php } ?>
 	</div>
 
-    <div class="float_right w300">
+    <div class="float_left w300">
 	<div class="b10 p">
 		<label class="title"><?php __('categories'); ?></label>
 		<select name="category_id" class="pj-form-field w200 stock-product">
