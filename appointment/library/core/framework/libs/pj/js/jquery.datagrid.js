@@ -335,7 +335,7 @@
 					lf  = $this.offset().left + diff;
 				}
 				$list.css({
-					"top": $this.offset().top + $this.outerHeight() + 2,
+					"top": $this.offset().top + $this.outerHeight() - 90,
 					"left": lf
 				});
 			
