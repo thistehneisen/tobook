@@ -10,7 +10,7 @@
     <?php require_once("common/asset.php"); ?>
     <?php require_once("common/functions.php"); ?>
     <style>
-		.frontTopBackground{ background-image:url(/loyalty/app/img/topHeader.png); background-position:center top; background-repeat: no-repeat; background-size: cover; width: 100%; max-width: 100%; height:120px; text-align:center;font-family: 'Comfortaa';font-weight:bold; color: #FFF;}
+		.frontTopBackground{ background-image:url(/loyalty/app/img/topHeader.png); background-position:center top; background-repeat: no-repeat; background-size: cover; width: 100%; max-width: 100%; height:120px; text-align:center;font-family: 'Comfortaa';font-weight:bold; color: #FFF; font-size: 30px; padding-top:20px;}
 		.greyDivider{ background:#555;width: 100%; max-width: 100%; height:10px;margin-bottom:10px; }
 		.divChart{ height: 500px; margin-top:30px; border:1px solid #DDD;}    
     </style>
@@ -25,7 +25,9 @@
     
 </head>
 <body>
-	<div class="frontTopBackground"></div>
+	<div class="frontTopBackground">
+		Appointment Scheduler Statistics
+	</div>
 	<div class="greyDivider"></div>
 	<div class="container">
 			<div class="panel panel-orange margin-bottom-40">
