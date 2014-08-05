@@ -10,7 +10,7 @@
     <?php require_once("common/asset.php"); ?>
     <?php require_once("common/functions.php"); ?>
     <style>
-		.frontTopBackground{ background-image:url(/loyaltyFront/img/topHeader.png); background-position:center top; background-repeat: no-repeat; background-size: cover; width: 100%; max-width: 100%; height:120px; text-align:center;font-family: 'Comfortaa';font-weight:bold; color: #FFF;}
+		.frontTopBackground{ background-image:url(/loyalty/app/img/topHeader.png); background-position:center top; background-repeat: no-repeat; background-size: cover; width: 100%; max-width: 100%; height:120px; text-align:center;font-family: 'Comfortaa';font-weight:bold; color: #FFF;}
 		.greyDivider{ background:#555;width: 100%; max-width: 100%; height:10px;margin-bottom:10px; }
 		.divChart{ height: 500px; margin-top:30px; border:1px solid #DDD;}    
     </style>
@@ -86,7 +86,7 @@
 												<th style="width:15%;text-align:center;">Employee</th>
 												<th style="width:13%;text-align:center;">Revenue</th>
 												<th style="width:13%;text-align:center;">Number Of Booking</th>
-												<th style="width:13%;text-align:center;">Working Times</th>
+												<th style="width:13%;text-align:center;">Working Hours</th>
 												<th style="width:13%;text-align:center;">Booking Hours</th>
 												<th style="width:13%;text-align:center;">Booking Rate</th>
 											</tr>

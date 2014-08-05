@@ -168,7 +168,6 @@ function onCalculate( ){
 	var endDate = $("#endDate").val();
 	var viewMode = $("#viewMode").val();
 
-	if( userId == "" ){ alert("Please Select User."); return; }
 	$.ajax({
         url: "async-getStatisticsBookingInfo.php",
         dataType : "json",
