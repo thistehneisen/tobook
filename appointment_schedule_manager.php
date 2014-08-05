@@ -16,7 +16,7 @@ include "includes/userheader.php";
 	global $userusername;
 	$userusername = $_SESSION["session_loginname"];
 	?>	
-	<iframe onLoad="calcHeight();" id="iFrame" width="100%" src="<?php echo $plugins_url; ?>"  height="1200" frameborder="0"></iframe>	
+	<iframe border="0" cellspacing="0" cellpadding="0" onLoad="calcHeight();" id="iFrame" width="100%" src="<?php echo $plugins_url; ?>"  height="1200" frameborder="0"></iframe>	
 </div>
 <script>
 	/*

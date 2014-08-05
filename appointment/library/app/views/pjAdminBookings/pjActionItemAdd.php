@@ -140,7 +140,7 @@ if (count($tpl['service_arr']) > 0) {
 		<?php } ?>
 	</div>
     <div class="b10 p" id="bookingServiceEdit">
-        <label class="title">Muokkaa aikka</label>
+        <label class="title">Muokkaa aikaa</label>
         <?php 
             $time = array();
             for ( $i = 0; $i <= 60; $i += $tpl['option_arr']['o_step']) {
