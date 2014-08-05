@@ -169,7 +169,7 @@ function onCalculate( ){
 	var viewMode = $("#viewMode").val();
 
 	$.ajax({
-        url: "async-getStatisticsBookingInfo.php",
+        url: "async-getStatisticsASInfo.php",
         dataType : "json",
         type : "POST",
         data : { userId : userId, userName : userName, employeeId : employeeId, startDate : startDate, endDate : endDate, viewMode : viewMode },
