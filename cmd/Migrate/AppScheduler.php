@@ -9,8 +9,7 @@ class AppScheduler extends Base {
 
 	public function run()
 	{
-		// $usernames = $this->getUsernames();
-        $usernames = ['mikaeltestaa', 'carboys'];
+		$usernames = $this->getUsernames();
 		foreach ($usernames as $username) {
 			$this->map = [];
 			
