@@ -229,7 +229,7 @@ if (isset($tpl['status']))
 													
 												} else $booking_status = $booking['booking_status'];
 												?>
-												<div class="">
+												<div class="booking_cell">
 													<a class="editbooking" data-booking_id="<?php echo $booking['booking_id']; ?>" data-employee_id="<?php echo $employee['id']; ?>" data-start_ts="<?php echo $i; ?>" href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=pjActionUpdate&amp;as_pf=<?php echo $as_pf; ?>&amp;id=<?php echo $booking['booking_id']; ?>">
                                                     <?php if (!empty($booking['c_notes'])):?>
                                                     <span data-toggle="tooltip" data-placement="left" title="<?php echo pjSanitize::html($booking['c_notes']); ?>"><i class="glyphicon glyphicon-question-sign"></i></span>

@@ -1,6 +1,8 @@
 <?php
 {% if env == 'stag' %}
-define('BYPASS_PAYMENT', true);
+if (!defined('BYPASS_PAYMENT')) {
+    define('BYPASS_PAYMENT', true);
+}
 {% endif %}
 
 return [
@@ -10,7 +12,8 @@ return [
         'password' => '{{ dbpassword }}',
         'name'     => '{{ dbname }}'
     ],
-    'smtp' => [
-        'password' => '{{ mandrill_password }}'
-    ]
+    'mandrill' => [
+        'key' => '{{ mandrill_password }}'
+    ],
+    'secret_key' => '{{ secret_key }}'
 ];

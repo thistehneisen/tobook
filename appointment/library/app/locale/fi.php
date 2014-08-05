@@ -964,5 +964,16 @@ You should also set up a CRON job for cron.php file which should execute every h
         'F' => 'Inactive',
         'T' => 'Active',
     ),
+<<<<<<< HEAD
 
 );
+=======
+    'Monday' => 'Maanantai',
+    'Tuesday' => 'Tiistai',
+    'Wednesday' => 'Keskiviikko',
+    'Thursday' => 'Torstai',
+    'Friday' => 'Perjantai',
+    'Saturday' => 'Lauantai',
+    'Sunday' => 'Sunnuntai',
+);
+>>>>>>> 0813d68abbd001a20c153c9f3b598ce0a4f7d928

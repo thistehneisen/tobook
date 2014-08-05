@@ -1,9 +1,11 @@
-/*jslint browser: true, nomen: true, unparam: true*/
-/*global $, jQuery, document*/
+/*jslint browser: true, nomen: true, unparam: true, node: true*/
+/*global $, jQuery, document, alert, external, confirm*/
 'use strict';
+var customerToken;
 function getSelectedConsumerId() {
     var objList = $("table#tblDataList").find("input#chkConsumerId:checkbox:checked");
-    if (objList.length === 0) { return -1; } else { return objList.eq(0).val(); }
+    if (objList.length === 0) { return -1; }
+    return objList.eq(0).val();
 }
 function writeCard(ctrl, consumer_id) {
     external.SetCardWriteMode(true);
@@ -11,14 +13,139 @@ function writeCard(ctrl, consumer_id) {
         external.SetCardWriteMode(false);
         return false;
     }
-
     $(ctrl).prop("disabled", true);
     if (external.WriteCard(consumer_id) === true) { $(ctrl).val("Card written OK!"); } else { alert("Error writing card!"); }
     $(ctrl).prop("disabled", false);
     return false;
 }
+function onSelectConsumer(objThis, event) {
+    var obj = $(objThis).get(0), name = $(obj).parents("tr").eq(0).find("td").eq(2).text(), email = $(obj).parents("tr").eq(0).find("td").eq(3).text(), phone = $(obj).parents("tr").eq(0).find("td").eq(4).text(), score = $(obj).parents("tr").eq(0).find("td").eq(5).text(), consumerId = $(obj).val();
+    if (obj.checked) {
+        $("#divConsumerInfo").fadeIn();
+        $("table#tblDataList").find("input#chkConsumerId:checkbox").prop("checked", false);
+        obj.checked = true;
+        $("#consumerName").text(name);
+        $("#consumerEmail").text(email);
+        $("#consumerPhone").text(" / " + phone);
+        $("#consumerScore").text("Points : " + score);
+
+        $.ajax({
+            url: "/loyalty/api/getConsumerInfo.php",
+            dataType: "json",
+            type: "POST",
+            data: {
+                customerToken: customerToken,
+                consumerId: consumerId
+            },
+            success: function (data) {
+                if (data.result === "success") {
+                    var stampList = data.usedStampList, j = 0;
+                    for (j = 0; j < stampList.length; j += 1) {
+                        $("button#btnAddStamp[data-id='" + data.usedStampList[j].stampId + "']").parents("#stampItem").eq(0).find("#stampRequired").text(stampList[j].cntCurrentUsed + " / " + stampList[j].cntRequired);
+                    }
+                } else {
+                    alert(data.msg);
+                }
+            }
+        });
+    } else {
+        $("#divConsumerInfo").fadeOut();
+        $("#consumerName").html("&nbsp;");
+        $("#consumerEmail").html("&nbsp;");
+        $("#consumerPhone").html("&nbsp;");
+        $("#consumerScore").html("&nbsp;");
+        $("span#stampRequired").text("");
+    }
+    event.stopPropagation();
+}
+function onClickLine(obj) {
+    $(obj).find("input:checkbox").eq(0).click();
+}
+function onUsePoint(obj) {
+    var consumerId = getSelectedConsumerId(), consumerScore = $("#consumerScore").text(), pointId = $(obj).attr("data-id"), scoreRequired = $(obj).attr("data-score");
+    if (consumerId === -1) {
+        alert("Please select consumer to use point.");
+        return;
+    }
+    consumerScore = consumerScore.substring(9);
+    if (Number(scoreRequired) > Number(consumerScore)) {
+        alert("Your Point is not enough.");
+        return;
+    }
+    $.ajax({
+        url: "/loyalty/api/usePoint.php",
+        dataType: "json",
+        type: "POST",
+        data: {
+            customerToken: customerToken,
+            consumerId: consumerId,
+            pointId: pointId
+        },
+        success: function (data) {
+            if (data.result === "success") {
+                alert("The Point used successfully.");
+                $("#consumerScore").text("Points : " + String(Number(consumerScore) - Number(scoreRequired)));
+                $("table#tblDataList").find("input#chkConsumerId:checkbox:checked").parents("tr").find("td").eq(5).text(Number(consumerScore) - Number(scoreRequired));
+            } else {
+                alert(data.msg);
+            }
+        }
+    });
+}
+function onAddStamp(obj) {
+    var consumerId = getSelectedConsumerId(), stampId = $(obj).attr("data-id");
+    if (consumerId === -1) {
+        alert("Please select consumer to add stamp.");
+        return;
+    }
+    $.ajax({
+        url: "/loyalty/api/addStamp.php",
+        dataType: "json",
+        type: "POST",
+        data: {
+            customerToken: customerToken,
+            consumerId: consumerId,
+            stampId: stampId
+        },
+        success: function (data) {
+            if (data.result === "success") {
+                alert("The Stamp added successfully.");
+                var strCntUsed = $("button#btnAddStamp[data-id='" + stampId + "']").parents("#stampItem").eq(0).find("#stampRequired").text(), arrCntUsed = strCntUsed.split(" / "), cntUsed = Number(arrCntUsed[0]) + 1, cntRequired = Number(arrCntUsed[1]);
+                if (cntUsed % cntRequired === 0) { cntUsed = 0; }
+                $("button#btnAddStamp[data-id='" + stampId + "']").parents("#stampItem").eq(0).find("#stampRequired").text(cntUsed + " / " + cntRequired);
+            } else {
+                alert(data.msg);
+            }
+        }
+    });
+}
+function onUseStamp(obj) {
+    var consumerId = getSelectedConsumerId(), stampId = $(obj).attr("data-id");
+    if (consumerId === -1) {
+        alert("Please select consumer to use stamp.");
+        return;
+    }
+    $.ajax({
+        url: "/loyalty/api/useStamp.php",
+        dataType: "json",
+        type: "POST",
+        data: {
+            customerToken: customerToken,
+            consumerId: consumerId,
+            stampId: stampId
+        },
+        success: function (data) {
+            if (data.result === "success") {
+                alert("The Stamp used successfully.");
+                window.location.reload();
+            } else {
+                alert(data.msg);
+            }
+        }
+    });
+}
 $(document).ready(function () {
-    var customerToken = $("#customerToken").val();
+    customerToken = $("#customerToken").val();
     $.ajax({
         url: "/loyalty/api/getConsumerList.php",
         dataType: "json",
@@ -30,7 +157,7 @@ $(document).ready(function () {
             if (data.result === "success") {
                 var strHTML = "", consumerList = data.consumerList, i = 0;
                 for (i = 0; i < consumerList.length; i += 1) {
-                    strHTML += '<tr style="cursor:pointer;">';
+                    strHTML += '<tr style="cursor:pointer;" onclick="onClickLine(this);">';
                     strHTML += '<td><input type="checkbox" id="chkConsumerId" onclick="onSelectConsumer(this, event)" value="' + consumerList[i].consumerId + '"/></td>';
                     strHTML += '<td>' + String(i + 1) + '</td>';
                     strHTML += '<td>' + consumerList[i].firstName + " " + consumerList[i].lastName + '</td>';
@@ -40,54 +167,6 @@ $(document).ready(function () {
                     strHTML += '</tr>';
                 }
                 $("table#tblDataList").find("tbody").html(strHTML);
-
-                $("table#tblDataList").find("tbody").find("tr").click(function () {
-                    $(this).find("input:checkbox").eq(0).click();
-                });
-
-                $("table#tblDataList").find("tbody").find("tr").find("#chkConsumerId").click(function (event) {
-                    var obj = $(this).get(0), name = $(obj).parents("tr").eq(0).find("td").eq(2).text(), email = $(obj).parents("tr").eq(0).find("td").eq(3).text(), phone = $(obj).parents("tr").eq(0).find("td").eq(4).text(), score = $(obj).parents("tr").eq(0).find("td").eq(5).text(), consumerId = $(obj).val();
-                    if (obj.checked) {
-                        $("#divConsumerInfo").fadeIn();
-                        $("table#tblDataList").find("input#chkConsumerId:checkbox").prop("checked", false);
-                        obj.checked = true;
-                        $("#consumerName").text(name);
-                        $("#consumerEmail").text(email);
-                        $("#consumerPhone").text(" / " + phone);
-                        $("#consumerScore").text("Points : " + score);
-
-                        $.ajax({
-                            url: "/loyalty/api/getConsumerInfo.php",
-                            dataType: "json",
-                            type: "POST",
-                            data: {
-                                customerToken: customerToken,
-                                consumerId: consumerId
-                            },
-                            success: function (data) {
-                                if (data.result === "success") {
-                                    var stampList = data.usedStampList, j = 0;
-                                    for (j = 0; j < stampList.length; j += 1) {
-                                        $("button#btnAddStamp[data-id='" + data.usedStampList[j].stampId + "']").parents("#stampItem").eq(0).find("#stampRequired").text(stampList[j].cntCurrentUsed + " / " + stampList[j].cntRequired);
-                                    }
-                                } else {
-                                    alert(data.msg);
-                                }
-                            }
-                        });
-
-                    } else {
-                        $("#divConsumerInfo").fadeOut();
-                        $("#consumerName").html("&nbsp;");
-                        $("#consumerEmail").html("&nbsp;");
-                        $("#consumerPhone").html("&nbsp;");
-                        $("#consumerScore").html("&nbsp;");
-                        $("span#stampRequired").text("");
-
-                    }
-                    event.stopPropagation();
-                });
-
             } else {
                 alert(data.msg);
             }
@@ -114,37 +193,6 @@ $(document).ready(function () {
                     objPointItem.find("button").attr("data-id", pointList[i].pointId);
                     objPointItem.find("button").attr("data-score", pointList[i].scoreRequired);
                     $("#pointList").append(objPointItem);
-                    objPointItem.find("#btnUsePoint").click(function () {
-                        var consumerId = getSelectedConsumerId(), consumerScore = $("#consumerScore").text(), pointId = $(this).attr("data-id"), scoreRequired = $(this).attr("data-score");
-                        if (consumerId === -1) {
-                            alert("Please select consumer to use point.");
-                            return;
-                        }
-                        consumerScore = consumerScore.substring(9);
-                        if (Number(scoreRequired) > Number(consumerScore)) {
-                            alert("Your Point is not enough.");
-                            return;
-                        }
-                        $.ajax({
-                            url: "/loyalty/api/usePoint.php",
-                            dataType: "json",
-                            type: "POST",
-                            data: {
-                                customerToken: customerToken,
-                                consumerId: consumerId,
-                                pointId: pointId
-                            },
-                            success: function (data) {
-                                if (data.result === "success") {
-                                    alert("The Point used successfully.");
-                                    $("#consumerScore").text("Points : " + String(Number(consumerScore) - Number(scoreRequired)));
-                                    $("table#tblDataList").find("input#chkConsumerId:checkbox:checked").parents("tr").find("td").eq(5).text(Number(consumerScore) - Number(scoreRequired));
-                                } else {
-                                    alert(data.msg);
-                                }
-                            }
-                        });
-                    });
                 }
             } else {
                 alert(data.msg);
@@ -170,64 +218,6 @@ $(document).ready(function () {
                     objStampItem.find("#stampName").text(stampList[i].stampName);
                     objStampItem.find("button").attr("data-id", stampList[i].stampId);
                     $("#stampList").append(objStampItem);
-
-                    objStampItem.find("#btnAddStamp").click(function () {
-                        var consumerId = getSelectedConsumerId(), stampId = $(this).attr("data-id");
-                        if (consumerId === -1) {
-                            alert("Please select consumer to add stamp.");
-                            return;
-                        }
-                        $.ajax({
-                            url: "/loyalty/api/addStamp.php",
-                            dataType: "json",
-                            type: "POST",
-                            data: {
-                                customerToken: customerToken,
-                                consumerId: consumerId,
-                                stampId: stampId
-                            },
-                            success: function (data) {
-                                if (data.result === "success") {
-                                    alert("The Stamp added successfully.");
-                                    var strCntUsed = $("button#btnAddStamp[data-id='" + stampId + "']").parents("#stampItem").eq(0).find("#stampRequired").text(), arrCntUsed = strCntUsed.split(" / "), cntUsed = Number(arrCntUsed[0]) + 1, cntRequired = Number(arrCntUsed[1]);
-                                    if (cntUsed % cntRequired === 0) { cntUsed = 0; }
-
-
-                                    $("button#btnAddStamp[data-id='" + stampId + "']").parents("#stampItem").eq(0).find("#stampRequired").text(cntUsed + " / " + cntRequired);
-                                    // window.location.reload();
-                                } else {
-                                    alert(data.msg);
-                                }
-                            }
-                        });
-                    });
-
-                    objStampItem.find("#btnUseStamp").click(function () {
-                        var consumerId = getSelectedConsumerId(), stampId = $(this).attr("data-id");
-                        if (consumerId === -1) {
-                            alert("Please select consumer to use stamp.");
-                            return;
-                        }
-
-                        $.ajax({
-                            url: "/loyalty/api/useStamp.php",
-                            dataType: "json",
-                            type: "POST",
-                            data: {
-                                customerToken: customerToken,
-                                consumerId: consumerId,
-                                stampId: stampId
-                            },
-                            success: function (data) {
-                                if (data.result === "success") {
-                                    alert("The Stamp used successfully.");
-                                    window.location.reload();
-                                } else {
-                                    alert(data.msg);
-                                }
-                            }
-                        });
-                    });
                 }
             } else {
                 alert(data.msg);

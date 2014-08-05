@@ -152,24 +152,6 @@ if (isset($tpl['status']))
 							<strong><?php echo $day; ?>
 								<i style="font-weight: normal;">
 									<?php __(date('l', strtotime($day))); ?>
-									<?php
-										$dayName = date('l', strtotime($day));
-										
-										if( $dayName == "Monday" )
-											echo "Maanantai";
-										else if( $dayName == "Tuesday" )
-											echo "Tiistai";
-										else if( $dayName == "Wednesday" )
-											echo "Keskiviikko";
-										else if( $dayName == "Thursday" )
-											echo "Torstai";
-										else if( $dayName == "Friday" )
-											echo "Perjantai";
-										else if( $dayName == "Saturday" )
-											echo "Lauantai";
-										else if( $dayName == "Sunday" )
-											echo "Sunnuntai";
-									?>
 								</i></strong>
 						</td>
 						<?php } ?>
@@ -263,16 +245,14 @@ if (isset($tpl['status']))
 									}
 									echo '</div>';
 								} else {
-
-									foreach ($bookings as $booking)
-									{
+									foreach ($bookings as $booking) {
 										if ( isset($booking['status']) && !empty($booking['status']) ) {
 											$booking_status = $booking['status'];
 										
 										} else $booking_status = $booking['booking_status'];
 										
 										?>
-										<div class="">
+										<div class="booking_cell">
 											<a class="editbooking" data-booking_id="<?php echo $booking['booking_id']; ?>" data-employee_id="<?php echo $employee['id']; ?>" data-start_ts="<?php echo $start_ts; ?>" href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=pjActionUpdate&amp;as_pf=<?php echo $as_pf; ?>&amp;id=<?php echo $booking['booking_id']; ?>"><?php echo pjSanitize::html($booking['c_name']); ?>
 											<span class="fs11"> (<?php echo pjSanitize::html($booking['service_name']); ?>)</span></a>
 											<!-- <a class="dashboardView moreBooking" data-extra_count="<?php echo $booking['extra_count']; ?>" data-booking_id="<?php echo $booking['booking_id']; ?>" data-booking_status="<?php echo $booking_status; ?>" href="#">+</a>-->

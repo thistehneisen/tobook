@@ -81,8 +81,8 @@
 		
 		<div id="cloneStampItem" style="display:none;">
 			<div class="col-md-4">
-				<button class="btn-u btn-u-blue btn-block" style="padding:2px;" id="btnAddStamp" >Lis‰‰</button>
-				<button class="btn-u btn-u-blue btn-block" style="padding:2px;" id="btnUseStamp" >K‰yt‰</button>
+				<button class="btn-u btn-u-blue btn-block" style="padding:2px;" id="btnAddStamp" onclick="onAddStamp(this)">Lis‰‰</button>
+				<button class="btn-u btn-u-blue btn-block" style="padding:2px;" id="btnUseStamp" onclick="onUseStamp(this)">K‰yt‰</button>
 			</div>
 			<div class="col-md-8">
 				<span id="stampRequired"></span>&nbsp;<span id="stampName"></span>
@@ -95,7 +95,7 @@
 				<div id="pointName"></div>
 				<div id="scoreRequired"></div>
 			</div>
-			<div class="col-md-5"><button class="btn-u btn-u-blue btn-block" style="padding:5px;" id="btnUsePoint" >K‰yt‰ etu</button></div>
+			<div class="col-md-5"><button class="btn-u btn-u-blue btn-block" style="padding:5px;" id="btnUsePoint" onclick="onUsePoint(this)" >K‰yt‰ etu</button></div>
 			<div class="clearboth"></div>
 		</div>
 		
