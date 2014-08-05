@@ -20,7 +20,7 @@
 	<script src="js/highcharts/highcharts.js"></script>
 	<script src="js/highcharts/modules/exporting.js"></script>    
 		        
-    <script type="text/javascript" src="js/statistics.js"></script>
+    <script type="text/javascript" src="js/statisticsAS.js"></script>
 
     
 </head>
