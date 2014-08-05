@@ -921,7 +921,7 @@ img.ui-datepicker-trigger {
 .dWrapper .asSlotBooked > div a.moreBooking{
 	font-size: 20px;
     position: absolute;
-    right: 15px;
+    right: 5px;
     top: 5px;
 }
 .dWrapper .asSlotFreetime > div a.removeFreetime{
@@ -1146,13 +1146,18 @@ div#monthly-review #employee_id{
 .layout_2 .dWrapper td{
 	padding: 0;
 }
-.layout_2 .dWrapper td > *{
-	min-width: 200px;
-	/*overflow: hidden;*/
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    padding: 5px 10px 5px 5px;
+.layout_2 .dWrapper td .booking_cell {
+	width: 200px;
+    padding: 5px;
 }
+    .layout_2 .dWrapper td > .booking_cell a {
+        width: 165px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding: 5px;
+    }
+
 .layout_2 .dWrapper td.dHead{
 	border: 0;
 }
@@ -1166,10 +1171,10 @@ div#monthly-review #employee_id{
 	border-bottom: solid 1px #e5e2e2;
 	empty-cells: show;
 }
-.layout_2 .dWrapper thead td.dHead > *{
+.layout_2 .dWrapper thead td.dHead > * {
 	position: absolute;
     top: 0;
-    height: 18px;
+    height: 28px;
     overflow: visible;
     border-right: solid 0px #e5e2e2;
 }
