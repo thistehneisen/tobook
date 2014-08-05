@@ -36,12 +36,12 @@ body {
     color: #FFF;
     filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/loyalty/app/img/topHeader.png',sizingMethod='scale')";
     -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/loyalty/app/img/topHeader.png',sizingMethod='scale')";
-    font-family:'Comfortaa';
 }
 
 .frontTopTitle {
     font-size: 70px;
     padding-top: 30px;
+    font-family:'Comfortaa';
 }
 
 .modal-backdrop {

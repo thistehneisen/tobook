@@ -1,5 +1,5 @@
-/*jslint browser: true, nomen: true, unparam: true*/
-/*global $, jQuery, document*/
+/*jslint browser: true, nomen: true, unparam: true, node: true*/
+/*global $, jQuery, document, alert*/
 'use strict';
 $(document).ready(function () {
     $("#username").keyup(function (event) {
