@@ -524,6 +524,7 @@ class pjAppController extends pjController {
         
         # Get custom working time for given employee
         $date_arr = $pjDateModel->getDailyWorkingTime($employee_id, $date, 'employee');
+
         if ($date_arr !== false)
         {
             # It's Day off

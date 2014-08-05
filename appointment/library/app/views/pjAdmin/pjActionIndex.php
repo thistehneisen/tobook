@@ -148,7 +148,6 @@ if (isset($tpl['status']))
 									
 									foreach ($tpl['employee_arr'] as $employee)
 									{
-										
 										if ( $employee['t_arr']['client'] == false ||
 												$i < $employee['t_arr']['client']['start_ts'] ||
 												$i >= $employee['t_arr']['client']['end_ts'] ) {
@@ -181,7 +180,6 @@ if (isset($tpl['status']))
 										$freetime = array();
 										$ft_first = false;
 										foreach ( $employee['ef_arr'] as $_freetime ) {
-										
 											if ($i >= $_freetime['start_ts'] && $i < $_freetime['end_ts']) {
 												$class = "asSlotFreetime";
 												$freetime = $_freetime;

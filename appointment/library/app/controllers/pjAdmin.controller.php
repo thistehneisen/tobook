@@ -82,7 +82,7 @@ class pjAdmin extends pjAppController
 				->set('t_arr', $result['t_arr'])
 				->set('service_arr', $result['service_arr'])
 				->set('employee_arr', $result['employee_arr']);
-			
+
 			$this->appendJs('jquery.multiselect.min.js', PJ_THIRD_PARTY_PATH . 'multiselect/');
 			$this->appendCss('jquery.multiselect.css', PJ_THIRD_PARTY_PATH . 'multiselect/');
 			
@@ -122,7 +122,6 @@ class pjAdmin extends pjAppController
 			
 			$employees = $employee_arr;
 			foreach ( $employees as $k => $employee ) {
-				
 				$t_arr = pjAppController::getRawSlotsPerEmployeeAdmin($employee['id'], $isoDate, $this->getForeignId());
 				
 				$et_arr = array();
