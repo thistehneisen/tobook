@@ -89,9 +89,8 @@ class pjFrontPublic extends pjFront
 			$pjEmployeeServiceModel = pjEmployeeServiceModel::factory()
 				->select("t1.*, t2.avatar, t2.notes, t3.content AS `name`")
 				->join('pjEmployee', 't2.id=t1.employee_id AND t2.is_active=1', 'inner')
-				->join('pjMultiLang', "t3.model='pjEmployee' AND t3.foreign_id=t1.employee_id AND t3.field='name' AND t3.locale='".$this->getLocaleId()."'", 'left outer')
+				->join('pjMultiLang', "t3.model='pjEmployee' AND t3.foreign_id=t1.employee_id AND t3.field='name'", 'left outer')
 				->where('t1.service_id', $id)
-				->where('t2.owner_id', $owner_id)
 				->orderBy('`name` ASC')
 				->findAll();
 			
