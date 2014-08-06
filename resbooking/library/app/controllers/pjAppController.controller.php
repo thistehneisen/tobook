@@ -167,5 +167,10 @@ class pjAppController extends pjController
 		}
 		return $t_arr;
 	}
+
+    public function getOwnerId()
+    {
+        return (int) $_SESSION['owner_id'];
+    }
 }
 ?>

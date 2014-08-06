@@ -26,7 +26,7 @@ class pjVoucherModel extends pjAppModel
 	
 	function getVoucher($code, $date, $time)
 	{
-		$sql = sprintf("SELECT *, TIME_TO_SEC(`time_from`) AS `sec_from`, TIME_TO_SEC(`time_to`) AS `sec_to` FROM `%s` WHERE `code` = '%s' LIMIT 1", $this->getTable(), $code);
+		$sql = sprintf("SELECT *, TIME_TO_SEC(`time_from`) AS `sec_from`, TIME_TO_SEC(`time_to`) AS `sec_to` FROM `%s` WHERE `code` = '%s' AND `owner_id` = %d LIMIT 1", $this->getTable(), $code, $_SESSION['owner_id']);
 		$arr = $this->execute($sql);
 		if (count($arr) == 1)
 		{

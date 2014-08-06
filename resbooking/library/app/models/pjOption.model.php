@@ -158,10 +158,11 @@ class pjOptionModel extends pjAppModel
 
 	function copyOptions($dst_cid, $src_cid)
 	{
+        $owner_id = $_SESSION['owner_id'];
 		$sql = sprintf("INSERT INTO `%1\$s` (`calendar_id`, `key`, `value`, `description`, `label`, `type`, `order`)
 			SELECT '%2\$u', `key`, `value`, `description`, `label`, `type`, `order`
 			FROM `%1\$s`
-			WHERE `calendar_id` = '%3\$u'",
+			WHERE `owner_id` = $owner_id AND `calendar_id` = '%3\$u'",
 			$this->getTable(), $dst_cid, $src_cid
 		);
 		$this->execute($sql);

@@ -26,11 +26,13 @@ class pjAdminReports extends pjAdmin
 						$date_to = pjUtil::formatDate($_GET['date_to'], $this->option_arr['date_format']);
 						$sql_date_to = sprintf(" AND DATE(`dt_to`) <= '%s'", $date_to);
 					}
+
+                    $ownerId = $this->getOwnerId();
 					pjObject::import('Model', 'pjBooking');
 					$pjBookingModel = new pjBookingModel();
 					$sql = sprintf("SELECT 1,
-						(SELECT COUNT(*) FROM `%1\$s` WHERE `status` = 'confirmed' %2\$s %3\$s LIMIT 1) AS `total_bookings`,
-						(SELECT SUM(`total`) FROM `%1\$s` WHERE `status` = 'confirmed' AND `is_paid` = 'total' %2\$s %3\$s LIMIT 1) AS `paid_total`",
+						(SELECT COUNT(*) FROM `%1\$s` WHERE `owner_id` = $ownerId AND `status` = 'confirmed' %2\$s %3\$s LIMIT 1) AS `total_bookings`,
+						(SELECT SUM(`total`) FROM `%1\$s` WHERE `owner_id` = $ownerId AND `status` = 'confirmed' AND `is_paid` = 'total' %2\$s %3\$s LIMIT 1) AS `paid_total`",
 						$pjBookingModel->getTable(),
 						$sql_date_from,
 						$sql_date_to
