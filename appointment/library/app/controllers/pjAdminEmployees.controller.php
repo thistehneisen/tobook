@@ -506,7 +506,7 @@ class pjAdminEmployees extends pjAdmin
 		
 		if ($this->isAdmin())
 		{
-			$owner_id = intval($_SESSION['owner_id']);
+			$owner_id = $this->getOwnerId();
 			if (isset($_POST['employee_update']) && isset($_POST['id']) && (int) $_POST['id'] > 0)
 			{
 				$data = array();
@@ -516,11 +516,11 @@ class pjAdminEmployees extends pjAdmin
 					$pjImage->setAllowedExt($this->extensions)->setAllowedTypes($this->mimeTypes);
 					if ($pjImage->load($_FILES['avatar']))
 					{
-						$data['avatar'] = realpath(dirname(__FILE__) . '/../../') . DIRECTORY_SEPARATOR.  PJ_UPLOAD_PATH . md5($_POST['id'] . PJ_SALT) . ".jpg";
-						$pjImage
+						$data['avatar'] =  PJ_UPLOAD_PATH . md5($_POST['id'] . PJ_SALT) . ".jpg";
+                        $pjImage
 							->loadImage()
 							->resizeSmart(100, 100)
-							->saveImage($data['avatar'], 777);
+							->saveImage($data['avatar']);
 					}
 				}
 				$data['is_subscribed'] = isset($_POST['is_subscribed']) ? 1 : 0;
