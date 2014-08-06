@@ -851,6 +851,7 @@ class pjAdmin extends pjAppController
 			if ( isset($_GET['booking_id']) && $_GET['booking_id'] > 0 &&  isset($_GET['status']) ) {
 				$owner_id = intval($_SESSION['owner_id']);
 				$pjBookingStatus = pjBookingStatus::factory()
+                    ->disableOwnerID()
 					->where('booking_id', $_GET['booking_id'])
 				    ->where('owner_id', $owner_id);
 
