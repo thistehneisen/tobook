@@ -95,7 +95,7 @@ class pjAdminOptions extends pjAdmin
 						pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjAdminOptions&action=index&err=AA07");
 					}
 
-					$this->models['pjOption']->execute(sprintf("UPDATE `%s` SET `value` = '1|0::0' WHERE `type` = 'bool' AND `is_visible` = '1'", $this->models['pjOption']->getTable()));
+					$this->models['pjOption']->execute(sprintf("UPDATE `%s` SET `value` = '1|0::0' WHERE `type` = 'bool' AND `is_visible` = '1' AND `owner_id` = %d", $this->models['pjOption']->getTable(), $this->getOwnerId()));
 					
 					foreach ($_POST as $key => $value)
 					{
@@ -104,11 +104,14 @@ class pjAdminOptions extends pjAdmin
 							list(, $type, $k) = explode("-", $key);
 							if (!empty($k))
 							{
-								$this->models['pjOption']->execute(sprintf("UPDATE `%s` SET `value` = '%s' WHERE `key` = '%s' LIMIT 1",
-									$this->models['pjOption']->getTable(),
-									$this->models['pjOption']->escape($value, null, $type),
-									pjObject::escapeString($k)
-								));
+                                $sql = sprintf("UPDATE `%s` SET `value` = '%s' WHERE `key` = '%s' AND `owner_id` = %d",
+                                    $this->models['pjOption']->getTable(),
+                                    $this->models['pjOption']->escape($value, null, $type),
+                                    pjObject::escapeString($k),
+                                    (int) $_SESSION['owner_id']
+                                );
+
+								$this->models['pjOption']->execute($sql);
 							}
 						}
 					}
