@@ -757,8 +757,7 @@ img.ui-datepicker-trigger {
 	max-width: 200px;
 }
 a.dashboardView{
-    min-width: 120px;
-    max-width: 180px;
+    max-width: 160px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
