@@ -53,7 +53,7 @@ class pjAdminEmployees extends pjAdmin
 						$pjImage->setAllowedExt($this->extensions)->setAllowedTypes($this->mimeTypes);
 						if ($pjImage->load($_FILES['avatar']))
 						{
-							$dst = PJ_UPLOAD_PATH . md5($id . PJ_SALT) . ".jpg";
+							$dst = __DIR__ . DIRECTORY_SEPARATOR . PJ_UPLOAD_PATH . md5($id . PJ_SALT) . ".jpg";
 							$pjImage
 								->loadImage()
 								->resizeSmart(100, 100)
@@ -516,11 +516,11 @@ class pjAdminEmployees extends pjAdmin
 					$pjImage->setAllowedExt($this->extensions)->setAllowedTypes($this->mimeTypes);
 					if ($pjImage->load($_FILES['avatar']))
 					{
-						$data['avatar'] = PJ_UPLOAD_PATH . md5($_POST['id'] . PJ_SALT) . ".jpg";
+						$data['avatar'] = realpath(dirname(__FILE__) . '/../../') . DIRECTORY_SEPARATOR.  PJ_UPLOAD_PATH . md5($_POST['id'] . PJ_SALT) . ".jpg";
 						$pjImage
 							->loadImage()
 							->resizeSmart(100, 100)
-							->saveImage($data['avatar']);
+							->saveImage($data['avatar'], 777);
 					}
 				}
 				$data['is_subscribed'] = isset($_POST['is_subscribed']) ? 1 : 0;
