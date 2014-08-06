@@ -14,7 +14,20 @@ class MigrateCommand extends Command {
 	protected function configure() {
 		$this->setName('migrate')
 		->setDescription('Migrate old data to new database schema')
-		->addArgument('module', InputArgument::REQUIRED, 'Module to be imported');
+		->addArgument(
+			'module',
+			InputArgument::REQUIRED,
+			'Module to be imported')
+		->addOption(
+			'ids',
+			null,
+			InputOption::VALUE_REQUIRED,
+			'Comma-separated IDs of users to be imported')
+		->addOption(
+			'usernames',
+			null,
+			InputOption::VALUE_REQUIRED,
+			'Comma-separated usernames to be imported');
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output) {
@@ -40,6 +53,10 @@ class MigrateCommand extends Command {
 			throw new \InvalidArgumentException("Cannot find module [$module]");
 		}
 
-		(new $className($output, $db))->run();
+		$I = new $className($output, $db, [
+				'ids' => $input->getOption('ids'),
+				'usernames' => $input->getOption('usernames')
+			]);
+		$I->run();
 	}
 }
