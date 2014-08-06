@@ -188,13 +188,6 @@ function onCalculate( ){
                     		chart1.series[ k - 1 ].remove( );
                         }
                 	}
-            		chart3 = $('#divChart3').highcharts();
-            		chart3.xAxis[0].setCategories( dateList );
-                	if( chart3.series != undefined && chart3.series != null ){
-                    	for (var i = chart3.series.length; i > 0 ; i--) {
-                    		chart3.series[ i - 1 ].remove( );
-                        }
-                	}
                 	
                 	chart2 = $('#divChart2').highcharts();
             		chart2.xAxis[0].setCategories( dateList );
