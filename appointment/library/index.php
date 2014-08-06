@@ -13,10 +13,10 @@ if (!headers_sent())
 
 if (in_array($_SERVER['SERVER_ADDR'], array('127.0.0.1', '192.185.5.15', '::1')))
 {
-	ini_set("display_errors", "On");
-	error_reporting(E_ALL);
+	// ini_set("display_errors", "On");
+	// error_reporting(E_ALL);
 } else {
-	error_reporting(0);
+	// error_reporting(0);
 }
 header("Content-type: text/html; charset=utf-8");
 if (!defined("ROOT_PATH"))
