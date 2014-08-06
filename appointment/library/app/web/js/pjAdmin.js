@@ -511,17 +511,9 @@
 						
 						$frmBooking.submit( function (e) {
 							if ( $validate.form() && $("#boxBookingItems").find("table").length > 0 ) {
-                                $.ajax({
-                                    type: 'POST',
-                                    url: "index.php?controller=pjAdminBookings&action=pjActionCheckOverlappingBooking&pjAdmin=1",
-                                    data:  $frmBooking.serialize(),
-                                    dataType: 'json'
-                                }).done(function(data){
-                                    // $.post("index.php?controller=pjAdminBookings&action=pjActionCreate&pjAdmin=1" + $as_pf, $frmBooking.serialize()).done(function (data) {
-                                    //     location.reload();
-                                    // });
+                                $.post("index.php?controller=pjAdminBookings&action=pjActionCreate&pjAdmin=1" + $as_pf, $frmBooking.serialize()).done(function (data) {
+                                    location.reload();
                                 });
-								
 							}
 							return false;
 						});
