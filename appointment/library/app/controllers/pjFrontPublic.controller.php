@@ -70,7 +70,6 @@ class pjFrontPublic extends pjFront
 	{
 		if ($this->isXHR() || isset($_GET['_escaped_fragment_']))
 		{
-			//error_reporting(E_ALL);
 			$owner_id = $this->getOwnerId();
 			if (isset($_GET['id']) && (int) $_GET['id'] > 0)
 			{

@@ -210,7 +210,6 @@ class pjBackup extends pjBackupAppController
     				$sql[] = "\n";
 				}
     			$content = join("", $sql);
-    			error_reporting(E_ALL);
     			$owner_id = intval($_SESSION['owner_id']);
 				if(!file_exists(PJ_WEB_PATH . 'backup/user_'. $owner_id)){
 					mkdir(PJ_WEB_PATH . 'backup/user_'.$owner_id);

@@ -763,6 +763,20 @@ a.dashboardView{
     text-overflow: ellipsis;
     display:inline-block;
 }
+.dTable td.dSlot .cell {
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+}
+.dTable td.dSlot .cell .message {
+    width: 70%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    text-align: center;
+}   
+    
 .dTable td.dHead{
 	background-color: #f7f7f7;
 	font-weight: bold;
@@ -936,7 +950,7 @@ a.dashboardView{
     border-radius: 99999px;
     height: 15px;
     position: absolute;
-    right: 20px;
+    right: 5px;
     text-indent: -9999px;
     top: 5px;
     width: 15px;
