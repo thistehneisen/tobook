@@ -144,6 +144,24 @@ function onUseStamp(obj) {
         }
     });
 }
+function getSelectedConsumerInfo(consumerId) {
+    $.ajax({
+        url: "/loyalty/api/getConsumerInfo.php",
+        dataType: "json",
+        type: "POST",
+        data: {
+            customerToken: customerToken,
+            consumerId: consumerId
+        },
+        success: function (data) {
+            if (data.result === "success") {
+                
+            } else {
+                alert(data.msg);
+            }
+        }
+    });	
+}
 $(document).ready(function () {
     customerToken = $("#customerToken").val();
     $.ajax({

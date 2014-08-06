@@ -11,9 +11,9 @@
 		<link rel='stylesheet' href="css/style.css" type='text/css' media='all'/>
 		<title>NFC Desktop App</title>
 		<?php
-			if( isset( $_COOKIE['CUSTOMER_TOKEN'] ) ){
+			if (isset($_COOKIE['CUSTOMER_TOKEN'])) {
 				$customerToken = $_COOKIE['CUSTOMER_TOKEN'];
-			}else{
+			} else {
 				header("location: login.php");
 			}
 		?>
