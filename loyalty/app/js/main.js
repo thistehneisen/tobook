@@ -240,7 +240,7 @@ $(document).ready(function () {
         $('#dlgConsumerInfo').modal('show');
     });
 
-    $("#btnAddConsumer").click(function () {
+    $("#btnDeleteConsumer").click(function () {
         var consumerId = getSelectedConsumerId();
         if (consumerId === -1) {
             alert("Please select consumer to delete consumer.");
