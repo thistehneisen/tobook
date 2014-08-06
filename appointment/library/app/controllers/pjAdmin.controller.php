@@ -78,7 +78,8 @@ class pjAdmin extends pjAppController
 				->set('t_arr', $result['t_arr'])
 				->set('service_arr', $result['service_arr'])
 				->set('employee_arr', $result['employee_arr']);
-
+            $this->set('owner_id', $this->getOwnerId());
+            
 			$this->appendJs('jquery.multiselect.min.js', PJ_THIRD_PARTY_PATH . 'multiselect/');
 			$this->appendCss('jquery.multiselect.css', PJ_THIRD_PARTY_PATH . 'multiselect/');
 			
@@ -98,7 +99,7 @@ class pjAdmin extends pjAppController
 
 	private function pjActionGetDashboard($isoDate)
 	{
-		$owner_id = intval($_SESSION['owner_id']);
+		$owner_id = $this->getOwnerId();
 		$service_arr = pjServiceModel::factory()
 			->select('t1.*, t2.content AS `name`')
 			->join('pjMultiLang', sprintf("t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name'"), 'left outer')

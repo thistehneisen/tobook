@@ -279,7 +279,7 @@ class pjAdminOptions extends pjAdmin
 		
 		if ($this->isAdmin())
 		{
-			$owner_id = intval($_COOKIE['owner_id']);
+			$owner_id = $this->getOwnerId();
 			if ( isset($_POST['form_style']) && $_POST['form_style'] > 0 && isset($_POST['id']) && $_POST['id'] > 0 ) {
 				pjStyleModel::factory()->set('id', $_POST['id'])->modify($_POST);
 				
