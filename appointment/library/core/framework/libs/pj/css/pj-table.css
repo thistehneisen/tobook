@@ -266,18 +266,17 @@
 	-webkit-box-shadow: inset 1px 1px 1px #eeeff0;
 	box-shadow: inset 1px 1px 1px #eeeff0;
 	display: block;
-	padding: 3px 3px 3px 3px;
-	width: 77px !important;
+	padding: 3px 20px 3px 3px;
+    width: 100px;
 }
 .pj-status-1,
-.pj-status-T{background: #fff url(../img/pj-active.png) 52px 3px no-repeat;}
+.pj-status-T{background: #fff url(../img/pj-active.png) 80px 3px no-repeat;}
 .pj-status-0,
-.pj-status-F{background: #fff url(../img/pj-disabled.png) 52px 3px no-repeat;}
-.pj-status-E{background: #fff url(../img/pj-icon-time.png) 52px 3px no-repeat;}
-.pj-status-cancelled, .pj-status-Cancelled{background: #fff url(../img/pj-disabled.png) 64px 3px no-repeat;}
-.pj-status-pending, .pj-status-Pending{background: #fff url(../img/pj-pending.png) 64px 3px no-repeat;}
-.pj-status-confirmed, .pj-status-Confirmed{background: #fff url(../img/pj-active.png) 64px 3px no-repeat;}
-.pj-status-T, .pj-status-F, .pj-status-E{width: 65px !important}
+.pj-status-F{background: #fff url(../img/pj-disabled.png) 80px 3px no-repeat;}
+.pj-status-E{background: #fff url(../img/pj-icon-time.png) 80px 3px no-repeat;}
+.pj-status-cancelled, .pj-status-Cancelled{background: #fff url(../img/pj-disabled.png) 80px 3px no-repeat;}
+.pj-status-pending, .pj-status-Pending{background: #fff url(../img/pj-pending.png) 80px 3px no-repeat;}
+.pj-status-confirmed, .pj-status-Confirmed{background: #fff url(../img/pj-active.png) 80px 3px no-repeat;}
 
 .pj-status-icon{
 	display: inline-block;
