@@ -220,14 +220,14 @@ if (isset($tpl['status']))
 										strtotime(date('H:i:s', $start_ts)) > strtotime(date('H:i:s', $week_arr['t_arr']['admin']['end_ts'])) ) ) {
 
 								} elseif (empty($bookings)) {
-									echo '<div style="text-align: center;">';
+									echo '<div class="cell">';
 									echo '<span style="float: left;">'. date($tpl['option_arr']['o_time_format'], $i) .'</span>';
 									
 									if ( count($freetime) > 0 && (
 											strtotime(date('H:i:s', $freetime['start_ts'])) < strtotime(date('H:i:s', $week_arr['t_arr']['client']['start_ts'])) ||
 											strtotime(date('H:i:s', $freetime['end_ts'])) > strtotime(date('H:i:s', $week_arr['t_arr']['client']['end_ts']))
 										) ) {
-										echo $freetime['message'];
+										echo '<span class="message">'.htmlspecialchars($freetime['message']).'</span>';
 											
 									} else {
 										echo '<a class="dashboardView" href="#" data-employee_id="'. $employee['id'] .'" data-start_ts="'. $start_ts .'" >';

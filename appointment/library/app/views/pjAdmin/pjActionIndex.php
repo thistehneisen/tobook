@@ -196,19 +196,20 @@ if (isset($tpl['status']))
 												
 										} elseif (empty($bookings))
 										{
-											echo '<div style="text-align: center;">';
-											echo '<span style="float: left;">'. date($tpl['option_arr']['o_time_format'], $i) .'</span>&nbsp;';
+											echo '<div class="cell">';
+											echo '<span style="float: left;">'. date($tpl['option_arr']['o_time_format'], $i) .'</span>';
 
 											if (isset($freetime) &&  count($freetime) > 0 && ($freetime['start_ts'] < $employee['t_arr']['client']['start_ts'] || $freetime['end_ts'] > $employee['t_arr']['client']['end_ts'])) {
-												echo $freetime['message'];
-
+												echo '<span class="message">'.htmlspecialchars($freetime['message']).'</span>';
 											} else {
 												echo '<a class="dashboardView" title="'. htmlspecialchars($freetime['message']) . '" href="#" data-employee_id="'. $employee['id'] .'" data-start_ts="'. $i .'" >';
 												
 												if ( isset($freetime['message']) && !empty($freetime['message'])) {
 													echo htmlspecialchars($freetime['message']);
 													
-												} else echo  'varaa'; //date($tpl['option_arr']['o_time_format'], $i);
+												} else {
+                                                    echo  'varaa'; //date($tpl['option_arr']['o_time_format'], $i);
+                                                }
 												
 												echo  '</a>';
 											}
