@@ -219,7 +219,7 @@ class pjFrontPublic extends pjFront
 	}
 	
 	public function pjActionServices()
-	{
+	{ 
 		if ($this->isXHR() || isset($_GET['_escaped_fragment_']))
 		{
 			if (isset($_GET['_escaped_fragment_']))
@@ -255,7 +255,7 @@ class pjFrontPublic extends pjFront
 			if ( isset($_SESSION[ PREFIX . 'extra' ]) ) {
 				unset($_SESSION[ PREFIX . 'extra' ]);
 			}
-			
+			 
 			switch ($_GET['layout'])
 			{
 				case 2:
@@ -275,6 +275,7 @@ class pjFrontPublic extends pjFront
 					
 				case 1:
 				default:
+
 					$data = $this->getServices($_GET['cid'], @$page);
 
 					foreach ( $data['data'] as $k => $v ) {
@@ -286,7 +287,7 @@ class pjFrontPublic extends pjFront
 					}
 					
 					$this->set('service_arr', $data);
-					
+
 					$this->setTemplate('pjFrontPublic', 'pjActionServices');
 					break;
 			}

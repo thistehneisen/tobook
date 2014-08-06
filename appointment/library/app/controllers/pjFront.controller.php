@@ -350,29 +350,18 @@ class pjFront extends pjAppController
 	protected function getemployees($cid, $page=1, $owner_id = null)
 	{
 		$employeeModel = null;
-        if($owner_id == null){
-    		$employeeModel = pjEmployeeModel::factory()
-    			->select("t1.*, t2.content AS `name`")
-    			->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
-    			// ->where('t1.calendar_id', $cid)
-    			->where('t1.is_active', 1)
-    			->orderBy('name ASC')
-    			->findAll();
-            
-        } else {
-            $employeeModel = pjEmployeeModel::factory()
-                ->select("t1.*, t2.content AS `name`")
-                ->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
-                ->disableOwnerID()
-                ->where('t1.owner_id', $owner_id)
-                ->where('t1.is_active', 1)
-                ->orderBy('name ASC')
-                ->findAll();
-        }
+
+        $employeeModel = pjEmployeeModel::factory()
+            ->select("t1.*, t2.content AS `name`")
+            ->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
+            ->where('t1.is_active', 1)
+            ->orderBy('name ASC')
+            ->findAll();
+        
 		
 		$employee_arr = $employeeModel->getData();
 		$employee_ids = $employeeModel->getDataPair(null, 'id');
-		
+
 		$bs_arr = array();
 		if (isset($employee_arr) && count($employee_arr) > 0) {
 			

@@ -20,9 +20,11 @@ class pjAppController extends pjController {
 
     public function getOwnerId(){
         $owner_id = 0;
+        $use_front_owner_id = (bool)$_SESSION['use_front_owner_id'];
         if(isset($_SESSION['owner_id'])){
             $owner_id = intval($_SESSION['owner_id']);
-        } else if(isset($_SESSION['front_owner_id'])){
+        }
+        if(isset($_SESSION['front_owner_id']) && $use_front_owner_id){
             $owner_id = intval($_SESSION['front_owner_id']);
         } 
         return $owner_id;
@@ -92,8 +94,6 @@ class pjAppController extends pjController {
         if ($_GET['controller'] != 'pjInstaller')
         {
             $this->models['Option'] = pjOptionModel::factory();
-            $owner_id = $this->getOwnerId();
-            var_dump($owner_id);
             $this->option_arr = $this->models['Option']->getPairs($this->getForeignId());
             $this->set('option_arr', $this->option_arr);
             $this->setTime();

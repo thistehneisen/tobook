@@ -49,9 +49,11 @@ class pjAppModel extends pjModel
 
     private function getOwnerId(){
         $owner_id = 0;
+        $use_front_owner_id = (bool)$_SESSION['use_front_owner_id'];
         if(isset($_SESSION['owner_id'])){
             $owner_id = intval($_SESSION['owner_id']);
-        } else if(isset($_SESSION['front_owner_id'])){
+        }
+        if(isset($_SESSION['front_owner_id']) && $use_front_owner_id){
             $owner_id = intval($_SESSION['front_owner_id']);
         } 
         return $owner_id;

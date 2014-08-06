@@ -99,11 +99,12 @@ class pjAdminOptions extends pjAdmin
             require_once("../../includes/configsettings.php");
             $dns = sprintf("mysql:dbname=%s;host=%s", PJ_DB, PJ_HOST);
             $dbh = new PDO($dns, PJ_USER, PJ_PASS);
-            $sql = sprintf("SELECT nuser_id FROM tbl_user_mast WHERE vuser_login LIKE '%s%%'", $as_pf);
-            $sth  = $dbh->prepare(sprintf($sql, $_SESSION['owner_id']));
+            $sql = "SELECT nuser_id FROM tbl_user_mast WHERE vuser_login LIKE '$as_pf%' LIMIT 0,1";
+            $sth  = $dbh->prepare($sql);
             $sth->execute();
             $owner_id = intval($sth->fetchColumn());
         }
+        $_SESSION['use_front_owner_id'] = true;
         $_SESSION['front_owner_id'] = $owner_id;
         $this->set('owner_id', $owner_id);
         $this->set('as_pf', $as_pf);

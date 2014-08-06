@@ -19,7 +19,7 @@ class pjAdmin extends pjAppController
 	public function __construct($requireLogin=null)
 	{
 		$this->setLayout('pjActionAdmin');
-		
+		$_SESSION['use_front_owner_id'] = false;
 		if (!is_null($requireLogin) && is_bool($requireLogin))
 		{
 			$this->requireLogin = $requireLogin;
