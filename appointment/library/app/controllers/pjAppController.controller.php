@@ -610,7 +610,7 @@ class pjAppController extends pjController {
             
         # Now check for default/global custom working time
         $date_arr = $pjDateModel->getDailyWorkingTime($cid, $date);
-        //var_dump($date_arr);die();
+
         if ($date_arr !== false)
         {
         # It's Day off

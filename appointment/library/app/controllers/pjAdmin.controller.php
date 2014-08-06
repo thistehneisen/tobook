@@ -146,8 +146,8 @@ class pjAdmin extends pjAppController
 			->select('t1.*, t2.booking_status, t2.c_notes, t2.c_name, t4.content AS `service_name`')
 			->join('pjBooking', 't2.id=t1.booking_id', 'inner')
 			->join('pjService', 't3.id=t1.service_id', 'inner')
-			->join('pjMultiLang', "t4.model='pjService' AND t4.foreign_id=t1.service_id AND t4.field='name'", 'left outer') // remove AND t4.locale=t2.locale_id 
-			// banana cocde
+			->join('pjMultiLang', "t4.model='pjService' AND t4.foreign_id=t1.service_id  AND t4.field='name'", 'left outer') // remove AND t4.locale=t2.locale_id 
+			// banana code
             // ->where('t2.calendar_id', $this->getForeignId()) 
 			->where('t2.booking_status', 'confirmed')
 			->where('t1.date', $isoDate)
