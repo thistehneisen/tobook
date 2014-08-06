@@ -318,11 +318,11 @@ class pjAdmin extends pjAppController
 			->select('t1.*, t2.booking_status, t2.c_name, t4.content AS `service_name`')
 			->join('pjBooking', 't2.id=t1.booking_id', 'inner')
 			->join('pjService', 't3.id=t1.service_id', 'inner')
-			->join('pjMultiLang', "t4.model='pjService' AND t4.foreign_id=t1.service_id AND t4.locale=t2.locale_id AND t4.field='name'", 'left outer')
-			->where('t2.calendar_id', $this->getForeignId())
+			->join('pjMultiLang', "t4.model='pjService' AND t4.foreign_id=t1.service_id AND t4.field='name'", 'left outer')//banana code remove locale id
+			// ->where('t2.calendar_id', $this->getForeignId())
 			->where('t2.booking_status', 'confirmed')
 			->where('t1.date', $isoDate)
-			->where($this->isEmployee() ? sprintf("t1.service_id='%u'", $this->getUserId()) : "1=1")
+			//->where($this->isEmployee() ? sprintf("t1.service_id='%u'", $this->getUserId()) : "1=1")
 			->findAll()
 			->getData();
 		
