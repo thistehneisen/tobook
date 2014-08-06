@@ -283,7 +283,7 @@ class pjFrontEnd extends pjFront
 
 		if ($this->isXHR())
 		{
-            $owner_id = (int) $_GET['owner_id'];
+            $owner_id = $this->getOwnerId();
 
 			if (!isset($_POST['as_preview']) || !isset($_SESSION[$this->defaultForm]) || empty($_SESSION[$this->defaultForm]))
 			{
