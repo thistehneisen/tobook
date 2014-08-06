@@ -155,7 +155,7 @@ function getSelectedConsumerInfo(consumerId) {
         },
         success: function (data) {
             if (data.result === "success") {
-                
+                return data;
             } else {
                 alert(data.msg);
             }
