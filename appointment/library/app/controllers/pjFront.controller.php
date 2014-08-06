@@ -47,7 +47,7 @@ class pjFront extends pjAppController
 	
 	public function beforeFilter()
 	{
-		$owner_id = intval($_SESSION['owner_id']);
+		$owner_id = $this->getOwnerId();
 		$pjOptionModel = pjOptionModel::factory();
 		$this->option_arr = $pjOptionModel->getPairs($owner_id);
 		$this->set('option_arr', $this->option_arr);
@@ -224,7 +224,7 @@ class pjFront extends pjAppController
 		return compact('cart', 'services', 'tax', 'total', 'deposit', 'price');
 	}
 
-	protected function getCalendar($cid, $year=null, $month=null, $day=null)
+	protected function getCalendar($cid, $year=null, $month=null, $day=null, $owner_id = null)
 	{
 		list($y, $n, $j) = explode("-", date("Y-n-j"));
 		$year = is_null($year) ? $y : $year;
@@ -320,26 +320,26 @@ class pjFront extends pjAppController
 		return $service_arr;
 	}
 	
-	protected function getServices($cid, $page=1)
+	protected function getServices($cid, $page=1, $owner_id = null)
 	{
-		$owner_id = intval($_SESSION['owner_id']);
-		$data = pjServiceModel::factory()
-			->select("t1.*, t2.content AS `name`, t3.content AS `description`")
+        $pjServiceModel = pjServiceModel::factory();
+
+		$data = pjServiceModel::factory()->select("t1.*, t2.content AS `name`, t3.content AS `description`")
 			->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
 			->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.id AND t3.field='description'", 'left outer')
 			// ->where('t1.calendar_id', $cid)
 			->where('t1.is_active', 1)
-			->where('t1.owner_id', $owner_id)
 			->orderBy('`name` ASC')
 			->findAll()
 			->getData();
 		
 		$services = $data;
 		foreach ($data as $k => $service) {
-			$services[$k]['extra_count'] = pjServiceExtraServiceModel::factory()
-											->where('service_id', $service['id'])
-											->findCount()
-											->getData();
+            if($owner_id == null){
+                $services[$k]['extra_count'] = pjServiceExtraServiceModel::factory()->where('service_id', $service['id'])->findCount()->getData();
+            } else {
+                $services[$k]['extra_count'] = pjServiceExtraServiceModel::factory()->disableOwnerID()->where('service_id', $service['id'])->findCount()->getData();
+            }
 		}
 		
 		$data = $services;
@@ -347,16 +347,28 @@ class pjFront extends pjAppController
 		return compact('data');
 	}
 	
-	protected function getemployees($cid, $page=1)
+	protected function getemployees($cid, $page=1, $owner_id = null)
 	{
-			
-		$employeeModel = pjEmployeeModel::factory()
-			->select("t1.*, t2.content AS `name`")
-			->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
-			// ->where('t1.calendar_id', $cid)
-			->where('t1.is_active', 1)
-			->orderBy('name ASC')
-			->findAll();
+		$employeeModel = null;
+        if($owner_id == null){
+    		$employeeModel = pjEmployeeModel::factory()
+    			->select("t1.*, t2.content AS `name`")
+    			->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
+    			// ->where('t1.calendar_id', $cid)
+    			->where('t1.is_active', 1)
+    			->orderBy('name ASC')
+    			->findAll();
+            
+        } else {
+            $employeeModel = pjEmployeeModel::factory()
+                ->select("t1.*, t2.content AS `name`")
+                ->join('pjMultiLang', "t2.model='pjEmployee' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
+                ->disableOwnerID()
+                ->where('t1.owner_id', $owner_id)
+                ->where('t1.is_active', 1)
+                ->orderBy('name ASC')
+                ->findAll();
+        }
 		
 		$employee_arr = $employeeModel->getData();
 		$employee_ids = $employeeModel->getDataPair(null, 'id');

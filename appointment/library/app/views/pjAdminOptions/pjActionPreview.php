@@ -63,6 +63,6 @@
 			</div>
 			<?php } ?>
 		</header>
-		<script type="text/javascript" src="<?php echo PJ_INSTALL_FOLDER; ?>index.php?controller=pjFrontEnd&action=pjActionLoad"></script>
+		<script type="text/javascript" src="<?php echo PJ_INSTALL_FOLDER; ?>index.php?controller=pjFrontEnd&action=pjActionLoad&as_pf=<?php echo $tpl['as_pf']; ?>&owner_id=<?php echo $tpl['owner_id'];?>"></script>
 	</body>
 </html>

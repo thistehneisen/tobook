@@ -17,6 +17,17 @@ class pjAppController extends pjController {
     
     private $layoutRange = array(1, 2, 3);
     
+
+    public function getOwnerId(){
+        $owner_id = 0;
+        if(isset($_SESSION['owner_id'])){
+            $owner_id = intval($_SESSION['owner_id']);
+        } else if(isset($_SESSION['front_owner_id'])){
+            $owner_id = intval($_SESSION['front_owner_id']);
+        } 
+        return $owner_id;
+    }
+
     public function getLayoutRange()
     {
         return $this->layoutRange;
@@ -81,6 +92,8 @@ class pjAppController extends pjController {
         if ($_GET['controller'] != 'pjInstaller')
         {
             $this->models['Option'] = pjOptionModel::factory();
+            $owner_id = $this->getOwnerId();
+            var_dump($owner_id);
             $this->option_arr = $this->models['Option']->getPairs($this->getForeignId());
             $this->set('option_arr', $this->option_arr);
             $this->setTime();

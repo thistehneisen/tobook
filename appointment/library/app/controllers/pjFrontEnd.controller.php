@@ -459,7 +459,7 @@ class pjFrontEnd extends pjFront
 		
 		ob_start();
 		header("Content-Type: text/javascript; charset=utf-8");
-		
+
 		$days_off = $dates_off = $dates_on = array();
 		$w_arr = pjWorkingTimeModel::factory()->where('t1.foreign_id', $this->getForeignId())->where('t1.type', 'calendar')->findAll()->getData();
 		if (!empty($w_arr))
@@ -497,7 +497,7 @@ class pjFrontEnd extends pjFront
 		}
 		
 		$d_arr = pjDateModel::factory()
-			->where('t1.foreign_id', $this->getForeignId())
+			// ->where('t1.foreign_id', $this->getForeignId())
 			->where('t1.type', 'calendar')
 			->where('t1.date >= CURDATE()')
 			->findAll()

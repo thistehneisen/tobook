@@ -16,10 +16,6 @@ class pjAdmin extends pjAppController
 	
 	public $requireLogin = true;
 
-    public function getOwnerId(){
-        return (intval($_SESSION['owner_id']));
-    }
-
 	public function __construct($requireLogin=null)
 	{
 		$this->setLayout('pjActionAdmin');
