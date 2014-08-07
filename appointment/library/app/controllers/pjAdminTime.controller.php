@@ -97,7 +97,7 @@ class pjAdminTime extends pjAdmin
 				->limit(1)
 				->findAll()
 				->getData();
-			
+
 			$this->set('wt_arr', !empty($wt_arr) ? $wt_arr[0] : array());
 			$this->appendJs('pjAdminTime.js');
 		} else {

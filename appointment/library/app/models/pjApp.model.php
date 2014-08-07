@@ -39,11 +39,11 @@ class pjAppModel extends pjModel
         return parent::join($model, $condition, $direction);
     }
 
-    protected function setOwnerId()
+    protected function setOwnerId($tableAlias='t1.')
     {
         $owner_id = $this->getOwnerId();
         if($this->isUseOwnerID) {
-            $this->where('t1.owner_id', $owner_id);
+            $this->where($tableAlias.'owner_id', $owner_id);
         }
     }
 
@@ -57,6 +57,21 @@ class pjAppModel extends pjModel
             $owner_id = intval($_SESSION['front_owner_id']);
         } 
         return $owner_id;
+    }
+
+    public function eraseAll(){
+        $this->setOwnerId('');
+        return parent::eraseAll();
+    }
+
+    public function modifyAll($data=array()){
+        $this->setOwnerId('');
+        return parent::modifyAll($data);
+    }
+
+    public function erase(){
+        $this->setOwnerId('');
+        return parent::erase();
     }
 }
 
