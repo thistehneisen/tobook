@@ -239,7 +239,7 @@ if (isset($tpl['status']))
                                                                     if(!empty($booking['service_id'])):
                                                                         echo pjSanitize::html($booking['service_name']); 
                                                                     else:
-                                                                        __('deleted_service');
+                                                                        __('empty_service');
                                                                     endif;
                                                         ?>)</span>
                                                         </a>

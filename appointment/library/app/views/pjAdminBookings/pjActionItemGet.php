@@ -34,6 +34,6 @@ if (isset($tpl['bi_arr']) && !empty($tpl['bi_arr']))
 	</table>
 	<?php
 } else {
-	?><span class="left"><?php __('booking_i_empty'); ?></span><?php
+	?><span class="left"><?php __('empty_service'); ?></span><?php
 }
 ?>
