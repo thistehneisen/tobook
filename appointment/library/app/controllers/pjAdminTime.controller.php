@@ -48,6 +48,7 @@ class pjAdminTime extends pjAdmin
 					pjWorkingTimeModel::factory()
 						->where('t1.foreign_id', $this->getUserId())
 						->where('t1.type', 'employee')
+                        ->where('t1.owner_id', $owner_id)
 						->limit(1)
 						->modifyAll(array_merge($_POST, $data));
 				} else {
