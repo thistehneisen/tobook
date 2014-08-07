@@ -11,7 +11,7 @@
 @section ('content')
 <div class="row">
     <div class="col-xs-12">
-        <h1 class="comfortaa orange">Kirjaudu sisään</h1>
+        <h1 class="comfortaa orange">Luo Tilin</h1>
         <h4 class="comfortaa">Täytä seuraavat tiedot:</h4>
 
         {{ Form::open(['route' => 'auth.register', 'class' => 'form-horizontal', 'role' => 'form']) }}
