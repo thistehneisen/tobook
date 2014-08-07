@@ -1,4 +1,8 @@
 <?php
+require_once realpath(CONTROLLERS_PATH.'../../../../vendor/autoload.php');
+require_once realpath(CONTROLLERS_PATH.'../../../../includes/configsettings.php');
+
+
 /**
  * E-Mail component
  *
@@ -35,12 +39,17 @@ class Email
  * @access private
  */
 	var $charset = "utf-8";
+
+	var $mailer;
 /**
  * Constructor
  */
 	function Email()
 	{
-		//constructor
+		$transport = Swift_SmtpTransport::newInstance(SMTP_HOST, SMTP_PORT)
+            ->setUsername(SMTP_USERNAME)
+            ->setPassword(SMTP_PASSWORD);
+        $this->mailer = Swift_Mailer::newInstance($transport);
 	}
 /**
  * Send mail
@@ -54,27 +63,33 @@ class Email
  */
 	function send($to, $subject, $message, $sender)
 	{
-		if (!preg_match($this->emailRegExp, $to))
-		{
-			return false;
-		}
+		$msg = Swift_Message::newInstance($subject)
+            ->setFrom(array($sender))
+            ->setTo(array($to))
+            ->setBody($message);
+        return $this->mailer->send($msg);
+        
+		// if (!preg_match($this->emailRegExp, $to))
+		// {
+		// 	return false;
+		// }
 		
-		if (!preg_match($this->emailRegExp, $sender))
-		{
-			return false;
-		}
+		// if (!preg_match($this->emailRegExp, $sender))
+		// {
+		// 	return false;
+		// }
 		
-		$headers  = "MIME-Version: 1.0" . $this->eol;
-		$headers .= "Content-type: ".$this->contentType."; charset=" . $this->charset . $this->eol;
-		$headers .= "From: $sender" . $this->eol;
-		$headers .= "Reply-To: $sender" . $this->eol;
-		//$headers .= "Return-Path: $sender" . $this->eol;
-		//$headers .= "X-Mailer: PHP/" . phpversion() . $this->eol;
-		//$headers .= "Message-Id:" . md5(time()) . $this->eol;
-		//$headers .= "X-Originating-IP:" . $_SERVER['REMOTE_ADDR'];
+		// $headers  = "MIME-Version: 1.0" . $this->eol;
+		// $headers .= "Content-type: ".$this->contentType."; charset=" . $this->charset . $this->eol;
+		// $headers .= "From: $sender" . $this->eol;
+		// $headers .= "Reply-To: $sender" . $this->eol;
+		// //$headers .= "Return-Path: $sender" . $this->eol;
+		// //$headers .= "X-Mailer: PHP/" . phpversion() . $this->eol;
+		// //$headers .= "Message-Id:" . md5(time()) . $this->eol;
+		// //$headers .= "X-Originating-IP:" . $_SERVER['REMOTE_ADDR'];
 		
-		$subject = '=?UTF-8?B?'.base64_encode($subject).'?=';
-		return @mail($to, $subject, $message, $headers);
+		// $subject = '=?UTF-8?B?'.base64_encode($subject).'?=';
+		// return @mail($to, $subject, $message, $headers);
 	}
 /**
  * Set character set
