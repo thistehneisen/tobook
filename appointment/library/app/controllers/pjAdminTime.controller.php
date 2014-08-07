@@ -45,12 +45,12 @@ class pjAdminTime extends pjAdmin
 
 				if ($this->isEmployee())
 				{
-					pjWorkingTimeModel::factory()
-						->where('t1.foreign_id', $this->getUserId())
-						->where('t1.type', 'employee')
-                        ->where('t1.owner_id', $owner_id)
-						->limit(1)
-						->modifyAll(array_merge($_POST, $data));
+					// pjWorkingTimeModel::factory()
+					// 	->where('t1.foreign_id', $this->getUserId())
+					// 	->where('t1.type', 'employee')
+                    //->where('t1.owner_id', $owner_id)
+					// 	->limit(1)
+					// 	->modifyAll(array_merge($_POST, $data));
 				} else {
 					/*
                     FUCK THIS SHIT, BEGONE!
@@ -93,7 +93,7 @@ class pjAdminTime extends pjAdmin
 			}
 			
 			$wt_arr = pjWorkingTimeModel::factory()
-				->where('t1.foreign_id', $foreign_id)
+				// ->where('t1.foreign_id', $foreign_id)
 				->where('t1.type', $type)
 				->limit(1)
 				->findAll()

@@ -235,7 +235,13 @@ if (isset($tpl['status']))
                                                         <span data-toggle="tooltip" data-placement="left" title="<?php echo pjSanitize::html($booking['c_notes']); ?>"><i class="glyphicon glyphicon-question-sign"></i></span>
                                                         <?php endif;?>
                                                         <?php echo pjSanitize::html($booking['c_name']); ?>
-                                                        <span class="fs11"> (<?php echo pjSanitize::html($booking['service_name']); ?>)</span>
+                                                        <span class="fs11"> (<?php
+                                                                    if(!empty($booking['service_id'])):
+                                                                        echo pjSanitize::html($booking['service_name']); 
+                                                                    else:
+                                                                        __('deleted_service');
+                                                                    endif;
+                                                        ?>)</span>
                                                         </a>
                                                     <?php endif;?>
 													<?php //if ( $tpl['option_arr']['o_custom_status'] == 1 ) { ?>
