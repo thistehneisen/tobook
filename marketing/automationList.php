@@ -12,7 +12,7 @@ if (!headers_sent())
 <html lang="en"> <!--<![endif]-->
 <head>
     <?php require_once("common/config.php"); ?>
-    <?php require_once("common/DB_Connection.php"); ?>
+    <?php require_once("../DB_Connection.php"); ?>
     <?php require_once("common/header.php"); ?>
     <?php require_once("common/asset.php"); ?>
     <?php require_once("common/functions.php"); ?>    
@@ -77,7 +77,7 @@ if (!headers_sent())
 							<td><a href="automationForm.php?id=<?php echo base64_encode($automationList[$i]['marketing_auto'])?>"><?php echo $automationList[$i]['title']?></a></td>
 							<td style="text-align:center;">
 								<?php
-									if( $automationList[$i]['type'] == "email" ) echo $MT_LANG['email'];;
+									if( $automationList[$i]['type'] == "email" ) echo $MT_LANG['email'];
 									else if( $automationList[$i]['type'] == "sms" ) echo "SMS";
 								?>
 							</td>

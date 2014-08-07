@@ -131,7 +131,7 @@ include "includes/userheader.php";
             return;
         }
     	$.ajax({
-            url: "marketing/async-isValidDomain.php",
+            url: "domain/async-isValidDomain.php",
             dataType : "json",
             type : "POST",
             data : { domainName : domainName },
@@ -175,7 +175,7 @@ include "includes/userheader.php";
 		var ownerId = $("#ownerId").val( );
 		var siteId = $("#siteId").val( );
     	$.ajax({
-            url: "marketing/async-createDomain.php",
+            url: "domain/async-createDomain.php",
             dataType : "json",
             type : "POST",
             data : { domainName : domainName, ownerId : ownerId, siteId : siteId },
@@ -202,7 +202,7 @@ include "includes/userheader.php";
 		var ownerId = $("#ownerId").val( );
 		var siteId = $("#siteId").val( );
     	$.ajax({
-            url: "marketing/async-transferDomain.php",
+            url: "domain/async-transferDomain.php",
             dataType : "json",
             type : "POST",
             data : { domainName : domainName, ownerId : ownerId, siteId : siteId },
@@ -235,7 +235,7 @@ include "includes/userheader.php";
 	function onEditWebsite( ){
 		var siteId = $("#siteId").val( );
     	$.ajax({
-            url: "marketing/async-updateSite.php",
+            url: "domain/async-updateSite.php",
             dataType : "json",
             type : "POST",
             data : { siteId : siteId },

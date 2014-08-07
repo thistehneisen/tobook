@@ -1,16 +1,4 @@
-function onSignOut(){
-	$.ajax({
-        url: "/async-signOut.php",
-        dataType : "json",
-        type : "POST",
-        success : function(data){
-            if(data.result == "success"){
-                window.location.href = "index.php";
-                return;
-            }else{
-                alert("Sign Out Failed");
-                return;
-            }
-        }
-    });	
+function validateEmail(email) { 
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
 }

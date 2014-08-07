@@ -10,7 +10,7 @@ include "includes/userheader.php";
 	
 	<?php 	
 		$loginName = $_SESSION["session_loginname"];
-		$loginId = $_SESSION["session_userid"];
+		$loginId = $_SESSION["owner_id"];
 		$plugins_url = "http://".$_SERVER['SERVER_NAME']."/marketing/index.php?username=$loginName"."&userid=$loginId";
 		
 		$sql = "select * from tbl_owner_premium where owner = $loginId and plan_group_code = 'mt'";
