@@ -24,15 +24,15 @@ $(document).ready( function(){
 	
 	chart1 = $('#divChart1').highcharts({
         title: {
-            text: 'Statistic Info of Revenue',
-            x: -20 //center
+            text: $("#statisticsOfRevenue").val(),
+            x: -20
         },
         xAxis: {
             categories: ['']
         },
         yAxis: {
             title: {
-                text: 'Revenue'
+                text: $("#revenue").val()
             },
             plotLines: [{
                 value: 0,
@@ -51,7 +51,7 @@ $(document).ready( function(){
 	
 	chart2 = $('#divChart2').highcharts({
         title: {
-            text: 'Statistic of Reservations',
+            text: $("#statisticsOfReservations").val(),
             x: -20 //center
         },
         xAxis: {
@@ -59,7 +59,7 @@ $(document).ready( function(){
         },
         yAxis: {
             title: {
-                text: 'Reservations'
+                text: $("#reservations").val()
             },
             plotLines: [{
                 value: 0,
@@ -78,7 +78,7 @@ $(document).ready( function(){
 	
 	chart3 = $('#divChart3').highcharts({
         title: {
-            text: 'Statistic of Covers',
+            text: $("#statisticsOfCovers").val(),
             x: -20 //center
         },
         xAxis: {
@@ -86,7 +86,7 @@ $(document).ready( function(){
         },
         yAxis: {
             title: {
-                text: 'Covers'
+                text: $("#covers").val()
             },
             plotLines: [{
                 value: 0,
@@ -181,9 +181,9 @@ function onCalculate( ){
                 				+ "</tr>";
                 		}
                     	if( userId == "" ){
-                    		$("#lblListType").html( "Users" );
+                    		$("#lblListType").html( $("#users").val() );
                     	}else{
-                    		$("#lblListType").html( "Services" );
+                    		$("#lblListType").html( $("#services").val() );
                     	}
             		}
                 	$("#tblStatistics").find("tbody").html( strHTML );

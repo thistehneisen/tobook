@@ -3,7 +3,7 @@ var chart2;
 var chart3;
 var chart4;
 $(document).ready( function(){
-	$('#startDate, #endDate').datepicker({format: 'yyyy-mm-dd', showToday: true});
+	$('#startDate, #endDate').datepicker({format: 'yyyy-mm-dd', showToday: true});    
 	
 	var startDate = new Date();
 	startDate.setDate( startDate.getDate() - 6 );
@@ -27,7 +27,7 @@ $(document).ready( function(){
 	
 	chart1 = $('#divChart1').highcharts({
         title: {
-            text: 'Statistic Info of Revenue',
+            text: $("#statisticsOfRevenue").val(),
             x: -20 //center
         },
         xAxis: {
@@ -35,7 +35,7 @@ $(document).ready( function(){
         },
         yAxis: {
             title: {
-                text: 'Revenue'
+                text: $("#revenue").val()
             },
             plotLines: [{
                 value: 0,
@@ -54,7 +54,7 @@ $(document).ready( function(){
 	
 	chart2 = $('#divChart2').highcharts({
         title: {
-            text: 'Statistic Info of Booking Count',
+            text: $("#statisticsOfBookingCount").val(),
             x: -20 //center
         },
         xAxis: {
@@ -62,7 +62,7 @@ $(document).ready( function(){
         },
         yAxis: {
             title: {
-                text: 'Number Of Booking'
+                text: $("#numberOfBooking").val()
             },
             plotLines: [{
                 value: 0,
@@ -84,7 +84,7 @@ $(document).ready( function(){
             type: 'area'
         },		
         title: {
-            text: 'Statistic Info of Hours',
+            text: $("#statisticsOfHours").val(),
             x: -20 //center
         },
         xAxis: {
@@ -92,7 +92,7 @@ $(document).ready( function(){
         },
         yAxis: {
             title: {
-                text: ' Hours'
+                text: $("#hours").val()
             },
             plotLines: [{
                 value: 0,
@@ -111,7 +111,7 @@ $(document).ready( function(){
 	
 	chart4 = $('#divChart4').highcharts({	
         title: {
-            text: 'Percent of Booking & Working Hours',
+            text: $("#percentOfBookingNWorkingHours").val(),
             x: -20 //center
         },
         xAxis: {
@@ -119,7 +119,7 @@ $(document).ready( function(){
         },
         yAxis: {
             title: {
-                text: ' Percent'
+                text: $("#percent").val()
             },
             plotLines: [{
                 value: 0,
@@ -147,8 +147,8 @@ function onChangeUser( ){
         data : { userId : userId, userName : userName },
         success : function(data){
             if(data.result == "success"){
-            	var strHTML = '<option value="">All Employees</option>';
-            	strHTML+= '<option value="individual">Individual Employees</option>';
+            	var strHTML = '<option value="">' + $("#allEmployees").val() + '</option>';
+            	strHTML+= '<option value="individual">' + $("#individualEmployees").val() + '</option>';
             	var employeeList = data.employeeList;
             	for( var i = 0 ; i < employeeList.length; i ++ ){
             		strHTML+= '<option value="' + employeeList[i].id + '">' + employeeList[i].name + '</option>';

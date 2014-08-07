@@ -106,18 +106,18 @@
 	$MT_LANG['customerInformation'] = 'Asiaskastiedot';
 	
 	$MT_LANG['joinGroup'] = 'Liittyi ryhmä';
-	$MT_LANG['selectMarketingType'] = 'Select Marketing Type.';
-	$MT_LANG['selectCampaign'] = 'Select Campaign.';
-	$MT_LANG['delivered'] = 'Delivered';
-	$MT_LANG['unsubscribes'] = 'Unsubscribes';
-	$MT_LANG['invalid'] = 'Invalid';
-	$MT_LANG['opens'] = 'Opens';
-	$MT_LANG['clicks'] = 'Clicks';
-	$MT_LANG['bounces'] = 'Bounces';
-	$MT_LANG['requests'] = 'Requests';
-	$MT_LANG['msgNoCampaign'] = 'There is no Campaign';
-	$MT_LANG['close'] = 'Close';
-	$MT_LANG['msgNoGroup'] = 'There is no Group';
-	$MT_LANG['msgNoAccess'] = 'You can not access this page';	
+	$MT_LANG['selectMarketingType'] = 'Markkinoinnin tyyppi.';
+	$MT_LANG['selectCampaign'] = 'Valitse kampanja.';
+	$MT_LANG['delivered'] = 'Lähetetty';
+	$MT_LANG['unsubscribes'] = 'Poistuneet';
+	$MT_LANG['invalid'] = 'Ei onnistunut';
+	$MT_LANG['opens'] = 'Avatut';
+	$MT_LANG['clicks'] = 'Klikkaukset';
+	$MT_LANG['bounces'] = 'Epäonnistuneet';
+	$MT_LANG['requests'] = 'Pyynnöt';
+	$MT_LANG['msgNoCampaign'] = 'Ei ole luotuja kampanjoita.';
+	$MT_LANG['close'] = 'Suljettu';
+	$MT_LANG['msgNoGroup'] = 'Ryhmiä ei ole luotu.';
+	$MT_LANG['msgNoAccess'] = 'Sivua ei voida avata.';	
 	
 ?>
