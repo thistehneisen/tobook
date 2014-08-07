@@ -4,9 +4,11 @@ require_once __DIR__.'/vendor/autoload.php';
 
 use Cmd\MigrateCommand;
 use Cmd\ConfigCommand;
+use Cmd\FixWorkingTimesCommand;
 use Symfony\Component\Console\Application;
 
 $application = new Application();
 $application->add(new MigrateCommand);
 $application->add(new ConfigCommand);
+$application->add(new FixWorkingTimesCommand);
 $application->run();
