@@ -26,8 +26,8 @@
         @section('nav')
             <nav class="text-right">
                 <ul class="list-inline nav-links">
-                    <li><a href="#">Etusivu</a></li>
-                    <li><a href="#">Rekisteröidy</a></li>
+                    <li><a href="{{ route('home') }}">Etusivu</a></li>
+                    <li><a href="{{ route('auth.register') }}">Rekisteröidy</a></li>
                     <li><a href="{{ route('auth.login') }}">Kirjaudu</a></li>
                 </ul>
             </nav>

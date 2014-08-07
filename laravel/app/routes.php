@@ -24,3 +24,8 @@ Route::get('login', [
 Route::post('login', [
 	'uses' => 'App\Controllers\Auth@doLogin'
 ]);
+
+Route::get('register', [
+	'as' => 'auth.register',
+	'uses' => 'App\Controllers\Auth@register'
+]);
