@@ -110,12 +110,10 @@ class FixWorkingTimesCommand extends Command
             return;
         }
 
-        // Update foreign_id
-        $oldForeignId = $row['foreign_id'];
-        $row['foreign_id'] = $employeeId;
-
         // Remove ID
         unset($row['id']);
+        unset($row['foreign_id']);
+        unset($row['type']);
 
         // Update data
         $query = $this->db->createQueryBuilder()
@@ -124,7 +122,7 @@ class FixWorkingTimesCommand extends Command
             ->andWhere('foreign_id = ?')
             ->andWhere('type = ?')
             ->setParameter(0, $ownerId)
-            ->setParameter(1, $oldForeignId)
+            ->setParameter(1, $employeeId)
             ->setParameter(2, 'employee');
 
         foreach ($row as $field => $value) {
@@ -132,6 +130,7 @@ class FixWorkingTimesCommand extends Command
         }
 
         try {
+            // echo "\n".$query->getSQL()."\n";
             $query->execute();
         } catch (\Exception $ex) {
             echo "\t^ Do it later\n";
