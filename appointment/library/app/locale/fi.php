@@ -384,6 +384,7 @@ $i18n = array(
     'time_update_default' => 'Päivitä oletustyöaika',
     'opt_o_layout' => 'Näkymä',
     'front_single_date' => 'Valitse päivämäärä',
+	'front_single_Categories' => 'Valitse varauksen tyyppi',
     'front_single_service' => 'Palvelu',
     'front_single_time' => 'Määritä aika',
     'front_single_employee' => 'Työntekijä',

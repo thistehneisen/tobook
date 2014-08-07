@@ -1048,5 +1048,79 @@ class pjFrontEnd extends pjFront
 		$this->set('service_arr', pjServiceModel::factory()->find($_GET['service_id'])->getData());
 		$this->set('employee_arr', $employee_arr);
 	}
+	
+	public function pjActionLoadAjax () {
+		
+		if ( isset($_GET['category_id']) && (int) $_GET['category_id'] > 0 ) {
+			$owner_id = intval($_SESSION['owner_id']);
+			$service_arr = pjServiceModel::factory()
+				->select("t1.*, t2.content AS `name`, t3.content AS `description`")
+				->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
+				->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.id AND t3.field='description'", 'left outer')
+				->where('t1.is_active', 1)
+				->where('t1.owner_id', $owner_id)
+				->where('t1.category_id', $_GET['category_id'])
+				->orderBy('`name` ASC')
+				->findAll()
+				->getData();
+			
+			$this->set('service_arr', $service_arr);
+			
+		} elseif ( isset($_GET['service_id']) && (int) $_GET['service_id'] > 0 &&
+					(!isset($_GET['employee_id']) || (int) $_GET['employee_id'] < 1) ) {
+			$employee_arr = pjEmployeeServiceModel::factory()
+				->select("t1.*, t2.notes, t3.content AS `name`")
+				->join('pjEmployee', 't2.id=t1.employee_id AND t2.is_active=1', 'inner')
+				->join('pjMultiLang', "t3.model='pjEmployee' AND t3.foreign_id=t1.employee_id AND t3.field='name' AND t3.locale='".$this->getLocaleId()."'", 'left outer')
+				->where('t1.service_id', $_GET['service_id'])
+				->orderBy('`name` ASC')
+				->findAll()
+				->getData();
+			
+			$this->set('employee_arr', $employee_arr);
+			
+		} elseif ( isset($_GET['service_id']) && (int) $_GET['service_id'] > 0 &&
+					isset($_GET['employee_id']) && (int) $_GET['employee_id'] > 0 ) {
+			
+			$owner_id = intval($_SESSION['owner_id']);
+			$date = isset($_GET['date']) && !empty($_GET['date']) ? $_GET['date'] : date("Y-m-d");
+			$t_arr = array();
+			$bs_arr = array();
+			for ( $i = 0; $i < 5; $i++ ) {
+			
+				if ( $i == 0 ) {
+					$isoDate = date('Y-m-d', strtotime($date . ' 00:00:00'));
+						
+				} else $isoDate = date('Y-m-d', strtotime($date . ' 00:00:00') + $i*86400);
+			
+				$t_arr[$i] = pjAppController::getRawSlotsPerEmployee($_GET['employee_id'], $isoDate, $this->getForeignId());
+			
+				$bs_arr[$i] = pjBookingServiceModel::factory()
+					->select('t1.*')
+					->join('pjBooking', 't2.id=t1.booking_id', 'inner')
+					->join('pjService', 't3.id=t1.service_id', 'inner')
+					// banana cocde
+					// ->where('t2.calendar_id', $this->getForeignId())
+					->where('t2.booking_status', 'confirmed')
+					->where('t1.date', $isoDate)
+					->where('t1.service_id', $_GET['service_id'])
+					->where('t1.employee_id', $_GET['employee_id'])
+					->findAll()
+					->getData();
+			}
+			
+			$service_arr = pjServiceModel::factory()
+				->select("t1.*")
+				->where('t1.is_active', 1)
+				->where('t1.owner_id', $owner_id)
+				->where('t1.id', $_GET['service_id'])
+				->find($_GET['service_id'])
+				->getData();
+			
+			$this->set('bs_arr', $bs_arr);
+			$this->set('t_arr', $t_arr);
+			$this->set('service_arr', $service_arr);
+		}
+	}
 }
 ?>

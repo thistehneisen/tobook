@@ -181,6 +181,13 @@
 	max-width: 400px;
 }
 
+/* Custom */
+.asSelectorSingleForm .asBoxInner{
+	display: inline-block;
+	width: 100%;
+}
+
+
 /* Responsive design */
 @media screen and (max-width: 479px) {
 	.asContainer .asLabel,
