@@ -43,8 +43,14 @@ a:link, a:hover {
 	font-weight: 600;
 }
 
+.nav-links.active a,
 .nav-links a:hover {
-	text-decoration: underline;
+    color: #fff;
+}
+
+/* No need to highlight pipebar */
+.nav-links:hover a:after {
+    color: #333;
 }
 
 .nav-links a:after {
