@@ -5,7 +5,11 @@
 <!--[if gt IE 9]><!-->
 <html lang="en"> <!--<![endif]-->
 	<head>
-		<link rel='stylesheet' href="css/style.css" type='text/css' media='all'/>
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/bootstrap.style.css">
+		<link rel="stylesheet" href="css/responsive.css">
+		<link rel="stylesheet" href="font-awesome/css/font-awesome.css">
+		<link rel='stylesheet' href="css/style.css" type='text/css' media='all'/>	
 	</head>
 	<body>
 		<div class="frontTopBackground">
