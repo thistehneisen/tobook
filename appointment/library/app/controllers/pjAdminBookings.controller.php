@@ -1089,7 +1089,7 @@ class pjAdminBookings extends pjAdmin
 		if ($this->isXHR() && $this->isLoged())
 		{
 			$pjBookingServiceModel = pjBookingServiceModel::factory()
-				->select("t1.*, t4.id as `service_id`,t2.content AS `service`, t3.content AS `employee`")
+				->select("t1.*, t2.content AS `service`, t3.content AS `employee`")
 				->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.service_id AND t2.field='name'")
 				->join('pjMultiLang', "t3.model='pjEmployee' AND t3.foreign_id=t1.employee_id AND t3.field='name'");
 			
