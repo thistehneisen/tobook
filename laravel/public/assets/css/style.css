@@ -50,7 +50,31 @@ body {
 }
 
 .img-homepage {
-	width: 80%;
+	width: 80vh;
+}
+.imac-wrapper {
+	display: block;
+	text-align: center;
+}
+
+.imac {
+	background: transparent url(../img/imac.png) no-repeat center center;
+	position: relative;
+	width: 565px;
+	height: 450px;
+	display: inline-block;
+}
+
+.bx-wrapper {
+	padding-top: 19px;
+	padding-left: 20px;
+}
+
+.bx-wrapper .bx-viewport {
+	background: transparent;
+	border: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
 }
 
 .grey-divider {

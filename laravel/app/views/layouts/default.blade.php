@@ -10,10 +10,10 @@
         @show
     </title>
     
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    {{ HTML::style('//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css') }}
+    {{ HTML::style('//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css') }}
     @yield('styles')
+    {{ HTML::style(asset('assets/css/style.css')) }}
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -23,6 +23,7 @@
 </head>
 <body>
         <header class="header homepage">
+        @section('nav')
             <nav class="text-right">
                 <ul class="list-inline nav-links">
                     <li><a href="#">Etusivu</a></li>
@@ -30,51 +31,27 @@
                     <li><a href="#">Kirjaudu</a></li>
                 </ul>
             </nav>
-
+        @show
+        
+        @section('header')
             <a href="#"><img src="{{ asset('assets/img/logo.png') }}" alt=""></a>
+            <div class="imac-wrapper">
+                <div class="imac">
+                    <ul class="bxslider">
+                      <li><img src="{{ asset('assets/img/slides/1.jpg') }}" /></li>
+                      <li><img src="{{ asset('assets/img/slides/2.jpg') }}" /></li>
+                      <li><img src="{{ asset('assets/img/slides/3.jpg') }}" /></li>
+                      <li><img src="{{ asset('assets/img/slides/4.jpg') }}" /></li>
+                    </ul>
+                </div>
+            </div>
             <p><img src="{{ asset('assets/img/homepage-text.png') }}" alt="" class="img-homepage"></p>
             <p><a href="#"><img src="{{ asset('assets/img/btn-aloita-nyt.jpg') }}" alt=""></a></p>
+        @show
         </header>
         
         <main role="main" class="container main">
-            <div class="row services">
-                <div class="col-md-2 col-lg-2">
-                    <a href="">
-                        <p><img src="{{ asset('assets/img/iconHome.png') }}" alt=""></p>
-                        <p>Kotisivut</p>
-                    </a>
-                </div>
-                <div class="col-md-2 col-lg-2">
-                    <a href="">
-                        <p><img src="{{ asset('assets/img/iconLoyality.png') }}" alt=""></p>
-                        <p>Kantiskortti</p>
-                    </a>
-                </div>
-                <div class="col-md-2 col-lg-2">
-                    <a href="">
-                        <p><img src="{{ asset('assets/img/iconAppointment.png') }}" alt=""></p>
-                        <p>Ajanvaraus</p>
-                    </a>
-                </div>
-                <div class="col-md-2 col-lg-2">
-                    <a href="">
-                        <p><img src="{{ asset('assets/img/iconCustomer.png') }}" alt=""></p>
-                        <p>Asiakasrekisteri</p>
-                    </a>
-                </div>
-                <div class="col-md-2 col-lg-2">
-                    <a href="">
-                        <p><img src="{{ asset('assets/img/iconCashier.png') }}" alt=""></p>
-                        <p>Kassa</p>
-                    </a>
-                </div>
-                <div class="col-md-2 col-lg-2">
-                    <a href="">
-                        <p><img src="{{ asset('assets/img/iconMarketing.png') }}" alt=""></p>
-                        <p>Markkinointityokalut</p>
-                    </a>
-                </div>
-            </div>
+        @yield('content')
         </main>
 
         <hr class="grey-divider">
@@ -119,8 +96,8 @@
             </div>
         </footer>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    {{ HTML::script('//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js') }}
+    {{ HTML::script('//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js') }}
     @yield('scripts')
 </body>
 </html>
