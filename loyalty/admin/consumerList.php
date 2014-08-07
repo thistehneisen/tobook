@@ -44,13 +44,13 @@ if (!headers_sent())
         </div>
         <div class="col-md-9">
         	<div class="floatright" style="margin-bottom:5px;">
-        		<button class="btn-u btn-u-blue" onclick="onAddConsumer()" style="width: 90px;"><i class="icon-plus"></i> Add</button>
-				<button class="btn-u btn-u-red" onclick="onDeleteConsumer()" style="width: 90px;"><i class="icon-trash"></i> Delete</button>				
+        		<button class="btn-u btn-u-blue" onclick="onAddConsumer()" style="width: 90px;"><i class="icon-plus"></i> <?php echo $LC_LANG['add'];?></button>
+				<button class="btn-u btn-u-red" onclick="onDeleteConsumer()" style="width: 90px;"><i class="icon-trash"></i> <?php echo $LC_LANG['delete'];?></button>				
 			</div>
 			<div class="clearboth"></div>
 			<div class="panel panel-orange margin-bottom-40">
 				<div class="panel-heading">
-					<h3 class="panel-title"><i class="icon-user"></i> User List</h3>
+					<h3 class="panel-title"><i class="icon-user"></i> <?php echo $LC_LANG['consumerList'];?></h3>
 				</div>
 				<?php
 					$sql = "select * 
@@ -63,11 +63,11 @@ if (!headers_sent())
 						<tr>
 							<th style="width:60px;"><input type="checkbox" id="checkAll" onclick="onCheckAll( this )"/></th>
 							<th style="width:60px;">No</th>
-							<th>Consumer</th>
-							<th>Email</th>
-							<th>Phone</th>
-							<th>Visit Count</th>
-							<th>Last Visited</th>
+							<th><?php echo $LC_LANG['consumer'];?></th>
+							<th><?php echo $LC_LANG['email'];?></th>
+							<th><?php echo $LC_LANG['phone'];?></th>
+							<!-- th>Visit Count</th -->
+							<th><?php echo $LC_LANG['lastVisited'];?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -78,7 +78,7 @@ if (!headers_sent())
 							<td><a href="consumerForm.php?id=<?php echo $dataConsumer[$i]['loyalty_consumer']; ?>"><?php echo $dataConsumer[$i]['first_name']." ".$dataConsumer[$i]['last_name']; ?></a></td>
 							<td><a href="consumerForm.php?id=<?php echo $dataConsumer[$i]['loyalty_consumer']; ?>"><?php echo $dataConsumer[$i]['email']; ?></a></td>
 							<td><a href="consumerForm.php?id=<?php echo $dataConsumer[$i]['loyalty_consumer']; ?>"><?php echo $dataConsumer[$i]['phone']; ?></a></td>
-							<td><a href="consumerForm.php?id=<?php echo $dataConsumer[$i]['loyalty_consumer']; ?>"><?php echo 0; ?></a></td>
+							<!-- td><a href="consumerForm.php?id=<?php echo $dataConsumer[$i]['loyalty_consumer']; ?>"><?php echo 0; ?></a></td -->
 							<td><a href="consumerForm.php?id=<?php echo $dataConsumer[$i]['loyalty_consumer']; ?>"><?php echo $dataConsumer[$i]['updated_time']; ?></a></td>														
 						</tr>
 						<?php } ?>

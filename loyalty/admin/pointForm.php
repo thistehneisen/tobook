@@ -45,7 +45,7 @@ if (!headers_sent())
         <div class="col-md-9">
 			<div class="panel panel-orange margin-bottom-40">
 				<div class="panel-heading">
-					<h3 class="panel-title"><i class="icon-user"></i> Point Management</h3>
+					<h3 class="panel-title"><i class="icon-user"></i> <?php echo $LC_LANG['pointManagement'];?></h3>
 				</div>
 				<div class="panel-body">
                 	<div class="form-horizontal">
@@ -53,24 +53,24 @@ if (!headers_sent())
                 		<input type="hidden" id="pointId" value="<?php echo $pointId?>"/>
                 		<input type="hidden" id="ownerId" value="<?php echo $ownerId?>"/>
                         <div class="form-group">
-                            <label class="col-lg-2 control-label">Point Name</label>
+                            <label class="col-lg-2 control-label"><?php echo $LC_LANG['pointName'];?></label>
                             <div class="col-lg-10">
-                                <input type="text" value="<?php echo $dataPoint['point_name']?>" class="form-control" id="pointName" placeholder="Point Name">
+                                <input type="text" value="<?php echo $dataPoint['point_name']?>" class="form-control" id="pointName" placeholder="<?php echo $LC_LANG['pointName'];?>">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-2 control-label">Required</label>
+                            <label class="col-lg-2 control-label"><?php echo $LC_LANG['required'];?></label>
                             <div class="col-lg-4">
-                                <input type="text" value="<?php echo $dataPoint['score_required']?>" class="form-control" id="scoreRequired" placeholder="Required Score">
+                                <input type="text" value="<?php echo $dataPoint['score_required']?>" class="form-control" id="scoreRequired" placeholder="<?php echo $LC_LANG['requiredScore'];?>">
                             </div>
-                            <label class="col-lg-2 control-label">Discount</label>
+                            <label class="col-lg-2 control-label"><?php echo $LC_LANG['discount'];?></label>
                             <div class="col-lg-4">
-                                <input type="text" value="<?php echo $dataPoint['discount']?>" class="form-control" id="discount" placeholder="Discount Percent">
+                                <input type="text" value="<?php echo $dataPoint['discount']?>" class="form-control" id="discount" placeholder="<?php echo $LC_LANG['discountPercent'];?>">
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label class="col-lg-2 control-label">Valid Y/N</label>
+                            <label class="col-lg-2 control-label"><?php echo $LC_LANG['valid'];?></label>
                             <div class="col-lg-4">
                                 <select class="form-control" id="validYn">
                                 	<option value="Y" <?php if( $dataPoint['valid_yn'] == "Y" ) echo "selected";?> >Yes</option>
@@ -83,7 +83,7 @@ if (!headers_sent())
                             		$cntPoint = $db->queryArray( $sql );
                             		$cntPoint = $cntPoint[0]['cnt_used'];
                             ?>
-                            <label class="col-lg-2 control-label">Used Count</label>
+                            <label class="col-lg-2 control-label"><?php echo $LC_LANG['usedCount'];?></label>
                             <div class="col-lg-4">
                             	<input type="text" value="<?php echo $cntPoint?>" class="form-control" readonly style="background:#FEFEFE; cursor: pointer;" >
                             </div>
@@ -92,11 +92,11 @@ if (!headers_sent())
 
                         <?php if( $type == "Edit" ){?>
 	                        <div class="form-group">
-	                            <label class="col-lg-2 control-label">Created Time</label>
+	                            <label class="col-lg-2 control-label"><?php echo $LC_LANG['createdTime'];?></label>
 	                            <div class="col-lg-4">
 	                                <input type="text" value="<?php echo $dataPoint['created_time']?>" class="form-control" readonly style="background:#FEFEFE; cursor: pointer;" >
 	                            </div>
-	                            <label class="col-lg-2 control-label">Updated Time</label>
+	                            <label class="col-lg-2 control-label"><?php echo $LC_LANG['updatedTime'];?></label>
 	                            <div class="col-lg-4">
 	                                <input type="text" value="<?php echo $dataPoint['updated_time']?>" class="form-control" readonly style="background:#FEFEFE; cursor: pointer;" >
 	                            </div>	                            
@@ -105,8 +105,8 @@ if (!headers_sent())
 
                         <div class="form-group" style="margin-top:40px;">
                             <div class="col-lg-offset-1 col-lg-10" style="text-align:center;">
-                                <button class="btn-u btn-u-blue" style="margin-right: 20px;width:90px;" onclick="onPointSave()"><i class="icon-edit"></i> Save</button>
-                                <button class="btn-u btn-u-red" style="width:90px;" onclick="window.location.href='pointList.php'"><i class="icon-list"></i> List</button>
+                                <button class="btn-u btn-u-blue" style="margin-right: 20px;width:90px;" onclick="onPointSave()"><i class="icon-edit"></i> <?php echo $LC_LANG['save'];?></button>
+                                <button class="btn-u btn-u-red" style="width:90px;" onclick="window.location.href='pointList.php'"><i class="icon-list"></i> <?php echo $LC_LANG['list'];?></button>
                             </div>
                         </div>                                                                        
 					</div>

@@ -38,13 +38,13 @@ if (!headers_sent())
         </div>
         <div class="col-md-9">
         	<div class="floatright" style="margin-bottom:5px;">
-        		<button class="btn-u btn-u-blue" onclick="onAddPoint()" style="width: 90px;"><i class="icon-plus"></i> Add</button>
-				<button class="btn-u btn-u-red" onclick="onDeletePoint()" style="width: 90px;"><i class="icon-trash"></i> Delete</button>				
+        		<button class="btn-u btn-u-blue" onclick="onAddPoint()" style="width: 90px;"><i class="icon-plus"></i> <?php echo $LC_LANG['add'];?></button>
+				<button class="btn-u btn-u-red" onclick="onDeletePoint()" style="width: 90px;"><i class="icon-trash"></i> <?php echo $LC_LANG['delete'];?></button>				
 			</div>
 			<div class="clearboth"></div>
 			<div class="panel panel-orange margin-bottom-40">
 				<div class="panel-heading">
-					<h3 class="panel-title"><i class="icon-user"></i> Point List</h3>
+					<h3 class="panel-title"><i class="icon-user"></i> <?php echo $LC_LANG['pointList'];?></h3>
 				</div>
 				<?php
 					$sql = "select t1.*, ifnull( t2.cnt, 0 ) cnt_used
@@ -62,11 +62,11 @@ if (!headers_sent())
 						<tr>
 							<th style="width:60px;"><input type="checkbox" id="checkAll" onclick="onCheckAll( this )"/></th>
 							<th style="width:60px;">No</th>
-							<th>Name</th>
-							<th>Total Used</th>
-							<th>Required</th>
-							<th>Discount</th>
-							<th>Status</th>
+							<th><?php echo $LC_LANG['pointName'];?></th>
+							<th><?php echo $LC_LANG['totalUsed'];?></th>
+							<th><?php echo $LC_LANG['required'];?></th>
+							<th><?php echo $LC_LANG['discount'];?></th>
+							<th><?php echo $LC_LANG['status'];?></th>
 						</tr>
 					</thead>
 					<tbody>

@@ -45,7 +45,7 @@ if (!headers_sent())
         <div class="col-md-9">
 			<div class="panel panel-orange margin-bottom-40">
 				<div class="panel-heading">
-					<h3 class="panel-title"><i class="icon-user"></i> Stamp Management</h3>
+					<h3 class="panel-title"><i class="icon-user"></i> <?php echo $LC_LANG['stampManagement'];?></h3>
 				</div>
 				<div class="panel-body">
                 	<div class="form-horizontal">
@@ -53,24 +53,24 @@ if (!headers_sent())
                 		<input type="hidden" id="stampId" value="<?php echo $stampId?>"/>
                 		<input type="hidden" id="ownerId" value="<?php echo $ownerId?>"/>
                         <div class="form-group">
-                            <label class="col-lg-2 control-label">Stamp Name</label>
+                            <label class="col-lg-2 control-label"><?php echo $LC_LANG['stampName'];?></label>
                             <div class="col-lg-10">
-                                <input type="text" value="<?php echo $dataStamp['stamp_name']?>" class="form-control" id="stampName" placeholder="Stamp Name">
+                                <input type="text" value="<?php echo $dataStamp['stamp_name']?>" class="form-control" id="stampName" placeholder="<?php echo $LC_LANG['stampName'];?>">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-2 control-label">Required</label>
+                            <label class="col-lg-2 control-label"><?php echo $LC_LANG['required'];?></label>
                             <div class="col-lg-4">
-                                <input type="text" value="<?php echo $dataStamp['cnt_required']?>" class="form-control" id="cntRequired" placeholder="Required Count">
+                                <input type="text" value="<?php echo $dataStamp['cnt_required']?>" class="form-control" id="cntRequired" placeholder="<?php echo $LC_LANG['requiredCount'];?>">
                             </div>
-                            <label class="col-lg-2 control-label">Free</label>
+                            <label class="col-lg-2 control-label"><?php echo $LC_LANG['free'];?></label>
                             <div class="col-lg-4">
-                                <input type="text" value="<?php echo $dataStamp['cnt_free']?>" class="form-control" id="cntFree" placeholder="Free Count">
+                                <input type="text" value="<?php echo $dataStamp['cnt_free']?>" class="form-control" id="cntFree" placeholder="<?php echo $LC_LANG['freeCount'];?>">
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label class="col-lg-2 control-label">Valid</label>
+                            <label class="col-lg-2 control-label"><?php echo $LC_LANG['valid'];?></label>
                             <div class="col-lg-4">
                                 <select class="form-control" id="validYn">
                                 	<option value="Y" <?php if( $dataStamp['valid_yn'] == "Y" ) echo "selected";?> >Yes</option>
@@ -83,7 +83,7 @@ if (!headers_sent())
                             		$cntStamp = $db->queryArray( $sql );
                             		$cntStamp = $cntStamp[0]['cnt_used'];
                             ?>
-                            <label class="col-lg-2 control-label">Used Count</label>
+                            <label class="col-lg-2 control-label"><?php echo $LC_LANG['usedCount'];?></label>
                             <div class="col-lg-4">
                             	<input type="text" value="<?php echo $cntStamp?>" class="form-control" readonly style="background:#FEFEFE; cursor: pointer;" >
                             </div>
@@ -92,11 +92,11 @@ if (!headers_sent())
 
                         <?php if( $type == "Edit" ){?>
 	                        <div class="form-group">
-	                            <label class="col-lg-2 control-label">Created Time</label>
+	                            <label class="col-lg-2 control-label"><?php echo $LC_LANG['createdTime'];?></label>
 	                            <div class="col-lg-4">
 	                                <input type="text" value="<?php echo $dataStamp['created_time']?>" class="form-control" readonly style="background:#FEFEFE; cursor: pointer;" >
 	                            </div>
-	                            <label class="col-lg-2 control-label">Updated Time</label>
+	                            <label class="col-lg-2 control-label"><?php echo $LC_LANG['updatedTime'];?></label>
 	                            <div class="col-lg-4">
 	                                <input type="text" value="<?php echo $dataStamp['updated_time']?>" class="form-control" readonly style="background:#FEFEFE; cursor: pointer;" >
 	                            </div>	                            
@@ -105,8 +105,8 @@ if (!headers_sent())
 
                         <div class="form-group" style="margin-top:40px;">
                             <div class="col-lg-offset-1 col-lg-10" style="text-align:center;">
-                                <button class="btn-u btn-u-blue" style="margin-right: 20px;width:90px;" onclick="onStampSave()"><i class="icon-edit"></i> Save</button>
-                                <button class="btn-u btn-u-red" style="width:90px;" onclick="window.location.href='stampList.php'"><i class="icon-list"></i> List</button>
+                                <button class="btn-u btn-u-blue" style="margin-right: 20px;width:90px;" onclick="onStampSave()"><i class="icon-edit"></i> <?php echo $LC_LANG['save'];?></button>
+                                <button class="btn-u btn-u-red" style="width:90px;" onclick="window.location.href='stampList.php'"><i class="icon-list"></i> <?php echo $LC_LANG['list'];?></button>
                             </div>
                         </div>                                                                        
 					</div>

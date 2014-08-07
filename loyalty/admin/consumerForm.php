@@ -45,7 +45,7 @@ if (!headers_sent())
         <div class="col-md-9">
 			<div class="panel panel-orange margin-bottom-40">
 				<div class="panel-heading">
-					<h3 class="panel-title"><i class="icon-user"></i> Consumer Management</h3>
+					<h3 class="panel-title"><i class="icon-user"></i> <?php echo $LC_LANG['consumerManagement'];?></h3>
 				</div>
 				<div class="panel-body">
                 	<div class="form-horizontal">
@@ -53,44 +53,44 @@ if (!headers_sent())
                 		<input type="hidden" id="consumerId" value="<?php echo $consumerId?>"/>
                 		<input type="hidden" id="ownerId" value="<?php echo $ownerId?>"/>
                         <div class="form-group">
-                            <label class="col-lg-2 control-label">First Name</label>
+                            <label class="col-lg-2 control-label"><?php echo $LC_LANG['firstName'];?></label>
                             <div class="col-lg-4">
-                                <input type="text" value="<?php echo $dataConsumer['first_name']?>" class="form-control" id="firstName" placeholder="First Name">
+                                <input type="text" value="<?php echo $dataConsumer['first_name']?>" class="form-control" id="firstName" placeholder="<?php echo $LC_LANG['firstName'];?>">
                             </div>
-                            <label class="col-lg-2 control-label">Last Name</label>
+                            <label class="col-lg-2 control-label"><?php echo $LC_LANG['lastName'];?></label>
                             <div class="col-lg-4">
-                                <input type="text" value="<?php echo $dataConsumer['last_name']?>" class="form-control" id="lastName" placeholder="Last Name">
+                                <input type="text" value="<?php echo $dataConsumer['last_name']?>" class="form-control" id="lastName" placeholder="<?php echo $LC_LANG['lastName'];?>">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-2 control-label">Email Address</label>
+                            <label class="col-lg-2 control-label"><?php echo $LC_LANG['emailAddress'];?></label>
                             <div class="col-lg-4">
-                                <input type="text" value="<?php echo $dataConsumer['email']?>" class="form-control" id="email" placeholder="Email Address">
+                                <input type="text" value="<?php echo $dataConsumer['email']?>" class="form-control" id="email" placeholder="<?php echo $LC_LANG['emailAddress'];?>">
                             </div>
-                            <label class="col-lg-2 control-label">Phone</label>
+                            <label class="col-lg-2 control-label"><?php echo $LC_LANG['phone'];?></label>
                             <div class="col-lg-4">
-                                <input type="text" value="<?php echo $dataConsumer['phone']?>" class="form-control" id="phone" placeholder="Phone No">
+                                <input type="text" value="<?php echo $dataConsumer['phone']?>" class="form-control" id="phone" placeholder="<?php echo $LC_LANG['phone'];?>">
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label class="col-lg-2 control-label">Address 1</label>
+                            <label class="col-lg-2 control-label"><?php echo $LC_LANG['address1'];?></label>
                             <div class="col-lg-4">
-                                <input type="text" value="<?php echo $dataConsumer['address1']?>" class="form-control" id="address1" placeholder="Address 1">
+                                <input type="text" value="<?php echo $dataConsumer['address1']?>" class="form-control" id="address1" placeholder="<?php echo $LC_LANG['address1'];?>">
                             </div>
-                            <label class="col-lg-2 control-label">City</label>
+                            <label class="col-lg-2 control-label"><?php echo $LC_LANG['city'];?></label>
                             <div class="col-lg-4">
-                                <input type="text" value="<?php echo $dataConsumer['city']?>" class="form-control" id="city" placeholder="City">
+                                <input type="text" value="<?php echo $dataConsumer['city']?>" class="form-control" id="city" placeholder="<?php echo $LC_LANG['city'];?>">
                             </div>
                         </div>
 
                         <?php if( $type == "Edit" ){?>
 	                        <div class="form-group">
-	                            <label class="col-lg-2 control-label">Created Time</label>
+	                            <label class="col-lg-2 control-label"><?php echo $LC_LANG['createdTime'];?></label>
 	                            <div class="col-lg-4">
 	                                <input type="text" value="<?php echo $dataConsumer['created_time']?>" class="form-control" readonly style="background:#FEFEFE; cursor: pointer;" >
 	                            </div>
-	                            <label class="col-lg-2 control-label">Updated Time</label>
+	                            <label class="col-lg-2 control-label"><?php echo $LC_LANG['updatedTime'];?></label>
 	                            <div class="col-lg-4">
 	                                <input type="text" value="<?php echo $dataConsumer['updated_time']?>" class="form-control" readonly style="background:#FEFEFE; cursor: pointer;" >
 	                            </div>	                            
@@ -99,8 +99,8 @@ if (!headers_sent())
 
                         <div class="form-group" style="margin-top:40px;">
                             <div class="col-lg-offset-1 col-lg-10" style="text-align:center;">
-                                <button class="btn-u btn-u-blue" style="margin-right: 20px;width:90px;" onclick="onConsumerSave()"><i class="icon-edit"></i> Save</button>
-                                <button class="btn-u btn-u-red" style="width:90px;" onclick="window.location.href='consumerList.php'"><i class="icon-list"></i> List</button>
+                                <button class="btn-u btn-u-blue" style="margin-right: 20px;width:90px;" onclick="onConsumerSave()"><i class="icon-edit"></i> <?php echo $LC_LANG['save'];?></button>
+                                <button class="btn-u btn-u-red" style="width:90px;" onclick="window.location.href='consumerList.php'"><i class="icon-list"></i> <?php echo $LC_LANG['list'];?></button>
                             </div>
                         </div>                                                                        
 					</div>
