@@ -41,7 +41,7 @@ if (!headers_sent())
 		$prefix = $_SESSION["username"];
 		$ownerId = $_SESSION["userid"];
 		if( !in_array( $prefix, $emailCreators)){
-			echo "You can't access this page.";
+			echo $MT_LANG['msgNoAccess'];
 			exit();
 		}
 		if( isset($_GET['id']) ){

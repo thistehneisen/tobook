@@ -128,13 +128,13 @@ if (!headers_sent())
 			<table class="table table-bordered">
 				<thead>
 					<tr>
-						<th>Delivered</th>
-						<th>Unsubscribes</th>
-						<th>Invalid</th>
-						<th>Opens</th>
-						<th>Clicks</th>
-						<th>Bounces</th>
-						<th>Requests</th>
+						<th><?php echo $MT_LANG['delivered'];?></th>
+						<th><?php echo $MT_LANG['unsubscribes'];?></th>
+						<th><?php echo $MT_LANG['invalid'];?></th>
+						<th><?php echo $MT_LANG['opens'];?></th>
+						<th><?php echo $MT_LANG['clicks'];?></th>
+						<th><?php echo $MT_LANG['bounces'];?></th>
+						<th><?php echo $MT_LANG['requests'];?></th>
 					</tr>
 				</thead>
 				<tbody>

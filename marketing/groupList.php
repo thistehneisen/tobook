@@ -111,7 +111,7 @@ if (!headers_sent())
 			</div>
 			<?php }
 			if( count( $dataCampaign ) == 0 ){
-				echo "<h2 style='padding-left:10px;padding-top:10px;'>There is no Campaign.</h2>";
+				echo "<h2 style='padding-left:10px;padding-top:10px;'>".$MT_LANG['msgNoCampaign']."</h2>";
 			} ?>
 			
 		</div>

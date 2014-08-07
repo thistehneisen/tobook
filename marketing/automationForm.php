@@ -78,8 +78,8 @@ if (!headers_sent())
 				<div class="form-group">
                 	<label><?php echo $MT_LANG['marketingType']?></label>
                     <select class="form-control" id="type" onchange="onChangeMarketingType( this )">
-                    	<option value="">Select Marketing Type.</option>
-                    	<option value="email" <?php if($dataAutomation['type'] == "email" ) echo "selected";?>>Email</option>
+                    	<option value=""><?php echo $MT_LANG['selectMarketingType']; ?></option>
+                    	<option value="email" <?php if($dataAutomation['type'] == "email" ) echo "selected";?>><?php echo $MT_LANG['email'];?></option>
                     	<option value="sms" <?php if($dataAutomation['type'] == "sms" ) echo "selected";?>>SMS</option>
                     </select>
 				</div>
@@ -87,7 +87,7 @@ if (!headers_sent())
 				<div class="form-group" id="divEmail" style="<?php if($dataAutomation['type'] != "email" ) echo "display:none;";?>">
                 	<label><?php echo $MT_LANG['campaign']?></label>
                     <select class="form-control" id="campaign">
-                    	<option value="">Select Campaign.</option>
+                    	<option value=""><?php echo $MT_LANG['selectCampaign'];?></option>
                     	<?php for( $i = 0; $i < count($campaignList); $i ++ ){
 	                    	if( $campaignList[$i]['email_campaign'] == $dataAutomation['email_campaign'] ){ ?>
 	                    	<option value="<?php echo $campaignList[$i]['email_campaign']?>" selected><?php echo $campaignList[$i]['subject']?></option>

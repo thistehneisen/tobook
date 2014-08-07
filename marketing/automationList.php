@@ -77,7 +77,7 @@ if (!headers_sent())
 							<td><a href="automationForm.php?id=<?php echo base64_encode($automationList[$i]['marketing_auto'])?>"><?php echo $automationList[$i]['title']?></a></td>
 							<td style="text-align:center;">
 								<?php
-									if( $automationList[$i]['type'] == "email" ) echo "Email";
+									if( $automationList[$i]['type'] == "email" ) echo $MT_LANG['email'];;
 									else if( $automationList[$i]['type'] == "sms" ) echo "SMS";
 								?>
 							</td>
