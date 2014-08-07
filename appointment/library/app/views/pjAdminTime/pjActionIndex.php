@@ -289,9 +289,9 @@ if (isset($tpl['status']))
 			}
 			?>
 			<?php if (!isset($_GET['foreign_id']) && !isset($_GET['type']) && $controller->isAdmin()) : ?>
-				<tr>
+				<!-- <tr>
 					<td colspan="6"><label><input type="checkbox" name="update_all" value="1" /> <?php __('time_update_default'); ?></label></td>
-				</tr>
+				</tr> -->
 			<?php endif; ?>
 			</tbody>
 			<tfoot>
