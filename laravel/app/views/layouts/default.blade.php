@@ -22,32 +22,19 @@
     <![endif]-->
 </head>
 <body>
-        <header class="header homepage">
+        <header class="header {{ Request::is('/') ? 'homepage' : '' }}">
         @section('nav')
             <nav class="text-right">
                 <ul class="list-inline nav-links">
                     <li><a href="#">Etusivu</a></li>
                     <li><a href="#">Rekisteröidy</a></li>
-                    <li><a href="#">Kirjaudu</a></li>
+                    <li><a href="{{ route('auth.login') }}">Kirjaudu</a></li>
                 </ul>
             </nav>
         @show
         
-        @section('header')
-            <a href="#"><img src="{{ asset('assets/img/logo.png') }}" alt=""></a>
-            <div class="imac-wrapper">
-                <div class="imac">
-                    <ul class="bxslider">
-                      <li><img src="{{ asset('assets/img/slides/1.jpg') }}" /></li>
-                      <li><img src="{{ asset('assets/img/slides/2.jpg') }}" /></li>
-                      <li><img src="{{ asset('assets/img/slides/3.jpg') }}" /></li>
-                      <li><img src="{{ asset('assets/img/slides/4.jpg') }}" /></li>
-                    </ul>
-                </div>
-            </div>
-            <p><img src="{{ asset('assets/img/homepage-text.png') }}" alt="" class="img-homepage"></p>
-            <p><a href="#"><img src="{{ asset('assets/img/btn-aloita-nyt.jpg') }}" alt=""></a></p>
-        @show
+        <a href="{{ route('home') }}"><img src="{{ asset('assets/img/logo.png') }}" alt=""></a>
+        @yield('header')
         </header>
         
         <main role="main" class="container main">

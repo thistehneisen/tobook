@@ -21,6 +21,21 @@ $(function() {
     </script>
 @stop
 
+@section ('header')
+            <div class="imac-wrapper">
+                <div class="imac">
+                    <ul class="bxslider">
+                      <li><img src="{{ asset('assets/img/slides/1.jpg') }}" /></li>
+                      <li><img src="{{ asset('assets/img/slides/2.jpg') }}" /></li>
+                      <li><img src="{{ asset('assets/img/slides/3.jpg') }}" /></li>
+                      <li><img src="{{ asset('assets/img/slides/4.jpg') }}" /></li>
+                    </ul>
+                </div>
+            </div>
+            <p><img src="{{ asset('assets/img/homepage-text.png') }}" alt="" class="img-homepage"></p>
+            <p><a href="#"><img src="{{ asset('assets/img/btn-aloita-nyt.jpg') }}" alt=""></a></p>
+@stop
+
 @section ('content')
             <div class="row services">
                 <div class="col-md-2 col-lg-2">

@@ -15,3 +15,12 @@ Route::get('/', [
     'as' => 'home',
     'uses' => 'App\Controllers\Home@index'
 ]);
+
+Route::get('login', [
+	'as' => 'auth.login',
+	'uses' => 'App\Controllers\Auth@login'
+]);
+
+Route::post('login', [
+	'uses' => 'App\Controllers\Auth@doLogin'
+]);
