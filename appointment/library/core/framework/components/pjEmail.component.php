@@ -4,6 +4,8 @@ if (!defined("ROOT_PATH"))
 	header("HTTP/1.1 403 Forbidden");
 	exit;
 }
+require_once realpath(ROOT_PATH.'/../../includes/configsettings.php');
+
 /**
  * PHP Framework
  *
@@ -359,6 +361,48 @@ class pjEmail
 				
 		return $message;
 	}
+
+	protected function sendSmtp($body)
+	{
+		require_once dirname(__FILE__) . '/pjPHPMailer.component.php';
+		$mail = new pjPHPMailer();
+		$mail->IsSMTP();
+		try {
+			$mail->Host = $this->smtpHost;
+			$mail->Port = $this->smtpPort;
+			if (!empty($this->smtpUser))
+			{
+				$mail->SMTPAuth = true;
+				$mail->Username = $this->smtpUser;
+				$mail->Password = $this->smtpPass;
+			}
+			$mail->AddAddress($this->to);
+			$mail->SetFrom($this->from);
+			$mail->AddReplyTo($this->from);
+			$mail->Subject = $this->subject;
+			$mail->MsgHTML($body);
+			foreach ($this->attachments as $attachment)
+			{
+				if (!empty($attachment['filename']) && is_file($attachment['filename']))
+				{
+					$mail->AddAttachment($attachment['filename']);
+				}
+			}
+			if (!$mail->Send())
+			{
+				//echo $mail->ErrorInfo;
+				return false;
+			} else {
+				return true;
+			}
+		} catch (phpmailerException $e) {
+			//echo $e->errorMessage();
+			return false;
+		} catch (Exception $e) {
+			//echo $e->getMessage();
+			return false;
+		}
+	}
 /**
  * Send email
  *
@@ -381,66 +425,32 @@ class pjEmail
 		switch ($this->transport)
 		{
 			case 'mail':
-				$message = $this->getMessage($body);
+				// $message = $this->getMessage($body);
 				
-				$required = array(
-					'MIME-Version' => '1.0',
-					'Content-Type' => sprintf("%s; charset=%s", $this->contentType, $this->charset),
-					'From' => $this->from,
-					'Reply-To' => $this->from
-				);
+				// $required = array(
+				// 	'MIME-Version' => '1.0',
+				// 	'Content-Type' => sprintf("%s; charset=%s", $this->contentType, $this->charset),
+				// 	'From' => $this->from,
+				// 	'Reply-To' => $this->from
+				// );
 				
-				foreach ($required as $key => $val)
-				{
-					if ($this->getHeader($key) === FALSE)
-					{
-						$this->setHeader(sprintf("%s: %s", $key, $val));
-					}
-				}
+				// foreach ($required as $key => $val)
+				// {
+				// 	if ($this->getHeader($key) === FALSE)
+				// 	{
+				// 		$this->setHeader(sprintf("%s: %s", $key, $val));
+				// 	}
+				// }
 		
-				return @mail($this->to, $this->subject, $message, join($this->eol, $this->getHeaders()));
+				// return @mail($this->to, $this->subject, $message, join($this->eol, $this->getHeaders()));
 				
-				break;
+				$this->setSmtpHost(SMTP_HOST);
+				$this->setSmtpPort(SMTP_PORT);
+				$this->setSmtpUser(SMTP_USERNAME);
+				$this->setSmtpPass(SMTP_PASSWORD);
+				return $this->sendSmtp($body);
 			case 'smtp':
-				require_once dirname(__FILE__) . '/pjPHPMailer.component.php';
-				$mail = new pjPHPMailer();
-				$mail->IsSMTP();
-				try {
-					$mail->Host = $this->smtpHost;
-					$mail->Port = $this->smtpPort;
-					if (!empty($this->smtpUser))
-					{
-						$mail->SMTPAuth = true;
-						$mail->Username = $this->smtpUser;
-						$mail->Password = $this->smtpPass;
-					}
-					$mail->AddAddress($this->to);
-					$mail->SetFrom($this->from);
-					$mail->AddReplyTo($this->from);
-					$mail->Subject = $this->subject;
-					$mail->MsgHTML($body);
-					foreach ($this->attachments as $attachment)
-					{
-						if (!empty($attachment['filename']) && is_file($attachment['filename']))
-						{
-							$mail->AddAttachment($attachment['filename']);
-						}
-					}
-					if (!$mail->Send())
-					{
-						//echo $mail->ErrorInfo;
-						return false;
-					} else {
-						return true;
-					}
-				} catch (phpmailerException $e) {
-					//echo $e->errorMessage();
-					return false;
-				} catch (Exception $e) {
-					//echo $e->getMessage();
-					return false;
-				}
-				break;
+				return $this->sendSmtp($body);
 		}
 	}
 /**
