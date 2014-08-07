@@ -12,7 +12,7 @@ if (!headers_sent())
 <html lang="en"> <!--<![endif]-->
 <head>
     <?php require_once("common/config.php"); ?>    
-    <?php require_once("common/DB_Connection.php"); ?>
+    <?php require_once("../DB_Connection.php"); ?>
     <?php require_once("common/header.php"); ?>
     <?php require_once("common/asset.php"); ?>
     <?php require_once("common/functions.php"); ?>    
@@ -164,7 +164,7 @@ if (!headers_sent())
             	<button class="btn-u btn-u-orange" onclick="onOpenEmail()"><i class="icon-envelope"></i>&nbsp;<?php echo $MT_LANG['sendEmail'];?></button>
             	<button class="btn-u btn-u-orange" onclick="onOpenSMS()"><i class="icon-comment"></i>&nbsp;<?php echo $MT_LANG['sendSms'];?></button>
             	
-            	<button class="btn-u btn-u-blue" onclick="onShowGroup()" style="margin-left:15px;"><i class="icon-group"></i>&nbsp;Join Group</button>
+            	<button class="btn-u btn-u-blue" onclick="onShowGroup()" style="margin-left:15px;"><i class="icon-group"></i>&nbsp;<?php echo $MT_LANG['joinGroup']?></button>
             </div>
             <div class="floatright">
             	<span style="padding-right: 20px;"><span style="color:#e67e22; padding-right: 30px;font-size: 16px;"><b>1 Euro = <?php echo CREDITS_PRICE;?> Credits</b></span><b><span id="cntCredits"><?php echo $credits;?></span> Credits</b></span>
@@ -202,17 +202,17 @@ if (!headers_sent())
 							<td>
 								<?php 
 									if( $customerList[$i]['planGroupCode'] == "tb" ){
-										echo "Timeslot Booking";
+										echo $MT_LANG['timeslotBookings'];
 									}else if( $customerList[$i]['planGroupCode'] == "rb" ){
-										echo "Restaurant Booking";
+										echo $MT_LANG['restaurantBookings'];
 									}else if( $customerList[$i]['planGroupCode'] == "as" ){
-										echo "Appointment Scheduler";
+										echo $MT_LANG['appointmentScheduler'];
 									}
 								?>
 							</td>
 							<td><?php echo $customerList[$i]['bookingTime']?></td>
 							<td>
-								<button class="btn btn-info btn-xs" onclick="onEditCustomer('<?php echo $customerList[$i]['planGroupCode']?>', <?php echo $customerList[$i]['cId']?> )">Edit</button>
+								<button class="btn btn-info btn-xs" onclick="onEditCustomer('<?php echo $customerList[$i]['planGroupCode']?>', <?php echo $customerList[$i]['cId']?> )"><?php echo $MT_LANG['edit'];?></button>
 							</td>		
 						</tr>
 						<?php } ?>																	
@@ -248,7 +248,7 @@ if (!headers_sent())
 			</div>
 			<?php }
 			if( count( $dataCampaign ) == 0 ){
-				echo "<h2 style='padding-left:10px;padding-top:10px;'>There is no Campaign.</h2>";
+				echo "<h2 style='padding-left:10px;padding-top:10px;'>".$MT_LANG['msgNoCampaign']."</h2>";
 			} ?>
 			
 		</div>
@@ -319,8 +319,8 @@ if (!headers_sent())
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-	        <h4 class="modal-title">Group List</h4>
+	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?php echo $MT_LANG['close']?></span></button>
+	        <h4 class="modal-title"><?php echo $MT_LANG['groupList'];?></h4>
 	      </div>
 	      <div class="modal-body">
 			<div id="groupList">
@@ -330,7 +330,7 @@ if (!headers_sent())
 				</div>
 				<?php } ?>
 				<?php if( count( $groupList ) == 0 ){ ?>
-				<div>There is no group.</div>
+				<div><?php echo $MT_LANG['msgNoGroup'];?></div>
 				<?php } ?>
 			</div>
 	      </div>

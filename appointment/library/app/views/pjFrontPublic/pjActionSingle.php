@@ -5,12 +5,43 @@
 		
 			<form action="" method="post" class="asSelectorSingleForm">
 				<input type="hidden" name="as_single" value="1" />
+				<input type="hidden" name="category_id" value="" />
+				<input type="hidden" name="service_id" value="" />
 				<input type="hidden" name="employee_id" value="" />
+				<input type="hidden" name="date" value="<?php echo isset($_GET['date']) && !empty($_GET['date']) ? $_GET['date'] : date('Y-m-d'); ?>" />
 				<input type="hidden" name="start_ts" value="" />
 				<input type="hidden" name="end_ts" value="" />
 
 				<div class="asElement asElementOutline">
 				
+					<div class="asSingleCategories">
+						<div class="asBox">
+							<div class="asBoxInner">
+								<label class="asLabel"><?php __('front_single_Categories'); ?>:</label>
+								<div class="asCategories">
+									<?php if ( isset($tpl['category_arr']) ) {
+										foreach ( $tpl['category_arr'] as $category ) { ?>
+										<a href="#" data-id="<?php echo $category['id']; ?>"><?php echo $category['name']; ?></a>
+									<?php } 
+									} ?>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="asSingleServices" style="display: none">
+						<div class="asBox">
+						</div>
+					</div>
+					
+					<div class="asSingleEmployees" style="display: none">
+						<div class="asBox"></div>
+					</div>
+					
+					<div class="asSingleDate" style="display: none">
+						<div class="asBox"></div>
+					</div>
+					
 					<div class="asRow">
 						<label class="asLabel"><?php __('front_single_date'); ?></label>
 						<span class="asRowControl">
@@ -57,7 +88,7 @@
 							</div>
 						</div>
 					</div>
-					
+					<!-- 
 					<div class="asRow">
 						<label class="asLabel"><?php __('front_single_service'); ?></label>
 						<span class="asRowControl">
@@ -98,7 +129,7 @@
 						}
 					}
 					?>
-					
+					-->
 					<div class="asRow">
 						<label class="asLabel"><?php __('front_single_time'); ?></label>
 						<span class="asRowControl asSelectorSingleTimeBox">
@@ -106,7 +137,7 @@
 						</span>
 					</div>
 					
-					<div class="asSelectorSingleEmployee" style="display: none"></div>
+					<!-- <div class="asSelectorSingleEmployee" style="display: none"></div>-->
 					
 				</div>
 				

@@ -9,12 +9,12 @@ if (!$file) {
     die('Configuration file does not exist.');
 }
 
-$config = require_once $file;
+$myConfig = require_once $file;
 
-define('MYSQL_HOST',        $config['db']['host']);
-define('MYSQL_USERNAME',    $config['db']['user']);
-define('MYSQL_PASSWORD',    $config['db']['password']);
-define('MYSQL_DB',          $config['db']['name']);
+define('MYSQL_HOST',        $myConfig['db']['host']);
+define('MYSQL_USERNAME',    $myConfig['db']['user']);
+define('MYSQL_PASSWORD',    $myConfig['db']['password']);
+define('MYSQL_DB',          $myConfig['db']['name']);
 define('MYSQL_TABLE_PREFIX','tbl_');
 define('BASE_URL_PART','');
 

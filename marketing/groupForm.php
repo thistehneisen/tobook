@@ -12,7 +12,7 @@ if (!headers_sent())
 <html lang="en"> <!--<![endif]-->
 <head>
     <?php require_once("common/config.php"); ?>
-    <?php require_once("common/DB_Connection.php"); ?>
+    <?php require_once("../DB_Connection.php"); ?>
     <?php require_once("common/header.php"); ?>
     <?php require_once("common/asset.php"); ?>
     <?php require_once("common/functions.php"); ?>    
@@ -51,7 +51,7 @@ if (!headers_sent())
 	<input type="hidden" value="<?php echo $groupId?>" id="groupId"/>
 	<div class="container">
 			<div style="width: 800px;margin:20px auto;">
-				<h3 style="color:#e67e22;">Group Management</h3>
+				<h3 style="color:#e67e22;"><?php echo $MT_LANG['groupManagement'];?></h3>
 			</div>
             <div style="width: 800px;margin:20px auto;">
 	            <div class="floatright">

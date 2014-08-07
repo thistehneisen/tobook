@@ -1,5 +1,5 @@
 <?php
-	require_once("common/DB_Connection.php");	
+	require_once("../DB_Connection.php");
     require_once("common/functions.php");
     
     require_once("../gatewayPayment/onePayment.php");

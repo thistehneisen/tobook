@@ -105,4 +105,19 @@
 	$MT_LANG['join'] = 'Join';
 	$MT_LANG['customerInformation'] = 'Customer Information';
 	
+	$MT_LANG['joinGroup'] = 'Join Group';
+	$MT_LANG['selectMarketingType'] = 'Select Marketing Type.';
+	$MT_LANG['selectCampaign'] = 'Select Campaign.';
+	$MT_LANG['delivered'] = 'Delivered';
+	$MT_LANG['unsubscribes'] = 'Unsubscribes';
+	$MT_LANG['invalid'] = 'Invalid';
+	$MT_LANG['opens'] = 'Opens';
+	$MT_LANG['clicks'] = 'Clicks';
+	$MT_LANG['bounces'] = 'Bounces';
+	$MT_LANG['requests'] = 'Requests';
+	$MT_LANG['msgNoCampaign'] = 'There is no Campaign';
+	$MT_LANG['close'] = 'Close';
+	$MT_LANG['msgNoGroup'] = 'There is no Group';
+	$MT_LANG['msgNoAccess'] = 'You can not access this page';
+	
 ?>

@@ -175,8 +175,14 @@ CREATE TABLE `sma_login_attempts` (
   `ip_address` varbinary(16) NOT NULL,
   `login` varchar(100) NOT NULL,
   `time` int(11) unsigned DEFAULT NULL,
+  `owner_id` int(8),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/**
+ * For existing database
+ * 
+ * ALTER TABLE `sma_login_attempts` ADD `owner_id` int(8) AFTER `time`;
+ */
 
 
 DROP TABLE IF EXISTS `sma_pos_settings`;

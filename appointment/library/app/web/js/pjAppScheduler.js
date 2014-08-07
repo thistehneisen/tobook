@@ -173,7 +173,9 @@
 			this.date = null;
 			this.start_ts = null;
 			this.end_ts = null;
+			this.category_id = null;
 			this.service_id = null;
+			this.employee_id = null;
 			this.booking_uuid = null;
 			this.options = {};
 			this.wt_id = -1;
@@ -303,6 +305,29 @@
 				"end_ts": this.end_ts
 			}).done(function (data) {
 				that.$container.find(".asSelectorSingleEmployee").html(data).show();
+			});
+		},
+		getLoadAjaxLayout2: function () {
+			var that = this;
+			pjQ.$.get([this.options.folder, "index.php?controller=pjFrontEnd&action=pjActionLoadAjax" + $as_pf].join(""), {
+				"cid": this.options.cid,
+				"layout": this.options.layout,
+				"date": this.date,
+				"category_id": this.category_id,
+				"service_id": this.service_id,
+				"employee_id": this.employee_id
+			}).done(function (data) {
+				if ( that.category_id > 0 ) {
+					that.$container.find(".asSingleServices").show();
+					that.$container.find(".asSingleServices .asBox").html(data);
+				} else if ( that.service_id > 0 && that.employee_id < 1 ) {
+					that.$container.find(".asSingleEmployees").show();
+					that.$container.find(".asSingleEmployees .asBox").html(data);
+				} else if ( that.service_id > 0 && that.employee_id > 0 ) {
+					that.$container.find(".asSingleDate").show();
+					that.$container.find(".asSingleDate .asBox").html(data);
+				}
+				
 			});
 		},
 		getTime: function () {
@@ -588,6 +613,75 @@
 					
 					that.getEmployees.call(that);
 				}
+				
+			// Custom
+			}).on("click.as", ".asSingleCategories a", function (e) {
+				var $this = pjQ.$(this);
+				
+				that.category_id = $this.data("id");
+				that.service_id = null;
+				that.employee_id = null;
+				that.$container.find(".asSingleServices").hide()
+					.end()
+					.find(".asSingleEmployees").hide()
+					.end()
+					.find(".asSingleDate").hide()
+					.end()
+					.find("input[name='category_id']").val(that.category_id)
+					.end()
+					.find("input[name='service_id']").val("")
+					.end()
+					.find("input[name='employee_id']").val("")
+					.end()
+					.find("input[name='start_ts']").val("")
+					.end()
+					.find("input[name='end_ts']").val("")
+					.end()
+					.find(":submit").attr("disabled", "disabled");
+				
+				that.getLoadAjaxLayout2.call(that);
+				
+			}).on("click.as", ".asSingleServices a", function (e) {
+				var $this = pjQ.$(this);
+				
+				that.category_id = null;
+				that.service_id = $this.data("id");
+				that.employee_id = null;
+				
+				that.$container.find(".asSingleEmployees").hide()
+					.end()
+					.find(".asSingleDate").hide()
+					.end()
+					.find("input[name='service_id']").val(that.service_id)
+					.end()
+					.find("input[name='employee_id']").val("")
+					.end()
+					.find("input[name='start_ts']").val("")
+					.end()
+					.find("input[name='end_ts']").val("")
+					.end()
+					.find(":submit").attr("disabled", "disabled");
+				
+				that.getLoadAjaxLayout2.call(that);
+				
+			}).on("click.as", ".asSingleEmployees a", function (e) {
+				var $this = pjQ.$(this);
+				
+				that.category_id = null;
+				that.employee_id = $this.data("id");
+				that.date = that.$container.find("input[name='date']").val();
+				that.$container.find(".asSingleDate").hide()
+					.end()
+					.find("input[name='employee_id']").val(that.employee_id)
+					.end()
+					.find("input[name='start_ts']").val("")
+					.end()
+					.find("input[name='end_ts']").val("")
+					.end()
+					.find(":submit").attr("disabled", "disabled");
+				
+				that.getLoadAjaxLayout2.call(that);
+				
 			}).on("click.as", ".asSingleEmployeeEmail a", function (e) {
 				e.stopPropagation();
 				return true;

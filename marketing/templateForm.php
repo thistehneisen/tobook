@@ -12,7 +12,7 @@ if (!headers_sent())
 <html lang="en"> <!--<![endif]-->
 <head>
     <?php require_once("common/config.php"); ?>
-    <?php require_once("common/DB_Connection.php"); ?>
+    <?php require_once("../DB_Connection.php"); ?>
     <?php require_once("common/header.php"); ?>
     <?php require_once("common/asset.php"); ?>
     <?php require_once("common/functions.php"); ?>    
@@ -41,7 +41,7 @@ if (!headers_sent())
 		$prefix = $_SESSION["username"];
 		$ownerId = $_SESSION["userid"];
 		if( !in_array( $prefix, $emailCreators)){
-			echo "You can't access this page.";
+			echo $MT_LANG['msgNoAccess'];
 			exit();
 		}
 		if( isset($_GET['id']) ){
