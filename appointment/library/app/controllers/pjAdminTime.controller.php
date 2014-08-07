@@ -52,17 +52,18 @@ class pjAdminTime extends pjAdmin
 						->limit(1)
 						->modifyAll(array_merge($_POST, $data));
 				} else {
-
-					if (isset($_POST['update_all']))
+					/*
+                    FUCK THIS SHIT, BEGONE!
+                    if (isset($_POST['update_all']))
 					{
 						pjWorkingTimeModel::factory()
 							->where('id', $_POST['id'])
 							->orWhere('type', 'employee')
                             ->where('owner_id', $owner_id)
 							->modifyAll($data);
-					} else {
+					} else {*/
                         pjWorkingTimeModel::factory()->set('id', $_POST['id'])->modify($data);
-					}
+					//}
 				}
 
 				if (isset($_POST['foreign_id']) && (int) $_POST['foreign_id'] > 0 && isset($_POST['type']) && in_array($_POST['type'], $this->types))

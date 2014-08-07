@@ -83,67 +83,67 @@ if (isset($tpl['status']))
 				$pjTime_ahf = pjTime::factory()
 					->attr('name', $k . '_admin_hour_from')
 					->attr('id', $k . '_admin_hour_from')
-					->attr('class', 'pj-form-field w40');
+					->attr('class', 'pj-form-field');
 					
 				$pjTime_amf = pjTime::factory()
 					->attr('name', $k . '_admin_minute_from')
 					->attr('id', $k . '_admin_minute_from')
-					->attr('class', 'pj-form-field w40')
+					->attr('class', 'pj-form-field')
 					->prop('step', $step);
 				
 				$pjTime_aht = pjTime::factory()
 					->attr('name', $k . '_admin_hour_to')
 					->attr('id', $k . '_admin_hour_to')
-					->attr('class', 'pj-form-field w40');
+					->attr('class', 'pj-form-field');
 					
 				$pjTime_amt = pjTime::factory()
 					->attr('name', $k . '_admin_minute_to')
 					->attr('id', $k . '_admin_minute_to')
-					->attr('class', 'pj-form-field w40')
+					->attr('class', 'pj-form-field')
 					->prop('step', $step);
 				
 				$pjTime_hf = pjTime::factory()
 					->attr('name', $k . '_hour_from')
 					->attr('id', $k . '_hour_from')
-					->attr('class', 'pj-form-field w40');
+					->attr('class', 'pj-form-field');
 					
 				$pjTime_mf = pjTime::factory()
 					->attr('name', $k . '_minute_from')
 					->attr('id', $k . '_minute_from')
-					->attr('class', 'pj-form-field w40')
+					->attr('class', 'pj-form-field')
 					->prop('step', $step);
 					
 				$pjTime_lhf = pjTime::factory()
 					->attr('name', $k . '_lunch_hour_from')
 					->attr('id', $k . '_lunch_hour_from')
-					->attr('class', 'pj-form-field w40');
+					->attr('class', 'pj-form-field');
 					
 				$pjTime_lmf = pjTime::factory()
 					->attr('name', $k . '_lunch_minute_from')
 					->attr('id', $k . '_lunch_minute_from')
-					->attr('class', 'pj-form-field w40')
+					->attr('class', 'pj-form-field')
 					->prop('step', $step);
 
 				$pjTime_ht = pjTime::factory()
 					->attr('name', $k . '_hour_to')
 					->attr('id', $k . '_hour_to')
-					->attr('class', 'pj-form-field w40');
+					->attr('class', 'pj-form-field');
 					
 				$pjTime_mt = pjTime::factory()
 					->attr('name', $k . '_minute_to')
 					->attr('id', $k . '_minute_to')
-					->attr('class', 'pj-form-field w40')
+					->attr('class', 'pj-form-field')
 					->prop('step', $step);
 					
 				$pjTime_lht = pjTime::factory()
 					->attr('name', $k . '_lunch_hour_to')
 					->attr('id', $k . '_lunch_hour_to')
-					->attr('class', 'pj-form-field w40');
+					->attr('class', 'pj-form-field');
 					
 				$pjTime_lmt = pjTime::factory()
 					->attr('name', $k . '_lunch_minute_to')
 					->attr('id', $k . '_lunch_minute_to')
-					->attr('class', 'pj-form-field w40')
+					->attr('class', 'pj-form-field')
 					->prop('step', $step);
 					
 				if (isset($tpl['wt_arr']) && !empty($tpl['wt_arr']))
@@ -288,11 +288,11 @@ if (isset($tpl['status']))
 				$i++;
 			}
 			?>
-			<?php if (!isset($_GET['foreign_id']) && !isset($_GET['type']) && $controller->isAdmin()) : ?>
-				<!-- <tr>
+			<?php /*if (!isset($_GET['foreign_id']) && !isset($_GET['type']) && $controller->isAdmin()) : ?>
+				<tr>
 					<td colspan="6"><label><input type="checkbox" name="update_all" value="1" /> <?php __('time_update_default'); ?></label></td>
-				</tr> -->
-			<?php endif; ?>
+				</tr>
+			<?php endif;*/ ?>
 			</tbody>
 			<tfoot>
 				<tr>
