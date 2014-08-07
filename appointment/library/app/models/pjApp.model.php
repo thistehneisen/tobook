@@ -73,5 +73,10 @@ class pjAppModel extends pjModel
         $this->setOwnerId('');
         return parent::erase();
     }
+
+    public function modify($data=array()){
+        $this->setOwnerId('');
+        return parent::modify($data);
+    }
 }
 
