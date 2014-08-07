@@ -31,6 +31,7 @@ class pjAppModel extends pjModel
 
 	public function disableOwnerID() {
 		$this->isUseOwnerID = false;
+        return $this;
 	}
 
     public function join($model, $condition, $direction = null) {
@@ -40,9 +41,22 @@ class pjAppModel extends pjModel
 
     protected function setOwnerId()
     {
+        $owner_id = $this->getOwnerId();
         if($this->isUseOwnerID) {
-            $this->where('t1.owner_id', (int) $_SESSION['owner_id']);
+            $this->where('t1.owner_id', $owner_id);
         }
+    }
+
+    private function getOwnerId(){
+        $owner_id = 0;
+        $use_front_owner_id = (bool)$_SESSION['use_front_owner_id'];
+        if(isset($_SESSION['owner_id'])){
+            $owner_id = intval($_SESSION['owner_id']);
+        }
+        if(isset($_SESSION['front_owner_id']) && $use_front_owner_id){
+            $owner_id = intval($_SESSION['front_owner_id']);
+        } 
+        return $owner_id;
     }
 }
 

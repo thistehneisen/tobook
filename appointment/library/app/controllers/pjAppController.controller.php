@@ -17,6 +17,19 @@ class pjAppController extends pjController {
     
     private $layoutRange = array(1, 2, 3);
     
+
+    public function getOwnerId(){
+        $owner_id = 0;
+        $use_front_owner_id = (bool)$_SESSION['use_front_owner_id'];
+        if(isset($_SESSION['owner_id'])){
+            $owner_id = intval($_SESSION['owner_id']);
+        }
+        if(isset($_SESSION['front_owner_id']) && $use_front_owner_id){
+            $owner_id = intval($_SESSION['front_owner_id']);
+        } 
+        return $owner_id;
+    }
+
     public function getLayoutRange()
     {
         return $this->layoutRange;
@@ -524,6 +537,7 @@ class pjAppController extends pjController {
         
         # Get custom working time for given employee
         $date_arr = $pjDateModel->getDailyWorkingTime($employee_id, $date, 'employee');
+
         if ($date_arr !== false)
         {
             # It's Day off
@@ -596,7 +610,7 @@ class pjAppController extends pjController {
             
         # Now check for default/global custom working time
         $date_arr = $pjDateModel->getDailyWorkingTime($cid, $date);
-        //var_dump($date_arr);die();
+
         if ($date_arr !== false)
         {
         # It's Day off

@@ -130,22 +130,22 @@ class pjMonthlyCalendar {
 			$opening_hours = $opening_hours/60;
 			
 			if ($opening_hours > 0) {
-				$cellContent .= '<p>Revenue <span>'. $price . $this->currency . '</span></p>';
-				$cellContent .= '<p>Num. of book <span>'. $amount . '</span></p>';
-				$cellContent .= '<p>Working time <span>'. floor($opening_hours/60) . 'h';
+				$cellContent .= '<p>'.__('lblRevenue', true, false).' <span>'. $price . $this->currency . '</span></p>';
+				$cellContent .= '<p>'.__('lblNumOfBook', true, false).' <span>'. $amount . '</span></p>';
+				$cellContent .= '<p>'.__('lblWorkingTime', true, false).' <span>'. floor($opening_hours/60) . 'h';
 				$cellContent .= $opening_hours%60 < 10 ? '0' . $opening_hours%60 : $opening_hours%60;
 				$cellContent .= '</span></p>';
-				$cellContent .= '<p>Booking hours <span>'.  floor($booking_hours/60). 'h';
+				$cellContent .= '<p>'.__('lblBookingHours', true, false).' <span>'.  floor($booking_hours/60). 'h';
 				$cellContent .= $booking_hours%60 < 10 ? '0' . $booking_hours%60 : $booking_hours%60;
 				$cellContent .= '</span></p>';
-				$cellContent .= '<p>Booking rate <span>'. round($booking_hours*100/$opening_hours, 2) . '%</span></p>';
+				$cellContent .= '<p>'.__('lblBookingRate', true, false).' <span>'. round($booking_hours*100/$opening_hours, 2) . '%</span></p>';
 			
 			} else {
-				$cellContent .= '<p>Revenue <span>0' . $this->currency . '</span></p>';
-				$cellContent .= '<p>Num. of book <span>0</span></p>';
-				$cellContent .= '<p>Working time <span>0h00</span></p>';
-				$cellContent .= '<p>Booking hours <span>0h00</span></p>';
-				$cellContent .= '<p>Booking rate <span>0%</span></p>';
+				$cellContent .= '<p>'.__('lblRevenue', true, false).' <span>0' . $this->currency . '</span></p>';
+				$cellContent .= '<p>'.__('lblNumOfBook', true, false).' <span>0</span></p>';
+				$cellContent .= '<p>'.__('lblWorkingTime', true, false).' <span>0h00</span></p>';
+				$cellContent .= '<p>'.__('lblBookingHours', true, false).' <span>0h00</span></p>';
+				$cellContent .= '<p>'.__('lblBookingRate', true, false).' <span>0%</span></p>';
 			}
 			
 			$this->currentDay++;
@@ -177,9 +177,9 @@ class pjMonthlyCalendar {
 		$preYear = $this->currentMonth==1?intval($this->currentYear)-1:$this->currentYear;
 		 
 		$html .= '<div class="header">'.
-					'<a class="prev calendar-control" href="' . $_SERVER['PHP_SELF'] . '?controller=pjAdminBookings&action=pjActionGetCalendar&as_pf=' . PREFIX . '&month='.sprintf('%02d',$preMonth).'&year='.$preYear.'">Prev</a>'.
+					'<a class="prev calendar-control" href="' . $_SERVER['PHP_SELF'] . '?controller=pjAdminBookings&action=pjActionGetCalendar&as_pf=' . PREFIX . '&month='.sprintf('%02d',$preMonth).'&year='.$preYear.'">'.__('btnPrev', true, false).'</a>'.
 					'<span class="title">'.date('Y M',strtotime($this->currentYear.'-'.$this->currentMonth.'-1')).'</span>'.
-					'<a class="next calendar-control" href="' . $_SERVER['PHP_SELF'] . '?controller=pjAdminBookings&action=pjActionGetCalendar&as_pf=' . PREFIX . '&month='.sprintf("%02d", $nextMonth).'&year='.$nextYear.'">Next</a>'.
+					'<a class="next calendar-control" href="' . $_SERVER['PHP_SELF'] . '?controller=pjAdminBookings&action=pjActionGetCalendar&as_pf=' . PREFIX . '&month='.sprintf("%02d", $nextMonth).'&year='.$nextYear.'">'.__('btnNext', true, false).'</a>'.
 				'</div>';
 		$html .= '<select name="employee_id" id="employee_id">';
 		

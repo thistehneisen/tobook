@@ -251,7 +251,7 @@ if (isset($tpl['status']))
 					
 					<p>
 						<label class="title">&nbsp;</label>
-						<input type="submit" value="<?php __('btnSave', false, true); ?>" class="pj-button" />
+						<input type="submit" id="btn-create-booking" value="<?php __('btnSave', false, true); ?>" class="pj-button" />
 					</p>
 				</fieldset>
 				

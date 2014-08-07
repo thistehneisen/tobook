@@ -79,7 +79,7 @@ var jQuery_1_8_2 = jQuery_1_8_2 || $.noConflict();
 			$frmCreateEmployee.validate(vOpts);
 		}
 		if ($frmUpdateEmployee.length > 0) {
-			vOpts.rules.email.remote = vOpts.rules.email.remote + "&id=" + $frmUpdateEmployee.find("input[name='id']").val();
+			//vOpts.rules.email.remote = vOpts.rules.email.remote + "&id=" + $frmUpdateEmployee.find("input[name='id']").val();
 			$frmUpdateEmployee.validate(vOpts);
 		}
 		if ($frmCustomtime.length > 0) {
@@ -235,7 +235,8 @@ var jQuery_1_8_2 = jQuery_1_8_2 || $.noConflict();
 			var $grid = $("#grid").datagrid(options);
 		}
 		
-		$("#content").on("click", ".btnDeleteAvatar", function () {
+		$("#content").on("click", ".btnDeleteAvatar", function (e) {
+            console.log('hello world');
 			if ($dialogDeleteAvatar.length > 0 && dialog) {
 				$dialogDeleteAvatar.data("id", $frmUpdateEmployee.find("input[name='id']").val()).dialog("open");
 			}

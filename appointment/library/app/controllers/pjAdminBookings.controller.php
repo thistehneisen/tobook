@@ -418,7 +418,21 @@ class pjAdminBookings extends pjAdmin
 		}
 		exit;
 	}
-	
+	public function pjActionCheckOverlappingBooking()
+    {
+        $this->setAjax(true);
+        if ($this->isXHR())
+        {
+            //check overlap booking
+            // $booking = pjBookingServiceModel::factory()->where(sprintf("`date`= '%s' and `start_ts` > %d", $data['date']), $data['start_ts'])->orderBy('`start_ts` ASC')->limit(1)->getData();
+            // $total_time = intval($date['start_ts']) + (intval($data['total']) * 3600);
+            // if($total_time > intval($booking['start_ts'])){
+
+            // }
+            echo "Hello World";
+            $this->set('status', 200);
+        }
+    }
 	public function pjActionGetService()
 	{
 		$this->setAjax(true);

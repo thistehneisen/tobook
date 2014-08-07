@@ -9,10 +9,12 @@ abstract class Base {
 	protected $db;
 	protected $currentUser;
 	protected $schemaManager;
+	protected $originalUsername;
 	protected $username;
 	protected $autoIncrementFields = [];
 	protected $tablePrefix = '';
 	protected $tablePattern = null;
+	protected $options;
 
 	/**
 	 * Contain map from old IDs to new IDs
@@ -21,11 +23,16 @@ abstract class Base {
 	 */
 	protected $map = [];
 
-	public function __construct(OutputInterface $output, Connection $db)
+	public function __construct(
+		OutputInterface $output,
+		Connection $db,
+		array $options = array())
 	{
 		$this->output        = $output;
 		$this->db            = $db;
 		$this->schemaManager = $this->db->getSchemaManager();
+
+		$this->options = $options;
 	}
 
 	abstract public function run();
@@ -64,24 +71,37 @@ abstract class Base {
 	public function getCurrentUser()
 	{
 		if ($this->currentUser === false
-		 || $this->currentUser['vuser_login'] !== $this->username) {
+		 || $this->currentUser['vuser_login'] !== $this->originalUsername) {
 			// Get user information from tbl_user_mast
 			$stm = $this->queryBuilder()
 				->select('*')
 				->from('tbl_user_mast', 'u')
 				->where('u.vuser_login = ?')
-				->setParameter(0, $this->username)
+				->setParameter(0, $this->originalUsername)
 				->execute();
 
 			$user = $stm->fetch();
 			if ($user === false) {
-				$this->error("Cannot find information of $this->username. Retry later!");
+				$this->error("Cannot find information of $this->originalUsername. Retry later!");
 			}
 
 			$this->currentUser = $user;
 		}
 
 		return $this->currentUser;
+	}
+
+	/**
+	 * In database, there are usernames having dash but their database prefix
+	 * is without dash. So this method will remove dash in usernames.
+	 * 
+	 * @param  string $username
+	 * 
+	 * @return string
+	 */
+	protected function processUsername($username)
+	{
+		return str_replace('-', '', $username);
 	}
 
 	/**
@@ -99,11 +119,23 @@ abstract class Base {
 		$this->text('Getting a list of users to be proceeded...');
 		$usernames = [];
 
-		// Get all users
-		$stm = $this->queryBuilder()
+		// Prefer usernames over IDs
+		if (isset($this->options['usernames']) 
+			&& !empty($this->options['usernames'])) {
+			return array_map('trim', explode(',', $this->options['usernames']));
+		}
+
+		$query = $this->queryBuilder()
 			->select('vuser_login')
-			->from('tbl_user_mast', 'u')			
-			->execute();
+			->from('tbl_user_mast', 'u');
+
+		if (isset($this->options['ids']) && !empty($this->options['ids'])) {
+			$ids = array_map('trim', explode(',', $this->options['ids']));
+			$query = $query->where('nuser_id IN ('.implode(',', $ids).')');
+		}
+
+		// Get all users
+		$stm = $query->execute();
 
 		while ($row = $stm->fetch()) {
 			$username = $row['vuser_login'];

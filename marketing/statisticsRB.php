@@ -20,13 +20,13 @@
 	<script src="js/highcharts/highcharts.js"></script>
 	<script src="js/highcharts/modules/exporting.js"></script>    
 		        
-    <script type="text/javascript" src="js/statisticsAS.js"></script>
+    <script type="text/javascript" src="js/statisticsRB.js"></script>
 
     
 </head>
 <body>
 	<div class="frontTopBackground">
-		Appointment Scheduler Statistics
+		Restaurant Booking Statistics
 	</div>
 	<div class="greyDivider"></div>
 	<div class="container">
@@ -36,7 +36,7 @@
                 </div>
                 <div class="panel-body">
                 		<div class="col-md-2">
-                			<select class="form-control" id="userList" onchange="onChangeUser()">
+                			<select class="form-control" id="userList">
                 				<option value="">Select User</option>
                 				<?php 
                 					$sql = "select nuser_id as userid, vuser_login as username from tbl_user_mast where vdel_status = 0";
@@ -47,12 +47,6 @@
                 				<?php } ?>
                 			</select>
                 		</div>
-                		<div class="col-md-2">
-                			<select class="form-control" id="employeeList">
-                				<option value="">All Employees</option>
-                				<option value="">Individual Employees</option>
-                			</select>
-                		</div>  
                 		<div class="col-md-2">
                 			<input type="text" id="startDate" class="floatleft form-control" readonly placeholder="Start Date" style="text-align:center;cursor:pointer;background:#FFF;"/>
                 		</div>
@@ -66,6 +60,7 @@
                 				<option value="monthly">By Monthly</option>
                 			</select>
                 		</div>
+                		<div class="col-md-2"></div>
                 		<div class="col-md-2">
                 			<button class="btn-u btn-u-blue btn-u-block" onclick="onCalculate()"><i class="icon-search"></i>&nbsp;Show Statistics</button>
                 		</div>
@@ -73,7 +68,6 @@
                 		<div class="col-md-10 col-md-offset-1 divChart" id="divChart1"></div>
                 		<div class="col-md-10 col-md-offset-1 divChart" id="divChart2"></div>
                 		<div class="col-md-10 col-md-offset-1 divChart" id="divChart3"></div>
-                		<div class="col-md-10 col-md-offset-1 divChart" id="divChart4"></div>
                 		<div class="col-md-10 col-md-offset-1" style="margin-top: 30px;border: 1px solid #DDD;">
 							<div class="panel panel-grey margin-bottom-40" style="margin-top:30px;">
 								<div class="panel-heading">
@@ -85,12 +79,10 @@
 											<tr>
 												<th style="width:7%;text-align:center;">#</th>
 												<th style="width:13%;text-align:center;">Date</th>
-												<th style="width:15%;text-align:center;">Employee</th>
+												<th style="width:15%;text-align:center;" id="lblListType">User</th>
 												<th style="width:13%;text-align:center;">Revenue</th>
-												<th style="width:13%;text-align:center;">Number Of Booking</th>
-												<th style="width:13%;text-align:center;">Working Hours</th>
-												<th style="width:13%;text-align:center;">Booking Hours</th>
-												<th style="width:13%;text-align:center;">Booking Rate</th>
+												<th style="width:13%;text-align:center;">Reservations</th>
+												<th style="width:13%;text-align:center;">Covers</th>
 											</tr>
 										</thead>
 										<tbody>

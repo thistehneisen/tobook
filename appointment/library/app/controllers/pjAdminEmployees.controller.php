@@ -53,7 +53,7 @@ class pjAdminEmployees extends pjAdmin
 						$pjImage->setAllowedExt($this->extensions)->setAllowedTypes($this->mimeTypes);
 						if ($pjImage->load($_FILES['avatar']))
 						{
-							$dst = PJ_UPLOAD_PATH . md5($id . PJ_SALT) . ".jpg";
+							$dst = __DIR__ . DIRECTORY_SEPARATOR . PJ_UPLOAD_PATH . md5($id . PJ_SALT) . ".jpg";
 							$pjImage
 								->loadImage()
 								->resizeSmart(100, 100)
@@ -506,7 +506,7 @@ class pjAdminEmployees extends pjAdmin
 		
 		if ($this->isAdmin())
 		{
-			$owner_id = intval($_SESSION['owner_id']);
+			$owner_id = $this->getOwnerId();
 			if (isset($_POST['employee_update']) && isset($_POST['id']) && (int) $_POST['id'] > 0)
 			{
 				$data = array();
@@ -516,8 +516,8 @@ class pjAdminEmployees extends pjAdmin
 					$pjImage->setAllowedExt($this->extensions)->setAllowedTypes($this->mimeTypes);
 					if ($pjImage->load($_FILES['avatar']))
 					{
-						$data['avatar'] = PJ_UPLOAD_PATH . md5($_POST['id'] . PJ_SALT) . ".jpg";
-						$pjImage
+						$data['avatar'] =  PJ_UPLOAD_PATH . md5($_POST['id'] . PJ_SALT) . ".jpg";
+                        $pjImage
 							->loadImage()
 							->resizeSmart(100, 100)
 							->saveImage($data['avatar']);
@@ -687,7 +687,7 @@ class pjAdminEmployees extends pjAdmin
 				$data['end_time'] = join(":", array($_POST['end_hour'], $_POST['end_minute']));
 				$data['start_lunch'] = join(":", array($_POST['start_lunch_hour'], $_POST['start_lunch_minute']));
 				$data['end_lunch'] = join(":", array($_POST['end_lunch_hour'], $_POST['end_lunch_minute']));
-				$data['owner_id'] = intval($_SESSION['owner_id']);
+				$data['owner_id'] = $this->getOwnerId();
 				if ( isset($_POST['id']) && $_POST['id'] > 0 ) {
 					$data['is_dayoff'] = isset($_POST['is_dayoff']) ? 'T' : 'F';
 					pjCustomTimesModel::factory()->where('id', $_POST['id'])->modifyAll(array_merge($_POST, $data));
@@ -735,7 +735,7 @@ class pjAdminEmployees extends pjAdmin
 							$data['employee_id'] = $_array[2];
 							$data['customtime_id'] = $v;
 							$data['date'] = date('Y-m-d', strtotime(date('Y-m', strtotime($date)) . '-' . $_array[1]));
-							$data['owner_id'] = intval($_SESSION['owner_id']);
+							$data['owner_id'] = $this->getOwnerId();
 							$pjEmployeeCustomTime
 								->reset()
 								->where('employee_id', $data['employee_id'])
@@ -767,7 +767,8 @@ class pjAdminEmployees extends pjAdmin
 									$data_time['end_time'] = $customtime['end_time'];
 									$data_time['start_lunch'] = $customtime['start_lunch'];
 									$data_time['end_lunch'] = $customtime['end_lunch'];
-									$data_time['is_dayoff'] = $customtime['is_dayoff'];
+                                    $data_time['is_dayoff'] = $customtime['is_dayoff'];
+									$data_time['owner_id'] =  $this->getOwnerId();
 									
 									$pjDateModel
 										->reset()

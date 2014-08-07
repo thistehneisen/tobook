@@ -19,7 +19,7 @@ class pjAdmin extends pjAppController
 	public function __construct($requireLogin=null)
 	{
 		$this->setLayout('pjActionAdmin');
-		
+		$_SESSION['use_front_owner_id'] = false;
 		if (!is_null($requireLogin) && is_bool($requireLogin))
 		{
 			$this->requireLogin = $requireLogin;
@@ -78,7 +78,8 @@ class pjAdmin extends pjAppController
 				->set('t_arr', $result['t_arr'])
 				->set('service_arr', $result['service_arr'])
 				->set('employee_arr', $result['employee_arr']);
-			
+            $this->set('owner_id', $this->getOwnerId());
+            
 			$this->appendJs('jquery.multiselect.min.js', PJ_THIRD_PARTY_PATH . 'multiselect/');
 			$this->appendCss('jquery.multiselect.css', PJ_THIRD_PARTY_PATH . 'multiselect/');
 			
@@ -98,7 +99,7 @@ class pjAdmin extends pjAppController
 
 	private function pjActionGetDashboard($isoDate)
 	{
-		$owner_id = intval($_SESSION['owner_id']);
+		$owner_id = $this->getOwnerId();
 		$service_arr = pjServiceModel::factory()
 			->select('t1.*, t2.content AS `name`')
 			->join('pjMultiLang', sprintf("t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name'"), 'left outer')
@@ -118,7 +119,6 @@ class pjAdmin extends pjAppController
 			
 			$employees = $employee_arr;
 			foreach ( $employees as $k => $employee ) {
-				
 				$t_arr = pjAppController::getRawSlotsPerEmployeeAdmin($employee['id'], $isoDate, $this->getForeignId());
 				
 				$et_arr = array();
@@ -147,8 +147,8 @@ class pjAdmin extends pjAppController
 			->select('t1.*, t2.booking_status, t2.c_notes, t2.c_name, t4.content AS `service_name`')
 			->join('pjBooking', 't2.id=t1.booking_id', 'inner')
 			->join('pjService', 't3.id=t1.service_id', 'inner')
-			->join('pjMultiLang', "t4.model='pjService' AND t4.foreign_id=t1.service_id AND t4.field='name'", 'left outer') // remove AND t4.locale=t2.locale_id 
-			// banana cocde
+			->join('pjMultiLang', "t4.model='pjService' AND t4.foreign_id=t1.service_id  AND t4.field='name'", 'left outer') // remove AND t4.locale=t2.locale_id 
+			// banana code
             // ->where('t2.calendar_id', $this->getForeignId()) 
 			->where('t2.booking_status', 'confirmed')
 			->where('t1.date', $isoDate)
@@ -315,11 +315,11 @@ class pjAdmin extends pjAppController
 			->select('t1.*, t2.booking_status, t2.c_name, t4.content AS `service_name`')
 			->join('pjBooking', 't2.id=t1.booking_id', 'inner')
 			->join('pjService', 't3.id=t1.service_id', 'inner')
-			->join('pjMultiLang', "t4.model='pjService' AND t4.foreign_id=t1.service_id AND t4.locale=t2.locale_id AND t4.field='name'", 'left outer')
-			->where('t2.calendar_id', $this->getForeignId())
+			->join('pjMultiLang', "t4.model='pjService' AND t4.foreign_id=t1.service_id AND t4.field='name'", 'left outer')//banana code remove locale id
+			// ->where('t2.calendar_id', $this->getForeignId())
 			->where('t2.booking_status', 'confirmed')
 			->where('t1.date', $isoDate)
-			->where($this->isEmployee() ? sprintf("t1.service_id='%u'", $this->getUserId()) : "1=1")
+			//->where($this->isEmployee() ? sprintf("t1.service_id='%u'", $this->getUserId()) : "1=1")
 			->findAll()
 			->getData();
 		
@@ -852,6 +852,7 @@ class pjAdmin extends pjAppController
 			if ( isset($_GET['booking_id']) && $_GET['booking_id'] > 0 &&  isset($_GET['status']) ) {
 				$owner_id = intval($_SESSION['owner_id']);
 				$pjBookingStatus = pjBookingStatus::factory()
+                    ->disableOwnerID()
 					->where('booking_id', $_GET['booking_id'])
 				    ->where('owner_id', $owner_id);
 

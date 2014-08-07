@@ -1,101 +1,101 @@
 @CHARSET "UTF-8";
 [calendarContainer] {
-	float: none;
-	height: 100%;
+    float: none;
+    height: 100%;
 }
 [calendarContainer] table.asCalendarTable{
-	background-color: #ECF0F1;
-	border: 1px solid #ECF0F1;
-	border-collapse: collapse;
-	table-layout: fixed;
-	font-family: PTSansRegular, sans-serif;
-	height: 100%;
-	width: 100%;
+    background-color: #ECF0F1;
+    border: 1px solid #ECF0F1;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-family: PTSansRegular, sans-serif;
+    height: 100%;
+    width: 100%;
 }
 [calendarContainer] a{
-	outline: none;
+    outline: none;
 }
 [calendarContainer] td.asCalendarMonth{
-	background-color: #ECF0F1;
-	border-right: solid 1px #ECF0F1;
-	border-bottom: solid 1px #ECF0F1;
-	color: #414748;
-	font-family: PTSansBold, sans-serif;
-	font-size: 1.1em;
-	height: [cell_height]%;
-	text-shadow: 1px 1px 1px #fff;
-	white-space: nowrap;
+    background-color: #ECF0F1;
+    border-right: solid 1px #ECF0F1;
+    border-bottom: solid 1px #ECF0F1;
+    color: #414748;
+    font-family: PTSansBold, sans-serif;
+    font-size: 1.1em;
+    height: [cell_height]%;
+    text-shadow: 1px 1px 1px #fff;
+    white-space: nowrap;
 }
 [calendarContainer] .asCalendarMonthOuter{
-	display: table;
-	width: 100%;
-	height: 100%;
-	margin: 0;
-	position: relative;
+    display: table;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    position: relative;
 }
 [calendarContainer] .asCalendarMonthInner{
-	/* Uncomment if container has explicit set up height */
-	/*display: table-cell;*/
-	vertical-align: middle;
-	text-align: center;
+    /* Uncomment if container has explicit set up height */
+    /*display: table-cell;*/
+    vertical-align: middle;
+    text-align: center;
 }
 [calendarContainer] td.asCalendarMonth,
 [calendarContainer] td.asCalendarMonth a:link,
 [calendarContainer] td.asCalendarMonth a:visited,
 [calendarContainer] td.asCalendarMonth a:hover{
-	text-align: center;
-	vertical-align: middle;
+    text-align: center;
+    vertical-align: middle;
 }
 [calendarContainer] td.asCalendarMonth a:link,
 [calendarContainer] td.asCalendarMonth a:visited{
-	text-decoration: none;
+    text-decoration: none;
 }
 [calendarContainer] td.asCalendarMonthPrev,
 [calendarContainer] td.asCalendarMonthNext{
-	background-color: #ECF0F1;
-	width: [cell_width]%;
+    background-color: #ECF0F1;
+    width: [cell_width]%;
 }
 [calendarContainer] td.asCalendarMonthPrev a:link,
 [calendarContainer] td.asCalendarMonthPrev a:visited,
 [calendarContainer] td.asCalendarMonthPrev a:active,
 [calendarContainer] td.asCalendarMonthNext a{
-	display: inline-block;
-	width: 100%;
-	height: 100%;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
 }
 [calendarContainer] a.asCalendarLinkMonth:link,
 [calendarContainer] a.asCalendarLinkMonth:visited,
 [calendarContainer] a.asCalendarLinkMonth:active,
 [calendarContainer] a.asCalendarLinkMonth:hover,
 [calendarContainer] a.asCalendarLinkMonth:focus{
-	display: inline-block;
-	width: 100%;
-	height: 100%;
-	/*position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;*/
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    /*position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;*/
 }
 [calendarContainer] td.asCalendarMonthPrev a{
-	background: transparent url([URL]app/web/img/frontend/as-arrow-left.png) center center no-repeat;
+    background: transparent url([URL]app/web/img/frontend/as-arrow-left.png) center center no-repeat;
 }
 [calendarContainer] td.asCalendarMonthNext a{
-	background: transparent url([URL]app/web/img/frontend/as-arrow-right.png) center center no-repeat;
+    background: transparent url([URL]app/web/img/frontend/as-arrow-right.png) center center no-repeat;
 }
 [calendarContainer] td.asCalendarMonth a:hover{
-	text-decoration: none;
+    text-decoration: none;
 }
 [calendarContainer] td.asCalendarWeekDay{
-	/*padding: 2px 0;
-	text-align: center;
-	vertical-align: middle;*/
-	text-transform: lowercase;
-	text-shadow: 1px 1px 1px #fff;
+    /*padding: 2px 0;
+    text-align: center;
+    vertical-align: middle;*/
+    text-transform: lowercase;
+    text-shadow: 1px 1px 1px #fff;
 }
 [calendarContainer] td.asCalendarHeader{ 
-	font-weight: bold; 
-	color: #000; 
+    font-weight: bold; 
+    color: #000; 
 }
 [calendarContainer] td.asCalendarWeekDay,
 [calendarContainer] td.asCalendarWeekNum,
@@ -106,60 +106,60 @@
 [calendarContainer] td.asCalendarPast, 
 [calendarContainer] td.asCalendarEmpty, 
 [calendarContainer] td.asCalendarDate{
-	border: 1px solid #ecf0f1;
-	height: [cell_height]%;
-	/*position: relative;*/
-	text-align: center;
-	vertical-align: middle;
-	width: [cell_width]%;
+    border: 1px solid #ecf0f1;
+    height: [cell_height]%;
+    /*position: relative;*/
+    text-align: center;
+    vertical-align: middle;
+    width: [cell_width]%;
 }
 [calendarContainer] td.asCalendarReserved{
-	background-color: #da384b;
-	color: #fff;
-	font-size: inherit;
-	text-shadow: 1px 1px 1px #660000;
+    background-color: #da384b;
+    color: #fff;
+    font-size: inherit;
+    text-shadow: 1px 1px 1px #660000;
 }
 [calendarContainer] td.asCalendarPending{
 }
 [calendarContainer] td.asCalendarPast{
-	background-color: #DDE4E6;
-	color: #BFBFBF;
-	text-shadow: 1px 1px 1px #fff;
+    background-color: #DDE4E6;
+    color: #BFBFBF;
+    text-shadow: 1px 1px 1px #fff;
 }
 [calendarContainer] td.asCalendarEmpty{
-	background-color: #ecf0f1;
+    background-color: #ecf0f1;
 }
 [calendarContainer] td.asCalendarWeekNum{
-	text-shadow: 1px 1px 1px #fff;
+    text-shadow: 1px 1px 1px #fff;
 }
 [calendarContainer] td.asCalendarDate, 
 [calendarContainer] td.asCalendarToday,
 [calendarContainer] td.asCalendarSelected{ 
-	cursor: pointer;
-	background-color: #fff;
+    cursor: pointer;
+    background-color: #fff;
 }
 [calendarContainer] td.asCalendarToday{ 
-	background-color: #dd5e00;
-	color: #fff;
-	
+    background-color: #dd5e00;
+    color: #fff;
+    
 }
 [calendarContainer] td.asCalendarSelected{ 
-	background-color: #414141;
-	color: #fff;
-	
+    background-color: #414141;
+    color: #fff;
+    
 }
 [calendarContainer] .asCalendarDateOuter{
-	display: table;
-	width: 100%;
-	height: 100%;
-	margin: 0;
-	
-	position: relative;
+    display: table;
+    width: 100%;
+    /*height: 100%;*/
+    margin: 0;
+    
+    position: relative;
 }
 [calendarContainer] .asCalendarDateInner{
-	/*display: table-cell;*/
-	vertical-align: middle;
-	text-align: center;
-	padding: 25% 0;
-	margin: 0;
+    /*display: table-cell;*/
+    vertical-align: middle;
+    text-align: center;
+    padding: 25% 0;
+    margin: 0;
 }

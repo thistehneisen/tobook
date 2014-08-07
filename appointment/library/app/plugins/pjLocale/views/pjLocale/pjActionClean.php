@@ -11,7 +11,7 @@
 		</form>
 		<?php
 	} else {
-		?><p>No records found.</p><?php
+		?><p><?php __('lblNoRecordsFound');?></p><?php
 	}
 	?>
 </fieldset>
@@ -58,7 +58,7 @@
 		</form>
 		<?php
 	} else {
-		?><p>No records found.</p><?php
+		?><p><?php __('lblNoRecordsFound');?>.</p><?php
 	}
 	?>
 </fieldset>

@@ -13,7 +13,8 @@ class AppScheduler extends Base {
 		foreach ($usernames as $username) {
 			$this->map = [];
 			
-			$this->username = $username;
+			$this->originalUsername = $username;
+			$this->username = $this->processUsername($username);
 			$this->info('----------------------------------------------------');
 			$this->info("Proccessing data of <fg=green;options=bold>{$username}</fg=green;options=bold>", true);
 			$this->info('----------------------------------------------------');
@@ -35,7 +36,6 @@ class AppScheduler extends Base {
 				'plugin_sms',
 				'options',
 				'plugin_invoice',
-				'services_time'
 			];
 			foreach ($tables as $table) {
 				$this->migrateTable($table);
@@ -116,6 +116,10 @@ class AppScheduler extends Base {
 			$this->migrateTable('plugin_invoice_items', [
 				'invoice_id' => 'plugin_invoice',
 			]);
+
+            $this->migrateTable('services_time', [
+                'foreign_id' => 'services',
+            ]);
 
             $this->migrateMultiLang();
 		}

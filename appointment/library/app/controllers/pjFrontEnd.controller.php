@@ -283,7 +283,7 @@ class pjFrontEnd extends pjFront
 
 		if ($this->isXHR())
 		{
-            $owner_id = (int) $_GET['owner_id'];
+            $owner_id = $this->getOwnerId();
 
 			if (!isset($_POST['as_preview']) || !isset($_SESSION[$this->defaultForm]) || empty($_SESSION[$this->defaultForm]))
 			{
@@ -324,7 +324,7 @@ class pjFrontEnd extends pjFront
 			$data['booking_deposit'] = $summary['deposit'];
 			$data['booking_tax'] = $summary['tax'];
 			$data['booking_total'] = $summary['total'];
-			$data['owner_id'] = (int) $_GET['owner_id'];
+			$data['owner_id'] = $owner_id;
 
 			$pjBookingModel = pjBookingModel::factory();
 			if (!$pjBookingModel->validates($data))
@@ -459,7 +459,7 @@ class pjFrontEnd extends pjFront
 		
 		ob_start();
 		header("Content-Type: text/javascript; charset=utf-8");
-		
+
 		$days_off = $dates_off = $dates_on = array();
 		$w_arr = pjWorkingTimeModel::factory()->where('t1.foreign_id', $this->getForeignId())->where('t1.type', 'calendar')->findAll()->getData();
 		if (!empty($w_arr))
@@ -497,7 +497,7 @@ class pjFrontEnd extends pjFront
 		}
 		
 		$d_arr = pjDateModel::factory()
-			->where('t1.foreign_id', $this->getForeignId())
+			// ->where('t1.foreign_id', $this->getForeignId())
 			->where('t1.type', 'calendar')
 			->where('t1.date >= CURDATE()')
 			->findAll()

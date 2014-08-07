@@ -11,10 +11,8 @@ if (!headers_sent())
 	session_name('AppointmentScheduler');
 }
 
-if (in_array($_SERVER['SERVER_ADDR'], array('127.0.0.1', '192.185.5.15', '::1')))
-{
-	ini_set("display_errors", "On");
-	error_reporting(E_ALL);
+if (in_array($_SERVER['SERVER_ADDR'], array('127.0.0.1', '192.185.5.15', '::1'))) {
+	error_reporting(0);
 } else {
 	error_reporting(0);
 }

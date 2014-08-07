@@ -125,7 +125,7 @@ class pjCountry extends pjCountryAppController
 		if ($this->isXHR() && $this->isLoged())
 		{
 			pjObject::import('Model', 'pjCountry:pjCountry');
-			$pjCountryModel = pjCountryModel::factory()->join('pjMultiLang', "t2.foreign_id = t1.id AND t2.model = 'pjCountry' AND t2.locale = '".$this->getLocaleId()."' AND t2.field = 'name'", 'left');
+			$pjCountryModel = pjCountryModel::factory()->join('pjMultiLang', "t2.foreign_id = t1.id AND t2.model = 'pjCountry' AND t2.field = 'name'", 'left');
 			
 			if (isset($_GET['q']) && !empty($_GET['q']))
 			{
@@ -230,14 +230,15 @@ class pjCountry extends pjCountryAppController
 				$this->set('arr', $arr);
 				
 				pjObject::import('Model', array('pjLocale:pjLocale', 'pjLocale:pjLocaleLanguage'));
-				$locale_arr = pjLocaleModel::factory()->select('t1.*, t2.file')
-					->join('pjLocaleLanguage', 't2.iso=t1.language_iso', 'left')
-					->where('t2.file IS NOT NULL')
+				$locale_arr = pjLocaleModel::factory()->select('t1.*')
+					// ->join('pjLocaleLanguage', 't2.iso=t1.language_iso', 'left')
+					// ->where('t2.file IS NOT NULL')
 					->orderBy('t1.sort ASC')->findAll()->getData();
 				
 				$lp_arr = array();
-				foreach ($locale_arr as $item)
-				{
+				foreach ($locale_arr as &$item)
+				{   
+                    $item['id'] = 1;//banana code to enforce locale = 1 on UI
 					$lp_arr[$item['id']."_"] = $item['file']; //Hack for jquery $.extend, to prevent (re)order of numeric keys in object
 				}
 				$this->set('lp_arr', $locale_arr);

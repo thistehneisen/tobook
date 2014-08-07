@@ -70,8 +70,7 @@ class pjFrontPublic extends pjFront
 	{
 		if ($this->isXHR() || isset($_GET['_escaped_fragment_']))
 		{
-			//error_reporting(E_ALL);
-			$owner_id = intval($_SESSION['owner_id']);
+			$owner_id = $this->getOwnerId();
 			if (isset($_GET['id']) && (int) $_GET['id'] > 0)
 			{
 				$id = (int) $_GET['id'];
@@ -89,9 +88,8 @@ class pjFrontPublic extends pjFront
 			$pjEmployeeServiceModel = pjEmployeeServiceModel::factory()
 				->select("t1.*, t2.avatar, t2.notes, t3.content AS `name`")
 				->join('pjEmployee', 't2.id=t1.employee_id AND t2.is_active=1', 'inner')
-				->join('pjMultiLang', "t3.model='pjEmployee' AND t3.foreign_id=t1.employee_id AND t3.field='name' AND t3.locale='".$this->getLocaleId()."'", 'left outer')
+				->join('pjMultiLang', "t3.model='pjEmployee' AND t3.foreign_id=t1.employee_id AND t3.field='name'", 'left outer')
 				->where('t1.service_id', $id)
-				->where('t2.owner_id', $owner_id)
 				->orderBy('`name` ASC')
 				->findAll();
 			
@@ -219,7 +217,7 @@ class pjFrontPublic extends pjFront
 	}
 	
 	public function pjActionServices()
-	{
+	{ 
 		if ($this->isXHR() || isset($_GET['_escaped_fragment_']))
 		{
 			if (isset($_GET['_escaped_fragment_']))
@@ -243,20 +241,19 @@ class pjFrontPublic extends pjFront
 			
 			$this->set('calendar', $this->getCalendar($_GET['cid'], $year, $month, $day))
 				->set('cart_arr', $this->getCart($_GET['cid']));
-			$owner_id = intval($_GET['owner_id']);
+
 			$this->set('category_arr', 
 					pjServiceCategoryModel::factory()
 					->where('t1.show_front', 'on')
-					->where('t1.owner_id', $owner_id)
 					->orderBy('t1.name ASC')
 					->findAll()
 					->getData()
 				);
-			
+
 			if ( isset($_SESSION[ PREFIX . 'extra' ]) ) {
 				unset($_SESSION[ PREFIX . 'extra' ]);
 			}
-			
+			 
 			switch ($_GET['layout'])
 			{
 				case 2:
@@ -276,19 +273,19 @@ class pjFrontPublic extends pjFront
 					
 				case 1:
 				default:
-					
+
 					$data = $this->getServices($_GET['cid'], @$page);
-					
+
 					foreach ( $data['data'] as $k => $v ) {
 						
 						$data['data'][$k]['wtime'] = pjServiceTimeModel::factory()->select("t1.*")
 												->where('t1.foreign_id', $v['id'])
 												->findAll()
 												->getData();
-											}
+					}
 					
 					$this->set('service_arr', $data);
-					
+
 					$this->setTemplate('pjFrontPublic', 'pjActionServices');
 					break;
 			}

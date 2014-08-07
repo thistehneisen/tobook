@@ -62,6 +62,9 @@ Migrate modules with new database schema
 - Run `composer update` to install dependencies
 - Run `php runner migrate <module_name>` to import old data. Module name must be
 in CamelCase, i.e. `php runner migrate Cashier`.
+- Migration command supports those optional params:
+  * `--ids`: List of comma-separated IDs of users to be migrated
+  * `--usernames`: List of comma-separated usernames to be migrated
 - Done (hopefully)
 
 How to write new command to migrate data

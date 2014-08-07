@@ -1411,7 +1411,7 @@ class pjAdminBookings extends pjAdmin {
 		$pjEmail = new pjEmail ();
 		
 		$data = pjAppController::getData ( $option_arr, $booking_arr, $salt );
-		
+
 		// Payment email
 		if ($option_arr ['email_payment'] == $opt) {
 			$message = str_replace ( $data ['search'], $data ['replace'], $option_arr ['email_payment_message'] );

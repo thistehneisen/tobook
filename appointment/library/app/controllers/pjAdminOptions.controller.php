@@ -90,7 +90,24 @@ class pjAdminOptions extends pjAdmin
 	public function pjActionPreview()
 	{
 		$this->setAjax(true);
-		
+		$as_pf = htmlspecialchars($_GET['as_pf']);
+        if(isset($_GET['owner_id'])){
+            $owner_id = intval($_GET['owner_id']);
+        }
+        if(empty($owner_id)){
+            $as_pf = str_replace('_hey_', '', $as_pf);
+            require_once("../../includes/configsettings.php");
+            $dns = sprintf("mysql:dbname=%s;host=%s", PJ_DB, PJ_HOST);
+            $dbh = new PDO($dns, PJ_USER, PJ_PASS);
+            $sql = "SELECT nuser_id FROM tbl_user_mast WHERE vuser_login LIKE '$as_pf%' LIMIT 0,1";
+            $sth  = $dbh->prepare($sql);
+            $sth->execute();
+            $owner_id = intval($sth->fetchColumn());
+        }
+        $_SESSION['use_front_owner_id'] = true;
+        $_SESSION['front_owner_id'] = $owner_id;
+        $this->set('owner_id', $owner_id);
+        $this->set('as_pf', $as_pf);
 		$this->set('style', pjStyleModel::factory()
 			->findAll()
 			->getData());
@@ -262,7 +279,7 @@ class pjAdminOptions extends pjAdmin
 		
 		if ($this->isAdmin())
 		{
-			$owner_id = intval($_COOKIE['owner_id']);
+			$owner_id = $this->getOwnerId();
 			if ( isset($_POST['form_style']) && $_POST['form_style'] > 0 && isset($_POST['id']) && $_POST['id'] > 0 ) {
 				pjStyleModel::factory()->set('id', $_POST['id'])->modify($_POST);
 				

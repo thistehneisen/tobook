@@ -139,16 +139,16 @@ if (isset($tpl['status']))
 						</thead>
 						<tbody>
 							<?php
-							for ($i = $tpl['t_arr']['start_ts']; $i <= $tpl['t_arr']['end_ts'] + $offset - $step; $i += $step)
-							{
+                            $booking_id = array();
+                            for ($i = $tpl['t_arr']['start_ts']; $i <= $tpl['t_arr']['end_ts'] + $offset - $step; $i += $step)
+                            {
 								?>
 								<tr>
 									<td class="dHead"><span><?php echo date($tpl['option_arr']['o_time_format'], $i); ?></span></td>
 									<?php
-									
 									foreach ($tpl['employee_arr'] as $employee)
 									{
-										
+
 										if ( $employee['t_arr']['client'] == false ||
 												$i < $employee['t_arr']['client']['start_ts'] ||
 												$i >= $employee['t_arr']['client']['end_ts'] ) {
@@ -159,13 +159,11 @@ if (isset($tpl['status']))
 										}
 										
 										$bookings = array();
-										
 										foreach ($tpl['bs_arr'] as $item)
 										{
 											if ($employee['id'] == $item['employee_id'] && $i >= $item['start_ts'] && $i < $item['start_ts'] + $item['total'] * 60)
 											{
 												$bookings[] = $item;
-												
 												if ( isset($item['status']) && !empty($item['status']) ) {
 													$booking_status = $item['status'];
 														
@@ -181,7 +179,6 @@ if (isset($tpl['status']))
 										$freetime = array();
 										$ft_first = false;
 										foreach ( $employee['ef_arr'] as $_freetime ) {
-										
 											if ($i >= $_freetime['start_ts'] && $i < $_freetime['end_ts']) {
 												$class = "asSlotFreetime";
 												$freetime = $_freetime;
@@ -199,19 +196,20 @@ if (isset($tpl['status']))
 												
 										} elseif (empty($bookings))
 										{
-											echo '<div style="text-align: center;">';
+											echo '<div class="cell">';
 											echo '<span style="float: left;">'. date($tpl['option_arr']['o_time_format'], $i) .'</span>';
 
 											if (isset($freetime) &&  count($freetime) > 0 && ($freetime['start_ts'] < $employee['t_arr']['client']['start_ts'] || $freetime['end_ts'] > $employee['t_arr']['client']['end_ts'])) {
-												echo $freetime['message'];
-
+												echo '<span class="message">'.htmlspecialchars($freetime['message']).'</span>';
 											} else {
-												echo '<a class="dashboardView" href="#" data-employee_id="'. $employee['id'] .'" data-start_ts="'. $i .'" >';
+												echo '<a class="dashboardView" title="'. htmlspecialchars($freetime['message']) . '" href="#" data-employee_id="'. $employee['id'] .'" data-start_ts="'. $i .'" >';
 												
 												if ( isset($freetime['message']) && !empty($freetime['message'])) {
-													echo $freetime['message'];
+													echo htmlspecialchars($freetime['message']);
 													
-												} else echo  'varaa'; //date($tpl['option_arr']['o_time_format'], $i);
+												} else {
+                                                    echo  'varaa'; //date($tpl['option_arr']['o_time_format'], $i);
+                                                }
 												
 												echo  '</a>';
 											}
@@ -223,20 +221,23 @@ if (isset($tpl['status']))
 											
 										} else {
 											foreach ($bookings as $booking)
-											{
+											{   
 												if ( isset($booking['status']) && !empty($booking['status']) ) {
 													$booking_status = $booking['status'];
-													
-												} else $booking_status = $booking['booking_status'];
+												} else {
+                                                    $booking_status = $booking['booking_status'];
+                                                }
 												?>
-												<div class="">
-													<a class="editbooking" data-booking_id="<?php echo $booking['booking_id']; ?>" data-employee_id="<?php echo $employee['id']; ?>" data-start_ts="<?php echo $i; ?>" href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=pjActionUpdate&amp;as_pf=<?php echo $as_pf; ?>&amp;id=<?php echo $booking['booking_id']; ?>">
-                                                    <?php if (!empty($booking['c_notes'])):?>
-                                                    <span data-toggle="tooltip" data-placement="left" title="<?php echo pjSanitize::html($booking['c_notes']); ?>"><i class="glyphicon glyphicon-question-sign"></i></span>
+												<div class="booking_cell">
+                                                    <?php if(!in_array($booking['booking_id'], $booking_id)):?>
+    													<a class="editbooking" data-booking_id="<?php echo $booking['booking_id']; ?>" data-employee_id="<?php echo $employee['id']; ?>" data-start_ts="<?php echo $i; ?>" href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=pjActionUpdate&amp;as_pf=<?php echo $as_pf; ?>&amp;id=<?php echo $booking['booking_id']; ?>">
+                                                        <?php if (!empty($booking['c_notes'])):?>
+                                                        <span data-toggle="tooltip" data-placement="left" title="<?php echo pjSanitize::html($booking['c_notes']); ?>"><i class="glyphicon glyphicon-question-sign"></i></span>
+                                                        <?php endif;?>
+                                                        <?php echo pjSanitize::html($booking['c_name']); ?>
+                                                        <span class="fs11"> (<?php echo pjSanitize::html($booking['service_name']); ?>)</span>
+                                                        </a>
                                                     <?php endif;?>
-                                                    <?php echo pjSanitize::html($booking['c_name']); ?>
-                                                    <span class="fs11"> (<?php echo pjSanitize::html($booking['service_name']); ?>)</span>
-													</a>
 													<?php //if ( $tpl['option_arr']['o_custom_status'] == 1 ) { ?>
 													<a class="dashboardView moreBooking" data-booking_date="<?php echo $booking['date']; ?>" data-service_id="<?php echo $booking['service_id']; ?>" data-booking_id="<?php echo $booking['booking_id']; ?>" data-extra_count="<?php echo $booking['extra_count']; ?>" data-booking_status="<?php echo $booking_status; ?>" href="#">+</a>
 													<?php //} else { ?>
@@ -244,6 +245,7 @@ if (isset($tpl['status']))
 													<?php //} ?>
 												</div>
 												<?php
+                                                $booking_id[] = $booking['booking_id'];
 											}
 										}
 										?></td><?php

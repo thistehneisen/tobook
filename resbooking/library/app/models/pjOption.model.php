@@ -47,8 +47,9 @@ class pjOptionModel extends pjAppModel
 	function get($key)
 	{
 		$arr = array();
-		$r = mysql_query(sprintf("SELECT * FROM `%s` WHERE `key` = '%s' LIMIT 1",
-			$this->getTable(), Object::escapeString($key)));
+		$sql = "SELECT * FROM `%s` WHERE `key` = '%s' and `owner_id` = %d LIMIT 1";
+		$r = mysql_query(sprintf($sql,
+			$this->getTable(), Object::escapeString($key), $_SESSION['owner_id']));
 		if (@mysql_num_rows($r) == 1)
 		{
 			$row = mysql_fetch_assoc($r);
@@ -69,7 +70,7 @@ class pjOptionModel extends pjAppModel
 	function getAllPairs()
 	{
 		$arr = array();
-		$r = mysql_query(sprintf("SELECT * FROM `%s` WHERE 1", $this->getTable()));
+		$r = mysql_query(sprintf("SELECT * FROM `%s` as `t1` WHERE `t1`.`owner_id` = %d", $this->getTable(), $_SESSION['owner_id']));
 		if (@mysql_num_rows($r) > 0)
 		{
 			while ($row = mysql_fetch_assoc($r))
@@ -87,8 +88,9 @@ class pjOptionModel extends pjAppModel
  */
 	function getPairs()
 	{
+		$owner_id = (int) $_SESSION['owner_id'];
 		$arr = array();
-		$r = mysql_query(sprintf("SELECT * FROM `%s` WHERE 1", $this->getTable()));
+		$r = mysql_query(sprintf("SELECT * FROM `%s` AS `t1` WHERE `t1`.`owner_id` = %d", $this->getTable(), $owner_id));
 		if (@mysql_num_rows($r) > 0)
 		{
 			while ($row = mysql_fetch_assoc($r))
@@ -156,10 +158,11 @@ class pjOptionModel extends pjAppModel
 
 	function copyOptions($dst_cid, $src_cid)
 	{
+        $owner_id = $_SESSION['owner_id'];
 		$sql = sprintf("INSERT INTO `%1\$s` (`calendar_id`, `key`, `value`, `description`, `label`, `type`, `order`)
 			SELECT '%2\$u', `key`, `value`, `description`, `label`, `type`, `order`
 			FROM `%1\$s`
-			WHERE `calendar_id` = '%3\$u'",
+			WHERE `owner_id` = $owner_id AND `calendar_id` = '%3\$u'",
 			$this->getTable(), $dst_cid, $src_cid
 		);
 		$this->execute($sql);

@@ -25,9 +25,9 @@ if (isset($tpl['status']))
 	<div class="monthly-review">
 		<h3 style="margin-top: 20px; font-size: 22px; text-align: left; font-weight: bold; line-height: 50px; text-align: center; border-width: 1px 1px 0px; border-style: solid; border-color: rgb(204, 204, 204);">
 			<div style="width: 65%; display: inline-block; text-align: center;">
-				<a class="monthly-control float_left" href="#" data-m="<?php echo ($monthly - 1) > 0 ? $monthly - 1 : $monthly; ?>">Prev</a>
-				Monthly review
-				<a class="monthly-control float_right" href="#" data-m="<?php echo ($monthly + 1) > 12 ? $monthly : $monthly + 1; ?>">Next</a>
+				<a class="monthly-control float_left" href="#" data-m="<?php echo ($monthly - 1) > 0 ? $monthly - 1 : $monthly; ?>"><?php __('btnPrev');?></a>
+				<?php __('lblMonthlyReview'); ?>
+				<a class="monthly-control float_right" href="#" data-m="<?php echo ($monthly + 1) > 12 ? $monthly : $monthly + 1; ?>"><?php __('btnNext');?></a>
 			</div>
 			<select name="employee_id" id="employee_id" class="float_right">
 				<?php 
@@ -105,15 +105,15 @@ if (isset($tpl['status']))
 							<?php 
 							$employee[$m]['opening_hours'] = $employee[$m]['opening_hours']/60;
 							
-							echo '<p>Revenue <span>'. $employee[$m]['price'] . $tpl['option_arr']['o_currency'] . '</span></p>';
-							echo  '<p>Num. of book <span>'. $employee[$m]['amount'] . '</span></p>';
-							echo '<p>Working time <span>'. floor($employee[$m]['opening_hours']/60) . 'h';
+							echo '<p>'.__('lblRevenue', true, false).' <span>'. $employee[$m]['price'] . $tpl['option_arr']['o_currency'] . '</span></p>';
+							echo  '<p>'.__('lblNumOfBook', true, false).' <span>'. $employee[$m]['amount'] . '</span></p>';
+							echo '<p>'.__('lblWorkingTime', true, false).' <span>'. floor($employee[$m]['opening_hours']/60) . 'h';
 							echo $employee[$m]['opening_hours']%60 < 10 ? '0' . $employee[$m]['opening_hours']%60 : $employee[$m]['opening_hours']%60;
 							echo '</span></p>';
-							echo  '<p>Booking hours <span>'.  floor($employee[$m]['booking_hours']/60). 'h';
+							echo  '<p>'.__('lblBookingHours', true, false).' <span>'.  floor($employee[$m]['booking_hours']/60). 'h';
 							echo  $employee[$m]['booking_hours']%60 < 10 ? '0' . $employee[$m]['booking_hours']%60 : $employee[$m]['booking_hours']%60;
 							echo '</span></p>';
-							echo '<p>Booking rate <span>';
+							echo '<p>'.__('lblBookingRate', true, false).' <span>';
 							echo $employee[$m]['opening_hours'] > 0 ? round($employee[$m]['booking_hours']*100/$employee[$m]['opening_hours'], 2) : '0';
 							echo '%</span></p>';
 							?>

@@ -38,7 +38,7 @@ if (count($tpl['booking_arr'] > 0)) { ?>
 		<div class="pj-paginator" style="width: 100%;">
 			<ul class="pj-paginator-list">
 				<?php if ( $page > 1 ) { ?>
-				<a href="#" title="Prev page" data-page="<?php echo ($page - 1); ?>" class="pj-paginator-list-prev">&laquo; Prev</a>
+				<a href="#" title="Prev page" data-page="<?php echo ($page - 1); ?>" class="pj-paginator-list-prev">&laquo; <?php __("btnPrev");?></a>
 				<?php } ?>
 				
 				<?php for ($i = 1; $i <= $count; $i++) { ?>
@@ -47,7 +47,7 @@ if (count($tpl['booking_arr'] > 0)) { ?>
 				<?php } ?>
 				
 				<?php if ( $page < $count ) { ?>
-				<a href="#" title="Next page" data-page="<?php echo $page + 1; ?>" class="pj-paginator-list-next">Next &raquo;</a>
+				<a href="#" title="Next page" data-page="<?php echo $page + 1; ?>" class="pj-paginator-list-next"><?php __("btnNext");?> &raquo;</a>
 				<?php }?>
 			</ul>
 		</div>

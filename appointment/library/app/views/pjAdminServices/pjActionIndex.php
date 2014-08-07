@@ -54,7 +54,7 @@ if (isset($tpl['status']))
 	myLabel.len = "<?php __('service_length', false, true); ?>";
 	myLabel.total = "<?php __('service_total', false, true); ?>";
 	myLabel.employees = "<?php __('service_employees', false, true); ?>";
-	myLabel.category = "Category";
+	myLabel.category = "<?php __('lblCategory', false, true); ?>";
 	myLabel.status = "<?php __('service_status', false, true); ?>";
 	myLabel.active = "<?php echo $filter['active']; ?>";
 	myLabel.inactive = "<?php echo $filter['inactive']; ?>";

@@ -69,8 +69,8 @@ if (isset($tpl['status']))
 	<script type="text/javascript">
 	var pjGrid = pjGrid || {};
 	var myLabel = myLabel || {};
-	myLabel.name = "Resources Name";
-	myLabel.message = "Message";
+	myLabel.name = "<?php __("lblResourcesName")?>";
+	myLabel.message = "<?php __("lblMessage")?>";
 	myLabel.delete_selected = "<?php __('delete_selected', false, true); ?>";
 	myLabel.delete_confirmation = "<?php __('delete_confirmation', false, true); ?>";
 	</script>

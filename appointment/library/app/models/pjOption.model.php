@@ -33,10 +33,14 @@ class pjOptionModel extends pjAppModel
 		return $this->where('t1.foreign_id', $foreign_id)->findAll()->getDataPair('key', 'value');
 	}
 	
-	public function getPairs($foreign_id)
+	public function getPairs($foreign_id, $owner_id = 0)
 	{
 		// $_arr = $this->where('t1.foreign_id', $foreign_id)->findAll()->getData();
-		$_arr = $this->findAll()->getData();
+        if(empty($owner_id)){
+		  $_arr = $this->findAll()->getData();
+        } else {
+            $_arr = $this->disableOwnerID()->where('t1.owner_id', $owner_id)->getData();
+        }
 		$arr = array();
 		foreach ($_arr as $row)
 		{

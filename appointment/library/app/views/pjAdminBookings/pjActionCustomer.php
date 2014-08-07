@@ -32,7 +32,7 @@ if (isset($tpl['status']))
 	</div>
 	<?php if (count($tpl['booking_arr'] > 0)) { ?>
 	<div id="customer">
-		<a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=download_csv&amp;as_pf=<?php echo $as_pf; ?>" target="_blank">Download</a>
+		<a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=download_csv&amp;as_pf=<?php echo $as_pf; ?>" target="_blank"><?php __("btnDownload");?></a>
 		<table class="pj-table" style="width: 100%;">
 			<thead>
 				<tr>
@@ -40,7 +40,7 @@ if (isset($tpl['status']))
 					<th><?php __('booking_phone', false, true); ?></th>
 					<th><?php __('booking_email', false, true); ?></th>
 					<th><?php __('booking_services', false, true); ?></th>
-					<th>Count</th>
+					<th><?php __('lblCount', false, true); ?></th>
 					<th></th>
 				</tr>
 			</thead>

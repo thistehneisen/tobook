@@ -12,14 +12,6 @@ global $as_pf;
 		{
 			?><li class="ui-state-default ui-corner-top<?php echo $_GET['controller'] != 'pjLocale' ? NULL : $active; ?>"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjLocale&amp;action=pjActionIndex&amp;as_pf=<?php echo $as_pf; ?>"><?php __('menuLocales'); ?></a></li><?php
 		}
-		if ($controller->isAdmin() && pjObject::getPlugin('pjCountry') !== NULL)
-		{
-			?><li class="ui-state-default ui-corner-top<?php echo $_GET['controller'] != 'pjCountry' ? NULL : $active; ?>"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjCountry&amp;action=pjActionIndex&amp;as_pf=<?php echo $as_pf; ?>"><?php __('plugin_country_menu_countries'); ?></a></li><?php
-		}
-		if ($controller->isAdmin() && pjObject::getPlugin('pjBackup') !== NULL)
-		{
-			?><li class="ui-state-default ui-corner-top<?php echo $_GET['controller'] != 'pjBackup' ? NULL : $active; ?>"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjBackup&amp;action=pjActionIndex&amp;as_pf=<?php echo $as_pf; ?>"><?php __('menuBackup'); ?></a></li><?php
-		}
 		if ($controller->isAdmin() && pjObject::getPlugin('pjInvoice') !== NULL)
 		{
 			?><li class="ui-state-default ui-corner-top<?php echo $_GET['controller'] != 'pjInvoice' ? NULL : $active; ?>"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjInvoice&amp;action=pjActionIndex&amp;as_pf=<?php echo $as_pf; ?>"><?php __('plugin_invoice_menu_invoices'); ?></a></li><?php
