@@ -21,10 +21,10 @@
 	$MT_LANG['lastBookingDate'] = 'Viimeisin varaus';
 	$MT_LANG['automation'] = 'Markkinointiautomaatio';
 
-	$MT_LANG['automationManagement'] = 'Automation Management';
-	$MT_LANG['campaignManagement'] = 'Campaign Management';
-	$MT_LANG['templateManagement'] = 'Template Management';
-	$MT_LANG['groupManagement'] = 'Group Management';	
+	$MT_LANG['automationManagement'] = 'Automaation hallinnointi';
+	$MT_LANG['campaignManagement'] = 'Kampanja hallinnointi';
+	$MT_LANG['templateManagement'] = 'Teemojen hallinnointti';
+	$MT_LANG['groupManagement'] = 'Ryhmien hallinnointi';	
 	
 	/* Campaign List Page */
 	$MT_LANG['mainPage'] = 'Etusivu';
