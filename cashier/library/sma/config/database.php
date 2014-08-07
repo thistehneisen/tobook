@@ -39,15 +39,15 @@ if (!$file) {
     die('Configuration file does not exist.');
 }
 
-$config = require_once $file;
+$myConfig = require_once $file;
 
 // The following values will probably need to be changed.
-$db['default']['username'] = $config['db']['user'];
-$db['default']['password'] = $config['db']['password'];
-$db['default']['database'] = $config['db']['name'];
+$db['default']['username'] = $myConfig['db']['user'];
+$db['default']['password'] = $myConfig['db']['password'];
+$db['default']['database'] = $myConfig['db']['name'];
 
 // The following values can probably stay the same.
-$db['default']['hostname'] = $config['db']['host'];
+$db['default']['hostname'] = $myConfig['db']['host'];
 $db['default']['dbdriver'] = "mysql";
 $db['default']['dbprefix'] = 'sma_';
 $db['default']['pconnect'] = TRUE;
