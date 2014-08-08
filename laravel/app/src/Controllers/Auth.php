@@ -82,7 +82,7 @@ class Auth extends Base
 
         return Redirect::route('auth.login')
             ->withInput(Input::except('password'))
-            ->withErrors($this->createMessageBag([$errMsg]));
+            ->withErrors($this->createMessageBag([$errMsg]), 'top');
     }
 
     /**
@@ -138,7 +138,7 @@ class Auth extends Base
         } else {
             return Redirect::route('auth.register')
                 ->withInput(Input::except('password'))
-                ->withErrors($user->errors());
+                ->withErrors($user->errors(), 'top');
         }
     }
 }

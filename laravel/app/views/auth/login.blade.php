@@ -14,7 +14,7 @@
         <h1 class="comfortaa orange">Kirjaudu sisään</h1>
         <h4 class="comfortaa">Täytä seuraavat tiedot:</h4>
 
-        @include ('el.messages');
+        @include ('el.messages')
 
         {{ Form::open(['route' => 'auth.login', 'class' => 'form-horizontal', 'role' => 'form']) }}
         
