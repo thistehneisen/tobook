@@ -39,6 +39,12 @@ Route::post('register', [
     'uses' => 'App\Controllers\Auth@doRegister'
 ]);
 
+Route::get('thank-you', [
+    'as' => 'auth.register.done',
+    'uses' => 'App\Controllers\Auth@showThankYou'
+]);
+
+
 // Confide routes
 Route::get( 'user/create',                 'UserController@create');
 Route::post('user',                        'UserController@store');

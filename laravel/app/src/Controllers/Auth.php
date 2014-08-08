@@ -1,6 +1,6 @@
 <?php namespace App\Controllers;
 
-use View, Validator, Input, Redirect, Config;
+use View, Validator, Input, Redirect, Config, Session;
 use User;
 use Confide;
 
@@ -135,11 +135,27 @@ class Auth extends Base
             $notice = trans('confide::confide.alerts.account_created')
                 .' '.trans('confide::confide.alerts.instructions_sent');
 
-            return Redirect::route('home')->with('notice', $notice);
+            return Redirect::route('auth.register.done')->with('notice', $notice);
         } else {
             return Redirect::route('auth.register')
                 ->withInput(Input::except('password'))
                 ->withErrors($user->errors(), 'top');
         }
+    }
+
+    /**
+     * Show thank message and instruction
+     *
+     * @return View
+     */
+    public function showThankYou()
+    {
+        $content = Session::get(
+            'notice',
+            'Thanks for registering with us. Please confirm your email.');
+        return View::make('home.message', [
+            'header' => 'Kiitos',
+            'content' => $content
+        ]);
     }
 }
