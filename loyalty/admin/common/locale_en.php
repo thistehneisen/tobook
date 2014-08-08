@@ -31,6 +31,7 @@
 	$LC_LANG['totalUsed'] = 'Total Used';
 	$LC_LANG['required'] = 'Required';
 	$LC_LANG['free'] = 'Free';
+	$LC_LANG['autoAdd'] = 'Auto Add';
 	$LC_LANG['status'] = 'Status';
 	
 	$LC_LANG['stampName'] = 'Stamp Name';

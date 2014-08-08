@@ -67,3 +67,6 @@ alter table `tbl_loyalty_consumer` add column `current_score` int  DEFAULT '0' N
 -- 2014-07-25
 alter table `tbl_loyalty_consumer_stamp` add column `cnt_used` int   NOT NULL  after `loyalty_stamp`;
 alter table `tbl_loyalty_consumer_stamp` add column `cnt_free` int   NOT NULL  after `cnt_used`;
+
+-- 2014-08-08
+alter table `tbl_loyalty_stamp` add column `auto_add_yn` char (1) DEFAULT 'N' NOT NULL  after `cnt_free`;

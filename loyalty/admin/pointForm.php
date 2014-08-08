@@ -105,8 +105,8 @@ if (!headers_sent())
 
                         <div class="form-group" style="margin-top:40px;">
                             <div class="col-lg-offset-1 col-lg-10" style="text-align:center;">
-                                <button class="btn-u btn-u-blue" style="margin-right: 20px;width:90px;" onclick="onPointSave()"><i class="icon-edit"></i> <?php echo $LC_LANG['save'];?></button>
-                                <button class="btn-u btn-u-red" style="width:90px;" onclick="window.location.href='pointList.php'"><i class="icon-list"></i> <?php echo $LC_LANG['list'];?></button>
+                                <button class="btn-u btn-u-blue" style="margin-right: 20px;width:120px;" onclick="onPointSave()"><i class="icon-edit"></i> <?php echo $LC_LANG['save'];?></button>
+                                <button class="btn-u btn-u-red" style="width:120px;" onclick="window.location.href='pointList.php'"><i class="icon-list"></i> <?php echo $LC_LANG['list'];?></button>
                             </div>
                         </div>                                                                        
 					</div>

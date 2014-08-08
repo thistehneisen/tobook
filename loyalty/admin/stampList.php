@@ -66,6 +66,7 @@ if (!headers_sent())
 							<th><?php echo $LC_LANG['totalUsed'];?></th>
 							<th><?php echo $LC_LANG['required'];?></th>
 							<th><?php echo $LC_LANG['free'];?></th>
+							<th><?php echo $LC_LANG['autoAdd'];?></th>
 							<th><?php echo $LC_LANG['status'];?></th>
 						</tr>
 					</thead>
@@ -78,6 +79,15 @@ if (!headers_sent())
 							<td><?php echo $dataStamp[$i]['cnt_used']; ?></td>
 							<td><?php echo $dataStamp[$i]['cnt_required']; ?></td>
 							<td><?php echo $dataStamp[$i]['cnt_free']; ?></td>
+							<td>
+							    <?php
+							        if ($dataStamp[$i]['auto_add_yn'] == "Y"){
+                                        echo "Yes";
+                                    }else{
+                                        echo "No";
+                                    }
+                                ?>
+							</td>
 							<td><?php echo $dataStamp[$i]['valid_yn']; ?></td>														
 						</tr>
 						<?php } ?>

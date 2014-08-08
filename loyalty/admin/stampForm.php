@@ -77,16 +77,23 @@ if (!headers_sent())
                                 	<option value="N" <?php if( $dataStamp['valid_yn'] == "N" ) echo "selected";?> >No</option>
                                 </select>
                             </div>
+                            <label class="col-lg-2 control-label"><?php echo $LC_LANG['autoAdd'];?></label>
+                            <div class="col-lg-4">
+                                <select class="form-control" id="autoAddYn">
+                                	<option value="Y" <?php if( $dataStamp['auto_add_yn'] == "Y" ) echo "selected";?> >Yes</option>
+                                	<option value="N" <?php if( $dataStamp['auto_add_yn'] == "N" ) echo "selected";?> >No</option>
+                                </select>
+                            </div>                            
                             <?php 
-                            	if( $type == "Edit" ){
+                                if( $type == "Edit11" /* change to 'Edit' */){
                             		$sql = "select count(*) cnt_used from tbl_loyalty_consumer_stamp where loyalty_stamp = $stampId";
                             		$cntStamp = $db->queryArray( $sql );
                             		$cntStamp = $cntStamp[0]['cnt_used'];
                             ?>
-                            <label class="col-lg-2 control-label"><?php echo $LC_LANG['usedCount'];?></label>
-                            <div class="col-lg-4">
-                            	<input type="text" value="<?php echo $cntStamp?>" class="form-control" readonly style="background:#FEFEFE; cursor: pointer;" >
-                            </div>
+                                <label class="col-lg-2 control-label"><?php echo $LC_LANG['usedCount'];?></label>
+                                <div class="col-lg-4">
+                                	<input type="text" value="<?php echo $cntStamp?>" class="form-control" readonly style="background:#FEFEFE; cursor: pointer;" >
+                                </div>
                             <?php }?>
                         </div>
 
@@ -105,8 +112,8 @@ if (!headers_sent())
 
                         <div class="form-group" style="margin-top:40px;">
                             <div class="col-lg-offset-1 col-lg-10" style="text-align:center;">
-                                <button class="btn-u btn-u-blue" style="margin-right: 20px;width:90px;" onclick="onStampSave()"><i class="icon-edit"></i> <?php echo $LC_LANG['save'];?></button>
-                                <button class="btn-u btn-u-red" style="width:90px;" onclick="window.location.href='stampList.php'"><i class="icon-list"></i> <?php echo $LC_LANG['list'];?></button>
+                                <button class="btn-u btn-u-blue" style="margin-right: 20px;width:120px;" onclick="onStampSave()"><i class="icon-edit"></i> <?php echo $LC_LANG['save'];?></button>
+                                <button class="btn-u btn-u-red" style="width:120px;" onclick="window.location.href='stampList.php'"><i class="icon-list"></i> <?php echo $LC_LANG['list'];?></button>
                             </div>
                         </div>                                                                        
 					</div>

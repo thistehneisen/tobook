@@ -37,6 +37,50 @@
 	if( $usedStampList == null )
 		$usedStampList = array( );
 	
+    $sql = "select * 
+              from tbl_loyalty_stamp
+             where auto_add_yn = 'Y'
+               and owner = $customerId";
+    $stampList = $db->queryArray($sql);
+    
+    for ($i = 0; $i < count($stampList); $i++) {
+        $stampId = $stampList[$i]['loyalty_stamp'];
+        $sql = "select *
+                  from tbl_loyalty_consumer_stamp
+                 where loyalty_consumer = $consumerId
+                   and loyalty_stamp = $stampId";
+        $dataConsumerStamp = $db->queryArray( $sql );
+        if( $dataConsumerStamp == null ){
+            $sql = "insert into tbl_loyalty_consumer_stamp( loyalty_consumer, loyalty_stamp, cnt_used, cnt_free, created_time, updated_time )
+                    values( $consumerId, $stampId, 1, 0, now(), now() )";
+            $db->query( $sql );
+        }else{
+            $dataConsumerStamp = $dataConsumerStamp[0];
+            $cntUsed = $dataConsumerStamp['cnt_used'];
+        
+            $sql = "select * from tbl_loyalty_stamp where loyalty_stamp = $stampId";
+            $dataStamp = $db->queryArray( $sql );
+            $dataStamp = $dataStamp[0];
+             
+            $cntStampRequired = $dataStamp['cnt_required'];
+            $cntStampFree = $dataStamp['cnt_free'];
+             
+            if( ( $cntUsed + 1 ) % $cntStampRequired != 0 ){
+                $cntStampFree = 0;
+                $subStr = "cnt_used + 1";
+            }else{
+                $subStr = "0";
+            }
+             
+            $sql = "update tbl_loyalty_consumer_stamp
+                       set cnt_used = $subStr
+                         , cnt_free = cnt_free + $cntStampFree
+                     where loyalty_consumer = $consumerId
+                       and loyalty_stamp = $stampId";
+            $db->query( $sql );
+        }
+    }
+	
 	$data['usedStampList'] = $usedStampList;
     $data['msg'] = $msg;
     $data['result'] = $result;
