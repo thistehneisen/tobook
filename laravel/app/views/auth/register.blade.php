@@ -13,19 +13,29 @@
     <div class="col-xs-12">
         <h1 class="comfortaa orange">Luo Tilin</h1>
         <h4 class="comfortaa">Täytä seuraavat tiedot:</h4>
+        
+    @if ($errors->isEmpty() === false)
+        <div class="alert alert-danger">
+            <p><strong>Errors!</strong></p>
+        @foreach ($errors->all() as $message)
+            <p>{{ $message }}</p>
+        @endforeach
+        </div>
+    @endif
 
         {{ Form::open(['route' => 'auth.register', 'class' => 'form-horizontal', 'role' => 'form']) }}
         
         @foreach ($fields as $name => $field)
             <?php $type = isset($field['type']) ? $field['type'] : 'text' ?>
-            <div class="form-group">
-                {{ Form::label($name, $field['label'], ['class' => 'col-sm-2 col-sm-offset-1 control-label']) }}
+            <div class="form-group {{ Form::errorCSS($name, $errors) }}">
+                {{ Form::label($name, $field['label'].Form::required($name, $validator), ['class' => 'col-sm-2 col-sm-offset-1 control-label']) }}
                 <div class="col-sm-6">
             @if ($type === 'password')
                 {{ Form::$type($name, ['class' => 'form-control']) }}
             @else
                 {{ Form::$type($name, Input::get($name), ['class' => 'form-control']) }}
             @endif
+                {{ Form::errorText($name, $errors) }}
                 </div>
             </div>
         @endforeach

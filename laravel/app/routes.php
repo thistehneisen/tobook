@@ -16,6 +16,11 @@ Route::get('/', [
     'uses' => 'App\Controllers\Home@index'
 ]);
 
+/*
+|--------------------------------------------------------------------------
+| Auth Routes
+|--------------------------------------------------------------------------
+*/
 Route::get('login', [
 	'as' => 'auth.login',
 	'uses' => 'App\Controllers\Auth@login'
@@ -28,6 +33,10 @@ Route::post('login', [
 Route::get('register', [
 	'as' => 'auth.register',
 	'uses' => 'App\Controllers\Auth@register'
+]);
+
+Route::post('register', [
+    'uses' => 'App\Controllers\Auth@doRegister'
 ]);
 
 // Confide routes
