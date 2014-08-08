@@ -18,14 +18,15 @@
         
         @foreach ($fields as $name => $field)
             <?php $type = isset($field['type']) ? $field['type'] : 'text' ?>
-            <div class="form-group">
-                {{ Form::label($name, $field['label'], ['class' => 'col-sm-2 col-sm-offset-1 control-label']) }}
+            <div class="form-group {{ Form::errorCSS($name, $errors) }}">
+                {{ Form::label($name, $field['label'].Form::required($name, $validator), ['class' => 'col-sm-2 col-sm-offset-1 control-label']) }}
                 <div class="col-sm-6">
             @if ($type === 'password')
                 {{ Form::$type($name, ['class' => 'form-control']) }}
             @else
                 {{ Form::$type($name, Input::get($name), ['class' => 'form-control']) }}
             @endif
+                {{ Form::errorText($name, $errors) }}
                 </div>
             </div>
         @endforeach
