@@ -1,22 +1,22 @@
 @extends ('layouts.default')
 
 @section ('title')
-    Kirjaudu :: @parent
+    Forgot password :: @parent
 @stop
 
 @section ('header')
-    <h1 class="text-header">Kirjaudu</h1>
+    <h1 class="text-header">Forgot password</h1>
 @stop
 
 @section ('content')
 <div class="row">
     <div class="col-xs-12">
-        <h1 class="comfortaa orange">Kirjaudu sisään</h1>
-        <h4 class="comfortaa">Täytä seuraavat tiedot:</h4>
+        <h1 class="comfortaa orange">Forgot password</h1>
+        <h4 class="comfortaa">Please enter your username to reset your password</h4>
 
         @include ('el.messages')
 
-        {{ Form::open(['id' => 'frm-login', 'route' => 'auth.login', 'class' => 'form-horizontal', 'role' => 'form']) }}
+        {{ Form::open(['id' => 'frm-forgot-password', 'route' => 'auth.forgot', 'class' => 'form-horizontal', 'role' => 'form']) }}
         
         @foreach ($fields as $name => $field)
             <?php $type = isset($field['type']) ? $field['type'] : 'text' ?>
@@ -35,13 +35,7 @@
 
             <div class="form-group">
                 <div class="col-sm-9 text-right">
-                    Uusi käyttäjä? <a href="#">Rekisteröidy tästä</a> | Unohditko salasanasi? <a href="{{ route('auth.forgot') }}">Klikkaa tästä.</a>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-sm-9 text-right">
-                    <button id="btn-login" class="btn btn-lg btn-orange to-upper comfortaa">Kirjaudu</button>
+                    <button id="btn-login" class="btn btn-lg btn-orange to-upper comfortaa">Submit</button>
                 </div>
             </div>
         {{ Form::close() }}

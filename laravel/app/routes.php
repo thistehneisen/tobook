@@ -56,6 +56,15 @@ Route::group(['prefix' => 'auth'], function() {
         'uses' => 'App\Controllers\Auth@logout'
     ]);
 
+    Route::get('forgot-password', [
+        'as' => 'auth.forgot',
+        'uses' => 'App\Controllers\Auth@forgot'
+    ]);
+
+    Route::post('forgot-password', [
+        'uses' => 'App\Controllers\Auth@doForgot'
+    ]);
+
 });
 
 

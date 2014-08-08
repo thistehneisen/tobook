@@ -21,6 +21,9 @@ class Auth extends Base
             'password'              => 'required|confirmed',
             'password_confirmation' => 'required',
             'email'                 => 'required|email'
+        ],
+        'forgot' => [
+            'email' => 'required|email'
         ]
     ];
 
@@ -190,5 +193,50 @@ class Auth extends Base
     {
         Confide::logout();
         return Redirect::route('home');
+    }
+
+    /**
+     * Show the form to reset password
+     *
+     * @return View
+     */
+    public function forgot()
+    {
+        $fields = [
+            'email' => ['label' => 'Sähköposti', 'type' => 'email'],
+            
+        ];
+        return View::make('auth.forgot', [
+            'fields' => $fields,
+            'validator' => Validator::make(Input::all(), $this->rules['forgot'])
+        ]);
+    }
+
+    /**
+     * Send link to reset password to user
+     *
+     * @return Redirect
+     */
+    public function doForgot()
+    {
+        $v = Validator::make(Input::all(), $this->rules['forgot']);
+        if ($v->fails()) {
+            return Redirect::back()
+                ->withErrors($v);
+        }
+
+        if(Confide::forgotPassword(Input::get('email'))) {
+            $header = 'Notice';
+            $content = trans('confide::confide.alerts.password_forgot');
+            return View::make('home.message', [
+                'header' => $header,
+                'content' => $content
+            ]);
+        }
+
+        $content = trans('confide::confide.alerts.wrong_password_forgot');
+        return Redirect::route('auth.forgot')
+            ->withInput()
+            ->withErrors($this->createMessageBag([$content]), 'top');
     }
 }
