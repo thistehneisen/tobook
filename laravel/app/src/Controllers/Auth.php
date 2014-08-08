@@ -24,7 +24,11 @@ class Auth extends Base
         ],
         'forgot' => [
             'email' => 'required|email'
-        ]
+        ],
+        'reset' => [
+            'password'              => 'required|confirmed',
+            'password_confirmation' => 'required',
+        ],
     ];
 
     /**
@@ -204,8 +208,8 @@ class Auth extends Base
     {
         $fields = [
             'email' => ['label' => 'Sähköposti', 'type' => 'email'],
-            
         ];
+
         return View::make('auth.forgot', [
             'fields' => $fields,
             'validator' => Validator::make(Input::all(), $this->rules['forgot'])
@@ -236,6 +240,44 @@ class Auth extends Base
 
         $content = trans('confide::confide.alerts.wrong_password_forgot');
         return Redirect::route('auth.forgot')
+            ->withInput()
+            ->withErrors($this->createMessageBag([$content]), 'top');
+    }
+
+    public function reset($token)
+    {
+        $fields = [
+            'password'              => ['label' => 'Salasana', 'type' => 'password'],
+            'password_confirmation' => ['label' => 'Vahvista salasana', 'type' => 'password'],
+        ];
+
+        return View::make('auth.reset', [
+            'fields' => $fields,
+            'token' => $token,
+            'validator' => Validator::make(Input::all(), $this->rules['reset'])
+        ]);
+    }
+
+    public function doReset($token)
+    {
+        $input = [
+            'token'                 => $token,
+            'password'              => Input::get('password'),
+            'password_confirmation' => Input::get('password_confirmation'),
+        ];
+
+        // By passing an array with the token, password and confirmation
+        if(Confide::resetPassword($input)) {
+            $header = 'Notice';
+            $content = trans('confide::confide.alerts.password_reset');
+            return View::make('home.message', [
+                'header' => $header,
+                'content' => $content
+            ]);
+        }
+
+        $content = trans('confide::confide.alerts.wrong_password_reset');
+        return Redirect::route('auth.reset', ['token' => $token])
             ->withInput()
             ->withErrors($this->createMessageBag([$content]), 'top');
     }
