@@ -12,7 +12,7 @@ class pjFormStyleModel extends pjAppModel
 	var $table = 'formstyle';
 	
 	var $schema = array(
-		array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),
+        array('name' => 'id', 'type' => 'int', 'default' => ':NULL'),
 		array('name' => 'logo', 'type' => 'varchar', 'default' => ':NULL'),
 		array('name' => 'banner', 'type' => 'varchar', 'default' => ':NULL'),
 		array('name' => 'color', 'type' => 'varchar', 'default' => ':NULL'),

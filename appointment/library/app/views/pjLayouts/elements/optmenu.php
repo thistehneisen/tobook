@@ -8,10 +8,6 @@ global $as_pf;
 		<li class="ui-state-default ui-corner-top<?php echo $_GET['controller'] != 'pjAdminOptions' || !in_array($_GET['tab'], array(3,4,5,6,7)) ? NULL : $active; ?>"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminOptions&amp;tab=3&amp;as_pf=<?php echo $as_pf; ?>"><?php __('menuBookings'); ?></a></li>
 		<li class="ui-state-default ui-corner-top<?php echo $_GET['controller'] != 'pjAdminTime' || isset($_GET['foreign_id']) ? NULL : $active; ?>"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminTime&amp;action=pjActionIndex&amp;as_pf=<?php echo $as_pf; ?>"><?php __('menuTime'); ?></a></li>
 		<?php
-		if ($controller->isAdmin() && pjObject::getPlugin('pjLocale') !== NULL)
-		{
-			?><li class="ui-state-default ui-corner-top<?php echo $_GET['controller'] != 'pjLocale' ? NULL : $active; ?>"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjLocale&amp;action=pjActionIndex&amp;as_pf=<?php echo $as_pf; ?>"><?php __('menuLocales'); ?></a></li><?php
-		}
 		if ($controller->isAdmin() && pjObject::getPlugin('pjInvoice') !== NULL)
 		{
 			?><li class="ui-state-default ui-corner-top<?php echo $_GET['controller'] != 'pjInvoice' ? NULL : $active; ?>"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjInvoice&amp;action=pjActionIndex&amp;as_pf=<?php echo $as_pf; ?>"><?php __('plugin_invoice_menu_invoices'); ?></a></li><?php

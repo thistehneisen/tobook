@@ -279,12 +279,15 @@ class pjAdminOptions extends pjAdmin
 		
 		if ($this->isAdmin())
 		{
+            $data = $_POST;
 			$owner_id = $this->getOwnerId();
+            $data['owner_id'] = $owner_id;
+
 			if ( isset($_POST['form_style']) && $_POST['form_style'] > 0 && isset($_POST['id']) && $_POST['id'] > 0 ) {
-				pjStyleModel::factory()->set('id', $_POST['id'])->modify($_POST);
+				pjStyleModel::factory()->set('id', $data['id'])->modify($data);
 				
 			} elseif ( isset($_POST['form_style']) && $_POST['form_style'] > 0 ) {
-				pjStyleModel::factory($_POST)->insert();
+				pjStyleModel::factory($data)->insert();
 			}
 			
 			$this->set('arr', pjStyleModel::factory()

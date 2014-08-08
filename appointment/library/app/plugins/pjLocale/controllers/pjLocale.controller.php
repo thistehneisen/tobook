@@ -141,7 +141,7 @@ class pjLocale extends pjLocaleAppController
 	public function pjActionImportExport()
 	{
 		$this->checkLogin();
-		
+		$owner_id = $this->getOwnerId();
 		if (!$this->isAdmin())
 		{
 			$this->set('status', 2);
@@ -151,8 +151,9 @@ class pjLocale extends pjLocaleAppController
 		pjObject::import('Model', array('pjLocale:pjLocale', 'pjLocale:pjLocaleLanguage'));
 		$this->set('locale_arr', pjLocaleModel::factory()
 			->select('t1.*, t2.title')
-			->join('pjLocaleLanguage', 't2.iso=t1.language_iso')
+			->join('pjLocaleLanguage', 't2.iso=t1.language_iso', 'left')
 			->orderBy('t1.sort ASC')
+            ->groupBy('t2.title')
 			->findAll()
 			->getData()
 		);
