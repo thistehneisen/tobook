@@ -312,9 +312,10 @@ class pjAdmin extends pjAppController
 			->getData();
 		
 		$bs_arr = pjBookingServiceModel::factory()
-			->select('t1.*, t2.booking_status, t2.c_name, t4.content AS `service_name`')
-			->join('pjBooking', 't2.id=t1.booking_id', 'inner')
-			->join('pjService', 't3.id=t1.service_id', 'inner')
+            ->select('t1.*, t3.id as `service_id`,t2.booking_status, t2.c_notes, t2.c_name, t4.content AS `service_name`')
+            ->join('pjBooking', 't2.id=t1.booking_id', 'left')
+            ->join('pjService', 't3.id=t1.service_id', 'left')
+
 			->join('pjMultiLang', "t4.model='pjService' AND t4.foreign_id=t1.service_id AND t4.field='name'", 'left outer')//banana code remove locale id
 			// ->where('t2.calendar_id', $this->getForeignId())
 			->where('t2.booking_status', 'confirmed')

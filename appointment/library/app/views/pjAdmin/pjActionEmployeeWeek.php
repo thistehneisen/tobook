@@ -256,8 +256,14 @@ if (isset($tpl['status']))
 										<div class="booking_cell">
                                             <?php if(!in_array($booking['booking_id'], $booking_id)):?>
 											<a class="editbooking" data-booking_id="<?php echo $booking['booking_id']; ?>" data-employee_id="<?php echo $employee['id']; ?>" data-start_ts="<?php echo $start_ts; ?>" href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=pjActionUpdate&amp;as_pf=<?php echo $as_pf; ?>&amp;id=<?php echo $booking['booking_id']; ?>"><?php echo pjSanitize::html($booking['c_name']); ?>
-											<span class="fs11"> (<?php echo pjSanitize::html($booking['service_name']); ?>)</span></a>
-											<!-- <a class="dashboardView moreBooking" data-extra_count="<?php echo $booking['extra_count']; ?>" data-booking_id="<?php echo $booking['booking_id']; ?>" data-booking_status="<?php echo $booking_status; ?>" href="#">+</a>-->
+                                                    <span class="fs11"> (<?php
+                                                        if (!empty($booking['service_id'])) {
+                                                            echo pjSanitize::html($booking['service_name']); 
+                                                        } else {
+                                                            __('empty_service');
+                                                        }
+                                                    ?>)</span>
+                                            </a>
 											<a class="dashboardView moreBooking" data-booking_date="<?php echo $booking['date']; ?>" data-service_id="<?php echo $booking['service_id']; ?>" data-booking_id="<?php echo $booking['booking_id']; ?>" data-extra_count="<?php echo $booking['extra_count']; ?>" data-booking_status="<?php echo $booking_status; ?>" href="#">+</a>
 										   <?php endif;?>
                                         </div>
