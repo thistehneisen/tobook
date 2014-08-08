@@ -22,7 +22,7 @@ Route::get('/', [
 |--------------------------------------------------------------------------
 */
 Route::group(['prefix' => 'auth'], function() {
-    
+
     Route::get('login', [
     	'as' => 'auth.login',
     	'uses' => 'App\Controllers\Auth@login'
@@ -49,6 +49,11 @@ Route::group(['prefix' => 'auth'], function() {
     Route::get('confirm/{code}', [
         'as' => 'auth.confirm',
         'uses' => 'App\Controllers\Auth@confirm'
+    ]);
+
+    Route::get('logout', [
+        'as' => 'auth.logout',
+        'uses' => 'App\Controllers\Auth@logout'
     ]);
 
 });

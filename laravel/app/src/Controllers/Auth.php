@@ -180,4 +180,15 @@ class Auth extends Base
             'content' => trans('confide::confide.alerts.wrong_confirmation')
         ]);
     }
+
+    /**
+     * (Obviously) kick a user out
+     *
+     * @return Redirect
+     */
+    public function logout()
+    {
+        Confide::logout();
+        return Redirect::route('home');
+    }
 }

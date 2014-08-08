@@ -31,7 +31,7 @@
                     <li><a href="">Hallintapaneeli</a></li>
                     <li><a href="">Omat tiedot</a></li>
                     <li><a href="">Apua</a></li>
-                    <li><a href="">Kirjaudu Ulos</a></li>
+                    <li><a href="{{ route('auth.logout') }}">Kirjaudu ulos</a></li>
                 @else
                     <li><a href="{{ route('auth.register') }}">Rekisteröidy</a></li>
                     <li><a href="{{ route('auth.login') }}">Kirjaudu</a></li>
