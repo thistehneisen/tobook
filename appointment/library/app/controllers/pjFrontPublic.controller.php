@@ -239,8 +239,8 @@ class pjFrontPublic extends pjFront
 				list($year, $month, $day) = explode("-", $date);
 			}
 			
-			$this->set('calendar', $this->getCalendar($_GET['cid'], $year, $month, $day))
-				->set('cart_arr', $this->getCart($_GET['cid']));
+			$this->set('calendar', $this->getCalendar($_GET['cid'], $year, $month, $day));
+			$this->set('cart_arr', $this->getCart($_GET['cid']));
 
 			$this->set('category_arr', 
 					pjServiceCategoryModel::factory()

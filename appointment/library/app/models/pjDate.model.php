@@ -114,17 +114,19 @@ class pjDateModel extends pjAppModel
 		{
 			$_arr[date("Y-m-d", $i)] = array();
 		}
-		
-		$arr = $this
-			->reset()
-			// ->where('t1.foreign_id', $foreign_id)
-			->where('t1.type', $type)
-			->where('t1.date >=', $date_from)
-			->where('t1.date <=', $date_to)
-			->orderBy('t1.start_time ASC')
-			->findAll()
-			->getData();
-			
+
+		$model = $this->reset()
+                    ->where('t1.type', $type)
+                    ->where('t1.date >=', $date_from)
+                    ->where('t1.date <=', $date_to)
+                    ->orderBy('t1.start_time ASC');
+
+        if($type=='employee'){
+            $model = $this->where('t1.foreign_id', $foreign_id);
+        }
+        
+		$arr = $model->findAll()->getData();
+
 		foreach ($arr as $item)
 		{
 			$_arr[$item['date']] = $item;
