@@ -1,5 +1,7 @@
 <?php namespace App\Controllers;
 
+use Illuminate\Support\MessageBag;
+
 class Base extends \Controller
 {
     /**
@@ -12,5 +14,10 @@ class Base extends \Controller
         if (!is_null($this->layout)) {
             $this->layout = View::make($this->layout);
         }
+    }
+
+    protected function createMessageBag(array $messages = array())
+    {
+        return new MessageBag($messages);
     }
 }

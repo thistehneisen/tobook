@@ -27,8 +27,15 @@
             <nav class="text-right">
                 <ul class="list-inline nav-links">
                     <li><a href="{{ route('home') }}">Etusivu</a></li>
+                @if (Confide::user())
+                    <li><a href="">Hallintapaneeli</a></li>
+                    <li><a href="">Omat tiedot</a></li>
+                    <li><a href="">Apua</a></li>
+                    <li><a href="">Kirjaudu Ulos</a></li>
+                @else
                     <li><a href="{{ route('auth.register') }}">Rekisteröidy</a></li>
                     <li><a href="{{ route('auth.login') }}">Kirjaudu</a></li>
+                @endif
                 </ul>
             </nav>
         @show

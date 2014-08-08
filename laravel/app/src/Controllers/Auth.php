@@ -1,7 +1,6 @@
 <?php namespace App\Controllers;
 
-use View, Validator, Input, Redirect;
-use Illuminate\Support\MessageBag;
+use View, Validator, Input, Redirect, Config;
 use User;
 use Confide;
 
@@ -45,6 +44,45 @@ class Auth extends Base
             'fields' => $fields,
             'validator' => Validator::make(Input::all(), $this->rules['login'])
         ]);
+    }
+
+    /**
+     * Handle login
+     *
+     * @return Redirector
+     */
+    public function doLogin()
+    {
+        $input = [
+            'username' => Input::get('username'),
+            'email'    => Input::get('username'),
+            'password' => Input::get('password'),
+        ];
+
+        $v = Validator::make($input, $this->rules['login']);
+        if ($v->fails()) {
+            return Redirect::back()
+                ->withInput(Input::except('password'))
+                ->withErrors($v);
+        }
+
+        if (Confide::logAttempt($input, Config::get('confide::signup_confirm'))) {
+            return Redirect::intended(route('home'));
+        }
+
+        $user = new User;
+
+        if (Confide::isThrottled($input)) {
+            $errMsg = trans('confide::confide.alerts.too_many_attempts');
+        } elseif ($user->checkUserExists($input) and !$user->isConfirmed($input)) {
+            $errMsg = trans('confide::confide.alerts.not_confirmed');
+        } else {
+            $errMsg = trans('confide::confide.alerts.wrong_credentials');
+        }
+
+        return Redirect::route('auth.login')
+            ->withInput(Input::except('password'))
+            ->withErrors($this->createMessageBag([$errMsg]));
     }
 
     /**
@@ -102,33 +140,5 @@ class Auth extends Base
                 ->withInput(Input::except('password'))
                 ->withErrors($user->errors());
         }
-    }
-
-    public function doLogin()
-    {
-        $v = Validator::make(Input::all(), $this->rules['login']);
-        if ($v->fails()) {
-            return Redirect::back()
-                ->withInput(Input::except('password'))
-                ->withErrors($v);
-        }
-
-        if (Confide::logAttempt($input, Config::get('confide::signup_confirm'))) {
-            return Redirect::intended(route('home'));
-        }
-
-        $user = new User;
-
-        if (Confide::isThrottled($input )) {
-            $err_msg = trans('confide::confide.alerts.too_many_attempts');
-        } elseif ($user->checkUserExists($input) and !$user->isConfirmed($input)) {
-            $err_msg = trans('confide::confide.alerts.not_confirmed');
-        } else {
-            $err_msg = trans('confide::confide.alerts.wrong_credentials');
-        }
-
-        return Redirect::route('auth.login')
-            ->withInput(Input::except('password'))
-            ->with('error', $err_msg);
     }
 }
