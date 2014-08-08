@@ -109,7 +109,7 @@ class pjFrontPublic extends pjFront
 			foreach ($employee_arr as $k => $employee)
 			{
 				$employee_arr[$k]['t_arr'] = pjAppController::getRawSlotsPerEmployee($employee['employee_id'], $_GET['date'], $_GET['cid']);
-				
+
 				$employee_arr[$k]['ef_arr'] = pjEmployeeFreetimeModel::factory()
 					->where('t1.employee_id', $employee['employee_id'])
 					->where('t1.date', $_GET['date'])

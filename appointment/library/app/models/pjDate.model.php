@@ -40,7 +40,7 @@ class pjDateModel extends pjAppModel
 	public function getDailyWorkingTime($foreign_id, $date, $type='calendar')
 	{
 		$arr = $this->reset();
-        if($type==='employee'){
+        if($type=='employee'){
             $arr = $this->reset()
                 ->where('t1.foreign_id', $foreign_id)
                 ->where('t1.type', $type)
@@ -58,9 +58,7 @@ class pjDateModel extends pjAppModel
                 ->findAll()
                 ->getData();
         }
-		
-		     
-	
+
 		if (empty($arr))
 		{
 			return false;
