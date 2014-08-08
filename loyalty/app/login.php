@@ -24,10 +24,10 @@
 				<div class="height30"></div>
 				<div class="height30"></div>
 				<div class="floatleft frontLoginLabel">
-					K‰ytt‰nimi*
+					K√§ytt√§nimi*
 				</div>
 				<div class="floatleft frontLoginText">
-					<input type="text" id="username" placeholder="K‰ytt‰nimi"/>
+					<input type="text" id="username" placeholder="K√§ytt√§nimi"/>
 				</div>
 				<div class="clearboth"></div>
 				<div class="height30"></div>
@@ -44,7 +44,7 @@
 					&nbsp;
 				</div>
 				<div class="floatleft frontLoginText">
-					<input type="button" value="Login" id="btnLogin"/>
+					<input type="button" value="Kirjaudu" id="btnLogin"/>
 				</div>
 				<div class="clearboth"></div>
 				<div style="height:30px;"></div>

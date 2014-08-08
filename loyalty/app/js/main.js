@@ -56,7 +56,7 @@ function onSelectConsumer(objThis, event) {
         $("#consumerScore").html("&nbsp;");
         $("span#stampRequired").text("");
     }
-    event.stopPropagation();
+    if (event.stopPropagation) { event.stopPropagation(); } else { event.cancelBubble = true; }
 }
 function onClickLine(obj) {
     $(obj).find("input:checkbox").eq(0).click();
@@ -144,23 +144,11 @@ function onUseStamp(obj) {
         }
     });
 }
-function getSelectedConsumerInfo(consumerId) {
-    $.ajax({
-        url: "/loyalty/api/getConsumerInfo.php",
-        dataType: "json",
-        type: "POST",
-        data: {
-            customerToken: customerToken,
-            consumerId: consumerId
-        },
-        success: function (data) {
-            if (data.result === "success") {
-                return data;
-            } else {
-                alert(data.msg);
-            }
-        }
-    });	
+function showConsumerInfo(consumerId) {
+    var obj = $("table#tblDataList").find("input#chkConsumerId[value='" + consumerId + "']").get(0);
+    $("table#tblDataList").find("input#chkConsumerId:checkbox").prop("checked", false);
+    obj.checked = true;
+    onSelectConsumer(obj, event);
 }
 $(document).ready(function () {
     customerToken = $("#customerToken").val();
