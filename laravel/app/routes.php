@@ -44,6 +44,11 @@ Route::get('thank-you', [
     'uses' => 'App\Controllers\Auth@showThankYou'
 ]);
 
+Route::get('confirm/{code}', [
+    'as' => 'auth.confirm',
+    'uses' => 'App\Controllers\Auth@confirm'
+]);
+
 
 // Confide routes
 Route::get( 'user/create',                 'UserController@create');

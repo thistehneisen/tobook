@@ -158,4 +158,26 @@ class Auth extends Base
             'content' => $content
         ]);
     }
+
+    /**
+     * Confirm a user registration
+     *
+     * @param  string $code 
+     *
+     * @return View
+     */
+    public function confirm($code)
+    {
+        if (Confide::confirm($code)) {
+            return View::make('home.message', [
+                'header' => 'Kiitos',
+                'content' => trans('confide::confide.alerts.confirmation')
+            ]);
+        }
+
+        return View::make('home.message', [
+            'header' => 'Error',
+            'content' => trans('confide::confide.alerts.wrong_confirmation')
+        ]);
+    }
 }
