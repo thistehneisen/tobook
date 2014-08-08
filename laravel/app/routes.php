@@ -21,33 +21,37 @@ Route::get('/', [
 | Auth Routes
 |--------------------------------------------------------------------------
 */
-Route::get('login', [
-	'as' => 'auth.login',
-	'uses' => 'App\Controllers\Auth@login'
-]);
+Route::group(['prefix' => 'auth'], function() {
+    
+    Route::get('login', [
+    	'as' => 'auth.login',
+    	'uses' => 'App\Controllers\Auth@login'
+    ]);
 
-Route::post('login', [
-	'uses' => 'App\Controllers\Auth@doLogin'
-]);
+    Route::post('login', [
+    	'uses' => 'App\Controllers\Auth@doLogin'
+    ]);
 
-Route::get('register', [
-	'as' => 'auth.register',
-	'uses' => 'App\Controllers\Auth@register'
-]);
+    Route::get('register', [
+    	'as' => 'auth.register',
+    	'uses' => 'App\Controllers\Auth@register'
+    ]);
 
-Route::post('register', [
-    'uses' => 'App\Controllers\Auth@doRegister'
-]);
+    Route::post('register', [
+        'uses' => 'App\Controllers\Auth@doRegister'
+    ]);
 
-Route::get('thank-you', [
-    'as' => 'auth.register.done',
-    'uses' => 'App\Controllers\Auth@showThankYou'
-]);
+    Route::get('thank-you', [
+        'as' => 'auth.register.done',
+        'uses' => 'App\Controllers\Auth@showThankYou'
+    ]);
 
-Route::get('confirm/{code}', [
-    'as' => 'auth.confirm',
-    'uses' => 'App\Controllers\Auth@confirm'
-]);
+    Route::get('confirm/{code}', [
+        'as' => 'auth.confirm',
+        'uses' => 'App\Controllers\Auth@confirm'
+    ]);
+
+});
 
 
 // Confide routes
