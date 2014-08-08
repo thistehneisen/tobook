@@ -13,7 +13,7 @@ class pjAdminTime extends pjAdmin
 	{
 		$this->checkLogin();
 
-		if ($this->isAdmin() || $this->isEmployee())
+		if ($this->isAdmin())
 		{
 			if (isset($_POST['working_time']))
 			{
@@ -43,28 +43,7 @@ class pjAdminTime extends pjAdmin
 					}
 				}
 
-				if ($this->isEmployee())
-				{
-					// pjWorkingTimeModel::factory()
-					// 	->where('t1.foreign_id', $this->getUserId())
-					// 	->where('t1.type', 'employee')
-                    //->where('t1.owner_id', $owner_id)
-					// 	->limit(1)
-					// 	->modifyAll(array_merge($_POST, $data));
-				} else {
-					/*
-                    FUCK THIS SHIT, BEGONE!
-                    if (isset($_POST['update_all']))
-					{
-						pjWorkingTimeModel::factory()
-							->where('id', $_POST['id'])
-							->orWhere('type', 'employee')
-                            ->where('owner_id', $owner_id)
-							->modifyAll($data);
-					} else {*/
-                        pjWorkingTimeModel::factory()->set('id', $_POST['id'])->modify($data);
-					//}
-				}
+                 pjWorkingTimeModel::factory()->set('id', $_POST['id'])->modify($data);
 
 				if (isset($_POST['foreign_id']) && (int) $_POST['foreign_id'] > 0 && isset($_POST['type']) && in_array($_POST['type'], $this->types))
 				{
@@ -75,25 +54,20 @@ class pjAdminTime extends pjAdmin
 				pjUtil::redirect(sprintf("%sindex.php?controller=pjAdminTime&action=pjActionIndex&err=AT01", PJ_INSTALL_URL));
 			}
 			
-			if ($this->isAdmin())
+
+			$foreign_id = $this->getForeignId();
+			$type = 'calendar';
+			if (isset($_GET['foreign_id']) && (int) $_GET['foreign_id'] > 0)
 			{
-				$foreign_id = $this->getForeignId();
-				$type = 'calendar';
-				if (isset($_GET['foreign_id']) && (int) $_GET['foreign_id'] > 0)
-				{
-					$foreign_id = (int) $_GET['foreign_id'];
-				}
-				if (isset($_GET['type']) && in_array($_GET['type'], $this->types))
-				{
-					$type = $_GET['type'];
-				}
-			} elseif ($this->isEmployee()) {
-				$foreign_id = $this->getUserId();
-				$type = 'employee';
+				$foreign_id = (int) $_GET['foreign_id'];
+			}
+			if (isset($_GET['type']) && in_array($_GET['type'], $this->types))
+			{
+				$type = $_GET['type'];
 			}
 			
 			$wt_arr = pjWorkingTimeModel::factory()
-				// ->where('t1.foreign_id', $foreign_id)
+				->where('t1.foreign_id', $foreign_id)
 				->where('t1.type', $type)
 				->limit(1)
 				->findAll()
