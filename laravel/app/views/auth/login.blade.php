@@ -41,7 +41,7 @@
 
             <div class="form-group">
                 <div class="col-sm-9 text-right">
-                    <button class="btn btn-lg btn-orange to-upper comfortaa">Kirjaudu</button>
+                    <button id="btn-login" class="btn btn-lg btn-orange to-upper comfortaa">Kirjaudu</button>
                 </div>
             </div>
         {{ Form::close() }}
