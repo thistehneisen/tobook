@@ -126,7 +126,7 @@ $suffix = __('front_day_suffix', true);
 									
 									foreach ($employee['bs_arr'] as $item)
 									{
-										if ($i >= $item['start_ts'] && $i < $item['start_ts'] + $item['total'] * 60)
+										if ($i >= $item['start_ts'] && ($i < $item['start_ts'] + $item['total'] * 60))
 										{
 											$is_free = false;
 											//$class = "asSlotBooked";
@@ -142,8 +142,7 @@ $suffix = __('front_day_suffix', true);
 									}
 									
 									foreach ( $employee['ef_arr'] as $freetime ) {
-										
-										if ($i >= $freetime['start_ts'] && $i < $freetime['end_ts']) {
+                                        if ($i >= $freetime['start_ts'] && $i < $freetime['end_ts']) {
 											$is_free = false;
 											$class = "asSlotUnavailable";
 											break;
@@ -155,15 +154,15 @@ $suffix = __('front_day_suffix', true);
 										$is_free = false;
 										$class = "asSlotUnavailable";
 									}
-									
 									if ($is_free)
 									{
+
 										foreach ($employee['bs_arr'] as $item)
 										{
 											if ($i + $service_total - $service_before > $item['start_ts'] && $i <= $item['start_ts'])
 											{
 												// before booking
-												$class = "asSlotUnavailable";
+												//$class = "asSlotUnavailable";
 												break;
 											}
 										}

@@ -149,7 +149,7 @@ class pjFrontPublic extends pjFront
 			
 			$service_arr = pjServiceModel::factory()
 								->select('t1.*, t2.content AS `name`')
-								->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
+								->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
 								->find($id)
 								->getData();
 							
