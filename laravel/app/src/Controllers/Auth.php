@@ -17,9 +17,10 @@ class Auth extends Base
             'password' => 'required'
         ],
         'register' => [
-            'username' => 'required',
-            'password' => 'required|confirmed',
-            'email'    => 'required|email'
+            'username'              => 'required',
+            'password'              => 'required|confirmed',
+            'password_confirmation' => 'required',
+            'email'                 => 'required|email'
         ]
     ];
 
