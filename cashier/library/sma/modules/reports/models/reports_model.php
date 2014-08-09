@@ -70,7 +70,8 @@ class Reports_model extends CI_Model
 	
 	public function getStockValue() 
 	{
-		$q = $this->db->query("SELECT SUM(by_price) as stock_by_price, SUM(by_cost) as stock_by_cost FROM ( Select COALESCE(sum(warehouses_products.quantity), 0)*price as by_price, COALESCE(sum(warehouses_products.quantity), 0)*cost as by_cost FROM  ". $this->db->dbprefix('products') ." AS products JOIN  ". $this->db->dbprefix('warehouses_products') ." AS warehouses_products ON warehouses_products.product_id=products.id GROUP BY products.id )a");
+        $ownerId = $this->getOwnerId();
+		$q = $this->db->query("SELECT SUM(by_price) as stock_by_price, SUM(by_cost) as stock_by_cost FROM ( Select COALESCE(sum(warehouses_products.quantity), 0)*price as by_price, COALESCE(sum(warehouses_products.quantity), 0)*cost as by_cost FROM  ". $this->db->dbprefix('products') ." AS products JOIN  ". $this->db->dbprefix('warehouses_products') ." AS warehouses_products ON warehouses_products.product_id=products.id WHERE products.owner_id = {$ownerId} GROUP BY products.id )a");
 		 if( $q->num_rows() > 0 )
 		  {
 			return $q->row();
@@ -81,8 +82,8 @@ class Reports_model extends CI_Model
 	
 	public function getWarehouseStockValue($id) 
 	{
-
-		 $q = $this->db->query("SELECT SUM(by_price) as stock_by_price, SUM(by_cost) as stock_by_cost FROM ( Select COALESCE(sum(warehouses_products.quantity), 0)*price as by_price, COALESCE(sum(warehouses_products.quantity), 0)*cost as by_cost FROM  ". $this->db->dbprefix('products') ." AS products JOIN  ". $this->db->dbprefix('warehouses_products') ." AS warehouses_products ON warehouses_products.product_id=products.id WHERE warehouses_products.warehouse_id = ? GROUP BY products.id )a", array($id));
+        $ownerId = $this->getOwnerId();
+		 $q = $this->db->query("SELECT SUM(by_price) as stock_by_price, SUM(by_cost) as stock_by_cost FROM ( Select COALESCE(sum(warehouses_products.quantity), 0)*price as by_price, COALESCE(sum(warehouses_products.quantity), 0)*cost as by_cost FROM  ". $this->db->dbprefix('products') ." AS products JOIN  ". $this->db->dbprefix('warehouses_products') ." AS warehouses_products ON warehouses_products.product_id=products.id WHERE products.owner_id =  {$ownerId} AND warehouses_products.warehouse_id = ? GROUP BY products.id ) a", array($id));
 		 if( $q->num_rows() > 0 )
 		  {
 			return $q->row();
@@ -93,7 +94,8 @@ class Reports_model extends CI_Model
 	
 	public function getmonthlyPurchases() 
 	{
-		$myQuery = "SELECT (CASE WHEN date_format( date, '%b' ) Is Null THEN 0 ELSE date_format( date, '%b' ) END) as month, SUM( COALESCE( total, 0 ) ) AS purchases FROM  ". $this->db->dbprefix('purchases') ." AS purchases WHERE date >= date_sub( now( ) , INTERVAL 12 MONTH ) GROUP BY date_format( date, '%b' ) ORDER BY date_format( date, '%m' ) ASC";
+        $ownerId = $this->getOwnerId();
+		$myQuery = "SELECT (CASE WHEN date_format( date, '%b' ) Is Null THEN 0 ELSE date_format( date, '%b' ) END) as month, SUM( COALESCE( total, 0 ) ) AS purchases FROM  ". $this->db->dbprefix('purchases') ." AS purchases WHERE owner_id = {$ownerId} AND date >= date_sub( now( ) , INTERVAL 12 MONTH ) GROUP BY date_format( date, '%b' ) ORDER BY date_format( date, '%m' ) ASC";
 		$q = $this->db->query($myQuery);
 		if($q->num_rows() > 0) {
 			foreach (($q->result()) as $row) {
@@ -106,6 +108,7 @@ class Reports_model extends CI_Model
 	
 	public function getChartData() 
 	{
+        $ownerId = $this->getOwnerId();
 		$myQuery = "SELECT S.month,
 					   COALESCE(S.sales, 0) as sales,
 					   COALESCE( P.purchases, 0 ) as purchases,
@@ -117,7 +120,7 @@ class Reports_model extends CI_Model
 								SUM(total_tax) tax1,
 								SUM(total_tax2) tax2
 						FROM  ". $this->db->dbprefix('sales') ." AS sales
-						WHERE sales.date >= date_sub( now( ) , INTERVAL 12 MONTH )
+						WHERE sales.owner_id = {$ownerId} AND sales.date >= date_sub( now( ) , INTERVAL 12 MONTH )
 						GROUP BY date_format(date, '%Y-%m')) S
 					LEFT JOIN (	SELECT	date_format(date, '%Y-%m') Month,
 									SUM(total_tax) ptax,
@@ -206,7 +209,7 @@ class Reports_model extends CI_Model
 	public function getDailySales($year, $month) 
 	{
 	// updated by Jeni 2014-05-18
-		
+		$ownerId = $this->getOwnerId();
 	$myQuery = "SELECT DATE_FORMAT( date,  '%e' ) AS date
 		 , SUM(if( t2.product_type = 'products', t3.paid + t3.paid_giftcard + t3.cc_no, 0)) productTotal
 		, SUM(if( t2.product_type = 'services', t3.paid + t3.paid_giftcard + t3.cc_no, 0)) servicesTotal
@@ -217,7 +220,8 @@ class Reports_model extends CI_Model
 		, SUM(COALESCE( t3.paid + t3.paid_giftcard + t3.cc_no, 0 )) total
 		, SUM( COALESCE( t1.val_tax, 0 ) ) AS productTax
 		FROM ". $this->db->dbprefix('sale_items'). " t1, ". $this->db->dbprefix('products'). " t2, ". $this->db->dbprefix('sales')." t3
-		WHERE t1.product_id = t2.id
+		WHERE t1.owner_id = {$ownerId}
+        AND t1.product_id = t2.id
 		AND t3.id = t1.sale_id
 		AND DATE_FORMAT( date,  '%Y-%m' ) =  '{$year}-{$month}'
 		GROUP BY DATE_FORMAT( date,  '%e' )";		
@@ -236,6 +240,7 @@ class Reports_model extends CI_Model
 	public function getMonthlySales($year) 
 	{
 		// updated by Jeni 2014-05-18
+        $ownerId = $this->getOwnerId();
 		$myQuery = "SELECT DATE_FORMAT( date,  '%c' ) AS date
 						 , SUM(if( t2.product_type = 'products', t3.paid + t3.paid_giftcard + t3.cc_no, 0)) productTotal
 						, SUM(if( t2.product_type = 'services', t3.paid + t3.paid_giftcard + t3.cc_no, 0)) servicesTotal
@@ -246,7 +251,8 @@ class Reports_model extends CI_Model
 						, SUM(COALESCE( t3.paid + t3.paid_giftcard + t3.cc_no, 0 )) total
 						, SUM( COALESCE( t1.val_tax, 0 ) ) AS productTax
 						FROM ". $this->db->dbprefix('sale_items'). " t1, ". $this->db->dbprefix('products'). " t2, ". $this->db->dbprefix('sales')." t3
-								WHERE t1.product_id = t2.id
+								WHERE t1.owner_id = {$ownerId} 
+                                AND t1.product_id = t2.id
 								AND t3.id = t1.sale_id
 								AND DATE_FORMAT( date,  '%Y' ) =  '{$year}'
 								GROUP BY DATE_FORMAT( date,  '%c' )";
