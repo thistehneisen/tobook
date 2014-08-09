@@ -1050,9 +1050,9 @@ class pjFrontEnd extends pjFront
 	}
 	
 	public function pjActionLoadAjax () {
+		$owner_id = intval($_GET['owner_id']);
 		
 		if ( isset($_GET['category_id']) && (int) $_GET['category_id'] > 0 ) {
-			$owner_id = intval($_SESSION['owner_id']);
 			$service_arr = pjServiceModel::factory()
 				->select("t1.*, t2.content AS `name`, t3.content AS `description`")
 				->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
@@ -1073,6 +1073,7 @@ class pjFrontEnd extends pjFront
 				->join('pjEmployee', 't2.id=t1.employee_id AND t2.is_active=1', 'inner')
 				->join('pjMultiLang', "t3.model='pjEmployee' AND t3.foreign_id=t1.employee_id AND t3.field='name' AND t3.locale='".$this->getLocaleId()."'", 'left outer')
 				->where('t1.service_id', $_GET['service_id'])
+				->where('t1.owner_id', $owner_id)
 				->orderBy('`name` ASC')
 				->findAll()
 				->getData();
@@ -1082,7 +1083,6 @@ class pjFrontEnd extends pjFront
 		} elseif ( isset($_GET['service_id']) && (int) $_GET['service_id'] > 0 &&
 					isset($_GET['employee_id']) && (int) $_GET['employee_id'] > 0 ) {
 			
-			$owner_id = intval($_SESSION['owner_id']);
 			$date = isset($_GET['date']) && !empty($_GET['date']) ? $_GET['date'] : date("Y-m-d");
 			$t_arr = array();
 			$bs_arr = array();
@@ -1105,6 +1105,7 @@ class pjFrontEnd extends pjFront
 					->where('t1.date', $isoDate)
 					->where('t1.service_id', $_GET['service_id'])
 					->where('t1.employee_id', $_GET['employee_id'])
+					->where('t1.owner_id', $owner_id)
 					->findAll()
 					->getData();
 			}
