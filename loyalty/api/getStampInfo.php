@@ -15,8 +15,8 @@
 				 , valid_yn as validYn, created_time as createdTime, updated_time as updatedTime
 			  from tbl_loyalty_stamp
 			 where loyalty_stamp = '$stampId'";
-	$db->queryArray( $sql );
-    $dataStamp = $db->queryArray( $sql );
+	$db->queryArray($sql);
+    $dataStamp = $db->queryArray($sql);
     $dataStamp = $dataStamp[0];
     
     $data['stampName'] = $dataStamp['stampName'];

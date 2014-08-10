@@ -18,7 +18,7 @@
     if( $stampId == "" ){
     	$sql = "insert into tbl_loyalty_stamp( owner, stamp_name, cnt_required, cnt_free, valid_yn, created_time, updated_time )
     			value( '$customerId', '$stampName', '$cntRequired', '$cntFree', '$validYn', now(), now())";
-    	$db->query( $sql );
+    	$db->query($sql);
     	$stampId = $db->getPrevInsertId();
     }else{
     	$sql = "update tbl_loyalty_stamp
@@ -29,7 +29,7 @@
     			     , valid_yn = '$validYn'
     			     , updated_time = now()
     			 where loyalty_stamp = $stampId";
-    	$db->query( $sql );
+    	$db->query($sql);
     }
     
     $data['stampId'] = $stampId;

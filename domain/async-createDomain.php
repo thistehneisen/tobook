@@ -20,7 +20,7 @@
     }else{
     	$sql = "insert into tbl_domain_info( owner, domain, status, siteId, created_time )
     			values( $ownerId, '$domainName', 'P', $siteId, now())";
-    	$db->queryInsert( $sql );
+    	$db->queryInsert($sql);
     	// logToFile("data.log", "CreateDomain - SQL : $sql");    	
     }
     

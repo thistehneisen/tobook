@@ -14,7 +14,7 @@
 				 , discount as discount, created_time as createdTime, valid_yn as validYn
 			  from tbl_loyalty_point
 			 where owner = $customerId";
-    $pointList = $db->queryArray( $sql );
+    $pointList = $db->queryArray($sql);
     if( $pointList == null )
     	$pointList = array( );
     

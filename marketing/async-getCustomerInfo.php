@@ -83,7 +83,7 @@ if ($planGroupCode == "rb") {
                and c_phone = '$phoneNo'";
     $dataBooking = $db->queryArray($sql);
      
-    for($i = 0; $i < count($dataBooking); $i ++){
+    for($i = 0; $i < count($dataBooking); $i++){
         $bookingList[] = $dataBooking[$i]['created'];
     }
     $data['cnt'] = count($dataBooking);

@@ -15,24 +15,24 @@
     $sql = "select score_required as scoreRequired
     		  from tbl_loyalty_point
     		 where loyalty_point = $pointId";
-    $dataPoint = $db->queryArray( $sql );
+    $dataPoint = $db->queryArray($sql);
     $dataPoint = $dataPoint[0];
     $scoreRequired = $dataPoint['scoreRequired'];
     
     $sql = "select * from tbl_loyalty_consumer where loyalty_consumer = $consumerId";
-    $dataConsumer = $db->queryArray( $sql );
+    $dataConsumer = $db->queryArray($sql);
     $dataConsumer = $dataConsumer[0];
     $scoreCurrent = $dataConsumer['current_score'];
     
     if( $scoreCurrent >= $scoreRequired ){    
 	    $sql = "insert into tbl_loyalty_consumer_point( loyalty_consumer, loyalty_point, created_time, updated_time )
 	    		value( '$consumerId', '$pointId', now(), now() )";
-	    $db->queryInsert( $sql );
+	    $db->queryInsert($sql);
 	    
 	    $sql = "update tbl_loyalty_consumer
 	    		   set current_score = current_score - $scoreRequired
 	    		 where loyalty_consumer = $consumerId";
-	    $db->query( $sql );
+	    $db->query($sql);
     }else{
     	$msg = "You don't have enough Point";
     	$error = "LC003";

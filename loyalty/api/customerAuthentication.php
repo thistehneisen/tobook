@@ -14,7 +14,7 @@
     		  from tbl_user_mast
     		 where vuser_login = '$username'
     		   and vuser_password = md5('$password')";
-    $dataUser = $db->queryArray( $sql );
+    $dataUser = $db->queryArray($sql);
     if( $dataUser != null ){
     	$dataUser = $dataUser[0];
     	$customerId = $dataUser['nuser_id'];

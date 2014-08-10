@@ -18,7 +18,7 @@
     if( $pointId == "" ){
     	$sql = "insert into tbl_loyalty_point( owner, point_name, score_required, discount, valid_yn, created_time, updated_time )
     			value( '$customerId', '$pointName', '$scoreRequired', '$discount', '$validYn', now(), now())";
-    	$db->query( $sql );
+    	$db->query($sql);
     	$pointId = $db->getPrevInsertId();
     }else{
     	$sql = "update tbl_loyalty_point
@@ -29,7 +29,7 @@
     			     , valid_yn = '$validYn'
     			     , updated_time = now()
     			 where loyalty_point = $pointId";
-    	$db->query( $sql );
+    	$db->query($sql);
     }
     
     $data['pointId'] = $pointId;

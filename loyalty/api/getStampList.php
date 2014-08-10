@@ -14,7 +14,7 @@
 				 , cnt_free as cntFree, created_time as createdTime, valid_yn as validYn
 			  from tbl_loyalty_stamp
 			 where owner = $customerId";
-    $stampList = $db->queryArray( $sql );
+    $stampList = $db->queryArray($sql);
     if( $stampList == null )
     	$stampList = array( );
     

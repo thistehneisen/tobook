@@ -15,7 +15,7 @@
     			 , address1 as address1, city as city, created_time as createdTime, updated_time as updatedTime, current_score as currentScore
     		  from tbl_loyalty_consumer
     		 where loyalty_consumer = $consumerId";
-    $dataConsumer = $db->queryArray( $sql );
+    $dataConsumer = $db->queryArray($sql);
     $dataConsumer = $dataConsumer[0];   
     
     $data['firstName'] = $dataConsumer['firstName'];
@@ -33,7 +33,7 @@
     		  from tbl_loyalty_stamp t1
     		  left join tbl_loyalty_consumer_stamp t2 on t1.loyalty_stamp = t2.loyalty_stamp and t2.loyalty_consumer = $consumerId
     		 where t1.owner = $customerId";
-	$usedStampList = $db->queryArray( $sql );
+	$usedStampList = $db->queryArray($sql);
 	if( $usedStampList == null )
 		$usedStampList = array( );
 	
@@ -49,17 +49,17 @@
                   from tbl_loyalty_consumer_stamp
                  where loyalty_consumer = $consumerId
                    and loyalty_stamp = $stampId";
-        $dataConsumerStamp = $db->queryArray( $sql );
+        $dataConsumerStamp = $db->queryArray($sql);
         if( $dataConsumerStamp == null ){
             $sql = "insert into tbl_loyalty_consumer_stamp( loyalty_consumer, loyalty_stamp, cnt_used, cnt_free, created_time, updated_time )
                     values( $consumerId, $stampId, 1, 0, now(), now() )";
-            $db->query( $sql );
+            $db->query($sql);
         }else{
             $dataConsumerStamp = $dataConsumerStamp[0];
             $cntUsed = $dataConsumerStamp['cnt_used'];
         
             $sql = "select * from tbl_loyalty_stamp where loyalty_stamp = $stampId";
-            $dataStamp = $db->queryArray( $sql );
+            $dataStamp = $db->queryArray($sql);
             $dataStamp = $dataStamp[0];
              
             $cntStampRequired = $dataStamp['cnt_required'];
@@ -77,7 +77,7 @@
                          , cnt_free = cnt_free + $cntStampFree
                      where loyalty_consumer = $consumerId
                        and loyalty_stamp = $stampId";
-            $db->query( $sql );
+            $db->query($sql);
         }
     }
 	

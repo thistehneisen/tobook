@@ -26,7 +26,7 @@ if (!headers_sent())
 		if( isset($_GET['id']) && $_GET['id'] != "" ){
 			$pointId = $_GET['id'];
 			$sql = "select * from tbl_loyalty_point where loyalty_point = $pointId";
-			$dataPoint = $db->queryArray( $sql );
+			$dataPoint = $db->queryArray($sql);
 			$dataPoint = $dataPoint[0];
 			$type = "Edit";
 		}else{
@@ -80,7 +80,7 @@ if (!headers_sent())
                             <?php 
                             	if( $type == "Edit" ){
                             		$sql = "select count(*) cnt_used from tbl_loyalty_consumer_point where loyalty_point = $pointId";
-                            		$cntPoint = $db->queryArray( $sql );
+                            		$cntPoint = $db->queryArray($sql);
                             		$cntPoint = $cntPoint[0]['cnt_used'];
                             ?>
                             <label class="col-lg-2 control-label"><?php echo $LC_LANG['usedCount'];?></label>

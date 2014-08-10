@@ -14,7 +14,7 @@
 
     $sql = "select * from tbl_loyalty_consumer_stamp where loyalty_consumer = $consumerId and loyalty_stamp = $stampId";
 
-    $dataConsumerStamp = $db->queryArray( $sql );
+    $dataConsumerStamp = $db->queryArray($sql);
     $dataConsumerStamp = $dataConsumerStamp[0];
     
     if( $dataConsumerStamp['cnt_free'] != "0" ){
@@ -22,7 +22,7 @@
     			   set cnt_free = cnt_free - 1
     			 where loyalty_consumer = $consumerId
     			   and loyalty_stamp = $stampId";
-    	$db->query( $sql );
+    	$db->query($sql);
     }else{
     	$msg = "You don't have enough free Stamp.";
     	$error = "LC002";

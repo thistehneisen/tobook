@@ -15,7 +15,7 @@ $sql = "select *
          where plan_code = '$planCode'
            and owner = $ownerId
          order by payment_history desc";
-$dataResult = $db->queryArray( $sql );
+$dataResult = $db->queryArray($sql);
 if( $dataResult > 0 ){
     $accountCode = $dataResult[0]['account_code'];
 }else{

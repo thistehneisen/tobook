@@ -15,7 +15,7 @@
     		  from tbl_loyalty_consumer
     		 where owner = $customerId
     		 order by created_time desc";
-    $consumerList = $db->queryArray( $sql );
+    $consumerList = $db->queryArray($sql);
     if( $consumerList == null )
     	$consumerList = array( );
     

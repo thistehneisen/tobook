@@ -9,7 +9,7 @@
     $pointIds = mysql_escape_string($_POST['pointIds']);
     
     $sql = "delete from tbl_loyalty_point where loyalty_point in ($pointIds)";
-    $db->query( $sql );
+    $db->query($sql);
 
     $data['result'] = $result;
     $data['error'] = $error;

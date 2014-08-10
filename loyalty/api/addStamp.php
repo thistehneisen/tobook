@@ -16,17 +16,17 @@
     		  from tbl_loyalty_consumer_stamp
     		 where loyalty_consumer = $consumerId
     		   and loyalty_stamp = $stampId";
-    $dataConsumerStamp = $db->queryArray( $sql );
+    $dataConsumerStamp = $db->queryArray($sql);
     if( $dataConsumerStamp == null ){
     	$sql = "insert into tbl_loyalty_consumer_stamp( loyalty_consumer, loyalty_stamp, cnt_used, cnt_free, created_time, updated_time )
     			values( $consumerId, $stampId, 1, 0, now(), now() )";
-    	$db->query( $sql );
+    	$db->query($sql);
     }else{
     	$dataConsumerStamp = $dataConsumerStamp[0];
     	$cntUsed = $dataConsumerStamp['cnt_used'];
 
     	$sql = "select * from tbl_loyalty_stamp where loyalty_stamp = $stampId";
-    	$dataStamp = $db->queryArray( $sql );
+    	$dataStamp = $db->queryArray($sql);
     	$dataStamp = $dataStamp[0];
     	
     	$cntStampRequired = $dataStamp['cnt_required'];
@@ -44,7 +44,7 @@
     				 , cnt_free = cnt_free + $cntStampFree
     			 where loyalty_consumer = $consumerId
     			   and loyalty_stamp = $stampId";
-    	$db->query( $sql );    	
+    	$db->query($sql);    	
     }
     
     $data['msg'] = $msg;

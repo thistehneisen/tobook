@@ -15,8 +15,8 @@
 				 , valid_yn as validYn, created_time as createdTime, updated_time as updatedTime
 			  from tbl_loyalty_point
 			 where loyalty_point = '$pointId'";
-	$db->queryArray( $sql );
-    $dataPoint = $db->queryArray( $sql );
+	$db->queryArray($sql);
+    $dataPoint = $db->queryArray($sql);
     $dataPoint = $dataPoint[0];
     
     $data['pointName'] = $dataPoint['pointName'];

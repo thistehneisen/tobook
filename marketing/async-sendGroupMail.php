@@ -17,7 +17,7 @@ $sql = "select *
          where marketing_group in ($groupIds)";
 $dataCustomer = $db->queryArray($sql);
 $customerList = array();
-for ($i = 0; $i < count($dataCustomer); $i ++) {
+for ($i = 0; $i < count($dataCustomer); $i++) {
     $temp['customerId'] = $dataCustomer[$i]['customerId'];
     $temp['planGroupCode'] = $dataCustomer[$i]['plan_group_code'];
     $temp['destination'] = $dataCustomer[$i]['email'];

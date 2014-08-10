@@ -12,7 +12,7 @@
     $customerId = base64_decode( base64_decode( $customerToken ) );
     
 	$sql = "delete from tbl_loyalty_stamp where loyalty_stamp = '$stampId'";
-	$db->query( $sql );
+	$db->query($sql);
     
     $data['msg'] = $msg;
     $data['result'] = $result;

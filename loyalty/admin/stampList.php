@@ -55,7 +55,7 @@ if (!headers_sent())
 								 group by loyalty_stamp
 								) t2 on t1.loyalty_stamp = t2.loyalty_stamp
 							 where t1.owner = $ownerId";
-					$dataStamp = $db->queryArray( $sql ); 
+					$dataStamp = $db->queryArray($sql); 
 				?>
 				<table class="table table-striped" id="tblDataList">
 					<thead>
@@ -71,7 +71,7 @@ if (!headers_sent())
 						</tr>
 					</thead>
 					<tbody>
-						<?php for($i = 0 ; $i < count( $dataStamp ); $i ++ ){?>
+						<?php for($i = 0 ; $i < count( $dataStamp ); $i++ ){?>
 						<tr>
 							<td><input type="checkbox" id="chkStampId" value="<?php echo $dataStamp[$i]['loyalty_stamp']; ?>"/></td>
 							<td><?php echo $i + 1; ?></td>

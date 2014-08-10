@@ -448,7 +448,7 @@ abstract class Zend_Http_UserAgent_AbstractDevice
         if ($match2) {
             $i = 0;
             $max = count($match2[0]);
-            for ($i = 0; $i < $max; $i ++) {
+            for ($i = 0; $i < $max; $i++) {
                 if (!empty($match2[0][$i])) {
                     $result['others']['detail'][] = array(
                         $match2[0][$i],

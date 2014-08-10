@@ -15,7 +15,7 @@
     $sql = "update tbl_loyalty_consumer
     		   set current_score = current_score + $score
     		 where loyalty_consumer = $consumerId";
-    $db->query( $sql );
+    $db->query($sql);
     
     $data['msg'] = $msg;
     $data['result'] = $result;

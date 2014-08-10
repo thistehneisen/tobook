@@ -9,7 +9,7 @@
     $stampIds = mysql_escape_string($_POST['stampIds']);
     
     $sql = "delete from tbl_loyalty_stamp where loyalty_stamp in ($stampIds)";
-    $db->query( $sql );
+    $db->query($sql);
 
     $data['result'] = $result;
     $data['error'] = $error;
