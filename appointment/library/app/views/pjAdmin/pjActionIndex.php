@@ -193,7 +193,7 @@ if (isset($tpl['status']))
 										?><td class="dSlot <?php echo $class; ?>"><?php 
 										if ( $employee['t_arr']['admin'] != false && ($i < $employee['t_arr']['admin']['start_ts'] ||
 												$i > $employee['t_arr']['admin']['end_ts'])) {
-												
+
 										} elseif (empty($bookings))
 										{
 											echo '<div class="cell">';
