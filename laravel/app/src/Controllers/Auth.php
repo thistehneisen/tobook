@@ -143,11 +143,10 @@ class Auth extends Base
                 .' '.trans('confide::confide.alerts.instructions_sent');
 
             return Redirect::route('auth.register.done')->with('notice', $notice);
-        } else {
-            return Redirect::route('auth.register')
-                ->withInput(Input::except('password'))
-                ->withErrors($user->errors(), 'top');
         }
+        return Redirect::route('auth.register')
+            ->withInput(Input::except('password'))
+            ->withErrors($user->errors(), 'top');
     }
 
     /**
