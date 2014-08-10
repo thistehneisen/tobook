@@ -26,15 +26,15 @@
         @section('nav')
             <nav class="text-right">
                 <ul class="list-inline nav-links">
-                    <li><a href="{{ route('home') }}">Etusivu</a></li>
+                    <li><a href="{{ route('home') }}">{{ trans('common.homepage') }}</a></li>
                 @if (Confide::user())
-                    <li><a href="">Hallintapaneeli</a></li>
-                    <li><a href="">Omat tiedot</a></li>
-                    <li><a href="">Apua</a></li>
-                    <li><a href="{{ route('auth.logout') }}">Kirjaudu ulos</a></li>
+                    <li><a href="">{{ trans('common.control_panel') }}</a></li>
+                    <li><a href="">{{ trans('common.my_account') }}</a></li>
+                    <li><a href="">{{ trans('common.help') }}</a></li>
+                    <li><a href="{{ route('auth.logout') }}">{{ trans('common.sign_out') }}</a></li>
                 @else
-                    <li><a href="{{ route('auth.register') }}">Rekisteröidy</a></li>
-                    <li><a href="{{ route('auth.login') }}">Kirjaudu</a></li>
+                    <li><a href="{{ route('auth.register') }}">{{ trans('common.register') }}</a></li>
+                    <li><a href="{{ route('auth.login') }}">{{ trans('common.sign_in') }}</a></li>
                 @endif
                 </ul>
             </nav>
