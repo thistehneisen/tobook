@@ -5,6 +5,8 @@ return [
         'time' => 'H:i:s',
         'date_time' => 'd-m-Y H:i:s',
     ],
+    'site_name' => 'Varaa',
+    'tagline' => '',
     'homepage'      => 'Etusivu',
     'control_panel' => 'Hallintapaneeli',
     'my_account'    => 'Omat Tiedot',

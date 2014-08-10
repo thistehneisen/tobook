@@ -25,6 +25,9 @@
         <header class="header {{ Request::is('/') ? 'homepage' : '' }}">
         @section('nav')
             <nav class="text-right">
+                @if (Confide::user())
+                <p class="welcome-text">Tervetuloa, <strong>{{ Confide::user()->username }}</strong>!</p>
+                @endif
                 <ul class="list-inline nav-links">
                     <li><a href="{{ route('home') }}">{{ trans('common.homepage') }}</a></li>
                 @if (Confide::user())
@@ -40,7 +43,7 @@
             </nav>
         @show
         
-        <a href="{{ route('home') }}"><img src="{{ asset('assets/img/logo.png') }}" alt=""></a>
+        <a href="{{ route('home') }}"><img src="{{ asset('assets/img/logo.png') }}" alt="{{ trans('common.site_name') }}" class="logo"></a>
         @yield('header')
         </header>
         
