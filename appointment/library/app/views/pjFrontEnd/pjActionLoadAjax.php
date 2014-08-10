@@ -4,9 +4,11 @@
 		
 		<?php if ( isset($tpl['service_arr']) && count($tpl['service_arr']) > 0 ) { ?>
 		<div class="asServices">
+			<ul>
 			<?php foreach ($tpl['service_arr'] as $service) { ?>
-					<a href="#" data-id="<?php echo $service['id']; ?>"><?php echo pjSanitize::html($service['name']); ?></a>
+					<li><a href="#" data-id="<?php echo $service['id']; ?>"><?php echo pjSanitize::html($service['name']); ?></a></li>
 			<?php } ?>
+			</ul>
 		</div>
 		<?php } ?>
 		
@@ -16,9 +18,11 @@
 		
 		<?php if ( isset($tpl['employee_arr']) && count($tpl['employee_arr']) > 0 ) { ?>
 		<div class="<div class="asEmployees">
+			<ul>
 			<?php foreach ($tpl['employee_arr'] as $employee) { ?>
-					<a href="#" data-id="<?php echo $employee['employee_id']; ?>"><?php echo pjSanitize::html($employee['name']); ?></a>
+					<li><a href="#" data-id="<?php echo $employee['employee_id']; ?>"><?php echo pjSanitize::html($employee['name']); ?></a></li>
 			<?php } ?>
+			</ul>
 		</div>
 		<?php } ?>
 		
@@ -29,12 +33,20 @@
 		<?php 
 		if ( isset($tpl['t_arr']) && count($tpl['t_arr']) > 0 ) { 
 			$date = isset($_GET['date']) && !empty($_GET['date']) ? $_GET['date'] : date("Y-m-d");
+			$date_first = isset($_GET['date_first']) && !empty($_GET['date_first']) ? $_GET['date_first'] : date("Y-m-d");
 			$step = $tpl['option_arr']['o_step'] * 60;
 			$service_total = $tpl['service_arr']['total']*60;
 			$service_before = $tpl['service_arr']['before']*60;
 			?>
 		<div class="asdate">
-			<table class="times" width="100%">
+			<div class="dateStart">
+				<ul>
+					<?php for ( $i = 0; $i < 5; $i++ ) { ?>
+						<li class="<?php echo strtotime($date) == strtotime($date_first) + $i*5*86400 ? "active" : null; ?>"><a href="#" data-date_start="<?php echo date("Y-m-d", strtotime($date_first) + $i*5*86400 ); ?>"><?php echo date("d", strtotime($date_first) + $i*5*86400 ) . ". elo - " . date("d", strtotime($date_first) + $i*5*86400 + 4*86400); ?> </a></li>
+					<?php } ?>				
+				</ul>
+			</div>
+			<table class="times" cellspacing="0">
 				<thead>
 					<tr>
 						<?php foreach ($tpl['t_arr'] as $k => $t ) { 
@@ -49,17 +61,22 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
+					<tr class="timeInner">
 						<?php foreach ($tpl['t_arr'] as $k => $t ) { 
+							
+							if ( $k == 0 ) {
+								$isoDate = date('Y-m-d', strtotime($date . ' 00:00:00'));
+									
+							} else $isoDate = date('Y-m-d', strtotime($date . ' 00:00:00') + $k*86400);
 							
 							$offset = $t['end_ts'] <= $t['start_ts'] ? 86400 : 0;
 							?>
-							<td>
+							<td class="<?php echo $k == 0 ? "borderLeft" : null; ?>">
 							<?php if ( !$t ) { ?>
 								<div><?php __('booking_na'); ?></div>
-							<?php } else {
-
-								for ($i = $t['start_ts']; $i <= $t['end_ts'] + $offset - $step; $i += $step){ 
+							<?php } else { ?>
+								<ul>
+								<?php for ($i = $t['start_ts']; $i <= $t['end_ts'] + $offset - $step; $i += $step){ 
 
 									$check = true;
 									if ( isset($tpl['bs_arr'][$k]) && count($tpl['bs_arr'][$k]) > 0 ) {
@@ -81,10 +98,11 @@
 									}
 									
 									if ($check) { ?>
-										<div><a href="#"><?php echo date($tpl['option_arr']['o_time_format'], $i); ?> - <?php echo date($tpl['option_arr']['o_time_format'], $i + $tpl['service_arr']['total']*60); ?></a></div>
+										<li><a href="#" data-date="<?php echo $isoDate; ?>" data-start_ts="<?php echo $i - $service_before ; ?>" data-end_ts="<?php echo $i + $service_total - $service_before; ?>" ><?php echo date($tpl['option_arr']['o_time_format'], $i); ?> - <?php echo date($tpl['option_arr']['o_time_format'], $i + $tpl['service_arr']['total']*60); ?></a></li>
 									<?php } ?>
-								<?php }
-							}?>
+								<?php } ?>
+								</ul>
+							<?php }?>
 							</td>
 						<?php } ?>
 					</tr>
