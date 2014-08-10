@@ -12,5 +12,5 @@ return [
     'sign_out'      => 'Kirjaudu Ulos',
     'sign_in'       => 'Kirjaudu',
     'register'      => 'Rekisteröidy',
-
+    'no_records'    => 'Sorry, no records found!'
 ];

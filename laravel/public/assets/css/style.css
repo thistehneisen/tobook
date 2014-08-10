@@ -166,3 +166,28 @@ a:link, a:hover {
 .btn-orange {background-color: #ec7923; color: #fff;}
 .btn-orange:hover { color: #fff; }
 .to-upper {text-transform: uppercase;}
+
+.cpanel-services li {
+    margin-bottom: 10px;
+
+}
+
+ .cpanel-services div {
+    font-family: 'Comfortaa';
+    border: 1px solid #F4C8B2;
+ }
+
+.cpanel-services h4 {
+    margin-top: 0;
+    background-color: #ec7923;
+    color: #fff;
+    padding: 10px;
+}
+
+.cpanel-services p {
+    text-align: center;
+}
+
+.cpanel-services img {
+    width: 100px;
+}

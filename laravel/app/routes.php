@@ -75,3 +75,17 @@ Route::group(['prefix' => 'auth'], function() {
     ]);
 
 });
+
+/*
+|--------------------------------------------------------------------------
+| User routes
+|--------------------------------------------------------------------------
+*/
+Route::group(['before' => ['auth']], function() {
+
+    Route::get('control-panel', [
+        'as' => 'cpanel.index',
+        'uses' => 'App\Controllers\ControlPanel@index'
+    ]);
+
+});

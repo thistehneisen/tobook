@@ -75,7 +75,7 @@ class Auth extends Base
         }
 
         if (Confide::logAttempt($input, Config::get('confide::signup_confirm'))) {
-            return Redirect::intended(route('home'));
+            return Redirect::intended(route('cpanel.index'));
         }
 
         $user = new User;
