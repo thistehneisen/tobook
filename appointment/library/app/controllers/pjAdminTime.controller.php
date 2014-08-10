@@ -66,12 +66,16 @@ class pjAdminTime extends pjAdmin
 				$type = $_GET['type'];
 			}
 			
-			$wt_arr = pjWorkingTimeModel::factory()
-				->where('t1.foreign_id', $foreign_id)
-				->where('t1.type', $type)
-				->limit(1)
-				->findAll()
-				->getData();
+			$pjWorkingTimeModel = pjWorkingTimeModel::factory();
+
+            if($type=='employee'){
+               $pjWorkingTimeModel = $pjWorkingTimeModel->where('t1.foreign_id', $foreign_id);
+            }
+				
+			$pjWorkingTimeModel->where('t1.type', $type)->limit(1);
+				
+
+            $wt_arr = $pjWorkingTimeModel->findAll()->getData();
 
 			$this->set('wt_arr', !empty($wt_arr) ? $wt_arr[0] : array());
 			$this->appendJs('pjAdminTime.js');

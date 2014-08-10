@@ -404,25 +404,25 @@ class pjAppController extends pjController {
     
         if ($date_arr === false)
         {
-        # There is not custom working time/prices for given date, so get for day of week (Monday, Tuesday...)
-        $pjWorkingTimeModel = pjWorkingTimeModel::factory();
-        $wt_data = $pjWorkingTimeModel->getWorkingTime($foreign_id, $type);
-        $wt_arr = $pjWorkingTimeModel->filterDateAdmin($wt_data, $date);
-        if (empty($wt_arr))
-        {
-        # It's Day off
-            return false;
-        }
-        // $wt_arr['slot_length'] = $option_arr['slot_length'];
-        return $wt_arr;
-    } else {
-    # There is custom working time/prices for given date
-        if (count($date_arr) === 0)
-        {
-        # It's Day off
-        return false;
-        }
-        return $date_arr;
+            # There is not custom working time/prices for given date, so get for day of week (Monday, Tuesday...)
+            $pjWorkingTimeModel = pjWorkingTimeModel::factory();
+            $wt_data = $pjWorkingTimeModel->getWorkingTime($foreign_id, $type);
+            $wt_arr = $pjWorkingTimeModel->filterDateAdmin($wt_data, $date);
+            if (empty($wt_arr))
+            {
+            # It's Day off
+                return false;
+            }
+            // $wt_arr['slot_length'] = $option_arr['slot_length'];
+            return $wt_arr;
+        } else {
+        # There is custom working time/prices for given date
+            if (count($date_arr) === 0)
+            {
+                # It's Day off
+                return false;
+            }
+            return $date_arr;
         }
     }
     
@@ -596,18 +596,17 @@ class pjAppController extends pjController {
         $date_arr = false;
         if ($date_arr !== false)
         {
-        # It's Day off
+            # It's Day off
             if (count($date_arr) === 0)
-        {
-        return false;
+            {
+                return false;
             }
-                
             # Return custom working time per employee
             return $date_arr;
         }
     
         # There is not custom working time for given date & employee
-            
+
         # Now check for default/global custom working time
         $date_arr = $pjDateModel->getDailyWorkingTime($cid, $date);
 
@@ -639,7 +638,7 @@ class pjAppController extends pjController {
         {
             return false;
         }
-    
+
         # Return default working time per employee
         return $wt_arr;
     }

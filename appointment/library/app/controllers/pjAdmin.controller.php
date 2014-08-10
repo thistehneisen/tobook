@@ -120,7 +120,6 @@ class pjAdmin extends pjAppController
 			$employees = $employee_arr;
 			foreach ( $employees as $k => $employee ) {
 				$t_arr = pjAppController::getRawSlotsPerEmployeeAdmin($employee['id'], $isoDate, $this->getForeignId());
-				
 				$et_arr = array();
 				$et_arr['admin'] = pjAppController::getRawSlotsPerEmployeeAdmin($employee['id'], $isoDate, $this->getForeignId());
 				$et_arr['client'] = pjAppController::getRawSlotsPerEmployee($employee['id'], $isoDate, $this->getForeignId());
@@ -133,13 +132,13 @@ class pjAdmin extends pjAppController
 					->findAll()
 					->getData();
 			}
-			
 		} else {
 			$t_arr = pjAppController::getRawSlotsAdmin($this->getForeignId(), $isoDate, 'calendar', $this->option_arr);
 		}
 		
+
 		//if ($this->isAdmin()) {
-			//$t_arr = pjAppController::getRawSlotsAdmin($this->getForeignId(), $isoDate, 'calendar', $this->option_arr);
+			$t_arr = pjAppController::getRawSlotsAdmin($this->getForeignId(), $isoDate, 'calendar', $this->option_arr);
 		//} else
 			//$t_arr = pjAppController::getRawSlots($this->getForeignId(), $isoDate, 'calendar', $this->option_arr);
 	

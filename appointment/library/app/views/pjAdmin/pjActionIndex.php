@@ -112,7 +112,7 @@ if (isset($tpl['status']))
 	</div>
 	<?php
 	if (!$tpl['t_arr'])
-	{
+	{  
 		pjUtil::printNotice(@$titles['AD02'], @$bodies['AD02'], true, false);
 	} else {
 		if (empty($tpl['service_arr']))
