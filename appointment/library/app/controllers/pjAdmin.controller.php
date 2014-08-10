@@ -135,15 +135,11 @@ class pjAdmin extends pjAppController
 		} else {
 			$t_arr = pjAppController::getRawSlotsAdmin($this->getForeignId(), $isoDate, 'calendar', $this->option_arr);
 		}
-		
+			
+        if($t_arr == false){
+		     $t_arr = pjAppController::getRawSlotsAdmin($this->getForeignId(), $isoDate, 'calendar', $this->option_arr);
+        }
 
-		//if ($this->isAdmin()) {
-            if($t_arr == false){
-			     $t_arr = pjAppController::getRawSlotsAdmin($this->getForeignId(), $isoDate, 'calendar', $this->option_arr);
-            }
-		//} else
-			//$t_arr = pjAppController::getRawSlots($this->getForeignId(), $isoDate, 'calendar', $this->option_arr);
-	
 		$bs_arr = pjBookingServiceModel::factory()
 			->select('t1.*, t3.id as `service_id`,t2.booking_status, t2.c_notes, t2.c_name, t4.content AS `service_name`')
 			->join('pjBooking', 't2.id=t1.booking_id', 'left')
