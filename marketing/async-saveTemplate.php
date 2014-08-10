@@ -17,7 +17,7 @@ if ($thumb == "")
 if ($templateId == "") {
     $sql = "insert into tbl_email_template(thumbnail, subject, content, created_time, updated_time)
              value ('$thumb', '$subject', '$content', now(), now())";
-    $db->queryInsert( $sql );
+    $db->queryInsert($sql);
 } else {
     $sql = "update tbl_email_template
                set thumbnail = '$thumb'

@@ -56,7 +56,7 @@ if (!headers_sent())
 					$sql = "select * 
 							  from tbl_loyalty_consumer
 							 where owner = $ownerId";
-					$dataConsumer = $db->queryArray( $sql ); 
+					$dataConsumer = $db->queryArray($sql); 
 				?>
 				<table class="table table-striped" id="tblDataList">
 					<thead>
@@ -71,7 +71,7 @@ if (!headers_sent())
 						</tr>
 					</thead>
 					<tbody>
-						<?php for($i = 0 ; $i < count( $dataConsumer ); $i ++ ){?>
+						<?php for($i = 0 ; $i < count( $dataConsumer ); $i++ ){?>
 						<tr>
 							<td><input type="checkbox" id="chkConsumerId" value="<?php echo $dataConsumer[$i]['loyalty_consumer']; ?>"/></td>
 							<td><?php echo $i + 1; ?></td>

@@ -26,7 +26,7 @@ if (!headers_sent())
 		if( isset($_GET['id']) && $_GET['id'] != "" ){
 			$consumerId = $_GET['id'];
 			$sql = "select * from tbl_loyalty_consumer where loyalty_consumer = $consumerId";
-			$dataConsumer = $db->queryArray( $sql );
+			$dataConsumer = $db->queryArray($sql);
 			$dataConsumer = $dataConsumer[0];
 			$type = "Edit";
 		}else{

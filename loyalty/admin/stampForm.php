@@ -26,7 +26,7 @@ if (!headers_sent())
 		if( isset($_GET['id']) && $_GET['id'] != "" ){
 			$stampId = $_GET['id'];
 			$sql = "select * from tbl_loyalty_stamp where loyalty_stamp = $stampId";
-			$dataStamp = $db->queryArray( $sql );
+			$dataStamp = $db->queryArray($sql);
 			$dataStamp = $dataStamp[0];
 			$type = "Edit";
 		}else{
@@ -87,7 +87,7 @@ if (!headers_sent())
                             <?php 
                                 if( $type == "Edit11" /* change to 'Edit' */){
                             		$sql = "select count(*) cnt_used from tbl_loyalty_consumer_stamp where loyalty_stamp = $stampId";
-                            		$cntStamp = $db->queryArray( $sql );
+                            		$cntStamp = $db->queryArray($sql);
                             		$cntStamp = $cntStamp[0]['cnt_used'];
                             ?>
                                 <label class="col-lg-2 control-label"><?php echo $LC_LANG['usedCount'];?></label>

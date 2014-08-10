@@ -15,7 +15,7 @@
     		   and t2.locale = 1
     		   and t2.foreign_id = t1.id
     		   and t1.owner_id = $userId";
-    $employeeList = $db->queryArray( $sql );
+    $employeeList = $db->queryArray($sql);
     if( $employeeList == null )
     	$employeeList = array( );
     

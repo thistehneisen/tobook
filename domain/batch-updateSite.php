@@ -12,9 +12,9 @@
     $data = array();
     
 	$sql = "select * from tbl_domain_info where status = 'R'";
-	$domainList = $db->queryArray( $sql );
+	$domainList = $db->queryArray($sql);
 	// logToFile("data.log", "CreateFTP - SQL : $sql");
-	for( $i = 0; $i < count( $domainList ); $i ++ ){
+	for( $i = 0; $i < count( $domainList ); $i++ ){
 		$domainInfo = $domainList[$i]['domain_info'];
 		$domain = $domainList[$i]['domain'];
 		$siteId = $domainList[$i]['siteId'];
@@ -32,10 +32,10 @@
 					   set status = 'S'
 					     , updated_time = now()
 					 where domain_info = $domainInfo";
-			$db->query( $sql );
+			$db->query($sql);
 			
 			$sql = "select * from tbl_user_mast where nuser_id = $ownerId";
-			$dataUser = $db->queryArray( $sql );
+			$dataUser = $db->queryArray($sql);
 			$dataUser = $dataUser[0];
 			$email = $dataUser['vuser_email'];
 			

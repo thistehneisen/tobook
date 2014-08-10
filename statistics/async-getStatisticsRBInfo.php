@@ -57,7 +57,7 @@
         
         $dateSql = "";
         $days++;
-        for( $i = 0 ; $i < $days; $i ++ ){
+        for( $i = 0 ; $i < $days; $i++ ){
         	for( $j = 0 ; $j < count( $userList ); $j ++ ){
         		$userId = $userList[$j]['nuser_id'];
         		$userName = $userList[$j]['vuser_login'];
@@ -87,9 +87,9 @@
         		  from ( $sql ) t1
         		 right join ( $dateSql ) t2 on t1.dt = t2.date and t1.owner_id = t2.userId
         		 order by t2.userId, t2.date asc";
-        $dataList = $db->queryArray( $sql );
+        $dataList = $db->queryArray($sql);
         $chartList = array( );
-        for( $i = 0 ; $i < count( $userList ); $i ++ ){
+        for( $i = 0 ; $i < count( $userList ); $i++ ){
         	$tempList = array( );
         	for( $j = 0 ; $j < $days; $j ++ ){
         		$tempList[] = $dataList[ $i * $days + $j ];
@@ -143,7 +143,7 @@
     	
     	$dateSql = "";
     	$days++;
-    	for( $i = 0 ; $i < $days; $i ++ ){
+    	for( $i = 0 ; $i < $days; $i++ ){
     		for( $j = 0 ; $j < count( $serviceList ); $j ++ ){
     			$serviceId = $serviceList[$j]['id'];
     			$serviceName = $serviceList[$j]['s_name'];
@@ -174,10 +174,10 @@
     			  from ( $sql ) t1
     			 right join ( $dateSql ) t2 on t1.dt = t2.date and t1.serviceId = t2.serviceId
     			 order by t2.serviceId, t2.date asc";
-    	$dataList = $db->queryArray( $sql );
+    	$dataList = $db->queryArray($sql);
 
     	$chartList = array( );
-    	for( $i = 0 ; $i < count( $serviceList ); $i ++ ){
+    	for( $i = 0 ; $i < count( $serviceList ); $i++ ){
     		$tempList = array( );
     		for( $j = 0 ; $j < $days; $j ++ ){
     			$tempList[] = $dataList[ $i * $days + $j ];

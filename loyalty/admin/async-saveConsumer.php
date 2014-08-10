@@ -18,7 +18,7 @@
     if( $consumerId == "" ){
 	    $sql = "insert into tbl_loyalty_consumer( owner, first_name, last_name, email, phone, address1, city, created_time, updated_time )
 	    		value( $ownerId, '$firstName', '$lastName', '$email', '$phone', '$address1','$city', now(), now())";
-	    $db->queryInsert( $sql );
+	    $db->queryInsert($sql);
     }else{
     	$sql = "update tbl_loyalty_consumer
     			   set first_name = '$firstName'
@@ -29,7 +29,7 @@
     			     , city = '$city'
     			     , updated_time = now()
     			 where loyalty_consumer = $consumerId";
-    	$db->query( $sql );
+    	$db->query($sql);
     }
 
     $data['result'] = $result;
