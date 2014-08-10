@@ -732,8 +732,8 @@ class pjAppController extends pjController {
         $booking_data = stripslashes($booking['service_name']) . ": ".
             date($option_arr['o_date_format'], strtotime($booking['date'])). ", ".
             date($option_arr['o_time_format'], $booking['start_ts'] + $booking['before'] * 60). " - ".
-            date($option_arr['o_time_format'], $booking['start_ts'] + $booking['before'] * 60 + $booking['length'] * 60 + (@$booking['extra_length'] * 60));
-            
+            date($option_arr['o_time_format'], $booking['start_ts'] + $booking['before'] * 60 + $booking['length'] * 60);
+        var_dump($booking);
         return $booking_data;
     }
     
