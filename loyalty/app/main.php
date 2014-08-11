@@ -4,6 +4,7 @@
 <!--[if gt IE 9]><!-->
 <html lang="en"> <!--<![endif]-->
 	<head>
+	    <meta charset="UTF-8">
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/bootstrap.style.css">
 		<link rel="stylesheet" href="css/responsive.css">
