@@ -58,6 +58,8 @@ class MoveUsersCommand extends Command {
         $roleUser = Role::where('name', '=', 'User')->first();
 
         foreach ($result as $item) {
+            $password = uniqid();
+
             $user = new User();
             $user->unguard();
             $user->fill([
@@ -67,8 +69,8 @@ class MoveUsersCommand extends Command {
                 'username'              => $item->vuser_login,
                 'email'                 => $item->vuser_email,
                 'old_password'          => $item->vuser_password,
-                'password'              => '123456',
-                'password_confirmation' => '123456',
+                'password'              => $password,
+                'password_confirmation' => $password,
                 'confirmation_code'     => '',
                 'remember_token'        => '',
                 'confirmed'             => 1,
