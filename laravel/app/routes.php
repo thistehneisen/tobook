@@ -93,5 +93,9 @@ Route::group(['before' => ['auth']], function () {
         'uses' => 'App\Controllers\User@profile'
     ]);
 
+    Route::post('profile', [
+        'uses' => 'App\Controllers\User@changeProfile'
+    ]);
+
 });
 

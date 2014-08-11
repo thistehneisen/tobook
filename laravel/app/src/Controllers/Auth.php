@@ -75,7 +75,7 @@ class Auth extends Base
         }
 
         $user = User::oldLogin($input['username'], $input['password']);
-        if ($user && Session::get('force-change-password') === true) {
+        if ($user && Session::get(User::CHANGE_PASSWORD_SESSION_NAME) === true) {
             return Redirect::intended(route('user.profile'));
         } elseif (Confide::logAttempt($input, Config::get('confide::signup_confirm'))) {
             return Redirect::intended(route('cpanel.index'));
