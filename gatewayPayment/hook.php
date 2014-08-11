@@ -49,12 +49,12 @@ Recurly_js::$privateKey = RECURLY_PRIVATE_KEY;
       	 
       	$sql = "insert into tbl_payment_history( owner, plan_code, amount, transaction_id, account_code, status, created_time, updated_time)
       			values( $ownerId, '$planCode', $amount, '$transactionId', '$accountCode', '$status', now(), now())";
-      	$db->queryInsert( $sql );
+      	$db->queryInsert($sql);
       	$sql = "select *
       			  from tbl_owner_premium
       			 where owner = '$ownerId'
       			   and plan_group_code = '$planGroupCode'";
-      	$dataResult = $db->queryArray( $sql );
+      	$dataResult = $db->queryArray($sql);
       	if( $planGroupCode == "mt" ){
       		$credits = $amount * CREDITS_PRICE;      		
       	}else{
@@ -64,14 +64,14 @@ Recurly_js::$privateKey = RECURLY_PRIVATE_KEY;
       	if( $dataResult == null ){
 	      	$sql = "insert into tbl_owner_premium( owner, plan_group_code, plan_code, account_code, credits, expired_time, updated_time)
 	      			values( $ownerId, '$planGroupCode', '$planCode', '$accountCode', $credits, date_add( now(), interval $expiredMonth month) , now())";
-	      	$db->queryInsert( $sql );
+	      	$db->queryInsert($sql);
       	}else{
 	      	$sql = "update tbl_owner_premium
 	      			   set expired_time = date_add( expired_time, interval $expiredMonth month)
 	      				 , credits = credits + $credits
 	      			 where owner = '$ownerId'
 	      			   and plan_group_code = '$planGroupCode'";
-	      	$db->query( $sql );
+	      	$db->query($sql);
       	}
       break;
     }

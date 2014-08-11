@@ -134,7 +134,7 @@ class Zend_Barcode_Object_Upca extends Zend_Barcode_Object_Ean13
             $text = $this->getTextToDisplay();
             $characterWidth = (7 * $this->_barThinWidth) * $this->_factor;
             $leftPosition = $this->getQuietZone() - $characterWidth;
-            for ($i = 0; $i < $this->_barcodeLength; $i ++) {
+            for ($i = 0; $i < $this->_barcodeLength; $i++) {
                 $fontSize = $this->_fontSize;
                 if ($i == 0 || $i == 11) {
                     $fontSize *= 0.8;

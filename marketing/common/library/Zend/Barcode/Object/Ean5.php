@@ -123,7 +123,7 @@ class Zend_Barcode_Object_Ean5 extends Zend_Barcode_Object_Ean13
         $this->_checkText($text);
         $checksum = 0;
 
-        for ($i = 0 ; $i < $this->_barcodeLength; $i ++) {
+        for ($i = 0 ; $i < $this->_barcodeLength; $i++) {
             $checksum += intval($text{$i}) * ($i % 2 ? 9 : 3);
         }
 

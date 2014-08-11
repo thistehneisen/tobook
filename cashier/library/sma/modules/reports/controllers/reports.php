@@ -143,33 +143,23 @@ class Reports extends MX_Controller {
                     $end_date = $this->ion_auth->fsd($end_date);
 		}
 	   $this->load->library('datatables');
-	   $this->datatables
-			->select("sales.id as sid,date, reference_no, biller_name, customer_name, GROUP_CONCAT(CONCAT(sale_items.product_name, ' (', sale_items.quantity, ')') SEPARATOR ', <br>') as iname, total_tax, total_tax2, total", FALSE)
-			->from('sales')
-			->join('sale_items', 'sale_items.sale_id=sales.id', 'left')
-			->join('warehouses', 'warehouses.id=sales.warehouse_id', 'left')
-			->group_by('sales.id');
+       $this->datatables
+            ->select("sales.id as sid,date, reference_no, biller_name, customer_name, GROUP_CONCAT(CONCAT(sma_sale_items.product_name, ' (', sale_items.quantity, ')') SEPARATOR ', <br>') as iname, total_tax, total_tax2, total", FALSE)
+            ->from('sales')
+            ->join('sale_items', 'sale_items.sale_id=sales.id', 'left')
+            ->join('warehouses', 'warehouses.id=sales.warehouse_id', 'left')
+            ->group_by('sales.id');
 			
 			
 			if($user) { $this->datatables->like('sales.user', $user); }
-			//if($name) { $this->datatables->like('sale_items.product_name', $name, 'both'); }
 			if($biller) { $this->datatables->like('sales.biller_id', $biller); }
 			if($customer) { $this->datatables->like('sales.customer_id', $customer); }
 			if($warehouse) { $this->datatables->like('sales.warehouse_id', $warehouse); }
 			if($reference_no) { $this->datatables->like('sales.reference_no', $reference_no, 'both'); }
 			if($start_date) { $this->datatables->where('sales.date BETWEEN "'. $start_date. '" and "'.$end_date.'"'); }
 			
-		/*$this->datatables->add_column("Actions", 
-			"<center><a href='#' onClick=\"MyWindow=window.open('index.php?module=sales&amp;prefix=" . PREFIX . "&view=view_invoice&id=$1', 'MyWindow','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=1000,height=600'); return false;\" title='".$this->lang->line("view_invoice")."' class='tip'><i class='icon-fullscreen'></i></a> 
-			<a href='index.php?module=sales&amp;prefix=" . PREFIX . "&view=pdf&id=$1' title='".$this->lang->line("download_pdf")."' class='tip'><i class='icon-file'></i></a> 
-			<a href='index.php?module=sales&amp;prefix=" . PREFIX . "&view=email_invoice&id=$1' title='".$this->lang->line("email_invoice")."' class='tip'><i class='icon-envelope'></i></a>
-			<a href='index.php?module=sales&amp;prefix=" . PREFIX . "&amp;view=edit&amp;id=$1' title='".$this->lang->line("edit_invoice")."' class='tip'><i class='icon-edit'></i></a>
-			<a href='index.php?module=sales&amp;prefix=" . PREFIX . "&amp;view=delete&amp;id=$1' onClick=\"return confirm('". $this->lang->line('alert_x_invoice') ."')\" title='".$this->lang->line("delete_invoice")."' class='tip'><i class='icon-trash'></i></a></center>", "sid");*/
-		
 		$this->datatables->unset_column('sid');
-		
-		
-	   echo $this->datatables->generate();
+        echo $this->datatables->generate();
    }
    
    function purchases()

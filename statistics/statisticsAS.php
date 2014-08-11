@@ -47,8 +47,8 @@
                 				<option value=""><?php echo $ST_LANG['selectUser'];?></option>
                 				<?php 
                 					$sql = "select nuser_id as userid, vuser_login as username from tbl_user_mast where vdel_status = 0";
-                					$userList = $db->queryArray( $sql );
-                					for( $i = 0; $i < count( $userList ); $i ++ ){
+                					$userList = $db->queryArray($sql);
+                					for( $i = 0; $i < count( $userList ); $i++ ){
                 				?>
                 				<option value="<?php echo $userList[$i]['userid'];?>"><?php echo $userList[$i]['username'];?></option>
                 				<?php } ?>

@@ -52,7 +52,7 @@ class pjFrontPublic extends pjFront
 				pjObject::import('Model', 'pjCountry:pjCountry');
 				$this->set('country_arr', pjCountryModel::factory()
 					->select('t1.*, t2.content AS name')
-					->join('pjMultiLang', "t2.model='pjCountry' AND t2.foreign_id=t1.id AND t2.field='name' AND t2.locale='".$this->getLocaleId()."'", 'left outer')
+					->join('pjMultiLang', "t2.model='pjCountry' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
 					->where('t1.status', 'T')
 					->orderBy('`name` ASC')
 					->findAll()

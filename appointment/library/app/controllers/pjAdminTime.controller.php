@@ -66,12 +66,16 @@ class pjAdminTime extends pjAdmin
 				$type = $_GET['type'];
 			}
 			
-			$wt_arr = pjWorkingTimeModel::factory()
-				->where('t1.foreign_id', $foreign_id)
-				->where('t1.type', $type)
-				->limit(1)
-				->findAll()
-				->getData();
+			$pjWorkingTimeModel = pjWorkingTimeModel::factory();
+
+            if($type=='employee'){
+               $pjWorkingTimeModel = $pjWorkingTimeModel->where('t1.foreign_id', $foreign_id);
+            }
+				
+			$pjWorkingTimeModel->where('t1.type', $type)->limit(1);
+				
+
+            $wt_arr = $pjWorkingTimeModel->findAll()->getData();
 
 			$this->set('wt_arr', !empty($wt_arr) ? $wt_arr[0] : array());
 			$this->appendJs('pjAdminTime.js');
@@ -84,6 +88,7 @@ class pjAdminTime extends pjAdmin
 	public function pjActionCustom()
 	{
 		$this->checkLogin();
+        $owner_id = $this->getOwnerId();
 
 		if ($this->isAdmin() || $this->isEmployee())
 		{
@@ -200,6 +205,7 @@ class pjAdminTime extends pjAdmin
 				$data['start_lunch'] = join(":", array($_POST['start_lunch_hour'], $_POST['start_lunch_minute']));
 				$data['end_lunch'] = join(":", array($_POST['end_lunch_hour'], $_POST['end_lunch_minute']));
 				$data['date'] = $date;
+                $data['owner_id'] = $owner_id;
 				
 				$pjDateModel->reset()->setAttributes(array_merge($_POST, $data))->insert();
 				
@@ -232,7 +238,9 @@ class pjAdminTime extends pjAdmin
 	}
 	
 	public function process_data( $data ){
-		
+
+		$data['owner_id'] = $this->getOwnerId();
+        
 		if ( !isset($data['y']) || !isset($data['m']) || !isset($data['d']) ) {
 
 			return ;

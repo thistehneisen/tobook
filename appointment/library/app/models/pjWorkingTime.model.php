@@ -102,7 +102,13 @@ class pjWorkingTimeModel extends pjAppModel
 	
 	public function getWorkingTime($foreign_id, $type='calendar')
 	{
-		$arr = $this->reset()->where('t1.foreign_id', $foreign_id)->where('t1.type', $type)->limit(1)->findAll()->getData();
+		$model = $this->reset()->where('t1.type', $type);
+
+        if($type != 'calendar'){
+          $model =  $model->where('t1.foreign_id', $foreign_id);
+        }
+
+        $arr = $model->limit(1)->findAll()->getData();
 		
 		return !empty($arr) ? $arr[0] : $arr;
 	}

@@ -10,7 +10,7 @@
     
     
     $sql = "delete from tbl_loyalty_consumer where loyalty_consumer in ($consumerIds)";
-    $db->query( $sql );
+    $db->query($sql);
 
     $data['result'] = $result;
     $data['error'] = $error;

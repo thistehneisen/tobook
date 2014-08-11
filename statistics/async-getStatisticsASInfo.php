@@ -48,7 +48,7 @@
     	
     	$sql = "select nuser_id as id, vuser_login as name 
     			  from tbl_user_mast";
-    	$userList = $db->queryArray( $sql );
+    	$userList = $db->queryArray($sql);
 
     	$sql = "select t1.owner_id as ownerId, t1.date, t1.total, t1.price
     			  from as_bookings_services t1
@@ -56,7 +56,7 @@
     	
     	$arrSql = array( );
     	
-    	for( $i = 0; $i < count( $userList ); $i ++ ){
+    	for( $i = 0; $i < count( $userList ); $i++ ){
     		if( $viewMode == "daily" ){
     			$arrSql[] = "select t1.date as date, ifnull(sum(t1.total), 0) as bookingHours, ifnull(sum(t1.price), 0) as revenue, count(*) cntBooking
     						   from ( $sql ) t1
@@ -84,7 +84,7 @@
     	 
     	$dateSql = "";
     	$days++;
-    	for( $i = 0 ; $i < $days; $i ++ ){
+    	for( $i = 0 ; $i < $days; $i++ ){
     		$dateSql.="select date_add('$startDate',interval $i day) as date";
     		if( $i != $days - 1  ){
     			$dateSql.=" union all ";
@@ -109,7 +109,7 @@
     	}
     	
     	$userChartList = array( );
-    	for( $i = 0; $i < count( $arrSql ); $i ++ ){
+    	for( $i = 0; $i < count( $arrSql ); $i++ ){
     		$dateSql1 = "select date, minute as minute, ownerId from ( $dateSql ) t1 where ownerId = ".$userList[$i]['id'];
     		
     		$arrSql[$i] = "select t2.ownerId, t2.date, ifnull( t1.bookingHours, 0) as bookingHours, ifnull( t2.minute, 0) as workingHours, ifnull( t1.revenue, 0) as revenue, ifnull( t1.cntBooking, 0) as cntBooking
@@ -171,7 +171,7 @@
 		    		   and t2.foreign_id = t1.id
 		    		   and t1.owner_id = $userId
 		    		   and t2.owner_id = $userId";
-		    $employeeList = $db->queryArray( $sql );
+		    $employeeList = $db->queryArray($sql);
 	    }
 	    
 	    $sql = "select t1.employee_id as employeeId, t1.date, t1.total, t1.price
@@ -197,7 +197,7 @@
 	    					  group by date_format(t1.date, '%Y-%m')";    		
 	    	}
 	    }else if( $employeeId == "individual" ){
-	    	for( $i = 0; $i < count( $employeeList ); $i ++ ){
+	    	for( $i = 0; $i < count( $employeeList ); $i++ ){
 		    	if( $viewMode == "daily" ){
 		    		$arrSql[] = "select t1.date as date, ifnull(sum(t1.total), 0) as bookingHours, ifnull(sum(t1.price), 0) as revenue, count(*) cntBooking
 		    					   from ( $sql ) t1
@@ -245,7 +245,7 @@
 	     
 	    $dateSql = "";
 	    $days++;
-	    for( $i = 0 ; $i < $days; $i ++ ){
+	    for( $i = 0 ; $i < $days; $i++ ){
 	    	$dateSql.="select date_add('$startDate',interval $i day) as date";
 	    	if( $i != $days - 1  ){
 	    		$dateSql.=" union all ";
@@ -271,7 +271,7 @@
 	    }
 	
 	    $employeeChartList = array( );
-	    for( $i = 0; $i < count( $arrSql ); $i ++ ){
+	    for( $i = 0; $i < count( $arrSql ); $i++ ){
 	    	if( $employeeId == "" ){
 	    		$dateSql1 = "select date, sum(minute) as minute from ( $dateSql ) t1 group by date";
 	    	}else if( $employeeId != "individual" ){

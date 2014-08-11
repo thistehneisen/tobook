@@ -1,5 +1,6 @@
 <?php
 $CART = @$controller->cart->getAll();
+
 if (!empty($CART) && isset($tpl['cart_arr']) && !empty($tpl['cart_arr']))
 {
 	$hidePrices = (int) $tpl['option_arr']['o_hide_prices'] === 1;
@@ -20,8 +21,7 @@ if (!empty($CART) && isset($tpl['cart_arr']) && !empty($tpl['cart_arr']))
 		}
 		
 		$fixed_start_ts = $start_ts + @$tpl['cart_arr'][$service_id]['before'] * 60;
-		$fixed_end_ts = $end_ts - @$tpl['cart_arr'][$service_id]['after'] * 60;
-		
+        $fixed_end_ts = $end_ts + @$tpl['cart_arr'][$service_id]['after'] * 60;
 		$total += (float) @$tpl['cart_arr'][$service_id]['price'] + $extra['price'];
 		?>
 		<div class="asElement asElementOutline">

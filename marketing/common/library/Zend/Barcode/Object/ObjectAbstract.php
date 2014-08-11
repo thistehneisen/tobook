@@ -1195,7 +1195,7 @@ abstract class Zend_Barcode_Object_ObjectAbstract
             if ($this->_stretchText) {
                 $textLength = strlen($text);
                 $space      = ($this->_calculateWidth() - 2 * $this->getQuietZone()) / $textLength;
-                for ($i = 0; $i < $textLength; $i ++) {
+                for ($i = 0; $i < $textLength; $i++) {
                     $leftPosition = $this->getQuietZone() + $space * ($i + 0.5);
                     $this->_addText(
                         $text{$i},

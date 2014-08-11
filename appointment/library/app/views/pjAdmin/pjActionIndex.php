@@ -112,7 +112,7 @@ if (isset($tpl['status']))
 	</div>
 	<?php
 	if (!$tpl['t_arr'])
-	{
+	{  
 		pjUtil::printNotice(@$titles['AD02'], @$bodies['AD02'], true, false);
 	} else {
 		if (empty($tpl['service_arr']))
@@ -193,7 +193,7 @@ if (isset($tpl['status']))
 										?><td class="dSlot <?php echo $class; ?>"><?php 
 										if ( $employee['t_arr']['admin'] != false && ($i < $employee['t_arr']['admin']['start_ts'] ||
 												$i > $employee['t_arr']['admin']['end_ts'])) {
-												
+
 										} elseif (empty($bookings))
 										{
 											echo '<div class="cell">';

@@ -55,7 +55,7 @@ if (!headers_sent())
 								 group by loyalty_point
 								) t2 on t1.loyalty_point = t2.loyalty_point
 							 where t1.owner = $ownerId";
-					$dataPoint = $db->queryArray( $sql ); 
+					$dataPoint = $db->queryArray($sql); 
 				?>
 				<table class="table table-striped" id="tblDataList">
 					<thead>
@@ -70,7 +70,7 @@ if (!headers_sent())
 						</tr>
 					</thead>
 					<tbody>
-						<?php for($i = 0 ; $i < count( $dataPoint ); $i ++ ){?>
+						<?php for($i = 0 ; $i < count( $dataPoint ); $i++ ){?>
 						<tr>
 							<td><input type="checkbox" id="chkPointId" value="<?php echo $dataPoint[$i]['loyalty_point']; ?>"/></td>
 							<td><?php echo $i + 1; ?></td>

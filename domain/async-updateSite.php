@@ -10,7 +10,7 @@
     $sql = "update tbl_domain_info
     		   set status = 'R'
     		 where siteId = $siteId";
-    $db->query( $sql );
+    $db->query($sql);
 
     $data['result'] = $result;
     $data['error'] = $error;

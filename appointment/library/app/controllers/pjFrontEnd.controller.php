@@ -397,19 +397,37 @@ class pjFrontEnd extends pjFront
 				# Confirmation email(s)
 				$booking_arr = $pjBookingModel
 					->reset()
+<<<<<<< HEAD
+					->select('t1.*, t1.id AS `booking_id`, t2.email AS `admin_email`, t3.content AS `country_name`,
+						t4.content AS `confirm_subject_client`, t5.content AS `confirm_tokens_client`,
+						t6.content AS `confirm_subject_admin`, t7.content AS `confirm_tokens_admin`,
+						t8.content AS `confirm_subject_employee`, t9.content AS `confirm_tokens_employee`,
+                        t10.length as `extra_length`, t10.price as `extra_price`')
+					// ->join('pjCalendar', '1=1', 'left outer')
+					->join('pjUser', 't2.owner_id= t1.owner_id', 'left outer')
+					->join('pjMultiLang', "t3.model='pjCountry' AND t3.foreign_id=t1.c_country_id AND t3.field='name'", 'left outer')
+					->join('pjMultiLang', "t4.model='pjCalendar' AND t4.foreign_id=t1.calendar_id AND t4.field='confirm_subject_client'", 'left outer')
+					->join('pjMultiLang', "t5.model='pjCalendar' AND t5.foreign_id=t1.calendar_id AND t5.field='confirm_tokens_client'", 'left outer')
+					->join('pjMultiLang', "t6.model='pjCalendar' AND t6.foreign_id=t1.calendar_id AND t6.field='confirm_subject_admin'", 'left outer')
+					->join('pjMultiLang', "t7.model='pjCalendar' AND t7.foreign_id=t1.calendar_id AND t7.field='confirm_tokens_admin'", 'left outer')
+					->join('pjMultiLang', "t8.model='pjCalendar' AND t8.foreign_id=t1.calendar_id AND t8.field='confirm_subject_employee'", 'left outer')
+					->join('pjMultiLang', "t9.model='pjCalendar' AND t9.foreign_id=t1.calendar_id AND t9.field='confirm_tokens_employee'", 'left outer')
+                    ->join('pjBookingExtraServiceModel', "t10.booking_id = t1.booking_id", "left")
+=======
 					->select('t1.*, t1.id AS `booking_id`, t3.email AS `admin_email`, t4.content AS `country_name`,
 						t5.content AS `confirm_subject_client`, t6.content AS `confirm_tokens_client`,
 						t7.content AS `confirm_subject_admin`, t8.content AS `confirm_tokens_admin`,
 						t9.content AS `confirm_subject_employee`, t10.content AS `confirm_tokens_employee`')
 					->join('pjCalendar', 't2.id=t1.calendar_id', 'left outer')
 					->join('pjUser', 't3.id=t2.user_id', 'left outer')
-					->join('pjMultiLang', "t4.model='pjCountry' AND t4.foreign_id=t1.c_country_id AND t4.locale=t1.locale_id AND t4.field='name'", 'left outer')
-					->join('pjMultiLang', "t5.model='pjCalendar' AND t5.foreign_id=t1.calendar_id AND t5.locale=t1.locale_id AND t5.field='confirm_subject_client'", 'left outer')
-					->join('pjMultiLang', "t6.model='pjCalendar' AND t6.foreign_id=t1.calendar_id AND t6.locale=t1.locale_id AND t6.field='confirm_tokens_client'", 'left outer')
-					->join('pjMultiLang', "t7.model='pjCalendar' AND t7.foreign_id=t1.calendar_id AND t7.locale=t1.locale_id AND t7.field='confirm_subject_admin'", 'left outer')
-					->join('pjMultiLang', "t8.model='pjCalendar' AND t8.foreign_id=t1.calendar_id AND t8.locale=t1.locale_id AND t8.field='confirm_tokens_admin'", 'left outer')
-					->join('pjMultiLang', "t9.model='pjCalendar' AND t9.foreign_id=t1.calendar_id AND t9.locale=t1.locale_id AND t9.field='confirm_subject_employee'", 'left outer')
-					->join('pjMultiLang', "t10.model='pjCalendar' AND t10.foreign_id=t1.calendar_id AND t10.locale=t1.locale_id AND t10.field='confirm_tokens_employee'", 'left outer')
+					->join('pjMultiLang', "t4.model='pjCountry' AND t4.foreign_id=t1.c_country_id AND t4.field='name'", 'left outer')
+					->join('pjMultiLang', "t5.model='pjCalendar' AND t5.foreign_id=t1.calendar_id AND t5.field='confirm_subject_client'", 'left outer')
+					->join('pjMultiLang', "t6.model='pjCalendar' AND t6.foreign_id=t1.calendar_id AND t6.field='confirm_tokens_client'", 'left outer')
+					->join('pjMultiLang', "t7.model='pjCalendar' AND t7.foreign_id=t1.calendar_id AND t7.field='confirm_subject_admin'", 'left outer')
+					->join('pjMultiLang', "t8.model='pjCalendar' AND t8.foreign_id=t1.calendar_id AND t8.field='confirm_tokens_admin'", 'left outer')
+					->join('pjMultiLang', "t9.model='pjCalendar' AND t9.foreign_id=t1.calendar_id AND t9.field='confirm_subject_employee'", 'left outer')
+					->join('pjMultiLang', "t10.model='pjCalendar' AND t10.foreign_id=t1.calendar_id AND t10.field='confirm_tokens_employee'", 'left outer')
+>>>>>>> parent of d00d08b... #50 remove join with calendar table in getting booking info (pjFrontEnd.controller.php)
 					->find($booking_id)
 					->getData();
 					
@@ -419,8 +437,8 @@ class pjFrontEnd extends pjFront
 						t6.phone AS `employee_phone`, t6.email AS `employee_email`, t6.is_subscribed, t6.is_subscribed_sms')
 					->join('pjBooking', 't2.id=t1.booking_id', 'inner')
 					->join('pjService', 't3.id=t1.service_id', 'inner')
-					->join('pjMultiLang', "t4.model='pjService' AND t4.foreign_id=t1.service_id AND t4.field='name' AND t4.locale=t2.locale_id", 'left outer')
-					->join('pjMultiLang', "t5.model='pjEmployee' AND t5.foreign_id=t1.employee_id AND t5.field='name' AND t5.locale=t2.locale_id", 'left outer')
+					->join('pjMultiLang', "t4.model='pjService' AND t4.foreign_id=t1.service_id AND t4.field='name'", 'left outer')
+					->join('pjMultiLang', "t5.model='pjEmployee' AND t5.foreign_id=t1.employee_id AND t5.field='name'", 'left outer')
 					->join('pjEmployee', 't6.id=t1.employee_id', 'left outer')
 					->where('t1.booking_id', $booking_id)
 					->findAll()
