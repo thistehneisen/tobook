@@ -17,6 +17,8 @@ $(function() {
         auto: true,
         pager: false
     });
+
+    $('header').addClass('homepage');
 });
     </script>
 @stop

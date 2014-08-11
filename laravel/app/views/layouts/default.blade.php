@@ -22,7 +22,7 @@
     <![endif]-->
 </head>
 <body>
-        <header class="header {{ Request::is('/') ? 'homepage' : '' }}">
+        <header class="header">
         @section('nav')
             <nav class="text-right">
                 @if (Confide::user())
