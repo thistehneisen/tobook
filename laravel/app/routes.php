@@ -88,4 +88,10 @@ Route::group(['before' => ['auth']], function () {
         'uses' => 'App\Controllers\ControlPanel@index'
     ]);
 
+    Route::get('profile', [
+        'as' => 'user.profile',
+        'uses' => 'App\Controllers\User@profile'
+    ]);
+
 });
+

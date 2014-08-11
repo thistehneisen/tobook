@@ -74,12 +74,14 @@ class Auth extends Base
                 ->withErrors($v);
         }
 
-        if (Confide::logAttempt($input, Config::get('confide::signup_confirm'))) {
+        $user = User::oldLogin($input['username'], $input['password']);
+        if ($user && Session::get('force-change-password') === true) {
+            return Redirect::intended(route('user.profile'));
+        } elseif (Confide::logAttempt($input, Config::get('confide::signup_confirm'))) {
             return Redirect::intended(route('cpanel.index'));
         }
 
         $user = new User();
-
         if (Confide::isThrottled($input)) {
             $errMsg = trans('confide::confide.alerts.too_many_attempts');
         } elseif ($user->checkUserExists($input) and !$user->isConfirmed($input)) {
