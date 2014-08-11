@@ -160,7 +160,7 @@ $suffix = __('front_day_suffix', true);
 											if ($i + $service_length > $item['start_ts'] && $i <= $item['start_ts'])
 											{
 												// before booking
-												//$class = "asSlotUnavailable";
+												$class = "asSlotUnavailable";
 												break;
 											}
 										}
@@ -172,7 +172,7 @@ $suffix = __('front_day_suffix', true);
 										$key = sprintf("%u|%s|%u|%s|%s|%u", $_GET['cid'], $_GET['date'], $_GET['id'], $i - $service_before, $i + $service_total - $service_before, $employee['employee_id']);
 										if (array_key_exists($key, $CART))
 										{
-											//$class = "asSlotAvailable asSlotSelected";
+											$class = "asSlotAvailable asSlotSelected";
 											$class = "asSlotCart";
 										}
 									
