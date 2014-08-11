@@ -240,8 +240,12 @@
 	font-weight:bold;
 	position: relative;
 }
-.asSingle .asBox li a:hover{
+.asSingle .asBox li a:hover,
+.asSingle .asBox li a.asUnavailable{
 	background-color:rgba(231,26,121,0.15);
+}
+.asSingle .asBox li a.asUnavailable{
+	cursor: default;
 }
 .asSingle .asBox li.active a,
 .asSingle .asBox li.active a:hover{
@@ -300,8 +304,70 @@
 	background: none;
 	border: 0;
 }
+.asSingleServices ul .asServiceMore{
+	background: #FFF;
+    border-bottom: 1px solid #ddd;
+    padding: 0 0 0 20px;
+}
+.asSingleServices ul .asServiceMore ul{
+	background: none !important;
+    border: 0 none;
+    border-radius: 0;
+    min-height: 0 !important;
+}
+.asSingleServices ul .asServiceMore ul a{
+	background: none !important;
+    display: inline-block;
+    padding: 0;
+}
+.asSingleServices ul .asServiceMore ul a:hover span,
+.asSingleServices ul .asServiceMore ul li.active a span{
+	color: #0082CE;
+}
+.asContainer .asServicePrice, .asContainer .asServiceTime{
+	padding: 0 5px 0 30px;
+}
+.asContainer .asServicePrice{
+	background-position: -3px 0;
+}
+.asSingleDate .asBox .times li a{
+	border-radius: 0;
+}
 /* Responsive design */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+	.asSingleCategories,
+	.asSingleServices,
+	.asSingleEmployees{
+		display: block;
+		float: none;
+		width: 60% !important;
+		margin: auto;
+	}
+}
+@media screen and (max-width: 767px) {
+	.asSingleCategories,
+	.asSingleServices,
+	.asSingleEmployees{
+		display: block;
+		float: none;
+		width: auto !important;
+	}
+	.asSingleDate {
+		overflow-y: hidden;
+		overflow-x: auto; 
+	}
+	.asdate{
+		min-width: 550px;
+	}
+	.asSingleDate .asBox li a{
+		margin: 0;
+    	padding: 0 5px;
+	}
+}
 @media screen and (max-width: 479px) {
+	body{
+		margin: 3px;
+	}
 	.asContainer .asLabel,
 	.asContainer .asValue{
 		float: none;
@@ -315,15 +381,14 @@
 	.asContainer .asSelectorServiceBox .asLabel{
 		display: none;
 	}
-}
-@media screen and (min-width: 480px) and (max-width: 767px) {
-	
-}
-@media screen and (min-width: 768px) and (max-width: 1023px) {
-	
+	.asContainer .asElementOutline {
+	    margin: 12px 5px;
+	    overflow: hidden;
+	    padding: 0;
+	}
 }
 @media screen and (min-width: 1024px) {
-	
+
 }
 @media screen and (min-width: 768px) and (max-width: 860px), (min-width: 1024px) and (max-width: 1450px) {
 

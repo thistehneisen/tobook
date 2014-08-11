@@ -7,6 +7,7 @@
 				<input type="hidden" name="as_single" value="1" />
 				<input type="hidden" name="category_id" value="" />
 				<input type="hidden" name="service_id" value="" />
+				<input type="hidden" name="wt_id" value="0" />
 				<input type="hidden" name="employee_id" value="" />
 				<input type="hidden" name="date" value="" />
 				<input type="hidden" name="start_ts" value="" />

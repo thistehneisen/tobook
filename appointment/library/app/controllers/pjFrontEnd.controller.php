@@ -876,7 +876,7 @@ class pjFrontEnd extends pjFront
 			;
 		}
 		$tokens = pjAppController::getTokens($booking_arr, $option_arr, 'multi');
-        var_dump($tokens);die();
+
 		switch ($type)
 		{
 			case 'confirm':

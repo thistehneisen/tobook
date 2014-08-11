@@ -5,6 +5,7 @@
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta name="fragment" content="!">
+		<meta content="width=device-width, initial-scale=1" name="viewport">
 		<link href="<?php echo PJ_INSTALL_FOLDER; ?>index.php?controller=pjFrontEnd&action=pjActionLoadCss" type="text/css" rel="stylesheet" />
 		
 		<?php 

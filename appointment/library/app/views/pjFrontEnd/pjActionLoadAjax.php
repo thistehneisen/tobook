@@ -6,7 +6,49 @@
 		<div class="asServices">
 			<ul>
 			<?php foreach ($tpl['service_arr'] as $service) { ?>
-					<li><a href="#" data-id="<?php echo $service['id']; ?>"><?php echo pjSanitize::html($service['name']); ?></a></li>
+					<li>
+						<a class="service" href="#" data-id="<?php echo $service['id']; ?>"><?php echo pjSanitize::html($service['name']); ?></a>
+						<div class="asServiceMore" style="display: none; ">
+							<ul class="asServiceTimes">
+								<li>
+									<a class="service_time" href="#" data-service_time_id="0" >
+										<?php if ((int) $tpl['option_arr']['o_hide_prices'] === 0) : ?>
+	            						<span class="asElementTag asServicePrice"><?php echo pjUtil::formatCurrencySign(number_format($service['price'], 2), $tpl['option_arr']['o_currency']); ?></span>
+	            						<?php endif; ?>
+	            						<span class="asElementTag asServiceTime"><?php echo $service['length']; ?> <?php __('front_minutes'); ?></span>
+									</a>
+								</li>
+								<?php 
+								if ( isset($service['service_time']) && count($service['service_time']) > 0 ) { 
+									
+									foreach ( $service['service_time'] as $times ) { ?>
+									<li>
+										<a class="service_time" href="#" data-service_time_id="<?php echo $times['id']; ?>" >
+											<?php if ((int) $tpl['option_arr']['o_hide_prices'] === 0) : ?>
+		            						<span class="asElementTag asServicePrice"><?php echo pjUtil::formatCurrencySign(number_format($times['price'], 2), $tpl['option_arr']['o_currency']); ?></span>
+		            						<?php endif; ?>
+		            						<span class="asElementTag asServiceTime"><?php echo $times['length']; ?> <?php __('front_minutes'); ?></span>
+										</a>
+									</li>
+									<?php 
+									} 
+								} ?>
+							</ul>
+							
+							<?php if ( isset($service['service_extra']) && count($service['service_extra']) > 0 ) { ?> 
+							<div class="asServiceExtra">
+								<label class="asLabel"><?php __('front_single_extra'); ?></label>
+								<ul>
+									<?php foreach ( $service['service_extra'] as $extra ) { ?>
+									<li>
+									<label for="<?php echo $service['id']; ?>_extra_id_<?php echo $extra['id']; ?>"><input type="checkbox" id="<?php echo $service['id']; ?>_extra_id_<?php echo $extra['id']; ?>" name="extra_id[]" value="<?php echo $extra['id']; ?>" /> <?php echo $extra['name'] . ' (' . $extra['length'] . 'min)'; ?></label><br>
+									</li>
+									<?php } ?>
+								</ul>
+							</div>
+							<?php }?>
+						</div>
+					</li>
 			<?php } ?>
 			</ul>
 		</div>
@@ -32,8 +74,8 @@
 		
 		<?php 
 		if ( isset($tpl['t_arr']) && count($tpl['t_arr']) > 0 ) { 
-			$date = isset($_GET['date']) && !empty($_GET['date']) ? $_GET['date'] : date("Y-m-d");
 			$date_first = isset($_GET['date_first']) && !empty($_GET['date_first']) ? $_GET['date_first'] : date("Y-m-d");
+			$date = isset($_GET['date']) && !empty($_GET['date']) ? $_GET['date'] : $date_first;
 			$step = $tpl['option_arr']['o_step'] * 60;
 			$service_total = $tpl['service_arr']['total']*60;
 			$service_before = $tpl['service_arr']['before']*60;
@@ -89,6 +131,17 @@
 											}
 										}
 									}
+									
+									if ( isset($tpl['freetime_arr'][$k]) && count($tpl['freetime_arr'][$k]) > 0 ) {
+									
+										foreach ($tpl['freetime_arr'][$k] as $item ) {
+											
+											if ($i + $service_total >= $item['start_ts'] && $i < $item['end_ts']) {
+												$check = false;
+												break;
+											}
+										}
+									}
 										
 									if ( ($i + $service_total > $t['lunch_start_ts'] && $i < $t['lunch_end_ts']) ||
 											$i + $service_total - $service_before > $t['end_ts'] + $offset ||
@@ -97,9 +150,14 @@
 										$check = false;
 									}
 									
-									if ($check) { ?>
-										<li><a href="#" data-date="<?php echo $isoDate; ?>" data-start_ts="<?php echo $i - $service_before ; ?>" data-end_ts="<?php echo $i + $service_total - $service_before; ?>" ><?php echo date($tpl['option_arr']['o_time_format'], $i); ?> - <?php echo date($tpl['option_arr']['o_time_format'], $i + $tpl['service_arr']['total']*60); ?></a></li>
-									<?php } ?>
+									if ($check) {
+										$class = "asAvailable" ;
+										
+									} else {
+										$class = "asUnavailable";
+									}
+									?>
+									<li><a class="<?php echo $class; ?>" href="#" data-date="<?php echo $isoDate; ?>" data-start_ts="<?php echo $i - $service_before ; ?>" data-end_ts="<?php echo $i + $service_total - $service_before; ?>" ><?php echo date($tpl['option_arr']['o_time_format'], $i); ?> - <?php echo date($tpl['option_arr']['o_time_format'], $i + $tpl['service_arr']['total']*60); ?></a></li>
 								<?php } ?>
 								</ul>
 							<?php }?>

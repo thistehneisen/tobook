@@ -18,7 +18,7 @@ function writeCard(ctrl, consumer_id) {
     $(ctrl).prop("disabled", false);
     return false;
 }
-function onSelectConsumer(objThis, event) {
+function onSelectConsumer(objThis) {
     var obj = $(objThis).get(0), name = $(obj).parents("tr").eq(0).find("td").eq(2).text(), email = $(obj).parents("tr").eq(0).find("td").eq(3).text(), phone = $(obj).parents("tr").eq(0).find("td").eq(4).text(), score = $(obj).parents("tr").eq(0).find("td").eq(5).text(), consumerId = $(obj).val();
     if (obj.checked) {
         $("#divConsumerInfo").fadeIn();
@@ -56,7 +56,14 @@ function onSelectConsumer(objThis, event) {
         $("#consumerScore").html("&nbsp;");
         $("span#stampRequired").text("");
     }
-    if (event.stopPropagation) { event.stopPropagation(); } else { event.cancelBubble = true; }
+
+    try {
+        var event;
+        if (!event) event = window.event;
+        if (event.stopPropagation) { event.stopPropagation(); } else { event.cancelBubble = true; }
+    }
+    catch(err) {
+    }
 }
 function onClickLine(obj) {
     $(obj).find("input:checkbox").eq(0).click();
@@ -148,7 +155,7 @@ function showConsumerInfo(consumerId) {
     var obj = $("table#tblDataList").find("input#chkConsumerId[value='" + consumerId + "']").get(0);
     $("table#tblDataList").find("input#chkConsumerId:checkbox").prop("checked", false);
     obj.checked = true;
-    onSelectConsumer(obj, event);
+    onSelectConsumer(obj);
 }
 $(document).ready(function () {
     customerToken = $("#customerToken").val();
@@ -164,7 +171,7 @@ $(document).ready(function () {
                 var strHTML = "", consumerList = data.consumerList, i = 0;
                 for (i = 0; i < consumerList.length; i += 1) {
                     strHTML += '<tr style="cursor:pointer;" onclick="onClickLine(this);">';
-                    strHTML += '<td><input type="checkbox" id="chkConsumerId" onclick="onSelectConsumer(this, event)" value="' + consumerList[i].consumerId + '"/></td>';
+                    strHTML += '<td><input type="checkbox" id="chkConsumerId" onclick="onSelectConsumer(this)" value="' + consumerList[i].consumerId + '"/></td>';
                     strHTML += '<td>' + String(i + 1) + '</td>';
                     strHTML += '<td>' + consumerList[i].firstName + " " + consumerList[i].lastName + '</td>';
                     strHTML += '<td>' + consumerList[i].email + '</td>';
