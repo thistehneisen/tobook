@@ -40,6 +40,15 @@ class pjFrontEnd extends pjFront
 					$this->cart->update($key, $_SESSION[ PREFIX . 'extra' ]);
 					unset($_SESSION[ PREFIX . 'extra' ]);
 					
+				} elseif ( isset($_POST['extra_id']) && count($_POST['extra_id']) > 0 && isset($_POST['as_single']) && $_POST['as_single'] == 1 ) {
+					$extras = pjExtraServiceModel::factory()
+						->whereIn('id', $_POST['extra_id'])
+						->orderBy('t1.name ASC')
+						->findAll()
+						->getData();
+					
+					$this->cart->update($key, $extras);
+					
 				} else {
 					$this->cart->update($key, 1);
 				}
@@ -1064,6 +1073,26 @@ class pjFrontEnd extends pjFront
 				->findAll()
 				->getData();
 			
+			$services = $service_arr;
+			foreach ($services as $k => $service) {
+				$service_time = pjServiceTimeModel::factory()->select("t1.*")
+					->where('t1.foreign_id', $service['id'])
+					->where('t1.owner_id', $owner_id)
+					->findAll()
+					->getData();
+				
+				$service_extra = pjExtraServiceModel::factory()
+					->join('pjServiceExtraService', 't2.extra_id = t1.id', 'inner')
+					->where('t2.service_id', $service['id'])
+					->where('t1.owner_id', $owner_id)
+					->orderBy('t1.name ASC')
+					->findAll()
+					->getData();
+				
+				$service_arr[$k]['service_time'] = $service_time;
+				$service_arr[$k]['service_extra'] = $service_extra;
+			}
+			
 			$this->set('service_arr', $service_arr);
 			
 		} elseif ( isset($_GET['service_id']) && (int) $_GET['service_id'] > 0 &&
@@ -1086,6 +1115,7 @@ class pjFrontEnd extends pjFront
 			$date = isset($_GET['date']) && !empty($_GET['date']) ? $_GET['date'] : date("Y-m-d");
 			$t_arr = array();
 			$bs_arr = array();
+			$freetime = array();
 			for ( $i = 0; $i < 5; $i++ ) {
 			
 				if ( $i == 0 ) {
@@ -1108,6 +1138,13 @@ class pjFrontEnd extends pjFront
 					->where('t1.owner_id', $owner_id)
 					->findAll()
 					->getData();
+				
+				$freetime[$i] = pjEmployeeFreetimeModel::factory()
+					->where('t1.employee_id', $_GET['employee_id'])
+					->where('t1.date', $isoDate)
+					->where('t1.owner_id', $owner_id)
+					->findAll()
+					->getData();
 			}
 			
 			$service_arr = pjServiceModel::factory()
@@ -1118,9 +1155,21 @@ class pjFrontEnd extends pjFront
 				->find($_GET['service_id'])
 				->getData();
 			
+			if ( isset($_GET['wt_id']) && $_GET['wt_id'] > 0 ) {
+				$service_time = pjServiceTimeModel::factory()->select("t1.*")
+					->where('t1.foreign_id', $_GET['service_id'])
+					->where('t1.id', $_GET['wt_id'])
+					->find($_GET['wt_id'])
+					->getData();
+				
+				$service_arr['total'] = $service_time['total'];
+				$service_arr['before'] = $service_time['before'];
+			}
+			
 			$this->set('bs_arr', $bs_arr);
 			$this->set('t_arr', $t_arr);
 			$this->set('service_arr', $service_arr);
+			$this->set('freetime_arr', $freetime);
 		}
 	}
 }

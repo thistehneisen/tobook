@@ -405,6 +405,7 @@ $i18n = array(
     'front_single_service' => 'Palvelu',
     'front_single_time' => 'Määritä aika',
     'front_single_employee' => 'Työntekijä',
+	'front_single_extra' => 'Lisäpalvelut',
     'btnBook' => 'Varaa',
     'front_single_date_service' => 'Valitse palvelu ja päivämäärä',
     'front_single_choose_date' => 'Valitse päivämäärä',

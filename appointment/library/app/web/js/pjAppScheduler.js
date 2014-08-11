@@ -319,7 +319,8 @@
 				"category_id": this.category_id,
 				"service_id": this.service_id,
 				"employee_id": this.employee_id,
-				"date_first": this.date_first
+				"date_first": this.date_first,
+				"wt_id": this.wt_id,
 			}).done(function (data) {
 				if ( that.category_id > 0 ) {
 					that.$container.find(".asSingleServices").show();
@@ -352,6 +353,8 @@
 					that.$container.find(".asSingleServices ul").css("min-height", $height);
 					that.$container.find(".asSingleEmployees ul").css("min-height", $height);
 					
+					that.$container.find(".asSingleServices li.active .asServiceMore").show(500);
+					
 				} else if ( that.service_id > 0 && that.employee_id > 0 && !that.changedate ) {
 					that.$container.find(".asSingleDate").show();
 					that.$container.find(".asSingleDate .asBox").html(data);
@@ -359,6 +362,11 @@
 					var $data = pjQ.$(data);
 					that.$container.find(".asSingleDate .asBox .times").html($data.find(".times").html());
 				}
+				
+				that.category_id = null;
+				that.service_id = null;
+				that.employee_id = null;
+				that.wt_id = -1;
 				that.changedate = false;
 			});
 		},
@@ -658,9 +666,7 @@
 				$this.parents(".asSingleInner").css("width", "45%").siblings(".asSingleServices").css("width", "45%");
 
 				that.category_id = $this.data("id");
-				that.service_id = null;
-				that.employee_id = null;
-				
+			
 				that.$container.find(".asSingleServices").hide()
 					.end()
 					.find(".asSingleEmployees").hide()
@@ -669,21 +675,11 @@
 					.end()
 					.find("input[name='category_id']").val(that.category_id)
 					.end()
-					.find("input[name='service_id']").val("")
-					.end()
-					.find("input[name='employee_id']").val("")
-					.end()
-					.find("input[name='date']").val("")
-					.end()
-					.find("input[name='start_ts']").val("")
-					.end()
-					.find("input[name='end_ts']").val("")
-					.end()
 					.find(":submit").attr("disabled", "disabled");
 				
 				that.getLoadAjaxLayout2.call(that);
 
-			}).on("click.as", ".asSingleServices a", function (e) {
+			}).on("click.as", ".asSingleServices a.service", function (e) {
 				if (e && e.preventDefault) {
 					e.preventDefault();
 				}
@@ -691,29 +687,52 @@
 				var $this = pjQ.$(this);
 				
 				$this.parent().addClass("active").siblings(".active").removeClass("active");
-				$this.parents(".asSingleInner").css("width", "30%")
-					.siblings(".asSingleCategories").css("width", "30%")
-					.siblings(".asSingleEmployees").css("width", "30%");
+				$this.parent().siblings().find(".asServiceMore").hide(500);
+				$this.parent().siblings().find(".asServiceMore input:checked").removeAttr('checked');
+				$this.parent().siblings().find(".asServiceTimes li.active").removeClass("active");
+				$this.parents(".asSingleInner").css("width", "33%")
+					.siblings(".asSingleCategories").css("width", "33%")
+					.siblings(".asSingleEmployees").css("width", "33%");
 				
-				that.category_id = null;
 				that.service_id = $this.data("id");
-				that.employee_id = null;
+				
 				that.$container.find(".asSingleEmployees").hide()
 					.end()
 					.find(".asSingleDate").hide()
 					.end()
 					.find("input[name='service_id']").val(that.service_id)
 					.end()
-					.find("input[name='employee_id']").val("")
+					.find("input[name='wt_id']").val("0")
 					.end()
-					.find("input[name='date']").val("")
+					.find(":submit").attr("disabled", "disabled");
+				
+				that.getLoadAjaxLayout2.call(that);
+				
+			}).on("click.as", ".asSingleServices a.service_time", function (e) {
+				if (e && e.preventDefault) {
+					e.preventDefault();
+				}
+				
+				var $this = pjQ.$(this);
+				
+				$this.parent().addClass("active").siblings(".active").removeClass("active");
+				
+				that.service_id = that.$container.find("input[name='service_id']").val();
+				that.employee_id = that.$container.find("input[name='employee_id']").val();
+				that.wt_id = $this.data("service_time_id");
+				that.date = $this.data("date_start");
+				that.changedate = true;
+				
+				that.$container.find("input[name='date']").val("")
 					.end()
 					.find("input[name='start_ts']").val("")
 					.end()
 					.find("input[name='end_ts']").val("")
 					.end()
+					.find("input[name='wt_id']").val($this.data("service_time_id"))
+					.end()
 					.find(":submit").attr("disabled", "disabled");
-				
+					
 				that.getLoadAjaxLayout2.call(that);
 				
 			}).on("click.as", ".asSingleEmployees a", function (e) {
@@ -725,9 +744,12 @@
 				
 				$this.parent().addClass("active").siblings(".active").removeClass("active");
 				
-				that.category_id = null;
+				that.service_id = that.$container.find("input[name='service_id']").val();
 				that.employee_id = $this.data("id");
+				//console.log(that.$container.find("input[name='wt_id']").val());
+				that.wt_id = that.$container.find("input[name='wt_id']").val();
 				that.date = that.$container.find("input[name='date_start']").val();
+				
 				that.$container.find(".asSingleDate").hide()
 					.end()
 					.find("input[name='employee_id']").val(that.employee_id)
@@ -751,10 +773,15 @@
 				
 				$this.parent().addClass("active").siblings(".active").removeClass("active");
 				
+				that.service_id = that.$container.find("input[name='service_id']").val();
+				that.employee_id = that.$container.find("input[name='employee_id']").val();
+				that.wt_id = that.$container.find("input[name='wt_id']").val();
 				that.date = $this.data("date_start");
 				that.changedate = true;
+				
 				that.$container.find("input[name='date_start']").val($this.data("date_start"))
-					.end().find("input[name='date']").val("")
+					.end()
+					.find("input[name='date']").val("")
 					.end()
 					.find("input[name='start_ts']").val("")
 					.end()
@@ -764,7 +791,7 @@
 				
 				that.getLoadAjaxLayout2.call(that);
 				
-			}).on("click.as", ".asSingleDate .times a", function (e) {
+			}).on("click.as", ".asSingleDate .times a.asAvailable", function (e) {
 				if (e && e.preventDefault) {
 					e.preventDefault();
 				}
@@ -781,6 +808,10 @@
 					.end()
 					.find(":submit").removeAttr("disabled");
 				
+			}).on("click.as", ".asSingleDate .times a.asUnavailable", function (e) {
+				if (e && e.preventDefault) {
+					e.preventDefault();
+				}
 			}).on("click.as", ".asSingleEmployeeEmail a", function (e) {
 				e.stopPropagation();
 				return true;
@@ -815,7 +846,8 @@
 				that.disableButtons.call(that);
 				that._addToCart.call(that, pjQ.$(this).serializeArray()).done(function (data) {
 					if (data.status == "OK") {
-						hashBang("#!/Cart");
+						//hashBang("#!/Cart");
+						hashBang("#!/Checkout");
 					} else if (data.status == "ERR") {
 						that.enableButtons.call(that);
 					}
