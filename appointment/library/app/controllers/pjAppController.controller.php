@@ -732,8 +732,7 @@ class pjAppController extends pjController {
         $booking_data = stripslashes($booking['service_name']) . ": ".
             date($option_arr['o_date_format'], strtotime($booking['date'])). ", ".
             date($option_arr['o_time_format'], $booking['start_ts'] + $booking['before'] * 60). " - ".
-            date($option_arr['o_time_format'], $booking['start_ts'] + $booking['before'] * 60 + $booking['length'] * 60);
-        var_dump($booking);
+            date($option_arr['o_time_format'], $booking['start_ts'] + $booking['before'] * 60 + $booking['length'] * 60 + @$booking['extra_length'] * 60);
         return $booking_data;
     }
     
@@ -748,7 +747,7 @@ class pjAppController extends pjController {
                 $booking_data[] = stripslashes($item['service_name']) . ": ".
                     date($option_arr['o_date_format'], strtotime($item['date'])). ", ".
                     date($option_arr['o_time_format'], $item['start_ts'] + $item['before'] * 60). " - ".
-                    date($option_arr['o_time_format'], $item['start_ts'] + $item['before'] * 60 + $item['length'] * 60);
+                    date($option_arr['o_time_format'], $item['start_ts'] + $item['before'] * 60 + $item['length'] * 60 + @$item['extra_length'] * 60);
             }
         }
 
@@ -792,7 +791,7 @@ class pjAppController extends pjController {
             pjUtil::formatCurrencySign(number_format($booking['booking_total'], 2), $option_arr['o_currency']),
             pjUtil::formatCurrencySign(number_format($booking['booking_tax'], 2), $option_arr['o_currency']),
             $booking['uuid'], $booking_data, $cancelURL);
-        
+
         return compact('search', 'replace');
     }
 }
