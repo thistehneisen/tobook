@@ -35,7 +35,7 @@
 
             <div class="form-group">
                 <div class="col-sm-9 text-right">
-                    Uusi käyttäjä? <a href="#">Rekisteröidy tästä</a> | Unohditko salasanasi? <a href="{{ route('auth.forgot') }}">Klikkaa tästä.</a>
+                    Uusi käyttäjä? <a href="{{ route('auth.register') }}" title="" id="link-register">Rekisteröidy tästä</a> | Unohditko salasanasi? <a href="{{ route('auth.forgot') }}" title="" id="link-forgot">Klikkaa tästä.</a>
                 </div>
             </div>
 

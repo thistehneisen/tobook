@@ -16,7 +16,7 @@
         
         @include ('el.messages');
 
-        {{ Form::open(['route' => 'auth.register', 'class' => 'form-horizontal', 'role' => 'form']) }}
+        {{ Form::open(['id' => 'frm-register', 'route' => 'auth.register', 'class' => 'form-horizontal', 'role' => 'form']) }}
         
         @foreach ($fields as $name => $field)
             <?php $type = isset($field['type']) ? $field['type'] : 'text' ?>
@@ -35,8 +35,8 @@
 
             <div class="form-group">
                 <div class="col-sm-9 col-sm-offset-3">
-                    <p>Painamalla &quot;Rekisteröidy&quot; hyväksyt <a href="">Ehdot</a></p>
-                    <p>Oletko jo rekisteröitynyt? <a href="{{ route('auth.login') }}" title="">Kirjaudu sisään</a></p>
+                    <p>Painamalla &quot;Rekisteröidy&quot; hyväksyt <a href="#" id="link-terms">Ehdot</a></p>
+                    <p>Oletko jo rekisteröitynyt? <a href="{{ route('auth.login') }}" title="" id="link-login">Kirjaudu sisään</a></p>
                 </div>
             </div>
 
