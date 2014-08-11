@@ -81,7 +81,9 @@ Route::group(['prefix' => 'auth'], function () {
 | User routes
 |--------------------------------------------------------------------------
 */
-Route::group(['before' => ['auth']], function () {
+Route::group([
+    'before' => ['auth', 'force.change.password']
+], function () {
 
     Route::get('control-panel', [
         'as' => 'cpanel.index',
