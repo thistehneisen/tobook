@@ -92,7 +92,7 @@ class Auth extends Base
 
         return Redirect::route('auth.login')
             ->withInput(Input::except('password'))
-            ->withErrors($this->createMessageBag([$errMsg]), 'top');
+            ->withErrors($this->errorMessageBag($errMsg), 'top');
     }
 
     /**
@@ -248,7 +248,7 @@ class Auth extends Base
 
         return Redirect::route('auth.forgot')
             ->withInput()
-            ->withErrors($this->createMessageBag([$content]), 'top');
+            ->withErrors($this->errorMessageBag($content), 'top');
     }
 
     public function reset($token)
@@ -288,6 +288,6 @@ class Auth extends Base
 
         return Redirect::route('auth.reset', ['token' => $token])
             ->withInput()
-            ->withErrors($this->createMessageBag([$content]), 'top');
+            ->withErrors($this->errorMessageBag($content), 'top');
     }
 }

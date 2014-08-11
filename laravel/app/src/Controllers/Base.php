@@ -16,11 +16,6 @@ class Base extends \Controller
         }
     }
 
-    protected function createMessageBag(array $messages = array())
-    {
-        return new MessageBag($messages);
-    }
-
     /**
      * Create a new message bag containing success messages
      *
@@ -47,12 +42,10 @@ class Base extends \Controller
     /**
      * Create a new message bag for errors
      *
-     * @param  mixed $content 
-     *
      * @return MessageBag
      */
-    protected function errorMessageBag($content)
+    protected function errorMessageBag()
     {
-        return new MessageBag((array) $content);
+        return new MessageBag(func_get_args());
     }
 }

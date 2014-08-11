@@ -75,9 +75,7 @@ class User extends Base
 
         return Redirect::back()
             ->withErrors(
-                $this->errorMessageBag([
-                    trans('user.change_profile_failed')
-                ]),
+                $this->errorMessageBag(trans('user.change_profile_failed')),
                 'top'
             );
     }
