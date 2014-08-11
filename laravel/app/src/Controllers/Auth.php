@@ -8,7 +8,7 @@ class Auth extends Base
 {
     /**
      * Contain rules for login and register
-     * 
+     *
      * @var array
      */
     protected $rules = [
@@ -33,7 +33,7 @@ class Auth extends Base
 
     /**
      * Display the form to login
-     * 
+     *
      * @return View
      */
     public function login()
@@ -78,7 +78,7 @@ class Auth extends Base
             return Redirect::intended(route('cpanel.index'));
         }
 
-        $user = new User;
+        $user = new User();
 
         if (Confide::isThrottled($input)) {
             $errMsg = trans('confide::confide.alerts.too_many_attempts');
@@ -129,7 +129,7 @@ class Auth extends Base
                 ->withErrors($v);
         }
 
-        $user = new User;
+        $user = new User();
 
         $user->username              = Input::get('username');
         $user->email                 = Input::get('email');
@@ -144,6 +144,7 @@ class Auth extends Base
 
             return Redirect::route('auth.register.done')->with('notice', $notice);
         }
+
         return Redirect::route('auth.register')
             ->withInput(Input::except('password'))
             ->withErrors($user->errors(), 'top');
@@ -160,6 +161,7 @@ class Auth extends Base
             'notice',
             'Thanks for registering with us. Please confirm your email.'
         );
+
         return View::make('home.message', [
             'header' => 'Kiitos',
             'content' => $content
@@ -169,7 +171,7 @@ class Auth extends Base
     /**
      * Confirm a user registration
      *
-     * @param  string $code 
+     * @param string $code
      *
      * @return View
      */
@@ -196,6 +198,7 @@ class Auth extends Base
     public function logout()
     {
         Confide::logout();
+
         return Redirect::route('home');
     }
 
@@ -232,6 +235,7 @@ class Auth extends Base
         if (Confide::forgotPassword(Input::get('email'))) {
             $header = 'Notice';
             $content = trans('confide::confide.alerts.password_forgot');
+
             return View::make('home.message', [
                 'header' => $header,
                 'content' => $content
@@ -239,6 +243,7 @@ class Auth extends Base
         }
 
         $content = trans('confide::confide.alerts.wrong_password_forgot');
+
         return Redirect::route('auth.forgot')
             ->withInput()
             ->withErrors($this->createMessageBag([$content]), 'top');
@@ -270,6 +275,7 @@ class Auth extends Base
         if (Confide::resetPassword($input)) {
             $header = 'Notice';
             $content = trans('confide::confide.alerts.password_reset');
+
             return View::make('home.message', [
                 'header' => $header,
                 'content' => $content
@@ -277,6 +283,7 @@ class Auth extends Base
         }
 
         $content = trans('confide::confide.alerts.wrong_password_reset');
+
         return Redirect::route('auth.reset', ['token' => $token])
             ->withInput()
             ->withErrors($this->createMessageBag([$content]), 'top');

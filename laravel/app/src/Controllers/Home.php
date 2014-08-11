@@ -10,7 +10,7 @@ class Home extends Base
         if (Confide::user()) {
             return View::make('home.list');
         }
-        
+
         return View::make('home.index');
     }
 }
