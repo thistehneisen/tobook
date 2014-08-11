@@ -158,7 +158,8 @@ class Auth extends Base
     {
         $content = Session::get(
             'notice',
-            'Thanks for registering with us. Please confirm your email.');
+            'Thanks for registering with us. Please confirm your email.'
+        );
         return View::make('home.message', [
             'header' => 'Kiitos',
             'content' => $content
@@ -228,7 +229,7 @@ class Auth extends Base
                 ->withErrors($v);
         }
 
-        if(Confide::forgotPassword(Input::get('email'))) {
+        if (Confide::forgotPassword(Input::get('email'))) {
             $header = 'Notice';
             $content = trans('confide::confide.alerts.password_forgot');
             return View::make('home.message', [
@@ -266,7 +267,7 @@ class Auth extends Base
         ];
 
         // By passing an array with the token, password and confirmation
-        if(Confide::resetPassword($input)) {
+        if (Confide::resetPassword($input)) {
             $header = 'Notice';
             $content = trans('confide::confide.alerts.password_reset');
             return View::make('home.message', [
