@@ -40,16 +40,23 @@ class MoveUsersCommand extends Command {
         // No need to send activation emails
         Config::set('confide::signup_confirm', false);
 
+        $this->info('Create some roles and permissions (if required)');
+        $this->call('db:seed', ['--class' => 'EntrustSeeder']);
+
         // Because tbl_user_mast has its own prefix, so we disable db prefix here
         $oldPrefix = DB::getTablePrefix();
         DB::setTablePrefix('');
 
         // Get all users
         $result = DB::table('tbl_user_mast')->get();
-        $this->info('Moving '.count($result).' users to the new home...');
+        $this->info('Moving '.count($result).' users to the new home');
 
         // Set the prefix back to normal
         DB::setTablePrefix($oldPrefix);
+
+        // Get User role
+        $roleUser = Role::where('name', '=', 'User')->first();
+
         foreach ($result as $item) {
             $user = new User();
             $user->unguard();
@@ -78,6 +85,9 @@ class MoveUsersCommand extends Command {
             $user->reguard();
 
             if ($user->save()) {
+                // Attach role
+                $user->attachRole($roleUser);
+
                 echo "\t{$item->vuser_email}\t\t";
                 $this->info('DONE');
             }
