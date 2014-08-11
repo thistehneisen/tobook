@@ -742,12 +742,19 @@ class pjAppController extends pjController {
         $booking_data = array();
         if (isset($booking['bs_arr']))
         {
+            $extra_length = 0;
+            if(isset($booking['ex_arr'])){
+                foreach($booking['ex_arr'] as $extra){
+                    $extra_length += $extra['extra_length'];
+                }
+            }
+            
             foreach ($booking['bs_arr'] as $item)
             {
                 $booking_data[] = stripslashes($item['service_name']) . ": ".
                     date($option_arr['o_date_format'], strtotime($item['date'])). ", ".
                     date($option_arr['o_time_format'], $item['start_ts'] + $item['before'] * 60). " - ".
-                    date($option_arr['o_time_format'], $item['start_ts'] + $item['before'] * 60 + $item['length'] * 60 + @$item['extra_length'] * 60);
+                    date($option_arr['o_time_format'], $item['start_ts'] + $item['before'] * 60 + $item['length'] * 60 + $extra_length * 60);
             }
         }
 

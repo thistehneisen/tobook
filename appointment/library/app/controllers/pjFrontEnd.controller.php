@@ -409,18 +409,25 @@ class pjFrontEnd extends pjFront
 				$booking_arr['bs_arr'] = $pjBookingServiceModel
 					->reset()
 					->select('t1.*, t3.before, t3.length, t4.content AS `service_name`, t5.content AS `employee_name`,
-						t6.phone AS `employee_phone`, t6.email AS `employee_email`, t6.is_subscribed, t6.is_subscribed_sms,
-                        t8.length AS `extra_length`, t8.price AS `extra_price`')
+						t6.phone AS `employee_phone`, t6.email AS `employee_email`, t6.is_subscribed, t6.is_subscribed_sms')
 					->join('pjBooking', 't2.id=t1.booking_id', 'inner')
 					->join('pjService', 't3.id=t1.service_id', 'inner')
 					->join('pjMultiLang', "t4.model='pjService' AND t4.foreign_id=t1.service_id AND t4.field='name'", 'left outer')
 					->join('pjMultiLang', "t5.model='pjEmployee' AND t5.foreign_id=t1.employee_id AND t5.field='name'", 'left outer')
 					->join('pjEmployee', 't6.id=t1.employee_id', 'left outer')
-                    ->join('pjBookingExtraService', "t7.booking_id = t2.id", 'left outer')
-                    ->join('pjExtraService', "t8.id = t7.extra_id", 'left outer')
 					->where('t1.booking_id', $booking_id)
 					->findAll()
 					->getData();
+
+                $booking_arr['ex_arr'] = $pjBookingServiceModel
+                    ->reset()
+                    ->select('t1.*, t4.length AS `extra_length`, t4.price AS `extra_price`')
+                    ->join('pjBooking', 't2.id=t1.booking_id', 'inner')
+                    ->join('pjBookingExtraService', "t3.booking_id = t2.id", 'left outer')
+                    ->join('pjExtraService', "t4.id = t3.extra_id", 'left outer')
+                    ->where('t1.booking_id', $booking_id)
+                    ->findAll()
+                    ->getData();
 
 				$bs_ids = $pjBookingServiceModel->getDataPair('id', null);
 					
