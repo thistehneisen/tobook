@@ -21,20 +21,20 @@ Route::get('/', [
 | Auth Routes
 |--------------------------------------------------------------------------
 */
-Route::group(['prefix' => 'auth'], function() {
+Route::group(['prefix' => 'auth'], function () {
 
     Route::get('login', [
-    	'as' => 'auth.login',
-    	'uses' => 'App\Controllers\Auth@login'
+        'as' => 'auth.login',
+        'uses' => 'App\Controllers\Auth@login'
     ]);
 
     Route::post('login', [
-    	'uses' => 'App\Controllers\Auth@doLogin'
+        'uses' => 'App\Controllers\Auth@doLogin'
     ]);
 
     Route::get('register', [
-    	'as' => 'auth.register',
-    	'uses' => 'App\Controllers\Auth@register'
+        'as' => 'auth.register',
+        'uses' => 'App\Controllers\Auth@register'
     ]);
 
     Route::post('register', [
@@ -81,11 +81,23 @@ Route::group(['prefix' => 'auth'], function() {
 | User routes
 |--------------------------------------------------------------------------
 */
-Route::group(['before' => ['auth']], function() {
+Route::group([
+    'before' => ['auth', 'force.change.password']
+], function () {
 
     Route::get('control-panel', [
         'as' => 'cpanel.index',
         'uses' => 'App\Controllers\ControlPanel@index'
     ]);
 
+    Route::get('profile', [
+        'as' => 'user.profile',
+        'uses' => 'App\Controllers\User@profile'
+    ]);
+
+    Route::post('profile', [
+        'uses' => 'App\Controllers\User@changeProfile'
+    ]);
+
 });
+

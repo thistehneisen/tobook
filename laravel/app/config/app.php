@@ -123,6 +123,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
         // Addon providers
         'Zizaco\Confide\ConfideServiceProvider',
+        'Zizaco\Entrust\EntrustServiceProvider',
 
 	),
 
@@ -192,6 +193,7 @@ return array(
 		'View'            => 'Illuminate\Support\Facades\View',
         // Addon facades
         'Confide'    => 'Zizaco\Confide\ConfideFacade',
+        'Entrust'    => 'Zizaco\Entrust\EntrustFacade',
 
 	),
 

@@ -18,15 +18,12 @@ require app_path().'/macros.php';
 |
 */
 
-App::before(function($request)
-{
-	//
+App::before(function ($request) {
+    //
 });
 
-
-App::after(function($request, $response)
-{
-	//
+App::after(function ($request, $response) {
+    //
 });
 
 /*
@@ -40,21 +37,18 @@ App::after(function($request, $response)
 |
 */
 
-Route::filter('auth', function()
-{
-	if (!Confide::user()) {
-		if (Request::ajax()) {
-			return Response::make('Unauthorized', 401);
-		} else {
-			return Redirect::guest(route('auth.login'));
-		}
-	}
+Route::filter('auth', function () {
+    if (!Confide::user()) {
+        if (Request::ajax()) {
+            return Response::make('Unauthorized', 401);
+        } else {
+            return Redirect::guest(route('auth.login'));
+        }
+    }
 });
 
-
-Route::filter('auth.basic', function()
-{
-	return Auth::basic();
+Route::filter('auth.basic', function () {
+    return Auth::basic();
 });
 
 /*
@@ -68,9 +62,8 @@ Route::filter('auth.basic', function()
 |
 */
 
-Route::filter('guest', function()
-{
-	if (Auth::check()) return Redirect::to('/');
+Route::filter('guest', function () {
+    if (Auth::check()) return Redirect::to('/');
 });
 
 /*
@@ -84,10 +77,20 @@ Route::filter('guest', function()
 |
 */
 
-Route::filter('csrf', function()
-{
-	if (Session::token() != Input::get('_token'))
-	{
-		throw new Illuminate\Session\TokenMismatchException;
-	}
+Route::filter('csrf', function () {
+    if (Session::token() != Input::get('_token')) {
+        throw new Illuminate\Session\TokenMismatchException();
+    }
+});
+
+/**
+ * Check if this user is forced to change password
+ */
+Route::filter('force.change.password', function() {
+    if (Route::is('user.profile') === false
+     && Request::isMethod('get')
+     && Session::get(User::CHANGE_PASSWORD_SESSION_NAME) === true) 
+    {
+        return Redirect::route('user.profile');
+    }
 });

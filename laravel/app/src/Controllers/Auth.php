@@ -8,7 +8,7 @@ class Auth extends Base
 {
     /**
      * Contain rules for login and register
-     * 
+     *
      * @var array
      */
     protected $rules = [
@@ -33,7 +33,7 @@ class Auth extends Base
 
     /**
      * Display the form to login
-     * 
+     *
      * @return View
      */
     public function login()
@@ -74,12 +74,14 @@ class Auth extends Base
                 ->withErrors($v);
         }
 
-        if (Confide::logAttempt($input, Config::get('confide::signup_confirm'))) {
+        $user = User::oldLogin($input['username'], $input['password']);
+        if ($user && Session::get(User::CHANGE_PASSWORD_SESSION_NAME) === true) {
+            return Redirect::intended(route('user.profile'));
+        } elseif (Confide::logAttempt($input, Config::get('confide::signup_confirm'))) {
             return Redirect::intended(route('cpanel.index'));
         }
 
-        $user = new User;
-
+        $user = new User();
         if (Confide::isThrottled($input)) {
             $errMsg = trans('confide::confide.alerts.too_many_attempts');
         } elseif ($user->checkUserExists($input) and !$user->isConfirmed($input)) {
@@ -90,7 +92,7 @@ class Auth extends Base
 
         return Redirect::route('auth.login')
             ->withInput(Input::except('password'))
-            ->withErrors($this->createMessageBag([$errMsg]), 'top');
+            ->withErrors($this->errorMessageBag($errMsg), 'top');
     }
 
     /**
@@ -129,7 +131,7 @@ class Auth extends Base
                 ->withErrors($v);
         }
 
-        $user = new User;
+        $user = new User();
 
         $user->username              = Input::get('username');
         $user->email                 = Input::get('email');
@@ -144,6 +146,7 @@ class Auth extends Base
 
             return Redirect::route('auth.register.done')->with('notice', $notice);
         }
+
         return Redirect::route('auth.register')
             ->withInput(Input::except('password'))
             ->withErrors($user->errors(), 'top');
@@ -158,7 +161,9 @@ class Auth extends Base
     {
         $content = Session::get(
             'notice',
-            'Thanks for registering with us. Please confirm your email.');
+            'Thanks for registering with us. Please confirm your email.'
+        );
+
         return View::make('home.message', [
             'header' => 'Kiitos',
             'content' => $content
@@ -168,7 +173,7 @@ class Auth extends Base
     /**
      * Confirm a user registration
      *
-     * @param  string $code 
+     * @param string $code
      *
      * @return View
      */
@@ -195,6 +200,7 @@ class Auth extends Base
     public function logout()
     {
         Confide::logout();
+
         return Redirect::route('home');
     }
 
@@ -228,9 +234,10 @@ class Auth extends Base
                 ->withErrors($v);
         }
 
-        if(Confide::forgotPassword(Input::get('email'))) {
+        if (Confide::forgotPassword(Input::get('email'))) {
             $header = 'Notice';
             $content = trans('confide::confide.alerts.password_forgot');
+
             return View::make('home.message', [
                 'header' => $header,
                 'content' => $content
@@ -238,9 +245,10 @@ class Auth extends Base
         }
 
         $content = trans('confide::confide.alerts.wrong_password_forgot');
+
         return Redirect::route('auth.forgot')
             ->withInput()
-            ->withErrors($this->createMessageBag([$content]), 'top');
+            ->withErrors($this->errorMessageBag($content), 'top');
     }
 
     public function reset($token)
@@ -266,9 +274,10 @@ class Auth extends Base
         ];
 
         // By passing an array with the token, password and confirmation
-        if(Confide::resetPassword($input)) {
+        if (Confide::resetPassword($input)) {
             $header = 'Notice';
             $content = trans('confide::confide.alerts.password_reset');
+
             return View::make('home.message', [
                 'header' => $header,
                 'content' => $content
@@ -276,8 +285,9 @@ class Auth extends Base
         }
 
         $content = trans('confide::confide.alerts.wrong_password_reset');
+
         return Redirect::route('auth.reset', ['token' => $token])
             ->withInput()
-            ->withErrors($this->createMessageBag([$content]), 'top');
+            ->withErrors($this->errorMessageBag($content), 'top');
     }
 }

@@ -7,12 +7,13 @@
     </div>
 @endif
 
-
-@if (isset($messages) && $messages->isEmpty() === false)
+@if (($messages = Session::get('messages')) && $messages->isEmpty() === false)
     @foreach ($messages->toArray() as $type => $message)
         <div class="alert alert-{{ $type }}">
             <p><strong>{{ $message['title'] or 'Message' }}</strong></p>
-            <p>{{ $message['content'] }}</p>
+            @foreach ($message['content'] as $msg)
+            <p>{{ $msg }}</p>
+            @endforeach
         </div>
     @endforeach
 @endif
