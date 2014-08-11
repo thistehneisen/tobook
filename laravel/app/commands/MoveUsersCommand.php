@@ -61,6 +61,9 @@ class MoveUsersCommand extends Command {
             $user = new User();
             $user->unguard();
             $user->fill([
+                // Keep old user ID as well, since other modules use it as
+                // owner_id
+                'id'                    => $item->nuser_id,
                 'username'              => $item->vuser_login,
                 'email'                 => $item->vuser_email,
                 'old_password'          => $item->vuser_password,
