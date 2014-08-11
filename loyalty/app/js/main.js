@@ -56,9 +56,14 @@ function onSelectConsumer(objThis) {
         $("#consumerScore").html("&nbsp;");
         $("span#stampRequired").text("");
     }
-    var event;
-    if (!event) event = window.event;
-    if (event.stopPropagation) { event.stopPropagation(); } else { event.cancelBubble = true; }
+
+    try {
+        var event;
+        if (!event) event = window.event;
+        if (event.stopPropagation) { event.stopPropagation(); } else { event.cancelBubble = true; }
+    }
+    catch(err) {
+    }
 }
 function onClickLine(obj) {
     $(obj).find("input:checkbox").eq(0).click();
