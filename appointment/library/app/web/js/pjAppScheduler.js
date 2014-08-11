@@ -141,7 +141,7 @@
 					var objP = objK;
 					for( var p = 0; p < nextCnt; p ++ ){
 						if( objP.hasClass("asSlotUnavailable") ){
-							objK.addClass("asSlotUnselectable");
+							//objK.addClass("asSlotUnselectable");
 							continue;
 						}
 						objP = objP.next();
@@ -517,12 +517,11 @@
 				var nextCnt = Math.ceil( minute / 15 );
 				for( var k = 0; k < nextCnt - 1; k ++ ){
 					objCurrent1 = objCurrent1.next();
-					if( objCurrent1.hasClass("asSlotUnavailable") ){
+					if( objCurrent1.hasClass("asSlotUnavailable") && objCurrent1.hasClass("asSlotLunchUnavailable") ){
 						return; 
 					}
 				}
 				
-
 				
 				/*if ($this.hasClass("asSlotSelected")) {
 					$this.siblings(".asSlotBlock").removeClass("asSlotSelected");

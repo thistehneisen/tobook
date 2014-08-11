@@ -69,7 +69,6 @@ $suffix = __('front_day_suffix', true);
 				
 				$service_total = ($tpl['service_arr']['total'] + $extra['length']) * 60;
 				$service_length = ($tpl['service_arr']['length'] + $extra['length']) * 60;
-
 				if ( isset($employee['plustime']) && (int) $employee['plustime'] != 0 ) {
 			
 					$service_total += (int) $employee['plustime'] * 60;
@@ -123,7 +122,6 @@ $suffix = __('front_day_suffix', true);
 								{
 									$is_free = true;
 									$class = "asSlotAvailable";
-									
 									foreach ($employee['bs_arr'] as $item)
 									{
 										if ($i >= $item['start_ts'] && ($i < $item['start_ts'] + $item['total'] * 60))
@@ -152,21 +150,21 @@ $suffix = __('front_day_suffix', true);
 									if ($i >= $employee['t_arr']['lunch_start_ts'] && $i < $employee['t_arr']['lunch_end_ts'])
 									{
 										$is_free = false;
-										$class = "asSlotUnavailable";
+										$class = "asSlotUnavailable asSlotLunchUnavailable";
 									}
 									if ($is_free)
 									{
 
 										foreach ($employee['bs_arr'] as $item)
 										{
-											if ($i + $service_total - $service_before > $item['start_ts'] && $i <= $item['start_ts'])
+											if ($i + $service_length > $item['start_ts'] && $i <= $item['start_ts'])
 											{
 												// before booking
 												//$class = "asSlotUnavailable";
 												break;
 											}
 										}
-										if ($i + $service_total - $service_before > $employee['t_arr']['end_ts'] + $offset)
+										if ($i + $service_length > $employee['t_arr']['end_ts'] + $offset)
 										{
 											// end of working day
 											$class = "asSlotUnavailable";
