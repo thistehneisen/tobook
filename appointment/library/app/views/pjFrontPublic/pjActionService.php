@@ -142,7 +142,7 @@ $suffix = __('front_day_suffix', true);
 									foreach ( $employee['ef_arr'] as $freetime ) {
                                         if ($i >= $freetime['start_ts'] && $i < $freetime['end_ts']) {
 											$is_free = false;
-											$class = "asSlotUnavailable";
+											$class = "asSlotUnavailable asSlotFreeTimeUnavailable";
 											break;
 										}
 									}
