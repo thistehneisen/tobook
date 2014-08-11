@@ -730,10 +730,9 @@ class pjAppController extends pjController {
     {
         //  Before and after time is not included in booking time
         $booking_data = stripslashes($booking['service_name']) . ": ".
-            date($option_arr['o_date_format'], strtotime($booking['date'])). ", ".
-            date($option_arr['o_time_format'], $booking['start_ts'] + $booking['before'] * 60). " - ".
-            date($option_arr['o_time_format'], $booking['start_ts'] + $booking['before'] * 60 + $booking['length'] * 60);
-        var_dump($booking);
+        date($option_arr['o_date_format'], strtotime($booking['date'])). ", ".
+        date($option_arr['o_time_format'], $booking['start_ts'] + $booking['before'] * 60). " - ".
+        date($option_arr['o_time_format'], $booking['start_ts'] + $booking['before'] * 60 + $booking['length'] * 60);
         return $booking_data;
     }
     
