@@ -168,7 +168,7 @@ $suffix = __('front_day_suffix', true);
 
 										foreach ($employee['bs_arr'] as $item)
 										{
-											if ($i + $service_length > $item['start_ts']  && $i <= $item['start_ts'])
+											if ($i + $service_length - $service_before > $item['start_ts']  && $i <= $item['start_ts'])
 											{
 												// before booking
 												$class = "asSlotUnavailable";
