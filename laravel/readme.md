@@ -41,13 +41,11 @@ return [
 ### PHP coding convention
 - PSR-2 `http://www.php-fig.org/psr/psr-2/` for L4 or framework specific
 convention.
-- To be consistent with the rest of the project, let's use 1TBS
-(One True Brace Style: http://en.wikipedia.org/wiki/Indent_style#Variant:_1TBS) 
-style for braces
 - For Sublime Text 3 user, try [Editor Config](http://editorconfig.org/) 
 (a `.editorconfig` is already included in the repo).
 
 ### Tests
+- Create test config: `cp app/tests/acceptance.suite.yml.tpl app/tests/acceptance.suite` then modify to match your local config
 - Read http://codeception.com/docs/01-Introduction and http://codeception.com/docs/04-AcceptanceTests
 - Generate your acceptance tests in tests/acceptance/ folder: 
 `php codecept.phar generate:cest acceptance YourTestName`
