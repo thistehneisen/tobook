@@ -19,13 +19,19 @@ class UserCest
     /**
      * @before login
      */
-    public function tryToChangePassword(AcceptanceTester $I)
+    public function changePasswordWithoutAnyInformation(AcceptanceTester $I)
     {
-        $I->wantTo('change password');
         $I->amOnPage(User::$changeProfileUrl);
         $I->submitForm(User::$changeProfileForm, []);
         $I->seeElement(User::$changeProfileForm.' .has-error');
+    }
 
+    /**
+     * @before login
+     */
+    public function changePasswordWithWrongOldPassword(AcceptanceTester $I)
+    {
+        $I->amOnPage(User::$changeProfileUrl);
         $I->submitForm(User::$changeProfileForm, [
             'old_password'          => 'matkhaucu',
             'password'              => 'daylamatkhau',
