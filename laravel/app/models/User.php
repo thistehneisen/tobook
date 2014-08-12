@@ -35,6 +35,21 @@ class User extends ConfideUser
     }
 
     /**
+     * Dump current user to native PHP session for other modules
+     *
+     * @return void
+     */
+    public function dumpToSession()
+    {
+        @session_start();
+        $_SESSION['session_loginname'] = $this->username;
+        $_SESSION['session_userid']    = $this->id;
+        $_SESSION['session_email']     = $this->email;
+        $_SESSION['session_style']     = $this->stylesheet;
+        $_SESSION["owner_id"]          = $this->id;
+    }
+
+    /**
      * Remove old password to prevent login with this again
      *
      * @return bool

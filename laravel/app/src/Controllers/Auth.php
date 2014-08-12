@@ -77,6 +77,10 @@ class Auth extends Base
         $user = User::oldLogin($input['username'], $input['password']);
         if ($user || Confide::logAttempt($input, Config::get('confide::signup_confirm'))) {
             // Login successfully
+            // Dump current user to session for other modules
+            Confide::user()->dumpToSession();
+
+            // Go to Dashboard, yahoo!
             return Redirect::intended(route('dashboard.index'));
         }
 
