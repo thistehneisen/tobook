@@ -17,5 +17,8 @@ return [
     'no_records'    => 'Sorry, no records found!',
     'save'          => 'Save',
     'warning'       => 'Warning',
-    'success'       => 'Success'
+    'success'       => 'Success',
+    'Errors'        => 'Errors',
+    'thank_you'     => 'Thank you!',
+    'notice'        => 'Notice', 
 ];

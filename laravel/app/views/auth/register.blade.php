@@ -1,20 +1,20 @@
 @extends ('layouts.default')
 
 @section ('title')
-    Rekisteröidy :: @parent
+    {{ trans('common.register') }} :: @parent
 @stop
 
 @section ('header')
-    <h1 class="text-header">Rekisteröidy</h1>
+    <h1 class="text-header">{{ trans('common.register') }}</h1>
 @stop
 
 @section ('content')
 <div class="row">
     <div class="col-xs-12">
-        <h1 class="comfortaa orange">Luo Tilin</h1>
-        <h4 class="comfortaa">Täytä seuraavat tiedot:</h4>
+        <h1 class="comfortaa orange">{{ trans('user.create_account') }}</h1>
+        <h4 class="comfortaa">{{ trans('user.fill_fields') }}:</h4>
         
-        @include ('el.messages');
+        @include ('el.messages')
 
         {{ Form::open(['id' => 'frm-register', 'route' => 'auth.register', 'class' => 'form-horizontal', 'role' => 'form']) }}
         
@@ -35,14 +35,14 @@
 
             <div class="form-group">
                 <div class="col-sm-9 col-sm-offset-3">
-                    <p>Painamalla &quot;Rekisteröidy&quot; hyväksyt <a href="#" id="link-terms">Ehdot</a></p>
-                    <p>Oletko jo rekisteröitynyt? <a href="{{ route('auth.login') }}" title="" id="link-login">Kirjaudu sisään</a></p>
+                    <p>{{ trans('user.accept_terms') }} <a href="#" id="link_terms">{{ trans('user.terms') }}</a></p>
+                    <p>{{ trans('user.register_already')}} <a href="{{ route('auth.login') }}" title="" id="link-login">{{ trans('common.sign_in') }}</a></p>
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-sm-9 text-right">
-                    <button class="btn btn-lg btn-orange to-upper comfortaa">Rekisteröidy</button>
+                    <button class="btn btn-lg btn-orange to-upper comfortaa">{{ trans('common.register') }}</button>
                 </div>
             </div>
         {{ Form::close() }}

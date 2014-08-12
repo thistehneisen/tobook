@@ -44,8 +44,8 @@ class Auth extends Base
         }
 
         $fields = [
-            'username' => ['label' => 'Käyttäjänimi'],
-            'password' => ['label' => 'Salasana', 'type' => 'password'],
+            'username' => ['label' => trans('user.username')],
+            'password' => ['label' => trans('user.password'), 'type' => 'password'],
         ];
 
         return View::make('auth.login', [
@@ -107,12 +107,12 @@ class Auth extends Base
     public function register()
     {
         $fields = [
-            'username'              => ['label' => 'Käyttäjänimi'],
-            'password'              => ['label' => 'Salasana', 'type' => 'password'],
-            'password_confirmation' => ['label' => 'Vahvista salasana', 'type' => 'password'],
-            'email'                 => ['label' => 'Sähköposti', 'type' => 'email'],
-            'name'                  => ['label' => 'Nimi'],
-            'phone'                 => ['label' => 'Puhelin'],
+            'username'              => ['label' => trans('user.username')],
+            'password'              => ['label' => trans('user.password'), 'type' => 'password'],
+            'password_confirmation' => ['label' => trans('user.password_confirmation'), 'type' => 'password'],
+            'email'                 => ['label' => trans('user.email'), 'type' => 'email'],
+            'name'                  => ['label' => trans('user.name')],
+            'phone'                 => ['label' => trans('user.phone')],
         ];
 
         return View::make('auth.register', [
@@ -164,12 +164,12 @@ class Auth extends Base
     public function showThankYou()
     {
         $content = Session::get(
-            'notice',
-            'Thanks for registering with us. Please confirm your email.'
+            'notice', 
+            trans('auth.emails.confirm.title') . trans('auth.emails.confirm.subject')
         );
 
         return View::make('home.message', [
-            'header' => 'Kiitos',
+            'header' => trans('common.thank_you'),
             'content' => $content
         ]);
     }
@@ -185,13 +185,13 @@ class Auth extends Base
     {
         if (Confide::confirm($code)) {
             return View::make('home.message', [
-                'header' => 'Kiitos',
+                'header' => trans('common.thank_you'),
                 'content' => trans('confide::confide.alerts.confirmation')
             ]);
         }
 
         return View::make('home.message', [
-            'header' => 'Error',
+            'header' => trans('common.errors'),
             'content' => trans('confide::confide.alerts.wrong_confirmation')
         ]);
     }
@@ -216,7 +216,7 @@ class Auth extends Base
     public function forgot()
     {
         $fields = [
-            'email' => ['label' => 'Sähköposti', 'type' => 'email'],
+            'email' => ['label' => trans('user.email'), 'type' => 'email'],
         ];
 
         return View::make('auth.forgot', [
@@ -239,7 +239,7 @@ class Auth extends Base
         }
 
         if (Confide::forgotPassword(Input::get('email'))) {
-            $header = 'Notice';
+            $header = trans('common.notice');
             $content = trans('confide::confide.alerts.password_forgot');
 
             return View::make('home.message', [
@@ -258,8 +258,8 @@ class Auth extends Base
     public function reset($token)
     {
         $fields = [
-            'password'              => ['label' => 'Salasana', 'type' => 'password'],
-            'password_confirmation' => ['label' => 'Vahvista salasana', 'type' => 'password'],
+            'password'              => ['label' => trans('user.password'), 'type' => 'password'],
+            'password_confirmation' => ['label' => trans('user.password_confirmation'), 'type' => 'password'],
         ];
 
         return View::make('auth.reset', [
@@ -279,7 +279,7 @@ class Auth extends Base
 
         // By passing an array with the token, password and confirmation
         if (Confide::resetPassword($input)) {
-            $header = 'Notice';
+            $header = trans('common.notice');
             $content = trans('confide::confide.alerts.password_reset');
 
             return View::make('home.message', [

@@ -85,8 +85,22 @@ return array(
 
     'custom' => array(
         'attribute-name' => array(
-            'rule-name' => 'custom-message',
+            'rule-name' => 'custom-message',            
         ),
+        'username' => [
+            'required' => 'Käyttäjänimi on pakollinen',
+        ],
+        'password' => [
+            'required' => 'Salasana on pakollinen',
+            'confirmed' => 'Salasana ei täsmää',
+        ],
+        'password_confirmation' => [
+            'required' => 'Salasana on pakollinen',
+        ],
+        'email' => [
+            'required' => 'Sähköposti on pakollinen',
+            'email' => 'Sähköpostin muoto on virheellinen',
+        ],
     ),
 
     /*

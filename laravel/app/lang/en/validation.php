@@ -84,8 +84,22 @@ return array(
 
     'custom' => array(
         'attribute-name' => array(
-            'rule-name' => 'custom-message',
+            'rule-name' => 'custom-message',            
         ),
+        'username' => [
+            'required' => 'Username is required',
+        ],
+        'password' => [
+            'required' => 'Password is required',
+            'confirmed' => 'Password does not match',
+        ],
+        'password_confirmation' => [
+            'required' => 'Password is required',
+        ],
+        'email' => [
+            'required' => 'Email is required',
+            'email' => 'Email form is incorrect',
+        ],
     ),
 
     /*

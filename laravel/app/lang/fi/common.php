@@ -12,10 +12,13 @@ return [
     'my_account'    => 'Omat Tiedot',
     'help'          => 'Apua',
     'sign_out'      => 'Kirjaudu Ulos',
-    'sign_in'       => 'Kirjaudu',
+    'sign_in'       => 'Kirjaudu sisään',
     'register'      => 'Rekisteröidy',
     'no_records'    => 'Anteeksi, ennätys ei löytynyt!',
     'save'          => 'Talenna',
     'warning'       => 'Varoitus',
-    'success'       => 'Menestys'
+    'success'       => 'Menestys',
+    'errors'        => 'Virheet',
+    'thank_you'     => 'Kiitoksia!',
+    'notice'        => 'Huomautus',
 ];
