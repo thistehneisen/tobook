@@ -34,28 +34,24 @@
 | the active record class
 */
 
-$file = realpath(__DIR__ . '/../../../../../app/config/database.php');
-if (!$file) {
-    die('Configuration file does not exist.');
-}
-
-$config = require_once $file;
+require_once realpath(__DIR__ . '/../../../../../Bridge.php');
+$varaaDb = Bridge::config('database.connections.mysql');
 
 // The following values will probably need to be changed.
-$db['default']['username'] = $config['connections']['mysql']['username'];
-$db['default']['password'] = $config['connections']['mysql']['password'];
-$db['default']['database'] = $config['connections']['mysql']['database'];
+$db['default']['username'] = $varaaDb['username'];
+$db['default']['password'] = $varaaDb['password'];
+$db['default']['database'] = $varaaDb['database'];
 
 // The following values can probably stay the same.
-$db['default']['hostname'] = $config['connections']['mysql']['host'];
+$db['default']['hostname'] = $varaaDb['host'];
 $db['default']['dbdriver'] = "mysql";
 $db['default']['dbprefix'] = 'sma_';
 $db['default']['pconnect'] = TRUE;
 $db['default']['db_debug'] = FALSE;
 $db['default']['cache_on'] = FALSE;
 $db['default']['cachedir'] = "";
-$db['default']['char_set'] = "utf8";
-$db['default']['dbcollat'] = "utf8_general_ci";
+$db['default']['char_set'] = $varaaDb['charset'];
+$db['default']['dbcollat'] = $varaaDb['collation'];
 
 $active_group = "default";
 $active_record = TRUE;
