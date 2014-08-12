@@ -1,5 +1,7 @@
 <?php namespace App\Commands;
 
+use Config, DB, Role, User;
+
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
