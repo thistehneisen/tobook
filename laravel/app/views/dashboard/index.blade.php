@@ -11,21 +11,10 @@
 @section ('content')
 <h1 class="comfortaa orange">{{ trans('dashboard.control_panel') }}</h1>
 <ul class="list-unstyled cpanel-services">
-@foreach ([
-    'site',
-    'gallery',
-    'profile',
-    'promotion',
-    'cashier',
-    'restaurant',
-    'timeslot',
-    'appointment',
-    'loyalty',
-    'martketing'
-] as $key)
+@foreach ($services as $key => $url)
     <li class="col-md-3 col-lg-3">
         <div>
-            <a href="">
+            <a href="{{ $url }}" title="">
                 <h4>{{ trans('dashboard.'.$key) }}</h4>
                 <p><img src="{{ asset('assets/img/services/'.$key.'.jpg') }}" alt="{{ trans('dashboard.'.$key) }}"></p>
             </a>

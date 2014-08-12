@@ -51,8 +51,10 @@
         @yield('content')
         </main>
 
-        <hr class="grey-divider">
+        @yield('iframe')
 
+        @section ('footer')
+        <hr class="grey-divider">
         <footer class="container footer">
             <div class="row">
                 <div class="col-md-4 col-lg-4">
@@ -92,6 +94,7 @@
                 </div>
             </div>
         </footer>
+        @show
 
     {{ HTML::script('//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js') }}
     {{ HTML::script('//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js') }}

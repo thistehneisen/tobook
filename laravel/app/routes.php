@@ -99,4 +99,9 @@ Route::group([
         'uses' => 'App\Controllers\User@changeProfile'
     ]);
 
+    Route::get('services/cashier', [
+        'as' => 'cashier.index',
+        'uses' => 'App\Controllers\Services@cashier'
+    ]);
+
 });

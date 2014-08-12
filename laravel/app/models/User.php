@@ -59,4 +59,16 @@ class User extends ConfideUser
         $this->old_password = null;
         $this->save();
     }
+
+    public function isCashierActivated()
+    {
+        $oldPrefix = DB::getTablePrefix();
+        DB::setTablePrefix('sma_');
+
+        $user = DB::table('users')->where('owner_id', '=', $this->id)->first();
+
+        DB::setTablePrefix($oldPrefix);
+
+        return (bool) $user;
+    }
 }
