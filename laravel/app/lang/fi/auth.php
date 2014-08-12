@@ -1,30 +1,30 @@
 <?php
 $confirmBody = <<< HTML
-<p>Hello %s,</p>
-<p>Please click on the URL below to complete your registration: <br>
+<p>Hei %s,</p>
+<p>Ole hyvä ja klikka alla linkki suoritamaan rekisteröinnisin: <br>
 <a href="%s" title="" target="_blank">%s</a></p>
-<p>Thank you</p>
+<p>Kiitos</p>
 HTML;
 
 $resetBody = <<< HTML
-<p>Hello %s,</p>
-<p>Someone (probably you) requested to have a new password.</p>
-<p>Please click on the URL below to change your password: <br>
+<p>Hei %s,</p>
+<p>Joku (luultavasti sinä) pyytii uuden salasanan.</p>
+<p>Ole hyvä ja klikka alla linkki päivitämään salasanasin: <br>
 <a href="%s" title="" target="_blank">%s</a></p>
-<p>If you did not do this, please ignore this message.</p>
-<p>Thank you</p>
+<p>Jos sinä et pyytänyt, sivuuta tämä viesti.</p>
+<p>Kiitos</p>
 HTML;
 
 return [
     'emails' => [
         'confirm' => [
-            'subject' => 'Please confirm your email',
-            'title'   => 'Thank you for registering with us',
+            'subject' => 'Vahvista sähköpostisi',
+            'title'   => 'Kiitos rekisteröinnistä',
             'body'    => $confirmBody
         ],
         'reset' => [
-            'subject' => 'Password reset',
-            'title'   => 'Reset your password',
+            'subject' => 'Salasanan päivittäminen',
+            'title'   => 'Päivitä sanasanasin',
             'body'    => $resetBody
         ]
     ]
