@@ -1,4 +1,4 @@
-<?php namespace Test\Pages;
+<?php namespace Test\Elements;
 
 class Auth
 {

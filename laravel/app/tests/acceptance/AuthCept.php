@@ -1,5 +1,5 @@
 <?php 
-use Test\Pages\Auth;
+use Test\Elements\Auth;
 
 $i = new AcceptanceTester($scenario);
 //------------------------------------------------------------------------------
