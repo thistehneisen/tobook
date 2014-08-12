@@ -77,7 +77,7 @@ class Auth extends Base
         $user = User::oldLogin($input['username'], $input['password']);
         if ($user || Confide::logAttempt($input, Config::get('confide::signup_confirm'))) {
             // Login successfully
-            return Redirect::intended(route('cpanel.index'));
+            return Redirect::intended(route('dashboard.index'));
         }
 
         // Failed, now get the reason
