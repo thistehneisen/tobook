@@ -511,6 +511,9 @@
 				// modified by jeni : 2014-07-17
 				var objCurrent1 = pjQ.$(this);
 				var objCurrent2 = pjQ.$(this);
+                if(objCurrent2.hasClass('asSlotUnselectable')){
+                    return;
+                }
 				var arr = pjQ.$("div.asServiceTime").eq(0).text();
 				arr = arr.split(" ");
 				var minute = arr[0];
