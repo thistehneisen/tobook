@@ -1,73 +1,55 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,300,600);
-@import url(http://fonts.googleapis.com/css?family=Comfortaa:400,300,700&subset=latin,cyrillic,latin-ext,greek,cyrillic-ext);
-/* DO NOT MODIFY THE CSS FILES DIRECTLY, MODIFY SASS FILES THEN COMPILE */
-* {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-*:before, *:after {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
 
+@import url(http://fonts.googleapis.com/css?family=Comfortaa:400,300,700&subset=latin,cyrillic,latin-ext,greek,cyrillic-ext);
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
 body {
-  font-family: Roboto, Arial, sans;
+  font-family: Roboto, Arial, Verdana, sans-serif;
   font-weight: 300;
 }
-
 a {
   color: #dd5511;
 }
-a:link, a:hover {
+a:link,
+a:hover {
   color: #bd490f;
   text-decoration: none;
 }
-
 .comfortaa {
   font-family: "Comfortaa";
 }
-
 .orange {
-  color: "#ec7923";
+  color: #ec7923;
 }
-
 .white {
   color: white;
 }
-
 .header {
   border-bottom: 5px solid #424242;
   text-align: center;
   background: transparent url(../img/background.jpg) no-repeat center center;
   background-size: cover;
 }
-
 .homepage {
   height: 100vh;
 }
-
 nav {
   padding: 20px 0;
 }
-
 .welcome-text {
   padding-right: 20px;
 }
-
 .nav-links a {
   text-transform: uppercase;
   color: #333333;
   text-decoration: none;
   font-weight: 600;
   font-size: 12px;
-}
-.nav-links.active a, .nav-links a:hover {
-  color: white;
-}
-.nav-links:hover a:after {
-  color: #333333;
 }
 .nav-links a:after {
   content: "|";
@@ -79,20 +61,23 @@ nav {
 .nav-links li:last-child a:after {
   content: "";
 }
-
+.nav-links.active a,
+.nav-links a:hover {
+  color: white;
+}
+.nav-links:hover a:after {
+  color: #333333;
+}
 .logo {
   width: 450px;
 }
-
 .img-homepage {
   width: 80vh;
 }
-
 .imac-wrapper {
   display: block;
   text-align: center;
 }
-
 .imac {
   background: transparent url(../img/imac.png) no-repeat center center;
   position: relative;
@@ -100,7 +85,6 @@ nav {
   height: 450px;
   display: inline-block;
 }
-
 .bx-wrapper {
   padding-top: 19px;
   padding-left: 20px;
@@ -111,17 +95,14 @@ nav {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
-
 .grey-divider {
   background-color: #424242;
   height: 12px;
 }
-
 .main {
   margin-top: 80px;
   margin-bottom: 80px;
 }
-
 .services {
   text-align: center;
 }
@@ -130,7 +111,6 @@ nav {
   text-transform: uppercase;
   color: #333333;
 }
-
 .footer {
   color: #aaaaaa;
   margin-bottom: 50px;
@@ -140,7 +120,6 @@ nav {
   text-transform: uppercase;
   color: #444444;
 }
-
 .company-name {
   font-size: 20px;
   color: #333333;
@@ -148,7 +127,6 @@ nav {
 .company-name span {
   color: #ec7923;
 }
-
 .list-social-networks {
   margin-top: 20px;
 }
@@ -162,7 +140,6 @@ nav {
   color: #333333;
   font-size: 16px;
 }
-
 .text-header {
   font-family: "Comfortaa";
   color: white;
@@ -170,7 +147,6 @@ nav {
   font-weight: 700;
   margin: 30px 0;
 }
-
 .btn-orange {
   background-color: #ec7923;
   color: white;
@@ -178,11 +154,9 @@ nav {
 .btn-orange:hover {
   color: white;
 }
-
 .to-upper {
   text-transform: uppercase;
 }
-
 .cpanel-services li {
   margin-bottom: 10px;
 }
@@ -202,7 +176,6 @@ nav {
 .cpanel-services img {
   width: 100px;
 }
-
 .btn-tutustu {
   margin: 20px 0;
 }
