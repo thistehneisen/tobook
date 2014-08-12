@@ -1,15 +1,16 @@
 <?php namespace Test\Pages;
 
-class Auth {
+class Auth
+{
     
-    static $loginUrl = '/auth/login';
-    static $loginForm = '#frm-login';
-    static $loginRegisterLink = '#link-register';
-    static $loginForgotLink = '#link-forgot';
+    public static $loginUrl = '/auth/login';
+    public static $loginForm = '#frm-login';
+    public static $loginRegisterLink = '#link-register';
+    public static $loginForgotLink = '#link-forgot';
 
-    static $registerUrl = '/auth/register';
-    static $registerForm = '#frm-register';
-    static $registerLinkLogin = '#link-login';
+    public static $registerUrl = '/auth/register';
+    public static $registerForm = '#frm-register';
+    public static $registerLinkLogin = '#link-login';
     
-    static $forgotPasswordUrl = '/auth/forgot-password';
+    public static $forgotPasswordUrl = '/auth/forgot-password';
 }

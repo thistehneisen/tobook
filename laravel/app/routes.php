@@ -82,7 +82,7 @@ Route::group(['prefix' => 'auth'], function () {
 |--------------------------------------------------------------------------
 */
 Route::group([
-    'before' => ['auth', 'force.change.password']
+    'before' => ['auth']
 ], function () {
 
     Route::get('control-panel', [
@@ -100,4 +100,3 @@ Route::group([
     ]);
 
 });
-

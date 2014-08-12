@@ -5,7 +5,6 @@ use Zizaco\Entrust\HasRole;
 class User extends ConfideUser
 {
     use HasRole;
-    const CHANGE_PASSWORD_SESSION_NAME = 'forceChangePassword';
 
     /**
      * Allow old users to login with their own password, but force to change
@@ -18,7 +17,7 @@ class User extends ConfideUser
      */
     public static function oldLogin($identity, $password)
     {
-        $user = User::where(function($query) use ($identity) {
+        $user = User::where(function ($query) use ($identity) {
             return $query->where('username', '=', $identity)
                 ->orWhere('email', '=', $identity);
         })
@@ -26,9 +25,6 @@ class User extends ConfideUser
         ->first();
 
         if ($user) {
-            // Set session to force change password
-            Session::put(User::CHANGE_PASSWORD_SESSION_NAME, true);
-
             // Manually login
             App::make('auth')->login($user);
             
