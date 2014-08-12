@@ -13,7 +13,9 @@
     {{ HTML::style('//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css') }}
     {{ HTML::style('//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css') }}
     @yield('styles')
-    {{ HTML::style(asset('assets/css/style.css')) }}
+
+    {{-- Temporary solution: Increment the version number to force clear cache --}}
+    {{ HTML::style(asset('assets/css/main.css?v=00001')) }}
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>

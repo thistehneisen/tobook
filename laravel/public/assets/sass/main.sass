@@ -1,0 +1,182 @@
+/* DO NOT MODIFY THE CSS FILES DIRECTLY, MODIFY SASS FILES THEN COMPILE */
+
+// -------------------------------------------------------------------------- //
+// ------------------------------- Variables -------------------------------- //
+// -------------------------------------------------------------------------- //
+
+$orange: '#ec7923'
+
+// -------------------------------------------------------------------------- //
+// --------------------------------- Global --------------------------------- //
+// -------------------------------------------------------------------------- //
+
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,300,600)
+@import url(http://fonts.googleapis.com/css?family=Comfortaa:400,300,700&subset=latin,cyrillic,latin-ext,greek,cyrillic-ext)
+
+*
+  -moz-box-sizing: border-box
+  -webkit-box-sizing: border-box
+  box-sizing: border-box
+  &:before, &:after
+    -moz-box-sizing: border-box
+    -webkit-box-sizing: border-box
+    box-sizing: border-box
+
+body
+  font-family: Roboto, Arial, sans
+  font-weight: 300
+
+a
+  color: #d51
+  &:link, &:hover
+    color: #bd490f
+    text-decoration: none
+
+.comfortaa
+  font-family: 'Comfortaa'
+
+.orange
+  color: $orange
+
+.white
+  color: #fff
+
+// -------------------------------------------------------------------------- //
+// --------------------------------- Layout --------------------------------- //
+// -------------------------------------------------------------------------- //
+
+
+.header
+  border-bottom: 5px solid #424242
+  text-align: center
+  background: transparent url(../img/background.jpg) no-repeat center center
+  background-size: cover
+
+.homepage
+  height: 100vh
+
+nav
+  padding: 20px 0
+
+.welcome-text
+  padding-right: 20px
+
+.nav-links
+  a
+    text-transform: uppercase
+    color: #333
+    text-decoration: none
+    font-weight: 600
+    font-size: 12px
+  &.active a, a:hover
+    color: #fff
+  &:hover a:after
+    color: #333
+  a:after
+    content: "|"
+    padding-left: 15px
+  li
+    &:last-child a:after
+      content: ""
+    padding-right: 10px
+
+.logo
+  width: 450px
+
+.img-homepage
+  width: 80vh
+
+.imac-wrapper
+  display: block
+  text-align: center
+
+.imac
+  background: transparent url(../img/imac.png) no-repeat center center
+  position: relative
+  width: 565px
+  height: 450px
+  display: inline-block
+
+.bx-wrapper
+  padding-top: 19px
+  padding-left: 20px
+  .bx-viewport
+    background: transparent
+    border: none
+    -webkit-box-shadow: none
+    box-shadow: none
+
+.grey-divider
+  background-color: #424242
+  height: 12px
+
+.main
+  margin-top: 80px
+  margin-bottom: 80px
+
+.services
+  text-align: center
+  a
+    font-weight: 600
+    text-transform: uppercase
+    color: #333
+
+.footer
+  color: #aaa
+  margin-bottom: 50px
+  h4
+    font-weight: 600
+    text-transform: uppercase
+    color: #444
+
+.company-name
+  font-size: 20px
+  color: #333
+  span
+    color: #EC7923
+
+.list-social-networks
+  margin-top: 20px
+  li
+    padding: 0 3px
+  a
+    border: 1px solid #ddd
+    padding: 5px 10px
+    border-radius: 50%
+    color: #333
+    font-size: 16px
+
+.text-header
+  font-family: 'Comfortaa'
+  color: #fff
+  font-size: 10vh
+  font-weight: 700
+  margin: 30px 0
+
+.btn-orange
+  background-color: #ec7923
+  color: #fff
+  &:hover
+    color: #fff
+
+.to-upper
+  text-transform: uppercase
+
+.cpanel-services
+  li
+    margin-bottom: 10px
+  div
+    font-family: 'Comfortaa'
+    border: 1px solid #F4C8B2
+  h4
+    margin-top: 0
+    background-color: #ec7923
+    color: #fff
+    padding: 10px
+  p
+    text-align: center
+  img
+    width: 100px
+
+.btn-tutustu
+  margin: 20px 0
