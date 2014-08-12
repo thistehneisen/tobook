@@ -5,4 +5,4 @@ modules:
         - AcceptanceHelper
     config:
         PhpBrowser:
-            url: 'http://laravel.dev'
+            url: 'http://varaa.dev'
