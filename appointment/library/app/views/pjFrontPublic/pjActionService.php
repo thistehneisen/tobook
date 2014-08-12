@@ -124,7 +124,7 @@ $suffix = __('front_day_suffix', true);
 									$class = "asSlotAvailable";
 									foreach ($employee['bs_arr'] as $item)
 									{
-										if ($i >= $item['start_ts'] && ($i < $item['start_ts'] + $item['total'] * 60))
+										if ($i >= $item['start_ts'] && ($i < $item['start_ts'] + $item['length'] * 60 ))
 										{
 											$is_free = false;
 											//$class = "asSlotBooked";
@@ -145,8 +145,19 @@ $suffix = __('front_day_suffix', true);
 											$class = "asSlotUnavailable asSlotFreeTimeUnavailable";
 											break;
 										}
+                                        if ($i < $freetime['start_ts'] && $i + $service_length > $freetime['start_ts'])
+                                        {
+                                            // exceed free time
+                                            $class = "asSlotUnavailable asSlotUnselectable";
+                                        }
 									}
 									
+                                    if ($i < $employee['t_arr']['lunch_start_ts'] && $i + $service_length > $employee['t_arr']['lunch_start_ts']  + $offset)
+                                    {
+                                        // exceed lunch time
+                                        $class = "asSlotUnavailable asSlotUnselectable";
+                                    }
+
 									if ($i >= $employee['t_arr']['lunch_start_ts'] && $i < $employee['t_arr']['lunch_end_ts'])
 									{
 										$is_free = false;
@@ -157,14 +168,14 @@ $suffix = __('front_day_suffix', true);
 
 										foreach ($employee['bs_arr'] as $item)
 										{
-											if ($i + $service_length > $item['start_ts'] && $i <= $item['start_ts'])
+											if ($i + $service_length > $item['start_ts']  && $i <= $item['start_ts'])
 											{
 												// before booking
 												$class = "asSlotUnavailable";
 												break;
 											}
 										}
-										if ($i + $service_length > $employee['t_arr']['end_ts'] + $offset)
+										if ($i + $service_length - $offset > $employee['t_arr']['end_ts'] + $offset)
 										{
 											// end of working day
 											$class = "asSlotUnavailable";
