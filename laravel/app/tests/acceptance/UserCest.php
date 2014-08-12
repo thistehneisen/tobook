@@ -1,40 +1,38 @@
 <?php
 use \AcceptanceTester;
-use Test\Pages\Auth;
+use Test\Elements\Auth;
+use Test\Elements\User;
 
 class UserCest
 {
-    public static $changeProfileUrl = '/profile';
-    public static $changeProfileForm = '#frm-profile';
-
-    public function _before()
-    {
-    }
-
-    public function _after()
-    {
-    }
 
     protected function login(AcceptanceTester $I)
     {
         $I->amOnPage(Auth::$loginUrl);
         $I->submitForm(Auth::$loginForm, [
             'username' => 'mikaeltestaa',
-            'password' => 'webzensux@'
+            'password' => 'kauppatie8'
         ]);
+        $I->seeInCurrentUrl(User::$dashboardUrl);
     }
 
     /**
      * @before login
      */
-    public function tryToChangePassword(AcceptanceTester $I)
+    public function changePasswordWithoutAnyInformation(AcceptanceTester $I)
     {
-        $I->wantTo('change password');
-        $I->amOnPage(static::$changeProfileUrl);
-        $I->submitForm(static::$changeProfileForm, []);
-        $I->seeElement(static::$changeProfileForm.' .has-error');
+        $I->amOnPage(User::$changeProfileUrl);
+        $I->submitForm(User::$changeProfileForm, []);
+        $I->seeElement(User::$changeProfileForm.' .has-error');
+    }
 
-        $I->submitForm(static::$changeProfileForm, [
+    /**
+     * @before login
+     */
+    public function changePasswordWithWrongOldPassword(AcceptanceTester $I)
+    {
+        $I->amOnPage(User::$changeProfileUrl);
+        $I->submitForm(User::$changeProfileForm, [
             'old_password'          => 'matkhaucu',
             'password'              => 'daylamatkhau',
             'password_confirmation' => 'daylamatkhau',

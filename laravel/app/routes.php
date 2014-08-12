@@ -82,12 +82,12 @@ Route::group(['prefix' => 'auth'], function () {
 |--------------------------------------------------------------------------
 */
 Route::group([
-    'before' => ['auth', 'force.change.password']
+    'before' => ['auth']
 ], function () {
 
-    Route::get('control-panel', [
-        'as' => 'cpanel.index',
-        'uses' => 'App\Controllers\ControlPanel@index'
+    Route::get('dashboard', [
+        'as' => 'dashboard.index',
+        'uses' => 'App\Controllers\Dashboard@index'
     ]);
 
     Route::get('profile', [
@@ -100,4 +100,3 @@ Route::group([
     ]);
 
 });
-

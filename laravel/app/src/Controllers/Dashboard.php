@@ -4,11 +4,11 @@ use View, Validator, Input, Redirect, Config, Session;
 use User;
 use Confide;
 
-class ControlPanel extends Base
+class Dashboard extends Base
 {
     public function index()
     {
-        return View::make('cpanel.index', [
+        return View::make('dashboard.index', [
             'user' => Confide::user()
         ]);
     }

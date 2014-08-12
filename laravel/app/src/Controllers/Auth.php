@@ -75,12 +75,16 @@ class Auth extends Base
         }
 
         $user = User::oldLogin($input['username'], $input['password']);
-        if ($user && Session::get(User::CHANGE_PASSWORD_SESSION_NAME) === true) {
-            return Redirect::intended(route('user.profile'));
-        } elseif (Confide::logAttempt($input, Config::get('confide::signup_confirm'))) {
-            return Redirect::intended(route('cpanel.index'));
+        if ($user || Confide::logAttempt($input, Config::get('confide::signup_confirm'))) {
+            // Login successfully
+            // Dump current user to session for other modules
+            Confide::user()->dumpToSession();
+
+            // Go to Dashboard, yahoo!
+            return Redirect::intended(route('dashboard.index'));
         }
 
+        // Failed, now get the reason
         $user = new User();
         if (Confide::isThrottled($input)) {
             $errMsg = trans('confide::confide.alerts.too_many_attempts');

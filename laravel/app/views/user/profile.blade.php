@@ -13,13 +13,6 @@
     <div class="col-xs-12">
         <h1 class="comfortaa orange">{{ trans('user.change_password') }}</h1>
 
-        @if ($forced === true)
-        <div class="alert alert-info">
-            <p><strong>{{ trans('common.warning') }}!</strong></p>
-            <p>{{ trans('user.forced_change_password') }}</p>
-        </div>
-        @endif
-
         @include ('el.messages')
 
         {{ Form::open(['id' => 'frm-profile', 'route' => 'user.profile', 'class' => 'form-horizontal', 'role' => 'form']) }}

@@ -1,15 +1,15 @@
 @extends ('layouts.default')
 
 @section ('title')
-    {{ trans('cpanel.control_panel') }} :: @parent
+    {{ trans('dashboard.control_panel') }} :: @parent
 @stop
 
 @section ('header')
-    <h1 class="text-header">{{ trans('cpanel.control_panel') }}</h1>
+    <h1 class="text-header">{{ trans('dashboard.control_panel') }}</h1>
 @stop
 
 @section ('content')
-<h1 class="comfortaa orange">{{ trans('cpanel.control_panel') }}</h1>
+<h1 class="comfortaa orange">{{ trans('dashboard.control_panel') }}</h1>
 <ul class="list-unstyled cpanel-services">
 @foreach ([
     'site',
@@ -26,8 +26,8 @@
     <li class="col-md-3 col-lg-3">
         <div>
             <a href="">
-                <h4>{{ trans('cpanel.'.$key) }}</h4>
-                <p><img src="{{ asset('assets/img/services/'.$key.'.jpg') }}" alt="{{ trans('cpanel.'.$key) }}"></p>
+                <h4>{{ trans('dashboard.'.$key) }}</h4>
+                <p><img src="{{ asset('assets/img/services/'.$key.'.jpg') }}" alt="{{ trans('dashboard.'.$key) }}"></p>
             </a>
         </div>
     </li>
@@ -36,15 +36,15 @@
 
 <div class="row">
     <div class="col-xs-12">
-        <h1 class="comfortaa orange">{{ trans('cpanel.my_sites') }}</h1>
+        <h1 class="comfortaa orange">{{ trans('dashboard.my_sites') }}</h1>
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>{{ trans('cpanel.site_name') }}</th>
-                    <th>{{ trans('cpanel.created') }}</th>
-                    <th>{{ trans('cpanel.status') }}</th>
-                    <th>{{ trans('cpanel.operations') }}</th>
-                    <th>{{ trans('cpanel.preview') }}</th>
+                    <th>{{ trans('dashboard.site_name') }}</th>
+                    <th>{{ trans('dashboard.created') }}</th>
+                    <th>{{ trans('dashboard.status') }}</th>
+                    <th>{{ trans('dashboard.operations') }}</th>
+                    <th>{{ trans('dashboard.preview') }}</th>
                 </tr>
             </thead>
             <tbody>

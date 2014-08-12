@@ -4,8 +4,8 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class MoveUsersCommand extends Command {
-
+class MoveUsersCommand extends Command
+{
     /**
      * The console command name.
      *
@@ -118,5 +118,4 @@ class MoveUsersCommand extends Command {
     {
         return [];
     }
-
 }

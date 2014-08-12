@@ -27,7 +27,6 @@ class User extends Base
         ];
 
         return View::make('user.profile', [
-            'forced' => Session::get(UserModel::CHANGE_PASSWORD_SESSION_NAME),
             'fields' => $fields,
             'validator' => Validator::make(Input::all(), $this->rules['profile'])
         ]);
@@ -49,21 +48,16 @@ class User extends Base
             Confide::user()->username,
             Input::get('old_password')
         );
-        if ($user
-         || Hash::check(Input::get('old_password'), Confide::user()->password)) 
-        {
+        if ($user || Hash::check(Input::get('old_password'), Confide::user()->password)) {
             // Old password OK, let's change
             Confide::user()->resetPassword([
                 'password'              => Input::get('password'),
                 'password_confirmation' => Input::get('password_confirmation'),
             ]);
 
-            if (Session::has(UserModel::CHANGE_PASSWORD_SESSION_NAME)) {
+            if (Confide::user()->old_password !== null) {
                 // Remove old password
                 Confide::user()->removeOldPassword();
-
-                // Forget the forced change password session
-                Session::forget(UserModel::CHANGE_PASSWORD_SESSION_NAME);
             }
 
             return Redirect::back()
@@ -79,5 +73,4 @@ class User extends Base
                 'top'
             );
     }
-
 }
