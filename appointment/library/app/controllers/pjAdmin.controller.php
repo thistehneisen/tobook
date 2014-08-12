@@ -212,11 +212,11 @@ class pjAdmin extends pjAppController
 				$wtime_arr = array();
 				$wtime_arr['start_ts'] = 0;
 				$wtime_arr['end_ts'] = 0;
-				
+				// var_dump($wt_arr);
 				foreach ( $weekDays as $day ) {
 					
 					foreach ( $wt_arr[0] as $k => $v ) {
-						
+
 						if ( strpos($k, $day . '_from') !== false && !is_null($v) && $wtime_arr['start_ts'] == 0 ) {
 							$wtime_arr['start_ts'] = $v;
 						}
@@ -228,9 +228,11 @@ class pjAdmin extends pjAppController
 						if ( strpos($k, $day . '_from') !== false && !is_null($v) && strtotime($wtime_arr['start_ts']) > strtotime($v) ) {
 							$wtime_arr['start_ts'] = $v;
 						}
-						
-						if ( strpos($k, $day . '_admin_from') !== false && !is_null($v) && strtotime($wtime_arr['start_ts']) > strtotime($v) ) {
-							$wtime_arr['start_ts'] = $v;
+
+						if ( strpos($k, $day . '_admin_from') !== false && !is_null($v)) {
+                            if(strtotime($wtime_arr['start_ts']) > strtotime($v) || strtotime($wtime_arr['start_ts']) == false){
+                                 $wtime_arr['start_ts'] = $v;
+                            }
 						}
 						
 						if ( strpos($k, $day . '_to') !== false && !is_null($v) && strtotime($wtime_arr['end_ts']) < strtotime($v) ) {
