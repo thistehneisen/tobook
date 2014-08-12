@@ -124,7 +124,7 @@ $suffix = __('front_day_suffix', true);
 									$class = "asSlotAvailable";
 									foreach ($employee['bs_arr'] as $item)
 									{
-										if ($i >= $item['start_ts'] && ($i < $item['start_ts'] + $item['length'] * 60 ))
+										if ($i >= intval($item['start_ts']) && ($i < $item['start_ts'] + $item['total'] * 60 ))
 										{
 											$is_free = false;
 											//$class = "asSlotBooked";
