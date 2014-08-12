@@ -11,8 +11,8 @@
 @section ('content')
 <div class="row">
     <div class="col-xs-12">
-        <h1 class="comfortaa orange">Forgot password</h1>
-        <h4 class="comfortaa">Please enter your username to reset your password</h4>
+        <h1 class="comfortaa orange text-center">Forgot password</h1>
+        <h4 class="comfortaa text-center">Please enter your username to reset your password</h4>
 
         @include ('el.messages')
 

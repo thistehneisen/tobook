@@ -11,8 +11,8 @@
 @section ('content')
 <div class="row">
     <div class="col-xs-12">
-        <h1 class="comfortaa orange">{{ $header }}</h1>
-        <h4 class="comfortaa">{{ $subHeader or '' }}</h4>
+        <h1 class="comfortaa orange text-center">{{ $header }}</h1>
+        <h4 class="comfortaa text-center">{{ $subHeader or '' }}</h4>
 
         @foreach ((array) $content as $message)
         <p>{{ $message }}</p>

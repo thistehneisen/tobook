@@ -10,7 +10,7 @@
 
 @section ('content')
 <h1 class="comfortaa orange">{{ trans('dashboard.control_panel') }}</h1>
-<ul class="list-unstyled cpanel-services">
+<ul class="list-unstyled dashboard-services">
 @foreach ($services as $key => $url)
     <li class="col-md-3 col-lg-3">
         <div>

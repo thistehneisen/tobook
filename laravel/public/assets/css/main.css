@@ -29,84 +29,122 @@ a:hover {
 .white {
   color: white;
 }
+.to-upper {
+  text-transform: uppercase;
+}
+.grey-divider {
+  background-color: #424242;
+  height: 12px;
+}
+.btn-orange {
+  background-color: #ec7923;
+  color: #fff;
+}
+.btn-orange:hover {
+  color: #fff;
+}
+.btn-tutustu {
+  margin: 20px 0;
+}
 .header {
   border-bottom: 5px solid #424242;
   text-align: center;
   background: transparent url(../img/background.jpg) no-repeat center center;
   background-size: cover;
 }
-.homepage {
-  height: 100vh;
-}
-nav {
+.header nav {
   padding: 20px 0;
 }
-.welcome-text {
-  padding-right: 20px;
-}
-.nav-links a {
+.header nav .nav-links a {
   text-transform: uppercase;
   color: #333333;
   text-decoration: none;
   font-weight: 600;
   font-size: 12px;
 }
-.nav-links a:after {
+.header nav .nav-links a:after {
   content: "|";
   padding-left: 15px;
 }
-.nav-links li {
+.header nav .nav-links li {
   padding-right: 10px;
 }
-.nav-links li:last-child a:after {
+.header nav .nav-links li:last-child a:after {
   content: "";
 }
-.nav-links.active a,
-.nav-links a:hover {
+.header nav .nav-links.active a,
+.header nav .nav-links a:hover {
   color: white;
 }
-.nav-links:hover a:after {
+.header nav .nav-links:hover a:after {
   color: #333333;
 }
-.logo {
+.header .logo {
   width: 450px;
 }
-.img-homepage {
+.header .welcome-text {
+  padding-right: 20px;
+}
+.header .img-homepage {
   width: 80vh;
 }
-.imac-wrapper {
+.header .imac-wrapper {
   display: block;
   text-align: center;
 }
-.imac {
+.header .imac-wrapper .imac {
   background: transparent url(../img/imac.png) no-repeat center center;
   position: relative;
   width: 565px;
   height: 450px;
   display: inline-block;
 }
-.bx-wrapper {
+.header .imac-wrapper .imac .bx-wrapper {
   padding-top: 19px;
   padding-left: 20px;
 }
-.bx-wrapper .bx-viewport {
+.header .imac-wrapper .imac .bx-wrapper .bx-viewport {
   background: transparent;
   border: none;
   -webkit-box-shadow: none;
   box-shadow: none;
 }
-.grey-divider {
-  background-color: #424242;
-  height: 12px;
+.header .text-header {
+  font-family: "Comfortaa";
+  color: white;
+  font-size: 10vh;
+  font-weight: 700;
+  margin: 30px 0;
+}
+.header.homepage {
+  height: 100vh;
 }
 .main {
-  margin-top: 80px;
-  margin-bottom: 80px;
+  margin: 40px auto 50px auto;
 }
-.services {
+.main .dashboard-services li {
+  margin-bottom: 10px;
+}
+.main .dashboard-services div {
+  font-family: "Comfortaa";
+  border: 1px solid #f4c8b2;
+}
+.main .dashboard-services h4 {
+  margin-top: 0;
+  background-color: #ec7923;
+  color: white;
+  padding: 10px;
+}
+.main .dashboard-services p {
   text-align: center;
 }
-.services a {
+.main .dashboard-services img {
+  width: 100px;
+}
+.main .services {
+  text-align: center;
+}
+.main .services a {
   font-weight: 600;
   text-transform: uppercase;
   color: #333333;
@@ -120,62 +158,23 @@ nav {
   text-transform: uppercase;
   color: #444444;
 }
-.company-name {
+.footer .company-name {
   font-size: 20px;
   color: #333333;
 }
-.company-name span {
+.footer .company-name span {
   color: #ec7923;
 }
-.list-social-networks {
+.footer .list-social-networks {
   margin-top: 20px;
 }
-.list-social-networks li {
+.footer .list-social-networks li {
   padding: 0 3px;
 }
-.list-social-networks a {
+.footer .list-social-networks a {
   border: 1px solid #dddddd;
   padding: 5px 10px;
   border-radius: 50%;
   color: #333333;
   font-size: 16px;
-}
-.text-header {
-  font-family: "Comfortaa";
-  color: white;
-  font-size: 10vh;
-  font-weight: 700;
-  margin: 30px 0;
-}
-.btn-orange {
-  background-color: #ec7923;
-  color: white;
-}
-.btn-orange:hover {
-  color: white;
-}
-.to-upper {
-  text-transform: uppercase;
-}
-.cpanel-services li {
-  margin-bottom: 10px;
-}
-.cpanel-services div {
-  font-family: "Comfortaa";
-  border: 1px solid #f4c8b2;
-}
-.cpanel-services h4 {
-  margin-top: 0;
-  background-color: #ec7923;
-  color: white;
-  padding: 10px;
-}
-.cpanel-services p {
-  text-align: center;
-}
-.cpanel-services img {
-  width: 100px;
-}
-.btn-tutustu {
-  margin: 20px 0;
 }

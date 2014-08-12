@@ -11,8 +11,8 @@
 @section ('content')
 <div class="row">
     <div class="col-xs-12">
-        <h1 class="comfortaa orange">Kirjaudu sisään</h1>
-        <h4 class="comfortaa">Täytä seuraavat tiedot:</h4>
+        <h1 class="comfortaa orange text-center">Kirjaudu sisään</h1>
+        <h4 class="comfortaa text-center">Täytä seuraavat tiedot:</h4>
 
         @include ('el.messages')
 
