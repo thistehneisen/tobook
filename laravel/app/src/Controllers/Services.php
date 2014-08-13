@@ -1,6 +1,6 @@
 <?php namespace App\Controllers;
 
-use View, URL, Confide;
+use View, URL, Confide, Redirect;
 
 class Services extends Base
 {
@@ -25,7 +25,7 @@ class Services extends Base
     }
 
     /**
-     * Redirect user to a beautiful iframe with cute TimeSlot module waiting
+     * Redirect user to TimeSlot module
      *
      * @return View
      */
@@ -33,9 +33,10 @@ class Services extends Base
     {
         $params = ['username' => Confide::user()->username];
         $uri = (Confide::user()->isTimeSlotActivated())
-            ? 'timeslot/library/session.php?'
+            ? 'timeslot/session.php?'
             : 'timeslot/installation.php?';
 
+        //return Redirect::to($uri.http_build_query($params));
         return View::make('services.iframe', [
             'url' => URL::to($uri.http_build_query($params))
         ]);

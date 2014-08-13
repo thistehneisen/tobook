@@ -6,7 +6,7 @@
  * @subpackage tsbc.app.config
  */
 require_once(ROOT_PATH . 'app/config/functions.inc.php');
-require_once realpath(ROOT_PATH.'/../../../Bridge.php');
+require_once realpath(ROOT_PATH.'/../../Bridge.php');
 
 $varaaDb = Bridge::dbConfig();
 
@@ -68,19 +68,19 @@ if (!$stop)
     
     if ($_SERVER['SERVER_ADDR'] == '127.0.0.1')
     {
-        if (!defined("BASE_PATH")) define("BASE_PATH", "http://" . $_SERVER['SERVER_NAME'] . "/timeslot/library/");
-        if (!defined("INSTALL_FOLDER")) define("INSTALL_FOLDER", "/timeslot/library/");
-        if (!defined("INSTALL_PATH")) define("INSTALL_PATH", dirname(__FILE__)."/timeslot/library/");
-        if (!defined("INSTALL_URL")) define("INSTALL_URL", "http://".$_SERVER['SERVER_NAME']."/timeslot/library/");
+        if (!defined("BASE_PATH")) define("BASE_PATH", "http://" . $_SERVER['SERVER_NAME'] . "/timeslot/");
+        if (!defined("INSTALL_FOLDER")) define("INSTALL_FOLDER", "/timeslot/");
+        if (!defined("INSTALL_PATH")) define("INSTALL_PATH", dirname(__FILE__)."/timeslot/");
+        if (!defined("INSTALL_URL")) define("INSTALL_URL", "http://".$_SERVER['SERVER_NAME']."/timeslot/");
                 
     } else {
-        if (!defined("BASE_PATH")) define("BASE_PATH", "http://" . $_SERVER['SERVER_NAME'] . "/timeslot/library/");
-        if (!defined("INSTALL_FOLDER")) define("INSTALL_FOLDER", "/timeslot/library/");
-        if (!defined("INSTALL_PATH")) define("INSTALL_PATH", dirname(__FILE__)."/timeslot/library/");
-        if (!defined("INSTALL_URL")) define("INSTALL_URL", "http://".$_SERVER['SERVER_NAME']."/timeslot/library/");
+        if (!defined("BASE_PATH")) define("BASE_PATH", "http://" . $_SERVER['SERVER_NAME'] . "/timeslot/");
+        if (!defined("INSTALL_FOLDER")) define("INSTALL_FOLDER", "/timeslot/");
+        if (!defined("INSTALL_PATH")) define("INSTALL_PATH", dirname(__FILE__)."/timeslot/");
+        if (!defined("INSTALL_URL")) define("INSTALL_URL", "http://".$_SERVER['SERVER_NAME']."/timeslot/");
     }
 }
-
+    
 if (!defined("APP_PATH")) define("APP_PATH", ROOT_PATH . "app/");
 if (!defined("CORE_PATH")) define("CORE_PATH", ROOT_PATH . "core/");
 if (!defined("LIBS_PATH")) define("LIBS_PATH", "core/libs/");

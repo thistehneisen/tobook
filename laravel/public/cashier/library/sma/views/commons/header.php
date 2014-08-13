@@ -19,7 +19,7 @@
         ?>
     </head>
 
-    <body>
+    <body>everything should be here?
         <div id="wrap">
             <div class="navbar navbar-fixed-top">
                 <div class="navbar-inner">
