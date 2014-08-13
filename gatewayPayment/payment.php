@@ -509,7 +509,7 @@
 </html>
 <script type="text/javascript">
      
-     $(function(){
+     $(function() {
           Recurly.config({
           subdomain: "<?php echo RECURLY_SUBDOMAIN;?>"
             , currency: "<?php echo CURRENCY_TYPE;?>" // GBP | CAD | EUR, etc...
@@ -518,7 +518,6 @@
     });
     
     function initalize(){
-      
       window.localStorage.setItem("userId","<?php echo $userId; ?>");  
       window.localStorage.setItem("subdomain","<?php echo RECURLY_SUBDOMAIN; ?>"); 
       $("#coupon_discount").css("display","none") ;
@@ -526,7 +525,7 @@
       accountCode="<?php echo $accountCode ?>" ;
       window.localStorage.setItem("currencyNow","<?php echo CURRENCY_TYPE;?>");
       
-      if($(".radio_group").find("input.radio_inline").eq(0).get(0).checked){
+      if ($(".radio_group").find("input.radio_inline").eq(0).get(0).checked) {
           
            $("h2.name").text("<?php echo $planNames[$plancodeMonthly];?>") ;
            $("h2.em").text("<?php echo $price[$plancodeMonthly]."/".$interval[$plancodeMonthly];?>"+" <?php echo CURRENCY_TYPE;?>") 
@@ -541,8 +540,7 @@
            $("#order_total").find(".price").text("€ "+"<?php echo $price[$plancodeMonthly]; ?>"+" <?php echo CURRENCY_TYPE;?>"); 
            plancode="<?php echo $plancodeMonthly; ?>";
          
-      }else{
-          
+      } else {
           $("h2.name").text("<?php echo $planNames[$plancodeYearly];?>") ;
           $("h2.em").text("<?php echo $price[$plancodeYearly]."/".$interval[$plancodeYearly];?>"+" <?php echo CURRENCY_TYPE;?>" )
           window.localStorage.setItem("signature","<?php echo $signature_yearly; ?>");     
@@ -555,9 +553,7 @@
           $("#subscription_subtotal").find(".price").text("€ "+"<?php echo $price[$plancodeYearly]; ?>"+" <?php echo CURRENCY_TYPE;?>");    
           $("#order_total").find(".price").text("€ "+"<?php echo $price[$plancodeYearly]; ?>"+" <?php echo CURRENCY_TYPE;?>");  
           plancode="<?php echo $plancodeYearly; ?>";       
-      }  
-       
-
+      }
     }
     
     function selectDuration(){
@@ -569,13 +565,8 @@
         initalize();
         $("#coupon_code").keypress(function (e) {
           if (e.keyCode == 13) {
-        
               couponSelect();
-        
             }
         });    
    });
-
-</script>
-
-    
+</script>   
