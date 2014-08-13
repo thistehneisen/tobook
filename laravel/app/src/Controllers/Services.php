@@ -20,7 +20,7 @@ class Services extends Base
             : 'seed';
 
         return View::make('services.iframe', [
-            'url' => URL::to('cashier/library/index.php?'.http_build_query($params))
+            'url' => URL::to('cashier/index.php?'.http_build_query($params))
         ]);
     }
 

@@ -34,7 +34,7 @@
 | the active record class
 */
 
-require_once realpath(__DIR__ . '/../../../../../Bridge.php');
+require_once realpath(__DIR__ . '/../../../../Bridge.php');
 $varaaDb = Bridge::config('database.connections.mysql');
 
 // The following values will probably need to be changed.

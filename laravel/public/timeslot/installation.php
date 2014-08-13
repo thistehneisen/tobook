@@ -111,4 +111,4 @@ SQL;
     $query->bindParam(':session_id', $newSession);
     $query->execute();
     
-    header("location: library/session.php?username=".$_GET['username'] );
+    header("location: session.php?username=".$_GET['username'] );
