@@ -81,7 +81,7 @@ class pjFrontPublic extends pjFront
 					$id = $matches[1];
 				}
 			}
-			
+
 			list($year, $month, $day) = explode("-", $_GET['date']);
 			$this->set('calendar', $this->getCalendar($_GET['cid'], $year, $month, $day));
 			

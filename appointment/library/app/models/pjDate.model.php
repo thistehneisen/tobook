@@ -124,7 +124,7 @@ class pjDateModel extends pjAppModel
         }
         
         $arr = $model->findAll()->getData();
-			
+		
 		foreach ($arr as $item)
 		{
 			$_arr[$item['date']] = $item;
