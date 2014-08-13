@@ -1,6 +1,6 @@
 <?php
 return [
-    'control_panel' => 'Control panel',
+    'control_panel' => 'Dashboard',
     'site'          => 'Site Manager',
     'gallery'       => 'Gallery Manager',
     'profile'       => 'Profile Manager',
