@@ -242,7 +242,6 @@ function onEditCustomer(planGroupCode, cId) {
             if (data.result == "success") {
                 $("#cId").val(cId);
                 $("#pGroupCode").val(planGroupCode);
-
                 $("#txtName").val(data.name);
                 $("#txtEmail").val(data.email);
                 $("#txtPhone").val(data.phoneNo);

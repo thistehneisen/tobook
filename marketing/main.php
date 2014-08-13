@@ -449,12 +449,10 @@ $today = $dataResult[0]['today'];
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal"
-						id="btnClose1">
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="btnClose1">
 						<?php echo $MT_LANG['close']?>
 					</button>
-					<button type="button" class="btn btn-primary"
-						onclick="onJoinGroup()">
+					<button type="button" class="btn btn-primary" onclick="onJoinGroup()">
 						<?php echo $MT_LANG['join']?>
 					</button>
 				</div>
