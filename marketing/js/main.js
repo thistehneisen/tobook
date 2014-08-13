@@ -152,7 +152,7 @@ function onSendSMS() {
     for ( var i = 0; i < objChkList.size(); i++) {
         var customerId = objChkList.eq(i).parents("td").eq(0).find("#customerId").val()
           , planGroupCode = objChkList.eq(i).parents("td").eq(0).find("#planGroupCode").val()
-          , destination = objChkList.eq(i).parents("tr").eq(0).find("td").eq(4).text();
+          , destination = objChkList.eq(i).parents("tr").eq(0).find("td").eq(4).text()
           , data = {
             customerId : customerId,
             planGroupCode : planGroupCode,
