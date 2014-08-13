@@ -1,7 +1,7 @@
 @extends ('layouts.default')
 
 @section ('title')
-    {{ trans('home.customer_websites') }} :: @parent
+    @parent :: {{ trans('home.customer_websites') }}
 @stop
 
 @section ('header')
@@ -11,8 +11,8 @@
 
 @section ('content')
 <div class="text-center">
-    <h4 class="comfortaa">Meidän intohimomme on luoda laadukkaita kotisivuja joista asiakkaamme voivat olla ylpeitä.</h4>
-    <h4 class="comfortaa">Panosta yrityksen kotisivun ulkoasuun, niin kuin panostat myymälän ja liiketilan tyylikkyyteen ja viihtyvyyteen.</h4>
+    <h4 class="comfortaa">{{ trans('home.description_1') }}.</h4>
+    <h4 class="comfortaa">{{ trans('home.description_2') }}.</h4>
 
     <a href="#" title=""><img class="btn-tutustu" src="{{ asset('assets/img/btn-tutustu.png') }}" alt=""></a>
 </div>

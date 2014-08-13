@@ -1,18 +1,18 @@
 @extends ('layouts.default')
 
 @section ('title')
-    Forgot password :: @parent
+    @parent :: {{ trans('user.forgot_password_title') }}
 @stop
 
 @section ('header')
-    <h1 class="text-header">Forgot password</h1>
+    <h1 class="text-header">{{ trans('user.forgot_password_title') }}</h1>
 @stop
 
 @section ('content')
 <div class="row">
     <div class="col-xs-12">
-        <h1 class="comfortaa orange text-center">Forgot password</h1>
-        <h4 class="comfortaa text-center">Please enter your username to reset your password</h4>
+        <h1 class="comfortaa orange text-center">{{ trans('user.forgot_password') }}</h1>
+        <h4 class="comfortaa text-center">{{ trans('user.fill_reset_password') }}</h4>
 
         @include ('el.messages')
 
@@ -35,7 +35,7 @@
 
             <div class="form-group">
                 <div class="col-sm-9 text-right">
-                    <button id="btn-login" class="btn btn-lg btn-orange to-upper comfortaa">Submit</button>
+                    <button id="btn-login" class="btn btn-lg btn-orange to-upper comfortaa">{{ trans('home.submit') }}</button>
                 </div>
             </div>
         {{ Form::close() }}

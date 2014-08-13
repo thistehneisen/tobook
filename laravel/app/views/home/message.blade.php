@@ -1,7 +1,7 @@
 @extends ('layouts.default')
 
 @section ('title')
-    {{ $header }} :: @parent
+    @parent :: {{ $header }}
 @stop
 
 @section ('header')

@@ -16,4 +16,12 @@ return [
     'accept_terms'              => 'By clicking &quot;Register&quot; you accept',
     'terms'                     => 'Terms',
     'register_already'          => 'You registered already?',
+    'new_customers'             => 'New customers',
+    'register_here'             => 'Register here',
+    'forgot_password'           => 'Forgot password',
+    'forgot_password_title'     => 'Forgot password',
+    'click_here'                => 'Click here',
+    'fill_reset_password'       => 'Please enter your email to reset your password',
+    'reset_password'            => 'Reset password',
+    'enter_new_password'        => 'Please enter your new password',
 ];

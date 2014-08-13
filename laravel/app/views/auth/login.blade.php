@@ -1,18 +1,18 @@
 @extends ('layouts.default')
 
 @section ('title')
-    Kirjaudu :: @parent
+    @parent :: {{ trans('common.sign_in_header') }}
 @stop
 
 @section ('header')
-    <h1 class="text-header">Kirjaudu</h1>
+    <h1 class="text-header">{{ trans('common.sign_in_header') }}</h1>
 @stop
 
 @section ('content')
 <div class="row">
     <div class="col-xs-12">
-        <h1 class="comfortaa orange text-center">Kirjaudu sisään</h1>
-        <h4 class="comfortaa text-center">Täytä seuraavat tiedot:</h4>
+        <h1 class="comfortaa orange text-center">{{ trans('common.sign_in') }}</h1>
+        <h4 class="comfortaa text-center">{{ trans('user.fill_fields') }}:</h4>
 
         @include ('el.messages')
 
@@ -35,13 +35,13 @@
 
             <div class="form-group">
                 <div class="col-sm-9 text-right">
-                    Uusi käyttäjä? <a href="{{ route('auth.register') }}" title="" id="link-register">Rekisteröidy tästä</a> | Unohditko salasanasi? <a href="{{ route('auth.forgot') }}" title="" id="link-forgot">Klikkaa tästä.</a>
+                    {{ trans('user.new_customers') }}? <a href="{{ route('auth.register') }}" title="" id="link-register">{{ trans('user.register_here') }}</a> | {{ trans('user.forgot_password') }} <a href="{{ route('auth.forgot') }}" title="" id="link-forgot">{{ trans('user.click_here') }}.</a>
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-sm-9 text-right">
-                    <button id="btn-login" class="btn btn-lg btn-orange to-upper comfortaa">Kirjaudu</button>
+                    <button id="btn-login" class="btn btn-lg btn-orange to-upper comfortaa">{{ trans('common.sign_in') }}</button>
                 </div>
             </div>
         {{ Form::close() }}

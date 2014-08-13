@@ -1,7 +1,7 @@
 @extends ('layouts.default')
 
 @section ('title')
-    {{ trans('dashboard.control_panel') }} :: @parent
+    @parent :: {{ trans('dashboard.control_panel') }}
 @stop
 
 @section ('header')

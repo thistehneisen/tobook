@@ -1,7 +1,7 @@
 @extends ('layouts.default')
 
 @section ('title')
-    {{ trans('common.register') }} :: @parent
+    @parent :: {{ trans('common.register') }}
 @stop
 
 @section ('header')

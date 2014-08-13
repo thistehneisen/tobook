@@ -28,7 +28,7 @@
         @section('nav')
             <nav class="text-right">
                 @if (Confide::user())
-                <p class="welcome-text">Tervetuloa, <strong>{{ Confide::user()->username }}</strong>!</p>
+                <p class="welcome-text">{{ trans('common.welcome') }}, <strong>{{ Confide::user()->username }}</strong>!</p>
                 @endif
                 <ul class="list-inline nav-links">
                     <li><a href="{{ route('home') }}">{{ trans('common.homepage') }}</a></li>
@@ -39,7 +39,7 @@
                     <li><a href="{{ route('auth.logout') }}">{{ trans('common.sign_out') }}</a></li>
                 @else
                     <li><a href="{{ route('auth.register') }}">{{ trans('common.register') }}</a></li>
-                    <li><a href="{{ route('auth.login') }}">{{ trans('common.sign_in') }}</a></li>
+                    <li><a href="{{ route('auth.login') }}">{{ trans('common.sign_in_header') }}</a></li>
                 @endif
                 </ul>
             </nav>
@@ -60,9 +60,9 @@
         <footer class="container footer">
             <div class="row">
                 <div class="col-md-4 col-lg-4">
-                    <h4>Copyright</h4>
+                    <h4>{{ trans('home.copyright') }}</h4>
                     <p class="company-name"><span>varaa</span>.com</p>
-                    <p>&copy; {{ date('Y') }} | <a href="#">Privacy Policy</a></p>
+                    <p>&copy; {{ date('Y') }} | <a href="#">{{ trans('home.copyright_policy')}}</a></p>
                     <ul class="list-unstyled list-inline list-social-networks">
                         <li><a href="" target="_blank"><i class="fa fa-facebook"></i></a></li>
                         <li><a href="" target="_blank"><i class="fa fa-google-plus"></i></a></li>
@@ -72,25 +72,25 @@
                     </ul>
                 </div>
                 <div class="col-md-4 col-lg-4">
-                    <h4>Newsletter</h4>
+                    <h4>{{ trans('home.newsletter') }}</h4>
                     {{ Form::open() }}
                     <div class="form-group">
-                        <input type="email" placeholder="Enter Your Email" class="form-control">
+                        <input type="email" placeholder="{{ trans('home.enter_your_email') }}" class="form-control">
                     </div>
                     <div class="form-group text-right">
-                        <button class="btn btn-danger">SUBMIT</button>
+                        <button class="btn btn-danger">{{ trans('home.submit') }}</button>
                     </div>
                     {{ Form::close() }}
                 </div>
                 <div class="col-md-4 col-lg-4">
-                    <h4>Sijaitsemme</h4>
+                    <h4>{{ trans('home.location') }}</h4>
                     <p>Kaupattie 8, Helsinki</p>
                     <dl class="dl-horizontal">
-                        <dt>Freephone</dt>
+                        <dt>{{ trans('home.freephone') }}</dt>
                         <dd>+1 800 559 6580</dd>
-                        <dt>Telephone</dt>
+                        <dt>{{ trans('home.telephone') }}</dt>
                         <dd>+1 800 603 6035</dd>
-                        <dt>Fax</dt>
+                        <dt>{{ trans('home.fax') }}</dt>
                         <dd>+1 800 889 9898</dd>
                     </dl>
                 </div>
