@@ -99,9 +99,23 @@ Route::group([
         'uses' => 'App\Controllers\User@changeProfile'
     ]);
 
-    Route::get('services/cashier', [
-        'as' => 'cashier.index',
-        'uses' => 'App\Controllers\Services@cashier'
-    ]);
+    Route::group([
+        'before' => [''], // Attach a filter to check payment
+        'prefix' => 'services'
+    ], function() {
+
+        Route::get('cashier', [
+            'as' => 'cashier.index',
+            'uses' => 'App\Controllers\Services@cashier'
+        ]);
+
+        Route::get('timeslot', [
+            'as' => 'timeslot.index',
+            'uses' => 'App\Controllers\Services@timeslot'
+        ]);
+
+
+    });
+
 
 });

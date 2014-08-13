@@ -60,12 +60,34 @@ class User extends ConfideUser
         $this->save();
     }
 
+    /**
+     * Check if this user has been installed Cashier module
+     *
+     * @return boolean 
+     */
     public function isCashierActivated()
     {
         $oldPrefix = DB::getTablePrefix();
         DB::setTablePrefix('sma_');
 
         $user = DB::table('users')->where('owner_id', '=', $this->id)->first();
+
+        DB::setTablePrefix($oldPrefix);
+
+        return (bool) $user;
+    }
+
+    /**
+     * Check if this user has been installed TimeSlot booking module.
+     *
+     * @return boolean 
+     */
+    public function isTimeSlotActivated()
+    {
+        $oldPrefix = DB::getTablePrefix();
+        DB::setTablePrefix('ts_');
+
+        $user = DB::table('calendars')->where('owner_id', '=', $this->id)->first();
 
         DB::setTablePrefix($oldPrefix);
 

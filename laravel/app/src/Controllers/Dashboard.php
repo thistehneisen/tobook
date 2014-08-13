@@ -13,9 +13,9 @@ class Dashboard extends Base
             'gallery'     => '',
             'profile'     => route('user.profile'),
             'promotion'   => '',
-            'cashier'     => URL::route('cashier.index'),
+            'cashier'     => route('cashier.index'),
             'restaurant'  => '',
-            'timeslot'    => '',
+            'timeslot'    => route('timeslot.index'),
             'appointment' => '',
             'loyalty'     => '',
             'martketing'  => ''

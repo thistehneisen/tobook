@@ -37,4 +37,14 @@ class Bridge
     {
         return $this->app['config']->get($key);
     }
+
+    /**
+     * Shortcut to get DB config
+     *
+     * @return array
+     */
+    protected function dbConfig()
+    {
+        return $this->config('database.connections.mysql');
+    }
 }

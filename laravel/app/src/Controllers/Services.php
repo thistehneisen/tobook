@@ -23,4 +23,21 @@ class Services extends Base
             'url' => URL::to('cashier/library/index.php?'.http_build_query($params))
         ]);
     }
+
+    /**
+     * Redirect user to a beautiful iframe with cute TimeSlot module waiting
+     *
+     * @return View
+     */
+    public function timeslot()
+    {
+        $params = ['username' => Confide::user()->username];
+        $uri = (Confide::user()->isTimeSlotActivated())
+            ? 'timeslot/library/session.php?'
+            : 'timeslot/installation.php?';
+
+        return View::make('services.iframe', [
+            'url' => URL::to($uri.http_build_query($params))
+        ]);
+    }
 }
