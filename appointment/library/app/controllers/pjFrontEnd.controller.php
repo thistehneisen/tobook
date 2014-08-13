@@ -892,10 +892,12 @@ class pjFrontEnd extends pjFront
 				// Client
 				$subject = str_replace($tokens['search'], $tokens['replace'], @$booking_arr['confirm_subject_client']);
 				$message = str_replace($tokens['search'], $tokens['replace'], @$booking_arr['confirm_tokens_client']);
-				if (!empty($subject) && !empty($message))
+
+                if (!empty($subject) && !empty($message))
 				{
 					$message = pjUtil::textToHtml($message);
 					$Email
+                        ->setCharset('utf-8')
 						->setTo($booking_arr['c_email'])
 						->setFrom($booking_arr['admin_email'])
 						->setSubject($subject)
@@ -908,6 +910,7 @@ class pjFrontEnd extends pjFront
 				{
 					$message = pjUtil::textToHtml($message);
 					$Email
+                        ->setCharset('utf-8')
 						->setTo($booking_arr['admin_email'])
 						->setFrom($booking_arr['admin_email'])
 						->setSubject($subject)
@@ -925,6 +928,7 @@ class pjFrontEnd extends pjFront
 						{
 							$message = pjUtil::textToHtml($message);
 							$Email
+                                ->setCharset('utf-8')
 								->setTo($item['employee_email'])
 								->setFrom($booking_arr['admin_email'])
 								->setSubject($subject)
@@ -941,6 +945,7 @@ class pjFrontEnd extends pjFront
 				{
 					$message = pjUtil::textToHtml($message);
 					$Email
+                        ->setCharset('utf-8')
 						->setTo($booking_arr['c_email'])
 						->setFrom($booking_arr['admin_email'])
 						->setSubject($subject)
@@ -953,6 +958,7 @@ class pjFrontEnd extends pjFront
 				{
 					$message = pjUtil::textToHtml($message);
 					$Email
+                        ->setCharset('utf-8')
 						->setTo($booking_arr['admin_email'])
 						->setFrom($booking_arr['admin_email'])
 						->setSubject($subject)
@@ -970,6 +976,7 @@ class pjFrontEnd extends pjFront
 						{
 							$message = pjUtil::textToHtml($message);
 							$Email
+                                ->setCharset('utf-8')
 								->setTo($item['employee_email'])
 								->setFrom($booking_arr['admin_email'])
 								->setSubject($subject)
