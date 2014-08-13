@@ -27,30 +27,26 @@ function onCheckAllCustomer(obj) {
             .prop("checked", status);
 }
 function onSearch() {
-    var startDate = $("#txtStartDate").val();
-    var endDate = $("#txtEndDate").val();
+    var startDate = $("#txtStartDate").val()
+      , endDate = $("#txtEndDate").val();
     if (endDate < startDate && endDate != "" && startDate != "") {
         alert("Please enter Search Date correcty.");
         return;
     }
-    var tb = $("#chkTimeslot").get(0).checked ? "Y" : "N";
-    var rb = $("#chkRestaurant").get(0).checked ? "Y" : "N";
-    var as = $("#chkAppointment").get(0).checked ? "Y" : "N";
-    var hb = $("#chkHairBeauty").get(0).checked ? "Y" : "N";
-    window.location.href = "index.php?startDate=" + startDate + "&endDate="
+    var tb = $("#chkTimeslot").get(0).checked ? "Y" : "N"
+      , rb = $("#chkRestaurant").get(0).checked ? "Y" : "N"
+      , as = $("#chkAppointment").get(0).checked ? "Y" : "N"
+      , hb = $("#chkHairBeauty").get(0).checked ? "Y" : "N";
+    window.location.href = "main.php?startDate=" + startDate + "&endDate="
             + endDate + "&tb=" + tb + "&rb=" + rb + "&as=" + as + "&hb=" + hb;
-
 }
 function onSendEmail() {
-    var objChkList = $("#customerList").find("input#chkCustomer:checked");
-    var customerList = [];
+    var objChkList = $("#customerList").find("input#chkCustomer:checked")
+      , customerList = [];
     for ( var i = 0; i < objChkList.size(); i++) {
-        var customerId = objChkList.eq(i).parents("td").eq(0).find(
-                "#customerId").val();
-        var planGroupCode = objChkList.eq(i).parents("td").eq(0).find(
-                "#planGroupCode").val();
-        var destination = objChkList.eq(i).parents("tr").eq(0).find("td").eq(2)
-                .text();
+        var customerId = objChkList.eq(i).parents("td").eq(0).find("#customerId").val()
+          , planGroupCode = objChkList.eq(i).parents("td").eq(0).find("#planGroupCode").val()
+          , destination = objChkList.eq(i).parents("tr").eq(0).find("td").eq(3).text();
         var data = {
             customerId : customerId,
             planGroupCode : planGroupCode,
@@ -68,8 +64,8 @@ function onSendEmail() {
         alert("Please select campaign.");
         return;
     }
-    var campaignId = objCampaign.find("#campaignId").val();
-    var ownerId = $("#ownerId").val();
+    var campaignId = objCampaign.find("#campaignId").val()
+      , ownerId = $("#ownerId").val();
 
     $.ajax({
         url : "async-sendMail.php",
@@ -96,17 +92,13 @@ function onSendEmail() {
 
 function onEmailSchedule() {
 
-    var objChkList = $("#customerList").find("tbody").find(
-            "input#chkCustomer:checked");
+    var objChkList = $("#customerList").find("tbody").find("input#chkCustomer:checked");
     var customerList = [];
     for ( var i = 0; i < objChkList.size(); i++) {
-        var customerId = objChkList.eq(i).parents("td").eq(0).find(
-                "#customerId").val();
-        var planGroupCode = objChkList.eq(i).parents("td").eq(0).find(
-                "#planGroupCode").val();
-        var destination = objChkList.eq(i).parents("tr").eq(0).find("td").eq(2)
-                .text();
-        var data = {
+        var customerId = objChkList.eq(i).parents("td").eq(0).find("#customerId").val()
+          , planGroupCode = objChkList.eq(i).parents("td").eq(0).find("#planGroupCode").val()
+          , destination = objChkList.eq(i).parents("tr").eq(0).find("td").eq(3).text()
+          , data = {
             customerId : customerId,
             planGroupCode : planGroupCode,
             destination : destination
@@ -123,12 +115,12 @@ function onEmailSchedule() {
         alert("Please select campaign.");
         return;
     }
-    var campaignId = objCampaign.find("#campaignId").val();
-    var ownerId = $("#ownerId").val();
+    var campaignId = objCampaign.find("#campaignId").val()
+      , ownerId = $("#ownerId").val();
 
-    var scheduleDate = $("#scheduleDate").val();
-    var scheduleHour = $("#scheduleHour").val();
-    var scheduleTime = scheduleDate + " " + scheduleHour + ":00:00";
+    var scheduleDate = $("#scheduleDate").val()
+      , scheduleHour = $("#scheduleHour").val()
+      , scheduleTime = scheduleDate + " " + scheduleHour + ":00:00";
 
     $.ajax({
         url : "async-sendScheduleMail.php",
@@ -158,22 +150,19 @@ function onSendSMS() {
     var objChkList = $("#customerList").find("input#chkCustomer:checked");
     var customerList = [];
     for ( var i = 0; i < objChkList.size(); i++) {
-        var customerId = objChkList.eq(i).parents("td").eq(0).find(
-                "#customerId").val();
-        var planGroupCode = objChkList.eq(i).parents("td").eq(0).find(
-                "#planGroupCode").val();
-        var destination = objChkList.eq(i).parents("tr").eq(0).find("td").eq(3)
-                .text();
-        var data = {
+        var customerId = objChkList.eq(i).parents("td").eq(0).find("#customerId").val()
+          , planGroupCode = objChkList.eq(i).parents("td").eq(0).find("#planGroupCode").val()
+          , destination = objChkList.eq(i).parents("tr").eq(0).find("td").eq(4).text();
+          , data = {
             customerId : customerId,
             planGroupCode : planGroupCode,
             destination : destination
         };
         customerList[i] = data;
     }
-    var ownerId = $("#ownerId").val();
-    var title = $("#titleSMS").val();
-    var content = $("#txtSMS").val();
+    var ownerId = $("#ownerId").val()
+      , title = $("#titleSMS").val()
+      , content = $("#txtSMS").val();
 
     $.ajax({
         url : "async-sendSMS.php",
@@ -262,22 +251,20 @@ function onEditCustomer(planGroupCode, cId) {
                 $("#myModal").modal();
                 $("#bookingList").html("");
                 for ( var i = 0; i < data.bookingList.length; i++) {
-                    $("#bookingList").append(
-                            $("<div>" + String(i + 1) + ". "
-                                    + data.bookingList[i] + "</div>"));
+                    $("#bookingList").append($("<div>" + String(i + 1) + ". " + data.bookingList[i] + "</div>"));
                 }
             }
         }
     });
 }
 function onSaveCustomer() {
-    var ownerId = $("#ownerId").val();
-    var planGroupCode = $("#pGroupCode").val();
-    var cId = $("#cId").val();
-    var txtName = $("#txtName").val();
-    var txtEmail = $("#txtEmail").val();
-    var txtPhone = $("#txtPhone").val();
-    var txtNote = $("#txtNote").val();
+    var ownerId = $("#ownerId").val()
+      , planGroupCode = $("#pGroupCode").val()
+      , cId = $("#cId").val()
+      , txtName = $("#txtName").val()
+      , txtEmail = $("#txtEmail").val()
+      , txtPhone = $("#txtPhone").val()
+      , txtNote = $("#txtNote").val();
 
     $.ajax({
         url : "async-saveCustomerInfo.php",
@@ -301,8 +288,7 @@ function onSaveCustomer() {
     });
 }
 function onShowGroup() {
-    var objChkList = $("#customerList").find("tbody").find(
-            "input#chkCustomer:checked");
+    var objChkList = $("#customerList").find("tbody").find("input#chkCustomer:checked");
     if (objChkList.length == 0) {
         alert("Please Select Customers to Join Group.");
         return;
@@ -319,14 +305,10 @@ function onJoinGroup() {
     var objChkList = $("#customerList").find("input#chkCustomer:checked");
     var customerList = [];
     for ( var i = 0; i < objChkList.size(); i++) {
-        var customerId = objChkList.eq(i).parents("td").eq(0).find(
-                "#customerId").val();
-        var planGroupCode = objChkList.eq(i).parents("td").eq(0).find(
-                "#planGroupCode").val();
-        var email = objChkList.eq(i).parents("tr").eq(0).find("td").eq(2)
-                .text();
-        var phone = objChkList.eq(i).parents("tr").eq(0).find("td").eq(3)
-                .text();
+        var customerId = objChkList.eq(i).parents("td").eq(0).find("#customerId").val()
+          , planGroupCode = objChkList.eq(i).parents("td").eq(0).find("#planGroupCode").val()
+          , email = objChkList.eq(i).parents("tr").eq(0).find("td").eq(3).text()
+          , phone = objChkList.eq(i).parents("tr").eq(0).find("td").eq(4).text();
         var data = {
             customerId : customerId,
             planGroupCode : planGroupCode,
