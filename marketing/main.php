@@ -40,40 +40,26 @@ $rb = $_GET['rb'];
 $as = $_GET['as'];
 $hb = $_GET['hb'];
 
-$sql0 = "select 0 as cId, '' as cEmail, '' as cPhone, '' as planGroupCode, '' as bookingTime";
+$sql1 = "select max(id) as cId, concat(c_fname, ' ', c_lname) as cName, c_email as cEmail, c_phone as cPhone, 'rb' as planGroupCode, max(created) as bookingTime
+           from rb_bookings
+          where owner_id = $ownerId
+          group by cEmail, cPhone";
 
-$sql1 = "select max(id) as cId, c_email as cEmail, c_phone as cPhone, 'rb' as planGroupCode, max(created) as bookingTime
-from $prefix"."_restaurant_booking_bookings
-                group by cEmail, cPhone";
+$sql2 = "select id as cId, customer_name as cName, customer_email as cEmail, customer_phone as cPhone, 'tb' as planGroupCode, created as bookingTime
+           from ts_bookings
+          where owner_id = $ownerId
+          group by cEmail, cPhone";
 
-$sql2 = "select id as cId, customer_email as cEmail, customer_phone as cPhone, 'tb' as planGroupCode, created as bookingTime
-from $prefix"."_ts_booking_bookings
-                group by cEmail, cPhone";
-
-$sql3 = "select id as cId, c_email as cEmail, c_phone as cPhone, 'as' as planGroupCode, created as bookingTime
-from $prefix"."_hey_appscheduler_bookings
-                group by cEmail, cPhone";
+$sql3 = "select id as cId, c_name as cName, c_email as cEmail, c_phone as cPhone, 'as' as planGroupCode, created as bookingTime
+           from as_bookings
+          where owner_id = $ownerId
+          group by cEmail, cPhone";
 
 $con1 = mysql_connect( DB_HOSTNAME, DB_USERNAME, DB_PASSWORD) or die ( mysql_error() );
 $db1 = mysql_select_db( DB_DATABASE, $con1) or die( mysql_error() );
 
-$sqlSub = $sql0;
-
-$sql = "SHOW TABLES like '".$prefix."_restaurant_booking_bookings'";
-if(mysql_num_rows(mysql_query( $sql )) == 1){
-    $sqlSub = $sqlSub." union all $sql1";
-}
-
-$sql = "SHOW TABLES like '".$prefix."_ts_booking_bookings'";
-if (mysql_num_rows(mysql_query( $sql )) == 1) {
-    $sqlSub = $sqlSub." union all $sql2";
-}
-
-$sql = "SHOW TABLES like '".$prefix."_hey_appscheduler_bookings'";
-if (mysql_num_rows(mysql_query( $sql )) == 1) {
-	$sqlSub = $sqlSub." union all $sql3";
-}
-
+$sqlSub = "$sql1 union all $sql2 union all $sql3";
+logToFile("data.log", "SQL : $sqlSub");
 $sql = "select * from ( $sqlSub ) t1 where cId != 0";
 
 if ($startDate != "")
@@ -232,6 +218,7 @@ $today = $dataResult[0]['today'];
 						<th data-sort-ignore="true"><input type="checkbox"
 							id="chkAllCustomer" onclick="onCheckAllCustomer( this )" /></th>
 						<th data-sort-ignore="true">No</th>
+						<th><?php echo $MT_LANG['name'];?></th>
 						<th><?php echo $MT_LANG['emailAddress'];?></th>
 						<th><?php echo $MT_LANG['phoneNo'];?></th>
 						<th><?php echo $MT_LANG['customerGroup'];?></th>
@@ -242,13 +229,13 @@ $today = $dataResult[0]['today'];
 				<tbody>
 					<?php for ($i = 0; $i < count( $customerList ); $i++) {?>
 					<tr>
-						<td><input type="hidden" id="customerId"
-							value="<?php echo $customerList[$i]['cId']?>" /> <input
-							type="hidden" id="planGroupCode"
-							value="<?php echo $customerList[$i]['planGroupCode']?>" /> <input
-							type="checkbox" id="chkCustomer" />
+						<td>
+						    <input type="hidden" id="customerId" value="<?php echo $customerList[$i]['cId']?>" />
+						    <input type="hidden" id="planGroupCode" value="<?php echo $customerList[$i]['planGroupCode']?>" />
+						    <input type="checkbox" id="chkCustomer" />
 						</td>
 						<td><?php echo $i + 1;?></td>
+						<td><?php echo $customerList[$i]['cName']?></td>
 						<td><?php echo $customerList[$i]['cEmail']?></td>
 						<td><?php echo $customerList[$i]['cPhone']?></td>
 						<td>
@@ -264,8 +251,7 @@ $today = $dataResult[0]['today'];
 						</td>
 						<td><?php echo $customerList[$i]['bookingTime']?></td>
 						<td>
-							<button class="btn btn-info btn-xs"
-								onclick="onEditCustomer('<?php echo $customerList[$i]['planGroupCode']?>', <?php echo $customerList[$i]['cId']?> )">
+							<button class="btn btn-info btn-xs" onclick="onEditCustomer('<?php echo $customerList[$i]['planGroupCode']?>', <?php echo $customerList[$i]['cId']?> )">
 								<?php echo $MT_LANG['edit'];?>
 							</button>
 						</td>
@@ -276,13 +262,11 @@ $today = $dataResult[0]['today'];
 		</div>
 	</div>
 	<div id="divSMSArea" class="unshow">
-		<span><?php echo $MT_LANG['smsTitle'];?> </span> <span
-			style="padding-left: 20px;">(&nbsp;<span id="lengthSMSTitle"></span>&nbsp;/&nbsp;40&nbsp;)
-		</span> <input type="text" class="form-control" id="titleSMS"
-			style="margin-top: 5px; margin-bottom: 15px;" maxlength="40"> <span><?php echo $MT_LANG['smsText'];?>
-		</span>
-		<textarea class="form-control" id="txtSMS" rows="5"
-			style="margin-top: 5px; margin-bottom: 15px;" maxlength="160"></textarea>
+		<span><?php echo $MT_LANG['smsTitle'];?> </span>
+		<span style="padding-left: 20px;">(&nbsp;<span id="lengthSMSTitle"></span>&nbsp;/&nbsp;40&nbsp;)</span>
+		<input type="text" class="form-control" id="titleSMS" style="margin-top: 5px; margin-bottom: 15px;" maxlength="40">
+		<span><?php echo $MT_LANG['smsText'];?></span>
+		<textarea class="form-control" id="txtSMS" rows="5" style="margin-top: 5px; margin-bottom: 15px;" maxlength="160"></textarea>
 		<div class="floatleft">
 			<span style="color: #F00;">*</span>&nbsp;<span id="lengthSMSText"></span>&nbsp;/160
 		</div>
@@ -297,8 +281,7 @@ $today = $dataResult[0]['today'];
 		<div class="clearboth"></div>
 	</div>
 	<div id="divEmailArea" class="unshow">
-		<div
-			style="height: 45px; background: #3498db; color: #FFF; line-height: 45px; font-size: 20px; padding-left: 20px;">
+		<div style="height: 45px; background: #3498db; color: #FFF; line-height: 45px; font-size: 20px; padding-left: 20px;">
 			<?php echo $MT_LANG['selectCampaignToSend'];?>
 		</div>
 		<?php
@@ -307,15 +290,11 @@ $today = $dataResult[0]['today'];
                  where status = 'DRAFT'";
 		$dataCampaign = $db->queryArray($sql);
 		?>
-		<div id="campaignList"
-			style="background: #FDFDFD; height: 350px; margin: 20px 30px 0px 30px; border: 1px solid #EEE; overflow: auto;">
+		<div id="campaignList" style="background: #FDFDFD; height: 350px; margin: 20px 30px 0px 30px; border: 1px solid #EEE; overflow: auto;">
 			<?php for ($i = 0; $i < count( $dataCampaign ); $i++) {?>
-			<div id="campaignItem"
-				style="height: 35px; line-height: 35px; border-bottom: 1px solid #DDD; padding-left: 20px; cursor: pointer;"
-				onclick="onClickCampaignItem(this)">
+			<div id="campaignItem" style="height: 35px; line-height: 35px; border-bottom: 1px solid #DDD; padding-left: 20px; cursor: pointer;" onclick="onClickCampaignItem(this)">
 				<?php echo $dataCampaign[$i]['subject'];?>
-				<input type="hidden" id="campaignId"
-					value="<?php echo $dataCampaign[$i]['email_campaign'];?>" />
+				<input type="hidden" id="campaignId" value="<?php echo $dataCampaign[$i]['email_campaign'];?>" />
 			</div>
 			<?php }
 			if (count( $dataCampaign ) == 0) {
@@ -325,11 +304,8 @@ $today = $dataResult[0]['today'];
 		</div>
 		<hr />
 		<div style="text-align: center;">
-			<input type="text" class="form-control" id="scheduleDate"
-				style="width: 120px; display: initial; margin-top: -3px; text-align: center;"
-				value="<?php echo $today;?>" />&nbsp; <select class="form-control"
-				style="width: 70px; display: initial; margin-top: -3px;"
-				id="scheduleHour">
+			<input type="text" class="form-control" id="scheduleDate" style="width: 120px; display: initial; margin-top: -3px; text-align: center;" value="<?php echo $today;?>" />&nbsp; 
+			<select class="form-control" style="width: 70px; display: initial; margin-top: -3px;" id="scheduleHour">
 				<?php for ($i = 0; $i < 24; $i++) {?>
 				<option value="<?php echo $i;?>">
 					<?php echo $i<10?"0".$i:$i?>
@@ -371,54 +347,43 @@ $today = $dataResult[0]['today'];
 						<input type="hidden" id="cId" /> <input type="hidden"
 							id="pGroupCode" />
 
-						<div
-							style="width: 25%; float: left; font-weight: bold; text-align: right; line-height: 30px;">
-							<?php echo $MT_LANG['name']?>
-							:
+						<div style="width: 25%; float: left; font-weight: bold; text-align: right; line-height: 30px;">
+							<?php echo $MT_LANG['name']?>:
 						</div>
 						<div style="padding-left: 5%; width: 70%; float: left;">
 							<input type="text" id="txtName" class="form-control" />
 						</div>
 						<div style="clear: both;"></div>
 						<br />
-						<div
-							style="width: 25%; float: left; font-weight: bold; text-align: right; line-height: 30px;">
-							<?php echo $MT_LANG['email']?>
-							:
+						<div style="width: 25%; float: left; font-weight: bold; text-align: right; line-height: 30px;">
+							<?php echo $MT_LANG['email']?>:
 						</div>
 						<div style="padding-left: 5%; width: 70%; float: left;">
 							<input type="text" id="txtEmail" class="form-control" />
 						</div>
 						<div style="clear: both;"></div>
 						<br />
-						<div
-							style="width: 25%; float: left; font-weight: bold; text-align: right; line-height: 30px;">
-							<?php echo $MT_LANG['phone']?>
-							:
+						<div style="width: 25%; float: left; font-weight: bold; text-align: right; line-height: 30px;">
+							<?php echo $MT_LANG['phone']?>:
 						</div>
 						<div style="padding-left: 5%; width: 70%; float: left;">
 							<input type="text" id="txtPhone" class="form-control" />
 						</div>
 						<div style="clear: both;"></div>
 						<br />
-						<div
-							style="width: 25%; float: left; font-weight: bold; text-align: right; line-height: 30px;">
-							<?php echo $MT_LANG['note']?>
-							:
+						<div style="width: 25%; float: left; font-weight: bold; text-align: right; line-height: 30px;">
+							<?php echo $MT_LANG['note']?>:
 						</div>
 						<div style="padding-left: 5%; width: 70%; float: left;">
 							<textarea id="txtNote" class="form-control" rows="4"></textarea>
 						</div>
 						<div style="clear: both;"></div>
 						<br />
-						<div
-							style="width: 25%; float: left; font-weight: bold; text-align: right; line-height: 30px;">
-							<?php echo $MT_LANG['count']?>
-							:
+						<div style="width: 25%; float: left; font-weight: bold; text-align: right; line-height: 30px;">
+							<?php echo $MT_LANG['count']?>:
 						</div>
 						<div style="padding-left: 5%; width: 70%; float: left;">
-							<input type="text" id="txtBookedCnt" readonly
-								class="form-control" />
+							<input type="text" id="txtBookedCnt" readonly class="form-control" />
 						</div>
 						<div style="clear: both;"></div>
 						<br />
@@ -484,12 +449,10 @@ $today = $dataResult[0]['today'];
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal"
-						id="btnClose1">
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="btnClose1">
 						<?php echo $MT_LANG['close']?>
 					</button>
-					<button type="button" class="btn btn-primary"
-						onclick="onJoinGroup()">
+					<button type="button" class="btn btn-primary" onclick="onJoinGroup()">
 						<?php echo $MT_LANG['join']?>
 					</button>
 				</div>

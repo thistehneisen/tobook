@@ -105,7 +105,8 @@ SQL;
    
     $query  = $pdo->prepare($sql);
     $query->bindParam(':owner_id', $owner_id);
-    $query->bindParam(':session_id', md5(uniqid(rand(), true)));
+    $session_id = md5(uniqid(rand(), true));
+    $query->bindParam(':session_id', $session_id);
     $query->execute();
     
     header("location: library/session.php?username=".$_GET['username'] );

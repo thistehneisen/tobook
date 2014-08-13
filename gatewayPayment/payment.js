@@ -93,8 +93,7 @@ function subscribe() {
     var year = $(".year").find("select").val();
     var company = $("#company").val();
     var phone_number = $("#phone_number").val();
-    var url = "https://" + subdomain + ".recurly.com/jsonp/" + subdomain
-            + "/subscribe";
+    var url = "https://" + subdomain + ".recurly.com/jsonp/" + subdomain + "/subscribe";
 
     if (couponCode == "") {
         $.ajax({

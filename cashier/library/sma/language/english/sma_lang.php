@@ -769,3 +769,8 @@ $lang['create_user']      = "Create User";
 $lang['login_page']      = "Login Page";
 $lang['thankyou1']      = "Thank you for Varaa.com on Omakasssaa!";
 $lang['thankyou2']      = "This is latest the latest release of Stock Manager Advance.";
+
+$lang['cash'] = 'Cash';
+$lang['creditCard'] = 'Credit Card';
+$lang['giftCard'] = 'Gift Card';
+$lang['service'] = 'Service';

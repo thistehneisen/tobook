@@ -3,7 +3,7 @@ require_once("../DB_Connection.php");
 
 require_once('config.php');
 require_once('lib/recurly.php');
-Recurly_Client::$subdomain = RECURLY_SUBDOMAIN  ;
+Recurly_Client::$subdomain = RECURLY_SUBDOMAIN;
 Recurly_Client::$apiKey = RECURLY_API_KEY;
 Recurly_js::$privateKey = RECURLY_PRIVATE_KEY;
 
