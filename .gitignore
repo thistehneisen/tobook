@@ -1,5 +1,5 @@
 # Developer must create this file by using config.php.tpl
-config.php
+/config.php
 
 # Developer must create this file by using acceptance.suite.yml.tpl
 acceptance.suite.yml
