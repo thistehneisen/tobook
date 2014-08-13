@@ -282,7 +282,6 @@ $lang['total_no_tax'] 					= "Hinta alv. 0%";
 $lang['biller'] 						= "Biller";
 $lang['stamp'] 							= "Leima";
 $lang['customer'] 						= "Asiakas";
-$lang['total'] 							= "Total";
 $lang['view_invoice'] 					= "Näytä lasku";
 $lang['email_invoice'] 					= "Email Invoice";
 $lang['edit_invoice'] 					= "Muokkaa laskua";
@@ -724,3 +723,8 @@ $lang['create_user']      = "Luo käyttäjä";
 $lang['login_page']      = "Kirjautumissivu";
 $lang['thankyou1']      = " Kiitos kun käytät Varaa.com:in Omakassaa!";
 $lang['thankyou2']      = "Mikäli sinulla on kysymyksiä ota yhteyttä asiakaspalveluumme";
+
+$lang['cash'] = 'Käteinen';
+$lang['creditCard'] = 'Pankkikortti';
+$lang['giftCard'] = 'Lahjakortti';
+$lang['service'] = 'Palvelu';
