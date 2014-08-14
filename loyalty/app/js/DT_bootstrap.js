@@ -3,7 +3,7 @@ $.extend( true, $.fn.dataTable.defaults, {
 	"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
 	"sPaginationType": "bootstrap",
 	"oLanguage": {
-		"sLengthMenu": "_MENU_ records per page"
+		"sLengthMenu": "_MENU_ Tuloksia per sivu"
 	}
 } );
 
@@ -45,8 +45,8 @@ $.extend( $.fn.dataTableExt.oPagination, {
 
 			$(nPaging).addClass('pagination').append(
 				'<ul>'+
-					'<li class="prev disabled"><a href="#">&larr; '+oLang.sPrevious+'</a></li>'+
-					'<li class="next disabled"><a href="#">'+oLang.sNext+' &rarr; </a></li>'+
+					'<li class="prev disabled"><a href="#">&larr; '+'Edellinen'+'</a></li>'+
+					'<li class="next disabled"><a href="#">'+'Seuraava'+' &rarr; </a></li>'+
 				'</ul>'
 			);
 			var els = $('a', nPaging);
@@ -155,7 +155,7 @@ $(document).ready(function() {
 		"sPaginationType": "bootstrap",
 		"aaSorting": [],
 		"oLanguage": {
-			"sLengthMenu": "_MENU_ records per page"
+			"sLengthMenu": "_MENU_ Tuloksia per sivu"
 		},
         "aoColumnDefs": [
                          { 

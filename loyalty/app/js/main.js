@@ -185,7 +185,7 @@ $(document).ready(function () {
                     // "sPaginationType": "bootstrap",
                     "aaSorting" : [],
                     "oLanguage" : {
-                        "sLengthMenu" : "_MENU_ records per page"
+                        "sLengthMenu" : "_MENU_ tuloksia per sivu"
                     },
                     "aoColumnDefs" : [ {
                         "bSortable" : false,
