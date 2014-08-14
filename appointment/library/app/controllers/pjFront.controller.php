@@ -116,7 +116,6 @@ class pjFront extends pjAppController
 
 		foreach ($summary['services'] as $service)
 		{
-
             $existed_bookings = $pjBookingServiceModel->reset()
                     ->select('t1.*')
                     ->join('pjBooking', 't2.id=t1.booking_id', 'inner')
@@ -127,6 +126,19 @@ class pjFront extends pjAppController
                     ->where('t1.start', $service['start'])
                     ->findAll()
                     ->getData();
+
+            if(sizeof($existed_bookings)==0){
+                $existed_bookings = $pjBookingServiceModel->reset()
+                    ->select("UNIX_TIMESTAMP(CONCAT(t1.date, ' ', t1.start)) as start_time,  UNIX_TIMESTAMP(CONCAT(t1.date, ' ', t1.start)) + (t1.total*60) as end_time")
+                    ->join('pjBooking', 't2.id=t1.booking_id', 'inner')
+                    ->join('pjService', 't3.id=t1.service_id', 'inner')
+                    ->where('t1.service_id', $service['id'])
+                    ->where('t1.employee_id', $service['employee_id'])
+                    ->where(sprintf("((%s <= UNIX_TIMESTAMP(CONCAT(t1.date, ' ', t1.start)) AND %s >= UNIX_TIMESTAMP(CONCAT(t1.date, ' ', t1.start))) OR (%s <= (UNIX_TIMESTAMP(CONCAT(t1.date, ' ', t1.start)) + (t1.total*60)) AND %s >= (UNIX_TIMESTAMP(CONCAT(t1.date, ' ', t1.start)) + (t1.total*60))))", $service['start_ts'], $service['end_ts'], $service['start_ts'], $service['end_ts']))
+                    ->findAll()
+                    ->getData();
+            }
+
             if(sizeof($existed_bookings)){
                 return false;
             }
