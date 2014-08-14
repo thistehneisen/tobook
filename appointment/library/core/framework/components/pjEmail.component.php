@@ -444,6 +444,7 @@ class pjEmail
 		
 				// return @mail($this->to, $this->subject, $message, join($this->eol, $this->getHeaders()));
 				
+                $this->setCharset('utf-8');
 				$this->setSmtpHost(SMTP_HOST);
 				$this->setSmtpPort(SMTP_PORT);
 				$this->setSmtpUser(SMTP_USERNAME);
