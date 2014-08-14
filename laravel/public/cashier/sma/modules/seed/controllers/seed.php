@@ -239,7 +239,7 @@ class Seed extends MX_Controller {
 		if (empty($user))
 		{
 			// Insert
-			$sql = 'SELECT * FROM tbl_user_mast WHERE nuser_id = ?';
+			$sql = 'SELECT * FROM varaa_users WHERE id = ?';
 			$result = $this->db->query($sql, array($this->ownerId))->row();
 			if (empty($result))
 			{
@@ -258,12 +258,12 @@ class Seed extends MX_Controller {
 			));
 			$userId = Modules::run(
 				'auth/auth/_create_user',
-				$result->vuser_login,
+				$result->username,
 				$password,
-				$result->vuser_email,
+				$result->email,
 				array(
-					'first_name' => $result->vuser_name,
-					'last_name' => $result->vuser_lastname
+					'first_name' => $result->first_name,
+					'last_name' => $result->last_name
 				),
 				array (
 					$groupId
