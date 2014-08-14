@@ -1,7 +1,7 @@
 @extends ('layouts.default')
 
 @section ('title')
-    {{ trans('user.change_password') }} :: @parent
+    @parent :: {{ trans('user.change_password') }}
 @stop
 
 @section ('header')
