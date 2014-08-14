@@ -112,16 +112,24 @@ class pjFront extends pjAppController
 			return false;
 		}
 
+        $pjBookingServiceModel = pjBookingServiceModel::factory();
+
 		foreach ($summary['services'] as $service)
 		{
-			/*$key = $item['type'] . '_' . $item['id'];
-			if ((int) $item['unavailable_days'] === 0 && (int) $item['cnt'] >= (int) $item['booked_qty'] + (int) $summary['cart'][$key])
-			{
-				//ok
-			} else {
-				// item not available
-				return false;
-			}*/
+
+            $existed_bookings = $pjBookingServiceModel->reset()
+                    ->select('t1.*')
+                    ->join('pjBooking', 't2.id=t1.booking_id', 'inner')
+                    ->join('pjService', 't3.id=t1.service_id', 'inner')
+                    ->where('t1.service_id', $service['id'])
+                    ->where('t1.employee_id', $service['employee_id'])
+                    ->where('t1.date', $service['date'])
+                    ->where('t1.start', $service['start'])
+                    ->findAll()
+                    ->getData();
+            if(sizeof($existed_bookings)){
+                return false;
+            }
 		}
 		// Pass all checks
 		return true;
@@ -183,8 +191,9 @@ class pjFront extends pjAppController
 					->getData();
 			
 			foreach ( $employee_plustime as $employee ) {
-				if ( isset($employee['plustime']) && (int) $employee['plustime'] != 0 ) {
-					$service_arr[$service_id]['total'] += (int) $employee['plustime'];
+                $service_arr[$service_id]['employee_id'] = (int) $employee['id'];
+                if ( isset($employee['plustime']) && (int) $employee['plustime'] != 0 ) {
+                    $service_arr[$service_id]['total'] += (int) $employee['plustime'];
 				}
 			}
 			
