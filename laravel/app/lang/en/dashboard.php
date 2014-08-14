@@ -1,16 +1,15 @@
 <?php
 return [
-    'control_panel' => 'Dashboard',
     'site'          => 'Site Manager',
     'gallery'       => 'Gallery Manager',
     'profile'       => 'Profile Manager',
     'promotion'     => 'Promotion Manager',
     'cashier'       => 'Cashier Manager',
     'restaurant'    => 'Restaurant Booking',
-    'timeslot'      => 'Time Slot',
+    'timeslot'      => 'Timeslot Booking',
     'appointment'   => 'Appointment Scheduler',
     'loyalty'       => 'Loyalty Card',
-    'martketing'    => 'Marketing Tool',
+    'marketing'     => 'Marketing Tool',
     'my_sites'      => 'My Site',
     'site_name'     => 'Site Name',
     'created'       => 'Created',

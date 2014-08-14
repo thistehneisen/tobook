@@ -1,15 +1,14 @@
 @extends ('layouts.default')
 
 @section ('title')
-    @parent :: {{ trans('dashboard.control_panel') }}
+    @parent :: {{ trans('common.dashboard') }}
 @stop
 
 @section ('header')
-    <h1 class="text-header">{{ trans('dashboard.control_panel') }}</h1>
+    <h1 class="text-header">{{ trans('common.dashboard') }}</h1>
 @stop
 
 @section ('content')
-<h1 class="comfortaa orange">{{ trans('dashboard.control_panel') }}</h1>
 <ul class="list-unstyled dashboard-services">
 @foreach ($services as $key => $url)
     <li class="col-md-3 col-lg-3">
@@ -23,6 +22,7 @@
 @endforeach
 </ul>
 
+{{--
 <div class="row">
     <div class="col-xs-12">
         <h1 class="comfortaa orange">{{ trans('dashboard.my_sites') }}</h1>
@@ -44,6 +44,6 @@
         </table>
     </div>
 </div>
-
+--}}
 
 @stop

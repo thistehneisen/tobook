@@ -9,10 +9,10 @@ class Dashboard extends Base
     public function index()
     {
         $services = [
-            'site'        => '',
-            'gallery'     => '',
-            'profile'     => route('user.profile'),
-            'promotion'   => '',
+            //'site'        => '',
+            //'gallery'     => '',
+            //'profile'     => route('user.profile'),
+            //'promotion'   => '',
             'cashier'     => route('cashier.index'),
             'restaurant'  => route('restaurant.index'),
             'timeslot'    => route('timeslot.index'),

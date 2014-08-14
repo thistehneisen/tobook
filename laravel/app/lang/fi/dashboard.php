@@ -1,6 +1,5 @@
 <?php
 return [
-    'control_panel' => 'Hallintapaneeli',
     'site'          => 'Sivuton Hallinta',
     'gallery'       => 'Gallerian Hallinta',
     'profile'       => 'Profiilin Hallinta',

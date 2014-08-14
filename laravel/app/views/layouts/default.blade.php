@@ -33,9 +33,9 @@
                 <ul class="list-inline nav-links">
                     <li><a href="{{ route('home') }}">{{ trans('common.homepage') }}</a></li>
                 @if (Confide::user())
-                    <li><a href="{{ route('dashboard.index') }}">{{ trans('common.control_panel') }}</a></li>
-                    <li><a href="">{{ trans('common.my_account') }}</a></li>
-                    <li><a href="">{{ trans('common.help') }}</a></li>
+                    <li><a href="{{ route('dashboard.index') }}">{{ trans('common.dashboard') }}</a></li>
+                    <li><a href="{{ route('user.profile') }}">{{ trans('common.my_account') }}</a></li>
+                    {{-- <li><a href="">{{ trans('common.help') }}</a></li> --}}
                     <li><a href="{{ route('auth.logout') }}">{{ trans('common.sign_out') }}</a></li>
                 @else
                     <li><a href="{{ route('auth.register') }}">{{ trans('common.register') }}</a></li>

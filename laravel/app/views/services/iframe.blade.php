@@ -1,7 +1,7 @@
 @extends ('layouts.default')
 
 @section ('title')
-    {{ trans('dashboard.control_panel') }} :: @parent
+    @parent :: {{ trans('common.dashboard') }}
 @stop
 
 {{-- Don't show the footer --}}

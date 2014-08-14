@@ -9,7 +9,7 @@ return [
     'tagline'           => '',
     'homepage'          => 'Etusivu',
     'home'              => 'Etusivu',
-    'control_panel'     => 'Hallintapaneeli',
+    'dashboard'         => 'Hallintapaneeli',
     'my_account'        => 'Omat Tiedot',
     'help'              => 'Apua',
     'sign_out'          => 'Kirjaudu Ulos',

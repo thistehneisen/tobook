@@ -9,7 +9,7 @@ return [
     'tagline'           => '',
     'homepage'          => 'Home page',
     'home'              => 'Home',
-    'control_panel'     => 'Dashboard',
+    'dashboard'         => 'Dashboard',
     'my_account'        => 'My account',
     'help'              => 'Help',
     'sign_out'          => 'Sign out',
