@@ -205,6 +205,9 @@ class Auth extends Base
     {
         Confide::logout();
 
+        // Destroy native session also
+        @session_destroy();
+
         return Redirect::route('home');
     }
 
