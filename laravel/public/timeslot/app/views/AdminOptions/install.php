@@ -26,15 +26,15 @@ if (isset($tpl['status']))
 
 					<p><span class="bold block b10"><?php echo $TS_LANG['o_install']['js'][1]; ?></span>
 					<textarea class="textarea textarea-install w600 h150 overflow">
-&lt;link href="<?php echo INSTALL_FOLDER; ?>index.php?controller=Front&amp;action=css&amp;cid=<?php echo $controller->getCalendarId(); ?>" type="text/css" rel="stylesheet" /&gt;
-&lt;link href="<?php echo INSTALL_FOLDER . CSS_PATH; ?>calendar.css" type="text/css" rel="stylesheet" /&gt;
-&lt;script type="text/javascript" src="<?php echo INSTALL_FOLDER . JS_PATH; ?>jabb-0.2.js"&gt;&lt;/script&gt;
-&lt;script type="text/javascript" src="<?php echo INSTALL_FOLDER . JS_PATH; ?>tsbc.js"&gt;&lt;/script&gt;
+&lt;link href="<?php echo BASE_PATH; ?>index.php?controller=Front&amp;action=css&amp;cid=<?php echo $controller->getCalendarId(); ?>" type="text/css" rel="stylesheet" /&gt;
+&lt;link href="<?php echo BASE_PATH . CSS_PATH; ?>calendar.css" type="text/css" rel="stylesheet" /&gt;
+&lt;script type="text/javascript" src="<?php echo BASE_PATH . JS_PATH; ?>jabb-0.2.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="<?php echo BASE_PATH . JS_PATH; ?>tsbc.js"&gt;&lt;/script&gt;
 </textarea></p>
 
 					<p><span class="bold block b10"><?php echo $TS_LANG['o_install']['js'][2]; ?></span>
 					<textarea class="textarea textarea-install w600 h80 overflow">
-&lt;script type="text/javascript" src="<?php echo INSTALL_FOLDER; ?>index.php?controller=Front&amp;action=load&amp;cid=<?php echo $controller->getCalendarId(); ?>"&gt;&lt;/script&gt;</textarea></p>
+&lt;script type="text/javascript" src="<?php echo BASE_PATH; ?>index.php?controller=Front&amp;action=load&amp;cid=<?php echo $controller->getCalendarId(); ?>"&gt;&lt;/script&gt;</textarea></p>
 
 			</form>
 		</div> <!-- tabs-1 -->

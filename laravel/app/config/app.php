@@ -124,6 +124,7 @@ return array(
         // Addon providers
         'Zizaco\Confide\ConfideServiceProvider',
         'Zizaco\Entrust\EntrustServiceProvider',
+        'Ludo237\Hashids\HashidsServiceProvider'
 
 	),
 
@@ -192,8 +193,9 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
         // Addon facades
-        'Confide'    => 'Zizaco\Confide\ConfideFacade',
-        'Entrust'    => 'Zizaco\Entrust\EntrustFacade',
+        'Confide' => 'Zizaco\Confide\ConfideFacade',
+        'Entrust' => 'Zizaco\Entrust\EntrustFacade',
+        'Hashids' => 'Ludo237\Hashids\Hashids'
 
 	),
 
