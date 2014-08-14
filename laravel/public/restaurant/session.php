@@ -1,7 +1,7 @@
 <?php
 
 @session_start();
-require_once realpath(__DIR__.'/../../../Bridge.php');
+require_once realpath(__DIR__.'/../../Bridge.php');
 $varaaDb = Bridge::dbConfig();
 
 $owner_id = intval($_SESSION['owner_id']);

@@ -1,5 +1,5 @@
 <?php
-require_once realpath(__DIR__.'/../../../../../Bridge.php');
+require_once realpath(__DIR__.'/../../../../Bridge.php');
 $varaaDb = Bridge::dbConfig();
 
 require_once(ROOT_PATH . 'app/controllers/components/pjUtil.component.php');
@@ -7,78 +7,76 @@ require_once(ROOT_PATH . 'app/controllers/components/pjUtil.component.php');
 $stop = false;
 if (isset($_GET['controller']) && $_GET['controller'] == 'pjInstaller')
 {
-	$stop = true;
-	if (isset($_GET['install']))
-	{
-		switch ($_GET['install'])
-		{
-			case 1:
-				$stop = true;
-				break;
-			default:
-				$stop = false;
-				break;
-		}
-	}
+    $stop = true;
+    if (isset($_GET['install']))
+    {
+        switch ($_GET['install'])
+        {
+            case 1:
+                $stop = true;
+                break;
+            default:
+                $stop = false;
+                break;
+        }
+    }
 }
 
 if (!$stop)
 {
-	if (isset($_SERVER['SERVER_ADDR']) && $_SERVER['SERVER_ADDR'] == '127.0.0.1')
-	{
-		# LOCAL
-		define("DEFAULT_HOST",   $varaaDb['host']);
-		define("DEFAULT_USER",   $varaaDb['username']);
-		define("DEFAULT_PASS",   $varaaDb['password']);
-		define("DEFAULT_DB",     $varaaDb['database']);
-		
-		if (defined('PREFIX') && PREFIX) {
-			define("DEFAULT_PREFIX", PREFIX);
-		} else define("DEFAULT_PREFIX", "rb_");
-		
-	} else {
-		# REMOTE
+    if (isset($_SERVER['SERVER_ADDR']) && $_SERVER['SERVER_ADDR'] == '127.0.0.1')
+    {
+        # LOCAL
         define("DEFAULT_HOST",   $varaaDb['host']);
         define("DEFAULT_USER",   $varaaDb['username']);
         define("DEFAULT_PASS",   $varaaDb['password']);
         define("DEFAULT_DB",     $varaaDb['database']);
-		
+        
+        if (defined('PREFIX') && PREFIX) {
+            define("DEFAULT_PREFIX", PREFIX);
+        } else define("DEFAULT_PREFIX", "rb_");
+        
+    } else {
+        # REMOTE
+        define("DEFAULT_HOST",   $varaaDb['host']);
+        define("DEFAULT_USER",   $varaaDb['username']);
+        define("DEFAULT_PASS",   $varaaDb['password']);
+        define("DEFAULT_DB",     $varaaDb['database']);
+        
         if (defined('PREFIX') && PREFIX) {
             define("DEFAULT_PREFIX", PREFIX);
         } else {
             define("DEFAULT_PREFIX", "rb_");
         }
     }
-	if (preg_match('/\[hostname\]/', DEFAULT_HOST))
-	{
-		pjUtil::redirect("index.php?controller=pjInstaller&action=step0&install=1");
-	}
+    if (preg_match('/\[hostname\]/', DEFAULT_HOST))
+    {
+        pjUtil::redirect("index.php?controller=pjInstaller&action=step0&install=1");
+    }
 
-	$link = @mysql_connect(DEFAULT_HOST, DEFAULT_USER, DEFAULT_PASS);
-	if (!$link) {
-	    die('Could not connect: ' . mysql_error());
-	}
-	
-	# mysql_query("SET SESSION time_zone = '-0:00';");
-	mysql_query("SET NAMES 'utf8'", $link);
-	
-	$db_selected = mysql_select_db(DEFAULT_DB, $link);
-	if (!$db_selected) {
-	    die ('Can\'t select database: ' . mysql_error());
-	}
-	
-	if (isset($_SERVER['SERVER_ADDR']) && $_SERVER['SERVER_ADDR'] == '127.0.0.1')
-	{
-		if (!defined("INSTALL_FOLDER")) define("INSTALL_FOLDER", './');
-		if (!defined("INSTALL_PATH")) define("INSTALL_PATH", realpath(__DIR__.'/../../'));
-		if (!defined("INSTALL_URL")) define("INSTALL_URL", "./");
-	} else {
-		// if (!defined("INSTALL_FOLDER")) define("INSTALL_FOLDER", "/wp-content/plugins/RestaurantBooking-1-6-14/library/");
-		// if (!defined("INSTALL_PATH")) define("INSTALL_PATH", "/home/duongmau88/public_html/wp-content/plugins/RestaurantBooking-1-6-14/library/");
+    $link = @mysql_connect(DEFAULT_HOST, DEFAULT_USER, DEFAULT_PASS);
+    if (!$link) {
+        die('Could not connect: ' . mysql_error());
+    }
+    
+    # mysql_query("SET SESSION time_zone = '-0:00';");
+    mysql_query("SET NAMES 'utf8'", $link);
+    
+    $db_selected = mysql_select_db(DEFAULT_DB, $link);
+    if (!$db_selected) {
+        die ('Can\'t select database: ' . mysql_error());
+    }
+    
+    if (isset($_SERVER['SERVER_ADDR']) && $_SERVER['SERVER_ADDR'] == '127.0.0.1')
+    {
+        if (!defined("INSTALL_FOLDER")) define("INSTALL_FOLDER", './');
+        if (!defined("INSTALL_PATH")) define("INSTALL_PATH", realpath(__DIR__.'/../../'));
+        if (!defined("INSTALL_URL")) define("INSTALL_URL", "./");
+    } else {
         if (!defined("INSTALL_FOLDER")) define("INSTALL_FOLDER", './');
         if (!defined("INSTALL_PATH")) define("INSTALL_PATH", realpath(__DIR__.'/../../'));   // 
-		if (!defined("INSTALL_URL")) define("INSTALL_URL", "$_SERVER[REQUEST_SCHEME]://$_SERVER[HTTP_HOST]/resbooking/library/");
-	}
+        if (!defined("INSTALL_URL")) define("INSTALL_URL", "$_SERVER[REQUEST_SCHEME]://$_SERVER[HTTP_HOST]/restaraunt/");
+    }
 }
 
 if (!defined("APP_PATH")) define("APP_PATH", ROOT_PATH . "app/");

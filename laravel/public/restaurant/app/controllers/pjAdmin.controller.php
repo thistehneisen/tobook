@@ -5,7 +5,7 @@ if (!defined("ROOT_PATH"))
 	exit;
 }
 require_once CONTROLLERS_PATH . 'pjAppController.controller.php';
-require_once realpath(__DIR__.'/../../../../../Bridge.php');
+require_once realpath(__DIR__.'/../../../../Bridge.php');
 
 use Hashids\Hashids;
 class pjAdmin extends pjAppController
