@@ -41,4 +41,25 @@ class Services extends Base
             'url' => URL::to($uri.http_build_query($params))
         ]);
     }
+
+    /**
+     * Redirect user to Restaurant Booking module
+     *
+     * @return View
+     */
+    public function restaurant()
+    {
+        $params = [
+            'username' => Confide::user()->username,
+            'owner_id' => Confide::user()->id
+        ];
+        $uri = (Confide::user()->isRestaurantBookingInstalled())
+            ? 'resbooking/library/session.php?'
+            : 'resbooking/install.php?';
+
+        //return Redirect::to($uri.http_build_query($params));
+        return View::make('services.iframe', [
+            'url' => URL::to($uri.http_build_query($params))
+        ]);
+    }
 }
