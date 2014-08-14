@@ -11,3 +11,4 @@
 |
 */
 Artisan::add(new App\Commands\MoveUsersCommand);
+Artisan::add(new App\Commands\FixSchemaCommand);
