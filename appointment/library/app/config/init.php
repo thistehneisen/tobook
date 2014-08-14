@@ -81,4 +81,14 @@ INSERT INTO `as_options` (`owner_id`,`foreign_id`, `key`, `tab_id`, `value`, `la
 (%1\$d, @calendar_id, 'o_week_numbers', 1, '1|0::1', NULL, 'bool', 19, 1, NULL),
 (%1\$d, @calendar_id, 'o_week_start', 1, '0|1|2|3|4|5|6::1', 'Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday', 'enum', 9, 1, NULL),
 (%1\$d, @calendar_id, 'private_key', 99, 'R9/Oloz+U9YjLmSfenqcRiISDlI09LDR1WViqtYe/vxshtThVDXLQFxA2U5mIkYd3vy42wtW1j6C33ndue/jpSe3DeV8NPZxVIS4B87R3cCCY7L1bGrLQL5P49l4FBfJzlncUYoE9dCq7h1EPZTjV7HS9mSvfiPnvdyXt0mE2PerPdl+LNFtmeefHkHpJei6FvELm01Cep3bVP5lq/fmTimq+gmj3SB92LbPdFQpYmAFn1+dTTOqb97zOpuMeqcf9J4+/vRwemasu1lx4nmeCH+h8j/f4FBdNZZbbJ7g7dmHF949qPpqE24kCP/YU3KgxDAhiy1m79qrqpnQE3Ey1A==', NULL, 'string', NULL, 1, 'string');
+
+INSERT INTO `as_multi_lang` (`id`, `foreign_id`, `model`, `locale`, `field`, `content`, `source`, `owner_id`) VALUES
+(NULL, 1, 'pjCalendar', 1, 'confirm_subject_client', 'Kiitos varauksestasi', 'data', %1\$d),
+(NULL, 1, 'pjCalendar', 1, 'confirm_tokens_client', 'Hei!\r\n\r\nKiitos varauksestasi!\r\n\r\nValitut palvelut: \r\n{Services}\r\n\r\n**Mikali peruutat varauksen se tulee tehda 48 tuntia ennen varattua aikaa.\r\n\r\nTervetuloa!\r\n\r\n\r\n\r\nPalvelun tarjoaa varaa.com', 'data', %1\$d),
+(NULL, 1, 'pjCalendar', 1, 'confirm_subject_admin', 'Uusi varaus on saapunut', 'data', %1\$d),
+(NULL, 1, 'pjCalendar', 1, 'confirm_tokens_admin', 'Hei!\r\n\r\nOlet saanut uuden varauksen\r\n\r\nID: {BookingID}\r\n\r\nPalvelut\r\n{Services}\r\n\r\nAsiakkaan tiedot\r\nNimi: {Name}\r\nPuhelin: {Phone}\r\n\Email: {Email}\r\n\r\nLisatiedot:\r\n{Notes}', 'data', %1\$d),
+(NULL, 1, 'pjCalendar', 1, 'confirm_subject_employee', 'Uusi varaus on saapunut', 'data', %1\$d),
+(NULL, 1, 'pjCalendar', 1, 'confirm_tokens_employee', 'Hei!\r\n\r\nOlet saanut uuden varauksen\r\n\r\nID: {BookingID}\r\n\r\nPalvelut\r\n{Services}\r\n\r\nAsiakkaan tiedot\r\nNimi: {Name}\r\nPuhelin: {Phone}\r\n\Email: {Email}\r\n\r\nLisatiedot:\r\n{Notes}', 'data', %1\$d),
+(NULL, 1, 'pjCalendar', 1, 'payment_subject_employee', 'New payment received', 'data', %1\$d),
+(NULL, 1, 'pjCalendar', 1, 'payment_tokens_employee', 'Booking deposit has been paid.\r\n\r\nID: {BookingID}', 'data', %1\$d);
 SQL;
