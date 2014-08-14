@@ -87,8 +87,8 @@ class pjMultiLangModel extends pjAppModel
 	public function getMultiLang($foreign_id, $model)
 	{
 		$arr = array();
-        
-        if($model=='pjService'){
+
+        if($model!='pjCalendar'){
             $_arr = $this->where('foreign_id', $foreign_id)->where('model', $model)->findAll()->getData();
         } else {
             $_arr = $this->where('model', $model)->findAll()->getData();  
