@@ -1,7 +1,7 @@
 <?php
 return [
     'customer_websites'     => 'Customer homepages',
-    'description'           => 'Tyylikkäät ensiostokseen kannustavat kotisivut!',
+    'description'           => 'Create a stunning looking responsive websites!',
     'copyright_policy'      => 'Copyright Policy',
     'copyright'             => 'Copyright',
     'newsletter'            => 'Newsletter',
