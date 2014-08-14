@@ -93,4 +93,21 @@ class User extends ConfideUser
 
         return (bool) $user;
     }
+
+    /**
+     * Check if this user has been install Restaurant Booking module
+     *
+     * @return boolean 
+     */
+    public function isRestaurantBookingInstalled()
+    {
+        $oldPrefix = DB::getTablePrefix();
+        DB::setTablePrefix('rb_');
+
+        $user = DB::table('users')->where('owner_id', '=', $this->id)->first();
+
+        DB::setTablePrefix($oldPrefix);
+
+        return (bool) $user;
+    }
 }

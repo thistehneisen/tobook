@@ -14,7 +14,7 @@ class Dashboard extends Base
             'profile'     => route('user.profile'),
             'promotion'   => '',
             'cashier'     => route('cashier.index'),
-            'restaurant'  => '',
+            'restaurant'  => route('restaurant.index'),
             'timeslot'    => route('timeslot.index'),
             'appointment' => '',
             'loyalty'     => '',

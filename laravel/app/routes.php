@@ -109,6 +109,11 @@ Route::group([
             'uses' => 'App\Controllers\Services@cashier'
         ]);
 
+        Route::get('restaurant-booking', [
+            'as' => 'restaurant.index',
+            'uses' => 'App\Controllers\Services@restaurant'
+        ]);
+
         Route::get('timeslot', [
             'as' => 'timeslot.index',
             'uses' => 'App\Controllers\Services@timeslot'
