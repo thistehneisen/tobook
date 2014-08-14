@@ -577,7 +577,7 @@ class pjAdminServices extends pjAdmin
         
         if ($this->isAdmin())
         {
-            $owner_id = intval($_SESSION['owner_id']);
+            $owner_id = $this->getOwnerId();
             if (isset($_POST['service_update']) && isset($_POST['id']) && (int) $_POST['id'] > 0)
             {
                 pjServiceModel::factory()->set('id', $_POST['id'])->modify($_POST);
@@ -598,7 +598,7 @@ class pjAdminServices extends pjAdmin
                     $pjEmployeeServiceModel->insertBatch();
                     
                     $es_arr = $pjEmployeeServiceModel
-                            ->where('t1.service_id', $_POST['id'])
+                            ->where('t1.service_id', intval($_POST['id']))
                             ->findAll()
                             ->getData();
                     
@@ -640,14 +640,14 @@ class pjAdminServices extends pjAdmin
                 pjUtil::redirect(PJ_INSTALL_URL . "index.php?controller=pjAdminServices&action=pjActionIndex&err=AS01");
                 
             } else {
-                $arr = pjServiceModel::factory()->find($_GET['id'])->getData();
+                $arr = pjServiceModel::factory()->find((int)$_GET['id'])->getData();
                 if (empty($arr))
                 {
                     pjUtil::redirect(PJ_INSTALL_URL. "index.php?controller=pjAdminServices&action=pjActionIndex&err=AS08");
                 }
                 $arr['i18n'] = pjMultiLangModel::factory()->getMultiLang($arr['id'], 'pjService');
                 $this->set('arr', $arr);
-
+                
                 pjObject::import('Model', array('pjLocale:pjLocale', 'pjLocale:pjLocaleLanguage'));
                 //remove join from pjLocaleLanguage to avoid repeated fields
                 $locale_arr = pjLocaleModel::factory()->select('t1.*')
