@@ -12,3 +12,4 @@
 */
 Artisan::add(new App\Commands\MoveUsersCommand);
 Artisan::add(new App\Commands\FixSchemaCommand);
+Artisan::add(new App\Commands\InstallCommand);
