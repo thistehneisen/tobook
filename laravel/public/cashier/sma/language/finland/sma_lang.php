@@ -724,3 +724,7 @@ $lang['create_user']      = "Luo käyttäjä";
 $lang['login_page']      = "Kirjautumissivu";
 $lang['thankyou1']      = " Kiitos kun käytät Varaa.com:in Omakassaa!";
 $lang['thankyou2']      = "Mikäli sinulla on kysymyksiä ota yhteyttä asiakaspalveluumme";
+
+$lang['warning'] = 'WARNING';
+$lang['change_password_immediately'] = 'Please change your password <strong>IMMEDIATELY!</strong>';
+$lang['generated_password'] = 'Your generated password is <code>%s</code>';

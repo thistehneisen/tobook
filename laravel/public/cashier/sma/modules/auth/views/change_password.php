@@ -7,9 +7,9 @@
 
 <?php if ($this->session->userdata('temp_password')) : ?>
 <div class="alert alert-warning">
-	<strong>WARNING!</strong>
-	<p>Please change your password <strong>IMMEDIATELY!</strong></p>
-	<p>Your generated password is <code><?php echo $this->session->userdata('temp_password')  ?></code></p>
+	<strong><?php echo $this->lang->line('warning') ?></strong>
+	<p><?php echo $this->lang->line('change_password_immediately') ?></p>
+	<p><?php echo sprintf($this->lang->line('generated_password'), $this->session->userdata('temp_password')) ?></p>
 </div>
 <?php endif; ?>
 
