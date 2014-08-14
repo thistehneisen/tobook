@@ -885,6 +885,7 @@ class pjFrontEnd extends pjFront
 			;
 		}
 		$tokens = pjAppController::getTokens($booking_arr, $option_arr, 'multi');
+        $admin_email = 'noreply@varaa.com';
 
 		switch ($type)
 		{
@@ -899,7 +900,7 @@ class pjFrontEnd extends pjFront
 					$Email
                         ->setCharset('utf-8')
 						->setTo($booking_arr['c_email'])
-						->setFrom($booking_arr['admin_email'])
+						->setFrom($admin_email)
 						->setSubject($subject)
 						->send($message);
 				}
@@ -912,7 +913,7 @@ class pjFrontEnd extends pjFront
 					$Email
                         ->setCharset('utf-8')
 						->setTo($booking_arr['admin_email'])
-						->setFrom($booking_arr['admin_email'])
+						->setFrom($admin_email)
 						->setSubject($subject)
 						->send($message);
 				}
@@ -930,11 +931,15 @@ class pjFrontEnd extends pjFront
 							$Email
                                 ->setCharset('utf-8')
 								->setTo($item['employee_email'])
-								->setFrom($booking_arr['admin_email'])
+								->setFrom($admin_email)
 								->setSubject($subject)
 								->send($message);
 						}
 					}
+
+                    if((int) $item['is_subscribed_sms'] === 1 && !empty($item['employee_phone'])){
+                        //TODO send sms to employee
+                    }
 				}
 				break;
 			case 'payment':
@@ -947,7 +952,7 @@ class pjFrontEnd extends pjFront
 					$Email
                         ->setCharset('utf-8')
 						->setTo($booking_arr['c_email'])
-						->setFrom($booking_arr['admin_email'])
+						->setFrom($admin_email)
 						->setSubject($subject)
 						->send($message);
 				}
@@ -960,7 +965,7 @@ class pjFrontEnd extends pjFront
 					$Email
                         ->setCharset('utf-8')
 						->setTo($booking_arr['admin_email'])
-						->setFrom($booking_arr['admin_email'])
+						->setFrom($admin_email)
 						->setSubject($subject)
 						->send($message);
 				}
@@ -978,7 +983,7 @@ class pjFrontEnd extends pjFront
 							$Email
                                 ->setCharset('utf-8')
 								->setTo($item['employee_email'])
-								->setFrom($booking_arr['admin_email'])
+								->setFrom($admin_email)
 								->setSubject($subject)
 								->send($message);
 						}
@@ -1006,7 +1011,6 @@ class pjFrontEnd extends pjFront
 			$phone = isset($option_arr['o_reminder_sms_country_code']) ? $option_arr['o_reminder_sms_country_code'] . $phone : $phone;
 			
 			$send_address = isset($option_arr['o_reminder_sms_send_address']) ? $option_arr['o_reminder_sms_send_address'] : $phone;
-			
 			$sendsms = new pjSMSV;
 			# Send to CLIENT
 			$sendsms->sendSMS($send_address, $phone, $message);
