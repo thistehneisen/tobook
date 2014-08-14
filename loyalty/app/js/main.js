@@ -180,6 +180,18 @@ $(document).ready(function () {
                     strHTML += '</tr>';
                 }
                 $("table#tblDataList").find("tbody").html(strHTML);
+                $('#tblDataList').dataTable({
+                    "sDom" : "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
+                    // "sPaginationType": "bootstrap",
+                    "aaSorting" : [],
+                    "oLanguage" : {
+                        "sLengthMenu" : "_MENU_ records per page"
+                    },
+                    "aoColumnDefs" : [ {
+                        "bSortable" : false,
+                        "aTargets" : [ 0 ]
+                    } ]
+                });                
             } else {
                 alert(data.msg);
             }

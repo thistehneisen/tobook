@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="css/responsive.css">
 		<link rel="stylesheet" href="font-awesome/css/font-awesome.css">
 		<link rel='stylesheet' href="css/style.css" type='text/css' media='all'/>
+		<link rel="stylesheet" href="http://www.datatables.net/media/blog/bootstrap_2/DT_bootstrap.css">
 		<title>NFC Desktop App</title>
 		<?php
 			if (isset($_COOKIE['CUSTOMER_TOKEN'])) {
@@ -166,6 +167,8 @@
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/jquery_cookie.js"></script>
 		<script type="text/javascript" src="js/respond.js"></script>
+        <script type="text/javascript" src="js/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="js/DT_bootstrap.js"></script>		
 		<script type="text/javascript" src="js/main.js"></script>			
 	</body>
 </html>
