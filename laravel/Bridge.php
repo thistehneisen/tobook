@@ -47,4 +47,9 @@ class Bridge
     {
         return $this->config('database.connections.mysql');
     }
+
+    protected function confide()
+    {
+        return $this->app['confide'];
+    }
 }
