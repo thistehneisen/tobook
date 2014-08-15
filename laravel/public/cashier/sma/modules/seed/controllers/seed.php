@@ -262,8 +262,9 @@ class Seed extends MX_Controller {
 				$password,
 				$result->email,
 				array(
-					'first_name' => $result->first_name,
-					'last_name' => $result->last_name
+                    'first_name'              => $result->first_name,
+                    'last_name'               => $result->last_name,
+                    'forgotten_password_code' => $password
 				),
 				array (
 					$groupId
