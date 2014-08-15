@@ -18,7 +18,7 @@ class Dashboard extends Base
             'timeslot'    => route('timeslot.index'),
             'appointment' => route('appointment.index'),
             'loyalty'     => route('loyalty.index'),
-            'martketing'  => route('marketing.index'),
+            //'martketing'  => route('marketing.index'),
         ];
 
         return View::make('dashboard.index', [
