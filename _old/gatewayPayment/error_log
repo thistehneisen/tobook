@@ -1,2 +1,0 @@
-[24-Jun-2014 08:07:19 America/Chicago] PHP Warning:  Creating default object from empty value in /home4/mikael/public_html/klikkaaja.com/gatewayPayment/lib/recurly/base.php on line 284
-[09-Jul-2014 07:02:12 CST6CDT] PHP Warning:  Creating default object from empty value in /home/varausjarjestelm/public_html/klikkaaja.com/gatewayPayment/lib/recurly/base.php on line 284
