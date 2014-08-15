@@ -25,11 +25,26 @@ class Users extends Crud
 
             $item->updateUniques();
         } catch (\Exception $ex) {
-            return Redirect::back()->withInput()
+            return Redirect::back()
+                ->withInput()
                 ->withErrors($this->errorMessageBag($ex->getMessage()), 'top');
         }
 
         return Redirect::route('admin.crud.index', ['model' => $type]);
     }
 
+    /**
+     * Login as a user
+     *
+     * @param  int $id 
+     *
+     * @return Redirect
+     */
+    public function stealSession($id)
+    {
+        \Session::set('stealthSession', \Confide::user()->id);
+
+        \Auth::loginUsingId($id);
+        return Redirect::route('home');
+    }
 }

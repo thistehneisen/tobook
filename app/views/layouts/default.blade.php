@@ -28,14 +28,21 @@
         @section('nav')
         <nav class="text-right">
             @if (Confide::user())
-            <p class="welcome-text">{{ trans('common.welcome') }}, <strong>{{ Confide::user()->username }}</strong>!</p>
+                <p class="welcome-text">
+                @if (Session::get('stealthSession') !== null)
+                You're now login as <strong>{{ Confide::user()->username }}</strong>
+                @else
+                {{ trans('common.welcome') }}, <strong>{{ Confide::user()->username }}</strong>!
+                @endif
+                </p>
             @endif
+
             <ul class="list-inline nav-links">
                 <li><a href="{{ route('home') }}">{{ trans('common.homepage') }}</a></li>
                 @if (Confide::user())
                 <li><a href="{{ route('dashboard.index') }}">{{ trans('common.dashboard') }}</a></li>
                 <li><a href="{{ route('user.profile') }}">{{ trans('common.my_account') }}</a></li>
-                @if (Entrust::hasRole('Admin'))
+                @if (Entrust::hasRole('Admin') || Session::get('stealthSession') !== null)
                 <li><a href="{{ route('admin.index') }}">{{ trans('common.admin') }}</a></li>
                 @endif
                 {{-- <li><a href="">{{ trans('common.help') }}</a></li> --}}

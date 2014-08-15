@@ -22,7 +22,7 @@ class Crud extends Base
         
         return $this->render('crud.index', [
             'model' => $this->model,
-            'items' => $items
+            'items' => $items,
         ]);
     }
 

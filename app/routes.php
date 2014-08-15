@@ -162,6 +162,11 @@ Route::group([
         'uses' => 'App\Controllers\Admin\Users@doEdit'
     ]);
 
+    Route::get('users/login/{id}', [
+        'as' => 'admin.users.login',
+        'uses' => 'App\Controllers\Admin\Users@stealSession'
+    ]);
+
     Route::get('{model}', [
         'as' => 'admin.crud.index',
         'uses' => 'App\Controllers\Admin\Crud@index'
