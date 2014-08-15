@@ -27,7 +27,6 @@ class InstallCommand extends Command
      */
     public function fire()
     {
-        if (!file_exists(app_path().''))
         $this->comment('Generate local configurations');
         $this->call('varaa:generate-configs');
         $this->comment('Running migrations');
