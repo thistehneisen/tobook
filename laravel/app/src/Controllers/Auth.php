@@ -203,10 +203,11 @@ class Auth extends Base
      */
     public function logout()
     {
-        Confide::logout();
+        // Destroy native session
+        @session_start();
+        @session_unset();
 
-        // Destroy native session also
-        @session_destroy();
+        Confide::logout();
 
         return Redirect::route('home');
     }

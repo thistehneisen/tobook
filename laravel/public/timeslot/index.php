@@ -7,7 +7,6 @@ if( !isset($_COOKIE['tsbc_admin']) ){
 }
 if (!headers_sent())
 {
-	session_name('TSBookingCalendar');
 	@session_start();
 }
 if (in_array($_SERVER['SERVER_ADDR'], array('127.0.0.1', '192.185.5.15', '::1')) || true)
@@ -22,6 +21,12 @@ if (!defined("ROOT_PATH"))
 {
 	define("ROOT_PATH", dirname(__FILE__) . '/');
 }
+
+if (!isset($_SESSION['session_loginname'])) {
+    $scheme = ($_SERVER['HTTPS']) ? 'https' : 'http';
+    header("Location: {$scheme}://{$_SERVER['HTTP_HOST']}");
+}
+
 $userPrefix = $_SESSION['session_loginname'];
 require_once ROOT_PATH . 'app/config/config.inc.php';
 require ROOT_PATH . 'oneapi.php';
