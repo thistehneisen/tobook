@@ -35,7 +35,7 @@
 */
 
 require_once realpath(__DIR__ . '/../../../../Bridge.php');
-$varaaDb = Bridge::config('database.connections.mysql');
+$varaaDb = Bridge::dbConfig();
 
 // The following values will probably need to be changed.
 $db['default']['username'] = $varaaDb['username'];

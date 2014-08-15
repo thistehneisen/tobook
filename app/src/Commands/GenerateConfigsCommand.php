@@ -1,5 +1,6 @@
 <?php namespace App\Commands;
 
+use Config;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -20,39 +21,42 @@ class GenerateConfigsCommand extends Command
      */
     protected $description = 'Generate local configurations';
 
+    /**
+     * Generate AS local config
+     */
     protected function generateApppointmentSchedulerConfig()
     {
-        //define("ROOT_PATH", realpath(__DIR__.'/../appointment/'));
-        require public_path().'/appointment/core/framework/components/pjToolkit.component.php';
-        require public_path().'/appointment/app/config/options.inc.php';
-        //$config = require realpath(__DIR__.'/../config.php');
+        define('ROOT_PATH', 'Banana?');
+        require_once public_path().'/appointment/core/framework/components/pjToolkit.component.php';
 
-        $domain = $input->getArgument('domain');
-
-        $installFolder = '/appointment/';
+        $domain = $this->ask('What is your local domain name?');
         $installPath =  public_path().'/appointment/';
+        $installFolder = '/appointment/';
         $installUrl = 'http://' . $domain . $installFolder;
         $licenseKey = 'a6bf7b1eb56f9b7a0a0a9ed4acaca1a4';
+        $rsaModulo = '1481520313354086969195005236818182195268088406845365735502215319550493699869327120616729967038217547';
+        $rsaPrivate = '7';
         $sample = $installPath . '/app/config/config.sample.php';
         $filename = $installPath . '/app/config/config.inc.php';
         $folder = $installPath . '/app/config/';
 
         if (!file_exists($filename)) {
+            $varaaDb = Config::get('database.connections.mysql');
             $string = file_get_contents($sample);
-            $string = str_replace('[hostname]', $config['db']['host'], $string);
-            $string = str_replace('[username]', $config['db']['user'], $string);
-            $string = str_replace('[password]', $config['db']['password'], $string);
-            $string = str_replace('[database]', $config['db']['name'], $string);
+            $string = str_replace('[hostname]', $varaaDb['host'], $string);
+            $string = str_replace('[username]', $varaaDb['username'], $string);
+            $string = str_replace('[password]', $varaaDb['password'], $string);
+            $string = str_replace('[database]', $varaaDb['database'], $string);
 
             $string = str_replace('[install_folder]', $installFolder, $string);
             $string = str_replace('[install_path]', $installPath, $string);
             $string = str_replace('[install_url]', $installUrl, $string);
             $string = str_replace('[salt]', \pjToolkit::getRandomPassword(8), $string);
             
-            $response = file_get_contents(base64_decode("aHR0cDovL3N1cHBvcnQuc3RpdmFzb2Z0LmNvbS8=") . 'index.php?controller=Api&action=getInstall'.
+            $response = file_get_contents('http://support.stivasoft.com/index.php?controller=Api&action=getInstall'.
                 "&key=" . urlencode($licenseKey) .
-                "&modulo=". urlencode(PJ_RSA_MODULO) .
-                "&private=" . urlencode(PJ_RSA_PRIVATE) .
+                "&modulo=". urlencode($rsaModulo) .
+                "&private=" . urlencode($rsaPrivate) .
                 "&server_name=" . urlencode($domain));
 
             $output = unserialize($response);
@@ -62,11 +66,11 @@ class GenerateConfigsCommand extends Command
                 if (is_writable($folder)) {
                     if (!$handle = @fopen($filename, 'wb')) {
                         $resp['code'] = 103;
-                        $resp['text'] = "'app/config/config.inc.php' open fails";
+                        $resp['text'] = "'public/appointment/app/config/config.inc.php' open fails";
                     } else {
                         if (fwrite($handle, $string) === FALSE) {
                             $resp['code'] = 102;
-                            $resp['text'] = "An error occurs while writing to 'app/config/config.inc.php'";
+                            $resp['text'] = "An error occurs while writing to 'public/appointment/app/config/config.inc.php'";
                         } else {
                             fclose($handle);
                             $resp['code'] = 200;
@@ -74,19 +78,19 @@ class GenerateConfigsCommand extends Command
                     }
                 } else {
                     $resp['code'] = 101;
-                    $resp['text'] = "Folder '/appointment/library/app/config/' is not writable";
+                    $resp['text'] = "Folder 'public/appointment/app/config/' is not writable";
                 }
             } else {
                 $resp['code'] = 104;
                 $resp['text'] = "Security vulnerability detected";
             }
             
-            printf("Code: %d\n", $resp['code']);
-            if(intval($resp['code']) == 200){
-                printf("Set config succcessfully.\n");
+            $this->info('Code: '.$resp['code']);
+            if (intval($resp['code']) === 200) {
+                $this->info('Set AS config succcessfully.');
             }
-            if(isset($resp['text'])){
-                printf("Messsage: %s", $resp['text']);
+            if (isset($resp['text'])) {
+                $this->info('Messsage: '.$resp['text']);
             }
         }
     }
