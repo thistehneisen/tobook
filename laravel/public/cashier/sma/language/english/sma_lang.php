@@ -769,3 +769,7 @@ $lang['create_user']      = "Create User";
 $lang['login_page']      = "Login Page";
 $lang['thankyou1']      = "Thank you for Varaa.com on Omakasssaa!";
 $lang['thankyou2']      = "This is latest the latest release of Stock Manager Advance.";
+
+$lang['warning'] = 'VAROITUS';
+$lang['change_password_immediately'] = 'Please change your password <strong>IMMEDIATELY!</strong>';
+$lang['generated_password'] = 'Your generated password is <code>%s</code>';
