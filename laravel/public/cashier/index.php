@@ -232,7 +232,7 @@ if (defined('ENVIRONMENT'))
 
 @session_start();
 if (!isset($_SESSION['owner_id'])) {
-    $scheme = ($_SERVER['HTTPS']) ? 'https' : 'http';
+    $scheme = (isset($_SERVER['HTTPS'])) ? 'https' : 'http';
     header("Location: {$scheme}://{$_SERVER['HTTP_HOST']}");
 }
 /*

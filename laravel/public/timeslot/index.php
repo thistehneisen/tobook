@@ -23,7 +23,7 @@ if (!defined("ROOT_PATH"))
 }
 
 if (!isset($_SESSION['session_loginname'])) {
-    $scheme = ($_SERVER['HTTPS']) ? 'https' : 'http';
+    $scheme = (isset($_SERVER['HTTPS'])) ? 'https' : 'http';
     header("Location: {$scheme}://{$_SERVER['HTTP_HOST']}");
 }
 
