@@ -14,6 +14,12 @@ new VHost pointing to `laravel/public` to facilitate development process.
  `https://www.apachefriends.org/index.html`
   or `http://www.easyphp.org/` or vagrant if you are advanced user.
 
+### PHP coding convention
+- PSR-2 `http://www.php-fig.org/psr/psr-2/` for L4 or framework specific
+convention.
+- For Sublime Text 3 user, try [Editor Config](http://editorconfig.org/) 
+(a `.editorconfig` is already included in the repo).
+
 ### Configuration
 The site is using hostname-aware to detect environment. Please set your hostname
 to `dev` or add a new hostname to line 29 of `bootstrap/start.php`.
@@ -38,11 +44,8 @@ return [
 ];
 ```
 
-### PHP coding convention
-- PSR-2 `http://www.php-fig.org/psr/psr-2/` for L4 or framework specific
-convention.
-- For Sublime Text 3 user, try [Editor Config](http://editorconfig.org/) 
-(a `.editorconfig` is already included in the repo).
+### HUOM!
+Database schemas for tables of modules on site were changed, please run `php artisan varaa:fix-schema` (possible to run multiple times).
 
 ### Tests
 - Create test config: `cp app/tests/acceptance.suite.yml.tpl app/tests/acceptance.suite` then modify to match your local config
