@@ -15,7 +15,7 @@ class Services extends Base
         $params = ['prefix' => Confide::user()->username];
 
         // Check if this user has been activated Cashier module
-        $params['module'] = (Confide::user()->isCashierActivated())
+        $params['module'] = (Confide::user()->isServiceActivated('sma_', 'users'))
             ? 'home'
             : 'seed';
 
@@ -32,7 +32,7 @@ class Services extends Base
     public function timeslot()
     {
         $params = ['username' => Confide::user()->username];
-        $uri = (Confide::user()->isTimeSlotActivated())
+        $uri = (Confide::user()->isServiceActivated('ts_', 'calendars'))
             ? 'timeslot/session.php?'
             : 'timeslot/install.php?';
 
@@ -53,9 +53,26 @@ class Services extends Base
             'username' => Confide::user()->username,
             'owner_id' => Confide::user()->id
         ];
-        $uri = (Confide::user()->isRestaurantBookingInstalled())
+        $uri = (Confide::user()->isServiceActivated('rb_', 'users'))
             ? 'restaurant/session.php?'
             : 'restaurant/install.php?';
+
+        return View::make('services.iframe', [
+            'url' => URL::to($uri.http_build_query($params))
+        ]);
+    }
+
+    /**
+     * Redirect user to Appointment Scheduler module
+     *
+     * @return View
+     */
+    public function appointment()
+    {
+        $params = ['username' => Confide::user()->username];
+        $uri = (Confide::user()->isServiceActivated('as_', 'users'))
+            ? 'appointment/index.php?'
+            : 'appointment/install.php?';
 
         return View::make('services.iframe', [
             'url' => URL::to($uri.http_build_query($params))

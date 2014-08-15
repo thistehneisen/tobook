@@ -124,7 +124,10 @@ Route::group([
             'uses' => 'App\Controllers\Services@timeslot'
         ]);
 
-
+        Route::get('appointment-scheduler', [
+            'as' => 'appointment.index',
+            'uses' => 'App\Controllers\Services@appointment'
+        ]);
     });
 
 

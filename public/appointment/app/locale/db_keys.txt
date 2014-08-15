@@ -1,0 +1,888 @@
+addLocale   Bahrain
+addLocale   Add language
+adminForgot Password reminder
+adminLogin  Chad
+adminLogin  Admin Login
+backend Canada
+backend Back-end titles
+booking_add Add booking
+booking_address_1   Address Line 1
+booking_address_2   Address Line 2
+booking_cc_code CC Code
+booking_cc_exp  CC Exp.date
+booking_cc_num  CC Number
+booking_cc_type CC Type
+booking_cc_types_ARRAY_amex AmericanExpress
+booking_cc_types_ARRAY_maestro  Maestro
+booking_cc_types_ARRAY_mastercard   MasterCard
+booking_cc_types_ARRAY_visa Visa
+booking_choose  -- Choose --
+booking_city    City
+booking_country Country
+booking_created Created
+booking_create_invoice  Create Invoice
+booking_customer    Customer details
+booking_date    Date
+booking_delimiter_ARRAY_comma   Comma
+booking_delimiter_ARRAY_semicolon   Semicolon
+booking_delimiter_ARRAY_tab Tab
+booking_delimiter_lbl   Delimiter
+booking_deposit Deposit
+booking_dt  Date/Time
+booking_email   Email
+booking_employee    Employee
+booking_end_time    End time
+booking_export  Export selected
+booking_export_title    Export Bookings
+booking_format_ARRAY_csv    CSV
+booking_format_ARRAY_ical   iCal
+booking_format_ARRAY_xml    XML
+booking_format_lbl  Format
+booking_from    From
+booking_general Booking details
+booking_index   Index
+booking_invoice_details Invoice details
+booking_ip  IP address
+booking_message Message
+booking_na  Not Available
+booking_name    Name
+booking_notes   Notes
+booking_payment_method  Payment method
+booking_phone   Phone
+booking_price   Price
+booking_query   Query
+booking_recalc  Recalculate the price
+booking_reminder_client Send to client
+booking_reminder_employee   Send to employee
+booking_service Service
+booking_services    Services
+booking_service_add + Add service
+booking_service_add_title   Add service
+booking_service_delete_body Are you sure you want to delete selected service from the current booking?
+booking_service_delete_title    Delete confirmation
+booking_service_email_title Send email
+booking_service_employee    Service/Employee
+booking_service_sms_title   Send SMS
+booking_start_time  Start time
+booking_state   State
+booking_status  Status
+booking_statuses_ARRAY_cancelled    Cancelled
+booking_statuses_ARRAY_confirmed    Confirmed
+booking_statuses_ARRAY_pending  Pending
+booking_subject Subject
+booking_tab_client  Client
+booking_tab_details Booking
+booking_tax Tax
+booking_to  To
+booking_total   Total
+booking_update  Update booking
+booking_uuid    Unique ID
+booking_view_title  Booking Service details
+booking_zip Zip
+btnAdd  Curaçao
+btnAdd  Add +
+btnApply    Apply
+btnBack &laquo; Back
+btnBackup   Backup
+btnBook Book
+btnCancel   Cancel
+btnContinue Continue
+btnDelete   Delete
+btnGenerate Generate
+btnLogin    Chile
+btnLogin    Login
+btnReset    Bahamas
+btnReset    Reset
+btnSave Azerbaijan
+btnSave Save
+btnSearch   Burundi
+btnSearch   Search
+btnSend Send
+btnToday    Today
+btnTomorrow Tomorrow
+btnUpdate   Bouvet Island
+btnUpdate   Update
+cancel_confirm  Cancel booking
+cancel_details  Customer Details
+cancel_err_ARRAY_1  Missing, empty or invalid parameters.
+cancel_err_ARRAY_2  Booking with such an ID did not exists.
+cancel_err_ARRAY_3  Security hash did not match.
+cancel_err_ARRAY_4  Booking is already cancelled.
+cancel_err_ARRAY_5  Booking has been cancelled successfully.
+cancel_services Booking Services
+cancel_title    Booking Cancellation
+confirmation_admin_confirmation Admin - booking confirmation email
+confirmation_admin_payment  Admin - payment confirmation email
+confirmation_body   Email body
+confirmation_client_confirmation    Client - booking confirmation email
+confirmation_client_payment Client - payment confirmation email
+confirmation_employee_confirmation  Employee - booking confirmation email
+confirmation_employee_payment   Employee - payment confirmation email
+confirmation_subject    Subject
+co_captcha  Captcha
+co_empty_notice Please go back to your basket.
+co_select_country   Select Country
+co_terms    I agree with terms and conditions
+created Aruba
+created DateTime
+dashboard_filter    Dashboard filter
+days_ARRAY_0    Sunday
+days_ARRAY_1    Monday
+days_ARRAY_2    Tuesday
+days_ARRAY_3    Wednesday
+days_ARRAY_4    Thursday
+days_ARRAY_5    Friday
+days_ARRAY_6    Saturday
+day_names_ARRAY_0   S
+day_names_ARRAY_1   M
+day_names_ARRAY_2   T
+day_names_ARRAY_3   W
+day_names_ARRAY_4   T
+day_names_ARRAY_5   F
+day_names_ARRAY_6   S
+delete_confirmation Are you sure you want to delete selected records?
+delete_selected Delete selected
+email   Angola
+email   Email
+email   Service description
+email   Service 4
+emailForgotBody Dear {Name},Your password: {Password}
+emailForgotSubject  Password reminder
+employee_add    Add employee
+employee_avatar Picture
+employee_avatar_dbody   Are you sure you want to delete this picture?
+employee_avatar_delete  Delete picture
+employee_avatar_dtitle  Delete confirmation
+employee_email  Email
+employee_general    General
+employee_is_subscribed  Send email when new booking is made
+employee_is_subscribed_sms  Send SMS when new booking is made
+employee_last_login Last login
+employee_name   Employee name
+employee_notes  Notes
+employee_password   Password
+employee_phone  Phone
+employee_services   Services
+employee_status Status
+employee_update Update employee
+employee_view_bookings  View bookings
+employee_working_time   Working time
+error_bodies_ARRAY_AA10 Given email address is not associated with any account.
+error_bodies_ARRAY_AA11 For further instructions please check your mailbox.
+error_bodies_ARRAY_AA12 We're sorry, please try again later.
+error_bodies_ARRAY_AA13 All the changes made to your profile have been saved.
+error_bodies_ARRAY_AA14 Sorry, submitted data not validate.
+error_bodies_ARRAY_AA15 Use form below to update your profile settings.
+error_bodies_ARRAY_AB01 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc at ligula non arcu dignissim pretium. Praesent in magna nulla, in porta leo.
+error_bodies_ARRAY_AB02 All backup files have been saved.
+error_bodies_ARRAY_AB03 No option was selected.
+error_bodies_ARRAY_AB04 Backup not performed.
+error_bodies_ARRAY_ABK01    All changes made to the booking has been saved.
+error_bodies_ARRAY_ABK03    The booking has been successfully added.
+error_bodies_ARRAY_ABK04    Sorry, but the booking has not been added.
+error_bodies_ARRAY_ABK08    Sorry, but the booking you're looking for is missing.
+error_bodies_ARRAY_ABK10    Fill in the form below to add a new booking. Under Clients tab you can enter information about the client. 
+error_bodies_ARRAY_ABK11    Use the form below to enter details about your client.
+error_bodies_ARRAY_ABK12    Use form below to update booking details.
+error_bodies_ARRAY_ABK13    Use form below to update client related data.
+error_bodies_ARRAY_ABK14    You need to have at least a service.
+error_bodies_ARRAY_ABK15    You need to create employee and assign service first.
+error_bodies_ARRAY_AD01 Below you can see working schedule for all employees. Using the date selector below to refresh the schedule. Click on Print button to print work timesheet.
+error_bodies_ARRAY_AD02 Selected date is set to "day off". Use the date picker above to choose another date. Please, note that you can change working time under Options page.
+error_bodies_ARRAY_AE01 All the changes made to this employee have been saved.
+error_bodies_ARRAY_AE03 All the changes made to this employee have been saved.
+error_bodies_ARRAY_AE04 We are sorry, but the employee has not been added.
+error_bodies_ARRAY_AE08 Employee your are looking for is missing.
+error_bodies_ARRAY_AE09 Fill in the form below to add a new employee. You can select the service that this employee does. You can also configure it so an email and/or sms notification is sent to the employee when a booking is made. Each employee can access the Appointment Scheduler and manage his/her bookings only.
+error_bodies_ARRAY_AE10 Use the form below to update employee's details. You can select the service that this employee does. You can also configure it so an email and/or sms notification is sent to the employee when a booking is made. Each employee can access the Appointment Scheduler and manage his/her bookings only.
+error_bodies_ARRAY_AE11 Below you can see a list of employees who do the different service you offer. You can have one or multiple employees.
+error_bodies_ARRAY_ALC01    All the changes made to titles have been saved.
+error_bodies_ARRAY_AO01 All the changes made to options have been saved.
+error_bodies_ARRAY_AO03 All the changes made to booking options have been saved.
+error_bodies_ARRAY_AO04 All the changes made to booking form have been saved.
+error_bodies_ARRAY_AO05 All the changes made to confirmation have been saved.
+error_bodies_ARRAY_AO06 All the changes made to terms have been saved.
+error_bodies_ARRAY_AO07 All the changes made to payment options have been saved.
+error_bodies_ARRAY_AO08 All the changes made to reminder have been saved.
+error_bodies_ARRAY_AO21 Set-up general settings
+error_bodies_ARRAY_AO23 Here you can set some general options about the booking process.
+error_bodies_ARRAY_AO24 Choose the fields that should be available on the booking form.
+error_bodies_ARRAY_AO26 Enter booking terms and conditions. You can also include a link to external web page where your terms and conditions page is.
+error_bodies_ARRAY_AO27 Set different payment options for your Appointment Scheduler software. Enable or disable the available payment processing companies.
+error_bodies_ARRAY_AO30 To better optimize your shopping cart please follow the steps below
+error_bodies_ARRAY_AR01 Using the form below you can generate a report for specific service and date range. You can also generate the results based on number of services each employee did or the total amount paid for these services.
+error_bodies_ARRAY_AR02 Using the form below you can generate a report for specific employee and date range. You can also generate the results based on number of services each employee did or the total amount paid for these services.
+error_bodies_ARRAY_AS01 All the changes made to this service have been saved.
+error_bodies_ARRAY_AS03 All the changes made to this service have been saved.
+error_bodies_ARRAY_AS04 We are sorry, but the service has not been added.
+error_bodies_ARRAY_AS08 Service your are looking for is missing.
+error_bodies_ARRAY_AS09 Fill in the form below to add a new service. You can add title, description, price, length and employees who do this service.
+error_bodies_ARRAY_AS10 Use the form below to modify the service. You can change title, description, price, length and employees who do this service.
+error_bodies_ARRAY_AS11 Below you can see the available services that your clients can book. Under Add service tab you can add a new service. Or use the edit icon for each service to modify it.
+error_bodies_ARRAY_AT01 All the changes made to working time have been saved.
+error_bodies_ARRAY_AT02 All the changes made to custom working time have been saved.
+error_bodies_ARRAY_AT03 All the changes made to custom working time have been saved.
+error_bodies_ARRAY_AT04 Different working time can be set for each day of the week. You can also set days off and a lunch break. Under Edit Employee page you can set up custom working time for each of your employees.
+error_bodies_ARRAY_AT05 Using the form below you can set a custom working time for any date. Just select a date and set working time for it. Or you can just mark the date as a day off and bookings on that date will not be accepted. 
+error_bodies_ARRAY_AT06 Here you can set working time for this employee only. Different working time can be set for each day of the week. You can also set days off and a lunch break. 
+error_bodies_ARRAY_AT07 Using the form below you can set a custom working time for any date for this employee only. Just select a date and set working time for it. Or you can just mark the date as a day off and bookings on that date for this employee will not be accepted.
+error_bodies_ARRAY_AU01 All the changes made to this user have been saved.
+error_bodies_ARRAY_AU03 All the changes made to this user have been saved.
+error_bodies_ARRAY_AU04 We are sorry, but the user has not been added.
+error_bodies_ARRAY_AU08 User your looking for is missing.
+error_bodies_ARRAY_PAL01    All the changes made to titles have been saved.
+error_bodies_ARRAY_PAL02    Import failed due missing parameters.
+error_bodies_ARRAY_PAL03    The import was performed successfully.
+error_bodies_ARRAY_PAL04    Import failed due SQL error.
+error_bodies_ARRAY_PBU01    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc at ligula non arcu dignissim pretium. Praesent in magna nulla, in porta leo.
+error_bodies_ARRAY_PBU02    All backup files have been saved.
+error_bodies_ARRAY_PBU03    No option was selected.
+error_bodies_ARRAY_PBU04    Backup not performed.
+error_bodies_ARRAY_PCY01    Country has been updated successfully.
+error_bodies_ARRAY_PCY03    Country has been added successfully.
+error_bodies_ARRAY_PCY04    Country has not been added successfully.
+error_bodies_ARRAY_PCY08    Country you are looking for has not been found.
+error_bodies_ARRAY_PCY10    Use form below to add a country.
+error_bodies_ARRAY_PCY11    Use form below to update a country.
+error_bodies_ARRAY_PCY12    Use grid below to organize your country list.
+error_bodies_ARRAY_PIN01    In order to configure the invoices module you need to fill in your company details. To view all invoices <a href="index.php?controller=pjInvoice&action=pjActionInvoices">click here</a>
+error_bodies_ARRAY_PIN02    Invoice config data has been properly updated.
+error_bodies_ARRAY_PIN04    Invoice with such ID was not found.
+error_bodies_ARRAY_PIN05    Invoice has been updated.
+error_bodies_ARRAY_PIN06    Some of the data is not valid.
+error_bodies_ARRAY_PIN07    Invoice has been added.
+error_bodies_ARRAY_PIN08    Invoice failed to add!
+error_bodies_ARRAY_PIN09    Check the email address(es) where invoice should be sent.
+error_bodies_ARRAY_PIN10    Fill in invoice details and use the buttons below to view, print or email the invoice.
+error_bodies_ARRAY_PIN11    Under "Billing information" you can edit your customer billing details. Under "Company information" is your company billing information which will be used for the invoice.
+error_bodies_ARRAY_PLG01    The config log have been updated.
+error_bodies_ARRAY_PSS01    To send SMS you need a valid API Key. Please, contact StivaSoft to purchase an API key.
+error_bodies_ARRAY_PSS02    All changes have been saved.
+error_titles_ARRAY_AA10 Account not found!
+error_titles_ARRAY_AA11 Password send!
+error_titles_ARRAY_AA12 Password not send!
+error_titles_ARRAY_AA13 Profile updated!
+error_titles_ARRAY_AA14 Invalid data
+error_titles_ARRAY_AA15 Profile
+error_titles_ARRAY_AB01 Backup
+error_titles_ARRAY_AB02 Backup complete!
+error_titles_ARRAY_AB03 Backup failed!
+error_titles_ARRAY_AB04 Backup failed!
+error_titles_ARRAY_ABK01    Booking updated
+error_titles_ARRAY_ABK03    Booking added
+error_titles_ARRAY_ABK04    Booking not added
+error_titles_ARRAY_ABK08    Booking not found
+error_titles_ARRAY_ABK10    Add a booking
+error_titles_ARRAY_ABK11    Client details
+error_titles_ARRAY_ABK12    Booking update
+error_titles_ARRAY_ABK13    Client details
+error_titles_ARRAY_ABK14    Services not found
+error_titles_ARRAY_ABK15    Employees not found
+error_titles_ARRAY_AD01 Dashboard
+error_titles_ARRAY_AD02 Dashboard Notice
+error_titles_ARRAY_AE01 Employee updated!
+error_titles_ARRAY_AE03 Employee added!
+error_titles_ARRAY_AE04 Employee failed to add.
+error_titles_ARRAY_AE08 Employee not found.
+error_titles_ARRAY_AE09 Add an employee
+error_titles_ARRAY_AE10 Update an employee
+error_titles_ARRAY_AE11 Employees
+error_titles_ARRAY_AO01 Options updated!
+error_titles_ARRAY_AO03 Booking options updated!
+error_titles_ARRAY_AO04 Booking form updated!
+error_titles_ARRAY_AO05 Confirmation updated!
+error_titles_ARRAY_AO06 Terms updated!
+error_titles_ARRAY_AO07 Payment options updated!
+error_titles_ARRAY_AO08 Reminder updated!
+error_titles_ARRAY_AO21 General options
+error_titles_ARRAY_AO23 Booking options
+error_titles_ARRAY_AO24 Booking form
+error_titles_ARRAY_AO25 Confirmation
+error_titles_ARRAY_AO26 Terms
+error_titles_ARRAY_AO27 Booking payment options
+error_titles_ARRAY_AO28 Reminder options
+error_titles_ARRAY_AO30 SEO Optimization
+error_titles_ARRAY_AR01 Employees report
+error_titles_ARRAY_AR02 Services report
+error_titles_ARRAY_AS01 Service updated!
+error_titles_ARRAY_AS03 Service added!
+error_titles_ARRAY_AS04 Service failed to add.
+error_titles_ARRAY_AS08 Service not found.
+error_titles_ARRAY_AS09 Add a service
+error_titles_ARRAY_AS10 Update a service
+error_titles_ARRAY_AS11 Services
+error_titles_ARRAY_AT01 Working Time updated!
+error_titles_ARRAY_AT02 Custom Working Time saved!
+error_titles_ARRAY_AT03 Custom Working Time updated!
+error_titles_ARRAY_AT04 Working Time
+error_titles_ARRAY_AT05 Custom working time
+error_titles_ARRAY_AT06 Working Time
+error_titles_ARRAY_AT07 Custom working time
+error_titles_ARRAY_AU01 User updated!
+error_titles_ARRAY_AU03 User added!
+error_titles_ARRAY_AU04 User failed to add.
+error_titles_ARRAY_AU08 User not found.
+error_titles_ARRAY_PAL01    Titles Updated
+error_titles_ARRAY_PAL02    Import error
+error_titles_ARRAY_PAL03    Import complete
+error_titles_ARRAY_PAL04    Import error
+error_titles_ARRAY_PBU01    Backup
+error_titles_ARRAY_PBU02    Backup complete!
+error_titles_ARRAY_PBU03    Backup failed!
+error_titles_ARRAY_PBU04    Backup failed!
+error_titles_ARRAY_PCY01    Country updated
+error_titles_ARRAY_PCY03    Country added
+error_titles_ARRAY_PCY04    Country failed to add
+error_titles_ARRAY_PCY08    Country not found
+error_titles_ARRAY_PCY10    Add country
+error_titles_ARRAY_PCY11    Update country
+error_titles_ARRAY_PCY12    Manage countries
+error_titles_ARRAY_PIN01    Invoice
+error_titles_ARRAY_PIN02    Invoice config updated!
+error_titles_ARRAY_PIN03    Upload failed
+error_titles_ARRAY_PIN04    Invoice Not Found
+error_titles_ARRAY_PIN05    Invoice updated!
+error_titles_ARRAY_PIN06    Update failed
+error_titles_ARRAY_PIN07    Invoice added!
+error_titles_ARRAY_PIN08    Invoice has not been added.
+error_titles_ARRAY_PIN09    Notice
+error_titles_ARRAY_PIN10    Invoice details
+error_titles_ARRAY_PIN11    Billing details
+error_titles_ARRAY_PLG01    Config log updated.
+error_titles_ARRAY_PSS01    SMS
+error_titles_ARRAY_PSS02    SMS API key updated!
+filter_ARRAY_active Active
+filter_ARRAY_inactive   Inactive
+frontend    Cape Verde
+frontend    Front-end titles
+front_app_ARRAY_v_remote    Some of the items in your basket is not available.
+front_availability  Availability
+front_back_services back to services
+front_booking_form  Booking Form
+front_booking_na    Booking not available
+front_booking_status_ARRAY_1    Your request has been sent successfully. Thank you.
+front_booking_status_ARRAY_11   Please wait while redirect to secure payment processor webpage complete...
+front_booking_status_ARRAY_3    The invoice for this booking is already paid.
+front_booking_status_ARRAY_4    Booking not found
+front_booking_status_ARRAY_5    This invoice have been cancelled.
+front_cart_done Service added to your cart.
+front_cart_empty    There are not any selected services yet.
+front_cart_total    TOTAL
+front_checkout  Checkout
+front_checkout_na   Checkout form not available
+front_click_available   Click on available time to make an appointment
+front_confirm_booking   Confirm booking
+front_day_suffix_ARRAY_nd   nd
+front_day_suffix_ARRAY_rd   rd
+front_day_suffix_ARRAY_st   st
+front_day_suffix_ARRAY_th   th
+front_end_time  End time
+front_from  from
+front_make_appointment  Make an Appointment
+front_minutes   mins
+front_on    on
+front_preview_form  Booking Preview
+front_preview_na    Preview not available
+front_return_back   Return back
+front_selected_services Selected Services
+front_select_cc_type    Select CC Type
+front_select_date   Select a Date
+front_select_payment    Select Payment method
+front_select_services   Select service on
+front_single_choose_date    Choose date
+front_single_date   Select date
+front_single_date_service   Select date and service
+front_single_employee   Employee
+front_single_na not available on selected date and time
+front_single_service    Service
+front_single_time   Select time
+front_start_time    Start time
+front_system_msg    System message
+front_till  till
+get_key Get key
+gridActionTitle Action confirmation
+gridBtnCancel   Cancel
+gridBtnDelete   Delete
+gridBtnOk   OK
+gridChooseAction    Choose Action
+gridConfirmationTitle   Are you sure you want to delete selected record?
+gridDeleteConfirmation  Delete confirmation
+gridEmptyResult No records found
+gridGotoPage    Go to page:
+gridItemsPerPage    Items per page
+gridNext    Next &raquo;
+gridNextPage    Next page
+gridPrev    &laquo; Prev
+gridPrevPage    Prev page
+gridTotalItems  Total items:
+infoListingAddressBody  Listing Address Body
+infoListingAddressTitle Listing Address Title
+infoListingBookingsBody Listing Bookings Body
+infoListingBookingsTitle    Listing Bookings Title
+infoListingContactBody  Listing Contact Body
+infoListingContactTitle Listing Contact Title
+infoListingExtendBody   Extend exp.date Body
+infoListingExtendTitle  Extend exp.date Title
+infoListingPricesBody   Listing Prices Body
+infoListingPricesTitle  Listing Prices Title
+infoLocalesArraysBody   Languages Array Body
+infoLocalesArraysTitle  Languages Arrays Title
+infoLocalesBackendBody  Languages Backend Body
+infoLocalesBackendTitle Languages Backend Title
+infoLocalesBody Languages Body
+infoLocalesFrontendBody Languages Frontend Body
+infoLocalesFrontendTitle    Languages Frontend Title
+infoLocalesTitle    Languages Title
+is_active_ARRAY_0   Inactive
+is_active_ARRAY_1   Active
+lblAddUser  Ethiopia
+lblAddUser  Add user
+lblAll  All
+lblBackupDatabase   Backup database
+lblBackupFiles  Backup files
+lblChoose   Burkina Faso
+lblChoose   Choose
+lblDays Fiji
+lblDays days
+lblDelete   Djibouti
+lblDelete   Delete
+lblError    Error
+lblExport   Export
+lblForgot   Forgot password
+lblInstallConfig    Language options
+lblInstallConfigHide    Hide language selector
+lblInstallConfigLocale  Language
+lblInstallJs1_1 Step 1 (Required)
+lblInstallJs1_2 Step 2 (Optional) - for SEO purposes and better ranking you need to put next meta tag into the HEAD part of your page
+lblInstallJs1_3 Step 3 (Optional) - for SEO purposes and better ranking you need to create a .htaccess file (or update existing one) with data below. Put the file in the same folder as your webpage.
+lblInstallJs1_body  In order to install this script into your web page, please follow below steps.
+lblInstallJs1_title Install instructions
+lblInstallSeo_1 Step 1. Webpage where your front end appointment scheduler is
+lblInstallSeo_2 Step 2. Put the meta tag below between &lt;head&gt; and &lt;/head&gt; tags on your web page
+lblInstallSeo_3 Step 3. Create .htaccess file (or update existing one) in the folder where your web page is and put the data below in it
+lblIp   IP address
+lblIsActive Eritrea
+lblIsActive Is confirmed
+lblName Egypt
+lblName Name
+lblNo   Kiribati
+lblNo   No
+lblOption   Faroe Islands
+lblOption   Option
+lblOptionList   Cuba
+lblOptionList   Option list
+lblOptionsTermsContent  Booking terms content
+lblOptionsTermsURL  Booking terms URL
+lblRole El Salvador
+lblRole Role
+lblStatus   Equatorial Guinea
+lblStatus   Status
+lblType Ecuador
+lblType Type
+lblUpdateUser   Estonia
+lblUpdateUser   Update user
+lblUserCreated  Registration date/time
+lblValue    Falkland Islands array(Malvinas)
+lblValue    Value
+lblYes  Kenya
+lblYes  Yes
+lnkBack Back
+localeArrays    Arrays titles
+locales Cayman Islands
+locales Languages
+locale_flag Flag
+locale_is_default   Is default
+locale_order    Order
+locale_title    Title
+login_err_ARRAY_1   Wrong username or password
+login_err_ARRAY_2   Access denied
+login_err_ARRAY_3   Account is disabled
+menu    Menu
+menuBackup  Backup
+menuBookingForm Booking form
+menuBookings    Bookings
+menuConfirmation    Confirmation
+menuDashboard   Christmas Island
+menuDashboard   Dashboard
+menuEmployees   Employees
+menuGeneral General
+menuInstall Install
+menuLang    Belgium
+menuLang    Multi Lang
+menuLocales Kazakhstan
+menuLocales Languages
+menuLogout  Bhutan
+menuLogout  Logout
+menuOptions Bermuda
+menuOptions Options
+menuPayments    Payments
+menuPlugins Belize
+menuPlugins Plugins
+menuPreview Preview
+menuProfile Profile
+menuReminder    Reminder
+menuReports Reports
+menuSeo SEO
+menuServices    Services
+menuTerms   Terms
+menuTime    Working Time
+menuUsers   Benin
+menuUsers   Users
+months_ARRAY_1  January
+months_ARRAY_10 October
+months_ARRAY_11 November
+months_ARRAY_12 December
+months_ARRAY_2  February
+months_ARRAY_3  March
+months_ARRAY_4  April
+months_ARRAY_5  May
+months_ARRAY_6  June
+months_ARRAY_7  July
+months_ARRAY_8  August
+months_ARRAY_9  September
+multilangTooltip    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+opt_o_accept_bookings   Accept Bookings
+opt_o_allow_authorize   Allow payments with Authorize.net
+opt_o_allow_bank    Provide Bank account details for wire transfers
+opt_o_allow_creditcard  Collect Credit Card details for offline processing
+opt_o_allow_paypal  Allow payments with PayPal
+opt_o_authorize_hash    Authorize.net hash value
+opt_o_authorize_key Authorize.net transaction key
+opt_o_authorize_mid Authorize.net merchant ID
+opt_o_authorize_tz  Authorize.net time zone
+opt_o_bank_account  Bank account
+opt_o_bf_address_1  Address 1
+opt_o_bf_address_2  Address 2
+opt_o_bf_captcha    Captcha
+opt_o_bf_city   City
+opt_o_bf_country    Country
+opt_o_bf_email  Email
+opt_o_bf_name   Name
+opt_o_bf_notes  Notes
+opt_o_bf_phone  Phone
+opt_o_bf_state  State
+opt_o_bf_terms  Terms
+opt_o_bf_zip    Zip
+opt_o_currency  Currency
+opt_o_custom_status Custom Status
+opt_o_datetime_format   Date/Time format
+opt_o_date_format   Date format
+opt_o_deposit   Set deposit amount to be collected for each appointment
+opt_o_disable_payments  Check if you want to disable payments and only collect reservation details
+opt_o_email_new_reservation New reservation received
+opt_o_email_password_reminder   Password reminder
+opt_o_email_reservation_cancelled   Reservation cancelled
+opt_o_hide_prices   Hide prices
+opt_o_layout    Layout
+opt_o_layout_backend    Layout Backend
+opt_o_paypal_address    Paypal address
+opt_o_reminder_body Email Reminder body
+opt_o_reminder_email_before Set number of hours before the booking start time when an email reminder will be sent
+opt_o_reminder_enable   Check this if you want to send reminders to your clients.
+opt_o_reminder_sms_country_code SMS country code
+opt_o_reminder_sms_hours    Set number of hours before the booking start time when an SMS reminder will be sent
+opt_o_reminder_sms_message  SMS message
+opt_o_reminder_subject  Email Reminder subject
+opt_o_send_email    Send email
+opt_o_seo_url   Use SEO URLs
+opt_o_smtp_host SMTP Host
+opt_o_smtp_pass SMTP Password
+opt_o_smtp_port SMTP Port
+opt_o_smtp_user SMTP Username
+opt_o_status_if_not_paid    Default status for booked dates if not paid
+opt_o_status_if_paid    Default status for booked dates if paid
+opt_o_step  Step (in minutes)
+opt_o_tax   Tax amount to be collected for each appointment
+opt_o_thankyou_page URL for the web page where your clients will be redirected after PayPal or Authorize.net payment
+opt_o_timezone  Timezone
+opt_o_time_format   Time format
+opt_o_week_numbers  Show week numbers
+opt_o_week_start    First day of the week
+pass    Andorra
+pass    Password
+pass    Service description
+pass    Service 3
+payment_authorize_submit    Go to Authorize.NET Secure page
+payment_methods_ARRAY_authorize Authorize.net
+payment_methods_ARRAY_bank  Bank account
+payment_methods_ARRAY_creditcard    Credit card
+payment_methods_ARRAY_paypal    Paypal
+payment_paypal_submit   Go to PayPal Secure page
+personal_titles_ARRAY_dr    Dr.
+personal_titles_ARRAY_miss  Miss
+personal_titles_ARRAY_mr    Mr.
+personal_titles_ARRAY_mrs   Mrs.
+personal_titles_ARRAY_ms    Ms.
+personal_titles_ARRAY_other Other
+personal_titles_ARRAY_prof  Prof.
+personal_titles_ARRAY_rev   Rev.
+plugin_backup_btn_backup    Backup
+plugin_backup_database  Backup database
+plugin_backup_files Backup files
+plugin_backup_menu_backup   Backup
+plugin_country_alpha_2  Alpha 2
+plugin_country_alpha_3  Alpha 3
+plugin_country_btn_add  Add +
+plugin_country_btn_all  All
+plugin_country_btn_cancel   Cancel
+plugin_country_btn_save Save
+plugin_country_btn_search   Search
+plugin_country_delete_confirmation  Are you sure you want to delete selected country?
+plugin_country_delete_selected  Delete selected
+plugin_country_menu_countries   Countries
+plugin_country_name Country name
+plugin_country_status   Status
+plugin_country_statuses_ARRAY_F Inactive
+plugin_country_statuses_ARRAY_T Active
+plugin_invoice_add  ADD +
+plugin_invoice_add_item_title   Add item
+plugin_invoice_authorize_proceed    Proceed with payment
+plugin_invoice_authorize_redirect   You will be redirected to Authorize.net in 3 seconds. If not please click on the button.
+plugin_invoice_authorize_title  Invoice module
+plugin_invoice_billing_info Billing information
+plugin_invoice_company_info Company information
+plugin_invoice_config   Invoice Config
+plugin_invoice_delete_logo_body Are you sure you want to delete selected logo?
+plugin_invoice_delete_logo_title    Delete confirmation
+plugin_invoice_edit_item_title  Update item
+plugin_invoice_general_info General information
+plugin_invoice_items_info   Items information
+plugin_invoice_i_accept_authorize   Accept payments with Authorize.NET
+plugin_invoice_i_accept_bank    Accept payments with Bank Account
+plugin_invoice_i_accept_creditcard  Accept payments with Credit Card
+plugin_invoice_i_accept_payments    Accept payments
+plugin_invoice_i_accept_paypal  Accept payments with PayPal
+plugin_invoice_i_address    Address
+plugin_invoice_i_amount Amount
+plugin_invoice_i_amount_due Amount due
+plugin_invoice_i_authorize_hash Authorize.Net hash value
+plugin_invoice_i_authorize_key  Authorize.Net Transaction Key
+plugin_invoice_i_authorize_mid  Authorize.Net Merchant ID
+plugin_invoice_i_authorize_tz   Authorize.Net Timezone
+plugin_invoice_i_bank_account   Bank Account
+plugin_invoice_i_billing_address    Billing address
+plugin_invoice_i_booking_url    Booking URL - Token: {ORDER_ID}
+plugin_invoice_i_city   City
+plugin_invoice_i_company    Company name
+plugin_invoice_i_created    Created
+plugin_invoice_i_currency   Currency
+plugin_invoice_i_delete_body    Are you sure you want to delete selected invoices?
+plugin_invoice_i_delete_title   Delete selected
+plugin_invoice_i_description    Description
+plugin_invoice_i_discount   Discount
+plugin_invoice_i_due_date   Due date
+plugin_invoice_i_email  Email
+plugin_invoice_i_fax    Fax
+plugin_invoice_i_issue_date Issue date
+plugin_invoice_i_is_shipped Is shipped
+plugin_invoice_i_item   Item
+plugin_invoice_i_logo   Company logo
+plugin_invoice_i_modified   Modified
+plugin_invoice_i_name   Name
+plugin_invoice_i_notes  Notes
+plugin_invoice_i_num    No.
+plugin_invoice_i_order_id   Order no.
+plugin_invoice_i_paid_deposit   Paid deposit
+plugin_invoice_i_paypal_address Paypal address
+plugin_invoice_i_phone  Phone
+plugin_invoice_i_qty    Qty
+plugin_invoice_i_qty_int    Format as INT instead of FLOAT
+plugin_invoice_i_qty_is_int Quantity format
+plugin_invoice_i_shipping   Shipping
+plugin_invoice_i_shipping_address   Shipping address
+plugin_invoice_i_shipping_date  Shipping date
+plugin_invoice_i_shipping_terms Shipping terms
+plugin_invoice_i_state  State
+plugin_invoice_i_status Status
+plugin_invoice_i_street_address Street address
+plugin_invoice_i_subtotal   Subtotal
+plugin_invoice_i_s_address  Include Address
+plugin_invoice_i_s_city Include City
+plugin_invoice_i_s_company  Include Company
+plugin_invoice_i_s_date Include Shipping date
+plugin_invoice_i_s_email    Include Email
+plugin_invoice_i_s_fax  Include Fax
+plugin_invoice_i_s_include  Include Shipping information
+plugin_invoice_i_s_is_shipped   Include Is Shipped
+plugin_invoice_i_s_name Include Name
+plugin_invoice_i_s_phone    Include Phone
+plugin_invoice_i_s_shipping Include Shipping
+plugin_invoice_i_s_shipping_address Include Shipping address
+plugin_invoice_i_s_state    Include State
+plugin_invoice_i_s_street_address   Include Street address
+plugin_invoice_i_s_terms    Include Shipping terms
+plugin_invoice_i_s_url  Include Website
+plugin_invoice_i_s_zip  Include Zip
+plugin_invoice_i_tax    Tax
+plugin_invoice_i_total  Total
+plugin_invoice_i_unit   Unit price
+plugin_invoice_i_url    Website
+plugin_invoice_i_uuid   Invoice no.
+plugin_invoice_i_zip    Zip
+plugin_invoice_menu_invoices    Invoices
+plugin_invoice_payment_info Payment information
+plugin_invoice_paypal_proceed   Proceed with payment
+plugin_invoice_paypal_redirect  You will be redirected to Paypal in 3 seconds. If not please click on the button.
+plugin_invoice_paypal_title Invoice module
+plugin_invoice_pay_now  Pay Now
+plugin_invoice_pay_with_authorize   Pay with Authorize.Net
+plugin_invoice_pay_with_bank    Pay with Bank Account
+plugin_invoice_pay_with_creditcard  Pay with Credit Card
+plugin_invoice_pay_with_paypal  Pay with Paypal
+plugin_invoice_print    PRINT
+plugin_invoice_save SAVE
+plugin_invoice_send EMAIL
+plugin_invoice_send_invoice_title   Send invoice
+plugin_invoice_send_subject Invoice
+plugin_invoice_shipping_info    Shipping information
+plugin_invoice_statuses_ARRAY_cancelled CANCELLED
+plugin_invoice_statuses_ARRAY_not_paid  NOT PAID
+plugin_invoice_statuses_ARRAY_paid  PAID
+plugin_invoice_template Invoice Template
+plugin_invoice_view VIEW
+plugin_locale_add_lang  Add Language
+plugin_locale_browse    Browse your computer
+plugin_locale_export    Export
+plugin_locale_ie_body   Use form below to Import or Export choosen language.
+plugin_locale_ie_title  Import / Export
+plugin_locale_import    Import
+plugin_locale_import_export Import / Export
+plugin_locale_index_body    Add as many languages as you need to your script. For each of the languages added you need to translate all the text titles.
+plugin_locale_index_title   Languages
+plugin_locale_language  Language
+plugin_locale_languages Languages
+plugin_locale_lbl_field Field
+plugin_locale_lbl_flag  Flag
+plugin_locale_lbl_is_default    Is default
+plugin_locale_lbl_order Order
+plugin_locale_lbl_rows  Per page
+plugin_locale_lbl_title Title
+plugin_locale_lbl_value Value
+plugin_locale_titles    Titles
+plugin_locale_titles_body   Edit all page titles. Use the search box to quickly locate a title.
+plugin_locale_titles_title  Titles
+plugin_locale_type_arrays   Special title
+plugin_locale_type_backend  Back-end title
+plugin_locale_type_frontend Front-end title
+plugin_log_btn_empty    Empty log
+plugin_log_menu_config  Config log
+plugin_log_menu_log Log
+plugin_one_admin_btn_add    + Add
+plugin_one_admin_menu_index List
+plugin_sms_api  API Key
+plugin_sms_config   SMS Config
+plugin_sms_created  Date/Time sent
+plugin_sms_menu_sms SMS
+plugin_sms_number   Phone number
+plugin_sms_status   Status
+plugin_sms_text Message
+report_amount   Amount
+report_bookings Bookings
+report_cancelled_amount Cancelled Bookings Amount
+report_cancelled_bookings   Cancelled Bookings
+report_cnt  Count
+report_columns  Columns
+report_confirmed_amount Confirmed Bookings Amount
+report_confirmed_bookings   Confirmed Bookings
+report_menu_employees   Employees
+report_menu_services    Services
+report_pdf  Save as PDF
+report_pending_amount   Pending Bookings Amount
+report_pending_bookings Pending Bookings
+report_print    Print
+report_total_amount Total amount
+report_total_bookings   All Bookings
+revert_status   Revert status
+service_add Add service
+service_after   After (minutes)
+service_before  Before (minutes)
+service_desc    Service description
+service_employees   Employees
+service_length  Length (minutes)
+service_name    Service name
+service_price   Price
+service_status  Status
+service_tip_after   In case you need some time after the end time for the service you can add it here. For example if your service is 60 minutes long and you input 30 minutes here, then when someone books a service at 10am till 11am you will not be available for other bookings between 11am and 11:30am
+service_tip_before  In case you need some time before the start time for the service you can add it here. For example if your service is 60 minutes long and you input 30 minutes here, then when someone books a service at 10am you will not be available for other bookings between 9:30am and 10am
+service_tip_employees   Employees tooltip
+service_tip_length  Specify the time needed to do this service.
+service_total   Total (minutes)
+service_update  Update service
+short_months_ARRAY_1    Jan
+short_months_ARRAY_10   Oct
+short_months_ARRAY_11   Nov
+short_months_ARRAY_12   Dec
+short_months_ARRAY_2    Feb
+short_months_ARRAY_3    Mar
+short_months_ARRAY_4    Apr
+short_months_ARRAY_5    May
+short_months_ARRAY_6    Jun
+short_months_ARRAY_7    Jul
+short_months_ARRAY_8    Aug
+short_months_ARRAY_9    Sep
+single_date Date
+single_price    Price
+status_ARRAY_1  You are not loged in.
+status_ARRAY_123    Your hosting account does not allow uploading such a large image.
+status_ARRAY_2  Access denied. You have not requisite rights to.
+status_ARRAY_3  Empty resultset.
+status_ARRAY_7  The operation is not allowed in demo mode.
+status_ARRAY_996    No property for the reservation found
+status_ARRAY_997    No reservation found
+status_ARRAY_998    No permisions to edit the reservation
+status_ARRAY_999    No permisions to edit the property
+status_ARRAY_9997   E-Mail address already exist
+status_ARRAY_9998   Your registration was successfull. Your account needs to be approved.
+status_ARRAY_9999   Your registration was successfull.
+timezones_ARRAY_-10800  GMT-03:00
+timezones_ARRAY_-14400  GMT-04:00
+timezones_ARRAY_-18000  GMT-05:00
+timezones_ARRAY_-21600  GMT-06:00
+timezones_ARRAY_-25200  GMT-07:00
+timezones_ARRAY_-28800  GMT-08:00
+timezones_ARRAY_-32400  GMT-09:00
+timezones_ARRAY_-3600   GMT-01:00
+timezones_ARRAY_-36000  GMT-10:00
+timezones_ARRAY_-39600  GMT-11:00
+timezones_ARRAY_-43200  GMT-12:00
+timezones_ARRAY_-7200   GMT-02:00
+timezones_ARRAY_0   GMT
+timezones_ARRAY_10800   GMT+03:00
+timezones_ARRAY_14400   GMT+04:00
+timezones_ARRAY_18000   GMT+05:00
+timezones_ARRAY_21600   GMT+06:00
+timezones_ARRAY_25200   GMT+07:00
+timezones_ARRAY_28800   GMT+08:00
+timezones_ARRAY_32400   GMT+09:00
+timezones_ARRAY_3600    GMT+01:00
+timezones_ARRAY_36000   GMT+10:00
+timezones_ARRAY_39600   GMT+11:00
+timezones_ARRAY_43200   GMT+12:00
+timezones_ARRAY_46800   GMT+13:00
+timezones_ARRAY_7200    GMT+02:00
+time_custom Custom
+time_custom_wt  Custom Working Time
+time_date   Date
+time_day    Day of week
+time_default    Default
+time_default_wt Default Working Time
+time_from   Start Time
+time_is Is Day off
+time_lunch_from Lunch from
+time_lunch_to   Lunch to
+time_to End Time
+time_update_custom  Update custom
+time_update_default Update the default working time for all the employees
+url Anguilla
+url URL
+url Service description
+url Service 5
+user    American Samoa
+user    Username
+user    Service description
+user    Service 2
+u_statarr_ARRAY_F   Inactive
+u_statarr_ARRAY_T   Active
+vr_email_taken  Email address is already in use
+_yesno_ARRAY_F  No
+_yesno_ARRAY_T  Yes

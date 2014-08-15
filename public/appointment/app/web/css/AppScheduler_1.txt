@@ -1,0 +1,9 @@
+.asContainer .asServicePrice{
+	background: url([URL]app/web/img/frontend/as-price.png) 0 0 no-repeat;
+}
+.asContainer .asServiceTime{
+	background: url([URL]app/web/img/frontend/as-time.png) 0 0 no-repeat;
+}
+.asContainer .asCartRemove a{
+	background: url([URL]app/web/img/frontend/as-delete.png) 0 0 no-repeat;
+}

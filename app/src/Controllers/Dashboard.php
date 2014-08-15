@@ -16,7 +16,7 @@ class Dashboard extends Base
             'cashier'     => route('cashier.index'),
             'restaurant'  => route('restaurant.index'),
             'timeslot'    => route('timeslot.index'),
-            'appointment' => '',
+            'appointment' => route('appointment.index'),
             'loyalty'     => '',
             'martketing'  => ''
         ];

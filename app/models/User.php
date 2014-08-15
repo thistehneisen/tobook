@@ -79,50 +79,16 @@ class User extends ConfideUser
     }
 
     /**
-     * Check if this user has been installed Cashier module
+     * Check if this user has activated a module / service
      *
      * @return boolean 
      */
-    public function isCashierActivated()
+    public function isServiceActivated($tablePrefix, $table)
     {
         $oldPrefix = DB::getTablePrefix();
-        DB::setTablePrefix('sma_');
+        DB::setTablePrefix($tablePrefix);
 
-        $user = DB::table('users')->where('owner_id', '=', $this->id)->first();
-
-        DB::setTablePrefix($oldPrefix);
-
-        return (bool) $user;
-    }
-
-    /**
-     * Check if this user has been installed TimeSlot booking module.
-     *
-     * @return boolean 
-     */
-    public function isTimeSlotActivated()
-    {
-        $oldPrefix = DB::getTablePrefix();
-        DB::setTablePrefix('ts_');
-
-        $user = DB::table('calendars')->where('owner_id', '=', $this->id)->first();
-
-        DB::setTablePrefix($oldPrefix);
-
-        return (bool) $user;
-    }
-
-    /**
-     * Check if this user has been install Restaurant Booking module
-     *
-     * @return boolean 
-     */
-    public function isRestaurantBookingInstalled()
-    {
-        $oldPrefix = DB::getTablePrefix();
-        DB::setTablePrefix('rb_');
-
-        $user = DB::table('users')->where('owner_id', '=', $this->id)->first();
+        $user = DB::table($table)->where('owner_id', '=', $this->id)->first();
 
         DB::setTablePrefix($oldPrefix);
 

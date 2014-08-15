@@ -1,0 +1,312 @@
+@CHARSET "UTF-8";
+.asContainer .asLayout2{
+	display: none;
+}
+.asContainer .asElementTag{
+	background-color: #ECF0F1;
+}
+.asContainer .asEmployeeAvatar .asElementTag{
+	clear: left;
+	max-width: 170px;
+    max-width: -moz-fill-available;
+	width: 95%;	
+	-moz-box-sizing: border-box;
+}
+.asContainer .asEmployee,
+.asContainer .asServiceElement{
+	width: 49.99%;
+	float: left;
+	margin: 0;
+	padding: 0;
+}
+.asContainer .asServiceDesc{
+	margin-bottom: 10px;
+}
+.asContainer .asServiceDetails{
+	margin-bottom: 10px;
+}
+.asContainer .asServiceAvailability{
+	float: none;
+}
+.asContainer .asEmployeeAvatar{
+	float: none;
+	width: auto;
+	display: inline-block;
+	margin-bottom: 10px;
+}
+.asContainer .asEmployeeAvatar img{
+	float: left;
+}
+.asContainer .asEmployeeAvatar .asEmployeeDesc{
+	background-color: inherit;
+    margin-left: 110px;
+    overflow: hidden;
+}
+.asContainer .asEmployeeInfo{
+	float: none;
+	width: auto;
+	display: block;
+}
+.asContainer .asSelectorElements .asSlotBlock{
+	display: block;
+    float: none;
+    padding: 0 10px;
+    text-align: left;
+    width: auto !important;
+}
+/* Responsive design */
+@media screen and (max-width: 479px) {
+	.asContainer{
+		width: 100%;
+	}
+	.asContainer .asCalendarOuter{
+		float: none;
+		width: 100%;
+	}
+	.asContainer .asCartOuter{
+		float: none;
+		width: 100%;
+	}
+	.asContainer .asServicesOuter{
+		float: none;
+		width: 100%;
+	}
+	.asContainer .asCalendarInner{
+		margin: 0 0 10px;
+	}
+	.asContainer .asServicesInner{
+		margin: 0 0 10px;
+	}
+	.asContainer .asCartInner{
+		margin: 0;
+	}
+	.asContainer .asCartInnerPreview{
+		margin: 0 0 10px;
+	}
+	.asContainer .asServiceAvailability{
+		float: left;
+	}
+	.asContainer .asEmployeeName{
+		float: right;
+		width: 70%;
+	}
+	.asContainer .asEmployeeAvatar{
+		float: left;
+		overflow: hidden;
+		width: 26%;
+	}
+	.asContainer .asEmployeeAvatar img{
+		width: 100%;
+		height: auto;
+	}
+	.asContainer .asEmployeeDetailsRight{
+		display: block;
+		float: right;
+		width: 70%;
+	}
+	.asContainer .asEmployeeAvatar .asEmployeeDetails{
+		display: none;
+	}
+	.asContainer .asEmployeeInfo{
+		clear: both;
+		float: none;
+		padding: 10px 0 0;
+		width: 100%;
+	}
+	.asContainer .asEmployeeTime{
+		clear: left;
+		float: left;
+		box-sizing: border-box;
+		width: 85%;
+	}
+	.asContainer .asEmployeeAppointment{
+		margin: 0;
+		width: 85%;
+	}
+	.asContainer .asEmployeeAppointment .asButton{
+		width: 100%;
+	}
+	.asContainer .asEmployeeAppointmentTop{
+		display: none;
+	}
+	.asContainer .asEmployeeAppointmentBottom{
+		display: block;
+	}
+	.asContainer .asLabel{
+		float: none;
+		margin: 0 0 2px;
+		width: 100%;
+	}
+	.asContainer .asRowControl{
+		float: none;
+		width: 100%;
+	}
+}
+@media screen and (min-width: 480px) and (max-width: 767px) {
+	.asContainer{
+		width: 100%;
+	}
+	.asContainer .asCalendarOuter{
+		float: none;
+		width: 100%;
+	}
+	.asContainer .asCartOuter{
+		float: none;
+		width: 100%;
+	}
+	.asContainer .asServicesOuter{
+		float: none;
+		width: 100%;
+	}
+	.asContainer .asCalendarInner{
+		margin: 0 0 10px;
+	}
+	.asContainer .asServicesInner{
+		margin: 0 0 10px;
+	}
+	.asContainer .asCartInner{
+		margin: 0;
+	}
+	.asContainer .asCartInnerPreview{
+		margin: 0 0 10px;
+	}
+	.asContainer .asEmployeeAvatar{
+		width: 26%;
+	}
+	.asContainer .asEmployeeInfo{
+		width: 74%;
+	}
+	.asContainer .asEmployeeTime{
+		clear: left;
+		float: left;
+		box-sizing: border-box;
+		width: 65%;
+	}
+	.asContainer .asEmployeeAppointment{
+		margin: 0;
+		width: 65%;
+	}
+	.asContainer .asEmployeeAppointment .asButton{
+		width: 100%;
+	}
+	.asContainer .asEmployeeAppointmentTop{
+		display: none;
+	}
+	.asContainer .asEmployeeAppointmentBottom{
+		display: block;
+	}
+	.asContainer .asLabel{
+		float: none;
+		margin: 0 0 2px;
+		width: 100%;
+	}
+	.asContainer .asRowControl{
+		float: none;
+		width: 100%;
+	}
+}
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+	.asContainer{
+		width: 100%;
+	}
+	.asContainer .asCalendarOuter{
+		float: left;
+		width: 42%;
+	}
+	.asContainer .asCartOuter{
+		clear: left;
+		float: left;
+		width: 42%;
+	}
+	.asContainer .asServicesOuter{
+		float: right;
+		width: 58%;
+	}
+	.asContainer .asEmployeeAvatar{
+		width: 27%;
+	}
+	.asContainer .asEmployeeInfo{
+		width: 73%;
+	}
+	.asContainer .asEmployeeTime{
+		clear: left;
+		float: left;
+		box-sizing: border-box;
+		width: 75%;
+	}
+	.asContainer .asEmployeeAppointment{
+		margin: 0 0 5px;
+		width: 75%;
+	}
+	.asContainer .asEmployeeAppointment .asButton{
+		width: 100%;
+	}
+	.asContainer .asEmployeeAppointmentTop{
+		display: none;
+	}
+	.asContainer .asEmployeeAppointmentBottom{
+		display: block;
+	}
+	.asContainer .asLabel{
+		float: none;
+		margin: 0 0 2px;
+		width: 100%;
+	}
+	.asContainer .asRowControl{
+		float: none;
+		width: 100%;
+	}
+}
+@media screen and (min-width: 1024px) {
+	.asContainer{
+		width: 100%;
+	}
+	.asContainer .asCalendarOuter{
+		float: left;
+	}
+	.asContainer .asCartOuter{
+		clear: left;
+		float: left;
+	}
+	.asContainer .asServicesOuter{
+		float: right;
+	}
+	.asContainer .asEmployeeTime{
+		clear: left;
+		float: left;
+		box-sizing: border-box;
+	}
+	.asContainer .asEmployeeAppointment{
+		/*float: right;*/
+		clear: left;
+	}
+	.asContainer .asEmployeeAppointmentTop{
+		display: none;
+	}
+	.asContainer .asEmployeeAppointmentBottom{
+		display: block;
+	}
+}
+
+@media screen and (min-width: 768px) and (max-width: 860px), (min-width: 1024px) and (max-width: 1450px) {
+	.asContainer .asCartInfo{
+		display: none;
+	}
+	.asContainer .asCartInfo2{
+		display: block;
+	}
+	.asContainer .asCartDate{
+		width: 45%;
+	}
+	.asContainer .asCartPrice{
+		width: 45%;
+	}
+	.asContainer .asCartRemove{
+		width: auto;
+		float: right;
+	}
+	.asContainer .asCartTime{
+		clear: both;
+		width: 100%;
+	}
+}
