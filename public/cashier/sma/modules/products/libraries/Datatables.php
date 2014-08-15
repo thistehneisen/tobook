@@ -355,10 +355,19 @@
       $mColArray = array_values(array_diff($mColArray, $this->unset_columns));
       $columns = array_values(array_diff($this->columns, $this->unset_columns));
 
-      if($sSearch != '')
-        for($i = 0; $i < count($mColArray); $i++)
-          if($this->ci->input->post('bSearchable_' . $i) == 'true' && in_array($mColArray[$i], $columns))
-            $sWhere .= $this->select[$mColArray[$i]] . " LIKE '%" . $sSearch . "%' OR ";
+      error_reporting(E_ALL);
+
+      if($sSearch != '') {
+        for($i = 0; $i < count($mColArray); $i++) {
+          if($this->ci->input->post('bSearchable_' . $i) == 'true' && in_array($mColArray[$i], $columns)) {
+            $field = $this->select[$mColArray[$i]];
+            if (strpos($field, 'COALESCE') === false) {
+                $field = $this->ci->db->dbprefix($field);
+            }
+            $sWhere .= $field . " LIKE '%" . $sSearch . "%' OR ";
+          }
+        }
+      }
 
       $sWhere = substr_replace($sWhere, '', -3);
 

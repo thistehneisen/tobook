@@ -50,6 +50,11 @@ class CI_Model {
 		$CI =& get_instance();
 		return $CI->$key;
 	}
+
+    public function getOwnerId() {
+        @session_start();
+        return (int) $_SESSION['owner_id'];
+    }
 }
 // END Model Class
 

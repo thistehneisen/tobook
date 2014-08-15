@@ -51,6 +51,9 @@ class Ion_auth
 	public function __construct()
 	{
 		$this->load->config('auth/ion_auth', TRUE);
+		// Don't ask me babe
+		$this->load->config('email', TRUE);
+
 		$this->load->library('email');
 		$this->load->library('session');
 		//$this->lang->load('auth/ion_auth');

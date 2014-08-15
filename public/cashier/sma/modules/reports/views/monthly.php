@@ -44,39 +44,39 @@
 			$array[$sale->date] = "
 				<table class='table table-bordered table-hover table-striped table-condensed data' style='margin:0;font-size:10px;'>
 					<tr>
-						<td>".$this->lang->line("Cash")."</td>
+						<td>".$this->lang->line("cash")."</td>
 						<td>". $this->ion_auth->formatMoney($sale->cashTotal) ."</td>
 					</tr>
 					<tr>
-						<td>".$this->lang->line("Credit Card")."</td>
+						<td>".$this->lang->line("creditCard")."</td>
 						<td>". $this->ion_auth->formatMoney($sale->ccTotal) ."</td>
 					</tr>
 					<tr>
-						<td>".$this->lang->line("Gift Card")."</td>
+						<td>".$this->lang->line("giftCard")."</td>
 						<td>". $this->ion_auth->formatMoney($sale->gcTotal) ."</td>
 					</tr>
 				</table>
 				<table class='table table-bordered table-hover table-striped table-condensed data' style='margin:0;font-size:10px;margin-top:3px;'>
 					<tr>
-						<td>".$this->lang->line("Total")."</td>
+						<td>".$this->lang->line("total")."</td>
 						<td>". $this->ion_auth->formatMoney($sale->total) ."</td>
 					</tr>
 					<tr>
-						<td>".$this->lang->line("Product Tax")."</td>
+						<td>".$this->lang->line("tax1")."</td>
 						<td>". $this->ion_auth->formatMoney($sale->productTax) ."</td>
 					</tr>
 				</table>
 				<table class='table table-bordered table-hover table-striped table-condensed data' style='margin:0;font-size:10px;margin-top:3px;'>
 					<tr>
-						<td>".$this->lang->line("Product")."</td>
+						<td>".$this->lang->line("product")."</td>
 						<td>". $this->ion_auth->formatMoney($sale->productTotal) ."</td>
 					</tr>
 					<tr>
-						<td>".$this->lang->line("Service")."</td>
+						<td>".$this->lang->line("service")."</td>
 						<td>". $this->ion_auth->formatMoney($sale->servicesTotal) ."</td>
 					</tr>
 					<tr>
-						<td>".$this->lang->line("Giftcard")."</td>
+						<td>".$this->lang->line("giftCard")."</td>
 						<td>". $this->ion_auth->formatMoney($sale->giftcardTotal) ."</td>
 					</tr>
 				</table>
