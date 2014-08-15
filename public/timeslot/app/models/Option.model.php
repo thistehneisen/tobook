@@ -52,7 +52,8 @@ class OptionModel extends AppModel
 		$arr = array();
 		$sql_key = $this->escapeString($key);
 		$sql_calendar_id = intval($calendar_id);
-		$r = mysql_query("SELECT * FROM `".$this->getTable()."` WHERE `calendar_id` = '$sql_calendar_id' AND `key` = '$sql_key' LIMIT 1");
+		$owner_id = (int) $_SESSION['owner_id'];
+		$r = mysql_query("SELECT * FROM `".$this->getTable()."` WHERE `calendar_id` = '$sql_calendar_id' AND `key` = '$sql_key' AND `owner_id` = {$owner_id} LIMIT 1");
 		if (mysql_num_rows($r) == 1)
 		{
 			$row = mysql_fetch_object($r);
@@ -74,7 +75,8 @@ class OptionModel extends AppModel
 	function getAllPairs($calendar_id)
 	{
 		$arr = array();
-		$r = mysql_query("SELECT * FROM `".$this->getTable()."` WHERE `calendar_id` = '".intval($calendar_id)."'");
+		$owner_id = (int) $_SESSION['owner_id'];
+		$r = mysql_query("SELECT * FROM `".$this->getTable()."` WHERE `owner_id` = {$owner_id} AND `calendar_id` = '".intval($calendar_id)."'");
 		if (mysql_num_rows($r) > 0)
 		{
 			while ($row = mysql_fetch_object($r))
@@ -94,7 +96,8 @@ class OptionModel extends AppModel
 	function getPairs($calendar_id)
 	{
 		$arr = array();
-		$r = mysql_query("SELECT * FROM `".$this->getTable()."` WHERE `calendar_id` = '".intval($calendar_id)."'");
+		$owner_id = (int) $_SESSION['owner_id'];
+		$r = mysql_query("SELECT * FROM `".$this->getTable()."` WHERE `owner_id` = {$owner_id} AND `calendar_id` = '".intval($calendar_id)."'");
 		if (mysql_num_rows($r) > 0)
 		{
 			while ($row = mysql_fetch_object($r))
