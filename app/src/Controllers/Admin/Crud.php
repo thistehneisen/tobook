@@ -10,13 +10,36 @@ class Crud extends Base
         $this->model = App::make(ucfirst($modelName));
     }
 
+    /**
+     * List all records in database with pagination
+     *
+     * @return View
+     */
     public function index()
     {
-        $items = $this->model->orderBy('id', 'desc')->paginate(Config::get('view.perPage'));
+        $items = $this->model->paginate(Config::get('view.perPage'));
         
         return $this->render('crud.index', [
             'model' => $this->model,
             'items' => $items
+        ]);
+    }
+
+    /**
+     * Show the form to edit an item
+     *
+     * @param  string $type 
+     * @param  int $id   
+     *
+     * @return View
+     */
+    public function edit($type, $id)
+    {
+        $item = $this->model->where('id', $id)->firstOrFail();
+        
+        return $this->render('crud.edit', [
+            'model' => $this->model,
+            'item' => $item
         ]);
     }
 }

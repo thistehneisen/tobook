@@ -123,10 +123,7 @@ Route::group([
             'as' => 'timeslot.index',
             'uses' => 'App\Controllers\Services@timeslot'
         ]);
-
-
     });
-
 
 });
 /*
@@ -147,6 +144,11 @@ Route::group([
     Route::get('{model}', [
         'as' => 'admin.crud.index',
         'uses' => 'App\Controllers\Admin\Crud@index'
+    ]);
+
+    Route::get('{model}/{id}', [
+        'as' => 'admin.crud.edit',
+        'uses' => 'App\Controllers\Admin\Crud@edit'
     ]);
 
 });
