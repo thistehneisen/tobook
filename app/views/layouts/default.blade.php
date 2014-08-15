@@ -35,6 +35,9 @@
                 @if (Confide::user())
                 <li><a href="{{ route('dashboard.index') }}">{{ trans('common.dashboard') }}</a></li>
                 <li><a href="{{ route('user.profile') }}">{{ trans('common.my_account') }}</a></li>
+                @if (Entrust::hasRole('Admin'))
+                <li><a href="{{ route('admin.index') }}">{{ trans('common.admin') }}</a></li>
+                @endif
                 {{-- <li><a href="">{{ trans('common.help') }}</a></li> --}}
                 <li><a href="{{ route('auth.logout') }}">{{ trans('common.sign_out') }}</a></li>
                 @else

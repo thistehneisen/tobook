@@ -149,7 +149,7 @@ Route::group([
 */
 Route::group([
     'prefix' => Config::get('admin.prefix'),
-    'before' => ['auth']
+    'before' => ['auth', 'super.user']
 ], function() {
 
     Route::get('/', [
@@ -160,6 +160,15 @@ Route::group([
     Route::get('{model}', [
         'as' => 'admin.crud.index',
         'uses' => 'App\Controllers\Admin\Crud@index'
+    ]);
+
+    Route::get('{model}/{id}', [
+        'as' => 'admin.crud.edit',
+        'uses' => 'App\Controllers\Admin\Crud@edit'
+    ]);
+
+    Route::post('{model}/{id}', [
+        'uses' => 'App\Controllers\Admin\Crud@doEdit'
     ]);
 
 });
