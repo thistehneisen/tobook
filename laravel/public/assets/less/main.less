@@ -1,0 +1,224 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,300,600);
+@import url(http://fonts.googleapis.com/css?family=Comfortaa:400,300,700&subset=latin,cyrillic,latin-ext,greek,cyrillic-ext);
+
+// -------------------------------------------------------------------------- //
+// ------------------------------- Variables -------------------------------- //
+// -------------------------------------------------------------------------- //
+
+@orange: #ec7923;
+@grey: #424242;
+@link_color: #dd5511;
+@link_color_hover: #bd490f;
+
+// -------------------------------------------------------------------------- //
+// --------------------------------- Global --------------------------------- //
+// -------------------------------------------------------------------------- //
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body {
+    font-family: Roboto, Arial, Verdana, sans-serif;
+    font-weight: 300;
+}
+a {
+    color: @link_color;
+
+    &:link, &:hover {
+        color: @link_color_hover;
+        text-decoration: none;
+    }
+}
+.comfortaa {
+    font-family: "Comfortaa";
+}
+.orange {
+    color: @orange;
+}
+.white {
+    color: white;
+}
+.to-upper {
+    text-transform: uppercase;
+}
+.grey-divider {
+    background-color: @grey;
+    height: 12px;
+}
+
+// -------------------------------------------------------------------------- //
+// --------------------------------- Buttons -------------------------------- //
+// -------------------------------------------------------------------------- //
+.btn-orange {
+    background-color: #ec7923;
+    color: #fff;
+
+    &:hover {
+        color: #fff;
+    }
+}
+.btn-tutustu {
+    margin: 20px 0;
+}
+
+// -------------------------------------------------------------------------- //
+// --------------------------------- Layout --------------------------------- //
+// -------------------------------------------------------------------------- //
+
+// # ------------------------------- header 
+.header {
+    border-bottom: 5px solid @grey;
+    text-align: center;
+    background: transparent url(../img/background.jpg) no-repeat center center;
+    background-size: cover;
+
+    nav {
+        padding: 20px 0;
+
+        .nav-links {
+            a {
+                text-transform: uppercase;
+                color: #333333;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 12px;
+            }
+            a:after {
+                content: "|";
+                padding-left: 15px;
+            }
+            li {
+                padding-right: 10px;
+            }
+            li:last-child {
+                a:after {
+                    content: "";
+                }
+            }
+        }
+        .nav-links.active a, .nav-links a:hover {
+            color: white;
+        }
+        .nav-links:hover {
+            a:after {
+                color: #333333;
+            }
+        }
+    }
+    
+    .logo {
+        width: 450px;
+    }
+
+    .welcome-text {
+        padding-right: 20px;
+    }
+
+    .img-homepage {
+        width: 80vh;
+    }
+    .imac-wrapper {
+        display: block;
+        text-align: center;
+
+        .imac {
+            background: transparent url(../img/imac.png) no-repeat center center;
+            position: relative;
+            width: 565px;
+            height: 450px;
+            display: inline-block;
+
+            .bx-wrapper {
+                padding-top: 19px;
+                padding-left: 20px;
+                .bx-viewport {
+                    background: transparent;
+                    border: none;
+                    -webkit-box-shadow: none;
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+
+    .text-header {
+        font-family: "Comfortaa";
+        color: white;
+        font-size: 10vh;
+        font-weight: 700;
+        margin: 30px 0;
+    }
+
+    &.homepage {
+        height: 100vh;
+    }
+}
+
+// # ------------------------------- main content
+.main {
+    margin: 40px auto 50px auto;
+
+    .dashboard-services {
+        li {
+            margin-bottom: 10px;
+        }
+        div {
+            font-family: "Comfortaa";
+            border: 1px solid #f4c8b2;
+        }
+        h4 {
+            margin-top: 0;
+            background-color: #ec7923;
+            color: white;
+            padding: 10px;
+        }
+        p {
+            text-align: center;
+        }
+        img {
+            width: 100px;
+        }
+    }
+    
+    .services {
+        text-align: center;
+        a {
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #333333;
+        }
+    }
+}
+
+// # ------------------------------- footer
+.footer {
+    color: #aaaaaa;
+    margin-bottom: 50px;
+    h4 {
+        font-weight: 600;
+        text-transform: uppercase;
+        color: #444444;
+    }
+
+    .company-name {
+        font-size: 20px;
+        color: #333333;
+        span {
+            color: #ec7923;
+        }
+    }
+    .list-social-networks {
+        margin-top: 20px;
+        li {
+            padding: 0 3px;
+        }
+        a {
+            border: 1px solid #dddddd;
+            padding: 5px 10px;
+            border-radius: 50%;
+            color: #333333;
+            font-size: 16px;
+        }
+    }
+}

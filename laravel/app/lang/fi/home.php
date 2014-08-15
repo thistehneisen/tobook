@@ -1,0 +1,20 @@
+<?php
+return [
+    'customer_websites'     => 'Asiakkaidemme kotisivut',
+    'description'           => 'Tyylikkäät ensiostokseen kannustavat kotisivut!',
+    'copyright_policy'      => 'Yksityisyydensuoja',
+    'copyright'             => 'Tekijänoikeus',
+    'newsletter'            => 'Uutiskirje',
+    'enter_your_email'      => 'Kirjoita sähköpostisi',
+    'submit'                => 'TILAA',
+    'location'              => 'Sijaitsemme',
+    'freephone'             => 'Freephone',
+    'telephone'             => 'Puhelin',
+    'fax'                   => 'Faksi',
+    'homepages'             => 'Kotisivut',
+    'loyaltycard'           => 'Kantiskortti',
+    'customer_registration' => 'Asiakasrekisteri',
+    'cashier'               => 'Kassa',
+    'description_1'         => 'Meidän intohimomme on luoda laadukkaita kotisivuja joista asiakkaamme voivat olla ylpeitä',
+    'description_2'         => 'Panosta yrityksen kotisivun ulkoasuun, niin kuin panostat myymälän ja liiketilan tyylikkyyteen ja viihtyvyyteen',
+];

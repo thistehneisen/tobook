@@ -1,0 +1,20 @@
+<?php
+return [
+    'customer_websites'     => 'Customer homepages',
+    'description'           => 'Create a stunning looking responsive websites!',
+    'copyright_policy'      => 'Copyright Policy',
+    'copyright'             => 'Copyright',
+    'newsletter'            => 'Newsletter',
+    'enter_your_email'      => 'Enter Your Email',
+    'submit'                => 'SUBMIT',
+    'location'              => 'Location',
+    'freephone'             => 'Freephone',
+    'telephone'             => 'Telephone',
+    'fax'                   => 'Fax',
+    'homepages'             => 'Homepages',
+    'loyaltycard'           => 'Loyalty card',
+    'customer_registration' => 'Customer Registration',
+    'cashier'               => 'Cashier',
+    'description_1'         => 'Our passion is to create high quality websites which our customers can be proud of',
+    'description_2'         => 'See the company\'s home page layout, and you see the shop and office space with elegance and comfort',
+];

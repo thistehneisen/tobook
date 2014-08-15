@@ -1,0 +1,1014 @@
+@CHARSET "UTF-8";
+
+@import url(reset.css);
+
+@import url(lib.css);
+
+html,body {
+	background: #f6f4f5 url(../img/body.png) 0 0 repeat-x;
+	color: #595a5c;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: normal;
+	height: 100%;
+	max-width: 1100px;
+}
+
+a:link,a:visited,a:active,a:hover {
+	color: #3399FF;
+	outline: none;
+}
+
+#processing {
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	background-color: #E5E5E5;
+	color: #000000;
+	display: none;
+	font-weight: bold;
+	left: 50%;
+	padding: 5px 8px;
+	position: absolute;
+	top: 20px;
+	width: auto;
+	z-index: 9999;
+}
+
+#container {
+	min-height: 100%;
+	width: 100%;
+}
+
+#header {
+	height: 118px;
+	position: relative;
+	margin: 0 auto;
+	width: 1040px;
+}
+
+#logo {
+	display: block;
+	width: 552px;
+	margin: 0 auto;
+	height: 118px;
+}
+
+#middle {
+	padding: 25px 0 60px;
+	margin: 0 auto;
+	width: 1040px;
+}
+
+#leftmenu {
+	width: 100%;
+	margin-bottom: 10px
+}
+
+#right {
+	width: 100%;
+}
+
+#footer-wrap {
+	background: #f6f5f5 url(../img/footer.png) 0 0 repeat-x;
+	height: 40px;
+	margin-top: -40px;
+	width: 100%;
+}
+
+#footer {
+	height: 40px;
+	margin: 0 auto;
+	position: relative;
+	width: 1040px;
+}
+
+#footer p {
+	position: absolute;
+	top: 15px;
+	right: 0;
+}
+.content-middle {
+	background: none repeat scroll 0 0 #FFF;
+	border: 1px solid #FFFFFF;
+	border-radius: 8px;
+	box-shadow: 0 0 5px #888888;
+	padding: 10px 20px;
+}
+.leftmenu-middle {
+	background: #ECEBEB;
+	border: 1px solid #FFFFFF;
+	border-radius: 8px;
+	box-shadow: 0 0 5px #888888;
+	padding: 10px 20px;
+} 
+/* Login */
+#login-content {
+	margin: 80px auto 0;
+	min-height: 220px;
+	height: auto !important;
+	height: 220px;
+	width: 560px;
+}
+
+#login-content h3 {
+	color: #6f8a9f;
+	font-weight: bold;
+	font-size: 1.4em;
+	margin: 0 0 10px 0;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.login-box {
+	width: 517px;
+	height: 197px;
+	background: url(../img/login.png) 0 0 no-repeat;
+	overflow: hidden;
+	padding: 20px;
+}
+/* Buttons */
+.button {
+	border: none;
+	cursor: pointer;
+	height: 30px;
+	width: 97px;
+}
+
+.button_login {
+	background: url(../img/btn_login.png) 0 0 no-repeat;
+}
+
+.button_save {
+	background: url(../img/btn_save.png) 0 0 no-repeat;
+}
+
+.button_search {
+	background: url(../img/btn_search.png) 0 0 no-repeat;
+}
+
+.button_report {
+	background: url(../img/btn_report.png) 0 0 no-repeat;
+}
+
+.button_send {
+	background: url(../img/btn_send.png) 0 0 no-repeat;
+}
+
+.button_delete {
+	background: url(../img/btn_delete.png) 0 0 no-repeat;
+}
+
+.button_hover {
+	background-position: 0 -30px;
+}
+/* Form controls */
+.text,.select,.textarea {
+	background-color: #fff;
+	border: solid 1px #a0bad1;
+	box-shadow: inset 2px 2px 1px #e8e8e8;
+	border-radius: 3px;
+	-moz-box-shadow: inset 2px 2px 1px #e8e8e8;
+	-moz-border-radius: 3px;
+	-webkit-box-shadow: inset 2px 2px 1px #e8e8e8;
+	-webkit-border-radius: 3px;
+	padding: 5px 3px;
+}
+
+.text {
+	height: 20px;
+}
+
+.form {
+	
+}
+
+.form p,.p {
+	overflow: hidden;
+	margin: 0 0 10px;
+}
+
+.form .title {
+	display: block;
+	float: left;
+	padding: 6px 0 0;
+	width: 150px;
+}
+
+label.error {
+	color: red;
+	display: block;
+	padding: 5px 0 0 150px;
+}
+
+span.left {
+	display: block;
+	margin: 6px 0 0;
+}
+
+.form h3 {
+	color: #185181;
+	font-size: 1.1em;
+	font-weight: bold;
+	padding: 10px;
+	text-transform: uppercase;
+}
+/* Menu */
+.menu {
+	list-style: none;
+	text-align: center;
+}
+
+.menu li {
+	display: inline-block;
+}
+
+.menu li a:link,.menu li a:visited {
+	background: url("../img/leftmenu-sprite.png") repeat-x scroll 0 0;
+	border-color: #FAFFFB #99ACB9 #99ACB9 #FAFFFB;
+	border-radius: 4px;
+	border-style: solid;
+	border-width: 1px;
+	color: #989393;
+	display: block;
+	font-size: 1.2em;
+	font-weight: bold;
+	height: 35px;
+	line-height: 35px;
+	margin-right: 10px;
+	padding: 0 15px 0 5px;
+	text-decoration: none;
+	text-shadow: 1px 1px 1px #FFFFFF;
+}
+
+.menu li a:hover,.menu li a.menu-focus {
+	color: #242625;
+	text-decoration: none;
+}
+
+.menu a span {
+	display: block;
+	float: left;
+	height: 37px;
+	margin: 0 5px 0 0;
+	width: 40px;
+}
+
+.menu-home {
+	background: url(../img/leftmenu-icons.png) 0 -74px no-repeat;
+}
+
+.menu-bookings {
+	background: url(../img/leftmenu-icons.png) 0 -37px no-repeat;
+}
+
+.menu-options {
+	background: url(../img/leftmenu-icons.png) 0 -111px no-repeat;
+}
+
+.menu-restaurant {
+	background: url(../img/leftmenu-icons.png) 0 0 no-repeat;
+}
+
+.menu-preview {
+	background: url(../img/leftmenu-icons.png) 0 -148px no-repeat;
+}
+
+.menu-install {
+	background: url(../img/leftmenu-icons.png) 0 -185px no-repeat;
+}
+
+.menu-logout {
+	background: url(../img/leftmenu-icons.png) 0 -222px no-repeat;
+}
+
+.menu-reports {
+	background: url(../img/leftmenu-icons.png) 0 -259px no-repeat;
+}
+
+.menu-vouchers {
+	background: url(../img/leftmenu-icons.png) 0 -296px no-repeat;
+}
+/* table */
+.table {
+	border-collapse: separate;
+	border-top: solid 1px #e5e2e2;
+	border-left: solid 1px #e5e2e2;
+	border-bottom: solid 1px #e5e2e2;
+	empty-cells: show;
+	width: 100%;
+}
+
+.table th {
+	background-color: #fff;
+	border-bottom: solid 1px #e5e2e2;
+	border-right: solid 1px #e5e2e2;
+	color: #027ac6;
+	font-weight: bold;
+	font-size: 1.2em;
+	height: 35px;
+	line-height: 35px;
+	padding: 0 0 0 10px;
+}
+
+.table th.nosub {
+	border-bottom: solid 1px #fff;
+}
+
+.table th.sub {
+	background-color: #f7f7f7;
+	border-right: solid 1px #e5e2e2;
+	border-left: solid 1px #fff;
+	border-bottom: solid 1px #fff;
+	border-top: solid 1px #fff;
+	color: #000;
+	font-size: 1em;
+	height: 30px;
+	line-height: 30px;
+	padding: 0px 10px;
+	white-space: nowrap;
+}
+
+.table th.sort {
+	overflow: hidden;
+	padding: 0;
+	width: 16px;
+}
+
+.table th.sort div {
+	height: 35px;
+	line-height: normal;
+	overflow: hidden;
+	width: 16px;
+}
+
+.table a:link,.table a:visited {
+	color: #007AC3; /*808080;*/
+	text-decoration: none;
+}
+
+.table a:hover {
+	text-decoration: underline;
+}
+
+.sort a {
+	display: block;
+	height: 16px;
+	overflow: hidden;
+	width: 16px;
+}
+
+.sort a.up:link,.sort a.up:visited,.sort a.up:hover {
+	background: url(../img/icons/bullet_arrow_up.png) 0 0 no-repeat;
+}
+
+.sort a.down:link,.sort a.down:visited,.sort a.down:hover {
+	background: url(../img/icons/bullet_arrow_down.png) 0 0 no-repeat;
+}
+
+.table tbody tr.odd {
+	background-color: #fff;
+}
+
+.table tbody tr.even {
+	background-color: #F7F7F7;
+}
+
+.table tbody tr.highlight {
+	background-color: #FFFFCC;
+}
+
+.table tbody tr.hover {
+	background-color: #F7F7F7;
+}
+
+.table a.icon:link,.table a.icon:visited {
+	color: #757777;
+	display: block;
+	height: 16px;
+	line-height: 16px;
+	text-indent: 20px;
+	text-decoration: none;
+}
+
+.table a.icon-calendar {
+	background: url(../img/icon-calendar.png) 0 0 no-repeat;
+}
+
+.table a.icon-edit {
+	background: url(../img/icon-edit.png) 0 0 no-repeat;
+}
+
+.table a.icon-delete {
+	background: url(../img/icon-delete.png) 0 0 no-repeat;
+}
+
+.table td {
+	border-right: solid 1px #e5e2e2;
+	border-top: solid 1px #e5e2e2;
+	border-left: solid 1px #fff;
+	border-bottom: solid 1px #fff;
+	padding: 5px 7px;
+}
+
+.table td.message {
+	max-width: 140px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.table span.ghost {
+	display: block;
+	width: 24px;
+	height: 24px;
+}
+/* jqueryui fix */
+.ui-widget {
+	font-family: inherit;
+	font-size: inherit;
+}
+
+.ui-widget input,.ui-widget select,.ui-widget textarea,.ui-widget button
+	{
+	font-family: inherit;
+	font-size: inherit;
+}
+
+img.ui-datepicker-trigger {
+	cursor: pointer;
+}
+
+.ui-tabs .ui-tabs-panel {
+	padding: 10px 0;
+	overflow: hidden;
+}
+
+#content div.ui-tabs {
+	padding: 0;
+}
+
+#content div.ui-widget-content {
+	background: none;
+	border: none;
+}
+/* Errors */
+.notice-box {
+	margin: 0 0 10px 0;
+	overflow: hidden;
+	width: 742px;
+}
+
+.notice-top {
+	background: url(../img/notice-top.png) 0 0 no-repeat;
+	height: 2px;
+	overflow: hidden;
+}
+
+.notice-middle {
+	background: url(../img/notice-middle.png) 0 0 repeat-y;
+	overflow: hidden;
+	padding: 10px;
+}
+
+.notice-bottom {
+	background: url(../img/notice-bottom.png) 0 0 no-repeat;
+	height: 5px;
+	overflow: hidden;
+}
+
+.notice-middle span {
+	display: block;
+	float: left;
+	height: 32px;
+	margin: 0 10px 0 0;
+	width: 32px;
+}
+
+.notice-middle .notice-info {
+	background: url(../img/icon-info.png) 0 0 no-repeat;
+}
+/* status */
+.booking-status,.user-role {
+	padding: 2px 4px;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-khtml-border-radius: 2px;
+}
+
+.user-role-admin {
+	background-color: #6EB738;
+	color: #fff;
+	text-shadow: 1px 1px 1px #666;
+}
+
+.user-role-owner {
+	background-color: #006699;
+	color: #fff;
+	text-shadow: 1px 1px 1px #ccc;
+}
+
+.booking-status-enquiry {
+	background-color: #0099FF;
+	color: #fff;
+	text-shadow: 1px 1px 1px #333;
+}
+
+.booking-status-pending {
+	background-color: #FF9900;
+	color: #000;
+	text-shadow: 1px 1px 1px #fff;
+}
+
+.booking-status-confirmed {
+	background-color: #2A8000;
+	color: #fff;
+	text-shadow: 1px 1px 1px #999;
+}
+
+.booking-status-cancelled {
+	background-color: #B3B3B3;
+	color: #fff;
+	text-shadow: 1px 1px 1px #333;
+}
+
+.booking-icon {
+	text-indent: 27px;
+	display: block;
+	line-height: 20px;
+}
+/* paginator */
+.paginator {
+	overflow: hidden;
+	margin: 10px 0 0 0;
+}
+
+.paginator li {
+	display: inline;
+}
+
+.paginator li a:link,.paginator li a:visited {
+	background-color: #CCCCCC;
+	color: #000;
+	display: block;
+	float: left;
+	margin: 0 2px 0 0;
+	padding: 1px 4px;
+	border-radius: 2px;
+	text-decoration: none;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-khtml-border-radius: 2px;
+}
+
+.paginator li a:hover {
+	background-color: #EAEAEA;
+}
+
+.paginator li a.focus {
+	background-color: #072B4F;
+	color: #fff;
+}
+/* fieldset */
+.fieldset {
+	margin: 0 0 10px;
+	padding: 10px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	position: relative;
+}
+
+.fieldset legend {
+	background-color: #003366;
+	color: #fff;
+	padding: 2px 5px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	width: 250px;
+}
+
+#box-date-message {
+	display: inline-block;
+	font-weight: bold;
+	padding: 5px;
+	width: 80%;
+}
+
+/* Colors */
+.white {
+	background-color: #fff;
+	border: solid 1px #ccc;
+	color: #000 !important
+}
+
+.sky {
+	background-color: #EAFBFB;
+	border: solid 1px #ccc;
+}
+
+.light {
+	background-color: #f5f5f5;
+	border: solid 1px #ccc;
+}
+
+.rect {
+	cursor: pointer;
+	display: block;
+	font-size: 0.9em;
+	overflow: hidden;
+	position: absolute;
+	text-align: center;
+	z-index: 1000;
+}
+
+.empty {
+	background-color: #135E8D;
+	color: #fff
+}
+
+.available {
+	background-color: green;
+	color: #fff
+}
+
+.busy {
+	background-color: red;
+	color: #fff;
+	cursor: default
+}
+
+.my {
+	background-color: #FFCC00;
+	color: #000;
+	cursor: default
+}
+
+.rect-selected {
+	background-color: #BE8329;
+	color: #fff
+}
+
+.cal-container {
+	clear: both;
+	overflow: hidden;
+}
+
+.cal-calendars {
+	float: left;
+	width: 212px;
+}
+
+.cal-dates {
+	overflow-y: hidden;
+	overflow-x: auto;
+}
+
+.cal-scroll {
+	display: table;
+}
+
+.cal-title {
+	border-bottom: solid 1px #ccc;
+	height: 31px;
+	line-height: 31px;
+	margin: 0 0 7px 0;
+	padding: 0 2px 7px 5px;
+	overflow: hidden;
+}
+
+.cal-head {
+	border-bottom: solid 1px #ccc;
+	height: 64px;
+	margin: 0 0 7px 0;
+	padding: 0 0 7px 0;
+	width: 100%;
+}
+
+.cal-head-row {
+	overflow: hidden;
+	margin: 0 0 1px 0;
+}
+
+.cal-head-row span {
+	background-color: #EDECEE;
+	border: solid 1px #DEE2E5;
+	color: #B6B2B1;
+	display: block;
+	float: left;
+	font-weight: bold;
+	height: 29px;
+	line-height: 29px;
+	margin: 0 1px 0 0;
+	text-align: center;
+	width: 53px;
+}
+
+.cal-program {
+	border-bottom: solid 1px #ccc;
+	height: 31px;
+	margin: 0 0 7px 0;
+	padding: 0 0 7px 0;
+	width: 100%;
+}
+
+.cal-program a:link,.cal-program a:visited,.cal-program a:active,.cal-program span
+	{
+	background: url(../img/colors.png) 0 0 repeat-x;
+	color: #fff;
+	display: block;
+	float: left;
+	font-weight: bold;
+	height: 31px;
+	line-height: 31px;
+	margin: 0 1px 0 0;
+	text-align: center;
+	text-decoration: none;
+	width: 55px;
+}
+
+.cal-program a.customer-name {
+	width: auto;
+	background-repeat: repeat-x;
+	position: relative;
+	margin: 0;
+	background: none;
+}
+.cal-program a.customer-name.left span.name{
+	left: -27px;
+}
+.cal-program a.customer-name.right span.name{
+	right: 27px;
+}
+.cal-program a.customer-name span {
+	/*background: transparent;*/
+	text-indent: -9999px;
+}
+
+.cal-program a.customer-name span.name {
+	background: url("../img/colors.png") repeat-x scroll 0 0;
+	bottom: 0;
+	left: 0;
+	overflow: hidden;
+	padding-left: 5px;
+	padding-right: 5px;
+	position: absolute;
+	right: 0;
+	text-align: left;
+	text-indent: inherit;
+	text-overflow: ellipsis;
+	top: 0;
+	white-space: nowrap;
+	width: auto;
+}
+
+.cal-program a.customer-name span.notes {
+	background-color: rgba(0, 0, 0, 0.7);
+	background-origin: content-box;
+	border-radius: 9999px;
+	height: 16px;
+	line-height: 18px;
+	margin-right: 3px;
+	margin-top: -8px;
+	padding: 0 3px;
+	position: relative;
+	text-indent: inherit;
+	top: 50%;
+	width: 10px;
+	color: #FFF;
+}
+
+#status,#is_paid {
+	padding-top: 6px;
+}
+
+#status label,#is_paid label {
+	margin-right: 15px;
+	padding-left: 2px;
+	vertical-align: top;
+}
+
+.cal-program a.calendarStatus {
+	background-position: 0 0
+}
+
+.cal-program a.customer-name.calendarStatusComplete .name{
+	background: #DFF0D8;
+    color: #3C763D;
+}
+.cal-program a.calendarStatusConfirmed,
+.cal-program a.customer-name.calendarStatusConfirmed .name
+	{
+	background-position: 0 -31px
+}
+
+.cal-program a.calendarStatusPending,
+.cal-program a.customer-name.calendarStatusPending .name
+	{
+	background-position: 0 -62px;
+	color: #000
+}
+
+.cal-program a.calendarStatusEnquiry,
+.cal-program a.customer-name.calendarStatusEnquiry .name
+	{
+	background-position: 0 -279px
+}
+
+.cal-program a.calendarStatusCancelled,
+.cal-program a.customer-name.calendarStatusCancelled .name
+	{
+	background-position: 0 -310px;
+	color: #555
+}
+
+.cal-program a.calendarStatus_1_2,
+.cal-program a.customer-name.calendarStatus_1_2 .name
+	{
+	background-position: 0 -124px
+}
+
+.cal-program a.calendarStatus_1_3,
+.cal-program a.customer-name.calendarStatus_1_3 .name
+	{
+	background-position: 0 -217px;
+	color: #000
+}
+
+.cal-program a.calendarStatus_2_1,
+.cal-program a.customer-name.calendarStatus_2_1 .name
+	{
+	background-position: 0 -93px
+}
+
+.cal-program a.calendarStatus_2_3,
+.cal-program a.customer-name.calendarStatus_2_3 .name
+	{
+	background-position: 0 -186px;
+	color: #000
+}
+
+.cal-program a.calendarStatus_3_1,
+.cal-program a.customer-name.calendarStatus_3_1 .name
+	{
+	background-position: 0 -248px;
+	color: #000
+}
+
+.cal-program a.calendarStatus_3_2,
+.cal-program a.customer-name.calendarStatus_3_2 .name
+	{
+	background-position: 0 -155px;
+	color: #000
+}
+
+.cal-program a.calendarStatusPending span,
+.cal-program a.calendarStatus_1_3 span,
+.cal-program a.calendarStatus_2_3 span,
+.cal-program a.calendarStatus_3_1 span,
+.cal-program a.calendarStatus_3_2 span
+	{
+	color: #000
+}
+
+.cal-program a.calendarStatusCancelled span {
+	color: #555
+}
+.report{
+	margin: 20px 0 30px;
+}
+.report b.number{
+	display: inline-block;
+    min-width: 25px;
+}
+#monthly-review span.lable{
+    display: inline-block;
+    width: 80px;
+}
+#graph {
+	height: 250px;
+    margin: 0 auto 20px;
+    width: 100%;
+    position: relative;
+    border: 1px solid #CCCCCC;
+}
+#graph ul.box-note{
+	background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px 0 4px 4px;
+    box-shadow: 0 1px 4px #CCCCCC;
+    padding: 5px 10px;
+    position: absolute;
+    right: 0;
+    top: 0px;
+}
+#graph ul.box-note li{
+	line-height: 22px;
+}
+#graph ul.box-note li span{
+	background: none repeat scroll 0 0 #7a92a3;
+    border-radius: 2px;
+    display: inline-block;
+    height: 13px;
+    margin-right: 5px;
+    text-align: left;
+    text-indent: -9999px;
+    vertical-align: middle;
+    width: 18px;
+}
+#graph ul.box-note li span.box-color-covers{
+	background: #0b62a4;	
+}
+#graph ul.box-note{
+	background: rgba(255,255,255, 0.5);
+}
+
+/* Calendar */
+/*******************************Calendar Top Navigation*********************************/
+div#calendar div.box{
+    position:relative;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:40px;
+    background-color:   #787878 ;       
+}
+ 
+div#calendar div.header{
+    line-height:40px;   
+    vertical-align:middle;
+    position:absolute;
+    left:11px;
+    top:0px;
+    width:582px;
+    height:40px;    
+    text-align:center;
+}
+ 
+div#calendar div.header a.prev,div#calendar div.header a.next{  
+    position:absolute;
+    top:0px;    
+    height: 17px;
+    display:block;
+    cursor:pointer; 
+    text-decoration:none;
+    color:#FFF;
+}
+ 
+div#calendar div.header span.title{
+    color:#FFF;
+    font-size:18px;
+}
+ 
+ 
+div#calendar div.header a.prev{ 
+    left:0px;
+}
+ 
+div#calendar div.header a.next{ 
+    right:0px;
+}
+ 
+ 
+ 
+ 
+/*******************************Calendar Content Cells*********************************/
+div#calendar table.box-content{
+   width: 100%;
+   border-right: 1px solid #C4C4C4;
+}
+div#calendar table.box-content th{
+	border-left: 1px solid #C4C4C4;
+	color: #384B51;
+    font-size: 14px;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    background: url("../img/bg-day-name.png") no-repeat scroll -1px 0 #F6F6F6;
+}
+div#calendar table.box-content td{
+	border: 1px solid #C4C4C4;
+	background-color: #F7F7F7;
+}
+div#calendar table.box-content .day{
+	padding: 30px 12px 10px;
+	position: relative;
+}
+div#calendar table.box-content .day_num {
+    color: #B6BABB;
+    position: absolute;
+    right: 7px;
+    top: 5px;
+	font-size: 14px;
+}
+div#calendar table.box-content .day p span {
+    float: right;
+}
+.monthly-review .monthly-control {
+    color: #595A5C;
+    font-size: 70%;
+    line-height: 49px;
+    margin: 0 20px;
+    text-decoration: none;
+}
