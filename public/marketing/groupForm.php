@@ -1,6 +1,6 @@
 <?php
 if (!headers_sent()) {
-    session_name('MarketingTool');
+
     @session_start();
 }
 ?>
@@ -46,25 +46,25 @@ if ( isset($_GET['id']) ) {
 	<div class="container">
 		<div style="width: 800px; margin: 20px auto;">
 			<h3 style="color: #e67e22;">
-				<?php echo $MT_LANG['groupManagement'];?>
+				<?php echo __('groupManagement');?>
 			</h3>
 		</div>
 		<div style="width: 800px; margin: 20px auto;">
 			<div class="floatright">
 				<button class="btn-u btn-u-orange" onclick="onSaveGroup()">
 					<i class="icon-edit"></i>&nbsp;
-					<?php echo $MT_LANG['saveGroup'];?>
+					<?php echo __('saveGroup');?>
 				</button>
 				<button class="btn-u btn-u-blue"
 					onclick="window.location.href='groupList.php'">
 					<i class="icon-list-ul"></i>&nbsp;
-					<?php echo $MT_LANG['groupList'];?>
+					<?php echo __('groupList');?>
 				</button>
 			</div>
 			<div class="clearboth"></div>
 			<br />
 			<div class="form-group">
-				<label><?php echo $MT_LANG['groupName'];?> </label> <input
+				<label><?php echo __('groupName');?> </label> <input
 					type="text" id="groupName" class="form-control"
 					value="<?php echo $dataGroup['group_name']?>" />
 			</div>
@@ -73,7 +73,7 @@ if ( isset($_GET['id']) ) {
 			<div class="floatright">
 				<button class="btn-u btn-u-red" onclick="onDeleteMember()">
 					<i class="icon-edit"></i>&nbsp;
-					<?php echo $MT_LANG['deleteMember'];?>
+					<?php echo __('deleteMember');?>
 				</button>
 			</div>
 			<div class="clearboth"></div>
@@ -82,7 +82,7 @@ if ( isset($_GET['id']) ) {
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						<i class="icon-envelope"></i>&nbsp;
-						<?php echo $MT_LANG['memberList'];?>
+						<?php echo __('memberList');?>
 					</h3>
 				</div>
 				<table class="table" id="memberList">
@@ -93,11 +93,11 @@ if ( isset($_GET['id']) ) {
 								onclick="onCheckAllMember( this )" /></th>
 							<th style="width: 60px; text-align: center;"
 								data-sort-ignore="true">No</th>
-							<th style="text-align: center;"><?php echo $MT_LANG['pluginType'];?>
+							<th style="text-align: center;"><?php echo __('pluginType');?>
 							</th>
-							<th style="text-align: center;"><?php echo $MT_LANG['email'];?></th>
-							<th style="text-align: center;"><?php echo $MT_LANG['phone'];?></th>
-							<th style="width: 160px; text-align: center;"><?php echo $MT_LANG['createdTime'];?>
+							<th style="text-align: center;"><?php echo __('email');?></th>
+							<th style="text-align: center;"><?php echo __('phone');?></th>
+							<th style="width: 160px; text-align: center;"><?php echo __('createdTime');?>
 							</th>
 						</tr>
 					</thead>

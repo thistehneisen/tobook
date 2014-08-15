@@ -1,6 +1,6 @@
 <?php
 if (!headers_sent()) {
-    session_name('MarketingTool');
+
     @session_start();
 }
 ?>
@@ -67,7 +67,7 @@ if (isset($_GET['id'])) {
 	<div class="container">
 		<div style="width: 800px; margin: 20px auto;">
 			<h3 style="color: #e67e22;">
-				<?php echo $MT_LANG['editCampaign'];?>
+				<?php echo __('editCampaign');?>
 			</h3>
 		</div>
 		<div style="text-align: center; width: 800px; margin: 20px auto;">
@@ -75,35 +75,35 @@ if (isset($_GET['id'])) {
 				<button class="btn-u btn-u-blue"
 					onclick="onShowEmailTemplatePopup()">
 					<i class="icon-book"></i>&nbsp;
-					<?php echo $MT_LANG['useTemplate'];?>
+					<?php echo __('useTemplate');?>
 				</button>
 			</div>
 			<div class="floatright">
 				<button class="btn-u btn-u-orange" onclick="onSaveCampaign()">
 					<i class="icon-edit"></i>&nbsp;
-					<?php echo $MT_LANG['saveCampaign'];?>
+					<?php echo __('saveCampaign');?>
 				</button>
 				<button class="btn-u btn-u-blue"
 					onclick="window.location.href='campaignList.php'">
 					<i class="icon-list-ul"></i>&nbsp;
-					<?php echo $MT_LANG['campaignList'];?>
+					<?php echo __('campaignList');?>
 				</button>
 			</div>
 			<div class="clearboth"></div>
 			<br />
 			<p>
 				<input type="text" id="replyName" class="form-control"
-					placeholder="<?php echo $MT_LANG['enterEmailTitle'];?>..."
+					placeholder="<?php echo __('enterEmailTitle');?>..."
 					value="<?php echo $replyName?>" />
 			</p>
 			<p>
 				<input type="text" id="replyEmail" class="form-control"
-					placeholder="<?php echo $MT_LANG['enterReplyEmailAddress'];?>..."
+					placeholder="<?php echo __('enterReplyEmailAddress');?>..."
 					value="<?php echo $replyEmail?>" />
 			</p>
 			<p>
 				<input type="text" id="txtSubject" class="form-control"
-					placeholder="<?php echo $MT_LANG['enterEmailSubjectHere'];?>..."
+					placeholder="<?php echo __('enterEmailSubjectHere');?>..."
 					value="<?php echo $dataCampaign["subject"]?>" />
 			</p>
 			<p>
@@ -122,7 +122,7 @@ if (isset($_GET['id'])) {
 	<div id="emailTemplatePopup" class="unshow">
 		<div
 			style="height: 45px; background: #3498db; color: #FFF; line-height: 45px; font-size: 20px; padding-left: 20px;">
-			<?php echo $MT_LANG['templateList'];?>
+			<?php echo __('templateList');?>
 		</div>
 		<div id="emailTemplateList"
 			style="margin-top: 20px; margin-left: 20px; margin-right: 20px;">
@@ -148,11 +148,11 @@ if (isset($_GET['id'])) {
 		<div style="text-align: center;">
 			<button class="btn-u btn-u-blue" style="text-align: center;"
 				onclick="onChooseEmailTemplate()">
-				<?php echo $MT_LANG['useThisTemplate'];?>
+				<?php echo __('useThisTemplate');?>
 			</button>
 			<button class="btn-u btn-u-orange" style="text-align: center;"
 				onclick="onCloseEmailTemplatePopup()">
-				<?php echo $MT_LANG['cancel'];?>
+				<?php echo __('cancel');?>
 			</button>
 		</div>
 	</div>

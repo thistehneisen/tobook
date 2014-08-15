@@ -1,6 +1,5 @@
 <?php
 if (!headers_sent()) {
-    session_name('MarketingTool');
     @session_start();
 }
 ?>
@@ -53,30 +52,30 @@ $campaignList = $db->queryArray($sql);
     <div class="container">
         <div style="width: 800px; margin: 20px auto;">
             <h3 style="color: #e67e22;">
-                <?php echo $MT_LANG['saveAutomation']?>
+                <?php echo __('saveAutomation')?>
             </h3>
         </div>
         <div style="width: 800px; margin: 20px auto;">
             <div class="floatright">
                 <button class="btn-u btn-u-orange" onclick="onSaveAutomation()">
-                    <i class="icon-edit"></i>&nbsp;<?php echo $MT_LANG['saveAutomation']?>
+                    <i class="icon-edit"></i>&nbsp;<?php echo __('saveAutomation')?>
                 </button>
                 <button class="btn-u btn-u-blue" onclick="window.location.href='automationList.php'">
-                    <i class="icon-list-ul"></i>&nbsp;<?php echo $MT_LANG['automationList']?>
+                    <i class="icon-list-ul"></i>&nbsp;<?php echo __('automationList')?>
                 </button>
             </div>
             <div class="clearboth"></div>
             <br />
             <div class="form-group">
-                <label><?php echo $MT_LANG['automationTitle']?></label>
+                <label><?php echo __('automationTitle')?></label>
                 <input type="text" id="title" class="form-control" value="<?php echo $dataAutomation['title']?>" />
             </div>
             <div class="form-group">
-                <label><?php echo $MT_LANG['marketingType']?></label>
+                <label><?php echo __('marketingType')?></label>
                 <select class="form-control" id="type" onchange="onChangeMarketingType( this )">
-                    <option value=""><?php echo $MT_LANG['selectMarketingType']; ?></option>
+                    <option value=""><?php echo __('selectMarketingType'); ?></option>
                     <option value="email" <?php echo ($dataAutomation['type'] == "email")? "selected": "";?>>
-                        <?php echo $MT_LANG['email'];?>
+                        <?php echo __('email');?>
                     </option>
                     <option value="sms" <?php echo ($dataAutomation['type'] == "sms")? "selected": "";?>>
                         SMS
@@ -85,9 +84,9 @@ $campaignList = $db->queryArray($sql);
             </div>
 
             <div class="form-group" id="divEmail" style="<?php echo ($dataAutomation['type'] != "email")? "display:none;": "";?>">
-                <label><?php echo $MT_LANG['campaign']?></label>
+                <label><?php echo __('campaign')?></label>
                 <select class="form-control" id="campaign">
-                    <option value=""><?php echo $MT_LANG['selectCampaign'];?></option>
+                    <option value=""><?php echo __('selectCampaign');?></option>
                     <?php 
                     for ($i = 0; $i < count($campaignList); $i++) {
                         if ($campaignList[$i]['email_campaign'] == $dataAutomation['email_campaign']) {
@@ -109,35 +108,35 @@ $campaignList = $db->queryArray($sql);
             </div>
 
             <div class="form-group" id="divSms" style="<?php echo ($dataAutomation['type'] != "sms" ) ? "display:none;" : "";?>">
-                <label><?php echo $MT_LANG['smsText']?> </label>
+                <label><?php echo __('smsText')?> </label>
                 <textarea class="form-control" id="smsText" maxlength="160">
                     <?php echo $dataAutomation['sms_content'];?>
                 </textarea>
             </div>
 
             <div class="form-group">
-                <label><?php echo $MT_LANG['pluginType']?> </label> <select
+                <label><?php echo __('pluginType')?> </label> <select
                     class="form-control" id="pluginType">
                     <option value="">Select Plugin Type.</option>
                     <option value="RB" <?php echo ($dataAutomation['plan_group_code'] == 'RB') ? "selected" : "";?>>
-                        <?php echo $MT_LANG['restaurantBookings']?>
+                        <?php echo __('restaurantBookings')?>
                     </option>
                     <option value="TB" <?php echo ($dataAutomation['plan_group_code'] == 'TB') ? "selected" : "";?>>
-                        <?php echo $MT_LANG['timeslotBookings']?>
+                        <?php echo __('timeslotBookings')?>
                     </option>
                     <option value="AS" <?php echo ($dataAutomation['plan_group_code'] == 'AS') ? "selected" : "";?>>
-                        <?php echo $MT_LANG['appointmentScheduler']?>
+                        <?php echo __('appointmentScheduler')?>
                     </option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label><?php echo $MT_LANG['numberOfPreviousBooking']?> </label>
+                <label><?php echo __('numberOfPreviousBooking')?> </label>
                 <input type="text" id="cntPreviousBooking" class="form-control" value="<?php echo $dataAutomation['cnt_previous_booking']?>" />
             </div>
 
             <div class="form-group">
-                <label><?php echo $MT_LANG['dayOfPreviousBooking']?> </label>
+                <label><?php echo __('dayOfPreviousBooking')?> </label>
                 <input type="text" id="daysPreviousBooking" class="form-control" value="<?php echo $dataAutomation['days_previous_booking']?>" />
             </div>
         </div>

@@ -1,6 +1,5 @@
 <?php
 if (!headers_sent()) {
-    session_name('MarketingTool');
     @session_start();
 }
 ?>
@@ -37,23 +36,23 @@ $automationList = $db->queryArray($sql);
     <br />
     <div class="container">
         <div class="floatleft">
-            <button class="btn-u btn-u-blue" onclick="window.location.href='index.php'">
-                <i class="icon-home"></i>&nbsp;<?php echo $MT_LANG['mainPage'];?>
-            </button>
+            <a class="btn-u btn-u-blue" href="main.php">
+                <i class="icon-home"></i>&nbsp;<?php echo __('mainPage');?>
+            </a>
         </div>
         <div class="floatright">
             <button class="btn-u btn-u-blue" onclick="window.location.href='automationForm.php'">
-                <i class="icon-file-text-alt"></i>&nbsp;<?php echo $MT_LANG['createAutomation'];?>
+                <i class="icon-file-text-alt"></i>&nbsp;<?php echo __('createAutomation');?>
             </button>
             <button class="btn-u btn-u-orange" onclick="onDeleteAutomation()">
-                <i class="icon-trash"></i>&nbsp;<?php echo $MT_LANG['deleteAutomation'];?>
+                <i class="icon-trash"></i>&nbsp;<?php echo __('deleteAutomation');?>
             </button>
         </div>
         <div class="clearboth"></div>
         <div class="panel panel-orange margin-bottom-40" style="margin-top: 20px;">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    <i class="icon-envelope"></i>&nbsp;<?php echo $MT_LANG['automationList'];?>
+                    <i class="icon-envelope"></i>&nbsp;<?php echo __('automationList');?>
                 </h3>
             </div>
             <table class="table" id="automationList">
@@ -66,22 +65,22 @@ $automationList = $db->queryArray($sql);
                             No
                         </th>
                         <th style="text-align: center;">
-                            <?php echo $MT_LANG['automationTitle'];?>
+                            <?php echo __('automationTitle');?>
                         </th>
                         <th style="width: 80px; text-align: center;">
-                            <?php echo $MT_LANG['type'];?>
+                            <?php echo __('type');?>
                         </th>
                         <th style="width: 160px; text-align: center;">
-                            <?php echo $MT_LANG['pluginName'];?>
+                            <?php echo __('pluginName');?>
                         </th>
                         <th style="width: 160px; text-align: center;">
-                            <?php echo $MT_LANG['numberOfPreviousBooking'];?>
+                            <?php echo __('numberOfPreviousBooking');?>
                         </th>
                         <th style="width: 160px; text-align: center;">
-                            <?php echo $MT_LANG['dayOfPreviousBooking'];?>
+                            <?php echo __('dayOfPreviousBooking');?>
                         </th>
                         <th style="width: 160px; text-align: center;">
-                            <?php echo $MT_LANG['sentCount'];?>
+                            <?php echo __('sentCount');?>
                         </th>
                     </tr>
                 </thead>
@@ -98,18 +97,18 @@ $automationList = $db->queryArray($sql);
                         </td>
                         <td style="text-align: center;">
                             <?php 
-                            echo ( $automationList[$i]['type'] == "email" ) ? $MT_LANG['email'] : "";
+                            echo ( $automationList[$i]['type'] == "email" ) ? __('email') : "";
                             echo ( $automationList[$i]['type'] == "sms" ) ? "SMS" : "";
                             ?>
                         </td>
                         <td style="text-align: center;">
                         <?php
                         if ($automationList[$i]['plan_group_code'] == "TB") { 
-                            echo $MT_LANG['timeslotBookings'];
+                            echo __('timeslotBookings');
                         } elseif ($automationList[$i]['plan_group_code'] == "RB") {
-                            echo $MT_LANG['restaurantBookings'];
+                            echo __('restaurantBookings');
                         } else if( $automationList[$i]['plan_group_code'] == "AS" ) {
-                            echo $MT_LANG['appointmentScheduler'];
+                            echo __('appointmentScheduler');
                         }
                         ?>
                         </td>

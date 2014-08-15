@@ -1,7 +1,7 @@
 <?php
 if (!headers_sent())
 {
-    session_name('MarketingTool');
+
     @session_start();
 }
 ?>
@@ -23,6 +23,8 @@ require_once("common/functions.php");
 <link rel='stylesheet' href="css/footable.standalone.css" type='text/css' media='all' />
 <link rel='stylesheet' href="css/datepicker.css" type='text/css' media='all' />
 <?php
+
+error_reporting(E_ALL);
 if (isset($_GET["username"]) && $_GET["username"] != "") {
     $prefix = $_GET["username"];
     $ownerId = $_GET["userid"];
@@ -32,13 +34,13 @@ if (isset($_GET["username"]) && $_GET["username"] != "") {
     $prefix = $_SESSION["username"];
     $ownerId = $_SESSION["userid"];
 }
-$startDate = $_GET['startDate'];
-$endDate = $_GET['endDate'];
+$startDate = getVal('startDate');
+$endDate = getVal('endDate');
 
-$tb = $_GET['tb'];
-$rb = $_GET['rb'];
-$as = $_GET['as'];
-$hb = $_GET['hb'];
+$tb = getVal('tb');
+$rb = getVal('rb');
+$as = getVal('as');
+$hb = getVal('hb');
 
 $sql1 = "select max(id) as cId, concat(c_fname, ' ', c_lname) as cName, c_email as cEmail, c_phone as cPhone, 'rb' as planGroupCode, max(created) as bookingTime
            from rb_bookings
@@ -55,11 +57,7 @@ $sql3 = "select id as cId, c_name as cName, c_email as cEmail, c_phone as cPhone
           where owner_id = $ownerId
           group by cEmail, cPhone";
 
-$con1 = mysql_connect( DB_HOSTNAME, DB_USERNAME, DB_PASSWORD) or die ( mysql_error() );
-$db1 = mysql_select_db( DB_DATABASE, $con1) or die( mysql_error() );
-
 $sqlSub = "$sql1 union all $sql2 union all $sql3";
-logToFile("data.log", "SQL : $sqlSub");
 $sql = "select * from ( $sqlSub ) t1 where cId != 0";
 
 if ($startDate != "")
@@ -88,11 +86,11 @@ $today = $dataResult[0]['today'];
 	<div class="container">
 		<div class="floatright" style="margin-bottom: 10px;">
 			<a class="btn btn-link" href='campaignList.php'
-				style="font-weight: bold;"><?php echo $MT_LANG['campaignManagement'];?>
+				style="font-weight: bold;"><?php echo __('campaignManagement');?>
 			</a> &nbsp;|&nbsp; <a class="btn btn-link" href='automationList.php'
-				style="font-weight: bold;"><?php echo $MT_LANG['automationManagement'];?>
+				style="font-weight: bold;"><?php echo __('automationManagement');?>
 			</a> &nbsp;|&nbsp; <a class="btn btn-link" href='groupList.php'
-				style="font-weight: bold;"><?php echo $MT_LANG['groupManagement'];?>
+				style="font-weight: bold;"><?php echo __('groupManagement');?>
 			</a>
 		</div>
 		<div class="clearboth"></div>
@@ -100,25 +98,25 @@ $today = $dataResult[0]['today'];
 			<div class="panel-heading">
 				<h3 class="panel-title">
 					<i class="icon-search"></i>
-					<?php echo $MT_LANG['searchCustomers'];?>
+					<?php echo __('searchCustomers');?>
 				</h3>
 			</div>
 			<div class="panel-body">
 				<div>
 					<label class="floatleft marginRight20" style="padding-top: 7px;">
-					    <b><?php echo $MT_LANG['searchDate'];?> :</b>
+					    <b><?php echo __('searchDate');?> :</b>
 					</label> 
 					<input type="text" id="txtStartDate"
 						class="floatleft form-control marginRight20"
 						style="width: 120px; text-align: center; cursor: pointer; background: #FFF;"
-						readonly placeholder="<?php echo $MT_LANG['startDate'];?>"
+						readonly placeholder="<?php echo __('startDate');?>"
 						value="<?php echo $startDate;?>" /> <input type="text"
 						id="txtEndDate" class="floatleft form-control marginRight20"
 						style="width: 120px; text-align: center; cursor: pointer; background: #FFF;"
-						readonly placeholder="<?php echo $MT_LANG['endDate'];?>"
+						readonly placeholder="<?php echo __('endDate');?>"
 						value="<?php echo $endDate;?>" />
 					<button class="btn-u btn-u-orange" onclick="onResetDate()">
-						<?php echo $MT_LANG['reset'];?>
+						<?php echo __('reset');?>
 					</button>
 					<div class="clearboth"></div>
 				</div>
@@ -126,22 +124,22 @@ $today = $dataResult[0]['today'];
 					<label class="checkbox-inline" style="padding-right: 30px;"> 
 					    <input
 						type="checkbox" id="chkGroupAll" value="all"
-						onclick="onAllGroup(this)"> <b><u><?php echo $MT_LANG['allGroup'];?></u></b>
+						onclick="onAllGroup(this)"> <b><u><?php echo __('allGroup');?></u></b>
 					</label> 
 					<label class="checkbox-inline"> 
 					    <input type="checkbox"
 						id="chkTimeslot" value="tb"
-						<?php if ($tb == "Y") echo "checked"; ?>> <?php echo $MT_LANG['timeslotBookings']; ?>
+						<?php if ($tb == "Y") echo "checked"; ?>> <?php echo __('timeslotBookings'); ?>
 					</label>
 					<label class="checkbox-inline">
 					    <input type="checkbox"
 						id="chkRestaurant" value="rb"
-						<?php if ($rb == "Y") echo "checked"; ?>> <?php echo $MT_LANG['restaurantBookings']; ?>
+						<?php if ($rb == "Y") echo "checked"; ?>> <?php echo __('restaurantBookings'); ?>
 					</label>
 					<label class="checkbox-inline">
 					    <input type="checkbox"
 						id="chkAppointment" value="as"
-						<?php if ($as == "Y") echo "checked"; ?>> <?php echo $MT_LANG['appointmentScheduler']; ?>
+						<?php if ($as == "Y") echo "checked"; ?>> <?php echo __('appointmentScheduler'); ?>
 					</label> 
 					<label class="checkbox-inline" style="display: none;">
 					    <input
@@ -153,7 +151,7 @@ $today = $dataResult[0]['today'];
 				<div style="text-align: center;">
 					<button class="btn-u btn-u-blue" onclick="onSearch()">
 						<i class="icon-search"></i>&nbsp;
-						<?php echo $MT_LANG['search'];?>
+						<?php echo __('search');?>
 					</button>
 				</div>
 			</div>
@@ -178,17 +176,17 @@ $today = $dataResult[0]['today'];
 		<div class="floatleft">
 			<button class="btn-u btn-u-orange" onclick="onOpenEmail()">
 				<i class="icon-envelope"></i>&nbsp;
-				<?php echo $MT_LANG['sendEmail'];?>
+				<?php echo __('sendEmail');?>
 			</button>
 			<button class="btn-u btn-u-orange" onclick="onOpenSMS()">
 				<i class="icon-comment"></i>&nbsp;
-				<?php echo $MT_LANG['sendSms'];?>
+				<?php echo __('sendSms');?>
 			</button>
 
 			<button class="btn-u btn-u-blue" onclick="onShowGroup()"
 				style="margin-left: 15px;">
 				<i class="icon-group"></i>&nbsp;
-				<?php echo $MT_LANG['joinGroup']?>
+				<?php echo __('joinGroup')?>
 			</button>
 		</div>
 		<div class="floatright">
@@ -199,7 +197,7 @@ $today = $dataResult[0]['today'];
 					Credits</b> </span>
 			<button class="btn-u btn-u-blue" onclick="parent.onOpenPayment();">
 				<i class="icon-money"></i>&nbsp;
-				<?php echo $MT_LANG['buyCredits'];?>
+				<?php echo __('buyCredits');?>
 			</button>
 		</div>
 		<div class="clearboth"></div>
@@ -208,7 +206,7 @@ $today = $dataResult[0]['today'];
 			<div class="panel-heading">
 				<h3 class="panel-title">
 					<i class="icon-user"></i>
-					<?php echo $MT_LANG['customerList'];?>
+					<?php echo __('customerList');?>
 				</h3>
 			</div>
 
@@ -218,11 +216,11 @@ $today = $dataResult[0]['today'];
 						<th data-sort-ignore="true"><input type="checkbox"
 							id="chkAllCustomer" onclick="onCheckAllCustomer( this )" /></th>
 						<th data-sort-ignore="true">No</th>
-						<th><?php echo $MT_LANG['name'];?></th>
-						<th><?php echo $MT_LANG['emailAddress'];?></th>
-						<th><?php echo $MT_LANG['phoneNo'];?></th>
-						<th><?php echo $MT_LANG['customerGroup'];?></th>
-						<th><?php echo $MT_LANG['lastBookingDate'];?></th>
+						<th><?php echo __('name');?></th>
+						<th><?php echo __('emailAddress');?></th>
+						<th><?php echo __('phoneNo');?></th>
+						<th><?php echo __('customerGroup');?></th>
+						<th><?php echo __('lastBookingDate');?></th>
 						<th data-sort-ignore="true"></th>
 					</tr>
 				</thead>
@@ -241,18 +239,18 @@ $today = $dataResult[0]['today'];
 						<td>
 						<?php 
 						if ($customerList[$i]['planGroupCode'] == "tb") {
-							echo $MT_LANG['timeslotBookings'];
+							echo __('timeslotBookings');
 						} elseif ($customerList[$i]['planGroupCode'] == "rb") {
-							echo $MT_LANG['restaurantBookings'];
+							echo __('restaurantBookings');
 						} elseif ( $customerList[$i]['planGroupCode'] == "as") {
-							echo $MT_LANG['appointmentScheduler'];
+							echo __('appointmentScheduler');
 						}
 						?>
 						</td>
 						<td><?php echo $customerList[$i]['bookingTime']?></td>
 						<td>
 							<button class="btn btn-info btn-xs" onclick="onEditCustomer('<?php echo $customerList[$i]['planGroupCode']?>', <?php echo $customerList[$i]['cId']?> )">
-								<?php echo $MT_LANG['edit'];?>
+								<?php echo __('edit');?>
 							</button>
 						</td>
 					</tr>
@@ -262,27 +260,27 @@ $today = $dataResult[0]['today'];
 		</div>
 	</div>
 	<div id="divSMSArea" class="unshow">
-		<span><?php echo $MT_LANG['smsTitle'];?> </span>
+		<span><?php echo __('smsTitle');?> </span>
 		<span style="padding-left: 20px;">(&nbsp;<span id="lengthSMSTitle"></span>&nbsp;/&nbsp;40&nbsp;)</span>
 		<input type="text" class="form-control" id="titleSMS" style="margin-top: 5px; margin-bottom: 15px;" maxlength="40">
-		<span><?php echo $MT_LANG['smsText'];?></span>
+		<span><?php echo __('smsText');?></span>
 		<textarea class="form-control" id="txtSMS" rows="5" style="margin-top: 5px; margin-bottom: 15px;" maxlength="160"></textarea>
 		<div class="floatleft">
 			<span style="color: #F00;">*</span>&nbsp;<span id="lengthSMSText"></span>&nbsp;/160
 		</div>
 		<div class="floatright">
 			<button class="btn-u btn-u-blue" onclick="onSendSMS()">
-				<?php echo $MT_LANG['send']?>
+				<?php echo __('send')?>
 			</button>
 			<button class="btn-u btn-u-orange" onclick="onCloseSMS()">
-				<?php echo $MT_LANG['cancel']?>
+				<?php echo __('cancel')?>
 			</button>
 		</div>
 		<div class="clearboth"></div>
 	</div>
 	<div id="divEmailArea" class="unshow">
 		<div style="height: 45px; background: #3498db; color: #FFF; line-height: 45px; font-size: 20px; padding-left: 20px;">
-			<?php echo $MT_LANG['selectCampaignToSend'];?>
+			<?php echo __('selectCampaignToSend');?>
 		</div>
 		<?php
 		$sql = "select *
@@ -298,7 +296,7 @@ $today = $dataResult[0]['today'];
 			</div>
 			<?php }
 			if (count( $dataCampaign ) == 0) {
-				echo "<h2 style='padding-left:10px;padding-top:10px;'>".$MT_LANG['msgNoCampaign']."</h2>";
+				echo "<h2 style='padding-left:10px;padding-top:10px;'>".__('msgNoCampaign')."</h2>";
 			} ?>
 
 		</div>
@@ -313,15 +311,15 @@ $today = $dataResult[0]['today'];
 				<?php } ?>
 			</select>&nbsp;&nbsp;
 			<button class="btn-u btn-u-red" onclick="onEmailSchedule()">
-				<?php echo $MT_LANG['schedule']?>
+				<?php echo __('schedule')?>
 			</button>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<button class="btn-u btn-u-blue" onclick="onSendEmail()">
-				<?php echo $MT_LANG['sendNow']?>
+				<?php echo __('sendNow')?>
 			</button>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<button class="btn-u btn-u-orange" onclick="onCloseEmail()">
-				<?php echo $MT_LANG['cancel']?>
+				<?php echo __('cancel')?>
 			</button>
 		</div>
 		<div class="clearboth"></div>
@@ -335,11 +333,11 @@ $today = $dataResult[0]['today'];
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">&times;</span><span class="sr-only"><?php echo $MT_LANG['close']?>
+						<span aria-hidden="true">&times;</span><span class="sr-only"><?php echo __('close')?>
 						</span>
 					</button>
 					<h4 class="modal-title">
-						<?php echo $MT_LANG['customerInformation']?>
+						<?php echo __('customerInformation')?>
 					</h4>
 				</div>
 				<div class="modal-body">
@@ -348,7 +346,7 @@ $today = $dataResult[0]['today'];
 							id="pGroupCode" />
 
 						<div style="width: 25%; float: left; font-weight: bold; text-align: right; line-height: 30px;">
-							<?php echo $MT_LANG['name']?>:
+							<?php echo __('name')?>:
 						</div>
 						<div style="padding-left: 5%; width: 70%; float: left;">
 							<input type="text" id="txtName" class="form-control" />
@@ -356,7 +354,7 @@ $today = $dataResult[0]['today'];
 						<div style="clear: both;"></div>
 						<br />
 						<div style="width: 25%; float: left; font-weight: bold; text-align: right; line-height: 30px;">
-							<?php echo $MT_LANG['email']?>:
+							<?php echo __('email')?>:
 						</div>
 						<div style="padding-left: 5%; width: 70%; float: left;">
 							<input type="text" id="txtEmail" class="form-control" />
@@ -364,7 +362,7 @@ $today = $dataResult[0]['today'];
 						<div style="clear: both;"></div>
 						<br />
 						<div style="width: 25%; float: left; font-weight: bold; text-align: right; line-height: 30px;">
-							<?php echo $MT_LANG['phone']?>:
+							<?php echo __('phone')?>:
 						</div>
 						<div style="padding-left: 5%; width: 70%; float: left;">
 							<input type="text" id="txtPhone" class="form-control" />
@@ -372,7 +370,7 @@ $today = $dataResult[0]['today'];
 						<div style="clear: both;"></div>
 						<br />
 						<div style="width: 25%; float: left; font-weight: bold; text-align: right; line-height: 30px;">
-							<?php echo $MT_LANG['note']?>:
+							<?php echo __('note')?>:
 						</div>
 						<div style="padding-left: 5%; width: 70%; float: left;">
 							<textarea id="txtNote" class="form-control" rows="4"></textarea>
@@ -380,7 +378,7 @@ $today = $dataResult[0]['today'];
 						<div style="clear: both;"></div>
 						<br />
 						<div style="width: 25%; float: left; font-weight: bold; text-align: right; line-height: 30px;">
-							<?php echo $MT_LANG['count']?>:
+							<?php echo __('count')?>:
 						</div>
 						<div style="padding-left: 5%; width: 70%; float: left;">
 							<input type="text" id="txtBookedCnt" readonly class="form-control" />
@@ -390,7 +388,7 @@ $today = $dataResult[0]['today'];
 					</div>
 					<div style="width: 30%; float: left;">
 						<div>
-							<b><?php echo $MT_LANG['previousBookings']?> </b>
+							<b><?php echo __('previousBookings')?> </b>
 						</div>
 						<div id="bookingList"></div>
 					</div>
@@ -399,11 +397,11 @@ $today = $dataResult[0]['today'];
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal"
 						id="btnClose">
-						<?php echo $MT_LANG['close']?>
+						<?php echo __('close')?>
 					</button>
 					<button type="button" class="btn btn-primary"
 						onclick="onSaveCustomer()">
-						<?php echo $MT_LANG['save']?>
+						<?php echo __('save')?>
 					</button>
 				</div>
 			</div>
@@ -425,11 +423,11 @@ $today = $dataResult[0]['today'];
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">&times;</span><span class="sr-only"><?php echo $MT_LANG['close']?>
+						<span aria-hidden="true">&times;</span><span class="sr-only"><?php echo __('close')?>
 						</span>
 					</button>
 					<h4 class="modal-title">
-						<?php echo $MT_LANG['groupList'];?>
+						<?php echo __('groupList');?>
 					</h4>
 				</div>
 				<div class="modal-body">
@@ -443,17 +441,17 @@ $today = $dataResult[0]['today'];
 						<?php } ?>
 						<?php if (count( $groupList ) == 0) { ?>
 						<div>
-							<?php echo $MT_LANG['msgNoGroup'];?>
+							<?php echo __('msgNoGroup');?>
 						</div>
 						<?php } ?>
 					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal" id="btnClose1">
-						<?php echo $MT_LANG['close']?>
+						<?php echo __('close')?>
 					</button>
 					<button type="button" class="btn btn-primary" onclick="onJoinGroup()">
-						<?php echo $MT_LANG['join']?>
+						<?php echo __('join')?>
 					</button>
 				</div>
 			</div>

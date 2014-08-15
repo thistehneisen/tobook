@@ -1,6 +1,6 @@
 <?php
 if (!headers_sent()) {
-    session_name('MarketingTool');
+
     @session_start();
 }
 ?>
@@ -27,7 +27,7 @@ require_once("common/functions.php");
 $prefix = $_SESSION["username"];
 $ownerId = $_SESSION["userid"];
 if (!in_array( $prefix, $emailCreators)) {
-	echo $MT_LANG['msgNoAccess'];
+	echo __('msgNoAccess');
 	exit();
 }
 if (isset($_GET['id'])) {
@@ -48,19 +48,19 @@ if (isset($_GET['id'])) {
 	<div class="container">
 		<div style="width: 800px; margin: 20px auto;">
 			<h3 style="color: #2980b9;">
-				<?php echo $MT_LANG['saveTemplate']?>
+				<?php echo __('saveTemplate')?>
 			</h3>
 		</div>
 		<div style="text-align: center; width: 800px; margin: 20px auto;">
 			<div class="floatright">
 				<button class="btn-u btn-u-blue" onclick="onSaveTemplate()">
 					<i class="icon-edit"></i>&nbsp;
-					<?php echo $MT_LANG['saveTemplate']?>
+					<?php echo __('saveTemplate')?>
 				</button>
 				<button class="btn-u btn-u-orange"
 					onclick="window.location.href='templateList.php'">
 					<i class="icon-list-ul"></i>&nbsp;
-					<?php echo $MT_LANG['templateList']?>
+					<?php echo __('templateList')?>
 				</button>
 			</div>
 			<div class="clearboth"></div>
@@ -84,7 +84,7 @@ if (isset($_GET['id'])) {
 			</form>
 			<br /> <input type="text" id="txtName"
 				value="<?php echo $dataTemplate['subject'];?>" class="form-control"
-				placeholder="<?php echo $MT_LANG['enterTemplateName']?>..." /> <br />
+				placeholder="<?php echo __('enterTemplateName')?>..." /> <br />
 			<textarea id="txtEmail">
 					<?php echo $dataTemplate['content'];?>
 				</textarea>
