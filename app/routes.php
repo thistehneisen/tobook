@@ -136,7 +136,7 @@ Route::group([
 */
 Route::group([
     'prefix' => Config::get('admin.prefix'),
-    'before' => ['auth']
+    'before' => ['auth', 'super.user']
 ], function() {
 
     Route::get('/', [

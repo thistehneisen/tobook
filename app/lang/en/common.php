@@ -24,4 +24,5 @@ return [
     'thank_you'         => 'Thank you!',
     'notice'            => 'Notice',
     'welcome'           => 'Welcome',
+    'admin'           => 'Admin',
 ];
