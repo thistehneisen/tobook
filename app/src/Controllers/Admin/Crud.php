@@ -1,6 +1,7 @@
 <?php namespace App\Controllers\Admin;
 
-use App, Config, Request;
+use App, Config, Request, Redirect, Input;
+use Illuminate\Support\MessageBag;
 
 class Crud extends Base
 {
@@ -35,11 +36,44 @@ class Crud extends Base
      */
     public function edit($type, $id)
     {
-        $item = $this->model->where('id', $id)->firstOrFail();
+        try {
+            $item = $this->model->where('id', $id)->firstOrFail();
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $ex) {
+            return Redirect::route('admin.crud.index', ['model' => $type]);
+        }
         
         return $this->render('crud.edit', [
             'model' => $this->model,
             'item' => $item
         ]);
+    }
+
+    /**
+     * Update the record in database
+     *
+     * @param  string $type 
+     * @param  int $id   
+     *
+     * @return Redirect
+     */
+    public function doEdit($type, $id)
+    {
+        try {
+            $item = $this->model->where('id', $id)->firstOrFail();
+
+            $input = Input::all();
+            unset($input['_token']);
+            
+            $item->unguard();
+            $item->fill($input);
+            $item->reguard();
+
+            $item->save();
+        } catch (\Exception $ex) {
+            return Redirect::back()->withInput()
+                ->withErrors($this->errorMessageBag($ex->getMessage()));
+        }
+
+        return Redirect::route('admin.crud.index', ['model' => $type]);
     }
 }

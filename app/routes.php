@@ -126,6 +126,7 @@ Route::group([
     });
 
 });
+
 /*
 |--------------------------------------------------------------------------
 | Admin routes
@@ -149,6 +150,10 @@ Route::group([
     Route::get('{model}/{id}', [
         'as' => 'admin.crud.edit',
         'uses' => 'App\Controllers\Admin\Crud@edit'
+    ]);
+
+    Route::post('{model}/{id}', [
+        'uses' => 'App\Controllers\Admin\Crud@doEdit'
     ]);
 
 });
