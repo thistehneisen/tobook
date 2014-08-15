@@ -21,19 +21,15 @@ class InstallCommand extends Command
     protected $description = 'Run required commands to install new Varaa';
 
     /**
-     * Doctrine schema manager
-     *
-     * @var Doctrine\DBAL\Schema\AbstractSchemaManager
-     */
-    protected $manager;
-
-    /**
      * Execute the console command.
      *
      * @return mixed
      */
     public function fire()
     {
+        if (!file_exists(app_path().''))
+        $this->comment('Generate local configurations');
+        $this->call('varaa:generate-configs');
         $this->comment('Running migrations');
         $this->call('migrate');
         $this->comment('Moving users from old table to new schema');
