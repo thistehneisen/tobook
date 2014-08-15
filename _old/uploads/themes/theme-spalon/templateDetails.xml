@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="template" version="1.0">
+<name>spa-uco</name>
+<author>uco Team</author>
+<license>uco</license>
+<version>1.0.0</version>
+<description>spa-uco Theme</description>
+
+    <files>
+            <filedata>
+                <filename>index.html</filename>
+                <filealias>index</filealias>
+            </filedata>
+            
+	</files>
+
+
+	<themes><theme1>
+			<name>uco Theme</name>
+			<style>styles/style.css</style>
+			<homepageimage>images/green_home.jpg</homepageimage>
+			<thumbnail>images/green_thumb.jpg</thumbnail>
+			<subpageimage>images/green_sub.jpg</subpageimage>
+			<currenttheme>true</currenttheme>
+			<themecolor>#76bd46</themecolor>
+		</theme1>
+
+
+	</themes>
+
+	<panels>
+		<header>header</header>
+		<maincontent>maincontent</maincontent>
+		<footer>footer</footer>
+		
+	</panels>
+ 
+</mosinstall>

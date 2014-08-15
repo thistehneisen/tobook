@@ -1,2 +1,0 @@
-[2014/06/24 03:20:01] CreateFTP - SQL : select * from tbl_domain_info where status = 'P'
-[2014/06/24 03:20:01] CreateFTP - SQL : select * from tbl_domain_info where status = 'R'

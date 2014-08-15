@@ -1,0 +1,16 @@
+body {FONT-FAMILY: Verdana; FONT-SIZE: 11; color: #000000;background:"#D3DDDD"}
+td {FONT-FAMILY: Verdana; FONT-SIZE: 11; color: #000000;}
+input {FONT-FAMILY: Verdana; FONT-SIZE: 10; color: #000000;}
+input.button {
+	BACKGROUND-COLOR: #dddddd; BORDER-BOTTOM: #33aa00 1px solid; BORDER-LEFT: #ffffff 1px solid; BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #ffffff 2px solid; COLOR: #333333; FONT-FAMILY:  Verdana, Tahoma, Arial; FONT-SIZE: 10px
+}
+input.text {
+	BACKGROUND: #FFFFFF; FONT-FAMILY: verdana,helvetica; FONT-SIZE: 10;}
+
+.time{color:#aaaaa0;}
+.result{color:#552377;FONT-SIZE: 12;FONT-WEIGHT: bold;};
+.result0{color:#cc22aa;}
+.result1{color:#33aa00;}
+.error{color:#444488;FONT-SIZE: 11;FONT-WEIGHT: normal;}
+.response {
+	BACKGROUND: #d4dddd; BORDER-BOTTOM: #cccccc 1pt solid; BORDER-LEFT: #cccccc 1pt solid; BORDER-RIGHT: #cccccc 1pt solid; BORDER-TOP: #cccccc 1pt solid; COLOR: #000000; FONT-FAMILY: verdana,helvetica; FONT-SIZE: 9;}

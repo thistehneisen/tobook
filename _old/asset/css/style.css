@@ -1,0 +1,59 @@
+/* COMMON */
+
+.fontBlack{ color: #000 !important; }
+.fontWhite{ color: #FFF; }
+.floatleft{ float:left; }
+.floatright{ float:right; }
+.clearboth{ clear:both; }
+
+.greyDivider{ background:#424242;width: 100%; max-width: 100%; height:12px; }
+.footArea{ padding-left:11%;padding-right:11%;padding-top:70px;padding-bottom:70px; font-family:Arial; }
+
+.socialIcons{ background-image:url(/asset/image/socialIcons.png); width:46px; height: 46px; display:inline-block;}
+.iconFB{ background-position: 0px 0px; }
+.iconGP{ background-position: -48px 0px; }
+.iconRSS{ background-position: -95px 0px; }
+.iconPI{ background-position: -142px 0px; }
+.iconIN{ background-position: -188px 0px; }
+.topNavigationMenu{ position:absolute;top:20px;right: 30px;font-family: Arial;font-size:12px; }
+.topNavigationMenu a{ color: #000; text-decoration:none; font-weight:bold;}
+.topNavigationMenu a:hover{ color: #FFF; text-decoration:none;}
+.topNavigationMenu a.selected{ color: #FFF; font-weight: bold;}
+.itemPlugin{ width:15%;text-align:center; }
+.itemPluginImg{ width:70%;padding-left:15%; }
+.itemPluginTitle{ font-family:Arial;font-size:18px;font-weight:bold;margin-top:10px; }
+
+.guideBody{padding-top: 50px; font-family:'Comfortaa'; text-align:center;}
+.guideBody a{ color: #000; }
+
+/* FOOTER */
+#emailNewsLetter{ width:100%;background:#EEE; border: 0px; padding:10px 20px 10px 20px; margin-top:20px; border-radius: 0px; }
+.guideTopArea{ background-image:url(/asset/image/guideTop.png); background-position:center top; background-repeat: no-repeat; background-size: cover; width: 100%; max-width: 100%; height:341px; text-align:center;font-family: 'Comfortaa';font-weight:bold; color: #FFF;}
+.guideTopVaraa{ padding-top:60px;font-size:80px; }
+.guideTopTitle{ padding-top:20px;font-size:80px; }
+.guideTopSubTitle{ padding-top:20px;font-size:20px; }
+/* REGISTRATION */
+.regTopBody{ background-image:url(/asset/image/regMain.png); background-position:center top; background-repeat: no-repeat; background-size: cover; width: 100%; max-width: 100%; height:756px; }
+.commntbl_style1 td{ color: #000; text-align:right; }
+.notetxt{ color: #000;}
+.login_extralinks{ color:#000;}
+.commntbl_style1 input[type="text"], .commntbl_style1 input[type="password"]{ padding:15px 15px 15px 15px; width: 500px; }
+.btnSignUp{ font-family:'Comfortaa'; background:#ec7923; padding: 10px 32px 10px 32px; color:#FFF; border: 0px; cursor: pointer; font-size: 18px;}
+.btnSendEmail{ font-family:'Comfortaa'; background:#ec7923; padding: 10px 32px 10px 32px; color:#FFF; border: 0px; cursor: pointer; font-size: 18px;}
+
+.loginTopBody{ background-image:url(/asset/image/loginMain.png); background-position:center top; background-repeat: no-repeat; background-size: cover; width: 100%; height: 756px; max-width: 100%; }
+
+/* LOYALITY */
+.loyalityBackground01{ background-image:url(/asset/image/loyalityBody01.png); background-position:center top; background-repeat: no-repeat; background-size: cover; width: 100%; max-width: 100%; height:752px; text-align:center;font-family: 'Comfortaa';font-weight:bold; color: #FFF;}
+
+.cashierBackground01{ background-image:url(/asset/image/cashierBack01.png); background-position:center top; background-repeat: no-repeat; background-size: cover; width: 100%; max-width: 100%; height:675px; text-align:center;font-family: 'Comfortaa';font-weight:bold; color: #FFF;}
+.cashierBackground02{ margin-top:50px;border-bottom:3px solid #CCC; }
+.cashierBackground03{ background-image:url(/asset/image/cashierBack03.png); background-position:center top; background-repeat: no-repeat; background-size: cover; width: 100%; max-width: 100%; height:547px; text-align:center;font-family: 'Comfortaa';font-weight:bold; color: #FFF;}
+
+.marketingBackground01{ margin-top:20px; }
+.marketingBackground02{ background-image:url(/asset/image/marketingBack02.png); background-position:center top; background-repeat: no-repeat; background-size: cover; width: 100%; max-width: 100%; height:500px; text-align:center;font-family: 'Comfortaa';font-weight:bold; color: #FFF;}
+.marketingBackground03{ margin-top:20px; margin-bottom:20px;}
+.marketingBackground04{ background-image:url(/asset/image/marketingBack04.png); background-position:center top; background-repeat: no-repeat; background-size: cover; width: 100%; max-width: 100%; height:600px; text-align:center;font-family: 'Comfortaa';font-weight:bold; color: #FFF;}
+
+.weblistItemIcon{ width:25%;text-align:center;font-weight:bold;color:#999;float:left; margin-top:30px; position:relative;}
+.weblistItemIconThumb{ width:220px;position:absolute;left:150px;top:100px;z-index:1000;box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.6); display:none;}

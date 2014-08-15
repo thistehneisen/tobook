@@ -1,0 +1,1039 @@
+[17-Jun-2014 22:55:34 Europe/Amsterdam] PHP Warning:  Missing argument 2 for DNSimple::dns_create(), called in /home4/mikael/public_html/klikkaaja.com/domain/domainRegistry.php on line 18 and defined in /home4/mikael/public_html/klikkaaja.com/domain/dnsimple.php on line 136
+[17-Jun-2014 22:55:34 Europe/Amsterdam] PHP Warning:  Invalid argument supplied for foreach() in /home4/mikael/public_html/klikkaaja.com/domain/dnsimple.php on line 138
+[17-Jun-2014 23:13:37 Europe/Amsterdam] PHP Warning:  Missing argument 2 for DNSimple::domains_register(), called in /home4/mikael/public_html/klikkaaja.com/domain/domainRegistry.php on line 19 and defined in /home4/mikael/public_html/klikkaaja.com/domain/dnsimple.php on line 263
+[17-Jun-2014 16:41:55 America/Chicago] PHP Warning:  curl_setopt() expects parameter 1 to be resource, null given in /home4/mikael/public_html/klikkaaja.com/domain/dnsRegistry.php on line 23
+[18-Jun-2014 14:18:14 America/Chicago] PHP Fatal error:  Cannot redeclare class DNSimple in /home4/mikael/public_html/klikkaaja.com/domain/dnsimple.php on line 4
+[18-Jun-2014 14:20:43 America/Chicago] PHP Fatal error:  Call to undefined function defien() in /home4/mikael/public_html/klikkaaja.com/domain/config.php on line 6
+[18-Jun-2014 14:21:29 America/Chicago] PHP Fatal error:  Cannot redeclare class DNSimple in /home4/mikael/public_html/klikkaaja.com/domain/dnsimple.php on line 4
+[18-Jun-2014 14:22:42 America/Chicago] PHP Fatal error:  Cannot redeclare class DNSimple in /home4/mikael/public_html/klikkaaja.com/domain/dnsimple.php on line 4
+[18-Jun-2014 14:22:44 America/Chicago] PHP Fatal error:  Cannot redeclare class DNSimple in /home4/mikael/public_html/klikkaaja.com/domain/dnsimple.php on line 4
+[18-Jun-2014 14:22:45 America/Chicago] PHP Fatal error:  Cannot redeclare class DNSimple in /home4/mikael/public_html/klikkaaja.com/domain/dnsimple.php on line 4
+[18-Jun-2014 14:23:54 America/Chicago] PHP Fatal error:  Cannot redeclare class DNSimple in /home4/mikael/public_html/klikkaaja.com/domain/dnsimple.php on line 4
+[18-Jun-2014 14:31:22 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home4/mikael/public_html/klikkaaja.com/domain/config.php:11) in /home4/mikael/public_html/klikkaaja.com/domain/async-creteContacts.php on line 47
+[18-Jun-2014 14:39:59 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home4/mikael/public_html/klikkaaja.com/domain/config.php:11) in /home4/mikael/public_html/klikkaaja.com/domain/async-creteContacts.php on line 48
+[18-Jun-2014 14:41:15 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home4/mikael/public_html/klikkaaja.com/domain/config.php:11) in /home4/mikael/public_html/klikkaaja.com/domain/async-creteContacts.php on line 48
+[18-Jun-2014 15:40:40 America/Chicago] PHP Fatal error:  Call to a member function domains_register() on a non-object in /home4/mikael/public_html/klikkaaja.com/domain/async-registerDomain.php on line 21
+[21-Jun-2014 02:59:51 America/Chicago] PHP Warning:  curl_setopt() expects parameter 1 to be resource, null given in /home4/mikael/public_html/klikkaaja.com/domain/changeNameServer.php on line 25
+[22-Jun-2014 23:01:54 America/Chicago] PHP Warning:  include(xmlapi.php): failed to open stream: No such file or directory in /home4/mikael/public_html/klikkaaja.com/domain/test.php on line 4
+[22-Jun-2014 23:01:54 America/Chicago] PHP Warning:  include(xmlapi.php): failed to open stream: No such file or directory in /home4/mikael/public_html/klikkaaja.com/domain/test.php on line 4
+[22-Jun-2014 23:01:54 America/Chicago] PHP Warning:  include(): Failed opening 'xmlapi.php' for inclusion (include_path='.:/opt/php54/lib/php') in /home4/mikael/public_html/klikkaaja.com/domain/test.php on line 4
+[22-Jun-2014 23:01:54 America/Chicago] PHP Fatal error:  Call to undefined function registerDomain() in /home4/mikael/public_html/klikkaaja.com/domain/test.php on line 10
+[22-Jun-2014 23:02:50 America/Chicago] PHP Warning:  include(xmlapi.php): failed to open stream: No such file or directory in /home4/mikael/public_html/klikkaaja.com/domain/test.php on line 4
+[22-Jun-2014 23:02:50 America/Chicago] PHP Warning:  include(xmlapi.php): failed to open stream: No such file or directory in /home4/mikael/public_html/klikkaaja.com/domain/test.php on line 4
+[22-Jun-2014 23:02:50 America/Chicago] PHP Warning:  include(): Failed opening 'xmlapi.php' for inclusion (include_path='.:/opt/php54/lib/php') in /home4/mikael/public_html/klikkaaja.com/domain/test.php on line 4
+[22-Jun-2014 23:02:50 America/Chicago] PHP Fatal error:  Call to undefined function registerDomain() in /home4/mikael/public_html/klikkaaja.com/domain/test.php on line 10
+[22-Jun-2014 23:04:59 America/Chicago] PHP Fatal error:  Call to undefined function registerDomain() in /home4/mikael/public_html/klikkaaja.com/domain/test.php on line 10
+[23-Jun-2014 00:38:24 America/Chicago] PHP Warning:  Illegal string offset 'http' in /home4/mikael/public_html/klikkaaja.com/domain/function.php on line 67
+[23-Jun-2014 00:45:31 America/Chicago] PHP Warning:  Illegal string offset 'http' in /home4/mikael/public_html/klikkaaja.com/domain/function.php on line 67
+[23-Jun-2014 00:46:02 America/Chicago] PHP Warning:  Illegal string offset 'http' in /home4/mikael/public_html/klikkaaja.com/domain/function.php on line 67
+[23-Jun-2014 01:23:29 America/Chicago] PHP Warning:  Creating default object from empty value in /home4/mikael/public_html/klikkaaja.com/domain/function.php on line 75
+[23-Jun-2014 01:25:47 America/Chicago] PHP Fatal error:  Call to a member function dns_create() on a non-object in /home4/mikael/public_html/klikkaaja.com/domain/function.php on line 84
+[23-Jun-2014 02:27:26 America/Chicago] PHP Parse error:  syntax error, unexpected '}', expecting ',' or ';' in /home4/mikael/public_html/klikkaaja.com/domain/function.php on line 120
+[23-Jun-2014 03:13:16 America/Chicago] PHP Fatal error:  Call to a member function domains_register() on a non-object in /home4/mikael/public_html/klikkaaja.com/domain/function.php on line 59
+[23-Jun-2014 03:16:20 America/Chicago] PHP Parse error:  syntax error, unexpected end of file in /home4/mikael/public_html/klikkaaja.com/domain/function.php on line 103
+[23-Jun-2014 03:44:58 America/Chicago] PHP Fatal error:  Call to undefined function addOnCpanel() in /home4/mikael/public_html/klikkaaja.com/domain/test.php on line 13
+[23-Jun-2014 03:46:24 America/Chicago] PHP Fatal error:  Call to undefined function addOnCpanel() in /home4/mikael/public_html/klikkaaja.com/domain/test.php on line 13
+[23-Jun-2014 03:46:29 America/Chicago] PHP Fatal error:  Call to undefined function addOnCpanel() in /home4/mikael/public_html/klikkaaja.com/domain/test.php on line 13
+[23-Jun-2014 03:47:19 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 03:47:19 America/Chicago] DATA: newdomain=mikaelklikkaajatienaa.com&dir=public_html%2Fmikaelklikkaajatienaa.com&subdomain=mikaelklikkaajatienaa&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 03:47:19 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 03:47:26 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>mikaelklikkaajatienaa.com was successfully parked on top of mikaelklikkaajatienaa.varausjarjestelma.com</reason>
+      <result>1</result>
+    </data>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 03:47:37 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 03:47:37 America/Chicago] DATA: newdomain=mikaelklikkaajatienaa.com&dir=public_html%2Fmikaelklikkaajatienaa.com&subdomain=mikaelklikkaajatienaa&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 03:47:37 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 03:47:37 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>A DNS entry for the domain “mikaelklikkaajatienaa.varausjarjestelma.com” already exists.</reason>
+      <result>0</result>
+    </data>
+    <error>A DNS entry for the domain “mikaelklikkaajatienaa.varausjarjestelma.com” already exists.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 03:48:15 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 03:48:15 America/Chicago] DATA: newdomain=mikaelklikkaajatienaa.com&dir=public_html%2Fmikaelklikkaajatienaa.com&subdomain=mikaelklikkaajatienaa&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 03:48:15 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 03:48:16 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>A DNS entry for the domain “mikaelklikkaajatienaa.varausjarjestelma.com” already exists.</reason>
+      <result>0</result>
+    </data>
+    <error>A DNS entry for the domain “mikaelklikkaajatienaa.varausjarjestelma.com” already exists.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 03:58:45 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 03:58:45 America/Chicago] DATA: newdomain=mikaelklikkaajatienaa.com&dir=public_html%2Fmikaelklikkaajatienaa.com&subdomain=mikaelklikkaajatienaa&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 03:58:45 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 03:58:45 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>A DNS entry for the domain “mikaelklikkaajatienaa.varausjarjestelma.com” already exists.</reason>
+      <result>0</result>
+    </data>
+    <error>A DNS entry for the domain “mikaelklikkaajatienaa.varausjarjestelma.com” already exists.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 03:58:46 America/Chicago] PHP Warning:  Creating default object from empty value in /home4/mikael/public_html/klikkaaja.com/domain/function.php on line 20
+[23-Jun-2014 04:00:22 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 04:00:22 America/Chicago] DATA: newdomain=mikaelklikkaajatienaa.com&dir=public_html%2Fmikaelklikkaajatienaa.com&subdomain=mikaelklikkaajatienaa&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 04:00:22 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 04:00:22 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>A DNS entry for the domain “mikaelklikkaajatienaa.varausjarjestelma.com” already exists.</reason>
+      <result>0</result>
+    </data>
+    <error>A DNS entry for the domain “mikaelklikkaajatienaa.varausjarjestelma.com” already exists.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 04:00:23 America/Chicago] PHP Warning:  Attempt to assign property of non-object in /home4/mikael/public_html/klikkaaja.com/domain/function.php on line 20
+[23-Jun-2014 04:00:23 America/Chicago] PHP Warning:  Attempt to assign property of non-object in /home4/mikael/public_html/klikkaaja.com/domain/function.php on line 22
+[23-Jun-2014 04:01:42 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 04:01:42 America/Chicago] DATA: newdomain=mikaelklikkaajatienaa.com&dir=public_html%2Fmikaelklikkaajatienaa.com&subdomain=mikaelklikkaajatienaa&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 04:01:42 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 04:01:43 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>A DNS entry for the domain “mikaelklikkaajatienaa.varausjarjestelma.com” already exists.</reason>
+      <result>0</result>
+    </data>
+    <error>A DNS entry for the domain “mikaelklikkaajatienaa.varausjarjestelma.com” already exists.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 04:41:33 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 04:41:33 America/Chicago] DATA: newdomain=mikaelklikkaajatienaa1.com&dir=public_html%2Fmikaelklikkaajatienaa1.com&subdomain=mikaelklikkaajatienaa1&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 04:41:33 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 04:41:40 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>Could not determine the nameserver IP addresses for “mikaelklikkaajatienaa1.com”. Please make sure that the domain is registered with a valid domain registrar.</reason>
+      <result>0</result>
+    </data>
+    <error>Could not determine the nameserver IP addresses for “mikaelklikkaajatienaa1.com”. Please make sure that the domain is registered with a valid domain registrar.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 04:44:48 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 04:44:48 America/Chicago] DATA: newdomain=mikaelklikkaajatienaa1.com&dir=public_html%2Fmikaelklikkaajatienaa1.com&subdomain=mikaelklikkaajatienaa1&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 04:44:48 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 04:44:54 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>Could not determine the nameserver IP addresses for “mikaelklikkaajatienaa1.com”. Please make sure that the domain is registered with a valid domain registrar.</reason>
+      <result>0</result>
+    </data>
+    <error>Could not determine the nameserver IP addresses for “mikaelklikkaajatienaa1.com”. Please make sure that the domain is registered with a valid domain registrar.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 04:46:10 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 04:46:10 America/Chicago] DATA: newdomain=mikaelklikkaajatienaa1.com&dir=public_html%2Fmikaelklikkaajatienaa1.com&subdomain=mikaelklikkaajatienaa1&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 04:46:10 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 04:46:17 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>Could not determine the nameserver IP addresses for “mikaelklikkaajatienaa1.com”. Please make sure that the domain is registered with a valid domain registrar.</reason>
+      <result>0</result>
+    </data>
+    <error>Could not determine the nameserver IP addresses for “mikaelklikkaajatienaa1.com”. Please make sure that the domain is registered with a valid domain registrar.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 04:47:24 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 04:47:24 America/Chicago] DATA: newdomain=mikaelklikkaajatienaa.com&dir=public_html%2Fmikaelklikkaajatienaa.com&subdomain=mikaelklikkaajatienaa&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 04:47:24 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 04:47:24 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>A DNS entry for the domain “mikaelklikkaajatienaa.varausjarjestelma.com” already exists.</reason>
+      <result>0</result>
+    </data>
+    <error>A DNS entry for the domain “mikaelklikkaajatienaa.varausjarjestelma.com” already exists.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 04:47:28 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 04:47:28 America/Chicago] DATA: newdomain=mikaelklikkaajatienaa.com&dir=public_html%2Fmikaelklikkaajatienaa.com&subdomain=mikaelklikkaajatienaa&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 04:47:28 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 04:47:28 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>A DNS entry for the domain “mikaelklikkaajatienaa.varausjarjestelma.com” already exists.</reason>
+      <result>0</result>
+    </data>
+    <error>A DNS entry for the domain “mikaelklikkaajatienaa.varausjarjestelma.com” already exists.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 04:57:06 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 04:57:06 America/Chicago] DATA: newdomain=mikaelklikkaajatienaa.com&dir=public_html%2Fmikaelklikkaajatienaa.com&subdomain=mikaelklikkaajatienaa&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 04:57:06 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 04:57:17 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>mikaelklikkaajatienaa.com was successfully parked on top of mikaelklikkaajatienaa.varausjarjestelma.com</reason>
+      <result>1</result>
+    </data>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 04:57:36 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 04:57:36 America/Chicago] DATA: newdomain=mikaelklikkaajatienaa.com&dir=public_html%2Fmikaelklikkaajatienaa.com&subdomain=mikaelklikkaajatienaa&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 04:57:36 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 04:57:36 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>A DNS entry for the domain “mikaelklikkaajatienaa.varausjarjestelma.com” already exists.</reason>
+      <result>0</result>
+    </data>
+    <error>A DNS entry for the domain “mikaelklikkaajatienaa.varausjarjestelma.com” already exists.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 05:00:20 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 05:00:20 America/Chicago] DATA: newdomain=mikaelklikkaajatienaa.com&dir=public_html%2Fmikaelklikkaajatienaa.com&subdomain=mikaelklikkaajatienaa&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 05:00:20 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 05:00:26 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>mikaelklikkaajatienaa.com was successfully parked on top of mikaelklikkaajatienaa.varausjarjestelma.com</reason>
+      <result>1</result>
+    </data>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 05:00:37 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 05:00:37 America/Chicago] DATA: newdomain=mikaelklikkaajatienaa.com&dir=public_html%2Fmikaelklikkaajatienaa.com&subdomain=mikaelklikkaajatienaa&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 05:00:37 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 05:00:37 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>A DNS entry for the domain “mikaelklikkaajatienaa.varausjarjestelma.com” already exists.</reason>
+      <result>0</result>
+    </data>
+    <error>A DNS entry for the domain “mikaelklikkaajatienaa.varausjarjestelma.com” already exists.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 05:06:10 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 05:06:10 America/Chicago] DATA: newdomain=mikaelklikkaajatienaa.com&dir=public_html%2Fmikaelklikkaajatienaa.com&subdomain=mikaelklikkaajatienaa&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 05:06:10 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 05:06:17 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>mikaelklikkaajatienaa.com was successfully parked on top of mikaelklikkaajatienaa.varausjarjestelma.com</reason>
+      <result>1</result>
+    </data>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 05:06:49 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 05:06:49 America/Chicago] DATA: newdomain=mikaelklikkaajatienaa.com&dir=public_html%2Fmikaelklikkaajatienaa.com&subdomain=mikaelklikkaajatienaa&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 05:06:49 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 05:06:49 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>A DNS entry for the domain “mikaelklikkaajatienaa.varausjarjestelma.com” already exists.</reason>
+      <result>0</result>
+    </data>
+    <error>A DNS entry for the domain “mikaelklikkaajatienaa.varausjarjestelma.com” already exists.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 08:17:56 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 08:17:56 America/Chicago] DATA: newdomain=mikaelklikkaajatienaa.com&dir=public_html%2Fmikaelklikkaajatienaa.com&subdomain=mikaelklikkaajatienaa&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 08:17:56 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 08:18:03 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>mikaelklikkaajatienaa.com was successfully parked on top of mikaelklikkaajatienaa.varausjarjestelma.com</reason>
+      <result>1</result>
+    </data>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 08:20:19 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 08:20:19 America/Chicago] DATA: newdomain=mikaelklikkaajatienaa.com&dir=public_html%2Fmikaelklikkaajatienaa.com&subdomain=mikaelklikkaajatienaa&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 08:20:19 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 08:20:25 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>mikaelklikkaajatienaa.com was successfully parked on top of mikaelklikkaajatienaa.varausjarjestelma.com</reason>
+      <result>1</result>
+    </data>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 09:32:24 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 09:32:24 America/Chicago] DATA: newdomain=qweqweqe123asdasd.com&dir=public_html%2Fqweqweqe123asdasd.com&subdomain=qweqweqe123asdasd&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 09:32:24 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 09:32:31 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>Could not determine the nameserver IP addresses for “qweqweqe123asdasd.com”. Please make sure that the domain is registered with a valid domain registrar.</reason>
+      <result>0</result>
+    </data>
+    <error>Could not determine the nameserver IP addresses for “qweqweqe123asdasd.com”. Please make sure that the domain is registered with a valid domain registrar.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 09:53:36 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 09:53:36 America/Chicago] DATA: newdomain=hgh123123gh.com&dir=public_html%2Fhgh123123gh.com&subdomain=hgh123123gh&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 09:53:36 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 09:53:43 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>Could not determine the nameserver IP addresses for “hgh123123gh.com”. Please make sure that the domain is registered with a valid domain registrar.</reason>
+      <result>0</result>
+    </data>
+    <error>Could not determine the nameserver IP addresses for “hgh123123gh.com”. Please make sure that the domain is registered with a valid domain registrar.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 09:59:13 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 09:59:13 America/Chicago] DATA: newdomain=sdasdasdasdasdasdasdasdasdasd.com&dir=public_html%2Fsdasdasdasdasdasdasdasdasdasd.com&subdomain=sdasdasdasdasdasdasdasdasdasd&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 09:59:13 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 09:59:20 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>Could not determine the nameserver IP addresses for “sdasdasdasdasdasdasdasdasdasd.com”. Please make sure that the domain is registered with a valid domain registrar.</reason>
+      <result>0</result>
+    </data>
+    <error>Could not determine the nameserver IP addresses for “sdasdasdasdasdasdasdasdasdasd.com”. Please make sure that the domain is registered with a valid domain registrar.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 10:04:42 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 10:04:42 America/Chicago] DATA: newdomain=asd123asdasd.com&dir=public_html%2Fasd123asdasd.com&subdomain=asd123asdasd&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 10:04:42 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 10:04:48 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>Could not determine the nameserver IP addresses for “asd123asdasd.com”. Please make sure that the domain is registered with a valid domain registrar.</reason>
+      <result>0</result>
+    </data>
+    <error>Could not determine the nameserver IP addresses for “asd123asdasd.com”. Please make sure that the domain is registered with a valid domain registrar.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 10:24:33 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 10:24:33 America/Chicago] DATA: newdomain=qweqweqe1asdasdasdasd.com&dir=public_html%2Fqweqweqe1asdasdasdasd.com&subdomain=qweqweqe1asdasdasdasd&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 10:24:33 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 10:24:40 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>Could not determine the nameserver IP addresses for “qweqweqe1asdasdasdasd.com”. Please make sure that the domain is registered with a valid domain registrar.</reason>
+      <result>0</result>
+    </data>
+    <error>Could not determine the nameserver IP addresses for “qweqweqe1asdasdasdasd.com”. Please make sure that the domain is registered with a valid domain registrar.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 10:43:06 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 10:43:06 America/Chicago] DATA: newdomain=letsdoacollsdsdab.com&dir=public_html%2Fletsdoacollsdsdab.com&subdomain=letsdoacollsdsdab&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 10:43:06 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 10:43:13 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>Could not determine the nameserver IP addresses for “letsdoacollsdsdab.com”. Please make sure that the domain is registered with a valid domain registrar.</reason>
+      <result>0</result>
+    </data>
+    <error>Could not determine the nameserver IP addresses for “letsdoacollsdsdab.com”. Please make sure that the domain is registered with a valid domain registrar.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 10:56:44 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 10:56:44 America/Chicago] DATA: newdomain=letsdoacolnlj.nl&dir=public_html%2Fletsdoacolnlj.nl&subdomain=letsdoacolnlj&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 10:56:44 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 10:56:51 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>Could not determine the nameserver IP addresses for “letsdoacolnlj.nl”. Please make sure that the domain is registered with a valid domain registrar.</reason>
+      <result>0</result>
+    </data>
+    <error>Could not determine the nameserver IP addresses for “letsdoacolnlj.nl”. Please make sure that the domain is registered with a valid domain registrar.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 11:03:03 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 11:03:03 America/Chicago] DATA: newdomain=letsdoaasdasdasdcolnlj.com&dir=public_html%2Fletsdoaasdasdasdcolnlj.com&subdomain=letsdoaasdasdasdcolnlj&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 11:03:03 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 11:03:10 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>Could not determine the nameserver IP addresses for “letsdoaasdasdasdcolnlj.com”. Please make sure that the domain is registered with a valid domain registrar.</reason>
+      <result>0</result>
+    </data>
+    <error>Could not determine the nameserver IP addresses for “letsdoaasdasdasdcolnlj.com”. Please make sure that the domain is registered with a valid domain registrar.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 11:04:29 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 11:04:29 America/Chicago] DATA: newdomain=mikaelklikkaaja.com&dir=public_html%2Fmikaelklikkaaja.com&subdomain=mikaelklikkaaja&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 11:04:29 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 11:04:36 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>mikaelklikkaaja.com was successfully parked on top of mikaelklikkaaja.varausjarjestelma.com</reason>
+      <result>1</result>
+    </data>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 11:11:05 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 11:11:05 America/Chicago] DATA: newdomain=mikaelklikkaajatienaa.com&dir=public_html%2Fmikaelklikkaajatienaa.com&subdomain=mikaelklikkaajatienaa&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 11:11:05 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 11:11:12 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>mikaelklikkaajatienaa.com was successfully parked on top of mikaelklikkaajatienaa.varausjarjestelma.com</reason>
+      <result>1</result>
+    </data>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 11:21:54 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 11:21:54 America/Chicago] DATA: newdomain=mikaelklikkaajatisdsdsdsdssdsdenaa.com&dir=public_html%2Fmikaelklikkaajatisdsdsdsdssdsdenaa.com&subdomain=mikaelklikkaajatisdsdsdsdssdsdenaa&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 11:21:54 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 11:22:00 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>Could not determine the nameserver IP addresses for “mikaelklikkaajatisdsdsdsdssdsdenaa.com”. Please make sure that the domain is registered with a valid domain registrar.</reason>
+      <result>0</result>
+    </data>
+    <error>Could not determine the nameserver IP addresses for “mikaelklikkaajatisdsdsdsdssdsdenaa.com”. Please make sure that the domain is registered with a valid domain registrar.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 11:39:17 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 11:39:17 America/Chicago] DATA: newdomain=mikaelklikkaajatisdsddsfdsfdsfsdsdssdsdenaa.com&dir=public_html%2Fmikaelklikkaajatisdsddsfdsfdsfsdsdssdsdenaa.com&subdomain=mikaelklikkaajatisdsddsfdsfdsfsdsdssdsdenaa&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 11:39:17 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 11:39:24 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>Could not determine the nameserver IP addresses for “mikaelklikkaajatisdsddsfdsfdsfsdsdssdsdenaa.com”. Please make sure that the domain is registered with a valid domain registrar.</reason>
+      <result>0</result>
+    </data>
+    <error>Could not determine the nameserver IP addresses for “mikaelklikkaajatisdsddsfdsfdsfsdsdssdsdenaa.com”. Please make sure that the domain is registered with a valid domain registrar.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 13:08:17 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 13:08:17 America/Chicago] DATA: newdomain=willowjenistar.com&dir=public_html%2Fwillowjenistar.com&subdomain=willowjenistar&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 13:08:17 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 13:08:24 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>willowjenistar.com was successfully parked on top of willowjenistar.varausjarjestelma.com</reason>
+      <result>1</result>
+    </data>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 13:42:42 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 13:42:42 America/Chicago] DATA: newdomain=sdasdasdasdasdasdasdasdasdasd.com&dir=public_html%2Fsdasdasdasdasdasdasdasdasdasd.com&subdomain=sdasdasdasdasdasdasdasdasdasd&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 13:42:42 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 13:42:48 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>Could not determine the nameserver IP addresses for “sdasdasdasdasdasdasdasdasdasd.com”. Please make sure that the domain is registered with a valid domain registrar.</reason>
+      <result>0</result>
+    </data>
+    <error>Could not determine the nameserver IP addresses for “sdasdasdasdasdasdasdasdasdasd.com”. Please make sure that the domain is registered with a valid domain registrar.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 13:54:22 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[23-Jun-2014 13:54:22 America/Chicago] DATA: newdomain=easybookingprogram.com&dir=public_html%2Feasybookingprogram.com&subdomain=easybookingprogram&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[23-Jun-2014 13:54:22 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[23-Jun-2014 13:54:28 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>Could not determine the nameserver IP addresses for “easybookingprogram.com”. Please make sure that the domain is registered with a valid domain registrar.</reason>
+      <result>0</result>
+    </data>
+    <error>Could not determine the nameserver IP addresses for “easybookingprogram.com”. Please make sure that the domain is registered with a valid domain registrar.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[23-Jun-2014 23:08:26 America/Chicago] PHP Fatal error:  Call to undefined function isValidDomain() in /home4/mikael/public_html/klikkaaja.com/domain/registerTest.php on line 15
+[23-Jun-2014 23:09:09 America/Chicago] PHP Fatal error:  Call to undefined function isValidDomain() in /home4/mikael/public_html/klikkaaja.com/domain/registerTest.php on line 15
+[24-Jun-2014 00:01:54 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[24-Jun-2014 00:01:54 America/Chicago] DATA: newdomain=willowjenistar.com&dir=public_html%2Fwillowjenistar.com&subdomain=willowjenistar&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[24-Jun-2014 00:01:54 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[24-Jun-2014 00:02:01 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>willowjenistar.com was successfully parked on top of willowjenistar.varausjarjestelma.com</reason>
+      <result>1</result>
+    </data>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[24-Jun-2014 00:20:02 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[24-Jun-2014 00:20:02 America/Chicago] DATA: newdomain=willowjenistar.com&dir=public_html%2Fwillowjenistar.com&subdomain=willowjenistar&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[24-Jun-2014 00:20:02 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[24-Jun-2014 00:20:09 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>willowjenistar.com was successfully parked on top of willowjenistar.varausjarjestelma.com</reason>
+      <result>1</result>
+    </data>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[24-Jun-2014 00:21:25 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[24-Jun-2014 00:21:25 America/Chicago] DATA: newdomain=willowjenistar.com&dir=public_html%2Fwillowjenistar.com&subdomain=willowjenistar&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[24-Jun-2014 00:21:25 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[24-Jun-2014 00:21:25 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>A DNS entry for the domain “willowjenistar.varausjarjestelma.com” already exists.</reason>
+      <result>0</result>
+    </data>
+    <error>A DNS entry for the domain “willowjenistar.varausjarjestelma.com” already exists.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[24-Jun-2014 00:21:34 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[24-Jun-2014 00:21:34 America/Chicago] DATA: newdomain=willowjenistar.com&dir=public_html%2Fwillowjenistar.com&subdomain=willowjenistar&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[24-Jun-2014 00:21:34 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[24-Jun-2014 00:21:35 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>A DNS entry for the domain “willowjenistar.varausjarjestelma.com” already exists.</reason>
+      <result>0</result>
+    </data>
+    <error>A DNS entry for the domain “willowjenistar.varausjarjestelma.com” already exists.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[24-Jun-2014 00:28:25 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[24-Jun-2014 00:28:25 America/Chicago] DATA: newdomain=willowjenistar.com&dir=public_html%2Fwillowjenistar.com&subdomain=willowjenistar&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[24-Jun-2014 00:28:25 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[24-Jun-2014 00:28:25 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>A DNS entry for the domain “willowjenistar.varausjarjestelma.com” already exists.</reason>
+      <result>0</result>
+    </data>
+    <error>A DNS entry for the domain “willowjenistar.varausjarjestelma.com” already exists.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[24-Jun-2014 04:12:31 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[24-Jun-2014 04:12:31 America/Chicago] DATA: newdomain=willowjenistar.com&dir=public_html%2Fwillowjenistar.com&subdomain=willowjenistar&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[24-Jun-2014 04:12:31 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[24-Jun-2014 04:12:32 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>A DNS entry for the domain “willowjenistar.varausjarjestelma.com” already exists.</reason>
+      <result>0</result>
+    </data>
+    <error>A DNS entry for the domain “willowjenistar.varausjarjestelma.com” already exists.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[24-Jun-2014 04:12:35 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[24-Jun-2014 04:12:35 America/Chicago] DATA: newdomain=willowjenistar.com&dir=public_html%2Fwillowjenistar.com&subdomain=willowjenistar&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[24-Jun-2014 04:12:35 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[24-Jun-2014 04:12:36 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>A DNS entry for the domain “willowjenistar.varausjarjestelma.com” already exists.</reason>
+      <result>0</result>
+    </data>
+    <error>A DNS entry for the domain “willowjenistar.varausjarjestelma.com” already exists.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[24-Jun-2014 04:13:38 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[24-Jun-2014 04:13:38 America/Chicago] DATA: newdomain=willowjenistar.com&dir=public_html%2Fwillowjenistar.com&subdomain=willowjenistar&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[24-Jun-2014 04:13:38 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[24-Jun-2014 04:13:38 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>A DNS entry for the domain “willowjenistar.varausjarjestelma.com” already exists.</reason>
+      <result>0</result>
+    </data>
+    <error>A DNS entry for the domain “willowjenistar.varausjarjestelma.com” already exists.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[24-Jun-2014 04:14:18 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[24-Jun-2014 04:14:18 America/Chicago] DATA: newdomain=willowjenistar.com&dir=public_html%2Fwillowjenistar.com&subdomain=willowjenistar&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[24-Jun-2014 04:14:18 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[24-Jun-2014 04:14:18 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>A DNS entry for the domain “willowjenistar.varausjarjestelma.com” already exists.</reason>
+      <result>0</result>
+    </data>
+    <error>A DNS entry for the domain “willowjenistar.varausjarjestelma.com” already exists.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[24-Jun-2014 04:15:17 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[24-Jun-2014 04:15:17 America/Chicago] DATA: newdomain=willowjenistar.com&dir=public_html%2Fwillowjenistar.com&subdomain=willowjenistar&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[24-Jun-2014 04:15:17 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[24-Jun-2014 04:15:17 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>A DNS entry for the domain “willowjenistar.varausjarjestelma.com” already exists.</reason>
+      <result>0</result>
+    </data>
+    <error>A DNS entry for the domain “willowjenistar.varausjarjestelma.com” already exists.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[24-Jun-2014 04:15:22 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[24-Jun-2014 04:15:22 America/Chicago] DATA: newdomain=willowjenistar.com&dir=public_html%2Fwillowjenistar.com&subdomain=willowjenistar&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[24-Jun-2014 04:15:22 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[24-Jun-2014 04:15:22 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>A DNS entry for the domain “willowjenistar.varausjarjestelma.com” already exists.</reason>
+      <result>0</result>
+    </data>
+    <error>A DNS entry for the domain “willowjenistar.varausjarjestelma.com” already exists.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[24-Jun-2014 04:15:28 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[24-Jun-2014 04:15:28 America/Chicago] DATA: newdomain=willowjenistar.com&dir=public_html%2Fwillowjenistar.com&subdomain=willowjenistar&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[24-Jun-2014 04:15:28 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[24-Jun-2014 04:15:28 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>A DNS entry for the domain “willowjenistar.varausjarjestelma.com” already exists.</reason>
+      <result>0</result>
+    </data>
+    <error>A DNS entry for the domain “willowjenistar.varausjarjestelma.com” already exists.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[24-Jun-2014 04:16:38 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[24-Jun-2014 04:16:38 America/Chicago] DATA: newdomain=willowjenistar.com&dir=public_html%2Fwillowjenistar.com&subdomain=willowjenistar&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[24-Jun-2014 04:16:38 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[24-Jun-2014 04:16:38 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>A DNS entry for the domain “willowjenistar.varausjarjestelma.com” already exists.</reason>
+      <result>0</result>
+    </data>
+    <error>A DNS entry for the domain “willowjenistar.varausjarjestelma.com” already exists.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[24-Jun-2014 04:27:55 America/Chicago] URL: http://162.144.36.29:2082/xml-api/cpanel
+[24-Jun-2014 04:27:55 America/Chicago] DATA: newdomain=willowjenistar.com&dir=public_html%2Fwillowjenistar.com&subdomain=willowjenistar&pass=%25CVUSMt%5BJyuQ&cpanel_xmlapi_user=varausjarjestelm&cpanel_xmlapi_module=AddonDomain&cpanel_xmlapi_func=addaddondomain&cpanel_xmlapi_apiversion=2
+[24-Jun-2014 04:27:55 America/Chicago] Authentication Header: Authorization: Basic dmFyYXVzamFyamVzdGVsbTptaWthZWw5MA==
+
+
+[24-Jun-2014 04:27:55 America/Chicago] RESPONSE:
+ <?xml version="1.0" ?>
+  <cpanelresult>
+    <apiversion>2</apiversion>
+    <data>
+      <reason>A DNS entry for the domain “willowjenistar.varausjarjestelma.com” already exists.</reason>
+      <result>0</result>
+    </data>
+    <error>A DNS entry for the domain “willowjenistar.varausjarjestelma.com” already exists.</error>
+    <event>
+      <result>1</result>
+    </event>
+    <func>addaddondomain</func>
+    <module>AddonDomain</module>
+  </cpanelresult>
+
+[24-Jun-2014 08:19:15 America/Chicago] PHP Fatal error:  Class 'DNSimple' not found in /home4/mikael/public_html/klikkaaja.com/domain/function.php on line 4

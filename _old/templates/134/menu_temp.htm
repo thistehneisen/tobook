@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="styles/black_styles.css" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div id="wrapper">
+  <div id="sitecolor">
+    <div class="row"> 
+      <div id="sidebar-container" class="fourcol">
+        <div id="sidebar">
+          <div id="sidebarBorder">
+            <!--start header-->{$editableheader}<!--end header-->
+          
+            <div id="the-side-menu">
+				<!-- start topmenu -->{$editabletopmenu}<!-- end topmenu -->
+              <br class="clear" />
+            </div>
+            <!-- start sidebar -->{$editablesidebar}<!-- end sidebar -->
+          </div>
+        </div>
+      </div>
+
+      <div class="eightcol last">
+        <div id="main-content">
+          <div id="inner-content">
+		  <!-- start welcome -->{$editablewelcome}<!-- end welcome -->
+		  <!--start box2-->{$editablebox2}<!--end box2-->
+          </div>
+		  <div class="clear"></div>       
+        <div style="clear:both;"></div>
+		<div id="site_banner" data-type="site_banner"></div>
+		<!--start footer-->{$editablefooter}<!--end footer-->
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>

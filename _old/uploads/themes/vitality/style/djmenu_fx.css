@@ -1,0 +1,354 @@
+
+
+.dj-main {
+
+    padding: 0 !important;
+
+    margin: 0 !important;
+
+    list-style: none;
+
+    height: 35px;
+
+    background: none;
+
+    position: relative;
+
+    z-index: 500;
+
+    font-family: arial, verdana, sans-serif;
+
+    width: auto;
+	float:left;
+
+}
+
+
+
+.dj-main li.dj-up {
+
+	position: relative;
+
+    display: block;
+
+    float: left;
+
+    padding: 0 !important;
+
+    margin: 0 !important;
+
+}
+
+
+
+.dj-main li a.dj-up_a {
+
+    display: block;
+
+    float: left;
+
+    height: 35px;
+
+    line-height: 33px;
+
+    color: #e7e7e7;
+
+    text-decoration: none;
+
+    font-size: 1em;
+
+    font-weight: normal;
+
+    padding: 0 0 0 15px;
+
+    cursor: pointer;
+
+    background: none;
+
+}
+
+
+
+.dj-main li a.dj-up_a span {
+
+    float: left;
+
+    display: block;
+
+    padding: 0 15px 0 0;
+
+    height: 35px;
+
+    background: none;
+
+}
+
+
+
+.dj-main li a.dj-up_a span.dj-drop {
+
+    padding: 0 15px 0 0;
+
+    background: no-repeat right top;
+
+}
+
+
+
+.dj-main li.hover a.dj-up_a, .dj-main li.active a.dj-up_a {
+
+    color: #fff;
+
+    background: none;
+
+}
+
+
+
+.dj-main li.hover a.dj-up_a span, .dj-main li.active a.dj-up_a span {
+
+    background: none;
+
+}
+
+
+
+.dj-main li.hover a.dj-up_a span.dj-drop, .dj-main li.active a.dj-up_a span.dj-drop {
+
+    background: none;
+
+    padding-bottom: 3px;
+
+}
+
+
+
+.dj-main li.separator > a {
+
+    cursor: default;
+
+}
+
+
+
+.dj-main li a.dj-up_a span span.image-title {
+
+	background: none;
+
+	padding: 0 0 0 5px;
+
+	display: inline;
+
+	float: none;
+
+	height: auto;
+
+}
+
+.dj-main img {
+
+	border: 0;
+
+	margin: 0;
+
+}
+
+
+
+/* Default list styling */
+
+.dj-main li.hover {
+
+    position: relative;
+
+    z-index: 200;
+
+}
+
+
+
+.dj-main li.hover ul.dj-submenu {
+
+    left: 1px;
+
+    top: 37px;
+
+    background: #333333;
+
+    padding: 0px;
+
+    border: 0px solid #0b4d97;
+
+    width: 190px;
+
+    height: auto;
+
+    z-index: 300;
+	color:#e7e7e7;
+	font-size:12px;
+
+}
+
+
+
+.dj-main li.hover ul.dj-submenu li {
+
+    display: block;
+
+    height: auto;
+
+    position: relative;
+
+    float: left;
+
+    width: 190px;
+
+    font-weight: normal;
+
+}
+
+
+
+.dj-main li.hover ul.dj-submenu li a {
+
+    display: block;
+
+    font-size: 12px;
+
+    height: auto;
+
+    width: 175px;
+
+    line-height: 18px;
+
+    color: #e7e7e7;
+
+    text-decoration: none;
+
+    border: 0px solid #777777;
+
+    padding-left: 15px;
+
+}
+
+
+
+.dj-main li ul.dj-submenu li a.dj-more {
+
+    background: #444 180px 6px no-repeat;
+
+}
+
+
+
+.dj-main li.hover ul.dj-submenu li a:hover, .dj-main li ul.dj-submenu li a.active, .dj-main li ul.dj-submenu li li a.active, .dj-main li ul.dj-submenu li li li a.active {
+
+    background: #4e4e4e;
+
+    color: #fff;
+
+    border-color: #fff;
+	border:none;
+
+}
+
+
+
+.dj-main li.hover ul.dj-submenu li a.dj-more:hover {
+
+    background: none 180px 6px no-repeat;
+
+    color: #fff;
+
+}
+
+
+
+.dj-main li.hover ul.dj-submenu li a.dj-more-active {
+
+    background: #555 180px 6px no-repeat;
+
+    color: #fff;
+
+}
+
+
+
+.dj-main li.hover ul.dj-submenu li a.dj-more-active:hover {
+
+    border-color: #fff;
+
+    background: #555 180px 6px no-repeat;
+
+}
+
+
+
+.dj-main li.hover li.hover ul, .dj-main li.hover li.hover li.hover ul, .dj-main li.hover li.hover li.hover li.hover ul, .dj-main li.hover li.hover li.hover li.hover li.hover ul {
+
+    left: 190px;
+
+    top: -1px;
+
+    background: #444;
+
+    padding: 0px;
+
+    border: 0px solid #0b4d97;
+
+    white-space: nowrap;
+
+    width: 190px;
+
+    z-index: 400;
+
+    height: auto;
+
+}
+
+
+
+.dj-main ul, .dj-main li.hover ul ul, .dj-main li.hover li.hover ul ul, .dj-main li.hover li.hover li.hover ul ul, .dj-main li.hover li.hover li.hover li.hover ul ul {
+
+    position: absolute;
+
+    left: -9999px;
+
+    top: -9999px;
+
+    width: 0;
+
+    height: 0;
+
+    margin: 0;
+
+    padding: 0;
+
+    list-style: none;
+
+}
+
+
+
+.dj-main li.hover li.hover a.dj-more, .dj-main li.hover li.hover li.hover a.dj-more, .dj-main li.hover li.hover li.hover li.hover a.dj-more, .dj-main li.hover li.hover li.hover li.hover li.hover a.dj-more {
+
+    background: #444 180px 6px no-repeat;
+
+    color: #fff;
+
+    border-color: #fff;
+
+}
+
+
+
+.dj-main li.hover li.hover li a.dj-more, .dj-main li.hover li.hover li.hover li a.dj-more, .dj-main li.hover li.hover li.hover li.hover li a.dj-more {
+
+    background: #777777 180px 6px no-repeat;
+
+    color: #000;
+
+    border-color: #777777;
+
+}
+

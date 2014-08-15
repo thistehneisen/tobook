@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="template" version="1.0">
+<name>vitality</name>
+<author>Ucodice Team</author>
+<license>ucodice</license>
+<version>1.0.0</version>
+<description>Ucodice Test Theme</description>
+
+    <files>
+            <filedata>
+                <filename>index.html</filename>
+                <filealias>index</filealias>
+            </filedata>
+            <filedata>
+                <filename>subpage.html</filename>
+                <filealias>subpage</filealias>
+            </filedata>
+	</files>
+
+
+	<themes>
+		<theme1>
+			<name>Black Lotus Theme</name>
+			<style>style/style.css</style>
+			<homepageimage>images/beauty-salon--2.jpg</homepageimage>
+			<thumbnail>images/beauty-salon--3.jpg</thumbnail>
+			<subpageimage>images/beauty-salon--4.jpg</subpageimage>
+			<currenttheme>true</currenttheme>
+			<themecolor>#76bd46</themecolor>
+		</theme1>		 
+	</themes>
+
+	<panels>
+		<maincenter>maincenter</maincenter>
+		<spotlight>spotlight</spotlight>
+		<footer>footer</footer>
+	</panels>
+ 
+</mosinstall>

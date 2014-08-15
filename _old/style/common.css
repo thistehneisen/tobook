@@ -1,0 +1,53 @@
+ .tooltip {
+	display:none;
+	position:absolute;
+	border:1px solid #333;
+	background-color:#CCC;
+	border-radius:5px;
+	padding:10px;
+	color:#fff;
+	font-size:12px Arial;
+	max-width:300px;
+}
+
+.msggreen { 	color:#33CC33;}
+.msgred { 	color:#FF0000;}
+
+.helptext {
+    color: #929292;
+    display: inline-block;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    font-weight: normal;
+    line-height: 20px;
+    padding: 0 0 0 5px;
+    text-align: left;
+}
+
+
+.nwusrwelcome { color:#8E8E8E;}
+.nwusrwelcometitle {font-family: Arial,Helvetica,sans-serif;font-size: 18px; font-weight: normal;color:#8E8E8E; }
+.nwusrwelcomemessage {font-family: Arial,Helvetica,sans-serif;font-size: 14px;color:#8E8E8E; padding:10px 0px 20px 0px; font-weight: normal;}
+
+/* 31 Octobel 2013 and later */
+
+.socialShareClass{
+    width: 16px!important;
+    height: 16px!important;
+}
+
+.manageMenuStyle{
+    /*float: right;
+    margin: 60px 20px 0 0;*/
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right:5px;
+}
+.manageMenuStyle a{
+    color:#80FF00;
+    font-size:13px;
+}
+
+
+

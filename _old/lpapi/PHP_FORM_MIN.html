@@ -1,0 +1,56 @@
+<!---------------------------------------------------------------------------------
+* PHP_FORM_MIN.html - A form processing example showing the minimum 
+* number of possible fields for a credit card SALE transaction.
+*
+* This page passes form data passed to the script PHP_FORM_MIN.php.  
+*
+*   Copyright 2003 LinkPoint International, Inc. All Rights Reserved.
+*
+*   This software is the proprietary information of LinkPoint International, Inc.
+* Use is subject to license terms.
+*
+
+
+<html><head><title>PHP_FORM_MIN.html sample program</title></head><body>
+
+<br>
+<form name="form1" method="post" action="PHP_FORM_MIN.php">
+
+<br><br>
+<table>
+	<tr>
+		<td align="right">ordertype</td>
+		<td><input name="ordertype" value="SALE"></td>
+	</tr>
+	<tr>
+		<td align="right">amount</td>
+		<td><input name="chargetotal" value="9.99"></td>
+	</tr>
+	<tr>
+		<td align="right">cardnumber</td>
+		<td><input name="cardnumber" value="4111111111111111"></td>
+	</tr>
+	<tr>
+		<td align="right">cardexpmonth</td>
+		<td><input name="cardexpmonth" value="01"></td>
+	</tr>
+	<tr>
+		<td align="right">cardexpyear</td>
+		<td><input name="cardexpyear" value="05"></td>
+	</tr>
+	<tr>
+		<td align="right"> debugging</td> 
+		<td><input type=checkbox name="debugging"></td>
+	</tr>
+	<tr>
+		<td align="right"> verbose output</td> 
+		<td><input type=checkbox name="verbose"></td>
+	</tr>
+	<tr>
+		<td> </td>
+		<td> <input type="submit"></td>
+	</tr>
+</table>
+</form>
+
+</font></body></html>

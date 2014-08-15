@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="template" version="1.0">
+<name>testtheme</name>
+<author>Anis Tuhin</author>
+<license>Md. Anisur Rahman</license>
+<version>1.0.0</version>
+<description>Saloon Theme</description>
+
+    <files>
+            <filedata>
+                <filename>index.html</filename>
+                <filealias>index</filealias>
+            </filedata>
+            <filedata>
+                <filename>about.html</filename>
+                <filealias>about</filealias>
+            </filedata>
+            <filedata>
+                <filename>service.html</filename>
+                <filealias>service</filealias>
+            </filedata>
+            <filedata>
+                <filename>contact.html</filename>
+                <filealias>contact</filealias>
+            </filedata>
+            <filedata>
+                <filename>subpage.html</filename>
+                <filealias>subpage</filealias>
+            </filedata>
+	</files>
+
+
+	<themes>
+		<theme1>
+			<name>Black Theme</name>
+			<style>styles/style.css</style>
+			<homepageimage>images/black_home.jpg</homepageimage>
+			<thumbnail>images/black_thumb.jpg</thumbnail>
+			<subpageimage>images/black_sub.jpg</subpageimage>
+			<currenttheme>true</currenttheme>
+			<themecolor>#131313</themecolor>
+		</theme1>
+
+
+		<theme2>
+			<name>Blue Theme</name>
+			<style>styles/style_blue.css</style>
+			<homepageimage>images/blue_home.jpg</homepageimage>
+			<thumbnail>images/blue_thumb.jpg</thumbnail>
+			<subpageimage>images/blue_sub.jpg</subpageimage>
+			<themecolor>#1989d7</themecolor>
+		</theme2>	
+		 
+		
+	
+		<theme3>
+			<name>Orange Theme</name>
+			<style>styles/style_orange.css</style>
+			<homepageimage>images/orange_home.jpg</homepageimage>
+			<thumbnail>images/orange_thumb.jpg</thumbnail>
+			<subpageimage>images/orange_sub.jpg</subpageimage>
+		<themecolor>#ee8407</themecolor>
+		</theme3>
+		 
+		 
+	</themes>
+
+	<panels>
+		<header>header</header>
+		<topmenu>topmenu</topmenu>
+		<slider>slider</slider>
+		<maincontent>maincontent</maincontent>
+		<map>map</map>
+		<featured>featured</featured>
+		<footer>footer</footer>	
+	</panels>
+ 
+</mosinstall>

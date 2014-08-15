@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="template" version="1.0">
+<name>pptemp</name>
+<author>PossPooja</author>
+<license>PossPooja</license>
+<version>1.0.0</version>
+<description>PossPooja Theme</description>
+
+    <files>
+		<filedata>
+			<filename>index.html</filename>
+			<filealias>index</filealias>
+		</filedata>
+		<filedata>
+			<filename>subpage.html</filename>
+			<filealias>subpage</filealias>
+		</filedata>
+	
+	</files>
+
+
+	<themes>
+		<theme1>
+			<name>Default Theme</name>
+			<style>styles/style.css</style>
+			<homepageimage>images/homepagetemplate.jpg</homepageimage>
+			<thumbnail>images/homethumb.jpg</thumbnail>
+			<subpageimage>images/subpagetemplate.jpg</subpageimage>
+			<currenttheme>true</currenttheme>
+			<themecolor>#767f84</themecolor>
+		</theme1>
+
+	</themes>
+
+	<panels>
+		<header>header</header>
+		<address>address</address>
+		<banner>banner</banner>
+		<menu>menu</menu>
+		<maincontent>maincontent</maincontent>
+		<socials>socials</socials>
+		<footer>footer</footer>
+	
+	</panels>
+ 
+</mosinstall>

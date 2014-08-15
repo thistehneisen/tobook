@@ -1,0 +1,90 @@
+@media screen and (min-width:320px) and (max-width:939px){
+	
+	.wrapper{ width:100%; margin:0 auto;}
+	
+	.logo_image{ width:100%; text-align:center;}
+	
+	.compnynamencaption{ width:100%; text-align:center; margin:5px;}
+	
+	.compnynamencaption p{ width:100%; text-align:center;}
+	
+	.banner_wrapper img{ width:100%; height:auto;}
+	
+	.menu_wrapper{ width:100%;}
+	
+	.menu_wrapper li{ float:left;  cursor:pointer;width:100%; height:auto; display:inline-block;text-align:center; background: linear-gradient(rgb(255, 237, 69), rgb(253, 225, 56));
+}
+
+	.menu_wrapper li a{ color:#615619; width:100%; height:auto; display:inline-block; line-height:36px; text-align:center;}
+	
+	.footer_wrapper{ width:100%; text-align:center; }
+	
+	.footer_wrapper li{ float:none; display:inline;}
+	
+	.footer_copyright{ width:100%; text-align:center;}
+}
+
+
+/*for menu*/
+/*Strip the ul of padding and list styling*/
+.menu_wrapper ul {
+	list-style-type:none;
+	margin:0;
+	padding:0;
+}
+
+/*Create a horizontal list with spacing*/
+.menu_wrapper li {
+	display:inline-block;
+	float: left;
+}
+
+/*Style for menu links*/
+.menu_wrapper li a {
+	display:block;
+}
+
+
+
+/*Style 'show menu' label button and hide it by default*/
+.show-menu {
+	text-decoration: none;
+	color: #fff;
+	background: #19c589;
+	text-align: center;
+	padding: 10px 0;
+	display: none;
+}
+
+/*Hide checkbox*/
+input[type=checkbox]{
+    display: none;
+}
+
+/*Show menu when invisible checkbox is checked*/
+input[type=checkbox]:checked ~ #menu{
+    display: block;
+}
+
+
+/*Responsive Styles*/
+
+@media screen and (max-width : 939px){
+	/*Make dropdown links appear inline*/
+	.menu_wrapper ul {
+		position: static;
+		display: none;
+	}
+	/*Create vertical spacing*/
+	.menu_wrapper li {
+		margin-bottom: 1px;
+	}
+	/*Make all menu links full width*/
+	.menu_wrapper ul li, .menu_wrapper li a {
+		width: 100%;
+	}
+	/*Display 'show menu' link*/
+	.show-menu {
+		display:block;
+	}
+}

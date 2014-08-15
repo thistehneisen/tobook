@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="template" version="1.0">
+<name>testtheme</name>
+<author>Armia Team</author>
+<license>Armia</license>
+<version>1.0.0</version>
+<description>Test Theme</description>
+	
+<files>
+            <filedata>
+                <filename>index.html</filename>
+                <filealias>index</filealias>
+            </filedata>
+            <filedata>
+               <filename>aboutus.html</filename>
+                <filealias>aboutus</filealias>
+            </filedata>
+            <filedata>
+                <filename>gallery.html</filename>
+                <filealias>gallery</filealias>
+            </filedata>
+            <filedata>
+               <filename>subpage.html</filename>
+                <filealias>subpage</filealias>
+            </filedata>
+            <filedata>
+                <filename>contactus.html</filename>
+                <filealias>contactus</filealias>
+            </filedata>
+	</files>
+
+	<themes><theme1>
+			<name>Blue Theme</name>
+			<style>styles/style.css</style>
+			<homepageimage>images/home.jpg</homepageimage>
+			<thumbnail>images/thumb.jpg</thumbnail>
+			<subpageimage>images/sub.jpg</subpageimage>
+			<currenttheme>true</currenttheme>
+			<themecolor>#0b63a6</themecolor>
+		</theme1>	
+		 
+		<theme2>
+			<name>Cyan Theme</name>
+			<style>styles/style_cyan.css</style>
+			<homepageimage>images/cyan_home.jpg</homepageimage>
+			<thumbnail>images/cyan_thumb.jpg</thumbnail>
+			<subpageimage>images/cyan_sub.jpg</subpageimage>
+			<themecolor>#37cee2</themecolor>
+		</theme2>
+		<theme3>
+			<name>Green Theme</name>
+			<style>styles/style_green.css</style>
+			<homepageimage>images/green_home.jpg</homepageimage>
+			<thumbnail>images/green_thumb.jpg</thumbnail>
+			<subpageimage>images/green_sub.jpg</subpageimage>
+			<themecolor>#35e292</themecolor>
+		</theme3>
+
+	</themes>
+
+	<panels>
+		<header>header</header>
+		<topmenu>topmenu</topmenu>
+		<maincontent>maincontent</maincontent>
+		<banner>banner</banner>
+		<row1>row1</row1>
+		<row2>row2</row2>
+		<row3>row3</row3>
+ 		<footer>footer</footer>
+		
+		 
+	</panels>
+ 
+</mosinstall>

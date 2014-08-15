@@ -1,12 +1,3 @@
-# Developer must create this file by using config.php.tpl
-/config.php
-
-# Developer must create this file by using acceptance.suite.yml.tpl
-acceptance.suite.yml
-
-# config file for AS
-appointment/library/app/config/config.inc.php
-
 # Compiled source #
 ###################
 *.com
@@ -56,6 +47,14 @@ workarea/*
 # generated test output
 tests/_output/*
 
-# vendor folder
-/vendor/
-laravel
+# Laravel
+/vendor
+/bootstrap/compiled.php
+composer.phar
+.env.*.php
+.env.php
+
+# Local config files
+/config.php
+/public/appointment/library/app/config/config.inc.php
+acceptance.suite.yml
