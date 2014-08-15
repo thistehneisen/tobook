@@ -39,7 +39,9 @@ class Crud extends Base
         try {
             $item = $this->model->where('id', $id)->firstOrFail();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $ex) {
-            return Redirect::route('admin.crud.index', ['model' => $type]);
+            $message = 'Cannot find data with ID #'.$id;
+            return Redirect::route('admin.crud.index', ['model' => $type])
+                ->withErrors($this->errorMessageBag($message), 'top');
         }
         
         return $this->render('crud.edit', [
@@ -71,7 +73,7 @@ class Crud extends Base
             $item->save();
         } catch (\Exception $ex) {
             return Redirect::back()->withInput()
-                ->withErrors($this->errorMessageBag($ex->getMessage()));
+                ->withErrors($this->errorMessageBag($ex->getMessage()), 'top');
         }
 
         return Redirect::route('admin.crud.index', ['model' => $type]);

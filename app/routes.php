@@ -157,6 +157,11 @@ Route::group([
         'uses' => 'App\Controllers\Admin\Dashboard@index'
     ]);
 
+    // User model uses a different way to save data
+    Route::post('users/{id}', [
+        'uses' => 'App\Controllers\Admin\Users@doEdit'
+    ]);
+
     Route::get('{model}', [
         'as' => 'admin.crud.index',
         'uses' => 'App\Controllers\Admin\Crud@index'
