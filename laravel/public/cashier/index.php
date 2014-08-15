@@ -74,7 +74,7 @@ if (defined('ENVIRONMENT'))
  * Find your timezone here
  * http://php.net/manual/en/timezones.php
  */
-	$timezone = "Europe/Sarajevo";
+	$timezone = "Europe/Helsinki";
 
 	if(function_exists('date_default_timezone_set')) date_default_timezone_set($timezone);
 
@@ -230,6 +230,11 @@ if (defined('ENVIRONMENT'))
 	 require_once($defines_mySettings);
 	} */
 
+@session_start();
+if (!isset($_SESSION['owner_id'])) {
+    $scheme = ($_SERVER['HTTPS']) ? 'https' : 'http';
+    header("Location: {$scheme}://{$_SERVER['HTTP_HOST']}");
+}
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE
