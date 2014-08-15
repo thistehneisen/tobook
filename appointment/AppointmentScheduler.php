@@ -37,14 +37,13 @@ if ( is_admin() )
 
 	$db = http_build_query($db);
 	$dbp 		= DB_PASSWORD;
-	//var_dump($db);
 
-	setcookie("appointment_scheduler", $db, time()+36000, "/", "");
-	setcookie("appointment_scheduler_p", $dbp, time()+36000, "/", "");
+	//setcookie("appointment_scheduler", $db, time()+36000, "/", "");
+	//setcookie("appointment_scheduler_p", $dbp, time()+36000, "/", "");
 
 } else {
-	setcookie("appointment_scheduler", $db, time()-36000, "/", "");
-	setcookie("appointment_scheduler_p", '', time()+36000, "/", "");
+	//setcookie("appointment_scheduler", $db, time()-36000, "/", "");
+	//setcookie("appointment_scheduler_p", '', time()+36000, "/", "");
 }
 
 $pf = $table_prefix;
