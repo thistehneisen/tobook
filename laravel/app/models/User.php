@@ -6,6 +6,24 @@ class User extends ConfideUser
 {
     use HasRole;
 
+    public $visible = [
+        'id',
+        'username',
+        'email',
+        'first_name', 
+        'last_name', 
+        'address_1', 
+        'address_2', 
+        'city', 
+        'state', 
+        'zipcode', 
+        'country', 
+        'phone', 
+        'fax', 
+        'stylesheet', 
+        'created_at', 
+    ];
+
     /**
      * Allow old users to login with their own password, but force to change
      * immediately

@@ -139,4 +139,9 @@ Route::group([
         'uses' => 'App\Controllers\Admin\Dashboard@index'
     ]);
 
+    Route::get('{model}', [
+        'as' => 'admin.crud.index',
+        'uses' => 'App\Controllers\Admin\Crud@index'
+    ]);
+
 });

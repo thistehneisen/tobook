@@ -1,11 +1,19 @@
 @extends ('layouts.default')
 
+@section ('scripts')
+<script>
+$(function() {
+    $('main').removeClass('container').addClass('container-fluid');
+});
+</script>
+@stop
+
 @section ('header')
     <h2 class="comfortaa white">{{ ucfirst(Config::get('admin.prefix')) }}</h2>
 @stop
 
 @section ('content')
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-inverse navbar-default" role="navigation">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -22,9 +30,9 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Users</a></li>
-                        <li><a href="#">Roles</a></li>
-                        <li><a href="#">Permissions</a></li>
+                        <li><a href="{{ route('admin.crud.index', ['model' => 'users']) }}">Users</a></li>
+                        <li><a href="{{ route('admin.crud.index', ['model' => 'roles']) }}">Roles</a></li>
+                        <li><a href="{{ route('admin.crud.index', ['model' => 'permissions']) }}">Permissions</a></li>
                         <li class="divider"></li>
                         <li><a href="#">Settings</a></li>
                     </ul>
