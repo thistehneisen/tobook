@@ -78,4 +78,42 @@ class Services extends Base
             'url' => URL::to($uri.http_build_query($params))
         ]);
     }
+
+    /**
+     * Redirect user to Loyalty Program module
+     *
+     * @return View
+     */
+    public function loyalty()
+    {
+        $params = [
+            'username' => Confide::user()->username,
+            'userid' => Confide::user()->id
+        ];
+        return View::make('services.iframe', [
+            'url' => URL::to(
+                'loyalty/admin/consumerList.php?'
+                .http_build_query($params)
+            )
+        ]);
+    }
+
+    /**
+     * Redirect user to Marketing Tool module
+     *
+     * @return View
+     */
+    public function marketing()
+    {
+        $params = [
+            'username' => Confide::user()->username,
+            'userid' => Confide::user()->id
+        ];
+        return View::make('services.iframe', [
+            'url' => URL::to(
+                'marketing/main.php?'
+                .http_build_query($params)
+            )
+        ]);
+    }
 }

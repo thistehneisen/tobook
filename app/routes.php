@@ -128,6 +128,16 @@ Route::group([
             'as' => 'appointment.index',
             'uses' => 'App\Controllers\Services@appointment'
         ]);
+
+        Route::get('loyalty-program', [
+            'as' => 'loyalty.index',
+            'uses' => 'App\Controllers\Services@loyalty'
+        ]);
+
+        Route::get('marketing-tool', [
+            'as' => 'marketing.index',
+            'uses' => 'App\Controllers\Services@marketing'
+        ]);
     });
 
 

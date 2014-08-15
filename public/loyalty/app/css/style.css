@@ -1,0 +1,178 @@
+body {
+	margin: 0px;
+	padding: 0px;
+}
+
+.greyDivider {
+	background: #555;
+	width: 100%;
+	max-width: 100%;
+	height: 12px;
+}
+
+/* COMMON */
+.floatleft {
+	float: left;
+}
+
+.floatright {
+	float: right;
+}
+
+.clearboth {
+	clear: both;
+}
+
+.frontTopBackground {
+	background-image: url(/loyalty/app/img/topHeader.png);
+	background-position: center top;
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 100%;
+	max-width: 100%;
+	height: 162px;
+	text-align: center;
+	font-weight: bold;
+	color: #FFF;
+	filter:
+		"progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/loyalty/app/img/topHeader.png',sizingMethod='scale')";
+	-ms-filter:
+		"progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/loyalty/app/img/topHeader.png',sizingMethod='scale')";
+}
+
+.frontTopTitle {
+	font-size: 70px;
+	padding-top: 30px;
+	font-family: 'Comfortaa';
+}
+
+.modal-backdrop {
+	background: rgba(255, 255, 255, 0.5);
+}
+
+#tblDataList_wrapper .row {
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-top: 5px;
+}
+
+#tblDataList_filter input {
+	height: 32px;
+	padding: 3px;
+}
+
+#tblDataList_length select {
+	height: 32px;
+	padding: 3px;
+}
+
+.pagination li {
+	float: left;
+}
+
+.pagination li a {
+	text-decoration: none;
+}
+
+.pagination li a:hover {
+	text-decoration: none;
+	background: #e67e22;
+}
+
+.pagination {
+	margin-bottom: 5px !important;
+}
+
+.pagination ul {
+	list-style-type: none !important;
+}
+
+.sidebar-nav-v1 li.active a {
+	color: #FFF !important;
+	background: #e67e22 !important;
+}
+
+/* LOGIN */
+.frontLoginBackground {
+	text-align: center;
+	font-weight: bold;
+	color: #000;
+}
+
+.frontLoginContainer {
+	width: 600px;
+	margin: 0px auto;
+}
+
+.frontLoginLabel {
+	width: 130px;
+	text-align: right;
+	margin-right: 20px;
+	line-height: 54px;
+	color: #555;
+}
+
+.frontLoginText {
+	width: 420px;
+}
+
+.frontLoginText input {
+	padding: 15px;
+	width: 100%;
+	border: 1px solid #CCC;
+	font-size: 14px;
+}
+
+.frontHomeBackground {
+	text-align: center;
+	font-weight: bold;
+	color: #000;
+	padding-bottom: 30px;
+}
+
+#pointItem {
+	margin-top: 10px;
+}
+
+#pointName {
+	font-size: 12px;
+}
+
+#scoreRequired {
+	color: #e67e22;
+	font-size: 12px;
+}
+
+#stampItem {
+	margin-top: 10px;
+}
+
+#stampName {
+	font-size: 12px;
+}
+
+#stampRequired {
+	color: #e67e22;
+	font-size: 12px;
+}
+
+.height30 {
+	height: 30px;
+}
+
+#btnLogin {
+	width: 200px;
+	background: #424242;
+	color: #FFF;
+	cursor: pointer;
+}
+
+#btnLogout {
+	position: absolute;
+	color: #000;
+	font-size: 15px;
+	right: 200px;
+	bottom: 10px;
+	font-weight: bold;
+	cursor: pointer;
+}
