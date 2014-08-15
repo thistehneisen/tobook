@@ -28,4 +28,6 @@ return array(
 
 	'pagination' => 'pagination::slider-3',
 
+    'perPage' => 50
+
 );

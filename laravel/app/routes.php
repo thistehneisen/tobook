@@ -129,3 +129,24 @@ Route::group([
 
 
 });
+/*
+|--------------------------------------------------------------------------
+| Admin routes
+|--------------------------------------------------------------------------
+*/
+Route::group([
+    'prefix' => Config::get('admin.prefix'),
+    'before' => ['auth']
+], function() {
+
+    Route::get('/', [
+        'as' => 'admin.index',
+        'uses' => 'App\Controllers\Admin\Dashboard@index'
+    ]);
+
+    Route::get('{model}', [
+        'as' => 'admin.crud.index',
+        'uses' => 'App\Controllers\Admin\Crud@index'
+    ]);
+
+});
