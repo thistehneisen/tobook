@@ -12,8 +12,13 @@
 */
 
 Route::get('/', [
-    'as' => 'home',
-    'uses' => 'App\Controllers\Home@index'
+    'as'    => 'home',
+    'uses'  => 'App\Controllers\Home@index'
+]);
+
+Route::get('/loyality_guide', [
+    'as'    => 'loyalty_guide',
+    'uses'  => 'App\Controllers\Home@loyalty',
 ]);
 
 /*

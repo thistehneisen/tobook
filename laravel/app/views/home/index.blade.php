@@ -47,7 +47,7 @@
         </a>
     </div>
     <div class="col-md-2 col-lg-2">
-        <a href="">
+        <a href="{{ URL::action('loyalty_guide') }}">
             <p><img src="{{ asset('assets/img/iconLoyality.png') }}" alt=""></p>
             <p>{{ trans('home.loyaltycard') }}</p>
         </a>

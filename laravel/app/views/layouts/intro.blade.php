@@ -47,9 +47,48 @@
         
         <a href="{{ route('home') }}"><img src="{{ asset('assets/img/logo.png') }}" alt="{{ trans('common.site_name') }}" class="logo"></a>
         @yield('header')
+        @yield('subheader')
     </header>
 
     <main role="main" class="container main">
+        <div class="row services">
+            <div class="col-md-2 col-lg-2">
+                <a href="">
+                    <p><img src="{{ asset('assets/img/iconHome.png') }}" alt=""></p>
+                    <p>{{ trans('home.homepages') }}</p>
+                </a>
+            </div>
+            <div class="col-md-2 col-lg-2">
+                <a href="{{ URL::action('loyalty_guide') }}">
+                    <p><img src="{{ asset('assets/img/iconLoyality.png') }}" alt=""></p>
+                    <p>{{ trans('home.loyaltycard') }}</p>
+                </a>
+            </div>
+            <div class="col-md-2 col-lg-2">
+                <a href="">
+                    <p><img src="{{ asset('assets/img/iconAppointment.png') }}" alt=""></p>
+                    <p>{{ trans('dashboard.timeslot') }}</p>
+                </a>
+            </div>
+            <div class="col-md-2 col-lg-2">
+                <a href="">
+                    <p><img src="{{ asset('assets/img/iconCustomer.png') }}" alt=""></p>
+                    <p>{{ trans('home.customer_registration') }}</p>
+                </a>
+            </div>
+            <div class="col-md-2 col-lg-2">
+                <a href="">
+                    <p><img src="{{ asset('assets/img/iconCashier.png') }}" alt=""></p>
+                    <p>{{ trans('home.cashier') }}</p>
+                </a>
+            </div>
+            <div class="col-md-2 col-lg-2">
+                <a href="">
+                    <p><img src="{{ asset('assets/img/iconMarketing.png') }}" alt=""></p>
+                    <p>{{ trans('dashboard.marketing') }}</p>
+                </a>
+            </div>
+        </div>
         @yield('content')
     </main>
 

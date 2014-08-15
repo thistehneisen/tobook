@@ -13,4 +13,8 @@ class Home extends Base
 
         return View::make('home.index');
     }
+
+    public function loyalty() {
+        return View::make('intro.loyalty');
+    }
 }
