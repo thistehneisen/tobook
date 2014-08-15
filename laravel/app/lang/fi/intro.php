@@ -40,4 +40,7 @@ return [
     'loyalty_kantis_20'         => 'Kanta-asiakasjärjestelmä kerää ja jäsentelee automaattisesti tärkeät tiedot asiakkaistasi 
                                     sekä heidän käynneistään. Reaaliaikaisten tietojen ansiosta pystyt ohjaamaan liiketoimintaasi 
                                     haluamaasi suuntaan paremmin ja helpommin kuin koskaan aikaisemmin.',
+    'loyalty_kantis_21'         => 'Helppokäyttöinen',
+    'loyalty_kantis_22'         => 'Toimintavarma',
+    'loyalty_kantis_23'         => 'Tarpeisiisi mukautuva',
 ];

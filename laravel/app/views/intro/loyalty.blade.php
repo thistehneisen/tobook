@@ -53,7 +53,7 @@
                 <img src="/assets/img/iconArrow.png" class="loyaltyArrow"/>&nbsp;<span class="loyaltyGeneral">{{ trans('intro.loyalty_guide12') }}</span>
             </div>              
         </div>
-        <div style="clear:both" class="clearboth"></div>       
+        <div style="clear:both"></div>       
     </div>
 
     <div style="background:#f6841e;color:#FFF;padding-top:30px; padding-bottom:40px;">
@@ -116,7 +116,7 @@
 
             </div>          
         </div>
-        <div style="clear:both" class="clearboth"></div>
+        <div style="clear:both"></div>
     </div>
 
     <div style="margin-top:50px;border-bottom:3px solid #CCC;">
@@ -141,7 +141,7 @@
                     <img src="/assets/img/iconCheck.png" style="vertical-align: middle;width:26px;height:26px;"/>&nbsp;<span style="font-size:20px;color:#000;font-weight:normal;padding-left:25px;">{{ trans('intro.loyalty_kantis_23') }}</span>
                 </div>                                                  
             </div>
-            <div class="clearboth" style="clear:both"></div>           
+            <div style="clear:both"></div>           
         </div>
     </div>
 
