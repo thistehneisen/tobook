@@ -1,5 +1,4 @@
 <?php
-
 @session_start();
 if (!isset($_SERVER['SERVER_ADDR']) && function_exists('gethostbyname'))
 {

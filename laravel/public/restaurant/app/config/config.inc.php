@@ -75,7 +75,9 @@ if (!$stop)
     } else {
         if (!defined("INSTALL_FOLDER")) define("INSTALL_FOLDER", './');
         if (!defined("INSTALL_PATH")) define("INSTALL_PATH", realpath(__DIR__.'/../../'));   // 
-        if (!defined("INSTALL_URL")) define("INSTALL_URL", "$_SERVER[REQUEST_SCHEME]://$_SERVER[HTTP_HOST]/restaraunt/");
+
+        $scheme = (isset($_SERVER['HTTPS'])) ? 'https' : 'http';
+        if (!defined("INSTALL_URL")) define("INSTALL_URL", "{$scheme}://$_SERVER[HTTP_HOST]/restaurant/");
     }
 }
 

@@ -57,7 +57,6 @@ class Services extends Base
             ? 'restaurant/session.php?'
             : 'restaurant/install.php?';
 
-        //return Redirect::to($uri.http_build_query($params));
         return View::make('services.iframe', [
             'url' => URL::to($uri.http_build_query($params))
         ]);
