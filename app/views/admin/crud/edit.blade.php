@@ -1,8 +1,6 @@
 @extends ('layouts.admin')
 
 @section ('content')
-    @parent
-    
 <h3 class="comfortaa text-success">Edit {{ Request::segment(2) }} #{{ $item->id }}</h3>
 @include ('el.messages')
 

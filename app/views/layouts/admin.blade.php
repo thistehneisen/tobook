@@ -12,7 +12,7 @@ $(function() {
     <h2 class="comfortaa white">{{ ucfirst(Config::get('admin.prefix')) }}</h2>
 @stop
 
-@section ('content')
+@section ('nav-admin')
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
