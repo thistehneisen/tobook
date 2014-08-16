@@ -17,23 +17,15 @@ $app = new Illuminate\Foundation\Application;
 |--------------------------------------------------------------------------
 | Detect The Application Environment
 |--------------------------------------------------------------------------
-|
-| Laravel takes a dead simple approach to your application environments
-| so you can just specify a machine name for the host that matches a
-| given environment, then we will automatically detect it for you.
-|
+| Assume the environment is 'local' if don't set explicitly
 */
-
-$env = $app->detectEnvironment(array(
-    // just add your hostname, don't delete others
-	'local' => array(
-        'dev', // general
-        'homestead', // An
-        'vagrant.local', // Hung
-        'HMacPro.local', // Hieu
-    ),
-
-));
+$env = $app->detectEnvironment(function () {
+    if (file_exists(__DIR__.'/environment.php')) {
+        return require __DIR__.'/environment.php';
+    } else {
+        return 'local';
+    }
+});
 
 /*
 |--------------------------------------------------------------------------
