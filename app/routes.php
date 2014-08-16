@@ -167,6 +167,7 @@ Route::group([
         'uses' => 'App\Controllers\Admin\Users@stealSession'
     ]);
 
+    // CRUD actions
     Route::get('{model}', [
         'as' => 'admin.crud.index',
         'uses' => 'App\Controllers\Admin\Crud@index'
@@ -179,6 +180,11 @@ Route::group([
 
     Route::post('{model}/{id}', [
         'uses' => 'App\Controllers\Admin\Crud@doEdit'
+    ]);
+
+    Route::get('{model}/delete/{id}', [
+        'as'   => 'admin.crud.delete',
+        'uses' => 'App\Controllers\Admin\Crud@delete'
     ]);
 
 });

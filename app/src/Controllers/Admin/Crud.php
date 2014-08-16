@@ -19,7 +19,7 @@ class Crud extends Base
     public function index()
     {
         $items = $this->model->paginate(Config::get('view.perPage'));
-        
+
         return $this->render('crud.index', [
             'model' => $this->model,
             'items' => $items,
@@ -29,8 +29,8 @@ class Crud extends Base
     /**
      * Show the form to edit an item
      *
-     * @param  string $type 
-     * @param  int $id   
+     * @param  string $type
+     * @param  int $id
      *
      * @return View
      */
@@ -43,7 +43,7 @@ class Crud extends Base
             return Redirect::route('admin.crud.index', ['model' => $type])
                 ->withErrors($this->errorMessageBag($message), 'top');
         }
-        
+
         return $this->render('crud.edit', [
             'model' => $this->model,
             'item' => $item
@@ -53,8 +53,8 @@ class Crud extends Base
     /**
      * Update the record in database
      *
-     * @param  string $type 
-     * @param  int $id   
+     * @param  string $type
+     * @param  int $id
      *
      * @return Redirect
      */
@@ -65,7 +65,7 @@ class Crud extends Base
 
             $input = Input::all();
             unset($input['_token']);
-            
+
             $item->unguard();
             $item->fill($input);
             $item->reguard();
@@ -77,5 +77,27 @@ class Crud extends Base
         }
 
         return Redirect::route('admin.crud.index', ['model' => $type]);
+    }
+
+    /**
+     * Delete a record in database
+     *
+     * @param  string $type
+     * @param  int $id
+     *
+     * @return Redirect
+     */
+    public function delete($type, $id)
+    {
+        $item = $this->model->find($id);
+        if ($item) {
+            $item->delete();
+        }
+
+        return Redirect::route('admin.crud.index', ['model' => $type])
+            ->with(
+                'messages',
+                $this->successMessageBag('ID #'.$id.' was deleted')
+            );
     }
 }

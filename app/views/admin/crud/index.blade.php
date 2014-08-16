@@ -1,6 +1,20 @@
 
 @extends ('layouts.admin')
 
+@section ('scripts')
+    @parent
+    <script>
+$(function() {
+    $('a.link-delete').on('click', function(e) {
+        var confirmed = confirm('Are you sure?');
+        if (confirmed === false) {
+            e.preventDefault();
+        }
+    });
+});
+    </script>
+@stop
+
 @section ('content')
     @parent
     
@@ -33,6 +47,8 @@
                         <li role="presentation"><a role="menuitem" href="{{ $href }}">{{ $name }}</a></li>
                         @endforeach
                     @endif
+                        <li class="divider"></li>
+                        <li role="presentation"><a class="link-delete" role="menuitem" href="{{ route('admin.crud.delete', ['model' => Request::segment(2), 'id' => $item->id]) }}"><i class="fa fa-trash-o"></i> Delete</a></li>
                     </ul>
                 </div>
 
