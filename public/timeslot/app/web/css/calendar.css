@@ -1,0 +1,232 @@
+@CHARSET "UTF-8";
+/* Form */
+.TSBC_Form{
+	margin: 5px 10px 0 0;
+	overflow: hidden;
+}
+.TSBC_Form p{
+	clear: left;
+	margin: 0 0 10px 0;
+	overflow: hidden;
+}
+.TSBC_Form p img{
+	margin: 0 17px 0 0;
+	vertical-align: middle;	
+}
+.TSBC_Form label.title{
+	display: block;
+	font-weight: bold;
+	float: left;
+	width: 120px;
+}
+.TSBC_Form .TSBC_Field{
+	border: solid 1px #7F9DB9;
+	padding: 2px;
+}
+.TSBC_Form .TSBC_FieldText{
+	width: 200px;
+}
+.TSBC_PseudoField{
+	float: left;
+	display: block;
+	white-space: nowrap;
+	width: 220px;
+}
+.TSBC_Form .TSBC_FieldTextSmall{
+	width: 100px;
+}
+.TSBC_Form .TSBC_FieldTextarea{
+	height: 80px;
+	width: 200px;
+	resize: none;
+}
+.TSBC_Form .TSBC_FieldSelect{
+	width: 206px;
+}
+.TSBC_Form .TSBC_FieldSelectMedium{
+	width: 101px;
+}
+.TSBC_Form .TSBC_FieldSelectMini{
+	width: 45px;
+}
+.TSBC_Form .TSBC_FieldCheckbox{
+	margin: 0;
+}
+.TSBC_Error{
+	color: red;
+}
+/* Table */
+.TSBC_Table{
+	border-collapse: collapse;
+	empty-cells: show;
+	margin: 1px 10px 0 0;
+}
+.TSBC_Table tr{}
+.TSBC_Table thead th{
+	font-weight: normal;
+	text-align: left;
+}
+.TSBC_Table tbody td{}
+.TSBC_Head{
+	background-color: #ddd;
+	font-weight: bold !important;
+	padding: 4px 2px;
+}
+.TSBC_Head a:link, .TSBC_Head a:visited{
+	color: #000;
+	text-decoration: none;
+}
+.TSBC_Head a:hover{
+	text-decoration: underline;
+}
+.TSBC_Cart_Date{
+	background-color: #EAEAEA;
+	font-weight: bold;
+}
+.TSBC_Cart_Time{}
+
+.TSBC_TableSlots{
+	border-collapse: separate !important;
+	border-spacing: 0 2px;
+	float: left;
+	margin: 0;
+}
+.TSBC_Table_Half{
+	width: 49% !important;
+}
+.TSBC_TableSlots_Last{
+	float: right;
+}
+.TSBC_TableSlots thead tr th{
+	background-color: #DDDDDD;
+}
+.TSBC_TableSlots thead tr th:first-child{
+	border-radius: 2px 0 0 2px;
+	-moz-border-radius: 2px 0 0 2px;
+	-webkit-border-radius: 2px 0 0 2px;
+}
+.TSBC_TableSlots thead tr th:last-child{
+	border-radius: 0 2px 2px 0;
+	-moz-border-radius: 0 2px 2px 0;
+	-webkit-border-radius: 0 2px 2px 0;
+}
+.TSBC_TableSlots tbody tr td{
+	background-color: #EBEBEB;
+}
+.TSBC_TableSlots tbody tr td:first-child{
+	border-radius: 2px 0 0 2px;
+	-moz-border-radius: 2px 0 0 2px;
+	-webkit-border-radius: 2px 0 0 2px;
+}
+.TSBC_TableSlots tbody tr td:last-child{
+	border-radius: 0 2px 2px 0;
+	-moz-border-radius: 0 2px 2px 0;
+	-webkit-border-radius: 0 2px 2px 0;
+}
+.TSBC_Date{
+	width: 80px;
+}
+.TSBC_Time{
+	width: 60px;
+}
+.TSBC_Slot{}
+.TSBC_Slot_Hover td{
+	background-color: #CAE6B3 !important;
+}
+.TSBC_Slot_Remove td{
+	background-color: #E8A9B4 !important;
+}
+.TSBC_Slot_Disabled{}
+.TSBC_Slot_Enabled,
+.TSBC_Slot_Cart{
+	cursor: pointer;
+}
+a.TSBC_Close{
+	/*background: url(../img/btn_date.png) 0 0 no-repeat;*/
+	background-color: #737373;
+	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.35, rgb(115,115,115)), color-stop(0.84, rgb(168,168,168)));
+	background-image: -moz-linear-gradient(center bottom, rgb(115,115,115) 35%, rgb(168,168,168) 84%);	
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	color: #fff;
+	display: block;
+	height: 27px;
+	float: right;
+	line-height: 27px;
+	position: relative;
+	width: 143px;
+	text-decoration: none;
+	text-indent: 5px;
+}
+a.TSBC_JS_Proceed{
+	/*background: url(../img/btn_proceed.png) 0 0 no-repeat;*/
+	background-color: #737373;
+	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.35, rgb(115,115,115)), color-stop(0.84, rgb(168,168,168)));
+	background-image: -moz-linear-gradient(center bottom, rgb(115,115,115) 35%, rgb(168,168,168) 84%);	
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	color: #fff;
+	display: block;
+	height: 27px;
+	float: right;
+	line-height: 27px;
+	width: 143px;
+	text-decoration: none;
+	text-indent: 5px;
+}
+a.TSBC_Close abbr{
+	background-color: #5D5C5D;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	color: #fff;
+	height: 16px;
+	line-height: 16px;
+	right: 4px;
+	position: absolute;
+	text-shadow: 1px 1px 1px #111;
+	top: 6px;
+	width: 16px;	
+}
+a.TSBC_Close:hover,
+a.TSBC_JS_Proceed:hover{
+	background-color: #8D8D8D;
+	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.35, rgb(128,128,128)), color-stop(0.84, rgb(181,181,181)));
+	background-image: -moz-linear-gradient(center bottom, rgb(128,128,128) 35%, rgb(181,181,181) 84%);
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+/* other */
+.TSBC_Bold{
+	font-weight: bold !important;
+}
+.TSBC_Center{
+	text-align: center !important;
+}
+.TSBC_Right{
+	text-align: right !important;
+}
+.TSBC_Slot_Nav{
+	 overflow: hidden;
+}
+.TSBC_Preload{
+	background: url(../img/loading_60.gif) center center no-repeat;
+	left: 0;
+	position: absolute;
+	top: 0;
+}
+
+.TSBC_DIVnavBlock {
+	width: 210px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.TSBC_DIVnavBlock .TSBC_CalName {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	font-weight: bold;
+}

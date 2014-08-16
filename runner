@@ -8,7 +8,5 @@ use Cmd\FixWorkingTimesCommand;
 use Symfony\Component\Console\Application;
 
 $application = new Application();
-$application->add(new MigrateCommand);
 $application->add(new ConfigCommand);
-$application->add(new FixWorkingTimesCommand);
 $application->run();

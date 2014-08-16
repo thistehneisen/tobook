@@ -1,0 +1,60 @@
+<?php
+require_once realpath(__DIR__.'/../../Bridge.php');
+$varaaDb = Bridge::dbConfig();
+
+global $owner_id;
+@session_start();
+
+if( !isset($_COOKIE['as_admin']) ){
+	setcookie( "as_admin", "admin",	time() + (10 * 365 * 24 * 60 * 60) );
+}
+if (!headers_sent())
+{
+	session_name('AppointmentScheduler');
+}
+
+if (in_array($_SERVER['SERVER_ADDR'], array('127.0.0.1', '192.185.5.15', '::1')) || true) {
+	error_reporting(E_ALL);
+} else {
+	error_reporting(0);
+}
+header("Content-type: text/html; charset=utf-8");
+if (!defined("ROOT_PATH"))
+{
+	define("ROOT_PATH", dirname(__FILE__) . '/');
+}
+
+if ( isset($_GET['username']) && !empty($_GET['username']) ) {
+	$username = $_GET['username'];
+	setcookie("username", $username, time()+3600, "/", "");
+} else  $username = isset($_COOKIE['username']) ? $_COOKIE['username'] : null;
+
+define('PREFIX', $username);
+require_once ROOT_PATH . 'app/controllers/components/pjUtil.component.php';
+
+global $firstYN;
+if( isset($_GET['firstYN']))
+	$firstYN = $_GET['firstYN'];
+else
+	$firstYN = "N";
+
+require ROOT_PATH . 'app/config/options.inc.php';
+
+# Language
+if (file_exists(ROOT_PATH . 'app/locale/fi.php')) {
+	require ROOT_PATH . 'app/locale/fi.php';
+}
+
+//require ROOT_PATH . 'oneapi.php';
+if (!isset($_GET['controller']) || empty($_GET['controller']))
+{
+	header("HTTP/1.1 301 Moved Permanently");
+	pjUtil::redirect(PJ_INSTALL_URL . basename($_SERVER['PHP_SELF'])."?controller=pjAdmin&action=pjActionIndex&owner_id=".$owner_id);
+}
+if (isset($_GET['controller']))
+{
+	require_once PJ_FRAMEWORK_PATH . 'pjObserver.class.php';
+	$pjObserver = pjObserver::factory();
+	$pjObserver->init();
+}
+?>

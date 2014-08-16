@@ -1,8 +1,0 @@
-/* This stylesheet is used to style the admin option form of the plugin. */
-.update-nag,
-#wpfooter{
-	display: none !important;	
-}
-#wpbody-content{
-	padding-bottom: 0 !important;
-}

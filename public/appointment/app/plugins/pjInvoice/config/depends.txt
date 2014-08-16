@@ -1,0 +1,6 @@
+pjImage.component.php
+pjUpload.component.php
+TinyMCE
+jquery.validate
+pjPaypal plugin
+pjAuthorize plugin

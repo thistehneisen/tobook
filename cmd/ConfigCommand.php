@@ -6,9 +6,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-define("ROOT_PATH", realpath(__DIR__.'/../appointment/library/'));
-require realpath(__DIR__.'/../appointment/library/core/framework/components/pjToolkit.component.php');
-require realpath(__DIR__.'/../appointment/library/app/config/options.inc.php');
+define("ROOT_PATH", realpath(__DIR__.'/../public/appointment/library/'));
+require realpath(__DIR__.'/../public/appointment/core/framework/components/pjToolkit.component.php');
+require realpath(__DIR__.'/../public/appointment/app/config/options.inc.php');
 
 class ConfigCommand extends Command {
     protected function configure() {
@@ -22,8 +22,8 @@ class ConfigCommand extends Command {
 
         $domain = $input->getArgument('domain');
 
-        $installFolder = '/appointment/library/';
-        $installPath = realpath(__DIR__.'/../appointment/library/') . '/'; // <= banana?
+        $installFolder = '/appointment/';
+        $installPath = __DIR__. '/../public/appointment/'; // <= banana?
         $installUrl = 'http://' . $domain . $installFolder;
         $licenseKey = 'a6bf7b1eb56f9b7a0a0a9ed4acaca1a4';
 

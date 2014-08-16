@@ -1,0 +1,156 @@
+.floatleft {
+	float: left;
+}
+
+.floatright {
+	float: right;
+}
+
+.clearboth {
+	clear: both;
+}
+
+.marginRight20 {
+	margin-right: 20px;
+}
+
+.unshow {
+	display: none;
+}
+
+#divSMSArea {
+	position: fixed;
+	left: 50%;
+	width: 600px;
+	height: 320px;
+	margin-left: -300px;
+	top: 50px;
+	background: #FFF;
+	z-index: 101;
+	padding: 30px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+#divEmailArea {
+	position: absolute;
+	width: 900px;
+	margin-left: -450px;
+	left: 50%;
+	background: #FFF;
+	top: 30px;
+	height: 510px;
+	border-radius: 12px !important;
+	box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.4);
+	overflow: hidden;
+	z-index: 101;
+}
+
+#divBlackBackground {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	background: #FFF;
+	opacity: 0.5;
+	z-index: 100;
+}
+
+.greyBackground {
+	background: #F0F0F0;
+}
+
+#emailTemplatePopup {
+	position: absolute;
+	width: 900px;
+	margin-left: -450px;
+	left: 50%;
+	background: #FFF;
+	top: 150px;
+	height: 360px;
+	border-radius: 12px !important;
+	box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.4);
+	overflow: hidden;
+	z-index: 101;
+}
+
+#campaignDuplicatePopup {
+	position: absolute;
+	width: 900px;
+	margin-left: -450px;
+	left: 50%;
+	background: #FFF;
+	top: 150px;
+	height: 250px;
+	border-radius: 12px !important;
+	box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.4);
+	overflow: hidden;
+	z-index: 101;
+}
+
+#campaignStatisticsPopup {
+	position: absolute;
+	width: 900px;
+	margin-left: -450px;
+	left: 50%;
+	background: #FFF;
+	top: 150px;
+	height: 250px;
+	border-radius: 12px !important;
+	box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.4);
+	overflow: hidden;
+	z-index: 101;
+}
+
+.previewImage {
+	width: 50px;
+	height: 50px;
+	margin-left: 10px;
+}
+
+.campaignItemSelected {
+	background: #3498db;
+	color: #FFF;
+}
+
+#tblDataList_wrapper .row {
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-top: 5px;
+}
+
+#tblDataList_filter input {
+	height: 32px;
+	padding: 3px;
+}
+
+#tblDataList_length select {
+	height: 32px;
+	padding: 3px;
+}
+
+.pagination li {
+	float: left;
+}
+
+.pagination li a {
+	text-decoration: none;
+}
+
+.pagination li a:hover {
+	text-decoration: none;
+	background: #e67e22;
+}
+
+.pagination {
+	margin-bottom: 5px !important;
+}
+
+.pagination ul {
+	list-style-type: none !important;
+}
+
+.sidebar-nav-v1 li.active a {
+	color: #FFF !important;
+	background: #e67e22 !important;
+}
