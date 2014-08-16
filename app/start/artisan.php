@@ -15,3 +15,4 @@ Artisan::add(new App\Commands\MoveUsersCommand);
 Artisan::add(new App\Commands\FixSchemaCommand);
 Artisan::add(new App\Commands\MakeAdminCommand);
 Artisan::add(new App\Commands\GenerateConfigsCommand);
+Artisan::add(new App\Commands\CreateDummyUsersCommand);
