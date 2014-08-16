@@ -57,6 +57,7 @@
 
         <a href="{{ route('home') }}"><img src="{{ asset('assets/img/logo.png') }}" alt="{{ trans('common.site_name') }}" class="logo"></a>
         @yield('header')
+        @yield('subheader')
     </header>
 
     @yield('nav-admin')

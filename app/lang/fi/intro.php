@@ -1,6 +1,7 @@
 <?php
 
 return [
+    // LOYALTY CARD
     'loyalty_sub_header'        => 'Yksi kanta-asiakaskortti, jonka avulla nauttia satojen yritysten eduista!',
     'loyalty_guide1'            => 'Kantiskortti yhdistää kaikki kanta-asiakaskortit',
     'loyalty_guide2'            => 'Räätälöitävä kanta-asiakasohjelma',
@@ -43,4 +44,8 @@ return [
     'loyalty_kantis_21'         => 'Helppokäyttöinen',
     'loyalty_kantis_22'         => 'Toimintavarma',
     'loyalty_kantis_23'         => 'Tarpeisiisi mukautuva',
+
+    // TIME SLOT
+    'timeslot_subheader'        => 'Vastaanota varauksia verkosta',
+    'timeslot_guide_1'          => 'Vastanota varauksia',
 ];

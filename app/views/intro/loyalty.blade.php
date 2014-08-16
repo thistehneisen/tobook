@@ -4,6 +4,8 @@
     @parent :: {{ trans('dashboard.loyalty') }}
 @stop
 
+{{ HTML::style('assets/css/intro.css') }}
+
 @section ('header')
     <h1 class="text-header">{{ trans('dashboard.loyalty') }}</h1>
 @stop
@@ -12,53 +14,62 @@
     <h6 class="text-subheader">{{ trans('intro.loyalty_sub_header') }}</h4>
 @stop
 
-@section ('content')
-<div class="guideBody">
-    <div style="font-weight: bold; font-size: 20px; padding-top: 30px;">{{ trans('intro.loyalty_guide1') }}</div>
-    <div style="color: #999; font-size: 20px; padding-top: 10px;">{{ trans('intro.loyalty_guide2') }}</div>
-    <div style="font-weight: bold; font-size: 20px; padding-top: 10px;">{{ trans('intro.loyalty_guide3') }}</div>
-    <div style="margin-top: 20px;"><a href="#"><img src="/assets/img/loyalityBtnAloita.png" style="width: 300px;"/></a></div>
+@section ('intro_content')
+<div class="guide-body">
+    <div class="loyalty-introduction">{{ trans('intro.loyalty_guide1') }}</div>
+    <div class="loyalty-introduction color">{{ trans('intro.loyalty_guide2') }}</div>
+    <div class="loyalty-introduction">{{ trans('intro.loyalty_guide3') }}</div>
+    <a href="#"><img src="/assets/img/loyalityBtnAloita.png" class="loyalty-introduction-button" /></a>
 
-    <div style="width: 80%; margin-left: 10%; text-align: left; margin-top: 30px; margin-bottom: 20px;">
-        <div style="width: 33%; margin-top: 30px; float: left" class="floatleft">
-            <div>
-                <img src="/assets/img/iconArrow.png" class="loyaltyArrow"/>&nbsp;<span class="loyaltyGeneral" style="font-size: 16px;">{{ trans('intro.loyalty_guide4') }}</span>
+    <div class="loyalty-general-info">
+        <div class="loyalty-general-info-column">
+            <div class="loyalty-general-info-row">
+                <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+                <span>{{ trans('intro.loyalty_guide4') }}</span>
             </div>
-            <div style="margin-top: 15px;">
-                <img src="/assets/img/iconArrow.png" class="loyaltyArrow"/>&nbsp;<span class="loyaltyGeneral">{{ trans('intro.loyalty_guide5') }}</span>
+            <div class="loyalty-general-info-row margin">
+                <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+                <span>{{ trans('intro.loyalty_guide5') }}</span>
             </div>
-            <div style="margin-top: 15px;">
-                <img src="/assets/img/iconArrow.png" class="loyaltyArrow"/>&nbsp;<span class="loyaltyGeneral">{{ trans('intro.loyalty_guide6') }}</span>
+            <div class="loyalty-general-info-row margin">
+                <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+                <span>{{ trans('intro.loyalty_guide6') }}</span>
             </div>              
         </div>
-        <div style="width: 33%; margin-top: 30px; float: left" class="floatleft">
-            <div>
-                <img src="/assets/img/iconArrow.png" class="loyaltyArrow"/>&nbsp;<span class="loyaltyGeneral">{{ trans('intro.loyalty_guide7') }}</span>
+        <div class="loyalty-general-info-column">
+            <div class="loyalty-general-info-row">
+                <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+                <span >{{ trans('intro.loyalty_guide7') }}</span>
             </div>
-            <div style="margin-top:15px;">
-                <img src="/assets/img/iconArrow.png" class="loyaltyArrow"/>&nbsp;<span class="loyaltyGeneral">{{ trans('intro.loyalty_guide8') }}</span>
+            <div class="loyalty-general-info-row margin">
+                <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+                <span>{{ trans('intro.loyalty_guide8') }}</span>
             </div>
-            <div style="margin-top:15px;">
-                <img src="/assets/img/iconArrow.png" class="loyaltyArrow"/>&nbsp;<span class="loyaltyGeneral">{{ trans('intro.loyalty_guide9') }}</span>
+            <div class="loyalty-general-info-row margin">
+                <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+                <span>{{ trans('intro.loyalty_guide9') }}</span>
             </div>              
         </div>
-        <div style="width:33%;margin-top:30px;float:left" class="floatleft">
-            <div>
-                <img src="/assets/img/iconArrow.png" class="loyaltyArrow"/>&nbsp;<span class="loyaltyGeneral">{{ trans('intro.loyalty_guide10') }}</span>
+        <div class="loyalty-general-info-column">
+            <div class="loyalty-general-info-row">
+                <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+                <span>{{ trans('intro.loyalty_guide10') }}</span>
             </div>
-            <div style="margin-top:15px;">
-                <img src="/assets/img/iconArrow.png" class="loyaltyArrow"/>&nbsp;<span class="loyaltyGeneral">{{ trans('intro.loyalty_guide11') }}</span>
+            <div class="loyalty-general-info-row margin">
+                <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+                <span>{{ trans('intro.loyalty_guide11') }}</span>
             </div>
-            <div style="margin-top:15px;">
-                <img src="/assets/img/iconArrow.png" class="loyaltyArrow"/>&nbsp;<span class="loyaltyGeneral">{{ trans('intro.loyalty_guide12') }}</span>
+            <div class="loyalty-general-info-row margin">
+                <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+                <span>{{ trans('intro.loyalty_guide12') }}</span>
             </div>              
         </div>
-        <div style="clear:both"></div>       
+        <div class="clear-both"></div>       
     </div>
 
-    <div style="background:#f6841e;color:#FFF;padding-top:30px; padding-bottom:40px;">
-        <span style="font-size:40px;">{{ trans('intro.loyalty_kantis') }}</span>
-        <p style="line-height:30px;">
+    <div class="kantis-introduction">
+        <span>{{ trans('intro.loyalty_kantis') }}</span>
+        <p>
             {{ trans('intro.loyalty_kantis_1') }}<br/>
             {{ trans('intro.loyalty_kantis_2') }}<br/>
             {{ trans('intro.loyalty_kantis_3') }}<br/>
@@ -66,90 +77,93 @@
         </p>
     </div>
 
-    <div class="loyalityBackground01">
-        <div class="floatleft" style="width:42%;float:left">
-            <div style="width:300px;height:300px; border-radius: 150px;background:#eb8b2e;margin-top:200px;margin-left:170px;color:#FFF;font-size:18px;font-weight:normal;">
-                <div style="padding-top:90px;line-height:30px;">{{ trans('intro.loyalty_kantis_5') }}</div>
-            </div>
+    <div class="loyalty-background01">
+        <div class="kantis-circle">
+            <div class="kantis-circle content">{{ trans('intro.loyalty_kantis_5') }}</div>
         </div>
-        <div class="floatleft" style="margin-left:3%;margin-top:80px;text-align:left;width:55%;float:left">
-            <div>
-                <span style="font-size:30px;font-weight: normal;">{{ trans('intro.loyalty_kantis_6') }}:</span>
-            </div>
-            <div style="margin-top:40px;">
-                <div style="margin-top:15px;">
-                    <img src="/assets/img/iconArrow.png" class="loyaltyArrow"/>&nbsp;<span style="font-size:16px;color:#FFF;font-weight:normal;padding-left:25px;">{{ trans('intro.loyalty_kantis_7') }}</span>
+        <div class="kantis-info">
+            <div class="kantis-info-header">{{ trans('intro.loyalty_kantis_6') }}:</div>
+            <div class="kantis-info-content">
+                <div class="kantis-info-content margin">
+                    <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+                    <span>{{ trans('intro.loyalty_kantis_7') }}</span>
                 </div>
-                <div style="margin-top:15px;">
-                    <img src="/assets/img/iconArrow.png" class="loyaltyArrow"/>&nbsp;<span style="font-size:16px;color:#FFF;font-weight:normal;padding-left:25px;">{{ trans('intro.loyalty_kantis_8') }}</span>
+                <div class="kantis-info-content margin">
+                    <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+                    <span>{{ trans('intro.loyalty_kantis_8') }}</span>
                 </div>
-                <div style="margin-top:15px;">
-                    <img src="/assets/img/iconArrow.png" class="loyaltyArrow"/>&nbsp;<span style="font-size:16px;color:#FFF;font-weight:normal;padding-left:25px;">{{ trans('intro.loyalty_kantis_9') }}</span>
+                <div class="kantis-info-content margin">
+                    <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+                    <span>{{ trans('intro.loyalty_kantis_9') }}</span>
                 </div>
-                <div style="margin-top:15px;">
-                    <img src="/assets/img/iconArrow.png" class="loyaltyArrow"/>&nbsp;<span style="font-size:16px;color:#FFF;font-weight:normal;padding-left:25px;">{{ trans('intro.loyalty_kantis_10') }}</span>
+                <div class="kantis-info-content margin">
+                    <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+                    <span>{{ trans('intro.loyalty_kantis_10') }}</span>
                 </div>              
             </div>
 
-            <div style="margin-top:40px;">
-                <span style="font-size:30px;font-weight: normal;">{{ trans('intro.loyalty_kantis_11') }}:</span>
-            </div>
-            <div style="margin-top:40px;">
-                <div style="margin-top:15px;">
-                    <img src="/assets/img/iconPlus.png" class="loyaltyArrow"/>&nbsp;<span style="font-size:16px;color:#FFF;font-weight:normal;padding-left:25px;">{{ trans('intro.loyalty_kantis_12') }}</span>
+            <div class="kantis-info-header margin">{{ trans('intro.loyalty_kantis_11') }}:</div>
+            <div class="kantis-info-content">
+                <div class="kantis-info-content margin">
+                    <img src="/assets/img/iconPlus.png" class="loyalty-bullet" />&nbsp;
+                    <span>{{ trans('intro.loyalty_kantis_12') }}</span>
                 </div>
-                <div style="margin-top:15px;">
-                    <img src="/assets/img/iconPlus.png" class="loyaltyArrow"/>&nbsp;<span style="font-size:16px;color:#FFF;font-weight:normal;padding-left:25px;">{{ trans('intro.loyalty_kantis_13') }}</span>
+                <div class="kantis-info-content margin">
+                    <img src="/assets/img/iconPlus.png" class="loyalty-bullet" />&nbsp;
+                    <span>{{ trans('intro.loyalty_kantis_13') }}</span>
                 </div>
-                <div style="margin-top:15px;">
-                    <img src="/assets/img/iconPlus.png" class="loyaltyArrow"/>&nbsp;<span style="font-size:16px;color:#FFF;font-weight:normal;padding-left:25px;">{{ trans('intro.loyalty_kantis_14') }}</span>
+                <div class="kantis-info-content margin">
+                    <img src="/assets/img/iconPlus.png" class="loyalty-bullet" />&nbsp;
+                    <span>{{ trans('intro.loyalty_kantis_14') }}</span>
                 </div>
-                <div style="margin-top:15px;">
-                    <img src="/assets/img/iconPlus.png" class="loyaltyArrow"/>&nbsp;<span style="font-size:16px;color:#FFF;font-weight:normal;padding-left:25px;">{{ trans('intro.loyalty_kantis_15') }}</span>
+                <div class="kantis-info-content margin">
+                    <img src="/assets/img/iconPlus.png" class="loyalty-bullet" />&nbsp;
+                    <span>{{ trans('intro.loyalty_kantis_15') }}</span>
                 </div>
-                <div style="margin-top:15px;">
-                    <img src="/assets/img/iconPlus.png" class="loyaltyArrow"/>&nbsp;<span style="font-size:16px;color:#FFF;font-weight:normal;padding-left:25px;">{{ trans('intro.loyalty_kantis_16') }}</span>
+                <div class="kantis-info-content margin">
+                    <img src="/assets/img/iconPlus.png" class="loyalty-bullet" />&nbsp;
+                    <span>{{ trans('intro.loyalty_kantis_16') }}</span>
                 </div>
-                <div style="margin-top:15px;">
-                    <img src="/assets/img/iconPlus.png" class="loyaltyArrow"/>&nbsp;<span style="font-size:16px;color:#FFF;font-weight:normal;padding-left:25px;">{{ trans('intro.loyalty_kantis_17') }}</span>
+                <div class="kantis-info-content margin">
+                    <img src="/assets/img/iconPlus.png" class="loyalty-bullet" />&nbsp;
+                    <span>{{ trans('intro.loyalty_kantis_17') }}</span>
                 </div>                                                              
 
             </div>          
         </div>
-        <div style="clear:both"></div>
+        <div class="clear-both"></div>
     </div>
 
-    <div style="margin-top:50px;border-bottom:3px solid #CCC;">
-        <span style="color:#000;font-size:36px;font-weight:normal;">{{ trans('intro.loyalty_kantis_18') }}!</span>
-        <div style="margin-top:70px;width:90%;margin-left:5%;">
-            <div class="floatleft" style="width:50%;float:left;">
-                <img src="/assets/img/loyalityBody02.png" style="width:100%;">
-            </div>
-            <div class="floatleft" style="margin-left:50px;margin-top:20px;text-align:left;font-size:20px;width:45%;float:left;">
-                <span style="color:#f6841e;">{{ trans('intro.loyalty_kantis_19') }}!</span>
+    <div class="loyalty-controlling">
+        <div class="loyalty-controlling-header">{{ trans('intro.loyalty_kantis_18') }}!</div>
+        <div class="loyalty-controlling-description">
+            <div class="loyalty-controlling-description-image"><img src="/assets/img/loyalityBody02.png"></div>
+            <div class="loyalty-controlling-description-text">
+                <span class="color-orange">{{ trans('intro.loyalty_kantis_19') }}!</span>
                 <br/><br/>
-                <span style="color:#000;">
-                    {{ trans('intro.loyalty_kantis_20') }}
-                </span>
-                <div style="margin-top:20px;">
-                    <img src="/assets/img/iconCheck.png" style="vertical-align: middle;width:26px;height:26px;"/>&nbsp;<span style="font-size:20px;color:#000;font-weight:normal;padding-left:25px;">{{ trans('intro.loyalty_kantis_21') }}</span>
+                <span class="color-black">{{ trans('intro.loyalty_kantis_20') }}</span>
+                <div class="loyalty-controlling-description-text-row">
+                    <img src="/assets/img/iconCheck.png" class="loyalty-bullet" />&nbsp;
+                    <span>{{ trans('intro.loyalty_kantis_21') }}</span>
                 </div>
-                <div style="margin-top:20px;">
-                    <img src="/assets/img/iconCheck.png" style="vertical-align: middle;width:26px;height:26px;"/>&nbsp;<span style="font-size:20px;color:#000;font-weight:normal;padding-left:25px;">{{ trans('intro.loyalty_kantis_22') }}</span>
+                <div class="loyalty-controlling-description-text-row">
+                    <img src="/assets/img/iconCheck.png" class="loyalty-bullet" />&nbsp;
+                    <span>{{ trans('intro.loyalty_kantis_22') }}</span>
                 </div>
-                <div style="margin-top:20px;margin-bottom:30px;">
-                    <img src="/assets/img/iconCheck.png" style="vertical-align: middle;width:26px;height:26px;"/>&nbsp;<span style="font-size:20px;color:#000;font-weight:normal;padding-left:25px;">{{ trans('intro.loyalty_kantis_23') }}</span>
+                <div class="loyalty-controlling-description-text-row margin-bottom">
+                    <img src="/assets/img/iconCheck.png" class="loyalty-bullet" />&nbsp;
+                    <span>{{ trans('intro.loyalty_kantis_23') }}</span>
                 </div>                                                  
             </div>
-            <div style="clear:both"></div>           
+            <div class="clear-both"></div>           
         </div>
     </div>
 
-    <div style="margin-top:40px;">
-        <div style="font-size:56px;">
-            <span style="color:#f6841e;">Kantiskortti</span><span class="fontBlack">.com</span>
+    <div class="kantis-text">
+            <span class="color-orange">Kantiskortti</span>
+            <span class="color-black">.com</span>
         </div>
-        <img src="/assets/img/loyalityBody03.png" style="width:100%;margin-top:100px;">    
+        <img src="/assets/img/loyalityBody03.png" class="kantis-text-image">    
     </div>
 </div>
 @stop

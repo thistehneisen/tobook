@@ -1,6 +1,7 @@
 <?php
 
 return [
+    // LOYALTY CARD
     'loyalty_sub_header'        => 'One loyalty card, which allows to enjoy the benefits of hundreds of companies!',
     'loyalty_guide1'            => 'Kantis card combines all the loyalty cards',
     'loyalty_guide2'            => 'Customized loyalty program',
@@ -43,4 +44,11 @@ return [
     'loyalty_kantis_21'         => 'Easy to use',
     'loyalty_kantis_22'         => 'Reliable',
     'loyalty_kantis_23'         => 'Suits your needs',
+
+    // TIME SLOT
+    'timeslot_subheader'        => 'Receive bookings online',
+    'timeslot_guide_1'          => 'Receive bookings',
+    'timeslot_guide_2'          => 'Making your reservation in just a few easy steps',
+    'timeslot_guide_3'          => 'Advanced reporting tools',
+    'timeslot_guide_4'          => 'Working hours planning',
 ];

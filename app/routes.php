@@ -18,10 +18,37 @@ Route::get('/', [
     'uses'  => 'App\Controllers\Home@index'
 ]);
 
-Route::get('/loyality_guide', [
-    'as'    => 'loyalty_guide',
-    'uses'  => 'App\Controllers\Home@loyalty',
-]);
+Route::group(['prefix' => 'intro'], function () {
+    Route::get('website-list', [
+        'as' => 'intro-website-list',
+        'uses' => 'App\Controllers\Home@websiteList',
+    ]);
+
+    Route::get('loyalty', [
+        'as' => 'intro-loyalty',
+        'uses' => 'App\Controllers\Home@loyalty',
+    ]);
+
+    Route::get('timeslot', [
+        'as'    => 'intro-timeslot',
+        'uses'  => 'App\Controllers\Home@timeslot',
+    ]);
+
+    Route::get('customer-registration', [
+        'as' => 'intro-customer-registration',
+        'uses' => 'App\Controllers\Home@customerRegistration',
+    ]);
+
+    Route::get('cashier', [
+        'as' => 'intro-cashier',
+        'uses' => 'App\Controllers\Home@cashier',
+    ]);
+
+    Route::get('marketing-tools', [
+        'as' => 'intro-marketing-tools',
+        'uses' => 'App\Controllers\Home@marketingTools',
+    ]);
+});
 
 /*
 |--------------------------------------------------------------------------
