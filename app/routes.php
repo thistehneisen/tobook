@@ -149,7 +149,7 @@ Route::group([
 */
 Route::group([
     'prefix' => Config::get('admin.prefix'),
-    'before' => ['auth']
+    'before' => ['auth', 'auth.admin']
 ], function() {
 
     Route::get('/', [
@@ -157,9 +157,34 @@ Route::group([
         'uses' => 'App\Controllers\Admin\Dashboard@index'
     ]);
 
+    // User model uses a different way to save data
+    Route::post('users/{id}', [
+        'uses' => 'App\Controllers\Admin\Users@doEdit'
+    ]);
+
+    Route::get('users/login/{id}', [
+        'as' => 'admin.users.login',
+        'uses' => 'App\Controllers\Admin\Users@stealSession'
+    ]);
+
+    // CRUD actions
     Route::get('{model}', [
         'as' => 'admin.crud.index',
         'uses' => 'App\Controllers\Admin\Crud@index'
+    ]);
+
+    Route::get('{model}/{id}', [
+        'as' => 'admin.crud.edit',
+        'uses' => 'App\Controllers\Admin\Crud@edit'
+    ]);
+
+    Route::post('{model}/{id}', [
+        'uses' => 'App\Controllers\Admin\Crud@doEdit'
+    ]);
+
+    Route::get('{model}/delete/{id}', [
+        'as'   => 'admin.crud.delete',
+        'uses' => 'App\Controllers\Admin\Crud@delete'
     ]);
 
 });

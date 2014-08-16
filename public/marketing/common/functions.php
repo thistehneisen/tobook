@@ -3,6 +3,7 @@ require_once dirname(__FILE__) . '/config.php';
 require_once dirname(__FILE__) . '/vendor/autoload.php';
 require_once dirname(__FILE__) . '/lib/SendGrid.php';
 require_once dirname(__FILE__) . '/class.phpmailer.php';
+require_once dirname(__FILE__) . '/locale_fi.php';
 
 function logToFile($filename, $msg)
 {
@@ -423,6 +424,6 @@ function getVal($key) {
 }
 
 function __($key) {
-    require_once dirname(__FILE__) . '/locale_fi.php';
+    global $i18n;
     return isset($i18n[$key]) ? $i18n[$key] : $key;
 }

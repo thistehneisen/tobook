@@ -4,6 +4,11 @@ if (!defined("ROOT_PATH"))
 	header("HTTP/1.1 403 Forbidden");
 	exit;
 }
+<<<<<<< HEAD
+=======
+// @todo: Check if this is the correct path
+require_once realpath(ROOT_PATH.'/../../../../Bridge.php');
+>>>>>>> 8d657ec3b055184e70ee4b6dff62309fa33a3471
 
 /**
  * PHP Framework
@@ -210,13 +215,13 @@ class pjEmail
 				}
 			}
 		}
-		
+
 		if ($index > -1 && array_key_exists($index, $this->attachments))
 		{
 			$this->attachments[$index] = NULL;
 			unset($this->attachments[$index]);
 		}
-		
+
 		if (is_null($filename) && $index == -1)
 		{
 			$this->attachments = array();
@@ -278,16 +283,16 @@ class pjEmail
 	private function getMessage($body)
 	{
 		$message = "";
-		
+
 		if (count($this->attachments) > 0)
 		{
 			$this->setHeader('Content-Type: multipart/mixed; boundary="PHP-mixed-'.$this->uid.'"');
-		
+
 			$message .= "--PHP-mixed-".$this->uid.$this->eol;
 		    $message .= 'Content-Type: multipart/alternative; boundary="PHP-alt-'.$this->uid.'"'.$this->eol.$this->eol;
-		
+
 		    $message .= $this->getParts($body);
-		    
+
 			foreach ($this->attachments as $attachment)
 			{
 				if (!empty($attachment['filename']) && is_file($attachment['filename']))
@@ -296,14 +301,14 @@ class pjEmail
 					readfile($attachment['filename']);
 					$fileContent = ob_get_contents();
 					ob_end_clean();
-					
+
 					$content = chunk_split(base64_encode($fileContent));
-					
+
 					$message .= "--PHP-mixed-".$this->uid.$this->eol;
 				    $message .= 'Content-Type: '.$attachment['mimetype'].'; name="'.$attachment['name'].'"'.$this->eol;
 				    $message .= "Content-Transfer-Encoding: base64".$this->eol;
 				    $message .= 'Content-Disposition: attachment; filename="'.$attachment['name'].'"'.$this->eol.$this->eol;
-				    
+
 				    $message .= $content.$this->eol;
 				}
 			}
@@ -312,18 +317,18 @@ class pjEmail
 			if (!empty($this->part))
 			{
 				$this->setHeader('Content-Type: multipart/mixed; boundary="PHP-mixed-'.$this->uid.'"');
-				
+
 				$message .= "--PHP-mixed-".$this->uid.$this->eol;
 		    	$message .= 'Content-Type: multipart/alternative; boundary="PHP-alt-'.$this->uid.'"'.$this->eol.$this->eol;
-		    
+
 		    	$message .= $this->getParts($body);
-				
+
 				$message .= "--PHP-mixed-".$this->uid."--".$this->eol;
 			} else {
 				$message = $body;
 			}
 		}
-		
+
 		return $message;
 	}
 /**
@@ -336,28 +341,28 @@ class pjEmail
 	private function getParts($body)
 	{
 		$message = "";
-		
+
 		if (!empty($this->part))
 		{
 			# Alternative part start
 			$message .= "--PHP-alt-".$this->uid.$this->eol;
 	    	$message .= "Content-type: ".$this->part['mimetype']."; charset=".(!empty($this->part['charset']) ? $this->part['charset'] : $this->charset).$this->eol;
 	    	$message .= "Content-Transfer-Encoding: ".$this->getContentTransferEncoding().$this->eol.$this->eol;
-	    
+
 			$message .= $this->part['content'].$this->eol.$this->eol;
 			# Alternative part end
 		}
-		
+
 		# Default message start
 		$message .= "--PHP-alt-".$this->uid.$this->eol;
     	$message .= "Content-type: ".$this->contentType."; charset=".$this->charset.$this->eol;
     	$message .= "Content-Transfer-Encoding: ".$this->getContentTransferEncoding().$this->eol.$this->eol;
-    
+
 		$message .= $body.$this->eol.$this->eol;
 		# Default message end
-		
+
 		$message .= "--PHP-alt-".$this->uid."--".$this->eol.$this->eol;
-				
+
 		return $message;
 	}
 
@@ -420,34 +425,24 @@ class pjEmail
 		{
 			return false;
 		}
-		
+
 		switch ($this->transport)
 		{
 			case 'mail':
-				// $message = $this->getMessage($body);
-				
-				// $required = array(
-				// 	'MIME-Version' => '1.0',
-				// 	'Content-Type' => sprintf("%s; charset=%s", $this->contentType, $this->charset),
-				// 	'From' => $this->from,
-				// 	'Reply-To' => $this->from
-				// );
-				
-				// foreach ($required as $key => $val)
-				// {
-				// 	if ($this->getHeader($key) === FALSE)
-				// 	{
-				// 		$this->setHeader(sprintf("%s: %s", $key, $val));
-				// 	}
-				// }
-		
-				// return @mail($this->to, $this->subject, $message, join($this->eol, $this->getHeaders()));
-				
+                $varaaConfig = Bridge::emailConfig();
+
                 $this->setCharset('utf-8');
+<<<<<<< HEAD
 				$this->setSmtpHost(Bridge::config('mail.host'));
 				$this->setSmtpPort(Bridge::config('mail.port'));
 				$this->setSmtpUser(Bridge::config('mail.username'));
 				$this->setSmtpPass(Bridge::config('mail.password'));
+=======
+				$this->setSmtpHost($varaaConfig['host']);
+				$this->setSmtpPort($varaaConfig['port']);
+				$this->setSmtpUser($varaaConfig['username']);
+				$this->setSmtpPass($varaaConfig['password']);
+>>>>>>> 8d657ec3b055184e70ee4b6dff62309fa33a3471
 				return $this->sendSmtp($body);
 			case 'smtp':
 				return $this->sendSmtp($body);
@@ -473,7 +468,7 @@ class pjEmail
 	public function addPart($content, $mimetype, $charset=NULL)
 	{
 		$this->part = compact('content', 'mimetype', 'charset');
-		
+
 		return $this;
 	}
 /**

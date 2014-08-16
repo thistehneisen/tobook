@@ -64,6 +64,9 @@ Database schemas for tables of modules on site were changed, please run `php art
 #### Move users from old table to new one
 `php artisan varaa:move-users`
 
+#### Add a user with given email to be an Admin
+`php artisan varaa:admin <email>`
+
 #### Get config values of L4 from other modules
 
 * Find the path to `Bridge.php` from inside module

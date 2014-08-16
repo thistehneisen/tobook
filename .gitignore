@@ -25,6 +25,7 @@
 ######################
 *.log
 *.sqlite
+*.orig
 
 # OS generated files #
 ######################
@@ -56,5 +57,5 @@ composer.phar
 
 # Local config files
 /config.php
-/public/appointment/library/app/config/config.inc.php
+/public/appointment/app/config/config.inc.php
 acceptance.suite.yml

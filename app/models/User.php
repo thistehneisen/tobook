@@ -10,18 +10,17 @@ class User extends ConfideUser
         'id',
         'username',
         'email',
-        'first_name', 
-        'last_name', 
-        'address_1', 
-        'address_2', 
-        'city', 
-        'state', 
-        'zipcode', 
-        'country', 
-        'phone', 
-        'fax', 
-        'stylesheet', 
-        'created_at', 
+        'first_name',
+        'last_name',
+        'address_1',
+        'address_2',
+        'city',
+        'state',
+        'zipcode',
+        'country',
+        'phone',
+        'fax',
+        'stylesheet',
     ];
 
     /**
@@ -93,5 +92,17 @@ class User extends ConfideUser
         DB::setTablePrefix($oldPrefix);
 
         return (bool) $user;
+    }
+
+    /**
+     * Return extra action links that are displayed in admin CRUD list
+     *
+     * @return array
+     */
+    public function getExtraActionLinks()
+    {
+        return [
+            '<i class="fa fa-user"></i> Login' => route('admin.users.login', ['id' => $this->id])
+        ];
     }
 }

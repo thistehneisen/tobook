@@ -3,7 +3,7 @@
 @section ('scripts')
 <script>
 $(function() {
-    $('main').removeClass('container').addClass('container-fluid');
+    $('body').css('paddingTop', '50px');
 });
 </script>
 @stop
@@ -13,7 +13,7 @@ $(function() {
 @stop
 
 @section ('content')
-<nav class="navbar navbar-inverse navbar-default" role="navigation">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
