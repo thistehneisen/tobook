@@ -47,12 +47,14 @@ class FixSchemaCommand extends Command
     {
         $tables = $this->manager->listTables();
         foreach ($tables as $table) {
-            if (starts_with($table->getName(), 'varaa_')
-                || $table->hasColumn('owner_id') === false) {
-                continue;
+            if ((starts_with($table->getName(), 'as_')
+                || starts_with($table->getName(), 'sma_')
+                || starts_with($table->getName(), 'rb_')
+                || starts_with($table->getName(), 'ts_'))
+                && $table->hasColumn('owner_id')) {
+                // Process the table
+                $this->processTable($table);
             }
-
-            $this->processTable($table);
         }
     }
 
@@ -78,11 +80,11 @@ class FixSchemaCommand extends Command
         echo "\tDeleting obsolete users\n";
         $format = <<< SQL
 DELETE FROM %s
-WHERE  owner_id IN (SELECT owner_id 
-                    FROM   (SELECT DISTINCT owner_id 
-                            FROM   %s a 
-                            WHERE  NOT EXISTS (SELECT * 
-                                               FROM   varaa_users 
+WHERE  owner_id IN (SELECT owner_id
+                    FROM   (SELECT DISTINCT owner_id
+                            FROM   %s a
+                            WHERE  NOT EXISTS (SELECT *
+                                               FROM   varaa_users
                                                WHERE  id = a.owner_id)) AS C);
 SQL;
         $sql = sprintf($format, $table->getName(),$table->getName());
