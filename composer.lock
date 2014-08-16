@@ -4,12 +4,52 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "hash": "2d1c8b85f04c1180d8faa806dda4ffa0",
-=======
-    "hash": "2b846d70accd854f65deac62f2a19993",
->>>>>>> 8d657ec3b055184e70ee4b6dff62309fa33a3471
+    "hash": "924770350dfd6158c7390dfacdfd7f1f",
     "packages": [
+        {
+            "name": "anlutro/l4-settings",
+            "version": "0.2.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/anlutro/laravel-settings.git",
+                "reference": "40ba2eb80452063548229658fae8796892e660c5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/anlutro/laravel-settings/zipball/40ba2eb80452063548229658fae8796892e660c5",
+                "reference": "40ba2eb80452063548229658fae8796892e660c5",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~4.1",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*"
+            },
+            "suggest": {
+                "illuminate/database": "Save settings to a database table.",
+                "illuminate/filesystem": "Save settings to a JSON file."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "anlutro\\LaravelSettings\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Lutro",
+                    "email": "anlutro@gmail.com"
+                }
+            ],
+            "description": "Persistant settings in Laravel 4.",
+            "time": "2014-07-24 05:02:59"
+        },
         {
             "name": "classpreloader/classpreloader",
             "version": "1.0.2",
@@ -1556,30 +1596,17 @@
         },
         {
             "name": "symfony/console",
-<<<<<<< HEAD
             "version": "v2.5.2",
-=======
-            "version": "v2.5.3",
->>>>>>> 8d657ec3b055184e70ee4b6dff62309fa33a3471
             "target-dir": "Symfony/Component/Console",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-<<<<<<< HEAD
                 "reference": "386fa63407805959bd2c5fe540294721ad4224c8"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/Console/zipball/386fa63407805959bd2c5fe540294721ad4224c8",
                 "reference": "386fa63407805959bd2c5fe540294721ad4224c8",
-=======
-                "reference": "cd2d1e4bac2206b337326b0140ff475fe9ad5f63"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/cd2d1e4bac2206b337326b0140ff475fe9ad5f63",
-                "reference": "cd2d1e4bac2206b337326b0140ff475fe9ad5f63",
->>>>>>> 8d657ec3b055184e70ee4b6dff62309fa33a3471
                 "shasum": ""
             },
             "require": {
@@ -1610,7 +1637,6 @@
             ],
             "authors": [
                 {
-<<<<<<< HEAD
                     "name": "Fabien Potencier",
                     "email": "fabien@symfony.com",
                     "homepage": "http://fabien.potencier.org",
@@ -1619,23 +1645,11 @@
                 {
                     "name": "Symfony Community",
                     "homepage": "http://symfony.com/contributors"
-=======
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                },
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
->>>>>>> 8d657ec3b055184e70ee4b6dff62309fa33a3471
                 }
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-<<<<<<< HEAD
             "time": "2014-07-15 14:15:12"
-=======
-            "time": "2014-08-05 09:00:40"
->>>>>>> 8d657ec3b055184e70ee4b6dff62309fa33a3471
         },
         {
             "name": "symfony/css-selector",
@@ -3604,10 +3618,7 @@
     "stability-flags": {
         "hashids/hashids": 20
     },
-<<<<<<< HEAD
     "prefer-stable": false,
-=======
->>>>>>> 8d657ec3b055184e70ee4b6dff62309fa33a3471
     "platform": [
 
     ],
