@@ -124,7 +124,8 @@ return array(
         // Addon providers
         'Zizaco\Confide\ConfideServiceProvider',
         'Zizaco\Entrust\EntrustServiceProvider',
-        'Ludo237\Hashids\HashidsServiceProvider'
+        'Ludo237\Hashids\HashidsServiceProvider',
+        'anlutro\LaravelSettings\ServiceProvider'
 
 	),
 
