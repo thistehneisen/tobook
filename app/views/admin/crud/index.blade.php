@@ -21,8 +21,21 @@
 @foreach ($items as $item)
         <tr>
             <td>
-                <a href="{{ route('admin.crud.edit', ['model' => Request::segment(2), 'id' => $item->id]) }}">Edit</a> &nbsp;
-                <a href="">Delete</a>
+                <div class="dropdown">
+                  <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="menu-action-{{ $item->id }}" data-toggle="dropdown">
+                        Actions
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="menu-action-{{ $item->id }}">
+                        <li role="presentation"><a role="menuitem" href="{{ route('admin.crud.edit', ['model' => Request::segment(2), 'id' => $item->id]) }}"><i class="fa fa-edit"></i> Edit</a></li>
+                    @if (method_exists($item, 'getExtraActionLinks'))
+                        @foreach ($item->getExtraActionLinks() as $name => $href)
+                        <li role="presentation"><a role="menuitem" href="{{ $href }}">{{ $name }}</a></li>
+                        @endforeach
+                    @endif
+                    </ul>
+                </div>
+
             </td>
     @foreach ($model->visible as $field)
             <td>{{ $item->$field }}</td>
