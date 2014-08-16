@@ -1,7 +1,5 @@
 <?php
-require_once realpath(CONTROLLERS_PATH.'../../../../vendor/autoload.php');
-require_once realpath(CONTROLLERS_PATH.'../../../../includes/configsettings.php');
-
+require_once realpath(CONTROLLERS_PATH.'../../../../Bridge.php');
 
 /**
  * E-Mail component
@@ -46,9 +44,10 @@ class Email
  */
 	function Email()
 	{
-		$transport = Swift_SmtpTransport::newInstance(SMTP_HOST, SMTP_PORT)
-            ->setUsername(SMTP_USERNAME)
-            ->setPassword(SMTP_PASSWORD);
+        $varaaConfig = Bridge::emailConfig();
+		$transport = Swift_SmtpTransport::newInstance($varaaConfig['host'], $varaaConfig['port'])
+            ->setUsername($varaaConfig['username'])
+            ->setPassword($varaaConfig['password']);
         $this->mailer = Swift_Mailer::newInstance($transport);
 	}
 /**
@@ -68,17 +67,17 @@ class Email
             ->setTo(array($to))
             ->setBody($message);
         return $this->mailer->send($msg);
-        
+
 		// if (!preg_match($this->emailRegExp, $to))
 		// {
 		// 	return false;
 		// }
-		
+
 		// if (!preg_match($this->emailRegExp, $sender))
 		// {
 		// 	return false;
 		// }
-		
+
 		// $headers  = "MIME-Version: 1.0" . $this->eol;
 		// $headers .= "Content-type: ".$this->contentType."; charset=" . $this->charset . $this->eol;
 		// $headers .= "From: $sender" . $this->eol;
@@ -87,7 +86,7 @@ class Email
 		// //$headers .= "X-Mailer: PHP/" . phpversion() . $this->eol;
 		// //$headers .= "Message-Id:" . md5(time()) . $this->eol;
 		// //$headers .= "X-Originating-IP:" . $_SERVER['REMOTE_ADDR'];
-		
+
 		// $subject = '=?UTF-8?B?'.base64_encode($subject).'?=';
 		// return @mail($to, $subject, $message, $headers);
 	}

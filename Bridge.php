@@ -29,7 +29,7 @@ class Bridge
     /**
      * Fetch configuration data from Laravel
      *
-     * @param string $key 
+     * @param string $key
      *
      * @return mixed
      */
@@ -46,6 +46,22 @@ class Bridge
     protected function dbConfig()
     {
         return $this->config('database.connections.mysql');
+    }
+
+    /**
+     * Get SMTP and other email config
+     *
+     * @return array
+     */
+    protected function emailConfig()
+    {
+        return [
+            'host'     => $this->config('mail.host'),
+            'port'     => $this->config('mail.port'),
+            'username' => $this->config('mail.username'),
+            'password' => $this->config('mail.password'),
+            'from'     => $this->config('mail.from')
+        ];
     }
 
     protected function confide()
