@@ -1,5 +1,7 @@
 <?php
 
+Route::pattern('id', '[0-9]+');
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -171,6 +173,11 @@ Route::group([
     Route::get('{model}', [
         'as' => 'admin.crud.index',
         'uses' => 'App\Controllers\Admin\Crud@index'
+    ]);
+
+    Route::get('{model}/search', [
+        'as' => 'admin.crud.search',
+        'uses' => 'App\Controllers\Admin\Crud@search'
     ]);
 
     Route::get('{model}/{id}', [

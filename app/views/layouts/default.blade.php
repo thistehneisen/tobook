@@ -9,7 +9,7 @@
         Varaa
         @show
     </title>
-    
+
     {{ HTML::style('//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css') }}
     {{ HTML::style('//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css') }}
     @yield('styles')
@@ -54,10 +54,12 @@
             </ul>
         </nav>
         @show
-        
+
         <a href="{{ route('home') }}"><img src="{{ asset('assets/img/logo.png') }}" alt="{{ trans('common.site_name') }}" class="logo"></a>
         @yield('header')
     </header>
+
+    @yield('nav-admin')
 
     <main role="main" class="container main">
         @yield('content')

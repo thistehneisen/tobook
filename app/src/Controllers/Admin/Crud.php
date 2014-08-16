@@ -100,4 +100,24 @@ class Crud extends Base
                 $this->successMessageBag('ID #'.$id.' was deleted')
             );
     }
+
+    /**
+     * Search items in database
+     *
+     * @return View
+     */
+    public function search()
+    {
+        $q = Input::get('q');
+        $query = $this->model;
+        foreach ($this->model->visible as $field) {
+            $query = $query->orWhere($field, 'LIKE', '%'.$q.'%');
+        }
+
+        $items = $query->paginate(Config::get('view.perPage'));
+        return $this->render('crud.search', [
+            'model' => $this->model,
+            'items' => $items,
+        ]);
+    }
 }
