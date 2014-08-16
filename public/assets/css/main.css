@@ -126,7 +126,7 @@ a:hover {
 }
 
 .header.homepage {
-  height: 100vh;
+  min-height: 100vh;
 }
 .main {
   margin: 40px auto 50px auto;
@@ -189,8 +189,8 @@ a:hover {
 }
 
 .guideBody {
-    padding-top: 50px; 
-    font-family: 'Comfortaa'; 
+    padding-top: 50px;
+    font-family: 'Comfortaa';
     text-align: center;
 }
 
@@ -200,7 +200,7 @@ a:hover {
     margin-left: 0px;
 }
 
-.loyalityBackground01 { 
+.loyalityBackground01 {
     background-image: url(/assets/img/loyalityBody01.png);
     background-position: center top;
     background-repeat: no-repeat;
