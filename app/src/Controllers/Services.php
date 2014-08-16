@@ -69,7 +69,11 @@ class Services extends Base
      */
     public function appointment()
     {
-        $params = ['username' => Confide::user()->username];
+        $params = [
+            'username' => Confide::user()->username,
+            'owner_id' => Confide::user()->id
+        ];
+
         $uri = (Confide::user()->isServiceActivated('as_', 'users'))
             ? 'appointment/index.php?'
             : 'appointment/install.php?';
