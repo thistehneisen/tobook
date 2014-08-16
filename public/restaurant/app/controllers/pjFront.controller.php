@@ -6,7 +6,7 @@ if (!defined("ROOT_PATH"))
 }
 
 require_once CONTROLLERS_PATH . 'pjAppController.controller.php';
-require_once realpath(CONTROLLERS_PATH.'../../../../vendor/autoload.php');
+require_once realpath(CONTROLLERS_PATH.'../../../../Bridge.php');
 
 use Hashids\Hashids;
 class pjFront extends pjAppController
@@ -17,9 +17,9 @@ class pjFront extends pjAppController
 
     function pjFront()
     {
-        
+
     }
-    
+
     function _get($key)
     {
         if ($this->_is($key))
@@ -28,14 +28,14 @@ class pjFront extends pjAppController
         }
         return false;
     }
-    
+
     function _is($key)
     {
         return isset($_SESSION[$this->default_product]) &&
             isset($_SESSION[$this->default_product][$this->default_order]) &&
             isset($_SESSION[$this->default_product][$this->default_order][$key]);
     }
-    
+
     function _set($key, $value)
     {
         $_SESSION[$this->default_product][$this->default_order][$key] = $value;
@@ -45,14 +45,14 @@ class pjFront extends pjAppController
     function addPromo()
     {
         $this->isAjax = true;
-    
+
         if ($this->isXHR())
         {
             $resp = array();
-            
+
             pjObject::import('Model', 'pjVoucher');
             $pjVoucherModel = new pjVoucherModel();
-            
+
             $date = pjUtil::formatDate($this->_get('date'), $this->option_arr['date_format']);
             $time = $this->_get('hour') . ":" . $this->_get('minutes') . ":00";
 
@@ -62,7 +62,7 @@ class pjFront extends pjAppController
                 $resp = pjAppController::getPrice($this->option_arr, $date, $time, $_GET['code']);
                 $resp['code'] = 200;
                 $this->_set('code', $_GET['code']);
-                
+
                 if (isset($resp['discount_formated']))
                 {
                     include ROOT_PATH . 'app/locale/'. $this->getLanguage() . '.php';
@@ -75,14 +75,14 @@ class pjFront extends pjAppController
             pjAppController::responseJson($resp);
         }
     }
-    
+
     function beforeFilter()
     {
         pjObject::import('Model', 'pjOption');
         $pjOptionModel = new pjOptionModel();
         $this->option_arr = $pjOptionModel->getPairs();
         $this->tpl['option_arr'] = $this->option_arr;
-        
+
         if (isset($this->tpl['option_arr']['timezone']))
         {
             $offset = $this->option_arr['timezone'] / 3600;
@@ -94,7 +94,7 @@ class pjFront extends pjAppController
             } elseif ($offset === 0) {
                 $offset = "+0";
             }
-        
+
             pjAppController::setTimezone('Etc/GMT'.$offset);
             if (strpos($offset, '-') !== false)
             {
@@ -108,13 +108,13 @@ class pjFront extends pjAppController
 
     function beforeRender()
     {
-        
+
     }
-    
+
     function bookingSave()
     {
         $this->isAjax = true;
-    
+
         if ($this->isXHR())
         {
             if (isset($_POST['rbSummaryForm']))
@@ -122,36 +122,36 @@ class pjFront extends pjAppController
                 pjObject::import('Model', array('pjBooking', 'pjService'));
                 $pjBookingModel = new pjBookingModel();
                 $pjServiceModel = new pjServiceModel();
-                
+
                 $data = array();
-                
+
                 if ($this->option_arr['payment_disable'] == 'Yes')
                 {
                     $data['status'] = $this->option_arr['booking_status'];
                 } else {
                     $data['status'] = $this->option_arr['booking_status']; //$this->option_arr['payment_status']
                 }
-                
+
                 $date = pjUtil::formatDate($this->_get('date'), $this->option_arr['date_format']);
                 $time = $this->_get('hour') . ":" . $this->_get('minutes') . ":00";
                 $code = $this->_is('code') ? $this->_get('code') : NULL;
-                
+
                 $opts = pjAppController::getPrice($this->option_arr, $date, $time, $code);
                 $data['total']   = $opts['total'];
-                
+
                 $data['dt'] = $date . " " . $time;
-                
+
                 $booking_length = $this->option_arr['booking_length'] * 60;
                 $services = $pjServiceModel->getAll(array('col_name' => 't1.start_time', 'direction' => 'ASC'));
                 $start_hour = strtotime($time);
-                    
+
                 foreach ($services as $service) {
                     if ( strtotime($service['start_time']) <= $start_hour && strtotime($service['end_time']) >= $start_hour) {
                         $booking_length = $service['s_length'] * 3600;
                         break;
                     }
                 }
-                
+
                 $data['dt_to'] = date("Y-m-d H:i:s", strtotime($data['dt']) + $booking_length);
                 $data['uuid'] = time();
                 if ($this->_is('payment_method') && $this->_get('payment_method') == 'creditcard')
@@ -167,25 +167,25 @@ class pjFront extends pjAppController
                 $data = array_merge($_POST, $_SESSION[$this->default_product][$this->default_order], $data);
                 $table_id = $this->_get('table_id');
                 $tables_id = $this->_get('tables_id');
-                
+
                 if ( ($table_id === false || (int) $table_id <= 0) && ( !isset($tables_id) || !is_array($tables_id) || count($tables_id) < 1 ) )
                 {
                     $data['status'] = 'enquiry';
                     unset($data['total']);
                     unset($data['payment_method']);
                 }
-                
+
                 $booking_id = $pjBookingModel->save($data);
                 if ($booking_id !== false && (int) $booking_id > 0)
                 {
                     $booking_arr = $pjBookingModel->get($booking_id);
-                    
+
                     if ($table_id !== false && (int) $table_id > 0)
                     {
                         pjObject::import('Model', array('pjBookingTable', 'pjTable'));
                         $pjBookingTableModel = new pjBookingTableModel();
                         $pjTableModel = new pjTableModel();
-                        
+
                         $pjBookingTableModel->save(array('booking_id' => $booking_id, 'table_id' => $table_id));
                         if (count($booking_arr) > 0)
                         {
@@ -194,30 +194,30 @@ class pjFront extends pjAppController
                         }
                         $op = 2;
                         $json = array('code' => 200, 'text' => '', 'booking_id' => $booking_id, 'payment' => $payment);
-                    
+
                     } elseif ( isset($tables_id) && is_array($tables_id) && count($tables_id) > 0 ) {
                         pjObject::import('Model', array('pjBookingTable', 'pjTable'));
                         $pjBookingTableModel = new pjBookingTableModel();
                         $pjTableModel = new pjTableModel();
-                        
+
                         foreach ($tables_id as $table_id => $people) {
                             $pjBookingTableModel->save(array('booking_id' => $booking_id, 'table_id' => $table_id));
                         }
-                        
+
                         if (count($booking_arr) > 0) {
                             $pjBookingTableModel->addJoin($pjBookingTableModel->joins, $pjTableModel->getTable(), 'TT', array('TT.id' => 't1.table_id'), array('TT.name'));
                             $booking_arr['table_arr'] = $pjBookingTableModel->getAll(array('t1.booking_id' => $booking_arr['id']));
                         }
-                        
+
                         $op = 2;
                         $json = array('code' => 200, 'text' => '', 'booking_id' => $booking_id, 'payment' => $payment);
-                    
+
                     } else {
                         $booking_arr['table_arr'] = array();
                         $op = 4;
                         $json = array('code' => 201, 'text' => '');
                     }
-                    
+
                     pjFront::confirmSend($this->option_arr, $booking_arr, $this->salt, $op);
                     $_SESSION[$this->default_product][$this->default_order] = array();
                 } else {
@@ -229,14 +229,14 @@ class pjFront extends pjAppController
             pjAppController::responseJson($json);
         }
     }
-    
+
     function cancel()
     {
         $this->layout = 'empty';
-        
+
         pjObject::import('Model', 'pjBooking');
         $pjBookingModel = new pjBookingModel();
-                
+
         if (isset($_POST['booking_cancel']))
         {
             $arr = $pjBookingModel->get($_POST['id']);
@@ -250,7 +250,7 @@ class pjFront extends pjAppController
             {
                 pjObject::import('Model', array('pjCountry'));
                 $pjCountryModel = new pjCountryModel();
-                
+
                 $pjBookingModel->addJoin($pjBookingModel->joins, $pjCountryModel->getTable(), 'TC', array('TC.id' => 't1.c_country'), array('TC.country_title'));
                 $arr = $pjBookingModel->get($_GET['id']);
                 if (count($arr) == 0)
@@ -271,7 +271,7 @@ class pjFront extends pjAppController
                             $pjTableModel = new pjTableModel();
                             $pjBookingTableModel->addJoin($pjBookingTableModel->joins, $pjTableModel->getTable(), 'TT', array('TT.id' => 't1.table_id'), array('TT.name'));
                             $arr['table_arr'] = $pjBookingTableModel->getAll(array('t1.booking_id' => $arr['id']));
-                            
+
                             $this->tpl['arr'] = $arr;
                         }
                     }
@@ -282,11 +282,11 @@ class pjFront extends pjAppController
             $this->css[] = array('file' => 'install.css', 'path' => CSS_PATH);
         }
     }
-    
+
     function captcha($renew=null)
     {
         $this->isAjax = true;
-        
+
         pjObject::import('Component', 'pjCaptcha');
         $pjCaptcha = new pjCaptcha(WEB_PATH . 'obj/Anorexia.ttf', $this->default_product, $this->default_captcha, 6);
         $pjCaptcha->setImage(IMG_PATH . 'frontend/button.png');
@@ -296,7 +296,7 @@ class pjFront extends pjAppController
     function checkCaptcha()
     {
         $this->isAjax = true;
-        
+
         if ($this->isXHR())
         {
             if (isset($_SESSION[$this->default_product][$this->default_captcha]) && strtoupper($_GET['captcha']) == $_SESSION[$this->default_product][$this->default_captcha])
@@ -309,15 +309,15 @@ class pjFront extends pjAppController
             exit;
         }
     }
-    
+
     function checkPeople()
     {
         $this->isAjax = true;
-    
+
         if ($this->isXHR() || $this->isAdmin())
         {
             $date = pjUtil::formatDate($_POST['date'], $this->option_arr['date_format']);
-            
+
             pjObject::import('Model', array('pjTable', 'pjBooking', 'pjBookingTable'));
             $pjTableModel = new pjTableModel();
             $pjBookingModel = new pjBookingModel();
@@ -326,7 +326,7 @@ class pjFront extends pjAppController
             $booking_length = $this->option_arr['booking_length'] * 60;
             $start_time = strtotime($date . " " . $_POST['hour'] . ":" . $_POST['minutes'] . ":00");
             $end_time = $start_time + $booking_length;
-            
+
             $pjTableModel->addSubQuery($pjTableModel->subqueries, sprintf("SELECT COUNT(`table_id`)
                 FROM `%1\$s`
                 WHERE `table_id` = `t1`.`id`
@@ -352,7 +352,7 @@ class pjFront extends pjAppController
                     break;
                 }
             }
-            
+
             if ($passed)
             {
                 $resp = array('code' => 200);
@@ -362,11 +362,11 @@ class pjFront extends pjAppController
             pjAppController::responseJson($resp);
         }
     }
-    
+
     function checkWTime()
     {
         $this->isAjax = true;
-    
+
         if ($this->isXHR() || $this->isAdmin())
         {
             $resp = array();
@@ -407,12 +407,12 @@ class pjFront extends pjAppController
     function confirmAuthorize()
     {
         $this->isAjax = true;
-        
+
         pjObject::import('Model', array('pjBooking', 'pjTable', 'pjBookingTable'));
         $pjBookingModel = new pjBookingModel();
         $pjBookingTableModel = new pjBookingTableModel();
         $pjTableModel = new pjTableModel();
-        
+
         $booking_arr = $pjBookingModel->get($_POST['x_invoice_num']);
         if (count($booking_arr) > 0)
         {
@@ -423,7 +423,7 @@ class pjFront extends pjAppController
         {
             pjUtil::redirect($this->option_arr['thank_you_page']);
         }
-        
+
         if (intval($_POST['x_response_code']) == 1)
         {
             $pjBookingModel->update(array('id' => $_POST['x_invoice_num'], 'status' => $this->option_arr['payment_status']));
@@ -435,31 +435,31 @@ class pjFront extends pjAppController
     function confirmPaypal()
     {
         $this->isAjax = true;
-        
+
         $url = TEST_MODE ? 'ssl://sandbox.paypal.com' : 'ssl://www.paypal.com';
         $log = '';
         Front::log("\nPayPal - " . date("Y-m-d"));
-        
+
         pjObject::import('Model', array('Booking'));
         $pjBookingModel = new pjBookingModel();
-        
+
         $invoice = explode("_", $_POST['invoice']);
         $invoice = $invoice[1];
-        
+
         $booking_arr = $pjBookingModel->get($invoice);
         if (count($booking_arr) == 0)
         {
             Front::log("No such booking");
             pjUtil::redirect($this->option_arr['thank_you_page']);
         }
-        
+
         $req = 'cmd=_notify-validate';
         foreach ($_POST as $key => $value)
         {
             $value = urlencode(stripslashes($value));
             $req .= "&$key=$value";
         }
-        
+
         // post back to PayPal system to validate
         $header .= "POST /cgi-bin/webscr HTTP/1.1\r\n";
         $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
@@ -467,7 +467,7 @@ class pjFront extends pjAppController
         $header .= "Content-Length: " . strlen($req) . "\r\n";
         $header .= "Connection: close\r\n\r\n";
         $fp = fsockopen($url, 443, $errno, $errstr, 30);
-        
+
         // assign posted variables to local variables
         $invoice = explode("_", $_POST['invoice']);
         $invoice = $invoice[1];
@@ -512,7 +512,7 @@ class pjFront extends pjAppController
                                         $pjBookingTableModel->addJoin($pjBookingTableModel->joins, $pjTableModel->getTable(), 'TT', array('TT.id' => 't1.table_id'), array('TT.name'));
                                         $booking_arr['table_arr'] = $pjBookingTableModel->getAll(array('t1.booking_id' => $booking_arr['id']));
                                     }
-                                    
+
                                     pjFront::confirmSend($this->option_arr, $booking_arr, $this->salt, 3);
                                     pjUtil::redirect($this->option_arr['thank_you_page']);
                                 }
@@ -558,7 +558,7 @@ class pjFront extends pjAppController
             # Send to CLIENT
             $pjEmail->send($booking_arr['c_email'], $option_arr['email_payment_subject'], $message, $option_arr['email_address']);
         }
-        
+
         # Confirmation email
         if ($option_arr['email_confirmation'] == $opt)
         {
@@ -568,7 +568,7 @@ class pjFront extends pjAppController
             # Send to CLIENT
             $pjEmail->send($booking_arr['c_email'], $option_arr['email_confirmation_subject'], $message, $option_arr['email_address']);
         }
-        
+
         # Enquiry email
         if ($option_arr['email_enquiry'] == $opt)
         {
@@ -578,32 +578,32 @@ class pjFront extends pjAppController
             # Send to CLIENT
             $pjEmail->send($booking_arr['c_email'], $option_arr['email_enquiry_subject'], $message, $option_arr['email_address']);
         }
-        
+
         if (isset($_SERVER['SERVER_ADDR']) && $_SERVER['SERVER_ADDR'] == '127.0.0.1') {
-                
+
         } else {
         # SMS
             $message = str_replace($data['search'], $data['replace'], $option_arr['reminder_sms_message']);
-            
+
             $phone = $booking_arr['c_phone'];
             if ( strpos($phone, '0') == 0 ) {
                 $phone = ltrim($phone, '0');
-            } 
-            
+            }
+
             $phone = isset($option_arr['reminder_sms_country_code']) ? $option_arr['reminder_sms_country_code'] . $phone : $phone;
-            
+
             $send_address = isset($option_arr['reminder_sms_send_address']) ? $option_arr['reminder_sms_send_address'] : $phone;
-            
+
             $sendsms = new pjSMS;
             # Send to CLIENT
             $sendsms->sendSMS($send_address, $phone, $message);
         }
     }
-    
+
     function getMap()
     {
         $this->isAjax = true;
-    
+
         if ($this->isXHR())
         {
             pjObject::import('Model', array('pjTable', 'pjBooking', 'pjBookingTable'));
@@ -614,7 +614,7 @@ class pjFront extends pjAppController
             $booking_length = $this->option_arr['booking_length'] * 60;
             $start_time = strtotime(pjUtil::formatDate($_GET['date'], $this->option_arr['date_format']) . " " . $_GET['hour'] . ":" . $_GET['minutes'] . ":00");
             $end_time = $start_time + $booking_length;
-            
+
             $pjTableModel->addSubQuery($pjTableModel->subqueries, sprintf("SELECT COUNT(`table_id`)
                 FROM `%1\$s`
                 WHERE `table_id` = `t1`.`id`
@@ -630,21 +630,21 @@ class pjFront extends pjAppController
             $this->tpl['table_arr'] = $pjTableModel->getAll();
         }
     }
-    
+
     function getTerms()
     {
         $this->isAjax = true;
-    
+
         if ($this->isXHR())
         {
-            
+
         }
     }
-    
+
     function getWTime()
     {
         $this->isAjax = true;
-    
+
         if ($this->isXHR())
         {
             $this->tpl['wt_arr'] = pjAppController::getWorkingTime(pjUtil::formatDate($_GET['date'], $this->option_arr['date_format']));
@@ -653,7 +653,7 @@ class pjFront extends pjAppController
 
     function index()
     {
-        
+
     }
 
     function load()
@@ -663,8 +663,7 @@ class pjFront extends pjAppController
         }
 
         ob_start();
-        $config = require realpath(CONTROLLERS_PATH.'../../../../config.php');
-        $hashids = new Hashids($config['secret_key'], 8);
+        $hashids = new Hashids(Bridge::config('app.key'), 8);
         $content = $hashids->decrypt($_GET['v']);
         if (!is_array($content) || !isset($content[0])) {
             die;
@@ -674,11 +673,11 @@ class pjFront extends pjAppController
         $_SESSION['owner_id'] = $owner_id;
 
         header("Content-type: text/javascript");
-        
+
         pjObject::import('Model', array('pjWorkingTime', 'pjDate'));
         $pjWorkingTimeModel = new pjWorkingTimeModel();
         $pjDateModel = new pjDateModel();
-        
+
         $days_off = array();
         $w_arr = $pjWorkingTimeModel->get(1);
         if (count($w_arr) > 0)
@@ -712,9 +711,9 @@ class pjFront extends pjAppController
                 $days_off[] = 0;
             }
         }
-        
+
         $this->tpl['days_off'] = $days_off;
-        
+
         $dates_off = $dates_on = array();
         $d_arr = $pjDateModel->getAll(array('t1.date' => array('CURDATE()', '>=', 'null')));
         foreach ($d_arr as $date)
@@ -729,7 +728,7 @@ class pjFront extends pjAppController
         $this->tpl['dates_off'] = $dates_off;
         $this->tpl['dates_on'] = $dates_on;
     }
-    
+
     function loadCss()
     {
         $arr = array(
@@ -747,11 +746,11 @@ class pjFront extends pjAppController
         }
         exit;
     }
-    
+
     function loadSearch()
     {
         $this->isAjax = true;
-        
+
         if ($this->isXHR() || $this->isAdmin())
         {
             if (!isset($_SESSION[$this->default_product][$this->default_order]) || count($_SESSION[$this->default_product][$this->default_order]) === 0)
@@ -762,25 +761,25 @@ class pjFront extends pjAppController
                 $this->_set('date', date($this->option_arr['date_format'], strtotime("+1 day")));
                 $this->_set('date_format', $this->option_arr['date_format']);
             }
-            
+
             if ($this->_get('date_format') != $this->option_arr['date_format'])
             {
                 $this->_set('date', pjUtil::formatDate($this->_get('date'), $this->_get('date_format'), $this->option_arr['date_format']));
                 $this->_set('date_format', $this->option_arr['date_format']);
             }
-            
+
             $date = pjUtil::formatDate($this->_get('date'), $this->option_arr['date_format']);
             $this->tpl['wt_arr'] = pjAppController::getWorkingTime($date);
-            
+
             pjObject::import('Model', array('pjService', 'pjFormStyle') );
-            
+
             $pjFormStyleModel = new pjFormStyleModel();
             $this->tpl ['formstyle'] = $pjFormStyleModel->getAll();
-            
+
             $pjServiceModel = new pjServiceModel();
             $this->tpl['service_arr'] = $pjServiceModel->getAll(array('col_name' => 't1.start_time', 'direction' => 'ASC'));
-            
-            
+
+
             $table_id = $this->_get('table_id');
             if ($table_id !== false && (int) $table_id > 0)
             {
@@ -791,11 +790,11 @@ class pjFront extends pjAppController
             unset($_SESSION[$this->default_product][$this->default_order]['table_id']);
         }
     }
-    
+
     function loadBookingForm()
     {
         $this->isAjax = true;
-        
+
         if ($this->isXHR())
         {
             if (isset($_POST['rbSearch']))
@@ -812,27 +811,27 @@ class pjFront extends pjAppController
                     $pjBookingModel = new pjBookingModel();
                     $pjBookingTableModel = new pjBookingTableModel();
                     $pjServiceModel = new pjServiceModel();
-                    
+
                     $booking_length = $this->option_arr['booking_length'] * 60;
                     $services = $pjServiceModel->getAll(array('col_name' => 't1.start_time', 'direction' => 'ASC'));
                     $start_hour = strtotime($this->_get('hour') . ":" . $this->_get('minutes') . ":00");
-                    
+
                     foreach ($services as $service) {
                         if ( strtotime($service['start_time']) < $start_hour && strtotime($service['end_time']) >= $start_hour) {
                             $booking_length = $service['s_length'] * 3600;
                             break;
                         }
                     }
-                    
+
                     $start_time = strtotime(pjUtil::formatDate($this->_get('date'), $this->option_arr['date_format']) . " " . $this->_get('hour') . ":" . $this->_get('minutes') . ":00");
                     $end_time = $start_time + $booking_length;
-                    
+
                     $ownerId = $this->getOwnerId();
                     $sql = sprintf("SELECT `t1`.`id`
                         FROM `%1\$s` AS `t1`
-                        WHERE ('%6\$u' BETWEEN `t1`.`minimum` AND `t1`.`seats`) AND `t1`.`owner_id` = $ownerId 
+                        WHERE ('%6\$u' BETWEEN `t1`.`minimum` AND `t1`.`seats`) AND `t1`.`owner_id` = $ownerId
                         AND `t1`.`id` NOT IN (SELECT `table_id` FROM `%2\$s` WHERE `booking_id` IN (SELECT `id` FROM `%3\$s` WHERE (
-                                UNIX_TIMESTAMP(`dt`) < '%5\$u' AND UNIX_TIMESTAMP(`dt_to`) > '%4\$u' AND `owner_id` = $ownerId 
+                                UNIX_TIMESTAMP(`dt`) < '%5\$u' AND UNIX_TIMESTAMP(`dt_to`) > '%4\$u' AND `owner_id` = $ownerId
                             ) AND `status` = 'confirmed'))
                         LIMIT 1",
                         $pjTableModel->getTable(),
@@ -842,19 +841,19 @@ class pjFront extends pjAppController
                         $end_time,
                         $this->_get('people')
                     );
-                    
+
                     $table_arr = $pjTableModel->execute($sql);
                     if (count($table_arr) === 1)
                     {
                         $this->_set('table_id', $table_arr[0]['id']);
                     } else {
-                        
+
                         $ownerId = $this->getOwnerId();
                         $sql = sprintf("SELECT `t1`.*
                             FROM `%1\$s` AS `t1`
                             WHERE `t1`.`id` NOT IN (SELECT `table_id` FROM `%2\$s` WHERE `booking_id` IN (SELECT `id` FROM `%3\$s` WHERE (
-                                    UNIX_TIMESTAMP(`dt`) < '%5\$u' AND UNIX_TIMESTAMP(`dt_to`) > '%4\$u' AND `owner_id` = $ownerId 
-                                ) AND `status` = 'confirmed')) 
+                                    UNIX_TIMESTAMP(`dt`) < '%5\$u' AND UNIX_TIMESTAMP(`dt_to`) > '%4\$u' AND `owner_id` = $ownerId
+                                ) AND `status` = 'confirmed'))
                                 ORDER BY `t1`.`seats` DESC",
                                     $pjTableModel->getTable(),
                                     $pjBookingTableModel->getTable(),
@@ -862,66 +861,66 @@ class pjFront extends pjAppController
                                     $start_time,
                                     $end_time
                         );
-                        
+
                         $table_arr = $pjTableModel->execute($sql);
                         $seats = 0;
                         $people = $this->_get('people');
-                        
+
                         foreach ($table_arr as $table) {
                             $seats += $table['seats'];
                         }
-                        
+
                         if ( $people > 0 && $people <= $seats ) {
                             $table_set = array();
-                            
+
                             while ( $people > 0 && count($table_arr) > 0 ) {
                                 $table_first = $table_arr[0];
                                 $table_last = $table_arr[count($table_arr) -1];
-                                
+
                                 if ( $people - $table_first['seats'] <= $table_last['seats'] && $people - $table_first['seats'] >= $table_last['minimum'] ) {
                                     $table_set[$table_first['id']] = $table_first['seats'];
                                     $table_set[$table_last['id']] = $table_last['seats'];
                                     $people = 0;
-                                    
+
                                 } elseif ($people - $table_first['seats'] > $table_last['seats'] ) {
-                                    
+
                                     $table_set[$table_first['id']] = $table_first['seats'];
                                     $people = $people - $table_first['seats'];
-                                    
+
                                     if (count($table_arr) > 2) {
-                                        
+
                                         for ($i = count($table_arr) - 2; $i > 0; $i-- ) {
-                                            
+
                                             if ($people <= $table_arr[$i]['seats'] && $people >= $table_arr[$i]['minimum']) {
                                                 $table_set[$table_arr[$i]['id']] = $table_arr[$i]['seats'];
                                                 $people = 0;
                                                 break;
                                             }
-                                        } 
+                                        }
                                     }
-                                    
+
                                     if ($people > 0) {
                                         unset($table_arr[0]);
                                         $table_arr = array_values($table_arr);
                                     }
-                                    
+
                                 } elseif ($people - $table_first['seats'] <= 0) {
                                     $table_set[$table_first['id']] = $table_first['seats'];
                                     $people = 0;
-                                    
+
                                 }
                                 else{
                                     unset($table_arr[0]);
                                     $table_arr = array_values($table_arr);
-                                } 
+                                }
                             }
-                            
+
                             if ($people <= 0) {
                                 $this->_set('tables_id', $table_set);
                             }
-                            
+
                         }
-                        
+
                     }
                 }
             }
@@ -931,11 +930,11 @@ class pjFront extends pjAppController
                 $pjCountryModel = new pjCountryModel();
                 $this->tpl['country_arr'] = $pjCountryModel->getAll(array('t1.status' => 'T', 'col_name' => 't1.country_title', 'direction' => 'asc'));
             }
-            
+
             $date = pjUtil::formatDate($this->_get('date'), $this->option_arr['date_format']);
             $time = $this->_get('hour') . ":" . $this->_get('minutes') . ":00";
             $code = $this->_is('code') ? $this->_get('code') : NULL;
-            
+
             $resp = pjAppController::getPrice($this->option_arr, $date, $time, $code);
             if (isset($resp['discount_formated']))
             {
@@ -945,11 +944,11 @@ class pjFront extends pjAppController
             $this->tpl['price_arr'] = $resp;
         }
     }
-    
+
     function loadSummaryForm()
     {
         $this->isAjax = true;
-        
+
         if ($this->isXHR())
         {
             if (isset($_POST['rbBookingForm']))
@@ -957,7 +956,7 @@ class pjFront extends pjAppController
                 if ( isset($_POST['c_notes'])) {
                     $_POST['c_notes'] = strip_tags($_POST['c_notes']);
                 }
-                
+
                 $_SESSION[$this->default_product][$this->default_order] = array_merge($_SESSION[$this->default_product][$this->default_order], $_POST);
             }
             if (in_array($this->option_arr['bf_include_country'], array(2, 3)))
@@ -966,11 +965,11 @@ class pjFront extends pjAppController
                 $pjCountryModel = new pjCountryModel();
                 $this->tpl['country_arr'] = $pjCountryModel->get($this->_get('c_country'));
             }
-            
+
             $date = pjUtil::formatDate($this->_get('date'), $this->option_arr['date_format']);
             $time = $this->_get('hour') . ":" . $this->_get('minutes') . ":00";
             $code = $this->_is('code') ? $this->_get('code') : NULL;
-            
+
             $resp = pjAppController::getPrice($this->option_arr, $date, $time, $code);
             if (isset($resp['discount_formated']))
             {
@@ -980,29 +979,29 @@ class pjFront extends pjAppController
             $this->tpl['price_arr'] = $resp;
         }
     }
-    
+
     function loadPayment()
     {
         $this->isAjax = true;
-        
+
         if ($this->isXHR())
         {
             pjObject::import('Model', array('pjBooking'));
             $pjBookingModel = new pjBookingModel();
-            
+
             $arr = $pjBookingModel->get($_POST['id']);
             $this->tpl['arr'] = $arr;
         }
     }
-    
+
     function removePromo()
     {
         $this->isAjax = true;
-        
+
         if ($this->isXHR())
         {
             $resp = array();
-            
+
             $date = pjUtil::formatDate($this->_get('date'), $this->option_arr['date_format']);
             $time = $this->_get('hour') . ":" . $this->_get('minutes') . ":00";
 
