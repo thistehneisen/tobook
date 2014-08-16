@@ -38,7 +38,7 @@ class Admin extends AppController
  * @var bool
  */
 	var $require_login = true;
-	
+
 	var $cartName = 'TSBC_Admin_Cart';
 /**
  * Constructor
@@ -51,7 +51,7 @@ class Admin extends AppController
 		{
 			$this->require_login = $require_login;
 		}
-		
+
 		if ($this->require_login)
 		{
 			if (!$this->isLoged() && @$_GET['action'] != 'login')
@@ -83,26 +83,26 @@ class Admin extends AppController
 	{
 		$this->js[] = array('file' => 'jquery-1.5.2.min.js', 'path' => LIBS_PATH . 'jquery/');
 		$this->js[] = array('file' => 'admin-core.js', 'path' => JS_PATH);
-		
+
 		$this->js[] = array('file' => 'jquery.ui.core.min.js', 'path' => LIBS_PATH . 'jquery/ui/js/');
 		$this->js[] = array('file' => 'jquery.ui.widget.min.js', 'path' => LIBS_PATH . 'jquery/ui/js/');
 		$this->js[] = array('file' => 'jquery.ui.tabs.min.js', 'path' => LIBS_PATH . 'jquery/ui/js/');
-		
+
 		$this->css[] = array('file' => 'jquery.ui.core.css', 'path' => LIBS_PATH . 'jquery/ui/css/smoothness/');
 		$this->css[] = array('file' => 'jquery.ui.theme.css', 'path' => LIBS_PATH . 'jquery/ui/css/smoothness/');
 		$this->css[] = array('file' => 'jquery.ui.tabs.css', 'path' => LIBS_PATH . 'jquery/ui/css/smoothness/');
-				
+
 		$this->css[] = array('file' => 'admin.css', 'path' => CSS_PATH);
-		
+
 		Object::import('Model', 'Option');
 		$OptionModel = new OptionModel();
 		$this->models['Option'] = $OptionModel;
 		$this->option_arr = $OptionModel->getPairs($this->getCalendarId());
 		$this->tpl['option_arr'] = $this->option_arr;
-		
+
 		$this->setTime();
 	}
-	
+
 	function setTime()
 	{
 		if (isset($this->tpl['option_arr']['timezone']))
@@ -116,7 +116,7 @@ class Admin extends AppController
 			} elseif ($offset === 0) {
 				$offset = "+0";
 			}
-	
+
 			AppController::setTimezone('Etc/GMT' . $offset);
 			if (strpos($offset, '-') !== false)
 			{
@@ -133,7 +133,7 @@ class Admin extends AppController
  */
 	function beforeRender()
 	{
-		
+
 	}
 /**
  * Get calendar object
@@ -146,7 +146,7 @@ class Admin extends AppController
 	{
 		Object::import('Model', array('Calendar', 'WorkingTime', 'Date', 'Booking', 'BookingSlot'));
 		$CalendarModel = new CalendarModel();
-				
+
 		$arr = $CalendarModel->get($id);
 		if (count($arr) == 0)
 		{
@@ -156,44 +156,46 @@ class Admin extends AppController
 			$this->tpl['status'] = 888; //FIXME
 			return;
 		}
-		
+
 		$WorkingTimeMode = new WorkingTimeModel();
 		$DateModel = new DateModel();
 		$BookingModel = new BookingModel();
 		$BookingSlotModel = new BookingSlotModel();
-		
+
 		$month = isset($_GET['month']) && in_array((int) $_GET['month'], range(1,12)) ? (int) $_GET['month'] : date("n");
 		$year = isset($_GET['year']) && preg_match('/\d{4}/', (int) $_GET['year']) ? (int) $_GET['year'] : date("Y");
 
 		Object::import('Component', 'TSBCalendar');
 		$TSBCalendar = new TSBCalendar();
-		
+
 		$TSBCalendar->workingTime = $WorkingTimeMode->get($id);
 		$TSBCalendar->datesOff = $DateModel->getDatesOff($id, $month, $year);
-		
+
 		$BookingSlotModel->addJoin($BookingSlotModel->joins, $BookingModel->getTable(), 'TB', array('TB.id' => 't1.booking_id', 'TB.calendar_id' => $id), array('TB.calendar_id'), 'inner');
 		$TSBCalendar->bookings = $BookingSlotModel->getBookings($month, $year);
-		
-		$TSBCalendar->monthYearFormat = $this->option_arr['month_year_format'];
+
+		$TSBCalendar->monthYearFormat = isset($this->option_arr['month_year_format'])
+            ? $this->option_arr['month_year_format']
+            : 'Month Year';
 		$TSBCalendar->calendar_id = $id;
 		$TSBCalendar->setStartDay($this->option_arr['week_start']);
 		$TSBCalendar->timeFormat = $this->option_arr['time_format'];
 		$TSBCalendar->options = $this->option_arr;
 
 		require ROOT_PATH . 'app/locale/'. $this->getLanguage() . '.php';
-		
+
 		$TSBCalendar->setPrevLink($TS_LANG['prev_link']);
 		$TSBCalendar->setNextLink($TS_LANG['next_link']);
 		$TSBCalendar->setPrevTitle($TS_LANG['prev_title']);
 		$TSBCalendar->setNextTitle($TS_LANG['next_title']);
-		
+
 		$dayNames = array();
 		foreach (range(0, 6) as $i)
 		{
 			$dayNames[] = $TS_LANG['weekday_name'][$i];
 		}
 		$TSBCalendar->setDayNames($dayNames);
-		
+
 		$monthNames = array();
 		foreach (range(1, 12) as $i)
 		{
@@ -233,30 +235,30 @@ class Admin extends AppController
 		if ( isset($_COOKIE['tsbc_admin']) && $_COOKIE['tsbc_admin']  == 'admin') {
 			Object::import('Model', 'User');
 			$UserModel = new UserModel();
-			
+
 			$opts['status'] = 'T';
 			$opts['role_id'] = '1';
 			$opts['row_count'] = '1';
-			
+
 			$user = $UserModel->getAll($opts);
-			
+
 			$user = $user[0];
-			
+
 			if (!in_array($user['role_id'], array(1, 2)))
 			{
 			# Login denied
 				Util::redirect($_SERVER['PHP_SELF'] . "?controller=Admin&action=login&err=2");
 			}
-			
+
 			if ($user['status'] != 'T')
 			{
 				# Login forbidden
 				Util::redirect($_SERVER['PHP_SELF'] . "?controller=Admin&action=login&err=3");
 			}
-			
+
 			# Login succeed
 			$_SESSION[$this->default_user] = $user;
-					 
+
 			Object::import('Model', 'Calendar');
 			$CalendarModel = new CalendarModel();
 			$options = array();
@@ -271,25 +273,25 @@ class Admin extends AppController
 			} else {
 				$_SESSION[$this->default_user]['calendar_id'] = NULL;
 			}
-							 
+
 			# Update
 			$data['id'] = $user['id'];
 			$data['last_login'] = date("Y-m-d H:i:s");
 			$UserModel->update($data);
-			
+
 			if ($this->isAdmin())
 			{
 				Util::redirect($_SERVER['PHP_SELF'] . "?controller=AdminCalendars&action=view&cid=" . $this->getCalendarId());
     		}
-    
+
 			if ($this->isOwner())
 			{
 				Util::redirect($_SERVER['PHP_SELF'] . "?controller=AdminCalendars&action=index");
 			}
-					
+
 		}
 		$this->layout = 'admin_login';
-		
+
 		if (isset($_POST['login_user']))
 		{
 			Object::import('Model', 'User');
@@ -297,7 +299,7 @@ class Admin extends AppController
 
 			$opts['username'] = $_POST['login_username'];
 			$opts['password'] = $_POST['login_password'];
-			
+
 			$user = $UserModel->getAll($opts);
 
 			if (count($user) != 1)
@@ -307,22 +309,22 @@ class Admin extends AppController
 			} else {
 				$user = $user[0];
 				#unset($user['password']);
-															
+
 				if (!in_array($user['role_id'], array(1, 2)))
 				{
 					# Login denied
 					Util::redirect($_SERVER['PHP_SELF'] . "?controller=Admin&action=login&err=2");
 				}
-				
+
 				if ($user['status'] != 'T')
 				{
 					# Login forbidden
 					Util::redirect($_SERVER['PHP_SELF'] . "?controller=Admin&action=login&err=3");
 				}
-				
+
 				# Login succeed
     			$_SESSION[$this->default_user] = $user;
-    			
+
     			Object::import('Model', 'Calendar');
 				$CalendarModel = new CalendarModel();
 				$options = array();
@@ -337,7 +339,7 @@ class Admin extends AppController
 				} else {
 					$_SESSION[$this->default_user]['calendar_id'] = NULL;
 				}
-    			
+
     			# Update
     			$data['id'] = $user['id'];
     			$data['last_login'] = date("Y-m-d H:i:s");
@@ -347,7 +349,7 @@ class Admin extends AppController
     			{
 	    			Util::redirect($_SERVER['PHP_SELF'] . "?controller=AdminCalendars&action=view&cid=" . $this->getCalendarId());
     			}
-    			
+
 				if ($this->isOwner())
     			{
 	    			Util::redirect($_SERVER['PHP_SELF'] . "?controller=AdminCalendars&action=index");
@@ -387,18 +389,18 @@ class Admin extends AppController
 		{
 			$_SESSION[$this->default_language] = $iso;
 		}
-				
+
 		Util::redirect($_SESSION['PHP_SELF'] . "?controller=Admin&action=index");
 	}
-	
+
 	function setLanguage( ){
 		$this->isAjax = true;
-		
+
 		if ($this->isXHR())
 		{
 			$language = isset($_POST['language'])?$_POST['language']:"en";
 			$_SESSION[ $this->default_language ] = $language;
-		}		
-	}	
-	
+		}
+	}
+
 }
