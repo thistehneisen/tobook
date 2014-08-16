@@ -1,6 +1,6 @@
 <?php namespace App\Controllers\Admin;
 
-use App, Config, Request, Redirect, Input;
+use App, Config, Request, Redirect, Input, Confide, Session, Auth;
 
 class Users extends Crud
 {
@@ -42,9 +42,11 @@ class Users extends Crud
      */
     public function stealSession($id)
     {
-        \Session::set('stealthSession', \Confide::user()->id);
+        if (Confide::user()->hasRole('Admin')) {
+            Session::set('stealthMode', Confide::user()->id);
+            Auth::loginUsingId($id);
+        }
 
-        \Auth::loginUsingId($id);
         return Redirect::route('home');
     }
 }
