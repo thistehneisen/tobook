@@ -25,8 +25,13 @@ $app = new Illuminate\Foundation\Application;
 */
 
 $env = $app->detectEnvironment(array(
-
-	'local' => array('homestead', 'dev', 'vagrant.local'),
+    // just add your hostname, don't delete others
+	'local' => array(
+        'dev', // general
+        'homestead', // An
+        'vagrant.local', // Hung
+        'HMacPro.local', // Hieu
+    ),
 
 ));
 
