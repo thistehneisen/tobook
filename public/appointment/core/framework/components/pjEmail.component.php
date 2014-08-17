@@ -4,11 +4,6 @@ if (!defined("ROOT_PATH"))
 	header("HTTP/1.1 403 Forbidden");
 	exit;
 }
-<<<<<<< HEAD
-=======
-// @todo: Check if this is the correct path
-require_once realpath(ROOT_PATH.'/../../../../Bridge.php');
->>>>>>> 8d657ec3b055184e70ee4b6dff62309fa33a3471
 
 /**
  * PHP Framework
@@ -430,19 +425,11 @@ class pjEmail
 		{
 			case 'mail':
                 $varaaConfig = Bridge::emailConfig();
-
                 $this->setCharset('utf-8');
-<<<<<<< HEAD
-				$this->setSmtpHost(Bridge::config('mail.host'));
-				$this->setSmtpPort(Bridge::config('mail.port'));
-				$this->setSmtpUser(Bridge::config('mail.username'));
-				$this->setSmtpPass(Bridge::config('mail.password'));
-=======
 				$this->setSmtpHost($varaaConfig['host']);
 				$this->setSmtpPort($varaaConfig['port']);
 				$this->setSmtpUser($varaaConfig['username']);
 				$this->setSmtpPass($varaaConfig['password']);
->>>>>>> 8d657ec3b055184e70ee4b6dff62309fa33a3471
 				return $this->sendSmtp($body);
 			case 'smtp':
 				return $this->sendSmtp($body);
