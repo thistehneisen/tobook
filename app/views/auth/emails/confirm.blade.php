@@ -2,7 +2,7 @@
 
 @section ('content')
     <h1>{{ trans('auth.emails.confirm.title') }}</h1>
-    
+
     <p>{{ sprintf(
             trans('auth.emails.confirm.body'),
             $user->first_name,

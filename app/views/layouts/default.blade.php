@@ -31,8 +31,7 @@
                 <p class="welcome-text">
                 @if (Session::get('stealthMode') !== null)
                 You're now login as <strong>{{ Confide::user()->username }}</strong>
-                @else
-                {{ trans('common.welcome') }}, <strong>{{ Confide::user()->username }}</strong>!
+                @else {{ trans('common.welcome') }}, <strong>{{ Confide::user()->username }}</strong>!
                 @endif
                 </p>
             @endif

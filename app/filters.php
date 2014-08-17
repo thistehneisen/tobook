@@ -85,7 +85,7 @@ Route::filter('csrf', function () {
     }
 });
 
-Route::filter('auth.admin', function() {
+Route::filter('auth.admin', function () {
     if (!Entrust::hasRole('Admin') && Session::get('stealthMode') === null) {
         return Redirect::route('home');
     }

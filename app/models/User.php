@@ -25,8 +25,8 @@ class User extends ConfideUser
      * Allow old users to login with their own password, but force to change
      * immediately
      *
-     * @param  string $identity Email/username
-     * @param  string $password Plain password
+     * @param string $identity Email/username
+     * @param string $password Plain password
      *
      * @return bool
      */

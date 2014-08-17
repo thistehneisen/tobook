@@ -85,7 +85,7 @@ return array(
 
     'custom' => array(
         'attribute-name' => array(
-            'rule-name' => 'custom-message',            
+            'rule-name' => 'custom-message',
         ),
         'username' => [
             'required' => 'Käyttäjänimi on pakollinen',

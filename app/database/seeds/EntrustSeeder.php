@@ -14,7 +14,7 @@ class EntrustSeeder extends Seeder
         $permissionMap = [];
 
         foreach ($permissions as $name => $display_name) {
-            $permission = new Permission;
+            $permission = new Permission();
             $permission->name = $name;
             $permission->display_name = $display_name;
             try {
@@ -32,7 +32,7 @@ class EntrustSeeder extends Seeder
         ];
         foreach ($roles as $name => $permissions) {
             try {
-                $role = new Role;
+                $role = new Role();
                 $role->name = $name;
                 $role->save();
 

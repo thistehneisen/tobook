@@ -11,7 +11,7 @@
 @section ('scripts')
 {{ HTML::script(asset('packages/jquery.bxslider/jquery.bxslider.min.js')) }}
 <script>
-    $(function() {
+    $(function () {
         $('.bxslider').bxSlider({
             controls: false,
             auto: true,

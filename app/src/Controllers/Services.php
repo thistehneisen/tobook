@@ -94,6 +94,7 @@ class Services extends Base
             'username' => Confide::user()->username,
             'userid' => Confide::user()->id
         ];
+
         return View::make('services.iframe', [
             'url' => URL::to(
                 'loyalty/admin/consumerList.php?'
@@ -113,6 +114,7 @@ class Services extends Base
             'username' => Confide::user()->username,
             'userid' => Confide::user()->id
         ];
+
         return View::make('services.iframe', [
             'url' => URL::to(
                 'marketing/main.php?'

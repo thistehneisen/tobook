@@ -14,11 +14,11 @@
 
 @section ('scripts')
     <script>
-        $(document).ready(function(){
-            $("div.weblist-item-icon img").mouseover(function() {
+        $(document).ready(function () {
+            $("div.weblist-item-icon img").mouseover(function () {
                 $(this).parents("div").eq(0).find(".weblist-item-icon-thumb").fadeIn();
             });
-            $("div.weblist-item-icon img").mouseout(function() {
+            $("div.weblist-item-icon img").mouseout(function () {
                 $(this).parents("#weblistItems").find("div.weblist-item-icon-thumb").fadeOut();
             });
         });

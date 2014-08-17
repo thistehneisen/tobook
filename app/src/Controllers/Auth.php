@@ -164,7 +164,7 @@ class Auth extends Base
     public function showThankYou()
     {
         $content = Session::get(
-            'notice', 
+            'notice',
             trans('auth.emails.confirm.title') . trans('auth.emails.confirm.subject')
         );
 

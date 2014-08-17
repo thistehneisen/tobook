@@ -3,8 +3,6 @@
 use DB;
 use Doctrine\DBAL\Schema\Table;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 
 class FixSchemaCommand extends Command
 {

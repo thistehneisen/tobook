@@ -2,7 +2,7 @@
 
 @section ('content')
     <h1>{{ trans('auth.emails.reset.title') }}</h1>
-    
+
     <p>{{ sprintf(
             trans('auth.emails.reset.body'),
             $user->first_name,

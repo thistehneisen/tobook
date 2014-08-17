@@ -2,33 +2,32 @@
 
 use User, Role;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class MakeAdminCommand extends Command {
-
-	/**
+class MakeAdminCommand extends Command
+{
+    /**
 	 * The console command name.
 	 *
 	 * @var string
 	 */
-	protected $name = 'varaa:admin';
+    protected $name = 'varaa:admin';
 
-	/**
+    /**
 	 * The console command description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'Add user with the given email to role Admin';
+    protected $description = 'Add user with the given email to role Admin';
 
-	/**
+    /**
 	 * Execute the console command.
 	 *
 	 * @return mixed
 	 */
-	public function fire()
-	{
-		$email = $this->argument('email');
+    public function fire()
+    {
+        $email = $this->argument('email');
         // Find user
         $user = User::where('email', '=', $email)->first();
         if (!$user) {
@@ -50,18 +49,18 @@ class MakeAdminCommand extends Command {
 
         $result = $user->attachRole($role);
         $this->info('Welcome '.$email.' as a new member of Nova Corps');
-	}
+    }
 
-	/**
+    /**
 	 * Get the console command arguments.
 	 *
 	 * @return array
 	 */
-	protected function getArguments()
-	{
-		return array(
-			array('email', InputArgument::REQUIRED, 'Email of user'),
-		);
-	}
+    protected function getArguments()
+    {
+        return array(
+            array('email', InputArgument::REQUIRED, 'Email of user'),
+        );
+    }
 
 }

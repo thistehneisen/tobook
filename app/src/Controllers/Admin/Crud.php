@@ -1,7 +1,6 @@
 <?php namespace App\Controllers\Admin;
 
 use App, Config, Request, Redirect, Input;
-use Illuminate\Support\MessageBag;
 
 class Crud extends Base
 {
@@ -29,8 +28,8 @@ class Crud extends Base
     /**
      * Show the form to edit an item
      *
-     * @param  string $type
-     * @param  int $id
+     * @param string $type
+     * @param int    $id
      *
      * @return View
      */
@@ -40,6 +39,7 @@ class Crud extends Base
             $item = $this->model->where('id', $id)->firstOrFail();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $ex) {
             $message = 'Cannot find data with ID #'.$id;
+
             return Redirect::route('admin.crud.index', ['model' => $type])
                 ->withErrors($this->errorMessageBag($message), 'top');
         }
@@ -53,8 +53,8 @@ class Crud extends Base
     /**
      * Update the record in database
      *
-     * @param  string $type
-     * @param  int $id
+     * @param string $type
+     * @param int    $id
      *
      * @return Redirect
      */
@@ -82,8 +82,8 @@ class Crud extends Base
     /**
      * Delete a record in database
      *
-     * @param  string $type
-     * @param  int $id
+     * @param string $type
+     * @param int    $id
      *
      * @return Redirect
      */
@@ -115,6 +115,7 @@ class Crud extends Base
         }
 
         $items = $query->paginate(Config::get('view.perPage'));
+
         return $this->render('crud.search', [
             'model' => $this->model,
             'items' => $items,

@@ -27,5 +27,5 @@ return [
             'title'   => 'Reset your password',
             'body'    => $resetBody
         ]
-    ]    
+    ]
 ];

@@ -136,7 +136,7 @@ Route::group([
     Route::group([
         'before' => [''], // Attach a filter to check payment
         'prefix' => 'services'
-    ], function() {
+    ], function () {
 
         Route::get('cashier', [
             'as' => 'cashier.index',
@@ -169,7 +169,6 @@ Route::group([
         ]);
     });
 
-
 });
 /*
 |--------------------------------------------------------------------------
@@ -179,7 +178,7 @@ Route::group([
 Route::group([
     'prefix' => Config::get('admin.prefix'),
     'before' => ['auth', 'auth.admin']
-], function() {
+], function () {
 
     Route::get('/', [
         'as' => 'admin.index',

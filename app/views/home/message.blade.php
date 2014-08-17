@@ -17,7 +17,7 @@
         @foreach ((array) $content as $message)
         <p>{{ $message }}</p>
         @endforeach
-        
+
     </div>
 </div>
 @stop

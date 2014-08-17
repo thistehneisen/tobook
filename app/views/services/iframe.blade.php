@@ -14,7 +14,7 @@
 
 @section ('scripts')
 <script>
-$(function() {
+$(function () {
     // Remove main element
     $('main') .remove();
     // There should be a CSS solution for this

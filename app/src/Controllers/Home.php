@@ -14,23 +14,28 @@ class Home extends Base
         return View::make('home.index');
     }
 
-    public function websiteList() {
+    public function websiteList()
+    {
         return View::make('intro.list');
     }
 
-    public function loyalty() {
+    public function loyalty()
+    {
         return View::make('intro.loyalty');
     }
 
-    public function timeslot() {
+    public function timeslot()
+    {
         return View::make('intro.timeslot');
     }
 
-    public function cashier() {
+    public function cashier()
+    {
         return View::make('intro.cashier');
     }
 
-    public function marketingTools() {
+    public function marketingTools()
+    {
         return View::make('intro.marketing');
     }
 }

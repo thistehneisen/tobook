@@ -18,7 +18,7 @@ class Users extends Crud
 
             $input = Input::all();
             unset($input['_token']);
-            
+
             $item->unguard();
             $item->fill($input);
             $item->reguard();
@@ -36,7 +36,7 @@ class Users extends Crud
     /**
      * Login as a user
      *
-     * @param  int $id 
+     * @param int $id
      *
      * @return Redirect
      */
@@ -49,7 +49,7 @@ class Users extends Crud
             // Also dump data to session for Service usage
             Auth::user()->dumpToSession();
 
-            // No reset value of `stealthMode` since the first one is the 
+            // No reset value of `stealthMode` since the first one is the
             // genuine admin
             if (Session::has('stealthMode') === false) {
                 Session::set('stealthMode', Confide::user()->id);

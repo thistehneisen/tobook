@@ -19,8 +19,8 @@ class Base extends \Controller
     /**
      * Create a new message bag containing success messages
      *
-     * @param  mixed $content
-     * @param  string $title   (optional)
+     * @param mixed  $content
+     * @param string $title   (optional)
      *
      * @return MessageBag
      */
@@ -31,6 +31,7 @@ class Base extends \Controller
         }
 
         $content = (array) $content;
+
         return new MessageBag([
             'success' => [
                 'title'   => $title,
