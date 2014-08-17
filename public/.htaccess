@@ -8,6 +8,9 @@
     # Redirect Trailing Slashes...
     RewriteRule ^(.*)/$ /$1 [L,R=301]
 
+    # Redirect /appointment/library to /appointment
+    RewriteRule ^appointment/library/(.*)$ /appointment/$1 [R=301,L]
+
     # Handle Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
@@ -16,4 +19,5 @@
     # Redirect www to non-www
     RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
     RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
 </IfModule>
