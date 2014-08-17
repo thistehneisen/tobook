@@ -16,7 +16,7 @@ try {
     if ($user) {
         $stm->closeCursor();
         // Cancel installation
-        header("location: library/session.php");
+        header("location: session.php");
         return;
     }
     $stm->closeCursor();
@@ -109,4 +109,4 @@ SQL;
     echo $e->getMessage();
 }
 
-header("location: library/session.php");
+header("location: session.php");
