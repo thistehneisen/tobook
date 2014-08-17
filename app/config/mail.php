@@ -15,7 +15,7 @@ return array(
 	|
 	*/
 
-	'driver' => 'mandrill',
+	'driver' => 'smtp',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'no-reply@klikkaaja.com', 'name' => 'Klikkaaja'),
+	'from' => array('address' => 'no-reply@varaa.com', 'name' => 'Varaa.com'),
 
 	/*
 	|--------------------------------------------------------------------------

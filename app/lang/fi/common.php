@@ -24,5 +24,7 @@ return [
     'thank_you'         => 'Kiitoksia!',
     'notice'            => 'Huomautus',
     'welcome'           => 'Tervetuloa',
-    'admin'           => 'Admin',
+    'admin'             => 'Admin',
+    'users'             => 'Käyttäjät',
+    'settings'          => 'Asetukset',
 ];

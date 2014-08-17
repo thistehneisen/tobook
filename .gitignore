@@ -51,6 +51,7 @@ tests/_output/*
 # Laravel
 /vendor
 /bootstrap/compiled.php
+/bootstrap/environment.php
 composer.phar
 .env.*.php
 .env.php
