@@ -209,6 +209,9 @@ class Auth extends Base
 
         Confide::logout();
 
+        // Remove all session data, including stealthMode
+        Session::flush();
+
         return Redirect::route('home');
     }
 
