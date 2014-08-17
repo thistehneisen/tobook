@@ -1,11 +1,13 @@
 @extends ('layouts.default')
 
-@section ('scripts')
-<script>
-$(function() {
-    $('body').css('paddingTop', '50px');
-});
-</script>
+@section ('title')
+    @parent :: {{ trans('common.admin') }}
+@stop
+
+@section ('styles')
+<style>
+    body {padding-top: 50px;}
+</style>
 @stop
 
 @section ('header')
