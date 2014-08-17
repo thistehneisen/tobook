@@ -45,6 +45,9 @@ class Users extends Crud
         if (Confide::user()->hasRole('Admin')) {
             Session::set('stealthMode', Confide::user()->id);
             Auth::loginUsingId($id);
+
+            // Also dump data to session for Service usage
+            Auth::user()->dumpToSession();
         }
 
         return Redirect::route('home');
