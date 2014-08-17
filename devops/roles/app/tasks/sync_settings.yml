@@ -1,5 +1,9 @@
-- name: create local config
-  action: template src=server_config.php dest={{ webapps_dir }}/{{ app_name }}/src/config.php
+- name: specify local environment
+  action: template src=environment.php dest={{ webapps_dir }}/{{ app_name }}/src/bootstrap/environment.php
+  tags: templated_settings
+
+- name: create local environment config
+  action: template src=env.server.php dest={{ webapps_dir }}/{{ app_name }}/src/.env.{{ env }}.php
   tags: templated_settings
 
 #- name: create robots.txt

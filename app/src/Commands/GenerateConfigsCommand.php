@@ -123,8 +123,6 @@ CONF;
 <?php
 
 return [
-    'fetch' => PDO::FETCH_CLASS,
-    'default' => 'mysql',
     'connections' => [
         'mysql' => [
             'driver'    => 'mysql',
