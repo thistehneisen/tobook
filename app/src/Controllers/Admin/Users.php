@@ -42,12 +42,18 @@ class Users extends Crud
      */
     public function stealSession($id)
     {
-        if (Confide::user()->hasRole('Admin')) {
-            Session::set('stealthMode', Confide::user()->id);
+        if (Confide::user()->hasRole('Admin') ||
+            Session::get('stealthMode') !== null) {
             Auth::loginUsingId($id);
 
             // Also dump data to session for Service usage
             Auth::user()->dumpToSession();
+
+            // No reset value of `stealthMode` since the first one is the 
+            // genuine admin
+            if (Session::has('stealthMode') === false) {
+                Session::set('stealthMode', Confide::user()->id);
+            }
         }
 
         return Redirect::route('home');
