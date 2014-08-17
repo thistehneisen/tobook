@@ -21,7 +21,7 @@ return [
     'loyalty_kantis_3'          => 'Intuitiivinen ja selkeä hallintapaneeli sisällyttää kaikki sähköiset työkalusi yhteen ja samaan paikkaan,  johon pääset käsiksi niin töistä kuin tarvittaessa kotoakin.',
     'loyalty_kantis_4'          => 'Nopea ja toimiva järjestelmä takaa sujuvan käyttökokemuksen, joka välittyy parhaimmillaan jopa asiakkaillesi saakka!',
     'loyalty_kantis_5'          => 'Palvele asiakkaitasi entistäkin<br>
-                                    henkilökohtaisemmin yrityksesi<br> 
+                                    henkilökohtaisemmin yrityksesi<br>
                                     oman kanta-asiakasjärjestelmän<br>
                                     avulla!',
     'loyalty_kantis_6'          => 'Ominaisuudet',
@@ -38,8 +38,8 @@ return [
     'loyalty_kantis_17'         => 'Ole osa kansallista kanta-asiakkuuksien edelläkävijöiden yhteisöä',
     'loyalty_kantis_18'         => 'Kanta-asiakkuuksien hallinta on nyt vaivattomampaa kuin koskaan',
     'loyalty_kantis_19'         => 'Kaikki tärkeä tieto asiakkaistasi on vihdoin ulottuvillasi',
-    'loyalty_kantis_20'         => 'Kanta-asiakasjärjestelmä kerää ja jäsentelee automaattisesti tärkeät tiedot asiakkaistasi 
-                                    sekä heidän käynneistään. Reaaliaikaisten tietojen ansiosta pystyt ohjaamaan liiketoimintaasi 
+    'loyalty_kantis_20'         => 'Kanta-asiakasjärjestelmä kerää ja jäsentelee automaattisesti tärkeät tiedot asiakkaistasi
+                                    sekä heidän käynneistään. Reaaliaikaisten tietojen ansiosta pystyt ohjaamaan liiketoimintaasi
                                     haluamaasi suuntaan paremmin ja helpommin kuin koskaan aikaisemmin.',
     'loyalty_kantis_21'         => 'Helppokäyttöinen',
     'loyalty_kantis_22'         => 'Toimintavarma',
@@ -48,4 +48,29 @@ return [
     // TIME SLOT
     'timeslot_subheader'        => 'Vastaanota varauksia verkosta',
     'timeslot_guide_1'          => 'Vastanota varauksia',
+    'timeslot_guide_2'          => 'Varauksen tekeminen onnistuu muutamalla helpolla ikkauksela',
+    'timeslot_guide_3'          => 'Monipuoliset raportointityökalut',
+    'timeslot_guide_4'          => 'Työaikasuunnittelu',
+    'timeslot_guide_5'          => 'Käytettävissä kaikkialla',
+    'timeslot_guide_6'          => 'Tekstiviesti-ilmotukset',
+    'timeslot_guide_8'          => 'Erittäin helppokäyttöinen',
+    'timeslot_guide_9'          => 'Tekijäkohtaiset kestot',
+    'timeslot_guide_10'         => 'Elämä on nykypäivänä hektisempää kuin koskaan aiemmin. Ihmiset ovat kiireisempiä ja kaiken tulisi olla helppoa ja nopeaa.',
+    'timeslot_guide_11'         => 'Sähköinen ajanvaraus palvelee asiakkaitasi ympäri vuorokauden vaikka et itse olisi töissä.',
+    'timeslot_guide_12'         => 'Sähköisen kalenterin kautta kuluttaja voi helposti etsiä kalenteristasi hänelle parhaiten sopivan ajan.',
+    'timeslot_guide_13'         => 'Yrittäjänä pääset sähköiseen kalenteriin käsiksi työpaikalta, kotoa tai vaikka lounasravintolasta.',
+    'timeslot_guide_14'         => 'Verkkopohjainen kalenteri vaatii ainoastaan pääsyn internettiin.',
+    'timeslot_guide_15'         => 'Aloita varausten vastaanottaminen muutamassa minuutissa!',
+    'timeslot_guide_16'         => 'Ajanvarauksen käyttönottaminen on helppoa ja yksinkertaistaista! Kokeile!',
+    'timeslot_guide_17'         => 'Vastaanota varauksia kotisivuiltasi!',
+    'timeslot_guide_18'         => 'Ajanvarausjärjestelmän avulla helpotat sinun ja asiakkaidesi välistä kommunikointia.',
+    'timeslot_guide_19'         => 'Varaukset myös facebookista!',
+    'timeslot_guide_20'         => 'Sosiaalisen median vaikutus jatkaa kasvamista joten on tärkeää hyödyntää kaikkimahdollisuudet jonka vuoksi suosittelemme lisäämään varauskalenterin myös omille facebook sivuillesi helposti!',
+    'timeslot_guide_21'         => 'Brändisi mukainen ulkoasu!',
+    'timeslot_guide_22'         => 'Ajanvarauksen ulkoasu on mahdollista suunnitella toiveidesi mukaan!',
+    'timeslot_guide_23'         => 'Joustavat ominaisuudet!',
+    'timeslot_guide_24'         => 'Voit räätälöidä työajat, palveluidenkestot, resurssit yms. tarpeidesi mukaan!',
+    'timeslot_guide_25'         => 'Monipuolisten raportointityökalujen ansioista sinun on mahdollista saada ensimmäistä kertaa liiketoimintasi tunnuslukuja.',
+    'timeslot_guide_26'         => 'Asiakasrekisterin avulla asiakkaasi ovat kätevästi yhdessä paikassa.',
+    'timeslot_guide_27'         => 'Mahtavat markkinointityökalut',
 ];

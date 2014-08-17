@@ -1,5 +1,9 @@
 @extends ('layouts.default')
 
+@section('styles')
+    {{ HTML::style('assets/css/intro.css') }}
+@stop
+
 @section('content')
 <div class="row services">
     <div class="col-md-2 col-lg-2">

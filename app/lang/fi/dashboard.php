@@ -9,7 +9,7 @@ return [
     'timeslot'      => 'Ajanvaraus',
     'appointment'   => 'Nimittämistä Ajastimella',
     'loyalty'       => 'Kantiskortti',
-    'martketing'    => 'Markkinointityökalut',
+    'marketing'     => 'Markkinointityökalut',
     'my_sites'      => 'Oma Sivu',
     'site_name'     => 'Sivun Nimi',
     'created'       => 'Luotu',

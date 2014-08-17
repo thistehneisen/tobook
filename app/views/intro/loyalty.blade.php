@@ -4,8 +4,6 @@
     @parent :: {{ trans('dashboard.loyalty') }}
 @stop
 
-{{ HTML::style('assets/css/intro.css') }}
-
 @section ('header')
     <h1 class="text-header">{{ trans('dashboard.loyalty') }}</h1>
 @stop
@@ -34,7 +32,7 @@
             <div class="loyalty-general-info-row margin">
                 <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
                 <span>{{ trans('intro.loyalty_guide6') }}</span>
-            </div>              
+            </div>
         </div>
         <div class="loyalty-general-info-column">
             <div class="loyalty-general-info-row">
@@ -48,7 +46,7 @@
             <div class="loyalty-general-info-row margin">
                 <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
                 <span>{{ trans('intro.loyalty_guide9') }}</span>
-            </div>              
+            </div>
         </div>
         <div class="loyalty-general-info-column">
             <div class="loyalty-general-info-row">
@@ -62,9 +60,9 @@
             <div class="loyalty-general-info-row margin">
                 <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
                 <span>{{ trans('intro.loyalty_guide12') }}</span>
-            </div>              
+            </div>
         </div>
-        <div class="clear-both"></div>       
+        <div class="clear-both"></div>
     </div>
 
     <div class="kantis-introduction">
@@ -99,7 +97,7 @@
                 <div class="kantis-info-content margin">
                     <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
                     <span>{{ trans('intro.loyalty_kantis_10') }}</span>
-                </div>              
+                </div>
             </div>
 
             <div class="kantis-info-header margin">{{ trans('intro.loyalty_kantis_11') }}:</div>
@@ -127,9 +125,9 @@
                 <div class="kantis-info-content margin">
                     <img src="/assets/img/iconPlus.png" class="loyalty-bullet" />&nbsp;
                     <span>{{ trans('intro.loyalty_kantis_17') }}</span>
-                </div>                                                              
+                </div>
 
-            </div>          
+            </div>
         </div>
         <div class="clear-both"></div>
     </div>
@@ -153,9 +151,9 @@
                 <div class="loyalty-controlling-description-text-row margin-bottom">
                     <img src="/assets/img/iconCheck.png" class="loyalty-bullet" />&nbsp;
                     <span>{{ trans('intro.loyalty_kantis_23') }}</span>
-                </div>                                                  
+                </div>
             </div>
-            <div class="clear-both"></div>           
+            <div class="clear-both"></div>
         </div>
     </div>
 
@@ -163,7 +161,7 @@
             <span class="color-orange">Kantiskortti</span>
             <span class="color-black">.com</span>
         </div>
-        <img src="/assets/img/loyalityBody03.png" class="kantis-text-image">    
+        <img src="/assets/img/loyalityBody03.png" class="kantis-text-image">
     </div>
 </div>
 @stop

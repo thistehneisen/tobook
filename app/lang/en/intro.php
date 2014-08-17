@@ -21,7 +21,7 @@ return [
     'loyalty_kantis_3'          => 'Intuitive and straightforward administration panel including all electrical tools in one place, which you can access from work and, if necessary, from home too.',
     'loyalty_kantis_4'          => 'Fast and effective system ensures a smooth user experience, which brings the best thing to your customer!',
     'loyalty_kantis_5'          => 'Serve your customers even <br>
-                                    more personal company<br> 
+                                    more personal company<br>
                                     by own loyalty<br>
                                     system!',
     'loyalty_kantis_6'          => 'Features',
@@ -38,8 +38,8 @@ return [
     'loyalty_kantis_17'         => 'Be a part of national customer loyalty pioneer community',
     'loyalty_kantis_18'         => 'Customer loyalty management is now easier than ever',
     'loyalty_kantis_19'         => 'All the important information of your customers is finally winthin reach',
-    'loyalty_kantis_20'         => 'Customer loyalty system automatically collects and parses the important information of your 
-                                    customers, as well as their visits. Real-time data will enable you to control your business 
+    'loyalty_kantis_20'         => 'Customer loyalty system automatically collects and parses the important information of your
+                                    customers, as well as their visits. Real-time data will enable you to control your business
                                     better and more easily than ever before.',
     'loyalty_kantis_21'         => 'Easy to use',
     'loyalty_kantis_22'         => 'Reliable',
@@ -51,4 +51,26 @@ return [
     'timeslot_guide_2'          => 'Making your reservation in just a few easy steps',
     'timeslot_guide_3'          => 'Advanced reporting tools',
     'timeslot_guide_4'          => 'Working hours planning',
+    'timeslot_guide_5'          => 'Available everywhere',
+    'timeslot_guide_6'          => 'Text message-notifications',
+    'timeslot_guide_8'          => 'Extremely easy to use',
+    'timeslot_guide_9'          => 'Invidual specific durations',
+    'timeslot_guide_10'         => 'Life is hectic these days than ever before. People are busier, and everything should be easy and quick.',
+    'timeslot_guide_11'         => 'Electronic timeslot serves your customers the whole day even when you are at work.',
+    'timeslot_guide_12'         => 'Via the electronic calendar consumers can easily find thei most suitable time.',
+    'timeslot_guide_13'         => 'As an entrepreneur, you can access the online calendar at work, at home or even a lunch restaurant.',
+    'timeslot_guide_14'         => 'Web-based calendar only requires access to the Internet.',
+    'timeslot_guide_15'         => 'Start receiving reservations in a few minutes!',
+    'timeslot_guide_16'         => 'Timeslot instructions is easy and simple! Try it!',
+    'timeslot_guide_17'         => 'Receive bookings from your homepages!',
+    'timeslot_guide_18'         => 'Appointment booking system eases the communication between you and your clients.',
+    'timeslot_guide_19'         => 'Reservations also from Facebook!',
+    'timeslot_guide_20'         => 'Social media influence will continue to grow so it is important to take advantage of all the possibilities which is why we recommend to add the booking calendar to your own Facebook pages easily!',
+    'timeslot_guide_21'         => 'Consistant layout of your brand!',
+    'timeslot_guide_22'         => 'Timeslot layout is possible to design according to your requires!',
+    'timeslot_guide_23'         => 'Flexible features!',
+    'timeslot_guide_24'         => 'You can customize working hours, service duration, resources, etc. according to your needs!',
+    'timeslot_guide_25'         => 'Thanks to diverse reporing tools it is possible to get your business statistics in the first time.',
+    'timeslot_guide_26'         => 'With customer registration, your customers are all in one place.',
+    'timeslot_guide_27'         => 'Powerful marketing tools',
 ];
