@@ -334,7 +334,7 @@
   height: 600px;
   text-align: center;
   font-family: 'Comfortaa';
-  font-weight: bold;
+  font-weight: 700;
   color: #FFF;
   margin-top: 0%;
   margin-left: -13%;
@@ -349,4 +349,119 @@
   color: #FFF;
   font-size: 36px;
   font-weight: normal;
+}
+.cashier-background01 {
+  background-image: url(/assets/img/cashierBack01.png);
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 125.5%;
+  height: 675px;
+  text-align: center;
+  font-family: 'Comfortaa';
+  font-weight: bold;
+  color: #FFF;
+  margin-top: 0%;
+  margin-left: -13%;
+}
+.cashier-background01-circle {
+  width: 400px;
+  height: 400px;
+  border-radius: 200px;
+  background: #FFF;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  margin-left: 170px;
+  color: #999;
+  font-size: 17px;
+  font-weight: normal;
+  float: left;
+}
+.cashier-background01-circle-header {
+  padding-top: 90px;
+}
+.cashier-background01-circle-content {
+  padding-top: 10px;
+}
+.cashier-background02 {
+  margin-top: 50px;
+  border-bottom: 3px solid #CCC;
+}
+.cashier-background02-header {
+  color: #000;
+  font-size: 36px;
+  font-weight: normal;
+}
+.cashier-background02-content {
+  margin-top: 20px;
+  width: 80%;
+  margin-left: 10%;
+}
+.cashier-background02-content-image {
+  width: 58%;
+  float: left;
+}
+.cashier-background02-content-image img {
+  width: 100%;
+}
+.cashier-background02-content-circle {
+  margin-left: 5%;
+  margin-top: 0px;
+  margin-left: 30px;
+  text-align: center;
+  width: 350px;
+  height: 350px;
+  border-radius: 175px;
+  background: #eb8b2e;
+  color: #FFF;
+  font-size: 16px;
+  font-weight: normal;
+  float: left;
+}
+.cashier-background02-content-circle-header {
+  margin-top: 100px;
+}
+.cashier-background02-content-circle-text {
+  margin-top: 10px;
+}
+.cashier-background03 {
+  background-image: url(/assets/img/cashierBack03.png);
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 125.5%;
+  height: 547px;
+  text-align: center;
+  font-family: 'Comfortaa';
+  font-weight: bold;
+  color: #FFF;
+  margin-top: 0%;
+  margin-left: -13%;
+}
+.cashier-background03-header {
+  width: 80%;
+  margin-left: 10%;
+  padding-top: 30px;
+}
+.cashier-background03-header span {
+  color: #FFF;
+  font-size: 36px;
+  font-weight: normal;
+}
+.cashier-background03-circle {
+  width: 350px;
+  height: 350px;
+  border-radius: 175px;
+  background: #FFF;
+  margin-top: 30px;
+  margin-left: 770px;
+  color: #999;
+  font-size: 16px;
+  font-weight: normal;
+}
+.cashier-background03-circle-header {
+  padding-top: 60px;
+}
+.cashier-background03-circle-content {
+  padding-top: 10px;
 }

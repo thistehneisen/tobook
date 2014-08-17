@@ -105,4 +105,42 @@ return [
     'marketing_guide_20'        => 'Markkinointityökalulla tavoitat<br/>
                                     asiakkaasi silloin kun haluat<br/>
                                     keskimäärin 20 minuutissa!<br/>',
+
+    // CASHIER
+    'cashier_guide_1'           => 'Verkkopohjaisen kassajärjestelmän avulla luot asiakkaillesi helposti asianmukaiset kuitit, sekä hoidat raportit suoraan kirjanpitäjällesi.',
+    'cashier_guide_2'           => 'Tule mukaan kehittämään ja optimoimaan liiketoimintasi tuottavuus uudelle tasolle tarkkojen seuranta- & raportointityökalujemme avulla!',
+    'cashier_guide_3'           => 'Helppokäyttöinen kassajärjestelmä',
+    'cashier_guide_4'           => 'Monipuolinen varastonhallinta',
+    'cashier_guide_5'           => 'Seuraa kehitystä',
+    'cashier_guide_6'           => 'Kirjanpitovalmiit raportit',
+    'cashier_guide_7'           => 'Kuittitulostin',
+    'cashier_guide_8'           => 'Tekijäkohtaiset kuitit',
+    'cashier_guide_9'           => 'Kuitit tallessa',
+    'cashier_guide_10'          => 'Kassalaatikko & Kassa',
+    'cashier_guide_11'          => 'Helppokäyttöinen kassa apunasi',
+    'cashier_guide_12'          => 'Nyt sinulla on mahdollisuus saada käyttöösi monipuolinen, mutta
+                                    helppokäyttöinen kassajärjestelmä.<br /> Vuonna 2014 voimaan tulleen
+                                    kuittipakko -uudistuksen myötä yrityksien tulee poikkeuksetta
+                                    tarjota asiakkailleen asianmukainen, ostotapahtumien erittelyn
+                                    sisältävä <br />kuitti ostotapahtumasta. Perinteiset
+                                    kassajärjestelmät sekä käsinkirjoitetut kuitit ovat kankeita
+                                    käytössä, eivätkä paikoin taivu uusien määräysten <br />vaatimiin
+                                    standardeihin. Tästä johtuen on aika siirtää liiketoimintasi
+                                    nykyaikaan, helppokäyttöisten työkalujemme avulla.',
+    'cashier_guide_13'          => 'Vaikka yritykseltäsi ei löydy<br /> kassalaatikkoa tai
+                                    kassakonetta,<br /> ei syytä huoleen.<br /> Toimitamme yritykseesi
+                                    avaimet käteen<br /> -perjaatteella käyttövalmiina ja<br />
+                                    asennettuna pakettina kassajärjestelmän<br /> kuittitulostimen
+                                    sekä kassalaatikon.',
+    'cashier_guide14'           => 'Selkeät raportit - Järjestelmästä saat selkeät kirjanpitovalmiit raporti',
+    'cashier_guide15'           => 'Järjestelmä luo sinulle kirjanpitovalmiit<br /> raportit jotka
+                                    voit toimittaa suoraan<br /> kirjanpitäjällesi.<br /> Halutessasi
+                                    saat järjestelmästä katsottua <br /> myös päivä-, kuukausi-, sekä<br />
+                                    tuotekohtaisia raportteja.<br />',
+    'cashier_guide16'           => 'Tekijäkohtaiset kuitit - Tekijäkohtaiset kuitit ja raportit varustettuna omalla y-tunnuksella.',
+    'cashier_guide17'           => 'Järjestelmä tallentaa kaikki kuitit<br /> palvelimelle, josta voit
+                                    koska vain<br /> hakea asiakkaidesi vanhoja <br /> ostotapahtumia
+                                    tai kuitteja.<br /> <br /> Sinun ei enää tarvitse huolehtia ovatko
+                                    <br /> kuittisi tallessa, sillä järjestelmä huolehtii <br /> niistä
+                                    automaattisesti puolestasi.',
 ];

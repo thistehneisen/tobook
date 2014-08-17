@@ -105,4 +105,42 @@ return [
     'marketing_guide_20'        => 'By marketing tools you reach<br/>
                                     your customer when you want<br/>
                                     in average of 20 minutes!<br/>',
+
+    // CASHIER
+    'cashier_guide_1'           => 'With web-based POS system you create for your customer easy access to receipts, and send your reports directly to bookkeeper.',
+    'cashier_guide_2'           => 'Come to develop and optimize the productivity of your business to a new level with accurate monitoring & reporting tools!',
+    'cashier_guide_3'           => 'Easy to use cashier system',
+    'cashier_guide_4'           => 'Diverse inventory management',
+    'cashier_guide_5'           => 'Follow the development',
+    'cashier_guide_6'           => 'Accounted reports',
+    'cashier_guide_7'           => 'Receipt printing',
+    'cashier_guide_8'           => 'Individual receipts',
+    'cashier_guide_9'           => 'Receipts in the safe place',
+    'cashier_guide_10'          => 'Cashier drawer & Cashier',
+    'cashier_guide_11'          => 'Easy to use cashier at your service',
+    'cashier_guide_12'          => 'Now you have the opportunity to get access to diverse, but
+                                    easy to use cashier system.<br /> In 2014 coming into effect
+                                    the reform of receipt force so that companies should provide
+                                    their customers appropriate, purchase transactions
+                                    containing <br />receipt of purchase. Traditional
+                                    POS system as well as hand written receipt are inflexible to
+                                    use, and in some places yields new regulations <br />required
+                                    by the standard. As a result, it is time to change your business
+                                    using the modern, easy to use tools.',
+    'cashier_guide_13'          => 'Even if your company does not have<br /> cashier drawer or
+                                    cashier machine,<br /> do not worry.<br /> We deliver to
+                                    your company ready to use and<br />
+                                    installed package of POS system,<br /> receipt printer
+                                    and cashier drawer.',
+    'cashier_guide14'           => 'Clear reports - You get clear accounted report from the system',
+    'cashier_guide15'           => 'System will create for you accounted<br /> reports which
+                                    you can deliver directly<br /> to your accountant.<br /> If you want you can
+                                    get from the system checked <br /> daily, monthly, as well as<br />
+                                    product specific reports.<br />',
+    'cashier_guide16'           => 'Individual receipts - Individual receipts and reports with own business ID.',
+    'cashier_guide17'           => 'System will save all the receipts<br /> to the server, where you can
+                                    <br /> get your customers\' old <br /> purchase transactions
+                                    or receipts.<br /> <br /> You do not have to worry anymore about whether
+                                    <br /> your receipt is in safe place, <br />as system takes care <br /> of them
+                                    automatically for you.',
 ];
