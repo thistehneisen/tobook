@@ -18,12 +18,13 @@
 - Clone this repo
 - Create a virtualhost and point it to `public/` folder
 - Install all needed packages: `composer install`
+- Create a new local DB and import `db/dev_dump.sql`
 - Generate your local config files with: `php artisan varaa:generate-configs`
 and change your database config to match your local setup in `app/config/database.php`
 - Run command to do needed fixes to DB: `php artisan varaa:install`
 
 ### Tests
-- Create test config: `cp app/tests/acceptance.suite.yml.tpl app/tests/acceptance.suite` then modify to match your local config
+- Create test config: `cp app/tests/acceptance.suite.yml.tpl app/tests/acceptance.suite.yml` then modify to match your local config
 - Read http://codeception.com/docs/01-Introduction and http://codeception.com/docs/04-AcceptanceTests
 - Generate your acceptance tests in `app/tests/acceptance/` folder:
 `php codecept.phar generate:cest acceptance YourTestName`
