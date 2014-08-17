@@ -33,10 +33,9 @@ $(function() {
                         <li><a href="{{ route('admin.crud.index', ['model' => 'users']) }}">Users</a></li>
                         <li><a href="{{ route('admin.crud.index', ['model' => 'roles']) }}">Roles</a></li>
                         <li><a href="{{ route('admin.crud.index', ['model' => 'permissions']) }}">Permissions</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Settings</a></li>
                     </ul>
                 </li>
+                <li><a href="{{ route('admin.settings.index') }}">Settings</a></li>
             </ul>
             <form class="navbar-form navbar-right" role="search">
                 <div class="form-group">

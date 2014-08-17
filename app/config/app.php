@@ -196,7 +196,8 @@ return array(
         // Addon facades
         'Confide' => 'Zizaco\Confide\ConfideFacade',
         'Entrust' => 'Zizaco\Entrust\EntrustFacade',
-        'Hashids' => 'Ludo237\Hashids\Hashids'
+        'Hashids' => 'Ludo237\Hashids\Hashids',
+        'Setting' => 'anlutro\LaravelSettings\Facade'
 
 	),
 

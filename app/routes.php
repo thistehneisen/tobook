@@ -159,6 +159,16 @@ Route::group([
         'uses' => 'App\Controllers\Admin\Dashboard@index'
     ]);
 
+    Route::get('settings', [
+        'as' => 'admin.settings.index',
+        'uses' => 'App\Controllers\Admin\Settings@index'
+    ]);
+
+    Route::post('settings', [
+        'as' => 'admin.settings.index',
+        'uses' => 'App\Controllers\Admin\Settings@doUpdate'
+    ]);
+
     // User model uses a different way to save data
     Route::post('users/{id}', [
         'uses' => 'App\Controllers\Admin\Users@doEdit'
