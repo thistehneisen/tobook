@@ -12,15 +12,13 @@ class User extends ConfideUser
         'email',
         'first_name',
         'last_name',
-        'address_1',
+        'phone',
+        /*'address_1',
         'address_2',
         'city',
         'state',
         'zipcode',
-        'country',
-        'phone',
-        'fax',
-        'stylesheet',
+        'country',*/
     ];
 
     /**
@@ -44,7 +42,7 @@ class User extends ConfideUser
         if ($user) {
             // Manually login
             App::make('auth')->login($user);
-            
+
             return $user;
         }
 
@@ -80,7 +78,7 @@ class User extends ConfideUser
     /**
      * Check if this user has activated a module / service
      *
-     * @return boolean 
+     * @return boolean
      */
     public function isServiceActivated($tablePrefix, $table)
     {

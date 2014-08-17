@@ -3,5 +3,5 @@ use Zizaco\Entrust\EntrustRole;
 
 class Role extends EntrustRole
 {
-    public $visible = ['id', 'name'];
+    //public $visible = ['id', 'name'];
 }
