@@ -9,7 +9,7 @@ if (isset($tpl['status']))
 			break;
 	}
 } else {
-	
+
 	echo $tpl['calendar'];
 }
 ?>
