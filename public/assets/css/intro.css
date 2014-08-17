@@ -51,12 +51,14 @@
   width: 127.5%;
   padding-top: 30px;
   padding-bottom: 40px;
+  font-weight: 600;
 }
 .kantis-introduction span {
   font-size: 40px;
 }
 .kantis-introduction p {
   line-height: 30px;
+  font-size: 17px;
 }
 .loyalty-background01 {
   background-image: url(/assets/img/loyalityBody01.png);
@@ -67,7 +69,7 @@
   height: 752px;
   text-align: center;
   font-family: 'Comfortaa';
-  font-weight: bold;
+  font-weight: 700;
   color: #FFF;
   margin-left: -15%;
 }
@@ -210,6 +212,9 @@
 .timeslot-demo-image.margin {
   margin-left: 5%;
 }
+.timeslot-demo-image.image-big {
+  width: 500px;
+}
 .timeslot-demo-content {
   width: 60%;
   float: left;
@@ -241,4 +246,107 @@
 }
 .timeslot-footer {
   margin-top: 50px;
+}
+.marketing-background01 {
+  margin-top: 20px;
+}
+.marketing-background01-image {
+  width: 40%;
+  margin-left: 0%;
+  float: left;
+}
+.marketing-background01-image img {
+  width: 500px;
+}
+.marketing-background01-text {
+  width: 55%;
+  float: left;
+}
+.marketing-background01-text-header {
+  width: 100%;
+  margin-left: 10%;
+  padding-top: 30px;
+}
+.marketing-background01-text-header span {
+  color: #000;
+  font-size: 36px;
+  font-weight: normal;
+}
+.marketing-background01-text-content {
+  width: 300px;
+  height: 300px;
+  border-radius: 150px;
+  background: #f6851f;
+  margin-top: 40px;
+  margin-left: 200px;
+  color: #FFF;
+  font-size: 18px;
+  font-weight: normal;
+  padding-top: 100px;
+  line-height: 30px;
+}
+.marketing-background02 {
+  background-image: url(/assets/img/marketingBack02.png);
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 125.5%;
+  height: 500px;
+  text-align: center;
+  font-family: 'Comfortaa';
+  font-weight: 700;
+  color: #FFF;
+  margin-top: 0%;
+  margin-left: -13%;
+}
+.marketing-background02-circle {
+  margin-right: 3%;
+  float: left;
+  width: 300px;
+  height: 300px;
+  border-radius: 150px;
+  background: #f6851f;
+  margin-top: 140px;
+  margin-left: 170px;
+  color: #FFF;
+  font-size: 18px;
+  font-weight: normal;
+  padding-top: 100px;
+  line-height: 30px;
+}
+.marketing-background02-text {
+  width: 57%;
+  float: left;
+  padding-top: 80px;
+  padding-left: 20%;
+}
+.marketing-background02-text span {
+  color: #FFF;
+  font-size: 36px;
+  font-weight: normal;
+}
+.marketing-background04 {
+  background-image: url(/assets/img/marketingBack04.png);
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 125.5%;
+  height: 600px;
+  text-align: center;
+  font-family: 'Comfortaa';
+  font-weight: bold;
+  color: #FFF;
+  margin-top: 0%;
+  margin-left: -13%;
+}
+.marketing-background04-header {
+  margin-left: 170px;
+  margin-bottom: -5%;
+  padding-top: 80px;
+  text-align: left;
+}
+.marketing-background04-header span {
+  color: #FFF;
+  font-size: 36px;
+  font-weight: normal;
 }

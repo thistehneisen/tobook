@@ -36,7 +36,7 @@ Route::group(['prefix' => 'intro'], function () {
 
     Route::get('customer-registration', [
         'as' => 'intro-customer-registration',
-        'uses' => 'App\Controllers\Home@customerRegistration',
+        'uses' => 'App\Controllers\Home@marketingTools',
     ]);
 
     Route::get('cashier', [

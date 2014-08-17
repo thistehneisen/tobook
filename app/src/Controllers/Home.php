@@ -26,10 +26,6 @@ class Home extends Base
         return View::make('intro.timeslot');
     }
 
-    public function customerRegistration() {
-        return View::make('intro.customer');
-    }
-
     public function cashier() {
         return View::make('intro.cashier');
     }

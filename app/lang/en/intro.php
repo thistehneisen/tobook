@@ -73,4 +73,36 @@ return [
     'timeslot_guide_25'         => 'Thanks to diverse reporing tools it is possible to get your business statistics in the first time.',
     'timeslot_guide_26'         => 'With customer registration, your customers are all in one place.',
     'timeslot_guide_27'         => 'Powerful marketing tools',
+
+    // MARKETING TOOLS & CUSTOMER REGISTRATION
+    'marketing_guide_1'         => 'Connect to your customers',
+    'marketing_guide_2'         => 'All of your customer information are availabe easily!',
+    'marketing_guide_3'         => 'Customer information',
+    'marketing_guide_4'         => 'SMS marketing',
+    'marketing_guide_5'         => 'Additional sales',
+    'marketing_guide_6'         => 'Effortless marketing',
+    'marketing_guide_7'         => 'Electronic marketing',
+    'marketing_guide_8'         => 'Customer history',
+    'marketing_guide_9'         => 'Customer group',
+    'marketing_guide_10'        => 'Identify your best customers',
+    'marketing_guide_11'        => 'Life today is more hectic than ever before.',
+    'marketing_guide_12'        => 'People are busier, and everything should be easy and quick.',
+    'marketing_guide_13'        => 'You control your business direction and pace, we offer the market\'s most advanced and',
+    'marketing_guide_14'        => 'easy to use working tools for the implementation of your vision!',
+    'marketing_guide_15'        => 'Customer information altogether in one place',
+    'marketing_guide_16'        => 'Your customer information is in<br/>
+                                    safe place. You can easily manage<br/>
+                                    and edit customer cards, as well<br/>
+                                    as collect information about <br/>your customers.',
+    'marketing_guide_17'        => 'Keep in touch with your customers<br/>
+                                    easily by email or <br/>
+                                    sms-marketing tools.<br/>',
+    'marketing_guide_18'        => 'Increase your sales!',
+    'marketing_guide_19'        => 'Marketing automation is responsible<br/>
+                                    for the regular marketing<br/>
+                                    to your customers and helps<br/>
+                                    you increase your sales!<br/>',
+    'marketing_guide_20'        => 'By marketing tools you reach<br/>
+                                    your customer when you want<br/>
+                                    in average of 20 minutes!<br/>',
 ];

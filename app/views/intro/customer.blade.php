@@ -1,2 +1,0 @@
-HOHO
-customer

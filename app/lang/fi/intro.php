@@ -73,4 +73,36 @@ return [
     'timeslot_guide_25'         => 'Monipuolisten raportointityökalujen ansioista sinun on mahdollista saada ensimmäistä kertaa liiketoimintasi tunnuslukuja.',
     'timeslot_guide_26'         => 'Asiakasrekisterin avulla asiakkaasi ovat kätevästi yhdessä paikassa.',
     'timeslot_guide_27'         => 'Mahtavat markkinointityökalut',
+
+    // MARKETING TOOLS & CUSTOMER REGISTRATION
+    'marketing_guide_1'         => 'Yhteydessä asiakkaisiisi',
+    'marketing_guide_2'         => 'Kaikki asiakasatietosi helposti saatavilla!',
+    'marketing_guide_3'         => 'Asiakastiedot',
+    'marketing_guide_4'         => 'SMS markkinointi',
+    'marketing_guide_5'         => 'Lisämyynti',
+    'marketing_guide_6'         => 'Vaivatonta markkinointia',
+    'marketing_guide_7'         => 'Sähkopostimarkkinointi',
+    'marketing_guide_8'         => 'Asiakashistoria',
+    'marketing_guide_9'         => 'Asiakasryhmät',
+    'marketing_guide_10'        => 'Tunnista parhaat asiakkaasi',
+    'marketing_guide_11'        => 'Elämä nykypäivänä on hektisempää kuin koskaan aiemmin.',
+    'marketing_guide_12'        => 'Ihmiset ovat kiireisiä, ja kaiken tulisi olla arjen sujuvuuden kannalta mahdollisimman helppoa sekä nopeaa.',
+    'marketing_guide_13'        => 'Sinä määräät liiketoimintasi suunnan ja rytmin, me tarjoamme markkinoiden edistyneimmät ja',
+    'marketing_guide_14'        => 'helppokäyttöisimmät työkalut hurjimpienkin visioidesi toteuttamiseen!',
+    'marketing_guide_15'        => 'Asiakastiedot yhdessä paikassa',
+    'marketing_guide_16'        => 'Asiakastietosi ovat varmassa<br/>
+                                    tallessa. Voit helposti ylläpitää ja <br/>
+                                    muokata asiakaskortteja, sekä <br/>
+                                    kerätä tietoja asiakkaistasi.<br/>',
+    'marketing_guide_17'        => 'Pidä yhteyttä asiakkaisiisi<br/>
+                                    helppokäyttöisen sähköposti- tai <br/>
+                                    sms-markkinointityökalun avulla.<br/>',
+    'marketing_guide_18'        => 'Kasvata myyntiä!',
+    'marketing_guide_19'        => 'Markkinointiautomaatio huolehtii<br/>
+                                    säännöllisestä markkinoinnista<br/>
+                                    asiakkaillesi ja auttaa sinua<br/>
+                                    kasvattamaan myyntiäsi!<br/>',
+    'marketing_guide_20'        => 'Markkinointityökalulla tavoitat<br/>
+                                    asiakkaasi silloin kun haluat<br/>
+                                    keskimäärin 20 minuutissa!<br/>',
 ];

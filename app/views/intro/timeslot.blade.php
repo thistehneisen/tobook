@@ -9,7 +9,7 @@
 @stop
 
 @section ('subheader')
-    <h6 class="text-subheader">{{ trans('intro.timeslot_subheader') }}</h4>
+    <h6 class="text-subheader">{{ trans('intro.timeslot_subheader') }}</h6>
 @stop
 
 @section ('intro_content')
