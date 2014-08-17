@@ -11,6 +11,10 @@ def _deploy():
         run('git pull')
         # install dependencies
         run('composer install')
+        # run migration
+        run('php artisan migrate')
+        # chmod storage again
+        run('chmod -Rf 777 app/storage')
 
 
 @task(alias='ds')
