@@ -77,11 +77,11 @@
                 <p class="company-name"><span>varaa</span>.com</p>
                 <p>&copy; {{ date('Y') }} | <a href="#">{{ trans('home.copyright_policy')}}</a></p>
                 <ul class="list-unstyled list-inline list-social-networks">
-                    <li><a href="" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="" target="_blank"><i class="fa fa-google-plus"></i></a></li>
-                    <li><a href="" target="_blank"><i class="fa fa-rss"></i></a></li>
-                    <li><a href="" target="_blank"><i class="fa fa-pinterest"></i></a></li>
-                    <li><a href="" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                    <li><a href="{{ Setting::get('facebook-page') }}" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="{{ Setting::get('google-page') }}" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+                    <li><a href="{{ Setting::get('rss-page') }}" target="_blank"><i class="fa fa-rss"></i></a></li>
+                    <li><a href="{{ Setting::get('pinterest-page') }}" target="_blank"><i class="fa fa-pinterest"></i></a></li>
+                    <li><a href="{{ Setting::get('linkedin-page') }}" target="_blank"><i class="fa fa-linkedin"></i></a></li>
                 </ul>
             </div>
             <div class="col-md-4 col-lg-4">
@@ -97,14 +97,14 @@
             </div>
             <div class="col-md-4 col-lg-4">
                 <h4>{{ trans('home.location') }}</h4>
-                <p>Kaupattie 8, Helsinki</p>
+                <p>{{ Setting::get('location') }}</p>
                 <dl class="dl-horizontal">
                     <dt>{{ trans('home.freephone') }}</dt>
-                    <dd>+1 800 559 6580</dd>
+                    <dd>{{ Setting::get('free-phone') }}</dd>
                     <dt>{{ trans('home.telephone') }}</dt>
-                    <dd>+1 800 603 6035</dd>
+                    <dd>{{ Setting::get('telephone') }}</dd>
                     <dt>{{ trans('home.fax') }}</dt>
-                    <dd>+1 800 889 9898</dd>
+                    <dd>{{ Setting::get('fax') }}</dd>
                 </dl>
             </div>
         </div>

@@ -124,7 +124,8 @@ return array(
         // Addon providers
         'Zizaco\Confide\ConfideServiceProvider',
         'Zizaco\Entrust\EntrustServiceProvider',
-        'Ludo237\Hashids\HashidsServiceProvider'
+        'Ludo237\Hashids\HashidsServiceProvider',
+        'anlutro\LaravelSettings\ServiceProvider'
 
 	),
 
@@ -195,7 +196,8 @@ return array(
         // Addon facades
         'Confide' => 'Zizaco\Confide\ConfideFacade',
         'Entrust' => 'Zizaco\Entrust\EntrustFacade',
-        'Hashids' => 'Ludo237\Hashids\Hashids'
+        'Hashids' => 'Ludo237\Hashids\Hashids',
+        'Setting' => 'anlutro\LaravelSettings\Facade'
 
 	),
 

@@ -1,6 +1,6 @@
 <?php namespace App\Controllers;
 
-use Illuminate\Support\MessageBag;
+use Illuminate\Support\MessageBag, Settings;
 
 class Base extends \Controller
 {
@@ -19,7 +19,7 @@ class Base extends \Controller
     /**
      * Create a new message bag containing success messages
      *
-     * @param  mixed $content 
+     * @param  mixed $content
      * @param  string $title   (optional)
      *
      * @return MessageBag
