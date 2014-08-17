@@ -4,18 +4,7 @@ if (!isset($_SERVER['SERVER_ADDR']) && function_exists('gethostbyname'))
 {
 	$_SERVER['SERVER_ADDR'] = gethostbyname($_SERVER['SERVER_NAME']);
 }
-if (isset($_SERVER['SERVER_ADDR']) && $_SERVER['SERVER_ADDR'] == '127.0.0.1')
-{
-	ini_set("display_errors", "On");
-    error_reporting(E_ALL);
-} else {
-    if (isset($_SERVER['APP_ENV']) && $_SERVER['APP_ENV'] === 'development') {
-	   error_reporting(E_ALL);
-    } else {
-	   error_reporting(0);
-    }
-}
-error_reporting(E_ALL);
+
 header("Content-type: text/html; charset=utf-8");
 if (!defined("ROOT_PATH"))
 {
@@ -45,17 +34,17 @@ if (isset($_GET['controller']))
 		echo 'controller not found';
 		exit;
 	}
-	
+
 	require_once CONTROLLERS_PATH . $_GET['controller'] . '.controller.php';
 	if (class_exists($_GET['controller']))
 	{
 		$controller = new $_GET['controller'];
-		
+
 		if (is_object($controller))
 		{
 			$controller->setDefaultProduct('RestaurantBooking_' . PREFIX );
 			$tpl = &$controller->tpl;
-			
+
 			if (isset($_GET['action']))
 			{
 				$action = $_GET['action'];
@@ -80,14 +69,14 @@ if (isset($_GET['controller']))
 				}
 			} else {
 				$_GET['action'] = 'index';
-				
+
 				$controller->beforeFilter();
 				$controller->index();
 				$controller->afterFilter();
 				$controller->beforeRender();
 				$content_tpl = VIEWS_PATH . $_GET['controller'] . '/index.php';
 			}
-			
+
 			if (!is_file($content_tpl))
 			{
 				echo 'template not found';
@@ -96,7 +85,7 @@ if (isset($_GET['controller']))
 
 			# Language
 			require ROOT_PATH . 'app/locale/'. $controller->getLanguage() . '.php';
-			
+
 			if ($controller->isAjax())
 			{
 				require $content_tpl;

@@ -3,7 +3,6 @@
     $varaaDb = Bridge::dbConfig();
 
     @session_start();
-    error_reporting(E_ALL);
     $dns = sprintf("mysql:dbname=%s;host=%s", $varaaDb['database'], $varaaDb['host']);
     $pdo = new PDO($dns, $varaaDb['username'], $varaaDb['password']);
     $owner_id = intval($_SESSION['owner_id']);
@@ -104,11 +103,11 @@
         INSERT INTO `ts_working_times` (`calendar_id`, `owner_id`,`monday_from`, `monday_to`, `monday_price`, `monday_limit`, `monday_dayoff`, `tuesday_from`, `tuesday_to`, `tuesday_price`, `tuesday_limit`, `tuesday_dayoff`, `wednesday_from`, `wednesday_to`, `wednesday_price`, `wednesday_limit`, `wednesday_dayoff`, `thursday_from`, `thursday_to`, `thursday_price`, `thursday_limit`, `thursday_dayoff`, `friday_from`, `friday_to`, `friday_price`, `friday_limit`, `friday_dayoff`, `saturday_from`, `saturday_to`, `saturday_price`, `saturday_limit`, `saturday_dayoff`, `sunday_from`, `sunday_to`, `sunday_price`, `sunday_limit`, `sunday_dayoff`) VALUES
 (@calendar_id, , :owner_id, '09:00:00', '18:00:00', 0.00, 1, 'F', '09:00:00', '18:00:00', 0.00, 1, 'F', '09:00:00', '18:00:00', 0.00, 1, 'F', '09:00:00', '18:00:00', 0.00, 1, 'F', '09:00:00', '18:00:00', 0.00, 1, 'F', NULL, NULL, NULL, 1, 'T', NULL, NULL, NULL, 1, 'T');
 SQL;
-   
+
     $newSession = md5(uniqid(rand(), true));
     $query  = $pdo->prepare($sql);
     $query->bindParam(':owner_id', $owner_id);
     $query->bindParam(':session_id', $newSession);
     $query->execute();
-    
+
     header("location: session.php?username=".$_GET['username'] );

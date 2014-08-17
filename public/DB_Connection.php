@@ -180,7 +180,7 @@ class DatabaseManager
 
 function fncReadUDL($filepath)
 {
-    global $DATABASE; 
+    global $DATABASE;
 
     $lines = file($filepath);
     foreach ($lines as $line_num => $line) {
@@ -224,5 +224,3 @@ define('MYSQL_DB',          $varaaDb['database']);
 
 global $db;
 $db = new DatabaseManager("mysql", MYSQL_HOST, MYSQL_USERNAME, MYSQL_PASSWORD, MYSQL_DB);
-
-?>

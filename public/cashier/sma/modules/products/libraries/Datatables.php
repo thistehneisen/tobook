@@ -253,7 +253,7 @@
       	$this->ci->db->limit(($iLength != '' && $iLength != '-1')? $iLength : 10, ($iStart)? $iStart : 0);
 	  }
     }
-	
+
 
     /**
     * Generates the ORDER BY portion of the query
@@ -271,7 +271,7 @@
 
       $mColArray = array_values(array_diff($mColArray, $this->unset_columns));
       $columns = array_values(array_diff($this->columns, $this->unset_columns));
- 
+
       for($i = 0; $i < intval($this->ci->input->post('iSortingCols')); $i++)
         if(isset($mColArray[intval($this->ci->input->post('iSortCol_' . $i))]) && in_array($mColArray[intval($this->ci->input->post('iSortCol_' . $i))], $columns) && $this->ci->input->post('bSortable_'.intval($this->ci->input->post('iSortCol_' . $i))) == 'true')
           $this->ci->db->order_by($mColArray[intval($this->ci->input->post('iSortCol_' . $i))], $this->ci->input->post('sSortDir_' . $i));
@@ -340,7 +340,7 @@
       foreach($this->filter as $val)
         $this->ci->db->where($val[0], $val[1], $val[2]);
     }*/
-	
+
 	protected function get_filtering()
     {
       if($this->check_mDataprop())
@@ -354,8 +354,6 @@
       $sSearch = mysql_real_escape_string($this->ci->input->post('sSearch'));
       $mColArray = array_values(array_diff($mColArray, $this->unset_columns));
       $columns = array_values(array_diff($this->columns, $this->unset_columns));
-
-      error_reporting(E_ALL);
 
       if($sSearch != '') {
         for($i = 0; $i < count($mColArray); $i++) {
@@ -488,7 +486,7 @@
         $this->ci->db->like($val[0], $val[1], $val[2]);
 
       $query = $this->ci->db->get($this->table, NULL, NULL, FALSE);
-      return $query->num_rows(); 
+      return $query->num_rows();
     }
 
     /**

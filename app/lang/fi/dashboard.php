@@ -6,7 +6,7 @@ return [
     'promotion'     => 'Edistämisen Hallinta',
     'cashier'       => 'Kassan Hallinta',
     'restaurant'    => 'Ravintolan Varaus',
-    'timeslot'      => 'Nimittämistä Ajastimella',
+    'timeslot'      => 'Timeslot ajanvaraus',
     'appointment'   => 'Ajanvaraus',
     'loyalty'       => 'Kantiskortti',
     'marketing'     => 'Markkinointityökalut',

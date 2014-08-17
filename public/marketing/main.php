@@ -24,7 +24,6 @@ require_once("common/functions.php");
 <link rel='stylesheet' href="css/datepicker.css" type='text/css' media='all' />
 <?php
 
-error_reporting(E_ALL);
 if (isset($_GET["username"]) && $_GET["username"] != "") {
     $prefix = $_GET["username"];
     $ownerId = $_GET["userid"];
@@ -105,7 +104,7 @@ $today = $dataResult[0]['today'];
 				<div>
 					<label class="floatleft marginRight20" style="padding-top: 7px;">
 					    <b><?php echo __('searchDate');?> :</b>
-					</label> 
+					</label>
 					<input type="text" id="txtStartDate"
 						class="floatleft form-control marginRight20"
 						style="width: 120px; text-align: center; cursor: pointer; background: #FFF;"
@@ -121,12 +120,12 @@ $today = $dataResult[0]['today'];
 					<div class="clearboth"></div>
 				</div>
 				<div style="margin-top: 15px;">
-					<label class="checkbox-inline" style="padding-right: 30px;"> 
+					<label class="checkbox-inline" style="padding-right: 30px;">
 					    <input
 						type="checkbox" id="chkGroupAll" value="all"
 						onclick="onAllGroup(this)"> <b><u><?php echo __('allGroup');?></u></b>
-					</label> 
-					<label class="checkbox-inline"> 
+					</label>
+					<label class="checkbox-inline">
 					    <input type="checkbox"
 						id="chkTimeslot" value="tb"
 						<?php if ($tb == "Y") echo "checked"; ?>> <?php echo __('timeslotBookings'); ?>
@@ -140,7 +139,7 @@ $today = $dataResult[0]['today'];
 					    <input type="checkbox"
 						id="chkAppointment" value="as"
 						<?php if ($as == "Y") echo "checked"; ?>> <?php echo __('appointmentScheduler'); ?>
-					</label> 
+					</label>
 					<label class="checkbox-inline" style="display: none;">
 					    <input
 						type="checkbox" id="chkHairBeauty" value="hb"
@@ -237,7 +236,7 @@ $today = $dataResult[0]['today'];
 						<td><?php echo $customerList[$i]['cEmail']?></td>
 						<td><?php echo $customerList[$i]['cPhone']?></td>
 						<td>
-						<?php 
+						<?php
 						if ($customerList[$i]['planGroupCode'] == "tb") {
 							echo __('timeslotBookings');
 						} elseif ($customerList[$i]['planGroupCode'] == "rb") {
@@ -302,7 +301,7 @@ $today = $dataResult[0]['today'];
 		</div>
 		<hr />
 		<div style="text-align: center;">
-			<input type="text" class="form-control" id="scheduleDate" style="width: 120px; display: initial; margin-top: -3px; text-align: center;" value="<?php echo $today;?>" />&nbsp; 
+			<input type="text" class="form-control" id="scheduleDate" style="width: 120px; display: initial; margin-top: -3px; text-align: center;" value="<?php echo $today;?>" />&nbsp;
 			<select class="form-control" style="width: 70px; display: initial; margin-top: -3px;" id="scheduleHour">
 				<?php for ($i = 0; $i < 24; $i++) {?>
 				<option value="<?php echo $i;?>">
@@ -463,6 +462,6 @@ $today = $dataResult[0]['today'];
 <script src="js/footable.js" type="text/javascript"></script>
 <script src="js/footable.sort.js" type="text/javascript"></script>
 <script src="js/bootstrap-datepicker.js"></script>
-<script type="text/javascript" src="js/main.js"></script>	
+<script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
