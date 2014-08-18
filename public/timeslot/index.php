@@ -1,4 +1,21 @@
 <?php
+require_once realpath(__DIR__.'/../../Bridge.php');
+$varaaDb = Bridge::dbConfig();
+
+//------------------------------------------------------------------------------
+// Check if the current user are still in the core
+// If not, kick him out
+// An Cao <an@varaa.com>
+//------------------------------------------------------------------------------
+if (!Bridge::hasOwnerId()) {
+	echo <<< JS
+<script>
+window.parent.location = '/auth/login';
+</script>
+JS;
+	exit;
+}
+
 /**
  * @package tsbc
  */

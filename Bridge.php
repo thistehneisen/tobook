@@ -64,8 +64,9 @@ class Bridge
         ];
     }
 
-    protected function confide()
+    protected function hasOwnerId()
     {
-        return $this->app['confide'];
+        @session_start();
+        return isset($_SESSION['owner_id']);
     }
 }
