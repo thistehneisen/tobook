@@ -19,7 +19,7 @@ class pjAdminOptions extends pjAdmin
 				pjObject::import('Model', array('pjLocale:pjLocale', 'pjLocale:pjLocaleLanguage'));
 				$locale_arr = pjLocaleModel::factory()->select('t1.*')
 					->orderBy('t1.sort ASC')->findAll()->getData();
-						
+
 				$lp_arr = array();
 				foreach ($locale_arr as &$v)
 				{
@@ -31,7 +31,7 @@ class pjAdminOptions extends pjAdmin
 				$arr = array();
 				$arr['i18n'] = pjMultiLangModel::factory()->where('owner_id', $owner_id)->getMultiLang($this->getForeignId(), 'pjCalendar');
 				$this->set('arr', $arr);
-				
+
 				if ((int) $this->option_arr['o_multi_lang'] === 1)
 				{
 					$this->set('locale_str', pjAppController::jsonEncode($lp_arr));
@@ -46,7 +46,7 @@ class pjAdminOptions extends pjAdmin
 					->findAll()
 					->getData();
 				$this->set('arr', $arr);
-				
+
 				$tmp = $this->models['Option']->reset()->findAll()->getData();
 				$o_arr = array();
 				foreach ($tmp as $item)
@@ -62,11 +62,11 @@ class pjAdminOptions extends pjAdmin
 			$this->set('status', 2);
 		}
 	}
-	
+
 	public function pjActionInstall()
 	{
 		$this->checkLogin();
-		
+
 		if ($this->isAdmin())
 		{
 			if ((int) $this->option_arr['o_multi_lang'] === 1)
@@ -77,13 +77,13 @@ class pjAdminOptions extends pjAdmin
 					->orderBy('t1.sort ASC')->findAll()->getData();
 				$this->set('locale_arr', $locale_arr);
 			}
-					
+
 			$this->appendJs('pjAdminOptions.js');
 		} else {
 			$this->set('status', 2);
 		}
 	}
-	
+
 	public function pjActionPreview()
 	{
 		$this->setAjax(true);
@@ -93,13 +93,18 @@ class pjAdminOptions extends pjAdmin
         }
         if(empty($owner_id)){
             $as_pf = str_replace('_hey_', '', $as_pf);
-            require_once("../../includes/configsettings.php");
-            $dns = sprintf("mysql:dbname=%s;host=%s", PJ_DB, PJ_HOST);
-            $dbh = new PDO($dns, PJ_USER, PJ_PASS);
-            $sql = "SELECT nuser_id FROM tbl_user_mast WHERE vuser_login LIKE '$as_pf%' LIMIT 0,1";
+            $prefix = $as_pf.'%';
+            require_once base_path().'/Bridge.php';
+            $varaaDb = Bridge::dbConfig();
+
+            $dns = sprintf("mysql:dbname=%s;host=%s", $varaaDb['database'], $varaaDb['host']);
+            $dbh = new PDO($dns, $varaaDb['username'], $varaaDb['password']);
+            $sql = "SELECT id FROM varaa_users WHERE username LIKE :prefix LIMIT 0,1";
             $sth  = $dbh->prepare($sql);
+            $sth->bindParam(':prefix', $prefix, PDO::PARAM_STR);
             $sth->execute();
             $owner_id = intval($sth->fetchColumn());
+            unset($prefix);
         }
         $_SESSION['use_front_owner_id'] = true;
         $_SESSION['front_owner_id'] = $owner_id;
@@ -108,10 +113,10 @@ class pjAdminOptions extends pjAdmin
 		$this->set('style', pjStyleModel::factory()
 			->findAll()
 			->getData());
-		
+
 		$this->setLayout('pjActionEmpty');
 	}
-	
+
 	public function pjActionUpdate()
 	{
 		$this->checkLogin();
@@ -135,7 +140,7 @@ class pjAdminOptions extends pjAdmin
 						->where('tab_id', $_POST['tab'])
 						->where('owner_id', $owner_id)
 						->modifyAll(array('value' => '1|0::0'));
-						
+
 					foreach ($_POST as $key => $value)
 					{
 						if (preg_match('/value-(string|text|int|float|enum|bool|color)-(.*)/', $key) === 1)
@@ -190,10 +195,10 @@ class pjAdminOptions extends pjAdmin
 			$this->set('status', 2);
 		}
 	}
-	
+
 	Public function getposts() {
 		$this->setAjax(true);
-	
+
 		if ($this->isXHR() && $this->isLoged() && $this->isAdmin())
 		{
 			$con = mysqli_connect(PJ_HOST, PJ_USER, PJ_PASS, PJ_DB);
@@ -201,79 +206,79 @@ class pjAdminOptions extends pjAdmin
 			if (mysqli_connect_errno()) {
 				echo "Failed to connect to MySQL: " . mysqli_connect_error();
 			}
-			
+
 			$sql = "SELECT * FROM " . PJ_PREFIX . "posts where post_type IN ('post', 'page')";
-			
+
 			if ( isset($_GET['search']) ) {
 				$search = $_GET['search'];
 				$sql .= "AND post_title LIKE '%$search%' ";
 			}
-			
+
 			$sql .= " AND post_status = 'publish' ORDER BY post_title ASC";
-			
+
 			$result = mysqli_query($con,  $sql);
-			
+
 			$posts = array();
-			
+
 			while($row = mysqli_fetch_array($result)) {
 				$posts[] = $row;
 			}
-			
+
 			$this->set('posts_arr', $posts);
-			
+
 			mysqli_close($con);
-			
+
 		}
-	
+
 	}
-	
+
 	public function pjActionInsertContent() {
 		$this->setAjax(true);
-	
+
 		if ($this->isXHR() && $this->isLoged() && $this->isAdmin())
 		{
-				
+
 			if (isset($_POST['id'])) {
-	
+
 				$con = mysqli_connect(PJ_HOST, PJ_USER, PJ_PASS, PJ_DB);
 				// Check connection
 				if (mysqli_connect_errno()) {
 					echo "Failed to connect to MySQL: " . mysqli_connect_error();
 				}
-					
+
 				$sql = "SELECT * FROM " . PJ_PREFIX . "posts where post_type IN ('post', 'page')";
-					
+
 				$sql .= " AND ID = ". $_POST['id'] ." AND post_status = 'publish' ORDER BY post_title ASC";
-					
+
 				$result = mysqli_query($con,  $sql);
-					
+
 				$post = array();
-	
+
 				while($row = mysqli_fetch_array($result)) {
 					$post = $row;
 				}
-				
+
 				if ( count($post) > 0 ) {
 					$post['post_content'] = $post['post_content'] . '<iframe width="100%" height="1000px" src="'. PJ_INSTALL_URL .'index.php?controller=pjAdminOptions&action=pjActionPreview&as_pf='. PREFIX .'">';
-				
+
 					$sql = "UPDATE " . PJ_PREFIX . "posts SET post_content='". $post['post_content'] ."'";
-					
+
 					$sql .= "WHERE ID = ". $_POST['id'];
 				}
-				
+
 				mysqli_query($con,  $sql);
-				
+
 				mysqli_close($con);
 			}
-				
+
 		}
-	
+
 		exit();
 	}
-	
+
 	public function pjActionStyle() {
 		$this->checkLogin();
-		
+
 		if ($this->isAdmin())
 		{
             $data = $_POST;
@@ -282,11 +287,11 @@ class pjAdminOptions extends pjAdmin
 
 			if ( isset($_POST['form_style']) && $_POST['form_style'] > 0 && isset($_POST['id']) && $_POST['id'] > 0 ) {
 				pjStyleModel::factory()->set('id', $data['id'])->modify($data);
-				
+
 			} elseif ( isset($_POST['form_style']) && $_POST['form_style'] > 0 ) {
 				pjStyleModel::factory($data)->insert();
 			}
-			
+
 			$this->set('arr', pjStyleModel::factory()
 						->findAll()
 						->getData()
