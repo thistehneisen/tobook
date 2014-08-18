@@ -2,8 +2,10 @@
 use \AcceptanceTester;
 use Test\Elements\Auth;
 
-class AppointmentSchedulerCest {
-    public function _before(AcceptanceTester $I) {
+class AppointmentSchedulerCest
+{
+    public function _before(AcceptanceTester $I)
+    {
         $I->amOnPage(Auth::$loginUrl);
         $I->wantTo('Sign in');
         $I->submitForm(Auth::$loginForm, [
@@ -50,5 +52,6 @@ class AppointmentSchedulerCest {
         $I->see('Ajanvarauksen tarjoaa varaa.com');
         $I->amOnPage('/appointment/library/index.php?controller=pjAdminOptions&action=pjActionPreview&as_pf=&owner_id=1');
         $I->see('Ajanvarauksen tarjoaa varaa.com');
+
     }
 }

@@ -53,11 +53,13 @@ class GenerateConfigsCommand extends Command
             $string = str_replace('[install_url]', $installUrl, $string);
             $string = str_replace('[salt]', \pjToolkit::getRandomPassword(8), $string);
 
-            $response = file_get_contents('http://support.stivasoft.com/index.php?controller=Api&action=getInstall'.
-                "&key=" . urlencode($licenseKey) .
-                "&modulo=". urlencode($rsaModulo) .
-                "&private=" . urlencode($rsaPrivate) .
-                "&server_name=" . urlencode($domain));
+            $response = file_get_contents(
+                'http://support.stivasoft.com/index.php?controller=Api&action=getInstall'.
+                '&key=' . urlencode($licenseKey) .
+                '&modulo='. urlencode($rsaModulo) .
+                '&private=' . urlencode($rsaPrivate) .
+                '&server_name=' . urlencode($domain)
+            );
 
             $output = unserialize($response);
             if (isset($output['hash']) && isset($output['code']) && $output['code'] == 200) {
@@ -68,7 +70,7 @@ class GenerateConfigsCommand extends Command
                         $resp['code'] = 103;
                         $resp['text'] = "'public/appointment/app/config/config.inc.php' open fails";
                     } else {
-                        if (fwrite($handle, $string) === FALSE) {
+                        if (fwrite($handle, $string) === false) {
                             $resp['code'] = 102;
                             $resp['text'] = "An error occurs while writing to 'public/appointment/app/config/config.inc.php'";
                         } else {

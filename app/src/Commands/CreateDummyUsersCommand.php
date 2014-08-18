@@ -82,5 +82,4 @@ class CreateDummyUsersCommand extends Command
             array('number', null, InputOption::VALUE_OPTIONAL, 'How many users do you want to create?', null),
         );
     }
-
 }

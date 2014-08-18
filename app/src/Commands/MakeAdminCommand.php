@@ -62,5 +62,4 @@ class MakeAdminCommand extends Command
             array('email', InputArgument::REQUIRED, 'Email of user'),
         );
     }
-
 }

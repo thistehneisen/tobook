@@ -85,7 +85,7 @@ WHERE  owner_id IN (SELECT owner_id
                                                FROM   varaa_users
                                                WHERE  id = a.owner_id)) AS C);
 SQL;
-        $sql = sprintf($format, $table->getName(),$table->getName());
+        $sql = sprintf($format, $table->getName(), $table->getName());
         DB::delete($sql);
 
         echo "\tChanging data type\n";
