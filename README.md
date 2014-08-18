@@ -45,9 +45,8 @@ Database schemas for tables of modules on site were changed, please run `php art
 
 #### Get config values of L4 from other modules
 
-* Find the path to `Bridge.php` from inside module
-* `require/include` that file
-* Call `Bridge::config($key)`
+* Add `require_once base_path().'/Bridge.php';`
+* Call `Bridge::config($key)`, for example: `$varaaDb = Bridge::config('database.connection.mysql');` or `$varaaDb = Bridge::dbConfig();`
 
 _See `/public/cashier/library/sma/config/database.php` for example. Try to avoid common names such as `$config`, `$cfg`, etc._
 
