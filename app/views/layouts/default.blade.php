@@ -53,8 +53,11 @@
             </ul>
         </nav>
         @show
-
+        
+        @section('logo')
         <a href="{{ route('home') }}"><img src="{{ asset('assets/img/logo.png') }}" alt="{{ trans('common.site_name') }}" class="logo"></a>
+        @show
+        
         @yield('header')
         @yield('subheader')
     </header>

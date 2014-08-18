@@ -12,6 +12,10 @@
 @section ('content')
 @stop
 
+{{-- And no logo --}}
+@section ('logo')
+@stop
+
 @section ('scripts')
 <script>
 $(function () {
