@@ -49,3 +49,11 @@ def sync_server_settings():
         'ansible-playbook devops/app.yml -i devops/hosts --ask-vault-pass '
         '--tags templated_settings'
     )
+
+
+@task(alias='t')
+def test():
+    '''
+    Run the test suite
+    '''
+    local('./vendor/bin/codecept run')
