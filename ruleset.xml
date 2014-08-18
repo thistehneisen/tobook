@@ -13,5 +13,6 @@
         <exclude name="PSR2.Namespaces.UseDeclaration.MultipleDeclarations"/>
         <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
         <exclude name="PSR2.Methods.MethodDeclaration.Underscore"/>
+        <exclude name="Generic.Files.LineLength.TooLong"/>
     </rule>
 </ruleset>

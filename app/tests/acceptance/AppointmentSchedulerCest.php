@@ -2,8 +2,10 @@
 use \AcceptanceTester;
 use Test\Elements\Auth;
 
-class AppointmentSchedulerCest {
-    public function _before(AcceptanceTester $I) {
+class AppointmentSchedulerCest
+{
+    public function _before(AcceptanceTester $I)
+    {
         $I->amOnPage(Auth::$loginUrl);
         $I->wantTo('Sign in');
         $I->submitForm(Auth::$loginForm, [
@@ -14,15 +16,8 @@ class AppointmentSchedulerCest {
         $I->amOnPage('/services/appointment-scheduler');
     }
 
-    public function _after() {
-    }
-
-    // tests
-    public function tryToTest(AcceptanceTester $I) {
-
-    }
-
-    public function testTabs(AcceptanceTester $I) {
+    public function testTabs(AcceptanceTester $I)
+    {
         //$I->amOnPage('/appointment/index.php?username=capis&owner_id=1');
         $I->seeLink('Kalenteri');
     }
