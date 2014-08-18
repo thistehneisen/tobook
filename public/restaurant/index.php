@@ -7,7 +7,9 @@ $varaaDb = Bridge::dbConfig();
 // If not, kick him out
 // An Cao <an@varaa.com>
 //------------------------------------------------------------------------------
-if (!Bridge::hasOwnerId()) {
+$isFront = isset($_GET['controller']) && $_GET['controller'] === 'pjFront';
+
+if (!Bridge::hasOwnerId() && !$isFront) {
 	echo <<< JS
 <script>
 window.parent.location = '/auth/login';

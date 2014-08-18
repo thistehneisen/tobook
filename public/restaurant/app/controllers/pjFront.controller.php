@@ -78,6 +78,19 @@ class pjFront extends pjAppController
 
     function beforeFilter()
     {
+        @session_start();
+        if (!isset($_SESSION['owner_id']) && isset($_GET['v'])) {
+            // Decode data from the hash
+            $hashids = new Hashids(Bridge::config('app.key'), 8);
+            $content = $hashids->decrypt($_GET['v']);
+            if (!is_array($content) || !isset($content[0])) {
+                die;
+            }
+            $owner_id = $content[0];
+            $_SESSION['owner_id'] = $owner_id;
+            // End decoding
+        }
+
         pjObject::import('Model', 'pjOption');
         $pjOptionModel = new pjOptionModel();
         $this->option_arr = $pjOptionModel->getPairs();
@@ -658,20 +671,7 @@ class pjFront extends pjAppController
 
     function load()
     {
-        if (!isset($_GET['v']) || empty($_GET['v'])) {
-            die;
-        }
-
         ob_start();
-        $hashids = new Hashids(Bridge::config('app.key'), 8);
-        $content = $hashids->decrypt($_GET['v']);
-        if (!is_array($content) || !isset($content[0])) {
-            die;
-        }
-        $owner_id = $content[0];
-        @session_start();
-        $_SESSION['owner_id'] = $owner_id;
-
         header("Content-type: text/javascript");
 
         pjObject::import('Model', array('pjWorkingTime', 'pjDate'));

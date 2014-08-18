@@ -20,7 +20,7 @@ require_once ROOT_PATH . 'core/framework/pjObject.class.php';
 	<head>
 		<title>Restaurant Booking</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link href="<?php echo INSTALL_FOLDER; ?>index.php?controller=pjFront&action=loadCss" type="text/css" rel="stylesheet" />
+		<link href="<?php echo INSTALL_FOLDER; ?>index.php?controller=pjFront&action=loadCss&v=<?php echo $_GET['v'] ?>" type="text/css" rel="stylesheet" />
 		<?php 
 		
 		pjObject::import ( 'Model', array (
