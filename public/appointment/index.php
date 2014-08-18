@@ -7,7 +7,12 @@ $varaaDb = Bridge::dbConfig();
 // If not, kick him out
 // An Cao <an@varaa.com>
 //------------------------------------------------------------------------------
-if (!Bridge::hasOwnerId()) {
+$isEmbeded = (isset($_GET['controller'])
+	&& ($_GET['controller'] === 'pjAdminOptions'
+		|| $_GET['controller'] === 'pjFrontEnd'
+		|| $_GET['controller'] === 'pjFrontPublic'));
+
+if (!Bridge::hasOwnerId() && !$isEmbeded) {
 	echo <<< JS
 <script>
 window.parent.location = '/auth/login';
