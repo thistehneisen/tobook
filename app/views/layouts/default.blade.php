@@ -22,6 +22,21 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    @section('analytics-tracking')
+        @if (App::environment('prod'))
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-53959606-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+        @endif
+    @show
 </head>
 <body>
     <header class="header">
@@ -44,7 +59,6 @@
                 @if (Entrust::hasRole('Admin') || Session::get('stealthMode') !== null)
                 <li><a href="{{ route('admin.index') }}">{{ trans('common.admin') }}</a></li>
                 @endif
-                {{-- <li><a href="">{{ trans('common.help') }}</a></li> --}}
                 <li><a href="{{ route('auth.logout') }}">{{ trans('common.sign_out') }}</a></li>
                 @else
                 <li><a href="{{ route('auth.register') }}">{{ trans('common.register') }}</a></li>
@@ -53,11 +67,11 @@
             </ul>
         </nav>
         @show
-        
+
         @section('logo')
         <a href="{{ route('home') }}"><img src="{{ asset('assets/img/logo.png') }}" alt="{{ trans('common.site_name') }}" class="logo"></a>
         @show
-        
+
         @yield('header')
         @yield('subheader')
     </header>
