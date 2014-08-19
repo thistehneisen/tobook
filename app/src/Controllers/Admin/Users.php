@@ -68,9 +68,10 @@ class Users extends Crud
      */
     public function modules($id)
     {
+        $user = $this->model->with('modules')->find($id);
         return $this->render('users.modules', [
             'modules' => Module::all(),
-            'user'    => $this->model->with('modules')->find($id),
+            'user'    => $user,
         ]);
     }
 

@@ -18,9 +18,6 @@ $(function() {
 @stop
 
 @section ('content')
-    <h3 class="comfortaa">Associated modules</h3>
-
-
     {{ Form::open(['route' => ['admin.users.modules', $user->id]]) }}
     <h3 class="comfortaa">Enable new module</h3>
     @include ('el.messages')
@@ -46,4 +43,26 @@ $(function() {
         <button class="btn btn-primary">{{ trans('common.save') }}</button>
     </div>
     {{ Form::close() }}
+
+    <h3 class="comfortaa">Associated modules</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Module name</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach ($user->modules as $module)
+            <tr>
+                <td>{{ $module->name }}</td>
+                <td>{{ with(new Carbon\Carbon($module->pivot->start))->format('F j, Y') }}</td>
+                <td>{{ with(new Carbon\Carbon($module->pivot->end))->format('F j, Y') }}</td>
+                <td></td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
 @stop

@@ -32,7 +32,7 @@ class User extends ConfideUser
      */
     public function modules()
     {
-        return $this->belongsToMany('Module');
+        return $this->belongsToMany('Module')->withPivot(['start', 'end']);
     }
 
     //--------------------------------------------------------------------------
