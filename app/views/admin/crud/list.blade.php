@@ -2,15 +2,15 @@
     <div class="col-md-6 col-lg-6">
 {{ Form::open(['route' => ['admin.crud.search', $modelName], 'class' => 'form-inline', 'role' => 'form', 'method' => 'GET']) }}
     <div class="form-group">
-        <label class="sr-only" for="txt-keyword">Enter your keywords</label>
+        <label class="sr-only" for="txt-keyword">{{ trans('admin.search_placeholder') }}</label>
     </div>
-    <input type="search" name="q" class="form-control" id="txt-keyword" placeholder="Enter anything you want to search">
-    <button type="submit" class="btn btn-primary">Search</button>
+    <input type="search" name="q" class="form-control" id="txt-keyword">
+    <button type="submit" class="btn btn-primary">{{ trans('admin.search') }}</button>
 {{ Form::close(); }}
     </div>
 
     <div class="col-md-6 col-lg-6 text-right">
-        <a href="{{ route('admin.crud.create', ['model' => $modelName]) }}" class="btn btn-success"><i class="fa fa-plus"></i> Create</a>
+        <a href="{{ route('admin.crud.create', ['model' => $modelName]) }}" class="btn btn-success"><i class="fa fa-plus"></i> {{ trans('admin.create') }}</a>
     </div>
 </div>
 
@@ -34,14 +34,14 @@
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="menu-action-{{ $item->id }}">
-                        <li role="presentation"><a role="menuitem" href="{{ route('admin.crud.edit', ['model' => $modelName, 'id' => $item->id]) }}"><i class="fa fa-edit"></i> Edit</a></li>
+                        <li role="presentation"><a role="menuitem" href="{{ route('admin.crud.edit', ['model' => $modelName, 'id' => $item->id]) }}"><i class="fa fa-edit"></i> {{ trans('admin.edit') }}</a></li>
                     @if (method_exists($item, 'getExtraActionLinks'))
                         @foreach ($item->getExtraActionLinks() as $name => $href)
                         <li role="presentation"><a role="menuitem" href="{{ $href }}">{{ $name }}</a></li>
                         @endforeach
                     @endif
                         <li class="divider"></li>
-                        <li role="presentation"><a class="link-delete" role="menuitem" href="{{ route('admin.crud.delete', ['model' => $modelName, 'id' => $item->id]) }}"><i class="fa fa-trash-o"></i> Delete</a></li>
+                        <li role="presentation"><a class="link-delete" role="menuitem" href="{{ route('admin.crud.delete', ['model' => $modelName, 'id' => $item->id]) }}"><i class="fa fa-trash-o"></i> {{ trans('admin.delete') }}</a></li>
                     </ul>
                 </div>
 
