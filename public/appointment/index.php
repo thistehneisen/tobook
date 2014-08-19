@@ -13,6 +13,7 @@ $isEmbeded = (isset($_GET['controller'])
 		|| $_GET['controller'] === 'pjFrontPublic'));
 
 if (!Bridge::hasOwnerId() && !$isEmbeded) {
+	@session_destroy();
 	echo <<< JS
 <script>
 window.parent.location = '/auth/login';
