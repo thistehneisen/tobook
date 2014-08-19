@@ -15,7 +15,6 @@ body {
 a {
   color: #dd5511;
 }
-a:link,
 a:hover {
   color: #bd490f;
   text-decoration: none;
