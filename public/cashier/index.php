@@ -6,6 +6,7 @@ require_once realpath(__DIR__.'/../../Bridge.php');
 // An Cao <an@varaa.com>
 //------------------------------------------------------------------------------
 if (!Bridge::hasOwnerId()) {
+	@session_destroy();
 	echo <<< JS
 <script>
 window.parent.location = '/auth/login';
