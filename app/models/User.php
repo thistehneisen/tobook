@@ -122,7 +122,8 @@ class User extends ConfideUser
     public function getExtraActionLinks()
     {
         return [
-            '<i class="fa fa-user"></i> Login' => route('admin.users.login', ['id' => $this->id])
+            '<i class="fa fa-user"></i> Login' => route('admin.users.login', ['id' => $this->id]),
+            '<i class="fa fa-trophy"></i> Modules' => route('admin.users.modules', ['id' => $this->id])
         ];
     }
 }

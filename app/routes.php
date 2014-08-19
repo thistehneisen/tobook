@@ -205,6 +205,15 @@ Route::group([
         'uses' => 'App\Controllers\Admin\Users@stealSession'
     ]);
 
+    Route::get('users/modules/{id}', [
+        'as' => 'admin.users.modules',
+        'uses' => 'App\Controllers\Admin\Users@modules'
+    ]);
+
+    Route::post('users/modules/{id}', [
+        'uses' => 'App\Controllers\Admin\Users@enableModule'
+    ]);
+
     // CRUD actions
     Route::get('{model}', [
         'as' => 'admin.crud.index',

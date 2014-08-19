@@ -1,6 +1,6 @@
 <?php namespace App\Controllers\Admin;
 
-use App, Config, Request, Redirect, Input, Confide, Session, Auth;
+use App, Config, Request, Redirect, Input, Confide, Session, Auth, Validator, Module;
 
 class Users extends Crud
 {
@@ -57,5 +57,51 @@ class Users extends Crud
         }
 
         return Redirect::route('home');
+    }
+
+    /**
+     * Allow to edit associated modules of a user
+     *
+     * @param int $id User ID
+     *
+     * @return View
+     */
+    public function modules($id)
+    {
+        return $this->render('users.modules', [
+            'modules' => Module::all(),
+            'user'    => $this->model->with('modules')->find($id),
+        ]);
+    }
+
+    /**
+     * Enable a service module of a user
+     *
+     * @param  int $id User ID
+     *
+     * @return Redirect
+     */
+    public function enableModule($id)
+    {
+        $v = Validator::make(Input::all(), [
+            'module_id' => 'required',
+            'start'     => 'required|date',
+            'end'       => 'required|date',
+        ]);
+
+        if ($v->fails()) {
+            return Redirect::back()->withInput()->withErrors($v, 'top');
+        }
+
+        // Insert into database
+        // @todo: Check overlapped valid period
+        $user = $this->model->find($id);
+        $module = Module::find(Input::get('module_id'));
+        $user->modules()->attach($module->id, [
+            'start' => Input::get('start'),
+            'end' => Input::get('end'),
+        ]);
+        return Redirect::back()
+            ->with('messages', $this->successMessageBag('Module enabled.'));
     }
 }
