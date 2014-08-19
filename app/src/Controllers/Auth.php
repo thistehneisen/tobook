@@ -38,9 +38,14 @@ class Auth extends Base
      */
     public function login()
     {
-        // Already logged in, return to home
         if (Confide::user()) {
-            return Redirect::route('home');
+            if (isset($_SESSION['owner_id'])) {
+                // if already logged in and there is still native session, return to home
+                return Redirect::route('home');
+            } else {
+                // otherwise, logout
+                $this->logout();
+            }
         }
 
         $fields = [

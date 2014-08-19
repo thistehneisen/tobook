@@ -4,6 +4,16 @@
 require_once realpath(__DIR__.'/../../Bridge.php');
 $varaaDb = Bridge::dbConfig();
 
+if (!Bridge::hasOwnerId()) {
+    @session_destroy();
+    echo <<< JS
+<script>
+window.parent.location = '/auth/login';
+</script>
+JS;
+    exit;
+}
+
 $owner_id = intval($_SESSION['owner_id']);
 $dns = sprintf("mysql:dbname=%s;host=%s", $varaaDb['database'], $varaaDb['host']);
 
