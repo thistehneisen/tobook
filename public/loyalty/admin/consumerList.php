@@ -16,7 +16,7 @@ JS;
 
 if (!headers_sent())
 {
-    session_name('LoyaltyCard');
+    // session_name('LoyaltyCard');
     @session_start();
 }
 ?>

@@ -29,7 +29,7 @@ if( !isset($_COOKIE['as_admin']) ){
 }
 if (!headers_sent())
 {
-	session_name('AppointmentScheduler');
+	// session_name('AppointmentScheduler');
 }
 
 header("Content-type: text/html; charset=utf-8");
