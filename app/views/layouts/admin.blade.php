@@ -35,16 +35,9 @@
                         <li><a href="{{ route('admin.crud.index', ['model' => 'users']) }}">{{ trans('common.users') }}</a></li>
                     </ul>
                 </li>
+                <li><a href="{{ route('admin.crud.index', ['model' => 'modules']) }}">{{ trans('common.modules') }}</a></li>
                 <li><a href="{{ route('admin.settings.index') }}">{{ trans('common.settings') }}</a></li>
             </ul>
-            {{--
-            <form class="navbar-form navbar-right" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm">Submit</button>
-            </form>
-            --}}
         </div>
         <!-- /.navbar-collapse -->
     </div>

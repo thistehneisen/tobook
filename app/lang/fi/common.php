@@ -27,4 +27,5 @@ return [
     'admin'             => 'Admin',
     'users'             => 'Käyttäjät',
     'settings'          => 'Asetukset',
+    'modules'          => 'Modules',
 ];

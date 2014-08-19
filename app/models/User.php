@@ -21,6 +21,28 @@ class User extends ConfideUser
         'country',*/
     ];
 
+    //--------------------------------------------------------------------------
+    // RELATIONSHIP DEFINITIONS
+    //--------------------------------------------------------------------------
+    
+    /**
+     * Define the many-to-many relationship with Module
+     *
+     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function modules()
+    {
+        return $this->belongsToMany('Module');
+    }
+
+    //--------------------------------------------------------------------------
+    // SCOPE DEFINITIONS
+    //--------------------------------------------------------------------------
+    
+    //--------------------------------------------------------------------------
+    // OTHER METHODS
+    //--------------------------------------------------------------------------
+
     /**
      * Allow old users to login with their own password, but force to change
      * immediately
