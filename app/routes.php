@@ -211,6 +211,15 @@ Route::group([
         'uses' => 'App\Controllers\Admin\Crud@index'
     ]);
 
+    Route::get('{model}/create', [
+        'as' => 'admin.crud.create',
+        'uses' => 'App\Controllers\Admin\Crud@create'
+    ]);
+
+    Route::post('{model}/create', [
+        'uses' => 'App\Controllers\Admin\Crud@doCreate'
+    ]);
+
     Route::get('{model}/search', [
         'as' => 'admin.crud.search',
         'uses' => 'App\Controllers\Admin\Crud@search'

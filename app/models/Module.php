@@ -2,7 +2,7 @@
 
 class Module extends Eloquent
 {
-	public $visible = ['id', 'name', 'url'];
+	public $visible = ['id', 'name', 'uri'];
 	/**
 	 * Define the relationship with User model
 	 *

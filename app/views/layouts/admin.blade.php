@@ -29,14 +29,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="admin-menu">
             <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ trans('common.users') }} <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="{{ route('admin.crud.index', ['model' => 'users']) }}">{{ trans('common.users') }}</a></li>
-                    </ul>
-                </li>
-                <li><a href="{{ route('admin.crud.index', ['model' => 'modules']) }}">{{ trans('common.modules') }}</a></li>
-                <li><a href="{{ route('admin.settings.index') }}">{{ trans('common.settings') }}</a></li>
+                <li><a href="{{ route('admin.crud.index', ['model' => 'users']) }}">{{ trans('admin.nav.users') }}</a></li>
+                <li><a href="{{ route('admin.crud.index', ['model' => 'modules']) }}">{{ trans('admin.nav.modules') }}</a></li>
+                <li><a href="{{ route('admin.settings.index') }}">{{ trans('admin.nav.settings') }}</a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
