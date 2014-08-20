@@ -1,6 +1,7 @@
-<?php namespace App\Commands;
+<?php namespace App\Core\Commands;
 
-use User, Role;
+use App\Core\Models\User;
+use App\Core\Models\Role;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 

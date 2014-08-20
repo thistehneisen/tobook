@@ -1,4 +1,4 @@
-<?php namespace App\Controllers\Admin;
+<?php namespace App\Core\Controllers\Admin;
 
 use App, Config, Request, Redirect, Input, Confide, Session, Auth;
 

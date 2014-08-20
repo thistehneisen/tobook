@@ -1,7 +1,8 @@
-<?php namespace App\Commands;
+<?php namespace App\Core\Commands;
 
-use Config, DB, Role, User;
-
+use Config, DB;
+use App\Core\Models\Role;
+use App\Core\Models\User;
 use Illuminate\Console\Command;
 
 class MoveUsersCommand extends Command

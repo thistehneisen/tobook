@@ -1,4 +1,4 @@
-<?php namespace App\Commands;
+<?php namespace App\Core\Commands;
 
 use DB;
 use Doctrine\DBAL\Schema\Table;

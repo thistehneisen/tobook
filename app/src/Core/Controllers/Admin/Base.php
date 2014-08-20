@@ -1,6 +1,6 @@
-<?php namespace App\Controllers\Admin;
+<?php namespace App\Core\Controllers\Admin;
 
-class Base extends \App\Controllers\Base
+class Base extends \App\Core\Controllers\Base
 {
     protected function render($path, $data = [])
     {

@@ -1,4 +1,4 @@
-<?php namespace App\Controllers\Admin;
+<?php namespace App\Core\Controllers\Admin;
 
 class Dashboard extends Base
 {
