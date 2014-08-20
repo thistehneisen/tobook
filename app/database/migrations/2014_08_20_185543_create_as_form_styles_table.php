@@ -14,7 +14,7 @@ class CreateAsFormStylesTable extends Migration {
 	{
 		Schema::create('as_form_styles', function(Blueprint $table)
 		{
-			$table->increments('id');
+            $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->string('logo');
             $table->string('banner');
@@ -24,7 +24,7 @@ class CreateAsFormStylesTable extends Migration {
             $table->string('message');
             $table->string('heading');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-			$table->timestamps();
+            $table->timestamps();
 		});
 	}
 

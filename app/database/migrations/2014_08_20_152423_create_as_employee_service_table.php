@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAsEmployeesServicesTable extends Migration {
+class CreateAsEmployeeServiceTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -14,7 +14,7 @@ class CreateAsEmployeesServicesTable extends Migration {
 	{
 		Schema::create('as_employee_service', function(Blueprint $table)
 		{
-			$table->unsignedInteger('employee_id');
+            $table->unsignedInteger('employee_id');
             $table->unsignedInteger('service_id');
             $table->primary(array('employee_id', 'service_id'));
             $table->tinyInteger('plustime');

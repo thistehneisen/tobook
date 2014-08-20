@@ -14,7 +14,7 @@ class CreateAsBookingServiceTable extends Migration {
 	{
 		Schema::create('as_booking_service', function(Blueprint $table)
 		{
-			$table->increments('id');
+            $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('booking_id');
             $table->unsignedInteger('service_id');
@@ -27,7 +27,7 @@ class CreateAsBookingServiceTable extends Migration {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('service_id')->references('id')->on('as_services')->onDelete('cascade');
             $table->foreign('service_time_id')->references('id')->on('as_service_times')->onDelete('cascade');
-			$table->timestamps();
+            $table->timestamps();
 		});
 	}
 

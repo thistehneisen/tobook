@@ -14,7 +14,7 @@ class CreateAsServiceTimesTable extends Migration {
 	{
 		Schema::create('as_service_times', function(Blueprint $table)
 		{
-			$table->increments('id');
+            $table->increments('id');
             $table->unsignedInteger('service_id');
             $table->double('price');
             $table->tinyInteger('length');

@@ -14,11 +14,11 @@ class CreateAsResourcesTable extends Migration {
 	{
 		Schema::create('as_resources', function(Blueprint $table)
 		{
-			$table->increments('id');
+            $table->increments('id');
             $table->string('name');
             $table->string('description');
             $table->tinyInteger('quantity');
-			$table->timestamps();
+            $table->timestamps();
 		});
 	}
 

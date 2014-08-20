@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAsEmployeesFreetimeTable extends Migration {
+class CreateAsEmployeeFreetimeTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -14,7 +14,7 @@ class CreateAsEmployeesFreetimeTable extends Migration {
 	{
 		Schema::create('as_employees_freetime', function(Blueprint $table)
 		{
-			$table->increments('id');
+            $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('employee_id');
             $table->date('date');

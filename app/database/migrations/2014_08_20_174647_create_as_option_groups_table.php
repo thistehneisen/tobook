@@ -14,10 +14,10 @@ class CreateAsOptionGroupsTable extends Migration {
 	{
 		Schema::create('as_option_groups', function(Blueprint $table)
 		{
-			$table->increments('id');
+            $table->increments('id');
             $table->string('name');
             $table->string('description');
-			$table->timestamps();
+            $table->timestamps();
 		});
 	}
 

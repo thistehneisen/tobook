@@ -14,7 +14,7 @@ class CreateAsOptionsTable extends Migration {
 	{
 		Schema::create('as_options', function(Blueprint $table)
 		{
-			$table->increments('id');
+            $table->increments('id');
             $table->string('key');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('category_id');
@@ -28,7 +28,7 @@ class CreateAsOptionsTable extends Migration {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('as_option_categories')->onDelete('cascade');
             $table->foreign('group_id')->references('id')->on('as_option_groups')->onDelete('cascade');
-			$table->timestamps();
+            $table->timestamps();
 		});
 	}
 
