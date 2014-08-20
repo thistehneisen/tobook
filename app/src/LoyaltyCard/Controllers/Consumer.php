@@ -16,7 +16,8 @@ class Consumer extends \App\Controllers\Base {
         $consumers = ConsumerModel::all();
 
         // load the view and pass the consumers
-        return View::make('loyalty.consumers.index')->with('consumers', $consumers);
+        return View::make('modules.loyalty.consumers.index')
+            ->with('consumers', $consumers);
 	}
 
 
@@ -27,7 +28,7 @@ class Consumer extends \App\Controllers\Base {
 	 */
 	public function create()
 	{
-		return View::make('loyalty.consumers.create');
+		return View::make('modules.loyalty.consumers.create');
 	}
 
 
@@ -78,7 +79,8 @@ class Consumer extends \App\Controllers\Base {
 	{
 		$consumer = ConsumerModel::find($id);
 
-        return View::make('loyalty.consumers.show')->with('consumer', $consumer);
+        return View::make('modules.loyalty.consumers.show')
+            ->with('consumer', $consumer);
 	}
 
 
@@ -92,7 +94,8 @@ class Consumer extends \App\Controllers\Base {
 	{
 		$consumer = ConsumerModel::find($id);
 
-        return View::make('loyalty.consumers.edit')->with('consumer', $consumer);
+        return View::make('modules.loyalty.consumers.edit')
+            ->with('consumer', $consumer);
 	}
 
 

@@ -1,25 +1,18 @@
-@extends('layouts.loyalty')
+@extends('layouts.modules.loyalty')
 
 @section('title')
     @parent :: {{ trans('common.dashboard') }}
 @stop
 
-@section('scripts')
-    {{ HTML::script('assets/js/jquery.dataTables.js') }}
-    {{ HTML::script('assets/js/DT_bootstrap.js') }}
-    {{ HTML::script('assets/js/consumerList.js') }}
-@stop
-
-@section('sub-content')
+@section('content')
     <div class="consumer-buttons">
-        <button class="btn-u btn-u-blue" onclick="onAddConsumer()">Add</button>
-        <button class="btn-u btn-u-red" onclick="onDeleteConsumer()">Delete</button>
+        <button class="btn-u btn-u-blue">{{ trans('common.add') }}</button>
+        <button class="btn-u btn-u-red">{{ trans('common.delete') }}</button>
     </div>
     <div class="clear-both"></div>
     <div class="panel orange margin-bottom-40">
         <div class="panel-heading orange">
             <h3 class="panel-title">
-                <!--<i class="icon-user"></i>-->
                 Consumer List
             </h3>
         </div>
