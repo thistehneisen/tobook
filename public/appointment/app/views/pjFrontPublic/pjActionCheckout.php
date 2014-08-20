@@ -196,6 +196,7 @@ if (isset($tpl['status']) && $tpl['status'] == 'OK')
 							</span>
 						</div>
 						<?php endif; ?>
+                        <?php if (isset($_SESSION['owner_id']) && in_array(intval($_SESSION['owner_id']), [113, 114, 116])): ?>
                         <div class="asRow">
                             <label class="asLabel">&nbsp;</label>
                             <span class="asRowControl" style="position: relative">
@@ -214,6 +215,23 @@ if (isset($tpl['status']) && $tpl['status'] == 'OK')
                                 <p>Varaajalla on oikeus peruutus- ja varausehtojen puitteissa peruuttaa varauksensa ilmoittamalla siitä puhelimitse vähintään 48h ennen palveluajan alkamista. Muutoin paikalle saapumatta jättämisestä voi palveluntarjoaja halutessaan periä voimassaolevan hinnastonsa mukaisen palvelukorvauksen.</p>
                             </span>
                         </div>
+                        <script language="text/javascript">
+                        $(document).ready(function(){
+                            $('#submit_booking').click(function(){
+                                if($("#agreement").is(':checked')){
+                                    return true;
+                                } else {
+                                    alert('You have to agree with our term to complete booking.');
+                                    return false;
+                                }
+                            });
+                            $('#toggle_term').click(function(e){
+                                e.preventDefault();
+                                $('#term').slideToggle();
+                            });
+                        });
+                        </script>
+                        <?php endif; ?>
 					</div>
 					<div class="asElementOutline">
 						<input type="button" value="<?php __('btnCancel', false, true); ?>" class="asSelectorButton asSelectorServices asButton asButtonGray asFloatLeft" />
@@ -225,22 +243,6 @@ if (isset($tpl['status']) && $tpl['status'] == 'OK')
 			</div>
 		</div>
 	</div>
-    <script language="text/javascript">
-    $(document).ready(function(){
-        $('#submit_booking').click(function(){
-            if($("#agreement").is(':checked')){
-                return true;
-            } else {
-                alert('You have to agree with our term to complete booking.');
-                return false;
-            }
-        });
-        $('#toggle_term').click(function(e){
-            e.preventDefault();
-            $('#term').slideToggle();
-        });
-    });
-    </script>
 	<?php
 } elseif (isset($tpl['status']) && $tpl['status'] == 'ERR') {
 	?>
