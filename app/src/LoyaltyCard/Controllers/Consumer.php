@@ -3,7 +3,7 @@ use Input, Session, Redirect, View, Validator;
 use \App\LoyaltyCard\Models\Consumer as ConsumerModel;
 use Confide;
 
-class Consumer extends \App\Controllers\Base {
+class Consumer extends \App\Core\Controllers\Base {
 
 	/**
 	 * Display a listing of the resource.
@@ -48,7 +48,7 @@ class Consumer extends \App\Controllers\Base {
         $validator = Validator::make(Input::all(), $rules);
 
         if ($validator->fails()) {
-            return Redirect::to('consumers/create')
+            return Redirect::to('consumers.create')
                 ->withErrors($validator)
                 ->withInput(Input::all());
         } else {
@@ -64,7 +64,7 @@ class Consumer extends \App\Controllers\Base {
             $consumer->save();
 
             Session::flash('message', 'Successfully created!');
-            return Redirect::to('consumers');
+            return Redirect::to('consumers.index');
         }
 	}
 

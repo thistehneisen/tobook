@@ -18,10 +18,6 @@ Route::get('/', [
     'uses'  => 'App\Core\Controllers\Home@index'
 ]);
 
-Route::group(['before' => 'auth'], function() {
-    Route::resource('consumers', 'App\LoyaltyCard\Controllers\Consumer');
-});
-
 Route::group(['prefix' => 'intro'], function () {
     Route::get('website-list', [
         'as' => 'intro-website-list',
@@ -173,6 +169,18 @@ Route::group([
         ]);
     });
 
+    Route::group([
+        'before' => [''], // Attach a filter to check payment
+        'prefix' => 'modules'
+    ], function () {
+
+        // Loyalty Card
+        Route::group(['prefix' => 'lc'], function () {
+            Route::resource('consumers', 'App\LoyaltyCard\Controllers\Consumer');
+        });
+
+        // Other modules
+    });
 });
 /*
 |--------------------------------------------------------------------------

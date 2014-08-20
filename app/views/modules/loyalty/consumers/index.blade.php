@@ -1,7 +1,7 @@
 @extends('modules.loyalty.layout')
 
 @section('top-buttons')
-<a href="{{ URL::to('consumers/create') }}" class="btn btn-default btn-success"><span class="glyphicon glyphicon-plus"></span> {{ trans('common.add') }}</a>
+<a href="{{ URL::route('modules.lc.consumers.create') }}" class="btn btn-default btn-success"><span class="glyphicon glyphicon-plus"></span> {{ trans('common.add') }}</a>
 <button class="btn btn-default btn-danger js-deleteConsumer"><span class="glyphicon glyphicon-remove"></span> {{ trans('common.delete') }}</button>
 @stop
 
