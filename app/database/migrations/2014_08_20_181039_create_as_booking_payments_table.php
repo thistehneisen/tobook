@@ -16,6 +16,10 @@ class CreateAsBookingPaymentsTable extends Migration {
 		{
             $table->increments('id');
             $table->unsignedInteger('booking_id');
+            $table->string('payment_method');
+            $table->double('price');
+            $table->double('deposit');
+            $table->double('tax');
             $table->string('cc_type');
             $table->string('cc_number');
             $table->string('cc_expired_month');
