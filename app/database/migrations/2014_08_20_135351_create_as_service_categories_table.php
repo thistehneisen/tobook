@@ -14,7 +14,7 @@ class CreateAsServiceCategoriesTable extends Migration {
 	{
 		Schema::create('as_service_categories', function(Blueprint $table)
 		{
-			$table->increments('id');
+            $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->string('name');
             $table->string('description');

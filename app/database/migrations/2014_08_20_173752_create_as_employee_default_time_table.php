@@ -14,7 +14,7 @@ class CreateAsEmployeeDefaultTimeTable extends Migration {
 	{
 		Schema::create('as_employee_default_time', function(Blueprint $table)
 		{
-			$table->increments('id');
+            $table->increments('id');
             $table->unsignedInteger('employee_id');
             $table->enum('type', array('mon', 'tue','wed','thu','fri','sat','sun'));
             $table->time('admin_start_at');

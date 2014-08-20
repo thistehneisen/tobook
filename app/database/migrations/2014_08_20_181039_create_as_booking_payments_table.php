@@ -14,7 +14,7 @@ class CreateAsBookingPaymentsTable extends Migration {
 	{
 		Schema::create('as_booking_payments', function(Blueprint $table)
 		{
-			$table->increments('id');
+            $table->increments('id');
             $table->unsignedInteger('booking_id');
             $table->string('cc_type');
             $table->string('cc_number');
@@ -23,7 +23,7 @@ class CreateAsBookingPaymentsTable extends Migration {
             $table->string('cc_expired_code');
             $table->string('status');
             $table->foreign('booking_id')->references('id')->on('as_bookings')->onDelete('cascade');
-			$table->timestamps();
+            $table->timestamps();
 		});
 	}
 

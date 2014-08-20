@@ -14,7 +14,7 @@ class CreateAsEmployeeCustomTimeTable extends Migration {
 	{
 		Schema::create('as_employee_custom_time', function(Blueprint $table)
 		{
-			$table->increments('id');
+            $table->increments('id');
             $table->unsignedInteger('employee_id');
             $table->date('date');
             $table->time('start_at');

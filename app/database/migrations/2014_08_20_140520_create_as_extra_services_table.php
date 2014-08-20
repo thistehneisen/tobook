@@ -14,14 +14,14 @@ class CreateAsExtraServicesTable extends Migration {
 	{
 		Schema::create('as_extra_services', function(Blueprint $table)
 		{
-			$table->increments('id');
+            $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->string('name');
             $table->string('description');
             $table->double('price');
             $table->tinyInteger('length');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-			$table->timestamps();
+            $table->timestamps();
 		});
 	}
 

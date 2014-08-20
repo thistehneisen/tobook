@@ -14,7 +14,7 @@ class CreateAsBookingsTable extends Migration {
 	{
 		Schema::create('as_bookings', function(Blueprint $table)
 		{
-			$table->increments('id');
+            $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->double('price');
             $table->double('deposit');
@@ -26,7 +26,7 @@ class CreateAsBookingsTable extends Migration {
             $table->string('status');
             $table->string('ip');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-			$table->timestamps();
+            $table->timestamps();
 		});
 	}
 
