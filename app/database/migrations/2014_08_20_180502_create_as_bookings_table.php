@@ -16,13 +16,9 @@ class CreateAsBookingsTable extends Migration {
 		{
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->double('price');
-            $table->double('deposit');
-            $table->double('tax');
             $table->tinyInteger('total');
             $table->date('date');
             $table->time('start_at');
-            $table->string('payment_method');
             $table->string('status');
             $table->string('ip');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
