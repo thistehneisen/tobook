@@ -196,7 +196,7 @@ if (isset($tpl['status']) && $tpl['status'] == 'OK')
 							</span>
 						</div>
 						<?php endif; ?>
-                        <?php if (isset($_SESSION['owner_id']) && in_array(intval($_SESSION['owner_id']), [113, 114, 116])): ?>
+                        <?php if (isset($_SESSION['front_owner_id']) && in_array(intval($_SESSION['front_owner_id']), [113, 114, 116])): ?>
                         <div class="asRow">
                             <label class="asLabel">&nbsp;</label>
                             <span class="asRowControl" style="position: relative">
