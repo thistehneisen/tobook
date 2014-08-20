@@ -8,47 +8,47 @@ if (isset($tpl['status']) && $tpl['status'] == 'OK')
 		<div class="asServicesInner">
 			<div class="asHeading"><?php __('front_booking_form'); ?></div>
 			<div class="asSelectorElements asOverflowHidden">
-			
+
 				<form action="" method="post" class="asSelectorCheckoutForm">
 					<input type="hidden" name="as_checkout" value="1" />
 
 					<div class="asElement asElementOutline">
-					
+
 						<?php if (in_array((int) $tpl['option_arr']['o_bf_name'], array(2,3))) : ?>
 						<div class="asRow">
 							<label class="asLabel"><?php __('booking_name'); ?><?php if ((int) $tpl['option_arr']['o_bf_name'] === 3) : ?> <span class="asAsterisk">*</span><?php endif; ?></label>
 							<span class="asRowControl"><input type="text" name="c_name" class="asFormField asStretch<?php echo (int) $tpl['option_arr']['o_bf_name'] === 3 ? ' asRequired' : NULL; ?>" value="<?php echo pjSanitize::html(@$FORM['c_name']); ?>" /></span>
 						</div>
 						<?php endif; ?>
-						
+
 						<?php if (in_array((int) $tpl['option_arr']['o_bf_email'], array(2,3))) : ?>
 						<div class="asRow">
 							<label class="asLabel"><?php __('booking_email'); ?><?php if ((int) $tpl['option_arr']['o_bf_email'] === 3) : ?> <span class="asAsterisk">*</span><?php endif; ?></label>
 							<span class="asRowControl"><input type="text" name="c_email" class="asFormField asStretch asEmail<?php echo (int) $tpl['option_arr']['o_bf_email'] === 3 ? ' asRequired' : NULL; ?>" value="<?php echo pjSanitize::html(@$FORM['c_email']); ?>" /></span>
 						</div>
 						<?php endif; ?>
-						
+
 						<?php if (in_array((int) $tpl['option_arr']['o_bf_phone'], array(2,3))) : ?>
 						<div class="asRow">
 							<label class="asLabel"><?php __('booking_phone'); ?><?php if ((int) $tpl['option_arr']['o_bf_phone'] === 3) : ?> <span class="asAsterisk">*</span><?php endif; ?></label>
 							<span class="asRowControl"><input type="text" name="c_phone" class="asFormField asStretch<?php echo (int) $tpl['option_arr']['o_bf_phone'] === 3 ? ' asRequired' : NULL; ?>" value="<?php echo pjSanitize::html(@$FORM['c_phone']); ?>" /></span>
 						</div>
 						<?php endif; ?>
-						
+
 						<?php if (in_array((int) $tpl['option_arr']['o_bf_address_1'], array(2,3))) : ?>
 						<div class="asRow">
 							<label class="asLabel"><?php __('booking_address_1'); ?><?php if ((int) $tpl['option_arr']['o_bf_address_1'] === 3) : ?> <span class="asAsterisk">*</span><?php endif; ?></label>
 							<span class="asRowControl"><input type="text" name="c_address_1" class="asFormField asStretch<?php echo (int) $tpl['option_arr']['o_bf_address_1'] === 3 ? ' asRequired' : NULL; ?>" value="<?php echo pjSanitize::html(@$FORM['c_address_1']); ?>" /></span>
 						</div>
 						<?php endif; ?>
-						
+
 						<?php if (in_array((int) $tpl['option_arr']['o_bf_address_2'], array(2,3))) : ?>
 						<div class="asRow">
 							<label class="asLabel"><?php __('booking_address_2'); ?><?php if ((int) $tpl['option_arr']['o_bf_address_2'] === 3) : ?> <span class="asAsterisk">*</span><?php endif; ?></label>
 							<span class="asRowControl"><input type="text" name="c_address_2" class="asFormField asStretch<?php echo (int) $tpl['option_arr']['o_bf_address_2'] === 3 ? ' asRequired' : NULL; ?>" value="<?php echo pjSanitize::html(@$FORM['c_address_2']); ?>" /></span>
 						</div>
 						<?php endif; ?>
-						
+
 						<?php if (in_array((int) $tpl['option_arr']['o_bf_country'], array(2,3))) : ?>
 						<div class="asRow">
 							<label class="asLabel"><?php __('booking_country'); ?><?php if ((int) $tpl['option_arr']['o_bf_country'] === 3) : ?> <span class="asAsterisk">*</span><?php endif; ?></label>
@@ -65,35 +65,35 @@ if (isset($tpl['status']) && $tpl['status'] == 'OK')
 							</span>
 						</div>
 						<?php endif; ?>
-						
+
 						<?php if (in_array((int) $tpl['option_arr']['o_bf_state'], array(2,3))) : ?>
 						<div class="asRow">
 							<label class="asLabel"><?php __('booking_state'); ?><?php if ((int) $tpl['option_arr']['o_bf_state'] === 3) : ?> <span class="asAsterisk">*</span><?php endif; ?></label>
 							<span class="asRowControl"><input type="text" name="c_state" class="asFormField asStretch<?php echo (int) $tpl['option_arr']['o_bf_state'] === 3 ? ' asRequired' : NULL; ?>" value="<?php echo pjSanitize::html(@$FORM['c_state']); ?>" /></span>
 						</div>
 						<?php endif; ?>
-						
+
 						<?php if (in_array((int) $tpl['option_arr']['o_bf_city'], array(2,3))) : ?>
 						<div class="asRow">
 							<label class="asLabel"><?php __('booking_city'); ?><?php if ((int) $tpl['option_arr']['o_bf_city'] === 3) : ?> <span class="asAsterisk">*</span><?php endif; ?></label>
 							<span class="asRowControl"><input type="text" name="c_city" class="asFormField asStretch<?php echo (int) $tpl['option_arr']['o_bf_city'] === 3 ? ' asRequired' : NULL; ?>" value="<?php echo pjSanitize::html(@$FORM['c_city']); ?>" /></span>
 						</div>
 						<?php endif; ?>
-						
+
 						<?php if (in_array((int) $tpl['option_arr']['o_bf_zip'], array(2,3))) : ?>
 						<div class="asRow">
 							<label class="asLabel"><?php __('booking_zip'); ?><?php if ((int) $tpl['option_arr']['o_bf_zip'] === 3) : ?> <span class="asAsterisk">*</span><?php endif; ?></label>
 							<span class="asRowControl"><input type="text" name="c_zip" class="asFormField asStretch<?php echo (int) $tpl['option_arr']['o_bf_zip'] === 3 ? ' asRequired' : NULL; ?>" value="<?php echo pjSanitize::html(@$FORM['c_zip']); ?>" /></span>
 						</div>
 						<?php endif; ?>
-						
+
 						<?php if (in_array((int) $tpl['option_arr']['o_bf_notes'], array(2,3))) : ?>
 						<div class="asRow">
 							<label class="asLabel"><?php __('booking_notes'); ?><?php if ((int) $tpl['option_arr']['o_bf_notes'] === 3) : ?> <span class="asAsterisk">*</span><?php endif; ?></label>
 							<span class="asRowControl"><textarea name="c_notes" class="asFormField asStretch<?php echo (int) $tpl['option_arr']['o_bf_notes'] === 3 ? ' asRequired' : NULL; ?>"><?php echo pjSanitize::html(@$FORM['c_notes']); ?></textarea></span>
 						</div>
 						<?php endif; ?>
-						
+
 						<?php if ((int) $tpl['option_arr']['o_disable_payments'] === 0) : ?>
 						<div class="asRow">
 							<label class="asLabel"><?php __('booking_payment_method'); ?> <span class="asAsterisk">*</span></label>
@@ -151,14 +151,14 @@ if (isset($tpl['status']) && $tpl['status'] == 'OK')
 								->attr('id', 'cc_exp_month_' . $_GET['cid'])
 								->attr('class', 'asFormField asRequired')
 								->prop('format', 'F');
-		
+
 							if (isset($FORM['cc_exp_month']))
 							{
 								$time->prop('selected', $FORM['cc_exp_month']);
 							}
 							echo $time->month();
 							?>
-							
+
 							<?php
 							$time = pjTime::factory()
 								->attr('name', 'cc_exp_year')
@@ -166,7 +166,7 @@ if (isset($tpl['status']) && $tpl['status'] == 'OK')
 								->attr('class', 'asFormField asRequired')
 								->prop('left', 0)
 								->prop('right', 6);
-		
+
 							if (isset($FORM['cc_exp_year']))
 							{
 								$time->prop('selected', $FORM['cc_exp_year']);
@@ -176,7 +176,7 @@ if (isset($tpl['status']) && $tpl['status'] == 'OK')
 							</span>
 						</div>
 						<?php endif; ?>
-						
+
 						<?php if (in_array((int) $tpl['option_arr']['o_bf_captcha'], array(3))) : ?>
 						<div class="asRow">
 							<label class="asLabel"><?php __('co_captcha'); ?><?php if ((int) $tpl['option_arr']['o_bf_captcha'] === 3) : ?> <span class="asAsterisk">*</span><?php endif; ?></label>
@@ -186,7 +186,7 @@ if (isset($tpl['status']) && $tpl['status'] == 'OK')
 							</span>
 						</div>
 						<?php endif; ?>
-						
+
 						<?php if (in_array((int) $tpl['option_arr']['o_bf_terms'], array(3))) : ?>
 						<div class="asRow">
 							<label class="asLabel">&nbsp;</label>
@@ -196,18 +196,51 @@ if (isset($tpl['status']) && $tpl['status'] == 'OK')
 							</span>
 						</div>
 						<?php endif; ?>
-	
+                        <div class="asRow">
+                            <label class="asLabel">&nbsp;</label>
+                            <span class="asRowControl" style="position: relative">
+                                <input type="checkbox" id="agreement" name="agreement" value="1"/>&nbsp;<a href="#" id="toggle_term">Hyväksyn käyttöehdot</a>
+                            </span>
+                        </div>
+                        <div class="asRow" id="term" style="display:none">
+                            <label class="asLabel">&nbsp;</label>
+                            <span class="asRowControl" style="position: relative">
+                                <p>Varausehdot</p>
+
+                                <p>Varaus tulee sitovasti voimaan, kun asiakas on tehnyt varauksen ja saanut siitä vahvistuksen joko puhelimitse tai kirjallisesti sähköpostitse. Palveluntarjoaja kantaa kaiken vastuun palvelun tuottamisesta ja hoitaa tarvittaessa kaiken yhteydenpidon asiakkaisiin.</p>
+
+                                <p>Peruutusehdot</p>
+
+                                <p>Varaajalla on oikeus peruutus- ja varausehtojen puitteissa peruuttaa varauksensa ilmoittamalla siitä puhelimitse vähintään 48h ennen palveluajan alkamista. Muutoin paikalle saapumatta jättämisestä voi palveluntarjoaja halutessaan periä voimassaolevan hinnastonsa mukaisen palvelukorvauksen.</p>
+                            </span>
+                        </div>
 					</div>
 					<div class="asElementOutline">
 						<input type="button" value="<?php __('btnCancel', false, true); ?>" class="asSelectorButton asSelectorServices asButton asButtonGray asFloatLeft" />
-						<input type="submit" value="<?php __('btnContinue', false, true); ?>" class="asSelectorButton asButton asButtonGreen asFloatRight" />
+						<input id="submit_booking" type="submit" value="<?php __('btnContinue', false, true); ?>" class="asSelectorButton asButton asButtonGreen asFloatRight" />
 					</div>
-					
+
 				</form>
-			
+
 			</div>
 		</div>
 	</div>
+    <script language="text/javascript">
+    $(document).ready(function(){
+        $('#submit_booking').click(function(){
+            if($("#agreement").is(':checked')){
+                return true;
+            } else {
+                alert('You have to agree with our term to complete booking.');
+                return false;
+            }
+        });
+        $('#toggle_term').click(function(e){
+            e.preventDefault();
+            $('#term').slideToggle();
+        });
+    });
+    </script>
 	<?php
 } elseif (isset($tpl['status']) && $tpl['status'] == 'ERR') {
 	?>
