@@ -1,58 +1,61 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Testing index</title>
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-    </head>
-    <body>
-        <div class="container">
-            <nav class="navbar navbar-inverse">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="{{ URL::to('consumers') }}">Consumer</a>
-                </div>
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ URL::to('consumers') }}">View all consumers</a></li>
-                    <li><a href="{{ URL::to('consumers/create') }}">Create a consumer</a></li>
-                </ul>
-            </nav>
+@extends('layouts.loyalty')
 
-            <h1>All the consumers</h1>
+@section('title')
+    @parent :: {{ trans('common.dashboard') }}
+@stop
 
-            @if (Session::has('message'))
-                <div class="alert alert-info">{{ Session::get('message') }}</div>
-            @endif
+@section('scripts')
+    {{ HTML::script('assets/js/jquery.dataTables.js') }}
+    {{ HTML::script('assets/js/DT_bootstrap.js') }}
+    {{ HTML::script('assets/js/consumerList.js') }}
+@stop
 
-            <table class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <td>ID</td>
-                        <td>First name</td>
-                        <td>Last name</td>
-                        <td>Score</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($consumers as $key => $value)
-                        <tr>
-                            <td>{{ $value->id }}</td>
-                            <td>{{ $value->first_name }}</td>
-                            <td>{{ $value->last_name }}</td>
-                            <td>{{ $value->score }}</td>
-                            <td>
-                                {{ Form::open([
-                                    'url' => 'consumers/' . $value->id,
-                                    'class' => 'pull-right'
-                                ]) }}
-                                    {{ Form::hidden('_method', 'DELETE') }}
-                                    {{ Form::submit('Delete this consumer', ['class' => 'btn btn-warning']) }}
-                                {{ Form::close() }}
-                                <a class="btn btn-small btn-success" href="{{ URL::to('consumers/' . $value->id) }}">Show this consumer</a>
-                                <a class="btn btn-small btn-info" href="{{ URL::to('consumers/' . $value->id . '/edit') }}">Edit this consumer</a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+@section('sub-content')
+    <div class="consumer-buttons">
+        <button class="btn-u btn-u-blue" onclick="onAddConsumer()">Add</button>
+        <button class="btn-u btn-u-red" onclick="onDeleteConsumer()">Delete</button>
+    </div>
+    <div class="clear-both"></div>
+    <div class="panel orange margin-bottom-40">
+        <div class="panel-heading orange">
+            <h3 class="panel-title">
+                <!--<i class="icon-user"></i>-->
+                Consumer List
+            </h3>
         </div>
-    </body>
-</html>
+        <table class="table table-striped" id="tblDataList">
+            <thead>
+                <tr>
+                    <th style="width: 60px;"><input type="checkbox" id="checkAll" onclick="onCheckAll(this)" /></th>
+                    <th style="width: 60px;">No</th>
+                    <th>Consumer</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Last Visited</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($consumers as $key => $value)
+                <tr>
+                    <td>
+                        <input type="checkbox" id="chkConsumerId" value="{{ $value->id }}" />
+                    </td>
+                    <td>{{ $key }}</td>
+                    <td>
+                        <a href="consumerForm.php?id={{ $value->id }}">{{ $value->first_name }} {{ $value->last_name }}</a>
+                    </td>
+                    <td>
+                        <a href="consumerForm.php?id={{ $value->id }}">{{ $value->email }}</a>
+                    </td>
+                    <td>
+                        <a href="consumerForm.php?id={{ $value->id }}">{{ $value->phone }}</a>
+                    </td>
+                    <td>
+                        <a href="consumerForm.php?id={{ $value->id }}">{{ $value->updated_at }}</a>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+@stop

@@ -1,8 +1,9 @@
-<?php namespace App\Controllers;
+<?php namespace App\LoyaltyCard\Controllers;
+use Input, Session, Redirect, View, Validator;
+use \App\LoyaltyCard\Models\Consumer as ConsumerModel;
+use Confide;
 
-use Consumer as ConsumerModel;
-
-class Consumer extends Base {
+class Consumer extends \App\Controllers\Base {
 
 	/**
 	 * Display a listing of the resource.
@@ -15,7 +16,7 @@ class Consumer extends Base {
         $consumers = ConsumerModel::all();
 
         // load the view and pass the consumers
-        return \View::make('loyalty.consumers.index')->with('consumers', $consumers);
+        return View::make('loyalty.consumers.index')->with('consumers', $consumers);
 	}
 
 
@@ -26,7 +27,7 @@ class Consumer extends Base {
 	 */
 	public function create()
 	{
-		return \View::make('loyalty.consumers.create');
+		return View::make('loyalty.consumers.create');
 	}
 
 
@@ -43,26 +44,26 @@ class Consumer extends Base {
             'email'         => 'required|email',
         ];
 
-        $validator = \Validator::make(\Input::all(), $rules);
+        $validator = Validator::make(Input::all(), $rules);
 
         if ($validator->fails()) {
-            return \Redirect::to('consumers/create')
+            return Redirect::to('consumers/create')
                 ->withErrors($validator)
-                ->withInput(\Input::all());
+                ->withInput(Input::all());
         } else {
             $consumer = new ConsumerModel;
-            $consumer->first_name = \Input::get('first_name');
-            $consumer->last_name = \Input::get('last_name');
-            $consumer->owner = \Input::get('owner_id');
-            $consumer->email = \Input::get('email');
-            $consumer->phone = \Input::get('phone');
-            $consumer->address = \Input::get('address');
-            $consumer->city = \Input::get('city');
-            $consumer->score = \Input::get('score');
+            $consumer->first_name = Input::get('first_name');
+            $consumer->last_name = Input::get('last_name');
+            $consumer->owner = Input::get('owner_id');
+            $consumer->email = Input::get('email');
+            $consumer->phone = Input::get('phone');
+            $consumer->address = Input::get('address');
+            $consumer->city = Input::get('city');
+            $consumer->score = Input::get('score');
             $consumer->save();
 
-            \Session::flash('message', 'Successfully created!');
-            return \Redirect::to('consumers');
+            Session::flash('message', 'Successfully created!');
+            return Redirect::to('consumers');
         }
 	}
 
@@ -77,7 +78,7 @@ class Consumer extends Base {
 	{
 		$consumer = ConsumerModel::find($id);
 
-        return \View::make('loyalty.consumers.show')->with('consumer', $consumer);
+        return View::make('loyalty.consumers.show')->with('consumer', $consumer);
 	}
 
 
@@ -91,7 +92,7 @@ class Consumer extends Base {
 	{
 		$consumer = ConsumerModel::find($id);
 
-        return \View::make('loyalty.consumers.edit')->with('consumer', $consumer);
+        return View::make('loyalty.consumers.edit')->with('consumer', $consumer);
 	}
 
 
@@ -109,21 +110,21 @@ class Consumer extends Base {
             'email' => 'required|email',
         ];
 
-        $validator = \Validator::make(\Input::all(), $rules);
+        $validator = Validator::make(Input::all(), $rules);
 
         if ($validator->fails()) {
-            return \Redirect::to('customers/' . $id . '/edit')
+            return Redirect::to('customers/' . $id . '/edit')
                 ->withErrors($validator)
-                ->withInput(\Input::all());
+                ->withInput(Input::all());
         } else {
             $consumer = ConsumerModel::find($id);
-            $consumer->first_name = \Input::get('first_name');
-            $consumer->last_name = \Input::get('last_name');
-            $consumer->email = \Input::get('email');
+            $consumer->first_name = Input::get('first_name');
+            $consumer->last_name = Input::get('last_name');
+            $consumer->email = Input::get('email');
             $consumer->save();
 
-            \Session::flash('message', 'Successfully updated!');
-            return \Redirect::to('consumers');
+            Session::flash('message', 'Successfully updated!');
+            return Redirect::to('consumers');
         }
 	}
 
@@ -139,8 +140,8 @@ class Consumer extends Base {
 		$consumer = ConsumerModel::find($id);
         $consumer->delete();
 
-        \Session::flash('message', 'Successfully deleted!');
-        return \Redirect::to('consumers');
+        Session::flash('message', 'Successfully deleted!');
+        return Redirect::to('consumers');
 	}
 
 

@@ -1,4 +1,4 @@
-<?php
+<?php namespace App\LoyaltyCard\Models;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Consumer extends Eloquent

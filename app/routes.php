@@ -18,7 +18,9 @@ Route::get('/', [
     'uses'  => 'App\Controllers\Home@index'
 ]);
 
-Route::resource('consumers', 'App\Controllers\Consumer');
+Route::group(['before' => 'auth'], function() {
+    Route::resource('consumers', 'App\LoyaltyCard\Controllers\Consumer');
+});
 
 Route::group(['prefix' => 'intro'], function () {
     Route::get('website-list', [
