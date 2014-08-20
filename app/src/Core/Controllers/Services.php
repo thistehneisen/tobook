@@ -1,4 +1,4 @@
-<?php namespace App\Controllers;
+<?php namespace App\Core\Controllers;
 
 use View, URL, Confide, Redirect;
 

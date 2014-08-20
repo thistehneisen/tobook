@@ -1,7 +1,7 @@
-<?php namespace App\Controllers;
+<?php namespace App\Core\Controllers;
 
 use Session, Validator, Input, View, Redirect, Hash, Confide;
-use User as UserModel;
+use App\Core\Models\User as UserModel;
 
 class User extends Base
 {

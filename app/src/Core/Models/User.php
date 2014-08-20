@@ -1,4 +1,6 @@
-<?php
+<?php namespace App\Core\Models;
+
+use App, DB;
 use Zizaco\Confide\ConfideUser;
 use Zizaco\Entrust\HasRole;
 

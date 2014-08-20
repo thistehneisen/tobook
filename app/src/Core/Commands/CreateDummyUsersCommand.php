@@ -1,5 +1,6 @@
-<?php namespace App\Commands;
+<?php namespace App\Core\Commands;
 
+use App\Core\Models\User;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -46,7 +47,7 @@ class CreateDummyUsersCommand extends Command
 
         $i = 1;
         while ($i++ < $number) {
-            $user = new \User();
+            $user = new User();
             $user->confirmed             = 1;
             $user->username              = $username.$i;
             $user->email                 = $username.$i.'@varaa.com';

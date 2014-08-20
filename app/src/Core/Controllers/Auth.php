@@ -1,7 +1,7 @@
-<?php namespace App\Controllers;
+<?php namespace App\Core\Controllers;
 
 use View, Validator, Input, Redirect, Config, Session;
-use User;
+use App\Core\Models\User;
 use Confide;
 
 class Auth extends Base
