@@ -1,8 +1,4 @@
-@extends('layouts.modules.loyalty')
-
-@section('title')
-    @parent :: {{ trans('common.dashboard') }}
-@stop
+@extends('modules.loyalty.layout')
 
 @section('sub-content')
 <nav class="navbar navbar-inverse">

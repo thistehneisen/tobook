@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Look! I'm CRUDding</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-</head>
-<body>
-<div class="container">
+@extends('modules.loyalty.layout')
 
+@section('sub-content')
 <nav class="navbar navbar-inverse">
     <div class="navbar-header">
         <a class="navbar-brand" href="{{ URL::to('consumers') }}">Consumers Alert</a>
@@ -30,5 +24,4 @@
         </p>
     </div>
 </div>
-</body>
-</html>
+@stop
