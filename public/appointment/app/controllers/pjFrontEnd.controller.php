@@ -1018,9 +1018,12 @@ class pjFrontEnd extends pjFront
 			$sendsms->sendSMS($send_address, $phone, $message);
 
             if($is_send_employee_sms){
-                $template = "Hei!\n\nSinulle on uusi varaus asiakkaalta {Name} palveluun {Services}";
+                $template = "Hei!\nSinulle on uusi varaus asiakkaalta {Name} palveluun {Services}";
                 $message = str_replace($tokens['search'], $tokens['replace'], str_replace(array('\r\n', '\n'), ' ', $template));
-                $sendsms = new pjSMSV;
+                if ( strpos($employee_phone, '0') == 0 ) {
+                    $employee_phone = ltrim($employee_phone, '0');
+                }
+                $employee_phone = isset($option_arr['o_reminder_sms_country_code']) ? $option_arr['o_reminder_sms_country_code'] . $employee_phone : $employee_phone;
                 $sendsms->sendSMS($send_address, $employee_phone, $message);
             }
 		}
