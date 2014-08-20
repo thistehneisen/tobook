@@ -1019,7 +1019,7 @@ class pjFrontEnd extends pjFront
 
             if($is_send_employee_sms){
                 $template = "Hei!\n\nSinulle on uusi varaus asiakkaalta {Name} palveluun {Services}";
-                $message = str_replace($tokens['search'], $tokens['replace'], str_replace(array('\r\n', '\n'), ' ', $template);
+                $message = str_replace($tokens['search'], $tokens['replace'], str_replace(array('\r\n', '\n'), ' ', $template));
                 $sendsms = new pjSMSV;
                 $sendsms->sendSMS($send_address, $employee_phone, $message);
             }
