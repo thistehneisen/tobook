@@ -18,6 +18,8 @@ Route::get('/', [
     'uses'  => 'App\Controllers\Home@index'
 ]);
 
+Route::resource('consumers', 'App\Controllers\Consumer');
+
 Route::group(['prefix' => 'intro'], function () {
     Route::get('website-list', [
         'as' => 'intro-website-list',
