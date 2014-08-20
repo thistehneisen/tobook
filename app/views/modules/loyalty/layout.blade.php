@@ -13,9 +13,9 @@
 
 @section('content')
     <div class="btn-group-vertical col-md-3">
-        <a class="btn btn-default" href="{{ URL::to('consumers') }}">Consumer List</a>
-        <a class="btn btn-default" href="{{ URL::to('consumers') }}">Stamp List</a>
-        <a class="btn btn-default" href="{{ URL::to('consumers') }}">Point List</a>
+        <a class="btn btn-default" href="{{ URL::route('modules.lc.consumers.index') }}">Consumer List</a>
+        <a class="btn btn-default" href="{{ URL::route('modules.lc.consumers.index') }}">Stamp List</a>
+        <a class="btn btn-default" href="{{ URL::route('modules.lc.consumers.index') }}">Point List</a>
     </div>
     <div class="col-md-9">
         <div class="top-buttons pull-right">

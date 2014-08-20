@@ -3,11 +3,11 @@
 @section('sub-content')
 <nav class="navbar navbar-inverse">
     <div class="navbar-header">
-        <a class="navbar-brand" href="{{ URL::to('consumer') }}">Consumer Alert</a>
+        <a class="navbar-brand" href="{{ URL::route('modules.lc.consumer.index') }}">Consumer Alert</a>
     </div>
     <ul class="nav navbar-nav">
-        <li><a href="{{ URL::to('consumers') }}">View All Consumers</a></li>
-        <li><a href="{{ URL::to('consumers/create') }}">Create a Consumer</a>
+        <li><a href="{{ URL::route('modules.lc.consumers.index') }}">View All Consumers</a></li>
+        <li><a href="{{ URL::route('modules.lc.consumers.create') }}">Create a Consumer</a>
     </ul>
 </nav>
 
