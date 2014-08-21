@@ -1,4 +1,4 @@
-@extends ('as.layout')
+@extends ('modules.as.layout')
 
 @section ('sub-content')
 <div class="alert alert-info">

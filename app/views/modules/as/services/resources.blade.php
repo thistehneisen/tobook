@@ -1,4 +1,4 @@
-@extends ('as.layout')
+@extends ('modules.as.layout')
 
 @section ('sub-content')
 <h4 class="comfortaa">Lisää resurssi</h4>

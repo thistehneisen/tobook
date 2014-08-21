@@ -14,12 +14,12 @@ class Services extends ServiceBase
     }
 
     public function index(){
-        return View::make('as.services.index');
+        return View::make('modules.as.services.index');
     }
 
     public function create()
     {
-        return View::make('as.services.create');
+        return View::make('modules.as.services.create');
     }
 
     public function categories()
@@ -27,7 +27,7 @@ class Services extends ServiceBase
         $categories = $this->categoryModel
             ->where('user_id', $this->user_id)
             ->get();
-        return \View::make('as.services.categories', [
+        return View::make('modules.as.services.categories', [
             'categories' => $categories
         ]);
     }
@@ -46,6 +46,6 @@ class Services extends ServiceBase
 
     public function resources()
     {
-        return View::make('as.services.resources');
+        return View::make('modules.as.services.resources');
     }
 }
