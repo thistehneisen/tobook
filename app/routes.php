@@ -182,6 +182,24 @@ Route::group([
         // Other modules
     });
 });
+
+/*
+|--------------------------------------------------------------------------
+| Appointment Scheduler routes
+|--------------------------------------------------------------------------
+*/
+Route::group([
+    'prefix' => 'appointment-scheduler',
+    'before' => ['auth']
+], function () {
+
+    Route::get('/', [
+        'as' => 'as.index',
+        'uses' => 'App\Appointment\Controllers\Index@index'
+    ]);
+
+});
+
 /*
 |--------------------------------------------------------------------------
 | Admin routes
