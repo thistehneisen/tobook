@@ -1,4 +1,4 @@
-from fabric.api import cd, run, task, hosts, env, local
+from fabric.api import cd, run, local, task, hosts, env, local
 import os
 
 HOME = os.getenv('HOME')
@@ -57,3 +57,7 @@ def test():
     Run the test suite
     '''
     local('./vendor/bin/codecept run')
+
+@task(alias='cm')
+def create_migrate(table='table'):
+    local("php artisan migrate:make create_{table} --create={table}".format(table=table))
