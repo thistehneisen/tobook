@@ -20,12 +20,16 @@ class CreateTableConsumers extends Migration {
             $table->string('last_name');
             $table->string('email');
             $table->string('phone');
-            $table->string('address_1');
-            $table->string('address_2');
+            $table->string('address');
             $table->string('city');
-            $table->string('zipcode');
+            $table->string('postcode');
             $table->string('country');
 			$table->timestamps();
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+            $table->unique(['user_id', 'email']);
 		});
 	}
 
