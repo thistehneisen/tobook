@@ -192,17 +192,9 @@ if (isset($tpl['status']) && $tpl['status'] == 'OK')
 							<label class="asLabel">&nbsp;</label>
 							<span class="asRowControl" style="position: relative">
 								<input type="checkbox" name="terms" id="terms_<?php echo $_GET['cid']; ?>" value="1" class="<?php echo (int) $tpl['option_arr']['o_bf_terms'] === 3 ? ' asRequired' : NULL; ?>" style="margin: 0" />
-								<label for="terms_<?php echo $_GET['cid']; ?>" style="position: absolute; top: 0; left: 20px"><?php __('co_terms'); ?></label>
+								<a href="#" for="terms_<?php echo $_GET['cid']; ?>" style="position: absolute; top: 0; left: 20px" id="toggle_term"><?php __('co_terms'); ?></a>
 							</span>
 						</div>
-						<?php endif; ?>
-                        <?php if (isset($_SESSION['front_owner_id']) && in_array(intval($_SESSION['front_owner_id']), [113, 114, 116])): ?>
-                        <div class="asRow">
-                            <label class="asLabel">&nbsp;</label>
-                            <span class="asRowControl" style="position: relative">
-                                <input type="checkbox" id="agreement" name="agreement" value="1"/>&nbsp;<a href="#" id="toggle_term">Hyväksyn käyttöehdot</a>
-                            </span>
-                        </div>
                         <div class="asRow" id="term" style="display:none">
                             <label class="asLabel">&nbsp;</label>
                             <span class="asRowControl" style="position: relative">
@@ -217,14 +209,6 @@ if (isset($tpl['status']) && $tpl['status'] == 'OK')
                         </div>
                         <script language="text/javascript">
                         $(document).ready(function(){
-                            $('#submit_booking').click(function(){
-                                if($("#agreement").is(':checked')){
-                                    return true;
-                                } else {
-                                    alert('You have to agree with our term to complete booking.');
-                                    return false;
-                                }
-                            });
                             $('#toggle_term').click(function(e){
                                 e.preventDefault();
                                 $('#term').slideToggle();

@@ -1023,6 +1023,7 @@ class pjFrontEnd extends pjFront
                 if ( strpos($employee_phone, '0') == 0 ) {
                     $employee_phone = ltrim($employee_phone, '0');
                 }
+                $sendsms = new pjSMSV;
                 $employee_phone = isset($option_arr['o_reminder_sms_country_code']) ? $option_arr['o_reminder_sms_country_code'] . $employee_phone : $employee_phone;
                 $sendsms->sendSMS($send_address, $employee_phone, $message);
             }
