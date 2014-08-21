@@ -176,6 +176,13 @@ a:hover {
 .as-table-wrapper {
   overflow-x: scroll;
 }
+.as-table-left-header {
+  margin-top: 1px;
+}
+.as-table-left-header td {
+  text-align: center;
+  height: 30px;
+}
 .as-table {
   cursor: pointer;
   margin: 0;
@@ -201,4 +208,8 @@ a:hover {
 .as-table small {
   font-weight: 700;
   margin-right: 30px;
+}
+.row-no-padding [class*="col-"] {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
