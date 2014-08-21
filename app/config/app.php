@@ -125,7 +125,8 @@ return array(
         'Zizaco\Confide\ConfideServiceProvider',
         'Zizaco\Entrust\EntrustServiceProvider',
         'Ludo237\Hashids\HashidsServiceProvider',
-        'anlutro\LaravelSettings\ServiceProvider'
+        'anlutro\LaravelSettings\ServiceProvider',
+        'Way\Generators\GeneratorsServiceProvider'
 
     ),
 

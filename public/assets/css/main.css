@@ -12,12 +12,8 @@ body {
   font-family: Roboto, Arial, Verdana, sans-serif;
   font-weight: 300;
 }
-a {
-  color: #dd5511;
-}
 a:link,
 a:hover {
-  color: #bd490f;
   text-decoration: none;
 }
 .comfortaa {
@@ -116,15 +112,6 @@ a:hover {
   font-weight: 700;
   margin: 30px 0;
 }
-
-.text-subheader {
-    font-family: "Comfortaa";
-    color: white;
-    font-size: 3vh;
-    font-weight: 700;
-    margin: 30px 0;
-}
-
 .header.homepage {
   min-height: 100vh;
 }

@@ -886,7 +886,8 @@ class pjFrontEnd extends pjFront
 		}
 		$tokens = pjAppController::getTokens($booking_arr, $option_arr, 'multi');
         $admin_email = 'noreply@varaa.com';
-
+        $is_send_employee_sms = false;
+        $employee_phone = null;
 		switch ($type)
 		{
 			case 'confirm':
@@ -938,7 +939,8 @@ class pjFrontEnd extends pjFront
 					}
 
                     if((int) $item['is_subscribed_sms'] === 1 && !empty($item['employee_phone'])){
-                        //TODO send sms to employee
+                        $is_send_employee_sms = true;
+                        $employee_phone = $item['employee_phone'];
                     }
 				}
 				break;
@@ -1010,10 +1012,21 @@ class pjFrontEnd extends pjFront
 
 			$phone = isset($option_arr['o_reminder_sms_country_code']) ? $option_arr['o_reminder_sms_country_code'] . $phone : $phone;
 
-			$send_address = isset($option_arr['o_reminder_sms_send_address']) ? $option_arr['o_reminder_sms_send_address'] : $phone;
+			$send_address = 'varaa.com';
 			$sendsms = new pjSMSV;
 			# Send to CLIENT
 			$sendsms->sendSMS($send_address, $phone, $message);
+
+            if($is_send_employee_sms){
+                $template = "Hei!\nSinulle on uusi varaus asiakkaalta {Name} palveluun {Services}";
+                $message = str_replace($tokens['search'], $tokens['replace'], str_replace(array('\r\n', '\n'), ' ', $template));
+                if ( strpos($employee_phone, '0') == 0 ) {
+                    $employee_phone = ltrim($employee_phone, '0');
+                }
+                $sendsms = new pjSMSV;
+                $employee_phone = isset($option_arr['o_reminder_sms_country_code']) ? $option_arr['o_reminder_sms_country_code'] . $employee_phone : $employee_phone;
+                $sendsms->sendSMS($send_address, $employee_phone, $message);
+            }
 		}
 	}
 
