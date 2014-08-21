@@ -357,7 +357,7 @@
 		overflow-x: auto; 
 	}
 	.asdate{
-		min-width: 550px;
+		min-width: 600px;
 	}
 	.asSingleDate .asBox li a{
 		margin: 0;
