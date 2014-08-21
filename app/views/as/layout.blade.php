@@ -17,9 +17,9 @@ $(function() {
 
 @section ('content')
     <ul class="nav nav-pills nav-" role="tablist">
-        <li class="active"><a href="{{ route('as.index') }}"><i class="fa fa-calendar"></i> Kalenteri</a></li>
-        <li><a href="#"><i class="fa fa-bookmark"></i> Varaukset</a></li>
-        <li class="dropdown">
+        <li @if (!Request::segment(2)) {{ 'class="active"' }} @endif><a href="{{ route('as.index') }}"><i class="fa fa-calendar"></i> Kalenteri</a></li>
+        <li @if (Request::segment(2) === 'bookings') {{ 'class="active"' }} @endif><a href="#"><i class="fa fa-bookmark"></i> Varaukset</a></li>
+        <li @if (Request::segment(2) === 'services') {{ 'class="active"' }} @endif class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('as.services.index') }}">
                 <i class="fa fa-cloud"></i> Palvelut <span class="caret"></span>
             </a>
@@ -27,15 +27,15 @@ $(function() {
                 <li><a href="{{ route('as.services.index') }}">Index</a></li>
                 <li><a href="{{ route('as.services.create') }}">Lisää palveluita</a></li>
                 <li><a href="{{ route('as.services.categories') }}">Lisää kategoria</a></li>
-                <li><a href="">Lisää resurssi</a></li>
+                <li><a href="{{ route('as.services.resources') }}">Lisää resurssi</a></li>
                 <li><a href="">Lisää lisäpalvelu</a></li>
             </ul>
         </li>
-        <li><a href="#"><i class="fa fa-users"></i> Työntekijät</a></li>
-        <li><a href="#"><i class="fa fa-cog"></i> Asetukset</a></li>
-        <li><a href="#"><i class="fa fa-signal"></i> Raportit</a></li>
-        <li><a href="#"><i class="fa fa-arrow-down"></i> Asenna</a></li>
-        <li><a href="#"><i class="fa fa-desktop"></i> Esikatselu</a></li>
+        <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif><a href="#"><i class="fa fa-users"></i> Työntekijät</a></li>
+        <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif><a href="#"><i class="fa fa-cog"></i> Asetukset</a></li>
+        <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif><a href="#"><i class="fa fa-signal"></i> Raportit</a></li>
+        <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif><a href="#"><i class="fa fa-arrow-down"></i> Asenna</a></li>
+        <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif><a href="#"><i class="fa fa-desktop"></i> Esikatselu</a></li>
     </ul>
 
     <br>

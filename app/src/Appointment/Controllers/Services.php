@@ -19,4 +19,9 @@ class Services extends Base
     {
         return View::make('as.services.categories');
     }
+
+    public function resources()
+    {
+        return View::make('as.services.resources');
+    }
 }
