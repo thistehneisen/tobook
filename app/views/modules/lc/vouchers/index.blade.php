@@ -1,7 +1,7 @@
-@extends('modules.loyalty.layout')
+@extends('modules.lc.layout')
 
 @section('top-buttons')
-<a href="{{ URL::route('modules.lc.vouchers.create') }}" class="btn btn-default btn-success"><span class="glyphicon glyphicon-plus"></span> {{ trans('common.add') }}</a>
+<a href="{{ URL::route('lc.vouchers.create') }}" class="btn btn-default btn-success"><span class="glyphicon glyphicon-plus"></span> {{ trans('common.add') }}</a>
 <!--<button class="btn btn-default btn-danger js-deleteConsumer"><span class="glyphicon glyphicon-remove"></span> {{ trans('common.delete') }}</button>-->
 @stop
 
@@ -34,27 +34,27 @@
                 </td>-->
                 <td>{{ $key+1 }}</td>
                 <td>
-                    <a href="{{ URL::route('modules.lc.vouchers.edit', ['id' => $value->id]) }}">
+                    <a href="{{ URL::route('lc.vouchers.edit', ['id' => $value->id]) }}">
                         {{ $value->name }}
                     </a>
                 </td>
                 <td>
-                    <a href="{{ URL::route('modules.lc.vouchers.edit', ['id' => $value->id]) }}">
+                    <a href="{{ URL::route('lc.vouchers.edit', ['id' => $value->id]) }}">
                         {{ $value->total_used }}
                     </a>
                 </td>
                 <td>
-                    <a href="{{ URL::route('modules.lc.vouchers.edit', ['id' => $value->id]) }}">
+                    <a href="{{ URL::route('lc.vouchers.edit', ['id' => $value->id]) }}">
                         {{ $value->required }}
                     </a>
                 </td>
                 <td>
-                    <a href="{{ URL::route('modules.lc.vouchers.edit', ['id' => $value->id]) }}">
+                    <a href="{{ URL::route('lc.vouchers.edit', ['id' => $value->id]) }}">
                         {{ $value->value }}
                     </a>
                 </td>
                 <td>
-                    <a href="{{ URL::route('modules.lc.vouchers.edit', ['id' => $value->id]) }}">
+                    <a href="{{ URL::route('lc.vouchers.edit', ['id' => $value->id]) }}">
                         @if ($value->is_active === 0)
                             {{ trans('N') }}
                         @else

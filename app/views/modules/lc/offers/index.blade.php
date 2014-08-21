@@ -1,13 +1,8 @@
-@extends('modules.loyalty.layout')
+@extends('modules.lc.layout')
 
 @section('top-buttons')
-<a href="{{ URL::route('modules.lc.offers.create') }}" class="btn btn-default btn-success"><span class="glyphicon glyphicon-plus"></span> {{ trans('common.add') }}</a>
-<!--<button class="btn btn-default btn-danger js-deleteConsumer"><span class="glyphicon glyphicon-remove"></span> {{ trans('common.delete') }}</button>-->
+<a href="{{ URL::route('lc.offers.create') }}" class="btn btn-default btn-success"><span class="glyphicon glyphicon-plus"></span> {{ trans('common.add') }}</a>
 @stop
-
-<!--@section('scripts')
-    {{ HTML::script('assets/js/loyalty.js') }}
-@stop-->
 
 @section('sub-content')
 <div class="panel panel-default">
@@ -35,27 +30,27 @@
                 </td>-->
                 <td>{{ $key+1 }}</td>
                 <td>
-                    <a href="{{ URL::route('modules.lc.offers.edit', ['id' => $value->id]) }}">
+                    <a href="{{ URL::route('lc.offers.edit', ['id' => $value->id]) }}">
                         {{ $value->name }}
                     </a>
                 </td>
                 <td>
-                    <a href="{{ URL::route('modules.lc.offers.edit', ['id' => $value->id]) }}">
+                    <a href="{{ URL::route('lc.offers.edit', ['id' => $value->id]) }}">
                         {{ $value->total_used }}
                     </a>
                 </td>
                 <td>
-                    <a href="{{ URL::route('modules.lc.offers.edit', ['id' => $value->id]) }}">
+                    <a href="{{ URL::route('lc.offers.edit', ['id' => $value->id]) }}">
                         {{ $value->required }}
                     </a>
                 </td>
                 <td>
-                    <a href="{{ URL::route('modules.lc.offers.edit', ['id' => $value->id]) }}">
+                    <a href="{{ URL::route('lc.offers.edit', ['id' => $value->id]) }}">
                         {{ $value->free_service }}
                     </a>
                 </td>
                 <td>
-                    <a href="{{ URL::route('modules.lc.offers.edit', ['id' => $value->id]) }}">
+                    <a href="{{ URL::route('lc.offers.edit', ['id' => $value->id]) }}">
                         @if ($value->is_auto_add === 0)
                             {{ trans('No') }}
                         @else
@@ -64,7 +59,7 @@
                     </a>
                 </td>
                 <td>
-                    <a href="{{ URL::route('modules.lc.offers.edit', ['id' => $value->id]) }}">
+                    <a href="{{ URL::route('lc.offers.edit', ['id' => $value->id]) }}">
                         @if ($value->is_active === 0)
                             {{ trans('N') }}
                         @else

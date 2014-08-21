@@ -1,4 +1,4 @@
-@extends('modules.loyalty.layout')
+@extends('modules.lc.layout')
 
 @section('sub-content')
 <div class="panel panel-default">
@@ -8,7 +8,7 @@
     <table class="table table-striped">
         <tbody>
 
-            {{ Form::model($consumer, array('route' => array('modules.lc.consumers.update', $consumer->id), 'method' => 'PUT')) }}
+            {{ Form::model($consumer, array('route' => array('lc.consumers.update', $consumer->id), 'method' => 'PUT')) }}
             @foreach ([
                 'first_name'    => trans('First Name'),
                 'last_name'     => trans('Last Name'),
@@ -16,8 +16,6 @@
                 'phone'         => trans('Phone'),
                 'address'       => trans('Address'),
                 'city'          => trans('City'),
-                'created_at'    => trans('Created'),
-                'updated_at'    => trans('Updated'),
             ] as $key => $value)
             <tr>
                 <td>

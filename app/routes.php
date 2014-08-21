@@ -168,22 +168,50 @@ Route::group([
             'uses' => 'App\Core\Controllers\Services@marketing'
         ]);
     });
-
-    Route::group([
-        'before' => [''], // Attach a filter to check payment
-        'prefix' => 'modules'
-    ], function () {
-
-        // Loyalty Card
-        Route::group(['prefix' => 'lc'], function () {
-            Route::resource('consumers', 'App\LoyaltyCard\Controllers\Consumer');
-            Route::resource('offers', 'App\LoyaltyCard\Controllers\Offer');
-            Route::resource('vouchers', 'App\LoyaltyCard\Controllers\Voucher');
-        });
-
-        // Other modules
-    });
 });
+
+/*
+|--------------------------------------------------------------------------
+| Loyalty Card routes
+|--------------------------------------------------------------------------
+*/
+Route::group([
+    'prefix' => 'loyalty-card',
+    'before' => ['auth']
+], function () {
+
+    Route::resource('consumers', 'App\LoyaltyCard\Controllers\Consumer', [
+        'names' => [
+            'index' => 'lc.consumers.index',
+            'create' => 'lc.consumers.create',
+            'edit' => 'lc.consumers.edit',
+            'store' => 'lc.consumers.store',
+            'update' => 'lc.consumers.update',
+        ]
+    ]);
+
+    Route::resource('offers', 'App\LoyaltyCard\Controllers\Offer', [
+        'names' => [
+            'index' => 'lc.offers.index',
+            'create' => 'lc.offers.create',
+            'edit' => 'lc.offers.edit',
+            'store' => 'lc.offers.store',
+            'update' => 'lc.offers.update',
+        ]
+    ]);
+
+    Route::resource('vouchers', 'App\LoyaltyCard\Controllers\Voucher', [
+        'names' => [
+            'index' => 'lc.vouchers.index',
+            'create' => 'lc.vouchers.create',
+            'edit' => 'lc.vouchers.edit',
+            'store' => 'lc.vouchers.store',
+            'update' => 'lc.vouchers.update',
+        ]
+    ]);
+
+});
+
 /*
 |--------------------------------------------------------------------------
 | Admin routes

@@ -18,7 +18,7 @@ class Consumer extends Base
         $consumers = Model::paginate(10);
 
         // load the view and pass the consumers
-        return View::make('modules.loyalty.consumers.index')
+        return View::make('modules.lc.consumers.index')
             ->with('consumers', $consumers);
 	}
 
@@ -30,7 +30,7 @@ class Consumer extends Base
 	 */
 	public function create()
 	{
-		return View::make('modules.loyalty.consumers.create');
+		return View::make('modules.lc.consumers.create');
 	}
 
 
@@ -73,7 +73,8 @@ class Consumer extends Base
         $consumer->consumer()->associate($core);
         $consumer->save();
 
-        return Redirect::route('modules.lc.consumers.index')->with('message', 'Successfully created!');
+        return Redirect::route('lc.consumers.index')
+            ->with('message', 'Successfully created!');
 	}
 
 
@@ -87,7 +88,7 @@ class Consumer extends Base
 	{
 		$consumer = Model::find($id);
 
-        return View::make('modules.loyalty.consumers.show')
+        return View::make('modules.lc.consumers.show')
             ->with('consumer', $consumer);
 	}
 
@@ -102,7 +103,7 @@ class Consumer extends Base
 	{
 		$consumer = Model::find($id);
 
-        return View::make('modules.loyalty.consumers.edit')
+        return View::make('modules.lc.consumers.edit')
             ->with('consumer', $consumer);
 	}
 

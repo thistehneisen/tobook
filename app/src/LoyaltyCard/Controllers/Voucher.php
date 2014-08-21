@@ -16,7 +16,7 @@ class Voucher extends \App\Core\Controllers\Base {
         $vouchers = VoucherModel::paginate(10);
 
         // load the view and pass the vouchers
-        return View::make('modules.loyalty.vouchers.index')
+        return View::make('modules.lc.vouchers.index')
             ->with('vouchers', $vouchers);
     }
 
@@ -28,7 +28,7 @@ class Voucher extends \App\Core\Controllers\Base {
      */
     public function create()
     {
-        return View::make('modules.loyalty.vouchers.create');
+        return View::make('modules.lc.vouchers.create');
     }
 
 
@@ -77,7 +77,7 @@ class Voucher extends \App\Core\Controllers\Base {
     {
         $voucher = VoucherModel::find($id);
 
-        return View::make('modules.loyalty.vouchers.show')
+        return View::make('modules.lc.vouchers.show')
             ->with('voucher', $voucher);
     }
 
@@ -92,7 +92,7 @@ class Voucher extends \App\Core\Controllers\Base {
     {
         $voucher = VoucherModel::find($id);
 
-        return View::make('modules.loyalty.vouchers.edit')
+        return View::make('modules.lc.vouchers.edit')
             ->with('voucher', $voucher);
     }
 
@@ -129,22 +129,4 @@ class Voucher extends \App\Core\Controllers\Base {
             return Redirect::route('modules.lc.vouchers.index');
         }
     }
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        $voucher = VoucherModel::find($id);
-        $voucher->delete();
-
-        Session::flash('message', 'Successfully deleted!');
-        return Redirect::to('vouchers');
-    }
-
-
 }

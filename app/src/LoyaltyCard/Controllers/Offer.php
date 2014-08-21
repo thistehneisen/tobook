@@ -16,7 +16,7 @@ class Offer extends \App\Core\Controllers\Base {
         $offers = OfferModel::paginate(10);
 
         // load the view and pass the offers
-        return View::make('modules.loyalty.offers.index')
+        return View::make('modules.lc.offers.index')
             ->with('offers', $offers);
     }
 
@@ -28,7 +28,7 @@ class Offer extends \App\Core\Controllers\Base {
      */
     public function create()
     {
-        return View::make('modules.loyalty.offers.create');
+        return View::make('modules.lc.offers.create');
     }
 
 
@@ -48,7 +48,7 @@ class Offer extends \App\Core\Controllers\Base {
         $validator = Validator::make(Input::all(), $rules);
 
         if ($validator->fails()) {
-            return Redirect::route('modules.lc.offers.create')
+            return Redirect::route('lc.offers.create')
                 ->withErrors($validator)
                 ->withInput();
         } else {
@@ -62,7 +62,7 @@ class Offer extends \App\Core\Controllers\Base {
             $offer->is_auto_add = Input::get('auto_add');
             $offer->save();
 
-            return Redirect::route('modules.lc.offers.index');
+            return Redirect::route('lc.offers.index');
         }
     }
 
@@ -77,7 +77,7 @@ class Offer extends \App\Core\Controllers\Base {
     {
         $offer = OfferModel::find($id);
 
-        return View::make('modules.loyalty.offers.show')
+        return View::make('modules.lc.offers.show')
             ->with('offer', $offer);
     }
 
@@ -92,7 +92,7 @@ class Offer extends \App\Core\Controllers\Base {
     {
         $offer = OfferModel::find($id);
 
-        return View::make('modules.loyalty.offers.edit')
+        return View::make('modules.lc.offers.edit')
             ->with('offer', $offer);
     }
 
@@ -114,7 +114,7 @@ class Offer extends \App\Core\Controllers\Base {
         $validator = Validator::make(Input::all(), $rules);
 
         if ($validator->fails()) {
-            return Redirect::route('modules.lc.offers.edit', ['id' => $id])
+            return Redirect::route('lc.offers.edit', ['id' => $id])
                 ->withErrors($validator)
                 ->withInput();
         } else {
@@ -126,7 +126,7 @@ class Offer extends \App\Core\Controllers\Base {
             $offer->is_auto_add = Input::get('is_auto_add');
             $offer->save();
 
-            return Redirect::route('modules.lc.offers.index');
+            return Redirect::route('lc.offers.index');
         }
     }
 

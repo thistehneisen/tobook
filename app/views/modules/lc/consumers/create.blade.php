@@ -1,4 +1,4 @@
-@extends('modules.loyalty.layout')
+@extends('modules.lc.layout')
 
 @section('sub-content')
 <div class="panel panel-default">
@@ -7,7 +7,7 @@
     </div>
     <table class="table table-striped">
         <tbody>
-            {{ Form::open(['route' => 'modules.lc.consumers.store']) }}
+            {{ Form::open(['route' => 'lc.consumers.store']) }}
             @foreach ([
             'first_name'    => trans('First Name'),
             'last_name'     => trans('Last Name'),

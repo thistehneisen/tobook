@@ -1,8 +1,7 @@
-@extends('modules.loyalty.layout')
+@extends('modules.lc.layout')
 
 @section('top-buttons')
-<a href="{{ URL::route('modules.lc.consumers.create') }}" class="btn btn-default btn-success"><span class="glyphicon glyphicon-plus"></span> {{ trans('common.add') }}</a>
-<button class="btn btn-default btn-danger js-deleteConsumer"><span class="glyphicon glyphicon-remove"></span> {{ trans('common.delete') }}</button>
+<a href="{{ URL::route('lc.consumers.create') }}" class="btn btn-default btn-success"><span class="glyphicon glyphicon-plus"></span> {{ trans('common.add') }}</a>
 @stop
 
 @section('scripts')
@@ -33,16 +32,16 @@
                 </td>
                 <td>{{ $key+1 }}</td>
                 <td>
-                    <a href="{{ URL::route('modules.lc.consumers.edit', ['id' => $value->id]) }}">{{ $value->first_name }} {{ $value->last_name }}</a>
+                    <a href="{{ URL::route('lc.consumers.edit', ['id' => $value->id]) }}">{{ $value->first_name }} {{ $value->last_name }}</a>
                 </td>
                 <td>
-                    <a href="{{ URL::route('modules.lc.consumers.edit', ['id' => $value->id]) }}">{{ $value->email }}</a>
+                    <a href="{{ URL::route('lc.consumers.edit', ['id' => $value->id]) }}">{{ $value->email }}</a>
                 </td>
                 <td>
-                    <a href="{{ URL::route('modules.lc.consumers.edit', ['id' => $value->id]) }}">{{ $value->phone }}</a>
+                    <a href="{{ URL::route('lc.consumers.edit', ['id' => $value->id]) }}">{{ $value->phone }}</a>
                 </td>
                 <td>
-                    <a href="{{ URL::route('modules.lc.consumers.edit', ['id' => $value->id]) }}">{{ $value->updated_at }}</a>
+                    <a href="{{ URL::route('lc.consumers.edit', ['id' => $value->id]) }}">{{ $value->updated_at }}</a>
                 </td>
             </tr>
             @endforeach
