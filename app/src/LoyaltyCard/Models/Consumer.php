@@ -1,9 +1,10 @@
 <?php namespace App\LoyaltyCard\Models;
-use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class Consumer extends Eloquent
+use App\Core\Models\Consumer as CoreConsumer;
+
+class Consumer extends CoreConsumer
 {
-    protected $table = 'lc_consumer';
+    protected $table = 'lc_consumers';
     protected $guarded = ['id'];
 
     /**
