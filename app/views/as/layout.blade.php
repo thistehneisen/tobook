@@ -16,10 +16,21 @@ $(function() {
 @stop
 
 @section ('content')
-    <ul class="nav nav-pills" role="tablist">
-        <li class="active"><a href="#"><i class="fa fa-calendar"></i> Kalenteri</a></li>
+    <ul class="nav nav-pills nav-" role="tablist">
+        <li class="active"><a href="{{ route('as.index') }}"><i class="fa fa-calendar"></i> Kalenteri</a></li>
         <li><a href="#"><i class="fa fa-bookmark"></i> Varaukset</a></li>
-        <li><a href="#"><i class="fa fa-wrech"></i> Palvelut</a></li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('as.services.index') }}">
+                <i class="fa fa-cloud"></i> Palvelut <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="{{ route('as.services.index') }}">Index</a></li>
+                <li><a href="{{ route('as.services.create') }}">Lisää palveluita</a></li>
+                <li><a href="">Lisää kategoria</a></li>
+                <li><a href="">Lisää resurssi</a></li>
+                <li><a href="">Lisää lisäpalvelu</a></li>
+            </ul>
+        </li>
         <li><a href="#"><i class="fa fa-users"></i> Työntekijät</a></li>
         <li><a href="#"><i class="fa fa-cog"></i> Asetukset</a></li>
         <li><a href="#"><i class="fa fa-signal"></i> Raportit</a></li>

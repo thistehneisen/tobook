@@ -13,4 +13,9 @@ class Services extends Base
     public function index(){
         return View::make('as.services.index');
     }
+
+    public function create()
+    {
+        return View::make('as.services.create');
+    }
 }
