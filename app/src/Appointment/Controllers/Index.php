@@ -8,6 +8,6 @@ class Index extends Base
 
     public function index()
     {
-        return View::make('as.index.index');
+        return View::make('modules.as.index.index');
     }
 }

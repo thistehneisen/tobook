@@ -1,17 +1,21 @@
 @extends ('layouts.default')
 
+@section('logo')
+@stop
+
 @section ('styles')
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css">
+    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css') }}
+    {{ HTML::style(asset('assets/css/appointment.css')) }}
 @stop
 
 @section ('scripts')
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
+    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js') }}
     <script>
-$(function() {
-    $('.date-picker').datepicker({
-        format: 'yyyy-mm-dd'
+    $(function() {
+        $('.date-picker').datepicker({
+            format: 'yyyy-mm-dd'
+        });
     });
-});
     </script>
 @stop
 
