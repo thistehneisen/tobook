@@ -27,4 +27,6 @@ return [
     'admin'             => 'Admin',
     'users'             => 'Käyttäjät',
     'settings'          => 'Asetukset',
+    'add'               => 'Lisää',
+    'delete'            => 'Poista',
 ];

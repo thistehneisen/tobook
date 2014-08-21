@@ -1,41 +1,44 @@
 @extends('modules.loyalty.layout')
 
 @section('sub-content')
-<nav class="navbar navbar-inverse">
-    <div class="navbar-header">
-        <a class="navbar-brand" href="{{ URL::to('consumers') }}">Consumer Alert</a>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{ trans('Consumer List') }}</h3>
     </div>
-    <ul class="nav navbar-nav">
-        <li><a href="{{ URL::to('consumers') }}">View All Consumer</a></li>
-        <li><a href="{{ URL::to('consumers/create') }}">Create a Consumer</a>
-    </ul>
-</nav>
+    <table class="table table-striped">
+        <tbody>
 
-<h1>Edit {{ $consumer->name }}</h1>
-
-<!-- if there are creation errors, they will show here -->
-{{ HTML::ul($errors->all()) }}
-
-{{ Form::model($consumer, array('route' => array('consumers.update', $consumer->id), 'method' => 'PUT')) }}
-
-    <div class="form-group">
-        {{ Form::label('first_name', 'First Name') }}
-        {{ Form::text('first_name', null, array('class' => 'form-control')) }}
-    </div>
-
-    <div class="form-group">
-        {{ Form::label('last_name', 'Last Name') }}
-        {{ Form::text('last_name', null, array('class' => 'form-control')) }}
-    </div>
-
-    <div class="form-group">
-        {{ Form::label('email', 'Email') }}
-        {{ Form::email('email', null, array('class' => 'form-control')) }}
-    </div>
-
-    {{ Form::submit('Edit the Consumer!', array('class' => 'btn btn-primary')) }}
-
-{{ Form::close() }}
-
+            {{ Form::model($consumer, array('route' => array('modules.lc.consumers.update', $consumer->id), 'method' => 'PUT')) }}
+            @foreach ([
+                'first_name'    => trans('First Name'),
+                'last_name'     => trans('Last Name'),
+                'email'         => trans('Email'),
+                'phone'         => trans('Phone'),
+                'address'       => trans('Address'),
+                'city'          => trans('City'),
+                'created_at'    => trans('Created'),
+                'updated_at'    => trans('Updated'),
+            ] as $key => $value)
+            <tr>
+                <td>
+                    <div class="form-group">
+                        {{ Form::label($key, $value) }}
+                        @if (strcmp($key, 'created_at') === 0 || strcmp($key, 'updated_at') === 0)
+                            {{ Form::text($key, null, ['class' => 'form-control', 'disabled' => 'disabled']) }}
+                        @else
+                            {{ Form::text($key, null, ['class' => 'form-control']) }}
+                        @endif
+                    </div>
+                </td>
+            </tr>
+            @endforeach
+            <tr>
+                <td>
+                {{ Form::submit(trans('Edit the Consumer!'), ['class' => 'btn btn-primary']) }}
+                </td>
+            </tr>
+            {{ Form::close() }}
+        </tbody>
+    </table>
 </div>
 @stop

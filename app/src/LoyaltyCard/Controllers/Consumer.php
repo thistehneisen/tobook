@@ -13,7 +13,7 @@ class Consumer extends \App\Core\Controllers\Base {
 	public function index()
 	{
 		// get all the consumers
-        $consumers = ConsumerModel::all();
+        $consumers = ConsumerModel::paginate(10);
 
         // load the view and pass the consumers
         return View::make('modules.loyalty.consumers.index')
