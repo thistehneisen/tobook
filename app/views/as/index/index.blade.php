@@ -118,215 +118,215 @@
         </thead>
         <tbody>
             <tr class="inactive">
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
             </tr>
             <tr class="inactive">
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
             </tr>
             <tr>
-                <td><small>8:00</small> varaa</td>
+                <td>varaa</td>
                 <td class="booked">
                     Hung (Service 3)
                     <a href="#" class="pull-right"><i class="fa fa-plus"></i></a>
                 </td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
             </tr>
             <tr>
-                <td><small>8:00</small> varaa</td>
+                <td>varaa</td>
                 <td class="booked"></td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
             </tr>
             <tr>
-                <td><small>8:00</small> varaa</td>
+                <td>varaa</td>
                 <td class="booked"></td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
             </tr>
             <tr>
-                <td><small>8:00</small> varaa</td>
+                <td>varaa</td>
                 <td class="booked"></td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
             </tr>
             <tr>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
             </tr>
             <tr>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
             </tr>
             <tr>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
             </tr>
             <tr>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
             </tr>
             <tr>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
             </tr>
             <tr>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
             </tr>
             <tr>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
             </tr>
             <tr>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
             </tr>
             <tr class="inactive">
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
             </tr>
             <tr class="inactive">
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
-                <td><small>8:00</small> varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
+                <td>varaa</td>
             </tr>
 
         </tbody>
