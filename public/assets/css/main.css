@@ -1,5 +1,4 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,300,600);
-
 @import url(http://fonts.googleapis.com/css?family=Comfortaa:400,300,700&subset=latin,cyrillic,latin-ext,greek,cyrillic-ext);
 *,
 *:before,
@@ -173,4 +172,33 @@ a:hover {
   border-radius: 50%;
   color: #333333;
   font-size: 16px;
+}
+.as-table-wrapper {
+  overflow-x: scroll;
+}
+.as-table {
+  cursor: pointer;
+  margin: 0;
+}
+.as-table th {
+  min-width: 150px;
+  max-width: 200px;
+}
+.as-table td {
+  color: #fff;
+  background-color: #080;
+  border: 1px solid #fff;
+}
+.as-table .inactive td {
+  background-color: #888;
+}
+.as-table .booked {
+  background-color: #ed1c24;
+}
+.as-table .booked a {
+  color: #fff;
+}
+.as-table small {
+  font-weight: 700;
+  margin-right: 30px;
 }
