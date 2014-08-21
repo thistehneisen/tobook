@@ -1,8 +1,7 @@
 <?php
 
-error_reporting(0);
 return [
-    'debug' => false,
+    'debug' => true,
     'url' => 'http://dev.varaa.co',
     'key' => $_ENV['SECRET_KEY'],
 ];
