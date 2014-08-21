@@ -177,6 +177,8 @@ Route::group([
         // Loyalty Card
         Route::group(['prefix' => 'lc'], function () {
             Route::resource('consumers', 'App\LoyaltyCard\Controllers\Consumer');
+            Route::resource('offers', 'App\LoyaltyCard\Controllers\Offer');
+            Route::resource('vouchers', 'App\LoyaltyCard\Controllers\Voucher');
         });
 
         // Other modules
