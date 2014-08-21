@@ -1012,7 +1012,7 @@ class pjFrontEnd extends pjFront
 
 			$phone = isset($option_arr['o_reminder_sms_country_code']) ? $option_arr['o_reminder_sms_country_code'] . $phone : $phone;
 
-			$send_address = isset($option_arr['o_reminder_sms_send_address']) ? $option_arr['o_reminder_sms_send_address'] : $phone;
+			$send_address = 'varaa.com';
 			$sendsms = new pjSMSV;
 			# Send to CLIENT
 			$sendsms->sendSMS($send_address, $phone, $message);
