@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAsServicesTable extends Migration {
+class CreateAsConsumersTable extends Migration {
 
     /**
      * Run the migrations.
@@ -12,21 +12,20 @@ class CreateAsServicesTable extends Migration {
      */
     public function up()
     {
-        Schema::create('as_services', function(Blueprint $table)
+        Schema::create('as_consumers', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->unsignedInteger('category_id');
-            $table->unsignedInteger('user_id');
-            $table->boolean('is_active');
-            $table->string('description');
+            $table->unsignedInteger('consumer_id');
+            $table->unsignedInteger('user_id'); // For faster retrieval
+            $table->timestamps();
             $table->foreign('user_id')
                 ->references('id')
-                ->on('users')->onDelete('cascade');
-            $table->foreign('category_id')
-                ->references('id')
-                ->on('as_service_categories')
+                ->on('users')
                 ->onDelete('cascade');
-            $table->timestamps();
+            $table->foreign('consumer_id')
+                ->references('id')
+                ->on('consumers')
+                ->onDelete('cascade');
         });
     }
 
@@ -37,7 +36,7 @@ class CreateAsServicesTable extends Migration {
      */
     public function down()
     {
-        Schema::drop('as_services');
+        Schema::drop('as_consumers');
     }
 
 }

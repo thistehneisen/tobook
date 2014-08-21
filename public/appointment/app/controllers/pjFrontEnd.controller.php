@@ -9,21 +9,21 @@ class pjFrontEnd extends pjFront
 	public function __construct()
 	{
 		parent::__construct();
-		
+
 		$this->setAjax(true);
-		
+
 		$this->setLayout('pjActionEmpty');
 	}
-	
+
 	public function pjActionAddToCart()
 	{
 		if ($this->isXHR())
 		{
 			if (isset($_GET['cid']) && isset($_POST['date']) && isset($_POST['start_ts']) && isset($_POST['end_ts']) && isset($_POST['service_id']) && isset($_POST['employee_id']))
 			{
-				
+
 				$key = sprintf("%u|%s|%u|%s|%s|%u|%u", $_GET['cid'], $_POST['date'], $_POST['service_id'], $_POST['start_ts'], $_POST['end_ts'], $_POST['employee_id'], $_POST['wt_id']);
-				
+
 				# Remove services at same date
 				$cart = $this->cart->getAll();
 				foreach ($cart as $cart_key => $whatever)
@@ -35,22 +35,22 @@ class pjFrontEnd extends pjFront
 					}
 				}
 				# --
-				
+
 				if ( isset($_SESSION[ PREFIX . 'extra' ]) ) {
 					$this->cart->update($key, $_SESSION[ PREFIX . 'extra' ]);
 					unset($_SESSION[ PREFIX . 'extra' ]);
-					
+
 				} else {
 					$this->cart->update($key, 1);
 				}
-				
+
 				pjAppController::jsonResponse(array('status' => 'OK', 'code' => 206, 'text' => __('system_206', true)));
 			}
 			pjAppController::jsonResponse(array('status' => 'ERR', 'code' => 105, 'text' => __('system_105', true)));
 		}
 		exit;
 	}
-	
+
 	public function pjActionRemoveFromCart()
 	{
 		if ($this->isXHR())
@@ -75,7 +75,7 @@ class pjFrontEnd extends pjFront
 		}
 		die('false');
 	}
-	
+
 	public function pjActionCheckAvailability()
 	{
 		if ($this->isXHR())
@@ -87,7 +87,7 @@ class pjFrontEnd extends pjFront
 			$hour_to = $_POST['hour_to'];
 			$minute_from = $_POST['minute_from'];
 			$minute_to = $_POST['minute_to'];
-			
+
 			$dt_from = $date_from . " " . $hour_from . ":" . $minute_from . ":00";
 			$dt_to = $date_to . " " . $hour_to . ":" . $minute_to . ":00";
 
@@ -100,7 +100,7 @@ class pjFrontEnd extends pjFront
 			}
 			$_SESSION[$this->defaultForm] = array_merge($_SESSION[$this->defaultForm],
 				compact('date_from', 'date_to', 'hour_from', 'hour_to', 'minute_from', 'minute_to'));
-			
+
 			if (isset($_POST['item_id']))
 			{
 				$arr = pjItemModel::factory()
@@ -134,7 +134,7 @@ class pjFrontEnd extends pjFront
 					))
 					->find($_POST['item_id'])
 					->getData();
-				
+
 				if (!empty($arr)
 					&& (int) $arr['is_active'] === 1
 					&& (int) $arr['unavailable_days'] === 0
@@ -145,7 +145,7 @@ class pjFrontEnd extends pjFront
 					$this->set('price', $price);
 				} else {
 					pjObject::import('Model', 'pjGallery:pjGallery');
-					
+
 					$other_arr = pjItemModel::factory()
 						->select(sprintf("t1.*, t2.content AS `title`,
 							(SELECT COUNT(*)
@@ -187,11 +187,11 @@ class pjFrontEnd extends pjFront
 					$this->set('other_arr', $other_arr);
 				}
 				$this->set('arr', $arr);
-				
+
 				$this->setTemplate('pjFrontEnd', 'pjActionCheckItem');
-				
+
 			} elseif (isset($_POST['package_id'])) {
-				
+
 				$arr = pjPackageModel::factory()
 					->select(sprintf("t1.*,
 						(SELECT COUNT(*)
@@ -219,7 +219,7 @@ class pjFrontEnd extends pjFront
 					))
 					->find($_POST['package_id'])
 					->getData();
-				
+
 				if (!empty($arr)
 					&& (int) $arr['is_active'] === 1
 					&& (int) $arr['unavailable_days'] === 0
@@ -271,7 +271,7 @@ class pjFrontEnd extends pjFront
 					$this->set('other_arr', $other_arr);
 				}
 				$this->set('arr', $arr);
-				
+
 				$this->setTemplate('pjFrontEnd', 'pjActionCheckPackage');
 			}
 		}
@@ -289,20 +289,20 @@ class pjFrontEnd extends pjFront
 			{
 				pjAppController::jsonResponse(array('status' => 'ERR', 'code' => 109, 'text' => __('system_109', true)));
 			}
-			
+
 			if ((int) $this->option_arr['o_bf_captcha'] === 3 && (!isset($_SESSION[$this->defaultForm]['captcha']) || @$_SESSION[$this->defaultCaptcha] != strtoupper($_SESSION[$this->defaultForm]['captcha'])))
 			{
 				pjAppController::jsonResponse(array('status' => 'ERR', 'code' => 110, 'text' => __('system_110', true)));
 			}
-			
+
 			$summary = $this->getSummary();
 			if (!$this->getValidate($summary))
 			{
 				pjAppController::jsonResponse(array('status' => 'ERR', 'code' => 111, 'text' => __('system_111', true)));
 			}
-			
+
 			$data = array();
-			
+
 			$data['calendar_id'] = $this->getForeignId();
 			$data['booking_status'] = $this->option_arr['o_status_if_not_paid'];
 			$data['uuid'] = pjUtil::uuid();
@@ -310,7 +310,7 @@ class pjFrontEnd extends pjFront
 			$data['locale_id'] = $this->getLocaleId();
 			$data['owner_id'] = $owner_id;
 			$data = array_merge($_SESSION[$this->defaultForm], $data);
-			
+
 			if (isset($data['payment_method']) && $data['payment_method'] != 'creditcard')
 			{
 				unset($data['cc_type']);
@@ -319,7 +319,7 @@ class pjFrontEnd extends pjFront
 				unset($data['cc_exp_year']);
 				unset($data['cc_code']);
 			}
-			
+
 			$data['booking_price'] = $summary['price'];
 			$data['booking_deposit'] = $summary['deposit'];
 			$data['booking_tax'] = $summary['tax'];
@@ -331,23 +331,23 @@ class pjFrontEnd extends pjFront
 			{
 				pjAppController::jsonResponse(array('status' => 'ERR', 'code' => 114, 'text' => __('system_114', true)));
 			}
-			
+
 			$booking_id = $pjBookingModel->setAttributes($data)->insert()->getInsertId();
 
 			if ($booking_id !== false && (int) $booking_id > 0)
 			{
-				
+
 				$pjBookingServiceModel = pjBookingServiceModel::factory()->setBatchFields(array(
 					'booking_id', 'service_id', 'employee_id', 'resources_id', 'date', 'start', 'start_ts', 'total', 'price', 'reminder_email', 'reminder_sms', 'owner_id'
 				));
-				
+
 				foreach ($summary['services'] as $service)
 				{
 					$resources_ids = pjResourcesServiceModel::factory()
 						->where('t1.service_id', $service['id'])
 						->findAll()
 						->getDataPair(null, 'resources_id');
-					
+
 					if ( isset($resources_ids) && !empty($resources_ids)) {
 						$resources_bs_ids = pjBookingServiceModel::factory()
 							->join('pjBooking', "t1.booking_id=t2.id AND t2.booking_status='confirmed'", 'inner')
@@ -357,23 +357,23 @@ class pjFrontEnd extends pjFront
 							->where('t1.start_ts < ', $service['start_ts'] + $service['total']* 60)
 							->findAll()
 							->getDataPair(null, 'resources_id');
-							
+
 						if ( isset($resources_bs_ids) && !empty($resources_bs_ids)) {
 							$resources_booking_ids = array_values(array_diff($resources_ids, $resources_bs_ids));
 						} else $resources_booking_ids = $resources_ids;
-							
+
 					} else $resources_booking_ids = array('0' => null);
-					
+
 					$pjBookingServiceModel->addBatchRow(array(
 						$booking_id, $service['id'], $service['employee_id'], $resources_booking_ids[0],
 						$service['date'], @$service['start'], $service['start_ts'],
 						$service['total'], $service['price'], 0, 0, $owner_id
 					));
-					
+
 					if ( isset($service['extra']) && count($service['extra']) > 0 ) {
-							
+
 						$pjBookingExtraServiceModel = pjBookingExtraServiceModel::factory();
-							
+
 						$pjBookingExtraServiceModel->setBatchFields(array('booking_id', 'service_id', 'extra_id', 'date', 'owner_id'));
 						foreach ( $service['extra'] as $_extra) {
 							$pjBookingExtraServiceModel->addBatchRow(array($booking_id, $service['id'], $_extra['id'], $service['date'], $owner_id));
@@ -382,9 +382,9 @@ class pjFrontEnd extends pjFront
 					}
 				}
 				$pjBookingServiceModel->insertBatch();
-				
+
 				$invoice_arr = $this->pjActionGenerateInvoice($booking_id, $owner_id);
-				
+
 				# Confirmation email(s)
 				$booking_arr = $pjBookingModel
 					->reset()
@@ -406,7 +406,7 @@ class pjFrontEnd extends pjFront
                     ->where('t1.owner_id', $owner_id)
 					->find($booking_id)
 					->getData();
-					
+
 				$booking_arr['bs_arr'] = $pjBookingServiceModel
 					->reset()
 					->select('t1.*, t3.before, t3.length, t4.content AS `service_name`, t5.content AS `employee_name`,
@@ -431,16 +431,16 @@ class pjFrontEnd extends pjFront
                     ->getData();
 
 				$bs_ids = $pjBookingServiceModel->getDataPair('id', null);
-					
+
 				// Reset SESSION vars
 				$this->cart->clear();
-				
+
 				$_SESSION[$this->defaultForm] = NULL;
 				unset($_SESSION[$this->defaultForm]);
-				
+
 				$_SESSION[$this->defaultCaptcha] = NULL;
 				unset($_SESSION[$this->defaultCaptcha]);
-				
+
 				header("Content-Type: application/json; charset=utf-8");
 				echo pjAppController::jsonEncode(array(
 					'status' => 'OK',
@@ -452,24 +452,24 @@ class pjFrontEnd extends pjFront
 					'payment_method' => ((int) $this->option_arr['o_disable_payments'] === 0 && isset($data['payment_method']) ?
 						$data['payment_method'] : 'none')
 				));
-				
+
 				pjFrontEnd::pjActionConfirmSend($this->option_arr, $booking_arr, 'confirm');
 				# Confirmation email(s)
-				
+
 				exit;
-				
+
 			} else {
 				pjAppController::jsonResponse(array('status' => 'ERR', 'code' => 119, 'text' => __('system_119', true)));
 			}
 		}
 		exit;
 	}
-	
+
 	public function pjActionLoad()
 	{
 		$this->setAjax(false);
 		$this->setLayout('pjActionFront');
-		
+
 		ob_start();
 		header("Content-Type: text/javascript; charset=utf-8");
 
@@ -478,7 +478,7 @@ class pjFrontEnd extends pjFront
 		if (!empty($w_arr))
 		{
 			$w_arr = $w_arr[0];
-			
+
 			if ($w_arr['monday_dayoff'] == 'T')
 			{
 				$days_off[] = 1;
@@ -508,7 +508,7 @@ class pjFrontEnd extends pjFront
 				$days_off[] = 0;
 			}
 		}
-		
+
 		$d_arr = pjDateModel::factory()
 			// ->where('t1.foreign_id', $this->getForeignId())
 			->where('t1.type', 'calendar')
@@ -529,7 +529,7 @@ class pjFrontEnd extends pjFront
 		$this->set('days_off', $days_off);
 		$this->set('dates_off', $dates_off);
 		$this->set('dates_on', $dates_on);
-				
+
 		# Find first working day starting from tomorrow
 		$first_working_date = NULL;
 		list($y, $m, $d, $w) = explode("-", date("Y-n-j-w", strtotime("+1 day")));
@@ -537,23 +537,23 @@ class pjFrontEnd extends pjFront
 		{
 			$timestamp = mktime(0, 0, 0, $m, $d + $i, $y);
 			list($date, $wday) = explode("|", date("Y-m-d|w", $timestamp));
-			
+
 			if (!in_array($wday, $days_off) && !in_array($date, $dates_off))
 			{
 				$first_working_date = $date;
 				break;
 			}
-			
+
 			if (in_array($wday, $days_off) && in_array($date, $dates_on))
 			{
 				$first_working_date = $date;
 				break;
 			}
 		}
-		
+
 		$this->set('first_working_date', $first_working_date);
 	}
-	
+
 	public function pjActionLoadCss()
 	{
 		$layout = isset($_GET['layout']) && in_array($_GET['layout'], $this->getLayoutRange()) ?
@@ -574,7 +574,7 @@ class pjFrontEnd extends pjFront
 			@readfile($item['path'] . $item['file']);
 			$string = ob_get_contents();
 			ob_end_clean();
-			
+
 			if ($string !== FALSE)
 			{
 				echo str_replace(
@@ -598,11 +598,11 @@ class pjFrontEnd extends pjFront
 		}
 		exit;
 	}
-	
+
 	public function pjActionCancel()
 	{
 		$pjBookingModel = pjBookingModel::factory();
-				
+
 		if (isset($_POST['booking_cancel']))
 		{
 			$arr = $pjBookingModel->find($_POST['id'])->getData();
@@ -613,7 +613,7 @@ class pjFrontEnd extends pjFront
 					->where(sprintf("SHA1(CONCAT(`id`, `created`, '%s')) = ", PJ_SALT), $_POST['hash'])
 					->limit(1)
 					->modifyAll(array('booking_status' => 'cancelled'));
-					 
+
 				pjUtil::redirect($_SERVER['PHP_SELF'] . '?controller=pjFrontEnd&action=pjActionCancel&err=5');
 			}
 		} else {
@@ -637,7 +637,7 @@ class pjFrontEnd extends pjFront
 						{
 							$this->set('status', 3);
 						} else {
-							
+
 							$arr['details_arr'] = pjBookingServiceModel::factory()
 								->select('t1.*, t2.content AS `service_name`, t3.content AS `employee_name`, t4.before, t4.length')
 								->join('pjMultiLang', sprintf("t2.model='pjService' AND t2.foreign_id=t1.service_id AND t2.field='name' AND t2.locale='%u'", $arr['locale_id']), 'left outer')
@@ -646,7 +646,7 @@ class pjFrontEnd extends pjFront
 								->where('t1.booking_id', $arr['id'])
 								->findAll()
 								->getData();
-							
+
 							$this->set('arr', $arr);
 						}
 					}
@@ -657,14 +657,14 @@ class pjFrontEnd extends pjFront
 			$this->appendCss('index.php?controller=pjFrontEnd&action=pjActionLoadCss', PJ_INSTALL_URL, true);
 		}
 	}
-	
+
 	public function pjActionCaptcha()
 	{
 		$pjCaptcha = new pjCaptcha(PJ_WEB_PATH . 'obj/Anorexia.ttf', $this->defaultCaptcha, 6);
 		$pjCaptcha->setImage(PJ_IMG_PATH . 'frontend/as-captcha.png')->init(@$_GET['rand']);
 		exit;
 	}
-	
+
 	public function pjActionCheckCaptcha()
 	{
 		if ($this->isXHR())
@@ -673,27 +673,27 @@ class pjFrontEnd extends pjFront
 		}
 		exit;
 	}
-		
+
 	public function pjActionConfirmAuthorize()
 	{
 		$this->setAjax(true);
-		
+
 		if (pjObject::getPlugin('pjAuthorize') === NULL)
 		{
 			$this->log('Authorize.NET plugin not installed');
 			exit;
 		}
-		
+
 		if (!isset($_POST['x_invoice_num']))
 		{
 			$this->log('Missing arguments');
 			exit;
 		}
-		
+
 		pjObject::import('Model', 'pjInvoice:pjInvoice');
 		$pjInvoiceModel = pjInvoiceModel::factory();
 		$pjBookingModel = pjBookingModel::factory();
-		
+
 		$invoice_arr = $pjInvoiceModel
 			->where('t1.uuid', $_POST['x_invoice_num'])
 			->limit(1)
@@ -731,7 +731,7 @@ class pjFrontEnd extends pjFront
 					'md5_setting' => $option_arr['o_authorize_hash'],
 					'key' => md5($this->option_arr['private_key'] . PJ_SALT)
 				);
-				
+
 				$response = $this->requestAction(array('controller' => 'pjAuthorize', 'action' => 'pjActionConfirm', 'params' => $params), array('return'));
 				if ($response !== FALSE && $response['status'] === 'OK')
 				{
@@ -739,12 +739,12 @@ class pjFrontEnd extends pjFront
 						->reset()
 						->set('id', $booking_arr['id'])
 						->modify(array('booking_status' => $option_arr['o_status_if_paid']));
-						
+
 					$pjInvoiceModel
 						->reset()
 						->set('id', $invoice_arr['id'])
 						->modify(array('status' => 'paid', 'modified' => ':NOW()'));
-					
+
 					$booking_arr['bs_arr'] = pjBookingServiceModel::factory()
 						->select('t1.*, t3.before, t3.length, t4.phone AS `employee_phone`, t4.email AS `employee_email`, t4.is_subscribed, t4.is_subscribed_sms,
 							t5.content AS `service_name`, t6.content AS `employee_name`')
@@ -774,13 +774,13 @@ class pjFrontEnd extends pjFront
 	public function pjActionConfirmPaypal()
 	{
 		$this->setAjax(true);
-		
+
 		if (pjObject::getPlugin('pjPaypal') === NULL)
 		{
 			$this->log('Paypal plugin not installed');
 			exit;
 		}
-		
+
 		pjObject::import('Model', 'pjInvoice:pjInvoice');
 		$pjInvoiceModel = pjInvoiceModel::factory();
 		$pjBookingModel = pjBookingModel::factory();
@@ -833,12 +833,12 @@ class pjFrontEnd extends pjFront
 						'txn_id' => $response['transaction_id'],
 						'processed_on' => ':NOW()'
 					));
-					
+
 					$pjInvoiceModel
 						->reset()
 						->set('id', $invoice_arr['id'])
 						->modify(array('status' => 'paid', 'modified' => ':NOW()'));
-						
+
 					$booking_arr['bs_arr'] = pjBookingServiceModel::factory()
 						->select('t1.*, t3.before, t3.length, t4.phone AS `employee_phone`, t4.email AS `employee_email`, t4.is_subscribed, t4.is_subscribed_sms,
 							t5.content AS `service_name`, t6.content AS `employee_name`')
@@ -865,7 +865,7 @@ class pjFrontEnd extends pjFront
 		}
 		exit;
 	}
-	
+
 	private static function pjActionConfirmSend($option_arr, $booking_arr, $type)
 	{
 		if (!in_array($type, array('confirm', 'payment')))
@@ -991,37 +991,37 @@ class pjFrontEnd extends pjFront
 				}
 				break;
 		}
-		
+
 		// SMS
 		if (isset($_SERVER['SERVER_ADDR']) && $_SERVER['SERVER_ADDR'] == '127.0.0.1') {
-		
+
 		} else {
-			
+
 			# SMS
 			include ROOT_PATH . 'oneapi.php';
-			
+
 			$message = str_replace($tokens['search'], $tokens['replace'], str_replace(array('\r\n', '\n'), ' ', $option_arr['o_reminder_sms_message']));
 			$message = stripslashes($message);
-			
+
 			$phone = $booking_arr['c_phone'];
 			if ( strpos($phone, '0') == 0 ) {
 				$phone = ltrim($phone, '0');
 			}
-			
+
 			$phone = isset($option_arr['o_reminder_sms_country_code']) ? $option_arr['o_reminder_sms_country_code'] . $phone : $phone;
-			
+
 			$send_address = isset($option_arr['o_reminder_sms_send_address']) ? $option_arr['o_reminder_sms_send_address'] : $phone;
 			$sendsms = new pjSMSV;
 			# Send to CLIENT
 			$sendsms->sendSMS($send_address, $phone, $message);
 		}
 	}
-	
+
 	public function pjActionGetCalendar()
 	{
 		$this->set('calendar', $this->getCalendar($_GET['cid'], $_GET['year'], $_GET['month']));
 	}
-	
+
 	public function pjActionGetCart()
 	{
 		$this->set('cart_arr', $this->getCart($_GET['cid']));
@@ -1032,7 +1032,7 @@ class pjFrontEnd extends pjFront
 		$this->set('service_arr', pjServiceModel::factory()->find($_GET['service_id'])->getData());
 		$this->set('t_arr', pjAppController::getSingleDateSlots($_GET['cid'], $_GET['date']));
 	}
-	
+
 	public function pjActionGetEmployees()
 	{
 		$pjEmployeeServiceModel = pjEmployeeServiceModel::factory()
@@ -1042,7 +1042,7 @@ class pjFrontEnd extends pjFront
 			->where('t1.service_id', $_GET['service_id'])
 			->orderBy('`name` ASC')
 			->findAll();
-		
+
 		$employee_arr = $pjEmployeeServiceModel->getData();
 		$employee_ids = $pjEmployeeServiceModel->getDataPair(null, 'employee_id');
 		$bs_arr = array();
@@ -1073,10 +1073,10 @@ class pjFrontEnd extends pjFront
 		$this->set('service_arr', pjServiceModel::factory()->find($_GET['service_id'])->getData());
 		$this->set('employee_arr', $employee_arr);
 	}
-	
+
 	public function pjActionLoadAjax () {
 		$owner_id = intval($_GET['owner_id']);
-		
+
 		if ( isset($_GET['category_id']) && (int) $_GET['category_id'] > 0 ) {
 			$service_arr = pjServiceModel::factory()
 				->select("t1.*, t2.content AS `name`, t3.content AS `description`")
@@ -1088,9 +1088,9 @@ class pjFrontEnd extends pjFront
 				->orderBy('`name` ASC')
 				->findAll()
 				->getData();
-			
+
 			$this->set('service_arr', $service_arr);
-			
+
 		} elseif ( isset($_GET['service_id']) && (int) $_GET['service_id'] > 0 &&
 					(!isset($_GET['employee_id']) || (int) $_GET['employee_id'] < 1) ) {
 			$employee_arr = pjEmployeeServiceModel::factory()
@@ -1102,24 +1102,24 @@ class pjFrontEnd extends pjFront
 				->orderBy('`name` ASC')
 				->findAll()
 				->getData();
-			
+
 			$this->set('employee_arr', $employee_arr);
-			
+
 		} elseif ( isset($_GET['service_id']) && (int) $_GET['service_id'] > 0 &&
 					isset($_GET['employee_id']) && (int) $_GET['employee_id'] > 0 ) {
-			
+
 			$date = isset($_GET['date']) && !empty($_GET['date']) ? $_GET['date'] : date("Y-m-d");
 			$t_arr = array();
 			$bs_arr = array();
 			for ( $i = 0; $i < 5; $i++ ) {
-			
+
 				if ( $i == 0 ) {
 					$isoDate = date('Y-m-d', strtotime($date . ' 00:00:00'));
-						
+
 				} else $isoDate = date('Y-m-d', strtotime($date . ' 00:00:00') + $i*86400);
-			
+
 				$t_arr[$i] = pjAppController::getRawSlotsPerEmployee($_GET['employee_id'], $isoDate, $this->getForeignId());
-			
+
 				$bs_arr[$i] = pjBookingServiceModel::factory()
 					->select('t1.*')
 					->join('pjBooking', 't2.id=t1.booking_id', 'inner')
@@ -1134,7 +1134,7 @@ class pjFrontEnd extends pjFront
 					->findAll()
 					->getData();
 			}
-			
+
 			$service_arr = pjServiceModel::factory()
 				->select("t1.*")
 				->where('t1.is_active', 1)
@@ -1142,7 +1142,7 @@ class pjFrontEnd extends pjFront
 				->where('t1.id', $_GET['service_id'])
 				->find($_GET['service_id'])
 				->getData();
-			
+
 			$this->set('bs_arr', $bs_arr);
 			$this->set('t_arr', $t_arr);
 			$this->set('service_arr', $service_arr);

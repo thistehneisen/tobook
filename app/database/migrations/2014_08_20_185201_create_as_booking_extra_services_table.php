@@ -1,10 +1,9 @@
-
-    <?php
+<?php
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAsEmployeeFreetimeTable extends Migration {
+class CreateAsBookingExtraServicesTable extends Migration {
 
     /**
      * Run the migrations.
@@ -13,22 +12,19 @@ class CreateAsEmployeeFreetimeTable extends Migration {
      */
     public function up()
     {
-        Schema::create('as_employees_freetime', function(Blueprint $table)
+        Schema::create('as_booking_extra_services', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('employee_id');
+            $table->unsignedInteger('booking_id');
+            $table->unsignedInteger('extra_service_id');
             $table->date('date');
-            $table->time('start_at');
-            $table->time('end_at');
-            $table->string('description');
-            $table->foreign('user_id')
+            $table->foreign('booking_id')
                 ->references('id')
-                ->on('users')
+                ->on('as_bookings')
                 ->onDelete('cascade');
-            $table->foreign('employee_id')
+            $table->foreign('extra_service_id')
                 ->references('id')
-                ->on('as_employees')
+                ->on('as_extra_services')
                 ->onDelete('cascade');
             $table->timestamps();
         });
@@ -41,7 +37,7 @@ class CreateAsEmployeeFreetimeTable extends Migration {
      */
     public function down()
     {
-        Schema::drop('as_employees_freetime');
+        Schema::drop('as_booking_extra_services');
     }
 
 }
