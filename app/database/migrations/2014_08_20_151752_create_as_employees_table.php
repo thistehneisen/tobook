@@ -20,10 +20,13 @@ class CreateAsEmployeesTable extends Migration {
             $table->string('phone');
             $table->string('avatar');
             $table->string('description');
-            $table->boolean('is_subsribed');
+            $table->boolean('is_subsribed_email');
             $table->boolean('is_subsribed_sms');
             $table->boolean('is_active');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
