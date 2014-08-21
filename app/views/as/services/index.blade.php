@@ -109,7 +109,7 @@
                         <option value="">Blahde</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary btn-sm">Sign in</button>
+                <button type="submit" class="btn btn-primary btn-sm">{{ trans('common.save') }}</button>
             </td>
             <td colspan="5" class="text-right">
                 <div class="dropdown">

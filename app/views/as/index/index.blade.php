@@ -36,7 +36,7 @@
     </div>
 
     <div class="col-md-1">
-        <button class="btn btn-primary"><i class="fa fa-print">Tulosta</i></button>
+        <button class="btn btn-primary"><i class="fa fa-print"> Tulosta</i></button>
     </div>
 </div>
 

@@ -1,6 +1,7 @@
 <?php namespace App\Appointment\Controllers;
 
 use View, URL, Confide, Redirect;
+use App\Core\Controllers\Base;
 
 class Services extends Base
 {
@@ -17,5 +18,10 @@ class Services extends Base
     public function create()
     {
         return View::make('as.services.create');
+    }
+
+    public function categories()
+    {
+        return View::make('as.services.categories');
     }
 }
