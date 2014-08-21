@@ -1,14 +1,16 @@
 <?php namespace App\Appointment\Controllers;
 
-use View, URL, Confide, Redirect;
+use App, View, URL, Confide, Redirect, Validator, Input;
 use App\Core\Controllers\Base;
+use App\Appointment\Models;
 
-class Services extends Base
+class Services extends ServiceBase
 {
     public function __construct()
     {
         // @todo: Check membership. It's better to have a filter and attach it
         // to this route
+        parent::__construct();
     }
 
     public function index(){
@@ -22,7 +24,24 @@ class Services extends Base
 
     public function categories()
     {
-        return View::make('as.services.categories');
+        $categories = $this->categoryModel
+            ->where('user_id', $this->user_id)
+            ->get();
+        return \View::make('as.services.categories', [
+            'categories' => $categories
+        ]);
+    }
+
+    public function doCreateCategory(){
+        $input = Input::all();
+        unset($input['_token']);
+        $input['user_id'] = Confide::user()->id;
+        $category = App::make('App\Appointment\Models\ServiceCategory');
+        $category->unguard();
+        $category->fill($input);
+        $category->reguard();
+        $category->save();
+        return Redirect::route('as.services.categories');
     }
 
     public function resources()

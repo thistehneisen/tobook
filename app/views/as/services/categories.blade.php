@@ -6,19 +6,19 @@
     <div class="form-group">
         <label for="name" class="col-sm-2 control-label">Nimi</label>
         <div class="col-sm-5">
-            <input type="text" class="form-control input-sm" id="name">
+            <input type="text" class="form-control input-sm" id="name" name="name">
         </div>
     </div>
     <div class="form-group">
         <label for="description" class="col-sm-2 control-label">Kuvaus</label>
         <div class="col-sm-5">
-            <textarea rows="10" class="form-control input-sm" id="description"></textarea>
+            <textarea rows="10" class="form-control input-sm" id="description" name="description"></textarea>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
             <div class="checkbox">
-                <label><input type="checkbox"> Varattavissa kuluttajille</label>
+                <label><input type="checkbox" name="is_show_front"> Varattavissa kuluttajille</label>
             </div>
         </div>
     </div>
@@ -42,6 +42,18 @@
         </tr>
     </thead>
     <tbody>
+        @foreach ($categories as $category)
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>{{ $category->name }}</td>
+            <td>{{ $category->isShowFront() }}</td>
+            <td>{{ $category->description }}</td>
+            <td>
+            <a href="#" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
+            <a href="#" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
+            </td>
+        </tr>
+        @endforeach
         <tr>
             <td><input type="checkbox"></td>
             <td>Service 1</td>
