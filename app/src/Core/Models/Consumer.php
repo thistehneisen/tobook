@@ -12,4 +12,25 @@ class Consumer extends \Eloquent
     {
         return $this->first_name.' '.$this->last_name;
     }
+
+    /**
+     * This consumer could be a consumer of module Loyalty Card
+     *
+     * @return Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function loyalty()
+    {
+        return $this->hasOne('App\LoyaltyCard\Models\Consumer');
+    }
+
+    /**
+     * Create a core consumer, so that developers don't need to type the long
+     * namespace path.
+     *
+     * @return App\Core\Models\Consumer
+     */
+    public static function createCore()
+    {
+        return new self;
+    }
 }

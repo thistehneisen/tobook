@@ -7,7 +7,7 @@
     </div>
     <table class="table table-striped">
         <tbody>
-            {{ Form::open(array('url' => 'consumers')) }}
+            {{ Form::open(['route' => 'modules.lc.consumers.store']) }}
             @foreach ([
             'first_name'    => trans('First Name'),
             'last_name'     => trans('Last Name'),
