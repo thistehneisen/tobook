@@ -227,6 +227,14 @@ a {
     overflow-x: scroll;
 }
 
+.as-table-left-header{
+    margin-top: 1px;
+    td {
+        text-align: center;
+        height: 30px;
+    }
+}
+
 .as-table {
     cursor: pointer;
     margin: 0;
@@ -257,4 +265,11 @@ a {
         font-weight: 700;
         margin-right: 30px;
     }
+}
+
+.row-no-padding {
+  [class*="col-"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
 }
