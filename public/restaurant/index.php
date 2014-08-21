@@ -10,6 +10,7 @@ $varaaDb = Bridge::dbConfig();
 $isFront = isset($_GET['controller']) && $_GET['controller'] === 'pjFront';
 
 if (!Bridge::hasOwnerId() && !$isFront) {
+	@session_destroy();
 	echo <<< JS
 <script>
 window.parent.location = '/auth/login';

@@ -1,8 +1,20 @@
 <?php
+    @session_start();
     require_once realpath(__DIR__.'/../../Bridge.php');
+
+if (!Bridge::hasOwnerId()) {
+    @session_destroy();
+    echo <<< JS
+<script>
+window.parent.location = '/auth/login';
+</script>
+JS;
+    exit;
+}
+
     $varaaDb = Bridge::dbConfig();
 
-    @session_start();
+
     $dns = sprintf("mysql:dbname=%s;host=%s", $varaaDb['database'], $varaaDb['host']);
     $pdo = new PDO($dns, $varaaDb['username'], $varaaDb['password']);
     $owner_id = intval($_SESSION['owner_id']);

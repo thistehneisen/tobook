@@ -13,6 +13,7 @@ $isEmbeded = (isset($_GET['controller'])
 		|| $_GET['controller'] === 'pjFrontPublic'));
 
 if (!Bridge::hasOwnerId() && !$isEmbeded) {
+	@session_destroy();
 	echo <<< JS
 <script>
 window.parent.location = '/auth/login';
@@ -29,7 +30,7 @@ if( !isset($_COOKIE['as_admin']) ){
 }
 if (!headers_sent())
 {
-	session_name('AppointmentScheduler');
+	// session_name('AppointmentScheduler');
 }
 
 header("Content-type: text/html; charset=utf-8");

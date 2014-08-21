@@ -1,6 +1,17 @@
 <?php
 @session_start();
 require_once realpath(__DIR__.'/../../Bridge.php');
+
+if (!Bridge::hasOwnerId()) {
+    @session_destroy();
+    echo <<< JS
+<script>
+window.parent.location = '/auth/login';
+</script>
+JS;
+    exit;
+}
+
 $varaaDb = Bridge::dbConfig();
 
 $owner_id = intval($_SESSION['owner_id']);
