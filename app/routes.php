@@ -203,6 +203,11 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Services@index'
     ]);
 
+    Route::get('services/create', [
+        'as' => 'as.services.create',
+        'uses' => 'App\Appointment\Controllers\Services@create'
+    ]);
+
 });
 
 /*

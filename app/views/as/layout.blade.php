@@ -25,7 +25,7 @@ $(function() {
             </a>
             <ul class="dropdown-menu" role="menu">
                 <li><a href="{{ route('as.services.index') }}">Index</a></li>
-                <li><a href="">Lisää palveluita</a></li>
+                <li><a href="{{ route('as.services.create') }}">Lisää palveluita</a></li>
                 <li><a href="">Lisää kategoria</a></li>
                 <li><a href="">Lisää resurssi</a></li>
                 <li><a href="">Lisää lisäpalvelu</a></li>
