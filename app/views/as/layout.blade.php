@@ -18,7 +18,18 @@ $(function() {
 @section ('content')
     <ul class="nav nav-pills nav-" role="tablist">
         <li @if (!Request::segment(2)) {{ 'class="active"' }} @endif><a href="{{ route('as.index') }}"><i class="fa fa-calendar"></i> Kalenteri</a></li>
-        <li @if (Request::segment(2) === 'bookings') {{ 'class="active"' }} @endif><a href="#"><i class="fa fa-bookmark"></i> Varaukset</a></li>
+        <li @if (Request::segment(2) === 'bookings') {{ 'class="active"' }} @endif class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('as.services.index') }}">
+                <i class="fa fa-bookmark"></i> Varaukset <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="">Varaukset</a></li>
+                <li><a href="">Tee varaus</a></li>
+                <li><a href="">Laskut</a></li>
+                <li><a href="">Asiakkaat</a></li>
+                <li><a href="">Statistiikka</a></li>
+            </ul>
+        </li>
         <li @if (Request::segment(2) === 'services') {{ 'class="active"' }} @endif class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('as.services.index') }}">
                 <i class="fa fa-cloud"></i> Palvelut <span class="caret"></span>
@@ -31,9 +42,38 @@ $(function() {
                 <li><a href="">Lisää lisäpalvelu</a></li>
             </ul>
         </li>
-        <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif><a href="#"><i class="fa fa-users"></i> Työntekijät</a></li>
-        <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif><a href="#"><i class="fa fa-cog"></i> Asetukset</a></li>
-        <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif><a href="#"><i class="fa fa-signal"></i> Raportit</a></li>
+        <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('as.services.index') }}">
+                <i class="fa fa-users"></i> Työntekijät <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="">Työntekijät</a></li>
+                <li><a href="">Lisää työntekijä</a></li>
+                <li><a href="">Vapaat</a></li>
+                <li><a href="">Työvuorosuunnittelu</a></li>
+            </ul>
+        </li>
+        <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('as.services.index') }}">
+                <i class="fa fa-cog"></i> Asetukset <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="">Yleinen</a></li>
+                <li><a href="">Varaukset</a></li>
+                <li><a href="">Työajat</a></li>
+                <li><a href="">Laskut</a></li>
+                <li><a href="">Tyyli</a></li>
+            </ul>
+        </li>
+        <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('as.services.index') }}">
+                <i class="fa fa-signal"></i> Raportit <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="">Työntekijävakko</a></li>
+                <li><a href="">Palveluvalikko</a></li>
+            </ul>
+        </li>
         <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif><a href="#"><i class="fa fa-arrow-down"></i> Asenna</a></li>
         <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif><a href="#"><i class="fa fa-desktop"></i> Esikatselu</a></li>
     </ul>
