@@ -11,13 +11,13 @@
         "hashids/hashids": "0.3.*@dev",
         "ludo237/hashids": "1.2",
         "symfony/console": "2.5.2",
-        "anlutro/l4-settings": "0.2.10"
+        "anlutro/l4-settings": "0.2.10",
+        "watson/validating": "0.9.*"
     },
     "require-dev": {
         "codeception/codeception": "2.0.*",
         "squizlabs/php_codesniffer": "1.*",
-        "fabpot/php-cs-fixer": "0.5.*",
-        "way/generators": "2.*"
+        "fabpot/php-cs-fixer": "0.5.*"
     },
     "autoload": {
         "classmap": [
