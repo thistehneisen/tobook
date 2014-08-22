@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Controllers;
 
-use App, View, Confide, Redirect, Input;
+use App, View, Confide, Redirect, Input, Response;
 use App\Appointment\Models\ServiceCategory;
 
 class Services extends ServiceBase
@@ -48,9 +48,12 @@ class Services extends ServiceBase
 
         if (!$category->save()) {
             // dd($category->getErrors());
-            return Redirect::back()
-                ->withInput()
-                ->withErrors($category->getErrors(), 'top');
+            // return Redirect::back()
+            //     ->withInput()
+            //     ->withErrors($category->getErrors(), 'top');
+            $response['success'] = false;
+            $response['errors'] = $category->getErrors();
+            return Response::json($response);
         }
 
         return Redirect::route('as.services.categories')
