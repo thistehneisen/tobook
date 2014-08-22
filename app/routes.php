@@ -203,6 +203,10 @@ Route::group([
         'uses' => 'App\Consumers\Controllers\Index@edit'
     ]);
 
+    Route::post('edit/{id}', [
+        'uses' => 'App\Consumers\Controllers\Index@doEdit'
+    ]);
+
 });
 
 /*

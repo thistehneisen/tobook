@@ -6,7 +6,6 @@ use App\Core\Models\User;
 class Consumer extends \App\Core\Models\Base
 {
     public $fillable = [
-        'user_id',
         'first_name',
         'last_name',
         'email',

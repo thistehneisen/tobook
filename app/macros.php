@@ -5,7 +5,7 @@
  */
 Form::macro('required', function (
     $field,
-    \Illuminate\Validation\Validator $validator,
+    $validator,
     $format = ':star'
 ) {
 
