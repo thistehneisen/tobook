@@ -15,6 +15,7 @@ class Index extends Base
     public function index()
     {
         $consumers = Consumer::ofCurrentUser()
+            ->visible()
             ->paginate(Config::get('view.perPage'));
 
         return $this->render('index.index', [
