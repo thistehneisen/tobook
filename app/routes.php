@@ -207,6 +207,11 @@ Route::group([
         'uses' => 'App\Consumers\Controllers\Index@doEdit'
     ]);
 
+    Route::post('bulk', [
+        'as'   => 'co.bulk',
+        'uses' => 'App\Consumers\Controllers\Index@bulk'
+    ]);
+
 });
 
 /*

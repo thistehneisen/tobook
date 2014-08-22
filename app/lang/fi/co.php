@@ -21,7 +21,9 @@ return [
     'with_selected'   => 'With selected',
     'delete'          => 'Delete',
     'edit_heading'    => 'Edit consumer #:id',
-    'updated'         => 'Consumer information has been updated',
+    'edit_success'    => 'Consumer information has been updated',
+    'hide_success'    => 'Selected consumers have been deleted',
     'query_exception' => 'Failed to save data. Is the email unique?',
-    'exception' => 'Unexpected error. Please try again later.'
+    'exception'       => 'Unexpected error. Please try again later.',
+    'invalid_action'  => 'Invalid action'
 ];

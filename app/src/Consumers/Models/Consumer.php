@@ -68,6 +68,21 @@ class Consumer extends \App\Core\Models\Base
         return $consumer;
     }
 
+    /**
+     * Hide this consumer
+     *
+     * @param int $userId ID of user whom this consumer will be hidden from
+     *
+     * @return Consumer
+     */
+    public function hide($userId)
+    {
+        return $this->users()
+            ->updateExistingPivot($userId, [
+                'is_visible' => false
+            ]);
+    }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
@@ -78,7 +93,8 @@ class Consumer extends \App\Core\Models\Base
      */
     public function users()
     {
-        return $this->belongsToMany('App\Core\Models\User');
+        return $this->belongsToMany('App\Core\Models\User')
+            ->withPivot('is_visible');
     }
 
     //--------------------------------------------------------------------------

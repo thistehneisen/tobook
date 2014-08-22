@@ -113,6 +113,7 @@ class User extends ConfideUser
      */
     public function consumers()
     {
-        return $this->belongsToMany('App\Consumers\Models\Consumer');
+        return $this->belongsToMany('App\Consumers\Models\Consumer')
+            ->withPivot('is_visible');
     }
 }

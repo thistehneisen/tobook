@@ -1,7 +1,6 @@
 <?php namespace App\Consumers\Controllers;
 
-use Config, Redirect, Input;
-use Consumer;
+use Config, Redirect, Input, Validator, Confide, Consumer;
 use App\Core\Controllers\Base;
 
 class Index extends Base
@@ -68,7 +67,7 @@ class Index extends Base
 
             return Redirect::route('co.index')
                 ->with('messages', $this->successMessageBag(
-                    trans('co.updated')
+                    trans('co.edit_success')
                 ));
         } catch (\Watson\Validating\ValidationException $ex) {
             $errors = $ex->getErrors();
@@ -79,5 +78,47 @@ class Index extends Base
         return Redirect::back()
             ->withInput()
             ->withErrors($errors);
+    }
+
+    /**
+     * Perform bulk action on selected consumers
+     *
+     * @return Redirect
+     */
+    public function bulk()
+    {
+        $v = Validator::make(Input::all(), [
+            'id' => 'required|array'
+        ]);
+        if ($v->fails()) {
+            return Redirect::back()->withErrors($v, 'top');
+        }
+
+        $ids    = Input::get('id');
+        $action = Input::get('action');
+        if (!method_exists('Consumer', $action)) {
+            return Redirect::back()
+                ->withErrors($this->errorMessageBag(
+                    trans('co.invalid_action')
+                ));
+        }
+
+        // OK here we go
+        $consumers = Consumer::with('users')->whereIn('id', $ids)->get();
+
+        // Params that need for every actions
+        $params = [
+            'hide' => [Confide::user()->id]
+        ];
+        foreach ($consumers as $consumer) {
+            if (isset($params[$action])) {
+                call_user_func_array([$consumer, $action], $params[$action]);
+            }
+        }
+
+        return Redirect::back()
+            ->with('messages', $this->successMessageBag(
+                trans('co.'.$action.'_success')
+            ));
     }
 }

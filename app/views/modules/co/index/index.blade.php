@@ -14,7 +14,8 @@ $(function() {
 @section ('content')
 <h1 class="comfortaa">{{ trans('co.all_consumers') }}</h1>
 
-{{ Form::open(['class' => 'form-inline', 'role' => 'form']) }}
+{{ Form::open(['route' => 'co.bulk', 'class' => 'form-inline', 'role' => 'form']) }}
+@include ('el.messages')
 <table class="table table-bordered table-hover table-condensed">
     <thead>
         <tr>
@@ -52,7 +53,7 @@ $(function() {
         <div class="form-group">
             <label for="action">{{ trans('co.with_selected') }}:</label>
             <select name="action" id="action" class="form-control input-sm">
-                <option value="delete">{{ trans('co.delete') }}</option>
+                <option value="hide">{{ trans('co.delete') }}</option>
             </select>
         </div>
 
