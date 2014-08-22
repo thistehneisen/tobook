@@ -16,7 +16,7 @@ class AddTableConsumerUser extends Migration {
         {
             $table->unsignedInteger('consumer_id');
             $table->unsignedInteger('user_id');
-            $table->boolean('is_visble');
+            $table->boolean('is_visible');
             $table->primary(['consumer_id', 'user_id']);
             $table->foreign('user_id')
                 ->references('id')

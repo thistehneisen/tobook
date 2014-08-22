@@ -107,12 +107,12 @@ class User extends ConfideUser
     }
 
     /**
-     * Define a many-to-many relationship to App\Consumers\Model
+     * Define a many-to-many relationship to App\Consumers\Models\Consumer
      *
-     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function consumers()
     {
-        return $this->hasMany('App\Consumers\Model');
+        return $this->belongsToMany('App\Consumers\Models\Consumer');
     }
 }

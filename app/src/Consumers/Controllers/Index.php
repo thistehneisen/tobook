@@ -2,7 +2,6 @@
 
 use Config;
 use App\Core\Controllers\Base;
-use App\Consumers\Model as Consumer;
 
 class Index extends Base
 {

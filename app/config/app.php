@@ -194,10 +194,11 @@ return array(
         'Validator'       => 'Illuminate\Support\Facades\Validator',
         'View'            => 'Illuminate\Support\Facades\View',
         // Addon facades
-        'Confide' => 'Zizaco\Confide\ConfideFacade',
-        'Entrust' => 'Zizaco\Entrust\EntrustFacade',
-        'Hashids' => 'Ludo237\Hashids\Hashids',
-        'Setting' => 'anlutro\LaravelSettings\Facade'
+        'Confide'  => 'Zizaco\Confide\ConfideFacade',
+        'Entrust'  => 'Zizaco\Entrust\EntrustFacade',
+        'Hashids'  => 'Ludo237\Hashids\Hashids',
+        'Setting'  => 'anlutro\LaravelSettings\Facade',
+        'Consumer' => 'App\Consumers\Models\Consumer'
 
     ),
 
