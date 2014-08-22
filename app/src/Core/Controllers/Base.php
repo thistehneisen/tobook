@@ -5,6 +5,15 @@ use Illuminate\Support\MessageBag, Settings;
 class Base extends \Controller
 {
     /**
+     * Path to a folder under `views`. Use by render() for quicker returning
+     * a view
+     *
+     * @var string
+     */
+    protected $viewPath;
+
+
+    /**
      * Setup the layout used by the controller.
      *
      * @return void
@@ -14,6 +23,23 @@ class Base extends \Controller
         if (!is_null($this->layout)) {
             $this->layout = View::make($this->layout);
         }
+    }
+
+    /**
+     * Quicker return a view with specific path
+     *
+     * @param string $path
+     * @param array $data
+     *
+     * @return View
+     */
+    protected function render($path, $data = [])
+    {
+        if ($this->viewPath !== null) {
+            $path = $this->viewPath.$path;
+        }
+
+        return \View::make($path, $data);
     }
 
     /**

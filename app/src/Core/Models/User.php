@@ -105,4 +105,14 @@ class User extends ConfideUser
             '<i class="fa fa-user"></i> Login' => route('admin.users.login', ['id' => $this->id])
         ];
     }
+
+    /**
+     * Define a many-to-many relationship to App\Consumers\Model
+     *
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function consumers()
+    {
+        return $this->hasMany('App\Consumers\Model');
+    }
 }

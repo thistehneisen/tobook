@@ -182,6 +182,24 @@ Route::group([
         // Other modules
     });
 });
+
+/*
+|--------------------------------------------------------------------------
+| Module Consumers routes
+|--------------------------------------------------------------------------
+*/
+Route::group([
+    'prefix' => 'consumers',
+    'before' => ['auth']
+], function() {
+
+    Route::get('/', [
+        'as' => 'co.index',
+        'uses' => 'App\Consumers\Controllers\Index@index'
+    ]);
+
+});
+
 /*
 |--------------------------------------------------------------------------
 | Admin routes
