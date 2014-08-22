@@ -198,6 +198,11 @@ Route::group([
         'uses' => 'App\Consumers\Controllers\Index@index'
     ]);
 
+    Route::get('edit/{id}', [
+        'as' => 'co.edit',
+        'uses' => 'App\Consumers\Controllers\Index@edit'
+    ]);
+
 });
 
 /*

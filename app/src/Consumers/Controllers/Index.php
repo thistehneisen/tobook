@@ -22,4 +22,20 @@ class Index extends Base
             'consumers' => $consumers
         ]);
     }
+
+    /**
+     * Edit a consumer
+     *
+     * @param int $id Consumer's ID
+     *
+     * @return View
+     */
+    public function edit($id)
+    {
+        $consumer = Consumer::find($id);
+
+        return $this->render('index.edit', [
+            'consumer' => $consumer
+        ]);
+    }
 }
