@@ -1,10 +1,12 @@
 <?php namespace App\Appointment\Controllers;
-use App, Config, Request, Redirect, Input, Confide;
+
+use App, Confide;
+
 class ServiceBase extends \App\Core\Controllers\Base
 {
     public function __construct()
     {
-        $this->user_id = Confide::user()->id;
+        parent::__construct();
         $this->categoryModel = App::make('App\Appointment\Models\ServiceCategory');
     }
 }
