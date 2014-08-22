@@ -37,6 +37,11 @@ class CreateTableLcConsumers extends Migration {
 	 */
 	public function down()
 	{
+        Schema::table('lc_consumers', function(Blueprint $table)
+        {
+            $table->dropForeign('lc_consumers_user_id_foreign');
+            $table->dropForeign('lc_consumers_consumer_id_foreign');
+        });
 		Schema::drop('lc_consumers');
 	}
 
