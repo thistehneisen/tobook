@@ -23,16 +23,9 @@ class Consumer extends \App\Core\Models\Base
         ]
     ];
 
-    /**
-     * Define a many-to-many relationship to User
-     *
-     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function users()
-    {
-        return $this->belongsToMany('App\Core\Models\User');
-    }
-
+    //--------------------------------------------------------------------------
+    // ATTRIBUTES
+    //--------------------------------------------------------------------------
     /**
      * Concat first_name and last_name
      * Usage: $user->name
@@ -44,6 +37,9 @@ class Consumer extends \App\Core\Models\Base
         return $this->first_name.' '.$this->last_name;
     }
 
+    //--------------------------------------------------------------------------
+    // CUSTOM METHODS
+    //--------------------------------------------------------------------------
     /**
      * Create a new consumer
      *
@@ -71,5 +67,33 @@ class Consumer extends \App\Core\Models\Base
         $user->consumers()->attach($consumer->id, ['is_visible' => true]);
 
         return $consumer;
+    }
+
+    //--------------------------------------------------------------------------
+    // RELATIONSHIPS
+    //--------------------------------------------------------------------------
+    /**
+     * Define a many-to-many relationship to User
+     *
+     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function users()
+    {
+        return $this->belongsToMany('App\Core\Models\User');
+    }
+
+    //--------------------------------------------------------------------------
+    // SCOPES
+    //--------------------------------------------------------------------------
+    public function scopeOfCurrentUser($query)
+    {
+        return $this->scopeOfUser($query, Confide::user()->id);
+    }
+
+    public function scopeOfUser($query, $userId)
+    {
+        return $query->whereHas('users', function($q) use ($userId) {
+            return $q->where('user_id', $userId);
+        });
     }
 }

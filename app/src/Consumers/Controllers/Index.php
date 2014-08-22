@@ -1,6 +1,7 @@
 <?php namespace App\Consumers\Controllers;
 
 use Config;
+use Consumer;
 use App\Core\Controllers\Base;
 
 class Index extends Base
@@ -14,7 +15,8 @@ class Index extends Base
      */
     public function index()
     {
-        $consumers = Consumer::paginate(Config::get('view.perPage'));
+        $consumers = Consumer::ofCurrentUser()
+            ->paginate(Config::get('view.perPage'));
 
         return $this->render('index.index', [
             'consumers' => $consumers

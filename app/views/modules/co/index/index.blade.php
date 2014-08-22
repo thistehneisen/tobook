@@ -28,7 +28,7 @@
             <td>{{ $item->first_name }}</td>
             <td>{{ $item->last_name }}</td>
             <td>{{ $item->email }}</td>
-            <td>{{ $item->created_at->format(trans('common.date_format')) }}</td>
+            <td>{{ $item->created_at->format(trans('common.format.date_time')) }}</td>
             <td></td>
         </tr>
     @endforeach
