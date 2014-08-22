@@ -1,19 +1,19 @@
 <?php namespace App\Core\Controllers;
 
+use Confide;
 use Illuminate\Support\MessageBag, Settings;
 
 class Base extends \Controller
 {
+    protected $user;
+
     /**
-     * Setup the layout used by the controller.
-     *
-     * @return void
+     * Do stuff that are available thoughout all controllers
      */
-    protected function setupLayout()
+    public function __construct()
     {
-        if (!is_null($this->layout)) {
-            $this->layout = View::make($this->layout);
-        }
+        // Set the current user
+        $this->user = Confide::user();
     }
 
     /**

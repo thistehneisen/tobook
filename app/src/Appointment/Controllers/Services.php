@@ -1,19 +1,13 @@
 <?php namespace App\Appointment\Controllers;
 
-use App, View, URL, Confide, Redirect, Validator, Input;
-use App\Core\Controllers\Base;
+use App, View, Confide, Redirect, Input;
 use App\Appointment\Models;
 
 class Services extends ServiceBase
 {
-    public function __construct()
-    {
-        // @todo: Check membership. It's better to have a filter and attach it
-        // to this route
-        parent::__construct();
-    }
 
-    public function index(){
+    public function index()
+    {
         return View::make('modules.as.services.index');
     }
 
@@ -22,20 +16,27 @@ class Services extends ServiceBase
         return View::make('modules.as.services.create');
     }
 
+    /**
+     * Show all categories of the current user and a form to add new category
+     *
+     * @return View
+     */
     public function categories()
     {
         $categories = $this->categoryModel
-            ->where('user_id', $this->user_id)
+            ->where('user_id', $this->user->id)
             ->get();
+
         return View::make('modules.as.services.categories', [
             'categories' => $categories
         ]);
     }
 
-    public function doCreateCategory(){
+    public function doCreateCategory()
+    {
         $input = Input::all();
         unset($input['_token']);
-        $input['user_id'] = Confide::user()->id;
+        $input['user_id'] = $this->user->id;
         $category = App::make('App\Appointment\Models\ServiceCategory');
         $category->unguard();
         $category->fill($input);
