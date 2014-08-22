@@ -40,7 +40,7 @@ $(function() {
             <td><a href="{{ route('co.edit', ['id' => $item->id]) }}">{{ $item->id }} <i class="fa fa-edit"></i></a></td>
             <td>{{ $item->first_name }}</td>
             <td>{{ $item->last_name }}</td>
-            <td>{{ $item->email }}</td>
+            <td><a href="mailto:{{ $item->email }}">{{ $item->email }}</a></td>
             <td>{{ $item->created_at->format(trans('common.format.date_time')) }}</td>
             <td></td>
         </tr>
