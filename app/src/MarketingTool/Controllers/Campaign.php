@@ -18,7 +18,7 @@ class Campaign extends \App\Core\Controllers\Base {
         $campaigns = CampaignModel::all();
 
         // load the view and pass the campaigns
-        return View::make('modules.marketing.campaigns.index')
+        return View::make('modules.mt.campaigns.index')
             ->with('campaigns', $campaigns);
 	}
 
@@ -30,7 +30,7 @@ class Campaign extends \App\Core\Controllers\Base {
 	 */
 	public function create()
 	{
-		return View::make('modules.marketing.campaigns.create');
+		return View::make('modules.mt.campaigns.create');
 	}
 
 
@@ -51,16 +51,16 @@ class Campaign extends \App\Core\Controllers\Base {
         $validator = Validator::make(Input::all(), $rules);
 
         if ($validator->fails()) {
-            return Redirect::to('campaigns.create')
+            return Redirect::route('modules.mt.campaigns.create')
                 ->withErrors($validator)
                 ->withInput(Input::all());
         } else {
             // generate unique campaign_code for tracking statistics
             $str_pattern = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
             $campaign_code = "";
-            for( $i = 0 ; $i < 32; $i++ ){
+            for( $i = 0 ; $i < 36; $i++ ){
                 $rand = rand( 0, strlen($str_pattern) - 1 );
-                $result = $result.$str_pattern[$rand];
+                $campaign_code = $campaign_code.$str_pattern[$rand];
             }
 
             $campaign = new CampaignModel;
@@ -68,13 +68,13 @@ class Campaign extends \App\Core\Controllers\Base {
             $campaign->content = Input::get('content');
             $campaign->from_email = Input::get('from_email');
             $campaign->from_name = Input::get('from_name');
-            $campaign->status = Input::get('status');
+            $campaign->status = Input::get('status')==''?'DRAFT':Input::get('status');
             $campaign->campaign_code = $campaign_code;
-            $campaign->user_id = $_SESSION['owner_id'];
+            $campaign->user_id = 1;
             $campaign->save();
 
             Session::flash('message', 'Successfully created!');
-            return Redirect::to('campaigns.index');
+            return Redirect::route('modules.mt.campaigns.index');
         }
 	}
 
@@ -89,7 +89,7 @@ class Campaign extends \App\Core\Controllers\Base {
 	{
 		$campaign = CampaignModel::find($id);
 
-        return View::make('modules.marketing.campaigns.show')
+        return View::make('modules.mt.campaigns.show')
             ->with('campaign', $campaign);
 	}
 
@@ -104,7 +104,7 @@ class Campaign extends \App\Core\Controllers\Base {
 	{
 		$campaign = CampaignModel::find($id);
 
-        return View::make('modules.marketing.campaigns.edit')
+        return View::make('modules.mt.campaigns.edit')
             ->with('campaign', $campaign);
 	}
 
@@ -127,7 +127,7 @@ class Campaign extends \App\Core\Controllers\Base {
         $validator = Validator::make(Input::all(), $rules);
 
         if ($validator->fails()) {
-            return Redirect::to('campaigns/' . $id . '/edit')
+            return Redirect::route('modules.mt.campaigns.edit')
                 ->withErrors($validator)
                 ->withInput(Input::all());
         } else {
@@ -139,7 +139,7 @@ class Campaign extends \App\Core\Controllers\Base {
             $campaign->save();
 
             Session::flash('message', 'Successfully updated!');
-            return Redirect::to('campaigns');
+            return Redirect::route('modules.mt.campaigns');
         }
 	}
 
@@ -156,7 +156,7 @@ class Campaign extends \App\Core\Controllers\Base {
         $campaign->delete();
 
         Session::flash('message', 'Successfully deleted!');
-        return Redirect::to('campaigns');
+        return Redirect::route('modules.mt.campaigns');
 	}
 
 

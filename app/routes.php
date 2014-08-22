@@ -181,8 +181,16 @@ Route::group([
         
         // Marketing Tool
         Route::group(['prefix' => 'mt'], function () {
-            Route::resource('campaigns', 'App\MarketingTool\Controllers\Campaign');
-        });        
+            Route::resource('campaigns', 'App\MarketingTool\Controllers\Campaign', [
+                'names' => [
+                    'index'     => 'modules.mt.campaigns.index',
+                    'create'    => 'modules.mt.campaigns.create',
+                    'edit'      => 'modules.mt.campaigns.edit',
+                    'store'     => 'modules.mt.campaigns.store',
+                    'update'    => 'modules.mt.campaigns.update',
+                ]
+            ]);
+        });
 
         // Other modules
     });
