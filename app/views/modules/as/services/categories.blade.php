@@ -1,19 +1,19 @@
 @extends ('modules.as.layout')
 
 @section ('sub-content')
-<h4 class="comfortaa">Lisää kategoria</h4>
+<h4 class="comfortaa">{{ trans('as.services.add_category') }}</h4>
 {{ Form::open(['route' => 'as.services.categories', 'class' => 'form-horizontal well', 'role' => 'form']) }}
     @include ('el.messages');
 
     <div class="form-group">
-        <label for="name" class="col-sm-2 control-label">Nimi</label>
+        <label for="name" class="col-sm-2 control-label">{{ trans('as.services.name') }}</label>
         <div class="col-sm-5">
             <input type="text" class="form-control input-sm" id="name" name="name">
         </div>
     </div>
 
     <div class="form-group">
-        <label for="description" class="col-sm-2 control-label">Kuvaus</label>
+        <label for="description" class="col-sm-2 control-label">{{ trans('as.services.description') }}</label>
         <div class="col-sm-5">
             <textarea rows="10" class="form-control input-sm" id="description" name="description"></textarea>
         </div>
@@ -21,7 +21,7 @@
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
             <div class="checkbox">
-                <label><input type="checkbox" name="is_show_front" value="true"> Varattavissa kuluttajille</label>
+                <label><input type="checkbox" name="is_show_front" value="true"> {{  trans('as.services.is_show_front') }}</label>
             </div>
         </div>
     </div>
@@ -32,15 +32,15 @@
     </div>
 {{ Form::close() }}
 
-<h4 class="comfortaa">Kaikki kategoriat</h4>
+<h4 class="comfortaa">{{ trans('as.services.all_categories') }}</h4>
 <form action="" class="form-inline">
 <table class="table table-hover">
     <thead>
         <tr>
             <th>&nbsp;</th>
-            <th>Kategorian nimi</th>
-            <th>Varattavissa kuluttajille</th>
-            <th>Kuvaus</th>
+            <th>{{ trans('as.services.name') }}</th>
+            <th>{{ trans('as.services.is_show_front') }}</th>
+            <th>{{ trans('as.services.description') }}</th>
             <th>&nbsp;</th>
         </tr>
     </thead>
@@ -49,24 +49,20 @@
         <tr>
             <td><input type="checkbox"></td>
             <td>{{ $category->name }}</td>
-            <td>{{ $category->isShowFront() }}</td>
+            <td>
+            @if ($category->is_show_front)
+                <span class="label label-success">{{ trans('common.yes') }}</span>
+            @else
+                <span class="label label-danger">{{ trans('common.no') }}</span>
+            @endif
+            </td>
             <td>{{ $category->description }}</td>
             <td>
-            <a href="#" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
-            <a href="#" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
+            <a href="#" class="btn btn-xs btn-info" title=""><i class="fa fa-edit"></i></a>
+            <a href="#" class="btn btn-xs btn-default" title=""><i class="fa fa-trash-o"></i></a>
             </td>
         </tr>
         @endforeach
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>Service 1</td>
-            <td>On</td>
-            <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident consequuntur odio velit beatae reprehenderit placeat, exercitationem consectetur veritatis ratione ducimus molestias, doloribus molestiae reiciendis praesentium dolorum sequi, eveniet pariatur qui.</td>
-            <td>
-                <a href="#" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
-                <a href="#" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
-            </td>
-        </tr>
     </tbody>
     <tfoot>
         <tr>
