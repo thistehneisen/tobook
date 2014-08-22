@@ -5,11 +5,16 @@
 
 @section ('styles')
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css') }}
+    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.33/example5/colorbox.min.css') }}
     {{ HTML::style(asset('assets/css/appointment.css')) }}
 @stop
 
 @section ('scripts')
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js') }}
+    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.33/jquery.colorbox-min.js') }}
+    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.pack.js') }}
+    {{ HTML::script('//ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js') }}
+    {{ HTML::script(asset('assets/js/admin.js')) }}
     <script>
     $(function() {
         $('.date-picker').datepicker({
