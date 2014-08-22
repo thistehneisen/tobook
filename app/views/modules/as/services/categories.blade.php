@@ -3,12 +3,15 @@
 @section ('sub-content')
 <h4 class="comfortaa">Lisää kategoria</h4>
 {{ Form::open(['route' => 'as.services.categories', 'class' => 'form-horizontal well', 'role' => 'form']) }}
+    @include ('el.messages');
+
     <div class="form-group">
         <label for="name" class="col-sm-2 control-label">Nimi</label>
         <div class="col-sm-5">
             <input type="text" class="form-control input-sm" id="name" name="name">
         </div>
     </div>
+
     <div class="form-group">
         <label for="description" class="col-sm-2 control-label">Kuvaus</label>
         <div class="col-sm-5">
@@ -18,7 +21,7 @@
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
             <div class="checkbox">
-                <label><input type="checkbox" name="is_show_front"> Varattavissa kuluttajille</label>
+                <label><input type="checkbox" name="is_show_front" value="true"> Varattavissa kuluttajille</label>
             </div>
         </div>
     </div>
