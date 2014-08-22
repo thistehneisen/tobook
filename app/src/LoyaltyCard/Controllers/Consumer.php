@@ -1,19 +1,21 @@
 <?php namespace App\LoyaltyCard\Controllers;
+
 use Input, Session, Redirect, View, Validator;
-use \App\LoyaltyCard\Models\Consumer as ConsumerModel;
 use Confide;
+use App\LoyaltyCard\Models\Consumer as Model;
+use App\Core\Controllers\Base as Base;
 
-class Consumer extends \App\Core\Controllers\Base {
-
+class Consumer extends Base
+{
 	/**
 	 * Display a listing of the resource.
 	 *
-	 * @return Response
+	 * @return View
 	 */
 	public function index()
 	{
 		// get all the consumers
-        $consumers = ConsumerModel::all();
+        $consumers = Model::paginate(10);
 
         // load the view and pass the consumers
         return View::make('modules.loyalty.consumers.index')
@@ -48,24 +50,30 @@ class Consumer extends \App\Core\Controllers\Base {
         $validator = Validator::make(Input::all(), $rules);
 
         if ($validator->fails()) {
-            return Redirect::to('consumers.create')
+            return Redirect::back()
                 ->withErrors($validator)
-                ->withInput(Input::all());
-        } else {
-            $consumer = new ConsumerModel;
-            $consumer->first_name = Input::get('first_name');
-            $consumer->last_name = Input::get('last_name');
-            $consumer->owner = Input::get('owner_id');
-            $consumer->email = Input::get('email');
-            $consumer->phone = Input::get('phone');
-            $consumer->address = Input::get('address');
-            $consumer->city = Input::get('city');
-            $consumer->score = Input::get('score');
-            $consumer->save();
-
-            Session::flash('message', 'Successfully created!');
-            return Redirect::to('consumers.index');
+                ->withInput();
         }
+
+        // Create core consumer first
+        $core = Model::createCore();
+        $core->first_name = Input::get('first_name');
+        $core->last_name  = Input::get('last_name');
+        $core->user_id    = Confide::user()->id;
+        $core->email      = Input::get('email');
+        $core->phone      = Input::get('phone');
+        $core->address    = Input::get('address');
+        $core->city       = Input::get('city');
+        $core->save();
+
+        // Then create a LC consumer
+        $consumer = new Model;
+        $consumer->score = Input::get('score', 0);
+        $consumer->user_id = Confide::user()->id;
+        $consumer->consumer()->associate($core);
+        $consumer->save();
+
+        return Redirect::route('modules.lc.consumers.index')->with('message', 'Successfully created!');
 	}
 
 
@@ -77,7 +85,7 @@ class Consumer extends \App\Core\Controllers\Base {
 	 */
 	public function show($id)
 	{
-		$consumer = ConsumerModel::find($id);
+		$consumer = Model::find($id);
 
         return View::make('modules.loyalty.consumers.show')
             ->with('consumer', $consumer);
@@ -92,7 +100,7 @@ class Consumer extends \App\Core\Controllers\Base {
 	 */
 	public function edit($id)
 	{
-		$consumer = ConsumerModel::find($id);
+		$consumer = Model::find($id);
 
         return View::make('modules.loyalty.consumers.edit')
             ->with('consumer', $consumer);
@@ -120,7 +128,7 @@ class Consumer extends \App\Core\Controllers\Base {
                 ->withErrors($validator)
                 ->withInput(Input::all());
         } else {
-            $consumer = ConsumerModel::find($id);
+            $consumer = Model::find($id);
             $consumer->first_name = Input::get('first_name');
             $consumer->last_name = Input::get('last_name');
             $consumer->email = Input::get('email');
@@ -140,7 +148,7 @@ class Consumer extends \App\Core\Controllers\Base {
 	 */
 	public function destroy($id)
 	{
-		$consumer = ConsumerModel::find($id);
+		$consumer = Model::find($id);
         $consumer->delete();
 
         Session::flash('message', 'Successfully deleted!');

@@ -26,6 +26,10 @@
 *.log
 *.sqlite
 *.orig
+*.BACKUP*
+*.BASE*
+*.LOCAL*
+*.REMOTE*
 
 # OS generated files #
 ######################
