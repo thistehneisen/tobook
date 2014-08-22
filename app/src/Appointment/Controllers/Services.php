@@ -1,7 +1,7 @@
 <?php namespace App\Appointment\Controllers;
 
 use App, View, Confide, Redirect, Input;
-use App\Appointment\Models;
+use App\Appointment\Models\ServiceCategory;
 
 class Services extends ServiceBase
 {
@@ -32,17 +32,30 @@ class Services extends ServiceBase
         ]);
     }
 
+    /**
+     * Handle user input to create a new category
+     *
+     * @return Redirect
+     */
     public function doCreateCategory()
     {
         $input = Input::all();
-        unset($input['_token']);
         $input['user_id'] = $this->user->id;
-        $category = App::make('App\Appointment\Models\ServiceCategory');
-        $category->unguard();
+
+
+        $category = new ServiceCategory;
         $category->fill($input);
-        $category->reguard();
         $category->save();
-        return Redirect::route('as.services.categories');
+
+        if (!$category->save()) {
+            // dd($category->getErrors());
+            return Redirect::back()
+                ->withInput()
+                ->withErrors($category->getErrors(), 'top');
+        }
+
+        return Redirect::route('as.services.categories')
+            ->with('messages', $this->successMessageBag('Category was created.'));
     }
 
     public function resources()
