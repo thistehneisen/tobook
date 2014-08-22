@@ -1,7 +1,29 @@
 <?php namespace App\Core\Models;
+use Watson\Validating\ValidatingTrait;
 
 class Consumer extends \Eloquent
 {
+    use ValidatingTrait;
+
+    public $fillable = [
+        'user_id',
+        'first_name',
+        'last_name',
+        'email',
+        'phone',
+        'address',
+        'city',
+        'postcode',
+        'country',
+    ];
+
+    protected $rulesets = [
+        'saving' => [
+            'user_id'    => 'required',
+            'email'      => 'required|email',
+        ]
+    ];
+
     /**
      * Concat first_name and last_name
      * Usage: $user->name
