@@ -178,6 +178,11 @@ Route::group([
         Route::group(['prefix' => 'lc'], function () {
             Route::resource('consumers', 'App\LoyaltyCard\Controllers\Consumer');
         });
+        
+        // Marketing Tool
+        Route::group(['prefix' => 'mt'], function () {
+            Route::resource('campaigns', 'App\MarketingTool\Controllers\Campaign');
+        });        
 
         // Other modules
     });
