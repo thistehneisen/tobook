@@ -44,9 +44,9 @@ function formController($scope, $http) {
             method: 'POST',
             url : '/appointment-scheduler/services/categories',
             data: $.param($scope.formData),  // pass in data as strings
-            dataType: 'json'
+            headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).success(function(data) {
-            console.log(data);
+            //console.log(data);
             if (!data.success) {
                 // if not successful, bind errors to error variables
                 $scope.errorName = data.errors.name;
@@ -54,8 +54,6 @@ function formController($scope, $http) {
                 // if successful, bind success message to message
                 $scope.message = data.message;
             }
-            return false;
         });
-        return false;
     };
 }

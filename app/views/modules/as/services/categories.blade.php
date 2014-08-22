@@ -8,6 +8,9 @@
 <div id="form-add-category" class="modal-form" style="display:none">
     <form class="form-horizontal well" ng-submit="processForm()">
         @include ('el.messages')
+        <pre>
+            <% formData %>
+        </pre>
         <div id="messages" ng-show="message"><% message %></div>
         <div class="form-group">
             <div class="col-sm-5">
@@ -17,7 +20,7 @@
         <div class="form-group" ng-class="{ 'has-error' : errorName }">
             <label for="name" class="col-sm-2 control-label">{{ trans('as.services.name') }}</label>
             <div class="col-sm-5">
-                <input type="text" class="form-control input-sm" id="name" name="name">
+                <input type="text" class="form-control input-sm" id="name" name="name" ng-model="formData.name">
                 <span class="help-block" ng-show="errorName"><% errorName %></span>
             </div>
         </div>
@@ -25,13 +28,13 @@
         <div class="form-group">
             <label for="description" class="col-sm-2 control-label">{{ trans('as.services.description') }}</label>
             <div class="col-sm-5">
-                <textarea rows="10" class="form-control input-sm" id="description" name="description"></textarea>
+                <textarea rows="10" class="form-control input-sm" id="description" name="description" ng-model="formData.description"></textarea>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <div class="checkbox">
-                    <label><input type="checkbox" name="is_show_front" value="true"> {{  trans('as.services.is_show_front') }}</label>
+                    <label><input type="checkbox" name="is_show_front" value="true" ng-model="formData.is_show_front"> {{  trans('as.services.is_show_front') }}</label>
                 </div>
             </div>
         </div>

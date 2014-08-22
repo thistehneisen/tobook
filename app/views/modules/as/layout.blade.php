@@ -5,7 +5,7 @@
 
 @section ('styles')
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css') }}
-    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.33/example5/colorbox.min.css') }}
+    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.33/example3/colorbox.min.css') }}
     {{ HTML::style(asset('assets/css/appointment.css')) }}
 @stop
 

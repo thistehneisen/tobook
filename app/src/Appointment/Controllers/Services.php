@@ -55,9 +55,11 @@ class Services extends ServiceBase
             $response['errors'] = $category->getErrors();
             return Response::json($response);
         }
-
-        return Redirect::route('as.services.categories')
-            ->with('messages', $this->successMessageBag('Category was created.'));
+        $response['success'] = true;
+        $response['message'] = 'Category was created.';
+        return Response::json($response);
+        // return Redirect::route('as.services.categories')
+        //     ->with('messages', $this->successMessageBag('Category was created.'));
     }
 
     public function resources()
