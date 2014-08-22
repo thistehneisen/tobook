@@ -213,6 +213,11 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Services@categories'
     ]);
 
+    Route::get('services/categories/create', [
+        'as' => 'as.services.categories.create',
+        'uses' => 'App\Appointment\Controllers\Services@createCategory'
+    ]);
+
     Route::post('services/categories', [
         'as' => 'as.services.categories',
         'uses' => 'App\Appointment\Controllers\Services@doCreateCategory'

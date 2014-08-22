@@ -32,6 +32,9 @@ class Services extends ServiceBase
         ]);
     }
 
+    public function createCategory(){
+         return View::make('modules.as.services.category.create');
+    }
     /**
      * Handle user input to create a new category
      *
@@ -48,18 +51,12 @@ class Services extends ServiceBase
 
         if (!$category->save()) {
             // dd($category->getErrors());
-            // return Redirect::back()
-            //     ->withInput()
-            //     ->withErrors($category->getErrors(), 'top');
-            $response['success'] = false;
-            $response['errors'] = $category->getErrors();
-            return Response::json($response);
+            return Redirect::back()
+                ->withInput()
+                ->withErrors($category->getErrors(), 'top');
         }
-        $response['success'] = true;
-        $response['message'] = 'Category was created.';
-        return Response::json($response);
-        // return Redirect::route('as.services.categories')
-        //     ->with('messages', $this->successMessageBag('Category was created.'));
+        return Redirect::route('as.services.categories')
+            ->with('messages', $this->successMessageBag('Category was created.'));
     }
 
     public function resources()
