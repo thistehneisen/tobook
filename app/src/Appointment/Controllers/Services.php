@@ -42,7 +42,6 @@ class Services extends ServiceBase
         $input = Input::all();
         $input['user_id'] = $this->user->id;
 
-
         $category = new ServiceCategory;
         $category->fill($input);
         $category->save();

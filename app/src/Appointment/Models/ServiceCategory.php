@@ -21,9 +21,4 @@ class ServiceCategory extends BaseModel
     {
         return (bool) $this->attributes['is_show_front'];
     }
-
-    public function isShowFront()
-    {
-       return  ($this->is_show_front) ? 'On' : 'Off';
-    }
 }
