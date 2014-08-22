@@ -127,9 +127,9 @@ class Campaign extends \App\Core\Controllers\Base {
         $validator = Validator::make(Input::all(), $rules);
 
         if ($validator->fails()) {
-            return Redirect::route('modules.mt.campaigns.edit')
+            return Redirect::back()
                 ->withErrors($validator)
-                ->withInput(Input::all());
+                ->withInput();
         } else {
             $campaign = CampaignModel::find($id);
             $campaign->subject = Input::get('subject');
@@ -138,8 +138,8 @@ class Campaign extends \App\Core\Controllers\Base {
             $campaign->from_name = Input::get('from_name');
             $campaign->save();
 
-            Session::flash('message', 'Successfully updated!');
-            return Redirect::route('modules.mt.campaigns');
+            return Redirect::route('modules.mt.campaigns.index')
+                ->with('message', 'Successfully created!');
         }
 	}
 
