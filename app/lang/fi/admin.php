@@ -16,7 +16,9 @@ return [
     'edit'               => 'Edit',
     'delete'             => 'Delete',
     'enable'             => 'Enable',
-    'modules' => [
+    'activate'           => 'Activate',
+    'deactivate'         => 'Deactivate',
+    'modules'            => [
         'all_modules'           => 'All modules',
         'enabled_modules'       => 'Enabled modules',
         'enable_module_heading' => 'Enable module for user',
@@ -24,7 +26,7 @@ return [
         'start'                 => 'Start',
         'end'                   => 'End',
         'success_enabled'       => 'Module <strong>:module</strong> is now available for ":user"',
-        'success_delete'        => 'Deleted successfully',
+        'success_activation'    => 'Module status changed successfully',
         'err_overlapped'        => 'The selected period is overlapped with existing ones. Please recheck and try again.',
         'err_time_passed'       => 'The active time has passed',
     ]

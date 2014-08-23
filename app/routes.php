@@ -259,9 +259,9 @@ Route::group([
         'uses' => 'App\Core\Controllers\Admin\Users@enableModule'
     ]);
 
-    Route::get('users/modules/delete/{userId}/{id}', [
-        'as'   => 'admin.users.modules.delete',
-        'uses' => 'App\Core\Controllers\Admin\Users@deleteModule'
+    Route::get('users/modules/activation/{userId}/{id}', [
+        'as'   => 'admin.users.modules.activation',
+        'uses' => 'App\Core\Controllers\Admin\Users@toggleActivation'
     ]);
 
     // CRUD actions

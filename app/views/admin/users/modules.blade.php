@@ -56,14 +56,18 @@ $(function() {
         </thead>
         <tbody>
         @foreach ($user->modules as $module)
-            <tr title="{{ trans('admin.modules.err_time_passed') }}" class="{{ $module->is_passed === false ? 'success' : 'active' }}">
-                <td>{{ $module->name }}</td>
-                <td>{{ with(new Carbon\Carbon($module->pivot->start))->format('F j, Y') }}</td>
-                <td>{{ with(new Carbon\Carbon($module->pivot->end))->format('F j, Y') }}</td>
+            <tr title="{{ trans('admin.modules.err_time_passed') }}" class="{{ $module->is_passed === false ?: 'active' }} {{ (bool) $module->pivot->is_active === false ? 'danger' : '' }}">
+                <td>{{ trans('dashboard.'.$module->name) }}</td>
+                <td>{{ with(new Carbon\Carbon($module->pivot->start))->format(trans('common.format.date')) }}</td>
+                <td>{{ with(new Carbon\Carbon($module->pivot->end))->format(trans('common.format.date')) }}</td>
                 <td>
-                    @if ($module->is_passed === false)
-                    <a href="{{ route('admin.users.modules.delete', ['userId' => $module->pivot->user_id, 'id' => $module->pivot->id]) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> {{ trans('common.delete') }}</a>
+                @if ($module->is_passed === false)
+                    @if ((bool) $module->pivot->is_active === true)
+                    <a href="{{ route('admin.users.modules.activation', ['userId' => $module->pivot->user_id, 'id' => $module->pivot->id]) }}" class="btn btn-danger btn-sm"> {{ trans('admin.deactivate') }}</a>
+                    @else
+                    <a href="{{ route('admin.users.modules.activation', ['userId' => $module->pivot->user_id, 'id' => $module->pivot->id]) }}" class="btn btn-success btn-sm"> {{ trans('admin.activate') }}</a>
                     @endif
+                @endif
                 </td>
             </tr>
         @endforeach

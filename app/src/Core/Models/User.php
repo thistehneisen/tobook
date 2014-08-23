@@ -35,7 +35,7 @@ class User extends ConfideUser
     public function modules()
     {
         return $this->belongsToMany('App\Core\Models\Module')
-            ->withPivot(['id', 'start', 'end'])
+            ->withPivot(['id', 'start', 'end', 'is_active'])
             ->withTimestamps();
     }
 

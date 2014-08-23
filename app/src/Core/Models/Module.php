@@ -38,7 +38,7 @@ class Module extends Base
 	public function users()
 	{
 		return $this->belongsToMany('User')
-            ->withPivot(['id', 'start', 'end'])
+            ->withPivot(['id', 'start', 'end', 'is_active'])
             ->withTimestamps();
 	}
 
@@ -82,16 +82,23 @@ SQL;
     }
 
     /**
-     * Delete a record in pivot table
+     * Toggle activation of a period
      *
      * @param int $id ID in pivot table
      *
      * @return int
      */
-    public static function deletePeriod($id)
+    public static function toggleActivation($id)
     {
+        // This might look stupid where you could negativate in just one query
+        $result =DB::table('module_user')
+            ->where('id', $id)
+            ->first();
+        $value = (bool) $result->is_active;
+        // Update
         return DB::table('module_user')
             ->where('id', $id)
-            ->delete();
+            ->update(['is_active' => (int) !$value]);
+
     }
 }

@@ -124,8 +124,9 @@ class Users extends Crud
         }
 
         $user->modules()->attach($module->id, [
-            'start' => Input::get('start'),
-            'end'   => Input::get('end'),
+            'start'     => Input::get('start'),
+            'end'       => Input::get('end'),
+            'is_active' => true
         ]);
         return Redirect::back()
             ->with('messages', $this->successMessageBag(
@@ -134,21 +135,21 @@ class Users extends Crud
     }
 
     /**
-     * Remove a module of user
+     * Toggle activation of a module
      *
      * @param int $userId
      * @param int $id ID in the pivot table
      *
      * @return Redirect
      */
-    public function deleteModule($userId, $id)
+    public function toggleActivation($userId, $id)
     {
 
         try {
-            $result = Module::deletePeriod($id);
+            $result = Module::toggleActivation($id);
             return Redirect::route('admin.users.modules', ['id' => $userId])
                 ->with('messages', $this->successMessageBag(
-                    trans('admin.modules.success_delete')
+                    trans('admin.modules.success_activation')
                 ));
         } catch (\Exception $ex) {
             $errors = $this->errorMessageBag(trans('common.err.unexpected'));
