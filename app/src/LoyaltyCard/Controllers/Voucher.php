@@ -48,7 +48,7 @@ class Voucher extends \App\Core\Controllers\Base {
         $validator = Validator::make(Input::all(), $rules);
 
         if ($validator->fails()) {
-            return Redirect::route('modules.lc.vouchers.create')
+            return Redirect::back()
                 ->withErrors($validator)
                 ->withInput();
         } else {
@@ -62,7 +62,7 @@ class Voucher extends \App\Core\Controllers\Base {
             $voucher->is_active = Input::get('active');
             $voucher->save();
 
-            return Redirect::route('modules.lc.vouchers.index');
+            return Redirect::route('lc.vouchers.index');
         }
     }
 
@@ -114,7 +114,7 @@ class Voucher extends \App\Core\Controllers\Base {
         $validator = Validator::make(Input::all(), $rules);
 
         if ($validator->fails()) {
-            return Redirect::route('modules.lc.vouchers.edit', ['id' => $id])
+            return Redirect::back()
                 ->withErrors($validator)
                 ->withInput();
         } else {
@@ -126,7 +126,7 @@ class Voucher extends \App\Core\Controllers\Base {
             $voucher->is_active = Input::get('is_active');
             $voucher->save();
 
-            return Redirect::route('modules.lc.vouchers.index');
+            return Redirect::route('lc.vouchers.index');
         }
     }
 }

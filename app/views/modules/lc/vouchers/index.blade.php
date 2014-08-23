@@ -12,18 +12,18 @@
 @section('sub-content')
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">{{ trans('Vouchers List') }}</h3>
+        <h3 class="panel-title">{{ trans('loyalty-card.voucher_list') }}</h3>
     </div>
     <table class="table table-striped">
         <thead>
             <tr>
                 <!--<th><input type="checkbox" id="checkAll" onclick="onCheckAll(this)" /></th>-->
                 <th>No</th>
-                <th>{{ trans('Voucher name') }}</th>
-                <th>{{ trans('Total Used') }}</th>
-                <th>{{ trans('Required') }}</th>
-                <th>{{ trans('Discount') }}</th>
-                <th>{{ trans('Active') }}</th>
+                <th>{{ trans('loyalty-card.voucher_name') }}</th>
+                <th>{{ trans('loyalty-card.total_used') }}</th>
+                <th>{{ trans('loyalty-card.required') }}</th>
+                <th>{{ trans('loyalty-card.discount') }}</th>
+                <th>{{ trans('loyalty-card.active') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -56,9 +56,9 @@
                 <td>
                     <a href="{{ URL::route('lc.vouchers.edit', ['id' => $value->id]) }}">
                         @if ($value->is_active === 0)
-                            {{ trans('N') }}
+                            {{ trans('common.no') }}
                         @else
-                            {{ trans('Y') }}
+                            {{ trans('common.yes') }}
                         @endif
                     </a>
                 </td>
