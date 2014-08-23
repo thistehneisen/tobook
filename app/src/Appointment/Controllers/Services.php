@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Controllers;
 
-use App, View, Confide, Redirect, Input, Response;
+use App, View, Confide, Redirect, Input, Config;
 use App\Appointment\Models\ServiceCategory;
 
 class Services extends ServiceBase
@@ -21,11 +21,11 @@ class Services extends ServiceBase
      *
      * @return View
      */
-    public function categories($show = 5)
+    public function categories()
     {
         $categories = $this->categoryModel
             ->where('user_id', $this->user->id)
-            ->paginate($show);
+            ->paginate(Config::get('view.perPage'));
 
         return View::make('modules.as.services.categories', [
             'categories' => $categories
