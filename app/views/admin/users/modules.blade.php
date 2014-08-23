@@ -11,7 +11,8 @@
 $(function() {
     $('div.input-daterange').datepicker({
         language: '{{ App::getLocale() }}',
-        format: 'yyyy-mm-dd'
+        format: 'yyyy-mm-dd',
+        startDate: new Date
     });
 });
     </script>
