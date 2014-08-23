@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'consumer_list'         => 'Asiakaslista',
+    'consumer_management'   => 'Asiakashallinta',
+    'offers'                => 'Tarjoukset',
+    'vouchers'              => 'Kupongit',
+    'offer_list'            => 'Tarjouslista',
+    'number'                => 'Nr',
+    'offer_name'            => 'Tarjouksen Nimi',
+    'total_used'            => 'Käytetty',
+    'required'              => 'Vaadittu määrä',
+    'free_service'          => 'Ilmaiseksi',
+    'auto_add'              => 'Lisää automaattisesti',
+    'active'                => 'Aktiivinen',
+    'finish'                => 'Valmista',
+    'voucher_name'          => 'Kupongin Nimi',
+    'discount'              => 'Alennus',
+    'voucher_list'          => 'Kuponkilista',
+    'type'                  => 'Tyyppi',
+    'percent'               => 'Prosentti',
+    'cash'                  => 'Raha',
+    'created_at'            => 'Luonut',
+    'updated_at'            => 'Päivitetty',
+];

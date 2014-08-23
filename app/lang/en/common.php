@@ -29,4 +29,6 @@ return [
     'settings'          => 'Settings',
     'add'               => 'Add',
     'delete'            => 'Delete',
+    'no'                => 'No',
+    'yes'               => 'Yes',
 ];

@@ -29,4 +29,6 @@ return [
     'settings'          => 'Asetukset',
     'add'               => 'Lisää',
     'delete'            => 'Poista',
+    'no'                => 'Ei',
+    'yes'               => 'Kyllä',
 ];

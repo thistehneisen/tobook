@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'consumer_list'         => 'Customer List',
+    'consumer_management'   => 'Customer Management',
+    'offers'                => 'Offers',
+    'vouchers'              => 'Vouchers',
+    'offer_list'            => 'Offer List',
+    'number'                => 'No',
+    'offer_name'            => 'Offer Name',
+    'total_used'            => 'Used',
+    'required'              => 'Required',
+    'free_service'          => 'Free',
+    'auto_add'              => 'Auto add',
+    'active'                => 'Active',
+    'finish'                => 'Finish',
+    'voucher_name'          => 'Voucher Name',
+    'discount'              => 'Discount',
+    'voucher_list'          => 'Voucher List',
+    'type'                  => 'Type',
+    'percent'               => 'Percent',
+    'cash'                  => 'Cash',
+    'created_at'            => 'Created',
+    'updated_at'            => 'Updated',
+];

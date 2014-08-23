@@ -48,7 +48,7 @@ class Offer extends \App\Core\Controllers\Base {
         $validator = Validator::make(Input::all(), $rules);
 
         if ($validator->fails()) {
-            return Redirect::route('lc.offers.create')
+            return Redirect::back()
                 ->withErrors($validator)
                 ->withInput();
         } else {
@@ -114,7 +114,7 @@ class Offer extends \App\Core\Controllers\Base {
         $validator = Validator::make(Input::all(), $rules);
 
         if ($validator->fails()) {
-            return Redirect::route('lc.offers.edit', ['id' => $id])
+                return Redirect::back()
                 ->withErrors($validator)
                 ->withInput();
         } else {
@@ -142,9 +142,6 @@ class Offer extends \App\Core\Controllers\Base {
         $offer = OfferModel::find($id);
         $offer->delete();
 
-        Session::flash('message', 'Successfully deleted!');
-        return Redirect::to('offers');
+        return Redirect::route('lc.offers.index');
     }
-
-
 }

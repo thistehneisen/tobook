@@ -7,19 +7,19 @@
 @section('sub-content')
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">{{ trans('Offers List') }}</h3>
+        <h3 class="panel-title">{{ trans('loyalty-card.offer_list') }}</h3>
     </div>
     <table class="table table-striped">
         <thead>
             <tr>
                 <!--<th><input type="checkbox" id="checkAll" onclick="onCheckAll(this)" /></th>-->
-                <th>No</th>
-                <th>{{ trans('Offer name') }}</th>
-                <th>{{ trans('Total Used') }}</th>
-                <th>{{ trans('Required') }}</th>
-                <th>{{ trans('Free Service') }}</th>
-                <th>{{ trans('Auto Add') }}</th>
-                <th>{{ trans('Active') }}</th>
+                <th>{{ trans('loyalty-card.number') }}</th>
+                <th>{{ trans('loyalty-card.offer_name') }}</th>
+                <th>{{ trans('loyalty-card.total_used') }}</th>
+                <th>{{ trans('loyalty-card.required') }}</th>
+                <th>{{ trans('loyalty-card.free_service') }}</th>
+                <th>{{ trans('loyalty-card.auto_add') }}</th>
+                <th>{{ trans('loyalty-card.active') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -52,18 +52,18 @@
                 <td>
                     <a href="{{ URL::route('lc.offers.edit', ['id' => $value->id]) }}">
                         @if ($value->is_auto_add === 0)
-                            {{ trans('No') }}
+                            {{ trans('common.no') }}
                         @else
-                            {{ trans('Yes') }}
+                            {{ trans('common.yes') }}
                         @endif
                     </a>
                 </td>
                 <td>
                     <a href="{{ URL::route('lc.offers.edit', ['id' => $value->id]) }}">
                         @if ($value->is_active === 0)
-                            {{ trans('N') }}
+                            {{ trans('common.no') }}
                         @else
-                            {{ trans('Y') }}
+                            {{ trans('common.yes') }}
                         @endif
                     </a>
                 </td>
