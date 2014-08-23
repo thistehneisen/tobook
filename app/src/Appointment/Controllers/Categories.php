@@ -13,9 +13,10 @@ class Categories extends AsBase
      */
     public function categories()
     {
+        $perPage = Input::get('perPage', Config::get('view.perPage'));
         $categories = $this->categoryModel
             ->ofCurrentUser()
-            ->paginate(Config::get('view.perPage'));
+            ->paginate($perPage);
 
         return View::make('modules.as.services.categories', [
             'categories' => $categories
@@ -83,11 +84,11 @@ class Categories extends AsBase
 
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
              return Redirect::route('as.services.categories')
-                ->with('messages', $this->successMessageBag('Category with ID' . $id . ' was not found.'));
+                ->with('messages', $this->successMessageBag('Category with ID #' . $id . ' was not found.'));
         }
 
         return Redirect::route('as.services.categories')
-            ->with('messages', $this->successMessageBag('Category with ID' . $id . ' was updated.'));
+            ->with('messages', $this->successMessageBag('Category with ID #' . $id . ' was updated.'));
     }
 
     public function deleteCategory($id){
