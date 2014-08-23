@@ -214,6 +214,37 @@ Route::group([
 
 /*
 |--------------------------------------------------------------------------
+| Module Consumers routes
+|--------------------------------------------------------------------------
+*/
+Route::group([
+    'prefix' => 'consumers',
+    'before' => ['auth']
+], function() {
+
+    Route::get('/', [
+        'as' => 'co.index',
+        'uses' => 'App\Consumers\Controllers\Index@index'
+    ]);
+
+    Route::get('edit/{id}', [
+        'as' => 'co.edit',
+        'uses' => 'App\Consumers\Controllers\Index@edit'
+    ]);
+
+    Route::post('edit/{id}', [
+        'uses' => 'App\Consumers\Controllers\Index@doEdit'
+    ]);
+
+    Route::post('bulk', [
+        'as'   => 'co.bulk',
+        'uses' => 'App\Consumers\Controllers\Index@bulk'
+    ]);
+
+});
+
+/*
+|--------------------------------------------------------------------------
 | Admin routes
 |--------------------------------------------------------------------------
 */

@@ -220,6 +220,8 @@ class pjFrontPublic extends pjFront
 	{ 
 		if ($this->isXHR() || isset($_GET['_escaped_fragment_']))
 		{
+			$owner_id = intval($_GET['owner_id']);
+			
 			if (isset($_GET['_escaped_fragment_']))
 			{
 				preg_match('/\/Services\/date:([\d\-\.\/]+)?\/page:(\d+)?/', $_GET['_escaped_fragment_'], $matches);
@@ -242,13 +244,14 @@ class pjFrontPublic extends pjFront
 			$this->set('calendar', $this->getCalendar($_GET['cid'], $year, $month, $day))
 				->set('cart_arr', $this->getCart($_GET['cid']));
 
-			$this->set('category_arr', 
-					pjServiceCategoryModel::factory()
-					->where('t1.show_front', 'on')
-					->orderBy('t1.name ASC')
-					->findAll()
-					->getData()
-				);
+			$category_arr = pjServiceCategoryModel::factory()
+				->where('t1.show_front', 'on')
+				->where('t1.owner_id', $owner_id)
+				->orderBy('t1.name ASC')
+				->findAll()
+				->getData();
+			
+			$this->set('category_arr', $category_arr);
 
 			if ( isset($_SESSION[ PREFIX . 'extra' ]) ) {
 				unset($_SESSION[ PREFIX . 'extra' ]);
@@ -266,9 +269,23 @@ class pjFrontPublic extends pjFront
 					
 				case 3:
 					
-					$this->set('employee_arr', $this->getemployees($_GET['cid'], @$page));
+					$categories = $category_arr;
+					foreach ( $category_arr as $key => $category ) {
+						$categories[$key]['services'] = pjServiceModel::factory()
+			                ->select("t1.*, t2.content AS `name`, t3.content AS `description`")
+			                ->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
+			                ->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.id AND t3.field='description'", 'left outer')
+			                ->where('t1.is_active', 1)
+			                ->where('t1.owner_id', $owner_id)
+			                ->where('t1.category_id', $category['id'])
+			                ->orderBy('`name` ASC')
+			                ->findAll()
+			                ->getData();
+					}
 					
-					$this->setTemplate('pjFrontPublic', 'pjActionEmployees');
+					$this->set('categories_arr', $categories);
+					
+					$this->setTemplate('pjFrontPublic', 'pjActionLayout_3');
 					break;
 					
 				case 1:

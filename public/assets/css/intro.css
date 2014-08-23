@@ -47,8 +47,7 @@
 .kantis-introduction {
   background: #f6841e;
   color: #FFF;
-  margin-left: -15%;
-  width: 127.5%;
+  width: 100%;
   padding-top: 30px;
   padding-bottom: 40px;
   font-weight: 600;
@@ -65,13 +64,12 @@
   background-position: center top;
   background-repeat: no-repeat;
   background-size: cover;
-  width: 127.5%;
+  width: 100%;
   height: 752px;
   text-align: center;
   font-family: 'Comfortaa';
   font-weight: 700;
   color: #FFF;
-  margin-left: -15%;
 }
 .kantis-circle {
   width: 42%;
@@ -82,8 +80,8 @@
   height: 300px;
   border-radius: 150px;
   background: #eb8b2e;
-  margin-top: 200px;
-  margin-left: 170px;
+  margin-top: 50%;
+  margin-left: 10%;
   color: #FFF;
   font-size: 18px;
   font-weight: normal;
@@ -248,24 +246,27 @@
   margin-top: 50px;
 }
 .marketing-background01 {
-  margin-top: 20px;
+  margin-top: 10%;
+  margin-bottom: 5%;
 }
 .marketing-background01-image {
   width: 40%;
   margin-left: 0%;
+  margin-right: 100%;
   float: left;
 }
 .marketing-background01-image img {
-  width: 500px;
+  width: 100%;
 }
 .marketing-background01-text {
-  width: 55%;
-  float: left;
+  margin-top: -50%;
+  width: 45%;
+  float: right;
 }
 .marketing-background01-text-header {
   width: 100%;
-  margin-left: 10%;
-  padding-top: 30px;
+  margin-left: 5%;
+  padding-top: 20%;
 }
 .marketing-background01-text-header span {
   color: #000;
@@ -277,27 +278,27 @@
   height: 300px;
   border-radius: 150px;
   background: #f6851f;
-  margin-top: 40px;
-  margin-left: 200px;
+  margin-top: 10%;
+  margin-left: 20%;
   color: #FFF;
   font-size: 18px;
   font-weight: normal;
-  padding-top: 100px;
-  line-height: 30px;
+  padding-top: 20%;
+  line-height: 120%;
 }
 .marketing-background02 {
   background-image: url(/assets/img/marketingBack02.png);
   background-position: center top;
   background-repeat: no-repeat;
   background-size: cover;
-  width: 125.5%;
+  width: 100%;
   height: 500px;
   text-align: center;
   font-family: 'Comfortaa';
   font-weight: 700;
   color: #FFF;
   margin-top: 0%;
-  margin-left: -13%;
+  margin-bottom: 5%;
 }
 .marketing-background02-circle {
   margin-right: 3%;
@@ -330,14 +331,13 @@
   background-position: center top;
   background-repeat: no-repeat;
   background-size: cover;
-  width: 125.5%;
+  width: 100%;
   height: 600px;
   text-align: center;
   font-family: 'Comfortaa';
   font-weight: 700;
   color: #FFF;
   margin-top: 0%;
-  margin-left: -13%;
 }
 .marketing-background04-header {
   margin-left: 170px;
@@ -355,14 +355,13 @@
   background-position: center top;
   background-repeat: no-repeat;
   background-size: cover;
-  width: 125.5%;
+  width: 100%;
   height: 675px;
   text-align: center;
   font-family: 'Comfortaa';
   font-weight: bold;
   color: #FFF;
   margin-top: 0%;
-  margin-left: -13%;
 }
 .cashier-background01-circle {
   width: 400px;
@@ -429,14 +428,13 @@
   background-position: center top;
   background-repeat: no-repeat;
   background-size: cover;
-  width: 125.5%;
+  width: 100%;
   height: 547px;
   text-align: center;
   font-family: 'Comfortaa';
   font-weight: bold;
   color: #FFF;
   margin-top: 0%;
-  margin-left: -13%;
 }
 .cashier-background03-header {
   width: 80%;
@@ -492,4 +490,11 @@
 }
 .weblist-item-icon-thumb img {
   width: 100%;
+}
+.text-subheader {
+  font-family: "Comfortaa";
+  color: white;
+  font-size: 150%;
+  font-weight: 700;
+  margin: 30px 0;
 }
