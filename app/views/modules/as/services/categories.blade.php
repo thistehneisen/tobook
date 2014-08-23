@@ -6,11 +6,11 @@
 <br>
 @include ('el.messages')
 <h4 class="comfortaa">{{ trans('as.services.all_categories') }}</h4>
-<form action="" class="form-inline">
+<form action="" class="form-inline form-table">
 <table class="table table-hover">
     <thead>
         <tr>
-            <th>&nbsp;</th>
+            <th><input type="checkbox" class="toggle-check-all-boxes" data-checkbox-class="checkbox"></th>
             <th>{{ trans('as.services.name') }}</th>
             <th>{{ trans('as.services.is_show_front') }}</th>
             <th>{{ trans('as.services.description') }}</th>
@@ -20,7 +20,7 @@
     <tbody>
         @foreach ($categories as $category)
         <tr>
-            <td><input type="checkbox"></td>
+        <td><input type="checkbox" class="checkbox" name="categories[]" value="{{ $category->id }}"></td>
             <td>{{ $category->name }}</td>
             <td>
             @if ($category->is_show_front)
@@ -42,12 +42,12 @@
             <td colspan="4">
                 <div class="form-group">
                     <label>Valitse toiminto</label>
-                    <select name="" id="" class="form-control input-sm">
-                        <option value="">Delete</option>
+                    <select name="" id="mass-action" class="form-control input-sm">
+                        <option value="{{ route('as.services.categories.destroy') }}" data-action-name="delete all selected categories">Delete</option>
                         <option value="">Blahde</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary btn-sm">{{ trans('common.save') }}</button>
+                <button type="submit" class="btn btn-primary btn-sm btn-submit-mass-action">{{ trans('common.save') }}</button>
             </td>
             <td colspan="5" class="text-right">
                 <div class="dropdown">

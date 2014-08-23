@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Controllers;
 
-use App, View, Confide, Redirect, Input, Config;
+use App, View, Confide, Redirect, Input, Config, Response;
 use App\Appointment\Models\ServiceCategory;
 
 class Categories extends AsBase
@@ -101,5 +101,17 @@ class Categories extends AsBase
                 'messages',
                 $this->successMessageBag('ID #'.$id.' was deleted')
             );
+    }
+
+    public function destroyCategories(){
+        $categories = Input::get('categories', []);
+        try{
+            $this->categoryModel->destroy($categories);
+            $data['success'] = true;
+        } catch (\Exception $ex){
+            $data['success'] = false;
+            $data['error'] = $ex->getMessage();
+        }
+        return Response::json($data);
     }
 }

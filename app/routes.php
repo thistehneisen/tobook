@@ -228,6 +228,11 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Categories@deleteCategory'
     ]);
 
+    Route::post('services/categories/destroy', [
+        'as' => 'as.services.categories.destroy',
+        'uses' => 'App\Appointment\Controllers\Categories@destroyCategories'
+    ]);
+
     Route::post('services/categories/create', [
         'as' => 'as.services.categories.create',
         'uses' => 'App\Appointment\Controllers\Categories@doCreateCategory'
