@@ -19,9 +19,11 @@ return [
     'activate'           => 'Activate',
     'deactivate'         => 'Deactivate',
     'modules'            => [
+        'modules'               => 'Services',
+        'active_time'           => 'Active time',
         'all_modules'           => 'All modules',
-        'enabled_modules'       => 'Enabled modules',
-        'enable_module_heading' => 'Enable module for user',
+        'enabled_modules'       => 'Active services',
+        'enable_module_heading' => 'Add new service',
         'name'                  => 'Name',
         'start'                 => 'Start',
         'end'                   => 'End',
