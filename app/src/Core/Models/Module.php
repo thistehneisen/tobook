@@ -17,6 +17,19 @@ class Module extends Base
         ]
     ];
 
+    //--------------------------------------------------------------------------
+    // ATTRIBUTES
+    //--------------------------------------------------------------------------
+    /**
+     * Tell if the active time of this module has passed
+     *
+     * @return boolean
+     */
+    public function getIsPassedAttribute()
+    {
+        return Carbon::now()->gt(new Carbon($this->pivot->end));
+    }
+
 	/**
 	 * Define the relationship with User model
 	 *

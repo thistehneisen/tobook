@@ -56,12 +56,14 @@ $(function() {
         </thead>
         <tbody>
         @foreach ($user->modules as $module)
-            <tr>
+            <tr title="{{ trans('admin.modules.err_time_passed') }}" class="{{ $module->is_passed === false ? 'success' : 'active' }}">
                 <td>{{ $module->name }}</td>
                 <td>{{ with(new Carbon\Carbon($module->pivot->start))->format('F j, Y') }}</td>
                 <td>{{ with(new Carbon\Carbon($module->pivot->end))->format('F j, Y') }}</td>
                 <td>
-                    <a href="{{ route('admin.users.modules.delete', ['userId' => $module->pivot->user_id, 'id' => $module->pivot->id]) }}" class="btn btn-link btn-sm"><i class="fa fa-trash-o"></i> {{ trans('common.delete') }}</a>
+                    @if ($module->is_passed === false)
+                    <a href="{{ route('admin.users.modules.delete', ['userId' => $module->pivot->user_id, 'id' => $module->pivot->id]) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> {{ trans('common.delete') }}</a>
+                    @endif
                 </td>
             </tr>
         @endforeach

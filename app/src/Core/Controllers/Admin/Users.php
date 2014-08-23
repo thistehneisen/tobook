@@ -71,6 +71,15 @@ class Users extends Crud
     public function modules($id)
     {
         $user = $this->model->with('modules')->find($id);
+        // Order by start date desc
+        $user->modules->sort(function($a, $b) {
+            $foo = new Carbon($a->pivot->start);
+            $bar = new Carbon($b->pivot->start);
+            if ($foo->eq($bar)) return 0;
+
+            return $foo->gt($bar) ? -1 : 1;
+        });
+
         return $this->render('users.modules', [
             'modules' => Module::all(),
             'user'    => $user,
