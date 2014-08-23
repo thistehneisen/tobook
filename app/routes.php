@@ -205,37 +205,37 @@ Route::group([
 
     Route::get('services/create', [
         'as' => 'as.services.create',
-        'uses' => 'App\Appointment\Controllers\Services@create'
+        'uses' => 'App\Appointment\Controllers\Categories@create'
     ]);
 
     Route::get('services/categories', [
         'as' => 'as.services.categories',
-        'uses' => 'App\Appointment\Controllers\Services@categories'
+        'uses' => 'App\Appointment\Controllers\Categories@categories'
     ]);
 
     Route::get('services/categories/create', [
         'as' => 'as.services.categories.create',
-        'uses' => 'App\Appointment\Controllers\Services@createCategory'
+        'uses' => 'App\Appointment\Controllers\Categories@createCategory'
     ]);
 
     Route::get('services/categories/edit/{id}', [
         'as' => 'as.services.categories.edit',
-        'uses' => 'App\Appointment\Controllers\Services@editCategory'
+        'uses' => 'App\Appointment\Controllers\Categories@editCategory'
     ]);
 
     Route::get('services/categories/delete/{id}', [
         'as' => 'as.services.categories.delete',
-        'uses' => 'App\Appointment\Controllers\Services@deleteCategory'
+        'uses' => 'App\Appointment\Controllers\Categories@deleteCategory'
     ]);
 
     Route::post('services/categories/create', [
         'as' => 'as.services.categories.create',
-        'uses' => 'App\Appointment\Controllers\Services@doCreateCategory'
+        'uses' => 'App\Appointment\Controllers\Categories@doCreateCategory'
     ]);
 
     Route::post('services/categories/edit/{id}', [
         'as' => 'as.services.categories.edit',
-        'uses' => 'App\Appointment\Controllers\Services@doEditCategory'
+        'uses' => 'App\Appointment\Controllers\Categories@doEditCategory'
     ]);
 
     Route::get('services/resources', [

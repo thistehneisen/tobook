@@ -6,6 +6,5 @@ return [
         'description'    => 'Kuvaus',
         'is_show_front'  => 'Varattavissa kuluttajille',
         'all_categories' => 'Kaikki kategoriat',
-        'add_category'   => 'Lisää kategoria'
     ]
 ];
