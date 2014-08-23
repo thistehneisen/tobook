@@ -195,6 +195,7 @@ Route::group([
                 'update'    => 'mt.campaigns.update',
             ]
         ]);
+        
         Route::resource('smss', 'App\MarketingTool\Controllers\Sms', [
             'names' => [
                 'index'     => 'mt.smss.index',
@@ -203,7 +204,17 @@ Route::group([
                 'store'     => 'mt.smss.store',
                 'update'    => 'mt.smss.update',
             ]
-        ]);        
+        ]);
+        
+        Route::resource('templates', 'App\MarketingTool\Controllers\Template', [
+            'names' => [
+                'index'     => 'mt.templates.index',
+                'create'    => 'mt.templates.create',
+                'edit'      => 'mt.templates.edit',
+                'store'     => 'mt.templates.store',
+                'update'    => 'mt.templates.update',
+            ]
+        ]);
     });
 });
 /*

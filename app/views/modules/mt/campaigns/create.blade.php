@@ -42,7 +42,7 @@
     </table>
 </div>
 @section('scripts')
-    <script src="{{ asset('assets/js/mt/campaigns.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/js/mt/common.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/wysiwyg/scripts/innovaeditor.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/wysiwyg/scripts/innovamanager.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/wysiwyg/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
