@@ -13,7 +13,7 @@ class Categories extends AsBase
      */
     public function categories()
     {
-        $perPage = Input::get('perPage', Config::get('view.perPage'));
+        $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
         $categories = $this->categoryModel
             ->ofCurrentUser()
             ->paginate($perPage);
@@ -28,7 +28,7 @@ class Categories extends AsBase
     *
     * @return View
     */
-    public function createCategory(){
+    public function create(){
         return View::make('modules.as.services.category.form');
     }
 
@@ -37,7 +37,7 @@ class Categories extends AsBase
      *
      * @return Redirect
      */
-    public function doCreateCategory()
+    public function doCreate()
     {
         $errors = $this->errorMessageBag(trans('common.err.unexpected'));
 
@@ -59,7 +59,7 @@ class Categories extends AsBase
         return Redirect::back()->withInput()->withErrors($errors, 'top');
     }
 
-    public function editCategory($id){
+    public function edit($id){
 
         try{
             $category = $this->categoryModel->findOrFail($id);
@@ -73,7 +73,7 @@ class Categories extends AsBase
         ]);
     }
 
-    public function doEditCategory($id){
+    public function doEdit($id){
         try{
 
             $category = $this->categoryModel->findOrFail($id);
@@ -91,7 +91,7 @@ class Categories extends AsBase
             ->with('messages', $this->successMessageBag('Category with ID #' . $id . ' was updated.'));
     }
 
-    public function deleteCategory($id){
+    public function delete($id){
         $item = $this->categoryModel->findOrFail($id);
         if ($item) {
             $item->delete();
@@ -103,7 +103,7 @@ class Categories extends AsBase
             );
     }
 
-    public function destroyCategories(){
+    public function destroy(){
         $categories = Input::get('categories', []);
         try{
             $this->categoryModel->destroy($categories);

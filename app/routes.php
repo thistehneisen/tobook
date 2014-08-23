@@ -215,37 +215,67 @@ Route::group([
 
     Route::get('services/categories/create', [
         'as' => 'as.services.categories.create',
-        'uses' => 'App\Appointment\Controllers\Categories@createCategory'
+        'uses' => 'App\Appointment\Controllers\Categories@create'
     ]);
 
     Route::get('services/categories/edit/{id}', [
         'as' => 'as.services.categories.edit',
-        'uses' => 'App\Appointment\Controllers\Categories@editCategory'
+        'uses' => 'App\Appointment\Controllers\Categories@edit'
     ]);
 
     Route::get('services/categories/delete/{id}', [
         'as' => 'as.services.categories.delete',
-        'uses' => 'App\Appointment\Controllers\Categories@deleteCategory'
+        'uses' => 'App\Appointment\Controllers\Categories@delete'
     ]);
 
     Route::post('services/categories/destroy', [
         'as' => 'as.services.categories.destroy',
-        'uses' => 'App\Appointment\Controllers\Categories@destroyCategories'
+        'uses' => 'App\Appointment\Controllers\Categories@destroy'
     ]);
 
     Route::post('services/categories/create', [
         'as' => 'as.services.categories.create',
-        'uses' => 'App\Appointment\Controllers\Categories@doCreateCategory'
+        'uses' => 'App\Appointment\Controllers\Categories@doCreate'
     ]);
 
     Route::post('services/categories/edit/{id}', [
         'as' => 'as.services.categories.edit',
-        'uses' => 'App\Appointment\Controllers\Categories@doEditCategory'
+        'uses' => 'App\Appointment\Controllers\Categories@doEdit'
     ]);
 
     Route::get('services/resources', [
         'as' => 'as.services.resources',
-        'uses' => 'App\Appointment\Controllers\Services@resources'
+        'uses' => 'App\Appointment\Controllers\Resources@resources'
+    ]);
+
+    Route::get('services/resources/create', [
+        'as' => 'as.services.resources.create',
+        'uses' => 'App\Appointment\Controllers\Resources@create'
+    ]);
+
+    Route::post('services/resources/create', [
+        'as' => 'as.services.resources.create',
+        'uses' => 'App\Appointment\Controllers\Resources@doCreate'
+    ]);
+
+    Route::get('services/resources/edit/{id}', [
+        'as' => 'as.services.resources.edit',
+        'uses' => 'App\Appointment\Controllers\Resources@edit'
+    ]);
+
+    Route::post('services/resources/edit/{id}', [
+        'as' => 'as.services.resources.edit',
+        'uses' => 'App\Appointment\Controllers\Resources@doEdit'
+    ]);
+
+    Route::get('services/resources/delete/{id}', [
+        'as' => 'as.services.resources.delete',
+        'uses' => 'App\Appointment\Controllers\Resources@delete'
+    ]);
+
+    Route::post('services/resources/destroy', [
+        'as' => 'as.services.resources.destroy',
+        'uses' => 'App\Appointment\Controllers\Resources@destroy'
     ]);
 
 });

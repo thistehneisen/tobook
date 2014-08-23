@@ -1,34 +1,15 @@
 @extends ('modules.as.layout')
 
 @section ('sub-content')
-<h4 class="comfortaa">Lisää resurssi</h4>
-{{ Form::open(['route' => 'as.services.resources', 'class' => 'form-horizontal well', 'role' => 'form']) }}
-    <div class="form-group">
-        <label for="name" class="col-sm-2 control-label">Resurssi</label>
-        <div class="col-sm-5">
-            <input type="text" class="form-control input-sm" id="name">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="description" class="col-sm-2 control-label">Kuvaus</label>
-        <div class="col-sm-5">
-            <textarea rows="10" class="form-control input-sm" id="description"></textarea>
-        </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-5">
-            <button type="submit" class="btn btn-primary">{{ trans('common.save') }}</button>
-        </div>
-    </div>
-{{ Form::close() }}
+@include('modules.as.services.resource.tabs')
 
 <h4 class="comfortaa">Kaikki resurssit</h4>
-<form action="" class="form-inline">
+<form action="" class="form-inline form-table">
 <table class="table table-hover">
     <thead>
         <tr>
-            <th>&nbsp;</th>
+             <th><input type="checkbox" class="toggle-check-all-boxes" data-checkbox-class="checkbox"></th>
             <th>Kategorian nimi</th>
             <th>Varattavissa kuluttajille</th>
             <th>Kuvaus</th>
@@ -36,28 +17,35 @@
         </tr>
     </thead>
     <tbody>
+         @foreach ($resources as $resource)
         <tr>
-            <td><input type="checkbox"></td>
-            <td>Service 1</td>
-            <td>On</td>
-            <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident consequuntur odio velit beatae reprehenderit placeat, exercitationem consectetur veritatis ratione ducimus molestias, doloribus molestiae reiciendis praesentium dolorum sequi, eveniet pariatur qui.</td>
+            <td><input type="checkbox" class="checkbox" name="resources[]" value="{{ $resource->id }}"></td>
+            <td>{{ $resource->name }}</td>
+            <td>{{ $resource->quanity }}</td>
+            <td>{{ $resource->description }}</td>
             <td>
-                <a href="#" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
-                <a href="#" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
+                <a href="{{ route('as.services.resources.edit', ['id'=> $resource->id ]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
+                <a href="{{ route('as.services.resources.delete', ['id'=> $resource->id ]) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
             </td>
         </tr>
+        @endforeach
+        @if (empty($resources->getTotal()))
+        <tr>
+            <td colspan="4">{{ trans('common.no_records') }}</td>
+        </tr>
+        @endif
     </tbody>
     <tfoot>
         <tr>
             <td colspan="4">
                 <div class="form-group">
                     <label>Valitse toiminto</label>
-                    <select name="" id="" class="form-control input-sm">
-                        <option value="">Delete</option>
+                    <select name="" id="mass-action" class="form-control input-sm">
+                        <option value="{{ route('as.services.resources.destroy') }}" data-action-name="delete all selected resources">Delete</option>
                         <option value="">Blahde</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary btn-sm">{{ trans('common.save') }}</button>
+                <button type="submit" class="btn btn-primary btn-sm btn-submit-mass-action">{{ trans('common.save') }}</button>
             </td>
             <td colspan="5" class="text-right">
                 <div class="dropdown">
@@ -65,10 +53,10 @@
                     Yksiköitä yhteensä <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">10</a></li>
-                        <li><a href="#">20</a></li>
-                        <li><a href="#">50</a></li>
+                        <li><a href="{{ route('as.services.resources', ['perPage' => 5]) }}">5</a></li>
+                        <li><a href="{{ route('as.services.resources', ['perPage' => 10]) }}">10</a></li>
+                        <li><a href="{{ route('as.services.resources', ['perPage' => 20]) }}">20</a></li>
+                        <li><a href="{{ route('as.services.resources', ['perPage' => 50]) }}">50</a></li>
                     </ul>
                 </div>
             </td>

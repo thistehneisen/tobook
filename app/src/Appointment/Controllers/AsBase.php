@@ -8,5 +8,6 @@ class AsBase extends \App\Core\Controllers\Base
     {
         parent::__construct();
         $this->categoryModel = App::make('App\Appointment\Models\ServiceCategory');
+        $this->resourceModel = App::make('App\Appointment\Models\Resource');
     }
 }

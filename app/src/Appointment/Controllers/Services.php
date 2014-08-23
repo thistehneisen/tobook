@@ -15,9 +15,4 @@ class Services extends AsBase
     {
         return View::make('modules.as.services.create');
     }
-
-    public function resources()
-    {
-        return View::make('modules.as.services.resources');
-    }
 }

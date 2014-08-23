@@ -36,6 +36,11 @@
             </td>
         </tr>
         @endforeach
+        @if (empty($categories->getTotal()))
+        <tr>
+            <td colspan="4">{{ trans('common.no_records') }}</td>
+        </tr>
+        @endif
     </tbody>
     <tfoot>
         <tr>
