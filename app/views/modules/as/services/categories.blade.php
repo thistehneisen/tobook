@@ -30,7 +30,7 @@
             </td>
             <td>{{ $category->description }}</td>
             <td>
-            <a href="#" class="btn btn-xs btn-info" title=""><i class="fa fa-edit"></i></a>
+            <a href="{{ route('as.services.categories.edit', ['id'=> $category->id ]) }}" class="btn btn-xs btn-info" title=""><i class="fa fa-edit"></i></a>
             <a href="#" class="btn btn-xs btn-default" title=""><i class="fa fa-trash-o"></i></a>
             </td>
         </tr>

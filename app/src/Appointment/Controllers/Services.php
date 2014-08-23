@@ -33,7 +33,9 @@ class Services extends ServiceBase
     }
 
     public function createCategory(){
-         return View::make('modules.as.services.category.create');
+        return View::make('modules.as.services.category.form', [
+            'category' => null
+        ]);
     }
     /**
      * Handle user input to create a new category
@@ -57,6 +59,23 @@ class Services extends ServiceBase
         }
         return Redirect::route('as.services.categories')
             ->with('messages', $this->successMessageBag('Category was created.'));
+    }
+
+    public function editCategory($id){
+
+        if(empty($id)){
+            return Redirect::route('as.services.categories')
+                ->with('messages', $this->successMessageBag('Category was not found.'));
+        }
+
+        $category = $categories = $this->categoryModel->find($id);
+        return View::make('modules.as.services.category.form', [
+            'category' => $category
+        ]);
+    }
+
+    public function doEdit(){
+
     }
 
     public function resources()
