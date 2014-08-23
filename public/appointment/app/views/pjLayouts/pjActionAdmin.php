@@ -61,7 +61,7 @@ var myTipsSetup =
 
     document.head.appendChild(s);
 }());
-</script>	
+</script>
 
 	</head>
 	<body>
@@ -75,8 +75,8 @@ var myTipsSetup =
 <span mytips:tutorial="53c22ddb7cb38b2c0a000008"></span>
 
 		<div id="container">
-    		
-			
+
+
 			<div id="middle" class="<?php echo !isset($tpl['option_arr']['o_layout_backend']) || $tpl['option_arr']['o_layout_backend'] != 1 ? 'layout_2' : 'layout_1'; ?>">
 				<div id="leftmenu">
 					<?php require PJ_VIEWS_PATH . 'pjLayouts/elements/leftmenu.php'; ?>
@@ -91,7 +91,7 @@ var myTipsSetup =
 				</div> <!-- content -->
 				<div class="clear_both"></div>
 			</div> <!-- middle -->
-		
+
 		</div> <!-- container -->
 		<div id="footer-wrap" style="display:none;">
 			<div id="footer">

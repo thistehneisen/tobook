@@ -355,7 +355,7 @@
 					
 					that.$container.find(".asSingleServices li.active .asServiceMore").show(500);
 					
-				} else if ( that.service_id > 0 && that.employee_id > 0 && !that.changedate ) {
+				} else if ( that.service_id > 0 && (that.employee_id > 0 || that.employee_id == 'all') && !that.changedate ) {
 					that.$container.find(".asSingleDate").show();
 					that.$container.find(".asSingleDate .asBox").html(data);
 				} else if ( that.changedate ) {
@@ -370,6 +370,35 @@
 				that.changedate = false;
 			});
 		},
+		
+		getLoadAjaxLayout3: function () {
+			var that = this, $height;
+			
+			pjQ.$.get([this.options.folder, "index.php?controller=pjFrontEnd&action=pjActionLoadAjax" + $as_pf + $owner_id].join(""), {
+				"cid": this.options.cid,
+				"layout": this.options.layout,
+				"date": this.date,
+				"category_id": this.category_id,
+				"service_id": this.service_id,
+				"employee_id": this.employee_id,
+				"date_first": this.date_first,
+				"wt_id": this.wt_id,
+			}).done(function (data) {
+				if ( that.service_id > 0 ) {
+					that.$container.find(".asLayout3Employees .asBoxInner").html(data);
+				
+				} else if( that.employee_id > 0 ) {
+					that.$container.find(".asLayout3Date .asBoxInner").html(data);
+				} 
+				
+				that.category_id = null;
+				that.service_id = null;
+				that.employee_id = null;
+				that.wt_id = -1;
+				that.changedate = false;
+			});
+		},
+		
 		getTime: function () {
 			var that = this;
 			pjQ.$.get([this.options.folder, "index.php?controller=pjFrontEnd&action=pjActionGetTime" + $as_pf].join(""), {
@@ -793,7 +822,7 @@
 				
 				that.getLoadAjaxLayout2.call(that);
 				
-			}).on("click.as", ".asSingleDate .times a.asAvailable", function (e) {
+			}).on("click.as", ".asSingleDate .times a", function (e) {
 				if (e && e.preventDefault) {
 					e.preventDefault();
 				}
@@ -801,6 +830,10 @@
 				var $this = pjQ.$(this);
 				
 				$this.parent().addClass("active").siblings(".active").removeClass("active");
+				
+				if ( $this.hasClass("allEmployee") ) {
+					that.$container.find("input[name='employee_id']").val($this.data("employee_id"));
+				}
 				
 				that.$container.find("input[name='date']").val($this.data("date"))
 					.end()
@@ -810,11 +843,103 @@
 					.end()
 					.find(":submit").removeAttr("disabled");
 				
-			}).on("click.as", ".asSingleDate .times a.asUnavailable", function (e) {
+				// Layout 3
+			}).on("click.as", ".asLayout3 .heading a", function (e) {
 				if (e && e.preventDefault) {
 					e.preventDefault();
 				}
-			}).on("click.as", ".asSingleEmployeeEmail a", function (e) {
+				
+				var $this = pjQ.$(this);
+				
+				if ($this.hasClass('collapse')) {
+					$this.parents('.asLayout3Inner').siblings(".asLayout3Inner").find('.asBox').hide();
+					$this.parent().siblings(".asBox").show(500);
+				}
+				
+			}).on("click.as", ".asLayout3 .asCategories input", function (e) {
+				
+				var $this = pjQ.$(this);
+				
+				that.$container.find('.asCategories').hide()
+					.end()
+					.find('.asServices').show()
+					.end()
+					.find('.asCategoryBox').hide()
+					.end()
+					.find('.asCategoryBox_' + $this.val()).show(500);
+				//console.log($this.val());
+				
+			}).on("click.as", ".asLayout3 .asServices input", function (e) {
+				
+				var $this = pjQ.$(this);
+				
+				that.service_id = $this.val();
+				
+				that.$container.find(".asLayout3Employees .asBoxInner").html("")
+					.end()
+					.find('.asLayout3Categories .asBox').hide()
+					.end()
+					.find('.asLayout3Employees .asBox').show(500)
+					.end()
+					.find('.asLayout3Categories .heading a').addClass('collapse')
+					.end()
+					.find("input[name='service_id']").val($this.val())
+					.end()
+					.find(":submit").attr("disabled", "disabled");
+					
+				that.getLoadAjaxLayout3.call(that);
+				
+			}).on("click.as", ".asLayout3 a.asCategoriesBack", function (e) {
+				if (e && e.preventDefault) {
+					e.preventDefault();
+				}
+				
+				var $this = pjQ.$(this);
+				
+				that.$container.find('.asServices').hide()
+					.end()
+					.find('.asCategories').show(500);
+					
+			}).on("click.as", ".asLayout3 .asEmployees input", function (e) {
+				
+				var $this = pjQ.$(this);
+				
+				that.employee_id = $this.val();
+				
+				that.$container.find('.asLayout3Employees .asBox').hide()
+					.end()
+					.find('.asLayout3Date .asBox').show(500)
+					.end()
+					.find('.asLayout3Employees .heading a').addClass('collapse')
+					.end()
+					.find("input[name='employee_id']").val($this.val())
+					.end()
+					.find(":submit").attr("disabled", "disabled");
+					
+				that.getLoadAjaxLayout3.call(that);
+				
+			}).on("focusin", ".datepick", function (e) {
+				var $this = pjQ.$(this);
+				$this.datepicker({
+					firstDay: $this.attr("rel"),
+					dateFormat: $this.attr("rev"),
+					onSelect: function (dateText, inst) {
+						var $href = window.location.href.replace(/&date=(.*)&/,'&');
+						
+						$href = $href.replace(/&date=(.*)/,'');
+						
+						window.location.href = $href +'&date=' + [inst.selectedYear, inst.selectedMonth+1, inst.selectedDay].join("-");
+					}
+				});
+			}).on("click", ".pj-form-field-icon-date", function (e) {
+				var $dp = $(this).parent().siblings("input[type='text']");
+				if ($dp.hasClass("hasDatepicker")) {
+					$dp.datepicker("show");
+				} else {
+					$dp.trigger("focusin").datepicker("show");
+				}
+				
+			}).on("click.as", ".asSingleEmployeeEmail a", function (e) { //End layout 3
 				e.stopPropagation();
 				return true;
 			}).on("click.as", ".asSelectorEmployee", function (e) {

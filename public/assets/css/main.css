@@ -1,5 +1,4 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,300,600);
-
 @import url(http://fonts.googleapis.com/css?family=Comfortaa:400,300,700&subset=latin,cyrillic,latin-ext,greek,cyrillic-ext);
 *,
 *:before,
@@ -115,15 +114,6 @@ a:hover {
   font-weight: 700;
   margin: 30px 0;
 }
-
-.text-subheader {
-    font-family: "Comfortaa";
-    color: white;
-    font-size: 3vh;
-    font-weight: 700;
-    margin: 30px 0;
-}
-
 .header.homepage {
   min-height: 100vh;
 }

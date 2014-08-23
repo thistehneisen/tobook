@@ -8,6 +8,7 @@ $varaaDb = Bridge::dbConfig();
 // An Cao <an@varaa.com>
 //------------------------------------------------------------------------------
 if (!Bridge::hasOwnerId()) {
+	@session_destroy();
 	echo <<< JS
 <script>
 window.parent.location = '/auth/login';
