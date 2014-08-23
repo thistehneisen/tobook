@@ -15,5 +15,13 @@ return [
     'actions'            => 'Actions',
     'edit'               => 'Edit',
     'delete'             => 'Delete',
-    'enable'             => 'Enable'
+    'enable'             => 'Enable',
+    'modules' => [
+        'all_modules'           => 'All modules',
+        'enabled_modules'       => 'Enabled modules',
+        'enable_module_heading' => 'Enable module for user',
+        'name'                  => 'Name',
+        'start'                 => 'Start',
+        'end'                   => 'End'
+    ]
 ];

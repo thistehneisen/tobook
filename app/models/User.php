@@ -24,7 +24,7 @@ class User extends ConfideUser
     //--------------------------------------------------------------------------
     // RELATIONSHIP DEFINITIONS
     //--------------------------------------------------------------------------
-    
+
     /**
      * Define the many-to-many relationship with Module
      *
@@ -38,7 +38,7 @@ class User extends ConfideUser
     //--------------------------------------------------------------------------
     // SCOPE DEFINITIONS
     //--------------------------------------------------------------------------
-    
+
     //--------------------------------------------------------------------------
     // OTHER METHODS
     //--------------------------------------------------------------------------
@@ -123,7 +123,7 @@ class User extends ConfideUser
     {
         return [
             '<i class="fa fa-user"></i> Login' => route('admin.users.login', ['id' => $this->id]),
-            '<i class="fa fa-trophy"></i> Modules' => route('admin.users.modules', ['id' => $this->id])
+            '<i class="fa fa-puzzle-piece"></i> Modules' => route('admin.users.modules', ['id' => $this->id])
         ];
     }
 }

@@ -19,7 +19,7 @@ $(function() {
 
 @section ('content')
     {{ Form::open(['route' => ['admin.users.modules', $user->id]]) }}
-    <h3 class="comfortaa">Enable new module</h3>
+    <h3 class="comfortaa">{{ trans('admin.modules.enable_module_heading') }}</h3>
     @include ('el.messages')
 
     @foreach ($modules as $module)
@@ -34,7 +34,7 @@ $(function() {
     <div class="form-group">
         <div class="input-daterange input-group" id="datepicker">
             <input type="text" class="input-sm form-control" name="start">
-            <span class="input-group-addon">to</span>
+            <span class="input-group-addon">&ndash;</span>
             <input type="text" class="input-sm form-control" name="end">
         </div>
     </div>
@@ -44,13 +44,13 @@ $(function() {
     </div>
     {{ Form::close() }}
 
-    <h3 class="comfortaa">Associated modules</h3>
+    <h3 class="comfortaa">{{ trans('admin.modules.enabled_modules') }}</h3>
     <table class="table">
         <thead>
             <tr>
-                <th>Module name</th>
-                <th>Start</th>
-                <th>End</th>
+                <th>{{ trans('admin.modules.name') }}</th>
+                <th>{{ trans('admin.modules.start') }}</th>
+                <th>{{ trans('admin.modules.end') }}</th>
                 <th>&nbsp;</th>
             </tr>
         </thead>
@@ -60,7 +60,10 @@ $(function() {
                 <td>{{ $module->name }}</td>
                 <td>{{ with(new Carbon\Carbon($module->pivot->start))->format('F j, Y') }}</td>
                 <td>{{ with(new Carbon\Carbon($module->pivot->end))->format('F j, Y') }}</td>
-                <td></td>
+                <td>
+                    <a href="#" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> {{ trans('common.edit') }}</a>
+                    <a href="#" class="btn btn-link btn-sm"><i class="fa fa-trash-o"></i> {{ trans('common.delete') }}</a>
+                </td>
             </tr>
         @endforeach
         </tbody>
