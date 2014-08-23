@@ -2,6 +2,7 @@
 
 use App, Config, Request, Redirect, Input, Confide, Session, Auth, Validator;
 use App\Core\Models\Module;
+use Carbon\Carbon;
 
 class Users extends Crud
 {
@@ -96,14 +97,30 @@ class Users extends Crud
         }
 
         // Insert into database
-        // @todo: Check overlapped valid period
-        $user = Module::find($id);
-        $module = $this->model->find(Input::get('module_id'));
+        $user = $this->model->find($id);
+        $module = Module::find(Input::get('module_id'));
+
+        // Check if the selected period is overlapped with existing data
+        $overlapped = $module->isOverlapped(
+            $user,
+            new Carbon(Input::get('start')),
+            new Carbon(Input::get('start'))
+        );
+        if ($overlapped) {
+            return Redirect::back()
+                ->withInput()
+                ->withErrors($this->errorMessageBag(
+                    trans('admin.modules.err_overlapped')
+                ), 'top');
+        }
+
         $user->modules()->attach($module->id, [
             'start' => Input::get('start'),
-            'end' => Input::get('end'),
+            'end'   => Input::get('end'),
         ]);
         return Redirect::back()
-            ->with('messages', $this->successMessageBag('Module enabled.'));
+            ->with('messages', $this->successMessageBag(
+                trans('admin.modules.success_enabled')
+            ));
     }
 }

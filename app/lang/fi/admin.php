@@ -22,6 +22,8 @@ return [
         'enable_module_heading' => 'Enable module for user',
         'name'                  => 'Name',
         'start'                 => 'Start',
-        'end'                   => 'End'
+        'end'                   => 'End',
+        'success_enabled'       => 'Module <strong>:module</strong> is now available for ":user"',
+        'err_overlapped'        => 'The selected period is overlapped with existing ones. Please recheck and try again.'
     ]
 ];

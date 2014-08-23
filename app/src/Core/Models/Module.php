@@ -1,5 +1,9 @@
 <?php namespace App\Core\Models;
 
+use Carbon\Carbon;
+use DB;
+use App\Core\Models\User;
+
 class Module extends Base
 {
 	public $visible = ['id', 'name', 'uri'];
@@ -22,4 +26,43 @@ class Module extends Base
 	{
 		return $this->belongsToMany('User')->withPivot(['start', 'end']);
 	}
+
+    /**
+     * Check if the given start and end date is overlapped with existing data
+     *
+     * @param App\Core\Models\User $user
+     * @param Carbon $start
+     * @param Carbon $end
+     *
+     * @return boolean
+     */
+    public function isOverlapped(User $user, Carbon $start, Carbon $end)
+    {
+        $sql = <<< SQL
+SELECT COUNT(*) AS overlapped
+FROM varaa_module_user t
+WHERE user_id = ? AND module_id = ? AND (
+    (? > t.start AND ? < t.end) OR
+    (? > t.start AND ? < t.end) OR
+    (? = t.start OR ? = t.end)
+)
+SQL;
+        $params = [
+            $user->id,
+            $this->id,
+            $start,
+            $start,
+            $end,
+            $end,
+            $start,
+            $end
+        ];
+        $result = DB::selectOne($sql, $params);
+
+        if (!empty($result)) {
+            return (bool) $result->overlapped;
+        }
+
+        throw new \RuntimeException('Something went wrong');
+    }
 }
