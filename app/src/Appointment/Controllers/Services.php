@@ -62,7 +62,7 @@ class Services extends ServiceBase
             $category = $this->categoryModel->findOrFail($id);
         } catch (ModelNotFoundException $e){
              return Redirect::route('as.services.categories')
-                ->with('messages', $this->successMessageBag('Category with ID {$id} was not found.'));
+                ->with('messages', $this->successMessageBag('Category with ID' . $id . ' was not found.'));
         }
 
         return View::make('modules.as.services.category.form', [
@@ -76,11 +76,11 @@ class Services extends ServiceBase
             $this->_saveOrUpdate($category);
         } catch (ModelNotFoundException $e){
              return Redirect::route('as.services.categories')
-                ->with('messages', $this->successMessageBag('Category with ID {$id} was not found.'));
+                ->with('messages', $this->successMessageBag('Category with ID' . $id . ' was not found.'));
         }
 
         return Redirect::route('as.services.categories')
-            ->with('messages', $this->successMessageBag('Category with ID {$id} was updated.'));
+            ->with('messages', $this->successMessageBag('Category with ID' . $id . ' was updated.'));
     }
 
     /**
