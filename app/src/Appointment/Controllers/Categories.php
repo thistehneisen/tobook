@@ -62,9 +62,9 @@ class Categories extends AsBase
 
         try{
             $category = $this->categoryModel->findOrFail($id);
-        } catch (ModelNotFoundException $e){
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e){
              return Redirect::route('as.services.categories')
-                ->with('messages', $this->successMessageBag('Category with ID' . $id . ' was not found.'));
+                ->with('messages', $this->successMessageBag('Category with ID #' . $id . ' was not found.'));
         }
 
         return View::make('modules.as.services.category.form', [
@@ -74,9 +74,14 @@ class Categories extends AsBase
 
     public function doEditCategory($id){
         try{
+
             $category = $this->categoryModel->findOrFail($id);
-            $this->_saveOrUpdate($category);
-        } catch (ModelNotFoundException $e){
+            $category->fill(Input::all());
+            // Attach user
+            $category->user()->associate($this->user);
+            $category->saveOrFail();
+
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
              return Redirect::route('as.services.categories')
                 ->with('messages', $this->successMessageBag('Category with ID' . $id . ' was not found.'));
         }
