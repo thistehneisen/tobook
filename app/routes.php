@@ -208,50 +208,39 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Services@create'
     ]);
 
-    Route::get('services/categories', [
+    Route::get('services/categories/{show?}', [
         'as' => 'as.services.categories',
         'uses' => 'App\Appointment\Controllers\Services@categories'
     ]);
 
-    Route::post('services/categories', [
-        'as' => 'as.services.categories',
+    Route::get('services/categories/create', [
+        'as' => 'as.services.categories.create',
+        'uses' => 'App\Appointment\Controllers\Services@createCategory'
+    ]);
+
+    Route::get('services/categories/edit/{id}', [
+        'as' => 'as.services.categories.edit',
+        'uses' => 'App\Appointment\Controllers\Services@editCategory'
+    ]);
+
+    Route::get('services/categories/delete/{id}', [
+        'as' => 'as.services.categories.delete',
+        'uses' => 'App\Appointment\Controllers\Services@deleteCategory'
+    ]);
+
+    Route::post('services/categories/create', [
+        'as' => 'as.services.categories.create',
         'uses' => 'App\Appointment\Controllers\Services@doCreateCategory'
+    ]);
+
+    Route::post('services/categories/edit/{id}', [
+        'as' => 'as.services.categories.edit',
+        'uses' => 'App\Appointment\Controllers\Services@doEditCategory'
     ]);
 
     Route::get('services/resources', [
         'as' => 'as.services.resources',
         'uses' => 'App\Appointment\Controllers\Services@resources'
-    ]);
-
-});
-
-/*
-|--------------------------------------------------------------------------
-| Module Consumers routes
-|--------------------------------------------------------------------------
-*/
-Route::group([
-    'prefix' => 'consumers',
-    'before' => ['auth']
-], function() {
-
-    Route::get('/', [
-        'as' => 'co.index',
-        'uses' => 'App\Consumers\Controllers\Index@index'
-    ]);
-
-    Route::get('edit/{id}', [
-        'as' => 'co.edit',
-        'uses' => 'App\Consumers\Controllers\Index@edit'
-    ]);
-
-    Route::post('edit/{id}', [
-        'uses' => 'App\Consumers\Controllers\Index@doEdit'
-    ]);
-
-    Route::post('bulk', [
-        'as'   => 'co.bulk',
-        'uses' => 'App\Consumers\Controllers\Index@bulk'
     ]);
 
 });

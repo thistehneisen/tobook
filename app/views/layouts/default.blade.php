@@ -38,7 +38,11 @@
         @endif
     @show
 </head>
+<<<<<<< HEAD
 <body ng-app="formApp" ng-controller="formController" @yield('body-class')>
+=======
+<body @yield('body-class')>
+>>>>>>> b672dab62155ef232917688f78164b4ec11eb1de
     <header class="header">
         @section('nav')
         <nav class="text-right">

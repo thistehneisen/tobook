@@ -1,5 +1,6 @@
 <?php namespace App\Core\Controllers;
 
+use Confide;
 use Illuminate\Support\MessageBag, Settings;
 
 class Base extends \Controller

@@ -17,7 +17,7 @@ return [
     'sign_in'        => 'Kirjaudu sisään',
     'register'       => 'Rekisteröidy',
     'no_records'     => 'Anteeksi, ennätys ei löytynyt!',
-    'save'           => 'Talenna',
+    'save'           => 'Tallenna',
     'warning'        => 'Varoitus',
     'success'        => 'Menestys',
     'errors'         => 'Virheet',

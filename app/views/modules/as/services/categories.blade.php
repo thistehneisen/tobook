@@ -1,47 +1,10 @@
 @extends ('modules.as.layout')
 
 @section ('sub-content')
-<a href="#form-add-category" id="btn-add-category" class="btn btn-default btn-sm fancybox">
-  <span class="glyphicon glyphicon-plus"></span> Lisää kategoria
-</a>
 
-<div id="form-add-category" class="modal-form" style="display:none">
-    <form class="form-horizontal well" ng-submit="processForm()">
-        @include ('el.messages')
-        <div id="messages" ng-show="message"><% message %></div>
-        <div class="form-group">
-            <div class="col-sm-5">
-              <h4 class="comfortaa">{{ trans('as.services.add_category') }}</h4>
-            </div>
-        </div>
-        <div class="form-group" ng-class="{ 'has-error' : errorName }">
-            <label for="name" class="col-sm-2 control-label">{{ trans('as.services.name') }}</label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control input-sm" id="name" name="name">
-                <span class="help-block" ng-show="errorName"><% errorName %></span>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="description" class="col-sm-2 control-label">{{ trans('as.services.description') }}</label>
-            <div class="col-sm-5">
-                <textarea rows="10" class="form-control input-sm" id="description" name="description"></textarea>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <div class="checkbox">
-                    <label><input type="checkbox" name="is_show_front" value="true"> {{  trans('as.services.is_show_front') }}</label>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-5">
-                <button type="submit" id="btn-submit-category" class="btn btn-primary">{{ trans('common.save') }}</button>
-            </div>
-        </div>
-   </form>
-</div>
+@include('modules.as.services.category.tabs')
+<br>
+@include ('el.messages')
 <h4 class="comfortaa">{{ trans('as.services.all_categories') }}</h4>
 <form action="" class="form-inline">
 <table class="table table-hover">
@@ -68,8 +31,8 @@
             </td>
             <td>{{ $category->description }}</td>
             <td>
-            <a href="#" class="btn btn-xs btn-info" title=""><i class="fa fa-edit"></i></a>
-            <a href="#" class="btn btn-xs btn-default" title=""><i class="fa fa-trash-o"></i></a>
+            <a href="{{ route('as.services.categories.edit', ['id'=> $category->id ]) }}" class="btn btn-xs btn-info" title=""><i class="fa fa-edit"></i></a>
+            <a href="{{ route('as.services.categories.delete', ['id'=> $category->id ]) }}" class="btn btn-xs btn-default" title=""><i class="fa fa-trash-o"></i></a>
             </td>
         </tr>
         @endforeach
