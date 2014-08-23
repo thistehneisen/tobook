@@ -18,6 +18,7 @@ class CreateTableModuleUser extends Migration {
             $table->unsignedInteger('user_id');
             $table->datetime('start');
             $table->datetime('end');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
             $table->foreign('module_id')
                 ->references('id')->on('modules')
