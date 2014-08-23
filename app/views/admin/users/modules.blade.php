@@ -56,7 +56,7 @@ $(function() {
         </thead>
         <tbody>
         @foreach ($user->modules as $module)
-            <tr title="{{ trans('admin.modules.err_time_passed') }}" class="{{ $module->is_passed === false ?: 'active' }} {{ (bool) $module->pivot->is_active === false ? 'danger' : '' }}">
+            <tr title="{{ trans('admin.modules.err_time_passed') }}" class="{{ $module->is_passed === false ?: 'active' }} {{ (bool) $module->pivot->is_active === false ? 'danger' : '' }} {{ $module->is_now === true ? 'success'  : '' }}">
                 <td>{{ trans('dashboard.'.$module->name) }}</td>
                 <td>{{ with(new Carbon\Carbon($module->pivot->start))->format(trans('common.format.date')) }}</td>
                 <td>{{ with(new Carbon\Carbon($module->pivot->end))->format(trans('common.format.date')) }}</td>

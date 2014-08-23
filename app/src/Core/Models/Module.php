@@ -30,6 +30,21 @@ class Module extends Base
         return Carbon::now()->gt(new Carbon($this->pivot->end));
     }
 
+    /**
+     * Tell if the current time is in the active time of this module
+     *
+     * @return boolean
+     */
+    public function getIsNowAttribute()
+    {
+        $now = Carbon::now();
+        return (new Carbon($this->pivot->start))->lte($now) &&
+            $now->lte((new Carbon($this->pivot->end))->endOfDay());
+    }
+
+    //--------------------------------------------------------------------------
+    // RELATIONSHIPS
+    //--------------------------------------------------------------------------
 	/**
 	 * Define the relationship with User model
 	 *
