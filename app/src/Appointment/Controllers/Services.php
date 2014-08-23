@@ -21,11 +21,11 @@ class Services extends ServiceBase
      *
      * @return View
      */
-    public function categories()
+    public function categories($show = 5)
     {
         $categories = $this->categoryModel
             ->where('user_id', $this->user->id)
-            ->get();
+            ->paginate($show);
 
         return View::make('modules.as.services.categories', [
             'categories' => $categories

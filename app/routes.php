@@ -208,7 +208,7 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Services@create'
     ]);
 
-    Route::get('services/categories', [
+    Route::get('services/categories/{show?}', [
         'as' => 'as.services.categories',
         'uses' => 'App\Appointment\Controllers\Services@categories'
     ]);
