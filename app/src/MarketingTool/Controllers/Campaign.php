@@ -15,8 +15,8 @@ class Campaign extends \App\Core\Controllers\Base {
     public function index()
     {
         // get all the campaigns
-        $campaigns = CampaignModel::all();
-    
+        $campaigns = CampaignModel::where('user_id', '=', Confide::user()->id)->get();
+
         // load the view and pass the campaigns
         return View::make('modules.mt.campaigns.index')
             ->with('campaigns', $campaigns);
@@ -63,7 +63,7 @@ class Campaign extends \App\Core\Controllers\Base {
             $campaign->status = (Input::get('status') === '') ? 'DRAFT' : Input::get('status');
             // generate unique campaign_code for tracking statistics
             $campaign->campaign_code = str_random(32);
-            $campaign->user_id = Confide::user()->id;;
+            $campaign->user_id = Confide::user()->id;
             $campaign->save();
     
             Session::flash('message', 'Successfully created!');

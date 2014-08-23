@@ -16,7 +16,7 @@
         <a class="btn btn-default" href="#">{{ trans('mt.consumer.list') }}</a>
         <a class="btn btn-default" href="#">{{ trans('mt.group.management') }}</a>
         <a class="btn btn-default" href="{{ URL::route('mt.campaigns.index') }}">{{ trans('mt.campaign.management') }}</a>
-        <a class="btn btn-default" href="#">{{ trans('mt.sms.management') }}</a>
+        <a class="btn btn-default" href="{{ URL::route('mt.smss.index') }}">{{ trans('mt.sms.management') }}</a>
         <a class="btn btn-default" href="#">{{ trans('mt.template.management') }}</a>
         <a class="btn btn-default" href="#">{{ trans('mt.setting') }}</a>
     </div>

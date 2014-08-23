@@ -16,7 +16,11 @@ return [
         'edit'         => 'Edit Campaign',
     ],
     'sms' => [
+        'list'         => 'SMS List',    
         'management'   => 'SMS Management',
+        'create'       => 'Create SMS',
+        'sms'          => 'Edit SMS',
+        'edit'         => 'Edit SMS',
     ],
     'template' => [
         'management'   => 'Template Management',

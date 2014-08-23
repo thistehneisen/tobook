@@ -33,4 +33,5 @@ return [
     'add'               => 'Add',
     'created_at'        => 'Created At',
     'no'                => 'No',
+    'title'             => 'Title',
 ];

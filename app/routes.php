@@ -195,6 +195,15 @@ Route::group([
                 'update'    => 'mt.campaigns.update',
             ]
         ]);
+        Route::resource('smss', 'App\MarketingTool\Controllers\Sms', [
+            'names' => [
+                'index'     => 'mt.smss.index',
+                'create'    => 'mt.smss.create',
+                'edit'      => 'mt.smss.edit',
+                'store'     => 'mt.smss.store',
+                'update'    => 'mt.smss.update',
+            ]
+        ]);        
     });
 });
 /*
