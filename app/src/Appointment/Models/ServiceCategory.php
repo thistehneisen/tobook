@@ -1,10 +1,10 @@
 <?php namespace App\Appointment\Models;
 
-class ServiceCategory extends BaseModel
+class ServiceCategory extends \App\Core\Models\Base
 {
     protected $table = 'as_service_categories';
 
-    public $fillable = ['name', 'description', 'is_show_front', 'user_id'];
+    public $fillable = ['name', 'description', 'is_show_front'];
 
     protected $rulesets = [
         'saving' => [
@@ -12,6 +12,9 @@ class ServiceCategory extends BaseModel
         ]
     ];
 
+    //--------------------------------------------------------------------------
+    // ATTRIBUTES
+    //--------------------------------------------------------------------------
     public function setIsShowFrontAttribute($value)
     {
         $this->attributes['is_show_front'] = (bool) $value;
@@ -20,5 +23,13 @@ class ServiceCategory extends BaseModel
     public function getIsShowFrontAttribute($value)
     {
         return (bool) $this->attributes['is_show_front'];
+    }
+
+    //--------------------------------------------------------------------------
+    // RELATIONSHIPS
+    //--------------------------------------------------------------------------
+    public function user()
+    {
+        return $this->belongsTo('App\Core\Models\User');
     }
 }

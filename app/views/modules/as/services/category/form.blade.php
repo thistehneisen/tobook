@@ -2,7 +2,7 @@
 
 @section ('sub-content')
 
-@include('modules.as.services.category.tabs')
+@include ('modules.as.services.category.tabs')
 <br>
 
 <div id="form-add-category" class="modal-form">

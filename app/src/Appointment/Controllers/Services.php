@@ -34,6 +34,7 @@ class Services extends ServiceBase
 
     /**
     * Show empty category form
+    *
     * @return View
     */
     public function createCategory(){
@@ -47,13 +48,24 @@ class Services extends ServiceBase
      */
     public function doCreateCategory()
     {
-        $input = Input::all();
-        $input['user_id'] = $this->user->id;
-        $category = new ServiceCategory;
-        $this->_saveOrUpdate($category);
+        $errors = $this->errorMessageBag(trans('common.err.unexpected'));
 
-        return Redirect::route('as.services.categories')
-            ->with('messages', $this->successMessageBag('Category was created.'));
+        try {
+            $category = new ServiceCategory;
+            $category->fill(Input::all());
+            // Attach user
+            $category->user()->associate($this->user);
+            $category->saveOrFail();
+
+            return Redirect::route('as.services.categories')
+                ->with('messages', $this->successMessageBag(
+                    trans('as.services.success_add_category')
+                ));
+        } catch (\Watson\Validating\ValidationException $ex) {
+            $errors = $ex->getErrors();
+        }
+
+        return Redirect::back()->withInput()->withErrors($errors, 'top');
     }
 
     public function editCategory($id){
@@ -81,24 +93,6 @@ class Services extends ServiceBase
 
         return Redirect::route('as.services.categories')
             ->with('messages', $this->successMessageBag('Category with ID' . $id . ' was updated.'));
-    }
-
-    /**
-    * Handle create new category or update existed category
-    *
-    * return Redriect
-    */
-    private function _saveOrUpdate($category){
-        $input = Input::all();
-        $input['user_id'] = $this->user->id;
-        $category->fill($input);
-        $category->save();
-
-        if (!$category->save()) {
-            return Redirect::back()
-                ->withInput()
-                ->withErrors($category->getErrors(), 'top');
-        }
     }
 
     public function deleteCategory($id){

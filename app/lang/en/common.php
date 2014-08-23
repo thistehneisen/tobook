@@ -28,5 +28,11 @@ return [
     'users'          => 'Users',
     'settings'       => 'Settings',
     'yes'            => 'Yes',
-    'no'             => 'No'
+    'no'             => 'No',
+    'err'            => [
+        'unexpected'   => 'An unexpected error has occurred. Please try again later.',
+        'not_found'    => 'Cannot the find the requesting data. Please check the URL again.',
+        'invalid'      => 'Entered information is invalid. Please try again.',
+        'unauthorized' => 'You are not allowed to access this page.',
+    ]
 ];

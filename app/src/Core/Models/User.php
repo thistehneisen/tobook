@@ -106,6 +106,9 @@ class User extends ConfideUser
         ];
     }
 
+    //--------------------------------------------------------------------------
+    // RELATIONSHIPS
+    //--------------------------------------------------------------------------
     /**
      * Define a many-to-many relationship to App\Consumers\Models\Consumer
      *
@@ -115,5 +118,10 @@ class User extends ConfideUser
     {
         return $this->belongsToMany('App\Consumers\Models\Consumer')
             ->withPivot('is_visible');
+    }
+
+    public function asServiceCategories()
+    {
+        return $this->hasMany('App\Appointment\Models\ServiceCategory');
     }
 }
