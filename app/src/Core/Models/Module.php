@@ -24,7 +24,9 @@ class Module extends Base
 	 */
 	public function users()
 	{
-		return $this->belongsToMany('User')->withPivot(['id', 'start', 'end']);
+		return $this->belongsToMany('User')
+            ->withPivot(['id', 'start', 'end'])
+            ->withTimestamps();
 	}
 
     /**
