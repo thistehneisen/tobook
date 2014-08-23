@@ -1,6 +1,7 @@
 <?php namespace App\Core\Controllers\Admin;
 
-use App, Config, Request, Redirect, Input, Confide, Session, Auth, Validator, Module;
+use App, Config, Request, Redirect, Input, Confide, Session, Auth, Validator;
+use App\Core\Models\Module;
 
 class Users extends Crud
 {
@@ -96,8 +97,8 @@ class Users extends Crud
 
         // Insert into database
         // @todo: Check overlapped valid period
-        $user = $this->model->find($id);
-        $module = Module::find(Input::get('module_id'));
+        $user = Module::find($id);
+        $module = $this->model->find(Input::get('module_id'));
         $user->modules()->attach($module->id, [
             'start' => Input::get('start'),
             'end' => Input::get('end'),

@@ -28,13 +28,14 @@ class User extends ConfideUser
     //--------------------------------------------------------------------------
 
     /**
-     * Define the many-to-many relationship with Module
+     * Define the many-to-many relationship with App\Core\Models\Module
      *
      * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function modules()
     {
-        return $this->belongsToMany('Module')->withPivot(['start', 'end']);
+        return $this->belongsToMany('App\Core\Models\Module')
+            ->withPivot(['start', 'end']);
     }
 
     //--------------------------------------------------------------------------

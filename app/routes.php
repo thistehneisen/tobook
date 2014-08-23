@@ -251,11 +251,11 @@ Route::group([
 
     Route::get('users/modules/{id}', [
         'as' => 'admin.users.modules',
-        'uses' => 'App\Controllers\Admin\Users@modules'
+        'uses' => 'App\Core\Controllers\Admin\Users@modules'
     ]);
 
     Route::post('users/modules/{id}', [
-        'uses' => 'App\Controllers\Admin\Users@enableModule'
+        'uses' => 'App\Core\Controllers\Admin\Users@enableModule'
     ]);
 
     // CRUD actions
@@ -266,11 +266,11 @@ Route::group([
 
     Route::get('{model}/create', [
         'as' => 'admin.crud.create',
-        'uses' => 'App\Controllers\Admin\Crud@create'
+        'uses' => 'App\Core\Controllers\Admin\Crud@create'
     ]);
 
     Route::post('{model}/create', [
-        'uses' => 'App\Controllers\Admin\Crud@doCreate'
+        'uses' => 'App\Core\Controllers\Admin\Crud@doCreate'
     ]);
 
     Route::get('{model}/search', [

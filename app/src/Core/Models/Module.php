@@ -1,6 +1,6 @@
-<?php
+<?php namespace App\Core\Models;
 
-class Module extends Eloquent
+class Module extends Base
 {
 	public $visible = ['id', 'name', 'uri'];
 	/**

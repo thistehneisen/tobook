@@ -1,4 +1,4 @@
-<?php namespace App\Controllers\Admin;
+<?php namespace App\Core\Controllers\Admin;
 
 use App, Config, Request, Redirect, Input;
 
@@ -14,7 +14,7 @@ class Crud extends Base
     public function __construct()
     {
         $this->modelName = Request::segment(2);
-        $this->model     = App::make(ucfirst(str_singular($this->modelName)));
+        $this->model     = App::make('App\Core\Models\\'.ucfirst(str_singular($this->modelName)));
     }
 
     /**
