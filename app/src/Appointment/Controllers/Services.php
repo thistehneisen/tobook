@@ -32,11 +32,14 @@ class Services extends ServiceBase
         ]);
     }
 
+    /**
+    * Show empty category form
+    * @return View
+    */
     public function createCategory(){
-        return View::make('modules.as.services.category.form', [
-            'category' => null
-        ]);
+        return View::make('modules.as.services.category.form');
     }
+
     /**
      * Handle user input to create a new category
      *
@@ -46,36 +49,68 @@ class Services extends ServiceBase
     {
         $input = Input::all();
         $input['user_id'] = $this->user->id;
-
         $category = new ServiceCategory;
-        $category->fill($input);
-        $category->save();
+        $this->_saveOrUpdate($category);
 
-        if (!$category->save()) {
-            // dd($category->getErrors());
-            return Redirect::back()
-                ->withInput()
-                ->withErrors($category->getErrors(), 'top');
-        }
         return Redirect::route('as.services.categories')
             ->with('messages', $this->successMessageBag('Category was created.'));
     }
 
     public function editCategory($id){
 
-        if(empty($id)){
-            return Redirect::route('as.services.categories')
-                ->with('messages', $this->successMessageBag('Category was not found.'));
+        try{
+            $category = $this->categoryModel->findOrFail($id);
+        } catch (ModelNotFoundException $e){
+             return Redirect::route('as.services.categories')
+                ->with('messages', $this->successMessageBag('Category with ID {$id} was not found.'));
         }
 
-        $category = $categories = $this->categoryModel->find($id);
         return View::make('modules.as.services.category.form', [
             'category' => $category
         ]);
     }
 
-    public function doEdit(){
+    public function doEditCategory($id){
+        try{
+            $category = $this->categoryModel->findOrFail($id);
+            $this->_saveOrUpdate($category);
+        } catch (ModelNotFoundException $e){
+             return Redirect::route('as.services.categories')
+                ->with('messages', $this->successMessageBag('Category with ID {$id} was not found.'));
+        }
 
+        return Redirect::route('as.services.categories')
+            ->with('messages', $this->successMessageBag('Category with ID {$id} was updated.'));
+    }
+
+    /**
+    * Handle create new category or update existed category
+    *
+    * return Redriect
+    */
+    private function _saveOrUpdate($category){
+        $input = Input::all();
+        $input['user_id'] = $this->user->id;
+        $category->fill($input);
+        $category->save();
+
+        if (!$category->save()) {
+            return Redirect::back()
+                ->withInput()
+                ->withErrors($category->getErrors(), 'top');
+        }
+    }
+
+    public function deleteCategory($id){
+        $item = $this->categoryModel->findOrFail($id);
+        if ($item) {
+            $item->delete();
+        }
+
+        return Redirect::route('as.services.categories')->with(
+                'messages',
+                $this->successMessageBag('ID #'.$id.' was deleted')
+            );
     }
 
     public function resources()

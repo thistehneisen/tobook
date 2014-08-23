@@ -223,9 +223,19 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Services@editCategory'
     ]);
 
-    Route::post('services/categories', [
-        'as' => 'as.services.categories',
+    Route::get('services/categories/delete/{id}', [
+        'as' => 'as.services.categories.delete',
+        'uses' => 'App\Appointment\Controllers\Services@deleteCategory'
+    ]);
+
+    Route::post('services/categories/create', [
+        'as' => 'as.services.categories.create',
         'uses' => 'App\Appointment\Controllers\Services@doCreateCategory'
+    ]);
+
+    Route::post('services/categories/edit/{id}', [
+        'as' => 'as.services.categories.edit',
+        'uses' => 'App\Appointment\Controllers\Services@doEditCategory'
     ]);
 
     Route::get('services/resources', [

@@ -4,6 +4,7 @@
 
 @include('modules.as.services.category.tabs')
 <br>
+@include ('el.messages')
 <h4 class="comfortaa">{{ trans('as.services.all_categories') }}</h4>
 <form action="" class="form-inline">
 <table class="table table-hover">
@@ -31,7 +32,7 @@
             <td>{{ $category->description }}</td>
             <td>
             <a href="{{ route('as.services.categories.edit', ['id'=> $category->id ]) }}" class="btn btn-xs btn-info" title=""><i class="fa fa-edit"></i></a>
-            <a href="#" class="btn btn-xs btn-default" title=""><i class="fa fa-trash-o"></i></a>
+            <a href="{{ route('as.services.categories.delete', ['id'=> $category->id ]) }}" class="btn btn-xs btn-default" title=""><i class="fa fa-trash-o"></i></a>
             </td>
         </tr>
         @endforeach
