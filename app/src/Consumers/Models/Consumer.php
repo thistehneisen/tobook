@@ -100,22 +100,10 @@ class Consumer extends \App\Core\Models\Base
     //--------------------------------------------------------------------------
     // SCOPES
     //--------------------------------------------------------------------------
-    public function scopeOfCurrentUser($query)
-    {
-        return $this->scopeOfUser($query, Confide::user()->id);
-    }
-
     public function scopeVisible($query)
     {
         return $query->whereHas('users', function($q) {
             return $q->where('is_visible', true);
-        });
-    }
-
-    public function scopeOfUser($query, $userId)
-    {
-        return $query->whereHas('users', function($q) use ($userId) {
-            return $q->where('user_id', $userId);
         });
     }
 }

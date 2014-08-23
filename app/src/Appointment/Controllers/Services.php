@@ -24,7 +24,7 @@ class Services extends ServiceBase
     public function categories()
     {
         $categories = $this->categoryModel
-            ->where('user_id', $this->user->id)
+            ->ofCurrentUser()
             ->paginate(Config::get('view.perPage'));
 
         return View::make('modules.as.services.categories', [
