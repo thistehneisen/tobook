@@ -249,6 +249,7 @@ Route::group([
         'uses' => 'App\Core\Controllers\Admin\Users@stealSession'
     ]);
 
+    // Premium modules
     Route::get('users/modules/{id}', [
         'as' => 'admin.users.modules',
         'uses' => 'App\Core\Controllers\Admin\Users@modules'
@@ -256,6 +257,11 @@ Route::group([
 
     Route::post('users/modules/{id}', [
         'uses' => 'App\Core\Controllers\Admin\Users@enableModule'
+    ]);
+
+    Route::get('users/modules/delete/{userId}/{id}', [
+        'as'   => 'admin.users.modules.delete',
+        'uses' => 'App\Core\Controllers\Admin\Users@deleteModule'
     ]);
 
     // CRUD actions

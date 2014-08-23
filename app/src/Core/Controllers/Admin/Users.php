@@ -123,4 +123,27 @@ class Users extends Crud
                 trans('admin.modules.success_enabled')
             ));
     }
+
+    /**
+     * Remove a module of user
+     *
+     * @param int $userId
+     * @param int $id ID in the pivot table
+     *
+     * @return Redirect
+     */
+    public function deleteModule($userId, $id)
+    {
+
+        try {
+            $result = Module::deletePeriod($id);
+            return Redirect::route('admin.users.modules', ['id' => $userId])
+                ->with('messages', $this->successMessageBag(
+                    trans('admin.modules.success_delete')
+                ));
+        } catch (\Exception $ex) {
+            $errors = $this->errorMessageBag(trans('common.err.unexpected'));
+            return Redirect::back()->withErrors($errors);
+        }
+    }
 }

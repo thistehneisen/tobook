@@ -24,7 +24,7 @@ class Module extends Base
 	 */
 	public function users()
 	{
-		return $this->belongsToMany('User')->withPivot(['start', 'end']);
+		return $this->belongsToMany('User')->withPivot(['id', 'start', 'end']);
 	}
 
     /**
@@ -64,5 +64,19 @@ SQL;
         }
 
         throw new \RuntimeException('Something went wrong');
+    }
+
+    /**
+     * Delete a record in pivot table
+     *
+     * @param int $id ID in pivot table
+     *
+     * @return int
+     */
+    public static function deletePeriod($id)
+    {
+        return DB::table('module_user')
+            ->where('id', $id)
+            ->delete();
     }
 }

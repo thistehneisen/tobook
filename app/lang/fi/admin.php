@@ -24,6 +24,7 @@ return [
         'start'                 => 'Start',
         'end'                   => 'End',
         'success_enabled'       => 'Module <strong>:module</strong> is now available for ":user"',
+        'success_delete'        => 'Deleted successfully',
         'err_overlapped'        => 'The selected period is overlapped with existing ones. Please recheck and try again.'
     ]
 ];

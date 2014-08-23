@@ -61,8 +61,7 @@ $(function() {
                 <td>{{ with(new Carbon\Carbon($module->pivot->start))->format('F j, Y') }}</td>
                 <td>{{ with(new Carbon\Carbon($module->pivot->end))->format('F j, Y') }}</td>
                 <td>
-                    <a href="#" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> {{ trans('common.edit') }}</a>
-                    <a href="#" class="btn btn-link btn-sm"><i class="fa fa-trash-o"></i> {{ trans('common.delete') }}</a>
+                    <a href="{{ route('admin.users.modules.delete', ['userId' => $module->pivot->user_id, 'id' => $module->pivot->id]) }}" class="btn btn-link btn-sm"><i class="fa fa-trash-o"></i> {{ trans('common.delete') }}</a>
                 </td>
             </tr>
         @endforeach

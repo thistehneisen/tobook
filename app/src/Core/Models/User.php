@@ -24,7 +24,7 @@ class User extends ConfideUser
     ];
 
     //--------------------------------------------------------------------------
-    // RELATIONSHIP DEFINITIONS
+    // RELATIONSHIPS
     //--------------------------------------------------------------------------
 
     /**
@@ -35,11 +35,22 @@ class User extends ConfideUser
     public function modules()
     {
         return $this->belongsToMany('App\Core\Models\Module')
-            ->withPivot(['start', 'end']);
+            ->withPivot(['id', 'start', 'end']);
+    }
+
+    /**
+     * Define a many-to-many relationship to App\Consumers\Models\Consumer
+     *
+     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function consumers()
+    {
+        return $this->belongsToMany('App\Consumers\Models\Consumer')
+            ->withPivot('is_visible');
     }
 
     //--------------------------------------------------------------------------
-    // SCOPE DEFINITIONS
+    // SCOPES
     //--------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------
@@ -128,16 +139,5 @@ class User extends ConfideUser
             '<i class="fa fa-user"></i> Login' => route('admin.users.login', ['id' => $this->id]),
             '<i class="fa fa-puzzle-piece"></i> Modules' => route('admin.users.modules', ['id' => $this->id])
         ];
-    }
-
-    /**
-     * Define a many-to-many relationship to App\Consumers\Models\Consumer
-     *
-     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function consumers()
-    {
-        return $this->belongsToMany('App\Consumers\Models\Consumer')
-            ->withPivot('is_visible');
     }
 }
