@@ -10,18 +10,18 @@
     </div>
     <table class="table table-striped">
         <tbody>
-            {{ Form::open(['route' => 'modules.mt.campaigns.store']) }}
+            {{ Form::open(['route' => 'mt.campaigns.store']) }}
             @foreach ([
                 'subject'          => trans('mt.campaign.subject'),
                 'from_email'       => trans('mt.campaign.from_email'),
                 'from_name'        => trans('mt.campaign.from_name'),
-                'content'          => trans('mt.campaign.content'),
+                'content'          => trans('common.content'),
             ] as $key => $value)
             <tr>
                 <td>
                     <div class="form-group">
                         {{ Form::label($key, $value) }}
-                        @if (strcmp($key, 'content') === 0)
+                        @if ($key === 'content')
                             {{ Form::textarea($key, null, ['class' => 'form-control']) }}
                         @else
                             {{ Form::text($key, null, ['class' => 'form-control']) }}
@@ -36,6 +36,7 @@
                 {{ Form::submit(trans('mt.campaign.create'), ['class' => 'btn btn-primary', 'onclick' => 'onSetContent()', ]) }}
                 </td>
             </tr>
+            {{ Form::hidden('status', null) }}
             {{ Form::close() }}
         </tbody>
     </table>

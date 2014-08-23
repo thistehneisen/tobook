@@ -178,21 +178,23 @@ Route::group([
         Route::group(['prefix' => 'lc'], function () {
             Route::resource('consumers', 'App\LoyaltyCard\Controllers\Consumer');
         });
-        
-        // Marketing Tool
-        Route::group(['prefix' => 'mt'], function () {
-            Route::resource('campaigns', 'App\MarketingTool\Controllers\Campaign', [
-                'names' => [
-                    'index'     => 'modules.mt.campaigns.index',
-                    'create'    => 'modules.mt.campaigns.create',
-                    'edit'      => 'modules.mt.campaigns.edit',
-                    'store'     => 'modules.mt.campaigns.store',
-                    'update'    => 'modules.mt.campaigns.update',
-                ]
-            ]);
-        });
-
         // Other modules
+    });
+    
+    // Marketing Tool
+    Route::group([
+        'before' => [''],
+        'prefix' => 'mt'
+    ], function () {
+        Route::resource('campaigns', 'App\MarketingTool\Controllers\Campaign', [
+            'names' => [
+                'index'     => 'mt.campaigns.index',
+                'create'    => 'mt.campaigns.create',
+                'edit'      => 'mt.campaigns.edit',
+                'store'     => 'mt.campaigns.store',
+                'update'    => 'mt.campaigns.update',
+            ]
+        ]);
     });
 });
 /*

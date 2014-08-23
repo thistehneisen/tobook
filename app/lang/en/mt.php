@@ -1,7 +1,7 @@
 <?php
 return [
     'consumer' => [
-        'list'        => 'Consumer List',
+        'list'         => 'Consumer List',
     ],
     'group' => [
         'management'   => 'Group Management',
@@ -9,12 +9,9 @@ return [
     'campaign' => [
         'list'         => 'Campaign List',
         'management'   => 'Campaign Management',
-        'statistics'   => 'Statistics',
-        'status'       => 'Status',
         'subject'      => 'Subject',
         'from_email'   => 'From Email',
         'from_name'    => 'From Name',
-        'content'      => 'Content',
         'create'       => 'Create Campaign',
         'edit'         => 'Edit Campaign',
     ],
@@ -23,6 +20,5 @@ return [
     ],
     'template' => [
         'management'   => 'Template Management',
-    ],
-    'setting'   => 'Setting',
+    ]
 ];

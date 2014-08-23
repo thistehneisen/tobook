@@ -27,4 +27,10 @@ return [
     'admin'             => 'Admin',
     'users'             => 'Users',
     'settings'          => 'Settings',
+    'content'           => 'Content',
+    'status'            => 'Status',
+    'statistics'        => 'Statistics',
+    'add'               => 'Add',
+    'created_at'        => 'Created At',
+    'no'                => 'No',
 ];
