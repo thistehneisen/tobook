@@ -1,28 +1,30 @@
 <?php namespace App\Appointment\Models;
 
-class ServiceCategory extends \App\Core\Models\Base
+class Employee extends \App\Core\Models\Base
 {
-    protected $table = 'as_service_categories';
+    protected $table = 'as_employees';
 
-    public $fillable = ['name', 'description', 'is_show_front'];
+    public $fillable = ['name', 'email', 'phone', 'avatar', 'description', 'is_subscribed_email', 'is_subscribed_sms', 'is_active'];
 
     protected $rulesets = [
         'saving' => [
-            'name' => 'required'
+            'name'  => 'required',
+            'email' => 'required|email',
+            'phone' => 'required'
         ]
     ];
 
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
-    public function setIsShowFrontAttribute($value)
+    public function setIsActive($value)
     {
-        $this->attributes['is_show_front'] = (bool) $value;
+        $this->attributes['is_active'] = (bool) $value;
     }
 
-    public function getIsShowFrontAttribute()
+    public function getIsActive()
     {
-        return (bool) $this->attributes['is_show_front'];
+        return (bool) $this->attributes['is_active'];
     }
 
     //--------------------------------------------------------------------------

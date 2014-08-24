@@ -20,7 +20,16 @@ class Services extends AsBase
 
     public function create()
     {
+        $categories = $this->categoryModel->ofCurrentUser()->lists('name','id');
+        $resources  = $this->resourceModel->ofCurrentUser()->lists('name', 'id');
+        $extras     = $this->extraServiceModel->ofCurrentUser()->lists('name', 'id');
+        $employees  = $this->employeeModel->ofCurrentUser()->lists('name', 'id');
         //TODO add service and service time
-        return View::make('modules.as.services.create');
+        return View::make('modules.as.services.service.form', [
+                'categories' => $categories,
+                'resources'  => $resources,
+                'extras'     => $extras,
+                'employees'  => $employees
+            ]);
     }
 }

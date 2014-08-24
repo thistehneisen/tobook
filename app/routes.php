@@ -205,7 +205,7 @@ Route::group([
 
     Route::get('services/create', [
         'as' => 'as.services.create',
-        'uses' => 'App\Appointment\Controllers\Categories@create'
+        'uses' => 'App\Appointment\Controllers\Services@create'
     ]);
 
     Route::get('services/categories', [
@@ -286,6 +286,31 @@ Route::group([
     Route::get('services/extras', [
         'as' => 'as.services.extras',
         'uses' => 'App\Appointment\Controllers\ExtraServices@extras'
+    ]);
+
+    Route::get('services/employees', [
+        'as' => 'as.employees.index',
+        'uses' => 'App\Appointment\Controllers\Employees@index'
+    ]);
+
+    Route::get('services/employees/create', [
+        'as' => 'as.employees.create',
+        'uses' => 'App\Appointment\Controllers\Employees@create'
+    ]);
+
+    Route::post('services/employees/create', [
+        'as' => 'as.employees.create',
+        'uses' => 'App\Appointment\Controllers\Employees@doCreate'
+    ]);
+
+    Route::get('services/employees/freetime', [
+        'as' => 'as.employees.freetime',
+        'uses' => 'App\Appointment\Controllers\Employees@freetime'
+    ]);
+
+    Route::get('services/employees/customtime', [
+        'as' => 'as.employees.customtime',
+        'uses' => 'App\Appointment\Controllers\Employees@customtime'
     ]);
 
 });

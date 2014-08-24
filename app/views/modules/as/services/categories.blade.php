@@ -7,18 +7,6 @@
 @include ('el.messages')
 <h4 class="comfortaa">{{ trans('as.services.all_categories') }}</h4>
 <form action="" class="form-inline form-table">
-<table class="table table-hover" id="categoryTable" data-table-source="{{ route('as.services.categories.datatable') }}">
-    <thead>
-        <tr>
-            <th><input type="checkbox" class="toggle-check-all-boxes" data-checkbox-class="checkbox"></th>
-            <th>{{ trans('as.services.name') }}</th>
-            <th>{{ trans('as.services.is_show_front') }}</th>
-            <th>{{ trans('as.services.description') }}</th>
-            <th>&nbsp;</th>
-        </tr>
-    </thead>
-</table>
-<h1>bottom</h1>
 <table class="table table-hover">
     <thead>
         <tr>

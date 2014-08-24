@@ -17,8 +17,9 @@ class CreateAsServicesTable extends Migration {
             $table->increments('id');
             $table->unsignedInteger('category_id');
             $table->unsignedInteger('user_id');
-            $table->boolean('is_active');
+            $table->string('name');
             $table->string('description');
+            $table->boolean('is_active');
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')->onDelete('cascade');

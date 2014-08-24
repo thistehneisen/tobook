@@ -12,5 +12,6 @@ class AsBase extends \App\Core\Controllers\Base
         $this->serviceTimeModel = App::make('App\Appointment\Models\ServiceTime');
         $this->categoryModel = App::make('App\Appointment\Models\ServiceCategory');
         $this->resourceModel = App::make('App\Appointment\Models\Resource');
+        $this->employeeModel = App::make('App\Appointment\Models\Employee');
     }
 }

@@ -23,6 +23,10 @@ class Categories extends AsBase
         ]);
     }
 
+    /**
+     * Generate json data for datable
+     * TODO consider to use this instead of normal html
+     */
     public function datatable(){
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
         $categories = $this->categoryModel

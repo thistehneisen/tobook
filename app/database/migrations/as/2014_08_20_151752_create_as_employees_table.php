@@ -16,12 +16,13 @@ class CreateAsEmployeesTable extends Migration {
         {
             $table->increments('id');
             $table->unsignedInteger('user_id');
+            $table->string('name');
             $table->string('email');
             $table->string('phone');
             $table->string('avatar');
             $table->string('description');
-            $table->boolean('is_subsribed_email');
-            $table->boolean('is_subsribed_sms');
+            $table->boolean('is_subscribed_email');
+            $table->boolean('is_subscribed_sms');
             $table->boolean('is_active');
             $table->foreign('user_id')
                 ->references('id')

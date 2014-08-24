@@ -5,7 +5,6 @@
 
 @section ('styles')
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css') }}
-    {{ HTML::style('//cdn.datatables.net/plug-ins/725b2a2115b/integration/bootstrap/3/dataTables.bootstrap.css') }}
     {{ HTML::style(asset('assets/css/alertify.core.css')) }}
     {{ HTML::style(asset('assets/css/alertify.bootstrap.css')) }}
     {{ HTML::style(asset('assets/css/appointment.css')) }}
@@ -13,8 +12,6 @@
 
 @section ('scripts')
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js') }}
-    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.1/js/jquery.dataTables.min.js') }}
-    {{ HTML::script('//cdn.datatables.net/plug-ins/725b2a2115b/integration/bootstrap/3/dataTables.bootstrap.js') }}
     {{ HTML::script(asset('assets/js/alertify.min.js')) }}
     {{ HTML::script(asset('assets/js/admin.js')) }}
     <script>
@@ -71,10 +68,10 @@
                 <i class="fa fa-users"></i> Työntekijät <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="">Työntekijät</a></li>
-                <li><a href="">Lisää työntekijä</a></li>
-                <li><a href="">Vapaat</a></li>
-                <li><a href="">Työvuorosuunnittelu</a></li>
+                <li><a href="{{ route('as.employees.index') }}">Työntekijät</a></li>
+                <li><a href="{{ route('as.employees.create') }}">Lisää työntekijä</a></li>
+                <li><a href="{{ route('as.employees.freetime') }}">Vapaat</a></li>
+                <li><a href="{{ route('as.employees.customtime') }}">Työvuorosuunnittelu</a></li>
             </ul>
         </li>
         <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif class="dropdown">
