@@ -1,9 +1,22 @@
 .asContainer .asServicePrice{
-	background: url([URL]app/web/img/frontend/as-price.png) 0 0 no-repeat;
+	background: url([URL]app/web/img/frontend/as-price-2.png) 0 0 no-repeat;
 }
 .asContainer .asServiceTime{
-	background: url([URL]app/web/img/frontend/as-time.png) 0 0 no-repeat;
+	background: url([URL]app/web/img/frontend/as-time-2.png) 0 0 no-repeat;
 }
 .asContainer .asCartRemove a{
-	background: url([URL]app/web/img/frontend/as-delete.png) 0 0 no-repeat;
+	background: url([URL]app/web/img/frontend/as-delete-2.png) 0 0 no-repeat;
+}
+.asContainer .asSingleEmployeePhoneInner{
+	background: url([URL]app/web/img/frontend/as-phone-2.png) 0 -19px no-repeat;
+}
+.asContainer .asSingleEmployeeEmailIcon{
+	background: url([URL]app/web/img/frontend/as-email-2.png) 0 -19px no-repeat;
+}
+.asContainer .asSingleAvailable .asSingleEmployeeEmailIcon,
+.asContainer .asSingleAvailable .asSingleEmployeePhoneInner{
+	background-position: 0 0;
+}
+.asContainer .asSingleCartRemove a{
+	background: url([URL]app/web/img/frontend/as-delete-2.png) 0 0 no-repeat;
 }

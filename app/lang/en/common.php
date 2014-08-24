@@ -31,4 +31,7 @@ return [
     'delete'            => 'Delete',
     'no'                => 'No',
     'yes'               => 'Yes',
+    'edit'              => 'Edit',
+    'back'              => 'Back',
+    'errors'            => 'Errors',
 ];

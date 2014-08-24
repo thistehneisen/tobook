@@ -5,6 +5,7 @@ return [
         'time' => 'H:i:s',
         'date_time' => 'd-m-Y H:i:s',
     ],
+
     'site_name'         => 'Varaa',
     'tagline'           => '',
     'homepage'          => 'Etusivu',
@@ -31,4 +32,7 @@ return [
     'delete'            => 'Poista',
     'no'                => 'Ei',
     'yes'               => 'Kyllä',
+    'edit'              => 'Muokkaa',
+    'back'              => 'Takaisin',
+    'errors'            => 'Virheet',
 ];

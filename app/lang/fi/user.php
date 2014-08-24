@@ -24,4 +24,5 @@ return [
     'fill_reset_password'       => 'Ole hyvä ja kirjoita sähköpostisi nollaamaan salasana',
     'reset_password'            => 'Salasanan nollaaminen',
     'enter_new_password'        => 'Kirjoita uusi salasana',
+    'premium_expired' => 'Your active time was expired. Please contact us via email :email or phone number :phone_number to activate your service again.'
 ];

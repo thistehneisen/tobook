@@ -407,6 +407,7 @@ $i18n = array(
     'front_single_employee' => 'Työntekijä',
 	'front_single_extra' => 'Lisäpalvelut',
 	'front_single_all' => 'Kaikki',
+	'front_single_contact' => 'Yhteystietosi',
     'btnBook' => 'Varaa',
     'front_single_date_service' => 'Valitse palvelu ja päivämäärä',
     'front_single_choose_date' => 'Valitse päivämäärä',
