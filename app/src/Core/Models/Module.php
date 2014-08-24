@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use DB;
 use App\Core\Models\User;
+use Illuminate\Support\Collection;
 
 class Module extends Base
 {
@@ -114,6 +115,39 @@ SQL;
         return DB::table('module_user')
             ->where('id', $id)
             ->update(['is_active' => (int) !$value]);
+    }
 
+    /**
+     * Get all active period of this user
+     *
+     * @param User   $user
+     * @param string $moduleName
+     *
+     * @return boolean
+     */
+    public static function getActivePeriods(User $user, $moduleName)
+    {
+        $module = static::where('name', $moduleName)->firstOrFail();
+        $table = DB::getQueryGrammar()->wrapTable('module_user');
+        $sql = <<< SQL
+SELECT *
+FROM $table t
+WHERE user_id = ? AND module_id = ? AND is_active = ? AND (
+    (? <= t.start AND ? <= t.end) OR
+    (? >= t.start AND ? <= t.end)
+)
+SQL;
+        $now = Carbon::now();
+        $params = [
+            $user->id,
+            $module->id,
+            true,
+            $now,
+            $now,
+            $now,
+            $now,
+        ];
+        $result = DB::select($sql, $params);
+        return new Collection($result);
     }
 }

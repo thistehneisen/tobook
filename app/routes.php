@@ -154,8 +154,9 @@ Route::group([
         ]);
 
         Route::get('appointment-scheduler', [
-            'as' => 'appointment.index',
-            'uses' => 'App\Core\Controllers\Services@appointment'
+            'as'     => 'appointment.index',
+            'before' => 'premium.modules:appointment',
+            'uses'   => 'App\Core\Controllers\Services@appointment'
         ]);
 
         Route::get('loyalty-program', [

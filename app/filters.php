@@ -90,3 +90,10 @@ Route::filter('auth.admin', function () {
         return Redirect::route('home');
     }
 });
+
+Route::filter('premium.modules', function($request, $response, $moduleName) {
+    if (App\Core\Models\Module::getActivePeriods(Confide::user(), $moduleName)->isEmpty()) {
+        // Show Message page is better
+        return Redirect::route('home');
+    }
+});
