@@ -44,12 +44,9 @@ class Services extends AsBase
             // Attach user
             $service->user()->associate($this->user);
             $category_id = (int) Input::get('category_id');
-
             if(!empty($category_id)){
-                $category = $this->serviceModel->find($category_id);
-                if(!empty($category)){
-                    $service->category()->associate($category);
-                }
+                $category = $this->categoryModel->find($category_id);
+                $service->category()->associate($category);
             }
 
             $service->saveOrFail();

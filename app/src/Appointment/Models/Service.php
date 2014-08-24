@@ -25,6 +25,11 @@ class Service extends \App\Core\Models\Base
         return (bool) $this->attributes['is_active'];
     }
 
+    public function setLengthAttribute()
+    {
+        $this->attributes['length'] = (int) $this->after + $this->during + $this->before;
+    }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
@@ -36,5 +41,9 @@ class Service extends \App\Core\Models\Base
     public function category()
     {
         return $this->belongsTo('App\Appointment\Models\ServiceCategory');
+    }
+
+    public function employees(){
+        return $this->belongsToMany('App\Appointment\Models\Employee', 'as_employee_service');
     }
 }
