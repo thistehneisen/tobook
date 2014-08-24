@@ -27,7 +27,7 @@ class Module extends Base
      */
     public function getIsPassedAttribute()
     {
-        return Carbon::now()->gt(new Carbon($this->pivot->end));
+        return Carbon::now()->gt((new Carbon($this->pivot->end))->endOfDay());
     }
 
     /**
