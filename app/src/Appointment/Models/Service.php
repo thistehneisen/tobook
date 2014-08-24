@@ -25,9 +25,9 @@ class Service extends \App\Core\Models\Base
         return (bool) $this->attributes['is_active'];
     }
 
-    public function setLengthAttribute()
+    public function setLength()
     {
-        $this->attributes['length'] = (int) $this->after + $this->during + $this->before;
+        $this->length = (int) $this->after + $this->during + $this->before;
     }
 
     //--------------------------------------------------------------------------

@@ -1,5 +1,8 @@
 <?php
 namespace Appointment\Models;
+use App\Core\Models\User;
+use App\Appointment\Models\Service;
+use App\Appointment\Models\ServiceCategory;
 use \UnitTester;
 
 class UnitServiceCest
@@ -15,5 +18,44 @@ class UnitServiceCest
     // tests
     public function tryToTest(UnitTester $I)
     {
+    }
+
+    public function testServiceLength(UnitTester $t){
+        // $user = new User;
+        // $user->unguard();
+        // $user->fill([
+        //         'username' => 'eureka287',
+        //         'email' => 'eureka287@yahoo.com',
+        //         'password' => 'salasana'
+        //     ]);
+        // $user->reguard();
+        // $user->save();
+
+        // $category = new ServiceCategory;
+        // $category->id = 1;
+        // $category->name = 'Category 1';
+        // $category->description = 'description';
+        // $category->user_id = $user->id;
+        // $category->save();
+
+        $service = new Service;
+        $service->unguard();
+        $service->fill([
+                'name' => 'eureka287',
+                'description' => 'eureka287@yahoo.com',
+                'before'=> 15,
+                'during'=> 15,
+                'after' => 15,
+                'user_id' => 133,
+                'category_id'=>1
+            ]);
+        $service->setLength();
+        $service->reguard();
+        $service->save();
+
+        $t->assertEquals($service->name, 'eureka287');
+        $t->assertEquals($service->length, 45);
+        // $t->assertEquals($service->id, 23);
+
     }
 }
