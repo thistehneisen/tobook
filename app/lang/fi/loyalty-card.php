@@ -5,6 +5,7 @@ return [
     'consumer_management'   => 'Asiakashallinta',
     'offers'                => 'Tarjoukset',
     'vouchers'              => 'Kupongit',
+    'consumers'             => 'Asiakkaat',
     'offer_list'            => 'Tarjouslista',
     'number'                => 'Nr',
     'offer_name'            => 'Tarjouksen Nimi',
@@ -22,4 +23,6 @@ return [
     'cash'                  => 'Raha',
     'created_at'            => 'Luonut',
     'updated_at'            => 'Päivitetty',
+    'consumer'              => 'Asiakas',
+    'last_visited'          => 'Edellinen kaynti',
 ];

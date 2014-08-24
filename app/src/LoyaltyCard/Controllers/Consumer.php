@@ -45,6 +45,11 @@ class Consumer extends Base
             'first_name'    => 'required',
             'last_name'     => 'required',
             'email'         => 'required|email',
+            'phone'         => 'required|numeric',
+            'address'       => 'required',
+            'postcode'      => 'required|numeric',
+            'city'          => 'required',
+            'country'       => 'required',
         ];
 
         $validator = Validator::make(Input::all(), $rules);
@@ -55,26 +60,34 @@ class Consumer extends Base
                 ->withInput();
         }
 
-        // Create core consumer first
-        $core = Model::createCore();
-        $core->first_name = Input::get('first_name');
-        $core->last_name  = Input::get('last_name');
-        $core->user_id    = Confide::user()->id;
-        $core->email      = Input::get('email');
-        $core->phone      = Input::get('phone');
-        $core->address    = Input::get('address');
-        $core->city       = Input::get('city');
-        $core->save();
+        try {
+            // Create core consumer first
+            $core = Model::createCore();
+            $core->first_name = Input::get('first_name');
+            $core->last_name  = Input::get('last_name');
+            $core->user_id    = Confide::user()->id;
+            $core->email      = Input::get('email');
+            $core->phone      = Input::get('phone');
+            $core->address    = Input::get('address');
+            $core->postcode   = Input::get('postcode');
+            $core->city       = Input::get('city');
+            $core->country    = Input::get('country');
+            $core->save();
 
-        // Then create a LC consumer
-        $consumer = new Model;
-        $consumer->score = Input::get('score', 0);
-        $consumer->user_id = Confide::user()->id;
-        $consumer->consumer()->associate($core);
-        $consumer->save();
+            // Then create a LC consumer
+            $consumer = new Model;
+            //$consumer->score = Input::get('score', 0);
+            $consumer->total_points = 0;
+            $consumer->total_stamps = '';
+            //$consumer->user_id = Confide::user()->id;
+            $consumer->consumer_id = $core->id;
+            $consumer->consumer()->associate($core);
+            $consumer->save();
+        } catch (Exception $ex) {
 
-        return Redirect::route('lc.consumers.index')
-            ->with('message', 'Successfully created!');
+        }
+
+        return Redirect::route('lc.consumers.index');
 	}
 
 
@@ -117,26 +130,35 @@ class Consumer extends Base
 	public function update($id)
 	{
 		$rules = [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email',
+            'first_name'    => 'required',
+            'last_name'     => 'required',
+            'email'         => 'required|email',
+            'phone'         => 'required|numeric',
+            'address'       => 'required',
+            'postcode'      => 'required|numeric',
+            'city'          => 'required',
+            'country'       => 'required',
         ];
 
         $validator = Validator::make(Input::all(), $rules);
 
         if ($validator->fails()) {
-            return Redirect::to('customers/' . $id . '/edit')
+            return Redirect::back()
                 ->withErrors($validator)
                 ->withInput(Input::all());
         } else {
-            $consumer = Model::find($id);
+            $consumer = Model::find($id)->consumer;
             $consumer->first_name = Input::get('first_name');
             $consumer->last_name = Input::get('last_name');
             $consumer->email = Input::get('email');
+            $consumer->phone = Input::get('phone');
+            $consumer->address = Input::get('address');
+            $consumer->postcode = Input::get('postcode');
+            $consumer->city = Input::get('city');
+            $consumer->country = Input::get('country');
             $consumer->save();
 
-            Session::flash('message', 'Successfully updated!');
-            return Redirect::to('consumers');
+            return Redirect::route('lc.consumers.index');
         }
 	}
 
@@ -152,7 +174,6 @@ class Consumer extends Base
 		$consumer = Model::find($id);
         $consumer->delete();
 
-        Session::flash('message', 'Successfully deleted!');
-        return Redirect::to('consumers');
+        return Redirect::route('lc.consumers.index');
 	}
 }

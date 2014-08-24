@@ -16,13 +16,9 @@ class CreateTableLcConsumers extends Migration {
 		{
 			$table->increments('id');
             $table->unsignedInteger('consumer_id');
-            $table->unsignedInteger('user_id'); // For faster retrieval
-            $table->integer('score')->default(0);
+            $table->integer('total_points');
+            $table->text('total_stamps');
             $table->timestamps();
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
             $table->foreign('consumer_id')
                 ->references('id')
                 ->on('consumers')

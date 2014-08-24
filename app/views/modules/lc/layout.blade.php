@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    @parent :: {{ trans('common.loyalty') }}
+    @parent :: {{ trans('dashboard.loyalty') }}
 @stop
 
 @section('logo')

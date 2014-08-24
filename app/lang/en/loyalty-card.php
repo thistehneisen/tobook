@@ -5,6 +5,7 @@ return [
     'consumer_management'   => 'Customer Management',
     'offers'                => 'Offers',
     'vouchers'              => 'Vouchers',
+    'consumers'             => 'Customers',
     'offer_list'            => 'Offer List',
     'number'                => 'No',
     'offer_name'            => 'Offer Name',
@@ -22,4 +23,6 @@ return [
     'cash'                  => 'Cash',
     'created_at'            => 'Created',
     'updated_at'            => 'Updated',
+    'consumer'              => 'Customer',
+    'last_visited'          => 'Last visited',
 ];
