@@ -1,6 +1,6 @@
 @extends ('modules.as.layout')
 
-@section ('sub-content')
+@section ('content')
 <div class="alert alert-info">
     <p><strong>Palvelut</strong></p>
     <p>Näkymässä näet kaikki lisäämäsi palvelut. Voit lisätä uusia palveluita tai muokata olemassa olevia palveluita muokkaa napista.</p>

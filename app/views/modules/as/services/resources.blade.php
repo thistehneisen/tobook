@@ -1,6 +1,6 @@
 @extends ('modules.as.layout')
 
-@section ('sub-content')
+@section ('content')
 
 @include('modules.as.services.resource.tabs')
 

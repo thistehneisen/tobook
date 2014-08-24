@@ -23,9 +23,22 @@
     </script>
 @stop
 
-@section ('content')
-    <ul class="nav nav-pills nav-" role="tablist">
-        <li @if (!Request::segment(2)) {{ 'class="active"' }} @endif><a href="{{ route('as.index') }}"><i class="fa fa-calendar"></i> Kalenteri</a></li>
+@section ('nav-admin')
+<nav class="navbar" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#admin-menu">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="admin-menu">
+            <ul class="nav navbar-nav">
+                <li @if (!Request::segment(2)) {{ 'class="active"' }} @endif><a href="{{ route('as.index') }}"><i class="fa fa-calendar"></i> Kalenteri</a></li>
         <li @if (Request::segment(2) === 'bookings') {{ 'class="active"' }} @endif class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('as.services.index') }}">
                 <i class="fa fa-bookmark"></i> Varaukset <span class="caret"></span>
@@ -84,8 +97,10 @@
         </li>
         <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif><a href="#"><i class="fa fa-arrow-down"></i> Asenna</a></li>
         <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif><a href="#"><i class="fa fa-desktop"></i> Esikatselu</a></li>
-    </ul>
-
-    <br>
-    @yield ('sub-content')
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
 @stop
