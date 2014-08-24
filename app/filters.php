@@ -92,8 +92,12 @@ Route::filter('auth.admin', function () {
 });
 
 Route::filter('premium.modules', function($request, $response, $moduleName) {
-    if (App\Core\Models\Module::getActivePeriods(Confide::user(), $moduleName)->isEmpty()) {
-        // Show Message page is better
-        return Redirect::route('home');
+    if (Session::get('stealthMode') === null
+        && !Entrust::hasRole('Admin')
+        && App\Core\Models\Module::getActivePeriods(Confide::user(), $moduleName)->isEmpty()) {
+        return View::make('home.message', [
+            'header'  => trans('common.errors'),
+            'content' => trans('user.premium_expired')
+        ]);
     }
 });

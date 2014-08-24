@@ -25,4 +25,5 @@ return [
     'notice'         => 'Huomautus',
     'welcome'        => 'Tervetuloa',
     'back'           => 'Back',
+    'errors' => 'Errors'
 ];
