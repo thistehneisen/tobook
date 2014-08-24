@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Models;
 
-class Service extends \App\Core\Models\Base
+class ServiceTime extends \App\Core\Models\Base
 {
     protected $table = 'as_services';
 
