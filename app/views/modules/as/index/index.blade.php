@@ -1,6 +1,6 @@
 @extends ('modules.as.layout')
 
-@section ('sub-content')
+@section ('content')
 <div class="alert alert-info">
     <p><strong>Etusivu</strong></p>
     <p>Näkymässä näet kaikkien työntekijöiden kalenterin. Kuluttajille varattavat ajat vihreällä. Voit tehdä halutessasi varauksia myös harmaalle alueelle joka näkyy kuluttajille suljettuna.</p>
@@ -13,7 +13,7 @@
             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
         </div>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-8">
         <button type="button" class="btn btn-default">Tänään</button>
         <button type="button" class="btn btn-default">Huomenna</button>
 
@@ -35,7 +35,7 @@
         </div>
     </div>
 
-    <div class="col-md-1">
+    <div class="col-md-2 text-right">
         <button class="btn btn-primary"><i class="fa fa-print"> Tulosta</i></button>
     </div>
 </div>

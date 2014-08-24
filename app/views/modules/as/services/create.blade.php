@@ -1,6 +1,6 @@
 @extends ('modules.as.layout')
 
-@section ('sub-content')
+@section ('content')
 <div class="alert alert-info">
     <p><strong>Lisää palvelu</strong></p>
     <p>Lisää uusi palvelu lisäämällä palvelun nimi, palvelun kesto ja työntekijät</p>
