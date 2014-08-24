@@ -30,9 +30,9 @@
             @endif
             </td>
             <td>{{ $category->description }}</td>
-            <td>
-            <a href="{{ route('as.services.categories.edit', ['id'=> $category->id ]) }}" class="btn btn-xs btn-info" title=""><i class="fa fa-edit"></i></a>
-            <a href="{{ route('as.services.categories.delete', ['id'=> $category->id ]) }}" class="btn btn-xs btn-default" title=""><i class="fa fa-trash-o"></i></a>
+            <td class="pull-right">
+            <a href="{{ route('as.services.categories.edit', ['id'=> $category->id ]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
+            <a href="{{ route('as.services.categories.delete', ['id'=> $category->id ]) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
             </td>
         </tr>
         @endforeach

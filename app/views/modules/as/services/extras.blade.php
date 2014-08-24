@@ -17,19 +17,19 @@
         </tr>
     </thead>
     <tbody>
-         @foreach ($resources as $resource)
+         @foreach ($extras as $extra)
         <tr>
-            <td><input type="checkbox" class="checkbox" name="resources[]" value="{{ $resource->id }}"></td>
-            <td>{{ $resource->name }}</td>
-            <td>{{ $resource->quanity }}</td>
-            <td>{{ $resource->description }}</td>
+            <td><input type="checkbox" class="checkbox" name="extras[]" value="{{ $extra->id }}"></td>
+            <td>{{ $extra->name }}</td>
+            <td>{{ $extra->quanity }}</td>
+            <td>{{ $extra->description }}</td>
             <td class="pull-right">
-                <a href="{{ route('as.services.resources.edit', ['id'=> $resource->id ]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
-                <a href="{{ route('as.services.resources.delete', ['id'=> $resource->id ]) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
+                <a href="{{ route('as.services.extras.edit', ['id'=> $extra->id ]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
+                <a href="{{ route('as.services.extras.delete', ['id'=> $extra->id ]) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
             </td>
         </tr>
         @endforeach
-        @if (empty($resources->getTotal()))
+        @if (empty($extras->getTotal()))
         <tr>
             <td colspan="4">{{ trans('common.no_records') }}</td>
         </tr>

@@ -47,7 +47,7 @@
                 <li><a href="{{ route('as.services.create') }}">Lisää palveluita</a></li>
                 <li><a href="{{ route('as.services.categories') }}">Lisää kategoria</a></li>
                 <li><a href="{{ route('as.services.resources') }}">Lisää resurssi</a></li>
-                <li><a href="">Lisää lisäpalvelu</a></li>
+                <li><a href="{{ route('as.services.extras') }}">Lisää lisäpalvelu</a></li>
             </ul>
         </li>
         <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif class="dropdown">

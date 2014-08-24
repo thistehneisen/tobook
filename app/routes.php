@@ -278,6 +278,11 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Resources@destroy'
     ]);
 
+    Route::get('services/extras', [
+        'as' => 'as.services.extras',
+        'uses' => 'App\Appointment\Controllers\ExtraServices@extras'
+    ]);
+
 });
 
 /*
