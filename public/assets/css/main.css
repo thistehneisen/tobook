@@ -174,3 +174,18 @@ a:hover {
   color: #333333;
   font-size: 16px;
 }
+.nav-admin > li > a {
+  color: #ec7923;
+}
+.nav-admin > li > a:hover {
+  background: none;
+}
+.nav-admin .active > a {
+  background-color: #ec7923;
+  color: #fff;
+}
+.nav-admin .active > a:hover {
+  background-color: #ed8333;
+}
+
+
