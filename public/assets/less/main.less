@@ -155,6 +155,31 @@ a {
     }
 }
 
+// # ------------------------------- nav admin
+.nav-admin {
+    >li {
+        >a {
+            color: @orange;
+            &:hover {
+                background: none;
+            }
+        }
+    }
+
+    .active {
+        >a {
+            background-color: @orange;
+            color: #fff;
+
+            &:hover {
+                background-color: #ed8333;
+            }
+        }
+    }
+}
+
+@import "appointment.less";
+
 // # ------------------------------- main content
 .main {
     margin: 40px auto 50px auto;
