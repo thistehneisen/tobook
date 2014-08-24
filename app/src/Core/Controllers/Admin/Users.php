@@ -130,7 +130,10 @@ class Users extends Crud
         ]);
         return Redirect::back()
             ->with('messages', $this->successMessageBag(
-                trans('admin.modules.success_enabled')
+                trans('admin.modules.success_enabled', [
+                    'module' => $module->name,
+                    'user'   => $user->username
+                ])
             ));
     }
 
