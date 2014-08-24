@@ -1,13 +1,23 @@
 <?php namespace App\Core\Controllers\Admin;
 
 use App, Config, Request, Redirect, Input;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Watson\Validating\ValidationException;
+use Exception;
 
 class Crud extends Base
 {
+    /**
+     * Name of current processing model, in plural
+     *
+     * @var string
+     */
+    protected $modelName;
+
     public function __construct()
     {
-        $modelName = str_singular(Request::segment(2));
-        $this->model = App::make('App\Core\Models\\'.ucfirst($modelName));
+        $this->modelName = Request::segment(2);
+        $this->model     = App::make('App\Core\Models\\'.ucfirst(str_singular($this->modelName)));
     }
 
     /**
@@ -20,9 +30,55 @@ class Crud extends Base
         $items = $this->model->paginate(Config::get('view.perPage'));
 
         return $this->render('crud.index', [
-            'model' => $this->model,
-            'items' => $items,
+            'model'     => $this->model,
+            'modelName' => $this->modelName,
+            'items'     => $items,
         ]);
+    }
+
+    /**
+     * Show the form to create new item
+     *
+     * @return View
+     */
+    public function create()
+    {
+        return $this->render('crud.edit', [
+            'model'      => $this->model,
+            'modelName'  => $this->modelName,
+            'formAction' => route('admin.crud.create')
+        ]);
+    }
+
+    /**
+     * Handle create new item
+     *
+     * @return Redirect
+     */
+    public function doCreate()
+    {
+        $errors = $this->errorMessageBag(trans('common.err.unexpected'));
+
+        try {
+            $item = new $this->model;
+            $item->fill(Input::all());
+            $item->saveOrFail();
+
+            return Redirect::route(
+                    'admin.crud.index',
+                    ['model' => $this->modelName]
+                )->with(
+                    'messages',
+                    $this->successMessageBag(
+                        'New '.str_singular($this->modelName).' created.')
+                );
+        } catch (ValidationException $ex) {
+            $errors = $ex->getErrors();
+        }
+
+        return Redirect::back()
+            ->withInput()
+            ->withErrors($errors, 'top');
     }
 
     /**
@@ -37,7 +93,7 @@ class Crud extends Base
     {
         try {
             $item = $this->model->where('id', $id)->firstOrFail();
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $ex) {
+        } catch (ModelNotFoundException $ex) {
             $message = 'Cannot find data with ID #'.$id;
 
             return Redirect::route('admin.crud.index', ['model' => $type])
@@ -45,8 +101,13 @@ class Crud extends Base
         }
 
         return $this->render('crud.edit', [
-            'model' => $this->model,
-            'item' => $item
+            'model'      => $this->model,
+            'modelName'  => $this->modelName,
+            'item'       => $item,
+            'formAction' => route('admin.crud.edit', [
+                'model' => $this->modelName,
+                'id'    => $item->id
+            ])
         ]);
     }
 
@@ -60,23 +121,21 @@ class Crud extends Base
      */
     public function doEdit($type, $id)
     {
+        $errors = $this->errorMessageBag(trans('common.err.unexpected'));
+
         try {
             $item = $this->model->where('id', $id)->firstOrFail();
+            $item->fill(Input::all());
+            $item->saveOrFail();
 
-            $input = Input::all();
-            unset($input['_token']);
-
-            $item->unguard();
-            $item->fill($input);
-            $item->reguard();
-
-            $item->save();
-        } catch (\Exception $ex) {
-            return Redirect::back()->withInput()
-                ->withErrors($this->errorMessageBag($ex->getMessage()), 'top');
+            return Redirect::route('admin.crud.index', ['model' => $type]);
+        } catch (ValidationException $ex) {
+            $errors = $ex->getErrors();
         }
 
-        return Redirect::route('admin.crud.index', ['model' => $type]);
+        return Redirect::back()
+            ->withInput()
+            ->withErrors($errors, 'top');
     }
 
     /**

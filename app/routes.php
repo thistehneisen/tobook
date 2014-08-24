@@ -154,8 +154,9 @@ Route::group([
         ]);
 
         Route::get('appointment-scheduler', [
-            'as' => 'appointment.index',
-            'uses' => 'App\Core\Controllers\Services@appointment'
+            'as'     => 'appointment.index',
+            'before' => 'premium.modules:appointment',
+            'uses'   => 'App\Core\Controllers\Services@appointment'
         ]);
 
         Route::get('loyalty-program', [
@@ -249,10 +250,34 @@ Route::group([
         'uses' => 'App\Core\Controllers\Admin\Users@stealSession'
     ]);
 
+    // Premium modules
+    Route::get('users/modules/{id}', [
+        'as' => 'admin.users.modules',
+        'uses' => 'App\Core\Controllers\Admin\Users@modules'
+    ]);
+
+    Route::post('users/modules/{id}', [
+        'uses' => 'App\Core\Controllers\Admin\Users@enableModule'
+    ]);
+
+    Route::get('users/modules/activation/{userId}/{id}', [
+        'as'   => 'admin.users.modules.activation',
+        'uses' => 'App\Core\Controllers\Admin\Users@toggleActivation'
+    ]);
+
     // CRUD actions
     Route::get('{model}', [
         'as' => 'admin.crud.index',
         'uses' => 'App\Core\Controllers\Admin\Crud@index'
+    ]);
+
+    Route::get('{model}/create', [
+        'as' => 'admin.crud.create',
+        'uses' => 'App\Core\Controllers\Admin\Crud@create'
+    ]);
+
+    Route::post('{model}/create', [
+        'uses' => 'App\Core\Controllers\Admin\Crud@doCreate'
     ]);
 
     Route::get('{model}/search', [
