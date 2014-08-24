@@ -1,5 +1,4 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,300,600);
-
 @import url(http://fonts.googleapis.com/css?family=Comfortaa:400,300,700&subset=latin,cyrillic,latin-ext,greek,cyrillic-ext);
 *,
 *:before,
@@ -115,6 +114,61 @@ a:hover {
 .header.homepage {
   min-height: 100vh;
 }
+.nav-admin > li > a {
+  color: #ec7923;
+}
+.nav-admin > li > a:hover {
+  background: none;
+}
+.nav-admin .active > a {
+  background-color: #ec7923;
+  color: #fff;
+}
+.nav-admin .active > a:hover {
+  background-color: #ed8333;
+}
+.as-table-wrapper {
+  overflow-x: scroll;
+}
+.as-table-left-header {
+  margin-top: 1px;
+}
+.as-table-left-header td {
+  text-align: center;
+  height: 30px;
+}
+.as-table {
+  cursor: pointer;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 300;
+}
+.as-table th {
+  min-width: 150px;
+  max-width: 200px;
+}
+.as-table td {
+  color: #fff;
+  background-color: #080;
+  border: 1px solid #fff;
+}
+.as-table .inactive td {
+  background-color: #888;
+}
+.as-table .booked {
+  background-color: #ed1c24;
+}
+.as-table .booked a {
+  color: #fff;
+}
+.as-table small {
+  font-weight: 700;
+  margin-right: 30px;
+}
+.row-no-padding [class*="col-"] {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
 .main {
   margin: 40px auto 50px auto;
 }
@@ -174,18 +228,3 @@ a:hover {
   color: #333333;
   font-size: 16px;
 }
-.nav-admin > li > a {
-  color: #ec7923;
-}
-.nav-admin > li > a:hover {
-  background: none;
-}
-.nav-admin .active > a {
-  background-color: #ec7923;
-  color: #fff;
-}
-.nav-admin .active > a:hover {
-  background-color: #ed8333;
-}
-
-
