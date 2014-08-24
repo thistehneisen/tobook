@@ -90,3 +90,14 @@ Route::filter('auth.admin', function () {
         return Redirect::route('home');
     }
 });
+
+Route::filter('premium.modules', function($request, $response, $moduleName) {
+    if (Session::get('stealthMode') === null
+        && !Entrust::hasRole('Admin')
+        && App\Core\Models\Module::getActivePeriods(Confide::user(), $moduleName)->isEmpty()) {
+        return View::make('home.message', [
+            'header'  => trans('common.errors'),
+            'content' => trans('user.premium_expired')
+        ]);
+    }
+});
