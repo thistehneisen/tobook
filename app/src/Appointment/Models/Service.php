@@ -4,7 +4,7 @@ class Service extends \App\Core\Models\Base
 {
     protected $table = 'as_services';
 
-    public $fillable = ['name', 'price','length','before','during', 'after', 'description', 'status'];
+    public $fillable = ['name', 'price','length','before','during', 'after', 'description', 'is_active'];
 
     protected $rulesets = [
         'saving' => [

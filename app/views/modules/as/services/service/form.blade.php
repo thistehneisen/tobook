@@ -61,7 +61,7 @@
     <div class="form-group">
         <label for="total" class="col-sm-2 control-label">Tila</label>
         <div class="col-sm-5">
-           {{ Form::select('is_active', array(-1=> trans('common.options_select'))+['0'=> trans('common.active'),'1'=> trans('common.inactive')], isset($service) ? $service->is_active : 1, ['class' => 'form-control input-sm', 'id' => 'is_active']) }}
+           {{ Form::select('is_active', array(-1=> trans('common.options_select'))+['0'=> trans('common.active'),'1'=> trans('common.inactive')], isset($service) ? $service->is_active : -1, ['class' => 'form-control input-sm', 'id' => 'is_active']) }}
         </div>
     </div>
     <div class="form-group">
