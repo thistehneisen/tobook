@@ -5,8 +5,8 @@
     <p><strong>Lisää palvelu</strong></p>
     <p>Lisää uusi palvelu lisäämällä palvelun nimi, palvelun kesto ja työntekijät</p>
 </div>
-
-{{ Form::open(['route' => 'as.services.create', 'class' => 'form-horizontal', 'role' => 'form']) }}
+<div id="form-add-category" class="modal-form">
+{{ Form::open(['route' => 'as.services.create', 'class' => 'form-horizontal well', 'role' => 'form']) }}
     <div class="form-group">
         <label for="name" class="col-sm-2 control-label">Nimi</label>
         <div class="col-sm-5">
@@ -139,4 +139,5 @@
         </div>
     </div>
 {{ Form::close() }}
+</div>
 @stop

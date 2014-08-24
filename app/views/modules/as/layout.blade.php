@@ -1,10 +1,11 @@
-@extends ('layouts.default')
+\@extends ('layouts.default')
 
 @section('logo')
 @stop
 
 @section ('styles')
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css') }}
+    {{ HTML::style('//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css') }}
     {{ HTML::style(asset('assets/css/alertify.core.css')) }}
     {{ HTML::style(asset('assets/css/alertify.bootstrap.css')) }}
     {{ HTML::style(asset('assets/css/appointment.css')) }}
@@ -12,6 +13,7 @@
 
 @section ('scripts')
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js') }}
+    {{ HTML::script('//code.jquery.com/ui/1.11.1/jquery-ui.js') }}
     {{ HTML::script(asset('assets/js/alertify.min.js')) }}
     {{ HTML::script(asset('assets/js/admin.js')) }}
     <script>

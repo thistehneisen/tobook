@@ -18,6 +18,11 @@ class CreateAsServicesTable extends Migration {
             $table->unsignedInteger('category_id');
             $table->unsignedInteger('user_id');
             $table->string('name');
+            $table->double('price');
+            $table->tinyInteger('length');
+            $table->tinyInteger('before');
+            $table->tinyInteger('during');
+            $table->tinyInteger('after');
             $table->string('description');
             $table->boolean('is_active');
             $table->foreign('user_id')

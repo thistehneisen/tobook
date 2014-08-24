@@ -42,62 +42,28 @@
         </tr>
     </thead>
     <tbody>
+        @foreach ($services as $service)
         <tr>
             <td><input type="checkbox"></td>
-            <td>Service 1</td>
-            <td>5</td>
-            <td>€10.00</td>
-            <td>90</td>
-            <td>120</td>
-            <td>Categroy 1</td>
-            <td>Aktiivinen</td>
+            <td>{{ $service->name }}</td>
+            <td>{{ $service->name }}</td>
+            <td>€{{ $service->price }}</td>
+            <td>{{ $service->during }}</td>
+            <td>{{ $service->length }}</td>
+            <td>{{ $service->category->name }}</td>
             <td>
-                <a href="#" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
-                <a href="#" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
+                @if ($service->is_active)
+                    <span class="label label-success">{{ trans('common.active') }}</span>
+                @else
+                    <span class="label label-danger">{{ trans('common.inactive') }}</span>
+                @endif
+            </td>
+            <td>
+                <a href="{{ route('as.services.edit', ['id'=> $service->id ]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
+                <a href="{{ route('as.services.delete', ['id'=> $service->id ]) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
             </td>
         </tr>
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>Service 1</td>
-            <td>5</td>
-            <td>€10.00</td>
-            <td>90</td>
-            <td>120</td>
-            <td>Categroy 1</td>
-            <td>Aktiivinen</td>
-            <td>
-                <a href="#" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
-                <a href="#" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
-            </td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>Service 1</td>
-            <td>5</td>
-            <td>€10.00</td>
-            <td>90</td>
-            <td>120</td>
-            <td>Categroy 1</td>
-            <td>Aktiivinen</td>
-            <td>
-                <a href="#" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
-                <a href="#" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
-            </td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>Service 1</td>
-            <td>5</td>
-            <td>€10.00</td>
-            <td>90</td>
-            <td>120</td>
-            <td>Categroy 1</td>
-            <td>Aktiivinen</td>
-            <td>
-                <a href="#" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
-                <a href="#" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
-            </td>
-        </tr>
+        @endforeach
     </tbody>
     <tfoot>
         <tr>

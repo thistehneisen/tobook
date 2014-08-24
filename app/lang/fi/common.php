@@ -15,6 +15,8 @@ return [
     'sign_out'       => 'Kirjaudu Ulos',
     'sign_in_header' => 'Kirjaudu',
     'sign_in'        => 'Kirjaudu sisään',
+    'select'         => 'Valitse',
+    'options_select' => '-- Valitse -- ',
     'register'       => 'Rekisteröidy',
     'no_records'     => 'Anteeksi, ennätys ei löytynyt!',
     'save'           => 'Tallenna',
@@ -29,6 +31,8 @@ return [
     'settings'       => 'Asetukset',
     'yes'            => 'Kyllä',
     'no'             => 'Ei',
+    'active'         => 'Aktiivinen',
+    'inactive'       => 'Ei aktiivinen',
     'err'            => [
         'unexpected'   => 'An unexpected error has occurred. Please try again later.',
         'not_found'    => 'Cannot the find the requesting data. Please check the URL again.',

@@ -208,6 +208,31 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Services@create'
     ]);
 
+    Route::post('services/create', [
+        'as' => 'as.services.create',
+        'uses' => 'App\Appointment\Controllers\Services@doCreate'
+    ]);
+
+    Route::get('services/edit', [
+        'as' => 'as.services.edit',
+        'uses' => 'App\Appointment\Controllers\Services@edit'
+    ]);
+
+    Route::post('services/edit', [
+        'as' => 'as.services.edit',
+        'uses' => 'App\Appointment\Controllers\Services@doEdit'
+    ]);
+
+    Route::get('services/delete', [
+        'as' => 'as.services.delete',
+        'uses' => 'App\Appointment\Controllers\Services@delete'
+    ]);
+
+    Route::post('services/destroy', [
+        'as' => 'as.services.destroy',
+        'uses' => 'App\Appointment\Controllers\Services@destroy'
+    ]);
+
     Route::get('services/categories', [
         'as' => 'as.services.categories',
         'uses' => 'App\Appointment\Controllers\Categories@categories'

@@ -1,20 +1,18 @@
 <?php namespace App\Appointment\Models;
 
-class ServiceTime extends \App\Core\Models\Base
+class EmployeeService extends \App\Core\Models\Base
 {
-    protected $table = 'as_services';
-
-    public $fillable = ['service_id', 'price', 'length','before','during', 'after', 'description', 'quantity'];
-
-    protected $rulesets = [
-        'saving' => [
-            'name' => 'required'
-        ]
-    ];
+    public $timestamps = false;
+    protected $table = 'as_employee_service';
 
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
+    public function employee()
+    {
+        return $this->belongsTo('App\Appointment\Models\Employee');
+    }
+
     public function service()
     {
         return $this->belongsTo('App\Appointment\Models\Service');

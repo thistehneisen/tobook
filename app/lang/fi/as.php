@@ -16,8 +16,6 @@ return [
         'phone'                 => 'Puhelinnumero',
         'email'                 => 'Sähköpostiosoite',
         'description'           => 'Kuvaus',
-        'active'                => 'Aktiivinen',
-        'in_active'             => 'Ei aktiivinen',
         'is_subscribed_email'   => 'Lähetä sähköposti',
         'is_subscribed_sms'     => 'Lähetä tekstiviesti',
     ]

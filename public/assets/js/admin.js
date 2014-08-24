@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+    var spinner = $( ".spinner" ).spinner();
     $('.toggle-check-all-boxes').click(function(e){
         var checkboxClass = ($(this).data('checkbox-class')) || 'checkbox';
         if(this.checked) { // check select status
