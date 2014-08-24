@@ -1,7 +1,7 @@
 @extends('modules.mt.layout')
 
 @section('top-buttons')
-<a href="{{ URL::route('mt.smss.create') }}" class="btn btn-default btn-success"><span class="glyphicon glyphicon-plus"></span> {{ trans('common.add') }}</a>
+<a href="{{ URL::route('mt.sms.create') }}" class="btn btn-default btn-success"><span class="glyphicon glyphicon-plus"></span> {{ trans('common.add') }}</a>
 <!-- <button class="btn btn-default btn-danger js-deleteCampaign"><span class="glyphicon glyphicon-remove"></span> {{ trans('common.delete') }}</button> -->
 @stop
 
@@ -20,14 +20,14 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($smss as $key => $value)
+            @foreach ($sms as $key => $value)
             <tr>
                 <!-- <td>
                     <input type="checkbox" id="chkCampaignId" value="{{ $value->id }}" />
                 </td> -->
                 <td>{{ $key + 1 }}</td>
                 <td>
-                    <a href="{{ URL::route('mt.smss.edit', ['id' => $value->id]) }}">
+                    <a href="{{ URL::route('mt.sms.edit', ['id' => $value->id]) }}">
                         {{ $value->title }}
                     </a>
                 </td>

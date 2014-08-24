@@ -7,7 +7,7 @@
     </div>
     <table class="table table-striped">
         <tbody>
-            {{ Form::open(['route' => 'mt.smss.store']) }}
+            {{ Form::open(['route' => 'mt.sms.store']) }}
             @foreach ([
                 'title'         => trans('common.title'),
                 'content'       => trans('common.content'),

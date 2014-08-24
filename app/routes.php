@@ -196,13 +196,13 @@ Route::group([
             ]
         ]);
         
-        Route::resource('smss', 'App\MarketingTool\Controllers\Sms', [
+        Route::resource('sms', 'App\MarketingTool\Controllers\Sms', [
             'names' => [
-                'index'     => 'mt.smss.index',
-                'create'    => 'mt.smss.create',
-                'edit'      => 'mt.smss.edit',
-                'store'     => 'mt.smss.store',
-                'update'    => 'mt.smss.update',
+                'index'     => 'mt.sms.index',
+                'create'    => 'mt.sms.create',
+                'edit'      => 'mt.sms.edit',
+                'store'     => 'mt.sms.store',
+                'update'    => 'mt.sms.update',
             ]
         ]);
         

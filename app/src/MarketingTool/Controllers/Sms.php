@@ -14,12 +14,12 @@ class Sms extends \App\Core\Controllers\Base {
      */
     public function index()
     {
-        // get all the smss
-        $smss = SmsModel::where('user_id', '=', Confide::user()->id)->get();
+        // get all the sms
+        $sms = SmsModel::where('user_id', '=', Confide::user()->id)->get();
     
-        // load the view and pass the smss
-        return View::make('modules.mt.smss.index')
-            ->with('smss', $smss);
+        // load the view and pass the sms
+        return View::make('modules.mt.sms.index')
+            ->with('sms', $sms);
     }
     
     
@@ -30,7 +30,7 @@ class Sms extends \App\Core\Controllers\Base {
      */
     public function create()
     {
-        return View::make('modules.mt.smss.create');
+        return View::make('modules.mt.sms.create');
     }
     
     
@@ -60,7 +60,7 @@ class Sms extends \App\Core\Controllers\Base {
             $sms->save();
 
             Session::flash('message', 'Successfully created!');
-            return Redirect::route('mt.smss.index');
+            return Redirect::route('mt.sms.index');
         }
     }
     
@@ -75,7 +75,7 @@ class Sms extends \App\Core\Controllers\Base {
     {
         $sms = SmsModel::find($id);
     
-        return View::make('modules.mt.smss.show')
+        return View::make('modules.mt.sms.show')
             ->with('sms', $sms);
     }
     
@@ -90,7 +90,7 @@ class Sms extends \App\Core\Controllers\Base {
     {
         $sms = SmsModel::find($id);
     
-        return View::make('modules.mt.smss.edit')
+        return View::make('modules.mt.sms.edit')
             ->with('sms', $sms);
     }
     
@@ -120,7 +120,7 @@ class Sms extends \App\Core\Controllers\Base {
             $sms->content = Input::get('content');
             $sms->save();
     
-            return Redirect::route('mt.smss.index')
+            return Redirect::route('mt.sms.index')
                 ->with('message', 'Successfully created!');
         }
     }
@@ -138,7 +138,7 @@ class Sms extends \App\Core\Controllers\Base {
         $sms->delete();
     
         Session::flash('message', 'Successfully deleted!');
-        return Redirect::route('mt.smss.index');
+        return Redirect::route('mt.sms.index');
     }
     
 

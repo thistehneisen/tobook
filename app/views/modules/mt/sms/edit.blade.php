@@ -7,7 +7,7 @@
     </div>
     <table class="table table-striped">
         <tbody>
-            {{ Form::model($sms, array('route' => array('mt.smss.update', $sms->id), 'method' => 'PUT')) }}
+            {{ Form::model($sms, array('route' => array('mt.sms.update', $sms->id), 'method' => 'PUT')) }}
             @foreach ([
                 'title'            => trans('common.title'),
                 'content'          => trans('common.content'),
