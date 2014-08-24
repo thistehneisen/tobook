@@ -7,6 +7,18 @@
 @include ('el.messages')
 <h4 class="comfortaa">{{ trans('as.services.all_categories') }}</h4>
 <form action="" class="form-inline form-table">
+<table class="table table-hover" id="categoryTable" data-table-source="{{ route('as.services.categories.datatable') }}">
+    <thead>
+        <tr>
+            <th><input type="checkbox" class="toggle-check-all-boxes" data-checkbox-class="checkbox"></th>
+            <th>{{ trans('as.services.name') }}</th>
+            <th>{{ trans('as.services.is_show_front') }}</th>
+            <th>{{ trans('as.services.description') }}</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+</table>
+<h1>bottom</h1>
 <table class="table table-hover">
     <thead>
         <tr>
@@ -30,9 +42,11 @@
             @endif
             </td>
             <td>{{ $category->description }}</td>
-            <td class="pull-right">
-            <a href="{{ route('as.services.categories.edit', ['id'=> $category->id ]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
-            <a href="{{ route('as.services.categories.delete', ['id'=> $category->id ]) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
+            <td>
+            <div  class="pull-right">
+                <a href="{{ route('as.services.categories.edit', ['id'=> $category->id ]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
+                <a href="{{ route('as.services.categories.delete', ['id'=> $category->id ]) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
+            </div>
             </td>
         </tr>
         @endforeach

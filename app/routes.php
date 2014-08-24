@@ -213,6 +213,11 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Categories@categories'
     ]);
 
+    Route::get('services/categories/datatable', [
+        'as' => 'as.services.categories.datatable',
+        'uses' => 'App\Appointment\Controllers\Categories@datatable'
+    ]);
+
     Route::get('services/categories/create', [
         'as' => 'as.services.categories.create',
         'uses' => 'App\Appointment\Controllers\Categories@create'
