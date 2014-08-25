@@ -148,15 +148,19 @@ a:hover {
   max-width: 200px;
 }
 .as-table td {
-  color: #fff;
-  background-color: #080;
+  color: #333333;
+  background-color: #f5b869;
   border: 1px solid #fff;
 }
 .as-table .inactive td {
   background-color: #888;
+  color: #eeeeee;
 }
 .as-table .booked {
   background-color: #ed1c24;
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
 }
 .as-table .booked a {
   color: #fff;
