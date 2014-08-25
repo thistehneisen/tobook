@@ -59,51 +59,61 @@ class Categories extends AsBase
         return Redirect::back()->withInput()->withErrors($errors, 'top');
     }
 
-    public function edit($id){
-
-        try{
-            $category = $this->categoryModel->findOrFail($id);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e){
-             return Redirect::route('as.services.categories')
-                ->with('messages', $this->successMessageBag('Category with ID #' . $id . ' was not found.'));
-        }
-
+    /**
+     * Show the form to edit a category
+     *
+     * @param int $id
+     *
+     * @return View
+     */
+    public function edit($id)
+    {
+        $category = ServiceCategory::findOrFail($id);
         return View::make('modules.as.services.category.form', [
             'category' => $category
         ]);
     }
 
-    public function doEdit($id){
-        try{
-
-            $category = $this->categoryModel->findOrFail($id);
-            $category->fill(Input::all());
-            // Attach user
-            $category->user()->associate($this->user);
-            $category->saveOrFail();
-
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-             return Redirect::route('as.services.categories')
-                ->with('messages', $this->successMessageBag('Category with ID #' . $id . ' was not found.'));
-        }
+    /**
+     * Do edit
+     *
+     * @param int $id
+     *
+     * @return Redirect
+     */
+    public function doEdit($id)
+    {
+        $category = ServiceCategory::findOrFail($id);
+        $category->fill(Input::all());
+        // Attach user
+        $category->user()->associate($this->user);
+        $category->saveOrFail();
 
         return Redirect::route('as.services.categories')
             ->with('messages', $this->successMessageBag('Category with ID #' . $id . ' was updated.'));
     }
 
-    public function delete($id){
+    /**
+     * Delete a category
+     *
+     * @param int $id
+     *
+     * @return Redirect
+     */
+    public function delete($id)
+    {
         $item = $this->categoryModel->findOrFail($id);
-        if ($item) {
-            $item->delete();
-        }
+        $item->delete();
 
-        return Redirect::route('as.services.categories')->with(
+        return Redirect::route('as.services.categories')
+            ->with(
                 'messages',
                 $this->successMessageBag('ID #'.$id.' was deleted')
             );
     }
 
-    public function destroy(){
+    public function destroy()
+    {
         $categories = Input::get('categories', []);
         try{
             $this->categoryModel->destroy($categories);
