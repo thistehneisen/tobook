@@ -5,6 +5,11 @@ use Illuminate\Support\MessageBag, Settings;
 
 class Base extends \Controller
 {
+    /**
+     * The current login user
+     *
+     * @var App\Core\Models\User
+     */
     protected $user;
 
     /**
@@ -14,6 +19,32 @@ class Base extends \Controller
     {
         // Set the current user
         $this->user = Confide::user();
+    }
+
+    /**
+     * Relative path to the folder containing View templates
+     *
+     * @return string
+     */
+    protected function getViewPath()
+    {
+        return '';
+    }
+
+    /**
+     * For lazy people, use this method to quick refer to a view template
+     *
+     * @param string $path
+     * @param array $data
+     *
+     * @return View
+     */
+    protected function render($path, $data = [])
+    {
+        $path = (!empty($this->getViewPath()))
+            ? $this->getViewPath().'.'.$path
+            : $path;
+        return \View::make($path, $data);
     }
 
     /**
