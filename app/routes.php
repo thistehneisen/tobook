@@ -210,7 +210,6 @@ Route::group([
             'update' => 'lc.vouchers.update',
         ]
     ]);
-
 });
 
 /*
@@ -242,6 +241,24 @@ Route::group([
         'uses' => 'App\Consumers\Controllers\Index@bulk'
     ]);
 
+});
+
+/*
+|--------------------------------------------------------------------------
+| API routes
+|--------------------------------------------------------------------------
+*/
+Route::group([
+    'prefix' => 'api',
+    'before' => ''
+], function() {
+    Route::group([
+        'prefix' => 'lc',
+    ], function() {
+        Route::resource('offers', 'App\API\LoyaltyCard\Controllers\Offer');
+        Route::resource('vouchers', 'App\API\LoyaltyCard\Controllers\Voucher');
+        Route::resource('consumers', 'App\API\LoyaltyCard\Controllers\Consumer');
+    });
 });
 
 /*
