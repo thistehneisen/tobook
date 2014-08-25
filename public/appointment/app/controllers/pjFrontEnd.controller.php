@@ -41,7 +41,9 @@ class pjFrontEnd extends pjFront
 					unset($_SESSION[ PREFIX . 'extra' ]);
 
 				} elseif ( isset($_POST['extra_id']) && count($_POST['extra_id']) > 0 && isset($_POST['as_single']) && $_POST['as_single'] == 1 ) {
-                    $extras = pjExtraServiceModel::factory()
+                    $owner_id = intval($_GET['owner_id']);
+					$extras = pjExtraServiceModel::factory()
+						->where('t1.owner_id', $owner_id)
                         ->whereIn('id', $_POST['extra_id'])
                         ->orderBy('t1.name ASC')
                         ->findAll()
