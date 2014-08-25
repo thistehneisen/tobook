@@ -2,7 +2,7 @@
 use Validator, Response, Request;
 use \App\LoyaltyCard\Models\Voucher as VoucherModel;
 use App\Core\Controllers\Base as Base;
-use Confide;
+use Auth;
 
 class Voucher extends Base {
 
@@ -13,8 +13,7 @@ class Voucher extends Base {
      */
     public function index()
     {
-        //$vouchers = VoucherModel::where('user_id', Confide::user()->id)->get();
-        $vouchers = VoucherModel::where('user_id', 1)->get();
+        $vouchers = VoucherModel::where('user_id', Auth::user()->id)->get();
 
         return Response::json([
             'error' => false,
@@ -44,12 +43,11 @@ class Voucher extends Base {
             return Response::json([
                 'error' => true,
                 'message' => 'Invalid data'
-            ], 200);
+            ], 401);
         } else {
             $voucher = new VoucherModel;
             $voucher->name = Request::get('name');
-            //$voucher->user_id = Confide::user()->id;
-            $voucher->user_id = 1;
+            $voucher->user_id = Auth::user()->id;
             $voucher->required = Request::get('required');
             $voucher->value = Request::get('value');
             $voucher->type = Request::get('type');
@@ -60,7 +58,7 @@ class Voucher extends Base {
             return Response::json([
                 'error' => false,
                 'message' => 'Voucher created',
-            ], 200);
+            ], 201);
         }
     }
 
@@ -73,8 +71,7 @@ class Voucher extends Base {
      */
     public function show($id)
     {
-        //$voucher = VoucherModel::where('user_id', Confide::user()->id)
-        $voucher = VoucherModel::where('user_id', 1)
+        $voucher = VoucherModel::where('user_id', Auth::user()->id)
                         ->where('id', $id)
                         ->take(1)
                         ->get();
@@ -94,8 +91,7 @@ class Voucher extends Base {
      */
     public function update($id)
     {
-        // $voucher = VoucherModel::where('user_id', Confide::user()->id)->find($id);
-        $voucher = VoucherModel::where('user_id', 1)->find($id);
+        $voucher = VoucherModel::where('user_id', Auth::user()->id)->find($id);
 
         foreach ([
             'name'      => 'name',
@@ -114,7 +110,7 @@ class Voucher extends Base {
         return Response::json([
             'error' => false,
             'message' => 'Voucher updated',
-        ], 200);
+        ], 201);
     }
 
 
@@ -126,13 +122,12 @@ class Voucher extends Base {
      */
     public function destroy($id)
     {
-        //$voucher = VoucherModel::where('user_id', Confide::user()->id)->find($id);
-        $voucher = VoucherModel::where('user_id', 1)->find($id);
+        $voucher = VoucherModel::where('user_id', Auth::user()->id)->find($id);
         $voucher->delete();
 
         return Response::json([
             'error' => false,
             'message' => 'Voucher deleted',
-        ], 200);
+        ], 204);
     }
 }

@@ -250,7 +250,7 @@ Route::group([
 */
 Route::group([
     'prefix' => 'api',
-    'before' => ''
+    'before' => 'auth.basic',
 ], function() {
     Route::group([
         'prefix' => 'lc',

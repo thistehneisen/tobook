@@ -2,7 +2,7 @@
 use Validator, Response, Request;
 use \App\LoyaltyCard\Models\Offer as OfferModel;
 use App\Core\Controllers\Base as Base;
-use Confide;
+use Auth;
 
 class Offer extends Base {
 
@@ -13,7 +13,7 @@ class Offer extends Base {
      */
     public function index()
     {
-        $offers = OfferModel::where('user_id', Confide::user()->id)->get();
+        $offers = OfferModel::where('user_id', Auth::user()->id)->get();
 
         return Response::json([
             'error' => false,
@@ -43,11 +43,11 @@ class Offer extends Base {
             return Response::json([
                 'error' => true,
                 'message' => 'Invalid data'
-            ], 200);
+            ], 400);
         } else {
             $offer = new OfferModel;
             $offer->name = Request::get('name');
-            $offer->user_id = Confide::user()->id;
+            $offer->user_id = Auth::user()->id;
             $offer->required = Request::get('required');
             $offer->free_service = Request::get('free');
             $offer->total_used = 0;
@@ -58,7 +58,7 @@ class Offer extends Base {
             return Response::json([
                 'error' => false,
                 'message' => 'Offer created',
-            ], 200);
+            ], 201);
         }
     }
 
@@ -71,7 +71,7 @@ class Offer extends Base {
      */
     public function show($id)
     {
-        $offer = OfferModel::where('user_id', Confide::user()->id)
+        $offer = OfferModel::where('user_id', Auth::user()->id)
                         ->where('id', $id)
                         ->take(1)
                         ->get();
@@ -91,7 +91,7 @@ class Offer extends Base {
      */
     public function update($id)
     {
-        $offer = OfferModel::where('user_id', Confide::user()->id)->find($id);
+        $offer = OfferModel::where('user_id', Auth::user()->id)->find($id);
 
         foreach ([
             'name'      => 'name',
@@ -110,7 +110,7 @@ class Offer extends Base {
         return Response::json([
             'error' => false,
             'message' => 'Offer updated',
-        ], 200);
+        ], 201);
     }
 
 
@@ -122,12 +122,12 @@ class Offer extends Base {
      */
     public function destroy($id)
     {
-        $offer = OfferModel::where('user_id', Confide::user()->id)->find($id);
+        $offer = OfferModel::where('user_id', Auth::user()->id)->find($id);
         $offer->delete();
 
         return Response::json([
             'error' => false,
             'message' => 'Offer deleted',
-        ], 200);
+        ], 204);
     }
 }
