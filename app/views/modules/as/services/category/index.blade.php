@@ -27,27 +27,27 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($categories as $category)
+        @foreach ($items as $item)
         <tr>
-        <td><input type="checkbox" class="checkbox" name="categories[]" value="{{ $category->id }}"></td>
-            <td>{{ $category->name }}</td>
+        <td><input type="checkbox" class="checkbox" name="categories[]" value="{{ $item->id }}"></td>
+            <td>{{ $item->name }}</td>
             <td>
-            @if ($category->is_show_front)
+            @if ($item->is_show_front)
                 <span class="label label-success">{{ trans('common.yes') }}</span>
             @else
                 <span class="label label-danger">{{ trans('common.no') }}</span>
             @endif
             </td>
-            <td>{{ $category->description }}</td>
+            <td>{{ $item->description }}</td>
             <td>
             <div  class="pull-right">
-                <a href="{{ route('as.services.categories.upsert', ['id'=> $category->id ]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
-                <a href="{{ route('as.services.categories.delete', ['id'=> $category->id ]) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
+                <a href="{{ route('as.services.categories.upsert', ['id'=> $item->id ]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
+                <a href="{{ route('as.services.categories.delete', ['id'=> $item->id ]) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
             </div>
             </td>
         </tr>
         @endforeach
-        @if (empty($categories->getTotal()))
+        @if (empty($items->getTotal()))
         <tr>
             <td colspan="4">{{ trans('common.no_records') }}</td>
         </tr>
@@ -66,7 +66,7 @@
         <button type="submit" class="btn btn-primary btn-sm btn-submit-mass-action">{{ trans('common.save') }}</button>
     </div>
     <div class="col-md-6 text-right">
-        {{  $categories->appends(Input::only('perPage'))->links() }}
+        {{  $items->appends(Input::only('perPage'))->links() }}
     </div>
     <div class="col-md-2 text-right">
 

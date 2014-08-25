@@ -2,25 +2,23 @@
 
 use App, View, Confide, Redirect, Input, Config, Response;
 use App\Appointment\Models\ServiceCategory;
+use App\Appointment\Traits\Crud;
 
 class Categories extends AsBase
 {
+    use Crud;
 
     /**
-     * Show all categories of the current user and a form to add new category
-     *
-     * @return View
+     * {@inheritdoc}
      */
-    public function index()
+    protected function getModelClass()
     {
-        $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
-        $categories = $this->categoryModel
-            ->ofCurrentUser()
-            ->paginate($perPage);
+        return 'App\Appointment\Models\ServiceCategory';
+    }
 
-        return View::make('modules.as.services.category.index', [
-            'categories' => $categories
-        ]);
+    protected function getViewPath()
+    {
+        return 'modules.as.services.category';
     }
 
     /**
