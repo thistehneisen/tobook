@@ -1,10 +1,17 @@
 @extends ('modules.as.layout')
 
-@section ('content')
+@section ('styles')
+<style>
+.pagination {
+    margin: 0 !important;
+}
+</style>
+@stop
 
-@include('modules.as.services.category.tabs')
-<br>
-@include ('el.messages')
+@section ('content')
+    @include('modules.as.services.category.tabs')
+    <br>
+    @include ('el.messages')
 <h4 class="comfortaa">{{ trans('as.services.all_categories') }}</h4>
 <form action="" class="form-inline form-table">
 <table class="table table-hover">
@@ -44,34 +51,36 @@
         </tr>
         @endif
     </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="4">
-                <div class="form-group">
-                    <label>Valitse toiminto</label>
-                    <select name="" id="mass-action" class="form-control input-sm">
-                        <option value="{{ route('as.services.categories.destroy') }}" data-action-name="delete all selected categories">Delete</option>
-                        <option value="">Blahde</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm btn-submit-mass-action">{{ trans('common.save') }}</button>
-            </td>
-            <td colspan="5" class="text-right">
-                <div class="dropdown">
-                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-                    Yksiköitä yhteensä <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="{{ route('as.services.categories', ['perPage' => 5]) }}">5</a></li>
-                        <li><a href="{{ route('as.services.categories', ['perPage' => 10]) }}">10</a></li>
-                        <li><a href="{{ route('as.services.categories', ['perPage' => 10]) }}">20</a></li>
-                        <li><a href="{{ route('as.services.categories', ['perPage' => 50]) }}">50</a></li>
-                    </ul>
-                </div>
-            </td>
-        </tr>
-    </tfoot>
 </table>
-{{  $categories->appends(Input::only('perPage'))->links() }}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Valitse toiminto</label>
+            <select name="" id="mass-action" class="form-control input-sm">
+                <option value="{{ route('as.services.categories.destroy') }}" data-action-name="delete all selected categories">Delete</option>
+                <option value="">Blahde</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-sm btn-submit-mass-action">{{ trans('common.save') }}</button>
+    </div>
+    <div class="col-md-6 text-right">
+        {{  $categories->appends(Input::only('perPage'))->links() }}
+    </div>
+    <div class="col-md-2 text-right">
+
+        <div class="btn-group">
+            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+            Yksiköitä yhteensä <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li><a href="{{ route('as.services.categories', ['perPage' => 5]) }}">5</a></li>
+                <li><a href="{{ route('as.services.categories', ['perPage' => 10]) }}">10</a></li>
+                <li><a href="{{ route('as.services.categories', ['perPage' => 10]) }}">20</a></li>
+                <li><a href="{{ route('as.services.categories', ['perPage' => 50]) }}">50</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
 </form>
 @stop

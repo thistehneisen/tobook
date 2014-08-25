@@ -24,18 +24,6 @@ class Categories extends AsBase
     }
 
     /**
-     * Generate json data for datable
-     * TODO consider to use this instead of normal html
-     */
-    public function datatable(){
-        $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
-        $categories = $this->categoryModel
-            ->ofCurrentUser()->select(array('id', 'name', 'is_show_front', 'description'))->paginate($perPage);
-        $data = array_map('array_values',$categories->getCollection()->toArray());
-        return Response::json(array('data'=>$data));
-    }
-
-    /**
     * Show empty category form
     *
     * @return View
