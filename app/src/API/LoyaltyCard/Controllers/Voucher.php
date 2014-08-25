@@ -43,7 +43,7 @@ class Voucher extends Base {
             return Response::json([
                 'error' => true,
                 'message' => 'Invalid data'
-            ], 401);
+            ], 400);
         } else {
             $voucher = new VoucherModel;
             $voucher->name = Request::get('name');

@@ -49,7 +49,7 @@ class Consumer extends Base
             return Response::json([
                 'error' => true,
                 'message' => 'Invalid data',
-            ], 401);
+            ], 400);
         } else {
             try {
                 // Create core consumer first
