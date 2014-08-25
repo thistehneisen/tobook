@@ -37,14 +37,8 @@ $(document).ready(function () {
         });
     });
 
-    // $('#categoryTable').dataTable({
-    //     "ajax": $('#categoryTable').data('table-source'),
-    //     "bProcessing": true,
-    //     "bServerSide": true,
-    //     "columnDefs": [ {
-    //         "targets": -1,
-    //         "data": null,
-    //         "defaultContent": "<button>Click!</button>"
-    //     } ]
-    // });
+    // Date picker
+    $('.date-picker').datepicker({
+        format: 'yyyy-mm-dd'
+    });
  });
