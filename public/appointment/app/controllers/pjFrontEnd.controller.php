@@ -40,7 +40,16 @@ class pjFrontEnd extends pjFront
 					$this->cart->update($key, $_SESSION[ PREFIX . 'extra' ]);
 					unset($_SESSION[ PREFIX . 'extra' ]);
 
-				} else {
+				} elseif ( isset($_POST['extra_id']) && count($_POST['extra_id']) > 0 && isset($_POST['as_single']) && $_POST['as_single'] == 1 ) {
+                    $extras = pjExtraServiceModel::factory()
+                        ->whereIn('id', $_POST['extra_id'])
+                        ->orderBy('t1.name ASC')
+                        ->findAll()
+                        ->getData();
+                    
+                    $this->cart->update($key, $extras);
+                    
+                } else {
 					$this->cart->update($key, 1);
 				}
 

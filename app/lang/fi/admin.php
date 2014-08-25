@@ -27,7 +27,7 @@ return [
         'name'                  => 'Name',
         'start'                 => 'Start',
         'end'                   => 'End',
-        'success_enabled'       => 'Module <strong>:module</strong> is now available for ":user"',
+        'success_enabled'       => 'Module <strong>:module</strong> is now available for user <strong>:user</strong>',
         'success_activation'    => 'Module status changed successfully',
         'err_overlapped'        => 'The selected period is overlapped with existing ones. Please recheck and try again.',
         'err_time_passed'       => 'The active time has passed',

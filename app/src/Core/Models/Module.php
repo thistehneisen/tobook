@@ -69,9 +69,10 @@ class Module extends Base
      */
     public function isOverlapped(User $user, Carbon $start, Carbon $end)
     {
+        $table = DB::getQueryGrammar()->wrapTable('module_user');
         $sql = <<< SQL
 SELECT COUNT(*) AS overlapped
-FROM varaa_module_user t
+FROM $table t
 WHERE user_id = ? AND module_id = ? AND (
     (? > t.start AND ? < t.end) OR
     (? > t.start AND ? < t.end) OR
