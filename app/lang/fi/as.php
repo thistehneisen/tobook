@@ -20,5 +20,7 @@ return [
         'description'           => 'Kuvaus',
         'is_subscribed_email'   => 'Lähetä sähköposti',
         'is_subscribed_sms'     => 'Lähetä tekstiviesti',
-    ]
+    ],
+    'items_per_page' => 'Yksiköitä yhteensä',
+    'with_selected'  => 'Valitse toiminto'
 ];

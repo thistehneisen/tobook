@@ -10,5 +10,7 @@ return [
         'all_categories'       => 'All categories',
         'all_resources'        => 'All resources',
         'success_add_category' => 'A new category was created.'
-    ]
+    ],
+    'items_per_page' => 'Items per page',
+    'with_selected'  => 'With selected'
 ];

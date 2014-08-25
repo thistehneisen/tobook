@@ -1,6 +1,7 @@
 @extends ('modules.as.layout')
 
 @section ('styles')
+    @parent
 <style>
 .pagination {
     margin: 0 !important;
@@ -13,7 +14,8 @@
     <br>
     @include ('el.messages')
 <h4 class="comfortaa">{{ trans('as.services.all_categories') }}</h4>
-<form action="" class="form-inline form-table">
+
+{{ Form::open(['class' => 'form-inline form-table']) }}
 <table class="table table-hover">
     <thead>
         <tr>
@@ -56,10 +58,9 @@
 <div class="row">
     <div class="col-md-4">
         <div class="form-group">
-            <label>Valitse toiminto</label>
+            <label>@lang('as.with_selected')</label>
             <select name="" id="mass-action" class="form-control input-sm">
                 <option value="{{ route('as.services.categories.destroy') }}" data-action-name="delete all selected categories">Delete</option>
-                <option value="">Blahde</option>
             </select>
         </div>
         <button type="submit" class="btn btn-primary btn-sm btn-submit-mass-action">{{ trans('common.save') }}</button>
@@ -71,7 +72,7 @@
 
         <div class="btn-group">
             <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-            Yksiköitä yhteensä <span class="caret"></span>
+            @lang('as.items_per_page') <span class="caret"></span>
             </button>
             <ul class="dropdown-menu dropdown-menu-right">
                 <li><a href="{{ route('as.services.categories', ['perPage' => 5]) }}">5</a></li>
@@ -82,5 +83,5 @@
         </div>
     </div>
 </div>
-</form>
+{{ Form::close() }}
 @stop
