@@ -39,7 +39,7 @@
             <td>{{ $category->description }}</td>
             <td>
             <div  class="pull-right">
-                <a href="{{ route('as.services.categories.edit', ['id'=> $category->id ]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
+                <a href="{{ route('as.services.categories.upsert', ['id'=> $category->id ]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
                 <a href="{{ route('as.services.categories.delete', ['id'=> $category->id ]) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
             </div>
             </td>

@@ -233,24 +233,19 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Services@destroy'
     ]);
 
+    // Service Category
     Route::get('services/categories', [
         'as' => 'as.services.categories',
-        'uses' => 'App\Appointment\Controllers\Categories@categories'
+        'uses' => 'App\Appointment\Controllers\Categories@index'
     ]);
 
-    Route::get('services/categories/datatable', [
-        'as' => 'as.services.categories.datatable',
-        'uses' => 'App\Appointment\Controllers\Categories@datatable'
+    Route::get('services/categories/upsert/{id?}', [
+        'as' => 'as.services.categories.upsert',
+        'uses' => 'App\Appointment\Controllers\Categories@upsert'
     ]);
 
-    Route::get('services/categories/create', [
-        'as' => 'as.services.categories.create',
-        'uses' => 'App\Appointment\Controllers\Categories@create'
-    ]);
-
-    Route::get('services/categories/edit/{id}', [
-        'as' => 'as.services.categories.edit',
-        'uses' => 'App\Appointment\Controllers\Categories@edit'
+    Route::post('services/categories/upsert/{id?}', [
+        'uses' => 'App\Appointment\Controllers\Categories@doUpsert'
     ]);
 
     Route::get('services/categories/delete/{id}', [
@@ -263,16 +258,7 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Categories@destroy'
     ]);
 
-    Route::post('services/categories/create', [
-        'as' => 'as.services.categories.create',
-        'uses' => 'App\Appointment\Controllers\Categories@doCreate'
-    ]);
-
-    Route::post('services/categories/edit/{id}', [
-        'as' => 'as.services.categories.edit',
-        'uses' => 'App\Appointment\Controllers\Categories@doEdit'
-    ]);
-
+    // Service Resource
     Route::get('services/resources', [
         'as' => 'as.services.resources',
         'uses' => 'App\Appointment\Controllers\Resources@resources'

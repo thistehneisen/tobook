@@ -6,12 +6,12 @@ use App\Appointment\Models\ServiceCategory;
 class Categories extends AsBase
 {
 
-     /**
+    /**
      * Show all categories of the current user and a form to add new category
      *
      * @return View
      */
-    public function categories()
+    public function index()
     {
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
         $categories = $this->categoryModel
@@ -28,7 +28,8 @@ class Categories extends AsBase
     *
     * @return View
     */
-    public function create(){
+    public function create()
+    {
         return View::make('modules.as.services.category.form');
     }
 
@@ -94,6 +95,57 @@ class Categories extends AsBase
     }
 
     /**
+     * Show the form to insert or update a record
+     *
+     * @param int $id Optional. Item's ID
+     *
+     * @return View
+     */
+    public function upsert($id = null)
+    {
+        $data = [];
+        if ($id !== null) {
+            $data['item'] = ServiceCategory::findOrFail($id);
+        }
+
+        return View::make('modules.as.services.category.form', $data);
+    }
+
+    /**
+     * Handle upsert
+     *
+     * @param int $id Optional. Item's ID
+     *
+     * @return Redirect
+     */
+    public function doUpsert($id = null)
+    {
+        $errors = $this->errorMessageBag(trans('common.err.unexpected'));
+
+        try {
+            $category = ($id !== null)
+                ? ServiceCategory::findOrFail($id)
+                : new ServiceCategory;
+
+            $category->fill(Input::all());
+            // Attach user
+            $category->user()->associate($this->user);
+            $category->saveOrFail();
+
+            $message = ($id !== null)
+                ? trans('as.services.success_add_category')
+                : trans('as.services.success_edit_category');
+
+            return Redirect::route('as.services.categories')
+                ->with('messages', $this->successMessageBag($message));
+        } catch (\Watson\Validating\ValidationException $ex) {
+            $errors = $ex->getErrors();
+        }
+
+        return Redirect::back()->withInput()->withErrors($errors, 'top');
+    }
+
+    /**
      * Delete a category
      *
      * @param int $id
@@ -115,10 +167,10 @@ class Categories extends AsBase
     public function destroy()
     {
         $categories = Input::get('categories', []);
-        try{
+        try {
             $this->categoryModel->destroy($categories);
             $data['success'] = true;
-        } catch (\Exception $ex){
+        } catch (\Exception $ex) {
             $data['success'] = false;
             $data['error'] = $ex->getMessage();
         }
