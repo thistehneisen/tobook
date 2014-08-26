@@ -7,7 +7,9 @@
         <div class="form-group {{ Form::errorCSS($name, $errors) }}">
             {{ Form::label($name, $field['label'], ['class' => 'col-sm-2 col-sm-offset-1 control-label']) }}
             <div class="col-sm-6">
-        @if ($field['type'] === 'password') {{ Form::$field['type']($name, ['class' => 'form-control']) }}
+
+        {{-- Make the field by type --}}
+        @if ($field['type'] === 'password') {{ Form::$field['type']($name, ['class' => 'form-control']) { }}{-- Radio --}}
         @elseif ($field['type'] === 'radio')
             <div class="radio">
                 <label>{{ Form::radio($name, 'true', Input::get($name, isset($item) ? $item->$name : true)) }} {{ trans('common.yes') }}</label>
@@ -15,8 +17,10 @@
             <div class="radio">
                 <label>{{ Form::radio($name, 'false', Input::get($name, isset($item) ? $item->$name : false)) }} {{ trans('common.no') }}</label>
             </div>
+        {{-- Default is text field --}}
         @else {{ Form::$field['type']($name, Input::get($name, isset($item) ? $item->$name : ''), ['class' => 'form-control']) }}
         @endif
+
             <!-- Validation error -->
             {{ Form::errorText($name, $errors) }}
             </div>

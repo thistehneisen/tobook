@@ -22,8 +22,10 @@ class Lomake
         // Now we have an object
         $instance = $model;
 
+        // Merge default options with values from user
         $opt = array_merge([
-            'form' => ['class' => 'form-horizontal well']
+            'form'     => ['class' => 'form-horizontal well'],
+            'template' => 'varaa-lomake::form'
         ], $opt);
 
         $fields = [];
@@ -45,7 +47,7 @@ class Lomake
             $fields[$name] = $field;
         }
 
-        return View::make('varaa-lomake::form', [
+        return View::make($opt['template'], [
             'fields' => $fields,
             'opt'    => $opt,
             'item'   => $instance
