@@ -9,10 +9,10 @@
             {{ Form::$field['type']($name, ['class' => 'form-control']) }}
         @elseif ($field['type'] === 'radio')
             <div class="radio">
-                <label>{{ Form::radio($name, 'true', Input::get($name, isset($item->id) ? $item->$name : true)) }} {{ trans('common.yes') }}</label>
+                <label>{{ Form::radio($name, 1, Input::get($name, isset($item->id) ? (bool) $item->$name === true : true)) }} {{ trans('common.yes') }}</label>
             </div>
             <div class="radio">
-                <label>{{ Form::radio($name, 'false', Input::get($name, isset($item->id) ? $item->$name : false)) }} {{ trans('common.no') }}</label>
+                <label>{{ Form::radio($name, 0, Input::get($name, isset($item->id) ? (bool) $item->$name === false : false)) }} {{ trans('common.no') }}</label>
             </div>
         @elseif ($field['type'] === 'dropdown')
             {{ Form::select($name, $field['values'], Input::get($name, isset($item->id) ? $item->$name : ''), ['class' => 'form-control']) }}
