@@ -57,13 +57,13 @@
                 <li><a href="{{ route('as.services.extras') }}">Lisää lisäpalvelu</a></li>
             </ul>
         </li>
-        <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('as.services.index') }}">
+        <li @if (Request::segment(2) === 'employees') {{ 'class="active"' }} @endif class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('as.employees.index') }}">
                 <i class="fa fa-users"></i> Työntekijät <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
                 <li><a href="{{ route('as.employees.index') }}">Työntekijät</a></li>
-                <li><a href="{{ route('as.employees.create') }}">Lisää työntekijä</a></li>
+                <li><a href="{{ route('as.employees.upsert') }}">Lisää työntekijä</a></li>
                 <li><a href="{{ route('as.employees.freetime') }}">Vapaat</a></li>
                 <li><a href="{{ route('as.employees.customtime') }}">Työvuorosuunnittelu</a></li>
             </ul>

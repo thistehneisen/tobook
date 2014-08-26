@@ -36,7 +36,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($employees as $employee)
+        @foreach ($items as $employee)
         <tr>
             <td><input type="checkbox"></td>
             <td><img src=""></td>

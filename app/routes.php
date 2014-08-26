@@ -260,20 +260,11 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\ExtraServices@extras'
     ]);
 
-    Route::get('services/employees', [
-        'as' => 'as.employees.index',
-        'uses' => 'App\Appointment\Controllers\Employees@index'
-    ]);
-
-    Route::get('services/employees/create', [
-        'as' => 'as.employees.create',
-        'uses' => 'App\Appointment\Controllers\Employees@create'
-    ]);
-
-    Route::post('services/employees/create', [
-        'as' => 'as.employees.create',
-        'uses' => 'App\Appointment\Controllers\Employees@doCreate'
-    ]);
+    // Employee
+    \App\Appointment\Controllers\Employees::crudRoutes(
+        'employees',
+        'as.employees'
+    );
 
     Route::get('services/employees/freetime', [
         'as' => 'as.employees.freetime',

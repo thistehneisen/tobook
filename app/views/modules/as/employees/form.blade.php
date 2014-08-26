@@ -6,7 +6,7 @@
     @if (Route::currentRouteName() === 'as.employees.create')
     {{ Form::open(['route' => 'as.employees.create', 'class' => 'form-horizontal well', 'role' => 'form']) }}
      @else
-    {{ Form::open(['route' => ['as.employees.edit', (isset($category)) ? $category->id: null], 'class' => 'form-horizontal well', 'role' => 'form']) }}
+    {{ Form::open(['route' => ['as.employees.upsert', (isset($category)) ? $category->id: null], 'class' => 'form-horizontal well', 'role' => 'form']) }}
     @endif
         @include ('el.messages')
         <div class="form-group">

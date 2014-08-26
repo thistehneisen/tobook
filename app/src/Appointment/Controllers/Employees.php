@@ -5,20 +5,11 @@ use App\Appointment\Models\Employee;
 
 class Employees extends AsBase
 {
+    use App\Appointment\Traits\Crud;
 
-    public function index()
-    {
-        $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
-        $employees = $this->employeeModel
-            ->ofCurrentUser()
-            ->paginate($perPage);
+    protected $viewPath = 'modules.as.employees';
 
-        return View::make('modules.as.employees.index', [
-            'employees' => $employees
-        ]);
-    }
-
-    public function create()
+    public function upsert()
     {
          $services = $this->serviceModel
             ->ofCurrentUser()->lists('name', 'id');
