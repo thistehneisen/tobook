@@ -11,6 +11,11 @@ return [
         'all_resources'        => 'All resources',
         'success_add_category' => 'A new category was created.'
     ],
+    'resources' => [
+        'name'        => 'Name',
+        'description' => 'Description',
+        'quantity'    => 'Quantity',
+    ],
     'items_per_page' => 'Items per page',
     'with_selected'  => 'With selected',
     'crud' => [

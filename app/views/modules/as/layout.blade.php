@@ -53,7 +53,7 @@
                 <li><a href="{{ route('as.services.index') }}">Index</a></li>
                 <li><a href="{{ route('as.services.create') }}">Lisää palveluita</a></li>
                 <li><a href="{{ route('as.services.categories.index') }}">Lisää kategoria</a></li>
-                <li><a href="{{ route('as.services.resources') }}">Lisää resurssi</a></li>
+                <li><a href="{{ route('as.services.resources.index') }}">Lisää resurssi</a></li>
                 <li><a href="{{ route('as.services.extras') }}">Lisää lisäpalvelu</a></li>
             </ul>
         </li>

@@ -17,19 +17,19 @@
         </tr>
     </thead>
     <tbody>
-         @foreach ($resources as $resource)
+         @foreach ($items as $item)
         <tr>
-            <td><input type="checkbox" class="checkbox" name="resources[]" value="{{ $resource->id }}"></td>
-            <td>{{ $resource->name }}</td>
-            <td>{{ $resource->quanity }}</td>
-            <td>{{ $resource->description }}</td>
+            <td><input type="checkbox" class="checkbox" name="resources[]" value="{{ $item->id }}"></td>
+            <td>{{ $item->name }}</td>
+            <td>{{ $item->quantity }}</td>
+            <td>{{ $item->description }}</td>
             <td class="pull-right">
-                <a href="{{ route('as.services.resources.edit', ['id'=> $resource->id ]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
-                <a href="{{ route('as.services.resources.delete', ['id'=> $resource->id ]) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
+                <a href="{{ route('as.services.resources.upsert', ['id'=> $item->id ]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
+                <a href="{{ route('as.services.resources.delete', ['id'=> $item->id ]) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
             </td>
         </tr>
         @endforeach
-        @if (empty($resources->getTotal()))
+        @if (empty($items->getTotal()))
         <tr>
             <td colspan="4">{{ trans('common.no_records') }}</td>
         </tr>
@@ -53,10 +53,10 @@
                     Yksiköitä yhteensä <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="{{ route('as.services.resources', ['perPage' => 5]) }}">5</a></li>
-                        <li><a href="{{ route('as.services.resources', ['perPage' => 10]) }}">10</a></li>
-                        <li><a href="{{ route('as.services.resources', ['perPage' => 20]) }}">20</a></li>
-                        <li><a href="{{ route('as.services.resources', ['perPage' => 50]) }}">50</a></li>
+                        <li><a href="{{ route('as.services.resources.index', ['perPage' => 5]) }}">5</a></li>
+                        <li><a href="{{ route('as.services.resources.index', ['perPage' => 10]) }}">10</a></li>
+                        <li><a href="{{ route('as.services.resources.index', ['perPage' => 20]) }}">20</a></li>
+                        <li><a href="{{ route('as.services.resources.index', ['perPage' => 50]) }}">50</a></li>
                     </ul>
                 </div>
             </td>

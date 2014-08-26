@@ -245,35 +245,39 @@ Route::group([
     ]);
 
     // Service Resource
-    Route::get('services/resources', [
-        'as' => 'as.services.resources',
-        'uses' => 'App\Appointment\Controllers\Resources@resources'
-    ]);
+    \App\Appointment\Controllers\Resources::crudRoutes(
+        'services/resources',
+        'as.services.resources'
+    );
+    // Route::get('services/resources', [
+    //     'as' => 'as.services.resources',
+    //     'uses' => 'App\Appointment\Controllers\Resources@resources'
+    // ]);
 
-    Route::get('services/resources/create', [
-        'as' => 'as.services.resources.create',
-        'uses' => 'App\Appointment\Controllers\Resources@create'
-    ]);
+    // Route::get('services/resources/create', [
+    //     'as' => 'as.services.resources.create',
+    //     'uses' => 'App\Appointment\Controllers\Resources@create'
+    // ]);
 
-    Route::post('services/resources/create', [
-        'as' => 'as.services.resources.create',
-        'uses' => 'App\Appointment\Controllers\Resources@doCreate'
-    ]);
+    // Route::post('services/resources/create', [
+    //     'as' => 'as.services.resources.create',
+    //     'uses' => 'App\Appointment\Controllers\Resources@doCreate'
+    // ]);
 
-    Route::get('services/resources/edit/{id}', [
-        'as' => 'as.services.resources.edit',
-        'uses' => 'App\Appointment\Controllers\Resources@edit'
-    ]);
+    // Route::get('services/resources/edit/{id}', [
+    //     'as' => 'as.services.resources.edit',
+    //     'uses' => 'App\Appointment\Controllers\Resources@edit'
+    // ]);
 
-    Route::post('services/resources/edit/{id}', [
-        'as' => 'as.services.resources.edit',
-        'uses' => 'App\Appointment\Controllers\Resources@doEdit'
-    ]);
+    // Route::post('services/resources/edit/{id}', [
+    //     'as' => 'as.services.resources.edit',
+    //     'uses' => 'App\Appointment\Controllers\Resources@doEdit'
+    // ]);
 
-    Route::get('services/resources/delete/{id}', [
-        'as' => 'as.services.resources.delete',
-        'uses' => 'App\Appointment\Controllers\Resources@delete'
-    ]);
+    // Route::get('services/resources/delete/{id}', [
+    //     'as' => 'as.services.resources.delete',
+    //     'uses' => 'App\Appointment\Controllers\Resources@delete'
+    // ]);
 
     Route::post('services/resources/destroy', [
         'as' => 'as.services.resources.destroy',

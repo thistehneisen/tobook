@@ -21,6 +21,11 @@ return [
         'is_subscribed_email'   => 'Lähetä sähköposti',
         'is_subscribed_sms'     => 'Lähetä tekstiviesti',
     ],
+    'resources' => [
+        'name'        => 'Nimi',
+        'description' => 'Kuvaus',
+        'quantity'    => 'Quantity',
+    ],
     'items_per_page' => 'Yksiköitä yhteensä',
     'with_selected'  => 'Valitse toiminto',
     'crud' => [
