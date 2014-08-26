@@ -46,7 +46,7 @@ trait Crud
             'index'    => ['get', ''],
             'upsert'   => ['get', 'upsert/{id?}'],
             'doUpsert' => ['post', 'upsert/{id?}'],
-            'delete'   => ['get', 'delete'],
+            'delete'   => ['get', 'delete/{id}'],
         ];
 
         foreach ($routes as $method => $params) {
@@ -94,7 +94,7 @@ trait Crud
             : 'modules.as.crud.index';
 
         // Get fields to generate tables
-        $fields = $items->first()->fillable;
+        $fields = $this->getModel()->fillable;
 
         return View::make($view, [
             'items'      => $items,
