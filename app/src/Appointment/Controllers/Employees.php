@@ -2,6 +2,7 @@
 
 use App, View, Confide, Redirect, Input, Config;
 use App\Appointment\Models\Employee;
+use App\Appointment\Models\Service;
 
 class Employees extends AsBase
 {
@@ -10,13 +11,20 @@ class Employees extends AsBase
     protected $viewPath = 'modules.as.employees';
     protected $langPrefix = 'as.employees';
 
-    public function upsert()
+    /**
+     * {@inheritdoc}
+     */
+    public function upsert($id = null)
     {
-         $services = $this->serviceModel
-            ->ofCurrentUser()->lists('name', 'id');
-        return View::make('modules.as.employees.form', [
-                'services' => $services
-            ]);
+        $services = Service::ofCurrentUser()->lists('name', 'id');
+        $employee = ($id !== null)
+            ? Employee::findOrFail($id)
+            : new Employee;
+
+        return $this->render('form', [
+            'services' => $services,
+            'employee' => $employee
+        ]);
     }
 
     public function doCreate(){

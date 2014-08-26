@@ -18,6 +18,17 @@ return [
             'quantity'    => 'Quantity',
         ]
     ],
+    'employees' => [
+        'all'                 => 'Employees',
+        'add'                 => 'Add new employee',
+        'edit'                => 'Edit employee',
+        'name'                => 'Name',
+        'phone'               => 'Phone number',
+        'email'               => 'Email',
+        'description'         => 'Description',
+        'is_subscribed_email' => 'Is subscribed email?',
+        'is_subscribed_sms'   => 'Is subscribed SMS?',
+    ],
     'items_per_page' => 'Items per page',
     'with_selected'  => 'With selected',
     'crud' => [

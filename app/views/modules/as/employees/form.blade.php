@@ -3,19 +3,15 @@
 @section ('content')
 
 <div id="form-add-employee" class="modal-form">
-    @if (Route::currentRouteName() === 'as.employees.create')
-    {{ Form::open(['route' => 'as.employees.create', 'class' => 'form-horizontal well', 'role' => 'form']) }}
-     @else
-    {{ Form::open(['route' => ['as.employees.upsert', (isset($category)) ? $category->id: null], 'class' => 'form-horizontal well', 'role' => 'form']) }}
-    @endif
+    {{ Form::open(['route' => ['as.employees.upsert', (isset($employee->id)) ? $employee->id: null], 'class' => 'form-horizontal well', 'role' => 'form']) }}
         @include ('el.messages')
         <div class="form-group">
             <div class="col-sm-5">
-              @if (Route::currentRouteName() === 'as.employees.create')
-              <h4 class="comfortaa">{{ trans('as.employees.add_employee') }}</h4>
-              @else
-              <h4 class="comfortaa">{{ trans('as.employees.edit_employee') }}</h4>
-              @endif
+            @if (isset($employee->id))
+                <h4 class="comfortaa">{{ trans('as.employees.edit') }}</h4>
+            @else
+                <h4 class="comfortaa">{{ trans('as.employees.add') }}</h4>
+            @endif
             </div>
         </div>
         <div class="form-group">

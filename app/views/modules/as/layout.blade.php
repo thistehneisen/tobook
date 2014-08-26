@@ -62,8 +62,8 @@
                 <i class="fa fa-users"></i> Työntekijät <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="{{ route('as.employees.index') }}">Työntekijät</a></li>
-                <li><a href="{{ route('as.employees.upsert') }}">Lisää työntekijä</a></li>
+                <li><a href="{{ route('as.employees.index') }}">{{ trans('as.employees.all') }}</a></li>
+                <li><a href="{{ route('as.employees.upsert') }}">{{ trans('as.employees.add') }}</a></li>
                 <li><a href="{{ route('as.employees.freetime') }}">Vapaat</a></li>
                 <li><a href="{{ route('as.employees.customtime') }}">Työvuorosuunnittelu</a></li>
             </ul>
