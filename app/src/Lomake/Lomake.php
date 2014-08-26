@@ -34,6 +34,11 @@ class Lomake
                 ? trans($opt['trans'].'.'.$name)
                 : $name;
 
+            // If this is required
+            if ($this->isRequired($instance, $name)) {
+                $field['label'] .= '*';
+            }
+
             // Try to guess the type of this field
             $field['type'] = $this->guessInputType($name);
 
@@ -42,8 +47,35 @@ class Lomake
 
         return View::make('varaa-lomake::form', [
             'fields' => $fields,
-            'opt'    => $opt
+            'opt'    => $opt,
+            'item'   => $instance
         ]);
+    }
+
+    /**
+     * Check if this field is require
+     *
+     * @param Illuminate\Database\Eloquent\Model $instance
+     * @param string                             $name
+     *
+     * @return boolean
+     */
+    protected function isRequired($instance, $name)
+    {
+        $rule = '';
+        $rules = $instance->getRules();
+        if (!empty($rules) && isset($rules[$name])) {
+            $rule = $rules[$name];
+        } else {
+            // Not all rulesets have 'saving'
+            // @todo: Think about an universal check supporting state
+            // for all cases
+            $rulesets = $instance->getRulesets();
+            $rules = $rulesets['saving'];
+            $rule = isset($rules[$name]) ? $rules[$name] : '';
+        }
+
+        return str_contains($rule, 'required');
     }
 
     /**
