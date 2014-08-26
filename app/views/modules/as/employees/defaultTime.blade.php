@@ -19,11 +19,7 @@
     @foreach ($defaultTime as $time)
     <tbody>
         <tr>
-            <td>{{ trans('common.'.$time->type) }}
-                @if (!isset($time->default))
-                    {{ $time->getStartHourIndex() }}
-                @endif
-            </td>
+            <td>{{ trans('common.'.$time->type) }}</td>
             <td>
                 <div class="row">
                      <div class="col-xs-6">

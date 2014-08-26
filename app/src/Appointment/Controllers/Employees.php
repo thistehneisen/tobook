@@ -59,7 +59,8 @@ class Employees extends AsBase
         $employee = Employee::find($id);
         return View::make('modules.as.employees.form', [
             'services' => $services,
-            'employee' => $employee
+            'employee' => $employee,
+            'employeeId' => $employee->id
         ]);
     }
 
