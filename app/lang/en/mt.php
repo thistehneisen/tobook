@@ -5,6 +5,10 @@ return [
     ],
     'group' => [
         'management'   => 'Group Management',
+        'list'         => 'Group List',
+        'create'       => 'Create Group',
+        'edit'         => 'Edit Group',
+        'label'        => 'Group',        
     ],
     'campaign' => [
         'list'         => 'Campaign List',

@@ -225,6 +225,16 @@ Route::group([
                 'update'    => 'mt.settings.update',
             ]
         ]);
+        
+        Route::resource('groups', 'App\MarketingTool\Controllers\Group', [
+            'names' => [
+                'index'     => 'mt.groups.index',
+                'create'    => 'mt.groups.create',
+                'edit'      => 'mt.groups.edit',
+                'store'     => 'mt.groups.store',
+                'update'    => 'mt.groups.update',
+            ]
+        ]);        
     });
 });
 /*
