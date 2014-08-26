@@ -27,7 +27,7 @@
     </thead>
     <tbody>
     @foreach ($items as $item)
-        <tr>
+        <tr id="row-{{ $item->id }}">
             <td><input type="checkbox" class="checkbox" name="ids[]" value="{{ $item->id }}"></td>
         @foreach ($fields as $field)
             @if (starts_with($field, 'is_'))

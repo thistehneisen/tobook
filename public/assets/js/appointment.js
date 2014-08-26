@@ -18,6 +18,11 @@ $(document).ready(function () {
                     dataType: 'json'
                 }).done(function(data) {
                     alertify.alert('OK');
+                    if($('#mass-action').val()=='destroy'){
+                        $("#form-bulk [type=checkbox]:checked").each(function(){
+                            $('#row-'+$(this).val()).remove();
+                        });
+                    }
                 }).fail(function() {
                     alertify.alert('Something went wrong');
                 });
@@ -26,12 +31,15 @@ $(document).ready(function () {
     });
 
     // Allow to click on TR to select checkbox
-    $('table.table-crud tr').on('click', function() {
-        var $this = $(this),
-            checkbox = $this.find('td:first input:checkbox'),
-            checked = checkbox.prop('checked');
+    $('table.table-crud tr').on('click', function(event) {
+        var target = $(event.target);
+        if(target.is('td')){//fix bug cannot click to the actuall checkbox
+            var $this = $(this),
+                checkbox = $this.find('td:first input:checkbox'),
+                checked = checkbox.prop('checked');
 
-        checkbox.prop('checked', !checked);
+            checkbox.prop('checked', !checked);
+        }
     });
 
     // Date picker
