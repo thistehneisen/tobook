@@ -114,12 +114,19 @@ trait Crud
     public function upsert($id = null)
     {
         $model = $this->getModel();
-        $data = [];
-        $data['item'] = ($id !== null)
+        $item = ($id !== null)
             ? $model->findOrFail($id)
             : new $model;
 
-        return $this->render('form', $data);
+        $view = View::exists($this->getViewPath().'form')
+            ? $this->getViewPath().'form'
+            : 'modules.as.crud.form';
+
+        return View::make($view, [
+            'item'       => $item,
+            'routes'     => static::$crudRoutes,
+            'langPrefix' => $this->getLangPrefix(),
+        ]);
     }
 
     /**
