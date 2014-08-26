@@ -24,9 +24,15 @@ class Lomake
 
         // Merge default options with values from user
         $opt = array_merge([
-            'form'     => ['class' => 'form-horizontal well'],
+            'form'     => ['class' => 'form-horizontal well', 'role' => 'form'],
             'template' => 'varaa-lomake::form'
         ], $opt);
+
+        if (!isset($opt['route'])) {
+            throw new \InvalidArgumentException('Route name must be passed as an option in second argument');
+        }
+        // Attach the route to generate URL
+        $opt['form']['route'] = $opt['route'];
 
         $fields = [];
         foreach ($instance->fillable as $name) {
