@@ -27,6 +27,14 @@ class Categories extends AsBase
     /**
      * {@inheritdoc}
      */
+    protected function getLangPrefix()
+    {
+        return 'as.services.category';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     protected function upsertHandler($item)
     {
         $item->fill(Input::all());

@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Traits;
 
-use App, Input, Config, Redirect, Route;
+use App, Input, Config, Redirect, Route, View;
 
 trait Crud
 {
@@ -20,6 +20,16 @@ trait Crud
         }
 
         return $this->model;
+    }
+
+    /**
+     * Get language prefix for this controller
+     *
+     * @return string
+     */
+    public function getLangPrefix()
+    {
+        return '';
     }
 
     /**
@@ -78,8 +88,19 @@ trait Crud
             ->ofCurrentUser()
             ->paginate($perPage);
 
-        return $this->render('index', [
-            'items' => $items
+        // User can overwrite default CRUD template
+        $view = View::exists($this->getViewPath().'index')
+            ? $this->getViewPath().'index'
+            : 'modules.as.crud.index';
+
+        // Get fields to generate tables
+        $fields = $items->first()->fillable;
+
+        return View::make($view, [
+            'items'      => $items,
+            'routes'     => static::$crudRoutes,
+            'langPrefix' => $this->getLangPrefix(),
+            'fields'     => $fields
         ]);
     }
 

@@ -10,43 +10,46 @@
 @stop
 
 @section ('content')
-    @include('modules.as.services.category.tabs')
-    <br>
+    @include('modules.as.crud.tabs', ['routes' => $routes, 'langPrefix' => $langPrefix])
     @include ('el.messages')
-<h4 class="comfortaa">{{ trans('as.services.all_categories') }}</h4>
+<h4 class="comfortaa">{{ trans($langPrefix.'.all') }}</h4>
 
 {{ Form::open(['class' => 'form-inline form-table']) }}
 <table class="table table-hover">
     <thead>
         <tr>
             <th><input type="checkbox" class="toggle-check-all-boxes" data-checkbox-class="checkbox"></th>
-            <th>{{ trans('as.services.name') }}</th>
-            <th>{{ trans('as.services.is_show_front') }}</th>
-            <th>{{ trans('as.services.description') }}</th>
+        @foreach ($fields as $field)
+            <th>{{ trans($langPrefix.'.'.$field) }}</th>
+        @endforeach
             <th>&nbsp;</th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($items as $item)
+    @foreach ($items as $item)
         <tr>
-        <td><input type="checkbox" class="checkbox" name="categories[]" value="{{ $item->id }}"></td>
-            <td>{{ $item->name }}</td>
-            <td>
-            @if ($item->is_show_front)
-                <span class="label label-success">{{ trans('common.yes') }}</span>
+            <td><input type="checkbox" class="checkbox" name="categories[]" value="{{ $item->id }}"></td>
+        @foreach ($fields as $field)
+            @if (starts_with($field, 'is_'))
+                <td>
+                @if ((bool) $item->$field === true)
+                    <span class="label label-success">{{ trans('common.yes') }}</span>
+                @else
+                    <span class="label label-danger">{{ trans('common.no') }}</span>
+                @endif
+                </td>
             @else
-                <span class="label label-danger">{{ trans('common.no') }}</span>
+                <td>{{ $item->$field }}</td>
             @endif
-            </td>
-            <td>{{ $item->description }}</td>
+        @endforeach
             <td>
             <div  class="pull-right">
-                <a href="{{ route('as.services.categories.upsert', ['id'=> $item->id ]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
-                <a href="{{ route('as.services.categories.delete', ['id'=> $item->id ]) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
+                <a href="{{ route($routes['upsert'], ['id'=> $item->id ]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
+                <a href="{{ route($routes['delete'], ['id'=> $item->id ]) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
             </div>
             </td>
         </tr>
-        @endforeach
+    @endforeach
         @if (empty($items->getTotal()))
         <tr>
             <td colspan="4">{{ trans('common.no_records') }}</td>
@@ -68,17 +71,17 @@
     <div class="col-md-6 text-right">
         {{  $items->appends(Input::only('perPage'))->links() }}
     </div>
-    <div class="col-md-2 text-right">
 
+    <div class="col-md-2 text-right">
         <div class="btn-group">
             <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
             @lang('as.items_per_page') <span class="caret"></span>
             </button>
             <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="{{ route('as.services.categories.index', ['perPage' => 5]) }}">5</a></li>
-                <li><a href="{{ route('as.services.categories.index', ['perPage' => 10]) }}">10</a></li>
-                <li><a href="{{ route('as.services.categories.index', ['perPage' => 10]) }}">20</a></li>
-                <li><a href="{{ route('as.services.categories.index', ['perPage' => 50]) }}">50</a></li>
+                <li><a href="{{ route($routes['index'], ['perPage' => 5]) }}">5</a></li>
+                <li><a href="{{ route($routes['index'], ['perPage' => 10]) }}">10</a></li>
+                <li><a href="{{ route($routes['index'], ['perPage' => 10]) }}">20</a></li>
+                <li><a href="{{ route($routes['index'], ['perPage' => 50]) }}">50</a></li>
             </ul>
         </div>
     </div>
