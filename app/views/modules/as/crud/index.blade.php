@@ -15,7 +15,7 @@
 <h4 class="comfortaa">{{ trans($langPrefix.'.all') }}</h4>
 
 {{ Form::open(['route' => $routes['bulk'], 'class' => 'form-inline form-table', 'id' => 'form-bulk', 'data-confirm' => trans('as.crud.bulk_confirm')]) }}
-<table class="table table-hover">
+<table class="table table-hover table-crud">
     <thead>
         <tr>
             <th><input type="checkbox" class="toggle-check-all-boxes" data-checkbox-class="checkbox"></th>

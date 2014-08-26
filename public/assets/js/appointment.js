@@ -25,6 +25,15 @@ $(document).ready(function () {
         });
     });
 
+    // Allow to click on TR to select checkbox
+    $('table.table-crud tr').on('click', function() {
+        var $this = $(this),
+            checkbox = $this.find('td:first input:checkbox'),
+            checked = checkbox.prop('checked');
+
+        checkbox.prop('checked', !checked);
+    });
+
     // Date picker
     $('.date-picker').datepicker({
         format: 'yyyy-mm-dd'
