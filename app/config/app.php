@@ -126,6 +126,7 @@ return array(
         'Zizaco\Entrust\EntrustServiceProvider',
         'Ludo237\Hashids\HashidsServiceProvider',
         'anlutro\LaravelSettings\ServiceProvider',
+        'App\Lomake\LomakeServiceProvider'
 
     ),
 
@@ -198,7 +199,8 @@ return array(
         'Entrust'  => 'Zizaco\Entrust\EntrustFacade',
         'Hashids'  => 'Ludo237\Hashids\Hashids',
         'Setting'  => 'anlutro\LaravelSettings\Facade',
-        'Consumer' => 'App\Consumers\Models\Consumer'
+        'Consumer' => 'App\Consumers\Models\Consumer',
+        'Lomake'   => 'App\Lomake\Facade'
 
     ),
 

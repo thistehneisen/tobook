@@ -139,28 +139,32 @@ Route::group([
     ], function () {
 
         Route::get('cashier', [
-            'as' => 'cashier.index',
-            'uses' => 'App\Core\Controllers\Services@cashier'
+            'as'     => 'cashier.index',
+            'before' => ['premium.modules:cashier'],
+            'uses'   => 'App\Core\Controllers\Services@cashier'
         ]);
 
         Route::get('restaurant-booking', [
-            'as' => 'restaurant.index',
-            'uses' => 'App\Core\Controllers\Services@restaurant'
+            'as'     => 'restaurant.index',
+            'before' => ['premium.modules:restaurant'],
+            'uses'   => 'App\Core\Controllers\Services@restaurant'
         ]);
 
         Route::get('timeslot', [
-            'as' => 'timeslot.index',
-            'uses' => 'App\Core\Controllers\Services@timeslot'
+            'as'     => 'timeslot.index',
+            'before' => ['premium.modules:timeslot'],
+            'uses'   => 'App\Core\Controllers\Services@timeslot'
         ]);
 
         Route::get('appointment-scheduler', [
             'as'     => 'appointment.index',
-            'before' => 'premium.modules:appointment',
+            'before' => ['premium.modules:appointment'],
             'uses'   => 'App\Core\Controllers\Services@appointment'
         ]);
 
         Route::get('loyalty-program', [
             'as' => 'loyalty.index',
+            'before' => ['premium.modules:loyalty'],
             'uses' => 'App\Core\Controllers\Services@loyalty'
         ]);
 
