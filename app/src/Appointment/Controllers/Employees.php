@@ -8,6 +8,7 @@ class Employees extends AsBase
     use App\Appointment\Traits\Crud;
 
     protected $viewPath = 'modules.as.employees';
+    protected $langPrefix = 'as.employees';
 
     public function upsert()
     {

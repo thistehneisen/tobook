@@ -2,20 +2,12 @@
 
 use App, View, Confide, Redirect, Input, Config, Response;
 use App\Appointment\Models\Resource;
-use App\Appointment\Traits\Crud;
 
 class Resources extends AsBase
 {
     use App\Appointment\Traits\Crud;
     protected $viewPath = 'modules.as.services.resource';
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getLangPrefix()
-    {
-        return 'as.services.resource';
-    }
+    protected $langPrefix = 'as.services.resource';
 
     /**
      * {@inheritdoc}

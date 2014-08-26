@@ -4,10 +4,9 @@ use App, Input, Config, Redirect, Route, View;
 
 trait Crud
 {
-    protected $model;
-
     public static $crudRoutes = [];
 
+    protected $model;
     /**
      * Return a model to interact with database
      *
@@ -23,13 +22,34 @@ trait Crud
     }
 
     /**
+     * Guess the model name based on controller name
+     * If you're building a controller that doesn't have a model with the same
+     * name, for example, ReportController using ConsumerModel, redefine this
+     * method.
+     *
+     * @return string
+     */
+    protected function getModelClass()
+    {
+        if (isset($this->modelClass) && $this->modelClass !== null)  {
+            return $this->modelClass;
+        }
+
+        // Because we have namespace like App\<module>\Controllers
+        $namespace = substr(__NAMESPACE__, 0, strrpos(__NAMESPACE__, '\\')).'\Models\\';
+        return $namespace.str_singular(class_basename(__CLASS__));
+    }
+
+    /**
      * Get language prefix for this controller
      *
      * @return string
      */
     public function getLangPrefix()
     {
-        return '';
+        return (isset($this->langPrefix) && $this->langPrefix !== null)
+            ? $this->langPrefix
+            : '';
     }
 
     /**
@@ -59,21 +79,6 @@ trait Crud
 
             Route::$httpMethod($uri.'/'.$nameSuffix, $def);
         }
-    }
-
-    /**
-     * Guess the model name based on controller name
-     * If you're building a controller that doesn't have a model with the same
-     * name, for example, ReportController using ConsumerModel, redefine this
-     * method.
-     *
-     * @return string
-     */
-    protected function getModelClass()
-    {
-        // Because we have namespace like App\Appointments\Controllers
-        $namespace = substr(__NAMESPACE__, 0, strrpos(__NAMESPACE__, '\\')).'\Models\\';
-        return $namespace.str_singular(class_basename(__CLASS__));
     }
 
     /**

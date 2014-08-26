@@ -2,29 +2,14 @@
 
 use App, View, Confide, Redirect, Input, Config, Response;
 use App\Appointment\Models\ServiceCategory;
-use App\Appointment\Traits\Crud;
 
 class Categories extends AsBase
 {
-    use Crud;
+    use App\Appointment\Traits\Crud;
 
     protected $viewPath = 'modules.as.services.category';
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getModelClass()
-    {
-        return 'App\Appointment\Models\ServiceCategory';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getLangPrefix()
-    {
-        return 'as.services.category';
-    }
+    protected $langPrefix = 'as.services.category';
+    protected $modelClass = 'App\Appointment\Models\ServiceCategory';
 
     /**
      * {@inheritdoc}
