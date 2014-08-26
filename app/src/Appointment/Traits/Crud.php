@@ -33,9 +33,9 @@ trait Crud
     public static function crudRoutes($uri, $name)
     {
         $routes = [
-            'index'    => ['get', 'index'],
-            'upsert'   => ['get', 'upsert'],
-            'doUpsert' => ['post', 'upsert'],
+            'index'    => ['get', ''],
+            'upsert'   => ['get', 'upsert/{id?}'],
+            'doUpsert' => ['post', 'upsert/{id?}'],
             'delete'   => ['get', 'delete'],
         ];
 
@@ -43,11 +43,9 @@ trait Crud
             list($httpMethod, $nameSuffix) = $params;
 
             $def = [];
+            $def['as'] = $name.'.'.$method;
             $def['uses'] = __CLASS__.'@'.$method;
-            if ($nameSuffix !== null) {
-                static::$crudRoutes[$method] = $name.'.'.$nameSuffix;
-                $def['as'] = $name.'.'.$method;
-            }
+            static::$crudRoutes[$method] = $def['as'];
 
             Route::$httpMethod($uri.'/'.$nameSuffix, $def);
         }
@@ -118,7 +116,7 @@ trait Crud
                 ? $model->findOrFail($id)
                 : new $model;
 
-            $item->fill(Input::all());
+            $item = $this->upsertHandler($item);
             $item->saveOrFail();
 
             $message = ($id !== null)
@@ -133,6 +131,20 @@ trait Crud
 
         $errors = $this->errorMessageBag(trans('common.err.unexpected'));
         return Redirect::back()->withInput()->withErrors($errors, 'top');
+    }
+
+    /**
+     * Take all input and update model attributes
+     * Developers might want to rewrite this method to have desired behaviors
+     *
+     * @param Illuminate\Database\Eloquent\Model $item
+     *
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    protected function upsertHandler($item)
+    {
+        $item->fill(Input::all());
+        return $item;
     }
 
     /**

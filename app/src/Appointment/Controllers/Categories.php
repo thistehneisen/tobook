@@ -16,9 +16,22 @@ class Categories extends AsBase
         return 'App\Appointment\Models\ServiceCategory';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getViewPath()
     {
         return 'modules.as.services.category';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function upsertHandler($item)
+    {
+        $item->fill(Input::all());
+        $item->user()->associate($this->user);
+        return $item;
     }
 
     public function destroy()
