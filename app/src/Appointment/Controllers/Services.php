@@ -3,7 +3,10 @@
 use App, View, Confide, Redirect, Input, Config;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;
+use App\Appointment\Models\Resource;
+use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\EmployeeService;
+use App\Appointment\Models\Employee;
 
 class Services extends AsBase
 {
@@ -11,8 +14,7 @@ class Services extends AsBase
     public function index()
     {
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
-        $services = $this->serviceModel
-            ->ofCurrentUser()
+        $services = Service::ofCurrentUser()
             ->with('category')->paginate($perPage);
 
         return View::make('modules.as.services.index', [
@@ -22,10 +24,10 @@ class Services extends AsBase
 
     public function create()
     {
-        $categories = $this->categoryModel->ofCurrentUser()->lists('name','id');
-        $resources  = $this->resourceModel->ofCurrentUser()->lists('name', 'id');
-        $extras     = $this->extraServiceModel->ofCurrentUser()->lists('name', 'id');
-        $employees  = $this->employeeModel->ofCurrentUser()->get();
+        $categories = ServiceCategory::ofCurrentUser()->lists('name','id');
+        $resources  = Resource::ofCurrentUser()->lists('name', 'id');
+        $extras     = ExtraService::ofCurrentUser()->lists('name', 'id');
+        $employees  = Employee::ofCurrentUser()->get();
         //TODO add service and service time
         return View::make('modules.as.services.service.form', [
                 'categories' => $categories,
@@ -45,7 +47,7 @@ class Services extends AsBase
             $service->user()->associate($this->user);
             $category_id = (int) Input::get('category_id');
             if(!empty($category_id)){
-                $category = $this->categoryModel->find($category_id);
+                $category = Category::find($category_id);
                 $service->category()->associate($category);
             }
 
@@ -55,7 +57,7 @@ class Services extends AsBase
             $plustimes = Input::get('plustimes');
 
             foreach ($employees as $employee_id) {
-                $employee = $this->employeeModel->find($employee_id);
+                $employee = Employee::find($employee_id);
                 $emplyeeService = new EmployeeService;
                 $emplyeeService->service()->associate($service);
                 $emplyeeService->employee()->associate($employee);

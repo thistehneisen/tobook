@@ -8,9 +8,7 @@ class ExtraServices extends AsBase
     public function extras()
     {
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
-        $extras = $this->extraServiceModel
-            ->ofCurrentUser()
-            ->paginate($perPage);
+        $extras = ExtraService::ofCurrentUser()->paginate($perPage);
 
         return View::make('modules.as.services.extras', [
             'extras' => $extras
