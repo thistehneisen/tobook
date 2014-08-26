@@ -31,9 +31,9 @@ class Categories extends AsBase
     public function upsert($id = null)
     {
         $data = [];
-        if ($id !== null) {
-            $data['item'] = ServiceCategory::findOrFail($id);
-        }
+        $data['item'] = ($id !== null)
+            ? ServiceCategory::findOrFail($id)
+            : new ServiceCategory;
 
         return View::make('modules.as.services.category.form', $data);
     }
@@ -47,8 +47,6 @@ class Categories extends AsBase
      */
     public function doUpsert($id = null)
     {
-        $errors = $this->errorMessageBag(trans('common.err.unexpected'));
-
         try {
             $category = ($id !== null)
                 ? ServiceCategory::findOrFail($id)
@@ -66,9 +64,10 @@ class Categories extends AsBase
             return Redirect::route('as.services.categories')
                 ->with('messages', $this->successMessageBag($message));
         } catch (\Watson\Validating\ValidationException $ex) {
-            $errors = $ex->getErrors();
+            return Redirect::back()->withInput()->withErrors($ex->getErrors());
         }
 
+        $errors = $this->errorMessageBag(trans('common.err.unexpected'));
         return Redirect::back()->withInput()->withErrors($errors, 'top');
     }
 
