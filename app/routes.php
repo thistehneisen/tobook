@@ -234,24 +234,10 @@ Route::group([
     ]);
 
     // Service Category
-    Route::get('services/categories', [
-        'as' => 'as.services.categories',
-        'uses' => 'App\Appointment\Controllers\Categories@index'
-    ]);
-
-    Route::get('services/categories/upsert/{id?}', [
-        'as' => 'as.services.categories.upsert',
-        'uses' => 'App\Appointment\Controllers\Categories@upsert'
-    ]);
-
-    Route::post('services/categories/upsert/{id?}', [
-        'uses' => 'App\Appointment\Controllers\Categories@doUpsert'
-    ]);
-
-    Route::get('services/categories/delete/{id}', [
-        'as' => 'as.services.categories.delete',
-        'uses' => 'App\Appointment\Controllers\Categories@delete'
-    ]);
+    \App\Appointment\Controllers\Categories::crudRoutes(
+        'services/categories',
+        'as.services.categories'
+    );
 
     Route::post('services/categories/destroy', [
         'as' => 'as.services.categories.destroy',

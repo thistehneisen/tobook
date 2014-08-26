@@ -75,10 +75,10 @@
             @lang('as.items_per_page') <span class="caret"></span>
             </button>
             <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="{{ route('as.services.categories', ['perPage' => 5]) }}">5</a></li>
-                <li><a href="{{ route('as.services.categories', ['perPage' => 10]) }}">10</a></li>
-                <li><a href="{{ route('as.services.categories', ['perPage' => 10]) }}">20</a></li>
-                <li><a href="{{ route('as.services.categories', ['perPage' => 50]) }}">50</a></li>
+                <li><a href="{{ route('as.services.categories.index', ['perPage' => 5]) }}">5</a></li>
+                <li><a href="{{ route('as.services.categories.index', ['perPage' => 10]) }}">10</a></li>
+                <li><a href="{{ route('as.services.categories.index', ['perPage' => 10]) }}">20</a></li>
+                <li><a href="{{ route('as.services.categories.index', ['perPage' => 50]) }}">50</a></li>
             </ul>
         </div>
     </div>

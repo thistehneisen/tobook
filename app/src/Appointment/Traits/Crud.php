@@ -1,23 +1,56 @@
 <?php namespace App\Appointment\Traits;
 
-use App, Input, Config;
+use App, Input, Config, Redirect, Route;
 
 trait Crud
 {
     protected $model;
+
+    public static $crudRoutes = [];
 
     /**
      * Return a model to interact with database
      *
      * @return Eloquent
      */
-    protected function getModel()
+    public function getModel()
     {
         if ($this->model === null) {
             $this->model = App::make($this->getModelClass());
         }
 
         return $this->model;
+    }
+
+    /**
+     * Generate CRUD routes
+     *
+     * @param string $uri
+     * @param string $name
+     *
+     * @return void
+     */
+    public static function crudRoutes($uri, $name)
+    {
+        $routes = [
+            'index'    => ['get', 'index'],
+            'upsert'   => ['get', 'upsert'],
+            'doUpsert' => ['post', 'upsert'],
+            'delete'   => ['get', 'delete'],
+        ];
+
+        foreach ($routes as $method => $params) {
+            list($httpMethod, $nameSuffix) = $params;
+
+            $def = [];
+            $def['uses'] = __CLASS__.'@'.$method;
+            if ($nameSuffix !== null) {
+                static::$crudRoutes[$method] = $name.'.'.$nameSuffix;
+                $def['as'] = $name.'.'.$method;
+            }
+
+            Route::$httpMethod($uri.'/'.$nameSuffix, $def);
+        }
     }
 
     /**
@@ -50,5 +83,74 @@ trait Crud
         return $this->render('index', [
             'items' => $items
         ]);
+    }
+
+    /**
+     * Show the form to insert or update a record
+     *
+     * @param int $id Optional. Item's ID
+     *
+     * @return View
+     */
+    public function upsert($id = null)
+    {
+        $model = $this->getModel();
+        $data = [];
+        $data['item'] = ($id !== null)
+            ? $model->findOrFail($id)
+            : new $model;
+
+        return $this->render('form', $data);
+    }
+
+    /**
+     * Handle upsert
+     *
+     * @param int $id Optional. Item's ID
+     *
+     * @return Redirect
+     */
+    public function doUpsert($id = null)
+    {
+        $model = $this->getModel();
+        try {
+            $item = ($id !== null)
+                ? $model->findOrFail($id)
+                : new $model;
+
+            $item->fill(Input::all());
+            $item->saveOrFail();
+
+            $message = ($id !== null)
+                ? trans('as.services.success_add_category')
+                : trans('as.services.success_edit_category');
+
+            return Redirect::route(static::$crudRoutes['index'])
+                ->with('messages', $this->successMessageBag($message));
+        } catch (\Watson\Validating\ValidationException $ex) {
+            return Redirect::back()->withInput()->withErrors($ex->getErrors());
+        }
+
+        $errors = $this->errorMessageBag(trans('common.err.unexpected'));
+        return Redirect::back()->withInput()->withErrors($errors, 'top');
+    }
+
+    /**
+     * Delete a category
+     *
+     * @param int $id
+     *
+     * @return Redirect
+     */
+    public function delete($id)
+    {
+        $item = $this->getModel()->findOrFail($id);
+        $item->delete();
+
+        return Redirect::route(static::$crudRoutes['index'])
+            ->with(
+                'messages',
+                $this->successMessageBag('ID #'.$id.' was deleted')
+            );
     }
 }
