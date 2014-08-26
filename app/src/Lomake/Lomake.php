@@ -25,7 +25,8 @@ class Lomake
         // Merge default options with values from user
         $opt = array_merge([
             'form'     => ['class' => 'form-horizontal well', 'role' => 'form'],
-            'template' => 'varaa-lomake::form'
+            'template' => 'varaa-lomake::form',
+            'fields'   => []
         ], $opt);
 
         if (!isset($opt['route'])) {
