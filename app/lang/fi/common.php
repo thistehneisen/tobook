@@ -33,6 +33,13 @@ return [
     'no'             => 'Ei',
     'active'         => 'Aktiivinen',
     'inactive'       => 'Ei aktiivinen',
+    'mon'            => 'Maanantai',
+    'tue'            => 'Tiistai',
+    'wed'            => 'Keskiviikko',
+    'thu'            => 'Torstai',
+    'fri'            => 'Perjantai',
+    'sat'            => 'Lauantai',
+    'sun'            => 'Sunnuntai',
     'err'            => [
         'unexpected'   => 'An unexpected error has occurred. Please try again later.',
         'not_found'    => 'Cannot the find the requesting data. Please check the URL again.',

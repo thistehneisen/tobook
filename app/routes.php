@@ -266,14 +266,34 @@ Route::group([
         'as.employees'
     );
 
-    Route::get('services/employees/freetime', [
+    Route::get('employees/edit/{id}', [
+        'as' => 'as.employees.edit',
+        'uses' => 'App\Appointment\Controllers\Employees@edit'
+    ]);
+
+    Route::post('employees/edit/{id}', [
+        'as' => 'as.employees.edit',
+        'uses' => 'App\Appointment\Controllers\Employees@doEdit'
+    ]);
+
+    Route::get('employees/freetime', [
         'as' => 'as.employees.freetime',
         'uses' => 'App\Appointment\Controllers\Employees@freetime'
     ]);
 
-    Route::get('services/employees/customtime', [
-        'as' => 'as.employees.customtime',
-        'uses' => 'App\Appointment\Controllers\Employees@customtime'
+    Route::get('employees/customTime', [
+        'as' => 'as.employees.customTime',
+        'uses' => 'App\Appointment\Controllers\Employees@customTime'
+    ]);
+
+    Route::get('employees/defaultTime/{id}', [
+        'as' => 'as.employees.defaultTime.get',
+        'uses' => 'App\Appointment\Controllers\Employees@defaultTime'
+    ]);
+
+    Route::post('employees/defaultTime', [
+        'as' => 'as.employees.defaultTime',
+        'uses' => 'App\Appointment\Controllers\Employees@updateDefaultTime'
     ]);
 
 });

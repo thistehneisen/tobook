@@ -1,7 +1,8 @@
 @extends ('modules.as.layout')
 
 @section ('content')
-
+@include ('modules.as.employees.editTabs')
+<br>
 <div id="form-add-employee" class="modal-form">
     {{ Form::open(['route' => ['as.employees.upsert', (isset($employee->id)) ? $employee->id: null], 'class' => 'form-horizontal well', 'role' => 'form']) }}
         @include ('el.messages')
