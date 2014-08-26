@@ -53,6 +53,21 @@ class Lomake
             $fields[$name] = $field;
         }
 
+        // User is able to overwrite guessing fields, for example, to create
+        // a dropdown list
+        // Usage:
+        // $opt['fields'] = [
+        //  'gender' => [
+        //      'label' => 'Gender',
+        //      'type' => 'dropdown',
+        //      'values' => ['m' => 'Male', 'f' => 'Female']
+        //  ]
+        // ];
+        foreach ($opt['fields'] as $name => $field)
+        {
+            $fields[$name] = $field;
+        }
+
         return View::make($opt['template'], [
             'fields' => $fields,
             'opt'    => $opt,

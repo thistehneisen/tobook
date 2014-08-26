@@ -14,6 +14,8 @@
             <div class="radio">
                 <label>{{ Form::radio($name, 'false', Input::get($name, isset($item->id) ? $item->$name : false)) }} {{ trans('common.no') }}</label>
             </div>
+        @elseif ($field['type'] === 'dropdown')
+            {{ Form::select($name, $field['values'], Input::get($name, isset($item->id) ? $item->$name : ''), ['class' => 'form-control']) }}
         @else
             {{ Form::$field['type']($name, Input::get($name, isset($item->id) ? $item->$name : ''), ['class' => 'form-control']) }}
         @endif
