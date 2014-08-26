@@ -8,20 +8,14 @@ class Categories extends AsBase
 {
     use Crud;
 
+    protected $viewPath = 'modules.as.services.category';
+
     /**
      * {@inheritdoc}
      */
     protected function getModelClass()
     {
         return 'App\Appointment\Models\ServiceCategory';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getViewPath()
-    {
-        return 'modules.as.services.category';
     }
 
     /**

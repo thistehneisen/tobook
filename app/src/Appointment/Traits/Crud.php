@@ -89,8 +89,8 @@ trait Crud
             ->paginate($perPage);
 
         // User can overwrite default CRUD template
-        $view = View::exists($this->getViewPath().'index')
-            ? $this->getViewPath().'index'
+        $view = View::exists($this->getViewPath().'.index')
+            ? $this->getViewPath().'.index'
             : 'modules.as.crud.index';
 
         // Get fields to generate tables
@@ -118,8 +118,8 @@ trait Crud
             ? $model->findOrFail($id)
             : new $model;
 
-        $view = View::exists($this->getViewPath().'form')
-            ? $this->getViewPath().'form'
+        $view = View::exists($this->getViewPath().'.form')
+            ? $this->getViewPath().'.form'
             : 'modules.as.crud.form';
 
         return View::make($view, [

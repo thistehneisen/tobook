@@ -13,6 +13,13 @@ class Base extends \Controller
     protected $user;
 
     /**
+     * Relative path in `views` folder for quicker lookup
+     *
+     * @var string
+     */
+    protected $viewPath;
+
+    /**
      * Do stuff that are available thoughout all controllers
      */
     public function __construct()
@@ -28,7 +35,7 @@ class Base extends \Controller
      */
     protected function getViewPath()
     {
-        return '';
+        return $this->viewPath;
     }
 
     /**

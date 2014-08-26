@@ -7,14 +7,7 @@ use App\Appointment\Traits\Crud;
 class Resources extends AsBase
 {
     use App\Appointment\Traits\Crud;
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getViewPath()
-    {
-        return 'modules.as.services.resource';
-    }
+    protected $viewPath = 'modules.as.services.resource';
 
     /**
      * {@inheritdoc}
