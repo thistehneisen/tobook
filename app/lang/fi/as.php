@@ -22,5 +22,10 @@ return [
         'is_subscribed_sms'     => 'Lähetä tekstiviesti',
     ],
     'items_per_page' => 'Yksiköitä yhteensä',
-    'with_selected'  => 'Valitse toiminto'
+    'with_selected'  => 'Valitse toiminto',
+    'crud' => [
+        'success_add' => 'Item was created successfully.',
+        'success_edit' => 'Data was updated successfully.',
+        'success_delete' => 'Item was deleted successfully.',
+    ]
 ];

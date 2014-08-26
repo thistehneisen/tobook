@@ -120,8 +120,8 @@ trait Crud
             $item->saveOrFail();
 
             $message = ($id !== null)
-                ? trans('as.services.success_add_category')
-                : trans('as.services.success_edit_category');
+                ? trans('as.crud.success_edit')
+                : trans('as.crud.success_add');
 
             return Redirect::route(static::$crudRoutes['index'])
                 ->with('messages', $this->successMessageBag($message));
@@ -162,7 +162,7 @@ trait Crud
         return Redirect::route(static::$crudRoutes['index'])
             ->with(
                 'messages',
-                $this->successMessageBag('ID #'.$id.' was deleted')
+                $this->successMessageBag(trans('as.crud.success_delete'))
             );
     }
 }

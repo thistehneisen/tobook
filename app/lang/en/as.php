@@ -12,5 +12,10 @@ return [
         'success_add_category' => 'A new category was created.'
     ],
     'items_per_page' => 'Items per page',
-    'with_selected'  => 'With selected'
+    'with_selected'  => 'With selected',
+    'crud' => [
+        'success_add' => 'Item was created successfully.',
+        'success_edit' => 'Data was updated successfully.',
+        'success_delete' => 'Item was deleted successfully.',
+    ]
 ];
