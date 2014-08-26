@@ -258,6 +258,18 @@ Route::group([
         Route::resource('offers', 'App\API\LoyaltyCard\Controllers\Offer');
         Route::resource('vouchers', 'App\API\LoyaltyCard\Controllers\Voucher');
         Route::resource('consumers', 'App\API\LoyaltyCard\Controllers\Consumer');
+
+        Route::group([
+            'prefix' => 'use',
+        ], function () {
+            Route::post('offers/{id}', [
+                'uses' => 'App\API\LoyaltyCard\Controllers\Use@offer'
+            ]);
+
+            Route::post('vouchers/{id}', [
+                'uses' => 'App\API\LoyaltyCard\Controllers\Use@voucher'
+            ]);
+        });
     });
 });
 
