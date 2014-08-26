@@ -35,4 +35,9 @@ return [
     'no'                => 'No',
     'title'             => 'Title',
     'name'              => 'Name',
+    'module_type'       => 'Module Type',
+    'appointment_scheduler' => 'Appointment Scheduler',
+    'restaurant_booking'    => 'Restaurant Booking',
+    'timeslot_booking'      => 'Timeslot Booking',
+    'select_module'         => 'Select Module',
 ];

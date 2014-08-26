@@ -55,7 +55,7 @@
                     ["group4", "", ["LinkDialog", "ImageDialog", "TableDialog", "SourceDialog"]],
                     ]
         });
-        $('#content').data('liveEdit').startedit();        
+        $('#content').data('liveEdit').startedit();
     </script>
 @stop
 

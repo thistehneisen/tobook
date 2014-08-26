@@ -16,6 +16,7 @@
                 <!-- <th><input type="checkbox" id="checkAll" /></th> -->
                 <th>{{ trans('common.no') }}</th>
                 <th>{{ trans('common.title') }}</th>
+                <th>{{ trans('common.status') }}</th>
                 <th>{{ trans('common.created_at') }}</th>
             </tr>
         </thead>
@@ -29,6 +30,11 @@
                 <td>
                     <a href="{{ URL::route('mt.sms.edit', ['id' => $value->id]) }}">
                         {{ $value->title }}
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ URL::route('mt.sms.edit', ['id' => $value->id]) }}">
+                        {{ $value->status }}
                     </a>
                 </td>
                 <td>

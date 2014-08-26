@@ -205,7 +205,7 @@ Route::group([
                 'update'    => 'mt.sms.update',
             ]
         ]);
-        
+
         Route::resource('templates', 'App\MarketingTool\Controllers\Template', [
             'names' => [
                 'index'     => 'mt.templates.index',
@@ -213,6 +213,16 @@ Route::group([
                 'edit'      => 'mt.templates.edit',
                 'store'     => 'mt.templates.store',
                 'update'    => 'mt.templates.update',
+            ]
+        ]);
+
+        Route::resource('settings', 'App\MarketingTool\Controllers\Setting', [
+            'names' => [
+                'index'     => 'mt.settings.index',
+                'create'    => 'mt.settings.create',
+                'edit'      => 'mt.settings.edit',
+                'store'     => 'mt.settings.store',
+                'update'    => 'mt.settings.update',
             ]
         ]);
     });

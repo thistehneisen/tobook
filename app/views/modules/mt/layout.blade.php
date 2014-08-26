@@ -18,7 +18,7 @@
         <a class="btn btn-default" href="{{ URL::route('mt.campaigns.index') }}">{{ trans('mt.campaign.management') }}</a>
         <a class="btn btn-default" href="{{ URL::route('mt.sms.index') }}">{{ trans('mt.sms.management') }}</a>
         <a class="btn btn-default" href="{{ URL::route('mt.templates.index') }}">{{ trans('mt.template.management') }}</a>
-        <a class="btn btn-default" href="#">{{ trans('mt.setting') }}</a>
+        <a class="btn btn-default" href="{{ URL::route('mt.settings.index') }}">{{ trans('mt.setting') }}</a>
     </div>
     <div class="col-md-9">
         <div class="top-buttons pull-right">
