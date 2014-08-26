@@ -13,18 +13,17 @@ class OfferCest
     {
     }
 
-    // tests
-    public function tryToTest(ApiTester $I)
+    public function testListOffers(ApiTester $I)
     {
         // Index
         $I->wantTo('Return all offers');
         $I->sendGET('offers');
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
+    }
 
-        // Store
-
-        // Invalid data
+    public function testCreateOfferWithInvalidData(ApiTester $I)
+    {
         $I->wantTo('Create an failed offers');
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
         $I->sendPOST('offers', [
@@ -36,9 +35,11 @@ class OfferCest
         $I->seeResponseCodeIs(400);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(['message' => 'Invalid data']);
+    }
 
-        // Valid data
-        /*$I->wantTo('Create an offers');
+    public function testCreateOffer(ApiTester $I)
+    {
+        $I->wantTo('Create an offers');
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
         $I->sendPOST('offers', [
             'name'      => 'Offer 1',
@@ -49,18 +50,32 @@ class OfferCest
         ]);
         $I->seeResponseCodeIs(201);
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(['message' => 'Offer created']);*/
+        $I->seeResponseContainsJson(['message' => 'Offer created']);
+        $offer_id = $I->grabDataFromJsonResponse('created');
+        $I->sendGET('offers/'.$offer_id);
+        $I->seeResponseCodeIs('200');
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson([
+            'id'      => $offer_id,
+        ]);
+    }
 
-        // Show
+    public function testShowOffer(ApiTester $I)
+    {
         $I->wantTo('See one offer');
         $I->sendGET('offers/1');
         $I->seeResponseCodeIs('200');
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson([
             'id' => 1,
+        ]);
+        $I->seeResponseContainsJson([
             'name' => 'Offer 1',
         ]);
+    }
 
+    public function testUpdateOffer(ApiTester $I)
+    {
         // Update
         $I->wantTo('Update one offer');
         $I->sendPUT('offers/2', [
@@ -71,12 +86,21 @@ class OfferCest
         $I->seeResponseCodeIs('201');
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(['message' => 'Offer updated']);
+        $I->wantTo('See updated offer');
+        $I->sendGET('offers/2');
+        $I->seeResponseCodeIs('200');
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson([
+            'name' => 'Offer Two',
+        ]);
+    }
 
-        // Destroy
-        /*$I->wantTo('Delete one offer');
-        $I->sendDELETE('offers/6', null);
+    public function testDeleteOffer(ApiTester $I)
+    {
+        $I->wantTo('Delete one offer');
+        $I->sendDELETE('offers/3', null);
         $I->seeResponseCodeIs('204');
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(['message' => 'Offer deleted']);*/
+        //$I->seeResponseContainsJson(['message' => 'Offer deleted']);
     }
 }

@@ -13,71 +13,87 @@ class ConsumerCest
     {
     }
 
-    // tests
-    public function tryToTest(ApiTester $I)
+    public function testListConsumers(ApiTester $I)
     {
-        // Index
-        // $I->wantTo('Return all consumers');
-        // $I->sendGET('consumers');
-        // $I->seeResponseCodeIs(200);
-        // $I->seeResponseIsJson();
+        $I->wantTo('Return all consumers');
+        $I->sendGET('consumers');
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+    }
 
-        // Store
+    public function testCreateConsumerWithInvalidData(ApiTester $I)
+    {
+        $I->wantTo('Create an failed consumer');
+        $I->sendPOST('consumers', [
+            'first_name'    => 'First',
+            'last_name'     => 'Last',
+            'phone'         => '987654313',
+        ]);
+        $I->seeResponseCodeIs(400);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['message' => 'Invalid data']);
+    }
 
-        // Invalid data
-        // $I->wantTo('Create an failed consumer');
-        // $I->sendPOST('consumers', [
-        //     'first_name'    => 'First',
-        //     'last_name'     => 'Last',
-        //     'phone'         => '987654313',
-        // ]);
-        // $I->seeResponseCodeIs(400);
-        // $I->seeResponseIsJson();
-        // $I->seeResponseContainsJson(['message' => 'Invalid data']);
+    public function testCreateConsumer(ApiTester $I)
+    {
+        $I->wantTo('Create an consumers');
+        $I->sendPOST('consumers', [
+            'first_name'    => 'First',
+            'last_name'     => 'Last',
+            'email'         => '123@example.com',
+            'phone'         => '123456789',
+            'address'       => 'Osoite testi',
+            'city'          => 'Kaupunki 1',
+            'postcode'      => '12345',
+            'country'       => 'Suomi',
+        ]);
+        $I->seeResponseCodeIs(201);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['message' => 'Consumer created']);
+        $consumer_id = $I->grabDataFromJsonResponse('created');
+        $I->sendGET('consumers/'.$consumer_id);
+        $I->seeResponseCodeIs('200');
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson([
+            'email'         => '123@example.com',
+        ]);
+    }
 
-        // // Valid data
-        // $I->wantTo('Create an consumers');
-        // $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
-        // $I->sendPOST('consumers', [
-        //     'first_name'    => 'First',
-        //     'last_name'     => 'Last',
-        //     'email'         => '123@example.com',
-        //     'phone'         => '123456789',
-        //     'address'       => 'Osoite testi',
-        //     'city'          => 'Kaupunki 1',
-        //     'postcode'      => '12345',
-        //     'country'       => 'Suomi',
-        // ]);
-        // $I->seeResponseCodeIs(201);
-        // $I->seeResponseIsJson();
-        // $I->seeResponseContainsJson(['message' => 'Consumer created']);
+    public function testShowConsumer(ApiTester $I)
+    {
+        $I->wantTo('See one consumer');
+        $I->sendGET('consumers/1');
+        $I->seeResponseCodeIs('200');
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson([
+            'first_name'    => 'Tung',
+        ]);
+    }
 
-        // // Show
-        // $I->wantTo('See one consumer');
-        // $I->sendGET('consumers/2');
-        // $I->seeResponseCodeIs('200');
-        // $I->seeResponseIsJson();
-        // $I->seeResponseContainsJson([
-        //     'id'            => 2,
-        //     'first_name'    => 'Tung',
-        //     'email'         => 'tung.nguyen@metropolia.fi',
-        // ]);
-
-        // Update
+    public function testUpdateConsumer(ApiTester $I)
+    {
         $I->wantTo('Update one consumer');
-        $I->sendPUT('consumers/5', [
-            'first_name' => 'Five',
+        $I->sendPUT('consumers/6', [
+            'first_name'    => 'New first',
         ]);
         $I->seeResponseCodeIs('201');
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(['message' => 'Consumer updated']);
         $I->wantTo('See updated consumer');
-        $I->sendGET('consumers/5');
+        $I->sendGET('consumers/6');
         $I->seeResponseCodeIs('200');
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson([
-            'id'            => 5,
-            'first_name'    => 'Five',
+            'first_name'    => 'New first',
         ]);
+    }
+
+    public function testDeleteConsumer(ApiTester $I)
+    {
+        $I->wantTo('Delete one consumer');
+        $I->sendDELETE('consumers/6');
+        $I->seeResponseCodeIs('204');
+        $I->seeResponseIsJson();
+        //$I->seeResponseContainsJson(['message' => 'Consumer deleted']);
     }
 }

@@ -32,6 +32,8 @@ class Consumer extends Base
      */
     public function store()
     {
+        $inserted_id = 0;
+
         $rules = [
             'first_name'    => 'required',
             'last_name'     => 'required',
@@ -72,12 +74,14 @@ class Consumer extends Base
                 $consumer->consumer_id = $core->id;
                 $consumer->consumer()->associate($core);
                 $consumer->save();
+                $inserted_id = $consumer->id;
             } catch (Exception $ex) {
 
             }
 
             return Response::json([
                 'error' => false,
+                'created' => $inserted_id,
                 'message' => 'Consumer created',
             ], 201);
         }
@@ -93,9 +97,7 @@ class Consumer extends Base
     public function show($id)
     {
         $consumer = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-                            ->where('user_id', Auth::user()->id)
-                            ->where('consumers.id', $id)
-                            ->take(1)
+                            ->where('lc_consumers.consumer_id', $id)
                             ->get();
 
         return Response::json([
@@ -139,8 +141,9 @@ class Consumer extends Base
     {
         try {
             $consumer = Model::find($id);
-            $consumer->delete();
             $consumer->consumer->delete();
+            $consumer->delete();
+
         } catch (Exception $ex) {
 
         }

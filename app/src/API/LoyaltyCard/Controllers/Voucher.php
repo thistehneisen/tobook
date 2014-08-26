@@ -29,6 +29,7 @@ class Voucher extends Base {
      */
     public function store()
     {
+        $inserted_id = 0;
         $rules = [
             'name'          => 'required',
             'required'      => 'required|numeric',
@@ -54,9 +55,11 @@ class Voucher extends Base {
             $voucher->total_used = 0;
             $voucher->is_active = Request::get('active');
             $voucher->save();
+            $inserted_id = $voucher->id;
 
             return Response::json([
                 'error' => false,
+                'created' => $inserted_id,
                 'message' => 'Voucher created',
             ], 201);
         }

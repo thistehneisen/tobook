@@ -29,6 +29,7 @@ class Offer extends Base {
      */
     public function store()
     {
+        $inserted_id = 0;
         $rules = [
             'name'          => 'required',
             'required'      => 'required|numeric',
@@ -54,9 +55,11 @@ class Offer extends Base {
             $offer->is_active = Request::get('active');
             $offer->is_auto_add = Request::get('auto_add');
             $offer->save();
+            $inserted_id = $offer->id;
 
             return Response::json([
                 'error' => false,
+                'created' => $inserted_id,
                 'message' => 'Offer created',
             ], 201);
         }
@@ -71,10 +74,7 @@ class Offer extends Base {
      */
     public function show($id)
     {
-        $offer = OfferModel::where('user_id', Auth::user()->id)
-                        ->where('id', $id)
-                        ->take(1)
-                        ->get();
+        $offer = OfferModel::find($id);
 
         return Response::json([
             'error' => false,
@@ -91,7 +91,7 @@ class Offer extends Base {
      */
     public function update($id)
     {
-        $offer = OfferModel::where('user_id', Auth::user()->id)->find($id);
+        $offer = OfferModel::find($id);
 
         foreach ([
             'name'      => 'name',
@@ -122,7 +122,7 @@ class Offer extends Base {
      */
     public function destroy($id)
     {
-        $offer = OfferModel::where('user_id', Auth::user()->id)->find($id);
+        $offer = OfferModel::find($id);
         $offer->delete();
 
         return Response::json([
