@@ -1,11 +1,6 @@
 <?php
 return [
     'services' => [
-        'add_resource'         => 'Lisää resurssi',
-        'all_categories'       => 'Kaikki kategoriat',
-        'all_resources'        => 'Kaikki resurssit',
-        'success_add_category' => 'New category was successfully added.',
-
         'category' => [
             'all'           => 'Kaikki kategoriat',
             'add'           => 'Lisää kategoria',
@@ -13,6 +8,14 @@ return [
             'name'          => 'Nimi',
             'description'   => 'Kuvaus',
             'is_show_front' => 'Varattavissa kuluttajille',
+        ],
+        'resource' => [
+            'all'         => 'Kaikki resurssit',
+            'add'         => 'Lisää resurssi',
+            'edit'        => 'Edit resource',
+            'name'        => 'Nimi',
+            'description' => 'Kuvaus',
+            'quantity'    => 'Quantity',
         ]
     ],
     'employees' => [
@@ -24,11 +27,6 @@ return [
         'description'           => 'Kuvaus',
         'is_subscribed_email'   => 'Lähetä sähköposti',
         'is_subscribed_sms'     => 'Lähetä tekstiviesti',
-    ],
-    'resources' => [
-        'name'        => 'Nimi',
-        'description' => 'Kuvaus',
-        'quantity'    => 'Quantity',
     ],
     'items_per_page' => 'Yksiköitä yhteensä',
     'with_selected'  => 'Valitse toiminto',

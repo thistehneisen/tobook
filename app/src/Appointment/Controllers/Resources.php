@@ -19,6 +19,14 @@ class Resources extends AsBase
     /**
      * {@inheritdoc}
      */
+    protected function getLangPrefix()
+    {
+        return 'as.services.resource';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     protected function upsertHandler($item)
     {
         $item->fill(Input::all());
