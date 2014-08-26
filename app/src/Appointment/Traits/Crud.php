@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Traits;
 
-use App, Input, Config, Redirect, Route, View;
+use App, Input, Config, Redirect, Route, View, Validator, Request, Response;
 
 trait Crud
 {
@@ -67,6 +67,7 @@ trait Crud
             'upsert'   => ['get', 'upsert/{id?}'],
             'doUpsert' => ['post', 'upsert/{id?}'],
             'delete'   => ['get', 'delete/{id}'],
+            'bulk'     => ['post', 'bulk'],
         ];
 
         foreach ($routes as $method => $params) {
@@ -102,11 +103,22 @@ trait Crud
         $fields = $this->getModel()->fillable;
 
         return View::make($view, [
-            'items'      => $items,
-            'routes'     => static::$crudRoutes,
-            'langPrefix' => $this->getLangPrefix(),
-            'fields'     => $fields
+            'items'       => $items,
+            'routes'      => static::$crudRoutes,
+            'langPrefix'  => $this->getLangPrefix(),
+            'fields'      => $fields,
+            'bulkActions' => $this->getBulkActions()
         ]);
+    }
+
+    /**
+     * Return an array of methods that allow bulk actions
+     *
+     * @return array
+     */
+    protected function getBulkActions()
+    {
+        return ['destroy'];
     }
 
     /**
@@ -197,5 +209,52 @@ trait Crud
                 'messages',
                 $this->successMessageBag(trans('as.crud.success_delete'))
             );
+    }
+
+    /**
+     * Accept bulk action
+     *
+     * @return Redirect
+     */
+    public function bulk()
+    {
+        $v = Validator::make(Input::all(), [
+            'ids' => 'required|array'
+        ]);
+        if ($v->fails()) {
+            if (Request::ajax()) {
+                return Response::json($v->errors(), 500);
+            }
+
+            return Redirect::back()->withErrors($v);
+        }
+
+        $action = Input::get('action');
+        if (!method_exists($this, $action)) {
+            throw new \InvalidArgumentException('Method is not allowed');
+        }
+
+        call_user_func([$this, $action], Input::get('ids'));
+
+        if (Request::ajax()) {
+            return Response::json(['message' => trans('as.crud.success_bulk')]);
+        }
+
+        return Redirect::route(static::$crudRoutes['index'])
+            ->with('messages', $this->successMessageBag(
+                trans('as.crud.success_bulk')
+            ));
+    }
+
+    /**
+     * Remove all items with those IDs
+     *
+     * @param array $ids
+     *
+     * @return bool
+     */
+    public function destroy($ids)
+    {
+        return $this->getModel()->whereIn('id', $ids)->delete();
     }
 }

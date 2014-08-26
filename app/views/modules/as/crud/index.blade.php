@@ -14,7 +14,7 @@
     @include ('el.messages')
 <h4 class="comfortaa">{{ trans($langPrefix.'.all') }}</h4>
 
-{{ Form::open(['class' => 'form-inline form-table']) }}
+{{ Form::open(['route' => $routes['bulk'], 'class' => 'form-inline form-table', 'id' => 'form-bulk', 'data-confirm' => trans('as.crud.bulk_confirm')]) }}
 <table class="table table-hover">
     <thead>
         <tr>
@@ -28,7 +28,7 @@
     <tbody>
     @foreach ($items as $item)
         <tr>
-            <td><input type="checkbox" class="checkbox" name="categories[]" value="{{ $item->id }}"></td>
+            <td><input type="checkbox" class="checkbox" name="ids[]" value="{{ $item->id }}"></td>
         @foreach ($fields as $field)
             @if (starts_with($field, 'is_'))
                 <td>
@@ -60,13 +60,17 @@
 
 <div class="row">
     <div class="col-md-4">
+        @if (!empty($bulkActions))
         <div class="form-group">
             <label>@lang('as.with_selected')</label>
-            <select name="" id="mass-action" class="form-control input-sm">
-                <option value="{{ route('as.services.categories.destroy') }}" data-action-name="delete all selected categories">Delete</option>
+            <select name="action" id="mass-action" class="form-control input-sm">
+            @foreach ($bulkActions as $action)
+                <option value="{{ $action }}">{{ trans('common.'.$action) }}</option>
+            @endforeach
             </select>
         </div>
         <button type="submit" class="btn btn-primary btn-sm btn-submit-mass-action">{{ trans('common.save') }}</button>
+        @endif
     </div>
     <div class="col-md-6 text-right">
         {{  $items->appends(Input::only('perPage'))->links() }}

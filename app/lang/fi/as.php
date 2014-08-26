@@ -32,8 +32,10 @@ return [
     'items_per_page' => 'Yksiköitä yhteensä',
     'with_selected'  => 'Valitse toiminto',
     'crud' => [
+        'bulk_confirm' => 'Are you sure to carry out this action?',
         'success_add' => 'Item was created successfully.',
         'success_edit' => 'Data was updated successfully.',
         'success_delete' => 'Item was deleted successfully.',
+        'success_bulk' => 'Item was deleted successfully.',
     ]
 ];

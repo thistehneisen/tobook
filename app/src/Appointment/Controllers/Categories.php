@@ -20,17 +20,4 @@ class Categories extends AsBase
         $item->user()->associate($this->user);
         return $item;
     }
-
-    public function destroy()
-    {
-        $categories = Input::get('categories', []);
-        try {
-            $this->categoryModel->destroy($categories);
-            $data['success'] = true;
-        } catch (\Exception $ex) {
-            $data['success'] = false;
-            $data['error'] = $ex->getMessage();
-        }
-        return Response::json($data);
-    }
 }

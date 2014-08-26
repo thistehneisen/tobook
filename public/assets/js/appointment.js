@@ -13,25 +13,21 @@ $(document).ready(function () {
         }
     });
 
-    $('.btn-submit-mass-action').click(function(e){
+    $('#form-bulk').on('submit', function(e) {
         e.preventDefault();
-        var actionName = $('#mass-action option:selected').data('action-name') || 'Unknown';
-        var actionURL = $('#mass-action option:selected').val() || '';
-        var formData = $('.form-table').serialize() || [];
-        alertify.confirm("Are you sure to complete "  + actionName + ' action?', function (e) {
+        var $this = $(this);
+        alertify.confirm($this.data('confirm'), function (e) {
             if (e) {
                 // user clicked "ok"
                 $.ajax({
                     type: 'POST',
-                    url: actionURL,
-                    data:  formData,
+                    url: $this.attr('action'),
+                    data: $this.serialize(),
                     dataType: 'json'
-                }).success(function(data){
-                    if(data.success == true){
-                        location.reload();
-                    } else {
-                        alertify.alert(data.error);
-                    }
+                }).done(function(data) {
+                    alertify.alert('OK');
+                }).fail(function() {
+                    alertify.alert('Something went wrong');
                 });
             }
         });

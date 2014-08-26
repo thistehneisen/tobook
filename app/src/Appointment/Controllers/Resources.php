@@ -18,17 +18,4 @@ class Resources extends AsBase
         $item->user()->associate($this->user);
         return $item;
     }
-
-    public function destroy(){
-        //TODO check if it remove all service resources mapping?
-        $resources = Input::get('resources', []);
-        try{
-            $this->resourceModel->destroy($resources);
-            $data['success'] = true;
-        } catch (\Exception $ex){
-            $data['success'] = false;
-            $data['error'] = $ex->getMessage();
-        }
-        return Response::json($data);
-    }
 }
