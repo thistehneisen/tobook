@@ -68,18 +68,7 @@ class Employees extends AsBase
     }
 
     public function defaultTime($id){
-        $defaultTime = EmployeeDefaultTime::where('employee_id', $id)->get();
-        if($defaultTime->isEmpty()){
-            $defaultTimeConfig = Config::get('employee.default_time');
-            foreach ($defaultTimeConfig as $time) {
-                $obj= new \stdClass();
-                $obj->default = true;
-                foreach ($time as $key => $value) {
-                   $obj->{$key} = $value;
-                }
-                $defaultTime[] = $obj;
-            }
-        }
+        $defaultTime = Employee::find($id)->getDefaultTimes();
         return View::make('modules.as.employees.defaultTime', [
             'defaultTime' => $defaultTime,
             'employeeId' => $id

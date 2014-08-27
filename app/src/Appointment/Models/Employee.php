@@ -1,4 +1,5 @@
 <?php namespace App\Appointment\Models;
+use Config;
 
 class Employee extends \App\Core\Models\Base
 {
@@ -14,6 +15,28 @@ class Employee extends \App\Core\Models\Base
         ]
     ];
 
+    public function getDefaultTimes()
+    {
+        $defaultTimes = $this->defaultTimes;
+        if($defaultTimes->isEmpty()){
+            $defaultTimeConfig = Config::get('employee.default_time');
+            $data = [];
+            foreach ($defaultTimeConfig as $time) {
+                $obj= (object) $time;
+                $obj->default = true;
+                $data[] = $obj;
+            }
+            $defaultTimes = new \Illuminate\Support\Collection($data);
+        }
+        return $defaultTimes;
+    }
+
+    public function getDefaulTimesByDay($day){
+        $defaultTimes = $this->getDefaultTimes();
+        return $defaultTimes->filter(function($item) use ($day) {
+            return $item->type === $day;
+        });
+    }
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
@@ -33,5 +56,10 @@ class Employee extends \App\Core\Models\Base
     public function user()
     {
         return $this->belongsTo('App\Core\Models\User');
+    }
+
+    public function defaultTimes()
+    {
+         return $this->hasMany('App\Appointment\Models\EmployeeDefaultTime');
     }
 }

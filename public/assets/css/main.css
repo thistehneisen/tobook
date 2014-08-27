@@ -174,7 +174,7 @@ a:hover {
   padding-right: 0 !important;
 }
 .as-calendar {
-  background: #fff;
+  background: #eee;
   white-space: nowrap;
   overflow-x: scroll;
 }
@@ -232,7 +232,7 @@ a:hover {
   height: 30px;
   list-style-type: none;
   color: #333333;
-  background-color: #ccc;
+  background-color: #ddd;
   border: 1px solid #fff;
   text-align: center;
 }

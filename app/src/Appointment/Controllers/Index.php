@@ -2,7 +2,7 @@
 
 use View;
 use App\Core\Controllers\Base;
-
+use App\Appointment\Models\Employee;
 class Index extends Base
 {
     /**
@@ -12,6 +12,11 @@ class Index extends Base
      */
     public function index()
     {
-        return View::make('modules.as.index.index');
+        $employees = Employee::ofCurrentUser()->get();
+        $workingTimes = range(6,20);
+        return View::make('modules.as.index.index', [
+                'employees' => $employees,
+                'workingTimes' => $workingTimes
+            ]);
     }
 }

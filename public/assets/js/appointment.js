@@ -27,7 +27,7 @@
                 $('#row-' + $(this).val()).remove();
               });
             }
-          }).fail(function() {
+          }).fail(function () {
             alertify.alert('Something went wrong');
           });
         }
