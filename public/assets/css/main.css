@@ -137,6 +137,17 @@ a:hover {
   text-align: center;
   height: 30px;
 }
+.nav-as .dropdown-menu > li > a:hover,
+.nav-as .dropdown-menu > li > a:focus {
+  color: #fff;
+  background-color: #ec7923;
+}
+.nav-as .open > a,
+.nav-as .open > a:hover,
+.nav-as .open > a:focus {
+  background-color: #f09652;
+  color: #fff;
+}
 .as-table {
   cursor: pointer;
   margin: 0;

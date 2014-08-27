@@ -1,7 +1,7 @@
 <?php
 return [
     'services' => [
-        'category' => [
+        'categories' => [
             'all'           => 'Kaikki kategoriat',
             'add'           => 'Lisää kategoria',
             'edit'          => 'Edit category',
@@ -9,14 +9,30 @@ return [
             'description'   => 'Kuvaus',
             'is_show_front' => 'Varattavissa kuluttajille',
         ],
-        'resource' => [
+        'resources' => [
             'all'         => 'Kaikki resurssit',
             'add'         => 'Lisää resurssi',
             'edit'        => 'Edit resource',
             'name'        => 'Nimi',
             'description' => 'Kuvaus',
             'quantity'    => 'Quantity',
-        ]
+        ],
+        'all'          => 'Kaikki palvelut',
+        'add'          => 'Lisää palvelu',
+        'add_desc'     => 'Lisää uusi palvelu lisäämällä palvelun nimi, palvelun kesto ja työntekijät',
+        'name'         => 'Nimi',
+        'description'  => 'Kuvaus',
+        'price'        => 'Hinta',
+        'duration'     => 'Kesto',
+        'before'       => 'Ennen',
+        'after'        => 'Jälkeen',
+        'total'        => 'Yhteensä',
+        'category'     => 'Kategoria',
+        'is_active'    => 'Tila',
+        'resource'     => 'Resurssit',
+        'extra'        => 'Lisäpalvelut',
+        'employees'    => 'Työntekijät',
+        'no_employees' => 'There is no employee to be selected',
     ],
     'employees' => [
         'all'                 => 'Työntekijät',
@@ -28,23 +44,6 @@ return [
         'description'         => 'Kuvaus',
         'is_subscribed_email' => 'Lähetä sähköposti',
         'is_subscribed_sms'   => 'Lähetä tekstiviesti',
-    ],
-    'services' => [
-        'add'         => 'Lisää palvelu',
-        'add_desc'    => 'Lisää uusi palvelu lisäämällä palvelun nimi, palvelun kesto ja työntekijät',
-        'name'        => 'Nimi',
-        'description' => 'Kuvaus',
-        'price'       => 'Hinta',
-        'duration'    => 'Kesto',
-        'before'      => 'Ennen',
-        'after'       => 'Jälkeen',
-        'total'       => 'Yhteensä',
-        'category'    => 'Kategoria',
-        'is_active'   => 'Tila',
-        'resource'    => 'Resurssit',
-        'extra'       => 'Lisäpalvelut',
-        'employees'   => 'Työntekijät',
-        'no_employees'   => 'There is no employee to be selected',
     ],
     'items_per_page' => 'Yksiköitä yhteensä',
     'with_selected'  => 'Valitse toiminto',
