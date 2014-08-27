@@ -236,6 +236,9 @@ a:hover {
   border: 1px solid #fff;
   text-align: center;
 }
+div.tooltip-inner {
+  max-width: 350px;
+}
 .main {
   margin: 40px auto 50px auto;
 }
