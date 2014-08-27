@@ -8,7 +8,7 @@
 
 {{ Form::open(['route' => 'as.services.create', 'class' => 'form-horizontal well', 'role' => 'form']) }}
     <div class="form-group">
-        <label for="name" class="col-sm-2 control-label">{{ trans('as.services.nimi') }}</label>
+        <label for="name" class="col-sm-2 control-label">{{ trans('as.services.name') }}</label>
         <div class="col-sm-5">
            {{ Form::text('name', (isset($service)) ? $service->name:'', ['class' => 'form-control input-sm', 'id' => 'name']) }}
         </div>
@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="price" class="col-sm-2 control-label">{{ trans('as.services.hinta') }}</label>
+        <label for="price" class="col-sm-2 control-label">{{ trans('as.services.price') }}</label>
         <div class="col-sm-5">
             <div class="input-group">
                 <span class="input-group-addon">&euro;</span>
