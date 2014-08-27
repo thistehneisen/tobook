@@ -114,20 +114,90 @@ class Consumer extends Base
      */
     public function update($id)
     {
-        $consumer = Model::find($id);
+        $error = true;
+        $message = '';
+        $status = 0;
 
-        foreach (['first_name', 'last_name', 'email', 'phone', 'address', 'postcode', 'city', 'country'] as $key) {
-            if (Request::get($key)) {
-                $consumer->consumer->$key = Request::get($key);
+        if (Request::get('add_stamp') == true) {
+            if (Request::get('offer_id')) {
+                $error = false;
+                $message = '';
+                $status = 0;
+
+                $offerId = Request::get('offer_id');
+                $offer = OfferModel::find($id);
+                $offerRequired = $offer->required;
+                $offerFreeService = $offer->free_service;
+
+                $consumer = ConsumerModel::find($id);
+                $consumerTotalStamps = $consumer->total_stamps;
+
+                $transaction = new TransactionModel;
+                $transaction->user_id = Auth::user()->id;
+                $transaction->consumer_id = $consumerId;
+                $transaction->offer_id = $id;
+
+                if ($consumerTotalStamps !== '') {
+                    $consumerTotalStamps = json_decode($consumerTotalStamps);
+                    $consumerThisStamp = json_decode($consumerTotalStamps[$offerId]);
+                    $consumerNoOfStamps = $consumerThisStamp[0];
+                    $consumerFreeService = $consumerThisStamp[1];
+
+                    if ($offerRequired === $consumerNoOfStamps + 1) {
+                        $consumerNoOfStamps = 0;
+                        $consumerFreeService++;
+                        $transaction->stamp = $offerRequired * (-1);
+                        $transaction->free_service = $consumerFreeService;
+                    } else {
+                        $consumerNoOfStamps++;
+                        $transaction->stamp = 1;
+                        $transaction->free_service = 0;
+                    }
+
+                    $thisStampNew = json_encode([$consumerNoOfStamps, $consumerFreeService]);
+                    $consumerTotalStamps[$offerId] = $thisStampNew;
+                    $consumerTotalStamps = json_encode($consumerTotalStamps);
+                } else {
+                    $transaction->stamp = 1;
+                    $transaction->free_service = 0;
+                    $thisStampNew = json_encode([1, 0]);
+                    $consumerTotalStamps = json_encode([$offerId => $thisStampNew]);
+                }
+
+                $transaction->save();
+                $consumer->total_stamps = $consumerTotalStamps;
+                $consumer->save();
+
+                $error = false;
+                $message = 'Stamp added';
+                $status = 204;
+            } else {
+                $error = true;
+                $message = 'Offer ID missing';
+                $status = 400;
             }
+        } elseif (Request::get('add_point') == true) {
+
+        } else {
+            $consumer = Model::find($id);
+
+            foreach (['first_name', 'last_name', 'email', 'phone', 'address', 'postcode', 'city', 'country'] as $key) {
+                if (Request::get($key)) {
+                    $consumer->consumer->$key = Request::get($key);
+                }
+            }
+
+            $consumer->consumer->save();
+
+            $error = false;
+            $message = 'Consumer updated';
+            $status = 201;
         }
 
-        $consumer->consumer->save();
-
         return Response::json([
-            'error' => false,
-            'message' => 'Consumer updated',
-        ], 201);
+            'error' => $error,
+            'message' => $message,
+        ], $status);
     }
 
 

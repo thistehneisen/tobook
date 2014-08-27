@@ -262,12 +262,12 @@ Route::group([
         Route::group([
             'prefix' => 'use',
         ], function () {
-            Route::post('offers/{id}', [
-                'uses' => 'App\API\LoyaltyCard\Controllers\Use@offer'
+            Route::post('consumers/{id}', [
+                'uses' => 'App\API\LoyaltyCard\Controllers\Consumer@update'
             ]);
 
-            Route::post('vouchers/{id}', [
-                'uses' => 'App\API\LoyaltyCard\Controllers\Use@voucher'
+            Route::post('consumers/{id}', [
+                'uses' => 'App\API\LoyaltyCard\Controllers\Consumer@update'
             ]);
         });
     });
