@@ -1,4 +1,4 @@
 <?php
 return [
-    'dashboard_hide_inactive' => false
+    'dashboard_hide_inactive' => true
 ];
