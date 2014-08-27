@@ -8,7 +8,7 @@ class Categories extends AsBase
     use App\Appointment\Traits\Crud;
 
     protected $viewPath = 'modules.as.services.category';
-    protected $langPrefix = 'as.services.category';
+    protected $langPrefix = 'as.services.categories';
     protected $modelClass = 'App\Appointment\Models\ServiceCategory';
 
     /**

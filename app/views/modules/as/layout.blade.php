@@ -50,10 +50,10 @@
                 <i class="fa fa-cloud"></i> Palvelut <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="{{ route('as.services.index') }}">Index</a></li>
-                <li><a href="{{ route('as.services.create') }}">Lisää palveluita</a></li>
-                <li><a href="{{ route('as.services.categories.index') }}">{{ trans('as.services.category.all') }}</a></li>
-                <li><a href="{{ route('as.services.resources.index') }}">{{ trans('as.services.resource.all') }}</a></li>
+                <li><a href="{{ route('as.services.index') }}">{{ trans('as.services.all') }}</a></li>
+                <li><a href="{{ route('as.services.create') }}">{{ trans('as.services.add') }}</a></li>
+                <li><a href="{{ route('as.services.categories.index') }}">{{ trans('as.services.categories.all') }}</a></li>
+                <li><a href="{{ route('as.services.resources.index') }}">{{ trans('as.services.resources.all') }}</a></li>
                 <li><a href="{{ route('as.services.extras.index') }}">Lisää lisäpalvelu</a></li>
             </ul>
         </li>

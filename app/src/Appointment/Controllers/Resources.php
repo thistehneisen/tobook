@@ -7,7 +7,7 @@ class Resources extends AsBase
 {
     use App\Appointment\Traits\Crud;
     protected $viewPath = 'modules.as.services.resource';
-    protected $langPrefix = 'as.services.resource';
+    protected $langPrefix = 'as.services.resources';
 
     /**
      * {@inheritdoc}
