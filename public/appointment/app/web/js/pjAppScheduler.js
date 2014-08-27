@@ -191,12 +191,12 @@
 			this.$container.find(".asSelectorButton").removeAttr("disabled");
 		},
 		_addToCart: function (arr) {
-			var xhr = pjQ.$.post([this.options.folder, "index.php?controller=pjFrontEnd"+ $as_pf +"&action=pjActionAddToCart&cid=", this.options.cid].join(""), pjQ.$.param(arr));
+			var xhr = pjQ.$.post([this.options.folder, "index.php?controller=pjFrontEnd"+ $as_pf  + $owner_id +"&action=pjActionAddToCart&cid=", this.options.cid].join(""), pjQ.$.param(arr));
 			
 			return xhr;
 		},
 		_removeFromCart: function (opts) {
-			var xhr = pjQ.$.post([this.options.folder, "index.php?controller=pjFrontEnd"+ $as_pf +"&action=pjActionRemoveFromCart&cid=", this.options.cid].join(""), {
+			var xhr = pjQ.$.post([this.options.folder, "index.php?controller=pjFrontEnd"+ $as_pf  + $owner_id +"&action=pjActionRemoveFromCart&cid=", this.options.cid].join(""), {
 				"date": opts.date,
 				"service_id": opts.service_id,
 				"start_ts": opts.start_ts,
@@ -278,7 +278,7 @@
 		},
 		getCart: function () {
 			var that = this;
-			pjQ.$.get([this.options.folder, "index.php?controller=pjFrontEnd&action=pjActionGetCart" + $as_pf].join(""), {
+			pjQ.$.get([this.options.folder, "index.php?controller=pjFrontEnd&action=pjActionGetCart" + $as_pf + $owner_id].join(""), {
 				"cid": this.options.cid,
 				"layout": this.options.layout
 			}).done(function (data) {
@@ -287,7 +287,7 @@
 		},
 		getCalendar: function (year, month) {
 			var that = this;
-			pjQ.$.get([this.options.folder, "index.php?controller=pjFrontEnd&action=pjActionGetCalendar" + $as_pf].join(""), {
+			pjQ.$.get([this.options.folder, "index.php?controller=pjFrontEnd&action=pjActionGetCalendar" + $as_pf + $owner_id].join(""), {
 				"cid": this.options.cid,
 				"layout": this.options.layout,
 				"year": year,
@@ -298,7 +298,7 @@
 		},
 		getEmployees: function () {
 			var that = this;
-			pjQ.$.get([this.options.folder, "index.php?controller=pjFrontEnd&action=pjActionGetEmployees" + $as_pf].join(""), {
+			pjQ.$.get([this.options.folder, "index.php?controller=pjFrontEnd&action=pjActionGetEmployees" + $as_pf + $owner_id].join(""), {
 				"cid": this.options.cid,
 				"layout": this.options.layout,
 				"date": this.date,
@@ -399,7 +399,7 @@
 		
 		getTime: function () {
 			var that = this;
-			pjQ.$.get([this.options.folder, "index.php?controller=pjFrontEnd&action=pjActionGetTime" + $as_pf].join(""), {
+			pjQ.$.get([this.options.folder, "index.php?controller=pjFrontEnd&action=pjActionGetTime" + $as_pf + $owner_id].join(""), {
 				"cid": this.options.cid,
 				"layout": this.options.layout,
 				"service_id": this.service_id,
@@ -437,7 +437,7 @@
 					if ($dialogExtraService.length > 0 && dialog) {
 						$dialogExtraService.html("");
 						
-						pjQ.$.get("index.php?controller=pjFrontPublic&action=getExtraService" + $as_pf, {
+						pjQ.$.get("index.php?controller=pjFrontPublic&action=getExtraService" + $as_pf + $owner_id, {
 							"service_id": service_id,
 						}).done(function (data) {
 							$dialogExtraService.html(data);
@@ -459,7 +459,7 @@
 									var $dialog = pjQ.$(this),
 										$frmExtraService = $dialog.find('form');
 									
-									pjQ.$.post("index.php?controller=pjFrontPublic&action=getExtraService" + $as_pf, $frmExtraService.serialize()).done(function (data) {
+									pjQ.$.post("index.php?controller=pjFrontPublic&action=getExtraService" + $as_pf + $owner_id, $frmExtraService.serialize()).done(function (data) {
 										
 										that.wt_id = $this.data("wt");
 										
@@ -866,21 +866,40 @@
 				
 				that.$container.find('.asCategories').removeClass("in")
 					.end()
-					.find('.asServices').addClass("in")
+					.find('.asService').removeClass("in")
 					.end()
-					.find('.asCategoryBox').removeClass("in")
-					.end()
-					.find('.asCategoryBox_' + $this.val()).addClass("in");
+					.find('.asCategoryID_' + $this.val()).addClass("in");
 				
-			}).on("click.as", ".asLayout3 .asServices input", function (e) {
+			}).on("click.as", ".asLayout3 a.asCategoriesBack", function (e) {
+				if (e && e.preventDefault) {
+					e.preventDefault();
+				}
+				
+				var $this = pjQ.$(this);
+				
+				that.$container.find('.asService').removeClass("in")
+					.end()
+					.find('.asCategories').addClass("in")
+					
+			}).on("click.as", ".asLayout3 .asServices input[name=service]", function (e) {
 				
 				var $this = pjQ.$(this);
 				
 				that.service_id = $this.val();
 				
-				that.$container.find(".asLayout3Employees .asBoxInner").html("")
-					.end()
-					.find('.asLayout3Categories .asBox').removeClass("in")
+				if( $this.parents(".asService").find('.asServiceID_' + $this.val()).length > 0 ) {
+					that.$container.find('.asService').removeClass("more")
+						.end()
+						.find('.asLayout3 .heading a').removeClass('collapse')
+						.end()
+						.find(".asServiceMore input:checked").removeAttr('checked')
+						.end()
+						.find("input[name='wt_id']").val("0");
+						
+					$this.parents(".asService").addClass("more").find('.asServiceID_' + $this.val()).addClass("in");
+						
+				} else {
+					that.$container.find('.asLayout3Categories .asBox').removeClass("in")
 					.end()
 					.find('.asLayout3Employees .asBox').addClass("in")
 					.end()
@@ -890,22 +909,54 @@
 					.end()
 					.find('.asLayout3 .heading').removeClass('active')
 					.end()
-					.find('.asLayout3Employees .heading').addClass('active')
+					.find('.asLayout3Employees .heading').addClass('active');
+					
+					that.getLoadAjaxLayout3.call(that);
+				}
+				
+				that.$container.find(".asLayout3Employees .asBoxInner").html("")
 					.end()
 					.find("input[name='service_id']").val($this.val());
-					
-				that.getLoadAjaxLayout3.call(that);
+						
+			}).on("click.as", ".asLayout3 .asServices input[name=service_time]", function (e) {
 				
-			}).on("click.as", ".asLayout3 a.asCategoriesBack", function (e) {
+				var $this = pjQ.$(this);
+				
+				that.wt_id = $this.val();
+				
+				that.$container.find("input[name='wt_id']").val($this.val());
+						
+			}).on("click.as", ".asLayout3 a.asServicesBack", function (e) {
 				if (e && e.preventDefault) {
 					e.preventDefault();
 				}
 				
 				var $this = pjQ.$(this);
 				
-				that.$container.find('.asServices').removeClass("in")
+				that.$container.find('.asService').removeClass("more")
 					.end()
-					.find('.asCategories').addClass("in")
+					.find('.asServiceMore').removeClass("in");
+					
+			}).on("click.as", ".asLayout3 .asServiceMore a.next", function (e) {
+				if (e && e.preventDefault) {
+					e.preventDefault();
+				}
+				
+				var $this = pjQ.$(this);
+				
+				that.$container.find('.asLayout3Categories .asBox').removeClass("in")
+					.end()
+					.find('.asLayout3Employees .asBox').addClass("in")
+					.end()
+					.find('.asLayout3 .heading a').removeClass('collapse')
+					.end()
+					.find('.asLayout3Categories .heading a').addClass('collapse')
+					.end()
+					.find('.asLayout3 .heading').removeClass('active')
+					.end()
+					.find('.asLayout3Employees .heading').addClass('active');
+					
+				that.getLoadAjaxLayout3.call(that);
 					
 			}).on("click.as", ".asLayout3 .asEmployees input", function (e) {
 				
@@ -913,6 +964,7 @@
 				
 				that.service_id = that.$container.find("input[name='service_id']").val();
 				that.employee_id = $this.val();
+				that.wt_id = that.$container.find("input[name='wt_id']").val();
 				that.date = that.$container.find("input[name='date_start']").val();
 				
 				that.$container.find('.asLayout3Date .asBoxInner').html("")
@@ -972,6 +1024,7 @@
 						that.date =  [inst.selectedYear, inst.selectedMonth+1, inst.selectedDay].join("-");
 						that.service_id = that.$container.find("input[name='service_id']").val();
 						that.employee_id = that.$container.find("input[name='employee_id']").val();
+						that.wt_id = that.$container.find("input[name='wt_id']").val();
 						
 						that.$container.find("input[name='date_start']").val(that.date)
 						
@@ -1134,7 +1187,15 @@
 			} else {
 				onHashChange.call(null);
 			}
-				
+			
+			pjQ.$( document ).ajaxStart(function() {
+				pjQ.$( "#loading" ).show();
+			});
+			
+			pjQ.$( document ).ajaxStop(function() {
+				pjQ.$( "#loading" ).hide();
+			});
+			
 			return this;
 		},
 		loadCheckout: function () {

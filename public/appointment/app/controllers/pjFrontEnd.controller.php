@@ -40,7 +40,8 @@ class pjFrontEnd extends pjFront
 					$this->cart->update($key, $_SESSION[ PREFIX . 'extra' ]);
 					unset($_SESSION[ PREFIX . 'extra' ]);
 
-				} elseif ( isset($_POST['extra_id']) && count($_POST['extra_id']) > 0 && isset($_POST['as_single']) && $_POST['as_single'] == 1 ) {
+				} elseif ( isset($_POST['extra_id']) && count($_POST['extra_id']) > 0 && 
+							( (isset($_POST['as_single']) && $_POST['as_single'] == 1) ||  (isset($_POST['as_layout3']) && $_POST['as_layout3'] == 1)) ) {
                     $owner_id = intval($_GET['owner_id']);
 					$extras = pjExtraServiceModel::factory()
 						->where('t1.owner_id', $owner_id)
@@ -1123,7 +1124,7 @@ class pjFrontEnd extends pjFront
 	                    ->getData();
 	                
 	                $service_extra = pjExtraServiceModel::factory()
-	                    ->join('pjServiceExtraService', 't2.extra_id = t1.id', 'inner')
+	                	->join('pjServiceExtraService', 't2.extra_id = t1.id', 'inner')
 	                    ->where('t2.service_id', $service['id'])
 	                    ->where('t1.owner_id', $owner_id)
 	                    ->orderBy('t1.name ASC')
@@ -1236,6 +1237,7 @@ class pjFrontEnd extends pjFront
 	            
 	            if ( isset($_GET['wt_id']) && $_GET['wt_id'] > 0 ) {
 	                $service_time = pjServiceTimeModel::factory()->select("t1.*")
+	                	->where('t1.owner_id', $owner_id)
 	                    ->where('t1.foreign_id', $_GET['service_id'])
 	                    ->where('t1.id', $_GET['wt_id'])
 	                    ->find($_GET['wt_id'])
@@ -1339,15 +1341,16 @@ class pjFrontEnd extends pjFront
     			}
 	    		 
 	    		$service_arr = pjServiceModel::factory()
-	    		->select("t1.*")
-	    		->where('t1.is_active', 1)
-	    		->where('t1.owner_id', $owner_id)
-	    		->where('t1.id', $_GET['service_id'])
-	    		->find($_GET['service_id'])
-	    		->getData();
+		    		->select("t1.*")
+		    		->where('t1.is_active', 1)
+		    		->where('t1.owner_id', $owner_id)
+		    		->where('t1.id', $_GET['service_id'])
+		    		->find($_GET['service_id'])
+		    		->getData();
 	    		 
 	    		if ( isset($_GET['wt_id']) && $_GET['wt_id'] > 0 ) {
 	    			$service_time = pjServiceTimeModel::factory()->select("t1.*")
+	    			->where('t1.owner_id', $owner_id)
 	    			->where('t1.foreign_id', $_GET['service_id'])
 	    			->where('t1.id', $_GET['wt_id'])
 	    			->find($_GET['wt_id'])

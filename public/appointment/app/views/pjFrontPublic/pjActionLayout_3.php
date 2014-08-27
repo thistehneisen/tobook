@@ -4,7 +4,7 @@
 		<div class="asSelectorElements asOverflowHidden">
 
 			<form action="" method="post" class="asSelectorLayout3Form">
-				<input type="hidden" name="as_single" value="1" />
+				<input type="hidden" name="as_layout3" value="1" />
 				<input type="hidden" name="as_checkout" value="1" />
 				<input type="hidden" name="category_id" value="" /> 
 				<input type="hidden" name="service_id" value="" /> 
@@ -36,12 +36,11 @@
 								</div>
 
 								<div class="asServices">
-									<?php
-									if (isset ( $tpl ['categories_arr'] )) {
+									<?php if (isset ( $tpl ['categories_arr'] )) {
 										
-										foreach ( $tpl ['categories_arr'] as $category ) {
-											?>
-											<div class="asCategoryBox asCategoryBox_<?php echo $category['id']; ?>">
+										foreach ( $tpl ['categories_arr'] as $category ) { ?>
+										<div class="asService asCategoryID_<?php echo $category['id']; ?>">
+											<div class="asServiceBox">
 												<a class="asCategoriesBack" href="#"><?php echo $category['name']; ?></a>
 												<ul>
 													<?php foreach ($category['services'] as $service) { ?>
@@ -60,10 +59,60 @@
 													<?php } ?>
 												</ul>
 											</div>
-										<?php
-										}
-									}
-									?>
+											<?php foreach ($category['services'] as $service) { ?>
+												<?php if ( (isset($service['service_time']) && count($service['service_time']) > 0) ||
+														(isset($service['service_extra']) && count($service['service_extra']) > 0)) {
+													?>
+													<div class="asServiceMore asServiceID_<?php echo $service['id']; ?>">
+														<a class="asServicesBack" href="#"><?php echo $service['name']; ?></a>
+														<?php if (isset($service['service_time']) && count($service['service_time']) > 0) { ?>
+															<ul class="asServiceTimes">
+																<li>
+																	<label for="service-time-0" >
+																		<input type="radio" name="service_time" id="service-time-0" value="0" />
+																		<span class="asElementTag">
+					            											<?php if ((int) $tpl['option_arr']['o_hide_prices'] === 0) : ?>
+					            											<span class="asServicePrice"><?php echo pjUtil::formatCurrencySign(number_format($service['price'], 2), $tpl['option_arr']['o_currency']); ?></span>
+					            											<?php endif; ?>
+					            											<span class="asServiceTime"><?php echo $service['length']; ?> <?php __('front_minutes'); ?></span>	
+																		</span>
+																	</label>
+																</li>
+																<?php foreach ($service['service_time'] as $times){ ?>
+																<li>
+																	<label for="service-time-<?php echo $times['id']; ?>" >
+																		<input type="radio" name="service_time" id="service-time-<?php echo $times['id']; ?>" value="<?php echo $times['id']; ?>" />
+																		<span class="asElementTag">
+					            											<?php if ((int) $tpl['option_arr']['o_hide_prices'] === 0) : ?>
+					            											<span class="asServicePrice"><?php echo pjUtil::formatCurrencySign(number_format($times['price'], 2), $tpl['option_arr']['o_currency']); ?></span>
+					            											<?php endif; ?>
+					            											<span class="asServiceTime"><?php echo $times['length']; ?> <?php __('front_minutes'); ?></span>	
+																		</span>
+																	</label>
+																</li>
+																<?php } ?>
+															</ul>
+														<?php } ?>
+														
+														<?php if (isset($service['service_extra']) && count($service['service_extra']) > 0) { ?>
+															<div class="asServiceExtra">
+																<label class="asLabel"><?php __('front_single_extra'); ?></label>
+																<ul>
+																	<?php foreach ( $service['service_extra'] as $extra ) { ?>
+																	<li>
+																	<label for="<?php echo $service['id']; ?>_extra_id_<?php echo $extra['id']; ?>"><input type="checkbox" id="<?php echo $service['id']; ?>_extra_id_<?php echo $extra['id']; ?>" name="extra_id[]" value="<?php echo $extra['id']; ?>" /> <?php echo $extra['name'] . ' (' . $extra['length'] . 'min)'; ?></label>
+																	</li>
+																	<?php } ?>
+																</ul>
+															</div>
+														<?php } ?>
+														<div class="asElementOutline"><a class="asSelectorButton asButton asButtonGreen next" href="#"><?php __('front_single_next'); ?></a></div>
+													</div>
+												<?php } ?>
+											<?php } ?>
+										</div>
+										<?php } ?>
+									<?php } ?>
 								</div>
 							</div>
 						</div>

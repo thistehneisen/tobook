@@ -271,7 +271,7 @@ class pjFrontPublic extends pjFront
 					
 					$categories = $category_arr;
 					foreach ( $category_arr as $key => $category ) {
-						$categories[$key]['services'] = pjServiceModel::factory()
+						$services = pjServiceModel::factory()
 			                ->select("t1.*, t2.content AS `name`, t3.content AS `description`")
 			                ->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
 			                ->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.id AND t3.field='description'", 'left outer')
@@ -281,6 +281,28 @@ class pjFrontPublic extends pjFront
 			                ->orderBy('`name` ASC')
 			                ->findAll()
 			                ->getData();
+						
+						foreach ($services as $k => $service) {
+							
+							$service_time = pjServiceTimeModel::factory()
+								->where('t1.foreign_id', $service['id'])
+								->where('t1.owner_id', $owner_id)
+								->findAll()
+								->getData();
+								 
+							$service_extra = pjExtraServiceModel::factory()
+								->join('pjServiceExtraService', 't2.extra_id = t1.id', 'inner')
+								->where('t2.service_id', $service['id'])
+								->where('t1.owner_id', $owner_id)
+								->orderBy('t1.name ASC')
+								->findAll()
+								->getData();
+							//var_dump($service_time);
+							$services[$k]['service_time'] = $service_time;
+							$services[$k]['service_extra'] = $service_extra;
+						}
+						//var_dump($services);
+						$categories[$key]['services'] = $services;
 					}
 					
 					$this->set('categories_arr', $categories);
@@ -297,6 +319,7 @@ class pjFrontPublic extends pjFront
 						
 						$data['data'][$k]['wtime'] = pjServiceTimeModel::factory()->select("t1.*")
 												->where('t1.foreign_id', $v['id'])
+												->where('t1.owner_id', $owner_id)
 												->findAll()
 												->getData();
 					}

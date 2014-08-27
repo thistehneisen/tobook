@@ -139,7 +139,10 @@
 .asLayout3 .asLayout3Contact .asContact,
 .asLayout3 .asLayout3Contact .asElementOutline,
 .asLayout3 .dateStart,
-.asLayout3 .times{
+.asLayout3 .times,
+.asLayout3 .asServices .asServicesBack,
+.asLayout3 .asServiceExtra > label,
+.asLayout3 .asServiceMore .asElementOutline{
 	padding: 12px 10px 12px 19px;
 	border-top: 1px solid #EDEDED;
     margin: 0;
@@ -152,19 +155,21 @@
     min-height: 100px;
 }
 .asLayout3Categories .asCategories,
-.asLayout3Categories .asServices,
-.asLayout3Categories .asServices .asCategoryBox{
+.asLayout3Categories .asService,
+.asLayout3Categories .asServiceMore,
+.asLayout3Categories .asService.more .asServiceBox{
 	display: none;
 }
 .asLayout3 .asBox.in,
 .asLayout3Categories .asCategories.in,
-.asLayout3Categories .asServices.in,
-.asLayout3Categories .asServices .asCategoryBox.in{
+.asLayout3Categories .asService.in,
+.asLayout3Categories .asServiceMore.in{
 	display: block;
 }
 .asLayout3 .asBox ul li:hover,
 .asLayout3 .asBox ul li.active,
-.asLayout3 .asServices .asCategoriesBack:hover{
+.asLayout3 .asServices .asCategoriesBack:hover,
+.asLayout3 .asServices .asServicesBack:hover{
 	background: #DBE8F0;
 }
 .asLayout3 .asBox ul li label{
@@ -174,7 +179,8 @@
 .asLayout3 .asBox ul li input{
 	margin-right: 10px;
 }
-.asLayout3 .asServices .asCategoriesBack{
+.asLayout3 .asServices .asCategoriesBack,
+.asLayout3 .asServices .asServicesBack{
 	display: block;
     text-decoration: none;
     color: #848687;
@@ -210,6 +216,12 @@
 .asLayout3 .asServices .asElementTag span.asServicePrice{
 	background: none;
 	padding: 0;
+}
+.asLayout3 .asServiceExtra > label{
+ 	display: block;
+    float: none;
+    font-style: italic;
+    width: auto;
 }
 /* Responsive design */
 @media screen and (max-width: 479px) {

@@ -55,6 +55,7 @@ INSERT INTO `as_options` (`owner_id`,`foreign_id`, `key`, `tab_id`, `value`, `la
 (%1\$d, @calendar_id, 'o_hide_prices', 3, '1|0::0', NULL, 'bool', 2, 1, NULL),
 (%1\$d, @calendar_id, 'o_layout', 1, '1|2|3::1', 'Layout 1|Layout 2|Layout 3', 'enum', 1, 1, NULL),
 (%1\$d, @calendar_id, 'o_layout_backend', 1, '1|2::2', 'Layout 1|Layout 2', 'enum', 1, 1, NULL),
+(%1\$d, @calendar_id, 'o_employee_all', 1, '1|0::0', NULL, 'bool', 2, 1, NULL),
 (%1\$d, @calendar_id, 'o_multi_lang', 99, '1|0::0', NULL, 'enum', NULL, 0, NULL),
 (%1\$d, @calendar_id, 'o_paypal_address', 7, 'paypal_seller@example.com', NULL, 'string', 17, 1, NULL),
 (%1\$d, @calendar_id, 'o_reminder_body', 8, 'Hei {Name},\\r\\n\\r\\nTama on muistutus viesti varauksestasi!\\r\\n\\r\\nVaraus id: {BookingID}\\r\\n\\r\\nPalvelut\\r\\n{Services}\\r\\n\\r\\nTerveisin,', NULL, 'text', 4, 1, 'height:350px'),
