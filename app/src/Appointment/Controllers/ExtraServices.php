@@ -5,13 +5,7 @@ use App\Appointment\Models\ExtraService;
 
 class ExtraServices extends AsBase
 {
-    public function extras()
-    {
-        $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
-        $extras = ExtraService::ofCurrentUser()->paginate($perPage);
+    use App\Appointment\Traits\Crud;
 
-        return View::make('modules.as.services.extras', [
-            'extras' => $extras
-        ]);
-    }
+    protected $langPrefix = 'as.services.extras';
 }

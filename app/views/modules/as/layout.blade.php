@@ -4,7 +4,6 @@
 @stop
 
 @section ('styles')
-    {{ HTML::style('//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css') }}
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css') }}
     {{ HTML::style(asset('packages/alertify/alertify.core.css')) }}
     {{ HTML::style(asset('packages/alertify/alertify.bootstrap.css')) }}
@@ -12,7 +11,6 @@
 
 @section ('scripts')
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js') }}
-    {{ HTML::script('//code.jquery.com/ui/1.11.1/jquery-ui.js') }}
     {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
     {{ HTML::script(asset('assets/js/appointment.js')) }}
 @stop
@@ -54,7 +52,7 @@
                 <li><a href="{{ route('as.services.create') }}">Lisää palveluita</a></li>
                 <li><a href="{{ route('as.services.categories.index') }}">{{ trans('as.services.category.all') }}</a></li>
                 <li><a href="{{ route('as.services.resources.index') }}">{{ trans('as.services.resource.all') }}</a></li>
-                <li><a href="{{ route('as.services.extras') }}">Lisää lisäpalvelu</a></li>
+                <li><a href="{{ route('as.services.extras.index') }}">Lisää lisäpalvelu</a></li>
             </ul>
         </li>
         <li @if (Request::segment(2) === 'employees') {{ 'class="active"' }} @endif class="dropdown">
