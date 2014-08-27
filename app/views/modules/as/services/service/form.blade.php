@@ -1,15 +1,5 @@
 @extends ('modules.as.layout')
 
-@section ('styles')
-    @parent
-    {{ HTML::style(asset('packages/bootstrap-spinner/bootstrap-spinner.min.css')) }}
-@stop
-
-@section ('scripts')
-    @parent
-    {{ HTML::script(asset('packages/bootstrap-spinner/bootstrap-spinner.min.js')) }}
-@stop
-
 @section ('content')
 <div class="alert alert-info">
     <p><strong>{{ trans('as.services.add') }}</strong></p>
@@ -83,7 +73,7 @@
     <div class="form-group">
         <label for="category" class="col-sm-2 control-label">{{ trans('as.services.category') }}</label>
         <div class="col-sm-5">
-            {{ Form::select('category_id', array(0=> trans('common.options_select'))+$categories, isset($service) ? $service->category_id :0, ['class' => 'form-control input-sm', 'id' => 'category']) }}
+            {{ Form::select('category_id', [trans('common.options_select')]+$categories, isset($service) ? $service->category_id :0, ['class' => 'form-control input-sm', 'id' => 'category']) }}
         </div>
     </div>
     <div class="form-group">
@@ -130,7 +120,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                   {{ Form::select("plustimes[$employee->id]", array(5, 10, 15, 30), 0, ['class' => 'form-control input-sm', 'id' => 'plustime']) }}
+                   {{ Form::select("plustimes[$employee->id]", [5, 10, 15, 30], 0, ['class' => 'form-control input-sm', 'id' => 'plustime']) }}
                 </div>
             </div>
             @endforeach
