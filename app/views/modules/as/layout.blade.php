@@ -31,7 +31,7 @@
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="admin-menu">
-            <ul class="nav navbar-nav nav-admin">
+            <ul class="nav navbar-nav nav-admin nav-as">
                 <li @if (!Request::segment(2)) {{ 'class="active"' }} @endif><a href="{{ route('as.index') }}"><i class="fa fa-calendar"></i> Kalenteri</a></li>
         <li @if (Request::segment(2) === 'bookings') {{ 'class="active"' }} @endif class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('as.services.index') }}">
