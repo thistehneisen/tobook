@@ -12,25 +12,25 @@
 
 @section ('content')
 <div class="alert alert-info">
-    <p><strong>Lisää palvelu</strong></p>
-    <p>Lisää uusi palvelu lisäämällä palvelun nimi, palvelun kesto ja työntekijät</p>
+    <p><strong>{{ trans('as.services.add') }}</strong></p>
+    <p>{{ trans('as.services.add_desc') }}</p>
 </div>
 
 {{ Form::open(['route' => 'as.services.create', 'class' => 'form-horizontal well', 'role' => 'form']) }}
     <div class="form-group">
-        <label for="name" class="col-sm-2 control-label">Nimi</label>
+        <label for="name" class="col-sm-2 control-label">{{ trans('as.services.nimi') }}</label>
         <div class="col-sm-5">
            {{ Form::text('name', (isset($service)) ? $service->name:'', ['class' => 'form-control input-sm', 'id' => 'name']) }}
         </div>
     </div>
     <div class="form-group">
-        <label for="description" class="col-sm-2 control-label">Kuvaus</label>
+        <label for="description" class="col-sm-2 control-label">{{ trans('as.services.description') }}</label>
         <div class="col-sm-5">
             {{ Form::textarea('description', (isset($service)) ? $service->description:'', ['class' => 'form-control input-sm', 'id' => 'description']) }}
         </div>
     </div>
     <div class="form-group">
-        <label for="price" class="col-sm-2 control-label">Hinta</label>
+        <label for="price" class="col-sm-2 control-label">{{ trans('as.services.hinta') }}</label>
         <div class="col-sm-5">
             <div class="input-group">
                 <span class="input-group-addon">&euro;</span>
@@ -39,7 +39,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="duration" class="col-sm-2 control-label">Kesto</label>
+        <label for="duration" class="col-sm-2 control-label">{{ trans('as.services.duration') }}</label>
         <div class="col-sm-5">
             <div class="input-group input-group-sm spinner" data-inc="5" data-positive="true">
                 {{ Form::text('length', (isset($service)) ? $service->length : 0, ['class' => 'form-control', 'id' => 'length']) }}
@@ -51,7 +51,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="before" class="col-sm-2 control-label">Ennen</label>
+        <label for="before" class="col-sm-2 control-label">{{ trans('as.services.before') }}</label>
         <div class="col-sm-5">
             <div class="input-group input-group-sm spinner" data-inc="5" data-positive="true">
                 {{ Form::text('before', (isset($service)) ? $service->before : 0, ['class' => 'form-control', 'id' => 'before']) }}
@@ -63,7 +63,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="after" class="col-sm-2 control-label">Jälkeen</label>
+        <label for="after" class="col-sm-2 control-label">{{ trans('as.services.after') }}</label>
         <div class="col-sm-5">
             <div class="input-group input-group-sm spinner" data-inc="5" data-positive="true">
                 {{ Form::text('after', (isset($service)) ? $service->after : 0, ['class' => 'form-control', 'id' => 'after']) }}
@@ -75,38 +75,53 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="total" class="col-sm-2 control-label">Yhteensä</label>
+        <label for="total" class="col-sm-2 control-label">{{ trans('as.services.total') }}</label>
         <div class="col-sm-5">
            {{ Form::text('total', (isset($service)) ? $service->total:'', ['class' => 'form-control input-sm', 'id' => 'total', 'disabled'=>'disabled']) }}
         </div>
     </div>
     <div class="form-group">
-        <label for="total" class="col-sm-2 control-label">Kategoria</label>
+        <label for="category" class="col-sm-2 control-label">{{ trans('as.services.category') }}</label>
         <div class="col-sm-5">
             {{ Form::select('category_id', array(0=> trans('common.options_select'))+$categories, isset($service) ? $service->category_id :0, ['class' => 'form-control input-sm', 'id' => 'category']) }}
         </div>
     </div>
     <div class="form-group">
-        <label for="total" class="col-sm-2 control-label">Tila</label>
+        <label class="col-sm-2 control-label">{{ trans('as.services.is_active') }}</label>
         <div class="col-sm-5">
-           {{ Form::select('is_active', array(-1=> trans('common.options_select'))+['0'=> trans('common.active'),'1'=> trans('common.inactive')], isset($service) ? $service->is_active : -1, ['class' => 'form-control input-sm', 'id' => 'is_active']) }}
+            <div class="radio">
+                <label>
+                    {{ Form::radio('is_active', 0, Input::get('is_active', isset($service->id) ? $service->is_active : true)) }}
+                    {{ trans('common.active') }}
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    {{ Form::radio('is_active', 1, Input::get('is_active', isset($service->id) ? $service->is_active : false)) }}
+                    {{ trans('common.inactive') }}
+                </label>
+            </div>
         </div>
     </div>
     <div class="form-group">
-        <label for="total" class="col-sm-2 control-label">Resurssit</label>
+        <label for="resource" class="col-sm-2 control-label">{{ trans('as.services.resource') }}</label>
         <div class="col-sm-5">
-           {{ Form::select('resource', array(0=> trans('common.options_select'))+$resources, 1, ['class' => 'form-control input-sm', 'id' => 'resource']) }}
+           {{ Form::select('resource', [trans('common.options_select')] + $resources, 1, ['class' => 'form-control input-sm', 'id' => 'resource']) }}
         </div>
     </div>
     <div class="form-group">
-        <label for="total" class="col-sm-2 control-label">Lisäpalvelut</label>
+        <label for="extra" class="col-sm-2 control-label">{{ trans('as.services.extra') }}</label>
         <div class="col-sm-5">
             {{ Form::select('extra', $extras, 1, ['class' => 'form-control input-sm', 'id' => 'extra']) }}
         </div>
     </div>
     <div class="form-group">
-        <label for="" class="col-sm-2 control-label">Työntekijät</label>
+        <label for="" class="col-sm-2 control-label">{{ trans('as.services.employees') }}</label>
         <div class="col-sm-5">
+            @if ($employees->isEmpty())
+                <p><small><em>{{ trans('as.services.no_employees') }}</em></small></p>
+            @endif
+
             @foreach ($employees as $employee)
             <div class="row" style="margin-bottom: 5px;">
                 <div class="col-sm-6">
@@ -123,7 +138,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-5">
-            <button type="submit" class="btn btn-primary">Tallenna</button>
+            <button type="submit" class="btn btn-primary">{{ trans('common.save') }}</button>
         </div>
     </div>
 {{ Form::close() }}
