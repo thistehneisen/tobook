@@ -1,5 +1,15 @@
 @extends ('modules.as.layout')
 
+@section ('styles')
+    @parent
+    {{ HTML::style(asset('packages/bootstrap-spinner/bootstrap-spinner.min.css')) }}
+@stop
+
+@section ('scripts')
+    @parent
+    {{ HTML::script(asset('packages/bootstrap-spinner/bootstrap-spinner.min.js')) }}
+@stop
+
 @section ('content')
 <div class="alert alert-info">
     <p><strong>Lisää palvelu</strong></p>
@@ -31,19 +41,37 @@
     <div class="form-group">
         <label for="duration" class="col-sm-2 control-label">Kesto</label>
         <div class="col-sm-5">
-            {{ Form::text('length', (isset($service)) ? $service->length :'', ['class' => 'form-control input-sm spinner', 'id' => 'length']) }}
+            <div class="input-group input-group-sm spinner" data-inc="5" data-positive="true">
+                {{ Form::text('length', (isset($service)) ? $service->length : 0, ['class' => 'form-control', 'id' => 'length']) }}
+                <div class="input-group-btn-vertical">
+                    <button type="button" class="btn btn-default"><i class="fa fa-caret-up"></i></button>
+                    <button type="button" class="btn btn-default"><i class="fa fa-caret-down"></i></button>
+                </div>
+            </div>
         </div>
     </div>
     <div class="form-group">
         <label for="before" class="col-sm-2 control-label">Ennen</label>
         <div class="col-sm-5">
-            {{ Form::text('before', (isset($service)) ? $service->before:'', ['class' => 'form-control input-sm spinner', 'id' => 'before']) }}
+            <div class="input-group input-group-sm spinner" data-inc="5" data-positive="true">
+                {{ Form::text('before', (isset($service)) ? $service->before : 0, ['class' => 'form-control', 'id' => 'before']) }}
+                <div class="input-group-btn-vertical">
+                    <button type="button" class="btn btn-default"><i class="fa fa-caret-up"></i></button>
+                    <button type="button" class="btn btn-default"><i class="fa fa-caret-down"></i></button>
+                </div>
+            </div>
         </div>
     </div>
     <div class="form-group">
         <label for="after" class="col-sm-2 control-label">Jälkeen</label>
         <div class="col-sm-5">
-            {{ Form::text('after', (isset($service)) ? $service->after:'', ['class' => 'form-control input-sm spinner', 'id' => 'after']) }}
+            <div class="input-group input-group-sm spinner" data-inc="5" data-positive="true">
+                {{ Form::text('after', (isset($service)) ? $service->after : 0, ['class' => 'form-control', 'id' => 'after']) }}
+                <div class="input-group-btn-vertical">
+                    <button type="button" class="btn btn-default"><i class="fa fa-caret-up"></i></button>
+                    <button type="button" class="btn btn-default"><i class="fa fa-caret-down"></i></button>
+                </div>
+            </div>
         </div>
     </div>
     <div class="form-group">
