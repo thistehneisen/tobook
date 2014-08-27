@@ -177,6 +177,7 @@ class Crud extends Base
 
         return $this->render('crud.search', [
             'model' => $this->model,
+            'modelName'  => $this->modelName,
             'items' => $items,
         ]);
     }
