@@ -256,22 +256,22 @@ Route::group([
         'as.services.extras'
     );
 
-    Route::get('services/employees/freetime', [
+    Route::get('services/employees/free-time', [
         'as' => 'as.employees.freetime',
         'uses' => 'App\Appointment\Controllers\Employees@freetime'
     ]);
 
-    Route::get('employees/customTime', [
+    Route::get('employees/custom-time', [
         'as' => 'as.employees.customTime',
         'uses' => 'App\Appointment\Controllers\Employees@customTime'
     ]);
 
-    Route::get('employees/defaultTime/{id}', [
+    Route::get('employees/default-time/{id}', [
         'as' => 'as.employees.defaultTime.get',
         'uses' => 'App\Appointment\Controllers\Employees@defaultTime'
     ]);
 
-    Route::post('employees/defaultTime', [
+    Route::post('employees/default-time', [
         'as' => 'as.employees.defaultTime',
         'uses' => 'App\Appointment\Controllers\Employees@updateDefaultTime'
     ]);
