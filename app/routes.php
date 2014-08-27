@@ -239,26 +239,11 @@ Route::group([
         'as.services.categories'
     );
 
-    Route::post('services/categories/destroy', [
-        'as' => 'as.services.categories.destroy',
-        'uses' => 'App\Appointment\Controllers\Categories@destroy'
-    ]);
-
     // Service Resource
     \App\Appointment\Controllers\Resources::crudRoutes(
         'services/resources',
         'as.services.resources'
     );
-
-    Route::post('services/resources/destroy', [
-        'as' => 'as.services.resources.destroy',
-        'uses' => 'App\Appointment\Controllers\Resources@destroy'
-    ]);
-
-    Route::get('services/extras', [
-        'as' => 'as.services.extras',
-        'uses' => 'App\Appointment\Controllers\ExtraServices@extras'
-    ]);
 
     // Employee
     \App\Appointment\Controllers\Employees::crudRoutes(
@@ -266,17 +251,12 @@ Route::group([
         'as.employees'
     );
 
-    Route::get('employees/edit/{id}', [
-        'as' => 'as.employees.edit',
-        'uses' => 'App\Appointment\Controllers\Employees@edit'
-    ]);
+    \App\Appointment\Controllers\ExtraServices::crudRoutes(
+        'services/extras',
+        'as.services.extras'
+    );
 
-    Route::post('employees/edit/{id}', [
-        'as' => 'as.employees.edit',
-        'uses' => 'App\Appointment\Controllers\Employees@doEdit'
-    ]);
-
-    Route::get('employees/freetime', [
+    Route::get('services/employees/freetime', [
         'as' => 'as.employees.freetime',
         'uses' => 'App\Appointment\Controllers\Employees@freetime'
     ]);

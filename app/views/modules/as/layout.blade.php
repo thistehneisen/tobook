@@ -54,7 +54,7 @@
                 <li><a href="{{ route('as.services.create') }}">Lisää palveluita</a></li>
                 <li><a href="{{ route('as.services.categories.index') }}">{{ trans('as.services.category.all') }}</a></li>
                 <li><a href="{{ route('as.services.resources.index') }}">{{ trans('as.services.resource.all') }}</a></li>
-                <li><a href="{{ route('as.services.extras') }}">Lisää lisäpalvelu</a></li>
+                <li><a href="{{ route('as.services.extras.index') }}">Lisää lisäpalvelu</a></li>
             </ul>
         </li>
         <li @if (Request::segment(2) === 'employees') {{ 'class="active"' }} @endif class="dropdown">
