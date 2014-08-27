@@ -3,6 +3,7 @@
     'use strict';
     // Add spinner to form
     $(".spinner").spinner();
+    $('.customer-tooltip').tooltip();
     $('.toggle-check-all-boxes').click(function () {
       var checkboxClass = ($(this).data('checkbox-class')) || 'checkbox';
       $('.' + checkboxClass).prop('checked', this.checked);

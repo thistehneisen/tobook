@@ -54,3 +54,67 @@
         padding-right: 0 !important;
     }
 }
+
+.as-calendar {
+    background: #fff;
+    white-space: nowrap;
+    overflow-x: scroll;
+}
+.as-col {
+    width: 200px;
+    display: inline-block;
+    margin-bottom: 0px;
+    ul {
+        padding: 0px;
+        margin-left: -3px;
+        margin-bottom: 0px;
+    }
+    li {
+        height: 30px;
+        line-height: 28px;
+        list-style-type: none;
+        margin:0;
+        color: @text_dark;
+        background-color: @light_orange;
+        border: 1px solid #fff;
+        text-align: center;
+    }
+    li.as-col-header{
+        background: #ccc;
+        font-weight: 700;
+    }
+    li.inactive {
+        background-color: #888;
+        color: @text_light;
+    }
+    li.booked {
+        background-color: #ed1c24;
+        color: #fff;
+        font-weight: 700;
+        font-size: 13px;
+        text-align: left;
+        padding: 0 10px;
+        a {
+            color: #fff;
+        }
+        span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 165px;
+            display: inline-block;
+        }
+    }
+}
+.as-col-left-header{
+    width: 100px;
+    display: inline-block;
+     li {
+        height: 30px;
+        list-style-type: none;
+        color: @text_dark;
+        background-color: #ccc;
+        border: 1px solid #fff;
+        text-align: center;
+    }
+}

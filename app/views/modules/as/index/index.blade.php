@@ -43,294 +43,209 @@
 <div class="row row-no-padding">
     <h3 class="comfortaa">Good to know</h3>
     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-        <table class="table table-condensed as-table-left-header ">
-        <thead>
-            <tr>
-                <td>&nbsp;</td>
-            </tr>
-            </thead>
-            <tr>
-                <td>08:00</td>
-            </tr>
-            <tr>
-                <td>09:00</td>
-            </tr>
-            <tr>
-                <td>10:00</td>
-            </tr>
-            <tr>
-                <td>11:00</td>
-            </tr>
-            <tr>
-                <td>12:00</td>
-            </tr>
-            <tr>
-                <td>13:00</td>
-            </tr>
-            <tr>
-                <td>14:00</td>
-            </tr>
-            <tr>
-                <td>15:00</td>
-            </tr>
-            <tr>
-                <td>16:00</td>
-            </tr>
-            <tr>
-                <td>17:00</td>
-            </tr>
-            <tr>
-                <td>18:00</td>
-            </tr>
-            <tr>
-                <td>19:00</td>
-            </tr>
-            <tr>
-                <td>20:00</td>
-            </tr>
-            <tr>
-                <td>21:00</td>
-            </tr>
-            <tr>
-                <td>22:00</td>
-            </tr>
-            <tr>
-                <td>23:00</td>
-            </tr>
-        </table>
+        <ul class="as-col-left-header">
+            <li class="as-col-header">&nbsp;</li>
+            <li>00:00</li>
+            <li>00:00</li>
+            <li>00:00</li>
+            <li>00:00</li>
+            <li>00:00</li>
+            <li>00:00</li>
+            <li>00:00</li>
+            <li>00:00</li>
+            <li>00:00</li>
+            <li>00:00</li>
+            <li>00:00</li>
+            <li>00:00</li>
+            <li>00:00</li>
+            <li>00:00</li>
+            <li>00:00</li>
+        </ul>
     </div>
-    <div class="table-responsive as-table-wrapper col-lg-11 col-md-11 col-sm-11 col-xs-11">
-    <table class="table table-condensed as-table">
-        <thead>
-            <tr>
-                <th>User 1</th>
-                <th>User 2</th>
-                <th>User 3</th>
-                <th>User 4</th>
-                <th>User 5</th>
-                <th>User 6</th>
-                <th>User 7</th>
-                <th>User 7</th>
-                <th>User 7</th>
-                <th>User 7</th>
-                <th>User 7</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="inactive">
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-            </tr>
-            <tr class="inactive">
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-            </tr>
-            <tr>
-                <td>varaa</td>
-                <td class="booked">
-                    Hung (Service 3)
+    <div class="as-calendar as-table-wrapper col-lg-11 col-md-11 col-sm-11 col-xs-11">
+       <div class="as-col">
+            <ul>
+                <li class="as-col-header">Employee 1</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+            </ul>
+       </div>
+       <div class="as-col">
+            <ul>
+                <li class="as-col-header">Employee 1</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li>varaa</li>
+                <li class="booked">
+                    <span class="customer-tooltip"title="Cao Luu Bao An This is a very long text heheh">Cao Luu Bao An This is a very long text heheh (Service 3)</span>
                     <a href="#" class="pull-right"><i class="fa fa-plus"></i></a>
-                </td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-            </tr>
-            <tr>
-                <td>varaa</td>
-                <td class="booked"></td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-            </tr>
-            <tr>
-                <td>varaa</td>
-                <td class="booked"></td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-            </tr>
-            <tr>
-                <td>varaa</td>
-                <td class="booked"></td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-            </tr>
-            <tr>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-            </tr>
-            <tr>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-            </tr>
-            <tr>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-            </tr>
-            <tr>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-            </tr>
-            <tr>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-            </tr>
-            <tr>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-            </tr>
-            <tr>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-            </tr>
-            <tr>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-            </tr>
-            <tr class="inactive">
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-            </tr>
-            <tr class="inactive">
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-                <td>varaa</td>
-            </tr>
-
-        </tbody>
-    </table>
+                </li>
+                <li class="booked"></li>
+                <li class="booked"></li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+            </ul>
+       </div>
+        <div class="as-col">
+            <ul>
+                <li class="as-col-header">Employee 2</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+            </ul>
+       </div>
+        <div class="as-col">
+            <ul>
+                <li class="as-col-header">Employee 2</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+            </ul>
+       </div>
+        <div class="as-col">
+            <ul>
+                <li class="as-col-header">Employee 2</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+            </ul>
+       </div>
+        <div class="as-col">
+            <ul>
+                <li class="as-col-header">Employee 2</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+            </ul>
+       </div>
+        <div class="as-col">
+            <ul>
+                <li class="as-col-header">Employee 2</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+            </ul>
+       </div>
+        <div class="as-col">
+            <ul>
+                <li class="as-col-header">Employee 2</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+            </ul>
+       </div>
+        <div class="as-col">
+            <ul>
+                <li class="as-col-header">Employee 2</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+                <li>varaa</li>
+            </ul>
+       </div>
     </div>
 </div>
 @stop

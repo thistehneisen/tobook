@@ -4,8 +4,8 @@
 @stop
 
 @section ('styles')
-    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css') }}
     {{ HTML::style('//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css') }}
+    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css') }}
     {{ HTML::style(asset('packages/alertify/alertify.core.css')) }}
     {{ HTML::style(asset('packages/alertify/alertify.bootstrap.css')) }}
 @stop
