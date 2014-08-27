@@ -53,11 +53,14 @@ class Module extends Base
 	 */
 	public function users()
 	{
-		return $this->belongsToMany('User')
+		return $this->belongsToMany('App\Core\Models\User')
             ->withPivot(['id', 'start', 'end', 'is_active'])
             ->withTimestamps();
 	}
 
+    //--------------------------------------------------------------------------
+    // CUSTOMS
+    //--------------------------------------------------------------------------
     /**
      * Check if the given start and end date is overlapped with existing data
      *

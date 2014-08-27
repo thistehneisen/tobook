@@ -1,6 +1,6 @@
 <?php namespace App\Core\Models;
 
-use App, DB;
+use App, DB, Carbon\Carbon;
 use Zizaco\Confide\ConfideUser;
 use Zizaco\Entrust\HasRole;
 
@@ -140,5 +140,20 @@ class User extends ConfideUser
             '<i class="fa fa-user"></i> Login' => route('admin.users.login', ['id' => $this->id]),
             '<i class="fa fa-puzzle-piece"></i> Modules' => route('admin.users.modules', ['id' => $this->id])
         ];
+    }
+
+    /**
+     * Get active services/modules of this user
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function getActiveModules()
+    {
+        $now = Carbon::now();
+        return $this->modules()
+            ->wherePivot('start', '<=', $now)
+            ->wherePivot('end', '>=', $now)
+            ->wherePivot('is_active', true)
+            ->get();
     }
 }

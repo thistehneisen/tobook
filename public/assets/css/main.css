@@ -123,7 +123,7 @@ a:hover {
 .main .dashboard-services li {
   margin-bottom: 10px;
 }
-.main .dashboard-services div {
+.main .dashboard-services .wrapper {
   font-family: "Comfortaa";
   border: 1px solid #f4c8b2;
 }
