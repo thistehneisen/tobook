@@ -241,6 +241,7 @@ a:hover {
 }
 .as-col-left-header li {
   height: 30px;
+  line-height: 28px;
   list-style-type: none;
   color: #333333;
   background-color: #ddd;

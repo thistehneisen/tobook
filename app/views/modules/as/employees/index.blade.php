@@ -46,7 +46,7 @@
             <td>{{ $employee->service }}</td>
             <td>{{ $employee->is_active }}</td>
             <td>
-                <a href="{{ route('as.employees.edit', ['id'=> $employee->id ]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
+                <a href="{{ route('as.employees.upsert', ['id'=> $employee->id ]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
                 <a href="{{ route('as.employees.upsert', ['id'=> $employee->id ]) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
             </td>
         </tr>

@@ -45,8 +45,10 @@
     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
         <ul class="as-col-left-header">
             <li class="as-col-header">&nbsp;</li>
-            @foreach ($workingTimes as $workingTime)
-            <li>{{ $workingTime }}:00</li>
+            @foreach ($workingTimes as $hour)
+                @foreach (range(0, 45, 15) as $minuteShift)
+                    <li>{{ sprintf('%02d', $hour) }} : {{ sprintf('%02d', $minuteShift) }}</li>
+                @endforeach
             @endforeach
         </ul>
     </div>
@@ -55,9 +57,10 @@
         <div class="as-col">
             <ul>
                 <li class="as-col-header">{{ $employee->name }}</li>
-                @foreach ($workingTimes as $workingTime)
-                {{-- with($employee->getDefaulTimesByDay('wed'))->first()->start_at --}}
-                <li class="inactive">varaa</li>
+                @foreach ($workingTimes as $hour)
+                     @foreach (range(0, 45, 15) as $minuteShift)
+                    <li class="{{ $employee->getSlotClass($hour, $minuteShift) }}">varaa</li>
+                     @endforeach
                 @endforeach
             </ul>
        </div>
@@ -65,6 +68,31 @@
        <div class="as-col">
             <ul>
                 <li class="as-col-header">Employee 1</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
+                <li class="inactive">varaa</li>
                 <li class="inactive">varaa</li>
                 <li class="inactive">varaa</li>
                 <li class="inactive">varaa</li>

@@ -13,7 +13,7 @@ class Index extends Base
     public function index()
     {
         $employees = Employee::ofCurrentUser()->get();
-        $workingTimes = range(6,20);
+        $workingTimes = range(8,17);
         return View::make('modules.as.index.index', [
                 'employees' => $employees,
                 'workingTimes' => $workingTimes

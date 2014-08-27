@@ -24,7 +24,8 @@ class Employees extends AsBase
 
         return $this->render('form', [
             'services' => $services,
-            'employee' => $employee
+            'employee' => $employee,
+            'employeeId'=> $employee->id
         ]);
     }
 

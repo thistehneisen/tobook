@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Models;
 use Config;
-
+use Carbon\Carbon;
 class Employee extends \App\Core\Models\Base
 {
     protected $table = 'as_employees';
@@ -36,6 +36,32 @@ class Employee extends \App\Core\Models\Base
         return $defaultTimes->filter(function($item) use ($day) {
             return $item->type === $day;
         });
+    }
+
+    public function getTodayDefaultStartAt(){
+         //TODO change thu to today weekday
+        $todayStartAt = $this->getDefaulTimesByDay('thu')->first()->start_at;
+        return $todayStartAt;
+    }
+
+    public function getTodayDefaultEndAt(){
+        //TODO change thu to today weekday
+        $todayEndAt = $this->getDefaulTimesByDay('thu')->first()->end_at;
+        return $todayEndAt;
+    }
+
+    //TODO change to another method to compare time
+    public function getSlotClass($hour, $minute){
+       $class = 'inactive';
+       $rowTime = Carbon::createFromTime($hour, $minute, 0, 'Europe/Helsinki');
+       list($start_hour, $start_minute) = explode(':', $this->getTodayDefaultStartAt());
+       $startAt =  Carbon::createFromTime($start_hour, $start_minute, 0, 'Europe/Helsinki');
+       list($end_hour, $end_minute) = explode(':', $this->getTodayDefaultEndAt());
+       $endAt = Carbon::createFromTime($end_hour, $end_minute, 0, 'Europe/Helsinki');
+       if($rowTime >= $startAt && $rowTime <= $endAt){
+            $class = 'active';
+       }
+       return $class;
     }
     //--------------------------------------------------------------------------
     // ATTRIBUTES
