@@ -64,6 +64,12 @@
                 <li><a href="{{ route('auth.register') }}">{{ trans('common.register') }}</a></li>
                 <li><a href="{{ route('auth.login') }}">{{ trans('common.sign_in_header') }}</a></li>
                 @endif
+                <li>
+                    <i class="fa fa-globe"></i>
+                @foreach (Config::get('varaa.languages') as $locale)
+                    <a class="{{ Config::get('app.locale') === $locale ? 'active' : '' }}" href="{{ UrlHelper::localizedCurrentUrl($locale) }}" title="">{{ strtoupper($locale) }}</a>
+                @endforeach
+                </li>
             </ul>
         </nav>
         @show

@@ -28,7 +28,7 @@
 @foreach ($modules as $item)
     <li class="col-md-3 col-lg-3" @if (!in_array($item->name, $activeModules)) data-toggle="popover" data-content="{{ trans('dashboard.expired') }}" title="{{ trans('dashboard.expired_heading') }}" @endif>
         <div class="wrapper">
-            <a href="{{ in_array($item->name, $activeModules) ? URL::to($item->uri) : '#' }}">
+            <a href="{{ in_array($item->name, $activeModules) ? URL::to(Config::get('app.locale').$item->uri) : '#' }}">
                 <h4>{{ trans('dashboard.'.$item->name) }}</h4>
                 <p><img src="{{ asset('assets/img/services/'.$item->name.'.jpg') }}" alt="{{ trans('dashboard.'.$item->name) }}"></p>
             </a>
