@@ -14,8 +14,8 @@ $i18n = array(
     'description' => 'Kuvaus',
     'addCategory' => 'Lisää kategoria',
     'categoryName' => 'Kategorian nimi',
-    'showOnFrontEnd' => 'Varattavissa kuluttajille',    
-    'message' => 'Kuvaus',  
+    'showOnFrontEnd' => 'Varattavissa kuluttajille',
+    'message' => 'Kuvaus',
     'addResources' => 'Lisää resurssi',
     'resourcesName' => 'Resurssi',
     'addExtraService' => 'Lisää lisäpalvelu',
@@ -43,7 +43,7 @@ $i18n = array(
 	'lblResourcesName' => 'Resurssin nimi',
 	'lblMessage' => 'Viesti',
 	'lblNoRecordsFound' => 'Ei tuloksia',
-	
+
     'user' => 'Käyttäjänimi',
     'pass' => 'Salasana',
     'email' => 'Sähköpostiosoite',
@@ -994,4 +994,11 @@ You should also set up a CRON job for cron.php file which should execute every h
     'Friday' => 'Perjantai',
     'Saturday' => 'Lauantai',
     'Sunday' => 'Sunnuntai',
+    'Mon' => 'Ma',
+    'Tue' => 'Ti',
+    'Wed' => 'Ke',
+    'Thu' => 'To',
+    'Fri' => 'Pe',
+    'Sat' => 'La',
+    'Sun' => 'Su',
 );

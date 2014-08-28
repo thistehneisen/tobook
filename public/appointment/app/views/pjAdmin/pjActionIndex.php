@@ -10,40 +10,39 @@ if (isset($tpl['status']))
 	}
 } else {
 	global $as_pf;
-	
+
 	if ( isset($_GET['date']) && !empty($_GET['date']) ) {
 		$_SESSION[$as_pf . 'url_date'] = $_GET['date'];
-		
+
 	} else unset($_SESSION[$as_pf . 'url_date']);
-		
+
 	$titles = __('error_titles', true);
 	$bodies = __('error_bodies', true);
 	pjUtil::printNotice(@$titles['AD01'], @$bodies['AD01'], true, false);
-	
+
 	$week_start = isset($tpl['option_arr']['o_week_start']) && in_array((int) $tpl['option_arr']['o_week_start'], range(0,6)) ? (int) $tpl['option_arr']['o_week_start'] : 0;
 	$jqDateFormat = pjUtil::jqDateFormat($tpl['option_arr']['o_date_format']);
-	
+
 	$booking_statuses = __('booking_statuses', true, true);
 	$invoice_statuses = __('plugin_invoice_statuses', true, true);
 	$filter = __('filter', true, true);
-	
+
 	$week = array(
-			
-			'Mon' => 'Ma',
-			'Tue' => 'Ti',
-			'Wed' => 'Ke',
-			'Thu' => 'To',
-			'Fri' => 'Pe',
-			'Sat' => 'La',
-			'Sun' => 'Su'
-		);
-	
+        'Mon' => __('Mon', true),
+        'Tue' => __('Tue', true),
+        'Wed' => __('Wed', true),
+        'Thu' => __('Thu', true),
+        'Fri' => __('Fri', true),
+        'Sat' => __('Sat', true),
+        'Sun' => __('Sun', true),
+    );
+
 	$now = isset($_GET['date']) && !empty($_GET['date']) ? strtotime($_GET['date']) : strtotime('now');
-	
+
 	$i = 0;
 	$_now = 0;
 	foreach ($week as $key => $day) {
-		
+
 		if ( $key == date('D', $now) ) {
 			$_now = $i;
 			break;
@@ -60,46 +59,46 @@ if (isset($tpl['status']))
 				<span class="pj-form-field-after"><abbr class="pj-form-field-icon-date"></abbr></span>
 			</span>
 		</span>
-		
+
 		<ul class="week-button float_left">
 			<li class="prev-week"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdmin&amp;action=pjActionIndex&amp;as_pf=<?php echo $as_pf; ?>&amp;date=<?php echo date('Y-m-d', $now - 604800); ?>" title="Previous week">Previous week</a></li>
 			<li class="prev"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdmin&amp;action=pjActionIndex&amp;as_pf=<?php echo $as_pf; ?>&amp;date=<?php echo date('Y-m-d', $now - 86400); ?>" title="Previous">Previous</a></li>
 			<li class="next"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdmin&amp;action=pjActionIndex&amp;as_pf=<?php echo $as_pf; ?>&amp;date=<?php echo date('Y-m-d', $now + 86400); ?>" title="Next">Next</a></li>
 			<li class="next-week"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdmin&amp;action=pjActionIndex&amp;as_pf=<?php echo $as_pf; ?>&amp;date=<?php echo date('Y-m-d', $now + 604800); ?>" title="Next week">Next week</a></li>
 		</ul>
-		
+
 		<ul class="week-day float_left">
-		<?php 
+		<?php
 		$i = 0;
 		$_d = date('d', $now);
 		$count_days = cal_days_in_month(CAL_GREGORIAN, date('m', $now), date('Y', $now));
-		foreach ($week as $key => $day) { 
+		foreach ($week as $key => $day) {
 			$d = $_d + ( $i - $_now );
 			$m = date('m', $now);
 			$y = date('Y', $now);
-			
+
 			if ( $i - $_now == 0 ) {
 				$active = 'active';
-				
+
 			} else $active = '';
-			
+
 			if ( $d < 1 ) {
 				$m = $m - 1;
 				if ( $m < 1 ) {
 					$m = 12;
 					$y = $y - 1;
 				}
-				
+
 				$_count_days = cal_days_in_month(CAL_GREGORIAN, $m, $y);
 				$d = $_count_days + $d;
-				
+
 			} elseif ( $d > $count_days ) {
 				$m = $m + 1;
 				if ( $m > 12 ) {
 					$m = 1;
 					$y = $y + 1;
 				}
-				
+
 				$d = $d - $count_days;
 			}
 		?>
@@ -112,12 +111,12 @@ if (isset($tpl['status']))
 	</div>
 	<?php
 	if (!$tpl['t_arr'])
-	{  
+	{
 		pjUtil::printNotice(@$titles['AD02'], @$bodies['AD02'], true, false);
 	} else {
 		if (empty($tpl['service_arr']))
 		{
-			
+
 		} else {
 			# Fix for 24h support
 			$offset = $tpl['t_arr']['end_ts'] <= $tpl['t_arr']['start_ts'] ? 86400 : 0;
@@ -153,11 +152,11 @@ if (isset($tpl['status']))
 												$i < $employee['t_arr']['client']['start_ts'] ||
 												$i >= $employee['t_arr']['client']['end_ts'] ) {
 											$class = '';
-												
+
 										} else {
 											$class = 'client';
 										}
-										
+
 										$bookings = array();
 										foreach ($tpl['bs_arr'] as $item)
 										{
@@ -166,16 +165,16 @@ if (isset($tpl['status']))
 												$bookings[] = $item;
 												if ( isset($item['status']) && !empty($item['status']) ) {
 													$booking_status = $item['status'];
-														
+
 												} else $booking_status = $item['booking_status'];
-												
+
 												$class = 'asSlotBooked ' . $booking_status;
 												if ($employee['id'] == $item['employee_id'] && $i - $step >= $item['start_ts'] && $i - $step < $item['start_ts'] + $item['total'] * 60){
 													$class .= ' asSlotBookedPlus';
 												}
 											}
 										}
-										
+
 										$freetime = array();
 										$ft_first = false;
 										foreach ( $employee['ef_arr'] as $_freetime ) {
@@ -188,8 +187,8 @@ if (isset($tpl['status']))
 												break;
 											}
 										}
-										
-										?><td class="dSlot <?php echo $class; ?>"><?php 
+
+										?><td class="dSlot <?php echo $class; ?>"><?php
 										if ( $employee['t_arr']['admin'] != false && ($i < $employee['t_arr']['admin']['start_ts'] ||
 												$i > $employee['t_arr']['admin']['end_ts'])) {
 
@@ -204,25 +203,25 @@ if (isset($tpl['status']))
                                                 }
 											} else {
 												echo '<a class="dashboardView" title="'. ((!empty($freetime['message'])) ? htmlspecialchars($freetime['message']) : '') . '" href="#" data-employee_id="'. $employee['id'] .'" data-start_ts="'. $i .'" >';
-												
+
 												if ( isset($freetime['message']) && !empty($freetime['message'])) {
 													echo htmlspecialchars($freetime['message']);
-													
+
 												} else {
                                                     echo  'varaa'; //date($tpl['option_arr']['o_time_format'], $i);
                                                 }
-												
+
 												echo  '</a>';
 											}
-											
+
 											if ($ft_first) {
 												echo '<a href="#" class="removeFreetime" data-freetime_id="'. $freetime['id'] .'" title="Remove Freetime">x</a>';
 											}
 											echo '</div>';
-											
+
 										} else {
 											foreach ($bookings as $booking)
-											{   
+											{
 												if ( isset($booking['status']) && !empty($booking['status']) ) {
 													$booking_status = $booking['status'];
 												} else {
@@ -238,7 +237,7 @@ if (isset($tpl['status']))
                                                         <?php echo pjSanitize::html($booking['c_name']); ?>
                                                         <span class="fs11"> (<?php
                                                                     if(!empty($booking['service_id'])):
-                                                                        echo pjSanitize::html($booking['service_name']); 
+                                                                        echo pjSanitize::html($booking['service_name']);
                                                                     else:
                                                                         __('empty_service');
                                                                     endif;
