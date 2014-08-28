@@ -153,27 +153,16 @@ function onUseStamp(obj) {
 }
 function showConsumerInfo(consumerId) {
     var table = $("#tblDataList"),
-        thisCheckbox,
-        allCheckboxes;
-
-    // get the table with consumerId
-    table.DataTable().column(0).search(consumerId).draw();
+        thisCheckbox;
 
     // uncheck all boxes
-    allCheckboxes = table.find(".js-consumerIdCheckbox");
-    allCheckboxes.prop("checked", false);
+    table.find(".js-consumerIdCheckbox").prop("checked", false);
 
-    if (allCheckboxes.length) {
-        // the get the row and check it
-        thisCheckbox = table.find(".js-consumerIdCheckbox[value='" + consumerId + "']").get(0);
-        if (thisCheckbox) {
-            $(thisCheckbox).prop('checked', true);
-            onSelectConsumer(thisCheckbox);
-        }
-    } else {
-        // if it can't search for consumerId, simply reload the page
-        // AND THIS MEANS BIG ERROR
-        window.location.reload();
+    // the get the row and check it
+    thisCheckbox = table.find(".js-consumerIdCheckbox[value='" + consumerId + "']").get(0);
+    if (thisCheckbox) {
+        $(thisCheckbox).prop('checked', true);
+        onSelectConsumer(thisCheckbox);
     }
 }
 
@@ -203,7 +192,7 @@ $(document).ready(function () {
                 $("table#tblDataList").find("tbody").html(strHTML);
                 $('#tblDataList').dataTable({
                     "sDom" : "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
-                    // "sPaginationType": "bootstrap",
+                    "paging": false,
                     "aaSorting" : [],
                     "oLanguage" : {
                         "sLengthMenu" : "_MENU_ tuloksia per sivu"

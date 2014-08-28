@@ -169,6 +169,6 @@
 		<script type="text/javascript" src="js/respond.js"></script>
         <script type="text/javascript" src="//cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="js/DT_bootstrap.js"></script>
-		<script type="text/javascript" src="js/main.js"></script>
+		<script type="text/javascript" src="js/main.js?v=0001"></script>
 	</body>
 </html>
