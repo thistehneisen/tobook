@@ -70,7 +70,12 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']	= 'finland';
+$lang_ref = array(
+    'fi' => 'finland',
+    'en' => 'english'
+);
+$config['language']	= $lang_ref[Bridge::getLocale()];
+@setcookie('sma_language', $config['language']);
 
 /*
 |--------------------------------------------------------------------------
@@ -268,7 +273,7 @@ $config['sess_time_to_update']	= 300;
 
 if ( defined('PREFIX') ) {
 	$config['cookie_prefix']	= PREFIX . "sma_";
-	
+
 } else $config['cookie_prefix']	= "sma_";
 
 $config['cookie_domain']	= "";
@@ -302,7 +307,7 @@ $config['csrf_protection'] = TRUE;
 $config['csrf_token_name'] = 'csrf_sma';
 $config['csrf_cookie_name'] = 'csrf_cookie_sma';
 $config['csrf_expire'] = 17800;
-//$config['csrf_exclude_uris'] = array(); 
+//$config['csrf_exclude_uris'] = array();
 
 /*
 |--------------------------------------------------------------------------
