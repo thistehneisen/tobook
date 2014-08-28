@@ -133,7 +133,7 @@ class Offer extends Base {
         ], 204);
     }
 
-    public function use($id)
+    public function useOffer($id)
     {
         $error = false;
         $message = '';
@@ -142,40 +142,43 @@ class Offer extends Base {
         $offer = OfferModel::find($id);
 
         if (Request::get('customer_id')) {
-            $consumerId = Request::get('consumer_id');
+            $consumerId = Request::get('customer_id');
             $consumer = ConsumerModel::find($consumerId);
             $consumerTotalStamps = $consumer->total_stamps;
 
             if ($consumerTotalStamps !== '') {
-                $consumerTotalStamps = json_decode($consumerTotalStamps);
-                $consumerThisStamp = json_decode($consumerTotalStamps[$id]);
+                $consumerTotalStamps = json_decode($consumerTotalStamps, true);
+                $consumerThisStamp = $consumerTotalStamps[$id];
                 $consumerNoOfStamps = $consumerThisStamp[0];
                 $consumerFreeService = $consumerThisStamp[1];
 
                 if ($consumerFreeService > 0) {
-                    $consumerFreeService--;
+                    $consumerFreeService -= 1;
+
+                    $consumerTotalStamps[$id] = [$consumerNoOfStamps, $consumerFreeService];
+                    $consumerTotalStamps = json_encode($consumerTotalStamps);
+
+                    $transaction = new TransactionModel;
+                    $transaction->user_id = Auth::user()->id;
+                    $transaction->consumer_id = $consumerId;
+                    $transaction->offer_id = $id;
+                    $transaction->stamp = 0;
+                    $transaction->free_service = -1;
+                    $transaction->save();
+                    $consumer->total_stamps = $consumerTotalStamps;
+                    $consumer->save();
+
+                    $error = false;
+                    $message = 'Offer used';
+                    $status = 200;
+                } else {
+                    $error = true;
+                    $message = 'Not enough free service';
+                    $status = 400;
                 }
-
-                $consumerThisStampNew = json_encode([$consumerNoOfStamps, $consumerFreeService]);
-                $consumerTotalStamps[$id] = $consumerThisStampNew;
-                $consumerTotalStamps = json_encode($consumerTotalStamps);
-
-                $transaction = new TransactionModel;
-                $transaction->user_id = Auth::user()->id;
-                $transaction->consumer_id = $consumerId;
-                $transaction->offer_id = $id;
-                $transaction->stamp = 0;
-                $transaction->free_service = -1;
-                $transaction->save();
-                $consumer->total_stamps = $consumerTotalStamps;
-                $consumer->save();
-
-                $error = false;
-                $message = 'Offer used';
-                $status = 204;
             } else {
                 $error = true;
-                $message = 'No offer to use';
+                $message = 'Not enough free service';
                 $status = 400;
             }
         } else {
@@ -184,7 +187,7 @@ class Offer extends Base {
             $status = 400;
         }
 
-        return Response::json_encode([
+        return Response::json([
             'error' => $error,
             'message' => $message,
         ], $status);

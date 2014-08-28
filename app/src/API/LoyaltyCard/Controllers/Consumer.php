@@ -2,6 +2,8 @@
 use Validator, Response, Request;
 use Auth;
 use App\LoyaltyCard\Models\Consumer as Model;
+use App\LoyaltyCard\Models\Offer as OfferModel;
+use App\API\LoyaltyCard\Models\Transaction as TransactionModel;
 use App\Core\Controllers\Base as Base;
 
 class Consumer extends Base
@@ -9,7 +11,7 @@ class Consumer extends Base
     /**
      * Display a listing of the resource.
      *
-     * @return View
+     * @return Response
      */
     public function index()
     {
@@ -48,9 +50,19 @@ class Consumer extends Base
         $validator = Validator::make(Request::all(), $rules);
 
         if ($validator->fails()) {
+            // $messages = $validator->messages();
+            // /$data = [];
+
+            // foreach ($rules as $key => $value) {
+            //     if ($messages->has($key)) {
+            //         $data[] = $key;
+            //     }
+            // }
+
             return Response::json([
                 'error' => true,
                 'message' => 'Invalid data',
+                //'details'  => $data,
             ], 400);
         } else {
             try {
@@ -118,28 +130,28 @@ class Consumer extends Base
         $message = '';
         $status = 0;
 
-        if (Request::get('add_stamp') == true) {
+        if (Request::get('add_stamp') === '1') {
             if (Request::get('offer_id')) {
                 $error = false;
                 $message = '';
                 $status = 0;
 
                 $offerId = Request::get('offer_id');
-                $offer = OfferModel::find($id);
+                $offer = OfferModel::find($offerId);
                 $offerRequired = $offer->required;
                 $offerFreeService = $offer->free_service;
 
-                $consumer = ConsumerModel::find($id);
+                $consumer = Model::find($id);
                 $consumerTotalStamps = $consumer->total_stamps;
 
                 $transaction = new TransactionModel;
                 $transaction->user_id = Auth::user()->id;
-                $transaction->consumer_id = $consumerId;
-                $transaction->offer_id = $id;
+                $transaction->consumer_id = $id;
+                $transaction->offer_id = $offerId;
 
                 if ($consumerTotalStamps !== '') {
-                    $consumerTotalStamps = json_decode($consumerTotalStamps);
-                    $consumerThisStamp = json_decode($consumerTotalStamps[$offerId]);
+                    $consumerTotalStamps = json_decode($consumerTotalStamps, true);
+                    $consumerThisStamp = $consumerTotalStamps[$offerId];
                     $consumerNoOfStamps = $consumerThisStamp[0];
                     $consumerFreeService = $consumerThisStamp[1];
 
@@ -154,14 +166,12 @@ class Consumer extends Base
                         $transaction->free_service = 0;
                     }
 
-                    $thisStampNew = json_encode([$consumerNoOfStamps, $consumerFreeService]);
-                    $consumerTotalStamps[$offerId] = $thisStampNew;
+                    $consumerTotalStamps[$offerId] = [$consumerNoOfStamps, $consumerFreeService];
                     $consumerTotalStamps = json_encode($consumerTotalStamps);
                 } else {
                     $transaction->stamp = 1;
                     $transaction->free_service = 0;
-                    $thisStampNew = json_encode([1, 0]);
-                    $consumerTotalStamps = json_encode([$offerId => $thisStampNew]);
+                    $consumerTotalStamps = json_encode([$offerId => [1, 0]]);
                 }
 
                 $transaction->save();
@@ -170,28 +180,51 @@ class Consumer extends Base
 
                 $error = false;
                 $message = 'Stamp added';
-                $status = 204;
+                $status = 200;
             } else {
                 $error = true;
                 $message = 'Offer ID missing';
                 $status = 400;
             }
-        } elseif (Request::get('add_point') == true) {
-
         } else {
             $consumer = Model::find($id);
 
-            foreach (['first_name', 'last_name', 'email', 'phone', 'address', 'postcode', 'city', 'country'] as $key) {
-                if (Request::get($key)) {
-                    $consumer->consumer->$key = Request::get($key);
+            // $rules = [
+            //     'email' => 'required|email',
+            //     'phone' => 'required|numeric',
+            //     'postcode'  => 'numeric',
+            // ];
+
+            // $validator = Validator::make(Request::all(), $rules);
+
+            // if ($validator->fails()) {
+            //     $messages = $validator->messages();
+            //     $data = [];
+
+            //     foreach ($rules as $key => $value) {
+            //         if ($messages->has($key)) {
+            //             $data[] = $key;
+            //         }
+            //     }
+
+            //     return Response::json([
+            //         'error' => true,
+            //         'message' => 'Invalid data',
+            //         // 'data'  => $data,
+            //     ], 400);
+            // } else {
+                foreach (['first_name', 'last_name', 'email', 'phone', 'address', 'postcode', 'city', 'country'] as $key) {
+                    if (Request::get($key)) {
+                        $consumer->consumer->$key = Request::get($key);
+                    }
                 }
-            }
 
-            $consumer->consumer->save();
+                $consumer->consumer->save();
 
-            $error = false;
-            $message = 'Consumer updated';
-            $status = 201;
+                $error = false;
+                $message = 'Consumer updated';
+                $status = 201;
+            // }
         }
 
         return Response::json([

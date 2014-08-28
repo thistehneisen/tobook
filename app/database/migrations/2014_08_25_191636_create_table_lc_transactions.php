@@ -21,7 +21,7 @@ class CreateTableLcTransactions extends Migration {
             $table->unsignedInteger('offer_id')->nullable();
             $table->integer('point')->nullable();
             $table->integer('stamp')->nullable();
-            $table->integer('free_servicec')->nullable();
+            $table->integer('free_service')->nullable();
             $table->timestamps();
             $table->foreign('consumer_id')
                 ->references('id')

@@ -37,28 +37,28 @@ class OfferCest
         $I->seeResponseContainsJson(['message' => 'Invalid data']);
     }
 
-    public function testCreateOffer(ApiTester $I)
-    {
-        $I->wantTo('Create an offers');
-        $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
-        $I->sendPOST('offers', [
-            'name'      => 'Offer 1',
-            'required'  => '20',
-            'free'      => '1',
-            'active'    => '1',
-            'auto_add'  => '0',
-        ]);
-        $I->seeResponseCodeIs(201);
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(['message' => 'Offer created']);
-        $offer_id = $I->grabDataFromJsonResponse('created');
-        $I->sendGET('offers/'.$offer_id);
-        $I->seeResponseCodeIs('200');
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson([
-            'id'      => $offer_id,
-        ]);
-    }
+    // public function testCreateOffer(ApiTester $I)
+    // {
+    //     $I->wantTo('Create an offers');
+    //     $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
+    //     $I->sendPOST('offers', [
+    //         'name'      => 'Offer 1',
+    //         'required'  => '20',
+    //         'free'      => '1',
+    //         'active'    => '1',
+    //         'auto_add'  => '0',
+    //     ]);
+    //     $I->seeResponseCodeIs(201);
+    //     $I->seeResponseIsJson();
+    //     $I->seeResponseContainsJson(['message' => 'Offer created']);
+    //     $offer_id = $I->grabDataFromJsonResponse('created');
+    //     $I->sendGET('offers/'.$offer_id);
+    //     $I->seeResponseCodeIs('200');
+    //     $I->seeResponseIsJson();
+    //     $I->seeResponseContainsJson([
+    //         'id'      => $offer_id,
+    //     ]);
+    // }
 
     public function testShowOffer(ApiTester $I)
     {
@@ -74,33 +74,60 @@ class OfferCest
         ]);
     }
 
-    public function testUpdateOffer(ApiTester $I)
+    // public function testUpdateOffer(ApiTester $I)
+    // {
+    //     // Update
+    //     $I->wantTo('Update one offer');
+    //     $I->sendPUT('offers/2', [
+    //         'name' => 'Offer Two',
+    //         'required' => '200',
+    //         'free_service' => '5',
+    //     ]);
+    //     $I->seeResponseCodeIs('201');
+    //     $I->seeResponseIsJson();
+    //     $I->seeResponseContainsJson(['message' => 'Offer updated']);
+    //     $I->wantTo('See updated offer');
+    //     $I->sendGET('offers/2');
+    //     $I->seeResponseCodeIs('200');
+    //     $I->seeResponseIsJson();
+    //     $I->seeResponseContainsJson([
+    //         'name' => 'Offer Two',
+    //     ]);
+    // }
+
+    // public function testDeleteOffer(ApiTester $I)
+    // {
+    //     $I->wantTo('Delete one offer');
+    //     $I->sendDELETE('offers/3', null);
+    //     $I->seeResponseCodeIs('204');
+    //     $I->seeResponseIsJson();
+    //     //$I->seeResponseContainsJson(['message' => 'Offer deleted']);
+    // }
+
+    public function testUseOfferWithoutConsumerID(ApiTester $I)
     {
-        // Update
-        $I->wantTo('Update one offer');
-        $I->sendPUT('offers/2', [
-            'name' => 'Offer Two',
-            'required' => '200',
-            'free_service' => '5',
-        ]);
-        $I->seeResponseCodeIs('201');
+        $I->wantTo('Use Offer Without Consumer ID');
+        $I->sendPOST('use/offers/1');
+        $I->seeResponseCodeIs('400');
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(['message' => 'Offer updated']);
-        $I->wantTo('See updated offer');
-        $I->sendGET('offers/2');
-        $I->seeResponseCodeIs('200');
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson([
-            'name' => 'Offer Two',
-        ]);
+        $I->seeResponseContainsJson(['message' => 'Customer ID missing']);
     }
 
-    public function testDeleteOffer(ApiTester $I)
+    public function testUseOffer(ApiTester $I)
     {
-        $I->wantTo('Delete one offer');
-        $I->sendDELETE('offers/3', null);
-        $I->seeResponseCodeIs('204');
+        $I->wantTo('Use Offer');
+        $I->sendPOST('use/offers/1', [
+            'customer_id'   => '7',
+        ]);
+        $I->seeResponseCodeIs('200');
         $I->seeResponseIsJson();
-        //$I->seeResponseContainsJson(['message' => 'Offer deleted']);
+
+        $I->wantTo('Use Offer again and see error');
+        $I->sendPOST('use/offers/1', [
+            'customer_id'   => '7',
+        ]);
+        $I->seeResponseCodeIs('400');
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['message' => 'Not enough free service']);
     }
 }
