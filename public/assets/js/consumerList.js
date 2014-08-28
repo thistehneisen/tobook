@@ -23,7 +23,7 @@ function onCheckAll(obj) {
 
 function onDeleteConsumer() {
     var objList = $("table#tblDataList").find(
-            "input#chkConsumerId:checkbox:checked");
+            ".js-consumerIdCheckbox:checkbox:checked");
     if (objList.length == 0) {
         alert("Please select consumers to delete.");
         return;
