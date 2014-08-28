@@ -67,7 +67,10 @@ a:hover {
 .header nav .nav-links li {
   padding-right: 10px;
 }
-.header nav .nav-links li:last-child a:after {
+.header nav .nav-links li:nth-last-child(-n+2) a.active {
+  color: #fff;
+}
+.header nav .nav-links li:nth-last-child(-n+2) a:after {
   content: "";
 }
 .header nav .nav-links.active a,

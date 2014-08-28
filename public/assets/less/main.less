@@ -91,7 +91,9 @@ a {
             li {
                 padding-right: 10px;
             }
-            li:last-child {
+            // Two last children
+            li:nth-last-child(-n+2) {
+                a.active {color: #fff;}
                 a:after {
                     content: "";
                 }
