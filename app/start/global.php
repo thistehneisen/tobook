@@ -83,7 +83,6 @@ App::before(function($request)
     // varaa.com/<locale>/<param1>/<param2>... and set system's locale based
     // on the request URI
 
-
     // Get current request URI
     $uri = $request->server->get('REQUEST_URI');
     // Remove the locale part
