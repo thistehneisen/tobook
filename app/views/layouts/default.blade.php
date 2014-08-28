@@ -39,38 +39,40 @@
     @show
 </head>
 <body>
-    <header class="header">
+    <header class="header container-fluid">
         @section('nav')
-        <nav class="text-right">
-            @if (Confide::user())
-                <p class="welcome-text">
-                @if (Session::get('stealthMode') !== null)
-                You're now login as <strong>{{ Confide::user()->username }}</strong>
-                @else {{ trans('common.welcome') }}, <strong>{{ Confide::user()->username }}</strong>!
-                @endif
-                </p>
-            @endif
-
-            <ul class="list-inline nav-links">
-                <li><a href="{{ route('home') }}">{{ trans('common.homepage') }}</a></li>
+        <nav class="row">
+            <div class="col-md-6 text-left">
+                <i class="fa fa-globe"></i>
+            @foreach (Config::get('varaa.languages') as $locale)
+                <a class="language-swicher {{ Config::get('app.locale') === $locale ? 'active' : '' }}" href="{{ UrlHelper::localizedCurrentUrl($locale) }}" title="">{{ strtoupper($locale) }}</a>
+            @endforeach
+            </div>
+            <div class="col-md-6 text-right">
                 @if (Confide::user())
-                <li><a href="{{ route('dashboard.index') }}">{{ trans('common.dashboard') }}</a></li>
-                <li><a href="{{ route('user.profile') }}">{{ trans('common.my_account') }}</a></li>
-                @if (Entrust::hasRole('Admin') || Session::get('stealthMode') !== null)
-                <li><a href="{{ route('admin.index') }}">{{ trans('common.admin') }}</a></li>
+                    <p class="welcome-text">
+                    @if (Session::get('stealthMode') !== null)
+                    You're now login as <strong>{{ Confide::user()->username }}</strong>
+                    @else {{ trans('common.welcome') }}, <strong>{{ Confide::user()->username }}</strong>!
+                    @endif
+                    </p>
                 @endif
-                <li><a href="{{ route('auth.logout') }}">{{ trans('common.sign_out') }}</a></li>
-                @else
-                <li><a href="{{ route('auth.register') }}">{{ trans('common.register') }}</a></li>
-                <li><a href="{{ route('auth.login') }}">{{ trans('common.sign_in_header') }}</a></li>
-                @endif
-                <li>
-                    <i class="fa fa-globe"></i>
-                @foreach (Config::get('varaa.languages') as $locale)
-                    <a class="{{ Config::get('app.locale') === $locale ? 'active' : '' }}" href="{{ UrlHelper::localizedCurrentUrl($locale) }}" title="">{{ strtoupper($locale) }}</a>
-                @endforeach
-                </li>
-            </ul>
+
+                <ul class="list-inline nav-links">
+                    <li><a href="{{ route('home') }}">{{ trans('common.homepage') }}</a></li>
+                    @if (Confide::user())
+                    <li><a href="{{ route('dashboard.index') }}">{{ trans('common.dashboard') }}</a></li>
+                    <li><a href="{{ route('user.profile') }}">{{ trans('common.my_account') }}</a></li>
+                    @if (Entrust::hasRole('Admin') || Session::get('stealthMode') !== null)
+                    <li><a href="{{ route('admin.index') }}">{{ trans('common.admin') }}</a></li>
+                    @endif
+                    <li><a href="{{ route('auth.logout') }}">{{ trans('common.sign_out') }}</a></li>
+                    @else
+                    <li><a href="{{ route('auth.register') }}">{{ trans('common.register') }}</a></li>
+                    <li><a href="{{ route('auth.login') }}">{{ trans('common.sign_in_header') }}</a></li>
+                    @endif
+                </ul>
+            </div>
         </nav>
         @show
 

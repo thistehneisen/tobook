@@ -76,6 +76,16 @@ a {
     nav {
         padding: 20px 0;
 
+        .language-swicher {
+            color: #333;
+            font-weight: 600;
+            font-size: 13px;
+            margin-right: 10px;
+            &.active {
+                color: #fff;
+            }
+        }
+
         .nav-links {
             a {
                 text-transform: uppercase;
@@ -91,8 +101,7 @@ a {
             li {
                 padding-right: 10px;
             }
-            // Two last children
-            li:nth-last-child(-n+2) {
+            li:last-child {
                 a.active {color: #fff;}
                 a:after {
                     content: "";

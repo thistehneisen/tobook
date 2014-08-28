@@ -53,6 +53,15 @@ a:hover {
 .header nav {
   padding: 20px 0;
 }
+.header nav .language-swicher {
+  color: #333;
+  font-weight: 600;
+  font-size: 13px;
+  margin-right: 10px;
+}
+.header nav .language-swicher.active {
+  color: #fff;
+}
 .header nav .nav-links a {
   text-transform: uppercase;
   color: #333333;
@@ -67,10 +76,10 @@ a:hover {
 .header nav .nav-links li {
   padding-right: 10px;
 }
-.header nav .nav-links li:nth-last-child(-n+2) a.active {
+.header nav .nav-links li:last-child a.active {
   color: #fff;
 }
-.header nav .nav-links li:nth-last-child(-n+2) a:after {
+.header nav .nav-links li:last-child a:after {
   content: "";
 }
 .header nav .nav-links.active a,
