@@ -53,11 +53,11 @@ class Employee extends \App\Core\Models\Base
     //TODO change to another method to compare time
     public function getSlotClass($hour, $minute){
        $class = 'inactive';
-       $rowTime = Carbon::createFromTime($hour, $minute, 0, 'Europe/Helsinki');
-       list($start_hour, $start_minute) = explode(':', $this->getTodayDefaultStartAt());
-       $startAt =  Carbon::createFromTime($start_hour, $start_minute, 0, 'Europe/Helsinki');
-       list($end_hour, $end_minute) = explode(':', $this->getTodayDefaultEndAt());
-       $endAt = Carbon::createFromTime($end_hour, $end_minute, 0, 'Europe/Helsinki');
+       $rowTime = Carbon::createFromTime($hour, $minute, 0, Config::get('app.timezone'));
+       list($startHour, $startMinute) = explode(':', $this->getTodayDefaultStartAt());
+       $startAt =  Carbon::createFromTime($startHour, $startMinute, 0, Config::get('app.timezone'));
+       list($endHour, $endMinute) = explode(':', $this->getTodayDefaultEndAt());
+       $endAt = Carbon::createFromTime($endHour, $endMinute, 0, Config::get('app.timezone'));
        if($rowTime >= $startAt && $rowTime <= $endAt){
             $class = 'active';
        }
