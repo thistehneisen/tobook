@@ -49,7 +49,7 @@
         </li>
         <li @if (Request::segment(2) === 'services') {{ 'class="active"' }} @endif class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('as.services.index') }}">
-                <i class="fa fa-cloud"></i> Palvelut <span class="caret"></span>
+                <i class="fa fa-gift"></i> Palvelut <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
                 <li><a href="{{ route('as.services.index') }}">{{ trans('as.services.all') }}</a></li>
@@ -72,7 +72,7 @@
         </li>
         <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('as.services.index') }}">
-                <i class="fa fa-cog"></i> Asetukset <span class="caret"></span>
+                <i class="fa fa-wrench"></i> Asetukset <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
                 <li><a href="">Yleinen</a></li>
@@ -84,7 +84,7 @@
         </li>
         <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('as.services.index') }}">
-                <i class="fa fa-signal"></i> Raportit <span class="caret"></span>
+                <i class="fa fa-line-chart"></i> Raportit <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
                 <li><a href="">Työntekijävakko</a></li>
