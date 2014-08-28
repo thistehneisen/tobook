@@ -83,20 +83,30 @@ App::before(function($request)
     // varaa.com/<locale>/<param1>/<param2>... and set system's locale based
     // on the request URI
 
+    // Get default browser language
+    $language = substr($request->server->get('HTTP_ACCEPT_LANGUAGE'), 0, 2);
+
     // Get current request URI
     $uri = $request->server->get('REQUEST_URI');
+
+    $segments = explode('/', $uri);
+    if (isset($segments[1])) {
+        // Assume that all locale segments have length of 2 characters
+        // If the 2nd segment of this URI is not an locale value
+        if (strlen($segments[1]) > 2) {
+            // Attempt to attach the default locale to this URL
+            array_splice($segments, 1, 0, [$language]);
+        }
+    }
+
     // Remove the locale part
-    $newUri = substr($uri, 3);
+    $newUri = substr(implode('/', $segments), 3);
     // Set new URI, so that the request dispatcher knows which routes to match
     // and invoke. Internally, L4 will see the request as normal without locale
     // prefix
     $request->server->set('REQUEST_URI', $newUri);
 
-    // Ge default browser language
-    $language = substr($request->server->get('HTTP_ACCEPT_LANGUAGE'), 0, 2);
-
     // Now get locale from URI
-    $segments = explode('/', $uri);
     if (!empty($segments[1])) {
         $routeLanguage = $segments[1];
         if (in_array($routeLanguage, Config::get('varaa.languages'))) {
