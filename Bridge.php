@@ -94,4 +94,17 @@ class Bridge
         @session_start();
         return isset($_SESSION['owner_id']);
     }
+
+    /**
+     * Return the current locale of system
+     *
+     * @return string
+     */
+    protected function getLocale()
+    {
+        @session_start();
+        return isset($_SESSION['varaa_locale'])
+            ? $_SESSION['varaa_locale']
+            : $this->config('app.locale');
+    }
 }

@@ -117,6 +117,10 @@ App::before(function($request)
     // Set system locale
     Config::set('app.locale', $language);
     App::setLocale($language);
+
+    // Push to native session for other modules to use
+    @session_start();
+    $_SESSION['varaa_locale'] = $language;
 });
 
 require app_path().'/filters.php';
