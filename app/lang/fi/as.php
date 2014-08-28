@@ -54,6 +54,25 @@ return [
         'is_subscribed_email' => 'Lähetä sähköposti',
         'is_subscribed_sms'   => 'Lähetä tekstiviesti',
     ],
+    'options' => [
+        'general' => [
+            'index' => 'Yleinen',
+            'heading' => 'Yleisasetukset',
+            'info' => 'Säädä asetuksesi kohdalleen'
+        ],
+        'booking' => [
+            'index' => 'Varaukset',
+        ],
+        'time' => [
+            'index' => 'Työajat',
+        ],
+        'invoices' => [
+            'index' => 'Laskut',
+        ],
+        'style' => [
+            'index' => 'Tyyli',
+        ],
+    ],
     'items_per_page' => 'Yksiköitä yhteensä',
     'with_selected'  => 'Valitse toiminto',
     'crud' => [

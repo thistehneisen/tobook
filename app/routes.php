@@ -276,6 +276,12 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Employees@updateDefaultTime'
     ]);
 
+    // Options
+    Route::get('options/{page?}', [
+        'as'   => 'as.options',
+        'uses' => 'App\Appointment\Controllers\Options@index'
+    ]);
+
 });
 
 /*

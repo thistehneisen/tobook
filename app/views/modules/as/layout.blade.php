@@ -73,11 +73,11 @@
                 <i class="fa fa-wrench"></i> Asetukset <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="">Yleinen</a></li>
-                <li><a href="">Varaukset</a></li>
-                <li><a href="">Työajat</a></li>
-                <li><a href="">Laskut</a></li>
-                <li><a href="">Tyyli</a></li>
+                <li><a href="{{ route('as.options', ['page' => 'general']) }}">{{ trans('as.options.general.index') }}</a></li>
+                <li><a href="{{ route('as.options', ['page' => 'booking']) }}">{{ trans('as.options.booking.index') }}</a></li>
+                <li><a href="{{ route('as.options', ['page' => 'time']) }}">{{ trans('as.options.time.index') }}</a></li>
+                <li><a href="{{ route('as.options', ['page' => 'invoices']) }}">{{ trans('as.options.invoices.index') }}</a></li>
+                <li><a href="{{ route('as.options', ['page' => 'style']) }}">{{ trans('as.options.style.index') }}</a></li>
             </ul>
         </li>
         <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif class="dropdown">
