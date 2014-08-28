@@ -18,6 +18,7 @@ return [
     'register'       => 'Register',
     'no_records'     => 'Sorry, no records found!',
     'save'           => 'Save',
+    'destroy'        => 'Delete',
     'warning'        => 'Warning',
     'success'        => 'Success',
     'errors'         => 'Errors',

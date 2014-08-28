@@ -20,6 +20,7 @@ return [
     'register'       => 'Rekisteröidy',
     'no_records'     => 'Anteeksi, ennätys ei löytynyt!',
     'save'           => 'Tallenna',
+    'destroy'        => 'Delete',
     'warning'        => 'Varoitus',
     'success'        => 'Menestys',
     'errors'         => 'Virheet',
