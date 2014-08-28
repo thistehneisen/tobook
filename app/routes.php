@@ -188,6 +188,7 @@ Route::group([
             'edit' => 'lc.consumers.edit',
             'store' => 'lc.consumers.store',
             'update' => 'lc.consumers.update',
+            'destroy' => 'lc.consumers.delete',
         ]
     ]);
 
@@ -198,6 +199,7 @@ Route::group([
             'edit' => 'lc.offers.edit',
             'store' => 'lc.offers.store',
             'update' => 'lc.offers.update',
+            'destroy' => 'lc.offers.delete',
         ]
     ]);
 
@@ -208,6 +210,7 @@ Route::group([
             'edit' => 'lc.vouchers.edit',
             'store' => 'lc.vouchers.store',
             'update' => 'lc.vouchers.update',
+            'destroy' => 'lc.vouchers.delete',
         ]
     ]);
 });
@@ -253,22 +256,26 @@ Route::group([
     'before' => 'auth.basic',
 ], function() {
     Route::group([
-        'prefix' => 'lc',
-    ], function() {
-        Route::resource('offers', 'App\API\LoyaltyCard\Controllers\Offer');
-        Route::resource('vouchers', 'App\API\LoyaltyCard\Controllers\Voucher');
-        Route::resource('consumers', 'App\API\LoyaltyCard\Controllers\Consumer');
-
+        'prefix' => 'v1.0',
+    ], function () {
         Route::group([
-            'prefix' => 'use',
-        ], function () {
-            Route::post('offers/{id}', [
-                'uses' => 'App\API\LoyaltyCard\Controllers\Offer@useOffer'
-            ]);
+            'prefix' => 'lc',
+        ], function() {
+            Route::resource('offers', 'App\API\LoyaltyCard\Controllers\Offer');
+            Route::resource('vouchers', 'App\API\LoyaltyCard\Controllers\Voucher');
+            Route::resource('consumers', 'App\API\LoyaltyCard\Controllers\Consumer');
 
-            // Route::post('vouchers/{id}', [
-            //     'uses' => 'App\API\LoyaltyCard\Controllers\Consumer@update'
-            // ]);
+            Route::group([
+                'prefix' => 'use',
+            ], function () {
+                Route::post('offers/{id}', [
+                    'uses' => 'App\API\LoyaltyCard\Controllers\Offer@useOffer'
+                ]);
+
+                // Route::post('vouchers/{id}', [
+                //     'uses' => 'App\API\LoyaltyCard\Controllers\Consumer@update'
+                // ]);
+            });
         });
     });
 });

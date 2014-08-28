@@ -2,12 +2,11 @@
 
 @section('top-buttons')
 <a href="{{ URL::route('lc.vouchers.create') }}" class="btn btn-default btn-success"><span class="glyphicon glyphicon-plus"></span> {{ trans('common.add') }}</a>
-<!--<button class="btn btn-default btn-danger js-deleteConsumer"><span class="glyphicon glyphicon-remove"></span> {{ trans('common.delete') }}</button>-->
 @stop
 
-<!--@section('scripts')
+@section('scripts')
     {{ HTML::script('assets/js/loyalty.js') }}
-@stop-->
+@stop
 
 @section('sub-content')
 <div class="panel panel-default">
@@ -24,6 +23,7 @@
                 <th>{{ trans('loyalty-card.required') }}</th>
                 <th>{{ trans('loyalty-card.discount') }}</th>
                 <th>{{ trans('loyalty-card.active') }}</th>
+                <th>{{ trans('common.delete') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -61,6 +61,13 @@
                             {{ trans('common.yes') }}
                         @endif
                     </a>
+                </td>
+                <td>
+                    {{ Form::open(['route' => ['lc.vouchers.delete', $value->id], 'method' => 'delete']) }}
+                        <button class="btn btn-sm btn-danger" type="button" data-toggle="modal" data-target="#confirmDelete">
+                            <span class="glyphicon glyphicon-trash"></span> {{ trans('common.delete') }}
+                        </button>
+                    {{ Form::close() }}
                 </td>
             </tr>
             @endforeach

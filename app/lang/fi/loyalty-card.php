@@ -25,4 +25,7 @@ return [
     'updated_at'            => 'Päivitetty',
     'consumer'              => 'Asiakas',
     'last_visited'          => 'Edellinen kaynti',
+    'delete_confirmation'   => 'Poistamisen vahvistus',
+    'delete_question'       => 'Oletko sinä varma että haluat poistaa ?',
+    'cancel'                => 'Peruuta',
 ];

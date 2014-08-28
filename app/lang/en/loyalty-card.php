@@ -25,4 +25,7 @@ return [
     'updated_at'            => 'Updated',
     'consumer'              => 'Customer',
     'last_visited'          => 'Last visited',
+    'delete_confirmation'   => 'Delete Confirmation',
+    'delete_question'       => 'Are you sure to delete ?',
+    'cancel'                => 'Cancel',
 ];

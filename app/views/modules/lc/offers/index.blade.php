@@ -4,6 +4,10 @@
 <a href="{{ URL::route('lc.offers.create') }}" class="btn btn-default btn-success"><span class="glyphicon glyphicon-plus"></span> {{ trans('common.add') }}</a>
 @stop
 
+@section('scripts')
+    {{ HTML::script('assets/js/loyalty.js') }}
+@stop
+
 @section('sub-content')
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -20,6 +24,7 @@
                 <th>{{ trans('loyalty-card.free_service') }}</th>
                 <th>{{ trans('loyalty-card.auto_add') }}</th>
                 <th>{{ trans('loyalty-card.active') }}</th>
+                <th>{{ trans('common.delete') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -66,6 +71,13 @@
                             {{ trans('common.yes') }}
                         @endif
                     </a>
+                </td>
+                <td>
+                    {{ Form::open(['route' => ['lc.offers.delete', $value->id], 'method' => 'delete']) }}
+                        <button class="btn btn-sm btn-danger" type="button" data-toggle="modal" data-target="#confirmDelete">
+                            <span class="glyphicon glyphicon-trash"></span> {{ trans('common.delete') }}
+                        </button>
+                    {{ Form::close() }}
                 </td>
             </tr>
             @endforeach

@@ -8,7 +8,7 @@ class Voucher extends \App\Core\Controllers\Base {
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return View
      */
     public function index()
     {
@@ -24,7 +24,7 @@ class Voucher extends \App\Core\Controllers\Base {
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return View
      */
     public function create()
     {
@@ -35,7 +35,7 @@ class Voucher extends \App\Core\Controllers\Base {
     /**
      * Store a newly created resource in storage.
      *
-     * @return Response
+     * @return Redirect
      */
     public function store()
     {
@@ -71,7 +71,7 @@ class Voucher extends \App\Core\Controllers\Base {
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return Response
+     * @return View
      */
     public function show($id)
     {
@@ -86,7 +86,7 @@ class Voucher extends \App\Core\Controllers\Base {
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return Response
+     * @return View
      */
     public function edit($id)
     {
@@ -101,7 +101,7 @@ class Voucher extends \App\Core\Controllers\Base {
      * Update the specified resource in storage.
      *
      * @param  int  $id
-     * @return Response
+     * @return Redirect
      */
     public function update($id)
     {
@@ -128,5 +128,19 @@ class Voucher extends \App\Core\Controllers\Base {
 
             return Redirect::route('lc.vouchers.index');
         }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Redirect
+     */
+    public function destroy($id)
+    {
+        $voucher = VoucherModel::find($id);
+        $voucher->delete();
+
+        return Redirect::route('lc.vouchers.index');
     }
 }

@@ -4,9 +4,9 @@
 <a href="{{ URL::route('lc.consumers.create') }}" class="btn btn-default btn-success"><span class="glyphicon glyphicon-plus"></span> {{ trans('common.add') }}</a>
 @stop
 
-<!--@section('scripts')
+@section('scripts')
     {{ HTML::script('assets/js/loyalty.js') }}
-@stop-->
+@stop
 
 @section('sub-content')
 <div class="panel panel-default">
@@ -22,6 +22,7 @@
                 <th>{{ trans('co.email') }}</th>
                 <th>{{ trans('co.phone') }}</th>
                 <th>{{ trans('loyalty-card.last_visited') }}</th>
+                <th>{{ trans('common.delete') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -42,6 +43,13 @@
                 </td>
                 <td>
                     <a href="{{ URL::route('lc.consumers.edit', ['id' => $value->id]) }}">{{ $value->consumer->updated_at }}</a>
+                </td>
+                <td>
+                    {{ Form::open(['route' => ['lc.consumers.delete', $value->id], 'method' => 'delete']) }}
+                        <button class="btn btn-sm btn-danger" type="button" data-toggle="modal" data-target="#confirmDelete">
+                            <span class="glyphicon glyphicon-trash"></span> {{ trans('common.delete') }}
+                        </button>
+                    {{ Form::close() }}
                 </td>
             </tr>
             @endforeach
