@@ -76,4 +76,38 @@ App::down(function () {
 |
 */
 
+App::before(function($request)
+{
+    // Purpose:
+    // We want to maintain the URL in the format of
+    // varaa.com/<locale>/<param1>/<param2>... and set system's locale based
+    // on the request URI
+
+
+    // Get current request URI
+    $uri = $request->server->get('REQUEST_URI');
+    // Remove the locale part
+    $newUri = substr($uri, 3);
+    // Set new URI, so that the request dispatcher knows which routes to match
+    // and invoke. Internally, L4 will see the request as normal without locale
+    // prefix
+    $request->server->set('REQUEST_URI', $newUri);
+
+    // Ge default browser language
+    $language = substr($request->server->get('HTTP_ACCEPT_LANGUAGE'), 0, 2);
+
+    // Now get locale from URI
+    $segments = explode('/', $uri);
+    if (!empty($segments[1])) {
+        $routeLanguage = $segments[1];
+        if (in_array($routeLanguage, Config::get('varaa.languages'))) {
+            $language = $routeLanguage;
+        }
+    }
+
+    // Set system locale
+    Config::set('app.locale', $language);
+    App::setLocale($language);
+});
+
 require app_path().'/filters.php';
