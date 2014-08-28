@@ -10,11 +10,11 @@ if (is_file(PJ_FRAMEWORK_PATH . 'pjController.class.php'))
 }
 
 class pjAppController extends pjController {
-    
+
     public $models = array();
 
     public $defaultLocale = 'admin_locale_id';
-    
+
     private $layoutRange = array(1, 2, 3);
 
     public function __construct() {
@@ -29,7 +29,7 @@ class pjAppController extends pjController {
         }
         if(isset($_SESSION['front_owner_id']) && $use_front_owner_id){
             $owner_id = intval($_SESSION['front_owner_id']);
-        } 
+        }
         return $owner_id;
     }
 
@@ -37,7 +37,7 @@ class pjAppController extends pjController {
     {
         return $this->layoutRange;
     }
-    
+
     public static function setTimezone($timezone="UTC")
     {
         if (in_array(version_compare(phpversion(), '5.1.0'), array(0,1)))
@@ -56,7 +56,7 @@ class pjAppController extends pjController {
     {
         pjAppModel::factory()->prepare("SET SESSION time_zone = :offset;")->exec(array('offset' => $offset));
     }
-    
+
     public function setTime()
     {
         if (isset($this->option_arr['o_timezone']))
@@ -70,7 +70,7 @@ class pjAppController extends pjController {
             } elseif ($offset === 0) {
                 $offset = "+0";
             }
-    
+
             pjAppController::setTimezone('Etc/GMT' . $offset);
             if (strpos($offset, '-') !== false)
             {
@@ -81,26 +81,26 @@ class pjAppController extends pjController {
             pjAppController::setMySQLServerTime($offset . ":00");
         }
     }
-    
+
     public function beforeFilter()
     {
         $this->appendJs('jquery-1.8.2.min.js', PJ_THIRD_PARTY_PATH . 'jquery/');
         $this->appendJs('pjAdminCore.js');
         $this->appendCss('reset.css');
-        
+
         $this->appendJs('jquery-ui.custom.min.js', PJ_THIRD_PARTY_PATH . 'jquery_ui/js/');
         $this->appendCss('jquery-ui.min.css', PJ_THIRD_PARTY_PATH . 'jquery_ui/css/smoothness/');
-                
+
         $this->appendCss('admin.css');
         $this->appendCss('pj-all.css', PJ_FRAMEWORK_LIBS_PATH . 'pj/css/');
-        
+
         if ($_GET['controller'] != 'pjInstaller')
         {
             $this->models['Option'] = pjOptionModel::factory();
             $this->option_arr = $this->models['Option']->getPairs($this->getForeignId());
             $this->set('option_arr', $this->option_arr);
             $this->setTime();
-            
+
             if (!isset($_SESSION[$this->defaultLocale]))
             {
                 pjObject::import('Model', 'pjLocale:pjLocale');
@@ -113,27 +113,27 @@ class pjAppController extends pjController {
             pjAppController::setFields($this->getLocaleId());
         }
     }
-    
+
     public function getForeignId()
     {
         return 1;
     }
-    
+
     public function isEmployee()
     {
         return (int) $this->getRoleId() === 2;
     }
-    
+
     public function isInvoiceReady()
     {
         return $this->isAdmin();
     }
-    
+
     public function isCountryReady()
     {
         return $this->isAdmin();
     }
-    
+
     public static function setFields($locale)
     {
         $fields = pjMultiLangModel::factory()
@@ -173,13 +173,13 @@ class pjAppController extends pjController {
         $Services_JSON = new pjServices_JSON();
         return $Services_JSON->decode($str);
     }
-    
+
     public static function jsonEncode($arr)
     {
         $Services_JSON = new pjServices_JSON();
         return $Services_JSON->encode($arr);
     }
-    
+
     public static function jsonResponse($arr)
     {
         header("Content-Type: application/json; charset=utf-8");
@@ -191,12 +191,12 @@ class pjAppController extends pjController {
     {
         return isset($_SESSION[$this->defaultLocale]) && (int) $_SESSION[$this->defaultLocale] > 0 ? (int) $_SESSION[$this->defaultLocale] : 1;
     }
-    
+
     public function setLocaleId($locale_id)
     {
         $_SESSION[$this->defaultLocale] = (int) $locale_id;
     }
-    
+
     public static function friendlyURL($str, $divider='-')
     {
         $str = pjMultibyte::strtolower($str);
@@ -213,14 +213,14 @@ class pjAppController extends pjController {
         $str = preg_replace('/^-+|-+$/', '', $str); //  trim leading and trailing hyphens
         return $str;
     }
-    
+
     public function pjActionAfterInstall()
     {
         pjObject::import('Model', 'pjInvoice:pjInvoiceConfig');
         pjInvoiceConfigModel::factory()->set('id', 1)->modify(array(
             'o_booking_url' => "index.php?controller=pjAdminBookings&action=pjActionUpdate&uuid={ORDER_ID}"
         ));
-        
+
         $query = sprintf("UPDATE `%s`
             SET `content` = :content
             WHERE `model` = :model
@@ -234,7 +234,7 @@ class pjAppController extends pjController {
             'field' => 'title',
             'key' => 'plugin_invoice_i_booking_url'
         ));
-        
+
         $query = sprintf("UPDATE `%s`
             SET `label` = :label
             WHERE `key` = :key
@@ -245,12 +245,12 @@ class pjAppController extends pjController {
             'label' => 'Invoice plugin / Booking URL - Token: {ORDER_ID}',
             'key' => 'plugin_invoice_i_booking_url'
         ));
-        
+
         pjObject::import('Model', 'pjLocale:pjLocale');
         pjLocaleModel::factory()->where("`id` != '1'")->eraseAll();
         pjMultiLangModel::factory()->where("`locale` != '1'")->eraseAll();
     }
-    
+
     protected function pjActionGenerateInvoice($booking_id, $owner_id)
     {
         if (!isset($booking_id) || (int) $booking_id <= 0)
@@ -262,14 +262,14 @@ class pjAppController extends pjController {
         {
             return array('status' => 'ERR', 'code' => 404, 'text' => 'Order not found.');
         }
-        
+
         $bs_arr = pjBookingServiceModel::factory()
             ->select("t1.*, t2.content AS `name`")
             ->join('pjMultiLang', sprintf("t2.model='pjService' AND t2.foreign_id=t1.service_id AND t2.field='name'"), 'left outer')
             ->where('t1.booking_id', $booking_id)
             ->findAll()
             ->getData();
-        
+
         $services = array();
         if (!empty($bs_arr))
         {
@@ -292,13 +292,13 @@ class pjAppController extends pjController {
                 'amount' => $arr['booking_total']
             );
         }
-        
+
         $map = array(
             'confirmed' => 'paid',
             'cancelled' => 'cancelled',
             'pending' => 'not_paid'
         );
-        
+
         $response = $this->requestAction(
             array(
                 'controller' => 'pjInvoice',
@@ -375,14 +375,14 @@ class pjAppController extends pjController {
     public static function getRawSlots($foreign_id, $date, $type, $option_arr)
     {
         $date_arr = pjDateModel::factory()->getDailyWorkingTime($foreign_id, $date, $type);
-        
+
         if ($date_arr === false)
         {
             # There is not custom working time/prices for given date, so get for day of week (Monday, Tuesday...)
             $pjWorkingTimeModel = pjWorkingTimeModel::factory();
             $wt_data = $pjWorkingTimeModel->getWorkingTime($foreign_id, $type);
             $wt_arr = $pjWorkingTimeModel->filterDate($wt_data, $date);
-            
+
             if (empty($wt_arr))
             {
                 # It's Day off
@@ -400,11 +400,11 @@ class pjAppController extends pjController {
             return $date_arr;
         }
     }
-    
+
     public static function getRawSlotsAdmin($foreign_id, $date, $type, $option_arr)
     {
         $date_arr = pjDateModel::factory()->getDailyWorkingTime($foreign_id, $date, $type);
-    
+
         if ($date_arr === false)
         {
             # There is not custom working time/prices for given date, so get for day of week (Monday, Tuesday...)
@@ -428,12 +428,12 @@ class pjAppController extends pjController {
             return $date_arr;
         }
     }
-    
+
     public static function getSingleDateSlots($calendar_id, $date)
     {
         $pjDateModel = pjDateModel::factory();
         $pjWorkingTimeModel = pjWorkingTimeModel::factory();
-        
+
         $employee_arr = pjEmployeeModel::factory()
             //->where('t1.calendar_id', $calendar_id)
             ->where('t1.is_active', 1)
@@ -446,9 +446,9 @@ class pjAppController extends pjController {
             $wt_data = $pjWorkingTimeModel->reset()->getWorkingTime($employee['id'], 'employee');
             $employee_arr[$key]['default'] = $pjWorkingTimeModel->filterDate($wt_data, $date);
         }
-        
+
         $general_custom = $pjDateModel->reset()->getDailyWorkingTime($calendar_id, $date, 'calendar');
-        
+
         $start_ts = array();
         $end_ts = array();
         foreach ($employee_arr as $i => $employee)
@@ -459,7 +459,7 @@ class pjAppController extends pjController {
                 $end_ts[$i] = $employee['custom']['end_ts'];
                 continue;
             }
-        
+
             if (!empty($general_custom))
             {
                 $start_ts[$i] = $general_custom['start_ts'];
@@ -473,7 +473,7 @@ class pjAppController extends pjController {
                 $end_ts[$i] = $employee['default']['end_ts'];
             }
         }
-        
+
         if (empty($start_ts) || empty($end_ts))
         {
             $wt_data = $pjWorkingTimeModel->reset()->getWorkingTime($calendar_id, 'calendar');
@@ -487,17 +487,17 @@ class pjAppController extends pjController {
                 $end_ts[] = $general_default['end_ts'];
             }
         }
-        
+
         return array(
             'start_ts' => min($start_ts),
             'end_ts' => max($end_ts)
         );
     }
-    
+
     public static function getRawSlotsInRange($foreign_id, $date_from, $date_to, $type)
     {
         $date_arr = pjDateModel::factory()->getRangeWorkingTime($foreign_id, $date_from, $date_to, $type);
-        
+
         $pjWorkingTimeModel = pjWorkingTimeModel::factory();
         $wt_data = $pjWorkingTimeModel->getWorkingTime($foreign_id, $type);
 
@@ -505,7 +505,7 @@ class pjAppController extends pjController {
         foreach ($date_arr as $date => $item)
         {
             $t_arr[$date] = array();
-            
+
             # There is not custom working time/prices for given date, so get for day of week (Monday, Tuesday...)
             if (empty($item))
             {
@@ -516,28 +516,28 @@ class pjAppController extends pjController {
                     $t_arr[$date]['is_dayoff'] = 'T';
                     continue;
                 }
-                
+
                 $t_arr[$date] = $wt_arr;
                 continue;
             }
-            
+
             # Custom day is off
             if ($item['is_dayoff'] == 'T')
             {
                 $t_arr[$date]['is_dayoff'] = 'T';
                 continue;
             }
-            
+
             $t_arr[$date] = $item;
         }
-        
+
         return $t_arr;
     }
-    
+
     public static function getRawSlotsPerEmployee($employee_id, $date, $cid)
     {
         $pjDateModel = pjDateModel::factory();
-        
+
         # Get custom working time for given employee
         $date_arr = $pjDateModel->getDailyWorkingTime($employee_id, $date, 'employee');
 
@@ -548,13 +548,13 @@ class pjAppController extends pjController {
             {
                 return false;
             }
-            
+
             # Return custom working time per employee
             return $date_arr;
         }
-        
+
         # There is not custom working time for given date & employee
-         
+
         # Now check for default/global custom working time
         $date_arr = $pjDateModel->getDailyWorkingTime($cid, $date);
         if ($date_arr !== false)
@@ -564,13 +564,13 @@ class pjAppController extends pjController {
             {
                 return false;
             }
-            
+
             # Return default/global custom working time
             return $date_arr;
         }
-        
+
         # There is not default/global custom working time for given date,
-        
+
         # Now get default working time for given employee per weekday (Monday, Tuesday...)
         $pjWorkingTimeModel = pjWorkingTimeModel::factory();
         $wt_data = $pjWorkingTimeModel->getWorkingTime($employee_id, 'employee');
@@ -585,15 +585,15 @@ class pjAppController extends pjController {
         {
             return false;
         }
-        
+
         # Return default working time per employee
         return $wt_arr;
     }
-    
+
     public static function getRawSlotsPerEmployeeAdmin($employee_id, $date, $cid)
     {
         $pjDateModel = pjDateModel::factory();
-    
+
         # Get custom working time for given employee
         //$date_arr = $pjDateModel->getDailyWorkingTime($employee_id, $date, 'employee');
         $date_arr = false;
@@ -607,11 +607,11 @@ class pjAppController extends pjController {
             # Return custom working time per employee
             return $date_arr;
         }
-    
+
         # There is not custom working time for given date & employee
 
         # Now check for default/global custom working time
-        $date_arr = $pjDateModel->getDailyWorkingTime($cid, $date);
+        $date_arr = $pjDateModel->getDailyWorkingTime($cid, $date, 'employee');
 
         if ($date_arr !== false)
         {
@@ -620,13 +620,13 @@ class pjAppController extends pjController {
             {
             return false;
         }
-                
+
             # Return default/global custom working time
             return $date_arr;
         }
-    
+
         # There is not default/global custom working time for given date,
-    
+
         # Now get default working time for given employee per weekday (Monday, Tuesday...)
         $pjWorkingTimeModel = pjWorkingTimeModel::factory();
         $wt_data = $pjWorkingTimeModel->getWorkingTime($employee_id, 'employee');
@@ -645,7 +645,7 @@ class pjAppController extends pjController {
         # Return default working time per employee
         return $wt_arr;
     }
-    
+
     public static function getDatesInRange($calendar_id, $date_from, $date_to)
     {
         # Build date array
@@ -662,10 +662,10 @@ class pjAppController extends pjController {
         {
             $_arr[date("Y-m-d", $i)] = '';
         }
-        
+
         $pjDateModel = pjDateModel::factory();
         $pjWorkingTimeModel = pjWorkingTimeModel::factory();
-        
+
         $employee_arr = pjEmployeeModel::factory()
             // banana code
             //->where('t1.calendar_id', $calendar_id)
@@ -683,9 +683,9 @@ class pjAppController extends pjController {
                 $employee_arr[$key]['default'][$date] = $pjWorkingTimeModel->filterDate($wt_data, $date);
             }
         }
-        
+
         $general_custom = $pjDateModel->reset()->getRangeWorkingTime($calendar_id, $date_from, $date_to, 'calendar');
-        
+
         $stack = array();
         $employee_cnt = count($employee_arr);
         foreach ($_arr as $date => $whatever)
@@ -694,27 +694,27 @@ class pjAppController extends pjController {
             foreach ($employee_arr as $key => $employee)
             {
                 $stack[$date][$key] = NULL;
-                
+
                 if (!empty($employee['custom'][$date]) && isset($employee['custom'][$date]['is_dayoff']))
                 {
                     $stack[$date][$key] = $employee['custom'][$date]['is_dayoff'] == 'F' ? 'ON' : 'OFF';
                     continue;
                 }
-                
+
                 if (isset($general_custom[$date]) && !empty($general_custom[$date]) &&
                     isset($general_custom[$date]['is_dayoff']))
                 {
                     $stack[$date][$key] = $general_custom[$date]['is_dayoff'] == 'F' ? 'ON' : 'OFF';
                     continue;
                 }
-                
+
                 if (isset($employee['default'][$date]))
                 {
                     $stack[$date][$key] = !empty($employee['default'][$date]) ? 'ON' : 'OFF';
                 }
             }
         }
-        
+
         $result = array();
         foreach ($stack as $date => $values)
         {
@@ -725,10 +725,10 @@ class pjAppController extends pjController {
                 $result[$date] = 'OFF';
             }
         }
-        
+
         return $result;
     }
-    
+
     static public function getSingleService($booking, $option_arr)
     {
         //  Before and after time is not included in booking time
@@ -738,7 +738,7 @@ class pjAppController extends pjController {
             date($option_arr['o_time_format'], $booking['start_ts'] + $booking['before'] * 60 + $booking['length'] * 60 + @$booking['extra_length'] * 60);
         return $booking_data;
     }
-    
+
     static public function getMultiService($booking, $option_arr)
     {
         //  Before and after time is not included in booking time
@@ -751,7 +751,7 @@ class pjAppController extends pjController {
                     $extra_length += $extra['extra_length'];
                 }
             }
-            
+
             foreach ($booking['bs_arr'] as $item)
             {
                 $booking_data[] = stripslashes($item['service_name']) . ": ".
@@ -763,7 +763,7 @@ class pjAppController extends pjController {
 
         return join("\n", $booking_data);
     }
-    
+
     static public function getTokens($booking, $option_arr, $type='single')
     {
         switch ($type)
@@ -779,7 +779,7 @@ class pjAppController extends pjController {
 
         $cc = $booking['payment_method'] == 'creditcard';
         $cancelURL = PJ_INSTALL_URL . 'index.php?controller=pjFrontEnd&action=pjActionCancel&cid='.$booking['calendar_id'].'&id='.$booking['booking_id'].'&hash='.sha1($booking['booking_id'].$booking['created'].PJ_SALT);
-        
+
         $search = array(
             '{Name}', '{Email}', '{Phone}', '{Country}', '{City}',
             '{State}', '{Zip}', '{Address1}', '{Address2}', '{Notes}',
