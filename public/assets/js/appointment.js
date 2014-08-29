@@ -2,7 +2,11 @@
   $(function () {
     'use strict';
 
-    $('.customer-tooltip').tooltip();
+    $('.customer-tooltip').tooltip({
+      'selector': '',
+      'placement': 'top',
+      'container': 'body'
+    });
     $('.toggle-check-all-boxes').click(function () {
       var checkboxClass = ($(this).data('checkbox-class')) || 'checkbox';
       $('.' + checkboxClass).prop('checked', this.checked);
@@ -48,6 +52,39 @@
     // Date picker
     $('.date-picker').datepicker({
       format: 'yyyy-mm-dd'
+    });
+
+    // Backend Calendar
+    $('.active').click(function (){
+      var employee_id = $(this).data('employee-id');
+      var time = $(this).data('time');
+      $('.fancybox').fancybox({
+        padding: 5,
+        width: 350,
+        title: '',
+        autoSize: false,
+        autoWidth: false,
+        autoHeight: true
+      });
+    });
+    $('#btn-continute-action').click(function (e){
+      e.preventDefault();
+      var selected_action = $('input[name="action_type"]:checked').val();
+      if (selected_action === 'book'){
+        $.fancybox.open({
+          padding: 5,
+          width: 850,
+          title: '',
+          autoSize: false,
+          autoScale: true,
+          autoWidth: false,
+          autoHeight: true,
+          fitToView : false,
+          href: '#book-form'
+        });
+      } else if(selected_action === 'freetime'){
+
+      }
     });
   });
 }(jQuery));

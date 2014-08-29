@@ -98,9 +98,13 @@
         background: #ccc;
         font-weight: 700;
     }
+    li.active {
+        cursor: pointer;
+    }
     li.inactive {
         background-color: #888;
         color: @text_light;
+        cursor: no-drop;
     }
     li.booked {
         background-color: #ed1c24;
@@ -133,6 +137,22 @@
         border: 1px solid #fff;
         text-align: center;
     }
+}
+.as-modal-form {
+    display: none;
+}
+.as-submit-row {
+    text-align: right;
+    padding-top: 10px;
+    border-top: 1px dotted #ddd;
+}
+.as-calendar-action{
+    width: 300px;
+    margin: 20px;
+}
+.as-calendar-book {
+    width: 800px;
+    margin: 20px;
 }
 div.tooltip-inner {
     max-width: 350px;

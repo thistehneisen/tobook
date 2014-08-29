@@ -8,10 +8,12 @@
     {{ HTML::style(asset('packages/bootstrap-spinner/bootstrap-spinner.min.css')) }}
     {{ HTML::style(asset('packages/alertify/alertify.core.css')) }}
     {{ HTML::style(asset('packages/alertify/alertify.bootstrap.css')) }}
+    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.css') }}
 @stop
 
 @section ('scripts')
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js') }}
+    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js') }}
     {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
     {{ HTML::script(asset('packages/bootstrap-spinner/bootstrap-spinner.min.js')) }}
     {{ HTML::script(asset('assets/js/appointment.js')) }}

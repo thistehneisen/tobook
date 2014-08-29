@@ -216,9 +216,13 @@ a:hover {
   background: #ccc;
   font-weight: 700;
 }
+.as-col li.active {
+  cursor: pointer;
+}
 .as-col li.inactive {
   background-color: #888;
   color: #eeeeee;
+  cursor: no-drop;
 }
 .as-col li.booked {
   background-color: #ed1c24;
@@ -250,6 +254,22 @@ a:hover {
   background-color: #ddd;
   border: 1px solid #fff;
   text-align: center;
+}
+.as-modal-form {
+  display: none;
+}
+.as-submit-row {
+  text-align: right;
+  padding-top: 10px;
+  border-top: 1px dotted #ddd;
+}
+.as-calendar-action {
+  width: 300px;
+  margin: 20px;
+}
+.as-calendar-book {
+  width: 800px;
+  margin: 20px;
 }
 div.tooltip-inner {
   max-width: 350px;

@@ -59,7 +59,7 @@
                 <li class="as-col-header">{{ $employee->name }}</li>
                 @foreach ($workingTimes as $hour)
                      @foreach (range(0, 45, 15) as $minuteShift)
-                    <li class="{{ $employee->getSlotClass($hour, $minuteShift) }}">varaa</li>
+                    <li data-employee-id="{{ $employee->id }}" data-time="{{ sprintf('%02d:%02d', $hour, $minuteShift) }}" href="#select-action" class="fancybox {{ $employee->getSlotClass($hour, $minuteShift) }}">varaa</li>
                      @endforeach
                 @endforeach
             </ul>
@@ -114,5 +114,223 @@
             </ul>
        </div>
     </div>
+</div>
+<div id="select-action" class="as-modal-form as-calendar-action">
+<h2>Kalenteri</h2>
+<table class="table table-condensed">
+    <tbody>
+        <tr>
+            <td><input type="radio" id="freetime" value="freetime" name="action_type"></td>
+            <td><label for="freetime">Lisää vapaa</label></td>
+        </tr>
+        <tr>
+            <td><input type="radio" id="book" value="book" name="action_type"></td>
+            <td><label for="book">Tee varaus</label></td>
+        </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td class="as-submit-row" colspan="2">
+            <a href="#" id="btn-continute-action" class="btn btn-primary">{{ trans('common.continue') }}</a>
+            <a onclick="$.fancybox.close();" id="btn-cancel-action" class="btn btn-danger">{{ trans('common.cancel') }}</a>
+        </td>
+    </tr>
+    </tfoot>
+</table>
+</div>
+<div id="book-form" class="as-modal-form as-calendar-book">
+<h2>Lisää Varaus</h2>
+<form>
+<div class="bs-example">
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">1. Booking info</a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                           <div class="form-group row">
+                                <label for="name" class="col-sm-4 control-label">Booking ID</label>
+                                <div class="col-sm-8">
+                                    {{ Form::text('name', (isset($employee)) ? $employee->name:'', ['class' => 'form-control input-sm', 'id' => 'name']) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="name" class="col-sm-4 control-label">Status</label>
+                                <div class="col-sm-8">
+                                    {{ Form::text('name', (isset($employee)) ? $employee->name:'', ['class' => 'form-control input-sm', 'id' => 'name']) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="name" class="col-sm-4 control-label">Notes</label>
+                                <div class="col-sm-8">
+                                    {{ Form::text('name', (isset($employee)) ? $employee->name:'', ['class' => 'form-control input-sm', 'id' => 'name']) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group row">
+                                <label for="name" class="col-sm-4 control-label">Date</label>
+                                <div class="col-sm-8">
+                                    {{ Form::text('name', (isset($employee)) ? $employee->name:'', ['class' => 'form-control input-sm', 'id' => 'name']) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="name" class="col-sm-4 control-label">Employee</label>
+                                <div class="col-sm-8">
+                                    <span class="form-control">Employee 2</span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="name" class="col-sm-4 control-label">Start time</label>
+                                <div class="col-sm-8">
+                                    <span class="form-control">8:00</span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="name" class="col-sm-4 control-label">End time</label>
+                                <div class="col-sm-8">
+                                    <span class="form-control">12:00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- endrow -->
+                </div>
+            </div>
+        </div>
+         <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">2. Select Customer</a>
+                </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="row">
+                           <div class="col-sm-6">
+                            <div class="form-group row">
+                                <label for="name" class="col-sm-4 control-label">Name</label>
+                                <div class="col-sm-8">
+                                    {{ Form::text('name', (isset($employee)) ? $employee->name:'', ['class' => 'form-control input-sm', 'id' => 'name']) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="name" class="col-sm-4 control-label">Email</label>
+                                <div class="col-sm-8">
+                                    {{ Form::text('name', (isset($employee)) ? $employee->name:'', ['class' => 'form-control input-sm', 'id' => 'name']) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="name" class="col-sm-4 control-label">Phone</label>
+                                <div class="col-sm-8">
+                                    {{ Form::text('name', (isset($employee)) ? $employee->name:'', ['class' => 'form-control input-sm', 'id' => 'name']) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="name" class="col-sm-4 control-label">Address</label>
+                                <div class="col-sm-8">
+                                    {{ Form::text('name', (isset($employee)) ? $employee->name:'', ['class' => 'form-control input-sm', 'id' => 'name']) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                 <a href="#book-form" id="btn-continute-action" class="btn btn-primary btn-sm pull-right">{{ trans('common.search') }}</a>
+                             </div>
+                         </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">3. Add service</a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="clearfix">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Service/Employee</th>
+                                        <th class="w110">Date Time</th>
+                                        <th class="w90 align_right">Price</th>
+                                        <th class="w90">&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            Service 1<br>
+                                            Employee 2
+                                        </td>
+                                        <td>29/8/2014, 08:30</td>
+                                        <td class="align_right">€10.00</td>
+                                        <td><i class="glyphicon glyphicon-trash"></i></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="clearfix">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                           <div class="form-group row">
+                            <label for="name" class="col-sm-4 control-label">Categories</label>
+                            <div class="col-sm-8">
+                                {{ Form::text('name', (isset($employee)) ? $employee->name:'', ['class' => 'form-control input-sm', 'id' => 'name']) }}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="name" class="col-sm-4 control-label">Service</label>
+                            <div class="col-sm-8">
+                                {{ Form::text('name', (isset($employee)) ? $employee->name:'', ['class' => 'form-control input-sm', 'id' => 'name']) }}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="name" class="col-sm-4 control-label">Service Time</label>
+                            <div class="col-sm-8">
+                                {{ Form::text('name', (isset($employee)) ? $employee->name:'', ['class' => 'form-control input-sm', 'id' => 'name']) }}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="name" class="col-sm-4 control-label">Modify Time</label>
+                            <div class="col-sm-8">
+                                {{ Form::text('name', (isset($employee)) ? $employee->name:'', ['class' => 'form-control input-sm', 'id' => 'name']) }}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <a href="#book-form" id="btn-continute-action" class="btn btn-primary btn-sm pull-right">{{ trans('common.add') }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <a href="#book-form" id="btn-continute-action" class="btn btn-primary btn-sm pull-right">{{ trans('common.save') }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 </div>
 @stop
