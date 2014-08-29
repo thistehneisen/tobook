@@ -6,7 +6,7 @@ return [
     'promotion'       => 'Promotion Manager',
     'cashier'         => 'Cashier Manager',
     'restaurant'      => 'Restaurant Booking',
-    'timeslot'        => 'Timeslot',
+    'timeslot'        => 'Timeslot Booking',
     'appointment'     => 'Appointment Scheduler',
     'loyalty'         => 'Loyalty Card',
     'marketing'       => 'Marketing Tool',

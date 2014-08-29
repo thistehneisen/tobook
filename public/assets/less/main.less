@@ -1,5 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,300,600);
-@import url(http://fonts.googleapis.com/css?family=Comfortaa:400,300,700&subset=latin,cyrillic,latin-ext,greek,cyrillic-ext);
+@import url(http://fonts.googleapis.com/css?family=Comfortaa:400,300,700);
 
 // -------------------------------------------------------------------------- //
 // ------------------------------- Variables -------------------------------- //
@@ -9,6 +9,16 @@
 @grey: #424242;
 @link_color: #dd5511;
 @link_color_hover: #bd490f;
+
+.comfortaa {
+    font-family: "Comfortaa", Helvetica, Arial, Verdana;
+}
+.orange {
+    color: @orange;
+}
+.white {
+    color: white;
+}
 
 // -------------------------------------------------------------------------- //
 // --------------------------------- Global --------------------------------- //
@@ -29,18 +39,6 @@ a {
         color: @link_color_hover;
         text-decoration: none;
     }
-}
-.comfortaa {
-    font-family: "Comfortaa";
-}
-.orange {
-    color: @orange;
-}
-.white {
-    color: white;
-}
-.to-upper {
-    text-transform: uppercase;
 }
 .grey-divider {
     background-color: @grey;
@@ -154,15 +152,29 @@ a {
     }
 
     .text-header {
-        font-family: "Comfortaa";
+        .comfortaa;
         color: white;
-        font-size: 10vh;
+        font-size: 7vh;
+        font-weight: 700;
+        margin: 30px 0;
+    }
+
+    .text-subheader {
+        .comfortaa;
+        color: white;
+        font-size: 3vh;
         font-weight: 700;
         margin: 30px 0;
     }
 
     &.homepage {
         min-height: 100vh;
+
+        .btn-lg {
+            margin: 0 0 20px 0;
+            padding: 15px 20px;
+            font-weight: bold;
+        }
     }
 }
 
@@ -175,7 +187,7 @@ a {
             margin-bottom: 10px;
         }
         .wrapper {
-            font-family: "Comfortaa";
+            .comfortaa;
             border: 1px solid #f4c8b2;
         }
         h4 {
@@ -195,7 +207,9 @@ a {
     .services {
         text-align: center;
         a {
-            font-weight: 600;
+            font-family: Helvetica, Arial;
+            font-size: 15px;
+            font-weight: bold;
             text-transform: uppercase;
             color: #333333;
         }

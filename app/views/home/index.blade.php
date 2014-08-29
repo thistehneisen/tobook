@@ -34,6 +34,6 @@
       </ul>
   </div>
 </div>
-<p><img src="{{ asset('assets/img/homepage-text.png') }}" alt="" class="img-homepage"></p>
-<p><a href="#"><img src="{{ asset('assets/img/btn-aloita-nyt.jpg') }}" alt=""></a></p>
+<p class="text-header">{{ trans('home.tagline') }}</p>
+<a href="{{ URL::route('auth.register') }}" class="btn btn-default btn-lg text-uppercase">{{ trans('home.start_now') }} <i class="fa fa-arrow-circle-right"></i></span></a>
 @stop

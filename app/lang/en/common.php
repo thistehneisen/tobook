@@ -27,6 +27,6 @@ return [
     'admin'             => 'Admin',
     'users'             => 'Users',
     'settings'          => 'Settings',
-    'delete' => 'Delete',
-    'edit' => 'Edit'
+    'delete'            => 'Delete',
+    'edit'              => 'Edit',
 ];

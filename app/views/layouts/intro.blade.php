@@ -4,6 +4,8 @@
     {{ HTML::style('assets/css/intro.css') }}
 @stop
 
+@section('main-classes') container-fluid main intro @stop
+
 @section('content')
 <div class="row services">
     <div class="col-md-2 col-lg-2">
@@ -19,9 +21,9 @@
         </a>
     </div>
     <div class="col-md-2 col-lg-2">
-        <a href="{{ URL::route('intro-timeslot') }}">
+        <a href="{{ URL::route('intro-online-booking') }}">
             <p><img src="{{ asset('assets/img/iconAppointment.png') }}" alt=""></p>
-            <p>{{ trans('dashboard.appointment') }}</p>
+            <p>{{ trans('intro.online_booking') }}</p>
         </a>
     </div>
     <div class="col-md-2 col-lg-2">
@@ -43,5 +45,7 @@
         </a>
     </div>
 </div>
-@yield('intro_content')
+<div class="row guide-body">
+    @yield('intro_content')
+</div>
 @stop

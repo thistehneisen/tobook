@@ -86,7 +86,7 @@
 
     @yield('nav-admin')
 
-    <main role="main" class="container main">
+    <main role="main" class="@section('main-classes')container main @show">
         @yield('content')
     </main>
 

@@ -29,9 +29,9 @@ Route::group(['prefix' => 'intro'], function () {
         'uses' => 'App\Core\Controllers\Home@loyalty',
     ]);
 
-    Route::get('timeslot', [
-        'as'    => 'intro-timeslot',
-        'uses'  => 'App\Core\Controllers\Home@timeslot',
+    Route::get('online-booking', [
+        'as'    => 'intro-online-booking',
+        'uses'  => 'App\Core\Controllers\Home@onlineBooking',
     ]);
 
     Route::get('customer-registration', [

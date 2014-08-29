@@ -1,9 +1,12 @@
 <?php
 
 return [
+    'online_booking'            => 'Online Booking',
+    'check_out'                 => 'Checkout',
+
     // LOYALTY CARD
     'loyalty_sub_header'        => 'One loyalty card, which allows to enjoy the benefits of hundreds of companies!',
-    'loyalty_guide1'            => 'Loyca - all in one customer loyalty cards',
+    'loyalty_guide1'            => 'Kantiskortti - all in one customer loyalty cards',
     'loyalty_guide2'            => 'A customer loyalty program you control',
     'loyalty_guide3'            => 'Marketing Automation to support your sales',
     'loyalty_guide4'            => 'Create your own customer loyalty program',
@@ -44,7 +47,7 @@ return [
     'loyalty_kantis_22'         => 'Reliable',
     'loyalty_kantis_23'         => 'Customizable to suit your needs',
 
-    // TIME SLOT
+    // Online booking
     'timeslot_subheader'        => 'Receive bookings online',
     'timeslot_guide_1'          => 'Receive bookings',
     'timeslot_guide_2'          => 'Making your reservation in just a few easy steps',

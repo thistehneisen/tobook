@@ -17,4 +17,6 @@ return [
     'cashier'               => 'Kassa',
     'description_1'         => 'Meidän intohimomme on luoda laadukkaita kotisivuja joista asiakkaamme voivat olla ylpeitä',
     'description_2'         => 'Panosta yrityksen kotisivun ulkoasuun, niin kuin panostat myymälän ja liiketilan tyylikkyyteen ja viihtyvyyteen',
+    'start_now'             => 'Aloita ilmainen kokeilu',
+    'tagline'               => 'Kaikki mitä tarvitset helppoon<br>ja kannattavaan liiketoimintaan',
 ];

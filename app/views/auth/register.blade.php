@@ -40,7 +40,7 @@
 
             <div class="form-group">
                 <div class="col-sm-9 text-right">
-                    <button class="btn btn-lg btn-orange to-upper comfortaa">{{ trans('common.register') }}</button>
+                    <button class="btn btn-lg btn-success text-uppercase comfortaa">{{ trans('common.register') }} <i class="fa fa-check-circle"></i></button>
                 </div>
             </div>
         {{ Form::close() }}

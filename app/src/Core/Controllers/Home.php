@@ -20,9 +20,9 @@ class Home extends Base
         return View::make('intro.loyalty');
     }
 
-    public function timeslot()
+    public function onlineBooking()
     {
-        return View::make('intro.timeslot');
+        return View::make('intro.onlinebooking');
     }
 
     public function cashier()

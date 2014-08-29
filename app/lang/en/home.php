@@ -17,4 +17,6 @@ return [
     'cashier'               => 'Cashier',
     'description_1'         => 'Our passion is to create high quality websites which our customers can be proud of',
     'description_2'         => 'See the company\'s home page layout, and you see the shop and office space with elegance and comfort',
+    'start_now'             => 'Start your free trial',
+    'tagline'               => 'Everything you need for<br>easy and profitable business',
 ];
