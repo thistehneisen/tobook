@@ -57,7 +57,7 @@
             </div>
             <div class="loyalty-general-info-row margin">
                 <img src="/assets/img/iconArrow.png" />&nbsp;
-                <span>{{ trans('dashboard.marketing') }}</span>
+                <span>{{ trans('intro.loyalty_guide11') }}</span>
             </div>
         </div>
         <div class="clear-both"></div>
