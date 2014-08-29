@@ -89,16 +89,16 @@ class ConsumerCest
     //     ]);
     // }
 
-    public function testAddStampWithoutOfferId(ApiTester $I)
-    {
-        $I->wantTo('Add 1 stamp without offer ID');
-        $I->sendPUT('consumers/7', [
-            'add_stamp' => '1',
-        ]);
-        $I->seeResponseCodeIs('400');
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(['message' => 'Offer ID missing']);
-    }
+    // public function testAddStampWithoutOfferId(ApiTester $I)
+    // {
+    //     $I->wantTo('Add 1 stamp without offer ID');
+    //     $I->sendPUT('consumers/7', [
+    //         'add_stamp' => '1',
+    //     ]);
+    //     $I->seeResponseCodeIs('400');
+    //     $I->seeResponseIsJson();
+    //     $I->seeResponseContainsJson(['message' => 'Offer ID missing']);
+    // }
 
     // public function testAddStamp(ApiTester $I)
     // {
@@ -119,31 +119,39 @@ class ConsumerCest
     //     ]);
     // }
 
-    public function testAddFreeService(ApiTester $I)
-    {
-        $I->wantTo('Add 1 free service');
-        $I->sendPUT('consumers/7', [
-            'add_stamp'    => '1',
-            'offer_id'     => '1'
-        ]);
-        $I->seeResponseCodeIs('200');
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(['message' => 'Stamp added']);
-        $I->wantTo('See the free service');
-        $I->sendGET('consumers/7');
-        $I->seeResponseCodeIs('200');
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson([
-            'total_stamps'    => '{"1":[0,1]}',
-        ]);
-    }
+    // public function testAddFreeService(ApiTester $I)
+    // {
+    //     $I->wantTo('Add 1 free service');
+    //     $I->sendPUT('consumers/7', [
+    //         'add_stamp'    => '1',
+    //         'offer_id'     => '1'
+    //     ]);
+    //     $I->seeResponseCodeIs('200');
+    //     $I->seeResponseIsJson();
+    //     $I->seeResponseContainsJson(['message' => 'Stamp added']);
+    //     $I->wantTo('See the free service');
+    //     $I->sendGET('consumers/7');
+    //     $I->seeResponseCodeIs('200');
+    //     $I->seeResponseIsJson();
+    //     $I->seeResponseContainsJson([
+    //         'total_stamps'    => '{"1":[0,1]}',
+    //     ]);
+    // }
 
     // public function testDeleteConsumer(ApiTester $I)
     // {
     //     $I->wantTo('Delete one consumer');
-    //     $I->sendDELETE('consumers/6');
+    //     $I->sendDELETE('consumers/2', null);
     //     $I->seeResponseCodeIs('204');
     //     $I->seeResponseIsJson();
-    //     //$I->seeResponseContainsJson(['message' => 'Consumer deleted']);
+
+    //     $I->wantTo('Check if consumer is soft deleted');
+    //     $I->sendGET('consumers');
+    //     $I->seeResponseCodeIs('200');
+    //     $I->seeResponseIsJson();
+    //     $I->dontSeeResponseContainsJson(['id' => 2]);
+
+    //     $I->sendGET('consumers/2');
+    //     $I->seeResponseCodeIs('404');
     // }
 }

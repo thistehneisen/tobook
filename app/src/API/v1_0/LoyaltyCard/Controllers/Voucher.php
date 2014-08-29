@@ -1,4 +1,4 @@
-<?php namespace App\API\LoyaltyCard\Controllers;
+<?php namespace App\API\v1_0\LoyaltyCard\Controllers;
 use Validator, Response, Request;
 use \App\LoyaltyCard\Models\Voucher as VoucherModel;
 use App\Core\Controllers\Base as Base;
@@ -15,10 +15,17 @@ class Voucher extends Base {
     {
         $vouchers = VoucherModel::where('user_id', Auth::user()->id)->get();
 
-        return Response::json([
-            'error' => false,
-            'vouchers' => $vouchers->toArray(),
-        ], 200);
+        if ($vouchers) {
+            return Response::json([
+                'error' => false,
+                'vouchers' => $vouchers->toArray(),
+            ], 200);
+        } else {
+            return Response::json([
+                'error' => true,
+                'message' => 'No voucher found',
+            ], 404);
+        }
     }
 
 
@@ -74,15 +81,19 @@ class Voucher extends Base {
      */
     public function show($id)
     {
-        $voucher = VoucherModel::where('user_id', Auth::user()->id)
-                        ->where('id', $id)
-                        ->take(1)
-                        ->get();
+        $voucher = VoucherModel::find($id);
 
-        return Response::json([
-            'error' => false,
-            'vouchers' => $voucher->toArray(),
-        ], 200);
+        if ($voucher) {
+            return Response::json([
+                'error' => false,
+                'vouchers' => $voucher->toArray(),
+            ], 200);
+        } else {
+            return Response::json([
+                'error' => true,
+                'message' => 'Voucher not found',
+            ], 404);
+        }
     }
 
 
@@ -94,26 +105,39 @@ class Voucher extends Base {
      */
     public function update($id)
     {
+        $error = true;
+        $message = '';
+        $status = 400;
+
         $voucher = VoucherModel::where('user_id', Auth::user()->id)->find($id);
 
-        foreach ([
-            'name'      => 'name',
-            'required'  => 'required',
-            'value'     => 'value',
-            'type'      => 'type',
-            'active'    => 'is_active',
-        ] as $key => $value) {
-            if (Request::get($key)) {
-                $voucher->$value = Request::get($key);
+        if ($voucher) {
+            foreach ([
+                'name'      => 'name',
+                'required'  => 'required',
+                'value'     => 'value',
+                'type'      => 'type',
+                'active'    => 'is_active',
+            ] as $key => $value) {
+                if (Request::get($key)) {
+                    $voucher->$value = Request::get($key);
+                }
             }
+
+            $voucher->save();
+
+            $error = false;
+            $message = 'Voucher updated';
+            $status = 201;
+        } else {
+            $message = 'Voucher not found';
+            $status = 404;
         }
 
-        $voucher->save();
-
         return Response::json([
-            'error' => false,
-            'message' => 'Voucher updated',
-        ], 201);
+            'error' => $error,
+            'message' => $message,
+        ], $status);
     }
 
 
@@ -125,12 +149,26 @@ class Voucher extends Base {
      */
     public function destroy($id)
     {
+        $error = true;
+        $message = '';
+        $status = 400;
+
         $voucher = VoucherModel::where('user_id', Auth::user()->id)->find($id);
-        $voucher->delete();
+
+        if ($voucher) {
+            $voucher->delete();
+
+            $error = false;
+            $message = 'Voucher deleted';
+            $status = 204;
+        } else {
+            $message = 'Voucher not found';
+            $status = 404;
+        }
 
         return Response::json([
-            'error' => false,
-            'message' => 'Voucher deleted',
-        ], 204);
+            'error' => $error,
+            'message' => $message,
+        ], $status);
     }
 }

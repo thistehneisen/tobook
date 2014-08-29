@@ -261,19 +261,19 @@ Route::group([
         Route::group([
             'prefix' => 'lc',
         ], function() {
-            Route::resource('offers', 'App\API\LoyaltyCard\Controllers\Offer');
-            Route::resource('vouchers', 'App\API\LoyaltyCard\Controllers\Voucher');
-            Route::resource('consumers', 'App\API\LoyaltyCard\Controllers\Consumer');
+            Route::resource('offers', 'App\API\v1_0\LoyaltyCard\Controllers\Offer');
+            Route::resource('vouchers', 'App\API\v1_0\LoyaltyCard\Controllers\Voucher');
+            Route::resource('consumers', 'App\API\v1_0\LoyaltyCard\Controllers\Consumer');
 
             Route::group([
                 'prefix' => 'use',
             ], function () {
                 Route::post('offers/{id}', [
-                    'uses' => 'App\API\LoyaltyCard\Controllers\Offer@useOffer'
+                    'uses' => 'App\API\v1_0\LoyaltyCard\Controllers\Offer@useOffer'
                 ]);
 
                 // Route::post('vouchers/{id}', [
-                //     'uses' => 'App\API\LoyaltyCard\Controllers\Consumer@update'
+                //     'uses' => 'App\API\v1_0\LoyaltyCard\Controllers\Consumer@update'
                 // ]);
             });
         });

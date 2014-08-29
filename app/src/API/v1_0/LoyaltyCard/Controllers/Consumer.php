@@ -1,4 +1,4 @@
-<?php namespace App\API\LoyaltyCard\Controllers;
+<?php namespace App\API\v1_0\LoyaltyCard\Controllers;
 use Validator, Response, Request;
 use Auth;
 use App\LoyaltyCard\Models\Consumer as Model;
@@ -20,10 +20,17 @@ class Consumer extends Base
                         ->where('user_id', Auth::user()->id)
                         ->get();
 
-        return Response::json([
-            'error' => false,
-            'consumers' => $consumers->toArray(),
-        ], 200);
+        if ($consumers) {
+            return Response::json([
+                'error' => false,
+                'consumers' => $consumers->toArray(),
+            ], 200);
+        } else {
+            return Response::json([
+                'error' => true,
+                'message' => 'No customer found',
+            ], 404);
+        }
     }
 
 
@@ -112,10 +119,17 @@ class Consumer extends Base
                             ->where('lc_consumers.consumer_id', $id)
                             ->get();
 
-        return Response::json([
-            'error' => false,
-            'consumer' => $consumer->toArray(),
-        ], 200);
+        if ($consumer) {
+            return Response::json([
+                'error' => false,
+                'consumer' => $consumer->toArray(),
+            ], 200);
+        } else {
+            return Response::json([
+                'error' => true,
+                'message' => 'Customer not found',
+            ], 404);
+        }
     }
 
     /**
@@ -138,49 +152,61 @@ class Consumer extends Base
 
                 $offerId = Request::get('offer_id');
                 $offer = OfferModel::find($offerId);
-                $offerRequired = $offer->required;
-                $offerFreeService = $offer->free_service;
 
-                $consumer = Model::find($id);
-                $consumerTotalStamps = $consumer->total_stamps;
+                if ($offer) {
+                    $offerRequired = $offer->required;
+                    $offerFreeService = $offer->free_service;
 
-                $transaction = new TransactionModel;
-                $transaction->user_id = Auth::user()->id;
-                $transaction->consumer_id = $id;
-                $transaction->offer_id = $offerId;
+                    $consumer = Model::find($id);
 
-                if ($consumerTotalStamps !== '') {
-                    $consumerTotalStamps = json_decode($consumerTotalStamps, true);
-                    $consumerThisStamp = $consumerTotalStamps[$offerId];
-                    $consumerNoOfStamps = $consumerThisStamp[0];
-                    $consumerFreeService = $consumerThisStamp[1];
+                    if ($consumer) {
+                        $consumerTotalStamps = $consumer->total_stamps;
 
-                    if ($offerRequired === $consumerNoOfStamps + 1) {
-                        $consumerNoOfStamps = 0;
-                        $consumerFreeService++;
-                        $transaction->stamp = $offerRequired * (-1);
-                        $transaction->free_service = $consumerFreeService;
+                        $transaction = new TransactionModel;
+                        $transaction->user_id = Auth::user()->id;
+                        $transaction->consumer_id = $id;
+                        $transaction->offer_id = $offerId;
+
+                        if ($consumerTotalStamps !== '') {
+                            $consumerTotalStamps = json_decode($consumerTotalStamps, true);
+                            $consumerThisStamp = $consumerTotalStamps[$offerId];
+                            $consumerNoOfStamps = $consumerThisStamp[0];
+                            $consumerFreeService = $consumerThisStamp[1];
+
+                            if ($offerRequired === $consumerNoOfStamps + 1) {
+                                $consumerNoOfStamps = 0;
+                                $consumerFreeService++;
+                                $transaction->stamp = $offerRequired * (-1);
+                                $transaction->free_service = $consumerFreeService;
+                            } else {
+                                $consumerNoOfStamps++;
+                                $transaction->stamp = 1;
+                                $transaction->free_service = 0;
+                            }
+
+                            $consumerTotalStamps[$offerId] = [$consumerNoOfStamps, $consumerFreeService];
+                            $consumerTotalStamps = json_encode($consumerTotalStamps);
+                        } else {
+                            $transaction->stamp = 1;
+                            $transaction->free_service = 0;
+                            $consumerTotalStamps = json_encode([$offerId => [1, 0]]);
+                        }
+
+                        $transaction->save();
+                        $consumer->total_stamps = $consumerTotalStamps;
+                        $consumer->save();
+
+                        $error = false;
+                        $message = 'Stamp added';
+                        $status = 200;
                     } else {
-                        $consumerNoOfStamps++;
-                        $transaction->stamp = 1;
-                        $transaction->free_service = 0;
+                        $message = 'Customer not found';
+                        $status = 404;
                     }
-
-                    $consumerTotalStamps[$offerId] = [$consumerNoOfStamps, $consumerFreeService];
-                    $consumerTotalStamps = json_encode($consumerTotalStamps);
                 } else {
-                    $transaction->stamp = 1;
-                    $transaction->free_service = 0;
-                    $consumerTotalStamps = json_encode([$offerId => [1, 0]]);
+                    $message = 'Offer not found';
+                    $status = 404;
                 }
-
-                $transaction->save();
-                $consumer->total_stamps = $consumerTotalStamps;
-                $consumer->save();
-
-                $error = false;
-                $message = 'Stamp added';
-                $status = 200;
             } else {
                 $error = true;
                 $message = 'Offer ID missing';
@@ -189,30 +215,31 @@ class Consumer extends Base
         } else {
             $consumer = Model::find($id);
 
-            // $rules = [
-            //     'email' => 'required|email',
-            //     'phone' => 'required|numeric',
-            //     'postcode'  => 'numeric',
-            // ];
+            if ($consumer) {
+                // $rules = [
+                //     'email' => 'required|email',
+                //     'phone' => 'required|numeric',
+                //     'postcode'  => 'numeric',
+                // ];
 
-            // $validator = Validator::make(Request::all(), $rules);
+                // $validator = Validator::make(Request::all(), $rules);
 
-            // if ($validator->fails()) {
-            //     $messages = $validator->messages();
-            //     $data = [];
+                // if ($validator->fails()) {
+                //     $messages = $validator->messages();
+                //     $data = [];
 
-            //     foreach ($rules as $key => $value) {
-            //         if ($messages->has($key)) {
-            //             $data[] = $key;
-            //         }
-            //     }
+                //     foreach ($rules as $key => $value) {
+                //         if ($messages->has($key)) {
+                //             $data[] = $key;
+                //         }
+                //     }
 
-            //     return Response::json([
-            //         'error' => true,
-            //         'message' => 'Invalid data',
-            //         // 'data'  => $data,
-            //     ], 400);
-            // } else {
+                //     return Response::json([
+                //         'error' => true,
+                //         'message' => 'Invalid data',
+                //         // 'data'  => $data,
+                //     ], 400);
+                // } else {
                 foreach (['first_name', 'last_name', 'email', 'phone', 'address', 'postcode', 'city', 'country'] as $key) {
                     if (Request::get($key)) {
                         $consumer->consumer->$key = Request::get($key);
@@ -224,7 +251,11 @@ class Consumer extends Base
                 $error = false;
                 $message = 'Consumer updated';
                 $status = 201;
-            // }
+                // }
+            } else {
+                $message = 'Customer not found';
+                $status = 404;
+            }
         }
 
         return Response::json([

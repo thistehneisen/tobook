@@ -5,4 +5,4 @@ modules:
         PhpBrowser:
             url: http://varaal4.dev/
         REST:
-            url: http://varaal4.dev/api/lc/
+            url: http://varaal4.dev/api/v1.0/lc/

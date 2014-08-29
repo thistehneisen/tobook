@@ -70,30 +70,39 @@ class VoucherCest
         ]);
     }
 
-    public function testUpdateVoucher(ApiTester $I)
-    {
-        $I->wantTo('Update one voucher');
-        $I->sendPUT('vouchers/3', [
-            'name' => 'Voucher Three',
-            'required' => '200',
-            'value' => '10',
-        ]);
-        $I->seeResponseCodeIs('201');
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(['message' => 'Voucher updated']);
-        $I->sendGET('vouchers/3');
-        $I->seeResponseCodeIs('200');
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson([
-            'name'  => 'Voucher Three',
-        ]);
-    }
+    // public function testUpdateVoucher(ApiTester $I)
+    // {
+    //     $I->wantTo('Update one voucher');
+    //     $I->sendPUT('vouchers/3', [
+    //         'name' => 'Voucher Three',
+    //         'required' => '200',
+    //         'value' => '10',
+    //     ]);
+    //     $I->seeResponseCodeIs('201');
+    //     $I->seeResponseIsJson();
+    //     $I->seeResponseContainsJson(['message' => 'Voucher updated']);
+    //     $I->sendGET('vouchers/3');
+    //     $I->seeResponseCodeIs('200');
+    //     $I->seeResponseIsJson();
+    //     $I->seeResponseContainsJson([
+    //         'name'  => 'Voucher Three',
+    //     ]);
+    // }
 
     public function testDeleteVoucher(ApiTester $I)
     {
-        $I->wantTo('Delete one voucher');
-        $I->sendDELETE('vouchers/3', null);
-        $I->seeResponseCodeIs('204');
+        // $I->wantTo('Delete one voucher');
+        // $I->sendDELETE('vouchers/6', null);
+        // $I->seeResponseCodeIs('204');
+        // $I->seeResponseIsJson();
+
+        $I->wantTo('Check if vouchers is soft deleted');
+        $I->sendGET('vouchers');
+        $I->seeResponseCodeIs('200');
         $I->seeResponseIsJson();
+        $I->dontSeeResponseContainsJson(['id' => 6]);
+
+        $I->sendGET('vouchers/6');
+        $I->seeResponseCodeIs('404');
     }
 }
