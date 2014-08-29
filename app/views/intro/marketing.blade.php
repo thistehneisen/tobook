@@ -1,11 +1,11 @@
 @extends('layouts.intro')
 
 @section('title')
-    @parent :: {{ trans('dashboard.marketing') }} &amp; {{ trans('home.customer_registration') }}
+    @parent :: {{ trans('dashboard.marketing') }} &amp; {{ trans('home.customer_register') }}
 @stop
 
 @section('header')
-    <h1 class="text-header">{{ trans('dashboard.marketing') }} &amp; {{ trans('home.customer_registration') }}</h1>
+    <h1 class="text-header">{{ trans('dashboard.marketing') }} &amp; {{ trans('home.customer_register') }}</h1>
 @stop
 
 @section('intro_content')
@@ -60,7 +60,7 @@
 </div>
 
 <div class="kantis-introduction">
-    <span>{{ trans('dashboard.marketing') }} &amp; {{ trans('home.customer_registration') }}</span>
+    <span>{{ trans('dashboard.marketing') }} &amp; {{ trans('home.customer_register') }}</span>
     <p>
         {{ trans('intro.marketing_guide_11') }}<br/>
         {{ trans('intro.marketing_guide_12') }} <br/>

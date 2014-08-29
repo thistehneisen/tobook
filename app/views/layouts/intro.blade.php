@@ -29,7 +29,7 @@
     <div class="col-md-2 col-lg-2">
         <a href="{{ URL::route('intro-customer-registration') }}">
             <p><img src="{{ asset('assets/img/iconCustomer.png') }}" alt=""></p>
-            <p>{{ trans('home.customer_registration') }}</p>
+            <p>{{ trans('home.customer_register') }}</p>
         </a>
     </div>
     <div class="col-md-2 col-lg-2">

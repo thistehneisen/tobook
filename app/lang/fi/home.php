@@ -13,7 +13,7 @@ return [
     'fax'                   => 'Faksi',
     'homepages'             => 'Kotisivut',
     'loyaltycard'           => 'Kantiskortti',
-    'customer_registration' => 'Asiakasrekisteri',
+    'customer_register'     => 'Asiakasrekisteri',
     'cashier'               => 'Kassa',
     'description_1'         => 'Meidän intohimomme on luoda laadukkaita kotisivuja joista asiakkaamme voivat olla ylpeitä',
     'description_2'         => 'Panosta yrityksen kotisivun ulkoasuun, niin kuin panostat myymälän ja liiketilan tyylikkyyteen ja viihtyvyyteen',

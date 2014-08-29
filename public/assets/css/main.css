@@ -87,9 +87,6 @@ a:hover {
 .header nav .nav-links:hover a:after {
   color: #333333;
 }
-.header .logo {
-  width: 450px;
-}
 .header .welcome-text {
   padding-right: 20px;
 }
@@ -97,6 +94,7 @@ a:hover {
   width: 80vh;
 }
 .header .imac-wrapper {
+  padding-top: 30px;
   display: block;
   text-align: center;
 }
