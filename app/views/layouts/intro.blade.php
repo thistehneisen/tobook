@@ -21,7 +21,7 @@
     <div class="col-md-2 col-lg-2">
         <a href="{{ URL::route('intro-timeslot') }}">
             <p><img src="{{ asset('assets/img/iconAppointment.png') }}" alt=""></p>
-            <p>{{ trans('dashboard.timeslot') }}</p>
+            <p>{{ trans('dashboard.appointment') }}</p>
         </a>
     </div>
     <div class="col-md-2 col-lg-2">
