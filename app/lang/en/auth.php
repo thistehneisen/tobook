@@ -18,7 +18,7 @@ HTML;
 return [
     'emails' => [
         'confirm' => [
-            'subject' => 'Please confirm your email',
+            'subject' => 'Please confirm your account',
             'title'   => 'Thank you for registering with us',
             'body'    => $confirmBody
         ],

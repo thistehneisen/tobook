@@ -48,7 +48,7 @@ Route::filter('auth', function () {
 });
 
 Route::filter('auth.basic', function () {
-    return Auth::basic();
+    return Auth::basic('username');
 });
 
 /*

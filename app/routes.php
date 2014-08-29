@@ -173,19 +173,50 @@ Route::group([
             'uses' => 'App\Core\Controllers\Services@marketing'
         ]);
     });
+});
 
-    Route::group([
-        'before' => [''], // Attach a filter to check payment
-        'prefix' => 'modules'
-    ], function () {
+/*
+|--------------------------------------------------------------------------
+| Loyalty Card routes
+|--------------------------------------------------------------------------
+*/
+Route::group([
+    'prefix' => 'loyalty-card',
+    'before' => ['auth']
+], function () {
 
-        // Loyalty Card
-        Route::group(['prefix' => 'lc'], function () {
-            Route::resource('consumers', 'App\LoyaltyCard\Controllers\Consumer');
-        });
+    Route::resource('consumers', 'App\LoyaltyCard\Controllers\Consumer', [
+        'names' => [
+            'index' => 'lc.consumers.index',
+            'create' => 'lc.consumers.create',
+            'edit' => 'lc.consumers.edit',
+            'store' => 'lc.consumers.store',
+            'update' => 'lc.consumers.update',
+            'destroy' => 'lc.consumers.delete',
+        ]
+    ]);
 
-        // Other modules
-    });
+    Route::resource('offers', 'App\LoyaltyCard\Controllers\Offer', [
+        'names' => [
+            'index' => 'lc.offers.index',
+            'create' => 'lc.offers.create',
+            'edit' => 'lc.offers.edit',
+            'store' => 'lc.offers.store',
+            'update' => 'lc.offers.update',
+            'destroy' => 'lc.offers.delete',
+        ]
+    ]);
+
+    Route::resource('vouchers', 'App\LoyaltyCard\Controllers\Voucher', [
+        'names' => [
+            'index' => 'lc.vouchers.index',
+            'create' => 'lc.vouchers.create',
+            'edit' => 'lc.vouchers.edit',
+            'store' => 'lc.vouchers.store',
+            'update' => 'lc.vouchers.update',
+            'destroy' => 'lc.vouchers.delete',
+        ]
+    ]);
 });
 
 /*
@@ -217,6 +248,40 @@ Route::group([
         'uses' => 'App\Consumers\Controllers\Index@bulk'
     ]);
 
+});
+
+/*
+|--------------------------------------------------------------------------
+| API routes
+|--------------------------------------------------------------------------
+*/
+Route::group([
+    'prefix' => 'api',
+    'before' => 'auth.basic',
+], function() {
+    Route::group([
+        'prefix' => 'v1.0',
+    ], function () {
+        Route::group([
+            'prefix' => 'lc',
+        ], function() {
+            Route::resource('offers', 'App\API\v1_0\LoyaltyCard\Controllers\Offer');
+            Route::resource('vouchers', 'App\API\v1_0\LoyaltyCard\Controllers\Voucher');
+            Route::resource('consumers', 'App\API\v1_0\LoyaltyCard\Controllers\Consumer');
+
+            Route::group([
+                'prefix' => 'use',
+            ], function () {
+                Route::post('offers/{id}', [
+                    'uses' => 'App\API\v1_0\LoyaltyCard\Controllers\Offer@useOffer'
+                ]);
+
+                // Route::post('vouchers/{id}', [
+                //     'uses' => 'App\API\v1_0\LoyaltyCard\Controllers\Consumer@update'
+                // ]);
+            });
+        });
+    });
 });
 
 /*
