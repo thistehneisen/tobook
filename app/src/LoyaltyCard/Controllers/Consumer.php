@@ -176,4 +176,8 @@ class Consumer extends Base
 
         return Redirect::route('lc.consumers.index');
 	}
+
+    public function appIndex() {
+        return View::make('modules.lc.app.index');
+    }
 }
