@@ -35,7 +35,7 @@
                         <p>{{ trans('loyalty-card.delete_question') }}</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('loyalty-card.cancel') }}</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('common.cancel') }}</button>
                         <button type="button" class="btn btn-danger" id="confirm">{{ trans('common.delete') }}</button>
                     </div>
                 </div>

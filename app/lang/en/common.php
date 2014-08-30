@@ -34,4 +34,6 @@ return [
     'edit'              => 'Edit',
     'back'              => 'Back',
     'errors'            => 'Errors',
+    'cancel'            => 'Cancel',
+    'type'              => 'Type',
 ];

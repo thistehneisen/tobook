@@ -35,4 +35,6 @@ return [
     'edit'              => 'Muokkaa',
     'back'              => 'Takaisin',
     'errors'            => 'Virheet',
+    'cancel'            => 'Peruuta',
+    'type'              => 'Tyyppi',
 ];

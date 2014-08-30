@@ -18,7 +18,6 @@ return [
     'voucher_name'          => 'Voucher Name',
     'discount'              => 'Discount',
     'voucher_list'          => 'Voucher List',
-    'type'                  => 'Type',
     'percent'               => 'Percent',
     'cash'                  => 'Cash',
     'created_at'            => 'Created',
@@ -27,5 +26,4 @@ return [
     'last_visited'          => 'Last visited',
     'delete_confirmation'   => 'Delete Confirmation',
     'delete_question'       => 'Are you sure to delete ?',
-    'cancel'                => 'Cancel',
 ];

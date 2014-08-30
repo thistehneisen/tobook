@@ -18,7 +18,6 @@ return [
     'voucher_name'          => 'Kupongin Nimi',
     'discount'              => 'Alennus',
     'voucher_list'          => 'Kuponkilista',
-    'type'                  => 'Tyyppi',
     'percent'               => 'Prosentti',
     'cash'                  => 'Raha',
     'created_at'            => 'Luonut',
@@ -27,5 +26,4 @@ return [
     'last_visited'          => 'Edellinen kaynti',
     'delete_confirmation'   => 'Poistamisen vahvistus',
     'delete_question'       => 'Oletko sinä varma että haluat poistaa ?',
-    'cancel'                => 'Peruuta',
 ];

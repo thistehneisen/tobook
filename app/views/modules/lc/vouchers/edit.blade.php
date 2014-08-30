@@ -18,7 +18,7 @@
     @foreach ([
         'required'      => trans('loyalty-card.required'),
         'value'         => trans('loyalty-card.discount'),
-        'type'          => trans('loyalty-card.type'),
+        'type'          => trans('common.type'),
         'is_active'     => trans('loyalty-card.active'),
         'created_at'    => trans('loyalty-card.created_at'),
         'updated_at'    => trans('loyalty-card.updated_at'),
