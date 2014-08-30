@@ -7,41 +7,48 @@ use App\Core\Controllers\Base as Base;
 
 class Consumer extends Base
 {
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return View
-	 */
-	public function index()
-	{
-		// get all the consumers
+    /**
+     * Make view index for both app and BE
+     * @return Response
+     */
+    private function viewIndex($isApp = false) {
         $consumers = Model::paginate(10);
 
-        // load the view and pass the consumers
-        return View::make('modules.lc.consumers.index')
+        $viewName = $isApp ? 'modules.lc.app.index' : 'modules.lc.consumers.index';
+        return View::make($viewName)
             ->with('consumers', $consumers);
-	}
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return View
+     */
+    public function index()
+    {
+        return $this->viewIndex();
+    }
 
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return View::make('modules.lc.consumers.create');
-	}
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        return View::make('modules.lc.consumers.create');
+    }
 
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$rules = [
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store()
+    {
+        $rules = [
             'first_name'    => 'required',
             'last_name'     => 'required',
             'email'         => 'required|email',
@@ -88,48 +95,48 @@ class Consumer extends Base
         }
 
         return Redirect::route('lc.consumers.index');
-	}
+    }
 
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$consumer = Model::find($id);
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        $consumer = Model::find($id);
 
         return View::make('modules.lc.consumers.show')
             ->with('consumer', $consumer);
-	}
+    }
 
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		$consumer = Model::find($id);
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $consumer = Model::find($id);
 
         return View::make('modules.lc.consumers.edit')
             ->with('consumer', $consumer);
-	}
+    }
 
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		$rules = [
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function update($id)
+    {
+        $rules = [
             'first_name'    => 'required',
             'last_name'     => 'required',
             'email'         => 'required|email',
@@ -160,24 +167,28 @@ class Consumer extends Base
 
             return Redirect::route('lc.consumers.index');
         }
-	}
+    }
 
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		$consumer = Model::find($id);
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        $consumer = Model::find($id);
         $consumer->delete();
 
         return Redirect::route('lc.consumers.index');
-	}
+    }
 
+    /**
+     * Index for app
+     * @return Response
+     */
     public function appIndex() {
-        return View::make('modules.lc.app.index');
+        return $this->viewIndex(true);
     }
 }

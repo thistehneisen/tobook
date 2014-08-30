@@ -22,6 +22,15 @@
 <h1 class="text-header">{{ trans('dashboard.loyalty') }}</h1>
 @stop
 
-@section('content')
+@section('footer')
+@stop
 
+@section('content')
+    <div class="col-lg-8 col-md-8 col-sm-8">
+        <button class="btn btn-default btn-success"><span class="glyphicon glyphicon-plus"></span> {{ trans('common.add') }}</button>
+        @include('modules.lc._consumer_list')
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+        <!-- Consumer info appear here -->
+    </div>
 @stop
