@@ -5,7 +5,7 @@
 @stop
 
 @section('scripts')
-    {{ HTML::script('assets/js/loyalty.js') }}
+    {{ HTML::script('assets/js/modules/lc.js') }}
 @stop
 
 @section('sub-content')

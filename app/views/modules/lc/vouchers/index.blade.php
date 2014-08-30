@@ -5,7 +5,7 @@
 @stop
 
 @section('scripts')
-    {{ HTML::script('assets/js/loyalty.js') }}
+    {{ HTML::script('assets/js/modules/lc.js') }}
 @stop
 
 @section('sub-content')
@@ -64,7 +64,7 @@
                 </td>
                 <td>
                     {{ Form::open(['route' => ['lc.vouchers.delete', $value->id], 'method' => 'delete']) }}
-                        <button class="btn btn-sm btn-danger" type="button" data-toggle="modal" data-target="#confirmDelete">
+                        <button class="btn btn-sm btn-danger" type="button" data-toggle="modal" data-target="#js-confirmDeleteModal">
                             <span class="glyphicon glyphicon-trash"></span> {{ trans('common.delete') }}
                         </button>
                     {{ Form::close() }}

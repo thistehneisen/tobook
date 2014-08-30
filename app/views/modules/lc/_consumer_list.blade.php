@@ -31,7 +31,7 @@
                 </td>
                 <td>
                     {{ Form::open(['route' => ['lc.consumers.delete', $value->id], 'method' => 'delete']) }}
-                        <button class="btn btn-sm btn-danger" type="button" data-toggle="modal" data-target="#confirmDelete">
+                        <button class="btn btn-sm btn-danger" type="button" data-toggle="modal" data-target="#js-confirmDeleteModal">
                             <span class="glyphicon glyphicon-trash"></span> {{ trans('common.delete') }}
                         </button>
                     {{ Form::close() }}
