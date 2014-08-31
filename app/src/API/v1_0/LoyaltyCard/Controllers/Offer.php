@@ -17,7 +17,7 @@ class Offer extends Base {
     {
         $offers = OfferModel::where('user_id', Auth::user()->id)->get();
 
-        if ($offers) {
+        if ($offers->toArray()) {
             return Response::json([
                 'error' => false,
                 'offers' => $offers->toArray(),

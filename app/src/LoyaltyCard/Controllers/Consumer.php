@@ -2,6 +2,7 @@
 
 use Input, Session, Redirect, View, Validator;
 use Confide;
+use App\Consumers\Models\Consumer as Core;
 use App\LoyaltyCard\Models\Consumer as Model;
 use App\Core\Controllers\Base as Base;
 
@@ -51,7 +52,7 @@ class Consumer extends Base
         $rules = [
             'first_name'    => 'required',
             'last_name'     => 'required',
-            'email'         => 'required|email',
+            'email'         => 'required|email|unique:consumers',
             'phone'         => 'required|numeric',
             'address'       => 'required',
             'postcode'      => 'required|numeric',
@@ -68,25 +69,24 @@ class Consumer extends Base
         }
 
         try {
+            $data = [
+                'first_name'    => Input::get('first_name'),
+                'last_name'     => Input::get('last_name'),
+                'email'         => Input::get('email'),
+                'phone'         => Input::get('phone'),
+                'address'       => Input::get('address'),
+                'postcode'      => Input::get('postcode'),
+                'city'          => Input::get('city'),
+                'country'       => Input::get('country'),
+            ];
+
             // Create core consumer first
-            $core = Model::createCore();
-            $core->first_name = Input::get('first_name');
-            $core->last_name  = Input::get('last_name');
-            $core->user_id    = Confide::user()->id;
-            $core->email      = Input::get('email');
-            $core->phone      = Input::get('phone');
-            $core->address    = Input::get('address');
-            $core->postcode   = Input::get('postcode');
-            $core->city       = Input::get('city');
-            $core->country    = Input::get('country');
-            $core->save();
+            $core = Core::make($data, Confide::user()->id);
 
             // Then create a LC consumer
             $consumer = new Model;
-            //$consumer->score = Input::get('score', 0);
             $consumer->total_points = 0;
             $consumer->total_stamps = '';
-            //$consumer->user_id = Confide::user()->id;
             $consumer->consumer_id = $core->id;
             $consumer->consumer()->associate($core);
             $consumer->save();

@@ -15,7 +15,7 @@ class Voucher extends Base {
     {
         $vouchers = VoucherModel::where('user_id', Auth::user()->id)->get();
 
-        if ($vouchers) {
+        if ($vouchers->toArray()) {
             return Response::json([
                 'error' => false,
                 'vouchers' => $vouchers->toArray(),

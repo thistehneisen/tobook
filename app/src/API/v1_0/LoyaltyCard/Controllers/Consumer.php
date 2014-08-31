@@ -1,6 +1,7 @@
 <?php namespace App\API\v1_0\LoyaltyCard\Controllers;
 use Validator, Response, Request;
 use Auth;
+use App\Consumers\Models\Consumer as Core;
 use App\LoyaltyCard\Models\Consumer as Model;
 use App\LoyaltyCard\Models\Offer as OfferModel;
 use App\API\LoyaltyCard\Models\Transaction as TransactionModel;
@@ -16,11 +17,9 @@ class Consumer extends Base
     public function index()
     {
         // get all the consumers
-        $consumers = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-                        ->where('user_id', Auth::user()->id)
-                        ->get();
+        $consumers = Model::get();
 
-        if ($consumers) {
+        if ($consumers->toArray()) {
             return Response::json([
                 'error' => false,
                 'consumers' => $consumers->toArray(),
@@ -46,7 +45,7 @@ class Consumer extends Base
         $rules = [
             'first_name'    => 'required',
             'last_name'     => 'required',
-            'email'         => 'required|email',
+            'email'         => 'required|email|unique:consumers',
             'phone'         => 'required|numeric',
             'address'       => 'required',
             'postcode'      => 'required|numeric',
@@ -73,18 +72,19 @@ class Consumer extends Base
             ], 400);
         } else {
             try {
+                $data = [
+                    'first_name'    => Request::get('first_name'),
+                    'last_name'     => Request::get('last_name'),
+                    'email'         => Request::get('email'),
+                    'phone'         => Request::get('phone'),
+                    'address'       => Request::get('address'),
+                    'postcode'      => Request::get('postcode'),
+                    'city'          => Request::get('city'),
+                    'country'       => Request::get('country'),
+                ];
+
                 // Create core consumer first
-                $core = Model::createCore();
-                $core->first_name = Request::get('first_name');
-                $core->last_name  = Request::get('last_name');
-                $core->user_id    = Auth::user()->id;
-                $core->email      = Request::get('email');
-                $core->phone      = Request::get('phone');
-                $core->address    = Request::get('address');
-                $core->postcode   = Request::get('postcode');
-                $core->city       = Request::get('city');
-                $core->country    = Request::get('country');
-                $core->save();
+                $core = Core::make($data, Auth::user()->id);
 
                 // Then create a LC consumer
                 $consumer = new Model;

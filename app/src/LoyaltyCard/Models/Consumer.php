@@ -18,6 +18,6 @@ class Consumer extends CoreConsumer
      */
     public function consumer()
     {
-        return $this->belongsTo('App\Core\Models\Consumer');
+        return $this->belongsTo('App\Consumers\Models\Consumer');
     }
 }
