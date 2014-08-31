@@ -36,4 +36,5 @@ return [
     'errors'            => 'Errors',
     'cancel'            => 'Cancel',
     'type'              => 'Type',
+    'create'            => 'Create',
 ];

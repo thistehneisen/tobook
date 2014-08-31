@@ -4,6 +4,10 @@
 {{ HTML::script(asset('assets/js/modules/lcapp.js')) }}
 @stop
 
+@section ('title')
+NFC Desktop App
+@stop
+
 @section('nav')
 <nav class="row">
     <div class="col-md-6 text-left">
@@ -46,13 +50,34 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">{{ trans('') }}</h4>
+                    <h4 class="modal-title">{{ trans('loyalty-card.consumer_info') }}</h4>
                 </div>
                 <div class="modal-body">
                     <!-- Create form goes here -->
+                    {{ Form::open(['route' => 'lc.consumers.store', 'class' => 'form-horizontal']) }}
+                    @foreach ([
+                        'first_name'    => trans('co.first_name'),
+                        'last_name'     => trans('co.last_name'),
+                        'email'         => trans('co.email'),
+                        'phone'         => trans('co.phone'),
+                        'address'       => trans('co.address'),
+                        'postcode'      => trans('co.postcode'),
+                        'city'          => trans('co.city'),
+                        'country'       => trans('co.country'),
+                    ] as $key => $value)
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">{{ Form::label($key, $value) }}</label>
+                        <div class="col-sm-6">
+                            {{ Form::text($key, Input::old($key), ['class' => 'form-control', 'id' => $key]) }}
+                        </div>
+                        <div class="col-sm-3">
+                            {{ $errors->first($key) }}
+                        </div>
+                    </div>
+                    @endforeach
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('common.cancel') }}</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel">{{ trans('common.cancel') }}</button>
                     <button type="button" class="btn btn-success" id="confirm">{{ trans('common.create') }}</button>
                 </div>
             </div>

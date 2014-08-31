@@ -37,4 +37,5 @@ return [
     'errors'            => 'Virheet',
     'cancel'            => 'Peruuta',
     'type'              => 'Tyyppi',
+    'create'            => 'Luo',
 ];

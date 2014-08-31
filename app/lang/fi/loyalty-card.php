@@ -26,4 +26,5 @@ return [
     'last_visited'          => 'Edellinen kaynti',
     'delete_confirmation'   => 'Poistamisen vahvistus',
     'delete_question'       => 'Oletko sinä varma että haluat poistaa ?',
+    'consumer_info'         => 'Asiakkaan Tiedot',
 ];
