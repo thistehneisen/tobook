@@ -168,7 +168,7 @@
                             <div class="form-group row">
                                 <label for="name" class="col-sm-4 control-label">Notes</label>
                                 <div class="col-sm-8">
-                                    {{ Form::text('name', (isset($employee)) ? $employee->name:'', ['class' => 'form-control input-sm', 'id' => 'name']) }}
+                                    {{ Form::textarea('name', '', ['class' => 'form-control input-sm', 'id' => 'notes']) }}
                                 </div>
                             </div>
                         </div>

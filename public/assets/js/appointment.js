@@ -67,10 +67,10 @@
         autoHeight: true
       });
     });
-    $('#btn-continute-action').click(function (e){
+    $('#btn-continute-action').click(function (e) {
       e.preventDefault();
       var selected_action = $('input[name="action_type"]:checked').val();
-      if (selected_action === 'book'){
+      if (selected_action === 'book') {
         $.fancybox.open({
           padding: 5,
           width: 850,
@@ -80,10 +80,16 @@
           autoWidth: false,
           autoHeight: true,
           fitToView : false,
-          href: '#book-form'
+          href: '#book-form',
+          helpers: {
+            overlay: {
+              locked: false
+            }
+          },
+          autoCenter : false
         });
-      } else if(selected_action === 'freetime'){
-
+      } else if (selected_action === 'freetime') {
+        //TODO
       }
     });
   });
