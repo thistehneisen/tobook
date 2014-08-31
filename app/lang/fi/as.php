@@ -34,6 +34,11 @@ return [
         'employees'    => 'Työntekijät',
         'no_employees' => 'There is no employee to be selected',
     ],
+    'bookings' => [
+        'confirmed'    => 'Tila: vahvistettu',
+        'pending'      => 'Tila: auki',
+        'cancelled'    => 'Tila: peruutettu',
+    ],
     'employees' => [
         'all'                 => 'Työntekijät',
         'add'                 => 'Lisää työntekijä',

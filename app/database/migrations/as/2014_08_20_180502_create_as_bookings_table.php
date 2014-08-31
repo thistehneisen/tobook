@@ -15,6 +15,7 @@ class CreateAsBookingsTable extends Migration {
         Schema::create('as_bookings', function(Blueprint $table)
         {
             $table->increments('id');
+            $table->string('uuid');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('consumer_id');
             $table->date('date');

@@ -141,6 +141,10 @@
 <div id="book-form" class="as-modal-form as-calendar-book">
 <h2>Lisää Varaus</h2>
 <form>
+<input type="hidden" name="employee_id" id="employee_id" value=""/>
+<input type="hidden" id="get_categories_url" value=" {{ route('as.bookings.employee.categories') }}"/>
+<input type="hidden" id="get_services_url" value=" {{ route('as.bookings.employee.services') }}"/>
+<input type="hidden" id="get_service_times_url" value=" {{ route('as.bookings.service.times') }}"/>
 <div class="bs-example">
     <div class="panel-group" id="accordion">
         <div class="panel panel-default">
@@ -162,7 +166,7 @@
                             <div class="form-group row">
                                 <label for="name" class="col-sm-4 control-label">Status</label>
                                 <div class="col-sm-8">
-                                    {{ Form::text('name', (isset($employee)) ? $employee->name:'', ['class' => 'form-control input-sm', 'id' => 'name']) }}
+                                    {{ Form::select('booking_status', $bookingStatuses, 'confirmed', ['class' => 'form-control input-sm', 'id' => 'booking_status']) }}
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -287,25 +291,25 @@
                            <div class="form-group row">
                             <label for="name" class="col-sm-4 control-label">Categories</label>
                             <div class="col-sm-8">
-                                {{ Form::text('name', (isset($employee)) ? $employee->name:'', ['class' => 'form-control input-sm', 'id' => 'name']) }}
+                                 {{ Form::select('service_categories', array(), 0, ['class' => 'form-control input-sm', 'id' => 'service_categories']) }}
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="name" class="col-sm-4 control-label">Service</label>
                             <div class="col-sm-8">
-                                {{ Form::text('name', (isset($employee)) ? $employee->name:'', ['class' => 'form-control input-sm', 'id' => 'name']) }}
+                                {{ Form::select('services', array(), 0, ['class' => 'form-control input-sm', 'id' => 'services']) }}
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="name" class="col-sm-4 control-label">Service Time</label>
                             <div class="col-sm-8">
-                                {{ Form::text('name', (isset($employee)) ? $employee->name:'', ['class' => 'form-control input-sm', 'id' => 'name']) }}
+                               {{ Form::select('service_times', array(), 0, ['class' => 'form-control input-sm', 'id' => 'service_times']) }}
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="name" class="col-sm-4 control-label">Modify Time</label>
                             <div class="col-sm-8">
-                                {{ Form::text('name', (isset($employee)) ? $employee->name:'', ['class' => 'form-control input-sm', 'id' => 'name']) }}
+                                {{ Form::select('service_times', range(-60,60, 15), 0, ['class' => 'form-control input-sm', 'id' => 'service_times']) }}
                             </div>
                         </div>
                         <div class="form-group row">

@@ -31,6 +31,7 @@ return [
     'settings'       => 'Asetukset',
     'yes'            => 'Kyllä',
     'no'             => 'Ei',
+    'add'            => 'Lisää',
     'continue'       => 'Jatka',
     'cancel'         => 'Peruuta',
     'active'         => 'Aktiivinen',

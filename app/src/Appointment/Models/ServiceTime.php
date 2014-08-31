@@ -2,7 +2,7 @@
 
 class ServiceTime extends \App\Core\Models\Base
 {
-    protected $table = 'as_services';
+    protected $table = 'as_service_times';
 
     public $fillable = ['service_id', 'price', 'length','before','during', 'after', 'description', 'quantity'];
 

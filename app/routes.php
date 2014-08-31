@@ -276,6 +276,21 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Employees@updateDefaultTime'
     ]);
 
+    Route::get('bookings/get-employee-categories', [
+        'as' => 'as.bookings.employee.categories',
+        'uses' => 'App\Appointment\Controllers\Bookings@getEmployeeCategories'
+    ]);
+
+    Route::get('bookings/get-employee-services', [
+        'as' => 'as.bookings.employee.services',
+        'uses' => 'App\Appointment\Controllers\Bookings@getEmployeeServicesByCategory'
+    ]);
+
+    Route::get('bookings/get-service-times', [
+        'as' => 'as.bookings.service.times',
+        'uses' => 'App\Appointment\Controllers\Bookings@getServiceTimes'
+    ]);
+
 });
 
 /*

@@ -88,4 +88,8 @@ class Employee extends \App\Core\Models\Base
     {
          return $this->hasMany('App\Appointment\Models\EmployeeDefaultTime');
     }
+
+    public function services(){
+        return $this->belongsToMany('App\Appointment\Models\Service', 'as_employee_service');
+    }
 }
