@@ -49,17 +49,10 @@ if (isset($tpl['status']))
 						</p>
 						<p>
 							<label class="title"><?php __('booking_status'); ?>:</label>
-                            <?php
-                                $booking_statuses = array(
-                                    'confirmed' => 'Tila: vahvistettu',
-                                    'pending' => 'Tila: auki',
-                                    'cancelled' => 'Tila: peruutettu'
-                                );
-                            ?>
 							<select name="booking_status" id="booking_status" class="pj-form-field required w200">
 								<option value=""><?php __('booking_choose'); ?></option>
 								<?php
-								foreach ($booking_statuses as $k => $v)
+								foreach (__('booking_statuses', true) as $k => $v)
 								{
 									?><option value="<?php echo $k; ?>" <?php echo $k=="confirmed" ? 'selected="selected"' : null; ?>><?php echo $v; ?></option><?php
 								}
