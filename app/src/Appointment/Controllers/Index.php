@@ -5,6 +5,7 @@ use App\Core\Controllers\Base;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\ServiceCategory;
+use Carbon\Carbon;
 class Index extends Base
 {
     /**
@@ -16,11 +17,10 @@ class Index extends Base
     {
         $employees = Employee::ofCurrentUser()->get();
         $workingTimes = range(8,17);
-        $bookingStatuses = Booking::getStatuses();
+
         return View::make('modules.as.index.index', [
                 'employees' => $employees,
-                'workingTimes' => $workingTimes,
-                'bookingStatuses' => $bookingStatuses
+                'workingTimes' => $workingTimes
             ]);
     }
 }

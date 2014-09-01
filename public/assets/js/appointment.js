@@ -57,7 +57,11 @@
     // Backend Calendar
     $('.active').click(function (){
       var employee_id = $(this).data('employee-id');
+      var booking_date = $(this).data('booking-date');
+      var start_time = $(this).data('start-time');
       $('#employee_id').val(employee_id);
+      $('#date').val(booking_date);
+      $('#start_time').val(start_time);
       var time = $(this).data('time');
       $('.fancybox').fancybox({
         padding: 5,
@@ -68,32 +72,7 @@
         autoHeight: true
       });
     });
-    function loadCategories() {
-      var employee_id = $('#employee_id').val();
-      $.ajax({
-        type: 'GET',
-        url: $('#get_categories_url').val(),
-        data: { employee_id : employee_id},
-        dataType: 'json'
-      }).done(function (data) {
-        $('#service_categories').empty();
-        $('#service_categories').append(
-          $('<option>', {
-            value: 0,
-            text: '-- Valitse --'//TODO need to get somewhere else
-          })
-        );
-        for (var i = 0; i < data.length; i++) {
-          $('#service_categories').append(
-            $('<option>', {
-              value: data[i].id,
-              text: data[i].name
-            })
-          );
-        }
-      });
-    }
-    $('#service_categories').change(function () {
+    $(document).on('change','#service_categories', function () {
       var category_id = $(this).val();
       var employee_id = $('#employee_id').val();
       $.ajax({
@@ -112,7 +91,8 @@
             text: '-- Valitse --'//TODO need to get somewhere else
           })
         );
-        for (var i = 0; i < data.length; i++) {
+        var i;
+        for (i = 0; i < data.length; i++) {
           $('#services').append(
             $('<option>', {
               value: data[i].id,
@@ -122,9 +102,9 @@
         }
       });
     });
-    $('#services').change(function () {
-        var service_id = $(this).val();
-        $.ajax({
+    $(document).on('change','#services', function () {
+      var service_id = $(this).val();
+      $.ajax({
         type: 'GET',
         url: $('#get_service_times_url').val(),
         data: {
@@ -139,7 +119,8 @@
             text: '-- Valitse --'//TODO need to get somewhere else
           })
         );
-        for (var i = 0; i < data.length; i++) {
+        var i;
+        for (i = 0; i < data.length; i++) {
           $('#service_times').append(
             $('<option>', {
               value: data[i].id,
@@ -149,8 +130,34 @@
         }
       });
     });
+    $('#btn-add-service').click(function (e) {
+      e.preventDefault();
+      var service_id   = $('#services').val();
+      var employee_id  = $('#employee_id').val();
+      var service_time = $('#service_times').val();
+      var modify_times = $('#modify_times').val();
+      var booking_date = $('#booking_date').val();
+      var start_time   = $('#start_time').val();
+      $.ajax({
+        type: 'POST',
+        url: $('#add_service_url').val(),
+        data: {
+          service_id   : service_id,
+          service_time : service_time,
+          employee_id  : employee_id,
+          modify_times : modify_times,
+          booking_date : booking_date,
+          start_time   : start_time
+        },
+        dataType: 'json'
+      }).done(function (data) {
+
+      });
+    });
     $('#btn-continute-action').click(function (e) {
       e.preventDefault();
+      var employee_id = $('#employee_id').val();
+      var booking_date =  $('#date').val();
       var selected_action = $('input[name="action_type"]:checked').val();
       if (selected_action === 'book') {
         $.fancybox.open({
@@ -162,7 +169,15 @@
           autoWidth: false,
           autoHeight: true,
           fitToView : false,
-          href: '#book-form',
+          href: $('#get_booking_form_url').val(),
+          type: 'ajax',
+          ajax: {
+            type: 'GET',
+            data: {
+              employee_id : employee_id,
+              booking_date: booking_date
+            }
+          },
           helpers: {
             overlay: {
               locked: false
@@ -170,7 +185,6 @@
           },
           autoCenter : false
         });
-        loadCategories();
       } else if (selected_action === 'freetime') {
         //TODO
       }

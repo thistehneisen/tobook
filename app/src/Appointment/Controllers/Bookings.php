@@ -7,19 +7,24 @@ use App\Appointment\Models\Service;
 
 class Bookings extends AsBase
 {
-    public function getEmployeeCategories(){
+    public function getBookingForm(){
         $employeeId = Input::get('employee_id');
+        $bookingDate = Input::get('booking_date');
+        $bookingStatuses = Booking::getStatuses();
+
         $employee = Employee::find($employeeId);
         $services = $employee->services;
         $categories = [];
+        $categories[-1] = trans('commom.select');
         foreach ($services as $service) {
             //for getting distinct categories
-            $categories[$service->category->id] = [
-                'id'   => $service->category->id,
-                'name' => $service->category->name
-            ];
+            $categories[$service->category->id] = $service->category->name;
         }
-        return Response::json(array_values($categories));
+        return View::make('modules.as.bookings.form', [
+            'bookingStatuses' => $bookingStatuses,
+            'bookingDate' => $bookingDate,
+            'categories' => $categories
+        ]);
     }
 
     public function getEmployeeServicesByCategory(){
@@ -44,7 +49,7 @@ class Bookings extends AsBase
         $data = [];
         $data['default'] = [
             'id' => 'default',
-            'length' => $service->length
+            'length' => sprintf('%s (%s)', $service->length, $service->description)
         ];
         foreach ($serviceTimes as $serviceTime) {
             $data[$serviceTime->id] = [
@@ -53,5 +58,25 @@ class Bookings extends AsBase
             ];
         }
         return Response::json(array_values($data));
+    }
+
+    public function addBookingService(){
+        $serviceId   = Input::get('service_id');
+        $employeeId  = Input::get('employee_id');
+        $serviceTime = Input::get('service_time');
+        $modifyTime  = Input::get('modify_time');
+        $bookingDate = Input::get('booking_date');
+        $startTime   = Input::get('start_time');
+        $employee = Employee::find($employeeId);
+        $service = Service::find($serviceId);
+        //TODO check is there any existed booking
+        $bookingService = new BookingTime;
+        $bookingService->start_at = $start_time;
+        $bookingService->employee()->associate($employee);
+        $bookingService->service()->associate($service);
+    }
+
+    public function addBooking(){
+
     }
 }
