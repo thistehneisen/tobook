@@ -22,15 +22,24 @@ class Options extends AsBase
 
         // Get options
         $fields = [];
+        $sections = [];
         $options = Config::get('appointment.options.'.$page);
-        foreach ($options as $name => $params) {
-            $params['name'] = $name;
-            $fields[] = FieldFactory::create($params);
+        foreach ($options as $section => $controls) {
+            $allControls = [];
+
+            foreach ($controls as $name => $params) {
+                $params['name'] = $name;
+                $allControls[] = FieldFactory::create($params);
+            }
+
+            $sections[] = $section;
+            $fields[$section] = $allControls;
         }
 
-        return $this->render($page, [
-            'page'   => $page,
-            'fields' => $fields
+        return $this->render('page', [
+            'page'     => $page,
+            'fields'   => $fields,
+            'sections' => $sections
         ]);
     }
 }

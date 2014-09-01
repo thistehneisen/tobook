@@ -71,7 +71,10 @@ return [
             'week_start'      => 'Viikon ensimmäinen päivä?',
         ],
         'booking' => [
-            'index' => 'Varaukset',
+            'index'              => 'Varaukset',
+            'booking_form'       => 'Booking Form',
+            'confirmed'          => 'Confirmed',
+            'pending'            => 'Pending',
         ],
         'time' => [
             'index' => 'Työajat',
