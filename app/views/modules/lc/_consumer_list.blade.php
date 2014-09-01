@@ -30,10 +30,16 @@
                     <a href="{{ URL::route('lc.consumers.edit', ['id' => $value->id]) }}">{{ $value->consumer->updated_at }}</a>
                 </td>
                 <td>
+                    @if ($app)
+                    {{ Form::open(['url' => ['/api/v1.0/lc/consumers', $value->id], 'method' => 'delete']) }}
+                    @else
                     {{ Form::open(['route' => ['lc.consumers.delete', $value->id], 'method' => 'delete']) }}
+                    @endif
+                    <div class="delete-Button" id="{{ $value->id }}">
                         <button class="btn btn-sm btn-danger" type="button" data-toggle="modal" data-target="#js-confirmDeleteModal">
                             <span class="glyphicon glyphicon-trash"></span> {{ trans('common.delete') }}
                         </button>
+                    </div>
                     {{ Form::close() }}
                 </td>
             </tr>

@@ -3,6 +3,19 @@
 'use strict';
 
 $(document).ready(function () {
+    $('#js-confirmDeleteModal').on('show.bs.modal', function (e) {
+        var form = $(e.relatedTarget).closest('form');
+
+        // Pass form reference to modal for submisison on yes/ok
+        $(this).find('.modal-footer #confirm').data('form', form);
+    });
+
+    // Form confirm (yes/ok) handler, submits form
+    $('#js-confirmDeleteModal').on('click', '.modal-footer #confirm', function () {
+        // $(this).data('form').submit();
+        window.location.reload();
+    });
+
     $('#js-createConsumerModal').on('click', '.modal-footer #cancel', function () {
         $('#first_name').val('');
         $('#last_name').val('');
@@ -32,10 +45,8 @@ $(document).ready(function () {
             },
             success: function (data) {
                 if (data.message === 'Consumer created') {
-                    window.alert("The consumer added successfully.");
+                    window.alert("The customer added successfully.");
                     window.location.reload();
-                } else {
-                    window.alert(data.message);
                 }
             }
         });
