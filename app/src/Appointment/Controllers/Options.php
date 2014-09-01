@@ -29,6 +29,7 @@ class Options extends AsBase
         }
 
         return $this->render($page, [
+            'page'   => $page,
             'fields' => $fields
         ]);
     }
