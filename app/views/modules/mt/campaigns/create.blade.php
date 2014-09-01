@@ -8,38 +8,35 @@
     <div class="panel-heading">
         <h3 class="panel-title">{{ trans('mt.campaign.list') }}</h3>
     </div>
-    <table class="table table-striped">
-        <tbody>
-            {{ Form::open(['route' => 'mt.campaigns.store']) }}
-            @foreach ([
-                'subject'          => trans('mt.campaign.subject'),
-                'from_email'       => trans('mt.campaign.from_email'),
-                'from_name'        => trans('mt.campaign.from_name'),
-                'content'          => trans('common.content'),
-            ] as $key => $value)
-            <tr>
-                <td>
-                    <div class="form-group">
-                        {{ Form::label($key, $value) }}
-                        @if ($key === 'content')
-                            {{ Form::textarea($key, null, ['class' => 'form-control']) }}
-                        @else
-                            {{ Form::text($key, null, ['class' => 'form-control']) }}
-                            {{ $errors->first($key) }}
-                        @endif
-                    </div>
-                </td>
-            </tr>
-            @endforeach
-            <tr>
-                <td>
-                {{ Form::submit(trans('mt.campaign.create'), ['class' => 'btn btn-primary', 'onclick' => 'onSetContent()', ]) }}
-                </td>
-            </tr>
-            {{ Form::hidden('status', null) }}
-            {{ Form::close() }}
-        </tbody>
-    </table>
+    {{ Form::open(['route' => 'mt.campaigns.store', 'class' => 'form-horizontal']) }}
+    @foreach ([
+        'subject'          => trans('mt.campaign.subject'),
+        'from_email'       => trans('mt.campaign.from_email'),
+        'from_name'        => trans('mt.campaign.from_name'),
+        'content'          => trans('common.content'),
+    ] as $key => $value)
+    <div class="form-group">
+        <label class="col-sm-2 control-label">{{ Form::label($key, $value) }}</label>
+        <div class="col-sm-8">
+        @if ($key === 'content')
+            {{ Form::textarea($key, null, ['class' => 'form-control']) }}
+        @else
+            {{ Form::text($key, null, ['class' => 'form-control']) }}
+            {{ $errors->first($key) }}
+        @endif
+        </div>
+        <div class="col-sm-2">
+            {{ $errors->first($key) }}
+        </div>        
+    </div>
+    @endforeach
+    {{ Form::hidden('status', null) }}
+    <div class="form-group">
+        <div class="col-sm-offset-5 col-sm-10">
+        {{ Form::submit(trans('mt.campaign.create'), ['class' => 'btn btn-primary', 'onclick' => 'onSetContent()', ]) }}
+        </div>
+    </div>
+    {{ Form::close() }}
 </div>
 @section('scripts')
     <script src="{{ asset('assets/js/mt/common.js') }}" type="text/javascript"></script>

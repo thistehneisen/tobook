@@ -32,6 +32,7 @@ return [
     'statistics'        => 'Statistics',
     'add'               => 'Add',
     'created_at'        => 'Created At',
+    'updated_at'        => 'Updated At',
     'no'                => 'No',
     'title'             => 'Title',
     'name'              => 'Name',

@@ -49,7 +49,9 @@ class Setting extends \App\Core\Controllers\Base {
     public function store()
     {
         $rules = [
-            'module_type'          => 'required',
+            'module_type' => 'required',
+            'counts_prev_booking' => 'numeric',
+            'days_prev_booking' => 'numeric',
         ];
 
         $validator = Validator::make(Input::all(), $rules);
@@ -130,7 +132,9 @@ class Setting extends \App\Core\Controllers\Base {
     public function update($id)
     {
         $rules = [
-            'module_type'          => 'required',
+            'module_type' => 'required',
+            'counts_prev_booking' => 'numeric',
+            'days_prev_booking' => 'numeric',
         ];
     
         $validator = Validator::make(Input::all(), $rules);

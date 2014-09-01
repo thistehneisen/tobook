@@ -13,7 +13,7 @@
                     <div class="form-group">
                         {{ Form::label('campaign_id', trans('mt.campaign.label')) }}
                         {{ Form::select('campaign_id'
-                                       , array('' => trans('mt.setting.select_campaign')) + $campaigns
+                                       , array('' => trans('mt.setting.select_campaign')) + $campaigns->lists('subject', 'id')
                                        , null
                                        , array('class' => 'form-control')) }}
                     </div>
@@ -24,7 +24,7 @@
                     <div class="form-group">
                         {{ Form::label('sms_id', trans('mt.sms.label')) }}
                         {{ Form::select('sms_id'
-                                       , array('' => trans('mt.setting.select_sms')) + $sms
+                                       , array('' => trans('mt.setting.select_sms')) + $sms->lists('title', 'id')
                                        , null
                                        , array('class' => 'form-control')) }}
                     </div>
@@ -67,8 +67,5 @@
         </tbody>
     </table>
 </div>
-@section('scripts')
-    <script src="{{ asset('assets/js/mt/common.js') }}" type="text/javascript"></script>
-@stop
 
 @stop
