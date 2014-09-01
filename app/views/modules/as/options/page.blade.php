@@ -1,7 +1,7 @@
 @extends ('modules.as.layout')
 
 @section ('scripts')
-
+    @parent
 <script>
 $(function () {
     // Activate the first tab
@@ -33,7 +33,7 @@ $(function () {
     @foreach ($fields as $section => $controls)
     <div class="tab-pane" id="section-{{ $section }}">
         @foreach ($controls as $field)
-        <div class="form-group form-group-sm">
+        <div class="form-group">
             <label class="control-label col-sm-3">{{ trans('as.options.'.$page.'.'.$field->getName()) }}</label>
             <div class="col-sm-6">{{ $field }}</div>
         </div>

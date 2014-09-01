@@ -213,7 +213,36 @@ return [
                 ],
             ],
             'confirmations' => [],
-            'reminders' => [],
+            'reminders' => [
+                'enable' => [
+                    'type' => 'Checkbox',
+                ],
+                'email_before' => [
+                    'type' => 'Spinner',
+                    'values' => 10,
+                    'options' => ['class' => 'form-control input-sm spinner', 'data-positive' => 'true']
+                ],
+                'subject' => [
+                    'type' => 'Text',
+                    'values' => ''
+                ],
+                'body' => [
+                    'type' => 'Textarea',
+                    'values' => '',
+                ],
+                'sms_hours' => [
+                    'type' => 'Spinner',
+                    'values' => 2,
+                ],
+                'sms_country_code' => [
+                    'type' => 'Text',
+                    'values' => '',
+                ],
+                'sms_message' => [
+                    'type' => 'Textarea',
+                    'values' => '',
+                ],
+            ],
 
         ]
     ]
