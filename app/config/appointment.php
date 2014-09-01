@@ -91,7 +91,7 @@ return [
                 ],
             ],
             'booking_form' => [
-                'address_1' => [
+                'bf_address_1' => [
                     'type' => 'Dropdown',
                     'values' => [
                         1 => trans('common.no'),
@@ -101,7 +101,7 @@ return [
                     'default' => 1,
                     'key_is_value' => false
                 ],
-                'address_2' => [
+                'bf_address_2' => [
                     'type' => 'Dropdown',
                     'values' => [
                         1 => trans('common.no'),
@@ -111,7 +111,7 @@ return [
                     'default' => 1,
                     'key_is_value' => false
                 ],
-                'captcha' => [
+                'bf_captcha' => [
                     'type' => 'Dropdown',
                     'values' => [
                         1 => trans('common.no'),
@@ -121,7 +121,7 @@ return [
                     'default' => 1,
                     'key_is_value' => false
                 ],
-                'city' => [
+                'bf_city' => [
                     'type' => 'Dropdown',
                     'values' => [
                         1 => trans('common.no'),
@@ -131,7 +131,7 @@ return [
                     'default' => 1,
                     'key_is_value' => false
                 ],
-                'country' => [
+                'bf_country' => [
                     'type' => 'Dropdown',
                     'values' => [
                         1 => trans('common.no'),
@@ -141,7 +141,7 @@ return [
                     'default' => 1,
                     'key_is_value' => false
                 ],
-                'email' => [
+                'bf_email' => [
                     'type' => 'Dropdown',
                     'values' => [
                         1 => trans('common.no'),
@@ -151,7 +151,7 @@ return [
                     'default' => 3,
                     'key_is_value' => false
                 ],
-                'name' => [
+                'bf_name' => [
                     'type' => 'Dropdown',
                     'values' => [
                         1 => trans('common.no'),
@@ -161,7 +161,7 @@ return [
                     'default' => 3,
                     'key_is_value' => false
                 ],
-                'notes' => [
+                'bf_notes' => [
                     'type' => 'Dropdown',
                     'values' => [
                         1 => trans('common.no'),
@@ -171,7 +171,7 @@ return [
                     'default' => 1,
                     'key_is_value' => false
                 ],
-                'phone' => [
+                'bf_phone' => [
                     'type' => 'Dropdown',
                     'values' => [
                         1 => trans('common.no'),
@@ -181,7 +181,7 @@ return [
                     'default' => 3,
                     'key_is_value' => false
                 ],
-                'state' => [
+                'bf_state' => [
                     'type' => 'Dropdown',
                     'values' => [
                         1 => trans('common.no'),
@@ -191,7 +191,7 @@ return [
                     'default' => 1,
                     'key_is_value' => false
                 ],
-                'terms' => [
+                'bf_terms' => [
                     'type' => 'Dropdown',
                     'values' => [
                         1 => trans('common.no'),
@@ -201,7 +201,7 @@ return [
                     'default' => 1,
                     'key_is_value' => false
                 ],
-                'zip' => [
+                'bf_zip' => [
                     'type' => 'Dropdown',
                     'values' => [
                         1 => trans('common.no'),
@@ -214,31 +214,31 @@ return [
             ],
             'confirmations' => [],
             'reminders' => [
-                'enable' => [
+                'reminder_enable' => [
                     'type' => 'Checkbox',
                 ],
-                'email_before' => [
+                'reminder_email_before' => [
                     'type' => 'Spinner',
                     'values' => 10,
                     'options' => ['class' => 'form-control input-sm spinner', 'data-positive' => 'true']
                 ],
-                'subject' => [
+                'reminder_subject' => [
                     'type' => 'Text',
                     'values' => ''
                 ],
-                'body' => [
+                'reminder_body' => [
                     'type' => 'Textarea',
                     'values' => '',
                 ],
-                'sms_hours' => [
+                'reminder_sms_hours' => [
                     'type' => 'Spinner',
                     'values' => 2,
                 ],
-                'sms_country_code' => [
+                'reminder_sms_country_code' => [
                     'type' => 'Text',
                     'values' => '',
                 ],
-                'sms_message' => [
+                'reminder_sms_message' => [
                     'type' => 'Textarea',
                     'values' => '',
                 ],
