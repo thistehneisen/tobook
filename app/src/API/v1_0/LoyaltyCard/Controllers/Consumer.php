@@ -17,7 +17,10 @@ class Consumer extends Base
     public function index()
     {
         // get all the consumers
-        $consumers = Model::get();
+        $consumers = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
+                        ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
+                        ->where('consumer_user.user_id', Auth::user()->id)
+                        ->get();
 
         if ($consumers->toArray()) {
             return Response::json([
@@ -274,8 +277,9 @@ class Consumer extends Base
     public function destroy($id)
     {
         try {
+            $core = Core::find($id);
+            $core->hide(Auth::user()->id);
             $consumer = Model::find($id);
-            $consumer->consumer->delete();
             $consumer->delete();
 
         } catch (Exception $ex) {
