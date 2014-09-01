@@ -4,7 +4,7 @@ class Text extends Base
 {
     protected $options = [
         'values'  => '',
-        'options' => []
+        'options' => ['class' => 'form-control input-sm']
     ];
 
     /**
@@ -13,6 +13,7 @@ class Text extends Base
     public function render()
     {
         $params = $this->pick('name', 'values', 'options');
+
         return call_user_func_array('Form::text', $params);
     }
 }
