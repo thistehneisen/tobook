@@ -9,7 +9,7 @@
 {{ Form::open(['class' => 'form-horizontal']) }}
 @foreach ($fields as $field)
     <div class="form-group form-group-sm">
-        <label class="control-label col-sm-2">{{ $field->getName() }}</label>
+        <label class="control-label col-sm-3">{{ trans('as.options.general.'.$field->getName()) }}</label>
         <div class="col-sm-6">
         {{ $field }}
         </div>

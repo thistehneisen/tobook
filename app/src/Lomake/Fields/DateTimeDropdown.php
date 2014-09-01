@@ -2,7 +2,10 @@
 
 use Carbon\Carbon;
 
-class TimeDropdown extends Dropdown
+/**
+ * Label of options in dropdown will show current date time in format
+ */
+class DateTimeDropdown extends Dropdown
 {
     /**
      * @{@inheritdoc}
@@ -16,18 +19,19 @@ class TimeDropdown extends Dropdown
         }
 
         // Print the current date as label
-        $params['values'] = $this->makeTimeLabel($params['values']);
+        $params['values'] = $this->makeLabels($params['values']);
+
         return call_user_func_array('Form::select', $params);
     }
 
     /**
-     * Print current time as values in dropdown list
+     * Print current date as values in dropdown list
      *
      * @param array $arr
      *
      * @return array
      */
-    protected function makeTimeLabel($arr)
+    protected function makeLabels($arr)
     {
         $ret = [];
         $now = Carbon::now();
