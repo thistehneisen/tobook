@@ -3,6 +3,18 @@
 'use strict';
 
 $(document).ready(function () {
+    $('#consumers').find('tr').click(function () {
+        var consumerID = $(this).index() + 1;
+        $.ajax({
+            url: "/loyalty-card/consumers/" + consumerID,
+            dataType: "html",
+            type: "GET",
+            success: function (data) {
+                console.log(data);
+            }
+        });
+    });
+
     $('#js-confirmDeleteModal').on('show.bs.modal', function (e) {
         var form = $(e.relatedTarget).closest('form');
 

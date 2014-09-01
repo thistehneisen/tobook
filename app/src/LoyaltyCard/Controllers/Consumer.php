@@ -1,6 +1,6 @@
 <?php namespace App\LoyaltyCard\Controllers;
 
-use Input, Session, Redirect, View, Validator;
+use Input, Session, Redirect, View, Validator, Request;
 use Confide;
 use App\Consumers\Models\Consumer as Core;
 use App\LoyaltyCard\Models\Consumer as Model;
@@ -102,16 +102,24 @@ class Consumer extends Base
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return Response
+     * @return View
      */
     public function show($id)
     {
-        $consumer = Model::find($id);
+        $consumer = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
+                        ->where('lc_consumers.consumer_id', $id)
+                        ->get();
 
-        return View::make('modules.lc.consumers.show')
-            ->with('consumer', $consumer);
+        if (Request::ajax()) {
+            // return json_encode($consumer);
+            return View::make('modules.lc.app.show')
+                        // First name first to test
+                        ->with('customerName', $consumer->first_name);
+        }
+
+        // return View::make('modules.lc.consumers.show')
+        //             ->with('consumer', $consumer);
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -168,7 +176,6 @@ class Consumer extends Base
             return Redirect::route('lc.consumers.index');
         }
     }
-
 
     /**
      * Remove the specified resource from storage.

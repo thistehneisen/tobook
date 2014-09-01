@@ -1,5 +1,9 @@
 @extends('layouts.default')
 
+@section ('styles')
+{{ HTML::style(asset('assets/css/lcapp.css')) }}
+@stop
+
 @section ('scripts')
 {{ HTML::script(asset('assets/js/modules/lcapp.js')) }}
 @stop
@@ -36,7 +40,6 @@ NFC Desktop App
 @section('content')
     <div class="col-lg-8 col-md-8 col-sm-8">
         <button class="btn btn-default btn-success" data-toggle="modal" data-target="#js-createConsumerModal"><span class="glyphicon glyphicon-plus"></span> {{ trans('common.add') }}</button>
-        <?php $app = true; ?>
         @include('modules.lc._consumer_list')
     </div>
 
