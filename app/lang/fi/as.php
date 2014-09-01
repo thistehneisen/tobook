@@ -56,9 +56,19 @@ return [
     ],
     'options' => [
         'general' => [
-            'index' => 'Yleinen',
-            'heading' => 'Yleisasetukset',
-            'info' => 'Säädä asetuksesi kohdalleen'
+            'index'           => 'Yleinen',
+            'heading'         => 'Yleisasetukset',
+            'info'            => 'Säädä asetuksesi kohdalleen',
+            'currency'        => 'Valuutta',
+            'custom_status'   => 'Custom Status',
+            'datetime_format' => 'Päiväyksen muoto',
+            'date_format'     => 'Päivämäärä formaatti',
+            'time_format'     => 'Aikamuoto',
+            'layout'          => 'Näkymä',
+            'seo_url'         => 'SEO URLs',
+            'timezone'        => 'Aikavyöhyke',
+            'week_numbers'    => 'Näytä viikkonumerot',
+            'week_start'      => 'Viikon ensimmäinen päivä?',
         ],
         'booking' => [
             'index' => 'Varaukset',

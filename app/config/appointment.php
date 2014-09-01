@@ -10,6 +10,15 @@ return [
             'custom_status'   => [
                 'type'    => 'Checkbox',
             ],
+            'layout'          => [
+                'type'         => 'dropdown',
+                'values'       => [1 => 'Layout 1', 2 => 'Layout 2', 3 => 'Layout 3'],
+                'default'      => 1,
+                'key_is_value' => false
+            ],
+            'seo_url' => [
+                'type' => 'Checkbox',
+            ],
             'datetime_format' => [
                 'type'    => 'Dropdown',
                 'values'  => ['d.m.Y, H:i', 'd.m.Y, H:i:s', 'm.d.Y, H:i', 'm.d.Y, H:i:s', 'Y.m.d, H:i', 'Y.m.d, H:i:s', 'j.n.Y, H:i', 'j.n.Y, H:i:s', 'n.j.Y, H:i', 'n.j.Y, H:i:s', 'Y.n.j, H:i', 'Y.n.j, H:i:s', 'd/m/Y, H:i', 'd/m/Y, H:i:s', 'm/d/Y, H:i', 'm/d/Y, H:i:s', 'Y/m/d, H:i', 'Y/m/d, H:i:s', 'j/n/Y, H:i', 'j/n/Y, H:i:s', 'n/j/Y, H:i', 'n/j/Y, H:i:s', 'Y/n/j, H:i', 'Y/n/j, H:i:s', 'd-m-Y, H:i', 'd-m-Y, H:i:s', 'm-d-Y, H:i', 'm-d-Y, H:i:s', 'Y-m-d, H:i', 'Y-m-d, H:i:s', 'j-n-Y, H:i', 'j-n-Y, H:i:s', 'n-j-Y, H:i', 'n-j-Y, H:i:s', 'Y-n-j, H:i', 'Y-n-j, H:i:s'],
@@ -19,15 +28,6 @@ return [
                 'type' => 'DateDropdown',
                 'values' => ['d.m.Y', 'm.d.Y', 'Y.m.d', 'j.n.Y', 'n.j.Y', 'Y.n.j', 'd/m/Y', 'm/d/Y', 'Y/m/d', 'j/n/Y', 'n/j/Y', 'Y/n/j', 'd-m-Y', 'm-d-Y', 'Y-m-d', 'j-n-Y', 'n-j-Y', 'Y-n-j'],
                 'default' => 'd-m-Y',
-            ],
-            'layout'          => [
-                'type'         => 'dropdown',
-                'values'       => [1 => 'Layout 1', 2 => 'Layout 2', 3 => 'Layout 3'],
-                'default'      => 1,
-                'key_is_value' => false
-            ],
-            'seo_url' => [
-                'type' => 'Checkbox',
             ],
             'timezone' => [
                 'type' => 'TimezoneDropdown',
