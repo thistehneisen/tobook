@@ -91,8 +91,8 @@
                 <li><a href="">Palveluvalikko</a></li>
             </ul>
         </li>
-        <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif><a href="#"><i class="fa fa-arrow-down"></i> Asenna</a></li>
-        <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif><a href="#"><i class="fa fa-desktop"></i> Esikatselu</a></li>
+        <li @if (Request::segment(2) === 'embed') {{ 'class="active"' }} @endif><a href="{{ route('as.embed.index') }}"><i class="fa fa-arrow-down"></i> Asenna</a></li>
+        <li><a href="#"><i class="fa fa-desktop"></i> Esikatselu</a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->

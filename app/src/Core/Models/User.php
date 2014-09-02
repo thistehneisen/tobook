@@ -1,6 +1,6 @@
 <?php namespace App\Core\Models;
 
-use App, DB;
+use App, DB, Hashids;
 use Zizaco\Confide\ConfideUser;
 use Zizaco\Entrust\HasRole;
 
@@ -104,6 +104,20 @@ class User extends ConfideUser
         return [
             '<i class="fa fa-user"></i> Login' => route('admin.users.login', ['id' => $this->id])
         ];
+    }
+
+    //--------------------------------------------------------------------------
+    // ATTRIBUTES
+    //--------------------------------------------------------------------------
+
+    /**
+     * Return the hash of this user, useful for generate embeded URLs
+     *
+     * @return string
+     */
+    public function getHashAttribute()
+    {
+        return Hashids::encrypt($this->attributes['id']);
     }
 
     //--------------------------------------------------------------------------

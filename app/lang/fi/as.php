@@ -78,6 +78,10 @@ return [
         'end_time'            => 'Lopetusaika',
         'day_off'             => 'Vapaapäivä'
     ],
+    'embed' => [
+        'heading'     => 'Otsikko',
+        'description' => 'Sisältö'
+    ],
     'items_per_page' => 'Yksiköitä yhteensä',
     'with_selected'  => 'Valitse toiminto',
     'crud' => [

@@ -322,6 +322,16 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Bookings@addBooking'
     ]);
 
+    Route::get('embed', [
+        'as' => 'as.embed.index',
+        'uses' => 'App\Appointment\Controllers\Embed@index'
+    ]);
+
+    Route::get('embed/{hash}', [
+        'as' => 'as.embed.embed',
+        'uses' => 'App\Appointment\Controllers\Embed@embed'
+    ]);
+
 });
 
 /*

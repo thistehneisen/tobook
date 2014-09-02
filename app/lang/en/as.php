@@ -79,6 +79,10 @@ return [
         'day_off'             => 'Is day off?'
 
     ],
+    'embed' => [
+        'heading'     => 'Otsikko', // @todo
+        'description' => 'Sisältö' // @todo
+    ],
     'items_per_page' => 'Items per page',
     'with_selected'  => 'With selected',
     'crud' => [
