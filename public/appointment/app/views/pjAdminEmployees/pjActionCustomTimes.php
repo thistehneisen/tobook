@@ -10,30 +10,30 @@ if (isset($tpl['status']))
 	}
 } else {
 	global $as_pf;
-	
+
 	include dirname(__FILE__) . '/elements/menu.php';
-	
+
 	$pjTime = pjTime::factory();
 		?>
 		<div class="ui-tabs ui-widget ui-widget-content ui-corner-all b10">
 			<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-				<li class="ui-state-default ui-corner-top ui-tabs-active ui-state-active"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminEmployees&amp;action=pjActionCustomTimes&amp;as_pf=<?php echo $as_pf; ?>">Luo kustomoitu aika</a></li>
-				<li class="ui-state-default ui-corner-top"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminEmployees&amp;action=pjActionEmployeeCustomTime&amp;as_pf=<?php echo $as_pf; ?>">Työvuorosuunnittelu</a></li>
+				<li class="ui-state-default ui-corner-top ui-tabs-active ui-state-active"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminEmployees&amp;action=pjActionCustomTimes&amp;as_pf=<?php echo $as_pf; ?>"><?php __('create_working_shift'); ?></a></li>
+				<li class="ui-state-default ui-corner-top"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminEmployees&amp;action=pjActionEmployeeCustomTime&amp;as_pf=<?php echo $as_pf; ?>"><?php __('working_times'); ?></a></li>
 			</ul>
 		</div>
-		
+
 		<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminEmployees&amp;action=pjActionCustomTimes&amp;as_pf=<?php echo $as_pf; ?>" method="post" id="frmCustomtime" class="form pj-form">
-			
-			<input type="hidden" name="customtine" value="1"> 
+
+			<input type="hidden" name="customtine" value="1">
 			<?php if ( isset($_GET['id']) && !empty($_GET['id']) ) { ?>
-				<input type="hidden" name="id" value="<?php echo $_GET['id']; ?>"> 
+				<input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
 			<?php }?>
 			<fieldset class="fieldset white">
-				<legend>Työvuorosuunnittelu</legend>
-			
+				<legend><?php __('working_times'); ?></legend>
+
 				<?php if ( isset($tpl['arr']) ) { ?>
 				<p>
-					<label class="title">Nimi</label>
+					<label class="title"><?php __('name'); ?></label>
 					<span class="pj-form-field-custom pj-form-field-custom-before">
 						<input type="text" name="name" id="name" class="pj-form-field required w200" value="<?php echo $tpl['arr']['name']; ?>"/>
 					</span>
@@ -42,7 +42,7 @@ if (isset($tpl['status']))
 					<label class="title"><?php __('time_from'); ?></label>
 					<?php
 					$start_time = explode(":", $tpl['arr']['start_time']);
-					
+
 					echo $pjTime
 						->reset()
 						->attr('name', 'start_hour')
@@ -85,7 +85,7 @@ if (isset($tpl['status']))
 						->minute();
 					?>
 				</p>
-				
+
 				<p>
 					<label class="title"><?php __('time_lunch_from'); ?></label>
 					<?php
@@ -132,15 +132,15 @@ if (isset($tpl['status']))
 						->minute();
 					?>
 				</p>
-				
+
 				<p>
 					<label class="title"><?php __('time_is'); ?></label>
 					<span class="block float_left t5 b10"><input type="checkbox" name="is_dayoff" id="is_dayoff" value="T" <?php echo $tpl['arr']['is_dayoff'] == 'T' ? ' checked="checked"' : NULL; ?>/></span>
 				</p>
-				
+
 				<?php } else { ?>
 				<p>
-					<label class="title">Nimi</label>
+					<label class="title"><?php __('name'); ?></label>
 					<span class="pj-form-field-custom pj-form-field-custom-before">
 						<input type="text" name="name" id="name" class="pj-form-field required w200" />
 					</span>
@@ -185,7 +185,7 @@ if (isset($tpl['status']))
 						->minute();
 					?>
 				</p>
-				
+
 				<p>
 					<label class="title"><?php __('time_lunch_from'); ?></label>
 					<?php
@@ -226,7 +226,7 @@ if (isset($tpl['status']))
 						->minute();
 					?>
 				</p>
-				
+
 				<p>
 					<label class="title"><?php __('time_is'); ?></label>
 					<span class="block float_left t5 b10"><input type="checkbox" name="is_dayoff" id="is_dayoff" value="T" /></span>
@@ -236,12 +236,12 @@ if (isset($tpl['status']))
 					<label class="title">&nbsp;</label>
 					<input type="submit" value="<?php __('btnSave', false, true); ?>" class="pj-button"  />
 				</p>
-				
+
 			</fieldset>
 		</form>
-		
+
 		<div id="grid"></div>
-		
+
 		<script type="text/javascript">
 		var pjGrid = pjGrid || {};
 		var myLabel = myLabel || {};

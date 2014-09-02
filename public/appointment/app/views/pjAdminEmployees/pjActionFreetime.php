@@ -10,15 +10,15 @@ if (isset($tpl['status']))
 	}
 } else {
 	global $as_pf;
-	
+
 	$week_start = isset($tpl['option_arr']['o_week_start']) && in_array((int) $tpl['option_arr']['o_week_start'], range(0,6)) ? (int) $tpl['option_arr']['o_week_start'] : 0;
 	$jqDateFormat = pjUtil::jqDateFormat($tpl['option_arr']['o_date_format']);
-	
+
 	include dirname(__FILE__) . '/elements/menu.php';
 	if ( count($tpl['employee_arr']) > 0 ) {
 		$offset = $tpl['t_arr']['end_ts'] <= $tpl['t_arr']['start_ts'] ? 86400 : 0;
 		$step = $tpl['option_arr']['o_step'] * 60;
-		
+
 		$times = array();
 		if ( $tpl['t_arr'] ) {
 			for ($i = $tpl['t_arr']['start_ts']; $i <= $tpl['t_arr']['end_ts'] + $offset - $step; $i += $step) {
@@ -27,23 +27,23 @@ if (isset($tpl['status']))
 		}
 		?>
 		<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminEmployees&amp;action=pjActionFreetime&amp;as_pf=<?php echo $as_pf; ?>" method="post" id="frmFreetime" class="form pj-form">
-			
-			<input type="hidden" name="freetime" value="1"> 
+
+			<input type="hidden" name="freetime" value="1">
 			<?php if ( isset($_GET['id']) && !empty($_GET['id']) ) { ?>
-				<input type="hidden" name="id" value="<?php echo $_GET['id']; ?>"> 
+				<input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
 			<?php }?>
 			<?php if ( isset($_GET['pjAdmin']) && !empty($_GET['pjAdmin']) ) { ?>
-				<input type="hidden" name="pjAdmin" value="<?php echo $_GET['pjAdmin']; ?>"> 
+				<input type="hidden" name="pjAdmin" value="<?php echo $_GET['pjAdmin']; ?>">
 			<?php }?>
 			<fieldset class="fieldset white">
-				<legend>Lisää vapaa</legend>
-				<?php 
+				<legend><?php __('add_free_time'); ?></legend>
+				<?php
 				if ( isset($tpl['ef_arr']['start_ts']) && $tpl['ef_arr']['start_ts'] > 0 ) {
 					$start_ts = $tpl['ef_arr']['start_ts'];
-					
+
 				} elseif ( isset($_GET['start_ts']) && $_GET['start_ts'] > 0 ) {
 					$start_ts = $_GET['start_ts'];
-					
+
 				} else $start_ts = strtotime('now');
 				?>
 				<div class="b10 p">
@@ -53,17 +53,17 @@ if (isset($tpl['status']))
 						<span class="pj-form-field-after"><abbr class="pj-form-field-icon-date"></abbr></span>
 					</span>
 				</div>
-				<?php 
+				<?php
 				if ( isset($tpl['ef_arr']['employee_id']) ) {
 					$employee_id = $tpl['ef_arr']['employee_id'];
-					
+
 				} elseif ( isset($_GET['employee_id']) ) {
 					$employee_id = $_GET['employee_id'];
-					
-				} else $employee_id = null; 
+
+				} else $employee_id = null;
 				?>
 				<p>
-					<label class="title">Työntekijä</label>
+					<label class="title"><?php __('booking_employee'); ?></label>
 					<span class="inline_block">
 						<select name="employee_id" id="employee_id" class="pj-form-field required w110">
 							<?php foreach ( $tpl['employee_arr'] as $employee ) { ?>
@@ -73,17 +73,17 @@ if (isset($tpl['status']))
 					</span>
 				</p>
 				<div id="loadajaxtime">
-					<?php 
+					<?php
 					if ( isset($tpl['ef_arr']['start_ts']) && $tpl['ef_arr']['start_ts'] > 0 ) {
 						$start_ts = $tpl['ef_arr']['start_ts'];
-						
+
 					} elseif ( isset($_GET['start_ts']) && $_GET['start_ts'] > 0 ) {
 						$start_ts = $_GET['start_ts'];
-						
+
 					} else $start_ts = null;
 					?>
 					<p>
-						<label class="title">Aloitusaika</label>
+						<label class="title"><?php __('booking_start_time'); ?></label>
 						<span class="inline_block">
 							<select name="start_ts" id="start_ts" class="pj-form-field required w110">
 								<option value="">-- <?php __('lblChoose'); ?>--</option>
@@ -94,7 +94,7 @@ if (isset($tpl['status']))
 						</span>
 					</p>
 					<p>
-						<label class="title">Lopetusaika</label>
+						<label class="title"><?php __('booking_end_time'); ?></label>
 						<span class="inline_block">
 							<select name="end_ts" id="end_ts" class="pj-form-field required w110">
 								<option value="">-- <?php __('lblChoose'); ?>--</option>
@@ -107,7 +107,7 @@ if (isset($tpl['status']))
 					</p>
 				</div>
 				<p>
-					<label class="title">Selitys</label>
+					<label class="title"><?php __('description'); ?></label>
 					<span class="inline_block">
 						<textarea name="message" id="message" class="pj-form-field w200" rows="" cols=""><?php echo isset($tpl['ef_arr']['message']) ? $tpl['ef_arr']['message'] : null; ?></textarea>
 					</span>
@@ -118,9 +118,9 @@ if (isset($tpl['status']))
 				</p>
 			</fieldset>
 		</form>
-		
+
 		<div id="grid"></div>
-		
+
 		<script type="text/javascript">
 		var pjGrid = pjGrid || {};
 		var myLabel = myLabel || {};

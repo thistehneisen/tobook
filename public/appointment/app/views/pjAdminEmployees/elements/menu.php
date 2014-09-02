@@ -15,8 +15,8 @@ global $as_pf;
 			?><li class="ui-state-default ui-corner-top<?php echo $active; ?>"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminEmployees&amp;action=pjActionUpdate&amp;as_pf=<?php echo $as_pf; ?>&amp;id=<?php echo $employee_id; ?>"><?php __('employee_update'); ?></a></li><?php
 		}
 		?>
-		
-		<li class="ui-state-default ui-corner-top<?php echo $_GET['action'] == 'pjActionFreetime' ? $active : null; ?>"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminEmployees&amp;action=pjActionFreetime&amp;as_pf=<?php echo $as_pf; ?>">Vapaat</a></li>
-		<li class="ui-state-default ui-corner-top<?php echo $_GET['action'] == 'pjActionCustomTimes' ? $active : null; ?>"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminEmployees&amp;action=pjActionCustomTimes&amp;as_pf=<?php echo $as_pf; ?>">Työvuorosuunnittelu</a></li>
+
+		<li class="ui-state-default ui-corner-top<?php echo $_GET['action'] == 'pjActionFreetime' ? $active : null; ?>"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminEmployees&amp;action=pjActionFreetime&amp;as_pf=<?php echo $as_pf; ?>"><?php __('free_times'); ?></a></li>
+		<li class="ui-state-default ui-corner-top<?php echo $_GET['action'] == 'pjActionCustomTimes' ? $active : null; ?>"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminEmployees&amp;action=pjActionCustomTimes&amp;as_pf=<?php echo $as_pf; ?>"><?php __('working_times'); ?></a></li>
 	</ul>
 </div>

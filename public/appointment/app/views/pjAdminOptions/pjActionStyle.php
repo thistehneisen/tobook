@@ -17,12 +17,12 @@ if (isset($tpl['status']))
 	}
 	include_once PJ_VIEWS_PATH . 'pjLayouts/elements/optmenu.php';
 	?>
-	
+
 	<div id="formstyle">
 	<form id="frmAddbooking" class="form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminOptions&amp;action=pjActionStyle&amp;as_pf=<?php echo $as_pf; ?>">
 	<fieldset class="fieldset white">
 	<input type="hidden" name="form_style" value="1">
-	<legend>Tyyli</legend>
+	<legend><?php __('frontend_style') ?></legend>
 					<?php if (isset($tpl['arr'][0]) && count($tpl['arr'][0]) > 0 ) { ?>
 							<input type="hidden" name="id" value="<?php echo $tpl['arr'][0]['id']; ?>">
 					<?php } ?>
@@ -32,7 +32,7 @@ if (isset($tpl['status']))
 
 <p><label class="title">Headings color:</label><input type="text" name="color" id="color" class="pj-form-field w250" value="<?php echo isset($tpl['arr'][0]['headings']) ? $tpl['arr'][0]['headings'] : ''; ?>" /></p>
 					<p><label class="title">Tausta</label><input type="text" name="background" id="background" class="pj-form-field w250" value="<?php echo isset($tpl['arr'][0]['background']) ? $tpl['arr'][0]['background'] : ''; ?>" /></p>
-					<?php 
+					<?php
 					$font_name = array(
 						"Aclonica" => "Aclonica",
 						"Allan" => "Allan",
@@ -243,6 +243,6 @@ if (isset($tpl['status']))
 				</fieldset>
 			</form>
 		</div>
-		<?php 
+		<?php
 }
 ?>
