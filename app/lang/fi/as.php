@@ -80,7 +80,9 @@ return [
     ],
     'embed' => [
         'heading'     => 'Otsikko',
-        'description' => 'Sisältö'
+        'description' => 'Sisältö',
+        'embed'       => 'Asenna',
+        'preview'     => 'Esikatselu'
     ],
     'items_per_page' => 'Yksiköitä yhteensä',
     'with_selected'  => 'Valitse toiminto',

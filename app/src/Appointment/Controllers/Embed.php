@@ -17,4 +17,14 @@ class Embed extends AsBase
             'link' => route('as.embed.embed', ['hash' => $this->user->hash])
         ]);
     }
+
+    /**
+     * Show the embed form to user
+     *
+     * @return View
+     */
+    public function preview()
+    {
+        // @todo
+    }
 }

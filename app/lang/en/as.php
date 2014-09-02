@@ -81,7 +81,9 @@ return [
     ],
     'embed' => [
         'heading'     => 'Otsikko', // @todo
-        'description' => 'Sisältö' // @todo
+        'description' => 'Sisältö', // @todo
+        'embed'       => 'Embed',
+        'preview'     => 'Preview',
     ],
     'items_per_page' => 'Items per page',
     'with_selected'  => 'With selected',
