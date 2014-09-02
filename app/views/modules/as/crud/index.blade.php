@@ -52,7 +52,7 @@
     @endforeach
         @if (empty($items->getTotal()))
         <tr>
-            <td colspan="4">{{ trans('common.no_records') }}</td>
+            <td colspan="{{ count($fields) + 2 }}">{{ trans('common.no_records') }}</td>
         </tr>
         @endif
     </tbody>
