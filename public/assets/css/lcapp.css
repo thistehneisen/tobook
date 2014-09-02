@@ -1,6 +1,17 @@
-.edit {
+.no-display {
   display: none;
 }
 .selected {
-  background-color: #F2F5A9;
+  background-color: #f2f5a9;
+}
+.full {
+  width: 100%;
+  clear: both;
+}
+.data-row {
+  padding-bottom: 15%;
+  clear: both;
+}
+.required {
+  color: #e67e22;
 }

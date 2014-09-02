@@ -44,7 +44,7 @@ NFC Desktop App
     </div>
 
     <!-- Right panel with consumer info -->
-    <div class="col-lg-4 col-md-4 col-sm-4" id="details">
+    <div class="col-lg-4 col-md-4 col-sm-4" id="js-consumerDetails">
         <!-- Consumer info appear using ajax here -->
     </div>
 

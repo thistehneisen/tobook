@@ -10,14 +10,14 @@
                 <th>{{ trans('co.email') }}</th>
                 <th>{{ trans('co.phone') }}</th>
                 <th>{{ trans('loyalty-card.last_visited') }}</th>
-                <th class="edit">{{{ trans('common.edit') }}}</th>
+                <th class="no-display">{{{ trans('common.edit') }}}</th>
                 <th>{{ trans('common.delete') }}</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($consumers as $key => $value)
-            <tr data-consumerid='{{{ $key + 1 }}}'>
-                <td>{{ $key+1 }}</td>
+            <tr data-consumerid='{{{ $value->consumer->id }}}'>
+                <td>{{ $value->consumer->id }}</td>
                 <td>
                     {{ $value->consumer->getNameAttribute() }}
                 </td>
@@ -30,7 +30,7 @@
                 <td>
                     {{ $value->consumer->updated_at }}
                 </td>
-                <td class="edit">
+                <td class="no-display">
                     <a href="{{ URL::route('lc.consumers.edit', ['id' => $value->id]) }}">
                         <button class="btn btn-sm btn-success" type="button">
                             <span class="glyphicon glyphicon-pencil"></span> {{ trans('common.edit') }}
