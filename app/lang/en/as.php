@@ -43,6 +43,11 @@ return [
         'employees'    => 'Employees',
         'no_employees' => 'There is no employee to be selected',
     ],
+    'bookings' => [
+        'confirmed'    => 'Tila: vahvistettu',
+        'pending'      => 'Tila: auki',
+        'cancelled'    => 'Tila: peruutettu',
+    ],
     'employees' => [
         'all'                 => 'Employees',
         'add'                 => 'Add new employee',
@@ -53,6 +58,11 @@ return [
         'description'         => 'Description',
         'is_subscribed_email' => 'Is subscribed email?',
         'is_subscribed_sms'   => 'Is subscribed SMS?',
+        'services'            => 'Services',
+        'status'              => 'Status',
+        'avatar'              => 'Avatar',
+        'default_time'        => 'Default time',
+        'custom_time'         => 'Custom time',
     ],
     'items_per_page' => 'Items per page',
     'with_selected'  => 'With selected',
