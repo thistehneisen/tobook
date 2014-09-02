@@ -315,7 +315,7 @@ class pjAdminEmployees extends pjAdmin
 		$this->setAjax(true);
 		if ($this->isXHR() && $this->isLoged())
 		{
-            $owner_id = intval($_SESSION['owner_id']);
+            $owner_id = $this->getOwnerId();
 			if ( isset($_GET['tyle']) && $_GET['tyle'] == 'freetime' ) {
 				$pjEmployeeFreetimeModel = pjEmployeeFreetimeModel::factory()
 						->select('t1.*, t2.*')
@@ -394,10 +394,7 @@ class pjAdminEmployees extends pjAdmin
 				if (isset($_GET['q']) && !empty($_GET['q']))
 				{
 					$q = str_replace(array('_', '%'), array('\_', '\%'), trim($_GET['q']));
-					$pjEmployeeModel->where('t2.content LIKE', "%$q%");
-					$pjEmployeeModel->orWhere('t1.email LIKE', "%$q%");
-					$pjEmployeeModel->orWhere('t1.phone LIKE', "%$q%");
-					$pjEmployeeModel->orWhere('t1.notes LIKE', "%$q%");
+                    $pjEmployeeModel->where(sprintf("(t2.content LIKE '%1\$s' OR t1.email LIKE '%1\$s' OR t1.phone LIKE '%1\$s OR t1.notes')", "%$q%"));
 				}
 
 				if (isset($_GET['is_active']) && strlen($_GET['is_active']) > 0 && in_array($_GET['is_active'], array(1, 0)))
@@ -409,7 +406,6 @@ class pjAdminEmployees extends pjAdmin
 				$direction = 'ASC';
 				if (isset($_GET['direction']) && isset($_GET['column']) && in_array(strtoupper($_GET['direction']), array('ASC', 'DESC')))
 				{
-					$column = $_GET['column'];
 					$direction = strtoupper($_GET['direction']);
 				}
 
