@@ -233,6 +233,27 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Services@destroy'
     ]);
 
+    // Bookings
+    \App\Appointment\Controllers\Bookings::crudRoutes(
+        'bookings',
+        'as.bookings'
+    );
+
+    Route::get('bookings/invoices', [
+        'as' => 'as.bookings.invoices',
+        'uses' => 'App\Appointment\Controllers\Bookings@invoices'
+    ]);
+
+    Route::get('bookings/customers', [
+        'as' => 'as.bookings.customers',
+        'uses' => 'App\Appointment\Controllers\Bookings@customers'
+    ]);
+
+    Route::get('bookings/statistics', [
+        'as' => 'as.bookings.statistics',
+        'uses' => 'App\Appointment\Controllers\Bookings@statistics'
+    ]);
+
     // Service Category
     \App\Appointment\Controllers\Categories::crudRoutes(
         'services/categories',

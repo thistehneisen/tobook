@@ -44,9 +44,19 @@ return [
         'no_employees' => 'There is no employee to be selected',
     ],
     'bookings' => [
-        'confirmed'    => 'Tila: vahvistettu',
-        'pending'      => 'Tila: auki',
-        'cancelled'    => 'Tila: peruutettu',
+        'confirmed'  => 'Tila: vahvistettu',
+        'pending'    => 'Tila: auki',
+        'cancelled'  => 'Tila: peruutettu',
+        'all'        => 'Varaukset',
+        'add'        => 'Tee varaus',
+        'invoices'   => 'Laskut',
+        'customers'  => 'Asiakkaat',
+        'statistics' => 'Statistiikka',
+        'date'       => 'date', // @todo
+        'total'      => 'total', // @todo
+        'start_at'   => 'start_at', // @todo
+        'status'     => 'status', // @todo
+        'ip'         => 'ip', // @todo
     ],
     'employees' => [
         'all'                 => 'Työntekijät',

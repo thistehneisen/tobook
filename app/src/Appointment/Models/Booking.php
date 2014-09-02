@@ -4,6 +4,14 @@ class Booking extends \App\Core\Models\Base
 {
     protected $table = 'as_bookings';
 
+    public $fillable = [
+        'date',
+        'total',
+        'start_at',
+        'status',
+        'ip',
+    ];
+
     protected function getStatuses(){
         return [
             'confirmed' => trans('as.bookings.confirmed'),

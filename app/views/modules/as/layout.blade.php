@@ -40,11 +40,11 @@
                 <i class="fa fa-bookmark"></i> Varaukset <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="">Varaukset</a></li>
-                <li><a href="">Tee varaus</a></li>
-                <li><a href="">Laskut</a></li>
-                <li><a href="">Asiakkaat</a></li>
-                <li><a href="">Statistiikka</a></li>
+                <li><a href="{{ route('as.bookings.index') }}">Varaukset</a></li>
+                <li><a href="{{ route('as.bookings.upsert') }}">Tee varaus</a></li>
+                <li><a href="{{ route('as.bookings.invoices') }}">Laskut</a></li>
+                <li><a href="{{ route('as.bookings.customers') }}">Asiakkaat</a></li>
+                <li><a href="{{ route('as.bookings.statistics') }}">Statistiikka</a></li>
             </ul>
         </li>
         <li @if (Request::segment(2) === 'services') {{ 'class="active"' }} @endif class="dropdown">

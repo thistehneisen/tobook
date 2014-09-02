@@ -44,9 +44,19 @@ return [
         'no_employees' => 'There is no employee to be selected',
     ],
     'bookings' => [
-        'confirmed'    => 'Tila: vahvistettu',
-        'pending'      => 'Tila: auki',
-        'cancelled'    => 'Tila: peruutettu',
+        'confirmed'  => 'Tila: vahvistettu',
+        'pending'    => 'Tila: auki',
+        'cancelled'  => 'Tila: peruutettu',
+        'all'        => 'Bookings',
+        'add'        => 'Add new booking',
+        'invoices'   => 'Invoices',
+        'customers'  => 'Customers',
+        'statistics' => 'Statistics',
+        'date'       => 'Date', // @todo
+        'total'      => 'Total', // @todo
+        'start_at'   => 'Start At', // @todo
+        'status'     => 'Status', // @todo
+        'ip'         => 'IP', // @todo
     ],
     'employees' => [
         'all'                 => 'Employees',
