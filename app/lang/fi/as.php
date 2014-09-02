@@ -61,6 +61,12 @@ return [
         'services'            => 'Palvelut',
         'status'              => 'Tila',
         'avatar'              => 'Kuva',
+        'default_time'        => 'default_time', // @todo
+        'custom_time'         => 'custom_time', // @todo
+        'days_of_week'        => 'Viikonpäivä',
+        'start_time'          => 'Aloitusaika',
+        'end_time'            => 'Lopetusaika',
+        'day_off'             => 'Vapaapäivä'
     ],
     'items_per_page' => 'Yksiköitä yhteensä',
     'with_selected'  => 'Valitse toiminto',

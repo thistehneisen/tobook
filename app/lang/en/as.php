@@ -61,14 +61,21 @@ return [
         'services'            => 'Services',
         'status'              => 'Status',
         'avatar'              => 'Avatar',
+        'default_time'        => 'Default time',
+        'custom_time'         => 'Custom time',
+        'days_of_week'        => 'Days of week',
+        'start_time'          => 'Start time',
+        'end_time'            => 'End time',
+        'day_off'             => 'Is day off?'
+
     ],
     'items_per_page' => 'Items per page',
     'with_selected'  => 'With selected',
     'crud' => [
-        'bulk_confirm' => 'Are you sure to carry out this action?',
-        'success_add' => 'Item was created successfully.',
-        'success_edit' => 'Data was updated successfully.',
+        'bulk_confirm'   => 'Are you sure to carry out this action?',
+        'success_add'    => 'Item was created successfully.',
+        'success_edit'   => 'Data was updated successfully.',
         'success_delete' => 'Item was deleted successfully.',
-        'success_bulk' => 'Item was deleted successfully.',
+        'success_bulk'   => 'Item was deleted successfully.',
     ]
 ];

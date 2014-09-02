@@ -56,38 +56,67 @@ class Employees extends AsBase
         return $item;
     }
 
-    public function defaultTime($id){
-        $defaultTime = Employee::find($id)->getDefaultTimes();
-        return View::make('modules.as.employees.defaultTime', [
+    /**
+     * Show the form to edit default working time of an employee
+     *
+     * @param int $id Employee's ID
+     *
+     * @return View
+     */
+    public function defaultTime($id)
+    {
+        $employee = Employee::find($id);
+        $defaultTime = $employee->getDefaultTimes();
+
+        return $this->render('defaultTime', [
             'defaultTime' => $defaultTime,
-            'employeeId' => $id
+            'employee'    => $employee
         ]);
     }
 
-    public function updateDefaultTime(){
+    /**
+     * Update default time of an employee
+     *
+     * @return Redirect
+     */
+    public function updateDefaultTime()
+    {
         $employeeId = Input::get('employee_id');
         $employee = Employee::find($employeeId);
 
         $types = EmployeeDefaultTime::getTypes();
         $input = Input::all();
-        try{
+        try {
             foreach ($types as $type) {
-                $start_at = Carbon::createFromTime($input['start_hour'][$type],  $input['start_minute'][$type], 0, 'Europe/Helsinki');
-                $end_at   = Carbon::createFromTime($input['end_hour'][$type],  $input['end_minute'][$type], 0, 'Europe/Helsinki');
+                $startAt = Carbon::createFromTime(
+                    $input['start_hour'][$type],
+                    $input['start_minute'][$type],
+                    0,
+                    Config::get('app.timezone')
+                );
+                $endAt   = Carbon::createFromTime(
+                    $input['end_hour'][$type],
+                    $input['end_minute'][$type],
+                    0,
+                    Config::get('app.timezone')
+                );
 
-                $is_day_off = false;
+                $isDayOff = false;
                 if(isset($input['is_day_off'][$type])){
-                    $is_day_off  = (bool) $input['is_day_off'][$type];
+                    $isDayOff  = (bool) $input['is_day_off'][$type];
                 }
                 $data = [
-                    'type' => $type,
-                    'start_at' => $start_at,
-                    'end_at' => $end_at,
-                    'is_day_off' => $is_day_off
+                    'type'       => $type,
+                    'start_at'   => $startAt,
+                    'end_at'     => $endAt,
+                    'is_day_off' => $isDayOff
                 ];
 
-                $defaultTime  = EmployeeDefaultTime::where('employee_id', $employeeId)->where('type',$type)->first();
-                if(empty($defaultTime)){
+                $defaultTime  = EmployeeDefaultTime::where('employee_id', $employeeId)
+                    ->where('type',$type)
+                    ->first();
+
+                if(empty($defaultTime)) {
                     $defaultTime = new EmployeeDefaultTime;
                 }
                 $defaultTime->fill($data);
@@ -95,13 +124,14 @@ class Employees extends AsBase
                 $defaultTime->save();
             }
         } catch(\Watson\Validating\ValidationException $ex){
-             return Redirect::route('as.services.categories')
+            return Redirect::route('as.services.categories')
                 ->with('messages', $this->successMessageBag($ex->getErrors()));
         }
-          return Redirect::route('as.employees.defaultTime.get', array('id'=>$employeeId))
-                ->with('messages', $this->successMessageBag(
-                    trans('as.employees.success_save_default_time')
-                ));
+
+        return Redirect::route('as.employees.defaultTime.get', ['id' => $employeeId])
+            ->with('messages', $this->successMessageBag(
+                trans('as.employees.success_save_default_time')
+            ));
     }
 
 

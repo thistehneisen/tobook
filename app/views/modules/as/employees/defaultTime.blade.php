@@ -1,18 +1,18 @@
 @extends ('modules.as.layout')
 
 @section ('content')
-@include ('modules.as.employees.editTabs')
-<br/>
+    @include ('modules.as.employees.tab')
+
 <div id="form-edit-default-time" class="modal-form">
     {{ Form::open(['route' => 'as.employees.defaultTime', 'class' => 'form-horizontal well', 'role' => 'form']) }}
-    {{ Form::hidden('employee_id', $employeeId, array('id' => 'employee_id')) }}
-    <table class="table table-striped table-bordered table-condensed">
+    {{ Form::hidden('employee_id', $employee->id, ['id' => 'employee_id']) }}
+    <table class="table table-striped table-condensed">
         <thead>
             <tr>
-                <th>Viikonpäivä</th>
-                <th>Aloitusaika</th>
-                <th>Lopetusaika</th>
-                <th>Vapaapäivä</th>
+                <th>{{ trans('as.employees.days_of_week') }}</th>
+                <th>{{ trans('as.employees.start_time') }}</th>
+                <th>{{ trans('as.employees.end_time') }}</th>
+                <th>{{ trans('as.employees.day_off') }}</th>
             </tr>
         </thead>
 
