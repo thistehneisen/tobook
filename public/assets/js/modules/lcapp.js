@@ -3,12 +3,19 @@
 'use strict';
 
 $(document).ready(function () {
-    $('#consumers').find('tr').click(function () {
+    // TODO: if #consumers is only used as selector in JS, use this format: js-consumersTable
+    $('#consumers tr').click(function () {
+        // TODO: this is wrong
+        // use data-consumerid="XX" in HTML and you can get it like $(this).data('consumerid') in jQuery
+        // if it's broken in IE, consider using id="XX" in HTML and you can get $(this).prop('id') in jQuery
         var consumerID = $(this).index() + 1;
+
+        // TODO: add class active to the row (with different background color)
+        // so user know which row is selected
         $.ajax({
-            url: "/loyalty-card/consumers/" + consumerID,
-            dataType: "html",
-            type: "GET",
+            url: '/loyalty-card/consumers/' + consumerID,
+            dataType: 'html',
+            type: 'GET',
             success: function (data) {
                 console.log(data);
             }
@@ -24,40 +31,25 @@ $(document).ready(function () {
 
     // Form confirm (yes/ok) handler, submits form
     $('#js-confirmDeleteModal').on('click', '.modal-footer #confirm', function () {
-        // $(this).data('form').submit();
-        window.location.reload();
+        $(this).data('form').submit();
     });
 
+    // reset the form when click cancel
     $('#js-createConsumerModal').on('click', '.modal-footer #cancel', function () {
-        $('#first_name').val('');
-        $('#last_name').val('');
-        $('#email').val('');
-        $('#phone').val('');
-        $('#address').val('');
-        $('#postcode').val('');
-        $('#city').val('');
-        $('#country').val('');
+        $('#js-createConsumerForm').trigger('reset');
     });
 
+    // trigger form submit when click confirm
     $('#js-createConsumerModal').on('click', '.modal-footer #confirm', function () {
-        var firstName = $('#first_name').val(), lastName = $('#last_name').val(), email = $("#email").val(), phone = $("#phone").val(), address = $("#address").val(), postCode = $('#postcode').val(), city = $("#city").val(), country = $('#country').val();
         $.ajax({
+            // TODO: DON'T USE API IN THIS APP
             url: "/api/v1.0/lc/consumers",
             dataType: "json",
             type: "POST",
-            data: {
-                first_name: firstName,
-                last_name: lastName,
-                email: email,
-                phone: phone,
-                address: address,
-                postcode: postCode,
-                city: city,
-                country: country
-            },
+            data: $('#js-createConsumerForm').serialize(),
             success: function (data) {
+                // TODO: handle case of validation error and other errors too
                 if (data.message === 'Consumer created') {
-                    window.alert("The customer added successfully.");
                     window.location.reload();
                 }
             }

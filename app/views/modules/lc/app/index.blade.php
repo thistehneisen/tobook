@@ -85,8 +85,7 @@ NFC Desktop App
                     <h4 class="modal-title">{{ trans('loyalty-card.consumer_info') }}</h4>
                 </div>
                 <div class="modal-body">
-                    <!-- Create form goes here -->
-                    {{ Form::open(['route' => 'lc.consumers.store', 'class' => 'form-horizontal']) }}
+                    {{ Form::open(['route' => 'lc.consumers.store', 'class' => 'form-horizontal', 'id' => 'js-createConsumerForm']) }}
                     @foreach ([
                         'first_name'    => trans('co.first_name'),
                         'last_name'     => trans('co.last_name'),
