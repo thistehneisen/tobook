@@ -4,6 +4,8 @@ use Input, Session, Redirect, View, Validator, Request;
 use Confide;
 use App\Consumers\Models\Consumer as Core;
 use App\LoyaltyCard\Models\Consumer as Model;
+use App\LoyaltyCard\Models\Voucher as VoucherModel;
+use App\LoyaltyCard\Models\Offer as OfferModel;
 use App\Core\Controllers\Base as Base;
 
 class Consumer extends Base
@@ -106,15 +108,20 @@ class Consumer extends Base
      */
     public function show($id)
     {
-        $consumer = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-                        ->where('lc_consumers.consumer_id', $id)
-                        ->get();
+        $consumer = Model::find($id);
 
         if (Request::ajax()) {
             // return json_encode($consumer);
-            return View::make('modules.lc.app.show')
-                        // First name first to test
-                        ->with('customerName', $consumer->first_name);
+            $vouchers = VoucherModel::where('user_id', Confide::user()->id)->get();
+            $offers = OfferModel::where('user_id', Confide::user()->id)->get();
+
+            $data = [
+                'consumer' => $consumer,
+                'offers' => $offers,
+                'vouchers' => $vouchers,
+            ];
+
+            return View::make('modules.lc.app.show', $data);
         }
 
         // return View::make('modules.lc.consumers.show')

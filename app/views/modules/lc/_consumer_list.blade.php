@@ -2,7 +2,7 @@
     <div class="panel-heading">
         <h3 class="panel-title">{{ trans('loyalty-card.consumer_list') }}</h3>
     </div>
-    <table class="table table-striped" id="consumers">
+    <table class="table table-striped" id="js-consumerTable">
         <thead>
             <tr>
                 <th>{{ trans('loyalty-card.number') }}</th>
@@ -16,7 +16,7 @@
         </thead>
         <tbody>
             @foreach ($consumers as $key => $value)
-            <tr>
+            <tr data-consumerid='{{{ $key + 1 }}}'>
                 <td>{{ $key+1 }}</td>
                 <td>
                     {{ $value->consumer->getNameAttribute() }}

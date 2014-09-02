@@ -3,21 +3,21 @@
 'use strict';
 
 $(document).ready(function () {
-    // TODO: if #consumers is only used as selector in JS, use this format: js-consumersTable
-    $('#consumers tr').click(function () {
-        // TODO: this is wrong
-        // use data-consumerid="XX" in HTML and you can get it like $(this).data('consumerid') in jQuery
+    $('#js-consumerTable tr').click(function () {
         // if it's broken in IE, consider using id="XX" in HTML and you can get $(this).prop('id') in jQuery
-        var consumerID = $(this).index() + 1;
+        var consumerID = $(this).data('consumerid'), selected = $(this).hasClass('selected');
+        $('#js-consumerTable tr').removeClass('selected');
 
-        // TODO: add class active to the row (with different background color)
-        // so user know which row is selected
+        if (!selected) {
+            $(this).addClass('selected');
+        }
+        // window.alert(consumerID);
         $.ajax({
             url: '/loyalty-card/consumers/' + consumerID,
             dataType: 'html',
             type: 'GET',
             success: function (data) {
-                console.log(data);
+                $('#details').html(data);
             }
         });
     });
