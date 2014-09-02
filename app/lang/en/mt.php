@@ -30,6 +30,7 @@ return [
     'template' => [
         'management'   => 'Template Management',
         'list'         => 'Template List',
+        'thumbnail'    => 'Thumbnail',
         'create'       => 'Create Template',
         'edit'         => 'Edit Template',
     ],

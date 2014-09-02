@@ -12,6 +12,7 @@ class Template extends \App\Core\Controllers\Base {
      *
      * @return Response
      */
+    protected $path = '/assets/img/templates/thumbs';
     public function index()
     {
         // get all the templates
@@ -41,9 +42,11 @@ class Template extends \App\Core\Controllers\Base {
      */
     public function store()
     {
+        
         $rules = [
             'name'       => 'required',
             'content'    => 'required',
+            'thumbnail'  => 'required|image',
         ];
 
         $validator = Validator::make(Input::all(), $rules);
@@ -56,6 +59,15 @@ class Template extends \App\Core\Controllers\Base {
             $template = new TemplateModel;
             $template->name = Input::get('name');
             $template->content = Input::get('content');
+                        
+            if (Input::hasFile('thumbnail')) {
+                $filename = str_random(32);
+                $extension = Input::file('thumbnail')->getClientOriginalExtension();
+                $destination = base_path()."/public".$this->path;                
+                Input::file('thumbnail')->move($destination, $filename.".".$extension);
+                $template->thumbnail = $this->path."/".$filename.".".$extension;
+            }
+
             $template->user_id = Confide::user()->id;
             $template->save();
 
@@ -106,6 +118,7 @@ class Template extends \App\Core\Controllers\Base {
         $rules = [
             'name'       => 'required',
             'content'    => 'required',
+            'thumbnail'  => 'image',
         ];
     
         $validator = Validator::make(Input::all(), $rules);
@@ -118,6 +131,15 @@ class Template extends \App\Core\Controllers\Base {
             $template = TemplateModel::find($id);
             $template->name = Input::get('name');
             $template->content = Input::get('content');
+                        
+            if (Input::hasfile('thumbnail')) {
+                $filename = str_random(32);
+                $extension = Input::file('thumbnail')->getClientOriginalExtension();
+                $destination = base_path()."/public".$this->path;
+                Input::file('thumbnail')->move($destination, $filename.".".$extension);
+                $template->thumbnail = $this->path."/".$filename.".".$extension;
+            }
+
             $template->user_id = Confide::user()->id;
             $template->save();
 
