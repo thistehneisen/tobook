@@ -39,7 +39,7 @@
         @foreach ($items as $employee)
         <tr>
             <td><input type="checkbox"></td>
-            <td><img src=""></td>
+            <td><img src="{{ $employee->getAvatarUrl() }}" alt="{{ $employee->name }}" class="img-thumbnail" width="50"></td>
             <td>{{ $employee->name }}</td>
             <td>{{ $employee->email }}</td>
             <td>{{ $employee->phone }}</td>

@@ -3,8 +3,9 @@
 @section ('content')
     @include ('modules.as.employees.tab', $employee)
 
+    @include ('el.messages')
 <div id="form-add-employee">
-    {{ Form::open(['route' => ['as.employees.upsert', (isset($employee->id)) ? $employee->id: null], 'class' => 'form-horizontal well', 'role' => 'form']) }}
+    {{ Form::open(['route' => ['as.employees.upsert', (isset($employee->id)) ? $employee->id: null], 'class' => 'form-horizontal well', 'role' => 'form', 'enctype' => 'multipart/form-data']) }}
         @include ('el.messages')
         <div class="form-group">
             <div class="col-sm-5">
@@ -19,6 +20,7 @@
             <label for="name" class="col-sm-2 control-label">{{ trans('as.employees.name') }}</label>
             <div class="col-sm-5">
                 {{ Form::text('name', (isset($employee)) ? $employee->name:'', ['class' => 'form-control input-sm', 'id' => 'name']) }}
+                {{ Form::errorText('name', $errors) }}
             </div>
         </div>
         <div class="form-group">
@@ -66,7 +68,7 @@
          <div class="form-group">
             <label class="col-sm-2 control-label">{{  trans('as.employees.avatar') }}</label>
             <div class="col-sm-5">
-                <p><img src="{{ !empty($employee->avatar) ? $employee->avatar : asset('assets/img/avatar.jpg') }}" width="100" alt="" class="img-thumbnail"></p>
+                <p><img src="{{ !empty($employee->avatar) ? $employee->getAvatarUrl() : asset('assets/img/avatar.jpg') }}" width="100" alt="" class="img-thumbnail"></p>
                 {{ Form::file('avatar','',array('id'=>'','class'=>'')) }}
             </div>
         </div>

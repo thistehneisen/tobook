@@ -1,6 +1,7 @@
 <?php namespace App\Appointment\Models;
 use Config;
 use Carbon\Carbon;
+
 class Employee extends \App\Core\Models\Base
 {
     protected $table = 'as_employees';
@@ -74,6 +75,16 @@ class Employee extends \App\Core\Models\Base
     public function getIsActive()
     {
         return (bool) $this->attributes['is_active'];
+    }
+
+    /**
+     * Return absolute URL of the avatar
+     *
+     * @return string
+     */
+    public function getAvatarUrl()
+    {
+        return asset(Config::get('varaa.upload_folder').'/avatars/'.$this->attributes['avatar']);
     }
 
     //--------------------------------------------------------------------------

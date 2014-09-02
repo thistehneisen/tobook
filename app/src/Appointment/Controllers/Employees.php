@@ -29,43 +29,31 @@ class Employees extends AsBase
         ]);
     }
 
-    public function doCreate(){
+    /**
+     * {@inheritdoc}
+     */
+    public function upsertHandler($item)
+    {
+        $input = Input::all();
+
+        if ($input['avatar'] === null) {
+            // When editing, if user doesn't want to change avatar, we'll not
+            // update data value
+            unset($input['avatar']);
+        }
+
+        $item->fill($input);
         if (Input::hasFile('avatar')) {
             $file            = Input::file('avatar');
-            $destinationPath = '/uploads/avatars/';
+            $destinationPath = public_path(Config::get('varaa.upload_folder')).'/avatars';
             $filename        = str_random(6) . '_' . $file->getClientOriginalName();
             $uploadSuccess   = $file->move($destinationPath, $filename);
+            if ($uploadSuccess) {
+                $item->avatar = $filename;
+            }
         }
-
-        try {
-            $employee = new Employee;
-            $employee->fill(Input::all());
-            // Attach user
-            $employee->user()->associate($this->user);
-            $employee->saveOrFail();
-
-            return Redirect::route('as.employees.index')
-                ->with('messages', $this->successMessageBag(
-                    trans('as.employees.success_add_employee')
-                ));
-        } catch (\Watson\Validating\ValidationException $ex) {
-            $errors = $ex->getErrors();
-        }
-
-        return Redirect::back()->withInput()->withErrors($errors, 'top');
-    }
-
-    public function edit($id){
-        $services = Service::ofCurrentUser()->lists('name', 'id');
-        $employee = Employee::find($id);
-        return View::make('modules.as.employees.form', [
-            'services' => $services,
-            'employee' => $employee,
-            'employeeId' => $employee->id
-        ]);
-    }
-
-    public function doEdit(){
+        $item->user()->associate($this->user);
+        return $item;
     }
 
     public function defaultTime($id){

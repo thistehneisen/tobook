@@ -61,8 +61,6 @@ return [
         'services'            => 'Services',
         'status'              => 'Status',
         'avatar'              => 'Avatar',
-        'default_time'        => 'Default time',
-        'custom_time'         => 'Custom time',
     ],
     'items_per_page' => 'Items per page',
     'with_selected'  => 'With selected',

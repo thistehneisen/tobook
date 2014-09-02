@@ -61,8 +61,6 @@ return [
         'services'            => 'Palvelut',
         'status'              => 'Tila',
         'avatar'              => 'Kuva',
-        'default_time'        => 'Vapaat',
-        'custom_time'         => 'Työvuorosuunnittelu',
     ],
     'items_per_page' => 'Yksiköitä yhteensä',
     'with_selected'  => 'Valitse toiminto',
