@@ -7,7 +7,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">{{ trans('mt.campaign.list') }}</h3>
-    </div>
+    </div><br>
     {{ Form::open(['route' => 'mt.campaigns.store', 'class' => 'form-horizontal']) }}
     @foreach ([
         'subject'          => trans('mt.campaign.subject'),
@@ -15,20 +15,19 @@
         'from_name'        => trans('mt.campaign.from_name'),
         'content'          => trans('common.content'),
     ] as $key => $value)
-    <div class="form-group">
-        <label class="col-sm-2 control-label">{{ Form::label($key, $value) }}</label>
-        <div class="col-sm-8">
-        @if ($key === 'content')
-            {{ Form::textarea($key, null, ['class' => 'form-control']) }}
-        @else
-            {{ Form::text($key, null, ['class' => 'form-control']) }}
-            {{ $errors->first($key) }}
-        @endif
+        <div class="form-group">
+            <label class="col-sm-2 control-label">{{ Form::label($key, $value) }}</label>
+            <div class="col-sm-8">
+            @if ($key === 'content')
+                {{ Form::textarea($key, null, ['class' => 'form-control']) }}
+            @else
+                {{ Form::text($key, null, ['class' => 'form-control']) }}
+            @endif
+            </div>
+            <div class="col-sm-2">
+                {{ $errors->first($key) }}
+            </div>
         </div>
-        <div class="col-sm-2">
-            {{ $errors->first($key) }}
-        </div>        
-    </div>
     @endforeach
     {{ Form::hidden('status', null) }}
     <div class="form-group">
