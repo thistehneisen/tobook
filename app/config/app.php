@@ -200,8 +200,9 @@ return array(
         'Hashids'  => 'Ludo237\Hashids\Hashids',
         'Setting'  => 'anlutro\LaravelSettings\Facade',
         'Consumer' => 'App\Consumers\Models\Consumer',
-        'Lomake'   => 'App\Lomake\Facade'
-
+        'Lomake'   => 'App\Lomake\Facade',
+        //Core classes
+        'Util'     => 'App\Core\Util'
     ),
 
 );

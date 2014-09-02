@@ -14,9 +14,10 @@
                     <div class="row">
                         <div class="col-sm-6">
                            <div class="form-group row">
-                                <label for="name" class="col-sm-4 control-label">Booking ID</label>
+                                <label for="booking_uuid" class="col-sm-4 control-label">Booking ID</label>
                                 <div class="col-sm-8">
-                                    {{ Form::text('name', (isset($employee)) ? $employee->name:'', ['class' => 'form-control input-sm', 'id' => 'name']) }}
+                                    {{ Form::text('booking_uuid', $uuid , ['class' => 'form-control input-sm', 'id' => 'booking_uuid']) }}
+                                    <input type="hidden" name="uuid" id="uuid" value="{{ $uuid }}"/>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -34,27 +35,33 @@
                         </div>
            <div class="col-sm-6">
                             <div class="form-group row">
-                                <label for="customer_name" class="col-sm-4 control-label">Name</label>
+                                <label for="consumer_firstname" class="col-sm-4 control-label">Firstname</label>
                                 <div class="col-sm-8">
-                                    {{ Form::text('customer_name', '', ['class' => 'form-control input-sm', 'id' => 'customer_name']) }}
+                                    {{ Form::text('consumer_firstname', '', ['class' => 'form-control input-sm', 'id' => 'consumer_firstname']) }}
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="customer_email" class="col-sm-4 control-label">Email</label>
+                                <label for="consumer_lastname" class="col-sm-4 control-label">Lastname</label>
                                 <div class="col-sm-8">
-                                    {{ Form::text('customer_email', '', ['class' => 'form-control input-sm', 'id' => 'customer_email']) }}
+                                    {{ Form::text('consumer_lastname', '', ['class' => 'form-control input-sm', 'id' => 'consumer_lastname']) }}
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="customer_phone" class="col-sm-4 control-label">Phone</label>
+                                <label for="consumer_email" class="col-sm-4 control-label">Email</label>
                                 <div class="col-sm-8">
-                                    {{ Form::text('customer_phone','', ['class' => 'form-control input-sm', 'id' => 'customer_phone']) }}
+                                    {{ Form::text('consumer_email', '', ['class' => 'form-control input-sm', 'id' => 'consumer_email']) }}
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="customer_address" class="col-sm-4 control-label">Address</label>
+                                <label for="consumer_phone" class="col-sm-4 control-label">Phone</label>
                                 <div class="col-sm-8">
-                                    {{ Form::text('customer_address','', ['class' => 'form-control input-sm', 'id' => 'customer_address']) }}
+                                    {{ Form::text('consumer_phone','', ['class' => 'form-control input-sm', 'id' => 'consumer_phone']) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="consumer_address" class="col-sm-4 control-label">Address</label>
+                                <div class="col-sm-8">
+                                    {{ Form::text('consumer_address','', ['class' => 'form-control input-sm', 'id' => 'consumer_address']) }}
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -79,7 +86,7 @@
                     <div class="clearfix">&nbsp;</div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <table id="selected_services" class="table table-bordered" style="display:none">
+                            <table id="added_services" class="table table-bordered" style="display:none">
                                 <thead>
                                     <tr>
                                         <th>Service/Employee</th>
@@ -91,11 +98,11 @@
                                 <tbody>
                                     <tr>
                                         <td>
-                                            Service 1<br>
-                                            Employee 2
+                                            <span id="added_service_name"></span><br>
+                                            <span id="added_employee_name"></span>
                                         </td>
-                                        <td>29/8/2014, 08:30</td>
-                                        <td class="align_right">€10.00</td>
+                                        <td> <span id="added_booking_date"></span></td>
+                                        <td class="align_right"> <span id="added_service_price"></span></td>
                                         <td><i class="glyphicon glyphicon-trash"></i></td>
                                     </tr>
                                 </tbody>
@@ -112,21 +119,21 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="name" class="col-sm-4 control-label">Service</label>
+                            <label for="services" class="col-sm-4 control-label">Service</label>
                             <div class="col-sm-8">
                                 {{ Form::select('services', array(), 0, ['class' => 'form-control input-sm', 'id' => 'services']) }}
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="name" class="col-sm-4 control-label">Service Time</label>
+                            <label for="service_times" class="col-sm-4 control-label">Service Time</label>
                             <div class="col-sm-8">
                                {{ Form::select('service_times', array(), 0, ['class' => 'form-control input-sm', 'id' => 'service_times']) }}
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="name" class="col-sm-4 control-label">Modify Time</label>
+                            <label for="modify_times" class="col-sm-4 control-label">Modify Time</label>
                             <div class="col-sm-8">
-                                {{ Form::select('modify_times', range(-60,60, 15), 4, ['class' => 'form-control input-sm', 'id' => 'modify_times']) }}
+                                {{ Form::select('modify_times', array_combine(range(-60,60, 15), range(-60,60, 15)), 4, ['class' => 'form-control input-sm', 'id' => 'modify_times']) }}
                             </div>
                         </div>
                         <div class="form-group row">
@@ -145,13 +152,13 @@
                             <div class="form-group row">
                                 <label for="employee_name" class="col-sm-4 control-label">Employee</label>
                                 <div class="col-sm-8">
-                                 {{ Form::text('employee_name', 'Employee 1', ['class' => 'form-control input-sm', 'id' => 'employee_name']) }}
+                                 {{ Form::text('employee_name', isset($employee) ? $employee->name : '', ['class' => 'form-control input-sm', 'id' => 'employee_name']) }}
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="start_time" class="col-sm-4 control-label">Start time</label>
                                 <div class="col-sm-8">
-                                   {{ Form::text('start_time', '8:00', ['class' => 'form-control input-sm', 'id' => 'start_time']) }}
+                                   {{ Form::text('start_time', isset($startTime) ? $startTime : '', ['class' => 'form-control input-sm', 'id' => 'start_time']) }}
                                 </div>
                             </div>
                             <div class="form-group row">
