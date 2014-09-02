@@ -849,7 +849,7 @@ You should also set up a CRON job for cron.php file which should execute every h
     'service_employees' => 'Employees',
     'service_length' => 'Length',
     'service_name' => 'Name',
-    'service_price' => 'Price 1111',
+    'service_price' => 'Price',
     'service_status' => 'Status',
     'service_tip_after' => 'After tooltip',
     'service_tip_before' => 'Before tooltip',
