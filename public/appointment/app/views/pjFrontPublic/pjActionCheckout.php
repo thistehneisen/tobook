@@ -200,11 +200,8 @@ if (isset($tpl['status']) && $tpl['status'] == 'OK')
                             <span class="asRowControl" style="position: relative">
                                 <p>Varausehdot</p>
 
-                                <p>Varaus tulee sitovasti voimaan, kun asiakas on tehnyt varauksen ja saanut siitä vahvistuksen joko puhelimitse tai kirjallisesti sähköpostitse. Palveluntarjoaja kantaa kaiken vastuun palvelun tuottamisesta ja hoitaa tarvittaessa kaiken yhteydenpidon asiakkaisiin.</p>
-
-                                <p>Peruutusehdot</p>
-
-                                <p>Varaajalla on oikeus peruutus- ja varausehtojen puitteissa peruuttaa varauksensa ilmoittamalla siitä puhelimitse vähintään 48h ennen palveluajan alkamista. Muutoin paikalle saapumatta jättämisestä voi palveluntarjoaja halutessaan periä voimassaolevan hinnastonsa mukaisen palvelukorvauksen.</p>
+                                <p>Varauksen voitte peruuttaa 12h ennen varattua aikaa veloituksetta.<br>
+                                Peruuttamattomista varauksista veloitamme 50€:n korvauksen.</p>
                             </span>
                         </div>
                         <script language="text/javascript">
