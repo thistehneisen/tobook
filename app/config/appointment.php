@@ -206,7 +206,65 @@ return [
                     'key_is_value' => false
                 ],
             ],
-            'confirmations' => [],
+            'confirmations' => [
+                'confirm_subject_client' => [
+                    'type' => 'Text',
+                    'values' => trans('as.options.booking.confirm_subject_client_default')
+                ],
+                'confirm_tokens_client' => [
+                    'type' => 'Textarea',
+                    'values' => trans('as.options.booking.confirm_tokens_client_default')
+                ],
+                'payment_subject_client' => [
+                    'type' => 'Text',
+                    'values' => trans('as.options.booking.payment_subject_client_default')
+                ],
+                'payment_tokens_client' => [
+                    'type' => 'Textarea',
+                    'values' => trans('as.options.booking.payment_tokens_client_default')
+                ],
+                'confirm_subject_admin' => [
+                    'type' => 'Text',
+                    'values' => trans('as.options.booking.confirm_subject_admin_default')
+                ],
+                'confirm_tokens_admin' => [
+                    'type' => 'Textarea',
+                    'values' => trans('as.options.booking.confirm_tokens_admin_default')
+                ],
+                'payment_subject_admin' => [
+                    'type' => 'Text',
+                    'values' => trans('as.options.booking.payment_subject_admin_default')
+                ],
+                'payment_tokens_admin' => [
+                    'type' => 'Textarea',
+                    'values' => trans('as.options.booking.payment_tokens_admin_default')
+                ],
+                'confirm_subject_employee' => [
+                    'type' => 'Text',
+                    'values' => trans('as.options.booking.confirm_subject_employee_default')
+                ],
+                'confirm_tokens_employee' => [
+                    'type' => 'Textarea',
+                    'values' => trans('as.options.booking.confirm_tokens_employee_default')
+                ],
+                'payment_subject_employee' => [
+                    'type' => 'Text',
+                    'values' => trans('as.options.booking.payment_subject_employee_default')
+                ],
+                'payment_tokens_employee' => [
+                    'type' => 'Textarea',
+                    'values' => trans('as.options.booking.payment_tokens_employee_default')
+                ],
+            ],
+            'terms' => [
+                'terms_url' => [
+                    'type' => 'Text'
+                ],
+                'terms_body' => [
+                    'type' => 'Textarea',
+                    'values' => trans('as.options.booking.terms_body_default')
+                ]
+            ],
             'reminders' => [
                 'reminder_enable' => [
                     'type' => 'Radio',
@@ -218,23 +276,24 @@ return [
                 ],
                 'reminder_subject' => [
                     'type' => 'Text',
-                    'values' => ''
+                    'values' => trans('as.options.booking.reminder_subject_default')
                 ],
                 'reminder_body' => [
                     'type' => 'Textarea',
-                    'values' => '',
+                    'values' => trans('as.options.booking.reminder_body_default')
                 ],
                 'reminder_sms_hours' => [
                     'type' => 'Spinner',
                     'values' => 2,
+                    'options' => ['class' => 'form-control input-sm spinner', 'data-positive' => 'true']
                 ],
                 'reminder_sms_country_code' => [
                     'type' => 'Text',
-                    'values' => '',
+                    'values' => '358',
                 ],
                 'reminder_sms_message' => [
                     'type' => 'Textarea',
-                    'values' => '',
+                    'values' => trans('as.options.booking.reminder_sms_message_default'),
                 ],
             ],
 
