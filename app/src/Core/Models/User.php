@@ -1,6 +1,6 @@
 <?php namespace App\Core\Models;
 
-use App, DB;
+use App, DB, Config;
 use Zizaco\Confide\ConfideUser;
 use Zizaco\Entrust\HasRole;
 
@@ -104,6 +104,32 @@ class User extends ConfideUser
         return [
             '<i class="fa fa-user"></i> Login' => route('admin.users.login', ['id' => $this->id])
         ];
+    }
+
+    /**
+     * Get all options of this user
+     *
+     * @return object
+     */
+    public function getAsOptionsAttribute()
+    {
+        $ret = [];
+        $default = Config::get('appointment.options');
+
+        foreach ($default as $sections) {
+            foreach ($sections as $options) {
+                foreach ($options as $name => $option) {
+                    if (isset($ret[$name])) {
+                        throw new \Exception("There is existing keys of [$name]");
+                    }
+
+                    $ret[$name] = isset($option['default'])
+                        ? $option['default']
+                        : true;
+                }
+            }
+        }
+        return new \Illuminate\Support\Collection($ret);
     }
 
     //--------------------------------------------------------------------------
