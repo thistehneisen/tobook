@@ -1,12 +1,17 @@
 <?php
 namespace App\MarketingTool\Controllers;
 
-use Input, Session, Redirect, View, Validator;
+use Input, Session, Redirect, View, Validator, Response, File;
 use \App\MarketingTool\Models\Campaign as CampaignModel;
+use \App\MarketingTool\Models\Template as TemplateModel;
 use Confide;
 
 class Campaign extends \App\Core\Controllers\Base {
     
+    public function __construct() {
+        $user_id = Confide::user()->id;
+        File::makeDirectory(public_path()."/assets/img/campaigns/".$user_id, 0775, true, true);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -30,7 +35,9 @@ class Campaign extends \App\Core\Controllers\Base {
      */
     public function create()
     {
-        return View::make('modules.mt.campaigns.create');
+        $templates = TemplateModel::where('user_id', '=', Confide::user()->id)->get();
+        return View::make('modules.mt.campaigns.create')
+            ->with('templates', $templates);
     }
     
     
@@ -96,9 +103,11 @@ class Campaign extends \App\Core\Controllers\Base {
     public function edit($id)
     {
         $campaign = CampaignModel::find($id);
-    
+        $templates = TemplateModel::where('user_id', '=', Confide::user()->id)->get();
+
         return View::make('modules.mt.campaigns.edit')
-            ->with('campaign', $campaign);
+            ->with('campaign', $campaign)
+            ->with('templates', $templates);
     }
     
     
@@ -152,5 +161,26 @@ class Campaign extends \App\Core\Controllers\Base {
         return Redirect::route('mt.campaigns.index');
     }
     
-
+    /**
+     * Duplicate the campaign
+     */
+    public function duplication()
+    {
+        $campaign_id = Input::get('campaign_id');
+        $subject = Input::get('subject');
+        
+        $org_campaign = CampaignModel::find($campaign_id);
+        
+        $new_campaign = new CampaignModel();
+        $new_campaign->subject = $subject;
+        $new_campaign->content = $org_campaign->content;
+        $new_campaign->from_email = $org_campaign->from_email;
+        $new_campaign->from_name = $org_campaign->from_name;
+        $new_campaign->status = 'DRAFT';
+        $new_campaign->campaign_code = str_random(32);
+        $new_campaign->user_id = Confide::user()->id;
+        $new_campaign->save();
+        
+        return Response::json(['result' => 'success', ]);
+    }
 }

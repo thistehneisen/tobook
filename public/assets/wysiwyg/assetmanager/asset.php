@@ -12,7 +12,7 @@
 	        -moz-border-radius:3px;
 	        -webkit-border-radius:3px;
 	        padding-left:7px;
-            }
+        }
     </style>
     <script src="jquery/jquery-1.7.min.js" type="text/javascript"></script>
     <script src="jqueryFileTree/jqueryFileTree.js" type="text/javascript"></script>
@@ -28,13 +28,13 @@
     
 <?php
 	$type = $_GET['type'];
-	if( $type == "campaign" ){
-		$ownerId = $_GET['ownerId'];
-		$ownerId = explode("?", $ownerId);
-		$ownerId = $ownerId[0];
-		$baseUrl = "/marketing/img/$ownerId";
+	if ($type === "campaign") {
+		$user_id = $_GET['user_id'];
+		$user_id = explode("?", $user_id);
+		$user_id = $user_id[0];
+		$baseUrl = "/assets/img/campaigns/$user_id";
 	}else{
-		$baseUrl = "/marketing/img/templateImages";
+		$baseUrl = "/assets/img/templates/$user_id";
 	}
 ?>    
 

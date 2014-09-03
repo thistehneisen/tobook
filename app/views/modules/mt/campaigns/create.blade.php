@@ -1,6 +1,7 @@
 @extends('modules.mt.layout')
 @section('styles')
     {{ HTML::style('assets/wysiwyg/bootstrap/bootstrap_extend.css') }}
+    {{ HTML::style('assets/css/marketing.css') }}
 @stop
 
 @section('sub-content')
@@ -33,21 +34,54 @@
         {{ Form::hidden('status', null) }}
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-10">
-            {{ Form::button(trans('mt.template.list'), ['class' => 'btn btn-success', 'onclick' => 'onShowTemplates()', ]) }}
+            {{ Form::button(trans('mt.template.list'), ['class' => 'btn btn-success', 'id' => 'btn-templates', ]) }}
             {{ Form::submit(trans('mt.campaign.create'), ['class' => 'btn btn-primary', 'onclick' => 'onSetContent()', ]) }}
             </div>
         </div>
         {{ Form::close() }}
     </div>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="templatesModal" tabindex="-1" role="dialog" aria-labelledby="templatesModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="templatesModalLabel">{{ trans('mt.template.list') }}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row" id="template-list">
+                    @foreach ($templates as $key => $value)
+                        <div class="col-md-4 text-center" id="template-item">
+                            <input id="template-id" type="hidden" value="{{ $value['id'] }}"/>
+                            <p>
+                                <img class="thumb-img" src="{{ $value['thumbnail'] }}"/>
+                            </p>
+                            <p>
+                                {{ $key + 1 }}.&nbsp;{{ $value['name'] }}
+                            </p>
+                        </div>
+                    @endforeach
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('common.close') }}</button>
+                    <button type="button" class="btn btn-primary" id="btn-select-template">{{ trans('common.select') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 </div>
 @section('scripts')
     <script src="{{ asset('assets/js/mt/common.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/js/mt/campaigns.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/wysiwyg/scripts/innovaeditor.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/wysiwyg/scripts/innovamanager.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/wysiwyg/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
     <script>
         $('#content').liveEdit({
-        	fileBrowser: "{{ asset('assets/wysiwyg/assetmanager/asset.php?type=campaign') }}",
+        	fileBrowser: "{{ asset('assets/wysiwyg/assetmanager/asset.php?type=campaign&user_id='.Confide::user()->id) }}",
             height: 550,
             groups: [
                     ["group1", "", ["Bold", "Italic", "Underline", "ForeColor", "RemoveFormat"]],

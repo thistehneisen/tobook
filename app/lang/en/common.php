@@ -41,4 +41,12 @@ return [
     'restaurant_booking'    => 'Restaurant Booking',
     'timeslot_booking'      => 'Timeslot Booking',
     'select_module'         => 'Select Module',
+    'first_name'            => 'First Name',
+    'last_name'             => 'Last Name',
+    'email'                 => 'Email',
+    'phone'                 => 'Phone',
+    'address'               => 'Address',
+    'city'                  => 'City',
+    'postcode'              => 'Postcode',
+    'country'               => 'Country',
 ];

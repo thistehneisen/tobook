@@ -2,6 +2,7 @@
 return [
     'consumer' => [
         'list'         => 'Consumer List',
+        'detail'       => 'Consumer Detail',
     ],
     'group' => [
         'management'   => 'Group Management',
@@ -19,6 +20,7 @@ return [
         'create'       => 'Create Campaign',
         'edit'         => 'Edit Campaign',
         'label'        => 'Campaign',
+        'duplication'  => 'Duplication',
     ],
     'sms' => [
         'list'         => 'SMS List',

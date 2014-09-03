@@ -1,11 +1,16 @@
 <?php
 namespace App\MarketingTool\Controllers;
 
-use Input, Session, Redirect, View, Validator;
+use Input, Session, Redirect, View, Validator, Response, File;
 use \App\MarketingTool\Models\Template as TemplateModel;
 use Confide;
 
 class Template extends \App\Core\Controllers\Base {
+
+    public function __construct() {
+        $user_id = Confide::user()->id;
+        File::makeDirectory(public_path()."/assets/img/templates/".$user_id, 0775, true, true);
+    }    
     
     /**
      * Display a listing of the resource.
@@ -61,7 +66,7 @@ class Template extends \App\Core\Controllers\Base {
             $template->content = Input::get('content');
                         
             if (Input::hasFile('thumbnail')) {
-                $filename = str_random(32);
+                $filename = str_random(24);
                 $extension = Input::file('thumbnail')->getClientOriginalExtension();
                 $destination = base_path()."/public".$this->path;                
                 Input::file('thumbnail')->move($destination, $filename.".".$extension);
@@ -131,9 +136,9 @@ class Template extends \App\Core\Controllers\Base {
             $template = TemplateModel::find($id);
             $template->name = Input::get('name');
             $template->content = Input::get('content');
-                        
+
             if (Input::hasfile('thumbnail')) {
-                $filename = str_random(32);
+                $filename = str_random(24);
                 $extension = Input::file('thumbnail')->getClientOriginalExtension();
                 $destination = base_path()."/public".$this->path;
                 Input::file('thumbnail')->move($destination, $filename.".".$extension);
@@ -147,7 +152,21 @@ class Template extends \App\Core\Controllers\Base {
                 ->with('message', 'Successfully created!');
         }
     }
-    
+
+    /**
+     * Load Defined Template
+     * 
+     */
+    public function load()
+    {
+        $template_id = Input::get('template_id');
+        $template = TemplateModel::find($template_id);
+        $content = $template['content'];
+        
+        return Response::json(['result' => 'success',
+                               'content' => $content,
+                             ]);
+    }
     
     /**
      * Remove the specified resource from storage.

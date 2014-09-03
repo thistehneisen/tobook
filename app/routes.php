@@ -195,6 +195,7 @@ Route::group([
                 'update'    => 'mt.campaigns.update',
             ]
         ]);
+        Route::post('campaigns/duplication', 'App\MarketingTool\Controllers\Campaign@duplication');
         
         Route::resource('sms', 'App\MarketingTool\Controllers\Sms', [
             'names' => [
@@ -215,6 +216,7 @@ Route::group([
                 'update'    => 'mt.templates.update',
             ]
         ]);
+        Route::post('templates/load', 'App\MarketingTool\Controllers\Template@load');
 
         Route::resource('settings', 'App\MarketingTool\Controllers\Setting', [
             'names' => [
@@ -234,7 +236,14 @@ Route::group([
                 'store'     => 'mt.groups.store',
                 'update'    => 'mt.groups.update',
             ]
-        ]);        
+        ]);
+        
+        Route::resource('consumers', 'App\MarketingTool\Controllers\Consumer', [
+            'names' => [
+                'index'     => 'mt.consumers.index',
+                'show'      => 'mt.consumers.show',
+            ]
+        ]);
     });
 });
 /*

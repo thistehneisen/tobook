@@ -50,7 +50,7 @@
     <script src="{{ asset('assets/wysiwyg/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
     <script>
         $('#content').liveEdit({
-        	fileBrowser: "{{ asset('assets/wysiwyg/assetmanager/asset.php?type=template') }}",
+        	fileBrowser: "{{ asset('assets/wysiwyg/assetmanager/asset.php?type=template&user_id='.Confide::user()->id) }}",
             height: 550,
             groups: [
                     ["group1", "", ["Bold", "Italic", "Underline", "ForeColor", "RemoveFormat"]],
