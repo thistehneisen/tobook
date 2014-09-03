@@ -35,7 +35,7 @@ return [
                     'default' => 'H:i',
                 ],
                 'week_numbers' => [
-                    'type' => 'Checkbox',
+                    'type' => 'Radio'
                 ],
                 'week_start' => [
                     'type' => 'Dropdown',
@@ -56,11 +56,10 @@ return [
         'booking' => [
             'index' => [
                 'accept_bookings' => [
-                    'type' => 'Checkbox',
-                    'default' => true
+                    'type' => 'Radio',
                 ],
                 'hide_prices' => [
-                    'type' => 'Checkbox',
+                    'type' => 'Radio',
                     'default' => false
                 ],
                 'status_if_not_paid' => [
@@ -210,7 +209,7 @@ return [
             'confirmations' => [],
             'reminders' => [
                 'reminder_enable' => [
-                    'type' => 'Checkbox',
+                    'type' => 'Radio',
                 ],
                 'reminder_email_before' => [
                     'type' => 'Spinner',

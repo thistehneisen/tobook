@@ -3,14 +3,20 @@
 class Radio extends Base
 {
     protected $options = [
-        'values'  => '1',
-        'default' => '1',
+        'values'  => [],
+        'default' => true,
         'options' => []
     ];
 
     public function render()
     {
         $params = $this->pick('name', 'values', 'default', 'options');
-        return call_user_func_array('Form::radio', $params);
+        if (empty($params['values'])) {
+            $params['values'] = [
+                trans('common.no'),
+                trans('common.yes'),
+            ];
+        }
+        return \View::make('varaa-lomake::fields.radio', $params)->render();
     }
 }
