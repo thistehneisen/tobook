@@ -23,9 +23,16 @@ class Option extends BaseModel
     public static function upsert(User $user, array $dirty)
     {
         $options = [];
+        // Get all available options of this user
+        $userOptions = [];
+        foreach ($user->asOptions()->get() as $item) {
+            $userOptions[$item->key] = $item;
+        }
+
         foreach ($dirty as $key => $value)
         {
-            $option = static::where('key', $key)->first();
+            // Instead of going to database to check, we will use $userOptions
+            $option = isset($userOptions[$key]) ? $userOptions[$key] : null;
             if ($option === null) {
                 $option = new static;
             }
