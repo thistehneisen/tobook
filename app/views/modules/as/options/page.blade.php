@@ -35,7 +35,7 @@ $(function () {
         @foreach ($controls as $field)
         <div class="form-group">
             <label class="control-label col-sm-3">{{ trans('as.options.'.$page.'.'.$field->getName()) }}</label>
-            <div class="col-sm-6">{{ $field }}</div>
+            <div class="col-sm-6">{{ $field->render() }}</div>
         </div>
         @endforeach
     </div>

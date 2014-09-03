@@ -223,7 +223,7 @@ return [
             'confirm_tokens_client'            => 'Viestin sisältö',
             'confirm_tokens_client_default'    => $confirmTokensClient,
             'payment_subject_client'           => 'Asiakkaan maksuvahvistuksen otsikko',
-            'payment_subject_client_default'   => 'Payment received',
+            'payment_subject_client_default'   => 'Payment received', // @todo
             'payment_tokens_client'            => 'Viestin sisältö',
             'payment_tokens_client_default'    => $paymentTokensClient,
             'confirm_subject_admin'            => 'Hallintapaneelin maksuvahvistuksen otsikko',
@@ -231,7 +231,7 @@ return [
             'confirm_tokens_admin'             => 'Viestin sisältö',
             'confirm_tokens_admin_default'     => $confirmTokensAdmin,
             'payment_subject_admin'            => 'Ylläpitäjän maksuvahvistuksen otsikko',
-            'payment_subject_admin_default'    => 'New payment received',
+            'payment_subject_admin_default'    => 'New payment received', // @todo
             'payment_tokens_admin'             => 'Viestin sisältö',
             'payment_tokens_admin_default'     => $paymentTokensAdmin,
             'confirm_subject_employee'         => 'Työntekijän varauksen otsikko',
@@ -239,18 +239,18 @@ return [
             'confirm_tokens_employee'          => 'Viestin sisältö',
             'confirm_tokens_employee_default'  => $confirmTokensEmployee,
             'payment_subject_employee'         => 'Työntekijän maksun otsikko',
-            'payment_subject_employee_default' => 'New payment received',
+            'payment_subject_employee_default' => 'New payment received', // @todo
             'payment_tokens_employee'          => 'Viestin sisältö',
             'payment_tokens_employee_default'  => $paymentTokensEmployee,
         ],
-        'time' => [
-            'index' => 'Työajat',
-        ],
-        'invoices' => [
-            'index' => 'Laskut',
-        ],
         'style' => [
-            'index' => 'Tyyli',
+            'index'               => 'Tyyli',
+            'style_logo'          => 'Logo URL',
+            'style_banner'        => 'Banneri',
+            'style_heading_color' => 'Heading color', // @todo
+            'style_color'         => 'Väri',
+            'style_background'    => 'Tausta',
+            'style_custom_css'    => 'Custom CSS', // @todo
         ],
     ],
     'items_per_page' => 'Yksiköitä yhteensä',

@@ -131,7 +131,7 @@ class User extends ConfideUser
 
                     $ret[$name] = isset($option['default'])
                         ? $option['default']
-                        : true;
+                        : '';
 
                     // Overwrite data from database
                     if (isset($customOptions[$name])) {

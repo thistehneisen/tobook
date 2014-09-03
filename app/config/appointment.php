@@ -296,7 +296,28 @@ return [
                     'values' => trans('as.options.booking.reminder_sms_message_default'),
                 ],
             ],
-
+        ],
+        'style' => [
+            'index' => [
+                'style_logo' => [
+                    'type' => 'Text'
+                ],
+                'style_banner' => [
+                    'type' => 'Text'
+                ],
+                'style_heading_color' => [
+                    'type' => 'Text'
+                ],
+                'style_color' => [
+                    'type' => 'Text'
+                ],
+                'style_background' => [
+                    'type' => 'Text'
+                ],
+                'style_custom_css' => [
+                    'type' => 'Textarea'
+                ],
+            ]
         ]
     ]
 ];
