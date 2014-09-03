@@ -24,11 +24,11 @@ $(function () {
     <li><a href="#section-{{ $section }}" role="tab" data-toggle="tab">{{ trans('as.options.'.$page.'.'.$section) }}</a></li>
     @endforeach
 </ul>
-
 <br>
 
+@include ('el.messages')
 
-{{ Form::open(['class' => 'form-horizontal']) }}
+{{ Form::open(['route' => ['as.options', $page], 'class' => 'form-horizontal']) }}
 <div class="tab-content">
     @foreach ($fields as $section => $controls)
     <div class="tab-pane" id="section-{{ $section }}">

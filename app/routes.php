@@ -282,6 +282,10 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Options@index'
     ]);
 
+    Route::post('options/{page?}', [
+        'uses' => 'App\Appointment\Controllers\Options@update'
+    ]);
+
 });
 
 /*

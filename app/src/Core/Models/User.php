@@ -150,4 +150,9 @@ class User extends ConfideUser
     {
         return $this->hasMany('App\Appointment\Models\ServiceCategory');
     }
+
+    public function asOptions()
+    {
+        return $this->hasMany('App\Appointment\Models\Option');
+    }
 }
