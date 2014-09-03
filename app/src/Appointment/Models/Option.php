@@ -9,6 +9,20 @@ class Option extends BaseModel
     public $fillable = ['key', 'value'];
 
     //--------------------------------------------------------------------------
+    // ATTRIBUTES
+    //--------------------------------------------------------------------------
+
+    public function getValueAttribute()
+    {
+        return json_decode($this->attributes['value']);
+    }
+
+    public function setValueAttribute($value)
+    {
+        $this->attributes['value'] = json_encode($value);
+    }
+
+    //--------------------------------------------------------------------------
     // CUSTOM METHODS
     //--------------------------------------------------------------------------
 
