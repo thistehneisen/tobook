@@ -1,6 +1,6 @@
 <div id="book-form" class="as-calendar-book">
 <h2>Lisää Varaus</h2>
-<form>
+<form id="booking_form">
 <div class="bs-example">
     <div class="panel-group" id="accordion">
         <div class="panel panel-default">
@@ -21,15 +21,15 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="name" class="col-sm-4 control-label">Status</label>
+                                <label for="booking_status" class="col-sm-4 control-label">Status</label>
                                 <div class="col-sm-8">
                                     {{ Form::select('booking_status', $bookingStatuses, 'confirmed', ['class' => 'form-control input-sm', 'id' => 'booking_status']) }}
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="name" class="col-sm-4 control-label">Notes</label>
+                                <label for="notes" class="col-sm-4 control-label">Notes</label>
                                 <div class="col-sm-8">
-                                    {{ Form::textarea('name', '', ['class' => 'form-control input-sm', 'id' => 'notes']) }}
+                                    {{ Form::textarea('notes', '', ['class' => 'form-control input-sm', 'id' => 'notes']) }}
                                 </div>
                             </div>
                         </div>
@@ -103,7 +103,9 @@
                                         </td>
                                         <td> <span id="added_booking_date"></span></td>
                                         <td class="align_right"> <span id="added_service_price"></span></td>
-                                        <td><i class="glyphicon glyphicon-trash"></i></td>
+                                        <td>
+                                           <a href="#" id="btn-remove-service-time" class="btn btn-default" data-uuid="{{ $uuid }}"><i class="glyphicon glyphicon-remove"></i></a>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -178,7 +180,7 @@
         <div class="col-sm-12">
             <div class="form-group row">
                 <div class="col-sm-12">
-                    <a href="#book-form" id="btn-continute-action" class="btn btn-primary btn-sm pull-right">{{ trans('common.save') }}</a>
+                    <a href="#book-form" id="btn-save-booking" class="btn btn-primary btn-sm pull-right">{{ trans('common.save') }}</a>
                 </div>
             </div>
         </div>

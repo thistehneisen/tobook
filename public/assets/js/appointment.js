@@ -72,7 +72,7 @@
         autoHeight: true
       });
     });
-    $(document).on('change','#service_categories', function () {
+    $(document).on('change', '#service_categories', function () {
       var category_id = $(this).val();
       var employee_id = $('#employee_id').val();
       $.ajax({
@@ -102,7 +102,7 @@
         }
       });
     });
-    $(document).on('change','#services', function () {
+    $(document).on('change', '#services', function () {
       var service_id = $(this).val();
       $.ajax({
         type: 'GET',
@@ -130,7 +130,7 @@
         }
       });
     });
-     $(document).on('click', '#btn-add-service', function (e) {
+    $(document).on('click', '#btn-add-service', function (e) {
       e.preventDefault();
       var service_id   = $('#services').val();
       var employee_id  = $('#employee_id').val();
@@ -138,7 +138,7 @@
       var modify_times = $('#modify_times').val();
       var booking_date = $('#booking_date').val();
       var start_time   = $('#start_time').val();
-      var uuid         = $('#uuid').val();
+      var uuid         = $('#booking_uuid').val();
       $.ajax({
         type: 'POST',
         url: $('#add_service_url').val(),
@@ -158,6 +158,20 @@
         $('#added_booking_date').text(data.datetime);
         $('#added_service_price').text(data.price);
         $('#added_services').show();
+      });
+    });
+    $(document).on('click', '#btn-remove-service-time', function (e) {
+      e.preventDefault();
+    });
+    $(document).on('click', '#btn-save-booking', function (e) {
+      e.preventDefault();
+      $.ajax({
+        type: 'POST',
+        url: $('#add_booking_url').val(),
+        data: $('#booking_form').serialize(),
+        dataType: 'json'
+      }).done(function (data) {
+          console.log(data);
       });
     });
     $('#btn-continute-action').click(function (e) {

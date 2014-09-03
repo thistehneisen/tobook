@@ -12,12 +12,32 @@ class Booking extends \App\Core\Models\Base
         'ip',
     ];
 
+    public const STATUS_CONFIRM = 1;//01
+    public const STATUS_PENDDING = 2;//10
+    public const STATUS_CANCELLED = 3;//11
+
     protected function getStatuses(){
         return [
             'confirmed' => trans('as.bookings.confirmed'),
             'pending' => trans('as.bookings.pending'),
             'cancelled' => trans('as.bookings.cancelled')
         ];
+    }
+
+    protected function getStatus($statusText){
+        switch ($statusText) {
+            case 'confirmed':
+                return self::STATUS_CONFIRM;
+                break;
+            case 'pending':
+                return self::STATUS_PENDDING;
+                break;
+            case 'cancelled':
+                return self::STATUS_CANCELLED;
+                break;
+            default:
+                break;
+        }
     }
     //--------------------------------------------------------------------------
     // RELATIONSHIPS

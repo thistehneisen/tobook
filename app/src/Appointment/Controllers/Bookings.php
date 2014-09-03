@@ -153,45 +153,54 @@ class Bookings extends AsBase
      *
      **/
     public function addBooking(){
-        $serviceId   = Input::get('service_id');
-        $employeeId  = Input::get('employee_id');
-        $serviceTime = Input::get('service_time');
-        $modifyTime  = Input::get('modify_time');
-        $bookingDate = Input::get('booking_date');
-        $startTime   = Input::get('start_time');
+        $uuid          = Input::get('booking_uuid');
+        $bookingId     = Input::get('booking_id');
+        $bookingStatus = Input::get('booking_status');
+        $notes         = Input::get('booking_notes');
 
-        $employee = Employee::find($employeeId);
-        $service = Service::find($serviceId);
+        //support multiple service time
+        $bookingService = BookingService::where('tmp_uuid', $uuid)->firstOrFail();
+        $data = [];
 
         $consumer = $this->handleConsumer();
 
-        $bookingService = new BookingService;
-        $bookingService->start_at = $start_time;
-        $bookingService->employee()->associate($employee);
-        $bookingService->service()->associate($service);
+        $length = (isset($bookingService->serviceTime))
+                ? $bookingService->serviceTime->length
+                : $bookingService->service->length;
 
+        $booking = new Booking;
+        $booking->fill([
+            'date'      => $bookingService->date,
+            'start_at'  => $bookingService->start_at,
+            'total'     => $length,
+            'status'    => $bookingStatus,
+            'notes'     => $notes
+        ]);
+
+        $booking->consumer()->associate($asConsumer);
+        $booking->user()->associate($this->user);
+        $data['status'] = $booking->save();
+
+        return Response::json($data);
     }
 
     private function handleConsumer(){
-         //Insert customer
-        $consumer_firstname = Input::get('consumer_firstname');
-        $consumer_lastname  = Input::get('consumer_lastname');
-        $consumer_email     = Input::get('consumer_email');
-        $consumer_phone     = Input::get('consumer_phone');
-        $consumer_address   = Input::get('consumer_address');
-        $consumer = Consumer::where('email', $consumer_email)->get();
+        //Insert customer
+        $firstname = Input::get('consumer_firstname');
+        $lastname  = Input::get('consumer_lastname');
+        $email     = Input::get('consumer_email');
+        $phone     = Input::get('consumer_phone');
+        $address   = Input::get('consumer_address');
+        $consumer = Consumer::where('email', $consumer_email)->first();
         $asConsumer = new AsConsumer;
 
-        if($consumer->isEmpty()){
-            $consumer = new Consumer;
-            $consumer->fill([
-                    'first_name' => $consumer_firstname,
-                    'last_name'  => $consumer_lastname,
-                    'email'      => $consumer_email,
-                    'phone'      => $consumer_phone
-                ]);
-            $consumer->user()->associate($this->user);
-            $consumer->save();
+        if($consumer === null){
+            $consumer = Consumer::make([
+                'first_name' => $firstname,
+                'last_name'  => $lastname,
+                'email'      => $email,
+                'phone'      => $phone
+            ]);
 
             $asConsumer = new AsConsumer;
             $asConsumer->user()->associate($this->user);
