@@ -55,6 +55,7 @@ return [
         'is_subscribed_sms'   => 'Lähetä tekstiviesti',
     ],
     'options' => [
+        'updated' => 'Options updated', // @todo
         'general' => [
             'index'           => 'Yleinen',
             'heading'         => 'Yleisasetukset',

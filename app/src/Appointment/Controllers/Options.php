@@ -76,6 +76,9 @@ class Options extends AsBase
 
         Option::upsert($this->user, $dirty);
 
-        return Redirect::back()->with('messages', $this->successMessageBag('Updated'));
+        return Redirect::back()->with(
+            'messages',
+            $this->successMessageBag(trans('as.options.updated'))
+        );
     }
 }
