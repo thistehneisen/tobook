@@ -11,6 +11,6 @@ class Checkbox extends Base
     public function render()
     {
         $params = $this->pick('name', 'values', 'default', 'options');
-        return call_user_func_array('Form::checkbox', $params);
+        return \View::make('varaa-lomake::fields.checkbox', $params)->render();
     }
 }
