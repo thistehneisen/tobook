@@ -193,7 +193,7 @@ Route::group([
     'before' => ['auth']
 ], function () {
 
-    Route::get('/', [
+    Route::get('/{date?}', [
         'as' => 'as.index',
         'uses' => 'App\Appointment\Controllers\Index@index'
     ]);

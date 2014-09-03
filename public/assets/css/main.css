@@ -242,6 +242,13 @@ a:hover {
   width: 165px;
   display: inline-block;
 }
+.as-col li.slot-booked-head {
+  border-bottom: 0;
+}
+.as-col li.slot-booked-body {
+  border-top: 0;
+  border-bottom: 0;
+}
 .as-col-left-header {
   width: 100px;
   display: inline-block;

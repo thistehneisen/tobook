@@ -53,6 +53,12 @@
     $('.date-picker').datepicker({
       format: 'yyyy-mm-dd'
     });
+    $('#calendar_date').datepicker({
+      format: 'yyyy-mm-dd'
+    }).on('changeDate', function(ev){
+      //use data-index-url attribute to prevent append date to date like yyyy-mm-dd/yyyy-mm-dd
+      window.location.href = $(this).data('index-url') + "/" + $(this).val();
+    });
 
     // Backend Calendar
     $('.active').click(function (){
@@ -165,10 +171,15 @@
     });
     $(document).on('click', '#btn-save-booking', function (e) {
       e.preventDefault();
+      var postData = $('#booking_form').serializeArray();
+      postData.push({
+        name: 'employee_id',
+        value: $('#employee_id').val(),
+      });
       $.ajax({
         type: 'POST',
         url: $('#add_booking_url').val(),
-        data: $('#booking_form').serialize(),
+        data: postData,
         dataType: 'json'
       }).done(function (data) {
           console.log(data);

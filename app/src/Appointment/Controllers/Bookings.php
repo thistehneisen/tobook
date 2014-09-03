@@ -13,7 +13,7 @@ use Carbon\Carbon;
 class Bookings extends AsBase
 {
     use App\Appointment\Traits\Crud;
-    protected $viewPath = 'modules.as.bookings';
+    protected $viewPath   = 'modules.as.bookings';
     protected $langPrefix = 'as.bookings';
 
     /**
@@ -72,8 +72,8 @@ class Bookings extends AsBase
      *  @return json
      **/
     public function getServiceTimes(){
-        $serviceId = Input::get('service_id');
-        $service = Service::find($serviceId);
+        $serviceId    = Input::get('service_id');
+        $service      = Service::find($serviceId);
         $serviceTimes = $service->serviceTimes;
         $data = [];
         $data['default'] = [
@@ -107,7 +107,7 @@ class Bookings extends AsBase
         $service = Service::find($serviceId);
 
         $length = 0;
-        if($serviceTimeId == 'default'){
+        if($serviceTimeId === 'default'){
             $service = Service::find($serviceId);
             $length = $service->length;
         } else {
@@ -158,29 +158,40 @@ class Bookings extends AsBase
         $bookingStatus = Input::get('booking_status');
         $notes         = Input::get('booking_notes');
 
-        //support multiple service time
-        $bookingService = BookingService::where('tmp_uuid', $uuid)->firstOrFail();
-        $data = [];
+        try {
+            //support multiple service time?
+            $bookingService = BookingService::where('tmp_uuid', $uuid)->firstOrFail();
+            $data = [];
 
-        $consumer = $this->handleConsumer();
+            $consumer = $this->handleConsumer();
 
-        $length = (isset($bookingService->serviceTime))
-                ? $bookingService->serviceTime->length
-                : $bookingService->service->length;
+            $length = (isset($bookingService->serviceTime))
+                    ? $bookingService->serviceTime->length
+                    : $bookingService->service->length;
 
-        $booking = new Booking;
-        $booking->fill([
-            'date'      => $bookingService->date,
-            'start_at'  => $bookingService->start_at,
-            'total'     => $length,
-            'status'    => $bookingStatus,
-            'notes'     => $notes
-        ]);
+            $status = Booking::getStatus($bookingStatus);
 
-        $booking->consumer()->associate($asConsumer);
-        $booking->user()->associate($this->user);
-        $data['status'] = $booking->save();
+            $booking = new Booking;
+            $booking->fill([
+                'date'      => $bookingService->date,
+                'start_at'  => $bookingService->start_at,
+                'total'     => $length,
+                'status'    => $status,
+                'notes'     => $notes,
+                'uuid'      => $uuid
+            ]);
 
+            $booking->consumer()->associate($consumer);
+            $booking->user()->associate($this->user);
+            $booking->employee()->associate($bookingService->employee);
+            $booking->save();
+            $bookingService->booking()->associate($booking);
+            $bookingService->save();
+            $data['status'] = true;
+        } catch (\Exception $ex){
+            $data['status'] = false;
+            $data['message'] = $ex->getMessage();
+        }
         return Response::json($data);
     }
 
@@ -191,9 +202,10 @@ class Bookings extends AsBase
         $email     = Input::get('consumer_email');
         $phone     = Input::get('consumer_phone');
         $address   = Input::get('consumer_address');
-        $consumer = Consumer::where('email', $consumer_email)->first();
+        $consumer = Consumer::where('email', $email)->first();
         $asConsumer = new AsConsumer;
 
+        //TODO handle consumer validation
         if($consumer === null){
             $consumer = Consumer::make([
                 'first_name' => $firstname,
@@ -206,6 +218,8 @@ class Bookings extends AsBase
             $asConsumer->user()->associate($this->user);
             $asConsumer->consumer()->associate($consumer);
             $asConsumer->save();
+        } else {
+            $asConsumer = AsConsumer::where('consumer_id', $consumer->id)->first();
         }
         return $asConsumer;
     }

@@ -12,14 +12,14 @@ class Booking extends \App\Core\Models\Base
         'ip',
     ];
 
-    public const STATUS_CONFIRM = 1;//01
-    public const STATUS_PENDDING = 2;//10
-    public const STATUS_CANCELLED = 3;//11
+    const STATUS_CONFIRM   = 1;
+    const STATUS_PENDDING  = 2;
+    const STATUS_CANCELLED = 3;
 
     protected function getStatuses(){
         return [
             'confirmed' => trans('as.bookings.confirmed'),
-            'pending' => trans('as.bookings.pending'),
+            'pending'   => trans('as.bookings.pending'),
             'cancelled' => trans('as.bookings.cancelled')
         ];
     }
@@ -48,5 +48,13 @@ class Booking extends \App\Core\Models\Base
 
     public function consumer(){
        return $this->belongsTo('App\Consumers\Models\Consumer');
+    }
+
+    public function employee(){
+        return $this->belongsTo('App\Appointment\Models\Employee');
+    }
+
+    public function bookingServices(){
+        return $this->hasMany('App\Appointment\Models\BookingService');
     }
 }

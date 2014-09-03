@@ -18,6 +18,7 @@ class CreateAsBookingsTable extends Migration {
             $table->string('uuid');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('consumer_id');
+            $table->unsignedInteger('employee_id');
             $table->date('date');
             $table->tinyInteger('total');
             $table->time('start_at');
@@ -30,6 +31,10 @@ class CreateAsBookingsTable extends Migration {
             $table->foreign('consumer_id')
                 ->references('id')
                 ->on('consumers')
+                ->onDelete('cascade');
+            $table->foreign('employee_id')
+                ->references('id')
+                ->on('as_employees')
                 ->onDelete('cascade');
             $table->timestamps();
         });

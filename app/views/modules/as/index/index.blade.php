@@ -9,13 +9,13 @@
 <div class="row">
     <div class="col-md-2">
         <div class="input-group">
-            <input type="text" class="form-control date-picker">
+            <input type="text" data-index-url="{{ route('as.index') }}" id="calendar_date" class="form-control date-picker">
             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
         </div>
     </div>
     <div class="col-md-8">
-        <button type="button" class="btn btn-default">Tänään</button>
-        <button type="button" class="btn btn-default">Huomenna</button>
+        <a href="{{ route('as.index', ['date'=> Carbon\Carbon::today()->toDateString()]) }}" class="btn btn-default">Tänään</a>
+        <a href="{{ route('as.index', ['date'=> Carbon\Carbon::tomorrow()->toDateString()]) }}" class="btn btn-default">Huomenna</a>
 
         <div class="btn-group">
             <button class="btn btn-link"><i class="fa fa-fast-backward"></i></button>
@@ -25,13 +25,13 @@
         </div>
 
         <div class="btn-group">
-            <button type="button" class="btn btn-default">Ma</button>
-            <button type="button" class="btn btn-default">Ti</button>
-            <button type="button" class="btn btn-default">Ke</button>
-            <button type="button" class="btn btn-default btn-primary">To</button>
-            <button type="button" class="btn btn-default">Pe</button>
-            <button type="button" class="btn btn-default">La</button>
-            <button type="button" class="btn btn-default">Su</button>
+            <button type="button" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::MONDAY) btn-primary @endif">Ma</button>
+            <button type="button" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::TUESDAY) btn-primary @endif">Ti</button>
+            <button type="button" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::WEDNESDAY) btn-primary @endif">Ke</button>
+            <button type="button" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::THURSDAY) btn-primary @endif">To</button>
+            <button type="button" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::FRIDAY) btn-primary @endif">Pe</button>
+            <button type="button" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::SATURDAY) btn-primary @endif">La</button>
+            <button type="button" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::SUNDAY) btn-primary @endif">Su</button>
         </div>
     </div>
 
@@ -59,7 +59,18 @@
                 <li class="as-col-header">{{ $employee->name }}</li>
                 @foreach ($workingTimes as $hour)
                      @foreach (range(0, 45, 15) as $minuteShift)
-                    <li data-booking-date="{{ Carbon\Carbon::now()->toDateString() }}" data-employee-id="{{ $employee->id }}" data-start-time="{{ sprintf('%02d:%02d', $hour, $minuteShift) }}" href="#select-action" class="fancybox {{ $employee->getSlotClass($hour, $minuteShift) }}">varaa</li>
+                     <?php $slotClass = $employee->getSlotClass($selectedDate, $hour, $minuteShift); ?>
+                    <li data-booking-date="{{ $selectedDate }}" data-employee-id="{{ $employee->id }}" data-start-time="{{ sprintf('%02d:%02d', $hour, $minuteShift) }}" href="#select-action" class="fancybox {{ $slotClass }}">
+                        @if(strpos(trim($slotClass), 'booked') === 0)
+                            <?php $booking = $employee->getBooked($selectedDate, $hour, $minuteShift); ?>
+                            @if($booking != null)
+                            <span class="customer-tooltip"title="">{{ $booking->consumer->first_name }} ({{ $booking->bookingServices[0]->service->description }})</span>
+                            <a href="#" class="pull-right"><i class="fa fa-plus"></i></a>
+                            @endif
+                        @else
+                        varaa
+                        @endif
+                    </li>
                      @endforeach
                 @endforeach
             </ul>

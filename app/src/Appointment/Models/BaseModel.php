@@ -6,4 +6,9 @@ use Watson\Validating\ValidatingTrait;
 class BaseModel extends Eloquent
 {
     use ValidatingTrait;
+
+    protected function getTableName()
+    {
+        return $this->table;
+    }
 }
