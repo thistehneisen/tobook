@@ -1,6 +1,6 @@
 <?php namespace App\Core\Models;
 
-use App, DB, Hashids;
+use App, DB, Hashids, Config;
 use Zizaco\Confide\ConfideUser;
 use Zizaco\Entrust\HasRole;
 
@@ -111,6 +111,43 @@ class User extends ConfideUser
     //--------------------------------------------------------------------------
 
     /**
+     * Get all options of this user
+     *
+     * @return object
+     */
+    public function getAsOptionsAttribute()
+    {
+        $ret = [];
+        $default = Config::get('appointment.options');
+
+        // Get options from database
+        $customOptions = [];
+        foreach ($this->asOptions()->get() as $item) {
+            $customOptions[$item->key] = $item->value;
+        }
+
+        foreach ($default as $sections) {
+            foreach ($sections as $options) {
+                foreach ($options as $name => $option) {
+                    if (isset($ret[$name])) {
+                        throw new \Exception("There is existing keys of [$name]");
+                    }
+
+                    $ret[$name] = isset($option['default'])
+                        ? $option['default']
+                        : '';
+
+                    // Overwrite data from database
+                    if (isset($customOptions[$name])) {
+                        $ret[$name] = $customOptions[$name];
+                    }
+                }
+            }
+        }
+        return new \Illuminate\Support\Collection($ret);
+    }
+
+    /**
      * Return the hash of this user, useful for generate embeded URLs
      *
      * @return string
@@ -137,5 +174,10 @@ class User extends ConfideUser
     public function asServiceCategories()
     {
         return $this->hasMany('App\Appointment\Models\ServiceCategory');
+    }
+
+    public function asOptions()
+    {
+        return $this->hasMany('App\Appointment\Models\Option');
     }
 }

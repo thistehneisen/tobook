@@ -31,6 +31,7 @@ return [
     'users'          => 'Käyttäjät',
     'settings'       => 'Asetukset',
     'yes'            => 'Kyllä',
+    'yes_required'   => 'Kyllä (Tarpeellinen)',
     'no'             => 'Ei',
     'add'            => 'Lisää',
     'continue'       => 'Jatka',

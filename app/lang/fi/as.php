@@ -1,4 +1,113 @@
 <?php
+$termBody = <<< HTML
+Varausehdot
+
+Varaus tulee sitovasti voimaan, kun asiakas on tehnyt varauksen ja saanut siitä vahvistuksen joko puhelimitse tai kirjallisesti sähköpostitse. Palveluntarjoaja kantaa kaiken vastuun palvelun tuottamisesta ja hoitaa tarvittaessa kaiken yhteydenpidon asiakkaisiin.
+
+Peruutusehdot
+
+Varaajalla on oikeus peruutus- ja varausehtojen puitteissa peruuttaa varauksensa ilmoittamalla siitä puhelimitse vähintään 48h ennen palveluajan alkamista. Muutoin paikalle saapumatta jättämisestä voi palveluntarjoaja halutessaan periä voimassaolevan hinnastonsa mukaisen palvelukorvauksen.
+HTML;
+
+$reminderBody = <<< HTML
+Hei {Name},
+Tämä on muistutusviesti varauksestasi!
+
+Varaus id: {BookingID}
+
+Palvelut
+
+{Services}
+
+Terveisin,
+HTML;
+
+$reminderSmsMessage = <<< HTML
+Hei,
+
+Kiitos varauksestasi palveluun:
+
+{Services}
+
+Terveisin,
+HTML;
+
+$confirmTokensClient = <<< HTML
+Hei!
+
+Kiitos varauksestasi!
+
+Valitut palvelut:
+{Services}
+
+**Mikäli peruutat varauksen se tulee tehdä 48 tuntia ennen varattua aikaa.
+
+Tervetuloa!
+
+
+
+Palvelun tarjoaa varaa.com
+HTML;
+
+$paymentTokensClient = <<< HTML
+We've received the payment for your booking and it is now confirmed.
+
+ID: {BookingID}
+
+Thank you,
+The Management
+HTML;
+
+$confirmTokensAdmin = <<< HTML
+Hei!
+
+Olet saanut uuden varauksen
+
+ID: {BookingID}
+
+Palvelut
+{Services}
+
+Asiakkaan tiedot
+Nimi: {Name}
+Puhelin: {Phone}
+Email: {Email}
+
+Lisätiedot:
+{Notes}
+HTML;
+
+$paymentTokensAdmin = <<< HTML
+Booking deposit has been paid.
+
+ID: {BookingID}
+HTML;
+
+$confirmTokensEmployee = <<< HTML
+Hei!
+
+Olet saanut uuden varauksen
+
+ID: {BookingID}
+
+Palvelut
+{Services}
+
+Asiakkaan tiedot
+Nimi: {Name}
+Puhelin: {Phone}
+Email: {Email}
+
+Lisätiedot:
+{Notes}
+HTML;
+
+$paymentTokensEmployee = <<< HTML
+Booking deposit has been paid.
+
+ID: {BookingID}
+HTML;
+
 return [
     'services' => [
         'categories' => [
@@ -83,6 +192,96 @@ return [
         'description' => 'Sisältö',
         'embed'       => 'Asenna',
         'preview'     => 'Esikatselu'
+    ],
+    'options' => [
+        'updated' => 'Options updated', // @todo
+        'general' => [
+            'index'           => 'Yleinen',
+            'heading'         => 'Yleisasetukset',
+            'info'            => 'Säädä asetuksesi kohdalleen',
+            'currency'        => 'Valuutta',
+            'custom_status'   => 'Custom Status',
+            'datetime_format' => 'Päiväyksen muoto',
+            'date_format'     => 'Päivämäärä formaatti',
+            'time_format'     => 'Aikamuoto',
+            'layout'          => 'Näkymä',
+            'seo_url'         => 'SEO URLs',
+            'timezone'        => 'Aikavyöhyke',
+            'week_numbers'    => 'Näytä viikkonumerot',
+            'week_start'      => 'Viikon ensimmäinen päivä?',
+        ],
+            'booking' => [
+            'index'                            => 'Varaukset',
+            'booking_form'                     => 'Varauslomake',
+            'reminders'                        => 'Muistutus',
+            'confirmations'                    => 'Vahvistus',
+            'terms'                            => 'Ehdot',
+            'confirmed'                        => 'Confirmed',
+            'pending'                          => 'Pending',
+            'accept_bookings'                  => 'Hyväksy varauksia',
+            'hide_prices'                      => 'Piilota hinnat',
+            'step'                             => 'Askel',
+            'status_if_not_paid'               => 'Oletustila maksetuille varauksille',
+            'status_if_paid'                   => 'Oletustila maksamattomille varauksille',
+            'bf_address_1'                     => 'Osoite 1',
+            'bf_address_2'                     => 'Osoite 2',
+            'bf_captcha'                       => 'Tunniste',
+            'bf_city'                          => 'Kaupunki',
+            'bf_country'                       => 'Maa',
+            'bf_email'                         => 'Sähköposti',
+            'bf_name'                          => 'Nimi',
+            'bf_notes'                         => 'Muistiinpanoja',
+            'bf_phone'                         => 'Puhelinnumero',
+            'bf_state'                         => 'Kunta',
+            'bf_terms'                         => 'Ehdot',
+            'bf_zip'                           => 'Postinumero',
+            'reminder_enable'                  => 'Muistutusviestit käytössä',
+            'reminder_email_before'            => 'Lähetä muistutus sähköpostilla',
+            'reminder_subject'                 => 'Muistutussähköpostiviestin otsikko',
+            'reminder_subject_default'         => 'Muistutus varauksestasi',
+            'reminder_body'                    => 'Sähköpostimuistutuksen runko',
+            'reminder_body_default'            => $reminderBody,
+            'reminder_sms_hours'               => 'Lähetä muistutus tekstiviestillä',
+            'reminder_sms_country_code'        => 'SMS Maatunnus',
+            'reminder_sms_message'             => 'Tekstiviesti',
+            'reminder_sms_message_default'     => $reminderSmsMessage,
+            'terms_url'                        => 'URL osoite ehdoille',
+            'terms_body'                       => 'Booking terms content', // @todo
+            'terms_body_default'               => $termBody,
+            'confirm_subject_client'           => 'Asiakkaan vahvistuksen otsikko',
+            'confirm_subject_client_default'   => 'Kiitos varauksestasi',
+            'confirm_tokens_client'            => 'Viestin sisältö',
+            'confirm_tokens_client_default'    => $confirmTokensClient,
+            'payment_subject_client'           => 'Asiakkaan maksuvahvistuksen otsikko',
+            'payment_subject_client_default'   => 'Payment received', // @todo
+            'payment_tokens_client'            => 'Viestin sisältö',
+            'payment_tokens_client_default'    => $paymentTokensClient,
+            'confirm_subject_admin'            => 'Hallintapaneelin maksuvahvistuksen otsikko',
+            'confirm_subject_admin_default'    => 'Uusi varaus on saapunut',
+            'confirm_tokens_admin'             => 'Viestin sisältö',
+            'confirm_tokens_admin_default'     => $confirmTokensAdmin,
+            'payment_subject_admin'            => 'Ylläpitäjän maksuvahvistuksen otsikko',
+            'payment_subject_admin_default'    => 'New payment received', // @todo
+            'payment_tokens_admin'             => 'Viestin sisältö',
+            'payment_tokens_admin_default'     => $paymentTokensAdmin,
+            'confirm_subject_employee'         => 'Työntekijän varauksen otsikko',
+            'confirm_subject_employee_default' => 'Uusi varaus on saapunut',
+            'confirm_tokens_employee'          => 'Viestin sisältö',
+            'confirm_tokens_employee_default'  => $confirmTokensEmployee,
+            'payment_subject_employee'         => 'Työntekijän maksun otsikko',
+            'payment_subject_employee_default' => 'New payment received', // @todo
+            'payment_tokens_employee'          => 'Viestin sisältö',
+            'payment_tokens_employee_default'  => $paymentTokensEmployee,
+        ],
+        'style' => [
+            'index'               => 'Tyyli',
+            'style_logo'          => 'Logo URL',
+            'style_banner'        => 'Banneri',
+            'style_heading_color' => 'Heading color', // @todo
+            'style_color'         => 'Väri',
+            'style_background'    => 'Tausta',
+            'style_custom_css'    => 'Custom CSS', // @todo
+        ],
     ],
     'items_per_page' => 'Yksiköitä yhteensä',
     'with_selected'  => 'Valitse toiminto',

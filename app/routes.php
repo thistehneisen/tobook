@@ -338,6 +338,15 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Embed@embed'
     ]);
 
+    // Options
+    Route::get('options/{page?}', [
+        'as'   => 'as.options',
+        'uses' => 'App\Appointment\Controllers\Options@index'
+    ]);
+
+    Route::post('options/{page?}', [
+        'uses' => 'App\Appointment\Controllers\Options@update'
+    ]);
 });
 
 /*
