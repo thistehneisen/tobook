@@ -18,35 +18,40 @@ Route::get('/', [
     'uses'  => 'App\Core\Controllers\Home@index'
 ]);
 
-Route::group(['prefix' => 'intro'], function () {
+Route::group(['prefix' => 'business'], function () {
+    Route::get('/', [
+        'as'    => 'business-index',
+        'uses'  => 'App\Core\Controllers\Home@businessIndex'
+    ]);
+
     Route::get('website-list', [
         'as' => 'intro-website-list',
-        'uses' => 'App\Core\Controllers\Home@websiteList',
+        'uses' => 'App\Core\Controllers\Home@businessWebsiteList',
     ]);
 
     Route::get('loyalty', [
         'as' => 'intro-loyalty',
-        'uses' => 'App\Core\Controllers\Home@loyalty',
+        'uses' => 'App\Core\Controllers\Home@businessLoyalty',
     ]);
 
     Route::get('online-booking', [
         'as'    => 'intro-online-booking',
-        'uses'  => 'App\Core\Controllers\Home@onlineBooking',
+        'uses'  => 'App\Core\Controllers\Home@businessOnlineBooking',
     ]);
 
     Route::get('customer-registration', [
         'as' => 'intro-customer-registration',
-        'uses' => 'App\Core\Controllers\Home@marketingTools',
+        'uses' => 'App\Core\Controllers\Home@businessMarketingTools',
     ]);
 
     Route::get('cashier', [
         'as' => 'intro-cashier',
-        'uses' => 'App\Core\Controllers\Home@cashier',
+        'uses' => 'App\Core\Controllers\Home@businessCashier',
     ]);
 
     Route::get('marketing-tools', [
         'as' => 'intro-marketing-tools',
-        'uses' => 'App\Core\Controllers\Home@marketingTools',
+        'uses' => 'App\Core\Controllers\Home@businessMarketingTools',
     ]);
 });
 

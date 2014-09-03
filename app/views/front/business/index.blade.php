@@ -1,14 +1,14 @@
-@extends ('layouts.intro')
+@extends ('layouts.business')
 
-@section ('title')
+@section('title')
     @parent :: {{ trans('common.home') }}
 @stop
 
-@section ('styles')
+@section('styles')
 {{ HTML::style(asset('packages/jquery.bxslider/jquery.bxslider.css')) }}
 @stop
 
-@section ('scripts')
+@section('scripts')
 {{ HTML::script(asset('packages/jquery.bxslider/jquery.bxslider.min.js')) }}
 <script>
     $(function () {
@@ -23,7 +23,7 @@
 </script>
 @stop
 
-@section ('header')
+@section('page-header')
 <div class="imac-wrapper">
     <div class="imac">
         <ul class="bxslider">

@@ -1,10 +1,10 @@
 @extends ('layouts.admin')
 
-@section ('styles')
+@section('styles')
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css">
 @stop
 
-@section ('scripts')
+@section('scripts')
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.{{ App::getLocale() }}.min.js"  charset="UTF-8"></script>
     <script>
@@ -18,7 +18,7 @@ $(function() {
     </script>
 @stop
 
-@section ('content')
+@section('content')
 <div class="row">
     <div class="col-md-5">
         {{ Form::open(['route' => ['admin.users.modules', $user->id]]) }}

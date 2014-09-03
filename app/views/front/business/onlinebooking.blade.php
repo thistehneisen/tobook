@@ -1,18 +1,18 @@
-@extends ('layouts.intro')
+@extends ('layouts.business')
 
-@section ('title')
+@section('title')
     @parent :: {{ trans('intro.online_booking') }}
 @stop
 
-@section ('header')
+@section('page-header')
     <h1 class="text-header">{{ trans('intro.online_booking') }}</h1>
 @stop
 
-@section ('subheader')
+@section('subheader')
     <h6 class="text-subheader">{{ trans('intro.timeslot_subheader') }}</h6>
 @stop
 
-@section ('intro_content')
+@section('intro_content')
 <div class="timeslot-introduction">{{ trans('intro.timeslot_guide_1') }} 24/7</div>
 <div class="timeslot-introduction color">{{ trans('intro.timeslot_guide_2') }}</div>
 

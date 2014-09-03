@@ -1,18 +1,18 @@
-@extends ('layouts.intro')
+@extends ('layouts.business')
 
-@section ('title')
+@section('title')
     @parent :: {{ trans('dashboard.loyalty') }}
 @stop
 
-@section ('header')
+@section('page-header')
     <h1 class="text-header">{{ trans('dashboard.loyalty') }}</h1>
 @stop
 
-@section ('subheader')
+@section('subheader')
     <h6 class="text-subheader">{{ trans('intro.loyalty_sub_header') }}</h6>
 @stop
 
-@section ('intro_content')
+@section('intro_content')
 <div class="loyalty-introduction">{{ trans('intro.loyalty_guide1') }}</div>
 <div class="loyalty-introduction color">{{ trans('intro.loyalty_guide2') }}</div>
 <div class="loyalty-introduction">{{ trans('intro.loyalty_guide3') }}</div>

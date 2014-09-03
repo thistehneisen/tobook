@@ -1,10 +1,10 @@
-@extends('layouts.intro')
+@extends('layouts.business')
 
 @section('title')
     @parent :: {{ trans('dashboard.marketing') }} &amp; {{ trans('home.customer_register') }}
 @stop
 
-@section('header')
+@section('header-text')
     <h1 class="text-header">{{ trans('dashboard.marketing') }} &amp; {{ trans('home.customer_register') }}</h1>
 @stop
 

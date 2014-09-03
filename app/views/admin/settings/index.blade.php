@@ -1,6 +1,6 @@
 @extends ('layouts.admin')
 
-@section ('content')
+@section('content')
     {{ Form::open(['route' => ['admin.settings.index'], 'class' => 'form-horizontal']) }}
 <div class="form-group">
     <label class="col-sm-2 control-label" for="location">Location</label>

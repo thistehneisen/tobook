@@ -14,7 +14,7 @@
     {{ HTML::style('//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css') }}
     @yield('styles')
 
-    {{-- Temporary solution: Increment the version number to force clear cache --}}
+    {{-- Increment the version number to force clear cache --}}
     {{ HTML::style(asset('assets/css/main.css?v=00001')) }}
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -39,16 +39,27 @@
     @show
 </head>
 <body>
+    @section('header')
     <header class="header container-fluid">
-        @section('nav')
-        <nav class="row">
-            <div class="col-md-6 text-left">
-                <i class="fa fa-globe"></i>
-            @foreach (Config::get('varaa.languages') as $locale)
-                <a class="language-swicher {{ Config::get('app.locale') === $locale ? 'active' : '' }}" href="{{ UrlHelper::localizedCurrentUrl($locale) }}" title="">{{ strtoupper($locale) }}</a>
-            @endforeach
-            </div>
-            <div class="col-md-6 text-right">
+        <nav class="main-nav container">
+            <a href="{{ route('home') }}" class="logo pull-left">varaa<span>.com</span></a>
+
+            <ul class="list-inline nav-links pull-right">
+                <li><a href="{{ route('business-index') }}">{{ trans('common.for_business') }}</a></li>
+                <li><a href="">Test 2</a></li>
+                <li><a href="">Test 3</a></li>
+            </ul>
+        </nav>
+
+        @section('sub-nav')
+        <nav class="sub-nav row">
+            <div class="container">
+                <div class="pull-left">
+                    <i class="fa fa-globe"></i>
+                @foreach (Config::get('varaa.languages') as $locale)
+                    <a class="language-swicher {{ Config::get('app.locale') === $locale ? 'active' : '' }}" href="{{ UrlHelper::localizedCurrentUrl($locale) }}" title="">{{ strtoupper($locale) }}</a>
+                @endforeach
+                </div>
                 @if (Confide::user())
                     <p class="welcome-text">
                     @if (Session::get('stealthMode') !== null)
@@ -58,8 +69,7 @@
                     </p>
                 @endif
 
-                <ul class="list-inline nav-links">
-                    <li><a href="{{ route('home') }}">{{ trans('common.homepage') }}</a></li>
+                <ul class="list-inline nav-links pull-right">
                     @if (Confide::user())
                     <li><a href="{{ route('dashboard.index') }}">{{ trans('common.dashboard') }}</a></li>
                     <li><a href="{{ route('user.profile') }}">{{ trans('common.my_account') }}</a></li>
@@ -75,30 +85,21 @@
             </div>
         </nav>
         @show
-
-        @section('logo')
-        <a href="{{ route('home') }}"><img src="{{ asset('assets/img/logo.png') }}" alt="{{ trans('common.site_name') }}" class="logo"></a>
-        @show
-
-        @yield('header')
-        @yield('subheader')
     </header>
+    @show
 
     @yield('nav-admin')
 
-    <main role="main" class="@section('main-classes')container main @show">
+    <main role="main" class="@section('main-classes')container @show main">
         @yield('content')
     </main>
 
     @yield('iframe')
 
-    @section ('footer')
-    <hr class="grey-divider">
-    <footer class="container footer">
-        <div class="row">
+    @section('footer')
+    <footer class="container-fluid footer">
+        <div class="container">
             <div class="col-md-4 col-lg-4">
-                <h4>{{ trans('home.copyright') }}</h4>
-                <p class="company-name"><span>varaa</span>.com</p>
                 <p>&copy; {{ date('Y') }} | <a href="#">{{ trans('home.copyright_policy')}}</a></p>
                 <ul class="list-unstyled list-inline list-social-networks">
                     <li><a href="{{ Setting::get('facebook-page') }}" target="_blank"><i class="fa fa-facebook"></i></a></li>
@@ -109,26 +110,11 @@
                 </ul>
             </div>
             <div class="col-md-4 col-lg-4">
-                <h4>{{ trans('home.newsletter') }}</h4>
-                {{ Form::open() }}
-                <div class="form-group">
-                    <input type="email" placeholder="{{ trans('home.enter_your_email') }}" class="form-control">
-                </div>
-                <div class="form-group text-right">
-                    <button class="btn btn-danger">{{ trans('home.submit') }}</button>
-                </div>
-                {{ Form::close() }}
-            </div>
-            <div class="col-md-4 col-lg-4">
                 <h4>{{ trans('home.location') }}</h4>
                 <p>{{ Setting::get('location') }}</p>
                 <dl class="dl-horizontal">
-                    <dt>{{ trans('home.freephone') }}</dt>
-                    <dd>{{ Setting::get('free-phone') }}</dd>
                     <dt>{{ trans('home.telephone') }}</dt>
                     <dd>{{ Setting::get('telephone') }}</dd>
-                    <dt>{{ trans('home.fax') }}</dt>
-                    <dd>{{ Setting::get('fax') }}</dd>
                 </dl>
             </div>
         </div>

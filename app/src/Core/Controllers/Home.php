@@ -7,31 +7,36 @@ class Home extends Base
 {
     public function index()
     {
-        return View::make('home.index');
+        return View::make('front.home.index');
     }
 
-    public function websiteList()
+    public function businessIndex()
     {
-        return View::make('intro.list');
+        return View::make('front.business.index');
     }
 
-    public function loyalty()
+    public function businessWebsiteList()
     {
-        return View::make('intro.loyalty');
+        return View::make('front.business.list');
     }
 
-    public function onlineBooking()
+    public function businessLoyalty()
     {
-        return View::make('intro.onlinebooking');
+        return View::make('front.business.loyalty');
     }
 
-    public function cashier()
+    public function businessOnlineBooking()
     {
-        return View::make('intro.cashier');
+        return View::make('front.business.onlinebooking');
     }
 
-    public function marketingTools()
+    public function businessCashier()
     {
-        return View::make('intro.marketing');
+        return View::make('front.business.cashier');
+    }
+
+    public function businessMarketingTools()
+    {
+        return View::make('front.business.marketing');
     }
 }

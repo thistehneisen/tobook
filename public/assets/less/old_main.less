@@ -7,7 +7,6 @@
 
 @orange: #ec7923;
 @grey: #424242;
-@light_black: #333;
 @link_color: #dd5511;
 @link_color_hover: #bd490f;
 
@@ -41,6 +40,10 @@ a {
         text-decoration: none;
     }
 }
+.grey-divider {
+    background-color: @grey;
+    height: 12px;
+}
 
 // -------------------------------------------------------------------------- //
 // --------------------------------- Buttons -------------------------------- //
@@ -53,6 +56,9 @@ a {
         color: #fff;
     }
 }
+.btn-tutustu {
+    margin: 20px 0;
+}
 
 // -------------------------------------------------------------------------- //
 // --------------------------------- Layout --------------------------------- //
@@ -60,41 +66,28 @@ a {
 
 // # ------------------------------- header
 .header {
+    border-bottom: 5px solid @grey;
     text-align: center;
+    background: transparent url(../img/background.jpg) no-repeat center center;
+    background-size: cover;
 
-    nav.main-nav {
-        padding: 10px 0;
-
-        .logo {
-            .comfortaa;
-            .orange;
-            font-size: 30px;
-
-            span {
-                color: @light_black;
-            }
-        }
-    }
-
-    nav.sub-nav {
-        background: @orange;
-        padding: 10px 0;
+    nav {
+        padding: 20px 0;
 
         .language-swicher {
-            color: @light_black;
+            color: #333;
             font-weight: 600;
             font-size: 13px;
-            padding-right: 10px;
+            margin-right: 10px;
             &.active {
                 color: #fff;
             }
         }
 
         .nav-links {
-            margin-bottom: 0;
             a {
                 text-transform: uppercase;
-                color: @light_black;
+                color: #333333;
                 text-decoration: none;
                 font-weight: 600;
                 font-size: 12px;
@@ -118,47 +111,116 @@ a {
         }
         .nav-links:hover {
             a:after {
-                color: @light_black;
+                color: #333333;
             }
+        }
+    }
+
+    .welcome-text {
+        padding-right: 20px;
+    }
+
+    .img-homepage {
+        width: 80vh;
+    }
+    .imac-wrapper {
+        padding-top: 30px;
+        display: block;
+        text-align: center;
+
+        .imac {
+            background: transparent url(../img/imac.png) no-repeat center center;
+            position: relative;
+            width: 565px;
+            height: 450px;
+            display: inline-block;
+
+            .bx-wrapper {
+                padding-top: 19px;
+                padding-left: 20px;
+                .bx-viewport {
+                    background: transparent;
+                    border: none;
+                    -webkit-box-shadow: none;
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+
+    .text-header {
+        .comfortaa;
+        color: white;
+        font-size: 7vh;
+        font-weight: 700;
+        margin: 30px 0;
+    }
+
+    .text-subheader {
+        .comfortaa;
+        color: white;
+        font-size: 3vh;
+        font-weight: 700;
+        margin: 30px 0;
+    }
+
+    &.homepage {
+        min-height: 100vh;
+
+        .btn-lg {
+            margin: 0 0 20px 0;
+            padding: 15px 20px;
+            font-weight: bold;
         }
     }
 }
 
 // # ------------------------------- main content
 .main {
-    .search-wrapper {
-        background: url(../img/marketingBack02.png) no-repeat 0 0;
-        background-size: cover;
-        padding: 30px 0;
+    margin: 40px auto 50px auto;
 
-        .search-inner {
-            background-color: rgba(255, 255, 255, 0.9);
-            background: rgba(255, 255, 255, 0.9);
-            color: @light_black;
-            padding: 20px;
+    .dashboard-services {
+        li {
+            margin-bottom: 10px;
+        }
+        .wrapper {
+            .comfortaa;
+            border: 1px solid #f4c8b2;
+        }
+        h4 {
+            margin-top: 0;
+            background-color: #ec7923;
+            color: white;
+            padding: 10px;
+        }
+        p {
+            text-align: center;
+        }
+        img {
+            width: 100px;
+        }
+    }
 
-            h2 {
-                .comfortaa;
-                margin: 0;
-                padding-bottom: 10px;
-            }
+    .services {
+        text-align: center;
+        a {
+            font-family: Helvetica, Arial;
+            font-size: 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #333333;
         }
     }
 }
 
 // # ------------------------------- footer
 .footer {
-    padding: 20px;
-    background: @light_black;
-    color: #fff;
-
-    i {
-        color: #fff;
-    }
-
+    color: #aaaaaa;
+    margin-bottom: 50px;
     h4 {
         font-weight: 600;
         text-transform: uppercase;
+        color: #444444;
     }
 
     .company-name {

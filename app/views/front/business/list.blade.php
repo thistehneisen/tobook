@@ -1,18 +1,18 @@
-@extends ('layouts.intro')
+@extends ('layouts.business')
 
-@section ('title')
+@section('title')
     @parent :: {{ trans('home.customer_websites') }}
 @stop
 
-@section ('header')
+@section('page-header')
     <h1 class="text-header">{{ trans('home.customer_websites') }}</h1>
 @stop
 
-@section ('subheader')
+@section('subheader')
     <h6 class="text-subheader">{{ trans('home.description') }}</h6>
 @stop
 
-@section ('scripts')
+@section('scripts')
     <script>
         $(document).ready(function () {
             $("div.weblist-item-icon img").mouseover(function () {
@@ -25,7 +25,7 @@
     </script>
 @stop
 
-@section ('intro_content')
+@section('intro_content')
 <div class="loyalty-introduction">{{ trans('home.description_1') }}</div>
 <div class="loyalty-introduction color">{{ trans('home.description_2') }}</div>
 <a href="{{ URL::route('auth.register') }}" class="btn btn-success btn-lg text-uppercase">{{ trans('home.start_now') }} <i class="fa fa-arrow-circle-right"></i></a>

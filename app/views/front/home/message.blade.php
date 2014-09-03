@@ -1,14 +1,14 @@
 @extends ('layouts.default')
 
-@section ('title')
+@section('title')
     @parent :: {{ $header }}
 @stop
 
-@section ('header')
+@section('page-header')
     <h1 class="text-header">{{ $header }}</h1>
 @stop
 
-@section ('content')
+@section('content')
 <div class="row">
     <div class="col-xs-12">
         <h1 class="comfortaa orange text-center">{{ $header }}</h1>

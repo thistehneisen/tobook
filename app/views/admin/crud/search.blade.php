@@ -1,6 +1,6 @@
 @extends ('admin.crud.index')
 
-@section ('content')
+@section('content')
     <h3 class="comfortaa text-danger">Search results for &quot;{{ Input::get('q') }}&quot;</h3>
     @include ('el.messages')
 

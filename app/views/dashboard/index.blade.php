@@ -1,14 +1,14 @@
 @extends ('layouts.default')
 
-@section ('title')
+@section('title')
     @parent :: {{ trans('common.dashboard') }}
 @stop
 
-@section ('header')
+@section('page-header')
     <h1 class="text-header">{{ trans('common.dashboard') }}</h1>
 @stop
 
-@section ('scripts')
+@section('scripts')
     @parent
     <script>
 (function ($) {
@@ -23,7 +23,7 @@
     </script>
 @stop
 
-@section ('content')
+@section('content')
 <ul class="list-unstyled dashboard-services">
 @foreach ($modules as $item)
     <li class="col-md-3 col-lg-3" @if (!in_array($item->name, $activeModules)) data-toggle="popover" data-content="{{ trans('dashboard.expired') }}" title="{{ trans('dashboard.expired_heading') }}" @endif>
