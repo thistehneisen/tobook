@@ -98,7 +98,7 @@ class User extends ConfideUser
         $_SESSION['session_userid']    = $this->id;
         $_SESSION['session_email']     = $this->email;
         $_SESSION['session_style']     = $this->stylesheet;
-        $_SESSION["owner_id"]          = $this->id;
+        $_SESSION['owner_id']          = $this->id;
     }
 
     /**
