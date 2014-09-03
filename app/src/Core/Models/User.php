@@ -116,6 +116,12 @@ class User extends ConfideUser
         $ret = [];
         $default = Config::get('appointment.options');
 
+        // Get options from database
+        $customOptions = [];
+        foreach ($this->asOptions()->get() as $item) {
+            $customOptions[$item->key] = $item->value;
+        }
+
         foreach ($default as $sections) {
             foreach ($sections as $options) {
                 foreach ($options as $name => $option) {
@@ -126,6 +132,11 @@ class User extends ConfideUser
                     $ret[$name] = isset($option['default'])
                         ? $option['default']
                         : true;
+
+                    // Overwrite data from database
+                    if (isset($customOptions[$name])) {
+                        $ret[$name] = $customOptions[$name];
+                    }
                 }
             }
         }

@@ -21,6 +21,9 @@ class Options extends AsBase
             $page = 'general';
         }
 
+        // Get user options
+        $userOptions = $this->user->as_options;
+
         // Get default settings of this page to generate form for user to edit
         $fields = [];
         $sections = [];
@@ -30,6 +33,9 @@ class Options extends AsBase
 
             foreach ($controls as $name => $params) {
                 $params['name'] = $name;
+                if (isset($userOptions[$name])) {
+                    $params['default'] = $userOptions[$name];
+                }
                 $allControls[] = FieldFactory::create($params);
             }
 
@@ -58,8 +64,9 @@ class Options extends AsBase
         unset($input['_token']);
 
         $dirty = [];
+        $userOptions = $this->user->as_options;
         foreach ($input as $field => $value) {
-            $default = $this->user->as_options->get($field);
+            $default = $userOptions->get($field);
             // It's very long time ago since I use non-strict comparison, but
             // it's acceptable here, since some options are just '1' or true.
             if ($value != $default) {

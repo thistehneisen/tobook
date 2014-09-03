@@ -28,11 +28,12 @@ class Option extends BaseModel
             $option = static::where('key', $key)->first();
             if ($option === null) {
                 $option = new static;
-                $option->fill([
-                    'key'   => $key,
-                    'value' => $value,
-                ]);
             }
+
+            $option->fill([
+                'key'   => $key,
+                'value' => $value,
+            ]);
 
             $options[] = $option;
         }
