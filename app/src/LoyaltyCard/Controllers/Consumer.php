@@ -1,6 +1,6 @@
 <?php namespace App\LoyaltyCard\Controllers;
 
-use Input, Session, Redirect, View, Validator, Request;
+use Input, Session, Redirect, View, Validator, Request, Response;
 use Confide;
 use App\Consumers\Models\Consumer as Core;
 use App\LoyaltyCard\Models\Consumer as Model;
@@ -65,6 +65,13 @@ class Consumer extends Base
         $validator = Validator::make(Input::all(), $rules);
 
         if ($validator->fails()) {
+            if (Request::ajax()) {
+                return Response::json([
+                    'success' => false,
+                    'errors' => $validator->errors()->toArray(),
+                ]);
+            }
+
             return Redirect::back()
                 ->withErrors($validator)
                 ->withInput();
@@ -94,6 +101,13 @@ class Consumer extends Base
             $consumer->save();
         } catch (Exception $ex) {
 
+        }
+
+        if (Request::ajax()) {
+            return Response::json([
+                'success' => true,
+                'message' => 'Customer created successfully!',
+            ]);
         }
 
         return Redirect::route('lc.consumers.index');
@@ -192,8 +206,16 @@ class Consumer extends Base
      */
     public function destroy($id)
     {
+        $core = Core::find($id);
+        $core->hide(Confide::user()->id);
         $consumer = Model::find($id);
         $consumer->delete();
+
+        if (Request::ajax()) {
+            Response::json([
+                'success' => true,
+            ]);
+        }
 
         return Redirect::route('lc.consumers.index');
     }

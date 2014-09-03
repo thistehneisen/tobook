@@ -10,28 +10,37 @@ $(document).ready(function () {
 
         if (!selected) {
             $(this).addClass('selected');
+
+            $.ajax({
+                url: '/loyalty-card/consumers/' + consumerID,
+                dataType: 'html',
+                type: 'GET',
+                success: function (data) {
+                    $('#js-consumerDetails').html(data);
+                }
+            });
+        } else {
+            $('#js-consumerDetails').html('');
         }
-        // window.alert(consumerID);
-        $.ajax({
-            url: '/loyalty-card/consumers/' + consumerID,
-            dataType: 'html',
-            type: 'GET',
-            success: function (data) {
-                $('#details').html(data);
-            }
-        });
     });
 
     $('#js-confirmDeleteModal').on('show.bs.modal', function (e) {
-        var form = $(e.relatedTarget).closest('form');
+        var tr = $(e.relatedTarget).closest('tr');
 
         // Pass form reference to modal for submisison on yes/ok
-        $(this).find('.modal-footer #confirm').data('form', form);
+        $(this).find('.modal-footer #confirm').data('tr', tr);
     });
 
     // Form confirm (yes/ok) handler, submits form
     $('#js-confirmDeleteModal').on('click', '.modal-footer #confirm', function () {
-        $(this).data('form').submit();
+        var consumerID = $(this).data('tr').data('consumerid');
+        $.ajax({
+            url: '/loyalty-card/consumers/' + consumerID,
+            dataType: 'json',
+            type: 'delete',
+            success: function (data) {
+            }
+        });
     });
 
     // reset the form when click cancel
@@ -42,17 +51,24 @@ $(document).ready(function () {
     // trigger form submit when click confirm
     $('#js-createConsumerModal').on('click', '.modal-footer #confirm', function () {
         $.ajax({
-            // TODO: DON'T USE API IN THIS APP
-            url: "/api/v1.0/lc/consumers",
-            dataType: "json",
-            type: "POST",
+            url: '/loyalty-card/consumers',
+            dataType: 'json',
+            type: 'post',
             data: $('#js-createConsumerForm').serialize(),
             success: function (data) {
-                // TODO: handle case of validation error and other errors too
-                if (data.message === 'Consumer created') {
+                if (!data.success) {
+                    var errorMsg = '';
+
+                    $.each(data.errors, function (index, error) {
+                        errorMsg += '- ' + error + '\n';
+                    });
+
+                    window.alert(errorMsg);
+                } else {
+                    window.alert(data.message);
                     window.location.reload();
                 }
-            }
+            },
         });
     });
 });
