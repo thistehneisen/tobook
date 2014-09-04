@@ -32,4 +32,9 @@ class ServiceCategory extends \App\Core\Models\Base
     {
         return $this->belongsTo('App\Core\Models\User');
     }
+
+    public function services()
+    {
+        return $this->hasMany('App\Appointment\Models\Service', 'category_id');
+    }
 }

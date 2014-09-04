@@ -50,6 +50,7 @@ class Embed extends AsBase
         }
 
         $categories = ServiceCategory::OfUser($user->id)
+            ->with('services')
             ->where('is_show_front', true)
             ->get();
 
