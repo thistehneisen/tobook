@@ -49,6 +49,7 @@ Tervetuloa!
 Palvelun tarjoaa varaa.com
 HTML;
 
+// @todo
 $paymentTokensClient = <<< HTML
 We've received the payment for your booking and it is now confirmed.
 
@@ -56,7 +57,7 @@ ID: {BookingID}
 
 Thank you,
 The Management
-HTML; // @todo
+HTML;
 
 $confirmTokensAdmin = <<< HTML
 Hei!
@@ -77,11 +78,12 @@ Lisätiedot:
 {Notes}
 HTML;
 
+// @todo
 $paymentTokensAdmin = <<< HTML
 Booking deposit has been paid.
 
 ID: {BookingID}
-HTML; // @todo
+HTML;
 
 $confirmTokensEmployee = <<< HTML
 Hei!
@@ -102,11 +104,12 @@ Lisätiedot:
 {Notes}
 HTML;
 
+// @todo
 $paymentTokensEmployee = <<< HTML
 Booking deposit has been paid.
 
 ID: {BookingID}
-HTML; // @todo
+HTML;
 
 return [
     'index' => [
