@@ -3,9 +3,9 @@
 use View;
 use Confide;
 
-class Home extends Base
+class Front extends Base
 {
-    public function index()
+    public function home()
     {
         return View::make('front.home');
     }
