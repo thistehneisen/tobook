@@ -29,7 +29,39 @@ $(document).ready(function () {
     });
 
     $("button#btn-send-campaign").click(function () {
-        
+        var obj_chk_list = $("input#chkGroupId:checked")
+          , group_ids = []
+          , i
+          , campaign_id = $("#campaignId").val();
+      
+        if (campaign_id === '') {
+            alert("Please select Campaign!");
+            return;
+        }
+  
+        for (i = 0; i < obj_chk_list.size(); i++) {
+            group_ids[i] = obj_chk_list.eq(i).val();
+        }
+      
+        $.ajax({
+            url : "/mt/campaigns/send_group",
+            dataType : "json",
+            type : "POST",
+            data : {
+                group_ids : group_ids,
+                campaign_id : campaign_id
+            },
+            success : function(data) {
+                if (data.result == "success") {
+                    alert("Campaign sent successfully.");
+                    $("input#chkGroupId").prop("checked", false);
+                    $("#campaignId").val("");
+                    $("#campaignModal").modal('hide');
+                } else {
+                    alert("Request failed.");
+                }
+            }
+        });        
     });
     
     $("button#btn-send-sms").click(function () {

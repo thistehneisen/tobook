@@ -1,7 +1,10 @@
 <?php
 namespace App\MarketingTool\Controllers;
 
+use Illuminate\Mail\Transport\MandrillTransport;
+
 use Input, Session, Redirect, View, Validator, Response;
+use \App\MarketingTool\Models\History as HistoryModel;
 use \App\MarketingTool\Models\Sms as SmsModel;
 use \App\MarketingTool\Models\Consumer as ConsumerModel;
 use \App\MarketingTool\Models\Group as GroupModel;
@@ -179,9 +182,7 @@ class Sms extends \App\Core\Controllers\Base {
             $sms = SmsModel::find($sms_id);
             $sms->status = 'SENT';
             $sms->save();
-            
 
-            
             foreach ($consumer_ids as $key => $value) {
                 $group_consumer = new GroupConsumerModel;
                 $group_consumer->group_id = $group_id;
@@ -194,9 +195,17 @@ class Sms extends \App\Core\Controllers\Base {
                 
                 $this->infobip->send_sms_infobip($sms['title'], $phone, $sms['content']);
             }
+            
+            $history = new HistoryModel;
+            $history->sms_id = $sms_id;
+            $history->group_id = $group_id;
+            $history->user_id = Confide::user()->id;
+            $history->save();
+            
             return Response::json(['result' => 'success', ]);
         }        
     }
+    
     /**
      * Send Bulk Sms To Groups
      */
@@ -213,7 +222,7 @@ class Sms extends \App\Core\Controllers\Base {
         } else {
             // create consumers group
             $sms = SmsModel::find($sms_id);
-            $sms->status = 'DRAFT';
+            $sms->status = 'SENT';
             $sms->save();
         
             foreach ($group_ids as $key => $group_id) {
@@ -221,7 +230,13 @@ class Sms extends \App\Core\Controllers\Base {
                 foreach ($group_consumers as $key => $consumer) {
                     $this->infobip->send_sms_infobip($sms['title'], $consumer->consumer->phone, $sms['content']);
                 }
+                $history = new HistoryModel;
+                $history->sms_id = $sms_id;
+                $history->group_id = $group_id;
+                $history->user_id = Confide::user()->id;
+                $history->save();                
             }
+            
             return Response::json(['result' => 'success', ]);
         }        
     }    

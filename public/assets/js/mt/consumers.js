@@ -71,7 +71,39 @@ $(document).ready(function () {
     });
 
     $("button#btn-send-campaign").click(function () {
-        
+        var obj_chk_list = $("input#chkConsumerId:checked")
+          , consumer_ids = []
+          , i
+          , campaign_id = $("#campaignId").val();
+      
+        if (campaign_id === '') {
+            alert("Please select Campaign!");
+            return;
+        }
+
+        for (i = 0; i < obj_chk_list.size(); i++) {
+            consumer_ids[i] = obj_chk_list.eq(i).val();
+        }
+      
+        $.ajax({
+            url : "/mt/campaigns/send_individual",
+            dataType : "json",
+            type : "POST",
+            data : {
+                consumer_ids : consumer_ids,
+                campaign_id : campaign_id
+            },
+            success : function(data) {
+                if (data.result == "success") {
+                    alert("Campaign sent successfully.");
+                    $("input#chkConsumerId").prop("checked", false);
+                    $("#campaignId").val("");
+                    $("#campaignModal").modal('hide');
+                } else {
+                    alert("Request failed.");
+                }
+            }
+        });        
     });
     
     $("button#btn-send-sms").click(function () {
@@ -99,7 +131,7 @@ $(document).ready(function () {
             },
             success : function(data) {
                 if (data.result == "success") {
-                    alert("SMS sent created successfully.");
+                    alert("SMS sent successfully.");
                     $("input#chkConsumerId").prop("checked", false);
                     $("#smsId").val("");
                     $("#smsModal").modal('hide');

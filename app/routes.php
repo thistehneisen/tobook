@@ -196,7 +196,9 @@ Route::group([
             ]
         ]);
         Route::post('campaigns/duplication', 'App\MarketingTool\Controllers\Campaign@duplication');
-        
+        Route::post('campaigns/send_individual', 'App\MarketingTool\Controllers\Campaign@send_individual');
+        Route::post('campaigns/send_group', 'App\MarketingTool\Controllers\Campaign@send_group');
+
         Route::resource('sms', 'App\MarketingTool\Controllers\Sms', [
             'names' => [
                 'index'     => 'mt.sms.index',
