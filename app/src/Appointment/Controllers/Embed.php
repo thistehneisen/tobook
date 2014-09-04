@@ -2,6 +2,7 @@
 
 use Hashids, Input;
 use App\Core\Models\User;
+use App\Appointment\Models\ServiceCategory;
 
 class Embed extends AsBase
 {
@@ -40,15 +41,20 @@ class Embed extends AsBase
      */
     public function embed($hash)
     {
-        // $decoded = Hashids::decrypt($hash);
-        // $user = User::find($decoded[0]);
+        $decoded = Hashids::decrypt($hash);
+        $user = User::find($decoded[0]);
 
         $layoutId = (int) Input::get('l');
         if (!$layoutId) {
             $layoutId = 1;
         }
 
+        $categories = ServiceCategory::OfUser($user->id)
+            ->where('is_show_front', true)
+            ->get();
+
         return $this->render('layout-'.$layoutId, [
+            'categories' => $categories
         ]);
     }
 }

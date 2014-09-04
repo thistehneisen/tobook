@@ -27,14 +27,16 @@
 
           <div class="list-group">
 
+@foreach ($categories as $category)
             <div class="list-group-item">
-              <h4 class="list-group-item-heading">Category 1</h4>
+              <h4 class="list-group-item-heading">{{ $category->name }}</h4>
               <div class="list-group-item-text">
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus nihil voluptatem animi ratione, minus placeat impedit vel quo quos, sed rem, delectus explicabo nemo officiis eos! Incidunt ullam, harum earum.</p>
+                <p class="text-muted">{{ $category->description }}</p>
 
-                <div class="services" id="services-list-1">
+                <div class="services" id="category-services-{{ $category->id }}">
+
                   <div class="single">
-                    <a data-toggle="collapse" data-parent="#services-list-1" href="#service-1"><h5 class="heading">Service 1</h5></a>
+                    <a data-toggle="collapse" data-parent="#category-services-{{ $category->id }}" href="#service-1"><h5 class="heading">Service 1</h5></a>
                     <div id="service-1" class="collapse">
                       <p>
                         <button disabled class="btn btn-default"><i class="glyphicon glyphicon-tag"></i> &euro;10.00</button>
@@ -44,32 +46,11 @@
                       <a href="#form-add-service" class="btn btn-success btn-fancybox">Availability</a>
                     </div>
                   </div>
-                  <div class="single">
-                    <a data-toggle="collapse" data-parent="#services-list-1" href="#service-2"><h5 class="heading">Service 1</h5></a>
-                    <div id="service-2" class="collapse">
-                      <p>
-                        <button disabled class="btn btn-default"><i class="glyphicon glyphicon-tag"></i> &euro;10.00</button>
-                        <button disabled class="btn btn-default"><i class="glyphicon glyphicon-time"></i> 90 minutes</button>
-                        <span class="text-muted">Service description</span>
-                      </p>
-                      <a href="#form-add-service" class="btn btn-success btn-fancybox">Availability</a>
-                    </div>
-                  </div>
-                  <div class="single">
-                    <a data-toggle="collapse" data-parent="#services-list-1" href="#service-3"><h5 class="heading">Service 1</h5></a>
-                    <div id="service-3" class="collapse">
-                      <p>
-                        <button disabled class="btn btn-default"><i class="glyphicon glyphicon-tag"></i> &euro;10.00</button>
-                        <button disabled class="btn btn-default"><i class="glyphicon glyphicon-time"></i> 90 minutes</button>
-                        <span class="text-muted">Service description</span>
-                      </p>
-                      <a href="#form-add-service" class="btn btn-success btn-fancybox">Availability</a>
-                    </div>
-                  </div>
+
                 </div>
               </div>
             </div>
-
+@endforeach
           </div>
 
         </div>
