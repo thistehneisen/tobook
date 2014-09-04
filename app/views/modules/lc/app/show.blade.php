@@ -1,10 +1,11 @@
 <h3>{{ $consumer->consumer->getNameAttribute() }}</h3>
-<span>{{ $consumer->consumer->email }}</span> /
-<span>{{ $consumer->consumer->phone }}</span>
-<p>{{{ trans('Points') }}}: {{ $consumer->total_points }}</p>
+<p>
+    {{ $consumer->consumer->email }} / {{ $consumer->consumer->phone }}
+</p>
+{{{ trans('Points') }}}:
+<span id='js-currentPoint'>{{ $consumer->total_points }}</span>
 <hr />
-<span data-consumerid='{{{ $consumer->consumer->id }}}'>{{{ $consumer->consumer->id }}}</span>
-<button class="btn btn-default btn-success full" data-toggle="modal" data-target="#js-giveScoreModal">{{ trans('Give Points') }}</button>
+<button class="btn btn-default btn-success full" data-toggle="modal" data-target="#js-givePointModal" data-consumerid='{{{ $consumer->consumer->id }}}'>{{ trans('Give Points') }}</button>
 
 <div class="full"><h3>{{ trans('Awards') }}</h3>
     @foreach ($vouchers as $key => $value)

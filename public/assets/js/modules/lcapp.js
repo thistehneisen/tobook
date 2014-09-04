@@ -3,23 +3,45 @@
 'use strict';
 
 $(document).ready(function () {
-    $('#js-useVoucher').click(function () {
-        window.alert($(this).data('consumerid'));
+    $('#js-consumerDetails').on('click', '#js-useVoucher', function (e) {
+        var consumerID = $(this).data('consumerid');
+
     });
 
-    $('#js-giveScoreModal').on('show.bs.modal', function (e) {
-        var span = $(e.relatedTarget).closest('span');
-
-        window.alert($(e.relatedTarget).closest('span').data('consumerid'));
-
+    $('#js-givePointModal').on('show.bs.modal', function (e) {
         // Pass form reference to modal for submisison on yes/ok
-        $(this).find('.modal-footer #js-confirm').data('span', span);
+        $(this).find('.modal-footer #js-confirmGivePoint').data('consumerid', $(e.relatedTarget).data('consumerid'));
     });
 
-    $('#js-giveScoreModal').on('click', '.modal-footer #js-confirm', function () {
-        var consumerId = $(this).data('span').data('consumerid');
+    $('#js-givePointModal').on('click', '.modal-footer #js-confirmGivePoint', function () {
+        var consumerID = $(this).data('consumerid');
 
-        window.alert(consumerId);
+        $.ajax({
+            url: '/loyalty-card/consumers/' + consumerID,
+            dataType: 'json',
+            type: 'put',
+            data: $('#js-givePointForm').serialize(),
+            success: function (data) {
+                if (!data.success) {
+                    var errorMsg = '';
+
+                    $.each(data.errors, function (index, error) {
+                        errorMsg += '- ' + error + '\n';
+                    });
+
+                    window.alert(errorMsg);
+                } else {
+                    window.alert(data.message);
+                    $('#js-givePointModal').modal('hide');
+                    $('#js-currentPoint').text(data.points);
+                }
+            }
+        });
+        $('#js-givePointForm').trigger('reset');
+    });
+
+    $('#js-givePointModal').on('click', '.modal-footer #js-cancelGivePoint', function () {
+        $('#js-givePointForm').trigger('reset');
     });
 
     $('#js-consumerTable tr').click(function () {
@@ -47,11 +69,11 @@ $(document).ready(function () {
         var tr = $(e.relatedTarget).closest('tr');
 
         // Pass form reference to modal for submisison on yes/ok
-        $(this).find('.modal-footer #js-confirm').data('tr', tr);
+        $(this).find('.modal-footer #js-confirmDeleteConsumer').data('tr', tr);
     });
 
     // Form confirm (yes/ok) handler, submits form
-    $('#js-confirmDeleteModal').on('click', '.modal-footer #js-confirm', function () {
+    $('#js-confirmDeleteModal').on('click', '.modal-footer #js-confirmDeleteConsumer', function () {
         var consumerID = $(this).data('tr').data('consumerid');
         $.ajax({
             url: '/loyalty-card/consumers/' + consumerID,
@@ -63,12 +85,12 @@ $(document).ready(function () {
     });
 
     // reset the form when click cancel
-    $('#js-createConsumerModal').on('click', '.modal-footer #cancel', function () {
+    $('#js-createConsumerModal').on('click', '.modal-footer #js-cancelCreateConsumer', function () {
         $('#js-createConsumerForm').trigger('reset');
     });
 
     // trigger form submit when click confirm
-    $('#js-createConsumerModal').on('click', '.modal-footer #confirm', function () {
+    $('#js-createConsumerModal').on('click', '.modal-footer #js-confirmCreateConsumer', function () {
         $.ajax({
             url: '/loyalty-card/consumers',
             dataType: 'json',

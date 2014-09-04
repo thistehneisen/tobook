@@ -172,7 +172,31 @@ class Consumer extends Base
      */
     public function update($id)
     {
-        $rules = [
+        if (Request::ajax()) {
+            $rules = [
+                'points' => 'required|numeric',
+            ];
+
+            $validator = Validator::make(Input::all(), $rules);
+
+            if ($validator->fails()) {
+                return Response::json([
+                    'success' => false,
+                    'errors' => $validator->errors()->toArray(),
+                ]);
+            } else {
+                $consumer = Model::find($id);
+                $consumer->total_points += Input::get('points');
+                $consumer->save();
+
+                return Response::json([
+                    'success' => true,
+                    'message' => 'Point added',
+                    'points'  => $consumer->total_points,
+                ]);
+            }
+        } else {
+            $rules = [
             'first_name'    => 'required',
             'last_name'     => 'required',
             'email'         => 'required|email',
@@ -181,27 +205,28 @@ class Consumer extends Base
             'postcode'      => 'required|numeric',
             'city'          => 'required',
             'country'       => 'required',
-        ];
+            ];
 
-        $validator = Validator::make(Input::all(), $rules);
+            $validator = Validator::make(Input::all(), $rules);
 
-        if ($validator->fails()) {
-            return Redirect::back()
-                ->withErrors($validator)
-                ->withInput(Input::all());
-        } else {
-            $consumer = Model::find($id)->consumer;
-            $consumer->first_name = Input::get('first_name');
-            $consumer->last_name = Input::get('last_name');
-            $consumer->email = Input::get('email');
-            $consumer->phone = Input::get('phone');
-            $consumer->address = Input::get('address');
-            $consumer->postcode = Input::get('postcode');
-            $consumer->city = Input::get('city');
-            $consumer->country = Input::get('country');
-            $consumer->save();
+            if ($validator->fails()) {
+                return Redirect::back()
+                    ->withErrors($validator)
+                    ->withInput(Input::all());
+            } else {
+                $consumer = Model::find($id)->consumer;
+                $consumer->first_name = Input::get('first_name');
+                $consumer->last_name = Input::get('last_name');
+                $consumer->email = Input::get('email');
+                $consumer->phone = Input::get('phone');
+                $consumer->address = Input::get('address');
+                $consumer->postcode = Input::get('postcode');
+                $consumer->city = Input::get('city');
+                $consumer->country = Input::get('country');
+                $consumer->save();
 
-            return Redirect::route('lc.consumers.index');
+                return Redirect::route('lc.consumers.index');
+            }
         }
     }
 
