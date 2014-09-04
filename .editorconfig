@@ -3,6 +3,10 @@
 # top-most EditorConfig file
 root = true
 
+[public/assets/js/**.js]
+indent_style = space
+indent_size = 4
+
 # Unix-style newlines with a newline ending every file
 [*]
 end_of_line = lf
