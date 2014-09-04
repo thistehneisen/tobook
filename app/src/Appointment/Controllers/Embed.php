@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Controllers;
 
-use Hashids;
+use Hashids, Input;
 use App\Core\Models\User;
 
 class Embed extends AsBase
@@ -43,7 +43,12 @@ class Embed extends AsBase
         // $decoded = Hashids::decrypt($hash);
         // $user = User::find($decoded[0]);
 
-        return $this->render('embed', [
+        $layoutId = (int) Input::get('l');
+        if (!$layoutId) {
+            $layoutId = 1;
+        }
+
+        return $this->render('layout-'.$layoutId, [
         ]);
     }
 }

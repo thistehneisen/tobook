@@ -2,11 +2,13 @@
   'use strict';
 
   $(function() {
-    $('.datepicker').datepicker({
-      format: 'mm/dd/yyyy',
+    $('#datepicker').datepicker({
+      format: 'yyyy-mm-dd',
       startDate: new Date,
       todayBtn: true,
       todayHighlight: true
+    }).on('changeDate', function(e) {
+        $('#txt-date').val(e.format());
     });
 
     $('.accordion').collapse();
