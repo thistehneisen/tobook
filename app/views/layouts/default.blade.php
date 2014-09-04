@@ -109,14 +109,6 @@
                     <li><a href="{{ Setting::get('linkedin-page') }}" target="_blank"><i class="fa fa-linkedin"></i></a></li>
                 </ul>
             </div>
-            <div class="col-md-4 col-lg-4">
-                <h4>{{ trans('home.location') }}</h4>
-                <p>{{ Setting::get('location') }}</p>
-                <dl class="dl-horizontal">
-                    <dt>{{ trans('home.telephone') }}</dt>
-                    <dd>{{ Setting::get('telephone') }}</dd>
-                </dl>
-            </div>
         </div>
     </footer>
     @show

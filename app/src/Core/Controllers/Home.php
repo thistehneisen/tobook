@@ -7,9 +7,15 @@ class Home extends Base
 {
     public function index()
     {
-        return View::make('front.home.index');
+        return View::make('front.home');
     }
 
+    public function search()
+    {
+        return View::make('front.search.index');
+    }
+
+    // for business
     public function businessIndex()
     {
         return View::make('front.business.index');

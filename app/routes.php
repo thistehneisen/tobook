@@ -18,6 +18,11 @@ Route::get('/', [
     'uses'  => 'App\Core\Controllers\Home@index'
 ]);
 
+Route::get('/search', [
+    'as'    => 'search',
+    'uses'  => 'App\Core\Controllers\Home@search'
+]);
+
 Route::group(['prefix' => 'business'], function () {
     Route::get('/', [
         'as'    => 'business-index',

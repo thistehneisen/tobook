@@ -35,4 +35,6 @@ return [
     'edit'              => 'Muokkaa',
     'back'              => 'Takaisin',
     'errors'            => 'Virheet',
+    'search'            => 'Haku',
+    'for_business'      => 'For Business',
 ];

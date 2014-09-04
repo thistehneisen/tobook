@@ -34,4 +34,6 @@ return [
     'edit'              => 'Edit',
     'back'              => 'Back',
     'errors'            => 'Errors',
+    'search'            => 'Search',
+    'for_business'      => 'For Business',
 ];
