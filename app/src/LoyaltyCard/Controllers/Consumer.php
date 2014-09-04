@@ -180,45 +180,133 @@ class Consumer extends Base
             $transaction->user_id = Confide::user()->id;
             $transaction->consumer_id = $id;
 
-            if (Input::get('usePoint') === '1') {
-                $voucher = VoucherModel::find(Input::get('voucherID'));
-                $transaction->voucher_id = Input::get('voucherID');
-                $transaction->point = $voucher->required * -1;
-                $transaction->save();
+            switch (Input::get('action')) {
+                case 'addPoint':
+                    $rules = [
+                        'points' => 'required|numeric',
+                    ];
 
-                $consumer->total_points -= $voucher->required;
-                $consumer->save();
+                    $validator = Validator::make(Input::all(), $rules);
 
-                return Response::json([
-                    'success' => true,
-                    'message' => 'Point used successfully',
-                    'points'  => $consumer->total_points,
-                ]);
-            } else {
-                $rules = [
-                    'points' => 'required|numeric',
-                ];
+                    if ($validator->fails()) {
+                        return Response::json([
+                            'success' => false,
+                            'errors' => $validator->errors()->toArray(),
+                        ]);
+                    } else {
+                        $transaction->point = Input::get('points');
+                        $transaction->save();
 
-                $validator = Validator::make(Input::all(), $rules);
+                        $consumer->total_points += Input::get('points');
+                        $consumer->save();
 
-                if ($validator->fails()) {
-                    return Response::json([
-                        'success' => false,
-                        'errors' => $validator->errors()->toArray(),
-                    ]);
-                } else {
-                    $transaction->point = Input::get('points');
+                        return Response::json([
+                            'success' => true,
+                            'message' => 'Point added successfully',
+                            'points'  => $consumer->total_points,
+                        ]);
+                    }
+                    break;
+
+                case 'usePoint':
+                    $voucher = VoucherModel::find(Input::get('voucherID'));
+                    $transaction->voucher_id = Input::get('voucherID');
+                    $transaction->point = $voucher->required * -1;
                     $transaction->save();
 
-                    $consumer->total_points += Input::get('points');
+                    $consumer->total_points -= $voucher->required;
                     $consumer->save();
 
                     return Response::json([
                         'success' => true,
-                        'message' => 'Point added successfully',
+                        'message' => 'Point used successfully',
                         'points'  => $consumer->total_points,
                     ]);
-                }
+                    break;
+
+                case 'addStamp':
+                    $offer = OfferModel::find(Input::get('offerID'));
+                    $transaction->offer_id = Input::get('offerID');
+                    $consumerTotalStamps = $consumer->total_stamps;
+
+                    if ($consumerTotalStamps !== '') {
+                        $consumerTotalStamps = json_decode($consumerTotalStamps, true);
+                        $consumerThisStamp = $consumerTotalStamps[Input::get('offerID')];
+                        $consumerNoOfStamps = $consumerThisStamp[0];
+                        $consumerFreeService = $consumerThisStamp[1];
+
+                        if ($offer->required === $consumerNoOfStamps + 1) {
+                            $consumerNoOfStamps = 0;
+                            $consumerFreeService++;
+                            $transaction->stamp = $offer->required * (-1);
+                            $transaction->free_service = $consumerFreeService;
+                        } else {
+                            $consumerNoOfStamps++;
+                            $transaction->stamp = 1;
+                            $transaction->free_service = 0;
+                        }
+
+                        $consumerTotalStamps[Input::get('offerID')] = [$consumerNoOfStamps, $consumerFreeService];
+                        $consumerTotalStamps = json_encode($consumerTotalStamps);
+                    } else {
+                        $consumerNoOfStamps = 1;
+                        $transaction->stamp = 1;
+                        $transaction->free_service = 0;
+                        $consumerTotalStamps = json_encode([Input::get('offerID') => [1, 0]]);
+                    }
+
+                    $transaction->save();
+                    $consumer->total_stamps = $consumerTotalStamps;
+                    $consumer->save();
+
+                    return Response::json([
+                        'success' => true,
+                        'message' => 'Stamp added successfully',
+                        'stamps'  => $consumerNoOfStamps,
+                    ]);
+
+                    break;
+
+                case 'useStamp':
+                    $offerID = Input::get('offerID');
+                    $consumerTotalStamps = $consumer->total_stamps;
+
+                    if ($consumerTotalStamps !== '') {
+                        $consumerTotalStamps = json_decode($consumerTotalStamps, true);
+                        $consumerThisStamp = $consumerTotalStamps[$offerID];
+                        $consumerNoOfStamps = $consumerThisStamp[0];
+                        $consumerFreeService = $consumerThisStamp[1];
+
+                        if ($consumerFreeService > 0) {
+                            $consumerFreeService -= 1;
+
+                            $consumerTotalStamps[$offerID] = [$consumerNoOfStamps, $consumerFreeService];
+                            $consumerTotalStamps = json_encode($consumerTotalStamps);
+
+                            $transaction->offer_id = $offerID;
+                            $transaction->stamp = 0;
+                            $transaction->free_service = -1;
+                            $transaction->save();
+                            $consumer->total_stamps = $consumerTotalStamps;
+                            $consumer->save();
+
+                            return Response::json([
+                                'success' => true,
+                                'message' => 'Offer used successfully',
+                            ]);
+                        } else {
+                            return Response::json([
+                                'success' => false,
+                                'message' => 'No free service of this offer',
+                            ]);
+                        }
+                    } else {
+                        return Response::json([
+                            'success' => false,
+                            'message' => 'No offer to use',
+                        ]);
+                    }
+                    break;
             }
         } else {
             $rules = [

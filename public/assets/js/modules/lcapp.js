@@ -3,7 +3,48 @@
 'use strict';
 
 $(document).ready(function () {
-    // ------ GIVE POINT ------ //
+    $(this).on('click', '#js-back', function () {
+        $('#js-consumerDetails').html('');
+        $('#js-consumerTable tr').removeClass('selected');
+    });
+
+    // ------ ADD STAMP ------ //
+    $(this).on('click', '#js-addStamp', function () {
+        var offerID = $(this).data('offerid');
+        $.ajax({
+            url: '/loyalty-card/consumers/' + $(this).data('consumerid'),
+            dataType: 'json',
+            type: 'put',
+            data: {
+                action: 'addStamp',
+                offerID: offerID,
+            },
+            success: function (data) {
+                if (data.success) {
+                    window.alert(data.message);
+                    $('#js-currentStamp' + offerID).text(data.stamps);
+                }
+            }
+        });
+    });
+
+    // ------ USE STAMP ------ //
+    $(this).on('click', '#js-useStamp', function () {
+        $.ajax({
+            url: '/loyalty-card/consumers/' + $(this).data('consumerid'),
+            dataType: 'json',
+            type: 'put',
+            data: {
+                action: 'useStamp',
+                offerID: $(this).data('offerid'),
+            },
+            success: function (data) {
+                window.alert(data.message);
+            }
+        });
+    });
+
+    // ------ ADD POINT ------ //
     $('#js-givePointModal').on('show.bs.modal', function (e) {
         // Pass form reference to modal for submisison on yes/ok
         $(this).find('.modal-footer #js-confirmGivePoint').data('consumerid', $(e.relatedTarget).data('consumerid'));
@@ -16,7 +57,10 @@ $(document).ready(function () {
             url: '/loyalty-card/consumers/' + consumerID,
             dataType: 'json',
             type: 'put',
-            data: $('#js-givePointForm').serialize(),
+            data: {
+                action : 'addPoint',
+                points : $('#points').val(),
+            },
             success: function (data) {
                 if (!data.success) {
                     var errorMsg = '';
@@ -40,9 +84,9 @@ $(document).ready(function () {
         $('#js-givePointForm').trigger('reset');
     });
 
-    // ------ USE VOUCHER ------//
+    // ------ USE POINT ------//
     $('#js-consumerDetails').on('click', '#js-useVoucher', function (e) {
-        var consumerID = $(this).data('consumerid'), voucherID = $(this).data('voucherid'), required = parseInt($('#js-required').text(), 10), currentPoint = parseInt($('#js-currentPoint').text(), 10);
+        var consumerID = $(this).data('consumerid'), voucherID = $(this).data('voucherid'), required = parseInt($(this).data('required'), 10), currentPoint = parseInt($('#js-currentPoint').text(), 10);
 
         if (currentPoint >= required) {
             $.ajax({
@@ -50,7 +94,7 @@ $(document).ready(function () {
                 dataType: 'json',
                 type: 'put',
                 data: {
-                    usePoint : 1,
+                    action : 'usePoint',
                     voucherID : voucherID,
                 },
                 success: function (data) {
@@ -83,8 +127,6 @@ $(document).ready(function () {
                     $('#js-consumerDetails').html(data);
                 }
             });
-        } else {
-            $('#js-consumerDetails').html('');
         }
     });
 
