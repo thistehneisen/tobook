@@ -188,4 +188,18 @@ class Employees extends AsBase
 
         return Response::json($data);
     }
+
+    public function deleteEmployeeFreeTime(){
+        $freetimeId = Input::get('freetime_id');
+        $data = [];
+        try {
+            $freetime = EmployeeFreetime::find($freetimeId);
+            $freetime->delete();
+            $data['success'] = true;
+        } catch (\Exception $ex){
+            $data['success'] = false;
+            $data['message'] = $ex->getMessage();
+        }
+        return Response::json($data);
+    }
 }

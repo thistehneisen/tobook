@@ -208,6 +208,11 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Employees@addEmployeeFreeTime'
     ]);
 
+    Route::post('/employees/delete-employee-freetime', [
+        'as' => 'as.employees.freetime.delete',
+        'uses' => 'App\Appointment\Controllers\Employees@deleteEmployeeFreeTime'
+    ]);
+
     Route::get('services', [
         'as' => 'as.services.index',
         'uses' => 'App\Appointment\Controllers\Services@index'

@@ -85,7 +85,7 @@
                              @if($freetime !== null)
                                 <span class="customer-tooltip"title="{{ $freetime->description }}">{{ $freetime->description }}</span>
                                 @if(strval($freetime->start_at) == sprintf('%02d:%02d:00', $hour, $minuteShift))
-                                    <a href="#" class="pull-right"><i class="fa fa-remove"></i></a>
+                                    <a ref="#" data-confirm="{{ trans('as.employees.confirm.delete_freetime') }}" data-action-url="{{ route('as.employees.freetime.delete') }}" data-freetime-id="{{ $freetime->id }}" class="btn-delete-employee-freetime pull-right"><i class="fa fa-remove"></i></a>
                                 @endif
                              @endif
                         @else
@@ -122,13 +122,6 @@
     </tfoot>
 </table>
 </div>
-<input type="hidden" name="get_booking_form_url" id="get_booking_form_url" value="{{ route('as.bookings.form') }}"/>
-<input type="hidden" name="employee_id" id="employee_id" value=""/>
-<input type="hidden" name="date" id="date" value=""/>
-<input type="hidden" name="start_time" id="start_time" value=""/>
-<input type="hidden" id="get_services_url" value=" {{ route('as.bookings.employee.services') }}"/>
-<input type="hidden" id="get_service_times_url" value=" {{ route('as.bookings.service.times') }}"/>
-<input type="hidden" id="add_service_url" value=" {{ route('as.bookings.service.add') }}"/>
-<input type="hidden" id="add_booking_url" value=" {{ route('as.bookings.add') }}"/>
+@include('modules.as.index.common')
 </div>
 @stop

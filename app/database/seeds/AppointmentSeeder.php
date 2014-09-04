@@ -99,7 +99,7 @@ class AppointmentSeeder extends Seeder
         }
 
         $serviceTable = (new Service())->getTable();
-        DB::table($serviceTable)->update(array('length' => '`before` + `during` + `after`'));
+        DB::table($serviceTable)->update(array('length' => DB::raw('`before` + `during` + `after`')));
 
         // Employees
         $items = [

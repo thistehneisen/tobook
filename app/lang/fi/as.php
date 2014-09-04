@@ -198,7 +198,10 @@ return [
         'days_of_week'        => 'Viikonpäivä',
         'start_time'          => 'Aloitusaika',
         'end_time'            => 'Lopetusaika',
-        'day_off'             => 'Vapaapäivä'
+        'day_off'             => 'Vapaapäivä',
+        'confirm'             => [
+            'delete_freetime' => 'Oletko varma, että haluat poistaa valitun vapaa ajan kalenterista?'
+        ]
     ],
     'embed' => [
         'heading'     => 'Otsikko',

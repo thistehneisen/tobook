@@ -135,7 +135,7 @@
                 }
             });
         });
-        $(document).one('click', '#btn-add-employee-freetime', function(e) {
+        $(document).on('click', '#btn-add-employee-freetime', function(e) {
             e.preventDefault();
             $.ajax({
                 type: 'POST',
@@ -143,7 +143,25 @@
                 data: $('#freetime_form').serialize(),
                 dataType: 'json'
             }).done(function(data) {
-                console.log(data);
+                 location.reload();
+            });
+        });
+        $('.btn-delete-employee-freetime').click(function(e) {
+            e.preventDefault();
+            var $self = $(this);
+            alertify.confirm($(this).data('confirm'), function(e) {
+                if (e) {
+                    $.ajax({
+                        type: 'POST',
+                        url: $self.data("action-url"),
+                        data: { freetime_id : $self.data('freetime-id') },
+                        dataType: 'json'
+                    }).done(function(data) {
+                        if(data.success) {
+                            location.reload();
+                        }
+                    });
+                }
             });
         });
         $(document).on('click', '#btn-add-service', function(e) {

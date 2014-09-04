@@ -93,6 +93,7 @@ class Employee extends \App\Core\Models\Base
                 $this->freetimeList[$selectedDate->toDateString()][(int) $hour][(int) $minute] = $freetime;
             }
         }
+
         // get booking only certain date
         if (empty($this->bookingList[$selectedDate->toDateString()])) {
             $this->bookingList[$selectedDate->toDateString()] = $this->bookings()->where('date', $selectedDate->toDateString())->get();
