@@ -43,12 +43,11 @@ class Option extends BaseModel
             $userOptions[$item->key] = $item;
         }
 
-        foreach ($dirty as $key => $value)
-        {
+        foreach ($dirty as $key => $value) {
             // Instead of going to database to check, we will use $userOptions
             $option = isset($userOptions[$key]) ? $userOptions[$key] : null;
             if ($option === null) {
-                $option = new static;
+                $option = new static();
             }
 
             $option->fill([

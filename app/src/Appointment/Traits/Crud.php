@@ -31,12 +31,13 @@ trait Crud
      */
     protected function getModelClass()
     {
-        if (isset($this->modelClass) && $this->modelClass !== null)  {
+        if (isset($this->modelClass) && $this->modelClass !== null) {
             return $this->modelClass;
         }
 
         // Because we have namespace like App\<module>\Controllers
         $namespace = substr(__NAMESPACE__, 0, strrpos(__NAMESPACE__, '\\')).'\Models\\';
+
         return $namespace.str_singular(class_basename(__CLASS__));
     }
 
@@ -133,7 +134,7 @@ trait Crud
         $model = $this->getModel();
         $item = ($id !== null)
             ? $model->findOrFail($id)
-            : new $model;
+            : new $model();
 
         $view = View::exists($this->getViewPath().'.form')
             ? $this->getViewPath().'.form'
@@ -159,7 +160,7 @@ trait Crud
         try {
             $item = ($id !== null)
                 ? $model->findOrFail($id)
-                : new $model;
+                : new $model();
 
             $item = $this->upsertHandler($item);
             $item->saveOrFail();
@@ -175,6 +176,7 @@ trait Crud
         }
 
         $errors = $this->errorMessageBag(trans('common.err.unexpected'));
+
         return Redirect::back()->withInput()->withErrors($errors, 'top');
     }
 
@@ -189,6 +191,7 @@ trait Crud
     protected function upsertHandler($item)
     {
         $item->fill(Input::all());
+
         return $item;
     }
 

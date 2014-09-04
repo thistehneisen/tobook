@@ -8,23 +8,28 @@ class BookingService extends \App\Core\Models\Base
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
-    public function booking(){
+    public function booking()
+    {
         return $this->belongsTo('App\Appointment\Models\Booking');
     }
 
-    public function service(){
+    public function service()
+    {
        return $this->belongsTo('App\Appointment\Models\Service');
     }
 
-    public function serviceTime(){
+    public function serviceTime()
+    {
        return $this->belongsTo('App\Appointment\Models\ServiceTime');
     }
 
-    public function employee(){
+    public function employee()
+    {
        return $this->belongsTo('App\Appointment\Models\Employee');
     }
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo('App\Core\Models\User');
     }
 }

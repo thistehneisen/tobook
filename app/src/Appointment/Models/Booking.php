@@ -17,7 +17,8 @@ class Booking extends \App\Core\Models\Base
     const STATUS_PENDDING  = 2;
     const STATUS_CANCELLED = 3;
 
-    protected function getStatuses(){
+    protected function getStatuses()
+    {
         return [
             'confirmed' => trans('as.bookings.confirmed'),
             'pending'   => trans('as.bookings.pending'),
@@ -25,7 +26,8 @@ class Booking extends \App\Core\Models\Base
         ];
     }
 
-    protected function getStatus($statusText){
+    protected function getStatus($statusText)
+    {
         switch ($statusText) {
             case 'confirmed':
                 return self::STATUS_CONFIRM;
@@ -43,19 +45,23 @@ class Booking extends \App\Core\Models\Base
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo('App\Core\Models\User');
     }
 
-    public function consumer(){
+    public function consumer()
+    {
        return $this->belongsTo('App\Consumers\Models\Consumer');
     }
 
-    public function employee(){
+    public function employee()
+    {
         return $this->belongsTo('App\Appointment\Models\Employee');
     }
 
-    public function bookingServices(){
+    public function bookingServices()
+    {
         return $this->hasMany('App\Appointment\Models\BookingService');
     }
 }

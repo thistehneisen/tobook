@@ -16,13 +16,18 @@ class Employee extends \App\Core\Models\Base
         ]
     ];
 
+    /**
+     * These variables to use as a dictionary to easy to get back
+     *  and limit access to db in for loop
+     */
     private $bookedSlot = [];
     private $bookingList = [];
+    private $freetimeList = [];
 
     public function getDefaultTimes()
     {
         $defaultTimes = $this->defaultTimes;
-        if($defaultTimes->isEmpty()){
+        if ($defaultTimes->isEmpty()) {
             $defaultTimeConfig = Config::get('employee.default_time');
             $data = [];
             foreach ($defaultTimeConfig as $time) {
@@ -32,25 +37,32 @@ class Employee extends \App\Core\Models\Base
             }
             $defaultTimes = new \Illuminate\Support\Collection($data);
         }
+
         return $defaultTimes;
     }
 
-    public function getDefaulTimesByDay($day){
+    public function getDefaulTimesByDay($day)
+    {
         $defaultTimes = $this->getDefaultTimes();
-        return $defaultTimes->filter(function($item) use ($day) {
+
+        return $defaultTimes->filter(function ($item) use ($day) {
             return $item->type === $day;
         });
     }
 
-    public function getTodayDefaultStartAt(){
+    public function getTodayDefaultStartAt()
+    {
          //TODO change thu to today weekday
         $todayStartAt = $this->getDefaulTimesByDay('thu')->first()->start_at;
+
         return $todayStartAt;
     }
 
-    public function getTodayDefaultEndAt(){
+    public function getTodayDefaultEndAt()
+    {
         //TODO change thu to today weekday
         $todayEndAt = $this->getDefaulTimesByDay('thu')->first()->end_at;
+
         return $todayEndAt;
     }
 
@@ -66,7 +78,7 @@ class Employee extends \App\Core\Models\Base
         list($endHour, $endMinute) = explode(':', $this->getTodayDefaultEndAt());
         $endAt = Carbon::createFromTime($endHour, $endMinute, 0, Config::get('app.timezone'));
 
-        if($rowTime >= $startAt && $rowTime <= $endAt){
+        if ($rowTime >= $startAt && $rowTime <= $endAt) {
             $class = 'active';
         } else {
             $class = 'unactive';
@@ -74,32 +86,31 @@ class Employee extends \App\Core\Models\Base
 
         $freetimes = $this->freetimes()->where('date', $selectedDate->toDateString())->get();
         foreach ($freetimes as $freetime) {
-            list($startHour, $startMinute, $startSecond) = explode(':', $freetime->start_at);
-            $startAt =  Carbon::createFromTime($startHour, $startMinute, 0, Config::get('app.timezone'));
-            list($startHour, $startMinute, $startSecond) = explode(':', $freetime->end_at);
-            $endAt =  Carbon::createFromTime($startHour, $startMinute, 0, Config::get('app.timezone'));
-            if($rowTime >= $startAt && $rowTime <= $endAt){
+            $startAt =  Carbon::createFromFormat('H:i:s', $freetime->start_at, Config::get('app.timezone'));
+            $endAt   =  Carbon::createFromFormat('H:i:s', $freetime->end_at, Config::get('app.timezone'));
+            if ($rowTime >= $startAt && $rowTime <= $endAt) {
                 $class = 'freetime';
+                $this->freetimeList[$selectedDate->toDateString()][(int) $hour][(int) $minute] = $freetime;
             }
         }
         // get booking only certain date
-        if(empty($this->bookingList[$selectedDate->toDateString()])){
+        if (empty($this->bookingList[$selectedDate->toDateString()])) {
             $this->bookingList[$selectedDate->toDateString()] = $this->bookings()->where('date', $selectedDate->toDateString())->get();
         }
         foreach ($this->bookingList[$selectedDate->toDateString()] as $booking) {
             $bookingDate =  Carbon::createFromFormat('Y-m-d', $booking->date);
-            if($bookingDate == $selectedDate){
+            if ($bookingDate == $selectedDate) {
                 list($startHour, $startMinute, $startSecond) = explode(':', $booking->start_at);
                 $bookingStartAt =  Carbon::createFromTime($startHour, $startMinute, 0, Config::get('app.timezone'));
                 $bookingEndAt   =  with(clone $bookingStartAt)->addMinutes($booking->total)->subMinutes(15);//15 is duration of single slot
-                if($rowTime >= $bookingStartAt && $rowTime <= $bookingEndAt){
+                if ($rowTime >= $bookingStartAt && $rowTime <= $bookingEndAt) {
                     $class = 'booked';
-                    if($rowTime == $bookingStartAt){
+                    if ($rowTime == $bookingStartAt) {
                         $class .= ' slot-booked-head';
                     } else {
                         $class .= ' slot-booked-body';
                     }
-                    $this->bookedSlot[$selectedDate->toDateString()][(int)$startHour][(int)$startMinute] = $booking;
+                    $this->bookedSlot[$selectedDate->toDateString()][(int) $startHour][(int) $startMinute] = $booking;
                 }
             }
         }
@@ -109,9 +120,19 @@ class Employee extends \App\Core\Models\Base
 
     public function getBooked($date, $hour, $minute)
     {
-        if(!empty($this->bookedSlot[$date][$hour][$minute])){
+        if (!empty($this->bookedSlot[$date][$hour][$minute])) {
             return $this->bookedSlot[$date][$hour][$minute];
         }
+
+        return null;
+    }
+
+    public function getFreetime($date, $hour, $minute)
+    {
+        if (!empty($this->freetimeList[$date][$hour][$minute])) {
+            return $this->freetimeList[$date][$hour][$minute];
+        }
+
         return null;
     }
 
@@ -151,7 +172,8 @@ class Employee extends \App\Core\Models\Base
          return $this->hasMany('App\Appointment\Models\EmployeeDefaultTime');
     }
 
-    public function services(){
+    public function services()
+    {
         return $this->belongsToMany('App\Appointment\Models\Service', 'as_employee_service');
     }
 

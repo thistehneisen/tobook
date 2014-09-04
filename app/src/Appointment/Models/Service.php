@@ -43,11 +43,13 @@ class Service extends \App\Core\Models\Base
         return $this->belongsTo('App\Appointment\Models\ServiceCategory');
     }
 
-    public function employees(){
+    public function employees()
+    {
         return $this->belongsToMany('App\Appointment\Models\Employee');
     }
 
-    public function serviceTimes(){
+    public function serviceTimes()
+    {
         return $this->hasMany('App\Appointment\Models\ServiceTime');
     }
 }

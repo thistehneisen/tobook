@@ -7,11 +7,13 @@ class AsConsumer extends \App\Core\Models\Base
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo('App\Core\Models\User');
     }
 
-    public function consumer(){
+    public function consumer()
+    {
        return $this->belongsTo('App\Consumers\Models\Consumer');
     }
 }

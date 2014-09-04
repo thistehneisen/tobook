@@ -4,7 +4,6 @@ use View, Input;
 use App\Core\Controllers\Base;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\Booking;
-use App\Appointment\Models\ServiceCategory;
 use Carbon\Carbon;
 class Index extends Base
 {
@@ -19,10 +18,10 @@ class Index extends Base
         $workingTimes = range(8,17);
         $date = (empty($date)) ? Carbon::today() : $date;
 
-        if(!$date instanceof Carbon){
-            try{
+        if (!$date instanceof Carbon) {
+            try {
                 $date = Carbon::createFromFormat('Y-m-d', $date);
-            } catch(\Exception $ex){
+            } catch (\Exception $ex) {
                 $date = Carbon::today();
             }
         }
@@ -41,10 +40,10 @@ class Index extends Base
         $workingTimes = range(8,17);
         $date = (empty($date)) ? Carbon::today() : $date;
 
-        if(!$date instanceof Carbon){
-            try{
+        if (!$date instanceof Carbon) {
+            try {
                 $date = Carbon::createFromFormat('Y-m-d', $date);
-            } catch(\Exception $ex){
+            } catch (\Exception $ex) {
                 $date = Carbon::today();
             }
         }
@@ -59,6 +58,7 @@ class Index extends Base
             $cloneDate->format('l') => $cloneDate->addDay()->toDateString(),
             $cloneDate->format('l') => $cloneDate->addDay()->toDateString(),
         ];
+
         return View::make('modules.as.index.employee', [
                 'employeeId'       => $id,
                 'selectedEmployee' => $employee,

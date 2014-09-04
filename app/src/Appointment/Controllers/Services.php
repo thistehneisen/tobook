@@ -37,16 +37,17 @@ class Services extends AsBase
             ]);
     }
 
-    public function doCreate(){
+    public function doCreate()
+    {
         $errors = $this->errorMessageBag(trans('common.err.unexpected'));
 
         try {
-            $service = new Service;
+            $service = new Service();
             $service->fill(Input::all());
             // Attach user
             $service->user()->associate($this->user);
             $category_id = (int) Input::get('category_id');
-            if(!empty($category_id)){
+            if (!empty($category_id)) {
                 $category = Category::find($category_id);
                 $service->category()->associate($category);
             }
@@ -58,7 +59,7 @@ class Services extends AsBase
 
             foreach ($employees as $employee_id) {
                 $employee = Employee::find($employee_id);
-                $emplyeeService = new EmployeeService;
+                $emplyeeService = new EmployeeService();
                 $emplyeeService->service()->associate($service);
                 $emplyeeService->employee()->associate($employee);
                 $emplyeeService->plustime = $plustimes[$employee_id];

@@ -21,7 +21,7 @@ class Employees extends AsBase
         $services = Service::ofCurrentUser()->lists('name', 'id');
         $employee = ($id !== null)
             ? Employee::findOrFail($id)
-            : new Employee;
+            : new Employee();
 
         return $this->render('form', [
             'services' => $services,
@@ -54,6 +54,7 @@ class Employees extends AsBase
             }
         }
         $item->user()->associate($this->user);
+
         return $item;
     }
 
@@ -103,7 +104,7 @@ class Employees extends AsBase
                 );
 
                 $isDayOff = false;
-                if(isset($input['is_day_off'][$type])){
+                if (isset($input['is_day_off'][$type])) {
                     $isDayOff  = (bool) $input['is_day_off'][$type];
                 }
                 $data = [
@@ -117,14 +118,14 @@ class Employees extends AsBase
                     ->where('type',$type)
                     ->first();
 
-                if(empty($defaultTime)) {
-                    $defaultTime = new EmployeeDefaultTime;
+                if (empty($defaultTime)) {
+                    $defaultTime = new EmployeeDefaultTime();
                 }
                 $defaultTime->fill($data);
                 $defaultTime->employee()->associate($employee);
                 $defaultTime->save();
             }
-        } catch(\Watson\Validating\ValidationException $ex){
+        } catch (\Watson\Validating\ValidationException $ex) {
             return Redirect::route('as.services.categories')
                 ->with('messages', $this->successMessageBag($ex->getErrors()));
         }
@@ -135,12 +136,12 @@ class Employees extends AsBase
             ));
     }
 
-
-    public function customTime(){
-
+    public function customTime()
+    {
     }
 
-    public function getFreeTimeForm(){
+    public function getFreeTimeForm()
+    {
         $employeeId = Input::get('employee_id');
         $bookingDate = Input::get('booking_date');
         $startTime = Input::get('start_time');
@@ -153,11 +154,12 @@ class Employees extends AsBase
         $workShift = range(0, 45, 15);
         $times = [];
         foreach ($workingTimes as $hour) {
-           foreach (range(0, 45, 15) as $minuteShift){
+           foreach (range(0, 45, 15) as $minuteShift) {
                 $time = sprintf('%02d:%02d', $hour, $minuteShift);
                 $times[$time] = $time;
            }
         }
+
         return View::make('modules.as.employees.freetimeForm', [
             'employees'   => $employees,
             'employee'    => $employee,
@@ -167,21 +169,23 @@ class Employees extends AsBase
         ]);
     }
 
-    public function addEmployeeFreeTime(){
+    public function addEmployeeFreeTime()
+    {
         $employeeId = Input::get('employees');
         $data = [];
-        try{
-            $employeeFreetime = new EmployeeFreetime;
+        try {
+            $employeeFreetime = new EmployeeFreetime();
             $employeeFreetime->fill(Input::all());
             $employee = Employee::find($employeeId);
             $employeeFreetime->user()->associate($this->user);
             $employeeFreetime->employee()->associate($employee);
             $employeeFreetime->save();
             $data['success'] = true;
-        } catch (\Exception $ex){
+        } catch (\Exception $ex) {
             $data['success'] = false;
             $data['message'] = $ex->getMessage();
         }
+
         return Response::json($data);
     }
 }

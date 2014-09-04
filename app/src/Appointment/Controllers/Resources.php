@@ -16,6 +16,7 @@ class Resources extends AsBase
     {
         $item->fill(Input::all());
         $item->user()->associate($this->user);
+
         return $item;
     }
 }

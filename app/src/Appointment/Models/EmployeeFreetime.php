@@ -1,5 +1,4 @@
 <?php namespace App\Appointment\Models;
-use Carbon\Carbon;
 class EmployeeFreetime extends \App\Core\Models\Base
 {
     protected $table = 'as_employee_freetime';
@@ -9,11 +8,13 @@ class EmployeeFreetime extends \App\Core\Models\Base
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo('App\Core\Models\User');
     }
 
-    public function employee(){
+    public function employee()
+    {
         return $this->belongsTo('App\Appointment\Models\Employee');
     }
 

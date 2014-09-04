@@ -21,7 +21,8 @@ class Bookings extends AsBase
      *
      * @return View
      **/
-    public function getBookingForm(){
+    public function getBookingForm()
+    {
         $employeeId = Input::get('employee_id');
         $bookingDate = Input::get('booking_date');
         $startTime = Input::get('start_time');
@@ -36,6 +37,7 @@ class Bookings extends AsBase
             //for getting distinct categories
             $categories[$service->category->id] = $service->category->name;
         }
+
         return View::make('modules.as.bookings.form', [
             'uuid'            => Util::uuid(),
             'employee'        => $employee,
@@ -51,7 +53,8 @@ class Bookings extends AsBase
      *
      *  @return json
      **/
-    public function getEmployeeServicesByCategory(){
+    public function getEmployeeServicesByCategory()
+    {
         $categoryId = Input::get('category_id');
         $employeeId = Input::get('employee_id');
         $employee = Employee::find($employeeId);
@@ -63,6 +66,7 @@ class Bookings extends AsBase
                 'name' => $service->name
             ];
         }
+
         return Response::json(array_values($data));
     }
 
@@ -71,7 +75,8 @@ class Bookings extends AsBase
      *
      *  @return json
      **/
-    public function getServiceTimes(){
+    public function getServiceTimes()
+    {
         $serviceId    = Input::get('service_id');
         $service      = Service::find($serviceId);
         $serviceTimes = $service->serviceTimes;
@@ -86,6 +91,7 @@ class Bookings extends AsBase
                 'length' => $serviceTime->length
             ];
         }
+
         return Response::json(array_values($data));
     }
 
@@ -94,7 +100,8 @@ class Bookings extends AsBase
      *
      * @return json
      */
-    public function addBookingService(){
+    public function addBookingService()
+    {
         $serviceId      = Input::get('service_id');
         $employeeId     = Input::get('employee_id');
         $serviceTimeId  = Input::get('service_time');
@@ -107,7 +114,7 @@ class Bookings extends AsBase
         $service = Service::find($serviceId);
 
         $length = 0;
-        if($serviceTimeId === 'default'){
+        if ($serviceTimeId === 'default') {
             $service = Service::find($serviceId);
             $length = $service->length;
         } else {
@@ -122,25 +129,26 @@ class Bookings extends AsBase
         //TODO check is there any existed booking with this service time
         $bookings = Booking::where('date', $bookingDate)
             ->where('employee_id', $employeeId)
-            ->where(function($query) use($startTime, $endTime){
-                return $query->where(function($query) use($startTime) {
+            ->where(function ($query) use ($startTime, $endTime) {
+                return $query->where(function ($query) use ($startTime) {
                     return $query->where('start_at', '<=', $startTime->toTimeString())
                          ->where('end_at', '>', $startTime->toTimeString());
-                })->orWhere(function($query) use($endTime) {
+                })->orWhere(function ($query) use ($endTime) {
                      return $query->where('start_at', '<', $endTime->toTimeString())
                           ->where('end_at', '>=', $endTime->toTimeString());
-                })->orWhere(function($query) use($startTime, $endTime) {
+                })->orWhere(function ($query) use ($startTime, $endTime) {
                      return $query->where('start_at', '=', $startTime->toTimeString())
                           ->where('end_at', '=', $endTime->toTimeString());
                 });
             })->get();
 
-        if(!$bookings->isEmpty()){
+        if (!$bookings->isEmpty()) {
             $data['message'] = trans('as.bookings.error.add_overlapped_booking');
+
             return Response::json($data, 400);
         }
         //TODO validate modify time and service time
-        $bookingService = new BookingService;
+        $bookingService = new BookingService();
         //Using uuid for retrieve it later when insert real booking
         $bookingService->fill([
             'tmp_uuid' => $uuid,
@@ -149,7 +157,7 @@ class Bookings extends AsBase
             'end_at'   => $endTime
         ]);
 
-        if(!empty($serviceTime)){
+        if (!empty($serviceTime)) {
             $bookingService->serviceTime()->associate($serviceTime);
         }
         $bookingService->service()->associate($service);
@@ -172,7 +180,8 @@ class Bookings extends AsBase
      * Add new booking to database
      *
      **/
-    public function addBooking(){
+    public function addBooking()
+    {
         $uuid          = Input::get('booking_uuid');
         $bookingId     = Input::get('booking_id');
         $bookingStatus = Input::get('booking_status');
@@ -191,7 +200,7 @@ class Bookings extends AsBase
 
             $status = Booking::getStatus($bookingStatus);
 
-            $booking = new Booking;
+            $booking = new Booking();
             $booking->fill([
                 'date'      => $bookingService->date,
                 'start_at'  => $bookingService->start_at,
@@ -212,14 +221,16 @@ class Bookings extends AsBase
             $data['status']      = true;
             $data['baseURl']     = route('as.index');
             $data['bookingDate'] = $booking->date;
-        } catch (\Exception $ex){
+        } catch (\Exception $ex) {
             $data['status'] = false;
             $data['message'] = $ex->getMessage();
         }
+
         return Response::json($data);
     }
 
-    private function handleConsumer(){
+    private function handleConsumer()
+    {
         //Insert customer
         $firstname = Input::get('consumer_firstname');
         $lastname  = Input::get('consumer_lastname');
@@ -227,10 +238,10 @@ class Bookings extends AsBase
         $phone     = Input::get('consumer_phone');
         $address   = Input::get('consumer_address');
         $consumer = Consumer::where('email', $email)->first();
-        $asConsumer = new AsConsumer;
+        $asConsumer = new AsConsumer();
 
         //TODO handle consumer validation
-        if($consumer === null){
+        if ($consumer === null) {
             $consumer = Consumer::make([
                 'first_name' => $firstname,
                 'last_name'  => $lastname,
@@ -238,25 +249,29 @@ class Bookings extends AsBase
                 'phone'      => $phone
             ]);
 
-            $asConsumer = new AsConsumer;
+            $asConsumer = new AsConsumer();
             $asConsumer->user()->associate($this->user);
             $asConsumer->consumer()->associate($consumer);
             $asConsumer->save();
         } else {
             $asConsumer = AsConsumer::where('consumer_id', $consumer->id)->first();
         }
+
         return $asConsumer;
     }
 
-    public function removeBookingService(){
+    public function removeBookingService()
+    {
         $uuid = Input::get('uuid');
-        try{
+        try {
             $bookingService = BookingService::where('tmp_uuid', $uuid)->delete();
             $data['success'] = true;
-        } catch(\Exception $ex){
+        } catch (\Exception $ex) {
             $data['message'] = $ex->getMessage();
+
             return Response::json($data, 400);
         }
+
         return Response::json($data);
     }
 }

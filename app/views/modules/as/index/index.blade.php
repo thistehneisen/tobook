@@ -72,10 +72,18 @@
                     <li data-booking-date="{{ $selectedDate }}" data-employee-id="{{ $employee->id }}" data-start-time="{{ sprintf('%02d:%02d', $hour, $minuteShift) }}" href="#select-action" class="fancybox {{ $slotClass }}">
                         @if(strpos(trim($slotClass), 'booked') === 0)
                             <?php $booking = $employee->getBooked($selectedDate, $hour, $minuteShift); ?>
-                            @if($booking != null)
-                            <span class="customer-tooltip"title="">{{ $booking->consumer->first_name }} ({{ $booking->bookingServices[0]->service->description }})</span>
+                            @if($booking !== null)
+                            <span class="customer-tooltip"title="{{ $booking->consumer->getNameAttribute() }} ({{ $booking->bookingServices[0]->service->description }})">{{ $booking->consumer->getNameAttribute() }} ({{ $booking->bookingServices[0]->service->description }})</span>
                             <a href="#" class="pull-right"><i class="fa fa-plus"></i></a>
                             @endif
+                        @elseif(strpos(trim($slotClass), 'freetime') === 0)
+                            <?php $freetime = $employee->getFreetime($selectedDate, $hour, $minuteShift); ?>
+                             @if($freetime !== null)
+                                <span class="customer-tooltip"title="{{ $freetime->description }}">{{ $freetime->description }}</span>
+                                @if(strval($freetime->start_at) == sprintf('%02d:%02d:00', $hour, $minuteShift))
+                                    <a href="#" class="pull-right"><i class="fa fa-remove"></i></a>
+                                @endif
+                             @endif
                         @else
                         varaa
                         @endif
