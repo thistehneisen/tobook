@@ -19,9 +19,9 @@ class AppointmentSeeder extends Seeder
         $user = User::find(34);
 
         $items = [
-            ['name' => 'Test Category 1', 'is_show_front' => 1],
-            ['name' => 'Test Category 2', 'is_show_front' => 0],
-            ['name' => 'Test Category 3', 'is_show_front' => 1],
+            ['name' => 'Test Category '.str_random(6), 'is_show_front' => 1],
+            ['name' => 'Test Category '.str_random(6), 'is_show_front' => 0],
+            ['name' => 'Test Category '.str_random(6), 'is_show_front' => 1],
         ];
 
         $categories = new Collection;
@@ -33,9 +33,9 @@ class AppointmentSeeder extends Seeder
         }
 
         $items = [
-            ['name' => 'Resource 1', 'quantity' => mt_rand(1, 999)],
-            ['name' => 'Resource 2', 'quantity' => mt_rand(1, 999)],
-            ['name' => 'Resource 3', 'quantity' => mt_rand(1, 999)],
+            ['name' => 'Resource '.str_random(6), 'quantity' => mt_rand(1, 999)],
+            ['name' => 'Resource '.str_random(6), 'quantity' => mt_rand(1, 999)],
+            ['name' => 'Resource '.str_random(6), 'quantity' => mt_rand(1, 999)],
         ];
         $resouces = new Collection;
         foreach ($items as $item) {
@@ -46,9 +46,9 @@ class AppointmentSeeder extends Seeder
         }
 
         $items = [
-            ['name' => 'Extra 1', 'price' => mt_rand(1, 999), 'length' => range(0, 60, 5)[mt_rand(0, 11)]],
-            ['name' => 'Extra 2', 'price' => mt_rand(1, 999), 'length' => range(0, 60, 5)[mt_rand(0, 11)]],
-            ['name' => 'Extra 3', 'price' => mt_rand(1, 999), 'length' => range(0, 60, 5)[mt_rand(0, 11)]],
+            ['name' => 'Extra '.str_random(6), 'price' => mt_rand(1, 999), 'length' => range(5, 60, 5)[mt_rand(0, 10)]],
+            ['name' => 'Extra '.str_random(6), 'price' => mt_rand(1, 999), 'length' => range(5, 60, 5)[mt_rand(0, 10)]],
+            ['name' => 'Extra '.str_random(6), 'price' => mt_rand(1, 999), 'length' => range(5, 60, 5)[mt_rand(0, 10)]],
         ];
         $extras = new Collection;
         foreach ($items as $item) {
@@ -60,7 +60,7 @@ class AppointmentSeeder extends Seeder
 
         $items = [
             [
-                'name'        => 'Service 1',
+                'name'        => 'Service '.str_random(6),
                 'price'       => mt_rand(0, 999),
                 'length'      => range(0, 60, 5)[mt_rand(0, 11)],
                 'before'      => range(0, 60, 5)[mt_rand(0, 11)],
@@ -69,7 +69,7 @@ class AppointmentSeeder extends Seeder
                 'is_active'   => 1
             ],
             [
-                'name'        => 'Service 2',
+                'name'        => 'Service '.str_random(6),
                 'price'       => mt_rand(0, 999),
                 'length'      => range(0, 60, 5)[mt_rand(0, 11)],
                 'before'      => range(0, 60, 5)[mt_rand(0, 11)],
@@ -78,7 +78,7 @@ class AppointmentSeeder extends Seeder
                 'is_active'   => 0
             ],
             [
-                'name'        => 'Service 3',
+                'name'        => 'Service '.str_random(6),
                 'price'       => mt_rand(0, 999),
                 'length'      => range(0, 60, 5)[mt_rand(0, 11)],
                 'before'      => range(0, 60, 5)[mt_rand(0, 11)],
