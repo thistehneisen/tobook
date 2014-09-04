@@ -164,6 +164,8 @@
         $('#added_booking_date').text(data.datetime);
         $('#added_service_price').text(data.price);
         $('#added_services').show();
+      }).fail(function (data) {
+        alertify.alert(data.responseJSON.message);
       });
     });
     $(document).on('click', '#btn-remove-service-time', function (e) {
@@ -182,7 +184,7 @@
         data: postData,
         dataType: 'json'
       }).done(function (data) {
-          console.log(data);
+         window.location.href = data.baseURl + '/' + data.bookingDate;
       });
     });
     $('#btn-continute-action').click(function (e) {

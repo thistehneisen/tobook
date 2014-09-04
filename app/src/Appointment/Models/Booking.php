@@ -8,6 +8,7 @@ class Booking extends \App\Core\Models\Base
         'date',
         'total',
         'start_at',
+        'end_at',
         'status',
         'ip',
     ];

@@ -22,6 +22,7 @@ class CreateAsBookingsTable extends Migration {
             $table->date('date');
             $table->tinyInteger('total');
             $table->time('start_at');
+            $table->time('end_at');
             $table->tinyInteger('status');
             $table->string('ip');
             $table->foreign('user_id')

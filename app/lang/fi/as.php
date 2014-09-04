@@ -166,6 +166,9 @@ return [
         'start_at'   => 'start_at', // @todo
         'status'     => 'status', // @todo
         'ip'         => 'ip', // @todo
+        'error'      => [
+            'add_overlapped_booking' => 'Overlapped booking time!'
+        ]
     ],
     'employees' => [
         'all'                 => 'Työntekijät',

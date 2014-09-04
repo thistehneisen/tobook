@@ -100,7 +100,7 @@ class Bookings extends AsBase
         $serviceTimeId  = Input::get('service_time');
         $modifyTime     = Input::get('modify_times');
         $bookingDate    = Input::get('booking_date');
-        $startTime      = Input::get('start_time');
+        $startTimeStr      = Input::get('start_time');
         $uuid           = Input::get('uuid');
 
         $employee = Employee::find($employeeId);
@@ -116,16 +116,36 @@ class Bookings extends AsBase
         }
 
         $endTimeDelta = ($length + $modifyTime);
-        $endTime = Carbon::createFromFormat('H:i', $startTime)->addMinutes($endTimeDelta);
+        $startTime = Carbon::createFromFormat('H:i', $startTimeStr);
+        $endTime = Carbon::createFromFormat('H:i', $startTimeStr)->addMinutes($endTimeDelta);
 
         //TODO check is there any existed booking with this service time
+        $bookings = Booking::where('date', $bookingDate)
+            ->where('employee_id', $employeeId)
+            ->where(function($query) use($startTime, $endTime){
+                return $query->where(function($query) use($startTime) {
+                    return $query->where('start_at', '<=', $startTime->toTimeString())
+                         ->where('end_at', '>', $startTime->toTimeString());
+                })->orWhere(function($query) use($endTime) {
+                     return $query->where('start_at', '<', $endTime->toTimeString())
+                          ->where('end_at', '>=', $endTime->toTimeString());
+                })->orWhere(function($query) use($startTime, $endTime) {
+                     return $query->where('start_at', '=', $startTime->toTimeString())
+                          ->where('end_at', '=', $endTime->toTimeString());
+                });
+            })->get();
 
+        if(!$bookings->isEmpty()){
+            $data['message'] = trans('as.bookings.error.add_overlapped_booking');
+            return Response::json($data, 400);
+        }
+        //TODO validate modify time and service time
         $bookingService = new BookingService;
         //Using uuid for retrieve it later when insert real booking
         $bookingService->fill([
             'tmp_uuid' => $uuid,
             'date'     => $bookingDate,
-            'start_at' => $startTime,
+            'start_at' => $startTimeStr,
             'end_at'   => $endTime
         ]);
 
@@ -175,11 +195,13 @@ class Bookings extends AsBase
             $booking->fill([
                 'date'      => $bookingService->date,
                 'start_at'  => $bookingService->start_at,
+                'end_at'    => $bookingService->end_at,
                 'total'     => $length,
                 'status'    => $status,
                 'notes'     => $notes,
                 'uuid'      => $uuid
             ]);
+            //need to update end_at, total when add extra service
 
             $booking->consumer()->associate($consumer);
             $booking->user()->associate($this->user);
@@ -187,7 +209,9 @@ class Bookings extends AsBase
             $booking->save();
             $bookingService->booking()->associate($booking);
             $bookingService->save();
-            $data['status'] = true;
+            $data['status']      = true;
+            $data['baseURl']     = route('as.index');
+            $data['bookingDate'] = $booking->date;
         } catch (\Exception $ex){
             $data['status'] = false;
             $data['message'] = $ex->getMessage();
