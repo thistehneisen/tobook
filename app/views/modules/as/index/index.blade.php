@@ -1,6 +1,10 @@
 @extends ('modules.as.layout')
 
 @section ('content')
+<?php
+    $selectedDate = $date->toDateString();
+    $dayOfWeek = $date->dayOfWeek;
+?>
 <div class="alert alert-info">
     <p><strong>Etusivu</strong></p>
     <p>Näkymässä näet kaikkien työntekijöiden kalenterin. Kuluttajille varattavat ajat vihreällä. Voit tehdä halutessasi varauksia myös harmaalle alueelle joka näkyy kuluttajille suljettuna.</p>
@@ -18,25 +22,29 @@
         <a href="{{ route('as.index', ['date'=> Carbon\Carbon::tomorrow()->toDateString()]) }}" class="btn btn-default">Huomenna</a>
 
         <div class="btn-group">
-            <button class="btn btn-link"><i class="fa fa-fast-backward"></i></button>
-            <button class="btn btn-link"><i class="fa fa-backward"></i></button>
-            <button class="btn btn-link"><i class="fa fa-forward"></i></button>
-            <button class="btn btn-link"><i class="fa fa-fast-forward"></i></button>
+            <a href="{{ route('as.index', ['date'=> with(clone $date)->subWeek()->toDateString()]) }}" class="btn btn-link"><i class="fa fa-fast-backward"></i></a>
+            <a href="{{ route('as.index', ['date'=> with(clone $date)->subDay()->toDateString()]) }}" class="btn btn-link"><i class="fa fa-backward"></i></a>
+            <a href="{{ route('as.index', ['date'=> with(clone $date)->addDay()->toDateString()]) }}" class="btn btn-link"><i class="fa fa-forward"></i></a>
+            <a href="{{ route('as.index', ['date'=> with(clone $date)->addWeek()->toDateString()]) }}" class="btn btn-link"><i class="fa fa-fast-forward"></i></a>
         </div>
 
         <div class="btn-group">
-            <button type="button" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::MONDAY) btn-primary @endif">Ma</button>
-            <button type="button" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::TUESDAY) btn-primary @endif">Ti</button>
-            <button type="button" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::WEDNESDAY) btn-primary @endif">Ke</button>
-            <button type="button" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::THURSDAY) btn-primary @endif">To</button>
-            <button type="button" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::FRIDAY) btn-primary @endif">Pe</button>
-            <button type="button" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::SATURDAY) btn-primary @endif">La</button>
-            <button type="button" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::SUNDAY) btn-primary @endif">Su</button>
+            <?php
+                $startOfWeek = with(clone $date)->startOfWeek();
+                $endOfWeek = with(clone $date)->endOfWeek();
+            ?>
+            <a href="{{ route('as.index', ['date'=> $startOfWeek->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::MONDAY) btn-primary @endif">Ma</a>
+            <a href="{{ route('as.index', ['date'=> $startOfWeek->addDay()->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::TUESDAY) btn-primary @endif">Ti</button>
+            <a href="{{ route('as.index', ['date'=> $startOfWeek->addDay()->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::WEDNESDAY) btn-primary @endif">Ke</a>
+            <a href="{{ route('as.index', ['date'=> $startOfWeek->addDay()->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::THURSDAY) btn-primary @endif">To</a>
+            <a href="{{ route('as.index', ['date'=> $startOfWeek->addDay()->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::FRIDAY) btn-primary @endif">Pe</button>
+            <a href="{{ route('as.index', ['date'=> $startOfWeek->addDay()->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::SATURDAY) btn-primary @endif">La</a>
+            <a href="{{ route('as.index', ['date'=> $endOfWeek->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::SUNDAY) btn-primary @endif">Su</a>
         </div>
     </div>
 
     <div class="col-md-2 text-right">
-        <button class="btn btn-primary"><i class="fa fa-print"> Tulosta</i></button>
+        <button class="btn btn-primary" onclick="window.print();"><i class="fa fa-print"> Tulosta</i></button>
     </div>
 </div>
 

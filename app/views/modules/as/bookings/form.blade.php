@@ -104,7 +104,7 @@
                                         <td> <span id="added_booking_date"></span></td>
                                         <td class="align_right"> <span id="added_service_price"></span></td>
                                         <td>
-                                           <a href="#" id="btn-remove-service-time" class="btn btn-default" data-uuid="{{ $uuid }}"><i class="glyphicon glyphicon-remove"></i></a>
+                                           <a href="#" id="btn-remove-service-time" class="btn btn-default" data-remove-url="{{ route('as.bookings.service.remove') }}" data-uuid="{{ $uuid }}"><i class="glyphicon glyphicon-remove"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -135,7 +135,7 @@
                         <div class="form-group row">
                             <label for="modify_times" class="col-sm-4 control-label">Modify Time</label>
                             <div class="col-sm-8">
-                                {{ Form::select('modify_times', array_combine(range(-60,60, 15), range(-60,60, 15)), 4, ['class' => 'form-control input-sm', 'id' => 'modify_times']) }}
+                                {{ Form::select('modify_times', array_combine(range(-60,60, 15), range(-60,60, 15)), 0, ['class' => 'form-control input-sm', 'id' => 'modify_times']) }}
                             </div>
                         </div>
                         <div class="form-group row">

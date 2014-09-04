@@ -116,8 +116,8 @@ class Bookings extends AsBase
         }
 
         $endTimeDelta = ($length + $modifyTime);
-        $startTime = Carbon::createFromFormat('H:i', $startTimeStr);
-        $endTime = Carbon::createFromFormat('H:i', $startTimeStr)->addMinutes($endTimeDelta);
+        $startTime = Carbon::createFromFormat('Y-m-d H:i', sprintf('%s %s', $bookingDate, $startTimeStr));
+        $endTime = with(clone $startTime)->addMinutes($endTimeDelta);
 
         //TODO check is there any existed booking with this service time
         $bookings = Booking::where('date', $bookingDate)
@@ -159,7 +159,7 @@ class Bookings extends AsBase
         $price = isset($service) ? $service->price : $serviceTime->price;
 
         $data = [
-            'datetime'      => sprintf('%s %s', $bookingDate, $startTime),
+            'datetime'      => $startTime->toDateTimeString(),
             'price'         => $price,
             'service_name'  => $service->name,
             'employee_name' => $employee->name
@@ -246,5 +246,17 @@ class Bookings extends AsBase
             $asConsumer = AsConsumer::where('consumer_id', $consumer->id)->first();
         }
         return $asConsumer;
+    }
+
+    public function removeBookingService(){
+        $uuid = Input::get('uuid');
+        try{
+            $bookingService = BookingService::where('tmp_uuid', $uuid)->delete();
+            $data['success'] = true;
+        } catch(\Exception $ex){
+            $data['message'] = $ex->getMessage();
+            return Response::json($data, 400);
+        }
+        return Response::json($data);
     }
 }

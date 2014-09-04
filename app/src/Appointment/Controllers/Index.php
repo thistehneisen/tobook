@@ -27,13 +27,12 @@ class Index extends Base
             }
         }
 
-        $selectedDate = $date->toDateString();
+
 
         return View::make('modules.as.index.index', [
                 'employees'    => $employees,
                 'workingTimes' => $workingTimes,
-                'selectedDate' => $selectedDate,
-                'dayOfWeek'    => $date->dayOfWeek
+                'date'         => $date
             ]);
     }
 }

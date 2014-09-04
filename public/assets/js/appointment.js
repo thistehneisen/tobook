@@ -170,6 +170,22 @@
     });
     $(document).on('click', '#btn-remove-service-time', function (e) {
       e.preventDefault();
+      $.ajax({
+        type: 'POST',
+        url: $(this).data('remove-url'),
+        data: { uuid : $(this).data('uuid')},
+        dataType: 'json'
+      }).done(function (data) {
+        if(data.success){
+          $('#added_service_name').text();
+          $('#added_employee_name').text();
+          $('#added_booking_date').text();
+          $('#added_service_price').text();
+          $('#added_services').hide();
+        }
+      }).fail(function (data) {
+        alertify.alert(data.responseJSON.message);
+      });
     });
     $(document).on('click', '#btn-save-booking', function (e) {
       e.preventDefault();
