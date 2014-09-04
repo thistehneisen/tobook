@@ -193,11 +193,6 @@ Route::group([
     'before' => ['auth']
 ], function () {
 
-    Route::get('/{date?}', [
-        'as' => 'as.index',
-        'uses' => 'App\Appointment\Controllers\Index@index'
-    ]);
-
     Route::get('/employee/{id}/{date?}', [
         'as' => 'as.employee',
         'uses' => 'App\Appointment\Controllers\Index@employee'
@@ -348,7 +343,7 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Embed@index'
     ]);
 
-    Route::get('embed/preview', [
+    Route::get('preview', [
         'as' => 'as.embed.preview',
         'uses' => 'App\Appointment\Controllers\Embed@preview'
     ]);
@@ -366,6 +361,12 @@ Route::group([
 
     Route::post('options/{page?}', [
         'uses' => 'App\Appointment\Controllers\Options@update'
+    ]);
+
+    // Catch-all route should always be at the bottom
+    Route::get('/{date?}', [
+        'as' => 'as.index',
+        'uses' => 'App\Appointment\Controllers\Index@index'
     ]);
 });
 
