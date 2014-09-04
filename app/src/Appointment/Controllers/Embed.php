@@ -1,6 +1,8 @@
 <?php namespace App\Appointment\Controllers;
 
-use Hashids;
+use Hashids, Input;
+use App\Core\Models\User;
+use App\Appointment\Models\ServiceCategory;
 
 class Embed extends AsBase
 {
@@ -25,6 +27,34 @@ class Embed extends AsBase
      */
     public function preview()
     {
-        // @todo
+        return $this->render('preview', [
+            'link' => route('as.embed.embed', ['hash' => $this->user->hash])
+        ]);
+    }
+
+    /**
+     * Display the booking form of provided user
+     *
+     * @param string $hash UserID hashed
+     *
+     * @return View
+     */
+    public function embed($hash)
+    {
+        $decoded = Hashids::decrypt($hash);
+        $user = User::find($decoded[0]);
+
+        $layoutId = (int) Input::get('l');
+        if (!$layoutId) {
+            $layoutId = 1;
+        }
+
+        $categories = ServiceCategory::OfUser($user->id)
+            ->where('is_show_front', true)
+            ->get();
+
+        return $this->render('layout-'.$layoutId, [
+            'categories' => $categories
+        ]);
     }
 }
