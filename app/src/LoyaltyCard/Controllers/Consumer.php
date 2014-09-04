@@ -7,6 +7,7 @@ use App\LoyaltyCard\Models\Consumer as Model;
 use App\LoyaltyCard\Models\Voucher as VoucherModel;
 use App\LoyaltyCard\Models\Offer as OfferModel;
 use App\Core\Controllers\Base as Base;
+use App\LoyaltyCard\Models\Transaction as TransactionModel;
 
 class Consumer extends Base
 {
@@ -173,27 +174,51 @@ class Consumer extends Base
     public function update($id)
     {
         if (Request::ajax()) {
-            $rules = [
-                'points' => 'required|numeric',
-            ];
+            $consumer = Model::find($id);
 
-            $validator = Validator::make(Input::all(), $rules);
+            $transaction = new TransactionModel;
+            $transaction->user_id = Confide::user()->id;
+            $transaction->consumer_id = $id;
 
-            if ($validator->fails()) {
-                return Response::json([
-                    'success' => false,
-                    'errors' => $validator->errors()->toArray(),
-                ]);
-            } else {
-                $consumer = Model::find($id);
-                $consumer->total_points += Input::get('points');
+            if (Input::get('usePoint') === '1') {
+                $voucher = VoucherModel::find(Input::get('voucherID'));
+                $transaction->voucher_id = Input::get('voucherID');
+                $transaction->point = $voucher->required * -1;
+                $transaction->save();
+
+                $consumer->total_points -= $voucher->required;
                 $consumer->save();
 
                 return Response::json([
                     'success' => true,
-                    'message' => 'Point added',
+                    'message' => 'Point used successfully',
                     'points'  => $consumer->total_points,
                 ]);
+            } else {
+                $rules = [
+                    'points' => 'required|numeric',
+                ];
+
+                $validator = Validator::make(Input::all(), $rules);
+
+                if ($validator->fails()) {
+                    return Response::json([
+                        'success' => false,
+                        'errors' => $validator->errors()->toArray(),
+                    ]);
+                } else {
+                    $transaction->point = Input::get('points');
+                    $transaction->save();
+
+                    $consumer->total_points += Input::get('points');
+                    $consumer->save();
+
+                    return Response::json([
+                        'success' => true,
+                        'message' => 'Point added successfully',
+                        'points'  => $consumer->total_points,
+                    ]);
+                }
             }
         } else {
             $rules = [

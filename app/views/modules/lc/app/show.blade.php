@@ -12,9 +12,12 @@
     <div class="data-row">
         <div class="col-md-7">
             <div>{{ $value->name }}</div>
-            <div class="required">{{ trans('Point required: ') }}{{ $value->required }}</div>
+            <div class="required">
+                <span>{{ trans('Point required: ') }}</span>
+                <span id='js-required'>{{ $value->required }}</span>
+            </div>
         </div>
-        <div class="col-md-5"><button class="btn btn-default btn-info" id="js-useVoucher" data-consumerid='{{{ $consumer->consumer->id }}}'>{{ trans('Use voucher') }}</button></div>
+        <div class="col-md-5"><button class="btn btn-default btn-info" id="js-useVoucher" data-voucherid='{{{ $value->id }}}' data-consumerid='{{{ $consumer->consumer->id }}}'>{{ trans('Use voucher') }}</button></div>
     </div>
     @endforeach
 </div>

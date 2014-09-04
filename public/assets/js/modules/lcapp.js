@@ -3,11 +3,7 @@
 'use strict';
 
 $(document).ready(function () {
-    $('#js-consumerDetails').on('click', '#js-useVoucher', function (e) {
-        var consumerID = $(this).data('consumerid');
-
-    });
-
+    // ------ GIVE POINT ------ //
     $('#js-givePointModal').on('show.bs.modal', function (e) {
         // Pass form reference to modal for submisison on yes/ok
         $(this).find('.modal-footer #js-confirmGivePoint').data('consumerid', $(e.relatedTarget).data('consumerid'));
@@ -44,6 +40,33 @@ $(document).ready(function () {
         $('#js-givePointForm').trigger('reset');
     });
 
+    // ------ USE VOUCHER ------//
+    $('#js-consumerDetails').on('click', '#js-useVoucher', function (e) {
+        var consumerID = $(this).data('consumerid'), voucherID = $(this).data('voucherid'), required = parseInt($('#js-required').text(), 10), currentPoint = parseInt($('#js-currentPoint').text(), 10);
+
+        if (currentPoint >= required) {
+            $.ajax({
+                url: '/loyalty-card/consumers/' + consumerID,
+                dataType: 'json',
+                type: 'put',
+                data: {
+                    usePoint : 1,
+                    voucherID : voucherID,
+                },
+                success: function (data) {
+                    if (data.success) {
+                        window.alert(data.message);
+                        $('#js-givePointModal').modal('hide');
+                        $('#js-currentPoint').text(data.points);
+                    }
+                },
+            });
+        } else {
+            window.alert('Not enough point');
+        }
+    });
+
+    // ------ CONSUMER INFO FETCHING ------ //
     $('#js-consumerTable tr').click(function () {
         // if it's broken in IE, consider using id="XX" in HTML and you can get $(this).prop('id') in jQuery
         var consumerID = $(this).data('consumerid'), selected = $(this).hasClass('selected');
@@ -65,6 +88,7 @@ $(document).ready(function () {
         }
     });
 
+    // ------ DELETE CONSUMER ------ //
     $('#js-confirmDeleteModal').on('show.bs.modal', function (e) {
         var tr = $(e.relatedTarget).closest('tr');
 
@@ -84,6 +108,7 @@ $(document).ready(function () {
         });
     });
 
+    // ------ CREATE CONSUMER ------ //
     // reset the form when click cancel
     $('#js-createConsumerModal').on('click', '.modal-footer #js-cancelCreateConsumer', function () {
         $('#js-createConsumerForm').trigger('reset');
