@@ -12,7 +12,7 @@
                 <div class="col-sm-4">{{ $consumer->first_name }}</div>
                 <label class="col-sm-2 control-label">{{ trans('common.last_name') }}</label>
                 <div class="col-sm-4">{{ $consumer->last_name }}</div>
-            </div>            
+            </div>
         </div>
 
         <div class="form-group">

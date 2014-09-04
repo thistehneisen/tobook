@@ -1,8 +1,11 @@
 <?php
 namespace App\MarketingTool\Controllers;
 
-use Input, Session, Redirect, View, Validator;
+use Input, Session, Redirect, View, Validator, Response;
 use \App\MarketingTool\Models\Group as GroupModel;
+use \App\MarketingTool\Models\GroupConsumer as GroupConsumerModel;
+use \App\MarketingTool\Models\Campaign as CampaignModel;
+use \App\MarketingTool\Models\Sms as SmsModel;
 use Confide;
 
 class Group extends \App\Core\Controllers\Base {
@@ -15,11 +18,23 @@ class Group extends \App\Core\Controllers\Base {
     public function index()
     {
         // get all the groups
-        $groups = GroupModel::all();
+        $groups = GroupModel::where('user_id', '=', Confide::user()->id)
+                        ->where('is_individual', '=', false)
+                        ->get();
+        
+        $campaigns = CampaignModel::where('user_id', '=', Confide::user()->id)
+                        ->where('status', '=', 'DRAFT')
+                        ->get();
+        
+        $sms = SmsModel::where('user_id', '=', Confide::user()->id)
+                        ->where('status', '=', 'DRAFT')
+                        ->get();
 
         // load the view and pass the groups
         return View::make('modules.mt.groups.index')
-            ->with('groups', $groups);
+            ->with('groups', $groups)
+            ->with('campaigns', $campaigns)
+            ->with('sms', $sms);
     }
     
     
@@ -30,7 +45,34 @@ class Group extends \App\Core\Controllers\Base {
      */
     public function create()
     {
-        return View::make('modules.mt.groups.create');
+        $consumer_ids = Input::get('consumer_ids');
+        $group_name = Input::get('group_name');
+        
+        $rules = [
+            'group_name' => 'required',
+        ];
+        
+        $validator = Validator::make(Input::all(), $rules);
+        
+        if ($validator->fails()) {
+            return Response::json(['result' => 'failed', ]);
+        } else {
+            $group = new GroupModel;
+            $group->name = $group_name;
+            $group->is_individual = 0;
+            $group->user_id = Confide::user()->id;
+            $group->save();
+            $group_id = $group->id;
+            
+            foreach ($consumer_ids as $key => $consumer) {
+                $group_consumer = new GroupConsumerModel;
+                $group_consumer->group_id = $group_id;
+                $group_consumer->consumer_id = $consumer;
+                $group_consumer->user_id = Confide::user()->id;
+                $group_consumer->save();
+            }
+            return Response::json(['result' => 'success', ]);
+        }
     }
     
     

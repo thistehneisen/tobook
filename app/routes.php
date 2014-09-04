@@ -206,6 +206,8 @@ Route::group([
                 'update'    => 'mt.sms.update',
             ]
         ]);
+        Route::post('sms/send_individual', 'App\MarketingTool\Controllers\Sms@send_individual');
+        Route::post('sms/send_group', 'App\MarketingTool\Controllers\Sms@send_group');
 
         Route::resource('templates', 'App\MarketingTool\Controllers\Template', [
             'names' => [
@@ -231,12 +233,13 @@ Route::group([
         Route::resource('groups', 'App\MarketingTool\Controllers\Group', [
             'names' => [
                 'index'     => 'mt.groups.index',
-                'create'    => 'mt.groups.create',
+                //'create'    => 'mt.groups.create',
                 'edit'      => 'mt.groups.edit',
                 'store'     => 'mt.groups.store',
                 'update'    => 'mt.groups.update',
             ]
         ]);
+        Route::post('groups/create', 'App\MarketingTool\Controllers\Group@create');
         
         Route::resource('consumers', 'App\MarketingTool\Controllers\Consumer', [
             'names' => [

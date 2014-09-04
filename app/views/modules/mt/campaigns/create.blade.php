@@ -34,7 +34,7 @@
         {{ Form::hidden('status', null) }}
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-10">
-            {{ Form::button(trans('mt.template.list'), ['class' => 'btn btn-success', 'id' => 'btn-templates', ]) }}
+            {{ Form::button(trans('mt.template.list'), ['class' => 'btn btn-success', 'id' => 'btn_templates', ]) }}
             {{ Form::submit(trans('mt.campaign.create'), ['class' => 'btn btn-primary', 'onclick' => 'onSetContent()', ]) }}
             </div>
         </div>

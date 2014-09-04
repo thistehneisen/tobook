@@ -1,17 +1,29 @@
 <?php
 namespace App\MarketingTool\Controllers;
 
-use Input, Session, Redirect, View, Validator;
+use Input, Session, Redirect, View, Validator, Response;
 use \App\MarketingTool\Models\Sms as SmsModel;
+use \App\MarketingTool\Models\Consumer as ConsumerModel;
+use \App\MarketingTool\Models\Group as GroupModel;
+use \App\MarketingTool\Models\GroupConsumer as GroupConsumerModel;
+use \App\MarketingTool\InfoBip as InfoBip;
 use Confide;
 
 class Sms extends \App\Core\Controllers\Base {
+    
+    protected $infobip;
+    
+    public function __construct() {
+        $this->infobip = new InfoBip;
+        $this->infobip->InfoBip('varaa6', 'varaa12');
+    }
     
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
+    
     public function index()
     {
         // get all the sms
@@ -141,5 +153,76 @@ class Sms extends \App\Core\Controllers\Base {
         return Redirect::route('mt.sms.index');
     }
     
+    /**
+     * Send Bulk Sms To Consumers
+     */
+    public function send_individual()
+    {
+        $consumer_ids = Input::get('consumer_ids');
+        $sms_id = Input::get('sms_id');
+        
+        $rules = [];
+        
+        $validator = Validator::make(Input::all(), $rules);
+        
+        if ($validator->fails()) {
+            return Response::json(['result' => 'failed', ]);
+        } else {
+            // create consumers group
+            $group = new GroupModel;
+            $group->name = "INDIVIDUAL";
+            $group->is_individual = 1;
+            $group->user_id = Confide::user()->id;
+            $group->save();
+            $group_id = $group->id;
+            
+            $sms = SmsModel::find($sms_id);
+            $sms->status = 'SENT';
+            $sms->save();
+            
 
+            
+            foreach ($consumer_ids as $key => $value) {
+                $group_consumer = new GroupConsumerModel;
+                $group_consumer->group_id = $group_id;
+                $group_consumer->consumer_id = $value;
+                $group_consumer->user_id = Confide::user()->id;
+                $group_consumer->save();
+                
+                $consumer = ConsumerModel::find($value);
+                $phone = $consumer->phone;
+                
+                $this->infobip->send_sms_infobip($sms['title'], $phone, $sms['content']);
+            }
+            return Response::json(['result' => 'success', ]);
+        }        
+    }
+    /**
+     * Send Bulk Sms To Groups
+     */
+    public function send_group()
+    {
+        $group_ids = Input::get('group_ids');
+        $sms_id = Input::get('sms_id');
+        $rules = [];
+        
+        $validator = Validator::make(Input::all(), $rules);
+        
+        if ($validator->fails()) {
+            return Response::json(['result' => 'failed', ]);
+        } else {
+            // create consumers group
+            $sms = SmsModel::find($sms_id);
+            $sms->status = 'DRAFT';
+            $sms->save();
+        
+            foreach ($group_ids as $key => $group_id) {
+                $group_consumers = GroupConsumerModel::where('group_id', '=', $group_id)->get();
+                foreach ($group_consumers as $key => $consumer) {
+                    $this->infobip->send_sms_infobip($sms['title'], $consumer->consumer->phone, $sms['content']);
+                }
+            }
+            return Response::json(['result' => 'success', ]);
+        }        
+    }    
 }

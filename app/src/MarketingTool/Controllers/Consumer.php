@@ -3,6 +3,8 @@ namespace App\MarketingTool\Controllers;
 
 use Input, Session, Redirect, View, Validator;
 use \App\MarketingTool\Models\Consumer as ConsumerModel;
+use \App\MarketingTool\Models\Campaign as CampaignModel;
+use \App\MarketingTool\Models\Sms as SmsModel;
 use Confide;
 
 class Consumer extends \App\Core\Controllers\Base {
@@ -16,10 +18,20 @@ class Consumer extends \App\Core\Controllers\Base {
     {
         // get all the consumers
         $consumers = ConsumerModel::where('user_id', '=', Confide::user()->id)->get();
+        
+        $campaigns = CampaignModel::where('user_id', '=', Confide::user()->id)
+                        ->where('status', '=', 'DRAFT')
+                        ->get();
+        
+        $sms = SmsModel::where('user_id', '=', Confide::user()->id)
+                        ->where('status', '=', 'DRAFT')
+                        ->get();
 
         // load the view and pass the consumers
         return View::make('modules.mt.consumers.index')
-            ->with('consumers', $consumers);
+            ->with('consumers', $consumers)
+            ->with('campaigns', $campaigns)
+            ->with('sms', $sms);
     }
     
     /**

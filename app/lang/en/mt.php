@@ -9,7 +9,7 @@ return [
         'list'         => 'Group List',
         'create'       => 'Create Group',
         'edit'         => 'Edit Group',
-        'label'        => 'Group',        
+        'label'        => 'Group',
     ],
     'campaign' => [
         'list'         => 'Campaign List',
@@ -21,6 +21,7 @@ return [
         'edit'         => 'Edit Campaign',
         'label'        => 'Campaign',
         'duplication'  => 'Duplication',
+        'send'         => 'Send Campaign',
     ],
     'sms' => [
         'list'         => 'SMS List',
@@ -28,6 +29,7 @@ return [
         'create'       => 'Create SMS',
         'edit'         => 'Edit SMS',
         'label'        => 'SMS',
+        'send'         => 'Send SMS',
     ],
     'template' => [
         'management'   => 'Template Management',
