@@ -6,8 +6,8 @@
     $dayOfWeek = $date->dayOfWeek;
 ?>
 <div class="alert alert-info">
-    <p><strong>Etusivu</strong></p>
-    <p>Näkymässä näet kaikkien työntekijöiden kalenterin. Kuluttajille varattavat ajat vihreällä. Voit tehdä halutessasi varauksia myös harmaalle alueelle joka näkyy kuluttajille suljettuna.</p>
+    <p><strong>{{ trans('as.index.heading') }}</strong></p>
+    <p>{{ trans('as.index.description') }}</p>
 </div>
 
 <div class="row">
@@ -18,8 +18,8 @@
         </div>
     </div>
     <div class="col-md-8">
-        <a href="{{ route('as.index', ['date'=> Carbon\Carbon::today()->toDateString()]) }}" class="btn btn-default">Tänään</a>
-        <a href="{{ route('as.index', ['date'=> Carbon\Carbon::tomorrow()->toDateString()]) }}" class="btn btn-default">Huomenna</a>
+        <a href="{{ route('as.index', ['date'=> Carbon\Carbon::today()->toDateString()]) }}" class="btn btn-default">{{ trans('as.index.today') }}</a>
+        <a href="{{ route('as.index', ['date'=> Carbon\Carbon::tomorrow()->toDateString()]) }}" class="btn btn-default">{{ trans('as.index.tomorrow') }}</a>
 
         <div class="btn-group">
             <a href="{{ route('as.index', ['date'=> with(clone $date)->subWeek()->toDateString()]) }}" class="btn btn-link"><i class="fa fa-fast-backward"></i></a>
@@ -33,23 +33,24 @@
                 $startOfWeek = with(clone $date)->startOfWeek();
                 $endOfWeek = with(clone $date)->endOfWeek();
             ?>
-            <a href="{{ route('as.index', ['date'=> $startOfWeek->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::MONDAY) btn-primary @endif">Ma</a>
-            <a href="{{ route('as.index', ['date'=> $startOfWeek->addDay()->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::TUESDAY) btn-primary @endif">Ti</button>
-            <a href="{{ route('as.index', ['date'=> $startOfWeek->addDay()->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::WEDNESDAY) btn-primary @endif">Ke</a>
-            <a href="{{ route('as.index', ['date'=> $startOfWeek->addDay()->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::THURSDAY) btn-primary @endif">To</a>
-            <a href="{{ route('as.index', ['date'=> $startOfWeek->addDay()->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::FRIDAY) btn-primary @endif">Pe</button>
-            <a href="{{ route('as.index', ['date'=> $startOfWeek->addDay()->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::SATURDAY) btn-primary @endif">La</a>
-            <a href="{{ route('as.index', ['date'=> $endOfWeek->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::SUNDAY) btn-primary @endif">Su</a>
+            <a href="{{ route('as.index', ['date'=> $startOfWeek->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::MONDAY) btn-primary @endif">{{ trans('common.short.mon') }}</a>
+            <a href="{{ route('as.index', ['date'=> $startOfWeek->addDay()->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::TUESDAY) btn-primary @endif">{{ trans('common.short.tue') }}</a>
+            <a href="{{ route('as.index', ['date'=> $startOfWeek->addDay()->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::WEDNESDAY) btn-primary @endif">{{ trans('common.short.wed') }}</a>
+            <a href="{{ route('as.index', ['date'=> $startOfWeek->addDay()->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::THURSDAY) btn-primary @endif">{{ trans('common.short.thu') }}</a>
+            <a href="{{ route('as.index', ['date'=> $startOfWeek->addDay()->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::FRIDAY) btn-primary @endif">{{ trans('common.short.fri') }}</a>
+            <a href="{{ route('as.index', ['date'=> $startOfWeek->addDay()->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::SATURDAY) btn-primary @endif">{{ trans('common.short.sat') }}</a>
+            <a href="{{ route('as.index', ['date'=> $endOfWeek->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::SUNDAY) btn-primary @endif">{{ trans('common.short.sun') }}</a>
         </div>
     </div>
 
     <div class="col-md-2 text-right">
-        <button class="btn btn-primary" onclick="window.print();"><i class="fa fa-print"> Tulosta</i></button>
+        <button class="btn btn-primary" onclick="window.print();"><i class="fa fa-print"> {{ trans('as.index.print') }}</i></button>
     </div>
 </div>
 
+<br>
+
 <div class="row row-no-padding">
-    <h3 class="comfortaa">Good to know</h3>
     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
         <ul class="as-col-left-header">
             <li class="as-col-header">&nbsp;</li>

@@ -45,6 +45,15 @@ return [
     'fri'            => 'Perjantai',
     'sat'            => 'Lauantai',
     'sun'            => 'Sunnuntai',
+    'short' => [
+        'mon' => 'Ma',
+        'tue' => 'Ti',
+        'wed' => 'Ke',
+        'thu' => 'To',
+        'fri' => 'Pe',
+        'sat' => 'La',
+        'sun' => 'Su',
+    ],
     'err'            => [
         'unexpected'   => 'An unexpected error has occurred. Please try again later.',
         'not_found'    => 'Cannot the find the requesting data. Please check the URL again.',

@@ -56,7 +56,7 @@ ID: {BookingID}
 
 Thank you,
 The Management
-HTML;
+HTML; // @todo
 
 $confirmTokensAdmin = <<< HTML
 Hei!
@@ -81,7 +81,7 @@ $paymentTokensAdmin = <<< HTML
 Booking deposit has been paid.
 
 ID: {BookingID}
-HTML;
+HTML; // @todo
 
 $confirmTokensEmployee = <<< HTML
 Hei!
@@ -106,9 +106,16 @@ $paymentTokensEmployee = <<< HTML
 Booking deposit has been paid.
 
 ID: {BookingID}
-HTML;
+HTML; // @todo
 
 return [
+    'index' => [
+        'heading'     => 'Etusivu',
+        'description' => 'Näkymässä näet kaikkien työntekijöiden kalenterin. Kuluttajille varattavat ajat vihreällä. Voit tehdä halutessasi varauksia myös harmaalle alueelle joka näkyy kuluttajille suljettuna.',
+        'today'       => 'Tänään',
+        'tomorrow'    => 'Huomenna',
+        'print'       => 'Tulosta',
+    ],
     'services' => [
         'categories' => [
             'all'           => 'Kaikki kategoriat',

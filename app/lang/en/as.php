@@ -1,5 +1,12 @@
 <?php
 return [
+    'index' => [
+        'heading'     => 'Welcome',
+        'description' => '', // @todo
+        'today'       => 'Today',
+        'tomorrow'    => 'Tomorrow',
+        'print'       => 'Print',
+    ],
     'services' => [
         'categories' => [
             'all'           => 'All categories',
