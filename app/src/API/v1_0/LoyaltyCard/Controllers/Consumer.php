@@ -4,7 +4,7 @@ use Auth;
 use App\Consumers\Models\Consumer as Core;
 use App\LoyaltyCard\Models\Consumer as Model;
 use App\LoyaltyCard\Models\Offer as OfferModel;
-use App\API\LoyaltyCard\Models\Transaction as TransactionModel;
+use App\API\v1_0\LoyaltyCard\Models\Transaction as TransactionModel;
 use App\Core\Controllers\Base as Base;
 
 class Consumer extends Base

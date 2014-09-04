@@ -73,15 +73,12 @@ NFC Desktop App
                         <div class="col-sm-6">
                             {{ Form::text($key, Input::old($key), ['class' => 'form-control', 'id' => $key]) }}
                         </div>
-                        <div class="col-sm-3">
-                            {{ $errors->first($key) }}
-                        </div>
                     </div>
                     @endforeach
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel">{{ trans('common.cancel') }}</button>
-                    <button type="button" class="btn btn-success" id="confirm">{{ trans('common.create') }}</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('common.cancel') }}</button>
+                    <button type="button" class="btn btn-success" id="js-confirm">{{ trans('common.create') }}</button>
                 </div>
             </div>
         </div>
@@ -100,6 +97,31 @@ NFC Desktop App
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('common.cancel') }}</button>
                     <button type="button" class="btn btn-danger" id="confirm">{{ trans('common.delete') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="js-giveScoreModal" role="dialog" aria-labelledby="js-giveScoreModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">{{{ trans('Give Points') }}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-sm-3 col-sm-offset-2 control-label">{{ Form::label('Points ') }}</label>
+                            <div class="col-sm-6">
+                                {{ Form::text('points', null, ['class' => 'form-control', 'id' => 'points']) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default col-sm-2 col-sm-offset-4" data-dismiss="modal">{{ trans('common.cancel') }}</button>
+                    <button type="button" class="btn btn-success col-sm-2" id="js-confirm">{{{ trans('Give') }}}</button>
                 </div>
             </div>
         </div>

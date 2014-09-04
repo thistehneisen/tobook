@@ -125,14 +125,21 @@ class Consumer extends Base
         $consumer = Model::find($id);
 
         if (Request::ajax()) {
-            // return json_encode($consumer);
             $vouchers = VoucherModel::where('user_id', Confide::user()->id)->get();
             $offers = OfferModel::where('user_id', Confide::user()->id)->get();
+            $consumerTotalStamps = $consumer->total_stamps;
+
+            if ($consumerTotalStamps === '') {
+                $stampInfo = null;
+            } else {
+                $stampInfo = json_decode($consumerTotalStamps, true);
+            }
 
             $data = [
                 'consumer' => $consumer,
                 'offers' => $offers,
                 'vouchers' => $vouchers,
+                'stampInfo' => $stampInfo,
             ];
 
             return View::make('modules.lc.app.show', $data);

@@ -3,7 +3,8 @@
 <span>{{ $consumer->consumer->phone }}</span>
 <p>{{{ trans('Points') }}}: {{ $consumer->total_points }}</p>
 <hr />
-<button class="btn btn-default btn-success full">{{ trans('Give Points') }}</button>
+<span data-consumerid='{{{ $consumer->consumer->id }}}'>{{{ $consumer->consumer->id }}}</span>
+<button class="btn btn-default btn-success full" data-toggle="modal" data-target="#js-giveScoreModal">{{ trans('Give Points') }}</button>
 
 <div class="full"><h3>{{ trans('Awards') }}</h3>
     @foreach ($vouchers as $key => $value)
@@ -12,7 +13,7 @@
             <div>{{ $value->name }}</div>
             <div class="required">{{ trans('Point required: ') }}{{ $value->required }}</div>
         </div>
-        <div class="col-md-5"><button class="btn btn-default btn-info">{{ trans('Use point') }}</button></div>
+        <div class="col-md-5"><button class="btn btn-default btn-info" id="js-useVoucher" data-consumerid='{{{ $consumer->consumer->id }}}'>{{ trans('Use voucher') }}</button></div>
     </div>
     @endforeach
 </div>
@@ -24,8 +25,12 @@
             <button class="btn btn-default btn-info">{{ trans('Use') }}</button>
         </div>
         <div class="col-md-7">
-            <span class="required">1 / {{{ $value->required }}}</span>
-            <span>{{{ $value->name }}}</span>
+            @if ($stampInfo === null)
+            <span class="col-md-4 required">0/{{{ $value->required }}}</span>
+            @else
+            <span class="col-md-4 required">{{ $stampInfo[$value->id][0] }}/{{{ $value->required }}}</span>
+            @endif
+            <span class="col-md-8">{{{ $value->name }}}</span>
         </div>
     </div>
     @endforeach

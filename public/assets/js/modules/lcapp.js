@@ -3,6 +3,25 @@
 'use strict';
 
 $(document).ready(function () {
+    $('#js-useVoucher').click(function () {
+        window.alert($(this).data('consumerid'));
+    });
+
+    $('#js-giveScoreModal').on('show.bs.modal', function (e) {
+        var span = $(e.relatedTarget).closest('span');
+
+        window.alert($(e.relatedTarget).closest('span').data('consumerid'));
+
+        // Pass form reference to modal for submisison on yes/ok
+        $(this).find('.modal-footer #js-confirm').data('span', span);
+    });
+
+    $('#js-giveScoreModal').on('click', '.modal-footer #js-confirm', function () {
+        var consumerId = $(this).data('span').data('consumerid');
+
+        window.alert(consumerId);
+    });
+
     $('#js-consumerTable tr').click(function () {
         // if it's broken in IE, consider using id="XX" in HTML and you can get $(this).prop('id') in jQuery
         var consumerID = $(this).data('consumerid'), selected = $(this).hasClass('selected');
@@ -28,11 +47,11 @@ $(document).ready(function () {
         var tr = $(e.relatedTarget).closest('tr');
 
         // Pass form reference to modal for submisison on yes/ok
-        $(this).find('.modal-footer #confirm').data('tr', tr);
+        $(this).find('.modal-footer #js-confirm').data('tr', tr);
     });
 
     // Form confirm (yes/ok) handler, submits form
-    $('#js-confirmDeleteModal').on('click', '.modal-footer #confirm', function () {
+    $('#js-confirmDeleteModal').on('click', '.modal-footer #js-confirm', function () {
         var consumerID = $(this).data('tr').data('consumerid');
         $.ajax({
             url: '/loyalty-card/consumers/' + consumerID,
