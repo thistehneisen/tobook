@@ -64,7 +64,7 @@
         @foreach ($employees as $employee)
         <div class="as-col">
             <ul>
-                <li class="as-col-header">{{ $employee->name }}</li>
+                <li class="as-col-header"><a href="{{ route('as.employee', ['id'=> $employee->id ]) }}">{{ $employee->name }}</a></li>
                 @foreach ($workingTimes as $hour)
                      @foreach (range(0, 45, 15) as $minuteShift)
                      <?php $slotClass = $employee->getSlotClass($selectedDate, $hour, $minuteShift); ?>

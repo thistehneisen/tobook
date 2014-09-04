@@ -71,12 +71,11 @@ class Employee extends \App\Core\Models\Base
         } else {
             $class = 'unactive';
         }
-
         // get booking only certain date
         if(empty($this->bookingList[$selectedDate->toDateString()])){
-            $this->bookingList = $this->bookings()->where('date', $selectedDate->toDateString())->get();
+            $this->bookingList[$selectedDate->toDateString()] = $this->bookings()->where('date', $selectedDate->toDateString())->get();
         }
-        foreach ($this->bookingList as $booking) {
+        foreach ($this->bookingList[$selectedDate->toDateString()] as $booking) {
             $bookingDate =  Carbon::createFromFormat('Y-m-d', $booking->date);
             if($bookingDate == $selectedDate){
                 list($startHour, $startMinute, $startSecond) = explode(':', $booking->start_at);

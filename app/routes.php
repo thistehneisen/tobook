@@ -198,6 +198,11 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Index@index'
     ]);
 
+    Route::get('/employee/{id}/{date?}', [
+        'as' => 'as.employee',
+        'uses' => 'App\Appointment\Controllers\Index@employee'
+    ]);
+
     Route::get('services', [
         'as' => 'as.services.index',
         'uses' => 'App\Appointment\Controllers\Services@index'
