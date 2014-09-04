@@ -203,6 +203,16 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Index@employee'
     ]);
 
+    Route::get('/employees/get-freetime-form', [
+        'as' => 'as.employees.freetime.form',
+        'uses' => 'App\Appointment\Controllers\Employees@getFreetimeForm'
+    ]);
+
+    Route::post('/employees/add-employee-freetime', [
+        'as' => 'as.employees.freetime.add',
+        'uses' => 'App\Appointment\Controllers\Employees@addEmployeeFreeTime'
+    ]);
+
     Route::get('services', [
         'as' => 'as.services.index',
         'uses' => 'App\Appointment\Controllers\Services@index'

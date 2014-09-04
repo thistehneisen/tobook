@@ -13,7 +13,7 @@ class CreateAsEmployeeFreetimeTable extends Migration {
      */
     public function up()
     {
-        Schema::create('as_employees_freetime', function(Blueprint $table)
+        Schema::create('as_employee_freetime', function(Blueprint $table)
         {
             $table->increments('id');
             $table->unsignedInteger('user_id');
@@ -41,7 +41,7 @@ class CreateAsEmployeeFreetimeTable extends Migration {
      */
     public function down()
     {
-        Schema::drop('as_employees_freetime');
+        Schema::drop('as_employee_freetime');
     }
 
 }

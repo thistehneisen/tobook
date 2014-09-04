@@ -1,8 +1,9 @@
 <?php namespace App\Appointment\Controllers;
 
-use App, View, Confide, Redirect, Input, Config;
+use App, View, Confide, Redirect, Input, Config, Util, Response;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\EmployeeDefaultTime;
+use App\Appointment\Models\EmployeeFreetime;
 use App\Appointment\Models\Service;
 use Carbon\Carbon;
 class Employees extends AsBase
@@ -137,5 +138,50 @@ class Employees extends AsBase
 
     public function customTime(){
 
+    }
+
+    public function getFreeTimeForm(){
+        $employeeId = Input::get('employee_id');
+        $bookingDate = Input::get('booking_date');
+        $startTime = Input::get('start_time');
+
+        $employee  = Employee::find($employeeId);
+        $employees = Employee::ofCurrentUser()->lists('name','id');
+
+        //TODO get form settings or somewhere else
+        $workingTimes = range(8,17);
+        $workShift = range(0, 45, 15);
+        $times = [];
+        foreach ($workingTimes as $hour) {
+           foreach (range(0, 45, 15) as $minuteShift){
+                $time = sprintf('%02d:%02d', $hour, $minuteShift);
+                $times[$time] = $time;
+           }
+        }
+        return View::make('modules.as.employees.freetimeForm', [
+            'employees'   => $employees,
+            'employee'    => $employee,
+            'bookingDate' => $bookingDate,
+            'startTime'   => $startTime,
+            'times'       => $times
+        ]);
+    }
+
+    public function addEmployeeFreeTime(){
+        $employeeId = Input::get('employees');
+        $data = [];
+        try{
+            $employeeFreetime = new EmployeeFreetime;
+            $employeeFreetime->fill(Input::all());
+            $employee = Employee::find($employeeId);
+            $employeeFreetime->user()->associate($this->user);
+            $employeeFreetime->employee()->associate($employee);
+            $employeeFreetime->save();
+            $data['success'] = true;
+        } catch (\Exception $ex){
+            $data['success'] = false;
+            $data['message'] = $ex->getMessage();
+        }
+        return Response::json($data);
     }
 }

@@ -59,7 +59,6 @@
       //use data-index-url attribute to prevent append date to date like yyyy-mm-dd/yyyy-mm-dd
       window.location.href = $(this).data('index-url') + "/" + $(this).val();
     });
-
     // Backend Calendar
     $('.active').click(function (){
       var employee_id = $(this).data('employee-id');
@@ -136,6 +135,17 @@
         }
       });
     });
+    $(document).one('click','#btn-add-employee-freetime', function (e) {
+      e.preventDefault();
+      $.ajax({
+        type: 'POST',
+        url: $('#add_freetime_url').val(),
+        data: $('#freetime_form').serialize(),
+        dataType: 'json'
+      }).done(function (data) {
+        console.log(data);
+      });
+    });
     $(document).on('click', '#btn-add-service', function (e) {
       e.preventDefault();
       var service_id   = $('#services').val();
@@ -176,7 +186,7 @@
         data: { uuid : $(this).data('uuid')},
         dataType: 'json'
       }).done(function (data) {
-        if(data.success){
+        if (data.success) {
           $('#added_service_name').text();
           $('#added_employee_name').text();
           $('#added_booking_date').text();
@@ -200,6 +210,7 @@
         data: postData,
         dataType: 'json'
       }).done(function (data) {
+        //TODO there are two views default and week view
          window.location.href = data.baseURl + '/' + data.bookingDate;
       });
     });
@@ -237,7 +248,32 @@
           autoCenter : false
         });
       } else if (selected_action === 'freetime') {
-        //TODO
+        $.fancybox.open({
+          padding: 5,
+          width: 550,
+          title: '',
+          autoSize: false,
+          autoScale: true,
+          autoWidth: false,
+          autoHeight: true,
+          fitToView : false,
+          href: $('#get_freetime_form_url').val(),
+          type: 'ajax',
+          ajax: {
+            type: 'GET',
+            data: {
+              employee_id : employee_id,
+              booking_date: booking_date,
+              start_time  : start_time
+            }
+          },
+          helpers: {
+            overlay: {
+              locked: false
+            }
+          },
+          autoCenter : false
+        });
       }
     });
 

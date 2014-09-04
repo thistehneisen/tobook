@@ -242,6 +242,9 @@ a:hover {
   width: 165px;
   display: inline-block;
 }
+.as-col li.freetime {
+  background-color: #22b14c;
+}
 .as-col li.slot-booked-head {
   border-bottom: 0;
 }
@@ -276,6 +279,10 @@ a:hover {
 }
 .as-calendar-book {
   width: 800px;
+  margin: 20px;
+}
+.as-freetime-form {
+  width: 500px;
   margin: 20px;
 }
 div.tooltip-inner {

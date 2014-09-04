@@ -71,6 +71,17 @@ class Employee extends \App\Core\Models\Base
         } else {
             $class = 'unactive';
         }
+
+        $freetimes = $this->freetimes()->where('date', $selectedDate->toDateString())->get();
+        foreach ($freetimes as $freetime) {
+            list($startHour, $startMinute, $startSecond) = explode(':', $freetime->start_at);
+            $startAt =  Carbon::createFromTime($startHour, $startMinute, 0, Config::get('app.timezone'));
+            list($startHour, $startMinute, $startSecond) = explode(':', $freetime->end_at);
+            $endAt =  Carbon::createFromTime($startHour, $startMinute, 0, Config::get('app.timezone'));
+            if($rowTime >= $startAt && $rowTime <= $endAt){
+                $class = 'freetime';
+            }
+        }
         // get booking only certain date
         if(empty($this->bookingList[$selectedDate->toDateString()])){
             $this->bookingList[$selectedDate->toDateString()] = $this->bookings()->where('date', $selectedDate->toDateString())->get();
@@ -147,5 +158,10 @@ class Employee extends \App\Core\Models\Base
     public function bookings()
     {
          return $this->hasMany('App\Appointment\Models\Booking');
+    }
+
+    public function freetimes()
+    {
+         return $this->hasMany('App\Appointment\Models\EmployeeFreetime');
     }
 }
