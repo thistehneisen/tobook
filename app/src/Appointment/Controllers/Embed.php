@@ -1,6 +1,7 @@
 <?php namespace App\Appointment\Controllers;
 
 use Hashids;
+use App\Core\Models\User;
 
 class Embed extends AsBase
 {
@@ -25,6 +26,24 @@ class Embed extends AsBase
      */
     public function preview()
     {
-        // @todo
+        return $this->render('preview', [
+            'link' => route('as.embed.embed', ['hash' => $this->user->hash])
+        ]);
+    }
+
+    /**
+     * Display the booking form of provided user
+     *
+     * @param string $hash UserID hashed
+     *
+     * @return View
+     */
+    public function embed($hash)
+    {
+        // $decoded = Hashids::decrypt($hash);
+        // $user = User::find($decoded[0]);
+
+        return $this->render('embed', [
+        ]);
     }
 }

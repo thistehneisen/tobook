@@ -1,0 +1,32 @@
+.panel-heading {
+    text-transform: uppercase;
+}
+.datepicker table {
+    width: 100%;
+}
+
+.datepicker-inline {
+    width: 100%;
+}
+
+.list-group-item-heading {
+    cursor: pointer;
+}
+
+.services {
+    display: none;
+}
+
+.services .single {
+    padding: 10px 0;
+    margin-left: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+.services .single:last-child {
+    border-bottom: none;
+}
+
+.services .heading {
+    font-weight: 700;
+}
