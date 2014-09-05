@@ -231,7 +231,13 @@ class Consumer extends Base
 
                     if ($consumerTotalStamps !== '') {
                         $consumerTotalStamps = json_decode($consumerTotalStamps, true);
-                        $consumerThisStamp = $consumerTotalStamps[Input::get('offerID')];
+
+                        if (array_key_exists(Input::get('offerID'), $consumerTotalStamps)) {
+                            $consumerThisStamp = $consumerTotalStamps[Input::get('offerID')];
+                        } else {
+                            $consumerThisStamp = [0,0];
+                        }
+
                         $consumerNoOfStamps = $consumerThisStamp[0];
                         $consumerFreeService = $consumerThisStamp[1];
 

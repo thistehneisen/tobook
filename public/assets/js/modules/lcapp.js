@@ -127,28 +127,30 @@ $(document).ready(function () {
                     $('#js-consumerDetails').html(data);
                 }
             });
+        } else {
+            $('#js-consumerDetails').html('');
         }
     });
 
     // ------ DELETE CONSUMER ------ //
-    $('#js-confirmDeleteModal').on('show.bs.modal', function (e) {
-        var tr = $(e.relatedTarget).closest('tr');
+    // $('#js-confirmDeleteModal').on('show.bs.modal', function (e) {
+    //     var tr = $(e.relatedTarget).closest('tr');
 
-        // Pass form reference to modal for submisison on yes/ok
-        $(this).find('.modal-footer #js-confirmDeleteConsumer').data('tr', tr);
-    });
+    //     // Pass form reference to modal for submisison on yes/ok
+    //     $(this).find('.modal-footer #js-confirmDeleteConsumer').data('tr', tr);
+    // });
 
-    // Form confirm (yes/ok) handler, submits form
-    $('#js-confirmDeleteModal').on('click', '.modal-footer #js-confirmDeleteConsumer', function () {
-        var consumerID = $(this).data('tr').data('consumerid');
-        $.ajax({
-            url: '/loyalty-card/consumers/' + consumerID,
-            dataType: 'json',
-            type: 'delete',
-            success: function (data) {
-            }
-        });
-    });
+    // // Form confirm (yes/ok) handler, submits form
+    // $('#js-confirmDeleteModal').on('click', '.modal-footer #js-confirmDeleteConsumer', function () {
+    //     var consumerID = $(this).data('tr').data('consumerid');
+    //     $.ajax({
+    //         url: '/loyalty-card/consumers/' + consumerID,
+    //         dataType: 'json',
+    //         type: 'delete',
+    //         success: function (data) {
+    //         }
+    //     });
+    // });
 
     // ------ CREATE CONSUMER ------ //
     // reset the form when click cancel
@@ -178,5 +180,27 @@ $(document).ready(function () {
                 }
             },
         });
+    });
+
+    // ------ WRITE CARD ------ //
+    $(this).on('click', '#js-writeCard', function () {
+        var consumer_id = $(this).data('consumerid');
+        external.SetCardWriteMode(true);
+
+        if (!confirm("Put the card near the NFC card reader and press OK")) {
+            external.SetCardWriteMode(false);
+            return false;
+        }
+
+        $(ctrl).prop("disabled", true);
+
+        if (external.WriteCard(consumer_id) === true) {
+            $(ctrl).val("Card written OK!");
+        } else {
+            alert("Error writing card!");
+        }
+
+        $(ctrl).prop("disabled", false);
+        return false;
     });
 });

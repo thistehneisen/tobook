@@ -11,7 +11,7 @@
                 <th>{{ trans('co.phone') }}</th>
                 <th>{{ trans('loyalty-card.last_visited') }}</th>
                 <th class="no-display">{{{ trans('common.edit') }}}</th>
-                <th>{{ trans('common.delete') }}</th>
+                <th class="no-display">{{ trans('common.delete') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -37,7 +37,7 @@
                         </button>
                     </a>
                 </td>
-                <td>
+                <td class="no-display">
                     {{ Form::open(['route' => ['lc.consumers.delete', $value->id], 'method' => 'delete']) }}
                     <button class="btn btn-sm btn-danger" type="button" data-toggle="modal" data-target="#js-confirmDeleteModal">
                         <span class="glyphicon glyphicon-trash"></span> {{ trans('common.delete') }}

@@ -38,13 +38,13 @@ NFC Desktop App
 @stop
 
 @section('content')
-    <div class="col-lg-8 col-md-8 col-sm-8">
+    <div class="col-lg-7 col-md-7 col-sm-7">
         <button class="btn btn-default btn-success" data-toggle="modal" data-target="#js-createConsumerModal"><span class="glyphicon glyphicon-plus"></span> {{ trans('common.add') }}</button>
         @include('modules.lc._consumer_list')
     </div>
 
     <!-- Right panel with consumer info -->
-    <div class="col-lg-4 col-md-4 col-sm-4" id="js-consumerDetails">
+    <div class="col-lg-5 col-md-5 col-sm-5" id="js-consumerDetails">
         <!-- Consumer info appear using ajax here -->
     </div>
 
