@@ -30,6 +30,12 @@
                 </div>
             </div>
         @endforeach
+            <div class="form-group">
+                <label class="col-sm-2 col-sm-offset-1 control-label">{{ trans('user.profile.business_categories.index') }}</label>
+                <div class="col-sm-6">
+                    @include ('user.el.categories')
+                </div>
+            </div>
 
             <div class="form-group">
                 <div class="col-sm-9 col-sm-offset-3">

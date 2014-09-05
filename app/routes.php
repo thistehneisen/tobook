@@ -140,7 +140,7 @@ Route::group([
     ]);
 
     Route::post('profile', [
-        'uses' => 'App\Core\Controllers\User@changeProfile'
+        'uses' => 'App\Core\Controllers\User@updateProfile'
     ]);
 
     Route::group([
@@ -237,7 +237,7 @@ Route::group([
 Route::group([
     'prefix' => 'consumers',
     'before' => ['auth']
-], function() {
+], function () {
 
     Route::get('/', [
         'as' => 'co.index',
@@ -268,13 +268,13 @@ Route::group([
 Route::group([
     'prefix' => 'api',
     'before' => 'auth.basic',
-], function() {
+], function () {
     Route::group([
         'prefix' => 'v1.0',
     ], function () {
         Route::group([
             'prefix' => 'lc',
-        ], function() {
+        ], function () {
             Route::resource('offers', 'App\API\v1_0\LoyaltyCard\Controllers\Offer');
             Route::resource('vouchers', 'App\API\v1_0\LoyaltyCard\Controllers\Voucher');
             Route::resource('consumers', 'App\API\v1_0\LoyaltyCard\Controllers\Consumer');

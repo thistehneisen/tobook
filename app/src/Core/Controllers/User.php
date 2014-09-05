@@ -2,14 +2,14 @@
 
 use Session, Validator, Input, View, Redirect, Hash, Confide;
 use App\Core\Models\User as UserModel;
+use App\Core\Models\BusinessCategory;
 
 class User extends Base
 {
     protected $rules = [
         'profile' => [
-            'old_password'          => 'required',
-            'password'              => 'required|confirmed',
-            'password_confirmation' => 'required',
+            'password'              => 'required_with:old_password|confirmed',
+            'password_confirmation' => 'required_with:password',
         ]
     ];
 
@@ -26,9 +26,16 @@ class User extends Base
             'password_confirmation' => ['label' => trans('user.password_confirmation'), 'type' => 'password'],
         ];
 
+        // Get all business categories
+        $categories = BusinessCategory::root()->with('children')->get();
+        $selectedCategories = Confide::user()->businessCategories->lists('id');
+
         return View::make('user.profile', [
-            'fields' => $fields,
-            'validator' => Validator::make(Input::all(), $this->rules['profile'])
+            'user'               => Confide::user(),
+            'fields'             => $fields,
+            'validator'          => Validator::make(Input::all(), $this->rules['profile']),
+            'categories'         => $categories,
+            'selectedCategories' => $selectedCategories
         ]);
     }
 
@@ -37,11 +44,62 @@ class User extends Base
      *
      * @return Redirect
      */
-    public function changeProfile()
+    public function updateProfile()
     {
         $v = Validator::make(Input::all(), $this->rules['profile']);
         if ($v->fails()) {
             return Redirect::back()->withErrors($v);
+        }
+
+        try {
+            $this->changePassword();
+            $this->changeInformation();
+
+            return Redirect::route('user.profile')
+                ->with('messages', $this->successMessageBag(
+                    trans('user.change_profile_success')
+                ));
+        } catch (\Exception $ex) {
+
+        }
+
+        return Redirect::back()
+            ->withErrors($this->errorMessageBag(
+                trans('user.change_profile_failed')
+            ), 'top');
+    }
+
+    /**
+     * Update general information of a user
+     *
+     * @return void
+     */
+    protected function changeInformation()
+    {
+        $user = Confide::user();
+        $user->fill([
+            'description'   => e(Input::get('description')),
+            'business_size' => e(Input::get('business_size'))
+        ]);
+
+        // Update business categories
+        $user->updateBusinessCategories(Input::get('categories'));
+        $user->save();
+    }
+
+    /**
+     * Check old password by using both legacy from old system and Confide
+     *
+     * @return void
+     */
+    protected function changePassword()
+    {
+        // Nothing to do here
+        foreach (['old_password', 'password', 'password_confirmation'] as $f) {
+            $field = Input::get($f);
+            if (empty($field)) {
+                return;
+            }
         }
 
         $user = UserModel::oldLogin(
@@ -60,17 +118,9 @@ class User extends Base
                 Confide::user()->removeOldPassword();
             }
 
-            return Redirect::back()
-                ->with(
-                    'messages',
-                    $this->successMessageBag(trans('user.change_profile_success'))
-                );
+            return;
         };
 
-        return Redirect::back()
-            ->withErrors(
-                $this->errorMessageBag(trans('user.change_profile_failed')),
-                'top'
-            );
+        throw new \Exception(trans('user.incorrect_old_password'));
     }
 }
