@@ -15,8 +15,17 @@ class Consumer extends Base
      * Make view index for both app and BE
      * @return Response
      */
-    private function viewIndex($isApp = false) {
-        $consumers = Model::paginate(10);
+    private function viewIndex($isApp = false, $search = null) {
+        if ($search != null) {
+            $consumers = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
+                            ->where('consumers.first_name', 'like', '%' . $search . '%')
+                            ->orWhere('consumers.last_name', 'like', '%' . $search . '%')
+                            ->orWhere('consumers.email', 'like', '%' . $search . '%')
+                            ->orWhere('consumers.phone', 'like', '%' . $search . '%')
+                            ->paginate(10);
+        } else {
+            $consumers = Model::paginate(10);
+        }
 
         $viewName = $isApp ? 'modules.lc.app.index' : 'modules.lc.consumers.index';
         return View::make($viewName)
@@ -376,6 +385,6 @@ class Consumer extends Base
      * @return Response
      */
     public function appIndex() {
-        return $this->viewIndex(true);
+        return $this->viewIndex(true, Input::get('search'));
     }
 }

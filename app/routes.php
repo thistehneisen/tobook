@@ -229,6 +229,7 @@ Route::group([
     'before' => ['auth'],
 ], function () {
     Route::get('lc', [
+        'as' => 'app.lc.index',
         'uses' => 'App\LoyaltyCard\Controllers\Consumer@appIndex',
     ]);
 });

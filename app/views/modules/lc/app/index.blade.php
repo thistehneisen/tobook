@@ -43,7 +43,12 @@ NFC Desktop App
             <button class="btn btn-default btn-success" data-toggle="modal" data-target="#js-createConsumerModal">
                 <span class="glyphicon glyphicon-plus"></span> {{ trans('common.add') }}
             </button>
-            <span class="col-md-offset-6">{{{ trans('common.search') }}}: <input type="text" id="js-search" /></span>
+            <span class="col-md-offset-3">
+                {{ Form::open(['route' => 'app.lc.index', 'method' => 'get']) }}
+                    {{ Form::text('search', null) }}
+                    {{ Form::submit(trans('Search'), ['class' => 'btn btn-success']) }}
+                {{ Form::close() }}
+            </span>
         </div>
         @include('modules.lc._consumer_list')
     </div>
