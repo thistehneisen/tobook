@@ -39,13 +39,46 @@ return [
             '50+',
         ],
         'business_categories' => [
-            'index'       => 'Business areas', // @todo
-            'beauty_hair' => 'Beauty &amp; Hair', // @todo
-            'restaurant'  => 'Ravintola',
-            'car'         => 'Auto',
-            'wellness'    => 'Hyvinvointi',
-            'activities'  => 'Toiminta',
-            'home'        => 'Koti'
+            'index'                  => 'Business areas', // @todo
+            'beauty_hair'            => 'Beauty &amp; Hair', // @todo
+            'restaurant'             => 'Ravintola',
+            'car'                    => 'Auto',
+            'wellness'               => 'Hyvinvointi',
+            'activities'             => 'Toiminta',
+            'home'                   => 'Koti',
+            'beautysalon'            => 'Beautysalon', // @todo
+            'nails'                  => 'Nails', // @todo
+            'hairdresser'            => 'Hairdresser', // @todo
+            'fine_dining'            => 'Fine Dining', // @todo
+            'nepalese'               => 'Nepalese', // @todo
+            'traditional'            => 'Traditional', // @todo
+            'sushi'                  => 'Sushi', // @todo
+            'thai'                   => 'Thai', // @todo
+            'italian'                => 'Italian', // @todo
+            'grill'                  => 'Grill', // @todo
+            'chinese'                => 'Chinese', // @todo
+            'car_wash'               => 'Car Wash', // @todo
+            'car_service'            => 'Car Service', // @todo
+            'bike_service'           => 'Bike Service', // @todo
+            'physical_theraphy'      => 'Physical Theraphy', // @todo
+            'massage'                => 'Massage', // @todo
+            'dentist'                => 'Dentist', // @todo
+            'acupuncture'            => 'Acupuncture', // @todo
+            'chiropractic_treatment' => 'Chiropractic Treatment', // @todo
+            'teeth_whitening'        => 'Teeth Whitening', // @todo
+            'bowling'                => 'Bowling', // @todo
+            'karting'                => 'Karting', // @todo
+            'gym'                    => 'Gym', // @todo
+            'dance'                  => 'Dance', // @todo
+            'badminton'              => 'Badminton', // @todo
+            'tennis'                 => 'Tennis', // @todo
+            'personal_training'      => 'Personal Training', // @todo
+            'yoga'                   => 'Yoga', // @todo
+            'house_cleaning'         => 'House Cleaning', // @todo
+            'handyman'               => 'Handyman', // @todo
+            'photography'            => 'Photography', // @todo
+            'babysitting'            => 'Babysitting', // @todo
+            'snow_removal'           => 'Snow Removal', // @todo
         ]
     ]
 ];
