@@ -33,13 +33,7 @@
             <div class="form-group">
                 <label class="col-sm-2 col-sm-offset-1 control-label">{{ trans('user.profile.business_categories.index') }}</label>
                 <div class="col-sm-6">
-                @foreach ($categories as $category)
-                    <div class="checkbox">
-                        <label>
-                            {{ Form::checkbox('categories[]', $category->id) }} {{ trans('user.profile.business_categories.'.$category->name) }}
-                        </label>
-                    </div>
-                @endforeach
+                    @include ('user.el.categories')
                 </div>
             </div>
 

@@ -27,7 +27,7 @@ class User extends Base
         ];
 
         // Get all business categories
-        $categories = BusinessCategory::all();
+        $categories = BusinessCategory::root()->with('children')->get();
         $selectedCategories = Confide::user()->businessCategories->lists('id');
 
         return View::make('user.profile', [
@@ -81,6 +81,9 @@ class User extends Base
             'description'   => e(Input::get('description')),
             'business_size' => e(Input::get('business_size'))
         ]);
+
+        // Update business categories
+        $user->updateBusinessCategories(Input::get('categories'));
         $user->save();
     }
 

@@ -73,7 +73,7 @@ class User extends ConfideUser
     //--------------------------------------------------------------------------
 
     //--------------------------------------------------------------------------
-    // OTHER METHODS
+    // CUSTOM METHODS
     //--------------------------------------------------------------------------
 
     /**
@@ -174,5 +174,19 @@ class User extends ConfideUser
             ->wherePivot('end', '>=', $now)
             ->wherePivot('is_active', true)
             ->get();
+    }
+
+    /**
+     * Sync valid Business Categories for this user
+     *
+     * @param array $ids A list of business category IDs
+     *
+     * @return void
+     */
+    public function updateBusinessCategories($ids)
+    {
+        $all = BusinessCategory::all()->lists('id');
+        $ids = array_intersect($all, $ids);
+        $this->businessCategories()->sync($ids);
     }
 }

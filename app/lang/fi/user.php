@@ -39,12 +39,13 @@ return [
 
         ],
         'business_categories' => [
-            'index'      => 'Business areas', // @todo
-            'beauty'     => 'Kauneus',
-            'restaurant' => 'Ravintola',
-            'car'        => 'Auto',
-            'wellness'   => 'Hyvinvointi',
-            'activities' => 'Toiminta',
+            'index'       => 'Business areas', // @todo
+            'beauty_hair' => 'Beauty &amp; Hair', // @todo
+            'restaurant'  => 'Ravintola',
+            'car'         => 'Auto',
+            'wellness'    => 'Hyvinvointi',
+            'activities'  => 'Toiminta',
+            'home'        => 'Koti'
         ]
     ]
 ];

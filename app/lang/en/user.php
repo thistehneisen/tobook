@@ -38,12 +38,13 @@ return [
 
         ],
         'business_categories' => [
-            'index'      => 'Business areas',
-            'beauty'     => 'Beauty',
-            'restaurant' => 'Restaurant',
-            'car'        => 'Car',
-            'wellness'   => 'Wellness',
-            'activities' => 'Activities',
+            'index'       => 'Business areas',
+            'beauty_hair' => 'Beauty &amp; Hair',
+            'restaurant'  => 'Restaurant',
+            'car'         => 'Car',
+            'wellness'    => 'Wellness',
+            'activities'  => 'Activities',
+            'home'        => 'Home'
         ]
     ]
 ];

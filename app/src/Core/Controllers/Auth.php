@@ -122,12 +122,13 @@ class Auth extends Base
         ];
 
         // Get all business categories
-        $categories = BusinessCategory::all();
+        $categories = BusinessCategory::root()->get();
 
         return View::make('auth.register', [
-            'fields'     => $fields,
-            'validator'  => Validator::make(Input::all(), $this->rules['register']),
-            'categories' => $categories
+            'fields'             => $fields,
+            'validator'          => Validator::make(Input::all(), $this->rules['register']),
+            'categories'         => $categories,
+            'selectedCategories' => []
         ]);
     }
 
@@ -155,12 +156,8 @@ class Auth extends Base
         $user->save();
 
         if ($user->getKey()) {
-            // Get all available business category IDs and
-            // remove invalid submitted IDs
-            $categories = Input::get('categories');
-            $ids = BusinessCategory::all()->lists('id');
-            $categories = array_intersect($categories, $ids);
-            $user->businessCategories()->sync($categories);
+            // Update selected business categories
+            $user->updateBusinessCategories(Input::get('categories'));
 
             $notice = trans('confide::confide.alerts.account_created')
                 .' '.trans('confide::confide.alerts.instructions_sent');
