@@ -2,7 +2,7 @@
     <div class="panel-heading">
         <h3 class="panel-title">{{ trans('loyalty-card.consumer_list') }}</h3>
     </div>
-    <table class="table table-striped" id="js-consumerTable">
+    <table class="table table-hover" id="consumer-table">
         <thead>
             <tr>
                 <th>{{ trans('loyalty-card.number') }}</th>

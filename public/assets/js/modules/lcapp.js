@@ -3,23 +3,10 @@
 'use strict';
 
 $(document).ready(function () {
-    // ------ SEARCH ------ //
-    $("#js-search").keyup(function () {
-        var _this = this;
-
-        $.each($("#js-consumerTable tbody").find("tr"), function () {
-            if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-                $(this).hide();
-            } else {
-                $(this).show();
-            }
-        });
-    });
-
     // ------ HIDE CONSUMER INFO ------ //
     $(this).on('click', '#js-back', function () {
-        $('#js-consumerDetails').html('');
-        $('#js-consumerTable tr').removeClass('selected');
+        $('#consumer-info').html('');
+        $('#consumer-table tr').removeClass('selected');
     });
 
     // ------ ADD STAMP ------ //
@@ -102,7 +89,7 @@ $(document).ready(function () {
     });
 
     // ------ USE POINT ------//
-    $('#js-consumerDetails').on('click', '#js-useVoucher', function (e) {
+    $('#consumer-info').on('click', '#js-useVoucher', function (e) {
         var consumerID = $(this).data('consumerid'), voucherID = $(this).data('voucherid'), required = parseInt($(this).data('required'), 10), currentPoint = parseInt($('#js-currentPoint').text(), 10);
 
         if (currentPoint >= required) {
@@ -128,10 +115,9 @@ $(document).ready(function () {
     });
 
     // ------ CONSUMER INFO FETCHING ------ //
-    $('#js-consumerTable tr').click(function () {
-        // if it's broken in IE, consider using id="XX" in HTML and you can get $(this).prop('id') in jQuery
+    $('#consumer-table tbody tr').click(function () {
         var consumerID = $(this).data('consumerid'), selected = $(this).hasClass('selected');
-        $('#js-consumerTable tr').removeClass('selected');
+        $('#consumer-table tr').removeClass('selected');
 
         if (!selected) {
             $(this).addClass('selected');
@@ -141,11 +127,11 @@ $(document).ready(function () {
                 dataType: 'html',
                 type: 'GET',
                 success: function (data) {
-                    $('#js-consumerDetails').html(data);
+                    $('#consumer-info').html(data);
                 }
             });
         } else {
-            $('#js-consumerDetails').html('');
+            $('#consumer-info').html('');
         }
     });
 

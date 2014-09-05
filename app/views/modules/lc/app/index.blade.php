@@ -39,22 +39,19 @@ NFC Desktop App
 
 @section('content')
     <div class="col-lg-7 col-md-7 col-sm-7">
-        <div>
+        <div class="row-fluid">
             <button class="btn btn-default btn-success" data-toggle="modal" data-target="#js-createConsumerModal">
                 <span class="glyphicon glyphicon-plus"></span> {{ trans('common.add') }}
             </button>
-            <span class="col-md-offset-3">
-                {{ Form::open(['route' => 'app.lc.index', 'method' => 'get']) }}
-                    {{ Form::text('search', null) }}
-                    {{ Form::submit(trans('Search'), ['class' => 'btn btn-success']) }}
-                {{ Form::close() }}
-            </span>
+            {{ Form::open(['route' => 'app.lc.index', 'method' => 'get', 'class' => 'form-inline']) }}
+                {{ Form::text('search', null, ['class' => 'form-control']) }}
+                {{ Form::submit(trans('Search'), ['class' => 'btn btn-default']) }}
+            {{ Form::close() }}
         </div>
         @include('modules.lc._consumer_list')
     </div>
 
-    <!-- Right panel with consumer info -->
-    <div class="col-lg-5 col-md-5 col-sm-5" id="js-consumerDetails">
+    <div class="col-lg-5 col-md-5 col-sm-5" id="consumer-info">
         <!-- Consumer info appear using ajax here -->
     </div>
 

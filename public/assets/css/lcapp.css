@@ -1,17 +1,20 @@
-.no-display {
+/* line 5, /Applications/XAMPP/xamppfiles/htdocs/klikkaaja/public/assets/less/lcapp.less */
+#consumer-table tbody tr {
+  cursor: pointer;
+}
+/* line 9, /Applications/XAMPP/xamppfiles/htdocs/klikkaaja/public/assets/less/lcapp.less */
+#consumer-table .no-display {
   display: none;
 }
-.selected {
+/* line 13, /Applications/XAMPP/xamppfiles/htdocs/klikkaaja/public/assets/less/lcapp.less */
+#consumer-table .selected {
   background-color: #f2f5a9;
 }
-.full {
-  width: 100%;
-  clear: both;
+/* line 19, /Applications/XAMPP/xamppfiles/htdocs/klikkaaja/public/assets/less/lcapp.less */
+#consumer-info .panel-heading h3 {
+  margin: 0;
 }
-.data-row {
-  padding-bottom: 15%;
-  clear: both;
-}
-.required {
-  color: #e67e22;
+/* line 22, /Applications/XAMPP/xamppfiles/htdocs/klikkaaja/public/assets/less/lcapp.less */
+#consumer-info .line {
+  padding-bottom: 15px;
 }

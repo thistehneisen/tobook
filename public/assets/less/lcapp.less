@@ -1,24 +1,25 @@
 @orange: #e67e22;
 @light-yellow: #F2F5A9;
 
-.no-display {
-    display: none;
+#consumer-table {
+    tbody tr {
+        cursor: pointer;
+    }
+
+    .no-display {
+        display: none;
+    }
+
+    .selected {
+        background-color: @light-yellow;
+    }
 }
 
-.selected {
-    background-color: @light-yellow;
-}
-
-.full {
-    width: 100%;
-    clear: both;
-}
-
-.data-row {
-    padding-bottom: 15%;
-    clear: both;
-}
-
-.required {
-    color: @orange;
+#consumer-info {
+    .panel-heading h3 {
+        margin: 0;
+    }
+    .line {
+        padding-bottom: 15px;
+    }
 }
