@@ -17,7 +17,7 @@ class Consumer extends \App\Core\Controllers\Base {
     public function index()
     {
         // get all the consumers
-        $consumers = ConsumerModel::where('user_id', '=', Confide::user()->id)->get();
+        $consumers = ConsumerModel::all();
         
         $campaigns = CampaignModel::where('user_id', '=', Confide::user()->id)
                         ->where('status', '=', 'DRAFT')
