@@ -37,23 +37,26 @@ $(document).ready(function () {
                 if (data.success) {
                     window.alert(data.message);
                     $('#js-currentStamp' + offerID).text(data.stamps);
+                    $('#js-free' + offerID).text(data.free);
                 }
             }
         });
     });
 
-    // ------ USE STAMP ------ //
-    $(this).on('click', '#js-useStamp', function () {
+    // ------ USE OFFER ------ //
+    $(this).on('click', '#js-useOffer', function () {
+        var offerID = $(this).data('offerid');
         $.ajax({
             url: '/loyalty-card/consumers/' + $(this).data('consumerid'),
             dataType: 'json',
             type: 'put',
             data: {
-                action: 'useStamp',
-                offerID: $(this).data('offerid'),
+                action: 'useOffer',
+                offerID: offerID,
             },
             success: function (data) {
                 window.alert(data.message);
+                $('#js-free' + offerID).text(data.free);
             }
         });
     });

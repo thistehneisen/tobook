@@ -42,7 +42,7 @@
         </div>
         <div class="col-md-6">
             <button class="btn btn-default btn-info col-md-6" id="js-addStamp" data-offerid="{{{ $value->id }}}" data-consumerid="{{{ $consumer->consumer->id }}}">{{ trans('Add Stamp') }}</button>
-            <button class="btn btn-default btn-info col-md-5 col-md-offset-1" id="js-useStamp" data-offerid="{{{ $value->id }}}" data-consumerid="{{{ $consumer->consumer->id }}}">{{ trans('Use Offer') }}</button>
+            <button class="btn btn-default btn-info col-md-5 col-md-offset-1" id="js-useOffer" data-offerid="{{{ $value->id }}}" data-consumerid="{{{ $consumer->consumer->id }}}">{{ trans('Use Offer') }}</button>
         </div>
     </div>
     @endforeach

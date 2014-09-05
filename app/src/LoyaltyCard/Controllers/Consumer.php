@@ -265,6 +265,7 @@ class Consumer extends Base
                         $consumerTotalStamps = json_encode($consumerTotalStamps);
                     } else {
                         $consumerNoOfStamps = 1;
+                        $consumerFreeService = 0;
                         $transaction->stamp = 1;
                         $transaction->free_service = 0;
                         $consumerTotalStamps = json_encode([Input::get('offerID') => [1, 0]]);
@@ -278,11 +279,12 @@ class Consumer extends Base
                         'success' => true,
                         'message' => 'Stamp added successfully',
                         'stamps'  => $consumerNoOfStamps,
+                        'free'    => $consumerFreeService,
                     ]);
 
                     break;
 
-                case 'useStamp':
+                case 'useOffer':
                     $offerID = Input::get('offerID');
                     $consumerTotalStamps = $consumer->total_stamps;
 
@@ -308,6 +310,7 @@ class Consumer extends Base
                             return Response::json([
                                 'success' => true,
                                 'message' => 'Offer used successfully',
+                                'free'    => $consumerFreeService,
                             ]);
                         } else {
                             return Response::json([
