@@ -23,6 +23,19 @@ class User extends ConfideUser
         'country',*/
     ];
 
+    public $fillable = [
+        'email',
+        'first_name',
+        'last_name',
+        'phone',
+        'address',
+        'city',
+        'postcode',
+        'country',
+        'description',
+        'business_size'
+    ];
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
