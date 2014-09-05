@@ -3,6 +3,20 @@
 'use strict';
 
 $(document).ready(function () {
+    // ------ SEARCH ------ //
+    $("#js-search").keyup(function () {
+        var _this = this;
+
+        $.each($("#js-consumerTable tbody").find("tr"), function () {
+            if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
+                $(this).hide();
+            } else {
+                $(this).show();
+            }
+        });
+    });
+
+    // ------ HIDE CONSUMER INFO ------ //
     $(this).on('click', '#js-back', function () {
         $('#js-consumerDetails').html('');
         $('#js-consumerTable tr').removeClass('selected');

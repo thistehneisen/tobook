@@ -39,7 +39,12 @@ NFC Desktop App
 
 @section('content')
     <div class="col-lg-7 col-md-7 col-sm-7">
-        <button class="btn btn-default btn-success" data-toggle="modal" data-target="#js-createConsumerModal"><span class="glyphicon glyphicon-plus"></span> {{ trans('common.add') }}</button>
+        <div>
+            <button class="btn btn-default btn-success" data-toggle="modal" data-target="#js-createConsumerModal">
+                <span class="glyphicon glyphicon-plus"></span> {{ trans('common.add') }}
+            </button>
+            <span class="col-md-offset-6">{{{ trans('common.search') }}}: <input type="text" id="js-search" /></span>
+        </div>
         @include('modules.lc._consumer_list')
     </div>
 
