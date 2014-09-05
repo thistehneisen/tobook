@@ -159,17 +159,17 @@ class Sms extends \App\Core\Controllers\Base {
     /**
      * Send Bulk Sms To Consumers
      */
-    public function send_individual()
+    public function sendIndividual()
     {
-        $consumer_ids = Input::get('consumer_ids');
-        $sms_id = Input::get('sms_id');
+        $consumerIds = Input::get('consumer_ids');
+        $smsId = Input::get('sms_id');
         
         $rules = [];
         
         $validator = Validator::make(Input::all(), $rules);
         
         if ($validator->fails()) {
-            return Response::json(['result' => 'failed', ]);
+            return Response::json(['result' => 'failed']);
         } else {
             // create consumers group
             $group = new GroupModel;
@@ -177,67 +177,62 @@ class Sms extends \App\Core\Controllers\Base {
             $group->is_individual = 1;
             $group->user_id = Confide::user()->id;
             $group->save();
-            $group_id = $group->id;
+            $groupId = $group->id;
             
-            $sms = SmsModel::find($sms_id);
+            $sms = SmsModel::find($smsId);
             $sms->status = 'SENT';
             $sms->save();
 
-            foreach ($consumer_ids as $key => $value) {
-                $group_consumer = new GroupConsumerModel;
-                $group_consumer->group_id = $group_id;
-                $group_consumer->consumer_id = $value;
-                $group_consumer->user_id = Confide::user()->id;
-                $group_consumer->save();
-                
-                $consumer = ConsumerModel::find($value);
-                $phone = $consumer->phone;
-                
-                $this->infobip->send_sms_infobip($sms['title'], $phone, $sms['content']);
+            foreach ($consumerIds as $key => $value) {
+                $groupConsumer = new GroupConsumerModel;
+                $groupConsumer->group_id = $groupId;
+                $groupConsumer->consumer_id = $value;
+                $groupConsumer->user_id = Confide::user()->id;
+                $groupConsumer->save();
+                $this->infobip->send_sms_infobip($sms['title'], $groupConsumer->consumer->phone, $sms['content']);
             }
             
             $history = new HistoryModel;
-            $history->sms_id = $sms_id;
-            $history->group_id = $group_id;
+            $history->sms_id = $smsId;
+            $history->group_id = $groupId;
             $history->user_id = Confide::user()->id;
             $history->save();
             
-            return Response::json(['result' => 'success', ]);
+            return Response::json(['result' => 'success']);
         }        
     }
     
     /**
      * Send Bulk Sms To Groups
      */
-    public function send_group()
+    public function sendGroup()
     {
-        $group_ids = Input::get('group_ids');
-        $sms_id = Input::get('sms_id');
+        $groupIds = Input::get('group_ids');
+        $smsId = Input::get('sms_id');
         $rules = [];
         
         $validator = Validator::make(Input::all(), $rules);
         
         if ($validator->fails()) {
-            return Response::json(['result' => 'failed', ]);
+            return Response::json(['result' => 'failed']);
         } else {
             // create consumers group
-            $sms = SmsModel::find($sms_id);
+            $sms = SmsModel::find($smsId);
             $sms->status = 'SENT';
             $sms->save();
         
-            foreach ($group_ids as $key => $group_id) {
-                $group_consumers = GroupConsumerModel::where('group_id', '=', $group_id)->get();
-                foreach ($group_consumers as $key => $consumer) {
+            foreach ($groupIds as $key => $groupId) {
+                $groupConsumers = GroupConsumerModel::where('group_id', '=', $groupId)->get();
+                foreach ($groupConsumers as $key => $consumer) {
                     $this->infobip->send_sms_infobip($sms['title'], $consumer->consumer->phone, $sms['content']);
                 }
                 $history = new HistoryModel;
-                $history->sms_id = $sms_id;
-                $history->group_id = $group_id;
+                $history->sms_id = $smsId;
+                $history->group_id = $groupId;
                 $history->user_id = Confide::user()->id;
                 $history->save();                
             }
-            
-            return Response::json(['result' => 'success', ]);
+            return Response::json(['result' => 'success']);
         }        
     }    
 }

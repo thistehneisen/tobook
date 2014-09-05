@@ -3,7 +3,7 @@
 'use strict';
 
 function fnCheckGroupSelected () {
-    var obj_chk_list = $("input#chkGroupId:checked");
+    var obj_chk_list = $("input#js-chkGroupId:checked");
     if (obj_chk_list.size() === 0) {
         alert("Please select groups!");
         return false;
@@ -29,7 +29,7 @@ $(document).ready(function () {
     });
 
     $("button#btn-send-campaign").click(function () {
-        var obj_chk_list = $("input#chkGroupId:checked")
+        var obj_chk_list = $("input#js-chkGroupId:checked")
           , group_ids = []
           , i
           , campaign_id = $("#campaignId").val();
@@ -44,7 +44,7 @@ $(document).ready(function () {
         }
       
         $.ajax({
-            url : "/mt/campaigns/send_group",
+            url : "/mt/campaigns/sendGroup",
             dataType : "json",
             type : "POST",
             data : {
@@ -54,7 +54,7 @@ $(document).ready(function () {
             success : function(data) {
                 if (data.result == "success") {
                     alert("Campaign sent successfully.");
-                    $("input#chkGroupId").prop("checked", false);
+                    $("input#js-chkGroupId").prop("checked", false);
                     $("#campaignId").val("");
                     $("#campaignModal").modal('hide');
                 } else {
@@ -65,7 +65,7 @@ $(document).ready(function () {
     });
     
     $("button#btn-send-sms").click(function () {
-        var obj_chk_list = $("input#chkGroupId:checked")
+        var obj_chk_list = $("input#js-chkGroupId:checked")
           , group_ids = []
           , i
           , sms_id = $("#smsId").val();
@@ -80,7 +80,7 @@ $(document).ready(function () {
         }
         
         $.ajax({
-            url : "/mt/sms/send_group",
+            url : "/mt/sms/sendGroup",
             dataType : "json",
             type : "POST",
             data : {
@@ -90,7 +90,7 @@ $(document).ready(function () {
             success : function(data) {
                 if (data.result == "success") {
                     alert("SMS sent created successfully.");
-                    $("input#chkGroupId").prop("checked", false);
+                    $("input#js-chkGroupId").prop("checked", false);
                     $("#smsId").val("");
                     $("#smsModal").modal('hide');
                 } else {

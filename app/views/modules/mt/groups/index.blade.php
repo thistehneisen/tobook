@@ -23,7 +23,7 @@
             @foreach ($groups as $key => $value)
             <tr>
                 <td>
-                    <input type="checkbox" id="chkGroupId" value="{{ $value->id }}" />
+                    <input type="checkbox" id="js-chkGroupId" value="{{ $value->id }}" />
                 </td>
                 <td>{{ $key + 1 }}</td>
                 <td>

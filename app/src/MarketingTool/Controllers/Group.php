@@ -55,7 +55,7 @@ class Group extends \App\Core\Controllers\Base {
         $validator = Validator::make(Input::all(), $rules);
         
         if ($validator->fails()) {
-            return Response::json(['result' => 'failed', ]);
+            return Response::json(['result' => 'failed']);
         } else {
             $group = new GroupModel;
             $group->name = $group_name;
@@ -71,7 +71,7 @@ class Group extends \App\Core\Controllers\Base {
                 $group_consumer->user_id = Confide::user()->id;
                 $group_consumer->save();
             }
-            return Response::json(['result' => 'success', ]);
+            return Response::json(['result' => 'success']);
         }
     }
     

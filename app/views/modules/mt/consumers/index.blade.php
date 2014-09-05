@@ -27,7 +27,7 @@
             @foreach ($consumers as $key => $value)
             <tr>
                 <td>
-                    <input type="checkbox" id="chkConsumerId" value="{{ $value->id }}" />
+                    <input type="checkbox" id="js-chkConsumerId" value="{{ $value->id }}" />
                 </td>
                 <td>{{ $key + 1 }}</td>
                 <td>

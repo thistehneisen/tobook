@@ -196,8 +196,8 @@ Route::group([
             ]
         ]);
         Route::post('campaigns/duplication', 'App\MarketingTool\Controllers\Campaign@duplication');
-        Route::post('campaigns/send_individual', 'App\MarketingTool\Controllers\Campaign@send_individual');
-        Route::post('campaigns/send_group', 'App\MarketingTool\Controllers\Campaign@send_group');
+        Route::post('campaigns/sendIndividual', 'App\MarketingTool\Controllers\Campaign@sendIndividual');
+        Route::post('campaigns/sendGroup', 'App\MarketingTool\Controllers\Campaign@sendGroup');
 
         Route::resource('sms', 'App\MarketingTool\Controllers\Sms', [
             'names' => [
@@ -208,8 +208,8 @@ Route::group([
                 'update'    => 'mt.sms.update',
             ]
         ]);
-        Route::post('sms/send_individual', 'App\MarketingTool\Controllers\Sms@send_individual');
-        Route::post('sms/send_group', 'App\MarketingTool\Controllers\Sms@send_group');
+        Route::post('sms/sendIndividual', 'App\MarketingTool\Controllers\Sms@sendIndividual');
+        Route::post('sms/sendGroup', 'App\MarketingTool\Controllers\Sms@sendGroup');
 
         Route::resource('templates', 'App\MarketingTool\Controllers\Template', [
             'names' => [

@@ -174,36 +174,36 @@ class Campaign extends \App\Core\Controllers\Base {
         $campaign_id = Input::get('campaign_id');
         $subject = Input::get('subject');
         
-        $org_campaign = CampaignModel::find($campaign_id);
+        $orgCampaign = CampaignModel::find($campaign_id);
         
-        $new_campaign = new CampaignModel();
-        $new_campaign->subject = $subject;
-        $new_campaign->content = $org_campaign->content;
-        $new_campaign->from_email = $org_campaign->from_email;
-        $new_campaign->from_name = $org_campaign->from_name;
-        $new_campaign->status = 'DRAFT';
-        $new_campaign->campaign_code = str_random(32);
-        $new_campaign->user_id = Confide::user()->id;
-        $new_campaign->save();
+        $newCampaign = new CampaignModel();
+        $newCampaign->subject = $subject;
+        $newCampaign->content = $orgCampaign->content;
+        $newCampaign->from_email = $orgCampaign->from_email;
+        $newCampaign->from_name = $orgCampaign->from_name;
+        $newCampaign->status = 'DRAFT';
+        $newCampaign->campaign_code = str_random(32);
+        $newCampaign->user_id = Confide::user()->id;
+        $newCampaign->save();
         
-        return Response::json(['result' => 'success', ]);
+        return Response::json(['result' => 'success']);
     }
     
 
     /**
      * Send Bulk Campaign To Consumers
      */
-    public function send_individual()
+    public function sendIndividual()
     {
-        $consumer_ids = Input::get('consumer_ids');
-        $campaign_id = Input::get('campaign_id');
+        $consumerIds = Input::get('consumer_ids');
+        $campaignId = Input::get('campaign_id');
 
         $rules = [];
     
         $validator = Validator::make(Input::all(), $rules);
     
         if ($validator->fails()) {
-            return Response::json(['result' => 'failed', ]);
+            return Response::json(['result' => 'failed']);
         } else {
             // create consumers group
             $group = new GroupModel;
@@ -211,22 +211,22 @@ class Campaign extends \App\Core\Controllers\Base {
             $group->is_individual = 1;
             $group->user_id = Confide::user()->id;
             $group->save();
-            $group_id = $group->id;
+            $groupId = $group->id;
             
             // change campaign status - SENT
-            $campaign = CampaignModel::find($campaign_id);
+            $campaign = CampaignModel::find($campaignId);
             $campaign->status = 'SENT';
             $campaign->save();
             
-            $emails = array();
-            foreach ($consumer_ids as $key => $value) {
-                $group_consumer = new GroupConsumerModel;
-                $group_consumer->group_id = $group_id;
-                $group_consumer->consumer_id = $value;
-                $group_consumer->user_id = Confide::user()->id;
-                $group_consumer->save();
+            $emails = [];
+            foreach ($consumerIds as $key => $consumerId) {
+                $groupConsumer = new GroupConsumerModel;
+                $groupConsumer->group_id = $groupId;
+                $groupConsumer->consumer_id = $consumerId;
+                $groupConsumer->user_id = Confide::user()->id;
+                $groupConsumer->save();
                 
-                $emails[] = array('email' => $consumer->consumer->email);
+                $emails[] = array('email' => $groupConsumer->consumer->email);
             }
             
             // send email
@@ -242,50 +242,50 @@ class Campaign extends \App\Core\Controllers\Base {
                 $async = false;
                 $result = $mandrill->messages->send($message, $async);
             } catch(Mandrill_Error $e) {
-                return Response::json(['result' => 'failed', ]);
+                return Response::json(['result' => 'failed']);
             }
             
             // store history
             $history = new HistoryModel;
-            $history->campaign_id = $campaign_id;
-            $history->group_id = $group_id;
+            $history->campaign_id = $campaignId;
+            $history->group_id = $groupId;
             $history->user_id = Confide::user()->id;
             $history->save();
 
-            return Response::json(['result' => 'success', ]);
+            return Response::json(['result' => 'success']);
         }
     }
     
     /**
      * Send Bulk Campaign To Groups
      */
-    public function send_group()
+    public function sendGroup()
     {
-        $group_ids = Input::get('group_ids');
-        $campaign_id = Input::get('campaign_id');
+        $groupIds = Input::get('group_ids');
+        $campaignId = Input::get('campaign_id');
         $rules = [];
     
         $validator = Validator::make(Input::all(), $rules);
     
         if ($validator->fails()) {
-            return Response::json(['result' => 'failed', ]);
+            return Response::json(['result' => 'failed']);
         } else {
             // change campaign status - SENT
-            $campaign = CampaignModel::find($campaign_id);
+            $campaign = CampaignModel::find($campaignId);
             $campaign->status = 'SENT';
             $campaign->save();
             
-            $emails = array();
-            foreach ($group_ids as $key => $group_id) {
-                $group_consumers = GroupConsumerModel::where('group_id', '=', $group_id)->get();
-                foreach ($group_consumers as $key => $consumer) {
+            $emails = [];
+            foreach ($groupIds as $key => $groupId) {
+                $groupConsumers = GroupConsumerModel::where('group_id', '=', $groupId)->get();
+                foreach ($groupConsumers as $key => $consumer) {
                     $emails[] = array('email' => $consumer->consumer->email);
                 }
 
                 // store history
                 $history = new HistoryModel;
-                $history->campaign_id = $campaign_id;
-                $history->group_id = $group_id;
+                $history->campaign_id = $campaignId;
+                $history->group_id = $groupId;
                 $history->user_id = Confide::user()->id;
                 $history->save();
             }
@@ -303,9 +303,9 @@ class Campaign extends \App\Core\Controllers\Base {
                 $async = false;
                 $result = $mandrill->messages->send($message, $async);
             } catch(Mandrill_Error $e) {
-                return Response::json(['result' => 'failed', ]);
+                return Response::json(['result' => 'failed']);
             }
-            return Response::json(['result' => 'success', ]);
+            return Response::json(['result' => 'success']);
         }
     }    
 }

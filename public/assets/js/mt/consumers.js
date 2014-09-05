@@ -3,7 +3,7 @@
 'use strict';
 
 function fnCheckConsumerSelected () {
-    var obj_chk_list = $("input#chkConsumerId:checked");
+    var obj_chk_list = $("input#js-chkConsumerId:checked");
     if (obj_chk_list.size() === 0) {
         alert("Please select consumers!");
         return false;
@@ -20,7 +20,7 @@ $(document).ready(function () {
     });
     
     $("button#btn-create-group").click(function () {
-        var obj_chk_list = $("input#chkConsumerId:checked")
+        var obj_chk_list = $("input#js-chkConsumerId:checked")
           , consumer_ids = []
           , i
           , group_name = $("#group_name").val();
@@ -45,7 +45,7 @@ $(document).ready(function () {
             success : function(data) {
                 if (data.result == "success") {
                     alert("Group created successfully.");
-                    $("input#chkConsumerId").prop("checked", false);
+                    $("input#js-chkConsumerId").prop("checked", false);
                     $("#groupsModal").modal('hide');
                 } else {
                     alert("Request failed.");
@@ -71,7 +71,7 @@ $(document).ready(function () {
     });
 
     $("button#btn-send-campaign").click(function () {
-        var obj_chk_list = $("input#chkConsumerId:checked")
+        var obj_chk_list = $("input#js-chkConsumerId:checked")
           , consumer_ids = []
           , i
           , campaign_id = $("#campaignId").val();
@@ -86,7 +86,7 @@ $(document).ready(function () {
         }
       
         $.ajax({
-            url : "/mt/campaigns/send_individual",
+            url : "/mt/campaigns/sendIndividual",
             dataType : "json",
             type : "POST",
             data : {
@@ -96,7 +96,7 @@ $(document).ready(function () {
             success : function(data) {
                 if (data.result == "success") {
                     alert("Campaign sent successfully.");
-                    $("input#chkConsumerId").prop("checked", false);
+                    $("input#js-chkConsumerId").prop("checked", false);
                     $("#campaignId").val("");
                     $("#campaignModal").modal('hide');
                 } else {
@@ -107,7 +107,7 @@ $(document).ready(function () {
     });
     
     $("button#btn-send-sms").click(function () {
-        var obj_chk_list = $("input#chkConsumerId:checked")
+        var obj_chk_list = $("input#js-chkConsumerId:checked")
           , consumer_ids = []
           , i
           , sms_id = $("#smsId").val();
@@ -122,7 +122,7 @@ $(document).ready(function () {
         }
         
         $.ajax({
-            url : "/mt/sms/send_individual",
+            url : "/mt/sms/sendIndividual",
             dataType : "json",
             type : "POST",
             data : {
@@ -132,7 +132,7 @@ $(document).ready(function () {
             success : function(data) {
                 if (data.result == "success") {
                     alert("SMS sent successfully.");
-                    $("input#chkConsumerId").prop("checked", false);
+                    $("input#js-chkConsumerId").prop("checked", false);
                     $("#smsId").val("");
                     $("#smsModal").modal('hide');
                 } else {
