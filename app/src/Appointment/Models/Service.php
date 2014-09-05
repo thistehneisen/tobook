@@ -45,11 +45,18 @@ class Service extends \App\Core\Models\Base
 
     public function employees()
     {
-        return $this->belongsToMany('App\Appointment\Models\Employee');
+        return $this->belongsToMany('App\Appointment\Models\Employee', 'as_employee_service');
     }
 
     public function serviceTimes()
     {
         return $this->hasMany('App\Appointment\Models\ServiceTime');
+    }
+
+    /**
+     * @see http://laravel.com/docs/eloquent#many-to-many
+     */
+    public function extraServices(){
+        return $this->belongsToMany('App\Appointment\Models\ExtraService', 'as_service_extra_services', 'service_id', 'extra_service_id');
     }
 }

@@ -19,5 +19,36 @@
     });
 
     $('.btn-fancybox').fancybox();
+
+    $('.btn-add-extra-service').click(function (e) {
+        e.preventDefault();
+        var service_id = $(this).data('service-id'),
+            hash       = $(this).data('hash');
+        $.fancybox.open({
+            padding: 5,
+            width: 400,
+            title: '',
+            autoSize: false,
+            autoScale: true,
+            autoWidth: false,
+            autoHeight: true,
+            fitToView: false,
+            href: $('#get_extra_service_form').val(),
+            type: 'ajax',
+            ajax: {
+                type: 'GET',
+                data: {
+                    service_id: service_id,
+                    hash      : hash
+                }
+            },
+            helpers: {
+                overlay: {
+                    locked: false
+                }
+            },
+            autoCenter: false
+        });
+    });
   });
 }(jQuery));

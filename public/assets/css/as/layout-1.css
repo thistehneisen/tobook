@@ -1,32 +1,100 @@
 .panel-heading {
-    text-transform: uppercase;
+  text-transform: uppercase;
 }
 .datepicker table {
-    width: 100%;
+  width: 100%;
 }
-
 .datepicker-inline {
-    width: 100%;
+  width: 100%;
 }
-
 .list-group-item-heading {
-    cursor: pointer;
+  cursor: pointer;
 }
-
 .services {
-    display: none;
+  display: none;
 }
-
 .services .single {
-    padding: 10px 0;
-    margin-left: 20px;
-    border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+  margin-left: 20px;
+  border-bottom: 1px solid #ccc;
 }
-
 .services .single:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
-
 .services .heading {
-    font-weight: 700;
+  font-weight: 700;
+}
+.as-col {
+  width: 200px;
+  display: inline-block;
+  margin: 5px;
+  padding: 5px;
+  background-color: #fff;
+  border: 1px solid #E0E4E5;
+  border-radius: 10px;
+}
+.as-col .header-info,
+.as-col .footer-info {
+  margin-top: 5px;
+  background-color: #fff;
+}
+.as-col .header-info li.as-col-header,
+.as-col .footer-info li.as-col-header {
+  margin: 5px;
+}
+.as-col .header-info li,
+.as-col .footer-info li {
+  background: #fff;
+  margin-top: 10px;
+}
+.as-col ul {
+  padding: 0px;
+  margin-bottom: 0px;
+}
+.as-col li {
+  height: 30px;
+  line-height: 28px;
+  list-style-type: none;
+  margin: 0;
+  color: #000;
+  background-color: #def9cd;
+  border: 1px solid #fff;
+  padding: 0 10px;
+}
+.as-col li.as-col-header {
+  color: #4eaf30;
+  background: #fff;
+  font-weight: 700;
+}
+.as-col li.active {
+  cursor: pointer;
+}
+.as-col li.inactive {
+  background-color: #888;
+  color: #ccc;
+  cursor: no-drop;
+}
+.as-col li.booked {
+  background-color: #888;
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 0 10px;
+}
+.as-col li.freetime {
+  background-color: #888;
+  font-size: 13px;
+  text-align: left;
+  padding: 0 10px;
+}
+.as-col li.freetime a {
+  color: #ff0000;
+}
+.as-col li.freetime span {
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 165px;
+  display: inline-block;
 }

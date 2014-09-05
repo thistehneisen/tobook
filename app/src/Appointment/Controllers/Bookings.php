@@ -23,7 +23,7 @@ class Bookings extends AsBase
      **/
     public function getBookingForm()
     {
-        $employeeId = Input::get('employee_id');
+        $employeeId = (int) Input::get('employee_id');
         $bookingDate = Input::get('booking_date');
         $startTime = Input::get('start_time');
 
@@ -55,8 +55,8 @@ class Bookings extends AsBase
      **/
     public function getEmployeeServicesByCategory()
     {
-        $categoryId = Input::get('category_id');
-        $employeeId = Input::get('employee_id');
+        $categoryId = (int) Input::get('category_id');
+        $employeeId = (int) Input::get('employee_id');
         $employee = Employee::find($employeeId);
         $services = $employee->services()->where('category_id', $categoryId)->get();
         $data = [];
@@ -77,7 +77,7 @@ class Bookings extends AsBase
      **/
     public function getServiceTimes()
     {
-        $serviceId    = Input::get('service_id');
+        $serviceId    = (int) Input::get('service_id');
         $service      = Service::find($serviceId);
         $serviceTimes = $service->serviceTimes;
         $data = [];
@@ -102,12 +102,12 @@ class Bookings extends AsBase
      */
     public function addBookingService()
     {
-        $serviceId      = Input::get('service_id');
-        $employeeId     = Input::get('employee_id');
-        $serviceTimeId  = Input::get('service_time');
-        $modifyTime     = Input::get('modify_times');
+        $serviceId      = (int) Input::get('service_id');
+        $employeeId     = (int) Input::get('employee_id');
+        $serviceTimeId  = (int) Input::get('service_time');
+        $modifyTime     = (int) Input::get('modify_times');
         $bookingDate    = Input::get('booking_date');
-        $startTimeStr      = Input::get('start_time');
+        $startTimeStr   = Input::get('start_time');
         $uuid           = Input::get('uuid');
 
         $employee = Employee::find($employeeId);
@@ -229,6 +229,11 @@ class Bookings extends AsBase
         return Response::json($data);
     }
 
+    /**
+     * Insert new consumer if not exist in db yet
+     *
+     * @return AsConsumer
+     */
     private function handleConsumer()
     {
         //Insert customer
@@ -260,6 +265,12 @@ class Bookings extends AsBase
         return $asConsumer;
     }
 
+    /**
+     * Handle ajax request to delete given booking service
+     * that was added to booking form
+     *
+     * @return json
+     */
     public function removeBookingService()
     {
         $uuid = Input::get('uuid');

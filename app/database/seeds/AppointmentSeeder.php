@@ -5,6 +5,7 @@ use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\Resource;
 use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\Service;
+use App\Appointment\Models\ServiceExtraService;
 use App\Appointment\Models\Employee;
 
 class AppointmentSeeder extends Seeder
@@ -94,6 +95,11 @@ class AppointmentSeeder extends Seeder
             $service->user()->associate($user);
             $service->category()->associate($categories->random());
             $service->save();
+
+            $serviceExtraService = new ServiceExtraService;
+            $serviceExtraService->service()->associate($service);
+            $serviceExtraService->extraService()->associate($extras->get(mt_rand(0, 2)));
+            $serviceExtraService->save();
 
             $services->push($service);
         }

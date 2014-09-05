@@ -140,6 +140,9 @@ class Employees extends AsBase
     {
     }
 
+    /**
+     * Display form for adding freetime from BE calendar
+     */
     public function getFreeTimeForm()
     {
         $employeeId = Input::get('employee_id');
@@ -169,6 +172,9 @@ class Employees extends AsBase
         ]);
     }
 
+    /**
+     * Handle ajax request to add new freetime from BE calendar
+     */
     public function addEmployeeFreeTime()
     {
         $employeeId = Input::get('employees');
@@ -189,6 +195,9 @@ class Employees extends AsBase
         return Response::json($data);
     }
 
+    /**
+     * Handle ajax request to delete freetime from BE calendar
+     */
     public function deleteEmployeeFreeTime(){
         $freetimeId = Input::get('freetime_id');
         $data = [];
