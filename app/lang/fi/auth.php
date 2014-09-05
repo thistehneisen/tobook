@@ -27,5 +27,13 @@ return [
             'title'   => 'Päivitä sanasanasin',
             'body'    => $resetBody
         ]
+    ],
+    'business_categories' => [
+        'index'      => 'Business areas', // @todo
+        'beauty'     => 'Kauneus',
+        'restaurant' => 'Ravintola',
+        'car'        => 'Auto',
+        'wellness'   => 'Hyvinvointi',
+        'activities' => 'Toiminta',
     ]
 ];

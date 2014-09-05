@@ -1,8 +1,9 @@
 <?php namespace App\Core\Controllers;
 
 use View, Validator, Input, Redirect, Config, Session;
-use App\Core\Models\User;
 use Confide;
+use App\Core\Models\User;
+use App\Core\Models\BusinessCategory;
 
 class Auth extends Base
 {
@@ -120,9 +121,13 @@ class Auth extends Base
             'phone'                 => ['label' => trans('user.phone')],
         ];
 
+        // Get all business categories
+        $categories = BusinessCategory::all();
+
         return View::make('auth.register', [
-            'fields' => $fields,
-            'validator' => Validator::make(Input::all(), $this->rules['register'])
+            'fields'     => $fields,
+            'validator'  => Validator::make(Input::all(), $this->rules['register']),
+            'categories' => $categories
         ]);
     }
 
@@ -150,6 +155,13 @@ class Auth extends Base
         $user->save();
 
         if ($user->getKey()) {
+            // Get all available business category IDs and
+            // remove invalid submitted IDs
+            $categories = Input::get('categories');
+            $ids = BusinessCategory::all()->lists('id');
+            $categories = array_intersect($categories, $ids);
+            $user->businessCategories()->sync($categories);
+
             $notice = trans('confide::confide.alerts.account_created')
                 .' '.trans('confide::confide.alerts.instructions_sent');
 

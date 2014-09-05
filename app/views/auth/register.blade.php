@@ -30,6 +30,18 @@
                 </div>
             </div>
         @endforeach
+            <div class="form-group">
+                <label class="col-sm-2 col-sm-offset-1 control-label">{{ trans('auth.business_categories.index') }}</label>
+                <div class="col-sm-6">
+                @foreach ($categories as $category)
+                    <div class="checkbox">
+                        <label>
+                            {{ Form::checkbox('categories[]', $category->id) }} {{ trans('auth.business_categories.'.$category->name) }}
+                        </label>
+                    </div>
+                @endforeach
+                </div>
+            </div>
 
             <div class="form-group">
                 <div class="col-sm-9 col-sm-offset-3">

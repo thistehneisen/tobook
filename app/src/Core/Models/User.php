@@ -50,6 +50,11 @@ class User extends ConfideUser
             ->withPivot('is_visible');
     }
 
+    public function businessCategories()
+    {
+        return $this->belongsToMany('App\Core\Models\BusinessCategory');
+    }
+
     //--------------------------------------------------------------------------
     // SCOPES
     //--------------------------------------------------------------------------
@@ -150,6 +155,7 @@ class User extends ConfideUser
     public function getActiveModules()
     {
         $now = Carbon::now();
+
         return $this->modules()
             ->wherePivot('start', '<=', $now)
             ->wherePivot('end', '>=', $now)

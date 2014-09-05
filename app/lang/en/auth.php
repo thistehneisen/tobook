@@ -27,5 +27,13 @@ return [
             'title'   => 'Reset your password',
             'body'    => $resetBody
         ]
+    ],
+    'business_categories' => [
+        'index'      => 'Business areas',
+        'beauty'     => 'Beauty',
+        'restaurant' => 'Restaurant',
+        'car'        => 'Car',
+        'wellness'   => 'Wellness',
+        'activities' => 'Activities',
     ]
 ];
