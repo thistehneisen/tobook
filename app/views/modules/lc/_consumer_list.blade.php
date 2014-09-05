@@ -16,8 +16,8 @@
         </thead>
         <tbody>
             @foreach ($consumers as $key => $value)
-            <tr data-consumerid='{{{ $value->consumer->id }}}'>
-                <td>{{ $value->consumer->id }}</td>
+            <tr data-consumerid='{{{ $value->id }}}'>
+                <td>{{ $value->id }}</td>
                 <td>
                     {{ $value->consumer->getNameAttribute() }}
                 </td>
