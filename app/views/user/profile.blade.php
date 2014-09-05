@@ -15,13 +15,14 @@
         <ul class="nav nav-tabs" role="tablist">
             <li {{ $activeTab === 'general' ? 'class="active"' : '' }}><a href="#general" role="tab" data-toggle="tab">{{ trans('user.profile.general') }}</a></li>
             <li {{ $activeTab === 'password' ? 'class="active"' : '' }}><a href="#password" role="tab" data-toggle="tab">{{ trans('user.change_password') }}</a></li>
+            <li {{ $activeTab === 'images' ? 'class="active"' : '' }}><a href="#images" role="tab" data-toggle="tab">{{ trans('user.profile.images') }}</a></li>
         </ul>
         <br>
         @include ('el.messages')
 
         <!-- Tab panes -->
         <div class="tab-content">
-            <div class="tab-pane {{ $activeTab === 'general' ? 'active' : '' }}" id="general">
+            <div class="tab-pane" id="general">
             {{ Form::open(['id' => 'frm-profile', 'route' => 'user.profile', 'class' => 'form-horizontal', 'role' => 'form']) }}
                 <h3 class="comfortaa orange">{{ trans('user.profile.general') }}</h3>
                 <div class="form-group">
@@ -78,6 +79,14 @@
                 </div>
             {{ Form::close() }}
             </div> <!-- Change password -->
+
+            <div class="tab-pane active" id="images">
+            {{ Form::open(['id' => 'frm-profile', 'route' => 'user.profile', 'class' => 'form-horizontal', 'role' => 'form']) }}
+                <h3 class="comfortaa orange">{{ trans('user.profile.images') }}</h3>
+
+                @include ('el.uploader')
+            {{ Form::close() }}
+            </div> <!-- Images -->
         </div>
     </div>
 </div>

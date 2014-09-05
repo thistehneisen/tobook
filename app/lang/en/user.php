@@ -28,6 +28,7 @@ return [
     'premium_expired'        => 'Your active time was expired. Please contact us via email :email or phone number :phone_number to activate your service again.',
     'profile' => [
         'general'              => 'General information', // @todo
+        'images'               => 'Images', // @todo
         'description'          => 'Business introduction', // @todo
         'business_size'        => 'Business size', // @todo
         'business_size_values' => [ // @todo
