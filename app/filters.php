@@ -51,6 +51,16 @@ Route::filter('auth.basic', function () {
     return Auth::basic('username');
 });
 
+Route::filter('auth-lc', function () {
+    if (!Confide::user()) {
+        if (Request::ajax()) {
+            return Response::make('Unauthorized', 401);
+        } else {
+            return Redirect::guest(route('app.lc.login'));
+        }
+    }
+});
+
 /*
 |--------------------------------------------------------------------------
 | Guest Filter

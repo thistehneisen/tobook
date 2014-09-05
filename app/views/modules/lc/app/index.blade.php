@@ -23,7 +23,7 @@ NFC Desktop App
     <div class="col-md-6 text-right">
         <ul class="list-inline nav-links">
             @if (Confide::user())
-            <li><a href="{{ route('auth.logout') }}">{{ trans('common.sign_out') }}</a></li>
+            <li><a href="{{ route('app.lc.logout') }}">{{ trans('common.sign_out') }}</a></li>
             @endif
         </ul>
     </div>

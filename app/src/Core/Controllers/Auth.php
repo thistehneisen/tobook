@@ -59,6 +59,29 @@ class Auth extends Base
         ]);
     }
 
+    public function appLogin()
+    {
+        if (Confide::user()) {
+            if (isset($_SESSION['owner_id'])) {
+                // if already logged in and there is still native session, return to home
+                return Redirect::route('app.lc.index');
+            } else {
+                // otherwise, logout
+                $this->appLogout();
+            }
+        }
+
+        $fields = [
+            'username' => ['label' => trans('user.username')],
+            'password' => ['label' => trans('user.password'), 'type' => 'password'],
+        ];
+
+        return View::make('modules.lc.app.login', [
+            'fields' => $fields,
+            'validator' => Validator::make(Input::all(), $this->rules['login'])
+        ]);
+    }
+
     /**
      * Handle login
      *
@@ -100,6 +123,46 @@ class Auth extends Base
         }
 
         return Redirect::route('auth.login')
+            ->withInput(Input::except('password'))
+            ->withErrors($this->errorMessageBag($errMsg), 'top');
+    }
+
+    public function doAppLogin()
+    {
+        $input = [
+            'username' => Input::get('username'),
+            'email'    => Input::get('username'),
+            'password' => Input::get('password'),
+        ];
+
+        $v = Validator::make($input, $this->rules['login']);
+        if ($v->fails()) {
+            return Redirect::back()
+                ->withInput(Input::except('password'))
+                ->withErrors($v);
+        }
+
+        $user = User::oldLogin($input['username'], $input['password']);
+        if ($user || Confide::logAttempt($input, Config::get('confide::signup_confirm'))) {
+            // Login successfully
+            // Dump current user to session for other modules
+            Confide::user()->dumpToSession();
+
+            // Go to Dashboard, yahoo!
+            return Redirect::intended(route('app.lc.index'));
+        }
+
+        // Failed, now get the reason
+        $user = new User();
+        if (Confide::isThrottled($input)) {
+            $errMsg = trans('confide::confide.alerts.too_many_attempts');
+        } elseif ($user->checkUserExists($input) and !$user->isConfirmed($input)) {
+            $errMsg = trans('confide::confide.alerts.not_confirmed');
+        } else {
+            $errMsg = trans('confide::confide.alerts.wrong_credentials');
+        }
+
+        return Redirect::route('app.lc.login')
             ->withInput(Input::except('password'))
             ->withErrors($this->errorMessageBag($errMsg), 'top');
     }
@@ -218,6 +281,20 @@ class Auth extends Base
         Session::flush();
 
         return Redirect::route('home');
+    }
+
+    public function appLogout()
+    {
+        // Destroy native session
+        @session_start();
+        @session_unset();
+
+        Confide::logout();
+
+        // Remove all session data, including stealthMode
+        Session::flush();
+
+        return Redirect::route('app.lc.index');
     }
 
     /**

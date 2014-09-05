@@ -224,9 +224,25 @@ Route::group([
 | App routes
 |--------------------------------------------------------------------------
 */
+Route::group(['prefix' => 'auth-lc'], function () {
+    Route::get('login', [
+        'as' => 'app.lc.login',
+        'uses' => 'App\Core\Controllers\Auth@appLogin'
+    ]);
+
+    Route::post('login', [
+        'uses' => 'App\Core\Controllers\Auth@doAppLogin'
+    ]);
+
+    Route::get('logout', [
+        'as' => 'app.lc.logout',
+        'uses' => 'App\Core\Controllers\Auth@appLogout'
+    ]);
+});
+
 Route::group([
     'prefix' => 'app',
-    'before' => ['auth'],
+    'before' => ['auth-lc'],
 ], function () {
     Route::get('lc', [
         'as' => 'app.lc.index',
