@@ -35,7 +35,9 @@ class User extends Base
             'fields'             => $fields,
             'validator'          => Validator::make(Input::all(), $this->rules['profile']),
             'categories'         => $categories,
-            'selectedCategories' => $selectedCategories
+            'selectedCategories' => $selectedCategories,
+            // Activate the submitted tab
+            'activeTab'          => Session::get('tab', 'general')
         ]);
     }
 
@@ -46,16 +48,23 @@ class User extends Base
      */
     public function updateProfile()
     {
-        $v = Validator::make(Input::all(), $this->rules['profile']);
-        if ($v->fails()) {
-            return Redirect::back()->withErrors($v);
+        $tab = Input::get('tab');
+        if ($tab === null || !method_exists($this, 'update'.studly_case($tab))) {
+            return \App::abort(404);
         }
 
         try {
-            $this->changePassword();
-            $this->changeInformation();
+            $method = 'update'.studly_case($tab);
+            $result = $this->$method();
+
+            // If we need to redirect immediately
+            if ($result instanceof Redirect) {
+                return $result;
+            }
 
             return Redirect::route('user.profile')
+                // Pass the current tab to correctly activate
+                ->with('tab', $tab)
                 ->with('messages', $this->successMessageBag(
                     trans('user.change_profile_success')
                 ));
@@ -74,7 +83,7 @@ class User extends Base
      *
      * @return void
      */
-    protected function changeInformation()
+    protected function updateGeneral()
     {
         $user = Confide::user();
         $user->fill([
@@ -92,7 +101,7 @@ class User extends Base
      *
      * @return void
      */
-    protected function changePassword()
+    protected function updatePassword()
     {
         // Nothing to do here
         foreach (['old_password', 'password', 'password_confirmation'] as $f) {
@@ -100,6 +109,11 @@ class User extends Base
             if (empty($field)) {
                 return;
             }
+        }
+
+        $v = Validator::make(Input::all(), $this->rules['profile']);
+        if ($v->fails()) {
+            return Redirect::back()->withErrors($v);
         }
 
         $user = UserModel::oldLogin(
@@ -118,6 +132,7 @@ class User extends Base
                 Confide::user()->removeOldPassword();
             }
 
+            // Done, nothing to do more
             return;
         };
 
