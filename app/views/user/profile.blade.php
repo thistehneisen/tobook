@@ -1,11 +1,11 @@
 @extends ('layouts.default')
 
 @section ('title')
-    @parent :: {{ trans('user.change_password') }}
+    @parent :: {{ trans('user.change_profile') }}
 @stop
 
 @section ('header')
-    <h1 class="text-header">{{ trans('user.change_password') }}</h1>
+    <h1 class="text-header">{{ trans('user.change_profile') }}</h1>
 @stop
 
 @section ('content')

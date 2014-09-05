@@ -31,12 +31,12 @@ return [
         'description'          => 'Business introduction', // @todo
         'business_size'        => 'Business size', // @todo
         'business_size_values' => [ // @todo
-            'micro'      => 'Micro (<10)',
-            'small'      => 'Small (<50)',
-            'medium'     => 'Medium (<250)',
-            'large'      => 'Large (<1000)',
-            'enterprise' => 'Enterprise (>1000)',
-
+            '1',
+            '2-3',
+            '3-5',
+            '5-10',
+            '20-50',
+            '50+',
         ],
         'business_categories' => [
             'index'       => 'Business areas', // @todo

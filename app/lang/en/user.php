@@ -5,6 +5,7 @@ return [
     'password'               => 'Password',
     'password_confirmation'  => 'Confirm password',
     'forced_change_password' => 'We have recently changed our system and all users are requested to change password immediately.',
+    'change_profile'         => 'Update profile',
     'change_profile_success' => 'Your profile has been updated',
     'change_profile_failed'  => 'Your old password might be incorrect. Please try again',
     'create_account'         => 'Create an account',
@@ -30,12 +31,12 @@ return [
         'description'          => 'Business introduction', // @todo
         'business_size'        => 'Business size', // @todo
         'business_size_values' => [ // @todo
-            'micro'      => 'Micro (<10)',
-            'small'      => 'Small (<50)',
-            'medium'     => 'Medium (<250)',
-            'large'      => 'Large (<1000)',
-            'enterprise' => 'Enterprise (>1000)',
-
+            '1',
+            '2-3',
+            '3-5',
+            '5-10',
+            '20-50',
+            '50+',
         ],
         'business_categories' => [
             'index'       => 'Business areas',
