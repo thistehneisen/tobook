@@ -1,26 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,300,600);
-@import url(http://fonts.googleapis.com/css?family=Comfortaa:400,300,700);
-
-// -------------------------------------------------------------------------- //
-// ------------------------------- Variables -------------------------------- //
-// -------------------------------------------------------------------------- //
-
-@orange: #ec7923;
-@grey: #424242;
-@light_black: #333;
-@light_gray: #f5f5f5;
-@link_color: #dd5511;
-@link_color_hover: #bd490f;
-
-.comfortaa {
-    font-family: "Comfortaa", Helvetica, Arial, Verdana;
-}
-.orange {
-    color: @orange;
-}
-.white {
-    color: white;
-}
+@import "_vars.less";
 
 // -------------------------------------------------------------------------- //
 // --------------------------------- Global --------------------------------- //
@@ -69,6 +47,25 @@ a {
 
             span {
                 color: @light_black;
+            }
+        }
+    }
+
+    .search-wrapper {
+        background: url(../img/background.jpg) no-repeat 0 0;
+        background-size: cover;
+        padding: 10px 0;
+
+        .search-inner {
+            background-color: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.9);
+            color: @light_black;
+            padding: 20px;
+
+            h2 {
+                .comfortaa;
+                margin: 0;
+                padding-bottom: 10px;
             }
         }
     }
@@ -123,39 +120,6 @@ a {
 
 // # ------------------------------- main content
 .main {
-    .search-wrapper {
-        background: url(../img/marketingBack02.png) no-repeat 0 0;
-        background-size: cover;
-        padding: 30px 0;
-
-        .search-inner {
-            background-color: rgba(255, 255, 255, 0.9);
-            background: rgba(255, 255, 255, 0.9);
-            color: @light_black;
-            padding: 20px;
-
-            h2 {
-                .comfortaa;
-                margin: 0;
-                padding-bottom: 10px;
-            }
-        }
-    }
-
-    .available-slot, .flashdeal-item {
-        img {
-            //max-height: 150px;
-        }
-
-        .info {
-            background: @light_gray;
-            padding: 10px;
-        }
-
-        p {
-            margin: 0;
-        }
-    }
 }
 
 // # ------------------------------- footer

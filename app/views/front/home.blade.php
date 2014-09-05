@@ -4,31 +4,13 @@
     @parent :: {{ trans('common.home') }}
 @stop
 
+@section('styles')
+    {{ HTML::style('assets/css/home.css') }}
+@stop
+
 @section('main-classes') container-fluid home @stop
 
 @section('content')
-<!-- Search box -->
-<div class="search-wrapper row">
-    <div class="search-inner col-md-8 col-md-offset-2 text-center">
-        <h2>{{ trans('home.search_tagline') }}</h2>
-        {{ Form::open(['route' => 'search', 'method' => 'GET', 'class' => 'form-inline']) }}
-            <div class="form-group">
-                <div class="input-group input-group-lg">
-                    <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                    <input type="text" class="form-control" id="js-queryInput" name="query" placeholder="{{ trans('home.search_query') }}" />
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-group input-group-lg">
-                    <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
-                    <input type="text" class="form-control" id="js-locationInput" name="location" placeholder="{{ trans('home.search_place') }}" />
-                </div>
-            </div>
-            <button type="submit" class="btn btn-lg btn-orange">{{ trans('common.search') }}</button>
-        {{ Form::close() }}
-    </div>
-</div>
-
 <div class="container text-center">
     <!-- Next available time slot -->
     <div class="row">

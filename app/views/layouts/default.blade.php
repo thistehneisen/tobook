@@ -10,6 +10,8 @@
         @show
     </title>
 
+    {{ HTML::style('//fonts.googleapis.com/css?family=Roboto:400,300,600') }}
+    {{ HTML::style('//fonts.googleapis.com/css?family=Comfortaa:400,300,700') }}
     {{ HTML::style('//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css') }}
     {{ HTML::style('//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css') }}
     @yield('styles')
@@ -44,14 +46,52 @@
         <nav class="main-nav container">
             <a href="{{ route('home') }}" class="logo pull-left">varaa<span>.com</span></a>
 
-            <ul class="list-inline nav-links pull-right">
-                <li><a href="{{ route('business-index') }}">{{ trans('common.for_business') }}</a></li>
-                <li><a href="">Test 2</a></li>
-                <li><a href="">Test 3</a></li>
-            </ul>
+            @section('main-nav')
+            <div class="pull-right">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#admin-menu">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="admin-menu">
+                    <ul class="nav navbar-nav">
+                        <li><a href="{{ route('business-index') }}">{{ trans('common.for_business') }}</a></li>
+                        <li><a href="{{ route('admin.crud.index', ['model' => 'modules']) }}"><i class="fa fa-puzzle-piece"></i> {{ trans('admin.nav.modules') }}</a></li>
+                        <li><a href="{{ route('admin.settings.index') }}"><i class="fa fa-gear"></i> {{ trans('admin.nav.settings') }}</a></li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            @show
         </nav>
 
+        @section('main-search')
+        <div class="search-wrapper row">
+            {{ Form::open(['route' => 'search', 'method' => 'GET', 'class' => 'form-inline']) }}
+                <div class="form-group">
+                    <div class="input-group input-group">
+                        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                        <input type="text" class="form-control" id="js-queryInput" name="query" placeholder="{{ trans('home.search_query') }}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group input-group">
+                        <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
+                        <input type="text" class="form-control" id="js-locationInput" name="location" placeholder="{{ trans('home.search_place') }}" />
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success">{{ trans('common.search') }}</button>
+            {{ Form::close() }}
+        </div>
+        @show
+
         @section('sub-nav')
+        {{--
         <nav class="sub-nav row">
             <div class="container">
                 <div class="pull-left">
@@ -84,6 +124,7 @@
                 </ul>
             </div>
         </nav>
+        --}}
         @show
     </header>
     @show
