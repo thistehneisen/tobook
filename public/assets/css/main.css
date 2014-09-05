@@ -15,6 +15,9 @@ a:hover {
   color: #bd490f;
   text-decoration: none;
 }
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
 .btn-orange {
   background-color: #ec7923;
   color: #fff;
@@ -37,10 +40,17 @@ a:hover {
 .header nav.main-nav .logo span {
   color: #333333;
 }
+.header nav.main-nav #main-menu a {
+  font-weight: 400;
+}
+.header nav.main-nav #main-menu a:hover {
+  color: #fff;
+  background: #ec7923;
+}
 .header .search-wrapper {
   background: url(../img/background.jpg) no-repeat 0 0;
   background-size: cover;
-  padding: 10px 0;
+  padding: 10px;
 }
 .header .search-wrapper .search-inner {
   background-color: rgba(255, 255, 255, 0.9);

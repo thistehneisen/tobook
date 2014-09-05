@@ -13,7 +13,7 @@
     {{ HTML::style('//fonts.googleapis.com/css?family=Roboto:400,300,600') }}
     {{ HTML::style('//fonts.googleapis.com/css?family=Comfortaa:400,300,700') }}
     {{ HTML::style('//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css') }}
-    {{ HTML::style('//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css') }}
+    {{ HTML::style('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css') }}
     @yield('styles')
 
     {{-- Increment the version number to force clear cache --}}
@@ -48,24 +48,32 @@
 
             @section('main-nav')
             <div class="pull-right">
-                <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#admin-menu">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-menu">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
                     </button>
                 </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="admin-menu">
+
+                <div class="collapse navbar-collapse" id="main-menu">
                     <ul class="nav navbar-nav">
-                        <li><a href="{{ route('business-index') }}">{{ trans('common.for_business') }}</a></li>
-                        <li><a href="{{ route('admin.crud.index', ['model' => 'modules']) }}"><i class="fa fa-puzzle-piece"></i> {{ trans('admin.nav.modules') }}</a></li>
-                        <li><a href="{{ route('admin.settings.index') }}"><i class="fa fa-gear"></i> {{ trans('admin.nav.settings') }}</a></li>
+                    @foreach ($_businessCategories as $category)
+                        <li class="dropdown">
+                            <a href="{{ route('search') }}?query={{ urlencode($category->name) }}">
+                                <i class="fa {{ $category->icon() }}"></i>
+                                {{ $category->name }}
+                            </a>
+                            <ul class="dropdown-menu">
+                            @foreach ($category->children as $child)
+                                <li><a href="{{ route('search') }}?query={{ urlencode($child->name) }}">{{ $child->name }}</a></li>
+                            @endforeach
+                            </ul>
+                        </li>
+                    @endforeach
                     </ul>
                 </div>
-                <!-- /.navbar-collapse -->
             </div>
             @show
         </nav>
@@ -76,13 +84,13 @@
                 <div class="form-group">
                     <div class="input-group input-group">
                         <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                        <input type="text" class="form-control" id="js-queryInput" name="query" placeholder="{{ trans('home.search_query') }}" />
+                        <input type="text" class="form-control" id="js-queryInput" name="query" placeholder="{{ trans('home.search.query') }}" value="{{{ Input::get('query') }}}" />
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="input-group input-group">
                         <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
-                        <input type="text" class="form-control" id="js-locationInput" name="location" placeholder="{{ trans('home.search_place') }}" />
+                        <input type="text" class="form-control" id="js-locationInput" name="location" placeholder="{{ trans('home.search.location') }}" value="{{{ Input::get('location') }}}" />
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success">{{ trans('common.search') }}</button>

@@ -15,7 +15,9 @@ a {
         text-decoration: none;
     }
 }
-
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
 // -------------------------------------------------------------------------- //
 // --------------------------------- Buttons -------------------------------- //
 // -------------------------------------------------------------------------- //
@@ -49,12 +51,23 @@ a {
                 color: @light_black;
             }
         }
+
+        #main-menu {
+            a {
+                font-weight: 400;
+
+                &:hover {
+                    color: #fff;
+                    background: @orange;
+                }
+            }
+        }
     }
 
     .search-wrapper {
         background: url(../img/background.jpg) no-repeat 0 0;
         background-size: cover;
-        padding: 10px 0;
+        padding: 10px;
 
         .search-inner {
             background-color: rgba(255, 255, 255, 0.9);

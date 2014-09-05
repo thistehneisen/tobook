@@ -1,6 +1,7 @@
 <?php namespace App\Core\Controllers;
 
-use Illuminate\Support\MessageBag, Settings;
+use Illuminate\Support\MessageBag, Settings, View;
+use App\Core\Models\BusinessCategory;
 
 class Base extends \Controller
 {
@@ -11,6 +12,15 @@ class Base extends \Controller
      * @var string
      */
     protected $viewPath;
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $categories = BusinessCategory::root()->get();
+        // share this variables for all views (to construct the nav)
+        View::share('_businessCategories', $categories);
+    }
 
 
     /**
