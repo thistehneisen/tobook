@@ -128,7 +128,7 @@ class Auth extends Base
             'fields'             => $fields,
             'validator'          => Validator::make(Input::all(), $this->rules['register']),
             'categories'         => $categories,
-            'selectedCategories' => []
+            'selectedCategories' => Input::old('categories', [])
         ]);
     }
 
