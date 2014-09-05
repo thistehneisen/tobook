@@ -1,6 +1,6 @@
 <?php namespace App\Core\Controllers;
 
-use Session, Validator, Input, View, Redirect, Hash, Confide;
+use Session, Validator, Input, View, Redirect, Hash, Confide, Crypt;
 use App\Core\Models\User as UserModel;
 use App\Core\Models\BusinessCategory;
 
@@ -36,6 +36,10 @@ class User extends Base
             'validator'          => Validator::make(Input::all(), $this->rules['profile']),
             'categories'         => $categories,
             'selectedCategories' => $selectedCategories,
+            'imageable'          => Crypt::encrypt([
+                'imageable_type' => 'App\Core\Models\User',
+                'imageable_id'   => Confide::user()->id
+            ]),
             // Activate the submitted tab
             'activeTab'          => Session::get('tab', 'general')
         ]);

@@ -15,6 +15,9 @@ $(function () {
             id: '#file-picker',
             label: 'Select files'
         },
+        formData: {
+            data: '{{ $formData or '' }}'
+        },
         dnd: '#images-uploader .queue-list',
         paste: document.body,
         accept: {
@@ -26,7 +29,7 @@ $(function () {
         swf: '//cdnjs.cloudflare.com/ajax/libs/webuploader/0.1.1/Uploader.swf',
         disableGlobalDnd: true,
         chunked: true,
-        server: 'http://2betop.net/fileupload.php',
+        server: '{{ route('images.upload') }}',
         fileNumLimit: 300,
         fileSizeLimit: 5 * 1024 * 1024,    // 200 M
         fileSingleSizeLimit: 1 * 1024 * 1024    // 50 M

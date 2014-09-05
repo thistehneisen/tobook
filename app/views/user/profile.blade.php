@@ -84,7 +84,9 @@
             {{ Form::open(['id' => 'frm-profile', 'route' => 'user.profile', 'class' => 'form-horizontal', 'role' => 'form']) }}
                 <h3 class="comfortaa orange">{{ trans('user.profile.images') }}</h3>
 
-                @include ('el.uploader')
+                @include ('el.uploader', [
+                    'formData' => $imageable
+                ])
             {{ Form::close() }}
             </div> <!-- Images -->
         </div>
