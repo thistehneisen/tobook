@@ -35,4 +35,5 @@ return [
     'edit'              => 'Muokkaa',
     'back'              => 'Takaisin',
     'errors'            => 'Virheet',
+    'are_you_sure'   => 'Are you sure?' // @todo
 ];

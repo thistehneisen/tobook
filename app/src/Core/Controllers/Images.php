@@ -26,4 +26,18 @@ class Images extends Base
             $image->save();
         }
     }
+
+    /**
+     * Delete an image
+     *
+     * @param int $id Image's ID
+     *
+     * @return Redirect
+     */
+    public function delete($id)
+    {
+        Image::where('id', $id)
+            ->where('user_id', Confide::user()->id)
+            ->delete();
+    }
 }

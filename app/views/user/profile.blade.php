@@ -8,6 +8,28 @@
     <h1 class="text-header">{{ trans('user.change_profile') }}</h1>
 @stop
 
+@section ('scripts')
+    @parent
+    <script>
+$(function () {
+    $('a.delete-image').on('click', function (e) {
+        e.preventDefault();
+        if (confirm('{{ trans('common.are_you_sure') }}')) {
+            var $this = $(this);
+            $.ajax({
+                url: $this.attr('href'),
+                type: 'GET'
+            }).done(function () {
+                $this.parent().fadeOut(1000, function() {
+                    $(this).remove();
+                });
+            });
+        }
+    });
+});
+    </script>
+@stop
+
 @section ('content')
 <div class="row">
     <div class="col-xs-12">
@@ -88,7 +110,7 @@
 
                 <ul class="varaa-thumbnails">
                 @foreach ($images as $image)
-                    <li><div class="overlay"><i class="fa fa-trash-o fa-3x"></i></div> <img src="{{ $image->getPublicUrl() }}" alt="" class="img-rounded"></li>
+                    <li><a href="{{ route('images.delete', ['id' => $image->id]) }}" class="delete-image"><div class="overlay"><i class="fa fa-trash-o fa-3x"></i></div> <img src="{{ $image->getPublicUrl() }}" alt="" class="img-rounded"></a></li>
                 @endforeach
                 </ul>
                 <div class="clearfix"></div>

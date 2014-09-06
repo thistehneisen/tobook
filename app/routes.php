@@ -265,6 +265,11 @@ Route::group([
         'uses' => 'App\Core\Controllers\Images@upload'
     ]);
 
+    Route::get('delete/{id}', [
+        'as' => 'images.delete',
+        'uses' => 'App\Core\Controllers\Images@delete'
+    ]);
+
 });
 /*
 |--------------------------------------------------------------------------
