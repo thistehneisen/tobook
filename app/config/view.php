@@ -26,7 +26,7 @@ return array(
     |
     */
 
-    'pagination' => 'pagination::slider-3',
+    'pagination' => 'el.pagination',
 
     'perPage' => 50
 

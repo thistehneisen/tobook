@@ -123,4 +123,10 @@ App::before(function($request)
     $_SESSION['varaa_locale'] = $language;
 });
 
+// Set paginator that supports i18n URLs
+App::resolving('paginator', function($paginator) {
+    $paginator->setBaseUrl(App::getLocale().'/'.Request::instance()->path());
+    return $paginator;
+});
+
 require app_path().'/filters.php';
