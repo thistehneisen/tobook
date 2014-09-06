@@ -19,13 +19,13 @@
             <tr data-url="{{{ URL::route('app.lc.show', $value->id) }}}">
                 <td>{{ $value->id }}</td>
                 <td>
-                    {{ $value->first_name }} {{ $value->last_name }}
+                    {{ $value->consumer->getNameAttribute() }}
                 </td>
                 <td>
-                    {{ $value->email }}
+                    {{ $value->consumer->email }}
                 </td>
                 <td>
-                    {{ $value->phone }}
+                    {{ $value->consumer->phone }}
                 </td>
                 <td>
                     {{ $value->updated_at }}

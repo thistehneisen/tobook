@@ -17,18 +17,14 @@ class Consumer extends Base
      */
     private function viewIndex($isApp = false, $search = null) {
         if ($search != null) {
-            $consumers = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-                            ->where('consumers.first_name', 'like', '%' . $search . '%')
-                            ->orWhere('consumers.last_name', 'like', '%' . $search . '%')
-                            ->orWhere('consumers.email', 'like', '%' . $search . '%')
-                            ->orWhere('consumers.phone', 'like', '%' . $search . '%')
-                            ->select('lc_consumers.id', 'consumers.first_name', 'consumers.last_name', 'consumers.email', 'consumers.phone', 'lc_consumers.updated_at')
+            $consumer = Model::consumer()->where('first_name', 'like', '%' . $search . '%')
+                            ->orWhere('last_name', 'like', '%' . $search . '%')
+                            ->orWhere('email', 'like', '%' . $search . '%')
+                            ->orWhere('phone', 'like', '%' . $search . '%')
                             ->paginate(10);
 
         } else {
-            $consumers = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-                            ->select('lc_consumers.id', 'consumers.first_name', 'consumers.last_name', 'consumers.email', 'consumers.phone', 'lc_consumers.updated_at')
-                            ->paginate(10);
+            $consumers = Model::paginate(10);
         }
 
         $viewName = $isApp ? 'modules.lc.app.index' : 'modules.lc.consumers.index';
@@ -294,28 +290,36 @@ class Consumer extends Base
 
                     if ($consumerTotalStamps !== '') {
                         $consumerTotalStamps = json_decode($consumerTotalStamps, true);
-                        $consumerThisStamp = $consumerTotalStamps[$offerID];
-                        $consumerNoOfStamps = $consumerThisStamp[0];
-                        $consumerFreeService = $consumerThisStamp[1];
 
-                        if ($consumerFreeService > 0) {
-                            $consumerFreeService -= 1;
+                        if (array_key_exists($offerID, $consumerTotalStamps)) {
+                            $consumerThisStamp = $consumerTotalStamps[$offerID];
+                            $consumerNoOfStamps = $consumerThisStamp[0];
+                            $consumerFreeService = $consumerThisStamp[1];
 
-                            $consumerTotalStamps[$offerID] = [$consumerNoOfStamps, $consumerFreeService];
-                            $consumerTotalStamps = json_encode($consumerTotalStamps);
+                            if ($consumerFreeService > 0) {
+                                $consumerFreeService -= 1;
 
-                            $transaction->offer_id = $offerID;
-                            $transaction->stamp = 0;
-                            $transaction->free_service = -1;
-                            $transaction->save();
-                            $consumer->total_stamps = $consumerTotalStamps;
-                            $consumer->save();
+                                $consumerTotalStamps[$offerID] = [$consumerNoOfStamps, $consumerFreeService];
+                                $consumerTotalStamps = json_encode($consumerTotalStamps);
 
-                            return Response::json([
-                                'success' => true,
-                                'message' => 'Offer used successfully',
-                                'free'    => $consumerFreeService,
-                            ]);
+                                $transaction->offer_id = $offerID;
+                                $transaction->stamp = 0;
+                                $transaction->free_service = -1;
+                                $transaction->save();
+                                $consumer->total_stamps = $consumerTotalStamps;
+                                $consumer->save();
+
+                                return Response::json([
+                                    'success' => true,
+                                    'message' => 'Offer used successfully',
+                                    'free'    => $consumerFreeService,
+                                ]);
+                            } else {
+                                return Response::json([
+                                    'success' => false,
+                                    'message' => 'No free service of this offer',
+                                ]);
+                            }
                         } else {
                             return Response::json([
                                 'success' => false,
