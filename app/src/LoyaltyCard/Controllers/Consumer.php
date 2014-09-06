@@ -138,28 +138,31 @@ class Consumer extends Base
         $consumer = Model::find($id);
 
         if (Request::ajax()) {
-            $vouchers = VoucherModel::where('user_id', Confide::user()->id)->get();
-            $offers = OfferModel::where('user_id', Confide::user()->id)->get();
-            $consumerTotalStamps = $consumer->total_stamps;
+            if ($consumer) {
+                $vouchers = VoucherModel::where('user_id', Confide::user()->id)->get();
+                $offers = OfferModel::where('user_id', Confide::user()->id)->get();
+                $consumerTotalStamps = $consumer->total_stamps;
 
-            if ($consumerTotalStamps === '') {
-                $stampInfo = null;
+                if ($consumerTotalStamps === '') {
+                    $stampInfo = null;
+                } else {
+                    $stampInfo = json_decode($consumerTotalStamps, true);
+                }
+
+                $data = [
+                    'consumer' => $consumer,
+                    'offers' => $offers,
+                    'vouchers' => $vouchers,
+                    'stampInfo' => $stampInfo,
+                ];    
             } else {
-                $stampInfo = json_decode($consumerTotalStamps, true);
+                $data = ['error' => trans('This consumer does not exist')];
             }
-
-            $data = [
-                'consumer' => $consumer,
-                'offers' => $offers,
-                'vouchers' => $vouchers,
-                'stampInfo' => $stampInfo,
-            ];
 
             return View::make('modules.lc.app.show', $data);
         }
 
-        // return View::make('modules.lc.consumers.show')
-        //             ->with('consumer', $consumer);
+        // what if it's not AJAX?
     }
 
     /**

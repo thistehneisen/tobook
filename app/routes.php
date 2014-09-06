@@ -244,15 +244,19 @@ Route::group([
     'prefix' => 'app',
     'before' => ['auth-lc'],
 ], function () {
-    Route::get('lc', [
-        'as' => 'app.lc.index',
-        'uses' => 'App\LoyaltyCard\Controllers\Consumer@appIndex',
-    ]);
+    Route::group([
+        'prefix' => 'lc',
+    ], function () {
+        Route::get('/', [
+            'as' => 'app.lc.index',
+            'uses' => 'App\LoyaltyCard\Controllers\Consumer@appIndex',
+        ]);
 
-    Route::get('show/{id}', [
-        'as' => 'app.lc.show',
-        'uses' => 'App\LoyaltyCard\Controllers\Consumer@show',
-    ]);
+        Route::get('consumers/{id}', [
+            'as' => 'app.lc.show',
+            'uses' => 'App\LoyaltyCard\Controllers\Consumer@show',
+        ]);
+    });
 });
 
 /*

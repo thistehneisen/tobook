@@ -1,16 +1,75 @@
 /*jslint browser: true, nomen: true, unparam: true*/
-/*global $, jQuery*/
+/*global $, jQuery, external*/
 'use strict';
 
+// global function to be accessed from the desktop app
+function showConsumerInfo(consumerId) {
+    $.ajax({
+        url: '/app/lc/consumers/' + consumerId,
+        dataType: 'html',
+        type: 'GET',
+        success: function (data) {
+            $('#consumer-info').html(data);
+        }
+    });
+}
+
 $(document).ready(function () {
+    var showMessage = function (title, body) {
+            $('#js-messageModal .modal-title').text(title);
+            $('#js-messageModal .modal-body').html(body);
+            $('#js-messageModal').modal('show');
+        },
+        consumerTr = $('#consumer-table tbody tr');
+
+    // ------ CONSUMER INFO FETCHING ------ //
+    consumerTr.click(function () {
+        if (!$(this).hasClass('selected')) {
+            consumerTr.removeClass('selected');
+            $(this).addClass('selected');
+
+            showConsumerInfo($(this).data('consumerid'));
+        }
+    });
+
+    // ------ CREATE CONSUMER ------ //
+    // reset the form when click cancel
+    $('#js-createConsumerModal').on('click', '#js-cancelCreateConsumer', function () {
+        $('#js-createConsumerForm').trigger('reset');
+    });
+
+    // trigger form submit when click confirm
+    $('#js-createConsumerModal').on('click', '#js-confirmCreateConsumer', function () {
+        $.ajax({
+            url: '/loyalty-card/consumers',
+            dataType: 'json',
+            type: 'post',
+            data: $('#js-createConsumerForm').serialize(),
+            success: function (data) {
+                if (!data.success) {
+                    var errorMsg = '';
+
+                    $.each(data.errors, function (index, error) {
+                        errorMsg += '<p> - ' + error + '</p>';
+                    });
+
+                    showMessage('Create New Consumer', errorMsg);
+                } else {
+                    showMessage('Create New Consumer', data.message);
+                    window.location.reload();
+                }
+            },
+        });
+    });
+
     // ------ HIDE CONSUMER INFO ------ //
-    $(this).on('click', '#js-back', function () {
+    $('#consumer-info').on('click', '#js-back', function () {
         $('#consumer-info').html('');
         $('#consumer-table tr').removeClass('selected');
     });
 
     // ------ ADD STAMP ------ //
-    $(this).on('click', '#js-addStamp', function () {
+    $('#consumer-info').on('click', '#js-addStamp', function () {
         var offerID = $(this).data('offerid');
         $.ajax({
             url: '/loyalty-card/consumers/' + $(this).data('consumerid'),
@@ -21,9 +80,7 @@ $(document).ready(function () {
                 offerID: offerID,
             },
             success: function (data) {
-                $('#js-messageModal').find('.modal-title').text('Add Stamp');
-                $('#js-messageModal').find('.modal-body').text(data.message);
-                $('#js-messageModal').modal('show');
+                showMessage('Add Stamp', data.message);
                 $('#js-currentStamp' + offerID).text(data.stamps);
                 $('#js-free' + offerID).text(data.free);
             }
@@ -31,7 +88,7 @@ $(document).ready(function () {
     });
 
     // ------ USE OFFER ------ //
-    $(this).on('click', '#js-useOffer', function () {
+    $('#consumer-info').on('click', '#js-useOffer', function () {
         var offerID = $(this).data('offerid');
         $.ajax({
             url: '/loyalty-card/consumers/' + $(this).data('consumerid'),
@@ -42,9 +99,7 @@ $(document).ready(function () {
                 offerID: offerID,
             },
             success: function (data) {
-                $('#js-messageModal').find('.modal-title').text('Use Offer');
-                $('#js-messageModal').find('.modal-body').text(data.message);
-                $('#js-messageModal').modal('show');
+                showMessage('Use Offer', data.message);
                 $('#js-free' + offerID).text(data.free);
             }
         });
@@ -56,7 +111,7 @@ $(document).ready(function () {
         $(this).find('.modal-footer #js-confirmGivePoint').data('consumerid', $(e.relatedTarget).data('consumerid'));
     });
 
-    $('#js-givePointModal').on('click', '.modal-footer #js-confirmGivePoint', function () {
+    $('#js-givePointModal').on('click', '#js-confirmGivePoint', function () {
         var consumerID = $(this).data('consumerid');
 
         $.ajax({
@@ -68,8 +123,6 @@ $(document).ready(function () {
                 points : $('#points').val(),
             },
             success: function (data) {
-                $('#js-messageModal').find('.modal-title').text('Give Points');
-
                 if (!data.success) {
                     var errorMsg = '';
 
@@ -77,68 +130,46 @@ $(document).ready(function () {
                         errorMsg += '- ' + error + '\n';
                     });
 
-                    $('#js-messageModal').find('.modal-body').text(errorMsg);
-                    $('#js-messageModal').modal('show');
+                    showMessage('Give Points', errorMsg);
                 } else {
                     $('#js-givePointModal').modal('hide');
-                    $('#js-messageModal').find('.modal-body').text(data.message);
-                    $('#js-messageModal').modal('show');
                     $('#js-currentPoint').text(data.points);
+                    showMessage('Give Points', data.message);
                 }
             }
         });
         $('#js-givePointForm').trigger('reset');
     });
 
-    $('#js-givePointModal').on('click', '.modal-footer #js-cancelGivePoint', function () {
+    $('#js-givePointModal').on('click', '#js-cancelGivePoint', function () {
         $('#js-givePointForm').trigger('reset');
     });
 
     // ------ USE POINT ------//
     $('#consumer-info').on('click', '#js-useVoucher', function (e) {
-        var consumerID = $(this).data('consumerid'), voucherID = $(this).data('voucherid'), required = parseInt($(this).data('required'), 10), currentPoint = parseInt($('#js-currentPoint').text(), 10);
-        $('#js-messageModal').find('.modal-title').text('Use Point');
+        var consumerId = $(this).data('consumerid'),
+            voucherId = $(this).data('voucherid'),
+            required = parseInt($(this).data('required'), 10),
+            currentPoint = parseInt($('#js-currentPoint').text(), 10);
 
         if (currentPoint >= required) {
             $.ajax({
-                url: '/loyalty-card/consumers/' + consumerID,
+                url: '/loyalty-card/consumers/' + consumerId,
                 dataType: 'json',
                 type: 'put',
                 data: {
-                    action : 'usePoint',
-                    voucherID : voucherID,
+                    action: 'usePoint',
+                    voucherID: voucherId,
                 },
                 success: function (data) {
                     $('#js-givePointModal').modal('hide');
-                    $('#js-messageModal').find('.modal-body').text(data.message);
-                    $('#js-messageModal').modal('show');
                     $('#js-currentPoint').text(data.points);
+
+                    showMessage('Use Points', data.message);
                 },
             });
         } else {
-            $('#js-messageModal').find('.modal-body').text('Not enough point');
-            $('#js-messageModal').modal('show');
-        }
-    });
-
-    // ------ CONSUMER INFO FETCHING ------ //
-    $('#consumer-table tbody tr').click(function () {
-        var selected = $(this).hasClass('selected');
-        $('#consumer-table tr').removeClass('selected');
-
-        if (!selected) {
-            $(this).addClass('selected');
-
-            $.ajax({
-                url: $(this).data('url'),
-                dataType: 'html',
-                type: 'GET',
-                success: function (data) {
-                    $('#consumer-info').html(data);
-                }
-            });
-        } else {
-            $('#consumer-info').html('');
+            showMessage('Use Points', 'Not enough point');
         }
     });
 
@@ -162,58 +193,25 @@ $(document).ready(function () {
     //     });
     // });
 
-    // ------ CREATE CONSUMER ------ //
-    // reset the form when click cancel
-    $('#js-createConsumerModal').on('click', '.modal-footer #js-cancelCreateConsumer', function () {
-        $('#js-createConsumerForm').trigger('reset');
-    });
-
-    // trigger form submit when click confirm
-    $('#js-createConsumerModal').on('click', '.modal-footer #js-confirmCreateConsumer', function () {
-        $.ajax({
-            url: '/loyalty-card/consumers',
-            dataType: 'json',
-            type: 'post',
-            data: $('#js-createConsumerForm').serialize(),
-            success: function (data) {
-                $('#js-messageModal').find('.modal-title').text('Create New Consumer');
-                if (!data.success) {
-                    var errorMsg = '';
-
-                    $.each(data.errors, function (index, error) {
-                        errorMsg += '<p> - ' + error + '</p>';
-                    });
-
-                    $('#js-messageModal').find('.modal-body').html(errorMsg);
-                    $('#js-messageModal').modal('show');
-                } else {
-                    $('#js-messageModal').find('.modal-body').text(data.message);
-                    $('#js-messageModal').modal('show');
-                    window.location.reload();
-                }
-            },
-        });
-    });
-
     // ------ WRITE CARD ------ //
-    $(this).on('click', '#js-writeCard', function () {
-        var consumer_id = $(this).data('consumerid');
+    $('#consumer-info').on('click', '#js-writeCard', function () {
+        var consumerId = $(this).data('consumerid');
         external.SetCardWriteMode(true);
 
-        if (!confirm("Put the card near the NFC card reader and press OK")) {
+        if (!confirm('Put the card near the NFC card reader and press OK')) {
             external.SetCardWriteMode(false);
             return false;
         }
 
-        $(ctrl).prop("disabled", true);
+        $(this).prop('disabled', true);
 
-        if (external.WriteCard(consumer_id) === true) {
-            $(ctrl).val("Card written OK!");
+        if (external.WriteCard(consumerId) === true) {
+            showMessage('Write to card', 'Successful!');
         } else {
-            alert("Error writing card!");
+            showMessage('Write to card', 'Error writing to card!');
         }
 
-        $(ctrl).prop("disabled", false);
+        $(this).prop('disabled', false);
         return false;
     });
 });
