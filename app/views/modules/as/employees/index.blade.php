@@ -14,9 +14,9 @@
     </div>
     <div class="col-md-6 text-right">
         <div class="btn-group btn-group-sm">
-            <button type="button" class="btn active btn-default">Kaikki</button>
-            <button type="button" class="btn btn-default">Aktiivinen</button>
-            <button type="button" class="btn btn-default">Ei aktiivinen</button>
+            <button type="button" class="btn active btn-default">{{ trans('common.all') }}</button>
+            <button type="button" class="btn btn-default">{{ trans('common.active') }}</button>
+            <button type="button" class="btn btn-default">{{ trans('common.inactive') }}</button>
         </div>
     </div>
 </div>
@@ -26,12 +26,12 @@
     <thead>
         <tr>
             <th>&nbsp;</th>
-            <th>Kuva</th>
-            <th>Työntekijät nimi</th>
-            <th>Sähköpostiosoite</th>
-            <th>Puhelinnumero</th>
-            <th>Palvelut</th>
-            <th>Tila</th>
+            <th>{{ trans('as.employees.avatar') }}</th>
+            <th>{{ trans('as.employees.name') }}</th>
+            <th>{{ trans('as.employees.email') }}</th>
+            <th>{{ trans('as.employees.phone') }}</th>
+            <th>{{ trans('as.employees.services') }}</th>
+            <th>{{ trans('as.employees.status') }}</th>
             <th>&nbsp;</th>
         </tr>
     </thead>
@@ -44,7 +44,13 @@
             <td>{{ $employee->email }}</td>
             <td>{{ $employee->phone }}</td>
             <td>{{ $employee->service }}</td>
-            <td>{{ $employee->is_active }}</td>
+            <td>
+                @if ((bool) $employee->is_active === true)
+                    <span class="label label-success">{{ trans('common.active') }}</span>
+                @else
+                    <span class="label label-danger">{{ trans('common.inactive') }}</span>
+                @endif
+            </td>
             <td>
                 <a href="{{ route('as.employees.upsert', ['id'=> $employee->id ]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
                 <a href="{{ route('as.employees.upsert', ['id'=> $employee->id ]) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>

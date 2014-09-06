@@ -43,6 +43,7 @@ return [
     'fri'            => 'Friday',
     'sat'            => 'Saturday',
     'sun'            => 'Sunday',
+    'all'            => 'All',
     'short' => [
         'mon' => 'Mon',
         'tue' => 'Tue',

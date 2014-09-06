@@ -35,15 +35,18 @@ class Employees extends AsBase
      */
     public function upsertHandler($item)
     {
-        $input = Input::all();
+        // Fill general information
+        $item->fill([
+            'name' => Input::get('name'),
+            'email' => Input::get('email'),
+            'phone' => Input::get('phone'),
+            'description' => Input::get('description'),
+            'is_subscribed_email' => Input::get('is_subscribed_email'),
+            'is_subscribed_sms' => Input::get('is_subscribed_sms'),
+            'is_active' => Input::get('is_active')
+        ]);
 
-        if ($input['avatar'] === null) {
-            // When editing, if user doesn't want to change avatar, we'll not
-            // update data value
-            unset($input['avatar']);
-        }
-
-        $item->fill($input);
+        // Update data
         if (Input::hasFile('avatar')) {
             $file            = Input::file('avatar');
             $destinationPath = public_path(Config::get('varaa.upload_folder')).'/avatars';
@@ -53,6 +56,11 @@ class Employees extends AsBase
                 $item->avatar = $filename;
             }
         }
+
+        // Sync selected services
+        $item->services()->sync(Input::get('services'));
+
+        // Attach this employee to the current user
         $item->user()->associate($this->user);
 
         return $item;

@@ -183,7 +183,7 @@ return [
     'employees' => [
         'all'                 => 'Työntekijät',
         'add'                 => 'Lisää työntekijä',
-        'edit'                => 'Edit employee',
+        'edit'                => 'Edit employee', // @todo
         'name'                => 'Nimi',
         'phone'               => 'Puhelinnumero',
         'email'               => 'Sähköpostiosoite',

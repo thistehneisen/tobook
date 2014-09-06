@@ -45,6 +45,7 @@ return [
     'fri'            => 'Perjantai',
     'sat'            => 'Lauantai',
     'sun'            => 'Sunnuntai',
+    'all'            => 'Kaikki',
     'short' => [
         'mon' => 'Ma',
         'tue' => 'Ti',

@@ -1,5 +1,22 @@
 @extends ('modules.as.layout')
 
+@section ('styles')
+    @parent
+    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2.min.css') }}
+    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2-bootstrap.min.css') }}
+@stop
+
+@section ('scripts')
+    @parent
+    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2.min.js') }}
+    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2_locale_'.App::getLocale().'.min.js') }}
+    <script>
+$(function () {
+    $('select.select2').select2();
+});
+    </script>
+@stop
+
 @section ('content')
     @include ('modules.as.employees.tab', $employee)
 
@@ -56,7 +73,7 @@
          <div class="form-group">
             <label class="col-sm-2 control-label">{{  trans('as.employees.services') }}</label>
             <div class="col-sm-5">
-                 {{ Form::select('service', $services, isset($employee) ? $employee->service_id : 1, ['class' => 'form-control input-sm', 'id' => 'services']) }}
+                 {{ Form::select('services[]', $services, $employee->services->lists('id'), ['class' => 'form-control input-sm select2', 'id' => 'services', 'multiple' => 'multiple']) }}
             </div>
         </div>
         <div class="form-group">
