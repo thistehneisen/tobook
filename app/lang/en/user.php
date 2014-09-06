@@ -30,6 +30,8 @@ return [
         'general'              => 'General information',
         'images'               => 'Images',
         'no_images'            => 'No image found. Use the form below to add new images',
+        'select_files'         => 'Select files',
+        'upload'               => 'Upload',
         'upload_images'        => 'Upload new images',
         'description'          => 'Business introduction',
         'business_size'        => 'Business size',

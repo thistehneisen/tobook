@@ -30,6 +30,8 @@ return [
         'general'              => 'General information', // @todo
         'images'               => 'Images', // @todo
         'no_images'            => 'No image found. Use the form below to add new images', // @todo
+        'select_files'         => 'Select files', // @todo
+        'upload'               => 'Upload', // @todo
         'upload_images'        => 'Upload new images', // @todo
         'description'          => 'Business introduction', // @todo
         'business_size'        => 'Business size', // @todo

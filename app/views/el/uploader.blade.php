@@ -16,7 +16,7 @@ $(function () {
     var uploader = WebUploader.create({
         pick: {
             id: '#file-picker',
-            label: 'Select files'
+            label: '{{ trans('user.profile.select_files') }}'
         },
         formData: {{ json_encode($formData ?: []) }},
         dnd: '#images-uploader .queue-list',
@@ -84,5 +84,5 @@ $(function () {
         <ul class="varaa-thumbnails"></ul>
         <div class="clearfix"></div>
     </div>
-    <div class="btn-upload"><i class="fa fa-upload"></i> Upload</div>
+    <div class="btn-upload"><i class="fa fa-upload"></i> {{ trans('user.profile.upload') }}</div>
 </div>
