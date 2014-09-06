@@ -248,6 +248,11 @@ Route::group([
         'as' => 'app.lc.index',
         'uses' => 'App\LoyaltyCard\Controllers\Consumer@appIndex',
     ]);
+
+    Route::get('show/{id}', [
+        'as' => 'app.lc.show',
+        'uses' => 'App\LoyaltyCard\Controllers\Consumer@show',
+    ]);
 });
 
 /*

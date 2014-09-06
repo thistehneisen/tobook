@@ -116,14 +116,14 @@ $(document).ready(function () {
 
     // ------ CONSUMER INFO FETCHING ------ //
     $('#consumer-table tbody tr').click(function () {
-        var consumerID = $(this).data('consumerid'), selected = $(this).hasClass('selected');
+        var selected = $(this).hasClass('selected');
         $('#consumer-table tr').removeClass('selected');
 
         if (!selected) {
             $(this).addClass('selected');
 
             $.ajax({
-                url: '/loyalty-card/consumers/' + consumerID,
+                url: $(this).data('url'),
                 dataType: 'html',
                 type: 'GET',
                 success: function (data) {

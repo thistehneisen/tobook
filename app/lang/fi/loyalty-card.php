@@ -27,4 +27,11 @@ return [
     'delete_confirmation'   => 'Poistamisen vahvistus',
     'delete_question'       => 'Oletko sinä varma että haluat poistaa ?',
     'consumer_info'         => 'Asiakkaan Tiedot',
+    'points'                => 'Pisteet',
+    'give_points'           => 'Anna Pisteitä',
+    'stamps'                => 'Leimat',
+    'add_stamp'             => 'Lisää Leima',
+    'use_offer'             => 'Käytä',
+    'use_voucher'           => 'Käytä Kupongin',
+    'write_card'            => 'Luo uuden kantis kortin',
 ];

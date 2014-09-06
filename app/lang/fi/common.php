@@ -38,4 +38,5 @@ return [
     'cancel'            => 'Peruuta',
     'type'              => 'Tyyppi',
     'create'            => 'Luo',
+    'search'            => 'Haku',
 ];

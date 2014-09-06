@@ -37,4 +37,5 @@ return [
     'cancel'            => 'Cancel',
     'type'              => 'Type',
     'create'            => 'Create',
+    'search'            => 'Search',
 ];

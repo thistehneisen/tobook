@@ -27,4 +27,11 @@ return [
     'delete_confirmation'   => 'Delete Confirmation',
     'delete_question'       => 'Are you sure to delete ?',
     'consumer_info'         => 'Customer Information',
+    'points'                => 'Points',
+    'give_points'           => 'Give Points',
+    'stamps'                => 'Stamps',
+    'add_stamp'             => 'Add Stamp',
+    'use_offer'             => 'Use Offer',
+    'use_voucher'           => 'Use Voucher',
+    'write_card'            => 'Create new loyalty card',
 ];
