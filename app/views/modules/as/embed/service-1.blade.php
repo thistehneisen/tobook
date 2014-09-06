@@ -21,7 +21,7 @@
                         @if($service->extraServices()->count())
                        <a href="#" data-hash="{{ $hash }}" data-service-id="{{ $service->id }}" class="btn btn-success btn-add-extra-service">Availability</a>
                         @else
-                        <a href="{{ route('as.embed.embed', ['hash' => $hash,'serviceId' => $service->id, 'date' => $date->toDateString() ])}}" class="btn btn-success btn-add-service">Availability</a>
+                        <a href="{{ route('as.embed.embed', ['hash' => $hash,'service_id' => $service->id, 'date' => $date->toDateString() ])}}" class="btn btn-success btn-add-service">Availability</a>
                         @endif
                     </div>
                 </div>

@@ -41,7 +41,7 @@ class Embed extends AsBase
      *
      * @return View
      */
-    public function embed($hash, $date = null, $serviceId = null)
+    public function embed($hash)
     {
         $decoded = Hashids::decrypt($hash);
         $user = User::find($decoded[0]);
@@ -51,17 +51,19 @@ class Embed extends AsBase
             $layoutId = 1;
         }
 
-       $date = (empty($date)) ? Carbon::today() : $date;
+        $serviceId = Input::get('service_id');
+        $date = (empty(Input::get('date'))) ? Carbon::today() : Input::get('date');
 
         if (!$date instanceof Carbon) {
             try {
-                $date = Carbon::createFromFormat('Y-m-d', $date);
+                $date = new Carbon($date);
             } catch (\Exception $ex) {
                 $date = Carbon::today();
             }
         }
 
         $employees= [];
+        $service  = null;
         $workingTimes = range(8,17);
         //for select employee view
         if(!empty($serviceId) && !empty($date)){

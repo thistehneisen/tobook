@@ -50,5 +50,9 @@
             autoCenter: false
         });
     });
+
+    $('.active').click(function (e) {
+
+    });
   });
 }(jQuery));

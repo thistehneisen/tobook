@@ -353,15 +353,16 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Embed@preview'
     ]);
 
-    Route::get('embed/{hash}/{date?}/{serviceId?}', [
+    Route::get('embed/get-extra-service-form', [
+        'as' => 'as.embed.extra.form',
+        'uses' => 'App\Appointment\Controllers\Embed@getExtraServiceForm'
+    ]);
+
+    Route::get('embed/{hash}', [
         'as' => 'as.embed.embed',
         'uses' => 'App\Appointment\Controllers\Embed@embed'
     ]);
 
-    Route::get('embed/get-extra-service-form/{hash}', [
-        'as' => 'as.embed.extra.form',
-        'uses' => 'App\Appointment\Controllers\Embed@getExtraServiceForm'
-    ]);
 
     // Options
     Route::get('options/{page?}', [
