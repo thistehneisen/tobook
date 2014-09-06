@@ -1,7 +1,6 @@
 @extends('modules.mt.layout')
 @section('styles')
     {{ HTML::style('assets/wysiwyg/bootstrap/bootstrap_extend.css') }}
-    {{ HTML::style('assets/css/marketing.css') }}
 @stop
 
 @section('sub-content')
