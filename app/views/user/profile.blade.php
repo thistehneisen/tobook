@@ -36,15 +36,15 @@ $(function () {
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
             <li {{ $activeTab === 'general' ? 'class="active"' : '' }}><a href="#general" role="tab" data-toggle="tab">{{ trans('user.profile.general') }}</a></li>
-            <li {{ $activeTab === 'password' ? 'class="active"' : '' }}><a href="#password" role="tab" data-toggle="tab">{{ trans('user.change_password') }}</a></li>
             <li {{ $activeTab === 'images' ? 'class="active"' : '' }}><a href="#images" role="tab" data-toggle="tab">{{ trans('user.profile.images') }}</a></li>
+            <li {{ $activeTab === 'password' ? 'class="active"' : '' }}><a href="#password" role="tab" data-toggle="tab">{{ trans('user.change_password') }}</a></li>
         </ul>
         <br>
         @include ('el.messages')
 
         <!-- Tab panes -->
         <div class="tab-content">
-            <div class="tab-pane" id="general">
+            <div class="tab-pane active" id="general">
             {{ Form::open(['id' => 'frm-profile', 'route' => 'user.profile', 'class' => 'form-horizontal', 'role' => 'form']) }}
                 <h3 class="comfortaa orange">{{ trans('user.profile.general') }}</h3>
                 <div class="form-group">
@@ -77,6 +77,25 @@ $(function () {
             {{ Form::close() }}
             </div> <!-- General information -->
 
+            <div class="tab-pane" id="images">
+                <h3 class="comfortaa orange">{{ trans('user.profile.images') }}</h3>
+                @if ($images->isEmpty())
+                <p class="text-muted"><em>{{ trans('user.profile.no_images') }}</em></p>
+                @endif
+
+                <ul class="varaa-thumbnails">
+                @foreach ($images as $image)
+                    <li><a href="{{ route('images.delete', ['id' => $image->id]) }}" class="delete-image"><div class="overlay"><i class="fa fa-trash-o fa-3x"></i></div> <img src="{{ $image->getPublicUrl() }}" alt="" class="img-rounded"></a></li>
+                @endforeach
+                </ul>
+                <div class="clearfix"></div>
+
+                <h3 class="comfortaa orange">{{ trans('user.profile.upload_images') }}</h3>
+                @include ('el.uploader', [
+                    'formData' => $formData
+                ])
+            </div> <!-- Images -->
+
             <div class="tab-pane {{ $activeTab === 'password' ? 'active' : '' }}" id="password">
             {{ Form::open(['id' => 'frm-profile', 'route' => 'user.profile', 'class' => 'form-horizontal', 'role' => 'form']) }}
                 <h3 class="comfortaa orange">{{ trans('user.change_password') }}</h3>
@@ -101,25 +120,6 @@ $(function () {
                 </div>
             {{ Form::close() }}
             </div> <!-- Change password -->
-
-            <div class="tab-pane active" id="images">
-                <h3 class="comfortaa orange">{{ trans('user.profile.images') }}</h3>
-                @if ($images->isEmpty())
-                <p class="text-muted"><em>{{ trans('user.profile.no_images') }}</em></p>
-                @endif
-
-                <ul class="varaa-thumbnails">
-                @foreach ($images as $image)
-                    <li><a href="{{ route('images.delete', ['id' => $image->id]) }}" class="delete-image"><div class="overlay"><i class="fa fa-trash-o fa-3x"></i></div> <img src="{{ $image->getPublicUrl() }}" alt="" class="img-rounded"></a></li>
-                @endforeach
-                </ul>
-                <div class="clearfix"></div>
-
-                <h3 class="comfortaa orange">{{ trans('user.profile.upload_images') }}</h3>
-                @include ('el.uploader', [
-                    'formData' => $formData
-                ])
-            </div> <!-- Images -->
         </div>
     </div>
 </div>
