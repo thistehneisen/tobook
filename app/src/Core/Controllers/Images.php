@@ -1,6 +1,6 @@
 <?php namespace App\Core\Controllers;
 
-use Input, Config;
+use Input, Config, Confide;
 use App\Core\Models\Image;
 
 class Images extends Base
@@ -22,7 +22,7 @@ class Images extends Base
             // OK new record to database
             $data['path'] = $data['imageable_type']::IMAGEABLE_PATH.'/'.$filename;
             $image = new Image($data);
-
+            $image->user()->associate(Confide::user());
             $image->save();
         }
     }

@@ -16,6 +16,11 @@ class Image extends Base
         return $this->morphTo();
     }
 
+    public function user()
+    {
+        return $this->belongsTo('App\Core\Models\User');
+    }
+
     //--------------------------------------------------------------------------
     // SCOPES
     //--------------------------------------------------------------------------

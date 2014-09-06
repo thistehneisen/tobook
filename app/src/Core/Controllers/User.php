@@ -32,7 +32,11 @@ class User extends Base
         $selectedCategories = Confide::user()->businessCategories->lists('id');
 
         // Get all images of this user
-        $images = Confide::user()->images()->businessImages()->get();
+        $images = Confide::user()->images()
+            ->businessImages()
+            // This should be enabled later
+            // ->ofCurrentUser()
+            ->get();
 
         return View::make('user.profile', [
             'user'               => Confide::user(),
