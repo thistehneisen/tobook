@@ -34,7 +34,7 @@
                         <span id="js-free{{ $value->id }}">0</span>
                         @else
                             @if (array_key_exists ($value->id, $stampInfo))
-                        <span id="js-free{{ $value->id }}">{{ $stampInfo[$value->id][1] }} </span>
+                        <span id="js-free{{ $value->id }}">{{ $stampInfo[$value->id][1] }}</span>
                             @else
                         <span id="js-free{{ $value->id }}">0</span>
                             @endif

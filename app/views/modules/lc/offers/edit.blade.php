@@ -40,7 +40,7 @@
     </div>
     @endforeach
     <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-10">
+        <div class="col-sm-offset-3 col-sm-9">
             {{ Form::submit(trans('loyalty-card.finish'), ['class' => 'btn btn-primary']) }}
         </div>
     </div>

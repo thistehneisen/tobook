@@ -22,9 +22,13 @@ class Consumer extends Base
                             ->orWhere('consumers.last_name', 'like', '%' . $search . '%')
                             ->orWhere('consumers.email', 'like', '%' . $search . '%')
                             ->orWhere('consumers.phone', 'like', '%' . $search . '%')
+                            ->select('lc_consumers.id', 'consumers.first_name', 'consumers.last_name', 'consumers.email', 'consumers.phone', 'lc_consumers.updated_at')
                             ->paginate(10);
+
         } else {
-            $consumers = Model::paginate(10);
+            $consumers = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
+                            ->select('lc_consumers.id', 'consumers.first_name', 'consumers.last_name', 'consumers.email', 'consumers.phone', 'lc_consumers.updated_at')
+                            ->paginate(10);
         }
 
         $viewName = $isApp ? 'modules.lc.app.index' : 'modules.lc.consumers.index';

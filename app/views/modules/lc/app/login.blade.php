@@ -37,7 +37,7 @@
 
         @include ('el.messages')
 
-        {{ Form::open(['id' => 'frm-login', 'route' => 'auth.login', 'class' => 'form-horizontal', 'role' => 'form']) }}
+        {{ Form::open(['id' => 'frm-login', 'route' => 'app.lc.login', 'class' => 'form-horizontal', 'role' => 'form']) }}
 
         @foreach ($fields as $name => $field)
             <?php $type = isset($field['type']) ? $field['type'] : 'text' ?>

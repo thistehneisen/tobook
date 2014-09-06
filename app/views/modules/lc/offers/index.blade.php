@@ -24,6 +24,7 @@
                 <th>{{ trans('loyalty-card.free_service') }}</th>
                 <th>{{ trans('loyalty-card.auto_add') }}</th>
                 <th>{{ trans('loyalty-card.active') }}</th>
+                <th>{{{ trans('common.edit') }}}</th>
                 <th>{{ trans('common.delete') }}</th>
             </tr>
         </thead>
@@ -33,43 +34,38 @@
                 <!--<td>
                     <input type="checkbox" id="chkStampId" value="{{ $value->id }}" />
                 </td>-->
-                <td>{{ $key+1 }}</td>
+                <td>{{ $value->id }}</td>
                 <td>
-                    <a href="{{ URL::route('lc.offers.edit', ['id' => $value->id]) }}">
-                        {{ $value->name }}
-                    </a>
+                    {{ $value->name }}
                 </td>
                 <td>
-                    <a href="{{ URL::route('lc.offers.edit', ['id' => $value->id]) }}">
-                        {{ $value->total_used }}
-                    </a>
+                    {{ $value->total_used }}
                 </td>
                 <td>
-                    <a href="{{ URL::route('lc.offers.edit', ['id' => $value->id]) }}">
-                        {{ $value->required }}
-                    </a>
+                    {{ $value->required }}
                 </td>
                 <td>
-                    <a href="{{ URL::route('lc.offers.edit', ['id' => $value->id]) }}">
-                        {{ $value->free_service }}
-                    </a>
+                    {{ $value->free_service }}
                 </td>
                 <td>
-                    <a href="{{ URL::route('lc.offers.edit', ['id' => $value->id]) }}">
-                        @if ($value->is_auto_add === 0)
-                            {{ trans('common.no') }}
-                        @else
-                            {{ trans('common.yes') }}
-                        @endif
-                    </a>
+                    @if ($value->is_auto_add === 0)
+                        {{ trans('common.no') }}
+                    @else
+                        {{ trans('common.yes') }}
+                    @endif
                 </td>
                 <td>
+                    @if ($value->is_active === 0)
+                        {{ trans('common.no') }}
+                    @else
+                        {{ trans('common.yes') }}
+                    @endif
+                </td>
+                <td class="no-display">
                     <a href="{{ URL::route('lc.offers.edit', ['id' => $value->id]) }}">
-                        @if ($value->is_active === 0)
-                            {{ trans('common.no') }}
-                        @else
-                            {{ trans('common.yes') }}
-                        @endif
+                        <button class="btn btn-sm btn-success" type="button">
+                            <span class="glyphicon glyphicon-pencil"></span> {{ trans('common.edit') }}
+                        </button>
                     </a>
                 </td>
                 <td>

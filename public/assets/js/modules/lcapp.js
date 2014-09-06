@@ -21,11 +21,11 @@ $(document).ready(function () {
                 offerID: offerID,
             },
             success: function (data) {
-                if (data.success) {
-                    window.alert(data.message);
-                    $('#js-currentStamp' + offerID).text(data.stamps);
-                    $('#js-free' + offerID).text(data.free);
-                }
+                $('#js-messageModal').find('.modal-title').text('Add Stamp');
+                $('#js-messageModal').find('.modal-body').text(data.message);
+                $('#js-messageModal').modal('show');
+                $('#js-currentStamp' + offerID).text(data.stamps);
+                $('#js-free' + offerID).text(data.free);
             }
         });
     });
@@ -42,7 +42,9 @@ $(document).ready(function () {
                 offerID: offerID,
             },
             success: function (data) {
-                window.alert(data.message);
+                $('#js-messageModal').find('.modal-title').text('Use Offer');
+                $('#js-messageModal').find('.modal-body').text(data.message);
+                $('#js-messageModal').modal('show');
                 $('#js-free' + offerID).text(data.free);
             }
         });
@@ -66,6 +68,8 @@ $(document).ready(function () {
                 points : $('#points').val(),
             },
             success: function (data) {
+                $('#js-messageModal').find('.modal-title').text('Give Points');
+
                 if (!data.success) {
                     var errorMsg = '';
 
@@ -73,10 +77,12 @@ $(document).ready(function () {
                         errorMsg += '- ' + error + '\n';
                     });
 
-                    window.alert(errorMsg);
+                    $('#js-messageModal').find('.modal-body').text(errorMsg);
+                    $('#js-messageModal').modal('show');
                 } else {
-                    window.alert(data.message);
                     $('#js-givePointModal').modal('hide');
+                    $('#js-messageModal').find('.modal-body').text(data.message);
+                    $('#js-messageModal').modal('show');
                     $('#js-currentPoint').text(data.points);
                 }
             }
@@ -91,6 +97,7 @@ $(document).ready(function () {
     // ------ USE POINT ------//
     $('#consumer-info').on('click', '#js-useVoucher', function (e) {
         var consumerID = $(this).data('consumerid'), voucherID = $(this).data('voucherid'), required = parseInt($(this).data('required'), 10), currentPoint = parseInt($('#js-currentPoint').text(), 10);
+        $('#js-messageModal').find('.modal-title').text('Use Point');
 
         if (currentPoint >= required) {
             $.ajax({
@@ -102,15 +109,15 @@ $(document).ready(function () {
                     voucherID : voucherID,
                 },
                 success: function (data) {
-                    if (data.success) {
-                        window.alert(data.message);
-                        $('#js-givePointModal').modal('hide');
-                        $('#js-currentPoint').text(data.points);
-                    }
+                    $('#js-givePointModal').modal('hide');
+                    $('#js-messageModal').find('.modal-body').text(data.message);
+                    $('#js-messageModal').modal('show');
+                    $('#js-currentPoint').text(data.points);
                 },
             });
         } else {
-            window.alert('Not enough point');
+            $('#js-messageModal').find('.modal-body').text('Not enough point');
+            $('#js-messageModal').modal('show');
         }
     });
 
@@ -169,16 +176,19 @@ $(document).ready(function () {
             type: 'post',
             data: $('#js-createConsumerForm').serialize(),
             success: function (data) {
+                $('#js-messageModal').find('.modal-title').text('Create New Consumer');
                 if (!data.success) {
                     var errorMsg = '';
 
                     $.each(data.errors, function (index, error) {
-                        errorMsg += '- ' + error + '\n';
+                        errorMsg += '<p> - ' + error + '</p>';
                     });
 
-                    window.alert(errorMsg);
+                    $('#js-messageModal').find('.modal-body').html(errorMsg);
+                    $('#js-messageModal').modal('show');
                 } else {
-                    window.alert(data.message);
+                    $('#js-messageModal').find('.modal-body').text(data.message);
+                    $('#js-messageModal').modal('show');
                     window.location.reload();
                 }
             },
