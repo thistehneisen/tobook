@@ -10,6 +10,9 @@
     <script>
 $(function () {
     'use strict';
+    var $uploader = $('#images-uploader'),
+        $queue = $uploader.find('.varaa-thumbnails');
+
     var uploader = WebUploader.create({
         pick: {
             id: '#file-picker',
@@ -38,23 +41,34 @@ $(function () {
         // Create thumbnail
         uploader.makeThumb(file, function (error, src) {
             if (error) {
+                console.log(error);
                 return;
             }
 
             tpl.find('img').attr('src', src);
             tpl.attr('id', file.id);
-            $('#images-uploader').find('.varaa-thumbnails').append(tpl);
+            $queue.append(tpl);
         }, 100, 100);
+
+        // Attach delete file handler
+        tpl.find('i.fa-trash-o').on('click', function(e) {
+            e.preventDefault();
+            uploader.removeFile(file);
+            $('#'+file.id).fadeOut(750, function() {
+                $(this).remove();
+            });
+        });
     }).on('uploadSuccess', function(file, res) {
         $('#'+file.id).find('i')
             .removeClass('fa-spinner fa-spin')
             .addClass('fa-check-circle');
     });
 
-    $('#images-uploader').find('.btn-upload').on('click', function() {
+    // Upload button
+    $uploader.find('.btn-upload').on('click', function() {
         uploader.upload();
-        $('#images-uploader').find('.varaa-thumbnails i').removeClass('fa-trash-o').addClass('fa-spinner fa-spin');
-        $('#images-uploader').find('.varaa-thumbnails .overlay').addClass('shown');
+        $queue.find('i').removeClass('fa-trash-o').addClass('fa-spinner fa-spin');
+        $queue.find('.overlay').addClass('shown');
     });
 });
     </script>
