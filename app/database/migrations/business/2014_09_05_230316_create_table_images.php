@@ -16,6 +16,7 @@ class CreateTableImages extends Migration {
 		{
 			$table->increments('id');
             $table->string('path');
+            $table->string('type');
             $table->unsignedInteger('imageable_id');
             $table->string('imageable_type');
 			$table->timestamps();

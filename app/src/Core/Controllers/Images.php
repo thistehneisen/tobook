@@ -1,6 +1,6 @@
 <?php namespace App\Core\Controllers;
 
-use Input, Config, Crypt;
+use Input, Config;
 use App\Core\Models\Image;
 
 class Images extends Base
@@ -8,21 +8,20 @@ class Images extends Base
     public function upload()
     {
         if (Input::hasFile('file')) {
-            $decoded = Crypt::decrypt(Input::get('data'));
-            $imageableType = $decoded['imageable_type'];
-            $imageableId   = $decoded['imageable_id'];
+            $method = 'get'.studly_case(Input::get('image_type')).'Data';
+            if (!method_exists('App\Core\Models\Image', $method)) {
+                throw new \InvalidArgumentException('Invalid image type');
+            }
+            $data = Image::$method();
 
             $file     = Input::file('file');
-            $dest     = public_path(Config::get('varaa.upload_folder').$imageableType::IMAGEABLE_PATH);
+            $dest     = public_path(Config::get('varaa.upload_folder').$data['imageable_type']::IMAGEABLE_PATH);
             $filename = str_random(6) . '_' . $file->getClientOriginalName();
             $file->move($dest, $filename);
 
             // OK new record to database
-            $image = new Image([
-                'path'           => $imageableType::IMAGEABLE_PATH.'/'.$filename,
-                'imageable_id'   => $imageableId,
-                'imageable_type' => $imageableType,
-            ]);
+            $data['path'] = $data['imageable_type']::IMAGEABLE_PATH.'/'.$filename;
+            $image = new Image($data);
 
             $image->save();
         }

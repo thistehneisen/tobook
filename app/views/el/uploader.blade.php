@@ -15,9 +15,7 @@ $(function () {
             id: '#file-picker',
             label: 'Select files'
         },
-        formData: {
-            data: '{{ $formData or '' }}'
-        },
+        formData: {{ json_encode($formData ?: []) }},
         dnd: '#images-uploader .queue-list',
         paste: document.body,
         accept: {

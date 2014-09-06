@@ -1,8 +1,9 @@
 <?php namespace App\Core\Controllers;
 
-use Session, Validator, Input, View, Redirect, Hash, Confide, Crypt;
+use Session, Validator, Input, View, Redirect, Hash, Confide;
 use App\Core\Models\User as UserModel;
 use App\Core\Models\BusinessCategory;
+use App\Core\Models\Image;
 
 class User extends Base
 {
@@ -30,18 +31,20 @@ class User extends Base
         $categories = BusinessCategory::root()->with('children')->get();
         $selectedCategories = Confide::user()->businessCategories->lists('id');
 
+        // Get all images of this user
+        $images = Confide::user()->images()->businessImages()->get();
+
         return View::make('user.profile', [
             'user'               => Confide::user(),
             'fields'             => $fields,
             'validator'          => Validator::make(Input::all(), $this->rules['profile']),
             'categories'         => $categories,
             'selectedCategories' => $selectedCategories,
-            'imageable'          => Crypt::encrypt([
-                'imageable_type' => 'App\Core\Models\User',
-                'imageable_id'   => Confide::user()->id
-            ]),
-            // Activate the submitted tab
-            'activeTab'          => Session::get('tab', 'general')
+            'images'             => $images,
+            'activeTab'          => Session::get('tab', 'general'),
+            'formData'           => [
+                'image_type' => Image::BUSINESS_IMAGE
+            ]
         ]);
     }
 

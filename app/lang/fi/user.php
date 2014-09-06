@@ -29,6 +29,8 @@ return [
     'profile' => [
         'general'              => 'General information', // @todo
         'images'               => 'Images', // @todo
+        'no_images'            => 'No image found. Use the form below to add new images', // @todo
+        'upload_images'        => 'Upload new images', // @todo
         'description'          => 'Business introduction', // @todo
         'business_size'        => 'Business size', // @todo
         'business_size_values' => [ // @todo
