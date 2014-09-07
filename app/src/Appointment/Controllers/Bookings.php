@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Controllers;
 
-use App, View, Confide, Redirect, Input, Config, Response, Util;
+use App, View, Confide, Redirect, Input, Config, Response, Util, Hashids, Session;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Employee;
@@ -104,11 +104,19 @@ class Bookings extends AsBase
     {
         $serviceId      = (int) Input::get('service_id');
         $employeeId     = (int) Input::get('employee_id');
-        $serviceTimeId  = (int) Input::get('service_time');
-        $modifyTime     = (int) Input::get('modify_times');
+        $serviceTimeId  = Input::get('service_time', 'default');
+        $modifyTime     = (int) Input::get('modify_times', 0);
+        $hash           = Input::get('hash');
         $bookingDate    = Input::get('booking_date');
         $startTimeStr   = Input::get('start_time');
-        $uuid           = Input::get('uuid');
+        $uuid           = Input::get('uuid', Util::uuid());
+
+        //Use for front-end booking
+        if(empty($this->user)){
+            //TODO check if is there any potential error
+            $decoded = Hashids::decrypt($hash);
+            $this->user = User::find($decoded[0]);
+        }
 
         $employee = Employee::find($employeeId);
         $service = Service::find($serviceId);
@@ -126,7 +134,7 @@ class Bookings extends AsBase
         $startTime = Carbon::createFromFormat('Y-m-d H:i', sprintf('%s %s', $bookingDate, $startTimeStr));
         $endTime = with(clone $startTime)->addMinutes($endTimeDelta);
 
-        //TODO check is there any existed booking with this service time
+        //Check is there any existed booking with this service time
         $bookings = Booking::where('date', $bookingDate)
             ->where('employee_id', $employeeId)
             ->where(function ($query) use ($startTime, $endTime) {
@@ -141,6 +149,7 @@ class Bookings extends AsBase
                           ->where('end_at', '=', $endTime->toTimeString());
                 });
             })->get();
+        //TODO Check overlapped booking in user cart
 
         if (!$bookings->isEmpty()) {
             $data['message'] = trans('as.bookings.error.add_overlapped_booking');
@@ -170,8 +179,23 @@ class Bookings extends AsBase
             'datetime'      => $startTime->toDateTimeString(),
             'price'         => $price,
             'service_name'  => $service->name,
-            'employee_name' => $employee->name
+            'employee_name' => $employee->name,
+            'uuid'          => $uuid
         ];
+
+        $cart = [
+            'datetime'      => $startTime->toDateString(),
+            'price'         => $price,
+            'service_name'  => $service->name,
+            'employee_name' => $employee->name,
+            'start_at'      => $startTimeStr,
+            'end_at'        => $endTime->format('H:i'),
+            'uuid'          => $uuid
+        ];
+
+        $carts = Session::get('carts', []);
+        $carts[$uuid] = $cart;
+        Session::put('carts' , $carts);
 
         return Response::json($data);
     }
@@ -229,6 +253,54 @@ class Bookings extends AsBase
         return Response::json($data);
     }
 
+    public function addFrontEndBooking()
+    {
+        try {
+            $carts = Session::get('carts');
+            $hash  =  Input::get('hash');
+            $consumer = $this->handleConsumer();
+
+            if(empty($this->user)){
+                $decoded = Hashids::decrypt($hash);
+                $this->user = User::find($decoded[0]);
+            }
+
+            foreach ($carts as $item) {
+                $uuid = $item['uuid'];
+
+                $bookingService = BookingService::where('tmp_uuid', $uuid)->firstOrFail();
+
+                $length = (isset($bookingService->serviceTime))
+                    ? $bookingService->serviceTime->length
+                    : $bookingService->service->length;
+
+                $booking = new Booking();
+                $booking->fill([
+                    'date'      => $bookingService->date,
+                    'start_at'  => $bookingService->start_at,
+                    'end_at'    => $bookingService->end_at,
+                    'total'     => $length,
+                    'status'    => Booking::STATUS_CONFIRM,
+                    'uuid'      => $uuid
+                ]);
+                //need to update end_at, total when add extra service
+
+                $booking->consumer()->associate($consumer);
+                $booking->user()->associate($this->user);
+                $booking->employee()->associate($bookingService->employee);
+                $booking->save();
+                $bookingService->booking()->associate($booking);
+                $bookingService->save();
+            }
+            $data['status']      = true;
+        } catch (\Exception $ex) {
+            $data['status'] = false;
+            $data['message'] = $ex->getMessage();
+            return Response::json($data, 500);
+        }
+        return Response::json($data);
+    }
+
     /**
      * Insert new consumer if not exist in db yet
      *
@@ -236,6 +308,8 @@ class Bookings extends AsBase
      */
     private function handleConsumer()
     {
+        //TODO suggest user info in front end
+
         //Insert customer
         $firstname = Input::get('consumer_firstname');
         $lastname  = Input::get('consumer_lastname');

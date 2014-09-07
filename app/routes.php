@@ -337,6 +337,11 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Bookings@addBooking'
     ]);
 
+    Route::post('bookings/add-front-end-booking', [
+        'as' => 'as.bookings.frontend.add',
+        'uses' => 'App\Appointment\Controllers\Bookings@addFrontEndBooking'
+    ]);
+
     Route::post('bookings/remove-booking-service', [
         'as' => 'as.bookings.service.remove',
         'uses' => 'App\Appointment\Controllers\Bookings@removeBookingService'
@@ -362,7 +367,6 @@ Route::group([
         'as' => 'as.embed.embed',
         'uses' => 'App\Appointment\Controllers\Embed@embed'
     ]);
-
 
     // Options
     Route::get('options/{page?}', [

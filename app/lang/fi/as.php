@@ -204,10 +204,20 @@ return [
         ]
     ],
     'embed' => [
-        'heading'     => 'Otsikko',
-        'description' => 'Sisältö',
-        'embed'       => 'Asenna',
-        'preview'     => 'Esikatselu'
+        'heading'          => 'Otsikko',
+        'description'      => 'Sisältö',
+        'embed'            => 'Asenna',
+        'preview'          => 'Esikatselu',
+        'back_to_services' => 'Takaisin Palveluihin',
+        'select_date'      => 'Valitse Päivämäärä',
+        'select_service'   => 'Valitse Palvelut',
+        'guide_text'       => 'Klikkaa avointa aikaa',
+        'make_appointment' => 'Tee varaus',
+        'cancel'           => 'Peruuta',
+        'empty_cart'       => 'Ostoskori on tyhjä',
+        'start_time'       => 'Aloitusaika',
+        'end_time'         => 'Päättymisaika',
+        'booking_form'     => 'Varauslomake',
     ],
     'options' => [
         'updated' => 'Options updated', // @todo

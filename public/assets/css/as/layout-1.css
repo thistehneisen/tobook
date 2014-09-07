@@ -98,3 +98,6 @@
   width: 165px;
   display: inline-block;
 }
+.as-col li.slot-selected {
+  background-color: #dd5e00;
+}

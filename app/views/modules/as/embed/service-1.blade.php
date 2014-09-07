@@ -14,14 +14,21 @@
                     <a data-toggle="collapse" data-parent="#category-services-{{ $category->id }}" href="#service-{{ $category->id.'-'.$service->id }}"><h5 class="heading">{{ $service->name }}</h5></a>
                     <div id="service-{{ $category->id.'-'.$service->id }}" class="collapse">
                         <p>
-                            <button disabled class="btn btn-default"><i class="glyphicon glyphicon-tag"></i> &euro;{{ number_format($service->price) }}</button>
-                            <button disabled class="btn btn-default"><i class="glyphicon glyphicon-time"></i> {{ $service->length }} minutes</button>
-                            <span class="text-muted">{{ $service->description }}</span>
+                            <a data-service-id="{{ $service->id }}" data-service-time="default" class="btn btn-default btn-select-service-time"><i class="glyphicon glyphicon-tag"></i> &euro;{{ number_format($service->price) }}</a>
+                            <a data-service-id="{{ $service->id }}" data-service-time="default" class="btn btn-default btn-select-service-time"><i class="glyphicon glyphicon-time"></i> {{ $service->length }} minutes</button>
+                            <span class="text-muted">{{ $service->description }}</a>
                         </p>
+                        @foreach ($service->serviceTimes as $serviceTime)
+                        <p>
+                            <a data-service-id="{{ $service->id }}" data-service-time="{{ $serviceTime->id }}" class="btn btn-default btn-select-service-time"><i class="glyphicon glyphicon-tag"></i> &euro;{{ number_format($serviceTime->price) }}</a>
+                            <a data-service-id="{{ $service->id }}" data-service-time="{{ $serviceTime->id }}" class="btn btn-default btn-select-service-time"><i class="glyphicon glyphicon-time"></i> {{ $serviceTime->length }} minutes</a>
+                            <span class="text-muted">{{ $serviceTime->description }}</span>
+                        </p>
+                        @endforeach
                         @if($service->extraServices()->count())
                        <a href="#" data-hash="{{ $hash }}" data-service-id="{{ $service->id }}" class="btn btn-success btn-add-extra-service">Availability</a>
                         @else
-                        <a href="{{ route('as.embed.embed', ['hash' => $hash,'service_id' => $service->id, 'date' => $date->toDateString() ])}}" class="btn btn-success btn-add-service">Availability</a>
+                        <a id="btn-add-service-{{ $service->id }}" href="{{ route('as.embed.embed', ['hash' => $hash,'service_id' => $service->id, 'date' => $date->toDateString() ])}}" class="btn btn-success btn-add-service">Availability</a>
                         @endif
                     </div>
                 </div>

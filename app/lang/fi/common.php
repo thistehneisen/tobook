@@ -46,6 +46,7 @@ return [
     'sat'            => 'Lauantai',
     'sun'            => 'Sunnuntai',
     'all'            => 'Kaikki',
+    'minutes'        => 'Minuuttia',
     'short' => [
         'mon' => 'Ma',
         'tue' => 'Ti',

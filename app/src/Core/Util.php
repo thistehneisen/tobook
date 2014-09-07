@@ -1,5 +1,5 @@
 <?php namespace App\Core;
-
+use Carbon\Carbon;
 /**
  * Providing a set of utility functions
  */
@@ -13,5 +13,36 @@ class Util
     public static function uuid()
     {
         return chr(rand(65,90)) . chr(rand(65,90)) . time();
+    }
+
+    public static function getDayOfWeekText($weekday){
+        $dayOfWeek = '';
+         switch ($weekday) {
+            case Carbon::MONDAY:
+                $dayOfWeek = 'mon';
+                break;
+            case Carbon::TUESDAY:
+                $dayOfWeek = 'tue';
+                break;
+            case Carbon::WEDNESDAY:
+                $dayOfWeek = 'wed';
+                break;
+            case Carbon::THURSDAY:
+                $dayOfWeek = 'thu';
+                break;
+            case Carbon::FRIDAY:
+                $dayOfWeek = 'fri';
+                break;
+            case Carbon::SATURDAY:
+                $dayOfWeek = 'sat';
+                break;
+            case Carbon::SUNDAY:
+                $dayOfWeek = 'sun';
+                break;
+            default:
+                $dayOfWeek = self::getDayOfWeekText(Carbon::now()->dayOfWeek);
+                break;
+        }
+        return $dayOfWeek;
     }
 }

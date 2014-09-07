@@ -1,9 +1,10 @@
 <?php namespace App\Appointment\Controllers;
 
-use Hashids, Input, View;
+use Hashids, Input, View, Session, Redirect;
 use App\Core\Models\User;
-use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\Service;
+use App\Appointment\Models\ServiceTime;
+use App\Appointment\Models\ServiceCategory;
 use Carbon\Carbon;
 
 class Embed extends AsBase
@@ -51,8 +52,18 @@ class Embed extends AsBase
             $layoutId = 1;
         }
 
-        $serviceId = Input::get('service_id');
+        $serviceId      = Input::get('service_id');
+        $serviceTimeId  = Input::get('service_time_id');
         $date = (empty(Input::get('date'))) ? Carbon::today() : Input::get('date');
+
+        $action = Input::get('action');
+
+        //If carts is empty, user cannot checkout
+        if($action === 'checkout'){
+            if(empty(Session::get('carts'))){
+                return Redirect::route('as.embed.embed', ['hash' => $hash]);
+            }
+        }
 
         if (!$date instanceof Carbon) {
             try {
@@ -64,10 +75,16 @@ class Embed extends AsBase
 
         $employees= [];
         $service  = null;
+        $serviceTime = null;
+
+        //TODO get default workingTimes from config
         $workingTimes = range(8,17);
         //for select employee view
         if(!empty($serviceId) && !empty($date)){
             $service = Service::find($serviceId);
+            if(!empty($serviceTimeId)){
+                $serviceTime = Servicetime::find($serviceTimeId);
+            }
             $employees = $service->employees;
         }
 
@@ -80,12 +97,13 @@ class Embed extends AsBase
             'categories'    => $categories,
             'employees'     => $employees,
             'service'       => $service,
+            'serviceTime'   => $serviceTime,
             'workingTimes'  => $workingTimes,
             'hash'          => $hash,
-            'date'          => $date
+            'date'          => $date,
+            'action'        => $action
         ]);
     }
-
 
     /**
      * Display the adding extra service form

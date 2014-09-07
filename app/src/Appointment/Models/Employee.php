@@ -1,5 +1,5 @@
 <?php namespace App\Appointment\Models;
-use Config;
+use Config, Util;
 use Carbon\Carbon;
 
 class Employee extends \App\Core\Models\Base
@@ -50,18 +50,24 @@ class Employee extends \App\Core\Models\Base
         });
     }
 
-    public function getTodayDefaultStartAt()
+    public function getTodayDefaultStartAt($weekday = null)
     {
-         //TODO change thu to today weekday
-        $todayStartAt = $this->getDefaulTimesByDay('thu')->first()->start_at;
+        if($weekday === null){
+            $weekday = Carbon::now()->dayOfWeek;
+        }
+        $dayOfWeek = Util::getDayOfWeekText($weekday);
+        $todayStartAt = $this->getDefaulTimesByDay($dayOfWeek)->first()->start_at;
 
         return $todayStartAt;
     }
 
-    public function getTodayDefaultEndAt()
+    public function getTodayDefaultEndAt($weekday = null)
     {
-        //TODO change thu to today weekday
-        $todayEndAt = $this->getDefaulTimesByDay('thu')->first()->end_at;
+        if($weekday === null){
+            $weekday = Carbon::now()->dayOfWeek;
+        }
+        $dayOfWeek = Util::getDayOfWeekText($weekday);
+        $todayEndAt = $this->getDefaulTimesByDay($dayOfWeek)->first()->end_at;
 
         return $todayEndAt;
     }
@@ -73,9 +79,9 @@ class Employee extends \App\Core\Models\Base
         $class = 'inactive';
         //working time
         $rowTime = Carbon::createFromTime($hour, $minute, 0, Config::get('app.timezone'));
-        list($startHour, $startMinute) = explode(':', $this->getTodayDefaultStartAt());
+        list($startHour, $startMinute) = explode(':', $this->getTodayDefaultStartAt($selectedDate->dayOfWeek));
         $startAt =  Carbon::createFromTime($startHour, $startMinute, 0, Config::get('app.timezone'));
-        list($endHour, $endMinute) = explode(':', $this->getTodayDefaultEndAt());
+        list($endHour, $endMinute) = explode(':', $this->getTodayDefaultEndAt($selectedDate->dayOfWeek));
         $endAt = Carbon::createFromTime($endHour, $endMinute, 0, Config::get('app.timezone'));
 
         if ($rowTime >= $startAt && $rowTime <= $endAt) {
