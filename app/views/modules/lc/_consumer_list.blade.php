@@ -16,7 +16,7 @@
         </thead>
         <tbody>
             @foreach ($consumers as $key => $value)
-            <tr data-url="{{{ URL::route('app.lc.show', $value->id) }}}">
+            <tr data-consumerid="{{{ $value->id }}}">
                 <td>{{ $value->id }}</td>
                 <td>
                     {{ $value->first_name }} {{ $value->last_name }}
