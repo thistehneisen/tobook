@@ -17,7 +17,7 @@ class CreateFdFlashSolds extends Migration {
 		    $t->engine ='InnoDB';
 		    $t->increments('id')->unsigned();
 		    $t->integer('flash_id')->unsigned();
-		    $t->decimal('coupon_code', 6, 2);
+		    $t->string('coupon_code', 16);
 		    $t->boolean('is_used');
 		    $t->boolean('is_paid');
 		    $t->timestamps();

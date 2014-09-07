@@ -4,7 +4,7 @@ namespace App\FlashDeal\Controllers;
 use Input, Session, Redirect, View, Validator;
 use \App\FlashDeal\Models\Service as ServiceModel;
 use \App\FlashDeal\Models\Flash as FlashModel;
-use \App\FlashDeal\Models\FlashTime as FlashTimeModel;
+use \App\FlashDeal\Models\FlashSold as FlashSoldModel;
 use Confide;
 
 class Flash extends \App\Core\Controllers\Base {
@@ -174,5 +174,56 @@ class Flash extends \App\Core\Controllers\Base {
         return Redirect::route('fd.flashs.index');
     }
     
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function sold()
+    {
+        $flashs = FlashModel::where('user_id', '=', Confide::user()->id)->get();
+        $solds = [];
+        foreach ($flashs as $flash) {
+            foreach ($flash->solds as $sold) {
+                $solds[] = $sold;
+            }
+        }
+        // load the view and pass the coupons
+        return View::make('modules.fd.flashs.sold')
+            ->with('flashs', $solds);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function active()
+    {
+        $actives = FlashModel::where('user_id', '=', Confide::user()->id)
+                    ->whereRaw('concat(flash_date, " ", end_time) >= now()')
+                    ->whereRaw('concat(flash_date, " ", start_time) <= now()')
+                    ->get();
+
+        // load the view and pass the flashs
+        return View::make('modules.fd.flashs.active')
+            ->with('flashs', $actives);
+    }
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function expire()
+    {
+        $expires = FlashModel::where('user_id', '=', Confide::user()->id)
+                    ->whereRaw('concat(flash_date, " ", end_time) < now()')
+                    ->get();
+    
+        // load the view and pass the flashs
+        return View::make('modules.fd.flashs.expire')
+            ->with('flashs', $expires);
+    }    
 
 }

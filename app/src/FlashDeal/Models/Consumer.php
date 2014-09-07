@@ -3,7 +3,7 @@ namespace App\FlashDeal\Models;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class FlashTime extends Eloquent
+class Consumer extends Eloquent
 {
-    protected $table = 'fd_flash_times';
+    protected $table = 'consumers';
 }

@@ -4,6 +4,7 @@ namespace App\FlashDeal\Controllers;
 use Input, Session, Redirect, View, Validator;
 use \App\FlashDeal\Models\Service as ServiceModel;
 use \App\FlashDeal\Models\Coupon as CouponModel;
+use \App\FlashDeal\Models\CouponSold as CouponSoldModel;
 use Confide;
 
 class Coupon extends \App\Core\Controllers\Base {
@@ -75,22 +76,7 @@ class Coupon extends \App\Core\Controllers\Base {
             return Redirect::route('fd.coupons.index');
         }
     }
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        $coupon = CouponModel::find($id);
-    
-        return View::make('modules.fd.coupons.show')
-            ->with('coupon', $coupon);
-    }
-    
+   
     
     /**
      * Show the form for editing the specified resource.
@@ -164,5 +150,57 @@ class Coupon extends \App\Core\Controllers\Base {
         return Redirect::route('fd.coupons.index');
     }
     
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function sold()
+    {
+        // get all the sold coupons        
+        $coupons = CouponModel::where('user_id', '=', Confide::user()->id)->get();
+        $solds = [];
+        foreach ($coupons as $coupon) {
+            foreach ($coupon->solds as $sold) {
+                $solds[] = $sold;
+            }
+        }
+        
+        // load the view and pass the coupons
+        return View::make('modules.fd.coupons.sold')
+                ->with('coupons', $solds);
+    }
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function active()
+    {
+        $actives = CouponModel::where('user_id', '=', Confide::user()->id)
+                ->whereRaw('concat(end_date, " 23:59:59") >= now()')
+                ->whereRaw('concat(start_date, " 00:00:00") <= now()')
+                ->get();
+    
+        // load the view and pass the coupons
+        return View::make('modules.fd.coupons.active')
+            ->with('coupons', $actives);
+    }
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function expire()
+    {
+        $expires = CouponModel::where('user_id', '=', Confide::user()->id)
+                    ->whereRaw('end_date < date(now())')
+                    ->get();
+    
+        // load the view and pass the flashs
+        return View::make('modules.fd.coupons.expire')
+            ->with('coupons', $expires);
+    }    
 }

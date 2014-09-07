@@ -27,6 +27,7 @@ return [
         'add_time'     => 'Add Time',
         'start_time'   => 'Start Time',
         'end_time'     => 'End Time',
+        'expired'      => 'Expired Flash Deals',
     ],
     'coupon' => [
         'list'         => 'Coupon List',
@@ -36,8 +37,11 @@ return [
         'sold'         => 'Sold Coupons',
         'active'       => 'Active Coupons',
         'label'        => 'Coupon',
+        'used'         => 'Coupon Used',
+        'code'         => 'Coupon Code',
+        'money_received' => 'Money Received',
+        'expired'        => 'Expired Coupons',
     ],
-    'expired'          => 'Expired Flash Deals / Coupons',
     'discounted_price' => 'Discounted Price',
-    'select_service'   => 'Please select Service.',                    
+    'select_service'   => 'Please select Service.',
 ];

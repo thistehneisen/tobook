@@ -266,6 +266,19 @@ Route::group([
             ]
         ]);
         
+        Route::get('coupons/sold', [
+            'as' => 'fd.coupons.sold',
+            'uses' => 'App\FlashDeal\Controllers\Coupon@sold'
+        ]);
+        Route::get('coupons/active', [
+            'as' => 'fd.coupons.active',
+            'uses' => 'App\FlashDeal\Controllers\Coupon@active'
+        ]);
+        Route::get('coupons/expire', [
+            'as' => 'fd.coupons.expire',
+            'uses' => 'App\FlashDeal\Controllers\Coupon@expire'
+        ]);
+        
         Route::resource('coupons', 'App\FlashDeal\Controllers\Coupon', [
             'names' => [
                 'index'     => 'fd.coupons.index',
@@ -275,7 +288,19 @@ Route::group([
                 'update'    => 'fd.coupons.update',
             ]
         ]);
-        
+
+        Route::get('flashdeals/sold', [
+            'as' => 'fd.flashs.sold',
+            'uses' => 'App\FlashDeal\Controllers\Flash@sold'
+        ]);
+        Route::get('flashdeals/active', [
+            'as' => 'fd.flashs.active',
+            'uses' => 'App\FlashDeal\Controllers\Flash@active'
+        ]);
+        Route::get('flashdeals/expire', [
+            'as' => 'fd.flashs.expire',
+            'uses' => 'App\FlashDeal\Controllers\Flash@expire'
+        ]);        
         Route::resource('flashdeals', 'App\FlashDeal\Controllers\Flash', [
             'names' => [
                 'index'     => 'fd.flashs.index',
@@ -284,7 +309,7 @@ Route::group([
                 'store'     => 'fd.flashs.store',
                 'update'    => 'fd.flashs.update',
             ]
-        ]);        
+        ]);
     });
 
 });
