@@ -110,7 +110,6 @@ return array(
         'Illuminate\Log\LogServiceProvider',
         'Illuminate\Mail\MailServiceProvider',
         'Illuminate\Database\MigrationServiceProvider',
-        'Illuminate\Pagination\PaginationServiceProvider',
         'Illuminate\Queue\QueueServiceProvider',
         'Illuminate\Redis\RedisServiceProvider',
         'Illuminate\Remote\RemoteServiceProvider',
@@ -127,7 +126,8 @@ return array(
         'Ludo237\Hashids\HashidsServiceProvider',
         'anlutro\LaravelSettings\ServiceProvider',
         'App\Lomake\LomakeServiceProvider',
-        'App\Core\Routing\RoutingServiceProvider'
+        'App\Core\Routing\RoutingServiceProvider',
+        'App\Core\Pagination\PaginationServiceProvider',
 
     ),
 
