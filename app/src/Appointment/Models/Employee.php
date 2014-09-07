@@ -23,6 +23,7 @@ class Employee extends \App\Core\Models\Base
     private $bookedSlot = [];
     private $bookingList = [];
     private $freetimeList = [];
+    private $freetimesCache;
 
     public function getDefaultTimes()
     {
@@ -90,8 +91,11 @@ class Employee extends \App\Core\Models\Base
             $class = 'unactive';
         }
 
-        $freetimes = $this->freetimes()->where('date', $selectedDate->toDateString())->get();
-        foreach ($freetimes as $freetime) {
+        if(empty($this->freetimesCache)){
+            $this->freetimesCache = $this->freetimes()->where('date', $selectedDate->toDateString())->get();
+        }
+
+        foreach ($this->freetimesCache as $freetime) {
             $startAt =  Carbon::createFromFormat('H:i:s', $freetime->start_at, Config::get('app.timezone'));
             $endAt   =  Carbon::createFromFormat('H:i:s', $freetime->end_at, Config::get('app.timezone'));
             if ($rowTime >= $startAt && $rowTime <= $endAt) {
