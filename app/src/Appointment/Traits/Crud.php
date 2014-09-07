@@ -23,7 +23,7 @@ trait Crud
 
     public function getIndexFields()
     {
-        return $this->crudIndexFields;
+        return !empty($this->crudIndexFields) ? $this->crudIndexFields : null;
     }
 
     /**
