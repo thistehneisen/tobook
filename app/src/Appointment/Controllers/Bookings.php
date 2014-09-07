@@ -294,6 +294,9 @@ class Bookings extends AsBase
                 $bookingService->booking()->associate($booking);
                 $bookingService->save();
             }
+
+            // Send notification email and SMSs
+
             Session::forget('carts');
             $data['status']      = true;
         } catch (\Exception $ex) {

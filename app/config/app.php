@@ -110,7 +110,6 @@ return array(
         'Illuminate\Log\LogServiceProvider',
         'Illuminate\Mail\MailServiceProvider',
         'Illuminate\Database\MigrationServiceProvider',
-        'Illuminate\Pagination\PaginationServiceProvider',
         'Illuminate\Queue\QueueServiceProvider',
         'Illuminate\Redis\RedisServiceProvider',
         'Illuminate\Remote\RemoteServiceProvider',
@@ -127,7 +126,8 @@ return array(
         'Ludo237\Hashids\HashidsServiceProvider',
         'anlutro\LaravelSettings\ServiceProvider',
         'App\Lomake\LomakeServiceProvider',
-        'App\Core\Routing\RoutingServiceProvider'
+        'App\Core\Routing\RoutingServiceProvider',
+        'App\OneApi\OneApiServiceProvider',
 
     ),
 
@@ -196,14 +196,15 @@ return array(
         'Validator'       => 'Illuminate\Support\Facades\Validator',
         'View'            => 'Illuminate\Support\Facades\View',
         // Addon facades
-        'Confide'  => 'Zizaco\Confide\ConfideFacade',
-        'Entrust'  => 'Zizaco\Entrust\EntrustFacade',
-        'Hashids'  => 'Ludo237\Hashids\Hashids',
-        'Setting'  => 'anlutro\LaravelSettings\Facade',
-        'Consumer' => 'App\Consumers\Models\Consumer',
-        'Lomake'   => 'App\Lomake\Facade',
-        'UrlHelper'    => 'App\Core\Helpers\Url',
-        'Util'     => 'App\Core\Util'
+        'Confide'   => 'Zizaco\Confide\ConfideFacade',
+        'Entrust'   => 'Zizaco\Entrust\EntrustFacade',
+        'Hashids'   => 'Ludo237\Hashids\Hashids',
+        'Setting'   => 'anlutro\LaravelSettings\Facade',
+        'Consumer'  => 'App\Consumers\Models\Consumer',
+        'Lomake'    => 'App\Lomake\Facade',
+        'UrlHelper' => 'App\Core\Helpers\Url',
+        'Util'     => 'App\Core\Util',
+        'Sms'       => 'App\OneApi\Facade',
     ),
 
 );
