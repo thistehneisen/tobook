@@ -177,7 +177,8 @@ return [
         'status'     => 'status', // @todo
         'ip'         => 'ip', // @todo
         'error'      => [
-            'add_overlapped_booking' => 'Overlapped booking time!'
+            'add_overlapped_booking' => 'Overlapped booking time!',// @todo
+            'insufficient_slots'     => 'There is no enough time slots for this booking!',// @todo
         ]
     ],
     'employees' => [

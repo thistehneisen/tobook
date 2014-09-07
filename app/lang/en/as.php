@@ -64,6 +64,10 @@ return [
         'start_at'   => 'Start At', // @todo
         'status'     => 'Status', // @todo
         'ip'         => 'IP', // @todo
+        'error'      => [
+            'add_overlapped_booking' => 'Overlapped booking time!',// @todo
+            'insufficient_slots'     => 'There is no enough time slots for this booking!',// @todo
+        ]
     ],
     'employees' => [
         'all'                 => 'Employees',

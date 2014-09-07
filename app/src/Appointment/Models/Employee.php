@@ -88,7 +88,7 @@ class Employee extends \App\Core\Models\Base
         if ($rowTime >= $startAt && $rowTime <= $endAt) {
             $class = 'active';
         } else {
-            $class = 'unactive';
+            $class = 'inactive';
         }
 
         if(empty($this->freetimesCache)){

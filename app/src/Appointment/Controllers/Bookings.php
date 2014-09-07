@@ -151,9 +151,16 @@ class Bookings extends AsBase
             })->get();
         //TODO Check overlapped booking in user cart
 
+        //Check enough timeslot in employee default working time
+        list($endHour, $endMinute) = explode(':', $employee->getTodayDefaultEndAt($startTime->dayOfWeek));
+        $endAt = with(clone $endTime)->setTime($endHour, $endMinute, 0);
+        if ($endTime > $endAt) {
+            $data['message'] = trans('as.bookings.error.insufficient_slots');
+            return Response::json($data, 400);
+        }
+
         if (!$bookings->isEmpty()) {
             $data['message'] = trans('as.bookings.error.add_overlapped_booking');
-
             return Response::json($data, 400);
         }
         //TODO validate modify time and service time
@@ -232,7 +239,8 @@ class Bookings extends AsBase
                 'total'     => $length,
                 'status'    => $status,
                 'notes'     => $notes,
-                'uuid'      => $uuid
+                'uuid'      => $uuid,
+                'ip'        => Request::getClientIp(),
             ]);
             //need to update end_at, total when add extra service
 
@@ -283,7 +291,8 @@ class Bookings extends AsBase
                     'end_at'    => $bookingService->end_at,
                     'total'     => $length,
                     'status'    => Booking::STATUS_CONFIRM,
-                    'uuid'      => $uuid
+                    'uuid'      => $uuid,
+                    'ip'        => Request::getClientIp()
                 ]);
                 //need to update end_at, total when add extra service
 

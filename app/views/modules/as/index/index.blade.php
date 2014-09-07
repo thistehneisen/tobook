@@ -93,54 +93,6 @@
             </ul>
        </div>
        @endforeach
-       <div class="as-col">
-            <ul>
-                <li class="as-col-header">Employee 1</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-                <li>varaa</li>
-                <li class="booked">
-                    <span class="customer-tooltip"title="Cao Luu Bao An This is a very long text heheh">Cao Luu Bao An This is a very long text heheh (Service 3)</span>
-                    <a href="#" class="pull-right"><i class="fa fa-plus"></i></a>
-                </li>
-                <li class="booked"></li>
-                <li class="booked"></li>
-                <li>varaa</li>
-                <li>varaa</li>
-                <li>varaa</li>
-                <li>varaa</li>
-                <li>varaa</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-                <li class="inactive">varaa</li>
-            </ul>
-       </div>
     </div>
 </div>
 @include('modules.as.index.common')
