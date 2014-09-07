@@ -4,6 +4,9 @@
 .orange {
   color: #ec7923;
 }
+.main {
+  margin-bottom: 20px;
+}
 .as-table-wrapper {
   overflow-x: scroll;
 }

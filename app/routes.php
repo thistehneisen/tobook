@@ -333,6 +333,12 @@ Route::group([
         'as.employees'
     );
 
+    // Service
+    \App\Appointment\Controllers\Services::crudRoutes(
+        'services',
+        'as.services'
+    );
+
     \App\Appointment\Controllers\ExtraServices::crudRoutes(
         'services/extras',
         'as.services.extras'

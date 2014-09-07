@@ -10,6 +10,9 @@ use App\Appointment\Models\Employee;
 
 class Services extends AsBase
 {
+    use App\Appointment\Traits\Crud;
+    protected $viewPath = 'modules.as.services.service';
+    protected $langPrefix = 'as.services';
 
     public function index()
     {
@@ -22,58 +25,56 @@ class Services extends AsBase
         ]);
     }
 
-    public function create()
+
+    /**
+     * {@inheritdoc}
+     */
+    public function upsert($id = null)
     {
+         $service = ($id !== null)
+            ? Service::findOrFail($id)
+            : new Service();
         $categories = ServiceCategory::ofCurrentUser()->lists('name','id');
         $resources  = Resource::ofCurrentUser()->lists('name', 'id');
         $extras     = ExtraService::ofCurrentUser()->lists('name', 'id');
         $employees  = Employee::ofCurrentUser()->get();
-        //TODO add service and service time
-        return View::make('modules.as.services.service.form', [
-                'categories' => $categories,
-                'resources'  => $resources,
-                'extras'     => $extras,
-                'employees'  => $employees
-            ]);
+
+        return $this->render('form', [
+            'service'    => $service,
+            'categories' => $categories,
+            'resources'  => $resources,
+            'extras'     => $extras,
+            'employees'  => $employees
+        ]);
     }
 
-    public function doCreate()
+    /**
+     * {@inheritdoc}
+     */
+    public function upsertHandler($service)
     {
-        $errors = $this->errorMessageBag(trans('common.err.unexpected'));
-
-        try {
-            $service = new Service();
-            $service->fill(Input::all());
-            // Attach user
-            $service->user()->associate($this->user);
-            $category_id = (int) Input::get('category_id');
-            if (!empty($category_id)) {
-                $category = Category::find($category_id);
-                $service->category()->associate($category);
-            }
-
-            $service->saveOrFail();
-
-            $employees = Input::get('employees', array());
-            $plustimes = Input::get('plustimes');
-
-            foreach ($employees as $employee_id) {
-                $employee = Employee::find($employee_id);
-                $emplyeeService = new EmployeeService();
-                $emplyeeService->service()->associate($service);
-                $emplyeeService->employee()->associate($employee);
-                $emplyeeService->plustime = $plustimes[$employee_id];
-                $emplyeeService->saveOrFail();
-            }
-
-            return Redirect::route('as.services.index')
-                ->with('messages', $this->successMessageBag(
-                    trans('as.services.success_add_service')
-                ));
-        } catch (\Watson\Validating\ValidationException $ex) {
-            $errors = $ex->getErrors();
+        $service->fill(Input::all());
+        // Attach user
+        $service->user()->associate($this->user);
+        $category_id = (int) Input::get('category_id');
+        if (!empty($category_id)) {
+            $category = ServiceCategory::find($category_id);
+            $service->category()->associate($category);
         }
 
-        return Redirect::back()->withInput()->withErrors($errors, 'top');
+        $service->saveOrFail();
+
+        $employees = Input::get('employees', array());
+        $plustimes = Input::get('plustimes');
+        $service->employees()->detach($employees);
+        foreach ($employees as $employee_id) {
+            $employee = Employee::find($employee_id);
+            $employeeService = new EmployeeService();
+            $employeeService->service()->associate($service);
+            $employeeService->employee()->associate($employee);
+            $employeeService->plustime = $plustimes[$employee_id];
+            $employeeService->saveOrFail();
+        }
+        return $service;
     }
 }

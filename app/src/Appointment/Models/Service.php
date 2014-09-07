@@ -45,12 +45,17 @@ class Service extends \App\Core\Models\Base
 
     public function employees()
     {
-        return $this->belongsToMany('App\Appointment\Models\Employee', 'as_employee_service');
+        return $this->belongsToMany('App\Appointment\Models\Employee', 'as_employee_service')->withPivot('plustime');
     }
 
     public function serviceTimes()
     {
         return $this->hasMany('App\Appointment\Models\ServiceTime');
+    }
+
+    public function resources()
+    {
+        return $this->belongsToMany('App\Appointment\Models\Resource', 'as_service_resources');
     }
 
     /**

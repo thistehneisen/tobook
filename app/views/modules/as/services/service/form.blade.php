@@ -6,7 +6,7 @@
     <p>{{ trans('as.services.add_desc') }}</p>
 </div>
 
-{{ Form::open(['route' => 'as.services.create', 'class' => 'form-horizontal well', 'role' => 'form']) }}
+{{ Form::open(['route' => ['as.services.upsert', (isset($service) ? $service->id : '')], 'class' => 'form-horizontal well', 'role' => 'form']) }}
     <div class="form-group">
         <label for="name" class="col-sm-2 control-label">{{ trans('as.services.name') }}</label>
         <div class="col-sm-5">
@@ -81,13 +81,13 @@
         <div class="col-sm-5">
             <div class="radio">
                 <label>
-                    {{ Form::radio('is_active', 0, Input::get('is_active', isset($service->id) ? $service->is_active : true)) }}
+                    {{ Form::radio('is_active', 1, Input::get('is_active', isset($service->id) ? $service->is_active : 1)) }}
                     {{ trans('common.active') }}
                 </label>
             </div>
             <div class="radio">
                 <label>
-                    {{ Form::radio('is_active', 1, Input::get('is_active', isset($service->id) ? $service->is_active : false)) }}
+                    {{ Form::radio('is_active', 0, Input::get('is_active', isset($service->id) ? !$service->is_active : 0)) }}
                     {{ trans('common.inactive') }}
                 </label>
             </div>
@@ -96,13 +96,13 @@
     <div class="form-group">
         <label for="resource" class="col-sm-2 control-label">{{ trans('as.services.resource') }}</label>
         <div class="col-sm-5">
-           {{ Form::select('resource', [trans('common.options_select')] + $resources, 1, ['class' => 'form-control input-sm', 'id' => 'resource']) }}
+           {{ Form::select('resource', [trans('common.options_select')] + $resources, isset($service->resources->first()->id) ? $service->resources->first()->id :0, ['class' => 'form-control input-sm', 'id' => 'resource']) }}
         </div>
     </div>
     <div class="form-group">
         <label for="extra" class="col-sm-2 control-label">{{ trans('as.services.extra') }}</label>
         <div class="col-sm-5">
-            {{ Form::select('extra', $extras, 1, ['class' => 'form-control input-sm', 'id' => 'extra']) }}
+            {{ Form::select('extra', [trans('common.options_select')]+ $extras, 1, ['class' => 'form-control input-sm', 'id' => 'extra']) }}
         </div>
     </div>
     <div class="form-group">
@@ -111,16 +111,16 @@
             @if ($employees->isEmpty())
                 <p><small><em>{{ trans('as.services.no_employees') }}</em></small></p>
             @endif
-
+            <?php $selectedEmployees = $service->employees->lists('id'); ?>
             @foreach ($employees as $employee)
             <div class="row" style="margin-bottom: 5px;">
                 <div class="col-sm-6">
                     <div class="checkbox">
-                    <label for="">{{ Form::checkbox('employees[]', 1); }} {{ $employee->name}}</label>
+                    <label for="">{{ Form::checkbox('employees[]', $employee->id, in_array($employee->id, $selectedEmployees)); }} {{ $employee->name}}</label>
                     </div>
                 </div>
                 <div class="col-sm-6">
-                   {{ Form::select("plustimes[$employee->id]", [5, 10, 15, 30], 0, ['class' => 'form-control input-sm', 'id' => 'plustime']) }}
+                   {{ Form::select("plustimes[$employee->id]", array_combine([0, 5, 10, 15, 30], [0, 5, 10, 15, 30]), 0, ['class' => 'form-control input-sm', 'id' => 'plustime']) }}
                 </div>
             </div>
             @endforeach
