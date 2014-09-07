@@ -14,7 +14,7 @@ class Option extends BaseModel
 
     public function getValueAttribute()
     {
-        return json_decode($this->attributes['value']);
+        return json_decode($this->attributes['value'], true);
     }
 
     public function setValueAttribute($value)

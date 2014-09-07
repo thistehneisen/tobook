@@ -81,4 +81,55 @@ class Options extends AsBase
             $this->successMessageBag(trans('as.options.updated'))
         );
     }
+
+    /**
+     * Show the form to update the working time of this shop owner
+     *
+     * @return View
+     */
+    public function workingTime()
+    {
+        $options = Config::get('appointment.options.working_time');
+        if ($customOptions = $this->user->asOptions->get('working_time')) {
+            $options = $customOptions;
+        }
+
+        return $this->render('working-time', [
+            'options' => $options
+        ]);
+    }
+
+    /**
+     * Update working time
+     *
+     * @return Redirect
+     */
+    public function updateWorkingTime()
+    {
+        // Check if the current value was changed
+        $new = Input::get('working_time');
+        $old = $this->user->as_options->get('working_time');
+        if ($old !== $new) {
+            // We need to check if there's already a record in database
+            $option = $this->user->asOptions()
+                ->where('key', 'working_time')
+                ->first();
+
+            if ($option === null) {
+                $option = new Option;
+            }
+
+            $option->fill([
+                'key'   => 'working_time',
+                'value' => Input::get('working_time')
+            ]);
+
+            $this->user->asOptions()->save($option);
+        }
+
+        return Redirect::back()->with(
+            'messages',
+            $this->successMessageBag(trans('as.options.updated'))
+        );
+    }
 }

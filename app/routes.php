@@ -421,6 +421,14 @@ Route::group([
     ]);
 
     // Options
+    Route::get('options/working-time', [
+        'uses' => 'App\Appointment\Controllers\Options@workingTime'
+    ]);
+
+    Route::post('options/working-time', [
+        'uses' => 'App\Appointment\Controllers\Options@updateWorkingTime'
+    ]);
+
     Route::get('options/{page?}', [
         'as'   => 'as.options',
         'uses' => 'App\Appointment\Controllers\Options@index'

@@ -218,14 +218,12 @@ class User extends ConfideUser
         $customOptions = [];
         foreach ($this->asOptions()->get() as $item) {
             $customOptions[$item->key] = $item->value;
+            $ret[$item->key] = $item->value;
         }
 
         foreach ($default as $sections) {
             foreach ($sections as $options) {
                 foreach ($options as $name => $option) {
-                    if (isset($ret[$name])) {
-                        throw new \Exception("There is existing keys of [$name]");
-                    }
 
                     $ret[$name] = isset($option['default'])
                         ? $option['default']
@@ -238,6 +236,7 @@ class User extends ConfideUser
                 }
             }
         }
+
         return new \Illuminate\Support\Collection($ret);
     }
 

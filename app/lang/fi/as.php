@@ -243,7 +243,7 @@ return [
             'phone_number'    => 'SMS phone number', // @todo
             'business_name'   => 'Business name', // @todo
         ],
-            'booking' => [
+        'booking' => [
             'index'                            => 'Varaukset',
             'booking_form'                     => 'Varauslomake',
             'reminders'                        => 'Muistutus',
@@ -315,6 +315,9 @@ return [
             'style_background'    => 'Tausta',
             'style_custom_css'    => 'Custom CSS', // @todo
         ],
+        'working_time' => [
+            'index' => 'Working time',
+        ]
     ],
     'reports' => [
         'index'     => 'Raportit',
