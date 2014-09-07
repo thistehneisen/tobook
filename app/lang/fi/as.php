@@ -310,6 +310,20 @@ return [
             'style_custom_css'    => 'Custom CSS', // @todo
         ],
     ],
+    'reports' => [
+        'index'     => 'Raportit',
+        'employees' => 'Työntekijävakko',
+        'services'  => 'Palveluvalikko',
+        'generate'  => 'Generoi',
+        'start'     => 'Alkaa',
+        'end'       => 'Päättyy',
+        'booking'   => [
+            'total'       => 'Kokonaisvaraukset',
+            'confirmed'   => 'Vahvistetut varaukset',
+            'unconfirmed' => 'Vahvistamattomat varaukset',
+            'cancelled'   => 'Peruutetut varaukset',
+        ]
+    ],
     'items_per_page' => 'Yksiköitä yhteensä',
     'with_selected'  => 'Valitse toiminto',
     'crud' => [

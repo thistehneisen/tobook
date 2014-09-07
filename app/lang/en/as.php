@@ -93,6 +93,20 @@ return [
         'embed'       => 'Embed',
         'preview'     => 'Preview',
     ],
+    'reports' => [
+        'index'     => 'Reports',
+        'employees' => 'Employees',
+        'services'  => 'Services',
+        'generate'  => 'Generate',
+        'start'     => 'Start date',
+        'end'       => 'End date',
+        'booking'   => [
+            'total'       => 'Total bookings',
+            'confirmed'   => 'Confirmed bookings',
+            'unconfirmed' => 'Unconfirmed bookings',
+            'cancelled'   => 'Cancelled bookings',
+        ]
+    ],
     'items_per_page' => 'Items per page',
     'with_selected'  => 'With selected',
     'crud' => [

@@ -82,11 +82,11 @@
                 </li>
                 <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('as.services.index') }}">
-                        <i class="fa fa-line-chart"></i> Raportit <span class="caret"></span>
+                        <i class="fa fa-line-chart"></i> {{ trans('as.reports.index') }} <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="">Työntekijävakko</a></li>
-                        <li><a href="">Palveluvalikko</a></li>
+                        <li><a href="{{ route('as.reports.employees') }}">{{ trans('as.reports.employees') }}</a></li>
+                        <li><a href="#">{{ trans('as.reports.services') }}</a></li>
                     </ul>
                 </li>
                 <li @if (Request::segment(2) === 'embed') {{ 'class="active"' }} @endif><a href="{{ route('as.embed.index') }}"><i class="fa fa-arrow-down"></i> {{ trans('as.embed.embed') }}</a></li>

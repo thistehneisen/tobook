@@ -378,6 +378,12 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Options@update'
     ]);
 
+    // Report
+    Route::get('reports', [
+        'as' => 'as.reports.employees',
+        'uses' => 'App\Appointment\Controllers\Reports@employees'
+    ]);
+
     // Catch-all route should always be at the bottom
     Route::get('/{date?}', [
         'as' => 'as.index',
