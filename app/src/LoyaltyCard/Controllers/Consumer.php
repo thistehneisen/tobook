@@ -18,6 +18,8 @@ class Consumer extends Base
     private function viewIndex($isApp = false, $search = null) {
         if ($search != null) {
             $consumers = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
+                            ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
+                            ->where('consumer_user.user_id', Confide::user()->id)
                             ->where('consumers.first_name', 'like', '%' . $search . '%')
                             ->orWhere('consumers.last_name', 'like', '%' . $search . '%')
                             ->orWhere('consumers.email', 'like', '%' . $search . '%')
@@ -26,6 +28,8 @@ class Consumer extends Base
                             ->paginate(10);
         } else {
             $consumers = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
+                            ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
+                            ->where('consumer_user.user_id', Confide::user()->id)
                             ->select('lc_consumers.id', 'consumers.first_name', 'consumers.last_name', 'consumers.email', 'consumers.phone', 'lc_consumers.updated_at')
                             ->paginate(10);
         }
