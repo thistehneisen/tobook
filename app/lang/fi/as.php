@@ -192,6 +192,7 @@ return [
         'is_subscribed_sms'   => 'Lähetä tekstiviesti',
         'services'            => 'Palvelut',
         'status'              => 'Tila',
+        'is_active'           => 'Tila',
         'avatar'              => 'Kuva',
         'default_time'        => 'default_time', // @todo
         'custom_time'         => 'custom_time', // @todo

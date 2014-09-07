@@ -163,6 +163,9 @@ class Employee extends \App\Core\Models\Base
      */
     public function getAvatarUrl()
     {
+        if (empty($this->attributes['avatar'])) {
+            return asset('assets/img/mm.png');
+        }
         return asset(Config::get('varaa.upload_folder').'/avatars/'.$this->attributes['avatar']);
     }
 

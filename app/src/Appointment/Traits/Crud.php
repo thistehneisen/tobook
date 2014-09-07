@@ -21,6 +21,11 @@ trait Crud
         return $this->model;
     }
 
+    public function getIndexFields()
+    {
+        return $this->crudIndexFields;
+    }
+
     /**
      * Guess the model name based on controller name
      * If you're building a controller that doesn't have a model with the same
@@ -101,7 +106,7 @@ trait Crud
             : 'modules.as.crud.index';
 
         // Get fields to generate tables
-        $fields = $this->getModel()->fillable;
+        $fields = $this->getIndexFields() ?: $this->getModel()->fillable;
 
         return View::make($view, [
             'items'       => $items,

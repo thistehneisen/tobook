@@ -77,6 +77,7 @@ return [
         'is_subscribed_sms'   => 'Is subscribed SMS?',
         'services'            => 'Services',
         'status'              => 'Status',
+        'is_active'           => 'Status',
         'avatar'              => 'Avatar',
         'default_time'        => 'Default time',
         'custom_time'         => 'Custom time',

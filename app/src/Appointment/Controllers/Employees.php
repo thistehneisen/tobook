@@ -12,6 +12,7 @@ class Employees extends AsBase
 
     protected $viewPath = 'modules.as.employees';
     protected $langPrefix = 'as.employees';
+    protected $crudIndexFields = ['avatar', 'name', 'email', 'phone', 'is_active'];
 
     /**
      * {@inheritdoc}
