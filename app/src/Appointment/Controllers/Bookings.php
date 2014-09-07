@@ -331,8 +331,19 @@ class Bookings extends AsBase
         $email     = Input::get('email', '');
         $phone     = Input::get('phone', '');
         $address   = Input::get('address', '');
+        $hash      =  Input::get('hash');
         $consumer = Consumer::where('email', $email)->first();
         $asConsumer = new AsConsumer();
+
+        //In front end, user is identify from hash
+        $user = $this->user;
+        if(empty($this->user)){
+            $decoded = Hashids::decrypt($hash);
+            if(empty($decoded)){
+                return;
+            }
+            $user = User::find($decoded[0]);
+        }
 
         //TODO handle consumer validation
         if ($consumer === null) {
@@ -345,7 +356,7 @@ class Bookings extends AsBase
             ]);
 
             $asConsumer = new AsConsumer();
-            $asConsumer->user()->associate($this->user);
+            $asConsumer->user()->associate($user);
             $asConsumer->consumer()->associate($consumer);
             $asConsumer->save();
         } else {
