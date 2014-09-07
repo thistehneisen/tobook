@@ -17,6 +17,10 @@ class UrlGenerator extends \Illuminate\Routing\UrlGenerator
 
         // Attach current system locale
         $url['path'] = Config::get('app.locale').$url['path'];
-        return $url['scheme'].'://'.$url['host'].'/'.$url['path'];
+
+        $final = $url['scheme'].'://'.$url['host'].'/'.$url['path'];
+        return !empty($url['query'])
+            ? $final.'?'.$url['query']
+            : $final;
     }
 }
