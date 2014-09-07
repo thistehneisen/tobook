@@ -292,6 +292,7 @@ class Bookings extends AsBase
                 $bookingService->booking()->associate($booking);
                 $bookingService->save();
             }
+            Session::forget('carts');
             $data['status']      = true;
         } catch (\Exception $ex) {
             $data['status'] = false;
