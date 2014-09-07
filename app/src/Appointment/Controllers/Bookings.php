@@ -245,6 +245,7 @@ class Bookings extends AsBase
             $data['status']      = true;
             $data['baseURl']     = route('as.index');
             $data['bookingDate'] = $booking->date;
+            Session::forget('carts');
         } catch (\Exception $ex) {
             $data['status'] = false;
             $data['message'] = $ex->getMessage();
@@ -260,10 +261,11 @@ class Bookings extends AsBase
             $hash  =  Input::get('hash');
             $consumer = $this->handleConsumer();
 
-            if(empty($this->user)){
-                $decoded = Hashids::decrypt($hash);
-                $this->user = User::find($decoded[0]);
+            $decoded = Hashids::decrypt($hash);
+            if(empty($decoded)){
+                return;
             }
+            $user = User::find($decoded[0]);
 
             foreach ($carts as $item) {
                 $uuid = $item['uuid'];
@@ -286,7 +288,7 @@ class Bookings extends AsBase
                 //need to update end_at, total when add extra service
 
                 $booking->consumer()->associate($consumer);
-                $booking->user()->associate($this->user);
+                $booking->user()->associate($user);
                 $booking->employee()->associate($bookingService->employee);
                 $booking->save();
                 $bookingService->booking()->associate($booking);
@@ -312,11 +314,11 @@ class Bookings extends AsBase
         //TODO suggest user info in front end
 
         //Insert customer
-        $firstname = Input::get('consumer_firstname', '');
-        $lastname  = Input::get('consumer_lastname', '');
-        $email     = Input::get('consumer_email');
-        $phone     = Input::get('consumer_phone');
-        $address   = Input::get('consumer_address');
+        $firstname = Input::get('firstname', '');
+        $lastname  = Input::get('lastname', '');
+        $email     = Input::get('email', '');
+        $phone     = Input::get('phone', '');
+        $address   = Input::get('address', '');
         $consumer = Consumer::where('email', $email)->first();
         $asConsumer = new AsConsumer();
 
@@ -326,7 +328,8 @@ class Bookings extends AsBase
                 'first_name' => $firstname,
                 'last_name'  => $lastname,
                 'email'      => $email,
-                'phone'      => $phone
+                'phone'      => $phone,
+                'address'    => $address
             ]);
 
             $asConsumer = new AsConsumer();

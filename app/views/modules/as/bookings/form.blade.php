@@ -37,31 +37,31 @@
                             <div class="form-group row">
                                 <label for="consumer_firstname" class="col-sm-4 control-label">Firstname</label>
                                 <div class="col-sm-8">
-                                    {{ Form::text('consumer_firstname', '', ['class' => 'form-control input-sm', 'id' => 'consumer_firstname']) }}
+                                    {{ Form::text('firstname', '', ['class' => 'form-control input-sm', 'id' => 'firstname']) }}
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="consumer_lastname" class="col-sm-4 control-label">Lastname</label>
+                                <label for="lastname" class="col-sm-4 control-label">Lastname</label>
                                 <div class="col-sm-8">
-                                    {{ Form::text('consumer_lastname', '', ['class' => 'form-control input-sm', 'id' => 'consumer_lastname']) }}
+                                    {{ Form::text('lastname', '', ['class' => 'form-control input-sm', 'id' => 'lastname']) }}
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="consumer_email" class="col-sm-4 control-label">Email</label>
+                                <label for="email" class="col-sm-4 control-label">Email</label>
                                 <div class="col-sm-8">
-                                    {{ Form::text('consumer_email', '', ['class' => 'form-control input-sm', 'id' => 'consumer_email']) }}
+                                    {{ Form::text('email', '', ['class' => 'form-control input-sm', 'id' => 'email']) }}
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="consumer_phone" class="col-sm-4 control-label">Phone</label>
+                                <label for="phone" class="col-sm-4 control-label">Phone</label>
                                 <div class="col-sm-8">
-                                    {{ Form::text('consumer_phone','', ['class' => 'form-control input-sm', 'id' => 'consumer_phone']) }}
+                                    {{ Form::text('phone','', ['class' => 'form-control input-sm', 'id' => 'phone']) }}
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="consumer_address" class="col-sm-4 control-label">Address</label>
+                                <label for="address" class="col-sm-4 control-label">Address</label>
                                 <div class="col-sm-8">
-                                    {{ Form::text('consumer_address','', ['class' => 'form-control input-sm', 'id' => 'consumer_address']) }}
+                                    {{ Form::text('address','', ['class' => 'form-control input-sm', 'id' => ' address']) }}
                                 </div>
                             </div>
                             <div class="form-group row">

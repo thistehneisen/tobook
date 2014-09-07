@@ -3,15 +3,15 @@
         <form id="form-confirm-booking">
             <div class="form-group row">
                 <div class="col-sm-2">Nimi (*)</div>
-                <div class="col-sm-10"> {{ Form::text('consumer_firstname', '' , ['class' => 'form-control input-sm', 'id' => 'consumer_firstname']) }}</div>
+                <div class="col-sm-10"> {{ Form::text('firstname', '' , ['class' => 'form-control input-sm', 'id' => 'consumer_firstname']) }}</div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-2">Sähköposti (*)</div>
-                <div class="col-sm-10">{{ Form::text('consumer_email', '' , ['class' => 'form-control input-sm', 'id' => 'consumer_email']) }}</div>
+                <div class="col-sm-10">{{ Form::text('email', '' , ['class' => 'form-control input-sm', 'id' => 'consumer_email']) }}</div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-2">Puhelinnumero (*)</div>
-                <div class="col-sm-10">{{ Form::text('consumer_phone', '' , ['class' => 'form-control input-sm', 'id' => 'consumer_phone']) }}</div>
+                <div class="col-sm-10">{{ Form::text('phone', '' , ['class' => 'form-control input-sm', 'id' => 'consumer_phone']) }}</div>
             </div>
         </form>
     </div>
