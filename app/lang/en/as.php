@@ -88,10 +88,24 @@ return [
 
     ],
     'embed' => [
-        'heading'     => 'Otsikko', // @todo
-        'description' => 'Sisältö', // @todo
-        'embed'       => 'Embed',
-        'preview'     => 'Preview',
+        'heading'          => 'Otsikko', // @todo
+        'description'      => 'Sisältö', // @todo
+        'embed'            => 'Embed',
+        'preview'          => 'Preview',
+        'back_to_services' => 'Back to services',
+        'select_date'      => 'Select date',
+        'select_service'   => 'Select services',
+        'guide_text'       => 'Klikkaa avointa aikaa', //@todo
+        'make_appointment' => 'Make appointment',
+        'cancel'           => 'Cancel',
+        'empty_cart'       => 'Your cart is empty',
+        'start_time'       => 'Start time',
+        'end_time'         => 'End time',
+        'booking_form'     => 'Booking form',
+        'name'             => 'Name',
+        'email'            => 'Email',
+        'phone'            => 'Phone number',
+        'checkout'         => 'Checkout', // @todo
     ],
     'reports' => [
         'index'     => 'Reports',

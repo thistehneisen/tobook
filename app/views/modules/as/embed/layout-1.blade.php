@@ -16,7 +16,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">{{ trans('as.embed.select_service') }}</div>
             <div class="panel-body">
-                @if(empty(Session::get('carts')))
+            @if(empty(Session::get('carts')))
                 <div class="alert alert-info">{{ trans('as.embed.empty_cart') }}</div>
                 @else
                 <?php $carts = Session::get('carts');?>
@@ -35,7 +35,11 @@
                     </div>
                 </div>
                 @endforeach
-                @endif
+
+                <p class="text-right">
+                <a href="{{ route('as.embed.embed', ['hash' => $hash, 'action' => 'checkout'])}}" class="btn btn-primary"><i class="glyphicon glyphicon-shopping-cart"></i> {{ trans('as.embed.checkout') }}</a>
+                </p>
+            @endif
             </div>
         </div>
     </div>
@@ -59,9 +63,9 @@
                     @include('modules.as.embed.checkout-1')
                 @else
                     @if(empty($employees))
-                    @include('modules.as.embed.service-1')
+                        @include('modules.as.embed.service-1')
                     @else
-                    @include('modules.as.embed.employee-1')
+                        @include('modules.as.embed.employee-1')
                     @endif
                 @endif
             </div>

@@ -219,6 +219,10 @@ return [
         'start_time'       => 'Aloitusaika',
         'end_time'         => 'Päättymisaika',
         'booking_form'     => 'Varauslomake',
+        'name'             => 'Nimi',
+        'email'            => 'Sähköposti',
+        'phone'            => 'Puhelinnumero',
+        'checkout'         => 'Checkout', // @todo
     ],
     'options' => [
         'updated' => 'Options updated', // @todo
