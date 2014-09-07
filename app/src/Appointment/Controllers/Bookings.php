@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Controllers;
 
-use App, View, Confide, Redirect, Input, Config, Response, Util, Hashids, Session;
+use App, View, Confide, Redirect, Input, Config, Response, Util, Hashids, Session, Request;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Employee;
@@ -8,6 +8,7 @@ use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\AsConsumer;
 use App\Consumers\Models\Consumer;
+use App\Core\Models\User;
 use Carbon\Carbon;
 
 class Bookings extends AsBase
@@ -335,7 +336,7 @@ class Bookings extends AsBase
         $consumer = Consumer::where('email', $email)->first();
         $asConsumer = new AsConsumer();
 
-        //In front end, user is identify from hash
+        //In front end, user is identified from hash
         $user = $this->user;
         if(empty($this->user)){
             $decoded = Hashids::decrypt($hash);
@@ -384,6 +385,22 @@ class Bookings extends AsBase
             return Response::json($data, 400);
         }
 
+        return Response::json($data);
+    }
+
+    public function removeBookingServiceInCart(){
+        $uuid = Input::get('uuid');
+        try {
+            $bookingService = BookingService::where('tmp_uuid', $uuid)->delete();
+            $carts = Session::get('carts', []);
+            $carts[$uuid] = $cart;
+            Session::put('carts' , $carts);
+            $data['success'] = true;
+        } catch (\Exception $ex) {
+            $data['message'] = $ex->getMessage();
+
+            return Response::json($data, 400);
+        }
         return Response::json($data);
     }
 }

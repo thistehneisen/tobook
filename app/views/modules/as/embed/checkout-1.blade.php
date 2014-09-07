@@ -13,6 +13,7 @@
                 <div class="col-sm-2">Puhelinnumero (*)</div>
                 <div class="col-sm-10">{{ Form::text('phone', '' , ['class' => 'form-control input-sm', 'id' => 'consumer_phone']) }}</div>
             </div>
+            <input type="hidden" name="hash" value="{{ $hash }}">
         </form>
     </div>
     <br>
