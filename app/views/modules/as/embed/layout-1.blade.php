@@ -68,5 +68,6 @@
         </div>
     </div>
 </div>
-<input type="hidden" id="get_extra_service_form" value="{{ route('as.embed.extra.form') }}">
+<input type="hidden" id="extra-service-url" value="{{ route('as.embed.extra.form') }}">
+<input type="hidden" name="date" id="txt-date" value="{{ Carbon\Carbon::now()->toDateString() }}">
 @stop

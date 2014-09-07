@@ -33,13 +33,14 @@
             autoWidth: false,
             autoHeight: true,
             fitToView: false,
-            href: $('#get_extra_service_form').val(),
+            href: $('#extra-service-url').val(),
             type: 'ajax',
             ajax: {
                 type: 'GET',
                 data: {
                     service_id: service_id,
-                    hash      : hash
+                    hash: hash,
+                    date: $('#txt-date').val()
                 }
             },
             helpers: {

@@ -110,12 +110,13 @@ class Embed extends AsBase
      *
      * @return View
      */
-    public function getExtraServiceForm(){
-        $serviceId = (int) Input::get('service_id');
-        $service = Service::find($serviceId);
-        $extraServices = $service->extraServices;
-        return View::make('modules.as.embed.extraServices', [
-            'extraServices' => $extraServices
+    public function getExtraServiceForm()
+    {
+        $service = Service::findOrFail(Input::get('service_id'));
+
+        return $this->render('extraServices', [
+            'date'    => Input::get('date') ?: Carbon::now()->toDateString(),
+            'service' => $service
         ]);
     }
 
