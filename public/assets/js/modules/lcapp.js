@@ -3,9 +3,9 @@
 'use strict';
 
 // global function to be accessed from the desktop app
-function showConsumerInfo(consumerId) {
+function showConsumerInfo(url) {
     $.ajax({
-        url: '/app/lc/consumers/' + consumerId,
+        url: url,
         dataType: 'html',
         type: 'GET',
         success: function (data) {
@@ -28,7 +28,7 @@ $(document).ready(function () {
             consumerTr.removeClass('selected');
             $(this).addClass('selected');
 
-            showConsumerInfo($(this).data('consumerid'));
+            showConsumerInfo($(this).data('url'));
         }
     });
 
