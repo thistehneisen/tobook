@@ -51,6 +51,14 @@ return [
                     'default' => 1,
                     'key_is_value' => false
                 ],
+                'phone_number' => [
+                    'type' => 'Text',
+                    'options' => ['placeholder' => '358412223333', 'class' => 'form-control']
+                ],
+                'business_name' => [
+                    'type' => 'Text',
+                    'options' => ['placeholder' => 'Notfound Oy', 'class' => 'form-control']
+                ]
             ]
         ],
         'booking' => [

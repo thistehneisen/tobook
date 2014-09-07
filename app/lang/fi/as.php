@@ -240,6 +240,8 @@ return [
             'timezone'        => 'Aikavyöhyke',
             'week_numbers'    => 'Näytä viikkonumerot',
             'week_start'      => 'Viikon ensimmäinen päivä?',
+            'phone_number'    => 'SMS phone number', // @todo
+            'business_name'   => 'Business name', // @todo
         ],
             'booking' => [
             'index'                            => 'Varaukset',
