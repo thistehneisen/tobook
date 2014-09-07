@@ -3,7 +3,7 @@
 'use strict';
 var customerToken;
 function getSelectedConsumerId() {
-    var objList = $("table#tblDataList").find("input#chkConsumerId:checkbox:checked");
+    var objList = $("table#tblDataList").find(".js-consumerIdCheckbox:checkbox:checked");
     if (objList.length === 0) { return -1; }
     return objList.eq(0).val();
 }
@@ -22,7 +22,7 @@ function onSelectConsumer(objThis) {
     var obj = $(objThis).get(0), name = $(obj).parents("tr").eq(0).find("td").eq(2).text(), email = $(obj).parents("tr").eq(0).find("td").eq(3).text(), phone = $(obj).parents("tr").eq(0).find("td").eq(4).text(), score = $(obj).parents("tr").eq(0).find("td").eq(5).text(), consumerId = $(obj).val();
     if (obj.checked) {
         $("#divConsumerInfo").fadeIn();
-        $("table#tblDataList").find("input#chkConsumerId:checkbox").prop("checked", false);
+        $("table#tblDataList").find(".js-consumerIdCheckbox:checkbox").prop("checked", false);
         obj.checked = true;
         $("#consumerName").text(name);
         $("#consumerEmail").text(email);
@@ -92,7 +92,7 @@ function onUsePoint(obj) {
             if (data.result === "success") {
                 alert("The Point used successfully.");
                 $("#consumerScore").text("Points : " + String(Number(consumerScore) - Number(scoreRequired)));
-                $("table#tblDataList").find("input#chkConsumerId:checkbox:checked").parents("tr").find("td").eq(5).text(Number(consumerScore) - Number(scoreRequired));
+                $("table#tblDataList").find(".js-consumerIdCheckbox:checkbox:checked").parents("tr").find("td").eq(5).text(Number(consumerScore) - Number(scoreRequired));
             } else {
                 alert(data.msg);
             }
@@ -152,11 +152,21 @@ function onUseStamp(obj) {
     });
 }
 function showConsumerInfo(consumerId) {
-    var obj = $("table#tblDataList").find("input#chkConsumerId[value='" + consumerId + "']").get(0);
-    $("table#tblDataList").find("input#chkConsumerId:checkbox").prop("checked", false);
-    obj.checked = true;
-    onSelectConsumer(obj);
+    var table = $("#tblDataList"),
+        thisCheckbox;
+
+    // uncheck all boxes
+    table.find(".js-consumerIdCheckbox").prop("checked", false);
+
+    // the get the row and check it
+    thisCheckbox = table.find(".js-consumerIdCheckbox[value='" + consumerId + "']").get(0);
+    if (thisCheckbox) {
+        $(thisCheckbox).prop('checked', true);
+        onSelectConsumer(thisCheckbox);
+    }
 }
+
+
 $(document).ready(function () {
     customerToken = $("#customerToken").val();
     $.ajax({
@@ -171,7 +181,7 @@ $(document).ready(function () {
                 var strHTML = "", consumerList = data.consumerList, i = 0;
                 for (i = 0; i < consumerList.length; i += 1) {
                     strHTML += '<tr style="cursor:pointer;" onclick="onClickLine(this);">';
-                    strHTML += '<td><input type="checkbox" id="chkConsumerId" onclick="onSelectConsumer(this)" value="' + consumerList[i].consumerId + '"/></td>';
+                    strHTML += '<td><input type="checkbox" class="js-consumerIdCheckbox" onclick="onSelectConsumer(this)" value="' + consumerList[i].consumerId + '"/></td>';
                     strHTML += '<td>' + String(i + 1) + '</td>';
                     strHTML += '<td>' + consumerList[i].firstName + " " + consumerList[i].lastName + '</td>';
                     strHTML += '<td>' + consumerList[i].email + '</td>';
@@ -182,7 +192,7 @@ $(document).ready(function () {
                 $("table#tblDataList").find("tbody").html(strHTML);
                 $('#tblDataList').dataTable({
                     "sDom" : "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
-                    // "sPaginationType": "bootstrap",
+                    "paging": false,
                     "aaSorting" : [],
                     "oLanguage" : {
                         "sLengthMenu" : "_MENU_ tuloksia per sivu"
@@ -191,7 +201,7 @@ $(document).ready(function () {
                         "bSortable" : false,
                         "aTargets" : [ 0 ]
                     } ]
-                });                
+                });
             } else {
                 alert(data.msg);
             }
@@ -348,7 +358,7 @@ $(document).ready(function () {
                     alert("The score added successfully.");
                     var consumerScore = $("#consumerScore").text(), arrConsumerScore = consumerScore.split(" : ");
                     $("#consumerScore").text("Points : " + String(Number(arrConsumerScore[1]) + Number(giveScore)));
-                    $("table#tblDataList").find("input#chkConsumerId:checkbox:checked").parents("tr").find("td").eq(5).text(Number(arrConsumerScore[1]) + Number(giveScore));
+                    $("table#tblDataList").find(".js-consumerIdCheckbox:checkbox:checked").parents("tr").find("td").eq(5).text(Number(arrConsumerScore[1]) + Number(giveScore));
                     $("#btnCloseDlgGiveScore").click();
                 } else {
                     alert(data.msg);

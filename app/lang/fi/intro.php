@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'online_booking'            => 'Ajanvaraus',
+    'check_out'                 => 'Tutustu',
+
     // LOYALTY CARD
     'loyalty_sub_header'        => 'Yksi kanta-asiakaskortti, jonka avulla nauttia satojen yritysten eduista!',
     'loyalty_guide1'            => 'Kantiskortti yhdistää kaikki kanta-asiakaskortit',
@@ -45,7 +48,7 @@ return [
     'loyalty_kantis_22'         => 'Toimintavarma',
     'loyalty_kantis_23'         => 'Tarpeisiisi mukautuva',
 
-    // TIME SLOT
+    // Online booking
     'timeslot_subheader'        => 'Vastaanota varauksia verkosta',
     'timeslot_guide_1'          => 'Vastanota varauksia',
     'timeslot_guide_2'          => 'Varauksen tekeminen onnistuu muutamalla helpolla ikkauksela',

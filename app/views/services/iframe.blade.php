@@ -1,22 +1,22 @@
 @extends ('layouts.default')
 
-@section ('title')
+@section('title')
     @parent :: {{ trans('common.dashboard') }}
 @stop
 
 {{-- Don't show the footer --}}
-@section ('footer')
+@section('footer')
 @stop
 
 {{-- Also no content --}}
-@section ('content')
+@section('content')
 @stop
 
 {{-- And no logo --}}
-@section ('logo')
+@section('logo')
 @stop
 
-@section ('scripts')
+@section('scripts')
 <script>
 $(function () {
     // Remove main element
@@ -27,6 +27,6 @@ $(function () {
 </script>
 @stop
 
-@section ('iframe')
+@section('iframe')
 <iframe id="varaa-iframe" width="100%" src="{{ $url }}" frameborder="0"></iframe>
 @stop

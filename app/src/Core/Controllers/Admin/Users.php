@@ -1,6 +1,8 @@
 <?php namespace App\Core\Controllers\Admin;
 
-use App, Config, Request, Redirect, Input, Confide, Session, Auth;
+use App, Config, Request, Redirect, Input, Confide, Session, Auth, Validator;
+use App\Core\Models\Module;
+use Carbon\Carbon;
 
 class Users extends Crud
 {
@@ -57,5 +59,104 @@ class Users extends Crud
         }
 
         return Redirect::route('home');
+    }
+
+    /**
+     * Allow to edit associated modules of a user
+     *
+     * @param int $id User ID
+     *
+     * @return View
+     */
+    public function modules($id)
+    {
+        $user = $this->model->with('modules')->find($id);
+        // Order by start date desc
+        $user->modules->sort(function($a, $b) {
+            $foo = new Carbon($a->pivot->start);
+            $bar = new Carbon($b->pivot->start);
+            if ($foo->eq($bar)) return 0;
+
+            return $foo->gt($bar) ? -1 : 1;
+        });
+
+        return $this->render('users.modules', [
+            'modules' => Module::all(),
+            'user'    => $user,
+        ]);
+    }
+
+    /**
+     * Enable a service module of a user
+     *
+     * @param  int $id User ID
+     *
+     * @return Redirect
+     */
+    public function enableModule($id)
+    {
+        $v = Validator::make(Input::all(), [
+            'module_id' => 'required',
+            'start'     => 'required|date',
+            'end'       => 'required|date',
+        ]);
+
+        if ($v->fails()) {
+            return Redirect::back()->withInput()->withErrors($v, 'top');
+        }
+
+        // Insert into database
+        $user = $this->model->find($id);
+        $module = Module::find(Input::get('module_id'));
+
+        // Check if the selected period is overlapped with existing data
+        $overlapped = $module->isOverlapped(
+            $user,
+            new Carbon(Input::get('start')),
+            new Carbon(Input::get('start'))
+        );
+        if ($overlapped) {
+            return Redirect::back()
+                ->withInput()
+                ->withErrors($this->errorMessageBag(
+                    trans('admin.modules.err_overlapped')
+                ), 'top');
+        }
+
+        $user->modules()->attach($module->id, [
+            'start'     => Input::get('start'),
+            'end'       => Input::get('end'),
+            'is_active' => true
+        ]);
+        return Redirect::back()
+            ->with('messages', $this->successMessageBag(
+                trans('admin.modules.success_enabled', [
+                    'module' => $module->name,
+                    'user'   => $user->username
+                ])
+            ));
+    }
+
+    /**
+     * Toggle activation of a module
+     *
+     * @param int $userId
+     * @param int $id ID in the pivot table
+     *
+     * @return Redirect
+     */
+    public function toggleActivation($userId, $id)
+    {
+
+        try {
+            $result = Module::toggleActivation($id);
+            return Redirect::route('admin.users.modules', ['id' => $userId])
+                ->with('messages', $this->successMessageBag(
+                    trans('admin.modules.success_activation')
+                ));
+        } catch (\Exception $ex) {
+            $errors = $this->errorMessageBag(trans('common.err.unexpected'));
+            return Redirect::back()->withErrors($errors);
+        }
     }
 }

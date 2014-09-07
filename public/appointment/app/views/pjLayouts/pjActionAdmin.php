@@ -26,7 +26,6 @@
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="/asset/js/postMessage.js"></script>
 <script type="text/javascript">
  $(document).ready(function(){
    $('[data-toggle="tooltip"]').tooltip({
@@ -35,16 +34,8 @@
   });
  })
 </script>
-<!------ myTips tutorial builder ------>
+<!-- myTips tutorial builder -->
 <script type="text/javascript">
-/* jQuery(document).resize(function() {
-    var newheight = Math.max($(document).height(), $(window).height());
-    $.postMessage (
-        newheight.toString(),
-        '*',
-        parent
-    );
-}); */
 jQuery(document).ajaxComplete(function() {
 	alert( 1 );
 });
@@ -66,7 +57,7 @@ var myTipsSetup =
 	</head>
 	<body>
 
-<!------ Tutorial playback codes ------->
+<!-- Tutorial playback codes -->
 <span mytips:tutorial="53b108d0be4a3434dc00000c"></span>
 <span mytips:tutorial="53b10936be4a3434dc00000d"></span>
 <span mytips:tutorial="53b109edbe4a3434dc00000e"></span>

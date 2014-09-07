@@ -55,6 +55,174 @@
     text-align: left;
     width: auto !important;
 }
+.asContainer .asCartOuter {
+    width: 100%;
+}
+.asContainer .asCartInner {
+    margin: 0 0 10px;
+}
+.asContainer .asServicesOuter {
+    float: none;
+    width: 100%;
+}
+.asContainer .asLayout1 {
+    display: none;
+}
+.asContainer .asSingleCartHead{
+	border-bottom: solid 1px #e0e3e4;
+	margin: 0 0 5px;
+	padding: 0 0 5px;
+}
+.asContainer .asSingleCartEmployee{
+	color: #0082ce;
+	font: normal 17px PTSansRegular;
+	margin: 0 0 5px;
+}
+.asContainer .asSingleCartDate,
+.asContainer .asSingleCartPrice{
+	overflow: hidden;
+	margin: 0 0 1px;
+}
+.asContainer .asSingleCartService{
+	color: #222425;
+	font: normal 20px PTSansBold;
+	float: left;
+}
+.asContainer .asSingleCartRemove{
+	float: right;
+}
+.asContainer .asSingleCartRemove a{
+	display: inline-block;
+	height: 26px;
+	width: 26px;
+}
+.asContainer .asSingleCartLabel{
+	color: #000;
+	font: normal 17px PTSansRegular;
+	width: 25%;
+	display: inline-block;
+	float: left;
+}
+.asContainer .asSingleCartValue{
+	color: #777676;
+	font: normal 16px PTSansRegular;
+	width: 75%;
+	display: inline-block;
+	float: left;
+}
+.asLayout3 .heading{
+	font-size: 18px;
+    font-weight: bold;
+    border-bottom: 1px solid #EDEDED;
+    border-left: 1px solid #EDEDED;
+    border-right: 1px solid #EDEDED;
+    background: #F6F6F6;
+    padding: 12px 10px 12px 19px;
+}
+.asLayout3 .heading a{
+	 color: #9b9b9b;
+	 text-decoration: none;
+}
+.asLayout3 .heading.active{
+	background: #FCD949;
+}
+.asLayout3 .heading.active a{
+	color: #333;
+}
+.asLayout3 .asBox ul{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.asLayout3 .asBox ul li,
+.asLayout3 .asServices .asCategoriesBack,
+.asLayout3 .asLayout3Contact .asContact,
+.asLayout3 .asLayout3Contact .asElementOutline,
+.asLayout3 .dateStart,
+.asLayout3 .times,
+.asLayout3 .asServices .asServicesBack,
+.asLayout3 .asServiceExtra > label,
+.asLayout3 .asServiceMore .asElementOutline{
+	padding: 12px 10px 12px 19px;
+	border-top: 1px solid #EDEDED;
+    margin: 0;
+}
+.asLayout3 .asBox{
+	display: none;
+	border-left: 1px solid #EDEDED;
+    border-right: 1px solid #EDEDED;
+    border-bottom: 1px solid #EDEDED;
+    min-height: 100px;
+}
+.asLayout3Categories .asCategories,
+.asLayout3Categories .asService,
+.asLayout3Categories .asServiceMore,
+.asLayout3Categories .asService.more .asServiceBox{
+	display: none;
+}
+.asLayout3 .asBox.in,
+.asLayout3Categories .asCategories.in,
+.asLayout3Categories .asService.in,
+.asLayout3Categories .asServiceMore.in{
+	display: block;
+}
+.asLayout3 .asBox ul li:hover,
+.asLayout3 .asBox ul li.active,
+.asLayout3 .asServices .asCategoriesBack:hover,
+.asLayout3 .asServices .asServicesBack:hover{
+	background: #DBE8F0;
+}
+.asLayout3 .asBox ul li label{
+	cursor: pointer;
+	display: block;
+}
+.asLayout3 .asBox ul li input{
+	margin-right: 10px;
+}
+.asLayout3 .asServices .asCategoriesBack,
+.asLayout3 .asServices .asServicesBack{
+	display: block;
+    text-decoration: none;
+    color: #848687;
+}
+.asLayout3 .times ul{
+	display: inline-block;
+}
+.asLayout3 .times ul li{
+    float: left;
+    margin: 5px !important;
+    padding: 5px 10px !important;
+    border: 1px solid #EDEDED;
+    border-radius: 4px;
+}
+.asLayout3 .times li a{
+	text-decoration: none;
+	color: #444;
+}
+.asLayout3 .asServices .asElementTag{
+	background: none;
+    border: 0 none;
+    box-shadow: none;
+    height: auto;
+    font-weight: normal;
+    line-height: 20px;
+}
+.asLayout3 .asServices .asElementTag span{
+	background-position: 0 -2px;
+    float: none;
+    margin: 0 0 0 40px;
+    padding: 0 0 0 30px;
+}
+.asLayout3 .asServices .asElementTag span.asServicePrice{
+	background: none;
+	padding: 0;
+}
+.asLayout3 .asServiceExtra > label{
+ 	display: block;
+    float: none;
+    font-style: italic;
+    width: auto;
+}
 /* Responsive design */
 @media screen and (max-width: 479px) {
 	.asContainer{
@@ -206,11 +374,6 @@
 		float: left;
 		width: 42%;
 	}
-	.asContainer .asCartOuter{
-		clear: left;
-		float: left;
-		width: 42%;
-	}
 	.asContainer .asEmployeeAvatar{
 		width: 27%;
 	}
@@ -253,10 +416,6 @@
 	.asContainer .asCalendarOuter{
 		float: left;
 	}
-	.asContainer .asCartOuter{
-		clear: left;
-		float: left;
-	}
 	.asContainer .asEmployeeTime{
 		clear: left;
 		float: left;
@@ -275,12 +434,6 @@
 }
 
 @media screen and (min-width: 768px) and (max-width: 860px), (min-width: 1024px) and (max-width: 1450px) {
-	.asContainer .asCartInfo{
-		display: none;
-	}
-	.asContainer .asCartInfo2{
-		display: block;
-	}
 	.asContainer .asCartDate{
 		width: 45%;
 	}

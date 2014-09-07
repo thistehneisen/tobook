@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,300,600);
 @import url(http://fonts.googleapis.com/css?family=Comfortaa:400,300,700&subset=latin,cyrillic,latin-ext,greek,cyrillic-ext);
 *,
@@ -6,114 +7,87 @@
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+=======
+.comfortaa {
+  font-family: "Comfortaa", Helvetica, Arial, Verdana;
+}
+.orange {
+  color: #ec7923;
+>>>>>>> origin/consumer-front
 }
 body {
   font-family: Roboto, Arial, Verdana, sans-serif;
   font-weight: 300;
 }
-a:link,
+a {
+  color: #dd5511;
+}
 a:hover {
+  color: #bd490f;
   text-decoration: none;
 }
-.comfortaa {
-  font-family: "Comfortaa";
-}
-.orange {
-  color: #ec7923;
-}
-.white {
-  color: white;
-}
-.to-upper {
-  text-transform: uppercase;
-}
-.grey-divider {
-  background-color: #424242;
-  height: 12px;
+.dropdown:hover .dropdown-menu {
+  display: block;
 }
 .btn-orange {
   background-color: #ec7923;
   color: #fff;
 }
 .btn-orange:hover {
+  background-color: #d46512;
   color: #fff;
 }
-.btn-tutustu {
-  margin: 20px 0;
-}
 .header {
-  border-bottom: 5px solid #424242;
   text-align: center;
-  background: transparent url(../img/background.jpg) no-repeat center center;
-  background-size: cover;
 }
-.header nav {
-  padding: 20px 0;
+.header nav.main-nav {
+  padding: 10px 0;
 }
-.header nav .nav-links a {
-  text-transform: uppercase;
+.header nav.main-nav .logo {
+  font-family: "Comfortaa", Helvetica, Arial, Verdana;
+  color: #ec7923;
+  font-size: 30px;
+}
+.header nav.main-nav .logo span {
   color: #333333;
-  text-decoration: none;
+}
+.header nav.main-nav #main-menu a {
+  font-weight: 400;
+}
+.header nav.main-nav #main-menu a:hover {
+  color: #fff;
+  background: #ec7923;
+}
+.header .search-wrapper {
+  background: url(../img/background.jpg) no-repeat 0 0;
+  background-size: cover;
+  padding: 10px;
+}
+.header .search-wrapper .search-inner {
+  background-color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.9);
+  color: #333333;
+  padding: 20px;
+}
+.header .search-wrapper .search-inner h2 {
+  font-family: "Comfortaa", Helvetica, Arial, Verdana;
+  margin: 0;
+  padding-bottom: 10px;
+}
+.header nav.sub-nav {
+  background: #ec7923;
+  padding: 10px 0;
+}
+.header nav.sub-nav .language-swicher {
+  color: #333333;
   font-weight: 600;
-  font-size: 12px;
-}
-.header nav .nav-links a:after {
-  content: "|";
-  padding-left: 15px;
-}
-.header nav .nav-links li {
+  font-size: 13px;
   padding-right: 10px;
 }
-.header nav .nav-links li:last-child a:after {
-  content: "";
+.header nav.sub-nav .language-swicher.active {
+  color: #fff;
 }
-.header nav .nav-links.active a,
-.header nav .nav-links a:hover {
-  color: white;
-}
-.header nav .nav-links:hover a:after {
-  color: #333333;
-}
-.header .logo {
-  width: 450px;
-}
-.header .welcome-text {
-  padding-right: 20px;
-}
-.header .img-homepage {
-  width: 80vh;
-}
-.header .imac-wrapper {
-  display: block;
-  text-align: center;
-}
-.header .imac-wrapper .imac {
-  background: transparent url(../img/imac.png) no-repeat center center;
-  position: relative;
-  width: 565px;
-  height: 450px;
-  display: inline-block;
-}
-.header .imac-wrapper .imac .bx-wrapper {
-  padding-top: 19px;
-  padding-left: 20px;
-}
-.header .imac-wrapper .imac .bx-wrapper .bx-viewport {
-  background: transparent;
-  border: none;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
-.header .text-header {
-  font-family: "Comfortaa";
-  color: white;
-  font-size: 10vh;
-  font-weight: 700;
-  margin: 30px 0;
-}
-.header.homepage {
-  min-height: 100vh;
-}
+<<<<<<< HEAD
 .nav-admin > li > a {
   color: #ec7923;
 }
@@ -304,42 +278,49 @@ div.tooltip-inner {
 }
 .main {
   margin: 40px auto 50px auto;
+=======
+.header nav.sub-nav .nav-links {
+  margin-bottom: 0;
+>>>>>>> origin/consumer-front
 }
-.main .dashboard-services li {
-  margin-bottom: 10px;
-}
-.main .dashboard-services div {
-  font-family: "Comfortaa";
-  border: 1px solid #f4c8b2;
-}
-.main .dashboard-services h4 {
-  margin-top: 0;
-  background-color: #ec7923;
-  color: white;
-  padding: 10px;
-}
-.main .dashboard-services p {
-  text-align: center;
-}
-.main .dashboard-services img {
-  width: 100px;
-}
-.main .services {
-  text-align: center;
-}
-.main .services a {
-  font-weight: 600;
+.header nav.sub-nav .nav-links a {
   text-transform: uppercase;
+  color: #333333;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 12px;
+}
+.header nav.sub-nav .nav-links a:after {
+  content: "|";
+  padding-left: 15px;
+}
+.header nav.sub-nav .nav-links li {
+  padding-right: 10px;
+}
+.header nav.sub-nav .nav-links li:last-child a.active {
+  color: #fff;
+}
+.header nav.sub-nav .nav-links li:last-child a:after {
+  content: "";
+}
+.header nav.sub-nav .nav-links.active a,
+.header nav.sub-nav .nav-links a:hover {
+  color: white;
+}
+.header nav.sub-nav .nav-links:hover a:after {
   color: #333333;
 }
 .footer {
-  color: #aaaaaa;
-  margin-bottom: 50px;
+  padding: 20px;
+  background: #333333;
+  color: #fff;
+}
+.footer i {
+  color: #fff;
 }
 .footer h4 {
   font-weight: 600;
   text-transform: uppercase;
-  color: #444444;
 }
 .footer .company-name {
   font-size: 20px;

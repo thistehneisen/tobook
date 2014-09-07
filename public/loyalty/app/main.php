@@ -19,7 +19,7 @@
 				header("location: login.php");
 			}
 		?>
-	</head>	
+	</head>
 	<body>
 		<input type="hidden" id="customerToken" value="<?php echo $customerToken;?>">
 		<div class="frontTopBackground" style="position:relative;">
@@ -27,7 +27,7 @@
 			<div id="btnLogout">Kirjaudu ulos</div>
 		</div>
 		<div class="greyDivider"></div>
-		
+
 		<div class="frontHomeBackground container" style="text-align:left;width:1000px;">
 			<div style="margin-left: 3%;width:60%;"  class="floatleft">
 				<div style="height:30px;"></div>
@@ -49,9 +49,9 @@
 						</tr>
 					</thead>
 					<tbody>
-						
+
 					</tbody>
-				</table>				
+				</table>
 			</div>
 			<div style="width:30%;display:none;margin-left:4%" id="divConsumerInfo" class="floatleft">
 				<div style="height:30px;"></div>
@@ -64,7 +64,7 @@
 				<div style="height:10px;"></div>
 				<h3>Palkinnot</h3>
 				<div id="pointList">
-					
+
 				</div>
 				<div style="height:10px;"></div>
 				<h3>Leimat</h3>
@@ -78,9 +78,9 @@
 			</div>
 			<div class="clearboth"></div>
 		</div>
-		
+
 		<div class="greyDivider"></div>
-		
+
 		<div id="cloneStampItem" style="display:none;">
 			<div class="col-md-4">
 				<button class="btn-u btn-u-blue btn-block" style="padding:2px;" id="btnAddStamp" onclick="onAddStamp(this)">Lisää</button>
@@ -88,10 +88,10 @@
 			</div>
 			<div class="col-md-8">
 				<span id="stampRequired"></span>&nbsp;<span id="stampName"></span>
-			</div>						
+			</div>
 			<div class="clearboth"></div>
-		</div>		
-		
+		</div>
+
 		<div id="clonePointItem" style="display:none;">
 			<div class="col-md-7">
 				<div id="pointName"></div>
@@ -100,7 +100,7 @@
 			<div class="col-md-5"><button class="btn-u btn-u-blue btn-block" style="padding:5px;" id="btnUsePoint" onclick="onUsePoint(this)" >Käytä etu</button></div>
 			<div class="clearboth"></div>
 		</div>
-		
+
 		<div class="modal fade" id="dlgConsumerInfo">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
@@ -112,26 +112,26 @@
 				<div class="col-md-3 col-md-offset-1" style="text-align:right;line-height:35px;margin-top:5px;font-weight:bold;">Etunimi</div>
 				<div class="col-md-7" style="margin-top:5px;"><input type="text" class="form-control" id="firstName" placeholder="Etunimi"></div>
 				<div class="clearboth"></div>
-				
+
 				<div class="col-md-3 col-md-offset-1" style="text-align:right;line-height:35px;margin-top:5px;font-weight:bold;">Sukunimi</div>
 				<div class="col-md-7" style="margin-top:5px;"><input type="text" class="form-control" id="lastName" placeholder="Sukunimi"></div>
 				<div class="clearboth"></div>
-				
+
 				<div class="col-md-3 col-md-offset-1" style="text-align:right;line-height:35px;margin-top:5px;font-weight:bold;">Sähköposti</div>
 				<div class="col-md-7" style="margin-top:5px;"><input type="text" class="form-control" id="email" placeholder="Sähköposti"></div>
 				<div class="clearboth"></div>
-				
+
 				<div class="col-md-3 col-md-offset-1" style="text-align:right;line-height:35px;margin-top:5px;font-weight:bold;">Puhelin</div>
 				<div class="col-md-7" style="margin-top:5px;"><input type="text" class="form-control" id="phone" placeholder="Puhelin"></div>
 				<div class="clearboth"></div>
-				
+
 				<div class="col-md-3 col-md-offset-1" style="text-align:right;line-height:35px;margin-top:5px;font-weight:bold;">Osoite</div>
 				<div class="col-md-7" style="margin-top:5px;"><input type="text" class="form-control" id="address1" placeholder="Osoite"></div>
 				<div class="clearboth"></div>
-				
+
 				<div class="col-md-3 col-md-offset-1" style="text-align:right;line-height:35px;margin-top:5px;font-weight:bold;">Kaupunki</div>
 				<div class="col-md-7" style="margin-top:5px;"><input type="text" class="form-control" id="city" placeholder="Kaupunki"></div>
-				<div class="clearboth"></div>																				
+				<div class="clearboth"></div>
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCloseDlgConsumerInfo">Sulje</button>
@@ -139,8 +139,8 @@
 		      </div>
 		    </div><!-- /.modal-content -->
 		  </div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->			
-		
+		</div><!-- /.modal -->
+
 		<div class="modal fade" id="dlgGiveScore">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
@@ -159,16 +159,16 @@
 		      </div>
 		    </div><!-- /.modal-content -->
 		  </div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->				
-		
+		</div><!-- /.modal -->
+
 		<script type="text/javascript" src="js/responsive.js"></script>
 		<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"></script>
 		<script type="text/javascript" src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/jquery_cookie.js"></script>
 		<script type="text/javascript" src="js/respond.js"></script>
-        <script type="text/javascript" src="js/jquery.dataTables.js"></script>
-        <script type="text/javascript" src="js/DT_bootstrap.js"></script>		
-		<script type="text/javascript" src="js/main.js"></script>			
+        <script type="text/javascript" src="//cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="js/DT_bootstrap.js"></script>
+		<script type="text/javascript" src="js/main.js?v=0001"></script>
 	</body>
 </html>

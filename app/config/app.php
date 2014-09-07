@@ -126,7 +126,8 @@ return array(
         'Zizaco\Entrust\EntrustServiceProvider',
         'Ludo237\Hashids\HashidsServiceProvider',
         'anlutro\LaravelSettings\ServiceProvider',
-        'App\Lomake\LomakeServiceProvider'
+        'App\Lomake\LomakeServiceProvider',
+        'App\Core\Routing\RoutingServiceProvider'
 
     ),
 
@@ -201,7 +202,7 @@ return array(
         'Setting'  => 'anlutro\LaravelSettings\Facade',
         'Consumer' => 'App\Consumers\Models\Consumer',
         'Lomake'   => 'App\Lomake\Facade',
-        //Core classes
+        'UrlHelper'    => 'App\Core\Helpers\Url',
         'Util'     => 'App\Core\Util'
     ),
 

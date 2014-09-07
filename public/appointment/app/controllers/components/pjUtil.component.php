@@ -5,13 +5,14 @@ if (!defined("ROOT_PATH"))
     exit;
 }
 require_once ROOT_PATH . 'core/framework/components/pjToolkit.component.php';
+
 class pjUtil extends pjToolkit
 {
     static public function uuid()
     {
         return chr(rand(65,90)) . chr(rand(65,90)) . time();
     }
-    
+
     static public function getReferer()
     {
         if (isset($_GET['_escaped_fragment_']))
@@ -21,7 +22,7 @@ class pjUtil extends pjToolkit
                 return $_SERVER['REDIRECT_URL'];
             }
         }
-        
+
         if (isset($_SERVER['HTTP_REFERER']))
         {
             $pos = strpos($_SERVER['HTTP_REFERER'], "#");
@@ -33,7 +34,7 @@ class pjUtil extends pjToolkit
             return $_SERVER['HTTP_REFERER'];
         }
     }
-    
+
     static public function getTimezone($offset)
     {
         $db = array(
@@ -70,7 +71,7 @@ class pjUtil extends pjToolkit
         }
         return array_key_exists($offset, $db) ? $db[$offset] : false;
     }
-    
+
     public static function printNotice($title, $body, $convert = true, $close = true)
     {
         ?>
@@ -93,7 +94,7 @@ class pjUtil extends pjToolkit
         </div>
         <?php
     }
-    
+
     static public function textToHtml($content)
     {
         $content = preg_replace('/\r\n|\n/', '<br />', $content);
@@ -101,14 +102,15 @@ class pjUtil extends pjToolkit
     }
 }
 
-function __($key, $return=false, $escape=false) {   
+function __($key, $return=false, $escape=false) {
     global $i18n;
-    if (file_exists(ROOT_PATH . 'app/locale/fi.php') && isset($i18n[$key]) && !empty($i18n[$key])) {
+
+    if (isset($i18n[$key]) && !empty($i18n[$key])) {
         $text = $i18n[$key];
     } else {
-        $text = $key; //pjUtil::field($key);
+        $text = $key;
     }
-    
+
     if ($return) {
         return !$escape ? $text : (!is_array($text) ? htmlspecialchars($text) : array_map('htmlspecialchars', $text));
     }

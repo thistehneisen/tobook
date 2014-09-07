@@ -14,6 +14,6 @@ return [
         'password_reset'            => 'Salasanasi on vaihdettu onnistuneesti.',
         'wrong_password_reset'      => 'Virheellinen salasana. Yritä uudelleen',
         'wrong_token'               => 'Salasanan nollaamisen merkki ei voimassa.',
-        'duplicated_credentials'    => 'Antanut valtakirja on jo käyttänyt. Yritä erin valtakirjan kanssa.',
+        'duplicated_credentials'    => 'Antamasi sähköposti on jo rekisteröity järjestelmäämme. Ole ystävällinen ja kokeile muuta sähköpostia.',
     ],
 ];

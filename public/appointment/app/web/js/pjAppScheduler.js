@@ -191,12 +191,12 @@
 			this.$container.find(".asSelectorButton").removeAttr("disabled");
 		},
 		_addToCart: function (arr) {
-			var xhr = pjQ.$.post([this.options.folder, "index.php?controller=pjFrontEnd"+ $as_pf +"&action=pjActionAddToCart&cid=", this.options.cid].join(""), pjQ.$.param(arr));
+			var xhr = pjQ.$.post([this.options.folder, "index.php?controller=pjFrontEnd"+ $as_pf  + $owner_id +"&action=pjActionAddToCart&cid=", this.options.cid].join(""), pjQ.$.param(arr));
 			
 			return xhr;
 		},
 		_removeFromCart: function (opts) {
-			var xhr = pjQ.$.post([this.options.folder, "index.php?controller=pjFrontEnd"+ $as_pf +"&action=pjActionRemoveFromCart&cid=", this.options.cid].join(""), {
+			var xhr = pjQ.$.post([this.options.folder, "index.php?controller=pjFrontEnd"+ $as_pf  + $owner_id +"&action=pjActionRemoveFromCart&cid=", this.options.cid].join(""), {
 				"date": opts.date,
 				"service_id": opts.service_id,
 				"start_ts": opts.start_ts,
@@ -278,7 +278,7 @@
 		},
 		getCart: function () {
 			var that = this;
-			pjQ.$.get([this.options.folder, "index.php?controller=pjFrontEnd&action=pjActionGetCart" + $as_pf].join(""), {
+			pjQ.$.get([this.options.folder, "index.php?controller=pjFrontEnd&action=pjActionGetCart" + $as_pf + $owner_id].join(""), {
 				"cid": this.options.cid,
 				"layout": this.options.layout
 			}).done(function (data) {
@@ -287,7 +287,7 @@
 		},
 		getCalendar: function (year, month) {
 			var that = this;
-			pjQ.$.get([this.options.folder, "index.php?controller=pjFrontEnd&action=pjActionGetCalendar" + $as_pf].join(""), {
+			pjQ.$.get([this.options.folder, "index.php?controller=pjFrontEnd&action=pjActionGetCalendar" + $as_pf + $owner_id].join(""), {
 				"cid": this.options.cid,
 				"layout": this.options.layout,
 				"year": year,
@@ -298,7 +298,7 @@
 		},
 		getEmployees: function () {
 			var that = this;
-			pjQ.$.get([this.options.folder, "index.php?controller=pjFrontEnd&action=pjActionGetEmployees" + $as_pf].join(""), {
+			pjQ.$.get([this.options.folder, "index.php?controller=pjFrontEnd&action=pjActionGetEmployees" + $as_pf + $owner_id].join(""), {
 				"cid": this.options.cid,
 				"layout": this.options.layout,
 				"date": this.date,
@@ -353,8 +353,6 @@
 					that.$container.find(".asSingleServices ul").css("min-height", $height);
 					that.$container.find(".asSingleEmployees ul").css("min-height", $height);
 					
-					that.$container.find(".asSingleServices li.active .asServiceMore").show(500);
-					
 				} else if ( that.service_id > 0 && (that.employee_id > 0 || that.employee_id == 'all') && !that.changedate ) {
 					that.$container.find(".asSingleDate").show();
 					that.$container.find(".asSingleDate .asBox").html(data);
@@ -384,10 +382,10 @@
 				"date_first": this.date_first,
 				"wt_id": this.wt_id,
 			}).done(function (data) {
-				if ( that.service_id > 0 ) {
+				if ( that.service_id > 0 && that.employee_id < 1 ) {
 					that.$container.find(".asLayout3Employees .asBoxInner").html(data);
 				
-				} else if( that.employee_id > 0 ) {
+				} else if( that.service_id > 0 && (that.employee_id > 0 || that.employee_id == 'all' ) ) {
 					that.$container.find(".asLayout3Date .asBoxInner").html(data);
 				} 
 				
@@ -401,7 +399,7 @@
 		
 		getTime: function () {
 			var that = this;
-			pjQ.$.get([this.options.folder, "index.php?controller=pjFrontEnd&action=pjActionGetTime" + $as_pf].join(""), {
+			pjQ.$.get([this.options.folder, "index.php?controller=pjFrontEnd&action=pjActionGetTime" + $as_pf + $owner_id].join(""), {
 				"cid": this.options.cid,
 				"layout": this.options.layout,
 				"service_id": this.service_id,
@@ -439,7 +437,7 @@
 					if ($dialogExtraService.length > 0 && dialog) {
 						$dialogExtraService.html("");
 						
-						pjQ.$.get("index.php?controller=pjFrontPublic&action=getExtraService" + $as_pf, {
+						pjQ.$.get("index.php?controller=pjFrontPublic&action=getExtraService" + $as_pf + $owner_id, {
 							"service_id": service_id,
 						}).done(function (data) {
 							$dialogExtraService.html(data);
@@ -461,7 +459,7 @@
 									var $dialog = pjQ.$(this),
 										$frmExtraService = $dialog.find('form');
 									
-									pjQ.$.post("index.php?controller=pjFrontPublic&action=getExtraService" + $as_pf, $frmExtraService.serialize()).done(function (data) {
+									pjQ.$.post("index.php?controller=pjFrontPublic&action=getExtraService" + $as_pf + $owner_id, $frmExtraService.serialize()).done(function (data) {
 										
 										that.wt_id = $this.data("wt");
 										
@@ -694,7 +692,6 @@
 				var $height = 0, $this = pjQ.$(this);
 				
 				$this.parent().addClass("active").siblings(".active").removeClass("active");
-				$this.parents(".asSingleInner").css("width", "45%").siblings(".asSingleServices").css("width", "45%");
 
 				that.category_id = $this.data("id");
 			
@@ -718,13 +715,18 @@
 				var $this = pjQ.$(this);
 				
 				$this.parent().addClass("active").siblings(".active").removeClass("active");
-				$this.parent().siblings().find(".asServiceMore").hide(500);
-				$this.parent().siblings().find(".asServiceMore input:checked").removeAttr('checked');
+				$this.parent().siblings().find(".asServiceMore").hide();
+				$this.parent().find(".asServiceMore").show(500);
+				$this.parent().siblings().find(".asServiceExtra").hide();
+				$this.parent().siblings().find(".asServiceExtra input:checked").removeAttr('checked');
 				$this.parent().siblings().find(".asServiceTimes li.active").removeClass("active");
-				$this.parents(".asSingleInner").css("width", "33%")
-					.siblings(".asSingleCategories").css("width", "33%")
-					.siblings(".asSingleEmployees").css("width", "33%");
 				
+				$this.parents(".asSingleInner").removeClass("parentServiceExtra")
+				
+				if ($this.parent().find(".asServiceExtra").length > 0) {
+					$this.parent().find(".asServiceExtra").show(500);
+					$this.parents(".asSingleServices").addClass("parentServiceExtra");
+				}
 				that.service_id = $this.data("id");
 				
 				that.$container.find(".asSingleEmployees").hide()
@@ -852,42 +854,21 @@
 				var $this = pjQ.$(this);
 				
 				if ($this.hasClass('collapse')) {
-					$this.parents('.asLayout3Inner').siblings(".asLayout3Inner").find('.asBox').hide();
-					$this.parent().siblings(".asBox").show(500);
+					$this.parents('.asLayout3Inner').siblings(".asLayout3Inner").find('.asBox').removeClass("in");
+					$this.parent().siblings(".asBox").addClass("in");
+					that.$container.find(".asLayout3 .heading").removeClass("active");
+					$this.parent().addClass("active");
 				}
 				
 			}).on("click.as", ".asLayout3 .asCategories input", function (e) {
 				
 				var $this = pjQ.$(this);
 				
-				that.$container.find('.asCategories').hide()
+				that.$container.find('.asCategories').removeClass("in")
 					.end()
-					.find('.asServices').show()
+					.find('.asService').removeClass("in")
 					.end()
-					.find('.asCategoryBox').hide()
-					.end()
-					.find('.asCategoryBox_' + $this.val()).show(500);
-				//console.log($this.val());
-				
-			}).on("click.as", ".asLayout3 .asServices input", function (e) {
-				
-				var $this = pjQ.$(this);
-				
-				that.service_id = $this.val();
-				
-				that.$container.find(".asLayout3Employees .asBoxInner").html("")
-					.end()
-					.find('.asLayout3Categories .asBox').hide()
-					.end()
-					.find('.asLayout3Employees .asBox').show(500)
-					.end()
-					.find('.asLayout3Categories .heading a').addClass('collapse')
-					.end()
-					.find("input[name='service_id']").val($this.val())
-					.end()
-					.find(":submit").attr("disabled", "disabled");
-					
-				that.getLoadAjaxLayout3.call(that);
+					.find('.asCategoryID_' + $this.val()).addClass("in");
 				
 			}).on("click.as", ".asLayout3 a.asCategoriesBack", function (e) {
 				if (e && e.preventDefault) {
@@ -896,27 +877,142 @@
 				
 				var $this = pjQ.$(this);
 				
-				that.$container.find('.asServices').hide()
+				that.$container.find('.asService').removeClass("in")
 					.end()
-					.find('.asCategories').show(500);
+					.find('.asCategories').addClass("in")
+					
+			}).on("click.as", ".asLayout3 .asServices input[name=service]", function (e) {
+				
+				var $this = pjQ.$(this);
+				
+				that.service_id = $this.val();
+				
+				if( $this.parents(".asService").find('.asServiceID_' + $this.val()).length > 0 ) {
+					that.$container.find('.asService').removeClass("more")
+						.end()
+						.find('.asLayout3 .heading a').removeClass('collapse')
+						.end()
+						.find(".asServiceMore input:checked").removeAttr('checked')
+						.end()
+						.find("input[name='wt_id']").val("0");
+						
+					$this.parents(".asService").addClass("more").find('.asServiceID_' + $this.val()).addClass("in");
+						
+				} else {
+					that.$container.find('.asLayout3Categories .asBox').removeClass("in")
+					.end()
+					.find('.asLayout3Employees .asBox').addClass("in")
+					.end()
+					.find('.asLayout3 .heading a').removeClass('collapse')
+					.end()
+					.find('.asLayout3Categories .heading a').addClass('collapse')
+					.end()
+					.find('.asLayout3 .heading').removeClass('active')
+					.end()
+					.find('.asLayout3Employees .heading').addClass('active');
+					
+					that.getLoadAjaxLayout3.call(that);
+				}
+				
+				that.$container.find(".asLayout3Employees .asBoxInner").html("")
+					.end()
+					.find("input[name='service_id']").val($this.val());
+						
+			}).on("click.as", ".asLayout3 .asServices input[name=service_time]", function (e) {
+				
+				var $this = pjQ.$(this);
+				
+				that.wt_id = $this.val();
+				
+				that.$container.find("input[name='wt_id']").val($this.val());
+						
+			}).on("click.as", ".asLayout3 a.asServicesBack", function (e) {
+				if (e && e.preventDefault) {
+					e.preventDefault();
+				}
+				
+				var $this = pjQ.$(this);
+				
+				that.$container.find('.asService').removeClass("more")
+					.end()
+					.find('.asServiceMore').removeClass("in");
+					
+			}).on("click.as", ".asLayout3 .asServiceMore a.next", function (e) {
+				if (e && e.preventDefault) {
+					e.preventDefault();
+				}
+				
+				var $this = pjQ.$(this);
+				
+				that.$container.find('.asLayout3Categories .asBox').removeClass("in")
+					.end()
+					.find('.asLayout3Employees .asBox').addClass("in")
+					.end()
+					.find('.asLayout3 .heading a').removeClass('collapse')
+					.end()
+					.find('.asLayout3Categories .heading a').addClass('collapse')
+					.end()
+					.find('.asLayout3 .heading').removeClass('active')
+					.end()
+					.find('.asLayout3Employees .heading').addClass('active');
+					
+				that.getLoadAjaxLayout3.call(that);
 					
 			}).on("click.as", ".asLayout3 .asEmployees input", function (e) {
 				
 				var $this = pjQ.$(this);
 				
+				that.service_id = that.$container.find("input[name='service_id']").val();
 				that.employee_id = $this.val();
+				that.wt_id = that.$container.find("input[name='wt_id']").val();
+				that.date = that.$container.find("input[name='date_start']").val();
 				
-				that.$container.find('.asLayout3Employees .asBox').hide()
+				that.$container.find('.asLayout3Date .asBoxInner').html("")
 					.end()
-					.find('.asLayout3Date .asBox').show(500)
+					.find('.asLayout3Employees .asBox').removeClass("in")
+					.end()
+					.find('.asLayout3Date .asBox').addClass("in")
 					.end()
 					.find('.asLayout3Employees .heading a').addClass('collapse')
 					.end()
-					.find("input[name='employee_id']").val($this.val())
+					.find('.asLayout3Date .heading a').removeClass('collapse')
 					.end()
-					.find(":submit").attr("disabled", "disabled");
+					.find('.asLayout3 .heading').removeClass('active')
+					.end()
+					.find('.asLayout3Date .heading').addClass('active')
+					.end()
+					.find("input[name='employee_id']").val($this.val());
 					
 				that.getLoadAjaxLayout3.call(that);
+				
+			}).on("click.as", ".asLayout3 .asdate .times a", function (e) {
+				if (e && e.preventDefault) {
+					e.preventDefault();
+				}
+				
+				var $this = pjQ.$(this);
+				
+				$this.parent().addClass("active").siblings(".active").removeClass("active");
+				
+				if ( $this.hasClass("allEmployee") ) {
+					that.$container.find("input[name='employee_id']").val($this.data("employee_id"));
+				}
+				
+				that.$container.find("input[name='date']").val($this.data("date"))
+					.end()
+					.find("input[name='start_ts']").val($this.data("start_ts"))
+					.end()
+					.find("input[name='end_ts']").val($this.data("end_ts"))
+					.end()
+					.find('.asLayout3Date .asBox').removeClass("in")
+					.end()
+					.find('.asLayout3Contact .asBox').addClass("in")
+					.end()
+					.find('.asLayout3 .heading').removeClass('active')
+					.end()
+					.find('.asLayout3Contact .heading').addClass('active')
+					.end()
+					.find('.asLayout3Date .heading a').addClass('collapse');
 				
 			}).on("focusin", ".datepick", function (e) {
 				var $this = pjQ.$(this);
@@ -924,13 +1020,18 @@
 					firstDay: $this.attr("rel"),
 					dateFormat: $this.attr("rev"),
 					onSelect: function (dateText, inst) {
-						var $href = window.location.href.replace(/&date=(.*)&/,'&');
+					
+						that.date =  [inst.selectedYear, inst.selectedMonth+1, inst.selectedDay].join("-");
+						that.service_id = that.$container.find("input[name='service_id']").val();
+						that.employee_id = that.$container.find("input[name='employee_id']").val();
+						that.wt_id = that.$container.find("input[name='wt_id']").val();
 						
-						$href = $href.replace(/&date=(.*)/,'');
+						that.$container.find("input[name='date_start']").val(that.date)
 						
-						window.location.href = $href +'&date=' + [inst.selectedYear, inst.selectedMonth+1, inst.selectedDay].join("-");
+						that.getLoadAjaxLayout3.call(that);
 					}
 				});
+				
 			}).on("click", ".pj-form-field-icon-date", function (e) {
 				var $dp = $(this).parent().siblings("input[type='text']");
 				if ($dp.hasClass("hasDatepicker")) {
@@ -984,7 +1085,6 @@
 				
 				return false;
 				
-			// Cart (Basket)
 			}).on("click.as", ".asSelectorContinueShopping", function (e) {
 				hashBang(["#!/Services/date:", (that.date && that.date !== undefined ? encodeURIComponent(that.date) : ""),
 				          "/page:", (that.page && that.page !== undefined ? encodeURIComponent(that.page) : 1)].join(""));
@@ -1087,6 +1187,14 @@
 			} else {
 				onHashChange.call(null);
 			}
+			
+			pjQ.$( document ).ajaxStart(function() {
+				pjQ.$( "#loading" ).show();
+			});
+			
+			pjQ.$( document ).ajaxStop(function() {
+				pjQ.$( "#loading" ).hide();
+			});
 			
 			return this;
 		},
@@ -1234,6 +1342,58 @@
 					default:
 						that.view = 'pjActionServices';
 						break;
+				}
+				
+				if (validate) {
+					pjQ.jQuery.validator.addClassRules("asRequired", {
+						required: true
+					});
+					pjQ.jQuery.validator.addClassRules("asEmail", {
+						email: true
+					});
+					that.$container.find(".asSelectorLayout3Form").validate({
+						rules: {
+							"captcha" : {
+								remote: that.options.folder + "index.php?controller=pjFrontEnd"+ $as_pf +"&action=pjActionCheckCaptcha",
+								required: true,
+								minlength: 6,
+								maxlength: 6
+							}
+						},
+						onkeyup: false,
+						onclick: false,
+						onfocusout: false,
+						errorClass: "asError",
+						validClass: "asValid",
+						wrapper: "em",
+						errorPlacement: function (error, element) {
+							error.insertAfter(element.parent());
+						},
+						submitHandler: function (form) {
+							that.disableButtons.call(that);
+							var $form = pjQ.$(form);
+							that._addToCart.call(that, $form.serializeArray()).done(function (data) {
+								if (data.status == "OK") {
+									
+									pjQ.$.post([that.options.folder, "index.php?controller=pjFrontPublic&action=pjActionCheckout" + $as_pf].join(""), $form.serialize()).done(function (data) {
+										if (data.status == "OK") {
+											hashBang("#!/Preview");
+											
+										} else if (data.status == "ERR") {
+											that.enableButtons.call(that);
+										}
+									});
+									
+								} else if (data.status == "ERR") {
+									that.enableButtons.call(that);
+								}
+							}).fail(function () {
+								that.enableButtons.call(that);
+							});
+							
+							return false;
+						}
+					});
 				}
 				
 			}).fail(function () {

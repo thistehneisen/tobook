@@ -1,6 +1,6 @@
 @extends ('layouts.admin')
 
-@section ('scripts')
+@section('scripts')
     @parent
     <script>
 $(function () {
@@ -14,8 +14,8 @@ $(function () {
     </script>
 @stop
 
-@section ('content')
-    <h3 class="comfortaa text-danger">List of {{ Request::segment(2) }}</h3>
+@section('content')
+    <h3 class="comfortaa text-danger">{{ trans('admin.index_heading', ['model' => $modelName]) }}</h3>
     @include ('el.messages')
 
     @include ('admin.crud.list', $items)

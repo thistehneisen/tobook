@@ -1,49 +1,40 @@
 @extends ('layouts.default')
 
-@section ('title')
+@section('title')
     @parent :: {{ trans('common.dashboard') }}
 @stop
 
-@section ('header')
+@section('page-header')
     <h1 class="text-header">{{ trans('common.dashboard') }}</h1>
 @stop
 
-@section ('content')
+@section('scripts')
+    @parent
+    <script>
+(function ($) {
+    'use strict';
+    $(function () {
+        $('[data-toggle=popover]').popover({
+            trigger: 'hover',
+            placement: 'top'
+        });
+    });
+}(jQuery));
+    </script>
+@stop
+
+@section('content')
 <ul class="list-unstyled dashboard-services">
-@foreach ($services as $key => $url)
-    <li class="col-md-3 col-lg-3">
-        <div>
-            <a href="{{ $url }}" title="">
-                <h4>{{ trans('dashboard.'.$key) }}</h4>
-                <p><img src="{{ asset('assets/img/services/'.$key.'.jpg') }}" alt="{{ trans('dashboard.'.$key) }}"></p>
+@foreach ($modules as $item)
+    <li class="col-md-3 col-lg-3" @if (!in_array($item->name, $activeModules)) data-toggle="popover" data-content="{{ trans('dashboard.expired') }}" title="{{ trans('dashboard.expired_heading') }}" @endif>
+        <div class="wrapper">
+            <a href="{{ in_array($item->name, $activeModules) ? URL::to(Config::get('app.locale').$item->uri) : '#' }}">
+                <h4>{{ trans('dashboard.'.$item->name) }}</h4>
+                <p><img src="{{ asset('assets/img/services/'.$item->name.'.jpg') }}" alt="{{ trans('dashboard.'.$item->name) }}"></p>
             </a>
         </div>
     </li>
 @endforeach
 </ul>
-
-{{--
-<div class="row">
-    <div class="col-xs-12">
-        <h1 class="comfortaa orange">{{ trans('dashboard.my_sites') }}</h1>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>{{ trans('dashboard.site_name') }}</th>
-                    <th>{{ trans('dashboard.created') }}</th>
-                    <th>{{ trans('dashboard.status') }}</th>
-                    <th>{{ trans('dashboard.operations') }}</th>
-                    <th>{{ trans('dashboard.preview') }}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td colspan="5">{{ trans('common.no_records') }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
---}}
 
 @stop

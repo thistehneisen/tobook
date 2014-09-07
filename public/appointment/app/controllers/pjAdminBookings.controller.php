@@ -198,7 +198,7 @@ class pjAdminBookings extends pjAdmin
 	public function pjActionGetBooking()
 	{
 		$this->setAjax(true);
-		$owner_id = intval($_COOKIE['owner_id']);
+		$owner_id = $this->getOwnerId();
 		if ($this->isXHR() && $this->isLoged() && $this->isAdmin())
 		{
 			$pjBookingModel = pjBookingModel::factory();
@@ -208,7 +208,7 @@ class pjAdminBookings extends pjAdmin
 			{
 				$q = $pjBookingModel->escapeString($_GET['q']);
 				$q = str_replace(array('%', '_'), array('\%', '\_'), trim($q));
-				$pjBookingModel->where(sprintf("t1.uuid LIKE '%1\$s' OR t1.c_email LIKE '%1\$s' OR t1.c_name LIKE '%1\$s'", "%$q%"));
+				$pjBookingModel->where(sprintf("(t1.uuid LIKE '%1\$s' OR t1.c_email LIKE '%1\$s' OR t1.c_name LIKE '%1\$s')", "%$q%"));
 			}
 
 			if (isset($_GET['booking_status']) && !empty($_GET['booking_status']) && in_array((int) $_GET['booking_status'], array('confirmed', 'pending', 'cancelled')))
@@ -623,7 +623,7 @@ class pjAdminBookings extends pjAdmin
 		$this->setAjax(true);
 
 		if ($this->isXHR() && $this->isLoged()) {
-			$owner_id = intval($_SESSION['owner_id']);
+			$owner_id = $this->getOwnerId();
 			$search = isset($_GET['search']) ? $_GET['search'] : Null;
 			$pjBookingModel = pjBookingModel::factory()
 				->select('t1.c_name, t1.c_email, t1.c_phone')
@@ -762,7 +762,7 @@ class pjAdminBookings extends pjAdmin
 	public function pjActionSaveBooking()
 	{
 		$this->setAjax(true);
-		$owner_id = intval($_SESSION['owner_id']);
+		$owner_id = $this->getOwnerId();
 		if ($this->isXHR() && $this->isLoged())
 		{
 			$pjBookingModel = pjBookingModel::factory();

@@ -10,34 +10,34 @@ if (isset($tpl['status']))
 	}
 } else {
 	global $as_pf;
-	
+
 	$titles = __('error_titles', true);
 	$bodies = __('error_bodies', true);
 	?>
 	<div class="ui-tabs ui-widget ui-widget-content ui-corner-all b10">
 		<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
 			<li class="ui-state-default ui-corner-top"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=pjActionIndex&amp;as_pf=<?php echo $as_pf; ?>"><?php __('menuBookings'); ?></a></li>
-			<li class="ui-state-default ui-corner-top ui-tabs-active ui-state-active"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=pjActionCreate&amp;as_pf=<?php echo $as_pf; ?>">Tee varaus</a></li>
-			<li class="ui-state-default ui-corner-top"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjInvoice&amp;action=pjActionInvoices&amp;as_pf=<?php echo $as_pf; ?>">Laskut</a></li>
-			<li class="ui-state-default ui-corner-top"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=pjActionCustomer&amp;as_pf=<?php echo $as_pf; ?>">Asiakkaat</a></li>
-			<li class="ui-state-default ui-corner-top"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=pjActionStatistics&amp;as_pf=<?php echo $as_pf; ?>">Statistiikka</a></li>
+			<li class="ui-state-default ui-corner-top ui-tabs-active ui-state-active"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=pjActionCreate&amp;as_pf=<?php echo $as_pf; ?>"><?php __('addBooking'); ?></a></li>
+			<li class="ui-state-default ui-corner-top"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjInvoice&amp;action=pjActionInvoices&amp;as_pf=<?php echo $as_pf; ?>"><?php __('menuInvoices'); ?></a></li>
+			<li class="ui-state-default ui-corner-top"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=pjActionCustomer&amp;as_pf=<?php echo $as_pf; ?>"><?php __('customer'); ?></a></li>
+			<li class="ui-state-default ui-corner-top"><a href="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=pjActionStatistics&amp;as_pf=<?php echo $as_pf; ?>"><?php __('statistic'); ?></a></li>
 		</ul>
 	</div>
-	
+
 	<form action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=pjAdminBookings&amp;action=pjActionCreate&amp;as_pf=<?php echo $as_pf; ?>" method="post" id="frmCreateBooking" class="form pj-form frmBooking">
 		<input type="hidden" name="booking_create" value="1" />
 		<?php if ( isset($_GET['pjAdmin']) && $_GET['pjAdmin'] == 1 ) { ?>
 			<input type="hidden" name="pjadmin" value="1" />
 		<?php } ?>
-		
+
 		<input type="hidden" name="tmp_hash" value="<?php echo md5(uniqid(rand(), true)); ?>" />
-		
+
 		<div id="tabs">
 			<ul style="display: none;">
 				<li><a href="#tabs-1"><?php __('booking_tab_details'); ?></a></li>
 				<li><a href="#tabs-2"><?php __('booking_tab_client'); ?></a></li>
 			</ul>
-			
+
 			<div id="tabs-1">
 				<?php pjUtil::printNotice(@$titles['ABK10'], @$bodies['ABK10']); ?>
 				<fieldset class="fieldset white">
@@ -111,10 +111,10 @@ if (isset($tpl['status']))
 							<select name="payment_method" id="payment_method" class="pj-form-field w120 required">
 								<option value=""><?php __('booking_choose'); ?></option>
 								<?php
-								foreach (__('payment_methods', true) as $k => $v)
-								{
-									?><option value="<?php echo $k; ?>"><?php echo $v; ?></option><?php
-								}
+								// foreach (__('payment_methods', true) as $k => $v)
+								// {
+								// 	?><option value="<?php echo $k; ?>"><?php echo $v; ?></option><?php
+								// }
 								?>
 							</select>
 						</p>
@@ -124,10 +124,10 @@ if (isset($tpl['status']))
 								<select name="cc_type" class="pj-form-field w120">
 									<option value="">---</option>
 									<?php
-									foreach (__('booking_cc_types', true) as $k => $v)
-									{
-										?><option value="<?php echo $k; ?>"><?php echo $v; ?></option><?php
-									}
+									// foreach (__('booking_cc_types', true) as $k => $v)
+									// {
+									// 	?><option value="<?php echo $k; ?>"><?php echo $v; ?></option><?php
+									// }
 									?>
 								</select>
 							</div>
@@ -200,7 +200,7 @@ if (isset($tpl['status']))
 					<div class="p">
 						<label class="title"><?php __('booking_services'); ?>:</label>
 						<div id="boxBookingItems"></div>
-						
+
 						<div id="dialogItemDelete" title="<?php __('booking_service_delete_title', false, true); ?>" style="display: none"><?php __('booking_service_delete_body'); ?></div>
 						<div id="dialogItemAdd" title="<?php __('booking_service_add_title', false, true); ?>" style="display: none"></div>
 					</div>
@@ -218,7 +218,7 @@ if (isset($tpl['status']))
 				<?php pjUtil::printNotice(@$titles['ABK11'], @$bodies['ABK11']); ?>
 				<fieldset class="fieldset white">
 					<legend><?php __('booking_customer'); ?></legend>
-					
+
 					<div class="float_left w300">
 						<p>
 							<label class="title"><?php __('booking_country'); ?>:</label>
@@ -248,13 +248,13 @@ if (isset($tpl['status']))
 						</p>
 					</div>
 					<br class="clear_both" />
-					
+
 					<p>
 						<label class="title">&nbsp;</label>
 						<input type="submit" id="btn-create-booking" value="<?php __('btnSave', false, true); ?>" class="pj-button" />
 					</p>
 				</fieldset>
-				
+
 			</div>
 		</div>
 	</form>

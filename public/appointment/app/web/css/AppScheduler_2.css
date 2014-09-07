@@ -186,23 +186,13 @@
 	display: inline-block;
 	width: 100%;
 }
-.asContainer .asLabel{
-	display: block;
-	width: 100%;
-	padding: 0;
-	margin: 0;
-	float: none;
-}
 .asSingleCategories{
-	width: 45%;
 	float: left;
 }
 .asSingleServices{
-	width: 45%;
 	float: left;
 }
 .asSingleEmployees{
-	width: 30%;
 	float: left;
 }
 .asSingleDate{
@@ -210,7 +200,7 @@
 	width: 100%;
 }
 .asSingle .asBox{
-	padding: 10px;
+	padding: 0 10px 10px;
 }
 .asSingle .asBox ul{
     margin: 0;
@@ -333,7 +323,61 @@
 .asSingleDate .asBox .times li a{
 	border-radius: 0;
 }
+.asContainer .asLabel{
+	float: none;
+	width: auto;
+	display: block;
+}
+.asSingleCategories, 
+.asSingleServices, 
+.asSingleEmployees{
+	width: 24.99%;
+	margin: 0;
+	padding: 0;
+}
+.asSingleServices.parentServiceExtra{
+	width: 49.99%;
+}
+.asSingleServices{
+	position: relative;
+}
+.asSingleServices.parentServiceExtra .asServices > ul{
+	width: 49.99%;
+}
+.asSingleServices .asServiceExtra{
+    left: 50%;
+    position: absolute;
+    top: 0;
+    padding: 0 0 0 20px;
+    width: 45%;
+    display: none;
+}
+.asSingleServices .asServiceExtra ul{
+	padding-left: 10px;
+}
 /* Responsive design */
+@media screen and (max-width: 1023px) {
+	.asSingleServices.parentServiceExtra .asServices > ul{
+		width: auto;
+	}
+	.asSingleServices .asServiceExtra{
+		position: static;
+		background: #FFF;
+    	border-bottom: 1px solid #ddd;
+    	width: auto;
+	}
+	.asSingleServices .asServiceExtra ul{
+		background: none !important;
+    	border: 0 none;
+    	border-radius: 0;
+	}
+	.asSingleServices ul .asServiceMore{
+		border-bottom: 0;
+	}
+	.asSingleInner ul{
+		min-height: 0 !important;
+	}
+}
 @media screen and (min-width: 768px) and (max-width: 1023px) {
 	.asSingleCategories,
 	.asSingleServices,

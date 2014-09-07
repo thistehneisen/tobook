@@ -3,6 +3,7 @@
 use View, Validator, Input, Redirect, Config, Session, URL;
 use User;
 use Confide;
+use App\Core\Models\Module;
 
 class Dashboard extends Base
 {
@@ -21,9 +22,24 @@ class Dashboard extends Base
             //'martketing'  => route('marketing.index'),
         ];
 
+        // Get all modules availables in the system
+        $modules = Module::all();
+        $now = \Carbon\Carbon::now();
+        $activeModules = Confide::user()
+            ->getActiveModules()
+            ->lists('name');
+
+        // Remove inactive modules
+        if (Config::get('varaa.dashboard_hide_inactive')) {
+            $modules = $modules->filter(function($module) use ($activeModules) {
+                return in_array($module->name, $activeModules);
+            });
+        }
+
         return View::make('dashboard.index', [
-            'user' => Confide::user(),
-            'services' => $services
+            'user'          => Confide::user(),
+            'modules'       => $modules,
+            'activeModules' => $activeModules
         ]);
     }
 }

@@ -56,8 +56,10 @@ else
 require ROOT_PATH . 'app/config/options.inc.php';
 
 # Language
-if (file_exists(ROOT_PATH . 'app/locale/fi.php')) {
-	require ROOT_PATH . 'app/locale/fi.php';
+if (file_exists(ROOT_PATH.'app/locale/'.Bridge::getLocale().'.php')) {
+    require ROOT_PATH.'app/locale/'.Bridge::getLocale().'.php';
+} else {
+    require ROOT_PATH.'app/locale/fi.php';
 }
 
 //require ROOT_PATH . 'oneapi.php';

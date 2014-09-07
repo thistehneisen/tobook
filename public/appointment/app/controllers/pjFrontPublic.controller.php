@@ -9,12 +9,12 @@ class pjFrontPublic extends pjFront
 	public function __construct()
 	{
 		parent::__construct();
-		
+
 		$this->setAjax(true);
-		
+
 		$this->setLayout('pjActionEmpty');
 	}
-	
+
 	public function pjActionCart()
 	{
 		if ($this->isXHR() || isset($_GET['_escaped_fragment_']))
@@ -22,7 +22,7 @@ class pjFrontPublic extends pjFront
 			$this->set('cart_arr', $this->getCart($_GET['cid']));
 		}
 	}
-	
+
 	public function pjActionCheckout()
 	{
 		if ($this->isXHR() || isset($_GET['_escaped_fragment_']))
@@ -33,20 +33,20 @@ class pjFrontPublic extends pjFront
 				$this->set('code', '103'); //Bookings are disabled
 				return;
 			}
-			
+
 			if ($this->cart->isEmpty())
 			{
 				$this->set('status', 'ERR');
 				$this->set('code', '101'); //Empty cart
 				return;
 			}
-			
+
 			if (isset($_POST['as_checkout']))
 			{
 				$_SESSION[$this->defaultForm] = array_merge($_SESSION[$this->defaultForm], $_POST);
 				pjAppController::jsonResponse(array('status' => 'OK', 'code' => 211, 'text' => __('system_211', true)));
 			}
-			
+
 			if (in_array($this->option_arr['o_bf_country'], array(2,3)))
 			{
 				pjObject::import('Model', 'pjCountry:pjCountry');
@@ -59,13 +59,13 @@ class pjFrontPublic extends pjFront
 					->getData()
 				);
 			}
-			
+
 			$this->set('status', 'OK');
 			//$this->set('summary', $this->getSummary());
 			$this->set('cart_arr', $this->getCart($_GET['cid']));
 		}
 	}
-	
+
 	public function pjActionService()
 	{
 		if ($this->isXHR() || isset($_GET['_escaped_fragment_']))
@@ -84,7 +84,7 @@ class pjFrontPublic extends pjFront
 
 			list($year, $month, $day) = explode("-", $_GET['date']);
 			$this->set('calendar', $this->getCalendar($_GET['cid'], $year, $month, $day));
-			
+
 			$pjEmployeeServiceModel = pjEmployeeServiceModel::factory()
 				->select("t1.*, t2.avatar, t2.notes, t3.content AS `name`")
 				->join('pjEmployee', 't2.id=t1.employee_id AND t2.is_active=1', 'inner')
@@ -92,7 +92,7 @@ class pjFrontPublic extends pjFront
 				->where('t1.service_id', $id)
 				->orderBy('`name` ASC')
 				->findAll();
-			
+
 			$employee_arr = $pjEmployeeServiceModel->getData();
 			$employee_ids = $pjEmployeeServiceModel->getDataPair(null, 'employee_id');
 			$bs_arr = array();
@@ -133,7 +133,7 @@ class pjFrontPublic extends pjFront
 				->where('t1.owner_id', $owner_id)
 				->orderBy('`name` ASC')
 				->findAll();
-				
+
 			$resources_ids = $pjResourcesServiceModel->getDataPair(null, 'resources_id');
 			$resources_arr = array();
 			$resources_arr['count'] = count($resources_ids);
@@ -146,33 +146,33 @@ class pjFrontPublic extends pjFront
 				->findAll()
 				->getData();
 			}
-			
+
 			$service_arr = pjServiceModel::factory()
 								->select('t1.*, t2.content AS `name`')
 								->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
 								->find($id)
 								->getData();
-							
+
 			if ( isset($_GET['wt_id']) && $_GET['wt_id'] >= 0 ) {
-				
+
 				$wt_id = $_GET['wt_id'];
-				
+
 				if (isset($_GET['as_pf'])) {
 					$_SESSION[ $_GET['as_pf'] . 'wt_id'] = $_GET['wt_id'];
 				}
-				
+
 			} elseif ( isset($_GET['as_pf']) && isset($_SESSION[ $_GET['as_pf'] . 'wt_id']) && $_SESSION[ $_GET['as_pf'] . 'wt_id'] > 0 ) {
 				$wt_id = $_SESSION[ $_GET['as_pf'] . 'wt_id'];
 			}
-			
+
 			if ( isset($wt_id) && $wt_id > 0 ) {
-				
+
 				$wt_arr = pjServiceTimeModel::factory()
 				->select('t1.*')
 				->where('t1.id', $wt_id)
 				->find($wt_id)
 				->getData();
-				
+
 				$service_arr['price'] = $wt_arr['price'];
 				$service_arr['length'] = $wt_arr['length'];
 				$service_arr['before'] = $wt_arr['before'];
@@ -180,7 +180,7 @@ class pjFrontPublic extends pjFront
 				$service_arr['total'] = $wt_arr['total'];
 				$service_arr['wt_id'] = $wt_id;
 			}
-			
+
 			$this
 				->set('service_arr', $service_arr)
 				->set('employee_arr', $employee_arr)
@@ -188,15 +188,15 @@ class pjFrontPublic extends pjFront
 				->set('cart_arr', $this->getCart($_GET['cid']));
 		}
 	}
-	
+
 	public function pjActionEmployee() {
-		
+
 		if ($this->isXHR())
 		{
 			if (isset($_GET['id']) && (int) $_GET['id'] > 0)
 			{
 				$id = (int) $_GET['id'];
-			
+
 				list($year, $month, $day) = explode("-", $_GET['date']);
 				$this
 					->set('calendar', $this->getCalendar($_GET['cid'], $year, $month, $day))
@@ -215,13 +215,13 @@ class pjFrontPublic extends pjFront
 			}
 		}
 	}
-	
+
 	public function pjActionServices()
-	{ 
+	{
 		if ($this->isXHR() || isset($_GET['_escaped_fragment_']))
 		{
-			$owner_id = intval($_GET['owner_id']);
-			
+			$owner_id = intval($_SESSION['front_owner_id']);
+
 			if (isset($_GET['_escaped_fragment_']))
 			{
 				preg_match('/\/Services\/date:([\d\-\.\/]+)?\/page:(\d+)?/', $_GET['_escaped_fragment_'], $matches);
@@ -234,13 +234,13 @@ class pjFrontPublic extends pjFront
 				$date = @$_GET['date'];
 				$page = @$_GET['page'];
 			}
-			
+
 			$year = $month = $day = NULL;
 			if (!empty($date))
 			{
 				list($year, $month, $day) = explode("-", $date);
 			}
-			
+
 			$this->set('calendar', $this->getCalendar($_GET['cid'], $year, $month, $day))
 				->set('cart_arr', $this->getCart($_GET['cid']));
 
@@ -250,28 +250,28 @@ class pjFrontPublic extends pjFront
 				->orderBy('t1.name ASC')
 				->findAll()
 				->getData();
-			
+
 			$this->set('category_arr', $category_arr);
 
 			if ( isset($_SESSION[ PREFIX . 'extra' ]) ) {
 				unset($_SESSION[ PREFIX . 'extra' ]);
 			}
-			 
+
 			switch ($_GET['layout'])
 			{
 				case 2:
 					$this->set('service_arr', $this->getServices($_GET['cid'], @$page));
-					
+
 					$this->set('next_dates', pjAppController::getDatesInRange($_GET['cid'], date("Y-m-d", strtotime("+1 day")), date("Y-m-d", strtotime("+8 day"))));
 					$this->set('t_arr', pjAppController::getSingleDateSlots($_GET['cid'], $date));
 					$this->setTemplate('pjFrontPublic', 'pjActionSingle');
 					break;
-					
+
 				case 3:
-					
+
 					$categories = $category_arr;
 					foreach ( $category_arr as $key => $category ) {
-						$categories[$key]['services'] = pjServiceModel::factory()
+						$services = pjServiceModel::factory()
 			                ->select("t1.*, t2.content AS `name`, t3.content AS `description`")
 			                ->join('pjMultiLang', "t2.model='pjService' AND t2.foreign_id=t1.id AND t2.field='name'", 'left outer')
 			                ->join('pjMultiLang', "t3.model='pjService' AND t3.foreign_id=t1.id AND t3.field='description'", 'left outer')
@@ -281,26 +281,49 @@ class pjFrontPublic extends pjFront
 			                ->orderBy('`name` ASC')
 			                ->findAll()
 			                ->getData();
+						
+						foreach ($services as $k => $service) {
+							
+							$service_time = pjServiceTimeModel::factory()
+								->where('t1.foreign_id', $service['id'])
+								->where('t1.owner_id', $owner_id)
+								->findAll()
+								->getData();
+								 
+							$service_extra = pjExtraServiceModel::factory()
+								->join('pjServiceExtraService', 't2.extra_id = t1.id', 'inner')
+								->where('t2.service_id', $service['id'])
+								->where('t1.owner_id', $owner_id)
+								->orderBy('t1.name ASC')
+								->findAll()
+								->getData();
+							//var_dump($service_time);
+							$services[$k]['service_time'] = $service_time;
+							$services[$k]['service_extra'] = $service_extra;
+						}
+						//var_dump($services);
+						$categories[$key]['services'] = $services;
 					}
-					
+
 					$this->set('categories_arr', $categories);
-					
+
 					$this->setTemplate('pjFrontPublic', 'pjActionLayout_3');
 					break;
-					
+
 				case 1:
 				default:
 
 					$data = $this->getServices($_GET['cid'], @$page);
 
 					foreach ( $data['data'] as $k => $v ) {
-						
+
 						$data['data'][$k]['wtime'] = pjServiceTimeModel::factory()->select("t1.*")
 												->where('t1.foreign_id', $v['id'])
+												->where('t1.owner_id', $owner_id)
 												->findAll()
 												->getData();
 					}
-					
+
 					$this->set('service_arr', $data);
 
 					$this->setTemplate('pjFrontPublic', 'pjActionServices');
@@ -308,7 +331,7 @@ class pjFrontPublic extends pjFront
 			}
 		}
 	}
-	
+
 	public function pjActionBooking()
 	{
 		if ($this->isXHR() || isset($_GET['_escaped_fragment_']))
@@ -319,9 +342,9 @@ class pjFrontPublic extends pjFront
 				$this->set('code', '103'); //Bookings are disabled
 				return;
 			}
-			
+
 			$this->set('status', 'OK');
-			
+
 			if (isset($_GET['booking_uuid']) && !empty($_GET['booking_uuid']))
 			{
 				$booking_uuid = $_GET['booking_uuid'];
@@ -332,18 +355,18 @@ class pjFrontPublic extends pjFront
 					$booking_uuid = $matches[1];
 				}
 			}
-			
+
 			$booking_arr = pjBookingModel::factory()->where('t1.uuid', $booking_uuid)->findAll()->limit(1)->getData();
 			if (!empty($booking_arr))
 			{
 				$booking_arr = $booking_arr[0];
-				
+
 				pjObject::import('Model', 'pjInvoice:pjInvoice');
 				$invoice_arr = pjInvoiceModel::factory()->where('t1.order_id', $booking_uuid)->findAll()->limit(1)->getData();
 				if (!empty($invoice_arr))
 				{
 					$invoice_arr = $invoice_arr[0];
-					
+
 					switch ($booking_arr['payment_method'])
 					{
 						case 'paypal':
@@ -380,14 +403,14 @@ class pjFrontPublic extends pjFront
 							));
 							break;
 					}
-					
+
 					$this->set('booking_arr', $booking_arr);
 					$this->set('invoice_arr', $invoice_arr);
 				}
 			}
 		}
 	}
-	
+
 	public function pjActionPreview()
 	{
 		if ($this->isXHR() || isset($_GET['_escaped_fragment_']))
@@ -398,21 +421,21 @@ class pjFrontPublic extends pjFront
 				$this->set('code', '103'); //Bookings are disabled
 				return;
 			}
-			
+
 			if ($this->cart->isEmpty())
 			{
 				$this->set('status', 'ERR');
 				$this->set('code', '101'); //Empty cart
 				return;
 			}
-			
+
 			if (!isset($_SESSION[$this->defaultForm]) || empty($_SESSION[$this->defaultForm]))
 			{
 				$this->set('status', 'ERR');
 				$this->set('code', '102'); //Checkout form not filled
 				return;
 			}
-			
+
 			if (in_array($this->option_arr['o_bf_country'], array(2,3)) && (int) @$_SESSION[$this->defaultForm]['c_country_id'] > 0)
 			{
 				pjObject::import('Model', 'pjCountry:pjCountry');
@@ -428,7 +451,7 @@ class pjFrontPublic extends pjFront
 			$this->set('cart_arr', $this->getCart($_GET['cid']));
 		}
 	}
-		
+
 	public function pjActionRouter()
 	{
 		$this->setAjax(false);
@@ -440,7 +463,7 @@ class pjFrontPublic extends pjFront
 			if (isset($m[1]) && in_array($m[1], $templates))
 			{
 				$template = 'pjAction'.$m[1];
-			
+
 				if (method_exists($this, $template))
 				{
 					$this->$template();
@@ -449,31 +472,31 @@ class pjFrontPublic extends pjFront
 			}
 		}
 	}
-	
+
 	public function getExtraService() {
 		if ( $this->isXHR() ) {
-			
+
 			if ( isset($_POST['extra_id']) && isset($_POST['service_id']) ) {
-				
+
 				$extra = pjExtraServiceModel::factory()
 							->whereIn('id', $_POST['extra_id'])
 							->orderBy('t1.name ASC')
 							->findAll()
 							->getData();
-				
+
 				$_SESSION[ PREFIX . 'extra' ] = $extra;
-				
+
 				exit();
-				
+
 			} elseif ( isset($_GET['service_id']) && $_GET['service_id'] > 0 ) {
 				$this->set('extra_arr', pjExtraServiceModel::factory()
 						->join('pjServiceExtraService', 't2.extra_id = t1.id', 'inner')
-						->where('t2.service_id', $_GET['service_id']) 
+						->where('t2.service_id', $_GET['service_id'])
 						->orderBy('t1.name ASC')
 						->findAll()
 						->getData()
 				);
-				
+
 			} else exit();
 		}
 	}

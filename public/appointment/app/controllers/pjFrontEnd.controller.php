@@ -40,7 +40,19 @@ class pjFrontEnd extends pjFront
 					$this->cart->update($key, $_SESSION[ PREFIX . 'extra' ]);
 					unset($_SESSION[ PREFIX . 'extra' ]);
 
-				} else {
+				} elseif ( isset($_POST['extra_id']) && count($_POST['extra_id']) > 0 &&
+							( (isset($_POST['as_single']) && $_POST['as_single'] == 1) ||  (isset($_POST['as_layout3']) && $_POST['as_layout3'] == 1)) ) {
+                    $owner_id = intval($_SESSION['front_owner_id']);
+					$extras = pjExtraServiceModel::factory()
+						->where('t1.owner_id', $owner_id)
+                        ->whereIn('id', $_POST['extra_id'])
+                        ->orderBy('t1.name ASC')
+                        ->findAll()
+                        ->getData();
+
+                    $this->cart->update($key, $extras);
+
+                } else {
 					$this->cart->update($key, 1);
 				}
 
@@ -1086,10 +1098,10 @@ class pjFrontEnd extends pjFront
 		$this->set('service_arr', pjServiceModel::factory()->find($_GET['service_id'])->getData());
 		$this->set('employee_arr', $employee_arr);
 	}
-	
+
     public function pjActionLoadAjax () {
-        $owner_id = intval($_GET['owner_id']);
-        
+        $owner_id = intval($_SESSION['front_owner_id']);
+
         if ( isset($_GET['layout']) && (int) $_GET['layout'] == 2 ) {
 	        if ( isset($_GET['category_id']) && (int) $_GET['category_id'] > 0 ) {
 	            $service_arr = pjServiceModel::factory()
@@ -1102,7 +1114,7 @@ class pjFrontEnd extends pjFront
 	                ->orderBy('`name` ASC')
 	                ->findAll()
 	                ->getData();
-	            
+
 	            $services = $service_arr;
 	            foreach ($services as $k => $service) {
 	                $service_time = pjServiceTimeModel::factory()->select("t1.*")
@@ -1110,21 +1122,21 @@ class pjFrontEnd extends pjFront
 	                    ->where('t1.owner_id', $owner_id)
 	                    ->findAll()
 	                    ->getData();
-	                
+
 	                $service_extra = pjExtraServiceModel::factory()
-	                    ->join('pjServiceExtraService', 't2.extra_id = t1.id', 'inner')
+	                	->join('pjServiceExtraService', 't2.extra_id = t1.id', 'inner')
 	                    ->where('t2.service_id', $service['id'])
 	                    ->where('t1.owner_id', $owner_id)
 	                    ->orderBy('t1.name ASC')
 	                    ->findAll()
 	                    ->getData();
-	                
+
 	                $service_arr[$k]['service_time'] = $service_time;
 	                $service_arr[$k]['service_extra'] = $service_extra;
 	            }
-	            
+
 	            $this->set('service_arr', $service_arr);
-	            
+
 	        } elseif ( isset($_GET['service_id']) && (int) $_GET['service_id'] > 0 &&
 	                    (!isset($_GET['employee_id']) || ((int) $_GET['employee_id'] < 1 && $_GET['employee_id'] != 'all' )) ) {
 	            $employee_arr = pjEmployeeServiceModel::factory()
@@ -1136,39 +1148,39 @@ class pjFrontEnd extends pjFront
 	                ->orderBy('`name` ASC')
 	                ->findAll()
 	                ->getData();
-	            
+
 	            $this->set('employee_arr', $employee_arr);
-	            
+
 	        } elseif ( isset($_GET['service_id']) && (int) $_GET['service_id'] > 0 &&
 	                    isset($_GET['employee_id']) && ((int) $_GET['employee_id'] > 0 || $_GET['employee_id'] == 'all') ) {
-	            
+
 	            $date = isset($_GET['date']) && !empty($_GET['date']) ? $_GET['date'] : date("Y-m-d");
-	            
+
 	            if ( $_GET['employee_id'] == 'all' ) {
 	            	$employee_ids = pjEmployeeModel::factory()
 		            	->select("t1.*")
 		            	->where('t1.owner_id', $owner_id)
 		            	->findAll()
 		            	->getDataPair(null, 'id');
-	            	
+
 	            	$this->set('employee_ids', $employee_ids);
 	            }
-	            
+
 	            $t_arr = array();
 	            $bs_arr = array();
 	            $freetime = array();
 	            for ( $i = 0; $i < 5; $i++ ) {
-	            
+
 	                if ( $i == 0 ) {
 	                    $isoDate = date('Y-m-d', strtotime($date . ' 00:00:00'));
-	                        
+
 	                } else $isoDate = date('Y-m-d', strtotime($date . ' 00:00:00') + $i*86400);
-	            
-	                if ( $_GET['employee_id'] == 'all' ) { 
-	                	
+
+	                if ( $_GET['employee_id'] == 'all' ) {
+
 	                	foreach ($employee_ids as $employee_id) {
 	                		$t_arr[$i][$employee_id] = pjAppController::getRawSlotsPerEmployee($employee_id, $isoDate, $this->getForeignId());
-	                	
+
 	                		$bs_arr[$i][$employee_id] = pjBookingServiceModel::factory()
 		                		->select('t1.*')
 		                		->join('pjBooking', 't2.id=t1.booking_id', 'inner')
@@ -1180,7 +1192,7 @@ class pjFrontEnd extends pjFront
 		                		->where('t1.owner_id', $owner_id)
 		                		->findAll()
 		                		->getData();
-	                		 
+
 	                		$freetime[$i][$employee_id] = pjEmployeeFreetimeModel::factory()
 		                		->where('t1.employee_id', $employee_id)
 		                		->where('t1.date', $isoDate)
@@ -1188,10 +1200,10 @@ class pjFrontEnd extends pjFront
 		                		->findAll()
 		                		->getData();
 	                	}
-	                	
+
 	                } else {
 		                $t_arr[$i] = pjAppController::getRawSlotsPerEmployee($_GET['employee_id'], $isoDate, $this->getForeignId());
-		            
+
 		                $bs_arr[$i] = pjBookingServiceModel::factory()
 		                    ->select('t1.*')
 		                    ->join('pjBooking', 't2.id=t1.booking_id', 'inner')
@@ -1205,7 +1217,7 @@ class pjFrontEnd extends pjFront
 		                    ->where('t1.owner_id', $owner_id)
 		                    ->findAll()
 		                    ->getData();
-		                
+
 		                $freetime[$i] = pjEmployeeFreetimeModel::factory()
 		                    ->where('t1.employee_id', $_GET['employee_id'])
 		                    ->where('t1.date', $isoDate)
@@ -1214,7 +1226,7 @@ class pjFrontEnd extends pjFront
 		                    ->getData();
 	                }
 	            }
-	            
+
 	            $service_arr = pjServiceModel::factory()
 	                ->select("t1.*")
 	                ->where('t1.is_active', 1)
@@ -1222,26 +1234,27 @@ class pjFrontEnd extends pjFront
 	                ->where('t1.id', $_GET['service_id'])
 	                ->find($_GET['service_id'])
 	                ->getData();
-	            
+
 	            if ( isset($_GET['wt_id']) && $_GET['wt_id'] > 0 ) {
 	                $service_time = pjServiceTimeModel::factory()->select("t1.*")
+	                	->where('t1.owner_id', $owner_id)
 	                    ->where('t1.foreign_id', $_GET['service_id'])
 	                    ->where('t1.id', $_GET['wt_id'])
 	                    ->find($_GET['wt_id'])
 	                    ->getData();
-	                
+
 	                $service_arr['total'] = $service_time['total'];
 	                $service_arr['before'] = $service_time['before'];
 	            }
-	            
+
 	            $this->set('bs_arr', $bs_arr);
 	            $this->set('t_arr', $t_arr);
 	            $this->set('service_arr', $service_arr);
 	            $this->set('freetime_arr', $freetime);
 	        }
-	        
+
 	    } elseif( isset($_GET['layout']) && (int) $_GET['layout'] == 3 ) {
-    	
+
 	    	if ( isset($_GET['service_id']) && (int) $_GET['service_id'] > 0 &&
 	            (!isset($_GET['employee_id']) || ((int) $_GET['employee_id'] < 1 && $_GET['employee_id'] != 'all' ))) {
 	    		$employee_arr = pjEmployeeServiceModel::factory()
@@ -1253,35 +1266,35 @@ class pjFrontEnd extends pjFront
 		    		->orderBy('`name` ASC')
 		    		->findAll()
 		    		->getData();
-	    		 
+
 	    		$this->set('employee_arr', $employee_arr);
-	    		
+
 	    	} elseif ( isset($_GET['service_id']) && (int) $_GET['service_id'] > 0 &&
 	                    isset($_GET['employee_id']) && ((int) $_GET['employee_id'] > 0 || $_GET['employee_id'] == 'all') ) {
-	    		
+
 	    		$date = isset($_GET['date']) && !empty($_GET['date']) ? $_GET['date'] : date("Y-m-d");
-	    		 
+
 	    		if ( $_GET['employee_id'] == 'all' ) {
 	    			$employee_ids = pjEmployeeModel::factory()
 	    			->select("t1.*")
 	    			->where('t1.owner_id', $owner_id)
 	    			->findAll()
 	    			->getDataPair(null, 'id');
-	    		
+
 	    			$this->set('employee_ids', $employee_ids);
 	    		}
-	    		 
+
 	    		$t_arr = array();
 	    		$bs_arr = array();
 	    		$freetime = array();
-	    		
+
     			$isoDate = date('Y-m-d', strtotime($date . ' 00:00:00'));
-    				 
+
     			if ( $_GET['employee_id'] == 'all' ) {
-    		
+
     				foreach ($employee_ids as $employee_id) {
     					$t_arr[$employee_id] = pjAppController::getRawSlotsPerEmployee($employee_id, $isoDate, $this->getForeignId());
-    		
+
     					$bs_arr[$employee_id] = pjBookingServiceModel::factory()
     					->select('t1.*')
     					->join('pjBooking', 't2.id=t1.booking_id', 'inner')
@@ -1293,7 +1306,7 @@ class pjFrontEnd extends pjFront
     					->where('t1.owner_id', $owner_id)
     					->findAll()
     					->getData();
-    		
+
     					$freetime[$employee_id] = pjEmployeeFreetimeModel::factory()
     					->where('t1.employee_id', $employee_id)
     					->where('t1.date', $isoDate)
@@ -1301,10 +1314,10 @@ class pjFrontEnd extends pjFront
     					->findAll()
     					->getData();
     				}
-    		
+
     			} else {
     				$t_arr = pjAppController::getRawSlotsPerEmployee($_GET['employee_id'], $isoDate, $this->getForeignId());
-    		
+
     				$bs_arr = pjBookingServiceModel::factory()
     				->select('t1.*')
     				->join('pjBooking', 't2.id=t1.booking_id', 'inner')
@@ -1318,7 +1331,7 @@ class pjFrontEnd extends pjFront
     				->where('t1.owner_id', $owner_id)
     				->findAll()
     				->getData();
-    		
+
     				$freetime = pjEmployeeFreetimeModel::factory()
     				->where('t1.employee_id', $_GET['employee_id'])
     				->where('t1.date', $isoDate)
@@ -1326,32 +1339,32 @@ class pjFrontEnd extends pjFront
     				->findAll()
     				->getData();
     			}
-	    		 
+
 	    		$service_arr = pjServiceModel::factory()
-	    		->select("t1.*")
-	    		->where('t1.is_active', 1)
-	    		->where('t1.owner_id', $owner_id)
-	    		->where('t1.id', $_GET['service_id'])
-	    		->find($_GET['service_id'])
-	    		->getData();
-	    		 
+		    		->select("t1.*")
+		    		->where('t1.is_active', 1)
+		    		->where('t1.owner_id', $owner_id)
+		    		->where('t1.id', $_GET['service_id'])
+		    		->find($_GET['service_id'])
+		    		->getData();
 	    		if ( isset($_GET['wt_id']) && $_GET['wt_id'] > 0 ) {
 	    			$service_time = pjServiceTimeModel::factory()->select("t1.*")
+	    			->where('t1.owner_id', $owner_id)
 	    			->where('t1.foreign_id', $_GET['service_id'])
 	    			->where('t1.id', $_GET['wt_id'])
 	    			->find($_GET['wt_id'])
 	    			->getData();
-	    			 
+
 	    			$service_arr['total'] = $service_time['total'];
 	    			$service_arr['before'] = $service_time['before'];
 	    		}
-	    		 
+
 	    		$this->set('bs_arr', $bs_arr);
 	    		$this->set('t_arr', $t_arr);
 	    		$this->set('service_arr', $service_arr);
 	    		$this->set('freetime_arr', $freetime);
 	    	}
 		}
-    } 
+    }
 }
 ?>

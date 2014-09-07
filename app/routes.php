@@ -15,38 +15,48 @@ Route::pattern('id', '[0-9]+');
 
 Route::get('/', [
     'as'    => 'home',
-    'uses'  => 'App\Core\Controllers\Home@index'
+    'uses'  => 'App\Core\Controllers\Front@home'
 ]);
 
-Route::group(['prefix' => 'intro'], function () {
+Route::get('/search', [
+    'as'    => 'search',
+    'uses'  => 'App\Core\Controllers\Front@search'
+]);
+
+Route::group(['prefix' => 'business'], function () {
+    Route::get('/', [
+        'as'    => 'business-index',
+        'uses'  => 'App\Core\Controllers\Front@businessIndex'
+    ]);
+
     Route::get('website-list', [
         'as' => 'intro-website-list',
-        'uses' => 'App\Core\Controllers\Home@websiteList',
+        'uses' => 'App\Core\Controllers\Front@businessWebsiteList',
     ]);
 
     Route::get('loyalty', [
         'as' => 'intro-loyalty',
-        'uses' => 'App\Core\Controllers\Home@loyalty',
+        'uses' => 'App\Core\Controllers\Front@businessLoyalty',
     ]);
 
-    Route::get('timeslot', [
-        'as'    => 'intro-timeslot',
-        'uses'  => 'App\Core\Controllers\Home@timeslot',
+    Route::get('online-booking', [
+        'as'    => 'intro-online-booking',
+        'uses'  => 'App\Core\Controllers\Front@businessOnlineBooking',
     ]);
 
     Route::get('customer-registration', [
         'as' => 'intro-customer-registration',
-        'uses' => 'App\Core\Controllers\Home@marketingTools',
+        'uses' => 'App\Core\Controllers\Front@businessMarketingTools',
     ]);
 
     Route::get('cashier', [
         'as' => 'intro-cashier',
-        'uses' => 'App\Core\Controllers\Home@cashier',
+        'uses' => 'App\Core\Controllers\Front@businessCashier',
     ]);
 
     Route::get('marketing-tools', [
         'as' => 'intro-marketing-tools',
-        'uses' => 'App\Core\Controllers\Home@marketingTools',
+        'uses' => 'App\Core\Controllers\Front@businessMarketingTools',
     ]);
 });
 
@@ -130,7 +140,7 @@ Route::group([
     ]);
 
     Route::post('profile', [
-        'uses' => 'App\Core\Controllers\User@changeProfile'
+        'uses' => 'App\Core\Controllers\User@updateProfile'
     ]);
 
     Route::group([
@@ -139,27 +149,32 @@ Route::group([
     ], function () {
 
         Route::get('cashier', [
-            'as' => 'cashier.index',
-            'uses' => 'App\Core\Controllers\Services@cashier'
+            'as'     => 'cashier.index',
+            'before' => ['premium.modules:cashier'],
+            'uses'   => 'App\Core\Controllers\Services@cashier'
         ]);
 
         Route::get('restaurant-booking', [
-            'as' => 'restaurant.index',
-            'uses' => 'App\Core\Controllers\Services@restaurant'
+            'as'     => 'restaurant.index',
+            'before' => ['premium.modules:restaurant'],
+            'uses'   => 'App\Core\Controllers\Services@restaurant'
         ]);
 
         Route::get('timeslot', [
-            'as' => 'timeslot.index',
-            'uses' => 'App\Core\Controllers\Services@timeslot'
+            'as'     => 'timeslot.index',
+            'before' => ['premium.modules:timeslot'],
+            'uses'   => 'App\Core\Controllers\Services@timeslot'
         ]);
 
         Route::get('appointment-scheduler', [
-            'as' => 'appointment.index',
-            'uses' => 'App\Core\Controllers\Services@appointment'
+            'as'     => 'appointment.index',
+            'before' => ['premium.modules:appointment'],
+            'uses'   => 'App\Core\Controllers\Services@appointment'
         ]);
 
         Route::get('loyalty-program', [
             'as' => 'loyalty.index',
+            'before' => ['premium.modules:loyalty'],
             'uses' => 'App\Core\Controllers\Services@loyalty'
         ]);
 
@@ -168,19 +183,50 @@ Route::group([
             'uses' => 'App\Core\Controllers\Services@marketing'
         ]);
     });
+});
 
-    Route::group([
-        'before' => [''], // Attach a filter to check payment
-        'prefix' => 'modules'
-    ], function () {
+/*
+|--------------------------------------------------------------------------
+| Loyalty Card routes
+|--------------------------------------------------------------------------
+*/
+Route::group([
+    'prefix' => 'loyalty-card',
+    'before' => ['auth']
+], function () {
 
-        // Loyalty Card
-        Route::group(['prefix' => 'lc'], function () {
-            Route::resource('consumers', 'App\LoyaltyCard\Controllers\Consumer');
-        });
+    Route::resource('consumers', 'App\LoyaltyCard\Controllers\Consumer', [
+        'names' => [
+            'index' => 'lc.consumers.index',
+            'create' => 'lc.consumers.create',
+            'edit' => 'lc.consumers.edit',
+            'store' => 'lc.consumers.store',
+            'update' => 'lc.consumers.update',
+            'destroy' => 'lc.consumers.delete',
+        ]
+    ]);
 
-        // Other modules
-    });
+    Route::resource('offers', 'App\LoyaltyCard\Controllers\Offer', [
+        'names' => [
+            'index' => 'lc.offers.index',
+            'create' => 'lc.offers.create',
+            'edit' => 'lc.offers.edit',
+            'store' => 'lc.offers.store',
+            'update' => 'lc.offers.update',
+            'destroy' => 'lc.offers.delete',
+        ]
+    ]);
+
+    Route::resource('vouchers', 'App\LoyaltyCard\Controllers\Voucher', [
+        'names' => [
+            'index' => 'lc.vouchers.index',
+            'create' => 'lc.vouchers.create',
+            'edit' => 'lc.vouchers.edit',
+            'store' => 'lc.vouchers.store',
+            'update' => 'lc.vouchers.update',
+            'destroy' => 'lc.vouchers.delete',
+        ]
+    ]);
 });
 
 /*
@@ -393,6 +439,40 @@ Route::group([
 
 /*
 |--------------------------------------------------------------------------
+| API routes
+|--------------------------------------------------------------------------
+*/
+Route::group([
+    'prefix' => 'api',
+    'before' => 'auth.basic',
+], function () {
+    Route::group([
+        'prefix' => 'v1.0',
+    ], function () {
+        Route::group([
+            'prefix' => 'lc',
+        ], function () {
+            Route::resource('offers', 'App\API\v1_0\LoyaltyCard\Controllers\Offer');
+            Route::resource('vouchers', 'App\API\v1_0\LoyaltyCard\Controllers\Voucher');
+            Route::resource('consumers', 'App\API\v1_0\LoyaltyCard\Controllers\Consumer');
+
+            Route::group([
+                'prefix' => 'use',
+            ], function () {
+                Route::post('offers/{id}', [
+                    'uses' => 'App\API\v1_0\LoyaltyCard\Controllers\Offer@useOffer'
+                ]);
+
+                // Route::post('vouchers/{id}', [
+                //     'uses' => 'App\API\v1_0\LoyaltyCard\Controllers\Consumer@update'
+                // ]);
+            });
+        });
+    });
+});
+
+/*
+|--------------------------------------------------------------------------
 | Admin routes
 |--------------------------------------------------------------------------
 */
@@ -426,10 +506,34 @@ Route::group([
         'uses' => 'App\Core\Controllers\Admin\Users@stealSession'
     ]);
 
+    // Premium modules
+    Route::get('users/modules/{id}', [
+        'as' => 'admin.users.modules',
+        'uses' => 'App\Core\Controllers\Admin\Users@modules'
+    ]);
+
+    Route::post('users/modules/{id}', [
+        'uses' => 'App\Core\Controllers\Admin\Users@enableModule'
+    ]);
+
+    Route::get('users/modules/activation/{userId}/{id}', [
+        'as'   => 'admin.users.modules.activation',
+        'uses' => 'App\Core\Controllers\Admin\Users@toggleActivation'
+    ]);
+
     // CRUD actions
     Route::get('{model}', [
         'as' => 'admin.crud.index',
         'uses' => 'App\Core\Controllers\Admin\Crud@index'
+    ]);
+
+    Route::get('{model}/create', [
+        'as' => 'admin.crud.create',
+        'uses' => 'App\Core\Controllers\Admin\Crud@create'
+    ]);
+
+    Route::post('{model}/create', [
+        'uses' => 'App\Core\Controllers\Admin\Crud@doCreate'
     ]);
 
     Route::get('{model}/search', [

@@ -94,7 +94,7 @@ $pageId = 1;
 						<?php for($i = 0 ; $i < count( $dataConsumer ); $i++ ){?>
 						<tr>
 							<td>
-							    <input type="checkbox" id="chkConsumerId" value="<?php echo $dataConsumer[$i]['loyalty_consumer']; ?>" />
+							    <input type="checkbox" class="js-consumerIdCheckbox" value="<?php echo $dataConsumer[$i]['loyalty_consumer']; ?>" />
 							</td>
 							<td><?php echo $i + 1; ?></td>
 							<td>

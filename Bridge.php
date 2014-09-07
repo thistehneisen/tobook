@@ -64,9 +64,47 @@ class Bridge
         ];
     }
 
+    /**
+     * Login with username and password. Support old and new users
+     *
+     * @param string $username
+     * @param string $password
+     *
+     * @return App\Core\Models\User|boolean
+     */
+    protected function login($username, $password)
+    {
+        $this->app->boot();
+        $input = array(
+            'username' => $username,
+            'email'    => $username,
+            'password' => $password,
+        );
+
+        $user = \App\Core\Models\User::oldLogin($input['username'], $input['password']);
+        if ($user || Confide::logAttempt($input, Config::get('confide::signup_confirm'))) {
+            return Confide::user();
+        }
+
+        return false;
+    }
+
     protected function hasOwnerId()
     {
         @session_start();
         return isset($_SESSION['owner_id']);
+    }
+
+    /**
+     * Return the current locale of system
+     *
+     * @return string
+     */
+    protected function getLocale()
+    {
+        @session_start();
+        return isset($_SESSION['varaa_locale'])
+            ? $_SESSION['varaa_locale']
+            : $this->config('app.locale');
     }
 }

@@ -13,6 +13,10 @@ def _deploy():
         run('composer install')
         # run migration
         run('php artisan migrate')
+        for mod in ['co', 'modules']:
+            run('php artisan migrate --path=app/database/migrations/{}'.format(
+                mod
+            ))
         # chmod storage again
         run('chmod -Rf 777 app/storage')
 
