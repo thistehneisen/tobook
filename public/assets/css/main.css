@@ -1,19 +1,8 @@
-<<<<<<< HEAD
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,300,600);
-@import url(http://fonts.googleapis.com/css?family=Comfortaa:400,300,700&subset=latin,cyrillic,latin-ext,greek,cyrillic-ext);
-*,
-*:before,
-*:after {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-=======
 .comfortaa {
   font-family: "Comfortaa", Helvetica, Arial, Verdana;
 }
 .orange {
   color: #ec7923;
->>>>>>> origin/consumer-front
 }
 body {
   font-family: Roboto, Arial, Verdana, sans-serif;
@@ -36,6 +25,9 @@ a:hover {
 .btn-orange:hover {
   background-color: #d46512;
   color: #fff;
+}
+.btn-tutustu {
+  margin: 20px 0;
 }
 .header {
   text-align: center;
@@ -87,19 +79,67 @@ a:hover {
 .header nav.sub-nav .language-swicher.active {
   color: #fff;
 }
-<<<<<<< HEAD
-.nav-admin > li > a {
-  color: #ec7923;
+.header nav.sub-nav .nav-links {
+  margin-bottom: 0;
 }
-.nav-admin > li > a:hover {
-  background: none;
+.header nav.sub-nav .nav-links a {
+  text-transform: uppercase;
+  color: #333333;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 12px;
 }
-.nav-admin .active > a {
-  background-color: #ec7923;
+.header nav.sub-nav .nav-links a:after {
+  content: "|";
+  padding-left: 15px;
+}
+.header nav.sub-nav .nav-links li {
+  padding-right: 10px;
+}
+.header nav.sub-nav .nav-links li:last-child a.active {
   color: #fff;
 }
-.nav-admin .active > a:hover {
-  background-color: #ed8333;
+.header nav.sub-nav .nav-links li:last-child a:after {
+  content: "";
+}
+.header nav.sub-nav .nav-links.active a,
+.header nav.sub-nav .nav-links a:hover {
+  color: white;
+}
+.header nav.sub-nav .nav-links:hover a:after {
+  color: #333333;
+}
+.footer {
+  padding: 20px;
+  background: #333333;
+  color: #fff;
+}
+.footer i {
+  color: #fff;
+}
+.footer h4 {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.footer .company-name {
+  font-size: 20px;
+  color: #333333;
+}
+.footer .company-name span {
+  color: #ec7923;
+}
+.footer .list-social-networks {
+  margin-top: 20px;
+}
+.footer .list-social-networks li {
+  padding: 0 3px;
+}
+.footer .list-social-networks a {
+  border: 1px solid #dddddd;
+  padding: 5px 10px;
+  border-radius: 50%;
+  color: #333333;
+  font-size: 16px;
 }
 .as-table-wrapper {
   overflow-x: scroll;
@@ -275,70 +315,4 @@ a:hover {
 }
 div.tooltip-inner {
   max-width: 350px;
-}
-.main {
-  margin: 40px auto 50px auto;
-=======
-.header nav.sub-nav .nav-links {
-  margin-bottom: 0;
->>>>>>> origin/consumer-front
-}
-.header nav.sub-nav .nav-links a {
-  text-transform: uppercase;
-  color: #333333;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 12px;
-}
-.header nav.sub-nav .nav-links a:after {
-  content: "|";
-  padding-left: 15px;
-}
-.header nav.sub-nav .nav-links li {
-  padding-right: 10px;
-}
-.header nav.sub-nav .nav-links li:last-child a.active {
-  color: #fff;
-}
-.header nav.sub-nav .nav-links li:last-child a:after {
-  content: "";
-}
-.header nav.sub-nav .nav-links.active a,
-.header nav.sub-nav .nav-links a:hover {
-  color: white;
-}
-.header nav.sub-nav .nav-links:hover a:after {
-  color: #333333;
-}
-.footer {
-  padding: 20px;
-  background: #333333;
-  color: #fff;
-}
-.footer i {
-  color: #fff;
-}
-.footer h4 {
-  font-weight: 600;
-  text-transform: uppercase;
-}
-.footer .company-name {
-  font-size: 20px;
-  color: #333333;
-}
-.footer .company-name span {
-  color: #ec7923;
-}
-.footer .list-social-networks {
-  margin-top: 20px;
-}
-.footer .list-social-networks li {
-  padding: 0 3px;
-}
-.footer .list-social-networks a {
-  border: 1px solid #dddddd;
-  padding: 5px 10px;
-  border-radius: 50%;
-  color: #333333;
-  font-size: 16px;
 }
