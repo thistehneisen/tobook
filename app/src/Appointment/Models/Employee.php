@@ -112,8 +112,9 @@ class Employee extends \App\Core\Models\Base
             $bookingDate =  Carbon::createFromFormat('Y-m-d', $booking->date);
             if ($bookingDate == $selectedDate) {
                 list($startHour, $startMinute, $startSecond) = explode(':', $booking->start_at);
+                $subMinutes     = ($booking->total % 15 == 0) ? 15 : 10;
                 $bookingStartAt =  Carbon::createFromTime($startHour, $startMinute, 0, Config::get('app.timezone'));
-                $bookingEndAt   =  with(clone $bookingStartAt)->addMinutes($booking->total)->subMinutes(15);//15 is duration of single slot
+                $bookingEndAt   =  with(clone $bookingStartAt)->addMinutes($booking->total)->subMinutes($subMinutes);//15 is duration of single slot
                 if ($rowTime >= $bookingStartAt && $rowTime <= $bookingEndAt) {
                     $class = 'booked';
                     if ($rowTime == $bookingStartAt) {

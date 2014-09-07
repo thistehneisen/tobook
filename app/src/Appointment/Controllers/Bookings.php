@@ -312,8 +312,8 @@ class Bookings extends AsBase
         //TODO suggest user info in front end
 
         //Insert customer
-        $firstname = Input::get('consumer_firstname');
-        $lastname  = Input::get('consumer_lastname');
+        $firstname = Input::get('consumer_firstname', '');
+        $lastname  = Input::get('consumer_lastname', '');
         $email     = Input::get('consumer_email');
         $phone     = Input::get('consumer_phone');
         $address   = Input::get('consumer_address');
