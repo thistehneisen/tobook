@@ -34,6 +34,8 @@ $(function() {
             }
         }
     });
+
+    $('#js-crud-tbody').find('tr').tooltip();
 });
     </script>
 @stop
@@ -57,7 +59,7 @@ $(function() {
     </thead>
     <tbody id="js-crud-tbody">
     @foreach ($items as $item)
-        <tr id="row-{{ $item->id }}" data-id="{{ $item->id }}">
+        <tr id="row-{{ $item->id }}" data-id="{{ $item->id }}" class="js-sortable-{{ $sortable }}" data-toggle="tooltip" data-placement="top" data-title="{{ trans('as.crud.sortable') }}">
             <td><input type="checkbox" class="checkbox" name="ids[]" value="{{ $item->id }}"></td>
         @foreach ($fields as $field)
             @if (starts_with($field, 'is_'))

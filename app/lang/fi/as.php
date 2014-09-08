@@ -358,10 +358,11 @@ return [
     'items_per_page' => 'Yksiköitä yhteensä',
     'with_selected'  => 'Valitse toiminto',
     'crud' => [
-        'bulk_confirm' => 'Are you sure to carry out this action?',
-        'success_add' => 'Item was created successfully.',
-        'success_edit' => 'Data was updated successfully.',
-        'success_delete' => 'Item was deleted successfully.',
-        'success_bulk' => 'Item was deleted successfully.',
+        'bulk_confirm'   => 'Are you sure to carry out this action?', // @todo
+        'success_add'    => 'Item was created successfully.', // @todo
+        'success_edit'   => 'Data was updated successfully.', // @todo
+        'success_delete' => 'Item was deleted successfully.', // @todo
+        'success_bulk'   => 'Item was deleted successfully.', // @todo
+        'sortable'       => 'Drag to reorder', // @todo
     ]
 ];

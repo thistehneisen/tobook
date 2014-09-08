@@ -153,5 +153,6 @@ return [
         'success_edit'   => 'Data was updated successfully.',
         'success_delete' => 'Item was deleted successfully.',
         'success_bulk'   => 'Item was deleted successfully.',
+        'sortable'       => 'Drag to reorder',
     ]
 ];

@@ -182,3 +182,8 @@
 div.tooltip-inner {
   max-width: 350px;
 }
+.js-sortable-1 {
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
