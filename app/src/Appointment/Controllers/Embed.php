@@ -88,7 +88,7 @@ class Embed extends AsBase
         $serviceTime = null;
 
         //TODO get default workingTimes from config
-        $workingTimes = $this->getDefaultWorkingTimes($date);
+        $workingTimes = $this->getDefaultWorkingTimes($date, $hash);
         //for select employee view
         if(!empty($serviceId) && !empty($date)){
             $service = Service::find($serviceId);

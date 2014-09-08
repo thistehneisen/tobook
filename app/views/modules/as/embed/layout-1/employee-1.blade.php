@@ -42,4 +42,4 @@ $serviceTimeId = (!empty($serviceTime)) ? $serviceTime->id : 'default';
 </div>
 @endforeach
 </div>
-<input type="hidden" id="add_service_url" value="{{ route('as.bookings.service.add') }}" />
+<input type="hidden" id="add_service_url" value="{{ route('as.bookings.service.front.add') }}" />

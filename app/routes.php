@@ -389,11 +389,6 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Bookings@addBooking'
     ]);
 
-    Route::post('bookings/add-front-end-booking', [
-        'as' => 'as.bookings.frontend.add',
-        'uses' => 'App\Appointment\Controllers\Bookings@addFrontEndBooking'
-    ]);
-
     Route::post('bookings/remove-booking-service', [
         'as' => 'as.bookings.service.remove',
         'uses' => 'App\Appointment\Controllers\Bookings@removeBookingService'
@@ -467,6 +462,20 @@ Route::group([
     ]);
     // End appointment scheduler
 
+    Route::post('bookings/add-front-booking-service', [
+        'as' => 'as.bookings.service.front.add',
+        'uses' => 'App\Appointment\Controllers\FrontBookings@addBookingService'
+    ]);
+
+    Route::post('bookings/add-front-end-booking', [
+        'as' => 'as.bookings.frontend.add',
+        'uses' => 'App\Appointment\Controllers\FrontBookings@addFrontEndBooking'
+    ]);
+
+    Route::post('bookings/add-confirm-info', [
+        'as' => 'as.embed.confirm',
+        'uses' => 'App\Appointment\Controllers\Embed@addConfirmInfo'
+    ]);
 });
 
 /*

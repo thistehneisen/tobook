@@ -1,6 +1,7 @@
 <?php namespace App\Appointment\Controllers;
 
-use App, Confide, Util;
+use App, Confide, Util, Hashids;
+use App\Core\Models\User;
 
 class AsBase extends \App\Core\Controllers\Base
 {
@@ -9,8 +10,15 @@ class AsBase extends \App\Core\Controllers\Base
         parent::__construct();
     }
 
-    public function getDefaultWorkingTimes($date){
-        $settingsWorkingTime = Confide::user()->asOptions->get('working_time');
+    public function getDefaultWorkingTimes($date, $hash = null)
+    {
+        if(!empty($this->user)){
+            $user = $this->user;
+        } else {
+            $decoded = Hashids::decrypt($hash);
+            $user = User::find($decoded[0]);
+        }
+        $settingsWorkingTime = $user->asOptions->get('working_time');
         $workingTimes = [];
         $currentWeekDay = Util::getDayOfWeekText($date->dayOfWeek);
         $currentWorkingTimes = $settingsWorkingTime[$currentWeekDay];
