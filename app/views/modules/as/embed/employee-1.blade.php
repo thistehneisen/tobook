@@ -15,8 +15,8 @@ $serviceTimeId = (!empty($serviceTime)) ? $serviceTime->id : 'default';
     </ul>
     <br>
     <ul>
-        @foreach ($workingTimes as $hour)
-             @foreach (range(0, 45, 15) as $minuteShift)
+        @foreach ($workingTimes as $hour => $minutes)
+             @foreach ($minutes as $minuteShift)
              <?php $slotClass = $employee->getSlotClass($selectedDate, $hour, $minuteShift); ?>
             <li data-employee-id="{{ $employee->id }}" data-booking-length="{{ $serviceLength }}" data-start-time="{{ sprintf('%02d:%02d', $hour, $minuteShift) }}" href="#select-action" class="{{ $slotClass }}">
                 {{ sprintf('%02d:%02d', $hour, $minuteShift) }}

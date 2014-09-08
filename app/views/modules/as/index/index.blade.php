@@ -54,8 +54,8 @@
     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
         <ul class="as-col-left-header">
             <li class="as-col-header">&nbsp;</li>
-            @foreach ($workingTimes as $hour)
-                @foreach (range(0, 45, 15) as $minuteShift)
+            @foreach ($workingTimes as $hour => $minutes)
+                @foreach ($minutes as $minuteShift)
                     <li>{{ sprintf('%02d', $hour) }} : {{ sprintf('%02d', $minuteShift) }}</li>
                 @endforeach
             @endforeach
@@ -66,10 +66,10 @@
         <div class="as-col">
             <ul>
                 <li class="as-col-header"><a href="{{ route('as.employee', ['id'=> $employee->id ]) }}">{{ $employee->name }}</a></li>
-                @foreach ($workingTimes as $hour)
-                     @foreach (range(0, 45, 15) as $minuteShift)
+                @foreach ($workingTimes as $hour => $minutes)
+                     @foreach ($minutes as $minuteShift)
                      <?php $slotClass = $employee->getSlotClass($selectedDate, $hour, $minuteShift); ?>
-                    <li data-booking-date="{{ $selectedDate }}" data-employee-id="{{ $employee->id }}" data-start-time="{{ sprintf('%02d:%02d', $hour, $minuteShift) }}" href="#select-action" class="fancybox {{ $slotClass }}">
+                    <li data-booking-date="{{ $selectedDate }}" data-employee-id="{{ $employee->id }}" data-start-time="{{ sprintf('%02d:%02d', (int)$hour, $minuteShift) }}" href="#select-action" class="fancybox {{ $slotClass }}">
                         @if(strpos(trim($slotClass), 'booked') === 0)
                             <?php $booking = $employee->getBooked($selectedDate, $hour, $minuteShift); ?>
                             @if($booking !== null)

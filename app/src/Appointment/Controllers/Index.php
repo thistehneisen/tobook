@@ -1,11 +1,11 @@
 <?php namespace App\Appointment\Controllers;
 
-use View, Input;
+use View, Input, Confide, Util;
 use App\Core\Controllers\Base;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\Booking;
 use Carbon\Carbon;
-class Index extends Base
+class Index extends AsBase
 {
     /**
      * Show booking calendar
@@ -15,7 +15,6 @@ class Index extends Base
     public function index($date = null)
     {
         $employees = Employee::ofCurrentUser()->get();
-        $workingTimes = range(8,17);
         $date = (empty($date)) ? Carbon::today() : $date;
 
         if (!$date instanceof Carbon) {
@@ -25,6 +24,9 @@ class Index extends Base
                 $date = Carbon::today();
             }
         }
+
+        $workingTimes = $this->getDefaultWorkingTimes($date);
+        //TODO settings for day off such as Sunday
 
         return View::make('modules.as.index.index', [
                 'employees'    => $employees,

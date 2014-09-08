@@ -31,13 +31,10 @@ class Booking extends \App\Core\Models\Base
         switch ($statusText) {
             case 'confirmed':
                 return self::STATUS_CONFIRM;
-                break;
             case 'pending':
                 return self::STATUS_PENDDING;
-                break;
             case 'cancelled':
                 return self::STATUS_CANCELLED;
-                break;
             default:
                 break;
         }

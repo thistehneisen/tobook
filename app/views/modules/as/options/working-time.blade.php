@@ -14,6 +14,7 @@ $(function () {
     $('input.time-picker').datetimepicker({
         pickDate: false,
         minuteStepping: 15,
+        format: 'HH:mm',
         language: '{{ App::getLocale() }}'
     });
 });
