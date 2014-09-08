@@ -55,7 +55,9 @@ class Consumer extends \App\Core\Models\Base
     {
         // If there is no information passed, get the current user
         $user = Confide::user();
-        if ((int) $userId >  0) {
+        if ($userId instanceof \App\Core\Models\User) {
+            $user = $userId;
+        } elseif ((int) $userId > 0) {
             $user = User::findOrFail($userId);
         }
 
