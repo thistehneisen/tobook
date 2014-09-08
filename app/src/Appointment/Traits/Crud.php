@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Traits;
 
-use App, Input, Config, Redirect, Route, View, Validator, Request, Response;
+use App, Input, Config, Redirect, Route, View, Validator, Request, Response, DB;
 
 trait Crud
 {
@@ -75,6 +75,7 @@ trait Crud
             'delete'   => ['get', 'delete/{id}'],
             'search'   => ['get', 'search'],
             'bulk'     => ['post', 'bulk'],
+            'order'    => ['post', 'order'],
         ];
 
         foreach ($routes as $method => $params) {
@@ -98,6 +99,11 @@ trait Crud
     {
         $query = $this->getModel()->ofCurrentUser();
         $query = $this->applyQueryStringFilter($query);
+
+        // If this controller is sortable
+        if (isset($this->crudSortable) && $this->crudSortable === true) {
+            $query = $query->orderBy('order');
+        }
 
         // Pagination please
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
@@ -152,7 +158,8 @@ trait Crud
             'routes'      => static::$crudRoutes,
             'langPrefix'  => $this->getLangPrefix(),
             'fields'      => $fields,
-            'bulkActions' => $this->getBulkActions()
+            'bulkActions' => $this->getBulkActions(),
+            'sortable'    => isset($this->crudSortable) ? $this->crudSortable : false
         ]);
     }
 
@@ -319,6 +326,21 @@ trait Crud
             ->with('messages', $this->successMessageBag(
                 trans('as.crud.success_bulk')
             ));
+    }
+
+    /**
+     * Update orders of items in database
+     *
+     * @return void
+     */
+    public function order()
+    {
+        $orders = Input::get('orders');
+        foreach ($orders as $order => $id) {
+            DB::table($this->getModel()->getTable())
+                ->where('id', $id)
+                ->update(['order' => $order]);
+        }
     }
 
     /**

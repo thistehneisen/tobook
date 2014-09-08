@@ -9,6 +9,36 @@
 </style>
 @stop
 
+@if ($sortable === true)
+@section ('scripts')
+    @parent
+    {{ HTML::script(asset('packages/sortable/Sortable.js')) }}
+    <script>
+$(function() {
+    var el = document.getElementById('js-crud-tbody');
+    new Sortable(el, {
+        group: 'crud-body',
+        store: {
+            get: function(sortable) {
+                // PHP will sort this first
+                return [];
+            },
+            set: function(sortable) {
+                $.ajax({
+                    url: '{{ route($routes['order']) }}',
+                    type: 'POST',
+                    data: {
+                        orders: sortable.toArray()
+                    }
+                });
+            }
+        }
+    });
+});
+    </script>
+@stop
+@endif
+
 @section ('content')
     @include('modules.as.crud.tabs', ['routes' => $routes, 'langPrefix' => $langPrefix])
     @include ('el.messages')
@@ -25,9 +55,9 @@
             <th>&nbsp;</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="js-crud-tbody">
     @foreach ($items as $item)
-        <tr id="row-{{ $item->id }}">
+        <tr id="row-{{ $item->id }}" data-id="{{ $item->id }}">
             <td><input type="checkbox" class="checkbox" name="ids[]" value="{{ $item->id }}"></td>
         @foreach ($fields as $field)
             @if (starts_with($field, 'is_'))

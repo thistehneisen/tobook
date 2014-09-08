@@ -10,6 +10,7 @@ class Categories extends AsBase
     protected $viewPath = 'modules.as.services.category';
     protected $langPrefix = 'as.services.categories';
     protected $modelClass = 'App\Appointment\Models\ServiceCategory';
+    protected $crudSortable = true;
 
     /**
      * {@inheritdoc}
