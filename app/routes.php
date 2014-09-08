@@ -446,37 +446,39 @@ Route::group([
 ], function() {
 
     // Appointment scheduler
-    Route::get('appointment-scheduler/{hash}', [
-        'as' => 'as.embed.embed',
-        'uses' => 'App\Appointment\Controllers\Embed@embed'
-    ]);
+    Route::group([
+        'prefix' => 'as'
+    ], function() {
+        Route::get('{hash}', [
+            'as' => 'as.embed.embed',
+            'uses' => 'App\Appointment\Controllers\Embed@embed'
+        ]);
 
-    Route::get('appointment-scheduler/get-extra-service-form', [
-        'as' => 'as.embed.extra.form',
-        'uses' => 'App\Appointment\Controllers\Embed@getExtraServiceForm'
-    ]);
+        Route::get('get-extra-service-form', [
+            'as' => 'as.embed.extra.form',
+            'uses' => 'App\Appointment\Controllers\Embed@getExtraServiceForm'
+        ]);
 
-    Route::post('appointment-scheduler/bookings/add-front-booking-service', [
-        'as' => 'as.bookings.service.front.add',
-        'uses' => 'App\Appointment\Controllers\FrontBookings@addBookingService'
-    ]);
+        Route::post('bookings/add-front-booking-service', [
+            'as' => 'as.bookings.service.front.add',
+            'uses' => 'App\Appointment\Controllers\FrontBookings@addBookingService'
+        ]);
 
-    Route::post('appointment-scheduler/bookings/add-front-end-booking', [
-        'as' => 'as.bookings.frontend.add',
-        'uses' => 'App\Appointment\Controllers\FrontBookings@addFrontEndBooking'
-    ]);
+        Route::post('bookings/add-front-end-booking', [
+            'as' => 'as.bookings.frontend.add',
+            'uses' => 'App\Appointment\Controllers\FrontBookings@addFrontEndBooking'
+        ]);
 
-    Route::post('appointment-scheduler/add-confirm-info', [
-        'as' => 'as.embed.confirm',
-        'uses' => 'App\Appointment\Controllers\Embed@addConfirmInfo'
-    ]);
+        Route::post('bookings/remove-booking-service-in-cart', [
+            'as' => 'as.bookings.service.remove.in.cart',
+            'uses' => 'App\Appointment\Controllers\FrontBookings@removeBookingServiceInCart'
+        ]);
 
-    Route::post('bookings/remove-booking-service-in-cart', [
-        'as' => 'as.bookings.service.remove.in.cart',
-        'uses' => 'App\Appointment\Controllers\FrontBookings@removeBookingServiceInCart'
-    ]);
-
-     // End appointment scheduler
+        Route::post('add-confirm-info', [
+            'as' => 'as.embed.confirm',
+            'uses' => 'App\Appointment\Controllers\Embed@addConfirmInfo'
+        ]);
+    });
 });
 
 /*
