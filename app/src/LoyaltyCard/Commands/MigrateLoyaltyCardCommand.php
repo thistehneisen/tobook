@@ -133,15 +133,7 @@ class MigrateLoyaltyCardCommand extends Command
                 $transaction->user_id = $offer->user_id;
                 $transaction->consumer_id = $item->loyalty_consumer;
                 $transaction->offer_id = $item->loyalty_stamp;
-
-                if ($item->cnt_free === 0) {
-                    $transaction->stamp = 1;
-                    $transaction->free_service = 0;
-                } else {
-                    $transaction->stamp = $offer->required * -1;
-                    $transaction->free_service = 1;
-                }
-
+                $transaction->stamp = $item->cnt_used + $item->cnt_free;
                 $transaction->save();
 
                 if (array_key_exists($offer->id, $this->totalUsageOfOffer)) {
@@ -150,7 +142,7 @@ class MigrateLoyaltyCardCommand extends Command
                     $this->totalUsageOfOffer[$offer->id] = 1;
                 }
 
-                $this->totalStamps[$item->loyalty_consumer][$offer->id] = [$item->cnt_used, $item->cnt_free];
+                $this->totalStamps[$item->loyalty_consumer][$offer->id] = $item->cnt_used + $item->cnt_free;
             }
         }
 
