@@ -55,13 +55,21 @@ class Service extends \App\Core\Models\Base
 
     public function resources()
     {
-        return $this->belongsToMany('App\Appointment\Models\Resource', 'as_service_resources');
+        return $this->belongsToMany(
+            'App\Appointment\Models\Resource',
+            'as_resource_service'
+        )->withPivot('plustime');
     }
 
     /**
      * @see http://laravel.com/docs/eloquent#many-to-many
      */
     public function extraServices(){
-        return $this->belongsToMany('App\Appointment\Models\ExtraService', 'as_service_extra_services', 'service_id', 'extra_service_id');
+        return $this->belongsToMany(
+            'App\Appointment\Models\ExtraService',
+            'as_extra_service_service',
+            'service_id',
+            'extra_service_id'
+        );
     }
 }

@@ -24,7 +24,7 @@ class CreateAsEmployeesTable extends Migration {
             $table->boolean('is_subscribed_email');
             $table->boolean('is_subscribed_sms');
             $table->boolean('is_active');
-            $table->tinyInteger('order');
+            $table->unsignedInteger('order');
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')

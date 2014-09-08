@@ -22,6 +22,9 @@ class Resource extends \App\Core\Models\Base
 
     public function services()
     {
-        return $this->belongsToMany('App\Appointment\Models\Service', 'as_service_resources')->withPivot('plustime');;
+        return $this->belongsToMany(
+            'App\Appointment\Models\Service',
+            'as_resource_service'
+        )->withPivot('plustime');
     }
 }

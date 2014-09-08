@@ -19,7 +19,7 @@ class CreateAsServiceCategoriesTable extends Migration {
             $table->string('name');
             $table->string('description');
             $table->boolean('is_show_front');
-            $table->integer('order');
+            $table->unsignedInteger('order');
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAsServiceResourcesTable extends Migration {
+class CreateAsResourceServiceTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreateAsServiceResourcesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('as_service_resources', function(Blueprint $table)
+		Schema::create('as_resource_service', function(Blueprint $table)
 		{
             $table->increments('id');
             $table->unsignedInteger('service_id');
@@ -36,7 +36,7 @@ class CreateAsServiceResourcesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('as_service_resources');
+		Schema::drop('as_resource_service');
 	}
 
 }
