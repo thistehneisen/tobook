@@ -61,7 +61,7 @@
             window.location.href = $(this).data('index-url') + "/" + $(this).val();
         });
         // Backend Calendar
-        $('.active').click(function () {
+        $('li.active').click(function () {
             var employee_id = $(this).data('employee-id'),
                 booking_date = $(this).data('booking-date'),
                 start_time = $(this).data('start-time');
@@ -76,6 +76,7 @@
                 autoWidth: false,
                 autoHeight: true
             });
+            console.log('79');
         });
         $(document).on('change', '#service_categories', function () {
             var category_id = $(this).val(),
@@ -296,6 +297,34 @@
                 });
             }
         });
-
+        $('a.js-btn-view-booking').click(function (e) {
+            e.preventDefault();
+            var booking_id = $(this).data('booking-id');
+            $('#employee_id').val($(this).data('employee-id'));
+            $.fancybox.open({
+                padding: 5,
+                width: 850,
+                title: '',
+                autoSize: false,
+                autoScale: true,
+                autoWidth: false,
+                autoHeight: true,
+                fitToView: false,
+                href: $('#get_booking_form_url').val(),
+                type: 'ajax',
+                ajax: {
+                    type: 'GET',
+                    data: {
+                        booking_id: booking_id,
+                    }
+                },
+                helpers: {
+                    overlay: {
+                        locked: false
+                    }
+                },
+                autoCenter: false
+            });
+        });
     });
 }(jQuery));

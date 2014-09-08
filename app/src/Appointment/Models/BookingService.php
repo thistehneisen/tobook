@@ -4,7 +4,15 @@ class BookingService extends \App\Core\Models\Base
 {
     protected $table = 'as_booking_services';
 
-    public $fillable = ['tmp_uuid','date', 'start_at', 'end_at', 'is_reminder_email', 'is_reminder_sms'];
+    public $fillable = [
+        'tmp_uuid',
+        'date',
+        'start_at',
+        'end_at',
+        'modify_time',
+        'is_reminder_email',
+        'is_reminder_sms'
+    ];
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------

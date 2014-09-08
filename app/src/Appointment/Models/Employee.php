@@ -86,7 +86,7 @@ class Employee extends \App\Core\Models\Base
         $endAt = Carbon::createFromTime($endHour, $endMinute, 0, Config::get('app.timezone'));
 
         if ($rowTime >= $startAt && $rowTime <= $endAt) {
-            $class = 'active';
+            $class = 'fancybox active';
         } else {
             $class = 'inactive';
         }

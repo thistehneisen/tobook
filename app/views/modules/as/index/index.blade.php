@@ -69,11 +69,11 @@
                 @foreach ($workingTimes as $hour => $minutes)
                      @foreach ($minutes as $minuteShift)
                      <?php $slotClass = $employee->getSlotClass($selectedDate, $hour, $minuteShift); ?>
-                    <li data-booking-date="{{ $selectedDate }}" data-employee-id="{{ $employee->id }}" data-start-time="{{ sprintf('%02d:%02d', (int)$hour, $minuteShift) }}" href="#select-action" class="fancybox {{ $slotClass }}">
+                    <li data-booking-date="{{ $selectedDate }}" data-employee-id="{{ $employee->id }}" data-start-time="{{ sprintf('%02d:%02d', (int)$hour, $minuteShift) }}" href="#select-action" class="{{ $slotClass }}">
                         @if(strpos(trim($slotClass), 'booked') === 0)
                             <?php $booking = $employee->getBooked($selectedDate, $hour, $minuteShift); ?>
                             @if($booking !== null)
-                            <span class="customer-tooltip"title="{{ $booking->consumer->getNameAttribute() }} ({{ $booking->bookingServices[0]->service->description }})">{{ $booking->consumer->getNameAttribute() }} ({{ $booking->bookingServices[0]->service->description }})</span>
+                            <span class="customer-tooltip"title="{{ $booking->consumer->getNameAttribute() }} ({{ $booking->bookingServices[0]->service->description }})"><a class="js-btn-view-booking" href="#" data-booking-id="{{ $booking->id }}" data-employee-id="{{ $employee->id }}">{{ $booking->consumer->getNameAttribute() }} ({{ $booking->bookingServices[0]->service->description }})</a></span>
                             <a href="#" class="pull-right"><i class="fa fa-plus"></i></a>
                             @else
                                 &nbsp;

@@ -7,9 +7,11 @@ class Booking extends \App\Core\Models\Base
     public $fillable = [
         'date',
         'total',
+        'modify_time',
         'start_at',
         'end_at',
         'status',
+        'uuid',
         'ip',
     ];
 
@@ -50,6 +52,11 @@ class Booking extends \App\Core\Models\Base
     public function consumer()
     {
        return $this->belongsTo('App\Consumers\Models\Consumer');
+    }
+
+    public function asConsumer()
+    {
+       return $this->belongsTo('App\Appointment\Models\Consumer');
     }
 
     public function employee()

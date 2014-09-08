@@ -1,6 +1,7 @@
 <?php namespace App\Appointment\Controllers;
 
 use App, View, Confide, Redirect, Input, Config, Response, Util, Hashids, Session, Request;
+use Illuminate\Support\Collection;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Employee;
@@ -24,9 +25,65 @@ class Bookings extends AsBase
      **/
     public function getBookingForm()
     {
-        $employeeId = (int) Input::get('employee_id');
+        $bookingId   = (int) Input::get('booking_id');
+
+        if(empty($bookingId)){
+            return $this->getBlankBookingForm();
+        }
+
+        $booking = Booking::find($bookingId);
+        $bookingStatuses = Booking::getStatuses();
+        $employee = $booking->employee;
+        $services = $employee->services;
+
+        $categories = [];
+        $categories[-1] = trans('commom.select');
+        foreach ($services as $service) {
+            //for getting distinct categories
+            $categories[$service->category->id] = $service->category->name;
+        }
+
+        $selectedService      = $booking->bookingServices()->first()->service;
+        $selectedCategoryId   = $selectedService->category->id;
+        $selectedServiceId    = $selectedService->id;
+        $selectedServices     = $employee->services()->where('category_id', $selectedCategoryId)->lists('name','id');
+        $selectedServices[-1] = trans('commom.select');
+        ksort($selectedServices);
+
+        $serviceTimes = $selectedService->serviceTimes;
+        $serviceTimesList = [];
+        $serviceTimesList['default'] = sprintf('%s (%s)', $selectedService->length, $selectedService->description);
+        foreach ($serviceTimes as $serviceTime) {
+            $serviceTimesList[$serviceTime->id] = $serviceTime->length;
+        }
+
+        $selectedServiceTime = (!empty($booking->bookingServices()->first()->serviceTime))
+                            ? $booking->bookingServices()->first()->serviceTime->id
+                            : 'default';
+
+        return View::make('modules.as.bookings.form', [
+            'booking'             => $booking,
+            'uuid'                => $booking->uuid,
+            'modifyTime'          => $booking->modify_time,
+            'bookingDate'         => $booking->date,
+            'startTime'           => $booking->start_at,
+            'endTime'             => $booking->end_at,
+            'bookingStatuses'     => $bookingStatuses,
+            'employee'            => $employee,
+            'category_id'         => $selectedCategoryId,
+            'service_id'          => $selectedServiceId,
+            'categories'          => $categories,
+            'services'            => $selectedServices,
+            'serviceTimes'        => array_values($serviceTimesList),
+            'selectedServiceTime' => $selectedServiceTime,
+        ]);
+    }
+
+    private function getBlankBookingForm()
+    {
+        $employeeId  = (int) Input::get('employee_id');
         $bookingDate = Input::get('booking_date');
-        $startTime = Input::get('start_time');
+        $startTime   = Input::get('start_time');
 
         $bookingStatuses = Booking::getStatuses();
 
@@ -168,10 +225,11 @@ class Bookings extends AsBase
         $bookingService = new BookingService();
         //Using uuid for retrieve it later when insert real booking
         $bookingService->fill([
-            'tmp_uuid' => $uuid,
-            'date'     => $bookingDate,
-            'start_at' => $startTimeStr,
-            'end_at'   => $endTime
+            'tmp_uuid'    => $uuid,
+            'date'        => $bookingDate,
+            'modify_time' => $modifyTime,
+            'start_at'    => $startTimeStr,
+            'end_at'      => $endTime
         ]);
 
         if (!empty($serviceTime)) {
@@ -234,14 +292,15 @@ class Bookings extends AsBase
 
             $booking = new Booking();
             $booking->fill([
-                'date'      => $bookingService->date,
-                'start_at'  => $bookingService->start_at,
-                'end_at'    => $bookingService->end_at,
-                'total'     => $length,
-                'status'    => $status,
-                'notes'     => $notes,
-                'uuid'      => $uuid,
-                'ip'        => Request::getClientIp(),
+                'date'        => $bookingService->date,
+                'start_at'    => $bookingService->start_at,
+                'end_at'      => $bookingService->end_at,
+                'total'       => $length,
+                'status'      => $status,
+                'notes'       => $notes,
+                'uuid'        => $uuid,
+                'modify_time' => $bookingService->modify_time,
+                'ip'          => Request::getClientIp(),
             ]);
             //need to update end_at, total when add extra service
 
@@ -287,13 +346,14 @@ class Bookings extends AsBase
 
                 $booking = new Booking();
                 $booking->fill([
-                    'date'      => $bookingService->date,
-                    'start_at'  => $bookingService->start_at,
-                    'end_at'    => $bookingService->end_at,
-                    'total'     => $length,
-                    'status'    => Booking::STATUS_CONFIRM,
-                    'uuid'      => $uuid,
-                    'ip'        => Request::getClientIp()
+                    'date'        => $bookingService->date,
+                    'start_at'    => $bookingService->start_at,
+                    'end_at'      => $bookingService->end_at,
+                    'total'       => $length,
+                    'status'      => Booking::STATUS_CONFIRM,
+                    'uuid'        => $uuid,
+                    'modify_time' => $bookingService->modify_time,
+                    'ip'          => Request::getClientIp()
                 ]);
                 //need to update end_at, total when add extra service
 
