@@ -21,6 +21,7 @@ class CreateAsBookingServicesTable extends Migration {
             $table->unsignedInteger('service_id');
             $table->unsignedInteger('service_time_id')->nullable();
             $table->unsignedInteger('employee_id');
+            $table->tinyInteger('modify_time');
             $table->date('date');
             $table->time('start_at');
             $table->time('end_at');

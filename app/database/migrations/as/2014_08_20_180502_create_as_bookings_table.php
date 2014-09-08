@@ -21,6 +21,7 @@ class CreateAsBookingsTable extends Migration {
             $table->unsignedInteger('employee_id');
             $table->date('date');
             $table->tinyInteger('total');
+            $table->tinyInteger('modify_time');
             $table->time('start_at');
             $table->time('end_at');
             $table->tinyInteger('status');
