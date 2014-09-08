@@ -146,6 +146,8 @@ return [
             'length'      => 'Length',
         ],
         'all'          => 'Kaikki palvelut',
+        'index'        => 'Palvelut',
+        'desc'         => 'Näkymässä näet kaikki lisäämäsi palvelut. Voit lisätä uusia palveluita tai muokata olemassa olevia palveluita muokkaa napista.',
         'add'          => 'Lisää palvelu',
         'add_desc'     => 'Lisää uusi palvelu lisäämällä palvelun nimi, palvelun kesto ja työntekijät',
         'name'         => 'Nimi',

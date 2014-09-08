@@ -34,6 +34,8 @@ return [
             'length'      => 'Length',
         ],
         'all'          => 'All services',
+        'index'        => 'Palvelut', // @todo
+        'desc'         => 'Näkymässä näet kaikki lisäämäsi palvelut. Voit lisätä uusia palveluita tai muokata olemassa olevia palveluita muokkaa napista.', // @todo
         'add'          => 'Add new service',
         'add_desc'     => 'Lisää uusi palvelu lisäämällä palvelun nimi, palvelun kesto ja työntekijät',
         'name'         => 'Name',

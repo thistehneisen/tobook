@@ -2,31 +2,31 @@
 
 @section ('content')
 <div class="alert alert-info">
-    <p><strong>Palvelut</strong></p>
-    <p>Näkymässä näet kaikki lisäämäsi palvelut. Voit lisätä uusia palveluita tai muokata olemassa olevia palveluita muokkaa napista.</p>
+    <p><strong>{{ trans('as.services.index') }}</strong></p>
+    <p>{{ trans('as.services.desc') }}</p>
 </div>
 
 <div class="row">
     <div class="col-md-6">
-        <form class="form-inline" role="form">
+        {{ Form::open(['route' => ['as.services.search'], 'method' => 'GET', 'class' => 'form-inline', 'role' => 'form']) }}
             <div class="input-group">
-              <input type="text" class="form-control input-sm" placeholder="Haku">
-              <span class="input-group-btn">
-                <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search"></i></button>
-              </span>
-            </div><!-- /input-group -->
-        </form>
+                {{ Form::text('q', Input::get('q'), ['class' => 'form-control input-sm', 'placeholder' => trans('common.search')]) }}
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+        {{ Form::close() }}
     </div>
     <div class="col-md-6 text-right">
         <div class="btn-group btn-group-sm">
-            <button type="button" class="btn active btn-default">Kaikki</button>
-            <button type="button" class="btn btn-default">Aktiivinen</button>
-            <button type="button" class="btn btn-default">Ei aktiivinen</button>
+            <a href="{{ route('as.services.index') }}" class="btn btn-default {{ empty(Input::all()) ? 'active' : '' }}">{{ trans('common.all') }}</a>
+            <a href="{{ route('as.services.index', ['is_active' => 1]) }}" class="btn btn-default {{ Input::get('is_active') === '1' ? 'active' : '' }}">{{ trans('common.active') }}</a>
+            <a href="{{ route('as.services.index', ['is_active' => 0]) }}" class="btn btn-default {{ Input::get('is_active') === '0' ? 'active' : '' }}">{{ trans('common.inactive') }}</a>
         </div>
     </div>
 </div>
 
-<form class="form-inline" role="form">
+{{ Form::open(['route' => $routes['bulk'], 'class' => 'form-inline form-table', 'id' => 'form-bulk', 'data-confirm' => trans('as.crud.bulk_confirm')]) }}
 <table class="table table-hover">
     <thead>
         <tr>
@@ -42,25 +42,25 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($services as $service)
+        @foreach ($items as $item)
         <tr>
             <td><input type="checkbox"></td>
-            <td>{{ $service->name }}</td>
-            <td>{{ $service->name }}</td>
-            <td>€{{ $service->price }}</td>
-            <td>{{ $service->during }}</td>
-            <td>{{ $service->length }}</td>
-            <td>{{ $service->category->name }}</td>
+            <td>{{ $item->name }}</td>
+            <td>{{ $item->name }}</td>
+            <td>&euro;{{ $item->price }}</td>
+            <td>{{ $item->during }}</td>
+            <td>{{ $item->length }}</td>
+            <td>{{ $item->category->name }}</td>
             <td>
-                @if ($service->is_active)
+                @if ($item->is_active)
                     <span class="label label-success">{{ trans('common.active') }}</span>
                 @else
                     <span class="label label-danger">{{ trans('common.inactive') }}</span>
                 @endif
             </td>
             <td>
-                <a href="{{ route('as.services.upsert', ['id'=> $service->id ]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
-                <a href="{{ route('as.services.delete', ['id'=> $service->id ]) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
+                <a href="{{ route('as.services.upsert', ['id'=> $item->id ]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
+                <a href="{{ route('as.services.delete', ['id'=> $item->id ]) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
             </td>
         </tr>
         @endforeach
@@ -93,5 +93,5 @@
         </tr>
     </tfoot>
 </table>
-</form>
+{{ Form::close() }}
 @stop

@@ -14,18 +14,6 @@ class Services extends AsBase
     protected $viewPath = 'modules.as.services.service';
     protected $langPrefix = 'as.services';
 
-    public function index()
-    {
-        $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
-        $services = Service::ofCurrentUser()
-            ->with('category')->paginate($perPage);
-
-        return View::make('modules.as.services.index', [
-            'services' => $services
-        ]);
-    }
-
-
     /**
      * {@inheritdoc}
      */
