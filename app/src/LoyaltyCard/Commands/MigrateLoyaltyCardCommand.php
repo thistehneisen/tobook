@@ -1,5 +1,5 @@
 <?php namespace App\LoyaltyCard\Commands;
-use DB;
+use DB, Validator;
 use Illuminate\Console\Command;
 use App\LoyaltyCard\Models\Offer as OfferModel;
 use App\LoyaltyCard\Models\Voucher as VoucherModel;
@@ -11,6 +11,10 @@ class MigrateLoyaltyCardCommand extends Command
 {
     protected $name = 'varaa:move-lc';
     protected $description = 'Move loyalty card information from old tables to new one';
+    protected $oldPrefix;
+    protected $totalStamps;
+    protected $totalUsageOfVoucher;
+    protected $totalUsageOfOffer;
 
     public function __construct()
     {
@@ -19,94 +23,168 @@ class MigrateLoyaltyCardCommand extends Command
 
     public function fire()
     {
-        $oldPrefix = DB::getTablePrefix();
+        $this->oldPrefix = DB::getTablePrefix();
+        $this->totalStamps = [];
+        $this->totalUsageOfOffer = [];
+        $this->totalUsageOfVoucher = [];
 
-        // Migrating Offers
-        // $totalUsageOfOffer = [];
-        // DB::setTablePrefix('');
-        // $result = DB::table('tbl_loyalty_stamp')->get();
-        // $this->info('Moving '.count($result).' offers to the new tables');
+        $this->moveVouchers();
+        $this->moveOffers();
+        $this->moveConsumers();
+        $this->makeVoucherTransactions();
+        $this->makeOfferTransactions();
 
-        // DB::setTablePrefix($oldPrefix);
+        $this->info('FINISHED');
+    }
 
-        // foreach ($result as $item) {
-        //     $offer = new OfferModel;
-        //     $offer->unguard();
+    private function updateConsumerStamp()
+    {
+        $this->info('Update total stamps to consumers');
+        foreach ($this->totalStamps as $key => $value) {
+            $consumerTotalStamps = json_encode($this->totalStamps[$key]);
 
-        //     $offer->fill([
-        //         'id'            => $item->loyalty_stamp,
-        //         'user_id'       => $item->owner,
-        //         'name'          => $item->stamp_name,
-        //         'required'      => $item->cnt_required,
-        //         'total_used'    => 0,
-        //         'free_service'  => $item->cnt_free,
-        //         'is_active'     => $item->valid_yn === 'Y' ? true : false,
-        //         'is_auto_add'   => $item->auto_add_yn === 'Y' ? true : false,
-        //         'created_at'    => $item->created_time,
-        //         'updated_at'    => $item->updated_time,
-        //         ]);
+            $consumer = ConsumerModel::find($key);
 
-        //     $offer->reguard();
+            if ($consumer) {
+                $consumer->total_stamps = $consumerTotalStamps;
+                $consumer->save();
+            }
+        }
+        $this->info('DONE');
+    }
 
-        //     if ($offer->save()) {
-        //         echo "\t{$item->stamp_name}\t\t";
-        //         $this->info('DONE');
-        //     }
-        // }
+    private function updateOfferUsedTime()
+    {
+        $this->info('Update total used time of offers');
+        foreach ($this->totalUsageOfOffer as $key => $value) {
+            $offer = OfferModel::find($key);
 
-        // Migrating Voucher
-        // $totalUsageOfVoucher = [];
-        // DB::setTablePrefix('');
-        // $result = DB::table('tbl_loyalty_point')->get();
-        // $this->info('Moving '.count($result).' vouchers to the new tables');
+            if ($offer) {
+                $offer->total_used = $value;
+                if ($offer->save()) {
+                    echo "\t{$offer->name} used {$value} times\t\t";
+                    $this->info('DONE');
+                }
+            }
+        }
+    }
 
-        // DB::setTablePrefix($oldPrefix);
+    private function updateVoucherUsedTime()
+    {
+        $this->info('Update total used time of vouchers');
+        foreach ($this->totalUsageOfVoucher as $key => $value) {
+            $voucher = VoucherModel::find($key);
 
-        // foreach ($result as $item) {
-        //     $voucher = new VoucherModel;
-        //     $voucher->unguard();
+            if ($voucher) {
+                $voucher->total_used = $value;
+                if ($voucher->save()) {
+                    echo "\t{$voucher->name} used {$value} times\t\t";
+                    $this->info('DONE');
+                }
+            }
+        }
+    }
 
-        //     $voucher->fill([
-        //         'id'            => $item->loyalty_point,
-        //         'user_id'       => $item->owner,
-        //         'name'          => $item->point_name,
-        //         'required'      => $item->score_required,
-        //         'total_used'    => 0,
-        //         'value'         => $item->discount,
-        //         'type'          => 'Percent',
-        //         'is_active'     => $item->valid_yn === 'Y' ? true : false,
-        //         'created_at'    => $item->created_time,
-        //         'updated_at'    => $item->updated_time,
-        //     ]);
+    private function makeVoucherTransactions()
+    {
+        DB::setTablePrefix('');
+        $result = DB::table('tbl_loyalty_consumer_point')->get();
+        $this->info('Making voucher transactions');
+        DB::setTablePrefix($this->oldPrefix);
 
-        //     $voucher->reguard();
+        foreach ($result as $item) {
+            $voucher = VoucherModel::find($item->loyalty_point);
+            $consumer = ConsumerModel::find($item->loyalty_consumer);
 
-        //     if ($voucher->save()) {
-        //         echo "\t{$item->point_name}\t\t";
-        //         $this->info('DONE');
-        //     }
-        // }
+            if ($voucher && $consumer) {
+                $transaction = new TransactionModel;
+                $transaction->user_id = $voucher->user_id;
+                $transaction->consumer_id = $item->loyalty_consumer;
+                $transaction->voucher_id = $item->loyalty_point;
+                $transaction->point = $voucher->required * -1;
+                $transaction->save();
 
-        // Migrating Consumer
+                if (array_key_exists($voucher->id, $this->totalUsageOfVoucher)) {
+                    $this->totalUsageOfVoucher[$voucher->id] += 1;
+                } else {
+                    $this->totalUsageOfVoucher[$voucher->id] = 1;
+                }
+            }
+        }
+
+        $this->info('DONE');
+
+        $this->updateVoucherUsedTime();
+    }
+
+    private function makeOfferTransactions()
+    {
+        DB::setTablePrefix('');
+        $result = DB::table('tbl_loyalty_consumer_stamp')->get();
+        $this->info('Making offer transactions');
+        DB::setTablePrefix($this->oldPrefix);
+
+        foreach ($result as $item) {
+            $offer = OfferModel::find($item->loyalty_stamp);
+            $consumer = ConsumerModel::find($item->loyalty_consumer);
+
+            if ($offer && $consumer) {
+                $transaction = new TransactionModel;
+                $transaction->user_id = $offer->user_id;
+                $transaction->consumer_id = $item->loyalty_consumer;
+                $transaction->offer_id = $item->loyalty_stamp;
+
+                if ($item->cnt_free === 0) {
+                    $transaction->stamp = 1;
+                    $transaction->free_service = 0;
+                } else {
+                    $transaction->stamp = $offer->required * -1;
+                    $transaction->free_service = 1;
+                }
+
+                $transaction->save();
+
+                if (array_key_exists($offer->id, $this->totalUsageOfOffer)) {
+                    $this->totalUsageOfOffer[$offer->id] += 1;
+                } else {
+                    $this->totalUsageOfOffer[$offer->id] = 1;
+                }
+
+                $this->totalStamps[$item->loyalty_consumer][$offer->id] = [$item->cnt_used, $item->cnt_free];
+            }
+        }
+
+        $this->info('DONE');
+
+        $this->updateOfferUsedTime();
+
+        $this->updateConsumerStamp();
+    }
+
+    private function moveConsumers()
+    {
         DB::setTablePrefix('');
 
         $result = DB::table('tbl_loyalty_consumer')->get();
         $this->info('Moving '.count($result).' consumers to the new tables');
 
-        DB::setTablePrefix($oldPrefix);
+        DB::setTablePrefix($this->oldPrefix);
 
         $emailCounter = 1;
 
         foreach ($result as $item) {
-            if ($item->email === '') {
+            $validator = Validator::make(['email' => $item->email], ['email' => 'required|email']);
+
+            if ($validator->fails()) {
                 $item->email = 'consumer' . $emailCounter . '@varaa.com';
                 $emailCounter += 1;
             }
 
-            $consumer = ConsumerModel::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-                        ->where('consumers.email', '=', $item->email)->get();
+            $existedConsumer = ConsumerModel::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
+                                        ->where('consumers.email', '=', $item->email)
+                                        ->first();
 
-            if(!$consumer->toArray()) {
+            if(!$existedConsumer) {
                 $core = new Core;
                 $consumer = new ConsumerModel;
                 $core->unguard();
@@ -139,119 +217,117 @@ class MigrateLoyaltyCardCommand extends Command
 
                 if ($core->save() && $consumer->save()) {
                     echo "\t{$item->email} new\t\t";
-                    $this->info('ADDED TO CORE CONSUMER');
+                    $this->info('ADDED TO ALL CONSUMER TABLES');
                 }
+
+                DB::table('consumer_user')->insert([
+                    'consumer_id'   => $item->loyalty_consumer,
+                    'user_id'       => $item->owner,
+                    'is_visible'    => 1,
+                ]);
             } else {
                 echo "\t{$item->email} duplicated\t\t";
-                $this->info('SKIPPED');
-            }
 
-            DB::table('consumer_user')->insert([
-                'consumer_id'   => $item->loyalty_consumer,
+                try {
+                    $consumer = new ConsumerModel;
+                    $consumer->unguard();
+
+                    $consumer->fill([
+                        'id'            => $item->loyalty_consumer,
+                        'consumer_id'   => $existedConsumer->id,
+                        'total_points'  => $item->current_score,
+                        'total_stamps'  => '',
+                        'created_at'    => $item->created_time,
+                        'updated_at'    => $item->updated_time,
+                    ]);
+
+                    $consumer->reguard();
+
+                    if ($consumer->save()) {
+                        $this->info('ADDED TO LC CONSUMER TABLES');
+                    }
+
+                    DB::table('consumer_user')->insert([
+                        'consumer_id'   => $existedConsumer->id,
+                        'user_id'       => $item->owner,
+                        'is_visible'    => 1,
+                    ]);
+                } catch (\Illuminate\Database\QueryException $ex) {
+                    $this->error('Error: ' . $ex->getMessage());
+                }
+
+            }
+        }
+    }
+
+    private function moveVouchers()
+    {
+        $totalUsageOfVoucher = [];
+        DB::setTablePrefix('');
+        $result = DB::table('tbl_loyalty_point')->get();
+        $this->info('Moving '.count($result).' vouchers to the new tables');
+
+        DB::setTablePrefix($this->oldPrefix);
+
+        foreach ($result as $item) {
+            $voucher = new VoucherModel;
+            $voucher->unguard();
+
+            $voucher->fill([
+                'id'            => $item->loyalty_point,
                 'user_id'       => $item->owner,
-                'is_visible'    => 1,
+                'name'          => $item->point_name,
+                'required'      => $item->score_required,
+                'total_used'    => 0,
+                'value'         => $item->discount,
+                'type'          => 'Percent',
+                'is_active'     => $item->valid_yn === 'Y' ? true : false,
+                'created_at'    => $item->created_time,
+                'updated_at'    => $item->updated_time,
             ]);
 
-            $this->info('DONE UPDATING USER-CONSUMER RELATIONSHIP');
-        }
+            $voucher->reguard();
 
-        // Migrating Transaction
-        $totalStamps = [];
+            if ($voucher->save()) {
+                echo "\t{$item->point_name}\t\t";
+                $this->info('DONE');
+            }
+        }
+    }
+
+    private function moveOffers()
+    {
+        $totalUsageOfOffer = [];
         DB::setTablePrefix('');
-        $result = DB::table('tbl_loyalty_consumer_point')->get();
-        $this->info('Making transactions table');
-        DB::setTablePrefix($oldPrefix);
+        $result = DB::table('tbl_loyalty_stamp')->get();
+        $this->info('Moving '.count($result).' offers to the new tables');
+
+        DB::setTablePrefix($this->oldPrefix);
 
         foreach ($result as $item) {
-            $voucher = VoucherModel::find($item->loyalty_point);
+            $offer = new OfferModel;
+            $offer->unguard();
 
-            if ($voucher) {
-                // $transaction = new TransactionModel;
-                // $transaction->user_id = $voucher->user_id;
-                // $transaction->consumer_id = $item->loyalty_consumer;
-                // $transaction->voucher_id = $item->loyalty_point;
-                // $transaction->point = $voucher->required * -1;
-                // $transaction->save();
+            $offer->fill([
+                'id'            => $item->loyalty_stamp,
+                'user_id'       => $item->owner,
+                'name'          => $item->stamp_name,
+                'required'      => $item->cnt_required,
+                'total_used'    => 0,
+                'free_service'  => $item->cnt_free,
+                'is_active'     => $item->valid_yn === 'Y' ? true : false,
+                'is_auto_add'   => $item->auto_add_yn === 'Y' ? true : false,
+                'created_at'    => $item->created_time,
+                'updated_at'    => $item->updated_time,
+                ]);
 
-                if (array_key_exists($voucher->id, $totalUsageOfVoucher)) {
-                    $totalUsageOfVoucher[$voucher->id] += 1;
-                } else {
-                    $totalUsageOfVoucher[$voucher->id] = 1;
-                }
+            $offer->reguard();
+
+            if ($offer->save()) {
+                echo "\t{$item->stamp_name}\t\t";
+                $this->info('DONE');
             }
         }
-
-        DB::setTablePrefix('');
-        $result = DB::table('tbl_loyalty_consumer_stamp')->get();
-        DB::setTablePrefix($oldPrefix);
-
-        foreach ($result as $item) {
-            $offer = OfferModel::find($item->loyalty_stamp);
-
-            if ($offer) {
-                // $transaction = new TransactionModel;
-                // $transaction->user_id = $offer->user_id;
-                // $transaction->consumer_id = $item->loyalty_consumer;
-                // $transaction->offer_id = $item->loyalty_stamp;
-
-                // if ($item->cnt_free === 0) {
-                //     $transaction->stamp = 1;
-                //     $transaction->free_service = 0;
-                // } else {
-                //     $transaction->stamp = $offer->required * -1;
-                //     $transaction->free_service = 1;
-                // }
-
-                // $transaction->save();
-
-                if (array_key_exists($offer->id, $totalUsageOfOffer)) {
-                    $totalUsageOfOffer[$offer->id] += 1;
-                } else {
-                    $totalUsageOfOffer[$offer->id] = 1;
-                }
-
-                $totalStamps[$item->loyalty_consumer][$offer->id] = [$item->cnt_used, $item->cnt_free];
-            }
-        }
-
-        // $this->info('Update total used time of offers');
-        // foreach ($totalUsageOfOffer as $key => $value) {
-        //     $offer = OfferModel::find($key);
-
-        //     if ($offer) {
-        //         $offer->total_used = $value;
-        //         if ($offer->save()) {
-        //             echo "\t{$offer->name} used {$value} times\t\t";
-        //             $this->info('DONE');
-        //         }
-        //     }
-        // }
-
-        // $this->info('Update total used time of vouchers');
-        // foreach ($totalUsageOfVoucher as $key => $value) {
-        //     $voucher = VoucherModel::find($key);
-
-        //     if ($voucher) {
-        //         $voucher->total_used = $value;
-        //         if ($voucher->save()) {
-        //             echo "\t{$voucher->name} used {$value} times\t\t";
-        //             $this->info('DONE');
-        //         }
-        //     }
-        // }
-
-        $this->info('Update total stamps to consumers');
-        foreach ($totalStamps as $key => $value) {
-            $consumerTotalStamps = json_encode($totalStamps[$key]);
-
-            $consumer = ConsumerModel::find($key);
-
-            if ($consumer) {
-                $consumer->total_stamps = $consumerTotalStamps;
-                $consumer->save();
-            }
-        }
-        $this->info('DONE');
     }
 
     protected function getArguments()
