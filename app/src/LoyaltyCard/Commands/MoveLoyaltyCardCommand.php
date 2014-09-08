@@ -7,7 +7,7 @@ use App\LoyaltyCard\Models\Consumer as ConsumerModel;
 use App\Consumers\Models\Consumer as Core;
 use App\LoyaltyCard\Models\Transaction as TransactionModel;
 
-class MigrateLoyaltyCardCommand extends Command
+class MoveLoyaltyCardCommand extends Command
 {
     protected $name = 'varaa:move-lc';
     protected $description = 'Move loyalty card information from old tables to new one';
@@ -306,7 +306,6 @@ class MigrateLoyaltyCardCommand extends Command
                 'name'          => $item->stamp_name,
                 'required'      => $item->cnt_required,
                 'total_used'    => 0,
-                'free_service'  => $item->cnt_free,
                 'is_active'     => $item->valid_yn === 'Y' ? true : false,
                 'is_auto_add'   => $item->auto_add_yn === 'Y' ? true : false,
                 'created_at'    => $item->created_time,

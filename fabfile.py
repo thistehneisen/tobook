@@ -61,3 +61,18 @@ def test():
     Run the test suite
     '''
     local('./vendor/bin/codecept run')
+
+
+@task(alias='m')
+def migrate(module=''):
+    '''
+    Run migration
+    '''
+    if module == '':
+        local('php artisan migrate')
+    else:
+        local(
+            'php artisan migrate --path=app/database/migrations/{}'
+            .format(module)
+        )
+
