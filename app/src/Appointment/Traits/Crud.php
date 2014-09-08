@@ -73,6 +73,7 @@ trait Crud
             'upsert'   => ['get', 'upsert/{id?}'],
             'doUpsert' => ['post', 'upsert/{id?}'],
             'delete'   => ['get', 'delete/{id}'],
+            'search'   => ['get', 'search'],
             'bulk'     => ['post', 'bulk'],
         ];
 
@@ -95,11 +96,8 @@ trait Crud
      */
     public function index()
     {
-        // Get fields to generate tables
+        // Get fields to generate tables and make query builder
         $fillable = $this->getModel()->fillable;
-        $fields = $this->getIndexFields() ?: $fillable;
-
-        // Make query builder
         $query = $this->getModel()->ofCurrentUser();
 
         // If we have filter value in query string
@@ -113,7 +111,25 @@ trait Crud
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
         $items = $query->paginate($perPage);
 
-        // User can overwrite default CRUD template
+        return $this->renderList($items);
+    }
+
+    /**
+     * Render the list of items
+     *
+     * @param Illuminate\Support\Collection $items
+     *
+     * @return View
+     */
+    protected function renderList($items)
+    {
+        // Fields that should be shown in the list
+        // First we will check if target controller has crudIndexFields property
+        // If not, we will use all fillable fields of the model
+        $fillable = $this->getModel()->fillable;
+        $fields = $this->getIndexFields() ?: $fillable;
+
+        // User can overwrite default CRUD list template
         $view = View::exists($this->getViewPath().'.index')
             ? $this->getViewPath().'.index'
             : 'modules.as.crud.index';
@@ -227,6 +243,27 @@ trait Crud
                 'messages',
                 $this->successMessageBag(trans('as.crud.success_delete'))
             );
+    }
+
+    /**
+     * Search the given keyword in all fillable fields
+     *
+     * @return View
+     */
+    public function search()
+    {
+        // Escape HTML
+        $q = e(Input::get('q'));
+
+        $query = $this->getModel();
+        foreach ($this->getModel()->fillable as $field) {
+            $query = $query->orWhere($field, 'LIKE', '%'.$q.'%');
+        }
+
+        $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
+        $items = $query->paginate($perPage);
+
+        return $this->renderList($items);
     }
 
     /**

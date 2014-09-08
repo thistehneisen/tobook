@@ -3,14 +3,14 @@
 @section ('content')
 <div class="row">
     <div class="col-md-6">
-        <form class="form-inline" role="form">
+        {{ Form::open(['route' => ['as.employees.search'], 'method' => 'GET', 'class' => 'form-inline', 'role' => 'form']) }}
             <div class="input-group">
-              <input type="text" class="form-control input-sm" placeholder="Haku">
-              <span class="input-group-btn">
-                <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search"></i></button>
-              </span>
-            </div><!-- /input-group -->
-        </form>
+                {{ Form::text('q', Input::get('q'), ['class' => 'form-control input-sm', 'placeholder' => trans('common.search')]) }}
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+        {{ Form::close() }}
     </div>
     <div class="col-md-6 text-right">
         <div class="btn-group btn-group-sm">
