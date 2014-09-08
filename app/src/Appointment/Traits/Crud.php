@@ -96,22 +96,35 @@ trait Crud
      */
     public function index()
     {
-        // Get fields to generate tables and make query builder
-        $fillable = $this->getModel()->fillable;
         $query = $this->getModel()->ofCurrentUser();
-
-        // If we have filter value in query string
-        foreach (Request::instance()->query->all() as $key => $value) {
-            if (in_array($key, $fillable)) {
-                $query->where(e($key), e($value));
-            }
-        }
+        $query = $this->applyQueryStringFilter($query);
 
         // Pagination please
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
         $items = $query->paginate($perPage);
 
         return $this->renderList($items);
+    }
+
+    /**
+     * Pass value of fillable fields to filter list of items
+     *
+     * @param Illuminate\Database\Eloquent\Builder $query
+     *
+     * @return Illuminate\Database\Eloquent\Builder
+     */
+    protected function applyQueryStringFilter($query)
+    {
+        $fillable = $this->getModel()->fillable;
+
+        // If we have filter value in query string
+        foreach (Request::instance()->query->all() as $key => $value) {
+            if (in_array($key, $fillable)) {
+                $query = $query->where(e($key), e($value));
+            }
+        }
+
+        return $query;
     }
 
     /**
@@ -256,9 +269,16 @@ trait Crud
         $q = e(Input::get('q'));
 
         $query = $this->getModel();
-        foreach ($this->getModel()->fillable as $field) {
-            $query = $query->orWhere($field, 'LIKE', '%'.$q.'%');
-        }
+        // Apply query string filters
+        $query = $this->applyQueryStringFilter($query);
+
+        $fillable = $this->getModel()->fillable;
+        $query = $query->where(function($subQuery) use ($fillable, $q) {
+            foreach ($fillable as $field) {
+                $subQuery = $subQuery->orWhere($field, 'LIKE', '%'.$q.'%');
+            }
+            return $subQuery;
+        });
 
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
         $items = $query->paginate($perPage);
