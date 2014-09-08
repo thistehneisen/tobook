@@ -17,7 +17,6 @@
     </div>
     @foreach ([
         'required'      => trans('loyalty-card.required'),
-        'free'          => trans('loyalty-card.free_service'),
         'active'        => trans('loyalty-card.active'),
         'auto_add'      => trans('loyalty-card.auto_add'),
     ] as $key => $value)

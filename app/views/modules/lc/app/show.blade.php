@@ -24,24 +24,12 @@
                             <span id="js-currentStamp{{ $value->id }}">0</span>
                             @else
                                 @if (array_key_exists ($value->id, $stampInfo))
-                            <span id="js-currentStamp{{ $value->id }}">{{ $stampInfo[$value->id][0] }}</span>
+                            <span id="js-currentStamp{{ $value->id }}">{{ $stampInfo[$value->id] }}</span>
                                 @else
                             <span id="js-currentStamp{{ $value->id }}">0</span>
                                 @endif
                             @endif
                             <span> / {{ $value->required }}</span>
-                        </div>
-                        <div class="orange">
-                            <span>{{ trans('loyalty-card.free_service') }} :</span>
-                            @if ($stampInfo === null)
-                            <span id="js-free{{ $value->id }}">0</span>
-                            @else
-                                @if (array_key_exists ($value->id, $stampInfo))
-                            <span id="js-free{{ $value->id }}">{{ $stampInfo[$value->id][1] }}</span>
-                                @else
-                            <span id="js-free{{ $value->id }}">0</span>
-                                @endif
-                            @endif
                         </div>
                     </div>
                     <div class="btn-group pull-right">

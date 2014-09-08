@@ -21,7 +21,6 @@
                 <th>{{ trans('loyalty-card.offer_name') }}</th>
                 <th>{{ trans('loyalty-card.total_used') }}</th>
                 <th>{{ trans('loyalty-card.required') }}</th>
-                <th>{{ trans('loyalty-card.free_service') }}</th>
                 <th>{{ trans('loyalty-card.auto_add') }}</th>
                 <th>{{ trans('loyalty-card.active') }}</th>
                 <th>{{{ trans('common.edit') }}}</th>
@@ -43,9 +42,6 @@
                 </td>
                 <td>
                     {{ $value->required }}
-                </td>
-                <td>
-                    {{ $value->free_service }}
                 </td>
                 <td>
                     @if ($value->is_auto_add === 0)

@@ -82,7 +82,6 @@ $(document).ready(function () {
             success: function (data) {
                 showMessage('Add Stamp', data.message);
                 $('#js-currentStamp' + offerID).text(data.stamps);
-                $('#js-free' + offerID).text(data.free);
             }
         });
     });
@@ -100,7 +99,7 @@ $(document).ready(function () {
             },
             success: function (data) {
                 showMessage('Use Offer', data.message);
-                $('#js-free' + offerID).text(data.free);
+                $('#js-currentStamp' + offerID).text(data.stamps);
             }
         });
     });
