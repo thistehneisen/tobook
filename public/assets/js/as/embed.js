@@ -22,46 +22,50 @@
 
         $('.btn-fancybox').fancybox();
 
-        $('a[class=btn-add-extra-service]').click(function (e) {
-            e.preventDefault();
-            var service_id = $(this).data('service-id'),
-                hash = $(this).data('hash');
-            $.fancybox.open({
-                padding: 5,
-                width: 400,
-                title: '',
-                autoSize: false,
-                autoScale: true,
-                autoWidth: false,
-                autoHeight: true,
-                fitToView: false,
-                href: $('#extra-service-url').val(),
-                type: 'ajax',
-                ajax: {
-                    type: 'GET',
-                    data: {
-                        service_id: service_id,
-                        hash: hash,
-                        date: $('#txt-date').val()
-                    }
-                },
-                helpers: {
-                    overlay: {
-                        locked: false
-                    }
-                },
-                autoCenter: false
-            });
+    $('a.btn-add-extra-service').click(function (e) {
+        e.preventDefault();
+        var service_id = $(this).data('service-id'),
+            hash       = $(this).data('hash');
+        $.fancybox.open({
+            padding: 5,
+            width: 400,
+            title: '',
+            autoSize: false,
+            autoScale: true,
+            autoWidth: false,
+            autoHeight: true,
+            fitToView: false,
+            href: $('#extra-service-url').val(),
+            type: 'ajax',
+            ajax: {
+                type: 'GET',
+                data: {
+                    service_id: service_id,
+                    hash: hash,
+                    date: $('#txt-date').val()
+                }
+            },
+            helpers: {
+                overlay: {
+                    locked: false
+                }
+            },
+            autoCenter: false
         });
 
-        $('li[class=active]').click(function (e) {
-            $('ul > li').removeClass('slot-selected');
-            //The service length must be divisible by 15
-            var slots = (parseInt($(this).data('booking-length'), 10) / 15) - 1,
-                siblings = $(this).nextAll(),
-                employee_id = $(this).data('employee-id'),
-                end_time = null;
-            $('#start_time-' + employee_id).val($(this).data('start-time'));
+    $('li.active').click(function (e) {
+        $('ul > li').removeClass('slot-selected');
+        //The service length must be divisible by 15
+        var slots = (parseInt($(this).data('booking-length'), 10) / 15) - 1;
+        var siblings = $(this).nextAll();
+        var employee_id = $(this).data('employee-id');
+        var end_time = null;
+        $('#start_time-'+employee_id).val($(this).data('start-time'));
+        $(this).addClass('slot-selected');
+        siblings.each(function(){
+            if(slots <= 0){
+                return;
+            }
             $(this).addClass('slot-selected');
             siblings.each(function () {
                 if (slots <= 0) {
@@ -95,20 +99,20 @@
             $('#btn-add-service-' + $(this).data('service-id')).prop('href', url);
         });
 
-        $('a[class=btn-make-appointment]').click(function (e) {
-            e.preventDefault();
-            var checkout_url = $(this).data('checkout-url'),
-                employee_id = $(this).data('employee-id');
-            $.ajax({
-                type: 'POST',
-                url: $('#add_service_url').val(),
-                data: $('#form-employee-' + employee_id).serialize(),
-                dataType: 'json'
-            }).done(function (data) {
-                window.location.href = checkout_url;
-            }).fail(function (data) {
-                alertify.alert(data.responseJSON.message);
-            });
+    $('a.btn-make-appointment').click(function (e) {
+        e.preventDefault();
+        console.log(e);
+        var checkout_url = $(this).data('checkout-url');
+        var employee_id = $(this).data('employee-id');
+        $.ajax({
+            type: 'POST',
+            url: $('#add_service_url').val(),
+            data: $('#form-employee-'+ employee_id).serialize(),
+            dataType: 'json'
+        }).done(function (data) {
+            window.location.href = checkout_url;
+        }).fail(function (data) {
+            alertify.alert(data.responseJSON.message);
         });
 
         $('#btn-confirm-booking').click(function (e) {
@@ -127,27 +131,26 @@
             });
         });
 
-        $('a[class=btn-remove-item-from-cart]').click(function (e) {
-            e.preventDefault();
-            var uuid = $(this).data('uuid'),
-                action_url = $(this).data('action-url'),
-                hash = $(this).data('hash');
-            $.ajax({
-                type: 'POST',
-                url: action_url,
-                data: {
-                    uuid: uuid,
-                    hash: hash
-                },
-                dataType: 'json'
-            }).done(function (data) {
-                if (data.success_url) {
-                    window.location.href = data.success_url;
-                }
-                location.reload();
-            }).fail(function (data) {
-                alertify.alert(data.responseJSON.message);
-            });
+    $('a.btn-remove-item-from-cart').click(function (e){
+        e.preventDefault();
+        var uuid = $(this).data('uuid'),
+            action_url = $(this).data('action-url'),
+            hash = $(this).data('hash');
+        $.ajax({
+            type: 'POST',
+            url: action_url,
+            data: {
+                uuid : uuid,
+                hash : hash
+            },
+            dataType: 'json'
+        }).done(function (data) {
+            if(data.success_url){
+                window.location.href = data.success_url;
+            }
+            location.reload();
+        }).fail(function (data) {
+            alertify.alert(data.responseJSON.message);
         });
     });
 }(jQuery));

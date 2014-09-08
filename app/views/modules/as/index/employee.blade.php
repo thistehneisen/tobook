@@ -79,6 +79,8 @@
                             @if($booking != null)
                             <span class="customer-tooltip"title="">{{ $booking->consumer->first_name }} ({{ $booking->bookingServices[0]->service->description }})</span>
                             <a href="#" class="pull-right"><i class="fa fa-plus"></i></a>
+                            @else
+                                &nbsp;
                             @endif
                           @elseif(strpos(trim($slotClass), 'freetime') === 0)
                             <?php $freetime = $selectedEmployee->getFreetime($weekDate, $hour, $minuteShift); ?>
