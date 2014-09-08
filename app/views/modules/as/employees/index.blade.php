@@ -14,9 +14,9 @@
     </div>
     <div class="col-md-6 text-right">
         <div class="btn-group btn-group-sm">
-            <button type="button" class="btn active btn-default">{{ trans('common.all') }}</button>
-            <button type="button" class="btn btn-default">{{ trans('common.active') }}</button>
-            <button type="button" class="btn btn-default">{{ trans('common.inactive') }}</button>
+            <a href="{{ route('as.employees.index') }}" class="btn btn-default {{ empty(Input::all()) ? 'active' : '' }}">{{ trans('common.all') }}</a>
+            <a href="{{ route('as.employees.index', ['is_active' => 1]) }}" class="btn btn-default {{ Input::get('is_active') === '1' ? 'active' : '' }}">{{ trans('common.active') }}</a>
+            <a href="{{ route('as.employees.index', ['is_active' => 0]) }}" class="btn btn-default {{ Input::get('is_active') === '0' ? 'active' : '' }}">{{ trans('common.inactive') }}</a>
         </div>
     </div>
 </div>

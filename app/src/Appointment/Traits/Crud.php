@@ -95,18 +95,28 @@ trait Crud
      */
     public function index()
     {
+        // Get fields to generate tables
+        $fillable = $this->getModel()->fillable;
+        $fields = $this->getIndexFields() ?: $fillable;
+
+        // Make query builder
+        $query = $this->getModel()->ofCurrentUser();
+
+        // If we have filter value in query string
+        foreach (Request::instance()->query->all() as $key => $value) {
+            if (in_array($key, $fillable)) {
+                $query->where(e($key), e($value));
+            }
+        }
+
+        // Pagination please
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
-        $items = $this->getModel()
-            ->ofCurrentUser()
-            ->paginate($perPage);
+        $items = $query->paginate($perPage);
 
         // User can overwrite default CRUD template
         $view = View::exists($this->getViewPath().'.index')
             ? $this->getViewPath().'.index'
             : 'modules.as.crud.index';
-
-        // Get fields to generate tables
-        $fields = $this->getIndexFields() ?: $this->getModel()->fillable;
 
         return View::make($view, [
             'items'       => $items,
