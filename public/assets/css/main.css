@@ -15,9 +15,6 @@ a:hover {
   color: #bd490f;
   text-decoration: none;
 }
-.dropdown:hover .dropdown-menu {
-  display: block;
-}
 .btn-orange {
   background-color: #ec7923;
   color: #fff;
@@ -49,6 +46,9 @@ a:hover {
 .header nav.main-nav #main-menu a:hover {
   color: #fff;
   background: #ec7923;
+}
+.header nav.main-nav .dropdown:hover .dropdown-menu {
+  display: block;
 }
 .header .search-wrapper {
   background: #ec7923;

@@ -15,9 +15,6 @@ a {
         text-decoration: none;
     }
 }
-.dropdown:hover .dropdown-menu {
-    display: block;
-}
 // -------------------------------------------------------------------------- //
 // --------------------------------- Buttons -------------------------------- //
 // -------------------------------------------------------------------------- //
@@ -64,6 +61,11 @@ a {
                     background: @orange;
                 }
             }
+        }
+
+        // display dropdown menu on hover
+        .dropdown:hover .dropdown-menu {
+            display: block;
         }
     }
 

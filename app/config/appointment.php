@@ -4,10 +4,13 @@ return [
         'general' => [
             // Index section
             'index' => [
-                'currency'        => [
-                    'type'    => 'Dropdown',
-                    'values'  => ['AED', 'AFN', 'ALL', 'AMD', 'ANG', 'AOA', 'ARS', 'AUD', 'AWG', 'AZN', 'BAM', 'BBD', 'BDT', 'BGN', 'BHD', 'BIF', 'BMD', 'BND', 'BOB', 'BOV', 'BRL', 'BSD', 'BTN', 'BWP', 'BYR', 'BZD', 'CAD', 'CDF', 'CHE', 'CHF', 'CHW', 'CLF', 'CLP', 'CNY', 'COP', 'COU', 'CRC', 'CUC', 'CUP', 'CVE', 'CZK', 'DJF', 'DKK', 'DOP', 'DZD', 'EEK', 'EGP', 'ERN', 'ETB', 'EUR', 'FJD', 'FKP', 'GBP', 'GEL', 'GHS', 'GIP', 'GMD', 'GNF', 'GTQ', 'GYD', 'HKD', 'HNL', 'HRK', 'HTG', 'HUF', 'IDR', 'ILS', 'INR', 'IQD', 'IRR', 'ISK', 'JMD', 'JOD', 'JPY', 'KES', 'KGS', 'KHR', 'KMF', 'KPW', 'KRW', 'KWD', 'KYD', 'KZT', 'LAK', 'LBP', 'LKR', 'LRD', 'LSL', 'LTL', 'LVL', 'LYD', 'MAD', 'MDL', 'MGA', 'MKD', 'MMK', 'MNT', 'MOP', 'MRO', 'MUR', 'MVR', 'MWK', 'MXN', 'MXV', 'MYR', 'MZN', 'NAD', 'NGN', 'NIO', 'NOK', 'NPR', 'NZD', 'OMR', 'PAB', 'PEN', 'PGK', 'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RSD', 'RUB', 'RWF', 'SAR', 'SBD', 'SCR', 'SDG', 'SEK', 'SGD', 'SHP', 'SLL', 'SOS', 'SRD', 'STD', 'SYP', 'SZL', 'THB', 'TJS', 'TMT', 'TND', 'TOP', 'TRY', 'TTD', 'TWD', 'TZS', 'UAH', 'UGX', 'USD', 'USN', 'USS', 'UYU', 'UZS', 'VEF', 'VND', 'VUV', 'WST', 'XAF', 'XAG', 'XAU', 'XBA', 'XBB', 'XBC', 'XBD', 'XCD', 'XDR', 'XFU', 'XOF', 'XPD', 'XPF', 'XPT', 'XTS', 'XXX', 'YER', 'ZAR', 'ZMK', 'ZWL'],
-                    'default' => 'EUR',
+                'business_name' => [
+                    'type' => 'Text',
+                    'options' => ['placeholder' => 'Notfound Oy', 'class' => 'form-control']
+                ],
+                'phone_number' => [
+                    'type' => 'Text',
+                    'options' => ['placeholder' => '358412223333', 'class' => 'form-control']
                 ],
                 'layout'          => [
                     'type'         => 'Dropdown',
@@ -15,50 +18,47 @@ return [
                     'default'      => 1,
                     'key_is_value' => false
                 ],
-                'datetime_format' => [
-                    'type'    => 'DateTimeDropdown',
-                    'values'  => ['d.m.Y, H:i', 'd.m.Y, H:i:s', 'm.d.Y, H:i', 'm.d.Y, H:i:s', 'Y.m.d, H:i', 'Y.m.d, H:i:s', 'j.n.Y, H:i', 'j.n.Y, H:i:s', 'n.j.Y, H:i', 'n.j.Y, H:i:s', 'Y.n.j, H:i', 'Y.n.j, H:i:s', 'd/m/Y, H:i', 'd/m/Y, H:i:s', 'm/d/Y, H:i', 'm/d/Y, H:i:s', 'Y/m/d, H:i', 'Y/m/d, H:i:s', 'j/n/Y, H:i', 'j/n/Y, H:i:s', 'n/j/Y, H:i', 'n/j/Y, H:i:s', 'Y/n/j, H:i', 'Y/n/j, H:i:s', 'd-m-Y, H:i', 'd-m-Y, H:i:s', 'm-d-Y, H:i', 'm-d-Y, H:i:s', 'Y-m-d, H:i', 'Y-m-d, H:i:s', 'j-n-Y, H:i', 'j-n-Y, H:i:s', 'n-j-Y, H:i', 'n-j-Y, H:i:s', 'Y-n-j, H:i', 'Y-n-j, H:i:s'],
-                    'default' => 'j/n/Y, H:i'
-                ],
-                'date_format'     => [
-                    'type' => 'DateTimeDropdown',
-                    'values' => ['d.m.Y', 'm.d.Y', 'Y.m.d', 'j.n.Y', 'n.j.Y', 'Y.n.j', 'd/m/Y', 'm/d/Y', 'Y/m/d', 'j/n/Y', 'n/j/Y', 'Y/n/j', 'd-m-Y', 'm-d-Y', 'Y-m-d', 'j-n-Y', 'n-j-Y', 'Y-n-j'],
-                    'default' => 'd-m-Y',
+                'currency'        => [
+                    'type'    => 'Dropdown',
+                    'values'  => ['AED', 'AFN', 'ALL', 'AMD', 'ANG', 'AOA', 'ARS', 'AUD', 'AWG', 'AZN', 'BAM', 'BBD', 'BDT', 'BGN', 'BHD', 'BIF', 'BMD', 'BND', 'BOB', 'BOV', 'BRL', 'BSD', 'BTN', 'BWP', 'BYR', 'BZD', 'CAD', 'CDF', 'CHE', 'CHF', 'CHW', 'CLF', 'CLP', 'CNY', 'COP', 'COU', 'CRC', 'CUC', 'CUP', 'CVE', 'CZK', 'DJF', 'DKK', 'DOP', 'DZD', 'EEK', 'EGP', 'ERN', 'ETB', 'EUR', 'FJD', 'FKP', 'GBP', 'GEL', 'GHS', 'GIP', 'GMD', 'GNF', 'GTQ', 'GYD', 'HKD', 'HNL', 'HRK', 'HTG', 'HUF', 'IDR', 'ILS', 'INR', 'IQD', 'IRR', 'ISK', 'JMD', 'JOD', 'JPY', 'KES', 'KGS', 'KHR', 'KMF', 'KPW', 'KRW', 'KWD', 'KYD', 'KZT', 'LAK', 'LBP', 'LKR', 'LRD', 'LSL', 'LTL', 'LVL', 'LYD', 'MAD', 'MDL', 'MGA', 'MKD', 'MMK', 'MNT', 'MOP', 'MRO', 'MUR', 'MVR', 'MWK', 'MXN', 'MXV', 'MYR', 'MZN', 'NAD', 'NGN', 'NIO', 'NOK', 'NPR', 'NZD', 'OMR', 'PAB', 'PEN', 'PGK', 'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RSD', 'RUB', 'RWF', 'SAR', 'SBD', 'SCR', 'SDG', 'SEK', 'SGD', 'SHP', 'SLL', 'SOS', 'SRD', 'STD', 'SYP', 'SZL', 'THB', 'TJS', 'TMT', 'TND', 'TOP', 'TRY', 'TTD', 'TWD', 'TZS', 'UAH', 'UGX', 'USD', 'USN', 'USS', 'UYU', 'UZS', 'VEF', 'VND', 'VUV', 'WST', 'XAF', 'XAG', 'XAU', 'XBA', 'XBB', 'XBC', 'XBD', 'XCD', 'XDR', 'XFU', 'XOF', 'XPD', 'XPF', 'XPT', 'XTS', 'XXX', 'YER', 'ZAR', 'ZMK', 'ZWL'],
+                    'default' => 'EUR',
                 ],
                 'timezone' => [
                     'type' => 'TimezoneDropdown',
                     'default' => 'Europe/Helsinki'
                 ],
-                'time_format' => [
-                    'type' => 'DateTimeDropdown',
-                    'values' => ['H:i', 'G:i', 'h:i', 'h:i a', 'h:i A', 'g:i', 'g:i a', 'g:i A'],
-                    'default' => 'H:i',
-                ],
-                'week_numbers' => [
-                    'type' => 'Radio'
-                ],
-                'week_start' => [
-                    'type' => 'Dropdown',
-                    'values' => [
-                        trans('common.sun'),
-                        trans('common.mon'),
-                        trans('common.tue'),
-                        trans('common.wed'),
-                        trans('common.thu'),
-                        trans('common.fri'),
-                        trans('common.sat'),
-                    ],
-                    'default' => 1,
-                    'key_is_value' => false
-                ],
-                'phone_number' => [
-                    'type' => 'Text',
-                    'options' => ['placeholder' => '358412223333', 'class' => 'form-control']
-                ],
-                'business_name' => [
-                    'type' => 'Text',
-                    'options' => ['placeholder' => 'Notfound Oy', 'class' => 'form-control']
-                ]
+                // 'datetime_format' => [
+                //     'type'    => 'DateTimeDropdown',
+                //     'values'  => ['d.m.Y, H:i', 'd.m.Y, H:i:s', 'm.d.Y, H:i', 'm.d.Y, H:i:s', 'Y.m.d, H:i', 'Y.m.d, H:i:s', 'j.n.Y, H:i', 'j.n.Y, H:i:s', 'n.j.Y, H:i', 'n.j.Y, H:i:s', 'Y.n.j, H:i', 'Y.n.j, H:i:s', 'd/m/Y, H:i', 'd/m/Y, H:i:s', 'm/d/Y, H:i', 'm/d/Y, H:i:s', 'Y/m/d, H:i', 'Y/m/d, H:i:s', 'j/n/Y, H:i', 'j/n/Y, H:i:s', 'n/j/Y, H:i', 'n/j/Y, H:i:s', 'Y/n/j, H:i', 'Y/n/j, H:i:s', 'd-m-Y, H:i', 'd-m-Y, H:i:s', 'm-d-Y, H:i', 'm-d-Y, H:i:s', 'Y-m-d, H:i', 'Y-m-d, H:i:s', 'j-n-Y, H:i', 'j-n-Y, H:i:s', 'n-j-Y, H:i', 'n-j-Y, H:i:s', 'Y-n-j, H:i', 'Y-n-j, H:i:s'],
+                //     'default' => 'j/n/Y, H:i'
+                // ],
+                // 'date_format'     => [
+                //     'type' => 'DateTimeDropdown',
+                //     'values' => ['d.m.Y', 'm.d.Y', 'Y.m.d', 'j.n.Y', 'n.j.Y', 'Y.n.j', 'd/m/Y', 'm/d/Y', 'Y/m/d', 'j/n/Y', 'n/j/Y', 'Y/n/j', 'd-m-Y', 'm-d-Y', 'Y-m-d', 'j-n-Y', 'n-j-Y', 'Y-n-j'],
+                //     'default' => 'd-m-Y',
+                // ],
+                // 'time_format' => [
+                //     'type' => 'DateTimeDropdown',
+                //     'values' => ['H:i', 'G:i', 'h:i', 'h:i a', 'h:i A', 'g:i', 'g:i a', 'g:i A'],
+                //     'default' => 'H:i',
+                // ],
+                // 'week_numbers' => [
+                //     'type' => 'Radio'
+                // ],
+                // 'week_start' => [
+                //     'type' => 'Dropdown',
+                //     'values' => [
+                //         trans('common.sun'),
+                //         trans('common.mon'),
+                //         trans('common.tue'),
+                //         trans('common.wed'),
+                //         trans('common.thu'),
+                //         trans('common.fri'),
+                //         trans('common.sat'),
+                //     ],
+                //     'default' => 1,
+                //     'key_is_value' => false
+                // ],
             ]
         ],
         'booking' => [
@@ -92,128 +92,6 @@ return [
                     'default' => 15
                 ],
             ],
-            'booking_form' => [
-                'bf_address_1' => [
-                    'type' => 'Dropdown',
-                    'values' => [
-                        1 => trans('common.no'),
-                        2 => trans('common.yes'),
-                        3 => trans('common.yes_required'),
-                    ],
-                    'default' => 1,
-                    'key_is_value' => false
-                ],
-                'bf_address_2' => [
-                    'type' => 'Dropdown',
-                    'values' => [
-                        1 => trans('common.no'),
-                        2 => trans('common.yes'),
-                        3 => trans('common.yes_required'),
-                    ],
-                    'default' => 1,
-                    'key_is_value' => false
-                ],
-                'bf_captcha' => [
-                    'type' => 'Dropdown',
-                    'values' => [
-                        1 => trans('common.no'),
-                        2 => trans('common.yes'),
-                        3 => trans('common.yes_required'),
-                    ],
-                    'default' => 1,
-                    'key_is_value' => false
-                ],
-                'bf_city' => [
-                    'type' => 'Dropdown',
-                    'values' => [
-                        1 => trans('common.no'),
-                        2 => trans('common.yes'),
-                        3 => trans('common.yes_required'),
-                    ],
-                    'default' => 1,
-                    'key_is_value' => false
-                ],
-                'bf_country' => [
-                    'type' => 'Dropdown',
-                    'values' => [
-                        1 => trans('common.no'),
-                        2 => trans('common.yes'),
-                        3 => trans('common.yes_required'),
-                    ],
-                    'default' => 1,
-                    'key_is_value' => false
-                ],
-                'bf_email' => [
-                    'type' => 'Dropdown',
-                    'values' => [
-                        1 => trans('common.no'),
-                        2 => trans('common.yes'),
-                        3 => trans('common.yes_required'),
-                    ],
-                    'default' => 3,
-                    'key_is_value' => false
-                ],
-                'bf_name' => [
-                    'type' => 'Dropdown',
-                    'values' => [
-                        1 => trans('common.no'),
-                        2 => trans('common.yes'),
-                        3 => trans('common.yes_required'),
-                    ],
-                    'default' => 3,
-                    'key_is_value' => false
-                ],
-                'bf_notes' => [
-                    'type' => 'Dropdown',
-                    'values' => [
-                        1 => trans('common.no'),
-                        2 => trans('common.yes'),
-                        3 => trans('common.yes_required'),
-                    ],
-                    'default' => 1,
-                    'key_is_value' => false
-                ],
-                'bf_phone' => [
-                    'type' => 'Dropdown',
-                    'values' => [
-                        1 => trans('common.no'),
-                        2 => trans('common.yes'),
-                        3 => trans('common.yes_required'),
-                    ],
-                    'default' => 3,
-                    'key_is_value' => false
-                ],
-                'bf_state' => [
-                    'type' => 'Dropdown',
-                    'values' => [
-                        1 => trans('common.no'),
-                        2 => trans('common.yes'),
-                        3 => trans('common.yes_required'),
-                    ],
-                    'default' => 1,
-                    'key_is_value' => false
-                ],
-                'bf_terms' => [
-                    'type' => 'Dropdown',
-                    'values' => [
-                        1 => trans('common.no'),
-                        2 => trans('common.yes'),
-                        3 => trans('common.yes_required'),
-                    ],
-                    'default' => 1,
-                    'key_is_value' => false
-                ],
-                'bf_zip' => [
-                    'type' => 'Dropdown',
-                    'values' => [
-                        1 => trans('common.no'),
-                        2 => trans('common.yes'),
-                        3 => trans('common.yes_required'),
-                    ],
-                    'default' => 1,
-                    'key_is_value' => false
-                ],
-            ],
             'confirmations' => [
                 'confirm_subject_client' => [
                     'type' => 'Text',
@@ -223,13 +101,13 @@ return [
                     'type' => 'Textarea',
                     'values' => trans('as.options.booking.confirm_tokens_client_default')
                 ],
-                'payment_subject_client' => [
+                'confirm_subject_employee' => [
                     'type' => 'Text',
-                    'values' => trans('as.options.booking.payment_subject_client_default')
+                    'values' => trans('as.options.booking.confirm_subject_employee_default')
                 ],
-                'payment_tokens_client' => [
+                'confirm_tokens_employee' => [
                     'type' => 'Textarea',
-                    'values' => trans('as.options.booking.payment_tokens_client_default')
+                    'values' => trans('as.options.booking.confirm_tokens_employee_default')
                 ],
                 'confirm_subject_admin' => [
                     'type' => 'Text',
@@ -239,32 +117,49 @@ return [
                     'type' => 'Textarea',
                     'values' => trans('as.options.booking.confirm_tokens_admin_default')
                 ],
-                'payment_subject_admin' => [
-                    'type' => 'Text',
-                    'values' => trans('as.options.booking.payment_subject_admin_default')
-                ],
-                'payment_tokens_admin' => [
-                    'type' => 'Textarea',
-                    'values' => trans('as.options.booking.payment_tokens_admin_default')
-                ],
-                'confirm_subject_employee' => [
-                    'type' => 'Text',
-                    'values' => trans('as.options.booking.confirm_subject_employee_default')
-                ],
-                'confirm_tokens_employee' => [
-                    'type' => 'Textarea',
-                    'values' => trans('as.options.booking.confirm_tokens_employee_default')
-                ],
-                'payment_subject_employee' => [
-                    'type' => 'Text',
-                    'values' => trans('as.options.booking.payment_subject_employee_default')
-                ],
-                'payment_tokens_employee' => [
-                    'type' => 'Textarea',
-                    'values' => trans('as.options.booking.payment_tokens_employee_default')
-                ],
             ],
+            // 'reminders' => [
+            //     'reminder_enable' => [
+            //         'type' => 'Radio',
+            //     ],
+            //     'reminder_email_before' => [
+            //         'type' => 'Spinner',
+            //         'values' => 10,
+            //         'options' => ['class' => 'form-control input-sm spinner', 'data-positive' => 'true']
+            //     ],
+            //     'reminder_subject' => [
+            //         'type' => 'Text',
+            //         'values' => trans('as.options.booking.reminder_subject_default')
+            //     ],
+            //     'reminder_body' => [
+            //         'type' => 'Textarea',
+            //         'values' => trans('as.options.booking.reminder_body_default')
+            //     ],
+            //     'reminder_sms_hours' => [
+            //         'type' => 'Spinner',
+            //         'values' => 2,
+            //         'options' => ['class' => 'form-control input-sm spinner', 'data-positive' => 'true']
+            //     ],
+            //     'reminder_sms_country_code' => [
+            //         'type' => 'Text',
+            //         'values' => '358',
+            //     ],
+            //     'reminder_sms_message' => [
+            //         'type' => 'Textarea',
+            //         'values' => trans('as.options.booking.reminder_sms_message_default'),
+            //     ],
+            // ],
             'terms' => [
+                'terms_enabled' => [
+                    'type' => 'Dropdown',
+                    'values' => [
+                        1 => trans('common.no'),
+                        2 => trans('common.yes'),
+                        3 => trans('common.yes_required'),
+                    ],
+                    'default' => 1,
+                    'key_is_value' => false
+                ],
                 'terms_url' => [
                     'type' => 'Text'
                 ],
@@ -272,37 +167,6 @@ return [
                     'type' => 'Textarea',
                     'values' => trans('as.options.booking.terms_body_default')
                 ]
-            ],
-            'reminders' => [
-                'reminder_enable' => [
-                    'type' => 'Radio',
-                ],
-                'reminder_email_before' => [
-                    'type' => 'Spinner',
-                    'values' => 10,
-                    'options' => ['class' => 'form-control input-sm spinner', 'data-positive' => 'true']
-                ],
-                'reminder_subject' => [
-                    'type' => 'Text',
-                    'values' => trans('as.options.booking.reminder_subject_default')
-                ],
-                'reminder_body' => [
-                    'type' => 'Textarea',
-                    'values' => trans('as.options.booking.reminder_body_default')
-                ],
-                'reminder_sms_hours' => [
-                    'type' => 'Spinner',
-                    'values' => 2,
-                    'options' => ['class' => 'form-control input-sm spinner', 'data-positive' => 'true']
-                ],
-                'reminder_sms_country_code' => [
-                    'type' => 'Text',
-                    'values' => '358',
-                ],
-                'reminder_sms_message' => [
-                    'type' => 'Textarea',
-                    'values' => trans('as.options.booking.reminder_sms_message_default'),
-                ],
             ],
         ],
         'style' => [
