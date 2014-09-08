@@ -1,6 +1,8 @@
-/*global document, alertify, location, window, jQuery */
+/*jslint browser: true, nomen: true, unparam: true, node: true*/
+/*global $, jQuery, document, alertify, location, window*/
+'use strict';
+
 (function ($) {
-    'use strict';
     $(function () {
         $('.customer-tooltip').tooltip({
             'selector': '',
@@ -39,12 +41,11 @@
 
         // Allow to click on TR to select checkbox
         $('table.table-crud tr').on('click', function (event) {
-            var target = $(event.target);
+            var target = $(event.target),
+                $this = $(this),
+                checkbox = $this.find('td:first input:checkbox'),
+                checked = checkbox.prop('checked');
             if (target.is('td')) { //fix bug cannot click to the actual checkbox
-                var $this = $(this),
-                    checkbox = $this.find('td:first input:checkbox'),
-                    checked = checkbox.prop('checked');
-
                 checkbox.prop('checked', !checked);
             }
         });
