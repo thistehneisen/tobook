@@ -14,7 +14,7 @@ class Index extends AsBase
      */
     public function index($date = null)
     {
-        $employees = Employee::ofCurrentUser()->get();
+        $employees = Employee::ofCurrentUser()->orderBy('order')->get();
         $date = (empty($date)) ? Carbon::today() : $date;
 
         if (!$date instanceof Carbon) {
