@@ -15,7 +15,13 @@ class Util
         return chr(rand(65,90)) . chr(rand(65,90)) . time();
     }
 
-    public static function getDayOfWeekText($weekday){
+    /**
+     * Return 3 letters present day of week based on Carbon constant dayOfWeek
+     *
+     * @return string
+     */
+    public static function getDayOfWeekText($weekday)
+    {
         $dayOfWeek = '';
          switch ($weekday) {
             case Carbon::MONDAY:

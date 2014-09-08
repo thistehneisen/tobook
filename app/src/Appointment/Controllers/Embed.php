@@ -89,8 +89,9 @@ class Embed extends AsBase
         }
 
         $categories = ServiceCategory::OfUser($user->id)
-            ->with('services')
-            ->where('is_show_front', true)
+            ->with(['services' => function($query){
+                 $query->where('is_active', true);
+            }])->where('is_show_front', true)
             ->get();
 
         return $this->render('layout-'.$layoutId, [

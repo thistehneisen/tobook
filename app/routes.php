@@ -399,6 +399,11 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Bookings@removeBookingService'
     ]);
 
+    Route::post('bookings/remove-booking-service-in-cart', [
+        'as' => 'as.bookings.service.remove.in.cart',
+        'uses' => 'App\Appointment\Controllers\Bookings@removeBookingServiceInCart'
+    ]);
+
     // Embed
     Route::get('embed', [
         'as' => 'as.embed.index',

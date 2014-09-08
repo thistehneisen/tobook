@@ -388,17 +388,21 @@ class Bookings extends AsBase
         return Response::json($data);
     }
 
-    public function removeBookingServiceInCart(){
+    public function removeBookingServiceInCart()
+    {
         $uuid = Input::get('uuid');
+        $hash = Input::get('hash');
         try {
             $bookingService = BookingService::where('tmp_uuid', $uuid)->delete();
             $carts = Session::get('carts', []);
-            $carts[$uuid] = $cart;
+            unset($carts[$uuid]);
             Session::put('carts' , $carts);
             $data['success'] = true;
+            if(empty($carts)){
+                $data['success_url'] = route('as.embed.embed', ['hash'=> $hash]);
+            }
         } catch (\Exception $ex) {
             $data['message'] = $ex->getMessage();
-
             return Response::json($data, 400);
         }
         return Response::json($data);
