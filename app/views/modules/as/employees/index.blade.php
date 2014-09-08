@@ -1,5 +1,9 @@
 @extends ('modules.as.layout')
 
+@if ($sortable === true)
+    @include('modules.as.crud.sortable')
+@endif
+
 @section ('content')
 <div class="row">
     <div class="col-md-6">
@@ -32,9 +36,9 @@
             <th>&nbsp;</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="js-crud-tbody">
     @foreach ($items as $item)
-        <tr id="row-{{ $item->id }}">
+        <tr id="row-{{ $item->id }}" data-id="{{ $item->id }}" class="js-sortable-{{ $sortable }}" data-toggle="tooltip" data-placement="top" data-title="{{ trans('as.crud.sortable') }}">
             <td><input type="checkbox" class="checkbox" name="ids[]" value="{{ $item->id }}"></td>
         @foreach ($fields as $field)
             @if ($field === 'is_active')
