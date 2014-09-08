@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Controllers;
 
-use App, View, Confide, Redirect, Input, Config, Response, Util, Hashids, Session, Request;
+use App, View, Confide, Redirect, Input, Config, Response, Util, Hashids, Session, Request, Mail;
 use Illuminate\Support\Collection;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
@@ -369,6 +369,24 @@ class Bookings extends AsBase
 
             Session::forget('carts');
             Session::forget('booking_info');
+
+            $subject = $user->asOptions['confirm_subject_client'];
+            $body    = $user->asOptions['confirm_tokens_client'];
+
+            $serviceInfo = sprintf("%s, %s (%s - %s)",
+                            $bookingService->service->name,
+                            $booking->date,
+                            $booking->start_at,
+                            $booking->end_at);
+
+            $data['title'] = $subject;
+            $data['body']  = nl2br(str_replace('{Services}', $serviceInfo, $body));
+
+            Mail::send('modules.as.emails.confirm', $data, function($message) use($consumer, $subject)
+            {
+                $message->to($consumer->email, $consumer->name)->subject($subject);
+            });
+
             $data['status']      = true;
         } catch (\Exception $ex) {
             $data['status'] = false;
