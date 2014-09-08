@@ -5,6 +5,7 @@ use App\Core\Models\User;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\ServiceCategory;
+use App\Core\Models\Consumer;
 use Carbon\Carbon;
 
 class Embed extends AsBase
@@ -55,7 +56,8 @@ class Embed extends AsBase
         $serviceId      = Input::get('service_id');
         $serviceTimeId  = Input::get('service_time_id');
         $date = (empty(Input::get('date'))) ? Carbon::today() : Input::get('date');
-
+        $consumer = null;
+        $booking_info = [];
         $action = Input::get('action');
 
         //If carts is empty, user cannot checkout
@@ -63,6 +65,14 @@ class Embed extends AsBase
             if(empty(Session::get('carts'))){
                 return Redirect::route('as.embed.embed', ['hash' => $hash]);
             }
+        } else if($action === 'confirm'){
+            if(empty(Session::get('booking_info'))){
+                return Redirect::route('as.embed.embed', ['hash' => $hash]);
+            }
+        }
+        if(!empty(Session::get('booking_info'))){
+            $booking_info = Session::get('booking_info');
+            $consumer = Consumer::where('email', $booking_info['email'])->first();
         }
 
         if (!$date instanceof Carbon) {
@@ -97,6 +107,8 @@ class Embed extends AsBase
         return $this->render('layout-'.$layoutId, [
             'categories'    => $categories,
             'employees'     => $employees,
+            'booking_info'  => $booking_info,
+            'consumer'      => $consumer,
             'service'       => $service,
             'serviceTime'   => $serviceTime,
             'workingTimes'  => $workingTimes,
@@ -119,6 +131,15 @@ class Embed extends AsBase
             'date'    => Input::get('date') ?: Carbon::now()->toDateString(),
             'service' => $service
         ]);
+    }
+
+    public function addConfirmInfo()
+    {
+        $data = Input::all();
+        $hash = Input::get('hash');
+        //TODO probably validate user info here
+        Session::put('booking_info', $data);
+        return Redirect::route('as.embed.embed', ['hash' => $hash, 'action'=> 'confirm']);
     }
 
 }

@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <!-- Sidebar -->
     <div class="col-sm-3">
-         @if($action !== 'checkout')
+         @if(empty($action))
         <div class="panel panel-default">
             <div class="panel-heading">{{ trans('as.embed.select_date') }}</div>
             <div class="panel-body">
@@ -50,6 +50,8 @@
             <div class="panel-heading">
                 @if($action === 'checkout')
                     {{ trans('as.embed.booking_form') }}
+                @elseif($action === 'confirm')
+                    {{ trans('as.embed.booking_form') }}
                 @else
                     @if(empty($service))
                     {{ trans('as.embed.select_service') }} {{ $date->format('jS F') }}
@@ -60,12 +62,14 @@
             </div>
             <div class="panel-body">
                 @if($action === 'checkout')
-                    @include('modules.as.embed.checkout-1')
+                    @include('modules.as.embed.layout-1.checkout-1')
+                @elseif($action === 'confirm')
+                    @include('modules.as.embed.layout-1.confirm-1')
                 @else
                     @if(empty($employees))
-                        @include('modules.as.embed.service-1')
+                        @include('modules.as.embed.layout-1.service-1')
                     @else
-                        @include('modules.as.embed.employee-1')
+                        @include('modules.as.embed.layout-1.employee-1')
                     @endif
                 @endif
             </div>

@@ -368,6 +368,7 @@ class Bookings extends AsBase
             // Send notification email and SMSs
 
             Session::forget('carts');
+            Session::forget('booking_info');
             $data['status']      = true;
         } catch (\Exception $ex) {
             $data['status'] = false;

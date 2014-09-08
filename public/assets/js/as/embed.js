@@ -111,10 +111,23 @@
             });
         });
 
+        $('#btn-select-existing-user').click(function (e) {
+            e.preventDefault();
+            $('#firstname').val($('#existing_firstname').text());
+            $('#lastname').val($('#existing_lastname').text());
+            $('#email').val($('#existing_email').text());
+            $('#phone').val($('#existing_phone').text());
+            $('#display_firstname').text($('#existing_firstname').text());
+            $('#display_lastname').text($('#existing_lastname').text());
+            $('#display_email').text($('#existing_email').text());
+            $('#display_phone').text($('#existing_phone').text());
+        });
+
         $('#btn-confirm-booking').click(function (e) {
             e.preventDefault();
             var action_url = $(this).data('action-url'),
-                success_url = $(this).data('success-url');
+                success_url = $(this).data('success-url'),
+                success_msg = $(this).data('success_msg');
             $.ajax({
                 type: 'POST',
                 url: action_url,

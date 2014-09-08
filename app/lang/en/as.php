@@ -81,9 +81,12 @@ return [
         'email'        => 'Email',
         'phone'        => 'Phone',
         'address'      => 'Address',
-        'error'      => [
+        'error'        => [
             'add_overlapped_booking' => 'Overlapped booking time!',// @todo
             'insufficient_slots'     => 'There is no enough time slots for this booking!',// @todo
+        ],
+        'warning'      => [
+            'existing_user'   => 'There is an user associate with this email in our system. Do you want to use these information instead?',// @todo
         ]
     ],
     'employees' => [
