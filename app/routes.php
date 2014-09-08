@@ -415,16 +415,6 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Embed@preview'
     ]);
 
-    Route::get('embed/get-extra-service-form', [
-        'as' => 'as.embed.extra.form',
-        'uses' => 'App\Appointment\Controllers\Embed@getExtraServiceForm'
-    ]);
-
-    Route::get('embed/{hash}', [
-        'as' => 'as.embed.embed',
-        'uses' => 'App\Appointment\Controllers\Embed@embed'
-    ]);
-
     // Options
     Route::get('options/working-time', [
         'uses' => 'App\Appointment\Controllers\Options@workingTime'
@@ -454,6 +444,29 @@ Route::group([
         'as' => 'as.index',
         'uses' => 'App\Appointment\Controllers\Index@index'
     ]);
+});
+
+/*
+|-------------------------------------------------------------------------------
+| Embed routes
+|-------------------------------------------------------------------------------
+*/
+Route::group([
+    'prefix' => 'embed'
+], function() {
+
+    // Appointment scheduler
+    Route::get('appointment-scheduler/{hash}', [
+        'as' => 'as.embed.embed',
+        'uses' => 'App\Appointment\Controllers\Embed@embed'
+    ]);
+
+    Route::get('appointment-scheduler/get-extra-service-form', [
+        'as' => 'as.embed.extra.form',
+        'uses' => 'App\Appointment\Controllers\Embed@getExtraServiceForm'
+    ]);
+    // End appointment scheduler
+
 });
 
 /*
