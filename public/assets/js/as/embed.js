@@ -4,15 +4,6 @@
 
 (function ($) {
     $(function () {
-        $('#datepicker').datepicker({
-            format: 'yyyy-mm-dd',
-            startDate: new Date(),
-            todayBtn: true,
-            todayHighlight: true
-        }).on('changeDate', function (e) {
-            $('#txt-date').val(e.format());
-        });
-
         $('.accordion').collapse();
 
         $('.list-group-item-heading').on('click', function (e) {
@@ -91,7 +82,8 @@
             e.preventDefault();
             $('.btn-select-service-time').removeClass('active');
             $(this).parent().find('a').addClass('active');
-            var url = $('#btn-add-service-' + $(this).data('service-id')).prop('href') + '&service_time=' + $(this).data('service-time');
+            var url = $('#btn-add-service-' + $(this).data('service-id')).prop('href');
+            url = url.replace(new RegExp("service_time=.*?(&|$)", 'g'), "service_time=" + $(this).data('service-time') + '&');
             $('#btn-add-service-' + $(this).data('service-id')).prop('href', url);
         });
 

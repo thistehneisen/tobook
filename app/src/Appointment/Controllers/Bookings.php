@@ -381,7 +381,7 @@ class Bookings extends AsBase
     /**
      * Insert new consumer if not exist in db yet
      *
-     * @return AsConsumer
+     * @return Consumer
      */
     private function handleConsumer()
     {
@@ -399,33 +399,34 @@ class Bookings extends AsBase
 
         //In front end, user is identified from hash
         $user = $this->user;
+        $userId = null;
         if(empty($this->user)){
             $decoded = Hashids::decrypt($hash);
             if(empty($decoded)){
                 return;
             }
             $user = User::find($decoded[0]);
+            $userId = $decoded[0];
         }
 
         //TODO handle consumer validation
-        if ($consumer === null) {
+        if (empty($consumer->id)) {
             $consumer = Consumer::make([
                 'first_name' => $firstname,
                 'last_name'  => $lastname,
                 'email'      => $email,
                 'phone'      => $phone,
                 'address'    => $address
-            ]);
+            ], $userId);
 
-            $asConsumer = new AsConsumer();
             $asConsumer->user()->associate($user);
             $asConsumer->consumer()->associate($consumer);
             $asConsumer->save();
         } else {
-            $asConsumer = AsConsumer::where('consumer_id', $consumer->id)->first();
+            //TODO update consumer
         }
 
-        return $asConsumer;
+        return $consumer;
     }
 
     /**

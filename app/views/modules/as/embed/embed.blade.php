@@ -18,5 +18,22 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
     {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
     <script src="{{ asset('assets/js/as/embed.js') }}"></script>
+    <script>
+    $(document).ready(function(){
+        $('#datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            startDate: new Date(),
+            todayBtn: true,
+            todayHighlight: true
+        }).on('changeDate', function (e) {
+            if(window.location.href.indexOf('date') != -1){
+                window.location.href = window.location.href.replace(new RegExp("date=.*?(&|$)", 'g'), "date=" + e.format());
+            } else {
+                 window.location.href = window.location.href + '?date=' + e.format();
+            }
+        });
+        $("#datepicker").datepicker("update", new Date({{ $date->year }},{{ $date->month - 1}},{{ $date->day }}));
+    });
+    </script>
 </body>
 </html>
