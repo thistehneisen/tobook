@@ -16,6 +16,7 @@
         <a class="btn btn-default" href="{{ URL::route('fd.services.index') }}">{{ trans('fd.service.management') }}</a>
         <a class="btn btn-default" href="{{ URL::route('fd.flashs.index') }}">{{ trans('fd.flashdeal.management') }}</a>
         <a class="btn btn-default" href="{{ URL::route('fd.coupons.index') }}">{{ trans('fd.coupon.management') }}</a>
+        <a class="btn btn-default" href="#">{{ trans('common.settings') }}</a>
         <a class="btn btn-default" href="{{ URL::route('fd.flashs.sold') }}">{{ trans('fd.flashdeal.sold') }}</a>
         <a class="btn btn-default" href="{{ URL::route('fd.coupons.sold') }}">{{ trans('fd.coupon.sold') }}</a>
         <a class="btn btn-default" href="{{ URL::route('fd.flashs.active') }}">{{ trans('fd.flashdeal.active') }}</a>
