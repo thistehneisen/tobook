@@ -387,6 +387,7 @@ class Bookings extends AsBase
                 $message->to($consumer->email, $consumer->name)->subject($subject);
             });
 
+            //Code ugly as fuck, need to be refactory
             $smsMessage =  $user->asOptions['reminder_sms_message'];
             $from = 'varaa.com';
             $to = $consumer->phone;
