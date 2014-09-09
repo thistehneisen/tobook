@@ -37,7 +37,6 @@ return [
     'title'             => 'Title',
     'name'              => 'Name',
     'module_type'       => 'Module Type',
-    'flash_deal'        => 'Flash Deal',
     'appointment_scheduler' => 'Appointment Scheduler',
     'restaurant_booking'    => 'Restaurant Booking',
     'timeslot_booking'      => 'Timeslot Booking',
@@ -50,9 +49,4 @@ return [
     'city'                  => 'City',
     'postcode'              => 'Postcode',
     'country'               => 'Country',
-    'start_date'            => 'Start Date',
-    'end_date'              => 'End Date',
-    'quantity'              => 'Quantity',
-    'count'                 => 'Count',
-    'delete'                => 'Delete',    
 ];

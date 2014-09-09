@@ -250,43 +250,6 @@ Route::group([
             ]
         ]);
     });
-    
-    // Flash Deal
-    Route::group([
-        'before' => [''],
-        'prefix' => 'fd'
-    ], function () {
-        Route::resource('services', 'App\FlashDeal\Controllers\Service', [
-            'names' => [
-                'index'     => 'fd.services.index',
-                'create'    => 'fd.services.create',
-                'edit'      => 'fd.services.edit',
-                'store'     => 'fd.services.store',
-                'update'    => 'fd.services.update',
-            ]
-        ]);
-        
-        Route::resource('coupons', 'App\FlashDeal\Controllers\Coupon', [
-            'names' => [
-                'index'     => 'fd.coupons.index',
-                'create'    => 'fd.coupons.create',
-                'edit'      => 'fd.coupons.edit',
-                'store'     => 'fd.coupons.store',
-                'update'    => 'fd.coupons.update',
-            ]
-        ]);
-        
-        Route::resource('flashdeals', 'App\FlashDeal\Controllers\Flash', [
-            'names' => [
-                'index'     => 'fd.flashs.index',
-                'create'    => 'fd.flashs.create',
-                'edit'      => 'fd.flashs.edit',
-                'store'     => 'fd.flashs.store',
-                'update'    => 'fd.flashs.update',
-            ]
-        ]);        
-    });
-
 });
 /*
 |--------------------------------------------------------------------------
