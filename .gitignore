@@ -26,10 +26,6 @@
 *.log
 *.sqlite
 *.orig
-*.BACKUP*
-*.BASE*
-*.LOCAL*
-*.REMOTE*
 
 # OS generated files #
 ######################
@@ -64,6 +60,3 @@ composer.phar
 /config.php
 /public/appointment/app/config/config.inc.php
 acceptance.suite.yml
-
-# NodeJS
-node_modules/
