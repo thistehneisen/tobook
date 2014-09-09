@@ -93,6 +93,14 @@ return [
                 ],
             ],
             'confirmations' => [
+                'confirm_email_enable' => [
+                    'type'   => 'Radio',
+                    'default' => true
+                ],
+                'confirm_sms_enable' => [
+                    'type'   => 'Radio',
+                    'default' => true
+                ],
                 'confirm_subject_client' => [
                     'type' => 'Text',
                     'values' => trans('as.options.booking.confirm_subject_client_default')
@@ -117,35 +125,17 @@ return [
                     'type' => 'Textarea',
                     'values' => trans('as.options.booking.confirm_tokens_admin_default')
                 ],
-            ],
-            'notification' => [
-                'notification_email_enable' => [
-                    'type'   => 'Radio',
-                    'default' => true
-                ],
-                'notification_sms_enable' => [
-                    'type'   => 'Radio',
-                    'default' => true
-                ],
-                'notification_subject' => [
-                    'type' => 'Text',
-                    'values' => trans('as.options.booking.notification_subject_default')
-                ],
-                'notification_body' => [
-                    'type' => 'Textarea',
-                    'values' => trans('as.options.booking.notification_body_default')
-                ],
-                'notification_sms_country_code' => [
+                'confirm_sms_country_code' => [
                     'type' => 'Text',
                     'values' => '358',
                 ],
-                'notification_consumer_sms_message' => [
+                'confirm_consumer_sms_message' => [
                     'type' => 'Textarea',
-                    'values' => trans('as.options.booking.notification_consumer_body_sms_message_default'),
+                    'values' => trans('as.options.booking.confirm_consumer_body_sms_message_default'),
                 ],
-                'notification_employee_sms_message' => [
+                'confirm_employee_sms_message' => [
                     'type' => 'Textarea',
-                    'values' => trans('as.options.booking.notification_employee_body_sms_message_default'),
+                    'values' => trans('as.options.booking.confirm_employee_body_sms_message_default'),
                 ],
             ],
             // 'reminders' => [

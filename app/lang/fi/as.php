@@ -22,7 +22,7 @@ Palvelut
 Terveisin,
 HTML;
 
-$notificationBody = <<< HTML
+$confirmBody = <<< HTML
 Hei {Name},
 Tämä on muistutusviesti varauksestasi!
 
@@ -45,7 +45,7 @@ Kiitos varauksestasi palveluun:
 Terveisin,
 HTML;
 
-$notificationConsumerMessage = <<< HTML
+$confirmConsumerMessage = <<< HTML
 Hei,
 
 Kiitos varauksestasi palveluun:
@@ -55,7 +55,7 @@ Kiitos varauksestasi palveluun:
 Terveisin,
 HTML;
 
-$notificationEmployeeMessage = <<< HTML
+$confirmEmployeeMessage = <<< HTML
 Hei,
 
 Sinulle on uusi varaus asiakkaalta {Consumer} palveluun {Services}
@@ -331,17 +331,6 @@ return [
         'reminder_sms_country_code'                      => 'SMS Maatunnus',
         'reminder_sms_message'                           => 'Tekstiviesti',
         'reminder_sms_message_default'                   => $reminderSmsMessage,
-        'notification_email_enable'                      => 'Enable email',// @todo
-        'notification_sms_enable'                        => 'Enable sms',// @todo
-        'notification_subject'                           => 'Subject',// @todo
-        'notification_subject_default'                   => 'Subject default',// @todo
-        'notification_body'                              => 'Body',// @todo
-        'notification_body_default'                      => $notificationBody,// @todo
-        'notification_sms_country_code'                  => 'Code',// @todo
-        'notification_consumer_sms_message'              => 'Consumer sms',// @todo
-        'notification_employee_sms_message'              => 'Employee sms',// @todo
-        'notification_consumer_body_sms_message_default' => $notificationConsumerMessage,
-        'notification_employee_body_sms_message_default' => $notificationEmployeeMessage,
         'terms_url'                                      => 'URL osoite ehdoille',
         'terms_body'                                     => 'Booking terms content', // @todo
         'terms_body_default'                             => $termBody,
@@ -357,6 +346,13 @@ return [
         'confirm_subject_admin_default'                  => 'Uusi varaus on saapunut',
         'confirm_tokens_admin'                           => 'Viestin sisältö',
         'confirm_tokens_admin_default'                   => $confirmTokensAdmin,
+        'confirm_email_enable'                           => 'Enable email',// @todo
+        'confirm_sms_enable'                             => 'Enable sms',// @todo
+        'confirm_sms_country_code'                       => 'Code',// @todo
+        'confirm_consumer_sms_message'                   => 'Consumer sms',// @todo
+        'confirm_employee_sms_message'                   => 'Employee sms',// @todo
+        'confirm_consumer_body_sms_message_default'      => $confirmConsumerMessage,
+        'confirm_employee_body_sms_message_default'      => $confirmEmployeeMessage,
         'payment_subject_admin'                          => 'Ylläpitäjän maksuvahvistuksen otsikko',
         'payment_subject_admin_default'                  => 'New payment received', // @todo
         'payment_tokens_admin'                           => 'Viestin sisältö',

@@ -370,7 +370,7 @@ class Bookings extends AsBase
             Session::forget('carts');
             Session::forget('booking_info');
 
-            $emailEnabled = (bool) $user->asOptions['notification_email_enable'];
+            $emailEnabled = (bool) $user->asOptions['confirm_email_enable'];
 
             if($emailEnabled){
                 $subject = $user->asOptions['confirm_subject_client'];
@@ -392,9 +392,9 @@ class Bookings extends AsBase
             }
 
             //Code ugly as fuck, need to be refactory
-            $smsEnabled = (bool) $user->asOptions['notification_sms_enable'];
+            $smsEnabled = (bool) $user->asOptions['confirm_sms_enable'];
             if($smsEnabled){
-                $smsMessage =  $user->asOptions['reminder_sms_message'];
+                $smsMessage =  $user->asOptions['notification_sms_message'];
                 $from = 'varaa.com';
                 $to = $consumer->phone;
                 if (strpos($to, '0') === 0 ) {
