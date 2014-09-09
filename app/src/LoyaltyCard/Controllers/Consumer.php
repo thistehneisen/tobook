@@ -32,7 +32,7 @@ class Consumer extends Base
     }
 
     /**
-     * Display a listing of the resource.
+     * Display list of consumers.
      *
      * @return View
      */
@@ -45,7 +45,7 @@ class Consumer extends Base
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return View
      */
     public function create()
     {
@@ -56,72 +56,36 @@ class Consumer extends Base
     /**
      * Store a newly created resource in storage.
      *
-     * @return Response
+     * @return Response / Redirect
      */
     public function store()
     {
-        $rules = [
-            'first_name'    => 'required',
-            'last_name'     => 'required',
-            'email'         => 'required|email|unique:consumers',
-            'phone'         => 'required|numeric',
-            'address'       => 'required',
-            'postcode'      => 'required|numeric',
-            'city'          => 'required',
-            'country'       => 'required',
-        ];
+        $validator = null;
 
-        $validator = Validator::make(Input::all(), $rules);
+        $consumer = $this->consumerRepository->storeConsumer(false, $validator);
 
-        if ($validator->fails()) {
+        if ($consumer === null) {
             if (Request::ajax()) {
                 return Response::json([
                     'success' => false,
                     'errors' => $validator->errors()->toArray(),
                 ]);
+            } else {
+                return Redirect::back()
+                    ->withErrors($validator)
+                    ->withInput();
             }
-
-            return Redirect::back()
-                ->withErrors($validator)
-                ->withInput();
+        } else {
+            if (Request::ajax()) {
+                return Response::json([
+                    'success' => true,
+                    'message' => 'Customer created successfully!',
+                ]);
+            } else {
+                return Redirect::route('lc.consumers.index');
+            }
         }
-
-        try {
-            $data = [
-                'first_name'    => Input::get('first_name'),
-                'last_name'     => Input::get('last_name'),
-                'email'         => Input::get('email'),
-                'phone'         => Input::get('phone'),
-                'address'       => Input::get('address'),
-                'postcode'      => Input::get('postcode'),
-                'city'          => Input::get('city'),
-                'country'       => Input::get('country'),
-            ];
-
-            // Create core consumer first
-            $core = Core::make($data, Confide::user()->id);
-
-            // Then create a LC consumer
-            $consumer = new Model;
-            $consumer->total_points = 0;
-            $consumer->total_stamps = '';
-            $consumer->consumer_id = $core->id;
-            $consumer->consumer()->associate($core);
-            $consumer->save();
-        } catch (Exception $ex) {
-
-        }
-
-        if (Request::ajax()) {
-            return Response::json([
-                'success' => true,
-                'message' => 'Customer created successfully!',
-            ]);
-        }
-
-        return Redirect::route('lc.consumers.index');
     }
-
 
     /**
      * Display the specified resource.

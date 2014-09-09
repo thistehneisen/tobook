@@ -39,102 +39,28 @@ class Consumer extends Base
         }
     }
 
-
-    // public function index()
-    // {
-    //     // get all the consumers
-    //     $consumers = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-    //                     ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-    //                     ->where('consumer_user.user_id', Auth::user()->id)
-    //                     ->get();
-
-    //     if ($consumers->toArray()) {
-    //         return Response::json([
-    //             'error' => false,
-    //             'consumers' => $consumers->toArray(),
-    //         ], 200);
-    //     } else {
-    //         return Response::json([
-    //             'error' => true,
-    //             'message' => 'No customer found',
-    //         ], 404);
-    //     }
-    // }
-
-
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created consumer in storage.
      *
      * @return Response
      */
     public function store()
     {
-        $inserted_id = 0;
+        $consumer = $this->consumerRepository->storeConsumer(true);
 
-        $rules = [
-            'first_name'    => 'required',
-            'last_name'     => 'required',
-            'email'         => 'required|email|unique:consumers',
-            'phone'         => 'required|numeric',
-            'address'       => 'required',
-            'postcode'      => 'required|numeric',
-            'city'          => 'required',
-            'country'       => 'required',
-        ];
-
-        $validator = Validator::make(Request::all(), $rules);
-
-        if ($validator->fails()) {
-            // $messages = $validator->messages();
-            // /$data = [];
-
-            // foreach ($rules as $key => $value) {
-            //     if ($messages->has($key)) {
-            //         $data[] = $key;
-            //     }
-            // }
-
+        if ($consumer === null) {
             return Response::json([
                 'error' => true,
                 'message' => 'Invalid data',
-                //'details'  => $data,
             ], 400);
         } else {
-            try {
-                $data = [
-                    'first_name'    => Request::get('first_name'),
-                    'last_name'     => Request::get('last_name'),
-                    'email'         => Request::get('email'),
-                    'phone'         => Request::get('phone'),
-                    'address'       => Request::get('address'),
-                    'postcode'      => Request::get('postcode'),
-                    'city'          => Request::get('city'),
-                    'country'       => Request::get('country'),
-                ];
-
-                // Create core consumer first
-                $core = Core::make($data, Auth::user()->id);
-
-                // Then create a LC consumer
-                $consumer = new Model;
-                $consumer->total_points = 0;
-                $consumer->total_stamps = '';
-                $consumer->consumer_id = $core->id;
-                $consumer->consumer()->associate($core);
-                $consumer->save();
-                $inserted_id = $consumer->id;
-            } catch (Exception $ex) {
-
-            }
-
             return Response::json([
                 'error' => false,
-                'created' => $inserted_id,
+                'created' => $consumer->id,
                 'message' => 'Consumer created',
             ], 201);
         }
     }
-
 
     /**
      * Display the specified resource.
