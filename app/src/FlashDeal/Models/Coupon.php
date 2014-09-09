@@ -11,9 +11,4 @@ class Coupon extends Eloquent
     {
         return $this->belongsTo('\App\FlashDeal\Models\Service', 'service_id');
     }
-    
-    public function solds()
-    {
-        return $this->hasMany('\App\FlashDeal\Models\CouponSold', 'coupon_id');
-    }  
 }

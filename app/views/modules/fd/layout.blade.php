@@ -17,12 +17,11 @@
         <a class="btn btn-default" href="{{ URL::route('fd.flashs.index') }}">{{ trans('fd.flashdeal.management') }}</a>
         <a class="btn btn-default" href="{{ URL::route('fd.coupons.index') }}">{{ trans('fd.coupon.management') }}</a>
         <a class="btn btn-default" href="#">{{ trans('common.settings') }}</a>
-        <a class="btn btn-default" href="{{ URL::route('fd.flashs.sold') }}">{{ trans('fd.flashdeal.sold') }}</a>
-        <a class="btn btn-default" href="{{ URL::route('fd.coupons.sold') }}">{{ trans('fd.coupon.sold') }}</a>
-        <a class="btn btn-default" href="{{ URL::route('fd.flashs.active') }}">{{ trans('fd.flashdeal.active') }}</a>
-        <a class="btn btn-default" href="{{ URL::route('fd.coupons.active') }}">{{ trans('fd.coupon.active') }}</a>
-        <a class="btn btn-default" href="{{ URL::route('fd.flashs.expire') }}">{{ trans('fd.flashdeal.expired') }}</a>
-        <a class="btn btn-default" href="{{ URL::route('fd.coupons.expire') }}">{{ trans('fd.coupon.expired') }}</a>
+        <a class="btn btn-default" href="#">{{ trans('fd.flashdeal.sold') }}</a>
+        <a class="btn btn-default" href="#">{{ trans('fd.coupon.sold') }}</a>
+        <a class="btn btn-default" href="#">{{ trans('fd.flashdeal.active') }}</a>
+        <a class="btn btn-default" href="#">{{ trans('fd.coupon.active') }}</a>
+        <a class="btn btn-default" href="#">{{ trans('fd.expired') }}</a>
     </div>
     <div class="col-md-9">
         <div class="top-buttons pull-right">

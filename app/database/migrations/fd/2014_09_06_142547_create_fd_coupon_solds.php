@@ -17,7 +17,7 @@ class CreateFdCouponSolds extends Migration {
     	    $t->engine ='InnoDB';
     	    $t->increments('id')->unsigned();
     	    $t->integer('coupon_id')->unsigned();
-    	    $t->string('coupon_code', 16);
+    	    $t->decimal('coupon_code', 6, 2);
     	    $t->boolean('is_used');
     	    $t->boolean('is_paid');
     	    $t->timestamps();

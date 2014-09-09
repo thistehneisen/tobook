@@ -12,8 +12,8 @@ class Flash extends Eloquent
         return $this->belongsTo('\App\FlashDeal\Models\Service', 'service_id');
     }
     
-    public function solds()
+    public function flashTimes()
     {
-        return $this->hasMany('\App\FlashDeal\Models\FlashSold', 'flash_id');
-    }
+        return $this->hasMany('\App\FlashDeal\Models\FlashTime', 'flash_id');
+    }    
 }

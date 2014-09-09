@@ -52,12 +52,7 @@ return [
     'country'               => 'Country',
     'start_date'            => 'Start Date',
     'end_date'              => 'End Date',
-    'start_time'            => 'Start Time',
-    'end_time'              => 'End Time',    
     'quantity'              => 'Quantity',
     'count'                 => 'Count',
-    'delete'                => 'Delete',
-    'date_time'             => 'Date Time',
-    'consumer'              => 'Consumer',
-    'price'                 => 'Price',
+    'delete'                => 'Delete',    
 ];
