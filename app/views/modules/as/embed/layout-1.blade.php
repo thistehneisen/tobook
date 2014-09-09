@@ -1,6 +1,26 @@
 @extends ('modules.as.embed.embed')
 
 @section ('content')
+@if(!empty($user->asOptions['style_logo']) || (!empty($user->asOptions['style_banner'])))
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3">
+            @if(!empty($user->asOptions['style_logo']))
+            <img class="img-responsive" src="{{ $user->asOptions['style_logo'] }}" alt="">
+            @else
+            &nbsp;
+            @endif
+        </div>
+        <div class="col-sm-9">
+            @if(!empty($user->asOptions['style_banner']))
+            <img class="img-responsive" src="{{ $user->asOptions['style_banner'] }}" alt="">
+            @else
+            &nbsp;
+            @endif
+        </div>
+    </div>
+</div>
+@endif
 <div class="container-fluid">
     <!-- Sidebar -->
     <div class="col-sm-3">

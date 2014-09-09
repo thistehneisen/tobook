@@ -8,6 +8,28 @@
     {{ HTML::style(asset('packages/alertify/alertify.core.css')) }}
     {{ HTML::style(asset('packages/alertify/alertify.bootstrap.css')) }}
     <link rel="stylesheet" href="{{ asset('assets/css/as/layout-1.css') }}">
+    <style type="text/css">
+        @if(!empty($user->asOptions['style_background']) || !empty($user->asOptions['style_color']))
+        body {
+            @if(!empty($user->asOptions['style_background']))
+            background-color: {{ $user->asOptions['style_background'] }} !important;
+            @endif
+            @if(!empty($user->asOptions['style_color']))
+            color: {{ $user->asOptions['style_color'] }};
+            @endif
+        }
+        @endif
+
+        @if(!empty($user->asOptions['style_heading_color']))
+        .panel-heading {
+            color: {{ $user->asOptions['style_heading_color'] }} !important
+        }
+        @endif
+
+        @if(!empty($user->asOptions['style_custom_css']))
+        {{ $user->asOptions['style_custom_css'] }}
+        @endif
+    </style>
 </head>
 <body>
     @yield('content')

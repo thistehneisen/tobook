@@ -108,6 +108,7 @@ class Embed extends AsBase
             ->get();
 
         return $this->render('layout-'.$layoutId, [
+            'user'          => $user,
             'categories'    => $categories,
             'employees'     => $employees,
             'booking_info'  => $booking_info,
