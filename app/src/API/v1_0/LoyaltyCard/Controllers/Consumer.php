@@ -6,21 +6,25 @@ use App\LoyaltyCard\Models\Consumer as Model;
 use App\LoyaltyCard\Models\Offer as OfferModel;
 use App\LoyaltyCard\Models\Transaction as TransactionModel;
 use App\Core\Controllers\Base as Base;
+use App\LoyaltyCard\Controllers\ConsumerRepository as ConsumerRepository;
 
 class Consumer extends Base
 {
+    protected $consumerRepository;
+
+    public function __construct(ConsumerRepository $consumerRp)
+    {
+        $this->consumerRepository = $consumerRp;
+    }
+
     /**
-     * Display a listing of the resource.
+     * Display list of consumers.
      *
      * @return Response
      */
     public function index()
     {
-        // get all the consumers
-        $consumers = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-                        ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-                        ->where('consumer_user.user_id', Auth::user()->id)
-                        ->get();
+        $consumers = $this->consumerRepository->getAllConsumers(true);
 
         if ($consumers->toArray()) {
             return Response::json([
@@ -34,6 +38,28 @@ class Consumer extends Base
             ], 404);
         }
     }
+
+
+    // public function index()
+    // {
+    //     // get all the consumers
+    //     $consumers = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
+    //                     ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
+    //                     ->where('consumer_user.user_id', Auth::user()->id)
+    //                     ->get();
+
+    //     if ($consumers->toArray()) {
+    //         return Response::json([
+    //             'error' => false,
+    //             'consumers' => $consumers->toArray(),
+    //         ], 200);
+    //     } else {
+    //         return Response::json([
+    //             'error' => true,
+    //             'message' => 'No customer found',
+    //         ], 404);
+    //     }
+    // }
 
 
     /**

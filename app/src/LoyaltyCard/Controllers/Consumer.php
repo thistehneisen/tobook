@@ -8,31 +8,23 @@ use App\LoyaltyCard\Models\Voucher as VoucherModel;
 use App\LoyaltyCard\Models\Offer as OfferModel;
 use App\Core\Controllers\Base as Base;
 use App\LoyaltyCard\Models\Transaction as TransactionModel;
+use App\LoyaltyCard\Controllers\ConsumerRepository as ConsumerRepository;
 
 class Consumer extends Base
 {
+    protected $consumerRepository;
+
+    public function __construct(ConsumerRepository $consumerRp)
+    {
+        $this->consumerRepository = $consumerRp;
+    }
+
     /**
      * Make view index for both app and BE
-     * @return Response
+     * @return View
      */
     private function viewIndex($isApp = false, $search = null) {
-        if ($search != null) {
-            $consumers = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-                            ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-                            ->where('consumer_user.user_id', Confide::user()->id)
-                            ->where('consumers.first_name', 'like', '%' . $search . '%')
-                            ->orWhere('consumers.last_name', 'like', '%' . $search . '%')
-                            ->orWhere('consumers.email', 'like', '%' . $search . '%')
-                            ->orWhere('consumers.phone', 'like', '%' . $search . '%')
-                            ->select('lc_consumers.id', 'consumers.first_name', 'consumers.last_name', 'consumers.email', 'consumers.phone', 'lc_consumers.updated_at')
-                            ->paginate(10);
-        } else {
-            $consumers = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-                            ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-                            ->where('consumer_user.user_id', Confide::user()->id)
-                            ->select('lc_consumers.id', 'consumers.first_name', 'consumers.last_name', 'consumers.email', 'consumers.phone', 'lc_consumers.updated_at')
-                            ->paginate(10);
-        }
+        $consumers = $this->consumerRepository->getAllConsumers(false, $search);
 
         $viewName = $isApp ? 'modules.lc.app.index' : 'modules.lc.consumers.index';
         return View::make($viewName)
