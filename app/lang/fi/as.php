@@ -22,12 +22,43 @@ Palvelut
 Terveisin,
 HTML;
 
+$notificationBody = <<< HTML
+Hei {Name},
+Tämä on muistutusviesti varauksestasi!
+
+Varaus id: {BookingID}
+
+Palvelut
+
+{Services}
+
+Terveisin,
+HTML;
+
 $reminderSmsMessage = <<< HTML
 Hei,
 
 Kiitos varauksestasi palveluun:
 
 {Services}
+
+Terveisin,
+HTML;
+
+$notificationConsumerMessage = <<< HTML
+Hei,
+
+Kiitos varauksestasi palveluun:
+
+{Services}
+
+Terveisin,
+HTML;
+
+$notificationEmployeeMessage = <<< HTML
+Hei,
+
+Sinulle on uusi varaus asiakkaalta {Consumer} palveluun {Services}
 
 Terveisin,
 HTML;
@@ -265,68 +296,79 @@ return [
             'phone_number'    => 'SMS phone number', // @todo
             'business_name'   => 'Business name', // @todo
         ],
-        'booking' => [
-            'index'                            => 'Varaukset',
-            'booking_form'                     => 'Varauslomake',
-            'reminders'                        => 'Muistutus',
-            'confirmations'                    => 'Vahvistus',
-            'terms'                            => 'Ehdot',
-            'confirmed'                        => 'Confirmed',
-            'pending'                          => 'Pending',
-            'accept_bookings'                  => 'Hyväksy varauksia',
-            'hide_prices'                      => 'Piilota hinnat',
-            'step'                             => 'Askel',
-            'status_if_not_paid'               => 'Oletustila maksetuille varauksille',
-            'status_if_paid'                   => 'Oletustila maksamattomille varauksille',
-            'bf_address_1'                     => 'Osoite 1',
-            'bf_address_2'                     => 'Osoite 2',
-            'bf_captcha'                       => 'Tunniste',
-            'bf_city'                          => 'Kaupunki',
-            'bf_country'                       => 'Maa',
-            'bf_email'                         => 'Sähköposti',
-            'bf_name'                          => 'Nimi',
-            'bf_notes'                         => 'Muistiinpanoja',
-            'bf_phone'                         => 'Puhelinnumero',
-            'bf_state'                         => 'Kunta',
-            'bf_terms'                         => 'Ehdot',
-            'bf_zip'                           => 'Postinumero',
-            'reminder_enable'                  => 'Muistutusviestit käytössä',
-            'reminder_email_before'            => 'Lähetä muistutus sähköpostilla',
-            'reminder_subject'                 => 'Muistutussähköpostiviestin otsikko',
-            'reminder_subject_default'         => 'Muistutus varauksestasi',
-            'reminder_body'                    => 'Sähköpostimuistutuksen runko',
-            'reminder_body_default'            => $reminderBody,
-            'reminder_sms_hours'               => 'Lähetä muistutus tekstiviestillä',
-            'reminder_sms_country_code'        => 'SMS Maatunnus',
-            'reminder_sms_message'             => 'Tekstiviesti',
-            'reminder_sms_message_default'     => $reminderSmsMessage,
-            'terms_url'                        => 'URL osoite ehdoille',
-            'terms_body'                       => 'Booking terms content', // @todo
-            'terms_body_default'               => $termBody,
-            'confirm_subject_client'           => 'Asiakkaan vahvistuksen otsikko',
-            'confirm_subject_client_default'   => 'Kiitos varauksestasi',
-            'confirm_tokens_client'            => 'Viestin sisältö',
-            'confirm_tokens_client_default'    => $confirmTokensClient,
-            'payment_subject_client'           => 'Asiakkaan maksuvahvistuksen otsikko',
-            'payment_subject_client_default'   => 'Payment received', // @todo
-            'payment_tokens_client'            => 'Viestin sisältö',
-            'payment_tokens_client_default'    => $paymentTokensClient,
-            'confirm_subject_admin'            => 'Hallintapaneelin maksuvahvistuksen otsikko',
-            'confirm_subject_admin_default'    => 'Uusi varaus on saapunut',
-            'confirm_tokens_admin'             => 'Viestin sisältö',
-            'confirm_tokens_admin_default'     => $confirmTokensAdmin,
-            'payment_subject_admin'            => 'Ylläpitäjän maksuvahvistuksen otsikko',
-            'payment_subject_admin_default'    => 'New payment received', // @todo
-            'payment_tokens_admin'             => 'Viestin sisältö',
-            'payment_tokens_admin_default'     => $paymentTokensAdmin,
-            'confirm_subject_employee'         => 'Työntekijän varauksen otsikko',
-            'confirm_subject_employee_default' => 'Uusi varaus on saapunut',
-            'confirm_tokens_employee'          => 'Viestin sisältö',
-            'confirm_tokens_employee_default'  => $confirmTokensEmployee,
-            'payment_subject_employee'         => 'Työntekijän maksun otsikko',
-            'payment_subject_employee_default' => 'New payment received', // @todo
-            'payment_tokens_employee'          => 'Viestin sisältö',
-            'payment_tokens_employee_default'  => $paymentTokensEmployee,
+        'booking'                                        => [
+        'index'                                          => 'Varaukset',
+        'booking_form'                                   => 'Varauslomake',
+        'reminders'                                      => 'Muistutus',
+        'confirmations'                                  => 'Vahvistus',
+        'terms'                                          => 'Ehdot',
+        'confirmed'                                      => 'Confirmed',
+        'pending'                                        => 'Pending',
+        'accept_bookings'                                => 'Hyväksy varauksia',
+        'hide_prices'                                    => 'Piilota hinnat',
+        'step'                                           => 'Askel',
+        'status_if_not_paid'                             => 'Oletustila maksetuille varauksille',
+        'status_if_paid'                                 => 'Oletustila maksamattomille varauksille',
+        'bf_address_1'                                   => 'Osoite 1',
+        'bf_address_2'                                   => 'Osoite 2',
+        'bf_captcha'                                     => 'Tunniste',
+        'bf_city'                                        => 'Kaupunki',
+        'bf_country'                                     => 'Maa',
+        'bf_email'                                       => 'Sähköposti',
+        'bf_name'                                        => 'Nimi',
+        'bf_notes'                                       => 'Muistiinpanoja',
+        'bf_phone'                                       => 'Puhelinnumero',
+        'bf_state'                                       => 'Kunta',
+        'bf_terms'                                       => 'Ehdot',
+        'bf_zip'                                         => 'Postinumero',
+        'reminder_enable'                                => 'Muistutusviestit käytössä',
+        'reminder_email_before'                          => 'Lähetä muistutus sähköpostilla',
+        'reminder_subject'                               => 'Muistutussähköpostiviestin otsikko',
+        'reminder_subject_default'                       => 'Muistutus varauksestasi',
+        'reminder_body'                                  => 'Sähköpostimuistutuksen runko',
+        'reminder_body_default'                          => $reminderBody,
+        'reminder_sms_hours'                             => 'Lähetä muistutus tekstiviestillä',
+        'reminder_sms_country_code'                      => 'SMS Maatunnus',
+        'reminder_sms_message'                           => 'Tekstiviesti',
+        'reminder_sms_message_default'                   => $reminderSmsMessage,
+        'notification_email_enable'                      => 'Enable email',// @todo
+        'notification_sms_enable'                        => 'Enable sms',// @todo
+        'notification_subject'                           => 'Subject',// @todo
+        'notification_subject_default'                   => 'Subject default',// @todo
+        'notification_body'                              => 'Body',// @todo
+        'notification_body_default'                      => $notificationBody,// @todo
+        'notification_sms_country_code'                  => 'Code',// @todo
+        'notification_consumer_sms_message'              => 'Consumer sms',// @todo
+        'notification_employee_sms_message'              => 'Employee sms',// @todo
+        'notification_consumer_body_sms_message_default' => $notificationConsumerMessage,
+        'notification_employee_body_sms_message_default' => $notificationEmployeeMessage,
+        'terms_url'                                      => 'URL osoite ehdoille',
+        'terms_body'                                     => 'Booking terms content', // @todo
+        'terms_body_default'                             => $termBody,
+        'confirm_subject_client'                         => 'Asiakkaan vahvistuksen otsikko',
+        'confirm_subject_client_default'                 => 'Kiitos varauksestasi',
+        'confirm_tokens_client'                          => 'Viestin sisältö',
+        'confirm_tokens_client_default'                  => $confirmTokensClient,
+        'payment_subject_client'                         => 'Asiakkaan maksuvahvistuksen otsikko',
+        'payment_subject_client_default'                 => 'Payment received', // @todo
+        'payment_tokens_client'                          => 'Viestin sisältö',
+        'payment_tokens_client_default'                  => $paymentTokensClient,
+        'confirm_subject_admin'                          => 'Hallintapaneelin maksuvahvistuksen otsikko',
+        'confirm_subject_admin_default'                  => 'Uusi varaus on saapunut',
+        'confirm_tokens_admin'                           => 'Viestin sisältö',
+        'confirm_tokens_admin_default'                   => $confirmTokensAdmin,
+        'payment_subject_admin'                          => 'Ylläpitäjän maksuvahvistuksen otsikko',
+        'payment_subject_admin_default'                  => 'New payment received', // @todo
+        'payment_tokens_admin'                           => 'Viestin sisältö',
+        'payment_tokens_admin_default'                   => $paymentTokensAdmin,
+        'confirm_subject_employee'                       => 'Työntekijän varauksen otsikko',
+        'confirm_subject_employee_default'               => 'Uusi varaus on saapunut',
+        'confirm_tokens_employee'                        => 'Viestin sisältö',
+        'confirm_tokens_employee_default'                => $confirmTokensEmployee,
+        'payment_subject_employee'                       => 'Työntekijän maksun otsikko',
+        'payment_subject_employee_default'               => 'New payment received', // @todo
+        'payment_tokens_employee'                        => 'Viestin sisältö',
+        'payment_tokens_employee_default'                => $paymentTokensEmployee,
         ],
         'style' => [
             'index'               => 'Tyyli',

@@ -1,4 +1,147 @@
 <?php
+$termBody = <<< HTML
+Varausehdot
+
+Varaus tulee sitovasti voimaan, kun asiakas on tehnyt varauksen ja saanut siitä vahvistuksen joko puhelimitse tai kirjallisesti sähköpostitse. Palveluntarjoaja kantaa kaiken vastuun palvelun tuottamisesta ja hoitaa tarvittaessa kaiken yhteydenpidon asiakkaisiin.
+
+Peruutusehdot
+
+Varaajalla on oikeus peruutus- ja varausehtojen puitteissa peruuttaa varauksensa ilmoittamalla siitä puhelimitse vähintään 48h ennen palveluajan alkamista. Muutoin paikalle saapumatta jättämisestä voi palveluntarjoaja halutessaan periä voimassaolevan hinnastonsa mukaisen palvelukorvauksen.
+HTML;
+
+$reminderBody = <<< HTML
+Hei {Name},
+Tämä on muistutusviesti varauksestasi!
+
+Varaus id: {BookingID}
+
+Palvelut
+
+{Services}
+
+Terveisin,
+HTML;
+
+$notificationBody = <<< HTML
+Hei {Name},
+Tämä on muistutusviesti varauksestasi!
+
+Varaus id: {BookingID}
+
+Palvelut
+
+{Services}
+
+Terveisin,
+HTML;
+
+$reminderSmsMessage = <<< HTML
+Hei,
+
+Kiitos varauksestasi palveluun:
+
+{Services}
+
+Terveisin,
+HTML;
+
+$notificationConsumerMessage = <<< HTML
+Hei,
+
+Kiitos varauksestasi palveluun:
+
+{Services}
+
+Terveisin,
+HTML;
+
+$notificationEmployeeMessage = <<< HTML
+Hei,
+
+Sinulle on uusi varaus asiakkaalta {Consumer} palveluun {Services}
+
+Terveisin,
+HTML;
+
+$confirmTokensClient = <<< HTML
+Hei!
+
+Kiitos varauksestasi!
+
+Valitut palvelut:
+{Services}
+
+**Mikäli peruutat varauksen se tulee tehdä 48 tuntia ennen varattua aikaa.
+
+Tervetuloa!
+
+
+
+Palvelun tarjoaa varaa.com
+HTML;
+
+// @todo
+$paymentTokensClient = <<< HTML
+We've received the payment for your booking and it is now confirmed.
+
+ID: {BookingID}
+
+Thank you,
+The Management
+HTML;
+
+$confirmTokensAdmin = <<< HTML
+Hei!
+
+Olet saanut uuden varauksen
+
+ID: {BookingID}
+
+Palvelut
+{Services}
+
+Asiakkaan tiedot
+Nimi: {Name}
+Puhelin: {Phone}
+Email: {Email}
+
+Lisätiedot:
+{Notes}
+HTML;
+
+// @todo
+$paymentTokensAdmin = <<< HTML
+Booking deposit has been paid.
+
+ID: {BookingID}
+HTML;
+
+$confirmTokensEmployee = <<< HTML
+Hei!
+
+Olet saanut uuden varauksen
+
+ID: {BookingID}
+
+Palvelut
+{Services}
+
+Asiakkaan tiedot
+Nimi: {Name}
+Puhelin: {Phone}
+Email: {Email}
+
+Lisätiedot:
+{Notes}
+HTML;
+
+// @todo
+$paymentTokensEmployee = <<< HTML
+Booking deposit has been paid.
+
+ID: {BookingID}
+HTML;
+
 return [
     'index' => [
         'heading'     => 'Welcome',
@@ -130,6 +273,112 @@ return [
         'email'            => 'Email',
         'phone'            => 'Phone number',
         'checkout'         => 'Checkout', // @todo
+    ],
+     'options' => [
+        'updated' => 'Options updated', // @todo
+        'general' => [
+            'index'           => 'Yleinen',
+            'heading'         => 'Yleisasetukset',
+            'info'            => 'Säädä asetuksesi kohdalleen',
+            'currency'        => 'Valuutta',
+            'custom_status'   => 'Custom Status',
+            'datetime_format' => 'Päiväyksen muoto',
+            'date_format'     => 'Päivämäärä formaatti',
+            'time_format'     => 'Aikamuoto',
+            'layout'          => 'Näkymä',
+            'seo_url'         => 'SEO URLs',
+            'timezone'        => 'Aikavyöhyke',
+            'week_numbers'    => 'Näytä viikkonumerot',
+            'week_start'      => 'Viikon ensimmäinen päivä?',
+            'phone_number'    => 'SMS phone number', // @todo
+            'business_name'   => 'Business name', // @todo
+        ],
+        'booking'                                        => [
+        'index'                                          => 'Varaukset',// @todo
+        'booking_form'                                   => 'Varauslomake',// @todo
+        'reminders'                                      => 'Muistutus',// @todo
+        'confirmations'                                  => 'Vahvistus',// @todo
+        'terms'                                          => 'Ehdot',// @todo
+        'confirmed'                                      => 'Confirmed',// @todo
+        'pending'                                        => 'Pending',// @todo
+        'accept_bookings'                                => 'Hyväksy varauksia',// @todo
+        'hide_prices'                                    => 'Piilota hinnat',// @todo
+        'step'                                           => 'Askel',// @todo
+        'status_if_not_paid'                             => 'Oletustila maksetuille varauksille',// @todo
+        'status_if_paid'                                 => 'Oletustila maksamattomille varauksille',// @todo
+        'bf_address_1'                                   => 'Osoite 1',// @todo
+        'bf_address_2'                                   => 'Osoite 2',// @todo
+        'bf_captcha'                                     => 'Tunniste',// @todo
+        'bf_city'                                        => 'Kaupunki',// @todo
+        'bf_country'                                     => 'Maa',// @todo
+        'bf_email'                                       => 'Sähköposti',// @todo
+        'bf_name'                                        => 'Nimi',// @todo
+        'bf_notes'                                       => 'Muistiinpanoja',// @todo
+        'bf_phone'                                       => 'Puhelinnumero',// @todo
+        'bf_state'                                       => 'Kunta',// @todo
+        'bf_terms'                                       => 'Ehdot',// @todo
+        'bf_zip'                                         => 'Postinumero',// @todo
+        'reminder_enable'                                => 'Muistutusviestit käytössä',// @todo
+        'reminder_email_before'                          => 'Lähetä muistutus sähköpostilla',// @todo
+        'reminder_subject'                               => 'Muistutussähköpostiviestin otsikko',// @todo
+        'reminder_subject_default'                       => 'Muistutus varauksestasi',// @todo
+        'reminder_body'                                  => 'Sähköpostimuistutuksen runko',// @todo
+        'reminder_body_default'                          => $reminderBody,// @todo
+        'reminder_sms_hours'                             => 'Lähetä muistutus tekstiviestillä',// @todo
+        'reminder_sms_country_code'                      => 'SMS Maatunnus',// @todo
+        'reminder_sms_message'                           => 'Tekstiviesti',// @todo
+        'reminder_sms_message_default'                   => $reminderSmsMessage,
+        'notification_email_enable'                      => 'Enable email',// @todo
+        'notification_sms_enable'                        => 'Enable sms',// @todo
+        'notification_subject'                           => 'Subject',// @todo
+        'notification_subject_default'                   => 'Subject default',// @todo
+        'notification_body'                              => 'Body',// @todo
+        'notification_body_default'                      => $notificationBody,// @todo
+        'notification_sms_country_code'                  => 'Code',// @todo
+        'notification_consumer_sms_message'              => 'Consumer sms',// @todo
+        'notification_employee_sms_message'              => 'Employee sms',// @todo
+        'notification_consumer_body_sms_message_default' => $notificationConsumerMessage,// @todo
+        'notification_employee_body_sms_message_default' => $notificationEmployeeMessage,// @todo
+        'terms_url'                                      => 'URL osoite ehdoille',// @todo
+        'terms_body'                                     => 'Booking terms content', // @todo
+        'terms_body_default'                             => $termBody,// @todo
+        'confirm_subject_client'                         => 'Asiakkaan vahvistuksen otsikko',// @todo
+        'confirm_subject_client_default'                 => 'Kiitos varauksestasi',// @todo
+        'confirm_tokens_client'                          => 'Viestin sisältö',// @todo
+        'confirm_tokens_client_default'                  => $confirmTokensClient,// @todo
+        'payment_subject_client'                         => 'Asiakkaan maksuvahvistuksen otsikko',// @todo
+        'payment_subject_client_default'                 => 'Payment received', // @todo
+        'payment_tokens_client'                          => 'Viestin sisältö',// @todo
+        'payment_tokens_client_default'                  => $paymentTokensClient,
+        'confirm_subject_admin'                          => 'Hallintapaneelin maksuvahvistuksen otsikko',// @todo
+        'confirm_subject_admin_default'                  => 'Uusi varaus on saapunut',// @todo
+        'confirm_tokens_admin'                           => 'Viestin sisältö',// @todo
+        'confirm_tokens_admin_default'                   => $confirmTokensAdmin,// @todo
+        'payment_subject_admin'                          => 'Ylläpitäjän maksuvahvistuksen otsikko',// @todo
+        'payment_subject_admin_default'                  => 'New payment received', // @todo
+        'payment_tokens_admin'                           => 'Viestin sisältö',// @todo
+        'payment_tokens_admin_default'                   => $paymentTokensAdmin,// @todo
+        'confirm_subject_employee'                       => 'Työntekijän varauksen otsikko',// @todo
+        'confirm_subject_employee_default'               => 'Uusi varaus on saapunut',// @todo
+        'confirm_tokens_employee'                        => 'Viestin sisältö',// @todo
+        'confirm_tokens_employee_default'                => $confirmTokensEmployee,// @todo
+        'payment_subject_employee'                       => 'Työntekijän maksun otsikko',// @todo
+        'payment_subject_employee_default'               => 'New payment received', // @todo
+        'payment_tokens_employee'                        => 'Viestin sisältö',// @todo
+        'payment_tokens_employee_default'                => $paymentTokensEmployee,// @todo
+        ],
+        'style' => [
+            'index'               => 'Tyyli',
+            'style_logo'          => 'Logo URL',
+            'style_banner'        => 'Banneri',
+            'style_heading_color' => 'Heading color', // @todo
+            'style_color'         => 'Väri',
+            'style_background'    => 'Tausta',
+            'style_custom_css'    => 'Custom CSS', // @todo
+        ],
+        'working_time' => [
+            'index' => 'Working time',
+        ]
     ],
     'reports' => [
         'index'     => 'Reports',

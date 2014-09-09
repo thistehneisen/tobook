@@ -370,34 +370,41 @@ class Bookings extends AsBase
             Session::forget('carts');
             Session::forget('booking_info');
 
-            $subject = $user->asOptions['confirm_subject_client'];
-            $body    = $user->asOptions['confirm_tokens_client'];
+            $emailEnabled = (bool) $user->asOptions['notification_email_enable'];
 
-            $serviceInfo = sprintf("%s, %s (%s - %s)",
-                            $bookingService->service->name,
-                            $booking->date,
-                            $booking->start_at,
-                            $booking->end_at);
+            if($emailEnabled){
+                $subject = $user->asOptions['confirm_subject_client'];
+                $body    = $user->asOptions['confirm_tokens_client'];
 
-            $email['title'] = $subject;
-            $email['body']  = nl2br(str_replace('{Services}', $serviceInfo, $body));
+                $serviceInfo = sprintf("%s, %s (%s - %s)",
+                                $bookingService->service->name,
+                                $booking->date,
+                                $booking->start_at,
+                                $booking->end_at);
 
-            Mail::send('modules.as.emails.confirm', $email, function($message) use($consumer, $subject)
-            {
-                $message->to($consumer->email, $consumer->name)->subject($subject);
-            });
+                $email['title'] = $subject;
+                $email['body']  = nl2br(str_replace('{Services}', $serviceInfo, $body));
+
+                Mail::send('modules.as.emails.confirm', $email, function($message) use($consumer, $subject)
+                {
+                    $message->to($consumer->email, $consumer->name)->subject($subject);
+                });
+            }
 
             //Code ugly as fuck, need to be refactory
-            $smsMessage =  $user->asOptions['reminder_sms_message'];
-            $from = 'varaa.com';
-            $to = $consumer->phone;
-            if (strpos($to, '0') === 0 ) {
-                $to = ltrim($to, '0');
+            $smsEnabled = (bool) $user->asOptions['notification_sms_enable'];
+            if($smsEnabled){
+                $smsMessage =  $user->asOptions['reminder_sms_message'];
+                $from = 'varaa.com';
+                $to = $consumer->phone;
+                if (strpos($to, '0') === 0 ) {
+                    $to = ltrim($to, '0');
+                }
+                $code = $user->asOptions['reminder_sms_country_code'];
+                $to = (empty($code)) ? $code . $to : '358' . $to;
+                $msg  = str_replace('{Services}', $serviceInfo, $smsMessage);
+                Sms::send($from, $to, $msg);
             }
-            $code = $user->asOptions['reminder_sms_country_code'];
-            $to = (empty($code)) ? $code . $to : '358' . $to;
-            $msg  = str_replace('{Services}', $serviceInfo, $smsMessage);
-            Sms::send($from, $to, $msg);
 
             $data['status']      = true;
         } catch (\Exception $ex) {
