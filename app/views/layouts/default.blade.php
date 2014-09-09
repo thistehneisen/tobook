@@ -127,7 +127,7 @@
                 <div class="form-group">
                     <div class="input-group input-group">
                         <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                        <input type="text" class="form-control" id="js-queryInput" name="query" placeholder="{{ trans('home.search.query') }}" value="{{{ Input::get('query') }}}" />
+                        <input type="text" class="form-control typeahead" id="js-queryInput" name="query" placeholder="{{ trans('home.search.query') }}" value="{{{ Input::get('query') }}}" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -170,6 +170,8 @@
 
     {{ HTML::script('//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js') }}
     {{ HTML::script('//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js') }}
+    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.4/typeahead.bundle.min.js') }}
+    {{ HTML::script(asset('assets/js/main.js')) }}
     @yield('scripts')
 </body>
 </html>
