@@ -20,9 +20,22 @@ Route::get('/', [
 
 Route::get('/search', [
     'as'    => 'search',
-    'uses'  => 'App\Core\Controllers\Front@search'
+    'uses'  => 'App\Core\Controllers\Search@index'
 ]);
 
+
+Route::group(['prefix' => 'ajax'], function () {
+    Route::get('categories.json', [
+        'as'    => 'ajax.categories',
+        'uses'  => 'App\Core\Controllers\Front@ajaxGetCategories'
+    ]);
+});
+
+/*
+|--------------------------------------------------------------------------
+| Business introduction routes
+|--------------------------------------------------------------------------
+*/
 Route::group(['prefix' => 'business'], function () {
     Route::get('/', [
         'as'    => 'business-index',

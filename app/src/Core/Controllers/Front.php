@@ -1,7 +1,7 @@
 <?php namespace App\Core\Controllers;
 
-use View;
-use Confide;
+use View, Confide, Response, Input;
+use App\Core\Models\BusinessCategory;
 
 class Front extends Base
 {
@@ -10,9 +10,23 @@ class Front extends Base
         return View::make('front.home');
     }
 
-    public function search()
+    public function ajaxGetCategories()
     {
-        return View::make('front.search.index');
+        $categories = BusinessCategory::getAll();
+        $result = [];
+        foreach ($categories as $cat) {
+            $result[] = $cat->name;
+            if ($cat->keywords !== '') {
+                $result = array_merge($result, array_map('trim', explode(',', $cat->keywords)));
+            }
+            foreach ($cat->children as $subCat) {
+                $result[] = $subCat->name;
+                if ($subCat->keywords !== '') {
+                    $result = array_merge($result, array_map('trim', explode(',', $subCat->keywords)));
+                }
+            }
+        }
+        return Response::json($result, 200);
     }
 
     // for business

@@ -1,0 +1,18 @@
+.comfortaa {
+  font-family: "Comfortaa", Helvetica, Arial, Verdana;
+}
+.orange {
+  color: #ec7923;
+}
+.main {
+  margin: 10px auto;
+}
+.main .search-left {
+  height: 600px;
+  overflow-y: scroll;
+  border-right: 1px solid #ccc;
+}
+.main .search-left .business-card {
+  border-bottom: 1px solid #ccc;
+  margin: 15px 0;
+}

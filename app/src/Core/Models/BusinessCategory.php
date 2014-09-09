@@ -29,7 +29,7 @@ class BusinessCategory extends Base
     //--------------------------------------------------------------------------
     public static function getAll()
     {
-        $all = static::root()->with('children')->get();
+        return static::root()->with('children')->get();
     }
 
     public function icon()

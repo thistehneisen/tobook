@@ -15,12 +15,8 @@ class User extends ConfideUser
         'first_name',
         'last_name',
         'phone',
-        /*'address_1',
-        'address_2',
+        'address',
         'city',
-        'state',
-        'zipcode',
-        'country',*/
     ];
 
     public $fillable = [
