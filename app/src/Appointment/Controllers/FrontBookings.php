@@ -15,4 +15,6 @@ use Carbon\Carbon;
 class FrontBookings extends Bookings
 {
     //Use this controller to avoid authentication in Bookings
+
+    //TODO create addFrontEndBookingService to handle Extra service
 }

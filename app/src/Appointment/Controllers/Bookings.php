@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Controllers;
 
-use App, View, Confide, Redirect, Input, Config, Response, Util, Hashids, Session, Request, Mail;
+use App, View, Confide, Redirect, Input, Config, Response, Util, Hashids, Session, Request, Mail, Sms;
 use Illuminate\Support\Collection;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
@@ -379,13 +379,24 @@ class Bookings extends AsBase
                             $booking->start_at,
                             $booking->end_at);
 
-            $data['title'] = $subject;
-            $data['body']  = nl2br(str_replace('{Services}', $serviceInfo, $body));
+            $email['title'] = $subject;
+            $email['body']  = nl2br(str_replace('{Services}', $serviceInfo, $body));
 
-            Mail::send('modules.as.emails.confirm', $data, function($message) use($consumer, $subject)
+            Mail::send('modules.as.emails.confirm', $email, function($message) use($consumer, $subject)
             {
                 $message->to($consumer->email, $consumer->name)->subject($subject);
             });
+
+            $smsMessage =  $user->asOptions['reminder_sms_message'];
+            $from = 'varaa.com';
+            $to = $consumer->phone;
+            if (strpos($to, '0') === 0 ) {
+                $to = ltrim($to, '0');
+            }
+            $code = $user->asOptions['reminder_sms_country_code'];
+            $to = (empty($code)) ? $code . $to : '358' . $to;
+            $msg  = str_replace('{Services}', $serviceInfo, $smsMessage);
+            Sms::send($from, $to, $msg);
 
             $data['status']      = true;
         } catch (\Exception $ex) {
@@ -428,20 +439,23 @@ class Bookings extends AsBase
         }
 
         //TODO handle consumer validation
-        if (empty($consumer->id)) {
-            $consumer = Consumer::make([
-                'first_name' => $firstname,
-                'last_name'  => $lastname,
-                'email'      => $email,
-                'phone'      => $phone,
-                'address'    => $address
-            ], $userId);
+        $data = [
+            'first_name' => $firstname,
+            'last_name'  => $lastname,
+            'email'      => $email,
+            'phone'      => $phone,
+            'address'    => $address
+        ];
 
+        if (empty($consumer->id)) {
+            $consumer = Consumer::make($data, $userId);
             $asConsumer->user()->associate($user);
             $asConsumer->consumer()->associate($consumer);
             $asConsumer->save();
         } else {
             //TODO update consumer
+            $consumer->fill($data);
+            $consumer->saveOrFail();
         }
 
         return $consumer;
