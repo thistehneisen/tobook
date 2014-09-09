@@ -65,7 +65,7 @@ Route::group(['prefix' => 'business'], function () {
 | Auth Routes
 |--------------------------------------------------------------------------
 */
-Route::group(['prefix' => 'auth'], function () {
+Route::group(['prefix' => 'bussiness/auth'], function () {
 
     Route::get('login', [
         'as' => 'auth.login',

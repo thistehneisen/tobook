@@ -4,6 +4,7 @@ module.exports = (grunt) ->
       development:
         files: [
             { src: 'public/assets/less/main.less', dest: 'public/assets/css/main.css' },
+            { src: 'public/assets/less/dashboard.less', dest: 'public/assets/css/dashboard.css' },
             { src: 'public/assets/less/as/appointment.less', dest: 'public/assets/css/as/appointment.css' },
             { src: 'public/assets/less/as/layout-1.less', dest: 'public/assets/css/as/layout-1.css' }
         ]

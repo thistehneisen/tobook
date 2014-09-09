@@ -1,4 +1,4 @@
-@extends ('layouts.default')
+@extends ('layouts.dashboard')
 
 @section('title')
     @parent :: {{ trans('user.change_password') }}

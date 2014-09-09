@@ -1,4 +1,4 @@
-@extends ('layouts.default')
+@extends ('layouts.dashboard')
 
 @section('content')
 <h1 class="comfortaa">{{ trans('co.edit_heading', ['id' => $consumer->id]) }}</h1>
