@@ -92,7 +92,7 @@
                     </ul>
                 </li>
                 <li @if (Request::segment(2) === 'embed') {{ 'class="active"' }} @endif><a href="{{ route('as.embed.index') }}"><i class="fa fa-arrow-down"></i> {{ trans('as.embed.embed') }}</a></li>
-                <li @if (Route::currentRouteName() === 'as.embed.preview') {{ 'class="active"' }} @endif><a href="{{ route('as.embed.preview') }}"><i class="fa fa-desktop"></i> {{ trans('as.embed.preview') }}</a></li>
+                <li><a href="{{ route('as.embed.preview') }}" target="_blank"><i class="fa fa-desktop"></i> {{ trans('as.embed.preview') }}</a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
