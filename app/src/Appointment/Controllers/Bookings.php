@@ -394,7 +394,7 @@ class Bookings extends AsBase
             //Code ugly as fuck, need to be refactory
             $smsEnabled = (bool) $user->asOptions['confirm_sms_enable'];
             if($smsEnabled){
-                $smsMessage =  $user->asOptions['notification_sms_message'];
+                $smsMessage =  $user->asOptions['confirm_consumer_sms_message'];
                 $from = 'varaa.com';
                 $to = $consumer->phone;
                 if (strpos($to, '0') === 0 ) {
