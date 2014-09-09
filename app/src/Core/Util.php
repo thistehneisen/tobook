@@ -1,4 +1,5 @@
 <?php namespace App\Core;
+use DB;
 use Carbon\Carbon;
 /**
  * Providing a set of utility functions
@@ -65,5 +66,18 @@ class Util
         $display = '';
         if ($hidden) $display = 'style="display:none;"';
         echo "<pre {$display}>".var_export($var, true)."</pre>";
+    }
+
+    /**
+     * lastQuery()
+     * Helper function to get the last query
+     *
+     * @param mixed $var to be debugged
+     * @param bool $hidden is false by default, if $hidden is true then the output is hidden
+     * @return null
+     **/
+    public static function lastQuery($hidden = false) {
+        $queries = DB::getQueryLog();
+        static::pp(last($queries, $hidden));
     }
 }
