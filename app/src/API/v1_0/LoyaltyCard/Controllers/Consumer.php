@@ -70,9 +70,8 @@ class Consumer extends Base
      */
     public function show($id)
     {
-        $consumer = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-                            ->where('lc_consumers.consumer_id', $id)
-                            ->get();
+        // $consumer = Model::find($id);
+        $consumer = $this->consumerRepository->showConsumer(true, $id);
 
         if ($consumer) {
             return Response::json([
@@ -99,78 +98,63 @@ class Consumer extends Base
         $message = '';
         $status = 0;
 
-        if (Request::get('add_stamp') === '1') {
-            if (Request::get('offer_id')) {
-                $error = false;
-                $message = '';
-                $status = 0;
+        $consumer = Model::join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
+                        ->where('consumer_user.user_id', Auth::user()->id)
+                        ->where('id', $id)
+                        ->first();
 
-                $offerId = Request::get('offer_id');
-                $offer = OfferModel::find($offerId);
+        if ($consumer) {
+            if (Request::get('add_stamp') === '1') {
+                if (Request::get('offer_id')) {
+                    $offerId = Request::get('offer_id');
+                    $offer = OfferModel::where('user_id', Auth::user()->id)
+                                    ->where('id', $offerId)
+                                    ->first();
 
-                if ($offer) {
-                    $offerRequired = $offer->required;
-                    $offerFreeService = $offer->free_service;
+                    if (!$offer) {
+                        $message = 'Offer not found';
+                        $status = 404;
+                    }
 
-                    $consumer = Model::find($id);
-
-                    if ($consumer) {
-                        $consumerTotalStamps = $consumer->total_stamps;
-
-                        $transaction = new TransactionModel;
-                        $transaction->user_id = Auth::user()->id;
-                        $transaction->consumer_id = $id;
-                        $transaction->offer_id = $offerId;
-
-                        if ($consumerTotalStamps !== '') {
-                            $consumerTotalStamps = json_decode($consumerTotalStamps, true);
-                            $consumerThisStamp = $consumerTotalStamps[$offerId];
-                            $consumerNoOfStamps = $consumerThisStamp[0];
-                            $consumerFreeService = $consumerThisStamp[1];
-
-                            if ($offerRequired === $consumerNoOfStamps + 1) {
-                                $consumerNoOfStamps = 0;
-                                $consumerFreeService++;
-                                $transaction->stamp = $offerRequired * (-1);
-                                $transaction->free_service = $consumerFreeService;
-                            } else {
-                                $consumerNoOfStamps++;
-                                $transaction->stamp = 1;
-                                $transaction->free_service = 0;
-                            }
-
-                            $consumerTotalStamps[$offerId] = [$consumerNoOfStamps, $consumerFreeService];
-                            $consumerTotalStamps = json_encode($consumerTotalStamps);
-                        } else {
-                            $transaction->stamp = 1;
-                            $transaction->free_service = 0;
-                            $consumerTotalStamps = json_encode([$offerId => [1, 0]]);
-                        }
-
-                        $transaction->save();
-                        $consumer->total_stamps = $consumerTotalStamps;
-                        $consumer->save();
-
+                    if ($offer) {
+                        $this->consumerRepository->addStamp(true, $id, $offerId);
                         $error = false;
                         $message = 'Stamp added';
                         $status = 200;
-                    } else {
-                        $message = 'Customer not found';
-                        $status = 404;
                     }
                 } else {
-                    $message = 'Offer not found';
-                    $status = 404;
+                    $message = 'Offer ID missing';
+                    $status = 400;
                 }
-            } else {
-                $error = true;
-                $message = 'Offer ID missing';
-                $status = 400;
-            }
-        } else {
-            $consumer = Model::find($id);
+            } elseif (Request::get('use_offer') === '1') {
+                if (Request::get('offer_id')) {
+                    $offerId = Request::get('offer_id');
+                    $offer = OfferModel::where('user_id', Auth::user()->id)
+                                    ->where('id', $offerId)
+                                    ->first();
 
-            if ($consumer) {
+                    if (!$offer) {
+                        $message = 'Offer not found';
+                        $status = 404;
+                    }
+
+                    if ($offer) {
+                        $result = $this->consumerRepository->useOffer(true, $id, $offerId);
+
+                        if ($result === null) {
+                            $message = 'Not enough stamp';
+                            $status = 404;
+                        } else {
+                            $error = false;
+                            $message = 'Offer used';
+                            $status = 200;
+                        }
+                    }
+                } else {
+                    $message = 'Offer ID missing';
+                    $status = 400;
+                }
+            }  else {
                 // $rules = [
                 //     'email' => 'required|email',
                 //     'phone' => 'required|numeric',
@@ -207,10 +191,10 @@ class Consumer extends Base
                 $message = 'Consumer updated';
                 $status = 201;
                 // }
-            } else {
-                $message = 'Customer not found';
-                $status = 404;
             }
+        } else {
+            $message = 'Customer not found';
+            $status = 404;
         }
 
         return Response::json([
@@ -218,7 +202,6 @@ class Consumer extends Base
             'message' => $message,
         ], $status);
     }
-
 
     /**
      * Remove the specified resource from storage.

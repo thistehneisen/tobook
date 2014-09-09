@@ -1,8 +1,6 @@
 <?php namespace App\API\v1_0\LoyaltyCard\Controllers;
 use Validator, Response, Request;
 use \App\LoyaltyCard\Models\Offer as OfferModel;
-use \App\LoyaltyCard\Models\Consumer as ConsumerModel;
-use \App\API\LoyaltyCard\Models\Transaction as TransactionModel;
 use App\Core\Controllers\Base as Base;
 use Auth;
 
@@ -167,68 +165,6 @@ class Offer extends Base {
             $status = 404;
         }
 
-
-        return Response::json([
-            'error' => $error,
-            'message' => $message,
-        ], $status);
-    }
-
-    public function useOffer($id)
-    {
-        $error = true;
-        $message = '';
-        $status = 0;
-
-        $offer = OfferModel::find($id);
-
-        if ($offer) {
-            if (Request::get('customer_id')) {
-                $consumerId = Request::get('customer_id');
-                $consumer = ConsumerModel::find($consumerId);
-                $consumerTotalStamps = $consumer->total_stamps;
-
-                if ($consumerTotalStamps !== '') {
-                    $consumerTotalStamps = json_decode($consumerTotalStamps, true);
-                    $consumerThisStamp = $consumerTotalStamps[$id];
-                    $consumerNoOfStamps = $consumerThisStamp[0];
-                    $consumerFreeService = $consumerThisStamp[1];
-
-                    if ($consumerFreeService > 0) {
-                        $consumerFreeService -= 1;
-
-                        $consumerTotalStamps[$id] = [$consumerNoOfStamps, $consumerFreeService];
-                        $consumerTotalStamps = json_encode($consumerTotalStamps);
-
-                        $transaction = new TransactionModel;
-                        $transaction->user_id = Auth::user()->id;
-                        $transaction->consumer_id = $consumerId;
-                        $transaction->offer_id = $id;
-                        $transaction->stamp = 0;
-                        $transaction->free_service = -1;
-                        $transaction->save();
-                        $consumer->total_stamps = $consumerTotalStamps;
-                        $consumer->save();
-
-                        $error = false;
-                        $message = 'Offer used';
-                        $status = 200;
-                    } else {
-                        $message = 'Not enough free service';
-                        $status = 400;
-                    }
-                } else {
-                    $message = 'Not enough free service';
-                    $status = 400;
-                }
-            } else {
-                $message = 'Customer ID missing';
-                $status = 400;
-            }
-        } else {
-            $message = 'Offer not found';
-            $status = 404;
-        }
 
         return Response::json([
             'error' => $error,

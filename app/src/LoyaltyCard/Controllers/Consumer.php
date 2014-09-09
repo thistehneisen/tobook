@@ -95,7 +95,7 @@ class Consumer extends Base
      */
     public function show($id)
     {
-        $consumer = Model::find($id);
+        $consumer = $this->consumerRepository->showConsumer(false, $id);
 
         if (Request::ajax()) {
             if ($consumer) {
@@ -139,32 +139,24 @@ class Consumer extends Base
             ->with('consumer', $consumer);
     }
 
-    private function ajaxAddPoint($consumerID, $points)
+    /**
+     * Receive AJAX request to add point to consumer
+     * @param  int $consumerId
+     * @param  int $points
+     * @return Response
+     */
+    private function ajaxAddPoint($consumerId, $points)
     {
-        $rules = [
-            'points' => 'required|numeric',
-        ];
+        $validator = null;
 
-        $validator = Validator::make(['points' => $points], $rules);
+        $consumer = $this->consumerRepository->addPoint(false, $validator, $consumerId, $points);
 
-        // INVALID POINT
-        if ($validator->fails()) {
+        if ($consumer === null) {
             return Response::json([
                 'success' => false,
                 'errors' => $validator->errors()->toArray(),
             ]);
-        // ADD POINT
         } else {
-            $consumer = Model::find($consumerID);
-            $consumer->total_points += $points;
-            $consumer->save();
-
-            $transaction = new TransactionModel;
-            $transaction->user_id = Confide::user()->id;
-            $transaction->consumer_id = $consumerID;
-            $transaction->point = $points;
-            $transaction->save();
-
             return Response::json([
                 'success' => true,
                 'message' => 'Point added successfully',
@@ -173,20 +165,15 @@ class Consumer extends Base
         }
     }
 
-    private function ajaxUsePoint($consumerID, $voucherID)
+    /**
+     * Receive AJAX request to use voucher with point
+     * @param  int $consumerId
+     * @param  int $voucherId
+     * @return Response
+     */
+    private function ajaxUsePoint($consumerId, $voucherId)
     {
-        $voucher = VoucherModel::find($voucherID);
-
-        $consumer = Model::find($consumerID);
-        $consumer->total_points -= $voucher->required;
-        $consumer->save();
-
-        $transaction = new TransactionModel;
-        $transaction->user_id = Confide::user()->id;
-        $transaction->consumer_id = $consumerID;
-        $transaction->voucher_id = $voucherID;
-        $transaction->point = $voucher->required * -1;
-        $transaction->save();
+        $consumer = $this->consumerRepository->usePoint(false, $consumerId, $voucherId);
 
         return Response::json([
             'success' => true,
@@ -195,42 +182,15 @@ class Consumer extends Base
         ]);
     }
 
-    private function ajaxAddStamp($consumerID, $offerID)
+    /**
+     * Receive AJAX request to add stamp to consumer
+     * @param  int $consumerId
+     * @param  int $offerId
+     * @return Response
+     */
+    private function ajaxAddStamp($consumerId, $offerId)
     {
-        $offer = OfferModel::find($offerID);
-
-        $transaction = new TransactionModel;
-        $transaction->user_id = Confide::user()->id;
-        $transaction->consumer_id = $consumerID;
-        $transaction->offer_id = $offerID;
-
-        $consumer = Model::find($consumerID);
-        $consumerTotalStamps = $consumer->total_stamps;
-
-        if ($consumerTotalStamps !== '') {
-            $consumerTotalStamps = json_decode($consumerTotalStamps, true);
-
-            if (array_key_exists(Input::get('offerID'), $consumerTotalStamps)) {
-                // CONSUMER HAS STAMP OF THIS OFFER ALREADY
-                $consumerNoOfStamps = $consumerTotalStamps[$offerID];
-                $consumerNoOfStamps += 1;
-            } else {
-                // CONSUMER DOES NOT HAVE STAMP OF THIS OFFER
-                $consumerNoOfStamps = 1;
-            }
-
-            $consumerTotalStamps[$offerID] = $consumerNoOfStamps;
-            $consumerTotalStamps = json_encode($consumerTotalStamps);
-        } else {
-            // NO STAMP AT ALL
-            $consumerNoOfStamps = 1;
-            $consumerTotalStamps = json_encode([$offerID => 1]);
-        }
-
-        $transaction->stamp = 1;
-        $transaction->save();
-        $consumer->total_stamps = $consumerTotalStamps;
-        $consumer->save();
+        $consumerNoOfStamps = $this->consumerRepository->addStamp(false, $consumerId, $offerId);
 
         return Response::json([
             'success' => true,
@@ -239,59 +199,26 @@ class Consumer extends Base
         ]);
     }
 
-    private function ajaxUseOffer($consumerID, $offerID)
+    /**
+     * Receive AJAX request to use offer with stamp
+     * @param  int $consumerId
+     * @param  int $offerId
+     * @return Response
+     */
+    private function ajaxUseOffer($consumerId, $offerId)
     {
-        $offer = OfferModel::find($offerID);
+        $consumerNoOfStamps = $this->consumerRepository->useOffer(false, $consumerId, $offerId);
 
-        $transaction = new TransactionModel;
-        $transaction->user_id = Confide::user()->id;
-        $transaction->consumer_id = $consumerID;
-        $transaction->offer_id = $offerID;
-
-        $consumer = Model::find($consumerID);
-        $consumerTotalStamps = $consumer->total_stamps;
-
-        if ($consumerTotalStamps !== '') {
-            $consumerTotalStamps = json_decode($consumerTotalStamps, true);
-
-            if (array_key_exists($offerID, $consumerTotalStamps)) {
-                // HAVE STAMP OF THIS OFFER
-                $consumerNoOfStamps = $consumerTotalStamps[$offerID];
-
-                if ($consumerNoOfStamps >= $offer->required) {
-                    // ENOUGHT STAMP TO USE OFFER
-                    $consumerNoOfStamps -= $offer->required;
-
-                    $consumerTotalStamps[$offerID] = $consumerNoOfStamps;
-                    $consumerTotalStamps = json_encode($consumerTotalStamps);
-
-                    $transaction->offer_id = $offerID;
-                    $transaction->stamp = $offer->required * -1;
-                    $transaction->save();
-                    $consumer->total_stamps = $consumerTotalStamps;
-                    $consumer->save();
-
-                    return Response::json([
-                        'success' => true,
-                        'message' => 'Offer used successfully',
-                        'stamps'  => $consumerNoOfStamps,
-                    ]);
-                } else {
-                    return Response::json([
-                        'success' => false,
-                        'message' => 'Not enough stamp for this offer',
-                    ]);
-                }
-            } else {
-                return Response::json([
-                    'success' => false,
-                    'message' => 'Not enough stamp for this offer',
-                ]);
-            }
-        } else {
+        if ($consumerNoOfStamps === null) {
             return Response::json([
                 'success' => false,
-                'message' => 'No offer to use',
+                'message' => 'Not enough stamp for this offer',
+            ]);
+        } else {
+            return Response::json([
+                'success' => true,
+                'message' => 'Offer used successfully',
+                'stamps'  => $consumerNoOfStamps,
             ]);
         }
     }
@@ -326,14 +253,14 @@ class Consumer extends Base
             }
         } else {
             $rules = [
-            'first_name'    => 'required',
-            'last_name'     => 'required',
-            'email'         => 'required|email',
-            'phone'         => 'required|numeric',
-            'address'       => 'required',
-            'postcode'      => 'required|numeric',
-            'city'          => 'required',
-            'country'       => 'required',
+                'first_name'    => 'required',
+                'last_name'     => 'required',
+                'email'         => 'required|email',
+                'phone'         => 'required|numeric',
+                'address'       => 'required',
+                'postcode'      => 'required|numeric',
+                'city'          => 'required',
+                'country'       => 'required',
             ];
 
             $validator = Validator::make(Input::all(), $rules);
