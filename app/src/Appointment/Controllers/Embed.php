@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Controllers;
 
-use Hashids, Input, View, Session, Redirect;
+use Hashids, Input, View, Session, Redirect, URL, Config;
 use App\Core\Models\User;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
@@ -19,8 +19,12 @@ class Embed extends AsBase
      */
     public function index()
     {
+        $links  = [];
+        foreach (Config::get('varaa.languages') as $lang) {
+            $links[$lang] = URL::route('as.embed.embed', ['hash' => $this->user->hash], true, null, $lang);
+        }
         return $this->render('index', [
-            'link' => route('as.embed.embed', ['hash' => $this->user->hash])
+            'links' => $links
         ]);
     }
 

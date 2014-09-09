@@ -7,8 +7,11 @@
 </div>
 
 <div class="row">
+    @foreach ($links as $lang => $link)
     <div class="col-sm-12">
-        <textarea class="form-control" cols="30" rows="10" style="font-family: monospace;"><iframe width="100%" height="1000px" src="{{ $link }}"></textarea>
+        <h3>{{ trans("as.embed.{$lang}_version") }}</h3>
+        <textarea class="form-control" cols="30" rows="2" style="font-family: monospace;"><iframe width="100%" height="1000px" src="{{ $link }}"></textarea>
     </div>
+    @endforeach
 </div>
 @stop

@@ -8,12 +8,12 @@ class Url
      *
      * @return string
      */
-    public static function localizedCurrentUrl($locale)
+    public static function localizeCurrentUrl($locale)
     {
         $languages = Config::get('varaa.languages');
         if (!in_array($locale, $languages)) {
             throw new \InvalidArgumentException('Upsupported locale: '.$locale);
         }
-        return UrlGenerator::to('/'.$locale.Request::getRequestUri());;
+        return UrlGenerator::to('/'.$locale.Request::getRequestUri());
     }
 }
