@@ -11,11 +11,11 @@ class ConsumerRepository
 {
     /**
      * Return all consumers
-     * @param  bool $isApi
      * @param  string $search
+     * @param  bool $isApi
      * @return Consumer
      */
-    public function getAllConsumers($isApi, $search = null)
+    public function getAllConsumers($search = '', $isApi = false)
     {
         if ($isApi) {
             $consumers = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
@@ -23,7 +23,7 @@ class ConsumerRepository
                         ->where('consumer_user.user_id', Auth::user()->id)
                         ->get();
         } else {
-            if ($search != null) {
+            if ($search != '') {
                 $consumers = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
                                 ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
                                 ->where('consumer_user.user_id', Confide::user()->id)
@@ -50,10 +50,9 @@ class ConsumerRepository
     /**
      * Store consumer to storage
      * @param  bool $isApi
-     * @param  Validator $validator
      * @return Consumer
      */
-    public function storeConsumer($isApi, &$validator = null)
+    public function storeConsumer($isApi = false)
     {
         $rules = [
             'first_name'    => 'required',
@@ -69,7 +68,7 @@ class ConsumerRepository
         $validator = $isApi ? Validator::make(Request::all(), $rules) : Validator::make(Input::all(), $rules);
 
         if ($validator->fails()) {
-            return null;
+            return $validator->errors()->toArray();
         } else {
             $data = [
                 'first_name'    => $isApi ? Request::get('first_name') : Input::get('first_name'),
@@ -97,38 +96,31 @@ class ConsumerRepository
 
     /**
      * Show consumer information
-     * @param  bool $isApi
      * @param  int $consumerId
+     * @param  bool $isApi
      * @return Consumer
      */
-    public function showConsumer($isApi, $consumerId)
+    public function showConsumer($consumerId, $isApi = false)
     {
-        if ($isApi) {
-            $consumer = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-                            ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-                            ->where('consumer_user.user_id', Auth::user()->id)
-                            ->where('lc_consumers.id', '=', $consumerId)
-                            ->first();
-        } else {
-            $consumer = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-                            ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-                            ->where('consumer_user.user_id', Confide::user()->id)
-                            ->where('lc_consumers.id', '=', $consumerId)
-                            ->first();
-        }
+        $userId = $isApi ? Auth::user()->id : Confide::user()->id;
+
+        $consumer = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
+                        ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
+                        ->where('consumer_user.user_id', $userId)
+                        ->where('lc_consumers.id', $consumerId)
+                        ->first();
 
         return $consumer;
     }
 
     /**
      * Add point to consumer
-     * @param bool $isApi
-     * @param Validator $validator
      * @param int $consumerId
      * @param int $points
+     * @param bool $isApi
      * @return Consumer
      */
-    public function addPoint($isApi, &$validator = null, $consumerId, $points)
+    public function addPoint($consumerId, $points)
     {
         $rules = [
             'points' => 'required|numeric',
@@ -137,7 +129,7 @@ class ConsumerRepository
         $validator = Validator::make(['points' => $points], $rules);
 
         if ($validator->fails()) {
-            return null;
+            return $validator->errors()->toArray();
         } else {
             $consumer = Model::find($consumerId);
             $consumer->total_points += $points;
@@ -155,7 +147,6 @@ class ConsumerRepository
 
     /**
      * Use voucher with point
-     * @param  bool $isApi
      * @param  int $consumerId
      * @param  int $voucherId
      * @return Consumer
@@ -182,9 +173,10 @@ class ConsumerRepository
      * Add stamp to consumer
      * @param int $consumerId
      * @param int $offerId
+     * @param bool $isApi
      * @return int
      */
-    public function addStamp($isApi, $consumerId, $offerId)
+    public function addStamp($consumerId, $offerId, $isApi)
     {
         $transaction = new TransactionModel;
         $transaction->user_id = $isApi ? Auth::user()->id : Confide::user()->id;
@@ -221,12 +213,12 @@ class ConsumerRepository
 
     /**
      * Use offer with stamp
-     * @param  bool $isApi
      * @param  int $consumerId
      * @param  int $offerId
+     * @param  bool $isApi
      * @return int
      */
-    public function useOffer($isApi, $consumerId, $offerId)
+    public function useOffer($consumerId, $offerId, $isApi)
     {
         $offer = OfferModel::find($offerId);
 

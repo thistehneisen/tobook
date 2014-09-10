@@ -46,17 +46,17 @@ class Consumer extends Base
      */
     public function store()
     {
-        $consumer = $this->consumerRepository->storeConsumer(true);
+        $result = $this->consumerRepository->storeConsumer(true);
 
-        if ($consumer === null) {
+        if (is_array($result)) {
             return Response::json([
                 'error' => true,
                 'message' => 'Invalid data',
             ], 400);
-        } else {
+        } elseif (is_object($result)) {
             return Response::json([
                 'error' => false,
-                'created' => $consumer->id,
+                'created' => $result->id,
                 'message' => 'Consumer created',
             ], 201);
         }

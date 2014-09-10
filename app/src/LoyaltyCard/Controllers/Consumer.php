@@ -23,8 +23,8 @@ class Consumer extends Base
      * Make view index for both app and BE
      * @return View
      */
-    private function viewIndex($isApp = false, $search = null) {
-        $consumers = $this->consumerRepository->getAllConsumers(false, $search);
+    private function viewIndex($search = null, $isApp = false) {
+        $consumers = $this->consumerRepository->getAllConsumers($search, false);
 
         $viewName = $isApp ? 'modules.lc.app.index' : 'modules.lc.consumers.index';
         return View::make($viewName)
@@ -60,19 +60,17 @@ class Consumer extends Base
      */
     public function store()
     {
-        $validator = null;
+        $result = $this->consumerRepository->storeConsumer(false);
 
-        $consumer = $this->consumerRepository->storeConsumer(false, $validator);
-
-        if ($consumer === null) {
+        if (is_array($result)) {
             if (Request::ajax()) {
                 return Response::json([
                     'success' => false,
-                    'errors' => $validator->errors()->toArray(),
+                    'errors' => $result,
                 ]);
             } else {
                 return Redirect::back()
-                    ->withErrors($validator)
+                    ->withErrors($result)
                     ->withInput();
             }
         } else {
@@ -95,7 +93,7 @@ class Consumer extends Base
      */
     public function show($id)
     {
-        $consumer = $this->consumerRepository->showConsumer(false, $id);
+        $consumer = $this->consumerRepository->showConsumer($id, false);
 
         if (Request::ajax()) {
             if ($consumer) {
@@ -147,20 +145,18 @@ class Consumer extends Base
      */
     private function ajaxAddPoint($consumerId, $points)
     {
-        $validator = null;
+        $result = $this->consumerRepository->addPoint($consumerId, $points, false);
 
-        $consumer = $this->consumerRepository->addPoint(false, $validator, $consumerId, $points);
-
-        if ($consumer === null) {
+        if (is_array($result)) {
             return Response::json([
                 'success' => false,
-                'errors' => $validator->errors()->toArray(),
+                'errors' => $result,
             ]);
-        } else {
+        } elseif (is_object($result)) {
             return Response::json([
                 'success' => true,
                 'message' => 'Point added successfully',
-                'points'  => $consumer->total_points,
+                'points'  => $result->total_points,
             ]);
         }
     }
@@ -173,7 +169,7 @@ class Consumer extends Base
      */
     private function ajaxUsePoint($consumerId, $voucherId)
     {
-        $consumer = $this->consumerRepository->usePoint(false, $consumerId, $voucherId);
+        $consumer = $this->consumerRepository->usePoint($consumerId, $voucherId, false);
 
         return Response::json([
             'success' => true,
@@ -190,7 +186,7 @@ class Consumer extends Base
      */
     private function ajaxAddStamp($consumerId, $offerId)
     {
-        $consumerNoOfStamps = $this->consumerRepository->addStamp(false, $consumerId, $offerId);
+        $consumerNoOfStamps = $this->consumerRepository->addStamp($consumerId, $offerId, false);
 
         return Response::json([
             'success' => true,
@@ -207,7 +203,7 @@ class Consumer extends Base
      */
     private function ajaxUseOffer($consumerId, $offerId)
     {
-        $consumerNoOfStamps = $this->consumerRepository->useOffer(false, $consumerId, $offerId);
+        $consumerNoOfStamps = $this->consumerRepository->useOffer($consumerId, $offerId, false);
 
         if ($consumerNoOfStamps === null) {
             return Response::json([
@@ -313,6 +309,6 @@ class Consumer extends Base
      * @return Response
      */
     public function appIndex() {
-        return $this->viewIndex(true, Input::get('search'));
+        return $this->viewIndex(Input::get('search'), true);
     }
 }
