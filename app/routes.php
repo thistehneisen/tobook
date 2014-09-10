@@ -18,16 +18,20 @@ Route::get('/', [
     'uses'  => 'App\Core\Controllers\Front@home'
 ]);
 
-Route::get('/search', [
-    'as'    => 'search',
-    'uses'  => 'App\Core\Controllers\Search@index'
-]);
+Route::group(['prefix' => 'search'], function () {
+    Route::get('/', [
+        'as'    => 'search',
+        'uses'  => 'App\Core\Controllers\Search@index'
+    ]);
 
+    Route::get('services.json', [
+        'as'    => 'ajax.services',
+        'uses'  => 'App\Core\Controllers\Search@ajaxGetServices'
+    ]);
 
-Route::group(['prefix' => 'ajax'], function () {
-    Route::get('categories.json', [
-        'as'    => 'ajax.categories',
-        'uses'  => 'App\Core\Controllers\Front@ajaxGetCategories'
+    Route::get('locations.json', [
+        'as'    => 'ajax.locations',
+        'uses'  => 'App\Core\Controllers\Search@ajaxGetLocations'
     ]);
 });
 
