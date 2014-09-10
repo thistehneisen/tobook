@@ -25,7 +25,7 @@ class AlterTableConsumersAddUnique extends Migration {
 	public function down()
 	{
 		Schema::table('consumers', function (Blueprint $table) {
-            $table->dropUnique('phone');
+            $table->dropUnique('consumers_phone_unique');
         });
 	}
 

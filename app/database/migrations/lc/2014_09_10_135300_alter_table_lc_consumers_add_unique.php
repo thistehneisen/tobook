@@ -14,6 +14,10 @@ class AlterTableLcConsumersAddUnique extends Migration {
 	{
 		Schema::table('lc_consumers', function(Blueprint $table) {
             $table->unsignedInteger('user_id');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
             $table->unique(['consumer_id', 'user_id']);
         });
 	}
@@ -26,8 +30,13 @@ class AlterTableLcConsumersAddUnique extends Migration {
 	public function down()
 	{
 		Schema::table('lc_consumers', function(Blueprint $table) {
-            $table->dropUnique(['consumer_id', 'user_id']);
+            $table->dropForeign('lc_consumers_consumer_id_foreign');
+            $table->dropUnique('lc_consumers_consumer_id_user_id_unique');
             $table->dropColumn('user_id');
+            $table->foreign('consumer_id')
+                ->references('id')
+                ->on('consumers')
+                ->onDelete('cascade');
         });
 	}
 
