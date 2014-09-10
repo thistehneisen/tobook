@@ -1,6 +1,9 @@
 <?php namespace App\Appointment\Models;
 use Config, Util;
 use Carbon\Carbon;
+use App\Appointment\Models\Slot\SlotStrategy;
+use App\Appointment\Models\Slot\SlotContext;
+use App\Appointment\Models\Slot\SlotBackend;
 
 class Employee extends \App\Core\Models\Base
 {
@@ -20,10 +23,16 @@ class Employee extends \App\Core\Models\Base
      * These variables to use as a dictionary to easy to get back
      *  and limit access to db in for loop
      */
-    private $bookedSlot = [];
-    private $bookingList = [];
-    private $freetimeList = [];
-    private $freetimesCache;
+    private $bookedSlot     = [];
+    private $freetimeSlot   = [];
+
+    public function setBookedSlot(array $data){
+        $this->bookedSlot = $data;
+    }
+
+    public function setFreetimeSlot(array $data){
+        $this->freetimeSlot = $data;
+    }
 
     public function getDefaultTimes()
     {
@@ -74,60 +83,14 @@ class Employee extends \App\Core\Models\Base
     }
 
     //TODO change to another method to compare time
-    public function getSlotClass($date, $hour, $minute)
+    public function getSlotClass($date, $hour, $minute, $context = 'backend')
     {
-        $selectedDate = Carbon::createFromFormat('Y-m-d', $date);
-        $class = 'inactive';
-        //working time
-        $rowTime = Carbon::createFromTime($hour, $minute, 0, Config::get('app.timezone'));
-        list($startHour, $startMinute) = explode(':', $this->getTodayDefaultStartAt($selectedDate->dayOfWeek));
-        $startAt =  Carbon::createFromTime($startHour, $startMinute, 0, Config::get('app.timezone'));
-        list($endHour, $endMinute) = explode(':', $this->getTodayDefaultEndAt($selectedDate->dayOfWeek));
-        $endAt = Carbon::createFromTime($endHour, $endMinute, 0, Config::get('app.timezone'));
-
-        if ($rowTime >= $startAt && $rowTime <= $endAt) {
-            $class = 'fancybox active';
-        } else {
-            $class = 'inactive';
+        $strategy = new SlotBackend();
+        if($context === 'frontend'){
+            $strategy = new SlotFrontEnd();
         }
-
-        if(empty($this->freetimesCache)){
-            $this->freetimesCache = $this->freetimes()->where('date', $selectedDate->toDateString())->get();
-        }
-
-        foreach ($this->freetimesCache as $freetime) {
-            $startAt =  Carbon::createFromFormat('H:i:s', $freetime->start_at, Config::get('app.timezone'));
-            $endAt   =  Carbon::createFromFormat('H:i:s', $freetime->end_at, Config::get('app.timezone'));
-            if ($rowTime >= $startAt && $rowTime <= $endAt) {
-                $class = 'freetime';
-                $this->freetimeList[$selectedDate->toDateString()][(int) $hour][(int) $minute] = $freetime;
-            }
-        }
-
-        // get booking only certain date
-        if (empty($this->bookingList[$selectedDate->toDateString()])) {
-            $this->bookingList[$selectedDate->toDateString()] = $this->bookings()->where('date', $selectedDate->toDateString())->get();
-        }
-        foreach ($this->bookingList[$selectedDate->toDateString()] as $booking) {
-            $bookingDate =  Carbon::createFromFormat('Y-m-d', $booking->date);
-            if ($bookingDate == $selectedDate) {
-                list($startHour, $startMinute, $startSecond) = explode(':', $booking->start_at);
-                $subMinutes     = ($booking->total % 15 == 0) ? 15 : 10;
-                $bookingStartAt =  Carbon::createFromTime($startHour, $startMinute, 0, Config::get('app.timezone'));
-                $bookingEndAt   =  with(clone $bookingStartAt)->addMinutes($booking->total)->subMinutes($subMinutes);//15 is duration of single slot
-                if ($rowTime >= $bookingStartAt && $rowTime <= $bookingEndAt) {
-                    $class = 'booked';
-                    if ($rowTime == $bookingStartAt) {
-                        $class .= ' slot-booked-head';
-                    } else {
-                        $class .= ' slot-booked-body';
-                    }
-                    $this->bookedSlot[$selectedDate->toDateString()][(int) $startHour][(int) $startMinute] = $booking;
-                }
-            }
-        }
-
-        return $class;
+        $context = new SlotContext($strategy);
+        return $context->determineClass($this, $date, $hour, $minute);
     }
 
     public function getBooked($date, $hour, $minute)
@@ -141,8 +104,8 @@ class Employee extends \App\Core\Models\Base
 
     public function getFreetime($date, $hour, $minute)
     {
-        if (!empty($this->freetimeList[$date][$hour][$minute])) {
-            return $this->freetimeList[$date][$hour][$minute];
+        if (!empty($this->freetimeSlot[$date][$hour][$minute])) {
+            return $this->freetimeSlot[$date][$hour][$minute];
         }
 
         return null;
