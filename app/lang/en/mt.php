@@ -21,6 +21,7 @@ return [
         'edit'         => 'Edit Campaign',
         'label'        => 'Campaign',
         'duplication'  => 'Duplication',
+        'statistics'   => 'Statistics',
         'send'         => 'Send Campaign',
     ],
     'sms' => [

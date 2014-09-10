@@ -49,4 +49,5 @@ return [
     'city'                  => 'City',
     'postcode'              => 'Postcode',
     'country'               => 'Country',
+    'close'                 => 'Close',
 ];

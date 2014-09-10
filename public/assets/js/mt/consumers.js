@@ -98,7 +98,7 @@ $(document).ready(function () {
                     alert("Campaign sent successfully.");
                     $("input#js-chkConsumerId").prop("checked", false);
                     $("#campaignId").val("");
-                    $("#campaignModal").modal('hide');
+                    $("#campaignsModal").modal('hide');
                 } else {
                     alert("Request failed.");
                 }

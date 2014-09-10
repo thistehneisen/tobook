@@ -63,5 +63,29 @@ $(document).ready(function () {
         $("#duplicate_campaign_id").val(campaign_id);
         $("#campaignsModal").modal('show');
     });
-    
+   
+    $("button#btn-statistics").click(function () {
+        var campaign_id = $(this).parents("td").eq(0).find("#campaign_id").val();
+        
+        $.ajax({
+            url : "/mt/campaigns/statistics",
+            dataType : "json",
+            type : "post",
+            data : {campaign_id : campaign_id},
+            success : function(data) {
+                if (data.result === "success") {
+                    var statistics = data.data.last_30_days;
+                    $("#tblStatistics").find("tbody").find("tr").find("td").eq(0).text(statistics.clicks);
+                    $("#tblStatistics").find("tbody").find("tr").find("td").eq(1).text(statistics.opens);
+                    $("#tblStatistics").find("tbody").find("tr").find("td").eq(2).text(statistics.rejects);
+                    $("#tblStatistics").find("tbody").find("tr").find("td").eq(3).text(statistics.sent);
+                    $("#tblStatistics").find("tbody").find("tr").find("td").eq(4).text(statistics.unique_clicks);
+                    $("#tblStatistics").find("tbody").find("tr").find("td").eq(5).text(statistics.unique_opens);
+                    $("#statisticsModal").modal('show');
+                } else {
+                    alert("Request Timeout!");
+                }
+            }
+        });        
+    });
 });

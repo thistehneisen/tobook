@@ -8,6 +8,7 @@ use \App\MarketingTool\Models\Group as GroupModel;
 use \App\MarketingTool\Models\GroupConsumer as GroupConsumerModel;
 use \App\MarketingTool\Models\History as HistoryModel;
 use \App\MarketingTool\Models\Sms as SmsModel;
+use \App\MarketingTool\Models\Setting as SettingModel;
 use \App\MarketingTool\Models\Consumer as ConsumerModel;
 use Confide;
 
@@ -77,7 +78,11 @@ class Campaign extends \App\Core\Controllers\Base {
             $campaign->campaign_code = str_random(32);
             $campaign->user_id = Confide::user()->id;
             $campaign->save();
-    
+            
+            $mandrill = new Mandrill(Config::get('mail.password'));
+            
+            $result = $mandrill->subaccounts->add($campaign->campaign_code);
+            
             Session::flash('message', 'Successfully created!');
             return Redirect::route('mt.campaigns.index');
         }
@@ -294,18 +299,55 @@ class Campaign extends \App\Core\Controllers\Base {
             try {
                 $mandrill = new Mandrill(Config::get('mail.password'));
                 $message = array(
-                                'html' => $campaign->content,
-                                'subject' => $campaign->subject,
-                                'from_email' => $campaign->from_email,
-                                'from_name' => $campaign->from_name,
-                                'to' => $emails
+                    'html' => $campaign->content,
+                    'subject' => $campaign->subject,
+                    'from_email' => $campaign->from_email,
+                    'from_name' => $campaign->from_name,
+                    'to' => $emails,
+                    'subaccount' => $campaign->campaign_code
                 );
-                $async = false;
+                $async = true;
                 $result = $mandrill->messages->send($message, $async);
             } catch(Mandrill_Error $e) {
                 return Response::json(['result' => 'failed']);
             }
             return Response::json(['result' => 'success']);
         }
-    }    
+    }
+
+    /**
+     * Statistics of Email
+     */    
+    public function statistics()
+    {
+        $campaign_id = Input::get('campaign_id');
+        $rules = [
+            'campaign_id' => 'required|numeric',
+        ];
+        $validator = Validator::make(Input::all(), $rules);
+        
+        if ($validator->fails()) {
+            return Response::json(['result' => 'failed']);
+        } else {
+            $campaign = CampaignModel::find($campaign_id);
+            // get statistics
+            try {
+                $mandrill = new Mandrill(Config::get('mail.password'));
+                $result = $mandrill->subaccounts->info($campaign->campaign_code);
+            } catch(Mandrill_Error $e) {
+                return Response::json(['result' => 'failed']);
+            }            
+            
+            return Response::json(['result' => 'success', 'data' => $result, ]);
+        }        
+        
+    }
+
+    /**
+     * Send Automation Email
+     */
+    public function automation()
+    {
+        $automations = SettingModel::whereNotNull('campaign_id')->get();
+    }
 }

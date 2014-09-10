@@ -18,7 +18,6 @@
                 <th>{{ trans('mt.campaign.subject') }}</th>
                 <th>{{ trans('mt.campaign.from_email') }}</th>
                 <th>{{ trans('mt.campaign.from_name') }}</th>
-                <th>{{ trans('common.status') }}</th>
                 <th>{{ trans('common.statistics') }}</th>
                 <th></th>
             </tr>
@@ -51,10 +50,10 @@
                     </a>
                 </td>
                 <td>
-                    STAT INFO
-                </td>
-                <td>
-                    <button class="btn btn-info btn-xs" id="btn-duplication">Duplication</button>
+                    <button class="btn btn-info btn-xs" id="btn-duplication">{{ trans('mt.campaign.duplication') }}</button>
+                    @if ($value->status === 'SENT')
+                    <button class="btn btn-success btn-xs" id="btn-statistics" data="">{{ trans('mt.campaign.statistics') }}</button>
+                    @endif
                     <input type="hidden" id="campaign_id" value="{{ $value->id }}">
                 </td>
             </tr>
@@ -86,6 +85,51 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('common.close') }}</button>
                     <button type="button" class="btn btn-primary" id="btn-duplicate-campaign">{{ trans('mt.campaign.duplication') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="statisticsModal" tabindex="-1" role="dialog" aria-labelledby="statisticsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="campaignsModalLabel">{{ trans('mt.campaign.statistics') }}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <table class="table" id="tblStatistics">
+                                    <thead>
+                                        <tr>
+                                            <th>Clicks</th>
+                                            <th>Opens</th>
+                                            <th>Rejects</th>
+                                            <th>Sent</th>
+                                            <th>Unique Clicks</th>
+                                            <th>Unique Opens</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('common.close') }}</button>
                 </div>
             </div>
         </div>
