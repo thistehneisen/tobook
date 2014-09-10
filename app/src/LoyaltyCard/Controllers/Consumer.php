@@ -23,7 +23,7 @@ class Consumer extends Base
      * Make view index for both app and BE
      * @return View
      */
-    private function viewIndex($search = null, $isApp = false) {
+    private function viewIndex($search = '', $isApp = false) {
         $consumers = $this->consumerRepository->getAllConsumers($search, false);
 
         $viewName = $isApp ? 'modules.lc.app.index' : 'modules.lc.consumers.index';

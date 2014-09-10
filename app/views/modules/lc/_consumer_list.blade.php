@@ -5,10 +5,10 @@
     <table class="table table-hover" id="consumer-table">
         <thead>
             <tr>
-                <th>{{ trans('loyalty-card.number') }}</th>
+                <th class="no-display">{{ trans('loyalty-card.number') }}</th>
                 <th>{{ trans('loyalty-card.consumer') }}</th>
-                <th>{{ trans('co.email') }}</th>
-                <th>{{ trans('co.phone') }}</th>
+                <th class="no-display">{{ trans('co.email') }}</th>
+                <th class="no-display">{{ trans('co.phone') }}</th>
                 <th>{{ trans('loyalty-card.last_visited') }}</th>
                 <th class="no-display">{{{ trans('common.edit') }}}</th>
                 <th class="no-display">{{ trans('common.delete') }}</th>
@@ -17,14 +17,14 @@
         <tbody>
             @foreach ($consumers as $key => $value)
             <tr data-consumerid="{{{ $value->id }}}">
-                <td>{{ $value->id }}</td>
+                <td class="no-display">{{ $value->id }}</td>
                 <td>
                     {{ $value->first_name }} {{ $value->last_name }}
                 </td>
-                <td>
+                <td class="no-display">
                     {{ $value->email }}
                 </td>
-                <td>
+                <td class="no-display">
                     {{ $value->phone }}
                 </td>
                 <td>

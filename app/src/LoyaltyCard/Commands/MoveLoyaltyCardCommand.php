@@ -163,17 +163,27 @@ class MoveLoyaltyCardCommand extends Command
         DB::setTablePrefix($this->oldPrefix);
 
         $emailCounter = 1;
+        $phoneCounter = 1;
 
         foreach ($result as $item) {
-            $validator = Validator::make(['email' => $item->email], ['email' => 'required|email']);
+            $validator = Validator::make([
+                'email' => $item->email,
+                'phone' => $item->phone
+            ], [
+                'email' => 'required|email',
+                'phone' => 'required|numeric'
+            ]);
 
             if ($validator->fails()) {
                 $item->email = 'consumer' . $emailCounter . '@varaa.com';
+                $item->phone = str_pad($phoneCounter, 10, '0', STR_PAD_LEFT);
                 $emailCounter += 1;
+                $phoneCounter += 1;
             }
 
             $existedConsumer = ConsumerModel::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
                                         ->where('consumers.email', '=', $item->email)
+                                        ->orWhere('consumers.phone', '=', $item->phone)
                                         ->first();
 
             if(!$existedConsumer) {
@@ -198,6 +208,7 @@ class MoveLoyaltyCardCommand extends Command
                 $consumer->fill([
                     'id'            => $item->loyalty_consumer,
                     'consumer_id'   => $item->loyalty_consumer,
+                    'user_id'       => $item->owner,
                     'total_points'  => $item->current_score,
                     'total_stamps'  => '',
                     'created_at'    => $item->created_time,
@@ -227,6 +238,7 @@ class MoveLoyaltyCardCommand extends Command
                     $consumer->fill([
                         'id'            => $item->loyalty_consumer,
                         'consumer_id'   => $existedConsumer->id,
+                        'user_id'       => $item->owner,
                         'total_points'  => $item->current_score,
                         'total_stamps'  => '',
                         'created_at'    => $item->created_time,

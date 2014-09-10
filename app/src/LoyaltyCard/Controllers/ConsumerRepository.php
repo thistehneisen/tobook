@@ -23,7 +23,7 @@ class ConsumerRepository
                         ->where('consumer_user.user_id', Auth::user()->id)
                         ->get();
         } else {
-            if ($search != '') {
+            if ($search !== '') {
                 $consumers = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
                                 ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
                                 ->where('consumer_user.user_id', Confide::user()->id)
