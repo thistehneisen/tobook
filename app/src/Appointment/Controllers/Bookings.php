@@ -11,6 +11,8 @@ use App\Appointment\Models\AsConsumer;
 use App\Consumers\Models\Consumer;
 use App\Core\Models\User;
 use Carbon\Carbon;
+use App\Appointment\Models\Observer\EmailObserver;
+use App\Appointment\Models\Observer\SmsObserver;
 
 class Bookings extends AsBase
 {
@@ -361,50 +363,18 @@ class Bookings extends AsBase
                 $booking->user()->associate($user);
                 $booking->employee()->associate($bookingService->employee);
                 $booking->save();
+
                 $bookingService->booking()->associate($booking);
                 $bookingService->save();
-            }
 
-            // Send notification email and SMSs
+                 // Send notification email and SMSs
+                $booking->attach(new EmailObserver());
+                $booking->attach(new SmsObserver());
+                $booking->notify();
+            }
 
             Session::forget('carts');
             Session::forget('booking_info');
-
-            $emailEnabled = (bool) $user->asOptions['confirm_email_enable'];
-
-            if($emailEnabled){
-                $subject = $user->asOptions['confirm_subject_client'];
-                $body    = $user->asOptions['confirm_tokens_client'];
-
-                $serviceInfo = sprintf("%s, %s (%s - %s)",
-                                $bookingService->service->name,
-                                $booking->date,
-                                $booking->start_at,
-                                $booking->end_at);
-
-                $email['title'] = $subject;
-                $email['body']  = nl2br(str_replace('{Services}', $serviceInfo, $body));
-
-                Mail::send('modules.as.emails.confirm', $email, function($message) use($consumer, $subject)
-                {
-                    $message->to($consumer->email, $consumer->name)->subject($subject);
-                });
-            }
-
-            //Code ugly as fuck, need to be refactory
-            $smsEnabled = (bool) $user->asOptions['confirm_sms_enable'];
-            if($smsEnabled){
-                $smsMessage =  $user->asOptions['confirm_consumer_sms_message'];
-                $from = 'varaa.com';
-                $to = $consumer->phone;
-                if (strpos($to, '0') === 0 ) {
-                    $to = ltrim($to, '0');
-                }
-                $code = $user->asOptions['reminder_sms_country_code'];
-                $to = (empty($code)) ? $code . $to : '358' . $to;
-                $msg  = str_replace('{Services}', $serviceInfo, $smsMessage);
-                Sms::send($from, $to, $msg);
-            }
 
             $data['status']      = true;
         } catch (\Exception $ex) {

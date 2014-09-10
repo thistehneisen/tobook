@@ -1,15 +1,25 @@
 <?php namespace App\Appointment\Models;
 use Config, Util;
 use Carbon\Carbon;
-use App\Appointment\Models\Slot\SlotStrategy;
-use App\Appointment\Models\Slot\SlotContext;
-use App\Appointment\Models\Slot\SlotBackend;
+use App\Appointment\Models\Slot\Strategy;
+use App\Appointment\Models\Slot\Context;
+use App\Appointment\Models\Slot\Backend;
+use App\Appointment\Models\Slot\Frontend;
 
 class Employee extends \App\Core\Models\Base
 {
     protected $table = 'as_employees';
 
-    public $fillable = ['name', 'email', 'phone', 'avatar', 'description', 'is_subscribed_email', 'is_subscribed_sms', 'is_active'];
+    public $fillable = [
+        'name',
+        'email',
+        'phone',
+        'avatar',
+        'description',
+        'is_subscribed_email',
+        'is_subscribed_sms',
+        'is_active'
+    ];
 
     protected $rulesets = [
         'saving' => [
@@ -85,11 +95,11 @@ class Employee extends \App\Core\Models\Base
     //TODO change to another method to compare time
     public function getSlotClass($date, $hour, $minute, $context = 'backend')
     {
-        $strategy = new SlotBackend();
+        $strategy = new Backend();
         if($context === 'frontend'){
-            $strategy = new SlotFrontEnd();
+            $strategy = new FrontEnd();
         }
-        $context = new SlotContext($strategy);
+        $context = new Context($strategy);
         return $context->determineClass($this, $date, $hour, $minute);
     }
 

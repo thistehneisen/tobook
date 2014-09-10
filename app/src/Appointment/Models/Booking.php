@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Models;
 
-class Booking extends \App\Core\Models\Base
+class Booking extends \App\Core\Models\Base implements \SplSubject
 {
     protected $table = 'as_bookings';
 
@@ -18,6 +18,28 @@ class Booking extends \App\Core\Models\Base
     const STATUS_CONFIRM   = 1;
     const STATUS_PENDDING  = 2;
     const STATUS_CANCELLED = 3;
+
+    //Implement methods in SplSubject
+    protected $_observers = [];
+
+    public function attach(\SplObserver $observer) {
+        $id = spl_object_hash($observer);
+        $this->_observers[$id] = $observer;
+    }
+
+    public function detach(\SplObserver $observer) {
+        $id = spl_object_hash($observer);
+
+        if (isset($this->_observers[$id])) {
+            unset($this->_observers[$id]);
+        }
+    }
+
+    public function notify() {
+        foreach ($this->_observers as $observer) {
+            $observer->update($this);
+        }
+    }
 
     protected function getStatuses()
     {
