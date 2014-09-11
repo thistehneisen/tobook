@@ -211,14 +211,21 @@ return [
                 ],
             ]
         ],
+        // Custom options with no form definition
         'working_time' => [
-            'mon' => ['start' => '08:00', 'end' => '17:00'],
-            'tue' => ['start' => '08:00', 'end' => '17:00'],
-            'wed' => ['start' => '08:00', 'end' => '17:00'],
-            'thu' => ['start' => '08:00', 'end' => '17:00'],
-            'fri' => ['start' => '08:00', 'end' => '17:00'],
-            'sat' => ['start' => '08:00', 'end' => '17:00'],
-            'sun' => ['start' => '08:00', 'end' => '17:00'],
+            'index' => [
+                'working_time' => [
+                    'default' => [
+                        'mon' => ['start' => '08:00', 'end' => '17:00'],
+                        'tue' => ['start' => '08:00', 'end' => '17:00'],
+                        'wed' => ['start' => '08:00', 'end' => '17:00'],
+                        'thu' => ['start' => '08:00', 'end' => '17:00'],
+                        'fri' => ['start' => '08:00', 'end' => '17:00'],
+                        'sat' => ['start' => '08:00', 'end' => '17:00'],
+                        'sun' => ['start' => '08:00', 'end' => '17:00'],
+                    ]
+                ]
+            ]
         ],
     ]
 ];
