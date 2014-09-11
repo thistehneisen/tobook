@@ -214,7 +214,6 @@ trait Crud
                 : new $model();
 
             $item = $this->upsertHandler($item);
-            $item->saveOrFail();
 
             $message = ($id !== null)
                 ? trans('as.crud.success_edit')
@@ -235,13 +234,15 @@ trait Crud
      * Take all input and update model attributes
      * Developers might want to rewrite this method to have desired behaviors
      *
-     * @param Illuminate\Database\Eloquent\Model $item
+     * @param  Illuminate\Database\Eloquent\Model    $item
+     * @throws Watson\Validating\ValidatingException If failed to validate data
      *
      * @return Illuminate\Database\Eloquent\Model
      */
     protected function upsertHandler($item)
     {
         $item->fill(Input::all());
+        $item->saveOrFail();
 
         return $item;
     }
@@ -280,10 +281,11 @@ trait Crud
         $query = $this->applyQueryStringFilter($query);
 
         $fillable = $this->getModel()->fillable;
-        $query = $query->where(function($subQuery) use ($fillable, $q) {
+        $query = $query->where(function ($subQuery) use ($fillable, $q) {
             foreach ($fillable as $field) {
                 $subQuery = $subQuery->orWhere($field, 'LIKE', '%'.$q.'%');
             }
+
             return $subQuery;
         });
 

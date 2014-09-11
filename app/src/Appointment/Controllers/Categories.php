@@ -19,6 +19,7 @@ class Categories extends AsBase
     {
         $item->fill(Input::all());
         $item->user()->associate($this->user);
+        $item->saveOrFail();
 
         return $item;
     }
