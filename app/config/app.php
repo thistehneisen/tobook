@@ -124,8 +124,8 @@ return array(
         // Addon providers
         'Zizaco\Confide\ConfideServiceProvider',
         'Zizaco\Entrust\EntrustServiceProvider',
-        'Ludo237\Hashids\HashidsServiceProvider',
         'anlutro\LaravelSettings\ServiceProvider',
+        'App\Hashids\HashidsServiceProvider',
         'App\Lomake\LomakeServiceProvider',
         'App\Core\Routing\RoutingServiceProvider',
         'App\OneApi\OneApiServiceProvider',
@@ -199,8 +199,8 @@ return array(
         // Addon facades
         'Confide'   => 'Zizaco\Confide\ConfideFacade',
         'Entrust'   => 'Zizaco\Entrust\EntrustFacade',
-        'Hashids'   => 'Ludo237\Hashids\Hashids',
         'Setting'   => 'anlutro\LaravelSettings\Facade',
+        'Hashids'   => 'App\Hashids\Facade',
         'Consumer'  => 'App\Consumers\Models\Consumer',
         'Lomake'    => 'App\Lomake\Facade',
         'UrlHelper' => 'App\Core\Helpers\Url',

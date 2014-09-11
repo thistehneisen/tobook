@@ -7,5 +7,9 @@ return [
     'oneapi' => [
         'username' => 'varaa6',
         'password' => 'varaa12'
+    ],
+    'hashid' => [
+        'length'   => 8,
+        'alphabet' => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
     ]
 ];
