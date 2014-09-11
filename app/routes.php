@@ -281,6 +281,80 @@ Route::group([
                 // ]);
             });
         });
+        // Other modules
+    });
+
+    // Marketing Tool
+    Route::group([
+        'before' => [''],
+        'prefix' => 'mt'
+    ], function () {
+        Route::resource('campaigns', 'App\MarketingTool\Controllers\Campaign', [
+            'names' => [
+                'index'     => 'mt.campaigns.index',
+                'create'    => 'mt.campaigns.create',
+                'edit'      => 'mt.campaigns.edit',
+                'store'     => 'mt.campaigns.store',
+                'update'    => 'mt.campaigns.update',
+            ]
+        ]);
+        Route::post('campaigns/statistics', 'App\MarketingTool\Controllers\Campaign@statistics');
+        Route::post('campaigns/duplication', 'App\MarketingTool\Controllers\Campaign@duplication');
+        Route::post('campaigns/sendIndividual', 'App\MarketingTool\Controllers\Campaign@sendIndividual');
+        Route::post('campaigns/sendGroup', 'App\MarketingTool\Controllers\Campaign@sendGroup');
+        // Route::get('campaigns/automation', 'App\MarketingTool\Controllers\Campaign@automation');
+
+        Route::resource('sms', 'App\MarketingTool\Controllers\Sms', [
+            'names' => [
+                'index'     => 'mt.sms.index',
+                'create'    => 'mt.sms.create',
+                'edit'      => 'mt.sms.edit',
+                'store'     => 'mt.sms.store',
+                'update'    => 'mt.sms.update',
+            ]
+        ]);
+        Route::post('sms/sendIndividual', 'App\MarketingTool\Controllers\Sms@sendIndividual');
+        Route::post('sms/sendGroup', 'App\MarketingTool\Controllers\Sms@sendGroup');
+        // Route::get('sms/automation', 'App\MarketingTool\Controllers\Campaign@automation');
+
+        Route::resource('templates', 'App\MarketingTool\Controllers\Template', [
+            'names' => [
+                'index'     => 'mt.templates.index',
+                'create'    => 'mt.templates.create',
+                'edit'      => 'mt.templates.edit',
+                'store'     => 'mt.templates.store',
+                'update'    => 'mt.templates.update',
+            ]
+        ]);
+        Route::post('templates/load', 'App\MarketingTool\Controllers\Template@load');
+
+        Route::resource('settings', 'App\MarketingTool\Controllers\Setting', [
+            'names' => [
+                'index'     => 'mt.settings.index',
+                'create'    => 'mt.settings.create',
+                'edit'      => 'mt.settings.edit',
+                'store'     => 'mt.settings.store',
+                'update'    => 'mt.settings.update',
+            ]
+        ]);
+
+        Route::resource('groups', 'App\MarketingTool\Controllers\Group', [
+            'names' => [
+                'index'     => 'mt.groups.index',
+                //'create'    => 'mt.groups.create',
+                'edit'      => 'mt.groups.edit',
+                'store'     => 'mt.groups.store',
+                'update'    => 'mt.groups.update',
+            ]
+        ]);
+        Route::post('groups/create', 'App\MarketingTool\Controllers\Group@create');
+
+        Route::resource('consumers', 'App\MarketingTool\Controllers\Consumer', [
+            'names' => [
+                'index'     => 'mt.consumers.index',
+                'show'      => 'mt.consumers.show',
+            ]
+        ]);
     });
 });
 

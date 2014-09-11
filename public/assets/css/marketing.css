@@ -1,0 +1,14 @@
+#template-list {
+  width: 90%;
+  margin-left: 5%;
+}
+#template-list .selected {
+  background: #F7F7F7;
+  border-radius: 5px !important;
+}
+#template-item {
+  cursor: pointer;
+}
+#template-item .thumb-img {
+  width: 60px;
+}

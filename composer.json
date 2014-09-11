@@ -12,7 +12,8 @@
         "ludo237/hashids": "1.2",
         "symfony/console": "2.5.2",
         "anlutro/l4-settings": "0.2.10",
-        "watson/validating": "0.9.*"
+        "watson/validating": "0.9.*",
+        "mandrill/mandrill": "1.0.*"
     },
     "require-dev": {
         "codeception/codeception": "2.0.*",
