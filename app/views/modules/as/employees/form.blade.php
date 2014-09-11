@@ -33,7 +33,7 @@ $(function () {
             @endif
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group {{ Form::errorCSS('name', $errors) }}">
             <label for="name" class="col-sm-2 control-label">{{ trans('as.employees.name') }} {{ Form::required('name', $employee) }}</label>
             <div class="col-sm-5">
                 {{ Form::text('name', (isset($employee)) ? $employee->name:'', ['class' => 'form-control input-sm', 'id' => 'name']) }}
@@ -42,11 +42,12 @@ $(function () {
         </div>
         <div class="form-group">
             <label for="phone" class="col-sm-2 control-label">{{ trans('as.employees.phone') }} {{ Form::required('phone', $employee) }}</label>
-            <div class="col-sm-5">
+            <div class="col-sm-5 {{ Form::errorCSS('phone', $errors) }}">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-phone"></i></span>
                     {{ Form::text('phone', (isset($employee)) ? $employee->phone:'', ['class' => 'form-control input-sm', 'id' => 'phone']) }}
                 </div>
+                {{ Form::errorText('phone', $errors) }}
             </div>
             <div class="checkbox col-sm-5">
                 <label> {{ Form::checkbox('is_subscribed_sms', 1, (isset($employee)) ? $employee->is_subscribed_sms: false ); }} {{  trans('as.employees.is_subscribed_sms') }} {{ Form::required('is_subsribed_email', $employee) }}</label>
@@ -54,14 +55,15 @@ $(function () {
         </div>
         <div class="form-group">
             <label for="email" class="col-sm-2 control-label">{{ trans('as.employees.email') }} {{ Form::required('email', $employee) }}</label>
-            <div class="col-sm-5">
+            <div class="col-sm-5 {{ Form::errorCSS('email', $errors) }}">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                     {{ Form::text('email', (isset($employee)) ? $employee->email:'', ['class' => 'form-control input-sm', 'id' => 'email']) }}
                 </div>
+                {{ Form::errorText('email', $errors) }}
             </div>
             <div class="checkbox col-sm-5">
-                    <label> {{ Form::checkbox('is_subsribed_email', 1, (isset($employee)) ? $employee->is_subsribed_email: false ); }} {{  trans('as.employees.is_subscribed_email') }} {{ Form::required('is_subscribed_email', $employee) }}</label>
+                <label> {{ Form::checkbox('is_subsribed_email', 1, (isset($employee)) ? $employee->is_subsribed_email: false ); }} {{  trans('as.employees.is_subscribed_email') }} {{ Form::required('is_subscribed_email', $employee) }}</label>
             </div>
         </div>
         <div class="form-group">

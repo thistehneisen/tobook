@@ -21,10 +21,7 @@ Form::macro('required', function ($field, $validator, $format = ':star') {
 /**
  * Display error text (compatible with B3)
  */
-Form::macro('errorText', function (
-    $field,
-    \Illuminate\Support\ViewErrorBag $errors
-) {
+Form::macro('errorText', function ($field, \Illuminate\Support\ViewErrorBag $errors) {
 
     if ($errors->has($field)) {
         $text = implode('<br>', $errors->get($field, ':message'));
@@ -38,11 +35,7 @@ Form::macro('errorText', function (
 /**
  * Return the error CSS class (B3 compatible)
  */
-Form::macro('errorCSS', function (
-    $name,
-    \Illuminate\Support\ViewErrorBag $errors,
-    $class = 'has-error'
-) {
+Form::macro('errorCSS', function ($name, \Illuminate\Support\ViewErrorBag $errors, $class = 'has-error') {
     if ($errors->has($name)) {
         return $class;
     }
