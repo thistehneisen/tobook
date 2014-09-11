@@ -39,13 +39,13 @@ class Employees extends AsBase
     {
         // Fill general information
         $item->fill([
-            'name' => Input::get('name'),
-            'email' => Input::get('email'),
-            'phone' => Input::get('phone'),
-            'description' => Input::get('description'),
-            'is_subscribed_email' => Input::get('is_subscribed_email'),
-            'is_subscribed_sms' => Input::get('is_subscribed_sms'),
-            'is_active' => Input::get('is_active')
+            'name'                => Input::get('name'),
+            'email'               => Input::get('email'),
+            'phone'               => Input::get('phone'),
+            'description'         => Input::get('description'),
+            'is_subscribed_email' => Input::get('is_subscribed_email', false),
+            'is_subscribed_sms'   => Input::get('is_subscribed_sms', false),
+            'is_active'           => Input::get('is_active')
         ]);
 
         // Update data
@@ -59,11 +59,12 @@ class Employees extends AsBase
             }
         }
 
-        // Sync selected services
-        $item->services()->sync(Input::get('services'));
-
         // Attach this employee to the current user
         $item->user()->associate($this->user);
+        $item->saveOrFail();
+
+        // Sync selected services
+        $item->services()->sync(Input::get('services'));
 
         return $item;
     }
@@ -208,17 +209,19 @@ class Employees extends AsBase
     /**
      * Handle ajax request to delete freetime from BE calendar
      */
-    public function deleteEmployeeFreeTime(){
+    public function deleteEmployeeFreeTime()
+    {
         $freetimeId = Input::get('freetime_id');
         $data = [];
         try {
             $freetime = EmployeeFreetime::find($freetimeId);
             $freetime->delete();
             $data['success'] = true;
-        } catch (\Exception $ex){
+        } catch (\Exception $ex) {
             $data['success'] = false;
             $data['message'] = $ex->getMessage();
         }
+
         return Response::json($data);
     }
 }
