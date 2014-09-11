@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.dashboard')
 
 @section('title')
     @parent :: {{ trans('Marketing') }}
@@ -8,6 +8,7 @@
 @stop
 
 @section('styles')
+    @parent
     {{ HTML::style('assets/css/marketing.css') }}
 @stop
 

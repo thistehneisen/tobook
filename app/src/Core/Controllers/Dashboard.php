@@ -9,14 +9,6 @@ class Dashboard extends Base
 {
     public function index()
     {
-        $services = [
-            'cashier'     => route('cashier.index'),
-            'restaurant'  => route('restaurant.index'),
-            'timeslot'    => route('timeslot.index'),
-            'appointment' => route('appointment.index'),
-            'loyalty'     => route('loyalty.index'),
-        ];
-
         // Get all modules availables in the system
         $modules = Module::all();
         $now = \Carbon\Carbon::now();

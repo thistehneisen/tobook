@@ -584,8 +584,8 @@ Route::group([
 |--------------------------------------------------------------------------
 */
 Route::group([
-    'before' => [''],
-    'prefix' => 'mt'
+    'before' => ['auth'],
+    'prefix' => 'marketing-tools'
 ], function () {
     Route::resource('campaigns', 'App\MarketingTool\Controllers\Campaign', [
         'names' => [
