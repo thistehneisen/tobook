@@ -22,12 +22,14 @@ class Booking extends \App\Core\Models\Base implements \SplSubject
     //Implement methods in SplSubject
     protected $_observers = [];
 
-    public function attach(\SplObserver $observer) {
+    public function attach(\SplObserver $observer)
+    {
         $id = spl_object_hash($observer);
         $this->_observers[$id] = $observer;
     }
 
-    public function detach(\SplObserver $observer) {
+    public function detach(\SplObserver $observer)
+    {
         $id = spl_object_hash($observer);
 
         if (isset($this->_observers[$id])) {
@@ -35,7 +37,8 @@ class Booking extends \App\Core\Models\Base implements \SplSubject
         }
     }
 
-    public function notify() {
+    public function notify()
+    {
         foreach ($this->_observers as $observer) {
             $observer->update($this);
         }
@@ -52,17 +55,26 @@ class Booking extends \App\Core\Models\Base implements \SplSubject
 
     protected function getStatus($statusText)
     {
-        switch ($statusText) {
-            case 'confirmed':
-                return self::STATUS_CONFIRM;
-            case 'pending':
-                return self::STATUS_PENDDING;
-            case 'cancelled':
-                return self::STATUS_CANCELLED;
-            default:
-                break;
-        }
+        $map = [
+            'confirmed' => self::STATUS_CONFIRM,
+            'pending'   => self::STATUS_PENDDING,
+            'cancelled' => self::STATUS_CANCELLED,
+        ];
+
+        return isset($map[$statusText]) ? $map[$statusText] : null;
     }
+
+    public static function getStatusByValue($value)
+    {
+        $map = [
+            static::STATUS_CONFIRM   => 'confirmed',
+            static::STATUS_PENDDING  => 'pending',
+            static::STATUS_CANCELLED => 'cancelled',
+        ];
+
+        return isset($map[$value]) ? $map[$value] : null;
+    }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------

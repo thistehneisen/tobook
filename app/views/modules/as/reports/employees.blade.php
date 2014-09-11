@@ -11,25 +11,22 @@
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js') }}
     <script>
 $(function () {
-new Morris.Line({
+new Morris.Bar({
   // ID of the element in which to draw the chart.
   element: 'employees-chart',
   // Chart data records -- each entry in this array corresponds to a point on
   // the chart.
   data: [
-    { year: '2008', value: 20 },
-    { year: '2009', value: 10 },
-    { year: '2010', value: 5 },
-    { year: '2011', value: 5 },
-    { year: '2012', value: 20 }
+    { employee: 'Nguyen Thi Teo', total : 20, confirmed: 11, pending: 0, cancelled: 12 },
+    { employee: 'Nguyen Teo', total : 20, confirmed: 12, pending: 3, cancelled: 19 },
   ],
   // The name of the data record attribute that contains x-values.
-  xkey: 'year',
+  xkey: 'employee',
   // A list of names of data record attributes that contain y-values.
-  ykeys: ['value'],
+  ykeys: ['total', 'confirmed', 'pending', 'cancelled'],
   // Labels for the ykeys -- will be displayed when you hover over the
   // chart.
-  labels: ['Value']
+  labels: ['Total Bookings', 'Confirmed Bookings', 'Pending Bookings', 'Cancelled bookings']
 });
 });
     </script>
@@ -74,13 +71,15 @@ new Morris.Line({
             </tr>
         </thead>
         <tbody>
+        @foreach ($report->get() as $item)
             <tr>
-                <td>ABa</td>
-                <td>ABa</td>
-                <td>ABa</td>
-                <td>ABa</td>
-                <td>ABa</td>
+                <td>{{ $item['employee']->name }}</td>
+                <td>{{ $item['total'] }}</td>
+                <td>{{ isset($item['confirmed']) ? $item['confirmed'] : 0 }}</td>
+                <td>{{ isset($item['pending']) ? $item['pending'] : 0 }}</td>
+                <td>{{ isset($item['cancelled']) ? $item['cancelled'] : 0 }}</td>
             </tr>
+        @endforeach
         </tbody>
     </table>
 @stop

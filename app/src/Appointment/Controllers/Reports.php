@@ -1,6 +1,7 @@
 <?php namespace App\Appointment\Controllers;
 
 use App\Appointment\Models\Service;
+use App\Appointment\Reports\Employee as EmployeeReport;
 
 class Reports extends AsBase
 {
@@ -8,10 +9,11 @@ class Reports extends AsBase
 
     public function employees()
     {
-        $services = Service::all();
-        // Prepare data
+        $services = Service::ofCurrentUser()->get();
+
         return $this->render('employees', [
-            'services' => array_combine($services->lists('id'), $services->lists('name'))
+            'services' => array_combine($services->lists('id'), $services->lists('name')),
+            'report'     => new EmployeeReport()
         ]);
     }
 }
