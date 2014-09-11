@@ -11,5 +11,6 @@ return [
     'hashid' => [
         'length'   => 8,
         'alphabet' => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
-    ]
+    ],
+    'upload_folder'           => 'uploads'
 ];

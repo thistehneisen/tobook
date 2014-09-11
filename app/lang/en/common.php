@@ -84,5 +84,6 @@ return [
         'not_found'    => 'Cannot the find the requesting data. Please check the URL again.',
         'invalid'      => 'Entered information is invalid. Please try again.',
         'unauthorized' => 'You are not allowed to access this page.',
-    ]
+    ],
+    'are_you_sure'   => 'Are you sure?' // @todo
 ];

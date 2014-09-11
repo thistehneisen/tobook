@@ -3,6 +3,7 @@
 use Session, Validator, Input, View, Redirect, Hash, Confide;
 use App\Core\Models\User as UserModel;
 use App\Core\Models\BusinessCategory;
+use App\Core\Models\Image;
 
 class User extends Base
 {
@@ -30,12 +31,24 @@ class User extends Base
         $categories = BusinessCategory::root()->with('children')->get();
         $selectedCategories = Confide::user()->businessCategories->lists('id');
 
+        // Get all images of this user
+        $images = Confide::user()->images()
+            ->businessImages()
+            // This should be enabled later
+            // ->ofCurrentUser()
+            ->get();
+
         return View::make('user.profile', [
             'user'               => Confide::user(),
             'fields'             => $fields,
             'validator'          => Validator::make(Input::all(), $this->rules['profile']),
             'categories'         => $categories,
-            'selectedCategories' => $selectedCategories
+            'selectedCategories' => $selectedCategories,
+            'images'             => $images,
+            'activeTab'          => Session::get('tab', 'general'),
+            'formData'           => [
+                'image_type' => Image::BUSINESS_IMAGE
+            ]
         ]);
     }
 
@@ -46,16 +59,23 @@ class User extends Base
      */
     public function updateProfile()
     {
-        $v = Validator::make(Input::all(), $this->rules['profile']);
-        if ($v->fails()) {
-            return Redirect::back()->withErrors($v);
+        $tab = Input::get('tab');
+        if ($tab === null || !method_exists($this, 'update'.studly_case($tab))) {
+            return \App::abort(404);
         }
 
         try {
-            $this->changePassword();
-            $this->changeInformation();
+            $method = 'update'.studly_case($tab);
+            $result = $this->$method();
+
+            // If we need to redirect immediately
+            if ($result instanceof Redirect) {
+                return $result;
+            }
 
             return Redirect::route('user.profile')
+                // Pass the current tab to correctly activate
+                ->with('tab', $tab)
                 ->with('messages', $this->successMessageBag(
                     trans('user.change_profile_success')
                 ));
@@ -74,7 +94,7 @@ class User extends Base
      *
      * @return void
      */
-    protected function changeInformation()
+    protected function updateGeneral()
     {
         $user = Confide::user();
         $user->fill([
@@ -92,7 +112,7 @@ class User extends Base
      *
      * @return void
      */
-    protected function changePassword()
+    protected function updatePassword()
     {
         // Nothing to do here
         foreach (['old_password', 'password', 'password_confirmation'] as $f) {
@@ -100,6 +120,11 @@ class User extends Base
             if (empty($field)) {
                 return;
             }
+        }
+
+        $v = Validator::make(Input::all(), $this->rules['profile']);
+        if ($v->fails()) {
+            return Redirect::back()->withErrors($v);
         }
 
         $user = UserModel::oldLogin(
@@ -118,6 +143,7 @@ class User extends Base
                 Confide::user()->removeOldPassword();
             }
 
+            // Done, nothing to do more
             return;
         };
 

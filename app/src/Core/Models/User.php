@@ -6,6 +6,8 @@ use Zizaco\Entrust\HasRole;
 
 class User extends ConfideUser
 {
+    const IMAGEABLE_PATH = '/users';
+
     use HasRole;
 
     public $visible = [
@@ -72,6 +74,11 @@ class User extends ConfideUser
     public function asOptions()
     {
         return $this->hasMany('App\Appointment\Models\Option');
+    }
+
+    public function images()
+    {
+        return $this->morphMany('App\Core\Models\Image', 'imageable');
     }
 
     //--------------------------------------------------------------------------
