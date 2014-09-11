@@ -60,27 +60,38 @@ class Consumer extends Base
      */
     public function store()
     {
-        $result = $this->consumerRepository->storeConsumer(false);
+        if (Input::get('act') != '') {
+            $result = $this->consumerRepository->linkConsumer();
 
-        if (is_array($result)) {
-            if (Request::ajax()) {
-                return Response::json([
-                    'success' => false,
-                    'errors' => $result,
-                ]);
-            } else {
-                return Redirect::back()
-                    ->withErrors($result)
-                    ->withInput();
-            }
-        } else {
-            if (Request::ajax()) {
+            if (is_object($result)) {
                 return Response::json([
                     'success' => true,
-                    'message' => 'Customer created successfully!',
+                    'message' => 'Customer linked successfully!',
                 ]);
+            }
+        } else {
+            $result = $this->consumerRepository->storeConsumer(false);
+
+            if (is_array($result)) {
+                if (Request::ajax()) {
+                    return Response::json([
+                        'success' => false,
+                        'errors' => $result,
+                    ]);
+                } else {
+                    return Redirect::back()
+                        ->withErrors($result)
+                        ->withInput();
+                }
             } else {
-                return Redirect::route('lc.consumers.index');
+                if (Request::ajax()) {
+                    return Response::json([
+                        'success' => true,
+                        'message' => 'Customer created successfully!',
+                    ]);
+                } else {
+                    return Redirect::route('lc.consumers.index');
+                }
             }
         }
     }
@@ -114,7 +125,7 @@ class Consumer extends Base
                     'stampInfo' => $stampInfo,
                 ];
             } else {
-                $data = ['error' => trans('This consumer does not exist')];
+                $data = ['error' => trans('This customer does not exist')];
             }
 
             return View::make('modules.lc.app.show', $data);

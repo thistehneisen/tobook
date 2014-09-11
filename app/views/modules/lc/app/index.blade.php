@@ -86,6 +86,7 @@ NFC Desktop App
                     </div>
                     @endforeach
                     {{ Form::close() }}
+                    <div id="js-result"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" id='js-cancelCreateConsumer'>{{ trans('common.cancel') }}</button>

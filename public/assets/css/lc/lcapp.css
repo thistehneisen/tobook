@@ -19,3 +19,6 @@
 #consumer-info .line {
   padding-bottom: 15px;
 }
+#consumer-info hr {
+  margin: 0;
+}

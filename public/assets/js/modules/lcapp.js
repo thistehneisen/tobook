@@ -36,30 +36,52 @@ $(document).ready(function () {
     // reset the form when click cancel
     $('#js-createConsumerModal').on('click', '#js-cancelCreateConsumer', function () {
         $('#js-createConsumerForm').trigger('reset');
+        $('#js-confirmCreateConsumer').text('Create');
+        $('#js-result').text('');
     });
 
     // trigger form submit when click confirm
     $('#js-createConsumerModal').on('click', '#js-confirmCreateConsumer', function () {
-        $.ajax({
-            url: '/loyalty-card/consumers',
-            dataType: 'json',
-            type: 'post',
-            data: $('#js-createConsumerForm').serialize(),
-            success: function (data) {
-                if (!data.success) {
-                    var errorMsg = '';
-
-                    $.each(data.errors, function (index, error) {
-                        errorMsg += '<p> - ' + error + '</p>';
-                    });
-
-                    showMessage('Create New Consumer', errorMsg);
-                } else {
-                    showMessage('Create New Consumer', data.message);
+        if ($('#js-confirmCreateConsumer').text() === 'Link') {
+            $.ajax({
+                url: '/loyalty-card/consumers?act=l',
+                dataType: 'json',
+                type: 'post',
+                data: $('#js-createConsumerForm').serialize(),
+                success: function (data) {
+                    $('#js-result').html(data.message);
                     window.location.reload();
-                }
-            },
-        });
+                },
+            });
+        } else {
+            $.ajax({
+                url: '/loyalty-card/consumers',
+                dataType: 'json',
+                type: 'post',
+                data: $('#js-createConsumerForm').serialize(),
+                success: function (data) {
+                    if (!data.success) {
+                        var errorMsg = '';
+
+                        if (data.errors[0] === 'DUPLICATE') {
+                            errorMsg = 'This person is already your customer.';
+                        } else if (data.errors[0] === 'EXIST') {
+                            errorMsg = 'This customer already exists. Do you want to link the consumer to your loyalty card ?';
+                            $('#js-confirmCreateConsumer').text('Link');
+                        } else {
+                            $.each(data.errors, function (index, error) {
+                                errorMsg += '<p> - ' + error + '</p>';
+                            });
+                        }
+
+                        $('#js-result').html(errorMsg);
+                    } else {
+                        $('#js-result').html(data.message);
+                        window.location.reload();
+                    }
+                },
+            });
+        }
     });
 
     // ------ HIDE CONSUMER INFO ------ //
