@@ -26,8 +26,8 @@ class EmailObserver implements \SplObserver {
             $serviceInfo = sprintf("%s, %s (%s - %s)",
                             $subject->bookingServices()->first()->service->name,
                             $subject->date,
-                            $start_at,
-                            $end_at);
+                            $start_at->toTimeString(),
+                            $end_at->toTimeString());
 
             $email['title'] = $emailSubject;
             $email['body']  = nl2br(str_replace('{Services}', $serviceInfo, $body));

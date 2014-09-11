@@ -24,8 +24,8 @@ class SmsObserver implements \SplObserver {
             $serviceInfo = sprintf("%s, %s (%s - %s)",
                 $subject->bookingServices()->first()->service->name,
                 $subject->date,
-                $start_at,
-                $end_at);
+                $start_at->toTimeString(),
+                $end_at->toTimeString());
 
             $smsMessage =  $subject->user->asOptions['confirm_consumer_sms_message'];
             $from = 'varaa.com';
