@@ -347,6 +347,12 @@ class MigrateCommand extends Command
                 'updated_at'  => $item->created,
             ]);
 
+            $map = [
+                'confirmed' => 1,
+                'pending'   => 2,
+                'cancelled' => 3,
+            ];
+
             $data = [
                 'uuid'        => $item->uuid,
                 'user_id'     => $item->owner_id,
@@ -357,7 +363,7 @@ class MigrateCommand extends Command
                 'modify_time' => 0,
                 'start_at'    => new Carbon($item->date.' '.$item->start),
                 'end_at'      => '',
-                'status'      => $item->booking_status,
+                'status'      => $map[$item->booking_status],
                 'ip'          => (string) $item->ip,
                 'created_at'  => $item->created,
                 'updated_at'  => $item->created,
