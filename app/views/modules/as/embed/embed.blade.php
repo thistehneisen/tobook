@@ -26,12 +26,11 @@
         }
         @endif
 
-        @if(!empty($user->asOptions['style_custom_css']))
-        {{ $user->asOptions['style_custom_css'] }}
+        @if (!empty($user->asOptions['style_custom_css'])) {{ $user->asOptions['style_custom_css'] }}
         @endif
     </style>
 </head>
-<body>
+<body class="style-{{ $user->id }}">
     @yield('content')
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -41,14 +40,14 @@
     {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
     <script src="{{ asset('assets/js/as/embed.js') }}"></script>
     <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('#datepicker').datepicker({
             format: 'yyyy-mm-dd',
             startDate: new Date(),
             todayBtn: true,
             todayHighlight: true
         }).on('changeDate', function (e) {
-            if(window.location.href.indexOf('date') != -1){
+            if (window.location.href.indexOf('date') != -1) {
                 window.location.href = window.location.href.replace(new RegExp("date=.*?(&|$)", 'g'), "date=" + e.format());
             } else {
                  window.location.href = window.location.href + '?date=' + e.format();
@@ -61,12 +60,12 @@
         console.log(beforeSlots);
         $('li.slot').each(function () {
             var len = $(this).nextAll('.active').length;
-            if(len < slots){
+            if (len < slots) {
                 $(this).removeClass('active');
                 $(this).addClass('inactive');
             }
             var lenBefore = $(this).prevUntil('li.booked').length;
-            if(lenBefore < beforeSlots){
+            if (lenBefore < beforeSlots) {
                 $(this).removeClass('active');
                 $(this).addClass('inactive');
             }
