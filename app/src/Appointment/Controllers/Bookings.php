@@ -413,4 +413,40 @@ class Bookings extends AsBase
         }
         return Response::json($data);
     }
+
+    /**
+     * Show statistics information of bookings
+     *
+     * @return View
+     */
+    public function statistics()
+    {
+        $now = Carbon::now();
+        $calendar = [];
+
+        $start = $now->startOfMonth();
+        $daysInMonth = $now->daysInMonth;
+        $j = ($start->dayOfWeek === Carbon::SUNDAY)
+            ? 6
+            : $start->dayOfWeek;
+
+        $i = 0;
+        while ($i < $j - 1) {
+            $calendar[$i++] = null;
+        }
+
+        $i = 1;
+        while ($i <= $daysInMonth) {
+            $calendar[] = $i++;
+        }
+
+        $i = count($calendar);
+        while ($i++ < 35) {
+            $calendar[] = null;
+        }
+
+        return $this->render('statistics', [
+            'calendar' => $calendar
+        ]);
+    }
 }

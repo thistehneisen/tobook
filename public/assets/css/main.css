@@ -204,3 +204,18 @@ a:hover {
 .varaa-uploader .btn-upload:hover {
   background-color: #f0f0f0;
 }
+.table-statistics td {
+  font-size: 13px;
+  position: relative;
+}
+.table-statistics .date {
+  font-family: "Comfortaa", Helvetica, Arial, Verdana;
+  color: #e8e8e8;
+  text-align: center;
+  position: absolute;
+  right: 0;
+  left: 0;
+  margin: 0 auto;
+  top: 25%;
+  font-size: 60px;
+}
