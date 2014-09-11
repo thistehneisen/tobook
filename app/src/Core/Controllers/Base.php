@@ -66,8 +66,9 @@ class Base extends \Controller
      */
     protected function render($path, $data = [])
     {
-        $path = (!empty($this->getViewPath()))
-            ? $this->getViewPath().'.'.$path
+        $viewPath = $this->getViewPath();
+        $path = (!empty($viewPath))
+            ? $viewPath.'.'.$path
             : $path;
         return \View::make($path, $data);
     }
