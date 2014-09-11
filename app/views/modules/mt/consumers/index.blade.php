@@ -59,6 +59,7 @@
             @endforeach
         </tbody>
     </table>
+    <div class="pull-right">{{ $consumers->links() }}</div>
 
     <!-- Modal -->
     <div class="modal fade" id="groupsModal" tabindex="-1" role="dialog" aria-labelledby="groupsModalLabel" aria-hidden="true">
@@ -87,7 +88,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="modal fade" id="campaignsModal" tabindex="-1" role="dialog" aria-labelledby="campaignsModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -119,7 +120,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="modal fade" id="smsModal" tabindex="-1" role="dialog" aria-labelledby="smsModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

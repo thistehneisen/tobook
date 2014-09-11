@@ -28,7 +28,6 @@ class MigrateCommand extends Command
      */
     public function fire()
     {
-        $this->error('Behold...');
         // Prefix will be set manually
         DB::setTablePrefix('');
 
@@ -114,6 +113,11 @@ class MigrateCommand extends Command
     {
         $map = $this->map;
         $this->migrateTable('as_services', 'varaa_as_services', function ($item) use ($map) {
+            if (!isset($map['varaa_as_service_categories'][$item->category_id])) {
+                $this->comment('Skip services #'.$item->id.': Category not found');
+                return;
+            }
+
             $lang = $this->getLang($item, 'pjService', [
                 'name'        => 'Untitled',
                 'description' => ''
@@ -149,6 +153,11 @@ class MigrateCommand extends Command
     {
         $map = $this->map;
         $this->migrateTable('as_services_extra_service', 'varaa_as_extra_service_service', function ($item) use ($map) {
+            if (!isset($map['varaa_as_services'][$item->service_id]) ||
+                !isset($map['varaa_as_extra_services'][$item->extra_id])) {
+                return;
+            }
+
             return [
                 'service_id'       => $map['varaa_as_services'][$item->service_id],
                 'extra_service_id' => $map['varaa_as_extra_services'][$item->extra_id],
@@ -161,6 +170,9 @@ class MigrateCommand extends Command
     {
         $map = $this->map;
         $this->migrateTable('as_services_time', 'varaa_as_service_times', function ($item) use ($map) {
+            if (!isset($map['varaa_as_services'][$item->foreign_id])) {
+                return;
+            }
             return [
                 'service_id'  => $map['varaa_as_services'][$item->foreign_id],
                 'price'       => $item->price,
@@ -200,12 +212,15 @@ class MigrateCommand extends Command
     {
         $map = $this->map;
         $this->migrateTable('as_employees_freetime', 'varaa_as_employee_freetime', function ($item) use ($map) {
+            if (!isset($map['varaa_as_employees'][$item->employee_id])) {
+                return;
+            }
             return [
                 'user_id'     => $item->owner_id,
                 'employee_id' => $map['varaa_as_employees'][$item->employee_id],
                 'date'        => $item->date,
-                'start_at'    => $item->start_ts,
-                'end_at'      => $item->end_ts,
+                'start_at'    => Carbon::createFromTimeStamp($item->start_ts, 'UTC'),
+                'end_at'      => Carbon::createFromTimeStamp($item->end_ts, 'UTC'),
                 'description' => (string) $item->message,
             ];
         });
@@ -230,10 +245,16 @@ class MigrateCommand extends Command
                 'sun' => 'sunday',
             ];
 
+            $counter = 0;
             foreach ($map as $short => $day) {
                 $startAt = $day.'_from';
                 $endAt = $day.'_to';
                 $isDayOff = $day.'_dayoff';
+
+                if (!isset($this->map['varaa_as_employees'][$item->foreign_id])) {
+                    $counter++;
+                    continue;
+                }
 
                 $data[] = [
                     'employee_id' => $this->map['varaa_as_employees'][$item->foreign_id],
@@ -250,6 +271,7 @@ class MigrateCommand extends Command
         }
 
         $this->info('as_working_times ---> varaa_as_employee_default_time');
+        $this->comment('Skipped '.$counter);
     }
 
     protected function migrateEmployeeCustomTimes()
@@ -258,7 +280,13 @@ class MigrateCommand extends Command
             ->join('as_custom_times', 'as_custom_times.id', '=', 'as_employees_custom_times.customtime_id')
             ->get();
 
+        $counter = 0;
         foreach ($items as $item) {
+            if (!isset($this->map['varaa_as_employees'][$item->employee_id])) {
+                $counter++;
+                continue;
+            }
+
             $data = [
                 'employee_id' => $this->map['varaa_as_employees'][$item->employee_id],
                 'date'        => $item->date,
@@ -272,12 +300,18 @@ class MigrateCommand extends Command
         }
 
         $this->info('as_employees_custom_times ---> varaa_as_employee_custom_time');
+        $this->comment('Skipped '.$counter);
     }
 
     protected function migrateEmployeeService()
     {
         $map = $this->map;
         $this->migrateTable('as_employees_services', 'varaa_as_employee_service', function ($item) use ($map) {
+            if (!isset($map['varaa_as_employees'][$item->employee_id]) ||
+                !isset($map['varaa_as_services'][$item->service_id])) {
+                return;
+            }
+
             return [
                 'employee_id' => $map['varaa_as_employees'][$item->employee_id],
                 'service_id'  => $map['varaa_as_services'][$item->service_id],
@@ -301,7 +335,13 @@ class MigrateCommand extends Command
         $now = Carbon::now();
 
         $emptyEmail = 0;
+        $counter = 0;
         foreach ($items as $item) {
+            if (!isset($this->map['varaa_as_employees'][$item->employee_id])) {
+                $counter++;
+                continue;
+            }
+
             // If empty email, create a good one, hoho
             if (empty($item->c_email)) {
                 $item->c_email = 'asconsumer_'.($emptyEmail++).'@varaa.com';
@@ -377,12 +417,13 @@ class MigrateCommand extends Command
             // Map UUID
             $this->map['varaa_as_bookings_uuid'][$item->uuid] = $id;
 
-            $this->comment("Done booking {$item->id}");
+            echo '.';
         }
         Cache::forever('varaa_as_bookings', $this->map['varaa_as_bookings']);
         Cache::forever('varaa_as_bookings_uuid', $this->map['varaa_as_bookings_uuid']);
 
         $this->info('as_bookings ---> varaa_as_bookings');
+        $this->info('Skipped '.$counter);
         $this->info('Skipped empty email '.$emptyEmail);
     }
 
@@ -390,6 +431,10 @@ class MigrateCommand extends Command
     {
         $map = $this->map;
         $this->migrateTable('as_bookings_extra_service', 'varaa_as_booking_extra_services', function ($item) use ($map) {
+            if (!isset($map['varaa_as_bookings'][$item->booking_id]) ||
+                !isset($map['varaa_as_extra_services'][$item->extra_id])) {
+                return;
+            }
             return [
                 'booking_id'       => $map['varaa_as_bookings'][$item->booking_id],
                 'extra_service_id' => $map['varaa_as_extra_services'][$item->extra_id],
@@ -410,7 +455,15 @@ class MigrateCommand extends Command
 
         $data = [];
         $now = Carbon::now();
+        $counter = 0;
         foreach ($items as $item) {
+            if (!isset($map['varaa_as_bookings'][$item->booking_id]) ||
+                !isset($map['varaa_as_employees'][$item->employee_id]) ||
+                !isset($map['varaa_as_services'][$item->service_id])) {
+                $counter++;
+                continue;
+            }
+
             $value = [
                 'tmp_uuid'          => (string) $item->tmp_hash,
                 'user_id'           => $item->owner_id,
@@ -438,6 +491,7 @@ class MigrateCommand extends Command
         }
 
         $this->info($from.' ---> '.$to);
+        $this->info('Skipped '.$counter);
 
         // Store to cache
         Cache::forever($to, $this->map[$to]);
@@ -581,12 +635,21 @@ class MigrateCommand extends Command
 
     protected function migrateTable($from, $to, Closure $mapping)
     {
+        $this->info($from.' ---> '.$to);
         $items = DB::table($from)->get();
 
         $data = [];
         $now = Carbon::now();
+        $counter = 0;
+
         foreach ($items as $item) {
             $value = call_user_func($mapping, $item);
+            if ($value === null) {
+                $counter++;
+                // Skip
+                continue;
+            }
+
             if (!isset($value['no_created'])) {
                 $value['created_at'] = $now;
                 $value['updated_at'] = $now;
@@ -598,7 +661,10 @@ class MigrateCommand extends Command
             $this->map[$to][$item->id] = $id;
         }
 
-        $this->info($from.' ---> '.$to);
+        $this->info('Done');
+        if ($counter > 0) {
+            $this->comment('Skipped: '.$counter);
+        }
 
         // Store to cache
         Cache::forever($to, $this->map[$to]);
