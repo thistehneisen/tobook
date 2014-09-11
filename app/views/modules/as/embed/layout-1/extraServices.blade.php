@@ -5,7 +5,7 @@
             @foreach ($service->extraServices as $extraService)
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" name="extra_service" value="{{ $extraService->id }}"> {{ $extraService->name }} ({{ $extraService->length }} {{ trans('common.minutes')}})
+                    <input type="checkbox" name="extra_services[]" value="{{ $extraService->id }}"> {{ $extraService->name }} ({{ $extraService->length }} {{ trans('common.minutes')}})
                 </label>
             </div>
             @endforeach

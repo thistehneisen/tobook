@@ -295,10 +295,6 @@ Route::group([
     Route::group([
         'prefix' => 'as'
     ], function() {
-        Route::get('{hash}', [
-            'as' => 'as.embed.embed',
-            'uses' => 'App\Appointment\Controllers\Embed@embed'
-        ]);
 
         Route::get('get-extra-service-form', [
             'as' => 'as.embed.extra.form',
@@ -323,6 +319,11 @@ Route::group([
         Route::post('add-confirm-info', [
             'as' => 'as.embed.confirm',
             'uses' => 'App\Appointment\Controllers\Embed@addConfirmInfo'
+        ]);
+
+        Route::get('{hash}', [
+            'as' => 'as.embed.embed',
+            'uses' => 'App\Appointment\Controllers\Embed@embed'
         ]);
     });
 });

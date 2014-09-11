@@ -4,6 +4,7 @@ use App, View, Confide, Redirect, Input, Config, Response, Util, Hashids, Sessio
 use Illuminate\Support\Collection;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
+use App\Appointment\Models\BookingExtraService;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
@@ -397,7 +398,8 @@ class Bookings extends AsBase
         $uuid = Input::get('uuid');
         $hash = Input::get('hash');
         try {
-            $bookingService = BookingService::where('tmp_uuid', $uuid)->delete();
+            $bookingService      = BookingService::where('tmp_uuid', $uuid)->delete();
+            $bookingExtraService = BookingExtraService::where('tmp_uuid', $uuid)->delete();
             $carts = Session::get('carts', []);
             unset($carts[$uuid]);
             Session::put('carts' , $carts);

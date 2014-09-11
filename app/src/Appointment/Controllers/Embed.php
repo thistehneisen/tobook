@@ -5,7 +5,8 @@ use App\Core\Models\User;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\ServiceCategory;
-use App\Core\Models\Consumer;
+use App\Appointment\Models\ExtraService;
+use App\Consumers\Models\Consumer;
 use Carbon\Carbon;
 
 class Embed extends AsBase
@@ -55,8 +56,10 @@ class Embed extends AsBase
             $layoutId = 1;
         }
 
-        $serviceId      = Input::get('service_id');
-        $serviceTimeId  = Input::get('service_time_id');
+        $serviceId       = Input::get('service_id');
+        $serviceTimeId   = Input::get('service_time_id');
+        $extraServiceIds = Input::get('extra_services');
+
         $date = (empty(Input::get('date'))) ? Carbon::today() : Input::get('date');
         $consumer = null;
         $booking_info = [];
@@ -99,6 +102,17 @@ class Embed extends AsBase
             }
             $employees = $service->employees;
         }
+        $extraServices = [];
+        if(!empty($extraServiceIds)){
+            $extraServices = ExtraService::whereIn('id', $extraServiceIds)->get();
+        }
+        $extraServiceLength = $extraServicePrice =  0;
+        if(!empty($extraServices)){
+            foreach ($extraServices as $extraService) {
+                $extraServiceLength += $extraService->length;
+                $extraServicePrice  += $extraService->price;
+            }
+        }
 
         $categories = ServiceCategory::OfUser($user->id)
             ->orderBy('order')
@@ -108,17 +122,20 @@ class Embed extends AsBase
             ->get();
 
         return $this->render('layout-'.$layoutId, [
-            'user'          => $user,
-            'categories'    => $categories,
-            'employees'     => $employees,
-            'booking_info'  => $booking_info,
-            'consumer'      => $consumer,
-            'service'       => $service,
-            'serviceTime'   => $serviceTime,
-            'workingTimes'  => $workingTimes,
-            'hash'          => $hash,
-            'date'          => $date,
-            'action'        => $action
+            'user'               => $user,
+            'categories'         => $categories,
+            'employees'          => $employees,
+            'booking_info'       => $booking_info,
+            'consumer'           => $consumer,
+            'service'            => $service,
+            'serviceTime'        => $serviceTime,
+            'extraServiceLength' => $extraServiceLength,
+            'extraServicePrice'  => $extraServicePrice,
+            'extraServices'      => $extraServices,
+            'workingTimes'       => $workingTimes,
+            'hash'               => $hash,
+            'date'               => $date,
+            'action'             => $action
         ]);
     }
 
@@ -131,7 +148,12 @@ class Embed extends AsBase
     {
         $service = Service::findOrFail(Input::get('service_id'));
 
-        return $this->render('extraServices', [
+        $layoutId = (int) Input::get('l');
+        if (!$layoutId) {
+            $layoutId = 1;
+        }
+
+        return $this->render('layout-'.$layoutId.'.extraServices', [
             'date'    => Input::get('date') ?: Carbon::now()->toDateString(),
             'service' => $service
         ]);

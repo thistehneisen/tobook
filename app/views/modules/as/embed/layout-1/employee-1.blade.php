@@ -1,12 +1,12 @@
 <div class="list-group">
 <?php
-$selectedDate    = $date->toDateString();
-$serviceLength   = (!empty($serviceTime)) ? $serviceTime->during : $service->during ;
-$serviceTotal    = (!empty($serviceTime)) ? ($serviceTime->during + $serviceTime->after)  : ($service->during + $service->after);
-$serviceBefore   = (!empty($serviceTime)) ? $serviceTime->before  : $service->before;
-$servicePrice    = (!empty($serviceTime)) ? $serviceTime->price  : $service->price ;
-$selectedService = (!empty($serviceTime)) ? $serviceTime  : $service;
-$serviceTimeId   = (!empty($serviceTime)) ? $serviceTime->id : 'default';
+$selectedDate       = $date->toDateString();
+$serviceLength      = (!empty($serviceTime)) ? $serviceTime->during + $extraServiceLength : $service->during + $extraServiceLength ;
+$serviceTotal       = (!empty($serviceTime)) ? ($serviceTime->during + $serviceTime->after + $extraServiceLength)  : ($service->during + $service->after + $extraServiceLength);
+$serviceBefore      = (!empty($serviceTime)) ? $serviceTime->before  : $service->before;
+$servicePrice       = (!empty($serviceTime)) ? $serviceTime->price + $extraServicePrice  : $service->price + $extraServicePrice ;
+$selectedService    = (!empty($serviceTime)) ? $serviceTime  : $service;
+$serviceTimeId      = (!empty($serviceTime)) ? $serviceTime->id : 'default';
 ?>
  @foreach ($employees as $employee)
 <div class="as-col">
@@ -22,7 +22,7 @@ $serviceTimeId   = (!empty($serviceTime)) ? $serviceTime->id : 'default';
         @foreach ($workingTimes as $hour => $minutes)
              @foreach ($minutes as $minuteShift)
              <?php $slotClass = $employee->getSlotClass($selectedDate, $hour, $minuteShift, 'frontend', $selectedService); ?>
-            <li id="{{$id}}" data-id="{{$id}}" data-employee-id="{{ $employee->id }}" data-booking-length="{{ $serviceLength }}" data-start-time="{{ sprintf('%02d:%02d', $hour, $minuteShift) }}" href="#select-action" class="slot {{ $slotClass }}">
+            <li data-employee-id="{{ $employee->id }}" data-booking-length="{{ $serviceLength }}" data-start-time="{{ sprintf('%02d:%02d', $hour, $minuteShift) }}" href="#select-action" class="slot {{ $slotClass }}">
                 {{ sprintf('%02d:%02d', $hour, $minuteShift) }}
                 <?php $id++;?>
             </li>
@@ -36,6 +36,9 @@ $serviceTimeId   = (!empty($serviceTime)) ? $serviceTime->id : 'default';
         <input type="hidden" name="start_time" id="start_time-{{ $employee->id }}" value="">
         <input type="hidden" name="service_id" id="service_id" value="{{ $service->id }}">
         <input type="hidden" name="service_time" id="service_time" value="{{ $serviceTimeId }}">
+        @foreach($extraServices as $extraService)
+        <input type="hidden" name="extra_services[]" id="extra_services" value="{{ $extraService->id }}">
+        @endforeach
         <input type="hidden" name="employee_id" id="employee_id" value="{{ $employee->id }}">
         <input type="hidden" name="hash" id="hash" value="{{ $hash }}">
         </form>

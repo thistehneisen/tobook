@@ -17,7 +17,7 @@ class CreateAsBookingServicesTable extends Migration {
             $table->increments('id');
             $table->string('tmp_uuid');
             $table->unsignedInteger('user_id');
-            $table->unsignedInteger('booking_id');
+            $table->unsignedInteger('booking_id')->nullable();
             $table->unsignedInteger('service_id');
             $table->unsignedInteger('service_time_id')->nullable();
             $table->unsignedInteger('employee_id');
@@ -42,6 +42,10 @@ class CreateAsBookingServicesTable extends Migration {
             $table->foreign('employee_id')
                 ->references('id')
                 ->on('as_employees')
+                ->onDelete('cascade');
+            $table->foreign('booking_id')
+                ->references('id')
+                ->on('as_bookings')
                 ->onDelete('cascade');
             $table->timestamps();
 		});

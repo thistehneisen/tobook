@@ -16,7 +16,7 @@ class Booking extends \App\Core\Models\Base implements \SplSubject
     ];
 
     const STATUS_CONFIRM   = 1;
-    const STATUS_PENDDING  = 2;
+    const STATUS_PENDING  = 2;
     const STATUS_CANCELLED = 3;
 
     //Implement methods in SplSubject
@@ -57,7 +57,7 @@ class Booking extends \App\Core\Models\Base implements \SplSubject
     {
         $map = [
             'confirmed' => self::STATUS_CONFIRM,
-            'pending'   => self::STATUS_PENDDING,
+            'pending'   => self::STATUS_PENDING,
             'cancelled' => self::STATUS_CANCELLED,
         ];
 
@@ -68,7 +68,7 @@ class Booking extends \App\Core\Models\Base implements \SplSubject
     {
         $map = [
             static::STATUS_CONFIRM   => 'confirmed',
-            static::STATUS_PENDDING  => 'pending',
+            static::STATUS_PENDING  => 'pending',
             static::STATUS_CANCELLED => 'cancelled',
         ];
 

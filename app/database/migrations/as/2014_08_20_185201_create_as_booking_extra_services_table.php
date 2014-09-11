@@ -15,7 +15,7 @@ class CreateAsBookingExtraServicesTable extends Migration {
         Schema::create('as_booking_extra_services', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->unsignedInteger('booking_id');
+            $table->unsignedInteger('booking_id')->nullable();
             $table->unsignedInteger('extra_service_id');
             $table->date('date');
             $table->foreign('booking_id')
