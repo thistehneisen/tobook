@@ -34,10 +34,12 @@ class Bookings extends AsBase
             return $this->getBlankBookingForm();
         }
 
-        $booking = Booking::find($bookingId);
-        $bookingStatuses = Booking::getStatuses();
-        $employee = $booking->employee;
-        $services = $employee->services;
+        $booking              = Booking::find($bookingId);
+        $bookingStatuses      = Booking::getStatuses();
+        $employee             = $booking->employee;
+        $services             = $employee->services;
+        $bookingService       = $booking->bookingServices()->first();
+        $bookingExtraServices = $booking->extraServices()->get();
 
         $categories = [];
         $categories[-1] = trans('commom.select');
@@ -46,39 +48,40 @@ class Bookings extends AsBase
             $categories[$service->category->id] = $service->category->name;
         }
 
-        $selectedService      = $booking->bookingServices()->first()->service;
-        $selectedCategoryId   = $selectedService->category->id;
-        $selectedServiceId    = $selectedService->id;
-        $selectedServices     = $employee->services()->where('category_id', $selectedCategoryId)->lists('name','id');
-        $selectedServices[-1] = trans('commom.select');
-        ksort($selectedServices);
+        $bookingCategoryId   = $bookingService->service->category->id;
+        $bookingServiceId    = $bookingService->service->id;
+        $bookingServices     = $employee->services()->where('category_id', $bookingCategoryId)->lists('name','id');
+        $bookingServices[-1] = trans('commom.select');
+        ksort($bookingServices);//sort selected services by key
 
-        $serviceTimes = $selectedService->serviceTimes;
+        $serviceTimes = $bookingService->service->serviceTimes;
         $serviceTimesList = [];
-        $serviceTimesList['default'] = sprintf('%s (%s)', $selectedService->length, $selectedService->description);
+        $serviceTimesList['default'] = sprintf('%s (%s)', $bookingService->service->length, $bookingService->service->description);
         foreach ($serviceTimes as $serviceTime) {
             $serviceTimesList[$serviceTime->id] = $serviceTime->length;
         }
 
-        $selectedServiceTime = (!empty($booking->bookingServices()->first()->serviceTime))
+        $bookingServiceTime = (!empty($booking->bookingServices()->first()->serviceTime))
                             ? $booking->bookingServices()->first()->serviceTime->id
                             : 'default';
 
         return View::make('modules.as.bookings.form', [
-            'booking'             => $booking,
-            'uuid'                => $booking->uuid,
-            'modifyTime'          => $booking->modify_time,
-            'bookingDate'         => $booking->date,
-            'startTime'           => $booking->start_at,
-            'endTime'             => $booking->end_at,
-            'bookingStatuses'     => $bookingStatuses,
-            'employee'            => $employee,
-            'category_id'         => $selectedCategoryId,
-            'service_id'          => $selectedServiceId,
-            'categories'          => $categories,
-            'services'            => $selectedServices,
-            'serviceTimes'        => array_values($serviceTimesList),
-            'selectedServiceTime' => $selectedServiceTime,
+            'booking'               => $booking,
+            'uuid'                  => $booking->uuid,
+            'modifyTime'            => $booking->modify_time,
+            'bookingDate'           => $booking->date,
+            'startTime'             => $booking->start_at,
+            'endTime'               => $booking->end_at,
+            'bookingStatuses'       => $bookingStatuses,
+            'bookingService'        => $bookingService,
+            'bookingServiceTime'    => $bookingServiceTime,
+            'bookingExtraServices'  => $bookingExtraServices,
+            'employee'              => $employee,
+            'category_id'           => $bookingCategoryId,
+            'service_id'            => $bookingServiceId,
+            'categories'            => $categories,
+            'services'              => $bookingServices,
+            'serviceTimes'          => array_values($serviceTimesList),
         ]);
     }
 

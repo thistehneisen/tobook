@@ -7,6 +7,7 @@ class Booking extends \App\Core\Models\Base implements \SplSubject
     public $fillable = [
         'date',
         'total',
+        'total_price',
         'modify_time',
         'start_at',
         'end_at',
@@ -101,5 +102,9 @@ class Booking extends \App\Core\Models\Base implements \SplSubject
     public function bookingServices()
     {
         return $this->hasMany('App\Appointment\Models\BookingService');
+    }
+
+    public function extraServices(){
+         return $this->hasMany('App\Appointment\Models\BookingExtraService');
     }
 }
