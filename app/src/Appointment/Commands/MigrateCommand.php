@@ -457,9 +457,9 @@ class MigrateCommand extends Command
         $now = Carbon::now();
         $counter = 0;
         foreach ($items as $item) {
-            if (!isset($map['varaa_as_bookings'][$item->booking_id]) ||
-                !isset($map['varaa_as_employees'][$item->employee_id]) ||
-                !isset($map['varaa_as_services'][$item->service_id])) {
+            if (!isset($this->map['varaa_as_bookings'][$item->booking_id]) ||
+                !isset($this->map['varaa_as_employees'][$item->employee_id]) ||
+                !isset($this->map['varaa_as_services'][$item->service_id])) {
                 $counter++;
                 continue;
             }
