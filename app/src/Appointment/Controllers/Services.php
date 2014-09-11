@@ -44,25 +44,26 @@ class Services extends AsBase
         $service->fill(Input::all());
         // Attach user
         $service->user()->associate($this->user);
-        $category_id = (int) Input::get('category_id');
-        if (!empty($category_id)) {
-            $category = ServiceCategory::find($category_id);
+        $categoryId = (int) Input::get('category_id');
+        if (!empty($categoryId)) {
+            $category = ServiceCategory::find($categoryId);
             $service->category()->associate($category);
         }
 
         $service->saveOrFail();
 
-        $employees = Input::get('employees', array());
+        $employees = Input::get('employees', []);
         $plustimes = Input::get('plustimes');
         $service->employees()->detach($employees);
-        foreach ($employees as $employee_id) {
-            $employee = Employee::find($employee_id);
+        foreach ($employees as $employeeId) {
+            $employee = Employee::find($employeeId);
             $employeeService = new EmployeeService();
             $employeeService->service()->associate($service);
             $employeeService->employee()->associate($employee);
-            $employeeService->plustime = $plustimes[$employee_id];
+            $employeeService->plustime = $plustimes[$employeeId];
             $employeeService->saveOrFail();
         }
+
         return $service;
     }
 }
