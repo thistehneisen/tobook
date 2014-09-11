@@ -1,0 +1,21 @@
+.comfortaa {
+  font-family: "Comfortaa", Helvetica, Arial, Verdana;
+}
+.orange {
+  color: #ec7923;
+}
+#consumer-table tbody tr {
+  cursor: pointer;
+}
+#consumer-table .no-display {
+  display: none;
+}
+#consumer-table .selected {
+  background: #fff2de;
+}
+#consumer-info .panel-heading h3 {
+  margin: 0;
+}
+#consumer-info .line {
+  padding-bottom: 15px;
+}

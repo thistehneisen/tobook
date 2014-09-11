@@ -8,7 +8,7 @@
 @stop
 
 @section('styles')
-    {{ HTML::style('assets/css/loyalty.css') }}
+    {{ HTML::style('assets/css/lc/loyalty.css') }}
 @stop
 
 @section('content')

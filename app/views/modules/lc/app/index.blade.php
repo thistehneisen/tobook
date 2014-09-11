@@ -20,7 +20,7 @@ NFC Desktop App
     <div class="col-md-6 text-left">
         <i class="fa fa-globe"></i>
         @foreach (Config::get('varaa.languages') as $locale)
-        <a class="language-swicher {{ Config::get('app.locale') === $locale ? 'active' : '' }}" href="{{ UrlHelper::localizedCurrentUrl($locale) }}" title="">{{ strtoupper($locale) }}</a>
+        <a class="language-swicher {{ Config::get('app.locale') === $locale ? 'active' : '' }}" href="{{ UrlHelper::localizeCurrentUrl($locale) }}" title="">{{ strtoupper($locale) }}</a>
         @endforeach
     </div>
     <div class="col-md-6 text-right">
@@ -95,7 +95,7 @@ NFC Desktop App
         </div>
     </div>
 
-    <!-- <div class="modal fade" id="js-confirmDeleteModal" role="dialog" aria-labelledby="js-confirmDeleteModalLabel" aria-hidden="true">
+    {{-- <div class="modal fade" id="js-confirmDeleteModal" role="dialog" aria-labelledby="js-confirmDeleteModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -111,7 +111,7 @@ NFC Desktop App
                 </div>
             </div>
         </div>
-    </div> -->
+    </div> --}}
 
     <div class="modal fade" id="js-givePointModal" role="dialog" aria-labelledby="js-givePointModalLabel" aria-hidden="true">
         <div class="modal-dialog">
