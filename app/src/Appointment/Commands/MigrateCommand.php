@@ -2,8 +2,6 @@
 
 use DB, Carbon\Carbon, Closure, Consumer, Cache;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 
 class MigrateCommand extends Command
 {
@@ -36,21 +34,21 @@ class MigrateCommand extends Command
 
         $this->dumpFromCache();
 
-        // $this->migrateServiceCategories();
-        // $this->migrateExtraServices();
-        // $this->migrateResources();
-        // $this->migrateServices();
-        // $this->migrateResourceService();
-        // $this->migrateExtraServiceService();
-        // $this->migrateServiceTimes();
-        // $this->migrateEmployees();
-        // $this->migrateEmployeeCustomTimes();
-        // $this->migrateEmployeeDefaultTime();
-        // $this->migrateEmployeeFreetime();
-        // $this->migrateEmployeeService();
-        // $this->migrateBookings();
-        // $this->migrateBookingExtraServices();
-        // $this->migrateBookingServices();
+        $this->migrateServiceCategories();
+        $this->migrateExtraServices();
+        $this->migrateResources();
+        $this->migrateServices();
+        $this->migrateResourceService();
+        $this->migrateExtraServiceService();
+        $this->migrateServiceTimes();
+        $this->migrateEmployees();
+        $this->migrateEmployeeCustomTimes();
+        $this->migrateEmployeeDefaultTime();
+        $this->migrateEmployeeFreetime();
+        $this->migrateEmployeeService();
+        $this->migrateBookings();
+        $this->migrateBookingExtraServices();
+        $this->migrateBookingServices();
         $this->migrateOptions();
     }
 
@@ -74,7 +72,7 @@ class MigrateCommand extends Command
 
     protected function migrateServiceCategories()
     {
-        $this->migrateTable('as_services_category', 'varaa_as_service_categories', function($item) {
+        $this->migrateTable('as_services_category', 'varaa_as_service_categories', function ($item) {
             return [
                 'user_id'       => $item->owner_id,
                 'name'          => $item->name,
@@ -87,8 +85,9 @@ class MigrateCommand extends Command
 
     protected function migrateExtraServices()
     {
-        $this->migrateTable('as_extra_service', 'varaa_as_extra_services', function($item) {
+        $this->migrateTable('as_extra_service', 'varaa_as_extra_services', function ($item) {
             $now = Carbon::now();
+
             return [
                 'user_id'     => $item->owner_id,
                 'name'        => $item->name,
@@ -101,7 +100,7 @@ class MigrateCommand extends Command
 
     protected function migrateResources()
     {
-        $this->migrateTable('as_resources', 'varaa_as_resources', function($item) {
+        $this->migrateTable('as_resources', 'varaa_as_resources', function ($item) {
             return [
                 'user_id'     => $item->owner_id,
                 'name'        => $item->name,
@@ -114,7 +113,7 @@ class MigrateCommand extends Command
     protected function migrateServices()
     {
         $map = $this->map;
-        $this->migrateTable('as_services', 'varaa_as_services', function($item) use ($map) {
+        $this->migrateTable('as_services', 'varaa_as_services', function ($item) use ($map) {
             $lang = $this->getLang($item, 'pjService', [
                 'name'        => 'Untitled',
                 'description' => ''
@@ -138,7 +137,7 @@ class MigrateCommand extends Command
     protected function migrateResourceService()
     {
         $map = $this->map;
-        $this->migrateTable('as_resources_services', 'varaa_as_resource_service', function($item) use ($map) {
+        $this->migrateTable('as_resources_services', 'varaa_as_resource_service', function ($item) use ($map) {
             return [
                 'service_id'  => $map['varaa_as_services'][$item->service_id],
                 'resource_id' => $map['varaa_as_resources'][$item->resources_id],
@@ -149,7 +148,7 @@ class MigrateCommand extends Command
     protected function migrateExtraServiceService()
     {
         $map = $this->map;
-        $this->migrateTable('as_services_extra_service', 'varaa_as_extra_service_service', function($item) use ($map) {
+        $this->migrateTable('as_services_extra_service', 'varaa_as_extra_service_service', function ($item) use ($map) {
             return [
                 'service_id'       => $map['varaa_as_services'][$item->service_id],
                 'extra_service_id' => $map['varaa_as_extra_services'][$item->extra_id],
@@ -161,7 +160,7 @@ class MigrateCommand extends Command
     protected function migrateServiceTimes()
     {
         $map = $this->map;
-        $this->migrateTable('as_services_time', 'varaa_as_service_times', function($item) use ($map) {
+        $this->migrateTable('as_services_time', 'varaa_as_service_times', function ($item) use ($map) {
             return [
                 'service_id'  => $map['varaa_as_services'][$item->foreign_id],
                 'price'       => $item->price,
@@ -177,7 +176,7 @@ class MigrateCommand extends Command
     protected function migrateEmployees()
     {
         $map = $this->map;
-        $this->migrateTable('as_employees', 'varaa_as_employees', function($item) use ($map) {
+        $this->migrateTable('as_employees', 'varaa_as_employees', function ($item) use ($map) {
             $lang = $this->getLang($item, 'pjEmployee', [
                 'name' => 'Untitled',
             ]);
@@ -200,7 +199,7 @@ class MigrateCommand extends Command
     protected function migrateEmployeeFreetime()
     {
         $map = $this->map;
-        $this->migrateTable('as_employees_freetime', 'varaa_as_employee_freetime', function($item) use ($map) {
+        $this->migrateTable('as_employees_freetime', 'varaa_as_employee_freetime', function ($item) use ($map) {
             return [
                 'user_id'     => $item->owner_id,
                 'employee_id' => $map['varaa_as_employees'][$item->employee_id],
@@ -278,7 +277,7 @@ class MigrateCommand extends Command
     protected function migrateEmployeeService()
     {
         $map = $this->map;
-        $this->migrateTable('as_employees_services', 'varaa_as_employee_service', function($item) use ($map) {
+        $this->migrateTable('as_employees_services', 'varaa_as_employee_service', function ($item) use ($map) {
             return [
                 'employee_id' => $map['varaa_as_employees'][$item->employee_id],
                 'service_id'  => $map['varaa_as_services'][$item->service_id],
@@ -324,7 +323,6 @@ class MigrateCommand extends Command
                         'updated_at' => $item->created,
                     ]);
 
-                // @todo: Remember to attach owner
                 DB::table('varaa_consumer_user')->insert([
                     'consumer_id' => $consumerId,
                     'user_id'     => $item->owner_id,
@@ -385,7 +383,7 @@ class MigrateCommand extends Command
     protected function migrateBookingExtraServices()
     {
         $map = $this->map;
-        $this->migrateTable('as_bookings_extra_service', 'varaa_as_booking_extra_services', function($item) use ($map) {
+        $this->migrateTable('as_bookings_extra_service', 'varaa_as_booking_extra_services', function ($item) use ($map) {
             return [
                 'booking_id'       => $map['varaa_as_bookings'][$item->booking_id],
                 'extra_service_id' => $map['varaa_as_extra_services'][$item->extra_id],
@@ -442,7 +440,7 @@ class MigrateCommand extends Command
     protected function migrateInvoices()
     {
         $map = $this->map;
-        $this->migrateTable('as_plugin_invoice', 'varaa_as_invoices', function($item) use ($map) {
+        $this->migrateTable('as_plugin_invoice', 'varaa_as_invoices', function ($item) use ($map) {
             $bookingId = $this->map['varaa_as_bookings_uuid'][$item->order_id];
 
             return [
@@ -476,7 +474,88 @@ class MigrateCommand extends Command
 
     protected function migrateOptions()
     {
+        // Migrate FE styles
+        $all = DB::table('as_formstyle')->get();
+        $now = Carbon::now();
+        foreach ($all as $item) {
+            $records = [
+                ['key' => 'style_logo', 'value' => $item->logo],
+                ['key' => 'style_banner', 'value' => $item->banner],
+                ['key' => 'style_heading_color', 'value' => $item->color],
+                ['key' => 'style_color', 'value' => $item->color],
+                ['key' => 'style_background', 'value' => $item->background],
+                ['key' => 'style_custom_css', 'value' => $item->message],
+            ];
 
+            $data = [];
+            foreach ($records as $r) {
+                $r['name']       = '';
+                $r['value']      = json_encode($r['value']);
+                $r['created_at'] = $now;
+                $r['updated_at'] = $now;
+                $r['is_visible'] = true;
+                $r['user_id']    = $item->owner_id;
+
+                $data[] = $r;
+            }
+
+            DB::table('varaa_as_options')->insert($data);
+        }
+
+        // Migrate default working time
+        $all = DB::table('as_working_times')->where('type', 'calendar')->get();
+        foreach ($all as $item) {
+            $records = [];
+
+            $data = [
+                'mon' => ['start' => $item->monday_from, 'end' => $item->monday_to],
+                'tue' => ['start' => $item->tuesday_from, 'end' => $item->tuesday_to],
+                'wed' => ['start' => $item->wednesday_from, 'end' => $item->wednesday_to],
+                'thu' => ['start' => $item->thursday_from, 'end' => $item->thursday_to],
+                'fri' => ['start' => $item->friday_from, 'end' => $item->friday_to],
+                'sat' => ['start' => $item->saturday_from, 'end' => $item->saturday_to],
+                'sun' => ['start' => $item->sunday_from, 'end' => $item->sunday_to],
+            ];
+
+            DB::table('varaa_as_options')->insert([
+                'key'        => 'working_time',
+                'name'       => '',
+                'value'      => json_encode($data),
+                'created_at' => $now,
+                'updated_at' => $now,
+                'is_visible' => true,
+                'user_id'    => $item->owner_id,
+            ]);
+        }
+
+        // Migrate confirmation email
+        $all = DB::table('as_multi_lang')
+            ->where('model', 'pjCalendar')
+            ->whereIn('field', [
+                'confirm_subject_client',
+                'confirm_tokens_client',
+                'confirm_subject_employee',
+                'confirm_tokens_employee',
+                'confirm_subject_admin',
+                'confirm_tokens_admin',
+            ])->get();
+
+        $data = [];
+        foreach ($all as $item) {
+            $data[] = [
+                'key'        => $item->field,
+                'name'       => '',
+                'value'      => json_encode($item->content),
+                'created_at' => $now,
+                'updated_at' => $now,
+                'is_visible' => true,
+                'user_id'    => $item->owner_id,
+            ];
+        }
+        DB::table('varaa_as_options')->insert($data);
+
+        $this->info('as_formstyle ---> varaa_as_options');
+        $this->info('as_working_times ---> varaa_as_options');
     }
 
     protected function getLang($item, $model, $default)
@@ -490,6 +569,7 @@ class MigrateCommand extends Command
         if ($result) {
             $default = array_combine(array_pluck($result, 'field'), array_pluck($result, 'content'));
         }
+
         return $default;
     }
 
