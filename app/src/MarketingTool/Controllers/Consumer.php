@@ -1,10 +1,9 @@
-<?php
-namespace App\MarketingTool\Controllers;
+<?php namespace App\MarketingTool\Controllers;
 
 use Input, Session, Redirect, View, Validator;
-use \App\MarketingTool\Models\Consumer as ConsumerModel;
-use \App\MarketingTool\Models\Campaign as CampaignModel;
-use \App\MarketingTool\Models\Sms as SmsModel;
+use App\Consumers\Models\Consumer as ConsumerModel;
+use App\MarketingTool\Models\Campaign as CampaignModel;
+use App\MarketingTool\Models\Sms as SmsModel;
 use Confide;
 
 class Consumer extends \App\Core\Controllers\Base {
@@ -17,12 +16,10 @@ class Consumer extends \App\Core\Controllers\Base {
     public function index()
     {
         // get all the consumers
-        $consumers = ConsumerModel::all();
-        
+        $consumers = ConsumerModel::paginate(20);
         $campaigns = CampaignModel::where('user_id', '=', Confide::user()->id)
                         ->where('status', '=', 'DRAFT')
                         ->get();
-        
         $sms = SmsModel::where('user_id', '=', Confide::user()->id)
                         ->where('status', '=', 'DRAFT')
                         ->get();
@@ -33,7 +30,7 @@ class Consumer extends \App\Core\Controllers\Base {
             ->with('campaigns', $campaigns)
             ->with('sms', $sms);
     }
-    
+
     /**
      * Display the specified resource.
      *
