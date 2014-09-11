@@ -2,7 +2,6 @@
 
 use Confide, View;
 use Illuminate\Support\MessageBag, Settings;
-use App\Core\Models\BusinessCategory;
 
 class Base extends \Controller
 {
@@ -28,10 +27,6 @@ class Base extends \Controller
 	{
         // Set the current user
         $this->user = Confide::user();
-
-        $categories = BusinessCategory::root()->get();
-        // share this variables for all views (to construct the nav)
-        View::share('_businessCategories', $categories);
     }
 
     /**
