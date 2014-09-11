@@ -47,7 +47,8 @@ class Consumer extends \App\Core\Models\Base
      *                                         belongs to
      *
      * @throws Watson\Validating\ValidationException If validation is not passed
-     * @throws Illuminate\Database\QueryException If the email is used
+     * @throws App\Consumers\DuplicatedException     If there is existing consumer with the same email
+     * @throws Illuminate\Database\QueryException    If there are database errors
      *
      * @return App\Consumers\Model
      */
@@ -61,9 +62,21 @@ class Consumer extends \App\Core\Models\Base
             $user = User::findOrFail($userId);
         }
 
-        $consumer = new self;
-        $consumer->fill($data);
-        $consumer->saveOrFail();
+        try {
+            $consumer = new self;
+            $consumer->fill($data);
+            $consumer->saveOrFail();
+        } catch (\Illuminate\Database\QueryException $ex) {
+            // Check if there's existing consumer with the same email
+            $consumer = self::where('email', $data['email'])->first();
+            if ($consumer !== null) {
+                $ex = new \App\Consumers\DuplicatedException('There is already a consumer with email '.$data['email']);
+                $ex->setDuplicated($consumer);
+                throw $ex;
+            }
+            // Maybe other database erorrs, so we pass it to other handlers
+            throw $ex;
+        }
 
         $user->consumers()->attach($consumer->id, ['is_visible' => true]);
 
