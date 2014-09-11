@@ -51,3 +51,11 @@ Database schemas for tables of modules on site were changed, please run `php art
 _See `/public/cashier/library/sma/config/database.php` for example. Try to avoid common names such as `$config`, `$cfg`, etc._
 
 Feel free to add more features (sending email, storing cache, etc.) to that Bridge as you want. L4 libraries could be accessed via IoC container http://laravel.com/docs/ioc :dancers:
+
+### Setup Grunt to automate some tasks
+
+- Install node.js
+- Install `grunt-cli` with `npm install -g grunt-cli`
+- At the root folder of project, run `npm install` to install dependencies
+- Run `grunt` to start. By default, it'll watch the LESS folder and compile to
+CSS automatically.

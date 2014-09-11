@@ -1,14 +1,14 @@
 @extends ('layouts.default')
 
-@section ('title')
+@section('title')
     @parent :: {{ trans('common.register') }}
 @stop
 
-@section ('header')
+@section('page-header')
     <h1 class="text-header">{{ trans('common.register') }}</h1>
 @stop
 
-@section ('content')
+@section('content')
 <div class="row">
     <div class="col-xs-12">
         <h1 class="comfortaa orange text-center">{{ trans('user.create_account') }}</h1>
@@ -30,6 +30,12 @@
                 </div>
             </div>
         @endforeach
+            <div class="form-group">
+                <label class="col-sm-2 col-sm-offset-1 control-label">{{ trans('user.profile.business_categories.index') }}</label>
+                <div class="col-sm-6">
+                    @include ('user.el.categories')
+                </div>
+            </div>
 
             <div class="form-group">
                 <div class="col-sm-9 col-sm-offset-3">

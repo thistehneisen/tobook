@@ -1,6 +1,6 @@
 @extends ('layouts.admin')
 
-@section ('scripts')
+@section('scripts')
     @parent
     <script>
 $(function () {
@@ -14,7 +14,7 @@ $(function () {
     </script>
 @stop
 
-@section ('content')
+@section('content')
     <h3 class="comfortaa text-danger">{{ trans('admin.index_heading', ['model' => $modelName]) }}</h3>
     @include ('el.messages')
 

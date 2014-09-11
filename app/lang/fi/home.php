@@ -8,9 +8,7 @@ return [
     'enter_your_email'      => 'Kirjoita sähköpostisi',
     'submit'                => 'TILAA',
     'location'              => 'Sijaitsemme',
-    'freephone'             => 'Freephone',
     'telephone'             => 'Puhelin',
-    'fax'                   => 'Faksi',
     'homepages'             => 'Kotisivut',
     'loyaltycard'           => 'Kantiskortti',
     'customer_register'     => 'Asiakasrekisteri',
@@ -19,4 +17,8 @@ return [
     'description_2'         => 'Panosta yrityksen kotisivun ulkoasuun, niin kuin panostat myymälän ja liiketilan tyylikkyyteen ja viihtyvyyteen',
     'start_now'             => 'Aloita ilmainen kokeilu',
     'tagline'               => 'Kaikki mitä tarvitset helppoon<br>ja kannattavaan liiketoimintaan',
+
+    'search_tagline'        => 'Book appointments for anything',
+    'search_query'          => 'Search for a service',
+    'search_place'          => 'Helsinki, FI',
 ];

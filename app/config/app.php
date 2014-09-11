@@ -39,7 +39,7 @@ return array(
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Europe/Helsinki',
 
     /*
     |--------------------------------------------------------------------------
@@ -120,11 +120,17 @@ return array(
         'Illuminate\Validation\ValidationServiceProvider',
         'Illuminate\View\ViewServiceProvider',
         'Illuminate\Workbench\WorkbenchServiceProvider',
+        'Illuminate\Pagination\PaginationServiceProvider',
+
         // Addon providers
         'Zizaco\Confide\ConfideServiceProvider',
         'Zizaco\Entrust\EntrustServiceProvider',
-        'Ludo237\Hashids\HashidsServiceProvider',
         'anlutro\LaravelSettings\ServiceProvider',
+        'App\Hashids\HashidsServiceProvider',
+        'Toin0u\Geocoder\GeocoderServiceProvider',
+        'Barryvdh\Debugbar\ServiceProvider',
+
+        // Homemade
         'App\Lomake\LomakeServiceProvider',
         'App\Core\Routing\RoutingServiceProvider',
         'App\Core\Pagination\PaginationServiceProvider',
@@ -196,15 +202,24 @@ return array(
         'URL'             => 'Illuminate\Support\Facades\URL',
         'Validator'       => 'Illuminate\Support\Facades\Validator',
         'View'            => 'Illuminate\Support\Facades\View',
+
         // Addon facades
         'Confide'   => 'Zizaco\Confide\ConfideFacade',
         'Entrust'   => 'Zizaco\Entrust\EntrustFacade',
-        'Hashids'   => 'Ludo237\Hashids\Hashids',
         'Setting'   => 'anlutro\LaravelSettings\Facade',
+        'Geocoder'  => 'Toin0u\Geocoder\GeocoderFacade',
+        'Debugbar'  => 'Barryvdh\Debugbar\Facade',
+
+        // Homemade
         'Consumer'  => 'App\Consumers\Models\Consumer',
         'Lomake'    => 'App\Lomake\Facade',
         'UrlHelper' => 'App\Core\Helpers\Url',
+        'Util'      => 'App\Core\Util',
         'Sms'       => 'App\OneApi\Facade',
+        'Consumer'  => 'App\Consumers\Models\Consumer',
+        'Lomake'    => 'App\Lomake\Facade',
+        'UrlHelper' => 'App\Core\Helpers\Url',
+        'Hashids'   => 'App\Hashids\Facade',
     ),
 
 );

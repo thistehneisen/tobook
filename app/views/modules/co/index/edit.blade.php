@@ -1,6 +1,6 @@
-@extends ('layouts.default')
+@extends ('layouts.dashboard')
 
-@section ('content')
+@section('content')
 <h1 class="comfortaa">{{ trans('co.edit_heading', ['id' => $consumer->id]) }}</h1>
 
 {{ Form::open(['route' => ['co.edit', $consumer->id], 'class' => 'form-horizontal', 'role' => 'form']) }}

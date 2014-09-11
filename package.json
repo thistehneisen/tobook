@@ -1,0 +1,10 @@
+{
+  "name": "Varaa",
+  "description": "The main repo of Varaa.com",
+  "engine": "node >= 0.10",
+  "devDependencies": {
+    "grunt": "0.x.x",
+    "grunt-contrib-less": "0.11.x",
+    "grunt-contrib-watch": "0.5.x"
+  }
+}

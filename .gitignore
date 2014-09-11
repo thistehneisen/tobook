@@ -65,5 +65,5 @@ composer.phar
 /public/appointment/app/config/config.inc.php
 acceptance.suite.yml
 
-# NodeJS
+# Node.js module
 node_modules/

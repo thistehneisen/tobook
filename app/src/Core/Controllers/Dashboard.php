@@ -10,16 +10,11 @@ class Dashboard extends Base
     public function index()
     {
         $services = [
-            //'site'        => '',
-            //'gallery'     => '',
-            //'profile'     => route('user.profile'),
-            //'promotion'   => '',
             'cashier'     => route('cashier.index'),
             'restaurant'  => route('restaurant.index'),
             'timeslot'    => route('timeslot.index'),
             'appointment' => route('appointment.index'),
             'loyalty'     => route('loyalty.index'),
-            //'martketing'  => route('marketing.index'),
         ];
 
         // Get all modules availables in the system

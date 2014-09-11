@@ -27,5 +27,5 @@ return [
             'title'   => 'Päivitä sanasanasin',
             'body'    => $resetBody
         ]
-    ]
+    ],
 ];

@@ -4,11 +4,11 @@
     @parent :: {{ trans('common.admin') }}
 @stop
 
-@section ('header')
+@section ('page-header')
     <h2 class="comfortaa white">{{ ucfirst(Config::get('admin.prefix')) }}</h2>
 @stop
 
-@section ('nav-admin')
+@section('nav-admin')
 <nav class="navbar" role="navigation">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->

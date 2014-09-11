@@ -15,38 +15,70 @@ Route::pattern('id', '[0-9]+');
 
 Route::get('/', [
     'as'    => 'home',
-    'uses'  => 'App\Core\Controllers\Home@index'
+    'uses'  => 'App\Core\Controllers\Front@home'
 ]);
 
-Route::group(['prefix' => 'intro'], function () {
+Route::group(['prefix' => 'search'], function () {
+    Route::get('/', [
+        'as'    => 'search',
+        'uses'  => 'App\Core\Controllers\Search@index'
+    ]);
+
+    Route::get('services.json', [
+        'as'    => 'ajax.services',
+        'uses'  => 'App\Core\Controllers\Search@ajaxGetServices'
+    ]);
+
+    Route::get('locations.json', [
+        'as'    => 'ajax.locations',
+        'uses'  => 'App\Core\Controllers\Search@ajaxGetLocations'
+    ]);
+
+    Route::get('business/{businessId}', [
+        'as'    => 'ajax.show-business',
+        'uses'  => 'App\Core\Controllers\Search@ajaxShowBusiness'
+    ]);
+});
+
+/*
+|--------------------------------------------------------------------------
+| Business introduction routes
+|--------------------------------------------------------------------------
+*/
+Route::group(['prefix' => 'business'], function () {
+    Route::get('/', [
+        'as'    => 'business-index',
+        'uses'  => 'App\Core\Controllers\Front@businessIndex'
+    ]);
+
     Route::get('website-list', [
         'as' => 'intro-website-list',
-        'uses' => 'App\Core\Controllers\Home@websiteList',
+        'uses' => 'App\Core\Controllers\Front@businessWebsiteList',
     ]);
 
     Route::get('loyalty', [
         'as' => 'intro-loyalty',
-        'uses' => 'App\Core\Controllers\Home@loyalty',
+        'uses' => 'App\Core\Controllers\Front@businessLoyalty',
     ]);
 
     Route::get('online-booking', [
         'as'    => 'intro-online-booking',
-        'uses'  => 'App\Core\Controllers\Home@onlineBooking',
+        'uses'  => 'App\Core\Controllers\Front@businessOnlineBooking',
     ]);
 
     Route::get('customer-registration', [
         'as' => 'intro-customer-registration',
-        'uses' => 'App\Core\Controllers\Home@marketingTools',
+        'uses' => 'App\Core\Controllers\Front@businessMarketingTools',
     ]);
 
     Route::get('cashier', [
         'as' => 'intro-cashier',
-        'uses' => 'App\Core\Controllers\Home@cashier',
+        'uses' => 'App\Core\Controllers\Front@businessCashier',
     ]);
 
     Route::get('marketing-tools', [
         'as' => 'intro-marketing-tools',
-        'uses' => 'App\Core\Controllers\Home@marketingTools',
+        'uses' => 'App\Core\Controllers\Front@businessMarketingTools',
     ]);
 });
 
@@ -55,7 +87,7 @@ Route::group(['prefix' => 'intro'], function () {
 | Auth Routes
 |--------------------------------------------------------------------------
 */
-Route::group(['prefix' => 'auth'], function () {
+Route::group(['prefix' => 'bussiness/auth'], function () {
 
     Route::get('login', [
         'as' => 'auth.login',
@@ -130,7 +162,7 @@ Route::group([
     ]);
 
     Route::post('profile', [
-        'uses' => 'App\Core\Controllers\User@changeProfile'
+        'uses' => 'App\Core\Controllers\User@updateProfile'
     ]);
 
     Route::group([
@@ -221,33 +253,254 @@ Route::group([
 
 /*
 |--------------------------------------------------------------------------
-| Module Consumers routes
+| Appointment Scheduler routes
 |--------------------------------------------------------------------------
 */
 Route::group([
-    'prefix' => 'consumers',
+    'prefix' => 'appointment-scheduler',
     'before' => ['auth']
+], function () {
+
+    Route::get('/employee/{id}/{date?}', [
+        'as' => 'as.employee',
+        'uses' => 'App\Appointment\Controllers\Index@employee'
+    ]);
+
+    Route::get('/employees/get-freetime-form', [
+        'as' => 'as.employees.freetime.form',
+        'uses' => 'App\Appointment\Controllers\Employees@getFreetimeForm'
+    ]);
+
+    Route::post('/employees/add-employee-freetime', [
+        'as' => 'as.employees.freetime.add',
+        'uses' => 'App\Appointment\Controllers\Employees@addEmployeeFreeTime'
+    ]);
+
+    Route::post('/employees/delete-employee-freetime', [
+        'as' => 'as.employees.freetime.delete',
+        'uses' => 'App\Appointment\Controllers\Employees@deleteEmployeeFreeTime'
+    ]);
+
+    Route::get('services', [
+        'as' => 'as.services.index',
+        'uses' => 'App\Appointment\Controllers\Services@index'
+    ]);
+
+    Route::get('services/create', [
+        'as' => 'as.services.create',
+        'uses' => 'App\Appointment\Controllers\Services@create'
+    ]);
+
+    Route::post('services/create', [
+        'as' => 'as.services.create',
+        'uses' => 'App\Appointment\Controllers\Services@doCreate'
+    ]);
+
+    Route::get('services/edit', [
+        'as' => 'as.services.edit',
+        'uses' => 'App\Appointment\Controllers\Services@edit'
+    ]);
+
+    Route::post('services/edit', [
+        'as' => 'as.services.edit',
+        'uses' => 'App\Appointment\Controllers\Services@doEdit'
+    ]);
+
+    Route::get('services/delete', [
+        'as' => 'as.services.delete',
+        'uses' => 'App\Appointment\Controllers\Services@delete'
+    ]);
+
+    Route::post('services/destroy', [
+        'as' => 'as.services.destroy',
+        'uses' => 'App\Appointment\Controllers\Services@destroy'
+    ]);
+
+    // Bookings
+    \App\Appointment\Controllers\Bookings::crudRoutes(
+        'bookings',
+        'as.bookings'
+    );
+
+    Route::get('bookings/invoices', [
+        'as' => 'as.bookings.invoices',
+        'uses' => 'App\Appointment\Controllers\Bookings@invoices'
+    ]);
+
+    Route::get('bookings/customers', [
+        'as' => 'as.bookings.customers',
+        'uses' => 'App\Appointment\Controllers\Bookings@customers'
+    ]);
+
+    Route::get('bookings/statistics', [
+        'as' => 'as.bookings.statistics',
+        'uses' => 'App\Appointment\Controllers\Bookings@statistics'
+    ]);
+
+    // Service Category
+    \App\Appointment\Controllers\Categories::crudRoutes(
+        'services/categories',
+        'as.services.categories'
+    );
+
+    // Service Resource
+    \App\Appointment\Controllers\Resources::crudRoutes(
+        'services/resources',
+        'as.services.resources'
+    );
+
+    // Employee
+    \App\Appointment\Controllers\Employees::crudRoutes(
+        'employees',
+        'as.employees'
+    );
+
+    // Service
+    \App\Appointment\Controllers\Services::crudRoutes(
+        'services',
+        'as.services'
+    );
+
+    \App\Appointment\Controllers\ExtraServices::crudRoutes(
+        'services/extras',
+        'as.services.extras'
+    );
+
+    Route::get('services/employees/free-time', [
+        'as' => 'as.employees.freetime',
+        'uses' => 'App\Appointment\Controllers\Employees@freetime'
+    ]);
+
+    Route::get('employees/custom-time', [
+        'as' => 'as.employees.customTime',
+        'uses' => 'App\Appointment\Controllers\Employees@customTime'
+    ]);
+
+    Route::get('employees/default-time/{id}', [
+        'as' => 'as.employees.defaultTime.get',
+        'uses' => 'App\Appointment\Controllers\Employees@defaultTime'
+    ]);
+
+    Route::post('employees/default-time', [
+        'as' => 'as.employees.defaultTime',
+        'uses' => 'App\Appointment\Controllers\Employees@updateDefaultTime'
+    ]);
+
+    Route::get('bookings/get-booking-form', [
+        'as' => 'as.bookings.form',
+        'uses' => 'App\Appointment\Controllers\Bookings@getBookingForm'
+    ]);
+
+    Route::get('bookings/get-employee-services', [
+        'as' => 'as.bookings.employee.services',
+        'uses' => 'App\Appointment\Controllers\Bookings@getEmployeeServicesByCategory'
+    ]);
+
+    Route::get('bookings/get-service-times', [
+        'as' => 'as.bookings.service.times',
+        'uses' => 'App\Appointment\Controllers\Bookings@getServiceTimes'
+    ]);
+
+    Route::post('bookings/add-booking-service', [
+        'as' => 'as.bookings.service.add',
+        'uses' => 'App\Appointment\Controllers\Bookings@addBookingService'
+    ]);
+
+    Route::post('bookings/add-booking', [
+        'as' => 'as.bookings.add',
+        'uses' => 'App\Appointment\Controllers\Bookings@addBooking'
+    ]);
+
+    Route::post('bookings/remove-booking-service', [
+        'as' => 'as.bookings.service.remove',
+        'uses' => 'App\Appointment\Controllers\Bookings@removeBookingService'
+    ]);
+
+    // Embed
+    Route::get('embed', [
+        'as' => 'as.embed.index',
+        'uses' => 'App\Appointment\Controllers\Embed@index'
+    ]);
+
+    Route::get('preview', [
+        'as' => 'as.embed.preview',
+        'uses' => 'App\Appointment\Controllers\Embed@preview'
+    ]);
+
+    // Options
+    Route::get('options/working-time', [
+        'uses' => 'App\Appointment\Controllers\Options@workingTime'
+    ]);
+
+    Route::post('options/working-time', [
+        'uses' => 'App\Appointment\Controllers\Options@updateWorkingTime'
+    ]);
+
+    Route::get('options/{page?}', [
+        'as'   => 'as.options',
+        'uses' => 'App\Appointment\Controllers\Options@index'
+    ]);
+
+    Route::post('options/{page?}', [
+        'uses' => 'App\Appointment\Controllers\Options@update'
+    ]);
+
+    // Report
+    Route::get('reports', [
+        'as' => 'as.reports.employees',
+        'uses' => 'App\Appointment\Controllers\Reports@employees'
+    ]);
+
+    // Catch-all route should always be at the bottom
+    Route::get('/{date?}', [
+        'as' => 'as.index',
+        'uses' => 'App\Appointment\Controllers\Index@index'
+    ]);
+});
+
+/*
+|-------------------------------------------------------------------------------
+| Embed routes
+|-------------------------------------------------------------------------------
+*/
+Route::group([
+    'prefix' => 'embed'
 ], function() {
 
-    Route::get('/', [
-        'as' => 'co.index',
-        'uses' => 'App\Consumers\Controllers\Index@index'
-    ]);
+    // Appointment scheduler
+    Route::group([
+        'prefix' => 'as'
+    ], function() {
+        Route::get('{hash}', [
+            'as' => 'as.embed.embed',
+            'uses' => 'App\Appointment\Controllers\Embed@embed'
+        ]);
 
-    Route::get('edit/{id}', [
-        'as' => 'co.edit',
-        'uses' => 'App\Consumers\Controllers\Index@edit'
-    ]);
+        Route::get('get-extra-service-form', [
+            'as' => 'as.embed.extra.form',
+            'uses' => 'App\Appointment\Controllers\Embed@getExtraServiceForm'
+        ]);
 
-    Route::post('edit/{id}', [
-        'uses' => 'App\Consumers\Controllers\Index@doEdit'
-    ]);
+        Route::post('bookings/add-front-booking-service', [
+            'as' => 'as.bookings.service.front.add',
+            'uses' => 'App\Appointment\Controllers\FrontBookings@addBookingService'
+        ]);
 
-    Route::post('bulk', [
-        'as'   => 'co.bulk',
-        'uses' => 'App\Consumers\Controllers\Index@bulk'
-    ]);
+        Route::post('bookings/add-front-end-booking', [
+            'as' => 'as.bookings.frontend.add',
+            'uses' => 'App\Appointment\Controllers\FrontBookings@addFrontEndBooking'
+        ]);
 
+        Route::post('bookings/remove-booking-service-in-cart', [
+            'as' => 'as.bookings.service.remove.in.cart',
+            'uses' => 'App\Appointment\Controllers\FrontBookings@removeBookingServiceInCart'
+        ]);
+
+        Route::post('add-confirm-info', [
+            'as' => 'as.embed.confirm',
+            'uses' => 'App\Appointment\Controllers\Embed@addConfirmInfo'
+        ]);
+    });
 });
 
 /*
@@ -258,13 +511,13 @@ Route::group([
 Route::group([
     'prefix' => 'api',
     'before' => 'auth.basic',
-], function() {
+], function () {
     Route::group([
         'prefix' => 'v1.0',
     ], function () {
         Route::group([
             'prefix' => 'lc',
-        ], function() {
+        ], function () {
             Route::resource('offers', 'App\API\v1_0\LoyaltyCard\Controllers\Offer');
             Route::resource('vouchers', 'App\API\v1_0\LoyaltyCard\Controllers\Voucher');
             Route::resource('consumers', 'App\API\v1_0\LoyaltyCard\Controllers\Consumer');

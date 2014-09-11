@@ -1,0 +1,25 @@
+@import "_vars.less";
+
+.main {
+    //margin: 10px auto;
+
+    .search-left {
+        height: 600px;
+        overflow-y: scroll;
+        border-right: 1px solid #ccc;
+
+        .result-row {
+            border-bottom: 1px solid #ccc;
+            padding: 15px 0;
+
+            &:hover {
+                background: @light_gray;
+                cursor: pointer;
+            }
+            &.selected {
+                background: @active_light_orange;
+                cursor: pointer;
+            }
+        }
+    }
+}

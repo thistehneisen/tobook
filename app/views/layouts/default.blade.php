@@ -10,11 +10,13 @@
         @show
     </title>
 
+    {{ HTML::style('//fonts.googleapis.com/css?family=Roboto:400,300,600') }}
+    {{ HTML::style('//fonts.googleapis.com/css?family=Comfortaa:400,300,700') }}
     {{ HTML::style('//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css') }}
-    {{ HTML::style('//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css') }}
+    {{ HTML::style('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css') }}
     @yield('styles')
 
-    {{-- Temporary solution: Increment the version number to force clear cache --}}
+    {{-- Increment the version number to force clear cache --}}
     {{ HTML::style(asset('assets/css/main.css?v=00001')) }}
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -39,66 +41,120 @@
     @show
 </head>
 <body>
+    @section('header')
     <header class="header container-fluid">
-        @section('nav')
-        <nav class="row">
-            <div class="col-md-6 text-left">
+        <nav class="main-nav container">
+            <a href="{{ route('home') }}" class="logo pull-left">varaa<span>.com</span></a>
+
+            <div class="language-switcher pull-left">
                 <i class="fa fa-globe"></i>
             @foreach (Config::get('varaa.languages') as $locale)
-                <a class="language-swicher {{ Config::get('app.locale') === $locale ? 'active' : '' }}" href="{{ UrlHelper::localizedCurrentUrl($locale) }}" title="">{{ strtoupper($locale) }}</a>
+                <a class="{{ Config::get('app.locale') === $locale ? 'active' : '' }}" href="{{ UrlHelper::localizeCurrentUrl($locale) }}" title="">{{ strtoupper($locale) }}</a>
             @endforeach
             </div>
-            <div class="col-md-6 text-right">
-                @if (Confide::user())
-                    <p class="welcome-text">
-                    @if (Session::get('stealthMode') !== null)
-                    You're now login as <strong>{{ Confide::user()->username }}</strong>
-                    @else {{ trans('common.welcome') }}, <strong>{{ Confide::user()->username }}</strong>!
-                    @endif
-                    </p>
-                @endif
 
-                <ul class="list-inline nav-links">
-                    <li><a href="{{ route('home') }}">{{ trans('common.homepage') }}</a></li>
+            @section('user-nav')
+            <ul class="user-nav nav nav-pills pull-right">
+                <li class="dropdown active">
                     @if (Confide::user())
-                    <li><a href="{{ route('dashboard.index') }}">{{ trans('common.dashboard') }}</a></li>
-                    <li><a href="{{ route('user.profile') }}">{{ trans('common.my_account') }}</a></li>
-                    @if (Entrust::hasRole('Admin') || Session::get('stealthMode') !== null)
-                    <li><a href="{{ route('admin.index') }}">{{ trans('common.admin') }}</a></li>
-                    @endif
-                    <li><a href="{{ route('auth.logout') }}">{{ trans('common.sign_out') }}</a></li>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        @if (Session::get('stealthMode') !== null)
+                        You're now login as <strong>{{ Confide::user()->username }}</strong>
+                        @else {{ trans('common.welcome') }}, <strong>{{ Confide::user()->username }}</strong>!
+                        @endif
+                            <span class="caret"></span>
+                        </a>
                     @else
-                    <li><a href="{{ route('auth.register') }}">{{ trans('common.register') }}</a></li>
-                    <li><a href="{{ route('auth.login') }}">{{ trans('common.sign_in_header') }}</a></li>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            {{ trans('common.for_business') }}
+                            <span class="caret"></span>
+                        </a>
                     @endif
-                </ul>
+                    <ul class="dropdown-menu">
+                        @if (Confide::user())
+                        <li><a href="{{ route('dashboard.index') }}">{{ trans('common.dashboard') }}</a></li>
+                        <li><a href="{{ route('user.profile') }}">{{ trans('common.my_account') }}</a></li>
+                        @if (Entrust::hasRole('Admin') || Session::get('stealthMode') !== null)
+                        <li><a href="{{ route('admin.index') }}">{{ trans('common.admin') }}</a></li>
+                        @endif
+                        <li><a href="{{ route('auth.logout') }}">{{ trans('common.sign_out') }}</a></li>
+                        @else
+                        <li><a href="{{ route('auth.register') }}">{{ trans('common.register') }}</a></li>
+                        <li><a href="{{ route('auth.login') }}">{{ trans('common.sign_in_header') }}</a></li>
+                        @endif
+                    </ul>
+                </li>
+            </ul>
+            @show
+
+            @section('main-nav')
+            <div class="pull-right">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-menu">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="nav navbar-nav">
+                    @section('categories-nav')
+                        @foreach ($_businessCategories as $category)
+                        <li class="dropdown">
+                            <a href="{{ route('search') }}?query={{ urlencode($category->name) }}">
+                                <i class="fa {{ $category->icon() }}"></i>
+                                {{ $category->name }}
+                            </a>
+                            <ul class="dropdown-menu">
+                            @foreach ($category->children as $child)
+                                <li><a href="{{ route('search') }}?query={{ urlencode($child->name) }}">{{ $child->name }}</a></li>
+                            @endforeach
+                            </ul>
+                        </li>
+                        @endforeach
+                    @show
+                    </ul>
+                </div>
             </div>
+            @show
         </nav>
-        @show
 
-        @section('logo')
-        <a href="{{ route('home') }}"><img src="{{ asset('assets/img/logo.png') }}" alt="{{ trans('common.site_name') }}" class="logo"></a>
+        <div class="search-wrapper row">
+        @section('main-search')
+            {{ Form::open(['route' => 'search', 'method' => 'GET', 'class' => 'form-inline']) }}
+                <div class="form-group">
+                    <div class="input-group input-group">
+                        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                        <input type="text" class="form-control typeahead" id="js-queryInput" name="query" placeholder="{{ trans('home.search.query') }}" value="{{{ Input::get('query') }}}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group input-group">
+                        <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
+                        <input type="text" class="form-control" id="js-locationInput" name="location" placeholder="{{ trans('home.search.location') }}" value="{{{ Input::get('location') }}}" />
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success">{{ trans('common.search') }}</button>
+            {{ Form::close() }}
         @show
-
-        @yield('header')
-        @yield('subheader')
+        </div>
     </header>
+    @show
 
     @yield('nav-admin')
 
-    <main role="main" class="@section('main-classes')container main @show">
+    <main role="main" class="@section('main-classes')container @show main">
         @yield('content')
     </main>
 
     @yield('iframe')
 
-    @section ('footer')
-    <hr class="grey-divider">
-    <footer class="container footer">
-        <div class="row">
+    @section('footer')
+    <footer class="container-fluid footer">
+        <div class="container">
             <div class="col-md-4 col-lg-4">
-                <h4>{{ trans('home.copyright') }}</h4>
-                <p class="company-name"><span>varaa</span>.com</p>
                 <p>&copy; {{ date('Y') }} | <a href="#">{{ trans('home.copyright_policy')}}</a></p>
                 <ul class="list-unstyled list-inline list-social-networks">
                     <li><a href="{{ Setting::get('facebook-page') }}" target="_blank"><i class="fa fa-facebook"></i></a></li>
@@ -108,35 +164,14 @@
                     <li><a href="{{ Setting::get('linkedin-page') }}" target="_blank"><i class="fa fa-linkedin"></i></a></li>
                 </ul>
             </div>
-            <div class="col-md-4 col-lg-4">
-                <h4>{{ trans('home.newsletter') }}</h4>
-                {{ Form::open() }}
-                <div class="form-group">
-                    <input type="email" placeholder="{{ trans('home.enter_your_email') }}" class="form-control">
-                </div>
-                <div class="form-group text-right">
-                    <button class="btn btn-danger">{{ trans('home.submit') }}</button>
-                </div>
-                {{ Form::close() }}
-            </div>
-            <div class="col-md-4 col-lg-4">
-                <h4>{{ trans('home.location') }}</h4>
-                <p>{{ Setting::get('location') }}</p>
-                <dl class="dl-horizontal">
-                    <dt>{{ trans('home.freephone') }}</dt>
-                    <dd>{{ Setting::get('free-phone') }}</dd>
-                    <dt>{{ trans('home.telephone') }}</dt>
-                    <dd>{{ Setting::get('telephone') }}</dd>
-                    <dt>{{ trans('home.fax') }}</dt>
-                    <dd>{{ Setting::get('fax') }}</dd>
-                </dl>
-            </div>
         </div>
     </footer>
     @show
 
     {{ HTML::script('//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js') }}
     {{ HTML::script('//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js') }}
+    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.4/typeahead.bundle.min.js') }}
+    {{ HTML::script(asset('assets/js/main.js')) }}
     @yield('scripts')
 </body>
 </html>

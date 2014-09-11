@@ -6,6 +6,7 @@ if (!defined("ROOT_PATH"))
 }
 class pjAdminServices extends pjAdmin
 {
+    public $types = array();
     public function pjActionCreate()
     {
         $this->checkLogin();
@@ -659,7 +660,7 @@ class pjAdminServices extends pjAdmin
                 foreach ($locale_arr as &$item)
                 {
                     $item['id'] = 1;//banana code to enforce locale = 1 on UI
-                    $lp_arr[$item['id']."_"] = $item['file']; //Hack for jquery $.extend, to prevent (re)order of numeric keys in object
+                    $lp_arr[$item['id']."_"] = 'gp.png'; //Hack for jquery $.extend, to prevent (re)order of numeric keys in object
                 }
                 $this->set('lp_arr', $locale_arr);
 

@@ -10,10 +10,12 @@ if (isset($tpl['status']))
 	}
 } else {
 	include PJ_VIEWS_PATH . 'pjLayouts/elements/optmenu.php';
-	
+
 	$titles = __('error_titles', true);
 	$bodies = __('error_bodies', true);
-	pjUtil::printNotice($titles['PIN01'], $bodies['PIN01'], false);
+    if(!empty($titles['PIN01']) && !empty($bodies['PIN01'])){
+	   pjUtil::printNotice($titles['PIN01'], $bodies['PIN01'], false);
+    }
 	if (isset($_GET['err']))
 	{
 		pjUtil::printNotice(@$titles[$_GET['err']], !isset($_GET['errTime']) ? @$bodies[$_GET['err']] : $_SESSION[$controller->invoiceErrors][$_GET['errTime']]);
@@ -287,9 +289,9 @@ if (isset($tpl['status']))
 			</p>
 		</fieldset>
 	</form>
-	
+
 	<div id="dialogDeleteLogo" style="display: none" title="<?php __('plugin_invoice_delete_logo_title'); ?>"><?php __('plugin_invoice_delete_logo_body'); ?></div>
-	
+
 	<script type="text/javascript">
 	var myLabel = myLabel || {};
 	myLabel.btn_cancel = "<?php __('btnCancel'); ?>";

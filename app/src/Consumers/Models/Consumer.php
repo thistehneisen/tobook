@@ -47,7 +47,8 @@ class Consumer extends \App\Core\Models\Base
      *                                         belongs to
      *
      * @throws Watson\Validating\ValidationException If validation is not passed
-     * @throws Illuminate\Database\QueryException If the email is used
+     * @throws App\Consumers\DuplicatedException     If there is existing consumer with the same email
+     * @throws Illuminate\Database\QueryException    If there are database errors
      *
      * @return App\Consumers\Model
      */
@@ -55,13 +56,27 @@ class Consumer extends \App\Core\Models\Base
     {
         // If there is no information passed, get the current user
         $user = Confide::user();
-        if ((int) $userId >  0) {
+        if ($userId instanceof \App\Core\Models\User) {
+            $user = $userId;
+        } elseif ((int) $userId > 0) {
             $user = User::findOrFail($userId);
         }
 
-        $consumer = new self;
-        $consumer->fill($data);
-        $consumer->saveOrFail();
+        try {
+            $consumer = new self;
+            $consumer->fill($data);
+            $consumer->saveOrFail();
+        } catch (\Illuminate\Database\QueryException $ex) {
+            // Check if there's existing consumer with the same email
+            $consumer = self::where('email', $data['email'])->first();
+            if ($consumer !== null) {
+                $ex = new \App\Consumers\DuplicatedException('There is already a consumer with email '.$data['email']);
+                $ex->setDuplicated($consumer);
+                throw $ex;
+            }
+            // Maybe other database erorrs, so we pass it to other handlers
+            throw $ex;
+        }
 
         $user->consumers()->attach($consumer->id, ['is_visible' => true]);
 
@@ -100,22 +115,10 @@ class Consumer extends \App\Core\Models\Base
     //--------------------------------------------------------------------------
     // SCOPES
     //--------------------------------------------------------------------------
-    public function scopeOfCurrentUser($query)
-    {
-        return $this->scopeOfUser($query, Confide::user()->id);
-    }
-
     public function scopeVisible($query)
     {
         return $query->whereHas('users', function($q) {
             return $q->where('is_visible', true);
-        });
-    }
-
-    public function scopeOfUser($query, $userId)
-    {
-        return $query->whereHas('users', function($q) use ($userId) {
-            return $q->where('user_id', $userId);
         });
     }
 }

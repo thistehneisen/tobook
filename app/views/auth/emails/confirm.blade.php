@@ -1,6 +1,6 @@
 @extends ('layouts.email')
 
-@section ('content')
+@section('content')
     <h1>{{ trans('auth.emails.confirm.title') }}</h1>
 
     <p>{{ sprintf(

@@ -1,6 +1,6 @@
 @extends ('layouts.admin')
 
-@section ('content')
+@section('content')
 
 <h3 class="comfortaa text-success">
 @if (isset($item))

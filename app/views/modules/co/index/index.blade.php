@@ -1,6 +1,6 @@
-@extends ('layouts.default')
+@extends ('layouts.dashboard')
 
-@section ('scripts')
+@section('scripts')
 <script>
 $(function() {
     $('input.check-all').on('click', function() {
@@ -11,7 +11,7 @@ $(function() {
 </script>
 @stop
 
-@section ('content')
+@section('content')
 <h1 class="comfortaa">{{ trans('co.all_consumers') }}</h1>
 
 {{ Form::open(['route' => 'co.bulk', 'class' => 'form-inline', 'role' => 'form']) }}

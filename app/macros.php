@@ -3,13 +3,15 @@
  * Add an indication text to to required fields
  *
  */
-Form::macro('required', function (
-    $field,
-    $validator,
-    $format = ':star'
-) {
+Form::macro('required', function ($field, $validator, $format = ':star') {
+    $rules = [];
+    if ($validator instanceof \Illuminate\Validation\Validator) {
+        $rules = $validator->getRules();
+    } elseif ($validator instanceof \App\Core\Models\Base) {
+        $rules = $validator->getRuleset('saving', true);
+    }
 
-    if (array_key_exists($field, $validator->getRules())) {
+    if (array_key_exists($field, $rules)) {
         return str_replace(':star', '*', $format);
     }
 
@@ -19,10 +21,7 @@ Form::macro('required', function (
 /**
  * Display error text (compatible with B3)
  */
-Form::macro('errorText', function (
-    $field,
-    \Illuminate\Support\ViewErrorBag $errors
-) {
+Form::macro('errorText', function ($field, \Illuminate\Support\ViewErrorBag $errors) {
 
     if ($errors->has($field)) {
         $text = implode('<br>', $errors->get($field, ':message'));
@@ -36,11 +35,7 @@ Form::macro('errorText', function (
 /**
  * Return the error CSS class (B3 compatible)
  */
-Form::macro('errorCSS', function (
-    $name,
-    \Illuminate\Support\ViewErrorBag $errors,
-    $class = 'has-error'
-) {
+Form::macro('errorCSS', function ($name, \Illuminate\Support\ViewErrorBag $errors, $class = 'has-error') {
     if ($errors->has($name)) {
         return $class;
     }

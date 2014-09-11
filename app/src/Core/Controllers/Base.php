@@ -1,9 +1,18 @@
 <?php namespace App\Core\Controllers;
 
+use Confide, View;
 use Illuminate\Support\MessageBag, Settings;
+use App\Core\Models\BusinessCategory;
 
 class Base extends \Controller
 {
+    /**
+     * The current login user
+     *
+     * @var App\Core\Models\User
+     */
+    protected $user;
+
     /**
      * Path to a folder under `views`. Use by render() for quicker returning
      * a view
@@ -12,6 +21,28 @@ class Base extends \Controller
      */
     protected $viewPath;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+	{
+        // Set the current user
+        $this->user = Confide::user();
+
+        $categories = BusinessCategory::root()->get();
+        // share this variables for all views (to construct the nav)
+        View::share('_businessCategories', $categories);
+    }
+
+    /**
+     * Relative path to the folder containing View templates
+     *
+     * @return string
+     */
+    protected function getViewPath()
+    {
+        return $this->viewPath;
+    }
 
     /**
      * Setup the layout used by the controller.
@@ -26,7 +57,7 @@ class Base extends \Controller
     }
 
     /**
-     * Quicker return a view with specific path
+     * For lazy people, use this method to quick refer to a view template
      *
      * @param string $path
      * @param array $data
@@ -35,10 +66,9 @@ class Base extends \Controller
      */
     protected function render($path, $data = [])
     {
-        if ($this->viewPath !== null) {
-            $path = $this->viewPath.$path;
-        }
-
+        $path = (!empty($this->getViewPath()))
+            ? $this->getViewPath().'.'.$path
+            : $path;
         return \View::make($path, $data);
     }
 
