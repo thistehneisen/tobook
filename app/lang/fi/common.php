@@ -53,6 +53,9 @@ return [
     'sun'            => 'Sunnuntai',
     'all'            => 'Kaikki',
     'minutes'        => 'Minuuttia',
+    'are_you_sure'   => 'Are you sure?', // @todo
+    'type'              => 'Tyyppi',
+    'create'            => 'Luo',
     'short' => [
         'mon' => 'Ma',
         'tue' => 'Ti',
@@ -68,5 +71,4 @@ return [
         'invalid'      => 'Entered information is invalid. Please try again.',
         'unauthorized' => 'You are not allowed to access this page.',
     ],
-    'are_you_sure'   => 'Are you sure?' // @todo
 ];

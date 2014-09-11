@@ -1,9 +1,8 @@
 <?php namespace App\LoyaltyCard\Models;
 
-use App\Core\Models\Consumer as CoreConsumer;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class Consumer extends CoreConsumer
+class Consumer extends \App\Core\Models\Base
 {
     use SoftDeletingTrait;
 
@@ -18,6 +17,6 @@ class Consumer extends CoreConsumer
      */
     public function consumer()
     {
-        return $this->belongsTo('App\Core\Models\Consumer');
+        return $this->belongsTo('App\Consumers\Models\Consumer');
     }
 }

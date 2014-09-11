@@ -17,7 +17,6 @@
     </div>
     @foreach ([
         'required'      => trans('loyalty-card.required'),
-        'free_service'  => trans('loyalty-card.free_service'),
         'is_active'     => trans('loyalty-card.active'),
         'is_auto_add'   => trans('loyalty-card.auto_add'),
         'created_at'    => trans('loyalty-card.created_at'),
@@ -40,7 +39,7 @@
     </div>
     @endforeach
     <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-10">
+        <div class="col-sm-offset-3 col-sm-9">
             {{ Form::submit(trans('loyalty-card.finish'), ['class' => 'btn btn-primary']) }}
         </div>
     </div>

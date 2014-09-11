@@ -209,46 +209,122 @@ Route::group([
 
 /*
 |--------------------------------------------------------------------------
-| Loyalty Card routes
+| App routes
+|--------------------------------------------------------------------------
+*/
+Route::group(['prefix' => 'auth-lc'], function () {
+    Route::get('login', [
+        'as' => 'app.lc.login',
+        'uses' => 'App\Core\Controllers\Auth@appLogin'
+    ]);
+
+    Route::post('login', [
+        'uses' => 'App\Core\Controllers\Auth@doAppLogin'
+    ]);
+
+    Route::get('logout', [
+        'as' => 'app.lc.logout',
+        'uses' => 'App\Core\Controllers\Auth@appLogout'
+    ]);
+});
+
+Route::group([
+    'prefix' => 'app',
+    'before' => ['auth-lc'],
+], function () {
+    Route::group([
+        'prefix' => 'lc',
+    ], function () {
+        Route::get('/', [
+            'as' => 'app.lc.index',
+            'uses' => 'App\LoyaltyCard\Controllers\Consumer@appIndex',
+        ]);
+
+        Route::get('consumers/{id}', [
+            'as' => 'app.lc.show',
+            'uses' => 'App\LoyaltyCard\Controllers\Consumer@show',
+        ]);
+    });
+});
+
+/*
+|--------------------------------------------------------------------------
+| API routes
 |--------------------------------------------------------------------------
 */
 Route::group([
-    'prefix' => 'loyalty-card',
-    'before' => ['auth']
+    'prefix' => 'api',
+    'before' => 'auth.basic',
 ], function () {
+    Route::group([
+        'prefix' => 'v1.0',
+    ], function () {
+        Route::group([
+            'prefix' => 'lc',
+        ], function () {
+            Route::resource('offers', 'App\API\v1_0\LoyaltyCard\Controllers\Offer');
+            Route::resource('vouchers', 'App\API\v1_0\LoyaltyCard\Controllers\Voucher');
+            Route::resource('consumers', 'App\API\v1_0\LoyaltyCard\Controllers\Consumer');
 
-    Route::resource('consumers', 'App\LoyaltyCard\Controllers\Consumer', [
-        'names' => [
-            'index' => 'lc.consumers.index',
-            'create' => 'lc.consumers.create',
-            'edit' => 'lc.consumers.edit',
-            'store' => 'lc.consumers.store',
-            'update' => 'lc.consumers.update',
-            'destroy' => 'lc.consumers.delete',
-        ]
-    ]);
+            Route::group([
+                'prefix' => 'use',
+            ], function () {
+                Route::post('offers/{id}', [
+                    'uses' => 'App\API\v1_0\LoyaltyCard\Controllers\Offer@useOffer'
+                ]);
 
-    Route::resource('offers', 'App\LoyaltyCard\Controllers\Offer', [
-        'names' => [
-            'index' => 'lc.offers.index',
-            'create' => 'lc.offers.create',
-            'edit' => 'lc.offers.edit',
-            'store' => 'lc.offers.store',
-            'update' => 'lc.offers.update',
-            'destroy' => 'lc.offers.delete',
-        ]
-    ]);
+                // Route::post('vouchers/{id}', [
+                //     'uses' => 'App\API\v1_0\LoyaltyCard\Controllers\Consumer@update'
+                // ]);
+            });
+        });
+        // Other modules
+    });
+});
 
-    Route::resource('vouchers', 'App\LoyaltyCard\Controllers\Voucher', [
-        'names' => [
-            'index' => 'lc.vouchers.index',
-            'create' => 'lc.vouchers.create',
-            'edit' => 'lc.vouchers.edit',
-            'store' => 'lc.vouchers.store',
-            'update' => 'lc.vouchers.update',
-            'destroy' => 'lc.vouchers.delete',
-        ]
-    ]);
+/*
+|-------------------------------------------------------------------------------
+| Embed routes
+|-------------------------------------------------------------------------------
+*/
+Route::group([
+    'prefix' => 'embed'
+], function() {
+
+    // Appointment scheduler
+    Route::group([
+        'prefix' => 'as'
+    ], function() {
+        Route::get('{hash}', [
+            'as' => 'as.embed.embed',
+            'uses' => 'App\Appointment\Controllers\Embed@embed'
+        ]);
+
+        Route::get('get-extra-service-form', [
+            'as' => 'as.embed.extra.form',
+            'uses' => 'App\Appointment\Controllers\Embed@getExtraServiceForm'
+        ]);
+
+        Route::post('bookings/add-front-booking-service', [
+            'as' => 'as.bookings.service.front.add',
+            'uses' => 'App\Appointment\Controllers\FrontBookings@addBookingService'
+        ]);
+
+        Route::post('bookings/add-front-end-booking', [
+            'as' => 'as.bookings.frontend.add',
+            'uses' => 'App\Appointment\Controllers\FrontBookings@addFrontEndBooking'
+        ]);
+
+        Route::post('bookings/remove-booking-service-in-cart', [
+            'as' => 'as.bookings.service.remove.in.cart',
+            'uses' => 'App\Appointment\Controllers\FrontBookings@removeBookingServiceInCart'
+        ]);
+
+        Route::post('add-confirm-info', [
+            'as' => 'as.embed.confirm',
+            'uses' => 'App\Appointment\Controllers\Embed@addConfirmInfo'
+        ]);
+    });
 });
 
 /*
@@ -459,48 +535,124 @@ Route::group([
 });
 
 /*
-|-------------------------------------------------------------------------------
-| Embed routes
-|-------------------------------------------------------------------------------
+|--------------------------------------------------------------------------
+| Loyalty Card routes
+|--------------------------------------------------------------------------
 */
 Route::group([
-    'prefix' => 'embed'
-], function() {
+    'prefix' => 'loyalty-card',
+    'before' => ['auth']
+], function () {
 
-    // Appointment scheduler
-    Route::group([
-        'prefix' => 'as'
-    ], function() {
-        Route::get('{hash}', [
-            'as' => 'as.embed.embed',
-            'uses' => 'App\Appointment\Controllers\Embed@embed'
-        ]);
+    Route::resource('consumers', 'App\LoyaltyCard\Controllers\Consumer', [
+        'names' => [
+            'index' => 'lc.consumers.index',
+            'create' => 'lc.consumers.create',
+            'edit' => 'lc.consumers.edit',
+            'store' => 'lc.consumers.store',
+            'update' => 'lc.consumers.update',
+            'destroy' => 'lc.consumers.delete',
+        ]
+    ]);
 
-        Route::get('get-extra-service-form', [
-            'as' => 'as.embed.extra.form',
-            'uses' => 'App\Appointment\Controllers\Embed@getExtraServiceForm'
-        ]);
+    Route::resource('offers', 'App\LoyaltyCard\Controllers\Offer', [
+        'names' => [
+            'index' => 'lc.offers.index',
+            'create' => 'lc.offers.create',
+            'edit' => 'lc.offers.edit',
+            'store' => 'lc.offers.store',
+            'update' => 'lc.offers.update',
+            'destroy' => 'lc.offers.delete',
+        ]
+    ]);
 
-        Route::post('bookings/add-front-booking-service', [
-            'as' => 'as.bookings.service.front.add',
-            'uses' => 'App\Appointment\Controllers\FrontBookings@addBookingService'
-        ]);
+    Route::resource('vouchers', 'App\LoyaltyCard\Controllers\Voucher', [
+        'names' => [
+            'index' => 'lc.vouchers.index',
+            'create' => 'lc.vouchers.create',
+            'edit' => 'lc.vouchers.edit',
+            'store' => 'lc.vouchers.store',
+            'update' => 'lc.vouchers.update',
+            'destroy' => 'lc.vouchers.delete',
+        ]
+    ]);
+});
 
-        Route::post('bookings/add-front-end-booking', [
-            'as' => 'as.bookings.frontend.add',
-            'uses' => 'App\Appointment\Controllers\FrontBookings@addFrontEndBooking'
-        ]);
+/*
+|--------------------------------------------------------------------------
+| Marketing Tool routes
+|--------------------------------------------------------------------------
+*/
+Route::group([
+    'before' => [''],
+    'prefix' => 'mt'
+], function () {
+    Route::resource('campaigns', 'App\MarketingTool\Controllers\Campaign', [
+        'names' => [
+            'index'     => 'mt.campaigns.index',
+            'create'    => 'mt.campaigns.create',
+            'edit'      => 'mt.campaigns.edit',
+            'store'     => 'mt.campaigns.store',
+            'update'    => 'mt.campaigns.update',
+        ]
+    ]);
+    Route::post('campaigns/statistics', 'App\MarketingTool\Controllers\Campaign@statistics');
+    Route::post('campaigns/duplication', 'App\MarketingTool\Controllers\Campaign@duplication');
+    Route::post('campaigns/sendIndividual', 'App\MarketingTool\Controllers\Campaign@sendIndividual');
+    Route::post('campaigns/sendGroup', 'App\MarketingTool\Controllers\Campaign@sendGroup');
+    // Route::get('campaigns/automation', 'App\MarketingTool\Controllers\Campaign@automation');
 
-        Route::post('bookings/remove-booking-service-in-cart', [
-            'as' => 'as.bookings.service.remove.in.cart',
-            'uses' => 'App\Appointment\Controllers\FrontBookings@removeBookingServiceInCart'
-        ]);
+    Route::resource('sms', 'App\MarketingTool\Controllers\Sms', [
+        'names' => [
+            'index'     => 'mt.sms.index',
+            'create'    => 'mt.sms.create',
+            'edit'      => 'mt.sms.edit',
+            'store'     => 'mt.sms.store',
+            'update'    => 'mt.sms.update',
+        ]
+    ]);
+    Route::post('sms/sendIndividual', 'App\MarketingTool\Controllers\Sms@sendIndividual');
+    Route::post('sms/sendGroup', 'App\MarketingTool\Controllers\Sms@sendGroup');
+    // Route::get('sms/automation', 'App\MarketingTool\Controllers\Campaign@automation');
 
-        Route::post('add-confirm-info', [
-            'as' => 'as.embed.confirm',
-            'uses' => 'App\Appointment\Controllers\Embed@addConfirmInfo'
-        ]);
-    });
+    Route::resource('templates', 'App\MarketingTool\Controllers\Template', [
+        'names' => [
+            'index'     => 'mt.templates.index',
+            'create'    => 'mt.templates.create',
+            'edit'      => 'mt.templates.edit',
+            'store'     => 'mt.templates.store',
+            'update'    => 'mt.templates.update',
+        ]
+    ]);
+    Route::post('templates/load', 'App\MarketingTool\Controllers\Template@load');
+
+    Route::resource('settings', 'App\MarketingTool\Controllers\Setting', [
+        'names' => [
+            'index'     => 'mt.settings.index',
+            'create'    => 'mt.settings.create',
+            'edit'      => 'mt.settings.edit',
+            'store'     => 'mt.settings.store',
+            'update'    => 'mt.settings.update',
+        ]
+    ]);
+
+    Route::resource('groups', 'App\MarketingTool\Controllers\Group', [
+        'names' => [
+            'index'     => 'mt.groups.index',
+            //'create'    => 'mt.groups.create',
+            'edit'      => 'mt.groups.edit',
+            'store'     => 'mt.groups.store',
+            'update'    => 'mt.groups.update',
+        ]
+    ]);
+    Route::post('groups/create', 'App\MarketingTool\Controllers\Group@create');
+
+    Route::resource('consumers', 'App\MarketingTool\Controllers\Consumer', [
+        'names' => [
+            'index'     => 'mt.consumers.index',
+            'show'      => 'mt.consumers.show',
+        ]
+    ]);
 });
 
 /*
@@ -523,113 +675,6 @@ Route::group([
         'uses' => 'App\Core\Controllers\Images@delete'
     ]);
 
-});
-/*
-|--------------------------------------------------------------------------
-| API routes
-|--------------------------------------------------------------------------
-*/
-Route::group([
-    'prefix' => 'api',
-    'before' => 'auth.basic',
-], function () {
-    Route::group([
-        'prefix' => 'v1.0',
-    ], function () {
-        Route::group([
-            'prefix' => 'lc',
-        ], function () {
-            Route::resource('offers', 'App\API\v1_0\LoyaltyCard\Controllers\Offer');
-            Route::resource('vouchers', 'App\API\v1_0\LoyaltyCard\Controllers\Voucher');
-            Route::resource('consumers', 'App\API\v1_0\LoyaltyCard\Controllers\Consumer');
-
-            Route::group([
-                'prefix' => 'use',
-            ], function () {
-                Route::post('offers/{id}', [
-                    'uses' => 'App\API\v1_0\LoyaltyCard\Controllers\Offer@useOffer'
-                ]);
-
-                // Route::post('vouchers/{id}', [
-                //     'uses' => 'App\API\v1_0\LoyaltyCard\Controllers\Consumer@update'
-                // ]);
-            });
-        });
-        // Other modules
-    });
-
-    // Marketing Tool
-    Route::group([
-        'before' => [''],
-        'prefix' => 'mt'
-    ], function () {
-        Route::resource('campaigns', 'App\MarketingTool\Controllers\Campaign', [
-            'names' => [
-                'index'     => 'mt.campaigns.index',
-                'create'    => 'mt.campaigns.create',
-                'edit'      => 'mt.campaigns.edit',
-                'store'     => 'mt.campaigns.store',
-                'update'    => 'mt.campaigns.update',
-            ]
-        ]);
-        Route::post('campaigns/statistics', 'App\MarketingTool\Controllers\Campaign@statistics');
-        Route::post('campaigns/duplication', 'App\MarketingTool\Controllers\Campaign@duplication');
-        Route::post('campaigns/sendIndividual', 'App\MarketingTool\Controllers\Campaign@sendIndividual');
-        Route::post('campaigns/sendGroup', 'App\MarketingTool\Controllers\Campaign@sendGroup');
-        // Route::get('campaigns/automation', 'App\MarketingTool\Controllers\Campaign@automation');
-
-        Route::resource('sms', 'App\MarketingTool\Controllers\Sms', [
-            'names' => [
-                'index'     => 'mt.sms.index',
-                'create'    => 'mt.sms.create',
-                'edit'      => 'mt.sms.edit',
-                'store'     => 'mt.sms.store',
-                'update'    => 'mt.sms.update',
-            ]
-        ]);
-        Route::post('sms/sendIndividual', 'App\MarketingTool\Controllers\Sms@sendIndividual');
-        Route::post('sms/sendGroup', 'App\MarketingTool\Controllers\Sms@sendGroup');
-        // Route::get('sms/automation', 'App\MarketingTool\Controllers\Campaign@automation');
-
-        Route::resource('templates', 'App\MarketingTool\Controllers\Template', [
-            'names' => [
-                'index'     => 'mt.templates.index',
-                'create'    => 'mt.templates.create',
-                'edit'      => 'mt.templates.edit',
-                'store'     => 'mt.templates.store',
-                'update'    => 'mt.templates.update',
-            ]
-        ]);
-        Route::post('templates/load', 'App\MarketingTool\Controllers\Template@load');
-
-        Route::resource('settings', 'App\MarketingTool\Controllers\Setting', [
-            'names' => [
-                'index'     => 'mt.settings.index',
-                'create'    => 'mt.settings.create',
-                'edit'      => 'mt.settings.edit',
-                'store'     => 'mt.settings.store',
-                'update'    => 'mt.settings.update',
-            ]
-        ]);
-
-        Route::resource('groups', 'App\MarketingTool\Controllers\Group', [
-            'names' => [
-                'index'     => 'mt.groups.index',
-                //'create'    => 'mt.groups.create',
-                'edit'      => 'mt.groups.edit',
-                'store'     => 'mt.groups.store',
-                'update'    => 'mt.groups.update',
-            ]
-        ]);
-        Route::post('groups/create', 'App\MarketingTool\Controllers\Group@create');
-
-        Route::resource('consumers', 'App\MarketingTool\Controllers\Consumer', [
-            'names' => [
-                'index'     => 'mt.consumers.index',
-                'show'      => 'mt.consumers.show',
-            ]
-        ]);
-    });
 });
 
 /*

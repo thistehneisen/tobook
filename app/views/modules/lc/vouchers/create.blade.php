@@ -18,7 +18,7 @@
     @foreach ([
         'required'      => trans('loyalty-card.required'),
         'value'         => trans('loyalty-card.discount'),
-        'type'          => trans('loyalty-card.type'),
+        'type'          => trans('common.type'),
         'active'        => trans('loyalty-card.active'),
     ] as $key => $value)
     <div class="form-group">

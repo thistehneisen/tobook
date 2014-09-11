@@ -171,6 +171,7 @@
     {{ HTML::script('//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js') }}
     {{ HTML::script('//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js') }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.4/typeahead.bundle.min.js') }}
+    {{ HTML::script(asset('assets/js/global.js')) }}
     {{ HTML::script(asset('assets/js/main.js')) }}
     @yield('scripts')
 </body>

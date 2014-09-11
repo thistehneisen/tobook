@@ -1,4 +1,4 @@
-<?php namespace App\API\LoyaltyCard\Models;
+<?php namespace App\LoyaltyCard\Models;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Transaction extends Eloquent

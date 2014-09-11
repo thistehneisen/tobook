@@ -32,9 +32,7 @@
         </div>
     </div>
     @endforeach
-    <div class="col-sm-offset-5 col-sm-10">
-        {{ Form::submit(trans('loyalty-card.finish'), ['class' => 'btn btn-primary']) }}
-    </div>
+    <span class="col-sm-offset-4">{{ Form::submit(trans('loyalty-card.finish'), ['class' => 'btn btn-primary']) }}</span>
     {{ Form::close() }}
 </div>
 @stop

@@ -62,6 +62,21 @@ def test():
     '''
     local('./vendor/bin/codecept run')
 
+
 @task(alias='cm')
 def create_migrate(table='table'):
-    local("php artisan migrate:make create_{table} --create={table}".format(table=table))
+    local('php artisan migrate:make create_{table} --create={}'.format(table))
+
+
+@task(alias='m')
+def migrate(module=''):
+    '''
+    Run migration
+    '''
+    if module == '':
+        local('php artisan migrate')
+    else:
+        local(
+            'php artisan migrate --path=app/database/migrations/{}'
+            .format(module)
+        )

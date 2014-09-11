@@ -70,6 +70,9 @@ return [
     'close'                 => 'Close',
     'search'            => 'Search',
     'for_business'      => 'For Business',
+    'are_you_sure'   => 'Are you sure?', // @todo
+    'type'              => 'Type',
+    'create'            => 'Create',
     'short' => [
         'mon' => 'Mon',
         'tue' => 'Tue',
@@ -85,5 +88,4 @@ return [
         'invalid'      => 'Entered information is invalid. Please try again.',
         'unauthorized' => 'You are not allowed to access this page.',
     ],
-    'are_you_sure'   => 'Are you sure?' // @todo
 ];

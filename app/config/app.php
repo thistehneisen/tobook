@@ -126,11 +126,11 @@ return array(
         'Zizaco\Confide\ConfideServiceProvider',
         'Zizaco\Entrust\EntrustServiceProvider',
         'anlutro\LaravelSettings\ServiceProvider',
-        'App\Hashids\HashidsServiceProvider',
         'Toin0u\Geocoder\GeocoderServiceProvider',
         'Barryvdh\Debugbar\ServiceProvider',
 
         // Homemade
+        'App\Hashids\HashidsServiceProvider',
         'App\Lomake\LomakeServiceProvider',
         'App\Core\Routing\RoutingServiceProvider',
         'App\Core\Pagination\PaginationServiceProvider',
@@ -216,9 +216,6 @@ return array(
         'UrlHelper' => 'App\Core\Helpers\Url',
         'Util'      => 'App\Core\Util',
         'Sms'       => 'App\OneApi\Facade',
-        'Consumer'  => 'App\Consumers\Models\Consumer',
-        'Lomake'    => 'App\Lomake\Facade',
-        'UrlHelper' => 'App\Core\Helpers\Url',
         'Hashids'   => 'App\Hashids\Facade',
     ),
 

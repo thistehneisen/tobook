@@ -13,7 +13,7 @@ class Offer extends \App\Core\Controllers\Base {
     public function index()
     {
         // get all the offers
-        $offers = OfferModel::paginate(10);
+        $offers = OfferModel::where('user_id', '=', Confide::user()->id)->paginate(10);
 
         // load the view and pass the offers
         return View::make('modules.lc.offers.index')
@@ -42,7 +42,6 @@ class Offer extends \App\Core\Controllers\Base {
         $rules = [
             'name'          => 'required',
             'required'      => 'required|numeric',
-            'free'          => 'required|numeric',
         ];
 
         $validator = Validator::make(Input::all(), $rules);
@@ -56,7 +55,6 @@ class Offer extends \App\Core\Controllers\Base {
             $offer->name = Input::get('name');
             $offer->user_id = Confide::user()->id;
             $offer->required = Input::get('required');
-            $offer->free_service = Input::get('free');
             $offer->total_used = 0;
             $offer->is_active = Input::get('active');
             $offer->is_auto_add = Input::get('auto_add');
@@ -108,7 +106,6 @@ class Offer extends \App\Core\Controllers\Base {
         $rules = [
             'name'          => 'required',
             'required'      => 'required|numeric',
-            'free_service'  => 'required|numeric',
         ];
 
         $validator = Validator::make(Input::all(), $rules);
@@ -121,7 +118,6 @@ class Offer extends \App\Core\Controllers\Base {
             $offer = OfferModel::find($id);
             $offer->name = Input::get('name');
             $offer->required = Input::get('required');
-            $offer->free_service = Input::get('free_service');
             $offer->is_active = Input::get('is_active');
             $offer->is_auto_add = Input::get('is_auto_add');
             $offer->save();

@@ -13,7 +13,7 @@ class Voucher extends \App\Core\Controllers\Base {
     public function index()
     {
         // get all the vouchers
-        $vouchers = VoucherModel::paginate(10);
+        $vouchers = VoucherModel::where('user_id', '=', Confide::user()->id)->paginate(10);
 
         // load the view and pass the vouchers
         return View::make('modules.lc.vouchers.index')
