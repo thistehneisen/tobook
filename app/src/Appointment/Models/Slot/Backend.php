@@ -13,7 +13,7 @@ class Backend implements Strategy
     private $freetimeSlot   = [];
     private $freetimesCache = [];
 
-    public function determineClass($employee, $date, $hour, $minute){
+    public function determineClass($date, $hour, $minute, $employee, $service = null){
         $selectedDate = Carbon::createFromFormat('Y-m-d', $date);
         $class = 'inactive';
         //working time
@@ -38,7 +38,7 @@ class Backend implements Strategy
             $endAt   =  Carbon::createFromFormat('H:i:s', $freetime->end_at, Config::get('app.timezone'));
             if ($rowTime >= $startAt && $rowTime <= $endAt) {
                 $class = 'freetime';
-                $this->freetimeList[$selectedDate->toDateString()][(int) $hour][(int) $minute] = $freetime;
+                $this->freetimeSlot[$selectedDate->toDateString()][(int) $hour][(int) $minute] = $freetime;
             }
         }
 

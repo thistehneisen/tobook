@@ -47,6 +47,9 @@
 
         $('li.active').click(function (e) {
             $('ul > li').removeClass('slot-selected');
+            if($(this).hasClass('inactive')){
+                return;
+            }
             //The service length must be divisible by 15
             var slots = (parseInt($(this).data('booking-length'), 10) / 15) - 1,
                 siblings = $(this).nextAll(),

@@ -1,9 +1,12 @@
 <div class="list-group">
 <?php
-$selectedDate  = $date->toDateString();
-$serviceLength = (!empty($serviceTime)) ? $serviceTime->length : $service->length ;
-$servicePrice  = (!empty($serviceTime)) ? $serviceTime->price  : $service->price ;
-$serviceTimeId = (!empty($serviceTime)) ? $serviceTime->id : 'default';
+$selectedDate    = $date->toDateString();
+$serviceLength   = (!empty($serviceTime)) ? $serviceTime->during : $service->during ;
+$serviceTotal    = (!empty($serviceTime)) ? ($serviceTime->during + $serviceTime->after)  : ($service->during + $service->after);
+$serviceBefore   = (!empty($serviceTime)) ? $serviceTime->before  : $service->before;
+$servicePrice    = (!empty($serviceTime)) ? $serviceTime->price  : $service->price ;
+$selectedService = (!empty($serviceTime)) ? $serviceTime  : $service;
+$serviceTimeId   = (!empty($serviceTime)) ? $serviceTime->id : 'default';
 ?>
  @foreach ($employees as $employee)
 <div class="as-col">
@@ -15,11 +18,13 @@ $serviceTimeId = (!empty($serviceTime)) ? $serviceTime->id : 'default';
     </ul>
     <br>
     <ul>
+        <?php $id = 1;?>
         @foreach ($workingTimes as $hour => $minutes)
              @foreach ($minutes as $minuteShift)
-             <?php $slotClass = $employee->getSlotClass($selectedDate, $hour, $minuteShift); ?>
-            <li data-employee-id="{{ $employee->id }}" data-booking-length="{{ $serviceLength }}" data-start-time="{{ sprintf('%02d:%02d', $hour, $minuteShift) }}" href="#select-action" class="{{ $slotClass }}">
+             <?php $slotClass = $employee->getSlotClass($selectedDate, $hour, $minuteShift, 'frontend', $selectedService); ?>
+            <li id="{{$id}}" data-id="{{$id}}" data-employee-id="{{ $employee->id }}" data-booking-length="{{ $serviceLength }}" data-start-time="{{ sprintf('%02d:%02d', $hour, $minuteShift) }}" href="#select-action" class="slot {{ $slotClass }}">
                 {{ sprintf('%02d:%02d', $hour, $minuteShift) }}
+                <?php $id++;?>
             </li>
              @endforeach
         @endforeach
@@ -43,3 +48,5 @@ $serviceTimeId = (!empty($serviceTime)) ? $serviceTime->id : 'default';
 @endforeach
 </div>
 <input type="hidden" id="add_service_url" value="{{ route('as.bookings.service.front.add') }}" />
+<input type="hidden" id="booking_length" value="{{ $serviceTotal }}"/>
+<input type="hidden" id="booking_before" value="{{ $serviceBefore }}"/>

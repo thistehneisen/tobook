@@ -9,8 +9,8 @@ class Context
         $this->strategy = $strategy;
     }
 
-    public function determineClass($employee, $date, $hour, $minute)
+    public function determineClass($date, $hour, $minute, $employee, $service = null)
     {
-        return $this->strategy->determineClass($employee, $date, $hour, $minute);
+        return $this->strategy->determineClass($date, $hour, $minute, $employee, $service);
     }
 }

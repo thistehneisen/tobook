@@ -93,14 +93,14 @@ class Employee extends \App\Core\Models\Base
     }
 
     //TODO change to another method to compare time
-    public function getSlotClass($date, $hour, $minute, $context = 'backend')
+    public function getSlotClass($date, $hour, $minute, $context = 'backend', $service = null)
     {
         $strategy = new Backend();
         if($context === 'frontend'){
             $strategy = new FrontEnd();
         }
         $context = new Context($strategy);
-        return $context->determineClass($this, $date, $hour, $minute);
+        return $context->determineClass($date, $hour, $minute, $this, $service);
     }
 
     public function getBooked($date, $hour, $minute)

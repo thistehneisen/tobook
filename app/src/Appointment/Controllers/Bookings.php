@@ -171,13 +171,6 @@ class Bookings extends AsBase
         $startTimeStr   = Input::get('start_time');
         $uuid           = Input::get('uuid', Util::uuid());
 
-        //Use for front-end booking
-        if(empty($this->user)){
-            //TODO check if is there any potential error
-            $decoded = Hashids::decrypt($hash);
-            $this->user = User::find($decoded[0]);
-        }
-
         $employee = Employee::find($employeeId);
         $service = Service::find($serviceId);
 
@@ -324,73 +317,12 @@ class Bookings extends AsBase
         return Response::json($data);
     }
 
-    public function addFrontEndBooking()
-    {
-        try {
-            $carts = Session::get('carts');
-            $hash  =  Input::get('hash');
-            $consumer = $this->handleConsumer();
-
-            $decoded = Hashids::decrypt($hash);
-            if(empty($decoded)){
-                return;
-            }
-            $user = User::find($decoded[0]);
-
-            foreach ($carts as $item) {
-                $uuid = $item['uuid'];
-
-                $bookingService = BookingService::where('tmp_uuid', $uuid)->firstOrFail();
-
-                $length = (isset($bookingService->serviceTime))
-                    ? $bookingService->serviceTime->length
-                    : $bookingService->service->length;
-
-                $booking = new Booking();
-                $booking->fill([
-                    'date'        => $bookingService->date,
-                    'start_at'    => $bookingService->start_at,
-                    'end_at'      => $bookingService->end_at,
-                    'total'       => $length,
-                    'status'      => Booking::STATUS_CONFIRM,
-                    'uuid'        => $uuid,
-                    'modify_time' => $bookingService->modify_time,
-                    'ip'          => Request::getClientIp()
-                ]);
-                //need to update end_at, total when add extra service
-
-                $booking->consumer()->associate($consumer);
-                $booking->user()->associate($user);
-                $booking->employee()->associate($bookingService->employee);
-                $booking->save();
-
-                $bookingService->booking()->associate($booking);
-                $bookingService->save();
-
-                 // Send notification email and SMSs
-                $booking->attach(new EmailObserver());
-                $booking->attach(new SmsObserver());
-                $booking->notify();
-            }
-
-            Session::forget('carts');
-            Session::forget('booking_info');
-
-            $data['status']      = true;
-        } catch (\Exception $ex) {
-            $data['status'] = false;
-            $data['message'] = $ex->getMessage();
-            return Response::json($data, 500);
-        }
-        return Response::json($data);
-    }
-
     /**
      * Insert new consumer if not exist in db yet
      *
      * @return Consumer
      */
-    private function handleConsumer()
+    protected function handleConsumer()
     {
         //TODO suggest user info in front end
 

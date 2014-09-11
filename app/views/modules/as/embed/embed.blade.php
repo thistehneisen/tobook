@@ -55,6 +55,22 @@
             }
         });
         $("#datepicker").datepicker("update", new Date({{ $date->year }},{{ $date->month - 1}},{{ $date->day }}));
+
+        var slots = (parseInt($('#booking_length').val(), 10) / 15) - 1;
+        var beforeSlots = (parseInt($('#booking_before').val(), 10) / 15);
+        console.log(beforeSlots);
+        $('li.slot').each(function () {
+            var len = $(this).nextAll('.active').length;
+            if(len < slots){
+                $(this).removeClass('active');
+                $(this).addClass('inactive');
+            }
+            var lenBefore = $(this).prevUntil('li.booked').length;
+            if(lenBefore < beforeSlots){
+                $(this).removeClass('active');
+                $(this).addClass('inactive');
+            }
+        });
     });
     </script>
 </body>
