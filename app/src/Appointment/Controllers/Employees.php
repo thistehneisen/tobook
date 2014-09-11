@@ -64,7 +64,13 @@ class Employees extends AsBase
         $item->saveOrFail();
 
         // Sync selected services
-        $item->services()->sync(Input::get('services'));
+        $services = Input::get('services');
+        if (!empty($services)) {
+            $item->services()->sync($services);
+        } else {
+            // Maybe they want to remove all services
+            $item->services()->detach();
+        }
 
         return $item;
     }
