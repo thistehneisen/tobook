@@ -1,16 +1,25 @@
 @import "_vars.less";
 
 .main {
-    margin: 10px auto;
+    //margin: 10px auto;
 
     .search-left {
         height: 600px;
         overflow-y: scroll;
         border-right: 1px solid #ccc;
 
-        .business-row {
+        .result-row {
             border-bottom: 1px solid #ccc;
-            margin: 15px 0;
+            padding: 15px 0;
+
+            &:hover {
+                background: @light_gray;
+                cursor: pointer;
+            }
+            &.selected {
+                background: @active_light_orange;
+                cursor: pointer;
+            }
         }
     }
 }

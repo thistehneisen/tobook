@@ -11,7 +11,9 @@
         "hashids/hashids": "1.0.0",
         "symfony/console": "2.5.2",
         "anlutro/l4-settings": "0.2.10",
-        "watson/validating": "0.9.*"
+        "watson/validating": "0.9.*",
+        "toin0u/geocoder-laravel": "0.4.1",
+        "barryvdh/laravel-debugbar": "1.7.4"
     },
     "require-dev": {
         "codeception/codeception": "2.0.*",

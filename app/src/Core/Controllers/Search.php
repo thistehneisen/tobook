@@ -1,8 +1,8 @@
 <?php namespace App\Core\Controllers;
 
-use View, Input, DB, Util, Response;
+use View, Input, DB, Util, Response, Geocoder;
 use App\Core\Models\BusinessCategory;
-use App\Core\Models\User as CustomerModel;
+use App\Core\Models\User as BusinessModel;
 
 class Search extends Base
 {
@@ -10,14 +10,24 @@ class Search extends Base
     {
         $query = Input::get('query', '');
         $location = Input::get('location', '');
-        $businesses = CustomerModel::whereHas('businessCategories', function ($q) use ($query, $location) {
+        $businesses = BusinessModel::whereHas('businessCategories', function ($q) use ($query, $location) {
             $q->where('name', 'LIKE', '%'.$query.'%')
                 ->orWhere('keywords', 'LIKE', '%'.$query.'%');
         })->where('city', 'LIKE', '%'.$location.'%')
         ->paginate(100);
 
+        $geocoder = new Geocoder\Geocoder();
+        $geocoder->registerProviders([
+            new Geocoder\Provider\GoogleMapsProvider(
+                new Geocoder\HttpAdapter\CurlHttpAdapter(), 'en', 'Finland', false
+            ),
+        ]);
+
+        $geocode = $geocoder->geocode('Salounaukio 3, Lahti, Finland');
+
         return View::make('front.search.index', [
-            'businesses' => $businesses
+            'businesses' => $businesses,
+            'geocode' => $geocode
         ]);
     }
 
@@ -44,5 +54,13 @@ class Search extends Base
     {
         $locations = DB::table('users')->select('city AS name')->where('city', '!=', '')->get();
         return Response::json($locations, 200);
+    }
+
+    public function ajaxShowBusiness($businessId)
+    {
+        $business = BusinessModel::find($businessId);
+        return View::make('front.search._business', [
+            'business' => $business
+        ]);
     }
 }
