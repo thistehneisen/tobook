@@ -3,13 +3,15 @@
  * Add an indication text to to required fields
  *
  */
-Form::macro('required', function (
-    $field,
-    $validator,
-    $format = ':star'
-) {
+Form::macro('required', function ($field, $validator, $format = ':star') {
+    $rules = [];
+    if ($validator instanceof \Illuminate\Validation\Validator) {
+        $rules = $validator->getRules();
+    } elseif ($validator instanceof \App\Core\Models\Base) {
+        $rules = $validator->getRuleset('saving', true);
+    }
 
-    if (array_key_exists($field, $validator->getRules())) {
+    if (array_key_exists($field, $rules)) {
         return str_replace(':star', '*', $format);
     }
 

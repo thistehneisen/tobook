@@ -34,14 +34,14 @@ $(function () {
             </div>
         </div>
         <div class="form-group">
-            <label for="name" class="col-sm-2 control-label">{{ trans('as.employees.name') }}</label>
+            <label for="name" class="col-sm-2 control-label">{{ trans('as.employees.name') }} {{ Form::required('name', $employee) }}</label>
             <div class="col-sm-5">
                 {{ Form::text('name', (isset($employee)) ? $employee->name:'', ['class' => 'form-control input-sm', 'id' => 'name']) }}
                 {{ Form::errorText('name', $errors) }}
             </div>
         </div>
         <div class="form-group">
-            <label for="phone" class="col-sm-2 control-label">{{ trans('as.employees.phone') }}</label>
+            <label for="phone" class="col-sm-2 control-label">{{ trans('as.employees.phone') }} {{ Form::required('phone', $employee) }}</label>
             <div class="col-sm-5">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-phone"></i></span>
@@ -49,11 +49,11 @@ $(function () {
                 </div>
             </div>
             <div class="checkbox col-sm-5">
-                <label> {{ Form::checkbox('is_subsribed_phone', 1, (isset($employee)) ? $employee->is_subsribed_email: false ); }} {{  trans('as.employees.is_subscribed_sms') }}</label>
+                <label> {{ Form::checkbox('is_subscribed_sms', 1, (isset($employee)) ? $employee->is_subscribed_sms: false ); }} {{  trans('as.employees.is_subscribed_sms') }} {{ Form::required('is_subsribed_email', $employee) }}</label>
             </div>
         </div>
         <div class="form-group">
-            <label for="email" class="col-sm-2 control-label">{{ trans('as.employees.email') }}</label>
+            <label for="email" class="col-sm-2 control-label">{{ trans('as.employees.email') }} {{ Form::required('email', $employee) }}</label>
             <div class="col-sm-5">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
@@ -61,29 +61,29 @@ $(function () {
                 </div>
             </div>
             <div class="checkbox col-sm-5">
-                    <label> {{ Form::checkbox('is_subsribed_email', 1, (isset($employee)) ? $employee->is_subsribed_email: false ); }} {{  trans('as.employees.is_subscribed_email') }}</label>
+                    <label> {{ Form::checkbox('is_subsribed_email', 1, (isset($employee)) ? $employee->is_subsribed_email: false ); }} {{  trans('as.employees.is_subscribed_email') }} {{ Form::required('is_subscribed_email', $employee) }}</label>
             </div>
         </div>
         <div class="form-group">
-            <label for="description" class="col-sm-2 control-label">{{ trans('as.employees.description') }}</label>
+            <label for="description" class="col-sm-2 control-label">{{ trans('as.employees.description') }} {{ Form::required('description', $employee) }}</label>
             <div class="col-sm-5">
                 {{ Form::textarea('description', (isset($employee)) ? $employee->description:'', ['class' => 'form-control input-sm', 'id' => 'description']) }}
             </div>
         </div>
          <div class="form-group">
-            <label class="col-sm-2 control-label">{{  trans('as.employees.services') }}</label>
+            <label class="col-sm-2 control-label">{{  trans('as.employees.services') }} {{ Form::required('services', $employee) }}</label>
             <div class="col-sm-5">
                  {{ Form::select('services[]', $services, $employee->services->lists('id'), ['class' => 'form-control input-sm select2', 'id' => 'services', 'multiple' => 'multiple']) }}
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">{{  trans('as.employees.status') }}</label>
+            <label class="col-sm-2 control-label">{{  trans('as.employees.status') }} {{ Form::required('is_active', $employee) }}</label>
               <div class="col-sm-5">
                  {{ Form::select('is_active', [0 => trans('common.inactive'), 1 => trans('common.active')], isset($employee) ? $employee->is_active : 1, ['class' => 'form-control input-sm', 'id' => 'status']) }}
             </div>
         </div>
          <div class="form-group">
-            <label class="col-sm-2 control-label">{{  trans('as.employees.avatar') }}</label>
+            <label class="col-sm-2 control-label">{{  trans('as.employees.avatar') }} {{ Form::required('avatar', $employee) }}</label>
             <div class="col-sm-5">
                 <p><img src="{{ !empty($employee->avatar) ? $employee->getAvatarUrl() : asset('assets/img/avatar.jpg') }}" width="100" alt="" class="img-thumbnail"></p>
                 {{ Form::file('avatar','',array('id'=>'','class'=>'')) }}

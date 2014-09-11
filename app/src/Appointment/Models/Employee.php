@@ -1,12 +1,14 @@
 <?php namespace App\Appointment\Models;
+
 use Config, Util;
 use Carbon\Carbon;
+use App\Core\Models\Base;
 use App\Appointment\Models\Slot\Strategy;
 use App\Appointment\Models\Slot\Context;
 use App\Appointment\Models\Slot\Backend;
 use App\Appointment\Models\Slot\Frontend;
 
-class Employee extends \App\Core\Models\Base
+class Employee extends Base
 {
     protected $table = 'as_employees';
 
@@ -36,11 +38,13 @@ class Employee extends \App\Core\Models\Base
     private $bookedSlot     = [];
     private $freetimeSlot   = [];
 
-    public function setBookedSlot(array $data){
+    public function setBookedSlot(array $data)
+    {
         $this->bookedSlot = $data;
     }
 
-    public function setFreetimeSlot(array $data){
+    public function setFreetimeSlot(array $data)
+    {
         $this->freetimeSlot = $data;
     }
 
@@ -72,7 +76,7 @@ class Employee extends \App\Core\Models\Base
 
     public function getTodayDefaultStartAt($weekday = null)
     {
-        if($weekday === null){
+        if ($weekday === null) {
             $weekday = Carbon::now()->dayOfWeek;
         }
         $dayOfWeek = Util::getDayOfWeekText($weekday);
@@ -83,7 +87,7 @@ class Employee extends \App\Core\Models\Base
 
     public function getTodayDefaultEndAt($weekday = null)
     {
-        if($weekday === null){
+        if ($weekday === null) {
             $weekday = Carbon::now()->dayOfWeek;
         }
         $dayOfWeek = Util::getDayOfWeekText($weekday);
@@ -96,10 +100,11 @@ class Employee extends \App\Core\Models\Base
     public function getSlotClass($date, $hour, $minute, $context = 'backend', $service = null)
     {
         $strategy = new Backend();
-        if($context === 'frontend'){
+        if ($context === 'frontend') {
             $strategy = new FrontEnd();
         }
         $context = new Context($strategy);
+
         return $context->determineClass($date, $hour, $minute, $this, $service);
     }
 
@@ -144,6 +149,7 @@ class Employee extends \App\Core\Models\Base
         if (empty($this->attributes['avatar'])) {
             return asset('assets/img/mm.png');
         }
+
         return asset(Config::get('varaa.upload_folder').'/avatars/'.$this->attributes['avatar']);
     }
 
