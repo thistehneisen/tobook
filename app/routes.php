@@ -598,11 +598,22 @@ Route::group([
             'destroy'   => 'mt.campaigns.delete',
         ]
     ]);
-    Route::post('campaigns/statistics', 'App\MarketingTool\Controllers\Campaign@statistics');
-    Route::post('campaigns/duplication', 'App\MarketingTool\Controllers\Campaign@duplication');
-    Route::post('campaigns/sendIndividual', 'App\MarketingTool\Controllers\Campaign@sendIndividual');
-    Route::post('campaigns/sendGroup', 'App\MarketingTool\Controllers\Campaign@sendGroup');
-    // Route::get('campaigns/automation', 'App\MarketingTool\Controllers\Campaign@automation');
+    Route::post('campaigns/statistics', [
+        'as'   => 'mt.campaigns.statistics',
+        'uses' => 'App\MarketingTool\Controllers\Campaign@statistics'
+    ]);
+    Route::post('campaigns/duplication', [
+        'as'   => 'mt.campaigns.duplication',
+        'uses' => 'App\MarketingTool\Controllers\Campaign@duplication'
+    ]);
+    Route::post('campaigns/sendIndividual', [
+        'as'   => 'mt.campaigns.sendIndividual',
+        'uses' => 'App\MarketingTool\Controllers\Campaign@sendIndividual'
+    ]);
+    Route::post('campaigns/sendGroup', [
+        'as'   => 'mt.campaigns.group',
+        'uses' => 'App\MarketingTool\Controllers\Campaign@sendGroup'
+    ]);
 
     Route::resource('sms', 'App\MarketingTool\Controllers\Sms', [
         'names' => [
@@ -614,9 +625,14 @@ Route::group([
             'destroy'   => 'mt.sms.delete',
         ]
     ]);
-    Route::post('sms/sendIndividual', 'App\MarketingTool\Controllers\Sms@sendIndividual');
-    Route::post('sms/sendGroup', 'App\MarketingTool\Controllers\Sms@sendGroup');
-    // Route::get('sms/automation', 'App\MarketingTool\Controllers\Campaign@automation');
+    Route::post('sms/sendIndividual', [
+        'as'   => 'mt.sms.sendIndividual',
+        'uses' => 'App\MarketingTool\Controllers\Sms@sendIndividual'
+    ]);
+    Route::post('sms/sendGroup', [
+        'as'   => 'mt.sms.group',
+        'uses' => 'App\MarketingTool\Controllers\Sms@sendGroup'
+    ]);        
 
     Route::resource('templates', 'App\MarketingTool\Controllers\Template', [
         'names' => [
@@ -628,7 +644,10 @@ Route::group([
             'destroy'   => 'mt.templates.delete',
         ]
     ]);
-    Route::post('templates/load', 'App\MarketingTool\Controllers\Template@load');
+    Route::post('templates/load', [
+        'as'   => 'mt.templates.load',
+        'uses' => 'App\MarketingTool\Controllers\Template@load'
+    ]);
 
     Route::resource('settings', 'App\MarketingTool\Controllers\Setting', [
         'names' => [
@@ -650,7 +669,10 @@ Route::group([
             'destroy'   => 'mt.groups.delete',
         ]
     ]);
-    Route::post('groups/create', 'App\MarketingTool\Controllers\Group@create');
+    Route::post('groups/create', [
+        'as'   => 'mt.groups.create',
+        'uses' => 'App\MarketingTool\Controllers\Group@create'
+    ]);    
 
     Route::resource('consumers', 'App\MarketingTool\Controllers\Consumer', [
         'names' => [

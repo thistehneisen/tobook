@@ -3,7 +3,6 @@
 use Input, Session, Redirect, View, Validator, Response, Sms;
 use App\MarketingTool\Models\History as HistoryModel;
 use App\MarketingTool\Models\Sms as SmsModel;
-use App\MarketingTool\Models\Consumer as ConsumerModel;
 use App\MarketingTool\Models\Group as GroupModel;
 use App\MarketingTool\Models\GroupConsumer as GroupConsumerModel;
 use Confide;

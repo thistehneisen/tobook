@@ -70,6 +70,9 @@
     </table>
     <div class="pull-right">{{ $campaigns->links() }}</div>
     
+    <input type="hidden" id="link-campaigns-duplication" value="{{ URL::route('mt.campaigns.duplication') }}"/>
+    <input type="hidden" id="link-campaigns-statistics" value="{{ URL::route('mt.campaigns.statistics') }}"/>
+    
     <!-- Modal -->
     <div class="modal fade" id="campaignsModal" tabindex="-1" role="dialog" aria-labelledby="campaignsModalLabel" aria-hidden="true">
         <div class="modal-dialog">

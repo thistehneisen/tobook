@@ -9,6 +9,6 @@ class GroupConsumer extends Eloquent
     
     public function consumer()
     {
-        return $this->belongsTo('\App\MarketingTool\Models\Consumer', 'consumer_id');
+        return $this->belongsTo('\App\Consumers\Models\Consumer', 'consumer_id');
     }
 }

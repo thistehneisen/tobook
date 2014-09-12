@@ -35,7 +35,7 @@ $(document).ready(function () {
         }
 
         $.ajax({
-            url : "/marketing-tools/groups/create",
+            url : $("#link-groups-create").val(),
             dataType : "json",
             type : "POST",
             data : {
@@ -84,9 +84,9 @@ $(document).ready(function () {
         for (i = 0; i < obj_chk_list.size(); i++) {
             consumer_ids[i] = obj_chk_list.eq(i).val();
         }
-      
+        
         $.ajax({
-            url : "/mt/campaigns/sendIndividual",
+            url : $("#link-campaigns-individual").val(),
             dataType : "json",
             type : "POST",
             data : {
@@ -122,7 +122,7 @@ $(document).ready(function () {
         }
         
         $.ajax({
-            url : "/mt/sms/sendIndividual",
+            url : $("#link-sms-individual").val(),
             dataType : "json",
             type : "POST",
             data : {

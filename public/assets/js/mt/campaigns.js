@@ -24,7 +24,7 @@ $(document).ready(function () {
         }
         
         $.ajax({
-            url : "/mt/templates/load",
+            url : $("#link-templates-load").val(),
             dataType : "json",
             type : "post",
             data : {template_id : template_id},
@@ -43,7 +43,7 @@ $(document).ready(function () {
         var campaign_id = $("#duplicate_campaign_id").val();
         var subject = $("#subject").val();
         $.ajax({
-            url : "/mt/campaigns/duplication",
+            url : $("#link-campaigns-duplication").val(),
             dataType : "json",
             type : "post",
             data : {campaign_id : campaign_id, subject : subject},
@@ -68,7 +68,7 @@ $(document).ready(function () {
         var campaign_id = $(this).parents("td").eq(0).find("#campaign_id").val();
         
         $.ajax({
-            url : "/mt/campaigns/statistics",
+            url : $("#link-campaigns-statistics").val(),
             dataType : "json",
             type : "post",
             data : {campaign_id : campaign_id},

@@ -146,7 +146,9 @@
             </div>
         </div>
     </div>
-
+    <input type="hidden" id="link-groups-create" value="{{ URL::route('mt.groups.create') }}"/>
+    <input type="hidden" id="link-campaigns-individual" value="{{ URL::route('mt.campaigns.sendIndividual') }}"/>
+    <input type="hidden" id="link-sms-individual" value="{{ URL::route('mt.sms.sendIndividual') }}"/>
 </div>
 
 @section('scripts')

@@ -173,6 +173,9 @@ class Group extends \App\Core\Controllers\Base {
      */
     public function destroy($id)
     {
+        $groupConsumer = GroupConsumerModel::where('group_id', '=',$id);
+        $groupConsumer->delete();        
+        
         $group = GroupModel::find($id);
         $group->delete();
     

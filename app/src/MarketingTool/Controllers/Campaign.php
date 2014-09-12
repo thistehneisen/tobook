@@ -8,7 +8,7 @@ use App\MarketingTool\Models\GroupConsumer as GroupConsumerModel;
 use App\MarketingTool\Models\History as HistoryModel;
 use App\MarketingTool\Models\Sms as SmsModel;
 use App\MarketingTool\Models\Setting as SettingModel;
-use App\MarketingTool\Models\Consumer as ConsumerModel;
+
 use Confide;
 
 class Campaign extends \App\Core\Controllers\Base {

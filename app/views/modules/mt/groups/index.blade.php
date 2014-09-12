@@ -54,6 +54,9 @@
     </table>
     <div class="pull-right">{{ $groups->links() }}</div>
     
+    <input type="hidden" id="link-campaigns-group" value="{{ URL::route('mt.campaigns.group') }}"/>
+    <input type="hidden" id="link-sms-group" value="{{ URL::route('mt.sms.group') }}"/>    
+    
     <div class="modal fade" id="campaignsModal" tabindex="-1" role="dialog" aria-labelledby="campaignsModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

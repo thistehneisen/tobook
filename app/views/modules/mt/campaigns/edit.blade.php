@@ -38,7 +38,7 @@
         @endforeach
         <div class="form-group">
             <div class="col-sm-offset-5 col-sm-10">
-                {{ Form::button(trans('mt.template.list'), ['class' => 'btn btn-success', 'id' => 'btn_templates', ]) }}
+                {{ Form::button(trans('mt.template.list'), ['class' => 'btn btn-success', 'id' => 'btn-templates', ]) }}
                 {{ Form::submit(trans('mt.campaign.edit'), ['class' => 'btn btn-primary', 'onclick' => 'onSetContent()', ]) }}
             </div>
         </div>
@@ -75,7 +75,7 @@
             </div>
         </div>
     </div>
-        
+    <input type="hidden" id="link-templates-load" value="{{ URL::route('mt.templates.load') }}"/>            
 </div>
 @section('scripts')
     <script src="{{ asset('assets/js/mt/common.js') }}" type="text/javascript"></script>

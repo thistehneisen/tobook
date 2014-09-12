@@ -44,7 +44,7 @@ $(document).ready(function () {
         }
       
         $.ajax({
-            url : "/mt/campaigns/sendGroup",
+            url : $("#link-campaigns-group").val(),
             dataType : "json",
             type : "POST",
             data : {
@@ -80,7 +80,7 @@ $(document).ready(function () {
         }
         
         $.ajax({
-            url : "/mt/sms/sendGroup",
+            url : $("#link-sms-group").val(),
             dataType : "json",
             type : "POST",
             data : {
