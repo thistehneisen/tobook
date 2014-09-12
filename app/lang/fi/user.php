@@ -6,7 +6,7 @@ return [
     'password_confirmation'  => 'Vahvista salasana',
     'forced_change_password' => 'Olemme äskettäin muuttaneet järjestelmää ja kaikkia käyttäjiä pyydetään vaihtamaan salasanasi välittömästi.',
     'change_profile_success' => 'Sinun profiili on päivittänyt',
-    'change_profile_failed'  => 'Failed to update profile. Please try again', // @todo
+    'change_profile_failed'  => 'Failed to update profile. Please try again.', // @todo
     'incorrect_old_password' => 'Vanha salasanasi on väärä. Yritä uudelleen.',
     'create_account'         => 'Luo Tilin',
     'fill_fields'            => 'Täytä seuraavat tiedot',
@@ -28,6 +28,7 @@ return [
     'premium_expired'        => 'Your active time was expired. Please contact us via email :email or phone number :phone_number to activate your service again.', // @todo
     'business_name'          => 'Business name', // @todo
     'profile' => [
+        'index'                => 'My account', // @todo
         'general'              => 'General information', // @todo
         'images'               => 'Images', // @todo
         'no_images'            => 'No image found. Use the form below to add new images', // @todo

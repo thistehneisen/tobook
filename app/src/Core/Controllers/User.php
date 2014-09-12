@@ -9,6 +9,9 @@ class User extends Base
 {
     protected $rules = [
         'profile' => [
+            'business_name' => 'required',
+        ],
+        'password' => [
             'password'              => 'required_with:old_password|confirmed',
             'password_confirmation' => 'required_with:password',
         ]
@@ -69,7 +72,7 @@ class User extends Base
             $result = $this->$method();
 
             // If we need to redirect immediately
-            if ($result instanceof Redirect) {
+            if ($result instanceof \Illuminate\Http\RedirectResponse) {
                 return $result;
             }
 
@@ -96,14 +99,22 @@ class User extends Base
      */
     protected function updateGeneral()
     {
+        $v = Validator::make(Input::all(), $this->rules['profile']);
+        if ($v->fails()) {
+            return Redirect::back()->withInput()->withErrors($v);
+        }
+
         $user = Confide::user();
         $user->fill([
             'description'   => e(Input::get('description')),
-            'business_size' => e(Input::get('business_size'))
+            'business_size' => e(Input::get('business_size')),
+            'business_name' => e(Input::get('business_name'))
         ]);
 
         // Update business categories
-        $user->updateBusinessCategories(Input::get('categories'));
+        if (Input::has('categories')) {
+            $user->updateBusinessCategories(Input::get('categories'));
+        }
         $user->save();
     }
 
@@ -122,7 +133,7 @@ class User extends Base
             }
         }
 
-        $v = Validator::make(Input::all(), $this->rules['profile']);
+        $v = Validator::make(Input::all(), $this->rules['password']);
         if ($v->fails()) {
             return Redirect::back()->withErrors($v);
         }

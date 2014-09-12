@@ -7,7 +7,7 @@ return [
     'forced_change_password' => 'We have recently changed our system and all users are requested to change password immediately.',
     'change_profile'         => 'Update profile',
     'change_profile_success' => 'Your profile has been updated',
-    'change_profile_failed'  => 'Your old password might be incorrect. Please try again',
+    'change_profile_failed'  => 'Failed to update profile. Please try again.',
     'create_account'         => 'Create an account',
     'fill_fields'            => 'Fill in your information',
     'username'               => 'User name',
@@ -28,6 +28,7 @@ return [
     'premium_expired'        => 'Your active time was expired. Please contact us via email :email or phone number :phone_number to activate your service again.',
     'business_name'          => 'Business name', // @todo
     'profile' => [
+        'index'                => 'My account', // @todo
         'general'              => 'General information',
         'images'               => 'Images',
         'no_images'            => 'No image found. Use the form below to add new images',

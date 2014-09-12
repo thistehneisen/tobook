@@ -1,11 +1,7 @@
 @extends ('layouts.dashboard')
 
 @section('title')
-    @parent :: {{ trans('user.change_password') }}
-@stop
-
-@section('page-header')
-    <h1 class="text-header">{{ trans('user.change_password') }}</h1>
+    @parent :: {{ trans('user.profile.index') }}
 @stop
 
 @section ('scripts')
@@ -47,6 +43,15 @@ $(function () {
             <div class="tab-pane active" id="general">
             {{ Form::open(['id' => 'frm-profile', 'route' => 'user.profile', 'class' => 'form-horizontal', 'role' => 'form']) }}
                 <h3 class="comfortaa orange">{{ trans('user.profile.general') }}</h3>
+
+                <div class="form-group {{ Form::errorCSS('business_name', $errors) }}">
+                    {{ Form::label('business_name', trans('user.business_name').Form::required('business_name', $validator), ['class' => 'col-sm-2 col-sm-offset-1 control-label']) }}
+                    <div class="col-sm-6">
+                        {{ Form::text('business_name', Input::get('input_name', $user->business_name), ['class' => 'form-control']) }}
+                        {{ Form::errorText('business_name', $errors) }}
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-offset-1 control-label">{{ trans('user.profile.business_categories.index') }}</label>
                     <div class="col-sm-6">
