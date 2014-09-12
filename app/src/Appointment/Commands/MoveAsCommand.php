@@ -392,6 +392,7 @@ class MoveAsCommand extends Command
                 ? $this->map['varaa_as_employees'][$item->employee_id]
                 : null;
 
+            $startAt = new Carbon($item->date.' '.$item->start);
             $data = [
                 'uuid'        => $item->uuid,
                 'user_id'     => $item->owner_id,
@@ -400,8 +401,8 @@ class MoveAsCommand extends Command
                 'date'        => $item->date,
                 'total'       => (int) $item->booking_total,
                 'modify_time' => 0,
-                'start_at'    => new Carbon($item->date.' '.$item->start),
-                'end_at'      => '',
+                'start_at'    => $startAt,
+                'end_at'      => with(clone $startAt)->addMinutes((int) $item->booking_total),
                 'status'      => $map[$item->booking_status],
                 'ip'          => (string) $item->ip,
                 'created_at'  => $item->created,
