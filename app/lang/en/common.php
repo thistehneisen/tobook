@@ -32,6 +32,7 @@ return [
     'yes_required'   => 'Yes (Required)',
     'no'             => 'No',
     'add'            => 'Add',
+    'delete'            => 'Delete',
     'continue'       => 'Continue',
     'cancel'         => 'Cancel',
     'active'         => 'Active',

@@ -3,14 +3,14 @@
 use DB, Carbon\Carbon, Closure, Consumer, Cache;
 use Illuminate\Console\Command;
 
-class MigrateCommand extends Command
+class MoveAsCommand extends Command
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'as:migrate';
+    protected $name = 'varaa:move-as';
 
     /**
      * The console command description.
@@ -324,13 +324,14 @@ class MigrateCommand extends Command
     protected function migrateBookings()
     {
         $items = DB::table('as_bookings')
-            ->join('as_bookings_services', 'as_bookings.id', '=', 'as_bookings_services.booking_id')
+            ->leftJoin('as_bookings_services', 'as_bookings.id', '=', 'as_bookings_services.booking_id')
             ->select(
                 'as_bookings.*',
                 'as_bookings_services.employee_id',
                 'as_bookings_services.date',
                 'as_bookings_services.start'
             )
+            ->distinct()
             ->get();
         $now = Carbon::now();
 
@@ -341,12 +342,12 @@ class MigrateCommand extends Command
                 $item->c_email = 'asconsumer_'.($emptyEmail++).'@varaa.com';
             }
 
-            // @todo: Fix consumer first_name and last_name
             try {
+                $name = explode(' ', (string) $item->c_name);
                 $consumerId = DB::table('varaa_consumers')
                     ->insertGetId([
-                        'first_name' => (string) $item->c_name,
-                        'last_name'  => '',
+                        'first_name' => isset($name[0]) ? $name[0] : '',
+                        'last_name'  => isset($name[1]) ? $name[1] : '',
                         'email'      => (string) $item->c_email,
                         'phone'      => (string) $item->c_phone,
                         'address'    => (string) $item->c_address_1,
@@ -391,6 +392,7 @@ class MigrateCommand extends Command
                 ? $this->map['varaa_as_employees'][$item->employee_id]
                 : null;
 
+            $startAt = new Carbon($item->date.' '.$item->start);
             $data = [
                 'uuid'        => $item->uuid,
                 'user_id'     => $item->owner_id,
@@ -399,8 +401,8 @@ class MigrateCommand extends Command
                 'date'        => $item->date,
                 'total'       => (int) $item->booking_total,
                 'modify_time' => 0,
-                'start_at'    => new Carbon($item->date.' '.$item->start),
-                'end_at'      => '',
+                'start_at'    => $startAt,
+                'end_at'      => with(clone $startAt)->addMinutes((int) $item->booking_total),
                 'status'      => $map[$item->booking_status],
                 'ip'          => (string) $item->ip,
                 'created_at'  => $item->created,
@@ -447,7 +449,7 @@ class MigrateCommand extends Command
 
         $items = DB::table($from)
             ->where('booking_id', '!=', 0)
-            ->whereNotNull('employee_id')
+            //->whereNotNull('employee_id')
             ->get();
 
         $data = [];

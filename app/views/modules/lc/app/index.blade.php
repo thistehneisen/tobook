@@ -15,22 +15,30 @@
 NFC Desktop App
 @stop
 
-@section('nav')
-<nav class="row">
-    <div class="col-md-6 text-left">
-        <i class="fa fa-globe"></i>
-        @foreach (Config::get('varaa.languages') as $locale)
-        <a class="language-swicher {{ Config::get('app.locale') === $locale ? 'active' : '' }}" href="{{ UrlHelper::localizeCurrentUrl($locale) }}" title="">{{ strtoupper($locale) }}</a>
-        @endforeach
-    </div>
-    <div class="col-md-6 text-right">
-        <ul class="list-inline nav-links">
+@section('user-nav')
+<ul class="user-nav nav nav-pills pull-right">
+    <li class="dropdown active">
+        @if (Confide::user())
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            @if (Session::get('stealthMode') !== null)
+            You're now login as <strong>{{ Confide::user()->username }}</strong>
+            @else {{ trans('common.welcome') }}, <strong>{{ Confide::user()->username }}</strong>!
+            @endif
+            <span class="caret"></span>
+        </a>
+        @else
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            {{ trans('common.for_business') }}
+            <span class="caret"></span>
+        </a>
+        @endif
+        <ul class="dropdown-menu">
             @if (Confide::user())
             <li><a href="{{ route('app.lc.logout') }}">{{ trans('common.sign_out') }}</a></li>
             @endif
         </ul>
-    </div>
-</nav>
+    </li>
+</ul>
 @stop
 
 @section('logo')
@@ -48,7 +56,7 @@ NFC Desktop App
             </button>
             {{ Form::open(['route' => 'app.lc.index', 'method' => 'get', 'class' => 'form-inline']) }}
                 {{ Form::text('search', null, ['class' => 'form-control']) }}
-                {{ Form::submit(trans('Search'), ['class' => 'btn btn-default']) }}
+                {{ Form::submit(trans('common.search'), ['class' => 'btn btn-default']) }}
             {{ Form::close() }}
         </div>
         @include('modules.lc._consumer_list')

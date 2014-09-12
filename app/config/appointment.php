@@ -4,14 +4,6 @@ return [
         'general' => [
             // Index section
             'index' => [
-                'business_name' => [
-                    'type' => 'Text',
-                    'options' => ['placeholder' => 'Notfound Oy', 'class' => 'form-control']
-                ],
-                'phone_number' => [
-                    'type' => 'Text',
-                    'options' => ['placeholder' => '358412223333', 'class' => 'form-control']
-                ],
                 'layout'          => [
                     'type'         => 'Dropdown',
                     'values'       => [1 => 'Layout 1', 2 => 'Layout 2', 3 => 'Layout 3'],

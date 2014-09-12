@@ -21,7 +21,10 @@ class Auth extends Base
             'username'              => 'required',
             'password'              => 'required|confirmed',
             'password_confirmation' => 'required',
-            'email'                 => 'required|email'
+            'email'                 => 'required|email',
+            'phone'                 => 'required',
+            'business_name'         => 'required',
+            'business_categories'   => 'required',
         ],
         'forgot' => [
             'email' => 'required|email'
@@ -182,6 +185,7 @@ class Auth extends Base
             'email'                 => ['label' => trans('user.email'), 'type' => 'email'],
             'name'                  => ['label' => trans('user.name')],
             'phone'                 => ['label' => trans('user.phone')],
+            'business_name'         => ['label' => trans('user.business_name')],
         ];
 
         // Get all business categories

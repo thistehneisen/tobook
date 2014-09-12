@@ -30,8 +30,8 @@
                 </div>
             </div>
         @endforeach
-            <div class="form-group">
-                <label class="col-sm-2 col-sm-offset-1 control-label">{{ trans('user.profile.business_categories.index') }}</label>
+            <div class="form-group {{ Form::errorCSS('business_categories', $errors) }}">
+                <label class="col-sm-2 col-sm-offset-1 control-label">{{ trans('user.profile.business_categories.index'), Form::required('business_categories', $validator) }}</label>
                 <div class="col-sm-6">
                     @include ('user.el.categories')
                 </div>

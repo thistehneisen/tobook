@@ -1,8 +1,9 @@
 <?php namespace App\Appointment\Models;
 
 use App\Core\Models\User;
+use App\Core\Models\Base;
 
-class Option extends BaseModel
+class Option extends Base
 {
     protected $table = 'as_options';
 
