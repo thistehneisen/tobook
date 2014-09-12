@@ -47,12 +47,7 @@ class Statistics extends Base
      */
     protected function fetch()
     {
-        $data = [];
-        // Prepare keys
-        $i = 1;
-        while ($i <= $this->date->daysInMonth) {
-            $data[$i++] = [];
-        }
+        $data = $this->prepareData();
 
         // Get revenue of each day
         $data = $this->process($data, $this->getRevenue(), 'revenue');
@@ -69,6 +64,17 @@ class Statistics extends Base
             $item['booked_time']        = $this->formatMinutes($item['booked_time']);
         }
 
+        return $data;
+    }
+
+    protected function prepareData()
+    {
+        $data = [];
+        // Prepare keys
+        $i = 1;
+        while ($i <= $this->date->daysInMonth) {
+            $data[$i++] = [];
+        }
         return $data;
     }
 
