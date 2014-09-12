@@ -17,6 +17,7 @@ $(function() {
             loading.hide();
         });
     };
+
     $('div.relative').on('click', 'a.js-btn-reload', function(e) {
         e.preventDefault();
         var $this = $(this);
@@ -33,7 +34,10 @@ $(function() {
 
 @section ('content')
 <div id="js-stat">
-    <div id="js-calendar-stat">{{ $calendar }}</div>
+    <div class="relative">
+        <div class="js-loading"><i class="fa fa-refresh fa-spin fa-5x"></i></div>
+        <div id="js-calendar-stat">{{ $calendar }}</div>
+    </div>
 
     <div class="relative">
         <div class="js-loading"><i class="fa fa-refresh fa-spin fa-5x"></i></div>

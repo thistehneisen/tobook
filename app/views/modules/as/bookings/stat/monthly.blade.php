@@ -1,18 +1,18 @@
     <div class="row">
         <div class="col-md-1">
-            <a href="{{ route('as.bookings.statistics.monthly', $queries + ['date' => $prev->format('d-m-Y') ]) }}" class="btn btn-link js-btn-reload" rel="js-monthly-stat"><i class="fa fa-arrow-left"></i> {{ trans('common.prev') }}</a>
+            <a href="{{ route('as.bookings.statistics.monthly', ['employee' => Input::get('employee'), 'date' => $prev->format('Y-m-d') ]) }}" class="btn btn-link js-btn-reload" rel="js-monthly-stat"><i class="fa fa-arrow-left"></i> {{ trans('common.prev') }}</a>
         </div>
         <div class="col-md-7 text-center">
             <h4>{{ trans('as.bookings.stat.monthly') }}</h4>
         </div>
         <div class="col-md-1 text-right">
-            <a href="{{ route('as.bookings.statistics.monthly', $queries + ['date' => $next->format('d-m-Y') ]) }}" class="btn btn-link js-btn-reload" rel="js-monthly-stat">{{ trans('common.next') }} <i class="fa fa-arrow-right"></i></a>
+            <a href="{{ route('as.bookings.statistics.monthly', ['employee' => Input::get('employee'), 'date' => $next->format('Y-m-d') ]) }}" class="btn btn-link js-btn-reload" rel="js-monthly-stat">{{ trans('common.next') }} <i class="fa fa-arrow-right"></i></a>
         </div>
         <div class="col-md-3">
             <select name="employee" class="form-control input-sm" rel="js-monthly-stat">
                 <option data-url="{{ route('as.bookings.statistics.monthly') }}">-- {{ trans('common.all') }} --</option>
             @foreach ($employees as $employee)
-                <option data-url="{{ route('as.bookings.statistics.monthly', $queries + ['employee' => $employee->id ]) }}" {{ Input::get('employee') === $employee->id ? 'selected' : '' }}>{{ $employee->name }}</option>
+                <option data-url="{{ route('as.bookings.statistics.monthly', ['employee' => $employee->id, 'date' => Input::get('date')]) }}" {{ Input::get('employee') === $employee->id ? 'selected' : '' }}>{{ $employee->name }}</option>
             @endforeach
             </select>
         </div>

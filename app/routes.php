@@ -414,6 +414,11 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Stat@index'
     ]);
 
+    Route::get('bookings/statistics/calendar', [
+        'as' => 'as.bookings.statistics.calendar',
+        'uses' => 'App\Appointment\Controllers\Stat@calendar'
+    ]);
+
     Route::get('bookings/statistics/monthly', [
         'as' => 'as.bookings.statistics.monthly',
         'uses' => 'App\Appointment\Controllers\Stat@monthly'

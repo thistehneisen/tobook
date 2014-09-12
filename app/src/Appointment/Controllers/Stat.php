@@ -14,8 +14,6 @@ class Stat extends Bookings
 
         $employees = Employee::ofCurrentUser()->get();
         View::share('employees', $employees);
-
-        View::share('queries', Request::instance()->query->all());
     }
 
     /**
@@ -38,19 +36,28 @@ class Stat extends Bookings
      */
     public function calendar()
     {
-        $now = Carbon::now();
+        $date = Input::has('date')
+            ? new Carbon(Input::get('date'))
+            : Carbon::now();
 
-        $calendar = $this->generateCalendar($now);
-        $report = new Statistics($now);
+        $calendar = $this->generateCalendar($date);
+        $report = new Statistics($date);
+
+        $next = with(clone $date)->addMonth();
+        $prev = with(clone $date)->subMonth();
 
         // Merge report to calendar
         $i = array_search(1, $calendar);
-        foreach ($report->get() as $day => $data) {
-            $data['day'] = $day;
-            $calendar[$day - 1 - $i] = $data;
+        $data = $report->get();
+        foreach ($data as $day => $item) {
+            $item['day'] = $day;
+            $calendar[$i++] = $item;
         }
 
         return $this->render('stat.calendar', [
+            'date'     => $date,
+            'next'     => $next,
+            'prev'     => $prev,
             'calendar' => $calendar
         ]);
     }
