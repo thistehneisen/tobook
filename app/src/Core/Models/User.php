@@ -3,11 +3,13 @@
 use App, DB, Hashids, Config, Carbon\Carbon;
 use Zizaco\Confide\ConfideUser;
 use Zizaco\Entrust\HasRole;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class User extends ConfideUser
 {
     const IMAGEABLE_PATH = '/users';
 
+    use SoftDeletingTrait;
     use HasRole;
 
     public $visible = [
@@ -31,7 +33,8 @@ class User extends ConfideUser
         'postcode',
         'country',
         'description',
-        'business_size'
+        'business_size',
+        'business_name'
     ];
 
     //--------------------------------------------------------------------------

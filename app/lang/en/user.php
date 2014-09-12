@@ -26,6 +26,7 @@ return [
     'reset_password'         => 'Reset password',
     'enter_new_password'     => 'Please enter your new password',
     'premium_expired'        => 'Your active time was expired. Please contact us via email :email or phone number :phone_number to activate your service again.',
+    'business_name'          => 'Business name', // @todo
     'profile' => [
         'general'              => 'General information',
         'images'               => 'Images',
