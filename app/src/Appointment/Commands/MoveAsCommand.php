@@ -3,14 +3,14 @@
 use DB, Carbon\Carbon, Closure, Consumer, Cache;
 use Illuminate\Console\Command;
 
-class MigrateCommand extends Command
+class MoveAsCommand extends Command
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'as:migrate';
+    protected $name = 'varaa:move-as';
 
     /**
      * The console command description.
