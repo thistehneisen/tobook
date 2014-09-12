@@ -14,6 +14,7 @@ use App\Core\Models\User;
 use Carbon\Carbon;
 use App\Appointment\Models\Observer\EmailObserver;
 use App\Appointment\Models\Observer\SmsObserver;
+use App\Appointment\Reports\Statistics;
 
 class Bookings extends AsBase
 {
@@ -422,10 +423,37 @@ class Bookings extends AsBase
     public function statistics()
     {
         $now = Carbon::now();
+        $calendar = $this->generateCalendar($now);
+
+        // Generate statistic data
+        $report = new Statistics($now);
+
+        // Merge report to calendar
+        $i = array_search(1, $calendar);
+        foreach ($report->get() as $day => $data) {
+            $data['day'] = $day;
+            $calendar[$day - 1 - $i] = $data;
+        }
+
+        return $this->render('statistics', [
+            'calendar' => $calendar
+        ]);
+    }
+
+    /**
+     * Receive a date and return an array of days in the month with Monday
+     * starting first. Maximum 35 elements.
+     *
+     * @param Carbon $date
+     *
+     * @return array
+     */
+    protected function generateCalendar(Carbon $date)
+    {
         $calendar = [];
 
-        $start = $now->startOfMonth();
-        $daysInMonth = $now->daysInMonth;
+        $start = $date->startOfMonth();
+        $daysInMonth = $date->daysInMonth;
         $j = ($start->dayOfWeek === Carbon::SUNDAY)
             ? 6
             : $start->dayOfWeek;
@@ -445,8 +473,6 @@ class Bookings extends AsBase
             $calendar[] = null;
         }
 
-        return $this->render('statistics', [
-            'calendar' => $calendar
-        ]);
+        return $calendar;
     }
 }

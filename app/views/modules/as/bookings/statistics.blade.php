@@ -34,12 +34,12 @@
     </thead>
     <tbody>
         <tr>
-        @foreach ($calendar as $index => $date)
+        @foreach ($calendar as $index => $data)
             <td>
-            @if ($date !== null)
-                <div class="date">{{ $date }}</div>
-                <p>Revenue <span class="pull-right">&euro;178</span></p>
-                <p>Num. book. <span class="pull-right">&euro;178</span></p>
+            @if ($data !== null)
+                <div class="date">{{ $data['day'] }}</div>
+                <p>Revenue <span class="pull-right">&euro;{{ $data['revenue'] }}</span></p>
+                <p>Num. book. <span class="pull-right">{{ $data['bookings'] }}</span></p>
                 <p>Work time <span class="pull-right">&euro;178</span></p>
                 <p>Booked time <span class="pull-right">&euro;178</span></p>
                 <p>Occupation % <span class="pull-right">&euro;178</span></p>
