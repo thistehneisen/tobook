@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Controllers;
 
-use Input, View;
+use Input, View, Request;
 use Carbon\Carbon;
 use App\Appointment\Models\Employee;
 use App\Appointment\Reports\Statistics;
@@ -13,8 +13,9 @@ class Stat extends Bookings
         parent::__construct();
 
         $employees = Employee::ofCurrentUser()->get();
-
         View::share('employees', $employees);
+
+        View::share('queries', Request::instance()->query->all());
     }
 
     /**
