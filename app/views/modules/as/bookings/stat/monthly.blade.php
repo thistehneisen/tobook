@@ -10,7 +10,7 @@
         </div>
         <div class="col-md-3">
             <select name="employee" class="form-control input-sm" rel="js-monthly-stat">
-                <option data-url="{{ route('as.bookings.statistics.monthly') }}">-- {{ trans('common.all') }} --</option>
+                <option data-url="{{ route('as.bookings.statistics.monthly', ['employee' => Input::get('employee'), 'date' => Input::get('date')]) }}">-- {{ trans('common.all') }} --</option>
             @foreach ($employees as $employee)
                 <option data-url="{{ route('as.bookings.statistics.monthly', ['employee' => $employee->id, 'date' => Input::get('date')]) }}" {{ Input::get('employee') === $employee->id ? 'selected' : '' }}>{{ $employee->name }}</option>
             @endforeach
