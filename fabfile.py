@@ -65,7 +65,7 @@ def test():
 
 @task(alias='cm')
 def create_migrate(table='table'):
-    local('php artisan migrate:make create_{table} --create={}'.format(table))
+    local('php artisan migrate:make create_{} --create={}'.format(table))
 
 
 @task(alias='m')

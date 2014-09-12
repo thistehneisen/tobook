@@ -331,6 +331,7 @@ class MoveAsCommand extends Command
                 'as_bookings_services.date',
                 'as_bookings_services.start'
             )
+            ->distinct()
             ->get();
         $now = Carbon::now();
 
@@ -341,12 +342,12 @@ class MoveAsCommand extends Command
                 $item->c_email = 'asconsumer_'.($emptyEmail++).'@varaa.com';
             }
 
-            // @todo: Fix consumer first_name and last_name
             try {
+                $name = explode(' ', (string) $item->c_name);
                 $consumerId = DB::table('varaa_consumers')
                     ->insertGetId([
-                        'first_name' => (string) $item->c_name,
-                        'last_name'  => '',
+                        'first_name' => isset($name[0]) ? $name[0] : '',
+                        'last_name'  => isset($name[1]) ? $name[1] : '',
                         'email'      => (string) $item->c_email,
                         'phone'      => (string) $item->c_phone,
                         'address'    => (string) $item->c_address_1,
