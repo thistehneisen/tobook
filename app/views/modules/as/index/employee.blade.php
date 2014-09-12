@@ -1,19 +1,21 @@
 @extends ('modules.as.layout')
 
+@section('main-classes') as-wrapper @stop
+
 @section ('content')
 <?php
     $selectedDate = $date->toDateString();
     $dayOfWeek = $date->dayOfWeek;
 ?>
-<div class="alert alert-info">
+<div class="container alert alert-info">
     <p><strong>Etusivu</strong></p>
     <p>Näkymässä näet kaikkien työntekijöiden kalenterin. Kuluttajille varattavat ajat vihreällä. Voit tehdä halutessasi varauksia myös harmaalle alueelle joka näkyy kuluttajille suljettuna.</p>
 </div>
 
-<div class="row">
+<div class="container as-date-nav">
     <div class="col-md-2">
         <div class="input-group">
-            <input type="text" data-index-url="{{ route('as.employee') }}" id="calendar_date" class="form-control date-picker">
+            <input type="text" data-index-url="{{ route('as.employee') }}" id="calendar_date" class="form-control date-picker" value="{{ $selectedDate }}">
             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
         </div>
     </div>
@@ -34,10 +36,10 @@
                 $endOfWeek = with(clone $date)->endOfWeek();
             ?>
             <a href="{{ route('as.employee', ['id'=> $employeeId, 'date'=> $startOfWeek->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::MONDAY) btn-primary @endif">Ma</a>
-            <a href="{{ route('as.employee', ['id'=> $employeeId, 'date'=> $startOfWeek->addDay()->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::TUESDAY) btn-primary @endif">Ti</button>
+            <a href="{{ route('as.employee', ['id'=> $employeeId, 'date'=> $startOfWeek->addDay()->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::TUESDAY) btn-primary @endif">Ti</a>
             <a href="{{ route('as.employee', ['id'=> $employeeId, 'date'=> $startOfWeek->addDay()->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::WEDNESDAY) btn-primary @endif">Ke</a>
             <a href="{{ route('as.employee', ['id'=> $employeeId, 'date'=> $startOfWeek->addDay()->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::THURSDAY) btn-primary @endif">To</a>
-            <a href="{{ route('as.employee', ['id'=> $employeeId, 'date'=> $startOfWeek->addDay()->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::FRIDAY) btn-primary @endif">Pe</button>
+            <a href="{{ route('as.employee', ['id'=> $employeeId, 'date'=> $startOfWeek->addDay()->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::FRIDAY) btn-primary @endif">Pe</a>
             <a href="{{ route('as.employee', ['id'=> $employeeId, 'date'=> $startOfWeek->addDay()->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::SATURDAY) btn-primary @endif">La</a>
             <a href="{{ route('as.employee', ['id'=> $employeeId, 'date'=> $endOfWeek->toDateString()]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::SUNDAY) btn-primary @endif">Su</a>
         </div>
@@ -47,14 +49,15 @@
         <button class="btn btn-primary" onclick="window.print();"><i class="fa fa-print"> Tulosta</i></button>
     </div>
 </div>
-<div class="row row-no-padding">
-    <h3 class="comfortaa">Good to know</h3>
-        <ul class="nav nav-tabs" role="tablist">
+
+<div class="container-fluid row-no-padding">
+    <ul class="nav nav-tabs" role="tablist">
         @foreach ($employees as $employee)
-        <li class="@if($employee->id === $employeeId) active @endif"><a href="{{ route('as.employee', ['id'=> $employee->id ]) }}">{{ $employee->name }}</a></li>
-         @endforeach
-     </ul>
-     <hr>
+        <li class="@if($employee->id === intval($employeeId)) active @endif">
+            <a href="{{ route('as.employee', ['id'=> $employee->id ]) }}">{{ $employee->name }}</a>
+        </li>
+        @endforeach
+    </ul>
     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
         <ul class="as-col-left-header">
             <li class="as-col-header">&nbsp;</li>
@@ -65,7 +68,7 @@
             @endforeach
         </ul>
     </div>
-    <div class="as-calendar as-table-wrapper col-lg-11 col-md-11 col-sm-11 col-xs-11">
+    <div class="as-calendar col-lg-11 col-md-11 col-sm-11 col-xs-11">
         @foreach ($weekDaysFromDate as $weekDay => $weekDate)
         <div class="as-col">
             <ul>

@@ -1,8 +1,21 @@
 @import "../_vars.less";
 
-.main {
-    margin-bottom: 20px;
+.as-main-nav {
+    margin-bottom: 0;
 }
+
+.as-wrapper {
+    margin-bottom: 20px;
+
+    & > .alert {
+        margin-bottom: 5px;
+    }
+
+    .as-date-nav {
+        margin: 0 auto 5px auto;
+    }
+}
+
 .as-table-wrapper {
     overflow-x: scroll;
 }
@@ -43,7 +56,7 @@
 
     td {
         color: @text_dark;
-        background-color: @light_orange;
+        background-color: @green;
         border: 1px solid #fff;
     }
 
@@ -75,41 +88,66 @@
     }
 }
 
+.as-col-left-header {
+    padding: 0;
+
+    li {
+        height: 20px;
+        line-height: 18px;
+        font-size: 12px;
+        list-style: none;
+        color: @text_dark;
+        background-color: #ddd;
+        border: 1px solid #fff;
+        text-align: center;
+
+        &.as-col-header{
+            height: 25px;
+            line-height: 22px;
+            font-size: 13px;
+        }
+    }
+}
+
 .as-calendar {
     background: #eee;
     white-space: nowrap;
     overflow-x: scroll;
+    overflow-y: hidden;
 }
+
 .as-col {
     width: 200px;
-    display: inline-block;
     margin-bottom: 0px;
+    display: inline-block;
+    vertical-align: top;
+
     ul {
         padding: 0px;
         margin-left: -3px;
         margin-bottom: 0px;
     }
     li {
-        height: 30px;
-        line-height: 28px;
-        list-style-type: none;
+        height: 20px;
+        line-height: 18px;
+        font-size: 12px;
+        list-style: none;
         margin:0;
-        color: @text_dark;
-        background-color: @light_orange;
+        color: @text_light;
+        background-color: @green;
         border: 1px solid #fff;
         text-align: center;
+        cursor: pointer;
     }
     li.as-col-header{
         background: #ccc;
         font-weight: 700;
-    }
-    li.active {
-        cursor: pointer;
+        height: 25px;
+        line-height: 22px;
+        font-size: 13px;
     }
     li.inactive {
         background-color: #888;
-        color: @text_light;
-        cursor: no-drop;
     }
     li.booked {
         background-color: #ed1c24;
@@ -130,8 +168,7 @@
         }
     }
     li.freetime {
-        background-color: #888;
-        font-size: 13px;
+        background-color: @light_orange;
         text-align: left;
         padding: 0 10px;
         a {
@@ -154,19 +191,7 @@
         border-bottom: 0;
     }
 }
-.as-col-left-header{
-    width: 100px;
-    display: inline-block;
-     li {
-        height: 30px;
-        line-height: 28px;
-        list-style-type: none;
-        color: @text_dark;
-        background-color: #ddd;
-        border: 1px solid #fff;
-        text-align: center;
-    }
-}
+
 .as-modal-form {
     display: none;
 }

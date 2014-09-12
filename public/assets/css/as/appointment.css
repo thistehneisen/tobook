@@ -4,8 +4,17 @@
 .orange {
   color: #ec7923;
 }
-.main {
+.as-main-nav {
+  margin-bottom: 0;
+}
+.as-wrapper {
   margin-bottom: 20px;
+}
+.as-wrapper > .alert {
+  margin-bottom: 5px;
+}
+.as-wrapper .as-date-nav {
+  margin: 0 auto 5px auto;
 }
 .as-table-wrapper {
   overflow-x: scroll;
@@ -43,7 +52,7 @@
 }
 .as-table td {
   color: #333333;
-  background-color: #f5b869;
+  background-color: #008000;
   border: 1px solid #fff;
 }
 .as-table .inactive td {
@@ -67,15 +76,35 @@
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
+.as-col-left-header {
+  padding: 0;
+}
+.as-col-left-header li {
+  height: 20px;
+  line-height: 18px;
+  font-size: 12px;
+  list-style: none;
+  color: #333333;
+  background-color: #ddd;
+  border: 1px solid #fff;
+  text-align: center;
+}
+.as-col-left-header li.as-col-header {
+  height: 25px;
+  line-height: 22px;
+  font-size: 13px;
+}
 .as-calendar {
   background: #eee;
   white-space: nowrap;
   overflow-x: scroll;
+  overflow-y: hidden;
 }
 .as-col {
   width: 200px;
-  display: inline-block;
   margin-bottom: 0px;
+  display: inline-block;
+  vertical-align: top;
 }
 .as-col ul {
   padding: 0px;
@@ -83,26 +112,26 @@
   margin-bottom: 0px;
 }
 .as-col li {
-  height: 30px;
-  line-height: 28px;
-  list-style-type: none;
+  height: 20px;
+  line-height: 18px;
+  font-size: 12px;
+  list-style: none;
   margin: 0;
-  color: #333333;
-  background-color: #f5b869;
+  color: #eeeeee;
+  background-color: #008000;
   border: 1px solid #fff;
   text-align: center;
+  cursor: pointer;
 }
 .as-col li.as-col-header {
   background: #ccc;
   font-weight: 700;
-}
-.as-col li.active {
-  cursor: pointer;
+  height: 25px;
+  line-height: 22px;
+  font-size: 13px;
 }
 .as-col li.inactive {
   background-color: #888;
-  color: #eeeeee;
-  cursor: no-drop;
 }
 .as-col li.booked {
   background-color: #ed1c24;
@@ -123,8 +152,7 @@
   display: inline-block;
 }
 .as-col li.freetime {
-  background-color: #888;
-  font-size: 13px;
+  background-color: #f5b869;
   text-align: left;
   padding: 0 10px;
 }
@@ -145,19 +173,6 @@
 .as-col li.slot-booked-body {
   border-top: 0;
   border-bottom: 0;
-}
-.as-col-left-header {
-  width: 100px;
-  display: inline-block;
-}
-.as-col-left-header li {
-  height: 30px;
-  line-height: 28px;
-  list-style-type: none;
-  color: #333333;
-  background-color: #ddd;
-  border: 1px solid #fff;
-  text-align: center;
 }
 .as-modal-form {
   display: none;

@@ -1,19 +1,21 @@
 @extends ('modules.as.layout')
 
+@section('main-classes') as-wrapper @stop
+
 @section ('content')
 <?php
     $selectedDate = $date->toDateString();
     $dayOfWeek = $date->dayOfWeek;
 ?>
-<div class="alert alert-info">
+<div class="container alert alert-info">
     <p><strong>{{ trans('as.index.heading') }}</strong></p>
     <p>{{ trans('as.index.description') }}</p>
 </div>
 
-<div class="row">
+<div class="container as-date-nav">
     <div class="col-md-2">
         <div class="input-group">
-            <input type="text" data-index-url="{{ route('as.index') }}" id="calendar_date" class="form-control date-picker">
+            <input type="text" data-index-url="{{ route('as.index') }}" id="calendar_date" class="form-control date-picker" value="{{ $selectedDate }}">
             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
         </div>
     </div>
@@ -47,10 +49,7 @@
         <button class="btn btn-primary" onclick="window.print();"><i class="fa fa-print"> {{ trans('as.index.print') }}</i></button>
     </div>
 </div>
-
-<br>
-
-<div class="row row-no-padding">
+<div class="container-fluid row-no-padding">
     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
         <ul class="as-col-left-header">
             <li class="as-col-header">&nbsp;</li>
@@ -61,7 +60,7 @@
             @endforeach
         </ul>
     </div>
-    <div class="as-calendar as-table-wrapper col-lg-11 col-md-11 col-sm-11 col-xs-11">
+    <div class="as-calendar col-lg-11 col-md-11 col-sm-11 col-xs-11">
         @foreach ($employees as $employee)
         <div class="as-col">
             <ul>
