@@ -4,8 +4,6 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class Consumer extends \App\Core\Models\Base
 {
-    use SoftDeletingTrait;
-
     protected $table = 'lc_consumers';
     protected $guarded = ['id'];
     protected $dates = ['deleted_at'];

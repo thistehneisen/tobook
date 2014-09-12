@@ -248,12 +248,10 @@ class Consumer extends Base
                     return $this->ajaxUsePoint($id, Input::get('voucherID'));
                     break;
 
-                // ADD STAMP TO CONSUMER
                 case 'addStamp':
                     return $this->ajaxAddStamp($id, Input::get('offerID'));
                     break;
 
-                // USE OFFER
                 case 'useOffer':
                     return $this->ajaxUseOffer($id, Input::get('offerID'));
                     break;
@@ -301,16 +299,16 @@ class Consumer extends Base
      */
     public function destroy($id)
     {
-        $core = Core::find($id);
-        $core->hide(Confide::user()->id);
         $consumer = Model::find($id);
+        $core = Core::find($consumer->consumer->id);
+        $core->hide(Confide::user()->id);
         $consumer->delete();
 
-        if (Request::ajax()) {
-            Response::json([
-                'success' => true,
-            ]);
-        }
+        // if (Request::ajax()) {
+        //     Response::json([
+        //         'success' => true,
+        //     ]);
+        // }
 
         return Redirect::route('lc.consumers.index');
     }
