@@ -53,7 +53,7 @@
 <div class="container-fluid row-no-padding">
     <ul class="nav nav-tabs" role="tablist">
         @foreach ($employees as $employee)
-        <li class="@if($employee->id === intval($employeeId)) active @endif">
+        <li class="@if(intval($employee->id) === intval($employeeId)) active @endif">
             <a href="{{ route('as.employee', ['id'=> $employee->id ]) }}">{{ $employee->name }}</a>
         </li>
         @endforeach
