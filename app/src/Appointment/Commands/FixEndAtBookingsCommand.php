@@ -31,46 +31,54 @@ class FixEndAtBookingsCommand extends Command
         $this->info('Update all records with total > 0');
 
         $all = DB::table('as_bookings')
-            ->where('total', '>', 0)
-            ->leftJoin('as_booking_services', 'as_booking_services.booking_id', '=', 'as_bookings.id')
-            ->leftJoin('as_booking_extra_services', 'as_booking_extra_services.booking_id', '=', 'as_bookings.id')
-            ->select(
-                'as_bookings.*',
-                'as_booking_services.service_id',
-                'as_booking_services.service_time_id',
-                'as_booking_extra_services.extra_service_id'
-            )
+            ->where('end_at', '00:00:00')
+            ->orderBy('id', 'desc')
             ->get();
 
         foreach ($all as $item) {
             $total = 0;
             $service = null;
 
-            if ($item->extra_service_id !== null) {
-                $service = DB::table('as_extra_services')
-                    ->where('id', $item->extra_service_id)
-                    ->first();
-                $total += (int) $service->length;
+            // Get all extra services
+            $extraServices = DB::table('as_booking_extra_services')
+                ->join('as_extra_services', 'as_booking_extra_services.extra_service_id', '=', 'as_extra_services.id')
+                ->where('booking_id', $item->id)
+                ->get();
+
+            if (!empty($extraServices)) {
+                foreach ($extraServices as $service) {
+                    $total += (int) $service->length;
+                }
             }
 
-            if ($item->service_time_id !== null) {
-                // Get service time
-                $service = DB::table('as_service_times')
-                    ->where('id', $item->service_time_id)
-                    ->first();
+            $services = DB::table('as_booking_services')
+                ->join('as_services', 'as_booking_services.service_id', '=', 'as_services.id')
+                ->where('booking_id', $item->id)
+                ->get();
 
-            } elseif ($item->service_id !== null) {
-                // Get service
-                $service = DB::table('as_services')
-                    ->where('id', $item->service_id)
-                    ->first();
-            }
+            if (!empty($services)) {
+                foreach ($services as $service)  {
+                    if ($service->service_time_id !== null) {
+                        // Get service time
+                        $service = DB::table('as_service_times')
+                            ->where('id', $service->service_time_id)
+                            ->first();
 
-            if ($service !== null) {
-                $total += (int) $service->length;
+                    } elseif ($service->service_id !== null) {
+                        // Get service
+                        $service = DB::table('as_services')
+                            ->where('id', $service->service_id)
+                            ->first();
+                    }
+
+                    if ($service !== null) {
+                        $total += (int) $service->length;
+                    }
+                }
             }
 
             $total += (int) $item->modify_time;
+
             // Add modify time
             $endAt = new Carbon($item->start_at);
             if ($total > 0) {
