@@ -3,7 +3,7 @@
 class ServiceExtraService extends \App\Core\Models\Base
 {
     public $timestamps = false;
-    protected $table = 'as_service_extra_services';
+    protected $table = 'as_extra_service_service';
 
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
