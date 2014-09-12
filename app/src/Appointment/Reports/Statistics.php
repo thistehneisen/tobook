@@ -2,6 +2,7 @@
 
 use Carbon\Carbon;
 use DB;
+use Confide;
 
 class Statistics extends Base
 {
@@ -48,6 +49,17 @@ class Statistics extends Base
         // Get revenue of each day
         $data = $this->process($data, $this->getRevenue(), 'revenue');
         $data = $this->process($data, $this->getTotalBookings(), 'bookings');
+        $data = $this->process($data, $this->getBookedTime(), 'working_time');
+        $data = $this->process($data, $this->getBookedTime(), 'booked_time');
+
+        // Final format
+        foreach ($data as &$item) {
+            $item['occupation_percent'] = $item['working_time'] > 0
+                ? round($item['booked_time'] * 100 / $item['working_time'], 2)
+                : 0;
+            $item['working_time']       = $this->formatMinutes($item['working_time']);
+            $item['booked_time']        = $this->formatMinutes($item['booked_time']);
+        }
 
         return $data;
     }
@@ -71,6 +83,7 @@ class Statistics extends Base
             ->select(DB::raw('SUM(total_price) AS revenue'), DB::raw('DAYOFMONTH(created_at) as day'))
             ->where('created_at', '>=', $this->start)
             ->where('created_at', '<=', $this->end)
+            ->where('user_id', Confide::user()->id)
             ->groupBy(DB::raw('DATE(created_at)'))
             ->get();
 
@@ -88,9 +101,46 @@ class Statistics extends Base
             ->select(DB::raw('COUNT(id) AS total'), DB::raw('DAYOFMONTH(created_at) as day'))
             ->where('created_at', '>=', $this->start)
             ->where('created_at', '<=', $this->end)
+            ->where('user_id', Confide::user()->id)
             ->groupBy(DB::raw('DATE(created_at)'))
             ->get();
 
         return array_combine(array_pluck($result, 'day'), array_pluck($result, 'total'));
+    }
+
+    /**
+     * Get total booked time in days
+     *
+     * @return array
+     */
+    protected function getBookedTime()
+    {
+        $result = DB::table('as_bookings')
+            ->select(DB::raw('SUM(total) AS booked_time'), DB::raw('DAYOFMONTH(created_at) as day'))
+            ->where('created_at', '>=', $this->start)
+            ->where('created_at', '<=', $this->end)
+            ->where('user_id', Confide::user()->id)
+            ->groupBy(DB::raw('DATE(created_at)'))
+            ->get();
+
+        return array_combine(array_pluck($result, 'day'), array_pluck($result, 'booked_time'));
+    }
+
+    /**
+     * Take a number of minutes and format into hh:mm
+     *
+     * @param int $minutes
+     *
+     * @return string
+     */
+    protected function formatMinutes($minutes)
+    {
+        $hours = floor($minutes / 60);
+        $hours = $hours < 10 ? '0'.($hours) : $hours;
+
+        $minutes = $minutes % 60;
+        $minutes = $minutes < 10 ? '0'.($minutes) : $minutes;
+
+        return $hours.':'.$minutes;
     }
 }

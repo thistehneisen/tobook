@@ -40,9 +40,9 @@
                 <div class="date">{{ $data['day'] }}</div>
                 <p>Revenue <span class="pull-right">&euro;{{ $data['revenue'] }}</span></p>
                 <p>Num. book. <span class="pull-right">{{ $data['bookings'] }}</span></p>
-                <p>Work time <span class="pull-right">&euro;178</span></p>
-                <p>Booked time <span class="pull-right">&euro;178</span></p>
-                <p>Occupation % <span class="pull-right">&euro;178</span></p>
+                <p>Work time <span class="pull-right">{{ $data['working_time'] }}</span></p>
+                <p>Booked time <span class="pull-right">{{ $data['booked_time'] }}</span></p>
+                <p>Occupation % <span class="pull-right">{{ $data['occupation_percent'] }}%</span></p>
             @endif
             </td>
             @if ($index % 7 === 6)
