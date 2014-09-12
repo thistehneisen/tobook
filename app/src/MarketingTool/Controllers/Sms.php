@@ -1,6 +1,6 @@
 <?php namespace App\MarketingTool\Controllers;
 
-use Input, Session, Redirect, View, Validator, Response, Sms;
+use Input, Session, Redirect, View, Validator, Response, Sms as CoreSms;
 use App\MarketingTool\Models\History as HistoryModel;
 use App\MarketingTool\Models\Sms as SmsModel;
 use App\MarketingTool\Models\Group as GroupModel;
@@ -177,7 +177,7 @@ class Sms extends \App\Core\Controllers\Base {
                 $groupConsumer->consumer_id = $value;
                 $groupConsumer->user_id = Confide::user()->id;
                 $groupConsumer->save();
-                Sms::send($sms['title'], $groupConsumer->consumer->phone, $sms['content']);
+                SmsCore::send($sms['title'], $groupConsumer->consumer->phone, $sms['content']);
             }
             
             $history = new HistoryModel;
@@ -212,7 +212,7 @@ class Sms extends \App\Core\Controllers\Base {
             foreach ($groupIds as $key => $groupId) {
                 $groupConsumers = GroupConsumerModel::where('group_id', '=', $groupId)->get();
                 foreach ($groupConsumers as $key => $consumer) {
-                    Sms::send($sms['title'], $consumer->consumer->phone, $sms['content']);
+                    SmsCore::send($sms['title'], $consumer->consumer->phone, $sms['content']);
                 }
                 $history = new HistoryModel;
                 $history->sms_id = $smsId;
