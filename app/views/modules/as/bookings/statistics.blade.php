@@ -4,21 +4,28 @@
     @parent
     <script>
 $(function() {
-    $('#js-stat').on('click', 'a.js-btn-reload', function(e) {
-        e.preventDefault();
-        var $this = $(this),
-            target = $('#'+$this.prop('rel')),
+    var showContent = function(url, target) {
+        var target =  $(target),
             loading = target.siblings('div.js-loading');
 
         loading.show();
         $.ajax({
-            url: $this.prop('href'),
+            url: url,
             type: 'GET'
         }).done(function(data) {
             target.html(data);
             loading.hide();
         });
-
+    };
+    $('div.relative').on('click', 'a.js-btn-reload', function(e) {
+        e.preventDefault();
+        var $this = $(this);
+        showContent($this.attr('href'), '#'+$this.attr('rel'));
+    }).on('change', 'select[name=employee]', function(e) {
+        e.preventDefault();
+        var $this = $(this),
+            selected = $this.find('option:selected').first();
+        showContent(selected.data('url'), '#'+$this.attr('rel'));
     });
 })
     </script>
@@ -26,7 +33,7 @@ $(function() {
 
 @section ('content')
 <div id="js-stat">
-    <div class="relative" id="js-calendar-stat">{{ $calendar }}</div>
+    <div id="js-calendar-stat">{{ $calendar }}</div>
 
     <div class="relative">
         <div class="js-loading"><i class="fa fa-refresh fa-spin fa-5x"></i></div>

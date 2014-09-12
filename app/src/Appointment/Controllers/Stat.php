@@ -13,12 +13,8 @@ class Stat extends Bookings
         parent::__construct();
 
         $employees = Employee::ofCurrentUser()->get();
-        $employeeSelect = array_combine(
-            $employees->lists('id'),
-            $employees->lists('name')
-        );
 
-        View::share('employeeSelect', $employeeSelect);
+        View::share('employees', $employees);
     }
 
     /**
@@ -72,8 +68,10 @@ class Stat extends Bookings
         $next = with(clone $date)->addMonth();
         $prev = with(clone $date)->subMonth();
 
-        $currentMonth = new MonthlyStatistics($date);
-        $lastMonth = new MonthlyStatistics($prev);
+        $employeeId = Input::get('employee');
+
+        $currentMonth = new MonthlyStatistics($date, $employeeId);
+        $lastMonth = new MonthlyStatistics($prev, $employeeId);
 
         return $this->render('stat.monthly', [
             'next'    => $next,

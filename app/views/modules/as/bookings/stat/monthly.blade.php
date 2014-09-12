@@ -9,7 +9,12 @@
             <a href="{{ route('as.bookings.statistics.monthly', ['date' => $next->toISO8601String() ]) }}" class="btn btn-link js-btn-reload" rel="js-monthly-stat">{{ trans('common.next') }} <i class="fa fa-arrow-right"></i></a>
         </div>
         <div class="col-md-3">
-            {{ Form::select('employee', $employeeSelect, null, ['class' => 'form-control input-sm']) }}
+            <select name="employee" class="form-control input-sm" rel="js-monthly-stat">
+                <option data-url="{{ route('as.bookings.statistics.monthly') }}">-- {{ trans('common.all') }} --</option>
+            @foreach ($employees as $employee)
+                <option data-url="{{ route('as.bookings.statistics.monthly', ['employee' => $employee->id ]) }}" {{ Input::get('employee') === $employee->id ? 'selected' : '' }}>{{ $employee->name }}</option>
+            @endforeach
+            </select>
         </div>
     </div>
 

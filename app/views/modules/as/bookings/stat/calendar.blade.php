@@ -9,7 +9,12 @@
         <a href="#" class="btn btn-link">{{ trans('common.next') }} <i class="fa fa-arrow-right"></i></a>
     </div>
     <div class="col-md-3">
-        {{ Form::select('employee', $employeeSelect, null, ['class' => 'form-control input-sm']) }}
+        <select name="employee" id="" class="form-control input-sm">
+            <option>-- {{ trans('common.all') }} --</option>
+        @foreach ($employees as $employee)
+            <option data-url="{{ route('as.bookings.statistics.monthly', ['employee' => $employee->id ]) }}">{{ $employee->name }}</option>
+        @endforeach
+        </select>
     </div>
 </div>
 
