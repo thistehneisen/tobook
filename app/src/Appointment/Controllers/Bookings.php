@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use App\Appointment\Models\Observer\EmailObserver;
 use App\Appointment\Models\Observer\SmsObserver;
 use App\Appointment\Reports\Statistics;
+use App\Appointment\Reports\MonthlyStatistics;
 
 class Bookings extends AsBase
 {
@@ -433,9 +434,9 @@ class Bookings extends AsBase
         );
 
         $employee = $employees->first();
-
+        $employeeId = Input::get('employeeId', $employee->id);
         // Generate statistic data
-        $report = new Statistics($now, Input::get('employeeId', $employee->id));
+        $report = new Statistics($now, $employeeId);
 
         // Merge report to calendar
         $i = array_search(1, $calendar);
@@ -444,10 +445,13 @@ class Bookings extends AsBase
             $calendar[$day - 1 - $i] = $data;
         }
 
+        $currentMonth = new MonthlyStatistics($now, $employeeId);
+        $lastMonth = new MonthlyStatistics(with(clone $now)->subMonth(), $employeeId);
         return $this->render('statistics', [
             'calendar'       => $calendar,
             'employees'      => $employees,
-            'employeeSelect' => $employeeSelect
+            'employeeSelect' => $employeeSelect,
+            'monthly'        =>  [$lastMonth->get(), $currentMonth->get()],
         ]);
     }
 

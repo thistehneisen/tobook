@@ -34,7 +34,7 @@ class Statistics extends Base
      */
     protected $end;
 
-    public function __construct(Carbon $date, $employeeId)
+    public function __construct(Carbon $date, $employeeId = null)
     {
         $this->date       = $date;
         $this->start      = with(clone $date)->startOfMonth();
@@ -47,7 +47,12 @@ class Statistics extends Base
      */
     protected function fetch()
     {
-        $data = $this->prepareData();
+        $data = [];
+        // Prepare keys
+        $i = 1;
+        while ($i <= $this->date->daysInMonth) {
+            $data[$i++] = [];
+        }
 
         // Get revenue of each day
         $data = $this->process($data, $this->getRevenue(), 'revenue');
@@ -64,17 +69,6 @@ class Statistics extends Base
             $item['booked_time']        = $this->formatMinutes($item['booked_time']);
         }
 
-        return $data;
-    }
-
-    protected function prepareData()
-    {
-        $data = [];
-        // Prepare keys
-        $i = 1;
-        while ($i <= $this->date->daysInMonth) {
-            $data[$i++] = [];
-        }
         return $data;
     }
 
@@ -192,7 +186,7 @@ class Statistics extends Base
      *
      * @return string
      */
-    private function formatMinutes($minutes)
+    protected function formatMinutes($minutes)
     {
         $hours = floor($minutes / 60);
         $hours = $hours < 10 ? '0'.($hours) : $hours;

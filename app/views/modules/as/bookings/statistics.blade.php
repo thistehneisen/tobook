@@ -67,34 +67,22 @@
     </div>
 
     <div class="row">
+        @foreach ($monthly as $report)
         <div class="col-md-6">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h3 class="panel-title">August</h3>
+                    <h3 class="panel-title text-center">{{ $report['month'] }}</h3>
                 </div>
                 <div class="panel-body">
-                    <p>{{ trans('as.bookings.stat.revenue') }} <span class="pull-right">&euro;{{ '123' }}</span></p>
-                    <p>{{ trans('as.bookings.stat.bookings') }} <span class="pull-right">{{ '123' }}</span></p>
-                    <p>{{ trans('as.bookings.stat.working_time') }} <span class="pull-right">{{ '123' }}</span></p>
-                    <p>{{ trans('as.bookings.stat.booked_time') }} <span class="pull-right">{{ '123' }}</span></p>
-                    <p>{{ trans('as.bookings.stat.occupation') }} <span class="pull-right">{{ '123' }}%</span></p>
+                    <p>{{ trans('as.bookings.stat.revenue') }} <span class="pull-right">&euro;{{ $report['revenue'] }}</span></p>
+                    <p>{{ trans('as.bookings.stat.bookings') }} <span class="pull-right">{{ $report['bookings'] }}</span></p>
+                    <p>{{ trans('as.bookings.stat.working_time') }} <span class="pull-right">{{ '' }}</span></p>
+                    <p>{{ trans('as.bookings.stat.booked_time') }} <span class="pull-right">{{ $report['booked_time'] }}</span></p>
+                    <p>{{ trans('as.bookings.stat.occupation') }} <span class="pull-right">{{ '' }}%</span></p>
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h3 class="panel-title">August</h3>
-                </div>
-                <div class="panel-body">
-                    <p>{{ trans('as.bookings.stat.revenue') }} <span class="pull-right">&euro;{{ '123' }}</span></p>
-                    <p>{{ trans('as.bookings.stat.bookings') }} <span class="pull-right">{{ '123' }}</span></p>
-                    <p>{{ trans('as.bookings.stat.working_time') }} <span class="pull-right">{{ '123' }}</span></p>
-                    <p>{{ trans('as.bookings.stat.booked_time') }} <span class="pull-right">{{ '123' }}</span></p>
-                    <p>{{ trans('as.bookings.stat.occupation') }} <span class="pull-right">{{ '123' }}%</span></p>
-                </div>
-            </div>
-        </div>
+        @endforeach
     </div>
 </div>
 @stop
