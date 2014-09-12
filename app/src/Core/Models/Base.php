@@ -2,10 +2,12 @@
 
 use Confide;
 use Watson\Validating\ValidatingTrait;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class Base extends \Eloquent
 {
     use ValidatingTrait;
+    use SoftDeletingTrait;
 
     //--------------------------------------------------------------------------
     // SCOPES
