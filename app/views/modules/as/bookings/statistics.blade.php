@@ -1,56 +1,36 @@
 @extends ('modules.as.layout')
 
+@section ('scripts')
+    @parent
+    <script>
+$(function() {
+    $('#js-stat').on('click', 'a.js-btn-reload', function(e) {
+        e.preventDefault();
+        var $this = $(this),
+            target = $('#'+$this.prop('rel')),
+            loading = target.siblings('div.js-loading');
+
+        loading.show();
+        $.ajax({
+            url: $this.prop('href'),
+            type: 'GET'
+        }).done(function(data) {
+            target.html(data);
+            loading.hide();
+        });
+
+    });
+})
+    </script>
+@stop
+
 @section ('content')
-<div class="row">
-    <div class="col-md-1">
-        <a href="#" class="btn btn-link"><i class="fa fa-arrow-left"></i> {{ trans('common.prev') }}</a>
-    </div>
-    <div class="col-md-7 text-center">
-        <h4>{{ trans('common.'.strtolower(date('M'))), ' ', date('Y') }}</h4>
-    </div>
-    <div class="col-md-1 text-right">
-        <a href="#" class="btn btn-link">{{ trans('common.next') }} <i class="fa fa-arrow-right"></i></a>
-    </div>
-    <div class="col-md-3">
-        {{ Form::select('employee', $employeeSelect, null, ['class' => 'form-control input-sm']) }}
-    </div>
-</div>
+<div id="js-stat">
+    <div class="relative" id="js-calendar-stat">{{ $calendar }}</div>
 
-<table class="table table-stripped table-bordered table-statistics">
-    <thead>
-        <tr>
-            <th>{{ trans('common.mon') }}</th>
-            <th>{{ trans('common.tue') }}</th>
-            <th>{{ trans('common.wed') }}</th>
-            <th>{{ trans('common.thu') }}</th>
-            <th>{{ trans('common.fri') }}</th>
-            <th>{{ trans('common.sat') }}</th>
-            <th>{{ trans('common.sun') }}</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-        @foreach ($calendar as $index => $data)
-            <td>
-            @if ($data !== null)
-                <div class="date">{{ $data['day'] }}</div>
-                <p>{{ trans('as.bookings.stat.revenue') }} <span class="pull-right">&euro;{{ $data['revenue'] }}</span></p>
-                <p>{{ trans('as.bookings.stat.bookings') }} <span class="pull-right">{{ $data['bookings'] }}</span></p>
-                <p>{{ trans('as.bookings.stat.working_time') }} <span class="pull-right">{{ $data['working_time'] }}</span></p>
-                <p>{{ trans('as.bookings.stat.booked_time') }} <span class="pull-right">{{ $data['booked_time'] }}</span></p>
-                <p>{{ trans('as.bookings.stat.occupation') }} <span class="pull-right">{{ $data['occupation_percent'] }}%</span></p>
-            @endif
-            </td>
-            @if ($index % 7 === 6)
-            </tr>
-            <tr>
-            @endif
-        @endforeach
-        </tr>
-    </tbody>
-</table>
-
-<div id="js-monthly-stat">
-    @include ('modules.as.bookings.stat.monthly')
+    <div class="relative">
+        <div class="js-loading"><i class="fa fa-refresh fa-spin fa-5x"></i></div>
+        <div id="js-monthly-stat">{{ $monthly }}</div>
+    </div>
 </div>
 @stop

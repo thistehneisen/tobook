@@ -14,8 +14,6 @@ use App\Core\Models\User;
 use Carbon\Carbon;
 use App\Appointment\Models\Observer\EmailObserver;
 use App\Appointment\Models\Observer\SmsObserver;
-use App\Appointment\Reports\Statistics;
-use App\Appointment\Reports\MonthlyStatistics;
 
 class Bookings extends AsBase
 {
@@ -414,80 +412,5 @@ class Bookings extends AsBase
             return Response::json($data, 400);
         }
         return Response::json($data);
-    }
-
-    /**
-     * Show statistics information of bookings
-     *
-     * @return View
-     */
-    public function statistics()
-    {
-        $now = Carbon::now();
-        $calendar = $this->generateCalendar($now);
-
-        // Get all employees
-        $employees = Employee::ofCurrentUser()->get();
-        $employeeSelect = array_combine(
-            $employees->lists('id'),
-            $employees->lists('name')
-        );
-
-        $employee = $employees->first();
-        $employeeId = Input::get('employeeId', $employee->id);
-        // Generate statistic data
-        $report = new Statistics($now, $employeeId);
-
-        // Merge report to calendar
-        $i = array_search(1, $calendar);
-        foreach ($report->get() as $day => $data) {
-            $data['day'] = $day;
-            $calendar[$day - 1 - $i] = $data;
-        }
-
-        $currentMonth = new MonthlyStatistics($now, $employeeId);
-        $lastMonth = new MonthlyStatistics(with(clone $now)->subMonth(), $employeeId);
-        return $this->render('statistics', [
-            'calendar'       => $calendar,
-            'employees'      => $employees,
-            'employeeSelect' => $employeeSelect,
-            'monthly'        =>  [$lastMonth->get(), $currentMonth->get()],
-        ]);
-    }
-
-    /**
-     * Receive a date and return an array of days in the month with Monday
-     * starting first. Maximum 35 elements.
-     *
-     * @param Carbon $date
-     *
-     * @return array
-     */
-    protected function generateCalendar(Carbon $date)
-    {
-        $calendar = [];
-
-        $start = $date->startOfMonth();
-        $daysInMonth = $date->daysInMonth;
-        $j = ($start->dayOfWeek === Carbon::SUNDAY)
-            ? 6
-            : $start->dayOfWeek;
-
-        $i = 0;
-        while ($i < $j - 1) {
-            $calendar[$i++] = null;
-        }
-
-        $i = 1;
-        while ($i <= $daysInMonth) {
-            $calendar[] = $i++;
-        }
-
-        $i = count($calendar);
-        while ($i++ < 35) {
-            $calendar[] = null;
-        }
-
-        return $calendar;
     }
 }

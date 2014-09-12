@@ -411,7 +411,12 @@ Route::group([
 
     Route::get('bookings/statistics', [
         'as' => 'as.bookings.statistics',
-        'uses' => 'App\Appointment\Controllers\Bookings@statistics'
+        'uses' => 'App\Appointment\Controllers\Stat@index'
+    ]);
+
+    Route::get('bookings/statistics/monthly', [
+        'as' => 'as.bookings.statistics.monthly',
+        'uses' => 'App\Appointment\Controllers\Stat@monthly'
     ]);
 
     // Service Category

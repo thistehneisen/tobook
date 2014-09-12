@@ -1,12 +1,12 @@
     <div class="row">
         <div class="col-md-1">
-            <a href="#" class="btn btn-link"><i class="fa fa-arrow-left"></i> {{ trans('common.prev') }}</a>
+            <a href="{{ route('as.bookings.statistics.monthly', ['date' => $prev->toISO8601String() ]) }}" class="btn btn-link js-btn-reload" rel="js-monthly-stat"><i class="fa fa-arrow-left"></i> {{ trans('common.prev') }}</a>
         </div>
         <div class="col-md-7 text-center">
             <h4>{{ trans('as.bookings.stat.monthly') }}</h4>
         </div>
         <div class="col-md-1 text-right">
-            <a href="#" class="btn btn-link">{{ trans('common.next') }} <i class="fa fa-arrow-right"></i></a>
+            <a href="{{ route('as.bookings.statistics.monthly', ['date' => $next->toISO8601String() ]) }}" class="btn btn-link js-btn-reload" rel="js-monthly-stat">{{ trans('common.next') }} <i class="fa fa-arrow-right"></i></a>
         </div>
         <div class="col-md-3">
             {{ Form::select('employee', $employeeSelect, null, ['class' => 'form-control input-sm']) }}
