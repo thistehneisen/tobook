@@ -335,13 +335,7 @@ class MigrateCommand extends Command
         $now = Carbon::now();
 
         $emptyEmail = 0;
-        $counter = 0;
         foreach ($items as $item) {
-            if (!isset($this->map['varaa_as_employees'][$item->employee_id])) {
-                $counter++;
-                continue;
-            }
-
             // If empty email, create a good one, hoho
             if (empty($item->c_email)) {
                 $item->c_email = 'asconsumer_'.($emptyEmail++).'@varaa.com';
@@ -393,11 +387,15 @@ class MigrateCommand extends Command
                 'cancelled' => 3,
             ];
 
+            $employeeId = isset($this->map['varaa_as_employees'][$item->employee_id])
+                ? $this->map['varaa_as_employees'][$item->employee_id]
+                : null;
+
             $data = [
                 'uuid'        => $item->uuid,
                 'user_id'     => $item->owner_id,
                 'consumer_id' => $consumerId,
-                'employee_id' => $this->map['varaa_as_employees'][$item->employee_id],
+                'employee_id' => $employeeId,
                 'date'        => $item->date,
                 'total'       => (int) $item->booking_total,
                 'modify_time' => 0,
@@ -423,7 +421,6 @@ class MigrateCommand extends Command
         Cache::forever('varaa_as_bookings_uuid', $this->map['varaa_as_bookings_uuid']);
 
         $this->info('as_bookings ---> varaa_as_bookings');
-        $this->info('Skipped '.$counter);
         $this->info('Skipped empty email '.$emptyEmail);
     }
 
@@ -455,22 +452,26 @@ class MigrateCommand extends Command
 
         $data = [];
         $now = Carbon::now();
-        $counter = 0;
         foreach ($items as $item) {
-            if (!isset($this->map['varaa_as_bookings'][$item->booking_id]) ||
-                !isset($this->map['varaa_as_employees'][$item->employee_id]) ||
-                !isset($this->map['varaa_as_services'][$item->service_id])) {
-                $counter++;
-                continue;
-            }
+            $bookingId = isset($this->map['varaa_as_bookings'][$item->booking_id])
+                ? $this->map['varaa_as_bookings'][$item->booking_id]
+                : null;
+
+            $employeeId = isset($this->map['varaa_as_employees'][$item->employee_id])
+                ? $this->map['varaa_as_employees'][$item->employee_id]
+                : null;
+
+            $serviceId = isset($this->map['varaa_as_services'][$item->service_id])
+                ? $this->map['varaa_as_services'][$item->service_id]
+                : null;
 
             $value = [
                 'tmp_uuid'          => (string) $item->tmp_hash,
                 'user_id'           => $item->owner_id,
-                'booking_id'        => $this->map['varaa_as_bookings'][$item->booking_id],
-                'service_id'        => $this->map['varaa_as_services'][$item->service_id],
+                'booking_id'        => $bookingId,
+                'service_id'        => $serviceId,
                 'service_time_id'   => null,
-                'employee_id'       => $this->map['varaa_as_employees'][$item->employee_id],
+                'employee_id'       => $employeeId,
                 'modify_time'       => 0,
                 'date'              => $item->date,
                 'start_at'          => new Carbon($item->date.' '.$item->start),
@@ -491,7 +492,6 @@ class MigrateCommand extends Command
         }
 
         $this->info($from.' ---> '.$to);
-        $this->info('Skipped '.$counter);
 
         // Store to cache
         Cache::forever($to, $this->map[$to]);
