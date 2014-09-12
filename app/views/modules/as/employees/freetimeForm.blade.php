@@ -21,7 +21,7 @@
                                 <div class="form-group row">
                                     <label for="employees" class="col-sm-4 control-label">Employee</label>
                                     <div class="col-sm-8">
-                                        {{ Form::select('employees', $employees, 'confirmed', ['class' => 'form-control input-sm', 'id' => 'employees']) }}
+                                        {{ Form::select('employees', $employees, $employee->id, ['class' => 'form-control input-sm', 'id' => 'employees']) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -33,7 +33,7 @@
                                 <div class="form-group row">
                                     <label for="end_time" class="col-sm-4 control-label">End time</label>
                                     <div class="col-sm-8">
-                                        {{ Form::select('end_at', $times, '', ['class' => 'form-control input-sm', 'id' => 'end_time']) }}
+                                        {{ Form::select('end_at', $times, $endTime, ['class' => 'form-control input-sm', 'id' => 'end_time']) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">

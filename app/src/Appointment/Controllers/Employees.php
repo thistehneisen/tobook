@@ -165,7 +165,7 @@ class Employees extends AsBase
         $employeeId = Input::get('employee_id');
         $bookingDate = Input::get('booking_date');
         $startTime = Input::get('start_time');
-
+        $endTime = with(new Carbon($startTime))->addMinutes(60);
         $employee  = Employee::find($employeeId);
         $employees = Employee::ofCurrentUser()->lists('name','id');
 
@@ -185,6 +185,7 @@ class Employees extends AsBase
             'employee'    => $employee,
             'bookingDate' => $bookingDate,
             'startTime'   => $startTime,
+            'endTime'     => $endTime->format('H:i'),
             'times'       => $times
         ]);
     }
