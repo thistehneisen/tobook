@@ -72,8 +72,14 @@
                         @if(strpos(trim($slotClass), 'booked') === 0)
                             <?php $booking = $employee->getBooked($selectedDate, $hour, $minuteShift); ?>
                             @if($booking !== null)
-                            <span class="customer-tooltip"title="{{ $booking->consumer->getNameAttribute() }} ({{ $booking->bookingServices[0]->service->description }})"><a class="js-btn-view-booking" href="#" data-booking-id="{{ $booking->id }}" data-employee-id="{{ $employee->id }}">{{ $booking->consumer->getNameAttribute() }} ({{ $booking->bookingServices[0]->service->description }})</a></span>
-                            <a href="#" class="pull-right"><i class="fa fa-plus"></i></a>
+                            <?php
+                                $serviceDescription = '';
+                                if(!empty($booking->bookingServices()->first())){
+                                    $serviceDescription = '(' .$booking->bookingServices()->first()->service->description . ')';
+                                }
+                            ?>
+                            <span class="customer-tooltip"title="{{ $booking->consumer->getNameAttribute() }} {{ $serviceDescription }}"><a class="js-btn-view-booking" href="#" data-booking-id="{{ $booking->id }}" data-employee-id="{{ $employee->id }}">{{ $booking->consumer->getNameAttribute() }} {{ $serviceDescription }}</a></span>
+                            <a href="#select-modify-action" class="btn-plus fancybox btn-select-modify-action" data-booking-id="{{ $booking->id }}" data-action-url="{{ route('as.bookings.extra-service-form') }}" class="pull-right"><i class="fa fa-plus"></i></a>
                             @else
                                 &nbsp;
                             @endif

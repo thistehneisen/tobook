@@ -76,11 +76,13 @@ class FrontBookings extends Bookings
             $startTime->subMinutes($serviceTime->before);
         }
         $lengthPlusExtraTime = $length + $extraServiceTime;
+        $duringPlusExtraTime = $during + $extraServiceTime;
         $endTime = with(clone $startTime)->addMinutes($lengthPlusExtraTime);
 
         //Check is there any existed booking with this service time
         $bookings = Booking::where('date', $bookingDate)
             ->where('employee_id', $employeeId)
+            ->whereNull('deleted_at')
             ->where(function ($query) use ($startTime, $endTime) {
                 return $query->where(function ($query) use ($startTime) {
                     return $query->where('start_at', '<=', $startTime->toTimeString())
@@ -110,7 +112,7 @@ class FrontBookings extends Bookings
         //TODO validate modify time and service time
         $bookingService = new BookingService();
         //Using uuid for retrieve it later when insert real booking
-        $bookingServiceEndTime = with(clone $startTime)->addMinutes($length);
+        $bookingServiceEndTime = with(clone $startTime)->addMinutes($lengthPlusExtraTime);
         $bookingService->fill([
             'tmp_uuid'    => $uuid,
             'date'        => $bookingDate,
@@ -154,8 +156,8 @@ class FrontBookings extends Bookings
             'service_name'  => $service->name,
             'extra_services'=> $extraServiceIds,
             'employee_name' => $employee->name,
-            'start_at'      => $startTimeStr,
-            'end_at'        => with(clone $startTime)->addMinutes($lengthPlusExtraTime)->format('H:i'),
+            'start_at'      => $startTime->format('H:i'),
+            'end_at'        => with(clone $startTime)->addMinutes($duringPlusExtraTime)->format('H:i'),
             'uuid'          => $uuid
         ];
 

@@ -119,6 +119,7 @@
   margin: 0;
   color: #eeeeee;
   background-color: #008000;
+  background-color: #347c2c;
   border: 1px solid #fff;
   text-align: center;
   cursor: pointer;
@@ -134,7 +135,6 @@
   background-color: #888;
 }
 .as-col li.booked {
-  background-color: #ed1c24;
   color: #fff;
   font-weight: 700;
   font-size: 13px;
@@ -150,6 +150,25 @@
   text-overflow: ellipsis;
   width: 165px;
   display: inline-block;
+}
+.as-col li.confirmed {
+  background-color: #ed1c24;
+}
+.as-col li.pending {
+  background-color: #ffff00;
+  color: #000!important;
+}
+.as-col li.pending a {
+  color: #000!important;
+}
+.as-col li.arrived {
+  background-color: #add8e6;
+}
+.as-col li.paid {
+  background-color: #00008b;
+}
+.as-col li.not_show_up {
+  background-color: #a9a9a9;
 }
 .as-col li.freetime {
   background-color: #f5b869;
@@ -174,6 +193,22 @@
   border-top: 0;
   border-bottom: 0;
 }
+.as-col-left-header {
+  width: 100px;
+  display: inline-block;
+}
+.as-col-left-header li {
+  height: 30px;
+  line-height: 28px;
+  list-style-type: none;
+  color: #333333;
+  background-color: #ddd;
+  border: 1px solid #fff;
+  text-align: center;
+}
+.btn-plus {
+  position: absolute;
+}
 .as-modal-form {
   display: none;
 }
@@ -192,6 +227,10 @@
 }
 .as-freetime-form {
   width: 500px;
+  margin: 20px;
+}
+.as-calendar-extra-service {
+  width: 350px;
   margin: 20px;
 }
 div.tooltip-inner {

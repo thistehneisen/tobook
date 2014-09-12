@@ -130,32 +130,6 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            @if(!empty($bookingExtraServices))
-                            <table id="extra_services" class="table table-bordered">
-                             <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Length</th>
-                                        <th>Price</th>
-                                        <th>&nbsp;</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($bookingExtraServices as $bookingExtraService)
-                                    <tr>
-                                        <td>
-                                            {{ $bookingExtraService->extraService->name }} {{ $bookingExtraService->extraService->description }}
-                                        </td>
-                                        <td>{{ $bookingExtraService->extraService->length }}</td>
-                                        <td class="align_right"> {{ $bookingExtraService->extraService->price }}</td>
-                                        <td>
-                                           <a href="#" id="btn-remove-service-time" class="btn btn-default" data-remove-url="{{ route('as.bookings.service.remove') }}" data-extra-id="{{ $bookingExtraService->extraService->id }}"><i class="glyphicon glyphicon-remove"></i></a>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            @endif
                         </div>
                     </div>
                     <div class="clearfix">&nbsp;</div>
@@ -221,8 +195,50 @@
                 </div>
             </div>
         </div>
+          @if(!empty($bookingExtraServices) && !$bookingExtraServices->isEmpty())
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">3. {{ trans('as.bookings.extra_service') }}</a>
+                </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="clearfix">&nbsp;</div>
+                    <div class="row">
+                     <div class="col-sm-12">
+                            <table id="extra_services" class="table table-bordered">
+                             <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Length</th>
+                                        <th>Price</th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($bookingExtraServices as $bookingExtraService)
+                                    <tr>
+                                        <td>
+                                            {{ $bookingExtraService->extraService->name }} {{ $bookingExtraService->extraService->description }}
+                                        </td>
+                                        <td>{{ $bookingExtraService->extraService->length }}</td>
+                                        <td class="align_right"> {{ $bookingExtraService->extraService->price }}</td>
+                                        <td>
+                                           <a href="#" id="btn-remove-service-time" class="btn btn-default" data-remove-url="{{ route('as.bookings.service.remove') }}" data-extra-id="{{ $bookingExtraService->extraService->id }}"><i class="glyphicon glyphicon-remove"></i></a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         @endif
     </div>
-</div>
     <div class="row">
         <div class="col-sm-12">
             <div class="form-group row">

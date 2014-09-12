@@ -9,6 +9,9 @@
             'placement': 'top',
             'container': 'body'
         });
+
+        $('.selectpicker').selectpicker();
+
         $('.toggle-check-all-boxes').click(function () {
             var checkboxClass = ($(this).data('checkbox-class')) || 'checkbox';
             $('.' + checkboxClass).prop('checked', this.checked);
@@ -76,7 +79,17 @@
                 autoWidth: false,
                 autoHeight: true
             });
-            console.log('79');
+        });
+        $('a.btn-select-modify-action').click(function () {
+            $('#booking_id').val($(this).data('booking-id'));
+            $('.fancybox').fancybox({
+                padding: 5,
+                width: 350,
+                title: '',
+                autoSize: false,
+                autoWidth: false,
+                autoHeight: true
+            });
         });
         $(document).on('change', '#service_categories', function () {
             var category_id = $(this).val(),
@@ -235,6 +248,80 @@
                 window.location.href = data.baseURl + '/' + data.bookingDate;
             });
         });
+        $(document).on('click', '#btn-change-status', function (e) {
+            e.preventDefault();
+            var postData = $('#add_change_status_form').serialize(),
+                action_url = $(this).data('action-url');
+            $.ajax({
+                type: 'POST',
+                url: action_url,
+                data: postData,
+                dataType: 'json'
+            }).done(function (data) {
+                //TODO there are two views default and week view
+                location.reload();
+            });
+        });
+        $('#btn-continue-modify').click(function (e) {
+            var selected_action = $('input[name="modify_type"]:checked').val(),
+                booking_id = $('#booking_id').val(),
+                action_url = $('#change_status_form_url').val();
+            if (selected_action === 'change_total') {
+
+            } else if (selected_action === 'change_status') {
+                $.fancybox.open({
+                    padding: 5,
+                    width: 400,
+                    title: '',
+                    autoSize: false,
+                    autoScale: true,
+                    autoWidth: false,
+                    autoHeight: true,
+                    fitToView: false,
+                    href: action_url,
+                    type: 'ajax',
+                    ajax: {
+                        type: 'GET',
+                        data: {
+                            booking_id: booking_id
+                        }
+                    },
+                    helpers: {
+                        overlay: {
+                            locked: false
+                        }
+                    },
+                    autoCenter: false
+                });
+            } else if (selected_action === 'add_extra_service') {
+                var action_url = $('#add_extra_service_url').val(),
+                    booking_id = $('#booking_id').val();
+                 $.fancybox.open({
+                    padding: 5,
+                    width: 400,
+                    title: '',
+                    autoSize: false,
+                    autoScale: true,
+                    autoWidth: false,
+                    autoHeight: true,
+                    fitToView: false,
+                    href: action_url,
+                    type: 'ajax',
+                    ajax: {
+                        type: 'GET',
+                        data: {
+                            booking_id: booking_id,
+                        }
+                    },
+                    helpers: {
+                        overlay: {
+                            locked: false
+                        }
+                    },
+                    autoCenter: false
+                });
+            }
+        });
         $('#btn-continute-action').click(function (e) {
             e.preventDefault();
             var employee_id = $('#employee_id').val(),
@@ -311,6 +398,35 @@
                 autoHeight: true,
                 fitToView: false,
                 href: $('#get_booking_form_url').val(),
+                type: 'ajax',
+                ajax: {
+                    type: 'GET',
+                    data: {
+                        booking_id: booking_id,
+                    }
+                },
+                helpers: {
+                    overlay: {
+                        locked: false
+                    }
+                },
+                autoCenter: false
+            });
+        });
+        $('a.btn-add-extra-service').click(function (e) {
+            e.preventDefault();
+            var booking_id = $(this).data('booking-id');
+            var action_url = $(this).data('action-url');
+            $.fancybox.open({
+                padding: 5,
+                width: 400,
+                title: '',
+                autoSize: false,
+                autoScale: true,
+                autoWidth: false,
+                autoHeight: true,
+                fitToView: false,
+                href: action_url,
                 type: 'ajax',
                 ajax: {
                     type: 'GET',

@@ -468,6 +468,21 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Bookings@getBookingForm'
     ]);
 
+    Route::get('bookings/get-add-extra-service-form', [
+        'as' => 'as.bookings.extra-service-form',
+        'uses' => 'App\Appointment\Controllers\Bookings@getAddExtraServiceForm'
+    ]);
+
+    Route::get('bookings/get-change-status-form', [
+        'as' => 'as.bookings.change-status-form',
+        'uses' => 'App\Appointment\Controllers\Bookings@getChangeStatusForm'
+    ]);
+
+    Route::post('bookings/change-status', [
+        'as' => 'as.bookings.change-status',
+        'uses' => 'App\Appointment\Controllers\Bookings@changeStatus'
+    ]);
+
     Route::get('bookings/get-employee-services', [
         'as' => 'as.bookings.employee.services',
         'uses' => 'App\Appointment\Controllers\Bookings@getEmployeeServicesByCategory'

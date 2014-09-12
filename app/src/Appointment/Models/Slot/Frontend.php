@@ -45,7 +45,7 @@ class Frontend implements Strategy
 
         // get booking only certain date
         if (empty($this->bookingList[$selectedDate->toDateString()])) {
-            $this->bookingList[$selectedDate->toDateString()] = $employee->bookings()->where('date', $selectedDate->toDateString())->get();
+            $this->bookingList[$selectedDate->toDateString()] = $employee->bookings()->where('date', $selectedDate->toDateString())->whereNull('deleted_at')->get();
         }
         foreach ($this->bookingList[$selectedDate->toDateString()] as $booking) {
             $bookingDate =  Carbon::createFromFormat('Y-m-d', $booking->date);
@@ -55,7 +55,7 @@ class Frontend implements Strategy
                 $bookingStartAt =  Carbon::createFromTime($startHour, $startMinute, 0, Config::get('app.timezone'));
                 $bookingEndAt   =  with(clone $bookingStartAt)->addMinutes($booking->total)->subMinutes($subMinutes);//15 is duration of single slot
                 if ($rowTime >= $bookingStartAt && $rowTime <= $bookingEndAt) {
-                    $class = 'booked';
+                    $class = $booking->getClass();
                     if ($rowTime == $bookingStartAt) {
                         $class .= ' slot-booked-head';
                     } else {

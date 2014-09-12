@@ -1,8 +1,13 @@
 <?php namespace App\Appointment\Models;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class Booking extends \App\Core\Models\Base implements \SplSubject
 {
     protected $table = 'as_bookings';
+
+    use SoftDeletingTrait;
+
+    protected $dates = ['deleted_at'];
 
     public $fillable = [
         'date',
@@ -16,9 +21,12 @@ class Booking extends \App\Core\Models\Base implements \SplSubject
         'ip',
     ];
 
-    const STATUS_CONFIRM   = 1;
-    const STATUS_PENDING  = 2;
-    const STATUS_CANCELLED = 3;
+    const STATUS_CONFIRM     = 1;
+    const STATUS_PENDING     = 2;
+    const STATUS_CANCELLED   = 3;
+    const STATUS_ARRIVED     = 4;
+    const STATUS_PAID        = 5;
+    const STATUS_NOT_SHOW_UP = 6;
 
     //Implement methods in SplSubject
     protected $_observers = [];
@@ -45,21 +53,41 @@ class Booking extends \App\Core\Models\Base implements \SplSubject
         }
     }
 
-    protected function getStatuses()
+    public function getClass(){
+        $prefix = 'booked ';
+        return $prefix . $this->getStatusText();
+    }
+
+    public function getStatusText(){
+        return self::getStatusByValue($this->status);
+    }
+
+    public function setStatus($text){
+        $status = $this->getStatus($text);
+        $this->status = $status;
+    }
+
+    public static function getStatuses()
     {
         return [
-            'confirmed' => trans('as.bookings.confirmed'),
-            'pending'   => trans('as.bookings.pending'),
-            'cancelled' => trans('as.bookings.cancelled')
+            'confirmed'   => trans('as.bookings.confirmed'),
+            'pending'     => trans('as.bookings.pending'),
+            'cancelled'   => trans('as.bookings.cancelled'),
+            'arrived'     => trans('as.bookings.arrived'),
+            'paid'        => trans('as.bookings.paid'),
+            'not_show_up' => trans('as.bookings.not_show_up')
         ];
     }
 
-    protected function getStatus($statusText)
+    public function getStatus($statusText)
     {
         $map = [
-            'confirmed' => self::STATUS_CONFIRM,
-            'pending'   => self::STATUS_PENDING,
-            'cancelled' => self::STATUS_CANCELLED,
+            'confirmed'   => self::STATUS_CONFIRM,
+            'pending'     => self::STATUS_PENDING,
+            'cancelled'   => self::STATUS_CANCELLED,
+            'arrived'     => self::STATUS_ARRIVED,
+            'paid'        => self::STATUS_PAID,
+            'not_show_up' => self::STATUS_NOT_SHOW_UP,
         ];
 
         return isset($map[$statusText]) ? $map[$statusText] : null;
@@ -68,9 +96,12 @@ class Booking extends \App\Core\Models\Base implements \SplSubject
     public static function getStatusByValue($value)
     {
         $map = [
-            static::STATUS_CONFIRM   => 'confirmed',
-            static::STATUS_PENDING  => 'pending',
-            static::STATUS_CANCELLED => 'cancelled',
+            static::STATUS_CONFIRM     => 'confirmed',
+            static::STATUS_PENDING     => 'pending',
+            static::STATUS_CANCELLED   => 'cancelled',
+            static::STATUS_ARRIVED     => 'arrived',
+            static::STATUS_PAID        => 'paid',
+            static::STATUS_NOT_SHOW_UP => 'not_show_up',
         ];
 
         return isset($map[$value]) ? $map[$value] : null;

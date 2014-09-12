@@ -95,39 +95,39 @@ return [
                 ],
                 'confirm_subject_client' => [
                     'type' => 'Text',
-                    'values' => trans('as.options.booking.confirm_subject_client_default')
+                    'default' => trans('as.options.booking.confirm_subject_client_default')
                 ],
                 'confirm_tokens_client' => [
                     'type' => 'Textarea',
-                    'values' => trans('as.options.booking.confirm_tokens_client_default')
+                    'default' => trans('as.options.booking.confirm_tokens_client_default')
                 ],
                 'confirm_subject_employee' => [
                     'type' => 'Text',
-                    'values' => trans('as.options.booking.confirm_subject_employee_default')
+                    'default' => trans('as.options.booking.confirm_subject_employee_default')
                 ],
                 'confirm_tokens_employee' => [
                     'type' => 'Textarea',
-                    'values' => trans('as.options.booking.confirm_tokens_employee_default')
+                    'default' => trans('as.options.booking.confirm_tokens_employee_default')
                 ],
                 'confirm_subject_admin' => [
                     'type' => 'Text',
-                    'values' => trans('as.options.booking.confirm_subject_admin_default')
+                    'default' => trans('as.options.booking.confirm_subject_admin_default')
                 ],
                 'confirm_tokens_admin' => [
                     'type' => 'Textarea',
-                    'values' => trans('as.options.booking.confirm_tokens_admin_default')
+                    'default' => trans('as.options.booking.confirm_tokens_admin_default')
                 ],
                 'confirm_sms_country_code' => [
                     'type' => 'Text',
-                    'values' => '358',
+                    'default' => '358',
                 ],
                 'confirm_consumer_sms_message' => [
                     'type' => 'Textarea',
-                    'values' => trans('as.options.booking.confirm_consumer_body_sms_message_default'),
+                    'default' => trans('as.options.booking.confirm_consumer_body_sms_message_default'),
                 ],
                 'confirm_employee_sms_message' => [
                     'type' => 'Textarea',
-                    'values' => trans('as.options.booking.confirm_employee_body_sms_message_default'),
+                    'default' => trans('as.options.booking.confirm_employee_body_sms_message_default'),
                 ],
             ],
             // 'reminders' => [

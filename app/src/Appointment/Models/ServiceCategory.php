@@ -1,8 +1,11 @@
 <?php namespace App\Appointment\Models;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class ServiceCategory extends \App\Core\Models\Base
 {
     protected $table = 'as_service_categories';
+
+    use SoftDeletingTrait;
 
     public $fillable = ['name', 'description', 'is_show_front'];
 

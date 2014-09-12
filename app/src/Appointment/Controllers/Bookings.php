@@ -112,6 +112,49 @@ class Bookings extends AsBase
         ]);
     }
 
+    public function getAddExtraServiceForm(){
+        $bookingId = Input::get('booking_id');
+        //TODO if not found booking
+        $booking = Booking::find($bookingId);
+        $extraServices = $booking->bookingServices()->first()->service->extraServices()->lists('name', 'id');
+        return View::make('modules.as.bookings.extraService', [
+            'booking'       => $booking,
+            'extraServices' => $extraServices
+        ]);
+    }
+
+    public function getChangeStatusForm(){
+        $bookingId = Input::get('booking_id');
+        $booking = Booking::find($bookingId);
+        $bookingStatuses = Booking::getStatuses();
+        //TODO if not found booking
+        return View::make('modules.as.bookings.changeStatus', [
+            'bookingStatuses' => $bookingStatuses,
+            'booking'         => $booking
+        ]);
+    }
+
+    public function changeStatus(){
+        $bookingId   = Input::get('booking_id');
+        $status_text = Input::get('booking_status');
+        $data = [];
+        try{
+            $booking = Booking::find($bookingId);
+            $status =  $booking->getStatus($status_text);
+            $booking->setStatus($status_text);
+            if($status === Booking::STATUS_CANCELLED){
+                $booking->delete();
+            } else {
+                $booking->save();
+            }
+            $data['success'] = true;
+        } catch (\Exception $ex){
+            $data['message'] = $ex->getMessage();
+            $data['false'] = true;
+        }
+        return Response::json($data);
+    }
+
     /**
      *  Handle ajax request to return services by certain employee and category
      *
@@ -194,6 +237,7 @@ class Bookings extends AsBase
         //Check is there any existed booking with this service time
         $bookings = Booking::where('date', $bookingDate)
             ->where('employee_id', $employeeId)
+            ->whereNull('deleted_at')
             ->where(function ($query) use ($startTime, $endTime) {
                 return $query->where(function ($query) use ($startTime) {
                     return $query->where('start_at', '<=', $startTime->toTimeString())

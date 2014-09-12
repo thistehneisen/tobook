@@ -135,6 +135,7 @@
         margin:0;
         color: @text_light;
         background-color: @green;
+        background-color: @dark_green;
         border: 1px solid #fff;
         text-align: center;
         cursor: pointer;
@@ -150,7 +151,6 @@
         background-color: #888;
     }
     li.booked {
-        background-color: #ed1c24;
         color: #fff;
         font-weight: 700;
         font-size: 13px;
@@ -166,6 +166,25 @@
             width: 165px;
             display: inline-block;
         }
+    }
+    li.confirmed {
+        background-color: #ed1c24;
+    }
+    li.pending {
+        background-color: #ffff00;
+        color: #000!important;
+        a{
+            color: #000!important;
+        }
+    }
+    li.arrived {
+        background-color: #add8e6;
+    }
+    li.paid {
+        background-color: #00008b;
+    }
+    li.not_show_up {
+        background-color: #a9a9a9;
     }
     li.freetime {
         background-color: @light_orange;
@@ -191,7 +210,22 @@
         border-bottom: 0;
     }
 }
-
+.as-col-left-header{
+    width: 100px;
+    display: inline-block;
+     li {
+        height: 30px;
+        line-height: 28px;
+        list-style-type: none;
+        color: @text_dark;
+        background-color: #ddd;
+        border: 1px solid #fff;
+        text-align: center;
+    }
+}
+.btn-plus {
+    position: absolute;
+}
 .as-modal-form {
     display: none;
 }
@@ -210,6 +244,10 @@
 }
 .as-freetime-form {
     width: 500px;
+    margin: 20px;
+}
+.as-calendar-extra-service {
+    width: 350px;
     margin: 20px;
 }
 div.tooltip-inner {
