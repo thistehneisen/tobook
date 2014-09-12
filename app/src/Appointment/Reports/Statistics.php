@@ -126,6 +126,28 @@ class Statistics extends Base
         return array_combine(array_pluck($result, 'day'), array_pluck($result, 'booked_time'));
     }
 
+    // /**
+    //  * Get working time of an employee in this month
+    //  *
+    //  * @param int $employeeId
+    //  *
+    //  * @return array
+    //  */
+    // protected function getEmployeeWorkingTime($employeeId)
+    // {
+    //     // Get custom time first
+    //     $custom = DB::table('as_employee_custom_time')
+    //         ->where('employee_id', $employeeId)
+    //         ->where('user_id', Confide::user()->id)
+    //         ->where('date', '>=', $this->start)
+    //         ->where('date', '<=', $this->end)
+    //         ->get();
+
+    //     if (!empty($custom)) {
+
+    //     }
+    // }
+
     /**
      * Take a number of minutes and format into hh:mm
      *

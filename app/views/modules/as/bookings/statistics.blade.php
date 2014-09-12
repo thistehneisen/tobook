@@ -3,20 +3,16 @@
 @section ('content')
 <div class="row">
     <div class="col-md-1">
-        <a href="#" class="btn btn-primary btn-sm">Previous</a>
+        <a href="#" class="btn btn-link"><i class="fa fa-arrow-left"></i> {{ trans('common.prev') }}</a>
     </div>
     <div class="col-md-7 text-center">
-        <h4>{{ date('F Y') }}</h4>
+        <h4>{{ trans('common.'.strtolower(date('M'))), ' ', date('Y') }}</h4>
     </div>
     <div class="col-md-1 text-right">
-        <a href="#" class="btn btn-primary btn-sm">Next</a>
+        <a href="#" class="btn btn-link">{{ trans('common.next') }} <i class="fa fa-arrow-right"></i></a>
     </div>
     <div class="col-md-3">
-        <select name="employee" id="" class="form-control input-sm">
-            <option value="">Employee 1</option>
-            <option value="">Employee 2</option>
-            <option value="">Employee 3</option>
-        </select>
+        {{ Form::select('employee', $employeeSelect, null, ['class' => 'form-control input-sm']) }}
     </div>
 </div>
 
@@ -38,11 +34,11 @@
             <td>
             @if ($data !== null)
                 <div class="date">{{ $data['day'] }}</div>
-                <p>Revenue <span class="pull-right">&euro;{{ $data['revenue'] }}</span></p>
-                <p>Num. book. <span class="pull-right">{{ $data['bookings'] }}</span></p>
-                <p>Work time <span class="pull-right">{{ $data['working_time'] }}</span></p>
-                <p>Booked time <span class="pull-right">{{ $data['booked_time'] }}</span></p>
-                <p>Occupation % <span class="pull-right">{{ $data['occupation_percent'] }}%</span></p>
+                <p>{{ trans('as.bookings.stat.revenue') }} <span class="pull-right">&euro;{{ $data['revenue'] }}</span></p>
+                <p>{{ trans('as.bookings.stat.bookings') }} <span class="pull-right">{{ $data['bookings'] }}</span></p>
+                <p>{{ trans('as.bookings.stat.working_time') }} <span class="pull-right">{{ $data['working_time'] }}</span></p>
+                <p>{{ trans('as.bookings.stat.booked_time') }} <span class="pull-right">{{ $data['booked_time'] }}</span></p>
+                <p>{{ trans('as.bookings.stat.occupation') }} <span class="pull-right">{{ $data['occupation_percent'] }}%</span></p>
             @endif
             </td>
             @if ($index % 7 === 6)
@@ -53,4 +49,52 @@
         </tr>
     </tbody>
 </table>
+
+<div class="well">
+    <div class="row">
+        <div class="col-md-1">
+            <a href="#" class="btn btn-link"><i class="fa fa-arrow-left"></i> {{ trans('common.prev') }}</a>
+        </div>
+        <div class="col-md-7 text-center">
+            <h4>{{ trans('as.bookings.stat.monthly') }}</h4>
+        </div>
+        <div class="col-md-1 text-right">
+            <a href="#" class="btn btn-link">{{ trans('common.next') }} <i class="fa fa-arrow-right"></i></a>
+        </div>
+        <div class="col-md-3">
+            {{ Form::select('employee', $employeeSelect, null, ['class' => 'form-control input-sm']) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">August</h3>
+                </div>
+                <div class="panel-body">
+                    <p>{{ trans('as.bookings.stat.revenue') }} <span class="pull-right">&euro;{{ '123' }}</span></p>
+                    <p>{{ trans('as.bookings.stat.bookings') }} <span class="pull-right">{{ '123' }}</span></p>
+                    <p>{{ trans('as.bookings.stat.working_time') }} <span class="pull-right">{{ '123' }}</span></p>
+                    <p>{{ trans('as.bookings.stat.booked_time') }} <span class="pull-right">{{ '123' }}</span></p>
+                    <p>{{ trans('as.bookings.stat.occupation') }} <span class="pull-right">{{ '123' }}%</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">August</h3>
+                </div>
+                <div class="panel-body">
+                    <p>{{ trans('as.bookings.stat.revenue') }} <span class="pull-right">&euro;{{ '123' }}</span></p>
+                    <p>{{ trans('as.bookings.stat.bookings') }} <span class="pull-right">{{ '123' }}</span></p>
+                    <p>{{ trans('as.bookings.stat.working_time') }} <span class="pull-right">{{ '123' }}</span></p>
+                    <p>{{ trans('as.bookings.stat.booked_time') }} <span class="pull-right">{{ '123' }}</span></p>
+                    <p>{{ trans('as.bookings.stat.occupation') }} <span class="pull-right">{{ '123' }}%</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @stop

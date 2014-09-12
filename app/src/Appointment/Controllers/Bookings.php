@@ -435,8 +435,17 @@ class Bookings extends AsBase
             $calendar[$day - 1 - $i] = $data;
         }
 
+        // Get all employees
+        $employees = Employee::ofCurrentUser()->get();
+        $employeeSelect = array_combine(
+            $employees->lists('id'),
+            $employees->lists('name')
+        );
+
         return $this->render('statistics', [
-            'calendar' => $calendar
+            'calendar'       => $calendar,
+            'employees'      => $employees,
+            'employeeSelect' => $employeeSelect
         ]);
     }
 
