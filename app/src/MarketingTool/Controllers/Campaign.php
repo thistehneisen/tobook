@@ -1,15 +1,14 @@
-<?php
-namespace App\MarketingTool\Controllers;
+<?php namespace App\MarketingTool\Controllers;
 
 use Input, Session, Redirect, View, Validator, Response, File, Mandrill, Config;
-use \App\MarketingTool\Models\Campaign as CampaignModel;
-use \App\MarketingTool\Models\Template as TemplateModel;
-use \App\MarketingTool\Models\Group as GroupModel;
-use \App\MarketingTool\Models\GroupConsumer as GroupConsumerModel;
-use \App\MarketingTool\Models\History as HistoryModel;
-use \App\MarketingTool\Models\Sms as SmsModel;
-use \App\MarketingTool\Models\Setting as SettingModel;
-use \App\MarketingTool\Models\Consumer as ConsumerModel;
+use App\MarketingTool\Models\Campaign as CampaignModel;
+use App\MarketingTool\Models\Template as TemplateModel;
+use App\MarketingTool\Models\Group as GroupModel;
+use App\MarketingTool\Models\GroupConsumer as GroupConsumerModel;
+use App\MarketingTool\Models\History as HistoryModel;
+use App\MarketingTool\Models\Sms as SmsModel;
+use App\MarketingTool\Models\Setting as SettingModel;
+use App\MarketingTool\Models\Consumer as ConsumerModel;
 use Confide;
 
 class Campaign extends \App\Core\Controllers\Base {
@@ -26,7 +25,8 @@ class Campaign extends \App\Core\Controllers\Base {
     public function index()
     {
         // get all the campaigns
-        $campaigns = CampaignModel::where('user_id', '=', Confide::user()->id)->get();
+        $campaigns = CampaignModel::where('user_id', '=', Confide::user()->id)
+                        ->paginate(20);
 
         // load the view and pass the campaigns
         return View::make('modules.mt.campaigns.index')

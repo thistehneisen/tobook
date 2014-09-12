@@ -73,6 +73,9 @@ return [
     'are_you_sure'   => 'Are you sure?', // @todo
     'type'              => 'Type',
     'create'            => 'Create',
+    'show'              => 'Show',
+    'delete_confirmation'   => 'Delete Confirmation',
+    'delete_question'       => 'Are you sure to delete ?',
     'short' => [
         'mon' => 'Mon',
         'tue' => 'Tue',

@@ -18,8 +18,10 @@
                 <th>{{ trans('mt.campaign.subject') }}</th>
                 <th>{{ trans('mt.campaign.from_email') }}</th>
                 <th>{{ trans('mt.campaign.from_name') }}</th>
-                <th>{{ trans('common.statistics') }}</th>
+                <th>{{ trans('common.status') }}</th>
                 <th></th>
+                <th>{{ trans('common.edit') }}</th>
+                <th>{{ trans('common.delete') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -30,36 +32,43 @@
                 </td> -->
                 <td>{{ $key + 1 }}</td>
                 <td>
-                    <a href="{{ URL::route('mt.campaigns.edit', ['id' => $value->id]) }}">
-                        {{ $value->subject }}
-                    </a>
+                    {{ $value->subject }}
                 </td>
                 <td>
-                    <a href="{{ URL::route('mt.campaigns.edit', ['id' => $value->id]) }}">
-                        {{ $value->from_email }}
-                    </a>
+                    {{ $value->from_email }}
                 </td>
                 <td>
-                    <a href="{{ URL::route('mt.campaigns.edit', ['id' => $value->id]) }}">
-                        {{ $value->from_name }}
-                    </a>
+                    {{ $value->from_name }}
                 </td>
                 <td>
-                    <a href="{{ URL::route('mt.campaigns.edit', ['id' => $value->id]) }}">
-                        {{ $value->status }}
-                    </a>
+                    {{ $value->status }}
                 </td>
                 <td>
-                    <button class="btn btn-info btn-xs" id="btn-duplication">{{ trans('mt.campaign.duplication') }}</button>
+                    <button class="btn btn-sm btn-primary" id="btn-duplication">{{ trans('mt.campaign.duplication') }}</button>
                     @if ($value->status === 'SENT')
-                    <button class="btn btn-success btn-xs" id="btn-statistics" data="">{{ trans('mt.campaign.statistics') }}</button>
+                    <button class="btn btn-primary btn-sm" id="btn-statistics" data="">{{ trans('mt.campaign.statistics') }}</button>
                     @endif
                     <input type="hidden" id="campaign_id" value="{{ $value->id }}">
                 </td>
+                <td class="no-display">
+                    <a href="{{ URL::route('mt.campaigns.edit', ['id' => $value->id]) }}">
+                        <button class="btn btn-sm btn-info" type="button">
+                            <span class="glyphicon glyphicon-pencil"></span> {{ trans('common.show') }}
+                        </button>
+                    </a>
+                </td>
+                <td>
+                    {{ Form::open(['route' => ['mt.campaigns.delete', $value->id], 'method' => 'delete']) }}
+                        <button class="btn btn-sm btn-danger" type="button" data-toggle="modal" data-target="#js-confirmDeleteModal">
+                            <span class="glyphicon glyphicon-trash"></span> {{ trans('common.delete') }}
+                        </button>
+                    {{ Form::close() }}
+                </td>                
             </tr>
             @endforeach
         </tbody>
     </table>
+    <div class="pull-right">{{ $campaigns->links() }}</div>
     
     <!-- Modal -->
     <div class="modal fade" id="campaignsModal" tabindex="-1" role="dialog" aria-labelledby="campaignsModalLabel" aria-hidden="true">
@@ -138,7 +147,8 @@
 </div>
 
 @section('scripts')
-    <script src="{{ asset('assets/js/mt/campaigns.js') }}" type="text/javascript"></script>
+    {{ HTML::script('assets/js/mt/common.js') }}
+    {{ HTML::script('assets/js/mt/campaigns.js') }}
 @stop
 
 @stop

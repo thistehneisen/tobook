@@ -1,13 +1,23 @@
-<?php
-namespace App\MarketingTool\Controllers;
+<?php namespace App\MarketingTool\Controllers;
 
 use Input, Session, Redirect, View, Validator;
-use \App\MarketingTool\Models\Setting as SettingModel;
-use \App\MarketingTool\Models\Sms as SmsModel;
-use \App\MarketingTool\Models\Campaign as CampaignModel;
+use App\MarketingTool\Models\Setting as SettingModel;
+use App\MarketingTool\Models\Sms as SmsModel;
+use App\MarketingTool\Models\Campaign as CampaignModel;
 use Confide;
 
 class Setting extends \App\Core\Controllers\Base {
+    
+    protected $module;
+    
+    public function __construct() {
+        $this->modules = [''   => trans('common.select_module'),
+                    'AS' => trans('common.appointment_scheduler'),
+                    'RB' => trans('common.restaurant_booking'),
+                    'TS' => trans('common.timeslot_booking'),
+                    'LC' => trans('common.loyalty_card'),
+                   ];        
+    }    
     
     /**
      * Display a listing of the resource.
@@ -17,11 +27,13 @@ class Setting extends \App\Core\Controllers\Base {
     public function index()
     {
         // get all the settings
-        $settings = SettingModel::where('user_id', '=', Confide::user()->id)->get();
+        $settings = SettingModel::where('user_id', '=', Confide::user()->id)
+                    ->paginate(20);
 
         // load the view and pass the settings
         return View::make('modules.mt.settings.index')
-            ->with('settings', $settings);
+            ->with('settings', $settings)
+            ->with('modules', $this->modules);
     }
     
     
@@ -37,7 +49,8 @@ class Setting extends \App\Core\Controllers\Base {
         
         return View::make('modules.mt.settings.create')
                 ->with('sms', $sms)
-                ->with('campaigns', $campaigns);
+                ->with('campaigns', $campaigns)
+                ->with('modules', $this->modules);
     }
 
 
@@ -100,7 +113,8 @@ class Setting extends \App\Core\Controllers\Base {
         return View::make('modules.mt.settings.show')
             ->with('setting', $setting)
             ->with('sms', $sms)
-            ->with('campaigns', $campaigns);
+            ->with('campaigns', $campaigns)
+            ->with('modules', $this->modules);
     }
     
     
@@ -119,7 +133,8 @@ class Setting extends \App\Core\Controllers\Base {
         return View::make('modules.mt.settings.edit')
             ->with('setting', $setting)
             ->with('sms', $sms)
-            ->with('campaigns', $campaigns);
+            ->with('campaigns', $campaigns)
+            ->with('modules', $this->modules);
     }
 
     

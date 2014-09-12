@@ -28,11 +28,7 @@
                        , null
                        , array('class' => 'form-control')) }}                
                 @elseif ($key === 'module_type')
-                    {{ Form::select('module_type', [''   => trans('common.select_module'),
-                                                    'AS' => trans('common.appointment_scheduler'),
-                                                    'RB' => trans('common.restaurant_booking'),
-                                                    'TS' => trans('common.timeslot_booking'),
-                                                   ]
+                    {{ Form::select('module_type', $modules
                        , null
                        , array('class' => 'form-control')) }}                
                 @else

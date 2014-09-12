@@ -595,6 +595,7 @@ Route::group([
             'edit'      => 'mt.campaigns.edit',
             'store'     => 'mt.campaigns.store',
             'update'    => 'mt.campaigns.update',
+            'destroy'   => 'mt.campaigns.delete',
         ]
     ]);
     Route::post('campaigns/statistics', 'App\MarketingTool\Controllers\Campaign@statistics');
@@ -610,6 +611,7 @@ Route::group([
             'edit'      => 'mt.sms.edit',
             'store'     => 'mt.sms.store',
             'update'    => 'mt.sms.update',
+            'destroy'   => 'mt.sms.delete',
         ]
     ]);
     Route::post('sms/sendIndividual', 'App\MarketingTool\Controllers\Sms@sendIndividual');
@@ -623,6 +625,7 @@ Route::group([
             'edit'      => 'mt.templates.edit',
             'store'     => 'mt.templates.store',
             'update'    => 'mt.templates.update',
+            'destroy'   => 'mt.templates.delete',
         ]
     ]);
     Route::post('templates/load', 'App\MarketingTool\Controllers\Template@load');
@@ -634,16 +637,17 @@ Route::group([
             'edit'      => 'mt.settings.edit',
             'store'     => 'mt.settings.store',
             'update'    => 'mt.settings.update',
+            'destroy'   => 'mt.settings.delete',
         ]
     ]);
 
     Route::resource('groups', 'App\MarketingTool\Controllers\Group', [
         'names' => [
             'index'     => 'mt.groups.index',
-            //'create'    => 'mt.groups.create',
             'edit'      => 'mt.groups.edit',
             'store'     => 'mt.groups.store',
             'update'    => 'mt.groups.update',
+            'destroy'   => 'mt.groups.delete',
         ]
     ]);
     Route::post('groups/create', 'App\MarketingTool\Controllers\Group@create');

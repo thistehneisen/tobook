@@ -2,7 +2,6 @@
 
 @section('top-buttons')
 <a href="{{ URL::route('mt.templates.create') }}" class="btn btn-default btn-success"><span class="glyphicon glyphicon-plus"></span> {{ trans('common.add') }}</a>
-<!-- <button class="btn btn-default btn-danger js-deleteTemplate"><span class="glyphicon glyphicon-remove"></span> {{ trans('common.delete') }}</button> -->
 @stop
 
 @section('sub-content')
@@ -17,26 +16,43 @@
                 <th>{{ trans('common.no') }}</th>
                 <th>{{ trans('common.name') }}</th>
                 <th>{{ trans('common.created_at') }}</th>
+                <th>{{ trans('common.edit') }}</th>
+                <th>{{ trans('common.delete') }}</th>                 
             </tr>
         </thead>
         <tbody>
             @foreach ($templates as $key => $value)
             <tr>
-                <!-- <td>
-                    <input type="checkbox" id="chkTemplateId" value="{{ $value->id }}" />
-                </td> -->
                 <td>{{ $key + 1 }}</td>
                 <td>
-                    <a href="{{ URL::route('mt.templates.edit', ['id' => $value->id]) }}">
-                        {{ $value->name }}
-                    </a>
+                    {{ $value->name }}
                 </td>
                 <td>
                     {{ $value->created_at }}
+                </td>
+                <td class="no-display">
+                    <a href="{{ URL::route('mt.templates.edit', ['id' => $value->id]) }}">
+                        <button class="btn btn-sm btn-info" type="button">
+                            <span class="glyphicon glyphicon-pencil"></span> {{ trans('common.show') }}
+                        </button>
+                    </a>
+                </td>
+                <td>
+                    {{ Form::open(['route' => ['mt.templates.delete', $value->id], 'method' => 'delete']) }}
+                        <button class="btn btn-sm btn-danger" type="button" data-toggle="modal" data-target="#js-confirmDeleteModal">
+                            <span class="glyphicon glyphicon-trash"></span> {{ trans('common.delete') }}
+                        </button>
+                    {{ Form::close() }}
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
+    <div class="pull-right">{{ $templates->links() }}</div>
+    
 </div>
+@section('scripts')
+    {{ HTML::script('assets/js/mt/common.js') }}
+@stop
+
 @stop

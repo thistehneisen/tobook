@@ -1,8 +1,7 @@
-<?php
-namespace App\MarketingTool\Controllers;
+<?php namespace App\MarketingTool\Controllers;
 
 use Input, Session, Redirect, View, Validator, Response, File;
-use \App\MarketingTool\Models\Template as TemplateModel;
+use App\MarketingTool\Models\Template as TemplateModel;
 use Confide;
 
 class Template extends \App\Core\Controllers\Base {
@@ -21,7 +20,7 @@ class Template extends \App\Core\Controllers\Base {
     public function index()
     {
         // get all the templates
-        $templates = TemplateModel::all();
+        $templates = TemplateModel::paginate(20);
 
         // load the view and pass the templates
         return View::make('modules.mt.templates.index')
@@ -182,6 +181,4 @@ class Template extends \App\Core\Controllers\Base {
         Session::flash('message', 'Successfully deleted!');
         return Redirect::route('mt.templates.index');
     }
-    
-
 }

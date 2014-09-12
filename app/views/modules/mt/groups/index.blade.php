@@ -1,8 +1,8 @@
 @extends('modules.mt.layout')
 
 @section('top-buttons')
-<button class="btn btn-default btn-info" id="btn-show-campaign-list"><span class="glyphicon glyphicon-plus"></span> {{ trans('mt.campaign.send') }}</button>
-<button class="btn btn-default btn-info" id="btn-show-sms-list"><span class="glyphicon glyphicon-plus"></span> {{ trans('mt.sms.send') }}</button>
+<button class="btn btn-default btn-info" id="btn-show-campaign-list"><span class="glyphicon glyphicon-envelope"></span> {{ trans('mt.campaign.send') }}</button>
+<button class="btn btn-default btn-info" id="btn-show-sms-list"><span class="glyphicon glyphicon-comment"></span> {{ trans('mt.sms.send') }}</button>
 @stop
 
 @section('sub-content')
@@ -17,6 +17,8 @@
                 <th>{{ trans('common.no') }}</th>
                 <th>{{ trans('common.name') }}</th>
                 <th>{{ trans('common.created_at') }}</th>
+                <th>{{ trans('common.edit') }}</th>
+                <th>{{ trans('common.delete') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -27,17 +29,30 @@
                 </td>
                 <td>{{ $key + 1 }}</td>
                 <td>
-                    <a href="{{ URL::route('mt.groups.edit', ['id' => $value->id]) }}">
-                        {{ $value->name }}
-                    </a>
+                    {{ $value->name }}
                 </td>
                 <td>
                     {{ $value->created_at }}
+                </td>
+                <td class="no-display">
+                    <a href="{{ URL::route('mt.groups.edit', ['id' => $value->id]) }}">
+                        <button class="btn btn-sm btn-info" type="button">
+                            <span class="glyphicon glyphicon-pencil"></span> {{ trans('common.show') }}
+                        </button>
+                    </a>                    
+                </td>
+                <td>
+                    {{ Form::open(['route' => ['mt.groups.delete', $value->id], 'method' => 'delete']) }}
+                        <button class="btn btn-sm btn-danger" type="button" data-toggle="modal" data-target="#js-confirmDeleteModal">
+                            <span class="glyphicon glyphicon-trash"></span> {{ trans('common.delete') }}
+                        </button>
+                    {{ Form::close() }}
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
+    <div class="pull-right">{{ $groups->links() }}</div>
     
     <div class="modal fade" id="campaignsModal" tabindex="-1" role="dialog" aria-labelledby="campaignsModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -106,7 +121,8 @@
 </div>
 
 @section('scripts')
-    <script src="{{ asset('assets/js/mt/groups.js') }}" type="text/javascript"></script>
+    {{ HTML::script('assets/js/mt/common.js') }}
+    {{ HTML::script('assets/js/mt/groups.js') }}
 @stop
 
 @stop

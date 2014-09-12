@@ -2,8 +2,8 @@
 
 @section('top-buttons')
 <button class="btn btn-default btn-success" id="btn-show-group-name"><span class="glyphicon glyphicon-plus"></span> {{ trans('mt.group.create') }}</button>
-<button class="btn btn-default btn-info" id="btn-show-campaign-list"><span class="glyphicon glyphicon-plus"></span> {{ trans('mt.campaign.send') }}</button>
-<button class="btn btn-default btn-info" id="btn-show-sms-list"><span class="glyphicon glyphicon-plus"></span> {{ trans('mt.sms.send') }}</button>
+<button class="btn btn-default btn-info" id="btn-show-campaign-list"><span class="glyphicon glyphicon-envelope"></span> {{ trans('mt.campaign.send') }}</button>
+<button class="btn btn-default btn-info" id="btn-show-sms-list"><span class="glyphicon glyphicon-comment"></span> {{ trans('mt.sms.send') }}</button>
 @stop
 
 @section('sub-content')
@@ -20,7 +20,7 @@
                 <th>{{ trans('common.email') }}</th>
                 <th>{{ trans('common.phone') }}</th>
                 <th>{{ trans('common.address') }}</th>
-                <th>{{ trans('common.created_at') }}</th>
+                <th>{{ trans('common.show') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -31,28 +31,22 @@
                 </td>
                 <td>{{ $key + 1 }}</td>
                 <td>
-                    <a href="{{ URL::route('mt.consumers.show', ['id' => $value->id]) }}">
-                        {{ $value->first_name." ".$value->last_name }}
-                    </a>
+                    {{ $value->first_name." ".$value->last_name }}
                 </td>
                 <td>
-                    <a href="{{ URL::route('mt.consumers.show', ['id' => $value->id]) }}">
-                        {{ $value->email}}
-                    </a>
+                    {{ $value->email}}
                 </td>
                 <td>
-                    <a href="{{ URL::route('mt.consumers.show', ['id' => $value->id]) }}">
-                        {{ $value->phone }}
-                    </a>
+                    {{ $value->phone }}
                 </td>
                 <td>
-                    <a href="{{ URL::route('mt.consumers.show', ['id' => $value->id]) }}">
-                        {{ $value->address }}
-                    </a>
+                    {{ $value->address }}
                 </td>
-                <td>
+                <td class="no-display">
                     <a href="{{ URL::route('mt.consumers.show', ['id' => $value->id]) }}">
-                        {{ $value->created_at }}
+                        <button class="btn btn-sm btn-info" type="button">
+                            <span class="glyphicon glyphicon-pencil"></span> {{ trans('common.show') }}
+                        </button>
                     </a>
                 </td>
             </tr>

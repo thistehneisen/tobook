@@ -18,6 +18,8 @@
                 <th>{{ trans('common.title') }}</th>
                 <th>{{ trans('common.status') }}</th>
                 <th>{{ trans('common.created_at') }}</th>
+                <th>{{ trans('common.edit') }}</th>
+                <th>{{ trans('common.delete') }}</th>                
             </tr>
         </thead>
         <tbody>
@@ -28,21 +30,37 @@
                 </td> -->
                 <td>{{ $key + 1 }}</td>
                 <td>
-                    <a href="{{ URL::route('mt.sms.edit', ['id' => $value->id]) }}">
-                        {{ $value->title }}
-                    </a>
+                    {{ $value->title }}
                 </td>
                 <td>
-                    <a href="{{ URL::route('mt.sms.edit', ['id' => $value->id]) }}">
-                        {{ $value->status }}
-                    </a>
+                    {{ $value->status }}
                 </td>
                 <td>
                     {{ $value->created_at }}
+                </td>
+                <td class="no-display">
+                    <a href="{{ URL::route('mt.sms.edit', ['id' => $value->id]) }}">
+                        <button class="btn btn-sm btn-info" type="button">
+                            <span class="glyphicon glyphicon-pencil"></span> {{ trans('common.show') }}
+                        </button>
+                    </a>
+                </td>
+                <td>
+                    {{ Form::open(['route' => ['mt.sms.delete', $value->id], 'method' => 'delete']) }}
+                        <button class="btn btn-sm btn-danger" type="button" data-toggle="modal" data-target="#js-confirmDeleteModal">
+                            <span class="glyphicon glyphicon-trash"></span> {{ trans('common.delete') }}
+                        </button>
+                    {{ Form::close() }}
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
+    <div class="pull-right">{{ $sms->links() }}</div>
 </div>
+
+@section('scripts')
+    {{ HTML::script('assets/js/mt/common.js') }}
+@stop
+
 @stop

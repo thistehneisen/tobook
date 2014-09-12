@@ -29,13 +29,13 @@ $(document).ready(function () {
             alert("Please enter Group Name!");
             return;
         }
-      
+
         for (i = 0; i < obj_chk_list.size(); i++) {
             consumer_ids[i] = obj_chk_list.eq(i).val();
         }
-        
+
         $.ajax({
-            url : "/mt/groups/create",
+            url : "/marketing-tools/groups/create",
             dataType : "json",
             type : "POST",
             data : {

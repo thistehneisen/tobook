@@ -18,44 +18,46 @@
                 <th>{{ trans('common.module_type') }}</th>
                 <th>{{ trans('mt.setting.counts_prev_booking') }}</th>
                 <th>{{ trans('mt.setting.days_prev_booking') }}</th>
-                <th>{{ trans('common.created_at') }}</th>
+                <th>{{ trans('common.edit') }}</th>
+                <th>{{ trans('common.delete') }}</th> 
             </tr>
         </thead>
         <tbody>
             @foreach ($settings as $key => $value)
             <tr>
-                <!-- <td>
-                    <input type="checkbox" id="chkSettingId" value="{{ $value->id }}" />
-                </td> -->
                 <td>{{ $key + 1 }}</td>
                 <td>
+                    {{ $modules[$value->module_type] }}
+                </td>
+                <td>
+                    {{ $value->counts_prev_booking }}
+                </td>
+                <td>
+                    {{ $value->days_prev_booking }}
+                </td>
+                <td class="no-display">
                     <a href="{{ URL::route('mt.settings.edit', ['id' => $value->id]) }}">
-                        <?php
-                        $modules = [''   => trans('common.select_module'),
-                                    'AS' => trans('common.appointment_scheduler'),
-                                    'RB' => trans('common.restaurant_booking'),
-                                    'TS' => trans('common.timeslot_booking'),
-                                   ];
-                        ?>
-                        {{ $modules[$value->module_type] }}
+                        <button class="btn btn-sm btn-info" type="button">
+                            <span class="glyphicon glyphicon-pencil"></span> {{ trans('common.show') }}
+                        </button>
                     </a>
                 </td>
                 <td>
-                    <a href="{{ URL::route('mt.settings.edit', ['id' => $value->id]) }}">
-                        {{ $value->counts_prev_booking }}
-                    </a>
-                </td>
-                <td>
-                    <a href="{{ URL::route('mt.settings.edit', ['id' => $value->id]) }}">
-                        {{ $value->days_prev_booking }}
-                    </a>
-                </td>
-                <td>
-                    {{ $value->created_at }}
+                    {{ Form::open(['route' => ['mt.settings.delete', $value->id], 'method' => 'delete']) }}
+                        <button class="btn btn-sm btn-danger" type="button" data-toggle="modal" data-target="#js-confirmDeleteModal">
+                            <span class="glyphicon glyphicon-trash"></span> {{ trans('common.delete') }}
+                        </button>
+                    {{ Form::close() }}
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
+    <div class="pull-right">{{ $settings->links() }}</div>
 </div>
+
+@section('scripts')
+    {{ HTML::script('assets/js/mt/common.js') }}
+@stop
+
 @stop

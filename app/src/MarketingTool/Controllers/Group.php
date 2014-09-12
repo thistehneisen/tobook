@@ -1,11 +1,10 @@
-<?php
-namespace App\MarketingTool\Controllers;
+<?php namespace App\MarketingTool\Controllers;
 
 use Input, Session, Redirect, View, Validator, Response;
-use \App\MarketingTool\Models\Group as GroupModel;
-use \App\MarketingTool\Models\GroupConsumer as GroupConsumerModel;
-use \App\MarketingTool\Models\Campaign as CampaignModel;
-use \App\MarketingTool\Models\Sms as SmsModel;
+use App\MarketingTool\Models\Group as GroupModel;
+use App\MarketingTool\Models\GroupConsumer as GroupConsumerModel;
+use App\MarketingTool\Models\Campaign as CampaignModel;
+use App\MarketingTool\Models\Sms as SmsModel;
 use Confide;
 
 class Group extends \App\Core\Controllers\Base {
@@ -20,7 +19,7 @@ class Group extends \App\Core\Controllers\Base {
         // get all the groups
         $groups = GroupModel::where('user_id', '=', Confide::user()->id)
                         ->where('is_individual', '=', false)
-                        ->get();
+                        ->paginate(20);
         
         $campaigns = CampaignModel::where('user_id', '=', Confide::user()->id)
                         ->where('status', '=', 'DRAFT')
