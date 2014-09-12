@@ -37,8 +37,7 @@ class User extends Base
         // Get all images of this user
         $images = Confide::user()->images()
             ->businessImages()
-            // This should be enabled later
-            // ->ofCurrentUser()
+            ->ofCurrentUser()
             ->get();
 
         return View::make('user.profile', [
