@@ -245,7 +245,7 @@
                 dataType: 'json'
             }).done(function (data) {
                 //TODO there are two views default and week view
-                window.location.href = data.baseURl + '/' + data.bookingDate;
+                location.reload();
             });
         });
         $(document).on('click', '#btn-change-status', function (e) {

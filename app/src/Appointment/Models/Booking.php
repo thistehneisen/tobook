@@ -1,13 +1,8 @@
 <?php namespace App\Appointment\Models;
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class Booking extends \App\Core\Models\Base implements \SplSubject
 {
     protected $table = 'as_bookings';
-
-    use SoftDeletingTrait;
-
-    protected $dates = ['deleted_at'];
 
     public $fillable = [
         'date',
@@ -63,7 +58,7 @@ class Booking extends \App\Core\Models\Base implements \SplSubject
     }
 
     public function setStatus($text){
-        $status = $this->getStatus($text);
+        $status = self::getStatus($text);
         $this->status = $status;
     }
 
@@ -79,7 +74,7 @@ class Booking extends \App\Core\Models\Base implements \SplSubject
         ];
     }
 
-    public function getStatus($statusText)
+    public static function getStatus($statusText)
     {
         $map = [
             'confirmed'   => self::STATUS_CONFIRM,
