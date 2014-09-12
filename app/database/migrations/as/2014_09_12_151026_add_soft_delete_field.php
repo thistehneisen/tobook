@@ -84,6 +84,9 @@ class AddSoftDeleteField extends Migration {
         Schema::table('modules', function(Blueprint $table) {
             $table->softDeletes();
         });
+        Schema::table('users', function(Blueprint $table) {
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -163,6 +166,9 @@ class AddSoftDeleteField extends Migration {
             $table->dropColumn('deleted_at');
         });
         Schema::table('modules', function(Blueprint $table) {
+            $table->dropColumn('deleted_at');
+        });
+        Schema::table('users', function(Blueprint $table) {
             $table->dropColumn('deleted_at');
         });
     }

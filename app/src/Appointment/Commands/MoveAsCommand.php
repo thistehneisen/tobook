@@ -447,7 +447,7 @@ class MoveAsCommand extends Command
 
         $items = DB::table($from)
             ->where('booking_id', '!=', 0)
-            ->whereNotNull('employee_id')
+            //->whereNotNull('employee_id')
             ->get();
 
         $data = [];
