@@ -324,7 +324,7 @@ class MoveAsCommand extends Command
     protected function migrateBookings()
     {
         $items = DB::table('as_bookings')
-            ->join('as_bookings_services', 'as_bookings.id', '=', 'as_bookings_services.booking_id')
+            ->leftJoin('as_bookings_services', 'as_bookings.id', '=', 'as_bookings_services.booking_id')
             ->select(
                 'as_bookings.*',
                 'as_bookings_services.employee_id',
