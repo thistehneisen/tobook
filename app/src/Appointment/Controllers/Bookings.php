@@ -425,8 +425,17 @@ class Bookings extends AsBase
         $now = Carbon::now();
         $calendar = $this->generateCalendar($now);
 
+        // Get all employees
+        $employees = Employee::ofCurrentUser()->get();
+        $employeeSelect = array_combine(
+            $employees->lists('id'),
+            $employees->lists('name')
+        );
+
+        $employee = $employees->first();
+
         // Generate statistic data
-        $report = new Statistics($now);
+        $report = new Statistics($now, Input::get('employeeId', $employee->id));
 
         // Merge report to calendar
         $i = array_search(1, $calendar);
@@ -434,13 +443,6 @@ class Bookings extends AsBase
             $data['day'] = $day;
             $calendar[$day - 1 - $i] = $data;
         }
-
-        // Get all employees
-        $employees = Employee::ofCurrentUser()->get();
-        $employeeSelect = array_combine(
-            $employees->lists('id'),
-            $employees->lists('name')
-        );
 
         return $this->render('statistics', [
             'calendar'       => $calendar,

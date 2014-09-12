@@ -7,6 +7,13 @@ use Confide;
 class Statistics extends Base
 {
     /**
+     * If not null, generate statistics data of this employee only
+     *
+     * @var int
+     */
+    protected $employeeId;
+
+    /**
      * The date passed to report
      *
      * @var Carbon\Carbon
@@ -27,11 +34,12 @@ class Statistics extends Base
      */
     protected $end;
 
-    public function __construct(Carbon $date)
+    public function __construct(Carbon $date, $employeeId)
     {
-        $this->date  = $date;
-        $this->start = with(clone $date)->startOfMonth();
-        $this->end   = with(clone $date)->endOfMonth();
+        $this->date       = $date;
+        $this->start      = with(clone $date)->startOfMonth();
+        $this->end        = with(clone $date)->endOfMonth();
+        $this->employeeId = $employeeId;
     }
 
     /**
@@ -64,7 +72,18 @@ class Statistics extends Base
         return $data;
     }
 
-    protected function process($data, $result, $key, $default = 0)
+    /**
+     * Helper method to merge raw result into data array, allow to set key
+     * and default value
+     *
+     * @param array  $data    The data to be returned
+     * @param array  $result  The result to be merged
+     * @param string  $key     Name of key to hold data in $data
+     * @param integer $default Default value
+     *
+     * @return array
+     */
+    private function process($data, $result, $key, $default = 0)
     {
         foreach ($data as $day => &$item) {
             $item[$key] = isset($result[$day]) ? $result[$day] : $default;
@@ -79,14 +98,18 @@ class Statistics extends Base
      */
     protected function getRevenue()
     {
-        $result = DB::table('as_bookings')
+        $query = DB::table('as_bookings')
             ->select(DB::raw('SUM(total_price) AS revenue'), DB::raw('DAYOFMONTH(created_at) as day'))
             ->where('created_at', '>=', $this->start)
             ->where('created_at', '<=', $this->end)
             ->where('user_id', Confide::user()->id)
-            ->groupBy(DB::raw('DATE(created_at)'))
-            ->get();
+            ->groupBy(DB::raw('DATE(created_at)'));
 
+        if ($this->employeeId !== null) {
+            $query = $query->where('employee_id', $this->employeeId);
+        }
+
+        $result = $query->get();
         return array_combine(array_pluck($result, 'day'), array_pluck($result, 'revenue'));
     }
 
@@ -97,14 +120,18 @@ class Statistics extends Base
      */
     protected function getTotalBookings()
     {
-        $result = DB::table('as_bookings')
+        $query = DB::table('as_bookings')
             ->select(DB::raw('COUNT(id) AS total'), DB::raw('DAYOFMONTH(created_at) as day'))
             ->where('created_at', '>=', $this->start)
             ->where('created_at', '<=', $this->end)
             ->where('user_id', Confide::user()->id)
-            ->groupBy(DB::raw('DATE(created_at)'))
-            ->get();
+            ->groupBy(DB::raw('DATE(created_at)'));
 
+        if ($this->employeeId !== null) {
+            $query = $query->where('employee_id', $this->employeeId);
+        }
+
+        $result = $query->get();
         return array_combine(array_pluck($result, 'day'), array_pluck($result, 'total'));
     }
 
@@ -115,14 +142,18 @@ class Statistics extends Base
      */
     protected function getBookedTime()
     {
-        $result = DB::table('as_bookings')
+        $query = DB::table('as_bookings')
             ->select(DB::raw('SUM(total) AS booked_time'), DB::raw('DAYOFMONTH(created_at) as day'))
             ->where('created_at', '>=', $this->start)
             ->where('created_at', '<=', $this->end)
             ->where('user_id', Confide::user()->id)
-            ->groupBy(DB::raw('DATE(created_at)'))
-            ->get();
+            ->groupBy(DB::raw('DATE(created_at)'));
 
+        if ($this->employeeId !== null) {
+            $query = $query->where('employee_id', $this->employeeId);
+        }
+
+        $result = $query->get();
         return array_combine(array_pluck($result, 'day'), array_pluck($result, 'booked_time'));
     }
 
@@ -155,7 +186,7 @@ class Statistics extends Base
      *
      * @return string
      */
-    protected function formatMinutes($minutes)
+    private function formatMinutes($minutes)
     {
         $hours = floor($minutes / 60);
         $hours = $hours < 10 ? '0'.($hours) : $hours;
