@@ -1,14 +1,14 @@
 <div id="select-action" class="as-modal-form as-calendar-action">
-<h2>Kalenteri</h2>
+<h2>{{ trans('as.index.calendar') }}</h2>
 <table class="table table-condensed">
     <tbody>
         <tr>
             <td><input type="radio" id="freetime" value="freetime" name="action_type"></td>
-            <td><label for="freetime">Lisää vapaa</label></td>
+            <td><label for="freetime">{{ trans('as.employees.add_free_time') }}</label></td>
         </tr>
         <tr>
             <td><input type="radio" id="book" value="book" name="action_type"></td>
-            <td><label for="book">Tee varaus</label></td>
+            <td><label for="book">{{ trans('as.bookings.add') }}</label></td>
         </tr>
     </tbody>
     <tfoot>
@@ -22,20 +22,20 @@
 </table>
 </div>
 <div id="select-modify-action" class="as-modal-form as-calendar-action">
-<h2>Kalenteri</h2>
+<h2>{{ trans('as.index.calendar') }}</h2>
 <table class="table table-condensed">
     <tbody>
         <tr>
             <td><input type="radio" id="change_total" value="change_total" name="modify_type"></td>
-            <td><label for="change_total">Muokkaa kestoa</label></td>
+            <td><label for="change_total">{{ trans('as.bookings.modify_duration') }}</label></td>
         </tr>
         <tr>
             <td><input type="radio" id="change_status" value="change_status" name="modify_type"></td>
-            <td><label for="change_status">Muokkaa tilaa</label></td>
+            <td><label for="change_status">{{ trans('as.bookings.change_status') }}</label></td>
         </tr>
         <tr>
             <td><input type="radio" id="add_extra_service" value="add_extra_service" name="modify_type"></td>
-            <td><label for="add_extra_service">Lisää lisäpalvelu</label></td>
+            <td><label for="add_extra_service">{{ trans('as.services.extras.add') }}</label></td>
         </tr>
     </tbody>
     <tfoot>

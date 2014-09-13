@@ -210,9 +210,9 @@
                             <table id="extra_services" class="table table-bordered">
                              <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Length</th>
-                                        <th>Price</th>
+                                        <th>{{ trans('as.services.extras.name') }}</th>
+                                        <th>{{ trans('as.services.extras.length') }}</th>
+                                        <th>{{ trans('as.services.extras.price') }}</th>
                                         <th>&nbsp;</th>
                                     </tr>
                                 </thead>

@@ -160,6 +160,9 @@ return [
             'name'          => 'Name',
             'description'   => 'Description',
             'is_show_front' => 'Is shown in frontpage?',
+            'no_services'   => 'There are no services for this category',
+            'availability'  => 'Availability',
+            'category_name' => 'Category name',
         ],
         'resources' => [
             'all'         => 'All resources',
@@ -177,6 +180,7 @@ return [
             'description' => 'Description',
             'price'       => 'Price',
             'length'      => 'Length',
+            'msg_extra'   => 'Do you also want to reserve?',
         ],
         'all'          => 'All services',
         'index'        => 'Services', // @todo
@@ -225,6 +229,7 @@ return [
         'services'      => 'Services',
         'service_time'  => 'Service time',
         'modify_time'   => 'Modify time',
+        'modify_duration' => 'Modify duration',
         'employee'      => 'Employee',
         'notes'         => 'Notes',
         'firstname'     => 'Firstname',
@@ -268,10 +273,13 @@ return [
         'start_time'          => 'Start time',
         'end_time'            => 'End time',
         'day_off'             => 'Is day off?',
+        'confirm'             => [
+            'delete_freetime' => 'Are you sure that you want to delete selected free time from the calendar?'
+        ],
         'free_time'           => 'Free time',
         'free_times'          => 'Free times',
         'working_times'       => 'Working times',
-
+        'add_free_time'       => 'Add free time',
     ],
     'embed' => [
         'heading'          => 'Otsikko', // @todo

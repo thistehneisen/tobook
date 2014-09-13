@@ -7,7 +7,7 @@
 
             <div class="services" id="category-services-{{ $category->id }}">
             @if ($category->services->isEmpty())
-                <p class="text-muted"><em>There are no services for this category</em></p>
+                <p class="text-muted"><em>{{ trans('as.services.categories.no_services') }}</em></p>
             @endif
             @foreach ($category->services as $service)
                 <div class="single">
@@ -26,9 +26,9 @@
                         </p>
                         @endforeach
                         @if($service->extraServices()->count())
-                       <a href="#" data-hash="{{ $hash }}" data-service-id="{{ $service->id }}" class="btn btn-success btn-add-extra-service">Availability</a>
+                       <a href="#" data-hash="{{ $hash }}" data-service-id="{{ $service->id }}" class="btn btn-success btn-add-extra-service">{{ trans('as.services.categories.availability') }}</a>
                         @else
-                        <a id="btn-add-service-{{ $service->id }}" href="{{ route('as.embed.embed', ['hash' => $hash,'service_id' => $service->id,'service_time' => 'default' ,'date' => $date->toDateString() ])}}" class="btn btn-success btn-add-service">Availability</a>
+                        <a id="btn-add-service-{{ $service->id }}" href="{{ route('as.embed.embed', ['hash' => $hash,'service_id' => $service->id,'service_time' => 'default' ,'date' => $date->toDateString() ])}}" class="btn btn-success btn-add-service">{{ trans('as.services.categories.availability') }}</a>
                         @endif
                     </div>
                 </div>

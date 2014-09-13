@@ -1,5 +1,5 @@
 <div id="add-extra-service-form" class="as-calendar-extra-service">
-    <h2>Extra service</h2>
+    <h2>{{ trans('as.services.extra') }}</h2>
     <form id="add_extra_service_form" action="">
     <div class="row">
         <div class="col-sm-12">

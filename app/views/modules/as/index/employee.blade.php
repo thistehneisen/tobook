@@ -9,8 +9,8 @@
     $routeName = 'as.employee';
 ?>
 <div class="container alert alert-info">
-    <p><strong>Etusivu</strong></p>
-    <p>Näkymässä näet kaikkien työntekijöiden kalenterin. Kuluttajille varattavat ajat vihreällä. Voit tehdä halutessasi varauksia myös harmaalle alueelle joka näkyy kuluttajille suljettuna.</p>
+    <p><strong>{{ trans('as.index.heading') }}</strong></p>
+    <p>{{ trans('as.index.description') }}</p>
 </div>
 
 @include('modules.as.index._date_nav')
