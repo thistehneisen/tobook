@@ -37,6 +37,7 @@ class Employee extends Base
      */
     private $bookedSlot     = [];
     private $freetimeSlot   = [];
+    private $strategy;
 
     public function setBookedSlot(array $data)
     {
@@ -99,11 +100,13 @@ class Employee extends Base
     //TODO change to another method to compare time
     public function getSlotClass($date, $hour, $minute, $context = 'backend', $service = null)
     {
-        $strategy = new Backend();
-        if ($context === 'frontend') {
-            $strategy = new FrontEnd();
+        if(empty($this->strategy)){
+            $this->strategy = new Backend();
+            if ($context === 'frontend') {
+                $this->strategy = new FrontEnd();
+            }
         }
-        $context = new Context($strategy);
+        $context = new Context($this->strategy);
 
         return $context->determineClass($date, $hour, $minute, $this, $service);
     }

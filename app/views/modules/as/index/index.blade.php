@@ -66,8 +66,8 @@
             <ul>
                 <li class="as-col-header"><a href="{{ route('as.employee', ['id'=> $employee->id ]) }}">{{ $employee->name }}</a></li>
                 @foreach ($workingTimes as $hour => $minutes)
-                     @foreach ($minutes as $minuteShift)
-                     <?php $slotClass = $employee->getSlotClass($selectedDate, $hour, $minuteShift); ?>
+                    @foreach ($minutes as $minuteShift)
+                    <?php $slotClass = $employee->getSlotClass($selectedDate, $hour, $minuteShift); ?>
                     <li data-booking-date="{{ $selectedDate }}" data-employee-id="{{ $employee->id }}" data-start-time="{{ sprintf('%02d:%02d', (int)$hour, $minuteShift) }}" href="#select-action" class="{{ $slotClass }}">
                         @if(strpos(trim($slotClass), 'booked') === 0)
                             <?php $booking = $employee->getBooked($selectedDate, $hour, $minuteShift); ?>
@@ -93,7 +93,7 @@
                             @endif
                         @endif
                     </li>
-                     @endforeach
+                    @endforeach
                 @endforeach
             </ul>
        </div>
