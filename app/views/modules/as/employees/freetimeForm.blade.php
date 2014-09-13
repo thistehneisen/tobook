@@ -1,11 +1,11 @@
 <div id="freetime-form" class="as-freetime-form">
-    <h2>Vappat</h2>
+    <h2>{{ trans('as.employees.free_times') }}</h2>
     <form id="freetime_form">
         <div class="panel-group" id="accordion">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Lisää vapaa</a>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">{{ trans('as.employees.add_free_time') }}</a>
                     </h4>
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse in">
@@ -13,31 +13,31 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group row">
-                                   <label for="date" class="col-sm-4 control-label">Date</label>
+                                   <label for="date" class="col-sm-4 control-label">{{ trans('as.bookings.date') }}</label>
                                    <div class="col-sm-8">
                                     {{ Form::text('date', $bookingDate , ['class' => 'form-control date-picker', 'id' => 'date']) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="employees" class="col-sm-4 control-label">Employee</label>
+                                    <label for="employees" class="col-sm-4 control-label">{{ trans('as.bookings.employee') }}</label>
                                     <div class="col-sm-8">
                                         {{ Form::select('employees', $employees, $employee->id, ['class' => 'form-control input-sm', 'id' => 'employees']) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="start_time" class="col-sm-4 control-label">Start time</label>
+                                    <label for="start_time" class="col-sm-4 control-label">{{ trans('as.employees.start_time') }}</label>
                                     <div class="col-sm-8">
                                         {{ Form::select('start_at', $times, $startTime, ['class' => 'form-control input-sm', 'id' => 'start_time']) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="end_time" class="col-sm-4 control-label">End time</label>
+                                    <label for="end_time" class="col-sm-4 control-label">{{ trans('as.employees.end_time') }}</label>
                                     <div class="col-sm-8">
                                         {{ Form::select('end_at', $times, $endTime, ['class' => 'form-control input-sm', 'id' => 'end_time']) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="description" class="col-sm-4 control-label">Description</label>
+                                    <label for="description" class="col-sm-4 control-label">{{ trans('as.employees.description') }}</label>
                                     <div class="col-sm-8">
                                         {{ Form::textarea('description', '', ['class' => 'form-control input-sm', 'id' => 'description']) }}
                                     </div>

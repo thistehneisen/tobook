@@ -245,7 +245,7 @@ return [
             'existing_user'   => 'There is an user associate with this email in our system. Do you want to use these information instead?',// @todo
         ],
         'stat' => [
-            'monthly'      => 'Monthly review', // @todo
+            'monthly'      => 'Monthly review',
             'bookings'     => 'Bookings',
             'revenue'      => 'Revenue',
             'working_time' => 'Working time',
@@ -326,6 +326,8 @@ return [
             'business_name'   => 'Business name', // @todo
         ],
         'booking'   => [
+            'heading'                                        => '', // @todo
+            'info'                                           => '', // @todo
             'index'                                          => 'Bookings',// @todo
             'booking_form'                                   => 'Booking Form',
             'reminders'                                      => 'Reminder',
@@ -394,15 +396,20 @@ return [
             'payment_subject_employee_default'               => 'New payment received', // @todo
             'payment_tokens_employee'                        => 'Email body',
             'payment_tokens_employee_default'                => $paymentTokensEmployee,// @todo
+            'terms_enabled'                                  => 'Enable terms',
         ],
         'style' => [
-            'index'               => 'Front-end style',
-            'style_logo'          => 'Logo URL',
-            'style_banner'        => 'Banner',
-            'style_heading_color' => 'Heading color', // @todo
-            'style_text_color'    => 'Text color',
-            'style_background'    => 'Background',
-            'style_custom_css'    => 'Custom CSS', // @todo
+            'heading'                           => '', // @todo
+            'info'                              => '', // @todo
+            'index'                             => 'Front-end style',
+            'style_logo'                        => 'Logo URL',
+            'style_banner'                      => 'Banner',
+            'style_heading_color'               => 'Heading color', // @todo
+            'style_text_color'                  => 'Text color',
+            'style_background'                  => 'Background',
+            'style_custom_css'                  => 'Custom CSS', // @todo
+            'style_accent_color'                => 'Accent Color', // @todo
+            'style_panel_heading_background'    => 'Panel heading background', // @todo
         ],
         'working_time' => [
             'index' => 'Working time',

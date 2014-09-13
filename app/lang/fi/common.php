@@ -65,11 +65,11 @@ return [
     'dec'            => 'joulukuu',
     'all'            => 'Kaikki',
     'minutes'        => 'Minuuttia',
-    'are_you_sure'   => 'Are you sure?', // @todo
+    'are_you_sure'   => 'Oletko varma?',
     'type'           => 'Tyyppi',
     'create'         => 'Luo',
-    'next'           => 'Next', // @todo
-    'prev'           => 'Previous', // @todo
+    'next'           => 'Seuraava',
+    'prev'           => 'Edellinen',
     'short' => [
         'mon' => 'Ma',
         'tue' => 'Ti',

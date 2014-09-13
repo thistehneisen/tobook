@@ -170,7 +170,7 @@ return [
             'edit'        => 'Edit resource',
             'name'        => 'Nimi',
             'description' => 'Kuvaus',
-            'quantity'    => 'Quantity',
+            'quantity'    => 'Määrä',
         ],
         'extras' => [
             'all'         => 'Kaikki lisäpalvelut',
@@ -246,12 +246,12 @@ return [
             'existing_user'   => 'There is an user associate with this email in our system. Do you want to use these information instead?',// @todo
         ],
         'stat' => [
-            'monthly'      => 'Monthly review', // @todo
-            'bookings'     => 'Bookings', // @todo
-            'revenue'      => 'Revenue', // @todo
-            'working_time' => 'Working time', // @todo
-            'booked_time'  => 'Booked time', // @todo
-            'occupation'   => 'Occupation %', // @todo
+            'monthly'      => 'Kuukausi kooste',
+            'bookings'     => 'Varaukset',
+            'revenue'      => 'Liikevaihto',
+            'working_time' => 'Työaika',
+            'booked_time'  => 'Varattu aika',
+            'occupation'   => 'Varaus %',
         ]
     ],
     'employees' => [
@@ -327,13 +327,15 @@ return [
             'business_name'   => 'Business name', // @todo
         ],
         'booking'                                        => [
+            'heading'                                        => '', // @todo
+            'info'                                           => '', // @todo
             'index'                                          => 'Varaukset',
             'booking_form'                                   => 'Varauslomake',
             'reminders'                                      => 'Muistutus',
             'confirmations'                                  => 'Vahvistus',
             'terms'                                          => 'Ehdot',
-            'confirmed'                                      => 'Confirmed',
-            'pending'                                        => 'Pending',
+            'confirmed'                                      => 'Vahvistettu',
+            'pending'                                        => 'Odottaa',
             'accept_bookings'                                => 'Hyväksy varauksia',
             'hide_prices'                                    => 'Piilota hinnat',
             'step'                                           => 'Askel',
@@ -362,7 +364,7 @@ return [
             'reminder_sms_message'                           => 'Tekstiviesti',
             'reminder_sms_message_default'                   => $reminderSmsMessage,
             'terms_url'                                      => 'URL osoite ehdoille',
-            'terms_body'                                     => 'Booking terms content', // @todo
+            'terms_body'                                     => 'Varauksen ehtojen sisältö',
             'terms_body_default'                             => $termBody,
             'confirm_subject_client'                         => 'Asiakkaan vahvistuksen otsikko',
             'confirm_subject_client_default'                 => 'Kiitos varauksestasi',
@@ -376,11 +378,11 @@ return [
             'confirm_subject_admin_default'                  => 'Uusi varaus on saapunut',
             'confirm_tokens_admin'                           => 'Viestin sisältö',
             'confirm_tokens_admin_default'                   => $confirmTokensAdmin,
-            'confirm_email_enable'                           => 'Enable email',// @todo
-            'confirm_sms_enable'                             => 'Enable sms',// @todo
-            'confirm_sms_country_code'                       => 'Koodi',// @todo
-            'confirm_consumer_sms_message'                   => 'Asiakkaan tekstiviesti',// @todo
-            'confirm_employee_sms_message'                   => 'Työntekijän tekstiviesti',// @todo
+            'confirm_email_enable'                           => 'Sähköposti käytössä',
+            'confirm_sms_enable'                             => 'SMS käytössä',
+            'confirm_sms_country_code'                       => 'Koodi',
+            'confirm_consumer_sms_message'                   => 'Asiakkaan tekstiviesti',
+            'confirm_employee_sms_message'                   => 'Työntekijän tekstiviesti',
             'confirm_consumer_body_sms_message_default'      => $confirmConsumerMessage,
             'confirm_employee_body_sms_message_default'      => $confirmEmployeeMessage,
             'payment_subject_admin'                          => 'Ylläpitäjän maksuvahvistuksen otsikko',
@@ -395,15 +397,20 @@ return [
             'payment_subject_employee_default'               => 'New payment received', // @todo
             'payment_tokens_employee'                        => 'Viestin sisältö',
             'payment_tokens_employee_default'                => $paymentTokensEmployee,
+            'terms_enabled'                                  => 'Ehdot käytössä',
         ],
         'style' => [
-            'index'               => 'Tyyli',
-            'style_logo'          => 'Logo URL',
-            'style_banner'        => 'Banneri',
-            'style_heading_color' => 'Heading color', // @todo
-            'style_text_color'    => 'Tekstin väri',
-            'style_background'    => 'Tausta',
-            'style_custom_css'    => 'Custom CSS', // @todo
+            'heading'                           => '', // @todo
+            'info'                              => '', // @todo
+            'index'                             => 'Tyyli',
+            'style_logo'                        => 'Logo URL',
+            'style_banner'                      => 'Banneri',
+            'style_heading_color'               => 'Otsikon väri', // @todo
+            'style_text_color'                  => 'Tekstin väri',
+            'style_background'                  => 'Tausta',
+            'style_custom_css'                  => 'Custom CSS', // @todo
+            'style_accent_color'                => 'Accent Color', // @todo
+            'style_panel_heading_background'    => 'Panel heading background', // @todo
         ],
         'working_time' => [
             'index' => 'Working time',

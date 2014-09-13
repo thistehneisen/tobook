@@ -1,5 +1,5 @@
 <div id="book-form" class="as-calendar-book">
-<h2>Lisää Varaus</h2>
+<h2>{{ trans('as.bookings.add') }}</h2>
 <form id="booking_form">
 <div class="bs-example">
     <div class="panel-group" id="accordion">
@@ -179,13 +179,13 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="start_time" class="col-sm-4 control-label">{{ trans('as.bookings.start_time') }}</label>
+                                <label for="start_time" class="col-sm-4 control-label">{{ trans('as.bookings.start_at') }}</label>
                                 <div class="col-sm-8">
                                    {{ Form::text('start_time', isset($startTime) ? $startTime : '', ['class' => 'form-control input-sm', 'id' => 'start_time']) }}
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="end_time" class="col-sm-4 control-label">{{ trans('as.bookings.end_time') }}</label>
+                                <label for="end_time" class="col-sm-4 control-label">{{ trans('as.bookings.end_at') }}</label>
                                 <div class="col-sm-8">
                                     {{ Form::text('end_time', isset($endTime) ? $endTime : '', ['class' => 'form-control input-sm', 'id' => 'end_time']) }}
                                 </div>
