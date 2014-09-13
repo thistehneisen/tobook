@@ -192,16 +192,15 @@ class Statistics extends Base
             ->where('date', '<=', $this->end)
             ->select(
                 DB::raw('HOUR(SUBTIME(end_at, start_at)) * 60 + MINUTE(SUBTIME(end_at, start_at)) AS minutes'),
-                DB::raw('DAYOFMONTH(created_at) AS day'),
+                DB::raw('DAYOFMONTH(date) AS day'),
                 'is_day_off'
             )
             ->get();
 
         if (!empty($result)) {
+            $custom[$item->day] = 0;
             foreach ($result as $item) {
-                if ((bool) $item->is_day_off !== true) {
-                    $custom[$item->day] = $item->minutes;
-                }
+                $custom[$item->day] += $item->minutes;
             }
         }
 
@@ -215,10 +214,9 @@ class Statistics extends Base
             )
             ->get();
         if (!empty($result)) {
+            $default[$item->type] = 0;
             foreach ($result as $item) {
-                if ((bool) $item->is_day_off !== true) {
-                    $default[$item->type] = $item->minutes;
-                }
+                $default[$item->type] += $item->minutes;
             }
         }
 
@@ -230,13 +228,14 @@ class Statistics extends Base
             ->where('date', '<=', $this->end)
             ->select(
                 DB::raw('HOUR(SUBTIME(end_at, start_at)) * 60 + MINUTE(SUBTIME(end_at, start_at)) AS minutes'),
-                DB::raw('DAYOFMONTH(created_at) AS day')
+                DB::raw('DAYOFMONTH(date) AS day')
             )
             ->get();
 
         if (!empty($result)) {
+            $freetime[$item->day] = 0;
             foreach ($result as $item) {
-                $freetime[$item->day] = $item->minutes;
+                $freetime[$item->day] += $item->minutes;
             }
         }
 
@@ -247,6 +246,7 @@ class Statistics extends Base
     {
         list($custom, $default, $freetime) = $this->getWorkingTime();
 
+        debug($custom, $default, $freetime);
         $map = [
             Carbon::MONDAY    => 'mon',
             Carbon::TUESDAY   => 'tue',
