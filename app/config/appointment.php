@@ -192,6 +192,9 @@ return [
                 'style_heading_color' => [
                     'type' => 'Text'
                 ],
+                'style_heading_background' => [
+                    'type' => 'Text'
+                ],
                 'style_text_color' => [
                     'type' => 'Text'
                 ],
@@ -199,9 +202,6 @@ return [
                     'type' => 'Text'
                 ],
                 'style_background' => [
-                    'type' => 'Text'
-                ],
-                'style_panel_heading_background' => [
                     'type' => 'Text'
                 ],
                 'style_custom_css' => [

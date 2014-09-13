@@ -22,7 +22,45 @@
 
         @if(!empty($user->asOptions['style_heading_color']))
         .panel-heading {
-            color: {{ $user->asOptions['style_heading_color'] }} !important
+            color: {{ $user->asOptions['style_heading_color'] }} !important;
+        }
+        @endif
+
+        @if(!empty($user->asOptions['style_heading_background']))
+        .panel-heading {
+            background: {{ $user->asOptions['style_heading_background'] }} !important;
+        }
+        @else
+        .panel-heading {
+            background: #fff !important;
+        }
+        @endif
+
+        @if(!empty($user->asOptions['style_accent_color']))
+        .list-group-item-heading {
+            color: {{ $user->asOptions['style_accent_color'] }} !important;
+        }
+        .datepicker-days .today.day,
+        .datepicker-days .today.day:hover,
+        .datepicker-days .today.day:hover:hover,
+        .datepicker-days .today.active.day {
+            background-color: {{ $user->asOptions['style_accent_color'] }} !important;
+            border-color: {{ $user->asOptions['style_accent_color'] }} !important;
+            color: #fff;
+        }
+        @endif
+
+        @if(!empty($user->asOptions['style_accent_color']))
+        .list-group-item-heading {
+            color: {{ $user->asOptions['style_accent_color'] }} !important;
+        }
+        .datepicker-days .today.day,
+        .datepicker-days .today.day:hover,
+        .datepicker-days .today.day:hover:hover,
+        .datepicker-days .today.active.day {
+            background-color: {{ $user->asOptions['style_accent_color'] }} !important;
+            border-color: {{ $user->asOptions['style_accent_color'] }} !important;
+            color: #fff;
         }
         @endif
 

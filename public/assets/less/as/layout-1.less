@@ -10,15 +10,6 @@ header {
     }
 }
 
-.panel-heading {
-    text-transform: uppercase;
-    font-weight: bold;
-}
-.panel-body {
-    background-color: #ECF0F1;
-    border-color: #ECF0F1;
-}
-
 .datepicker {
     table {
         width: 100%;
@@ -35,24 +26,40 @@ header {
 
 .list-group-item-heading {
     cursor: pointer;
+    color: #ec7923;
 }
+
 
 .services {
     display: none;
+
+    .single {
+        padding: 10px 0;
+        margin-left: 20px;
+        border-bottom: 1px solid #ccc;
+
+        & > a {
+            color: #444;
+            text-decoration: none;
+        }
+    }
+
+    .single:last-child {
+        border-bottom: none;
+    }
+
+    .heading {
+        font-weight: 700;
+    }
 }
 
-.services .single {
-    padding: 10px 0;
-    margin-left: 20px;
-    border-bottom: 1px solid #ccc;
+.panel-heading {
+    text-transform: uppercase;
+    font-weight: bold;
 }
-
-.services .single:last-child {
-    border-bottom: none;
-}
-
-.services .heading {
-    font-weight: 700;
+.panel-body {
+    background-color: #ECF0F1;
+    border-color: #ECF0F1;
 }
 
 .as-col {

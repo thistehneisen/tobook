@@ -16,6 +16,7 @@ Artisan::add(new App\Core\Commands\FixSchemaCommand());
 Artisan::add(new App\Core\Commands\MakeAdminCommand());
 Artisan::add(new App\Core\Commands\GenerateConfigsCommand());
 Artisan::add(new App\Core\Commands\CreateDummyUsersCommand());
+Artisan::add(new App\LoyaltyCard\Commands\MoveLoyaltyCardCommand());
 Artisan::add(new App\Appointment\Commands\MoveAsCommand());
 Artisan::add(new App\Appointment\Commands\FixEndAtBookingsCommand());
-Artisan::add(new App\LoyaltyCard\Commands\MoveLoyaltyCardCommand());
+Artisan::add(new App\Appointment\Commands\GetStyleOptionsCommand());

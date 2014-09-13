@@ -6,14 +6,6 @@ header .row .banner {
   margin: 10px 20px;
   display: inline-block;
 }
-.panel-heading {
-  text-transform: uppercase;
-  font-weight: bold;
-}
-.panel-body {
-  background-color: #ECF0F1;
-  border-color: #ECF0F1;
-}
 .datepicker table {
   width: 100%;
 }
@@ -28,6 +20,7 @@ header .row .banner {
 }
 .list-group-item-heading {
   cursor: pointer;
+  color: #ec7923;
 }
 .services {
   display: none;
@@ -37,11 +30,23 @@ header .row .banner {
   margin-left: 20px;
   border-bottom: 1px solid #ccc;
 }
+.services .single > a {
+  color: #444;
+  text-decoration: none;
+}
 .services .single:last-child {
   border-bottom: none;
 }
 .services .heading {
   font-weight: 700;
+}
+.panel-heading {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.panel-body {
+  background-color: #ECF0F1;
+  border-color: #ECF0F1;
 }
 .as-col {
   width: 200px;
