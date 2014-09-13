@@ -99,11 +99,9 @@ a:hover {
 .header nav.main-nav #main-menu .dropdown:hover .dropdown-menu {
   display: block;
 }
-.header nav.main-nav .user-nav {
-  margin-top: 5px;
-}
-.header nav.main-nav .user-nav li.active > a {
-  background: #ec7923;
+.header nav.main-nav #main-menu li > p {
+  padding: 15px 10px 15px 0;
+  margin: 0;
 }
 .header .search-wrapper {
   background: #ec7923;

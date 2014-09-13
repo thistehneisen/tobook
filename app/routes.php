@@ -47,7 +47,7 @@ Route::group(['prefix' => 'search'], function () {
 */
 Route::group(['prefix' => 'business'], function () {
     Route::get('/', [
-        'as'    => 'business-index',
+        'as'    => 'business.index',
         'uses'  => 'App\Core\Controllers\Front@businessIndex'
     ]);
 
@@ -647,7 +647,7 @@ Route::group([
     Route::post('sms/sendGroup', [
         'as'   => 'mt.sms.group',
         'uses' => 'App\MarketingTool\Controllers\Sms@sendGroup'
-    ]);        
+    ]);
 
     Route::resource('templates', 'App\MarketingTool\Controllers\Template', [
         'names' => [
@@ -687,7 +687,7 @@ Route::group([
     Route::post('groups/create', [
         'as'   => 'mt.groups.create',
         'uses' => 'App\MarketingTool\Controllers\Group@create'
-    ]);    
+    ]);
 
     Route::resource('consumers', 'App\MarketingTool\Controllers\Consumer', [
         'names' => [

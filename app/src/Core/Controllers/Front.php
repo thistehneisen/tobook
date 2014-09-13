@@ -1,11 +1,14 @@
 <?php namespace App\Core\Controllers;
 
-use View, Confide;
+use View, Confide, Redirect;
 
 class Front extends Base
 {
     public function home()
     {
+        if (Confide::user()) {
+            return Redirect::route('dashboard.index');
+        }
         return View::make('front.home');
     }
 

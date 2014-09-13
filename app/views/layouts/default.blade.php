@@ -53,40 +53,6 @@
             @endforeach
             </div>
 
-            @section('user-nav')
-            <ul class="user-nav nav nav-pills pull-right">
-                <li class="dropdown active">
-                    @if (Confide::user())
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        @if (Session::get('stealthMode') !== null)
-                        You're now login as <strong>{{ Confide::user()->username }}</strong>
-                        @else {{ trans('common.welcome') }}, <strong>{{ Confide::user()->username }}</strong>!
-                        @endif
-                            <span class="caret"></span>
-                        </a>
-                    @else
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            {{ trans('common.for_business') }}
-                            <span class="caret"></span>
-                        </a>
-                    @endif
-                    <ul class="dropdown-menu">
-                        @if (Confide::user())
-                        <li><a href="{{ route('dashboard.index') }}">{{ trans('common.dashboard') }}</a></li>
-                        <li><a href="{{ route('user.profile') }}">{{ trans('common.my_account') }}</a></li>
-                        @if (Entrust::hasRole('Admin') || Session::get('stealthMode') !== null)
-                        <li><a href="{{ route('admin.index') }}">{{ trans('common.admin') }}</a></li>
-                        @endif
-                        <li><a href="{{ route('auth.logout') }}">{{ trans('common.sign_out') }}</a></li>
-                        @else
-                        <li><a href="{{ route('auth.register') }}">{{ trans('common.register') }}</a></li>
-                        <li><a href="{{ route('auth.login') }}">{{ trans('common.sign_in_header') }}</a></li>
-                        @endif
-                    </ul>
-                </li>
-            </ul>
-            @show
-
             @section('main-nav')
             <div class="pull-right">
                 <div class="navbar-header">
@@ -155,13 +121,25 @@
     <footer class="container-fluid footer">
         <div class="container">
             <div class="col-md-4 col-lg-4">
-                <p>&copy; {{ date('Y') }} | <a href="#">{{ trans('home.copyright_policy')}}</a></p>
+                <p>&copy; {{ date('Y') }} <a href="http://varaa.com">varaa.com</a></p>
                 <ul class="list-unstyled list-inline list-social-networks">
                     <li><a href="{{ Setting::get('facebook-page') }}" target="_blank"><i class="fa fa-facebook"></i></a></li>
                     <li><a href="{{ Setting::get('google-page') }}" target="_blank"><i class="fa fa-google-plus"></i></a></li>
                     <li><a href="{{ Setting::get('rss-page') }}" target="_blank"><i class="fa fa-rss"></i></a></li>
                     <li><a href="{{ Setting::get('pinterest-page') }}" target="_blank"><i class="fa fa-pinterest"></i></a></li>
                     <li><a href="{{ Setting::get('linkedin-page') }}" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-4 col-lg-4">
+                <ul class="list-unstyled">
+                    @if (Confide::user())
+                    <li><a href="{{ route('auth.logout') }}">{{ trans('common.sign_out') }}</a></li>
+                    @else
+                    <li><a href="{{ route('business.index') }}">{{ trans('common.for_business') }}</a></li>
+                    <li><a href="{{ route('auth.register') }}">{{ trans('common.register') }}</a></li>
+                    <li><a href="{{ route('auth.login') }}">{{ trans('common.sign_in_header') }}</a>
+                    @endif
                 </ul>
             </div>
         </div>
