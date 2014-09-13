@@ -46,7 +46,11 @@
         <tr>
             <td><input type="checkbox"></td>
             <td>{{ $item->name }}</td>
-            <td>{{ $item->name }}</td>
+            <td>
+            @foreach ($item->employees as $e)
+                {{ $e->name }},
+            @endforeach
+            </td>
             <td>&euro;{{ $item->price }}</td>
             <td>{{ $item->during }}</td>
             <td>{{ $item->length }}</td>
