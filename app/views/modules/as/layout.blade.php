@@ -11,6 +11,9 @@
     {{ HTML::style(asset('packages/alertify/alertify.core.css')) }}
     {{ HTML::style(asset('packages/alertify/alertify.bootstrap.css')) }}
     {{ HTML::style(asset('assets/css/as/appointment.css')) }}
+<style>
+.pagination { margin: 0 !important; }
+</style>
 @stop
 
 @section ('scripts')
