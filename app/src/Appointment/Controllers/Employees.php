@@ -244,11 +244,33 @@ class Employees extends AsBase
             ->orderBy('id', 'desc')
             ->paginate($perPage);
 
-        return $this->render('customTime', [
+        return $this->render('customTime.index', [
             'employee'   => $employee,
             'items'      => $customTimes,
             'fields'     => $fields,
             'langPrefix' => $this->langPrefix,
+            'now'        => Carbon::now()
+        ]);
+    }
+
+    /**
+     * Show the form to edit employee custom time
+     *
+     * @param int $id
+     * @param int $customTimeId
+     *
+     * @return View
+     */
+    public function upsertCustomTime($id, $customTimeId)
+    {
+        $employee = Employee::findOrFail($id);
+        $customTime = EmployeeCustomTime::where('employee_id', $id)
+            ->where('id', $customTimeId)
+            ->firstOrFail();
+
+        return $this->render('customTime.upsert', [
+            'employee'   => $employee,
+            'customTime' => $customTime,
             'now'        => Carbon::now()
         ]);
     }
@@ -260,12 +282,15 @@ class Employees extends AsBase
      *
      * @return Redirect
      */
-    public function upsertCustomTime($id, $customTimeId = null)
+    public function doUpsertCustomTime($id, $customTimeId = null)
     {
         try {
             $employee = Employee::findOrFail($id);
 
-            $customTime = new EmployeeCustomTime;
+            $customTime = ($customTimeId !== null)
+                ? EmployeeCustomTime::findOrFail($customTimeId)
+                : new EmployeeCustomTime;
+
             $customTime->fill([
                 'date'       => Input::get('date'),
                 'start_at'   => Input::get('start_at'),
@@ -282,9 +307,10 @@ class Employees extends AsBase
             ? trans('as.crud.success_edit')
             : trans('as.crud.success_add');
 
-        return Redirect::back()->with(
-            'messages',
-            $this->successMessageBag($message)
-        );
+        return Redirect::route('as.employees.customTime', ['id' => $id])
+            ->with(
+                'messages',
+                $this->successMessageBag($message)
+            );
     }
 }
