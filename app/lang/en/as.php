@@ -346,6 +346,7 @@ return [
             'accept_bookings'                                => 'Accept bookings',// @todo
             'hide_prices'                                    => 'Hide prices',// @todo
             'step'                                           => 'Step',// @todo
+            'bookable_date'                                  => 'Bookable date',  // @todo
             'status_if_paid'                                 => 'Default mode for paid bookings',// @todo
             'status_if_not_paid'                             => 'Default mode for unpaid bookings',// @todo
             'bf_address_1'                                   => 'Address 1',

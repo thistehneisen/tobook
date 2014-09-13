@@ -345,6 +345,7 @@ return [
             'accept_bookings'                                => 'Hyväksy varauksia',
             'hide_prices'                                    => 'Piilota hinnat',
             'step'                                           => 'Askel',
+            'bookable_date'                                  => 'Bookable date',  // @todo
             'status_if_paid'                                 => 'Oletustila maksetuille varauksille',
             'status_if_not_paid'                             => 'Oletustila maksamattomille varauksille',
             'bf_address_1'                                   => 'Osoite 1',

@@ -83,6 +83,10 @@ return [
                     'values' => [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60],
                     'default' => 15
                 ],
+                'bookable_date' => [
+                    'type' => 'Text',
+                    'options' => ['class' => 'form-control input-sm date-picker']
+                ]
             ],
             'confirmations' => [
                 'confirm_email_enable' => [
