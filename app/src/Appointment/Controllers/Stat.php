@@ -39,9 +39,10 @@ class Stat extends Bookings
         $date = Input::has('date')
             ? new Carbon(Input::get('date'))
             : Carbon::now();
+        $employeeId = Input::get('employee');
 
         $calendar = $this->generateCalendar($date);
-        $report = new Statistics($date);
+        $report = new Statistics($date, $employeeId);
 
         $next = with(clone $date)->addMonth();
         $prev = with(clone $date)->subMonth();
