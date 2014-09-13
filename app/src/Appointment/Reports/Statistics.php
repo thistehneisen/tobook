@@ -50,15 +50,20 @@ class Statistics extends Base
         $data = [];
         // Prepare keys
         $i = 1;
+        $date = clone $this->start;
         while ($i <= $this->date->daysInMonth) {
-            $data[$i++] = [];
+            $data[$i++] = [
+                'date' => clone $date
+            ];
+            $date->addDay();
         }
+
 
         // Get revenue of each day
         $data = $this->process($data, $this->getRevenue(), 'revenue');
         $data = $this->process($data, $this->getTotalBookings(), 'bookings');
-        $data = $this->process($data, $this->getBookedTime(), 'working_time');
         $data = $this->process($data, $this->getBookedTime(), 'booked_time');
+        $data = $this->calculateWorkingTime($data);
 
         // Final format
         foreach ($data as &$item) {
@@ -157,27 +162,109 @@ class Statistics extends Base
         return array_combine(array_pluck($result, 'day'), array_pluck($result, 'booked_time'));
     }
 
-    // /**
-    //  * Get working time of an employee in this month
-    //  *
-    //  * @param int $employeeId
-    //  *
-    //  * @return array
-    //  */
-    // protected function getEmployeeWorkingTime($employeeId)
-    // {
-    //     // Get custom time first
-    //     $custom = DB::table('as_employee_custom_time')
-    //         ->where('employee_id', $employeeId)
-    //         ->where('user_id', Confide::user()->id)
-    //         ->where('date', '>=', $this->start)
-    //         ->where('date', '<=', $this->end)
-    //         ->get();
+    /**
+     * Get working time of an employee in this month
+     *
+     * @return array
+     */
+    protected function getWorkingTime()
+    {
+        $custom = [];
+        // Get custom time first
+        $result = DB::table('as_employee_custom_time')
+            ->where('employee_id', $this->employeeId)
+            ->where('date', '>=', $this->start)
+            ->where('date', '<=', $this->end)
+            ->select(
+                DB::raw('HOUR(SUBTIME(end_at, start_at)) * 60 + MINUTE(SUBTIME(end_at, start_at)) AS minutes'),
+                DB::raw('DAYOFMONTH(created_at) AS day'),
+                'is_day_off'
+            )
+            ->get();
 
-    //     if (!empty($custom)) {
+        if (!empty($result)) {
+            foreach ($result as $item) {
+                if ((bool) $item->is_day_off !== true) {
+                    $custom[$item->day] = $item->minutes;
+                }
+            }
+        }
 
-    //     }
-    // }
+        // Get default time
+        $default = [];
+        $result = DB::table('as_employee_default_time')
+            ->where('employee_id', $this->employeeId)
+            ->select(
+                'as_employee_default_time.*',
+                DB::raw('HOUR(SUBTIME(end_at, start_at)) * 60 + MINUTE(SUBTIME(end_at, start_at)) AS minutes')
+            )
+            ->get();
+        if (!empty($result)) {
+            foreach ($result as $item) {
+                if ((bool) $item->is_day_off !== true) {
+                    $default[$item->type] = $item->minutes;
+                }
+            }
+        }
+
+        // Get freetime
+        $freetime = [];
+        $result = DB::table('as_employee_freetime')
+            ->where('employee_id', $this->employeeId)
+            ->where('date', '>=', $this->start)
+            ->where('date', '<=', $this->end)
+            ->select(
+                DB::raw('HOUR(SUBTIME(end_at, start_at)) * 60 + MINUTE(SUBTIME(end_at, start_at)) AS minutes'),
+                DB::raw('DAYOFMONTH(created_at) AS day')
+            )
+            ->get();
+
+        if (!empty($result)) {
+            foreach ($result as $item) {
+                $freetime[$item->day] = $item->minutes;
+            }
+        }
+
+        return [$custom, $default, $freetime];
+    }
+
+    protected function calculateWorkingTime($data)
+    {
+        list($custom, $default, $freetime) = $this->getWorkingTime();
+
+        $map = [
+            Carbon::MONDAY    => 'mon',
+            Carbon::TUESDAY   => 'tue',
+            Carbon::WEDNESDAY => 'wed',
+            Carbon::THURSDAY  => 'thu',
+            Carbon::FRIDAY    => 'fri',
+            Carbon::SATURDAY  => 'sat',
+            Carbon::SUNDAY    => 'sun',
+        ];
+        foreach ($data as $day => &$item) {
+            $total = 0;
+
+            if (isset($custom[$day])) {
+                // If this day has a custom working time
+                $total += (int) $custom[$day];
+            } else {
+                // If not, we'll use the default working time
+                $dayOfWeek = $item['date']->dayOfWeek;
+                if (isset($default[$map[$dayOfWeek]])) {
+                    $total += (int) $default[$map[$dayOfWeek]];
+                }
+            }
+
+            // Subtract the free time
+            if ($total > 0 && isset($freetime[$day])) {
+                $total -= $freetime[$day];
+            }
+
+            $item['working_time'] = $total;
+        }
+
+        return $data;
+    }
 
     /**
      * Take a number of minutes and format into hh:mm
