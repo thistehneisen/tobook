@@ -20,6 +20,7 @@ class Bookings extends AsBase
     use App\Appointment\Traits\Crud;
     protected $viewPath   = 'modules.as.bookings';
     protected $langPrefix = 'as.bookings';
+    protected $crudShowTab = false;
 
     /**
      * Handle ajax request to display booking form
