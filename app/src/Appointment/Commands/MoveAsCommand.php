@@ -383,9 +383,12 @@ class MoveAsCommand extends Command
             ]);
 
             $map = [
-                'confirmed' => 1,
-                'pending'   => 2,
-                'cancelled' => 3,
+                'confirmed'     => 1,
+                'pending'       => 2,
+                'cancelled'     => 3,
+                'arrived'       => 4,
+                'paid'          => 5,
+                'no_show_up'    => 6,
             ];
 
             $employeeId = isset($this->map['varaa_as_employees'][$item->employee_id])
