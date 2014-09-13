@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Controllers;
 
-use View, Input, Confide, Util;
+use View, Input, Confide, Util, Config;
 use App\Core\Controllers\Base;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\Booking;
@@ -29,6 +29,7 @@ class Index extends AsBase
         //TODO settings for day off such as Sunday
 
         return View::make('modules.as.index.index', [
+                'employeeId'   => null,//because use the same view with employee
                 'employees'    => $employees,
                 'workingTimes' => $workingTimes,
                 'date'         => $date
