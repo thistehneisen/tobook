@@ -74,18 +74,18 @@
             <ul>
                 <li class="as-col-header">{{ $weekDate }} ( {{ $weekDay }})</li>
                 @foreach ($workingTimes as $hour)
-                     @foreach (range(0, 45, 15) as $minuteShift)
-                     <?php $slotClass = $selectedEmployee->getSlotClass($weekDate, $hour, $minuteShift); ?>
+                    @foreach (range(0, 45, 15) as $minuteShift)
+                    <?php $slotClass = $selectedEmployee->getSlotClass($weekDate, $hour, $minuteShift); ?>
                     <li data-booking-date="{{ $weekDate }}" data-employee-id="{{ $selectedEmployee->id }}" data-start-time="{{ sprintf('%02d:%02d', $hour, $minuteShift) }}" href="#select-action" class="fancybox {{ $slotClass }}">
                         @if(strpos(trim($slotClass), 'booked') === 0)
                             <?php $booking = $selectedEmployee->getBooked($weekDate, $hour, $minuteShift); ?>
                             @if($booking != null)
-                            <span class="customer-tooltip"title="">{{ $booking->consumer->first_name }} ({{ $booking->bookingServices[0]->service->description }})</span>
+                            <span class="customer-tooltip"title="">{{ $booking->consumer->first_name }} ({{ $booking->bookingServices[0]->service->name }})</span>
                             <a href="#" class="pull-right"><i class="fa fa-plus"></i></a>
                             @else
                                 &nbsp;
                             @endif
-                          @elseif(strpos(trim($slotClass), 'freetime') === 0)
+                        @elseif(strpos(trim($slotClass), 'freetime') === 0)
                             <?php $freetime = $selectedEmployee->getFreetime($weekDate, $hour, $minuteShift); ?>
                             @if($freetime !== null)
                                 <span class="customer-tooltip"title="{{ $freetime->description }}">{{ $freetime->description }}</span>
@@ -95,7 +95,7 @@
                             @endif
                         @endif
                     </li>
-                     @endforeach
+                    @endforeach
                 @endforeach
             </ul>
        </div>
