@@ -38,8 +38,10 @@ $(document).ready(function () {
         };
 
     // add 2 typeahead
-    initTypeahead('#js-queryInput', 'services');
-    initTypeahead('#js-locationInput', 'locations');
+    if ($('#js-queryInput').length && $('#js-locationInput').length) {
+        initTypeahead('#js-queryInput', 'services');
+        initTypeahead('#js-locationInput', 'locations');
+    }
 
     // click handler for result
     $('.result-row').click(function () {
