@@ -41,7 +41,7 @@ class FixTotalPriceBookingsCommand extends Command
 
             if (!empty($extraServices)) {
                 foreach ($extraServices as $service) {
-                    $total += (int) $service->price;
+                    $total += (double) $service->price;
                 }
             }
 
@@ -67,14 +67,14 @@ class FixTotalPriceBookingsCommand extends Command
                     }
 
                     if ($service !== null) {
-                        $total += (int) $service->price;
+                        $total += (double) $service->price;
                     }
                 }
             }
 
             if ($total > 0) {
                 DB::table('as_bookings')->where('id', $item->id)
-                    ->update(['total_price' => number_format($total, 2)]);
+                    ->update(['total_price' => round($total, 2)]);
                 echo '.';
             }
         }
