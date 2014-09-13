@@ -270,18 +270,18 @@ $(function () {
                 };
             },
             results: function (response, page) {
-                var data = {};
+                var $data = {};
                 $.each(response, function (i){
-                    data[response[i].id] = response[i];
+                    $data[response[i].id] = response[i];
                 });
-                $('#consumer_data').val(JSON.stringify(data));
+                $('#consumer_data').data('customerData', $data)
                 return { results: response };
             },
         },
     });
     $("#keyword").on("change", function(e) {
        var index = e.val;
-       var data = JSON.parse($('#consumer_data').val());
+       var data = $('#consumer_data').data('customerData');
        $('#firstname').val(data[index].first_name);
        $('#lastname').val(data[index].last_name);
        $('#phone').val(data[index].phone);
