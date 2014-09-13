@@ -41,25 +41,20 @@ class Index extends AsBase
         $employee  = Employee::find($id);
         $workingTimes = range(8,17);
         $date = (empty($date)) ? Carbon::today() : $date;
-
+          var_dump($date->toDateString());
         if (!$date instanceof Carbon) {
             try {
-                $date = Carbon::createFromFormat('Y-m-d', $date);
+                $date = Carbon::createFromFormat('Y-m-d', $date, Config::get('app.timezone'));
             } catch (\Exception $ex) {
                 $date = Carbon::today();
             }
         }
 
         $cloneDate = with(clone $date);
-        $weekDaysFromDate = [
-            $cloneDate->format('l') => $cloneDate->toDateString(),
-            $cloneDate->format('l') => $cloneDate->addDay()->toDateString(),
-            $cloneDate->format('l') => $cloneDate->addDay()->toDateString(),
-            $cloneDate->format('l') => $cloneDate->addDay()->toDateString(),
-            $cloneDate->format('l') => $cloneDate->addDay()->toDateString(),
-            $cloneDate->format('l') => $cloneDate->addDay()->toDateString(),
-            $cloneDate->format('l') => $cloneDate->addDay()->toDateString(),
-        ];
+        foreach (range(1, 7) as $day) {
+           $weekDaysFromDate[$cloneDate->format('l')] = $cloneDate->toDateString();
+           $cloneDate->addDay();
+        }
 
         return View::make('modules.as.index.employee', [
                 'employeeId'       => $id,
