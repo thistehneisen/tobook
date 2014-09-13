@@ -15,6 +15,8 @@ return [
     'sign_out'          => 'Sign out',
     'sign_in_header'    => 'Sign in',
     'sign_in'           => 'Sign in',
+    'select'            => 'Select',
+    'options_select'    => '-- Select -- ',
     'register'          => 'Register',
     'no_records'        => 'Sorry, no records found!',
     'save'              => 'Save',

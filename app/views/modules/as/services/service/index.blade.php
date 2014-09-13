@@ -31,13 +31,13 @@
     <thead>
         <tr>
             <th>&nbsp;</th>
-            <th>Nimi</th>
-            <th>Työntekijät</th>
-            <th>Hinta</th>
-            <th>Kesto</th>
-            <th>Yhteensä</th>
-            <th>Kategoria</th>
-            <th>Tila</th>
+            <th>{{ trans('as.services.categories.name') }}</th>
+            <th>{{ trans('as.services.employees') }}</th>
+            <th>{{ trans('as.services.price') }}</th>
+            <th>{{ trans('as.services.duration') }}</th>
+            <th>{{ trans('as.services.total') }}</th>
+            <th>{{ trans('as.services.category') }}</th>
+            <th>{{ trans('as.services.is_active') }}</th>
             <th>&nbsp;</th>
         </tr>
     </thead>
@@ -69,9 +69,9 @@
         <tr>
             <td colspan="4">
                 <div class="form-group">
-                    <label>Valitse toiminto</label>
+                    <label>{{ trans('as.with_selected') }}</label>
                     <select name="" id="" class="form-control input-sm">
-                        <option value="">Delete</option>
+                        <option value="">{{ trans('common.delete') }}</option>
                         <option value="">Blahde</option>
                     </select>
                 </div>
@@ -80,7 +80,7 @@
             <td colspan="5" class="text-right">
                 <div class="dropdown">
                     <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-                    Yksiköitä yhteensä <span class="caret"></span>
+                    {{ trans('as.items_per_page') }} <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right">
                         <li><a href="#">5</a></li>

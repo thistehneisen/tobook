@@ -39,45 +39,45 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="admin-menu">
             <ul class="nav navbar-nav nav-admin nav-as">
-                <li @if (!Request::segment(2)) {{ 'class="active"' }} @endif><a href="{{ route('as.index') }}"><i class="fa fa-calendar"></i> Kalenteri</a></li>
+                <li @if (!Request::segment(2)) {{ 'class="active"' }} @endif><a href="{{ route('as.index') }}"><i class="fa fa-calendar"></i> {{ trans('as.index.calendar') }}</a></li>
                 <li @if (Request::segment(2) === 'bookings') {{ 'class="active"' }} @endif class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('as.services.index') }}">
-                        <i class="fa fa-bookmark"></i> Varaukset <span class="caret"></span>
+                        <i class="fa fa-bookmark"></i> {{ trans('as.bookings.all') }} <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="{{ route('as.bookings.index') }}">Varaukset</a></li>
-                        <li><a href="{{ route('as.bookings.upsert') }}">Tee varaus</a></li>
-                        <li><a href="{{ route('as.bookings.invoices') }}">Laskut</a></li>
-                        <li><a href="{{ route('as.bookings.customers') }}">Asiakkaat</a></li>
-                        <li><a href="{{ route('as.bookings.statistics') }}">Statistiikka</a></li>
+                        <li><a href="{{ route('as.bookings.index') }}">{{ trans('as.bookings.all') }}</a></li>
+                        <li><a href="{{ route('as.bookings.upsert') }}">{{ trans('as.bookings.add') }}</a></li>
+                        <li><a href="{{ route('as.bookings.invoices') }}">{{ trans('as.bookings.invoices') }}</a></li>
+                        <li><a href="{{ route('as.bookings.customers') }}">{{ trans('as.bookings.customers') }}</a></li>
+                        <li><a href="{{ route('as.bookings.statistics') }}">{{ trans('as.bookings.statistics') }}</a></li>
                     </ul>
                 </li>
                 <li @if (Request::segment(2) === 'services') {{ 'class="active"' }} @endif class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('as.services.index') }}">
-                        <i class="fa fa-gift"></i> Palvelut <span class="caret"></span>
+                        <i class="fa fa-gift"></i> {{ trans('as.services.index') }} <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="{{ route('as.services.index') }}">{{ trans('as.services.all') }}</a></li>
                         <li><a href="{{ route('as.services.upsert') }}">{{ trans('as.services.add') }}</a></li>
                         <li><a href="{{ route('as.services.categories.index') }}">{{ trans('as.services.categories.all') }}</a></li>
                         <li><a href="{{ route('as.services.resources.index') }}">{{ trans('as.services.resources.all') }}</a></li>
-                        <li><a href="{{ route('as.services.extras.index') }}">Lisää lisäpalvelu</a></li>
+                        <li><a href="{{ route('as.services.extras.index') }}">{{ trans('as.services.extras.add') }}</a></li>
                     </ul>
                 </li>
                 <li @if (Request::segment(2) === 'employees') {{ 'class="active"' }} @endif class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('as.employees.index') }}">
-                        <i class="fa fa-users"></i> Työntekijät <span class="caret"></span>
+                        <i class="fa fa-users"></i> {{ trans('as.employees.all') }} <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="{{ route('as.employees.index') }}">{{ trans('as.employees.all') }}</a></li>
                         <li><a href="{{ route('as.employees.upsert') }}">{{ trans('as.employees.add') }}</a></li>
-                        <li><a href="{{ route('as.employees.freetime') }}">Vapaat</a></li>
-                        <li><a href="{{ route('as.employees.customTime') }}">Työvuorosuunnittelu</a></li>
+                        <li><a href="{{ route('as.employees.freetime') }}">{{ trans('as.employees.free_times') }}</a></li>
+                        <li><a href="{{ route('as.employees.customTime') }}">{{ trans('as.employees.working_times') }}</a></li>
                     </ul>
                 </li>
                 <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('as.services.index') }}">
-                        <i class="fa fa-wrench"></i> Asetukset <span class="caret"></span>
+                        <i class="fa fa-wrench"></i> {{ trans('as.options.heading') }} <span class="caret"></span>
                     </a>
 					<ul class="dropdown-menu" role="menu">
 					    <li><a href="{{ route('as.options', ['page' => 'general']) }}">{{ trans('as.options.general.index') }}</a></li>
