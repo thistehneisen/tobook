@@ -159,7 +159,8 @@ trait Crud
             'langPrefix'  => $this->getLangPrefix(),
             'fields'      => $fields,
             'bulkActions' => $this->getBulkActions(),
-            'sortable'    => isset($this->crudSortable) ? $this->crudSortable : false
+            'sortable'    => isset($this->crudSortable) ? $this->crudSortable : false,
+            'showTab'     => isset($this->crudShowTab) ? (bool) $this->crudShowTab : true
         ]);
     }
 

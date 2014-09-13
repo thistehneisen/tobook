@@ -5,7 +5,10 @@
 @endif
 
 @section ('content')
-    @include('modules.as.crud.tabs', ['routes' => $routes, 'langPrefix' => $langPrefix])
+    @if ($showTab === true)
+        @include('modules.as.crud.tabs', ['routes' => $routes, 'langPrefix' => $langPrefix])
+    @endif
+
     @include ('el.messages')
 <h4 class="comfortaa">{{ trans($langPrefix.'.all') }}</h4>
 
