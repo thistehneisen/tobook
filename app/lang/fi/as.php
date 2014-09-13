@@ -211,11 +211,13 @@ return [
         'customers'       => 'Asiakkaat',
         'statistics'      => 'Statistiikka',
         'date'            => 'Päivämäärä',
-        'total'           => 'Kaikki',
-        'start_time'      => 'Aloitusaika',
-        'end_time'        => 'Päättymisaika',
+        'total'           => 'Duration', // @todo
+        'start_at'        => 'Aloitusaika',
+        'end_at'          => 'Päättymisaika',
         'status'          => 'Tila',
-        'ip'              => 'ip', // @todo,
+        'total_price'     => 'Hinta', // @todo
+        'uuid'            => 'UUID',
+        'ip'              => 'IP', // @todo,
         'add_service'     => 'Lisää palvelu',
         'booking_info'    => 'Tiedot',
         'booking_id'      => 'Yksilöllinen ID',
