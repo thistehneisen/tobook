@@ -21,7 +21,7 @@
         </select>
         </div>
         <div class="clearfix"></div>
-        @foreach ([0, 1, 2, 3] as $count)
+        @foreach (range(1, 8) as $count)
         <div class="available-slot col-md-3 col-sm-3">
             <img src="{{ asset('assets/img/slides/1.jpg') }}" alt="" class="img-responsive" />
             <div class="info text-left">
@@ -40,6 +40,7 @@
     </div>
 
     <!-- Flash deals -->
+    {{--
     <div class="row">
         <h3 class="comfortaa">{{ trans('Flashdeals') }}</h3>
         @foreach ([0, 1, 2, 3] as $count)
@@ -66,5 +67,6 @@
         </div>
         @endforeach
     </div>
+    --}}
 </div>
 @stop
