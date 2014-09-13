@@ -105,6 +105,9 @@ header .row .banner {
   font-size: 13px;
   padding: 0 10px;
 }
+.as-col li.custom_time {
+  background-color: #888;
+}
 .as-col li.freetime {
   background-color: #888;
   font-size: 13px;

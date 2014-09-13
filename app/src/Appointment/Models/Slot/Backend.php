@@ -9,10 +9,12 @@ class Backend implements Strategy
      * These variables to use as a dictionary to easy to get back
      *  and limit access to db in for loop
      */
-    private $bookedSlot     = [];
-    private $bookingList    = [];
-    private $freetimeSlot   = [];
-    private $freetimesCache = [];
+    private $bookedSlot      = [];
+    private $bookingList     = [];
+    private $freetimeSlot    = [];
+    private $freetimesCache  = [];
+    private $customTimeSlot  = [];
+    private $customTimeCache = [];
 
     public function determineClass($date, $hour, $minute, $employee, $service = null){
         $selectedDate = Carbon::createFromFormat('Y-m-d', $date);
@@ -40,6 +42,19 @@ class Backend implements Strategy
             if ($rowTime >= $startAt && $rowTime <= $endAt) {
                 $class = 'freetime';
                 $this->freetimeSlot[$selectedDate->toDateString()][(int) $hour][(int) $minute] = $freetime;
+            }
+        }
+
+        if(empty($this->customTimeCache)){
+            $this->customTimeCache = $employee->customTimes()->where('date', $selectedDate->toDateString())->get();
+        }
+
+        foreach ($this->customTimeCache as $customTime) {
+            $startAt =  Carbon::createFromFormat('H:i:s', $customTime->start_at, Config::get('app.timezone'));
+            $endAt   =  Carbon::createFromFormat('H:i:s', $customTime->end_at, Config::get('app.timezone'));
+            if (($rowTime >= $startAt && $rowTime <= $endAt) || (bool)$customTime->is_day_off) {
+                $class = 'custom_time';
+                $this->customTimeSlot[$selectedDate->toDateString()][(int) $hour][(int) $minute] = $customTime;
             }
         }
 
@@ -73,6 +88,7 @@ class Backend implements Strategy
 
         $employee->setBookedSlot($this->bookedSlot);
         $employee->setFreetimeSlot($this->freetimeSlot);
+        $employee->setCustomTimeSlot($this->customTimeSlot);
 
         return $class;
     }

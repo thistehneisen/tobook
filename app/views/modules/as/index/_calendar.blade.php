@@ -21,5 +21,10 @@
                 <a href="#" data-confirm="{{ trans('as.employees.confirm.delete_freetime') }}" data-action-url="{{ route('as.employees.freetime.delete') }}" data-freetime-id="{{ $freetime->id }}" class="btn-delete-employee-freetime"><i class="fa fa-remove"></i></a>
             @endif
         @endif
+    @elseif(strpos(trim($slotClass), 'custom_time') === 0)
+        <?php $customTime = $selectedEmployee->getCustomTime($selectedDate, $hour, $minuteShift); ?>
+        @if($customTime !== null)
+            <span>{{ trans('as.employees.custom_time') }}</span>
+        @endif
     @endif
 </li>

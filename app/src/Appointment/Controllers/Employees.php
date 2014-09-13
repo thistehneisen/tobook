@@ -245,7 +245,7 @@ class Employees extends AsBase
         $endAt    = Input::get('end_at');
         $isDayOff = Input::get('is_day_off', 0);
 
-        if(!empty($date) || (!empty($startAt) && !empty($endAt)) || !empty($isDayOff)){
+        if(!empty($date) && ((!empty($startAt) && !empty($endAt)) || !empty($isDayOff))){
             $employeeCustomTime = new EmployeeCustomTime;
             $employeeCustomTime->fill([
                 'date'       => $date,

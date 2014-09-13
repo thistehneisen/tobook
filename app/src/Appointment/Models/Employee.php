@@ -35,8 +35,9 @@ class Employee extends Base
      * These variables to use as a dictionary to easy to get back
      *  and limit access to db in for loop
      */
-    private $bookedSlot     = [];
-    private $freetimeSlot   = [];
+    private $bookedSlot      = [];
+    private $freetimeSlot     = [];
+    private $customTimeSlot   = [];
     private $strategy;
 
     public function setBookedSlot(array $data)
@@ -47,6 +48,11 @@ class Employee extends Base
     public function setFreetimeSlot(array $data)
     {
         $this->freetimeSlot = $data;
+    }
+
+    public function setCustomTimeSlot(array $data)
+    {
+        $this->customTimeSlot = $data;
     }
 
     public function getDefaultTimes()
@@ -124,6 +130,15 @@ class Employee extends Base
     {
         if (!empty($this->freetimeSlot[$date][$hour][$minute])) {
             return $this->freetimeSlot[$date][$hour][$minute];
+        }
+
+        return null;
+    }
+
+    public function getCustomTime($date, $hour, $minute)
+    {
+        if (!empty($this->customTimeSlot[$date][$hour][$minute])) {
+            return $this->customTimeSlot[$date][$hour][$minute];
         }
 
         return null;
