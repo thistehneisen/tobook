@@ -43,7 +43,7 @@ class Bookings extends AsBase
         $bookingExtraServices = $booking->extraServices()->get();
 
         $categories = [];
-        $categories[-1] = trans('commom.select');
+        $categories[-1] = trans('common.select');
         foreach ($services as $service) {
             //for getting distinct categories
             $categories[$service->category->id] = $service->category->name;
@@ -52,7 +52,7 @@ class Bookings extends AsBase
         $bookingCategoryId   = $bookingService->service->category->id;
         $bookingServiceId    = $bookingService->service->id;
         $bookingServices     = $employee->services()->where('category_id', $bookingCategoryId)->lists('name','id');
-        $bookingServices[-1] = trans('commom.select');
+        $bookingServices[-1] = trans('common.select');
         ksort($bookingServices);//sort selected services by key
 
         $serviceTimes = $bookingService->service->serviceTimes;
@@ -97,7 +97,7 @@ class Bookings extends AsBase
         $employee = Employee::find($employeeId);
         $services = $employee->services;
         $categories = [];
-        $categories[-1] = trans('commom.select');
+        $categories[-1] = trans('common.select');
         foreach ($services as $service) {
             //for getting distinct categories
             $categories[$service->category->id] = $service->category->name;
