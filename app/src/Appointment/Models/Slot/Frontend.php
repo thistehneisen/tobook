@@ -33,18 +33,6 @@ class Frontend implements Strategy
             $class = 'inactive';
         }
 
-        if(empty($this->freetimesCache)){
-            $this->freetimesCache = $employee->freetimes()->where('date', $selectedDate->toDateString())->get();
-        }
-
-        foreach ($this->freetimesCache as $freetime) {
-            $startAt =  Carbon::createFromFormat('H:i:s', $freetime->start_at, Config::get('app.timezone'));
-            $endAt   =  Carbon::createFromFormat('H:i:s', $freetime->end_at, Config::get('app.timezone'));
-            if ($rowTime >= $startAt && $rowTime <= $endAt) {
-                $class = 'freetime';
-                $this->freetimeSlot[$selectedDate->toDateString()][(int) $hour][(int) $minute] = $freetime;
-            }
-        }
 
         if(empty($this->customTimeCache)){
             $this->customTimeCache = $employee->customTimes()->where('date', $selectedDate->toDateString())->get();
@@ -56,6 +44,19 @@ class Frontend implements Strategy
             if (($rowTime >= $startAt && $rowTime <= $endAt) || (bool)$customTime->is_day_off) {
                 $class = 'custom_time';
                 $this->customTimeSlot[$selectedDate->toDateString()][(int) $hour][(int) $minute] = $customTime;
+            }
+        }
+
+        if(empty($this->freetimesCache)){
+            $this->freetimesCache = $employee->freetimes()->where('date', $selectedDate->toDateString())->get();
+        }
+
+        foreach ($this->freetimesCache as $freetime) {
+            $startAt =  Carbon::createFromFormat('H:i:s', $freetime->start_at, Config::get('app.timezone'));
+            $endAt   =  Carbon::createFromFormat('H:i:s', $freetime->end_at, Config::get('app.timezone'));
+            if ($rowTime >= $startAt && $rowTime <= $endAt) {
+                $class = 'freetime';
+                $this->freetimeSlot[$selectedDate->toDateString()][(int) $hour][(int) $minute] = $freetime;
             }
         }
 

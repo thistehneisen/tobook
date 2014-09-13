@@ -32,6 +32,21 @@ class Backend implements Strategy
             $class = 'inactive';
         }
 
+        if(empty($this->customTimeCache)){
+            $this->customTimeCache = $employee->customTimes()->where('date', $selectedDate->toDateString())->get();
+        }
+
+        foreach ($this->customTimeCache as $customTime) {
+            $startAt =  Carbon::createFromFormat('H:i:s', $customTime->start_at, Config::get('app.timezone'));
+            $endAt   =  Carbon::createFromFormat('H:i:s', $customTime->end_at, Config::get('app.timezone'));
+            if (($rowTime >= $startAt && $rowTime <= $endAt) && !$customTime->is_day_off) {
+                $class = 'fancybox active';
+                $this->customTimeSlot[$selectedDate->toDateString()][(int) $hour][(int) $minute] = $customTime;
+            } else {
+                 $class = 'inactive';
+            }
+        }
+
         if(empty($this->freetimesCache)){
             $this->freetimesCache = $employee->freetimes()->where('date', $selectedDate->toDateString())->get();
         }
@@ -45,24 +60,11 @@ class Backend implements Strategy
             }
         }
 
-        if(empty($this->customTimeCache)){
-            $this->customTimeCache = $employee->customTimes()->where('date', $selectedDate->toDateString())->get();
-        }
-
-        foreach ($this->customTimeCache as $customTime) {
-            $startAt =  Carbon::createFromFormat('H:i:s', $customTime->start_at, Config::get('app.timezone'));
-            $endAt   =  Carbon::createFromFormat('H:i:s', $customTime->end_at, Config::get('app.timezone'));
-            if (($rowTime >= $startAt && $rowTime <= $endAt) || (bool)$customTime->is_day_off) {
-                $class = 'custom_time';
-                $this->customTimeSlot[$selectedDate->toDateString()][(int) $hour][(int) $minute] = $customTime;
-            }
-        }
-
         // get booking only certain date
         if (empty($this->bookingList[$selectedDate->toDateString()])) {
             $this->bookingList[$selectedDate->toDateString()] = $employee->bookings()
                                 ->where('date', $selectedDate->toDateString())
-                                ->where('status','<>', Booking::STATUS_CANCELLED)
+                                ->where('status','!=', Booking::STATUS_CANCELLED)
                                 ->whereNull('deleted_at')->get();
         }
 
@@ -80,12 +82,10 @@ class Backend implements Strategy
                     } else {
                         $class .= ' slot-booked-body';
                     }
-
                     $this->bookedSlot[$selectedDate->toDateString()][(int) $startHour][(int) $startMinute] = $booking;
                 }
             }
         }
-
         $employee->setBookedSlot($this->bookedSlot);
         $employee->setFreetimeSlot($this->freetimeSlot);
         $employee->setCustomTimeSlot($this->customTimeSlot);
