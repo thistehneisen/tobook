@@ -16,17 +16,19 @@ new Morris.Bar({
   element: 'employees-chart',
   // Chart data records -- each entry in this array corresponds to a point on
   // the chart.
-  data: [
-    { employee: 'Nguyen Thi Teo', total : 20, confirmed: 11, pending: 0, cancelled: 12 },
-    { employee: 'Nguyen Teo', total : 20, confirmed: 12, pending: 3, cancelled: 19 },
-  ],
+  data: {{ $report->toJson() }},
   // The name of the data record attribute that contains x-values.
   xkey: 'employee',
   // A list of names of data record attributes that contain y-values.
   ykeys: ['total', 'confirmed', 'pending', 'cancelled'],
   // Labels for the ykeys -- will be displayed when you hover over the
   // chart.
-  labels: ['Total Bookings', 'Confirmed Bookings', 'Pending Bookings', 'Cancelled bookings']
+  labels: [
+    '{{ trans('as.reports.booking.total') }}',
+    '{{ trans('as.reports.booking.confirmed') }}',
+    '{{ trans('as.reports.booking.unconfirmed') }}',
+    '{{ trans('as.reports.booking.cancelled') }}',
+  ]
 });
 });
     </script>

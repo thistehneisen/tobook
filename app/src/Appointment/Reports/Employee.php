@@ -4,18 +4,24 @@ use DB;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\Employee as EmployeeModel;
 
-class Employee
+class Employee extends Base
 {
     protected $cache;
-
-    public function get()
-    {
-        return ($this->cache !== null) ? $this->cache : $this->fetch();
-    }
 
     public function toJson()
     {
         $data = $this->get();
+        $json = [];
+        foreach ($data as $item) {
+            $json[] = [
+                'employee'  => $item['employee']->name,
+                'total'     => isset($item['total']) ? $item['total'] : 0,
+                'confirmed' => isset($item['confirmed']) ? $item['confirmed'] : 0,
+                'pending'   => isset($item['pending']) ? $item['pending'] : 0,
+                'cancelled' => isset($item['cancelled']) ? $item['cancelled'] : 0,
+            ];
+        }
+        return json_encode($json);
     }
 
     protected function fetch()
@@ -32,14 +38,17 @@ class Employee
             $data[$item->employee_id][$status] = $item->total;
         }
 
+        $ret = [];
         $employees = $this->getEmployees();
-        foreach ($data as $emplyeeId => &$item) {
-            $item['employee'] = $employees[$emplyeeId];
+        foreach ($employees as $employee) {
+            $item = $data[$employee->id];
+            $item['employee'] = $employee;
+            $ret[] = $item;
         }
 
-        $this->cache = $data;
+        $this->cache = $ret;
 
-        return $data;
+        return $ret;
     }
 
     protected function countTotalBookings()
