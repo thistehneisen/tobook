@@ -388,7 +388,7 @@ return [
             'style_logo'          => 'Logo URL',
             'style_banner'        => 'Banner',
             'style_heading_color' => 'Heading color', // @todo
-            'style_color'         => 'Colour',
+            'style_text_color'    => 'Text color',
             'style_background'    => 'Background',
             'style_custom_css'    => 'Custom CSS', // @todo
         ],

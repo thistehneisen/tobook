@@ -9,13 +9,13 @@
     {{ HTML::style(asset('packages/alertify/alertify.bootstrap.css')) }}
     <link rel="stylesheet" href="{{ asset('assets/css/as/layout-1.css') }}">
     <style type="text/css">
-        @if(!empty($user->asOptions['style_background']) || !empty($user->asOptions['style_color']))
+        @if(!empty($user->asOptions['style_background']) || !empty($user->asOptions['style_text_color']))
         body {
             @if(!empty($user->asOptions['style_background']))
             background-color: {{ $user->asOptions['style_background'] }} !important;
             @endif
-            @if(!empty($user->asOptions['style_color']))
-            color: {{ $user->asOptions['style_color'] }};
+            @if(!empty($user->asOptions['style_text_color']))
+            color: {{ $user->asOptions['style_text_color'] }};
             @endif
         }
         @endif

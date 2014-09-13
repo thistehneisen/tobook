@@ -391,7 +391,7 @@ return [
             'style_logo'          => 'Logo URL',
             'style_banner'        => 'Banneri',
             'style_heading_color' => 'Heading color', // @todo
-            'style_color'         => 'Väri',
+            'style_text_color'    => 'Tekstin väri',
             'style_background'    => 'Tausta',
             'style_custom_css'    => 'Custom CSS', // @todo
         ],
