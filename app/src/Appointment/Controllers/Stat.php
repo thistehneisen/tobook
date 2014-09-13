@@ -79,13 +79,19 @@ class Stat extends Bookings
 
         $employeeId = Input::get('employee');
 
-        $currentMonth = new MonthlyStatistics($date, $employeeId);
-        $lastMonth = new MonthlyStatistics($prev, $employeeId);
+        $report = new MonthlyStatistics($date, $employeeId);
+        $currentMonth = $report->get();
+        $report = new MonthlyStatistics($prev, $employeeId);
+        $lastMonth = $report->get();
+
+        foreach (['revenue', 'bookings','occupation_percent'] as $field) {
+            $currentMonth['gap'][$field] = $currentMonth[$field] - $lastMonth[$field];
+        }
 
         return $this->render('stat.monthly', [
             'next'    => $next,
             'prev'    => $prev,
-            'monthly' =>  [$lastMonth->get(), $currentMonth->get()],
+            'monthly' => [$lastMonth, $currentMonth],
         ]);
     }
 

@@ -26,11 +26,38 @@
                     <h3 class="panel-title text-center">{{ $report['month'] }}</h3>
                 </div>
                 <div class="panel-body">
-                    <p>{{ trans('as.bookings.stat.revenue') }} <span class="pull-right">&euro;{{ $report['revenue'] }}</span></p>
-                    <p>{{ trans('as.bookings.stat.bookings') }} <span class="pull-right">{{ $report['bookings'] }}</span></p>
+                    <p>{{ trans('as.bookings.stat.revenue') }} <span class="pull-right">&euro;{{ $report['revenue'] }}
+                        @if (isset($report['gap']['revenue']))
+                            @if ($report['gap']['revenue'] > 0)
+                                <small class="text-success"><i class="fa fa-arrow-up"></i> <strong>{{ $report['gap']['revenue'] }}</strong></small>
+                            @elseif (($report['gap']['revenue'] < 0))
+                                <small class="text-danger"><i class="fa fa-arrow-down"></i> <strong>{{ $report['gap']['revenue'] }}</strong></small>
+                            @endif
+                        @endif
+                    </span></p>
+
+                    <p>{{ trans('as.bookings.stat.bookings') }}
+                    <span class="pull-right">{{ $report['bookings'] }}
+                        @if (isset($report['gap']['bookings']))
+                            @if ($report['gap']['bookings'] > 0)
+                                <small class="text-success"><i class="fa fa-arrow-up"></i> <strong>{{ $report['gap']['bookings'] }}</strong></small>
+                            @elseif ($report['gap']['bookings'] < 0)
+                                <small class="text-danger"><i class="fa fa-arrow-down"></i> <strong>{{ $report['gap']['bookings'] }}</strong></small>
+                            @endif
+                        @endif
+                    </span></p>
                     <p>{{ trans('as.bookings.stat.working_time') }} <span class="pull-right">{{ $report['working_time'] }}</span></p>
                     <p>{{ trans('as.bookings.stat.booked_time') }} <span class="pull-right">{{ $report['booked_time'] }}</span></p>
-                    <p>{{ trans('as.bookings.stat.occupation') }} <span class="pull-right">{{ $report['occupation_percent'] }}%</span></p>
+
+                    <p>{{ trans('as.bookings.stat.occupation') }} <span class="pull-right">{{ $report['occupation_percent'] }}%
+                        @if (isset($report['gap']['occupation_percent']))
+                            @if ($report['gap']['occupation_percent'] > 0)
+                                <small class="text-success"><i class="fa fa-arrow-up"></i> <strong>{{ $report['gap']['occupation_percent'] }}%</strong></small>
+                            @elseif ($report['gap']['occupation_percent'] < 0)
+                                <small class="text-danger"><i class="fa fa-arrow-down"></i> <strong>{{ $report['gap']['occupation_percent'] }}%</strong></small>
+                            @endif
+                        @endif
+                    </span></p>
                 </div>
             </div>
         </div>
