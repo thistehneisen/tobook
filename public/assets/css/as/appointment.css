@@ -131,12 +131,18 @@
   line-height: 22px;
   font-size: 13px;
 }
+.as-col li.as-col-header a {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 135px;
+  display: inline-block;
+}
 .as-col li.inactive {
   background-color: #888;
 }
 .as-col li.booked {
   color: #fff;
-  font-weight: 700;
   font-size: 13px;
   text-align: left;
   padding: 0 10px;
@@ -148,7 +154,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 165px;
+  width: 135px;
   display: inline-block;
 }
 .as-col li.confirmed {
@@ -183,7 +189,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 165px;
+  width: 135px;
   display: inline-block;
 }
 .as-col li.slot-booked-head {
@@ -192,6 +198,16 @@
 .as-col li.slot-booked-body {
   border-top: 0;
   border-bottom: 0;
+}
+.as-col li.active:hover,
+.as-col li.inactive:hover {
+  background: #fff !important;
+  color: #ec7923 !important;
+}
+.as-col li.active:hover:after,
+.as-col li.inactive:hover:after {
+  content: "varaa";
+  font-weight: 700;
 }
 .btn-plus {
   position: absolute;

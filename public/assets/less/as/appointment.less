@@ -146,13 +146,20 @@
         height: 25px;
         line-height: 22px;
         font-size: 13px;
+
+        a {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 135px;
+            display: inline-block;
+        }
     }
     li.inactive {
         background-color: #888;
     }
     li.booked {
         color: #fff;
-        font-weight: 700;
         font-size: 13px;
         text-align: left;
         padding: 0 10px;
@@ -163,7 +170,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            width: 165px;
+            width: 135px;
             display: inline-block;
         }
     }
@@ -198,7 +205,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            width: 165px;
+            width: 135px;
             display: inline-block;
         }
     }
@@ -208,6 +215,19 @@
     li.slot-booked-body{
         border-top: 0;
         border-bottom: 0;
+    }
+
+    li.active, li.inactive/*, li.freetime*/ {
+        &:hover {
+            background: #fff !important;
+            color: @orange !important;
+        }
+
+        // @TODO: fix this hack with JS?
+        &:hover:after {
+            content: "varaa";
+            font-weight: 700;
+        }
     }
 }
 .btn-plus {

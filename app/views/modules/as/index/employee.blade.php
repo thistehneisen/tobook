@@ -87,14 +87,12 @@
                             @endif
                           @elseif(strpos(trim($slotClass), 'freetime') === 0)
                             <?php $freetime = $selectedEmployee->getFreetime($weekDate, $hour, $minuteShift); ?>
-                             @if($freetime !== null)
+                            @if($freetime !== null)
                                 <span class="customer-tooltip"title="{{ $freetime->description }}">{{ $freetime->description }}</span>
                                 @if(strval($freetime->start_at) == sprintf('%02d:%02d:00', $hour, $minuteShift))
                                     <a ref="#" data-confirm="{{ trans('as.employees.confirm.delete_freetime') }}" data-action-url="{{ route('as.employees.freetime.delete') }}" data-freetime-id="{{ $freetime->id }}" class="btn-delete-employee-freetime pull-right"><i class="fa fa-remove"></i></a>
                                 @endif
-                             @endif
-                        @else
-                        varaa
+                            @endif
                         @endif
                     </li>
                      @endforeach

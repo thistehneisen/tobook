@@ -262,6 +262,7 @@ return [
         'confirm'             => [
             'delete_freetime' => 'Oletko varma, että haluat poistaa valitun vapaa ajan kalenterista?'
         ],
+        'free_time'           => 'Vapaa',
         'free_times'          => 'Vapaat',
         'working_times'       => 'Työvuorosuunnittelu',
     ],

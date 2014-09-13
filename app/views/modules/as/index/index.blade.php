@@ -79,20 +79,18 @@
                                 }
                             ?>
                             <span class="customer-tooltip"title="{{ $booking->consumer->getNameAttribute() }} {{ $serviceDescription }}"><a class="js-btn-view-booking" href="#" data-booking-id="{{ $booking->id }}" data-employee-id="{{ $employee->id }}">{{ $booking->consumer->getNameAttribute() }} {{ $serviceDescription }}</a></span>
-                            <a href="#select-modify-action" class="btn-plus fancybox btn-select-modify-action" data-booking-id="{{ $booking->id }}" data-action-url="{{ route('as.bookings.extra-service-form') }}" class="pull-right"><i class="fa fa-plus"></i></a>
+                            <a href="#select-modify-action" class="btn-plus fancybox btn-select-modify-action" data-booking-id="{{ $booking->id }}" data-action-url="{{ route('as.bookings.extra-service-form') }}"><i class="fa fa-plus"></i></a>
                             @else
                                 &nbsp;
                             @endif
                         @elseif(strpos(trim($slotClass), 'freetime') === 0)
                             <?php $freetime = $employee->getFreetime($selectedDate, $hour, $minuteShift); ?>
-                             @if($freetime !== null)
-                                <span class="customer-tooltip"title="{{ $freetime->description }}">{{ $freetime->description }}</span>
+                            @if($freetime !== null)
+                                <span>{{ $freetime->description !== '' ? $freetime->description : trans('as.employees.free_time') }}</span>
                                 @if(strval($freetime->start_at) == sprintf('%02d:%02d:00', $hour, $minuteShift))
-                                    <a href="#" data-confirm="{{ trans('as.employees.confirm.delete_freetime') }}" data-action-url="{{ route('as.employees.freetime.delete') }}" data-freetime-id="{{ $freetime->id }}" class="btn-delete-employee-freetime pull-right"><i class="fa fa-remove"></i></a>
+                                    <a href="#" data-confirm="{{ trans('as.employees.confirm.delete_freetime') }}" data-action-url="{{ route('as.employees.freetime.delete') }}" data-freetime-id="{{ $freetime->id }}" class="btn-delete-employee-freetime"><i class="fa fa-remove"></i></a>
                                 @endif
-                             @endif
-                        @else
-                        varaa
+                            @endif
                         @endif
                     </li>
                      @endforeach

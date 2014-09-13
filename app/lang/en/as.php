@@ -258,6 +258,7 @@ return [
         'start_time'          => 'Start time',
         'end_time'            => 'End time',
         'day_off'             => 'Is day off?',
+        'free_time'           => 'Free time',
         'free_times'          => 'Free times',
         'working_times'       => 'Working times',
 
