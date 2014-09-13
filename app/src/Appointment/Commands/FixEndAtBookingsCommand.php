@@ -31,7 +31,7 @@ class FixEndAtBookingsCommand extends Command
         $this->info('Update all records with total > 0');
 
         $all = DB::table('as_bookings')
-            ->where('end_at', '00:00:00')
+            //->where('end_at', 'start_at')
             ->orderBy('id', 'desc')
             ->get();
 
