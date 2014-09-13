@@ -547,7 +547,7 @@ class MoveAsCommand extends Command
                 ['key' => 'style_logo', 'value' => $item->logo],
                 ['key' => 'style_banner', 'value' => $item->banner],
                 ['key' => 'style_heading_color', 'value' => $item->color],
-                ['key' => 'style_color', 'value' => $item->color],
+                ['key' => 'style_text_color', 'value' => $item->color],
                 ['key' => 'style_background', 'value' => $item->background],
                 ['key' => 'style_custom_css', 'value' => $item->message],
             ];

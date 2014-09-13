@@ -47,10 +47,9 @@ class Frontend implements Strategy
         // get booking only certain date
         if (empty($this->bookingList[$selectedDate->toDateString()])) {
             $this->bookingList[$selectedDate->toDateString()] = $employee->bookings()
-                                                    ->where('date', $selectedDate->toDateString())
-                                                    ->where('status','<>', Booking::STATUS_CANCELLED)
-                                                    ->whereNull('deleted_at')->get();
-                                                    ->get();
+                ->where('date', $selectedDate->toDateString())
+                ->where('status','<>', Booking::STATUS_CANCELLED)
+                ->whereNull('deleted_at')->get();
         }
         foreach ($this->bookingList[$selectedDate->toDateString()] as $booking) {
             $bookingDate =  Carbon::createFromFormat('Y-m-d', $booking->date);

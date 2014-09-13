@@ -1,12 +1,36 @@
-.panel-heading {
-    text-transform: uppercase;
-}
-.datepicker table {
-    width: 100%;
+header {
+    .row {
+        margin: 20px 0;
+        text-align: center;
+
+        .banner {
+            margin: 10px 20px;
+            display: inline-block;
+        }
+    }
 }
 
-.datepicker-inline {
-    width: 100%;
+.panel-heading {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.panel-body {
+    background-color: #ECF0F1;
+    border-color: #ECF0F1;
+}
+
+.datepicker {
+    table {
+        width: 100%;
+
+        tr td.day:hover, tr td.day.focused, thead tr:first-child th:hover, tfoot tr th:hover {
+            background-color: #fff;
+        }
+    }
+
+    &.datepicker-inline {
+        width: 100%;
+    }
 }
 
 .list-group-item-heading {

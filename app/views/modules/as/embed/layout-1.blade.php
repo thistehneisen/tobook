@@ -2,24 +2,16 @@
 
 @section ('content')
 @if(!empty($user->asOptions['style_logo']) || (!empty($user->asOptions['style_banner'])))
-<div class="container-fluid">
+<header class="container-fluid">
     <div class="row">
-        <div class="col-sm-3">
-            @if(!empty($user->asOptions['style_logo']))
-            <img class="img-responsive" src="{{ $user->asOptions['style_logo'] }}" alt="">
-            @else
-            &nbsp;
-            @endif
-        </div>
-        <div class="col-sm-9">
-            @if(!empty($user->asOptions['style_banner']))
-            <img class="img-responsive" src="{{ $user->asOptions['style_banner'] }}" alt="">
-            @else
-            &nbsp;
-            @endif
-        </div>
+        @if(!empty($user->asOptions['style_logo']))
+            <div class="logo"><img class="img-responsive" src="{{ $user->asOptions['style_logo'] }}" alt=""></div>
+        @endif
+        @if(!empty($user->asOptions['style_banner']))
+            <div class="banner"><img class="img-responsive" src="{{ $user->asOptions['style_banner'] }}" alt=""></div>
+        @endif
     </div>
-</div>
+</header>
 @endif
 <div class="container-fluid">
     <!-- Sidebar -->

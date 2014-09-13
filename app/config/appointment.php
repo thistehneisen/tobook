@@ -192,10 +192,16 @@ return [
                 'style_heading_color' => [
                     'type' => 'Text'
                 ],
-                'style_color' => [
+                'style_text_color' => [
+                    'type' => 'Text'
+                ],
+                'style_accent_color' => [
                     'type' => 'Text'
                 ],
                 'style_background' => [
+                    'type' => 'Text'
+                ],
+                'style_panel_heading_background' => [
                     'type' => 'Text'
                 ],
                 'style_custom_css' => [

@@ -8,7 +8,7 @@
 
         $('.list-group-item-heading').on('click', function (e) {
             e.preventDefault();
-            $(this).siblings('div').find('div.services').slideToggle();
+            $(this).siblings('div').find('div.services').slideToggle('fast');
         });
 
         $('.btn-fancybox').fancybox();

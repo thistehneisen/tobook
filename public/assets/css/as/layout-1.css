@@ -1,10 +1,29 @@
+header .row {
+  margin: 20px 0;
+  text-align: center;
+}
+header .row .banner {
+  margin: 10px 20px;
+  display: inline-block;
+}
 .panel-heading {
   text-transform: uppercase;
+  font-weight: bold;
+}
+.panel-body {
+  background-color: #ECF0F1;
+  border-color: #ECF0F1;
 }
 .datepicker table {
   width: 100%;
 }
-.datepicker-inline {
+.datepicker table tr td.day:hover,
+.datepicker table tr td.day.focused,
+.datepicker table thead tr:first-child th:hover,
+.datepicker table tfoot tr th:hover {
+  background-color: #fff;
+}
+.datepicker.datepicker-inline {
   width: 100%;
 }
 .list-group-item-heading {

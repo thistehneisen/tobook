@@ -45,7 +45,8 @@
             format: 'yyyy-mm-dd',
             startDate: new Date(),
             todayBtn: true,
-            todayHighlight: true
+            todayHighlight: true,
+            weekStart: 1
         }).on('changeDate', function (e) {
             if (window.location.href.indexOf('date') != -1) {
                 window.location.href = window.location.href.replace(new RegExp("date=.*?(&|$)", 'g'), "date=" + e.format());
