@@ -14,7 +14,7 @@ return [
     ],
     'premium_modules' => [
         'appointment' => [
-            'url' => route('appointment.index'),
+            'url' => route('as.index'),
             'enable' => true,
         ],
         'cashier' => [
@@ -33,5 +33,9 @@ return [
             'url' => route('loyalty.index'),
             'enable' => true,
         ],
+        'marketing' => [
+            'url' => route('mt.consumers.index'),
+            'enable' => true,
+        ]
     ]
 ];

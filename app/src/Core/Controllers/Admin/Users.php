@@ -73,6 +73,7 @@ class Users extends Crud
     {
         $user = User::findOrFail($id);
         $modules = Config::get('varaa.premium_modules');
+
         return $this->render('users.modules', [
             'modules' => $modules,
             'user'    => $user,
