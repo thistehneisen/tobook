@@ -462,9 +462,9 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Employees@customTime'
     ]);
 
-    Route::post('employees/custom-time/{id}', [
-        'as' => 'as.employees.customTime',
-        'uses' => 'App\Appointment\Controllers\Employees@customTime'
+    Route::post('employees/custom-time/{id}/upsert/{customTimeId?}', [
+        'as'   => 'as.employees.customTime.upsert',
+        'uses' => 'App\Appointment\Controllers\Employees@upsertCustomTime'
     ]);
 
     Route::get('employees/default-time/{id}', [

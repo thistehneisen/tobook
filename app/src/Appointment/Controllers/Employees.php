@@ -1,12 +1,13 @@
 <?php namespace App\Appointment\Controllers;
 
-use App, View, Confide, Redirect, Input, Config, Util, Response;
+use App, View, Confide, Redirect, Input, Config, Util, Response, Validator;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\EmployeeDefaultTime;
 use App\Appointment\Models\EmployeeFreetime;
 use App\Appointment\Models\EmployeeCustomTime;
 use App\Appointment\Models\Service;
 use Carbon\Carbon;
+
 class Employees extends AsBase
 {
     use App\Appointment\Traits\Crud;
@@ -235,33 +236,55 @@ class Employees extends AsBase
      */
     public function customTime($id)
     {
-        $employee    = Employee::find($id);
-        $perPage     = (int) Input::get('perPage', Config::get('view.perPage'));
-        $customTimes = $employee->customTimes()->paginate($perPage);
+        $employee    = Employee::findOrFail($id);
         $fields      = with(new EmployeeCustomTime)->fillable;
+        $perPage     = (int) Input::get('perPage', Config::get('view.perPage'));
+        $customTimes = $employee
+            ->customTimes()
+            ->orderBy('id', 'desc')
+            ->paginate($perPage);
 
-        $date     = Input::get('date');
-        $startAt  = Input::get('start_at');
-        $endAt    = Input::get('end_at');
-        $isDayOff = Input::get('is_day_off', 0);
+        return $this->render('customTime', [
+            'employee'   => $employee,
+            'items'      => $customTimes,
+            'fields'     => $fields,
+            'langPrefix' => $this->langPrefix,
+            'now'        => Carbon::now()
+        ]);
+    }
 
-        if(!empty($date) && ((!empty($startAt) && !empty($endAt)) || !empty($isDayOff))){
-            $employeeCustomTime = new EmployeeCustomTime;
-            $employeeCustomTime->fill([
-                'date'       => $date,
-                'start_at'   => $startAt,
-                'end_at'     => $endAt,
-                'is_day_off' => $isDayOff
+    /**
+     * Add/edit custom time of an employee
+     *
+     * @param int $id EmployeeId
+     *
+     * @return Redirect
+     */
+    public function upsertCustomTime($id, $customTimeId = null)
+    {
+        try {
+            $employee = Employee::findOrFail($id);
+
+            $customTime = new EmployeeCustomTime;
+            $customTime->fill([
+                'date'       => Input::get('date'),
+                'start_at'   => Input::get('start_at'),
+                'end_at'     => Input::get('end_at'),
+                'is_day_off' => Input::get('is_day_off', false),
             ]);
-            $employeeCustomTime->employee()->associate($employee);
-            $employeeCustomTime->save();
+            $customTime->employee()->associate($employee);
+            $customTime->save();
+        } catch (\Watson\Validating\ValidationException $ex) {
+            return Redirect::back()->withInput()->withErrors($ex->getErrors());
         }
 
-        return View::make('modules.as.employees.customTime', [
-            'employee'=> $employee,
-            'items'   => $customTimes,
-            'fields'  => $fields,
-            'langPrefix' => 'as.employees'
-        ]);
+        $message = ($customTimeId !== null)
+            ? trans('as.crud.success_edit')
+            : trans('as.crud.success_add');
+
+        return Redirect::back()->with(
+            'messages',
+            $this->successMessageBag($message)
+        );
     }
 }

@@ -4,6 +4,10 @@
     {{ HTML::style(asset('packages/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css')) }}
 @stop
 
+@section ('title')
+    {{ trans('as.employees.custom_time') }} :: @parent
+@stop
+
 @section ('scripts')
     @parent
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment-with-locales.min.js') }}
@@ -21,51 +25,45 @@ $(function () {
 @stop
 
 @section ('content')
+    @include ('modules.as.employees.tab', $employee)
 
-@include ('modules.as.employees.tab', $employee)
-@include ('el.messages')
 <div id="form-add-custom-time">
-{{ Form::open(['route' => ['as.employees.customTime', (isset($employee->id)) ? $employee->id: null], 'class' => 'form-horizontal well', 'role' => 'form']) }}
- <div class="form-group">
-    <div class="col-sm-5">
-        <h4 class="comfortaa">{{ trans('as.employees.custom_time') }}</h4>
-    </div>
-</div>
-<div class="form-group">
-    <label for="phone" class="col-sm-2 control-label">{{ trans('as.employees.date') }}</label>
-    <div class="col-sm-10 {{ Form::errorCSS('phone', $errors) }}">
-        <div class="input-group">
-            {{ Form::text('date', (isset($customTime)) ? $customTime->date:'', ['class' => 'form-control input-sm date-picker', 'id' => 'date']) }}
+{{ Form::open(['route' => ['as.employees.customTime.upsert', $employee->id], 'class' => 'form-horizontal well', 'role' => 'form']) }}
+    <h4 class="comfortaa">{{ trans('as.employees.custom_time') }}</h4>
+    @include ('el.messages')
+
+    <div class="form-group">
+        <label for="phone" class="col-sm-2 control-label">{{ trans('as.employees.date') }}</label>
+        <div class="col-sm-6 {{ Form::errorCSS('phone', $errors) }}">
+            {{ Form::text('date', (isset($customTime)) ? $customTime->date : $now->toDateString(), ['class' => 'form-control input-sm date-picker', 'id' => 'date']) }}
         </div>
     </div>
-</div>
-<div class="form-group">
-    <label for="start_at" class="col-sm-2 control-label">{{ trans('as.employees.start_at') }}</label>
-    <div class="col-sm-10 {{ Form::errorCSS('start_at', $errors) }}">
-        <div class="input-group">
-            {{ Form::text('start_at', (isset($customTime)) ? $customTime->start_at:'', ['class' => 'form-control input-sm time-picker', 'id' => 'start_at']) }}
+
+    <div class="form-group">
+        <label for="start_at" class="col-sm-2 control-label">{{ trans('as.employees.start_at') }}</label>
+        <div class="col-sm-6 {{ Form::errorCSS('start_at', $errors) }}">
+            {{ Form::text('start_at', (isset($customTime)) ? $customTime->start_at : '', ['class' => 'form-control input-sm time-picker', 'id' => 'start_at']) }}
         </div>
     </div>
-</div>
-<div class="form-group">
-    <label for="end_at" class="col-sm-2 control-label">{{ trans('as.employees.end_at') }}</label>
-    <div class="col-sm-10 {{ Form::errorCSS('end_at', $errors) }}">
-        <div class="input-group">
-            {{ Form::text('end_at', (isset($customTime)) ? $customTime->end_at:'', ['class' => 'form-control input-sm time-picker', 'id' => 'end_at']) }}
+
+    <div class="form-group">
+        <label for="end_at" class="col-sm-2 control-label">{{ trans('as.employees.end_at') }}</label>
+        <div class="col-sm-6 {{ Form::errorCSS('end_at', $errors) }}">
+            {{ Form::text('end_at', (isset($customTime)) ? $customTime->end_at : '', ['class' => 'form-control input-sm time-picker', 'id' => 'end_at']) }}
         </div>
     </div>
-</div>
-<div class="form-group">
-    <label for="start_at" class="col-sm-2 control-label">{{ trans('as.employees.is_day_off') }}</label>
-    <div class="col-sm-10 {{ Form::errorCSS('is_day_off', $errors) }}">
-        <label>{{ Form::checkbox('is_day_off', 1, (isset($customTime)) ? $customTime->is_day_off: false ); }}</label>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-6 {{ Form::errorCSS('is_day_off', $errors) }}">
+            <label>{{ Form::checkbox('is_day_off', 1, (isset($customTime)) ? $customTime->is_day_off: false ); }} {{ trans('as.employees.is_day_off') }}</label>
+        </div>
     </div>
-</div>
-<div class="form-group">
-    <div class="col-sm-offset-2 col-sm-5">
-        <button type="submit" class="btn btn-primary">{{ trans('common.save') }}</button>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-5">
+            <button type="submit" class="btn btn-primary">{{ trans('common.save') }}</button>
+        </div>
     </div>
-</div>
 {{ Form::close() }}
 </div>
 <table class="table table-hover">
