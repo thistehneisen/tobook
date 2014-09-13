@@ -300,6 +300,8 @@ trait Crud
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
         $items = $query->paginate($perPage);
 
+        // Disable sorting items
+        $this->crudSortable = false;
         return $this->renderList($items);
     }
 
