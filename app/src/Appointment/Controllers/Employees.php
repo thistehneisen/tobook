@@ -285,13 +285,25 @@ class Employees extends AsBase
     public function doUpsertCustomTime($id, $customTimeId = null)
     {
         try {
-            $employee = Employee::findOrFail($id);
+            $message = ($customTimeId !== null)
+                ? trans('as.crud.success_edit')
+                : trans('as.crud.success_add');
 
-            $customTime = ($customTimeId === null)
-                ? new EmployeeCustomTime
-                : EmployeeCustomTime::where('employee_id', $id)
-                    ->where('id', $customTimeId)
-                    ->firstOrFail();
+            $employee = Employee::findOrFail($id);
+            // Check duplicate
+            $customTime = EmployeeCustomTime::where('employee_id', $id)
+                    ->where('date', Input::get('date'))
+                    ->first();
+
+            if ($customTime === null) {
+                $customTime = ($customTimeId === null)
+                    ? new EmployeeCustomTime
+                    : EmployeeCustomTime::where('employee_id', $id)
+                        ->where('id', $customTimeId)
+                        ->firstOrFail();
+            } else {
+                $message = trans('as.crud.success_edit');
+            }
 
             $customTime->fill([
                 'date'       => Input::get('date'),
@@ -301,19 +313,15 @@ class Employees extends AsBase
             ]);
             $customTime->employee()->associate($employee);
             $customTime->save();
+
+            return Redirect::route('as.employees.customTime', ['id' => $id])
+                ->with(
+                    'messages',
+                    $this->successMessageBag($message)
+                );
         } catch (\Watson\Validating\ValidationException $ex) {
             return Redirect::back()->withInput()->withErrors($ex->getErrors());
         }
-
-        $message = ($customTimeId !== null)
-            ? trans('as.crud.success_edit')
-            : trans('as.crud.success_add');
-
-        return Redirect::route('as.employees.customTime', ['id' => $id])
-            ->with(
-                'messages',
-                $this->successMessageBag($message)
-            );
     }
 
     public function deleteCustomTime($id, $customTimeId)
