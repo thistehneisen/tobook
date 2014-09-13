@@ -1,16 +1,5 @@
 @extends ('modules.as.layout')
 
-@section ('scripts')
-    @parent
-<script>
-$(function () {
-    // Activate the first tab
-    $('ul.nav-tabs').children('li:first').addClass('active');
-    $('div.tab-pane:first').addClass('active');
-});
-</script>
-@stop
-
 @section ('content')
 <h3>{{ trans('as.options.'.$page.'.index') }}</h3>
 
@@ -20,8 +9,8 @@ $(function () {
 </div>
 
 <ul class="nav nav-tabs" role="tablist">
-    @foreach ($sections as $section)
-    <li><a href="#section-{{ $section }}" role="tab" data-toggle="tab">{{ trans('as.options.'.$page.'.'.$section) }}</a></li>
+    @foreach ($sections as $index => $section)
+    <li class="{{ $index === 0 ? 'active' : '' }}"><a href="#section-{{ $section }}" role="tab" data-toggle="tab">{{ trans('as.options.'.$page.'.'.$section) }}</a></li>
     @endforeach
 </ul>
 <br>
@@ -30,8 +19,9 @@ $(function () {
 
 {{ Form::open(['route' => ['as.options', $page], 'class' => 'form-horizontal']) }}
 <div class="tab-content">
+    <?php $index = 0 ?>
     @foreach ($fields as $section => $controls)
-    <div class="tab-pane" id="section-{{ $section }}">
+    <div class="tab-pane {{ $index === 0 ? 'active' : '' }}" id="section-{{ $section }}">
         @foreach ($controls as $field)
         <div class="form-group">
             <label class="control-label col-sm-3">{{ trans('as.options.'.$page.'.'.$field->getName()) }}</label>
@@ -39,6 +29,7 @@ $(function () {
         </div>
         @endforeach
     </div>
+    <?php $index++; ?>
     @endforeach
 </div>
 
