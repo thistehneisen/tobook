@@ -202,43 +202,46 @@ return [
         'no_employees' => 'There is no employee to be selected',
     ],
     'bookings' => [
-        'confirmed'       => 'Vahvistettu',
-        'pending'         => 'Odottaa',
-        'cancelled'       => 'Peruttu',
-        'arrived'         => 'Asiakas saapui',
-        'paid'            => 'Asiakas maksoi',
-        'not_show_up'     => 'Asiakas ei ilmestynyt paikalle',
-        'change_status'   => 'Muokkaa tilaa',
-        'all'             => 'Varaukset',
-        'add'             => 'Tee varaus',
-        'invoices'        => 'Laskut',
-        'customers'       => 'Asiakkaat',
-        'statistics'      => 'Statistiikka',
-        'date'            => 'Päivämäärä',
-        'total'           => 'Duration', // @todo
-        'start_at'        => 'Aloitusaika',
-        'end_at'          => 'Päättymisaika',
-        'status'          => 'Tila',
-        'total_price'     => 'Hinta', // @todo
-        'uuid'            => 'UUID',
-        'ip'              => 'IP', // @todo,
-        'add_service'     => 'Lisää palvelu',
-        'booking_info'    => 'Tiedot',
-        'booking_id'      => 'Yksilöllinen ID',
-        'categories'      => 'Kategoriat',
-        'services'        => 'Palvelut',
-        'service_time'    => 'Kesto',
-        'modify_time'     => 'Muokkaa aikaa',
-        'modify_duration' => 'Muokkaa kestoa',
-        'employee'        => 'Työntekijä',
-        'notes'           => 'Muistiinpanoja',
-        'firstname'       => 'Etunimi',
-        'lastname'        => 'Sukunimi',
-        'email'           => 'Sähköposti',
-        'phone'           => 'Puhelinnumero',
-        'address'         => 'Osoite',
-        'confirm_booking' => 'Vahvista varaus',
-        'error'           => [
+        'confirmed'         => 'Vahvistettu',
+        'pending'           => 'Odottaa',
+        'cancelled'         => 'Peruttu',
+        'arrived'           => 'Asiakas saapui',
+        'paid'              => 'Asiakas maksoi',
+        'not_show_up'       => 'Asiakas ei ilmestynyt paikalle',
+        'change_status'     => 'Muokkaa tilaa',
+        'all'               => 'Varaukset',
+        'add'               => 'Tee varaus',
+        'invoices'          => 'Laskut',
+        'customers'         => 'Asiakkaat',
+        'statistics'        => 'Statistiikka',
+        'date'              => 'Päivämäärä',
+        'total'             => 'Duration', // @todo
+        'start_at'          => 'Aloitusaika',
+        'end_at'            => 'Päättymisaika',
+        'status'            => 'Tila',
+        'total_price'       => 'Hinta', // @todo
+        'uuid'              => 'UUID',
+        'ip'                => 'IP', // @todo,
+        'add_service'       => 'Lisää palvelu',
+        'booking_info'      => 'Tiedot',
+        'booking_id'        => 'Yksilöllinen ID',
+        'categories'        => 'Kategoriat',
+        'services'          => 'Palvelut',
+        'service_time'      => 'Kesto',
+        'modify_time'       => 'Muokkaa aikaa',
+        'modify_duration'   => 'Muokkaa kestoa',
+        'employee'          => 'Työntekijä',
+        'notes'             => 'Muistiinpanoja',
+        'firstname'         => 'Etunimi',
+        'lastname'          => 'Sukunimi',
+        'email'             => 'Sähköposti',
+        'phone'             => 'Puhelinnumero',
+        'address'           => 'Osoite',
+        'confirm_booking'   => 'Vahvista varaus',
+        'service_employee'  => 'Työntekijä',
+        'date_time'         => 'Päivämäärä',
+        'price'             => 'Hinta',
+        'error'             => [
             'add_overlapped_booking' => 'Overlapped booking time!',// @todo
             'insufficient_slots'     => 'There is no enough time slots for this booking!',// @todo
         ],
@@ -305,6 +308,8 @@ return [
         'email'            => 'Sähköposti',
         'phone'            => 'Puhelinnumero',
         'checkout'         => 'Checkout', // @todo
+        'fi_version'       => 'Suomeksi',
+        'en_version'       => 'Englanniksi',
     ],
     'options' => [
         'heading' => 'Asetukset',
@@ -370,6 +375,13 @@ return [
             'confirm_subject_client_default'                 => 'Kiitos varauksestasi',
             'confirm_tokens_client'                          => 'Viestin sisältö',
             'confirm_tokens_client_default'                  => $confirmTokensClient,
+            'confirm_email_enable'                           => 'Sähköposti käytössä',
+            'confirm_sms_enable'                             => 'SMS käytössä',
+            'confirm_sms_country_code'                       => 'Koodi',
+            'confirm_consumer_sms_message'                   => 'Asiakkaan tekstiviesti',
+            'confirm_employee_sms_message'                   => 'Työntekijän tekstiviesti',
+            'confirm_consumer_body_sms_message_default'      => $confirmConsumerMessage,
+            'confirm_employee_body_sms_message_default'      => $confirmEmployeeMessage,
             'payment_subject_client'                         => 'Asiakkaan maksuvahvistuksen otsikko',
             'payment_subject_client_default'                 => 'Payment received', // @todo
             'payment_tokens_client'                          => 'Viestin sisältö',
@@ -378,13 +390,6 @@ return [
             'confirm_subject_admin_default'                  => 'Uusi varaus on saapunut',
             'confirm_tokens_admin'                           => 'Viestin sisältö',
             'confirm_tokens_admin_default'                   => $confirmTokensAdmin,
-            'confirm_email_enable'                           => 'Sähköposti käytössä',
-            'confirm_sms_enable'                             => 'SMS käytössä',
-            'confirm_sms_country_code'                       => 'Koodi',
-            'confirm_consumer_sms_message'                   => 'Asiakkaan tekstiviesti',
-            'confirm_employee_sms_message'                   => 'Työntekijän tekstiviesti',
-            'confirm_consumer_body_sms_message_default'      => $confirmConsumerMessage,
-            'confirm_employee_body_sms_message_default'      => $confirmEmployeeMessage,
             'payment_subject_admin'                          => 'Ylläpitäjän maksuvahvistuksen otsikko',
             'payment_subject_admin_default'                  => 'New payment received', // @todo
             'payment_tokens_admin'                           => 'Viestin sisältö',
@@ -410,7 +415,7 @@ return [
             'style_background'                  => 'Tausta',
             'style_custom_css'                  => 'Custom CSS', // @todo
             'style_accent_color'                => 'Accent Color', // @todo
-            'style_panel_heading_background'    => 'Panel heading background', // @todo
+            'style_heading_background'          => 'Heading background', // @todo
         ],
         'working_time' => [
             'index' => 'Working time',
@@ -440,5 +445,4 @@ return [
         'success_bulk'   => 'Item was deleted successfully.', // @todo
         'sortable'       => 'Drag to reorder', // @todo
     ]
-
 ];
