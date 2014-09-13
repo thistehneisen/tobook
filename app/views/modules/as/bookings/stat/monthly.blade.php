@@ -28,9 +28,9 @@
                 <div class="panel-body">
                     <p>{{ trans('as.bookings.stat.revenue') }} <span class="pull-right">&euro;{{ $report['revenue'] }}</span></p>
                     <p>{{ trans('as.bookings.stat.bookings') }} <span class="pull-right">{{ $report['bookings'] }}</span></p>
-                    <p>{{ trans('as.bookings.stat.working_time') }} <span class="pull-right">{{ '' }}</span></p>
+                    <p>{{ trans('as.bookings.stat.working_time') }} <span class="pull-right">{{ $report['working_time'] }}</span></p>
                     <p>{{ trans('as.bookings.stat.booked_time') }} <span class="pull-right">{{ $report['booked_time'] }}</span></p>
-                    <p>{{ trans('as.bookings.stat.occupation') }} <span class="pull-right">{{ '' }}%</span></p>
+                    <p>{{ trans('as.bookings.stat.occupation') }} <span class="pull-right">{{ $report['occupation_percent'] }}%</span></p>
                 </div>
             </div>
         </div>
