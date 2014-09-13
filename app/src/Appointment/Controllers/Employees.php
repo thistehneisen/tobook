@@ -159,12 +159,12 @@ class Employees extends AsBase
      */
     public function getFreeTimeForm()
     {
-        $employeeId = Input::get('employee_id');
+        $employeeId  = Input::get('employee_id');
         $bookingDate = Input::get('booking_date');
-        $startTime = Input::get('start_time');
-        $endTime = with(new Carbon($startTime))->addMinutes(60);
-        $employee  = Employee::find($employeeId);
-        $employees = Employee::ofCurrentUser()->lists('name','id');
+        $startTime   = Input::get('start_time');
+        $endTime     = with(new Carbon($startTime))->addMinutes(60);
+        $employee    = Employee::find($employeeId);
+        $employees   = Employee::ofCurrentUser()->lists('name','id');
 
         //TODO get form settings or somewhere else
         $workingTimes = range(8,17);

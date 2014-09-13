@@ -33,7 +33,13 @@
                                 </div>
                             </div>
                         </div>
-           <div class="col-sm-6">
+                        <div class="col-sm-6">
+                            <div class="form-group row">
+                                <label for="keyword" class="col-sm-4 control-label">{{ trans('as.bookings.keyword') }}</label>
+                                <div class="col-sm-8">
+                                    {{ Form::text('keyword', '', ['class' => 'form-control input-sm select2', 'id' => 'keyword']) }}
+                                </div>
+                            </div>
                             <div class="form-group row">
                                 <label for="consumer_firstname" class="col-sm-4 control-label">{{ trans('as.bookings.firstname') }}</label>
                                 <div class="col-sm-8">
@@ -156,7 +162,7 @@
                         <div class="form-group row">
                             <label for="modify_times" class="col-sm-4 control-label">{{ trans('as.bookings.modify_time') }} </label>
                             <div class="col-sm-8">
-                                {{ Form::select('modify_times', array_combine(range(-60,60, 15), range(-60,60, 15)), isset($modifyTime) ? $modifyTime : '', ['class' => 'form-control input-sm', 'id' => 'modify_times']) }}
+                                {{ Form::select('modify_times', array_combine(range(-60,60, 15), range(-60,60, 15)), isset($modifyTime) ? $modifyTime : 0, ['class' => 'form-control input-sm', 'id' => 'modify_times']) }}
                             </div>
                         </div>
                         <div class="form-group row">
@@ -249,3 +255,38 @@
         </div>
     </div>
 </form>
+<input type="hidden" value="" id="consumer_data"/>
+<script>
+$(function () {
+    $("#keyword").select2({
+        placeholder: "Search for a consumer",
+        minimumInputLength: 4,
+        ajax: {
+            url: "{{ route('as.bookings.search-consumer') }}",
+            dataType: 'json',
+            data: function (term, page) {
+                return {
+                   keyword : term
+                };
+            },
+            results: function (response, page) {
+                var data = {};
+                $.each(response, function (i){
+                    data[response[i].id] = response[i];
+                });
+                $('#consumer_data').val(JSON.stringify(data));
+                return { results: response };
+            },
+        },
+    });
+    $("#keyword").on("change", function(e) {
+       var index = e.val;
+       var data = JSON.parse($('#consumer_data').val());
+       $('#firstname').val(data[index].first_name);
+       $('#lastname').val(data[index].last_name);
+       $('#phone').val(data[index].phone);
+       $('#email').val(data[index].email);
+       $('#address').val(data[index].address);
+    });
+});
+</script>

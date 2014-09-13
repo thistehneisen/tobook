@@ -497,6 +497,11 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Bookings@changeStatus'
     ]);
 
+    Route::get('bookings/search-consumer', [
+        'as' => 'as.bookings.search-consumer',
+        'uses' => 'App\Appointment\Controllers\Bookings@searchConsumer'
+    ]);
+
     Route::get('bookings/get-employee-services', [
         'as' => 'as.bookings.employee.services',
         'uses' => 'App\Appointment\Controllers\Bookings@getEmployeeServicesByCategory'

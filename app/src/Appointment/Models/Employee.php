@@ -106,6 +106,7 @@ class Employee extends Base
     //TODO change to another method to compare time
     public function getSlotClass($date, $hour, $minute, $context = 'backend', $service = null)
     {
+        //Cache by date for employee view
         if(empty($this->strategy[$date])){
             $this->strategy[$date] = new Backend();
             if ($context === 'frontend') {

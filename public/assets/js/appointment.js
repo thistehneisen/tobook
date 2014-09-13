@@ -104,6 +104,7 @@
                 dataType: 'json'
             }).done(function (data) {
                 $('#services').empty();
+                $('#service_times').empty();
                 $('#services').append(
                     $('<option>', {
                         value: 0,
@@ -148,6 +149,10 @@
                     );
                 }
             });
+        });
+        $(document).on('change', '#service_times', function() {
+            var start_time = $('#start_time').val();
+            //var service_time = $
         });
         $(document).on('click', '#btn-add-employee-freetime', function (e) {
             e.preventDefault();

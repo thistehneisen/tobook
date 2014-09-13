@@ -1,5 +1,17 @@
 @extends ('modules.as.layout')
 
+@section ('styles')
+    @parent
+    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2.min.css') }}
+    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2-bootstrap.min.css') }}
+@stop
+
+@section ('scripts')
+    @parent
+    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2.min.js') }}
+    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2_locale_'.App::getLocale().'.min.js') }}
+@stop
+
 @section('main-classes') as-wrapper @stop
 
 @section ('content')
