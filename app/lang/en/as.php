@@ -236,6 +236,14 @@ return [
         ],
         'warning'      => [
             'existing_user'   => 'There is an user associate with this email in our system. Do you want to use these information instead?',// @todo
+        ],
+        'stat' => [
+            'monthly'      => 'Monthly review', // @todo
+            'bookings'     => 'Bookings',
+            'revenue'      => 'Revenue',
+            'working_time' => 'Working time',
+            'booked_time'  => 'Booked time',
+            'occupation'   => 'Occupation %'
         ]
     ],
     'employees' => [
