@@ -29,9 +29,9 @@
                     <p>{{ trans('as.bookings.stat.revenue') }} <span class="pull-right">&euro;{{ $report['revenue'] }}
                         @if (isset($report['gap']['revenue']))
                             @if ($report['gap']['revenue'] > 0)
-                                <small class="text-success"><i class="fa fa-arrow-up"></i> <strong>{{ $report['gap']['revenue'] }}</strong></small>
+                                <small class="text-success"><i class="fa fa-arrow-up"></i> <strong>&euro;{{ $report['gap']['revenue'] }}</strong></small>
                             @elseif (($report['gap']['revenue'] < 0))
-                                <small class="text-danger"><i class="fa fa-arrow-down"></i> <strong>{{ $report['gap']['revenue'] }}</strong></small>
+                                <small class="text-danger"><i class="fa fa-arrow-down"></i> <strong>&euro;{{ $report['gap']['revenue'] }}</strong></small>
                             @endif
                         @endif
                     </span></p>
