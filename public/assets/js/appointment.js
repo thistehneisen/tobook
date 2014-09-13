@@ -55,7 +55,8 @@
 
         // Date picker
         $('.date-picker').datepicker({
-            format: 'yyyy-mm-dd'
+            format: 'yyyy-mm-dd',
+            language: $('body').data('locale')
         });
         $('#calendar_date').datepicker({
             format: 'yyyy-mm-dd'
