@@ -292,6 +292,11 @@ trait Crud
             return $subQuery;
         });
 
+        // Limit results to of the current user only
+        if (method_exists($this->getModel(), 'user')) {
+            $query = $query->ofCurrentUser();
+        }
+
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
         $items = $query->paginate($perPage);
 
