@@ -39,11 +39,11 @@ class Backend implements Strategy
         foreach ($this->customTimeCache as $customTime) {
             $startAt =  Carbon::createFromFormat('H:i:s', $customTime->start_at, Config::get('app.timezone'));
             $endAt   =  Carbon::createFromFormat('H:i:s', $customTime->end_at, Config::get('app.timezone'));
-            if (($rowTime >= $startAt && $rowTime <= $endAt) && !$customTime->is_day_off) {
+            if ($rowTime >= $startAt && $rowTime <= $endAt && !$customTime->is_day_off) {
                 $class = 'fancybox active';
                 $this->customTimeSlot[$selectedDate->toDateString()][(int) $hour][(int) $minute] = $customTime;
             } else {
-                 $class = 'inactive';
+                $class = 'custom inactive';
             }
         }
 
