@@ -282,6 +282,8 @@ trait Crud
         $query = $this->applyQueryStringFilter($query);
 
         $fillable = $this->getModel()->fillable;
+        // Add ID to be candicate for searching
+        $fillable[] = 'id';
         $query = $query->where(function ($subQuery) use ($fillable, $q) {
             foreach ($fillable as $field) {
                 $subQuery = $subQuery->orWhere($field, 'LIKE', '%'.$q.'%');
