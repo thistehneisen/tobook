@@ -1,14 +1,5 @@
 @extends ('modules.as.layout')
 
-@section ('styles')
-    @parent
-<style>
-.pagination {
-    margin: 0 !important;
-}
-</style>
-@stop
-
 @if ($sortable === true)
     @include('modules.as.crud.sortable')
 @endif
