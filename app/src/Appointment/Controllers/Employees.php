@@ -287,9 +287,11 @@ class Employees extends AsBase
         try {
             $employee = Employee::findOrFail($id);
 
-            $customTime = ($customTimeId !== null)
-                ? EmployeeCustomTime::findOrFail($customTimeId)
-                : new EmployeeCustomTime;
+            $customTime = ($customTimeId === null)
+                ? new EmployeeCustomTime
+                : EmployeeCustomTime::where('employee_id', $id)
+                    ->where('id', $customTimeId)
+                    ->firstOrFail();
 
             $customTime->fill([
                 'date'       => Input::get('date'),
@@ -311,6 +313,19 @@ class Employees extends AsBase
             ->with(
                 'messages',
                 $this->successMessageBag($message)
+            );
+    }
+
+    public function deleteCustomTime($id, $customTimeId)
+    {
+        $customTime = EmployeeCustomTime::where('employee_id', $id)
+            ->where('id', $customTimeId)
+            ->delete();
+
+        return Redirect::route('as.employees.customTime', ['id' => $id])
+            ->with(
+                'messages',
+                $this->successMessageBag(trans('as.crud.success_delete'))
             );
     }
 }

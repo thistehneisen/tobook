@@ -471,6 +471,11 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Employees@doUpsertCustomTime'
     ]);
 
+    Route::get('employees/custom-time/{id}/delete/{customTimeId?}', [
+        'as'   => 'as.employees.customTime.delete',
+        'uses' => 'App\Appointment\Controllers\Employees@deleteCustomTime'
+    ]);
+
     Route::get('employees/default-time/{id}', [
         'as' => 'as.employees.defaultTime.get',
         'uses' => 'App\Appointment\Controllers\Employees@defaultTime'

@@ -57,7 +57,7 @@ $(function () {
             <td>
                 <div  class="pull-right">
                     <a href="{{ route('as.employees.customTime.upsert', ['id' => $employee->id, 'customTimeId' => $item->id]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
-                    <a href="{{ route('as.employees.customTime.upsert', ['id' => $employee->id, 'customTimeId' => $item->id]) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
+                    <a href="{{ route('as.employees.customTime.delete', ['id' => $employee->id, 'customTimeId' => $item->id]) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
                 </div>
             </td>
         </tr>
