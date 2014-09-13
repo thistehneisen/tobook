@@ -573,13 +573,13 @@ class MoveAsCommand extends Command
             $records = [];
 
             $data = [
-                'mon' => ['start' => $item->monday_from, 'end' => $item->monday_to],
-                'tue' => ['start' => $item->tuesday_from, 'end' => $item->tuesday_to],
-                'wed' => ['start' => $item->wednesday_from, 'end' => $item->wednesday_to],
-                'thu' => ['start' => $item->thursday_from, 'end' => $item->thursday_to],
-                'fri' => ['start' => $item->friday_from, 'end' => $item->friday_to],
-                'sat' => ['start' => $item->saturday_from, 'end' => $item->saturday_to],
-                'sun' => ['start' => $item->sunday_from, 'end' => $item->sunday_to],
+                'mon' => ['start' => $item->monday_admin_from, 'end' => $item->monday_admin_to],
+                'tue' => ['start' => $item->tuesday_admin_from, 'end' => $item->tuesday_admin_to],
+                'wed' => ['start' => $item->wednesday_admin_from, 'end' => $item->wednesday_admin_to],
+                'thu' => ['start' => $item->thursday_admin_from, 'end' => $item->thursday_admin_to],
+                'fri' => ['start' => $item->friday_admin_from, 'end' => $item->friday_admin_to],
+                'sat' => ['start' => $item->saturday_admin_from, 'end' => $item->saturday_admin_to],
+                'sun' => ['start' => $item->sunday_admin_from, 'end' => $item->sunday_admin_to],
             ];
 
             DB::table('varaa_as_options')->insert([
