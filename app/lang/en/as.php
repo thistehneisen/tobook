@@ -242,6 +242,7 @@ return [
         'service_employee'  => 'Employee',
         'date_time'         => 'Date',
         'price'             => 'Price',
+        'extra_service'     => 'Extra service',
         'error'             => [
             'add_overlapped_booking' => 'Overlapped booking time!',// @todo
             'insufficient_slots'     => 'There is no enough time slots for this booking!',// @todo
@@ -279,7 +280,7 @@ return [
         'end_time'            => 'End time',
         'day_off'             => 'Is day off?',
         'confirm'             => [
-            'delete_freetime' => 'Are you sure that you want to delete selected free time from the calendar?'
+            'delete_freetime' => 'Are you sure to delete selected free time from the calendar?'
         ],
         'free_time'           => 'Free time',
         'free_times'          => 'Free times',

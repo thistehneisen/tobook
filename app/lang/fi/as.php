@@ -156,7 +156,7 @@ return [
         'categories' => [
             'all'           => 'Kaikki kategoriat',
             'add'           => 'Lisää kategoria',
-            'edit'          => 'Edit category',
+            'edit'          => 'Muokkaa kategoria',
             'name'          => 'Nimi',
             'description'   => 'Kuvaus',
             'is_show_front' => 'Varattavissa kuluttajille',
@@ -167,7 +167,7 @@ return [
         'resources' => [
             'all'         => 'Kaikki resurssit',
             'add'         => 'Lisää resurssi',
-            'edit'        => 'Edit resource',
+            'edit'        => 'Muokkaa resurssi',
             'name'        => 'Nimi',
             'description' => 'Kuvaus',
             'quantity'    => 'Määrä',
@@ -219,9 +219,9 @@ return [
         'start_at'          => 'Aloitusaika',
         'end_at'            => 'Päättymisaika',
         'status'            => 'Tila',
-        'total_price'       => 'Hinta', // @todo
+        'total_price'       => 'Hinta',
         'uuid'              => 'UUID',
-        'ip'                => 'IP', // @todo,
+        'ip'                => 'IP',
         'add_service'       => 'Lisää palvelu',
         'booking_info'      => 'Tiedot',
         'booking_id'        => 'Yksilöllinen ID',
@@ -241,6 +241,7 @@ return [
         'service_employee'  => 'Työntekijä',
         'date_time'         => 'Päivämäärä',
         'price'             => 'Hinta',
+        'extra_service'     => 'Lisäpalvelu',
         'error'             => [
             'add_overlapped_booking' => 'Overlapped booking time!',// @todo
             'insufficient_slots'     => 'There is no enough time slots for this booking!',// @todo
@@ -260,7 +261,7 @@ return [
     'employees' => [
         'all'                 => 'Työntekijät',
         'add'                 => 'Lisää työntekijä',
-        'edit'                => 'Edit employee', // @todo
+        'edit'                => 'Muokkaa työntekijä',
         'name'                => 'Nimi',
         'phone'               => 'Puhelinnumero',
         'email'               => 'Sähköpostiosoite',
@@ -271,8 +272,8 @@ return [
         'status'              => 'Tila',
         'is_active'           => 'Tila',
         'avatar'              => 'Kuva',
-        'default_time'        => 'default_time', // @todo
-        'custom_time'         => 'custom_time', // @todo
+        'default_time'        => 'Default time', // @todo
+        'custom_time'         => 'Custome time', // @todo
         'days_of_week'        => 'Viikonpäivä',
         'start_time'          => 'Aloitusaika',
         'end_time'            => 'Lopetusaika',
@@ -307,7 +308,7 @@ return [
         'name'             => 'Nimi',
         'email'            => 'Sähköposti',
         'phone'            => 'Puhelinnumero',
-        'checkout'         => 'Checkout', // @todo
+        'checkout'         => 'Kassalle',
         'fi_version'       => 'Suomeksi',
         'en_version'       => 'Englanniksi',
     ],

@@ -68,7 +68,7 @@
                     @if(empty($service))
                     {{ trans('as.embed.select_service') }} {{ $date->format('d/m/Y') }}
                     @else
-                    {{ $service->name }} {{ $date->format('jS F') }} <a href="{{ route('as.embed.embed', [ 'hash' => $hash ])}}">({{ trans('as.embed.back_to_services') }})</a>
+                    {{ $service->name }} {{ $date->format('d/m/Y') }} <a href="{{ route('as.embed.embed', [ 'hash' => $hash ])}}">({{ trans('as.embed.back_to_services') }})</a>
                     @endif
                 @endif
             </div>
