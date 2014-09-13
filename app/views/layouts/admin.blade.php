@@ -24,7 +24,6 @@
         <div class="collapse navbar-collapse" id="admin-menu">
             <ul class="nav navbar-nav">
                 <li><a href="{{ route('admin.crud.index', ['model' => 'users']) }}"><i class="fa fa-users"></i> {{ trans('admin.nav.users') }}</a></li>
-                <li><a href="{{ route('admin.crud.index', ['model' => 'modules']) }}"><i class="fa fa-puzzle-piece"></i> {{ trans('admin.nav.modules') }}</a></li>
                 <li><a href="{{ route('admin.settings.index') }}"><i class="fa fa-gear"></i> {{ trans('admin.nav.settings') }}</a></li>
             </ul>
         </div>

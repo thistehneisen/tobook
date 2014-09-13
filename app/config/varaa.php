@@ -1,8 +1,8 @@
 <?php
 return [
     // Name of folder used for upload items
-    'upload_folder' => 'uploads',
     'dashboard_hide_inactive' => true,
+    'upload_folder'           => 'uploads',
     'languages'               => ['fi', 'en'],
     'oneapi' => [
         'username' => 'varaa6',
@@ -12,5 +12,26 @@ return [
         'length'   => 8,
         'alphabet' => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
     ],
-    'upload_folder'           => 'uploads'
+    'premium_modules' => [
+        'appointment' => [
+            'url' => route('appointment.index'),
+            'enable' => true,
+        ],
+        'cashier' => [
+            'url' => route('cashier.index'),
+            'enable' => true,
+        ],
+        'restaurant' => [
+            'url' => route('restaurant.index'),
+            'enable' => true,
+        ],
+        'timeslot' => [
+            'url' => route('timeslot.index'),
+            'enable' => true,
+        ],
+        'loyalty' => [
+            'url' => route('loyalty.index'),
+            'enable' => true,
+        ],
+    ]
 ];
