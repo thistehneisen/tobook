@@ -53,7 +53,7 @@ class Backend implements Strategy
 
         foreach ($this->freetimesCache as $freetime) {
             $startAt =  Carbon::createFromFormat('H:i:s', $freetime->start_at, Config::get('app.timezone'));
-            $endAt   =  Carbon::createFromFormat('H:i:s', $freetime->end_at, Config::get('app.timezone'));
+            $endAt   =  Carbon::createFromFormat('H:i:s', $freetime->end_at, Config::get('app.timezone'))->subMinutes(15);//TODO is always 15?
             if ($rowTime >= $startAt && $rowTime <= $endAt) {
                 $class = 'freetime';
                 $this->freetimeSlot[$selectedDate->toDateString()][(int) $hour][(int) $minute] = $freetime;
