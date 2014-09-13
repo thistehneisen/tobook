@@ -40,7 +40,7 @@
         @endif
     @show
 </head>
-<body>
+<body data-locale="{{ App::getLocale() }}">
     @section('header')
     <header class="header container-fluid">
         <nav class="main-nav container">
