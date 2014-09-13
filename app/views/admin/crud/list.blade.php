@@ -34,14 +34,14 @@
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="menu-action-{{ $item->id }}">
-                        <li role="presentation"><a role="menuitem" href="{{ route('admin.crud.edit', ['model' => $modelName, 'id' => $item->id]) }}"><i class="fa fa-edit"></i> {{ trans('admin.edit') }}</a></li>
+                        <li role="presentation"><a role="menuitem" href="{{ route('admin.crud.edit', ['model' => $modelName, 'id' => $item->id]) }}"><i class="fa fa-edit"></i> {{ trans('common.edit') }}</a></li>
                     @if (method_exists($item, 'getExtraActionLinks'))
                         @foreach ($item->getExtraActionLinks() as $name => $href)
                         <li role="presentation"><a role="menuitem" href="{{ $href }}">{{ $name }}</a></li>
                         @endforeach
                     @endif
                         <li class="divider"></li>
-                        <li role="presentation"><a class="link-delete" role="menuitem" href="{{ route('admin.crud.delete', ['model' => $modelName, 'id' => $item->id]) }}"><i class="fa fa-trash-o"></i> {{ trans('admin.delete') }}</a></li>
+                        <li role="presentation"><a class="link-delete" role="menuitem" href="{{ route('admin.crud.delete', ['model' => $modelName, 'id' => $item->id]) }}"><i class="fa fa-trash-o"></i> {{ trans('common.delete') }}</a></li>
                     </ul>
                 </div>
 

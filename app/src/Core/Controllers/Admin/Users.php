@@ -1,7 +1,8 @@
 <?php namespace App\Core\Controllers\Admin;
 
 use App, Config, Request, Redirect, Input, Confide, Session, Auth, Validator;
-use App\Core\Models\Module;
+use App\Core\Models\DisabledModule;
+use App\Core\Models\User;
 use Carbon\Carbon;
 
 class Users extends Crud
@@ -70,18 +71,10 @@ class Users extends Crud
      */
     public function modules($id)
     {
-        $user = $this->model->with('modules')->find($id);
-        // Order by start date desc
-        $user->modules->sort(function($a, $b) {
-            $foo = new Carbon($a->pivot->start);
-            $bar = new Carbon($b->pivot->start);
-            if ($foo->eq($bar)) return 0;
-
-            return $foo->gt($bar) ? -1 : 1;
-        });
-
+        $user = User::findOrFail($id);
+        $modules = Config::get('varaa.premium_modules');
         return $this->render('users.modules', [
-            'modules' => Module::all(),
+            'modules' => $modules,
             'user'    => $user,
         ]);
     }
@@ -95,39 +88,23 @@ class Users extends Crud
      */
     public function enableModule($id)
     {
-        $v = Validator::make(Input::all(), [
-            'module_id' => 'required',
-            'start'     => 'required|date',
-            'end'       => 'required|date',
-        ]);
+        $user =  User::findOrFail($id);
 
-        if ($v->fails()) {
-            return Redirect::back()->withInput()->withErrors($v, 'top');
+        // Find disabled modules
+        $modules = array_keys(Config::get('varaa.premium_modules'));
+        $selected = Input::get('modules');
+
+        $disabled = array_diff($modules, $selected);
+
+        try {
+            foreach ($disabled as $name) {
+                $module = new DisabledModule(['module' => $name]);
+                $user->disabledModules()->save($module);
+            }
+        } catch (\Illuminate\Database\QueryException $ex) {
+            // Silently failed
         }
 
-        // Insert into database
-        $user = $this->model->find($id);
-        $module = Module::find(Input::get('module_id'));
-
-        // Check if the selected period is overlapped with existing data
-        $overlapped = $module->isOverlapped(
-            $user,
-            new Carbon(Input::get('start')),
-            new Carbon(Input::get('start'))
-        );
-        if ($overlapped) {
-            return Redirect::back()
-                ->withInput()
-                ->withErrors($this->errorMessageBag(
-                    trans('admin.modules.err_overlapped')
-                ), 'top');
-        }
-
-        $user->modules()->attach($module->id, [
-            'start'     => Input::get('start'),
-            'end'       => Input::get('end'),
-            'is_active' => true
-        ]);
         return Redirect::back()
             ->with('messages', $this->successMessageBag(
                 trans('admin.modules.success_enabled', [
