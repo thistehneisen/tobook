@@ -166,7 +166,6 @@ Route::group([
     ]);
 
     Route::group([
-        'before' => [''], // Attach a filter to check payment
         'prefix' => 'services'
     ], function () {
 

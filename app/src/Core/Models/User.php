@@ -37,27 +37,22 @@ class User extends ConfideUser
         'business_name'
     ];
 
+    /**
+     * List of enabled premium modules for this user
+     *
+     * @var array
+     */
+    protected $enabledModules;
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
 
-    /**
-     * Define the many-to-many relationship with App\Core\Models\Module
-     *
-     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function modules()
+    public function disabledModules()
     {
-        return $this->belongsToMany('App\Core\Models\Module')
-            ->withPivot(['id', 'start', 'end', 'is_active'])
-            ->withTimestamps();
+        return $this->hasMany('App\Core\Models\DisabledModule');
     }
 
-    /**
-     * Define a many-to-many relationship to App\Consumers\Models\Consumer
-     *
-     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
     public function consumers()
     {
         return $this->belongsToMany('App\Consumers\Models\Consumer')
@@ -177,22 +172,6 @@ class User extends ConfideUser
     }
 
     /**
-     * Get active services/modules of this user
-     *
-     * @return Illuminate\Support\Collection
-     */
-    public function getActiveModules()
-    {
-        $now = Carbon::now();
-
-        return $this->modules()
-            ->wherePivot('start', '<=', $now)
-            ->wherePivot('end', '>=', $now)
-            ->wherePivot('is_active', true)
-            ->get();
-    }
-
-    /**
      * Sync valid Business Categories for this user
      *
      * @param array $ids A list of business category IDs
@@ -204,6 +183,18 @@ class User extends ConfideUser
         $all = BusinessCategory::all()->lists('id');
         $ids = array_intersect($all, $ids);
         $this->businessCategories()->sync($ids);
+    }
+
+    /**
+     * Check if this user has the given module enabled
+     *
+     * @param string $moduleName
+     *
+     * @return boolean
+     */
+    public function hasModule($moduleName)
+    {
+        return isset($this->modules[$moduleName]);
     }
 
     //--------------------------------------------------------------------------
@@ -254,5 +245,31 @@ class User extends ConfideUser
     public function getHashAttribute()
     {
         return Hashids::encrypt($this->attributes['id']);
+    }
+
+    /**
+     * Return a list of enabled premium modules
+     *
+     * @return void
+     */
+    public function getModulesAttribute()
+    {
+        if ($this->enabledModules === null) {
+            $modules = [];
+
+            $disabled = $this->disabledModules->lists('module');
+
+            // Get all config first
+            $all = Config::get('varaa.premium_modules');
+            foreach ($all as $name => $value) {
+                if ($value['enable'] === true && !in_array($name, $disabled)) {
+                    $modules[$name] = $value['url'];
+                }
+            }
+
+            $this->enabledModules = $modules;
+        }
+
+        return $this->enabledModules;
     }
 }
