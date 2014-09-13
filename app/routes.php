@@ -457,7 +457,12 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Employees@freetime'
     ]);
 
-    Route::get('employees/custom-time', [
+    Route::get('employees/custom-time/{id}', [
+        'as' => 'as.employees.customTime',
+        'uses' => 'App\Appointment\Controllers\Employees@customTime'
+    ]);
+
+    Route::post('employees/custom-time/{id}', [
         'as' => 'as.employees.customTime',
         'uses' => 'App\Appointment\Controllers\Employees@customTime'
     ]);

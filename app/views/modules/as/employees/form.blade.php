@@ -50,7 +50,7 @@ $(function () {
                 {{ Form::errorText('phone', $errors) }}
             </div>
             <div class="checkbox col-sm-5">
-                <label> {{ Form::checkbox('is_subscribed_sms', 1, (isset($employee)) ? $employee->is_subscribed_sms: false ); }} {{  trans('as.employees.is_subscribed_sms') }} {{ Form::required('is_subsribed_email', $employee) }}</label>
+                <label> {{ Form::checkbox('is_subscribed_sms', 1, (isset($employee)) ? $employee->is_subscribed_sms: false ); }} {{  trans('as.employees.is_subscribed_sms') }} {{ Form::required('is_subscribed_sms', $employee) }}</label>
             </div>
         </div>
         <div class="form-group">

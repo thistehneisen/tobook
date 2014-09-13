@@ -4,6 +4,7 @@ use App, View, Confide, Redirect, Input, Config, Util, Response;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\EmployeeDefaultTime;
 use App\Appointment\Models\EmployeeFreetime;
+use App\Appointment\Models\EmployeeCustomTime;
 use App\Appointment\Models\Service;
 use Carbon\Carbon;
 class Employees extends AsBase
@@ -153,10 +154,6 @@ class Employees extends AsBase
             ));
     }
 
-    public function customTime()
-    {
-    }
-
     /**
      * Display form for adding freetime from BE calendar
      */
@@ -230,5 +227,41 @@ class Employees extends AsBase
         }
 
         return Response::json($data);
+    }
+
+    /**
+     * Display custom time of a employee
+     * Handle insert custom time for employee
+     */
+    public function customTime($id)
+    {
+        $employee    = Employee::find($id);
+        $perPage     = (int) Input::get('perPage', Config::get('view.perPage'));
+        $customTimes = $employee->customTimes()->paginate($perPage);
+        $fields      = with(new EmployeeCustomTime)->fillable;
+
+        $date     = Input::get('date');
+        $startAt  = Input::get('start_at');
+        $endAt    = Input::get('end_at');
+        $isDayOff = Input::get('is_day_off', 0);
+
+        if(!empty($date) || (!empty($startAt) && !empty($endAt)) || !empty($isDayOff)){
+            $employeeCustomTime = new EmployeeCustomTime;
+            $employeeCustomTime->fill([
+                'date'       => $date,
+                'start_at'   => $startAt,
+                'end_at'     => $endAt,
+                'is_day_off' => $isDayOff
+            ]);
+            $employeeCustomTime->employee()->associate($employee);
+            $employeeCustomTime->save();
+        }
+
+        return View::make('modules.as.employees.customTime', [
+            'employee'=> $employee,
+            'items'   => $customTimes,
+            'fields'  => $fields,
+            'langPrefix' => 'as.employees'
+        ]);
     }
 }

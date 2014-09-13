@@ -280,6 +280,10 @@ return [
         'free_times'          => 'Free times',
         'working_times'       => 'Working times',
         'add_free_time'       => 'Add free time',
+        'start_at'            => 'Start at',
+        'end_at'              => 'End at',
+        'date'                => 'Date',
+        'is_day_off'          => 'Day off',
     ],
     'embed' => [
         'heading'          => 'Title',

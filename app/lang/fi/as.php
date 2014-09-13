@@ -281,6 +281,10 @@ return [
         'free_times'          => 'Vapaat',
         'working_times'       => 'Työvuorosuunnittelu',
         'add_free_time'       => 'Lisää vapaa',
+        'start_at'            => 'Aloitusaika',
+        'end_at'              => 'Lopetusaika',
+        'date'                => 'Päivä',
+        'is_day_off'          => 'Vapaapäivä',
     ],
     'embed' => [
         'heading'          => 'Otsikko',
