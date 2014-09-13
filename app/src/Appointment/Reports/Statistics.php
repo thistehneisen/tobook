@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use DB;
 use Confide;
+use App\Appointment\Models\Employee;
 
 class Statistics extends Base
 {
@@ -177,10 +178,16 @@ class Statistics extends Base
      */
     protected function getWorkingTime()
     {
+        $employeeId = [$this->employeeId];
+
+        if ($this->employeeId === null) {
+            $employeeId = Employee::ofCurrentUser()->select('id')->get()->lists('id');
+        }
+
         $custom = [];
         // Get custom time first
         $result = DB::table('as_employee_custom_time')
-            ->where('employee_id', $this->employeeId)
+            ->whereIn('employee_id', $employeeId)
             ->where('date', '>=', $this->start)
             ->where('date', '<=', $this->end)
             ->select(
@@ -201,7 +208,7 @@ class Statistics extends Base
         // Get default time
         $default = [];
         $result = DB::table('as_employee_default_time')
-            ->where('employee_id', $this->employeeId)
+            ->whereIn('employee_id', $employeeId)
             ->select(
                 'as_employee_default_time.*',
                 DB::raw('HOUR(SUBTIME(end_at, start_at)) * 60 + MINUTE(SUBTIME(end_at, start_at)) AS minutes')
@@ -218,7 +225,7 @@ class Statistics extends Base
         // Get freetime
         $freetime = [];
         $result = DB::table('as_employee_freetime')
-            ->where('employee_id', $this->employeeId)
+            ->whereIn('employee_id', $employeeId)
             ->where('date', '>=', $this->start)
             ->where('date', '<=', $this->end)
             ->select(
