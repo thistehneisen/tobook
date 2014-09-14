@@ -32,7 +32,7 @@
         <label for="duration" class="col-sm-2 control-label">{{ trans('as.services.duration') }}</label>
         <div class="col-sm-5">
             <div class="input-group input-group-sm spinner" data-inc="5" data-positive="true">
-                {{ Form::text('length', isset($service->length) ? $service->length : 0, ['class' => 'form-control', 'id' => 'length']) }}
+                {{ Form::text('length', isset($service->during) ? $service->during : 0, ['class' => 'form-control', 'id' => 'length']) }}
                 <div class="input-group-btn-vertical">
                     <button type="button" class="btn btn-default"><i class="fa fa-caret-up"></i></button>
                     <button type="button" class="btn btn-default"><i class="fa fa-caret-down"></i></button>
@@ -67,7 +67,7 @@
     <div class="form-group">
         <label for="total" class="col-sm-2 control-label">{{ trans('as.services.total') }}</label>
         <div class="col-sm-5">
-            {{ Form::text('total', isset($service->during) ? $service->during : 0, ['class' => 'form-control input-sm', 'id' => 'total', 'disabled'=>'disabled']) }}
+            {{ Form::text('total', isset($service->length) ? $service->length : 0, ['class' => 'form-control input-sm', 'id' => 'total', 'disabled'=>'disabled']) }}
         </div>
     </div>
     <div class="form-group">
