@@ -13,9 +13,10 @@ class Service extends Base
     ];
     protected $rulesets = [
         'saving' => [
-            'name'     => 'required',
-            'price'    => 'required|numeric',
-            'quantity' => 'required|numeric',
+            'business_category_id' => 'required',
+            'name'                 => 'required',
+            'price'                => 'required|numeric',
+            'quantity'             => 'required|numeric',
         ]
     ];
 
@@ -27,8 +28,22 @@ class Service extends Base
         return $this->belongsTo('App\Core\Models\User');
     }
 
+    public function businessCategory()
+    {
+        return $this->belongsTo('App\Core\Models\BusinessCategory');
+    }
+
     public function coupons()
     {
         return $this->hasMany('App\FlashDeal\Models\Coupon');
+    }
+
+    //--------------------------------------------------------------------------
+    // ATTRIBUTES
+    //--------------------------------------------------------------------------
+    public function getNameWithPriceAttribute()
+    {
+        $price = $this->attributes['price'];
+        return $this->attributes['name']." (&euro;$price)";
     }
 }

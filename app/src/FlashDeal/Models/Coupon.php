@@ -12,6 +12,7 @@ class Coupon extends Base
     ];
     protected $rulesets = [
         'saving' => [
+            'service_id'       => 'required',
             'valid_date'       => 'required',
             'discounted_price' => 'required|numeric',
             'quantity'         => 'required|numeric',

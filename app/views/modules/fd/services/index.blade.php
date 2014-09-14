@@ -17,11 +17,10 @@
     <thead>
         <tr>
             <th><input type="checkbox" class="toggle-check-all-boxes" data-checkbox-class="checkbox"></th>
-            <th>{{ trans('fd.flash_deals.service_id') }}</th>
         @foreach ($fields as $field)
             <th>{{ trans($langPrefix.'.'.$field) }}</th>
         @endforeach
-            <th>{{ trans('fd.flash_deals.dates') }}</th>
+            <th>{{ trans($langPrefix.'.business_category_id') }}</th>
             <th>&nbsp;</th>
         </tr>
     </thead>
@@ -29,9 +28,6 @@
     @foreach ($items as $item)
         <tr id="row-{{ $item->id }}" data-id="{{ $item->id }}" class="js-sortable-{{ $sortable }}" data-toggle="tooltip" data-placement="top" data-title="{{ trans('as.crud.sortable') }}">
             <td><input type="checkbox" class="checkbox" name="ids[]" value="{{ $item->id }}"></td>
-            <td>
-                {{ $item->service->name_with_price }}
-            </td>
         @foreach ($fields as $field)
             @if (starts_with($field, 'is_'))
                 <td>
@@ -46,11 +42,7 @@
             @endif
         @endforeach
             <td>
-                <ul class="list-unstyle">
-                @foreach ($item->dates as $date)
-                    <li><code>{{ $date->date }} {{ $date->time }}</code></li>
-                @endforeach
-                </ul>
+                {{ $item->businessCategory->name }}
             </td>
 
             <td>
