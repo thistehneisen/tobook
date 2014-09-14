@@ -102,23 +102,29 @@ class Booking extends \App\Core\Models\Base implements \SplSubject
         return isset($map[$value]) ? $map[$value] : null;
     }
 
-    public static function isBookable($employeeId, $bookingDate, $startTime, $endTime)
+    public static function isBookable($employeeId, $bookingDate, $startTime, $endTime, $uuid = null)
     {
-        $bookings = self::where('date', $bookingDate)
+        $query = self::where('date', $bookingDate)
             ->where('employee_id', $employeeId)
             ->whereNull('deleted_at')
             ->where(function ($query) use ($startTime, $endTime) {
-                return $query->where(function ($query) use ($startTime) {
-                    return $query->where('start_at', '<=', $startTime->toTimeString())
-                         ->where('end_at', '>', $startTime->toTimeString());
-                })->orWhere(function ($query) use ($endTime) {
-                     return $query->where('start_at', '<', $endTime->toTimeString())
-                          ->where('end_at', '>=', $endTime->toTimeString());
+                return $query->where(function ($query) use ($startTime, $endTime) {
+                    return $query->where('start_at', '>=', $startTime->toTimeString())
+                         ->where('start_at', '<', $endTime->toTimeString());
+                })->orWhere(function ($query) use ($endTime, $startTime) {
+                     return $query->where('end_at', '>=', $startTime->toTimeString())
+                          ->where('end_at', '<', $endTime->toTimeString());
                 })->orWhere(function ($query) use ($startTime, $endTime) {
                      return $query->where('start_at', '=', $startTime->toTimeString())
                           ->where('end_at', '=', $endTime->toTimeString());
                 });
-            })->get();
+            });
+
+        if(!empty($uuid)){
+            $query->where('uuid','!=', $uuid);
+        }
+
+        $bookings = $query->get();
 
         if (!$bookings->isEmpty()) {
             return false;

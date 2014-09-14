@@ -1,5 +1,9 @@
 <div id="book-form" class="as-calendar-book">
+@if(empty($booking))
 <h2>{{ trans('as.bookings.add') }}</h2>
+@else
+<h2>{{ trans('as.bookings.edit') }}</h2>
+@endif
 <form id="booking_form">
 <div class="bs-example">
     <div class="panel-group" id="accordion">
@@ -16,8 +20,8 @@
                            <div class="form-group row">
                                 <label for="booking_uuid" class="col-sm-4 control-label">{{ trans('as.bookings.booking_id') }}</label>
                                 <div class="col-sm-8">
-                                    {{ Form::text('booking_uuid', $uuid , ['class' => 'form-control input-sm', 'id' => 'booking_uuid']) }}
-                                    <input type="hidden" name="uuid" id="uuid" value="{{ $uuid }}"/>
+                                    {{ Form::text('uuid', $uuid , ['class' => 'form-control input-sm', 'id' => 'uuid', 'disabled'=> 'disabled']) }}
+                                    <input type="hidden" name="booking_uuid" id="booking_uuid" value="{{ $uuid }}"/>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -70,11 +74,6 @@
                                     {{ Form::text('address',(isset($booking)) ? $booking->consumer->address : '', ['class' => 'form-control input-sm', 'id' => 'address']) }}
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <div class="col-sm-12">
-                                 <a href="#book-form" id="btn-continute-action" class="btn btn-primary btn-sm pull-right">{{ trans('common.search') }}</a>
-                             </div>
-                         </div>
                         </div>
                     </div>
                     <!-- endrow -->
@@ -249,11 +248,18 @@
         <div class="col-sm-12">
             <div class="form-group row">
                 <div class="col-sm-12">
+                    @if(empty($booking))
                     <a href="#book-form" id="btn-save-booking" class="btn btn-primary btn-sm pull-right">{{ trans('common.save') }}</a>
+                    @else
+                    <a href="#book-form" id="btn-save-booking" class="btn btn-primary btn-sm pull-right">{{ trans('common.edit') }}</a>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
+@if(!empty($booking))
+<input type="hidden" value="{{ $booking->id }}" name="booking_id">
+@endif
 </form>
 <input type="hidden" value="" id="consumer_data"/>
 <script>

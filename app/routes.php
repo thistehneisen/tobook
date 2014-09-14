@@ -533,7 +533,7 @@ Route::group([
 
     Route::post('bookings/add-booking', [
         'as' => 'as.bookings.add',
-        'uses' => 'App\Appointment\Controllers\Bookings@addBooking'
+        'uses' => 'App\Appointment\Controllers\Bookings@upsertBooking'
     ]);
 
     Route::post('bookings/remove-booking-service', [

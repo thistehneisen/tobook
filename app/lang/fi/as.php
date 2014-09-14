@@ -242,9 +242,12 @@ return [
         'date_time'         => 'Päivämäärä',
         'price'             => 'Hinta',
         'extra_service'     => 'Lisäpalvelu',
+        'keyword'           => 'Haku',//@todo
+        'edit'              => 'Edit bookings',//@todo
         'error'             => [
             'add_overlapped_booking' => 'Overlapped booking time!',// @todo
             'insufficient_slots'     => 'There is no enough time slots for this booking!',// @todo
+            'invalid_consumer_info'  => 'Could not save consumer info',// @todo
         ],
         'warning'      => [
             'existing_user'   => 'There is an user associate with this email in our system. Do you want to use these information instead?',// @todo

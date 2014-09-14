@@ -50,15 +50,17 @@ class Bookings extends AsBase
             $categories[$service->category->id] = $service->category->name;
         }
 
-        $bookingCategoryId   = $bookingService->service->category->id;
-        $bookingServiceId    = $bookingService->service->id;
+        $bookingCategoryId   = (!empty($bookingService)) ? $bookingService->service->category->id : null;
+        $bookingServiceId    = (!empty($bookingService)) ? $bookingService->service->id : null;
         $bookingServices     = $employee->services()->where('category_id', $bookingCategoryId)->lists('name','id');
         $bookingServices[-1] = trans('common.select');
         ksort($bookingServices);//sort selected services by key
 
-        $serviceTimes = $bookingService->service->serviceTimes;
+        $serviceTimes = (!empty($bookingService)) ? $bookingService->service->serviceTimes : [];
         $serviceTimesList = [];
-        $serviceTimesList['default'] = sprintf('%s (%s)', $bookingService->service->length, $bookingService->service->description);
+        $length = (!empty($bookingService)) ? $bookingService->service->length : 0;
+        $description = (!empty($bookingService)) ? $bookingService->service->description : '';
+        $serviceTimesList['default'] = sprintf('%s (%s)', $length, $description);
         foreach ($serviceTimes as $serviceTime) {
             $serviceTimesList[$serviceTime->id] = $serviceTime->length;
         }
@@ -243,11 +245,12 @@ class Bookings extends AsBase
         }
 
         $endTimeDelta = ($length + $modifyTime);
+
         $startTime = Carbon::createFromFormat('Y-m-d H:i', sprintf('%s %s', $bookingDate, $startTimeStr));
         $endTime = with(clone $startTime)->addMinutes($endTimeDelta);
 
         //Check is there any existed booking with this service time
-        $isBookable = Booking::isBookable($employeeId, $bookingDate, $startTime, $endTime);
+        $isBookable = Booking::isBookable($employeeId, $bookingDate, $startTime, $endTime, $uuid);
         //TODO Check overlapped booking in user cart
 
         //Check enough timeslot in employee default working time
@@ -311,7 +314,7 @@ class Bookings extends AsBase
      * Add new booking to database
      *
      **/
-    public function addBooking()
+    public function upsertBooking()
     {
         $uuid          = Input::get('booking_uuid');
         $bookingId     = Input::get('booking_id');
@@ -331,18 +334,49 @@ class Bookings extends AsBase
 
             $consumer = $this->handleConsumer();
 
-            $length = (isset($bookingService->serviceTime))
+            $length = (!empty($bookingService->serviceTime->length))
                     ? $bookingService->serviceTime->length
                     : $bookingService->service->length;
 
+            $price = (!empty($bookingService->serviceTime->price))
+                    ? $bookingService->serviceTime->price
+                    : $bookingService->service->price;
+
+
             $status = Booking::getStatus($bookingStatus);
 
+            $total = $length;
+            $total_price = $price;
+
             $booking = new Booking();
+            if(!empty($bookingId)){
+                $booking = Booking::find($bookingId);
+                $bookingExtraServices = $booking->extraServices;
+
+                 $extraServiceTime  = 0;
+                $extraServicePrice = 0;
+                $extraServices = [];
+
+                foreach ($bookingExtraServices as $extraService) {
+                    $extraServiceTime  += $extraService->length;
+                    $extraServicePrice += $extraService->price;
+                    $extraServices[] = $extraService;
+                }
+
+                $date      = new Carbon($booking->date);
+                $startTime = Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s', $booking->date, $booking->start_at));
+                $endTime= with(clone $startTime)->addMinutes($extraServiceTime);
+
+                $total = $length + $extraServiceTime + $bookingService->modify_time;
+                $total_price = $price + $extraServicePrice;
+            }
+
             $booking->fill([
                 'date'        => $bookingService->date,
                 'start_at'    => $bookingService->start_at,
                 'end_at'      => $bookingService->end_at,
-                'total'       => $length,
+                'total'       => $total,
+                'total_price' => $total_price,
                 'status'      => $status,
                 'notes'       => $notes,
                 'uuid'        => $uuid,

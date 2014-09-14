@@ -405,6 +405,7 @@
             e.preventDefault();
             var booking_id = $(this).data('booking-id');
             $('#employee_id').val($(this).data('employee-id'));
+            $('#start_time').val($(this).data('start-time'));
             $.fancybox.open({
                 padding: 5,
                 width: 850,

@@ -243,6 +243,8 @@ return [
         'date_time'         => 'Date',
         'price'             => 'Price',
         'extra_service'     => 'Extra service',
+        'keyword'           => 'Keyword',
+        'edit'              => 'Edit bookings',//@todo
         'error'             => [
             'add_overlapped_booking' => 'Overlapped booking time!',// @todo
             'insufficient_slots'     => 'There is no enough time slots for this booking!',// @todo
