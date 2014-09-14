@@ -2,7 +2,7 @@
 
 use App, Config, Input;
 use App\Core\Controllers\Base;
-use App\FlashDeal\Models\FlashDeal;
+use App\FlashDeal\Models\FlashDealDate;
 
 class Index extends Base
 {
@@ -41,7 +41,7 @@ class Index extends Base
     public function activeFlashDeals()
     {
         $perPage = Input::get('perPage', Config::get('view.perPage'));
-        $all = FlashDeal::active()->paginate($perPage);
+        $all = FlashDealDate::active()->with('flashDeal')->paginate($perPage);
 
         return $this->render('el.activeFlashDeals', [
             'items' => $all

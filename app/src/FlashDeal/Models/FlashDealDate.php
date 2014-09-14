@@ -63,8 +63,7 @@ class FlashDealDate extends Base
     {
         $now = Carbon::now();
         return $query->where('remains', '>', 0)
-            ->where('date', '>=', $now->toDateString())
-            ->where('time', '>=', $now->toTimeString());
+            ->where('expire', '>=', $now->toDateString());
     }
 
     //--------------------------------------------------------------------------

@@ -27,15 +27,6 @@ class FlashDeal extends Base
         return round(($servicePrice - $this->attributes['discounted_price']) * 100 / $servicePrice, 2);
     }
 
-    public function getActiveAttribute()
-    {
-        $now = Carbon::now();
-        return $this->dates()
-            ->where('date', $now->toDateString())
-            ->where('time', '>', $now->toTimeString())
-            ->first();
-    }
-
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
@@ -47,18 +38,5 @@ class FlashDeal extends Base
     public function dates()
     {
         return $this->hasMany('App\FlashDeal\Models\FlashDealDate');
-    }
-
-    //--------------------------------------------------------------------------
-    // SCOPES
-    //--------------------------------------------------------------------------
-    public function scopeActive($query)
-    {
-        return $query->where('quantity', '>', 0)
-            ->whereHas('dates', function($q) {
-                $now = Carbon::now();
-                return $q->where('date', $now->toDateString())
-                    ->where('time', '>', $now->toTimeString());
-            });
     }
 }
