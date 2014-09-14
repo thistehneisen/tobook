@@ -4,6 +4,7 @@ $selectedDate       = $date->toDateString();
 $serviceLength      = (!empty($serviceTime)) ? $serviceTime->during + $extraServiceLength : $service->during + $extraServiceLength ;
 $serviceTotal       = (!empty($serviceTime)) ? ($serviceTime->during + $serviceTime->after + $extraServiceLength)  : ($service->during + $service->after + $extraServiceLength);
 $serviceBefore      = (!empty($serviceTime)) ? $serviceTime->before  : $service->before;
+$serviceAfter       = (!empty($serviceTime)) ? $serviceTime->after  : $service->after;
 $servicePrice       = (!empty($serviceTime)) ? $serviceTime->price + $extraServicePrice  : $service->price + $extraServicePrice ;
 $selectedService    = (!empty($serviceTime)) ? $serviceTime  : $service;
 $serviceTimeId      = (!empty($serviceTime)) ? $serviceTime->id : 'default';
