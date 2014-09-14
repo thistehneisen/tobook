@@ -767,6 +767,12 @@ Route::group([
         'uses' => 'App\FlashDeal\Controllers\Index@index'
     ]);
 
+    // Services
+    \App\FlashDeal\Controllers\Services::crudRoutes(
+        'services',
+        'fd.services'
+    );
+
 });
 
 /*
