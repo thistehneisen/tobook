@@ -14,27 +14,27 @@ return [
     ],
     'premium_modules' => [
         'appointment' => [
-            'url' => route('as.index'),
+            'route_name' => 'as.index',
             'enable' => true,
         ],
         'cashier' => [
-            'url' => route('cashier.index'),
+            'route_name' => 'cashier.index',
             'enable' => true,
         ],
         'restaurant' => [
-            'url' => route('restaurant.index'),
+            'route_name' => 'restaurant.index',
             'enable' => true,
         ],
         'timeslot' => [
-            'url' => route('timeslot.index'),
+            'route_name' => 'timeslot.index',
             'enable' => true,
         ],
         'loyalty' => [
-            'url' => route('loyalty.index'),
+            'route_name' => 'loyalty.index',
             'enable' => true,
         ],
         'marketing' => [
-            'url' => route('mt.consumers.index'),
+            'route_name' => 'mt.consumers.index',
             'enable' => true,
         ]
     ]

@@ -66,7 +66,7 @@
 
                 <div class="collapse navbar-collapse" id="main-menu">
                     <ul class="nav navbar-nav">
-                    @section('categories-nav')
+                    @section('main-nav-inner')
                         @foreach ($_businessCategories as $category)
                         <li class="dropdown">
                             <a href="{{ route('search') }}?query={{ urlencode($category->name) }}">

@@ -263,7 +263,7 @@ class User extends ConfideUser
             $all = Config::get('varaa.premium_modules');
             foreach ($all as $name => $value) {
                 if ($value['enable'] === true && !in_array($name, $disabled)) {
-                    $modules[$name] = $value['url'];
+                    $modules[$name] = $value['route_name'];
                 }
             }
 
