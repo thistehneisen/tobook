@@ -12,6 +12,7 @@ return [
         'length'   => 8,
         'alphabet' => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
     ],
+    'flash_deal_categories' => [35],
     'premium_modules' => [
         'appointment' => [
             'url' => route('as.index'),

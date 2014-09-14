@@ -1,6 +1,8 @@
 <?php namespace App\Core\Controllers;
 
-use View, Confide, Redirect;
+use View, Confide, Redirect, Config;
+use App\Core\Models\BusinessCategory;
+use App\FlashDeal\Models\FlashDealDate;
 
 class Front extends Base
 {
@@ -9,7 +11,24 @@ class Front extends Base
         if (Confide::user()) {
             return Redirect::route('dashboard.index');
         }
-        return View::make('front.home');
+
+        $deals = $this->getFlashDeals();
+        return View::make('front.home', [
+            'deals' => $deals
+        ]);
+    }
+
+    protected function getFlashDeals()
+    {
+        // Which categories?
+        $categories = BusinessCategory::whereIn('id', Config::get('varaa.flash_deal_categories'))->get();
+        foreach ($categories as &$category) {
+            $category->deals = FlashDealDate::ofBusinessCategory($category->id)
+                ->active()
+                ->take(8)
+                ->get();
+        }
+        return $categories;
     }
 
     // for business

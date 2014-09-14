@@ -1,6 +1,6 @@
 <?php namespace App\FlashDeal\Models;
 
-use Carbon\Carbon;
+use Carbon\Carbon, DB;
 use App\Core\Models\Base;
 
 class FlashDeal extends Base
@@ -18,6 +18,9 @@ class FlashDeal extends Base
         ]
     ];
 
+    //--------------------------------------------------------------------------
+    // ATTRIBUTES
+    //--------------------------------------------------------------------------
     public function getDiscountPercentAttribute()
     {
         $servicePrice = $this->service->price;
@@ -46,6 +49,9 @@ class FlashDeal extends Base
         return $this->hasMany('App\FlashDeal\Models\FlashDealDate');
     }
 
+    //--------------------------------------------------------------------------
+    // SCOPES
+    //--------------------------------------------------------------------------
     public function scopeActive($query)
     {
         return $query->where('quantity', '>', 0)

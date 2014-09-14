@@ -1,5 +1,6 @@
 <?php
 return [
+    'index' => 'Flash deals',
     'nav' => [
         'settings'       => 'Settings',
     ],
