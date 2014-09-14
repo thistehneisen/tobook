@@ -14,12 +14,7 @@ class AddIndexToUuidColumnInAsBookingsTable extends Migration {
 	{
         Schema::table('as_bookings', function(Blueprint $table)
         {
-            $table->unique('uuid');
-        });
-
-        Schema::table('as_booking_services', function(Blueprint $table)
-        {
-            $table->unique('tmp_uuid');
+            //$table->unique('uuid');
         });
 	}
 
