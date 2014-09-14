@@ -9,6 +9,8 @@ class Index extends Base
 {
     protected $viewPath = 'modules.fd.index';
 
+    protected $perPage;
+
     public function index($tab = null)
     {
         $tab = $tab ?: 'sold-flash-deals';
@@ -16,6 +18,8 @@ class Index extends Base
         if (!method_exists($this, $method)) {
             App::abort(404);
         }
+
+        $this->perPage = Input::get('perPage', Config::get('view.perPage'));
 
         $content = $this->$method();
         return $this->render('index', [
@@ -41,10 +45,9 @@ class Index extends Base
      */
     public function activeFlashDeals()
     {
-        $perPage = Input::get('perPage', Config::get('view.perPage'));
-        $all = FlashDealDate::active()->with('flashDeal')->paginate($perPage);
+        $all = FlashDealDate::active()->with('flashDeal')->paginate($this->perPage);
 
-        return $this->render('el.activeFlashDeals', [
+        return $this->render('el.flashDeals', [
             'items' => $all
         ]);
     }
@@ -56,17 +59,27 @@ class Index extends Base
      */
     public function activeCoupons()
     {
-        $perPage = Input::get('perPage', Config::get('view.perPage'));
-        $all = Coupon::active()->with('service')->paginate($perPage);
+        $all = Coupon::active()->with('service')->paginate($this->perPage);
 
         return $this->render('el.activeCoupons', [
             'items' => $all
         ]);
     }
 
-    public function expired()
+    /**
+     * Show expired coupons
+     *
+     * @return View
+     */
+    public function expiredFlashDeals()
     {
-        return 'hehe';
+        $all = FlashDealDate::expired()
+            ->with('flashDeal')
+            ->paginate($this->perPage);
+
+        return $this->render('el.flashDeals', [
+            'items' => $all
+        ]);
     }
 
 }
