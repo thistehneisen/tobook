@@ -13,9 +13,10 @@ class Service extends Base
     ];
     protected $rulesets = [
         'saving' => [
-            'name'     => 'required',
-            'price'    => 'required|numeric',
-            'quantity' => 'required|numeric',
+            'business_category_id' => 'required',
+            'name'                 => 'required',
+            'price'                => 'required|numeric',
+            'quantity'             => 'required|numeric',
         ]
     ];
 
@@ -25,6 +26,11 @@ class Service extends Base
     public function user()
     {
         return $this->belongsTo('App\Core\Models\User');
+    }
+
+    public function businessCategory()
+    {
+        return $this->belongsTo('App\Core\Models\BusinessCategory');
     }
 
     public function coupons()
