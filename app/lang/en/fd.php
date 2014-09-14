@@ -26,7 +26,7 @@ return [
         'add'              => 'Add flash deal',
         'discounted_price' => 'Discounted price',
         'quantity'         => 'Quantity per time',
-        'service'          => 'Service',
+        'service_id'       => 'Service',
         'dates'            => 'Dates',
         'dates_desc'       => 'Start time of existing dates will be updated',
         'existing_dates'   => 'Existing dates',
