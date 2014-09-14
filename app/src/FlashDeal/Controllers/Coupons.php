@@ -23,7 +23,11 @@ class Coupons extends Base
         parent::__construct();
 
         $services = Service::ofCurrentUser()->get();
-        View::share('services', $services);
+        $serviceSelect = [];
+        foreach ($services as $service) {
+            $serviceSelect[$service->id] = $service->name." (&euro;$service->price)";
+        }
+        View::share('serviceSelect', $serviceSelect);
     }
 
     /**
