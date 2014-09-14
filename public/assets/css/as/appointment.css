@@ -118,9 +118,8 @@
   list-style: none;
   margin: 0;
   color: #eeeeee;
-  background-color: #008000;
-  background-color: #347c2c;
-  border: 1px solid #fff;
+  background-color: #a8db66;
+  border: 1px solid #f0f0f0;
   text-align: center;
   cursor: pointer;
 }
@@ -139,7 +138,7 @@
   display: inline-block;
 }
 .as-col li.inactive {
-  background-color: #888;
+  background-color: #fff;
 }
 .as-col li.booked {
   color: #fff;
@@ -158,7 +157,7 @@
   display: inline-block;
 }
 .as-col li.confirmed {
-  background-color: #ed1c24;
+  background-color: #ee4a42;
 }
 .as-col li.pending {
   background-color: #ffff00;
@@ -177,7 +176,7 @@
   background-color: #a9a9a9;
 }
 .as-col li.freetime {
-  background-color: #f5b869;
+  background-color: #b5abf1;
   text-align: left;
   padding: 0 10px;
 }
@@ -201,13 +200,8 @@
 }
 .as-col li.active:hover,
 .as-col li.inactive:hover {
-  background: #fff !important;
-  color: #ec7923 !important;
-}
-.as-col li.active:hover:after,
-.as-col li.inactive:hover:after {
-  content: "varaa";
-  font-weight: 700;
+  background: #ec7923 !important;
+  color: #fff !important;
 }
 .btn-plus {
   position: absolute;

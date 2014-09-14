@@ -134,9 +134,8 @@
         list-style: none;
         margin:0;
         color: @text_light;
-        background-color: @green;
-        background-color: @dark_green;
-        border: 1px solid #fff;
+        background-color: @as_light_green;
+        border: 1px solid @as_border_gray;
         text-align: center;
         cursor: pointer;
     }
@@ -156,7 +155,7 @@
         }
     }
     li.inactive {
-        background-color: #888;
+        background-color: #fff;
     }
     li.booked {
         color: #fff;
@@ -175,7 +174,7 @@
         }
     }
     li.confirmed {
-        background-color: #ed1c24;
+        background-color: @as_light_red;
     }
     li.pending {
         background-color: #ffff00;
@@ -194,7 +193,7 @@
         background-color: #a9a9a9;
     }
     li.freetime {
-        background-color: @light_orange;
+        background-color: @as_light_purple;
         text-align: left;
         padding: 0 10px;
         a {
@@ -219,14 +218,8 @@
 
     li.active, li.inactive/*, li.freetime*/ {
         &:hover {
-            background: #fff !important;
-            color: @orange !important;
-        }
-
-        // @TODO: fix this hack with JS?
-        &:hover:after {
-            content: "varaa";
-            font-weight: 700;
+            background: @orange !important;
+            color: #fff !important;
         }
     }
 }

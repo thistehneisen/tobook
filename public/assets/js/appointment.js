@@ -54,7 +54,7 @@
         });
 
         // Date picker
-        $('body').on('focus', '.date-picker', function () {
+        $(document).on('focus', '.date-picker', function () {
             $(this).datepicker({
                 format: 'yyyy-mm-dd',
                 weekStart: 1,
@@ -72,7 +72,16 @@
             //use data-index-url attribute to prevent append date to date like yyyy-mm-dd/yyyy-mm-dd
             window.location.href = $(this).data('index-url') + "/" + $(this).val();
         });
-        // Backend Calendar
+
+        // calculate total time
+        /*if ($('#length').length && $('#before').length && $('#after').length) {
+            $('#length').change(function () {
+                console.log('haha');
+                $('#total').val(parseInt($('#length').val(), 10) + parseInt($('#length').val(), 10) + parseInt($('#length').val(), 10));
+            });
+        }*/
+
+        // ------------------------ Backend Calendar ------------------------ //
         $('li.active').click(function () {
             var employee_id = $(this).data('employee-id'),
                 booking_date = $(this).data('booking-date'),
@@ -89,6 +98,18 @@
                 autoHeight: true
             });
         });
+
+        $('li.active, li.inactive').hover(function () {
+            var _this = $(this),
+                start_time = _this.data('start-time');
+
+            //TODO: get text Varaa from somewhere else
+            _this.append('<span class="hover">{0} {1}</span>'.format('Varaa', start_time));
+        }, function () {
+            $(this).find('.hover').remove();
+        });
+
+        // ------------------------ Button handlers ------------------------ //
         $('a.btn-select-modify-action').click(function () {
             $('#booking_id').val($(this).data('booking-id'));
             $('.fancybox').fancybox({
