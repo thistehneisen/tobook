@@ -9,7 +9,7 @@ if (!Bridge::hasOwnerId()) {
 	@session_destroy();
 	echo <<< JS
 <script>
-window.parent.location = '/auth/login';
+window.parent.location = '/business/auth/login';
 </script>
 JS;
 	exit;
