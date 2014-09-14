@@ -23,7 +23,7 @@ class Search extends Base
             ),
         ]);
 
-        $geocode = $geocoder->geocode('Salounaukio 3, Lahti, Finland');
+        $geocode = $geocoder->geocode('Helsinki');
 
         return View::make('front.search.index', [
             'businesses' => $businesses,

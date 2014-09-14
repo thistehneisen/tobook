@@ -8,10 +8,6 @@ class Front extends Base
 {
     public function home()
     {
-        if (Confide::user()) {
-            return Redirect::route('dashboard.index');
-        }
-
         $deals = $this->getFlashDeals();
         return View::make('front.home', [
             'deals' => $deals
