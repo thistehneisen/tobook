@@ -26,7 +26,12 @@ return [
         'quantity'         => 'Quantity per time',
         'service'          => 'Service',
         'dates'            => 'Dates',
+        'existing_dates'   => 'Existing dates',
         'date'             => 'Date',
         'add_date'         => 'Add new date',
+    ],
+    'flash_deal_dates' => [
+        'date' => 'Date',
+        'time' => 'Time'
     ]
 ];

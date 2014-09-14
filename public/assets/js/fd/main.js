@@ -28,5 +28,22 @@
 
             $('div.js-fd-date:last').after(clone);
         });
+
+        $('a.js-fd-delete-date').on('click', function (e) {
+            e.preventDefault();
+            var $this = $(this);
+            if (confirm($this.data('confirm')) === false) {
+                return;
+            }
+
+            $this.find('i').removeClass('fa-close').addClass('fa-refresh fa-spin');
+
+            $.ajax({
+                url: $this.attr('href'),
+                type: 'GET'
+            }).done(function () {
+                $('#js-fd-date-'+$this.data('id')).fadeOut();
+            });
+        });
     });
 }(jQuery));

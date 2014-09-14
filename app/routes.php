@@ -785,6 +785,11 @@ Route::group([
         'fd.flash_deals'
     );
 
+    \App\FlashDeal\Controllers\FlashDealDates::crudRoutes(
+        'flash-deal-dates',
+        'fd.flash_deal_dates'
+    );
+
 });
 
 /*
