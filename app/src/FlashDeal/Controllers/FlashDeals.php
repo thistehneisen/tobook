@@ -38,16 +38,30 @@ class FlashDeals extends Base
 
         // Add flash deal dates
         if (Input::has('date')) {
+            // Remember to check existing date
+            $existing = $item->dates;
+            $map = [];
+            foreach ($existing as $date) {
+                $map[$date->date] = $date;
+            }
+
             $date = Input::get('date');
             $time = Input::get('time');
 
             $dates = [];
             foreach ($date as $key => $value) {
                 if (isset($time[$key])) {
-                    $dates[] = new FlashDealDate([
-                        'date' => $value,
-                        'time' => $time[$key]
-                    ]);
+                    if (isset($map[$value])) {
+                        $obj = $map[$value];
+                        $obj->time = $time[$key];
+                    } else {
+                        $obj = new FlashDealDate([
+                            'date' => $value,
+                            'time' => $time[$key]
+                        ]);
+                    }
+
+                    $dates[] = $obj;
                 }
             }
 

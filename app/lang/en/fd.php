@@ -26,6 +26,7 @@ return [
         'quantity'         => 'Quantity per time',
         'service'          => 'Service',
         'dates'            => 'Dates',
+        'dates_desc'       => 'Start time of existing dates will be updated',
         'existing_dates'   => 'Existing dates',
         'date'             => 'Date',
         'add_date'         => 'Add new date',

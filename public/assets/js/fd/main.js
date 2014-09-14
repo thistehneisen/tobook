@@ -5,6 +5,7 @@
             format: 'yyyy-mm-dd',
             weekStart: 1,
             autoclose: true,
+            startDate: new Date,
             language: $('body').data('locale')
         };
 

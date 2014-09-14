@@ -31,6 +31,9 @@
     </div>
     @endforeach
 
+    <?php $existingDates = $item->dates; ?>
+
+@if ($existingDates->isEmpty() === false)
     <h4 class="comfortaa">{{ trans('fd.flash_deals.existing_dates') }}</h4>
     <table class="table table-hovered table-stripped">
         <thead>
@@ -41,7 +44,7 @@
             </tr>
         </thead>
         <tbody>
-        @foreach ($item->dates as $date)
+        @foreach ($existingDates as $date)
             <tr id="js-fd-date-{{ $date->id }}">
                 <td>{{ $date->date }}</td>
                 <td>{{ $date->time }}</td>
@@ -50,16 +53,21 @@
         @endforeach
         </tbody>
     </table>
+@endif
 
     <h4 class="comfortaa">{{ trans('fd.flash_deals.dates') }}</h4>
+    <div class="alert alert-info">
+        <p>{{ trans('fd.flash_deals.dates_desc') }}</p>
+    </div>
 
     <div class="form-group js-fd-date" id="js-fd-date-template">
         <label class="col-sm-2 col-sm-offset-1 control-label">{{ trans('fd.flash_deals.date') }}</label>
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <?php $uuid = uniqid(); ?>
             {{ Form::text('date['.$uuid.']', Input::get('date', $item->date), ['class' => 'form-control date-picker']) }}
             {{ Form::errorText('date', $errors) }}
-
+        </div>
+        <div class="col-sm-5">
             <div class="fd-flash-deal-times" data-toggle="buttons">
             <?php $now = new Carbon\Carbon('08:45:00'); ?>
             @for ($i = 0; $i <= 36; $i++)
