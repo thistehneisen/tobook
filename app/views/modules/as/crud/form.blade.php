@@ -1,4 +1,4 @@
-@extends ('modules.as.layout')
+@extends ($layout)
 
 @section ('content')
     @include('modules.as.crud.tabs', ['routes' => $routes, 'langPrefix' => $langPrefix])

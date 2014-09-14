@@ -12,6 +12,7 @@ class Coupons extends Base
     protected $viewPath = 'modules.fd.coupons';
     protected $langPrefix = 'fd.coupons';
     protected $modelClass = 'App\FlashDeal\Models\Coupon';
+    protected $crudLayout = 'modules.fd.layout';
 
 
     /**

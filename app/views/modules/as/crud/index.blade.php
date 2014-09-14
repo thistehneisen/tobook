@@ -1,4 +1,4 @@
-@extends ('modules.as.layout')
+@extends ($layout)
 
 @if ($sortable === true)
     @include('modules.as.crud.sortable')

@@ -11,6 +11,7 @@ class Services extends Base
     protected $viewPath = 'modules.fd.services';
     protected $langPrefix = 'fd.services';
     protected $modelClass = 'App\FlashDeal\Models\Service';
+    protected $crudLayout = 'modules.fd.layout';
 
     /**
      * {@inheritdoc}
