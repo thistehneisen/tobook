@@ -187,25 +187,25 @@
                             <div class="form-group row">
                                 <label for="booking_date" class="col-sm-4 control-label">{{ trans('as.bookings.date') }}</label>
                                 <div class="col-sm-8">
-                                    {{ Form::text('booking_date', isset($bookingDate) ? $bookingDate : '', ['class' => 'form-control input-sm', 'id' => 'booking_date']) }}
+                                    {{ Form::text('booking_date', isset($bookingDate) ? $bookingDate : '', ['class' => 'form-control input-sm', 'id' => 'booking_date', 'disabled'=>'disabled']) }}
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="employee_name" class="col-sm-4 control-label">{{ trans('as.bookings.employee') }}</label>
                                 <div class="col-sm-8">
-                                 {{ Form::text('employee_name', isset($employee) ? $employee->name : '', ['class' => 'form-control input-sm', 'id' => 'employee_name']) }}
+                                 {{ Form::text('employee_name', isset($employee) ? $employee->name : '', ['class' => 'form-control input-sm', 'id' => 'employee_name', 'disabled'=>'disabled']) }}
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="start_time" class="col-sm-4 control-label">{{ trans('as.bookings.start_at') }}</label>
                                 <div class="col-sm-8">
-                                   {{ Form::text('start_time', isset($startTime) ? $startTime : '', ['class' => 'form-control input-sm', 'id' => 'start_time']) }}
+                                   {{ Form::text('start_time', isset($startTime) ? $startTime : '', ['class' => 'form-control input-sm', 'id' => 'start_time', 'disabled'=>'disabled']) }}
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="end_time" class="col-sm-4 control-label">{{ trans('as.bookings.end_at') }}</label>
                                 <div class="col-sm-8">
-                                    {{ Form::text('end_time', isset($endTime) ? $endTime : '', ['class' => 'form-control input-sm', 'id' => 'end_time']) }}
+                                    {{ Form::text('end_time', isset($endTime) ? $endTime : '', ['class' => 'form-control input-sm', 'id' => 'end_time', 'disabled'=>'disabled']) }}
                                 </div>
                             </div>
                         </div>
@@ -236,14 +236,14 @@
                                 </thead>
                                 <tbody>
                                     @foreach($bookingExtraServices as $bookingExtraService)
-                                    <tr>
+                                    <tr id="extra-service-{{ $bookingExtraService->extraService->id }}">
                                         <td>
                                             {{ $bookingExtraService->extraService->name }} {{ $bookingExtraService->extraService->description }}
                                         </td>
                                         <td>{{ $bookingExtraService->extraService->length }}</td>
                                         <td class="align_right"> {{ $bookingExtraService->extraService->price }}</td>
                                         <td>
-                                           <a href="#" id="btn-remove-service-time" class="btn btn-default" data-remove-url="{{ route('as.bookings.service.remove') }}" data-extra-id="{{ $bookingExtraService->extraService->id }}"><i class="glyphicon glyphicon-remove"></i></a>
+                                           <a href="#" class="btn btn-default btn-remove-extra-service" data-remove-url="{{ route('as.bookings.remove-extra-service') }}" data-extra-service-id="{{ $bookingExtraService->extraService->id }}" data-booking-id="{{ $booking->id }}"><i class="glyphicon glyphicon-remove"></i></a>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -314,7 +314,29 @@ $(function () {
     $(document).on('change', '#service_times', function () {
 
     });
-
+    $('a.btn-remove-extra-service').click( function (e) {
+        e.preventDefault();
+        var action_url      = $(this).data('remove-url'),
+            booking_id      = $(this).data('booking-id'),
+            extra_service   = $(this).data('extra-service-id');
+        $.ajax({
+            type: 'POST',
+            url: action_url,
+            data: {
+                booking_id    : booking_id,
+                extra_service : extra_service,
+            },
+            dataType: 'json'
+        }).done(function (data) {
+            if(data.success){
+                $('#extra-service-'+extra_service).remove();
+            } else {
+                alertify.alert(data.message);
+            }
+        }).fail(function (data) {
+            alertify.alert(data.responseJSON.message);
+        });
+    });
     $("#keyword").select2({
         placeholder: "Search for a consumer",
         minimumInputLength: 4,
