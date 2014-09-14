@@ -31,7 +31,7 @@ class Coupons extends Base
      */
     protected function upsertHandler($item)
     {
-        $service = Service::findOrFail(Input::get('service'));
+        $service = Service::findOrFail(Input::get('service_id'));
 
         $item->fill(Input::all());
         $item->service()->associate($service);
