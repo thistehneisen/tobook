@@ -55,15 +55,26 @@ class FlashDealDate extends Base
     /**
      * Get active flash deal dates
      *
-     * @param object $query
+     * @param Illuminate\Database\Query\Builder $query
      *
-     * @return object
+     * @return Illuminate\Database\Query\Builder
      */
     public function scopeActive($query)
     {
-        $now = Carbon::now();
         return $query->where('remains', '>', 0)
-            ->where('expire', '>=', $now->toDateString());
+            ->where('expire', '>=', Carbon::now());
+    }
+
+    /**
+     * Show expired flash deals
+     *
+     * @param  Illuminate\Database\Query\Builder $query
+     *
+     * @return Illuminate\Database\Query\Builder
+     */
+    public function scopeExpired($query)
+    {
+        return $query->where('expire', '<', Carbon::now());
     }
 
     //--------------------------------------------------------------------------
