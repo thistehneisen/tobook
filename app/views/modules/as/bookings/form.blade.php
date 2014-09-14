@@ -264,6 +264,44 @@
 <input type="hidden" value="" id="consumer_data"/>
 <script>
 $(function () {
+    var services = {{ $jsonServices }};
+    var serviceTimes = {{ $jsonServiceTimes }};
+    $(document).on('change', '#service_categories', function () {
+        $('#services').empty();
+        $('#service_times').empty();
+        var data = services[$(this).val()];
+        console.log(data);
+        var i;
+        for (i = 0; i < data.length; i = i + 1) {
+            $('#services').append(
+                $('<option>', {
+                    value: data[i].id,
+                    text: data[i].name
+                })
+            );
+        }
+    });
+
+    $(document).on('change', '#services', function () {
+        $('#service_times').empty();
+        var data = serviceTimes[$(this).val()];
+        var i;
+        console.log(data);
+        for (i = 0; i < data.length; i = i + 1) {
+            $('#service_times').append(
+                $('<option>', {
+                    value: data[i].id,
+                    text: data[i].name,
+                    'data-length': data[i].length
+                })
+            );
+        }
+    });
+
+    $(document).on('change', '#service_times', function () {
+
+    });
+
     $("#keyword").select2({
         placeholder: "Search for a consumer",
         minimumInputLength: 4,

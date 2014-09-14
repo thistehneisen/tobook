@@ -100,69 +100,6 @@
                 autoHeight: true
             });
         });
-        $(document).on('change', '#service_categories', function () {
-            var category_id = $(this).val(),
-                employee_id = $('#employee_id').val();
-            $.ajax({
-                type: 'GET',
-                url: $('#get_services_url').val(),
-                data: {
-                    category_id: category_id,
-                    employee_id: employee_id
-                },
-                dataType: 'json'
-            }).done(function (data) {
-                $('#services').empty();
-                $('#service_times').empty();
-                $('#services').append(
-                    $('<option>', {
-                        value: 0,
-                        text: '-- Valitse --' //TODO need to get somewhere else
-                    })
-                );
-                var i;
-                for (i = 0; i < data.length; i = i + 1) {
-                    $('#services').append(
-                        $('<option>', {
-                            value: data[i].id,
-                            text: data[i].name
-                        })
-                    );
-                }
-            });
-        });
-        $(document).on('change', '#services', function () {
-            var service_id = $(this).val();
-            $.ajax({
-                type: 'GET',
-                url: $('#get_service_times_url').val(),
-                data: {
-                    service_id: service_id
-                },
-                dataType: 'json'
-            }).done(function (data) {
-                $('#service_times').empty();
-                $('#service_times').append(
-                    $('<option>', {
-                        value: 0,
-                        text: '-- Valitse --' //TODO need to get somewhere else
-                    })
-                );
-                var i;
-                for (i = 0; i < data.length; i = i + 1) {
-                    $('#service_times').append(
-                        $('<option>', {
-                            value: data[i].id,
-                            text: data[i].length
-                        })
-                    );
-                }
-            });
-        });
-        $(document).on('change', '#service_times', function () {
-            var start_time = $('#start_time').val();  //TODO ?
-            //var service_time = $
-        });
         $(document).on('click', '#btn-add-employee-freetime', function (e) {
             e.preventDefault();
             $.ajax({
