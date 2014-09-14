@@ -82,7 +82,7 @@
         }*/
 
         // ------------------------ Backend Calendar ------------------------ //
-        $('li.active').click(function () {
+        $('.as-calendar li.active').click(function () {
             var employee_id = $(this).data('employee-id'),
                 booking_date = $(this).data('booking-date'),
                 start_time = $(this).data('start-time');
@@ -99,7 +99,7 @@
             });
         });
 
-        $('li.active, li.inactive').hover(function () {
+        $('.as-calendar li.active, .as-calendar li.inactive').hover(function () {
             var _this = $(this),
                 start_time = _this.data('start-time');
 
