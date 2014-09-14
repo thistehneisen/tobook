@@ -38,16 +38,14 @@
     <table class="table table-hovered table-stripped">
         <thead>
             <tr>
-                <th>{{ trans('fd.flash_deal_dates.date')  }}</th>
-                <th>{{ trans('fd.flash_deal_dates.time')  }}</th>
+                <th>{{ trans('fd.flash_deal_dates.expire')  }}</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
         @foreach ($existingDates as $date)
             <tr id="js-fd-date-{{ $date->id }}">
-                <td>{{ $date->date }}</td>
-                <td>{{ $date->time }}</td>
+                <td>{{ $date->expire->format(trans('common.format.date_time')) }}</td>
                 <td><a data-confirm="{{ trans('common.are_you_sure') }}" data-id="{{ $date->id }}" href="{{ route('fd.flash_deal_dates.delete', ['id' => $date->id]) }}" class="js-fd-delete-date text-danger"><i class="fa fa-close"></i></a></td>
             </tr>
         @endforeach

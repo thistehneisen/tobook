@@ -28,15 +28,14 @@ return [
         'discounted_price' => 'Discounted price',
         'quantity'         => 'Quantity per time',
         'service_id'       => 'Service',
-        'dates'            => 'Dates',
-        'dates_desc'       => 'Start time of existing dates will be updated',
+        'dates'            => 'Expire dates',
+        'dates_desc'       => 'Duplicated dates will be skipped',
         'existing_dates'   => 'Existing dates',
         'date'             => 'Date',
         'add_date'         => 'Add new date',
     ],
     'flash_deal_dates' => [
-        'date'    => 'Date',
-        'time'    => 'Time',
+        'expire'  => 'Expire date',
         'remains' => 'Remains'
     ]
 ];
