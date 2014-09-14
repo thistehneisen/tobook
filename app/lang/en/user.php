@@ -14,6 +14,7 @@ return [
     'email'                  => 'Email',
     'name'                   => 'Name',
     'phone'                  => 'Phone',
+    'address'                => 'Address',
     'accept_terms'           => 'By clicking &quot;Register&quot; you accept',
     'terms'                  => 'Terms',
     'register_already'       => 'You registered already?',
@@ -27,7 +28,6 @@ return [
     'enter_new_password'     => 'Please enter your new password',
     'premium_expired'        => 'Your active time was expired. Please contact us via email :email or phone number :phone_number to activate your service again.',
     'business_name'          => 'Business name',
-    'business_address'          => 'Business address',
     'profile' => [
         'index'                => 'My account',
         'general'              => 'General information',
