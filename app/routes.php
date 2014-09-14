@@ -779,6 +779,12 @@ Route::group([
         'fd.coupons'
     );
 
+    // Flash deals
+    \App\FlashDeal\Controllers\FlashDeals::crudRoutes(
+        'flash-deals',
+        'fd.flash_deals'
+    );
+
 });
 
 /*

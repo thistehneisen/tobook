@@ -9,6 +9,7 @@ module.exports = (grunt) ->
             { src: 'public/assets/less/search.less', dest: 'public/assets/css/search.css' },
             { src: 'public/assets/less/as/appointment.less', dest: 'public/assets/css/as/appointment.css' },
             { src: 'public/assets/less/as/layout-1.less', dest: 'public/assets/css/as/layout-1.css' }
+            { src: 'public/assets/less/fd/main.less', dest: 'public/assets/css/fd/main.css' },
             { src: 'public/assets/less/lc/loyalty.less', dest: 'public/assets/css/lc/loyalty.css' }
             { src: 'public/assets/less/lc/lcapp.less', dest: 'public/assets/css/lc/lcapp.css' }
         ]

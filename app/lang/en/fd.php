@@ -1,9 +1,6 @@
 <?php
 return [
     'nav' => [
-        'add_service'    => 'Add new service',
-        'add_flash_deal' => 'Add flash deal',
-        'add_coupon'     => 'Add coupon',
         'settings'       => 'Settings',
     ],
     'services' => [
@@ -21,5 +18,15 @@ return [
         'valid_date'       => 'Valid until',
         'quantity'         => 'Quantity',
         'service'          => 'Service'
+    ],
+    'flash_deals' => [
+        'all'              => 'All flash deals',
+        'add'              => 'Add flash deal',
+        'discounted_price' => 'Discounted price',
+        'quantity'         => 'Quantity per time',
+        'service'          => 'Service',
+        'dates'            => 'Dates',
+        'date'             => 'Date',
+        'add_date'         => 'Add new date',
     ]
 ];
