@@ -48,12 +48,7 @@
 
     <!-- right content -->
     <div class="col-sm-8 col-md-8 col-lg-8 search-right">
-        {{-- @include('front.search._map')--}}
-        <div id="map-canvas" style="
-            height: 500px;
-            margin: 0px;
-            padding: 0px
-          "></div>
+        <div id="map-canvas"></div>
     </div>
 </div>
 @stop

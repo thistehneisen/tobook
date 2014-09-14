@@ -36,7 +36,7 @@ class GetStyleOptionsCommand extends Command
                 $accentColor = isset($matches[0][0]) ? trim($matches[0][0]) : null;
 
                 $records = [
-                    ['key' => 'style_accent_color', 'value' => $accentColor],
+                    ['key' => 'style_main_color', 'value' => $accentColor],
                 ];
 
                 $data = [];

@@ -419,7 +419,7 @@ return [
             'style_text_color'                  => 'Tekstin väri',
             'style_background'                  => 'Tausta',
             'style_custom_css'                  => 'Custom CSS', // @todo
-            'style_accent_color'                => 'Accent Color', // @todo
+            'style_main_color'                  => 'Main color', // @todo
             'style_heading_background'          => 'Heading background', // @todo
         ],
         'working_time' => [

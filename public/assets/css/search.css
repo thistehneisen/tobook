@@ -21,3 +21,7 @@
   background: #fff2de;
   cursor: pointer;
 }
+.main .search-right #map-canvas {
+  margin-top: 20px;
+  height: 500px;
+}

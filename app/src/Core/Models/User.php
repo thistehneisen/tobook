@@ -34,7 +34,8 @@ class User extends ConfideUser
         'country',
         'description',
         'business_size',
-        'business_name'
+        'business_name',
+        'business_address',
     ];
 
     /**

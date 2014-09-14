@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddIndexToUuidColumnInAsBookingsTable extends Migration {
+class AddBusinessAddressToUsers extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,10 +12,10 @@ class AddIndexToUuidColumnInAsBookingsTable extends Migration {
 	 */
 	public function up()
 	{
-        Schema::table('as_bookings', function(Blueprint $table)
-        {
-            $table->unique('uuid');
-        });
+		Schema::table('users', function(Blueprint $table)
+		{
+			$table->string('business_address');
+		});
 	}
 
 	/**
@@ -25,7 +25,10 @@ class AddIndexToUuidColumnInAsBookingsTable extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::table('users', function(Blueprint $table)
+		{
+			$table->dropColumn('business_address');
+		});
 	}
 
 }
