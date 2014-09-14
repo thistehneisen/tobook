@@ -262,6 +262,10 @@ trait Crud
         $item = $this->getModel()->findOrFail($id);
         $item->delete();
 
+        if (Request::ajax() === true) {
+            return Response::json(['success' => true]);
+        }
+
         return Redirect::route(static::$crudRoutes['index'])
             ->with(
                 'messages',
