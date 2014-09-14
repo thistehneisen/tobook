@@ -20,6 +20,7 @@
         @foreach ($fields as $field)
             <th>{{ trans($langPrefix.'.'.$field) }}</th>
         @endforeach
+            <th>{{ trans('fd.flash_deals.dates') }}</th>
             <th>&nbsp;</th>
         </tr>
     </thead>
@@ -40,6 +41,14 @@
                 <td>{{ $item->$field }}</td>
             @endif
         @endforeach
+            <td>
+                <ul class="list-unstyle">
+                @foreach ($item->dates as $date)
+                    <li><code>{{ $date->date }} {{ $date->time }}</code></li>
+                @endforeach
+                </ul>
+            </td>
+
             <td>
             <div  class="pull-right">
                 <a href="{{ route($routes['upsert'], ['id'=> $item->id ]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>

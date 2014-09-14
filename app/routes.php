@@ -754,6 +754,46 @@ Route::group([
 
 /*
 |--------------------------------------------------------------------------
+| Module Images routes
+|--------------------------------------------------------------------------
+*/
+Route::group([
+    'prefix' => 'flash-deal',
+    'before' => ['auth']
+], function() {
+
+    Route::get('/', [
+        'as' => 'fd.index',
+        'uses' => 'App\FlashDeal\Controllers\Index@index'
+    ]);
+
+    // Services
+    \App\FlashDeal\Controllers\Services::crudRoutes(
+        'services',
+        'fd.services'
+    );
+
+    // Coupons
+    \App\FlashDeal\Controllers\Coupons::crudRoutes(
+        'coupons',
+        'fd.coupons'
+    );
+
+    // Flash deals
+    \App\FlashDeal\Controllers\FlashDeals::crudRoutes(
+        'flash-deals',
+        'fd.flash_deals'
+    );
+
+    \App\FlashDeal\Controllers\FlashDealDates::crudRoutes(
+        'flash-deal-dates',
+        'fd.flash_deal_dates'
+    );
+
+});
+
+/*
+|--------------------------------------------------------------------------
 | Admin routes
 |--------------------------------------------------------------------------
 */

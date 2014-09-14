@@ -160,7 +160,8 @@ trait Crud
             'fields'      => $fields,
             'bulkActions' => $this->getBulkActions(),
             'sortable'    => isset($this->crudSortable) ? $this->crudSortable : false,
-            'showTab'     => isset($this->crudShowTab) ? (bool) $this->crudShowTab : true
+            'showTab'     => isset($this->crudShowTab) ? (bool) $this->crudShowTab : true,
+            'layout'      => isset($this->crudLayout) ? $this->crudLayout : 'modules.as.layout'
         ]);
     }
 
@@ -196,6 +197,7 @@ trait Crud
             'item'       => $item,
             'routes'     => static::$crudRoutes,
             'langPrefix' => $this->getLangPrefix(),
+            'layout'      => isset($this->crudLayout) ? $this->crudLayout : 'modules.as.layout'
         ]);
     }
 
@@ -259,6 +261,10 @@ trait Crud
     {
         $item = $this->getModel()->findOrFail($id);
         $item->delete();
+
+        if (Request::ajax() === true) {
+            return Response::json(['success' => true]);
+        }
 
         return Redirect::route(static::$crudRoutes['index'])
             ->with(
