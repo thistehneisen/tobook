@@ -112,8 +112,8 @@ class Booking extends \App\Core\Models\Base implements \SplSubject
                     return $query->where('start_at', '>=', $startTime->toTimeString())
                          ->where('start_at', '<', $endTime->toTimeString());
                 })->orWhere(function ($query) use ($endTime, $startTime) {
-                     return $query->where('end_at', '>=', $startTime->toTimeString())
-                          ->where('end_at', '<', $endTime->toTimeString());
+                     return $query->where('end_at', '>', $startTime->toTimeString())
+                          ->where('end_at', '<=', $endTime->toTimeString());
                 })->orWhere(function ($query) use ($startTime, $endTime) {
                      return $query->where('start_at', '=', $startTime->toTimeString())
                           ->where('end_at', '=', $endTime->toTimeString());

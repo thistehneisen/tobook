@@ -98,6 +98,7 @@
         $('#txt-date').val('{{ $date->toDateString() }}');
         var slots = (parseInt($('#booking_length').val(), 10) / 15);
         var beforeSlots = (parseInt($('#booking_before').val(), 10) / 15);
+        var totalSlots = (parseInt($('#booking_length').val(), 10) / 15) - 1;//subtract it self
         console.log(beforeSlots);
         $('li.slot').each(function () {
             var len = $(this).nextAll('.active').length;
@@ -107,6 +108,11 @@
             }
             var lenBefore = $(this).prevUntil('li.booked').length;
             if (lenBefore < beforeSlots) {
+                $(this).removeClass('active');
+                $(this).addClass('inactive');
+            }
+            var len = $(this).nextUntil('li.booked').length;
+            if(len < totalSlots){
                 $(this).removeClass('active');
                 $(this).addClass('inactive');
             }
