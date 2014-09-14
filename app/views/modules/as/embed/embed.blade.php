@@ -14,9 +14,11 @@
             @if(!empty($user->asOptions['style_background']))
             background-color: {{ $user->asOptions['style_background'] }} !important;
             @endif
+            {{--
             @if(!empty($user->asOptions['style_text_color']))
             color: {{ $user->asOptions['style_text_color'] }};
             @endif
+            --}}
         }
         @endif
 
@@ -36,30 +38,30 @@
         }
         @endif
 
-        @if(!empty($user->asOptions['style_accent_color']))
+        @if(!empty($user->asOptions['style_main_color']))
         .list-group-item-heading {
-            color: {{ $user->asOptions['style_accent_color'] }} !important;
+            color: {{ $user->asOptions['style_main_color'] }} !important;
         }
         .datepicker-days .today.day,
         .datepicker-days .today.day:hover,
         .datepicker-days .today.day:hover:hover,
         .datepicker-days .today.active.day {
-            background-color: {{ $user->asOptions['style_accent_color'] }} !important;
-            border-color: {{ $user->asOptions['style_accent_color'] }} !important;
+            background-color: {{ $user->asOptions['style_main_color'] }} !important;
+            border-color: {{ $user->asOptions['style_main_color'] }} !important;
             color: #fff;
         }
         @endif
 
-        @if(!empty($user->asOptions['style_accent_color']))
+        @if(!empty($user->asOptions['style_main_color']))
         .list-group-item-heading {
-            color: {{ $user->asOptions['style_accent_color'] }} !important;
+            color: {{ $user->asOptions['style_main_color'] }} !important;
         }
         .datepicker-days .today.day,
         .datepicker-days .today.day:hover,
         .datepicker-days .today.day:hover:hover,
         .datepicker-days .today.active.day {
-            background-color: {{ $user->asOptions['style_accent_color'] }} !important;
-            border-color: {{ $user->asOptions['style_accent_color'] }} !important;
+            background-color: {{ $user->asOptions['style_main_color'] }} !important;
+            border-color: {{ $user->asOptions['style_main_color'] }} !important;
             color: #fff;
         }
         @endif

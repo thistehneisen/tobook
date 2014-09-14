@@ -202,7 +202,7 @@ return [
                 'style_text_color' => [
                     'type' => 'Text'
                 ],
-                'style_accent_color' => [
+                'style_main_color' => [
                     'type' => 'Text'
                 ],
                 'style_background' => [
