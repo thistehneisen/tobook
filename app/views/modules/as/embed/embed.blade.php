@@ -99,7 +99,6 @@
         var slots = (parseInt($('#booking_length').val(), 10) / 15);
         var beforeSlots = (parseInt($('#booking_before').val(), 10) / 15);
         var totalSlots = (parseInt($('#booking_length').val(), 10) / 15) - 1;//subtract it self
-        console.log(beforeSlots);
         $('li.slot').each(function () {
             var len = $(this).nextAll('.active').length;
             if (len < slots) {

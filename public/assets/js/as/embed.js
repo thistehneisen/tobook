@@ -73,12 +73,15 @@
                 $('ul > li').removeClass('slot-selected');
                 return;
             }
+            var time = end_time.split(':');
+            //increase 15 minutes to end time text
+            var new_end_time = time[0] + ':' + (parseInt(time[1], 10) + 15);
             $('.li-start-time').hide();
             $('.li-end-time').hide();
             $('.li-start-time-' + employee_id).show();
             $('.li-end-time-' + employee_id).show();
             $('.start-time-' + employee_id).text($(this).data('start-time'));
-            $('.end-time-' + employee_id).text(end_time);
+            $('.end-time-' + employee_id).text(new_end_time);
         });
 
         $('.btn-select-service-time').click(function (e) {
