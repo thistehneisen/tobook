@@ -44,7 +44,7 @@ $(function () {
             {{ Form::open(['id' => 'frm-profile', 'route' => 'user.profile', 'class' => 'form-horizontal', 'role' => 'form']) }}
                 <h3 class="comfortaa orange">{{ trans('user.profile.general') }}</h3>
 
-            @foreach (['business_name', 'business_address', 'phone'] as $field)
+            @foreach (['business_name', 'address', 'phone'] as $field)
                 <div class="form-group {{ Form::errorCSS($field, $errors) }}">
                     {{ Form::label($field, trans('user.'.$field).Form::required($field, $validator), ['class' => 'col-sm-2 col-sm-offset-1 control-label']) }}
                     <div class="col-sm-6">

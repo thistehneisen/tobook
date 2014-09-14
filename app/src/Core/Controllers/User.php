@@ -105,11 +105,11 @@ class User extends Base
 
         $user = Confide::user();
         $user->fill([
-            'description'      => e(Input::get('description')),
-            'business_size'    => e(Input::get('business_size')),
-            'business_name'    => e(Input::get('business_name')),
-            'business_address' => e(Input::get('business_address')),
-            'phone'            => e(Input::get('phone')),
+            'description'   => e(Input::get('description')),
+            'business_size' => e(Input::get('business_size')),
+            'business_name' => e(Input::get('business_name')),
+            'address'       => e(Input::get('address')),
+            'phone'         => e(Input::get('phone')),
         ]);
 
         // Update business categories
