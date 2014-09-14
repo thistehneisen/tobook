@@ -13,11 +13,11 @@
 
     {{ Form::open(['route' => ['fd.coupons.upsert', !empty($item->id) ? $item->id : ''], 'class' => 'form-horizontal', 'role' => 'form']) }}
 
-    <div class="form-group {{ Form::errorCSS('service', $errors) }}">
-        <label for="service" class="col-sm-2 col-sm-offset-1 control-label">{{ trans('fd.coupons.service') }} {{ Form::required('service', $item) }}</label>
+    <div class="form-group {{ Form::errorCSS('service_id', $errors) }}">
+        <label for="service_id" class="col-sm-2 col-sm-offset-1 control-label">{{ trans('fd.coupons.service_id') }} {{ Form::required('service_id', $item) }}</label>
         <div class="col-sm-6">
-            {{ Form::select('service', array_combine($services->lists('id'), $services->lists('name')), null, ['class' => 'form-control']) }}
-            {{ Form::errorText('service', $errors) }}
+            {{ Form::select('service_id', array_combine($services->lists('id'), $services->lists('name_with_price')), Input::get('service_id', $item->service_id), ['class' => 'form-control']) }}
+            {{ Form::errorText('service_id', $errors) }}
         </div>
     </div>
 
