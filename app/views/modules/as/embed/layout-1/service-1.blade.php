@@ -15,7 +15,7 @@
                     <div id="service-{{ $category->id.'-'.$service->id }}" class="collapse">
                         <p>
                             <a data-service-id="{{ $service->id }}" data-service-time="default" class="btn btn-default btn-select-service-time"><i class="glyphicon glyphicon-tag"></i> &euro;{{ number_format($service->price) }}</a>
-                            <a data-service-id="{{ $service->id }}" data-service-time="default" class="btn btn-default btn-select-service-time"><i class="glyphicon glyphicon-time"></i> {{ $service->during }} {{ trans('common.minutes')}}</button>
+                            <a data-service-id="{{ $service->id }}" data-service-time="default" class="btn btn-default btn-select-service-time"><i class="glyphicon glyphicon-time"></i> {{ $service->during }} {{ trans('common.minutes')}}</a>
                             <span class="text-muted">{{ $service->description }}</a>
                         </p>
                         @foreach ($service->serviceTimes as $serviceTime)
