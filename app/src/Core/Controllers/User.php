@@ -109,6 +109,9 @@ class User extends Base
             'business_size' => e(Input::get('business_size')),
             'business_name' => e(Input::get('business_name')),
             'address'       => e(Input::get('address')),
+            'city'          => e(Input::get('city')),
+            'postcode'      => e(Input::get('postcode')),
+            'country'       => e(Input::get('country')),
             'phone'         => e(Input::get('phone')),
         ]);
 
