@@ -773,6 +773,12 @@ Route::group([
         'fd.services'
     );
 
+    // Coupons
+    \App\FlashDeal\Controllers\Coupons::crudRoutes(
+        'coupons',
+        'fd.coupons'
+    );
+
 });
 
 /*

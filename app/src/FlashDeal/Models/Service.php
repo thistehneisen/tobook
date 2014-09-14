@@ -26,4 +26,9 @@ class Service extends Base
     {
         return $this->belongsTo('App\Core\Models\User');
     }
+
+    public function coupons()
+    {
+        return $this->hasMany('App\FlashDeal\Models\Coupon');
+    }
 }

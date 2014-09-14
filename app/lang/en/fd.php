@@ -13,5 +13,13 @@ return [
         'price'       => 'Normal price',
         'quantity'    => 'Quantity',
         'description' => 'Description',
+    ],
+    'coupons' => [
+        'all'              => 'All coupons',
+        'add'              => 'Add coupon',
+        'discounted_price' => 'Discounted price',
+        'valid_date'       => 'Valid until',
+        'quantity'         => 'Quantity',
+        'service'          => 'Service'
     ]
 ];
