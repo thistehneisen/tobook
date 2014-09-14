@@ -6,6 +6,7 @@
             <th>{{ trans('fd.flash_deals.date') }}</th>
             <th>{{ trans('fd.flash_deals.discounted_price') }}</th>
             <th>{{ trans('fd.flash_deals.quantity') }}</th>
+            <th>{{ trans('fd.flash_deal_dates.remains') }}</th>
         </tr>
     </thead>
     <tbody>
@@ -16,6 +17,7 @@
             <td>{{ $item->active->date }} {{ $item->active->time }}</td>
             <td>&euro;{{ $item->discounted_price }} <span class="text-danger">(<i class="fa fa-caret-down"></i> {{ $item->discount_percent }}%)</span></td>
             <td>{{ $item->quantity }}</td>
+            <td>{{ $item->active->remains }}</td>
         </tr>
     @endforeach
     </tbody>
