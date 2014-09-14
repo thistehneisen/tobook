@@ -37,4 +37,13 @@ class Service extends Base
     {
         return $this->hasMany('App\FlashDeal\Models\Coupon');
     }
+
+    //--------------------------------------------------------------------------
+    // ATTRIBUTES
+    //--------------------------------------------------------------------------
+    public function getNameWithPriceAttribute()
+    {
+        $price = $this->attributes['price'];
+        return $this->attributes['name']." (&euro;$price)";
+    }
 }

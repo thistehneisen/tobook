@@ -19,7 +19,7 @@ return [
         'discounted_price' => 'Discounted price',
         'valid_date'       => 'Valid until',
         'quantity'         => 'Quantity',
-        'service'          => 'Service'
+        'service_id'       => 'Service',
     ],
     'flash_deals' => [
         'all'              => 'All flash deals',

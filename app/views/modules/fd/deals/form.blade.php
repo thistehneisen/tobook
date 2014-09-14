@@ -16,7 +16,7 @@
     <div class="form-group {{ Form::errorCSS('service_id', $errors) }}">
         <label class="col-sm-2 col-sm-offset-1 control-label">{{ trans('fd.flash_deals.service') }} {{ Form::required('service_id', $item) }}</label>
         <div class="col-sm-6">
-            {{ Form::select('service_id', $serviceSelect, Input::get('service_id', $item->service_id), ['class' => 'form-control']) }}
+            {{ Form::select('service_id', array_combine($services->lists('id'), $services->lists('name_with_price')), Input::get('service_id', $item->service_id), ['class' => 'form-control']) }}
             {{ Form::errorText('service_id', $errors) }}
         </div>
     </div>

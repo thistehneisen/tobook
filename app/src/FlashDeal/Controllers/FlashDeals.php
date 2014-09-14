@@ -23,11 +23,7 @@ class FlashDeals extends Base
         parent::__construct();
 
         $services = Service::ofCurrentUser()->get();
-        $serviceSelect = [];
-        foreach ($services as $service) {
-            $serviceSelect[$service->id] = $service->name." (&euro;$service->price)";
-        }
-        View::share('serviceSelect', $serviceSelect);
+        View::share('services', $services);
     }
 
     /**
