@@ -9,23 +9,22 @@ class FlashDealDate extends Base
 {
     protected $table = 'fd_flash_deal_dates';
     public $fillable = [
-        'date',
-        'time',
+        'expire',
         'remains',
     ];
     protected $rulesets = [
         'saving' => [
-            'date' => 'required',
-            'time' => 'required',
+            'expire'  => 'required',
+            'remains' => 'required',
         ]
     ];
 
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
-    public function getDAttribute()
+    public function getExpireAttribute()
     {
-        return new Carbon($this->attributes['date'].' '.$this->attributes['time']);
+        return new Carbon($this->attributes['expire']);
     }
 
     //--------------------------------------------------------------------------
@@ -64,7 +63,7 @@ class FlashDealDate extends Base
     {
         $now = Carbon::now();
         return $query->where('remains', '>', 0)
-            ->where('date', $now->toDateString())
+            ->where('date', '>=', $now->toDateString())
             ->where('time', '>=', $now->toTimeString());
     }
 

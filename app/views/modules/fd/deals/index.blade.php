@@ -48,7 +48,7 @@
             <td>
                 <ul class="list-unstyle">
                 @foreach ($item->dates as $date)
-                    <li><code>{{ $date->date }} {{ $date->time }}</code></li>
+                    <li><code>{{ $date->expire->format(trans('common.format.date_time')) }}</code></li>
                 @endforeach
                 </ul>
             </td>

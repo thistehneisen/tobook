@@ -27,7 +27,7 @@ class RemoveQuantityFromFdServices extends Migration {
 	{
 		Schema::table('fd_services', function(Blueprint $table)
 		{
-			$table->mediumIngeter('quanitty');
+			$table->mediumInteger('quanitty');
 		});
 	}
 
