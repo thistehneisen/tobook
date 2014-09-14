@@ -1,5 +1,6 @@
 <?php namespace App\FlashDeal\Controllers;
 
+use Carbon\Carbon;
 use Input, View;
 use App\Core\Controllers\Base;
 use App\Appointment\Traits\Crud;

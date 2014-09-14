@@ -3,6 +3,7 @@
         <tr>
             <th>{{ trans('fd.services.name') }}</th>
             <th>{{ trans('fd.services.price') }}</th>
+            <th>{{ trans('fd.flash_deals.date') }}</th>
             <th>{{ trans('fd.flash_deals.discounted_price') }}</th>
             <th>{{ trans('fd.flash_deals.quantity') }}</th>
         </tr>
@@ -12,6 +13,7 @@
         <tr>
             <td>{{ $item->service->name }}</td>
             <td>&euro;{{ $item->service->price }}</td>
+            <td>{{ $item->active->date }} {{ $item->active->time }}</td>
             <td>&euro;{{ $item->discounted_price }} <span class="text-danger">(<i class="fa fa-caret-down"></i> {{ $item->discount_percent }}%)</span></td>
             <td>{{ $item->quantity }}</td>
         </tr>
