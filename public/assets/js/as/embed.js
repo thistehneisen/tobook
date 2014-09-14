@@ -47,7 +47,7 @@
 
         $('li.active').click(function (e) {
             $('ul > li').removeClass('slot-selected');
-            if($(this).hasClass('inactive')){
+            if ($(this).hasClass('inactive')) {
                 return;
             }
             //The service length must be divisible by 15
@@ -129,6 +129,7 @@
                 data: $('#form-confirm-booking').serialize(),
                 dataType: 'json'
             }).done(function (data) {
+                alertify.alert(success_msg);
                 window.location.href = success_url;
             }).fail(function (data) {
                 alertify.alert(data.responseJSON.message);

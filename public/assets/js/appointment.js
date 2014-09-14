@@ -54,12 +54,20 @@
         });
 
         // Date picker
-        $('.date-picker').datepicker({
-            format: 'yyyy-mm-dd',
-            language: $('body').data('locale')
+        $('body').on('focus', '.date-picker', function () {
+            $(this).datepicker({
+                format: 'yyyy-mm-dd',
+                weekStart: 1,
+                autoclose: true,
+                language: $('body').data('locale')
+            });
         });
         $('#calendar_date').datepicker({
-            format: 'yyyy-mm-dd'
+            format: 'yyyy-mm-dd',
+            weekStart: 1,
+            autoclose: true,
+            calendarWeeks: true,
+            language: $('body').data('locale')
         }).on('changeDate', function () {
             //use data-index-url attribute to prevent append date to date like yyyy-mm-dd/yyyy-mm-dd
             window.location.href = $(this).data('index-url') + "/" + $(this).val();
@@ -151,8 +159,8 @@
                 }
             });
         });
-        $(document).on('change', '#service_times', function() {
-            var start_time = $('#start_time').val();
+        $(document).on('change', '#service_times', function () {
+            var start_time = $('#start_time').val();  //TODO ?
             //var service_time = $
         });
         $(document).on('click', '#btn-add-employee-freetime', function (e) {
@@ -302,7 +310,7 @@
             } else if (selected_action === 'add_extra_service') {
                 var action_url = $('#add_extra_service_url').val(),
                     booking_id = $('#booking_id').val();
-                 $.fancybox.open({
+                $.fancybox.open({
                     padding: 5,
                     width: 400,
                     title: '',
@@ -421,8 +429,8 @@
         });
         $('a.btn-add-extra-service').click(function (e) {
             e.preventDefault();
-            var booking_id = $(this).data('booking-id');
-            var action_url = $(this).data('action-url');
+            var booking_id = $(this).data('booking-id'),
+                action_url = $(this).data('action-url');
             $.fancybox.open({
                 padding: 5,
                 width: 400,

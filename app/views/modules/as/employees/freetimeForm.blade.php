@@ -55,10 +55,3 @@
         </div><!--  end panel-group -->
     </form>
 </div>
-<script>
- $(document).ready(function(){
-    $('.date-picker').datepicker({
-      format: 'yyyy-mm-dd'
-    });
- });
-</script>
