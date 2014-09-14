@@ -102,6 +102,30 @@ class Booking extends \App\Core\Models\Base implements \SplSubject
         return isset($map[$value]) ? $map[$value] : null;
     }
 
+    public function isBookable($bookingDate, $startTime, $endTime)
+    {
+        $bookings = self::where('date', $bookingDate)
+            ->where('employee_id', $this->employee->id)
+            ->whereNull('deleted_at')
+            ->where(function ($query) use ($startTime, $endTime) {
+                return $query->where(function ($query) use ($startTime) {
+                    return $query->where('start_at', '<=', $startTime->toTimeString())
+                         ->where('end_at', '>', $startTime->toTimeString());
+                })->orWhere(function ($query) use ($endTime) {
+                     return $query->where('start_at', '<', $endTime->toTimeString())
+                          ->where('end_at', '>=', $endTime->toTimeString());
+                })->orWhere(function ($query) use ($startTime, $endTime) {
+                     return $query->where('start_at', '=', $startTime->toTimeString())
+                          ->where('end_at', '=', $endTime->toTimeString());
+                });
+            })->get();
+
+        if (!$bookings->isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------

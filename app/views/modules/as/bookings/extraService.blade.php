@@ -13,7 +13,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="form-group row">
-            <a href="#" id="btn-add-extra-service" class="btn btn-primary btn-sm pull-right">{{ trans('common.save') }}</a>
+            <a href="#" id="btn-add-extra-service" data-action-url="{{ route('as.bookings.add-extra-services')}}" class="btn btn-primary btn-sm pull-right">{{ trans('common.save') }}</a>
             </div>
         </div>
     </div>

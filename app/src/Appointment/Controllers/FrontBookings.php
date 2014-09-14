@@ -135,6 +135,8 @@ class FrontBookings extends Bookings
                 'date'     => $bookingDate,
                 'tmp_uuid' => $uuid
             ]);
+
+            $bookingExtraService->booking()->associate($booking);
             $bookingExtraService->extraService()->associate($extraService);
             $bookingExtraService->save();
         }

@@ -8,6 +8,7 @@ use App\Appointment\Models\BookingExtraService;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
+use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\AsConsumer;
 use App\Consumers\Models\Consumer;
 use App\Core\Models\User;
@@ -114,13 +115,23 @@ class Bookings extends AsBase
     }
 
     public function getAddExtraServiceForm(){
-        $bookingId = Input::get('booking_id');
-        //TODO if not found booking
-        $booking = Booking::find($bookingId);
-        $extraServices = $booking->bookingServices()->first()->service->extraServices()->lists('name', 'id');
+        $bookingId            = Input::get('booking_id');
+        $booking              = Booking::find($bookingId);//TODO if not found booking
+
+        $bookingExtraServices = $booking->extraServices()->lists('extra_service_id');
+
+        $extraServices = $booking->bookingServices()
+                            ->first()->service
+                            ->extraServices();
+        if(!empty($bookingExtraServices)){
+            $data = $extraServices->whereNotIn('as_extra_services.id', $bookingExtraServices);
+        }
+
+        $data = $extraServices->lists('name', 'id');
+
         return View::make('modules.as.bookings.extraService', [
             'booking'       => $booking,
-            'extraServices' => $extraServices
+            'extraServices' => $data
         ]);
     }
 
@@ -462,7 +473,73 @@ class Bookings extends AsBase
         return Response::json($data);
     }
 
-    public function searchConsumer(){
+    public function addExtraServices()
+    {
+        $extraServiceIds = Input::get('extra_services');
+        $bookingId       = Input::get('booking_id');
+        $booking         = Booking::find($bookingId);
+
+        if(empty($extraServiceIds)){
+            return Response::json([
+                'success'=> false,
+                'message'=> 'as.bookings.select_extra_services',
+            ]);
+        }
+
+        $extraServiceTime  = 0;
+        $extraServicePrice = 0;
+        $extraServices = [];
+
+        foreach ($extraServiceIds as $id) {
+            $extraService = ExtraService::find($id);
+            $extraServiceTime  += $extraService->length;
+            $extraServicePrice += $extraService->price;
+            $extraServices[] = $extraService;
+        }
+        $date      = new Carbon($booking->date);
+        $endTime   = Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s', $booking->date, $booking->end_at));
+        $newEndTime= with(clone $endTime)->addMinutes($extraServiceTime);
+
+        $isBookable = $booking->isBookable($date, $endTime, $newEndTime);
+
+        if($isBookable)
+        {
+            $booking->total        = $booking->total + $extraServiceTime;
+            $booking->total_price  = $booking->total_price + $extraServicePrice;
+            $booking->end_at       = $newEndTime->toTimeString();
+            $booking->save();
+
+            foreach ($extraServices as $extraService) {
+                $bookingExtraService = new BookingExtraService;
+                $bookingExtraService->fill([
+                    'date'     => $booking->date,
+                    'tmp_uuid' => $booking->uuid,
+                ]);
+                $bookingExtraService->booking()->associate($booking);
+                $bookingExtraService->extraService()->associate($extraService);
+                $bookingExtraService->save();
+            }
+        } else {
+            return Response::json([
+                'success'=> false,
+                'message'=> 'as.bookings.not_enough_slots',
+            ]);
+        }
+
+        return Response::json([
+            'success'=> true,
+            'message'=> 'as.bookings.add_extra_services_success',
+        ]);
+    }
+
+    /**
+     * Search an employee by name, email, phone
+     * @TODO use full text search instead of LIKE clause
+     *
+     * @return json
+     */
+    public function searchConsumer()
+    {
         $keyword = Input::get('keyword');
         $consumers = Consumer::join('as_consumers', 'as_consumers.consumer_id', '=', 'consumers.id')
                     ->where('as_consumers.user_id', Confide::user()->id)

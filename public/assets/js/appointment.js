@@ -427,33 +427,21 @@
                 autoCenter: false
             });
         });
-        $('a.btn-add-extra-service').click(function (e) {
+        $(document).on('click', '#btn-add-extra-service', function (e) {
             e.preventDefault();
-            var booking_id = $(this).data('booking-id'),
+            var postData = $('#add_extra_service_form').serialize(),
                 action_url = $(this).data('action-url');
-            $.fancybox.open({
-                padding: 5,
-                width: 400,
-                title: '',
-                autoSize: false,
-                autoScale: true,
-                autoWidth: false,
-                autoHeight: true,
-                fitToView: false,
-                href: action_url,
-                type: 'ajax',
-                ajax: {
-                    type: 'GET',
-                    data: {
-                        booking_id: booking_id,
-                    }
-                },
-                helpers: {
-                    overlay: {
-                        locked: false
-                    }
-                },
-                autoCenter: false
+            $.ajax({
+                type: 'POST',
+                url: action_url,
+                data: postData,
+                dataType: 'json'
+            }).done(function (data) {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alertify.alert(data.message);
+                }
             });
         });
     });
