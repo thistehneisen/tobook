@@ -1,7 +1,8 @@
 <?php namespace App\FlashDeal\Controllers;
 
-use App;
+use App, Config, Input;
 use App\Core\Controllers\Base;
+use App\FlashDeal\Models\FlashDeal;
 
 class Index extends Base
 {
@@ -32,9 +33,19 @@ class Index extends Base
         return 'hehe';
     }
 
+    /**
+     * Show active flash deals
+     *
+     * @return View
+     */
     public function activeFlashDeals()
     {
-        return 'hehe';
+        $perPage = Input::get('perPage', Config::get('view.perPage'));
+        $all = FlashDeal::active()->paginate($perPage);
+
+        return $this->render('el.activeFlashDeals', [
+            'items' => $all
+        ]);
     }
 
     public function activeCoupons()
