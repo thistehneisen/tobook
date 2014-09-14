@@ -51,15 +51,14 @@ class FlashDeals extends Base
             $dates = [];
             foreach ($date as $key => $value) {
                 if (isset($time[$key])) {
-                    if (isset($map[$value])) {
-                        $obj = $map[$value];
-                        $obj->time = $time[$key];
-                    } else {
-                        $obj = new FlashDealDate([
-                            'date' => $value,
-                            'time' => $time[$key]
-                        ]);
-                    }
+                    $obj = (isset($map[$value]))
+                        ? $obj = $map[$value]
+                        : new FlashDealDate(['date' => $value]);
+
+                    $obj->fill([
+                        'time' => $time[$key],
+                        'remains' => Input::get('quantity')
+                    ]);
 
                     $dates[] = $obj;
                 }

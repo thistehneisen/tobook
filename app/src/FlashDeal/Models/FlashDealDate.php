@@ -8,6 +8,7 @@ class FlashDealDate extends Base
     public $fillable = [
         'date',
         'time',
+        'remains',
     ];
     protected $rulesets = [
         'saving' => [
