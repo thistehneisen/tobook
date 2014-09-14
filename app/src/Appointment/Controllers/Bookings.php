@@ -44,38 +44,8 @@ class Bookings extends AsBase
         $bookingService       = $booking->bookingServices()->first();
         $bookingExtraServices = $booking->extraServices()->get();
 
-        $categories[-1]   = trans('common.select');
-        $jsonServices     = [];
-        $jsonServiceTimes = [];
-        foreach ($services as $service) {
-            //for getting distinct categories
-            $categories[$service->category->id] = $service->category->name;
-            $jsonServices[$service->category->id][] = [
-                'id' => -1,
-                'name'=> trans('common.select'),
-            ];
+        list($categories, $jsonServices, $jsonServiceTimes) = $this->servicesServiceTimesJson($services);
 
-            $jsonServices[$service->category->id][] = [
-                'id'   => $service->id,
-                'name' =>$service->name,
-            ];
-            $jsonServiceTimes[$service->id][] = [
-                'id'  => -1,
-                'name'=> trans('common.select'),
-            ];
-            $jsonServiceTimes[$service->id][] =  [
-                'id'     => 'default',
-                'name'   => $service->length,
-                'length' =>  $service->length,
-            ];
-            foreach ($service->serviceTimes as $serviceTime) {
-                $jsonServiceTimes[$service->id][] = [
-                    'id'     => $serviceTime->id,
-                    'name'   => $serviceTime->length,
-                    'length' => $serviceTime->length,
-                ];
-            }
-        }
         $bookingCategoryId   = (!empty($bookingService)) ? $bookingService->service->category->id : null;
         $bookingServiceId    = (!empty($bookingService)) ? $bookingService->service->id : null;
         $bookingServices     = $employee->services()->where('category_id', $bookingCategoryId)->lists('name','id');
@@ -113,7 +83,7 @@ class Bookings extends AsBase
             'jsonServices'          => json_encode($jsonServices),
             'jsonServiceTimes'      => json_encode($jsonServiceTimes),
             'services'              => $bookingServices,
-            'serviceTimes'          => array_values($serviceTimesList),
+            'serviceTimes'          => $jsonServiceTimes[$bookingServiceId],
         ]);
     }
 
@@ -128,6 +98,22 @@ class Bookings extends AsBase
         $employee = Employee::find($employeeId);
         $services = $employee->services;
 
+        list($categories, $jsonServices, $jsonServiceTimes) = $this->servicesServiceTimesJson($services);
+
+        return View::make('modules.as.bookings.form', [
+            'uuid'            => Util::uuid(),
+            'employee'        => $employee,
+            'categories'      => $categories,
+            'jsonServices'    => json_encode($jsonServices),
+            'jsonServiceTimes'=> json_encode($jsonServiceTimes),
+            'bookingDate'     => $bookingDate,
+            'startTime'       => $startTime,
+            'bookingStatuses' => $bookingStatuses
+        ]);
+    }
+
+    private function servicesServiceTimesJson($services)
+    {
         $categories[-1]   = trans('common.select');
         $jsonServices     = [];
         $jsonServiceTimes = [];
@@ -160,17 +146,7 @@ class Bookings extends AsBase
                 ];
             }
         }
-
-        return View::make('modules.as.bookings.form', [
-            'uuid'            => Util::uuid(),
-            'employee'        => $employee,
-            'categories'      => $categories,
-            'jsonServices'    => json_encode($jsonServices),
-            'jsonServiceTimes'=> json_encode($jsonServiceTimes),
-            'bookingDate'     => $bookingDate,
-            'startTime'       => $startTime,
-            'bookingStatuses' => $bookingStatuses
-        ]);
+        return [$categories, $jsonServices, $jsonServiceTimes];
     }
 
     public function getAddExtraServiceForm(){
@@ -287,7 +263,14 @@ class Bookings extends AsBase
         $hash           = Input::get('hash');
         $bookingDate    = Input::get('booking_date');
         $startTimeStr   = Input::get('start_time');
-        $uuid           = Input::get('uuid', Util::uuid());
+        $uuid           = Input::get('booking_uuid', '');
+
+
+        $bookingService = BookingService::where('tmp_uuid', $uuid)->whereNotNull('booking_id')->first();
+        if(!empty($bookingService->service->id)){
+            $data['message'] = trans('as.bookings.error.remove_booking_service_before_add');
+            return Response::json($data, 400);
+        }
 
         $employee = Employee::find($employeeId);
         $service = Service::find($serviceId);

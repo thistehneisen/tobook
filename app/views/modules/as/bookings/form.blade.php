@@ -155,7 +155,20 @@
                         <div class="form-group row">
                             <label for="service_times" class="col-sm-4 control-label">{{ trans('as.bookings.service_time') }} </label>
                             <div class="col-sm-8">
-                               {{ Form::select('service_times', (isset($serviceTimes)) ? $serviceTimes : array(), isset($bookingServiceTime) ? $bookingServiceTime : '', ['class' => 'form-control input-sm', 'id' => 'service_times']) }}
+                            <select class="form-control input-sm" id="service_times" name="service_times">
+                                @if(!empty($serviceTimes))
+                                    @foreach ($serviceTimes as $serviceTime)
+                                        <option
+                                            @if(isset($serviceTime['length'])) data-length="{{ $serviceTime['length'] }}" @endif
+                                            @if($bookingServiceTime == (int)$serviceTime['id'])
+                                            selected="selected"
+                                            @endif
+                                            value="{{ $serviceTime['id']}}">
+                                                {{ $serviceTime['name']}}
+                                        </option>
+                                    @endforeach
+                                @endif
+                             </select>
                             </div>
                         </div>
                         <div class="form-group row">
