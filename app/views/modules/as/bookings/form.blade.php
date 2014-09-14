@@ -23,7 +23,7 @@
                             <div class="form-group row">
                                 <label for="booking_status" class="col-sm-4 control-label">{{ trans('as.bookings.status') }}</label>
                                 <div class="col-sm-8">
-                                    {{ Form::select('booking_status', $bookingStatuses, 'confirmed', ['class' => 'form-control input-sm', 'id' => 'booking_status']) }}
+                                    {{ Form::select('booking_status', $bookingStatuses, (isset($booking)) ? $booking->getStatusText() : '', ['class' => 'form-control input-sm', 'id' => 'booking_status']) }}
                                 </div>
                             </div>
                             <div class="form-group row">
