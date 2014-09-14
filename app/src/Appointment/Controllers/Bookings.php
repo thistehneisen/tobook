@@ -320,8 +320,14 @@ class Bookings extends AsBase
 
         try {
             //support multiple service time?
-            $bookingService = BookingService::where('tmp_uuid', $uuid)->firstOrFail();
+            $bookingService = BookingService::where('tmp_uuid', $uuid)->first();
             $data = [];
+
+            if(empty($bookingService)){
+                $data['success'] = false;
+                $data['message'] = trans('as.bookings.missing_services');
+                return Response::json($data);
+            }
 
             $consumer = $this->handleConsumer();
 
@@ -351,11 +357,11 @@ class Bookings extends AsBase
             $booking->save();
             $bookingService->booking()->associate($booking);
             $bookingService->save();
-            $data['status']      = true;
+            $data['success']      = true;
             $data['baseURl']     = route('as.index');
             $data['bookingDate'] = $booking->date;
         } catch (\Exception $ex) {
-            $data['status'] = false;
+            $data['success'] = false;
             $data['message'] = $ex->getMessage();
         }
 
@@ -401,18 +407,20 @@ class Bookings extends AsBase
             'phone'      => $phone,
             'address'    => $address
         ];
-
-        if (empty($consumer->id)) {
-            $consumer = Consumer::make($data, $userId);
-            $asConsumer->user()->associate($user);
-            $asConsumer->consumer()->associate($consumer);
-            $asConsumer->save();
-        } else {
-            //TODO update consumer
-            $consumer->fill($data);
-            $consumer->saveOrFail();
+        try{
+            if (empty($consumer->id)) {
+                $consumer = Consumer::make($data, $userId);
+                $asConsumer->user()->associate($user);
+                $asConsumer->consumer()->associate($consumer);
+                $asConsumer->save();
+            } else {
+                //TODO update consumer
+                $consumer->fill($data);
+                $consumer->saveOrFail();
+            }
+        } catch(\Exception $ex){
+            throw new \Exception(trans("as.bookings.error.invalid_consumer_info"));
         }
-
         return $consumer;
     }
 

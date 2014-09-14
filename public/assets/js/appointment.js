@@ -258,8 +258,11 @@
                 data: postData,
                 dataType: 'json'
             }).done(function (data) {
-                //TODO there are two views default and week view
-                location.reload();
+                 if (data.success) {
+                    location.reload();
+                } else {
+                    alertify.alert(data.message);
+                }
             });
         });
         $(document).on('click', '#btn-change-status', function (e) {
