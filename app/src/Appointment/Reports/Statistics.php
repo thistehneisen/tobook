@@ -193,14 +193,15 @@ class Statistics extends Base
             ->select(
                 DB::raw('HOUR(SUBTIME(end_at, start_at)) * 60 + MINUTE(SUBTIME(end_at, start_at)) AS minutes'),
                 DB::raw('DAYOFMONTH(date) AS day'),
-                'is_day_off'
+                'is_day_off',
+                'employee_id'
             )
             ->get();
 
         if (!empty($result)) {
-            $custom[$item->day] = 0;
             foreach ($result as $item) {
-                $custom[$item->day] += $item->minutes;
+                $custom[$item->employee_id][$item->day] = 0;
+                $custom[$item->employee_id][$item->day] += $item->minutes;
             }
         }
 
@@ -214,9 +215,9 @@ class Statistics extends Base
             )
             ->get();
         if (!empty($result)) {
-            $default[$item->type] = 0;
             foreach ($result as $item) {
-                $default[$item->type] += $item->minutes;
+                $default[$item->employee_id][$item->type] = 0;
+                $default[$item->employee_id][$item->type] += $item->minutes;
             }
         }
 
@@ -228,14 +229,15 @@ class Statistics extends Base
             ->where('date', '<=', $this->end)
             ->select(
                 DB::raw('HOUR(SUBTIME(end_at, start_at)) * 60 + MINUTE(SUBTIME(end_at, start_at)) AS minutes'),
-                DB::raw('DAYOFMONTH(date) AS day')
+                DB::raw('DAYOFMONTH(date) AS day'),
+                'employee_id'
             )
             ->get();
 
         if (!empty($result)) {
-            $freetime[$item->day] = 0;
             foreach ($result as $item) {
-                $freetime[$item->day] += $item->minutes;
+                $freetime[$item->employee_id][$item->day] = 0;
+                $freetime[$item->employee_id][$item->day] += $item->minutes;
             }
         }
 
@@ -246,7 +248,6 @@ class Statistics extends Base
     {
         list($custom, $default, $freetime) = $this->getWorkingTime();
 
-        debug($custom, $default, $freetime);
         $map = [
             Carbon::MONDAY    => 'mon',
             Carbon::TUESDAY   => 'tue',
@@ -256,26 +257,35 @@ class Statistics extends Base
             Carbon::SATURDAY  => 'sat',
             Carbon::SUNDAY    => 'sun',
         ];
+
+        $ret = [];
+        $employeeIds = array_keys($custom);
         foreach ($data as $day => &$item) {
-            $total = 0;
+            foreach ($employeeIds as $employeeId) {
+                $total = 0;
 
-            if (isset($custom[$day])) {
-                // If this day has a custom working time
-                $total += (int) $custom[$day];
-            } else {
-                // If not, we'll use the default working time
-                $dayOfWeek = $item['date']->dayOfWeek;
-                if (isset($default[$map[$dayOfWeek]])) {
-                    $total += (int) $default[$map[$dayOfWeek]];
+                if (isset($custom[$employeeId][$day])) {
+                    // If this day has a custom working time
+                    $total += (int) $custom[$employeeId][$day];
+                } else {
+                    // If not, we'll use the default working time
+                    $dayOfWeek = $item['date']->dayOfWeek;
+                    if (isset($default[$employeeId][$map[$dayOfWeek]])) {
+                        $total += (int) $default[$employeeId][$map[$dayOfWeek]];
+                    }
                 }
+
+                // Subtract the free time
+                if ($total > 0 && isset($freetime[$employeeId][$day])) {
+                    $total -= $freetime[$employeeId][$day];
+                }
+
+                $item['working_time'][$employeeId] = $total;
             }
 
-            // Subtract the free time
-            if ($total > 0 && isset($freetime[$day])) {
-                $total -= $freetime[$day];
-            }
-
-            $item['working_time'] = $total;
+            $item['working_time'] = ($this->employeeId === null)
+                ? array_sum($item['working_time'])
+                : $item['working_time'][$this->employeeId];
         }
 
         return $data;
