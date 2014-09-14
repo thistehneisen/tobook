@@ -247,21 +247,7 @@ class Bookings extends AsBase
         $endTime = with(clone $startTime)->addMinutes($endTimeDelta);
 
         //Check is there any existed booking with this service time
-        $bookings = Booking::where('date', $bookingDate)
-            ->where('employee_id', $employeeId)
-            ->whereNull('deleted_at')
-            ->where(function ($query) use ($startTime, $endTime) {
-                return $query->where(function ($query) use ($startTime) {
-                    return $query->where('start_at', '<=', $startTime->toTimeString())
-                         ->where('end_at', '>', $startTime->toTimeString());
-                })->orWhere(function ($query) use ($endTime) {
-                     return $query->where('start_at', '<', $endTime->toTimeString())
-                          ->where('end_at', '>=', $endTime->toTimeString());
-                })->orWhere(function ($query) use ($startTime, $endTime) {
-                     return $query->where('start_at', '=', $startTime->toTimeString())
-                          ->where('end_at', '=', $endTime->toTimeString());
-                });
-            })->get();
+        $isBookable = Booking::isBookable($employeeId, $bookingDate, $startTime, $endTime);
         //TODO Check overlapped booking in user cart
 
         //Check enough timeslot in employee default working time
@@ -272,7 +258,7 @@ class Bookings extends AsBase
             return Response::json($data, 400);
         }
 
-        if (!$bookings->isEmpty()) {
+        if (!$isBookable) {
             $data['message'] = trans('as.bookings.error.add_overlapped_booking');
             return Response::json($data, 400);
         }
@@ -368,7 +354,6 @@ class Bookings extends AsBase
             $data['status']      = true;
             $data['baseURl']     = route('as.index');
             $data['bookingDate'] = $booking->date;
-            Session::forget('carts');
         } catch (\Exception $ex) {
             $data['status'] = false;
             $data['message'] = $ex->getMessage();
@@ -500,7 +485,7 @@ class Bookings extends AsBase
         $endTime   = Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s', $booking->date, $booking->end_at));
         $newEndTime= with(clone $endTime)->addMinutes($extraServiceTime);
 
-        $isBookable = $booking->isBookable($date, $endTime, $newEndTime);
+        $isBookable = Booking::isBookable($booking->employee->id, $date, $endTime, $newEndTime);
 
         if($isBookable)
         {

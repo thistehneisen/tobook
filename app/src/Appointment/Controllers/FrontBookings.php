@@ -80,21 +80,8 @@ class FrontBookings extends Bookings
         $endTime = with(clone $startTime)->addMinutes($lengthPlusExtraTime);
 
         //Check is there any existed booking with this service time
-        $bookings = Booking::where('date', $bookingDate)
-            ->where('employee_id', $employeeId)
-            ->whereNull('deleted_at')
-            ->where(function ($query) use ($startTime, $endTime) {
-                return $query->where(function ($query) use ($startTime) {
-                    return $query->where('start_at', '<=', $startTime->toTimeString())
-                         ->where('end_at', '>', $startTime->toTimeString());
-                })->orWhere(function ($query) use ($endTime) {
-                     return $query->where('start_at', '<', $endTime->toTimeString())
-                          ->where('end_at', '>=', $endTime->toTimeString());
-                })->orWhere(function ($query) use ($startTime, $endTime) {
-                     return $query->where('start_at', '=', $startTime->toTimeString())
-                          ->where('end_at', '=', $endTime->toTimeString());
-                });
-            })->get();
+
+        $isBookable = Booking::isBookable($employeeId, $bookingDate, $startTime, $endTime);
         //TODO Check overlapped booking in user cart
 
         //Check enough timeslot in employee default working time
@@ -105,7 +92,7 @@ class FrontBookings extends Bookings
             return Response::json($data, 400);
         }
 
-        if (!$bookings->isEmpty()) {
+        if (!$isBookable) {
             $data['message'] = trans('as.bookings.error.add_overlapped_booking');
             return Response::json($data, 400);
         }
