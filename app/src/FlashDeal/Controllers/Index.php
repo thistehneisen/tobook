@@ -61,13 +61,13 @@ class Index extends Base
     {
         $all = Coupon::active()->with('service')->paginate($this->perPage);
 
-        return $this->render('el.activeCoupons', [
+        return $this->render('el.coupons', [
             'items' => $all
         ]);
     }
 
     /**
-     * Show expired coupons
+     * Show expired flash deals
      *
      * @return View
      */
@@ -82,4 +82,17 @@ class Index extends Base
         ]);
     }
 
+    /**
+     * Show expired coupons
+     *
+     * @return View
+     */
+    public function expiredCoupons()
+    {
+        $all = Coupon::expired()->with('service')->paginate($this->perPage);
+
+        return $this->render('el.coupons', [
+            'items' => $all
+        ]);
+    }
 }

@@ -49,4 +49,9 @@ class Coupon extends Base
     {
         return $query->where('valid_date', '>=', Carbon::today());
     }
+
+    public function scopeExpired($query)
+    {
+        return $query->where('valid_date', '<', Carbon::today());
+    }
 }
