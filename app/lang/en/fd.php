@@ -1,8 +1,9 @@
 <?php
 return [
     'index' => 'Flash deals',
+    'expired' => 'Expired',
     'nav' => [
-        'settings'       => 'Settings',
+        'settings' => 'Settings',
     ],
     'services' => [
         'all'                  => 'All services',
@@ -15,14 +16,20 @@ return [
         'business_category_id' => 'Business category'
     ],
     'coupons' => [
+        'index'            => 'Coupons',
         'all'              => 'All coupons',
         'add'              => 'Add coupon',
         'discounted_price' => 'Discounted price',
         'valid_date'       => 'Valid until',
         'quantity'         => 'Quantity',
         'service_id'       => 'Service',
+        'sold'             => 'Amount sold',
+        'total'            => 'Total amount',
+        'sold'             => 'Sold coupons',
+        'active'           => 'Active coupons',
     ],
     'flash_deals' => [
+        'index'            => 'Flash deals',
         'all'              => 'All flash deals',
         'add'              => 'Add flash deal',
         'discounted_price' => 'Discounted price',
@@ -33,6 +40,8 @@ return [
         'existing_dates'   => 'Existing dates',
         'date'             => 'Date',
         'add_date'         => 'Add new date',
+        'sold'             => 'Sold flash deals',
+        'active'           => 'Active flash deals'
     ],
     'flash_deal_dates' => [
         'expire'  => 'Expire date',

@@ -1,5 +1,6 @@
 <?php namespace App\FlashDeal\Models;
 
+use Carbon\Carbon;
 use App\Core\Models\Base;
 
 class Coupon extends Base
@@ -20,10 +21,37 @@ class Coupon extends Base
     ];
 
     //--------------------------------------------------------------------------
+    // ATTRIBUTES
+    //--------------------------------------------------------------------------
+    public function getDiscountPercentAttribute()
+    {
+        $servicePrice = $this->service->price;
+        return round(($servicePrice - $this->attributes['discounted_price']) * 100 / $servicePrice, 2);
+    }
+
+    public function getValidDateAttribute()
+    {
+        return new Carbon($this->attributes['valid_date']);
+    }
+
+    //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
     public function service()
     {
         return $this->belongsTo('App\FlashDeal\Models\Service');
+    }
+
+    //--------------------------------------------------------------------------
+    // SCOPES
+    //--------------------------------------------------------------------------
+    public function scopeActive($query)
+    {
+        return $query->where('valid_date', '>=', Carbon::today());
+    }
+
+    public function scopeExpired($query)
+    {
+        return $query->where('valid_date', '<', Carbon::today());
     }
 }

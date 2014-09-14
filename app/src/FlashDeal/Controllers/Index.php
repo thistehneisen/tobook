@@ -3,10 +3,13 @@
 use App, Config, Input;
 use App\Core\Controllers\Base;
 use App\FlashDeal\Models\FlashDealDate;
+use App\FlashDeal\Models\Coupon;
 
 class Index extends Base
 {
     protected $viewPath = 'modules.fd.index';
+
+    protected $perPage;
 
     public function index($tab = null)
     {
@@ -15,6 +18,8 @@ class Index extends Base
         if (!method_exists($this, $method)) {
             App::abort(404);
         }
+
+        $this->perPage = Input::get('perPage', Config::get('view.perPage'));
 
         $content = $this->$method();
         return $this->render('index', [
@@ -40,22 +45,54 @@ class Index extends Base
      */
     public function activeFlashDeals()
     {
-        $perPage = Input::get('perPage', Config::get('view.perPage'));
-        $all = FlashDealDate::active()->with('flashDeal')->paginate($perPage);
+        $all = FlashDealDate::active()->with('flashDeal')->paginate($this->perPage);
 
-        return $this->render('el.activeFlashDeals', [
+        return $this->render('el.flashDeals', [
             'items' => $all
         ]);
     }
 
+    /**
+     * Show active coupons in the whole system
+     *
+     * @return View
+     */
     public function activeCoupons()
     {
-        return 'hehe';
+        $all = Coupon::active()->with('service')->paginate($this->perPage);
+
+        return $this->render('el.coupons', [
+            'items' => $all
+        ]);
     }
 
-    public function expired()
+    /**
+     * Show expired flash deals
+     *
+     * @return View
+     */
+    public function expiredFlashDeals()
     {
-        return 'hehe';
+        $all = FlashDealDate::expired()
+            ->with('flashDeal')
+            ->paginate($this->perPage);
+
+        return $this->render('el.flashDeals', [
+            'items' => $all
+        ]);
     }
 
+    /**
+     * Show expired coupons
+     *
+     * @return View
+     */
+    public function expiredCoupons()
+    {
+        $all = Coupon::expired()->with('service')->paginate($this->perPage);
+
+        return $this->render('el.coupons', [
+            'items' => $all
+        ]);
+    }
 }
