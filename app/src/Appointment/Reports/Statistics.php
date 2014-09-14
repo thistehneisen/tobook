@@ -259,7 +259,7 @@ class Statistics extends Base
         ];
 
         $ret = [];
-        $employeeIds = array_keys($custom);
+        $employeeIds = array_keys($default);
         foreach ($data as $day => &$item) {
             foreach ($employeeIds as $employeeId) {
                 $total = 0;
