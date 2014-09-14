@@ -35,11 +35,11 @@ class FlashDealDate extends Base
      * Get flash deals belonging to this business category
      *
      * @param object $query
-     * @param int $categoryId
+     * @param int $categoryIds
      *
      * @return object
      */
-    public function scopeOfBusinessCategory($query, $categoryId)
+    public function scopeOfBusinessCategory($query, $categoryIds)
     {
         $tblFlashDeal =with(new FlashDeal)->getTable();
         $tblService = with(new Service)->getTable();
@@ -49,7 +49,7 @@ class FlashDealDate extends Base
             ->join($tblFlashDeal, $tblFlashDeal.'.id', '=', $this->table.'.flash_deal_id')
             ->join($tblService, $tblService.'.id', '=', $tblFlashDeal.'.service_id')
             ->join($tblCategory, $tblCategory.'.id', '=', $tblService.'.business_category_id')
-            ->where($tblCategory.'.id', $categoryId);
+            ->whereIn($tblCategory.'.id', $categoryIds);
     }
 
     /**

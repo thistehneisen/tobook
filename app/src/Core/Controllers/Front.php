@@ -21,9 +21,15 @@ class Front extends Base
     protected function getFlashDeals()
     {
         // Which categories?
-        $categories = BusinessCategory::whereIn('id', Config::get('varaa.flash_deal_categories'))->get();
+        $categories = BusinessCategory::whereIn(
+            'id',
+            Config::get('varaa.flash_deal.categories')
+        )->with('children')->get();
+
         foreach ($categories as &$category) {
-            $category->deals = FlashDealDate::ofBusinessCategory($category->id)
+            $category->deals = FlashDealDate::ofBusinessCategory(
+                    $category->children->lists('id')
+                )
                 ->active()
                 ->take(8)
                 ->get();
