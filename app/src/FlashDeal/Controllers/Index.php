@@ -3,6 +3,7 @@
 use App, Config, Input;
 use App\Core\Controllers\Base;
 use App\FlashDeal\Models\FlashDealDate;
+use App\FlashDeal\Models\Coupon;
 
 class Index extends Base
 {
@@ -48,9 +49,19 @@ class Index extends Base
         ]);
     }
 
+    /**
+     * Show active coupons in the whole system
+     *
+     * @return View
+     */
     public function activeCoupons()
     {
-        return 'hehe';
+        $perPage = Input::get('perPage', Config::get('view.perPage'));
+        $all = Coupon::active()->with('service')->paginate($perPage);
+
+        return $this->render('el.activeCoupons', [
+            'items' => $all
+        ]);
     }
 
     public function expired()

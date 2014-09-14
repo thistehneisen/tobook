@@ -21,6 +21,8 @@ return [
         'valid_date'       => 'Valid until',
         'quantity'         => 'Quantity',
         'service_id'       => 'Service',
+        'sold'             => 'Amount sold',
+        'total'            => 'Total amount',
     ],
     'flash_deals' => [
         'all'              => 'All flash deals',
