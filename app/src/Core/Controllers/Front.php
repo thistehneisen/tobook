@@ -31,7 +31,8 @@ class Front extends Base
                     $category->children->lists('id')
                 )
                 ->active()
-                ->take(8)
+                ->orderBy('expire', 'ASC')
+                ->take(Config::get('varaa.flash_deal.limit'))
                 ->get();
         }
         return $categories;
