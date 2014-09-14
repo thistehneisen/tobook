@@ -26,9 +26,10 @@ return [
     'reset_password'         => 'Reset password',
     'enter_new_password'     => 'Please enter your new password',
     'premium_expired'        => 'Your active time was expired. Please contact us via email :email or phone number :phone_number to activate your service again.',
-    'business_name'          => 'Business name', // @todo
+    'business_name'          => 'Business name',
+    'business_address'          => 'Business address',
     'profile' => [
-        'index'                => 'My account', // @todo
+        'index'                => 'My account',
         'general'              => 'General information',
         'images'               => 'Images',
         'no_images'            => 'No image found. Use the form below to add new images',

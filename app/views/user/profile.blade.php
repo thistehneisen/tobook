@@ -44,13 +44,15 @@ $(function () {
             {{ Form::open(['id' => 'frm-profile', 'route' => 'user.profile', 'class' => 'form-horizontal', 'role' => 'form']) }}
                 <h3 class="comfortaa orange">{{ trans('user.profile.general') }}</h3>
 
-                <div class="form-group {{ Form::errorCSS('business_name', $errors) }}">
-                    {{ Form::label('business_name', trans('user.business_name').Form::required('business_name', $validator), ['class' => 'col-sm-2 col-sm-offset-1 control-label']) }}
+            @foreach (['business_name', 'business_address', 'phone'] as $field)
+                <div class="form-group {{ Form::errorCSS($field, $errors) }}">
+                    {{ Form::label($field, trans('user.'.$field).Form::required($field, $validator), ['class' => 'col-sm-2 col-sm-offset-1 control-label']) }}
                     <div class="col-sm-6">
-                        {{ Form::text('business_name', Input::get('input_name', $user->business_name), ['class' => 'form-control']) }}
-                        {{ Form::errorText('business_name', $errors) }}
+                        {{ Form::text($field, Input::get($field, $user->$field), ['class' => 'form-control']) }}
+                        {{ Form::errorText($field, $errors) }}
                     </div>
                 </div>
+            @endforeach
 
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-offset-1 control-label">{{ trans('user.profile.business_categories.index') }}</label>

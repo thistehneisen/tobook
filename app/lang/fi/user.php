@@ -27,6 +27,7 @@ return [
     'enter_new_password'     => 'Kirjoita uusi salasana',
     'premium_expired'        => 'Your active time was expired. Please contact us via email :email or phone number :phone_number to activate your service again.', // @todo
     'business_name'          => 'Business name', // @todo
+    'business_address'          => 'Business address', // @todo
     'profile' => [
         'index'                => 'My account', // @todo
         'general'              => 'General information', // @todo
