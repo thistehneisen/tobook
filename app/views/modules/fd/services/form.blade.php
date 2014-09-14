@@ -14,7 +14,7 @@
     {{ Form::open(['route' => [$routes['upsert'], !empty($item->id) ? $item->id : ''], 'class' => 'form-horizontal', 'role' => 'form']) }}
 
     <div class="form-group {{ Form::errorCSS('business_category_id', $errors) }}">
-        <label for="business_category_id" class="col-sm-2 col-sm-offset-1 control-label">{{ trans('fd.coupons.service') }} {{ Form::required('business_category_id', $item) }}</label>
+        <label for="business_category_id" class="col-sm-2 col-sm-offset-1 control-label">{{ trans($langPrefix.'.business_category_id') }} {{ Form::required('business_category_id', $item) }}</label>
         <div class="col-sm-6">
             <select name="business_category_id" id="business_category_id" class="form-control">
                 @foreach ($businessCategories as $category)

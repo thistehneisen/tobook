@@ -4,12 +4,14 @@ return [
         'settings'       => 'Settings',
     ],
     'services' => [
-        'all'         => 'All services',
-        'add'         => 'Add new service',
-        'name'        => 'Name',
-        'price'       => 'Normal price',
-        'quantity'    => 'Quantity',
-        'description' => 'Description',
+        'all'                  => 'All services',
+        'add'                  => 'Add new service',
+        'edit'                 => 'Edit service',
+        'name'                 => 'Name',
+        'price'                => 'Normal price',
+        'quantity'             => 'Quantity',
+        'description'          => 'Description',
+        'business_category_id' => 'Business category'
     ],
     'coupons' => [
         'all'              => 'All coupons',
