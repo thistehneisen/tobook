@@ -6,17 +6,17 @@
     <p>{{ trans('as.services.add_desc') }}</p>
 </div>
 
-{{ Form::open(['route' => ['as.services.upsert', (isset($service) ? $service->id : '')], 'class' => 'form-horizontal well', 'role' => 'form']) }}
+{{ Form::open(['route' => ['as.services.upsert', isset($service->id) ? $service->id : ''], 'class' => 'form-horizontal well', 'role' => 'form']) }}
     <div class="form-group">
         <label for="name" class="col-sm-2 control-label">{{ trans('as.services.name') }}</label>
         <div class="col-sm-5">
-           {{ Form::text('name', (isset($service)) ? $service->name:'', ['class' => 'form-control input-sm', 'id' => 'name']) }}
+           {{ Form::text('name', isset($service->name) ? $service->name : '', ['class' => 'form-control input-sm', 'id' => 'name']) }}
         </div>
     </div>
     <div class="form-group">
         <label for="description" class="col-sm-2 control-label">{{ trans('as.services.description') }}</label>
         <div class="col-sm-5">
-            {{ Form::textarea('description', (isset($service)) ? $service->description:'', ['class' => 'form-control input-sm', 'id' => 'description']) }}
+            {{ Form::textarea('description', isset($service->description) ? $service->description : '', ['class' => 'form-control input-sm', 'id' => 'description']) }}
         </div>
     </div>
     <div class="form-group">
@@ -24,7 +24,7 @@
         <div class="col-sm-5">
             <div class="input-group">
                 <span class="input-group-addon">&euro;</span>
-                {{ Form::text('price', (isset($service)) ? $service->price:'', ['class' => 'form-control input-sm', 'id' => 'price']) }}
+                {{ Form::text('price', isset($service->price) ? $service->price : '', ['class' => 'form-control input-sm', 'id' => 'price']) }}
             </div>
         </div>
     </div>
@@ -32,7 +32,7 @@
         <label for="duration" class="col-sm-2 control-label">{{ trans('as.services.duration') }}</label>
         <div class="col-sm-5">
             <div class="input-group input-group-sm spinner" data-inc="5" data-positive="true">
-                {{ Form::text('length', (isset($service)) ? $service->length : 0, ['class' => 'form-control', 'id' => 'length']) }}
+                {{ Form::text('length', isset($service->length) ? $service->length : 0, ['class' => 'form-control', 'id' => 'length']) }}
                 <div class="input-group-btn-vertical">
                     <button type="button" class="btn btn-default"><i class="fa fa-caret-up"></i></button>
                     <button type="button" class="btn btn-default"><i class="fa fa-caret-down"></i></button>
@@ -44,7 +44,7 @@
         <label for="before" class="col-sm-2 control-label">{{ trans('as.services.before') }}</label>
         <div class="col-sm-5">
             <div class="input-group input-group-sm spinner" data-inc="5" data-positive="true">
-                {{ Form::text('before', (isset($service)) ? $service->before : 0, ['class' => 'form-control', 'id' => 'before']) }}
+                {{ Form::text('before', isset($service->before) ? $service->before : 0, ['class' => 'form-control', 'id' => 'before']) }}
                 <div class="input-group-btn-vertical">
                     <button type="button" class="btn btn-default"><i class="fa fa-caret-up"></i></button>
                     <button type="button" class="btn btn-default"><i class="fa fa-caret-down"></i></button>
@@ -56,7 +56,7 @@
         <label for="after" class="col-sm-2 control-label">{{ trans('as.services.after') }}</label>
         <div class="col-sm-5">
             <div class="input-group input-group-sm spinner" data-inc="5" data-positive="true">
-                {{ Form::text('after', (isset($service)) ? $service->after : 0, ['class' => 'form-control', 'id' => 'after']) }}
+                {{ Form::text('after', isset($service->after) ? $service->after : 0, ['class' => 'form-control', 'id' => 'after']) }}
                 <div class="input-group-btn-vertical">
                     <button type="button" class="btn btn-default"><i class="fa fa-caret-up"></i></button>
                     <button type="button" class="btn btn-default"><i class="fa fa-caret-down"></i></button>
@@ -67,13 +67,13 @@
     <div class="form-group">
         <label for="total" class="col-sm-2 control-label">{{ trans('as.services.total') }}</label>
         <div class="col-sm-5">
-           {{ Form::text('total', (isset($service)) ? $service->total:'', ['class' => 'form-control input-sm', 'id' => 'total', 'disabled'=>'disabled']) }}
+            {{ Form::text('total', isset($service->during) ? $service->during : 0, ['class' => 'form-control input-sm', 'id' => 'total', 'disabled'=>'disabled']) }}
         </div>
     </div>
     <div class="form-group">
         <label for="category" class="col-sm-2 control-label">{{ trans('as.services.category') }}</label>
         <div class="col-sm-5">
-            {{ Form::select('category_id', [trans('common.options_select')]+$categories, isset($service) ? $service->category_id :0, ['class' => 'form-control input-sm', 'id' => 'category']) }}
+            {{ Form::select('category_id', [trans('common.options_select')]+$categories, isset($service->category_id) ? $service->category_id :0, ['class' => 'form-control input-sm', 'id' => 'category']) }}
         </div>
     </div>
     <div class="form-group">
