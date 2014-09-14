@@ -1,5 +1,6 @@
 <?php
 return [
+    'index' => 'Flash deals',
     'nav' => [
         'settings'       => 'Settings',
     ],
@@ -34,7 +35,8 @@ return [
         'add_date'         => 'Add new date',
     ],
     'flash_deal_dates' => [
-        'date' => 'Date',
-        'time' => 'Time'
+        'date'    => 'Date',
+        'time'    => 'Time',
+        'remains' => 'Remains'
     ]
 ];

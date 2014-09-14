@@ -1,6 +1,6 @@
 <?php namespace App\FlashDeal\Controllers;
 
-use Input, View;
+use Input, View, Carbon\Carbon;
 use App\Core\Controllers\Base;
 use App\Appointment\Traits\Crud;
 use App\FlashDeal\Models\Service;
@@ -42,7 +42,7 @@ class FlashDeals extends Base
             $existing = $item->dates;
             $map = [];
             foreach ($existing as $date) {
-                $map[$date->date] = $date;
+                $map[$date->expire->toDateTimeString()] = $date;
             }
 
             $date = Input::get('date');
@@ -51,15 +51,18 @@ class FlashDeals extends Base
             $dates = [];
             foreach ($date as $key => $value) {
                 if (isset($time[$key])) {
-                    if (isset($map[$value])) {
-                        $obj = $map[$value];
-                        $obj->time = $time[$key];
-                    } else {
-                        $obj = new FlashDealDate([
-                            'date' => $value,
-                            'time' => $time[$key]
-                        ]);
+                    $expire = new Carbon($value.' '.$time[$key]);
+
+                    // If this date time has existed in database, skip
+                    if (isset($map[$expire->toDateTimeString()])) {
+                        continue;
                     }
+
+                    $obj = new FlashDealDate;
+                    $obj->fill([
+                        'expire'  => $expire,
+                        'remains' => Input::get('quantity')
+                    ]);
 
                     $dates[] = $obj;
                 }

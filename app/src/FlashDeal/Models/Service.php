@@ -8,7 +8,6 @@ class Service extends Base
     public $fillable = [
         'name',
         'price',
-        'quantity',
         'description',
     ];
     protected $rulesets = [
@@ -16,7 +15,6 @@ class Service extends Base
             'business_category_id' => 'required',
             'name'                 => 'required',
             'price'                => 'required|numeric',
-            'quantity'             => 'required|numeric',
         ]
     ];
 

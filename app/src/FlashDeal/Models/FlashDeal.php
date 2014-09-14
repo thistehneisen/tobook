@@ -1,5 +1,6 @@
 <?php namespace App\FlashDeal\Models;
 
+use Carbon\Carbon, DB;
 use App\Core\Models\Base;
 
 class FlashDeal extends Base
@@ -16,6 +17,15 @@ class FlashDeal extends Base
             'quantity'         => 'required|numeric',
         ]
     ];
+
+    //--------------------------------------------------------------------------
+    // ATTRIBUTES
+    //--------------------------------------------------------------------------
+    public function getDiscountPercentAttribute()
+    {
+        $servicePrice = $this->service->price;
+        return round(($servicePrice - $this->attributes['discounted_price']) * 100 / $servicePrice, 2);
+    }
 
     //--------------------------------------------------------------------------
     // RELATIONSHIPS

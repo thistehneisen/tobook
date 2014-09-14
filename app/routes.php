@@ -762,11 +762,6 @@ Route::group([
     'before' => ['auth']
 ], function() {
 
-    Route::get('/', [
-        'as' => 'fd.index',
-        'uses' => 'App\FlashDeal\Controllers\Index@index'
-    ]);
-
     // Services
     \App\FlashDeal\Controllers\Services::crudRoutes(
         'services',
@@ -790,6 +785,10 @@ Route::group([
         'fd.flash_deal_dates'
     );
 
+    Route::get('/{tab?}', [
+        'as' => 'fd.index',
+        'uses' => 'App\FlashDeal\Controllers\Index@index'
+    ]);
 });
 
 /*

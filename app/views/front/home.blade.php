@@ -12,6 +12,7 @@
 
 @section('content')
 <div class="container text-center">
+    {{--
     <!-- Next available time slot -->
     <div class="row">
         <h3 class="comfortaa">{{ trans('Next available time slot') }}</h3>
@@ -38,35 +39,9 @@
         </div>
         @endforeach
     </div>
+    --}}
 
     <!-- Flash deals -->
-    {{--
-    <div class="row">
-        <h3 class="comfortaa">{{ trans('Flashdeals') }}</h3>
-        @foreach ([0, 1, 2, 3] as $count)
-        <div class="col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">Hairdresser</div>
-                <ul class="list-group">
-                    @foreach ([0, 1, 2, 3, 4, 5] as $count)
-                    <li class="list-group-item">
-                        <div class="flashdeal-item text-left">
-                            <h4 class="text-center">Mikael Parturi <span class="orange">-90%</span></h4>
-                            <p>Malminkatu 8</p>
-                            <p></p>
-                            <p>20€</p>
-                            <p>Wed 25th
-                                <a href="" class="btn btn-orange">20:00</a>
-                            </p>
-                        </div>
-                    </li>
-                    @endforeach
-                </ul>
-                <div class="panel-footer">Explore more</div>
-            </div>
-        </div>
-        @endforeach
-    </div>
-    --}}
+    @include ('modules.fd.front', ['deals' => $deals])
 </div>
 @stop
