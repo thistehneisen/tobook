@@ -79,7 +79,9 @@ $(function () {
     <thead>
         <th>{{ trans('as.employees.weekday')}}</th>
         <th>{{ trans('as.employees.date')}}</th>
+        <th>{{ trans('as.employees.custom_time')}}</th>
         <th>{{ trans('as.employees.employee')}}</th>
+        <th></th>
     </thead>
     <tbody>
         @foreach($items as $item)
@@ -87,6 +89,8 @@ $(function () {
             <td>{{ with(new Carbon\Carbon($item->date))->format('l') }}</td>
             <td>{{ $item->date }}</td>
             <td>{{ $item->customTime->name }}</td>
+            <td>{{ $employee->name }}</td>
+            <td><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i></a></td>
         </tr>
         @endforeach
     </tbody>

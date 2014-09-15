@@ -375,7 +375,9 @@ class Employees extends AsBase
             $fromDate     = new Carbon($fromDateStr);
             $toDate       = (!empty($toDateStr)) ? (new Carbon($toDateStr)) : $fromDate;
 
-            if($fromDate > $toDate) return;
+            if($fromDate > $toDate) {
+                return Redirect::back()->withInput()->withErrors(trans('as.employees.error.invalid_date_range'));
+            }
 
             $dateRange = ($fromDate->diffInDays($toDate))
                         ? $fromDate->diffInDays($toDate) + 1
