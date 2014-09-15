@@ -129,9 +129,9 @@ class MoveAsCommand extends Command
                 'user_id'     => $item->owner_id,
                 'name'        => (string) $lang['name'],
                 'price'       => $item->price,
-                'length'      => $item->length,
+                'length'      => $item->total,
                 'before'      => $item->before,
-                'during'      => $item->total,
+                'during'      => $item->length,
                 'after'       => $item->after,
                 'description' => (string) $lang['description'],
                 'is_active'   => $item->is_active,
@@ -275,7 +275,7 @@ class MoveAsCommand extends Command
         $this->comment('Skipped '.$counter);
     }
 
-    protected function migreateCustomTimes()
+    protected function migrateCustomTimes()
     {
         $items = DB::table('as_custom_times')->get();
 
