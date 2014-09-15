@@ -63,7 +63,9 @@
 
         <div class="box">
             <h4>Locations &amp; Hours</h4>
-            <div class="js-map" data-lat="{{ $business->lat }}" data-lng="{{ $business->lng }}"></div>
+            <div class="text-center" style="min-height: 150px;" id="js-map-{{ $business->id }}" data-lat="{{ $business->lat }}" data-lng="{{ $business->lng }}">
+                <i class="fa fa-spinner fa-spin fa-3x text-muted"></i>
+            </div>
 
             <h5>Business hours</h5>
             <table class="table">

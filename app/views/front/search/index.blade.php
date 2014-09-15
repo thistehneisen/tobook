@@ -38,6 +38,17 @@ $(function() {
             map.hide();
 
             content.html(html);
+
+            // Now render the map
+            var mapId = '#js-map-'+$this.data('id'),
+                lat = $(mapId).data('lat'),
+                lng = $(mapId).data('lng');
+            new GMaps({
+                div: mapId,
+                lat: lat,
+                lng: lng,
+                zoom: 8
+            });
         });
     });
 });
@@ -54,7 +65,7 @@ $(function() {
             </p>
         @else
             @foreach ($businesses as $item)
-            <div class="result-row row" data-url="{{ route('ajax.showBusiness', [$item->id]) }}">
+            <div class="result-row row" data-id="{{ $item->id }}" data-url="{{ route('ajax.showBusiness', [$item->id]) }}">
                 <img src="{{ asset('assets/img/slides/1.jpg') }}" alt="" class="img-responsive col-md-6" />
                 <div class="col-md-6">
                     <h4>{{ $item->full_name }}</h4>
