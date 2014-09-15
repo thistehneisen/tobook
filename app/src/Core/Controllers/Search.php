@@ -30,37 +30,4 @@ class Search extends Base
             'geocode' => $geocode
         ]);
     }
-
-    public function ajaxGetServices()
-    {
-        $categories = BusinessCategory::getAll();
-        $result = [];
-        foreach ($categories as $cat) {
-            $result[] = $cat->name;
-            if ($cat->keywords !== '') {
-                $result = array_merge($result, array_map('trim', explode(',', $cat->keywords)));
-            }
-            foreach ($cat->children as $subCat) {
-                $result[] = $subCat->name;
-                if ($subCat->keywords !== '') {
-                    $result = array_merge($result, array_map('trim', explode(',', $subCat->keywords)));
-                }
-            }
-        }
-        return Response::json($result, 200);
-    }
-
-    public function ajaxGetLocations()
-    {
-        $locations = DB::table('users')->select('city AS name')->where('city', '!=', '')->get();
-        return Response::json($locations, 200);
-    }
-
-    public function ajaxShowBusiness($businessId)
-    {
-        $business = BusinessModel::find($businessId);
-        return View::make('front.search._business', [
-            'business' => $business
-        ]);
-    }
 }

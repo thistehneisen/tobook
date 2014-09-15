@@ -14,6 +14,11 @@ class Front extends Base
         ]);
     }
 
+    /**
+     * Get all available flash deals in the system
+     *
+     * @return array
+     */
     protected function getFlashDeals()
     {
         // Which categories?
