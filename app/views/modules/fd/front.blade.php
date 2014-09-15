@@ -8,9 +8,18 @@
                     @foreach ($category->deals as $deal)
                     <li class="list-group-item">
                         <div class="flashdeal-item text-left">
-                            <h4 class="text-center">{{ $deal->flashDeal->service->name }} <span class="orange">-{{ $deal->flashDeal->discount_percent }}%</span></h4>
-                            <p>Malminkatu 8</p>
-                            <p>{{ $deal->flashDeal->discounted_price }}&euro;</p>
+                            <h4 class="text-center">
+                                {{{ $deal->flashDeal->service->name }}}
+                                <span class="orange">
+                                    -{{ $deal->flashDeal->discount_percent }}%
+                                </span>
+                            </h4>
+                            <strong>
+                                {{ trans('common.price') }}: {{ $deal->flashDeal->discounted_price }}&euro; ({{ trans('common.normal') }} {{ $deal->flashDeal->service->price }}&euro;)
+                            </strong>
+                            <strong class="orange">{{{ $deal->flashDeal->service->user->business_name }}}</strong>
+                            <p>{{{ $deal->flashDeal->service->user->full_address }}}</p>
+                            <p></p>
                             <p>{{ $deal->expire->format(trans('common.format.date')) }} <a href="#" class="btn btn-orange">{{ $deal->expire->format(trans('common.format.time')) }}</a></p>
                         </div>
                     </li>

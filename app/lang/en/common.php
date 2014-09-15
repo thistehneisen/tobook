@@ -93,6 +93,8 @@ return [
     'show'                  => 'Show',
     'delete_confirmation'   => 'Delete Confirmation',
     'delete_question'       => 'Are you sure to delete ?',
+    'price'                 => 'Price',
+    'normal'                => 'Normal',
     'short' => [
         'mon' => 'Mon',
         'tue' => 'Tue',

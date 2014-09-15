@@ -93,6 +93,8 @@ return [
     'show'                  => 'Näytä',
     'delete_confirmation'   => 'Poista vahvistus',
     'delete_question'       => 'Oletko varma että haluat poistaa ?',
+    'price'          => 'Hinta',
+    'normal'         => 'Normaali',
     'short' => [
         'mon' => 'Ma',
         'tue' => 'Ti',
