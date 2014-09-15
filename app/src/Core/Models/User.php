@@ -1,6 +1,6 @@
 <?php namespace App\Core\Models;
 
-use App, DB, Hashids, Config, Carbon\Carbon;
+use App, DB, Hashids, Config, Carbon\Carbon, Geocoder;
 use Zizaco\Confide\ConfideUser;
 use Zizaco\Entrust\HasRole;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
@@ -35,6 +35,8 @@ class User extends ConfideUser
         'description',
         'business_size',
         'business_name',
+        'lat',
+        'lng'
     ];
 
     /**
@@ -43,6 +45,19 @@ class User extends ConfideUser
      * @var array
      */
     protected $enabledModules;
+
+    /**
+     * @{@inheritdoc}
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        // Whenever updating account, we will try to find geocode of this user
+        static::updating(function($user) {
+            $user->updateGeo();
+        });
+    }
 
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
@@ -195,6 +210,25 @@ class User extends ConfideUser
     public function hasModule($moduleName)
     {
         return isset($this->modules[$moduleName]);
+    }
+
+    /**
+     * Update latitude and longitude of the current address
+     *
+     * @return void
+     */
+    public function updateGeo()
+    {
+        if (!empty($this->attributes['address'])
+            && $this->attributes['address'] !== $this->getOriginal('address')) {
+            try {
+                $geocode = Geocoder::geocode($this->attributes['address']);
+                $this->attributes['lat'] = $geocode->getLatitude();
+                $this->attributes['lng'] = $geocode->getLongitude();
+            } catch (\Exception $ex) {
+                // Silently fail
+            }
+        }
     }
 
     //--------------------------------------------------------------------------
