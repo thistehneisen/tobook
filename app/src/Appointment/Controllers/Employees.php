@@ -352,11 +352,13 @@ class Employees extends AsBase
             ->where('date','<=', $endOfMonth)->get();
 
         return $this->render('customTime', [
-            'customTimes'=> $customTimes,
-            'items'      => $items,//custom time of the employee
-            'employee'   => $employee,
-            'employees'  => $employees,
-            'current'    => $current
+            'customTimes'  => $customTimes,
+            'items'        => $items,//custom time of the employee
+            'employee'     => $employee,
+            'employees'    => $employees,
+            'current'      => $current,
+            'startOfMonth' => $startOfMonth,
+            'endOfMonth'   => $endOfMonth
         ]);
     }
 
@@ -415,5 +417,16 @@ class Employees extends AsBase
              return Redirect::back()->withInput()->withErrors($ex->getErrors());
         }
 
+    }
+
+    public function deleteEmployeeCustomTime($empCustomTimeId, $employeeId, $date = null)
+    {
+        $customTime = EmployeeCustomTime::find($empCustomTimeId)->delete();
+
+        return Redirect::route('as.employees.employeeCustomTime', ['employeeId' => $employeeId, 'date' => $date])
+            ->with(
+                'messages',
+                $this->successMessageBag(trans('as.crud.success_delete'))
+            );
     }
 }

@@ -1,7 +1,6 @@
 @extends ('modules.as.layout')
 @section ('styles')
-    @parent
-    {{ HTML::style(asset('packages/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css')) }}
+    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css') }}
 @stop
 
 @section ('title')
@@ -10,21 +9,22 @@
 
 @section ('scripts')
     @parent
-    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment-with-locales.min.js') }}
-    {{ HTML::script(asset('packages/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')) }}
     <script>
-$(function () {
-    $('input.time-picker').datetimepicker({
-        pickDate: false,
-        minuteStepping: 15,
-        format: 'HH:mm',
-        language: '{{ App::getLocale() }}'
-    });
+    $(function () {
+        $('#from_date, #to_date').datepicker({
+            format        : 'yyyy-mm-dd',
+            weekStart     : 1,
+            autoclose     : true,
+            calendarWeeks : true,
+            language      : $('body').data('locale'),
+            startDate     : new Date('{{ $startOfMonth }}'),
+            endDate       : new Date('{{ $endOfMonth}}')
+        })
 
-   $('#employees').change(function () {
-        window.location = $(this).find(':selected').data('url');
+       $('#employees').change(function () {
+            window.location = $(this).find(':selected').data('url');
+        });
     });
-});
     </script>
 @stop
 
@@ -33,11 +33,11 @@ $(function () {
 
 {{ Form::open(['route' => ['as.employees.employeeCustomTime.upsert'], 'class' => 'form-horizontal', 'role' => 'form']) }}
  <div class="form-group row">
-        <div class="col-sm-3"><a href="{{ route('as.employees.employeeCustomTime', ['employeeId'=> $employee->id, 'date'=> with(clone $current->startOfMonth())->subMonth()->format('Y-m') ])}}">EDELLINEN</a></div>
+        <div class="col-sm-3"><a href="{{ route('as.employees.employeeCustomTime', ['employeeId'=> $employee->id, 'date'=> with(clone $current->startOfMonth())->subMonth()->format('Y-m') ])}}">{{ Str::upper(trans('common.prev')) }}</a></div>
         <div class="col-sm-3">
-           {{ $current->format('F'); }}
+           {{ Str::upper($current->format('F')); }}
         </div>
-        <div class="col-sm-3"><a href="{{ route('as.employees.employeeCustomTime', ['employeeId'=> $employee->id, 'date'=> with(clone $current->startOfMonth())->addMonth()->format('Y-m') ])}}">SEURAAVA</a></div>
+        <div class="col-sm-3"><a href="{{ route('as.employees.employeeCustomTime', ['employeeId'=> $employee->id, 'date'=> with(clone $current->startOfMonth())->addMonth()->format('Y-m') ])}}">{{ Str::upper(trans('common.next')) }}</a></div>
         <div class="col-sm-3">
             <select id="employees" name="employees" class="form-control input-sm">
                 @foreach ($employees as $item)
