@@ -24,7 +24,7 @@ class Auth extends Base
             'email'                 => 'required|email',
             'phone'                 => 'required',
             'business_name'         => 'required',
-            'business_categories'   => 'required',
+            'categories'            => 'required',
         ],
         'forgot' => [
             'email' => 'required|email'
@@ -183,9 +183,8 @@ class Auth extends Base
             'password'              => ['label' => trans('user.password'), 'type' => 'password'],
             'password_confirmation' => ['label' => trans('user.password_confirmation'), 'type' => 'password'],
             'email'                 => ['label' => trans('user.email'), 'type' => 'email'],
-            'name'                  => ['label' => trans('user.name')],
-            'phone'                 => ['label' => trans('user.phone')],
             'business_name'         => ['label' => trans('user.business_name')],
+            'phone'                 => ['label' => trans('user.phone')],
         ];
 
         // Get all business categories
@@ -249,7 +248,7 @@ class Auth extends Base
             trans('auth.emails.confirm.title') . trans('auth.emails.confirm.subject')
         );
 
-        return View::make('home.message', [
+        return View::make('front.message', [
             'header' => trans('common.thank_you'),
             'content' => $content
         ]);
@@ -265,13 +264,13 @@ class Auth extends Base
     public function confirm($code)
     {
         if (Confide::confirm($code)) {
-            return View::make('home.message', [
+            return View::make('front.message', [
                 'header' => trans('common.thank_you'),
                 'content' => trans('confide::confide.alerts.confirmation')
             ]);
         }
 
-        return View::make('home.message', [
+        return View::make('front.message', [
             'header' => trans('common.errors'),
             'content' => trans('confide::confide.alerts.wrong_confirmation')
         ]);
@@ -344,7 +343,7 @@ class Auth extends Base
             $header = trans('common.notice');
             $content = trans('confide::confide.alerts.password_forgot');
 
-            return View::make('home.message', [
+            return View::make('front.message', [
                 'header' => $header,
                 'content' => $content
             ]);
@@ -384,7 +383,7 @@ class Auth extends Base
             $header = trans('common.notice');
             $content = trans('confide::confide.alerts.password_reset');
 
-            return View::make('home.message', [
+            return View::make('front.message', [
                 'header' => $header,
                 'content' => $content
             ]);

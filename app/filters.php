@@ -111,7 +111,7 @@ Route::filter('premium.modules', function($request, $response, $moduleName) {
     if (Session::get('stealthMode') === null
         && !Entrust::hasRole('Admin')
         && Confide::user()->hasModule($moduleName) === false) {
-        return View::make('home.message', [
+        return View::make('front.message', [
             'header'  => trans('common.errors'),
             'content' => trans('user.premium_expired')
         ]);
