@@ -35,15 +35,15 @@ class Frontend implements Strategy
 
 
         if(empty($this->customTimeCache)){
-            $this->customTimeCache = $employee->customTimes()->where('date', $selectedDate->toDateString())->get();
+            $this->customTimeCache = $employee->employeeCustomTimes()->where('date', $selectedDate->toDateString())->get();
         }
 
         foreach ($this->customTimeCache as $customTime) {
-            $startAt =  Carbon::createFromFormat('H:i:s', $customTime->start_at, Config::get('app.timezone'));
-            $endAt   =  Carbon::createFromFormat('H:i:s', $customTime->end_at, Config::get('app.timezone'));
-            if (($rowTime >= $startAt && $rowTime <= $endAt) || (bool)$customTime->is_day_off) {
+            $startAt =  Carbon::createFromFormat('H:i:s', $empCustomTime->customTime->start_at, Config::get('app.timezone'));
+            $endAt   =  Carbon::createFromFormat('H:i:s', $empCustomTime->customTime->end_at, Config::get('app.timezone'));
+            if (($rowTime >= $startAt && $rowTime <= $endAt) || (bool)$empCustomTime->customTime->is_day_off) {
                 $class = 'custom_time';
-                $this->customTimeSlot[$selectedDate->toDateString()][(int) $hour][(int) $minute] = $customTime;
+                $this->customTimeSlot[$selectedDate->toDateString()][(int) $hour][(int) $minute] = $empCustomTime;
             }
         }
 

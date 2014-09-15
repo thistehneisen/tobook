@@ -82,7 +82,7 @@
                         {{--
                         <li><a href="{{ route('as.employees.freetime') }}">{{ trans('as.employees.free_times') }}</a>
                         --}}
-                        <li><a href="{{ route('as.employees.customTime') }}">{{ trans('as.employees.custom_times') }}</a>
+                        <li><a href="{{ route('as.employees.customTime') }}">{{ trans('as.employees.custom_times') }}</a></li>
                     </ul>
                 </li>
                 <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif class="dropdown">
