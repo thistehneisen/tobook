@@ -64,11 +64,16 @@ $(function() {
             var mapId = '#js-map-'+$this.data('id'),
                 lat = $(mapId).data('lat'),
                 lng = $(mapId).data('lng');
-            new GMaps({
+
+            var gmap = new GMaps({
                 div: mapId,
                 lat: lat,
                 lng: lng,
                 zoom: 8
+            });
+            gmap.addMarker({
+                lat: lat,
+                lng: lng
             });
         });
     });
