@@ -30,14 +30,14 @@ class Search extends Base
 
         $businesses = $query->paginate(Config::get('view.perPage'));
 
-        $geocoder = new Geocoder\Geocoder();
-        $geocoder->registerProviders([
-            new Geocoder\Provider\GoogleMapsProvider(
-                new Geocoder\HttpAdapter\CurlHttpAdapter(), App::getLocale(), $location, false
-            ),
-        ]);
+        // $geocoder = new Geocoder\Geocoder();
+        // $geocoder->registerProviders([
+        //     new Geocoder\Provider\GoogleMapsProvider(
+        //         new Geocoder\HttpAdapter\CurlHttpAdapter(), App::getLocale(), $location, false
+        //     ),
+        // ]);
 
-        $geocode = $geocoder->geocode('Helsinki');
+        $geocode = Geocoder::geocode($location ?: 'Helsinki');
 
         return $this->render('index', [
             'businesses' => $businesses,
