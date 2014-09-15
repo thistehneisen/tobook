@@ -64,6 +64,8 @@ $(function() {
             </div>
             @endforeach
         @endif
+
+        {{ $businesses->links() }}
     </div>
 
     <!-- right content -->
