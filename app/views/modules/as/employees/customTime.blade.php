@@ -75,6 +75,7 @@
 </div>
 {{ Form::close() }}
 @if(!$items->isEmpty())
+{{ Form::open(['route' => ['as.employees.employeeCustomTime.massiveUpdate',  $employee->id], 'class' => 'form-horizontal', 'role' => 'form']) }}
 <table class="table table-striped">
     <thead>
         <th>{{ trans('as.employees.weekday')}}</th>
@@ -87,13 +88,23 @@
         @foreach($items as $item)
         <tr>
             <td>{{ with(new Carbon\Carbon($item->date))->format('l') }}</td>
-            <td>{{ $item->date }}</td>
-            <td>{{ $item->customTime->name }}</td>
+            <td>
+                {{ $item->date }}
+            </td>
+            <td>{{ Form::select("custom_times[" . $item->date. "]", $customTimes, $item->customTime->id, ['class' => 'form-control input-sm', 'id' => 'custom_times']) }}</td>
             <td>{{ $employee->name }}</td>
             <td><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i></a></td>
         </tr>
         @endforeach
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5">
+                <button type="submit" class="btn btn-primary">{{ trans('common.save') }}</button>
+            </td>
+        </tr>
+    </tfoot>
 </table>
+{{ Form::close() }}
 @endif
 @stop

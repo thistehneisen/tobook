@@ -429,4 +429,33 @@ class Employees extends AsBase
                 $this->successMessageBag(trans('as.crud.success_delete'))
             );
     }
+
+    public function massiveUpdateEmployeeCustomTime($employeeId)
+    {
+        $customTimes = Input::get('custom_times');
+        $message      = trans('as.crud.success_edit');
+        try{
+
+            $employee = Employee::ofCurrentUser()->findOrFail($employeeId);
+            $current = Carbon::now();
+            foreach ($customTimes as $date => $customTimeId) {
+                $customTime = CustomTime::find($customTimeId);
+                $employeeCustomTime = EmployeeCustomTime::getUpsertModel($employeeId, $date);
+                $employeeCustomTime->fill([
+                    'date' =>  $date
+                ]);
+                $employeeCustomTime->employee()->associate($employee);
+                $employeeCustomTime->customTime()->associate($customTime);
+                $employeeCustomTime->save();
+                $current = Carbon::createFromFormat('Y-m-d', $date);
+            }
+            return Redirect::route('as.employees.employeeCustomTime', ['employeeId' => $employeeId, 'date' => $current->format('Y-m')])
+                ->with(
+                    'messages',
+                    $this->successMessageBag($message)
+                );
+        } catch (\Watson\Validating\ValidationException $ex){
+             return Redirect::back()->withInput()->withErrors($ex->getErrors());
+        }
+    }
 }

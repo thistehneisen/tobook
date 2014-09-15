@@ -505,6 +505,11 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Employees@upsertEmployeeCustomTime'
     ]);
 
+    Route::post('employees/employee-update-custom-time/{employeedId}', [
+        'as' => 'as.employees.employeeCustomTime.massiveUpdate',
+        'uses' => 'App\Appointment\Controllers\Employees@massiveUpdateEmployeeCustomTime'
+    ]);
+
     Route::get('employees/default-time/{id}', [
         'as' => 'as.employees.defaultTime.get',
         'uses' => 'App\Appointment\Controllers\Employees@defaultTime'
