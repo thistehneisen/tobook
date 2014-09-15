@@ -349,7 +349,8 @@ class Employees extends AsBase
 
         $items = $employee->employeeCustomTimes()
             ->where('date','>=', $startOfMonth)
-            ->where('date','<=', $endOfMonth)->get();
+            ->where('date','<=', $endOfMonth)
+            ->orderBy('date','asc')->get();
 
         return $this->render('customTime', [
             'customTimes'  => $customTimes,
