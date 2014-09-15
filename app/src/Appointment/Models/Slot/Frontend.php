@@ -38,7 +38,7 @@ class Frontend implements Strategy
             $this->customTimeCache = $employee->employeeCustomTimes()->where('date', $selectedDate->toDateString())->get();
         }
 
-        foreach ($this->customTimeCache as $customTime) {
+        foreach ($this->customTimeCache as $empCustomTime) {
             $startAt =  Carbon::createFromFormat('H:i:s', $empCustomTime->customTime->start_at, Config::get('app.timezone'));
             $endAt   =  Carbon::createFromFormat('H:i:s', $empCustomTime->customTime->end_at, Config::get('app.timezone'));
             if (($rowTime >= $startAt && $rowTime <= $endAt) || (bool)$empCustomTime->customTime->is_day_off) {
