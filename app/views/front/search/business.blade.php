@@ -10,6 +10,7 @@
         <p>{{{ $business->description }}}</p>
     @endif
 
+        @if ($coupons->isEmpty() === true)
         <table class="table table-stripped table-hovered">
             <thead>
                 <tr>
@@ -21,11 +22,6 @@
                 </tr>
             </thead>
             <tbody>
-            @if ($coupons->isEmpty() === true)
-                <tr>
-                    <td colspan="5">{{ trans('home.search.no_results') }}</td>
-                </tr>
-            @endif
             @foreach ($coupons as $item)
                 <tr>
                     <td><a href="#" title="">{{ $item->service->name }}</a></td>
@@ -41,6 +37,7 @@
             @endforeach
             </tbody>
         </table>
+        @endif
     </div>
 
     <div class="col-sm-4">
