@@ -15,13 +15,14 @@ class Search extends Base
 
         $query = with(new BusinessModel)->newQuery();
         if (!empty($q)) {
+            $queryString = '%'.$q.'%';
             $query = $query->whereHas(
                 'businessCategories',
-                function ($query) use ($q) {
-                    return $query->where('name', 'LIKE', '%'.$q.'%')
-                        ->orWhere('keywords', 'LIKE', '%'.$q.'%');
+                function ($query) use ($queryString) {
+                    return $query->where('name', 'LIKE', $queryString)
+                        ->orWhere('keywords', 'LIKE', $queryString);
                 }
-            );
+            )->orWhere('business_name', 'LIKE', $queryString);
         }
 
         if (!empty($location)) {
@@ -29,13 +30,6 @@ class Search extends Base
         }
 
         $businesses = $query->paginate(Config::get('view.perPage'));
-
-        // $geocoder = new Geocoder\Geocoder();
-        // $geocoder->registerProviders([
-        //     new Geocoder\Provider\GoogleMapsProvider(
-        //         new Geocoder\HttpAdapter\CurlHttpAdapter(), App::getLocale(), $location, false
-        //     ),
-        // ]);
 
         $geocode = Geocoder::geocode($location ?: 'Helsinki');
 
