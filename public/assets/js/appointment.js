@@ -7,7 +7,8 @@
         $('.customer-tooltip').tooltip({
             'selector': '',
             'placement': 'top',
-            'container': 'body'
+            'container': 'body',
+            'html': true
         });
 
         $('.selectpicker').selectpicker();
