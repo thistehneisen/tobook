@@ -6,7 +6,7 @@
         <p><img src="//placehold.it/500x300" alt="" class="img-responsive img-rounded"></p>
 
     @if (!empty($business->description))
-        <h4>{{ trans('home.search.about') }} {{ $business->full_name }}</h4>
+        <h4>{{ trans('home.search.about') }} {{ $business->business_name }}</h4>
         <p>{{{ $business->description }}}</p>
     @endif
 

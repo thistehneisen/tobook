@@ -103,7 +103,7 @@ $(function() {
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <h4>{{ $item->full_name }}</h4>
+                    <h4>{{ $item->business_name }}</h4>
                     <p>{{ $item->full_address }}</p>
                     <p>60-80€</p>
                 </div>
