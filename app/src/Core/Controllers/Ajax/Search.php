@@ -2,38 +2,50 @@
 
 use DB;
 use App\Core\Models\BusinessCategory;
-use App\Core\Models\User as BusinessModel;
+use App\Core\Models\User;
 
 class Search extends Base
 {
+    /**
+     * Prepare services data for typeahead
+     *
+     * @return JSON
+     */
     public function getServices()
     {
         $categories = BusinessCategory::getAll();
         $result = [];
         foreach ($categories as $cat) {
             $result[] = $cat->name;
-            if ($cat->keywords !== '') {
-                $result = array_merge($result, array_map('trim', explode(',', $cat->keywords)));
-            }
+            $result = array_merge($result, $cat->keywords);
             foreach ($cat->children as $subCat) {
                 $result[] = $subCat->name;
-                if ($subCat->keywords !== '') {
-                    $result = array_merge($result, array_map('trim', explode(',', $subCat->keywords)));
-                }
+                $result = array_merge($result, $subCat->keywords);
             }
         }
-        return $this->json($result, 200);
+
+        return $this->json($result);
     }
 
+    /**
+     * Prepare location data for typeadhead
+     *
+     * @return JSON
+     */
     public function getLocations()
     {
-        $locations = DB::table('users')->select('city AS name')->where('city', '!=', '')->get();
-        return $this->json($locations, 200);
+        $locations = DB::table(with(new User)->getTable())
+            ->select('city AS name')
+            ->where('city', '!=', '')
+            ->distinct()
+            ->get();
+
+        return $this->json($locations);
     }
 
     public function showBusiness($businessId)
     {
-        $business = BusinessModel::find($businessId);
+        $business = User::find($businessId);
         return $this->view('front.search._business', [
             'business' => $business
         ]);

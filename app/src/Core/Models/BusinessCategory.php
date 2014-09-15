@@ -24,6 +24,18 @@ class BusinessCategory extends Base
         return trans('user.profile.business_categories.'.$this->attributes['name']);
     }
 
+    public function getKeywordsAttribute()
+    {
+        $keywords = [];
+        if (!empty($this->attributes['keywords'])) {
+            $tokens = explode(',', $this->attributes['keywords']);
+            foreach ($tokens as $keyword) {
+                $keywords[] = trim($keyword);
+            }
+        }
+        return $keywords;
+    }
+
     //--------------------------------------------------------------------------
     // CUSTOM METHODS
     //--------------------------------------------------------------------------
