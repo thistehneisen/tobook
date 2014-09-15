@@ -122,7 +122,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                   {{ Form::select("plustimes[$employee->id]", array_combine(range(-60, 60, 5), range(-60, 60, 5)), 0, ['class' => 'form-control input-sm', 'id' => 'plustime']) }}
+                   {{ Form::select("plustimes[$employee->id]", array_combine(range(-60, 60, 5), range(-60, 60, 5)), $employee->getPlustime($service->id), ['class' => 'form-control input-sm', 'id' => 'plustime']) }}
                 </div>
             </div>
             @endforeach

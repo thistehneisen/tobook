@@ -6,6 +6,7 @@ use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\BookingExtraService;
 use App\Appointment\Models\Employee;
+use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\ServiceTime;
@@ -285,7 +286,9 @@ class Bookings extends AsBase
                 $length = $serviceTime->length;
             }
 
-            $endTimeDelta = ($length + $modifyTime);
+            $plustime = $employee->getPlustime($service->id);
+
+            $endTimeDelta = ($length + $modifyTime + $plustime);
 
             $startTime = Carbon::createFromFormat('Y-m-d H:i', sprintf('%s %s', $bookingDate, $startTimeStr));
             $endTime = with(clone $startTime)->addMinutes($endTimeDelta);
@@ -356,7 +359,7 @@ class Bookings extends AsBase
     }
 
     /**
-     * Add new booking to database
+     * Add/Edit a booking
      *
      **/
     public function upsertBooking()
@@ -376,6 +379,8 @@ class Bookings extends AsBase
                 $data['message'] = trans('as.bookings.missing_services');
                 return Response::json($data);
             }
+            $employee = $bookingService->employee;
+            $service  = $bookingService->service;
 
             $consumer = $this->handleConsumer();
 
@@ -387,10 +392,11 @@ class Bookings extends AsBase
                     ? $bookingService->serviceTime->price
                     : $bookingService->service->price;
 
+            $plustime = $employee->getPlustime($service->id);
 
             $status = Booking::getStatus($bookingStatus);
 
-            $total = $length;
+            $total = $length + $plustime + $bookingService->modify_time;
             $total_price = $price;
 
             $booking = new Booking();
@@ -398,7 +404,7 @@ class Bookings extends AsBase
                 $booking = Booking::find($bookingId);
                 $bookingExtraServices = $booking->extraServices;
 
-                 $extraServiceTime  = 0;
+                $extraServiceTime  = 0;
                 $extraServicePrice = 0;
                 $extraServices = [];
 
@@ -426,6 +432,7 @@ class Bookings extends AsBase
                 'notes'       => $notes,
                 'uuid'        => $uuid,
                 'modify_time' => $bookingService->modify_time,
+                'plustime'    => $plustime,
                 'ip'          => Request::getClientIp(),
             ]);
             //need to update end_at, total when add extra service

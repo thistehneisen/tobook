@@ -1,9 +1,10 @@
 <?php namespace App\Appointment\Models;
 
-class EmployeeService extends \App\Core\Models\Base
+class EmployeeService extends \Eloquent
 {
-    public $timestamps = false;
     protected $table = 'as_employee_service';
+
+    public $timestamps = false;
 
     //--------------------------------------------------------------------------
     // RELATIONSHIPS

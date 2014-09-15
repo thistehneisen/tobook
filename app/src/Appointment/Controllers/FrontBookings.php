@@ -7,6 +7,7 @@ use App\Appointment\Models\BookingService;
 use App\Appointment\Models\BookingExtraService;
 use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\Employee;
+use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\AsConsumer;
@@ -49,6 +50,10 @@ class FrontBookings extends Bookings
         $employee = Employee::find($employeeId);
         $service = Service::find($serviceId);
 
+        $employeeService = EmployeeService::where('employee_id', $employeeId)
+                ->where('service_id', $serviceId)->first();
+        $plustime = (!empty($employeeService)) ? $employeeService->plustime : 0;
+
         $length = 0;
         $during = 0;
         $startTime = Carbon::createFromFormat('Y-m-d H:i', sprintf('%s %s', $bookingDate, $startTimeStr));
@@ -75,8 +80,9 @@ class FrontBookings extends Bookings
             $during = $serviceTime->during;
             $startTime->subMinutes($serviceTime->before);
         }
-        $lengthPlusExtraTime = $length + $extraServiceTime;
-        $duringPlusExtraTime = $during + $extraServiceTime;
+
+        $lengthPlusExtraTime = $length + $extraServiceTime + $plustime;
+        $duringPlusExtraTime = $during + $extraServiceTime + $plustime;
         $endTime = with(clone $startTime)->addMinutes($lengthPlusExtraTime);
 
         //Check is there any existed booking with this service time
@@ -181,6 +187,11 @@ class FrontBookings extends Bookings
                     ? $bookingService->serviceTime->length
                     : $bookingService->service->length;
 
+                $employeeService = EmployeeService::where('employee_id', $bookingService->employee->id)
+                    ->where('service_id', $bookingService->service->id)->first();
+                $plustime = (!empty($employeeService)) ? $employeeService->plustime : 0;
+                $length += $plustime;
+
                 //Plus extra service time
                 foreach ($extraServices as $extraService) {
                     $length += $extraService->length;
@@ -200,6 +211,7 @@ class FrontBookings extends Bookings
                     'uuid'        => $uuid,
                     'total_price' => $item['price'],
                     'modify_time' => $bookingService->modify_time,
+                    'plustime'    => $plustime,
                     'ip'          => Request::getClientIp()
                 ]);
 
@@ -225,9 +237,9 @@ class FrontBookings extends Bookings
             Session::forget('carts');
             Session::forget('booking_info');
 
-            $data['status']      = true;
+            $data['success']      = true;
         } catch (\Exception $ex) {
-            $data['status'] = false;
+            $data['success'] = false;
             $data['message'] = $ex->getMessage();
             return Response::json($data, 500);
         }

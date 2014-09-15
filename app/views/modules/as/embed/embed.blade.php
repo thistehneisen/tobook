@@ -101,6 +101,8 @@
         var totalSlots = (parseInt($('#booking_length').val(), 10) / 15) - 1;//subtract it self
         $('li.slot').each(function () {
             var len = $(this).nextAll('.active').length;
+            var plustime = (parseInt($(this).data('plustime'), 10) / 15);
+
             if (len < slots) {
                 $(this).removeClass('active');
                 $(this).addClass('inactive');
@@ -111,7 +113,7 @@
                 $(this).addClass('inactive');
             }
             var len = $(this).nextUntil('li.booked').length;
-            if(len < totalSlots){
+            if(len < (totalSlots + plustime)){
                 $(this).removeClass('active');
                 $(this).addClass('inactive');
             }

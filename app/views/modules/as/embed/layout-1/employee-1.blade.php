@@ -15,7 +15,11 @@ $serviceTimeId      = (!empty($serviceTime)) ? $serviceTime->id : 'default';
         <li class="as-col-header"><strong>{{ $employee->name }}</strong></li>
         <li class="as-col-header"><strong>{{ trans('as.embed.guide_text') }}</strong></li>
         <li><a class="btn btn-success col-xs-12"><i class="glyphicon glyphicon-tag"></i> {{ $servicePrice }} &euro;</a></li>
-        <li><a class="btn btn-success col-xs-12"><i class="glyphicon glyphicon-time"></i> {{ $serviceLength }} {{ trans('common.minutes')}}</a></li>
+        <li>
+            <a class="btn btn-success col-xs-12"><i class="glyphicon glyphicon-time"></i>
+                {{ $serviceLength + $employee->getPlustime($service->id) }} {{ trans('common.minutes')}}
+            </a>
+        </li>
     </ul>
     <br>
     <ul>
@@ -23,7 +27,7 @@ $serviceTimeId      = (!empty($serviceTime)) ? $serviceTime->id : 'default';
         @foreach ($workingTimes as $hour => $minutes)
              @foreach ($minutes as $minuteShift)
              <?php $slotClass = $employee->getSlotClass($selectedDate, $hour, $minuteShift, 'frontend', $selectedService); ?>
-            <li data-employee-id="{{ $employee->id }}" data-booking-length="{{ $serviceLength }}" data-start-time="{{ sprintf('%02d:%02d', $hour, $minuteShift) }}" href="#select-action" class="slot {{ $slotClass }}">
+            <li data-plustime="{{ $employee->getPlustime($service->id) }}" data-employee-id="{{ $employee->id }}" data-booking-length="{{ $serviceLength }}" data-start-time="{{ sprintf('%02d:%02d', $hour, $minuteShift) }}" href="#select-action" class="slot {{ $slotClass }}">
                 {{ sprintf('%02d:%02d', $hour, $minuteShift) }}
                 <?php $id++;?>
             </li>

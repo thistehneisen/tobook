@@ -54,7 +54,10 @@
             var slots = (parseInt($(this).data('booking-length'), 10) / 15) - 1,
                 siblings = $(this).nextAll(),
                 employee_id = $(this).data('employee-id'),
-                end_time = null;
+                end_time = null,
+                plustime = (parseInt($(this).data('plustime'), 10) / 15);
+            slots += plustime;
+
             $('#start_time-' + employee_id).val($(this).data('start-time'));
             $(this).addClass('slot-selected');
             siblings.each(function () {
@@ -135,8 +138,9 @@
                 data: $('#form-confirm-booking').serialize(),
                 dataType: 'json'
             }).done(function (data) {
-                alertify.alert(success_msg);
-                window.location.href = success_url;
+                if(data.success){
+                    window.location.href = success_url;
+                }
             }).fail(function (data) {
                 alertify.alert(data.responseJSON.message);
             });

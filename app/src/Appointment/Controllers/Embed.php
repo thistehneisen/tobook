@@ -6,6 +6,7 @@ use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\ExtraService;
+use App\Appointment\Models\EmployeeService;
 use App\Consumers\Models\Consumer;
 use Carbon\Carbon;
 

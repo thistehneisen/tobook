@@ -3,6 +3,7 @@
 use Config, Util;
 use Carbon\Carbon;
 use App\Core\Models\Base;
+use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\Slot\Strategy;
 use App\Appointment\Models\Slot\Context;
 use App\Appointment\Models\Slot\Backend;
@@ -12,6 +13,7 @@ class Employee extends Base
 {
     protected $table = 'as_employees';
 
+    private $plustime = [];
     public $fillable = [
         'name',
         'email',
@@ -143,6 +145,15 @@ class Employee extends Base
         }
 
         return null;
+    }
+
+    public function getPlustime($serviceId){
+        if(empty($this->plustime[$serviceId])){
+            $employeeService = EmployeeService::where('employee_id', $this->id)
+                    ->where('service_id', $serviceId)->first();
+            $this->plustime[$serviceId] = (!empty($employeeService)) ? $employeeService->plustime : 0;
+        }
+        return $this->plustime[$serviceId];
     }
 
     //--------------------------------------------------------------------------

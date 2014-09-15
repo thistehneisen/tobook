@@ -9,6 +9,7 @@ class Booking extends \App\Core\Models\Base implements \SplSubject
         'total',
         'total_price',
         'modify_time',
+        'plustime',//from service employee
         'start_at',
         'end_at',
         'status',
