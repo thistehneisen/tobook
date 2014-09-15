@@ -1,6 +1,6 @@
 <?php namespace App\Core\Controllers\Ajax;
 
-use Response;
+use Response, View;
 
 class Base extends \App\Core\Controllers\Base
 {

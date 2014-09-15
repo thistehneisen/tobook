@@ -43,10 +43,17 @@ class Search extends Base
         return $this->json($locations);
     }
 
-    public function showBusiness($businessId)
+    /**
+     * Show information of a business
+     *
+     * @param int $id
+     *
+     * @return View
+     */
+    public function showBusiness($id)
     {
-        $business = User::find($businessId);
-        return $this->view('front.search._business', [
+        $business = User::find($id);
+        return $this->view('front.search.business', [
             'business' => $business
         ]);
     }

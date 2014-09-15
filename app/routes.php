@@ -34,8 +34,8 @@ Route::group(['prefix' => 'search'], function () {
         'uses'  => 'App\Core\Controllers\Ajax\Search@getLocations'
     ]);
 
-    Route::get('business/{businessId}', [
-        'as'    => 'ajax.show-business',
+    Route::get('business/{id}', [
+        'as'    => 'ajax.showBusiness',
         'uses'  => 'App\Core\Controllers\Ajax\Search@showBusiness'
     ]);
 });
