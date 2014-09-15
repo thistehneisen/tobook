@@ -219,10 +219,17 @@ class User extends ConfideUser
      */
     public function updateGeo()
     {
-        if (!empty($this->attributes['address'])
-            && $this->attributes['address'] !== $this->getOriginal('address')) {
+        $new = $this->full_address;
+        $old = $this->getFullAddress(
+            $this->getOriginal('address'),
+            $this->getOriginal('postcode'),
+            $this->getOriginal('city'),
+            $this->getOriginal('country')
+        );
+
+        if (!empty($new) && $new !== $old) {
             try {
-                $geocode = Geocoder::geocode($this->attributes['address']);
+                $geocode = Geocoder::geocode($new);
                 $this->attributes['lat'] = $geocode->getLatitude();
                 $this->attributes['lng'] = $geocode->getLongitude();
             } catch (\Exception $ex) {
@@ -305,5 +312,35 @@ class User extends ConfideUser
         }
 
         return $this->enabledModules;
+    }
+
+    /**
+     * Generate full address based on address fragments
+     *
+     * @param string $address
+     * @param string $postcode
+     * @param string $city
+     * @param string $country
+     *
+     * @return string
+     */
+    protected function getFullAddress($address, $postcode, $city, $country)
+    {
+        return sprintf('%s, %s %s, %s', $address, $postcode, $city, $country);
+    }
+
+    /**
+     * Return the full address of this user
+     *
+     * @return string
+     */
+    public function getFullAddressAttribute()
+    {
+        return $this->getFullAddress(
+            $this->attributes['address'],
+            $this->attributes['postcode'],
+            $this->attributes['city'],
+            $this->attributes['country']
+        );
     }
 }
