@@ -21,6 +21,24 @@
             endDate       : new Date('{{ $endOfMonth}}')
         })
 
+        $('a.btn-delete-custom-time').click(function (e) {
+            e.preventDefault();
+            var custom_time_id = $(this).data('emp-custom-time-id');
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('as.employees.employeeCustomTime.delete', ['employeeId' => $employee->id]) }}',
+                data: {
+                    employee_custom_time_id : custom_time_id
+                },
+                dataType: 'json'
+            }).done(function (data) {
+               if(data.success){
+                    $('#custom-time-'+custom_time_id).remove();
+               } else {
+                    alertify.alert(data.message);
+               }
+            });
+        });
        $('#employees').change(function () {
             window.location = $(this).find(':selected').data('url');
         });
@@ -86,14 +104,14 @@
     </thead>
     <tbody>
         @foreach($items as $item)
-        <tr>
+        <tr id="custom-time-{{ $item->id }}">
             <td>{{ with(new Carbon\Carbon($item->date))->format('l') }}</td>
             <td>
                 {{ $item->date }}
             </td>
             <td>{{ Form::select("custom_times[" . $item->date. "]", $customTimes, $item->customTime->id, ['class' => 'form-control input-sm', 'id' => 'custom_times']) }}</td>
             <td>{{ $employee->name }}</td>
-            <td><a href="#" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i></a></td>
+            <td><a class="btn btn-default btn-delete-custom-time" data-emp-custom-time-id="{{ $item->id }}" href="#"><i class="glyphicon glyphicon-remove"></i></a></td>
         </tr>
         @endforeach
     </tbody>

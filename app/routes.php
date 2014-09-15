@@ -510,6 +510,11 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Employees@massiveUpdateEmployeeCustomTime'
     ]);
 
+    Route::post('employees/employee-delete-custom-time/{employeedId}', [
+        'as' => 'as.employees.employeeCustomTime.delete',
+        'uses' => 'App\Appointment\Controllers\Employees@deleteEmployeeCustomTime'
+    ]);
+
     Route::get('employees/default-time/{id}', [
         'as' => 'as.employees.defaultTime.get',
         'uses' => 'App\Appointment\Controllers\Employees@defaultTime'

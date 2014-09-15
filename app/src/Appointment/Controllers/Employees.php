@@ -407,7 +407,7 @@ class Employees extends AsBase
                 $employeeCustomTime->save();
             }
 
-           return Redirect::route('as.employees.employeeCustomTime', ['employeeId' => $employeeId])
+           return Redirect::route('as.employees.employeeCustomTime', ['employeeId' => $employeeId, 'date' => $toDate->format('Y-m')])
                 ->with(
                     'messages',
                     $this->successMessageBag($message)
@@ -419,15 +419,19 @@ class Employees extends AsBase
 
     }
 
-    public function deleteEmployeeCustomTime($empCustomTimeId, $employeeId, $date = null)
+    public function deleteEmployeeCustomTime($employeeId)
     {
-        $customTime = EmployeeCustomTime::find($empCustomTimeId)->delete();
-
-        return Redirect::route('as.employees.employeeCustomTime', ['employeeId' => $employeeId, 'date' => $date])
-            ->with(
-                'messages',
-                $this->successMessageBag(trans('as.crud.success_delete'))
-            );
+        $empCustomTimeId = Input::get('employee_custom_time_id');
+        try{
+            //for checking permission
+            $employee = Employee::ofCurrentUser()->findOrFail($employeeId);
+            $customTime = EmployeeCustomTime::find($empCustomTimeId)->delete();
+            $data['success'] = true;
+        } catch (\Exception $ex){
+            $data['success'] = false;
+            $data['message'] = $ex->getMessage();
+        }
+        return Response::json($data);
     }
 
     public function massiveUpdateEmployeeCustomTime($employeeId)
