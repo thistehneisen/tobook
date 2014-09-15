@@ -18,9 +18,15 @@ return [
     'start_now'             => 'Start your free trial',
     'tagline'               => 'Everything you need for<br>easy and profitable business',
 
+    'search_tagline'        => 'Book appointments for anything',
+    'search_query'          => 'Search for a service',
+    'search_place'          => 'Helsinki, FI',
     'search'        => [
-        'tagline'   => 'Book appointments for anything',
-        'query'     => 'Search for a service',
-        'location'  => 'Location',
+        'tagline'         => 'Book appointments for anything',
+        'query'           => 'Search for a service',
+        'location'        => 'Location',
+        'about'           => 'About',
+        'locations_hours' => 'Locations &amp; Hours',
+        'business_hours'  => 'Business Hours',
     ]
 ];

@@ -13,12 +13,20 @@
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.12/gmaps.min.js') }}
     <script>
 $(function() {
-    new GMaps({
+    var gmap = new GMaps({
         div: '#map-canvas',
         lat: {{ $geocode->getLatitude() }},
         lng: {{ $geocode->getLongitude() }},
         zoom: 8
     });
+
+    @foreach ($businesses as $item)
+    gmap.addMarker({
+        lat: {{ $item->lat }},
+        lng: {{ $item->lng }},
+        title: '{{ $item->full_name }}'
+    });
+    @endforeach
 
     var loading = $('#js-loading'),
         content = $('#js-business-content'),
