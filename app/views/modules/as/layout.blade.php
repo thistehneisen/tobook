@@ -77,7 +77,7 @@
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="{{ route('as.employees.index') }}">{{ trans('as.employees.all') }}</a></li>
                         <li><a href="{{ route('as.employees.upsert') }}">{{ trans('as.employees.add') }}</a></li>
-                       <!--  <li><a href="{{ route('as.employees.freetime') }}">{{ trans('as.employees.free_times') }}</a>
+                       <!--  <li><a href="{{ route('as.employees.freetime') }}">{{ trans('as.employees.free_times') }}</a>-->
                     </ul>
                 </li>
                 <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif class="dropdown">
