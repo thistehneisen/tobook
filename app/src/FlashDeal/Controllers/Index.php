@@ -47,7 +47,7 @@ class Index extends Base
     {
         $all = FlashDealDate::active()->with('flashDeal')->paginate($this->perPage);
 
-        return $this->render('el.flashDeals', [
+        return $this->render('el.flash_deals', [
             'items' => $all
         ]);
     }
@@ -77,7 +77,7 @@ class Index extends Base
             ->with('flashDeal')
             ->paginate($this->perPage);
 
-        return $this->render('el.flashDeals', [
+        return $this->render('el.flash_deals', [
             'items' => $all
         ]);
     }
