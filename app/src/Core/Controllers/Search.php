@@ -1,66 +1,47 @@
 <?php namespace App\Core\Controllers;
 
-use View, Input, DB, Util, Response, Geocoder;
+use View, Input, DB, Util, Response, Geocoder, App, Config;
 use App\Core\Models\BusinessCategory;
 use App\Core\Models\User as BusinessModel;
 
 class Search extends Base
 {
+    protected $viewPath = 'front.search';
+
     public function index()
     {
-        $query = Input::get('query', '');
-        $location = Input::get('location', '');
-        $businesses = BusinessModel::whereHas('businessCategories', function ($q) use ($query, $location) {
-            $q->where('name', 'LIKE', '%'.$query.'%')
-                ->orWhere('keywords', 'LIKE', '%'.$query.'%');
-        })->where('city', 'LIKE', '%'.$location.'%')
-        ->paginate(100);
+        $q        = e(Input::get('q'));
+        $location = e(Input::get('location'));
 
-        $geocoder = new Geocoder\Geocoder();
-        $geocoder->registerProviders([
-            new Geocoder\Provider\GoogleMapsProvider(
-                new Geocoder\HttpAdapter\CurlHttpAdapter(), 'en', 'Finland', false
-            ),
-        ]);
+        $query = with(new BusinessModel)->newQuery();
+        if (!empty($q)) {
+            $query = $query->whereHas(
+                'businessCategories',
+                function ($query) use ($q) {
+                    return $query->where('name', 'LIKE', '%'.$q.'%')
+                        ->orWhere('keywords', 'LIKE', '%'.$q.'%');
+                }
+            );
+        }
 
-        $geocode = $geocoder->geocode('Helsinki');
+        if (!empty($location)) {
+            $query = $query->where('city', 'LIKE', '%'.$location.'%');
+        }
 
-        return View::make('front.search.index', [
+        $businesses = $query->paginate(Config::get('view.perPage'));
+
+        // $geocoder = new Geocoder\Geocoder();
+        // $geocoder->registerProviders([
+        //     new Geocoder\Provider\GoogleMapsProvider(
+        //         new Geocoder\HttpAdapter\CurlHttpAdapter(), App::getLocale(), $location, false
+        //     ),
+        // ]);
+
+        $geocode = Geocoder::geocode($location ?: 'Helsinki');
+
+        return $this->render('index', [
             'businesses' => $businesses,
             'geocode' => $geocode
-        ]);
-    }
-
-    public function ajaxGetServices()
-    {
-        $categories = BusinessCategory::getAll();
-        $result = [];
-        foreach ($categories as $cat) {
-            $result[] = $cat->name;
-            if ($cat->keywords !== '') {
-                $result = array_merge($result, array_map('trim', explode(',', $cat->keywords)));
-            }
-            foreach ($cat->children as $subCat) {
-                $result[] = $subCat->name;
-                if ($subCat->keywords !== '') {
-                    $result = array_merge($result, array_map('trim', explode(',', $subCat->keywords)));
-                }
-            }
-        }
-        return Response::json($result, 200);
-    }
-
-    public function ajaxGetLocations()
-    {
-        $locations = DB::table('users')->select('city AS name')->where('city', '!=', '')->get();
-        return Response::json($locations, 200);
-    }
-
-    public function ajaxShowBusiness($businessId)
-    {
-        $business = BusinessModel::find($businessId);
-        return View::make('front.search._business', [
-            'business' => $business
         ]);
     }
 }

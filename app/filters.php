@@ -117,3 +117,9 @@ Route::filter('premium.modules', function($request, $response, $moduleName) {
         ]);
     }
 });
+
+Route::filter('ajax', function() {
+    if (Request::ajax() === false) {
+        return Redirect::route('home');
+    }
+});

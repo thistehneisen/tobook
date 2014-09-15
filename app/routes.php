@@ -26,17 +26,17 @@ Route::group(['prefix' => 'search'], function () {
 
     Route::get('services.json', [
         'as'    => 'ajax.services',
-        'uses'  => 'App\Core\Controllers\Search@ajaxGetServices'
+        'uses'  => 'App\Core\Controllers\Ajax\Search@getServices'
     ]);
 
     Route::get('locations.json', [
         'as'    => 'ajax.locations',
-        'uses'  => 'App\Core\Controllers\Search@ajaxGetLocations'
+        'uses'  => 'App\Core\Controllers\Ajax\Search@getLocations'
     ]);
 
-    Route::get('business/{businessId}', [
-        'as'    => 'ajax.show-business',
-        'uses'  => 'App\Core\Controllers\Search@ajaxShowBusiness'
+    Route::get('business/{id}', [
+        'as'    => 'ajax.showBusiness',
+        'uses'  => 'App\Core\Controllers\Ajax\Search@showBusiness'
     ]);
 });
 

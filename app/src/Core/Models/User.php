@@ -94,6 +94,14 @@ class User extends ConfideUser
         return $this->morphMany('App\Core\Models\Image', 'imageable');
     }
 
+    public function coupons()
+    {
+        return $this->hasManyThrough(
+            'App\FlashDeal\Models\Coupon',
+            'App\FlashDeal\Models\Service'
+        );
+    }
+
     //--------------------------------------------------------------------------
     // SCOPES
     //--------------------------------------------------------------------------
@@ -342,5 +350,10 @@ class User extends ConfideUser
             $this->attributes['city'],
             $this->attributes['country']
         );
+    }
+
+    public function getFullNameAttribute()
+    {
+        return $this->attributes['first_name'].' '.$this->attributes['last_name'];
     }
 }

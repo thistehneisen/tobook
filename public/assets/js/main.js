@@ -42,24 +42,4 @@ $(document).ready(function () {
         initTypeahead('#js-queryInput', 'services');
         initTypeahead('#js-locationInput', 'locations');
     }
-
-    // click handler for result
-    $('.result-row').click(function () {
-        var _this = $(this);
-        if (!_this.hasClass('selected')) {
-            // add class selected
-            $('.result-row').removeClass('selected');
-            _this.addClass('selected');
-
-            // do ajax
-            $.ajax({
-                url: _this.data('url'),
-                dataType: 'html',
-                type: 'GET',
-                success: function (data) {
-                    $('.search-right').html(data);
-                },
-            });
-        }
-    });
 });
