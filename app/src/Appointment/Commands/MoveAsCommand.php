@@ -281,10 +281,10 @@ class MoveAsCommand extends Command
 
         $now = Carbon::now();
 
-        foreach ($items as $items) {
+        foreach ($items as $item) {
             $data = [
                 'user_id'     => $item->owner_id,
-                'name'        => $item->name,
+                'name'        => (!empty($item->name)) ? $item->name : '',
                 'start_at'    => $item->start_time,
                 'end_at'      => $item->end_time,
                 'is_day_off'  => $item->is_dayoff === 'T',
