@@ -40,6 +40,7 @@ class MoveAsCommand extends Command
         $this->migrateResourceService();
         $this->migrateExtraServiceService();
         $this->migrateServiceTimes();
+        $this->migrateCustomTimes();
         $this->migrateEmployees();
         $this->migrateEmployeeCustomTimes();
         $this->migrateEmployeeDefaultTime();
@@ -274,11 +275,34 @@ class MoveAsCommand extends Command
         $this->comment('Skipped '.$counter);
     }
 
+    protected function migreateCustomTimes()
+    {
+        $items = DB::table('as_custom_times')->get();
+
+        $now = Carbon::now();
+
+        foreach ($items as $items) {
+            $data = [
+                'user_id'     => $item->owner_id,
+                'name'        => $item->name,
+                'start_at'    => $item->start_time,
+                'end_at'      => $item->end_time,
+                'is_day_off'  => $item->is_dayoff === 'T',
+                'created_at'  => $now,
+                'updated_at'  => $now,
+            ];
+            $id = DB::table('varaa_as_custom_times')->insertGetId($data);
+            $this->map['varaa_as_custom_times'][$item->id] = $id;
+        }
+    }
+
     protected function migrateEmployeeCustomTimes()
     {
         $items = DB::table('as_employees_custom_times')
             ->join('as_custom_times', 'as_custom_times.id', '=', 'as_employees_custom_times.customtime_id')
             ->get();
+
+        $now = Carbon::now();
 
         $counter = 0;
         foreach ($items as $item) {
@@ -288,11 +312,11 @@ class MoveAsCommand extends Command
             }
 
             $data = [
-                'employee_id' => $this->map['varaa_as_employees'][$item->employee_id],
-                'date'        => $item->date,
-                'start_at'    => $item->start_time,
-                'end_at'      => $item->end_time,
-                'is_day_off'  => $item->is_dayoff === 'T',
+                'employee_id'    => $this->map['varaa_as_employees'][$item->employee_id],
+                'custom_time_id' => $this->map['varaa_as_custom_times'][$item->customtime_id],
+                'date'           => $item->date,
+                'created_at'     => $now,
+                'updated_at'     => $now,
             ];
 
             $id = DB::table('varaa_as_employee_custom_time')->insertGetId($data);
