@@ -1,9 +1,9 @@
-<h3>{{{ $business->full_name }}}</h3>
+<h3>{{{ $business->business_name }}}</h3>
 <p>{{{ $business->full_address }}}</p>
 
 <div class="row">
     <div class="col-sm-8">
-        <p><img src="//placehold.it/500x300" alt="" class="img-responsive img-rounded"></p>
+        <p><img src="{{ asset('assets/img/slides/3.jpg') }}" alt="" class="img-responsive img-rounded"></p>
 
     @if (!empty($business->description))
         <h4>{{ trans('home.search.about') }} {{ $business->business_name }}</h4>
