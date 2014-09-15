@@ -6,6 +6,7 @@ use App\Appointment\Models\EmployeeDefaultTime;
 use App\Appointment\Models\EmployeeFreetime;
 use App\Appointment\Models\EmployeeCustomTime;
 use App\Appointment\Models\Service;
+use App\Appointment\Models\CustomTime;
 use Carbon\Carbon;
 
 class Employees extends AsBase
@@ -234,18 +235,15 @@ class Employees extends AsBase
      * Display custom time of a employee
      * Handle insert custom time for employee
      */
-    public function customTime($id)
+    public function customTime()
     {
-        $employee    = Employee::findOrFail($id);
-        $fields      = with(new EmployeeCustomTime)->fillable;
+        $fields      = with(new CustomTime)->fillable;
         $perPage     = (int) Input::get('perPage', Config::get('view.perPage'));
-        $customTimes = $employee
-            ->customTimes()
+        $customTimes = CustomTime::ofCurrentUser()
             ->orderBy('id', 'desc')
             ->paginate($perPage);
 
         return $this->render('customTime.index', [
-            'employee'   => $employee,
             'items'      => $customTimes,
             'fields'     => $fields,
             'langPrefix' => $this->langPrefix,
@@ -261,15 +259,11 @@ class Employees extends AsBase
      *
      * @return View
      */
-    public function upsertCustomTime($id, $customTimeId)
+    public function upsertCustomTime($customTimeId)
     {
-        $employee = Employee::ofCurrentUser()->findOrFail($id);
-        $customTime = EmployeeCustomTime::where('employee_id', $id)
-            ->where('id', $customTimeId)
-            ->firstOrFail();
+        $customTime = CustomTime::ofCurrentUser()->find($customTimeId);
 
         return $this->render('customTime.upsert', [
-            'employee'   => $employee,
             'customTime' => $customTime,
             'now'        => Carbon::now()
         ]);
@@ -282,39 +276,35 @@ class Employees extends AsBase
      *
      * @return Redirect
      */
-    public function doUpsertCustomTime($id, $customTimeId = null)
+    public function doUpsertCustomTime($customTimeId = null)
     {
         try {
             $message = ($customTimeId !== null)
                 ? trans('as.crud.success_edit')
                 : trans('as.crud.success_add');
 
-            $employee = Employee::ofCurrentUser()->findOrFail($id);
+
             // Check duplicate
-            $customTime = EmployeeCustomTime::where('employee_id', $id)
-                    ->where('date', Input::get('date'))
-                    ->first();
+            $customTime = CustomTime::ofCurrentUser()->find($customTimeId);
 
             if ($customTime === null) {
                 $customTime = ($customTimeId === null)
-                    ? new EmployeeCustomTime
-                    : EmployeeCustomTime::where('employee_id', $id)
-                        ->where('id', $customTimeId)
-                        ->firstOrFail();
+                    ? new CustomTime
+                    : CustomTime::ofCurrentUser()->find($customTimeId);
             } else {
                 $message = trans('as.crud.success_edit');
             }
 
             $customTime->fill([
-                'date'       => Input::get('date'),
+                'name'       => Input::get('name'),
                 'start_at'   => Input::get('start_at'),
                 'end_at'     => Input::get('end_at'),
                 'is_day_off' => Input::get('is_day_off', false),
             ]);
-            $customTime->employee()->associate($employee);
+            $customTime->user()->associate($this->user);
             $customTime->save();
 
-            return Redirect::route('as.employees.customTime', ['id' => $id])
+            return Redirect::route('as.employees.customTime')
                 ->with(
                     'messages',
                     $this->successMessageBag($message)
@@ -326,11 +316,9 @@ class Employees extends AsBase
 
     public function deleteCustomTime($id, $customTimeId)
     {
-        $customTime = EmployeeCustomTime::where('employee_id', $id)
-            ->where('id', $customTimeId)
-            ->delete();
+        $customTime = CustomTime::ofCurrentUser()->find($customTimeId)->delete();
 
-        return Redirect::route('as.employees.customTime', ['id' => $id])
+        return Redirect::route('as.employees.customTime')
             ->with(
                 'messages',
                 $this->successMessageBag(trans('as.crud.success_delete'))

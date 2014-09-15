@@ -25,6 +25,7 @@ class CreateAsCustomTimes extends Migration {
                 ->on('users')
                 ->onDelete('cascade');
 			$table->timestamps();
+            $table->softDeletes();
 		});
 	}
 

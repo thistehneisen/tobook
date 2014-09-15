@@ -1,15 +1,13 @@
 <div id="form-add-custom-time">
-    {{ Form::open(['route' => ['as.employees.customTime.upsert', $employee->id, (isset($customTime)) ? $customTime->id : null], 'class' => 'form-horizontal well', 'role' => 'form']) }}
+    {{ Form::open(['route' => ['as.employees.customTime.upsert', (isset($customTime)) ? $customTime->id : null], 'class' => 'form-horizontal well', 'role' => 'form']) }}
     <h4 class="comfortaa">{{ trans('as.employees.custom_time') }}</h4>
     @include ('el.messages')
-
     <div class="form-group">
-        <label for="phone" class="col-sm-2 control-label">{{ trans('as.employees.date') }}</label>
-        <div class="col-sm-6 {{ Form::errorCSS('phone', $errors) }}">
-            {{ Form::text('date', (isset($customTime)) ? $customTime->date : $now->toDateString(), ['class' => 'form-control input-sm date-picker', 'id' => 'date']) }}
+        <label for="name" class="col-sm-2 control-label">{{ trans('as.employees.name') }}</label>
+        <div class="col-sm-6 {{ Form::errorCSS('name', $errors) }}">
+            {{ Form::text('name', (isset($customTime)) ? $customTime->name : '', ['class' => 'form-control input-sm', 'id' => 'name']) }}
         </div>
     </div>
-
     <div class="form-group">
         <label for="start_at" class="col-sm-2 control-label">{{ trans('as.employees.start_at') }}</label>
         <div class="col-sm-6 {{ Form::errorCSS('start_at', $errors) }}">

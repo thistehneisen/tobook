@@ -25,7 +25,6 @@ $(function () {
 @stop
 
 @section ('content')
-    @include ('modules.as.employees.tab', $employee)
 
     @include ('modules.as.employees.customTime.form')
 
@@ -56,8 +55,8 @@ $(function () {
         @endforeach
             <td>
                 <div  class="pull-right">
-                    <a href="{{ route('as.employees.customTime.upsert', ['id' => $employee->id, 'customTimeId' => $item->id]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
-                    <a href="{{ route('as.employees.customTime.delete', ['id' => $employee->id, 'customTimeId' => $item->id]) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
+                    <a href="{{ route('as.employees.customTime.upsert', ['customTimeId' => $item->id]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
+                    <a href="{{ route('as.employees.customTime.delete', ['customTimeId' => $item->id]) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
                 </div>
             </td>
         </tr>
@@ -81,10 +80,10 @@ $(function () {
             @lang('as.items_per_page') <span class="caret"></span>
             </button>
             <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="{{ route('as.employees.customTime', ['id' => $employee->id, 'perPage' => 5]) }}">5</a></li>
-                <li><a href="{{ route('as.employees.customTime', ['id' => $employee->id, 'perPage' => 10]) }}">10</a></li>
-                <li><a href="{{ route('as.employees.customTime', ['id' => $employee->id, 'perPage' => 10]) }}">20</a></li>
-                <li><a href="{{ route('as.employees.customTime', ['id' => $employee->id, 'perPage' => 50]) }}">50</a></li>
+                <li><a href="{{ route('as.employees.customTime', ['perPage' => 5]) }}">5</a></li>
+                <li><a href="{{ route('as.employees.customTime', ['perPage' => 10]) }}">10</a></li>
+                <li><a href="{{ route('as.employees.customTime', ['perPage' => 10]) }}">20</a></li>
+                <li><a href="{{ route('as.employees.customTime', ['perPage' => 50]) }}">50</a></li>
             </ul>
         </div>
     </div>

@@ -3,7 +3,7 @@ class EmployeeCustomTime extends \App\Core\Models\Base
 {
     protected $table = 'as_employee_custom_time';
 
-    public $fillable = ['date', 'start_at', 'end_at', 'is_day_off'];
+    public $fillable = ['date'];
 
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
@@ -11,5 +11,10 @@ class EmployeeCustomTime extends \App\Core\Models\Base
     public function employee()
     {
         return $this->belongsTo('App\Appointment\Models\Employee');
+    }
+
+    public function freetimes()
+    {
+         return $this->hasMany('App\Appointment\Models\CustomTime');
     }
 }

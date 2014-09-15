@@ -476,21 +476,21 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Employees@freetime'
     ]);
 
-    Route::get('employees/custom-time/{id}', [
+    Route::get('employees/custom-time', [
         'as' => 'as.employees.customTime',
         'uses' => 'App\Appointment\Controllers\Employees@customTime'
     ]);
 
-    Route::get('employees/custom-time/{id}/upsert/{customTimeId?}', [
+    Route::get('employees/custom-time/upsert/{customTimeId?}', [
         'as'   => 'as.employees.customTime.upsert',
         'uses' => 'App\Appointment\Controllers\Employees@upsertCustomTime'
     ]);
 
-    Route::post('employees/custom-time/{id}/upsert/{customTimeId?}', [
+    Route::post('employees/custom-time/upsert/{customTimeId?}', [
         'uses' => 'App\Appointment\Controllers\Employees@doUpsertCustomTime'
     ]);
 
-    Route::get('employees/custom-time/{id}/delete/{customTimeId?}', [
+    Route::get('employees/custom-time/delete/{customTimeId?}', [
         'as'   => 'as.employees.customTime.delete',
         'uses' => 'App\Appointment\Controllers\Employees@deleteCustomTime'
     ]);

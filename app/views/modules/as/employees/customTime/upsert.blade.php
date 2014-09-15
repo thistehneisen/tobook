@@ -25,7 +25,6 @@ $(function () {
 @stop
 
 @section ('content')
-    @include ('modules.as.employees.tab', $employee)
 
     @include ('modules.as.employees.customTime.form')
 
