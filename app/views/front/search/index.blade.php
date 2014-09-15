@@ -25,9 +25,19 @@ $(function() {
         map = $('#map-canvas');
 
     $('div.result-row').click(function(e) {
+        e.preventDefault();
         var $this = $(this);
 
-        e.preventDefault();
+        // If the current content is of this business, we don't need to fire
+        // another AJAX
+        if (content.data('current') === $this.data('id')) {
+            return;
+        }
+
+        // Highlight selected row
+        $('div.result-row').removeClass('selected');
+        $this.addClass('selected');
+
         loading.show();
 
         $.ajax({
@@ -38,6 +48,9 @@ $(function() {
             map.hide();
 
             content.html(html);
+
+            // Set current business flag
+            content.data('current', $this.data('id'));
 
             // Now render the map
             var mapId = '#js-map-'+$this.data('id'),
