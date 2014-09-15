@@ -13,47 +13,32 @@
         <table class="table table-stripped table-hovered">
             <thead>
                 <tr>
-                    <th>Palvelu</th>
-                    <th>Ajankota</th>
-                    <th>Hinta</th>
+                    <th>{{ trans('fd.services.name') }}</th>
+                    <th>{{ trans('fd.coupons.valid_date') }}</th>
+                    <th>{{ trans('fd.services.price') }}</th>
                     <th></th>
-                    <th>Osta</th>
+                    <th>{{ trans('home.search.buy') }}</th>
                 </tr>
             </thead>
             <tbody>
+            @if ($coupons->isEmpty() === true)
                 <tr>
-                    <td><a href="#" title="">Service name</a></td>
-                    <td>La 10:10 klo</td>
-                    <td>50&euro; (75&euro;)</td>
+                    <td colspan="5">{{ trans('home.search.no_results') }}</td>
+                </tr>
+            @endif
+            @foreach ($coupons as $item)
+                <tr>
+                    <td><a href="#" title="">{{ $item->service->name }}</a></td>
+                    <td>{{ $item->valid_date }}</td>
+                    <td>{{ $item->discounted_price }}&euro; ({{ $item->service->price }}&euro;)</td>
                     <td>
-                        <p class="text-danger"><strong>-33%</strong></p>
+                        <p class="text-danger"><strong>-{{ $item->discount_percent }}%</strong></p>
                     </td>
                     <td>
-                        <a href="#" class="btn btn-success btn-sm">Varaa</a>
+                        <a href="#" class="btn btn-success btn-sm">{{ trans('home.search.book') }}</a>
                     </td>
                 </tr>
-                <tr>
-                    <td><a href="#" title="">Service name</a></td>
-                    <td>La 10:10 klo</td>
-                    <td>50&euro; (75&euro;)</td>
-                    <td>
-                        <p class="text-danger"><strong>-33%</strong></p>
-                    </td>
-                    <td>
-                        <a href="#" class="btn btn-success btn-sm">Varaa</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td><a href="#" title="">Service name</a></td>
-                    <td>La 10:10 klo</td>
-                    <td>50&euro; (75&euro;)</td>
-                    <td>
-                        <p class="text-danger"><strong>-33%</strong></p>
-                    </td>
-                    <td>
-                        <a href="#" class="btn btn-success btn-sm">Varaa</a>
-                    </td>
-                </tr>
+            @endforeach
             </tbody>
         </table>
     </div>

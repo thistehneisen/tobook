@@ -28,5 +28,7 @@ return [
         'about'           => 'About',
         'locations_hours' => 'Locations &amp; Hours',
         'business_hours'  => 'Business Hours',
+        'buy'             => 'Buy',
+        'book'            => 'Book',
     ]
 ];

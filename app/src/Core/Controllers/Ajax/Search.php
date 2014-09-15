@@ -53,8 +53,11 @@ class Search extends Base
     public function showBusiness($id)
     {
         $business = User::find($id);
+        $coupons = $business->coupons()->active()->with('service')->get();
+
         return $this->view('front.search.business', [
-            'business' => $business
+            'business' => $business,
+            'coupons'  => $coupons
         ]);
     }
 }

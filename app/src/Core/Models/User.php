@@ -94,6 +94,14 @@ class User extends ConfideUser
         return $this->morphMany('App\Core\Models\Image', 'imageable');
     }
 
+    public function coupons()
+    {
+        return $this->hasManyThrough(
+            'App\FlashDeal\Models\Coupon',
+            'App\FlashDeal\Models\Service'
+        );
+    }
+
     //--------------------------------------------------------------------------
     // SCOPES
     //--------------------------------------------------------------------------
