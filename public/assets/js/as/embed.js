@@ -75,7 +75,10 @@
             }
             var time = end_time.split(':');
             //increase 15 minutes to end time text
-            var new_end_time = time[0] + ':' + (parseInt(time[1], 10) + 15);
+            var minute = (parseInt(time[1], 10) + 15);
+            var hour = (minute == 60) ? parseInt(time[0], 10) +1 : time[0];
+            minute = (minute == 60) ? '00' : minute;
+            var new_end_time = hour + ':' + minute;
             $('.li-start-time').hide();
             $('.li-end-time').hide();
             $('.li-start-time-' + employee_id).show();
