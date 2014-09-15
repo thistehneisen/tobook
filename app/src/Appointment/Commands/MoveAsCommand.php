@@ -355,7 +355,7 @@ class MoveAsCommand extends Command
                 'as_bookings_services.date',
                 'as_bookings_services.start'
             )
-            ->distinct()
+            ->groupBy('as_bookings.id')
             ->get();
         $now = Carbon::now();
 
