@@ -21,4 +21,3 @@ Artisan::add(new App\Appointment\Commands\MoveAsCommand());
 Artisan::add(new App\Appointment\Commands\FixEndAtBookingsCommand());
 Artisan::add(new App\Appointment\Commands\FixTotalPriceBookingsCommand());
 Artisan::add(new App\Appointment\Commands\FixBookingStatusCommand());
-Artisan::add(new App\Appointment\Commands\GetStyleOptionsCommand());

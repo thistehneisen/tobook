@@ -143,6 +143,9 @@ class MoveAsCommand extends Command
     {
         $map = $this->map;
         $this->migrateTable('as_resources_services', 'varaa_as_resource_service', function ($item) use ($map) {
+            if (!isset($map['varaa_as_services'][$item->service_id])) {
+                return;
+            }
             return [
                 'service_id'  => $map['varaa_as_services'][$item->service_id],
                 'resource_id' => $map['varaa_as_resources'][$item->resources_id],
@@ -406,15 +409,6 @@ class MoveAsCommand extends Command
                 'updated_at'  => $item->created,
             ]);
 
-            $map = [
-                'confirmed'     => 1,
-                'pending'       => 2,
-                'cancelled'     => 3,
-                'arrived'       => 4,
-                'paid'          => 5,
-                'no_show_up'    => 6,
-            ];
-
             $employeeId = isset($this->map['varaa_as_employees'][$item->employee_id])
                 ? $this->map['varaa_as_employees'][$item->employee_id]
                 : null;
@@ -430,7 +424,7 @@ class MoveAsCommand extends Command
                 'modify_time' => 0,
                 'start_at'    => $startAt,
                 'end_at'      => with(clone $startAt)->addMinutes((int) $item->booking_total),
-                'status'      => $map[$item->booking_status],
+                'status'      => '',
                 'ip'          => (string) $item->ip,
                 'created_at'  => $item->created,
                 'updated_at'  => $item->created,
@@ -567,6 +561,13 @@ class MoveAsCommand extends Command
         $all = DB::table('as_formstyle')->get();
         $now = Carbon::now();
         foreach ($all as $item) {
+            // get main color
+            $mainColor = null;
+            if ($item->message) {
+                preg_match_all('/#(?:[0-9a-fA-F]{6}|[0-9a-fA-F]{3})[\s;]*\n/', $item->message, $matches);
+                $mainColor = isset($matches[0][0]) ? trim($matches[0][0]) : null;
+            }
+
             $records = [
                 ['key' => 'style_logo', 'value' => $item->logo],
                 ['key' => 'style_banner', 'value' => $item->banner],
@@ -574,6 +575,7 @@ class MoveAsCommand extends Command
                 ['key' => 'style_text_color', 'value' => $item->color],
                 ['key' => 'style_background', 'value' => $item->background],
                 ['key' => 'style_custom_css', 'value' => $item->message],
+                ['key' => 'style_main_color', 'value' => $mainColor],
             ];
 
             $data = [];
