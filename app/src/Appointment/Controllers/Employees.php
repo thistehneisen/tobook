@@ -24,7 +24,7 @@ class Employees extends AsBase
     {
         $services = Service::ofCurrentUser()->lists('name', 'id');
         $employee = ($id !== null)
-            ? Employee::findOrFail($id)
+            ? Employee::ofCurrentUser()->findOrFail($id)
             : new Employee();
 
         return $this->render('form', [
@@ -86,7 +86,7 @@ class Employees extends AsBase
      */
     public function defaultTime($id)
     {
-        $employee = Employee::find($id);
+        $employee = Employee::ofCurrentUser()->find($id);
         $defaultTime = $employee->getDefaultTimes();
 
         return $this->render('defaultTime', [
@@ -103,7 +103,7 @@ class Employees extends AsBase
     public function updateDefaultTime()
     {
         $employeeId = Input::get('employee_id');
-        $employee = Employee::find($employeeId);
+        $employee = Employee::ofCurrentUser()->find($employeeId);
 
         $types = EmployeeDefaultTime::getTypes();
         $input = Input::all();
@@ -164,7 +164,7 @@ class Employees extends AsBase
         $bookingDate = Input::get('booking_date');
         $startTime   = Input::get('start_time');
         $endTime     = with(new Carbon($startTime))->addMinutes(60);
-        $employee    = Employee::find($employeeId);
+        $employee    = Employee::ofCurrentUser()->find($employeeId);
         $employees   = Employee::ofCurrentUser()->lists('name','id');
 
         //TODO get form settings or somewhere else
@@ -198,7 +198,7 @@ class Employees extends AsBase
         try {
             $employeeFreetime = new EmployeeFreetime();
             $employeeFreetime->fill(Input::all());
-            $employee = Employee::find($employeeId);
+            $employee = Employee::ofCurrentUser()->find($employeeId);
             $employeeFreetime->user()->associate($this->user);
             $employeeFreetime->employee()->associate($employee);
             $employeeFreetime->save();
@@ -263,7 +263,7 @@ class Employees extends AsBase
      */
     public function upsertCustomTime($id, $customTimeId)
     {
-        $employee = Employee::findOrFail($id);
+        $employee = Employee::ofCurrentUser()->findOrFail($id);
         $customTime = EmployeeCustomTime::where('employee_id', $id)
             ->where('id', $customTimeId)
             ->firstOrFail();
@@ -289,7 +289,7 @@ class Employees extends AsBase
                 ? trans('as.crud.success_edit')
                 : trans('as.crud.success_add');
 
-            $employee = Employee::findOrFail($id);
+            $employee = Employee::ofCurrentUser()->findOrFail($id);
             // Check duplicate
             $customTime = EmployeeCustomTime::where('employee_id', $id)
                     ->where('date', Input::get('date'))

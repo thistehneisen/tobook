@@ -58,7 +58,7 @@ class Services extends AsBase
         $plustimes = Input::get('plustimes');
         $service->employees()->detach($employees);
         foreach ($employees as $employeeId) {
-            $employee = Employee::find($employeeId);
+            $employee = Employee::ofCurrentUser()->find($employeeId);
             $employeeService = new EmployeeService();
             $employeeService->service()->associate($service);
             $employeeService->employee()->associate($employee);
@@ -77,7 +77,7 @@ class Services extends AsBase
     {
         $perPage      = (int) Input::get('perPage', Config::get('view.perPage'));
         $fields       = with(new ServiceTime)->fillable;
-        $service      = Service::find($serviceId);
+        $service      = Service::ofCurrentUser()->find($serviceId);
         $serviceTimes = ServiceTime::where('service_id', $serviceId)
             ->orderBy('id', 'desc')
             ->paginate($perPage);
@@ -101,7 +101,7 @@ class Services extends AsBase
      */
     public function upsertCustomTime($id, $customTimeId)
     {
-        $service = Service::findOrFail($id);
+        $service = Service::ofCurrentUser()->findOrFail($id);
         $serviceTime = ServiceTime::where('service_id', $id)
             ->where('id', $customTimeId)
             ->firstOrFail();
@@ -127,7 +127,7 @@ class Services extends AsBase
             ? trans('as.crud.success_edit')
             : trans('as.crud.success_add');
 
-            $service = Service::findOrFail($id);
+            $service = Service::ofCurrentUser()->findOrFail($id);
 
             $serviceTime = ($serviceTimeId === null)
                 ? new ServiceTime

@@ -39,7 +39,7 @@ class Index extends AsBase
     public function employee($id = null, $date = null)
     {
         $employees = Employee::ofCurrentUser()->get();
-        $employee  = Employee::find($id);
+        $employee  = Employee::ofCurrentUser()->find($id);
         $workingTimes = range(8,17);
         $date = (empty($date)) ? Carbon::today() : $date;
 

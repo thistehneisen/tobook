@@ -38,7 +38,7 @@ class Bookings extends AsBase
             return $this->getBlankBookingForm();
         }
 
-        $booking              = Booking::find($bookingId);
+        $booking              = Booking::ofCurrentUser()->find($bookingId);
         $bookingStatuses      = Booking::getStatuses();
         $employee             = $booking->employee;
         $services             = $employee->services;
@@ -96,7 +96,7 @@ class Bookings extends AsBase
 
         $bookingStatuses = Booking::getStatuses();
 
-        $employee = Employee::find($employeeId);
+        $employee = Employee::ofCurrentUser()->find($employeeId);
         $services = $employee->services;
 
         list($categories, $jsonServices, $jsonServiceTimes) = $this->servicesServiceTimesJson($services);
@@ -151,8 +151,8 @@ class Bookings extends AsBase
     }
 
     public function getAddExtraServiceForm(){
-        $bookingId            = Input::get('booking_id');
-        $booking              = Booking::find($bookingId);//TODO if not found booking
+        $bookingId = Input::get('booking_id');
+        $booking   = Booking::ofCurrentUser()->find($bookingId);//TODO if not found booking
 
         $bookingExtraServices = $booking->extraServices()->lists('extra_service_id');
 
@@ -173,7 +173,7 @@ class Bookings extends AsBase
 
     public function getChangeStatusForm(){
         $bookingId = Input::get('booking_id');
-        $booking = Booking::find($bookingId);
+        $booking = Booking::ofCurrentUser()->find($bookingId);
         $bookingStatuses = Booking::getStatuses();
         //TODO if not found booking
         return View::make('modules.as.bookings.changeStatus', [
@@ -187,7 +187,7 @@ class Bookings extends AsBase
         $status_text = Input::get('booking_status');
         $data = [];
         try{
-            $booking = Booking::find($bookingId);
+            $booking = Booking::ofCurrentUser()->find($bookingId);
             $status =  $booking->getStatus($status_text);
             $booking->setStatus($status_text);
             if($status === Booking::STATUS_CANCELLED){
@@ -212,7 +212,7 @@ class Bookings extends AsBase
     {
         $categoryId = (int) Input::get('category_id');
         $employeeId = (int) Input::get('employee_id');
-        $employee = Employee::find($employeeId);
+        $employee = Employee::ofCurrentUser()->find($employeeId);
         $services = $employee->services()->where('category_id', $categoryId)->get();
         $data = [];
         foreach ($services as $service) {
@@ -233,7 +233,7 @@ class Bookings extends AsBase
     public function getServiceTimes()
     {
         $serviceId    = (int) Input::get('service_id');
-        $service      = Service::find($serviceId);
+        $service      = Service::ofCurrentUser()->find($serviceId);
         $serviceTimes = $service->serviceTimes;
         $data = [];
         $data['default'] = [
@@ -274,12 +274,12 @@ class Bookings extends AsBase
             return Response::json($data, 400);
         }
         try{
-            $employee = Employee::find($employeeId);
-            $service = Service::find($serviceId);
+            $employee = Employee::ofCurrentUser()->find($employeeId);
+            $service = Service::ofCurrentUser()->find($serviceId);
 
             $length = 0;
             if ($serviceTimeId === 'default') {
-                $service = Service::find($serviceId);
+                $service = Service::ofCurrentUser()->find($serviceId);
                 $length = $service->length;
             } else {
                 $serviceTime = ServiceTime::find($serviceTimeId);
@@ -469,7 +469,7 @@ class Bookings extends AsBase
         $email     = Input::get('email', '');
         $phone     = Input::get('phone', '');
         $address   = Input::get('address', '');
-        $hash      =  Input::get('hash');
+        $hash      = Input::get('hash');
         $consumer = Consumer::where('email', $email)->first();
         $asConsumer = new AsConsumer();
 
@@ -557,7 +557,7 @@ class Bookings extends AsBase
     {
         $extraServiceId  = Input::get('extra_service');
         $bookingId       = Input::get('booking_id');
-        $booking         = Booking::find($bookingId);
+        $booking         = Booking::ofCurrentUser()->find($bookingId);
         $data = [];
         try {
             $bookingExtraService = BookingExtraService::where('extra_service_id', $extraServiceId)
@@ -609,7 +609,7 @@ class Bookings extends AsBase
     {
         $extraServiceIds = Input::get('extra_services');
         $bookingId       = Input::get('booking_id');
-        $booking         = Booking::find($bookingId);
+        $booking         = Booking::ofCurrentUser()->find($bookingId);
 
         if(empty($extraServiceIds)){
             return Response::json([
