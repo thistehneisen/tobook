@@ -8,7 +8,7 @@
                 $serviceDescription = '(' .$booking->bookingServices()->first()->service->name . ')';
             }
         ?>
-        <span class="customer-tooltip" title="{{ $booking->consumer->getNameAttribute() }} {{ $serviceDescription }}"><a class="js-btn-view-booking" data-start-time="{{ with(new Carbon\Carbon($booking->start_at))->format('H:i') }}" href="#" data-booking-id="{{ $booking->id }}" data-employee-id="{{ $selectedEmployee->id }}">{{ $booking->consumer->getNameAttribute() }} {{ $serviceDescription }}</a></span>
+        <span class="customer-tooltip" title="{{ with(new Carbon\Carbon($booking->start_at))->format('H:i') }}-{{ with(new Carbon\Carbon($booking->end_at))->format('H:i') }} {{ $booking->consumer->getNameAttribute() }} {{ $serviceDescription }}"><a class="js-btn-view-booking" data-start-time="{{ with(new Carbon\Carbon($booking->start_at))->format('H:i') }}" href="#" data-booking-id="{{ $booking->id }}" data-employee-id="{{ $selectedEmployee->id }}">{{ $booking->consumer->getNameAttribute() }} {{ $serviceDescription }}</a></span>
         <a href="#select-modify-action" class="btn-plus fancybox btn-select-modify-action" data-booking-id="{{ $booking->id }}" data-action-url="{{ route('as.bookings.extra-service-form') }}"><i class="fa fa-plus"></i></a>
         @else
             &nbsp;
