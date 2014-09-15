@@ -295,6 +295,11 @@ return [
         'end_at'              => 'Lopetusaika',
         'date'                => 'Päivä',
         'is_day_off'          => 'Vapaapäivä',
+        'employee_custom_time'=> 'Employee custom time',
+        'from_date'           => 'From date',
+        'to_date'             => 'To date',
+        'weekday'             => 'Weekday',
+        'employee'            => 'Employee'
     ],
     'embed' => [
         'heading'          => 'Otsikko',

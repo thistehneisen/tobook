@@ -296,6 +296,11 @@ return [
         'end_at'              => 'End at',
         'date'                => 'Date',
         'is_day_off'          => 'Day off',
+        'employee_custom_time'=> 'Employee custom time',
+        'from_date'           => 'From date',
+        'to_date'             => 'To date',
+        'weekday'             => 'Weekday',
+        'employee'            => 'Employee'
     ],
     'embed' => [
         'heading'          => 'Title',

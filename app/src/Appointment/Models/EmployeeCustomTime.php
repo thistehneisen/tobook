@@ -13,8 +13,17 @@ class EmployeeCustomTime extends \App\Core\Models\Base
         return $this->belongsTo('App\Appointment\Models\Employee');
     }
 
-    public function freetimes()
+    public function customTime()
     {
-         return $this->hasMany('App\Appointment\Models\CustomTime');
+         return $this->belongsTo('App\Appointment\Models\CustomTime');
+    }
+
+    public static function getUpsertModel($employeeId, $date)
+    {
+        $model = self::where('employee_id', $employeeId)
+            ->where('date', $date)
+            ->first();
+
+       return (!empty($model)) ? $model : (new self());
     }
 }

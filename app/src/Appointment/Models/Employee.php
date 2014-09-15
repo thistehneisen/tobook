@@ -211,7 +211,7 @@ class Employee extends Base
          return $this->hasMany('App\Appointment\Models\EmployeeFreetime');
     }
 
-    public function customTimes()
+    public function employeeCustomTimes()
     {
          return $this->hasMany('App\Appointment\Models\EmployeeCustomTime');
     }

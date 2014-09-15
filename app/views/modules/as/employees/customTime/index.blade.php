@@ -25,7 +25,7 @@ $(function () {
 @stop
 
 @section ('content')
-
+    @include ('modules.as.employees.tabCustomTime')
     @include ('modules.as.employees.customTime.form')
 
 <table class="table table-hover">

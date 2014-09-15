@@ -324,4 +324,94 @@ class Employees extends AsBase
                 $this->successMessageBag(trans('as.crud.success_delete'))
             );
     }
+
+    public function employeeCustomTime($employeeId = null, $date = null)
+    {
+        $customTimes = CustomTime::ofCurrentUser()
+            ->orderBy('id', 'desc')->lists('name','id');
+
+        $employee =  (!empty($employeeId))
+            ? Employee::ofCurrentUser()->find($employeeId)
+            : Employee::ofCurrentUser()->first();
+
+        $employees = Employee::ofCurrentUser()->get();
+
+        $current = Carbon::now();
+        if(!empty($date)){
+            try{
+                $current = Carbon::createFromFormat('Y-m-d', $date . '-01');
+            } catch(\Exception $ex){
+                $current = Carbon::now();
+            }
+        }
+        $startOfMonth = $current->startOfMonth()->toDateString();
+        $endOfMonth   = $current->endOfMonth()->toDateString();
+
+        $items = $employee->employeeCustomTimes()
+            ->where('date','>=', $startOfMonth)
+            ->where('date','<=', $endOfMonth)->get();
+
+        return $this->render('customTime', [
+            'customTimes'=> $customTimes,
+            'items'      => $items,//custom time of the employee
+            'employee'   => $employee,
+            'employees'  => $employees,
+            'current'    => $current
+        ]);
+    }
+
+    public function upsertEmployeeCustomTime()
+    {
+        $customTimeId = Input::get('custom_times');
+        $fromDateStr  = Input::get('from_date');
+        $toDateStr    = Input::get('to_date');
+        $employeeId   = Input::get('employees');
+        $message      = trans('as.crud.success_add');
+
+        try{
+            $employee = Employee::ofCurrentUser()->findOrFail($employeeId);
+            $customTime = CustomTime::ofCurrentUser()->findOrFail($customTimeId);
+
+            $fromDate     = new Carbon($fromDateStr);
+            $toDate       = (!empty($toDateStr)) ? (new Carbon($toDateStr)) : $fromDate;
+
+            if($fromDate > $toDate) return;
+
+            $dateRange = ($fromDate->diffInDays($toDate))
+                        ? $fromDate->diffInDays($toDate) + 1
+                        : 0;
+
+            if($dateRange){
+                while($dateRange){
+                    $employeeCustomTime =  EmployeeCustomTime::getUpsertModel($employeeId, $fromDate->toDateString());
+                    $employeeCustomTime->fill([
+                        'date' =>  $fromDate->toDateString()
+                    ]);
+                    $employeeCustomTime->employee()->associate($employee);
+                    $employeeCustomTime->customTime()->associate($customTime);
+                    $employeeCustomTime->save();
+                    $fromDate->addDay();
+                    $dateRange--;
+                }
+            } else {
+                $employeeCustomTime = EmployeeCustomTime::getUpsertModel($employeeId, $fromDate->toDateString());
+                $employeeCustomTime->fill([
+                    'date' =>  $fromDate->toDateString()
+                ]);
+                $employeeCustomTime->employee()->associate($employee);
+                $employeeCustomTime->customTime()->associate($customTime);
+                $employeeCustomTime->save();
+            }
+
+           return Redirect::route('as.employees.employeeCustomTime', ['employeeId' => $employeeId])
+                ->with(
+                    'messages',
+                    $this->successMessageBag($message)
+                );
+
+        } catch (\Watson\Validating\ValidationException $ex){
+             return Redirect::back()->withInput()->withErrors($ex->getErrors());
+        }
+
+    }
 }

@@ -495,6 +495,16 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Employees@deleteCustomTime'
     ]);
 
+    Route::get('employees/employee-custom-time/{employeedId?}/{date?}', [
+        'as' => 'as.employees.employeeCustomTime',
+        'uses' => 'App\Appointment\Controllers\Employees@employeeCustomTime'
+    ]);
+
+    Route::post('employees/employee-custom-time/{employeedId?}/{date?}', [
+        'as' => 'as.employees.employeeCustomTime.upsert',
+        'uses' => 'App\Appointment\Controllers\Employees@upsertEmployeeCustomTime'
+    ]);
+
     Route::get('employees/default-time/{id}', [
         'as' => 'as.employees.defaultTime.get',
         'uses' => 'App\Appointment\Controllers\Employees@defaultTime'
