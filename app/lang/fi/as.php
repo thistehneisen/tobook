@@ -153,6 +153,7 @@ return [
     ],
     'services' => [
         'heading'       => 'Palvelut',
+        'edit'          => 'Edit service',//@todo
         'categories' => [
             'all'           => 'Kaikki kategoriat',
             'add'           => 'Lisää kategoria',
@@ -191,6 +192,8 @@ return [
         'description'  => 'Kuvaus',
         'price'        => 'Hinta',
         'duration'     => 'Kesto',
+        'length'       => 'Duration',//@todo
+        'during'       => 'During',//@todo
         'before'       => 'Ennen',
         'after'        => 'Jälkeen',
         'total'        => 'Yhteensä',

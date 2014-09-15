@@ -2,11 +2,13 @@
 
 use App, View, Confide, Redirect, Input, Config;
 use App\Appointment\Models\Service;
+use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\Resource;
 use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\Employee;
+use Carbon\Carbon;
 
 class Services extends AsBase
 {
@@ -65,5 +67,109 @@ class Services extends AsBase
         }
 
         return $service;
+    }
+
+    /**
+     * Display service time of a service
+     * Handle insert service time for service
+     */
+    public function customTime($serviceId)
+    {
+        $perPage      = (int) Input::get('perPage', Config::get('view.perPage'));
+        $fields       = with(new ServiceTime)->fillable;
+        $service      = Service::find($serviceId);
+        $serviceTimes = ServiceTime::where('service_id', $serviceId)
+            ->orderBy('id', 'desc')
+            ->paginate($perPage);
+
+        return View::make('modules.as.services.customTime.index', [
+            'items'      => $serviceTimes,
+            'service'    => $service,
+            'fields'     => $fields,
+            'langPrefix' => $this->langPrefix,
+            'now'        => Carbon::now()
+        ]);
+    }
+
+    /**
+     * Show the form to edit service time
+     *
+     * @param int $id
+     * @param int $customTimeId
+     *
+     * @return View
+     */
+    public function upsertCustomTime($id, $customTimeId)
+    {
+        $service = Service::findOrFail($id);
+        $serviceTime = ServiceTime::where('service_id', $id)
+            ->where('id', $customTimeId)
+            ->firstOrFail();
+
+        return View::make('modules.as.services.customTime.upsert', [
+            'service'    => $service,
+            'serviceTime'=> $serviceTime,
+            'now'        => Carbon::now()
+        ]);
+    }
+
+    /**
+     * Add/edit service time of an service
+     *
+     * @param int $id ServiceId
+     *
+     * @return Redirect
+     */
+    public function doUpsertCustomTime($id, $serviceTimeId = null)
+    {
+        try {
+            $message = ($serviceTimeId !== null)
+            ? trans('as.crud.success_edit')
+            : trans('as.crud.success_add');
+
+            $service = Service::findOrFail($id);
+
+            $serviceTime = ($serviceTimeId === null)
+                ? new ServiceTime
+                : ServiceTime::where('service_id', $id)
+                ->where('id', $serviceTimeId)
+                ->firstOrFail();
+            $length = intval(Input::get('before'))
+                    + intval(Input::get('during'))
+                    + intval(Input::get('after'));
+
+            $serviceTime->fill([
+                'price'       => Input::get('price'),
+                'before'      => Input::get('before'),
+                'during'      => Input::get('during'),
+                'after'       => Input::get('after'),
+                'length'      => $length,
+                'description' => Input::get('description'),
+            ]);
+
+            $serviceTime->service()->associate($service);
+            $serviceTime->save();
+
+            return Redirect::route('as.services.customTime', ['id' => $id])
+            ->with(
+                'messages',
+                $this->successMessageBag($message)
+                );
+        } catch (\Watson\Validating\ValidationException $ex) {
+            return Redirect::back()->withInput()->withErrors($ex->getErrors());
+        }
+    }
+
+    public function deleteCustomTime($id, $customTimeId)
+    {
+        $customTime = ServiceTime::where('service_id', $id)
+            ->where('id', $customTimeId)
+            ->delete();
+
+        return Redirect::route('as.services.customTime', ['id' => $id])
+            ->with(
+                'messages',
+                $this->successMessageBag(trans('as.crud.success_delete'))
+            );
     }
 }

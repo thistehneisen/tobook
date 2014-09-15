@@ -4,13 +4,7 @@ class ServiceTime extends \App\Core\Models\Base
 {
     protected $table = 'as_service_times';
 
-    public $fillable = ['service_id', 'price', 'length','before','during', 'after', 'description', 'quantity'];
-
-    protected $rulesets = [
-        'saving' => [
-            'name' => 'required'
-        ]
-    ];
+    public $fillable = ['price', 'length','before','during', 'after', 'description'];
 
     //--------------------------------------------------------------------------
     // RELATIONSHIPS

@@ -154,6 +154,8 @@ return [
     ],
     'services' => [
         'heading'       => 'Services',
+        'edit'          => 'Edit service',//@todo
+        'custom_time'   => 'Custom time',//@todo
         'categories' => [
             'all'           => 'All categories',
             'add'           => 'Add new category',
@@ -192,6 +194,8 @@ return [
         'description'  => 'Description',
         'price'        => 'Price',
         'duration'     => 'Duration',
+        'length'       => 'Duration',
+        'during'       => 'During',
         'before'       => 'Before',
         'after'        => 'After',
         'total'        => 'Total',

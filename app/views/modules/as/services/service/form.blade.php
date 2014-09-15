@@ -5,7 +5,9 @@
     <p><strong>{{ trans('as.services.add') }}</strong></p>
     <p>{{ trans('as.services.add_desc') }}</p>
 </div>
-
+@if(!empty($service))
+    @include ('modules.as.services.service.tab', $service)
+@endif
 {{ Form::open(['route' => ['as.services.upsert', isset($service->id) ? $service->id : ''], 'class' => 'form-horizontal well', 'role' => 'form']) }}
     <div class="form-group">
         <label for="name" class="col-sm-2 control-label">{{ trans('as.services.name') }}</label>

@@ -382,6 +382,25 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Services@doEdit'
     ]);
 
+    Route::get('services/custom-time/{id}', [
+        'as' => 'as.services.customTime',
+        'uses' => 'App\Appointment\Controllers\Services@customTime'
+    ]);
+
+    Route::get('services/custom-time/{id}/upsert/{customTimeId?}', [
+        'as'   => 'as.services.customTime.upsert',
+        'uses' => 'App\Appointment\Controllers\Services@upsertCustomTime'
+    ]);
+
+    Route::post('services/custom-time/{id}/upsert/{customTimeId?}', [
+        'uses' => 'App\Appointment\Controllers\Services@doUpsertCustomTime'
+    ]);
+
+    Route::get('services/custom-time/{id}/delete/{customTimeId?}', [
+        'as'   => 'as.services.customTime.delete',
+        'uses' => 'App\Appointment\Controllers\Services@deleteCustomTime'
+    ]);
+
     Route::get('services/delete', [
         'as' => 'as.services.delete',
         'uses' => 'App\Appointment\Controllers\Services@delete'
