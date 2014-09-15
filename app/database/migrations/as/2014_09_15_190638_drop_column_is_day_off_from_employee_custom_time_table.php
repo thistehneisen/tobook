@@ -14,6 +14,7 @@ class DropColumnIsDayOffFromEmployeeCustomTimeTable extends Migration {
 	{
 		Schema::table('as_employee_custom_time', function(Blueprint $table)
         {
+
             $table->dropColumn('is_day_off');
         });
 	}

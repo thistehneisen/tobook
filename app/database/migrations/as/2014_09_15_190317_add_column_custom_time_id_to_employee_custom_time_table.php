@@ -14,7 +14,7 @@ class AddColumnCustomTimeIdToEmployeeCustomTimeTable extends Migration {
 	{
 		Schema::table('as_employee_custom_time', function(Blueprint $table)
         {
-            $table->integer('custom_time_id');
+            $table->unsignedInteger('custom_time_id');
             $table->foreign('custom_time_id')
                 ->references('id')
                 ->on('as_custom_times')
