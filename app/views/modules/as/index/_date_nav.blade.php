@@ -1,7 +1,7 @@
 <div class="container as-date-nav">
     <div class="col-md-2">
         <div class="input-group">
-            <input type="text" data-index-url="{{ route($routeName, ['id' => $employeeId]) }}" id="calendar_date" class="form-control" value="{{ $selectedDate }}">
+            <input type="text" data-index-url="{{ route($routeName, ['id' => $employeeId]) }}" id="calendar_date" class="form-control" value="{{ with(new Carbon\Carbon($selectedDate))->format('d-m-Y') }}">
             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
         </div>
     </div>

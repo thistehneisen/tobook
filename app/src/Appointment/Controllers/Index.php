@@ -19,7 +19,7 @@ class Index extends AsBase
 
         if (!$date instanceof Carbon) {
             try {
-                $date = Carbon::createFromFormat('Y-m-d', $date);
+                $date = Carbon::createFromFormat('d-m-Y', $date);
             } catch (\Exception $ex) {
                 $date = Carbon::today();
             }
@@ -45,7 +45,7 @@ class Index extends AsBase
 
         if (!$date instanceof Carbon) {
             try {
-                $date = Carbon::createFromFormat('Y-m-d', $date, Config::get('app.timezone'));
+                $date = Carbon::createFromFormat('d-m-Y', $date, Config::get('app.timezone'));
             } catch (\Exception $ex) {
                 $date = Carbon::today();
             }

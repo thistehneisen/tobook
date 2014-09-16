@@ -64,7 +64,7 @@
             });
         });
         $('#calendar_date').datepicker({
-            format: 'yyyy-mm-dd',
+            format: 'dd-mm-yyyy',
             weekStart: 1,
             autoclose: true,
             calendarWeeks: true,
