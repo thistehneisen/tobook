@@ -107,6 +107,13 @@ return [
         'sat' => 'La',
         'sun' => 'Su',
     ],
+    'monday'    => 'maanantaina',
+    'tuesday'   => 'tiistaina',
+    'wednesday' => 'keskiviikkona',
+    'thursday'  => 'torstaina',
+    'friday'    => 'perjantaina',
+    'saturday'  => 'lauantaina',
+    'sunday'    => 'sunnuntaina',
     'err' => [
         'unexpected'   => 'An unexpected error has occurred. Please try again later.',
         'not_found'    => 'Cannot the find the requesting data. Please check the URL again.',

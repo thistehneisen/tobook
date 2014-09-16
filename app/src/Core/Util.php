@@ -1,5 +1,5 @@
 <?php namespace App\Core;
-use DB;
+use DB, Str, App;
 use Carbon\Carbon;
 /**
  * Providing a set of utility functions
@@ -51,5 +51,17 @@ class Util
                 break;
         }
         return $dayOfWeek;
+    }
+
+    /**
+     * Translate a date from English to default language
+     *
+     * @return string
+     */
+    public static function td($string)
+    {
+        if(App::getLocale() !== 'en')
+            return trans('common.'. Str::lower($string));
+        return $string;
     }
 }

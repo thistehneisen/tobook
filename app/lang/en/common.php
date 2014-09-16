@@ -107,6 +107,13 @@ return [
         'sat' => 'Sat',
         'sun' => 'Sun',
     ],
+    'monday'    => 'Monday',
+    'tuesday'   => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday'  => 'Thursday',
+    'friday'    => 'Friday',
+    'saturday'  => 'Saturday',
+    'sunday'    => 'Sunday',
     'err'            => [
         'unexpected'   => 'An unexpected error has occurred. Please try again later.',
         'not_found'    => 'Cannot the find the requesting data. Please check the URL again.',
