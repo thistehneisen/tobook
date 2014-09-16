@@ -1,5 +1,4 @@
 @extends ('modules.as.layout')
-
 @section ('styles')
     @parent
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2.min.css') }}
@@ -50,10 +49,10 @@
         @foreach ($weekDaysFromDate as $weekDay => $selectedDate)
         <div class="as-col">
             <ul>
-                <li class="as-col-header">{{ $selectedDate }} ({{ $weekDay }})</li>
+                <li class="as-col-header">{{ $selectedDate->format('d-m-Y') }} ({{ $weekDay }})</li>
                 @foreach ($workingTimes as $hour)
                     @foreach (range(0, 45, 15) as $minuteShift)
-                        <?php $slotClass = $selectedEmployee->getSlotClass($selectedDate, $hour, $minuteShift); ?>
+                        <?php $slotClass = $selectedEmployee->getSlotClass($selectedDate->toDateString(), $hour, $minuteShift); ?>
                         @include('modules.as.index._calendar')
                     @endforeach
                 @endforeach

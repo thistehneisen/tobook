@@ -53,7 +53,7 @@ class Index extends AsBase
 
         $cloneDate = with(clone $date);
         foreach (range(1, 7) as $day) {
-           $weekDaysFromDate[$cloneDate->format('l')] = $cloneDate->toDateString();
+           $weekDaysFromDate[$cloneDate->format('l')] = $cloneDate;
            $cloneDate->addDay();
         }
 

@@ -8,9 +8,9 @@
 <div class="bs-example">
     <div class="panel-group" id="accordion">
         <div class="panel panel-default">
-            <div class="panel-heading">
+            <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" data-target="#collapseOne">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">1. {{ trans('as.bookings.booking_info') }}</a>
+                    1. {{ trans('as.bookings.booking_info') }}
                 </h4>
             </div>
             <div id="collapseOne" class="panel-collapse collapse in">
@@ -81,9 +81,9 @@
             </div>
         </div>
         <div class="panel panel-default">
-            <div class="panel-heading">
+            <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" data-target="#collapseTwo">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">2. {{ trans('as.bookings.add_service') }}</a>
+                   2. {{ trans('as.bookings.add_service') }}
                 </h4>
             </div>
             <div id="collapseTwo" class="panel-collapse collapse">
