@@ -52,8 +52,8 @@
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="{{ route('as.bookings.index') }}">{{ trans('as.bookings.all') }}</a></li>
-                        <li><a href="{{ route('as.bookings.upsert') }}">{{ trans('as.bookings.add') }}</a></li>
                         {{--
+                        <li><a href="{{ route('as.bookings.upsert') }}">{{ trans('as.bookings.add') }}</a></li>
                         <li><a href="{{ route('as.bookings.invoices') }}">{{ trans('as.bookings.invoices') }}</a></li>
                         <li><a href="{{ route('as.bookings.customers') }}">{{ trans('as.bookings.customers') }}</a></li>
                         --}}

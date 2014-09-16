@@ -25,10 +25,10 @@
 <h2>{{ trans('as.index.calendar') }}</h2>
 <table class="table table-condensed">
     <tbody>
-        <tr>
+        {{--<tr>
             <td><input type="radio" id="change_total" value="change_total" name="modify_type"></td>
             <td><label for="change_total">{{ trans('as.bookings.modify_duration') }}</label></td>
-        </tr>
+        </tr>--}}
         <tr>
             <td><input type="radio" id="change_status" value="change_status" name="modify_type"></td>
             <td><label for="change_status">{{ trans('as.bookings.change_status') }}</label></td>
