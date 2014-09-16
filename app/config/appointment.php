@@ -55,38 +55,38 @@ return [
         ],
         'booking' => [
             'index' => [
-                'accept_bookings' => [
-                    'type' => 'Radio',
-                ],
+                // 'accept_bookings' => [
+                //     'type' => 'Radio',
+                // ],
                 'hide_prices' => [
                     'type' => 'Radio',
                     'default' => false
                 ],
-                'status_if_not_paid' => [
-                    'type' => 'Dropdown',
-                    'values' => [
-                        'confirmed' => trans('as.options.booking.confirmed'),
-                        'pending'   => trans('as.options.booking.pending')
-                    ],
-                    'default' => 'confirmed'
-                ],
-                'status_if_paid' => [
-                    'type' => 'Dropdown',
-                    'values' => [
-                        'confirmed' => trans('as.options.booking.confirmed'),
-                        'pending'   => trans('as.options.booking.pending')
-                    ],
-                    'default' => 'confirmed'
-                ],
-                'step' => [
-                    'type' => 'Dropdown',
-                    'values' => [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60],
-                    'default' => 15
-                ],
-                'bookable_date' => [
-                    'type' => 'Text',
-                    'options' => ['class' => 'form-control input-sm date-picker']
-                ]
+                // 'status_if_not_paid' => [
+                //     'type' => 'Dropdown',
+                //     'values' => [
+                //         'confirmed' => trans('as.options.booking.confirmed'),
+                //         'pending'   => trans('as.options.booking.pending')
+                //     ],
+                //     'default' => 'confirmed'
+                // ],
+                // 'status_if_paid' => [
+                //     'type' => 'Dropdown',
+                //     'values' => [
+                //         'confirmed' => trans('as.options.booking.confirmed'),
+                //         'pending'   => trans('as.options.booking.pending')
+                //     ],
+                //     'default' => 'confirmed'
+                // ],
+                // 'step' => [
+                //     'type' => 'Dropdown',
+                //     'values' => [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60],
+                //     'default' => 15
+                // ],
+                // 'bookable_date' => [
+                //     'type' => 'Text',
+                //     'options' => ['class' => 'form-control input-sm date-picker']
+                // ]
             ],
             'confirmations' => [
                 'confirm_email_enable' => [
