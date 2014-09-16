@@ -51,7 +51,7 @@
         @foreach ($weekDaysFromDate as $weekDay => $selectedDate)
         <div class="as-col">
             <ul>
-                <li class="as-col-header">{{ $selectedDate }} ({{ trans(Util::td($weekDay)) }})</li>
+                <li class="as-col-header">{{ $selectedDate }} ({{ Util::td($weekDay) }})</li>
                 @foreach ($workingTimes as $hour)
                     @foreach (range(0, 45, 15) as $minuteShift)
                         <?php $slotClass = $selectedEmployee->getSlotClass($selectedDate, $hour, $minuteShift); ?>

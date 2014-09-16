@@ -166,18 +166,22 @@ class Embed extends AsBase
         $data = Input::all();
         $hash = Input::get('hash');
 
-        $validation = Validator::make(
-            [
-                trans('as.bookings.firstname') => Input::get('firstname'),
-                trans('as.bookings.phone')     => Input::get('phone'),
-                trans('as.bookings.email')     => Input::get('email'),
-            ],
-            [
-                trans('as.bookings.firstname')  => array( 'required'),
-                trans('as.bookings.phone')      => array( 'required'),
-                trans('as.bookings.email')      => array( 'required', 'email'),
-            ]
-        );
+        $decoded = Hashids::decrypt($hash);
+        $user = User::find($decoded[0]);
+
+        $fields = [
+            trans('as.bookings.firstname') => Input::get('firstname'),
+            trans('as.bookings.phone')     => Input::get('phone'),
+            trans('as.bookings.email')     => Input::get('email'),
+        ];
+
+        $validators = [
+            trans('as.bookings.firstname')  => array( 'required'),
+            trans('as.bookings.phone')      => array( 'required'),
+            trans('as.bookings.email')      => array( 'required', 'email'),
+        ];
+
+        $validation = Validator::make($fields, $validators);
 
         if ( $validation->fails() ) {
             return Redirect::back()->withInput()->withErrors($validation->messages());
