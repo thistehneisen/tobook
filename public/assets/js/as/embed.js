@@ -168,5 +168,20 @@
                 alertify.alert(data.responseJSON.message);
             });
         });
+
+        $('#toggle_term').click(function (e) {
+            e.preventDefault();
+            $('#terms_body').slideToggle();
+        });
+
+        $('#btn-checkout-submit').click(function (e) {
+            e.preventDefault();
+            var term_enabled = parseInt($(this).data('term-enabled'), 10);
+            //yes and required
+            if (term_enabled === 3 && !$('#terms').is(':checked')) {
+                return alertify.alert($(this).data('term-error-msg'));
+            }
+            $('#form-confirm-booking').submit();
+        });
     });
 }(jQuery));

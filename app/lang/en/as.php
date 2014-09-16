@@ -249,9 +249,12 @@ return [
         'extra_service'     => 'Extra service',
         'keyword'           => 'Keyword',
         'edit'              => 'Edit bookings',//@todo
+        'terms'             => 'Terms',
         'error'             => [
             'add_overlapped_booking' => 'Overlapped booking time!',// @todo
             'insufficient_slots'     => 'There is no enough time slots for this booking!',// @todo
+            'invalid_consumer_info'  => 'Could not save consumer info',// @todo
+            'terms'                  => 'You have to agree with our term.'//@todo
         ],
         'warning'      => [
             'existing_user'   => 'There is an user associate with this email in our system. Do you want to use these information instead?',// @todo
