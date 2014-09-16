@@ -187,14 +187,15 @@ class Statistics extends Base
         $custom = [];
         // Get custom time first
         $result = DB::table('as_employee_custom_time')
-            ->whereIn('employee_id', $employeeId)
-            ->where('date', '>=', $this->start)
-            ->where('date', '<=', $this->end)
+            ->join('as_custom_times', 'as_custom_times.id','=','as_employee_custom_time.custom_time_id')
+            ->whereIn('as_employee_custom_time.employee_id', $employeeId)
+            ->where('as_employee_custom_time.date', '>=', $this->start)
+            ->where('as_employee_custom_time.date', '<=', $this->end)
             ->select(
-                DB::raw('HOUR(SUBTIME(end_at, start_at)) * 60 + MINUTE(SUBTIME(end_at, start_at)) AS minutes'),
-                DB::raw('DAYOFMONTH(date) AS day'),
-                'is_day_off',
-                'employee_id'
+                DB::raw('HOUR(SUBTIME(varaa_as_custom_times.end_at, varaa_as_custom_times.start_at)) * 60 + MINUTE(SUBTIME(varaa_as_custom_times.end_at, varaa_as_custom_times.start_at)) AS minutes'),
+                DB::raw('DAYOFMONTH(varaa_as_employee_custom_time.date) AS day'),
+                'as_custom_times.is_day_off',
+                'as_employee_custom_time.employee_id'
             )
             ->get();
 
