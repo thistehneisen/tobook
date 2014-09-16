@@ -14,6 +14,10 @@ class ChangeTinyIntToIntegerForSomeColumns extends Migration {
 	{
         //Bookings
         DB::statement("ALTER TABLE `varaa_as_bookings` CHANGE `total` `total` int(10) unsigned NULL default 0");
+        DB::statement("ALTER TABLE `varaa_as_bookings` CHANGE `modify_time` `modify_time` int(10) unsigned NULL default 0");
+
+        //Booking services
+        DB::statement("ALTER TABLE `varaa_as_booking_services` CHANGE `modify_time` `modify_time` int(10) unsigned NULL default 0");
 
         //Services
         DB::statement("ALTER TABLE `varaa_as_services` CHANGE `length` `length` int(10) unsigned NULL default 0");
@@ -23,6 +27,7 @@ class ChangeTinyIntToIntegerForSomeColumns extends Migration {
 
         //Extra services
         DB::statement("ALTER TABLE `varaa_as_extra_services` CHANGE `length` `length` int(10) unsigned NULL default 0");
+
 
         //Service times
         DB::statement("ALTER TABLE `varaa_as_service_times` CHANGE `length` `length` int(10) unsigned NULL default 0");
