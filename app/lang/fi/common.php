@@ -3,6 +3,7 @@ return [
     'format' => [
         'date' => 'd-m-Y',
         'time' => 'H:i:s',
+        'short_time' => 'H:i',
         'date_time' => 'd-m-Y H:i:s',
     ],
     'site_name'      => 'Varaa',

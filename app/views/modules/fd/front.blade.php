@@ -21,7 +21,7 @@
                                 <p><strong class="orange">{{{ $deal->flashDeal->service->user->business_name }}}</strong></p>
                                 <p>{{{ $deal->flashDeal->service->user->full_address }}}</p>
                                 <p></p>
-                                <p>{{ $deal->expire->format(trans('common.format.date')) }} <a href="#" class="btn btn-orange">{{ $deal->expire->format(trans('common.format.time')) }}</a></p>
+                                <p>{{ $deal->expire->format(trans('common.format.date')) }} <a href="#" class="btn btn-orange">{{ $deal->expire->format(trans('common.format.short_time')) }}</a></p>
                             </div>
                         </li>
                         @endif
