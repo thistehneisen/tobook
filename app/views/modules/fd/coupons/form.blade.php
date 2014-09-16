@@ -32,7 +32,7 @@
     @endforeach
 
     <div class="form-group {{ Form::errorCSS('valid_date', $errors) }}">
-        <label for="{{ 'valid_date' }}" class="col-sm-2 col-sm-offset-1 control-label">{{ trans('fd.coupons.'.'valid_date') }} {{ Form::required('valid_date', $item) }}</label>
+        <label for="{{ 'valid_date' }}" class="col-sm-2 col-sm-offset-1 control-label">{{ trans('fd.coupons.valid_date') }} {{ Form::required('valid_date', $item) }}</label>
         <div class="col-sm-6">
             {{ Form::text('valid_date', Input::get('valid_date', $item->valid_date), ['class' => 'form-control date-picker']) }}
             {{ Form::errorText('valid_date', $errors) }}

@@ -30,12 +30,12 @@ class Index extends Base
 
     public function soldFlashDeals()
     {
-        return 'hehe';
+        return '';
     }
 
     public function soldCoupons()
     {
-        return 'hehe';
+        return '';
     }
 
     /**

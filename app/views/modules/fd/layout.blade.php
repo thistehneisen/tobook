@@ -39,7 +39,9 @@
                 <li><a href="{{ route('fd.services.upsert') }}"><i class="fa fa-taxi"></i> {{ trans('fd.services.add') }}</a></li>
                 <li><a href="{{ route('fd.flash_deals.upsert') }}"><i class="fa fa-flash"></i> {{ trans('fd.flash_deals.add') }}</a></li>
                 <li><a href="{{ route('fd.coupons.upsert') }}"><i class="fa fa-money"></i> {{ trans('fd.coupons.add') }}</a></li>
+                {{--
                 <li><a href="{{ route('fd.index') }}"><i class="fa fa-cog"></i> {{ trans('fd.nav.settings') }}</a></li>
+                --}}
             </ul>
         </div>
         <!-- /.navbar-collapse -->

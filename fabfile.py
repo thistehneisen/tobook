@@ -13,7 +13,7 @@ def _deploy():
         run('composer install')
         # run migration
         run('php artisan migrate')
-        for mod in ['co', 'modules', 'as', 'fd']:
+        for mod in ['co', 'modules', 'as', 'fd', 'mt']:
             run('php artisan migrate --path=app/database/migrations/{}'.format(
                 mod
             ))
