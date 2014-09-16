@@ -46,6 +46,11 @@ class User extends ConfideUser
      */
     protected $enabledModules;
 
+    /**
+     * Cache object to store colletion of as_options to avoid multiple sql queries
+     *
+     * @var Collection
+     */
     protected $asOptionsCache;
 
     /**
