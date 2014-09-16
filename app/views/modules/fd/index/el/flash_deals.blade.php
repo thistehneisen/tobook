@@ -11,6 +11,7 @@
     </thead>
     <tbody>
     @foreach ($items as $item)
+        @if ($item->flashDeal)
         <tr>
             <td>{{ $item->flashDeal->service->name }}</td>
             <td>{{ $item->expire->format(trans('common.format.date_time')) }}</td>
@@ -19,6 +20,7 @@
             <td>{{ $item->flashDeal->quantity }}</td>
             <td>{{ $item->remains }}</td>
         </tr>
+        @endif
     @endforeach
     </tbody>
 </table>

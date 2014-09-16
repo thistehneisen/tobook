@@ -31,7 +31,7 @@ class Coupon extends Base
 
     public function getValidDateAttribute()
     {
-        return new Carbon($this->attributes['valid_date']);
+        return isset($this->attributes['valid_date']) ? new Carbon($this->attributes['valid_date']) : Carbon::today();
     }
 
     //--------------------------------------------------------------------------
