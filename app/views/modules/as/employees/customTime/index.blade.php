@@ -1,4 +1,4 @@
-@extends ('modules.as.crud.index')
+@extends ('layouts.default')
 
 @section ('styles')
     @parent
