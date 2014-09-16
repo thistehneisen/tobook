@@ -1,9 +1,5 @@
 @extends ($layout)
 
-@if ($sortable === true)
-    @include('modules.as.crud.sortable')
-@endif
-
 @section ('content')
     @if ($showTab === true)
         @include('modules.as.crud.tabs', ['routes' => $routes, 'langPrefix' => $langPrefix])

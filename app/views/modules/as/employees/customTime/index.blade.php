@@ -1,4 +1,5 @@
-@extends ('modules.as.layout')
+@extends ('modules.as.crud.index')
+
 @section ('styles')
     @parent
     {{ HTML::style(asset('packages/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css')) }}
