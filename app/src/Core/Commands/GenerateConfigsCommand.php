@@ -145,6 +145,10 @@ CONF;
             $this->comment('Generate local mail.php');
             file_put_contents(app_path().'/config/local/mail.php', $mailConfig);
         }
+        if (!file_exists(app_path().'/config/local/sms.php')) {
+            $this->comment('Generate local sms.php');
+            file_put_contents(app_path().'/config/local/sms.php', $mailConfig);
+        }
         if (!file_exists(app_path().'/config/local/database.php')) {
             $this->comment('Generate local database.php');
             file_put_contents(app_path().'/config/local/database.php', $dbConfig);
