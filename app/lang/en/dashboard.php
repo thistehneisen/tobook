@@ -9,6 +9,7 @@ return [
     'timeslot'        => 'Timeslot Booking',
     'appointment'     => 'Appointment Scheduler',
     'loyalty'         => 'Loyalty Card',
+    'flashdeal'       => 'Flash Deal',
     'marketing'       => 'Marketing Tool',
     'my_sites'        => 'My Site',
     'site_name'       => 'Site Name',

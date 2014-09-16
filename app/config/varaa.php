@@ -47,6 +47,10 @@ return [
         'marketing' => [
             'route_name' => 'mt.consumers.index',
             'enable' => true,
+        ],
+        'flashdeal' => [
+            'route_name' => 'fd.index',
+            'enable' => true,
         ]
     ]
 ];

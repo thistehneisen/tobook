@@ -12,6 +12,7 @@
         @endif
 
         <!-- Flash deals -->
+        {{--
         @if (!$flashDeals->isEmpty())
         <hr>
         <table class="table table-stripped table-hovered">
@@ -41,6 +42,7 @@
             </tbody>
         </table>
         @endif
+        --}}
 
         <!-- Coupons -->
         @if (!$coupons->isEmpty())
