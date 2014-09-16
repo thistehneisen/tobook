@@ -15,10 +15,10 @@
                                         -{{ $deal->flashDeal->discount_percent }}%
                                     </span>
                                 </h4>
-                                <strong>
+                                <h5>
                                     {{ trans('common.price') }}: {{ $deal->flashDeal->discounted_price }}&euro; ({{ trans('common.normal') }} {{ $deal->flashDeal->service->price }}&euro;)
-                                </strong>
-                                <strong class="orange">{{{ $deal->flashDeal->service->user->business_name }}}</strong>
+                                </h5>
+                                <p><strong class="orange">{{{ $deal->flashDeal->service->user->business_name }}}</strong></p>
                                 <p>{{{ $deal->flashDeal->service->user->full_address }}}</p>
                                 <p></p>
                                 <p>{{ $deal->expire->format(trans('common.format.date')) }} <a href="#" class="btn btn-orange">{{ $deal->expire->format(trans('common.format.time')) }}</a></p>
