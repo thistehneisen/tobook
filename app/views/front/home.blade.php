@@ -8,6 +8,30 @@
     {{ HTML::style('assets/css/home.css') }}
 @stop
 
+@section ('scripts')
+    @parent
+    {{ HTML::script(asset('packages/jquery.countdown/jquery.plugin.min.js')) }}
+    {{ HTML::script(asset('packages/jquery.countdown/jquery.countdown.min.js')) }}
+    <script>
+$(function() {
+    var applyCountdown = function(elems) {
+        elems.each(function() {
+            var $this = $(this);
+
+            $this.countdown({
+                until: new Date($this.data('date')),
+                compact: true,
+                layout: '{hnn}{sep}{mnn}{sep}{snn}',
+            });
+        });
+    };
+
+    // Init
+    applyCountdown($('a.countdown'));
+});
+    </script>
+@stop
+
 @section('main-classes') container-fluid home @stop
 
 @section('content')
