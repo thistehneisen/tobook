@@ -1,4 +1,4 @@
-<div id="book-form" class="as-calendar-book">
+<div id="book-form" class="@if(isset($upsert)) as-edit-booking @else as-calendar-book @endif">
 @if(empty($booking))
 <h2>{{ trans('as.bookings.add') }}</h2>
 @else
@@ -272,9 +272,15 @@
     </div>
 @if(!empty($booking))
 <input type="hidden" value="{{ $booking->id }}" name="booking_id">
+<input type="hidden" value="{{ $booking->employee->id }}" name="employee_id" id="employee_id">
+<input type="hidden" value="{{ route('as.bookings.add') }}" name="add_booking_url" id="add_booking_url">
+<input type="hidden" id="add_service_url" value="{{ route('as.bookings.service.add') }}">
 @endif
 </form>
+</div>
 <input type="hidden" value="" id="consumer_data"/>
+@section ('scripts')
+    @parent
 <script>
 $(function () {
     var services = {{ $jsonServices }};
@@ -369,3 +375,4 @@ $(function () {
     });
 });
 </script>
+@stop

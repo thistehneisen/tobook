@@ -56,8 +56,8 @@
 <input type="hidden" name="start_time" id="start_time" value="">
 <input type="hidden" id="get_services_url" value=" {{ route('as.bookings.employee.services') }}">
 <input type="hidden" id="get_service_times_url" value=" {{ route('as.bookings.service.times') }}">
-<input type="hidden" id="add_service_url" value=" {{ route('as.bookings.service.add') }}">
-<input type="hidden" id="add_booking_url" value=" {{ route('as.bookings.add') }}">
+<input type="hidden" id="add_service_url" value="{{ route('as.bookings.service.add') }}">
+<input type="hidden" id="add_booking_url" value="{{ route('as.bookings.add') }}">
 <input type="hidden" id="add_freetime_url" value=" {{ route('as.employees.freetime.add') }}">
 <input type="hidden" id="delete_freetime_url" value="{{ route('as.employees.freetime.delete') }}"/>
 <input type="hidden" id="add_extra_service_url" value="{{ route('as.bookings.extra-service-form') }}"/>

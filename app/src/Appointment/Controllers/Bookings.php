@@ -25,19 +25,51 @@ class Bookings extends AsBase
     protected $langPrefix = 'as.bookings';
     protected $crudShowTab = false;
 
-    /**
-     * Handle ajax request to display booking form
-     *
-     * @return View
-     **/
-    public function getBookingForm()
-    {
-        $bookingId   = (int) Input::get('booking_id');
 
-        if(empty($bookingId)){
-            return $this->getBlankBookingForm();
+
+    /**
+     * {@inheritdoc}
+     */
+    public function index()
+    {
+        $query = $this->getModel()
+                ->ofCurrentUser()
+                ->where('status','!=', Booking::STATUS_CANCELLED)
+                ->orderBy('date','desc');
+
+        // If this controller is sortable
+        if (isset($this->crudSortable) && $this->crudSortable === true) {
+            $query = $query->orderBy('order');
         }
 
+        // Pagination please
+        $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
+        $items = $query->paginate($perPage);
+
+        return $this->renderList($items);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function upsert($id = null)
+    {
+        $model = $this->getModel();
+        $item = ($id !== null)
+            ? $model->ofCurrentUser()->findOrFail($id)
+            : new $model();
+
+        $view = $this->getViewPath().'.upsert.form';
+        $data = $this->getBookingData($id);
+
+        return View::make($view, array_merge($data, [
+                'upsert' => true
+            ])
+        );
+    }
+
+    public function getBookingData($bookingId)
+    {
         $booking              = Booking::ofCurrentUser()->find($bookingId);
         $bookingStatuses      = Booking::getStatuses();
         $employee             = $booking->employee;
@@ -66,13 +98,19 @@ class Bookings extends AsBase
                             ? $booking->bookingServices()->first()->serviceTime->id
                             : 'default';
 
-        return View::make('modules.as.bookings.form', [
+        $serviceTimes = (!empty($jsonServiceTimes[$bookingServiceId]))
+                ? $jsonServiceTimes[$bookingServiceId]
+                : [];
+        $startAt = with(new Carbon($booking->start_at))->format('H:i');
+        $endAt   = with(new Carbon($booking->end_at))->format('H:i');
+
+        return [
             'booking'               => $booking,
             'uuid'                  => $booking->uuid,
             'modifyTime'            => $booking->modify_time,
             'bookingDate'           => $booking->date,
-            'startTime'             => $booking->start_at,
-            'endTime'               => $booking->end_at,
+            'startTime'             => $startAt,
+            'endTime'               => $endAt,
             'bookingStatuses'       => $bookingStatuses,
             'bookingService'        => $bookingService,
             'bookingServiceTime'    => $bookingServiceTime,
@@ -84,8 +122,25 @@ class Bookings extends AsBase
             'jsonServices'          => json_encode($jsonServices),
             'jsonServiceTimes'      => json_encode($jsonServiceTimes),
             'services'              => $bookingServices,
-            'serviceTimes'          => $jsonServiceTimes[$bookingServiceId],
-        ]);
+            'serviceTimes'          => $serviceTimes,
+        ];
+    }
+    /**
+     * Handle ajax request to display booking form
+     *
+     * @return View
+     **/
+    public function getBookingForm()
+    {
+        $bookingId   = (int) Input::get('booking_id');
+
+        if(empty($bookingId)){
+            return $this->getBlankBookingForm();
+        }
+
+        $data = $this->getBookingData($bookingId);
+
+        return View::make('modules.as.bookings.form', $data);
     }
 
     private function getBlankBookingForm()
