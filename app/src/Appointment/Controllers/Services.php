@@ -17,6 +17,28 @@ class Services extends AsBase
     protected $langPrefix = 'as.services';
 
     /**
+     * Show all items of the current user and a form to add new one
+     *
+     * @return View
+     */
+    public function index()
+    {
+        $query = $this->getModel()->ofCurrentUser();
+        $query = $this->applyQueryStringFilter($query);
+
+        // If this controller is sortable
+        if (isset($this->crudSortable) && $this->crudSortable === true) {
+            $query = $query->orderBy('order');
+        }
+
+        // Pagination please
+        $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
+        $items = $query->with('category')->with('employees')->paginate($perPage);
+
+        return $this->renderList($items);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function upsert($id = null)
