@@ -70,6 +70,6 @@ class Service extends \App\Core\Models\Base
             'as_extra_service_service',
             'service_id',
             'extra_service_id'
-        );
+        )->selectRaw('count(*) as count');
     }
 }

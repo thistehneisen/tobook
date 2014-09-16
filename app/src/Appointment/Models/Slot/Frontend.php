@@ -35,7 +35,10 @@ class Frontend implements Strategy
 
 
         if(empty($this->customTimeCache)){
-            $this->customTimeCache = $employee->employeeCustomTimes()->where('date', $selectedDate->toDateString())->get();
+            $this->customTimeCache = $employee->employeeCustomTimes()
+                ->with('customTime')
+                ->where('date', $selectedDate->toDateString())
+                ->get();
         }
 
         foreach ($this->customTimeCache as $empCustomTime) {

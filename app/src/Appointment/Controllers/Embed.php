@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Controllers;
 
-use Hashids, Input, View, Session, Redirect, URL, Config, Validator;
+use Hashids, Input, View, Session, Redirect, URL, Config, Validator, Event;
 use App\Core\Models\User;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
@@ -10,7 +10,10 @@ use App\Appointment\Models\EmployeeService;
 use App\Consumers\Models\Consumer;
 use Carbon\Carbon;
 
-
+// Event::listen('illuminate.query', function($sql)
+// {
+//     print_r($sql);
+// });
 class Embed extends AsBase
 {
     protected $viewPath = 'modules.as.embed';
@@ -119,7 +122,8 @@ class Embed extends AsBase
         $categories = ServiceCategory::OfUser($user->id)
             ->orderBy('order')
             ->with(['services' => function($query){
-                 $query->where('is_active', true);
+                 $query->where('is_active', true)
+                    ->with('serviceTimes');
             }])->where('is_show_front', true)
             ->get();
 

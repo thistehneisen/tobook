@@ -21,7 +21,7 @@ use App\Appointment\Models\Observer\SmsObserver;
 class Bookings extends AsBase
 {
     use App\Appointment\Traits\Crud;
-    protected $viewPath   = 'modules.as.bookings';
+    protected $viewPath   = 'modules.as.bookings.upsert';
     protected $langPrefix = 'as.bookings';
     protected $crudShowTab = false;
 

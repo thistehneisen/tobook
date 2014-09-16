@@ -46,6 +46,8 @@ class User extends ConfideUser
      */
     protected $enabledModules;
 
+    protected $asOptionsCache;
+
     /**
      * @{@inheritdoc}
      */
@@ -257,6 +259,10 @@ class User extends ConfideUser
      */
     public function getAsOptionsAttribute()
     {
+        if(!empty($this->asOptionsCache)){
+            return $this->asOptionsCache;
+        }
+
         $ret = [];
         $default = Config::get('appointment.options');
 
@@ -283,7 +289,9 @@ class User extends ConfideUser
             }
         }
 
-        return new \Illuminate\Support\Collection($ret);
+        $this->asOptionsCache = new \Illuminate\Support\Collection($ret);
+
+        return $this->asOptionsCache;
     }
 
     /**

@@ -348,6 +348,7 @@ class Employees extends AsBase
         $endOfMonth   = $current->endOfMonth()->toDateString();
 
         $items = $employee->employeeCustomTimes()
+            ->with('customTime')
             ->where('date','>=', $startOfMonth)
             ->where('date','<=', $endOfMonth)
             ->orderBy('date','asc')->get();
