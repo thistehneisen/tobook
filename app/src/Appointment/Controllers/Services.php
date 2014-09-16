@@ -17,9 +17,7 @@ class Services extends AsBase
     protected $langPrefix = 'as.services';
 
     /**
-     * Show all items of the current user and a form to add new one
-     *
-     * @return View
+     * {@inheritdoc}
      */
     public function index()
     {

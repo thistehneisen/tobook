@@ -14,11 +14,13 @@ class EmailObserver implements \SplObserver {
             $befofe = 0;
             $after = 0;
             if(!empty($subject->bookingServices()->first()->serviceTime)){
-                $befofe = $subject->bookingServices()->first()->serviceTime->before;
-                $after  = $subject->bookingServices()->first()->serviceTime->after;
+                $serviceTime = $subject->bookingServices()->first()->serviceTime;
+                $befofe      = $serviceTime->before;
+                $after       = $serviceTime->after;
             } else {
-                $before = $subject->bookingServices()->first()->service->before;
-                $after  = $subject->bookingServices()->first()->service->after;
+                $service = $subject->bookingServices()->first()->service;
+                $before  = $service->before;
+                $after   = $service->after;
             }
             $start_at = with(new Carbon($subject->start_at))->addMinutes($before);
             $end_at   = with(new Carbon($subject->end_at))->subMinutes($after);
