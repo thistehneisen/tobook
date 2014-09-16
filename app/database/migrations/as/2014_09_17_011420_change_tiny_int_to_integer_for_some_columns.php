@@ -37,6 +37,9 @@ class ChangeTinyIntToIntegerForSomeColumns extends Migration {
 
         //Resources
         DB::statement("ALTER TABLE `varaa_as_resources` CHANGE `quantity` `quantity` int(10) unsigned NULL default 0");
+
+        //Invoice products
+        DB::statement("ALTER TABLE `varaa_as_invoice_products` CHANGE `quantity` `quantity` int(10) unsigned NULL default 0");
 	}
 
 	/**
