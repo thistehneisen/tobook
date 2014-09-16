@@ -498,6 +498,10 @@ class Bookings extends AsBase
             $booking->save();
             $bookingService->booking()->associate($booking);
             $bookingService->save();
+
+            Session::forget('carts');
+            Session::forget('booking_info');
+
             $data['success']      = true;
             $data['baseURl']     = route('as.index');
             $data['bookingDate'] = $booking->date;
