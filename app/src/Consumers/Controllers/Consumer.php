@@ -12,8 +12,8 @@ class Consumer extends Base
 
     protected function upsertHandler($item)
     {
-        $item->saveOrFail();
         $item->fill(Input::all());
+        $item->saveOrFail();
         $item->users()->detach($this->user->id);
         $item->users()->attach($this->user, ['is_visible' => true]);
 
