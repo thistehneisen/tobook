@@ -109,6 +109,14 @@ class User extends ConfideUser
         );
     }
 
+    public function flashDeals()
+    {
+        return $this->hasManyThrough(
+            'App\FlashDeal\Models\FlashDeal',
+            'App\FlashDeal\Models\Service'
+        );
+    }
+
     //--------------------------------------------------------------------------
     // SCOPES
     //--------------------------------------------------------------------------

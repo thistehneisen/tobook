@@ -1,6 +1,7 @@
 <?php namespace App\Core\Controllers\Ajax;
 
-use DB;
+use DB, Carbon\Carbon;
+use Illuminate\Support\Collection;
 use App\Core\Models\BusinessCategory;
 use App\Core\Models\User;
 
@@ -54,10 +55,28 @@ class Search extends Base
     {
         $business = User::find($id);
         $coupons = $business->coupons()->active()->with('service')->get();
+        $flashDeals = $business->flashDeals()
+            ->with(['dates', 'service'])
+            ->whereHas('dates', function($query) {
+            return $query->where('remains', '>', 0)
+                ->where('expire', '>=', Carbon::now());
+            })
+            ->get();
+
+        // Filter out passed deals
+        $deals = new Collection;
+        foreach ($flashDeals as $deal) {
+            $deal->active = $deal->dates->filter(function($item) {
+                return $item->expire->gte(Carbon::now());
+            });
+
+            $deals->push($deal);
+        }
 
         return $this->view('front.search.business', [
-            'business' => $business,
-            'coupons'  => $coupons
+            'business'   => $business,
+            'coupons'    => $coupons,
+            'flashDeals' => $deals
         ]);
     }
 }

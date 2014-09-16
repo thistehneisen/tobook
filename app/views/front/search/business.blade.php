@@ -12,7 +12,6 @@
         @endif
 
         <!-- Flash deals -->
-        {{--
         @if (!$flashDeals->isEmpty())
         <hr>
         <table class="table table-stripped table-hovered">
@@ -26,23 +25,24 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach ($flashDeals as $item)
+        @foreach ($flashDeals as $deal)
+            @foreach($deal->active as $item)
                 <tr>
-                    <td><a href="#" title="">{{ $item->service->name }}</a></td>
-                    <td>{{ $item->valid_date }}</td>
-                    <td>{{ $item->discounted_price }}&euro; ({{ $item->service->price }}&euro;)</td>
+                    <td><a href="#" title="">{{ $deal->service->name }}</a></td>
+                    <td>{{ $item->expire }}</td>
+                    <td>{{ $deal->discounted_price }}&euro; ({{ $deal->service->price }}&euro;)</td>
                     <td>
-                        <p class="text-danger"><strong>-{{ $item->discount_percent }}%</strong></p>
+                        <p class="text-danger"><strong>-{{ $deal->discount_percent }}%</strong></p>
                     </td>
                     <td>
                         <a href="#" class="btn btn-success btn-sm">{{ trans('home.search.book') }}</a>
                     </td>
                 </tr>
             @endforeach
+        @endforeach
             </tbody>
         </table>
         @endif
-        --}}
 
         <!-- Coupons -->
         @if (!$coupons->isEmpty())
