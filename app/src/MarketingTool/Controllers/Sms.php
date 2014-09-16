@@ -177,7 +177,7 @@ class Sms extends \App\Core\Controllers\Base {
                 $groupConsumer->consumer_id = $value;
                 $groupConsumer->user_id = Confide::user()->id;
                 $groupConsumer->save();
-                SmsCore::send($sms['title'], $groupConsumer->consumer->phone, $sms['content']);
+                CoreSms::send($sms['title'], $groupConsumer->consumer->phone, $sms['content']);
             }
             
             $history = new HistoryModel;
@@ -212,7 +212,7 @@ class Sms extends \App\Core\Controllers\Base {
             foreach ($groupIds as $key => $groupId) {
                 $groupConsumers = GroupConsumerModel::where('group_id', '=', $groupId)->get();
                 foreach ($groupConsumers as $key => $consumer) {
-                    SmsCore::send($sms['title'], $consumer->consumer->phone, $sms['content']);
+                    CoreSms::send($sms['title'], $consumer->consumer->phone, $sms['content']);
                 }
                 $history = new HistoryModel;
                 $history->sms_id = $smsId;
