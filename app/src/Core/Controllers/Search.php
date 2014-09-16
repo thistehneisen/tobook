@@ -29,7 +29,9 @@ class Search extends Base
             $query = $query->where('city', 'LIKE', '%'.$location.'%');
         }
 
-        $businesses = $query->paginate(Config::get('view.perPage'));
+        $businesses = $query
+            ->where('business_name', '!=', '')
+            ->paginate(Config::get('view.perPage'));
 
         $geocode = Geocoder::geocode($location ?: 'Helsinki');
 

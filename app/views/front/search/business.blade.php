@@ -3,7 +3,7 @@
 
 <div class="row">
     <div class="col-sm-8">
-        <p><img src="{{ asset('assets/img/slides/3.jpg') }}" alt="" class="img-responsive img-rounded"></p>
+        <p><img src="{{ asset($business->image) }}" alt="" class="img-responsive img-rounded"></p>
 
         <!-- About -->
         @if (!empty($business->description))

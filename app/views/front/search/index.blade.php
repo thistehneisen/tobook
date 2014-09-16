@@ -93,7 +93,7 @@ $(function() {
             @foreach ($businesses as $item)
             <div class="result-row row" data-id="{{ $item->id }}" data-url="{{ route('ajax.showBusiness', [$item->id]) }}">
                 <div class="col-md-6">
-                    <img src="{{ asset('assets/img/slides/3.jpg') }}" alt="" class="img-responsive img-rounded">
+                    <img src="{{ asset($item->image) }}" alt="" class="img-responsive img-rounded">
                     {{--
                     <div class="text-center">
                         <ul class="list-inline">
