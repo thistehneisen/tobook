@@ -69,7 +69,11 @@ class FlashDeals extends Base
             }
 
             if (!empty($dates)) {
-                $item->dates()->saveMany($dates);
+                try {
+                    $item->dates()->saveMany($dates);
+                } catch (\Exception $ex) {
+                    // Silently fail if there're duplicated dates in database
+                }
             }
         }
 
