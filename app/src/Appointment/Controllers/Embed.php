@@ -10,10 +10,6 @@ use App\Appointment\Models\EmployeeService;
 use App\Consumers\Models\Consumer;
 use Carbon\Carbon;
 
-// Event::listen('illuminate.query', function($sql)
-// {
-//     print_r($sql);
-// });
 class Embed extends AsBase
 {
     protected $viewPath = 'modules.as.embed';
