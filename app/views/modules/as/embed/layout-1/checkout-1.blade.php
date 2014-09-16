@@ -1,4 +1,11 @@
 <div class="list-group">
+    @if ($errors->any())
+    <div class="alert alert-warning">
+        <ul>
+            {{ implode('', $errors->all('<li>:message</li>')) }}
+        </ul>
+    </div>
+    @endif
     <div class="list-group-item">
         <form id="form-confirm-booking" action="{{ route('as.embed.confirm') }}" method="POST">
             <div class="form-group row">

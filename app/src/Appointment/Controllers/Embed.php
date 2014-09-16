@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Controllers;
 
-use Hashids, Input, View, Session, Redirect, URL, Config;
+use Hashids, Input, View, Session, Redirect, URL, Config, Validator;
 use App\Core\Models\User;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
@@ -9,6 +9,7 @@ use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\EmployeeService;
 use App\Consumers\Models\Consumer;
 use Carbon\Carbon;
+
 
 class Embed extends AsBase
 {
@@ -164,6 +165,23 @@ class Embed extends AsBase
     {
         $data = Input::all();
         $hash = Input::get('hash');
+
+        $validation = Validator::make(
+            [
+                'firstname' => Input::get('firstname'),
+                'phone'     => Input::get('phone'),
+                'email'     => Input::get('email'),
+            ],
+            [
+                'firstname'  => array( 'required'),
+                'phone'      => array( 'required'),
+                'email'      => array( 'required', 'email'),
+            ]
+        );
+
+        if ( $validation->fails() ) {
+            return Redirect::back()->withInput()->withErrors($validation->messages());
+        }
         //TODO probably validate user info here
         Session::put('booking_info', $data);
         return Redirect::route('as.embed.embed', ['hash' => $hash, 'action'=> 'confirm']);
