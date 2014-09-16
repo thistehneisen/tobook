@@ -41,6 +41,18 @@ class SmsObserver implements \SplObserver {
             $msg  = str_replace('{Services}', $serviceInfo, $smsMessage);
             //$msg  = str_replace('{Consumer}', $subject->consumer->name, $msg);
             Sms::send($from, $to, $msg);
+
+            if ($subject->employee->is_subscribed_sms) {
+                $to = $subject->employee->phone;
+                if (strpos($to, '0') === 0 ) {
+                    $to = ltrim($to, '0');
+                }
+                $to = (empty($code)) ? $code . $to : '358' . $to;
+                $msg = $subject->user->asOptions['confirm_employee_sms_message'];
+                $msg  = str_replace('{Services}', $serviceInfo, $msg);
+                $msg  = str_replace('{Consumer}', $subject->consumer->name, $msg);
+                Sms::send($from, $to, $msg);
+            }
         }
     }
 }
