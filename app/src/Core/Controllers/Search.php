@@ -37,7 +37,8 @@ class Search extends Base
 
         return $this->render('index', [
             'businesses' => $businesses,
-            'geocode' => $geocode
+            'lat'        => $geocode->getLatitude(),
+            'lng'        => $geocode->getLongitude(),
         ]);
     }
 }

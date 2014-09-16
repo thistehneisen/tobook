@@ -1,12 +1,17 @@
 <?php namespace App\Core\Controllers\Ajax;
 
-use DB, Carbon\Carbon;
+use DB, Carbon\Carbon, Request, View;
 use Illuminate\Support\Collection;
 use App\Core\Models\BusinessCategory;
 use App\Core\Models\User;
 
 class Search extends Base
 {
+    public function __construct()
+    {
+        $this->beforeFilter('ajax', ['except' => 'showBusiness']);
+    }
+
     /**
      * Prepare services data for typeahead
      *
@@ -53,7 +58,7 @@ class Search extends Base
      */
     public function showBusiness($id)
     {
-        $business = User::find($id);
+        $business = User::findOrFail($id);
         $coupons = $business->coupons()->active()->with('service')->get();
         $flashDeals = $business->flashDeals()
             ->with(['dates', 'service'])
@@ -73,10 +78,21 @@ class Search extends Base
             $deals->push($deal);
         }
 
-        return $this->view('front.search.business', [
+        $view = $this->view('front.search.business', [
             'business'   => $business,
             'coupons'    => $coupons,
             'flashDeals' => $deals
+        ]);
+
+        if (Request::ajax()) {
+            return $view;
+        }
+
+        return View::make('front.search.index', [
+            'businesses' => new \Illuminate\Support\Collection([$business]),
+            'single'     => $view,
+            'lat'        => $business->lat,
+            'lng'        => $business->lng,
         ]);
     }
 }

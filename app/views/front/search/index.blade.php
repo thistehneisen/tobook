@@ -1,7 +1,12 @@
 @extends ('layouts.default')
 
 @section('title')
-    @parent :: {{ trans('common.search') }}
+    @parent ::
+    @if (!isset($single))
+        {{ trans('common.search') }}
+    @else
+        {{ $businesses[0]->business_name }}
+    @endif
 @stop
 
 @section('styles')
@@ -13,20 +18,39 @@
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.12/gmaps.min.js') }}
     <script>
 $(function() {
+
+var renderMap = function(mapId, lat, lng, markers) {
     var gmap = new GMaps({
-        div: '#map-canvas',
-        lat: {{ $geocode->getLatitude() }},
-        lng: {{ $geocode->getLongitude() }},
+        div: mapId,
+        lat: lat,
+        lng: lng,
         zoom: 8
     });
 
+    if (typeof markers !== 'undefined') {
+        for (var i in markers) {
+            gmap.addMarker(markers[i]);
+        }
+    }
+
+    return gmap;
+};
+
+@if (!isset($single))
+    renderMap(
+        '#map-canvas',
+        {{ $lat }},
+        {{ $lng }},
+        [
     @foreach ($businesses as $item)
-    gmap.addMarker({
-        lat: {{ $item->lat }},
-        lng: {{ $item->lng }},
-        title: '{{ $item->full_name }}'
-    });
+            {
+                lat: {{ $item->lat }},
+                lng: {{ $item->lng }},
+                title: '{{ $item->full_name }}'
+            },
     @endforeach
+        ]
+    );
 
     var loading = $('#js-loading'),
         content = $('#js-business-content'),
@@ -77,6 +101,19 @@ $(function() {
             });
         });
     });
+@else
+    renderMap(
+        '#js-map-{{ $businesses[0]->id }}',
+        {{ $lat }},
+        {{ $lng }},
+        [
+            {
+                lat: {{ $lat }},
+                lng: {{ $lng }}
+            }
+        ]
+    );
+@endif
 });
     </script>
 @stop
@@ -115,13 +152,17 @@ $(function() {
             @endforeach
         @endif
 
+    @if (!isset($single))
         {{ $businesses->links() }}
+    @endif
     </div>
 
     <!-- right content -->
     <div class="col-sm-8 col-md-8 col-lg-8 search-right">
         <div id="js-loading" class="js-loading"><i class="fa fa-spinner fa-spin fa-4x"></i></div>
-        <div id="js-business-content"></div>
+        <div id="js-business-content">
+            {{ isset($single) ? $single : '' }}
+        </div>
         <div id="map-canvas"></div>
     </div>
 </div>
