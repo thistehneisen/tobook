@@ -1,4 +1,4 @@
-@extends ('modules.as.layout')
+@extends ('modules.as.crud.index')
 
 @section ('content')
 <div class="alert alert-info">
@@ -11,7 +11,7 @@
 
     @include ('modules.as.services.customTime.form')
 
-<table class="table table-hover">
+<table class="table table-hover table-crud">
     <thead>
         <tr>
             @foreach ($fields as $field)

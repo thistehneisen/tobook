@@ -1,8 +1,4 @@
-@extends ('modules.as.layout')
-
-@if ($sortable === true)
-    @include('modules.as.crud.sortable')
-@endif
+@extends ('modules.as.crud.index')
 
 @section ('content')
 <div class="row">

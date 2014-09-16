@@ -1,5 +1,3 @@
-@section ('scripts')
-    @parent
     {{ HTML::script(asset('packages/sortable/Sortable.js')) }}
     <script>
 $(function() {
@@ -26,4 +24,3 @@ $(function() {
     $('#js-crud-tbody').find('tr').tooltip();
 });
     </script>
-@stop

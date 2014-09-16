@@ -1,4 +1,4 @@
-@extends ('modules.as.layout')
+@extends ('modules.as.crud.index')
 
 @section ('content')
 <div class="alert alert-info">
@@ -27,7 +27,7 @@
 </div>
 
 {{ Form::open(['route' => $routes['bulk'], 'class' => 'form-inline form-table', 'id' => 'form-bulk', 'data-confirm' => trans('as.crud.bulk_confirm')]) }}
-<table class="table table-hover">
+<table class="table table-hover table-crud">
     <thead>
         <tr>
             <th>&nbsp;</th>

@@ -1,8 +1,27 @@
 @extends ($layout)
 
-@if ($sortable === true)
-    @include('modules.as.crud.sortable')
-@endif
+@section ('scripts')
+    @parent
+
+    @if ($sortable === true)
+        @include('modules.as.crud.sortable')
+    @endif
+
+    <script>
+$(function() {
+    $('table.table-crud').find('a.btn-danger').click('on', function(event) {
+        event.preventDefault();
+        var $this = $(this);
+
+        alertify.confirm('{{ trans('common.are_you_sure') }}', function (e) {
+            if (e) {
+                window.location = $this.attr('href');
+            }
+        });
+    });
+});
+    </script>
+@stop
 
 @section ('content')
     @if ($showTab === true)
