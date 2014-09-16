@@ -4,10 +4,6 @@ return [
     'dashboard_hide_inactive' => true,
     'upload_folder'           => 'uploads',
     'languages'               => ['fi', 'en'],
-    'oneapi' => [
-        'username' => 'varaa6',
-        'password' => 'varaa12'
-    ],
     'hashid' => [
         'length'   => 8,
         'alphabet' => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
