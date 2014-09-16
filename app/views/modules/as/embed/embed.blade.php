@@ -76,6 +76,9 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
+    @if(App::getLocale() !== 'en')
+    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.'.App::getLocale().'.min.js') }}
+    @endif
     <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
     {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
     <script src="{{ asset('assets/js/as/embed.js') }}"></script>
@@ -86,7 +89,8 @@
             startDate: new Date(),
             todayBtn: true,
             todayHighlight: true,
-            weekStart: 1
+            weekStart: 1,
+            language: '{{ App::getLocale() }}'
         }).on('changeDate', function (e) {
             if (window.location.href.indexOf('date') != -1) {
                 window.location.href = window.location.href.replace(new RegExp("date=.*?(&|$)", 'g'), "date=" + e.format());
