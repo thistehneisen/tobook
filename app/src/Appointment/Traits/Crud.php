@@ -186,7 +186,7 @@ trait Crud
     {
         $model = $this->getModel();
         $item = ($id !== null)
-            ? $model->findOrFail($id)
+            ? $model->ofCurrentUser()->findOrFail($id)
             : new $model();
 
         $view = View::exists($this->getViewPath().'.form')
