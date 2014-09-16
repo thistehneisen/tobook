@@ -83,7 +83,7 @@ class Services extends AsBase
             $employeeService->service()->associate($service);
             $employeeService->employee()->associate($employee);
             $employeeService->plustime = $plustimes[$employeeId];
-            $employeeService->saveOrFail();
+            $employeeService->save();
         }
 
         return $service;
