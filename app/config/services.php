@@ -28,4 +28,9 @@ return array(
         'secret' => '',
     ),
 
+    'oneapi' => [
+        'username' => 'varaa6',
+        'password' => 'varaa12'
+    ],
+
 );
