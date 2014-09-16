@@ -19,7 +19,7 @@ class Index extends AsBase
 
         if (!$date instanceof Carbon) {
             try {
-                $date = Carbon::createFromFormat('d-m-Y', $date);
+                $date = Carbon::createFromFormat('Y-m-d', $date);
             } catch (\Exception $ex) {
                 $date = Carbon::today();
             }
@@ -45,7 +45,7 @@ class Index extends AsBase
 
         if (!$date instanceof Carbon) {
             try {
-                $date = Carbon::createFromFormat('d-m-Y', $date, Config::get('app.timezone'));
+                $date = Carbon::createFromFormat('Y-m-d', $date, Config::get('app.timezone'));
             } catch (\Exception $ex) {
                 $date = Carbon::today();
             }
@@ -53,7 +53,7 @@ class Index extends AsBase
 
         $cloneDate = with(clone $date);
         foreach (range(1, 7) as $day) {
-           $weekDaysFromDate[$cloneDate->format('l')] = $cloneDate;
+           $weekDaysFromDate[$cloneDate->format('l')] = $cloneDate->toDateString();
            $cloneDate->addDay();
         }
 

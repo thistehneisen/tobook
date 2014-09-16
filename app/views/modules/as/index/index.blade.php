@@ -9,7 +9,9 @@
 @section ('scripts')
     @parent
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2.min.js') }}
+    @if(App::getLocale() !== 'en')
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2_locale_'.App::getLocale().'.min.js') }}
+    @endif
 @stop
 
 @section('main-classes') as-wrapper @stop

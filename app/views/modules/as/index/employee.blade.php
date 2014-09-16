@@ -8,7 +8,9 @@
 @section ('scripts')
     @parent
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2.min.js') }}
+    @if(App::getLocale() !== 'en')
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2_locale_'.App::getLocale().'.min.js') }}
+    @endif
 @stop
 
 @section('main-classes') as-wrapper @stop
@@ -49,10 +51,10 @@
         @foreach ($weekDaysFromDate as $weekDay => $selectedDate)
         <div class="as-col">
             <ul>
-                <li class="as-col-header">{{ $selectedDate->format('d-m-Y') }} ({{ $weekDay }})</li>
+                <li class="as-col-header">{{ $selectedDate }} ({{ $weekDay }})</li>
                 @foreach ($workingTimes as $hour)
                     @foreach (range(0, 45, 15) as $minuteShift)
-                        <?php $slotClass = $selectedEmployee->getSlotClass($selectedDate->toDateString(), $hour, $minuteShift); ?>
+                        <?php $slotClass = $selectedEmployee->getSlotClass($selectedDate, $hour, $minuteShift); ?>
                         @include('modules.as.index._calendar')
                     @endforeach
                 @endforeach
