@@ -15,7 +15,7 @@
 @endif
 <div class="container-fluid">
     <!-- Sidebar -->
-    <div class="col-sm-3">
+    <div class="col-lg-3 col-md-4 col-sm-4">
          @if(empty($action))
         <div class="panel panel-default">
             <div class="panel-heading">{{ trans('as.embed.select_date') }}</div>
@@ -57,7 +57,7 @@
     </div>
 
     <!-- Main content -->
-    <div class="col-sm-9">
+    <div class="col-lg-9 col-md-8 col-sm-8">
         <div class="panel panel-default">
             <div class="panel-heading">
                 @if($action === 'checkout')
