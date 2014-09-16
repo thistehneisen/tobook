@@ -168,14 +168,14 @@ class Embed extends AsBase
 
         $validation = Validator::make(
             [
-                'firstname' => Input::get('firstname'),
-                'phone'     => Input::get('phone'),
-                'email'     => Input::get('email'),
+                trans('as.bookings.firstname') => Input::get('firstname'),
+                trans('as.bookings.phone')     => Input::get('phone'),
+                trans('as.bookings.email')     => Input::get('email'),
             ],
             [
-                'firstname'  => array( 'required'),
-                'phone'      => array( 'required'),
-                'email'      => array( 'required', 'email'),
+                trans('as.bookings.firstname')  => array( 'required'),
+                trans('as.bookings.phone')      => array( 'required'),
+                trans('as.bookings.email')      => array( 'required', 'email'),
             ]
         );
 
