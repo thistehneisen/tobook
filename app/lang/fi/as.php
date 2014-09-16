@@ -295,8 +295,8 @@ return [
         'end_at'              => 'Lopetusaika',
         'date'                => 'Päivä',
         'is_day_off'          => 'Vapaapäivä',
-        'custom_times'        => 'Custom times',
-        'employee_custom_time'=> 'Employee custom time', // @todo
+        'workshifts'          => 'Työvuoro',
+        'workshift_planning'  => 'Työvuorosuunnittelu',
         'from_date'           => 'From date', // @todo
         'to_date'             => 'To date', // @todo
         'weekday'             => 'Weekday', // @todo

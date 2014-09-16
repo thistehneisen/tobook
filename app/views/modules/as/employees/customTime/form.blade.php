@@ -1,6 +1,6 @@
 <div id="form-add-custom-time">
     {{ Form::open(['route' => ['as.employees.customTime.upsert', (isset($customTime)) ? $customTime->id : null], 'class' => 'form-horizontal well', 'role' => 'form']) }}
-    <h4 class="comfortaa">{{ trans('as.employees.custom_time') }}</h4>
+    <h4 class="comfortaa">{{ trans('as.employees.workshifts') }}</h4>
     @include ('el.messages')
     <div class="form-group">
         <label for="name" class="col-sm-2 control-label">{{ trans('as.employees.name') }}</label>

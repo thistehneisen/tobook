@@ -476,41 +476,41 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Employees@freetime'
     ]);
 
-    Route::get('employees/custom-time', [
+    Route::get('employees/work-shift', [
         'as' => 'as.employees.customTime',
         'uses' => 'App\Appointment\Controllers\Employees@customTime'
     ]);
 
-    Route::get('employees/custom-time/upsert/{customTimeId?}', [
+    Route::get('employees/work-shift/upsert/{customTimeId?}', [
         'as'   => 'as.employees.customTime.upsert',
         'uses' => 'App\Appointment\Controllers\Employees@upsertCustomTime'
     ]);
 
-    Route::post('employees/custom-time/upsert/{customTimeId?}', [
+    Route::post('employees/work-shift/upsert/{customTimeId?}', [
         'uses' => 'App\Appointment\Controllers\Employees@doUpsertCustomTime'
     ]);
 
-    Route::get('employees/custom-time/delete/{customTimeId?}', [
+    Route::get('employees/work-shift/delete/{customTimeId?}', [
         'as'   => 'as.employees.customTime.delete',
         'uses' => 'App\Appointment\Controllers\Employees@deleteCustomTime'
     ]);
 
-    Route::get('employees/employee-custom-time/{employeedId?}/{date?}', [
+    Route::get('employees/work-shift-planning/{employeedId?}/{date?}', [
         'as' => 'as.employees.employeeCustomTime',
         'uses' => 'App\Appointment\Controllers\Employees@employeeCustomTime'
     ]);
 
-    Route::post('employees/employee-custom-time/{employeedId?}/{date?}', [
+    Route::post('employees/work-shift-planning/{employeedId?}/{date?}', [
         'as' => 'as.employees.employeeCustomTime.upsert',
         'uses' => 'App\Appointment\Controllers\Employees@upsertEmployeeCustomTime'
     ]);
 
-    Route::post('employees/employee-update-custom-time/{employeedId}', [
+    Route::post('employees/update-work-shift-plan/{employeedId}', [
         'as' => 'as.employees.employeeCustomTime.massiveUpdate',
         'uses' => 'App\Appointment\Controllers\Employees@massiveUpdateEmployeeCustomTime'
     ]);
 
-    Route::post('employees/employee-delete-custom-time/{employeedId}', [
+    Route::post('employees/employee-delete-work-shift/{employeedId}', [
         'as' => 'as.employees.employeeCustomTime.delete',
         'uses' => 'App\Appointment\Controllers\Employees@deleteEmployeeCustomTime'
     ]);
