@@ -95,6 +95,8 @@ return [
     'delete_question'       => 'Are you sure to delete ?',
     'price'                 => 'Price',
     'normal'                => 'Normal',
+    'discount'              => 'Discount',
+    'book'                  => 'Book',
     'short' => [
         'mon' => 'Mon',
         'tue' => 'Tue',

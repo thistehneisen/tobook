@@ -93,19 +93,23 @@ $(function() {
             @foreach ($businesses as $item)
             <div class="result-row row" data-id="{{ $item->id }}" data-url="{{ route('ajax.showBusiness', [$item->id]) }}">
                 <div class="col-md-6">
-                    <img src="{{ asset('assets/img/slides/1.jpg') }}" alt="" class="img-responsive img-rounded">
-<!--                     <div class="text-center">
+                    <img src="{{ asset('assets/img/slides/3.jpg') }}" alt="" class="img-responsive img-rounded">
+                    {{--
+                    <div class="text-center">
                         <ul class="list-inline">
                             <li><i class="text-warning fa fa-star"></i></li>
                             <li><i class="text-warning fa fa-star"></i></li>
                             <li><i class="text-warning fa fa-star"></i></li>
                         </ul>
-                    </div> -->
+                    </div>
+                    --}}
                 </div>
                 <div class="col-md-6">
                     <h4>{{ $item->business_name }}</h4>
                     <p>{{ $item->full_address }}</p>
+                    {{--
                     <p>60-80€</p>
+                    --}}
                 </div>
             </div>
             @endforeach

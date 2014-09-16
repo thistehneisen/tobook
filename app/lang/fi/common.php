@@ -95,6 +95,8 @@ return [
     'delete_question'       => 'Oletko varma että haluat poistaa ?',
     'price'          => 'Hinta',
     'normal'         => 'Normaali',
+    'discount'       => 'Alennus',
+    'book'           => 'Varaa',
     'short' => [
         'mon' => 'Ma',
         'tue' => 'Ti',

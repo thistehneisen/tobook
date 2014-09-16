@@ -5,19 +5,53 @@
     <div class="col-sm-8">
         <p><img src="{{ asset('assets/img/slides/3.jpg') }}" alt="" class="img-responsive img-rounded"></p>
 
-    @if (!empty($business->description))
+        <!-- About -->
+        @if (!empty($business->description))
         <h4>{{ trans('home.search.about') }} {{ $business->business_name }}</h4>
         <p>{{{ $business->description }}}</p>
-    @endif
+        @endif
 
-        @if ($coupons->isEmpty() === true)
+        <!-- Flash deals -->
+        @if (!$flashDeals->isEmpty())
+        <hr>
         <table class="table table-stripped table-hovered">
             <thead>
                 <tr>
                     <th>{{ trans('fd.services.name') }}</th>
                     <th>{{ trans('fd.coupons.valid_date') }}</th>
-                    <th>{{ trans('fd.services.price') }}</th>
-                    <th></th>
+                    <th>{{ trans('common.price') }}</th>
+                    <th>{{ trans('common.discount') }}</th>
+                    <th>{{ trans('home.search.buy') }}</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach ($flashDeals as $item)
+                <tr>
+                    <td><a href="#" title="">{{ $item->service->name }}</a></td>
+                    <td>{{ $item->valid_date }}</td>
+                    <td>{{ $item->discounted_price }}&euro; ({{ $item->service->price }}&euro;)</td>
+                    <td>
+                        <p class="text-danger"><strong>-{{ $item->discount_percent }}%</strong></p>
+                    </td>
+                    <td>
+                        <a href="#" class="btn btn-success btn-sm">{{ trans('home.search.book') }}</a>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+        @endif
+
+        <!-- Coupons -->
+        @if (!$coupons->isEmpty())
+        <hr>
+        <table class="table table-stripped table-hovered">
+            <thead>
+                <tr>
+                    <th>{{ trans('fd.services.name') }}</th>
+                    <th>{{ trans('fd.coupons.valid_date') }}</th>
+                    <th>{{ trans('common.price') }}</th>
+                    <th>{{ trans('common.discount') }}</th>
                     <th>{{ trans('home.search.buy') }}</th>
                 </tr>
             </thead>
@@ -42,7 +76,7 @@
 
     <div class="col-sm-4">
         <div class="box text-center">
-            <a href="#" class="btn btn-success btn-lg">Varaa</a>
+            <a href="#" class="btn btn-success btn-lg">{{ trans('common.book') }}</a>
         </div>
 
         <div class="box">
