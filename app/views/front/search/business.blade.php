@@ -29,7 +29,7 @@
             @foreach($deal->active as $item)
                 <tr>
                     <td><a href="#" title="">{{ $deal->service->name }}</a></td>
-                    <td>{{ $item->expire }}</td>
+                    <td><span class="text-danger countdown" data-date="{{ $item->expire->toISO8601String() }}"></span></td>
                     <td>{{ $deal->discounted_price }}&euro; ({{ $deal->service->price }}&euro;)</td>
                     <td>
                         <p class="text-danger"><strong>-{{ $deal->discount_percent }}%</strong></p>
@@ -61,7 +61,7 @@
             @foreach ($coupons as $item)
                 <tr>
                     <td><a href="#" title="">{{ $item->service->name }}</a></td>
-                    <td>{{ $item->valid_date }}</td>
+                    <td><span class="text-danger countdown" data-date="{{ $item->valid_date->toISO8601String() }}"></span></td>
                     <td>{{ $item->discounted_price }}&euro; ({{ $item->service->price }}&euro;)</td>
                     <td>
                         <p class="text-danger"><strong>-{{ $item->discount_percent }}%</strong></p>

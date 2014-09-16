@@ -16,6 +16,8 @@
 @section('scripts')
     {{ HTML::script('//maps.googleapis.com/maps/api/js?v=3.exp&language='.App::getLocale()) }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.12/gmaps.min.js') }}
+    {{ HTML::script(asset('packages/jquery.countdown/jquery.plugin.min.js')) }}
+    {{ HTML::script(asset('packages/jquery.countdown/jquery.countdown.min.js')) }}
     <script>
 $(function() {
 
@@ -35,6 +37,21 @@ var renderMap = function(mapId, lat, lng, markers) {
 
     return gmap;
 };
+
+var applyCountdown = function(elems) {
+    elems.each(function() {
+        var $this = $(this);
+
+        $this.countdown({
+            until: new Date($this.data('date')),
+            compact: true,
+            layout: '{hnn}{sep}{mnn}{sep}{snn}',
+        });
+    });
+};
+
+// Init
+applyCountdown($('span.countdown'));
 
 @if (!isset($single))
     renderMap(
@@ -99,6 +116,9 @@ var renderMap = function(mapId, lat, lng, markers) {
                 lat: lat,
                 lng: lng
             });
+
+            // Countdown
+            applyCountdown(content.find('span.countdown'));
         });
     });
 @else
