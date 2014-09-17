@@ -460,6 +460,11 @@ class Employees extends AsBase
         return Response::json($data);
     }
 
+    /**
+     * Upsert work-shift for an employee in one month
+     *
+     *  @return Redirect
+     */
     public function massiveUpdateEmployeeCustomTime($employeeId)
     {
         $customTimes = Input::get('custom_times');
@@ -477,9 +482,9 @@ class Employees extends AsBase
                     ]);
                     $employeeCustomTime->employee()->associate($employee);
                     $employeeCustomTime->customTime()->associate($customTime);
-                    //$employeeCustomTime->restore();
                     $employeeCustomTime->save();
                 } else {
+                    //Delete existing row in db, otherwise do nothing
                     if(!empty($employeeCustomTime->date)){
                         $employeeCustomTime->delete();
                     }
