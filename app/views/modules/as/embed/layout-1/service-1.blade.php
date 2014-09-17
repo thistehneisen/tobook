@@ -1,14 +1,12 @@
 <div class="list-group">
 @foreach ($categories as $category)
+    @if (!$category->services->isEmpty())
     <div class="list-group-item">
         <h4 class="list-group-item-heading">{{ $category->name }}</h4>
         <div class="list-group-item-text">
             <p class="text-muted">{{ $category->description }}</p>
 
             <div class="services" id="category-services-{{ $category->id }}">
-            @if ($category->services->isEmpty())
-                <p class="text-muted"><em>{{ trans('as.services.categories.no_services') }}</em></p>
-            @endif
             @foreach ($category->services as $service)
                 <div class="single">
                     <a data-toggle="collapse" data-parent="#category-services-{{ $category->id }}" href="#service-{{ $category->id.'-'.$service->id }}"><h5 class="heading">{{ $service->name }}</h5></a>
@@ -35,5 +33,6 @@
             </div>
         </div>
     </div>
+    @endif
 @endforeach
 </div>

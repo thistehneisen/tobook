@@ -117,8 +117,8 @@ class Embed extends AsBase
 
         $categories = ServiceCategory::OfUser($user->id)
             ->orderBy('order')
-            ->with(['services' => function($query){
-                 $query->where('is_active', true)
+            ->with(['services' => function($query) {
+                $query->where('is_active', true)
                     ->with('serviceTimes');
             }])->where('is_show_front', true)
             ->get();
