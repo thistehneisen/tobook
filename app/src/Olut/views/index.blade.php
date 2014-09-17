@@ -102,7 +102,7 @@ $(function() {
             @endforeach
             </select>
         </div>
-        <button type="submit" class="btn btn-primary btn-sm btn-submit-mass-action">{{ trans('olut::olut.save') }}</button>
+        <button type="submit" class="btn btn-primary btn-sm btn-submit-mass-action">{{ trans('olut::olut.submit') }}</button>
         @endif
     </div>
     <div class="col-md-6 text-right">

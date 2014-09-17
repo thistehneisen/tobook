@@ -387,6 +387,18 @@ trait Olut
     }
 
     /**
+     * Remove all items with those IDs
+     *
+     * @param array $ids
+     *
+     * @return bool
+     */
+    public function destroy($ids)
+    {
+        return $this->getModel()->whereIn('id', $ids)->delete();
+    }
+
+    /**
      * Update orders of items in database
      *
      * @return void

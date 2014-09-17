@@ -9,12 +9,13 @@ return [
     'per_page'       => 'Items per page',
     'with_selected'  => 'With selected',
     'save'           => 'Save',
+    'submit'         => 'Submit',
     'reset'          => 'Reset',
     'yes'            => 'Yes',
     'no'             => 'No',
     'destroy'        => 'Delete',
     'empty'          => 'There is no records found',
-    'err' => [
+    'err'            => [
         'unexpected' => 'An unexpected error has occurred. Please try again later.'
     ]
 ];
