@@ -13,7 +13,7 @@ class AddUserIdToFdTables extends Migration {
     public function up()
     {
         Schema::table('fd_coupons', function(Blueprint $table) {
-            $table->unsignedInteger('user_id')->nullable();
+            $table->unsignedInteger('user_id')->nullable()->after('id');
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
@@ -21,7 +21,7 @@ class AddUserIdToFdTables extends Migration {
         });
 
         Schema::table('fd_flash_deals', function(Blueprint $table) {
-            $table->unsignedInteger('user_id')->nullable();
+            $table->unsignedInteger('user_id')->nullable()->after('id');
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
@@ -29,7 +29,7 @@ class AddUserIdToFdTables extends Migration {
         });
 
         Schema::table('fd_flash_deal_dates', function(Blueprint $table) {
-            $table->unsignedInteger('user_id')->nullable();
+            $table->unsignedInteger('user_id')->nullable()->after('id');
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
