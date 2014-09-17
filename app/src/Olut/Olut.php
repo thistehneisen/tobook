@@ -349,4 +349,40 @@ trait Olut
         $this->crudSortable = false;
         return $this->renderList($items);
     }
+
+    /**
+     * Handle bulk actions
+     *
+     * @return Redirect
+     */
+    public function bulk()
+    {
+        $v = Validator::make(Input::all(), [
+            'ids' => 'required|array'
+        ]);
+
+        if ($v->fails()) {
+            if (Request::ajax()) {
+                return Response::json($v->errors(), 500);
+            }
+
+            return Redirect::back()->withErrors($v);
+        }
+
+        $action = Input::get('action');
+        if (!method_exists($this, $action)) {
+            throw new \InvalidArgumentException('Method is not allowed');
+        }
+
+        call_user_func([$this, $action], Input::get('ids'));
+
+        if (Request::ajax()) {
+            return Response::json(['message' => trans('olut::olut.success_bulk')]);
+        }
+
+        return Redirect::route(static::$crudRoutes['index'])
+            ->with('messages', $this->successMessageBag(
+                trans('olut::olut.success_bulk')
+            ));
+    }
 }

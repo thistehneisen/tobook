@@ -12,6 +12,7 @@ return [
     'reset'          => 'Reset',
     'yes'            => 'Yes',
     'no'             => 'No',
+    'destroy'        => 'Delete',
     'empty'          => 'There is no records found',
     'err' => [
         'unexpected' => 'An unexpected error has occurred. Please try again later.'

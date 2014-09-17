@@ -98,7 +98,7 @@ $(function() {
             <label>{{ trans('olut::olut.with_selected')  }}</label>
             <select name="action" id="olut-mass-action" class="form-control input-sm">
             @foreach ($bulkActions as $action)
-                <option value="{{ $action }}">{{ trans($langPrefix.'.'.$action) }}</option>
+                <option value="{{ $action }}">{{ Lang::has($langPrefix.'.'.$action) ? trans($langPrefix.'.'.$action) : trans('olut::olut.'.$action) }}</option>
             @endforeach
             </select>
         </div>
