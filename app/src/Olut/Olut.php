@@ -237,6 +237,7 @@ trait Olut
             'langPrefix' => (string) $this->getOlutOptions('langPrefix'),
             'layout'     => $this->getOlutOptions('layout'),
             'showTab'    => $this->getOlutOptions('showTab') ?: true,
+            'lomake'     => $this->getOlutOptions('lomake') ?: []
         ]);
     }
 
