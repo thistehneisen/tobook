@@ -199,9 +199,9 @@ return [
                 'style_heading_background' => [
                     'type' => 'Text'
                 ],
-                'style_text_color' => [
-                    'type' => 'Text'
-                ],
+                // 'style_text_color' => [
+                //     'type' => 'Text'
+                // ],
                 'style_main_color' => [
                     'type' => 'Text'
                 ],
