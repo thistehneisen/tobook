@@ -63,7 +63,7 @@ $(function () {
                 {{ Form::errorText('email', $errors) }}
             </div>
             <div class="checkbox col-sm-5">
-                <label> {{ Form::checkbox('is_subsribed_email', 1, (isset($employee)) ? $employee->is_subsribed_email: false ); }} {{  trans('as.employees.is_subscribed_email') }} {{ Form::required('is_subscribed_email', $employee) }}</label>
+                <label> {{ Form::checkbox('is_subscribed_email', 1, (isset($employee)) ? $employee->is_subscribed_email: false ); }} {{  trans('as.employees.is_subscribed_email') }} {{ Form::required('is_subscribed_email', $employee) }}</label>
             </div>
         </div>
         <div class="form-group">
