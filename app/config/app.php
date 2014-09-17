@@ -218,7 +218,7 @@ return array(
         'Util'      => 'App\Core\Util',
         'Sms'       => 'App\OneApi\Facade',
         'Hashids'   => 'App\Hashids\Facade',
-        'Crud'      => 'App\Olut\Olut',
+        'CRUD'      => 'App\Olut\Olut',
     ),
 
 );
