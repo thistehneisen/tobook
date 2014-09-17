@@ -179,7 +179,13 @@
                         <div class="form-group row">
                             <label for="modify_times" class="col-sm-4 control-label">{{ trans('as.bookings.modify_time') }} </label>
                             <div class="col-sm-8">
-                                {{ Form::select('modify_times', array_combine(range(-60,60, 15), range(-60,60, 15)), isset($modifyTime) ? $modifyTime : 0, ['class' => 'form-control input-sm', 'id' => 'modify_times']) }}
+                                <div class="input-group input-group-sm spinner" data-inc="15">
+                                    {{ Form::text('modify_times', isset($modifyTime) ? $modifyTime : 0, ['class' => 'form-control input-sm', 'id' => 'modify_times']) }}
+                                    <div class="input-group-btn-vertical">
+                                        <button type="button" class="btn btn-default"><i class="fa fa-caret-up"></i></button>
+                                        <button type="button" class="btn btn-default"><i class="fa fa-caret-down"></i></button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">
