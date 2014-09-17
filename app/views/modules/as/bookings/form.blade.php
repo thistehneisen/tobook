@@ -159,12 +159,17 @@
                                 @if(!empty($serviceTimes))
                                     @foreach ($serviceTimes as $serviceTime)
                                         <option
-                                            @if(isset($serviceTime['length'])) data-length="{{ $serviceTime['length'] }}" @endif
-                                            @if($bookingServiceTime == (int)$serviceTime['id'])
+                                        @if (isset($serviceTime['length']))
+                                            data-length="{{ $serviceTime['length'] }}"
+                                        @endif
+                                        @if ($bookingServiceTime == (int)$serviceTime['id'])
                                             selected="selected"
-                                            @endif
+                                        @endif
                                             value="{{ $serviceTime['id']}}">
-                                                {{ $serviceTime['name']}}
+                                                {{ $serviceTime['name'] }}
+                                            @if (isset($serviceTime['description']))
+                                                ({{ $serviceTime['description'] }})
+                                            @endif
                                         </option>
                                     @endforeach
                                 @endif
