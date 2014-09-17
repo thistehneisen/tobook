@@ -1,4 +1,4 @@
-@extends ('modules.as.crud.index')
+@extends ('modules.as.layout')
 
 @section ('content')
 <div class="alert alert-info">
