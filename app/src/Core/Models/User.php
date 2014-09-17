@@ -103,18 +103,12 @@ class User extends ConfideUser
 
     public function coupons()
     {
-        return $this->hasManyThrough(
-            'App\FlashDeal\Models\Coupon',
-            'App\FlashDeal\Models\Service'
-        );
+        return $this->hasMany('App\FlashDeal\Models\Coupon');
     }
 
     public function flashDeals()
     {
-        return $this->hasManyThrough(
-            'App\FlashDeal\Models\FlashDeal',
-            'App\FlashDeal\Models\Service'
-        );
+        return $this->hasMany('App\FlashDeal\Models\FlashDealDate');
     }
 
     //--------------------------------------------------------------------------

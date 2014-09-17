@@ -25,20 +25,18 @@
                 </tr>
             </thead>
             <tbody>
-        @foreach ($flashDeals as $deal)
-            @foreach($deal->active as $item)
-                <tr>
-                    <td><a href="#" title="">{{ $deal->service->name }}</a></td>
-                    <td><span class="text-danger countdown" data-date="{{ $item->expire->toISO8601String() }}"></span></td>
-                    <td>{{ $deal->discounted_price }}&euro; ({{ $deal->service->price }}&euro;)</td>
-                    <td>
-                        <p class="text-danger"><strong>-{{ $deal->discount_percent }}%</strong></p>
-                    </td>
-                    <td>
-                        <a href="#" class="btn btn-success btn-sm">{{ trans('home.search.book') }}</a>
-                    </td>
-                </tr>
-            @endforeach
+        @foreach ($flashDeals as $item)
+            <tr>
+                <td><a href="#" title="">{{ $item->flashDeal->service->name }}</a></td>
+                <td><span class="text-danger countdown" data-date="{{ $item->expire->toISO8601String() }}"></span></td>
+                <td>{{ $item->flashDeal->discounted_price }}&euro; ({{ $item->flashDeal->service->price }}&euro;)</td>
+                <td>
+                    <p class="text-danger"><strong>-{{ $item->flashDeal->discount_percent }}%</strong></p>
+                </td>
+                <td>
+                    <a href="#" class="btn btn-success btn-sm">{{ trans('home.search.book') }}</a>
+                </td>
+            </tr>
         @endforeach
             </tbody>
         </table>
