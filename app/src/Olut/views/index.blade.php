@@ -56,17 +56,7 @@ $(function() {
         <tr id="row-{{ $item->id }}" data-id="{{ $item->id }}" class="js-sortable-{{ $sortable }}" data-toggle="tooltip" data-placement="top" data-title="{{ trans('olut::olut.sortable') }}">
             <td><input type="checkbox" class="checkbox" name="ids[]" value="{{ $item->id }}"></td>
         @foreach ($fields as $field)
-            @if (starts_with($field, 'is_'))
-                <td>
-                @if ((bool) $item->$field === true)
-                    <span class="label label-success">{{ trans('common.yes') }}</span>
-                @else
-                    <span class="label label-danger">{{ trans('common.no') }}</span>
-                @endif
-                </td>
-            @else
-                <td>{{ $item->$field }}</td>
-            @endif
+            <td>{{ $bartender->mix($field, $item) }}</td>
         @endforeach
             <td>
             <div  class="pull-right">

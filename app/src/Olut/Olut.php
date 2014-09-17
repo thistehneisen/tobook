@@ -184,6 +184,9 @@ trait Olut
         // List of methods that can handle bulk actions
         $bulkActions = $this->getOlutOptions('bulkActions') ?: ['destroy'];
 
+        // Bartender will take care the output of fields
+        $bartender = new Bartender($this->getOlutOptions('presenters') ?: []);
+
         return View::make($view, [
             'items'       => $items,
             'routes'      => static::$crudRoutes,
@@ -192,7 +195,8 @@ trait Olut
             'bulkActions' => $bulkActions,
             'sortable'    => $this->getOlutOptions('sortable') ?: false,
             'showTab'     => $this->getOlutOptions('showTab') ?: true,
-            'layout'      => $this->getOlutOptions('layout')
+            'layout'      => $this->getOlutOptions('layout'),
+            'bartender'   => $bartender
         ]);
     }
 
