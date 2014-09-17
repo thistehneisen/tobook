@@ -12,7 +12,9 @@ class AddNotesColumnToAsBookingsTable extends Migration {
 	 */
 	public function up()
 	{
-		//
+		Schema::table('as_bookings', function(Blueprint $table) {
+            $table->string('notes');
+        });
 	}
 
 	/**
