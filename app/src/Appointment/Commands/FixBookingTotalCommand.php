@@ -50,6 +50,16 @@ UPDATE varaa_as_bookings SET varaa_as_bookings.total =
 );
 SQL;
         DB::statement($sql);
-        $this->info('Done');
+        $this->info('Done update varaa_as_bookings.total');
+
+        //update bookings.end_at base on total
+        $this->updateBookingEndAt();
+    }
+
+    private function updateBookingEndAt()
+    {
+        $sql = "UPDATE varaa_as_bookings SET end_at = ADDTIME(start_at, CONCAT(FLOOR(total / 60), ':', total % 60)) where total > 0;";
+        DB::statement($sql);
+        $this->info('Update all records with total > 0');
     }
 }
