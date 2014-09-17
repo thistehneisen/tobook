@@ -104,7 +104,7 @@ a:hover {
   margin: 0;
 }
 .header nav.main-nav #main-menu .user-top-nav {
-  margin-top: 5px;
+  margin: 5px 0 0 10px;
 }
 .header nav.main-nav #main-menu .user-top-nav li.active > a {
   background: #ec7923;

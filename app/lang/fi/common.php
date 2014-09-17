@@ -84,7 +84,7 @@ return [
     'country'               => 'Maa',
     'close'                 => 'Sulje',
     'search'         => 'Haku',
-    'for_business'   => 'For Business', // @todo
+    'for_business'   => 'Yrittäjälle',
     'minutes'        => 'Minuuttia',
     'are_you_sure'   => 'Oletko varma?',
     'type'           => 'Tyyppi',
