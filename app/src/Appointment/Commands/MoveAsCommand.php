@@ -356,7 +356,8 @@ class MoveAsCommand extends Command
                 'as_bookings.*',
                 'as_bookings_services.employee_id',
                 'as_bookings_services.date',
-                'as_bookings_services.start'
+                'as_bookings_services.start',
+                'as_bookings_services.total'
             )
             ->groupBy('as_bookings.id')
             ->get();
@@ -420,11 +421,12 @@ class MoveAsCommand extends Command
                 'consumer_id' => $consumerId,
                 'employee_id' => $employeeId,
                 'date'        => $item->date,
-                'total'       => (int) $item->booking_total,
+                'total'       => $item->total,
                 'modify_time' => 0,
                 'start_at'    => $startAt,
-                'end_at'      => with(clone $startAt)->addMinutes((int) $item->booking_total),
+                'end_at'      => with(clone $startAt)->addMinutes((int) $item->total),
                 'status'      => '',
+                'notes'       => $item->c_notes,
                 'ip'          => (string) $item->ip,
                 'created_at'  => $item->created,
                 'updated_at'  => $item->created,
