@@ -45,7 +45,7 @@
     </div>
     <div class="as-calendar col-lg-11 col-md-11 col-sm-11 col-xs-11">
         @foreach ($employees as $selectedEmployee)
-            @if ($selectedEmployee->getIsActive())
+            @if ($selectedEmployee->is_active)
             <div class="as-col">
             <ul>
                 <li class="as-col-header"><a href="{{ route('as.employee', ['id'=> $selectedEmployee->id ]) }}">{{ $selectedEmployee->name }}</a></li>

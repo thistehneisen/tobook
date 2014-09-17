@@ -206,12 +206,12 @@ class Employee extends Base
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
-    public function setIsActive($value)
+    public function setIsActiveAttribute($value)
     {
         $this->attributes['is_active'] = (bool) $value;
     }
 
-    public function getIsActive()
+    public function getIsActiveAttribute()
     {
         return (bool) $this->attributes['is_active'];
     }

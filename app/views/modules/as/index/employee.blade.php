@@ -31,7 +31,7 @@
 <div class="container-fluid row-no-padding">
     <ul class="nav nav-tabs" role="tablist">
         @foreach ($employees as $employee)
-            @if ($employee->getIsActive())
+            @if ($employee->is_active)
             <li class="@if(intval($employee->id) === intval($employeeId)) active @endif">
                 <a href="{{ route('as.employee', ['id'=> $employee->id ]) }}">{{ $employee->name }}</a>
             </li>
