@@ -16,6 +16,7 @@ class Booking extends \App\Core\Models\Base implements \SplSubject
         'notes',
         'uuid',
         'ip',
+        'notes'
     ];
 
     const STATUS_CONFIRM     = 1;
