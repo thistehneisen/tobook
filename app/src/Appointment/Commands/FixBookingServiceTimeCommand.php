@@ -52,12 +52,13 @@ class FixBookingServiceTimeCommand extends Command {
             ->orderBy('as_bookings.id', 'desc')
             ->get();
 
-        $count = 0;
-        $countExtraService = 0;
-        $countUpdate = 0;
-        $countPlusTime = 0;
-        $countFutureTotal = 0;
-        $countFutureUpdated = 0;
+        $count                 = 0;
+        $countUpdate           = 0;
+        $countPlusTime         = 0;
+        $countFutureTotal      = 0;
+        $countExtraService     = 0;
+        $countFutureUpdated    = 0;
+        $countUpdateModifyTime = 0;
         foreach ($all as $item) {
             if ($item->date > '2014-09-17') {
                 $countFutureTotal += 1;
@@ -104,6 +105,10 @@ class FixBookingServiceTimeCommand extends Command {
                 if ($item->date > '2014-09-17') {
                     $countFutureUpdated += 1;
                 }
+            } else {
+                DB::table('as_bookings')->where('id', $item->id)
+                    ->update(['modify_time'=> (int)($item->total - $item->length)]);
+                $countUpdateModifyTime++;
             }
         }
         $this->info(sprintf('%d rows', $count));
@@ -112,5 +117,6 @@ class FixBookingServiceTimeCommand extends Command {
         $this->info(sprintf('%d have plus time', $countPlusTime));
         $this->info(sprintf('%d in the future', $countFutureTotal));
         $this->info(sprintf('%d in the future updated', $countFutureUpdated));
+        $this->info(sprintf('%d has been updated modify time', $countUpdateModifyTime));
     }
 }
