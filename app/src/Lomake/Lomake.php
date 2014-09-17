@@ -1,6 +1,7 @@
 <?php namespace App\Lomake;
 
 use App, View;
+use App\Lomake\Fields\Factory;
 
 class Lomake
 {
@@ -37,21 +38,15 @@ class Lomake
 
         $fields = [];
         foreach ($instance->fillable as $name) {
-            // If we have $opt['trans'], we will prepend it to the name
-            // Values of $opt['trans'] could be [consumer].name, [user.form].name
-            $field['label'] = isset($opt['trans'])
-                ? trans($opt['trans'].'.'.$name)
-                : $name;
-
-            // If this is required
-            if ($this->isRequired($instance, $name)) {
-                $field['label'] .= '*';
-            }
-
             // Try to guess the type of this field
             $field['type'] = $this->guessInputType($name);
 
-            $fields[$name] = $field;
+            // If this is required
+            $field['required'] = $this->isRequired($instance, $name);
+            $field['default']  = '';
+            $field['name']     = $name;
+
+            $fields[$name] = Factory::create($field);
         }
 
         // User is able to overwrite guessing fields, for example, to create
@@ -64,9 +59,9 @@ class Lomake
         //      'values' => ['m' => 'Male', 'f' => 'Female']
         //  ]
         // ];
-        foreach ($opt['fields'] as $name => $field)
-        {
-            $fields[$name] = $field;
+        foreach ($opt['fields'] as $name => $field) {
+            $field['name'] = $name;
+            $fields[$name] = Factory::create($field);
         }
 
         return View::make($opt['template'], [
