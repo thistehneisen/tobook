@@ -22,7 +22,7 @@ $(function() {
         event.preventDefault();
         var $this = $(this);
 
-        alertify.confirm('{{ trans('common.are_you_sure') }}', function (e) {
+        alertify.confirm('{{ trans('olut::olut.confirm') }}', function (e) {
             if (e) {
                 window.location = $this.attr('href');
             }
@@ -68,7 +68,7 @@ $(function() {
     @endforeach
         @if (empty($items->getTotal()))
         <tr>
-            <td colspan="{{ count($fields) + 2 }}">{{ trans('common.no_records') }}</td>
+            <td colspan="{{ count($fields) + 2 }}">{{ trans('olut::olut.empty') }}</td>
         </tr>
         @endif
     </tbody>
@@ -79,13 +79,13 @@ $(function() {
         @if (!empty($bulkActions))
         <div class="form-group">
             <label>{{ trans('olut::olut.with_selected')  }}</label>
-            <select name="action" id="mass-action" class="form-control input-sm">
+            <select name="action" id="olut-mass-action" class="form-control input-sm">
             @foreach ($bulkActions as $action)
-                <option value="{{ $action }}">{{ trans('common.'.$action) }}</option>
+                <option value="{{ $action }}">{{ trans($langPrefix.'.'.$action) }}</option>
             @endforeach
             </select>
         </div>
-        <button type="submit" class="btn btn-primary btn-sm btn-submit-mass-action">{{ trans('common.save') }}</button>
+        <button type="submit" class="btn btn-primary btn-sm btn-submit-mass-action">{{ trans('olut::olut.save') }}</button>
         @endif
     </div>
     <div class="col-md-6 text-right">
