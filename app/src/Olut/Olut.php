@@ -213,4 +213,79 @@ trait Olut
             ?: $this->getModel()->fillable;
     }
 
+    /**
+     * Show the form to insert or update a record
+     *
+     * @param int $id Optional. Item's ID
+     *
+     * @return View
+     */
+    public function upsert($id = null)
+    {
+        $model = $this->getModel();
+        $item = ($id !== null)
+            ? $model->ofCurrentUser()->findOrFail($id)
+            : new $model();
+
+        $view = View::exists($this->getViewPath().'.form')
+            ? $this->getViewPath().'.form'
+            : 'olut::form';
+
+        return View::make($view, [
+            'item'       => $item,
+            'routes'     => static::$crudRoutes,
+            'langPrefix' => (string) $this->getOlutOptions('langPrefix'),
+            'layout'     => $this->getOlutOptions('layout'),
+            'showTab'    => $this->getOlutOptions('showTab') ?: true,
+        ]);
+    }
+
+    /**
+     * Handle upsert
+     *
+     * @param int $id Optional. Item's ID
+     *
+     * @return Redirect
+     */
+    public function doUpsert($id = null)
+    {
+        $model = $this->getModel();
+        try {
+            $item = ($id !== null)
+                ? $model->ofCurrentUser()->findOrFail($id)
+                : new $model();
+
+            $item = $this->upsertHandler($item);
+
+            $message = ($id !== null)
+                ? trans('olut::olut.success_edit')
+                : trans('olut::olut.success_add');
+
+            return Redirect::route(static::$crudRoutes['index'])
+                ->with('messages', $this->successMessageBag($message));
+        } catch (\Watson\Validating\ValidationException $ex) {
+            return Redirect::back()->withInput()->withErrors($ex->getErrors());
+        }
+
+        $errors = $this->errorMessageBag(trans('olut::olut.err.unexpected'));
+
+        return Redirect::back()->withInput()->withErrors($errors, 'top');
+    }
+
+    /**
+     * Take all input and update model attributes
+     * Developers might want to rewrite this method to have desired behaviors
+     *
+     * @param  Illuminate\Database\Eloquent\Model    $item
+     * @throws Watson\Validating\ValidatingException If failed to validate data
+     *
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    protected function upsertHandler($item)
+    {
+        $item->fill(Input::all());
+        $item->saveOrFail();
+
+        return $item;
+    }
 }

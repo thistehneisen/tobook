@@ -8,4 +8,7 @@ return [
     'sortable'       => 'Drag to reorder',
     'per_page'       => 'Items per page',
     'with_selected'  => 'With selected',
+    'err' => [
+        'unexpected' => 'An unexpected error has occurred. Please try again later.'
+    ]
 ];
