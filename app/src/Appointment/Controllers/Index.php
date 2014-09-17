@@ -40,9 +40,8 @@ class Index extends AsBase
     {
         $employees = Employee::ofCurrentUser()->get();
         $employee  = Employee::ofCurrentUser()->find($id);
-        $workingTimes = range(8,17);
+        $workingTimes = $employee->getDefaultWorkingTimes();
         $date = (empty($date)) ? Carbon::today() : $date;
-
         if (!$date instanceof Carbon) {
             try {
                 $date = Carbon::createFromFormat('Y-m-d', $date, Config::get('app.timezone'));

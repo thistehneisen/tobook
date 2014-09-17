@@ -21,13 +21,14 @@ class Frontend implements Strategy
         $selectedDate = Carbon::createFromFormat('Y-m-d', $date);
         $class = 'inactive';
         //working time
+        $defaultWorkingTime = $employee->getDefaulTimesByDay(Util::getDayOfWeekText($selectedDate->dayOfWeek))->first();
         $rowTime = Carbon::createFromTime($hour, $minute, 0, Config::get('app.timezone'));
         list($startHour, $startMinute) = explode(':', $employee->getTodayDefaultStartAt($selectedDate->dayOfWeek));
         $startAt =  Carbon::createFromTime($startHour, $startMinute, 0, Config::get('app.timezone'));
         list($endHour, $endMinute) = explode(':', $employee->getTodayDefaultEndAt($selectedDate->dayOfWeek));
         $endAt = Carbon::createFromTime($endHour, $endMinute, 0, Config::get('app.timezone'));
 
-        if ($rowTime >= $startAt && $rowTime <= $endAt) {
+        if ($rowTime >= $startAt && $rowTime <= $endAt && !$defaultWorkingTime->is_day_off) {
             $class = 'fancybox active';
         } else {
             $class = 'inactive';
