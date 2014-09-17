@@ -35,6 +35,7 @@ class Coupons extends Base
 
         $item->fill(Input::all());
         $item->service()->associate($service);
+        $item->user()->associate($this->user);
         $item->saveOrFail();
 
         return $item;
