@@ -58,7 +58,7 @@ class Embed extends AsBase
         }
 
         $serviceId       = Input::get('service_id');
-        $serviceTimeId   = Input::get('service_time_id');
+        $serviceTimeId   = Input::get('service_time');
         $extraServiceIds = Input::get('extra_services');
 
         $date = (empty(Input::get('date'))) ? Carbon::today() : Input::get('date');
