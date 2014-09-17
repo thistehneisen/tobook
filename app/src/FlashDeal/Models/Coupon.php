@@ -42,6 +42,11 @@ class Coupon extends Base
         return $this->belongsTo('App\FlashDeal\Models\Service');
     }
 
+    public function user()
+    {
+        return $this->belongsTo('App\Core\Models\User');
+    }
+
     //--------------------------------------------------------------------------
     // SCOPES
     //--------------------------------------------------------------------------

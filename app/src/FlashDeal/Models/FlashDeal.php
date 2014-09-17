@@ -39,4 +39,9 @@ class FlashDeal extends Base
     {
         return $this->hasMany('App\FlashDeal\Models\FlashDealDate');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Core\Models\User');
+    }
 }
