@@ -311,4 +311,42 @@ trait Olut
                 $this->successMessageBag(trans('olut::olut.success_delete'))
             );
     }
+
+    /**
+     * Search the given keyword in all fillable fields
+     *
+     * @return View
+     */
+    public function search()
+    {
+        // Escape HTML
+        $q = e(Input::get('q'));
+
+        $query = $this->getModel();
+        // Apply query string filters
+        $query = $this->applyQueryStringFilter($query);
+
+        $fillable = $this->getModel()->fillable;
+        // Add ID to be candicate for searching
+        $fillable[] = 'id';
+        $query = $query->where(function ($subQuery) use ($fillable, $q) {
+            foreach ($fillable as $field) {
+                $subQuery = $subQuery->orWhere($field, 'LIKE', '%'.$q.'%');
+            }
+
+            return $subQuery;
+        });
+
+        // Limit results to of the current user only
+        if (method_exists($this->getModel(), 'user')) {
+            $query = $query->ofCurrentUser();
+        }
+
+        $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
+        $items = $query->paginate($perPage);
+
+        // Disable sorting items
+        $this->crudSortable = false;
+        return $this->renderList($items);
+    }
 }
