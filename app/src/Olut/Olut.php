@@ -385,4 +385,19 @@ trait Olut
                 trans('olut::olut.success_bulk')
             ));
     }
+
+    /**
+     * Update orders of items in database
+     *
+     * @return void
+     */
+    public function order()
+    {
+        $orders = Input::get('orders');
+        foreach ($orders as $order => $id) {
+            DB::table($this->getModel()->getTable())
+                ->where('id', $id)
+                ->update(['order' => $order]);
+        }
+    }
 }
