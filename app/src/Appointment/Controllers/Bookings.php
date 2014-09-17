@@ -190,9 +190,10 @@ class Bookings extends AsBase
                 'name'=> trans('common.select'),
             ];
             $jsonServiceTimes[$service->id][] = [
-                'id'        => 'default',
-                'name'      => $service->length,
-                'length'    =>  $service->length,
+                'id'            => 'default',
+                'name'          => $service->length,
+                'length'        => $service->length,
+                'description'   => $service->description,
             ];
             foreach ($service->serviceTimes as $serviceTime) {
                 $jsonServiceTimes[$service->id][] = [

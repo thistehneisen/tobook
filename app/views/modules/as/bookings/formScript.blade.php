@@ -27,7 +27,7 @@ $(function () {
             $('#service_times').append(
                 $('<option>', {
                     value: data[i].id,
-                    text: data[i].name,
+                    text: data[i].name + (data[i].description ? ' (' + data[i].description + ')' : ''),
                     'data-length': data[i].length
                 })
             );

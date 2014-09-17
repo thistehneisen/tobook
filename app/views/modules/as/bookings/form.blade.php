@@ -167,7 +167,7 @@
                                         @endif
                                             value="{{ $serviceTime['id']}}">
                                                 {{ $serviceTime['name'] }}
-                                            @if (isset($serviceTime['description']))
+                                            @if (isset($serviceTime['description']) && $serviceTime['description'])
                                                 ({{ $serviceTime['description'] }})
                                             @endif
                                         </option>
