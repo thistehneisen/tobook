@@ -8,7 +8,6 @@ if (!defined("ROOT_PATH"))
 require_once CONTROLLERS_PATH . 'pjAppController.controller.php';
 require_once realpath(CONTROLLERS_PATH.'../../../../Bridge.php');
 
-use Hashids\Hashids;
 class pjFront extends pjAppController
 {
     var $layout = 'front';
@@ -81,8 +80,7 @@ class pjFront extends pjAppController
         @session_start();
         if (!isset($_SESSION['owner_id']) && isset($_GET['v'])) {
             // Decode data from the hash
-            $hashids = new Hashids(Bridge::config('app.key'), 8);
-            $content = $hashids->decrypt($_GET['v']);
+            $content = Hashids::decrypt($_GET['v']);
             if (!is_array($content) || !isset($content[0])) {
                 die;
             }

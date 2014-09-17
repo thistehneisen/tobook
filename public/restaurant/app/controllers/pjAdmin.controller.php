@@ -7,7 +7,6 @@ if (!defined("ROOT_PATH"))
 require_once CONTROLLERS_PATH . 'pjAppController.controller.php';
 require_once realpath(__DIR__.'/../../../../Bridge.php');
 
-use Hashids\Hashids;
 class pjAdmin extends pjAppController
 {
 /**
@@ -51,24 +50,24 @@ class pjAdmin extends pjAppController
 		{
 			$this->require_login = $require_login;
 		}
-		
+
 		if ($this->require_login)
 		{
 			if (!$this->isLoged() && @$_GET['action'] != 'login')
 			{
 				if ( isset($_COOKIE['rbooking_admin']) && $_COOKIE['rbooking_admin']  == 'admin') {
-				
+
 					pjObject::import('Model', 'pjUser');
 					$pjUserModel = new pjUserModel();
-				
+
 					$opts['status'] = 'T';
 					$opts['role_id'] = '1';
 					$opts['row_count'] = '1';
-						
+
 					$user = $pjUserModel->getAll($opts);
-						
+
 					$user = $user[0];
-					
+
 					# Login succeed
 					$_SESSION[$this->default_user] = $user;
 					$_SESSION['default_user'] = $this->default_user;
@@ -76,7 +75,7 @@ class pjAdmin extends pjAppController
 					$data['id'] = $user['id'];
 					$data['last_login'] = date("Y-m-d H:i:s");
 					$pjUserModel->update($data);
-				
+
 					if ($this->isAdmin())
 						pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjAdminBookings&action=schedule");
 				}
@@ -84,8 +83,7 @@ class pjAdmin extends pjAppController
 			}
 		}
 
-        $hashids = new Hashids(Bridge::config('app.key'), 8);
-        $this->tpl['hash'] = $hashids->encrypt($_SESSION['owner_id']);
+        $this->tpl['hash'] = Hashids::encrypt($_SESSION['owner_id']);
 	}
 /**
  * (non-PHPdoc)
@@ -93,7 +91,7 @@ class pjAdmin extends pjAppController
  */
 	function afterFilter()
 	{
-	
+
 	}
 /**
  * (non-PHPdoc)
@@ -103,17 +101,17 @@ class pjAdmin extends pjAppController
 	{
 		$this->js[] = array('file' => 'jquery-1.7.2.min.js', 'path' => LIBS_PATH . 'jquery/');
 		$this->js[] = array('file' => 'pjAdminCore.js', 'path' => JS_PATH);
-		
+
 		$this->js[] = array('file' => 'jquery.ui.core.min.js', 'path' => LIBS_PATH . 'jquery/ui/js/');
 		$this->js[] = array('file' => 'jquery.ui.widget.min.js', 'path' => LIBS_PATH . 'jquery/ui/js/');
 		$this->js[] = array('file' => 'jquery.ui.tabs.min.js', 'path' => LIBS_PATH . 'jquery/ui/js/');
-		
+
 		$this->css[] = array('file' => 'jquery.ui.core.css', 'path' => LIBS_PATH . 'jquery/ui/css/smoothness/');
 		$this->css[] = array('file' => 'jquery.ui.theme.css', 'path' => LIBS_PATH . 'jquery/ui/css/smoothness/');
 		$this->css[] = array('file' => 'jquery.ui.tabs.css', 'path' => LIBS_PATH . 'jquery/ui/css/smoothness/');
-				
+
 		$this->css[] = array('file' => 'admin.css', 'path' => CSS_PATH);
-		
+
 		pjObject::import('Model', 'pjOption');
 		$pjOptionModel = new pjOptionModel();
 		$this->models['pjOption'] = $pjOptionModel;
@@ -126,7 +124,7 @@ class pjAdmin extends pjAppController
  */
 	function beforeRender()
 	{
-		
+
 	}
 
 	function dashboard()
@@ -135,7 +133,7 @@ class pjAdmin extends pjAppController
 		{
 			if ($this->isAdmin())
 			{
-				
+
 			} else {
 				$this->tpl['status'] = 2;
 			}
@@ -172,16 +170,16 @@ class pjAdmin extends pjAppController
 	function login()
 	{
 		if ( isset($_COOKIE['rbooking_admin']) && $_COOKIE['rbooking_admin']  == 'admin') {
-		
+
 			pjObject::import('Model', 'pjUser');
 			$pjUserModel = new pjUserModel();
-		
+
 			$opts['status'] = 'T';
 			$opts['role_id'] = '1';
 			$opts['row_count'] = '1';
-			
+
 			$user = $pjUserModel->getAll($opts);
-			
+
 			$user = $user[0];
 			//var_dump($user);die();
 			# Login succeed
@@ -195,9 +193,9 @@ class pjAdmin extends pjAppController
     		if ($this->isAdmin())
 				pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjAdminBookings&action=schedule");
 		}
-		
+
 		$this->layout = 'admin_login';
-		
+
 		if (isset($_POST['login_user']))
 		{
 			pjObject::import('Model', 'pjUser');
@@ -205,7 +203,7 @@ class pjAdmin extends pjAppController
 
 			$opts['email'] = $_POST['login_email'];
 			$opts['password'] = $_POST['login_password'];
-			
+
 			$user = $pjUserModel->getAll($opts);
 
 			if (count($user) != 1)
@@ -215,27 +213,27 @@ class pjAdmin extends pjAppController
 			} else {
 				$user = $user[0];
 				#unset($user['password']);
-															
+
 				if (!in_array($user['role_id'], array(1, 2)))
 				{
 					# Login denied
 					pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjAdmin&action=login&err=2");
 				}
-				
+
 				if ($user['status'] != 'T')
 				{
 					# Login forbidden
 					pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjAdmin&action=login&err=3");
 				}
-				
+
 				# Login succeed
     			$_SESSION[$this->default_user] = $user;
-    			
+
     			# Update
     			$data['id'] = $user['id'];
     			$data['last_login'] = date("Y-m-d H:i:s");
     			$pjUserModel->update($data);
-    			
+
     			if ($this->isAdmin())
     			{
 	    			pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjAdminBookings&action=schedule");
@@ -276,10 +274,10 @@ class pjAdmin extends pjAppController
 		{
 			$_SESSION[$this->default_product][$this->default_language] = $iso;
 		}
-				
+
 		pjUtil::redirect($_SERVER['PHP_SELF'] . "?controller=pjAdmin&action=index");
 	}
-	
+
 	function profile()
 	{
 		if ($this->isLoged())
@@ -288,14 +286,14 @@ class pjAdmin extends pjAppController
 			{
 				pjObject::import('Model', 'pjUser');
 				$pjUserModel = new pjUserModel();
-				
+
 				if (isset($_POST['profile_update']))
 				{
 					if (0 != $pjUserModel->getCount(array('t1.email' => $_POST['email'], 't1.id' => array($this->getUserId(), '!=', 'int'))))
 					{
 						$err = 'AU09';
 					}
-					
+
 					if (!isset($err))
 					{
 						$data = array();
@@ -305,12 +303,12 @@ class pjAdmin extends pjAppController
 					}
 					pjUtil::redirect(sprintf("%s?controller=pjAdmin&action=profile&err=%s", $_SERVER['PHP_SELF'], $err));
 				}
-				
+
 				$this->tpl['arr'] = $pjUserModel->get($this->getUserId());
-				
+
 				$this->js[] = array('file' => 'jquery.validate.min.js', 'path' => LIBS_PATH . 'jquery/plugins/validate/js/');
 				$this->js[] = array('file' => 'pjAdmin.js', 'path' => JS_PATH);
-				
+
 			} else {
 				$this->tpl['status'] = 2;
 			}
@@ -324,7 +322,7 @@ class pjAdmin extends pjAppController
 		printf('BUILD: %s', SCRIPT_BUILD);
 		exit;
 	}
-	
+
 	function hash()
 	{
 		if ($this->isLoged())
@@ -332,12 +330,12 @@ class pjAdmin extends pjAppController
 			if ($this->isAdmin())
 			{
 				@set_time_limit(0);
-				
+
 				if (!function_exists('md5_file'))
 				{
 					die("Function <b>md5_file</b> doesn't exists");
 				}
-				
+
 				# Origin hash -------------
 				if (!is_file(CONFIG_PATH . 'files.check'))
 				{
@@ -352,7 +350,7 @@ class pjAdmin extends pjAppController
 					die("File <b>files.check</b> is empty or broken");
 				}
 				$origin = get_object_vars($data);
-						
+
 				# Current hash ------------
 				$data = array();
 				pjUtil::readDir($data, INSTALL_PATH);
@@ -361,7 +359,7 @@ class pjAdmin extends pjAppController
 				{
 					$current[str_replace(INSTALL_PATH, '', $file)] = md5_file($file);
 				}
-				
+
 				$html = '<style type="text/css">
 				table{border: solid 1px #000; border-collapse: collapse; font-family: Verdana, Arial, sans-serif; font-size: 14px}
 				td{border: solid 1px #000; padding: 3px 5px; background-color: #fff; color: #000}
@@ -377,7 +375,7 @@ class pjAdmin extends pjAppController
 					{
 						if ($current[$file] == $hash)
 						{
-							
+
 						} else {
 							$html .= '<tr><td>'. $file . '</td><td class="diff">changed</td></tr>';
 						}
@@ -391,7 +389,7 @@ class pjAdmin extends pjAppController
 			}
 		}
 	}
-	
+
 	function updateDB()
 	{
 		if ($this->isLoged())
@@ -399,7 +397,7 @@ class pjAdmin extends pjAppController
 			if ($this->isAdmin())
 			{
 				$this->layout = 'install';
-				
+
 				$string = @file_get_contents('app/config/config.sample.php');
 				preg_match('/SCRIPT_BUILD["\']\s*,\s*["\'](\d+\.\d+\.\d+)/', $string, $match);
 				$SCRIPT_BUILD = "";
@@ -407,7 +405,7 @@ class pjAdmin extends pjAppController
 				{
 					$SCRIPT_BUILD = $match[1];
 				}
-				
+
 				$dir = 'app/config/';
 				if (isset($_POST['update']) && isset($_POST['currentVersion']))
 				{
@@ -441,7 +439,7 @@ class pjAdmin extends pjAppController
 											'UPDATE `'.DEFAULT_PREFIX
 										),
 										$string);
-									
+
 									$arr = preg_split('/;(\s+)?\n/', $string);
 									foreach ($arr as $v)
 									{
@@ -462,11 +460,11 @@ class pjAdmin extends pjAppController
 				} else {
 					pjObject::import('Model', 'pjOption');
 					$pjOptionModel = new pjOptionModel();
-					
+
 					$opt = $pjOptionModel->get('db_version');
 					$currentVersion = count($opt) > 0 ? $opt['value'] : NULL;
 					$this->tpl['currentVersion'] = $currentVersion;
-					
+
 					if ($handle = opendir($dir))
 					{
 						while (false !== ($file = readdir($handle)))
