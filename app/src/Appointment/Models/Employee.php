@@ -85,43 +85,46 @@ class Employee extends Base
 
     public function getDefaultWorkingTimes()
     {
-       $defaultTimes = $this->getDefaultTimes();
-       $startTimes   = [];
-       $endTimes     = [];
+        $defaultTimes = $this->getDefaultTimes();
+        $startTimes   = [];
+        $endTimes     = [];
 
-       foreach ($defaultTimes as $time) {
-            $startTimes[] = Carbon::createFromFormat('H:i:s', $time->start_at);
-            $endTimes[] =  Carbon::createFromFormat('H:i:s', $time->end_at);
-       }
-       //low to high
-       usort($startTimes, function($a, $b){
-           if ($a == $b) {
+        foreach ($defaultTimes as $time) {
+            if ($time->is_day_off === 0) {
+                $startTimes[] = Carbon::createFromFormat('H:i:s', $time->start_at);
+                $endTimes[] =  Carbon::createFromFormat('H:i:s', $time->end_at);
+            }
+        }
+
+        //low to high
+        usort($startTimes, function($a, $b){
+            if ($a === $b) {
                 return 0;
             }
             return ($a < $b) ? -1 : 1;
-       });
+        });
 
-       //hight to low
-       usort($endTimes, function($a, $b){
-           if ($a == $b) {
+        //hight to low
+        usort($endTimes, function($a, $b){
+            if ($a === $b) {
                 return 0;
             }
             return ($a > $b) ? -1 : 1;
-       });
+        });
 
         $workingTimes = [];
-        $start_hour   = $startTimes[0]->hour;
-        $start_minute = $startTimes[0]->minute;
-        $end_hour     = $endTimes[0]->hour;
-        $end_minute   = $endTimes[0]->minute;
+        $startHour = isset($startTimes[0]) ? $startTimes[0]->hour : 7;
+        $startMinute = isset($startTimes[0]) ? $startTimes[0]->minute: 0;
+        $endHour = isset($endTimes[0]) ? $endTimes[0]->hour : 21;
+        $endMinute = isset($endTimes[0]) ? $endTimes[0]->minute : 0;
 
-        for($i = (int) $start_hour; $i<= (int)$end_hour - 1; $i++) {
+        for ($i = (int)$startHour; $i<= (int)$endHour - 1; $i++) {
             $workingTimes[$i] = range(0, 45, 15);
-            if($i == $start_hour && $start_minute != 0){
-                $workingTimes[$i] = range(0, (int)$start_minute, 15);
+            if ($i == $startHour && $startMinute != 0) {
+                $workingTimes[$i] = range(0, (int)$startMinute, 15);
             }
-            if($i == $end_hour && $end_minute != 0){
-                 $workingTimes[$i] = range(0, (int)$end_minute, 15);
+            if ($i == $endHour && $endMinute != 0) {
+                 $workingTimes[$i] = range(0, (int)$endMinute, 15);
             }
         }
         return $workingTimes;
