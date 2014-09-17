@@ -27,7 +27,7 @@ class Backend implements Strategy
         list($endHour, $endMinute) = explode(':', $employee->getTodayDefaultEndAt($selectedDate->dayOfWeek));
         $endAt = Carbon::createFromTime($endHour, $endMinute, 0, Config::get('app.timezone'));
 
-        if ($rowTime >= $startAt && $rowTime <= $endAt && !$defaultWorkingTime->is_day_off) {
+        if ($rowTime >= $startAt && $rowTime < $endAt && !$defaultWorkingTime->is_day_off) {
             $class = 'fancybox active';
         } else {
             $class = 'inactive';
@@ -43,7 +43,7 @@ class Backend implements Strategy
         foreach ($this->customTimeCache as $empCustomTime) {
             $startAt =  Carbon::createFromFormat('H:i:s', $empCustomTime->customTime->start_at, Config::get('app.timezone'));
             $endAt   =  Carbon::createFromFormat('H:i:s', $empCustomTime->customTime->end_at, Config::get('app.timezone'));
-            if ($rowTime >= $startAt && $rowTime <= $endAt && !$empCustomTime->customTime->is_day_off) {
+            if ($rowTime >= $startAt && $rowTime < $endAt && !$empCustomTime->customTime->is_day_off) {
                 $class = 'fancybox active';
                 $this->customTimeSlot[$selectedDate->toDateString()][(int) $hour][(int) $minute] = $empCustomTime;
             } else {
