@@ -176,7 +176,7 @@ class Bookings extends AsBase
         foreach ($services as $service) {
             //for getting distinct categories
             $categories[$service->category->id] = $service->category->name;
-            $jsonServices[$service->category->id][] = [
+            $jsonServices[$service->category->id][0] = [
                 'id' => -1,
                 'name'=> trans('common.select'),
             ];
