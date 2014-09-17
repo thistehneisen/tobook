@@ -288,4 +288,27 @@ trait Olut
 
         return $item;
     }
+
+    /**
+     * Delete a category
+     *
+     * @param int $id
+     *
+     * @return Redirect
+     */
+    public function delete($id)
+    {
+        $item = $this->getModel()->ofCurrentUser()->findOrFail($id);
+        $item->delete();
+
+        if (Request::ajax() === true) {
+            return Response::json(['success' => true]);
+        }
+
+        return Redirect::route(static::$crudRoutes['index'])
+            ->with(
+                'messages',
+                $this->successMessageBag(trans('olut::olut.success_delete'))
+            );
+    }
 }
