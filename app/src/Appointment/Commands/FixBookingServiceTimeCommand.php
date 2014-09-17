@@ -6,37 +6,37 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class FixBookingServiceTimeCommand extends Command {
 
-	/**
-	 * The console command name.
-	 *
-	 * @var string
-	 */
-	protected $name = 'varaa:fix-booking-service-time';
+    /**
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $name = 'varaa:fix-booking-service-time';
 
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
-	protected $description = 'Re-determine service time of a booking';
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Re-determine service time of a booking';
 
-	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		parent::__construct();
-	}
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
-	/**
-	 * Execute the console command.
-	 *
-	 * @return mixed
-	 */
-	public function fire()
-	{
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function fire()
+    {
         $all = DB::table('as_bookings')
             ->select(
                 'as_bookings.*',
@@ -52,11 +52,21 @@ class FixBookingServiceTimeCommand extends Command {
             ->orderBy('as_bookings.id', 'desc')
             ->get();
 
-        $count = 1;
+        $count = 0;
+        $countExtraService = 0;
+        $countUpdate = 0;
+        $countPlusTime = 0;
+        $countFutureTotal = 0;
+        $countFutureUpdated = 0;
         foreach ($all as $item) {
+            if ($item->date > '2014-09-17') {
+                $countFutureTotal += 1;
+            }
+
+            $count += 1;
             $rawTotal = $item->total;
-            if($item->total == $item->length && empty($item->service_time_id)){
-                break;
+            if ($rawTotal == $item->length && empty($item->service_time_id)) {
+                continue;
             }
 
             $employeeService = DB::table('as_employee_service')
@@ -64,6 +74,9 @@ class FixBookingServiceTimeCommand extends Command {
                 ->where('employee_id', $item->employee_id)->first();
 
             if (!empty($employeeService)) {
+                if ((int) $employeeService->plustime > 0) {
+                    $countPlusTime += 1;
+                }
                 $rawTotal -= (int) $employeeService->plustime;
             }
 
@@ -73,6 +86,7 @@ class FixBookingServiceTimeCommand extends Command {
             ->get();
 
             if (!empty($extraServices)) {
+                $countExtraService += 1;
                 foreach ($extraServices as $service) {
                     $rawTotal -= (int) $service->length;
                 }
@@ -86,10 +100,17 @@ class FixBookingServiceTimeCommand extends Command {
                 DB::table('as_booking_services')->where('booking_id', $item->id)
                     ->update(['service_time_id' => $serviceTime->id]);
                 echo '.';
-                $count++;
+                $countUpdate += 1;
+                if ($item->date > '2014-09-17') {
+                    $countFutureUpdated += 1;
+                }
             }
-
         }
-        $this->info(sprintf('%d has updated', $count));
-	}
+        $this->info(sprintf('%d rows', $count));
+        $this->info(sprintf('%d are updated', $countUpdate));
+        $this->info(sprintf('%d have extra services', $countExtraService));
+        $this->info(sprintf('%d have plus time', $countPlusTime));
+        $this->info(sprintf('%d in the future', $countFutureTotal));
+        $this->info(sprintf('%d in the future updated', $countFutureUpdated));
+    }
 }
