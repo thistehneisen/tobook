@@ -1,6 +1,6 @@
 <?php namespace App\Consumers\Models;
 
-use Confide;
+use Confide, DB;
 use App\Core\Models\User;
 
 class Consumer extends \App\Core\Models\Base
@@ -18,7 +18,14 @@ class Consumer extends \App\Core\Models\Base
 
     protected $rulesets = [
         'saving' => [
-            'email' => 'required|email',
+            'email'         => 'required|email',
+            'first_name'    => 'required',
+            'last_name'     => 'required',
+            'phone'         => 'required|numeric',
+            'address'       => 'required',
+            'postcode'      => 'required|numeric',
+            'city'          => 'required',
+            'country'       => 'required'
         ]
     ];
 
@@ -38,6 +45,35 @@ class Consumer extends \App\Core\Models\Base
             $value = 'as_consumer_'.uniqid().'@varaa.com';
         }
         $this->attributes['email'] = $value;
+    }
+
+    private function checkService($table)
+    {
+        $service = DB::table($table)
+                    ->where('user_id', Confide::user()->id)
+                    ->where('consumer_id', $this->id)
+                    ->first();
+
+        if ($service) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getServiceAttribute()
+    {
+        $service = '';
+
+        if ($this->checkService('as_consumers')) {
+            $service .= trans('dashboard.appointment');
+        }
+
+        if (!$this->checkService('lc_consumers')) {
+            $service .= ', ' . trans('dashboard.loyalty');
+        }
+
+        return $service;
     }
 
     //--------------------------------------------------------------------------

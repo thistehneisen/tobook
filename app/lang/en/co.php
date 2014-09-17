@@ -27,4 +27,5 @@ return [
     'invalid_action'    => 'Invalid action',
     'all'               => 'All',
     'add'               => 'Add',
+    'services'          => 'Services',
 ];

@@ -9,6 +9,7 @@ class Consumer extends Base
     use Crud;
     protected $modelClass = 'App\Consumers\Models\Consumer';
     protected $langPrefix = 'co';
+    protected $viewPath = 'modules.co';
 
     protected function upsertHandler($item)
     {

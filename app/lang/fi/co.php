@@ -28,4 +28,5 @@ return [
     'invalid_action'    => 'Invalid action',
     'all'               => 'Kaikki',
     'add'               => 'Lisää',
+    'services'          => 'Palvelut',
 ];
