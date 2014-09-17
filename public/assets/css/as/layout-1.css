@@ -2,6 +2,7 @@ header .row {
   margin: 20px 0;
   text-align: center;
 }
+header .row .logo,
 header .row .banner {
   margin: 10px 20px;
   display: inline-block;
