@@ -1,4 +1,4 @@
-@extends ('layouts.default')
+@extends ('modules.as.layout')
 
 @section ('styles')
     @parent

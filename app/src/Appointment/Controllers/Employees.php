@@ -330,6 +330,10 @@ class Employees extends AsBase
         $customTimes = CustomTime::ofCurrentUser()
             ->orderBy('id', 'desc')->lists('name','id');
 
+        $customTimes = [
+            0  => trans('common.select'),
+        ] + $customTimes;
+
         $employee =  (!empty($employeeId))
             ? Employee::ofCurrentUser()->find($employeeId)
             : Employee::ofCurrentUser()->first();
@@ -353,17 +357,37 @@ class Employees extends AsBase
             ->where('date','<=', $endOfMonth)
             ->orderBy('date','asc')->get();
 
+        $customTimesList = [];
+        foreach ($items as $item) {
+           $customTimesList[$item->date] = $item;
+        }
+
+        $currentMonths = [];
+        $startDay = with(clone $current->startOfMonth());
+        foreach (range(1, $current->daysInMonth) as $day) {
+            if(!empty($customTimesList[$startDay->toDateString()])){
+                $currentMonths[$startDay->toDateString()] = $customTimesList[$startDay->toDateString()];
+            } else {
+                $currentMonths[$startDay->toDateString()] = with (clone $startDay);
+            }
+            $startDay->addDay();
+        }
+
         return $this->render('customTime', [
-            'customTimes'  => $customTimes,
-            'items'        => $items,//custom time of the employee
-            'employee'     => $employee,
-            'employees'    => $employees,
-            'current'      => $current,
-            'startOfMonth' => $startOfMonth,
-            'endOfMonth'   => $endOfMonth
+            'customTimes'     => $customTimes,
+            'customTimesList' => $customTimesList,//custom time of the employee
+            'employee'        => $employee,
+            'employees'       => $employees,
+            'current'         => $current,
+            'currentMonths'   => $currentMonths,
+            'startOfMonth'    => $startOfMonth,
+            'endOfMonth'      => $endOfMonth
         ]);
     }
 
+    /**
+     * Obsoleted, temporary is not used
+     */
     public function upsertEmployeeCustomTime()
     {
         $customTimeId = Input::get('custom_times');
@@ -445,14 +469,21 @@ class Employees extends AsBase
             $employee = Employee::ofCurrentUser()->findOrFail($employeeId);
             $current = Carbon::now();
             foreach ($customTimes as $date => $customTimeId) {
-                $customTime = CustomTime::find($customTimeId);
+                $customTime = (intval($customTimeId) !== 0)  ? CustomTime::find($customTimeId) : null;
                 $employeeCustomTime = EmployeeCustomTime::getUpsertModel($employeeId, $date);
-                $employeeCustomTime->fill([
-                    'date' =>  $date
-                ]);
-                $employeeCustomTime->employee()->associate($employee);
-                $employeeCustomTime->customTime()->associate($customTime);
-                $employeeCustomTime->save();
+                if(!empty($customTime)){
+                    $employeeCustomTime->fill([
+                        'date' =>  $date
+                    ]);
+                    $employeeCustomTime->employee()->associate($employee);
+                    $employeeCustomTime->customTime()->associate($customTime);
+                    //$employeeCustomTime->restore();
+                    $employeeCustomTime->save();
+                } else {
+                    if(!empty($employeeCustomTime->date)){
+                        $employeeCustomTime->delete();
+                    }
+                }
                 $current = Carbon::createFromFormat('Y-m-d', $date);
             }
             return Redirect::route('as.employees.employeeCustomTime', ['employeeId' => $employeeId, 'date' => $current->format('Y-m')])
