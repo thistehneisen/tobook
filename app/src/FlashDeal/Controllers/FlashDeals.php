@@ -34,6 +34,7 @@ class FlashDeals extends Base
         $item->fill(Input::all());
         $service = Service::findOrFail(Input::get('service_id'));
         $item->service()->associate($service);
+        $item->user()->associate($this->user);
         $item->saveOrFail();
 
         // Add flash deal dates
@@ -63,6 +64,7 @@ class FlashDeals extends Base
                         'expire'  => $expire,
                         'remains' => Input::get('quantity')
                     ]);
+                    $obj->user()->associate($this->user);
 
                     $dates[] = $obj;
                 }

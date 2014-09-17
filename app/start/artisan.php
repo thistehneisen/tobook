@@ -23,3 +23,4 @@ Artisan::add(new App\Appointment\Commands\FixTotalPriceBookingsCommand());
 Artisan::add(new App\Appointment\Commands\FixBookingStatusCommand());
 Artisan::add(new App\Appointment\Commands\FixBookingsNotesCommand());
 Artisan::add(new App\Appointment\Commands\FixBookingTotalCommand());
+Artisan::add(new App\FlashDeal\Commands\FixUserIdCommand());

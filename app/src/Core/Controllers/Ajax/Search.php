@@ -59,29 +59,22 @@ class Search extends Base
     public function showBusiness($id)
     {
         $business = User::findOrFail($id);
-        $coupons = $business->coupons()->active()->with('service')->get();
-        $flashDeals = $business->flashDeals()
-            ->with(['dates', 'service'])
-            ->whereHas('dates', function($query) {
-            return $query->where('remains', '>', 0)
-                ->where('expire', '>=', Carbon::now());
-            })
+        $coupons = $business
+            ->coupons()
+            ->with('service')
+            ->active()
             ->get();
 
-        // Filter out passed deals
-        $deals = new Collection;
-        foreach ($flashDeals as $deal) {
-            $deal->active = $deal->dates->filter(function($item) {
-                return $item->expire->gte(Carbon::now());
-            });
-
-            $deals->push($deal);
-        }
+        $flashDeals = $business
+            ->flashDeals()
+            ->with('flashDeal', 'flashDeal.service')
+            ->active()
+            ->get();
 
         $view = $this->view('front.search.business', [
             'business'   => $business,
             'coupons'    => $coupons,
-            'flashDeals' => $deals
+            'flashDeals' => $flashDeals
         ]);
 
         if (Request::ajax()) {

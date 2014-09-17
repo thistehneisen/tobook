@@ -84,4 +84,9 @@ class FlashDealDate extends Base
     {
         return $this->belongsTo('App\FlashDeal\Models\FlashDeal');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Core\Models\User');
+    }
 }
