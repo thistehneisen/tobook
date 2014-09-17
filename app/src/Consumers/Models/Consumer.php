@@ -41,9 +41,6 @@ class Consumer extends \App\Core\Models\Base
     public function setEmailAttribute($value)
     {
         $value = trim($value);
-        if (empty($value)) {
-            $value = 'as_consumer_'.uniqid().'@varaa.com';
-        }
         $this->attributes['email'] = $value;
     }
 
