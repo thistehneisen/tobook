@@ -21,11 +21,7 @@ class Consumer extends \App\Core\Models\Base
             'email'         => 'required|email',
             'first_name'    => 'required',
             'last_name'     => 'required',
-            'phone'         => 'required|numeric',
-            'address'       => 'required',
-            'postcode'      => 'required|numeric',
-            'city'          => 'required',
-            'country'       => 'required'
+            'phone'         => 'required|numeric'
         ]
     ];
 

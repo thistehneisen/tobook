@@ -532,7 +532,12 @@ class Bookings extends AsBase
         $phone     = Input::get('phone', '');
         $address   = Input::get('address', '');
         $hash      = Input::get('hash');
-        $consumer = Consumer::where('email', $email)->first();
+
+        $consumer = Consumer::where('email', $email)
+            ->where('first_name', $firstname)
+            ->where('last_name', $lastname)
+            ->where('phone', $phone)->first();
+
         $asConsumer = new AsConsumer();
 
         //In front end, user is identified from hash
@@ -753,6 +758,7 @@ class Bookings extends AsBase
                 'first_name' => $consumer->first_name,
                 'last_name'  => $consumer->last_name,
                 'email'      => $consumer->email,
+                'phone'      => $consumer->phone,
                 'address'    => $consumer->address
             );
         }
