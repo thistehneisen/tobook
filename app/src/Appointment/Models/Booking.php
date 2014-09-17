@@ -13,6 +13,7 @@ class Booking extends \App\Core\Models\Base implements \SplSubject
         'start_at',
         'end_at',
         'status',
+        'notes',
         'uuid',
         'ip',
     ];
