@@ -66,7 +66,14 @@
         }
         @endif
 
-        @if (!empty($user->asOptions['style_custom_css'])) {{ $user->asOptions['style_custom_css'] }}
+        @if (!empty($user->asOptions['style_custom_css']))
+        {{ $user->asOptions['style_custom_css'] }}
+        @endif
+
+        @if (!empty($user->asOptions['hide_prices']) && $user->asOptions['hide_prices'] === '1')
+        .price-tag {
+            display:none;
+        }
         @endif
     </style>
 </head>

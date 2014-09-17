@@ -37,9 +37,9 @@
                     <div class="panel-heading">{{ $item['service_name'] }}</div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-sm-6"> {{ $item['datetime'] }}</div>
-                            <div class="col-sm-4"> {{ $item['price'] }} &euro;</div>
-                            <div class="col-sm-2"> <a href="#" data-hash="{{ $hash }}" data-action-url="{{ route('as.bookings.service.remove.in.cart') }}" data-uuid="{{ $key }}" class="btn-remove-item-from-cart"><i class="glyphicon glyphicon-remove btn-danger"></i></a></div>
+                            <div class="col-sm-6">{{ $item['datetime'] }}</div>
+                            <div class="col-sm-4"><span class="price-tag"> {{ $item['price'] }} &euro;</span></div>
+                            <div class="col-sm-2"><a href="#" data-hash="{{ $hash }}" data-action-url="{{ route('as.bookings.service.remove.in.cart') }}" data-uuid="{{ $key }}" class="btn-remove-item-from-cart"><i class="glyphicon glyphicon-remove btn-danger"></i></a></div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12"> {{ $item['start_at'] }} : {{ $item['end_at'] }}</div>

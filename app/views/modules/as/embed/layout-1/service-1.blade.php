@@ -12,12 +12,12 @@
                     <a data-toggle="collapse" data-parent="#category-services-{{ $category->id }}" href="#service-{{ $category->id.'-'.$service->id }}"><h5 class="heading">{{ $service->name }}</h5></a>
                     <div id="service-{{ $category->id.'-'.$service->id }}" class="collapse">
                         <p>
-                            <a data-service-id="{{ $service->id }}" data-service-time="default" class="btn btn-default btn-select-service-time"><i class="glyphicon glyphicon-tag"></i> &euro;{{ number_format($service->price) }}</a>
+                            <a data-service-id="{{ $service->id }}" data-service-time="default" class="btn btn-default btn-select-service-time price-tag"><i class="glyphicon glyphicon-tag"></i> &euro;{{ number_format($service->price) }}</a>
                             <a data-service-id="{{ $service->id }}" data-service-time="default" class="btn btn-default btn-select-service-time"><i class="glyphicon glyphicon-time"></i> {{ $service->during }}  {{ trans('common.minutes')}}</a>
                         </p>
                         @foreach ($service->serviceTimes as $serviceTime)
                         <p>
-                            <a data-service-id="{{ $service->id }}" data-service-time="{{ $serviceTime->id }}" class="btn btn-default btn-select-service-time"><i class="glyphicon glyphicon-tag"></i> &euro;{{ number_format($serviceTime->price) }}</a>
+                            <a data-service-id="{{ $service->id }}" data-service-time="{{ $serviceTime->id }}" class="btn btn-default btn-select-service-time price-tag"><i class="glyphicon glyphicon-tag"></i> &euro;{{ number_format($serviceTime->price) }}</a>
                             <a data-service-id="{{ $service->id }}" data-service-time="{{ $serviceTime->id }}" class="btn btn-default btn-select-service-time"><i class="glyphicon glyphicon-time"></i> {{ $serviceTime->during }} {{ trans('common.minutes')}}</a>
                             <span class="text-muted">{{ $serviceTime->description }}</span>
                         </p>
