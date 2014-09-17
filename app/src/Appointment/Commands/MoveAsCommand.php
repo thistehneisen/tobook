@@ -180,9 +180,9 @@ class MoveAsCommand extends Command
             return [
                 'service_id'  => $map['varaa_as_services'][$item->foreign_id],
                 'price'       => $item->price,
-                'length'      => $item->length,
+                'length'      => $item->total,
                 'before'      => $item->before,
-                'during'      => $item->total,
+                'during'      => $item->length,
                 'after'       => $item->after,
                 'description' => (string) $item->description,
             ];
