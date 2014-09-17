@@ -25,15 +25,18 @@ class Consumer extends \App\Core\Models\Base
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
-    /**
-     * Concat first_name and last_name
-     * Usage: $user->name
-     *
-     * @return string
-     */
+
     public function getNameAttribute()
     {
         return $this->first_name.' '.$this->last_name;
+    }
+
+    public function setEmailAttribute($value)
+    {
+        if (empty($value)) {
+            $value = 'as_consumer_'.uniqid().'@varaa.com';
+        }
+        $this->attributes['email'] = $value;
     }
 
     //--------------------------------------------------------------------------
@@ -62,8 +65,12 @@ class Consumer extends \App\Core\Models\Base
             $user = User::findOrFail($userId);
         }
 
+        if (empty($data['email'])) {
+            $data['email'] = '';
+        }
+
         try {
-            $consumer = new self;
+            $consumer = new self();
             $consumer->fill($data);
             $consumer->saveOrFail();
         } catch (\Illuminate\Database\QueryException $ex) {
@@ -117,7 +124,7 @@ class Consumer extends \App\Core\Models\Base
     //--------------------------------------------------------------------------
     public function scopeVisible($query)
     {
-        return $query->whereHas('users', function($q) {
+        return $query->whereHas('users', function ($q) {
             return $q->where('is_visible', true);
         });
     }
