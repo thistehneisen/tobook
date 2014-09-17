@@ -1,4 +1,4 @@
-@import "_vars.less";
+ @import "_vars.less";
 @import "typeahead.less";
 
 // -------------------------------------------------------------------------- //
@@ -81,13 +81,20 @@ a {
                 }
             }
             // display dropdown menu on hover
-            .dropdown:hover .dropdown-menu {
+            .navbar-nav .dropdown:hover .dropdown-menu {
                 display: block;
             }
 
             li > p {
                 padding: 15px 10px 15px 0;
                 margin: 0;
+            }
+
+            .user-top-nav {
+                margin-top: 5px;
+                li.active > a {
+                    background: @orange;
+                }
             }
         }
     }

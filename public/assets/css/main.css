@@ -96,12 +96,18 @@ a:hover {
   color: #fff;
   background: #ec7923;
 }
-.header nav.main-nav #main-menu .dropdown:hover .dropdown-menu {
+.header nav.main-nav #main-menu .navbar-nav .dropdown:hover .dropdown-menu {
   display: block;
 }
 .header nav.main-nav #main-menu li > p {
   padding: 15px 10px 15px 0;
   margin: 0;
+}
+.header nav.main-nav #main-menu .user-top-nav {
+  margin-top: 5px;
+}
+.header nav.main-nav #main-menu .user-top-nav li.active > a {
+  background: #ec7923;
 }
 .header .search-wrapper {
   background: #ec7923;

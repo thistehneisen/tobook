@@ -65,6 +65,21 @@
                 </div>
 
                 <div class="collapse navbar-collapse" id="main-menu">
+                    @if (!Confide::user())
+                    <ul class="user-top-nav nav nav-pills pull-right">
+                        <li class="dropdown active">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                {{ trans('common.for_business') }}
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ route('auth.login') }}">{{ trans('common.sign_in_header') }}</a></li>
+                                <li><a href="{{ route('auth.register') }}">{{ trans('common.register') }}</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    @endif
+
                     <ul class="nav navbar-nav">
                     @if (Confide::user())
                         <li><p>
@@ -154,6 +169,8 @@
 
             <div class="col-md-4 col-lg-4">
                 <ul class="list-unstyled">
+                    <li><a href="{{ route('business.index') }}">{{ trans('common.for_business') }}</a></li>
+                    {{--
                     @if (Confide::user())
                     <li><a href="{{ route('auth.logout') }}">{{ trans('common.sign_out') }}</a></li>
                     @else
@@ -161,6 +178,7 @@
                     <li><a href="{{ route('auth.register') }}">{{ trans('common.register') }}</a></li>
                     <li><a href="{{ route('auth.login') }}">{{ trans('common.sign_in_header') }}</a>
                     @endif
+                    --}}
                 </ul>
             </div>
         </div>
