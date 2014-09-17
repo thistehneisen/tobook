@@ -56,7 +56,6 @@ class FixBookingServiceTimeCommand extends Command {
         foreach ($all as $item) {
             $rawTotal = $item->total;
             if($item->total == $item->length && empty($item->service_time_id)){
-                $notUpdateCount++;
                 break;
             }
 

@@ -162,7 +162,7 @@
                                         @if (isset($serviceTime['length']))
                                             data-length="{{ $serviceTime['length'] }}"
                                         @endif
-                                        @if ($bookingServiceTime == (int)$serviceTime['id'])
+                                        @if (intval($bookingServiceTime) === intval($serviceTime['id']))
                                             selected="selected"
                                         @endif
                                             value="{{ $serviceTime['id']}}">

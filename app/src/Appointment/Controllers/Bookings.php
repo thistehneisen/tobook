@@ -94,7 +94,7 @@ class Bookings extends AsBase
             $serviceTimesList[$serviceTime->id] = $serviceTime->length;
         }
 
-        $bookingServiceTime = (!empty($booking->bookingServices()->first()->serviceTime))
+        $bookingServiceTime = (!empty($booking->bookingServices()->first()->serviceTime->id))
                             ? $booking->bookingServices()->first()->serviceTime->id
                             : 'default';
 
@@ -188,6 +188,7 @@ class Bookings extends AsBase
             $jsonServiceTimes[$service->id][] = [
                 'id'  => -1,
                 'name'=> trans('common.select'),
+                'length' => 0
             ];
             $jsonServiceTimes[$service->id][] = [
                 'id'            => 'default',

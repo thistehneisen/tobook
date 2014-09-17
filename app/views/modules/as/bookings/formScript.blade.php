@@ -22,7 +22,6 @@ $(function () {
         $('#service_times').empty();
         var data = serviceTimes[$(this).val()];
         var i;
-        console.log(data);
         for (i = 0; i < data.length; i = i + 1) {
             $('#service_times').append(
                 $('<option>', {
