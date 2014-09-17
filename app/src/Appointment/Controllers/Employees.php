@@ -169,7 +169,7 @@ class Employees extends AsBase
         $employees   = Employee::ofCurrentUser()->lists('name','id');
 
         //TODO get form settings or somewhere else
-        $workingTimes = range(8,17);
+        $workingTimes = range(6, 22);
         $workShift = range(0, 45, 15);
         $times = [];
         foreach ($workingTimes as $hour) {
