@@ -254,7 +254,7 @@ return [
             'add_overlapped_booking' => 'Overlapped booking time!',// @todo
             'insufficient_slots'     => 'There is no enough time slots for this booking!',// @todo
             'invalid_consumer_info'  => 'Could not save consumer info',// @todo
-            'terms'                  => 'You have to agree with our term.'//@todo
+            'terms'                  => 'You have to agree with our term.',//@todo
             'unknown'                => 'Something went wrong!'//@todo
         ],
         'warning'      => [
