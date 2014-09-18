@@ -36,6 +36,7 @@ abstract class Base
             ? $this->options['label']
             : $this->getName();
 
+        $label = trans($label);
         if (isset($this->options['required']) && $this->options['required']) {
             $label .= '*';
         }

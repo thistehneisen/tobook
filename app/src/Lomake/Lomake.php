@@ -86,9 +86,7 @@ class Lomake
 
             // Firstly we're trying to translate field name
             // But if it's not available, use the raw name instead
-            $field['label'] = isset($opt['trans'])
-                ? $opt['trans'].'.'.$name
-                : $name;
+            $field['label'] = $opt['trans'].'.'.$name;
 
             // If this is required
             $field['required'] = $this->isRequired($instance, $name);
@@ -110,6 +108,11 @@ class Lomake
         // ];
         foreach ($opt['fields'] as $name => $field) {
             $field['name'] = $name;
+
+            // Automatically generate label
+            if (empty($field['label'])) {
+                $field['label'] = $opt['trans'].'.'.$name;
+            }
             $fields[$name] = Factory::create($field);
         }
 
