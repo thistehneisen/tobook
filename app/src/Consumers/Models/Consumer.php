@@ -40,6 +40,13 @@ class Consumer extends \App\Core\Models\Base
         $this->attributes['email'] = $value;
     }
 
+    public function setPhoneAttribute($value)
+    {
+        //Remove + and spaces since phone is numberic value
+        $value =  str_replace([' ', '+'], '', $value);
+        $this->attributes['phone'] = $value;
+    }
+
     private function checkService($table)
     {
         $service = DB::table($table)

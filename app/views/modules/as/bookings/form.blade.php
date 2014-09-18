@@ -51,13 +51,13 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="consumer_firstname" class="col-sm-4 control-label">{{ trans('as.bookings.firstname') }}</label>
+                                <label for="consumer_firstname" class="col-sm-4 control-label">{{ trans('as.bookings.firstname') }}  {{ Form::required('first_name', with(new Consumer)) }}</label>
                                 <div class="col-sm-8">
                                     {{ Form::text('firstname', (isset($booking)) ? $booking->consumer->first_name : '', ['class' => 'form-control input-sm', 'id' => 'firstname']) }}
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="lastname" class="col-sm-4 control-label">{{ trans('as.bookings.lastname') }}</label>
+                                <label for="lastname" class="col-sm-4 control-label">{{ trans('as.bookings.lastname') }}  {{ Form::required('last_name', with(new Consumer)) }}</label>
                                 <div class="col-sm-8">
                                     {{ Form::text('lastname', (isset($booking)) ? $booking->consumer->last_name : '', ['class' => 'form-control input-sm', 'id' => 'lastname']) }}
                                 </div>
@@ -69,13 +69,13 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="phone" class="col-sm-4 control-label">{{ trans('as.bookings.phone') }}</label>
+                                <label for="phone" class="col-sm-4 control-label">{{ trans('as.bookings.phone') }}  {{ Form::required('phone', with(new Consumer)) }}</label>
                                 <div class="col-sm-8">
                                     {{ Form::text('phone',(isset($booking)) ? $booking->consumer->phone : '', ['class' => 'form-control input-sm', 'id' => 'phone']) }}
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="address" class="col-sm-4 control-label">{{ trans('as.bookings.address') }}</label>
+                                <label for="address" class="col-sm-4 control-label">{{ trans('as.bookings.address') }}  {{ Form::required('address', with(new Consumer)) }}</label>
                                 <div class="col-sm-8">
                                     {{ Form::text('address',(isset($booking)) ? $booking->consumer->address : '', ['class' => 'form-control input-sm', 'id' => 'address']) }}
                                 </div>

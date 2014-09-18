@@ -12,7 +12,7 @@ use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\AsConsumer;
-use App\Consumers\Models\Consumer;
+use App\Appointment\Models\Consumer;
 use App\Core\Models\User;
 use Carbon\Carbon;
 use App\Appointment\Models\Observer\EmailObserver;
@@ -403,10 +403,10 @@ class Bookings extends AsBase
             $carts = Session::get('carts', []);
             $carts[$uuid] = $cart;
             Session::put('carts' , $carts);
-        } catch (\Exception $ex){
+        } catch (\Watson\Validating\ValidationException $ex){
             $data = [];
             $data['success'] = false;
-            $data['message'] = trans('as.bookings.error.unknown');
+            $data['message'] = $ex->getErrors();
         }
         return Response::json($data);
     }
@@ -503,9 +503,9 @@ class Bookings extends AsBase
             $data['success']      = true;
             $data['baseURl']     = route('as.index');
             $data['bookingDate'] = $booking->date;
-        } catch (\Exception $ex) {
+        } catch (\Watson\Validating\ValidationException $ex) {
             $data['success'] = false;
-            $data['message'] = $ex->getMessage();
+            $data['message'] = Util::getHtmlListError($ex);
         }
 
         return Response::json($data);
@@ -528,8 +528,7 @@ class Bookings extends AsBase
         $address   = Input::get('address', '');
         $hash      = Input::get('hash');
 
-        $consumer = Consumer::where('email', $email)
-            ->where('first_name', $firstname)
+        $consumer = Consumer::where('first_name', $firstname)
             ->where('last_name', $lastname)
             ->where('phone', $phone)->first();
 
@@ -552,7 +551,7 @@ class Bookings extends AsBase
             'first_name' => $firstname,
             'last_name'  => $lastname,
             'email'      => $email,
-            'phone'      => str_replace([' ', '+'], '', $phone),
+            'phone'      => $phone,
             'address'    => $address
         ];
         try{
@@ -566,8 +565,8 @@ class Bookings extends AsBase
                 $consumer->fill($data);
                 $consumer->saveOrFail();
             }
-        } catch(\Exception $ex){
-            throw new \Exception(trans("as.bookings.error.invalid_consumer_info"));
+        } catch(\Watson\Validating\ValidationException $ex){
+            throw $ex;
         }
         return $consumer;
     }

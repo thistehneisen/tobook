@@ -64,4 +64,9 @@ class Util
             return trans('common.'. Str::lower($string));
         return $string;
     }
+
+    public static function getHtmlListError(\Watson\Validating\ValidationException $ex)
+    {
+        return '<ul>' . implode('', $ex->getErrors()->all('<li>:message</li>')) .'</ul>';
+    }
 }
