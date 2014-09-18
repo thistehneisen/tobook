@@ -1,7 +1,7 @@
 @foreach ($values as $value => $label)
 <div class="checkbox">
     <label>
-        {{ Form::radio($name.'[]', $value, $value == $default) }} {{ $label }}
+        {{ Form::checkbox($name.'[]', $value, in_array($value, $default)) }} {{ $label }}
     </label>
 </div>
 @endforeach

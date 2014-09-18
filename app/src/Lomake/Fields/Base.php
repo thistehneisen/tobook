@@ -1,74 +1,114 @@
 <?php namespace App\Lomake\Fields;
 
-abstract class Base
+use App\Lomake\FieldInterface;
+
+abstract class Base implements FieldInterface
 {
     /**
-     * A list of options used to render the field
+     * A list of options used to render the field.
+     * Should have those keys:
+     *     name: (required) string
+     *         The name of this field
+     *     values: (optional) string|array
+     *         Values will be used to generate field, for examples, dropdown, checkbox
+     *     default: (optional) mixed
+     *         Default value of this field
+     *     options: (optional) array
+     *         Other options that could be passed to generate field
+     *     label: (optional)
+     *         Should be language key for translatable, or field name will be used
+     *     model: (optional)
+     *         Instance of model to be populate to the form
+     *     langPrefix: (optional) string
+     *         Language prefix that is used to translate label of this field
+     *
      *
      * @var array
      */
-    protected $options = [];
+    protected $opt = [];
 
-    public function __construct($options)
+    public $name;
+    public $values;
+    public $default;
+    public $options;
+    public $label;
+    public $model;
+    public $langPrefix;
+
+    /**
+     * Constructor
+     */
+    public function __construct($opt)
+    {
+        $this->init($opt);
+    }
+
+    /**
+     * Populate properties with data from given options
+     *
+     * @param array $opt
+     *
+     * @return void
+     */
+    protected function init($opt)
     {
         // Merge with default options
-        $this->options = array_merge($this->options, $options);
+        $this->opt = array_merge($this->opt, $opt);
+        $attrs = [
+            'name',
+            'values',
+            'default',
+            'options',
+            'label',
+            'model',
+            'langPrefix',
+        ];
 
-        // Setup default value
-        if (isset($this->options['instance'])) {
-            $instance = $this->options['instance'];
-            $name = $this->getName();
-            $this->options['default'] = $instance->$name;
+        foreach ($attrs as $attr) {
+            if (array_key_exists($attr, $this->opt)) {
+                $this->$attr = $this->opt[$attr];
+            }
+        }
+
+        // Apply filter to all property
+        foreach ($attrs as $attr) {
+            $methodName = 'process'.studly_case($attr);
+            if (method_exists($this, $methodName)) {
+                $this->$methodName();
+            }
         }
     }
 
     /**
-     * Return the name of this field
+     * If we has a model instance, try to get value from it and set to default
      *
-     * @return string
+     * @return void
      */
-    public function getName()
+    protected function processDefault()
     {
-        return $this->options['name'];
+        if ($this->model !== null && empty($this->default)) {
+            $name = $this->name;
+            $this->default = $this->model->$name;
+        }
     }
 
     /**
-     * Return the label of this field
+     * Automatically generate label if required
      *
-     * @return string
+     * @return void
      */
-    public function getLabel()
+    protected function processLabel()
     {
-        $label = isset($this->options['label'])
-            ? $this->options['label']
-            : $this->getName();
+        $label = $this->label !== null
+            ? $this->label
+            : $this->langPrefix.'.'.$this->name;
 
         $label = trans($label);
-        if (isset($this->options['required']) && $this->options['required']) {
+        if (isset($this->opt['required']) && $this->opt['required']) {
             $label .= '*';
         }
 
-        return $label;
-    }
-
-    /**
-     * Pick elements from option array
-     *
-     * @return array
-     */
-    protected function pick()
-    {
-        $fields = func_get_args();
-        $data = [];
-        foreach ($fields as $field) {
-            if (!isset($this->options[$field])) {
-                throw new \InvalidArgumentException('Cannot find value to pick: '.$field);
-            }
-
-            $data[$field] = $this->options[$field];
-        }
-
-        return $data;
+        $this->label = $label;
     }
 
     /**
@@ -78,6 +118,9 @@ abstract class Base
      */
     abstract public function render();
 
+    /**
+     * @{@inheritdoc}
+     */
     public function __toString()
     {
         return $this->render();

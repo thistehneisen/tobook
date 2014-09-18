@@ -15,17 +15,16 @@ class Services extends Base
         'layout'     => 'modules.fd.layout',
         'presenters' => [
             'price' => 'App\Olut\Presenters\Currency'
+        ],
+        'lomake' => [
+            'business_category_id' => [
+                'type' => 'App\Core\Fields\BusinessCategoryDropdown'
+            ],
+            'description' => [
+                'type' => 'Textarea'
+            ]
         ]
     ];
-
-    public function __construct()
-    {
-        parent::__construct();
-
-        // Get all business categories
-        $categories = BusinessCategory::getAll();
-        View::share('businessCategories', $categories);
-    }
 
     /**
      * {@inheritdoc}

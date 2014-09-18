@@ -1,7 +1,14 @@
-<?php namespace App\Lomake\Fields;
+<?php namespace App\Lomake;
 
-class Factory
+class FieldFactory
 {
+    /**
+     * Create a field object based on provided options
+     *
+     * @param array $params
+     *
+     * @return App\Lomake\FieldInterface
+     */
     public static function create($params)
     {
         $params = array_merge([
@@ -13,7 +20,7 @@ class Factory
         }
 
         // If we're provided a full classname
-        $className = __NAMESPACE__.'\\'.studly_case($params['type']);
+        $className = __NAMESPACE__.'\Fields\\'.studly_case($params['type']);
         if (strpos($params['type'], '\\') !== false) {
             $className = $params['type'];
         }

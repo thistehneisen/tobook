@@ -6,10 +6,11 @@ class Base
      * Do nothing special, just print out the plain value
      *
      * @param mixed $value
+     * @param Illuminate\Database\Eloquent\Model $item Model instance
      *
      * @return mixed
      */
-    public function render($value)
+    public function render($value, $item)
     {
         // In case we have an array, join all elements
         if (is_array($value)) {

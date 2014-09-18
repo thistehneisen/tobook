@@ -12,9 +12,9 @@ class DateTimeDropdown extends Dropdown
      */
     public function render()
     {
-        $params = $this->pick('name', 'values', 'default', 'options');
+        $params = $this->getParams();
 
-        if ($this->options['key_is_value'] === true) {
+        if ($this->opt['flipValues'] === true) {
             $params['values'] = $this->flipValues($params['values']);
         }
 

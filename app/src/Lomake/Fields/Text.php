@@ -2,9 +2,8 @@
 
 class Text extends Base
 {
-    protected $options = [
-        'values'  => '',
-        'options' => ['class' => 'form-control input-sm']
+    protected $opt = [
+        'options' => ['class' => 'form-control']
     ];
 
     /**
@@ -12,11 +11,20 @@ class Text extends Base
      */
     public function render()
     {
-        $params = $this->pick('name', 'values', 'options');
-        if (empty($params['values'])) {
-            $params['values'] = $this->options['default'];
-        }
+        return call_user_func_array('Form::text', $this->getParams());
+    }
 
-        return call_user_func_array('Form::text', $params);
+    /**
+     * Get params to pass to generating function
+     *
+     * @return array
+     */
+    protected function getParams()
+    {
+        return [
+            $this->name,
+            $this->values ?: $this->default,
+            $this->options
+        ];
     }
 }

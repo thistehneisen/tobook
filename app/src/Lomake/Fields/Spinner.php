@@ -2,15 +2,14 @@
 
 class Spinner extends Text
 {
-    protected $options = [
-        'values'  => '',
+    protected $opt = [
         'options' => ['class' => 'form-control input-sm spinner']
     ];
 
     public function render()
     {
-        $params = $this->pick('name', 'values', 'options');
-        $input = call_user_func_array('Form::text', $params);
+
+        $input = call_user_func_array('Form::text', $this->getParams());
 
         $options = [];
         foreach ($params['options'] as $key => $value) {

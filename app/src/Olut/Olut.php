@@ -236,10 +236,10 @@ trait Olut
 
         $options = $this->getOlutOptions('lomake') ?: [];
         $lomake = Lomake::make($item, [
-            'route'  => [static::$crudRoutes['upsert'], isset($item) ? $item->id : null],
-            'trans'  => $langPrefix,
-            'fields' => $options,
-            'raw'    => $view !== 'olut::form'
+            'route'      => [static::$crudRoutes['upsert'], isset($item) ? $item->id : null],
+            'fields'     => $options,
+            'langPrefix' => $langPrefix,
+            'noRender'   => $view !== 'olut::form'
         ]);
 
         $data = [

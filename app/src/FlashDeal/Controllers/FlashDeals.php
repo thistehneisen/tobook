@@ -2,18 +2,30 @@
 
 use Input, View, Carbon\Carbon;
 use App\Core\Controllers\Base;
-use App\Appointment\Traits\Crud;
 use App\FlashDeal\Models\Service;
 use App\FlashDeal\Models\FlashDealDate;
 
 class FlashDeals extends Base
 {
-    use Crud;
+    use \CRUD;
 
     protected $viewPath = 'modules.fd.deals';
-    protected $langPrefix = 'fd.flash_deals';
-    protected $modelClass = 'App\FlashDeal\Models\FlashDeal';
-    protected $crudLayout = 'modules.fd.layout';
+    protected $crudOptions = [
+        'langPrefix' => 'fd.flash_deals',
+        'modelClass' => 'App\FlashDeal\Models\FlashDeal',
+        'layout'     => 'modules.fd.layout',
+        'presenters' => [
+            'discounted_price' => 'App\Olut\Presenters\Currency',
+            'dates'            => 'App\FlashDeal\Presenters\DatesPresenter',
+            'service'          => 'App\FlashDeal\Presenters\ServicePresenter',
+        ],
+        'indexFields' => [
+            'service',
+            'discounted_price',
+            'quantity',
+            'dates'
+        ]
+    ];
 
     /**
      * @{@inheritdoc}
