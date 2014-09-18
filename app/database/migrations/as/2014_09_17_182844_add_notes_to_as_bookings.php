@@ -14,7 +14,7 @@ class AddNotesToAsBookings extends Migration {
 	{
         Schema::table('as_bookings', function(Blueprint $table)
         {
-            $table->text('notes')->after('ip');
+            $table->text('notes')->after('ip')->nullable();
         });
 	}
 
