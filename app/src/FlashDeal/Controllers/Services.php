@@ -2,17 +2,21 @@
 
 use Input, View;
 use App\Core\Controllers\Base;
-use App\Appointment\Traits\Crud;
 use App\Core\Models\BusinessCategory;
 
 class Services extends Base
 {
-    use Crud;
+    use \CRUD;
 
     protected $viewPath = 'modules.fd.services';
-    protected $langPrefix = 'fd.services';
-    protected $modelClass = 'App\FlashDeal\Models\Service';
-    protected $crudLayout = 'modules.fd.layout';
+    protected $crudOptions = [
+        'langPrefix' => 'fd.services',
+        'modelClass' => 'App\FlashDeal\Models\Service',
+        'layout'     => 'modules.fd.layout',
+        'presenters' => [
+            'price' => 'App\Olut\Presenters\Currency'
+        ]
+    ];
 
     public function __construct()
     {

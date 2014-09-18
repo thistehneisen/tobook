@@ -1,9 +1,52 @@
 <?php namespace App\Lomake;
 
 use App, View;
+use App\Lomake\Fields\Factory;
 
 class Lomake
 {
+    /**
+     * The list of all fields in this form
+     *
+     * @var array
+     */
+    protected $fields = [];
+
+    /**
+     * $fields getter
+     *
+     * @return array
+     */
+    public function getFields()
+    {
+        return $this->fields;
+    }
+
+    /**
+     * Magically return a field in field list if the name is matched
+     * Otherwise, raise an error
+     *
+     * @param string $name
+     *
+     * @return App\Lomake\Fields\FieldInterface
+     */
+    public function __get($name)
+    {
+        if (isset($this->fields[$name])) {
+            return $this->fields[$name];
+        }
+
+        $trace = debug_backtrace();
+        trigger_error(
+            'Cannot find field: ' . $name .
+            ' in ' . $trace[0]['file'] .
+            ' on line ' . $trace[0]['line'],
+            E_USER_NOTICE
+        );
+
+        return null;
+    }
+
     /**
      * Make the form based on passed model
      *
@@ -26,7 +69,8 @@ class Lomake
         $opt = array_merge([
             'form'     => ['class' => 'form-horizontal well', 'role' => 'form', 'enctype' => 'multipart/form-data'],
             'template' => 'varaa-lomake::form',
-            'fields'   => []
+            'fields'   => [],
+            'raw'      => false
         ], $opt);
 
         if (!isset($opt['route'])) {
@@ -37,21 +81,20 @@ class Lomake
 
         $fields = [];
         foreach ($instance->fillable as $name) {
-            // If we have $opt['trans'], we will prepend it to the name
-            // Values of $opt['trans'] could be [consumer].name, [user.form].name
-            $field['label'] = isset($opt['trans'])
-                ? trans($opt['trans'].'.'.$name)
-                : $name;
-
-            // If this is required
-            if ($this->isRequired($instance, $name)) {
-                $field['label'] .= '*';
-            }
-
             // Try to guess the type of this field
             $field['type'] = $this->guessInputType($name);
 
-            $fields[$name] = $field;
+            // Firstly we're trying to translate field name
+            // But if it's not available, use the raw name instead
+            $field['label'] = $opt['trans'].'.'.$name;
+
+            // If this is required
+            $field['required'] = $this->isRequired($instance, $name);
+            $field['default']  = '';
+            $field['name']     = $name;
+            $field['instance'] = $instance;
+
+            $fields[$name] = Factory::create($field);
         }
 
         // User is able to overwrite guessing fields, for example, to create
@@ -64,9 +107,24 @@ class Lomake
         //      'values' => ['m' => 'Male', 'f' => 'Female']
         //  ]
         // ];
-        foreach ($opt['fields'] as $name => $field)
-        {
-            $fields[$name] = $field;
+        foreach ($opt['fields'] as $name => $field) {
+            $field['name']     = $name;
+            $field['instance'] = $instance;
+
+            // Automatically generate label
+            if (empty($field['label'])) {
+                $field['label'] = $opt['trans'].'.'.$name;
+            }
+            $fields[$name] = Factory::create($field);
+        }
+
+        // Update the fields list
+        $this->fields = $fields;
+
+        // If we don't want to render this form, but get the instance instead
+        // This could be useful for partially rendering in order view
+        if ($opt['raw'] === true) {
+            return $this;
         }
 
         return View::make($opt['template'], [

@@ -135,6 +135,7 @@ return array(
         'App\Core\Routing\RoutingServiceProvider',
         'App\Core\Pagination\PaginationServiceProvider',
         'App\OneApi\OneApiServiceProvider',
+        'App\Olut\OlutServiceProvider',
 
     ),
 
@@ -217,6 +218,7 @@ return array(
         'Util'      => 'App\Core\Util',
         'Sms'       => 'App\OneApi\Facade',
         'Hashids'   => 'App\Hashids\Facade',
+        'CRUD'      => 'App\Olut\Olut',
     ),
 
 );

@@ -13,6 +13,13 @@ abstract class Base
     {
         // Merge with default options
         $this->options = array_merge($this->options, $options);
+
+        // Setup default value
+        if (isset($this->options['instance'])) {
+            $instance = $this->options['instance'];
+            $name = $this->getName();
+            $this->options['default'] = $instance->$name;
+        }
     }
 
     /**
@@ -23,6 +30,25 @@ abstract class Base
     public function getName()
     {
         return $this->options['name'];
+    }
+
+    /**
+     * Return the label of this field
+     *
+     * @return string
+     */
+    public function getLabel()
+    {
+        $label = isset($this->options['label'])
+            ? $this->options['label']
+            : $this->getName();
+
+        $label = trans($label);
+        if (isset($this->options['required']) && $this->options['required']) {
+            $label .= '*';
+        }
+
+        return $label;
     }
 
     /**
@@ -41,6 +67,7 @@ abstract class Base
 
             $data[$field] = $this->options[$field];
         }
+
         return $data;
     }
 

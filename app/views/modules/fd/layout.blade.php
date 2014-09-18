@@ -19,21 +19,6 @@
     @endif
     {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
     {{ HTML::script(asset('assets/js/fd/main.js')) }}
-
-    <script>
-$(function() {
-    $('table.table-crud').find('a.btn-danger').click('on', function(event) {
-        event.preventDefault();
-        var $this = $(this);
-
-        alertify.confirm('{{ trans('common.are_you_sure') }}', function (e) {
-            if (e) {
-                window.location = $this.attr('href');
-            }
-        });
-    });
-});
-    </script>
 @stop
 
 @section('main-classes') container as-wrapper @stop
