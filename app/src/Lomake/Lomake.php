@@ -1,7 +1,7 @@
 <?php namespace App\Lomake;
 
 use App, View;
-use App\Lomake\Fields\Factory;
+use App\Lomake\FieldFactory;
 
 class Lomake
 {
@@ -36,15 +36,7 @@ class Lomake
             return $this->fields[$name];
         }
 
-        $trace = debug_backtrace();
-        trigger_error(
-            'Cannot find field: ' . $name .
-            ' in ' . $trace[0]['file'] .
-            ' on line ' . $trace[0]['line'],
-            E_USER_NOTICE
-        );
-
-        return null;
+        throw new \InvalidArgumentException("This form contains no controls named `$name` ");
     }
 
     /**
@@ -67,10 +59,11 @@ class Lomake
 
         // Merge default options with values from user
         $opt = array_merge([
-            'form'     => ['class' => 'form-horizontal well', 'role' => 'form', 'enctype' => 'multipart/form-data'],
-            'template' => 'varaa-lomake::form',
-            'fields'   => [],
-            'raw'      => false
+            'form'       => ['class' => 'form-horizontal well', 'role' => 'form', 'enctype' => 'multipart/form-data'],
+            'template'   => 'varaa-lomake::form',
+            'fields'     => [],
+            'noRender'   => false,
+            'langPrefix' => ''
         ], $opt);
 
         if (!isset($opt['route'])) {
@@ -79,43 +72,25 @@ class Lomake
         // Attach the route to generate URL
         $opt['form']['route'] = $opt['route'];
 
+        // Generate fields
         $fields = [];
         foreach ($instance->fillable as $name) {
-            // Try to guess the type of this field
-            $field['type'] = $this->guessInputType($name);
+            $field['name']       = $name;
+            $field['type']       = $this->guessInputType($name);
+            $field['required']   = $this->isRequired($instance, $name);
+            $field['model']      = $instance;
+            $field['langPrefix'] = $opt['langPrefix'];
 
-            // Firstly we're trying to translate field name
-            // But if it's not available, use the raw name instead
-            $field['label'] = $opt['trans'].'.'.$name;
-
-            // If this is required
-            $field['required'] = $this->isRequired($instance, $name);
-            $field['default']  = '';
-            $field['name']     = $name;
-            $field['instance'] = $instance;
-
-            $fields[$name] = Factory::create($field);
+            $fields[$name] = FieldFactory::create($field);
         }
 
-        // User is able to overwrite guessing fields, for example, to create
-        // a dropdown list
-        // Usage:
-        // $opt['fields'] = [
-        //  'gender' => [
-        //      'label' => 'Gender',
-        //      'type' => 'dropdown',
-        //      'values' => ['m' => 'Male', 'f' => 'Female']
-        //  ]
-        // ];
+        // If user wants to overwrite generated fields
         foreach ($opt['fields'] as $name => $field) {
-            $field['name']     = $name;
-            $field['instance'] = $instance;
+            $field['name']       = $name;
+            $field['model']      = $instance;
+            $field['langPrefix'] = $opt['langPrefix'];
 
-            // Automatically generate label
-            if (empty($field['label'])) {
-                $field['label'] = $opt['trans'].'.'.$name;
-            }
-            $fields[$name] = Factory::create($field);
+            $fields[$name] = FieldFactory::create($field);
         }
 
         // Update the fields list
@@ -123,7 +98,7 @@ class Lomake
 
         // If we don't want to render this form, but get the instance instead
         // This could be useful for partially rendering in order view
-        if ($opt['raw'] === true) {
+        if ($opt['noRender'] === true) {
             return $this;
         }
 
