@@ -30,7 +30,7 @@ class Backend implements Strategy
         if ($rowTime >= $startAt && $rowTime < $endAt && !$defaultWorkingTime->is_day_off) {
             $class = 'fancybox active';
         } else {
-            $class = 'fancybox inactive';
+            $class = 'inactive';
         }
 
         if(empty($this->customTimeCache)){
@@ -47,7 +47,7 @@ class Backend implements Strategy
                 $class = 'fancybox active';
                 $this->customTimeSlot[$selectedDate->toDateString()][(int) $hour][(int) $minute] = $empCustomTime;
             } else {
-                $class = 'custom fancybox inactive';
+                $class = 'custom inactive';
             }
         }
 
