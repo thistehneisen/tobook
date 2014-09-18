@@ -17,7 +17,13 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-6">
-                           <div class="form-group row">
+                            @if (isset($booking))
+                            <div class="form-group row">
+                                <label for="booking_uuid" class="col-sm-4 control-label">{{ trans('common.created_at') }}</label>
+                                <div class="col-sm-8">{{ $booking['created_at'] }}</div>
+                            </div>
+                            @endif
+                            <div class="form-group row">
                                 <label for="booking_uuid" class="col-sm-4 control-label">{{ trans('as.bookings.booking_id') }}</label>
                                 <div class="col-sm-8">
                                     {{ Form::text('uuid', $uuid , ['class' => 'form-control input-sm', 'id' => 'uuid', 'disabled'=> 'disabled']) }}
