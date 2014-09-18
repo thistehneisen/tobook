@@ -7,12 +7,15 @@
             if (!empty($booking->bookingServices()->first())) {
                 $serviceDescription = '('.$booking->bookingServices()->first()->service->name.')';
             }
+            $bookingNote = empty($booking->notes) ? '' : '<br><br><em>'.$booking->notes.'</em>';
         ?>
         <span class="customer-tooltip"
             title="{{ with(new Carbon\Carbon($booking->start_at))->format('H:i') }}
                 - {{ with(new Carbon\Carbon($booking->end_at))->format('H:i') }} <br>
                 {{{ $booking->consumer->getNameAttribute() }}} <br>
-                {{{ $serviceDescription }}}">
+                {{{ $serviceDescription }}}
+                {{{ $bookingNote }}}
+                ">
             <a class="js-btn-view-booking" href="#"
                 data-start-time="{{ with(new Carbon\Carbon($booking->start_at))->format('H:i') }}"
                 data-booking-id="{{ $booking->id }}"
