@@ -11,6 +11,7 @@ class BookingService extends \App\Core\Models\Base
         'start_at',
         'end_at',
         'modify_time',
+        'service_time_id',
         'is_reminder_email',
         'is_reminder_sms'
     ];

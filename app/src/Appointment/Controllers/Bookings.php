@@ -374,6 +374,9 @@ class Bookings extends AsBase
                 'end_at'      => $endTime
             ]);
 
+            //there is no method opposite with associate
+            $model->service_time_id = null;
+
             if (!empty($serviceTime)) {
                 $model->serviceTime()->associate($serviceTime);
             }
