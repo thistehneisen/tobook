@@ -7,7 +7,7 @@ class Consumer extends \App\Consumers\Models\Consumer
 {
     protected $rulesets = [
         'saving' => [
-            'email'         => 'email, NULL',
+            'email'         => 'email',
             'first_name'    => 'required',
             'last_name'     => 'required',
             'phone'         => 'required|numeric'
