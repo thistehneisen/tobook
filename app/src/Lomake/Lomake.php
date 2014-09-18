@@ -84,6 +84,12 @@ class Lomake
             // Try to guess the type of this field
             $field['type'] = $this->guessInputType($name);
 
+            // Firstly we're trying to translate field name
+            // But if it's not available, use the raw name instead
+            $field['label'] = isset($opt['trans'])
+                ? $opt['trans'].'.'.$name
+                : $name;
+
             // If this is required
             $field['required'] = $this->isRequired($instance, $name);
             $field['default']  = '';

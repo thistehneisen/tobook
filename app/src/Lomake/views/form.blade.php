@@ -2,7 +2,7 @@
     <!-- Fields -->
     @foreach ($fields as $name => $field)
         <div class="form-group {{ Form::errorCSS($name, $errors) }}">
-            {{ Form::label($name, trans($opt['trans'].'.'.$name), ['class' => 'col-sm-2 col-sm-offset-1 control-label']) }}
+            {{ Form::label($name, $field->getLabel(), ['class' => 'col-sm-2 col-sm-offset-1 control-label']) }}
             <div class="col-sm-6">
             {{ $field }}
             <!-- Validation error -->

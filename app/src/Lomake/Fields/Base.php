@@ -26,6 +26,24 @@ abstract class Base
     }
 
     /**
+     * Return the label of this field
+     *
+     * @return string
+     */
+    public function getLabel()
+    {
+        $label = isset($this->options['label'])
+            ? $this->options['label']
+            : $this->getName();
+
+        if (isset($this->options['required']) && $this->options['required']) {
+            $label .= '*';
+        }
+
+        return $label;
+    }
+
+    /**
      * Pick elements from option array
      *
      * @return array
@@ -41,6 +59,7 @@ abstract class Base
 
             $data[$field] = $this->options[$field];
         }
+
         return $data;
     }
 
