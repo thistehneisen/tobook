@@ -581,27 +581,6 @@ class Bookings extends AsBase
         return $consumer;
     }
 
-    /**
-     * Handle ajax request to delete given booking service
-     * that was added to booking form
-     *
-     * @return json
-     */
-    public function removeBookingService()
-    {
-        $uuid = Input::get('uuid');
-        try {
-            $bookingService = BookingService::where('tmp_uuid', $uuid)->delete();
-            $data['success'] = true;
-        } catch (\Exception $ex) {
-            $data['message'] = $ex->getMessage();
-
-            return Response::json($data, 400);
-        }
-
-        return Response::json($data);
-    }
-
     public function removeBookingServiceInCart()
     {
         $uuid = Input::get('uuid');

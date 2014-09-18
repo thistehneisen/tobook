@@ -104,7 +104,6 @@
                                         <th>{{ trans('as.bookings.service_employee') }}</th>
                                         <th>{{ trans('as.bookings.date_time') }}</th>
                                         <th>{{ trans('as.bookings.price') }}</th>
-                                        <th>&nbsp;</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -135,9 +134,6 @@
                                                     {{ $booking->total_price }}
                                                 @endif
                                             </span>
-                                            </td>
-                                        <td>
-                                           <a href="#" id="btn-remove-service-time" class="btn btn-default" data-remove-url="{{ route('as.bookings.service.remove') }}" data-uuid="{{ $uuid }}"><i class="glyphicon glyphicon-remove"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>

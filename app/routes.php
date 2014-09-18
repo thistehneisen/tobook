@@ -606,11 +606,6 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Bookings@upsertBooking'
     ]);
 
-    Route::post('bookings/remove-booking-service', [
-        'as' => 'as.bookings.service.remove',
-        'uses' => 'App\Appointment\Controllers\Bookings@removeBookingService'
-    ]);
-
     // Embed
     Route::get('embed', [
         'as' => 'as.embed.index',
