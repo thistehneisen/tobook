@@ -424,7 +424,9 @@ class Bookings extends AsBase
 
         try {
             //support multiple service time?
-            $bookingService = BookingService::where('tmp_uuid', $uuid)->first();
+            $bookingService = (empty($bookingId))
+                ? BookingService::where('tmp_uuid', $uuid)->first()
+                : BookingService::where('booking_id',$bookingId)->first();
             $data = [];
 
             if(empty($bookingService)){
@@ -453,6 +455,9 @@ class Bookings extends AsBase
             $total_price = $price;
 
             $booking = new Booking();
+            $startTime = null;
+            $endTime = null;
+
             if(!empty($bookingId)){
                 $booking = Booking::find($bookingId);
                 $bookingExtraServices = $booking->extraServices;
@@ -469,16 +474,20 @@ class Bookings extends AsBase
 
                 $date      = new Carbon($booking->date);
                 $startTime = Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s', $booking->date, $booking->start_at));
-                $endTime= with(clone $startTime)->addMinutes($extraServiceTime);
 
                 $total = $length + $extraServiceTime + $bookingService->modify_time;
                 $total_price = $price + $extraServicePrice;
+
+                $endTime= with(clone $startTime)->addMinutes($total);
+            } else {
+                $startTime = Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s', $bookingService->date, $bookingService->start_at));
+                $endTime   = Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s', $bookingService->date, $bookingService->end_at));
             }
 
             $booking->fill([
                 'date'        => $bookingService->date,
-                'start_at'    => $bookingService->start_at,
-                'end_at'      => $bookingService->end_at,
+                'start_at'    => $startTime->toTimeString(),
+                'end_at'      => $endTime->toTimeString(),
                 'total'       => $total,
                 'total_price' => $total_price,
                 'status'      => $status,

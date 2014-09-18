@@ -1,4 +1,5 @@
 <?php namespace App\Appointment\Models;
+use Carbon\Carbon;
 
 class BookingService extends \App\Core\Models\Base
 {
@@ -13,6 +14,22 @@ class BookingService extends \App\Core\Models\Base
         'is_reminder_email',
         'is_reminder_sms'
     ];
+
+
+    //--------------------------------------------------------------------------
+    // ATTRIBUTES
+    //--------------------------------------------------------------------------
+    //TODO convert string to Carbon object
+    // public function getStartAtAttribute()
+    // {
+
+    // }
+
+    // public function getEndAtAttribute()
+    // {
+
+    // }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
