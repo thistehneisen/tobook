@@ -25,12 +25,17 @@ class AsBase extends \App\Core\Controllers\Base
         list($start_hour, $start_minute) = explode(':', $currentWorkingTimes['start']);
         list($end_hour, $end_minute)  = explode(':', $currentWorkingTimes['end']);
 
+        $end_hour = ((int)$end_minute == 0) ? $end_hour - 1 : $end_hour;
+        $end_minute = ((int)$end_minute == 0) ? 45 : $end_minute;
         for($i = (int) $start_hour; $i<= (int)$end_hour; $i++) {
-            $workingTimes[$i] = range(0, 45, 15);
-            if($i == $start_hour && $start_minute != 0){
-                $workingTimes[$i] = range(0, (int)$start_minute, 15);
+            if($i === (int)$start_hour){
+                $workingTimes[$i] = range((int)$start_minute, 45, 15);
             }
-            if($i == $end_hour && $end_minute != 0){
+            if($i !== (int)$start_hour && $i !== (int)$end_hour)
+            {
+                $workingTimes[$i] = range(0, 45, 15);
+            }
+            if($i === (int)$end_hour){
                  $workingTimes[$i] = range(0, (int)$end_minute, 15);
             }
         }

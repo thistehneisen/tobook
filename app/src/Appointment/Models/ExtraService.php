@@ -15,6 +15,14 @@ class ExtraService extends \App\Core\Models\Base
     ];
 
     //--------------------------------------------------------------------------
+    // ATTRIBUTES
+    //--------------------------------------------------------------------------
+    public function getNameWithLengthAttribute()
+    {
+        return $this->attributes['name'] . sprintf(' (%s)', $this->attributes['length']);
+    }
+
+    //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
     public function user()

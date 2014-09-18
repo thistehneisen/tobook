@@ -1,6 +1,7 @@
 <?php namespace App\Appointment\Controllers;
 
-use App, View, Confide, Redirect, Input, Config, Response, Util, Hashids, Session, Request, Mail, Sms;
+use App, View, Confide, Redirect, Input, Config, Response, DB;
+use Util, Hashids, Session, Request, Mail, Sms;
 use Illuminate\Support\Collection;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
