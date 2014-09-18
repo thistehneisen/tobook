@@ -235,7 +235,7 @@ trait Olut
         $langPrefix = (string) $this->getOlutOptions('langPrefix');
 
         $options = $this->getOlutOptions('lomake') ?: [];
-        $form = Lomake::make($item, [
+        $lomake = Lomake::make($item, [
             'route'  => [static::$crudRoutes['upsert'], isset($item) ? $item->id : null],
             'trans'  => $langPrefix,
             'fields' => $options,
@@ -248,7 +248,7 @@ trait Olut
             'langPrefix' => $langPrefix,
             'layout'     => $this->getOlutOptions('layout'),
             'showTab'    => $this->getOlutOptions('showTab') ?: true,
-            'form'       => $form
+            'lomake'     => $lomake
         ];
 
         return View::make($view, $data);
@@ -361,6 +361,7 @@ trait Olut
 
         // Disable sorting items
         $this->crudSortable = false;
+
         return $this->renderList($items);
     }
 

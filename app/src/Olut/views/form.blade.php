@@ -16,6 +16,6 @@
         <h4 class="comfortaa">{{ trans($langPrefix.'.add') }}</h4>
     @endif
 
-    {{ $form }}
+    {{ $lomake }}
 </div>
 @stop
