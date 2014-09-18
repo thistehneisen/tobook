@@ -50,6 +50,11 @@ class Bookings extends AsBase
         return $this->renderList($items);
     }
 
+    // public function search()
+    // {
+
+    // }
+
     /**
      * {@inheritdoc}
      */

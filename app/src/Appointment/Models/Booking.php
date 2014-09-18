@@ -60,6 +60,10 @@ class Booking extends \App\Core\Models\Base implements \SplSubject
         return self::getStatusByValue($this->status);
     }
 
+    public function getStatusTextAttribute(){
+        return trans('as.bookings.' . self::getStatusByValue($this->status));
+    }
+
     public function setStatus($text){
         $status = self::getStatus($text);
         $this->status = $status;
