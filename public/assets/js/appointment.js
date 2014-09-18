@@ -83,7 +83,7 @@
         }*/
 
         // ------------------------ Backend Calendar ------------------------ //
-        $('.as-calendar li.active, .as-calendar li.inactive').click(function () {
+        $('.as-calendar li.active').click(function () {
             var employee_id = $(this).data('employee-id'),
                 booking_date = $(this).data('booking-date'),
                 start_time = $(this).data('start-time');
