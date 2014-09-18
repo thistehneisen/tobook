@@ -20,9 +20,9 @@ class FlashDeals extends Base
             'service'          => 'App\FlashDeal\Presenters\ServicePresenter',
         ],
         'indexFields' => [
+            'service',
             'discounted_price',
             'quantity',
-            'service',
             'dates'
         ]
     ];

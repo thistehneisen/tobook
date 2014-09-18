@@ -1,17 +1,22 @@
-@extends ('modules.fd.layout')
+@if ($layout)
+    @extends ($layout)
+@endif
 
 @section ('content')
-    @include('modules.as.crud.tabs', ['routes' => $routes, 'langPrefix' => $langPrefix])
+    @if ($showTab === true)
+        @include('olut::tabs', ['routes' => $routes, 'langPrefix' => $langPrefix])
+    @endif
 
-<div id="form-add-category" class="modal-form">
+<div id="form-olut-upsert" class="modal-form">
     @include ('el.messages')
+
     @if (isset($item->id))
         <h4 class="comfortaa">{{ trans($langPrefix.'.edit') }}</h4>
     @else
         <h4 class="comfortaa">{{ trans($langPrefix.'.add') }}</h4>
     @endif
 
-    {{ Form::open(['route' => ['fd.flash_deals.upsert', !empty($item->id) ? $item->id : ''], 'class' => 'form-horizontal', 'role' => 'form']) }}
+    {{ Form::open(['route' => [$routes['upsert'], !empty($item->id) ? $item->id : ''], 'class' => 'form-horizontal', 'role' => 'form']) }}
 
     <div class="form-group {{ Form::errorCSS('service_id', $errors) }}">
         <label class="col-sm-2 col-sm-offset-1 control-label">{{ trans('fd.flash_deals.service_id') }} {{ Form::required('service_id', $item) }}</label>
@@ -21,17 +26,17 @@
         </div>
     </div>
 
-    @foreach ($item->fillable as $field)
-    <div class="form-group {{ Form::errorCSS($field, $errors) }}">
-        <label for="{{ $field }}" class="col-sm-2 col-sm-offset-1 control-label">{{ trans('fd.flash_deals.'.$field) }} {{ Form::required($field, $item) }}</label>
+    @foreach ($lomake->fields as $field)
+    <div class="form-group {{ Form::errorCSS($field->name, $errors) }}">
+        <label for="{{ $field->name }}" class="col-sm-2 col-sm-offset-1 control-label">{{ $field->label }}</label>
         <div class="col-sm-6">
-            {{ Form::text($field, Input::get($field, $item->$field), ['class' => 'form-control']) }}
-            {{ Form::errorText($field, $errors) }}
+            {{ $field->render() }}
+            {{ Form::errorText($field->name, $errors) }}
         </div>
     </div>
     @endforeach
 
-    <?php $existingDates = $item->dates; ?>
+<?php $existingDates = $item->dates; ?>
 
 @if ($existingDates->isEmpty() === false)
     <h4 class="comfortaa">{{ trans('fd.flash_deals.existing_dates') }}</h4>

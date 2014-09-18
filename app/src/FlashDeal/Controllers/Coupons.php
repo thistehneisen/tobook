@@ -2,18 +2,29 @@
 
 use Input, View;
 use App\Core\Controllers\Base;
-use App\Appointment\Traits\Crud;
 use App\FlashDeal\Models\Service;
 
 class Coupons extends Base
 {
-    use Crud;
+    use \CRUD;
 
     protected $viewPath = 'modules.fd.coupons';
-    protected $langPrefix = 'fd.coupons';
-    protected $modelClass = 'App\FlashDeal\Models\Coupon';
-    protected $crudLayout = 'modules.fd.layout';
 
+    protected $crudOptions = [
+        'langPrefix' => 'fd.coupons',
+        'modelClass' => 'App\FlashDeal\Models\Coupon',
+        'layout'     => 'modules.fd.layout',
+        'presenters' => [
+            'discounted_price' => 'App\Olut\Presenters\Currency',
+            'service'          => 'App\FlashDeal\Presenters\ServicePresenter',
+        ],
+        'indexFields' => [
+            'service',
+            'discounted_price',
+            'quantity',
+            'valid_date',
+        ]
+    ];
 
     /**
      * @{@inheritdoc}

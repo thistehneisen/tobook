@@ -3,14 +3,16 @@
 use Carbon\Carbon;
 use Input, View;
 use App\Core\Controllers\Base;
-use App\Appointment\Traits\Crud;
 
 class FlashDealDates extends Base
 {
-    use Crud;
+    use \CRUD;
 
-    protected $langPrefix = 'fd.flash_deal_dates';
-    protected $modelClass = 'App\FlashDeal\Models\FlashDealDate';
-    protected $crudLayout = 'modules.fd.layout';
+    protected $crudOptions = [
+        'langPrefix' => 'fd.flash_deal_dates',
+        'modelClass' => 'App\FlashDeal\Models\FlashDealDate',
+        'layout'     => 'modules.fd.layout',
+    ];
+
 
 }

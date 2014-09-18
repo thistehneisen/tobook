@@ -36,6 +36,10 @@ class Lomake
             return $this->fields[$name];
         }
 
+        if (property_exists($this, $name)) {
+            return $this->$name;
+        }
+
         throw new \InvalidArgumentException("This form contains no controls named `$name` ");
     }
 

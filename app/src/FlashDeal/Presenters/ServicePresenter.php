@@ -10,6 +10,6 @@ class ServicePresenter extends Base
      */
     public function render($service, $item)
     {
-        return $service->name;
+        return $service->name." ({$service->price}&euro;)";
     }
 }
