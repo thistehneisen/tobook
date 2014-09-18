@@ -3,7 +3,7 @@
 class Text extends Base
 {
     protected $opt = [
-        'options' => ['class' => 'form-control input-sm']
+        'options' => ['class' => 'form-control']
     ];
 
     /**

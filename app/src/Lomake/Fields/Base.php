@@ -101,7 +101,7 @@ abstract class Base implements FieldInterface
     {
         $label = $this->label !== null
             ? $this->label
-            : $this->name;
+            : $this->langPrefix.'.'.$this->name;
 
         $label = trans($label);
         if (isset($this->opt['required']) && $this->opt['required']) {

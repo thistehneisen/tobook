@@ -7,10 +7,11 @@ class Textarea extends Text
      */
     public function render()
     {
-        $params = $this->pick('name', 'values', 'options');
-        if (empty($params['values'])) {
-            $params['values'] = $this->options['default'];
-        }
+        $params = [
+            $this->name,
+            $this->values ?: $this->default,
+            $this->options
+        ];
 
         return call_user_func_array('Form::textarea', $params);
     }
