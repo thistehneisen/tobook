@@ -132,4 +132,8 @@ header .row .banner {
 }
 .as-col li.avatar {
   height: auto;
+  text-align: center;
+}
+.as-col li.avatar img {
+  margin: 0 auto;
 }
