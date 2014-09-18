@@ -92,6 +92,7 @@ class Lomake
             $field['required'] = $this->isRequired($instance, $name);
             $field['default']  = '';
             $field['name']     = $name;
+            $field['instance'] = $instance;
 
             $fields[$name] = Factory::create($field);
         }
@@ -107,7 +108,8 @@ class Lomake
         //  ]
         // ];
         foreach ($opt['fields'] as $name => $field) {
-            $field['name'] = $name;
+            $field['name']     = $name;
+            $field['instance'] = $instance;
 
             // Automatically generate label
             if (empty($field['label'])) {

@@ -13,6 +13,13 @@ abstract class Base
     {
         // Merge with default options
         $this->options = array_merge($this->options, $options);
+
+        // Setup default value
+        if (isset($this->options['instance'])) {
+            $instance = $this->options['instance'];
+            $name = $this->getName();
+            $this->options['default'] = $instance->$name;
+        }
     }
 
     /**
