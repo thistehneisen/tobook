@@ -130,3 +130,6 @@ header .row .banner {
 .as-col li.slot-selected {
   background-color: #dd5e00;
 }
+.as-col li.avatar {
+  height: auto;
+}
