@@ -11,6 +11,11 @@ class Base
      */
     public function render($value)
     {
-        return $value;
+        // In case we have an array, join all elements
+        if (is_array($value)) {
+            $value = implode(', ', array_flatten($value));
+        }
+
+        return (string) $value;
     }
 }

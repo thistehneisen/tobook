@@ -13,7 +13,18 @@ class Lomake
     protected $fields = [];
 
     /**
-     * Return the field if existing
+     * $fields getter
+     *
+     * @return array
+     */
+    public function getFields()
+    {
+        return $this->fields;
+    }
+
+    /**
+     * Magically return a field in field list if the name is matched
+     * Otherwise, raise an error
      *
      * @param string $name
      *
@@ -32,12 +43,8 @@ class Lomake
             ' on line ' . $trace[0]['line'],
             E_USER_NOTICE
         );
-        return null;
-    }
 
-    public function getFields()
-    {
-        return $this->fields;
+        return null;
     }
 
     /**
@@ -62,7 +69,8 @@ class Lomake
         $opt = array_merge([
             'form'     => ['class' => 'form-horizontal well', 'role' => 'form', 'enctype' => 'multipart/form-data'],
             'template' => 'varaa-lomake::form',
-            'fields'   => []
+            'fields'   => [],
+            'raw'      => false
         ], $opt);
 
         if (!isset($opt['route'])) {
@@ -99,10 +107,11 @@ class Lomake
             $fields[$name] = Factory::create($field);
         }
 
+        // Update the fields list
         $this->fields = $fields;
 
-        dd($opt);
-
+        // If we don't want to render this form, but get the instance instead
+        // This could be useful for partially rendering in order view
         if ($opt['raw'] === true) {
             return $this;
         }
