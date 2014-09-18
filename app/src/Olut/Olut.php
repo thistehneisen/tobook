@@ -196,7 +196,7 @@ trait Olut
             'bulkActions' => $bulkActions,
             'sortable'    => $this->getOlutOptions('sortable') ?: false,
             'showTab'     => $this->getOlutOptions('showTab') ?: true,
-            'layout'      => $this->getOlutOptions('layout'),
+            'layout'      => $this->getOlutOptions('layout') ?: 'olut::layout',
             'bartender'   => $bartender
         ]);
     }
@@ -246,7 +246,7 @@ trait Olut
             'item'       => $item,
             'routes'     => static::$crudRoutes,
             'langPrefix' => $langPrefix,
-            'layout'     => $this->getOlutOptions('layout'),
+            'layout'      => $this->getOlutOptions('layout') ?: 'olut::layout',
             'showTab'    => $this->getOlutOptions('showTab') ?: true,
             'lomake'     => $lomake
         ];
