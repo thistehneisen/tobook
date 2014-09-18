@@ -235,7 +235,7 @@ class FrontBookings extends Bookings
             $data['success']      = true;
         } catch (\Exception $ex) {
             $data['success'] = false;
-            $data['message'] = $ex->getMessage();
+            $data['message'] = trans('as.bookings.error.unknown');
             return Response::json($data, 500);
         }
         return Response::json($data);

@@ -406,7 +406,7 @@ class Bookings extends AsBase
         } catch (\Exception $ex){
             $data = [];
             $data['success'] = false;
-            $data['message'] = $ex->getMessage();
+            $data['message'] = trans('as.bookings.error.unknown');
         }
         return Response::json($data);
     }
