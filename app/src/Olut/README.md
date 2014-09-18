@@ -105,6 +105,28 @@ This is how your fields will be display in the index list. The keys of this
  array match with the name of your fields, and its values is the presenter
  class. More about this later.
 
+# Setup `upsertHandler`
+By default, Olut just takes all input and fill them into your model. If you want
+to have complex logic (most models have), for examples, updating relationship,
+sending email, etc., define your own `upsertHandler`.
+
+```
+    protected function upsertHandler($item)
+    {
+        $service = Service::findOrFail(Input::get('service_id'));
+
+        $item->fill(Input::all());
+        $item->service()->associate($service);
+        $item->user()->associate(Confide::user());
+
+        // Call saveOrFail() to execute validation also
+        $item->saveOrFail();
+
+        // Remember to return the item
+        return $item;
+    }
+```
+
 # Customize the list of items
 There are cases that you want to display the data differently than plain text,
 for examples, showing avatar of users, displaying data of other related models,
