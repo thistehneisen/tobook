@@ -91,12 +91,7 @@ class FrontBookings extends Bookings
         //TODO Check overlapped booking in user cart
 
         //Check enough timeslot in employee default working time
-        list($endHour, $endMinute) = explode(':', $employee->getTodayDefaultEndAt($startTime->dayOfWeek));
-        $endAt = with(clone $endTime)->setTime($endHour, $endMinute, 0);
-        if ($endTime > $endAt) {
-            $data['message'] = trans('as.bookings.error.insufficient_slots');
-            return Response::json($data, 400);
-        }
+         //Temporary the checking is removed
 
         if (!$isBookable) {
             $data['message'] = trans('as.bookings.error.add_overlapped_booking');
