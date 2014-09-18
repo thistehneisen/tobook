@@ -58,12 +58,15 @@ class Consumer extends \App\Core\Models\Base
     {
         $service = [];
 
-        if ($this->checkService('as_consumers')) {
-            $service[] = trans('dashboard.appointment');
-        }
+        $services = [
+            'as_consumers' => trans('dashboard.appointment'),
+            'lc_consumers' => trans('dashboard.loyalty'),
+        ];
 
-        if (!$this->checkService('lc_consumers')) {
-            $service[] = trans('dashboard.loyalty');
+        foreach ($services as $key => $value) {
+            if ($this->checkService($key)) {
+                $service[] = $value;
+            }
         }
 
         return $service;
