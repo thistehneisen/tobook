@@ -31,7 +31,7 @@ class Bartender
             : $this->getDefaultPresenter($field);
 
         $presenter = new $presenterClass;
-        return $presenter->render($item->$field);
+        return $presenter->render($item->$field, $item);
     }
 
     /**
