@@ -26,15 +26,13 @@ class FixEndAtBookingsCommand extends Command
      */
     public function fire()
     {
-        $sql = "UPDATE varaa_as_bookings SET end_at = ADDTIME(start_at, CONCAT(FLOOR(total / 60), ':', total % 60)) where total > 0;";
-        DB::statement($sql);
-        $this->info('Update all records with total > 0');
-
         $all = DB::table('as_bookings')
-            //->where('end_at', 'start_at')
+            ->where('end_at', 'start_at')
+            ->where('created_at', '>', '2014-09-17 00:00:00')
             ->orderBy('id', 'desc')
             ->get();
 
+        $count = 0;
         foreach ($all as $item) {
             $total = 0;
             $service = null;
@@ -87,10 +85,10 @@ class FixEndAtBookingsCommand extends Command
                 DB::table('as_bookings')->where('id', $item->id)
                     ->update(['end_at' => $endAt, 'total' => $total]);
                 echo '.';
+                $count += 1;
             }
-
         }
 
-        $this->info('Done');
+        $this->info('Done '.$count);
     }
 }
