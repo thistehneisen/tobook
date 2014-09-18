@@ -6,6 +6,41 @@ use App\Lomake\Fields\Factory;
 class Lomake
 {
     /**
+     * The list of all fields in this form
+     *
+     * @var array
+     */
+    protected $fields = [];
+
+    /**
+     * Return the field if existing
+     *
+     * @param string $name
+     *
+     * @return App\Lomake\Fields\FieldInterface
+     */
+    public function __get($name)
+    {
+        if (isset($this->fields[$name])) {
+            return $this->fields[$name];
+        }
+
+        $trace = debug_backtrace();
+        trigger_error(
+            'Cannot find field: ' . $name .
+            ' in ' . $trace[0]['file'] .
+            ' on line ' . $trace[0]['line'],
+            E_USER_NOTICE
+        );
+        return null;
+    }
+
+    public function getFields()
+    {
+        return $this->fields;
+    }
+
+    /**
      * Make the form based on passed model
      *
      * @param Illuminate\Database\Eloquent\Model|string $model name of the class
@@ -62,6 +97,14 @@ class Lomake
         foreach ($opt['fields'] as $name => $field) {
             $field['name'] = $name;
             $fields[$name] = Factory::create($field);
+        }
+
+        $this->fields = $fields;
+
+        dd($opt);
+
+        if ($opt['raw'] === true) {
+            return $this;
         }
 
         return View::make($opt['template'], [

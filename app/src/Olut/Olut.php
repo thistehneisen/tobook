@@ -1,6 +1,7 @@
 <?php namespace App\Olut;
 
 use App, Input, Config, Redirect, Route, View, Validator, Request, Response, DB;
+use Lomake;
 
 trait Olut
 {
@@ -231,14 +232,26 @@ trait Olut
             ? $this->getViewPath().'.form'
             : 'olut::form';
 
-        return View::make($view, [
+        $langPrefix = (string) $this->getOlutOptions('langPrefix');
+
+        $options = $this->getOlutOptions('lomake') ?: [];
+        $form = Lomake::make($item, [
+            'route'  => [static::$crudRoutes['upsert'], isset($item) ? $item->id : null],
+            'trans'  => $langPrefix,
+            'fields' => $options,
+            'raw'    => $view !== 'olut::form'
+        ]);
+
+        $data = [
             'item'       => $item,
             'routes'     => static::$crudRoutes,
-            'langPrefix' => (string) $this->getOlutOptions('langPrefix'),
+            'langPrefix' => $langPrefix,
             'layout'     => $this->getOlutOptions('layout'),
             'showTab'    => $this->getOlutOptions('showTab') ?: true,
-            'lomake'     => $this->getOlutOptions('lomake') ?: []
-        ]);
+            'form'       => $form
+        ];
+
+        return View::make($view, $data);
     }
 
     /**

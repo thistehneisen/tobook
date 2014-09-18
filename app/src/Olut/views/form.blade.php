@@ -16,10 +16,6 @@
         <h4 class="comfortaa">{{ trans($langPrefix.'.add') }}</h4>
     @endif
 
-    {{ Lomake::make($item, [
-        'route'  => [$routes['upsert'], isset($item) ? $item->id : null],
-        'trans'  => $langPrefix,
-        'fields' => $lomake
-    ]) }}
+    {{ $form }}
 </div>
 @stop
