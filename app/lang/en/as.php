@@ -255,6 +255,7 @@ return [
             'insufficient_slots'     => 'There is no enough time slots for this booking!',// @todo
             'invalid_consumer_info'  => 'Could not save consumer info',// @todo
             'terms'                  => 'You have to agree with our term.',//@todo
+            'service_empty'          => 'Please select service and service time!',//@todo
             'unknown'                => 'Something went wrong!'//@todo
         ],
         'warning'      => [

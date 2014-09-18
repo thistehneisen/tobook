@@ -327,6 +327,13 @@ class Bookings extends AsBase
         $uuid           = Input::get('uuid', '');// from ajax uuid
 
 
+        if(empty($serviceId) || empty($serviceTimeId))
+        {
+            $data['success'] = false;
+            $data['message'] = trans('as.bookings.error.service_empty');
+            return Response::json($data, 500);
+        }
+
         $bookingService = (empty($bookingId))
             ? BookingService::where('tmp_uuid', $uuid)->first()
             : BookingService::where('booking_id', $bookingId)->first();
@@ -336,6 +343,7 @@ class Bookings extends AsBase
             $service = Service::ofCurrentUser()->find($serviceId);
 
             $length = 0;
+            $serviceTime = null;
             if ($serviceTimeId === 'default') {
                 $service = Service::ofCurrentUser()->find($serviceId);
                 $length = $service->length;
