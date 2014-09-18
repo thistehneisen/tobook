@@ -259,7 +259,7 @@ trait Crud
      */
     public function delete($id)
     {
-        $item = $this->getModel()->findOrFail($id);
+        $item = $this->getModel()->ofCurrentUser()->findOrFail($id);
         $item->delete();
 
         if (Request::ajax() === true) {
@@ -283,7 +283,7 @@ trait Crud
         // Escape HTML
         $q = e(Input::get('q'));
 
-        $query = $this->getModel();
+        $query = $this->getModel()->ofCurrentUser();
         // Apply query string filters
         $query = $this->applyQueryStringFilter($query);
 
@@ -370,6 +370,6 @@ trait Crud
      */
     public function destroy($ids)
     {
-        return $this->getModel()->whereIn('id', $ids)->delete();
+        return $this->getModel()->ofCurrentUser()->whereIn('id', $ids)->delete();
     }
 }
