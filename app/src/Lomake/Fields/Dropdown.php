@@ -2,11 +2,9 @@
 
 class Dropdown extends Base
 {
-    protected $options = [
-        'values'       => [],
-        'default'      => '',
-        'options'      => ['class' => 'form-control'],
-        'key_is_value' => true
+    protected $opt = [
+        'options'    => ['class' => 'form-control'],
+        'flipValues' => false
     ];
 
     /**
@@ -14,12 +12,30 @@ class Dropdown extends Base
      */
     public function render()
     {
-        $params = $this->pick('name', 'values', 'default', 'options');
-        // dd($params);
-        if ($this->options['key_is_value'] === true) {
+        if (empty($this->values)) {
+            throw new \InvalidArgumentException('You must provide `values` to use Dropdown');
+        }
+
+        $params = $this->getParams();
+        if ($this->opt['flipValues'] === true) {
             $params['values'] = $this->flipValues($params['values']);
         }
         return call_user_func_array('Form::select', $params);
+    }
+
+    /**
+     * Get params to be passed to view
+     *
+     * @return array
+     */
+    protected function getParams()
+    {
+        return [
+            'name'    => $this->name,
+            'values'  => $this->values,
+            'default' => $this->default,
+            'options' => $this->options,
+        ];
     }
 
     /**

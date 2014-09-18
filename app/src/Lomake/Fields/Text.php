@@ -11,12 +11,20 @@ class Text extends Base
      */
     public function render()
     {
-        $params = [
+        return call_user_func_array('Form::text', $this->getParams());
+    }
+
+    /**
+     * Get params to pass to generating function
+     *
+     * @return array
+     */
+    protected function getParams()
+    {
+        return [
             $this->name,
             $this->values ?: $this->default,
             $this->options
         ];
-
-        return call_user_func_array('Form::text', $params);
     }
 }

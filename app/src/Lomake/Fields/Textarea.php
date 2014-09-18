@@ -7,12 +7,6 @@ class Textarea extends Text
      */
     public function render()
     {
-        $params = [
-            $this->name,
-            $this->values ?: $this->default,
-            $this->options
-        ];
-
-        return call_user_func_array('Form::textarea', $params);
+        return call_user_func_array('Form::textarea', $this->getParams());
     }
 }
