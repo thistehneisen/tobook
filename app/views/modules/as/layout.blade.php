@@ -10,7 +10,7 @@
     {{ HTML::style(asset('packages/bootstrap-spinner/bootstrap-spinner.min.css')) }}
     {{ HTML::style(asset('packages/alertify/alertify.core.css')) }}
     {{ HTML::style(asset('packages/alertify/alertify.bootstrap.css')) }}
-    {{ HTML::style(asset('assets/css/as/appointment.css')) }}
+    {{ HTML::style(asset('assets/css/as/appointment.css?v=00001')) }}
 <style>
 .pagination { margin: 0 !important; }
 </style>
@@ -25,7 +25,7 @@
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js') }}
     {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
     {{ HTML::script(asset('packages/bootstrap-spinner/bootstrap-spinner.min.js')) }}
-    {{ HTML::script(asset('assets/js/appointment.js')) }}
+    {{ HTML::script(asset('assets/js/appointment.js?v=00001')) }}
 @stop
 
 @section('main-classes') container as-wrapper @stop
