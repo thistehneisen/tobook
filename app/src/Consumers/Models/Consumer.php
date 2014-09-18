@@ -56,14 +56,14 @@ class Consumer extends \App\Core\Models\Base
 
     public function getServiceAttribute()
     {
-        $service = '';
+        $service = [];
 
         if ($this->checkService('as_consumers')) {
-            $service .= trans('dashboard.appointment');
+            $service[] = trans('dashboard.appointment');
         }
 
         if (!$this->checkService('lc_consumers')) {
-            $service .= ', ' . trans('dashboard.loyalty');
+            $service[] = trans('dashboard.loyalty');
         }
 
         return $service;

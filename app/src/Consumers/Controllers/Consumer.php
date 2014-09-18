@@ -10,6 +10,7 @@ class Consumer extends Base
     protected $modelClass = 'App\Consumers\Models\Consumer';
     protected $langPrefix = 'co';
     protected $viewPath = 'modules.co';
+    protected $crudIndexFields = ['first_name', 'last_name', 'email', 'phone'];
 
     protected function upsertHandler($item)
     {

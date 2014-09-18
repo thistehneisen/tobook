@@ -33,7 +33,13 @@
         @foreach ($fields as $field)
             <td>{{ $item->$field }}</td>
         @endforeach
-            <td>{{ $item->getServiceAttribute() }}</td>
+            <td>
+                <ul class="list-unstyle">
+                @foreach ($item->getServiceAttribute() as $service)
+                    <li><a href="#">{{ $service }}</a></li>
+                @endforeach
+                </ul>
+            </td>
             <td>
                 <div  class="pull-right">
                     <a href="{{ route($routes['upsert'], ['id'=> $item->id ]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
