@@ -50,11 +50,6 @@ class Bookings extends AsBase
         return $this->renderList($items);
     }
 
-    // public function search()
-    // {
-
-    // }
-
     /**
      * {@inheritdoc}
      */
@@ -322,6 +317,7 @@ class Bookings extends AsBase
     public function addBookingService()
     {
         $serviceId      = (int) Input::get('service_id');
+        $bookingId      = (int) Input::get('booking_id');//if update old booking
         $employeeId     = (int) Input::get('employee_id');
         $serviceTimeId  = Input::get('service_time', 'default');
         $modifyTime     = (int) Input::get('modify_times', 0);
@@ -331,12 +327,10 @@ class Bookings extends AsBase
         $uuid           = Input::get('uuid', '');// from ajax uuid
 
 
-        $bookingService = BookingService::where('tmp_uuid', $uuid)->get();
+        $bookingService = (empty($bookingId))
+            ? BookingService::where('tmp_uuid', $uuid)->first()
+            : BookingService::where('booking_id', $bookingId)->first();
 
-        if(!$bookingService->isEmpty()){
-            $data['message'] = trans('as.bookings.error.remove_booking_service_before_add');
-            return Response::json($data, 400);
-        }
         try{
             $employee = Employee::ofCurrentUser()->find($employeeId);
             $service = Service::ofCurrentUser()->find($serviceId);
@@ -369,9 +363,10 @@ class Bookings extends AsBase
                 return Response::json($data, 400);
             }
             //TODO validate modify time and service time
-            $bookingService = new BookingService();
+            $model = (empty($bookingService)) ? (new BookingService) : $bookingService;
+
             //Using uuid for retrieve it later when insert real booking
-            $bookingService->fill([
+            $model->fill([
                 'tmp_uuid'    => $uuid,
                 'date'        => $bookingDate,
                 'modify_time' => $modifyTime,
@@ -380,12 +375,12 @@ class Bookings extends AsBase
             ]);
 
             if (!empty($serviceTime)) {
-                $bookingService->serviceTime()->associate($serviceTime);
+                $model->serviceTime()->associate($serviceTime);
             }
-            $bookingService->service()->associate($service);
-            $bookingService->user()->associate($this->user);
-            $bookingService->employee()->associate($employee);
-            $bookingService->save();
+            $model->service()->associate($service);
+            $model->user()->associate($this->user);
+            $model->employee()->associate($employee);
+            $model->save();
             $price = isset($service) ? $service->price : $serviceTime->price;
 
             $data = [

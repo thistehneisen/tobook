@@ -1,8 +1,8 @@
 <div id="book-form" class="@if(isset($upsert)) as-edit-booking @else as-calendar-book @endif">
 @if(empty($booking))
-<h2>{{ trans('as.bookings.add') }}</h2>
+<h2>{{ trans('as.bookings.add') }} <span id="loading" style="display:none"><img src="{{ asset('assets/img/busy.gif') }}"/></span></h2>
 @else
-<h2>{{ trans('as.bookings.edit') }}</h2>
+<h2>{{ trans('as.bookings.edit') }} <span id="loading" style="display:none"><img src="{{ asset('assets/img/busy.gif') }}"/></span></h2>
 @endif
 <form id="booking_form">
 <div class="bs-example">
@@ -28,6 +28,7 @@
                                 <div class="col-sm-8">
                                     {{ Form::text('uuid', $uuid , ['class' => 'form-control input-sm', 'id' => 'uuid', 'disabled'=> 'disabled']) }}
                                     <input type="hidden" name="booking_uuid" id="booking_uuid" value="{{ $uuid }}"/>
+                                    <input type="hidden" name="booking_id" id="booking_id" value="{{ (!empty($booking) ? $booking->id : '') }}"/>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -196,7 +197,11 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-12">
+                                @if(!empty($booking))
+                                <button id="btn-add-service" class="btn btn-primary btn-sm pull-right">{{ trans('common.edit') }}</button>
+                                @else
                                 <button id="btn-add-service" class="btn btn-primary btn-sm pull-right">{{ trans('common.add') }}</button>
+                                @endif
                             </div>
                         </div>
                     </div>

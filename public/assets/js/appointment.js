@@ -18,6 +18,11 @@
             $('.' + checkboxClass).prop('checked', this.checked);
         });
 
+        $(document).bind("ajaxSend", function () {
+           $("#loading").show();
+        }).bind("ajaxComplete", function () {
+           $("#loading").hide();
+        });
         $('#form-bulk').on('submit', function (e) {
             e.preventDefault();
             var $this = $(this);
@@ -159,7 +164,8 @@
                 modify_times = $('#modify_times').val(),
                 booking_date = $('#booking_date').val(),
                 start_time = $('#start_time').val(),
-                uuid = $('#booking_uuid').val();
+                uuid = $('#booking_uuid').val(),
+                booking_id = $('#booking_id').val();
             $.ajax({
                 type: 'POST',
                 url: $('#add_service_url').val(),
@@ -167,6 +173,7 @@
                     service_id: service_id,
                     service_time: service_time,
                     employee_id: employee_id,
+                    booking_id : booking_id,
                     modify_times: modify_times,
                     booking_date: booking_date,
                     start_time: start_time,
