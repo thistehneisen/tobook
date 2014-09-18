@@ -4,7 +4,7 @@ class Dropdown extends Base
 {
     protected $opt = [
         'options'    => ['class' => 'form-control'],
-        'flipValues' => false
+        'flipValues' => true
     ];
 
     /**

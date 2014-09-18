@@ -8,7 +8,7 @@ return [
                     'type'         => 'Dropdown',
                     'values'       => [1 => 'Layout 1', 2 => 'Layout 2', 3 => 'Layout 3'],
                     'default'      => 1,
-                    'key_is_value' => false
+                    'flipValues' => false
                 ],
                 'currency'        => [
                     'type'    => 'Dropdown',
@@ -49,7 +49,7 @@ return [
                 //         trans('common.sat'),
                 //     ],
                 //     'default' => 1,
-                //     'key_is_value' => false
+                //     'flipValues' => false
                 // ],
             ]
         ],
@@ -174,7 +174,7 @@ return [
                         3 => trans('common.yes_required'),
                     ],
                     'default' => 1,
-                    'key_is_value' => false
+                    'flipValues' => false
                 ],
                 'terms_url' => [
                     'type' => 'Text'

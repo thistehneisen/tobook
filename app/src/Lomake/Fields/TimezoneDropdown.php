@@ -11,7 +11,7 @@ class TimezoneDropdown extends Dropdown
     {
         $params = $this->getParams();
         $params['values'] = DateTimeZone::listIdentifiers();
-        if ($this->options['flipValues'] === true) {
+        if ($this->opt['flipValues'] === true) {
             $params['values'] = $this->flipValues($params['values']);
         }
         return call_user_func_array('Form::select', $params);

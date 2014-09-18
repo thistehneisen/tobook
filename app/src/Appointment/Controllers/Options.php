@@ -1,7 +1,7 @@
 <?php namespace App\Appointment\Controllers;
 
 use App, View, Confide, Redirect, Input, Config;
-use App\Lomake\Fields\Factory as FieldFactory;
+use App\Lomake\FieldFactory;
 use App\Appointment\Models\Option;
 
 class Options extends AsBase
