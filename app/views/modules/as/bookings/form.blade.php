@@ -37,9 +37,9 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="notes" class="col-sm-4 control-label">{{ trans('as.bookings.notes') }}</label>
+                                <label for="booking_notes" class="col-sm-4 control-label">{{ trans('as.bookings.notes') }}</label>
                                 <div class="col-sm-8">
-                                    {{ Form::textarea('notes', (isset($booking)) ? $booking->notes : '', ['class' => 'form-control input-sm', 'id' => 'notes']) }}
+                                    {{ Form::textarea('booking_notes', (isset($booking)) ? $booking->notes : '', ['class' => 'form-control input-sm', 'id' => 'booking_notes']) }}
                                 </div>
                             </div>
                         </div>
