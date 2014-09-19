@@ -69,6 +69,24 @@ class Bookings extends AsBase
         );
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function applyExtraSearch($query, $q)
+    {
+        $fillable = with(new Consumer)->fillable;
+        $table    = with(new Consumer)->getTable();
+        $query->join('as_consumers', 'as_consumers.consumer_id', '=', 'as_bookings.consumer_id')
+            ->join('consumers', 'consumers.id', '=','as_consumers.consumer_id')
+            ->orWhere(function($subQuery) use ($fillable, $q, $table){
+                foreach ($fillable as $field) {
+                    $subQuery = $subQuery->orWhere($table  . '.' . $field, 'LIKE', '%'.$q.'%');
+                }
+                return $subQuery;
+            });
+        return $query;
+    }
+
     public function getBookingData($bookingId)
     {
         $booking              = Booking::ofCurrentUser()->find($bookingId);

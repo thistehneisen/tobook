@@ -134,6 +134,19 @@ trait Crud
     }
 
     /**
+     * Use for specific use in controller that use CRUD trait
+     *
+     * @param Illuminate\Database\Eloquent\Builder $query
+     * @param string $q
+     *
+     * @return Illuminate\Database\Eloquent\Builder
+     */
+    protected function applyExtraSearch($query, $q)
+    {
+        return $query;
+    }
+
+    /**
      * Render the list of items
      *
      * @param Illuminate\Support\Collection $items
@@ -288,15 +301,18 @@ trait Crud
         $query = $this->applyQueryStringFilter($query);
 
         $fillable = $this->getModel()->fillable;
+        $table    = $this->getModel()->getTable();
         // Add ID to be candicate for searching
         $fillable[] = 'id';
-        $query = $query->where(function ($subQuery) use ($fillable, $q) {
+        $query = $query->where(function ($subQuery) use ($fillable, $q, $table) {
             foreach ($fillable as $field) {
-                $subQuery = $subQuery->orWhere($field, 'LIKE', '%'.$q.'%');
+                $subQuery = $subQuery->orWhere($table . '.' . $field, 'LIKE', '%'.$q.'%');
             }
 
             return $subQuery;
         });
+
+        $query = $this->applyExtraSearch($query, $q);
 
         // Limit results to of the current user only
         if (method_exists($this->getModel(), 'user')) {
