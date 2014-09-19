@@ -1,5 +1,5 @@
 <?php namespace App\Appointment\Models;
-class EmployeeDefaultTime extends \App\Core\Models\Base
+class EmployeeDefaultTime extends \App\Appointment\Models\Base
 {
     protected $table = 'as_employee_default_time';
 

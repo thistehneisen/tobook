@@ -5,6 +5,29 @@ class EmployeeCustomTime extends \Eloquent
 
     public $fillable = ['date'];
 
+
+    //Currently don't use attribute because can break other code
+    public function getStartAt()
+    {
+        if(!property_exists($this->start_at)){
+            return;
+        }
+
+        $startAt =  Carbon::createFromFormat('H:i:s', $this->start_at, Config::get('app.timezone'));
+        return $startAt;
+    }
+
+    //Currently  don't use attribute because can break other code
+    public function getEndAt()
+    {
+        if(!property_exists($this->start_at)){
+            return;
+        }
+
+        $endAt =  Carbon::createFromFormat('H:i:s', $this->end_at, Config::get('app.timezone'));
+        return $endAt;
+    }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------

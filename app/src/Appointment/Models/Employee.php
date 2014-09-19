@@ -7,6 +7,7 @@ use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\Slot\Strategy;
 use App\Appointment\Models\Slot\Context;
 use App\Appointment\Models\Slot\Backend;
+use App\Appointment\Models\Slot\NewBackend;
 use App\Appointment\Models\Slot\Frontend;
 
 class Employee extends Base
@@ -83,6 +84,12 @@ class Employee extends Base
         });
     }
 
+    public function getDefaulTimesByDayOfWeek($dayOfWeek)
+    {
+        $day = Util::getDayOfWeekText($dayOfWeek);
+        return $this->getDefaulTimesByDay($day)->first();
+    }
+
     public function getDefaultWorkingTimes()
     {
         $defaultTimes = $this->getDefaultTimes();
@@ -143,7 +150,7 @@ class Employee extends Base
         $dayOfWeek = Util::getDayOfWeekText($weekday);
         $todayStartAt = $this->getDefaulTimesByDay($dayOfWeek)->first()->start_at;
 
-        return $todayStartAt;
+        return Carbon::createFromFormat('H:i:s', $todayStartAt);
     }
 
     public function getTodayDefaultEndAt($weekday = null)
@@ -153,8 +160,7 @@ class Employee extends Base
         }
         $dayOfWeek = Util::getDayOfWeekText($weekday);
         $todayEndAt = $this->getDefaulTimesByDay($dayOfWeek)->first()->end_at;
-
-        return $todayEndAt;
+        return Carbon::createFromFormat('H:i:s', $todayEndAt);
     }
 
     //TODO change to another method to compare time
@@ -162,7 +168,7 @@ class Employee extends Base
     {
         //Cache by date for employee view
         if(empty($this->strategy[$date])){
-            $this->strategy[$date] = new Backend();
+            $this->strategy[$date] = new NewBackend();
             if ($context === 'frontend') {
                 $this->strategy[$date] = new FrontEnd();
             }

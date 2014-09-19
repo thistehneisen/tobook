@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Models;
 
-class Booking extends \App\Core\Models\Base implements \SplSubject
+class Booking extends \App\Appointment\Models\Base implements \SplSubject
 {
     protected $table = 'as_bookings';
 
