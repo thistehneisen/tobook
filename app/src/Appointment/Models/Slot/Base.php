@@ -3,9 +3,9 @@ use Config, Util;
 use Carbon\Carbon;
 use App\Appointment\Models\Booking;
 
-class NewBackend implements Strategy
+class Base implements Strategy
 {
-    /**
+     /**
      * These variables to use as a dictionary to easy to get back
      *  and limit access to db in for loop
      */
@@ -128,7 +128,7 @@ class NewBackend implements Strategy
             $end   =  $empCustomTime->customTime->getEndAt();
 
             if ($this->rowTime >= $start && $this->rowTime < $end && !$empCustomTime->customTime->is_day_off) {
-                $this->class = 'fancybox active';
+                $this->class = ($this instanceof Backend) ? 'fancybox active' : 'active';
                 $this->customTimeSlot[$this->date][$this->hour][$this->minute] = $empCustomTime;
             } else {
                 $this->class = 'custom inactive';

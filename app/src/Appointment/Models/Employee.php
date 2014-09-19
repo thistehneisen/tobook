@@ -168,9 +168,9 @@ class Employee extends Base
     {
         //Cache by date for employee view
         if(empty($this->strategy[$date])){
-            $this->strategy[$date] = new NewBackend();
+            $this->strategy[$date] = new Backend();
             if ($context === 'frontend') {
-                $this->strategy[$date] = new FrontEnd();
+                $this->strategy[$date] = new Frontend();
             }
         }
         $context = new Context($this->strategy[$date]);
