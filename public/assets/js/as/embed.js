@@ -1,5 +1,5 @@
 /*jslint browser: true, nomen: true, unparam: true, node: true*/
-/*global $, jQuery, document, alertify, location, window*/
+/*global $, jQuery, alertify*/
 'use strict';
 
 (function ($) {
@@ -55,7 +55,12 @@
                 siblings = $(this).nextAll(),
                 employee_id = $(this).data('employee-id'),
                 end_time = null,
-                plustime = (parseInt($(this).data('plustime'), 10) / 15);
+                plustime = (parseInt($(this).data('plustime'), 10) / 15),
+                time,
+                minute,
+                hour,
+                new_end_time;
+
             slots += plustime;
 
             $('#start_time-' + employee_id).val($(this).data('start-time'));
@@ -71,17 +76,19 @@
                 }
                 slots -= 1;
             });
-            //Does not have enought slot to book
+
+            //Does not have enough slot to book
             if (slots > 0) {
                 $('ul > li').removeClass('slot-selected');
                 return;
             }
-            var time = end_time.split(':');
+
+            time = end_time.split(':');
             //increase 15 minutes to end time text
-            var minute = (parseInt(time[1], 10) + 15);
-            var hour = (minute == 60) ? parseInt(time[0], 10) +1 : time[0];
-            minute = (minute == 60) ? '00' : minute;
-            var new_end_time = hour + ':' + minute;
+            minute = (parseInt(time[1], 10) + 15);
+            hour = (minute === 60) ? parseInt(time[0], 10) + 1 : time[0];
+            minute = (minute === 60) ? '00' : minute;
+            new_end_time = hour + ':' + minute;
             $('.li-start-time').hide();
             $('.li-end-time').hide();
             $('.li-start-time-' + employee_id).show();
@@ -130,15 +137,14 @@
         $('#btn-confirm-booking').click(function (e) {
             e.preventDefault();
             var action_url = $(this).data('action-url'),
-                success_url = $(this).data('success-url'),
-                success_msg = $(this).data('success_msg');
+                success_url = $(this).data('success-url');
             $.ajax({
                 type: 'POST',
                 url: action_url,
                 data: $('#form-confirm-booking').serialize(),
                 dataType: 'json'
             }).done(function (data) {
-                if(data.success){
+                if (data.success) {
                     window.location.href = success_url;
                 }
             }).fail(function (data) {
@@ -163,7 +169,7 @@
                 if (data.success_url) {
                     window.location.href = data.success_url;
                 }
-                location.reload();
+                window.location.reload();
             }).fail(function (data) {
                 alertify.alert(data.responseJSON.message);
             });
