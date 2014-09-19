@@ -164,7 +164,7 @@ class Services extends AsBase
                 'description' => Input::get('description'),
             ]);
 
-            $serviceTime->setLength()
+            $serviceTime->setLength();
 
             $serviceTime->service()->associate($service);
             $serviceTime->save();
