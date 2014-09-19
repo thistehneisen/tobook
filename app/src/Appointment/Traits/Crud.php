@@ -134,7 +134,7 @@ trait Crud
     }
 
     /**
-     * Use for specific use in controller that use CRUD trait
+     * Use for specific controller that use CRUD trait
      *
      * @param Illuminate\Database\Eloquent\Builder $query
      * @param string $q

@@ -181,9 +181,9 @@ class Base implements Strategy
 
         foreach ($this->bookingList[$this->date] as $booking) {
             if ($booking->date === $this->date) {
-                $subMinutes = ($booking->total % 15 == 0) ? 15 : 0;
+                $subMinutes = 15;//15 is duration of single slot
                 $start      = $booking->getStartAt();
-                $end        = $booking->getEndAt()->subMinutes($subMinutes);//15 is duration of single slot
+                $end        = $booking->getEndAt()->subMinutes($subMinutes);
 
                 if(($start->minute % 15) > 0)
                 {
