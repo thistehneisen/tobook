@@ -64,6 +64,7 @@ class Services extends AsBase
     public function upsertHandler($service)
     {
         $service->fill(Input::all());
+        $service->setLength();
         // Attach user
         $service->user()->associate($this->user);
         $categoryId = (int) Input::get('category_id');
@@ -154,18 +155,16 @@ class Services extends AsBase
                 : ServiceTime::where('service_id', $id)
                 ->where('id', $serviceTimeId)
                 ->firstOrFail();
-            $length = intval(Input::get('before'))
-                    + intval(Input::get('during'))
-                    + intval(Input::get('after'));
 
             $serviceTime->fill([
                 'price'       => Input::get('price'),
                 'before'      => Input::get('before'),
                 'during'      => Input::get('during'),
                 'after'       => Input::get('after'),
-                'length'      => $length,
                 'description' => Input::get('description'),
             ]);
+
+            $serviceTime->setLength()
 
             $serviceTime->service()->associate($service);
             $serviceTime->save();

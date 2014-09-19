@@ -6,6 +6,12 @@ class ServiceTime extends \App\Core\Models\Base
 
     public $fillable = ['price', 'length','before','during', 'after', 'description'];
 
+
+    public function setLength()
+    {
+        $this->length = (int) $this->after + $this->during + $this->before;
+    }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
