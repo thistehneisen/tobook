@@ -515,8 +515,14 @@ class Bookings extends AsBase
             $booking->user()->associate($this->user);
             $booking->employee()->associate($bookingService->employee);
             $booking->save();
+
+
             $bookingService->booking()->associate($booking);
             $bookingService->save();
+
+            //Only can send sms after insert booking service
+            $booking->attach(new SmsObserver(true));//true is backend
+            $booking->notify();
 
             Session::forget('carts');
             Session::forget('booking_info');

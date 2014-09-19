@@ -4,55 +4,135 @@ use Carbon\Carbon;
 
 class SmsObserver implements \SplObserver {
 
-    public function update(\SplSubject $subject) {
-        $smsEnabled = (bool) $subject->user->asOptions['confirm_sms_enable'];
-        if($smsEnabled){
+    /**
+     * Use to distinguish between front end and backend booking
+     *
+     * @var boolean
+     */
+    private $isBackend = false;
 
-            //Start time for consumer is after service before
-            $befofe = 0;
-            $after = 0;
-            if(!empty($subject->bookingServices()->first()->serviceTime)){
-                $serviceTime = $subject->bookingServices()->first()->serviceTime;
-                $befofe      = $serviceTime->before;
-                $after       = $serviceTime->after;
-            } else {
-                $service = $subject->bookingServices()->first()->service;
-                $before  = $service->before;
-                $after   = $service->after;
-            }
-            $start_at = with(new Carbon($subject->start_at))->addMinutes($before);
-            $end_at   = with(new Carbon($subject->end_at))->subMinutes($after);
+    /**
+     * Reused in other method
+     *
+     * @var App\Appointment\Models\Booking
+     */
+    private $subject;
 
-            $serviceInfo = sprintf("%s, %s (%s - %s)",
-                $subject->bookingServices()->first()->service->name,
-                $subject->date,
-                $start_at->toTimeString(),
-                $end_at->toTimeString());
+    /**
+     * Country code
+     *
+     * @var string
+     */
+    private $code;
 
-            $smsMessage =  $subject->user->asOptions['confirm_consumer_sms_message'];
-            $from = 'varaa.com';
-            $to = $subject->consumer->phone;
-            if (strpos($to, '0') === 0 ) {
-                $to = ltrim($to, '0');
-            }
+    /**
+     * Service info: name, date (start - end)
+     *
+     * @var string
+     */
+    private $info;
 
-            $code = $subject->user->asOptions['confirm_sms_country_code'];
-            $to = (empty($code)) ? $code . $to : '358' . $to;
-            $msg  = str_replace('{Services}', $serviceInfo, $smsMessage);
-            //$msg  = str_replace('{Consumer}', $subject->consumer->name, $msg);
-            Sms::send($from, $to, $msg);
+    private $from = 'varaa.com';
 
-            if ($subject->employee->is_subscribed_sms) {
-                $to = $subject->employee->phone;
-                if (strpos($to, '0') === 0 ) {
-                    $to = ltrim($to, '0');
-                }
-                $to = (empty($code)) ? $code . $to : '358' . $to;
-                $msg = $subject->user->asOptions['confirm_employee_sms_message'];
-                $msg  = str_replace('{Services}', $serviceInfo, $msg);
-                $msg  = str_replace('{Consumer}', $subject->consumer->name, $msg);
-                Sms::send($from, $to, $msg);
-            }
+    public function __construct($isBackend = false)
+    {
+        $this->isBackend = $isBackend;
+    }
+
+    public function setIsBackend($value)
+    {
+        $this->isBackend = (bool) $value;
+        return $this;
+    }
+
+    public function setSubject($subject)
+    {
+         $this->subject = $subject;
+         return $this;
+    }
+
+    public function setCode()
+    {
+       $this->code =  $this->subject->user->asOptions['confirm_sms_country_code'];
+       return $this;
+    }
+
+    public function getSendNumber($phone)
+    {
+        if (strpos($phone, '0') === 0 ) {
+            $phone = ltrim($phone, '0');
+        }
+        $phone = (empty($this->code)) ? $this->code . $phone : '358' . $phone;
+        return $phone;
+    }
+
+    protected function setServiceInfo()
+    {
+        $befofe = $after = 0;
+
+        if(!empty($this->subject->bookingServices()->first()->serviceTime)){
+            $serviceTime = $this->subject->bookingServices()->first()->serviceTime;
+            $befofe      = $serviceTime->before;
+            $after       = $serviceTime->after;
+        } else {
+            $service = $this->subject->bookingServices()->first()->service;
+            $before  = $service->before;
+            $after   = $service->after;
+        }
+
+        //Start time for consumer is after service before
+        $start = with(new Carbon($this->subject->start_at))->addMinutes($before);
+        $end   = with(new Carbon($this->subject->end_at))->subMinutes($after);
+
+        $info = "{service}, {date} ({start} - {end})";
+        $info = str_replace('{service}', $this->subject->bookingServices()->first()->service->name, $info);
+        $info = str_replace('{date}', $this->subject->date, $info);
+        $info = str_replace('{start}', $start->toTimeString(), $info);
+        $info = str_replace('{end}', $end->toTimeString(), $info);
+
+        $this->info = $info;
+        return $this;
+    }
+
+    public function update(\SplSubject $subject)
+    {
+        $this->setSubject($subject);
+        $this->setCode();
+
+        $isEnabled = (bool) $this->subject->user->asOptions['confirm_sms_enable'];
+
+        if($isEnabled){
+            //Init service info for message
+            $this->setServiceInfo();
+            //Send SMS to consumer
+            $this->sendToConsumer();
+            //Send SMS to employee
+            $this->sendToEmployee();
+
+        }
+    }
+
+    protected function sendToConsumer()
+    {
+        $msg =  $this->subject->user->asOptions['confirm_consumer_sms_message'];
+        $to = $this->getSendNumber($this->subject->consumer->phone);
+        $msg  = str_replace('{Services}', $this->info, $msg);
+        Sms::send($this->from, $to, $msg);
+    }
+
+    protected function sendToEmployee()
+    {
+        //Does not send sms for employee in backend
+        if ($this->isBackend) {
+            return;
+        }
+
+        if ($this->subject->employee->is_subscribed_sms) {
+            $to  = $this->getSendNumber($this->subject->employee->phone);
+            $msg = $this->subject->user->asOptions['confirm_employee_sms_message'];
+            $msg = str_replace('{Services}', $this->info, $msg);
+            $msg = str_replace('{Consumer}', $this->subject->consumer->name, $msg);
+            Sms::send($this->from, $to, $msg);
         }
     }
 }
