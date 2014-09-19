@@ -520,9 +520,12 @@ class Bookings extends AsBase
             $bookingService->booking()->associate($booking);
             $bookingService->save();
 
-            //Only can send sms after insert booking service
-            $booking->attach(new SmsObserver(true));//true is backend
-            $booking->notify();
+            //Don't send sms when update booking
+            if(empty($bookingId)){
+                //Only can send sms after insert booking service
+                $booking->attach(new SmsObserver(true));//true is backend
+                $booking->notify();
+            }
 
             Session::forget('carts');
             Session::forget('booking_info');
