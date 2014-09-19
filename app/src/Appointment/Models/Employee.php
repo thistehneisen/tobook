@@ -104,7 +104,7 @@ class Employee extends Base
             return ($a < $b) ? -1 : 1;
         });
 
-        //hight to low
+        //high to low
         usort($endTimes, function($a, $b){
             if ($a === $b) {
                 return 0;
@@ -113,18 +113,23 @@ class Employee extends Base
         });
 
         $workingTimes = [];
-        $startHour = isset($startTimes[0]) ? $startTimes[0]->hour : 7;
-        $startMinute = isset($startTimes[0]) ? $startTimes[0]->minute: 0;
-        $endHour = isset($endTimes[0]) ? $endTimes[0]->hour : 21;
-        $endMinute = isset($endTimes[0]) ? $endTimes[0]->minute : 0;
+        $startHour   = (int)isset($startTimes[0]) ? $startTimes[0]->hour : 7;
+        $startMinute = (int)isset($startTimes[0]) ? $startTimes[0]->minute: 0;
+        $endHour     = (int)isset($endTimes[0]) ? $endTimes[0]->hour : 21;
+        $endMinute   = (int)isset($endTimes[0]) ? $endTimes[0]->minute : 0;
 
-        for ($i = (int)$startHour; $i<= (int)$endHour - 1; $i++) {
-            $workingTimes[$i] = range(0, 45, 15);
-            if ($i == $startHour && $startMinute != 0) {
-                $workingTimes[$i] = range(0, (int)$startMinute, 15);
+        $endHour   = ($endMinute == 0) ? $endHour - 1 : $endHour;
+        $endMinute = ($endMinute == 0) ? 45 : $endMinute;
+        for ($i = $startHour; $i<= $endHour - 1; $i++) {
+            if ($i === $startHour) {
+                $workingTimes[$i] = range($startMinute, 45, 15);
             }
-            if ($i == $endHour && $endMinute != 0) {
-                 $workingTimes[$i] = range(0, (int)$endMinute, 15);
+            if ($i !== $startHour && $i !== $endHour)
+            {
+                $workingTimes[$i] = range(0, 45, 15);
+            }
+            if ($i === $endHour) {
+                 $workingTimes[$i] = range(0, $endMinute, 15);
             }
         }
         return $workingTimes;
