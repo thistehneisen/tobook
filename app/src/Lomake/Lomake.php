@@ -1,10 +1,24 @@
 <?php namespace App\Lomake;
 
-use App, View;
+use App, View, Form;
 use App\Lomake\FieldFactory;
 
 class Lomake
 {
+    /**
+     * Options passed from user to Lomake
+     *
+     * @var array
+     */
+    protected $opt;
+
+    /**
+     * The instance of model
+     *
+     * @var Illuminate\Database\Eloquent\Model
+     */
+    protected $model;
+
     /**
      * The list of all fields in this form
      *
@@ -67,6 +81,7 @@ class Lomake
             'template'   => 'varaa-lomake::form',
             'fields'     => [],
             'noRender'   => false,
+            'overwrite'  => false,
             'langPrefix' => ''
         ], $opt);
 
@@ -78,14 +93,16 @@ class Lomake
 
         // Generate fields
         $fields = [];
-        foreach ($instance->fillable as $name) {
-            $field['name']       = $name;
-            $field['type']       = $this->guessInputType($name);
-            $field['required']   = $this->isRequired($instance, $name);
-            $field['model']      = $instance;
-            $field['langPrefix'] = $opt['langPrefix'];
+        if ($opt['overwrite'] === false) {
+            foreach ($instance->fillable as $name) {
+                $field['name']       = $name;
+                $field['type']       = $this->guessInputType($name);
+                $field['required']   = $this->isRequired($instance, $name);
+                $field['model']      = $instance;
+                $field['langPrefix'] = $opt['langPrefix'];
 
-            $fields[$name] = FieldFactory::create($field);
+                $fields[$name] = FieldFactory::create($field);
+            }
         }
 
         // If user wants to overwrite generated fields
@@ -99,6 +116,8 @@ class Lomake
 
         // Update the fields list
         $this->fields = $fields;
+        $this->opt = $opt;
+        $this->model = $instance;
 
         // If we don't want to render this form, but get the instance instead
         // This could be useful for partially rendering in order view
@@ -106,11 +125,49 @@ class Lomake
             return $this;
         }
 
-        return View::make($opt['template'], [
-            'fields' => $fields,
-            'opt'    => $opt,
-            'item'   => $instance
+        return $this;
+    }
+
+    /**
+     * Render the form based on provided options
+     *
+     * @return View
+     */
+    public function render()
+    {
+        return View::make($this->opt['template'], [
+            'fields' => $this->fields,
+            'opt'    => $this->opt,
+            'item'   => $this->model
         ]);
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
+    public function __toString()
+    {
+        return $this->render();
+    }
+
+    /**
+     * Return Form::open of this form
+     *
+     * @return string
+     */
+    public function open()
+    {
+        return Form::open($this->opt['form']);
+    }
+
+    /**
+     * Close the form
+     *
+     * @return string
+     */
+    public function close()
+    {
+        return Form::close();
     }
 
     /**
@@ -121,18 +178,21 @@ class Lomake
      *
      * @return boolean
      */
-    protected function isRequired($instance, $name)
+    protected function isRequired($instance, $name, $set = 'saving')
     {
+        // Check if this model makes use of Validating trait
+        if (method_exists($this, 'getRulesets') === false) {
+            // If not, consider no required
+            return false;
+        }
+
         $rule = '';
         $rules = $instance->getRules();
         if (!empty($rules) && isset($rules[$name])) {
             $rule = $rules[$name];
         } else {
-            // Not all rulesets have 'saving'
-            // @todo: Think about an universal check supporting state
-            // for all cases
             $rulesets = $instance->getRulesets();
-            $rules = $rulesets['saving'];
+            $rules = $rulesets[$set];
             $rule = isset($rules[$name]) ? $rules[$name] : '';
         }
 
