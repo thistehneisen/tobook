@@ -6,7 +6,6 @@ use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\Slot\Strategy;
 use App\Appointment\Models\Slot\Context;
 use App\Appointment\Models\Slot\Backend;
-use App\Appointment\Models\Slot\NewBackend;
 use App\Appointment\Models\Slot\Frontend;
 
 class Employee extends \App\Core\Models\Base
