@@ -188,7 +188,7 @@ class Auth extends Base
         ];
 
         // Get all business categories
-        $categories = BusinessCategory::root()->get();
+        $categories = BusinessCategory::getAll();
 
         return View::make('auth.register', [
             'fields'             => $fields,
