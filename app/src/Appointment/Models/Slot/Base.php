@@ -185,6 +185,12 @@ class Base implements Strategy
                 $start      = $booking->getStartAt();
                 $end        = $booking->getEndAt()->subMinutes($subMinutes);//15 is duration of single slot
 
+                if(($start->minute % 15) > 0)
+                {
+                    $complement = ($start->minute % 15);
+                    $start->subMinutes($complement);
+                }
+
                 if ($this->rowTime >= $start && $this->rowTime <= $end) {
                     $this->class = $booking->getClass();
                     if ($this->rowTime == $start) {
