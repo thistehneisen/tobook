@@ -3,7 +3,7 @@
 use App\Core\Models\User;
 use App\Core\Models\Base;
 
-class Option extends Base
+class Option extends \App\Core\Models\Base
 {
     protected $table = 'as_options';
 

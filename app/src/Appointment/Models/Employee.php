@@ -8,7 +8,7 @@ use App\Appointment\Models\Slot\Context;
 use App\Appointment\Models\Slot\Backend;
 use App\Appointment\Models\Slot\Frontend;
 
-class Employee extends Base
+class Employee extends \App\Appointment\Models\Base
 {
     protected $table = 'as_employees';
 
