@@ -336,7 +336,7 @@ trait Olut
         // Escape HTML
         $q = e(Input::get('q'));
 
-        $query = $this->getModel();
+        $query = $this->getModel()->ofCurrentUser();
         // Apply query string filters
         $query = $this->applyQueryStringFilter($query);
 
@@ -350,11 +350,6 @@ trait Olut
 
             return $subQuery;
         });
-
-        // Limit results to of the current user only
-        if (method_exists($this->getModel(), 'user')) {
-            $query = $query->ofCurrentUser();
-        }
 
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
         $items = $query->paginate($perPage);
@@ -410,7 +405,10 @@ trait Olut
      */
     public function destroy($ids)
     {
-        return $this->getModel()->whereIn('id', $ids)->delete();
+        return $this->getModel()
+            ->ofCurrentUser()
+            ->whereIn('id', $ids)
+            ->delete();
     }
 
     /**
