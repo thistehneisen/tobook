@@ -159,6 +159,11 @@ class Consumer extends \App\Core\Models\Base
             ->withPivot('is_visible');
     }
 
+    public function user()
+    {
+        return $this->hasOne('App\Core\Models\User');
+    }
+
     //--------------------------------------------------------------------------
     // SCOPES
     //--------------------------------------------------------------------------

@@ -4,6 +4,7 @@ use App, DB, Hashids, Config, Carbon\Carbon, Geocoder;
 use Zizaco\Confide\ConfideUser;
 use Zizaco\Entrust\HasRole;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Consumer;
 
 class User extends ConfideUser
 {
@@ -24,6 +25,7 @@ class User extends ConfideUser
     ];
 
     public $fillable = [
+        'username',
         'email',
         'first_name',
         'last_name',
@@ -64,6 +66,45 @@ class User extends ConfideUser
         static::updating(function($user) {
             $user->updateGeo();
         });
+    }
+
+    /**
+     * Overwrite this magic method, so that consumer user will return the correct
+     * value instead
+     *
+     * @param string $key
+     *
+     * @return mixed
+     */
+    public function __get($key)
+    {
+        // The list of share attributes between a normal user and a consumer
+        $details = [
+            'first_name' => true,
+            'last_name'  => true,
+            'email'      => true,
+            'phone'      => true,
+            'address'    => true,
+            'city'       => true,
+            'postcode'   => true,
+            'country'    => true,
+        ];
+
+        // If the requested key is not in the whitelist
+        if (!isset($details[$key])) {
+            // We'll just need to return it
+            return parent::__get($key);
+        }
+
+        // Otherwise, check if this user is a consumer user
+        $consumer = $this->consumer;
+        if ($consumer !== null) {
+            // Return the consumer value instead
+            return $consumer->$key;
+        }
+
+        // For users of other roles, return as usual
+        return parent::__get($key);
     }
 
     //--------------------------------------------------------------------------
@@ -109,6 +150,11 @@ class User extends ConfideUser
     public function flashDeals()
     {
         return $this->hasMany('App\FlashDeal\Models\FlashDealDate');
+    }
+
+    public function consumer()
+    {
+        return $this->belongsTo('App\Consumers\Models\Consumer');
     }
 
     //--------------------------------------------------------------------------
@@ -252,6 +298,22 @@ class User extends ConfideUser
             } catch (\Exception $ex) {
                 // Silently fail
             }
+        }
+    }
+
+
+    /**
+     * Check if there is an existing consumer having the same info with
+     * submitted data. If yes, connect them together.
+     *
+     * @return
+     */
+    public function validateExistingConsumer()
+    {
+        // @todo: More criteria to check existing consumer
+        $consumer = Consumer::where('email', $this->attributes['email'])->first();
+        if ($consumer !== null) {
+            $this->consumer()->associate($consumer);
         }
     }
 
@@ -400,5 +462,15 @@ class User extends ConfideUser
                     break;
             }
         }
+    }
+
+    /**
+     * Check to see if this user is a consumer
+     *
+     * @return bool
+     */
+    public function getIsConsumerAttribute()
+    {
+        return $this->hasRole(Role::CONSUMER);
     }
 }

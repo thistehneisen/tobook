@@ -12,6 +12,8 @@ return [
     'fill_fields'            => 'Täytä seuraavat tiedot',
     'username'               => 'Käyttäjänimi',
     'email'                  => 'Sähköposti',
+    'first_name'             => 'Etunimi',
+    'last_name'              => 'Sukunimi',
     'name'                   => 'Nimi',
     'phone'                  => 'Puhelin',
     'address'                => 'Osoite',
@@ -41,6 +43,7 @@ return [
         'upload_images'        => 'Upload new images', // @todo
         'description'          => 'Business introduction', // @todo
         'business_size'        => 'Business size', // @todo
+        'business'             => 'Business',
         'business_size_values' => [ // @todo
             '1',
             '2-3',

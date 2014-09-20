@@ -188,7 +188,7 @@ class Auth extends Base
         ];
 
         // Get all business categories
-        $categories = BusinessCategory::root()->get();
+        $categories = BusinessCategory::getAll();
 
         return View::make('auth.register', [
             'fields'             => $fields,
@@ -224,6 +224,10 @@ class Auth extends Base
         if ($user->getKey()) {
             // Update selected business categories
             $user->updateBusinessCategories(Input::get('categories'));
+
+            // Assign the role
+            $role = Role::user();
+            $user->attachRole($role);
 
             $notice = trans('confide::confide.alerts.account_created')
                 .' '.trans('confide::confide.alerts.instructions_sent');

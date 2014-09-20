@@ -31,101 +31,34 @@ $(function () {
     <div class="col-xs-12">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-            <li {{ $activeTab === 'general' ? 'class="active"' : '' }}><a href="#general" role="tab" data-toggle="tab">{{ trans('user.profile.general') }}</a></li>
-            <li {{ $activeTab === 'images' ? 'class="active"' : '' }}><a href="#images" role="tab" data-toggle="tab">{{ trans('user.profile.images') }}</a></li>
-            <li {{ $activeTab === 'password' ? 'class="active"' : '' }}><a href="#password" role="tab" data-toggle="tab">{{ trans('user.change_password') }}</a></li>
+            <li {{ $activeTab === 'general' ? 'class="active"' : '' }}><a href="#tab-general" role="tab" data-toggle="tab">{{ trans('user.profile.general') }}</a></li>
+        @if (Confide::user()->is_consumer === false)
+            <li {{ $activeTab === 'business' ? 'class="active"' : '' }}><a href="#tab-business" role="tab" data-toggle="tab">{{ trans('user.profile.business') }}</a></li>
+            <li {{ $activeTab === 'images' ? 'class="active"' : '' }}><a href="#tab-images" role="tab" data-toggle="tab">{{ trans('user.profile.images') }}</a></li>
+        @endif
+            <li {{ $activeTab === 'password' ? 'class="active"' : '' }}><a href="#tab-password" role="tab" data-toggle="tab">{{ trans('user.change_password') }}</a></li>
         </ul>
         <br>
         @include ('el.messages')
 
         <!-- Tab panes -->
         <div class="tab-content">
-            <div class="tab-pane active" id="general">
-            {{ Form::open(['id' => 'frm-profile', 'route' => 'user.profile', 'class' => 'form-horizontal', 'role' => 'form']) }}
-                <h3 class="comfortaa orange">{{ trans('user.profile.general') }}</h3>
-
-            @foreach (['business_name', 'address', 'city', 'postcode', 'country', 'phone'] as $field)
-                <div class="form-group {{ Form::errorCSS($field, $errors) }}">
-                    {{ Form::label($field, trans('user.'.$field).Form::required($field, $validator), ['class' => 'col-sm-2 col-sm-offset-1 control-label']) }}
-                    <div class="col-sm-6">
-                        {{ Form::text($field, Input::get($field, $user->$field), ['class' => 'form-control']) }}
-                        {{ Form::errorText($field, $errors) }}
-                    </div>
-                </div>
-            @endforeach
-
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-offset-1 control-label">{{ trans('user.profile.business_categories.index') }}</label>
-                    <div class="col-sm-6">
-                        @include ('user.el.categories')
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="description" class="col-sm-2 col-sm-offset-1 control-label">{{ trans('user.profile.description') }}</label>
-                    <div class="col-sm-6">
-                        {{ Form::textarea('description', Input::get('description', $user->description), ['class' => 'form-control']) }}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="business_size" class="col-sm-2 col-sm-offset-1 control-label">{{ trans('user.profile.business_size') }}</label>
-                    <div class="col-sm-6">
-                        {{ Form::select('business_size', trans('user.profile.business_size_values'), $user->business_size, ['class' => 'form-control']) }}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-sm-9 text-right">
-                        <input type="hidden" name="tab" value="general">
-                        <button type="submit" class="btn btn-lg btn-orange to-upper comfortaa">{{ trans('common.save') }}</button>
-                    </div>
-                </div>
-            {{ Form::close() }}
+            <div class="tab-pane active" id="tab-general">
+                @include ('user.el.general')
             </div> <!-- General information -->
 
-            <div class="tab-pane" id="images">
-                <h3 class="comfortaa orange">{{ trans('user.profile.images') }}</h3>
-                @if ($images->isEmpty())
-                <p class="text-muted"><em>{{ trans('user.profile.no_images') }}</em></p>
-                @endif
-
-                <ul class="varaa-thumbnails">
-                @foreach ($images as $image)
-                    <li><a href="{{ route('images.delete', ['id' => $image->id]) }}" class="delete-image"><div class="overlay"><i class="fa fa-trash-o fa-3x"></i></div> <img src="{{ $image->getPublicUrl() }}" alt="" class="img-rounded"></a></li>
-                @endforeach
-                </ul>
-                <div class="clearfix"></div>
-
-                <h3 class="comfortaa orange">{{ trans('user.profile.upload_images') }}</h3>
-                @include ('el.uploader', [
-                    'formData' => $formData
-                ])
+        @if (Confide::user()->is_consumer === false)
+            <div class="tab-pane {{ $activeTab === 'business' ? 'active' : '' }}" id="tab-business">
+                @include ('user.el.business')
             </div> <!-- Images -->
 
-            <div class="tab-pane {{ $activeTab === 'password' ? 'active' : '' }}" id="password">
-            {{ Form::open(['id' => 'frm-profile', 'route' => 'user.profile', 'class' => 'form-horizontal', 'role' => 'form']) }}
-                <h3 class="comfortaa orange">{{ trans('user.change_password') }}</h3>
-                @foreach ($fields as $name => $field)
-                    <?php $type = isset($field['type']) ? $field['type'] : 'text' ?>
-                    <div class="form-group {{ Form::errorCSS($name, $errors) }}">
-                        {{ Form::label($name, $field['label'].Form::required($name, $validator), ['class' => 'col-sm-2 col-sm-offset-1 control-label']) }}
-                        <div class="col-sm-6">
-                    @if ($type === 'password') {{ Form::$type($name, ['class' => 'form-control']) }}
-                    @else {{ Form::$type($name, Input::get($name), ['class' => 'form-control']) }}
-                    @endif
-                        {{ Form::errorText($name, $errors) }}
-                        </div>
-                    </div>
-                @endforeach
+            <div class="tab-pane {{ $activeTab === 'images' ? 'active' : '' }}" id="tab-images">
+                @include ('user.el.images')
+            </div> <!-- Images -->
+        @endif
 
-                <div class="form-group">
-                    <div class="col-sm-9 text-right">
-                        <input type="hidden" name="tab" value="password">
-                        <button type="submit" class="btn btn-lg btn-orange to-upper comfortaa">{{ trans('common.save') }}</button>
-                    </div>
-                </div>
-            {{ Form::close() }}
+            <div class="tab-pane {{ $activeTab === 'password' ? 'active' : '' }}" id="tab-password">
+                @include ('user.el.password')
             </div> <!-- Change password -->
         </div>
     </div>

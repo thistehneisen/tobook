@@ -8,9 +8,10 @@ use App\Core\Models\Image;
 class User extends Base
 {
     protected $rules = [
-        'profile' => [
+        'business' => [
             'business_name' => 'required',
         ],
+        'profile' => [],
         'password' => [
             'password'              => 'required_with:old_password|confirmed',
             'password_confirmation' => 'required_with:password',
@@ -31,7 +32,7 @@ class User extends Base
         ];
 
         // Get all business categories
-        $categories = BusinessCategory::root()->with('children')->get();
+        $categories = BusinessCategory::getAll();
         $selectedCategories = Confide::user()->businessCategories->lists('id');
 
         // Get all images of this user
@@ -82,7 +83,6 @@ class User extends Base
                     trans('user.change_profile_success')
                 ));
         } catch (\Exception $ex) {
-
         }
 
         return Redirect::back()
@@ -103,16 +103,58 @@ class User extends Base
             return Redirect::back()->withInput()->withErrors($v);
         }
 
+        $data = [
+            'first_name' => e(Input::get('first_name')),
+            'last_name'  => e(Input::get('last_name')),
+            'email'      => e(Input::get('email')),
+            'phone'      => e(Input::get('phone')),
+            'address'    => e(Input::get('address')),
+            'city'       => e(Input::get('city')),
+            'postcode'   => e(Input::get('postcode')),
+            'country'    => e(Input::get('country')),
+        ];
+
+
+        $errors = null;
+        $user = Confide::user();
+        // If this user is a consumer
+        $consumer = $user->consumer;
+        if ($consumer !== null) {
+            $consumer->fill($data);
+            try {
+                $consumer->saveOrFail();
+            } catch (\Watson\Validating\ValidationException $ex) {
+                $errors = $ex->getErrors();
+            }
+        }
+
+        $user->fill($data);
+        if (!$user->updateUniques()) {
+            $errors = $user->errors();
+        }
+
+        if ($errors !== null) {
+            return Redirect::back()->withInput()->withErrors($errors);
+        }
+    }
+
+    /**
+     * Update business related information
+     *
+     * @return void
+     */
+    protected function updateBusiness()
+    {
+        $v = Validator::make(Input::all(), $this->rules['business']);
+        if ($v->fails()) {
+            return Redirect::back()->withInput()->withErrors($v);
+        }
+
         $user = Confide::user();
         $user->fill([
             'description'   => e(Input::get('description')),
             'business_size' => e(Input::get('business_size')),
             'business_name' => e(Input::get('business_name')),
-            'address'       => e(Input::get('address')),
-            'city'          => e(Input::get('city')),
-            'postcode'      => e(Input::get('postcode')),
-            'country'       => e(Input::get('country')),
-            'phone'         => e(Input::get('phone')),
         ]);
 
         // Update business categories

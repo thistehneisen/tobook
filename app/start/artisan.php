@@ -25,3 +25,5 @@ Artisan::add(new App\Appointment\Commands\FixBookingsNotesCommand());
 Artisan::add(new App\Appointment\Commands\FixBookingTotalCommand());
 Artisan::add(new App\FlashDeal\Commands\FixUserIdCommand());
 Artisan::add(new App\Appointment\Commands\FixBookingServiceTimeCommand());
+Artisan::add(new App\Core\Commands\CreateRoleConsumerCommand());
+Artisan::add(new App\Core\Commands\FixMissingRoleCommand());
