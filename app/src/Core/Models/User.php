@@ -463,4 +463,14 @@ class User extends ConfideUser
             }
         }
     }
+
+    /**
+     * Check to see if this user is a consumer
+     *
+     * @return bool
+     */
+    public function getIsConsumerAttribute()
+    {
+        return $this->hasRole(Role::CONSUMER);
+    }
 }
