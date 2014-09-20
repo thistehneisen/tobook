@@ -110,6 +110,7 @@ class Lomake
             $field['name']       = $name;
             $field['model']      = $instance;
             $field['langPrefix'] = $opt['langPrefix'];
+            $field['required']   = $this->isRequired($instance, $name);
 
             $fields[$name] = FieldFactory::create($field);
         }
@@ -181,10 +182,10 @@ class Lomake
     protected function isRequired($instance, $name, $set = 'saving')
     {
         // Check if this model makes use of Validating trait
-        if (method_exists($this, 'getRulesets') === false) {
-            // If not, consider no required
-            return false;
-        }
+        // if (method_exists($this, 'getRulesets') === false) {
+        //     // If not, consider no required
+        //     return false;
+        // }
 
         $rule = '';
         $rules = $instance->getRules();
