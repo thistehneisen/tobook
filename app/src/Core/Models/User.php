@@ -68,6 +68,45 @@ class User extends ConfideUser
         });
     }
 
+    /**
+     * Overwrite this magic method, so that consumer user will return the correct
+     * value instead
+     *
+     * @param string $key
+     *
+     * @return mixed
+     */
+    public function __get($key)
+    {
+        // The list of share attributes between a normal user and a consumer
+        $details = [
+            'first_name' => true,
+            'last_name'  => true,
+            'email'      => true,
+            'phone'      => true,
+            'address'    => true,
+            'city'       => true,
+            'postcode'   => true,
+            'country'    => true,
+        ];
+
+        // If the requested key is not in the whitelist
+        if (!isset($details[$key])) {
+            // We'll just need to return it
+            return parent::__get($key);
+        }
+
+        // Otherwise, check if this user is a consumer user
+        $consumer = $this->consumer;
+        if ($consumer !== null) {
+            // Return the consumer value instead
+            return $consumer->$key;
+        }
+
+        // For users of other roles, return as usual
+        return parent::__get($key);
+    }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
