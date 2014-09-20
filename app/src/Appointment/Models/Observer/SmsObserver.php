@@ -75,14 +75,14 @@ class SmsObserver implements \SplObserver {
 
     protected function setServiceInfo($subject)
     {
-        $befofe = $after = 0;
+        $before = $after = 0;
 
-        if(!empty($this->subject->bookingServices()->first()->serviceTime->id)){
-            $serviceTime = $this->subject->bookingServices()->first()->serviceTime;
-            $befofe      = $serviceTime->before;
+        if(!empty($subject->bookingServices()->first()->serviceTime->id)){
+            $serviceTime = $subject->bookingServices()->first()->serviceTime;
+            $before      = $serviceTime->before;
             $after       = $serviceTime->after;
         } else {
-            $service = $this->subject->bookingServices()->first()->service;
+            $service = $subject->bookingServices()->first()->service;
             $before  = $service->before;
             $after   = $service->after;
         }
@@ -120,7 +120,7 @@ class SmsObserver implements \SplObserver {
     {
         $msg = $subject->user->asOptions['confirm_consumer_sms_message'];
         $to  = $this->getSendNumber($subject->consumer->phone);
-        $msg = str_replace('{Services}', $this->info, $msg);
+        $msg = str_replace('{Services}', $this->serviceInfo, $msg);
         Sms::send($this->from, $to, $msg);
     }
 
@@ -134,7 +134,7 @@ class SmsObserver implements \SplObserver {
         if ($subject->employee->is_subscribed_sms) {
             $to  = $this->getSendNumber($subject->employee->phone);
             $msg = $subject->user->asOptions['confirm_employee_sms_message'];
-            $msg = str_replace('{Services}', $this->info, $msg);
+            $msg = str_replace('{Services}', $this->serviceInfo, $msg);
             $msg = str_replace('{Consumer}', $subject->consumer->name, $msg);
             Sms::send($this->from, $to, $msg);
         }

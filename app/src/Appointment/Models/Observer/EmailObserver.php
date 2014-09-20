@@ -41,18 +41,18 @@ class EmailObserver implements \SplObserver
         $msg = $subject->user->asOptions['confirm_tokens_client'];
 
           //Start time for consumer is after service before
-        $befofe = $after = 0;
+        $before = $after = 0;
         if(!empty($subject->bookingServices()->first()->serviceTime->id)){
             $serviceTime = $subject->bookingServices()->first()->serviceTime;
-            $befofe      = $serviceTime->before;
+            $before      = $serviceTime->before;
             $after       = $serviceTime->after;
         } else {
             $service = $subject->bookingServices()->first()->service;
             $before  = $service->before;
             $after   = $service->after;
         }
-        $start_at = $subject->getStartAt()->addMinutes($before);
-        $end_at   = $subject->getEndAt()->subMinutes($after);
+        $start = $subject->getStartAt()->addMinutes($before);
+        $end   = $subject->getEndAt()->subMinutes($after);
 
         $serviceInfo = "{service}, {date} ({start} - {end})";
         $serviceInfo = str_replace('{service}', $subject->bookingServices()->first()->service->name, $serviceInfo);
@@ -73,7 +73,7 @@ class EmailObserver implements \SplObserver
 
     public function getEmailBody($subject, $body)
     {
-        $body  = str_replace('{Services}', $this->serviceInfo, $body));
+        $body  = str_replace('{Services}', $this->serviceInfo, $body);
         $body  = str_replace('{Name}',$subject->consumer->name, $body);
         $body  = str_replace('{BookingID}', $subject->uuid, $body);
         $body  = str_replace('{Phone}', $subject->consumer->phone, $body);

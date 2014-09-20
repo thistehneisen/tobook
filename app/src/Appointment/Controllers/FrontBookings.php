@@ -129,7 +129,7 @@ class FrontBookings extends Bookings
             $bookingExtraService->save();
         }
 
-        $price = isset($service) ? $service->price : $serviceTime->price;
+        $price = (!empty($serviceTime)) ? $serviceTime->price : $service->price;
         $price += $extraServicePrice;
 
         $data = [
@@ -175,10 +175,10 @@ class FrontBookings extends Bookings
             foreach ($carts as $item) {
                 $uuid = $item['uuid'];
 
-                $bookingService = BookingService::where('tmp_uuid', $uuid)->firstOrFail();
+                $bookingService = BookingService::where('tmp_uuid', $uuid)->first();
                 $extraServices  = BookingExtraService::where('tmp_uuid', $uuid)->get();
 
-                $length = (!empty($bookingService->serviceTime))
+                $length = (!empty($bookingService->serviceTime->id))
                     ? $bookingService->serviceTime->length
                     : $bookingService->service->length;
 
