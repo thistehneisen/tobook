@@ -88,7 +88,7 @@ Route::group(['prefix' => 'business'], function () {
 | Auth Routes
 |--------------------------------------------------------------------------
 */
-Route::group(['prefix' => 'consumer/auth'], function () {
+Route::group(['prefix' => 'consumer'], function () {
 
     Route::get('register', [
         'as' => 'consumer.auth.register',
@@ -101,21 +101,7 @@ Route::group(['prefix' => 'consumer/auth'], function () {
 
 });
 
-/*
-|--------------------------------------------------------------------------
-| Auth Routes
-|--------------------------------------------------------------------------
-*/
-Route::group(['prefix' => 'business/auth'], function () {
-
-    Route::get('login', [
-        'as' => 'auth.login',
-        'uses' => 'App\Core\Controllers\Auth@login'
-    ]);
-
-    Route::post('login', [
-        'uses' => 'App\Core\Controllers\Auth@doLogin'
-    ]);
+Route::group(['prefix' => 'business'], function () {
 
     Route::get('register', [
         'as' => 'auth.register',
@@ -124,6 +110,24 @@ Route::group(['prefix' => 'business/auth'], function () {
 
     Route::post('register', [
         'uses' => 'App\Core\Controllers\Auth@doRegister'
+    ]);
+
+});
+
+/*
+|--------------------------------------------------------------------------
+| Auth Routes
+|--------------------------------------------------------------------------
+*/
+Route::group(['prefix' => 'auth'], function () {
+
+    Route::get('login', [
+        'as' => 'auth.login',
+        'uses' => 'App\Core\Controllers\Auth@login'
+    ]);
+
+    Route::post('login', [
+        'uses' => 'App\Core\Controllers\Auth@doLogin'
     ]);
 
     Route::get('thank-you', [
