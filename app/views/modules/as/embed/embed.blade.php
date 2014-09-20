@@ -82,6 +82,7 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/purl/2.3.1/purl.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
     @if(App::getLocale() !== 'en')
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.'.App::getLocale().'.min.js') }}
@@ -100,7 +101,8 @@
             language: '{{ App::getLocale() }}'
         }).on('changeDate', function (e) {
             if (window.location.href.indexOf('date') != -1) {
-                window.location.href = window.location.href.replace(new RegExp("date=.*?(&|$)", 'g'), "date=" + e.format());
+                var date = purl(window.location.href).param('date');
+                window.location.href = window.location.href.replace(date, e.format());
             } else {
                  window.location.href = window.location.href + '?date=' + e.format();
             }
