@@ -101,9 +101,11 @@
             e.preventDefault();
             $('.btn-select-service-time').removeClass('active');
             $(this).parent().find('a').addClass('active');
-            var url = $('#btn-add-service-' + $(this).data('service-id')).prop('href');
-            url = url.replace(new RegExp("service_time=.*?(&|$)", 'g'), "service_time=" + $(this).data('service-time') + '&');
-            $('#btn-add-service-' + $(this).data('service-id')).prop('href', url);
+            if ($('#btn-add-service-' + $(this).data('service-id')).length) {
+                var url = $('#btn-add-service-' + $(this).data('service-id')).prop('href');
+                url = url.replace(new RegExp("service_time=.*?(&|$)", 'g'), "service_time=" + $(this).data('service-time') + '&');
+                $('#btn-add-service-' + $(this).data('service-id')).prop('href', url);
+            }
         });
 
         $('a.btn-make-appointment').click(function (e) {
