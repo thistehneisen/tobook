@@ -126,11 +126,11 @@ class User extends Base
             } catch (\Watson\Validating\ValidationException $ex) {
                 $errors = $ex->getErrors();
             }
-        } else {
-            $user->fill($data);
-            if (!$user->updateUniques()) {
-                $errors = $user->errors();
-            }
+        }
+
+        $user->fill($data);
+        if (!$user->updateUniques()) {
+            $errors = $user->errors();
         }
 
         if ($errors !== null) {
