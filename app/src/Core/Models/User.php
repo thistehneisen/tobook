@@ -4,6 +4,7 @@ use App, DB, Hashids, Config, Carbon\Carbon, Geocoder;
 use Zizaco\Confide\ConfideUser;
 use Zizaco\Entrust\HasRole;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Consumer;
 
 class User extends ConfideUser
 {
@@ -24,6 +25,7 @@ class User extends ConfideUser
     ];
 
     public $fillable = [
+        'username',
         'email',
         'first_name',
         'last_name',
@@ -109,6 +111,11 @@ class User extends ConfideUser
     public function flashDeals()
     {
         return $this->hasMany('App\FlashDeal\Models\FlashDealDate');
+    }
+
+    public function consumer()
+    {
+        return $this->belongsTo('App\Consumers\Models\Consumer');
     }
 
     //--------------------------------------------------------------------------
@@ -252,6 +259,22 @@ class User extends ConfideUser
             } catch (\Exception $ex) {
                 // Silently fail
             }
+        }
+    }
+
+
+    /**
+     * Check if there is an existing consumer having the same info with
+     * submitted data. If yes, connect them together.
+     *
+     * @return
+     */
+    public function validateExistingConsumer()
+    {
+        // @todo: More criteria to check existing consumer
+        $consumer = Consumer::where('email', $this->attributes['email'])->first();
+        if ($consumer !== null) {
+            $this->consumer()->associate($consumer);
         }
     }
 

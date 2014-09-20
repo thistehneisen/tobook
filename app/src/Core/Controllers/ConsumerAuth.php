@@ -44,6 +44,9 @@ class ConsumerAuth extends Auth
         $user->password              = e(Input::get('password'));
         $user->password_confirmation = e(Input::get('password_confirmation'));
 
+        // Now we need to check existing consumer
+        $user->validateExistingConsumer();
+
         if (!$user->save()) {
             return Redirect::route('consumer.auth.register')
                 ->withInput(Input::except('password'))
@@ -53,6 +56,7 @@ class ConsumerAuth extends Auth
         // Assign the role
         $role = Role::consumer();
         $user->attachRole($role);
+
 
         $notice = trans('confide::confide.alerts.account_created')
             .' '.trans('confide::confide.alerts.instructions_sent');
