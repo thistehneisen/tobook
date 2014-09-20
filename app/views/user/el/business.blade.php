@@ -34,7 +34,7 @@
 
     <div class="form-group">
         <div class="col-sm-9 text-right">
-            <input type="hidden" name="tab" value="general">
+            <input type="hidden" name="tab" value="business">
             <button type="submit" class="btn btn-lg btn-orange to-upper comfortaa">{{ trans('common.save') }}</button>
         </div>
     </div>
