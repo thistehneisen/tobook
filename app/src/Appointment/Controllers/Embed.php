@@ -149,6 +149,7 @@ class Embed extends AsBase
     public function getExtraServiceForm()
     {
         $service = Service::findOrFail(Input::get('service_id'));
+        $serviceTime = Input::get('service_time');
 
         $layoutId = (int) Input::get('l');
         if (!$layoutId) {
@@ -156,8 +157,9 @@ class Embed extends AsBase
         }
 
         return $this->render('layout-'.$layoutId.'.extraServices', [
-            'date'    => Input::get('date') ?: Carbon::now()->toDateString(),
-            'service' => $service
+            'date'        => Input::get('date') ?: Carbon::now()->toDateString(),
+            'service'     => $service,
+            'serviceTime' => $serviceTime,
         ]);
     }
 

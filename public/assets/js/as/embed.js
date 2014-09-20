@@ -16,7 +16,8 @@
         $('a.btn-add-extra-service').click(function (e) {
             e.preventDefault();
             var service_id = $(this).data('service-id'),
-                hash = $(this).data('hash');
+                hash = $(this).data('hash'),
+                service_time = $('body').data('service-time');
             $.fancybox.open({
                 padding: 5,
                 width: 400,
@@ -32,6 +33,7 @@
                     type: 'GET',
                     data: {
                         service_id: service_id,
+                        service_time : service_time,
                         hash: hash,
                         date: $('#txt-date').val()
                     }
@@ -101,9 +103,11 @@
             e.preventDefault();
             $('.btn-select-service-time').removeClass('active');
             $(this).parent().find('a').addClass('active');
+            $("body").data("service-time", $(this).data('service-time'));
             if ($('#btn-add-service-' + $(this).data('service-id')).length) {
-                var url = $('#btn-add-service-' + $(this).data('service-id')).prop('href');
-                url = url.replace(new RegExp("service_time=.*?(&|$)", 'g'), "service_time=" + $(this).data('service-time') + '&');
+                var url = $('#btn-add-service-' + $(this).data('service-id')).prop('href'),
+                    service_time = purl(url).param('service_time');
+                url = url.replace("service_time=" + service_time, "service_time=" + $(this).data('service-time'));
                 $('#btn-add-service-' + $(this).data('service-id')).prop('href', url);
             }
         });

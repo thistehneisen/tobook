@@ -13,6 +13,7 @@
 
         <input type="hidden" name="date" value="{{ $date }}">
         <input type="hidden" name="service_id" value="{{ $service->id }}">
+        <input type="hidden" name="service_time" value="{{ $serviceTime }}">
         <div class="form-group text-right">
             <button type="submit" class="btn btn-primary">{{ trans('common.next') }}</button>
         </div>
