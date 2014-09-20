@@ -11,6 +11,8 @@ return [
     'create_account'         => 'Create an account',
     'fill_fields'            => 'Fill in your information',
     'username'               => 'User name',
+    'first_name'             => 'First name',
+    'last_name'              => 'Last name',
     'email'                  => 'Email',
     'name'                   => 'Name',
     'phone'                  => 'Phone',
@@ -41,6 +43,7 @@ return [
         'upload_images'        => 'Upload new images',
         'description'          => 'Business introduction',
         'business_size'        => 'Business size',
+        'business'             => 'Business',
         'business_size_values' => [
             '1',
             '2-3',
