@@ -12,11 +12,11 @@ class SmsObserver implements \SplObserver {
     private $isBackend = false;
 
     /**
-     * Reused in other method
+     * Is SMS confirmation enabled?
      *
-     * @var App\Appointment\Models\Booking
+     * @var boolean
      */
-    private $subject;
+    private $isEnabled;
 
     /**
      * Country code
@@ -30,7 +30,7 @@ class SmsObserver implements \SplObserver {
      *
      * @var string
      */
-    private $info;
+    private $serviceInfo;
 
     private $from = 'varaa.com';
 
@@ -45,15 +45,22 @@ class SmsObserver implements \SplObserver {
         return $this;
     }
 
-    public function setSubject($subject)
+    public function init($subject)
     {
-         $this->subject = $subject;
-         return $this;
+        $this->setIsEnabled($subject);
+        $this->setCode($subject);
+        $this->setServiceInfo($subject);
     }
 
-    public function setCode()
+    public function setIsEnabled($subject)
     {
-       $this->code =  $this->subject->user->asOptions['confirm_sms_country_code'];
+        $this->isEnabled = (bool) $subject->user->asOptions['confirm_email_enable'];
+        return $this;
+    }
+
+    public function setCode($subject)
+    {
+       $this->code =  $subject->user->asOptions['confirm_sms_country_code'];
        return $this;
     }
 
@@ -66,11 +73,11 @@ class SmsObserver implements \SplObserver {
         return $phone;
     }
 
-    protected function setServiceInfo()
+    protected function setServiceInfo($subject)
     {
         $befofe = $after = 0;
 
-        if(!empty($this->subject->bookingServices()->first()->serviceTime)){
+        if(!empty($this->subject->bookingServices()->first()->serviceTime->id)){
             $serviceTime = $this->subject->bookingServices()->first()->serviceTime;
             $befofe      = $serviceTime->before;
             $after       = $serviceTime->after;
@@ -81,57 +88,54 @@ class SmsObserver implements \SplObserver {
         }
 
         //Start time for consumer is after service before
-        $start = with(new Carbon($this->subject->start_at))->addMinutes($before);
-        $end   = with(new Carbon($this->subject->end_at))->subMinutes($after);
+        $start = $subject->getStartAt()->addMinutes($before);
+        $end   = $subject->getEndAt()->subMinutes($after);
 
-        $info = "{service}, {date} ({start} - {end})";
-        $info = str_replace('{service}', $this->subject->bookingServices()->first()->service->name, $info);
-        $info = str_replace('{date}', $this->subject->date, $info);
-        $info = str_replace('{start}', $start->toTimeString(), $info);
-        $info = str_replace('{end}', $end->toTimeString(), $info);
+        $serviceInfo = "{service}, {date} ({start} - {end})";
+        $serviceInfo = str_replace('{service}', $subject->bookingServices()->first()->service->name, $serviceInfo);
+        $serviceInfo = str_replace('{date}', $subject->date, $serviceInfo);
+        $serviceInfo = str_replace('{start}', $start->toTimeString(), $serviceInfo);
+        $serviceInfo = str_replace('{end}', $end->toTimeString(), $serviceInfo);
 
-        $this->info = $info;
+        $this->serviceInfo = $serviceInfo;
         return $this;
     }
 
     public function update(\SplSubject $subject)
     {
-        $this->setSubject($subject);
-        $this->setCode();
+        $this->init($subject);
 
-        $isEnabled = (bool) $this->subject->user->asOptions['confirm_sms_enable'];
-
-        if($isEnabled){
+        if($this->isEnabled){
             //Init service info for message
-            $this->setServiceInfo();
+            $this->setServiceInfo($subject);
             //Send SMS to consumer
-            $this->sendToConsumer();
+            $this->sendToConsumer($subject);
             //Send SMS to employee
-            $this->sendToEmployee();
+            $this->sendToEmployee($subject);
 
         }
     }
 
-    protected function sendToConsumer()
+    protected function sendToConsumer($subject)
     {
-        $msg =  $this->subject->user->asOptions['confirm_consumer_sms_message'];
-        $to = $this->getSendNumber($this->subject->consumer->phone);
-        $msg  = str_replace('{Services}', $this->info, $msg);
+        $msg = $subject->user->asOptions['confirm_consumer_sms_message'];
+        $to  = $this->getSendNumber($subject->consumer->phone);
+        $msg = str_replace('{Services}', $this->info, $msg);
         Sms::send($this->from, $to, $msg);
     }
 
-    protected function sendToEmployee()
+    protected function sendToEmployee($subject)
     {
         //Does not send sms for employee in backend
         if ($this->isBackend) {
             return;
         }
 
-        if ($this->subject->employee->is_subscribed_sms) {
-            $to  = $this->getSendNumber($this->subject->employee->phone);
-            $msg = $this->subject->user->asOptions['confirm_employee_sms_message'];
+        if ($subject->employee->is_subscribed_sms) {
+            $to  = $this->getSendNumber($subject->employee->phone);
+            $msg = $subject->user->asOptions['confirm_employee_sms_message'];
             $msg = str_replace('{Services}', $this->info, $msg);
-            $msg = str_replace('{Consumer}', $this->subject->consumer->name, $msg);
+            $msg = str_replace('{Consumer}', $subject->consumer->name, $msg);
             Sms::send($this->from, $to, $msg);
         }
     }

@@ -191,6 +191,12 @@ class Base implements Strategy
                     $start->subMinutes($complement);
                 }
 
+                if(($end->minute % 15) > 0)
+                {
+                    $complement = ($end->minute % 15);
+                    $end->addMinutes($complement);
+                }
+
                 if ($this->rowTime >= $start && $this->rowTime <= $end) {
                     $this->class = $booking->getClass();
                     if ($this->rowTime == $start) {
