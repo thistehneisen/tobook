@@ -88,6 +88,24 @@ Route::group(['prefix' => 'business'], function () {
 | Auth Routes
 |--------------------------------------------------------------------------
 */
+Route::group(['prefix' => 'consumer/auth'], function () {
+
+    Route::get('register', [
+        'as' => 'consumer.auth.register',
+        'uses' => 'App\Core\Controllers\ConsumerAuth@register'
+    ]);
+
+    Route::post('register', [
+        'uses' => 'App\Core\Controllers\ConsumerAuth@doRegister'
+    ]);
+
+});
+
+/*
+|--------------------------------------------------------------------------
+| Auth Routes
+|--------------------------------------------------------------------------
+*/
 Route::group(['prefix' => 'business/auth'], function () {
 
     Route::get('login', [
