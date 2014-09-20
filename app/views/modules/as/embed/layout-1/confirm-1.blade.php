@@ -1,31 +1,4 @@
 <div class="list-group">
-     @if(!empty($consumer))
-     <div class="alert alert-warning">
-        <p>{{ trans('as.bookings.warning.existing_user')}}</p>
-     </div>
-    <div class="alert alert-info">
-        <div class="form-group row">
-            <div class="col-sm-2">{{ trans('as.bookings.firstname') }} (*)</div>
-            <div class="col-sm-10"><span id="existing_firstname">{{ $consumer->first_name }}</span></div>
-        </div>
-         <div class="form-group row">
-            <div class="col-sm-2">{{ trans('as.bookings.lastname') }}</div>
-            <div class="col-sm-10"><span id="existing_lastname">{{ $consumer->last_name }}</span></div>
-        </div>
-         <div class="form-group row">
-            <div class="col-sm-2">{{ trans('as.bookings.email') }}</div>
-            <div class="col-sm-10"><span id="existing_email">{{ $consumer->email }}</span></div>
-        </div>
-         <div class="form-group row">
-            <div class="col-sm-2">{{ trans('as.bookings.phone') }}</div>
-            <div class="col-sm-10"><span id="existing_phone">{{ $consumer->phone }}</span></div>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-12"><a href="" id="btn-select-existing-user" class="btn btn-default btn-success">{{ trans('common.select') }}</a></div>
-        </div>
-    </div>
-    <br>
-     @endif
     <div class="list-group-item">
         <form id="form-confirm-booking">
             <div class="form-group row">
