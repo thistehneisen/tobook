@@ -27,7 +27,7 @@ class AsBase extends \App\Core\Controllers\Base
         list($endHour, $endMinute)  = explode(':', $currentWorkingTimes['end']);
 
         //Get the lastest booking end time in current date
-        $lastestBooking = Booking::getLastestBookingEndTime($date);
+        $lastestBooking = Booking::getLastestBookingEndTime($date, $user);
         if(!empty($lastestBooking)){
             $lastestEndTime = $lastestBooking->getEndAt();
             if(($lastestEndTime->hour   >= $endHour)
