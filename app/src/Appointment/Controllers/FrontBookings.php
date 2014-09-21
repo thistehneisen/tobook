@@ -1,7 +1,10 @@
 <?php namespace App\Appointment\Controllers;
 
 use App, View, Confide, Redirect, Input, Config, Response, Util, Hashids, Session, Request;
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
+use App\Core\Models\User;
+use App\Consumers\Models\Consumer;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\BookingExtraService;
@@ -11,9 +14,6 @@ use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\AsConsumer;
-use App\Consumers\Models\Consumer;
-use App\Core\Models\User;
-use Carbon\Carbon;
 use App\Appointment\Models\Observer\EmailObserver;
 use App\Appointment\Models\Observer\SmsObserver;
 

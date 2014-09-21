@@ -1,6 +1,7 @@
 <?php namespace App\Appointment\Controllers;
 
 use Hashids, Input, View, Session, Redirect, URL, Config, Validator, Event;
+use Carbon\Carbon;
 use App\Core\Models\User;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
@@ -8,7 +9,6 @@ use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\EmployeeService;
 use App\Consumers\Models\Consumer;
-use Carbon\Carbon;
 
 class Embed extends AsBase
 {

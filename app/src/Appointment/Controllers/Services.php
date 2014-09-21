@@ -1,6 +1,7 @@
 <?php namespace App\Appointment\Controllers;
 
 use App, View, Confide, Redirect, Input, Config;
+use Carbon\Carbon;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\ServiceCategory;
@@ -8,7 +9,6 @@ use App\Appointment\Models\Resource;
 use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\Employee;
-use Carbon\Carbon;
 
 class Services extends AsBase
 {

@@ -1,13 +1,13 @@
 <?php namespace App\Appointment\Controllers;
 
 use App, View, Confide, Redirect, Input, Config, Util, Response, Validator;
+use Carbon\Carbon;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\EmployeeDefaultTime;
 use App\Appointment\Models\EmployeeFreetime;
 use App\Appointment\Models\EmployeeCustomTime;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\CustomTime;
-use Carbon\Carbon;
 
 class Employees extends AsBase
 {

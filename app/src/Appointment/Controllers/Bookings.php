@@ -2,7 +2,9 @@
 
 use App, View, Confide, Redirect, Input, Config, Response, DB;
 use Util, Hashids, Session, Request, Mail, Sms;
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
+use App\Core\Models\User;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\BookingExtraService;
@@ -14,8 +16,6 @@ use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\AsConsumer;
 use App\Appointment\Models\Consumer;
-use App\Core\Models\User;
-use Carbon\Carbon;
 use App\Appointment\Models\Observer\EmailObserver;
 use App\Appointment\Models\Observer\SmsObserver;
 
@@ -25,8 +25,6 @@ class Bookings extends AsBase
     protected $viewPath   = 'modules.as.bookings';
     protected $langPrefix = 'as.bookings';
     protected $crudShowTab = false;
-
-
 
     /**
      * {@inheritdoc}
@@ -227,7 +225,8 @@ class Bookings extends AsBase
         return [$categories, $jsonServices, $jsonServiceTimes];
     }
 
-    public function getAddExtraServiceForm(){
+    public function getAddExtraServiceForm()
+    {
         $bookingId = Input::get('booking_id');
         $booking   = Booking::ofCurrentUser()->find($bookingId);//TODO if not found booking
 
@@ -248,7 +247,8 @@ class Bookings extends AsBase
         ]);
     }
 
-    public function getChangeStatusForm(){
+    public function getChangeStatusForm()
+    {
         $bookingId = Input::get('booking_id');
         $booking = Booking::ofCurrentUser()->find($bookingId);
         $bookingStatuses = Booking::getStatuses();
@@ -259,7 +259,8 @@ class Bookings extends AsBase
         ]);
     }
 
-    public function changeStatus(){
+    public function changeStatus()
+    {
         $bookingId   = Input::get('booking_id');
         $status_text = Input::get('booking_status');
         $data = [];

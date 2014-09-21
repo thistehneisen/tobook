@@ -1,10 +1,10 @@
 <?php namespace App\Appointment\Controllers;
 
 use View, Input, Confide, Util, Config, Event;
+use Carbon\Carbon;
 use App\Core\Controllers\Base;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\Booking;
-use Carbon\Carbon;
 class Index extends AsBase
 {
     /**
