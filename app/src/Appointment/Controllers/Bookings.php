@@ -376,14 +376,28 @@ class Bookings extends AsBase
             $endTimeDelta = ($length + $modifyTime + $plustime);
 
             $startTime = Carbon::createFromFormat('Y-m-d H:i', sprintf('%s %s', $bookingDate, $startTimeStr));
-            $endTime = with(clone $startTime)->addMinutes($endTimeDelta);
+            $endTime   = with(clone $startTime)->addMinutes($endTimeDelta);
+            $endDay    = with(clone $startTime)->hour(23)->minute(59)->second(59);
+
+            //Check if the overbook end time exceed the current working day.
+            if($endTime > $endDay)
+            {
+                $data['message'] = trans('as.bookings.error.exceed_current_day');
+                return Response::json($data, 400);
+            }
+
+            //Check if the book overllap with employee freetime
+            $isOverllapedWithFreetime = $employee->isOverllapedWithFreetime($bookingDate, $startTime, $endTime);
+            if($isOverllapedWithFreetime)
+            {
+                $data['message'] = trans('as.bookings.error.overllapped_with_freetime');
+                return Response::json($data, 400);
+            }
 
             //Check is there any existed booking with this service time
             $isBookable = Booking::isBookable($employeeId, $bookingDate, $startTime, $endTime, $uuid);
-            //TODO Check overlapped booking in user cart
 
-            //Check enough timeslot in employee default working time
-            //Temporary the checking is removed
+            //TODO Check overlapped booking in user cart
 
             if (!$isBookable) {
                 $data['message'] = trans('as.bookings.error.add_overlapped_booking');

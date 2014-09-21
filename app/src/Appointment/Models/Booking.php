@@ -139,6 +139,22 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return true;
     }
 
+    public static function getLastestBookingEndTime($date)
+    {
+        $lastestBooking = self::ofCurrentUser()->where('date', $date)
+            ->orderBy('end_at', 'desc')->first();
+        return $lastestBooking;
+    }
+
+    public static function getLastestBookingEndTimeInRange($startDate, $endDate)
+    {
+        $lastestBooking = self::ofCurrentUser()
+            ->where('date', '>=', $startDate)
+            ->wherE('date', '<=', $endDate)
+            ->orderBy('end_at', 'desc')->first();
+        return $lastestBooking;
+    }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------

@@ -96,15 +96,14 @@ class Base implements Strategy
      */
     protected function defaultWorkingTimeClass()
     {
-        $class = '';
         $defaultWorkingTime = $this->employee->getDefaulTimesByDayOfWeek($this->dateObj->dayOfWeek);
         $start              = $this->employee->getTodayDefaultStartAt($this->dateObj->dayOfWeek);
         $end                = $this->employee->getTodayDefaultEndAt($this->dateObj->dayOfWeek);
 
         if ($this->rowTime >= $start && $this->rowTime < $end && !$defaultWorkingTime->is_day_off) {
-            $this->class = 'fancybox active';
+            $this->class = ($this instanceof Backend) ? 'fancybox active' : 'active';
         } else {
-            $this->class = 'inactive';
+            $this->class = ($this instanceof Backend) ? 'fancybox inactive' : 'inactive';
         }
         return $this->class;
     }
@@ -131,7 +130,7 @@ class Base implements Strategy
                 $this->class = ($this instanceof Backend) ? 'fancybox active' : 'active';
                 $this->customTimeSlot[$this->date][$this->hour][$this->minute] = $empCustomTime;
             } else {
-                $this->class = 'custom inactive';
+                $this->class = ($this instanceof Backend) ? 'custom fancybox inactive' : 'custom inactive';
             }
         }
         return $this->class;
@@ -187,13 +186,13 @@ class Base implements Strategy
 
                 if(($start->minute % 15) > 0)
                 {
-                    $complement = ($start->minute % 15);
+                    $complement = 15 - ($start->minute % 15);
                     $start->subMinutes($complement);
                 }
 
                 if(($end->minute % 15) > 0)
                 {
-                    $complement = ($end->minute % 15);
+                    $complement = 15 - ($end->minute % 15);
                     $end->addMinutes($complement);
                 }
 

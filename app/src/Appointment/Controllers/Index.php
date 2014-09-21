@@ -40,7 +40,6 @@ class Index extends AsBase
     {
         $employees = Employee::ofCurrentUser()->get();
         $employee  = Employee::ofCurrentUser()->find($id);
-        $workingTimes = $employee->getDefaultWorkingTimes();
         $date = (empty($date)) ? Carbon::today() : $date;
         if (!$date instanceof Carbon) {
             try {
@@ -49,6 +48,7 @@ class Index extends AsBase
                 $date = Carbon::today();
             }
         }
+        $workingTimes = $employee->getDefaultWorkingTimes($date);
 
         $cloneDate = with(clone $date);
         foreach (range(1, 7) as $day) {

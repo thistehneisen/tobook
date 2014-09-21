@@ -3,6 +3,7 @@
 use Config, Util;
 use Carbon\Carbon;
 use App\Appointment\Models\EmployeeService;
+use App\Appointment\Models\Booking;
 use App\Appointment\Models\Slot\Strategy;
 use App\Appointment\Models\Slot\Context;
 use App\Appointment\Models\Slot\Backend;
@@ -88,7 +89,7 @@ class Employee extends \App\Appointment\Models\Base
         return $this->getDefaulTimesByDay($day)->first();
     }
 
-    public function getDefaultWorkingTimes()
+    public function getDefaultWorkingTimes($date = null)
     {
         $defaultTimes = $this->getDefaultTimes();
         $startTimes   = [];
@@ -123,9 +124,25 @@ class Employee extends \App\Appointment\Models\Base
         $endHour     = (int)isset($endTimes[0]) ? $endTimes[0]->hour : 21;
         $endMinute   = (int)isset($endTimes[0]) ? $endTimes[0]->minute : 0;
 
+        if(!empty($date)){
+            $startDate      = $date;
+            $endDate        = with(clone $date)->addDays(6);
+            $lastestBooking = Booking::getLastestBookingEndTimeInRange($startDate->toDateString(), $endDate->toDateString());
+            if(!empty($lastestBooking)){
+                $lastestEndTime = $lastestBooking->getEndAt();
+                if(($lastestEndTime->hour   >= $endHour)
+                && ($lastestEndTime->minute >  $endMinute))
+                {
+                    $endHour   = $lastestEndTime->hour;
+                    $endMinute = ($lastestEndTime->minute % 15)
+                        ? $lastestEndTime->minute + (15 - ($lastestEndTime->minute % 15))
+                        : $lastestEndTime->minute;
+                }
+            }
+        }
         $endHour   = ($endMinute == 0) ? $endHour - 1 : $endHour;
         $endMinute = ($endMinute == 0) ? 45 : $endMinute;
-        for ($i = $startHour; $i<= $endHour - 1; $i++) {
+        for ($i = $startHour; $i<= $endHour; $i++) {
             if ($i === $startHour) {
                 $workingTimes[$i] = range($startMinute, 45, 15);
             }
@@ -138,6 +155,36 @@ class Employee extends \App\Appointment\Models\Base
             }
         }
         return $workingTimes;
+    }
+
+    /**
+     * Check if the booking start time and end time overlap with
+     * current employee freetime
+     *
+     * @param string $date
+     * @param Carbon $startTime
+     * @param Carbon $endTime
+     *
+     * @return boolean
+     */
+    public function isOverllapedWithFreetime($date, $startTime, $endTime)
+    {
+        $freetime = $this->freetimes()
+            ->where('date', $date)
+            ->where(function ($query) use ($startTime, $endTime) {
+                return $query->where(function ($query) use ($startTime, $endTime) {
+                    return $query->where('start_at', '>=', $startTime->toTimeString())
+                         ->where('start_at', '<', $endTime->toTimeString());
+                })->orWhere(function ($query) use ($endTime, $startTime) {
+                     return $query->where('end_at', '>', $startTime->toTimeString())
+                          ->where('end_at', '<=', $endTime->toTimeString());
+                })->orWhere(function ($query) use ($startTime, $endTime) {
+                     return $query->where('start_at', '=', $startTime->toTimeString())
+                          ->where('end_at', '=', $endTime->toTimeString());
+                });
+            })->get();
+
+        return (!$freetime->isEmpty()) ? true : false;
     }
 
     public function getTodayDefaultStartAt($weekday = null)
