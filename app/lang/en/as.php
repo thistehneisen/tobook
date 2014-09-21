@@ -256,7 +256,7 @@ return [
             'invalid_consumer_info'    => 'Could not save consumer info',// @todo
             'terms'                    => 'You have to agree with our term.',//@todo
             'service_empty'            => 'Please select service and service time!',//@todo
-            'unknown'                  => 'Something went wrong!'//@todo
+            'unknown'                  => 'Something went wrong!',//@todo
             'exceed_current_day'       => 'Booking end time cannot exceed current day',//@todo
             'overllapped_with_freetime'=> 'Booking is overllapped with employee freetime',//@todo
         ],
