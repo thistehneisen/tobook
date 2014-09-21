@@ -8,11 +8,10 @@ class Spinner extends Text
 
     public function render()
     {
-
         $input = call_user_func_array('Form::text', $this->getParams());
 
         $options = [];
-        foreach ($params['options'] as $key => $value) {
+        foreach ($this->opt['options'] as $key => $value) {
             if (starts_with($key, 'data-')) {
                 $options[] = "$key=\"$value\"";
             }
