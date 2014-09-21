@@ -1,18 +1,7 @@
 <?php
 // codecept run functional FlashDeal/FlashDealCest.php
-use App\Core\Models\User;
-
-class FlashDealCest
+class FlashDealCest extends BaseCest
 {
-    protected function login(FunctionalTester $I)
-    {
-        $user = new User([
-            'username' => 'mikaeltestaa',
-            'password' => 'kauppatie8'
-        ]);
-        $I->amLoggedAs($user);
-    }
-
     /**
      * @before login
      */
