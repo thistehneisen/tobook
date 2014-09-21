@@ -248,9 +248,10 @@ trait Olut
     public function upsert($id = null)
     {
         $model = $this->getModel();
+        $modelClass = $this->getModelClass();
         $item = ($id !== null)
             ? $model->findOrFail($id)
-            : new $model();
+            : new $modelClass;
 
         $view = View::exists($this->getViewPath().'.form')
             ? $this->getViewPath().'.form'
@@ -287,10 +288,12 @@ trait Olut
     public function doUpsert($id = null)
     {
         $model = $this->getModel();
+        $modelClass = $this->getModelClass();
+
         try {
             $item = ($id !== null)
                 ? $model->findOrFail($id)
-                : new $model();
+                : new $modelClass;
 
             $item = $this->upsertHandler($item);
 
