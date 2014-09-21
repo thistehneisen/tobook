@@ -1,5 +1,10 @@
 @extends ('modules.as.crud.index')
 
+@section ('scripts')
+    @parent
+    {{ HTML::script(asset('assets/js/modules/co.js')) }}
+@stop
+
 @section ('content')
 <div class="row">
     <div class="col-md-6">
@@ -35,13 +40,13 @@
         @endforeach
             <td>
                 <ul class="list-unstyle">
-                @foreach ($item->getServiceAttribute() as $service)
-                    <li><a href="#">{{ $service }}</a></li>
+                @foreach ($item->getServiceAttribute() as $key => $value)
+                    <li><a href="#" id="js-showHistory" data-consumerid="{{ $item->id }}" data-service="{{ $key }}">{{ $value }}</a></li>
                 @endforeach
                 </ul>
             </td>
             <td>
-                <div  class="pull-right">
+                <div class="pull-right">
                     <a href="{{ route($routes['upsert'], ['id'=> $item->id ]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
                     <a href="{{ route($routes['delete'], ['id'=> $item->id ]) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
                 </div>
@@ -88,6 +93,22 @@
         </div>
     </div>
 </div>
-
 {{ Form::close() }}
+
+<!-- History Modal Dialog -->
+<div class="modal fade" id="js-historyModal" role="dialog" aria-labelledby="js-historyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{{ trans('History') }}</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('OK') }}</button>
+            </div>
+        </div>
+    </div>
+</div>
 @stop

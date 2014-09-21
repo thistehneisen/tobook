@@ -72,7 +72,7 @@ class Consumer extends \App\Core\Models\Base
 
         foreach ($services as $key => $value) {
             if ($this->checkService($key)) {
-                $service[] = $value;
+                $service[substr($key, 0, 2)] = $value;
             }
         }
 

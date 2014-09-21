@@ -252,6 +252,11 @@ Route::group([
         'consumers',
         'co.consumers'
     );
+
+    Route::get('consumers/history', [
+        'as' => 'co.consumers.history',
+        'uses' => 'App\Consumers\Controllers\Consumer@getHistory',
+    ]);
 });
 
 /*
