@@ -19,6 +19,8 @@ trait Olut
      */
     protected $model;
 
+    protected $crudFillable;
+
     /**
      * Return a model to interact with database
      *
@@ -28,6 +30,11 @@ trait Olut
     {
         if ($this->model === null) {
             $this->model = App::make($this->getModelClass());
+            $this->crudFillable = $this->model->fillable;
+        }
+
+        if (method_exists($this->model, 'scopeOfCurrentUser')) {
+            return $this->model->ofCurrentUser();
         }
 
         return $this->model;
@@ -52,6 +59,16 @@ trait Olut
         $namespace = substr(__NAMESPACE__, 0, strrpos(__NAMESPACE__, '\\')).'\Models\\';
 
         return $namespace.str_singular(class_basename(__CLASS__));
+    }
+
+    /**
+     * Return original fillable property
+     *
+     * @return array
+     */
+    public function getFillable()
+    {
+        return $this->crudFillable;
     }
 
     /**
@@ -123,7 +140,7 @@ trait Olut
     public function index()
     {
         // To make sure that we only show records of current user
-        $query = $this->getModel()->ofCurrentUser();
+        $query = $this->getModel();
 
         // Allow to filter results in query string
         $query = $this->applyQueryStringFilter($query);
@@ -149,7 +166,7 @@ trait Olut
      */
     protected function applyQueryStringFilter($query)
     {
-        $fillable = $this->getModel()->fillable;
+        $fillable = $this->getFillable();
 
         // Get all query string values
         // If present, limit the return results
@@ -211,7 +228,7 @@ trait Olut
         // First we will check if target controller has indexFields property
         // If not, we will use all fillable fields of the model
         return $this->getOlutOptions('indexFields')
-            ?: $this->getModel()->fillable;
+            ?: $this->getFillable();
     }
 
     /**
@@ -225,7 +242,7 @@ trait Olut
     {
         $model = $this->getModel();
         $item = ($id !== null)
-            ? $model->ofCurrentUser()->findOrFail($id)
+            ? $model->findOrFail($id)
             : new $model();
 
         $view = View::exists($this->getViewPath().'.form')
@@ -265,7 +282,7 @@ trait Olut
         $model = $this->getModel();
         try {
             $item = ($id !== null)
-                ? $model->ofCurrentUser()->findOrFail($id)
+                ? $model->findOrFail($id)
                 : new $model();
 
             $item = $this->upsertHandler($item);
@@ -311,7 +328,7 @@ trait Olut
      */
     public function delete($id)
     {
-        $item = $this->getModel()->ofCurrentUser()->findOrFail($id);
+        $item = $this->getModel()->findOrFail($id);
         $item->delete();
 
         if (Request::ajax() === true) {
@@ -335,11 +352,11 @@ trait Olut
         // Escape HTML
         $q = e(Input::get('q'));
 
-        $query = $this->getModel()->ofCurrentUser();
+        $query = $this->getModel();
         // Apply query string filters
         $query = $this->applyQueryStringFilter($query);
 
-        $fillable = $this->getModel()->fillable;
+        $fillable = $this->getFillable();
         // Add ID to be candicate for searching
         $fillable[] = 'id';
         $query = $query->where(function ($subQuery) use ($fillable, $q) {
@@ -405,7 +422,6 @@ trait Olut
     public function destroy($ids)
     {
         return $this->getModel()
-            ->ofCurrentUser()
             ->whereIn('id', $ids)
             ->delete();
     }
