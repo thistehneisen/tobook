@@ -298,6 +298,7 @@ class User extends ConfideUser
                 $this->attributes['lng'] = $geocode->getLongitude();
             } catch (\Exception $ex) {
                 // Silently fail
+                \Log::error($ex->getMessage(), ['context' => 'Update user profile']);
             }
         }
     }
