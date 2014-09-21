@@ -249,12 +249,14 @@ return [
         'edit'              => 'Edit bookings',//@todo
         'terms'             => 'Terms',//@todo
         'error'             => [
-            'add_overlapped_booking' => 'Overlapped booking time!',// @todo
-            'insufficient_slots'     => 'There is no enough time slots for this booking!',// @todo
-            'invalid_consumer_info'  => 'Could not save consumer info',// @todo
-            'terms'                  => 'You have to agree with our term.',//@todo
-            'service_empty'          => 'Please select service and service time!',//@todo
-            'unknown'                => 'Something went wrong!'//@todo
+            'add_overlapped_booking'   => 'Overlapped booking time!',// @todo
+            'insufficient_slots'       => 'There is no enough time slots for this booking!',// @todo
+            'invalid_consumer_info'    => 'Could not save consumer info',// @todo
+            'terms'                    => 'You have to agree with our term.',//@todo
+            'service_empty'            => 'Please select service and service time!',//@todo
+            'unknown'                  => 'Something went wrong!',//@todo
+            'exceed_current_day'       => 'Booking end time cannot exceed current day',//@todo
+            'overllapped_with_freetime'=> 'Booking is overllapped with employee freetime',//@todo
         ],
         'warning'      => [
             'existing_user'   => 'There is an user associate with this email in our system. Do you want to use these information instead?',// @todo
