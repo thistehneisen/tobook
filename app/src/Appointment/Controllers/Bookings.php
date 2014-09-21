@@ -374,6 +374,11 @@ class Bookings extends AsBase
             $plustime = $employee->getPlustime($service->id);
 
             $endTimeDelta = ($length + $modifyTime + $plustime);
+            if($endTimeDelta < 1)
+            {
+                $data['message'] = trans('as.bookings.error.empty_total_time');
+                return Response::json($data, 400);
+            }
 
             $startTime = Carbon::createFromFormat('Y-m-d H:i', sprintf('%s %s', $bookingDate, $startTimeStr));
             $endTime   = with(clone $startTime)->addMinutes($endTimeDelta);
@@ -520,7 +525,7 @@ class Bookings extends AsBase
                 $date      = new Carbon($booking->date);
                 $startTime = Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s', $booking->date, $booking->start_at));
 
-                $total = $length + $extraServiceTime + $bookingService->modify_time;
+                $total = $length + $plustime + $extraServiceTime + $bookingService->modify_time;
                 $total_price = $price + $extraServicePrice;
 
                 $endTime= with(clone $startTime)->addMinutes($total);

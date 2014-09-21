@@ -257,6 +257,7 @@ return [
             'unknown'                  => 'Something went wrong!',//@todo
             'exceed_current_day'       => 'Booking end time cannot exceed current day',//@todo
             'overllapped_with_freetime'=> 'Booking is overllapped with employee freetime',//@todo
+            'empty_total_time'         => 'Booking total minutes must be greater or equal 1',//@todo
         ],
         'warning'      => [
             'existing_user'   => 'There is an user associate with this email in our system. Do you want to use these information instead?',// @todo
