@@ -250,6 +250,7 @@ return [
         'keyword'           => 'Keyword',
         'edit'              => 'Edit bookings',//@todo
         'terms'             => 'Terms',
+        'terms_agree'       => 'I\'ve read and agree to the Terms',
         'error'             => [
             'add_overlapped_booking'   => 'Overlapped booking time!',// @todo
             'insufficient_slots'       => 'There is no enough time slots for this booking!',// @todo

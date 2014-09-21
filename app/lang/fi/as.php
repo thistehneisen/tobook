@@ -248,6 +248,7 @@ return [
         'keyword'           => 'Haku',//@todo
         'edit'              => 'Edit bookings',//@todo
         'terms'             => 'Terms',//@todo
+        'terms_agree'       => 'Hyväksyn varausehdot',
         'error'             => [
             'add_overlapped_booking'   => 'Overlapped booking time!',// @todo
             'insufficient_slots'       => 'There is no enough time slots for this booking!',// @todo

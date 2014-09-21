@@ -29,7 +29,7 @@
             <div class="form-group row">
                 <div class="col-sm-offset-2 col-sm-6 {{ Form::errorCSS('is_day_off', $errors) }}">
                     @if((int)$user->asOptions['terms_enabled'] == 3)
-                    <label>{{ Form::checkbox('terms', 0, 0,['id'=>'terms']); }} <a href="#" id="toggle_term">{{ trans('as.bookings.terms') }}</a></label>
+                    <label>{{ Form::checkbox('terms', 0, 0,['id'=>'terms']); }} <a href="#" id="toggle_term">{{ trans('as.bookings.terms_agree') }}</a></label>
                     @else
                     <label><a href="#" id="toggle_term">{{ trans('as.bookings.terms') }}</a></label>
                     @endif
