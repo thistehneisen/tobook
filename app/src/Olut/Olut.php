@@ -205,6 +205,12 @@ trait Olut
         // Bartender will take care the output of fields
         $bartender = new Bartender($this->getOlutOptions('presenters') ?: []);
 
+        // Check if there is additionall actions
+        $actionsView = null;
+        if (View::exists($this->getOlutOptions('actionsView'))) {
+            $actionsView = $this->getOlutOptions('actionsView');
+        }
+
         return View::make($view, [
             'items'       => $items,
             'routes'      => static::$crudRoutes,
@@ -214,7 +220,8 @@ trait Olut
             'sortable'    => $this->getOlutOptions('sortable') ?: false,
             'showTab'     => $this->getOlutOptions('showTab') ?: true,
             'layout'      => $this->getOlutOptions('layout') ?: 'olut::layout',
-            'bartender'   => $bartender
+            'bartender'   => $bartender,
+            'actionsView' => $actionsView
         ]);
     }
 

@@ -77,6 +77,9 @@ $(function() {
         @endforeach
             <td>
             <div  class="pull-right">
+            @if ($actionsView !== null)
+                @include ($actionsView, ['item' => $item, 'routes' => $routes])
+            @endif
                 <a href="{{ route($routes['upsert'], ['id'=> $item->id ]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
                 <a href="{{ route($routes['delete'], ['id'=> $item->id ]) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
             </div>

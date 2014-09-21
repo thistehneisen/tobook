@@ -8,10 +8,13 @@ use Carbon\Carbon;
 class Users extends Base
 {
     use \CRUD;
+    protected $viewPath = 'admin.users';
+
     protected $crudOptions = [
-        'modelClass' => 'App\Core\Models\User',
-        'layout'     => 'layouts.admin',
-        'langPrefix' => 'user',
+        'modelClass'  => 'App\Core\Models\User',
+        'layout'      => 'layouts.admin',
+        'langPrefix'  => 'user',
+        'actionsView' => 'admin.users.actions',
         'indexFields' => [
             'username',
             'full_name',

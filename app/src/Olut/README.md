@@ -57,12 +57,13 @@ for you to customize its behaviors. They are:
 
 ```
 protected $crudOptions = [
-    'modelClass'  => '',
     'layout'      => '',
+    'modelClass'  => '',
     'langPrefix'  => '',
     'indexFields' => [],
     'showTab'     => true,
     'lomake'      => [],
+    'actionsView' => null,
     'presenters'  => [
         'id' => 'App\Olut\Presenters\Base',
         'is_active' => 'App\Olut\Presenters\Bool',
@@ -70,17 +71,16 @@ protected $crudOptions = [
     ]
 ];
 ```
+`layout` (string) *required*
+
+The layout that Olut will extend. If not available, Olut will use its ugly
+default layout instead.
 
 `modelClass` (string) *optional*
 
 Olut is dumb enough to figure out which model you're trying to use. But in case
 it's too dumb, set the name of your model with this option (remeber to include
     namespace if available)
-
-`layout` (string) *optional*
-
-The layout that Olut will extend. If not available, Olut will use its ugly
-default layout instead.
 
 `langPrefix` (string) *optional*
 
@@ -98,6 +98,15 @@ Should Olut show the tab to switch between list of items and upsert form.
 `lomake` (array) *optional*
 
 Options will be passed to Lomake to generate form.
+
+`actionsView` (string) *optional*
+
+Path to the view file containing additional actions in list of result view. For
+example, `admin.users.actions` and its content:
+
+```
+<a href="{{ route('admin.users.login', ['id'=> $item->id ]) }}" class="btn btn-xs btn-warning" title="Login as this user"><i class="fa fa-hand-o-up"></i></a>
+```
 
 `presenters` (array) *optional*
 
