@@ -5,8 +5,31 @@ use App\Core\Models\DisabledModule;
 use App\Core\Models\User;
 use Carbon\Carbon;
 
-class Users extends Crud
+class Users extends Base
 {
+    use \CRUD;
+    protected $crudOptions = [
+        'modelClass' => 'App\Core\Models\User',
+        'layout'     => 'layouts.admin',
+        'langPrefix' => 'user',
+        'indexFields' => [
+            'username',
+            'full_name',
+            'email',
+            'full_address'
+        ]
+    ];
+
+    /**
+     * @{@inheritdoc}
+     */
+    public function upsertHandler($item)
+    {
+        $item->fill(Input::all());
+        $item->updateUniques();
+        return $item;
+    }
+
     /**
      * {@inheritdoc}
      */

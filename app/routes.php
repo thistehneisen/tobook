@@ -903,10 +903,8 @@ Route::group([
         'uses' => 'App\Core\Controllers\Admin\Settings@doUpdate'
     ]);
 
-    // User model uses a different way to save data
-    Route::post('users/{id}', [
-        'uses' => 'App\Core\Controllers\Admin\Users@doEdit'
-    ]);
+    App\Core\Controllers\Admin\Users::crudRoutes('users', 'admin.users');
+
 
     Route::get('users/login/{id}', [
         'as' => 'admin.users.login',
@@ -926,40 +924,6 @@ Route::group([
     Route::get('users/modules/activation/{userId}/{id}', [
         'as'   => 'admin.users.modules.activation',
         'uses' => 'App\Core\Controllers\Admin\Users@toggleActivation'
-    ]);
-
-    // CRUD actions
-    Route::get('{model}', [
-        'as' => 'admin.crud.index',
-        'uses' => 'App\Core\Controllers\Admin\Crud@index'
-    ]);
-
-    Route::get('{model}/create', [
-        'as' => 'admin.crud.create',
-        'uses' => 'App\Core\Controllers\Admin\Crud@create'
-    ]);
-
-    Route::post('{model}/create', [
-        'uses' => 'App\Core\Controllers\Admin\Crud@doCreate'
-    ]);
-
-    Route::get('{model}/search', [
-        'as' => 'admin.crud.search',
-        'uses' => 'App\Core\Controllers\Admin\Crud@search'
-    ]);
-
-    Route::get('{model}/{id}', [
-        'as' => 'admin.crud.edit',
-        'uses' => 'App\Core\Controllers\Admin\Crud@edit'
-    ]);
-
-    Route::post('{model}/{id}', [
-        'uses' => 'App\Core\Controllers\Admin\Crud@doEdit'
-    ]);
-
-    Route::get('{model}/delete/{id}', [
-        'as'   => 'admin.crud.delete',
-        'uses' => 'App\Core\Controllers\Admin\Crud@delete'
     ]);
 
 });
