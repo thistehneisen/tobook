@@ -70,7 +70,6 @@ class Employee extends \App\Appointment\Models\Base
             }
             $defaultTimes = new \Illuminate\Support\Collection($data);
         }
-
         return $defaultTimes;
     }
 
@@ -194,8 +193,7 @@ class Employee extends \App\Appointment\Models\Base
         }
         $dayOfWeek = Util::getDayOfWeekText($weekday);
         $todayStartAt = $this->getDefaulTimesByDay($dayOfWeek)->first()->start_at;
-
-        return Carbon::createFromFormat('H:i:s', $todayStartAt);
+        return (new Carbon($todayStartAt));
     }
 
     public function getTodayDefaultEndAt($weekday = null)
@@ -205,7 +203,7 @@ class Employee extends \App\Appointment\Models\Base
         }
         $dayOfWeek = Util::getDayOfWeekText($weekday);
         $todayEndAt = $this->getDefaulTimesByDay($dayOfWeek)->first()->end_at;
-        return Carbon::createFromFormat('H:i:s', $todayEndAt);
+        return (new Carbon($todayEndAt));
     }
 
     //TODO change to another method to compare time
