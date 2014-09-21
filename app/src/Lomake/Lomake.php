@@ -141,7 +141,7 @@ class Lomake
      */
     public function __toString()
     {
-        return $this->render();
+        return (string) $this->render();
     }
 
     /**
@@ -174,17 +174,18 @@ class Lomake
      */
     protected function isRequired($instance, $name, $set = 'saving')
     {
-        // Check if this model makes use of Validating trait
-        // if (method_exists($this, 'getRulesets') === false) {
-        //     // If not, consider no required
-        //     return false;
-        // }
 
         $rule = '';
         $rules = $instance->getRules();
         if (!empty($rules) && isset($rules[$name])) {
             $rule = $rules[$name];
         } else {
+            // Check if this model makes use of Validating trait
+            if (!method_exists($instance, 'getRulesets')) {
+                // If not, consider no required
+                return false;
+            }
+
             $rulesets = $instance->getRulesets();
             $rules = $rulesets[$set];
             $rule = isset($rules[$name]) ? $rules[$name] : '';
