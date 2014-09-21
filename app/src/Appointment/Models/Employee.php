@@ -269,7 +269,7 @@ class Employee extends \App\Appointment\Models\Base
 
     public function getIsActiveAttribute()
     {
-        return (bool) $this->attributes['is_active'];
+        return (isset($this->attributes['is_active'])) ? (bool) $this->attributes['is_active'] : true;
     }
 
     /**
