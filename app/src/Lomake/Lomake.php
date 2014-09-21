@@ -80,7 +80,6 @@ class Lomake
             'form'       => ['class' => 'form-horizontal well', 'role' => 'form', 'enctype' => 'multipart/form-data'],
             'template'   => 'varaa-lomake::form',
             'fields'     => [],
-            'noRender'   => false,
             'overwrite'  => false,
             'langPrefix' => ''
         ], $opt);
@@ -119,12 +118,6 @@ class Lomake
         $this->fields = $fields;
         $this->opt = $opt;
         $this->model = $instance;
-
-        // If we don't want to render this form, but get the instance instead
-        // This could be useful for partially rendering in order view
-        if ($opt['noRender'] === true) {
-            return $this;
-        }
 
         return $this;
     }

@@ -239,7 +239,6 @@ trait Olut
             'route'      => [static::$crudRoutes['upsert'], isset($item) ? $item->id : null],
             'fields'     => $options,
             'langPrefix' => $langPrefix,
-            'noRender'   => $view !== 'olut::form'
         ]);
 
         $data = [
