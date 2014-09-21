@@ -1,4 +1,5 @@
-<?php
+<?php namespace Test\Functional;
+
 use App\Core\Models\User;
 
 class Fixture

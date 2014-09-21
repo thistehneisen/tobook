@@ -1,11 +1,14 @@
-<?php
+<?php namespace Test\Functional\FlashDeal;
+
+use Test\Functional\Base;
+
 // codecept run functional FlashDeal/FlashDealCest.php
-class FlashDealCest extends BaseCest
+class FlashDealCest extends Base
 {
     /**
      * @before login
      */
-    public function seeAllFDPages(FunctionalTester $I)
+    public function seeAllFDPages(\FunctionalTester $I)
     {
         $I->amOnPage('/flash-deal');
         $I->seeResponseCodeIs(200);
