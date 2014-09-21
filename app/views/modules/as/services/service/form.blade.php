@@ -1,5 +1,22 @@
 @extends ('modules.as.layout')
 
+@section ('styles')
+    @parent
+    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2.min.css') }}
+    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2-bootstrap.min.css') }}
+@stop
+
+@section ('scripts')
+    @parent
+    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2.min.js') }}
+    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2_locale_'.App::getLocale().'.min.js') }}
+    <script>
+$(function () {
+    $('select.select2').select2();
+});
+    </script>
+@stop
+
 @section ('content')
 <div class="alert alert-info">
     <p><strong>{{ trans('as.services.add') }}</strong></p>
@@ -98,13 +115,13 @@
     <div class="form-group">
         <label for="resource" class="col-sm-2 control-label">{{ trans('as.services.resource') }}</label>
         <div class="col-sm-5">
-           {{ Form::select('resource', [trans('common.options_select')] + $resources, isset($service->resources->first()->id) ? $service->resources->first()->id :0, ['class' => 'form-control input-sm', 'id' => 'resource']) }}
+           {{ Form::select('resources[]', $resources, isset($service->resources->first()->id) ? $service->resources->first()->id : -1, ['class' => 'form-control input-sm select2', 'id' => 'resources', 'multiple' => 'multiple']) }}
         </div>
     </div>
     <div class="form-group">
-        <label for="extra" class="col-sm-2 control-label">{{ trans('as.services.extra') }}</label>
+        <label for="extras" class="col-sm-2 control-label">{{ trans('as.services.extra') }}</label>
         <div class="col-sm-5">
-            {{ Form::select('extra', [trans('common.options_select')]+ $extras, 1, ['class' => 'form-control input-sm', 'id' => 'extra']) }}
+            {{ Form::select('extras[]', $extras, $service->extraServices()->lists('id'), ['class' => 'form-control input-sm select2', 'id' => 'extra', 'multiple' => 'multiple']) }}
         </div>
     </div>
     <div class="form-group">

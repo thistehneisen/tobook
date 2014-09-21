@@ -1,12 +1,14 @@
 <?php namespace App\Appointment\Controllers;
 
-use App, View, Confide, Redirect, Input, Config;
+use App, View, Confide, Redirect, Input, Config, DB;
 use Carbon\Carbon;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\ServiceCategory;
-use App\Appointment\Models\Resource;
+use App\Appointment\Models\ServiceExtraService;
 use App\Appointment\Models\ExtraService;
+use App\Appointment\Models\Resource;
+use App\Appointment\Models\ResourceService;
 use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\Employee;
 
@@ -75,9 +77,12 @@ class Services extends AsBase
 
         $service->saveOrFail();
 
-        $employees = Input::get('employees', []);
-        $plustimes = Input::get('plustimes');
+        $extraServices = Input::get('extras', []);
+        $resources     = Input::get('resources', []);
+        $employees     = Input::get('employees', []);
+        $plustimes     = Input::get('plustimes');
         $service->employees()->detach($employees);
+
         foreach ($employees as $employeeId) {
             $employee = Employee::ofCurrentUser()->find($employeeId);
             $employeeService = new EmployeeService();
@@ -85,6 +90,32 @@ class Services extends AsBase
             $employeeService->employee()->associate($employee);
             $employeeService->plustime = $plustimes[$employeeId];
             $employeeService->save();
+        }
+
+        //Delete old extra services;
+        DB::table('as_extra_service_service')
+            ->where('service_id', $service->id)
+            ->delete();
+
+        foreach ($extraServices as $extraServiceId) {
+            $extraService = ExtraService::find($extraServiceId);
+            $serviceExtraService = new ServiceExtraService;
+            $serviceExtraService->service()->associate($service);
+            $serviceExtraService->extraService()->associate($extraService);
+            $serviceExtraService->save();
+        }
+
+        //Delete old extra services;
+        DB::table('as_resource_service')
+            ->where('service_id', $service->id)
+            ->delete();
+
+        foreach ($resources as $resourceId) {
+            $resource = Resource::find($resourceId);
+            $resourceService = new ResourceService;
+            $resourceService->service()->associate($service);
+            $resourceService->resource()->associate($resource);
+            $resourceService->save();
         }
 
         return $service;

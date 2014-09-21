@@ -1,9 +1,9 @@
 <?php namespace App\Appointment\Models;
 
-class ServiceExtraService extends \Eloquent
+class ResourceService extends \Eloquent
 {
     public $timestamps = false;
-    protected $table = 'as_extra_service_service';
+    protected $table = 'as_resource_service';
 
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
@@ -13,8 +13,8 @@ class ServiceExtraService extends \Eloquent
         return $this->belongsTo('App\Appointment\Models\Service');
     }
 
-    public function extraService()
+    public function resource()
     {
-        return $this->belongsTo('App\Appointment\Models\ExtraService');
+        return $this->belongsTo('App\Appointment\Models\Resource');
     }
 }
