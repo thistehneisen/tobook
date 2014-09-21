@@ -141,7 +141,7 @@ class Employee extends \App\Appointment\Models\Base
             }
         }
         $endHour   = ($endMinute == 0) ? $endHour - 1 : $endHour;
-        $endMinute = ($endMinute == 0) ? 45 : $endMinute;
+        $endMinute = ($endMinute == 0 || $endMinute == 60) ? 45 : $endMinute;
         for ($i = $startHour; $i<= $endHour; $i++) {
             if ($i === $startHour) {
                 $workingTimes[$i] = range($startMinute, 45, 15);

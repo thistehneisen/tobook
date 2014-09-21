@@ -39,8 +39,9 @@ class AsBase extends \App\Core\Controllers\Base
                     : $lastestEndTime->minute;
             }
         }
-        $endHour = ((int)$endMinute == 0) ? $endHour - 1 : $endHour;
-        $endMinute = ((int)$endMinute == 0) ? 45 : $endMinute;
+        $endHour = ($endMinute == 0) ? $endHour - 1 : $endHour;
+        $endMinute = ($endMinute == 0 || $endMinute == 60) ? 45 : $endMinute;
+
         for($i = (int) $startHour; $i<= (int)$endHour; $i++) {
             if($i === (int)$startHour){
                 $workingTimes[$i] = range((int)$startMinute, 45, 15);
