@@ -44,30 +44,33 @@ class Consumer extends Base
 
             case 'lc':
                 $baseHistory = DB::table('lc_transactions')
+                            ->join('users', 'lc_transactions.user_id', '=', 'users.id')
                             ->join('lc_consumers', 'lc_transactions.consumer_id', '=', 'lc_consumers.id')
                             ->where('offer_id', null)
                             ->where('voucher_id', null)
                             ->where('lc_transactions.user_id', Confide::user()->id)
                             ->where('lc_consumers.consumer_id', $consumerId)
-                            ->select('lc_transactions.created_at', 'lc_transactions.offer_id', 'lc_transactions.voucher_id', 'lc_transactions.point')
+                            ->select('lc_transactions.created_at', 'lc_transactions.offer_id', 'lc_transactions.voucher_id', 'lc_transactions.point', 'users.business_name')
                             ->take(10)
                             ->get();
 
                 $offerHistory = DB::table('lc_transactions')
+                            ->join('users', 'lc_transactions.user_id', '=', 'users.id')
                             ->join('lc_consumers', 'lc_transactions.consumer_id', '=', 'lc_consumers.id')
                             ->join('lc_offers', 'lc_transactions.offer_id', '=', 'lc_offers.id')
                             ->where('lc_transactions.user_id', Confide::user()->id)
                             ->where('lc_consumers.consumer_id', $consumerId)
-                            ->select('lc_transactions.created_at', 'lc_transactions.offer_id', 'lc_transactions.voucher_id', 'lc_offers.name', 'lc_transactions.stamp')
+                            ->select('lc_transactions.created_at', 'lc_transactions.offer_id', 'lc_transactions.voucher_id', 'lc_offers.name', 'lc_transactions.stamp', 'users.business_name')
                             ->take(10)
                             ->get();
 
                 $voucherHistory = DB::table('lc_transactions')
+                            ->join('users', 'lc_transactions.user_id', '=', 'users.id')
                             ->join('lc_consumers', 'lc_transactions.consumer_id', '=', 'lc_consumers.id')
                             ->join('lc_vouchers', 'lc_transactions.voucher_id', '=', 'lc_vouchers.id')
                             ->where('lc_transactions.user_id', Confide::user()->id)
                             ->where('lc_consumers.consumer_id', $consumerId)
-                            ->select('lc_transactions.created_at', 'lc_transactions.offer_id', 'lc_transactions.voucher_id', 'lc_vouchers.name', 'lc_transactions.point')
+                            ->select('lc_transactions.created_at', 'lc_transactions.offer_id', 'lc_transactions.voucher_id', 'lc_vouchers.name', 'lc_transactions.point', 'users.business_name')
                             ->take(10)
                             ->get();
 

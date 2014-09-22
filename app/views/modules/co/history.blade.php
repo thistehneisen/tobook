@@ -42,6 +42,7 @@
                 @else
                 <td>{{ trans('loyalty-card.use_offer') }} {{ $value->name }}
                 @endif
+                <td>{{  $value->business_name }} </td>
             </tr>
             @endforeach
         @endif
