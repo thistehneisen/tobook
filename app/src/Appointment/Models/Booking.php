@@ -114,6 +114,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $query = self::where('date', $bookingDate)
             ->where('employee_id', $employeeId)
             ->whereNull('deleted_at')
+            ->where('status','!=', self::STATUS_CANCELLED)
             ->where(function ($query) use ($startTime, $endTime) {
                 return $query->where(function ($query) use ($startTime, $endTime) {
                     return $query->where('start_at', '>=', $startTime->toTimeString())

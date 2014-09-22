@@ -560,9 +560,11 @@ class Bookings extends AsBase
             $booking->consumer()->associate($consumer);
             $booking->user()->associate($this->user);
             $booking->employee()->associate($bookingService->employee);
-            $booking->save();
-
-
+            if($status === Booking::STATUS_CANCELLED){
+                $booking->delete();
+            } else {
+                $booking->save();
+            }
             $bookingService->booking()->associate($booking);
             $bookingService->save();
 
