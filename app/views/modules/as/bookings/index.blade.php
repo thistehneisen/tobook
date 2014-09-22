@@ -41,9 +41,9 @@
             <td><input type="checkbox" class="checkbox" name="ids[]" value="{{ $item->id }}"></td>
             <td>{{ $item->uuid }}</td>
             <td>{{ $item->date }}</td>
-            <td>{{ $item->consumer->name }}</td>
+            <td>@if(!empty($item->consumer->name)) {{ $item->consumer->name }} @endif</td>
             <td>{{ $item->total }} {{ trans('common.minutes') }}</td>
-            <td>{{ $item->notes }}</td>
+            <td>{{ nl2br($item->notes) }}</td>
             <td>{{ $item->status_text }}</td>
             <td>
             <div  class="pull-right">
