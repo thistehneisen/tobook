@@ -1,6 +1,6 @@
 <?php namespace App\Consumers\Controllers;
 
-use Input, DB, Confide, Request, Response;
+use Input, DB, Confide, View;
 use App\Core\Controllers\Base;
 
 class Consumer extends Base
@@ -40,9 +40,6 @@ class Consumer extends Base
                             ->select('as_bookings.id', 'as_bookings.uuid', 'as_booking_services.date', 'as_bookings.start_at', 'as_bookings.end_at', 'as_services.name', 'as_bookings.notes', 'as_bookings.created_at')
                             ->take(10)
                             ->get();
-
-
-
                 break;
 
             case 'lc':
@@ -50,11 +47,9 @@ class Consumer extends Base
                 break;
         }
 
-        if (Request::ajax()) {
-            return Response::json([
-                'success' => true,
-                'history' => $history,
-            ]);
-        }
+        return View::make('modules.co.history', [
+            'service' => $service,
+            'history' => $history,
+        ]);
     }
 }

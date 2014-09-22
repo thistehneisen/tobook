@@ -29,4 +29,8 @@ return [
     'all'               => 'Kaikki',
     'add'               => 'Lisää',
     'services'          => 'Palvelut',
+    'date'              => 'Päivämäärä',
+    'start_at'          => 'Alkaa',
+    'end_at'            => 'Loppuu',
+    'notes'             => 'Muistiot',
 ];

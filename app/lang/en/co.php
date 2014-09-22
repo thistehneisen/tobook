@@ -28,4 +28,8 @@ return [
     'all'               => 'All',
     'add'               => 'Add',
     'services'          => 'Services',
+    'date'              => 'Date',
+    'start_at'          => 'Start',
+    'end_at'            => 'End',
+    'notes'             => 'Notes',
 ];
