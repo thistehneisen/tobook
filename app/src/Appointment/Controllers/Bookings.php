@@ -81,7 +81,15 @@ class Bookings extends AsBase
                     $subQuery = $subQuery->orWhere($table  . '.' . $field, 'LIKE', '%'.$q.'%');
                 }
                 return $subQuery;
-            });
+            })->select(
+                'as_bookings.id',
+                'as_bookings.uuid',
+                'as_bookings.date',
+                'as_bookings.total',
+                'as_bookings.notes',
+                'as_bookings.status',
+                'as_consumers.id as consumer_id'
+            );
         return $query;
     }
 
