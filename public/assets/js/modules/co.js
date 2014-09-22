@@ -3,7 +3,7 @@
 'use strict';
 
 $(document).ready(function () {
-    $('#js-showHistory').on('click', function () {
+    $('.js-showHistory').on('click', function () {
         var service = $(this).data('service');
         $.ajax({
             url: '/en/co/consumers/history/',

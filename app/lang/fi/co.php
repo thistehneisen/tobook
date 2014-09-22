@@ -33,4 +33,6 @@ return [
     'start_at'          => 'Alkaa',
     'end_at'            => 'Loppuu',
     'notes'             => 'Muistiot',
+    'action'            => 'Action',
+    'give_points'       => 'Anna :points pistetta',
 ];

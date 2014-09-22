@@ -32,4 +32,6 @@ return [
     'start_at'          => 'Start',
     'end_at'            => 'End',
     'notes'             => 'Notes',
+    'action'            => 'Action',
+    'give_points'       => 'Give :points points',
 ];

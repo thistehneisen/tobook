@@ -34,4 +34,5 @@ return [
     'use_offer'             => 'Use Offer',
     'use_voucher'           => 'Use Voucher',
     'write_card'            => 'Create new loyalty card',
+    'shop'                  => 'Shop',
 ];

@@ -34,4 +34,5 @@ return [
     'use_offer'             => 'Käytä',
     'use_voucher'           => 'Käytä Kupongin',
     'write_card'            => 'Luo uuden kantis kortin',
+    'shop'                  => 'Kauppa',
 ];

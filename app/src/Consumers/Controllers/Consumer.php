@@ -43,7 +43,41 @@ class Consumer extends Base
                 break;
 
             case 'lc':
+                $baseHistory = DB::table('lc_transactions')
+                            ->join('lc_consumers', 'lc_transactions.consumer_id', '=', 'lc_consumers.id')
+                            ->where('offer_id', null)
+                            ->where('voucher_id', null)
+                            ->where('lc_transactions.user_id', Confide::user()->id)
+                            ->where('lc_consumers.consumer_id', $consumerId)
+                            ->select('lc_transactions.created_at', 'lc_transactions.offer_id', 'lc_transactions.voucher_id', 'lc_transactions.point')
+                            ->take(10)
+                            ->get();
 
+                $offerHistory = DB::table('lc_transactions')
+                            ->join('lc_consumers', 'lc_transactions.consumer_id', '=', 'lc_consumers.id')
+                            ->join('lc_offers', 'lc_transactions.offer_id', '=', 'lc_offers.id')
+                            ->where('lc_transactions.user_id', Confide::user()->id)
+                            ->where('lc_consumers.consumer_id', $consumerId)
+                            ->select('lc_transactions.created_at', 'lc_transactions.offer_id', 'lc_transactions.voucher_id', 'lc_offers.name', 'lc_transactions.stamp')
+                            ->take(10)
+                            ->get();
+
+                $voucherHistory = DB::table('lc_transactions')
+                            ->join('lc_consumers', 'lc_transactions.consumer_id', '=', 'lc_consumers.id')
+                            ->join('lc_vouchers', 'lc_transactions.voucher_id', '=', 'lc_vouchers.id')
+                            ->where('lc_transactions.user_id', Confide::user()->id)
+                            ->where('lc_consumers.consumer_id', $consumerId)
+                            ->select('lc_transactions.created_at', 'lc_transactions.offer_id', 'lc_transactions.voucher_id', 'lc_vouchers.name', 'lc_transactions.point')
+                            ->take(10)
+                            ->get();
+
+                $history = array_merge($baseHistory, $offerHistory, $voucherHistory);
+
+                usort($history, function ($a, $b) {
+                    return strcmp($b->created_at, $a->created_at);
+                });
+
+                // var_dump($history);
                 break;
         }
 

@@ -41,7 +41,7 @@
             <td>
                 <ul class="list-unstyle">
                 @foreach ($item->getServiceAttribute() as $key => $value)
-                    <li><a href="#" id="js-showHistory" data-consumerid="{{ $item->id }}" data-service="{{ $key }}">{{ $value }}</a></li>
+                    <li><a href="#" class="js-showHistory" data-consumerid="{{ $item->id }}" data-service="{{ $key }}">{{ $value }}</a></li>
                 @endforeach
                 </ul>
             </td>
