@@ -57,6 +57,7 @@ class FrontBookings extends Bookings
         $length = 0;
         $during = 0;
         $startTime = Carbon::createFromFormat('Y-m-d H:i', sprintf('%s %s', $bookingDate, $startTimeStr));
+        $cartStartTime = with(clone $startTime);
 
         $extraServiceTime = 0;
         $extraServicePrice = 0;
@@ -84,6 +85,7 @@ class FrontBookings extends Bookings
         $lengthPlusExtraTime = $length + $extraServiceTime + $plustime;
         $duringPlusExtraTime = $during + $extraServiceTime + $plustime;
         $endTime = with(clone $startTime)->addMinutes($lengthPlusExtraTime);
+        $cartEndTime = with(clone $cartStartTime)->addMinutes($duringPlusExtraTime);
 
         //Check is there any existed booking with this service time
 
@@ -146,8 +148,8 @@ class FrontBookings extends Bookings
             'service_name'  => $service->name,
             'extra_services'=> $extraServiceIds,
             'employee_name' => $employee->name,
-            'start_at'      => $startTime->format('H:i'),
-            'end_at'        => with(clone $startTime)->addMinutes($duringPlusExtraTime)->format('H:i'),
+            'start_at'      => $cartStartTime->format('H:i'),
+            'end_at'        => $cartEndTime->format('H:i'),
             'uuid'          => $uuid
         ];
 
