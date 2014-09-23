@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css">
     {{ HTML::style(asset('packages/alertify/alertify.core.css')) }}
     {{ HTML::style(asset('packages/alertify/alertify.bootstrap.css')) }}
-    <link rel="stylesheet" href="{{ asset('assets/css/as/layout-1.css?v=00001') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/as/'.$layout.'.css').(Config::get('app.debug') ? '?v='.time() : '') }}">
     <style type="text/css">
         @if(!empty($user->asOptions['style_background']) || !empty($user->asOptions['style_text_color']))
         body {

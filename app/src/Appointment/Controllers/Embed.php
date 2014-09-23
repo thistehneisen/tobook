@@ -117,7 +117,9 @@ class Embed extends AsBase
             }])->where('is_show_front', true)
             ->get();
 
-        return $this->render($this->getLayout().'.index', [
+        $layout = $this->getLayout();
+        return $this->render($layout.'.index', [
+            'layout'             => $layout,
             'user'               => $user,
             'categories'         => $categories,
             'employees'          => $employees,
