@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Controllers;
 
-use Hashids, Input, View, Session, Redirect, URL, Config, Validator, Event;
+use Hashids, Input, View, Session, Redirect, URL, Config, Validator, Event, App;
 use Carbon\Carbon;
 use App\Core\Models\User;
 use App\Appointment\Models\Service;
@@ -49,13 +49,7 @@ class Embed extends AsBase
      */
     public function embed($hash)
     {
-        $decoded = Hashids::decrypt($hash);
-        $user = User::find($decoded[0]);
-
-        $layoutId = (int) Input::get('l');
-        if (!$layoutId) {
-            $layoutId = 1;
-        }
+        $user = $this->getUser($hash);
 
         $serviceId       = Input::get('service_id');
         $serviceTimeId   = Input::get('service_time');
@@ -123,7 +117,7 @@ class Embed extends AsBase
             }])->where('is_show_front', true)
             ->get();
 
-        return $this->render('layout-'.$layoutId, [
+        return $this->render($this->getLayout().'.index', [
             'user'               => $user,
             'categories'         => $categories,
             'employees'          => $employees,
@@ -142,6 +136,42 @@ class Embed extends AsBase
     }
 
     /**
+     * Get layout for this embed
+     *
+     * @return int
+     */
+    protected function getLayout()
+    {
+        $layoutId = (int) Input::get('l');
+        if (!$layoutId) {
+            $layoutId = 1;
+        }
+        return 'layout-'.$layoutId;
+    }
+
+    /**
+     * Get the User object associated to this embed
+     *
+     * @param string $hash
+     *
+     * @return App\Core\Models\User
+     */
+    protected function getUser($hash = null)
+    {
+        $hash = $hash ?: Input::get('hash');
+        if ($hash === null) {
+            return App::abort(404);
+        }
+
+        $decoded = Hashids::decrypt($hash);
+        if (empty($decoded[0])) {
+            return App::abort(404);
+        }
+
+        return User::findOrFail($decoded[0]);
+    }
+
+    /**
      * Display the adding extra service form
      *
      * @return View
@@ -151,12 +181,7 @@ class Embed extends AsBase
         $service = Service::findOrFail(Input::get('service_id'));
         $serviceTime = Input::get('service_time');
 
-        $layoutId = (int) Input::get('l');
-        if (!$layoutId) {
-            $layoutId = 1;
-        }
-
-        return $this->render('layout-'.$layoutId.'.extraServices', [
+        return $this->render($this->getLayout().'.extraServices', [
             'date'        => Input::get('date') ?: Carbon::now()->toDateString(),
             'service'     => $service,
             'serviceTime' => $serviceTime,
@@ -167,9 +192,7 @@ class Embed extends AsBase
     {
         $data = Input::all();
         $hash = Input::get('hash');
-
-        $decoded = Hashids::decrypt($hash);
-        $user = User::find($decoded[0]);
+        $user = $this->getUser($hash);
 
         $fields = [
             trans('as.bookings.firstname') => Input::get('firstname'),
