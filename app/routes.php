@@ -378,6 +378,11 @@ Route::group([
             'uses' => 'App\Appointment\Controllers\Embed@addConfirmInfo'
         ]);
 
+        Route::post('services/employees', [
+            'as' => 'as.embed.employees',
+            'uses' => 'App\Appointment\Controllers\Embed\Layout3@getEmployees'
+        ]);
+
         Route::get('{hash}', [
             'as' => 'as.embed.embed',
             'uses' => 'App\Appointment\Controllers\Embed@embed'

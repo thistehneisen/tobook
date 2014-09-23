@@ -16,7 +16,7 @@
             title3 = $('#as-title-3'),
             title4 = $('#as-title-4');
 
-        form.on('click', 'a.collapsable', function (e) {
+        form.on('click', 'div.collapsable', function (e) {
             e.preventDefault();
             var $this = $(this);
             $($this.attr('href')).collapse('toggle');
@@ -37,12 +37,22 @@
 
         $('input[name=service_id]').on('change', function () {
             var $this = $(this);
-            title1.children('span').text($this.data('service'));
-            title1.children('i').removeClass('hide');
+            title1.find('span').text($this.data('service'));
+            title1.find('i').removeClass('hide');
             title1.addClass('collapsable');
 
             step2.collapse('show');
             title2.addClass('collapsable');
+
+            $.ajax({
+                url: step2.data('url'),
+                type: 'POST',
+                data: {serviceId: $this.val()}
+            }).done(function (data) {
+                step2.find('.panel-body').html(data);
+            }).fail(function (err) {
+                console.log(err);
+            });
         });
 
     });
