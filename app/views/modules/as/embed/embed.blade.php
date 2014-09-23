@@ -89,7 +89,7 @@
     @endif
     <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
     {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
-    <script src="{{ asset('assets/js/as/embed.js?v=00001') }}"></script>
+    <script src="{{ asset('assets/js/as/'.$layout.'.js').(Config::get('app.debug') ? '?v='.time() : '') }}"></script>
     <script>
     $(document).ready(function () {
         $('#datepicker').datepicker({
