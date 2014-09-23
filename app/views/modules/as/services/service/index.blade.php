@@ -5,7 +5,6 @@
     <p><strong>{{ trans('as.services.index') }}</strong></p>
     <p>{{ trans('as.services.desc') }}</p>
 </div>
-
 <div class="row">
     <div class="col-md-6">
         {{ Form::open(['route' => ['as.services.search'], 'method' => 'GET', 'class' => 'form-inline', 'role' => 'form']) }}

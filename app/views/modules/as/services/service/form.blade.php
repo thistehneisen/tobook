@@ -22,6 +22,13 @@ $(function () {
     <p><strong>{{ trans('as.services.add') }}</strong></p>
     <p>{{ trans('as.services.add_desc') }}</p>
 </div>
+@if ($errors->any())
+<div class="alert alert-warning">
+    <ul>
+        {{ implode('', $errors->all('<li>:message</li>')) }}
+    </ul>
+</div>
+@endif
 @if(!empty($service))
     @include ('modules.as.services.service.tab', $service)
 @endif

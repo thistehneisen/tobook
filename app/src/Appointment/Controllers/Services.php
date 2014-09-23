@@ -63,6 +63,34 @@ class Services extends AsBase
     /**
      * {@inheritdoc}
      */
+    public function doUpsert($id = null)
+    {
+        $model = $this->getModel();
+        try {
+            $item = ($id !== null)
+                ? $model->findOrFail($id)
+                : new $model();
+
+            $item = $this->upsertHandler($item);
+
+            $message = ($id !== null)
+                ? trans('as.crud.success_edit')
+                : trans('as.crud.success_add');
+
+            return Redirect::route(static::$crudRoutes['index'])
+                ->with('messages', $this->successMessageBag($message));
+        } catch (\Watson\Validating\ValidationException $ex) {
+            return Redirect::route('as.services.upsert')->withInput()->withErrors($ex->getErrors());
+        }
+
+        $errors = $this->errorMessageBag(trans('common.err.unexpected'));
+
+        return Redirect::back()->withInput()->withErrors($errors, 'top');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function upsertHandler($service)
     {
         try{
@@ -119,7 +147,7 @@ class Services extends AsBase
                 $resourceService->save();
             }
         } catch(\Watson\Validating\ValidationException $ex) {
-            return Redirect::back()->withInput()->withErrors($ex->getErrors());
+           throw $ex;
         }
         return $service;
     }
