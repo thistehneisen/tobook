@@ -79,13 +79,22 @@
             window.location.href = $(this).data('index-url') + "/" + $(this).val();
         });
 
+        function calculateTotalMinute() {
+            var total = parseInt($('#during').val(), 10)
+                + parseInt($('#after').val(), 10)
+                + parseInt($('#before').val(), 10);
+            console.log(total);
+            $('#total').val(total);
+        }
+
         // calculate total time
-        /*if ($('#length').length && $('#before').length && $('#after').length) {
-            $('#length').change(function () {
-                console.log('haha');
-                $('#total').val(parseInt($('#length').val(), 10) + parseInt($('#length').val(), 10) + parseInt($('#length').val(), 10));
-            });
-        }*/
+        $('#before, #during, #after').change(function () {
+            calculateTotalMinute();
+        });
+
+        $('button').click(function (e) {
+            calculateTotalMinute();
+        });
 
         // ------------------------ Backend Calendar ------------------------ //
         $('.as-calendar li.active, .as-calendar li.inactive').click(function () {
