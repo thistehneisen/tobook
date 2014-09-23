@@ -83,7 +83,6 @@
             var total = parseInt($('#during').val(), 10)
                 + parseInt($('#after').val(), 10)
                 + parseInt($('#before').val(), 10);
-            console.log(total);
             $('#total').val(total);
         }
 

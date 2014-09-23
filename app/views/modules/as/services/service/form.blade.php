@@ -33,10 +33,11 @@ $(function () {
     @include ('modules.as.services.service.tab', $service)
 @endif
 {{ Form::open(['route' => ['as.services.upsert', isset($service->id) ? $service->id : ''], 'class' => 'form-horizontal well', 'role' => 'form']) }}
-    <div class="form-group">
+    <div class="form-group {{ Form::errorCSS('category_id', $errors) }}">
         <label for="name" class="col-sm-2 control-label">{{ trans('as.services.name') }}</label>
         <div class="col-sm-5">
            {{ Form::text('name', isset($service->name) ? $service->name : '', ['class' => 'form-control input-sm', 'id' => 'name']) }}
+           {{ Form::errorText('name', $errors) }}
         </div>
     </div>
     <div class="form-group">
@@ -96,10 +97,11 @@ $(function () {
             {{ Form::text('total', isset($service->length) ? $service->length : 0, ['class' => 'form-control input-sm', 'id' => 'total', 'disabled'=>'disabled']) }}
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group {{ Form::errorCSS('category_id', $errors) }}">
         <label for="category" class="col-sm-2 control-label">{{ trans('as.services.category') }}</label>
         <div class="col-sm-5">
             {{ Form::select('category_id', [trans('common.options_select')]+$categories, isset($service->category_id) ? $service->category_id :0, ['class' => 'form-control input-sm', 'id' => 'category']) }}
+            {{ Form::errorText('category_id', $errors) }}
         </div>
     </div>
     <div class="form-group">
