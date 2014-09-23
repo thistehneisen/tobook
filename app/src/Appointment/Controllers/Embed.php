@@ -98,9 +98,11 @@ class Embed extends AsBase
         //for select employee view
         if(!empty($serviceId) && !empty($date)){
             $service = Service::find($serviceId);
-            if(!empty($serviceTimeId)){
-                $serviceTime = Servicetime::find($serviceTimeId);
-            }
+
+            $serviceTime = (!empty($serviceTimeId))
+                ? ServiceTime::find($serviceTimeId)
+                : null;
+
             $employees = $service->employees;
         }
         $extraServices = [];
