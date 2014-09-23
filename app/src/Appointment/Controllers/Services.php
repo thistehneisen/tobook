@@ -65,59 +65,62 @@ class Services extends AsBase
      */
     public function upsertHandler($service)
     {
-        $service->fill(Input::all());
-        $service->setLength();
-        // Attach user
-        $service->user()->associate($this->user);
-        $categoryId = (int) Input::get('category_id');
-        if (!empty($categoryId)) {
-            $category = ServiceCategory::find($categoryId);
-            $service->category()->associate($category);
+        try{
+            $service->fill(Input::all());
+            $service->setLength();
+            // Attach user
+            $service->user()->associate($this->user);
+            $categoryId = (int) Input::get('category_id');
+            if (!empty($categoryId)) {
+                $category = ServiceCategory::find($categoryId);
+                $service->category()->associate($category);
+            }
+
+            $service->saveOrFail();
+
+            $extraServices = Input::get('extras', []);
+            $resources     = Input::get('resources', []);
+            $employees     = Input::get('employees', []);
+            $plustimes     = Input::get('plustimes');
+            $service->employees()->detach($employees);
+
+            foreach ($employees as $employeeId) {
+                $employee = Employee::ofCurrentUser()->find($employeeId);
+                $employeeService = new EmployeeService();
+                $employeeService->service()->associate($service);
+                $employeeService->employee()->associate($employee);
+                $employeeService->plustime = $plustimes[$employeeId];
+                $employeeService->save();
+            }
+
+            //Delete old extra service services;
+            DB::table('as_extra_service_service')
+                ->where('service_id', $service->id)
+                ->delete();
+
+            foreach ($extraServices as $extraServiceId) {
+                $extraService = ExtraService::find($extraServiceId);
+                $serviceExtraService = new ServiceExtraService;
+                $serviceExtraService->service()->associate($service);
+                $serviceExtraService->extraService()->associate($extraService);
+                $serviceExtraService->save();
+            }
+
+            //Delete old resource services;
+            DB::table('as_resource_service')
+                ->where('service_id', $service->id)
+                ->delete();
+
+            foreach ($resources as $resourceId) {
+                $resource = Resource::find($resourceId);
+                $resourceService = new ResourceService;
+                $resourceService->service()->associate($service);
+                $resourceService->resource()->associate($resource);
+                $resourceService->save();
+            }
+        } catch(\Watson\Validating\ValidationException $ex) {
+            return Redirect::back()->withInput()->withErrors($ex->getErrors());
         }
-
-        $service->saveOrFail();
-
-        $extraServices = Input::get('extras', []);
-        $resources     = Input::get('resources', []);
-        $employees     = Input::get('employees', []);
-        $plustimes     = Input::get('plustimes');
-        $service->employees()->detach($employees);
-
-        foreach ($employees as $employeeId) {
-            $employee = Employee::ofCurrentUser()->find($employeeId);
-            $employeeService = new EmployeeService();
-            $employeeService->service()->associate($service);
-            $employeeService->employee()->associate($employee);
-            $employeeService->plustime = $plustimes[$employeeId];
-            $employeeService->save();
-        }
-
-        //Delete old extra services;
-        DB::table('as_extra_service_service')
-            ->where('service_id', $service->id)
-            ->delete();
-
-        foreach ($extraServices as $extraServiceId) {
-            $extraService = ExtraService::find($extraServiceId);
-            $serviceExtraService = new ServiceExtraService;
-            $serviceExtraService->service()->associate($service);
-            $serviceExtraService->extraService()->associate($extraService);
-            $serviceExtraService->save();
-        }
-
-        //Delete old extra services;
-        DB::table('as_resource_service')
-            ->where('service_id', $service->id)
-            ->delete();
-
-        foreach ($resources as $resourceId) {
-            $resource = Resource::find($resourceId);
-            $resourceService = new ResourceService;
-            $resourceService->service()->associate($service);
-            $resourceService->resource()->associate($resource);
-            $resourceService->save();
-        }
-
         return $service;
     }
 

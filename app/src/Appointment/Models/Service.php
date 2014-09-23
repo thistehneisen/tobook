@@ -8,7 +8,8 @@ class Service extends \App\Core\Models\Base
 
     protected $rulesets = [
         'saving' => [
-            'name' => 'required'
+            'name'        => 'required',
+            'category_id' => 'required'
         ]
     ];
 

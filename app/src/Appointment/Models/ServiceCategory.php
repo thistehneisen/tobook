@@ -23,7 +23,7 @@ class ServiceCategory extends \App\Core\Models\Base
 
     public function getIsShowFrontAttribute()
     {
-        return (bool) $this->attributes['is_show_front'];
+        return (isset($this->attributes['is_show_front'])) ? (bool) $this->attributes['is_show_front'] : true;
     }
 
     //--------------------------------------------------------------------------
