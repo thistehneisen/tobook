@@ -27,7 +27,7 @@ class Service extends \App\Core\Models\Base
 
     public function setLength()
     {
-        $this->length = (int) $this->after + $this->during + $this->before;
+        $this->length = $this->after + $this->during + $this->before;
     }
 
     //--------------------------------------------------------------------------
