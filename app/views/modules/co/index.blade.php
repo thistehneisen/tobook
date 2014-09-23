@@ -1,14 +1,22 @@
 @extends ('modules.as.crud.index')
 
+@section ('styles')
+    @parent
+    {{ HTML::style(asset('packages/alertify/alertify.core.css')) }}
+    {{ HTML::style(asset('packages/alertify/alertify.bootstrap.css')) }}
+@stop
+
 @section ('scripts')
     @parent
     {{ HTML::script(asset('assets/js/modules/co.js')) }}
+    {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
 @stop
 
 @section ('content')
+@include ('modules.co.tabs')
 <div class="row">
     <div class="col-md-6">
-        {{ Form::open(['route' => ['co.consumers.search'], 'method' => 'GET', 'class' => 'form-inline', 'role' => 'form']) }}
+        {{ Form::open(['route' => ['consumer-hub.search'], 'method' => 'GET', 'class' => 'form-inline', 'role' => 'form']) }}
             <div class="input-group">
                 {{ Form::text('q', Input::get('q'), ['class' => 'form-control input-sm', 'placeholder' => trans('common.search')]) }}
                 <span class="input-group-btn">
@@ -41,7 +49,7 @@
             <td>
                 <ul class="list-unstyle">
                 @foreach ($item->getServiceAttribute() as $key => $value)
-                    <li><a href="#" class="js-showHistory" data-consumerid="{{ $item->id }}" data-service="{{ $key }}">{{ $value }}</a></li>
+                    <li><code class="js-showHistory" data-url="{{ URL::route('consumer-hub.history') }}" data-consumerid="{{ $item->id }}" data-service="{{ $key }}">{{ $value }}</code></li>
                 @endforeach
                 </ul>
             </td>

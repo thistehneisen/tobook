@@ -241,21 +241,26 @@ Route::group([
 
 /*
 |--------------------------------------------------------------------------
-| Consumer routes
+| Consumer hub routes
 |--------------------------------------------------------------------------
 */
 Route::group([
-    'prefix' => 'co',
+    'prefix' => 'consumer-hub',
     'before' => ['auth']
 ], function () {
     \App\Consumers\Controllers\Consumer::crudRoutes(
-        'consumers',
-        'co.consumers'
+        '/',
+        'consumer-hub'
     );
 
-    Route::get('consumers/history', [
-        'as' => 'co.consumers.history',
+    Route::get('history', [
+        'as' => 'consumer-hub.history',
         'uses' => 'App\Consumers\Controllers\Consumer@getHistory',
+    ]);
+
+    Route::get('/{tab?}', [
+        'as' => 'consumer-hub',
+        'uses' => 'App\Consumers\Controllers\Consumer@upsertHandler',
     ]);
 });
 

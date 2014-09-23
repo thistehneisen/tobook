@@ -12,6 +12,7 @@ class Consumer extends Base
         'langPrefix'    => 'co',
         'indexFields'   => ['first_name', 'last_name', 'email', 'phone'],
         'layout'        => 'layouts.default',
+        'showTab'       => true,
     ];
 
     protected function upsertHandler($item)
@@ -76,13 +77,12 @@ class Consumer extends Base
 
                 $history = array_merge($baseHistory, $offerHistory, $voucherHistory);
 
-                usort($history, function ($a, $b) {
-                    return strcmp($b->created_at, $a->created_at);
-                });
-
-                // var_dump($history);
                 break;
         }
+
+        usort($history, function ($a, $b) {
+            return strcmp($b->created_at, $a->created_at);
+        });
 
         return View::make('modules.co.history', [
             'service' => $service,

@@ -28,6 +28,7 @@ return [
     'invalid_action'    => 'Invalid action',
     'all'               => 'Kaikki',
     'add'               => 'Lisää',
+    'edit'              => 'Muokkaa',
     'services'          => 'Palvelut',
     'date'              => 'Päivämäärä',
     'start_at'          => 'Alkaa',

@@ -6,7 +6,7 @@ $(document).ready(function () {
     $('.js-showHistory').on('click', function () {
         var service = $(this).data('service');
         $.ajax({
-            url: '/en/co/consumers/history/',
+            url: $(this).data('url'),
             type: 'get',
             data: {
                 id: $(this).data('consumerid'),

@@ -27,6 +27,7 @@ return [
     'invalid_action'    => 'Invalid action',
     'all'               => 'All',
     'add'               => 'Add',
+    'edit'              => 'Edit',
     'services'          => 'Services',
     'date'              => 'Date',
     'start_at'          => 'Start',
