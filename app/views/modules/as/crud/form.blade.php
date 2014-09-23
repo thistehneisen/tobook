@@ -12,8 +12,8 @@
     @endif
 
     {{ Lomake::make($item, [
-        'route' => [$routes['upsert'], isset($item) ? $item->id : null],
-        'trans' => $langPrefix
+        'route'      => [$routes['upsert'], isset($item) ? $item->id : null],
+        'langPrefix' => $langPrefix
     ]) }}
 </div>
 @stop
