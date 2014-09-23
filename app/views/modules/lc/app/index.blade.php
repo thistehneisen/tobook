@@ -6,7 +6,7 @@
 
 @section ('scripts')
 <script>
-    GL_VARAA.addRoute('consumers', "{{ route('app.lc.show') }}");
+    VARAA.addRoute('consumers', "{{ route('app.lc.show') }}");
 </script>
 {{ HTML::script(asset('assets/js/modules/lcapp.js')) }}
 @stop

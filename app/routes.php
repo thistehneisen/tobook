@@ -41,6 +41,11 @@ Route::group(['prefix' => 'search'], function () {
     ]);
 });
 
+Route::get('jslocale.json', [
+    'as'    => 'ajax.jslocale',
+    'uses'  => 'App\Core\Controllers\Ajax\JsLocale@getJsLocale'
+]);
+
 /*
 |--------------------------------------------------------------------------
 | Business introduction routes

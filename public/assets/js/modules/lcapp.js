@@ -1,11 +1,11 @@
 /*jslint browser: true, nomen: true, unparam: true*/
-/*global $, jQuery, external, GL_VARAA*/
+/*global $, jQuery, external, VARAA*/
 'use strict';
 
 // global function to be accessed from the desktop app
 function showConsumerInfo(consumerId) {
     $.ajax({
-        url: GL_VARAA.getRoute('consumers', {'id': consumerId}),
+        url: VARAA.getRoute('consumers', {'id': consumerId}),
         dataType: 'html',
         type: 'GET',
         success: function (data) {

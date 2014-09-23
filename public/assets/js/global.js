@@ -2,7 +2,7 @@
 /*global $, jQuery, unescape*/
 'use strict';
 
-var GL_VARAA = {};
+var VARAA = {};
 
 // modify String prototype to have more helpers for JS string
 if (!String.prototype.format) {
@@ -23,18 +23,28 @@ if (!String.prototype.routeformat) {
 }
 
 // routes
-GL_VARAA.routes = {};
-GL_VARAA.addRoute = function (routeName, url) {
-    GL_VARAA.routes[routeName] = unescape(url);
+VARAA.routes = {};
+VARAA.addRoute = function (routeName, url) {
+    VARAA.routes[routeName] = unescape(url);
 };
-GL_VARAA.getRoute = function (routeName, params) {
-    var route = GL_VARAA.routes[routeName];
+VARAA.getRoute = function (routeName, params) {
+    var route = VARAA.routes[routeName];
     if (route !== undefined) {
         if (params === undefined) {
             return route;
         }
         return route.routeformat(params);
     }
-    console.log('Error getting route [');
+    console.log('Error getting route "{0}"'.format(routeName));
 };
 
+// langs
+VARAA.currentLocale = 'en'; // default fallback locale
+VARAA._i18n = {};
+// I hate global var but this is faster to type and also consistent with Laravel
+var trans = function (key) {
+    if (VARAA._i18n.hasOwnProperty(key)) {
+        return VARAA._i18n[key];
+    }
+    return key;
+};
