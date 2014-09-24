@@ -13,6 +13,16 @@ class Service extends \App\Core\Models\Base
         ]
     ];
 
+    public function isDeletable()
+    {
+        $bookings = Booking::join('as_booking_services','as_booking_services.booking_id','=','as_bookings.id')
+            ->whereNull('as_bookings.deleted_at')
+            ->where('as_bookings.status','!=', Booking::STATUS_CANCELLED)
+            ->where('as_booking_services.service_id', $this->id)->get();
+
+        return ($bookings->isEmpty()) ? true : false;
+    }
+
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------

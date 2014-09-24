@@ -67,22 +67,17 @@ class Services extends AsBase
     public function delete($id)
     {
 
-        $item = $this->getModel()->ofCurrentUser()->findOrFail($id);
+        $service = Service::ofCurrentUser()->findOrFail($id);
 
-        //Cannot delete this service if is there any undeleted booking use it
-        $bookings = Booking::join('as_booking_services','as_booking_services.booking_id','=','as_bookings.id')
-            ->whereNull('as_bookings.deleted_at')
-            ->where('as_bookings.status','!=', Booking::STATUS_CANCELLED)
-            ->where('as_booking_services.service_id', $id)->get();
-
-        if(!$bookings->isEmpty()){
+         //Cannot delete this service if is there any undeleted booking use it
+        if(!$service->isDeletable()){
             //if there are bookings, redirect back
             $errors = $this->errorMessageBag(trans('as.services.error.service_current_in_use'));
             return Redirect::route(static::$crudRoutes['index'])
                 ->withInput()->withErrors($errors);
         }
 
-        $item->delete();
+        $service->delete();
 
         if (Request::ajax() === true) {
             return Response::json(['success' => true]);
