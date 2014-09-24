@@ -101,9 +101,9 @@ class Base implements Strategy
         $end                = $this->employee->getTodayDefaultEndAt($this->dateObj->dayOfWeek);
 
         if ($this->rowTime >= $start && $this->rowTime < $end && !$defaultWorkingTime->is_day_off) {
-            $this->class = ($this instanceof Backend) ? 'fancybox active' : 'active';
+            $this->class = $this->getValue('active');
         } else {
-            $this->class = ($this instanceof Backend) ? 'fancybox inactive' : 'inactive';
+            $this->class = $this->getValue('inactive');
         }
         return $this->class;
     }
@@ -127,10 +127,10 @@ class Base implements Strategy
             $end   =  $empCustomTime->customTime->getEndAt();
 
             if ($this->rowTime >= $start && $this->rowTime < $end && !$empCustomTime->customTime->is_day_off) {
-                $this->class = ($this instanceof Backend) ? 'fancybox active' : 'active';
+                $this->class = $this->getValue('custom_active');
                 $this->customTimeSlot[$this->date][$this->hour][$this->minute] = $empCustomTime;
             } else {
-                $this->class = ($this instanceof Backend) ? 'custom fancybox inactive' : 'custom inactive';
+                $this->class = $this->getValue('custom_inactive');
             }
         }
         return $this->class;
@@ -156,7 +156,7 @@ class Base implements Strategy
             $end   = $freetime->getEndAt()->subMinutes(15);//TODO is always 15?
 
             if ($this->rowTime >= $start && $this->rowTime <= $end) {
-                $this->class = 'freetime';
+                $this->class = $this->getValue('freetime');
                 $this->freetimeSlot[$this->date][$this->hour][$this->minute] = $freetime;
             }
         }
@@ -197,16 +197,31 @@ class Base implements Strategy
                 }
 
                 if ($this->rowTime >= $start && $this->rowTime <= $end) {
-                    $this->class = $booking->getClass();
+                    $this->class = (!($this instanceof Next)) ? $booking->getClass() : '';
                     if ($this->rowTime == $start) {
-                        $this->class .= ' slot-booked-head';
+                        $this->class .= $this->getValue('booked_head');
                     } else {
-                        $this->class .= ' slot-booked-body';
+                        $this->class .= $this->getValue('booked_body');
                     }
                     $this->bookedSlot[$this->date][$start->hour][$start->minute] = $booking;
                 }
             }
         }
         return $this->class;
+    }
+
+    protected function getValue($key)
+    {
+        $map = [
+            'active'          => 'fancybox active',
+            'inactive'        => 'fancybox inactive',
+            'freetime'        => 'freetime',
+            'custom_active'   => 'custom fancybox active',
+            'custom_inactive' => 'custom fancy inactive',
+            'booked_head'     => ' slot-booked-head',
+            'booked_body'     => ' slot-booked-body',
+        ];
+
+        return (isset($map[$key])) ? $map[$key] : '';
     }
 }

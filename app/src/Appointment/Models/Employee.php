@@ -8,6 +8,7 @@ use App\Appointment\Models\Slot\Strategy;
 use App\Appointment\Models\Slot\Context;
 use App\Appointment\Models\Slot\Backend;
 use App\Appointment\Models\Slot\Frontend;
+use App\Appointment\Models\Slot\Next;
 
 class Employee extends \App\Appointment\Models\Base
 {
@@ -211,9 +212,11 @@ class Employee extends \App\Appointment\Models\Base
     {
         //Cache by date for employee view
         if(empty($this->strategy[$date])){
-            $this->strategy[$date] = new Backend();
-            if ($context === 'frontend') {
-                $this->strategy[$date] = new Frontend();
+            $class = "App\\Appointment\\Models\\Slot\\" .ucfirst($context);
+            if (class_exists($class)) {
+                $this->strategy[$date] = new $class();
+            } else {
+                $this->strategy[$date] = new Backend();
             }
         }
         $context = new Context($this->strategy[$date]);
