@@ -35,4 +35,11 @@ return [
     'use_voucher'           => 'Käytä Kupongin',
     'write_card'            => 'Luo uuden kantis kortin',
     'shop'                  => 'Kauppa',
+    'all'                   => 'Kaikki kupongit',
+    'add'                   => 'Lisää kuponki',
+    'name'                  => 'Kupongin nimi',
+    'value'                 => 'Alennus',
+    'type'                  => 'Tyypi',
+    'is_active'             => 'Käytössä',
+    'edit'                  => 'Muokkaa kuponki',
 ];

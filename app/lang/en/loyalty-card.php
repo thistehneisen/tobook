@@ -35,4 +35,11 @@ return [
     'use_voucher'           => 'Use Voucher',
     'write_card'            => 'Create new loyalty card',
     'shop'                  => 'Shop',
+    'all'                   => 'All vouchers',
+    'add'                   => 'Add voucher',
+    'name'                  => 'Voucher name',
+    'value'                 => 'Discount',
+    'type'                  => 'Type',
+    'is_active'             => 'Active',
+    'edit'                  => 'Edit voucher',
 ];

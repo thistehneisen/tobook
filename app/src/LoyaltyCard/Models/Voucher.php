@@ -1,12 +1,23 @@
 <?php namespace App\LoyaltyCard\Models;
-use Illuminate\Database\Eloquent\Model as Eloquent;
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class Voucher extends Eloquent
+use \App\Core\Models\Base;
+
+class Voucher extends Base
 {
-    use SoftDeletingTrait;
-
     protected $table = 'lc_vouchers';
     protected $guarded = ['id'];
     protected $dates = ['deleted_at'];
+    public $fillable = ['name', 'required', 'value', 'type', 'is_active'];
+    protected $rulesets = [
+        'saving' => [
+        'name'          => 'required',
+        'required'      => 'required|numeric',
+        'value'         => 'required|numeric',
+        ]
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\Core\Models\User');
+    }
 }

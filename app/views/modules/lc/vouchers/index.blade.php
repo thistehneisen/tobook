@@ -1,7 +1,7 @@
 @extends('modules.lc.layout')
 
 @section('top-buttons')
-<a href="{{ URL::route('lc.vouchers.create') }}" class="btn btn-default btn-success"><span class="glyphicon glyphicon-plus"></span> {{ trans('common.add') }}</a>
+<a href="{{ URL::route('vouchers.upsert') }}" class="btn btn-default btn-success"><span class="glyphicon glyphicon-plus"></span> {{ trans('common.add') }}</a>
 @stop
 
 @section('scripts')
@@ -28,7 +28,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($vouchers as $key => $value)
+            @foreach ($items as $key => $value)
             <tr>
                 <!--<td>
                     <input type="checkbox" id="chkStampId" value="{{ $value->id }}" />
@@ -54,14 +54,15 @@
                     @endif
                 </td>
                 <td class="no-display">
-                    <a href="{{ URL::route('lc.vouchers.edit', ['id' => $value->id]) }}">
+                    <a href="{{ URL::route('vouchers.upsert', ['id' => $value->id]) }}">
                         <button class="btn btn-sm btn-success" type="button">
                             <span class="glyphicon glyphicon-pencil"></span> {{ trans('common.edit') }}
                         </button>
                     </a>
                 </td>
                 <td>
-                    {{ Form::open(['route' => ['lc.vouchers.delete', $value->id], 'method' => 'delete']) }}
+                    <!-- {{ Form::open(['route' => ['vouchers.delete', $value->id], 'method' => 'delete']) }} -->
+                    {{ Form::open(['route' => ['vouchers.delete', $value->id]]) }}
                         <button class="btn btn-sm btn-danger" type="button" data-toggle="modal" data-target="#js-confirmDeleteModal">
                             <span class="glyphicon glyphicon-trash"></span> {{ trans('common.delete') }}
                         </button>
@@ -71,6 +72,6 @@
             @endforeach
         </tbody>
     </table>
-    <div class="pull-right">{{ $vouchers->links() }}</div>
+    <div class="pull-right">{{ $items->links() }}</div>
 </div>
 @stop

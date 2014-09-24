@@ -717,16 +717,10 @@ Route::group([
         ]
     ]);
 
-    Route::resource('vouchers', 'App\LoyaltyCard\Controllers\Voucher', [
-        'names' => [
-            'index' => 'lc.vouchers.index',
-            'create' => 'lc.vouchers.create',
-            'edit' => 'lc.vouchers.edit',
-            'store' => 'lc.vouchers.store',
-            'update' => 'lc.vouchers.update',
-            'destroy' => 'lc.vouchers.delete',
-        ]
-    ]);
+    \App\LoyaltyCard\Controllers\Voucher::crudRoutes(
+        'vouchers',
+        'vouchers'
+    );
 });
 
 /*
