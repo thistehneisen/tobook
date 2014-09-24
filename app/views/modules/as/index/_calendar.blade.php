@@ -5,7 +5,11 @@
         <?php
             $serviceDescription = '';
             if (!empty($booking->bookingServices()->first())) {
-                $serviceDescription = '('.$booking->bookingServices()->first()->service->name.')';
+                //Just in case there is no service associate with this booking
+                if(!empty($booking->bookingServices()->first()->service)){
+                    $serviceDescription = '('.$booking->bookingServices()->first()->service->name.')';
+                }
+                $serviceDescription = '--No Service--';
             }
             $bookingNote = empty($booking->notes) ? '' : '<br><br><em>'.$booking->notes.'</em>';
         ?>

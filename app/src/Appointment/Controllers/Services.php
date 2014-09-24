@@ -1,12 +1,13 @@
 <?php namespace App\Appointment\Controllers;
 
-use App, View, Confide, Redirect, Input, Config, DB;
+use App, View, Confide, Redirect, Request, Input, Config, DB;
 use Carbon\Carbon;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\ServiceExtraService;
 use App\Appointment\Models\ExtraService;
+use App\Appointment\Models\Booking;
 use App\Appointment\Models\Resource;
 use App\Appointment\Models\ResourceService;
 use App\Appointment\Models\EmployeeService;
@@ -58,6 +59,40 @@ class Services extends AsBase
             'extras'     => $extras,
             'employees'  => $employees
         ]);
+    }
+
+     /**
+     * {@inheritdoc}
+     */
+    public function delete($id)
+    {
+
+        $item = $this->getModel()->ofCurrentUser()->findOrFail($id);
+
+        //Cannot delete this service if is there any undeleted booking use it
+        $bookings = Booking::join('as_booking_services','as_booking_services.booking_id','=','as_bookings.id')
+            ->whereNull('as_bookings.deleted_at')
+            ->where('as_bookings.status','!=', Booking::STATUS_CANCELLED)
+            ->where('as_booking_services.service_id', $id)->get();
+
+        if(!$bookings->isEmpty()){
+            //if there are bookings, redirect back
+            $errors = $this->errorMessageBag(trans('as.services.error.service_current_in_use'));
+            return Redirect::route(static::$crudRoutes['index'])
+                ->withInput()->withErrors($errors);
+        }
+
+        $item->delete();
+
+        if (Request::ajax() === true) {
+            return Response::json(['success' => true]);
+        }
+
+        return Redirect::route(static::$crudRoutes['index'])
+            ->with(
+                'messages',
+                $this->successMessageBag(trans('as.crud.success_delete'))
+            );
     }
 
     /**

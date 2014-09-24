@@ -5,6 +5,13 @@
     <p><strong>{{ trans('as.services.index') }}</strong></p>
     <p>{{ trans('as.services.desc') }}</p>
 </div>
+@if ($errors->any())
+<div class="alert alert-warning">
+    <ul>
+        {{ implode('', $errors->all('<li>:message</li>')) }}
+    </ul>
+</div>
+@endif
 <div class="row">
     <div class="col-md-6">
         {{ Form::open(['route' => ['as.services.search'], 'method' => 'GET', 'class' => 'form-inline', 'role' => 'form']) }}

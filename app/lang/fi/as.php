@@ -203,6 +203,9 @@ return [
         'extra'        => 'Lisäpalvelut',
         'employees'    => 'Työntekijät',
         'no_employees' => 'There is no employee to be selected',
+        'error'         => [
+            'service_current_in_use' => 'Services is currently in use. Please delete all related bookings before deleting this service.'
+        ]
     ],
     'bookings' => [
         'confirmed'         => 'Vahvistettu',
