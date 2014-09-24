@@ -161,6 +161,16 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return $lastestBooking;
     }
 
+    public function getExtraServices()
+    {
+        $extraServices = [];
+        foreach ($this->extraServices as $extra) {
+            $extraServices[] = $extra->extra_service->name;
+        }
+
+        return $extraServices;
+    }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------

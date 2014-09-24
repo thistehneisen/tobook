@@ -2,32 +2,34 @@
     @if(strpos(trim($slotClass), 'booked') === 0)
         <?php $booking = $selectedEmployee->getBooked($selectedDate, $hour, $minuteShift); ?>
         @if($booking !== null)
-        <?php
-            $serviceDescription = '';
-            if (!empty($booking->bookingServices()->first())) {
-                //Just in case there is no service associate with this booking
-                if(!empty($booking->bookingServices()->first()->service)){
-                    $serviceDescription = '('.$booking->bookingServices()->first()->service->name.')';
-                }
-                $serviceDescription = '--No Service--';
-            }
+            <?php
+            $bookingStartTime = with(new Carbon\Carbon($booking->start_at))->format('H:i');
+            $bookingEndTime = with(new Carbon\Carbon($booking->end_at))->format('H:i');
+            $consumerName = $booking->consumer->getNameAttribute();
+            $bookingService = $booking->bookingServices()->first();
+            $bookingServiceArray = !empty($bookingService->service->name)
+                ? [$bookingService->service->name]
+                : [];
+            $allServices = array_merge($bookingServiceArray, $booking->getExtraServices());
+            $serviceDescription = !empty($allServices)
+                ? '('.implode(' + ', $allServices).')'
+                : '';
             $bookingNote = empty($booking->notes) ? '' : '<br><br><em>'.$booking->notes.'</em>';
-        ?>
-        <span class="customer-tooltip"
-            title="{{ with(new Carbon\Carbon($booking->start_at))->format('H:i') }}
-                - {{ with(new Carbon\Carbon($booking->end_at))->format('H:i') }} <br>
-                {{{ $booking->consumer->getNameAttribute() }}} <br>
-                {{{ $serviceDescription }}}
-                {{{ $bookingNote }}}
-                ">
-            <a class="js-btn-view-booking" href="#"
-                data-start-time="{{ with(new Carbon\Carbon($booking->start_at))->format('H:i') }}"
-                data-booking-id="{{ $booking->id }}"
-                data-employee-id="{{ $selectedEmployee->id }}">
-                {{{ $booking->consumer->getNameAttribute() }}} {{{ $serviceDescription }}}
-            </a>
-        </span>
-        <a href="#select-modify-action" class="btn-plus fancybox btn-select-modify-action" data-booking-id="{{ $booking->id }}" data-action-url="{{ route('as.bookings.extra-service-form') }}"><i class="fa fa-plus"></i></a>
+
+            $tooltip = sprintf(
+                '%s - %s <br> %s <br> %s %s',
+                $bookingStartTime, $bookingEndTime, $consumerName, $serviceDescription, $bookingNote
+            );
+            ?>
+            <span class="customer-tooltip" title="{{{ $tooltip }}}">
+                <a class="js-btn-view-booking" href="#"
+                    data-start-time="{{ $bookingStartTime }}"
+                    data-booking-id="{{ $booking->id }}"
+                    data-employee-id="{{ $selectedEmployee->id }}">
+                    {{{ $consumerName }}} {{{ $serviceDescription }}}
+                </a>
+            </span>
+            <a href="#select-modify-action" class="btn-plus fancybox btn-select-modify-action" data-booking-id="{{ $booking->id }}" data-action-url="{{ route('as.bookings.extra-service-form') }}"><i class="fa fa-plus"></i></a>
         @else
             &nbsp;
         @endif
