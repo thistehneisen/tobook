@@ -27,8 +27,8 @@ def deploy_stag():
     _deploy()
 
 
-@task(alias='dp')
-@hosts('varaa.co')
+@task
+@hosts('klikkaaja.com')
 def deploy_prod():
     _deploy()
 
