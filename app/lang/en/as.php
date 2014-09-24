@@ -166,6 +166,9 @@ return [
             'no_services'   => 'There are no services for this category',
             'availability'  => 'Availability',
             'category_name' => 'Category name',
+            'error'         => [
+                'category_current_in_use' => 'Category is currently in use. Please delete all related services before deleting this category.'
+            ]
         ],
         'resources' => [
             'all'         => 'All resources',

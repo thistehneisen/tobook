@@ -5,12 +5,13 @@
     <p><strong>{{ trans('as.services.index') }}</strong></p>
     <p>{{ trans('as.services.desc') }}</p>
 </div>
-@if ($errors->any())
-<div class="alert alert-warning">
-    <ul>
-        {{ implode('', $errors->all('<li>:message</li>')) }}
-    </ul>
-</div>
+@if ($errors->top->isEmpty() === false)
+    <div class="alert alert-danger">
+        <p><strong>{{ trans('common.errors') }}!</strong></p>
+    @foreach ($errors->top->all() as $message)
+        <p>{{ $message }}</p>
+    @endforeach
+    </div>
 @endif
 <div class="row">
     <div class="col-md-6">

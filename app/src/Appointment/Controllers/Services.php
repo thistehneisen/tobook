@@ -74,7 +74,7 @@ class Services extends AsBase
             //if there are bookings, redirect back
             $errors = $this->errorMessageBag(trans('as.services.error.service_current_in_use'));
             return Redirect::route(static::$crudRoutes['index'])
-                ->withInput()->withErrors($errors);
+                ->withInput()->withErrors($errors, 'top');
         }
 
         $service->delete();

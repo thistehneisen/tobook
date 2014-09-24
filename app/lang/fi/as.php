@@ -164,6 +164,9 @@ return [
             'no_services'   => 'Siellä ei ole palvelua tälle kategorialle',
             'availability'  => 'Saatavuus',
             'category_name' => 'Kategorian nimi',
+            'error'         => [
+                'category_current_in_use' => 'Category is currently in use. Please delete all related services before deleting this category.'
+            ]
         ],
         'resources' => [
             'all'         => 'Kaikki resurssit',

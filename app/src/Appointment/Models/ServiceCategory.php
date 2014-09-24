@@ -13,6 +13,11 @@ class ServiceCategory extends \App\Core\Models\Base
         ]
     ];
 
+    public function isDeletable()
+    {
+        return ($this->services->isEmpty()) ? true : false;
+    }
+
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
