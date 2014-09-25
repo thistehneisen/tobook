@@ -29,7 +29,7 @@ class UrlGenerator extends \Illuminate\Routing\UrlGenerator
 
         $final = $url['scheme'].'://'.$url['host'].'/'.$url['path'];
         return !empty($url['query'])
-            ? $final.'?'.$url['query']
+            ? $final.'/?'.$url['query']
             : $final;
     }
 }
