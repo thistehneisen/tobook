@@ -52,21 +52,17 @@ $(function() {
         </select>
         </div>
         <div class="clearfix"></div>
-        @foreach ($nextAvailables as $userId => $slots)
-            @foreach ($slots as $slot)
+        @foreach ($businesses as $business)
             <div class="available-slot col-md-3 col-sm-3">
                 <img src="{{ asset('assets/img/slides/1.jpg') }}" alt="" class="img-responsive" />
                 <div class="info text-left">
-                    <h4>{{ $slot['user']->name }}</h4>
-                    <p>{{ $slot['user']->address }}</p>
-                    <p></p>
-                    <p>{{ $slot['price'] }}</p>
-                    <p>{{ $slot['date'] }}
+                    <h4>{{ $business->name }}</h4>
+                    <p>{{ $business->address }}</p>
+                    @foreach ($business->getASNextTimeSlots($now->toDateString(), $now->hour) as $slot)
                         <a href="#" class="btn btn-sm btn-default">{{ $slot['time'] }}</a>
-                    </p>
+                    @endforeach
                 </div>
             </div>
-            @endforeach
         @endforeach
     </div>
 
