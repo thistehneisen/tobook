@@ -217,7 +217,7 @@ class Base implements Strategy
             'inactive'        => 'fancybox inactive',
             'freetime'        => 'freetime',
             'custom_active'   => 'custom fancybox active',
-            'custom_inactive' => 'custom fancy inactive',
+            'custom_inactive' => 'custom fancybox inactive',
             'booked_head'     => ' slot-booked-head',
             'booked_body'     => ' slot-booked-body',
         ];

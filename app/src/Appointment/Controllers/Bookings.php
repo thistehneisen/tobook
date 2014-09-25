@@ -151,6 +151,7 @@ class Bookings extends AsBase
             'serviceTimes'          => $serviceTimes,
         ];
     }
+
     /**
      * Handle ajax request to display booking form
      *
@@ -158,7 +159,7 @@ class Bookings extends AsBase
      **/
     public function getBookingForm()
     {
-        $bookingId   = (int) Input::get('booking_id');
+        $bookingId   = (int) Input::get('booking_id', 0);
 
         if(empty($bookingId)){
             return $this->getBlankBookingForm();
