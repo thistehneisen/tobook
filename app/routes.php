@@ -706,16 +706,10 @@ Route::group([
         ]
     ]);
 
-    Route::resource('offers', 'App\LoyaltyCard\Controllers\Offer', [
-        'names' => [
-            'index' => 'lc.offers.index',
-            'create' => 'lc.offers.create',
-            'edit' => 'lc.offers.edit',
-            'store' => 'lc.offers.store',
-            'update' => 'lc.offers.update',
-            'destroy' => 'lc.offers.delete',
-        ]
-    ]);
+    \App\LoyaltyCard\Controllers\Offer::crudRoutes(
+        'offers',
+        'offers'
+    );
 
     \App\LoyaltyCard\Controllers\Voucher::crudRoutes(
         'vouchers',
