@@ -117,5 +117,22 @@
             fnLoadTimeTable();
         });
 
+        form.on('click', 'button.btn-as-time', function (e) {
+            var $this = $(this);
+            step4.collapse('show');
+            title4.addClass('collapsable');
+
+            // Assign selected time to dataStorage
+            dataStorage.time = $this.text();
+
+            $.ajax({
+                url: step4.data('url'),
+                type: 'POST',
+                data: dataStorage
+            }).done(function (data) {
+                step4.find('div.panel-body').html(data);
+            });
+        });
+
     });
 }(jQuery));

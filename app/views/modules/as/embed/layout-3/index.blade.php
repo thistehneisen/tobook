@@ -55,7 +55,7 @@
                     4. <span>Yhteystietosi</span> <i class="glyphicon glyphicon-ok text-success pull-right hide"></i>
                 </h4>
             </div>
-            <div id="as-step-4" data-parent="#varaa-as-bookings" class="panel-collapse collapse">
+            <div id="as-step-4" data-parent="#varaa-as-bookings" class="panel-collapse collapse" data-url="{{ route('as.embed.checkout', Input::all()) }}">
                 <div class="panel-body">
                     <p class="loading text-center">
                         <i class="glyphicon glyphicon-refresh text-info"></i> Now loading&hellip;

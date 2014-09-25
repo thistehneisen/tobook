@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Controllers\Embed;
 
-use Input, Response, Carbon\Carbon;
+use Input, Response, Carbon\Carbon, Session;
 use App\Appointment\Controllers\Embed;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\Employee;
@@ -68,6 +68,24 @@ class Layout3 extends Embed
             'date'      => $date,
             'startDate' => with(clone $date)->subDays(2),
             'timetable' => $timetable
+        ]);
+    }
+
+    /**
+     * Show the form for customer to checkout
+     *
+     * @return View
+     */
+    public function checkout()
+    {
+        $booking_info = null;
+        if (!empty(Session::get('booking_info'))) {
+            $booking_info = Session::get('booking_info');
+        }
+
+        return $this->render('checkout', [
+            'user'         => $this->getUser(),
+            'booking_info' => $booking_info
         ]);
     }
 }
