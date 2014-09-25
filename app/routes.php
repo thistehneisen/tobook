@@ -383,6 +383,26 @@ Route::group([
             'uses' => 'App\Appointment\Controllers\Embed@addConfirmInfo'
         ]);
 
+        Route::post('layout-3/employees', [
+            'as' => 'as.embed.employees',
+            'uses' => 'App\Appointment\Controllers\Embed\Layout3@getEmployees'
+        ]);
+
+        Route::post('layout-3/timetable', [
+            'as' => 'as.embed.timetable',
+            'uses' => 'App\Appointment\Controllers\Embed\Layout3@getTimetable'
+        ]);
+
+        Route::post('checkout', [
+            'as' => 'as.embed.checkout',
+            'uses' => 'App\Appointment\Controllers\Embed\Layout3@checkout'
+        ]);
+
+        Route::post('checkout/confirm', [
+            'as'   => 'as.embed.checkout.confirm',
+            'uses' => 'App\Appointment\Controllers\Embed\Layout3@confirm'
+        ]);
+
         Route::get('{hash}', [
             'as' => 'as.embed.embed',
             'uses' => 'App\Appointment\Controllers\Embed@embed'

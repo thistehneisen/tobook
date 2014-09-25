@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css">
     {{ HTML::style(asset('packages/alertify/alertify.core.css')) }}
     {{ HTML::style(asset('packages/alertify/alertify.bootstrap.css')) }}
-    <link rel="stylesheet" href="{{ asset('assets/css/as/layout-1.css?v=00001') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/as/'.$layout.'.css').(Config::get('app.debug') ? '?v='.time() : '') }}">
     <style type="text/css">
         @if(!empty($user->asOptions['style_background']) || !empty($user->asOptions['style_text_color']))
         body {
@@ -77,7 +77,7 @@
         @endif
     </style>
 </head>
-<body class="style-{{ $user->id }}">
+<body data-hash="{{ $hash }}" data-locale="{{ App::getLocale() }}" class="style-{{ $user->id }}">
     @yield('content')
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -89,7 +89,7 @@
     @endif
     <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
     {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
-    <script src="{{ asset('assets/js/as/embed.js?v=00001') }}"></script>
+    <script src="{{ asset('assets/js/as/'.$layout.'.js').(Config::get('app.debug') ? '?v='.time() : '') }}"></script>
     <script>
     $(document).ready(function () {
         $('#datepicker').datepicker({

@@ -339,6 +339,17 @@ return [
         'checkout'         => 'Checkout',
         'fi_version'       => 'Finnish',
         'en_version'       => 'English',
+        'loading'          => 'Now loading&hellip;',
+        'layout_3'         => [
+            'select_service'  => 'Select service',
+            'select_employee' => 'Select employee',
+            'select_datetime' => 'Select date &amp; time',
+            'contact'         => 'Contact information',
+            'service'         => 'Service',
+            'employee'        => 'Employee',
+            'name'            => 'Your name',
+            'empty'           => 'There is no available time on selected day.'
+        ]
     ],
      'options' => [
         'heading' => 'Options',

@@ -337,6 +337,16 @@ return [
         'checkout'         => 'Kassalle',
         'fi_version'       => 'Suomeksi',
         'en_version'       => 'Englanniksi',
+        'layout_3'         => [
+            'select_service'  => 'Valitse palvelun tyyppi',
+            'select_employee' => 'Valitse henkilö',
+            'select_datetime' => 'Valitse päivä &amp; aika',
+            'contact'         => 'Yhteystietosi',
+            'service'         => 'Palvelu',
+            'employee'        => 'Henkilö',
+            'name'            => 'Sinun nimi',
+            'empty'           => 'There is no available time on selected day.', //@todo
+        ]
     ],
     'options' => [
         'heading' => 'Asetukset',
