@@ -46,7 +46,7 @@ $(function() {
         <h3 class="comfortaa">{{ trans('Next available time slot') }}</h3>
         <div class="form-group col-md-4 col-md-offset-4">
         <select class="form-control input-sm" name="business_category" id="business_category">
-            @foreach ($categories as $key => $value) {
+            @foreach ($categories as $key => $value)
             <option @if($categoryId==$key) selected="selected" @endif value="{{ route('home', ['category_id' => $key ]) }}">{{ $value }}</option>
             @endforeach
         </select>
