@@ -1,6 +1,8 @@
 <?php namespace App\Core\Controllers;
 
-use View, Confide, Redirect, Config;
+use View, Confide, Redirect, Config, Input;
+use Carbon\Carbon;
+use App\Core\Models\User;
 use App\Core\Models\BusinessCategory;
 use App\FlashDeal\Models\FlashDealDate;
 
@@ -9,8 +11,22 @@ class Front extends Base
     public function home()
     {
         $deals = $this->getFlashDeals();
+        $categoryId = Input::get('category', 0);
+        $categories = BusinessCategory::lists('name', 'id');
+
+        //rewind array pointer to the beginning
+        reset($categories);
+        $categoryId = (!empty($categoryId))
+            ? $categoryId
+            : key($categories);
+
+        $nextAvailables = $this->getNextAvailables($categoryId);
+
         return View::make('front.home', [
-            'deals' => $deals
+            'deals'          => $deals,
+            'categories'     => $categories,
+            'categoryId'     => $categoryId,
+            'nextAvailables' => $nextAvailables
         ]);
     }
 
@@ -37,6 +53,19 @@ class Front extends Base
                 ->get();
         }
         return $categories;
+    }
+
+    protected function getNextAvailables($categoryId)
+    {
+        $now = Carbon::now();
+        //Get 4 random users of selected business category
+        $users = User::getRandomUser($categoryId, 4);
+        $nextAvailables = [];
+        foreach ($users as $user) {
+            $results = $user->getASNextTimeSlots($now->toDateString(), $now->hour);
+            $nextAvailables[$user->id] = $results;
+        }
+        return $nextAvailables;
     }
 
     // for business

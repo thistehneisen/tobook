@@ -4,6 +4,11 @@ use App\Appointment\Models\Employee;
 use App\Appointment\Models\Booking;
 use Carbon\Carbon;
 
+/**
+ * Providing some essential functionalities for Appointment Scheduler Calendar
+ *
+ * @author hung@varaa.com
+ */
 class CalendarKeeper {
 
     protected static $instance;
@@ -47,36 +52,41 @@ class CalendarKeeper {
                     $calendar[$employee->id][$hour][$minute] =
                         (int) $employee->getSlotClass($date->toDateString(), $hour, $minute, 'next');
                     if (!empty($service)) {
-                        $services[$employee->id]['length']  = $service->length;
                         $services[$employee->id]['id']      = $service->id;
+                        $services[$employee->id]['length']  = $service->length;
+                        $services[$employee->id]['price']   = $service->price;
                     }
                 }
             }
         }
 
         $nextAvailable = [];
-
+        $currentEmployeeId = 0;
         foreach ($employees as $employee) {
-            //check if it is available
-            $serviceLength = $services[$employee->id]['length'];
-            $length = 0;
-
+            //If current employee has no service associate with her jump to next employee
+            if(empty($services[$employee->id]['length'])){
+                continue;
+            }
+            $serviceLength     = $services[$employee->id]['length'];
+            $length            = 0;
+            $count             = count($nextAvailable);
             foreach ($calendar[$employee->id] as $hour => $minutes) {
-
                 //Skip until current hour is equal nextHour
-                if(!empty($nextHour) && $nextHour > $hour)
-                {
+                if (!empty($nextHour) && $nextHour > $hour) {
                     continue;
                 }
-
                 foreach ($minutes as $minute) {
                     $cell = $calendar[$employee->id][$hour][$minute];
                     if($cell == 15) {
                         $length += $cell;
                         if ($length == $serviceLength) {
                             $nextAvailable[] = [
-                                'employee' => $employee->id,
+                                'user'     => $user,
+                                'employee' => $employee,
+                                'date'     => $date,
                                 'service'  => $services[$employee->id]['id'],
+                                'price'    => $services[$employee->id]['price'],
+                                'time'     => sprintf('%d:%d', $hour, $minute),
                                 'hour'     => $hour,
                                 'minute'   => $minute
                             ];
@@ -84,9 +94,14 @@ class CalendarKeeper {
                             break;
                         }
                     } else {
+                        //reset length
                         $length = 0;
                     }
-                 }
+                }
+                // Change to another employee if has new next available slots has been added
+                if (count($nextAvailable) > $count) {
+                    break;
+                }
             }
         }
         return $nextAvailable;
@@ -132,17 +147,18 @@ class CalendarKeeper {
         return $workingTimes;
     }
 
-    public function findEmployees($user, $service)
+    public function findEmployees($user, $serviceId)
     {
-        if (empty($service)) {
+        if(!empty($serviceId)){
             $employees = Employee::where('user_id', $user->id)
-                ->where('is_active', true)
-                ->orderBy('order')
+                ->join('as_service_employee', 'as_service_employee.employee_id', '=', 'as_employees.id')
+                ->join('as_services', 'as_service_employee.service_id', '=', 'as_services.id')
+                ->where('as_employees.is_active', true)
+                ->where('as_services.id', $serviceId)
                 ->get();
         } else {
-            $employees = Employee::where('user_id', $user->id)
+             $employees = Employee::where('user_id', $user->id)
                 ->where('is_active', true)
-                ->orderBy('order')
                 ->get();
         }
 

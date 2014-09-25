@@ -56,14 +56,49 @@ class User extends ConfideUser
      */
     protected $asOptionsCache;
 
-    public function getNextTimeSlots($date = null, $nextHour = null, $nextService = null)
+    /**
+     * Get next avaiable booking slots of current user
+     *
+     * @param string date
+     * @param int nextHour
+     * @param Service nextService
+     *
+     * @return array
+     */
+    public function getASNextTimeSlots($date = null, $nextHour = null, $nextService = null)
     {
         return CalendarKeeper::nextTimeSlots($this, $date, $nextHour, $nextService);
     }
 
+
+    /**
+     * Get default working time range of Appointment Scheduler
+     *
+     * @param string date
+     *
+     * @return array
+     */
     public function getASDefaultWorkingTimes($date)
     {
       return CalendarKeeper::getDefaultWorkingTimes($this, $date);
+    }
+
+    /**
+     * Get a number of random users
+     *
+     * @param int categoryId
+     * @param int quantity
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public static function getRandomUser($categoryId, $quantity)
+    {
+        //It is not efficient to order by RAND() but we have relatively small customers base
+        $users = self::orderBy(DB::raw('RAND()'))
+            ->join('business_category_user', 'business_category_user.user_id', '=','users.id')
+            ->where('business_category_user.business_category_id', $categoryId)
+            ->limit($quantity)->get();
+        return $users;
     }
 
     /**
@@ -333,6 +368,12 @@ class User extends ConfideUser
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
+
+
+    public function getNameAttribute()
+    {
+        return $this->first_name.' '.$this->last_name;
+    }
 
     /**
      * Get all options of this user

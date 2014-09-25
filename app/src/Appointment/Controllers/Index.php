@@ -5,6 +5,7 @@ use Carbon\Carbon;
 use App\Core\Controllers\Base;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\Booking;
+
 class Index extends AsBase
 {
     /**

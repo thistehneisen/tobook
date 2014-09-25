@@ -28,6 +28,10 @@ $(function() {
 
     // Init
     applyCountdown($('a.countdown'));
+
+    $('#business_category').change( function (e) {
+         window.location.href = $(this).val();
+    });
 });
     </script>
 @stop
@@ -36,34 +40,36 @@ $(function() {
 
 @section('content')
 <div class="container text-center">
-    {{--
+
     <!-- Next available time slot -->
     <div class="row">
         <h3 class="comfortaa">{{ trans('Next available time slot') }}</h3>
         <div class="form-group col-md-4 col-md-offset-4">
-        <select name="" id="" class="form-control">
-            <option value="">{{ trans('Hairdresser') }}</option>
+        <select class="form-control input-sm" name="business_category" id="business_category">
+            @foreach ($categories as $key => $value) {
+            <option @if($categoryId==$key) selected="selected" @endif value="{{ route('home', ['category_id' => $key ]) }}">{{ $value }}</option>
+            @endforeach
         </select>
         </div>
         <div class="clearfix"></div>
-        @foreach (range(1, 8) as $count)
-        <div class="available-slot col-md-3 col-sm-3">
-            <img src="{{ asset('assets/img/slides/1.jpg') }}" alt="" class="img-responsive" />
-            <div class="info text-left">
-                <h4>Ms. Hesku Parturi</h4>
-                <p>Lönnrotinkatu 19</p>
-                <p></p>
-                <p>60-80€</p>
-                <p>Tue 24th
-                    <a href="" class="btn btn-sm btn-default">10:00</a>
-                    <a href="" class="btn btn-sm btn-default">11:00</a>
-                    <a href="" class="btn btn-sm btn-default">12:00</a>
-                </p>
+        @foreach ($nextAvailables as $userId => $slots)
+            @foreach ($slots as $slot)
+            <div class="available-slot col-md-3 col-sm-3">
+                <img src="{{ asset('assets/img/slides/1.jpg') }}" alt="" class="img-responsive" />
+                <div class="info text-left">
+                    <h4>{{ $slot['user']->name }}</h4>
+                    <p>{{ $slot['user']->address }}</p>
+                    <p></p>
+                    <p>{{ $slot['price'] }}</p>
+                    <p>{{ $slot['date'] }}
+                        <a href="#" class="btn btn-sm btn-default">{{ $slot['time'] }}</a>
+                    </p>
+                </div>
             </div>
-        </div>
+            @endforeach
         @endforeach
     </div>
-    --}}
+
 
     <!-- Flash deals -->
     @include ('modules.fd.front', ['deals' => $deals])
