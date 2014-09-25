@@ -152,5 +152,51 @@
             });
         });
 
+        form.on('submit', '#as-form-confirm', function (e) {
+            e.preventDefault();
+            var $this = $(this),
+                data = $this.serialize(),
+                loading = $this.find('.as-loading'),
+                submit = $this.find('button[type=submit]'),
+                fnFail = function (e) {
+                    var res = e.responseJSON,
+                        message = $this.find('div.error-msg').text();
+
+                    if (typeof res.message !== 'undefined') {
+                        message = res.message;
+                    }
+                    loading.hide();
+                    submit.removeClass('btn-success')
+                        .addClass('btn-danger')
+                        .text(message);
+                };
+
+            loading.show();
+            submit.prop('disabled', true);
+            // Create booking service
+            $.ajax({
+                url: $this.attr('action'),
+                type: $this.attr('method'),
+                data: data,
+                dataType: 'JSON'
+            }).done(function (e) {
+                if (typeof e.uuid !== 'undefined') {
+                    // Place booking
+                    $.ajax({
+                        url: $this.data('post-url'),
+                        type: $this.attr('method'),
+                        data: data,
+                        dataType: 'JSON'
+                    }).done(function (e) {
+                        if (e.success === true) {
+                            // Hide loading
+                            loading.hide();
+                            submit.text('Success. Thanks.');
+                        }
+                    }).fail(fnFail);
+                }
+            }).fail(fnFail);
+        });
+
     });
 }(jQuery));

@@ -78,6 +78,9 @@ class Layout3 extends Embed
      */
     public function checkout()
     {
+        // Empty the cart first
+        Session::forget('carts');
+
         return $this->render('checkout', [
             'user'         => $this->getUser(),
             'booking_info' => $this->getBookingInfo(),
@@ -108,6 +111,13 @@ class Layout3 extends Embed
                 'booking_info' => $this->getBookingInfo(),
             ])->with('errors', $v->errors());
         }
-        echo 'agag';
+
+        // We will show all information and ask for confirmation
+        $data             = Input::all();
+        $data['date']     = new Carbon($data['date']);
+        $data['service']  = Service::find(Input::get('serviceId'));
+        $data['employee'] = Employee::findOrFail(Input::get('employeeId'));
+
+        return $this->render('confirm', $data);
     }
 }
