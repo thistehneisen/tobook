@@ -77,7 +77,7 @@
         @endif
     </style>
 </head>
-<body class="style-{{ $user->id }}">
+<body data-hash="{{ $hash }}" data-locale="{{ App::getLocale() }}" class="style-{{ $user->id }}">
     @yield('content')
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

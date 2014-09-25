@@ -18,3 +18,38 @@
   display: block;
   cursor: pointer;
 }
+.datepicker-dropdown:before,
+.datepicker-dropdown:after {
+  content: none;
+}
+.btn-as-time {
+  margin: 0 5px 5px 0;
+}
+.as-calendar {
+  text-align: center;
+}
+.as-calendar li {
+  border-right: 1px solid #eee;
+}
+.as-calendar li a {
+  padding: 5px 10px;
+  display: block;
+  text-align: center;
+}
+.as-calendar li:nth-child(2) {
+  border-left: 1px solid #eee;
+}
+.as-calendar li:first-child,
+.as-calendar li:last-child {
+  border-right: none;
+}
+.as-calendar li:first-child a,
+.as-calendar li:last-child a {
+  vertical-align: middle;
+  display: table-cell;
+}
+.as-calendar li.active a {
+  background-color: #30C454;
+  color: #fff;
+  border-radius: 5px;
+}

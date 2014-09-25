@@ -21,3 +21,45 @@
     display: block;
     cursor: pointer;
 }
+
+.datepicker-dropdown:before,
+.datepicker-dropdown:after {
+    content: none;
+}
+
+.btn-as-time {
+    margin: 0 5px 5px 0;
+}
+
+.as-calendar {
+    text-align: center;
+
+    li {
+        border-right: 1px solid #eee;
+        a {
+            padding: 5px 10px;
+            display: block;
+            text-align: center;
+        }
+
+        &:nth-child(2) {
+            border-left: 1px solid #eee;
+        }
+        &:first-child,
+        &:last-child {
+            border-right: none;
+            a {
+                vertical-align: middle;
+                display: table-cell;
+            }
+        }
+
+        &.active {
+            a {
+                background-color: #30C454;
+                color: #fff;
+                border-radius: 5px;
+            }
+        }
+    }
+}

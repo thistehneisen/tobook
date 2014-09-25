@@ -25,9 +25,9 @@
             </div>
             <div id="as-step-2" data-parent="#varaa-as-bookings" class="panel-collapse collapse" data-url="{{ route('as.embed.employees', Input::all()) }}">
                 <div class="panel-body">
-                    <span class="loading text-center">
+                    <p class="loading text-center">
                         <i class="glyphicon glyphicon-refresh text-info"></i> Now loading&hellip;
-                    </span>
+                    </p>
                 </div>
             </div>
         </div>
@@ -35,12 +35,16 @@
         <div class="panel panel-default">
             <div class="panel-heading" id="as-title-3" href="#as-step-3">
                 <h4 class="panel-title">
-                    3. <span>Valitse päivä &amp; aika</span> <i class="glyphicon glyphicon-ok text-success pull-right hide"></i>
+                    3. <span>Valitse päivä &amp; aika</span>
+                    <i class="glyphicon glyphicon-ok text-success pull-right hide"></i>
+                    <i id="as-datepicker" class="glyphicon glyphicon-calendar pull-right"></i>
                 </h4>
             </div>
-            <div id="as-step-3" data-parent="#varaa-as-bookings" class="panel-collapse collapse">
+            <div id="as-step-3" data-parent="#varaa-as-bookings" class="panel-collapse collapse" data-url="{{ route('as.embed.timetable', Input::all()) }}">
                 <div class="panel-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    <p class="loading text-center">
+                        <i class="glyphicon glyphicon-refresh text-info"></i> Now loading&hellip;
+                    </p>
                 </div>
             </div>
         </div>
@@ -53,7 +57,9 @@
             </div>
             <div id="as-step-4" data-parent="#varaa-as-bookings" class="panel-collapse collapse">
                 <div class="panel-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    <p class="loading text-center">
+                        <i class="glyphicon glyphicon-refresh text-info"></i> Now loading&hellip;
+                    </p>
                 </div>
             </div>
         </div>

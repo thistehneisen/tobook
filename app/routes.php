@@ -378,9 +378,14 @@ Route::group([
             'uses' => 'App\Appointment\Controllers\Embed@addConfirmInfo'
         ]);
 
-        Route::post('services/employees', [
+        Route::post('layout-3/employees', [
             'as' => 'as.embed.employees',
             'uses' => 'App\Appointment\Controllers\Embed\Layout3@getEmployees'
+        ]);
+
+        Route::post('layout-3/timetable', [
+            'as' => 'as.embed.timetable',
+            'uses' => 'App\Appointment\Controllers\Embed\Layout3@getTimetable'
         ]);
 
         Route::get('{hash}', [

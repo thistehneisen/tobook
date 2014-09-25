@@ -6,6 +6,7 @@
     $(function () {
         var categories = $('div.as-category'),
             services = $('div.as-service'),
+            body = $('body'),
             form = $('#varaa-as-bookings'),
             step1 = $('#as-step-1'),
             step2 = $('#as-step-2'),
@@ -14,7 +15,10 @@
             title1 = $('#as-title-1'),
             title2 = $('#as-title-2'),
             title3 = $('#as-title-3'),
-            title4 = $('#as-title-4');
+            title4 = $('#as-title-4'),
+            dataStorage = {
+                hash: body.data('hash')
+            };
 
         form.on('click', 'div.collapsable', function (e) {
             e.preventDefault();
@@ -44,14 +48,49 @@
             step2.collapse('show');
             title2.addClass('collapsable');
 
+            // Assign serviceId to dataStorage
+            dataStorage.serviceId = $this.val();
+
             $.ajax({
                 url: step2.data('url'),
                 type: 'POST',
-                data: {serviceId: $this.val()}
+                data: dataStorage
             }).done(function (data) {
                 step2.find('.panel-body').html(data);
             }).fail(function (err) {
                 console.log(err);
+            });
+        });
+
+        $('#as-datepicker').on('click', function () {
+            var $this = $(this);
+            $this.datepicker({
+                format: 'yyyy-mm-dd',
+                startDate: new Date(),
+                todayBtn: true,
+                todayHighlight: true,
+                weekStart: 1,
+                language: body.data('locale')
+            }).datepicker('show');
+        });
+
+        form.on('change', 'input[name=employee_id]', function () {
+            var $this = $(this);
+            title2.find('i').removeClass('hide');
+            step3.collapse('show');
+            title3.addClass('collapsable');
+
+            // Asign employeeId to dataStorage
+            dataStorage.employeeId = $this.val();
+
+            $.ajax({
+                url: step3.data('url'),
+                type: 'POST',
+                data: dataStorage
+            }).done(function (data) {
+                step3.find('div.panel-body').html(data);
+            }).fail(function () {
+
             });
         });
 
