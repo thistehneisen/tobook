@@ -34,8 +34,10 @@
 
         form.on('click', 'div.collapsable', function (e) {
             e.preventDefault();
-            var $this = $(this);
-            $($this.attr('href')).collapse('toggle');
+            if ($(e.target).is('#as-datepicker') === false) {
+                var $this = $(this);
+                $($this.attr('href')).collapse('toggle');
+            }
         });
 
         $('input[name=category_id]').on('change', function () {
