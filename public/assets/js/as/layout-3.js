@@ -20,6 +20,18 @@
                 hash: body.data('hash')
             };
 
+        var fnLoadTimeTable = function() {
+            $.ajax({
+                url: step3.data('url'),
+                type: 'POST',
+                data: dataStorage
+            }).done(function (data) {
+                step3.find('div.panel-body').html(data);
+            }).fail(function () {
+
+            });
+        };
+
         form.on('click', 'div.collapsable', function (e) {
             e.preventDefault();
             var $this = $(this);
@@ -82,16 +94,21 @@
 
             // Asign employeeId to dataStorage
             dataStorage.employeeId = $this.val();
+            fnLoadTimeTable();
+        });
 
-            $.ajax({
-                url: step3.data('url'),
-                type: 'POST',
-                data: dataStorage
-            }).done(function (data) {
-                step3.find('div.panel-body').html(data);
-            }).fail(function () {
+        form.on('click', 'a.as-date', function (e) {
+            e.preventDefault();
+            var $this = $(this);
 
-            });
+            // Show loading
+            step3.find('div.as-timetable-content').hide();
+            step3.find('div.as-loading').show();
+
+            // Assign date to dataStorage
+            dataStorage.date = $this.data('date');
+
+            fnLoadTimeTable();
         });
 
     });

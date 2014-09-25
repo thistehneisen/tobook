@@ -1,19 +1,32 @@
-<ul class="list-inline as-calendar">
-    <li><a href="#"><i class="glyphicon glyphicon-chevron-left"></i></a></li>
-<?php $i = 0; ?>
-@while ($i < 5)
-    <li @if ($i === 2) class="active" @endif><a href="#">{{ trans('common.short.'.strtolower($date->format('D'))) }} <br> {{ $date->format('d.m') }}</a></li>
-    <?php $date = $date->addDay(); $i++; ?>
-@endwhile
-    <li><a href="#"><i class="glyphicon glyphicon-chevron-right"></i></a></li>
-</ul>
 
-<div class="text-center">
-    <?php $i = 1; ?>
-@foreach ($timetable as $time)
-    <button type="button" class="btn btn-default btn-as-time">{{ $time }}</button>
-    @if ($i++ % 4 === 0)
-        <br>
+    <ul class="list-inline as-calendar">
+        <li><a href="#" class="as-date" data-date="{{ $date->subDay()->toDateString() }}"><i class="glyphicon glyphicon-chevron-left"></i></a></li>
+    <?php $i = 0; ?>
+    @while ($i < 5)
+        <li @if ($i === 2) class="active" @endif>
+            <a href="#" class="as-date" data-date="{{ $startDate->toDateString() }}">{{ trans('common.short.'.strtolower($startDate->format('D'))) }} <br>
+            {{ $startDate->format('d.m') }}</a>
+        </li>
+        <?php $startDate = $startDate->addDay(); $i++; ?>
+    @endwhile
+        <li><a href="#" class="as-date" data-date="{{ $date->addDays(2)->toDateString() }}"><i class="glyphicon glyphicon-chevron-right"></i></a></li>
+    </ul>
+
+    <div class="as-timetable-content text-center">
+    @if (empty($timetable))
+        <p>There is no available time on selected day.</p>
     @endif
-@endforeach
-</div>
+        <?php $i = 1; ?>
+    @foreach ($timetable as $time)
+        <button type="button" class="btn btn-default btn-as-time">{{ $time }}</button>
+        @if ($i++ % 4 === 0)
+            <br>
+        @endif
+    @endforeach
+    </div>
+
+    <div class="as-loading">
+        <p class="text-center">
+            <i class="glyphicon glyphicon-refresh text-info"></i> Now loading&hellip;
+        </p>
+    </div>

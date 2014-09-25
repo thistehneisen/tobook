@@ -65,7 +65,8 @@ class Layout3 extends Embed
         }
 
         return $this->render('timetable', [
-            'date'      => with(clone $date)->subDays(2),
+            'date'      => $date,
+            'startDate' => with(clone $date)->subDays(2),
             'timetable' => $timetable
         ]);
     }
