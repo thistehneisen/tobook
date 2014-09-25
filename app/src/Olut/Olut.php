@@ -78,10 +78,12 @@ trait Olut
      *
      * @return mixed
      */
-    protected function getOlutOptions($key)
+    protected function getOlutOptions($key, $default = null)
     {
         if (isset($this->crudOptions) && isset($this->crudOptions[$key])) {
             return $this->crudOptions[$key];
+        } else {
+            return $default;
         }
     }
 
@@ -200,10 +202,11 @@ trait Olut
         $langPrefix = (string) $this->getOlutOptions('langPrefix');
 
         // List of methods that can handle bulk actions
-        $bulkActions = $this->getOlutOptions('bulkActions') ?: ['destroy'];
+        $bulkActions = $this->getOlutOptions('bulkActions', ['destroy']);
+        debug($bulkActions);
 
         // Bartender will take care the output of fields
-        $bartender = new Bartender($this->getOlutOptions('presenters') ?: []);
+        $bartender = new Bartender($this->getOlutOptions('presenters', []));
 
         // Check if there is additionall actions
         $actionsView = null;
@@ -217,9 +220,9 @@ trait Olut
             'langPrefix'  => $langPrefix,
             'fields'      => $fields,
             'bulkActions' => $bulkActions,
-            'sortable'    => $this->getOlutOptions('sortable') ?: false,
-            'showTab'     => $this->getOlutOptions('showTab') ?: true,
-            'layout'      => $this->getOlutOptions('layout') ?: 'olut::layout',
+            'sortable'    => $this->getOlutOptions('sortable', false),
+            'showTab'     => $this->getOlutOptions('showTab', true),
+            'layout'      => $this->getOlutOptions('layout', 'olut::layout'),
             'bartender'   => $bartender,
             'actionsView' => $actionsView
         ]);
@@ -234,8 +237,7 @@ trait Olut
     {
         // First we will check if target controller has indexFields property
         // If not, we will use all fillable fields of the model
-        return $this->getOlutOptions('indexFields')
-            ?: $this->getFillable();
+        return $this->getOlutOptions('indexFields', $this->getFillable());
     }
 
     /**
@@ -259,7 +261,7 @@ trait Olut
 
         $langPrefix = (string) $this->getOlutOptions('langPrefix');
 
-        $options = $this->getOlutOptions('lomake') ?: [];
+        $options = $this->getOlutOptions('lomake', []);
         $lomake = Lomake::make($item, [
             'route'      => [static::$crudRoutes['upsert'], isset($item) ? $item->id : null],
             'fields'     => $options,
@@ -270,8 +272,8 @@ trait Olut
             'item'       => $item,
             'routes'     => static::$crudRoutes,
             'langPrefix' => $langPrefix,
-            'layout'      => $this->getOlutOptions('layout') ?: 'olut::layout',
-            'showTab'    => $this->getOlutOptions('showTab') ?: true,
+            'layout'     => $this->getOlutOptions('layout', 'olut::layout'),
+            'showTab'    => $this->getOlutOptions('showTab', true),
             'lomake'     => $lomake
         ];
 
