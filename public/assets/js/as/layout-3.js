@@ -16,6 +16,7 @@
             title2 = $('#as-title-2'),
             title3 = $('#as-title-3'),
             title4 = $('#as-title-4'),
+            datepicker = $('#as-datepicker'),
             dataStorage = {
                 hash: body.data('hash')
             };
@@ -30,11 +31,25 @@
                 type: 'POST',
                 data: dataStorage
             }).done(function (data) {
+                dataStorage.date = new Date;
                 step3.find('div.panel-body').html(data);
             }).fail(function () {
 
             });
         };
+
+        // Assign datepicker
+        $('#as-datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            startDate: new Date(),
+            todayBtn: true,
+            todayHighlight: true,
+            weekStart: 1,
+            language: body.data('locale')
+        }).on('changeDate', function (e) {
+            dataStorage.date = $(this).datepicker('getDate');
+            fnLoadTimeTable();
+        });
 
         form.on('click', 'div.collapsable', function (e) {
             e.preventDefault();
@@ -82,18 +97,7 @@
 
         $('#as-datepicker').on('click', function () {
             var $this = $(this);
-            $this.datepicker({
-                format: 'yyyy-mm-dd',
-                startDate: new Date(),
-                todayBtn: true,
-                todayHighlight: true,
-                weekStart: 1,
-                language: body.data('locale')
-            }).on('changeDate', function (e) {
-                dataStorage.date = $(this).datepicker('getDate');
-
-                fnLoadTimeTable();
-            }).datepicker('show');
+            $this.datepicker('show');
         });
 
         form.on('change', 'input[name=employee_id]', function () {
