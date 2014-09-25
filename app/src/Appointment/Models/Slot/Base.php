@@ -186,7 +186,7 @@ class Base implements Strategy
 
                 if(($start->minute % 15) > 0)
                 {
-                    $complement = 15 - ($start->minute % 15);
+                    $complement = $start->minute % 15;
                     $start->subMinutes($complement);
                 }
 
