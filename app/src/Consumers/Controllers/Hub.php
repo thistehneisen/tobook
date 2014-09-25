@@ -40,6 +40,8 @@ class Hub extends Base
                     ->where('as_bookings.user_id', Confide::user()->id)
                     ->where('as_bookings.consumer_id', $consumerId)
                     ->select('as_bookings.id', 'as_bookings.uuid', 'as_booking_services.date', 'as_bookings.start_at', 'as_bookings.end_at', 'as_services.name', 'as_bookings.notes', 'as_bookings.created_at')
+                    ->distinct()
+                    ->orderBy('as_bookings.date', 'DESC')
                     ->take(10)
                     ->get();
                 break;
