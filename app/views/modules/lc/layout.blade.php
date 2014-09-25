@@ -23,7 +23,7 @@
         </div>
         <div class="clearfix"></div>
 
-        <!-- Modal Dialog -->
+        <!-- Delete Confirmation Modal Dialog -->
         <div class="modal fade" id="js-confirmDeleteModal" role="dialog" aria-labelledby="js-confirmDeleteModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -36,7 +36,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('common.cancel') }}</button>
-                        <button type="button" class="btn btn-danger" id="confirm">{{ trans('common.delete') }}</button>
+                        <a href="#" class="btn btn-danger confirm">{{ trans('common.delete') }}</a>
                     </div>
                 </div>
             </div>

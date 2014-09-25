@@ -16,7 +16,6 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <!--<th><input type="checkbox" id="checkAll" onclick="onCheckAll(this)" /></th>-->
                 <th>No</th>
                 <th>{{ trans('loyalty-card.voucher_name') }}</th>
                 <th>{{ trans('loyalty-card.total_used') }}</th>
@@ -30,9 +29,6 @@
         <tbody>
             @foreach ($items as $key => $value)
             <tr>
-                <!--<td>
-                    <input type="checkbox" id="chkStampId" value="{{ $value->id }}" />
-                </td>-->
                 <td>{{ $value->id }}</td>
                 <td>
                     {{ $value->name }}
@@ -61,12 +57,11 @@
                     </a>
                 </td>
                 <td>
-                    <!-- {{ Form::open(['route' => ['vouchers.delete', $value->id], 'method' => 'delete']) }} -->
-                    {{ Form::open(['route' => ['vouchers.delete', $value->id]]) }}
-                        <button class="btn btn-sm btn-danger" type="button" data-toggle="modal" data-target="#js-confirmDeleteModal">
+                    <a data-href="{{ URL::route('vouchers.delete', ['id' => $value->id]) }}" data-toggle="modal" data-target="#js-confirmDeleteModal" href="#">
+                        <button class="btn btn-sm btn-danger" type="button">
                             <span class="glyphicon glyphicon-trash"></span> {{ trans('common.delete') }}
                         </button>
-                    {{ Form::close() }}
+                    </a>
                 </td>
             </tr>
             @endforeach
