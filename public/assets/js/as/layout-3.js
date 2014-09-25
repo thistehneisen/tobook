@@ -21,6 +21,10 @@
             };
 
         var fnLoadTimeTable = function() {
+            // Show loading indicator
+            step3.find('div.as-timetable-content').hide();
+            step3.find('div.as-loading').show();
+
             $.ajax({
                 url: step3.data('url'),
                 type: 'POST',
@@ -85,6 +89,10 @@
                 todayHighlight: true,
                 weekStart: 1,
                 language: body.data('locale')
+            }).on('changeDate', function (e) {
+                dataStorage.date = $(this).datepicker('getDate');
+
+                fnLoadTimeTable();
             }).datepicker('show');
         });
 
@@ -102,10 +110,6 @@
         form.on('click', 'a.as-date', function (e) {
             e.preventDefault();
             var $this = $(this);
-
-            // Show loading
-            step3.find('div.as-timetable-content').hide();
-            step3.find('div.as-loading').show();
 
             // Assign date to dataStorage
             dataStorage.date = $this.data('date');
