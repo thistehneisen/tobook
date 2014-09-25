@@ -393,9 +393,9 @@ Route::group([
             'uses' => 'App\Appointment\Controllers\Embed\Layout3@checkout'
         ]);
 
-        Route::post('confirm', [
-            'as' => 'as.embed.confirm',
-            'uses' => 'App\Appointment\Controllers\Embed\Layout3@addConfirmInfo'
+        Route::post('checkout/confirm', [
+            'as'   => 'as.embed.checkout.confirm',
+            'uses' => 'App\Appointment\Controllers\Embed\Layout3@confirm'
         ]);
 
         Route::get('{hash}', [

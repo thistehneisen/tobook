@@ -134,5 +134,19 @@
             });
         });
 
+        form.on('submit', '#as-confirm', function (e) {
+            e.preventDefault();
+            var $this = $(this);
+
+            $this.find('.as-loading').show();
+            $.ajax({
+                url: $this.attr('action'),
+                type: $this.attr('method'),
+                data: $this.serialize()
+            }).done(function (data) {
+                step4.find('div.panel-body').html(data);
+            });
+        });
+
     });
 }(jQuery));

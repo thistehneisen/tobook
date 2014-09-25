@@ -194,8 +194,18 @@ class Embed extends AsBase
     {
         $data = Input::all();
         $hash = Input::get('hash');
-        $user = $this->getUser($hash);
 
+        $validation = $this->getConfirmationValidator();
+        if ( $validation->fails() ) {
+            return Redirect::back()->withInput()->withErrors($validation->messages());
+        }
+        //TODO probably validate user info here
+        Session::put('booking_info', $data);
+        return Redirect::route('as.embed.embed', ['hash' => $hash, 'action'=> 'confirm']);
+    }
+
+    protected function getConfirmationValidator()
+    {
         $fields = [
             trans('as.bookings.firstname') => Input::get('firstname'),
             trans('as.bookings.phone')     => Input::get('phone'),
@@ -208,14 +218,7 @@ class Embed extends AsBase
             trans('as.bookings.email')      => array( 'required', 'email'),
         ];
 
-        $validation = Validator::make($fields, $validators);
-
-        if ( $validation->fails() ) {
-            return Redirect::back()->withInput()->withErrors($validation->messages());
-        }
-        //TODO probably validate user info here
-        Session::put('booking_info', $data);
-        return Redirect::route('as.embed.embed', ['hash' => $hash, 'action'=> 'confirm']);
+        return Validator::make($fields, $validators);
     }
 
 }

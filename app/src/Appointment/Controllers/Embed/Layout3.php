@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Controllers\Embed;
 
-use Input, Response, Carbon\Carbon, Session;
+use Input, Response, Carbon\Carbon, Session, Redirect;
 use App\Appointment\Controllers\Embed;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\Employee;
@@ -78,14 +78,36 @@ class Layout3 extends Embed
      */
     public function checkout()
     {
-        $booking_info = null;
-        if (!empty(Session::get('booking_info'))) {
-            $booking_info = Session::get('booking_info');
-        }
-
         return $this->render('checkout', [
             'user'         => $this->getUser(),
-            'booking_info' => $booking_info
+            'booking_info' => $this->getBookingInfo(),
         ]);
+    }
+
+    protected function getBookingInfo()
+    {
+        if (!empty(Session::get('booking_info'))) {
+            return Session::get('booking_info');
+        }
+    }
+
+    /**
+     * Validate submitted data
+     *
+     * @return View
+     */
+    public function confirm()
+    {
+        $v = $this->getConfirmationValidator();
+        if ($v->fails()) {
+            // Flash old input
+            Input::flash();
+
+            return $this->render('checkout', [
+                'user'         => $this->getUser(),
+                'booking_info' => $this->getBookingInfo(),
+            ])->with('errors', $v->errors());
+        }
+        echo 'agag';
     }
 }

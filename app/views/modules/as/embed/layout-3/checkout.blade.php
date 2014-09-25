@@ -6,7 +6,7 @@
 </div>
 @endif
 
-{{ Form::open(['route' => 'as.embed.confirm', 'role' => 'form', 'class' => 'form-horizontal', 'id' => 'as-confirm']) }}
+{{ Form::open(['route' => 'as.embed.checkout.confirm', 'role' => 'form', 'class' => 'form-horizontal', 'id' => 'as-confirm']) }}
     <div class="form-group">
         <label class="form-label col-sm-2">{{ trans('as.bookings.firstname') }}*</label>
         <div class="col-sm-10"> {{ Form::text('firstname', (isset($booking_info['firstname'])) ? $booking_info['firstname'] : ''  , ['class' => 'form-control input-sm', 'id' => 'firstname']) }}</div>
@@ -23,6 +23,9 @@
         <label class="form-label col-sm-2">{{ trans('as.bookings.phone') }}*</label>
         <div class="col-sm-10">{{ Form::text('phone', (isset($booking_info['phone'])) ? $booking_info['phone'] : ''  , ['class' => 'form-control input-sm', 'id' => 'phone']) }}</div>
     </div>
+
+    <input type="hidden" name="hash" value="{{ Input::get('hash') }}">
+    <input type="hidden" name="l" value="{{ Input::get('l') }}">
 
     @if ((int) $user->asOptions['terms_enabled'] > 1)
     <div class="form-group">
@@ -46,6 +49,9 @@
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-6">
             <button type="submit" id="btn-checkout-submit" class="btn btn-success">{{ trans('common.continue') }}</button>
+            <span class="as-loading">
+                <i class="glyphicon glyphicon-refresh text-info"></i> Now loading&hellip;
+            </span>
         </div>
     </div>
 {{ Form::close() }}
