@@ -16,7 +16,7 @@
             title2 = $('#as-title-2'),
             title3 = $('#as-title-3'),
             title4 = $('#as-title-4'),
-            datepicker = $('#as-datepicker'),
+            dp = $('#as-datepicker'),
             dataStorage = {
                 hash: body.data('hash')
             };
@@ -31,7 +31,8 @@
                 type: 'POST',
                 data: dataStorage
             }).done(function (data) {
-                dataStorage.date = new Date;
+                var date = dp.datepicker('getUTCDate');
+                dataStorage.date = $.trim(date) !== 'Invalid Date' ? date : new Date;
                 step3.find('div.panel-body').html(data);
             }).fail(function () {
 
@@ -39,7 +40,7 @@
         };
 
         // Assign datepicker
-        $('#as-datepicker').datepicker({
+        dp.datepicker({
             format: 'yyyy-mm-dd',
             startDate: new Date(),
             todayBtn: true,
@@ -47,7 +48,8 @@
             weekStart: 1,
             language: body.data('locale')
         }).on('changeDate', function (e) {
-            dataStorage.date = $(this).datepicker('getDate');
+            dataStorage.date = dp.datepicker('getUTCDate');
+            console.log(dataStorage.date);
             fnLoadTimeTable();
         });
 
@@ -93,11 +95,6 @@
             }).fail(function (err) {
                 console.log(err);
             });
-        });
-
-        $('#as-datepicker').on('click', function () {
-            var $this = $(this);
-            $this.datepicker('show');
         });
 
         form.on('change', 'input[name=employee_id]', function () {
