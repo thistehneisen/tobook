@@ -31,9 +31,8 @@
                 type: 'POST',
                 data: dataStorage
             }).done(function (data) {
-                var date = dp.datepicker('getUTCDate');
-                dataStorage.date = $.trim(date) !== 'Invalid Date' ? date : new Date;
                 step3.find('div.panel-body').html(data);
+                dataStorage.date = step3.find('li.active > a').data('date');
             }).fail(function () {
 
             });
@@ -49,7 +48,6 @@
             language: body.data('locale')
         }).on('changeDate', function (e) {
             dataStorage.date = dp.datepicker('getUTCDate');
-            console.log(dataStorage.date);
             fnLoadTimeTable();
         });
 
@@ -92,8 +90,6 @@
                 data: dataStorage
             }).done(function (data) {
                 step2.find('.panel-body').html(data);
-            }).fail(function (err) {
-                console.log(err);
             });
         });
 
