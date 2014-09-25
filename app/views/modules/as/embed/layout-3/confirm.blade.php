@@ -1,23 +1,23 @@
 {{ Form::open(['route' => 'as.bookings.service.front.add', 'class' => 'form-horizontal', 'id' => 'as-form-confirm', 'role' => 'form', 'data-post-url' => route('as.bookings.frontend.add')]) }}
     <div class="form-group">
-        <label class="form-label col-sm-2">Service:</label>
+        <label class="form-label col-sm-2">{{ trans('as.embed.layout_3.service') }}:</label>
         <div class="col-sm-3">{{ $service->name }} ({{ $service->length }} {{ trans('common.minutes')}})</div>
         <div class="col-sm-3"><i class="glyphicon glyphicon-tag"></i> {{ $service->price }}&euro;</div>
         <div class="col-sm-4"><i class="glyphicon glyphicon-time"></i> {{ $date->format(trans('common.format.date')) }} {{ $time }}</div>
     </div>
 
     <div class="form-group">
-        <label class="form-label col-sm-2">Employee:</label>
+        <label class="form-label col-sm-2">{{ trans('as.embed.layout_3.employee') }}:</label>
         <div class="col-sm-10">{{ $employee->name }}</div>
     </div>
 
     <div class="form-group">
-        <label class="form-label col-sm-2">Your name:</label>
+        <label class="form-label col-sm-2">{{ trans('as.embed.layout_3.name') }}:</label>
         <div class="col-sm-10">{{ $firstname }} {{ $lastname }}</div>
     </div>
 
     <div class="form-group">
-        <label class="form-label col-sm-2">Contact information:</label>
+        <label class="form-label col-sm-2">{{ trans('as.embed.layout_3.contact') }}:</label>
         <div class="col-sm-3">{{ $phone }}</div>
         <div class="col-sm-7">{{ $email }}</div>
     </div>
@@ -36,7 +36,7 @@
         <div class="col-sm-12">
             <button type="submit" id="btn-checkout-submit" class="btn btn-success">{{ trans('common.save') }}</button>
             <span class="as-loading">
-                <i class="glyphicon glyphicon-refresh text-info"></i> Now loading&hellip;
+                <i class="glyphicon glyphicon-refresh text-info"></i> {{ trans('as.embed.loading') }}
             </span>
         </div>
     </div>

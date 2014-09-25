@@ -14,7 +14,7 @@
 
     <div class="as-timetable-content text-center">
     @if (empty($timetable))
-        <p>There is no available time on selected day.</p>
+        <p>{{ trans('as.embed.layout_3.empty') }}</p>
     @endif
         <?php $i = 1; ?>
     @foreach ($timetable as $time)
@@ -27,6 +27,6 @@
 
     <div class="as-loading">
         <p class="text-center">
-            <i class="glyphicon glyphicon-refresh text-info"></i> Now loading&hellip;
+            <i class="glyphicon glyphicon-refresh text-info"></i> {{ trans('as.embed.loading') }}
         </p>
     </div>

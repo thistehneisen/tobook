@@ -54,7 +54,7 @@
         <div class="col-sm-offset-2 col-sm-6">
             <button type="submit" id="btn-checkout-submit" class="btn btn-success">{{ trans('common.continue') }}</button>
             <span class="as-loading">
-                <i class="glyphicon glyphicon-refresh text-info"></i> Now loading&hellip;
+                <i class="glyphicon glyphicon-refresh text-info"></i> {{ trans('as.embed.loading') }}
             </span>
         </div>
     </div>
