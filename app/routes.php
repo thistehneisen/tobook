@@ -253,19 +253,19 @@ Route::group([
     'prefix' => 'consumer-hub',
     'before' => ['auth']
 ], function () {
-    \App\Consumers\Controllers\Consumer::crudRoutes(
+    \App\Consumers\Controllers\Hub::crudRoutes(
         '/',
         'consumer-hub'
     );
 
     Route::get('history', [
         'as' => 'consumer-hub.history',
-        'uses' => 'App\Consumers\Controllers\Consumer@getHistory',
+        'uses' => 'App\Consumers\Controllers\Hub@getHistory',
     ]);
 
     Route::get('/{tab?}', [
         'as' => 'consumer-hub',
-        'uses' => 'App\Consumers\Controllers\Consumer@upsertHandler',
+        'uses' => 'App\Consumers\Controllers\Hub@upsertHandler',
     ]);
 });
 

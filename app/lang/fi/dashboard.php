@@ -10,6 +10,7 @@ return [
     'appointment'     => 'Ajanvaraus',
     'loyalty'         => 'Kantiskortti',
     'marketing'       => 'Markkinointityökalut',
+    'consumers'       => 'Asiakkaat',
     'my_sites'        => 'Oma Sivu',
     'site_name'       => 'Sivun Nimi',
     'created'         => 'Luotu',

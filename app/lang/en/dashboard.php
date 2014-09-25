@@ -11,6 +11,7 @@ return [
     'loyalty'         => 'Loyalty Card',
     'flashdeal'       => 'Flash Deal',
     'marketing'       => 'Marketing Tool',
+    'consumers'       => 'Consumer Hub',
     'my_sites'        => 'My Site',
     'site_name'       => 'Site Name',
     'created'         => 'Created',

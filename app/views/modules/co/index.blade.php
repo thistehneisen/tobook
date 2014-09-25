@@ -41,7 +41,7 @@
     </thead>
     <tbody id="js-crud-tbody">
     @foreach ($items as $item)
-        <tr id="row-{{ $item->id }}" data-id="{{ $item->id }}" class="js-sortable-{{ $sortable }}" data-toggle="tooltip" data-placement="top" data-title="{{ trans('as.crud.sortable') }}">
+        <tr id="row-{{ $item->id }}" data-id="{{ $item->id }}">
             <td><input type="checkbox" class="checkbox" name="ids[]" value="{{ $item->id }}"></td>
         @foreach ($fields as $field)
             <td>{{ $item->$field }}</td>
@@ -49,14 +49,16 @@
             <td>
                 <ul class="list-unstyle">
                 @foreach ($item->getServiceAttribute() as $key => $value)
-                    <li><code class="js-showHistory" data-url="{{ URL::route('consumer-hub.history') }}" data-consumerid="{{ $item->id }}" data-service="{{ $key }}">{{ $value }}</code></li>
+                    <li><a class="js-showHistory" href="{{ URL::route('consumer-hub.history') }}" data-consumerid="{{ $item->id }}" data-service="{{ $key }}">{{ $value }}</a></li>
                 @endforeach
                 </ul>
             </td>
             <td>
                 <div class="pull-right">
                     <a href="{{ route($routes['upsert'], ['id'=> $item->id ]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
+                    {{--
                     <a href="{{ route($routes['delete'], ['id'=> $item->id ]) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
+                    --}}
                 </div>
             </td>
         </tr>

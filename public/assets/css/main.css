@@ -124,6 +124,9 @@ a:hover {
   margin: 0;
   padding-bottom: 10px;
 }
+.main .pagination {
+  margin: 0 !important;
+}
 .footer {
   padding: 10px;
   background: #333333;
