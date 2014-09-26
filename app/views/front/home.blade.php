@@ -56,7 +56,7 @@ $(function() {
             <div class="available-slot col-md-3 col-sm-3">
                 <img src="{{ asset('assets/img/slides/1.jpg') }}" alt="" class="img-responsive" />
                 <div class="info text-left">
-                    <h4>{{ $business->name }}</h4>
+                    <h4>{{ $business->business_name }}</h4>
                     <p>{{ $business->address }}</p>
                     @foreach ($business->getASNextTimeSlots($now->toDateString(), $now->hour) as $slot)
                         <a href="#" class="btn btn-sm btn-default">{{ $slot['time'] }}</a>
