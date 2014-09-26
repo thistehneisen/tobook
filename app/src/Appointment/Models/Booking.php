@@ -69,6 +69,35 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $this->status = $status;
     }
 
+    /**
+     * Generate service info message for sending mail, sms, cancel booking
+     *
+     * @return string
+     */
+    public function getServiceInfo()
+    {
+        $before = $after = 0;
+        if(!empty($this->bookingServices()->first()->serviceTime->id)){
+            $serviceTime = $this->bookingServices()->first()->serviceTime;
+            $before      = $serviceTime->before;
+            $after       = $serviceTime->after;
+        } else {
+            $service = $this->bookingServices()->first()->service;
+            $before  = $service->before;
+            $after   = $service->after;
+        }
+        $start = $this->getStartAt()->addMinutes($before);
+        $end   = $this->getEndAt()->subMinutes($after);
+
+        $serviceInfo = "{service}, {date} ({start} - {end})";
+        $serviceInfo = str_replace('{service}', $this->bookingServices()->first()->service->name, $serviceInfo);
+        $serviceInfo = str_replace('{date}', $this->date, $serviceInfo);
+        $serviceInfo = str_replace('{start}', $start->toTimeString(), $serviceInfo);
+        $serviceInfo = str_replace('{end}', $end->toTimeString(), $serviceInfo);
+
+        return $serviceInfo;
+    }
+
     public static function getStatuses()
     {
         return [

@@ -109,7 +109,9 @@ class Bookings extends AsBase
             $booking->status = Booking::STATUS_CANCELLED;
             $booking->delete();
 
-            $data['message'] = str_replace('{BookingID}', $uuid, trans('as.bookings.cancel_message'));
+            $msg = str_replace('{BookingID}', $uuid, trans('as.bookings.cancel_message'));
+            $msg = str_replace('{Services}', $booking->getServiceInfo(), $msg);
+            $data['message'] =  $msg;
 
         } catch (\Exception $ex) {
             $data['error'] = trans('as.bookings.error.uuid_notfound');

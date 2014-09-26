@@ -38,28 +38,7 @@ class EmailObserver implements \SplObserver
 
     public function setServiceInfo($subject)
     {
-        $msg = $subject->user->asOptions['confirm_tokens_client'];
-
-          //Start time for consumer is after service before
-        $before = $after = 0;
-        if(!empty($subject->bookingServices()->first()->serviceTime->id)){
-            $serviceTime = $subject->bookingServices()->first()->serviceTime;
-            $before      = $serviceTime->before;
-            $after       = $serviceTime->after;
-        } else {
-            $service = $subject->bookingServices()->first()->service;
-            $before  = $service->before;
-            $after   = $service->after;
-        }
-        $start = $subject->getStartAt()->addMinutes($before);
-        $end   = $subject->getEndAt()->subMinutes($after);
-
-        $serviceInfo = "{service}, {date} ({start} - {end})";
-        $serviceInfo = str_replace('{service}', $subject->bookingServices()->first()->service->name, $serviceInfo);
-        $serviceInfo = str_replace('{date}', $subject->date, $serviceInfo);
-        $serviceInfo = str_replace('{start}', $start->toTimeString(), $serviceInfo);
-        $serviceInfo = str_replace('{end}', $end->toTimeString(), $serviceInfo);
-        $this->serviceInfo = $serviceInfo;
+        $this->serviceInfo = $subject->getServiceInfo();
         return $this;
     }
 
