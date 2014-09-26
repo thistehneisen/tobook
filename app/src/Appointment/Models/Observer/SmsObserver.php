@@ -1,5 +1,5 @@
 <?php namespace App\Appointment\Models\Observer;
-use App, View, Confide, Sms;
+use App, View, Confide, Sms, Log;
 use Carbon\Carbon;
 
 class SmsObserver implements \SplObserver {
@@ -120,7 +120,9 @@ class SmsObserver implements \SplObserver {
     {
         $msg = $subject->user->asOptions['confirm_consumer_sms_message'];
         $to  = $this->getSendNumber($subject->consumer->phone);
+        $cancelURL = route('as.bookings.cancel', ['uuid' => $subject->uuid]);
         $msg = str_replace('{Services}', $this->serviceInfo, $msg);
+        $msg = str_replace('{CancelURL}', $cancelURL, $msg);
         Sms::send($this->from, $to, $msg);
     }
 

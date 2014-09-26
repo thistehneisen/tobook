@@ -94,6 +94,30 @@ class Bookings extends AsBase
         return $query;
     }
 
+    /**
+     * Cancel booking by uuid
+     *
+     * @return View
+     */
+    public function cancel($uuid)
+    {
+        $data = [];
+        try {
+            $booking = Booking::where('uuid', $uuid)->first();
+            $data['uuid'] = $uuid;
+
+            $booking->status = Booking::STATUS_CANCELLED;
+            $booking->delete();
+
+            $data['message'] = str_replace('{BookingID}', $uuid, trans('as.bookings.cancel_message'));
+
+        } catch (\Exception $ex) {
+            $data['error'] = trans('as.bookings.error.uuid_notfound');
+        }
+
+        return View::make('modules.as.bookings.cancel', $data);
+    }
+
     public function getBookingData($bookingId)
     {
         $booking              = Booking::ofCurrentUser()->find($bookingId);

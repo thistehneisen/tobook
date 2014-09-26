@@ -142,6 +142,14 @@ Booking deposit has been paid.
 ID: {BookingID}
 HTML;
 
+
+// @todo
+$cancelMessage = <<< HTML
+You have cancelled the booking {BookingID}
+
+{Services}
+HTML;
+
 return [
     'index' => [
         'heading'       => 'Etusivu',
@@ -256,6 +264,7 @@ return [
         'edit'              => 'Edit bookings',//@todo
         'terms'             => 'Terms',//@todo
         'terms_agree'       => 'Hyväksyn varausehdot',
+        'cancel_message'    => $cancelMessage, //@todo
         'error'             => [
             'add_overlapped_booking'   => 'Overlapped booking time!',// @todo
             'insufficient_slots'       => 'There is no enough time slots for this booking!',// @todo
@@ -266,6 +275,7 @@ return [
             'exceed_current_day'       => 'Booking end time cannot exceed current day',//@todo
             'overllapped_with_freetime'=> 'Booking is overllapped with employee freetime',//@todo
             'empty_total_time'         => 'Booking total minutes must be greater or equal 1',//@todo
+            'uuid_notfound'            => 'Booking ID not found', //@todo
         ],
         'warning'      => [
             'existing_user'   => 'There is an user associate with this email in our system. Do you want to use these information instead?',// @todo
