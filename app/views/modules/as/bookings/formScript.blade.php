@@ -1,36 +1,51 @@
 <script>
 $(function () {
-    var services = {{ $jsonServices }};
-    var serviceTimes = {{ $jsonServiceTimes }};
     $(document).on('change', '#service_categories', function () {
         $('#services').empty();
         $('#service_times').empty();
-        var data = services[$(this).val()];
-        console.log(data);
-        var i;
-        for (i = 0; i < data.length; i = i + 1) {
-            $('#services').append(
-                $('<option>', {
-                    value: data[i].id,
-                    text: data[i].name
-                })
-            );
-        }
+        var category_id = $(this).val(),
+            employee_id = $('#employee_id').val();
+        $.ajax({
+            url: $('#get_services_url').val(),
+            data: {
+                employee_id : employee_id,
+                category_id : category_id
+            },
+            dataType: 'json'
+        }).done(function (data) {
+            var i;
+            for (i = 0; i < data.length; i = i + 1) {
+                $('#services').append(
+                    $('<option>', {
+                        value: data[i].id,
+                        text: data[i].name
+                    })
+                );
+            }
+        });
     });
 
     $(document).on('change', '#services', function () {
         $('#service_times').empty();
-        var data = serviceTimes[$(this).val()];
-        var i;
-        for (i = 0; i < data.length; i = i + 1) {
-            $('#service_times').append(
-                $('<option>', {
-                    value: data[i].id,
-                    text: data[i].name + (data[i].description ? ' (' + data[i].description + ')' : ''),
-                    'data-length': data[i].length
-                })
-            );
-        }
+        var service_id = $(this).val();
+         $.ajax({
+            url: $('#get_service_times_url').val(),
+            data: {
+                service_id : service_id
+            },
+            dataType: 'json'
+        }).done(function (data) {
+            var i;
+            for (i = 0; i < data.length; i = i + 1) {
+                $('#service_times').append(
+                    $('<option>', {
+                        value: data[i].id,
+                        text: data[i].name + (data[i].description ? ' (' + data[i].description + ')' : ''),
+                        'data-length': data[i].length
+                    })
+                );
+            }
+        });
     });
 
     $(document).on('change', '#service_times', function () {

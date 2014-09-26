@@ -292,53 +292,6 @@ class Bookings extends AsBase
     }
 
     /**
-     *  Handle ajax request to return services by certain employee and category
-     *
-     *  @return json
-     **/
-    public function getEmployeeServicesByCategory()
-    {
-        $categoryId = (int) Input::get('category_id');
-        $employeeId = (int) Input::get('employee_id');
-        $employee = Employee::ofCurrentUser()->find($employeeId);
-        $services = $employee->services()->where('category_id', $categoryId)->get();
-        $data = [];
-        foreach ($services as $service) {
-            $data[$service->id] = [
-                'id'   => $service->id,
-                'name' => $service->name
-            ];
-        }
-
-        return Response::json(array_values($data));
-    }
-
-    /**
-     *  Handle ajax request to return service times in booking form
-     *
-     *  @return json
-     **/
-    public function getServiceTimes()
-    {
-        $serviceId    = (int) Input::get('service_id');
-        $service      = Service::ofCurrentUser()->find($serviceId);
-        $serviceTimes = $service->serviceTimes;
-        $data = [];
-        $data['default'] = [
-            'id' => 'default',
-            'length' => sprintf('%s (%s)', $service->length, $service->description)
-        ];
-        foreach ($serviceTimes as $serviceTime) {
-            $data[$serviceTime->id] = [
-                'id'     => $serviceTime->id,
-                'length' => $serviceTime->length
-            ];
-        }
-
-        return Response::json(array_values($data));
-    }
-
-    /**
      * Add new temp service to booking
      *
      * @return json

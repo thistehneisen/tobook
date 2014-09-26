@@ -18,5 +18,6 @@
 @section ('content')
 
     @include ('modules.as.bookings.form')
-
+<input type="hidden" id="get_services_url" value=" {{ route('as.bookings.employee.services') }}">
+<input type="hidden" id="get_service_times_url" value=" {{ route('as.bookings.service.times') }}">
 @stop

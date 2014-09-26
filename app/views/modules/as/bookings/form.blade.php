@@ -20,7 +20,7 @@
                             @if (isset($booking))
                             <div class="form-group row">
                                 <label for="booking_uuid" class="col-sm-4 control-label">{{ trans('common.created_at') }}</label>
-                                <div class="col-sm-8">{{ $booking['created_at'] }}</div>
+                                <div class="col-sm-8">{{ $booking->created_at->format('d-m-Y H:i:s') }}</div>
                             </div>
                             @endif
                             <div class="form-group row">

@@ -643,14 +643,14 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Bookings@searchConsumer'
     ]);
 
-    Route::get('bookings/get-employee-services', [
+    Route::get('bookings/ajax/get-employee-services', [
         'as' => 'as.bookings.employee.services',
-        'uses' => 'App\Appointment\Controllers\Bookings@getEmployeeServicesByCategory'
+        'uses' => 'App\Appointment\Controllers\Ajax\Bookings@getEmployeeServicesByCategory'
     ]);
 
-    Route::get('bookings/get-service-times', [
+    Route::get('bookings/ajax/get-service-times', [
         'as' => 'as.bookings.service.times',
-        'uses' => 'App\Appointment\Controllers\Bookings@getServiceTimes'
+        'uses' => 'App\Appointment\Controllers\Ajax\Bookings@getServiceTimes'
     ]);
 
     Route::post('bookings/add-booking-service', [
