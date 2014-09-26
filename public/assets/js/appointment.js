@@ -192,6 +192,8 @@
                 $('#added_service_name').text(data.service_name);
                 $('#added_employee_name').text(data.employee_name);
                 $('#added_booking_date').text(data.datetime);
+                $('#added_booking_modify_time').text(data.modify_time);
+                $('#added_booking_plustime').text(data.plustime);
                 $('#added_service_price').text(data.price);
                 $('#added_services').show();
             }).fail(function (data) {

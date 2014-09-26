@@ -399,6 +399,8 @@ class Bookings extends AsBase
                 'datetime'      => $startTime->toDateTimeString(),
                 'price'         => $price,
                 'service_name'  => $service->name,
+                'modify_time'   => $modifyTime,
+                'plustime'      => $plustime,
                 'employee_name' => $employee->name,
                 'uuid'          => $uuid
             ];

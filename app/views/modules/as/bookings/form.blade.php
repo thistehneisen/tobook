@@ -102,6 +102,8 @@
                                 <thead>
                                     <tr>
                                         <th>{{ trans('as.bookings.service_employee') }}</th>
+                                        <th>{{ trans('as.bookings.modify_time') }}</th>
+                                        <th>{{ trans('as.bookings.plustime') }}</th>
                                         <th>{{ trans('as.bookings.date_time') }}</th>
                                         <th>{{ trans('as.bookings.price') }}</th>
                                     </tr>
@@ -118,6 +120,20 @@
                                             <span id="added_employee_name">
                                                 @if(!empty($bookingService))
                                                     {{ $booking->employee->name }}
+                                                @endif
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span id="added_booking_modify_time">
+                                                @if(!empty($bookingService))
+                                                    {{ $booking->modify_time }}
+                                                @endif
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span id="added_booking_plustime">
+                                                @if(!empty($bookingService))
+                                                    {{ $booking->plustime }}
                                                 @endif
                                             </span>
                                         </td>

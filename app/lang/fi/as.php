@@ -238,6 +238,7 @@ return [
         'services'          => 'Palvelut',
         'service_time'      => 'Kesto',
         'modify_time'       => 'Muokkaa aikaa',
+        'plustime'          => 'Plustime', // @todo
         'modify_duration'   => 'Muokkaa kestoa',
         'employee'          => 'Työntekijä',
         'notes'             => 'Muistiinpanoja',

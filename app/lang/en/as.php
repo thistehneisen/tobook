@@ -240,6 +240,7 @@ return [
         'services'          => 'Services',
         'service_time'      => 'Service time',
         'modify_time'       => 'Modify time',
+        'plustime'          => 'Plustime', // @todo
         'modify_duration'   => 'Modify duration',
         'employee'          => 'Employee',
         'notes'             => 'Notes',
