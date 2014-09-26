@@ -1,15 +1,15 @@
-
     <ul class="list-inline as-calendar">
-        <li><a href="#" class="as-date" data-date="{{ $date->subDay()->toDateString() }}"><i class="glyphicon glyphicon-chevron-left"></i></a></li>
+        <li><a href="#" class="as-date" data-date="{{ $prev->toDateString() }}"><i class="glyphicon glyphicon-chevron-left"></i></a></li>
     <?php $i = 0; ?>
     @while ($i < 5)
-        <li @if ($i === 2) class="active" @endif>
+        <li @if ($startDate->toDateString() === $date->toDateString()) class="active" @endif>
             <a href="#" class="as-date" data-date="{{ $startDate->toDateString() }}">{{ trans('common.short.'.strtolower($startDate->format('D'))) }} <br>
-            {{ $startDate->format('d.m') }}</a>
+            {{ $startDate->format('d.m') }}
+            </a>
         </li>
         <?php $startDate = $startDate->addDay(); $i++; ?>
     @endwhile
-        <li><a href="#" class="as-date" data-date="{{ $date->addDays(2)->toDateString() }}"><i class="glyphicon glyphicon-chevron-right"></i></a></li>
+        <li><a href="#" class="as-date" data-date="{{ $next->toDateString() }}"><i class="glyphicon glyphicon-chevron-right"></i></a></li>
     </ul>
 
     <div class="as-timetable-content text-center">

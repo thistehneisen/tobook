@@ -41,11 +41,15 @@ class Layout3 extends Embed
      */
     public function getTimetable()
     {
-        $date     = Input::has('date') ? new Carbon(Input::get('date')) : Carbon::today();
+        $today = Carbon::today();
+        $date  = Input::has('date') ? new Carbon(Input::get('date')) : $today;
         $hash     = Input::get('hash');
         $employee = Employee::findOrFail(Input::get('employeeId'));
         $service  = Service::findOrFail(Input::get('serviceId'));
 
+        if ($date->lt($today)) {
+            $date = $today->copy();
+        }
         $timetable = [];
         $workingTimes = $this->getDefaultWorkingTimes($date, $hash);
         foreach ($workingTimes as $hour => $minutes) {
@@ -64,9 +68,23 @@ class Layout3 extends Embed
             }
         }
 
+        $i = 1;
+        $startDate = $date->copy();
+        while ($i <= 2) {
+            $startDate = $startDate->subDay();
+
+            if ($startDate->lt($today)) {
+                $startDate = $today->copy();
+                break;
+            }
+            $i++;
+        }
+
         return $this->render('timetable', [
             'date'      => $date,
-            'startDate' => with(clone $date)->subDays(2),
+            'startDate' => $startDate,
+            'prev'      => $date->copy()->subDay(),
+            'next'      => $date->copy()->addDay(),
             'timetable' => $timetable
         ]);
     }
