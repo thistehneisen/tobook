@@ -103,7 +103,7 @@ class Bookings extends AsBase
         $bookingService       = $booking->bookingServices()->first();
         $bookingExtraServices = $booking->extraServices()->get();
 
-        list($categories, $jsonServices, $jsonServiceTimes) = $this->servicesServiceTimesJson($services);
+        $categories = $this->getCategories($services);
 
         $bookingCategoryId   = (!empty($bookingService)) ? $bookingService->service->category->id : null;
         $bookingServiceId    = (!empty($bookingService)) ? $bookingService->service->id : null;
@@ -112,21 +112,15 @@ class Bookings extends AsBase
         ksort($bookingServices);//sort selected services by key
 
         $serviceTimes = (!empty($bookingService)) ? $bookingService->service->serviceTimes : [];
-        $serviceTimesList = [];
         $length = (!empty($bookingService)) ? $bookingService->service->length : 0;
         $description = (!empty($bookingService)) ? $bookingService->service->description : '';
-        $serviceTimesList['default'] = sprintf('%s (%s)', $length, $description);
-        foreach ($serviceTimes as $serviceTime) {
-            $serviceTimesList[$serviceTime->id] = $serviceTime->length;
-        }
+
+        $serviceTimesList = $bookingService->service->getServiceTimesData();
 
         $bookingServiceTime = (!empty($booking->bookingServices()->first()->serviceTime->id))
                             ? $booking->bookingServices()->first()->serviceTime->id
                             : 'default';
 
-        $serviceTimes = (!empty($jsonServiceTimes[$bookingServiceId]))
-                ? $jsonServiceTimes[$bookingServiceId]
-                : [];
         $startAt = with(new Carbon($booking->start_at))->format('H:i');
         $endAt   = with(new Carbon($booking->end_at))->format('H:i');
 
@@ -145,10 +139,8 @@ class Bookings extends AsBase
             'category_id'           => $bookingCategoryId,
             'service_id'            => $bookingServiceId,
             'categories'            => $categories,
-            'jsonServices'          => json_encode($jsonServices),
-            'jsonServiceTimes'      => json_encode($jsonServiceTimes),
             'services'              => $bookingServices,
-            'serviceTimes'          => $serviceTimes,
+            'serviceTimes'          => $serviceTimesList,
         ];
     }
 
@@ -181,58 +173,27 @@ class Bookings extends AsBase
         $employee = Employee::ofCurrentUser()->find($employeeId);
         $services = $employee->services;
 
-        list($categories, $jsonServices, $jsonServiceTimes) = $this->servicesServiceTimesJson($services);
+        $categories = $this->getCategories($services);
 
         return View::make('modules.as.bookings.form', [
             'uuid'            => Util::uuid(),
             'employee'        => $employee,
             'categories'      => $categories,
-            'jsonServices'    => json_encode($jsonServices),
-            'jsonServiceTimes'=> json_encode($jsonServiceTimes),
             'bookingDate'     => $bookingDate,
             'startTime'       => $startTime,
             'bookingStatuses' => $bookingStatuses
         ]);
     }
 
-    private function servicesServiceTimesJson($services)
+    private function getCategories($services)
     {
         $categories[-1]   = trans('common.select');
-        $jsonServices     = [];
-        $jsonServiceTimes = [];
+
         foreach ($services as $service) {
             //for getting distinct categories
             $categories[$service->category->id] = $service->category->name;
-            $jsonServices[$service->category->id][0] = [
-                'id' => -1,
-                'name'=> trans('common.select'),
-            ];
-
-            $jsonServices[$service->category->id][] = [
-                'id'   => $service->id,
-                'name' =>$service->name,
-            ];
-            $jsonServiceTimes[$service->id][] = [
-                'id'  => -1,
-                'name'=> trans('common.select'),
-                'length' => 0
-            ];
-            $jsonServiceTimes[$service->id][] = [
-                'id'            => 'default',
-                'name'          => $service->length,
-                'length'        => $service->length,
-                'description'   => $service->description,
-            ];
-            foreach ($service->serviceTimes as $serviceTime) {
-                $jsonServiceTimes[$service->id][] = [
-                    'id'            => $serviceTime->id,
-                    'name'          => $serviceTime->length,
-                    'length'        => $serviceTime->length,
-                    'description'   => $serviceTime->description,
-                ];
-            }
         }
-        return [$categories, $jsonServices, $jsonServiceTimes];
+        return $categories;
     }
 
     public function getAddExtraServiceForm()

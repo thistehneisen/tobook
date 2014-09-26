@@ -51,32 +51,10 @@ class Bookings extends \App\Core\Controllers\Ajax\Base
     {
         $serviceId    = (int) Input::get('service_id');
         $service      = Service::ofCurrentUser()->find($serviceId);
-        $serviceTimes = $service->serviceTimes;
-        $data = [];
 
-        $data[-1] = [
-            'id'          => -1,
-            'name'        => sprintf('-- %s --', trans('common.select')),
-            'length'      => 0,
-            'description' => ''
-        ];
+        $data = $service->getServiceTimesData();
 
-        $data['default'] = [
-            'id'          => 'default',
-            'name'        => $service->length,
-            'length'      => $service->length,
-            'description' => $service->description
-        ];
-        foreach ($serviceTimes as $serviceTime) {
-            $data[$serviceTime->id] = [
-                'id'            => $serviceTime->id,
-                'name'          => $serviceTime->length,
-                'length'        => $serviceTime->length,
-                'description'   => $serviceTime->description
-            ];
-        }
-
-        return Response::json(array_values($data));
+        return Response::json($data);
     }
 
 }

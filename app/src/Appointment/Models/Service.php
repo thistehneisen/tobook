@@ -22,6 +22,40 @@ class Service extends \App\Core\Models\Base
         return ($bookings->isEmpty()) ? true : false;
     }
 
+    /**
+     * Generate service times for displaying on booking form
+     *
+     * @return array
+     */
+    public function getServiceTimesData()
+    {
+        $serviceTimes = $this->serviceTimes;
+        $data = [];
+
+        $data[-1] = [
+            'id'          => -1,
+            'name'        => sprintf('-- %s --', trans('common.select')),
+            'length'      => 0,
+            'description' => ''
+        ];
+
+        $data['default'] = [
+            'id'          => 'default',
+            'name'        => $this->length,
+            'length'      => $this->length,
+            'description' => $this->description
+        ];
+        foreach ($serviceTimes as $serviceTime) {
+            $data[$serviceTime->id] = [
+                'id'            => $serviceTime->id,
+                'name'          => $serviceTime->length,
+                'length'        => $serviceTime->length,
+                'description'   => $serviceTime->description
+            ];
+        }
+        return array_values($data);
+    }
+
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
