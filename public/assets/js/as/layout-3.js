@@ -47,8 +47,11 @@
             weekStart: 1,
             language: body.data('locale')
         }).on('changeDate', function (e) {
-            dataStorage.date = dp.datepicker('getUTCDate');
-            fnLoadTimeTable();
+            var date = dp.datepicker('getUTCDate');
+            if ($.trim(date) !== 'Invalid Date') {
+                dataStorage.date = date;
+                fnLoadTimeTable();
+            }
         });
 
         form.on('click', 'div.collapsable', function (e) {
@@ -110,7 +113,6 @@
 
             // Assign date to dataStorage
             dataStorage.date = $this.data('date');
-
             fnLoadTimeTable();
         });
 
