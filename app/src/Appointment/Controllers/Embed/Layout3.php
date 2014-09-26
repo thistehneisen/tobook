@@ -41,8 +41,8 @@ class Layout3 extends Embed
      */
     public function getTimetable()
     {
-        $today = Carbon::today();
-        $date  = Input::has('date') ? new Carbon(Input::get('date')) : $today;
+        $today    = Carbon::today();
+        $date     = Input::has('date') ? new Carbon(Input::get('date')) : $today;
         $hash     = Input::get('hash');
         $employee = Employee::findOrFail(Input::get('employeeId'));
         $service  = Service::findOrFail(Input::get('serviceId'));
@@ -62,7 +62,10 @@ class Layout3 extends Embed
                     $service
                 );
 
-                if ($slotClass === 'active') {
+                $time = $date->copy()->hour($hour)->minute($shift);
+                $isActive = $slotClass === 'active'
+                    || $slotClass === 'custom active';
+                if ($time->gt(Carbon::now()) && $isActive) {
                     $timetable[] = sprintf('%02d:%02d', $hour, $shift);
                 }
             }
