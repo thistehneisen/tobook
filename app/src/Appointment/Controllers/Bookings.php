@@ -103,7 +103,10 @@ class Bookings extends AsBase
     {
         $data = [];
         try {
-            $booking = Booking::where('uuid', $uuid)->first();
+            $booking = Booking::where('uuid', $uuid)
+                ->where('status','!=', Booking::STATUS_CANCELLED)
+                ->firstOrFail();
+
             $data['confirm'] = sprintf(trans('as.bookings.cancel_confirm'), $uuid);
             $data['uuid']    = $uuid;
         } catch (\Exception $ex) {
