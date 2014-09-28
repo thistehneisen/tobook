@@ -25,6 +25,11 @@ Route::get('/cancel/as/{uuid}', [
     'uses' => 'App\Appointment\Controllers\Bookings@cancel'
 ]);
 
+Route::get('/cancel/as/do/{uuid}', [
+    'as' => 'as.bookings.doCancel',
+    'uses' => 'App\Appointment\Controllers\Bookings@doCancel'
+]);
+
 Route::group(['prefix' => 'search'], function () {
     Route::get('/', [
         'as'    => 'search',

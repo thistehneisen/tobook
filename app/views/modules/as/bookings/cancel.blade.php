@@ -14,7 +14,16 @@
             </div>
         </div>
     </div>
-    @else
+    @elseif(!empty($confirm))
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="alert alert-warning">
+                {{ $confirm }}
+               <a href="{{ route('as.bookings.doCancel', ['uuid' => $uuid]) }}" class="btn btn-primary">{{ trans('common.yes') }}</a>
+            </div>
+        </div>
+    </div>
+    @elseif(!empty($message))
     <div class="row">
         <div class="col-sm-12">
             <div class="alert alert-info">

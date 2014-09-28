@@ -95,7 +95,7 @@ class Bookings extends AsBase
     }
 
     /**
-     * Cancel booking by uuid
+     * Confirm cancel booking by uuid
      *
      * @return View
      */
@@ -104,15 +104,30 @@ class Bookings extends AsBase
         $data = [];
         try {
             $booking = Booking::where('uuid', $uuid)->first();
-            $data['uuid'] = $uuid;
+            $data['confirm'] = sprintf(trans('as.bookings.cancel_confirm'), $uuid);
+            $data['uuid']    = $uuid;
+        } catch (\Exception $ex) {
+            $data['error'] = trans('as.bookings.error.uuid_notfound');
+        }
 
+        return View::make('modules.as.bookings.cancel', $data);
+    }
+
+     /**
+     *  Cancel booking by uuid
+     *
+     * @return View
+     */
+    public function doCancel($uuid)
+    {
+        try {
+            $booking = Booking::where('uuid', $uuid)->first();
             $booking->status = Booking::STATUS_CANCELLED;
             $booking->delete();
 
             $msg = str_replace('{BookingID}', $uuid, trans('as.bookings.cancel_message'));
             $msg = str_replace('{Services}', $booking->getServiceInfo(), $msg);
             $data['message'] =  $msg;
-
         } catch (\Exception $ex) {
             $data['error'] = trans('as.bookings.error.uuid_notfound');
         }
