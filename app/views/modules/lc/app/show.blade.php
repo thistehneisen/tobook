@@ -38,8 +38,8 @@
                                 </div>
                             </div>
                             <div class="btn-group pull-right">
-                                <button class="btn btn-info" id="js-addStamp" data-offerid="{{{ $value->id }}}" data-consumerid="{{{ $consumer->id }}}">{{ trans('loyalty-card.add_stamp') }}</button>
-                                <button class="btn btn-warning" id="js-useOffer" data-offerid="{{{ $value->id }}}" data-consumerid="{{{ $consumer->id }}}">{{ trans('loyalty-card.use_offer') }}</button>
+                                <button class="btn btn-info" id="js-addStamp" data-url="{{ URL::route('app.lc.update', ['id' => $consumer->id]) }}" data-offerid="{{{ $value->id }}}">{{ trans('loyalty-card.add_stamp') }}</button>
+                                <button class="btn btn-warning" id="js-useOffer" data-url="{{ URL::route('app.lc.update', ['id' => $consumer->id]) }}" data-offerid="{{{ $value->id }}}">{{ trans('loyalty-card.use_offer') }}</button>
                             </div>
                         </div>
                     @endif
@@ -60,8 +60,8 @@
                                 </div>
                             </div>
                             <div class="btn-group pull-right">
-                                <button class="btn btn-info" data-toggle="modal" data-target="#js-givePointModal" data-consumerid="{{{ $consumer->id }}}">{{ trans('loyalty-card.give_points') }}</button>
-                                <button class="btn btn-warning pull-right" id="js-useVoucher" data-required="{{{ $value->required }}}" data-voucherid="{{{ $value->id }}}" data-consumerid="{{{ $consumer->id }}}">{{ trans('loyalty-card.use_voucher') }}</button>
+                                <button class="btn btn-info" data-toggle="modal" data-url="{{ URL::route('app.lc.update', ['id' => $consumer->id]) }}" data-target="#js-givePointModal">{{ trans('loyalty-card.give_points') }}</button>
+                                <button class="btn btn-warning pull-right" id="js-useVoucher" data-url="{{ URL::route('app.lc.update', ['id' => $consumer->id]) }}" data-required="{{{ $value->required }}}" data-voucherid="{{{ $value->id }}}">{{ trans('loyalty-card.use_voucher') }}</button>
                             </div>
                         </div>
                     @endif

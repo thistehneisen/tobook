@@ -306,6 +306,16 @@ Route::group([
             'as' => 'app.lc.show',
             'uses' => 'App\LoyaltyCard\Controllers\Consumer@show',
         ]);
+
+        Route::post('consumers', [
+            'as' => 'app.lc.store',
+            'uses' => 'App\LoyaltyCard\Controllers\Consumer@store',
+        ]);
+
+        Route::put('consumers/{id}', [
+            'as' => 'app.lc.update',
+            'uses' => 'App\LoyaltyCard\Controllers\Consumer@update',
+        ]);
     });
 });
 

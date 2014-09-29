@@ -55,7 +55,7 @@ $(document).ready(function () {
             });
         } else {
             $.ajax({
-                url: '/loyalty-card/consumers',
+                url: $(this).data('url'),
                 dataType: 'json',
                 type: 'post',
                 data: $('#js-createConsumerForm').serialize(),
@@ -94,7 +94,7 @@ $(document).ready(function () {
     $('#consumer-info').on('click', '#js-addStamp', function () {
         var offerID = $(this).data('offerid');
         $.ajax({
-            url: '/loyalty-card/consumers/' + $(this).data('consumerid'),
+            url: $(this).data('url'),
             dataType: 'json',
             type: 'put',
             data: {
@@ -112,7 +112,7 @@ $(document).ready(function () {
     $('#consumer-info').on('click', '#js-useOffer', function () {
         var offerID = $(this).data('offerid');
         $.ajax({
-            url: '/loyalty-card/consumers/' + $(this).data('consumerid'),
+            url: $(this).data('url'),
             dataType: 'json',
             type: 'put',
             data: {
@@ -129,14 +129,12 @@ $(document).ready(function () {
     // ------ ADD POINT ------ //
     $('#js-givePointModal').on('show.bs.modal', function (e) {
         // Pass form reference to modal for submisison on yes/ok
-        $(this).find('.modal-footer #js-confirmGivePoint').data('consumerid', $(e.relatedTarget).data('consumerid'));
+        $(this).find('.modal-footer #js-confirmGivePoint').data('url', $(e.relatedTarget).data('url'));
     });
 
     $('#js-givePointModal').on('click', '#js-confirmGivePoint', function () {
-        var consumerID = $(this).data('consumerid');
-
         $.ajax({
-            url: '/loyalty-card/consumers/' + consumerID,
+            url: $(this).data('url'),
             dataType: 'json',
             type: 'put',
             data: {
@@ -168,14 +166,13 @@ $(document).ready(function () {
 
     // ------ USE POINT ------//
     $('#consumer-info').on('click', '#js-useVoucher', function (e) {
-        var consumerId = $(this).data('consumerid'),
-            voucherId = $(this).data('voucherid'),
+        var voucherId = $(this).data('voucherid'),
             required = parseInt($(this).data('required'), 10),
             currentPoint = parseInt($('#js-currentPoint').text(), 10);
 
         if (currentPoint >= required) {
             $.ajax({
-                url: '/loyalty-card/consumers/' + consumerId,
+                url: $(this).data('url'),
                 dataType: 'json',
                 type: 'put',
                 data: {
