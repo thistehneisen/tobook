@@ -1,7 +1,7 @@
 @extends('modules.lc.layout')
 
 @section('top-buttons')
-<a href="{{ URL::route('lc.consumers.create') }}" class="btn btn-default btn-success"><span class="glyphicon glyphicon-plus"></span> {{ trans('common.add') }}</a>
+<a href="{{ URL::route('consumers.upsert') }}" class="btn btn-default btn-success"><span class="glyphicon glyphicon-plus"></span> {{ trans('common.add') }}</a>
 @stop
 
 @section('scripts')

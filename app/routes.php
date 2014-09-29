@@ -695,16 +695,10 @@ Route::group([
     'before' => ['auth']
 ], function () {
 
-    Route::resource('consumers', 'App\LoyaltyCard\Controllers\Consumer', [
-        'names' => [
-            'index' => 'lc.consumers.index',
-            'create' => 'lc.consumers.create',
-            'edit' => 'lc.consumers.edit',
-            'store' => 'lc.consumers.store',
-            'update' => 'lc.consumers.update',
-            'destroy' => 'lc.consumers.delete',
-        ]
-    ]);
+    \App\LoyaltyCard\Controllers\Consumer::crudRoutes(
+        'consumers',
+        'consumers'
+    );
 
     \App\LoyaltyCard\Controllers\Offer::crudRoutes(
         'offers',

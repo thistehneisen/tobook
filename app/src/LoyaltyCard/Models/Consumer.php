@@ -1,12 +1,16 @@
 <?php namespace App\LoyaltyCard\Models;
 
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use App\Core\Models\Base;
 
-class Consumer extends \App\Core\Models\Base
+class Consumer extends Base
 {
     protected $table = 'lc_consumers';
     protected $guarded = ['id'];
     protected $dates = ['deleted_at'];
+    public $fillable = ['total_points', 'total_stamps'];
+    protected $rulesets = [
+        'saving' => []
+    ];
 
     /**
      * Define the parent relationship of this consumer
@@ -16,5 +20,10 @@ class Consumer extends \App\Core\Models\Base
     public function consumer()
     {
         return $this->belongsTo('App\Consumers\Models\Consumer');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Core\Models\User');
     }
 }

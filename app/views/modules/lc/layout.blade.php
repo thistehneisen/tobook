@@ -13,7 +13,7 @@
 
 @section('content')
     <div class="btn-group-vertical col-md-3">
-        <a class="btn btn-default" href="{{ URL::route('lc.consumers.index') }}">{{ trans('loyalty-card.consumer_management') }}</a>
+        <a class="btn btn-default" href="{{ URL::route('consumers.index') }}">{{ trans('loyalty-card.consumer_management') }}</a>
         <a class="btn btn-default" href="{{ URL::route('offers.index') }}">{{ trans('loyalty-card.offers') }}</a>
         <a class="btn btn-default" href="{{ URL::route('vouchers.index') }}">{{ trans('loyalty-card.vouchers') }}</a>
     </div>
