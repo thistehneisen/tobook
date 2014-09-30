@@ -97,7 +97,7 @@ class Embed extends AsBase
                 ? ServiceTime::find($serviceTimeId)
                 : null;
 
-            $employees = $service->employees;
+            $employees = $service->employees()->where('is_active', true)->get();
         }
         $extraServices = [];
         if(!empty($extraServiceIds)){

@@ -29,8 +29,10 @@ class Layout3 extends Embed
         }
 
         $service = Service::with('employees')->findOrFail($serviceId);
+        $employees = $service->employees()->where('is_active', true)->get();
+
         return $this->render('employees', [
-            'employees' => $service->employees
+            'employees' => $employees
         ]);
     }
 
