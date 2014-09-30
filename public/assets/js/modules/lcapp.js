@@ -44,7 +44,7 @@ $(document).ready(function () {
     $('#js-createConsumerModal').on('click', '#js-confirmCreateConsumer', function () {
         if ($('#js-confirmCreateConsumer').text() === 'Link') {
             $.ajax({
-                url: '/loyalty-card/consumers?act=l',
+                url: $(this).data('url') + '?act=l',
                 dataType: 'json',
                 type: 'post',
                 data: $('#js-createConsumerForm').serialize(),

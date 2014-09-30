@@ -4,6 +4,7 @@ use View, Input, Confide, Config, Request, Response;
 use App\Core\Controllers\Base;
 use App\LoyaltyCard\Controllers\ConsumerRepository as ConsumerRepository;
 use App\Consumers\Models\Consumer as Core;
+use App\LoyaltyCard\Models\Consumer as Model;
 use App\LoyaltyCard\Models\Voucher as VoucherModel;
 use App\LoyaltyCard\Models\Offer as OfferModel;
 
@@ -31,8 +32,33 @@ class Consumer extends Base
         $core = $item->consumer;
 
         if ($core === null) {
-            $core = Core::make(Input::all());
-            $core->users()->detach($this->user->id);
+            $duplicatedConsumer = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
+                                ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
+                                ->where('consumer_user.user_id', Confide::user()->id)
+                                ->where('lc_consumers.user_id', Confide::user()->id)
+                                ->where('consumers.first_name', Input::get('first_name'))
+                                ->where('consumers.last_name', Input::get('last_name'))
+                                ->where('consumers.email', Input::get('email'))
+                                ->where('consumers.phone', Input::get('phone'))
+                                ->first();
+
+            $existedConsumer = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
+                                ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
+                                ->where('consumers.first_name', Input::get('first_name'))
+                                ->where('consumers.last_name', Input::get('last_name'))
+                                ->where('consumers.email', Input::get('email'))
+                                ->where('consumers.phone', Input::get('phone'))
+                                ->select('consumers.id')
+                                ->first();
+
+            if ($duplicatedConsumer) {
+                return;
+            } elseif ($existedConsumer) {
+                $core = Core::find($existedConsumer->id);
+            } else {
+                $core = Core::make(Input::all());
+            }
+
             $core->users()->attach($this->user, ['is_visible' => true]);
             $item->total_points = 0;
             $item->total_stamps = '';
