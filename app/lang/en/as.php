@@ -266,6 +266,7 @@ return [
         'terms_agree'       => 'I\'ve read and agreed to the booking terms',
         'cancel_message'    => $cancelMessage, //@todo
         'cancel_confirm'    => 'Are you sure to cancel this booking %s?', //@todo
+        'modify_booking'    => 'Modify Booking', //@todo
         'error'             => [
             'add_overlapped_booking'   => 'Overlapped booking time!',// @todo
             'insufficient_slots'       => 'There is no enough time slots for this booking!',// @todo

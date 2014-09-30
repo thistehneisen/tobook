@@ -13,6 +13,7 @@ $(function () {
             },
             dataType: 'json'
         }).done(function (data) {
+            $('#services').empty();
             $('#service_times').empty();
             var i;
             for (i = 0; i < data.length; i = i + 1) {
@@ -36,6 +37,7 @@ $(function () {
             },
             dataType: 'json'
         }).done(function (data) {
+            $('#service_times').empty();
             var i;
             for (i = 0; i < data.length; i = i + 1) {
                 $('#service_times').append(

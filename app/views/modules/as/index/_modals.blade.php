@@ -60,5 +60,4 @@
 <input type="hidden" id="add_booking_url" value="{{ route('as.bookings.add') }}">
 <input type="hidden" id="add_freetime_url" value=" {{ route('as.employees.freetime.add') }}">
 <input type="hidden" id="delete_freetime_url" value="{{ route('as.employees.freetime.delete') }}"/>
-<input type="hidden" id="add_extra_service_url" value="{{ route('as.bookings.extra-service-form') }}"/>
-<input type="hidden" id="change_status_form_url" value="{{ route('as.bookings.change-status-form') }}"/>
+<input type="hidden" id="modify_booking_form_url" value="{{ route('as.bookings.modify-form') }}"/>

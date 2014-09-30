@@ -124,15 +124,41 @@
         });
 
         // ------------------------ Button handlers ------------------------ //
-        $('a.btn-select-modify-action').click(function () {
-            $('#booking_id').val($(this).data('booking-id'));
-            $('.fancybox').fancybox({
-                padding: 5,
-                width: 350,
-                title: '',
-                autoSize: false,
-                autoWidth: false,
-                autoHeight: true
+        function details_in_popup(link, div_id, booking_id) {
+            $.ajax({
+                url: link,
+                data: { booking_id : booking_id },
+                success: function (response) {
+                    $('#' + div_id).html(response);
+                }
+            });
+            return '<div id="'+ div_id +'">Loading...</div>';
+        }
+        $('a.popup-ajax').click(function (e) {
+            e.preventDefault();
+        }).popover({
+            html: true,
+            content: function () {
+                var div_id =  "tmp-id-" + $.now(),
+                    booking_id = $(this).data('booking-id');
+                return details_in_popup($(this).attr('href'), div_id, booking_id);
+            }
+        });
+        $(document).on('click', '#btn-submit-modify-form', function (e) {
+            e.preventDefault();
+            var booking_id = $(this).data('booking-id'),
+                url = $(this).data('action-url');
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: $('#modify_booking_form_' + booking_id).serialize(),
+                dataType: 'json'
+            }).done(function (data) {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alertify.alert(data.message);
+                }
             });
         });
         $(document).on('click', '#btn-add-employee-freetime', function (e) {
@@ -213,86 +239,12 @@
                 data: postData,
                 dataType: 'json'
             }).done(function (data) {
-                 if (data.success) {
+                if (data.success) {
                     location.reload();
                 } else {
                     alertify.alert(data.message);
                 }
             });
-        });
-        $(document).on('click', '#btn-change-status', function (e) {
-            e.preventDefault();
-            var postData = $('#add_change_status_form').serialize(),
-                action_url = $(this).data('action-url');
-            $.ajax({
-                type: 'POST',
-                url: action_url,
-                data: postData,
-                dataType: 'json'
-            }).done(function (data) {
-                //TODO there are two views default and week view
-                location.reload();
-            });
-        });
-        $('#btn-continue-modify').click(function (e) {
-            var selected_action = $('input[name="modify_type"]:checked').val(),
-                booking_id = $('#booking_id').val(),
-                action_url = $('#change_status_form_url').val();
-            if (selected_action === 'change_total') {
-
-            } else if (selected_action === 'change_status') {
-                $.fancybox.open({
-                    padding: 5,
-                    width: 400,
-                    title: '',
-                    autoSize: false,
-                    autoScale: true,
-                    autoWidth: false,
-                    autoHeight: true,
-                    fitToView: false,
-                    href: action_url,
-                    type: 'ajax',
-                    ajax: {
-                        type: 'GET',
-                        data: {
-                            booking_id: booking_id
-                        }
-                    },
-                    helpers: {
-                        overlay: {
-                            locked: false
-                        }
-                    },
-                    autoCenter: false
-                });
-            } else if (selected_action === 'add_extra_service') {
-                var action_url = $('#add_extra_service_url').val(),
-                    booking_id = $('#booking_id').val();
-                $.fancybox.open({
-                    padding: 5,
-                    width: 400,
-                    title: '',
-                    autoSize: false,
-                    autoScale: true,
-                    autoWidth: false,
-                    autoHeight: true,
-                    fitToView: false,
-                    href: action_url,
-                    type: 'ajax',
-                    ajax: {
-                        type: 'GET',
-                        data: {
-                            booking_id: booking_id,
-                        }
-                    },
-                    helpers: {
-                        overlay: {
-                            locked: false
-                        }
-                    },
-                    autoCenter: false
-                });
-            }
         });
         $('#btn-continute-action').click(function (e) {
             e.preventDefault();
@@ -384,23 +336,6 @@
                     }
                 },
                 autoCenter: false
-            });
-        });
-        $(document).on('click', '#btn-add-extra-service', function (e) {
-            e.preventDefault();
-            var postData = $('#add_extra_service_form').serialize(),
-                action_url = $(this).data('action-url');
-            $.ajax({
-                type: 'POST',
-                url: action_url,
-                data: postData,
-                dataType: 'json'
-            }).done(function (data) {
-                if (data.success) {
-                    location.reload();
-                } else {
-                    alertify.alert(data.message);
-                }
             });
         });
     });

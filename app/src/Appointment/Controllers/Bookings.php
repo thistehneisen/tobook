@@ -240,10 +240,11 @@ class Bookings extends AsBase
         return $categories;
     }
 
-    public function getAddExtraServiceForm()
+    public function getModifyBookingForm()
     {
         $bookingId = Input::get('booking_id');
-        $booking   = Booking::ofCurrentUser()->find($bookingId);//TODO if not found booking
+        $booking = Booking::ofCurrentUser()->find($bookingId);
+        $bookingStatuses = Booking::getStatuses();
 
         $bookingExtraServices = $booking->extraServices()->lists('extra_service_id');
 
@@ -254,24 +255,87 @@ class Bookings extends AsBase
             $data = $extraServices->whereNotIn('as_extra_services.id', $bookingExtraServices);
         }
 
-        $data = $extraServices->lists('name', 'id');
+        $extras = $extraServices->lists('name', 'id');
 
-        return View::make('modules.as.bookings.extraService', [
-            'booking'       => $booking,
-            'extraServices' => $data
+        return View::make('modules.as.bookings.modifyForm', [
+            'booking'         => $booking,
+            'extraServices'   => $extras,
+            'bookingStatuses' => $bookingStatuses
         ]);
     }
 
-    public function getChangeStatusForm()
+    public function doModifyBooking()
     {
-        $bookingId = Input::get('booking_id');
-        $booking = Booking::ofCurrentUser()->find($bookingId);
-        $bookingStatuses = Booking::getStatuses();
-        //TODO if not found booking
-        return View::make('modules.as.bookings.changeStatus', [
-            'bookingStatuses' => $bookingStatuses,
-            'booking'         => $booking
-        ]);
+        $resultStatus        = $this->changeStatus();
+        $resultExtraServices = $this->addExtraServices();
+
+        if ($resultStatus['success'] && $resultExtraServices['success']) {
+            return Response::json([
+                'success'=> true,
+                'message'=> trans('as.bookings.modify_booking_successful'),
+            ]);
+        } else if($resultExtraServices['success'] === false
+            && $resultExtraServices['status'] === 500){
+            return Response::json([
+                'success'=> false,
+                'message'=> $resultExtraServices['message'],
+            ]);
+        }
+    }
+
+    public function addExtraServices()
+    {
+        $extraServiceIds = Input::get('extra_services');
+        $bookingId       = Input::get('booking_id');
+        $booking         = Booking::ofCurrentUser()->find($bookingId);
+
+        if(empty($extraServiceIds)){
+            return $data = [
+                'success'=> true
+            ];
+        }
+
+        $extraServiceTime  = 0;
+        $extraServicePrice = 0;
+        $extraServices = [];
+
+        foreach ($extraServiceIds as $id) {
+            $extraService = ExtraService::find($id);
+            $extraServiceTime  += $extraService->length;
+            $extraServicePrice += $extraService->price;
+            $extraServices[] = $extraService;
+        }
+        $date      = new Carbon($booking->date);
+        $endTime   = Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s', $booking->date, $booking->end_at));
+        $newEndTime= with(clone $endTime)->addMinutes($extraServiceTime);
+
+        $isBookable = Booking::isBookable($booking->employee->id, $date, $endTime, $newEndTime, $booking->uuid);
+
+        if($isBookable)
+        {
+            $booking->total        = $booking->total + $extraServiceTime;
+            $booking->total_price  = $booking->total_price + $extraServicePrice;
+            $booking->end_at       = $newEndTime->toTimeString();
+            $booking->save();
+
+            foreach ($extraServices as $extraService) {
+                $bookingExtraService = new BookingExtraService;
+                $bookingExtraService->fill([
+                    'date'     => $booking->date,
+                    'tmp_uuid' => $booking->uuid,
+                ]);
+                $bookingExtraService->booking()->associate($booking);
+                $bookingExtraService->extraService()->associate($extraService);
+                $bookingExtraService->save();
+            }
+        } else {
+            $data['success'] = false;
+            $data['message'] =  trans('as.bookings.not_enough_slots');
+            $data['status']  = 500;
+        }
+
+        $data['success'] = true;
+        return $data;
     }
 
     public function changeStatus()
@@ -293,7 +357,7 @@ class Bookings extends AsBase
             $data['message'] = $ex->getMessage();
             $data['false'] = true;
         }
-        return Response::json($data);
+        return $data;
     }
 
     /**
@@ -683,65 +747,6 @@ class Bookings extends AsBase
             return Response::json($data, 500);
         }
         return Response::json($data);
-    }
-
-    public function addExtraServices()
-    {
-        $extraServiceIds = Input::get('extra_services');
-        $bookingId       = Input::get('booking_id');
-        $booking         = Booking::ofCurrentUser()->find($bookingId);
-
-        if(empty($extraServiceIds)){
-            return Response::json([
-                'success'=> false,
-                'message'=> 'as.bookings.select_extra_services',
-            ]);
-        }
-
-        $extraServiceTime  = 0;
-        $extraServicePrice = 0;
-        $extraServices = [];
-
-        foreach ($extraServiceIds as $id) {
-            $extraService = ExtraService::find($id);
-            $extraServiceTime  += $extraService->length;
-            $extraServicePrice += $extraService->price;
-            $extraServices[] = $extraService;
-        }
-        $date      = new Carbon($booking->date);
-        $endTime   = Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s', $booking->date, $booking->end_at));
-        $newEndTime= with(clone $endTime)->addMinutes($extraServiceTime);
-
-        $isBookable = Booking::isBookable($booking->employee->id, $date, $endTime, $newEndTime, $booking->uuid);
-
-        if($isBookable)
-        {
-            $booking->total        = $booking->total + $extraServiceTime;
-            $booking->total_price  = $booking->total_price + $extraServicePrice;
-            $booking->end_at       = $newEndTime->toTimeString();
-            $booking->save();
-
-            foreach ($extraServices as $extraService) {
-                $bookingExtraService = new BookingExtraService;
-                $bookingExtraService->fill([
-                    'date'     => $booking->date,
-                    'tmp_uuid' => $booking->uuid,
-                ]);
-                $bookingExtraService->booking()->associate($booking);
-                $bookingExtraService->extraService()->associate($extraService);
-                $bookingExtraService->save();
-            }
-        } else {
-            return Response::json([
-                'success'=> false,
-                'message'=> 'as.bookings.not_enough_slots',
-            ]);
-        }
-
-        return Response::json([
-            'success'=> true,
-            'message'=> 'as.bookings.add_extra_services_success',
-        ]);
     }
 
     /**

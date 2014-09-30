@@ -29,7 +29,7 @@
                     {{{ $consumerName }}} {{{ $serviceDescription }}}
                 </a>
             </span>
-            <a href="#select-modify-action" class="btn-plus fancybox btn-select-modify-action" data-booking-id="{{ $booking->id }}" data-action-url="{{ route('as.bookings.extra-service-form') }}"><i class="fa fa-plus"></i></a>
+            <a href="{{ route('as.bookings.modify-form') }}" class="btn-plus popup-ajax" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click"><i class="fa fa-plus"></i></a>
         @else
             &nbsp;
         @endif

@@ -649,6 +649,16 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Bookings@changeStatus'
     ]);
 
+    Route::get('bookings/modify-booking', [
+        'as' => 'as.bookings.modify-form',
+        'uses' => 'App\Appointment\Controllers\Bookings@getModifyBookingForm'
+    ]);
+
+    Route::post('bookings/modify-booking', [
+        'as' => 'as.bookings.modify-form',
+        'uses' => 'App\Appointment\Controllers\Bookings@doModifyBooking'
+    ]);
+
     Route::get('bookings/search-consumer', [
         'as' => 'as.bookings.search-consumer',
         'uses' => 'App\Appointment\Controllers\Bookings@searchConsumer'
