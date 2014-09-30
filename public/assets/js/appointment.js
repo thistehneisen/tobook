@@ -132,7 +132,7 @@
                     $('#' + div_id).html(response);
                 }
             });
-            return '<div id="'+ div_id +'">Loading...</div>';
+            return '<div class="popover_form" id="'+ div_id +'"><img src="/assets/img/busy.gif"></div>';
         }
         $('a.popup-ajax').click(function (e) {
             e.preventDefault();
