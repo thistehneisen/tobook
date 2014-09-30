@@ -1,7 +1,7 @@
 <form id="modify_booking_form_{{ $booking->id }}" class="popover_form" action="">
     <div>
-          <span class="text-info"><strong>{{ trans('as.bookings.modify_booking')}}</strong></span><button type="button" onclick="$(this).closest('div.popover').popover('hide');" class="close" data-dismiss="popover">&times;</button>
-          <hr>
+          <span class="text-info"><strong>{{ trans('as.bookings.modify_booking')}}</strong><span id="loading" style="display:none"><img src="{{ asset('assets/img/busy.gif') }}"/></span></span><button type="button" onclick="$(this).closest('div.popover').popover('hide');" class="close" data-dismiss="popover">&times;</button>
+            <hr>
     </div>
     <div>
         <div class="col-sm-4"><label for="extra_services">{{ trans('as.bookings.extra_service') }}</label> </div>
@@ -13,6 +13,18 @@
         <div class="col-sm-4"><label for="booking_status">{{ trans('as.bookings.status') }}</label> </div>
         <div class="col-sm-8">
             {{ Form::select('booking_status', $bookingStatuses, $booking->getStatusText() , array('class'=> 'selectpicker form-control input-sm')); }}
+        </div>
+    </div>
+    <div>
+        <div class="col-sm-4"><label for="modify_times">{{ trans('as.bookings.modify_time') }} </label></div>
+        <div class="col-sm-8">
+            <div class="input-group input-group-sm spinner" data-inc="15">
+                {{ Form::text('modify_times', isset($modifyTime) ? $modifyTime : 0, ['class' => 'form-control input-sm', 'id' => 'modify_times']) }}
+                <div class="input-group-btn-vertical">
+                    <button type="button" class="btn btn-default"><i class="fa fa-caret-up"></i></button>
+                    <button type="button" class="btn btn-default"><i class="fa fa-caret-down"></i></button>
+                </div>
+            </div>
         </div>
     </div>
     <div>
@@ -28,4 +40,6 @@
 </form>
 <script type="text/javascript">
     $('.selectpicker').selectpicker();
+//boostrap spinner
+(function(e){e("div.spinner").each(function(){var b=e(this),c=b.find("input"),a=+b.data("inc"),d=b.attr("data-positive"),d="undefined"===typeof d?!1:"true"===d;"number"===typeof a&&a!==a&&(a=1);b.find(".btn:first-of-type").on("click",function(){c.val(+c.val()+a)});b.find(".btn:last-of-type").on("click",function(){d&&0>+c.val()-a||c.val(+c.val()-a)})})})(jQuery);
 </script>

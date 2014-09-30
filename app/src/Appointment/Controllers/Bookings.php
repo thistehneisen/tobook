@@ -260,14 +260,15 @@ class Bookings extends AsBase
         return View::make('modules.as.bookings.modifyForm', [
             'booking'         => $booking,
             'extraServices'   => $extras,
-            'bookingStatuses' => $bookingStatuses
+            'bookingStatuses' => $bookingStatuses,
+            'modifyTime'      => $booking->modify_time
         ]);
     }
 
     public function doModifyBooking()
     {
         $resultStatus        = $this->changeStatus();
-        $resultExtraServices = $this->addExtraServices();
+        $resultExtraServices = $this->handleExtraModifiedTimes();
 
         if ($resultStatus['success'] && $resultExtraServices['success']) {
             return Response::json([
@@ -283,17 +284,16 @@ class Bookings extends AsBase
         }
     }
 
-    public function addExtraServices()
+    public function handleExtraModifiedTimes()
     {
-        $extraServiceIds = Input::get('extra_services');
+        $extraServiceIds = Input::get('extra_services', []);
         $bookingId       = Input::get('booking_id');
+        $modifyTime      = Input::get('modify_times');
         $booking         = Booking::ofCurrentUser()->find($bookingId);
 
-        if(empty($extraServiceIds)){
-            return $data = [
-                'success'=> true
-            ];
-        }
+        $bookingService = BookingService::where('booking_id', $bookingId)->first();
+        $employee = $bookingService->employee;
+        $service  = $bookingService->service;
 
         $extraServiceTime  = 0;
         $extraServicePrice = 0;
@@ -305,18 +305,31 @@ class Bookings extends AsBase
             $extraServicePrice += $extraService->price;
             $extraServices[] = $extraService;
         }
-        $date      = new Carbon($booking->date);
-        $endTime   = Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s', $booking->date, $booking->end_at));
-        $newEndTime= with(clone $endTime)->addMinutes($extraServiceTime);
+
+        $length = (!empty($bookingService->serviceTime->length))
+                    ? $bookingService->serviceTime->length
+                    : $bookingService->service->length;
+
+        $plustime = $employee->getPlustime($service->id);
+
+        $total = $length + $plustime + $extraServiceTime + $modifyTime;
+
+        $date        = new Carbon($booking->date);
+        $startTime   = $booking->getStartAt();
+        $endTime     = $booking->getEndAt();
+        $newEndTime  = with(clone $startTime)->addMinutes($total);
 
         $isBookable = Booking::isBookable($booking->employee->id, $date, $endTime, $newEndTime, $booking->uuid);
 
         if($isBookable)
         {
-            $booking->total        = $booking->total + $extraServiceTime;
-            $booking->total_price  = $booking->total_price + $extraServicePrice;
-            $booking->end_at       = $newEndTime->toTimeString();
+            $booking->total              = $total;
+            $booking->total_price        = $booking->total_price + $extraServicePrice;
+            $booking->end_at             = $newEndTime->toTimeString();
+            $booking->modify_time        = $modifyTime;
+            $bookingService->modify_time = $modifyTime;
             $booking->save();
+            $bookingService->save();
 
             foreach ($extraServices as $extraService) {
                 $bookingExtraService = new BookingExtraService;
@@ -328,6 +341,7 @@ class Bookings extends AsBase
                 $bookingExtraService->extraService()->associate($extraService);
                 $bookingExtraService->save();
             }
+
         } else {
             $data['success'] = false;
             $data['message'] =  trans('as.bookings.not_enough_slots');

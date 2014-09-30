@@ -275,6 +275,6 @@ div.tooltip-inner {
 /* for using with select2 */
 .popover {
   max-width: 600px;
-  height: 200px;
+  height: 250px;
   width: auto;
 }
