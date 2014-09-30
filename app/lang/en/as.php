@@ -278,6 +278,7 @@ return [
             'overllapped_with_freetime'=> 'Booking is overllapped with employee freetime',//@todo
             'empty_total_time'         => 'Booking total minutes must be greater or equal 1',//@todo
             'uuid_notfound'            => 'Booking ID not found', //@todo
+            'not_enough_slots'         => 'Not enough booking slots or overllaped with other booking.', //@todo
         ],
         'warning'      => [
             'existing_user'   => 'There is an user associate with this email in our system. Do you want to use these information instead?',// @todo

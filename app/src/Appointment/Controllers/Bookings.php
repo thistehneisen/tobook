@@ -315,11 +315,13 @@ class Bookings extends AsBase
         $total = $length + $plustime + $extraServiceTime + $modifyTime;
 
         $date        = new Carbon($booking->date);
-        $startTime   = $booking->getStartAt();
-        $endTime     = $booking->getEndAt();
+        $startTime   = Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s', $booking->date, $booking->start_at));
+        $endTime     = Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s', $booking->date, $booking->end_at));
         $newEndTime  = with(clone $startTime)->addMinutes($total);
 
         $isBookable = Booking::isBookable($booking->employee->id, $date, $endTime, $newEndTime, $booking->uuid);
+
+        $data['success'] = true;
 
         if($isBookable)
         {
@@ -344,11 +346,9 @@ class Bookings extends AsBase
 
         } else {
             $data['success'] = false;
-            $data['message'] =  trans('as.bookings.not_enough_slots');
+            $data['message'] =  trans('as.bookings.error.not_enough_slots');
             $data['status']  = 500;
         }
-
-        $data['success'] = true;
         return $data;
     }
 
