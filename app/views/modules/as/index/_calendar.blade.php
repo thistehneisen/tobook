@@ -25,7 +25,7 @@
             <span class="customer-tooltip" title="{{{ $tooltip }}}">
                 {{{ $consumerName }}} {{{ $serviceDescription }}}
             </span>
-            <a href="{{ route('as.bookings.modify-form') }}" class="btn-plus popup-ajax" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click"><i class="fa fa-plus"></i></a>
+            <a href="{{ route('as.bookings.modify-form') }}" class="btn-plus btn-popover popup-ajax" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click"><i class="fa fa-plus"></i></a>
             @else
            <a href="{{ route('as.bookings.modify-form') }}" class="btn-popover popup-ajax" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click">&nbsp;</a>
             @endif

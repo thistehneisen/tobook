@@ -125,10 +125,13 @@
 
         // ------------------------ Button handlers ------------------------ //
         $('body').on('click', function (e) {
-            if ($(e.target).data('toggle') !== 'popover'
-                && $(e.target).parents('.popover.in').length === 0) {
-                $('a.popup-ajax').popover('hide');
-            }
+            $('a.popup-ajax').each(function () {
+                //the 'is' for buttons that trigger popups
+                //the 'has' for icons within a button that triggers a popup
+                if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                    $(this).popover('hide');
+                }
+            });
         });
         function details_in_popup(link, div_id, booking_id) {
             $.ajax({
@@ -138,7 +141,7 @@
                     $('#' + div_id).html(response);
                 }
             });
-            return '<div class="popover_form" id="'+ div_id +'"><img src="/assets/img/busy.gif"></div>';
+            return '<div class="popover_form" id="' + div_id + '"><img src="/assets/img/busy.gif"></div>';
         }
         $('a.popup-ajax').click(function (e) {
             e.preventDefault();
