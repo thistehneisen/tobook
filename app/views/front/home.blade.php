@@ -53,16 +53,29 @@ $(function() {
         </div>
         <div class="clearfix"></div>
         @foreach ($businesses as $business)
+            <?php
+                $slots = $business->getASNextTimeSlots($now->toDateString(), $now->hour);
+                $count = 0;
+            ?>
+            @if(!empty($slots))
             <div class="available-slot col-md-3 col-sm-3">
                 <img src="{{ asset('assets/img/slides/1.jpg') }}" alt="" class="img-responsive" />
                 <div class="info text-left">
                     <h4>{{ $business->business_name }}</h4>
                     <p>{{ $business->address }}</p>
-                    @foreach ($business->getASNextTimeSlots($now->toDateString(), $now->hour) as $slot)
-                        <a href="#" class="btn btn-sm btn-default">{{ $slot['time'] }}</a>
+                    @foreach ($slots as $slot)
+                        <?php if($count === 3) break;?>
+                        <a href="{{ route('business.index', [
+                            'service_id'  => $slot['service'],
+                            'employee_id' => $slot['employee'],
+                            'hour'        => $slot['hour'],
+                            'minute'      => $slot['minute']
+                        ])}}" class="btn btn-sm btn-default">{{ $slot['time'] }}</a>
+                        <?php $count++;?>
                     @endforeach
                 </div>
             </div>
+            @endif
         @endforeach
     </div>
 

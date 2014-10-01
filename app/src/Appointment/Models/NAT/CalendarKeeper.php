@@ -80,13 +80,14 @@ class CalendarKeeper {
                     if($cell == 15) {
                         $length += $cell;
                         if ($length == $serviceLength) {
-                            $nextAvailable[] = [
+                            $time = sprintf('%d:%d', $hour, $minute);
+                            $nextAvailable[$time] = [
                                 'user'     => $user,
-                                'employee' => $employee,
+                                'employee' => $employee->id,
                                 'date'     => $date,
                                 'service'  => $services[$employee->id]['id'],
                                 'price'    => $services[$employee->id]['price'],
-                                'time'     => sprintf('%d:%d', $hour, $minute),
+                                'time'     => $time,
                                 'hour'     => $hour,
                                 'minute'   => $minute
                             ];
@@ -104,6 +105,13 @@ class CalendarKeeper {
                 }
             }
         }
+        //low to high
+        usort($nextAvailable, function($a, $b){
+            if ($a['hour'] === $b['hour']) {
+                return 0;
+            }
+            return ($a['hour'] < $b['hour']) ? -1 : 1;
+        });
         return $nextAvailable;
     }
 
