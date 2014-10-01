@@ -165,17 +165,15 @@
   color: #fff;
   font-size: 13px;
   text-align: left;
-  padding: 0 10px;
+  padding: 0;
 }
-.as-col li.booked a {
+.as-col li.booked > a {
   color: #fff;
-}
-.as-col li.booked span {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 135px;
-  display: inline-block;
+  width: 160px;
+  padding: 0 10px;
 }
 .as-col li.booked span.caret {
   width: auto;
@@ -275,16 +273,15 @@ div.tooltip-inner {
 .panel-heading {
   cursor: pointer;
 }
-.popover_form {
-  width: 350px;
-}
 /* for using with select2 */
 .popover {
   max-width: 600px;
-  height: 300px;
+  height: 190px;
   width: auto;
 }
-.as-col li.booked .popover_form a.js-btn-view-booking {
-  margin: 5px 0;
-  color: #333333;
+.popover .popover_form {
+  width: 350px;
+}
+.popover .popover_form .form-group {
+  margin: 0 0 15px 0;
 }

@@ -267,16 +267,24 @@ class Bookings extends AsBase
 
     public function doModifyBooking()
     {
-        $resultStatus        = $this->changeStatus();
-        $resultExtraServices = $this->handleExtraModifiedTimes();
+        $resultStatus = $this->changeStatus();
+        $isSuccessful = false;
+        if (Input::get('booking_status') === 'cancelled' && $resultStatus['success']) {
+            $isSuccessful = true;
+        } else {
+            $resultExtraServices = $this->handleExtraModifiedTimes();
+            if ($resultStatus['success'] && $resultExtraServices['success']) {
+                $isSuccessful = true;
+            }
+        }
 
-        if ($resultStatus['success'] && $resultExtraServices['success']) {
+        if ($isSuccessful) {
             return Response::json([
                 'success'=> true,
                 'message'=> trans('as.bookings.modify_booking_successful'),
             ]);
-        } else if($resultExtraServices['success'] === false
-            && $resultExtraServices['status'] === 500){
+        } else {
+            // TODO: this error message is for debugging since it can be various cases
             return Response::json([
                 'success'=> false,
                 'message'=> $resultExtraServices['message'],
@@ -323,8 +331,7 @@ class Bookings extends AsBase
 
         $data['success'] = true;
 
-        if($isBookable)
-        {
+        if ($isBookable) {
             $booking->total              = $total;
             $booking->total_price        = $booking->total_price + $extraServicePrice;
             $booking->end_at             = $newEndTime->toTimeString();
@@ -343,7 +350,6 @@ class Bookings extends AsBase
                 $bookingExtraService->extraService()->associate($extraService);
                 $bookingExtraService->save();
             }
-
         } else {
             $data['success'] = false;
             $data['message'] =  trans('as.bookings.error.not_enough_slots');

@@ -22,12 +22,11 @@
             );
             ?>
             @if(strpos($slotClass, 'slot-booked-head') !== false)
-            <span class="customer-tooltip" title="{{{ $tooltip }}}">
+            <a href="{{ route('as.bookings.modify-form') }}" class="btn-plus btn-popover popup-ajax customer-tooltip" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click" title="{{{ $tooltip }}}">
                 {{{ $consumerName }}} {{{ $serviceDescription }}}
-            </span>
-            <a href="{{ route('as.bookings.modify-form') }}" class="btn-plus btn-popover popup-ajax" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click"><i class="fa fa-plus"></i></a>
+            </a>
             @else
-           <a href="{{ route('as.bookings.modify-form') }}" class="btn-popover popup-ajax" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click">&nbsp;</a>
+            <a href="{{ route('as.bookings.modify-form') }}" class="btn-popover popup-ajax" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click">&nbsp;</a>
             @endif
         @endif
     @elseif(strpos(trim($slotClass), 'freetime') === 0)

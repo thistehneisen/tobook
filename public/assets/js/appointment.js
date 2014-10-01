@@ -19,9 +19,9 @@
         });
 
         $(document).bind("ajaxSend", function () {
-           $("#loading").show();
+            $("#loading").show();
         }).bind("ajaxComplete", function () {
-           $("#loading").hide();
+            $("#loading").hide();
         });
         $('#form-bulk').on('submit', function (e) {
             e.preventDefault();
@@ -128,7 +128,9 @@
             $('a.popup-ajax').each(function () {
                 //the 'is' for buttons that trigger popups
                 //the 'has' for icons within a button that triggers a popup
-                if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                if (!$(this).is(e.target)
+                        && $(this).has(e.target).length === 0
+                        && $('.popover').has(e.target).length === 0) {
                     $(this).popover('hide');
                 }
             });
@@ -149,6 +151,7 @@
             $('a.popup-ajax').popover('hide');
         }).popover({
             html: true,
+            template: '<div class="popover" role="tooltip"><div class="arrow"></div><div class="popover-content"></div></div>',
             content: function () {
                 var div_id =  "tmp-id-" + $.now(),
                     booking_id = $(this).data('booking-id');

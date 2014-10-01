@@ -1,22 +1,24 @@
-<form id="modify_booking_form_{{ $booking->id }}" class="popover_form" action="">
+<form id="modify_booking_form_{{ $booking->id }}" class="popover_form form-horizontal" action="">
+    {{--
     <div>
           <span class="text-info"><strong>{{ trans('as.bookings.modify_booking')}}</strong><span id="loading" style="display:none"><img src="{{ asset('assets/img/busy.gif') }}"/></span></span><button type="button" onclick="$(this).closest('div.popover').popover('hide');" class="close" data-dismiss="popover">&times;</button>
             <hr>
     </div>
-    <div>
-        <div class="col-sm-4"><label for="extra_services">{{ trans('as.bookings.extra_service') }}</label></div>
+    --}}
+    <div class="form-group">
+        <label for="extra_services" class="col-sm-4">{{ trans('as.bookings.extra_service') }}</label>
         <div class="col-sm-8">
-            {{ Form::select('extra_services[]', $extraServices, 0 , array('class'=> 'selectpicker form-control input-sm','multiple' => true)); }}
+            {{ Form::select('extra_services[]', $extraServices, 0 , array('class'=> 'selectpicker form-control input-sm', 'multiple' => true)); }}
         </div>
     </div>
-    <div>
-        <div class="col-sm-4"><label for="booking_status">{{ trans('as.bookings.status') }}</label></div>
+    <div class="form-group">
+        <label for="booking_status" class="col-sm-4">{{ trans('as.bookings.status') }}</label>
         <div class="col-sm-8">
-            {{ Form::select('booking_status', $bookingStatuses, $booking->getStatusText() , array('class'=> 'selectpicker form-control input-sm')); }}
+            {{ Form::select('booking_status', $bookingStatuses, $booking->getStatusText() , array('class'=> 'form-control input-sm')); }}
         </div>
     </div>
-    <div>
-        <div class="col-sm-4"><label for="modify_times">{{ trans('as.bookings.modify_time') }} </label></div>
+    <div class="form-group">
+        <label for="modify_times" class="col-sm-4">{{ trans('as.bookings.modify_time') }}</label>
         <div class="col-sm-8">
             <div class="input-group input-group-sm spinner" data-inc="15">
                 {{ Form::text('modify_times', isset($modifyTime) ? $modifyTime : 0, ['class' => 'form-control input-sm', 'id' => 'modify_times']) }}
@@ -27,34 +29,23 @@
             </div>
         </div>
     </div>
-    <div>
-        <div class="col-sm-4">&nbsp;</div>
-        <div class="col-sm-8">
+    <div class="form-group">
+        <div class="col-sm-12">
+            <input type="hidden" name="booking_id" value="{{ $booking->id }}"/>
             <?php
                 $bookingStartTime = with(new Carbon\Carbon($booking->start_at))->format('H:i');
                 $bookingService = $booking->bookingServices()->first();
                 $employee = $bookingService->employee;
             ?>
-            <a class="js-btn-view-booking btn btn-sm btn-default" href="#"
+            <a class="js-btn-view-booking btn btn-sm btn-default pull-left" href="#"
                 data-start-time="{{ $bookingStartTime }}"
                 data-booking-id="{{ $booking->id }}"
                 data-employee-id="{{ $employee->id }}">
-                <i class="glyphicon glyphicon-pencil"></i> {{ trans('common.edit') }}
+                <i class="glyphicon glyphicon-pencil"></i> {{ trans('as.bookings.modify_booking') }}
             </a>
-        </div>
-    </div>
-    <div>
-        <hr>
-    </div>
-    <div>
-        <div class="col-sm-12">
-            <input type="hidden" name="booking_id" value="{{ $booking->id }}"/>
             <a class="btn btn-danger btn-sm pull-right" style="margin-left:5px" onclick="$(this).closest('div.popover').popover('hide');" class="close" aria-hidden="true">{{ trans('common.cancel') }}</a>
             <a href="#" id="btn-submit-modify-form" data-booking-id="{{ $booking->id }}" data-action-url="{{ route('as.bookings.modify-form') }}" class="btn btn-primary btn-sm pull-right">{{ trans('common.save') }}</a>
         </div>
-    </div>
-    <div>
-        &nbsp;
     </div>
 </form>
 <script type="text/javascript">

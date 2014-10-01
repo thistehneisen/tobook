@@ -180,16 +180,14 @@
         color: #fff;
         font-size: 13px;
         text-align: left;
-        padding: 0 10px;
-        a {
+        padding: 0;
+        & > a {
             color: #fff;
-        }
-        span {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            width: 135px;
-            display: inline-block;
+            width: 160px;
+            padding: 0 10px;
         }
         span.caret {
             width: auto;
@@ -297,16 +295,17 @@ div.tooltip-inner {
     cursor: pointer;
 }
 
-.popover_form {
-    width: 350px;
-}
 /* for using with select2 */
 .popover {
     max-width: 600px;
-    height: 300px;
+    height: 190px;
     width: auto;
-}
-.as-col li.booked .popover_form a.js-btn-view-booking {
-    margin: 5px 0;
-    color : @text_dark;
+
+    .popover_form {
+        width: 350px;
+
+        .form-group {
+            margin: 0 0 15px 0;
+        }
+    }
 }
