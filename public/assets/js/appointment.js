@@ -124,6 +124,12 @@
         });
 
         // ------------------------ Button handlers ------------------------ //
+        $('body').on('click', function (e) {
+            if ($(e.target).data('toggle') !== 'popover'
+                && $(e.target).parents('.popover.in').length === 0) {
+                $('a.popup-ajax').popover('hide');
+            }
+        });
         function details_in_popup(link, div_id, booking_id) {
             $.ajax({
                 url: link,
@@ -136,6 +142,8 @@
         }
         $('a.popup-ajax').click(function (e) {
             e.preventDefault();
+            // Hide previous open popover
+            $('a.popup-ajax').popover('hide');
         }).popover({
             html: true,
             content: function () {
@@ -308,7 +316,7 @@
                 });
             }
         });
-        $('a.js-btn-view-booking').click(function (e) {
+        $(document).on('click', 'a.js-btn-view-booking', function (e) {
             e.preventDefault();
             var booking_id = $(this).data('booking-id');
             $('#employee_id').val($(this).data('employee-id'));

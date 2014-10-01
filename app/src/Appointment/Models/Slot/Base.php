@@ -203,7 +203,7 @@ class Base implements Strategy
                     } else {
                         $this->class .= $this->getValue('booked_body');
                     }
-                    $this->bookedSlot[$this->date][$start->hour][$start->minute] = $booking;
+                    $this->bookedSlot[$this->date][$this->rowTime->hour][$this->rowTime->minute] = $booking;
                 }
             }
         }

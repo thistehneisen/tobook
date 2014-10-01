@@ -21,17 +21,14 @@
                 $bookingStartTime, $bookingEndTime, $consumerName, $serviceDescription, $bookingNote
             );
             ?>
+            @if(strpos($slotClass, 'slot-booked-head') !== false)
             <span class="customer-tooltip" title="{{{ $tooltip }}}">
-                <a class="js-btn-view-booking" href="#"
-                    data-start-time="{{ $bookingStartTime }}"
-                    data-booking-id="{{ $booking->id }}"
-                    data-employee-id="{{ $selectedEmployee->id }}">
-                    {{{ $consumerName }}} {{{ $serviceDescription }}}
-                </a>
+                {{{ $consumerName }}} {{{ $serviceDescription }}}
             </span>
             <a href="{{ route('as.bookings.modify-form') }}" class="btn-plus popup-ajax" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click"><i class="fa fa-plus"></i></a>
-        @else
-            &nbsp;
+            @else
+           <a href="{{ route('as.bookings.modify-form') }}" class="btn-popover popup-ajax" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click">&nbsp;</a>
+            @endif
         @endif
     @elseif(strpos(trim($slotClass), 'freetime') === 0)
         <?php $freetime = $selectedEmployee->getFreetime($selectedDate, $hour, $minuteShift); ?>

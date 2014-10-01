@@ -222,6 +222,12 @@
   border-top: 0;
   border-bottom: 0;
 }
+.as-col li.slot-booked-body .btn-popover {
+  margin: 0px;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
 .as-col li.active:hover,
 .as-col li.inactive:hover {
   background: #ec7923 !important;
@@ -275,6 +281,10 @@ div.tooltip-inner {
 /* for using with select2 */
 .popover {
   max-width: 600px;
-  height: 250px;
+  height: 300px;
   width: auto;
+}
+.as-col li.booked .popover_form a.js-btn-view-booking {
+  margin: 5px 0;
+  color: #333333;
 }

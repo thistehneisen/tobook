@@ -42,7 +42,7 @@ $(function() {
 <div class="container text-center">
 
     <!-- Next available time slot -->
-    <div class="row">
+    <div class="row" id="next-available-slots">
         <h3 class="comfortaa">{{ trans('Next available time slot') }}</h3>
         <div class="form-group col-md-4 col-md-offset-4">
         <select class="form-control input-sm" name="business_category" id="business_category">
