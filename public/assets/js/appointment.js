@@ -5,11 +5,11 @@
 (function ($) {
     $(function () {
         $('.customer-tooltip').tooltip({
-            'selector': '',
-            'placement': 'top',
-            'container': 'body',
-            'trigger': 'hover',
-            'html': true
+            selector: '',
+            placement: 'top',
+            container: 'body',
+            trigger: 'hover',
+            html: true
         });
 
         $('.selectpicker').selectpicker();
@@ -157,6 +157,12 @@
                 var div_id =  "tmp-id-" + $.now(),
                     booking_id = $(this).data('booking-id');
                 return details_in_popup($(this).attr('href'), div_id, booking_id);
+            }
+        });
+        $('[data-toggle=popover]').on('shown.bs.popover', function () {
+            if ($('.popover').position().top < 0) {
+                $('.popover').css('top', parseInt($('.popover').css('top'), 10) + 85 + 'px');
+                $('.popover .arrow').css('top', '15px');
             }
         });
         $(document).on('click', '#btn-submit-modify-form', function (e) {
