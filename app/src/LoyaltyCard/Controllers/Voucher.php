@@ -11,7 +11,7 @@ class Voucher extends Base
     protected $crudOptions = [
         'modelClass'    => 'App\LoyaltyCard\Models\Voucher',
         'langPrefix'    => 'loyalty-card',
-        'layout'        => 'layouts.default',
+        'layout'        => 'modules.lc.layout',
         'indexFields'   => ['name', 'required', 'value', 'type', 'is_active'],
         'lomake' => [
             'type' => [
