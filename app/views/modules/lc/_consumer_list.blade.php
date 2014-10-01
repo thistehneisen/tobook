@@ -6,7 +6,7 @@
         <thead>
             <tr>
                 <th class="no-display">{{ trans('loyalty-card.number') }}</th>
-                <th>{{ trans('loyalty-card.consumer') }}</th>
+                <th>{{ trans('loyalty-card.consumer.index') }}</th>
                 <th class="no-display">{{ trans('co.email') }}</th>
                 <th class="no-display">{{ trans('co.phone') }}</th>
                 <th>{{ trans('loyalty-card.last_visited') }}</th>

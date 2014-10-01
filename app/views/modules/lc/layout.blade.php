@@ -12,6 +12,21 @@
 @section ('scripts')
     @parent
     {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
+
+    <script>
+    $(function() {
+        $('table.table-crud').find('a.btn-danger').click('on', function(event) {
+            event.preventDefault();
+            var $this = $(this);
+
+            alertify.confirm('{{ trans('olut::olut.confirm') }}', function (e) {
+                if (e) {
+                    window.location = $this.attr('href');
+                }
+            });
+        });
+    });
+    </script>
 @stop
 
 @section ('nav-admin')
@@ -29,9 +44,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="admin-menu">
             <ul class="nav navbar-nav nav-admin nav-as">
-                <li><a href="{{ route('consumers.index') }}"><i class="fa fa-group"></i> {{ trans('loyalty-card.consumer_management') }}</a></li>
-                <li><a href="{{ route('offers.index') }}"><i class="fa fa-gift"></i> {{ trans('loyalty-card.offers') }}</a></li>
-                <li><a href="{{ route('vouchers.index') }}"><i class="fa fa-money"></i> {{ trans('loyalty-card.vouchers') }}</a></li>
+                <li><a href="{{ route('consumers.index') }}"><i class="fa fa-group"></i> {{ trans('loyalty-card.consumer.index') }}</a></li>
+                <li><a href="{{ route('offers.index') }}"><i class="fa fa-gift"></i> {{ trans('loyalty-card.offer.index') }}</a></li>
+                <li><a href="{{ route('vouchers.index') }}"><i class="fa fa-money"></i> {{ trans('loyalty-card.voucher.index') }}</a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->

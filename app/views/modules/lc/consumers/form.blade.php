@@ -1,6 +1,4 @@
-@if ($layout)
-    @extends ($layout)
-@endif
+@extends('modules.lc.layout')
 
 @section ('content')
     @if ($showTab === true)

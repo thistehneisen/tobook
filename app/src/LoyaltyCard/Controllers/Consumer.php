@@ -16,15 +16,39 @@ class Consumer extends Base
     protected $viewPath = 'modules.lc.consumers';
     protected $crudOptions = [
         'modelClass'    => 'App\LoyaltyCard\Models\Consumer',
-        'langPrefix'    => 'loyalty-card',
+        'langPrefix'    => 'loyalty-card.consumer',
         'layout'        => 'layouts.default',
-        'showTab'       => true,
+        'indexFields'   => ['name', 'email', 'phone', 'updated_at'],
     ];
 
     public function __construct(ConsumerRepository $consumerRp)
     {
         parent::__construct();
         $this->consumerRepository = $consumerRp;
+    }
+
+    public function search()
+    {
+        $search = e(Input::get('q'));
+
+        $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
+
+        $items = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
+                        ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
+                        ->where('consumer_user.user_id', Confide::user()->id)
+                        ->where('lc_consumers.user_id', Confide::user()->id)
+                        ->where(function($q) use ($search) {
+                            $q->where('consumers.first_name', 'like', '%' . $search . '%')
+                            ->orWhere('consumers.last_name', 'like', '%' . $search . '%')
+                            ->orWhere('consumers.email', 'like', '%' . $search . '%')
+                            ->orWhere('consumers.phone', 'like', '%' . $search . '%');
+                        })
+                        ->paginate($perPage);
+
+        // Disable sorting items
+        $this->crudSortable = false;
+
+        return $this->renderList($items);
     }
 
     protected function upsertHandler($item)

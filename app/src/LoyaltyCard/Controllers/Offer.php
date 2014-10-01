@@ -10,9 +10,9 @@ class Offer extends Base
     protected $viewPath = 'modules.lc.offers';
     protected $crudOptions = [
         'modelClass'    => 'App\LoyaltyCard\Models\Offer',
-        'langPrefix'    => 'loyalty-card',
-        'layout'        => 'layouts.default',
-        'indexFields'   => ['name', 'required', 'total_used', 'is_auto_add', 'is_active'],
+        'langPrefix'    => 'loyalty-card.offer',
+        'layout'        => 'modules.lc.layout',
+        'indexFields'   => ['name', 'required', 'is_auto_add', 'is_active'],
     ];
 
     protected function upsertHandler($item)
