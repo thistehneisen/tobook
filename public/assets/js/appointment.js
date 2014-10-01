@@ -8,6 +8,7 @@
             'selector': '',
             'placement': 'top',
             'container': 'body',
+            'trigger': 'hover',
             'html': true
         });
 
