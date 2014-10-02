@@ -5,17 +5,8 @@ use App\Appointment\Controllers\Embed;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\Employee;
 
-class Layout3 extends Embed
+class Layout3 extends Base
 {
-    /**
-     * @{@inheritdoc}
-     */
-    protected function render($tpl, $data = [])
-    {
-        // No need to getLayout() everytime
-        return parent::render($this->getLayout().'.'.$tpl, $data);
-    }
-
     /**
      * Get all employees available for a service
      *

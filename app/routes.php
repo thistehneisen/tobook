@@ -388,17 +388,12 @@ Route::group([
 */
 Route::group([
     'prefix' => 'embed'
-], function() {
+], function () {
 
     // Appointment scheduler
     Route::group([
         'prefix' => 'as'
-    ], function() {
-
-        Route::get('get-extra-service-form', [
-            'as' => 'as.embed.extra.form',
-            'uses' => 'App\Appointment\Controllers\Embed@getExtraServiceForm'
-        ]);
+    ], function () {
 
         Route::post('bookings/add-front-booking-service', [
             'as' => 'as.bookings.service.front.add',
@@ -415,11 +410,22 @@ Route::group([
             'uses' => 'App\Appointment\Controllers\FrontBookings@removeBookingServiceInCart'
         ]);
 
-        Route::post('add-confirm-info', [
-            'as' => 'as.embed.confirm',
-            'uses' => 'App\Appointment\Controllers\Embed@addConfirmInfo'
+        //----------------------------------------------------------------------
+        // Layout 1
+        //----------------------------------------------------------------------
+        Route::get('get-extra-service-form', [
+            'as' => 'as.embed.extra.form',
+            'uses' => 'App\Appointment\Controllers\Embed\Layout1@getExtraServiceForm'
         ]);
 
+        Route::post('add-confirm-info', [
+            'as' => 'as.embed.confirm',
+            'uses' => 'App\Appointment\Controllers\Embed\Layout1@addConfirmInfo'
+        ]);
+
+        //----------------------------------------------------------------------
+        // Layout 3
+        //----------------------------------------------------------------------
         Route::post('layout-3/employees', [
             'as' => 'as.embed.employees',
             'uses' => 'App\Appointment\Controllers\Embed\Layout3@getEmployees'
@@ -442,7 +448,7 @@ Route::group([
 
         Route::get('{hash}', [
             'as' => 'as.embed.embed',
-            'uses' => 'App\Appointment\Controllers\Embed@embed'
+            'uses' => 'App\Appointment\Controllers\Embed\Base@index'
         ]);
     });
 });
@@ -926,7 +932,7 @@ Route::group([
 Route::group([
     'prefix' => 'images',
     'before' => ['auth']
-], function() {
+], function () {
 
     Route::post('upload', [
         'as' => 'images.upload',
@@ -948,7 +954,7 @@ Route::group([
 Route::group([
     'prefix' => 'flash-deal',
     'before' => ['auth']
-], function() {
+], function () {
 
     // Services
     \App\FlashDeal\Controllers\Services::crudRoutes(
@@ -1005,7 +1011,6 @@ Route::group([
     ]);
 
     App\Core\Controllers\Admin\Users::crudRoutes('users', 'admin.users');
-
 
     Route::get('users/login/{id}', [
         'as' => 'admin.users.login',
