@@ -29,21 +29,11 @@ class Consumer extends Base
 
     public function search()
     {
-        $search = e(Input::get('q'));
+        $q = e(Input::get('q'));
 
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
 
-        $items = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-                        ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-                        ->where('consumer_user.user_id', Confide::user()->id)
-                        ->where('lc_consumers.user_id', Confide::user()->id)
-                        ->where(function($q) use ($search) {
-                            $q->where('consumers.first_name', 'like', '%' . $search . '%')
-                            ->orWhere('consumers.last_name', 'like', '%' . $search . '%')
-                            ->orWhere('consumers.email', 'like', '%' . $search . '%')
-                            ->orWhere('consumers.phone', 'like', '%' . $search . '%');
-                        })
-                        ->paginate($perPage);
+        $items = $this->consumerRepository->getAllConsumers($q, $perPage);
 
         // Disable sorting items
         $this->crudSortable = false;
@@ -81,6 +71,7 @@ class Consumer extends Base
                 $core = Core::find($existedConsumer->id);
             } else {
                 $core = Core::make(Input::all());
+                $core->users()->detach($this->user->id);
             }
 
             $core->users()->attach($this->user, ['is_visible' => true]);
@@ -136,6 +127,8 @@ class Consumer extends Base
         $items = $query->paginate($perPage);
 
         if ($isApp) {
+            $items = $this->consumerRepository->getAllConsumers($search);
+
             return View::make('modules.lc.app.index')
                         ->with('items', $items);
         } else {
