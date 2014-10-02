@@ -14,22 +14,96 @@ Route::pattern('slug', '[a-z0-9-]+');
 |
 */
 
-Route::get('/', [
-    'as'    => 'home',
-    'uses'  => 'App\Core\Controllers\Front@home'
+/*
+|--------------------------------------------------------------------------
+| Front pages routes
+|--------------------------------------------------------------------------
+*/
+Route::group([], function () {
+    Route::get('/', [
+        'as'    => 'home',
+        'uses'  => 'App\Core\Controllers\Front@home'
+    ]);
+
+    Route::get('about', [
+        'as' => 'front.about',
+        'uses' => 'App\Core\Controllers\Front@about',
+    ]);
+
+    Route::get('contact', [
+        'as' => 'front.contact',
+        'uses' => 'App\Core\Controllers\Front@about',
+    ]);
+
+    Route::get('partners', [
+        'as' => 'front.partners',
+        'uses' => 'App\Core\Controllers\Front@partners',
+    ]);
+
+    Route::get('resellers', [
+        'as' => 'front.resellers',
+        'uses' => 'App\Core\Controllers\Front@resellers',
+    ]);
+
+    Route::get('media-companies', [
+        'as' => 'front.media',
+        'uses' => 'App\Core\Controllers\Front@media',
+    ]);
+
+    Route::get('directories', [
+        'as' => 'front.directories',
+        'uses' => 'App\Core\Controllers\Front@directories',
+    ]);
+
+    Route::group(['prefix' => 'business'], function () {
+        Route::get('/', [
+            'as'    => 'intro-business',
+            'uses'  => 'App\Core\Controllers\Front@businessIndex'
+        ]);
+
+        Route::get('website-list', [
+            'as' => 'intro-website-list',
+            'uses' => 'App\Core\Controllers\Front@businessWebsiteList',
+        ]);
+
+        Route::get('loyalty', [
+            'as' => 'intro-loyalty',
+            'uses' => 'App\Core\Controllers\Front@businessLoyalty',
+        ]);
+
+        Route::get('online-booking', [
+            'as'    => 'intro-online-booking',
+            'uses'  => 'App\Core\Controllers\Front@businessOnlineBooking',
+        ]);
+
+        Route::get('customer-registration', [
+            'as' => 'intro-customer-registration',
+            'uses' => 'App\Core\Controllers\Front@businessMarketingTools',
+        ]);
+
+        Route::get('cashier', [
+            'as' => 'intro-cashier',
+            'uses' => 'App\Core\Controllers\Front@businessCashier',
+        ]);
+
+        Route::get('marketing-tools', [
+            'as' => 'intro-marketing-tools',
+            'uses' => 'App\Core\Controllers\Front@businessMarketingTools',
+        ]);
+    });
+});
+
+// JS localization
+Route::get('jslocale.json', [
+    'as'    => 'ajax.jslocale',
+    'uses'  => 'App\Core\Controllers\Ajax\JsLocale@getJsLocale'
 ]);
 
-
-Route::get('/cancel/as/{uuid}', [
-    'as' => 'as.bookings.cancel',
-    'uses' => 'App\Appointment\Controllers\Bookings@cancel'
-]);
-
-Route::get('/cancel/as/do/{uuid}', [
-    'as' => 'as.bookings.doCancel',
-    'uses' => 'App\Appointment\Controllers\Bookings@doCancel'
-]);
-
+/*
+|--------------------------------------------------------------------------
+| Search Routes
+|--------------------------------------------------------------------------
+*/
 Route::group(['prefix' => 'search'], function () {
     Route::get('/', [
         'as'    => 'search',
@@ -49,53 +123,6 @@ Route::group(['prefix' => 'search'], function () {
     Route::get('business/{id}', [
         'as'    => 'ajax.showBusiness',
         'uses'  => 'App\Core\Controllers\Ajax\Search@showBusiness'
-    ]);
-});
-
-Route::get('jslocale.json', [
-    'as'    => 'ajax.jslocale',
-    'uses'  => 'App\Core\Controllers\Ajax\JsLocale@getJsLocale'
-]);
-
-/*
-|--------------------------------------------------------------------------
-| Business introduction routes
-|--------------------------------------------------------------------------
-*/
-Route::group(['prefix' => 'business'], function () {
-    Route::get('/', [
-        'as'    => 'business.index',
-        'uses'  => 'App\Core\Controllers\Front@businessIndex'
-    ]);
-
-    Route::get('website-list', [
-        'as' => 'intro-website-list',
-        'uses' => 'App\Core\Controllers\Front@businessWebsiteList',
-    ]);
-
-    Route::get('loyalty', [
-        'as' => 'intro-loyalty',
-        'uses' => 'App\Core\Controllers\Front@businessLoyalty',
-    ]);
-
-    Route::get('online-booking', [
-        'as'    => 'intro-online-booking',
-        'uses'  => 'App\Core\Controllers\Front@businessOnlineBooking',
-    ]);
-
-    Route::get('customer-registration', [
-        'as' => 'intro-customer-registration',
-        'uses' => 'App\Core\Controllers\Front@businessMarketingTools',
-    ]);
-
-    Route::get('cashier', [
-        'as' => 'intro-cashier',
-        'uses' => 'App\Core\Controllers\Front@businessCashier',
-    ]);
-
-    Route::get('marketing-tools', [
-        'as' => 'intro-marketing-tools',
-        'uses' => 'App\Core\Controllers\Front@businessMarketingTools',
     ]);
 });
 
@@ -418,6 +445,25 @@ Route::group([
             'uses' => 'App\Appointment\Controllers\Embed@embed'
         ]);
     });
+});
+
+/*
+|--------------------------------------------------------------------------
+| Cancel routes
+|--------------------------------------------------------------------------
+*/
+Route::group([
+    'prefix' => 'cancel',
+], function () {
+    Route::get('as/{uuid}', [
+        'as' => 'as.bookings.cancel',
+        'uses' => 'App\Appointment\Controllers\Bookings@cancel'
+    ]);
+
+    Route::get('as/do/{uuid}', [
+        'as' => 'as.bookings.doCancel',
+        'uses' => 'App\Appointment\Controllers\Bookings@doCancel'
+    ]);
 });
 
 /*

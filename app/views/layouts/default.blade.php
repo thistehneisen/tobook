@@ -172,16 +172,17 @@
 
             <div class="col-md-4 col-lg-4">
                 <ul class="list-unstyled">
-                    <li><a href="{{ route('business.index') }}">{{ trans('common.for_business') }}</a></li>
-                    {{--
-                    @if (Confide::user())
-                    <li><a href="{{ route('auth.logout') }}">{{ trans('common.sign_out') }}</a></li>
-                    @else
-                    <li><a href="{{ route('business.index') }}">{{ trans('common.for_business') }}</a></li>
-                    <li><a href="{{ route('auth.register') }}">{{ trans('common.register') }}</a></li>
-                    <li><a href="{{ route('auth.login') }}">{{ trans('common.sign_in_header') }}</a>
-                    @endif
-                    --}}
+                    <li><a href="{{ route('front.about') }}">{{ trans('About us') }}</a></li>
+                    <li><a href="{{ route('front.contact') }}">{{ trans('Contact us') }}</a></li>
+                    <li><a href="{{ route('intro-business') }}">{{ trans('common.for_business') }}</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4 col-lg-4">
+                <ul class="list-unstyled">
+                    <li><a href="{{ route('front.partners') }}">{{ trans('Partners') }}</a></li>
+                    <li><a href="{{ route('front.resellers') }}">{{ trans('Resellers') }}</a></li>
+                    <li><a href="{{ route('front.media') }}">{{ trans('Media companies') }}</a></li>
+                    <li><a href="{{ route('front.directories') }}">{{ trans('Directories') }}</a></li>
                 </ul>
             </div>
         </div>

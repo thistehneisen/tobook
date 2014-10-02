@@ -481,6 +481,11 @@
 .intro .weblist-item-icon-thumb img {
   width: 100%;
 }
+.intro .highlight {
+  background: #ef8f48;
+  color: #fff !important;
+  padding: 5px 10px 10px 10px;
+}
 .grey-divider {
   border: none !important;
   margin-top: 0 !important;

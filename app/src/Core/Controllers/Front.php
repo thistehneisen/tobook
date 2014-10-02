@@ -57,6 +57,37 @@ class Front extends Base
         return $categories;
     }
 
+    // flat
+    public function about()
+    {
+        return View::make('front.about');
+    }
+
+    public function contact()
+    {
+        return View::make('front.contact');
+    }
+
+    public function partners()
+    {
+        return View::make('front.partners');
+    }
+
+    public function media()
+    {
+        return View::make('front.media');
+    }
+
+    public function resellers()
+    {
+        return View::make('front.resellers');
+    }
+
+    public function directories()
+    {
+        return View::make('front.directories');
+    }
+
     // for business
     public function businessIndex()
     {
