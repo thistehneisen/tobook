@@ -1,16 +1,10 @@
-<form id="modify_booking_form_{{ $booking->id }}" class="popover_form form-horizontal" action="">
+<form id="modify_booking_form_{{ $booking->id }}" class="popover_form form-horizontal @if(!empty($extraServices)) has-extra-services @endif" action="">
     {{--
     <div>
           <span class="text-info"><strong>{{ trans('as.bookings.modify_booking')}}</strong><span id="loading" style="display:none"><img src="{{ asset('assets/img/busy.gif') }}"/></span></span><button type="button" onclick="$(this).closest('div.popover').popover('hide');" class="close" data-dismiss="popover">&times;</button>
             <hr>
     </div>
     --}}
-    <div class="form-group">
-        <label for="extra_services" class="col-sm-4">{{ trans('as.bookings.extra_service') }}</label>
-        <div class="col-sm-8">
-            {{ Form::select('extra_services[]', $extraServices, 0 , array('class'=> 'selectpicker form-control input-sm', 'multiple' => true)); }}
-        </div>
-    </div>
     <div class="form-group">
         <label for="booking_status" class="col-sm-4">{{ trans('as.bookings.status') }}</label>
         <div class="col-sm-8">
@@ -29,6 +23,16 @@
             </div>
         </div>
     </div>
+
+    <div class="form-group">
+    @if (!empty($extraServices))
+        <label for="extra_services" class="col-sm-4">{{ trans('as.bookings.extra_service') }}</label>
+        <div class="col-sm-8">
+            {{ Form::select('extra_services[]', $extraServices, 0 , array('class'=> 'selectpicker form-control input-sm', 'multiple' => true)); }}
+        </div>
+    @endif
+    </div>
+
     <div class="form-group">
         <div class="col-sm-12">
             <input type="hidden" name="booking_id" value="{{ $booking->id }}"/>
