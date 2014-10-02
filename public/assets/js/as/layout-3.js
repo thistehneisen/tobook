@@ -54,6 +54,9 @@
             }
         });
 
+        // Setup tooltip
+        $('i[data-toggle=tooltip]').tooltip();
+
         form.on('click', 'div.collapsable', function (e) {
             e.preventDefault();
             if ($(e.target).is('#as-datepicker') === false) {

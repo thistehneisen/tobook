@@ -11,7 +11,7 @@
                 <div class="as-service-time">
                     <p>
                         <label class="col-md-4 col-lg-4">
-                            <i class="glyphicon glyphicon-info-sign"></i>
+                            <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="{{ $service->description }}"></i>
                             <input type="radio" name="service_id" value="{{ $service->id }}" data-service="{{ $service->name }}">
                             {{ number_format($service->price) }}&euro;
                         </label>
@@ -21,7 +21,7 @@
                 @foreach ($service->serviceTimes as $item)
                     <p>
                         <label class="col-md-4 col-lg-4">
-                            <i class="glyphicon glyphicon-info-sign"></i>
+                            <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="{{ $service->description }}"></i>
                             <input type="radio" name="service_id" value="{{ $item->id }}" data-service="{{ $service->name }}">
                             {{ number_format($item->price) }}&euro;
                         </label>
