@@ -66,6 +66,8 @@ $(function() {
                     @foreach ($slots as $slot)
                         <?php if($count === 3) break;?>
                         <a href="{{ route('business.index', [
+                            'id'          => $business->id,
+                            'slug'        => $business->slug,
                             'service_id'  => $slot['service'],
                             'employee_id' => $slot['employee'],
                             'hour'        => $slot['hour'],
