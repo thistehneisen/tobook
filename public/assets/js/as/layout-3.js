@@ -62,6 +62,7 @@
             }
         });
 
+        // When user selects a category
         $('input[name=category_id]').on('change', function () {
             var $this = $(this);
             categories.hide(function () {
@@ -69,12 +70,20 @@
             });
         });
 
+        // When user wants to return to category list
         $('p.as-back').on('click', function () {
             services.hide(function () {
                 categories.show();
             });
         });
 
+        // When user clicks on a service name to see its service time
+        $('p.as-service-name').on('click', function () {
+            var $this = $(this);
+            $this.siblings('div.as-service-time').toggle();
+        });
+
+        // When user selects a service time
         $('input[name=service_id]').on('change', function () {
             var $this = $(this);
             title1.find('span').text($this.data('service'));
