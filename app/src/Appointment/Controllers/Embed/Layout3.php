@@ -37,39 +37,18 @@ class Layout3 extends Base
         $today    = Carbon::today();
         $date     = Input::has('date') ? new Carbon(Input::get('date')) : $today;
         $hash     = Input::get('hash');
-
-        $employeeId = (int) Input::get('employeeId');
-        if ($employeeId === -1) {
-            $timetable = $this->getTimetableOfAnyone();
-        } elseif ($employeeId > 0) {
-
-        }
-
-        $employee = Employee::findOrFail();
         $service  = Service::findOrFail(Input::get('serviceId'));
 
         if ($date->lt($today)) {
             $date = $today->copy();
         }
-        $timetable = [];
-        $workingTimes = $this->getDefaultWorkingTimes($date, $hash);
-        foreach ($workingTimes as $hour => $minutes) {
-            foreach ($minutes as $shift) {
-                $slotClass = $employee->getSlotClass(
-                    $date->toDateString(),
-                    $hour,
-                    $shift,
-                    'frontend',
-                    $service
-                );
 
-                $time = $date->copy()->hour($hour)->minute($shift);
-                $isActive = $slotClass === 'active'
-                    || $slotClass === 'custom active';
-                if ($time->gt(Carbon::now()) && $isActive) {
-                    $timetable[] = sprintf('%02d:%02d', $hour, $shift);
-                }
-            }
+        $employeeId = (int) Input::get('employeeId');
+        if ($employeeId === -1) {
+            $timetable = $this->getTimetableOfAnyone($service, $date);
+        } elseif ($employeeId > 0) {
+            $employee = Employee::findOrFail($employeeId);
+            $timetable = $this->getTimetableOfSingle($employee, $service, $date);
         }
 
         $i = 1;
@@ -91,6 +70,54 @@ class Layout3 extends Base
             'next'      => $date->copy()->addDay(),
             'timetable' => $timetable
         ]);
+    }
+
+    /**
+     * The the timetable of all employees and merge them into one
+     *
+     * @param Service $service
+     * @param Carbon  $date
+     *
+     * @return array
+     */
+    protected function getTimetableOfAnyone(Service $service, Carbon $date)
+    {
+        // @TODO
+    }
+
+    /**
+     * Get timetable of a single employee
+     *
+     * @param Employee $employee
+     * @param Service  $service
+     * @param Carbon   $date
+     *
+     * @return array
+     */
+    protected function getTimetableOfSingle(Employee $employee, Service $service, Carbon $date)
+    {
+        $timetable = [];
+        $workingTimes = $this->getDefaultWorkingTimes($date, Input::get('hash'));
+        foreach ($workingTimes as $hour => $minutes) {
+            foreach ($minutes as $shift) {
+                $slotClass = $employee->getSlotClass(
+                    $date->toDateString(),
+                    $hour,
+                    $shift,
+                    'frontend',
+                    $service
+                );
+
+                $time = $date->copy()->hour($hour)->minute($shift);
+                $isActive = $slotClass === 'active'
+                    || $slotClass === 'custom active';
+                if ($time->gt(Carbon::now()) && $isActive) {
+                    $timetable[] = sprintf('%02d:%02d', $hour, $shift);
+                }
+            }
+        }
+
+        return $timetable;
     }
 
     /**
