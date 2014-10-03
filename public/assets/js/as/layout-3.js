@@ -131,7 +131,9 @@
 
         // When user clicks to select a time
         form.on('click', 'button.btn-as-time', function (e) {
-            var $this = $(this);
+            var $this = $(this),
+                panel = step4.find('div.panel-body');
+
             step4.collapse('show');
             title4.addClass('collapsable');
 
@@ -144,12 +146,16 @@
             $('button.btn-as-time.btn-success').removeClass('btn-success');
             $this.addClass('btn-success');
 
+            // Empty existing content first
+            panel.empty();
+
+            // Then make a request to load the form
             $.ajax({
                 url: step4.data('url'),
                 type: 'POST',
                 data: dataStorage
             }).done(function (data) {
-                step4.find('div.panel-body').html(data);
+                panel.html(data);
             });
         });
 
