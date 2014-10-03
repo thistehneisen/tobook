@@ -1,6 +1,9 @@
 .intro {
   margin-bottom: 0 !important;
 }
+.intro .text-center img {
+  margin: 0 auto;
+}
 .intro .btn-lg {
   margin-top: 20px;
 }

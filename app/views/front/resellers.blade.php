@@ -8,13 +8,14 @@
 
 @section('content')
 <div class="row-fluid">
+    <img src="{{ asset('assets/img/front/resellers/1.jpg') }}" class="img-responsive" alt="" />
     <h2 class="text-center">Varaa.com Reseller Network</h2>
 
     <p>Do you want have trouble to cover living expenses? Does your current job not allow you to grow or earn more? Do you want to create your own job security? Join our reseller network and blow all your worries away.</p>
     <p>Varaa.com offer a FREMIUM all-in-one business solution for SME businesses to get exposure in the media channels.</p>
 
-    <div class="highlight row">
-        <div class="col-lg-8 col-sm-8">
+    <div class="highlight clearfix">
+        <div class="col-lg-9 col-sm-8">
             <h3>What we offer you? More than an easy way to raise income</h3>
             <ul>
                 <li>Our solution is very easy to sell. Actually you do not need to sell it, just introduce it</li>
@@ -25,8 +26,8 @@
                 <li>Start building your own team once you reach "platinium level"</li>
             </ul>
         </div>
-        <div class="col-lg-4 col-sm-4">
-
+        <div class="col-lg-3 col-sm-4">
+            <img src="{{ asset('assets/img/front/resellers/2.png') }}" class="img-responsive" alt="" />
         </div>
     </div>
 

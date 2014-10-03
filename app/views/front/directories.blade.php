@@ -8,12 +8,13 @@
 
 @section('content')
 <div class="row-fluid">
+    <img src="{{ asset('assets/img/front/directories/1.jpg') }}" class="img-responsive" alt="" />
     <h2 class="text-center">Varaa.com leading bookable platform</h2>
 
     <p>Take your business to new heights, we’re here to help. We provide you an innovative tool to transform your business into commercialized way and open up new door for revenue opportunities.</p>
 
-    <div class="highlight row">
-        <div class="col-lg-8 col-sm-8">
+    <div class="highlight row" style="padding-bottom:0 !important">
+        <div class="col-lg-9 col-sm-8">
             <h3>How we make it possible for you?</h3>
             <ul>
                 <li>Advance your search engine by adding real-time service availability and details</li>
@@ -22,8 +23,8 @@
                 <li>You get 15% commission from every booking done through your channel</li>
             </ul>
         </div>
-        <div class="col-lg-4 col-sm-4">
-
+        <div class="col-lg-3 col-sm-4">
+            <img src="{{ asset('assets/img/front/directories/2.png') }}" class="img-responsive" alt="" />
         </div>
     </div>
 
