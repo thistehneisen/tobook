@@ -189,6 +189,9 @@
                     loading.hide();
                     submit.removeClass('btn-success')
                         .addClass('btn-danger')
+                    submit.siblings('span.text-success')
+                        .removeClass('text-success')
+                        .addClass('text-danger')
                         .text(message);
                 };
 
