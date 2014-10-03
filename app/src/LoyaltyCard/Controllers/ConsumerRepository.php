@@ -15,7 +15,7 @@ class ConsumerRepository
      * @param  bool $isApi
      * @return Consumer
      */
-    public function getAllConsumers($search = '', $isApi = false)
+    public function getAllConsumers($search = '', $perPage = 10, $isApi = false)
     {
         if ($isApi) {
             $consumers = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
@@ -35,15 +35,15 @@ class ConsumerRepository
                                         ->orWhere('consumers.email', 'like', '%' . $search . '%')
                                         ->orWhere('consumers.phone', 'like', '%' . $search . '%');
                                 })
-                                ->select('lc_consumers.id', 'consumers.first_name', 'consumers.last_name', 'consumers.email', 'consumers.phone', 'lc_consumers.updated_at')
-                                ->paginate(10);
+                                ->select('lc_consumers.id', 'lc_consumers.consumer_id', 'lc_consumers.updated_at')
+                                ->paginate($perPage);
             } else {
                 $consumers = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
                                 ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
                                 ->where('consumer_user.user_id', Confide::user()->id)
                                 ->where('lc_consumers.user_id', Confide::user()->id)
-                                ->select('lc_consumers.id', 'consumers.first_name', 'consumers.last_name', 'consumers.email', 'consumers.phone', 'lc_consumers.updated_at')
-                                ->paginate(10);
+                                ->select('lc_consumers.id', 'lc_consumers.consumer_id', 'lc_consumers.updated_at')
+                                ->paginate($perPage);
             }
         }
 

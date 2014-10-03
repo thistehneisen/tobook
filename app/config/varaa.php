@@ -37,7 +37,7 @@ return [
             'enable' => true,
         ],
         'loyalty' => [
-            'route_name' => 'loyalty.index',
+            'route_name' => 'lc.consumers.index',
             'enable' => true,
         ],
         'marketing' => [

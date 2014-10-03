@@ -1,47 +1,56 @@
 @extends ('layouts.dashboard')
 
-@section('title')
-    @parent :: {{ trans('dashboard.loyalty') }}
+@section ('styles')
+    @parent
+    {{ HTML::style(asset('packages/alertify/alertify.core.css')) }}
+    {{ HTML::style(asset('packages/alertify/alertify.bootstrap.css')) }}
+    <style>
+    .main { margin: 0 auto; }
+    </style>
 @stop
 
-@section('logo')
+@section ('scripts')
+    @parent
+    {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
+
+    <script>
+    $(function() {
+        $('table.table-crud').find('a.btn-danger').click('on', function(event) {
+            event.preventDefault();
+            var $this = $(this);
+
+            alertify.confirm('{{ trans('olut::olut.confirm') }}', function (e) {
+                if (e) {
+                    window.location = $this.attr('href');
+                }
+            });
+        });
+    });
+    </script>
 @stop
 
-@section('styles')
-    {{ HTML::style('assets/css/lc/loyalty.css') }}
-@stop
-
-@section('content')
-    <div class="btn-group-vertical col-md-3">
-        <a class="btn btn-default" href="{{ URL::route('lc.consumers.index') }}">{{ trans('loyalty-card.consumer_management') }}</a>
-        <a class="btn btn-default" href="{{ URL::route('lc.offers.index') }}">{{ trans('loyalty-card.offers') }}</a>
-        <a class="btn btn-default" href="{{ URL::route('lc.vouchers.index') }}">{{ trans('loyalty-card.vouchers') }}</a>
-    </div>
-    <div class="col-md-9">
-        <div class="top-buttons pull-right">
-            @yield('top-buttons')
+@section ('nav-admin')
+<nav class="navbar as-main-nav" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#admin-menu">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
         </div>
-        <div class="clearfix"></div>
-
-        <!-- Modal Dialog -->
-        <div class="modal fade" id="js-confirmDeleteModal" role="dialog" aria-labelledby="js-confirmDeleteModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">{{ trans('loyalty-card.delete_confirmation') }}</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>{{ trans('loyalty-card.delete_question') }}</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('common.cancel') }}</button>
-                        <button type="button" class="btn btn-danger" id="confirm">{{ trans('common.delete') }}</button>
-                    </div>
-                </div>
-            </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="admin-menu">
+            <ul class="nav navbar-nav nav-admin nav-as">
+                <li><a href="{{ route('lc.consumers.index') }}"><i class="fa fa-group"></i> {{ trans('loyalty-card.consumer.index') }}</a></li>
+                <li><a href="{{ route('lc.offers.index') }}"><i class="fa fa-gift"></i> {{ trans('loyalty-card.offer.index') }}</a></li>
+                <li><a href="{{ route('lc.vouchers.index') }}"><i class="fa fa-money"></i> {{ trans('loyalty-card.voucher.index') }}</a></li>
+            </ul>
         </div>
-
-        @yield('sub-content')
+        <!-- /.navbar-collapse -->
     </div>
+    <!-- /.container-fluid -->
+</nav>
 @stop

@@ -162,105 +162,45 @@ class MoveLoyaltyCardCommand extends Command
 
         DB::setTablePrefix($this->oldPrefix);
 
-        $emailCounter = 1;
-        $phoneCounter = 1;
-
         foreach ($result as $item) {
-            $validator = Validator::make([
-                'email' => $item->email,
-                'phone' => $item->phone
-            ], [
-                'email' => 'required|email',
-                'phone' => 'required|numeric'
+            $consumer = new ConsumerModel;
+            $consumer->unguard();
+
+            $coreId = DB::table('consumers')->insertGetId([
+                'first_name'    => $item->first_name,
+                'last_name'     => $item->last_name,
+                'email'         => $item->email,
+                'phone'         => $item->phone,
+                'address'       => $item->address1,
+                'postcode'      => '',
+                'city'          => $item->city,
+                'country'       => '',
+                'created_at'    => $item->created_time,
+                'updated_at'    => $item->updated_time,
             ]);
 
-            if ($validator->fails()) {
-                $item->email = 'consumer' . $emailCounter . '@varaa.com';
-                $item->phone = str_pad($phoneCounter, 10, '0', STR_PAD_LEFT);
-                $emailCounter += 1;
-                $phoneCounter += 1;
+            $consumer->fill([
+                'id'            => $item->loyalty_consumer,
+                'consumer_id'   => $coreId,
+                'user_id'       => $item->owner,
+                'total_points'  => $item->current_score,
+                'total_stamps'  => '',
+                'created_at'    => $item->created_time,
+                'updated_at'    => $item->updated_time,
+            ]);
+
+            $consumer->reguard();
+
+            if ($consumer->save()) {
+                echo "\t{$item->email} new\t\t";
+                $this->info('ADDED TO ALL CONSUMER TABLES');
             }
 
-            $existedConsumer = ConsumerModel::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-                                        ->where('consumers.email', '=', $item->email)
-                                        ->orWhere('consumers.phone', '=', $item->phone)
-                                        ->first();
-
-            if(!$existedConsumer) {
-                $core = new Core;
-                $consumer = new ConsumerModel;
-                $core->unguard();
-                $consumer->unguard();
-                $core->fill([
-                    'id'            => $item->loyalty_consumer,
-                    'first_name'    => $item->first_name,
-                    'last_name'     => $item->last_name,
-                    'email'         => $item->email,
-                    'phone'         => $item->phone,
-                    'address'       => $item->address1,
-                    'postcode'      => '',
-                    'city'          => $item->city,
-                    'country'       => '',
-                    'created_at'    => $item->created_time,
-                    'updated_at'    => $item->updated_time,
-                ]);
-
-                $consumer->fill([
-                    'id'            => $item->loyalty_consumer,
-                    'consumer_id'   => $item->loyalty_consumer,
-                    'user_id'       => $item->owner,
-                    'total_points'  => $item->current_score,
-                    'total_stamps'  => '',
-                    'created_at'    => $item->created_time,
-                    'updated_at'    => $item->updated_time,
-                ]);
-
-                $core->reguard();
-                $consumer->reguard();
-
-                if ($core->save() && $consumer->save()) {
-                    echo "\t{$item->email} new\t\t";
-                    $this->info('ADDED TO ALL CONSUMER TABLES');
-                }
-
-                DB::table('consumer_user')->insert([
-                    'consumer_id'   => $item->loyalty_consumer,
-                    'user_id'       => $item->owner,
-                    'is_visible'    => 1,
-                ]);
-            } else {
-                echo "\t{$item->email} duplicated\t\t";
-
-                try {
-                    $consumer = new ConsumerModel;
-                    $consumer->unguard();
-
-                    $consumer->fill([
-                        'id'            => $item->loyalty_consumer,
-                        'consumer_id'   => $existedConsumer->id,
-                        'user_id'       => $item->owner,
-                        'total_points'  => $item->current_score,
-                        'total_stamps'  => '',
-                        'created_at'    => $item->created_time,
-                        'updated_at'    => $item->updated_time,
-                    ]);
-
-                    $consumer->reguard();
-
-                    if ($consumer->save()) {
-                        $this->info('ADDED TO LC CONSUMER TABLES');
-                    }
-
-                    DB::table('consumer_user')->insert([
-                        'consumer_id'   => $existedConsumer->id,
-                        'user_id'       => $item->owner,
-                        'is_visible'    => 1,
-                    ]);
-                } catch (\Illuminate\Database\QueryException $ex) {
-                    $this->error('Error: ' . $ex->getMessage());
-                }
-
-            }
+            DB::table('consumer_user')->insert([
+                'consumer_id'   => $coreId,
+                'user_id'       => $item->owner,
+                'is_visible'    => 1,
+            ]);
         }
     }
 

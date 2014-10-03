@@ -1,4 +1,4 @@
-@extends ('layouts.default')
+@extends ('layouts.app')
 
 @section ('title')
     NFC Desktop App
@@ -6,27 +6,6 @@
 
 @section('logo')
 <h1 class="text-header">{{ trans('dashboard.loyalty') }}</h1>
-@stop
-
-@section('nav')
-<nav class="row">
-    <div class="col-md-6 text-left">
-        <i class="fa fa-globe"></i>
-        @foreach (Config::get('varaa.languages') as $locale)
-        <a class="language-swicher {{ Config::get('app.locale') === $locale ? 'active' : '' }}" href="{{ UrlHelper::localizeCurrentUrl($locale) }}" title="">{{ strtoupper($locale) }}</a>
-        @endforeach
-    </div>
-    <div class="col-md-6 text-right">
-        <ul class="list-inline nav-links">
-            @if (Confide::user())
-            <li><a href="{{ route('auth.appLogout') }}">{{ trans('common.sign_out') }}</a></li>
-            @endif
-        </ul>
-    </div>
-</nav>
-@stop
-
-@section('footer')
 @stop
 
 @section ('content')

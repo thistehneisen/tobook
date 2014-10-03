@@ -1,34 +1,91 @@
 <?php namespace App\LoyaltyCard\Controllers;
 
-use Input, Session, Redirect, View, Validator, Request, Response;
-use Confide;
+use View, Input, Confide, Config, Request, Response;
+use App\Core\Controllers\Base;
+use App\LoyaltyCard\Controllers\ConsumerRepository as ConsumerRepository;
 use App\Consumers\Models\Consumer as Core;
 use App\LoyaltyCard\Models\Consumer as Model;
 use App\LoyaltyCard\Models\Voucher as VoucherModel;
 use App\LoyaltyCard\Models\Offer as OfferModel;
-use App\Core\Controllers\Base as Base;
-use App\LoyaltyCard\Models\Transaction as TransactionModel;
-use App\LoyaltyCard\Controllers\ConsumerRepository as ConsumerRepository;
 
 class Consumer extends Base
 {
+    use \CRUD;
+
     protected $consumerRepository;
+    protected $viewPath = 'modules.lc.consumers';
+    protected $crudOptions = [
+        'modelClass'    => 'App\LoyaltyCard\Models\Consumer',
+        'langPrefix'    => 'loyalty-card.consumer',
+        'layout'        => 'layouts.default',
+        'indexFields'   => ['name', 'email', 'phone', 'updated_at'],
+    ];
 
     public function __construct(ConsumerRepository $consumerRp)
     {
+        parent::__construct();
         $this->consumerRepository = $consumerRp;
     }
 
-    /**
-     * Make view index for both app and BE
-     * @return View
-     */
-    private function viewIndex($search = '', $isApp = false) {
-        $consumers = $this->consumerRepository->getAllConsumers($search, false);
+    public function search()
+    {
+        $q = e(Input::get('q'));
 
-        $viewName = $isApp ? 'modules.lc.app.index' : 'modules.lc.consumers.index';
-        return View::make($viewName)
-            ->with('consumers', $consumers);
+        $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
+
+        $items = $this->consumerRepository->getAllConsumers($q, $perPage);
+
+        // Disable sorting items
+        $this->crudSortable = false;
+
+        return $this->renderList($items);
+    }
+
+    protected function upsertHandler($item)
+    {
+        $core = $item->consumer;
+
+        if ($core === null) {
+            $duplicatedConsumer = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
+                                ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
+                                ->where('consumer_user.user_id', Confide::user()->id)
+                                ->where('lc_consumers.user_id', Confide::user()->id)
+                                ->where('consumers.first_name', Input::get('first_name'))
+                                ->where('consumers.last_name', Input::get('last_name'))
+                                ->where('consumers.email', Input::get('email'))
+                                ->where('consumers.phone', Input::get('phone'))
+                                ->first();
+
+            $existedConsumer = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
+                                ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
+                                ->where('consumers.first_name', Input::get('first_name'))
+                                ->where('consumers.last_name', Input::get('last_name'))
+                                ->where('consumers.email', Input::get('email'))
+                                ->where('consumers.phone', Input::get('phone'))
+                                ->select('consumers.id')
+                                ->first();
+
+            if ($duplicatedConsumer) {
+                return;
+            } elseif ($existedConsumer) {
+                $core = Core::find($existedConsumer->id);
+            } else {
+                $core = Core::make(Input::all());
+                $core->users()->detach($this->user->id);
+            }
+
+            $core->users()->attach($this->user, ['is_visible' => true]);
+            $item->total_points = 0;
+            $item->total_stamps = '';
+            $item->user()->associate(Confide::user());
+            $item->consumer()->associate($core);
+            $item->saveOrFail();
+        } else {
+            $core->fill(Input::all());
+            $core->save();
+        }
+
+        return $item;
     }
 
     /**
@@ -41,58 +98,41 @@ class Consumer extends Base
         return $this->viewIndex();
     }
 
-
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return View
+     * Index for app
+     * @return Response
      */
-    public function create()
-    {
-        return View::make('modules.lc.consumers.create');
+    public function appIndex() {
+        return $this->viewIndex(Input::get('search'), true);
     }
 
-
     /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response / Redirect
+     * Make view index for both app and BE
+     * @return View
      */
-    public function store()
-    {
-        if (Input::get('act') != '') {
-            $result = $this->consumerRepository->linkConsumer();
+    private function viewIndex($search = '', $isApp = false) {
+        // To make sure that we only show records of current user
+        $query = $this->getModel();
 
-            if (is_object($result)) {
-                return Response::json([
-                    'success' => true,
-                    'message' => 'Customer linked successfully!',
-                ]);
-            }
+        // Allow to filter results in query string
+        $query = $this->applyQueryStringFilter($query);
+
+        // If this controller is sortable
+        if ($this->getOlutOptions('sortable') === true) {
+            $query = $query->orderBy('order');
+        }
+
+        // Pagination please
+        $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
+        $items = $query->paginate($perPage);
+
+        if ($isApp) {
+            $items = $this->consumerRepository->getAllConsumers($search);
+
+            return View::make('modules.lc.app.index')
+                        ->with('items', $items);
         } else {
-            $result = $this->consumerRepository->storeConsumer(false);
-
-            if (is_array($result)) {
-                if (Request::ajax()) {
-                    return Response::json([
-                        'success' => false,
-                        'errors' => $result,
-                    ]);
-                } else {
-                    return Redirect::back()
-                        ->withErrors($result)
-                        ->withInput();
-                }
-            } else {
-                if (Request::ajax()) {
-                    return Response::json([
-                        'success' => true,
-                        'message' => 'Customer created successfully!',
-                    ]);
-                } else {
-                    return Redirect::route('lc.consumers.index');
-                }
-            }
+            return $this->renderList($items);
         }
     }
 
@@ -135,17 +175,46 @@ class Consumer extends Base
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Store a newly created resource in storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @return Response / Redirect
      */
-    public function edit($id)
+    public function store()
     {
-        $consumer = Model::find($id);
+        if (Input::get('act') === 'l') {
+            $result = $this->consumerRepository->linkConsumer();
 
-        return View::make('modules.lc.consumers.edit')
-            ->with('consumer', $consumer);
+            if (is_object($result)) {
+                return Response::json([
+                    'success' => true,
+                    'message' => 'Customer linked successfully!',
+                ]);
+            }
+        } else {
+            $result = $this->consumerRepository->storeConsumer(false);
+
+            if (is_array($result)) {
+                if (Request::ajax()) {
+                    return Response::json([
+                        'success' => false,
+                        'errors' => $result,
+                    ]);
+                } else {
+                    return Redirect::back()
+                        ->withErrors($result)
+                        ->withInput();
+                }
+            } else {
+                if (Request::ajax()) {
+                    return Response::json([
+                        'success' => true,
+                        'message' => 'Customer created successfully!',
+                    ]);
+                } else {
+                    return Redirect::route('lc.consumers.index');
+                }
+            }
+        }
     }
 
     /**
@@ -256,68 +325,6 @@ class Consumer extends Base
                     return $this->ajaxUseOffer($id, Input::get('offerID'));
                     break;
             }
-        } else {
-            $rules = [
-                'first_name'    => 'required',
-                'last_name'     => 'required',
-                'email'         => 'required|email',
-                'phone'         => 'required|numeric',
-                'address'       => 'required',
-                'postcode'      => 'required|numeric',
-                'city'          => 'required',
-                'country'       => 'required',
-            ];
-
-            $validator = Validator::make(Input::all(), $rules);
-
-            if ($validator->fails()) {
-                return Redirect::back()
-                    ->withErrors($validator)
-                    ->withInput(Input::all());
-            } else {
-                $consumer = Model::find($id)->consumer;
-                $consumer->first_name = Input::get('first_name');
-                $consumer->last_name = Input::get('last_name');
-                $consumer->email = Input::get('email');
-                $consumer->phone = Input::get('phone');
-                $consumer->address = Input::get('address');
-                $consumer->postcode = Input::get('postcode');
-                $consumer->city = Input::get('city');
-                $consumer->country = Input::get('country');
-                $consumer->save();
-
-                return Redirect::route('lc.consumers.index');
-            }
         }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        $consumer = Model::find($id);
-        $core = Core::find($consumer->consumer->id);
-        $core->hide(Confide::user()->id);
-        $consumer->delete();
-
-        // if (Request::ajax()) {
-        //     Response::json([
-        //         'success' => true,
-        //     ]);
-        // }
-
-        return Redirect::route('lc.consumers.index');
-    }
-
-    /**
-     * Index for app
-     * @return Response
-     */
-    public function appIndex() {
-        return $this->viewIndex(Input::get('search'), true);
     }
 }

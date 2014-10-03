@@ -343,6 +343,16 @@ Route::group([
             'as' => 'app.lc.show',
             'uses' => 'App\LoyaltyCard\Controllers\Consumer@show',
         ]);
+
+        Route::post('consumers', [
+            'as' => 'app.lc.store',
+            'uses' => 'App\LoyaltyCard\Controllers\Consumer@store',
+        ]);
+
+        Route::put('consumers/{id}', [
+            'as' => 'app.lc.update',
+            'uses' => 'App\LoyaltyCard\Controllers\Consumer@update',
+        ]);
     });
 });
 
@@ -787,38 +797,20 @@ Route::group([
     'before' => ['auth']
 ], function () {
 
-    Route::resource('consumers', 'App\LoyaltyCard\Controllers\Consumer', [
-        'names' => [
-            'index' => 'lc.consumers.index',
-            'create' => 'lc.consumers.create',
-            'edit' => 'lc.consumers.edit',
-            'store' => 'lc.consumers.store',
-            'update' => 'lc.consumers.update',
-            'destroy' => 'lc.consumers.delete',
-        ]
-    ]);
+    \App\LoyaltyCard\Controllers\Consumer::crudRoutes(
+        'consumers',
+        'lc.consumers'
+    );
 
-    Route::resource('offers', 'App\LoyaltyCard\Controllers\Offer', [
-        'names' => [
-            'index' => 'lc.offers.index',
-            'create' => 'lc.offers.create',
-            'edit' => 'lc.offers.edit',
-            'store' => 'lc.offers.store',
-            'update' => 'lc.offers.update',
-            'destroy' => 'lc.offers.delete',
-        ]
-    ]);
+    \App\LoyaltyCard\Controllers\Offer::crudRoutes(
+        'offers',
+        'lc.offers'
+    );
 
-    Route::resource('vouchers', 'App\LoyaltyCard\Controllers\Voucher', [
-        'names' => [
-            'index' => 'lc.vouchers.index',
-            'create' => 'lc.vouchers.create',
-            'edit' => 'lc.vouchers.edit',
-            'store' => 'lc.vouchers.store',
-            'update' => 'lc.vouchers.update',
-            'destroy' => 'lc.vouchers.delete',
-        ]
-    ]);
+    \App\LoyaltyCard\Controllers\Voucher::crudRoutes(
+        'vouchers',
+        'lc.vouchers'
+    );
 });
 
 /*

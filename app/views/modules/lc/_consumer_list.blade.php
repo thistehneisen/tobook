@@ -6,7 +6,7 @@
         <thead>
             <tr>
                 <th class="no-display">{{ trans('loyalty-card.number') }}</th>
-                <th>{{ trans('loyalty-card.consumer') }}</th>
+                <th>{{ trans('loyalty-card.consumer.index') }}</th>
                 <th class="no-display">{{ trans('co.email') }}</th>
                 <th class="no-display">{{ trans('co.phone') }}</th>
                 <th>{{ trans('loyalty-card.last_visited') }}</th>
@@ -15,38 +15,38 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($consumers as $key => $value)
+            @foreach ($items as $key => $value)
             <tr data-consumerid="{{{ $value->id }}}">
                 <td class="no-display">{{ $value->id }}</td>
                 <td>
-                    {{ $value->first_name }} {{ $value->last_name }}
+                    {{ $value->consumer->first_name }} {{ $value->consumer->last_name }}
                 </td>
                 <td class="no-display">
-                    {{ $value->email }}
+                    {{ $value->consumer->email }}
                 </td>
                 <td class="no-display">
-                    {{ $value->phone }}
+                    {{ $value->consumer->phone }}
                 </td>
                 <td>
                     {{ $value->updated_at }}
                 </td>
                 <td class="no-display">
-                    <a href="{{ URL::route('lc.consumers.edit', ['id' => $value->id]) }}">
+                    <a href="{{ URL::route('lc.consumers.upsert', ['id' => $value->id]) }}">
                         <button class="btn btn-sm btn-success" type="button">
                             <span class="glyphicon glyphicon-pencil"></span> {{ trans('common.edit') }}
                         </button>
                     </a>
                 </td>
                 <td class="no-display">
-                    {{ Form::open(['route' => ['lc.consumers.delete', $value->id], 'method' => 'delete']) }}
-                    <button class="btn btn-sm btn-danger" type="button" data-toggle="modal" data-target="#js-confirmDeleteModal">
-                        <span class="glyphicon glyphicon-trash"></span> {{ trans('common.delete') }}
-                    </button>
-                    {{ Form::close() }}
+                    <a data-href="{{ URL::route('lc.consumers.delete', ['id' => $value->id]) }}" data-toggle="modal" data-target="#js-confirmDeleteModal" href="#">
+                        <button class="btn btn-sm btn-danger" type="button">
+                            <span class="glyphicon glyphicon-trash"></span> {{ trans('common.delete') }}
+                        </button>
+                    </a>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
-    <div class="pull-right">{{ $consumers->links() }}</div>
+    <div class="pull-right">{{ $items->links() }}</div>
 </div>

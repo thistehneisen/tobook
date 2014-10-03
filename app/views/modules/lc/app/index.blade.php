@@ -1,7 +1,7 @@
-@extends('layouts.default')
+@extends('layouts.app')
 
 @section ('styles')
-{{ HTML::style(asset('assets/css/lcapp.css')) }}
+{{ HTML::style(asset('assets/css/lc/lcapp.css')) }}
 @stop
 
 @section ('scripts')
@@ -15,46 +15,17 @@
 NFC Desktop App
 @stop
 
-@section('user-nav')
-<ul class="user-nav nav nav-pills pull-right">
-    <li class="dropdown active">
-        @if (Confide::user())
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-            @if (Session::get('stealthMode') !== null)
-            You're now login as <strong>{{ Confide::user()->username }}</strong>
-            @else {{ trans('common.welcome') }}, <strong>{{ Confide::user()->username }}</strong>!
-            @endif
-            <span class="caret"></span>
-        </a>
-        @else
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-            {{ trans('common.for_business') }}
-            <span class="caret"></span>
-        </a>
-        @endif
-        <ul class="dropdown-menu">
-            @if (Confide::user())
-            <li><a href="{{ route('app.lc.logout') }}">{{ trans('common.sign_out') }}</a></li>
-            @endif
-        </ul>
-    </li>
-</ul>
-@stop
-
 @section('logo')
 <h1 class="text-header">{{ trans('dashboard.loyalty') }}</h1>
 @stop
 
-@section('footer')
-@stop
-
 @section('content')
     <div class="col-lg-7 col-md-7 col-sm-7">
-        <div class="row-fluid">
-            <button class="btn btn-default btn-success" data-toggle="modal" data-target="#js-createConsumerModal">
+        <div class="top-buttons clearfix">
+            <button class="btn btn-default btn-success pull-right" data-toggle="modal" data-target="#js-createConsumerModal">
                 <span class="glyphicon glyphicon-plus"></span> {{ trans('common.add') }}
             </button>
-            {{ Form::open(['route' => 'app.lc.index', 'method' => 'get', 'class' => 'form-inline']) }}
+            {{ Form::open(['route' => 'app.lc.index', 'method' => 'get', 'class' => 'form-inline pull-left']) }}
                 {{ Form::text('search', null, ['class' => 'form-control']) }}
                 {{ Form::submit(trans('common.search'), ['class' => 'btn btn-default']) }}
             {{ Form::close() }}
@@ -75,7 +46,7 @@ NFC Desktop App
                     <h4 class="modal-title">{{ trans('loyalty-card.consumer_info') }}</h4>
                 </div>
                 <div class="modal-body">
-                    {{ Form::open(['route' => 'lc.consumers.store', 'class' => 'form-horizontal', 'id' => 'js-createConsumerForm']) }}
+                    {{ Form::open(['route' => 'app.lc.store', 'class' => 'form-horizontal', 'id' => 'js-createConsumerForm']) }}
                     @foreach ([
                         'first_name'    => trans('co.first_name'),
                         'last_name'     => trans('co.last_name'),
@@ -98,7 +69,7 @@ NFC Desktop App
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" id='js-cancelCreateConsumer'>{{ trans('common.cancel') }}</button>
-                    <button type="button" class="btn btn-success" id="js-confirmCreateConsumer">{{ trans('common.create') }}</button>
+                    <button type="button" class="btn btn-success" id="js-confirmCreateConsumer" data-url="{{ URL::route('app.lc.store') }}">{{ trans('common.create') }}</button>
                 </div>
             </div>
         </div>
