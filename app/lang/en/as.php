@@ -352,6 +352,7 @@ return [
         'fi_version'       => 'Finnish',
         'en_version'       => 'English',
         'loading'          => 'Now loading&hellip;',
+        'success'          => 'Booking was placed. Thank you.',
         'layout_3'         => [
             'select_service'  => 'Select service',
             'select_employee' => 'Select employee',

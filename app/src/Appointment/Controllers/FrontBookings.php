@@ -234,7 +234,8 @@ class FrontBookings extends Bookings
             Session::forget('carts');
             Session::forget('booking_info');
 
-            $data['success']      = true;
+            $data['success'] = true;
+            $data['message'] = trans('as.embed.success');
         } catch (\Watson\Validating\ValidationException $ex) {
             $data['success'] = false;
             $data['message'] =  Util::getHtmlListError($ex);

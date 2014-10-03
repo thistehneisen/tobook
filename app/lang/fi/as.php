@@ -351,6 +351,7 @@ return [
         'checkout'         => 'Kassalle',
         'fi_version'       => 'Suomeksi',
         'en_version'       => 'Englanniksi',
+        'success'          => 'Booking was placed. Thank you.', // @todo
         'layout_3'         => [
             'select_service'  => 'Valitse palvelun tyyppi',
             'select_employee' => 'Valitse henkilö',

@@ -212,7 +212,7 @@
                         if (e.success === true) {
                             // Hide loading
                             loading.hide();
-                            submit.text('Success. Thanks.');
+                            submit.siblings('span.text-success').text(e.message);
                         }
                     }).fail(fnFail);
                 }
