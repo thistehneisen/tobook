@@ -8,8 +8,8 @@
     # Redirect Trailing Slashes...
     #RewriteRule ^(.*)/$ /$1 [L,R=301] # this caused redirection loop in index.php in subfolder so disable for now
 
-    # Redirect /appointment/library to /appointment
-    #RewriteRule ^appointment/library/(.*)$ /appointment/$1 [R=301,L]
+    # Redirect /loyalty/app to /app/lc
+    RewriteRule ^loyalty/app/(.*)$ /app/lc [R=301,L]
 
     # Handle Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
