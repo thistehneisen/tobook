@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Controllers\Ajax;
 
-use App, View, Redirect, Response, Request, Input, Config;
+use App, View, Redirect, Response, Request, Input, Config, Session;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\BookingExtraService;
@@ -55,6 +55,14 @@ class Bookings extends \App\Core\Controllers\Ajax\Base
         $data = $service->getServiceTimesData();
 
         return Response::json($data);
+    }
+
+    public function cut()
+    {
+        $bookingId = (int) Input::get('booking_id');
+        Session::put('cut' , $bookingId);
+        //Is there anything can raise error?
+        return Response::json(['success' => true]);
     }
 
 }

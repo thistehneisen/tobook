@@ -359,5 +359,22 @@
                 autoCenter: false
             });
         });
+        $(document).on('click', 'a.js-btn-cut-booking', function (e) {
+            e.preventDefault();
+            var booking_id = $(this).data('booking-id'),
+                action_url = $(this).data('action-url');
+            $.ajax({
+                type: 'POST',
+                url: action_url,
+                data: { booking_id : booking_id },
+                dataType: 'json'
+            }).done(function (data) {
+                if (data.success) {
+                    $('.booking-id-' + booking_id).attr('style', 'background-color:grey');
+                } else {
+                    alertify.alert(data.message);
+                }
+            });
+        });
     });
 }(jQuery));

@@ -581,6 +581,11 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Stat@monthly'
     ]);
 
+    Route::post('bookings/cut', [
+        'as' => 'as.bookings.cut',
+        'uses' => 'App\Appointment\Controllers\Ajax\Bookings@cut'
+    ]);
+
     // Service Category
     \App\Appointment\Controllers\Categories::crudRoutes(
         'services/categories',

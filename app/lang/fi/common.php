@@ -38,6 +38,8 @@ return [
     'delete'         => 'Poista',
     'continue'       => 'Jatka',
     'cancel'         => 'Peruuta',
+    'cut'            => 'Cut',//@todo
+    'paste'          => 'Paste',//@todo
     'active'         => 'Aktiivinen',
     'inactive'       => 'Ei aktiivinen',
     'mon'            => 'Maanantai',
