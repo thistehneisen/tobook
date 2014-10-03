@@ -60,6 +60,7 @@ return [
     'nov'            => 'marraskuu',
     'dec'            => 'joulukuu',
     'all'            => 'Kaikki',
+    'anyone'         => 'Kuka tahansa',
     'edit'           => 'Muokkaa',
     'back'           => 'Takaisin',
     'content'        => 'Sisältö',

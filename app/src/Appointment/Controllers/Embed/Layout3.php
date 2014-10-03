@@ -37,7 +37,15 @@ class Layout3 extends Base
         $today    = Carbon::today();
         $date     = Input::has('date') ? new Carbon(Input::get('date')) : $today;
         $hash     = Input::get('hash');
-        $employee = Employee::findOrFail(Input::get('employeeId'));
+
+        $employeeId = (int) Input::get('employeeId');
+        if ($employeeId === -1) {
+            $timetable = $this->getTimetableOfAnyone();
+        } elseif ($employeeId > 0) {
+
+        }
+
+        $employee = Employee::findOrFail();
         $service  = Service::findOrFail(Input::get('serviceId'));
 
         if ($date->lt($today)) {
