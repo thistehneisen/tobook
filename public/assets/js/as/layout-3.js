@@ -119,6 +119,7 @@
             fnLoadTimeTable();
         });
 
+        // When user clicks on date in timetable
         form.on('click', 'a.as-date', function (e) {
             e.preventDefault();
             var $this = $(this);
@@ -128,6 +129,7 @@
             fnLoadTimeTable();
         });
 
+        // When user clicks to select a time
         form.on('click', 'button.btn-as-time', function (e) {
             var $this = $(this);
             step4.collapse('show');
@@ -135,6 +137,12 @@
 
             // Assign selected time to dataStorage
             dataStorage.time = $this.text();
+            // Also assign the employee ID
+            dataStorage.employeeId = $this.data('employee-id');
+
+            // Highlight this button as selected
+            $('button.btn-as-time.btn-success').removeClass('btn-success');
+            $this.addClass('btn-success');
 
             $.ajax({
                 url: step4.data('url'),
