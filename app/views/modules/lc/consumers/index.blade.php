@@ -7,7 +7,7 @@
 
 <div class="row">
     <div class="col-md-6">
-        {{ Form::open(['route' => ['consumers.search'], 'method' => 'GET', 'class' => 'form-inline', 'role' => 'form']) }}
+        {{ Form::open(['route' => ['lc.consumers.search'], 'method' => 'GET', 'class' => 'form-inline', 'role' => 'form']) }}
             <div class="input-group">
                 {{ Form::text('q', Input::get('q'), ['class' => 'form-control input-sm', 'placeholder' => trans('common.search')]) }}
                 <span class="input-group-btn">

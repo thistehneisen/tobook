@@ -4,9 +4,9 @@
     @parent
     {{ HTML::style(asset('packages/alertify/alertify.core.css')) }}
     {{ HTML::style(asset('packages/alertify/alertify.bootstrap.css')) }}
-<style>
-.pagination { margin: 0 !important; }
-</style>
+    <style>
+    .main { margin: 0 auto; }
+    </style>
 @stop
 
 @section ('scripts')
@@ -44,9 +44,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="admin-menu">
             <ul class="nav navbar-nav nav-admin nav-as">
-                <li><a href="{{ route('consumers.index') }}"><i class="fa fa-group"></i> {{ trans('loyalty-card.consumer.index') }}</a></li>
-                <li><a href="{{ route('offers.index') }}"><i class="fa fa-gift"></i> {{ trans('loyalty-card.offer.index') }}</a></li>
-                <li><a href="{{ route('vouchers.index') }}"><i class="fa fa-money"></i> {{ trans('loyalty-card.voucher.index') }}</a></li>
+                <li><a href="{{ route('lc.consumers.index') }}"><i class="fa fa-group"></i> {{ trans('loyalty-card.consumer.index') }}</a></li>
+                <li><a href="{{ route('lc.offers.index') }}"><i class="fa fa-gift"></i> {{ trans('loyalty-card.offer.index') }}</a></li>
+                <li><a href="{{ route('lc.vouchers.index') }}"><i class="fa fa-money"></i> {{ trans('loyalty-card.voucher.index') }}</a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->

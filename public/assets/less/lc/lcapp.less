@@ -1,27 +1,36 @@
 @import "../_vars.less";
 
-#consumer-table {
-    tbody tr {
-        cursor: pointer;
+.main {
+    margin: 20px auto;
+
+    .top-buttons {
+        padding-bottom: 10px;
     }
 
-    .no-display {
-        display: none;
+    #consumer-table {
+        tbody tr {
+            cursor: pointer;
+        }
+
+        .no-display {
+            display: none;
+        }
+
+        .selected {
+            background: @active_light_orange;
+        }
     }
 
-    .selected {
-        background: @active_light_orange;
+    #consumer-info {
+        .panel-heading h3 {
+            margin: 0;
+        }
+        .line {
+            padding-bottom: 15px;
+        }
+        hr {
+            margin: 0;
+        }
     }
-}
 
-#consumer-info {
-    .panel-heading h3 {
-        margin: 0;
-    }
-    .line {
-        padding-bottom: 15px;
-    }
-    hr {
-        margin: 0;
-    }
 }

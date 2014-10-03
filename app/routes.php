@@ -707,17 +707,17 @@ Route::group([
 
     \App\LoyaltyCard\Controllers\Consumer::crudRoutes(
         'consumers',
-        'consumers'
+        'lc.consumers'
     );
 
     \App\LoyaltyCard\Controllers\Offer::crudRoutes(
         'offers',
-        'offers'
+        'lc.offers'
     );
 
     \App\LoyaltyCard\Controllers\Voucher::crudRoutes(
         'vouchers',
-        'vouchers'
+        'lc.vouchers'
     );
 });
 
