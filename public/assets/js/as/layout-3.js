@@ -54,6 +54,9 @@
             }
         });
 
+        // Setup tooltip
+        $('i[data-toggle=tooltip]').tooltip();
+
         form.on('click', 'div.collapsable', function (e) {
             e.preventDefault();
             if ($(e.target).is('#as-datepicker') === false) {
@@ -62,6 +65,7 @@
             }
         });
 
+        // When user selects a category
         $('input[name=category_id]').on('change', function () {
             var $this = $(this);
             categories.hide(function () {
@@ -69,12 +73,20 @@
             });
         });
 
+        // When user wants to return to category list
         $('p.as-back').on('click', function () {
             services.hide(function () {
                 categories.show();
             });
         });
 
+        // When user clicks on a service name to see its service time
+        $('p.as-service-name').on('click', function () {
+            var $this = $(this);
+            $this.siblings('div.as-service-time').toggle();
+        });
+
+        // When user selects a service time
         $('input[name=service_id]').on('change', function () {
             var $this = $(this);
             title1.find('span').text($this.data('service'));
@@ -107,6 +119,7 @@
             fnLoadTimeTable();
         });
 
+        // When user clicks on date in timetable
         form.on('click', 'a.as-date', function (e) {
             e.preventDefault();
             var $this = $(this);
@@ -116,20 +129,33 @@
             fnLoadTimeTable();
         });
 
+        // When user clicks to select a time
         form.on('click', 'button.btn-as-time', function (e) {
-            var $this = $(this);
+            var $this = $(this),
+                panel = step4.find('div.panel-body');
+
             step4.collapse('show');
             title4.addClass('collapsable');
 
             // Assign selected time to dataStorage
             dataStorage.time = $this.text();
+            // Also assign the employee ID
+            dataStorage.employeeId = $this.data('employee-id');
 
+            // Highlight this button as selected
+            $('button.btn-as-time.btn-success').removeClass('btn-success');
+            $this.addClass('btn-success');
+
+            // Empty existing content first
+            panel.empty();
+
+            // Then make a request to load the form
             $.ajax({
                 url: step4.data('url'),
                 type: 'POST',
                 data: dataStorage
             }).done(function (data) {
-                step4.find('div.panel-body').html(data);
+                panel.html(data);
             });
         });
 
@@ -163,6 +189,9 @@
                     loading.hide();
                     submit.removeClass('btn-success')
                         .addClass('btn-danger')
+                    submit.siblings('span.text-success')
+                        .removeClass('text-success')
+                        .addClass('text-danger')
                         .text(message);
                 };
 
@@ -186,7 +215,7 @@
                         if (e.success === true) {
                             // Hide loading
                             loading.hide();
-                            submit.text('Success. Thanks.');
+                            submit.siblings('span.text-success').text(e.message);
                         }
                     }).fail(fnFail);
                 }

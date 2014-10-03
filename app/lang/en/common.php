@@ -60,6 +60,7 @@ return [
     'nov'                   => 'November',
     'dec'                   => 'December',
     'all'                   => 'All',
+    'anyone'                => 'Anyone',
 	'edit'                  => 'Edit',
     'back'                  => 'Back',
     'content'               => 'Content',
