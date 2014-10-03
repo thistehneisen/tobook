@@ -17,8 +17,8 @@
         <p>{{ trans('as.embed.layout_3.empty') }}</p>
     @endif
         <?php $i = 1; ?>
-    @foreach ($timetable as $time)
-        <button type="button" class="btn btn-default btn-as-time">{{ $time }}</button>
+    @foreach ($timetable as $time => $employee)
+        <button data-employee-id="{{ $employee->id }}" type="button" class="btn btn-default btn-as-time">{{ $time }}</button>
         @if ($i++ % 4 === 0)
             <br>
         @endif

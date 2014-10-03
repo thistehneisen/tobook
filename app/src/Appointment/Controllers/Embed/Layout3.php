@@ -20,11 +20,23 @@ class Layout3 extends Base
         }
 
         $service = Service::with('employees')->findOrFail($serviceId);
-        $employees = $service->employees()->where('is_active', true)->get();
+        $employees = $this->getEmployeesOfService($service);
 
         return $this->render('employees', [
             'employees' => $employees
         ]);
+    }
+
+    /**
+     * The all active employees of a service
+     *
+     * @param Service $service
+     *
+     * @return Illuminate\Support\Collection
+     */
+    protected function getEmployeesOfService(Service $service)
+    {
+        return $service->employees()->where('is_active', true)->get();
     }
 
     /**
@@ -82,7 +94,25 @@ class Layout3 extends Base
      */
     protected function getTimetableOfAnyone(Service $service, Carbon $date)
     {
-        // @TODO
+        $timetable = [];
+        // Get timetable of all employees
+        $user = $this->getUser();
+        $employees = $this->getEmployeesOfService($service);
+        foreach ($employees as $employee) {
+            $data = $this->getTimetableOfSingle(
+                $employee,
+                $service,
+                $date
+            );
+
+            foreach ($data as $time => $_) {
+                if (!isset($timetable[$time])) {
+                    $timetable[$time] = $employee;
+                }
+            }
+        }
+
+        return $timetable;
     }
 
     /**
@@ -112,7 +142,8 @@ class Layout3 extends Base
                 $isActive = $slotClass === 'active'
                     || $slotClass === 'custom active';
                 if ($time->gt(Carbon::now()) && $isActive) {
-                    $timetable[] = sprintf('%02d:%02d', $hour, $shift);
+                    $formatted = sprintf('%02d:%02d', $hour, $shift);
+                    $timetable[$formatted] = $employee;
                 }
             }
         }
