@@ -15,12 +15,14 @@
             $this.addClass('active');
 
             $('div.as-services').hide();
-            $('#'+$this.attr('rel')).slideDown();
+            $('#as-category-'+$this.data('category-id')+'-services').slideDown();
         });
 
+        // When user clicks on a service
         $('a.as-service').on('click', function (e) {
             e.preventDefault();
             var $this = $(this),
+                serviceId = $this.data('service-id'),
                 serviceTime = $this.siblings('.as-service-time');
 
             if (serviceTime.is(':visible')) {
@@ -31,6 +33,10 @@
                 $this.addClass('active');
                 serviceTime.show();
             }
+
+            // Show extra services if available
+            $('div.as-extra-services').hide();
+            $('#as-service-'+serviceId+'-extra-services').show();
         });
 
     });

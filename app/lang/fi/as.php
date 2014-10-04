@@ -356,6 +356,7 @@ return [
             'select_service'      => 'Valitse palvelu ja päivämäärä',
             'select_service_type' => 'Valitse varauksen tyyppi',
             'services'            => 'Palvelut',
+            'extra_services'      => 'Lisäpalvelut',
         ],
         'layout_3'         => [
             'select_service'  => 'Valitse palvelun tyyppi',
