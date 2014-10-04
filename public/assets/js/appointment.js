@@ -388,6 +388,7 @@
                 dataType: 'json'
             }).done(function (data) {
                 if (data.success) {
+                    $('.booked').removeAttr('style');
                     $('.booking-id-' + booking_id).attr('style', 'background-color:grey');
                     $('#row_paste_booking').show();
                 } else {
