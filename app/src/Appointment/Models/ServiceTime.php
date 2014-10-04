@@ -20,7 +20,7 @@ class ServiceTime extends \App\Core\Models\Base
 
     public function getFormattedPriceAttribute()
     {
-        return number_format($this->attributes['price'])
+        return number_format($this->attributes['price'], 2)
             .Config::get('varaa.currency');
     }
 
