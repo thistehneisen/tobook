@@ -1,5 +1,5 @@
 /*jslint browser: true, nomen: true, unparam: true, node: true*/
-/*global $, jQuery, alertify*/
+/*global $, jQuery*/
 'use strict';
 
 (function ($) {
@@ -8,7 +8,7 @@
             services = $('div.as-service'),
             body = $('body'),
             form = $('#varaa-as-bookings'),
-            step1 = $('#as-step-1'),
+            //step1 = $('#as-step-1'), // unused
             step2 = $('#as-step-2'),
             step3 = $('#as-step-3'),
             step4 = $('#as-step-4'),
@@ -19,24 +19,22 @@
             dp = $('#as-datepicker'),
             dataStorage = {
                 hash: body.data('hash')
+            },
+
+            fnLoadTimeTable = function () {
+                // Show loading indicator
+                step3.find('div.as-timetable-content').hide();
+                step3.find('div.as-loading').show();
+
+                $.ajax({
+                    url: step3.data('url'),
+                    type: 'POST',
+                    data: dataStorage
+                }).done(function (data) {
+                    step3.find('div.panel-body').html(data);
+                    dataStorage.date = step3.find('li.active > a').data('date');
+                });
             };
-
-        var fnLoadTimeTable = function() {
-            // Show loading indicator
-            step3.find('div.as-timetable-content').hide();
-            step3.find('div.as-loading').show();
-
-            $.ajax({
-                url: step3.data('url'),
-                type: 'POST',
-                data: dataStorage
-            }).done(function (data) {
-                step3.find('div.panel-body').html(data);
-                dataStorage.date = step3.find('li.active > a').data('date');
-            }).fail(function () {
-
-            });
-        };
 
         // Assign datepicker
         dp.datepicker({
@@ -69,7 +67,7 @@
         $('input[name=category_id]').on('change', function () {
             var $this = $(this);
             categories.hide(function () {
-                $('#as-category-'+$this.val()+'-services').show();
+                $('#as-category-' + $this.val() + '-services').show();
             });
         });
 
@@ -183,12 +181,12 @@
                     var res = e.responseJSON,
                         message = $this.find('div.error-msg').text();
 
-                    if (typeof res.message !== 'undefined') {
+                    if (res.message !== undefined) {
                         message = res.message;
                     }
                     loading.hide();
                     submit.removeClass('btn-success')
-                        .addClass('btn-danger')
+                        .addClass('btn-danger');
                     submit.siblings('span.text-success')
                         .removeClass('text-success')
                         .addClass('text-danger')
@@ -204,7 +202,7 @@
                 data: data,
                 dataType: 'JSON'
             }).done(function (e) {
-                if (typeof e.uuid !== 'undefined') {
+                if (e.uuid !== undefined) {
                     // Place booking
                     $.ajax({
                         url: $this.data('post-url'),
