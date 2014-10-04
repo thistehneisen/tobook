@@ -20,12 +20,17 @@
 
         $('a.as-service').on('click', function (e) {
             e.preventDefault();
-            var $this = $(this);
+            var $this = $(this),
+                serviceTime = $this.siblings('.as-service-time');
 
-            $('a.as-service.active').removeClass('active');
-            $this.addClass('active');
-
-            $this.siblings('.as-service-time').show();
+            if (serviceTime.is(':visible')) {
+                $this.removeClass('active');
+                serviceTime.hide();
+            } else {
+                $('a.as-service.active').removeClass('active');
+                $this.addClass('active');
+                serviceTime.show();
+            }
         });
 
     });
