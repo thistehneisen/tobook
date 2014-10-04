@@ -1,6 +1,6 @@
 <div class="col-sm-3">
     <h5>{{ trans('as.embed.layout_2.select_service_type') }}</h5>
-    <div class="as-categories well">
+    <div class="as-categories better">
 @foreach ($categories as $category)
     <p><a class="as-category" rel="as-category-{{ $category->id }}-services" href="#{{ $category->id }}">{{ $category->name }}</a></p>
 @endforeach
@@ -10,9 +10,9 @@
 @foreach ($categories as $category)
 <div class="as-services col-sm-3" id="as-category-{{ $category->id }}-services">
     <h5>{{ trans('as.embed.layout_2.services') }}</h5>
-    <div class="well">
+    <div class="better">
     @foreach ($category->services as $service)
-        <div>
+        <div class="as-service-row">
             <a href="#" class="as-service">{{ $service->name }}</a>
             <div class="as-service-time">
                 <div class="btn-group">

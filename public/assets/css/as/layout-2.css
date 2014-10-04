@@ -1,9 +1,33 @@
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+.better {
+  border: 1px solid #ddd;
+  background-color: #ffffff;
+  background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f8f8f8));
+  background: -webkit-linear-gradient(top, #ffffff, #f8f8f8);
+  background: -moz-linear-gradient(top, #ffffff, #f8f8f8);
+  background: -ms-linear-gradient(top, #ffffff, #f8f8f8);
+  background: -o-linear-gradient(top, #ffffff, #f8f8f8);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
 .as-category,
 .as-service {
   display: block;
   text-decoration: none;
-  color: #333;
-  padding: 3px 5px;
+  color: #333333;
+  padding: 5px 7px;
 }
 .as-category.active,
 .as-service.active {
@@ -14,12 +38,18 @@
 .as-service:hover {
   background-color: rgba(231, 26, 121, 0.15);
   text-decoration: none;
-  color: #333;
+  color: #333333;
 }
 .as-services,
 .as-service-time {
   display: none;
 }
+.as-service-row {
+  padding-bottom: 10px;
+}
+.as-service-time {
+  padding-bottom: 10px;
+}
 .as-service-time .btn-group {
-  margin-bottom: 5px;
+  margin: 5px 0 5px 20px;
 }

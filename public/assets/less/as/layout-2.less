@@ -1,9 +1,53 @@
+//------------------------------------------------------------------------------
+// VARIABLES
+//------------------------------------------------------------------------------
+@gray: #333;
+
+//------------------------------------------------------------------------------
+// MIXINS
+//------------------------------------------------------------------------------
+.border-radius (@radius: 5px) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius:    @radius;
+    border-radius:         @radius;
+
+    -moz-background-clip:    padding;
+    -webkit-background-clip: padding-box;
+    background-clip:         padding-box;
+}
+
+.gradient (@startColor: #eee, @endColor: white) {
+    background-color: @startColor;
+    background: -webkit-gradient(linear, left top, left bottom, from(@startColor), to(@endColor));
+    background: -webkit-linear-gradient(top, @startColor, @endColor);
+    background: -moz-linear-gradient(top, @startColor, @endColor);
+    background: -ms-linear-gradient(top, @startColor, @endColor);
+    background: -o-linear-gradient(top, @startColor, @endColor);
+}
+
+//------------------------------------------------------------------------------
+// RULES
+//------------------------------------------------------------------------------
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.better {
+    border: 1px solid #ddd;
+    .gradient(#fff, #f8f8f8);
+    .border-radius;
+}
+
 .as-category,
 .as-service {
     display: block;
     text-decoration: none;
-    color: #333;
-    padding: 3px 5px;
+    color: @gray;
+    padding: 5px 7px;
 
     &.active {
         background-color: #e71a79;
@@ -13,7 +57,7 @@
     &:hover {
         background-color: rgba(231,26,121,0.15);
         text-decoration: none;
-        color: #333;
+        color: @gray;
     }
 }
 
@@ -21,6 +65,14 @@
     display: none;
 }
 
-.as-service-time .btn-group {
-    margin-bottom: 5px;
+.as-service-row {
+    padding-bottom: 10px;
+}
+
+.as-service-time {
+    padding-bottom: 10px;
+
+    .btn-group {
+        margin: 5px 0 5px 20px;
+    }
 }
