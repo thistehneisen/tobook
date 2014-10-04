@@ -1,5 +1,5 @@
 /*jslint browser: true, nomen: true, unparam: true, node: true*/
-/*global $, jQuery, alertify*/
+/*global $, jQuery, alertify, purl*/
 'use strict';
 
 (function ($) {

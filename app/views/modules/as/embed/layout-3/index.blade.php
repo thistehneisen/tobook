@@ -1,7 +1,6 @@
 @extends ('modules.as.embed.embed')
 
 @section ('content')
-
 <div class="container-fluid">
     <div class="panel-group" id="varaa-as-bookings">
         <div class="panel panel-default">

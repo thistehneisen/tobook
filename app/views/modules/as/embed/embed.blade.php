@@ -14,11 +14,6 @@
             @if(!empty($user->asOptions['style_background']))
             background-color: {{ $user->asOptions['style_background'] }} !important;
             @endif
-            {{--
-            @if(!empty($user->asOptions['style_text_color']))
-            color: {{ $user->asOptions['style_text_color'] }};
-            @endif
-            --}}
         }
         @endif
 
@@ -92,6 +87,16 @@
     <script src="{{ asset('assets/js/as/'.$layout.'.js').(Config::get('app.debug') ? '?v='.time() : '') }}"></script>
     <script>
     $(document).ready(function () {
+        // work around to fix problem clicking 3 times in 1 date: https://github.com/eternicode/bootstrap-datepicker/issues/1083
+        Date.prototype.yyyymmdd = function () {
+            var yyyy = this.getFullYear().toString();
+            var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
+            var dd  = this.getDate().toString();
+
+            return yyyy + '-' + (mm[1] ? mm : '0' + mm[0]) + '-' + (dd[1] ? dd : '0' + dd[0]);
+        };
+        var date_param = purl(window.location.href).param('date'),
+            selected_date = date_param ? date_param : (new Date()).yyyymmdd();
         $('#datepicker').datepicker({
             format: 'yyyy-mm-dd',
             startDate: new Date(),
@@ -100,11 +105,13 @@
             weekStart: 1,
             language: '{{ App::getLocale() }}'
         }).on('changeDate', function (e) {
-            if (window.location.href.indexOf('date') != -1) {
-                var date = purl(window.location.href).param('date');
-                window.location.href = window.location.href.replace(date, e.format());
+            if (e.format() !== '') {
+                selected_date = e.format();
+            }
+            if (window.location.href.indexOf('date') !== -1) {
+                window.location.href = window.location.href.replace(date_param, selected_date);
             } else {
-                 window.location.href = window.location.href + '?date=' + e.format();
+                window.location.href = window.location.href + '?date=' + selected_date;
             }
         });
         $("#datepicker").datepicker("update", new Date({{ $date->year }},{{ $date->month - 1}},{{ $date->day }}));
