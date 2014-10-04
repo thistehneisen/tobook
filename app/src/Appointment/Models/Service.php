@@ -1,5 +1,7 @@
 <?php namespace App\Appointment\Models;
 
+use Config;
+
 class Service extends \App\Core\Models\Base
 {
     protected $table = 'as_services';
@@ -67,6 +69,12 @@ class Service extends \App\Core\Models\Base
     public function getIsActiveAttribute()
     {
         return (bool) $this->attributes['is_active'];
+    }
+
+    public function getFormattedPriceAttribute()
+    {
+        return number_format($this->attributes['price'])
+            .Config::get('varaa.currency');
     }
 
     public function setLength()

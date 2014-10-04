@@ -4,7 +4,9 @@ return [
     'dashboard_hide_inactive' => true,
     'upload_folder'           => 'uploads',
     'languages'               => ['fi', 'en'],
-    'hashid' => [
+    // Symbol of the currency applying to the whole system
+    'currency'                => '&euro;',
+    'hashid'                  => [
         'length'   => 8,
         'alphabet' => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
     ],
