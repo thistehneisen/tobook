@@ -4,7 +4,7 @@
         <div class="as-employees-row">
             <p><a href="#" class="as-employee">{{ trans('common.anyone') }}</a></p>
         @foreach ($employees as $employee)
-            <p><a href="#" class="as-employee">{{ $employee->name }}</a></p>
+            <p><a data-employee-id="{{ $employee->id }}" href="#" class="as-employee">{{ $employee->name }}</a></p>
         @endforeach
         </div>
     </div>

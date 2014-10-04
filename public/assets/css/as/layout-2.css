@@ -24,6 +24,7 @@ html {
 }
 .as-category,
 .as-service,
+.as-time,
 .as-employee {
   display: block;
   text-decoration: none;
@@ -32,16 +33,23 @@ html {
 }
 .as-category.active,
 .as-service.active,
+.as-time.active,
 .as-employee.active {
   background-color: #e71a79;
   color: #fff;
 }
 .as-category:hover,
 .as-service:hover,
+.as-time:hover,
 .as-employee:hover {
   background-color: rgba(231, 26, 121, 0.15);
   text-decoration: none;
   color: #333333;
+}
+.btn-selected {
+  background-color: #e71a79;
+  color: #fff;
+  border-color: #ec4894;
 }
 .as-services,
 .as-service-time,
@@ -59,4 +67,23 @@ html {
 }
 .as-extra-service-row {
   padding-left: 15px;
+}
+.table-timetable {
+  width: 100%;
+}
+.table-timetable thead th {
+  text-align: center;
+}
+.table-timetable tbody {
+  border-top: 1px solid #ddd;
+}
+.table-timetable tbody td {
+  vertical-align: top;
+  border-left: 1px solid #ddd;
+}
+.table-timetable tbody td.empty {
+  vertical-align: middle;
+}
+.table-timetable tbody td:first-child {
+  border-left: none;
 }

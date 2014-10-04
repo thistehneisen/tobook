@@ -7,6 +7,7 @@ use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\ExtraService;
+use App\Appointment\Models\Employee;
 use App\Consumers\Models\Consumer;
 use App\Appointment\Controllers\AsBase;
 
@@ -208,5 +209,126 @@ class Base extends AsBase
     protected function getEmployeesOfService(Service $service)
     {
         return $service->employees()->where('is_active', true)->get();
+    }
+
+    /**
+     * Get table table of an employee
+     *
+     * @return View
+     */
+    public function getTimetable()
+    {
+        $today    = Carbon::today();
+        $date     = Input::has('date') ? new Carbon(Input::get('date')) : $today;
+        $hash     = Input::get('hash');
+        $service  = Service::findOrFail(Input::get('serviceId'));
+
+        if ($date->lt($today)) {
+            $date = $today->copy();
+        }
+
+        $employeeId = (int) Input::get('employeeId');
+        if ($employeeId === -1) {
+            $timetable = $this->getTimetableOfAnyone($service, $date);
+        } elseif ($employeeId > 0) {
+            $employee = Employee::findOrFail($employeeId);
+            $timetable = $this->getTimetableOfSingle($employee, $service, $date);
+        }
+
+        $i = 1;
+        $startDate = $date->copy();
+        while ($i <= 2) {
+            $startDate = $startDate->subDay();
+
+            if ($startDate->lt($today)) {
+                $startDate = $today->copy();
+                break;
+            }
+            $i++;
+        }
+
+        return $this->render('timetable', [
+            'date'      => $date,
+            'startDate' => $startDate,
+            'prev'      => $date->copy()->subDay(),
+            'next'      => $date->copy()->addDay(),
+            'timetable' => $timetable
+        ]);
+    }
+
+    /**
+     * The the timetable of all employees and merge them into one
+     *
+     * @param Service $service
+     * @param Carbon  $date
+     * @param boolean $showEndTime
+     *
+     * @return array
+     */
+    protected function getTimetableOfAnyone(Service $service, Carbon $date, $showEndTime = false)
+    {
+        $timetable = [];
+        // Get timetable of all employees
+        $user = $this->getUser();
+        $employees = $this->getEmployeesOfService($service);
+        foreach ($employees as $employee) {
+            $data = $this->getTimetableOfSingle(
+                $employee,
+                $service,
+                $date,
+                $showEndTime
+            );
+
+            foreach ($data as $time => $_) {
+                if (!isset($timetable[$time])) {
+                    $timetable[$time] = $employee;
+                }
+            }
+        }
+
+        return $timetable;
+    }
+
+    /**
+     * Get timetable of a single employee
+     *
+     * @param Employee $employee
+     * @param Service  $service
+     * @param Carbon   $date
+     * @param boolean $showEndTime
+     *
+     * @return array
+     */
+    protected function getTimetableOfSingle(Employee $employee, Service $service, Carbon $date, $showEndTime = false)
+    {
+        $timetable = [];
+        $workingTimes = $this->getDefaultWorkingTimes($date, Input::get('hash'));
+        foreach ($workingTimes as $hour => $minutes) {
+            foreach ($minutes as $shift) {
+                $slotClass = $employee->getSlotClass(
+                    $date->toDateString(),
+                    $hour,
+                    $shift,
+                    'frontend',
+                    $service
+                );
+
+                $time = $date->copy()->hour($hour)->minute($shift);
+                $isActive = $slotClass === 'active'
+                    || $slotClass === 'custom active';
+                if ($time->gt(Carbon::now()) && $isActive) {
+                    $formatted = sprintf('%02d:%02d', $hour, $shift);
+
+                    if ($showEndTime) {
+                        $time->addMinutes($service->length);
+                        $formatted .= sprintf(' &ndash; %02d:%02d', $time->hour, $time->minute);
+                    }
+
+                    $timetable[$formatted] = $employee;
+                }
+            }
+        }
+
+        return $timetable;
     }
 }

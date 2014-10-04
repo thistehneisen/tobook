@@ -4,9 +4,10 @@
 
 (function ($) {
     $(function () {
-        var dataStorage = {},
-            $body = $('body'),
-            $main = $('#main-panel');
+        var $body = $('body'),
+            $main = $('#as-main-panel'),
+            $timetable = $('#as-timetable'),
+            dataStorage = {hash: $body.data('hash')};
 
         //----------------------------------------------------------------------
         // Custom method
@@ -83,6 +84,23 @@
 
                 });
             }
+        });
+
+        // When user clicks on an employee
+        $main.on('click', 'a.as-employee', function (e) {
+            e.preventDefault();
+            var $this = $(this);
+            dataStorage.employeeId = $this.data('employee-id');
+
+            $body.showLoading();
+            $.ajax({
+                url: $('input[name=timetable-url]').val(),
+                type: 'POST',
+                data: dataStorage
+            }).done(function (data) {
+                $body.hideLoadding();
+                $timetable.html(data);
+            });
         });
 
     });
