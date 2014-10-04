@@ -88,7 +88,7 @@ class Bookings extends \App\Core\Controllers\Ajax\Base
         if (empty($employeeService)) {
             return Response::json([
                 'success' => false,
-                'message' => trans('as.bookings.error.employee_not_serve_service')
+                'message' => trans('as.bookings.error.employee_not_servable')
             ]);
         }
 
