@@ -1,5 +1,72 @@
 @extends ('modules.as.embed.embed')
 
+@section ('extra_css')
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css">
+{{ HTML::style(asset('packages/alertify/alertify.core.css')) }}
+{{ HTML::style(asset('packages/alertify/alertify.bootstrap.css')) }}
+@stop
+
+@section ('extra_js')
+<script src="//cdnjs.cloudflare.com/ajax/libs/purl/2.3.1/purl.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+{{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
+<script>
+$(document).ready(function () {
+    // work around to fix problem clicking 3 times in 1 date: https://github.com/eternicode/bootstrap-datepicker/issues/1083
+    Date.prototype.yyyymmdd = function () {
+        var yyyy = this.getFullYear().toString();
+        var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
+        var dd  = this.getDate().toString();
+
+        return yyyy + '-' + (mm[1] ? mm : '0' + mm[0]) + '-' + (dd[1] ? dd : '0' + dd[0]);
+    };
+    var date_param = purl(window.location.href).param('date'),
+        selected_date = date_param ? date_param : (new Date()).yyyymmdd();
+    $('#datepicker').datepicker({
+        format: 'yyyy-mm-dd',
+        startDate: new Date(),
+        todayBtn: true,
+        todayHighlight: true,
+        weekStart: 1,
+        language: '{{ App::getLocale() }}'
+    }).on('changeDate', function (e) {
+        if (e.format() !== '') {
+            selected_date = e.format();
+        }
+        if (window.location.href.indexOf('date') !== -1) {
+            window.location.href = window.location.href.replace(date_param, selected_date);
+        } else {
+            window.location.href = window.location.href + '?date=' + selected_date;
+        }
+    });
+    $('#datepicker').datepicker('update', new Date({{ $date->year }},{{ $date->month - 1 }}, {{ $date->day }}));
+    $('#txt-date').val('{{ $date->toDateString() }}');
+    var slots = (parseInt($('#booking_length').val(), 10) / 15);
+    var beforeSlots = (parseInt($('#booking_before').val(), 10) / 15);
+    var totalSlots = (parseInt($('#booking_length').val(), 10) / 15) - 1; //subtract it self
+    $('li.slot').each(function () {
+        var len = $(this).nextAll('.active').length;
+        var plustime = (parseInt($(this).data('plustime'), 10) / 15);
+
+        if (len < slots) {
+            $(this).removeClass('active');
+            $(this).addClass('inactive');
+        }
+        var lenBefore = $(this).prevUntil('li.booked').length;
+        if (lenBefore < beforeSlots) {
+            $(this).removeClass('active');
+            $(this).addClass('inactive');
+        }
+        var len = $(this).nextUntil('li.booked').length;
+        if(len < (totalSlots + plustime)){
+            $(this).removeClass('active');
+            $(this).addClass('inactive');
+        }
+    });
+});
+</script>
+@stop
+
 @section ('content')
 @if(!empty($user->asOptions['style_logo']) || (!empty($user->asOptions['style_banner'])))
 <header class="container-fluid">

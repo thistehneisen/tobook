@@ -4,9 +4,8 @@
     <title></title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css">
-    {{ HTML::style(asset('packages/alertify/alertify.core.css')) }}
-    {{ HTML::style(asset('packages/alertify/alertify.bootstrap.css')) }}
+    @yield('extra_css')
+
     <link rel="stylesheet" href="{{ asset('assets/css/as/'.$layout.'.css').(Config::get('app.debug') ? '?v='.time() : '') }}">
     <style type="text/css">
         @if(!empty($user->asOptions['style_background']) || !empty($user->asOptions['style_text_color']))
@@ -77,68 +76,12 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/purl/2.3.1/purl.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
     @if(App::getLocale() !== 'en')
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.'.App::getLocale().'.min.js') }}
     @endif
-    <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
-    {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
+    @yield('extra_js')
+
     <script src="{{ asset('assets/js/as/'.$layout.'.js').(Config::get('app.debug') ? '?v='.time() : '') }}"></script>
-    <script>
-    $(document).ready(function () {
-        // work around to fix problem clicking 3 times in 1 date: https://github.com/eternicode/bootstrap-datepicker/issues/1083
-        Date.prototype.yyyymmdd = function () {
-            var yyyy = this.getFullYear().toString();
-            var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
-            var dd  = this.getDate().toString();
-
-            return yyyy + '-' + (mm[1] ? mm : '0' + mm[0]) + '-' + (dd[1] ? dd : '0' + dd[0]);
-        };
-        var date_param = purl(window.location.href).param('date'),
-            selected_date = date_param ? date_param : (new Date()).yyyymmdd();
-        $('#datepicker').datepicker({
-            format: 'yyyy-mm-dd',
-            startDate: new Date(),
-            todayBtn: true,
-            todayHighlight: true,
-            weekStart: 1,
-            language: '{{ App::getLocale() }}'
-        }).on('changeDate', function (e) {
-            if (e.format() !== '') {
-                selected_date = e.format();
-            }
-            if (window.location.href.indexOf('date') !== -1) {
-                window.location.href = window.location.href.replace(date_param, selected_date);
-            } else {
-                window.location.href = window.location.href + '?date=' + selected_date;
-            }
-        });
-        $("#datepicker").datepicker("update", new Date({{ $date->year }},{{ $date->month - 1}},{{ $date->day }}));
-        $('#txt-date').val('{{ $date->toDateString() }}');
-        var slots = (parseInt($('#booking_length').val(), 10) / 15);
-        var beforeSlots = (parseInt($('#booking_before').val(), 10) / 15);
-        var totalSlots = (parseInt($('#booking_length').val(), 10) / 15) - 1;//subtract it self
-        $('li.slot').each(function () {
-            var len = $(this).nextAll('.active').length;
-            var plustime = (parseInt($(this).data('plustime'), 10) / 15);
-
-            if (len < slots) {
-                $(this).removeClass('active');
-                $(this).addClass('inactive');
-            }
-            var lenBefore = $(this).prevUntil('li.booked').length;
-            if (lenBefore < beforeSlots) {
-                $(this).removeClass('active');
-                $(this).addClass('inactive');
-            }
-            var len = $(this).nextUntil('li.booked').length;
-            if(len < (totalSlots + plustime)){
-                $(this).removeClass('active');
-                $(this).addClass('inactive');
-            }
-        });
-    });
-    </script>
 </body>
 </html>
