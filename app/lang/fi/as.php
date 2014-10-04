@@ -357,6 +357,7 @@ return [
             'select_service_type' => 'Valitse varauksen tyyppi',
             'services'            => 'Palvelut',
             'extra_services'      => 'Lisäpalvelut',
+            'employees'           => 'Työntekijä'
         ],
         'layout_3'         => [
             'select_service'  => 'Valitse palvelun tyyppi',

@@ -410,6 +410,11 @@ Route::group([
             'uses' => 'App\Appointment\Controllers\FrontBookings@removeBookingServiceInCart'
         ]);
 
+        Route::post('employees', [
+            'as' => 'as.embed.employees',
+            'uses' => 'App\Appointment\Controllers\Embed\Base@getEmployees'
+        ]);
+
         //----------------------------------------------------------------------
         // Layout 1
         //----------------------------------------------------------------------
@@ -426,10 +431,6 @@ Route::group([
         //----------------------------------------------------------------------
         // Layout 3
         //----------------------------------------------------------------------
-        Route::post('layout-3/employees', [
-            'as' => 'as.embed.employees',
-            'uses' => 'App\Appointment\Controllers\Embed\Layout3@getEmployees'
-        ]);
 
         Route::post('layout-3/timetable', [
             'as' => 'as.embed.timetable',

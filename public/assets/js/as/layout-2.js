@@ -4,6 +4,8 @@
 
 (function ($) {
     $(function () {
+        var dataStorage = {},
+            main = $('#main-panel');
 
         // When user clicks on a category name
         $('a.as-category').on('click', function (e) {
@@ -23,20 +25,40 @@
             e.preventDefault();
             var $this = $(this),
                 serviceId = $this.data('service-id'),
-                serviceTime = $this.siblings('.as-service-time');
+                $serviceTime = $this.siblings('.as-service-time'),
+                $employee = $('#as-service-'+serviceId+'-employees');
 
-            if (serviceTime.is(':visible')) {
+            // Show/hide service time
+            if ($serviceTime.is(':visible')) {
                 $this.removeClass('active');
-                serviceTime.hide();
+                $serviceTime.hide();
             } else {
                 $('a.as-service.active').removeClass('active');
                 $this.addClass('active');
-                serviceTime.show();
+                $serviceTime.show();
             }
 
             // Show extra services if available
             $('div.as-extra-services').hide();
             $('#as-service-'+serviceId+'-extra-services').show();
+
+            dataStorage.serviceId = serviceId;
+            // Hide all visible employee elements
+            $('div.as-employees').hide();
+            if ($employee.length > 0) {
+                $employee.show();
+            } else {
+                // Send AJAX to load employees of this service
+                $.ajax({
+                    url: $('input[name=employee-url]').val(),
+                    type: 'POST',
+                    data: dataStorage
+                }).done(function (data) {
+                    main.append(data);
+                }).fail(function () {
+
+                });
+            }
         });
 
     });

@@ -176,4 +176,37 @@ class Base extends AsBase
 
         return Validator::make($fields, $validators);
     }
+
+    /**
+     * Get all employees available for a service
+     *
+     * @return View
+     */
+    public function getEmployees()
+    {
+        $serviceId = Input::get('serviceId');
+        if ($serviceId === null) {
+            return Response::json(['message' => 'Missing service ID'], 400);
+        }
+
+        $service = Service::with('employees')->findOrFail($serviceId);
+        $employees = $this->getEmployeesOfService($service);
+
+        return $this->render('employees', [
+            'employees' => $employees,
+            'service'   => $service
+        ]);
+    }
+
+    /**
+     * The all active employees of a service
+     *
+     * @param Service $service
+     *
+     * @return Illuminate\Support\Collection
+     */
+    protected function getEmployeesOfService(Service $service)
+    {
+        return $service->employees()->where('is_active', true)->get();
+    }
 }
