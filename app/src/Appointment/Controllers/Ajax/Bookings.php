@@ -104,9 +104,12 @@ class Bookings extends \App\Core\Controllers\Ajax\Base
 
         $booking->start_at = $startTime->toTimeString();
         $booking->end_at   = $endTime->toTimeString();
+        $booking->date     = $startTime->toDateString();
         $booking->employee()->associate($employee);
         $booking->save();
-        $bookingService->employee()->associate($employee)->save();
+        $bookingService->employee()->associate($employee);
+        $bookingService->date = $startTime->toDateString();
+        $bookingService->save();
         Session::forget('cutId');
         return Response::json(['success' => true]);
     }
