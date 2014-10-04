@@ -1,6 +1,9 @@
-<li data-booking-date="{{ $selectedDate }}" data-employee-id="{{ $selectedEmployee->id }}" data-start-time="{{ sprintf('%02d:%02d', (int)$hour, $minuteShift) }}" href="#select-action" class="{{ $slotClass }}">
+<?php
+    $booking = $selectedEmployee->getBooked($selectedDate, $hour, $minuteShift);
+    $bookingId = !empty($booking) ? $booking->id : -1;
+?>
+<li data-booking-date="{{ $selectedDate }}" data-employee-id="{{ $selectedEmployee->id }}" data-start-time="{{ sprintf('%02d:%02d', (int)$hour, $minuteShift) }}" href="#select-action" class="{{ $slotClass }}" @if($cutId==$bookingId) style="background-color: grey" @endif>
     @if(strpos(trim($slotClass), 'booked') === 0)
-        <?php $booking = $selectedEmployee->getBooked($selectedDate, $hour, $minuteShift); ?>
         @if($booking !== null)
             <?php
             $bookingStartTime = with(new Carbon\Carbon($booking->start_at))->format('H:i');

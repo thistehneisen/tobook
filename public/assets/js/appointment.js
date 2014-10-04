@@ -315,9 +315,9 @@
                     ajax: {
                         type: 'GET',
                         data: {
-                            employee_id: employee_id,
+                            employee_id : employee_id,
                             booking_date: booking_date,
-                            start_time: start_time
+                            start_time  : start_time
                         }
                     },
                     helpers: {
@@ -326,6 +326,24 @@
                         }
                     },
                     autoCenter: false
+                });
+            } else if (selected_action === 'paste_booking') {
+                var action_url = $('#get_paste_booking_url').val();
+                $.ajax({
+                    type: 'POST',
+                    url: action_url,
+                    data: {
+                        employee_id: employee_id,
+                        booking_date: booking_date,
+                        start_time: start_time
+                    },
+                    dataType: 'json'
+                }).done(function (data) {
+                    if (data.success) {
+                        location.reload();
+                    } else {
+                        alertify.alert(data.message);
+                    }
                 });
             }
         });

@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Controllers;
 
-use View, Input, Confide, Util, Config, Event;
+use View, Input, Confide, Util, Config, Event, Session;
 use Carbon\Carbon;
 use App\Core\Controllers\Base;
 use App\Appointment\Models\Employee;
@@ -25,6 +25,7 @@ class Index extends AsBase
                 $date = Carbon::today();
             }
         }
+        $cutId = Session::get('cutId', 0);
 
         $workingTimes = $this->getDefaultWorkingTimes($date);
         //TODO settings for day off such as Sunday
@@ -33,7 +34,8 @@ class Index extends AsBase
                 'employeeId'   => null,//because use the same view with employee
                 'employees'    => $employees,
                 'workingTimes' => $workingTimes,
-                'date'         => $date
+                'date'         => $date,
+                'cutId'        => $cutId
             ]);
     }
 
@@ -57,13 +59,16 @@ class Index extends AsBase
            $cloneDate->addDay();
         }
 
+        $cutId = Session::get('cutId', 0);
+
         return View::make('modules.as.index.employee', [
                 'employeeId'       => $id,
                 'selectedEmployee' => $employee,
                 'employees'        => $employees,
                 'workingTimes'     => $workingTimes,
                 'weekDaysFromDate' => $weekDaysFromDate,
-                'date'             => $date
+                'date'             => $date,
+                'cutId'            => $cutId
             ]);
     }
 }

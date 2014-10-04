@@ -51,7 +51,7 @@
                 data-booking-id="{{ $booking->id }}"
                 data-service-id="{{ $bookingService->service->id }}"
                 data-action-url="{{ route('as.bookings.cut') }}">
-               <i class="fa fa-cut"></i> {{ trans('common.cut') }}
+               <i class="fa fa-cut"></i> {{ trans('as.bookings.cut') }}
             </a>
             <a class="btn btn-danger btn-sm pull-right" style="margin-left:5px" onclick="$(this).closest('div.popover').popover('hide');" class="close" aria-hidden="true">{{ trans('common.cancel') }}</a>
             <a href="#" id="btn-submit-modify-form" data-booking-id="{{ $booking->id }}" data-action-url="{{ route('as.bookings.modify-form') }}" class="btn btn-primary btn-sm pull-right">{{ trans('common.save') }}</a>

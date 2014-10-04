@@ -586,6 +586,11 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Ajax\Bookings@cut'
     ]);
 
+    Route::post('bookings/paste', [
+        'as' => 'as.bookings.paste',
+        'uses' => 'App\Appointment\Controllers\Ajax\Bookings@paste'
+    ]);
+
     // Service Category
     \App\Appointment\Controllers\Categories::crudRoutes(
         'services/categories',

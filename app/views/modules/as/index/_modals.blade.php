@@ -10,6 +10,10 @@
             <td><input type="radio" id="book" value="book" name="action_type"></td>
             <td><label for="book">{{ trans('as.bookings.add') }}</label></td>
         </tr>
+        <tr id="row_paste_booking" style="@if(empty($cutId)) display: none @endif">
+            <td><input type="radio" id="paste_booking" value="paste_booking" name="action_type"></td>
+            <td><label for="paste_booking">{{ trans('as.bookings.paste') }}</label></td>
+        </tr>
     </tbody>
     <tfoot>
     <tr>
@@ -61,3 +65,4 @@
 <input type="hidden" id="add_freetime_url" value=" {{ route('as.employees.freetime.add') }}">
 <input type="hidden" id="delete_freetime_url" value="{{ route('as.employees.freetime.delete') }}"/>
 <input type="hidden" id="modify_booking_form_url" value="{{ route('as.bookings.modify-form') }}"/>
+<input type="hidden" id="get_paste_booking_url" value="{{ route('as.bookings.paste') }}"/>
