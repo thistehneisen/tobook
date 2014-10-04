@@ -5,7 +5,29 @@
 (function ($) {
     $(function () {
         var dataStorage = {},
-            main = $('#main-panel');
+            $body = $('body'),
+            $main = $('#main-panel');
+
+        //----------------------------------------------------------------------
+        // Custom method
+        //----------------------------------------------------------------------
+        /**
+         * Change mouse cursor to indicate AJAX loading
+         *
+         * @return {void}
+         */
+        $body.showLoading = function () {
+            $(this).css('cursor', 'progress');
+        };
+
+        /**
+         * Change mouse cursor back to normal
+         *
+         * @return {void}
+         */
+        $body.hideLoadding = function () {
+            $(this).css('cursor', 'default');
+        };
 
         // When user clicks on a category name
         $('a.as-category').on('click', function (e) {
@@ -48,13 +70,15 @@
             if ($employee.length > 0) {
                 $employee.show();
             } else {
+                $body.showLoading();
                 // Send AJAX to load employees of this service
                 $.ajax({
                     url: $('input[name=employee-url]').val(),
                     type: 'POST',
                     data: dataStorage
                 }).done(function (data) {
-                    main.append(data);
+                    $main.append(data);
+                    $body.hideLoadding();
                 }).fail(function () {
 
                 });
