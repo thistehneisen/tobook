@@ -33,55 +33,108 @@ $(document).ready(function () {
     });
 
     // ------ CREATE CONSUMER ------ //
+    $('#js-createConsumerForm').bootstrapValidator({
+        message: 'This value is not valid',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            first_name: {
+                validators: {
+                    notEmpty: {
+                        message: 'First name is required'
+                    }
+                }
+            },
+            last_name: {
+                validators: {
+                    notEmpty: {
+                        message: 'Last name is required'
+                    }
+                }
+            },
+            email: {
+                validators: {
+                    notEmpty: {
+                        message: 'Email is required'
+                    },
+                    emailAddress: {
+                        message: 'Not valid email address'
+                    }
+                }
+            },
+            phone: {
+                validators: {
+                    notEmpty: {
+                        message: 'Phone number is required'
+                    },
+                    numeric: {
+                        message: 'Phone number must contain only numbers'
+                    }
+                }
+            },
+            address: {
+                validators: {
+                    notEmpty: {
+                        message: 'Address is required'
+                    }
+                }
+            },
+            postcode: {
+                validators: {
+                    notEmpty: {
+                        message: 'Pose code is required'
+                    },
+                    numeric: {
+                        message: 'Post code must contain only numbers'
+                    }
+                }
+            },
+            city: {
+                validators: {
+                    notEmpty: {
+                        message: 'City is required'
+                    }
+                }
+            },
+            country: {
+                validators: {
+                    notEmpty: {
+                        message: 'Country is required'
+                    }
+                }
+            }
+        }
+    });
+
     // reset the form when click cancel
     $('#js-createConsumerModal').on('click', '#js-cancelCreateConsumer', function () {
         $('#js-createConsumerForm').trigger('reset');
         $('#js-confirmCreateConsumer').text('Create');
         $('#js-result').text('');
+        $('#js-createConsumerForm').bootstrapValidator('resetForm', true);
+        $('#js-alert').removeClass();
+        $('#js-alert').html('');
     });
 
     // trigger form submit when click confirm
     $('#js-createConsumerModal').on('click', '#js-confirmCreateConsumer', function () {
-        if ($('#js-confirmCreateConsumer').text() === 'Link') {
-            $.ajax({
-                url: $(this).data('url') + '?act=l',
-                dataType: 'json',
-                type: 'post',
-                data: $('#js-createConsumerForm').serialize(),
-                success: function (data) {
-                    $('#js-result').html(data.message);
+        $.ajax({
+            url: $(this).data('url'),
+            dataType: 'json',
+            type: 'post',
+            data: $('#js-createConsumerForm').serialize(),
+            success: function (data) {
+                if (data.result === true) {
                     window.location.reload();
-                },
-            });
-        } else {
-            $.ajax({
-                url: $(this).data('url'),
-                dataType: 'json',
-                type: 'post',
-                data: $('#js-createConsumerForm').serialize(),
-                success: function (data) {
-                    if (!data.success) {
-                        var errorMsg = '';
-
-                        if (data.errors[0] === 'DUPLICATE') {
-                            errorMsg = 'This person is already your customer.';
-                        } else if (data.errors[0] === 'EXIST') {
-                            errorMsg = 'This customer already exists. Do you want to link the consumer to your loyalty card ?';
-                            $('#js-confirmCreateConsumer').text('Link');
-                        } else {
-                            $.each(data.errors, function (index, error) {
-                                errorMsg += '<p> - ' + error + '</p>';
-                            });
-                        }
-
-                        $('#js-result').html(errorMsg);
-                    } else {
-                        $('#js-result').html(data.message);
-                        window.location.reload();
-                    }
-                },
-            });
-        }
+                } else {
+                    $('#js-alert').addClass('alert alert-danger');
+                    $('#js-alert').html('Duplicated customer');
+                }
+            },
+        });
     });
 
     // ------ HIDE CONSUMER INFO ------ //

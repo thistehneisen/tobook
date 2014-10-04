@@ -46,24 +46,8 @@ class Consumer extends Base
         $core = $item->consumer;
 
         if ($core === null) {
-            $duplicatedConsumer = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-                                ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-                                ->where('consumer_user.user_id', Confide::user()->id)
-                                ->where('lc_consumers.user_id', Confide::user()->id)
-                                ->where('consumers.first_name', Input::get('first_name'))
-                                ->where('consumers.last_name', Input::get('last_name'))
-                                ->where('consumers.email', Input::get('email'))
-                                ->where('consumers.phone', Input::get('phone'))
-                                ->first();
-
-            $existedConsumer = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-                                ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-                                ->where('consumers.first_name', Input::get('first_name'))
-                                ->where('consumers.last_name', Input::get('last_name'))
-                                ->where('consumers.email', Input::get('email'))
-                                ->where('consumers.phone', Input::get('phone'))
-                                ->select('consumers.id')
-                                ->first();
+            $duplicatedConsumer = $this->consumerRepository->getDuplicatedConsumer();
+            $existedConsumer = $this->consumerRepository->getExistedConsumer();
 
             if ($duplicatedConsumer) {
                 return;
@@ -181,40 +165,12 @@ class Consumer extends Base
      */
     public function store()
     {
-        if (Input::get('act') === 'l') {
-            $result = $this->consumerRepository->linkConsumer();
+        $result = $this->consumerRepository->storeConsumer(false);
 
-            if (is_object($result)) {
-                return Response::json([
-                    'success' => true,
-                    'message' => 'Customer linked successfully!',
-                ]);
-            }
-        } else {
-            $result = $this->consumerRepository->storeConsumer(false);
-
-            if (is_array($result)) {
-                if (Request::ajax()) {
-                    return Response::json([
-                        'success' => false,
-                        'errors' => $result,
-                    ]);
-                } else {
-                    return Redirect::back()
-                        ->withErrors($result)
-                        ->withInput();
-                }
-            } else {
-                if (Request::ajax()) {
-                    return Response::json([
-                        'success' => true,
-                        'message' => 'Customer created successfully!',
-                    ]);
-                } else {
-                    return Redirect::route('lc.consumers.index');
-                }
-            }
-        }
+        return Response::json([
+            'success'   => true,
+            'result'    => $result,
+        ]);
     }
 
     /**

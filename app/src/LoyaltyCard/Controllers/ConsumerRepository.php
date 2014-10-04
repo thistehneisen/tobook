@@ -50,32 +50,30 @@ class ConsumerRepository
         return $consumers;
     }
 
-    /**
-     * Link consumer to LC
-     * @return Consumer
-     */
-    public function linkConsumer()
+    public function getDuplicatedConsumer()
     {
-        $existConsumer = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-                        ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-                        ->where(function($q) {
-                            $q->where('consumers.email', Input::get('email'))
-                            ->orWhere('consumers.phone', Input::get('phone'));
-                        })
-                        ->first();
+        return Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
+                    ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
+                    ->where('consumer_user.user_id', Confide::user()->id)
+                    ->where('lc_consumers.user_id', Confide::user()->id)
+                    ->where('consumers.first_name', Input::get('first_name'))
+                    ->where('consumers.last_name', Input::get('last_name'))
+                    ->where('consumers.email', Input::get('email'))
+                    ->where('consumers.phone', Input::get('phone'))
+                    ->select('consumers.id')
+                    ->first();
+    }
 
-        if ($existConsumer) {
-            Confide::user()->consumers()->attach($existConsumer->consumer->id, ['is_visible' => true]);
-
-            $consumer = new Model;
-            $consumer->total_points = 0;
-            $consumer->total_stamps = '';
-            $consumer->consumer_id = $existConsumer->consumer->id;
-            $consumer->user_id = Confide::user()->id;
-            $consumer->save();
-
-            return $consumer;
-        }
+    public function getExistedConsumer()
+    {
+        return Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
+                    ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
+                    ->where('consumers.first_name', Input::get('first_name'))
+                    ->where('consumers.last_name', Input::get('last_name'))
+                    ->where('consumers.email', Input::get('email'))
+                    ->where('consumers.phone', Input::get('phone'))
+                    ->select('consumers.id')
+                    ->first();
     }
 
     /**
@@ -86,42 +84,14 @@ class ConsumerRepository
     public function storeConsumer($isApi = false)
     {
         $userId = $isApi ? Auth::user()->id : Confide::user()->id;
+        $duplicatedConsumer = $this->getDuplicatedConsumer();
+        $existConsumer = $this->getExistedConsumer();
 
-        $rules = [
-            'first_name'    => 'required',
-            'last_name'     => 'required',
-            'email'         => 'required|email|unique:consumers',
-            'phone'         => 'required|numeric|unique:consumers',
-            'address'       => 'required',
-            'postcode'      => 'required|numeric',
-            'city'          => 'required',
-            'country'       => 'required',
-        ];
-
-        $validator = $isApi ? Validator::make(Request::all(), $rules) : Validator::make(Input::all(), $rules);
-
-        if ($validator->fails()) {
-            $failedRules = $validator->failed();
-
-            if (isset($failedRules['email']['Unique']) || isset($failedRules['phone']['Unique'])) {
-                $consumer = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-                        ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-                        ->where('consumer_user.user_id', $userId)
-                        ->where('lc_consumers.user_id', $userId)
-                        ->where(function($q) {
-                            $q->where('consumers.email', Input::get('email'))
-                            ->orWhere('consumers.phone', Input::get('phone'));
-                        })
-                        ->first();
-
-                if ($consumer) {
-                    return ['DUPLICATE'];
-                } else {
-                    return ['EXIST'];
-                }
-            } else {
-                return $validator->errors()->toArray();
-            }
+        if ($duplicatedConsumer) {
+            return false;
+        } elseif ($existConsumer) {
+            $core = Core::find($existConsumer->id);
+            Confide::user()->consumers()->attach($core->id, ['is_visible' => true]);
         } else {
             $data = [
                 'first_name'    => $isApi ? Request::get('first_name') : Input::get('first_name'),
@@ -135,17 +105,17 @@ class ConsumerRepository
             ];
 
             $core = $isApi ? Core::make($data, Auth::user()->id) : Core::make($data, Confide::user()->id);
-
-            $consumer = new Model;
-            $consumer->total_points = 0;
-            $consumer->total_stamps = '';
-            $consumer->consumer_id = $core->id;
-            $consumer->user_id = $isApi ? Core::user()->id : Confide::user()->id;
-            $consumer->consumer()->associate($core);
-            $consumer->save();
-
-            return $consumer;
         }
+
+        $consumer = new Model;
+        $consumer->total_points = 0;
+        $consumer->total_stamps = '';
+        $consumer->consumer_id = $core->id;
+        $consumer->user_id = $isApi ? Core::user()->id : Confide::user()->id;
+        $consumer->consumer()->associate($core);
+        $consumer->save();
+
+        return true;
     }
 
     /**

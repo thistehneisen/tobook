@@ -1,10 +1,12 @@
 @extends('layouts.app')
 
 @section ('styles')
+@parent
 {{ HTML::style(asset('assets/css/lc/lcapp.css')) }}
 @stop
 
 @section ('scripts')
+@parent
 <script>
     VARAA.addRoute('consumers', "{{ route('app.lc.show') }}");
 </script>
@@ -46,6 +48,7 @@ NFC Desktop App
                     <h4 class="modal-title">{{ trans('loyalty-card.consumer_info') }}</h4>
                 </div>
                 <div class="modal-body">
+                    <div id="js-alert"></div>
                     {{ Form::open(['route' => 'app.lc.store', 'class' => 'form-horizontal', 'id' => 'js-createConsumerForm']) }}
                     @foreach ([
                         'first_name'    => trans('co.first_name'),
@@ -60,16 +63,15 @@ NFC Desktop App
                     <div class="form-group">
                         <label class="col-sm-4 control-label">{{ Form::label($key, $value) }}</label>
                         <div class="col-sm-6">
-                            {{ Form::text($key, Input::old($key), ['class' => 'form-control', 'id' => $key]) }}
+                            {{ Form::text($key, Input::old($key), ['class' => 'form-control', 'id' => $key, 'name' => $key]) }}
                         </div>
                     </div>
                     @endforeach
-                    {{ Form::close() }}
-                    <div id="js-result"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" id='js-cancelCreateConsumer'>{{ trans('common.cancel') }}</button>
-                    <button type="button" class="btn btn-success" id="js-confirmCreateConsumer" data-url="{{ URL::route('app.lc.store') }}">{{ trans('common.create') }}</button>
+                    <button type="submit" class="btn btn-success" id="js-confirmCreateConsumer" data-url="{{ URL::route('app.lc.store') }}">{{ trans('common.create') }}</button>
+                    {{ Form::close() }}
                 </div>
             </div>
         </div>
