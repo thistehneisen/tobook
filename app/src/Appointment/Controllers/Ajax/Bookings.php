@@ -83,10 +83,13 @@ class Bookings extends \App\Core\Controllers\Ajax\Base
         $serviceId        = $bookingService->service->id;
         //Check if employee serve that service in booking and employee plustime
         $employee = Employee::find($employeeId);
-        $employeeService = $employee->services()->where('service_id', $serviceId);
+        $employeeService = $employee->services()->where('service_id', $serviceId)->first();
 
         if (empty($employeeService)) {
-            return Response::json(['success' => false]);
+            return Response::json([
+                'success' => false,
+                'message' => trans('as.bookings.error.employee_not_serve_service')
+            ]);
         }
 
         $plustime = $employee->getPlustime($serviceId);
@@ -99,7 +102,10 @@ class Bookings extends \App\Core\Controllers\Ajax\Base
         $isBookable = Booking::isBookable($employeeId, $bookingDate, $startTime, $endTime);
 
         if (!$isBookable) {
-            return Response::json(['success' => false]);
+            return Response::json([
+                'success' => false,
+                'message' => trans('as.bookings.error.add_overlapped_booking')
+            ]);
         }
 
         $booking->start_at = $startTime->toTimeString();
