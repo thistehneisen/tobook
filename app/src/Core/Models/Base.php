@@ -20,6 +20,9 @@ class Base extends \Eloquent
     public function scopeOfUser($query, $userId)
     {
         $table = $this->getTable();
+        if ($userId instanceof User) {
+            $userId = $userId->id;
+        }
 
         if (method_exists($this, 'user')) {
             return $query->where($table.'.user_id', $userId);
