@@ -1,0 +1,17 @@
+.as-categories a {
+  display: block;
+  text-decoration: none;
+  color: #333;
+  padding: 3px 5px;
+}
+.as-categories a.active {
+  background-color: #e71a79;
+  color: #fff;
+}
+.as-categories a:hover {
+  background-color: rgba(231, 26, 121, 0.15);
+}
+.as-services,
+.as-service-time {
+  display: none;
+}

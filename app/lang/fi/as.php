@@ -352,6 +352,11 @@ return [
         'fi_version'       => 'Suomeksi',
         'en_version'       => 'Englanniksi',
         'success'          => 'Booking was placed. Thank you.', // @todo
+        'layout_2'         => [
+            'select_service'      => 'Valitse palvelu ja päivämäärä',
+            'select_service_type' => 'Valitse varauksen tyyppi',
+            'services'            => 'Palvelut',
+        ],
         'layout_3'         => [
             'select_service'  => 'Valitse palvelun tyyppi',
             'select_employee' => 'Valitse henkilö',
