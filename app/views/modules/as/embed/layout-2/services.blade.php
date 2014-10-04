@@ -12,19 +12,20 @@
     <h5>{{ trans('as.embed.layout_2.services') }}</h5>
     <div class="well">
     @foreach ($category->services as $service)
-        <p>{{ $service->name }}</p>
-
-        <div class="as-service-time">
-            <div class="btn-group">
-                <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-tag"></i> {{ $service->formatted_price }}</button>
-                <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-time"></i> {{ $service->during }} {{ trans('common.minutes') }}</button>
+        <div>
+            <a href="#" class="as-service">{{ $service->name }}</a>
+            <div class="as-service-time">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-tag"></i> {{ $service->formatted_price }}</button>
+                    <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-time"></i> {{ $service->during }} {{ trans('common.minutes') }}</button>
+                </div>
+            @foreach ($service->serviceTimes as $item)
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-tag"></i> {{ $item->formatted_price }}</button>
+                    <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-time"></i> {{ $item->during }} {{ trans('common.minutes') }}</button>
+                </div>
+            @endforeach
             </div>
-        @foreach ($service->serviceTimes as $item)
-            <div class="btn-group">
-                <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-tag"></i> {{ $item->formatted_price }}</button>
-                <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-time"></i> {{ $item->during }} {{ trans('common.minutes') }}</button>
-            </div>
-        @endforeach
         </div>
     @endforeach
 

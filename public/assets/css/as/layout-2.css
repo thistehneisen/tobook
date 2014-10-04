@@ -1,17 +1,25 @@
-.as-categories a {
+.as-category,
+.as-service {
   display: block;
   text-decoration: none;
   color: #333;
   padding: 3px 5px;
 }
-.as-categories a.active {
+.as-category.active,
+.as-service.active {
   background-color: #e71a79;
   color: #fff;
 }
-.as-categories a:hover {
+.as-category:hover,
+.as-service:hover {
   background-color: rgba(231, 26, 121, 0.15);
+  text-decoration: none;
+  color: #333;
 }
 .as-services,
 .as-service-time {
   display: none;
+}
+.as-service-time .btn-group {
+  margin-bottom: 5px;
 }

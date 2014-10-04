@@ -6,12 +6,19 @@
     $(function () {
 
         // When user clicks on a category name
-        $('a.as-category').on('click', function(e) {
+        $('a.as-category').on('click', function (e) {
             e.preventDefault();
             var $this = $(this);
 
             $('div.as-services').hide();
             $('#'+$this.attr('rel')).slideDown();
+        });
+
+        $('a.as-service').on('click', function (e) {
+            e.preventDefault();
+            var $this = $(this);
+
+            $this.siblings('.as-service-time').show();
         });
 
     });
