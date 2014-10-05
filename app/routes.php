@@ -586,6 +586,11 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Ajax\Bookings@cut'
     ]);
 
+    Route::post('bookings/discard-cut', [
+        'as' => 'as.bookings.discard-cut',
+        'uses' => 'App\Appointment\Controllers\Ajax\Bookings@discardCut'
+    ]);
+
     Route::post('bookings/paste', [
         'as' => 'as.bookings.paste',
         'uses' => 'App\Appointment\Controllers\Ajax\Bookings@paste'
