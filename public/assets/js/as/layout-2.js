@@ -59,6 +59,9 @@
                 $('a.as-service.active').removeClass('active');
                 $this.addClass('active');
                 $serviceTime.show();
+
+                // Select the first service time
+                $serviceTime.find('.btn-group:first button').addClass('active');
             }
 
             // Show extra services if available
