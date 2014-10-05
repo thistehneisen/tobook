@@ -2,7 +2,7 @@
 
 @section ('styles')
 @parent
-{{ HTML::style(asset('assets/css/lc/lcapp.css')) }}
+{{ HTML::style(asset('assets/css/lc/lcapp.css?v=0001')) }}
 @stop
 
 @section ('scripts')
@@ -10,7 +10,7 @@
 <script>
     VARAA.addRoute('consumers', "{{ route('app.lc.show') }}");
 </script>
-{{ HTML::script(asset('assets/js/modules/lcapp.js')) }}
+{{ HTML::script(asset('assets/js/modules/lcapp.js?v=0001')) }}
 @stop
 
 @section ('title')

@@ -2,12 +2,12 @@
 
 @section ('styles')
     @parent
-    {{ HTML::style(asset('assets/css/lc/bootstrapValidator.css')) }}
+    {{ HTML::style('//cdn.jsdelivr.net/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css') }}
 @stop
 
 @section ('scripts')
     @parent
-    {{ HTML::script(asset('assets/js/modules/bootstrapValidator.js')) }}
+    {{ HTML::script('//cdn.jsdelivr.net/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js') }}
 @stop
 
 @section('main-nav')
