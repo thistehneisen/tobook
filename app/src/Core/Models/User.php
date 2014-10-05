@@ -204,6 +204,10 @@ class User extends ConfideUser
         return $this->belongsTo('App\Consumers\Models\Consumer');
     }
 
+    public function rbOptions(){
+        return $this->hasMany('App\Restaurant\Models\Option');
+    }
+
     //--------------------------------------------------------------------------
     // SCOPES
     //--------------------------------------------------------------------------
