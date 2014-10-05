@@ -48,7 +48,7 @@ NFC Desktop App
                     <h4 class="modal-title">{{ trans('loyalty-card.consumer_info') }}</h4>
                 </div>
                 <div class="modal-body">
-                    <div id="js-alert"></div>
+                    <div id="js-alert" class="alert alert-danger hidden"></div>
                     {{ Form::open(['route' => 'app.lc.store', 'class' => 'form-horizontal', 'id' => 'js-createConsumerForm']) }}
                     @foreach ([
                         'first_name'    => trans('co.first_name'),
@@ -70,7 +70,7 @@ NFC Desktop App
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" id='js-cancelCreateConsumer'>{{ trans('common.cancel') }}</button>
-                    <button type="submit" class="btn btn-success" id="js-confirmCreateConsumer" data-url="{{ URL::route('app.lc.store') }}">{{ trans('common.create') }}</button>
+                    <button type="submit" class="btn btn-success" id="js-confirmCreateConsumer">{{ trans('common.create') }}</button>
                     {{ Form::close() }}
                 </div>
             </div>

@@ -1,5 +1,5 @@
 /*jslint browser: true, nomen: true, unparam: true*/
-/*global $, jQuery, external, VARAA*/
+/*global $, jQuery, external, VARAA, confirm*/
 'use strict';
 
 // global function to be accessed from the desktop app
@@ -20,7 +20,8 @@ $(document).ready(function () {
             $('#js-messageModal .modal-body').html(body);
             $('#js-messageModal').modal('show');
         },
-        consumerTr = $('#consumer-table tbody tr');
+        consumerTr = $('#consumer-table tbody tr'),
+        createConsumerForm = $('#js-createConsumerForm');
 
     // ------ CONSUMER INFO FETCHING ------ //
     consumerTr.click(function () {
@@ -33,7 +34,7 @@ $(document).ready(function () {
     });
 
     // ------ CREATE CONSUMER ------ //
-    $('#js-createConsumerForm').bootstrapValidator({
+    createConsumerForm.bootstrapValidator({
         message: 'This value is not valid',
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',
@@ -75,65 +76,32 @@ $(document).ready(function () {
                     }
                 }
             },
-            address: {
-                validators: {
-                    notEmpty: {
-                        message: 'Address is required'
-                    }
-                }
-            },
-            postcode: {
-                validators: {
-                    notEmpty: {
-                        message: 'Pose code is required'
-                    },
-                    numeric: {
-                        message: 'Post code must contain only numbers'
-                    }
-                }
-            },
-            city: {
-                validators: {
-                    notEmpty: {
-                        message: 'City is required'
-                    }
-                }
-            },
-            country: {
-                validators: {
-                    notEmpty: {
-                        message: 'Country is required'
-                    }
-                }
-            }
         }
     });
 
     // reset the form when click cancel
     $('#js-createConsumerModal').on('click', '#js-cancelCreateConsumer', function () {
-        $('#js-createConsumerForm').trigger('reset');
-        $('#js-confirmCreateConsumer').text('Create');
-        $('#js-result').text('');
-        $('#js-createConsumerForm').bootstrapValidator('resetForm', true);
-        $('#js-alert').removeClass();
-        $('#js-alert').html('');
+        createConsumerForm.trigger('reset');
+        createConsumerForm.bootstrapValidator('resetForm', true);
+        $('#js-alert').addClass('hidden');
     });
 
     // trigger form submit when click confirm
-    $('#js-createConsumerModal').on('click', '#js-confirmCreateConsumer', function () {
+    createConsumerForm.on('success.form.bv', function (e) {
+        e.preventDefault();
+
         $.ajax({
-            url: $(this).data('url'),
+            url: $(this).prop('action'),
             dataType: 'json',
             type: 'post',
-            data: $('#js-createConsumerForm').serialize(),
+            data: $(this).serialize(),
             success: function (data) {
                 if (data.result === true) {
                     window.location.reload();
                 } else {
-                    $('#js-alert').addClass('alert alert-danger');
-                    $('#js-alert').html('Duplicated customer');
+                    $('#js-alert').text('This customer already exists').removeClass('hidden');
                 }
-            },
+            }
         });
     });
 
