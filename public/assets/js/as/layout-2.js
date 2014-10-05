@@ -89,12 +89,7 @@
             }
         });
 
-        // When user clicks on an employee
-        $main.on('click', 'a.as-employee', function (e) {
-            e.preventDefault();
-            var $this = $(this);
-            dataStorage.employeeId = $this.data('employee-id');
-
+        var fnLoadTimetable = function () {
             $body.showLoading();
             $.ajax({
                 url: $('input[name=timetable-url]').val(),
@@ -108,6 +103,22 @@
                     .removeClass('btn-default')
                     .addClass('btn-selected');
             });
+        };
+
+        // When user clicks on an employee
+        $main.on('click', 'a.as-employee', function (e) {
+            e.preventDefault();
+
+            dataStorage.employeeId = $(this).data('employee-id');
+            fnLoadTimetable();
+        });
+
+        // When user clicks on a date in nav
+        $timetable.on('click', 'a.btn-as-timetable', function (e) {
+            e.preventDefault();
+
+            dataStorage.date = $(this).data('date');
+            fnLoadTimetable();
         });
 
     });
