@@ -2,9 +2,11 @@
     <h3>Valitse päivämäärä</h3>
     <div class="btn-group">
         @foreach ($nav as $item)
-        <a href="#" class="btn btn-default">{{ $item['start']->format('d') }}. {{ trans('common.short.'.strtolower($item['start']->format('M'))) }} &ndash; {{ $item['end']->format('d') }}</a>
+        <a href="#" class="btn btn-default btn-as-timetable" data-date="{{ $item->start->toDateString() }}">{{ $item->start->format('d') }}. {{ trans('common.short.'.strtolower($item->start->format('M'))) }} &ndash; {{ $item->end->format('d') }}</a>
         @endforeach
     </div>
+
+    <input type="hidden" name="start-date" value="{{ $date->toDateString() }}">
 
     <div class="row">
         <table class="table-timetable">

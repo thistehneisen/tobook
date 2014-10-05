@@ -19,10 +19,10 @@ class Layout2 extends Base
         // Calculate date ranges for nav
         $nav = [];
         $i = 1;
-        $start = $date->copy();
+        $start = $today->copy();
         while ($i++ <= 5) {
             $end = $start->copy()->addDays(4);
-            $nav[] = [
+            $nav[] = (object) [
                 'start' => $start->copy(),
                 'end'   => $end->copy()
             ];

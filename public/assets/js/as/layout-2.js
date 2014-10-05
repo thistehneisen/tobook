@@ -103,6 +103,10 @@
             }).done(function (data) {
                 $body.hideLoadding();
                 $timetable.html(data);
+                var startDate = $timetable.find('input[name=start-date]').val();
+                $timetable.find('a[data-date='+startDate+']')
+                    .removeClass('btn-default')
+                    .addClass('btn-selected');
             });
         });
 
