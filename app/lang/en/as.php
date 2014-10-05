@@ -267,6 +267,8 @@ return [
         'cancel_message'    => $cancelMessage, //@todo
         'cancel_confirm'    => 'Are you sure to cancel this booking %s?', //@todo
         'modify_booking'    => 'Modify booking', //@todo
+        'cut'               => 'Cut',//@todo
+        'paste'             => 'Paste Booking',//@todo
         'error'             => [
             'add_overlapped_booking'   => 'Overlapped booking time!',// @todo
             'insufficient_slots'       => 'There is no enough time slots for this booking!',// @todo
@@ -279,6 +281,7 @@ return [
             'empty_total_time'         => 'Booking total minutes must be greater or equal 1',//@todo
             'uuid_notfound'            => 'Booking ID not found', //@todo
             'not_enough_slots'         => 'Not enough booking slots or overllaped with other booking.', //@todo
+            'employee_not_servable'    => 'This employee does not serve the booking service.', //@todo
         ],
         'warning'      => [
             'existing_user'   => 'There is an user associate with this email in our system. Do you want to use these information instead?',// @todo

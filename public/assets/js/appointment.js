@@ -315,9 +315,9 @@
                     ajax: {
                         type: 'GET',
                         data: {
-                            employee_id: employee_id,
+                            employee_id : employee_id,
                             booking_date: booking_date,
-                            start_time: start_time
+                            start_time  : start_time
                         }
                     },
                     helpers: {
@@ -326,6 +326,24 @@
                         }
                     },
                     autoCenter: false
+                });
+            } else if (selected_action === 'paste_booking') {
+                var action_url = $('#get_paste_booking_url').val();
+                $.ajax({
+                    type: 'POST',
+                    url: action_url,
+                    data: {
+                        employee_id: employee_id,
+                        booking_date: booking_date,
+                        start_time: start_time
+                    },
+                    dataType: 'json'
+                }).done(function (data) {
+                    if (data.success) {
+                        location.reload();
+                    } else {
+                        alertify.alert(data.message);
+                    }
                 });
             }
         });
@@ -357,6 +375,25 @@
                     }
                 },
                 autoCenter: false
+            });
+        });
+        $(document).on('click', 'a.js-btn-cut-booking', function (e) {
+            e.preventDefault();
+            var booking_id = $(this).data('booking-id'),
+                action_url = $(this).data('action-url');
+            $.ajax({
+                type: 'POST',
+                url: action_url,
+                data: { booking_id : booking_id },
+                dataType: 'json'
+            }).done(function (data) {
+                if (data.success) {
+                    $('.booked').removeAttr('style');
+                    $('.booking-id-' + booking_id).attr('style', 'background-color:grey');
+                    $('#row_paste_booking').show();
+                } else {
+                    alertify.alert(data.message);
+                }
             });
         });
     });

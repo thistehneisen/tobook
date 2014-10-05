@@ -38,6 +38,8 @@ return [
     'delete'                => 'Delete',
     'continue'              => 'Continue',
     'cancel'                => 'Cancel',
+    'cut'                   => 'Cut',//@todo
+    'paste'                 => 'Paste',//@todo
     'active'                => 'Active',
     'inactive'              => 'Inactive',
     'mon'                   => 'Monday',

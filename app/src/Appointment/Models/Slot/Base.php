@@ -203,6 +203,7 @@ class Base implements Strategy
                     } else {
                         $this->class .= $this->getValue('booked_body');
                     }
+                    $this->class .= sprintf(' booking-id-%d', $booking->id);
                     $this->bookedSlot[$this->date][$this->rowTime->hour][$this->rowTime->minute] = $booking;
                 }
             }
