@@ -265,7 +265,7 @@ class Base extends AsBase
      *
      * @return array
      */
-    protected function getTimetableOfAnyone(Service $service, Carbon $date, $showEndTime = false)
+    protected function getTimetableOfAnyone(Service $service, Carbon $date, $serviceTime, $showEndTime = false)
     {
         $timetable = [];
         // Get timetable of all employees
@@ -276,6 +276,7 @@ class Base extends AsBase
                 $employee,
                 $service,
                 $date,
+                $serviceTime,
                 $showEndTime
             );
 
@@ -299,7 +300,7 @@ class Base extends AsBase
      *
      * @return array
      */
-    protected function getTimetableOfSingle(Employee $employee, Service $service, Carbon $date, $showEndTime = false)
+    protected function getTimetableOfSingle(Employee $employee, Service $service, Carbon $date, $serviceTime, $showEndTime = false)
     {
         $timetable = [];
         $workingTimes = $this->getDefaultWorkingTimes($date, Input::get('hash'));
@@ -320,7 +321,11 @@ class Base extends AsBase
                     $formatted = sprintf('%02d:%02d', $hour, $shift);
 
                     if ($showEndTime) {
-                        $time->addMinutes($service->length);
+                        $length = ($serviceTime !== null)
+                            ? $serviceTime->length
+                            : $service->length;
+
+                        $time->addMinutes($length);
                         $formatted .= sprintf(' &ndash; %02d:%02d', $time->hour, $time->minute);
                     }
 

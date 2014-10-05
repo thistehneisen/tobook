@@ -105,11 +105,39 @@
             });
         };
 
+        $main.on('click', 'button.btn-service-time', function (e) {
+            var $this = $(this);
+            // Attach data
+            if (typeof $this.data('service-id') !== 'undefined') {
+                dataStorage.serviceId = $this.data('service-id');
+            }
+
+            if (typeof $this.data('service-time-id') !== 'undefined') {
+                dataStorage.serviceTimeId = $this.data('service-time-id');
+            }
+
+            // Change style
+            $main.find('button.btn-service-time.active').removeClass('active');
+            $this.addClass('active');
+            $this.siblings('button').addClass('active');
+
+            // Reload the timetable
+            if ($timetable.is(':empty') === false) {
+                fnLoadTimetable();
+            }
+        });
+
         // When user clicks on an employee
         $main.on('click', 'a.as-employee', function (e) {
             e.preventDefault();
+            var $this = $(this);
 
-            dataStorage.employeeId = $(this).data('employee-id');
+            dataStorage.employeeId = $this.data('employee-id');
+
+            // Highlight selected employee
+            $main.find('a.as-employee.active').removeClass('active');
+            $this.addClass('active');
+
             fnLoadTimetable();
         });
 

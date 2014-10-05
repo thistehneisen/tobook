@@ -16,6 +16,12 @@ class Layout2 extends Base
         $hash     = Input::get('hash');
         $service  = Service::findOrFail(Input::get('serviceId'));
 
+        $serviceTime = null;
+        if (Input::has('serviceTimeId')) {
+            $serviceTime = $service->serviceTimes()
+                ->findOrFail(Input::get('serviceTimeId'));
+        }
+
         // Calculate date ranges for nav
         $nav = [];
         $i = 1;
@@ -43,9 +49,9 @@ class Layout2 extends Base
         $i = 1;
         while ($i++ <= 5) {
             if ($employee !== null) {
-                $time = $this->getTimetableOfSingle($employee, $service, $start, true);
+                $time = $this->getTimetableOfSingle($employee, $service, $start, $serviceTime, true);
             } else {
-                $time = $this->getTimetableOfAnyone($service, $start, true);
+                $time = $this->getTimetableOfAnyone($service, $start, $serviceTime, true);
             }
 
             $dates[]     = $start->copy();

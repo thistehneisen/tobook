@@ -1,5 +1,5 @@
 <div class="text-center">
-    <h3>Valitse päivämäärä</h3>
+    <h3>{{ trans('as.embed.layout_2.choose') }}</h3>
     <div class="btn-group">
         @foreach ($nav as $item)
         <a href="#" class="btn btn-default btn-as-timetable" data-date="{{ $item->start->toDateString() }}">{{ $item->start->format('d') }}. {{ trans('common.short.'.strtolower($item->start->format('M'))) }} &ndash; {{ $item->end->format('d') }}</a>
@@ -26,7 +26,7 @@
                             <p><a data-employee-id="{{ $employee->id }}" class="as-time" href="">{{ $time }}</a></p>
                             @endforeach
                         @else
-                            <p>Ei saatavilla</p>
+                            <p>{{ trans('as.embed.layout_2.unavailable') }}</p>
                         @endif
                     </td>
                 @endforeach
