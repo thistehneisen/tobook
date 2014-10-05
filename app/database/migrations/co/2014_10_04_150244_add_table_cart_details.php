@@ -16,7 +16,6 @@ class AddTableCartDetails extends Migration {
         {
             $table->increments('id');
             $table->unsignedInteger('cart_id');
-            $table->unsignedInteger('consumer_id');
             $table->unsignedInteger('item');
             $table->string('variant');
             $table->double('price');
@@ -25,11 +24,7 @@ class AddTableCartDetails extends Migration {
             $table->softDeletes();
             $table->foreign('cart_id')
                 ->references('id')
-                ->on('cart')
-                ->onDelete('cascade');
-            $table->foreign('consumer_id')
-                ->references('id')
-                ->on('consumers')
+                ->on('carts')
                 ->onDelete('cascade');
         });
 	}

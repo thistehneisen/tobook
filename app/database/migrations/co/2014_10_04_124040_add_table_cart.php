@@ -12,16 +12,21 @@ class AddTableCart extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('cart', function(Blueprint $table)
+		Schema::create('carts', function(Blueprint $table)
         {
             $table->increments('id');
             $table->unsignedInteger('user_id');
+            $table->unsignedInteger('consumer_id')->nullable();
             $table->tinyInteger('status');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
+                ->onDelete('cascade');
+            $table->foreign('consumer_id')
+                ->references('id')
+                ->on('consumers')
                 ->onDelete('cascade');
         });
 	}
@@ -33,7 +38,7 @@ class AddTableCart extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('cart');
+		Schema::drop('carts');
 	}
 
 }
