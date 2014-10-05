@@ -1,7 +1,8 @@
 <?php namespace App\Appointment\Models;
 use Carbon\Carbon;
+use App\Appointment\Models\BookingExtraService;
 
-class BookingService extends \App\Core\Models\Base
+class BookingService extends \App\Appointment\Models\Base
 {
     protected $table = 'as_booking_services';
 
@@ -16,6 +17,74 @@ class BookingService extends \App\Core\Models\Base
         'is_reminder_sms'
     ];
 
+    private $extraServices;
+
+    public function getCartStartAt()
+    {
+        $service = (!empty($this->serviceTime))
+            ? $this->serviceTime
+            : $this->service;
+
+        $startTime = $this->getStartAt();
+        $startTime->subMinutes($service->before);
+
+        return $startTime;
+    }
+
+    public function getCartEndAt()
+    {
+        $service = (!empty($this->serviceTime))
+            ? $this->serviceTime
+            : $this->service;
+        //Total include extra services and plus time
+        $total = 0;
+        $plustime = $this->employee->getPlustime($service->id);
+        if(empty($this->extraServices)){
+            $this->calculateExtraServices();
+        }
+        $extraServiceTime = $this->extraServices['length'];
+        $total = $extraServiceTime + $service->during + $plustime;
+        $startTime = $this->getStartAt();
+        $endTime = with(clone $startTime)->addMinutes($total);
+        return $endTime;
+    }
+
+    public function calculateExtraServices()
+    {
+        if(empty($this->extraServices))
+        {
+            $extraServices     = BookingExtraService::where('tmp_uuid', $this->tmp_uuid)->get();
+            $extraServiceTime  = 0;
+            $extraServicePrice = 0;
+            foreach ($extraServices as $extraService) {
+                $extraServiceTime  += $extraService->length;
+                $extraServicePrice += $extraService->length;
+            }
+            $this->extraServices['length'] = $extraServiceTime;
+            $this->extraServices['price']  = $extraServicePrice;
+        }
+    }
+
+    public function getExtraServicePrice()
+    {
+        if(empty($this->extraServices)){
+            $this->calculateExtraServices();
+        }
+        return (int) $this->extraServices['price'];
+    }
+
+    public function getExtraServiceTime()
+    {
+        if(empty($this->extraServices)){
+            $this->calculateExtraServices();
+        }
+        return (int) $this->extraServices['length'];
+    }
+
+    public function getEmployeePlustime()
+    {
+        return $this->employee->getPlustime($this->service->id);
+    }
 
     //--------------------------------------------------------------------------
     // ATTRIBUTES

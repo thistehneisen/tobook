@@ -1,35 +1,37 @@
+<?php $consumer = $cart->consumer; ?>
 <div class="list-group">
     <div class="list-group-item">
         <form id="form-confirm-booking">
             <div class="form-group row">
                 <div class="col-sm-2">{{ trans('as.bookings.firstname') }} (*)</div>
                 <div class="col-sm-10">
-                    <span id="display_firstname">{{ (isset($booking_info['firstname'])) ? $booking_info['firstname'] : trans('as.bookings.empty') }}</span>
-                    {{ Form::hidden('firstname', (isset($booking_info['firstname'])) ? $booking_info['firstname'] :'', ['class' => 'form-control input-sm', 'id' => 'firstname']) }}
+                    <span id="display_firstname">{{ (!empty($consumer->first_name)) ? $consumer->first_name : trans('as.bookings.empty') }}</span>
+                    {{ Form::hidden('firstname', (!empty($consumer->first_name)) ? $consumer->first_name :'', ['class' => 'form-control input-sm', 'id' => 'firstname']) }}
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-2">{{ trans('as.bookings.lastname') }}</div>
                 <div class="col-sm-10">
-                    <span id="display_lastname">{{(isset($booking_info['lastname'])) ? $booking_info['lastname'] : trans('as.bookings.empty')  }}</span>
-                    {{ Form::hidden('lastname', (isset($booking_info['lastname'])) ? $booking_info['lastname'] :'', ['class' => 'form-control input-sm', 'id' => 'lastname']) }}
+                    <span id="display_lastname">{{(!empty($consumer->last_name)) ? $consumer->last_name : trans('as.bookings.empty')  }}</span>
+                    {{ Form::hidden('lastname', (!empty($consumer->last_name)) ? $consumer->last_name :'', ['class' => 'form-control input-sm', 'id' => 'lastname']) }}
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-2">{{ trans('as.bookings.email') }} (*)</div>
                 <div class="col-sm-10">
-                    <span id="display_email">{{ (isset($booking_info['email'])) ? $booking_info['email'] : trans('as.bookings.empty')  }}</span>
-                    {{ Form::hidden('email', (isset($booking_info['email'])) ? $booking_info['email']:'', ['class' => 'form-control input-sm', 'id' => 'email']) }}
+                    <span id="display_email">{{ (!empty($consumer->email)) ? $consumer->email : trans('as.bookings.empty')  }}</span>
+                    {{ Form::hidden('email', (!empty($consumer->email)) ? $consumer->email :'', ['class' => 'form-control input-sm', 'id' => 'email']) }}
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-2">{{ trans('as.bookings.phone') }} (*)</div>
                 <div class="col-sm-10">
-                    <span id="display_phone">{{ (isset($booking_info['phone'])) ? $booking_info['phone'] : trans('as.bookings.empty')  }}</span>
-                    {{ Form::hidden('phone', (isset($booking_info['phone'])) ? $booking_info['phone'] :'', ['class' => 'form-control input-sm', 'id' => 'phone']) }}
+                    <span id="display_phone">{{ (!empty($consumer->phone)) ? $consumer->phone : trans('as.bookings.empty')  }}</span>
+                    {{ Form::hidden('phone', (!empty($consumer->phone)) ? $consumer->phone :'', ['class' => 'form-control input-sm', 'id' => 'phone']) }}
                 </div>
             </div>
             <input type="hidden" name="hash" value="{{ $hash }}">
+            <input type="hidden" name="cart_id" value="{{ $cart->id }}">
         </form>
     </div>
     <br>

@@ -8,7 +8,11 @@ use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\EmployeeService;
+use App\Appointment\Models\BookingService;
+use App\Appointment\Models\AsConsumer;
 use App\Consumers\Models\Consumer;
+use App\Core\Models\Cart;
+use App\Core\Models\CartDetail;
 
 class Embed extends AsBase
 {
@@ -54,25 +58,25 @@ class Embed extends AsBase
         $serviceId       = Input::get('service_id');
         $serviceTimeId   = Input::get('service_time');
         $extraServiceIds = Input::get('extra_services');
+        $cartId          = Input::get('cart_id');
 
         $date = (empty(Input::get('date'))) ? Carbon::today() : Input::get('date');
         $consumer = null;
-        $booking_info = [];
+        $cart = null;
         $action = Input::get('action');
 
         //If carts is empty, user cannot checkout
         if($action === 'checkout'){
-            if(empty(Session::get('carts'))){
+            if(empty($cartId)){
                 return Redirect::route('as.embed.embed', ['hash' => $hash]);
             }
         } else if($action === 'confirm'){
-            if(empty(Session::get('booking_info'))){
+            if(empty($cartId)){
                 return Redirect::route('as.embed.embed', ['hash' => $hash]);
             }
         }
-        if(!empty(Session::get('booking_info'))){
-            $booking_info = Session::get('booking_info');
-            $consumer = Consumer::where('email', $booking_info['email'])->first();
+        if(!empty($cartId)){
+            $cart = Cart::find($cartId);
         }
 
         if (!$date instanceof Carbon) {
@@ -125,7 +129,7 @@ class Embed extends AsBase
             'user'               => $user,
             'categories'         => $categories,
             'employees'          => $employees,
-            'booking_info'       => $booking_info,
+            'cart'               => $cart,
             'consumer'           => $consumer,
             'service'            => $service,
             'serviceTime'        => $serviceTime,
@@ -194,16 +198,20 @@ class Embed extends AsBase
 
     public function addConfirmInfo()
     {
-        $data = Input::all();
-        $hash = Input::get('hash');
+        $data   = Input::all();
+        $hash   = Input::get('hash');
+        $cartId = Input::get('cart_id');
 
         $validation = $this->getConfirmationValidator();
         if ( $validation->fails() ) {
             return Redirect::back()->withInput()->withErrors($validation->messages());
         }
-        //TODO probably validate user info here
-        Session::put('booking_info', $data);
-        return Redirect::route('as.embed.embed', ['hash' => $hash, 'action'=> 'confirm']);
+
+        $consumer   = AsConsumer::handleConsumer($data, $this->user);
+        $cart       = Cart::find($cartId);
+        $cart->consumer()->associate($consumer)->save();
+
+        return Redirect::route('as.embed.embed', ['hash' => $hash, 'action'=> 'confirm', 'cart_id' => $cartId]);
     }
 
     protected function getConfirmationValidator()

@@ -4,6 +4,8 @@ use App, View, Confide, Redirect, Input, Config, Response, Util, Hashids, Sessio
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use App\Core\Models\User;
+use App\Core\Models\Cart;
+use App\Core\Models\CartDetail;
 use App\Consumers\Models\Consumer;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
@@ -126,7 +128,6 @@ class FrontBookings extends Bookings
                 'tmp_uuid' => $uuid
             ]);
 
-            //$bookingExtraService->booking()->associate($booking);
             $bookingExtraService->extraService()->associate($extraService);
             $bookingExtraService->save();
         }
@@ -134,28 +135,23 @@ class FrontBookings extends Bookings
         $price = (!empty($serviceTime)) ? $serviceTime->price : $service->price;
         $price += $extraServicePrice;
 
-        $data = [
+        $cart  = Cart::make(['status' => Cart::STATUS_INIT], $this->user);
+
+        $cartDetail = CartDetail::make([
+            'item'      => $bookingService->id,
+            'variant'   => get_class($bookingService),
+            'quantity'  => 1,
+            'price'     => $price
+        ], $cart);
+
+         $data = [
             'datetime'      => $startTime->toDateTimeString(),
             'price'         => $price,
             'service_name'  => $service->name,
             'employee_name' => $employee->name,
-            'uuid'          => $uuid
+            'uuid'          => $uuid,
+            'cart_id'       => $cart->id
         ];
-
-        $cart = [
-            'datetime'      => $startTime->toDateString(),
-            'price'         => $price,
-            'service_name'  => $service->name,
-            'extra_services'=> $extraServiceIds,
-            'employee_name' => $employee->name,
-            'start_at'      => $cartStartTime->format('H:i'),
-            'end_at'        => $cartEndTime->format('H:i'),
-            'uuid'          => $uuid
-        ];
-
-        $carts = Session::get('carts', []);
-        $carts[$uuid] = $cart;
-        Session::put('carts' , $carts);
 
         return Response::json($data);
     }
@@ -163,9 +159,11 @@ class FrontBookings extends Bookings
     public function addFrontEndBooking()
     {
         try {
-            $carts = Session::get('carts');
-            $hash  =  Input::get('hash');
-            $consumer = $this->handleConsumer();
+            $hash     = Input::get('hash');
+            $cartId   = Input::get('cart_id');
+            $cart     = Cart::find($cartId);
+            $consumer = $cart->consumer;
+
             $length = 0;
 
             $decoded = Hashids::decrypt($hash);
@@ -174,29 +172,27 @@ class FrontBookings extends Bookings
             }
             $user = User::find($decoded[0]);
 
-            foreach ($carts as $item) {
-                $uuid = $item['uuid'];
+            foreach ($cart->cartDetails as $detail) {
+                $bookingService = BookingService::find($detail->item);
+                $extraServices  = BookingExtraService::where('tmp_uuid', $bookingService->tmp_uuid)->get();
 
-                $bookingService = BookingService::where('tmp_uuid', $uuid)->first();
-                $extraServices  = BookingExtraService::where('tmp_uuid', $uuid)->get();
+                $service = (!empty($bookingService->serviceTime->id))
+                    ? $bookingService->serviceTime
+                    : $bookingService->service;
+                $length = $service->length;
 
-                $length = (!empty($bookingService->serviceTime->id))
-                    ? $bookingService->serviceTime->length
-                    : $bookingService->service->length;
-
-                $employeeService = EmployeeService::where('employee_id', $bookingService->employee->id)
-                    ->where('service_id', $bookingService->service->id)->first();
-                $plustime = (!empty($employeeService)) ? $employeeService->plustime : 0;
+                $plustime = $bookingService->getEmployeePlustime();
                 $length += $plustime;
+                $bookingService->calculateExtraServices();
 
                 //Plus extra service time
-                foreach ($extraServices as $extraService) {
-                    $length += $extraService->length;
-                }
+                $length += $bookingService->getExtraServiceTime();
 
-                $date = $bookingService->date;
+                $date     = $bookingService->date;
                 $start_at = $bookingService->start_at;
-                $end_at = with(new Carbon($bookingService->start_at))->addMinutes($length);
+                $end_at   = with(new Carbon($bookingService->start_at))->addMinutes($length);
+
+                $price = $service->price + $bookingService->getExtraServicePrice();
 
                 $booking = new Booking();
                 $booking->fill([
@@ -205,8 +201,8 @@ class FrontBookings extends Bookings
                     'end_at'      => $end_at->toTimeString(),
                     'total'       => $length,
                     'status'      => Booking::STATUS_CONFIRM,
-                    'uuid'        => $uuid,
-                    'total_price' => $item['price'],
+                    'uuid'        => $bookingService->tmp_uuid,
+                    'total_price' => $price,
                     'modify_time' => $bookingService->modify_time,
                     'plustime'    => $plustime,
                     'ip'          => Request::getClientIp()
@@ -230,9 +226,6 @@ class FrontBookings extends Bookings
                 $booking->attach(new SmsObserver());
                 $booking->notify();
             }
-
-            Session::forget('carts');
-            Session::forget('booking_info');
 
             $data['success']      = true;
         } catch (\Watson\Validating\ValidationException $ex) {
