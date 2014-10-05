@@ -10,7 +10,13 @@
                     @include ('modules.as.embed.layout-2.services')
                 </div>
 
-                <div id="as-timetable"></div>
+                <div class="as-timetable-wrapper" id="as-timetable"></div>
+
+                <div class="row">
+                    <dic class="col-sm-12">
+                        <a id="btn-book" href="#" class="btn btn-success disabled pull-right">{{ trans('as.embed.book') }}</a>
+                    </dic>
+                </div>
             </div>
         </div>
     </div>

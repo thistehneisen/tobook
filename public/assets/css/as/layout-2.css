@@ -68,22 +68,26 @@ html {
 .as-extra-service-row {
   padding-left: 15px;
 }
-.table-timetable {
+.as-timetable-wrapper {
+  margin-bottom: 10px;
+}
+.as-timetable-wrapper .table-timetable {
   width: 100%;
 }
-.table-timetable thead th {
+.as-timetable-wrapper .table-timetable thead th {
   text-align: center;
 }
-.table-timetable tbody {
+.as-timetable-wrapper .table-timetable tbody {
   border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
 }
-.table-timetable tbody td {
+.as-timetable-wrapper .table-timetable tbody td {
   vertical-align: top;
   border-left: 1px solid #ddd;
 }
-.table-timetable tbody td.empty {
+.as-timetable-wrapper .table-timetable tbody td.empty {
   vertical-align: middle;
 }
-.table-timetable tbody td:first-child {
+.as-timetable-wrapper .table-timetable tbody td:first-child {
   border-left: none;
 }

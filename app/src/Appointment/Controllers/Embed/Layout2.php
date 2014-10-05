@@ -55,7 +55,10 @@ class Layout2 extends Base
             }
 
             $dates[]     = $start->copy();
-            $timetable[] = $time;
+            $timetable[] = (object) [
+                'date' => $start->copy(),
+                'time' => $time
+            ];
 
             $start = $start->addDay();
         }

@@ -92,26 +92,31 @@ html {
     padding-left: 15px;
 }
 
-.table-timetable {
-    width: 100%;
+.as-timetable-wrapper {
+    margin-bottom: 10px;
 
-    thead th {
-        text-align: center;
-    }
+    .table-timetable {
+        width: 100%;
 
-    tbody {
-        border-top: 1px solid #ddd;
+        thead th {
+            text-align: center;
+        }
 
-        td {
-            vertical-align: top;
-            border-left: 1px solid #ddd;
+        tbody {
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
 
-            &.empty {
-                vertical-align: middle;
-            }
+            td {
+                vertical-align: top;
+                border-left: 1px solid #ddd;
 
-            &:first-child {
-                border-left: none;
+                &.empty {
+                    vertical-align: middle;
+                }
+
+                &:first-child {
+                    border-left: none;
+                }
             }
         }
     }

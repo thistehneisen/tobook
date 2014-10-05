@@ -341,6 +341,7 @@ return [
         'guide_text'       => 'Klikkaa avointa aikaa',
         'make_appointment' => 'Tee varaus',
         'cancel'           => 'Peruuta',
+        'book'             => 'Varaa',
         'empty_cart'       => 'Ostoskori on tyhjä',
         'start_time'       => 'Aloitusaika',
         'end_time'         => 'Päättymisaika',

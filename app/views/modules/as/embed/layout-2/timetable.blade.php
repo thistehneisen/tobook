@@ -20,10 +20,10 @@
             <tbody>
                 <tr>
                 @foreach ($timetable as $item)
-                    <td class="{{ empty($item) ? 'empty' : '' }}">
-                        @if (!empty($item))
-                            @foreach ($item as $time => $employee)
-                            <p><a data-employee-id="{{ $employee->id }}" class="as-time" href="">{{ $time }}</a></p>
+                    <td class="{{ empty($item->time) ? 'empty' : '' }}">
+                        @if (!empty($item->time))
+                            @foreach ($item->time as $time => $employee)
+                            <p><a href="#" data-date="{{ $item->date->toDateString() }}" data-employee-id="{{ $employee->id }}" class="as-time">{{ $time }}</a></p>
                             @endforeach
                         @else
                             <p>{{ trans('as.embed.layout_2.unavailable') }}</p>

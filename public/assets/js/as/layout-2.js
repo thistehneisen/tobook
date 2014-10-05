@@ -7,7 +7,8 @@
         var $body = $('body'),
             $main = $('#as-main-panel'),
             $timetable = $('#as-timetable'),
-            dataStorage = {hash: $body.data('hash')};
+            dataStorage = {hash: $body.data('hash')},
+            fnLoadTimetable;
 
         //----------------------------------------------------------------------
         // Custom method
@@ -89,7 +90,7 @@
             }
         });
 
-        var fnLoadTimetable = function () {
+        fnLoadTimetable = function () {
             $body.showLoading();
             $.ajax({
                 url: $('input[name=timetable-url]').val(),
@@ -99,7 +100,7 @@
                 $body.hideLoadding();
                 $timetable.html(data);
                 var startDate = $timetable.find('input[name=start-date]').val();
-                $timetable.find('a[data-date='+startDate+']')
+                $timetable.find('a.btn-as-timetable[data-date='+startDate+']')
                     .removeClass('btn-default')
                     .addClass('btn-selected');
             });
@@ -130,9 +131,14 @@
         // When user clicks on an employee
         $main.on('click', 'a.as-employee', function (e) {
             e.preventDefault();
-            var $this = $(this);
+            var $this = $(this),
+                selectedDate = $timetable.find('a.btn-as-timetable:first');
 
+            // Assign data
             dataStorage.employeeId = $this.data('employee-id');
+            if (selectedDate.length > 0) {
+                dataStorage.date = selectedDate.data('date');
+            }
 
             // Highlight selected employee
             $main.find('a.as-employee.active').removeClass('active');
@@ -147,6 +153,23 @@
 
             dataStorage.date = $(this).data('date');
             fnLoadTimetable();
+        });
+
+        // When user click on a time in timetable
+        $timetable.on('click', 'a.as-time', function (e) {
+            e.preventDefault();
+            var $this = $(this);
+
+            // Assign data
+            dataStorage.date       = $this.data('date');
+            dataStorage.time       = $this.text();
+            dataStorage.employeeId = $this.data('employee-id');
+
+            // Highlight
+            $timetable.find('a.as-time.active').removeClass('active');
+            $this.addClass('active');
+
+            $('#btn-book').removeClass('disabled');
         });
 
     });
