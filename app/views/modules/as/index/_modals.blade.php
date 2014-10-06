@@ -12,11 +12,11 @@
         </tr>
         <tr id="row_paste_booking" style="@if(empty($cutId)) display: none @endif">
             <td><input type="radio" id="paste_booking" value="paste_booking" name="action_type"></td>
-            <td><label for="paste_booking">{{ trans('as.bookings.paste') }}</label></td>
+            <td><label for="paste_booking">{{ trans('as.bookings.confirm_reschedule') }}</label></td>
         </tr>
         <tr id="row_discard_cut_booking" style="@if(empty($cutId)) display: none @endif">
             <td><input type="radio" id="discard_cut_booking" value="discard_cut_booking" name="action_type"></td>
-            <td><label for="discard_cut_booking">{{ trans('as.bookings.discard_cut') }}</label></td>
+            <td><label for="discard_cut_booking">{{ trans('as.bookings.cancel_reschedule') }}</label></td>
         </tr>
     </tbody>
     <tfoot>

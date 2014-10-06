@@ -266,10 +266,10 @@ return [
         'terms_agree'       => 'Hyväksyn varausehdot',
         'cancel_message'    => $cancelMessage, //@todo
         'cancel_confirm'    => 'Are you sure to cancel this booking %s?', //@todo
-        'modify_booking'    => 'Muokkaa varausta', //@todo
-        'cut'               => 'Cut',//@todo
-        'paste'             => 'Paste Booking',//@todo
-        'discard_cut'       => 'Discard cut',//@todo
+        'modify_booking'    => 'Muokkaa varausta',
+        'reschedule'        => 'Siirrä',
+        'confirm_reschedule'=> 'Vahvista siirto',
+        'cancel_reschedule' => 'Peru siirto',
         'error'             => [
             'add_overlapped_booking'   => 'Overlapped booking time!',// @todo
             'insufficient_slots'       => 'There is no enough time slots for this booking!',// @todo
