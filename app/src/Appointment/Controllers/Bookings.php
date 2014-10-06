@@ -650,24 +650,24 @@ class Bookings extends AsBase
         //TODO suggest user info in front end
 
         //Insert customer
-        $firstname = Input::get('firstname', '');
-        $lastname  = Input::get('lastname', '');
-        $email     = Input::get('email', '');
-        $phone     = Input::get('phone', '');
-        $address   = Input::get('address', '');
-        $hash      = Input::get('hash');
+        $first_name = Input::get('first_name', '');
+        $last_name  = Input::get('last_name', '');
+        $email      = Input::get('email', '');
+        $phone      = Input::get('phone', '');
+        $address    = Input::get('address', '');
+        $hash       = Input::get('hash');
 
          //TODO handle consumer validation
         $data = [
-            'first_name' => $firstname,
-            'last_name'  => $lastname,
+            'first_name' => $first_name,
+            'last_name'  => $last_name,
             'email'      => $email,
             'phone'      => $phone,
             'address'    => $address,
             'hash'       => $hash
         ];
 
-        $consumer = AsConsumer::handleConsumer($data);
+        $consumer = AsConsumer::handleConsumer($data, $this->user);
 
         return $consumer;
     }

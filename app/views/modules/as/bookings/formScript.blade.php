@@ -101,8 +101,8 @@ $(function () {
     $("#keyword").on("change", function(e) {
        var index = e.val;
        var data = $('#consumer_data').data('customerData');
-       $('#firstname').val(data[index].first_name);
-       $('#lastname').val(data[index].last_name);
+       $('#first_name').val(data[index].first_name);
+       $('#last_name').val(data[index].last_name);
        $('#phone').val(data[index].phone);
        $('#email').val(data[index].email);
        $('#address').val(data[index].address);

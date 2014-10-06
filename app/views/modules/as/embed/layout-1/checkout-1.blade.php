@@ -9,7 +9,7 @@
     <div class="list-group-item">
         <form id="form-confirm-booking" action="{{ route('as.embed.confirm') }}" method="POST">
             <div class="form-group row">
-                <div class="col-sm-2">{{ trans('as.bookings.firs_tname') }} (*)</div>
+                <div class="col-sm-2">{{ trans('as.bookings.first_name') }} (*)</div>
                 <div class="col-sm-10"> {{ Form::text('first_name', (isset($booking_info['first_name'])) ? $booking_info['first_name'] : ''  , ['class' => 'form-control input-sm', 'id' => 'first_name']) }}</div>
             </div>
             <div class="form-group row">

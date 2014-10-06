@@ -1,5 +1,7 @@
 <?php namespace App\Appointment\Models;
+use App\Core\Models\User;
 use App\Appointment\Models\Consumer;
+use Hashids;
 
 class AsConsumer extends \App\Core\Models\Base
 {
@@ -7,14 +9,14 @@ class AsConsumer extends \App\Core\Models\Base
 
     public static function handleConsumer($data, $user = null)
     {
-        $firstname = $data['firstname'];
-        $lastname  = $data['lastname'];
-        $email     = $data['email'];
-        $phone     = $data['phone'];
-        $hash      = $data['hash'];
+        $first_name = $data['first_name'];
+        $last_name  = $data['last_name'];
+        $email      = $data['email'];
+        $phone      = $data['phone'];
+        $hash       = $data['hash'];
 
-        $consumer = Consumer::where('first_name', $firstname)
-            ->where('last_name', $lastname)
+        $consumer = Consumer::where('first_name', $first_name)
+            ->where('last_name', $last_name)
             ->where('phone', $phone)->first();
 
         $asConsumer = new AsConsumer();

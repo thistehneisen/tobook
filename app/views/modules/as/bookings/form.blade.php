@@ -52,15 +52,15 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="consumer_firstname" class="col-sm-4 control-label">{{ trans('as.bookings.firstname') }}  {{ Form::required('first_name', with(new Consumer)) }}</label>
+                                <label for="consumer_first_name" class="col-sm-4 control-label">{{ trans('as.bookings.first_name') }}  {{ Form::required('first_name', with(new Consumer)) }}</label>
                                 <div class="col-sm-8">
-                                    {{ Form::text('firstname', (isset($booking)) ? $booking->consumer->first_name : '', ['class' => 'form-control input-sm', 'id' => 'firstname']) }}
+                                    {{ Form::text('first_name', (isset($booking)) ? $booking->consumer->first_name : '', ['class' => 'form-control input-sm', 'id' => 'first_name']) }}
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="lastname" class="col-sm-4 control-label">{{ trans('as.bookings.lastname') }}  {{ Form::required('last_name', with(new Consumer)) }}</label>
+                                <label for="last_name" class="col-sm-4 control-label">{{ trans('as.bookings.last_name') }}  {{ Form::required('last_name', with(new Consumer)) }}</label>
                                 <div class="col-sm-8">
-                                    {{ Form::text('lastname', (isset($booking)) ? $booking->consumer->last_name : '', ['class' => 'form-control input-sm', 'id' => 'lastname']) }}
+                                    {{ Form::text('last_name', (isset($booking)) ? $booking->consumer->last_name : '', ['class' => 'form-control input-sm', 'id' => 'last_name']) }}
                                 </div>
                             </div>
                             <div class="form-group row">
