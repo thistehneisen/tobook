@@ -32,6 +32,7 @@
             </div>
             <input type="hidden" name="hash" value="{{ $hash }}">
             <input type="hidden" name="cart_id" value="{{ $cart->id }}">
+            <input type="hidden" name="source" value="layout1">
         </form>
     </div>
     <br>

@@ -161,6 +161,7 @@ class FrontBookings extends Bookings
         try {
             $hash     = Input::get('hash');
             $cartId   = Input::get('cart_id');
+            $source   = Input::get('source', '');
             $cart     = Cart::find($cartId);
             $consumer = $cart->consumer;
 
@@ -205,6 +206,7 @@ class FrontBookings extends Bookings
                     'total_price' => $price,
                     'modify_time' => $bookingService->modify_time,
                     'plustime'    => $plustime,
+                    'source'      => $source,
                     'ip'          => Request::getClientIp()
                 ]);
 
