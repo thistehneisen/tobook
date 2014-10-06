@@ -14,9 +14,9 @@ class CreateTableRbTableGroup extends Migration {
 	{
 		Schema::create('rb_table_group', function(Blueprint $table)
 		{
+            $table->increments('id');
 			$table->unsignedInteger('table_id');
             $table->unsignedInteger('group_id');
-            $table->primary(['table_id', 'group_id']);
             $table->foreign('group_id')
                 ->references('id')
                 ->on('rb_groups')

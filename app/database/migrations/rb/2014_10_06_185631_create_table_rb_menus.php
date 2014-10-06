@@ -34,6 +34,10 @@ class CreateTableRbMenus extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('rb_menus');
+        Schema::table('rb_menus', function(Blueprint $table)
+        {
+            $table->dropForeign('rb_menus_user_id_foreign');
+        });
+		Schema::drop('rb_menus');
 	}
 }

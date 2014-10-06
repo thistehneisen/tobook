@@ -35,6 +35,10 @@ class CreateTableRbOptions extends Migration {
 	 */
 	public function down()
 	{
+        Schema::table('rb_options', function(Blueprint $table)
+        {
+            $table->dropForeign('rb_options_user_id_foreign');
+        });
 		Schema::drop('rb_options');
 	}
 

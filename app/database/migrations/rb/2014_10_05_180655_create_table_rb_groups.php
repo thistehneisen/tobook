@@ -34,6 +34,10 @@ class CreateTableRbGroups extends Migration {
 	 */
 	public function down()
 	{
+        Schema::table('rb_groups', function(Blueprint $table)
+        {
+            $table->dropForeign('rb_groups_user_id_foreign');
+        });
 		Schema::drop('rb_groups');
 	}
 

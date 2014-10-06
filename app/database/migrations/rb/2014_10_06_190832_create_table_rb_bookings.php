@@ -46,7 +46,12 @@ class CreateTableRbBookings extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('rb_bookings');
+        Schema::table('rb_bookings', function(Blueprint $table)
+        {
+            $table->dropForeign('rb_bookings_user_id_foreign');
+            $table->dropForeign('rb_bookings_consumer_id_foreign');
+        });
+		Schema::drop('rb_bookings');
 	}
 
 }
