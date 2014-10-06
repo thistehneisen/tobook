@@ -9,4 +9,11 @@ return [
         'minimum'   => 'Minimum',
         'edit'      => 'Edit table',
     ],
+    'groups'    => [
+        'all'           => 'All groups',
+        'add'           => 'Add new group',
+        'name'          => 'Group name',
+        'description'   => 'Description',
+        'edit'          => 'Edit group',
+    ],
 ];

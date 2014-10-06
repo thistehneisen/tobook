@@ -826,6 +826,11 @@ Route::group([
         'tables',
         'rb.tables'
     );
+
+    \App\Restaurant\Controllers\Group::crudRoutes(
+        'groups',
+        'rb.groups'
+    );
 });
 
 /*
