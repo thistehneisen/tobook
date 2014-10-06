@@ -26,3 +26,7 @@
 
 @section('footer')
 @stop
+
+@section('header-logo')
+<a href="{{ route('app.lc.index') }}" class="logo pull-left">varaa<span>.com</span></a>
+@stop

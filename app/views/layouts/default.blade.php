@@ -45,7 +45,9 @@
     @section('header')
     <header class="header container-fluid">
         <nav class="main-nav container">
+            @section('header-logo')
             <a href="{{ route('home') }}" class="logo pull-left">varaa<span>.com</span></a>
+            @show
 
             <div class="language-switcher pull-left">
                 <i class="fa fa-globe"></i>

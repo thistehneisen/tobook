@@ -28,9 +28,13 @@ NFC Desktop App
                 <span class="glyphicon glyphicon-plus"></span> {{ trans('common.add') }}
             </button>
             {{ Form::open(['route' => 'app.lc.index', 'method' => 'get', 'class' => 'form-inline pull-left']) }}
-                {{ Form::text('search', null, ['class' => 'form-control']) }}
+                {{ Form::text('search', Input::get('search'), ['class' => 'form-control']) }}
                 {{ Form::submit(trans('common.search'), ['class' => 'btn btn-default']) }}
             {{ Form::close() }}
+            &nbsp;
+            @if (Input::get('search') !== '')
+                <a href="{{ route('app.lc.index') }}"><button class="btn btn-default">{{ trans('common.back') }}</button></a>
+            @endif
         </div>
         @include('modules.lc._consumer_list')
     </div>
