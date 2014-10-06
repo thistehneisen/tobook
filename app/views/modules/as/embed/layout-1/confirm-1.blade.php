@@ -3,17 +3,17 @@
     <div class="list-group-item">
         <form id="form-confirm-booking">
             <div class="form-group row">
-                <div class="col-sm-2">{{ trans('as.bookings.firstname') }} (*)</div>
+                <div class="col-sm-2">{{ trans('as.bookings.first_name') }} (*)</div>
                 <div class="col-sm-10">
-                    <span id="display_firstname">{{ (!empty($consumer->first_name)) ? $consumer->first_name : trans('as.bookings.empty') }}</span>
-                    {{ Form::hidden('firstname', (!empty($consumer->first_name)) ? $consumer->first_name :'', ['class' => 'form-control input-sm', 'id' => 'firstname']) }}
+                    <span id="display_first_name">{{ (!empty($consumer->first_name)) ? $consumer->first_name : trans('as.bookings.empty') }}</span>
+                    {{ Form::hidden('first_name', (!empty($consumer->first_name)) ? $consumer->first_name :'', ['class' => 'form-control input-sm', 'id' => 'first_name']) }}
                 </div>
             </div>
             <div class="form-group row">
-                <div class="col-sm-2">{{ trans('as.bookings.lastname') }}</div>
+                <div class="col-sm-2">{{ trans('as.bookings.last_name') }}</div>
                 <div class="col-sm-10">
-                    <span id="display_lastname">{{(!empty($consumer->last_name)) ? $consumer->last_name : trans('as.bookings.empty')  }}</span>
-                    {{ Form::hidden('lastname', (!empty($consumer->last_name)) ? $consumer->last_name :'', ['class' => 'form-control input-sm', 'id' => 'lastname']) }}
+                    <span id="display_last_name">{{(!empty($consumer->last_name)) ? $consumer->last_name : trans('as.bookings.empty')  }}</span>
+                    {{ Form::hidden('last_name', (!empty($consumer->last_name)) ? $consumer->last_name :'', ['class' => 'form-control input-sm', 'id' => 'last_name']) }}
                 </div>
             </div>
             <div class="form-group row">
