@@ -10,20 +10,8 @@
 | the console gets access to each of the command object instances.
 |
 */
-Artisan::add(new App\Core\Commands\InstallCommand());
-Artisan::add(new App\Core\Commands\MoveUsersCommand());
-Artisan::add(new App\Core\Commands\FixSchemaCommand());
 Artisan::add(new App\Core\Commands\MakeAdminCommand());
 Artisan::add(new App\Core\Commands\GenerateConfigsCommand());
 Artisan::add(new App\Core\Commands\CreateDummyUsersCommand());
-Artisan::add(new App\LoyaltyCard\Commands\MoveLoyaltyCardCommand());
-Artisan::add(new App\Appointment\Commands\MoveAsCommand());
-Artisan::add(new App\Appointment\Commands\FixEndAtBookingsCommand());
-Artisan::add(new App\Appointment\Commands\FixTotalPriceBookingsCommand());
-Artisan::add(new App\Appointment\Commands\FixBookingStatusCommand());
-Artisan::add(new App\Appointment\Commands\FixBookingsNotesCommand());
-Artisan::add(new App\Appointment\Commands\FixBookingTotalCommand());
-Artisan::add(new App\FlashDeal\Commands\FixUserIdCommand());
-Artisan::add(new App\Appointment\Commands\FixBookingServiceTimeCommand());
 Artisan::add(new App\Core\Commands\CreateRoleConsumerCommand());
 Artisan::add(new App\Core\Commands\FixMissingRoleCommand());
