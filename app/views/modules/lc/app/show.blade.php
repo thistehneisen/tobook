@@ -19,7 +19,7 @@
             @if ($offers->count() > 0)
                 <h4><i class="fa fa-gift"></i> {{ trans('loyalty-card.offers') }}</h4>
                 @foreach ($offers as $key => $value)
-                    @if ($value->is_active === 1)
+                    @if (intval($value->is_active) === 1)
                         <div class="line clearfix">
                             <div class="col-md-6">
                                 <div>{{ $value->name }}</div>
@@ -50,7 +50,7 @@
             @if ($vouchers->count() > 0)
                 <h4><i class="fa fa-ticket"></i> {{ trans('loyalty-card.vouchers') }}</h4>
                 @foreach ($vouchers as $key => $value)
-                    @if ($value->is_active === 1)
+                    @if (intval($value->is_active) === 1)
                         <div class="line clearfix">
                             <div class="col-md-6">
                                 <div>{{ $value->name }}</div>
