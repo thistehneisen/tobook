@@ -150,13 +150,17 @@
             e.preventDefault();
             var uuid = $(this).data('uuid'),
                 action_url = $(this).data('action-url'),
+                cart_id = $(this).data('cart-id'),
+                cart_detail_id = $(this).data('cart-detail-id'),
                 hash = $(this).data('hash');
             $.ajax({
                 type: 'POST',
                 url: action_url,
                 data: {
-                    uuid: uuid,
-                    hash: hash
+                    uuid           : uuid,
+                    hash           : hash,
+                    cart_id        : cart_id,
+                    cart_detail_id : cart_detail_id
                 },
                 dataType: 'json'
             }).done(function (data) {

@@ -50,17 +50,17 @@ class Base extends AsBase
         $action = Input::get('action');
 
         //If carts is empty, user cannot checkout
-        if($action === 'checkout'){
-            if(empty($cartId)){
-                return Redirect::route('as.embed.embed', ['hash' => $hash]);
-            }
-        } else if($action === 'confirm'){
+        if($action === 'checkout' || $action === 'confirm'){
             if(empty($cartId)){
                 return Redirect::route('as.embed.embed', ['hash' => $hash]);
             }
         }
+
         if(!empty($cartId)){
             $cart = Cart::find($cartId);
+            if (empty($cart)) {
+                return Redirect::route('as.embed.embed', ['hash' => $hash]);
+            }
         }
 
         if (!$date instanceof Carbon) {

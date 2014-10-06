@@ -26,8 +26,7 @@ class BookingService extends \App\Appointment\Models\Base
             : $this->service;
 
         $startTime = $this->getStartAt();
-        $startTime->subMinutes($service->before);
-
+        $startTime->addMinutes($service->before);
         return $startTime;
     }
 

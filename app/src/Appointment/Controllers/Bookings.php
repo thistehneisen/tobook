@@ -5,6 +5,8 @@ use Util, Hashids, Session, Request, Mail, Sms;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use App\Core\Models\User;
+use App\Core\Models\Cart;
+use App\Core\Models\CartDetail;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\BookingExtraService;
@@ -674,14 +676,19 @@ class Bookings extends AsBase
 
     public function removeBookingServiceInCart()
     {
-        $uuid = Input::get('uuid');
-        $hash = Input::get('hash');
+        $uuid           = Input::get('uuid');
+        $hash           = Input::get('hash');
+        $cartId         = Input::get('cart_id');
+        $cartDetailId   = Input::get('cart_detail_id');
+
         try {
             $bookingService      = BookingService::where('tmp_uuid', $uuid)->delete();
             $bookingExtraService = BookingExtraService::where('tmp_uuid', $uuid)->delete();
-            $carts = Session::get('carts', []);
-            unset($carts[$uuid]);
-            Session::put('carts' , $carts);
+            $cart = Cart::find($cartId);
+            $cart->delete();
+            $cartDetail = CartDetail::find($cartDetailId);
+            $cartDetail->delete();
+
             $data['success'] = true;
             if(empty($carts)){
                 $data['success_url'] = route('as.embed.embed', ['hash'=> $hash]);
