@@ -21,10 +21,9 @@ class BookingService extends \App\Appointment\Models\Base
 
     public function getCartStartAt()
     {
-        $service = (!empty($this->serviceTime))
+        $service = (!empty($this->serviceTime->id))
             ? $this->serviceTime
             : $this->service;
-
         $startTime = $this->getStartAt();
         $startTime->addMinutes($service->before);
         return $startTime;
@@ -43,7 +42,7 @@ class BookingService extends \App\Appointment\Models\Base
         }
         $extraServiceTime = $this->extraServices['length'];
         $total = $extraServiceTime + $service->during + $plustime;
-        $startTime = $this->getStartAt();
+        $startTime = $this->getCartStartAt();
         $endTime = with(clone $startTime)->addMinutes($total);
         return $endTime;
     }
