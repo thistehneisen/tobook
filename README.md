@@ -1,6 +1,6 @@
 # VARAA
 
-### Prerequisites
+## Prerequisites
 - Apache
 - PHP >= 5.4.0
 - MySQL >= 5.6.0
@@ -9,27 +9,10 @@
  `https://www.apachefriends.org/index.html`
   or `http://www.easyphp.org/` or vagrant if you are advanced user.
 
-### PHP coding convention
+## PHP coding convention
 - Learn by heart [PSR-2](http://www.php-fig.org/psr/psr-2/)
 - For Sublime Text 3 user, try [Editor Config](http://editorconfig.org/)
 (a `.editorconfig` is already included in the repo).
-
-### Setup localhost
-- Clone this repo
-- Create a virtualhost and point it to `public/` folder
-- Install all needed packages: `composer install`
-- Create a new local DB and import `db/dev_dump.sql`
-- Generate your local config files with: `php artisan varaa:generate-configs`
-and change your database config to match your local setup in `app/config/local/database.php`
-- Run command to do needed fixes to DB: `php artisan varaa:install`
-
-### Tests
-- Create test config: `cp app/tests/acceptance.suite.yml.tpl app/tests/acceptance.suite.yml` then modify to match your local config
-- Read http://codeception.com/docs/01-Introduction and http://codeception.com/docs/04-AcceptanceTests
-- Generate your acceptance tests in `app/tests/acceptance/` folder:
-`./vendor/bin/codecept generate:cest acceptance YourTestName`
-- Run the test: `./vendor/bin/codecept run`
-- A best practice guide http://www.sitepoint.com/ruling-the-swarm-of-tests-with-codeception/
 
 #### Run PHP Code Sniffer :gun: to check coding style
 `./vendor/bin/phpcs -s --standard=./ruleset.xml app`
@@ -37,18 +20,46 @@ and change your database config to match your local setup in `app/config/local/d
 #### Run PHP CS Fixer to fix your code automatically
 `./vendor/bin/php-cs-fixer fix app/lang/`
 
+## Setup localhost
+- Clone this repo
+- Create a virtualhost and point it to `public/` folder
+- Install all needed packages: `composer install`
+- Create a new local DB and import `db/dev_dump.sql`
+- Generate your local config files with: `php artisan varaa:generate-configs`
+and change your database config to match your local setup in `app/config/local/database.php`
+
+## Project layout
+We are not using the "standard" L4 project layout with `models` and `controllers` folder in `app/`. Instead, the main source code are stored in `app/src/` and separated into different modules. Each module contains its own models, controllers and commands, any shared controllers or models will be moved into `app/src/Core`.
+
+_See `app/src/Appointment` for example since AS is the biggest module of this project._
+_All the views are however still staying in standard folder `app/views`, all the folder names in there are already self-explanatory._
+
+## Eco-system
+
+#### CRUD builder
+To reduce time working on boring stuffs like CRUD, we have a well written trait named `Olut`, please take a look at the [documentation](app/src/Olut/README.md) and use it.
+
+#### Form builder
+We have another module named `Lomake` to support developer build forms faster, [documentation](app/src/Lomake/README.md).
+
 #### Make a user with given email an Admin
 `php artisan varaa:admin <email>`
 
-#### HUOM!
-Database schemas for tables of modules on site were changed, please run `php artisan varaa:fix-schema` (possible to run multiple times).
+## Tests
+- Create test config: `cp app/tests/acceptance.suite.yml.tpl app/tests/acceptance.suite.yml` then modify to match your local config
+- Read http://codeception.com/docs/01-Introduction and http://codeception.com/docs/04-AcceptanceTests
+- Generate your acceptance tests in `app/tests/acceptance/` folder:
+`./vendor/bin/codecept generate:cest acceptance YourTestName`
+- Run the test: `./vendor/bin/codecept run`
+- A best practice guide http://www.sitepoint.com/ruling-the-swarm-of-tests-with-codeception/
 
-#### Get config values of L4 from other modules
 
-* Add `require_once base_path().'/Bridge.php';`
-* Call `Bridge::config($key)`, for example: `$varaaDb = Bridge::config('database.connection.mysql');` or `$varaaDb = Bridge::dbConfig();`
+### Get config values of L4 in other external modules
 
-_See `/public/cashier/library/sma/config/database.php` for example. Try to avoid common names such as `$config`, `$cfg`, etc._
+- Add `require_once base_path().'/Bridge.php';`
+- Call `Bridge::config($key)`, for example: `$varaaDb = Bridge::config('database.connection.mysql');` or `$varaaDb = Bridge::dbConfig();`
+
+_See `public/cashier/library/sma/config/database.php` for example. Try to avoid common names such as `$config`, `$cfg`, etc._
 
 Feel free to add more features (sending email, storing cache, etc.) to that Bridge as you want. L4 libraries could be accessed via IoC container http://laravel.com/docs/ioc :dancers:
 
