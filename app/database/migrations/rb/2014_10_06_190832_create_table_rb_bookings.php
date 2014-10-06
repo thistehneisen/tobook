@@ -5,16 +5,16 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateTableRbBookings extends Migration {
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('rb_bookings', function(Blueprint $table)
-		{
-			$table->increments('id');
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('rb_bookings', function(Blueprint $table)
+        {
+            $table->increments('id');
             $table->string('uuid');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('consumer_id');
@@ -36,22 +36,22 @@ class CreateTableRbBookings extends Migration {
                 ->references('id')
                 ->on('consumers')
                 ->onDelete('cascade');
-		});
-	}
+        });
+    }
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
         Schema::table('rb_bookings', function(Blueprint $table)
         {
             $table->dropForeign('rb_bookings_user_id_foreign');
             $table->dropForeign('rb_bookings_consumer_id_foreign');
         });
-		Schema::drop('rb_bookings');
-	}
+        Schema::drop('rb_bookings');
+    }
 
 }

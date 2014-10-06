@@ -5,16 +5,16 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateTableRbGroups extends Migration {
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('rb_groups', function(Blueprint $table)
-		{
-			$table->increments('id');
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('rb_groups', function(Blueprint $table)
+        {
+            $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->string('name');
             $table->string('description');
@@ -24,21 +24,21 @@ class CreateTableRbGroups extends Migration {
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
-		});
-	}
+        });
+    }
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
         Schema::table('rb_groups', function(Blueprint $table)
         {
             $table->dropForeign('rb_groups_user_id_foreign');
         });
-		Schema::drop('rb_groups');
-	}
+        Schema::drop('rb_groups');
+    }
 
 }

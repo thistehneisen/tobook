@@ -5,16 +5,16 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateTableRbServices extends Migration {
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('rb_services', function(Blueprint $table)
-		{
-			$table->increments('id');
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('rb_services', function(Blueprint $table)
+        {
+            $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->string('name');
             $table->time('start_at');
@@ -27,21 +27,21 @@ class CreateTableRbServices extends Migration {
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
-		});
-	}
+        });
+    }
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
         Schema::table('rb_services', function(Blueprint $table)
         {
             $table->dropForeign('rb_services_user_id_foreign');
         });
-		Schema::drop('rb_services');
-	}
+        Schema::drop('rb_services');
+    }
 
 }
