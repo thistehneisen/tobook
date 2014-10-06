@@ -269,6 +269,7 @@ return [
         'modify_booking'    => 'Muokkaa varausta', //@todo
         'cut'               => 'Cut',//@todo
         'paste'             => 'Paste Booking',//@todo
+        'discard_cut'       => 'Discard cut',//@todo
         'error'             => [
             'add_overlapped_booking'   => 'Overlapped booking time!',// @todo
             'insufficient_slots'       => 'There is no enough time slots for this booking!',// @todo

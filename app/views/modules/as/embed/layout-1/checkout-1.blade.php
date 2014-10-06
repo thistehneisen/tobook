@@ -25,6 +25,7 @@
                 <div class="col-sm-10">{{ Form::text('phone', (isset($booking_info['phone'])) ? $booking_info['phone'] : ''  , ['class' => 'form-control input-sm', 'id' => 'phone']) }}</div>
             </div>
             <input type="hidden" name="hash" value="{{ $hash }}">
+            <input type="hidden" name="cart_id" value="{{ $cart->id }}">
             @if((int)$user->asOptions['terms_enabled'] > 1)
             <div class="form-group row">
                 <div class="col-sm-offset-2 col-sm-6 {{ Form::errorCSS('is_day_off', $errors) }}">

@@ -122,7 +122,7 @@
                 data: $('#form-employee-' + employee_id).serialize(),
                 dataType: 'json'
             }).done(function (data) {
-                window.location.href = checkout_url;
+                window.location.href = checkout_url + '&cart_id=' + data.cart_id;
             }).fail(function (data) {
                 alertify.alert(data.responseJSON.message);
             });

@@ -2,12 +2,17 @@
 
 use Hashids, Input, Session, Redirect, URL, Config, Validator, App;
 use Carbon\Carbon;
-use App\Core\Models\User;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\ExtraService;
+use App\Appointment\Models\EmployeeService;
+use App\Appointment\Models\BookingService;
+use App\Appointment\Models\AsConsumer;
 use App\Consumers\Models\Consumer;
+use App\Core\Models\Cart;
+use App\Core\Models\CartDetail;
+use App\Core\Models\User;
 use App\Appointment\Controllers\AsBase;
 
 class Base extends AsBase
@@ -37,25 +42,25 @@ class Base extends AsBase
         $serviceId       = Input::get('service_id');
         $serviceTimeId   = Input::get('service_time');
         $extraServiceIds = Input::get('extra_services');
+        $cartId          = Input::get('cart_id');
 
         $date = (empty(Input::get('date'))) ? Carbon::today() : Input::get('date');
         $consumer = null;
-        $booking_info = [];
+        $cart = null;
         $action = Input::get('action');
 
         //If carts is empty, user cannot checkout
-        if ($action === 'checkout') {
-            if (empty(Session::get('carts'))) {
+        if($action === 'checkout'){
+            if(empty($cartId)){
                 return Redirect::route('as.embed.embed', ['hash' => $hash]);
             }
-        } elseif ($action === 'confirm') {
-            if (empty(Session::get('booking_info'))) {
+        } else if($action === 'confirm'){
+            if(empty($cartId)){
                 return Redirect::route('as.embed.embed', ['hash' => $hash]);
             }
         }
-        if (!empty(Session::get('booking_info'))) {
-            $booking_info = Session::get('booking_info');
-            $consumer = Consumer::where('email', $booking_info['email'])->first();
+        if(!empty($cartId)){
+            $cart = Cart::find($cartId);
         }
 
         if (!$date instanceof Carbon) {
@@ -73,7 +78,7 @@ class Base extends AsBase
         //TODO get default workingTimes from config
         $workingTimes = $this->getDefaultWorkingTimes($date, $hash);
         //for select employee view
-        if (!empty($serviceId) && !empty($date)) {
+        if(!empty($serviceId) && !empty($date)){
             $service = Service::find($serviceId);
 
             $serviceTime = (!empty($serviceTimeId))
@@ -83,11 +88,11 @@ class Base extends AsBase
             $employees = $service->employees()->where('is_active', true)->get();
         }
         $extraServices = [];
-        if (!empty($extraServiceIds)) {
+        if(!empty($extraServiceIds)){
             $extraServices = ExtraService::whereIn('id', $extraServiceIds)->get();
         }
         $extraServiceLength = $extraServicePrice =  0;
-        if (!empty($extraServices)) {
+        if(!empty($extraServices)){
             foreach ($extraServices as $extraService) {
                 $extraServiceLength += $extraService->length;
                 $extraServicePrice  += $extraService->price;
@@ -96,20 +101,19 @@ class Base extends AsBase
 
         $categories = ServiceCategory::OfUser($user->id)
             ->orderBy('order')
-            ->with(['services' => function ($query) {
+            ->with(['services' => function($query) {
                 $query->where('is_active', true)
                     ->with('serviceTimes');
             }])->where('is_show_front', true)
             ->get();
 
         $layout = $this->getLayout();
-
         return $this->render('index', [
             'layout'             => $layout,
             'user'               => $user,
             'categories'         => $categories,
             'employees'          => $employees,
-            'booking_info'       => $booking_info,
+            'cart'               => $cart,
             'consumer'           => $consumer,
             'service'            => $service,
             'serviceTime'        => $serviceTime,

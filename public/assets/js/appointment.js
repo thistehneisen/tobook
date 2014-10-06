@@ -345,6 +345,19 @@
                         alertify.alert(data.message);
                     }
                 });
+            } else if (selected_action === 'discard_cut_booking') {
+                var action_url = $('#get_discard_cut_booking_url').val();
+                $.ajax({
+                    type: 'POST',
+                    url: action_url,
+                    dataType: 'json'
+                }).done(function (data) {
+                    if (data.success) {
+                        location.reload();
+                    } else {
+                        alertify.alert(data.message);
+                    }
+                });
             }
         });
         $(document).on('click', 'a.js-btn-view-booking', function (e) {
@@ -391,6 +404,7 @@
                     $('.booked').removeAttr('style');
                     $('.booking-id-' + booking_id).attr('style', 'background-color:grey');
                     $('#row_paste_booking').show();
+                    $('#row_discard_cut_booking').show();
                 } else {
                     alertify.alert(data.message);
                 }

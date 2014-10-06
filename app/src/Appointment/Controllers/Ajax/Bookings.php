@@ -66,6 +66,13 @@ class Bookings extends \App\Core\Controllers\Ajax\Base
         return Response::json(['success' => true]);
     }
 
+    public function discardCut()
+    {
+        Session::forget('cutId');
+        //Is there anything can raise error?
+        return Response::json(['success' => true]);
+    }
+
     public function paste()
     {
         $cutId        = Session::get('cutId', null);

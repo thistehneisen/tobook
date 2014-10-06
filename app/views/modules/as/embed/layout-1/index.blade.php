@@ -95,18 +95,18 @@ $(document).ready(function () {
         <div class="panel panel-default">
             <div class="panel-heading">{{ trans('as.embed.select_service') }}</div>
             <div class="panel-body">
-            @if(empty(Session::get('carts')))
+            @if(empty($cart))
                 <div class="alert alert-info">{{ trans('as.embed.empty_cart') }}</div>
                 @else
-                <?php $carts = Session::get('carts');?>
-                @foreach($carts as $key => $item)
+                @foreach($cart->cartDetails as $detail)
+                <?php $item = $detail->getASBookingInfo();?>
                 <div class="panel panel-default">
                     <div class="panel-heading">{{ $item['service_name'] }}</div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-sm-6">{{ $item['datetime'] }}</div>
                             <div class="col-sm-4"><span class="price-tag"> {{ $item['price'] }} &euro;</span></div>
-                            <div class="col-sm-2"><a href="#" data-hash="{{ $hash }}" data-action-url="{{ route('as.bookings.service.remove.in.cart') }}" data-uuid="{{ $key }}" class="btn-remove-item-from-cart"><i class="glyphicon glyphicon-remove btn-danger"></i></a></div>
+                            <div class="col-sm-2"><a href="#" data-hash="{{ $hash }}" data-action-url="{{ route('as.bookings.service.remove.in.cart') }}" data-uuid="{{ $item['uuid'] }}" class="btn-remove-item-from-cart"><i class="glyphicon glyphicon-remove btn-danger"></i></a></div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12"> {{ $item['start_at'] }} : {{ $item['end_at'] }}</div>

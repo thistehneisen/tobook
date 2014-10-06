@@ -657,46 +657,18 @@ class Bookings extends AsBase
         $address   = Input::get('address', '');
         $hash      = Input::get('hash');
 
-        $consumer = Consumer::where('first_name', $firstname)
-            ->where('last_name', $lastname)
-            ->where('phone', $phone)->first();
-
-        $asConsumer = new AsConsumer();
-
-        //In front end, user is identified from hash
-        $user = $this->user;
-        $userId = null;
-        if(empty($this->user)){
-            $decoded = Hashids::decrypt($hash);
-            if(empty($decoded)){
-                return;
-            }
-            $user = User::find($decoded[0]);
-            $userId = $decoded[0];
-        }
-
-        //TODO handle consumer validation
+         //TODO handle consumer validation
         $data = [
             'first_name' => $firstname,
             'last_name'  => $lastname,
             'email'      => $email,
             'phone'      => $phone,
-            'address'    => $address
+            'address'    => $address,
+            'hash'       => $hash
         ];
-        try{
-            if (empty($consumer->id)) {
-                $consumer = Consumer::make($data, $userId);
-                $asConsumer->user()->associate($user);
-                $asConsumer->consumer()->associate($consumer);
-                $asConsumer->save();
-            } else {
-                //TODO update consumer
-                $consumer->fill($data);
-                $consumer->saveOrFail();
-            }
-        } catch(\Watson\Validating\ValidationException $ex){
-            throw $ex;
-        }
+
+        $consumer = AsConsumer::handleConsumer($data);
+
         return $consumer;
     }
 
