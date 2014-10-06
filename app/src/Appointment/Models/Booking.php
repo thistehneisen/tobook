@@ -15,6 +15,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         'status',
         'notes',
         'uuid',
+        'source',//layout
         'ip',
         'notes'
     ];
