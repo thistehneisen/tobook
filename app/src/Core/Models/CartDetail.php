@@ -25,7 +25,7 @@ class CartDetail extends Base
         $bookingService = BookingService::find($this->item);
         $bookingService->calculateExtraServices();
 
-        $price = (!empty($bookingService->serviceTime))
+        $price = (!empty($bookingService->serviceTime->id))
             ? $bookingService->serviceTime->price
             : $bookingService->service->price;
 
