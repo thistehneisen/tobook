@@ -28,3 +28,6 @@
 .main #consumer-info hr {
   margin: 0;
 }
+.main .pagination {
+  padding-top: 10px;
+}

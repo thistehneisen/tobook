@@ -25,15 +25,19 @@ NFC Desktop App
     <div class="col-lg-7 col-md-7 col-sm-7">
         <div class="top-buttons clearfix">
             <button class="btn btn-default btn-success pull-right" data-toggle="modal" data-target="#js-createConsumerModal">
-                <span class="glyphicon glyphicon-plus"></span> {{ trans('common.add') }}
+                <i class="fa fa-plus"></i> {{ trans('common.add') }}
             </button>
             {{ Form::open(['route' => 'app.lc.index', 'method' => 'get', 'class' => 'form-inline pull-left']) }}
                 {{ Form::text('search', Input::get('search'), ['class' => 'form-control']) }}
-                {{ Form::submit(trans('common.search'), ['class' => 'btn btn-default']) }}
+                <button class="btn btn-default" type="submit">
+                    <i class="fa fa-search"></i> {{ trans('common.search') }}
+                </button>
             {{ Form::close() }}
             &nbsp;
-            @if (Input::get('search') !== '')
-                <a href="{{ route('app.lc.index') }}"><button class="btn btn-default">{{ trans('common.back') }}</button></a>
+            @if (Input::get('search', '') !== '')
+                <a href="{{ route('app.lc.index') }}" class="btn btn-default">
+                    <i class="fa fa-caret-left"></i> {{ trans('common.back') }}
+                </a>
             @endif
         </div>
         @include('modules.lc._consumer_list')
