@@ -64,4 +64,6 @@
         </div>
     </div>
 </div>
+
+<input type="hidden" name="add-service-url" id="add-service-url" value="{{ route('as.bookings.service.front.add') }}">
 @stop

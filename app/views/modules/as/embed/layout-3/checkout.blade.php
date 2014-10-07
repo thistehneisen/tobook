@@ -1,8 +1,6 @@
 @if ($errors->any())
-<div class="alert alert-warning">
-    <ul>
-        {{ implode('', $errors->all('<li>:message</li>')) }}
-    </ul>
+<div class="alert alert-danger">
+    {{ implode('', $errors->all('<p>:message</p>')) }}
 </div>
 @endif
 
@@ -12,7 +10,7 @@
         <div class="col-sm-10"> {{ Form::text('first_name', (isset($booking_info['first_name'])) ? $booking_info['first_name'] : ''  , ['class' => 'form-control input-sm', 'id' => 'first_name']) }}</div>
     </div>
     <div class="form-group">
-        <label class="form-label col-sm-2">{{ trans('as.bookings.last_name') }}</label>
+        <label class="form-label col-sm-2">{{ trans('as.bookings.last_name') }}*</label>
         <div class="col-sm-10"> {{ Form::text('last_name', (isset($booking_info['last_name'])) ? $booking_info['last_name'] : ''  , ['class' => 'form-control input-sm', 'id' => 'last_name']) }}</div>
     </div>
     <div class="form-group">

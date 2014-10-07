@@ -132,9 +132,6 @@
             var $this = $(this),
                 panel = step4.find('div.panel-body');
 
-            step4.collapse('show');
-            title4.addClass('collapsable');
-
             // Assign selected time to dataStorage
             dataStorage.time = $this.text();
             // Also assign the employee ID
@@ -144,15 +141,35 @@
             $('button.btn-as-time.btn-success').removeClass('btn-success');
             $this.addClass('btn-success');
 
-            // Empty existing content first
-            panel.empty();
-
-            // Then make a request to load the form
+            // Add selected time
             $.ajax({
-                url: step4.data('url'),
+                url: $('#add-service-url').val(),
                 type: 'POST',
-                data: dataStorage
+                dataType: 'json',
+                data: {
+                    service_id  : dataStorage.serviceId,
+                    employee_id : dataStorage.employeeId,
+                    hash        : dataStorage.hash,
+                    booking_date: dataStorage.date,
+                    start_time  : dataStorage.time
+                }
+            }).fail(function (e) {
+                if (typeof e.responseJSON.message !== 'undefined') {
+                    alert(e.responseJSON.message);
+                }
+            }).pipe(function (data) {
+                // Then make a request to load the form
+                return $.ajax({
+                    url: step4.data('url'),
+                    type: 'POST',
+                    data: dataStorage
+                });
             }).done(function (data) {
+                step4.collapse('show');
+                title4.addClass('collapsable');
+
+                // Empty existing content first
+                panel.empty();
                 panel.html(data);
             });
         });
@@ -171,6 +188,7 @@
             });
         });
 
+        // When user submits the confirmation form
         form.on('submit', '#as-form-confirm', function (e) {
             e.preventDefault();
             var $this = $(this),
