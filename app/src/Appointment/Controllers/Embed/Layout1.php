@@ -40,7 +40,7 @@ class Layout1 extends Base
         $service = Service::findOrFail(Input::get('service_id'));
         $serviceTime = Input::get('service_time');
 
-        return $this->render($this->getLayout().'.extraServices', [
+        return $this->render('extraServices', [
             'date'        => Input::get('date') ?: Carbon::now()->toDateString(),
             'service'     => $service,
             'serviceTime' => $serviceTime,
