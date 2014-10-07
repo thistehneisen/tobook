@@ -197,9 +197,8 @@
                     start_time  : dataStorage.time
                 }
             }).fail(function (e) {
-                console.log(e);
-                if (typeof e.message !== 'undefined') {
-                    alert(e.message);
+                if (typeof e.responseJSON.message !== 'undefined') {
+                    alert(e.responseJSON.message);
                 }
             }).pipe(function(e) {
                 // Load checkout form
@@ -251,6 +250,7 @@
             });
         });
 
+        // When user confirms booking
         $elCheckout.on('submit', '#frm-confirm', function (e) {
             e.preventDefault();
             var $this = $(this);
