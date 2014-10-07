@@ -24,6 +24,7 @@
 
     <input type="hidden" name="hash" value="{{ Input::get('hash') }}">
     <input type="hidden" name="l" value="{{ Input::get('l') }}">
+    <input type="hidden" name="cartId" value="{{ Input::get('cartId') }}">
 
     <div class="row">
         <div class="col-sm-12">
