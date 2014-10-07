@@ -3,6 +3,7 @@
 use Input, Response, Carbon\Carbon, Session, Redirect;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\Employee;
+use App\Appointment\Models\AsConsumer;
 use App\Core\Models\Cart;
 
 class Layout2 extends Base
@@ -114,6 +115,11 @@ class Layout2 extends Base
         }
 
         $data = Input::all();
+        // Handle consumer
+        $consumer   = AsConsumer::handleConsumer($data);
+        $cart       = Cart::findOrFail(Input::get('cartId'));
+        $cart->consumer()->associate($consumer)->save();
+
         return $this->render('confirm', $data);
     }
 }

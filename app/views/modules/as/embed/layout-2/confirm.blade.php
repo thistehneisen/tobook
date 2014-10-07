@@ -20,7 +20,7 @@
     <input type="hidden" name="last_name" value="{{ $last_name }}">
     <input type="hidden" name="email" value="{{ $email }}">
     <input type="hidden" name="phone" value="{{ $phone }}">
-    <input type="hidden" name="cartId" value="{{ $cartId }}">
+    <input type="hidden" name="cart_id" value="{{ $cartId }}">
 
     <div class="form-group">
         <div class="col-sm-12">
