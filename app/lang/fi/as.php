@@ -357,10 +357,12 @@ return [
             'select_service'      => 'Valitse palvelu ja päivämäärä',
             'select_service_type' => 'Valitse varauksen tyyppi',
             'services'            => 'Palvelut',
+            'selected'            => 'Valitut palvelut',
             'extra_services'      => 'Lisäpalvelut',
             'employees'           => 'Työntekijä',
             'choose'              => 'Valitse päivämäärä',
             'unavailable'         => 'Ei saatavilla',
+            'form'                => 'Varauslomake',
         ],
         'layout_3'         => [
             'select_service'  => 'Valitse palvelun tyyppi',

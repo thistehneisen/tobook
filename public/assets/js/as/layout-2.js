@@ -7,6 +7,7 @@
         var $body = $('body'),
             $main = $('#as-main-panel'),
             $timetable = $('#as-timetable'),
+            $btnBook = $('#btn-book'),
             dataStorage = {hash: $body.data('hash')},
             fnLoadTimetable;
 
@@ -169,7 +170,11 @@
             $timetable.find('a.as-time.active').removeClass('active');
             $this.addClass('active');
 
-            $('#btn-book').removeClass('disabled');
+            $btnBook.removeClass('disabled');
+        });
+
+        $btnBook.on('click', function (e) {
+
         });
 
     });

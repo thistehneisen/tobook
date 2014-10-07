@@ -22,6 +22,9 @@ html {
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
 }
+.to-upper {
+  text-transform: uppercase;
+}
 .as-category,
 .as-service,
 .as-time,
@@ -90,4 +93,7 @@ html {
 }
 .as-timetable-wrapper .table-timetable tbody td:first-child {
   border-left: none;
+}
+.as-cart .item {
+  padding: 0 10px;
 }
