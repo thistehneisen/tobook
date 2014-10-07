@@ -6,6 +6,7 @@ use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\ExtraService;
+use App\Appointment\Models\Employee;
 use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\AsConsumer;
@@ -101,13 +102,14 @@ class Base extends AsBase
 
         $categories = ServiceCategory::OfUser($user->id)
             ->orderBy('order')
-            ->with(['services' => function($query) {
+            ->with(['services' => function ($query) {
                 $query->where('is_active', true)
                     ->with('serviceTimes');
             }])->where('is_show_front', true)
             ->get();
 
         $layout = $this->getLayout();
+
         return $this->render('index', [
             'layout'             => $layout,
             'user'               => $user,
@@ -167,17 +169,190 @@ class Base extends AsBase
     protected function getConfirmationValidator()
     {
         $fields = [
-            trans('as.bookings.first_name') => Input::get('first_name'),
-            trans('as.bookings.phone')      => Input::get('phone'),
-            trans('as.bookings.email')      => Input::get('email'),
+            'firstname' => Input::get('firstname'),
+            'lastname'  => Input::get('lastname'),
+            'phone'     => Input::get('phone'),
+            'email'     => Input::get('email'),
         ];
 
         $validators = [
-            trans('as.bookings.first_name')  => array( 'required'),
-            trans('as.bookings.phone')       => array( 'required'),
-            trans('as.bookings.email')       => array( 'required', 'email'),
+            'firstname' => ['required'],
+            'lastname'  => ['required'],
+            'phone'     => ['required'],
+            'email'     => ['required', 'email'],
         ];
 
         return Validator::make($fields, $validators);
+    }
+
+    /**
+     * Get all employees available for a service
+     *
+     * @return View
+     */
+    public function getEmployees()
+    {
+        $serviceId = Input::get('serviceId');
+        if ($serviceId === null) {
+            return Response::json(['message' => 'Missing service ID'], 400);
+        }
+
+        $service = Service::with('employees')->findOrFail($serviceId);
+        $employees = $this->getEmployeesOfService($service);
+
+        return $this->render('employees', [
+            'employees' => $employees,
+            'service'   => $service
+        ]);
+    }
+
+    /**
+     * The all active employees of a service
+     *
+     * @param Service $service
+     *
+     * @return Illuminate\Support\Collection
+     */
+    protected function getEmployeesOfService(Service $service)
+    {
+        return $service->employees()->where('is_active', true)->get();
+    }
+
+    /**
+     * Get table table of an employee
+     *
+     * @return View
+     */
+    public function getTimetable()
+    {
+        $today    = Carbon::today();
+        $date     = Input::has('date') ? new Carbon(Input::get('date')) : $today;
+        $hash     = Input::get('hash');
+        $service  = Service::findOrFail(Input::get('serviceId'));
+
+        if ($date->lt($today)) {
+            $date = $today->copy();
+        }
+
+        $employeeId = (int) Input::get('employeeId');
+        if ($employeeId === -1) {
+            $timetable = $this->getTimetableOfAnyone($service, $date);
+        } elseif ($employeeId > 0) {
+            $employee = Employee::findOrFail($employeeId);
+            $timetable = $this->getTimetableOfSingle($employee, $service, $date);
+        }
+
+        $i = 1;
+        $startDate = $date->copy();
+        while ($i <= 2) {
+            $startDate = $startDate->subDay();
+
+            if ($startDate->lt($today)) {
+                $startDate = $today->copy();
+                break;
+            }
+            $i++;
+        }
+
+        return $this->render('timetable', [
+            'date'      => $date,
+            'startDate' => $startDate,
+            'prev'      => $date->copy()->subDay(),
+            'next'      => $date->copy()->addDay(),
+            'timetable' => $timetable
+        ]);
+    }
+
+    /**
+     * The the timetable of all employees and merge them into one
+     *
+     * @param Service $service
+     * @param Carbon  $date
+     * @param boolean $showEndTime
+     *
+     * @return array
+     */
+    protected function getTimetableOfAnyone(Service $service, Carbon $date, $serviceTime, $showEndTime = false)
+    {
+        $timetable = [];
+        // Get timetable of all employees
+        $user = $this->getUser();
+        $employees = $this->getEmployeesOfService($service);
+        foreach ($employees as $employee) {
+            $data = $this->getTimetableOfSingle(
+                $employee,
+                $service,
+                $date,
+                $serviceTime,
+                $showEndTime
+            );
+
+            foreach ($data as $time => $_) {
+                if (!isset($timetable[$time])) {
+                    $timetable[$time] = $employee;
+                }
+            }
+        }
+
+        return $timetable;
+    }
+
+    /**
+     * Get timetable of a single employee
+     *
+     * @param Employee $employee
+     * @param Service  $service
+     * @param Carbon   $date
+     * @param boolean $showEndTime
+     *
+     * @return array
+     */
+    protected function getTimetableOfSingle(Employee $employee, Service $service, Carbon $date, $serviceTime, $showEndTime = false)
+    {
+        $timetable = [];
+        $workingTimes = $this->getDefaultWorkingTimes($date, Input::get('hash'));
+        foreach ($workingTimes as $hour => $minutes) {
+            foreach ($minutes as $shift) {
+                $slotClass = $employee->getSlotClass(
+                    $date->toDateString(),
+                    $hour,
+                    $shift,
+                    'frontend',
+                    $service
+                );
+
+                $time = $date->copy()->hour($hour)->minute($shift);
+                $isActive = $slotClass === 'active'
+                    || $slotClass === 'custom active';
+                if ($time->gt(Carbon::now()) && $isActive) {
+                    $formatted = sprintf('%02d:%02d', $hour, $shift);
+
+                    if ($showEndTime) {
+                        $length = ($serviceTime !== null)
+                            ? $serviceTime->length
+                            : $service->length;
+
+                        $time->addMinutes($length);
+                        $formatted .= sprintf(' - %02d:%02d', $time->hour, $time->minute);
+                    }
+
+                    $timetable[$formatted] = $employee;
+                }
+            }
+        }
+
+        return $timetable;
+    }
+
+    /**
+     * Get booking info from Session
+     *
+     * @return array
+     */
+    protected function getBookingInfo()
+    {
+        if (!empty(Session::get('booking_info'))) {
+            return Session::get('booking_info');
+        }
     }
 }

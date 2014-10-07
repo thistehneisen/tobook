@@ -420,6 +420,16 @@ Route::group([
             'uses' => 'App\Appointment\Controllers\FrontBookings@removeBookingServiceInCart'
         ]);
 
+        Route::post('employees', [
+            'as' => 'as.embed.employees',
+            'uses' => 'App\Appointment\Controllers\Embed\Base@getEmployees'
+        ]);
+
+        Route::post('timetable', [
+            'as' => 'as.embed.timetable',
+            'uses' => 'App\Appointment\Controllers\Embed\Base@getTimetable'
+        ]);
+
         //----------------------------------------------------------------------
         // Layout 1
         //----------------------------------------------------------------------
@@ -434,24 +444,32 @@ Route::group([
         ]);
 
         //----------------------------------------------------------------------
+        // Layout 2
+        //----------------------------------------------------------------------
+        Route::post('l2/timetable', [
+            'as' => 'as.embed.l2.timetable',
+            'uses' => 'App\Appointment\Controllers\Embed\Layout2@getTimetable'
+        ]);
+
+        Route::get('l2/checkout', [
+            'as' => 'as.embed.l2.checkout',
+            'uses' => 'App\Appointment\Controllers\Embed\Layout2@checkout'
+        ]);
+
+        Route::post('l2/checkout/confirm', [
+            'as' => 'as.embed.l2.confirm',
+            'uses' => 'App\Appointment\Controllers\Embed\Layout2@confirm'
+        ]);
+
+        //----------------------------------------------------------------------
         // Layout 3
         //----------------------------------------------------------------------
-        Route::post('layout-3/employees', [
-            'as' => 'as.embed.employees',
-            'uses' => 'App\Appointment\Controllers\Embed\Layout3@getEmployees'
-        ]);
-
-        Route::post('layout-3/timetable', [
-            'as' => 'as.embed.timetable',
-            'uses' => 'App\Appointment\Controllers\Embed\Layout3@getTimetable'
-        ]);
-
-        Route::post('checkout', [
+        Route::post('l3/checkout', [
             'as' => 'as.embed.checkout',
             'uses' => 'App\Appointment\Controllers\Embed\Layout3@checkout'
         ]);
 
-        Route::post('checkout/confirm', [
+        Route::post('l3/checkout/confirm', [
             'as'   => 'as.embed.checkout.confirm',
             'uses' => 'App\Appointment\Controllers\Embed\Layout3@confirm'
         ]);

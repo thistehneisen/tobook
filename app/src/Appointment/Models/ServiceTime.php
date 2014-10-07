@@ -1,5 +1,7 @@
 <?php namespace App\Appointment\Models;
 
+use Config;
+
 class ServiceTime extends \App\Core\Models\Base
 {
     protected $table = 'as_service_times';
@@ -10,6 +12,16 @@ class ServiceTime extends \App\Core\Models\Base
     public function setLength()
     {
         $this->length = (int) $this->after + $this->during + $this->before;
+    }
+
+    //--------------------------------------------------------------------------
+    // ATTRIBUTES
+    //--------------------------------------------------------------------------
+
+    public function getFormattedPriceAttribute()
+    {
+        return number_format($this->attributes['price'], 2)
+            .Config::get('varaa.currency');
     }
 
     //--------------------------------------------------------------------------
