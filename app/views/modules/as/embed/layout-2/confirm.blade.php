@@ -23,7 +23,7 @@
 
     <div class="form-group">
         <div class="col-sm-12">
-            <a href="#" class="btn btn-default">{{ trans('as.embed.cancel') }}</a>
+            <a href="#" class="btn btn-default btn-as-cancel">{{ trans('as.embed.cancel') }}</a>
             <button type="submit" class="btn btn-success pull-right">{{ trans('as.embed.confirm') }}</button>
         </div>
     </div>

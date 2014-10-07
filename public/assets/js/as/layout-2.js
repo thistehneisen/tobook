@@ -211,7 +211,7 @@
 
                 $elSelect.hide();
                 // Show checkout form
-                $elCheckout.html(data);
+                $elCheckout.html(data).show();
 
                 // Scroll to the beginning of form
                 $(document).scrollTop(0);
@@ -265,6 +265,14 @@
                 $elCheckout.hide();
                 $elSuccess.show();
             });
+        });
+
+        // When user clicks on Cancel button
+        $elCheckout.on('click', 'a.btn-as-cancel', function (e) {
+            e.preventDefault();
+
+            $elCheckout.hide();
+            $elSelect.show();
         });
     });
 }(jQuery));
