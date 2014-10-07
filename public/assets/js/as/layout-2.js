@@ -8,6 +8,8 @@
             $main = $('#as-main-panel'),
             $timetable = $('#as-timetable'),
             $btnBook = $('#btn-book'),
+            $elSelect = $('#as-select'),
+            $elCheckout = $('#as-checkout'),
             dataStorage = {hash: $body.data('hash')},
             fnLoadTimetable;
 
@@ -156,14 +158,17 @@
             fnLoadTimetable();
         });
 
-        // When user click on a time in timetable
+        // When user clicks on a time in timetable
         $timetable.on('click', 'a.as-time', function (e) {
             e.preventDefault();
-            var $this = $(this);
+            var $this = $(this), token;
+
+            // Extra start time from selected time
+            token = $this.text().split(' - ');
 
             // Assign data
             dataStorage.date       = $this.data('date');
-            dataStorage.time       = $this.text();
+            dataStorage.time       = token[0] || '';
             dataStorage.employeeId = $this.data('employee-id');
 
             // Highlight
@@ -173,8 +178,31 @@
             $btnBook.removeClass('disabled');
         });
 
+        // When user clicks on Book button
         $btnBook.on('click', function (e) {
+            e.preventDefault();
+            var $this = $(this);
 
+            $body.showLoading();
+            // Send AJAX request to add booking service
+            $.ajax({
+                url: $this.attr('href'),
+                type: 'POST',
+                data: {
+                    service_id  : dataStorage.serviceId,
+                    employee_id : dataStorage.employeeId,
+                    hash        : dataStorage.hash,
+                    booking_date: dataStorage.date,
+                    start_time  : dataStorage.time
+                }
+            }).done(function (e) {
+                $body.hideLoadding();
+
+                // Show checkout form
+                $elSelect.slideUp(400, function () {
+                    $elCheckout.slideDown();
+                });
+            });
         });
 
     });

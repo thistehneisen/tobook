@@ -326,7 +326,7 @@ class Base extends AsBase
                             : $service->length;
 
                         $time->addMinutes($length);
-                        $formatted .= sprintf(' &ndash; %02d:%02d', $time->hour, $time->minute);
+                        $formatted .= sprintf(' - %02d:%02d', $time->hour, $time->minute);
                     }
 
                     $timetable[$formatted] = $employee;

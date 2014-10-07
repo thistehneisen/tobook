@@ -94,6 +94,6 @@ html {
 .as-timetable-wrapper .table-timetable tbody td:first-child {
   border-left: none;
 }
-.as-cart .item {
+.as-checkout .item {
   padding: 0 10px;
 }
