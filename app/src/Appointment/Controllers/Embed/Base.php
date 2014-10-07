@@ -294,6 +294,9 @@ class Base extends AsBase
             }
         }
 
+        // Sort timetable ascendingly
+        ksort($timetable, SORT_STRING);
+
         return $timetable;
     }
 
@@ -340,6 +343,9 @@ class Base extends AsBase
                 }
             }
         }
+
+        // Sort timetable ascendingly
+        ksort($timetable, SORT_STRING);
 
         return $timetable;
     }
