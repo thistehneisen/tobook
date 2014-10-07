@@ -16,4 +16,21 @@ return [
         'description'   => 'Description',
         'edit'          => 'Edit group',
     ],
+    'services'  => [
+        'all'           => 'All services',
+        'add'           => 'Add new service',
+        'name'          => 'Service name',
+        'start_at'      => 'Start at',
+        'end_at'        => 'End at',
+        'length'        => 'Length',
+        'price'         => 'Price',
+        'edit'          => 'Edit service',
+    ],
+    'menus'     => [
+        'all'           => 'All menus',
+        'add'           => 'Add new menu',
+        'name'          => 'Menu name',
+        'type'          => 'Menu type',
+        'edit'          => 'Edit menu',
+    ],
 ];

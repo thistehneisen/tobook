@@ -831,6 +831,16 @@ Route::group([
         'groups',
         'rb.groups'
     );
+
+    \App\Restaurant\Controllers\Service::crudRoutes(
+        'services',
+        'rb.services'
+    );
+
+    \App\Restaurant\Controllers\Menu::crudRoutes(
+        'menus',
+        'rb.menus'
+    );
 });
 
 /*
