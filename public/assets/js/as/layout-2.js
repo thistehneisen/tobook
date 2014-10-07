@@ -234,7 +234,8 @@
             });
         });
 
-        $elCheckout.on('submit', 'form', function (e) {
+        // When user submits information form
+        $elCheckout.on('submit', '#frm-customer-info', function (e) {
             e.preventDefault();
             var $this = $(this);
 
@@ -247,7 +248,6 @@
                 $body.hideLoadding();
                 $elCheckout.find('#as-frm-confirm').html(data);
             });
-
         });
     });
 }(jQuery));

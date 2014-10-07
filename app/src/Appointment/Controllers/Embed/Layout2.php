@@ -111,5 +111,8 @@ class Layout2 extends Base
             return $this->render('form', $this->getCheckoutData())
                 ->with('errors', $v->errors());
         }
+
+        $data = Input::all();
+        return $this->render('confirm', $data);
     }
 }

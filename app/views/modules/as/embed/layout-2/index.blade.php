@@ -14,9 +14,9 @@
                     <div class="as-timetable-wrapper" id="as-timetable"></div>
 
                     <div class="row">
-                        <dic class="col-sm-12">
+                        <div class="col-sm-12">
                             <a id="btn-book" href="{{ route('as.bookings.service.front.add') }}" class="btn btn-success disabled pull-right">{{ trans('as.embed.book') }}</a>
-                        </dic>
+                        </div>
                     </div>
                 </div>
             </div>

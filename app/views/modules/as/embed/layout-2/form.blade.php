@@ -4,7 +4,7 @@
 </div>
 @endif
 
-{{ Form::open(['route' => 'as.embed.l2.confirm', 'role' => 'form']) }}
+{{ Form::open(['route' => 'as.embed.l2.confirm', 'role' => 'form', 'id' => 'frm-customer-info']) }}
     <div class="form-group">
         <label>{{ trans('as.bookings.firstname') }}*</label>
         {{ Form::text('firstname', (isset($booking_info['firstname'])) ? $booking_info['firstname'] : ''  , ['class' => 'form-control input-sm', 'id' => 'firstname']) }}
@@ -25,10 +25,10 @@
     <input type="hidden" name="hash" value="{{ Input::get('hash') }}">
     <input type="hidden" name="l" value="{{ Input::get('l') }}">
 
-    <div class="form-group">
-        <dic class="col-sm-12">
+    <div class="row">
+        <div class="col-sm-12">
             <a href="#" class="btn btn-default">{{ trans('as.embed.cancel') }}</a>
             <button type="submit" class="btn btn-success pull-right">{{ trans('as.embed.book') }}</button>
-        </dic>
+        </div>
     </div>
 {{ Form::close() }}

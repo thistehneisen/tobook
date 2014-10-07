@@ -353,6 +353,7 @@ return [
         'fi_version'       => 'Suomeksi',
         'en_version'       => 'Englanniksi',
         'success'          => 'Booking was placed. Thank you.', // @todo
+        'confirm'          => 'Vahvista varaus',
         'layout_2'         => [
             'select_service'      => 'Valitse palvelu ja päivämäärä',
             'select_service_type' => 'Valitse varauksen tyyppi',
@@ -365,6 +366,9 @@ return [
             'form'                => 'Varauslomake',
             'date'                => 'Päivämäärä',
             'price'               => 'Hinta',
+            'name'                => 'Sinun nimi',
+            'phone'               => 'Puhelin',
+            'email'               => 'Sähköposti',
         ],
         'layout_3'         => [
             'select_service'  => 'Valitse palvelun tyyppi',
