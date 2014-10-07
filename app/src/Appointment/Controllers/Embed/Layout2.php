@@ -3,6 +3,7 @@
 use Input, Response, Carbon\Carbon, Session, Redirect;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\Employee;
+use App\Core\Models\Cart;
 
 class Layout2 extends Base
 {
@@ -88,7 +89,7 @@ class Layout2 extends Base
      */
     public function getCheckoutData()
     {
-        $cart = Session::get('carts');
+        $cart = Cart::findOrFail(Input::get('cartId'));
         return [
             'hash'         => Input::get('hash'),
             'cart'         => $cart,

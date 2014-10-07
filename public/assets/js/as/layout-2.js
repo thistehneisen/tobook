@@ -201,6 +201,9 @@
                     alert(e.responseJSON.message);
                 }
             }).pipe(function(e) {
+                // Get cart ID
+                dataStorage.cartId = e.cart_id;
+
                 // Load checkout form
                 return $.ajax({
                     url: $('input[name=checkout-url]').val(),

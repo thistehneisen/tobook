@@ -6,11 +6,11 @@
 
 {{ Form::open(['route' => 'as.embed.l2.confirm', 'role' => 'form', 'id' => 'frm-customer-info']) }}
     <div class="form-group">
-        <label>{{ trans('as.bookings.firstname') }}*</label>
+        <label>{{ trans('as.bookings.first_name') }}*</label>
         {{ Form::text('firstname', (isset($booking_info['firstname'])) ? $booking_info['firstname'] : ''  , ['class' => 'form-control input-sm', 'id' => 'firstname']) }}
     </div>
     <div class="form-group">
-        <label>{{ trans('as.bookings.lastname') }}*</label>
+        <label>{{ trans('as.bookings.last_name') }}*</label>
         {{ Form::text('lastname', (isset($booking_info['lastname'])) ? $booking_info['lastname'] : ''  , ['class' => 'form-control input-sm', 'id' => 'lastname']) }}
     </div>
     <div class="form-group">
