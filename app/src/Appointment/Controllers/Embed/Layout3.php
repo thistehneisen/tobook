@@ -14,8 +14,6 @@ class Layout3 extends Base
      */
     public function checkout()
     {
-        // Empty the cart first
-        Session::forget('carts');
 
         return $this->render('checkout', [
             'user'         => $this->getUser(),

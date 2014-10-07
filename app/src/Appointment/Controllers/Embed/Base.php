@@ -272,7 +272,7 @@ class Base extends AsBase
      *
      * @return array
      */
-    protected function getTimetableOfAnyone(Service $service, Carbon $date, $serviceTime, $showEndTime = false)
+    protected function getTimetableOfAnyone(Service $service, Carbon $date, $serviceTime = null, $showEndTime = false)
     {
         $timetable = [];
         // Get timetable of all employees
@@ -307,7 +307,7 @@ class Base extends AsBase
      *
      * @return array
      */
-    protected function getTimetableOfSingle(Employee $employee, Service $service, Carbon $date, $serviceTime, $showEndTime = false)
+    protected function getTimetableOfSingle(Employee $employee, Service $service, Carbon $date, $serviceTime = null, $showEndTime = false)
     {
         $timetable = [];
         $workingTimes = $this->getDefaultWorkingTimes($date, Input::get('hash'));
