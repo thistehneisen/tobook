@@ -441,6 +441,11 @@ Route::group([
             'uses' => 'App\Appointment\Controllers\Embed\Layout2@getTimetable'
         ]);
 
+        Route::get('l2/checkout', [
+            'as' => 'as.embed.l2.checkout',
+            'uses' => 'App\Appointment\Controllers\Embed\Layout2@checkout'
+        ]);
+
         //----------------------------------------------------------------------
         // Layout 3
         //----------------------------------------------------------------------

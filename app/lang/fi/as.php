@@ -363,6 +363,8 @@ return [
             'choose'              => 'Valitse päivämäärä',
             'unavailable'         => 'Ei saatavilla',
             'form'                => 'Varauslomake',
+            'date'                => 'Päivämäärä',
+            'price'               => 'Hinta',
         ],
         'layout_3'         => [
             'select_service'  => 'Valitse palvelun tyyppi',

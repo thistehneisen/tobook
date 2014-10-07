@@ -28,5 +28,6 @@
 
 <input type="hidden" name="employee-url" value="{{ route('as.embed.employees', Input::all()) }}">
 <input type="hidden" name="timetable-url" value="{{ route('as.embed.l2.timetable', Input::all()) }}">
+<input type="hidden" name="checkout-url" value="{{ route('as.embed.l2.checkout', Input::all()) }}">
 @stop
 

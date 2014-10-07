@@ -195,13 +195,22 @@
                     booking_date: dataStorage.date,
                     start_time  : dataStorage.time
                 }
-            }).done(function (e) {
+            }).pipe(function(e) {
+                if (typeof e.uuid === 'undefined') {
+                    return;
+                }
+
+                // Load checkout form
+                return $.ajax({
+                    url: $('input[name=checkout-url]').val(),
+                    data: dataStorage
+                });
+            }).done(function (data) {
                 $body.hideLoadding();
 
+                $elSelect.hide();
                 // Show checkout form
-                $elSelect.slideUp(400, function () {
-                    $elCheckout.slideDown();
-                });
+                $elCheckout.html(data);
             });
         });
 

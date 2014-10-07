@@ -70,4 +70,18 @@ class Layout2 extends Base
             'dates'     => $dates
         ]);
     }
+
+    /**
+     * Show cart and form for customer to checkout
+     *
+     * @return View
+     */
+    public function checkout()
+    {
+        $cart = Session::get('carts');
+        return $this->render('checkout', [
+            'hash' => Input::get('hash'),
+            'cart' => $cart
+        ]);
+    }
 }
