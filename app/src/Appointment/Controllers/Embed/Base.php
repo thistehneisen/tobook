@@ -336,4 +336,16 @@ class Base extends AsBase
 
         return $timetable;
     }
+
+    /**
+     * Get booking info from Session
+     *
+     * @return array
+     */
+    protected function getBookingInfo()
+    {
+        if (!empty(Session::get('booking_info'))) {
+            return Session::get('booking_info');
+        }
+    }
 }

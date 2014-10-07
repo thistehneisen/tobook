@@ -196,7 +196,8 @@
                     start_time  : dataStorage.time
                 }
             }).pipe(function(e) {
-                if (typeof e.uuid === 'undefined') {
+                if (typeof e.message !== 'undefined') {
+                    alert(e.message);
                     return;
                 }
 
@@ -233,5 +234,20 @@
             });
         });
 
+        $elCheckout.on('submit', 'form', function (e) {
+            e.preventDefault();
+            var $this = $(this);
+
+            $body.showLoading();
+            $.ajax({
+                url: $this.attr('action'),
+                type: $this.attr('method'),
+                data: $this.serialize()
+            }).done(function (data) {
+                $body.hideLoadding();
+                $elCheckout.find('#as-frm-confirm').html(data);
+            });
+
+        });
     });
 }(jQuery));

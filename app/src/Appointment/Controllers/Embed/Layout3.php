@@ -23,13 +23,6 @@ class Layout3 extends Base
         ]);
     }
 
-    protected function getBookingInfo()
-    {
-        if (!empty(Session::get('booking_info'))) {
-            return Session::get('booking_info');
-        }
-    }
-
     /**
      * Validate submitted data
      *

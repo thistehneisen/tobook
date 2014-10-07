@@ -78,10 +78,38 @@ class Layout2 extends Base
      */
     public function checkout()
     {
+        return $this->render('checkout', $this->getCheckoutData());
+    }
+
+    /**
+     * Get data passed to Checkout view
+     *
+     * @return array
+     */
+    public function getCheckoutData()
+    {
         $cart = Session::get('carts');
-        return $this->render('checkout', [
-            'hash' => Input::get('hash'),
-            'cart' => $cart
-        ]);
+        return [
+            'hash'         => Input::get('hash'),
+            'cart'         => $cart,
+            'booking_info' => $this->getBookingInfo()
+        ];
+    }
+
+    /**
+     * Validate submitted data
+     *
+     * @return View|Redirect
+     */
+    public function confirm()
+    {
+        $v = $this->getConfirmationValidator();
+        if ($v->fails()) {
+            // Flash old input
+            Input::flash();
+
+            return $this->render('form', $this->getCheckoutData())
+                ->with('errors', $v->errors());
+        }
     }
 }

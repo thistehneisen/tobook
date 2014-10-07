@@ -446,15 +446,20 @@ Route::group([
             'uses' => 'App\Appointment\Controllers\Embed\Layout2@checkout'
         ]);
 
+        Route::post('l2/checkout/confirm', [
+            'as' => 'as.embed.l2.confirm',
+            'uses' => 'App\Appointment\Controllers\Embed\Layout2@confirm'
+        ]);
+
         //----------------------------------------------------------------------
         // Layout 3
         //----------------------------------------------------------------------
-        Route::post('checkout', [
+        Route::post('l3/checkout', [
             'as' => 'as.embed.checkout',
             'uses' => 'App\Appointment\Controllers\Embed\Layout3@checkout'
         ]);
 
-        Route::post('checkout/confirm', [
+        Route::post('l3/checkout/confirm', [
             'as'   => 'as.embed.checkout.confirm',
             'uses' => 'App\Appointment\Controllers\Embed\Layout3@confirm'
         ]);
