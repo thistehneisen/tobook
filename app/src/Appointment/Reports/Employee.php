@@ -41,7 +41,12 @@ class Employee extends Base
         $ret = [];
         $employees = $this->getEmployees();
         foreach ($employees as $employee) {
-            $item = $data[$employee->id];
+            if (isset($data[$employee->id])) {
+                $item = $data[$employee->id];
+            } else {
+                $item = ['total' => 0];
+            }
+
             $item['employee'] = $employee;
             $ret[] = $item;
         }
