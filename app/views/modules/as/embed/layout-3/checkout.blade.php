@@ -8,12 +8,12 @@
 
 {{ Form::open(['route' => 'as.embed.checkout.confirm', 'role' => 'form', 'class' => 'form-horizontal', 'id' => 'as-confirm']) }}
     <div class="form-group">
-        <label class="form-label col-sm-2">{{ trans('as.bookings.firstname') }}*</label>
-        <div class="col-sm-10"> {{ Form::text('firstname', (isset($booking_info['firstname'])) ? $booking_info['firstname'] : ''  , ['class' => 'form-control input-sm', 'id' => 'firstname']) }}</div>
+        <label class="form-label col-sm-2">{{ trans('as.bookings.first_name') }}*</label>
+        <div class="col-sm-10"> {{ Form::text('first_name', (isset($booking_info['first_name'])) ? $booking_info['first_name'] : ''  , ['class' => 'form-control input-sm', 'id' => 'first_name']) }}</div>
     </div>
     <div class="form-group">
-        <label class="form-label col-sm-2">{{ trans('as.bookings.lastname') }}</label>
-        <div class="col-sm-10"> {{ Form::text('lastname', (isset($booking_info['lastname'])) ? $booking_info['lastname'] : ''  , ['class' => 'form-control input-sm', 'id' => 'lastname']) }}</div>
+        <label class="form-label col-sm-2">{{ trans('as.bookings.last_name') }}</label>
+        <div class="col-sm-10"> {{ Form::text('last_name', (isset($booking_info['last_name'])) ? $booking_info['last_name'] : ''  , ['class' => 'form-control input-sm', 'id' => 'last_name']) }}</div>
     </div>
     <div class="form-group">
         <label class="form-label col-sm-2">{{ trans('as.bookings.email') }}*</label>

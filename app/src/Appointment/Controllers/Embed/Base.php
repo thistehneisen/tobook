@@ -169,17 +169,17 @@ class Base extends AsBase
     protected function getConfirmationValidator()
     {
         $fields = [
-            'firstname' => Input::get('firstname'),
-            'lastname'  => Input::get('lastname'),
-            'phone'     => Input::get('phone'),
-            'email'     => Input::get('email'),
+            'first_name' => Input::get('first_name'),
+            'last_name'  => Input::get('last_name'),
+            'phone'      => Input::get('phone'),
+            'email'      => Input::get('email'),
         ];
 
         $validators = [
-            'firstname' => ['required'],
-            'lastname'  => ['required'],
-            'phone'     => ['required'],
-            'email'     => ['required', 'email'],
+            'first_name' => ['required'],
+            'last_name'  => ['required'],
+            'phone'      => ['required'],
+            'email'      => ['required', 'email'],
         ];
 
         return Validator::make($fields, $validators);
