@@ -211,6 +211,25 @@
                 $elSelect.hide();
                 // Show checkout form
                 $elCheckout.html(data);
+
+                // Scroll to the beginning of form
+                $(document).scrollTop(0);
+            });
+        });
+
+        // Remove item from cart
+        $elCheckout.on('click', 'a.as-remove-cart', function (e) {
+            e.preventDefault();
+            var $this = $(this);
+
+            $body.showLoading();
+            $.ajax({
+                url: $this.attr('href'),
+                type: 'POST',
+                data: $this.data()
+            }).done(function () {
+                $body.hideLoadding();
+                $('#as-cart-item-'+$this.data('uuid')).slideUp();
             });
         });
 
