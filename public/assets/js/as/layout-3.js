@@ -158,6 +158,9 @@
                     alert(e.responseJSON.message);
                 }
             }).pipe(function (data) {
+                // Attach cart ID
+                dataStorage.cartId = data.cart_id;
+
                 // Then make a request to load the form
                 return $.ajax({
                     url: step4.data('url'),
@@ -220,20 +223,10 @@
                 data: data,
                 dataType: 'JSON'
             }).done(function (e) {
-                if (e.uuid !== undefined) {
-                    // Place booking
-                    $.ajax({
-                        url: $this.data('post-url'),
-                        type: $this.attr('method'),
-                        data: data,
-                        dataType: 'JSON'
-                    }).done(function (e) {
-                        if (e.success === true) {
-                            // Hide loading
-                            loading.hide();
-                            submit.siblings('span.text-success').text(e.message);
-                        }
-                    }).fail(fnFail);
+                if (e.success === true) {
+                    // Hide loading
+                    loading.hide();
+                    submit.siblings('.text-success').text(e.message);
                 }
             }).fail(fnFail);
         });

@@ -1,4 +1,4 @@
-{{ Form::open(['route' => 'as.bookings.service.front.add', 'class' => 'form-horizontal', 'id' => 'as-form-confirm', 'role' => 'form', 'data-post-url' => route('as.bookings.frontend.add')]) }}
+{{ Form::open(['route' => 'as.bookings.frontend.add', 'class' => 'form-horizontal', 'id' => 'as-form-confirm', 'role' => 'form']) }}
     <div class="form-group">
         <label class="form-label col-sm-2">{{ trans('as.embed.layout_3.service') }}:</label>
         <div class="col-sm-3">{{ $service->name }} ({{ $service->length }} {{ trans('common.minutes')}})</div>
@@ -31,6 +31,7 @@
     <input type="hidden" name="last_name" value="{{ $last_name }}">
     <input type="hidden" name="email" value="{{ $email }}">
     <input type="hidden" name="phone" value="{{ $phone }}">
+    <input type="hidden" name="cart_id" value="{{ $cartId }}">
 
     <div class="form-group">
         <div class="col-sm-12">

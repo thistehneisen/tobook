@@ -229,7 +229,8 @@ class FrontBookings extends Bookings
                 $booking->notify();
             }
 
-            $data['success']      = true;
+            $data['success'] = true;
+            $data['message'] = trans('as.embed.success');
         } catch (\Watson\Validating\ValidationException $ex) {
             $data['success'] = false;
             $data['message'] =  Util::getHtmlListError($ex);

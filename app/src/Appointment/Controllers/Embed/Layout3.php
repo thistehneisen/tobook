@@ -4,6 +4,8 @@ use Input, Response, Carbon\Carbon, Session, Redirect;
 use App\Appointment\Controllers\Embed;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\Employee;
+use App\Appointment\Models\AsConsumer;
+use App\Core\Models\Cart;
 
 class Layout3 extends Base
 {
@@ -44,6 +46,11 @@ class Layout3 extends Base
         $data['date']     = new Carbon($data['date']);
         $data['service']  = Service::find(Input::get('serviceId'));
         $data['employee'] = Employee::findOrFail(Input::get('employeeId'));
+
+        // Handle consumer
+        $consumer   = AsConsumer::handleConsumer($data);
+        $cart       = Cart::findOrFail(Input::get('cartId'));
+        $cart->consumer()->associate($consumer)->save();
 
         return $this->render('confirm', $data);
     }
