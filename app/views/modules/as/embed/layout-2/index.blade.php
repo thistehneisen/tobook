@@ -23,6 +23,16 @@
         </div>
 
         <div class="as-checkout" id="as-checkout"></div>
+        <div class="as-success" id="as-success">
+            <div class="panel panel-default">
+                <div class="panel-heading to-upper"><strong>{{ trans('as.embed.layout_2.thanks') }}</strong></div>
+                <div class="panel-body">
+                    <div class="alert alert-success">
+                        <p>{{ trans('as.embed.layout_2.thanks_msg') }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

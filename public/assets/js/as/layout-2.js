@@ -10,6 +10,7 @@
             $btnBook = $('#btn-book'),
             $elSelect = $('#as-select'),
             $elCheckout = $('#as-checkout'),
+            $elSuccess = $('#as-success'),
             dataStorage = {hash: $body.data('hash')},
             fnLoadTimetable;
 
@@ -195,12 +196,12 @@
                     booking_date: dataStorage.date,
                     start_time  : dataStorage.time
                 }
-            }).pipe(function(e) {
+            }).fail(function (e) {
+                console.log(e);
                 if (typeof e.message !== 'undefined') {
                     alert(e.message);
-                    return;
                 }
-
+            }).pipe(function(e) {
                 // Load checkout form
                 return $.ajax({
                     url: $('input[name=checkout-url]').val(),
@@ -247,6 +248,22 @@
             }).done(function (data) {
                 $body.hideLoadding();
                 $elCheckout.find('#as-frm-confirm').html(data);
+            });
+        });
+
+        $elCheckout.on('submit', '#frm-confirm', function (e) {
+            e.preventDefault();
+            var $this = $(this);
+
+            $body.showLoading();
+            $.ajax({
+                url: $this.attr('action'),
+                type: $this.attr('method'),
+                data: $this.serialize()
+            }).done(function (data) {
+                $body.hideLoadding();
+                $elCheckout.hide();
+                $elSuccess.show();
             });
         });
     });

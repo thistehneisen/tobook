@@ -164,15 +164,17 @@ class Base extends AsBase
     protected function getConfirmationValidator()
     {
         $fields = [
-            trans('as.bookings.firstname') => Input::get('firstname'),
-            trans('as.bookings.phone')     => Input::get('phone'),
-            trans('as.bookings.email')     => Input::get('email'),
+            'firstname' => Input::get('firstname'),
+            'lastname'  => Input::get('lastname'),
+            'phone'     => Input::get('phone'),
+            'email'     => Input::get('email'),
         ];
 
         $validators = [
-            trans('as.bookings.firstname')  => array( 'required'),
-            trans('as.bookings.phone')      => array( 'required'),
-            trans('as.bookings.email')      => array( 'required', 'email'),
+            'firstname' => ['required'],
+            'lastname'  => ['required'],
+            'phone'     => ['required'],
+            'email'     => ['required', 'email'],
         ];
 
         return Validator::make($fields, $validators);

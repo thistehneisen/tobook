@@ -369,6 +369,8 @@ return [
             'name'                => 'Sinun nimi',
             'phone'               => 'Puhelin',
             'email'               => 'Sähköposti',
+            'thanks'              => 'Kiitos varauksestasi',
+            'thanks_msg'          => 'Varauksesi on vahvistettu! Kiitos varauksestasi.'
         ],
         'layout_3'         => [
             'select_service'  => 'Valitse palvelun tyyppi',

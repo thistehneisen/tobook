@@ -1,4 +1,4 @@
-{{ Form::open(['route' => 'as.bookings.frontend.add', 'class' => 'form-horizontal', 'role' => 'form']) }}
+{{ Form::open(['route' => 'as.bookings.frontend.add', 'class' => 'form-horizontal', 'role' => 'form', 'id' => 'frm-confirm']) }}
 
     <div class="form-group">
         <label class="form-label col-sm-2">{{ trans('as.embed.layout_2.name') }}:</label>
