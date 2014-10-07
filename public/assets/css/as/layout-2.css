@@ -25,6 +25,15 @@ html {
 .to-upper {
   text-transform: uppercase;
 }
+.as-header .row {
+  margin: 20px 0;
+  text-align: center;
+}
+.as-header .row .logo,
+.as-header .row .banner {
+  margin: 10px 20px;
+  display: inline-block;
+}
 .as-category,
 .as-service,
 .as-time,

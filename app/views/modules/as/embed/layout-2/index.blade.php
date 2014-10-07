@@ -1,6 +1,19 @@
 @extends ('modules.as.embed.embed')
 
 @section ('content')
+@if(!empty($user->asOptions['style_logo']) || (!empty($user->asOptions['style_banner'])))
+<header class="container-fluid as-header">
+    <div class="row">
+        @if(!empty($user->asOptions['style_logo']))
+            <div class="logo"><img class="img-responsive" src="{{ $user->asOptions['style_logo'] }}" alt=""></div>
+        @endif
+        @if(!empty($user->asOptions['style_banner']))
+            <div class="banner"><img class="img-responsive" src="{{ $user->asOptions['style_banner'] }}" alt=""></div>
+        @endif
+    </div>
+</header>
+@endif
+
 <div class="container">
     <div class="row">
         <div id="as-select">
