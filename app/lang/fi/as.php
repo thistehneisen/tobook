@@ -352,7 +352,7 @@ return [
         'checkout'         => 'Kassalle',
         'fi_version'       => 'Suomeksi',
         'en_version'       => 'Englanniksi',
-        'success'          => 'Booking was placed. Thank you.', // @todo
+        'success'          => 'Varauksesi on vahvistettu! Kiitos varauksestasi.',
         'confirm'          => 'Vahvista varaus',
         'layout_2'         => [
             'select_service'      => 'Valitse palvelu ja päivämäärä',
@@ -370,7 +370,6 @@ return [
             'phone'               => 'Puhelin',
             'email'               => 'Sähköposti',
             'thanks'              => 'Kiitos varauksestasi',
-            'thanks_msg'          => 'Varauksesi on vahvistettu! Kiitos varauksestasi.'
         ],
         'layout_3'         => [
             'select_service'  => 'Valitse palvelun tyyppi',

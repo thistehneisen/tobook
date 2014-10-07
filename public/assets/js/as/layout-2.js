@@ -259,11 +259,16 @@
             $.ajax({
                 url: $this.attr('action'),
                 type: $this.attr('method'),
-                data: $this.serialize()
+                data: $this.serialize(),
+                dataType: 'json'
             }).done(function (data) {
                 $body.hideLoadding();
-                $elCheckout.hide();
-                $elSuccess.show();
+
+                if (data.success === true) {
+                    $elCheckout.hide();
+                    $elSuccess.find('p').text(data.message);
+                    $elSuccess.show();
+                }
             });
         });
 

@@ -41,7 +41,7 @@
                 <div class="panel-heading to-upper"><strong>{{ trans('as.embed.layout_2.thanks') }}</strong></div>
                 <div class="panel-body">
                     <div class="alert alert-success">
-                        <p>{{ trans('as.embed.layout_2.thanks_msg') }}</p>
+                        <p>{{ trans('as.embed.success') }}</p>
                     </div>
                 </div>
             </div>
