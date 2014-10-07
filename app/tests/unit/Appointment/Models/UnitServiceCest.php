@@ -4,6 +4,7 @@ use App\Core\Models\User;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;
 use \UnitTester;
+use DB;
 
 class UnitServiceCest
 {
@@ -39,23 +40,20 @@ class UnitServiceCest
         // $category->save();
 
         $service = new Service;
-        $service->unguard();
         $service->fill([
                 'name' => 'eureka287',
                 'description' => 'eureka287@yahoo.com',
                 'before'=> 15,
-                'during'=> 15,
+                'during'=> 30,
                 'after' => 15,
                 'user_id' => 133,
                 'category_id'=>1
             ]);
         $service->setLength();
-        $service->reguard();
         $service->save();
 
         $t->assertEquals($service->name, 'eureka287');
-        $t->assertEquals($service->length, 45);
+        $t->assertEquals($service->length, 60);
         // $t->assertEquals($service->id, 23);
-
     }
 }
