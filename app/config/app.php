@@ -136,6 +136,7 @@ return array(
         'App\Core\Pagination\PaginationServiceProvider',
         'App\OneApi\OneApiServiceProvider',
         'App\Olut\OlutServiceProvider',
+        'App\Payment\PaymentServiceProvider',
 
     ),
 
