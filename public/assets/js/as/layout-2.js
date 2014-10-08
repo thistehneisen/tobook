@@ -1,8 +1,9 @@
 /*jslint browser: true, nomen: true, unparam: true*/
-/*global $, jQuery */
-'use strict';
+/*global jQuery */
 
 (function ($) {
+    'use strict';
+
     $(function () {
         var $body = $('body'),
             $main = $('#as-main-panel'),
@@ -38,14 +39,15 @@
         // When user clicks on a category name
         $('a.as-category').on('click', function (e) {
             e.preventDefault();
-            var $this = $(this);
+            var $this = $(this),
+                $service = $('#as-category-'+$this.data('category-id')+'-services');
 
             // Highlight it
             $('a.as-category.active').removeClass('active');
             $this.addClass('active');
 
             $('div.as-services').hide();
-            $('#as-category-'+$this.data('category-id')+'-services').slideDown();
+            $service.slideDown();
         });
 
         // When user clicks on a service
@@ -110,7 +112,7 @@
             });
         };
 
-        $main.on('click', 'button.btn-service-time', function (e) {
+        $main.on('click', 'button.btn-service-time', function () {
             var $this = $(this);
             // Attach data
             if (typeof $this.data('service-id') !== 'undefined') {
