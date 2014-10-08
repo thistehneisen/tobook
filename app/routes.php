@@ -387,6 +387,11 @@ Route::group([
                 // ]);
             });
         });
+        Route::group([
+            'prefix' => 'as',
+        ], function () {
+            Route::get('schedules', 'App\API\v1_0\Appointment\Controllers\Schedule@getSchedules');
+        });
         // Other modules
     });
 });
