@@ -10,7 +10,7 @@ class Menu extends Base
     protected $crudOptions = [
         'langPrefix'    => 'rb.menus',
         'modelClass'    => 'App\Restaurant\Models\Menu',
-        'layout'        => 'layouts.default'
+        'layout'        => 'modules.rb.layout'
     ];
 
     protected function upsertHandler($item)

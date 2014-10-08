@@ -2,6 +2,7 @@
 
 return [
     'tables'    => [
+        'index'     => 'Pöydät',
         'all'       => 'Kaikki pöydät',
         'add'       => 'Lisää pöydän',
         'name'      => 'Pöydän nimi',
@@ -10,6 +11,7 @@ return [
         'edit'      => 'Muokkaa pöydän',
     ],
     'groups'    => [
+        'index'         => 'Ryhmät',
         'all'           => 'Kaikki ryhmät',
         'add'           => 'Lisää ryhmän',
         'name'          => 'Ryhmän nimi',
@@ -17,6 +19,7 @@ return [
         'edit'          => 'Muokkaa ryhmän',
     ],
     'services'  => [
+        'index'         => 'Palvelut',
         'all'           => 'Kailli palvelut',
         'add'           => 'Add new palvelun',
         'name'          => 'Palvelun nimi',
@@ -27,6 +30,7 @@ return [
         'edit'          => 'Muokkaa palvelun',
     ],
     'menus'     => [
+        'index'         => 'Listat',
         'all'           => 'Kaikki listat',
         'add'           => 'Lisää listan',
         'name'          => 'Listan nimi',
@@ -34,6 +38,7 @@ return [
         'edit'          => 'Muokkaa listan',
     ],
     'bookings'  => [
+        'index'             => 'Varaukset',
         'all'               => 'Kaikki varaukset',
         'add'               => 'Lisää varauksen',
         'edit'              => 'Muokkaa varauksen',
@@ -46,5 +51,8 @@ return [
         'total'             => 'Yhteensä',
         'is_group_booking'  => 'Ryhmän varaus',
         'source'            => 'Source', // TODO
+    ],
+    'options'   => [
+        'index'             => 'Asetukset',
     ],
 ];

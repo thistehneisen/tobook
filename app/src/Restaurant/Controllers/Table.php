@@ -11,7 +11,7 @@ class Table extends Base
     protected $crudOptions = [
         'langPrefix' => 'rb.tables',
         'modelClass' => 'App\Restaurant\Models\Table',
-        'layout'     => 'layouts.default',
+        'layout'     => 'modules.rb.layout',
     ];
 
     protected function upsertHandler($item)

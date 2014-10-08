@@ -10,7 +10,7 @@ class Booking extends Base
     protected $crudOptions = [
         'langPrefix'    => 'rb.bookings',
         'modelClass'    => 'App\Restaurant\Models\Booking',
-        'layout'        => 'layouts.default',
+        'layout'        => 'modules.rb.layout',
         'indexFields'   => ['uuid', 'date', 'start_at', 'end_at', 'status', 'note'],
     ];
 }

@@ -10,7 +10,7 @@ class Group extends Base
     protected $crudOptions = [
         'langPrefix'    => 'rb.groups',
         'modelClass'    => 'App\Restaurant\Models\Group',
-        'layout'        => 'layouts.default',
+        'layout'        => 'modules.rb.layout',
     ];
 
     protected function upsertHandler($item)

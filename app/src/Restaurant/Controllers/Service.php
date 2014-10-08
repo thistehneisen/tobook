@@ -10,7 +10,7 @@ class Service extends Base
     protected $crudOptions = [
         'langPrefix'    => 'rb.services',
         'modelClass'    => 'App\Restaurant\Models\Service',
-        'layout'        => 'layouts.default',
+        'layout'        => 'modules.rb.layout',
     ];
 
     protected function upsertHandler($item)

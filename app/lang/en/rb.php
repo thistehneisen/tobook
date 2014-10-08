@@ -2,6 +2,7 @@
 
 return [
     'tables'    => [
+        'index'     => 'Tables',
         'all'       => 'All tables',
         'add'       => 'Add new table',
         'name'      => 'Table name',
@@ -10,6 +11,7 @@ return [
         'edit'      => 'Edit table',
     ],
     'groups'    => [
+        'index'         => 'Groups',
         'all'           => 'All groups',
         'add'           => 'Add new group',
         'name'          => 'Group name',
@@ -17,6 +19,7 @@ return [
         'edit'          => 'Edit group',
     ],
     'services'  => [
+        'index'         => 'Services',
         'all'           => 'All services',
         'add'           => 'Add new service',
         'name'          => 'Service name',
@@ -27,6 +30,7 @@ return [
         'edit'          => 'Edit service',
     ],
     'menus'     => [
+        'index'         => 'Menus',
         'all'           => 'All menus',
         'add'           => 'Add new menu',
         'name'          => 'Menu name',
@@ -34,6 +38,7 @@ return [
         'edit'          => 'Edit menu',
     ],
     'bookings'  => [
+        'index'             => 'Bookings',
         'all'               => 'All bookings',
         'add'               => 'Add new booking',
         'edit'              => 'Edit booking',
@@ -46,5 +51,8 @@ return [
         'total'             => 'Total',
         'is_group_booking'  => 'Group booking',
         'source'            => 'Source',
+    ],
+    'options'   => [
+        'index'             => 'Options',
     ],
 ];
