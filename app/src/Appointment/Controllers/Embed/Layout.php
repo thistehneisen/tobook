@@ -162,8 +162,7 @@ trait Layout
 
     public function getDefaultWorkingTimes($date, $hash = null)
     {
-        $decoded = Hashids::decrypt($hash);
-        $user    = User::find($decoded[0]);
+        $user = $this->getUser();
         $workingTimes = $user->getASDefaultWorkingTimes($date);
         return $workingTimes;
     }
