@@ -96,8 +96,7 @@ trait Layout
         $categories = ServiceCategory::OfUser($user->id)
             ->orderBy('order')
             ->with(['services' => function ($query) {
-                $query->where('is_active', true)
-                    ->with('serviceTimes');
+                return $query->where('is_active', true)->with('serviceTimes');
             }])->where('is_show_front', true)
             ->get();
 
@@ -284,18 +283,7 @@ trait Layout
                     continue;
                 }
 
-                $slotClass = $employee->getSlotClass(
-                    $date->toDateString(),
-                    $hour,
-                    $shift,
-                    'frontend',
-                    $service
-                );
-
-                $time = $date->copy()->hour($hour)->minute($shift);
-                $isActive = $slotClass === 'active'
-                    || $slotClass === 'custom active';
-                if ($time->gt(Carbon::now()) && $isActive) {
+                if ($startTime->gt(Carbon::now())) {
                     $formatted = sprintf('%02d:%02d', $hour, $shift);
 
                     if ($showEndTime) {
@@ -303,8 +291,8 @@ trait Layout
                             ? $serviceTime->length
                             : $service->length;
 
-                        $time->addMinutes($length);
-                        $formatted .= sprintf(' - %02d:%02d', $time->hour, $time->minute);
+                        $startTime->addMinutes($length);
+                        $formatted .= sprintf(' - %02d:%02d', $startTime->hour, $startTime->minute);
                     }
 
                     $timetable[$formatted] = $employee;
