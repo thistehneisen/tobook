@@ -177,9 +177,15 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      * Check if user can place a booking on certain employee, date, and time
      * but only execute one query
      *
+     * @param int $employeeId
+     * @param string $date
+     * @param Carbon\Carbon $startTime
+     * @param Carbon\Carbon $endTime
+     * @param string $uuid
+     *
      * @return boolean
      */
-    public static function canBook($employeeId, $date, $startTime, $endTime, $uuid = null)
+    public static function canBook($employeeId, $date, \Carbon\Carbon $startTime, \Carbon\Carbon $endTime, $uuid = null)
     {
         if (empty(static::$bookings[$date])) {
             $bookings = self::where('date', $date)

@@ -460,7 +460,7 @@ class Bookings extends AsBase
 
             //Check is there any existed booking with this service time
             $isBookable = Booking::isBookable($employeeId, $bookingDate, $startTime, $endTime, $uuid);
-
+            $canBook = Booking::canBook($employeeId, $bookingDate, $startTime, $endTime, $uuid);
             //TODO Check overlapped booking in user cart
 
             if (!$isBookable) {
