@@ -8,6 +8,7 @@ use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\EmployeeService;
+use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\AsConsumer;
 use App\Consumers\Models\Consumer;
@@ -264,8 +265,25 @@ trait Layout
     {
         $timetable = [];
         $workingTimes = $this->getDefaultWorkingTimes($date, Input::get('hash'));
+
         foreach ($workingTimes as $hour => $minutes) {
             foreach ($minutes as $shift) {
+                // We will check if this time bookable
+                $startTime = $date->copy()->hour($hour)->minute($shift);
+                $endTime = $startTime->copy()->addMinutes($service->length);
+
+                $isBookable = Booking::isBookable(
+                    $employee->id,
+                    $date,
+                    $startTime,
+                    $endTime
+                );
+
+                // If not, move to the next one
+                if ($isBookable === false) {
+                    continue;
+                }
+
                 $slotClass = $employee->getSlotClass(
                     $date->toDateString(),
                     $hour,
