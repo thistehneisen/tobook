@@ -17,10 +17,11 @@
     @endif
 
     {{ $lomake->open() }}
-    <div class="form-group">
+    <div class="form-group {{ Form::errorCSS('name', $errors) }}">
         <label class="col-sm-2 col-sm-offset-1 control-label">{{ trans('rb.groups.name') }}</label>
         <div class="col-sm-6">
             {{ $lomake->name }}
+            {{ Form::errorText('name', $errors) }}
         </div>
     </div>
     <div class="form-group">
