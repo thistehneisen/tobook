@@ -99,3 +99,5 @@
         </div>
     </div>
 </div>
+
+{{ HTML::script(asset('assets/js/as/layout-3.js').(Config::get('app.debug') ? '?v='.time() : '')) }}

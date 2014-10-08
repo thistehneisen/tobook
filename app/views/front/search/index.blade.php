@@ -19,8 +19,7 @@
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.12/gmaps.min.js') }}
     {{ HTML::script(asset('packages/jquery.countdown/jquery.plugin.min.js')) }}
     {{ HTML::script(asset('packages/jquery.countdown/jquery.countdown.min.js')) }}
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
-    <script src="{{ asset('assets/js/as/layout-3.js').(Config::get('app.debug') ? '?v='.time() : '') }}"></script>
+    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js') }}
     <script>
 $(function() {
 
