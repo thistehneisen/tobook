@@ -16,13 +16,11 @@
             <a data-service-id="{{ $service->id }}" href="#" class="as-service">{{ $service->name }}</a>
             <div class="as-service-time">
                 <div class="btn-group">
-                    <button data-service-id="{{ $service->id }}" type="button" class="btn btn-default btn-service-time"><i class="glyphicon glyphicon-tag"></i> {{ $service->formatted_price }}</button>
-                    <button data-service-id="{{ $service->id }}" type="button" class="btn btn-default btn-service-time"><i class="glyphicon glyphicon-time"></i> {{ $service->during }} {{ trans('common.minutes') }}</button>
+                    <button data-service-id="{{ $service->id }}" type="button" class="btn btn-default btn-sm btn-service-time"><i class="glyphicon glyphicon-time"></i> {{ $service->during }} {{ trans('common.minutes') }}</button>
                 </div>
             @foreach ($service->serviceTimes as $item)
                 <div class="btn-group">
-                    <button data-service-time-id="{{ $item->id }}" type="button" class="btn btn-default btn-service-time"><i class="glyphicon glyphicon-tag"></i> {{ $item->formatted_price }}</button>
-                    <button data-service-time-id="{{ $item->id }}" type="button" class="btn btn-default btn-service-time"><i class="glyphicon glyphicon-time"></i> {{ $item->during }} {{ trans('common.minutes') }}</button>
+                    <button data-service-time-id="{{ $item->id }}" type="button" class="btn btn-default btn-sm btn-service-time"><i class="glyphicon glyphicon-time"></i> {{ $item->during }} {{ trans('common.minutes') }}</button>
                 </div>
             @endforeach
             </div>
