@@ -2,7 +2,7 @@
 <p>{{{ $business->full_address }}}</p>
 
 <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-5">
         <p><img src="{{ asset($business->image) }}" alt="" class="img-responsive img-rounded"></p>
 
         <!-- About -->
@@ -74,9 +74,9 @@
         @endif
     </div>
 
-    <div class="col-sm-4">
-        <div class="box text-center">
-            <a href="#" class="btn btn-success btn-lg">{{ trans('common.book') }}</a>
+    <div class="col-sm-7">
+        <div class="box">
+            @include('modules.as.embed.layout-3.main')
         </div>
 
         <div class="box">

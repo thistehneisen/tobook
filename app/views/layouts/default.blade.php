@@ -41,7 +41,7 @@
         @endif
     @show
 </head>
-<body data-locale="{{ App::getLocale() }}">
+<body @if(!empty($hash)) data-hash="{{ $hash }}" @endif data-locale="{{ App::getLocale() }}">
     @section('header')
     <header class="header container-fluid">
         <nav class="main-nav container">

@@ -1,12 +1,15 @@
 <?php namespace App\Core\Controllers\Ajax;
 
-use DB, Carbon\Carbon, Request, View;
+use DB, Carbon\Carbon, Request, View, Input;
 use Illuminate\Support\Collection;
 use App\Core\Models\BusinessCategory;
 use App\Core\Models\User;
+use App\Appointment\Controllers\Embed\Layout;
 
 class Search extends Base
 {
+    use Layout;
+
     public function __construct()
     {
         $this->beforeFilter('ajax', ['except' => 'showBusiness']);
@@ -71,21 +74,33 @@ class Search extends Base
             ->active()
             ->get();
 
-        $view = $this->view('front.search.business', [
+        $layout = $this->handleIndex($business->hash, $business,'layout-3');
+
+        $data = [
             'business'   => $business,
             'coupons'    => $coupons,
             'flashDeals' => $flashDeals
-        ]);
+        ];
+
+        $viewData = array_merge($data, $layout);
+
+        $view = $this->view('front.search.business', $viewData);
 
         if (Request::ajax()) {
             return $view;
         }
 
-        return View::make('front.search.index', [
+        Input::merge(array('l' => '3'));
+
+        $data = [
             'businesses' => new \Illuminate\Support\Collection([$business]),
             'single'     => $view,
             'lat'        => $business->lat,
             'lng'        => $business->lng,
-        ]);
+        ];
+
+        $viewData = array_merge($data, $layout);
+
+        return View::make('front.search.index', $viewData);
     }
 }

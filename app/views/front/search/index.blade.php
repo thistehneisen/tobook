@@ -11,6 +11,7 @@
 
 @section('styles')
     {{ HTML::style(asset('assets/css/search.css')) }}
+    <link rel="stylesheet" href="{{ asset('assets/css/as/layout-3.css').(Config::get('app.debug') ? '?v='.time() : '') }}">
 @stop
 
 @section('scripts')
@@ -18,6 +19,8 @@
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.12/gmaps.min.js') }}
     {{ HTML::script(asset('packages/jquery.countdown/jquery.plugin.min.js')) }}
     {{ HTML::script(asset('packages/jquery.countdown/jquery.countdown.min.js')) }}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="{{ asset('assets/js/as/layout-3.js').(Config::get('app.debug') ? '?v='.time() : '') }}"></script>
     <script>
 $(function() {
 
