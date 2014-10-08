@@ -33,4 +33,18 @@ return [
         'type'          => 'Menu type',
         'edit'          => 'Edit menu',
     ],
+    'bookings'  => [
+        'all'               => 'All bookings',
+        'add'               => 'Add new booking',
+        'edit'              => 'Edit booking',
+        'uuid'              => 'UUID',
+        'date'              => 'Date',
+        'start_at'          => 'Start at',
+        'end_at'            => 'End at',
+        'status'            => 'Status',
+        'note'              => 'Note',
+        'total'             => 'Total',
+        'is_group_booking'  => 'Group booking',
+        'source'            => 'Source',
+    ],
 ];

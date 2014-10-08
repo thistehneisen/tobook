@@ -841,6 +841,11 @@ Route::group([
         'menus',
         'rb.menus'
     );
+
+    \App\Restaurant\Controllers\Booking::crudRoutes(
+        'bookings',
+        'rb.bookings'
+    );
 });
 
 /*

@@ -33,4 +33,18 @@ return [
         'type'          => 'Listan tyypi',
         'edit'          => 'Muokkaa listan',
     ],
+    'bookings'  => [
+        'all'               => 'Kaikki varaukset',
+        'add'               => 'Lisää varauksen',
+        'edit'              => 'Muokkaa varauksen',
+        'uuid'              => 'UUID',
+        'date'              => 'Päivämäärä',
+        'start_at'          => 'Alkaa',
+        'end_at'            => 'Loppuu',
+        'status'            => 'Tila',
+        'note'              => 'Note', // TODO
+        'total'             => 'Yhteensä',
+        'is_group_booking'  => 'Ryhmän varaus',
+        'source'            => 'Source', // TODO
+    ],
 ];

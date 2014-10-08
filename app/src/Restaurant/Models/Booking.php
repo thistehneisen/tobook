@@ -4,6 +4,11 @@ class Booking extends \App\Core\Models\Base
 {
     protected $table = 'rb_bookings';
     public $fillable = ['uuid', 'date', 'start_at', 'end_at', 'total', 'status', 'is_group_booking', 'source', 'note'];
+    protected $rulesets = [
+        'saving'    => [
+
+        ],
+    ];
 
     public function user()
     {
