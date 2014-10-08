@@ -157,7 +157,7 @@
                 if (typeof e.responseJSON.message !== 'undefined') {
                     alert(e.responseJSON.message);
                 }
-            }).pipe(function (data) {
+            }).then(function (data) {
                 // Attach cart ID
                 dataStorage.cartId = data.cart_id;
 

@@ -202,7 +202,7 @@
                 if (typeof e.responseJSON.message !== 'undefined') {
                     alert(e.responseJSON.message);
                 }
-            }).pipe(function(e) {
+            }).then(function(e) {
                 // Get cart ID
                 dataStorage.cartId = e.cart_id;
 
