@@ -6,6 +6,7 @@
   "devDependencies": {
     "grunt": "0.x.x",
     "grunt-contrib-less": "0.11.x",
-    "grunt-contrib-watch": "0.5.x"
+    "grunt-contrib-watch": "0.5.x",
+    "clean-css": "2.2.16"
   }
 }

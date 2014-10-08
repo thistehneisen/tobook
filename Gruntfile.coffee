@@ -2,6 +2,9 @@ module.exports = (grunt) ->
   grunt.initConfig
     less:
       development:
+        options: {
+            cleancss: true
+        },
         files: [
             {
                 expand: true,
@@ -9,7 +12,7 @@ module.exports = (grunt) ->
                 src: ['**/*.less', '!_vars.less', '!old_main.less'],
                 dest: 'public/assets/css/',
                 ext: '.css',
-                extDot: 'first'
+                extDot: 'first',
             },
         ]
     watch:
