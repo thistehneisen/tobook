@@ -17,6 +17,7 @@ return [
         'name'          => 'Group name',
         'description'   => 'Description',
         'edit'          => 'Edit group',
+        'tables'        => 'Tables',
     ],
     'services'  => [
         'index'         => 'Services',

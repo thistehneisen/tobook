@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableRbTableGroup extends Migration {
+class CreateTableRbGroupTable extends Migration {
 
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateTableRbTableGroup extends Migration {
      */
     public function up()
     {
-        Schema::create('rb_table_group', function(Blueprint $table)
+        Schema::create('rb_group_table', function(Blueprint $table)
         {
             $table->increments('id');
             $table->unsignedInteger('table_id');
@@ -35,12 +35,12 @@ class CreateTableRbTableGroup extends Migration {
      */
     public function down()
     {
-        Schema::table('rb_table_group', function(Blueprint $table)
+        Schema::table('rb_group_table', function(Blueprint $table)
         {
-            $table->dropForeign('rb_table_group_group_id_foreign');
-            $table->dropForeign('rb_table_group_table_id_foreign');
+            $table->dropForeign('rb_group_table_group_id_foreign');
+            $table->dropForeign('rb_group_table_table_id_foreign');
         });
-        Schema::drop('rb_table_group');
+        Schema::drop('rb_group_table');
     }
 
 }

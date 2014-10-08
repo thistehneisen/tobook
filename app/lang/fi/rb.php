@@ -17,6 +17,7 @@ return [
         'name'          => 'Ryhmän nimi',
         'description'   => 'Kuvaus',
         'edit'          => 'Muokkaa ryhmän',
+        'tables'        => 'Pöydät',
     ],
     'services'  => [
         'index'         => 'Palvelut',

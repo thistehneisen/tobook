@@ -249,6 +249,18 @@ trait Olut
      */
     public function upsert($id = null)
     {
+        return $this->defaultUpsert($id);
+    }
+
+    /**
+     * The default behavior for method `upsert`
+     *
+     * @param int $id
+     *
+     * @return View
+     */
+    protected function defaultUpsert($id = null)
+    {
         $model = $this->getModel();
         $modelClass = $this->getModelClass();
         $item = ($id !== null)

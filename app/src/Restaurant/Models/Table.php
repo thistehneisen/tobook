@@ -16,4 +16,9 @@ class Table extends \App\Core\Models\Base
     {
         return $this->belongsTo('App\Core\Models\User');
     }
+
+    public function groups()
+    {
+        return $this->belongsToMany('App\Restaurant\Models\Group', 'rb_group_table');
+    }
 }
