@@ -46,9 +46,12 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 |
 */
 
-App::error(function(\Illuminate\Database\Eloquent\ModelNotFoundException $ex) {
-    return Response::view('errors.missing', [], 404);
-});
+if (App::environment() !== 'local') {
+    // We will show 404 if found non-existing data
+    App::error(function (\Illuminate\Database\Eloquent\ModelNotFoundException $ex) {
+        return Response::view('errors.missing', [], 404);
+    });
+}
 
 App::error(function (Exception $exception, $code) {
     Log::error($exception);
@@ -80,8 +83,7 @@ App::down(function () {
 |
 */
 
-App::before(function($request)
-{
+App::before(function ($request) {
     // Purpose:
     // We want to maintain the URL in the format of
     // varaa.com/<locale>/<param1>/<param2>... and set system's locale based
