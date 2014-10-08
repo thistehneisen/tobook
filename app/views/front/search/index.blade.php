@@ -150,7 +150,7 @@ applyCountdown($('span.countdown'));
             </p>
         @else
             @foreach ($businesses as $item)
-            <div class="result-row row" data-id="{{ $item->id }}" data-url="{{ route('ajax.showBusiness', [$item->id]) }}">
+            <div class="result-row row" data-id="{{ $item->id }}" data-url="{{ route('ajax.showBusiness', ['id' => $item->id, 'l' => 3]) }}">
                 <div class="col-md-6">
                     <img src="{{ asset($item->image) }}" alt="" class="img-responsive img-rounded">
                     {{--
