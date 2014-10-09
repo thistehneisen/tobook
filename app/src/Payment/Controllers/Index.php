@@ -16,4 +16,14 @@ class Index extends Base
             'transaction' => $transaction
         ]);
     }
+
+    /**
+     * User clicks on process button, prepare and redirect to paygate website
+     *
+     * @return Redirect
+     */
+    public function process()
+    {
+        return Payment::process();
+    }
 }

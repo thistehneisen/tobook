@@ -1,6 +1,6 @@
 <?php namespace App\Payment;
 
-use Redirect, Session;
+use Redirect, Session, Input;
 
 class Payment
 {
@@ -42,5 +42,15 @@ class Payment
         }
 
         return Session::get('persisted_transaction');
+    }
+
+    /**
+     * Prepare and redirect to paygate website
+     *
+     * @return Redirect
+     */
+    public static function process()
+    {
+        $gateway = GatewayFactory::make(Input::get('gateway', 'Skrill'));
     }
 }

@@ -18,4 +18,9 @@ Route::group([
         return Payment::redirect($cart, 999);
     });
 
+    Route::post('process', [
+        'as' => 'payment.process',
+        'uses' => 'App\Payment\Controllers\Index@process'
+    ]);
+
 });

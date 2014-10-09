@@ -5,6 +5,7 @@
 @stop
 
 @section('content')
+{{ Form::open(['route' => 'payment.process']) }}
 <div class="container">
     <div class="col-sm-8 col-md-8 col-lg-8">
         <h4>Your order</h4>
@@ -22,4 +23,5 @@
     <div class="col-sm-4 col-md-4 col-lg-4">
     </div>
 </div>
+{{ Form::close() }}
 @stop
