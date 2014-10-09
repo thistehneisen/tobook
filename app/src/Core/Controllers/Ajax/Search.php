@@ -5,6 +5,8 @@ use Illuminate\Support\Collection;
 use App\Core\Models\BusinessCategory;
 use App\Core\Models\User;
 use App\Appointment\Controllers\Embed\Layout;
+use App\Appointment\Models\Service;
+
 
 class Search extends Base
 {
@@ -92,6 +94,8 @@ class Search extends Base
 
         Input::merge(array('l' => '3'));
 
+        $nextSlots = $this->handleNextTimeSlot();
+
         $data = [
             'businesses' => new \Illuminate\Support\Collection([$business]),
             'single'     => $view,
@@ -99,8 +103,33 @@ class Search extends Base
             'lng'        => $business->lng,
         ];
 
+        $data = array_merge($data, $nextSlots);
+
         $viewData = array_merge($data, $layout);
 
         return View::make('front.search.index', $viewData);
+    }
+
+    public function handleNextTimeSlot()
+    {
+        $serviceId  = Input::get('service_id', 0);
+        $employeeId = Input::get('employee_id', 0);
+        $hour       = Input::get('hour');
+        $minute     = Input::get('minute');
+
+        if(!empty($serviceId) && !empty($employeeId)
+            && !empty($hour) && !empty($minute)){
+            $service = Service::findOrFail($serviceId);
+            $categoryId = $service->category->id;
+        }
+
+        $time = sprintf('%s:%s', $hour, $minute);
+
+        return [
+            'serviceId'  => $serviceId,
+            'employeeId' => $employeeId,
+            'categoryId' => $categoryId,
+            'time'       => $time
+        ];
     }
 }

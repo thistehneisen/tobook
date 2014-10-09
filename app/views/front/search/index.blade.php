@@ -24,6 +24,18 @@
     <script>
 $(function() {
 
+@if(!empty($categoryId) && !empty($serviceId))
+$('input:radio[name=category_id][value={{ $categoryId }}], input:radio[name=service_id][value={{ $serviceId }}]').click();
+
+$('input[name=service_id]').on('afterSelect', function () {
+    $('input:radio[name=employee_id][value="{{ $employeeId }}"]').click();
+});
+
+$('#as-step-3').on('afterShow', function() {
+    $('button[data-time="{{ $time }}"]').click();
+});
+@endif
+
 var renderMap = function(mapId, lat, lng, markers) {
     var gmap = new GMaps({
         div: mapId,

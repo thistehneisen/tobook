@@ -33,6 +33,7 @@
                 }).done(function (data) {
                     step3.find('div.panel-body').html(data);
                     dataStorage.date = step3.find('li.active > a').data('date');
+                    step3.trigger('afterShow');
                 });
             };
 
@@ -103,6 +104,7 @@
                 data: dataStorage
             }).done(function (data) {
                 step2.find('.panel-body').html(data);
+                $this.trigger('afterSelect');
             });
         });
 
