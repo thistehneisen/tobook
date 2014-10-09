@@ -213,6 +213,8 @@ return array(
         'Debugbar'  => 'Barryvdh\Debugbar\Facade',
 
         // Homemade
+        'AppController' => 'App\Core\Controllers\Base',
+        'AppModel'      => 'App\Core\Models\Base',
         'Consumer'      => 'App\Consumers\Models\Consumer',
         'Cart'          => 'App\Core\Models\Cart',
         'Lomake'        => 'App\Lomake\Facade',
@@ -221,8 +223,7 @@ return array(
         'Sms'           => 'App\OneApi\Facade',
         'Hashids'       => 'App\Hashids\Facade',
         'CRUD'          => 'App\Olut\Olut',
-        'AppModel'      => 'App\Core\Models\Base',
-        'AppController' => 'App\Core\Controllers\Base',
+        'Payment'       => 'App\Payment\Payment',
     ),
 
 );
