@@ -6,6 +6,14 @@
     $(function () {
         $('.accordion').collapse();
 
+        $('.employee-tooltip').tooltip({
+            selector: '',
+            placement: 'top',
+            container: 'body',
+            trigger: 'hover',
+            html: true
+        });
+
         $('.list-group-item-heading').on('click', function (e) {
             e.preventDefault();
             $(this).siblings('div').find('div.services').slideToggle('fast');
