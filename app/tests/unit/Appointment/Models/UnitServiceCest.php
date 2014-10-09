@@ -1,5 +1,4 @@
-<?php
-namespace Appointment\Models;
+<?php namespace Appointment\Models;
 use App\Core\Models\User;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;
@@ -15,18 +14,18 @@ class UnitServiceCest
     {
         $service = new Service;
         $service->fill([
-            'name' => 'eureka287',
-            'description' => 'eureka287@yahoo.com',
+            'name' => 'foo',
+            'description' => 'bar',
             'before'=> 15,
             'during'=> 30,
             'after' => 15,
-            'user_id' => 133,
-            'category_id'=>1
         ]);
+        $service->user()->associate(User::find(70));
+        $service->category()->associate(ServiceCategory::find(105));
         $service->setLength();
         $service->save();
 
-        $t->assertEquals($service->name, 'eureka287');
+        $t->assertEquals($service->name, 'foo');
         $t->assertEquals($service->length, 60);
     }
 }
