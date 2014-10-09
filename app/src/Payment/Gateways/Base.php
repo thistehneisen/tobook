@@ -27,11 +27,13 @@ abstract class Base
     abstract protected function getOmnipayGateway();
 
     /**
-     * Process by sending user to gateway's website
+     * Purchase the provided transaction
+     *
+     * @param App\Paygate\Models\Transaction $transaction
      *
      * @return void
      */
-    abstract public function process();
+    abstract public function purchase($transaction);
 
     /**
      * Receive notify request from paygate and update corresponding data

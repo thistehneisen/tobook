@@ -22,9 +22,9 @@ class Index extends Base
      *
      * @return Redirect
      */
-    public function process()
+    public function purchase()
     {
-        return Payment::process();
+        return Payment::purchase();
     }
 
     /**

@@ -24,7 +24,7 @@ class Skrill extends Base
     /**
      * @{@inheritdoc}
      */
-    public function process()
+    public function purchase($transaction)
     {
         return $this->gateway->purchase(func_get_args());
     }

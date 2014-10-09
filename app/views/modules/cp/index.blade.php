@@ -5,11 +5,10 @@
 @stop
 
 @section('content')
-{{ Form::open(['route' => 'payment.process']) }}
+{{ Form::open(['route' => 'payment.purchase']) }}
 <div class="container">
     <div class="col-sm-8 col-md-8 col-lg-8">
         <h4>Your order</h4>
-
         <table class="table">
             <tfoot>
                 <tr>
@@ -18,6 +17,45 @@
                 </tr>
             </tfoot>
         </table>
+
+        <h4>Payment information</h4>
+        <div class="form-group row">
+            <div class="col-sm-12 {{ Form::errorCSS('name', $errors) }}">
+                {{ Form::errorText('name', $errors) }}
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                    <input class="form-control" name="name" type="text" placeholder="Cardholder name">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-12 {{ Form::errorCSS('number', $errors) }}">
+                {{ Form::errorText('number', $errors) }}
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-credit-card"></i></div>
+                    <input class="form-control" name="number" type="text" placeholder="Card number">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-6 {{ Form::errorCSS('exp', $errors) }}">
+                {{ Form::errorText('exp', $errors) }}
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-calendar-o"></i></div>
+                    <input class="form-control" name="exp" type="text" placeholder="MM/YYYY">
+                </div>
+            </div>
+            <div class="col-sm-6 {{ Form::errorCSS('cvc', $errors) }}">
+                {{ Form::errorText('cvc', $errors) }}
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-lock"></i></div>
+                    <input class="form-control" name="cvc" type="text" placeholder="CVC">
+                </div>
+            </div>
+        </div>
+
         <button type="submit" class="btn btn-success">Place order</button>
     </div>
     <div class="col-sm-4 col-md-4 col-lg-4">

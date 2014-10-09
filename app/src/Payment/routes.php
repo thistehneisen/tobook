@@ -18,9 +18,9 @@ Route::group([
         return Payment::redirect($cart, 999);
     });
 
-    Route::post('process', [
-        'as' => 'payment.process',
-        'uses' => 'App\Payment\Controllers\Index@process'
+    Route::post('purchase', [
+        'as' => 'payment.purchase',
+        'uses' => 'App\Payment\Controllers\Index@purchase'
     ]);
 
     Route::post('notify/{gateway}', [

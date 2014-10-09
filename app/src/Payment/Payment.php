@@ -1,6 +1,6 @@
 <?php namespace App\Payment;
 
-use Redirect, Session, Input;
+use Redirect, Session, Input, Validator;
 
 class Payment
 {
@@ -49,9 +49,22 @@ class Payment
      *
      * @return Redirect
      */
-    public static function process()
+    public static function purchase()
     {
+        $v = Validator::make(Input::all(), [
+            'name'   => 'required',
+            'number' => 'required|numeric',
+            'exp'    => 'required',
+            'cvc'    => 'required|numeric',
+        ]);
+        if ($v->fails()) {
+            return Redirect::route('payment.index')
+                ->withInput()
+                ->withErrors($v);
+        }
+
         $gateway = GatewayFactory::make(Input::get('gateway', 'Skrill'));
+        $gateway->purchase(static::current());
     }
 
     /**
