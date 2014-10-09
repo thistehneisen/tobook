@@ -28,7 +28,6 @@ trait Layout
      */
     public function handleIndex($hash, $user = null, $layout = null)
     {
-
         $user = empty($user)
             ?   $this->getUser($hash)
             : $user;
@@ -162,7 +161,7 @@ trait Layout
 
     public function getDefaultWorkingTimes($date, $hash = null)
     {
-        $user = $this->getUser();
+        $user = $this->getUser($hash);
         $workingTimes = $user->getASDefaultWorkingTimes($date);
         return $workingTimes;
     }

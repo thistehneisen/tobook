@@ -20,6 +20,7 @@
     {{ HTML::script(asset('packages/jquery.countdown/jquery.plugin.min.js')) }}
     {{ HTML::script(asset('packages/jquery.countdown/jquery.countdown.min.js')) }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js') }}
+    {{ HTML::script(asset('assets/js/as/layout-3.js').(Config::get('app.debug') ? '?v='.time() : '')) }}
     <script>
 $(function() {
 
