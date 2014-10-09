@@ -35,7 +35,7 @@
                 <li><a href="{{ route('rb.tables.index') }}"><i class="fa fa-slideshare"></i>{{ trans('rb.tables.index') }}</a></li>
                 <li><a href="{{ route('rb.menus.index') }}"><i class="fa fa-cutlery"></i> {{ trans('rb.menus.index') }}</a></li>
                 <li><a href="{{ route('rb.groups.index') }}"><i class="fa fa-users"></i> {{ trans('rb.groups.index') }}</a></li>
-                <li><a href="#"><i class="fa fa-wrench"></i> {{ trans('rb.options.index') }}</a></li>
+                <li><a href="{{ route('rb.options') }}"><i class="fa fa-wrench"></i> {{ trans('rb.options.index') }}</a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->

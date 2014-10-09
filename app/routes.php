@@ -846,6 +846,15 @@ Route::group([
         'bookings',
         'rb.bookings'
     );
+
+    Route::get('options/{page?}', [
+        'as'   => 'rb.options',
+        'uses' => 'App\Restaurant\Controllers\Option@index'
+    ]);
+
+    Route::post('options/{page?}', [
+        'uses' => 'App\Restaurant\Controllers\Option@update'
+    ]);
 });
 
 /*

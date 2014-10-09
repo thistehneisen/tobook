@@ -58,7 +58,7 @@ class Option extends \App\Core\Models\Base
             $options[] = $option;
         }
 
-        $user->asOptions()->saveMany($options);
+        $user->rbOptions()->saveMany($options);
     }
 
     //--------------------------------------------------------------------------
