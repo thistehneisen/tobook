@@ -56,11 +56,20 @@ def sync_server_settings():
 
 
 @task(alias='t')
-def test(suite=''):
+def test(suite='', group=''):
     '''
     Run the test suite
+    Usage:
+        fab t => run all tests (including unit, functional, acceptance and API)
+        fab t:suite_name,module_name => run tests in specific suite and module
+        Example:
+            fab t:unit => run all unit tests
+            fab t:unit,as => run all AS unit tests
+            fab t:,as => run all AS tests
     '''
-    local('./vendor/bin/codecept run {}'.format(suite))
+    if group != '':
+        group = '-g {}'.format(group)
+    local('./vendor/bin/codecept run {} {}'.format(suite, group))
 
 
 @task(alias='cm')

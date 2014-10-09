@@ -11,6 +11,9 @@ use Carbon\Carbon;
 use \UnitTester;
 use Util;
 
+/**
+ * @group as
+ */
 class UnitBookingServiceCest
 {
     public function testBookingService(UnitTester $t)

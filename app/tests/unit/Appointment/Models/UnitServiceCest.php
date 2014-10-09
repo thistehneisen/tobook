@@ -6,6 +6,9 @@ use App\Appointment\Models\ServiceCategory;
 use \UnitTester;
 use DB;
 
+/**
+ * @group as
+ */
 class UnitServiceCest
 {
     public function testServiceLength(UnitTester $t)
