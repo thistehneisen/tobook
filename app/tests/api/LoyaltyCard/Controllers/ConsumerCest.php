@@ -6,7 +6,7 @@ class ConsumerCest
 {
     public function _before(ApiTester $I)
     {
-        $I->amHttpAuthenticated('capis', '123456');
+        $I->amHttpAuthenticated('varaa_test', 'varaa_test');
     }
 
     public function _after(ApiTester $I)

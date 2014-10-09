@@ -10,8 +10,8 @@ class UserCest
     {
         $I->amOnPage(Auth::$loginUrl);
         $I->submitForm(Auth::$loginForm, [
-            'username' => 'mikaeltestaa',
-            'password' => 'kauppatie8'
+            'username' => 'varaa_test',
+            'password' => 'varaa_test'
         ]);
         $I->seeInCurrentUrl(User::$dashboardUrl);
     }

@@ -12,8 +12,8 @@ class Fixture
     public static function user()
     {
         return new User([
-            'username' => 'hiusakatemia',
-            'password' => 'mannerheim6'
+            'username' => 'varaa_test',
+            'password' => 'varaa_test'
         ]);
     }
 }

@@ -8,8 +8,8 @@ class ServiceCest
     {
         $I->amOnPage(Auth::$loginUrl);
         $I->submitForm(Auth::$loginForm, [
-            'username' => 'mikaeltestaa',
-            'password' => 'webzensux@'
+            'username' => 'varaa_test',
+            'password' => 'varaa_test'
         ]);
     }
 

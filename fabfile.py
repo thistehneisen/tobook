@@ -1,4 +1,4 @@
-from fabric.api import cd, run, local, task, hosts, env, local
+from fabric.api import cd, run, local, task, hosts, env
 import os
 
 HOME = os.getenv('HOME')
@@ -56,11 +56,11 @@ def sync_server_settings():
 
 
 @task(alias='t')
-def test():
+def test(suite=''):
     '''
     Run the test suite
     '''
-    local('./vendor/bin/codecept run')
+    local('./vendor/bin/codecept run {}'.format(suite))
 
 
 @task(alias='cm')

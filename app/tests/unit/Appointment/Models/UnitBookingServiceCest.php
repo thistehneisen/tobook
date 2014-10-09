@@ -13,18 +13,8 @@ use Util;
 
 class UnitBookingServiceCest
 {
-    public function _before(UnitTester $I)
+    public function testBookingService(UnitTester $t)
     {
-    }
-
-    public function _after(UnitTester $I)
-    {
-    }
-
-    // tests
-    public function tryToTest(UnitTester $t)
-    {
-
         $user                        = new User;
         $user->username              = 'eureka287asdadsd';
         $user->email                 = 'eureka287asdadsd@yahoo.com';

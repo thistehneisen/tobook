@@ -1,5 +1,5 @@
 <?php
-use App\Core\Models\Consumer;
+use App\Consumers\Models\Consumer;
 
 class ConsumerCest
 {
