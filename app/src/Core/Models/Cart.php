@@ -1,8 +1,9 @@
 <?php namespace App\Core\Models;
+
 use Confide;
 use Carbon\Carbon;
 use App\Core\Models\User;
-
+use Illuminate\Support\Collection;
 
 class Cart extends Base
 {
@@ -32,19 +33,45 @@ class Cart extends Base
             $user = User::findOrFail($userId);
         }
 
-        try {
-            $cart = new self();
-            $cart->fill($data);
-            $cart->user()->associate($user);
-            if (!empty($consumer)) {
-                $detail->consumer()->associate($consumer);
-            }
-            $cart->saveOrFail();
-        } catch (\Illuminate\Database\QueryException $ex) {
-            throw $ex;
+        if ($user === null) {
+            throw new \InvalidArgumentException(
+                'A cart must be associated with an user'
+            );
         }
 
+        $cart = new self();
+        $cart->fill($data);
+        $cart->user()->associate($user);
+        if (!empty($consumer)) {
+            $detail->consumer()->associate($consumer);
+        }
+        $cart->saveOrFail();
+
         return $cart;
+    }
+
+    /**
+     * Add a detail item into cart
+     *
+     * @param array $data
+     */
+    public function addDetail(array $data)
+    {
+        $detail = new CartDetail($data);
+        $this->details()->save($detail);
+
+        return $this;
+    }
+
+    /**
+     * Add many items into cart
+     *
+     * @param array|Illuminate\Support\Collection $details
+     */
+    public function addDetails($details)
+    {
+        array_walk($details, [$this, 'addDetail']);
+        return $this;
     }
 
     //--------------------------------------------------------------------------
@@ -53,6 +80,14 @@ class Cart extends Base
     public function user()
     {
         return $this->belongsTo('App\Core\Models\User');
+    }
+
+    /**
+     * Alias of cartDetails()
+     */
+    public function details()
+    {
+        return $this->cartDetails();
     }
 
     public function cartDetails()
