@@ -53,4 +53,18 @@ class Payment
     {
         $gateway = GatewayFactory::make(Input::get('gateway', 'Skrill'));
     }
+
+    /**
+     * Handle notify request from gateway
+     *
+     * @param string $gateway
+     *
+     * @return void
+     */
+    public static function notify($gateway)
+    {
+        $gateway = GatewayFactory::make($gateway);
+        return $gateway->notify();
+    }
+
 }

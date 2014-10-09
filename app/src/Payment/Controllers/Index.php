@@ -26,4 +26,16 @@ class Index extends Base
     {
         return Payment::process();
     }
+
+    /**
+     * Receive notify request from gateway and update corresponding data
+     *
+     * @param string $gateway
+     *
+     * @return void
+     */
+    public function notify($gateway)
+    {
+        return Payment::notify($gateway);
+    }
 }

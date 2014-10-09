@@ -13,8 +13,10 @@ class Skrill extends Base
         $gateway = Omnipay::create('Skrill');
         $gateway->setEmail(Config::get('services.skrill.email'));
         $gateway->setPassword(Config::get('services.skrill.password'));
-        $gateway->setNotifyUrl('');
         $gateway->setTestMode(Config::get('app.debug'));
+        $gateway->setNotifyUrl(route('payment.notify', [
+            'gateway' => $gateway->getName()
+        ]));
 
         return $gateway;
     }
@@ -25,5 +27,13 @@ class Skrill extends Base
     public function process()
     {
         return $this->gateway->purchase(func_get_args());
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
+    public function notify()
+    {
+
     }
 }

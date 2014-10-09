@@ -32,4 +32,11 @@ abstract class Base
      * @return void
      */
     abstract public function process();
+
+    /**
+     * Receive notify request from paygate and update corresponding data
+     *
+     * @return void
+     */
+    abstract public function notify();
 }
