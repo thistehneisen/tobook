@@ -24,9 +24,9 @@ class Skrill extends Base
     /**
      * @{@inheritdoc}
      */
-    public function purchase($transaction)
+    public function purchase($args)
     {
-        return $this->gateway->purchase(func_get_args());
+        return $this->gateway->purchase($args)->send();
     }
 
     /**
@@ -35,5 +35,13 @@ class Skrill extends Base
     public function notify()
     {
 
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
+    public function success($response)
+    {
+        dd($response);
     }
 }

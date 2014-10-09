@@ -49,6 +49,11 @@ class Transaction extends \AppModel
         return isset($map[$key]) ? $map[$key] : $key;
     }
 
+    public function getCurrencyAttribute()
+    {
+        return $this->attributes['currency'] ?: 'EUR';
+    }
+
     /**
      * Format amount with currency symbol
      *

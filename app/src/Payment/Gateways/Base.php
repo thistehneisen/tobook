@@ -29,11 +29,11 @@ abstract class Base
     /**
      * Purchase the provided transaction
      *
-     * @param App\Paygate\Models\Transaction $transaction
+     * @param array $args Arguments as required by Omnipay
      *
      * @return void
      */
-    abstract public function purchase($transaction);
+    abstract public function purchase($args);
 
     /**
      * Receive notify request from paygate and update corresponding data
@@ -41,4 +41,13 @@ abstract class Base
      * @return void
      */
     abstract public function notify();
+
+    /**
+     * When a successful payment was made
+     *
+     * @param Omnipay\Common\Message\AbstractResponse $response
+     *
+     * @return void
+     */
+    abstract public function success($response);
 }

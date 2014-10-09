@@ -52,10 +52,9 @@ class Payment
     public static function purchase()
     {
         $v = Validator::make(Input::all(), [
-            'name'   => 'required',
             'number' => 'required|numeric',
             'exp'    => 'required',
-            'cvc'    => 'required|numeric',
+            'cvv'    => 'required|numeric',
         ]);
         if ($v->fails()) {
             return Redirect::route('payment.index')
@@ -64,7 +63,26 @@ class Payment
         }
 
         $gateway = GatewayFactory::make(Input::get('gateway', 'Skrill'));
-        $gateway->purchase(static::current());
+
+        $transaction = static::current();
+        $token = explode('/', Input::get('exp'));
+        $response = $gateway->purchase([
+            'amount'   => $transaction->amount,
+            'currency' => $transaction->currency,
+            'card'     => [
+                'number'      => Input::get('number'),
+                'cvv'         => Input::get('cvv'),
+                'expiryMonth' => $token[0],
+                'expiryYear'  => $token[1],
+            ]
+        ]);
+        if ($response->isSuccessful()) {
+            return $gateway->success($response);
+        } elseif ($response->isRedirect()) {
+            return $response->redirect();
+        }
+
+        throw \Exception($response->getMessage());
     }
 
     /**
