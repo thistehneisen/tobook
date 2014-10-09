@@ -25,4 +25,39 @@ class Transaction extends \AppModel
     {
         return $this->belongsTo('App\Core\Models\Cart');
     }
+
+    //--------------------------------------------------------------------------
+    // ATTRIBUTES
+    //--------------------------------------------------------------------------
+    /**
+     * Get a symbol for this currency
+     *
+     * @return string
+     */
+    public function getCurrencySymbolAttribute()
+    {
+        $map = [
+            'EUR' => '&euro;',
+            'GBP' => '&pound;',
+            'USD' => '$',
+        ];
+
+        $key = empty($this->attributes['currency'])
+            ? 'EUR'
+            : $this->attributes['currency'];
+
+        return isset($map[$key]) ? $map[$key] : $key;
+    }
+
+    /**
+     * Format amount with currency symbol
+     *
+     * @return string
+     */
+    public function getFormattedAmountAttribute()
+    {
+        return number_format($this->attributes['amount'], 2)
+            .$this->currency_symbol;
+    }
+
 }

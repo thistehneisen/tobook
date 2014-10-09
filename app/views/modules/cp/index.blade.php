@@ -13,7 +13,7 @@
             <tfoot>
                 <tr>
                     <td>Subtotal</td>
-                    <td>{{ $transaction->amount }}</td>
+                    <td>{{ $transaction->formatted_amount }}</td>
                 </tr>
             </tfoot>
         </table>
