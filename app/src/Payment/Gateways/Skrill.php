@@ -26,15 +26,9 @@ class Skrill extends Base
      */
     public function purchase($args)
     {
+        $args['language'] = Config::get('app.locale');
+        $args['details']  = ['foo' => 'bar'];
         return $this->gateway->purchase($args)->send();
-    }
-
-    /**
-     * @{@inheritdoc}
-     */
-    public function notify()
-    {
-
     }
 
     /**

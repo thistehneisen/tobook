@@ -36,13 +36,6 @@ abstract class Base
     abstract public function purchase($args);
 
     /**
-     * Receive notify request from paygate and update corresponding data
-     *
-     * @return void
-     */
-    abstract public function notify();
-
-    /**
      * When a successful payment was made
      *
      * @param Omnipay\Common\Message\AbstractResponse $response

@@ -51,7 +51,9 @@ class Transaction extends \AppModel
 
     public function getCurrencyAttribute()
     {
-        return $this->attributes['currency'] ?: 'EUR';
+        return !empty($this->attributes['currency'])
+            ? $this->attributes['currency']
+            : 'EUR';
     }
 
     /**
@@ -63,6 +65,16 @@ class Transaction extends \AppModel
     {
         return number_format($this->attributes['amount'], 2)
             .$this->currency_symbol;
+    }
+
+    /**
+     * Always set 2-decimal place for amount value
+     *
+     * @param double $value
+     */
+    public function setAmountAttribute($value)
+    {
+        $this->attributes['amount'] = number_format(round($value, 2), 2);
     }
 
 }

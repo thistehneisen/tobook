@@ -51,16 +51,16 @@ class Payment
      */
     public static function purchase()
     {
-        $v = Validator::make(Input::all(), [
-            'number' => 'required|numeric',
-            'exp'    => 'required',
-            'cvv'    => 'required|numeric',
-        ]);
-        if ($v->fails()) {
-            return Redirect::route('payment.index')
-                ->withInput()
-                ->withErrors($v);
-        }
+        // $v = Validator::make(Input::all(), [
+        //     'number' => 'required|numeric',
+        //     'exp'    => 'required',
+        //     'cvv'    => 'required|numeric',
+        // ]);
+        // if ($v->fails()) {
+        //     return Redirect::route('payment.index')
+        //         ->withInput()
+        //         ->withErrors($v);
+        // }
 
         $gateway = GatewayFactory::make(Input::get('gateway', 'Skrill'));
 

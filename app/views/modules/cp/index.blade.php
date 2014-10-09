@@ -17,7 +17,7 @@
                 </tr>
             </tfoot>
         </table>
-
+{{--
         <h4>Payment information</h4>
 
         <div class="form-group row">
@@ -46,7 +46,7 @@
                 {{ Form::errorText('cvv', $errors) }}
             </div>
         </div>
-
+--}}
         <button type="submit" class="btn btn-success">Place order</button>
     </div>
     <div class="col-sm-4 col-md-4 col-lg-4">
