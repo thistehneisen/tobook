@@ -13,4 +13,9 @@ Route::group([
         'uses' => 'App\Payment\Controllers\Index@index'
     ]);
 
+    Route::get('test', function () {
+        $cart = Cart::make([], 63);
+        return Payment::redirect($cart, 999);
+    });
+
 });

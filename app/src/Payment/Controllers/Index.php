@@ -1,5 +1,7 @@
 <?php namespace App\Payment\Controllers;
 
+use Payment;
+
 class Index extends Base
 {
     /**
@@ -9,6 +11,9 @@ class Index extends Base
      */
     public function index()
     {
-        return $this->render('index');
+        $transaction = Payment::current();
+        return $this->render('index', [
+            'transaction' => $transaction
+        ]);
     }
 }

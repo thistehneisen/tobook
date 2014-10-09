@@ -32,6 +32,15 @@ class Payment
      */
     public static function current()
     {
-        return Session::get('transaction');
+        // The first data is flash session
+        if (Session::has('transaction')) {
+            $transaction = Session::get('transaction');
+
+            // So we need to store it eternally
+            Session::set('persisted_transaction', $transaction);
+            return $transaction;
+        }
+
+        return Session::get('persisted_transaction');
     }
 }
