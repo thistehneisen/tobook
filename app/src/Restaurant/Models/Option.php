@@ -6,7 +6,7 @@ class Option extends \App\Core\Models\Base
 {
     protected $table = 'rb_options';
 
-    public $fillable = ['key', 'value'];
+    public $fillable = ['key', 'value', 'is_visible'];
 
     //--------------------------------------------------------------------------
     // ATTRIBUTES
@@ -51,8 +51,9 @@ class Option extends \App\Core\Models\Base
             }
 
             $option->fill([
-                'key'   => $key,
-                'value' => $value,
+                'key'           => $key,
+                'value'         => $value,
+                'is_visible'    => true,
             ]);
 
             $options[] = $option;

@@ -31,7 +31,96 @@ return [
         ],
         'booking'   => [
             'index'     => [
-
+                'price'             => [
+                    'type'              => 'Text',
+                    'default'           => trans('rb.options.booking.price_default')
+                ],
+                'length'            => [
+                    'type'              => 'Text',
+                    'default'           => trans('rb.options.booking.length_default')
+                ],
+                'hours_before'      => [
+                    'type'              => 'Text',
+                    'default'           => trans('rb.options.booking.hours_before_default')
+                ],
+                'booking_type'      => [
+                    'type'              => 'Dropdown',
+                    'values'            => [
+                        'categories'        => trans('rb.options.booking.booking_type_categories'),
+                        'time'              => trans('rb.options.booking.booking_type_time')
+                    ],
+                    'default'           => trans('rb.options.booking.booking_type_time')
+                ],
+                'group_minimum'     => [
+                    'type'              => 'Text',
+                    'default'           => trans('rb.options.booking.group_minimum_default')
+                ],
+                'booking_status'    => [
+                    'type'              => 'Dropdown',
+                    'values'            => [
+                        'pending'           => trans('rb.options.booking.booking_status_pending'),
+                        'confirmed'         => trans('rb.options.booking.booking_status_confirmed'),
+                        'cancelled'         => trans('rb.options.booking.booking_status_cancelled')
+                    ],
+                    'default'           => trans('rb.options.booking.booking_status_pending')
+                ],
+                'booking_status_after_payment'  => [
+                    'type'      => 'Dropdown',
+                    'values'    => [
+                        'pending'           => trans('rb.options.booking.booking_status_pending'),
+                        'confirmed'         => trans('rb.options.booking.booking_status_confirmed'),
+                        'cancelled'         => trans('rb.options.booking.booking_status_cancelled')
+                    ],
+                    'default'   => trans('rb.options.booking.booking_status_confirmed')
+                ],
+                'page_after_paying' => [
+                    'type'      => 'Text',
+                    'default'   => 'http://varaa.com/'
+                ],
+                'payment_disable'   => [
+                    'type'      => 'Dropdown',
+                    'values'    => [
+                        'yes'   => trans('common.yes'),
+                        'no'    => trans('common.no'),
+                    ],
+                    'default'   => trans('common.no')
+                ],
+                'paypal_allowed'    => [
+                    'type'      => 'Dropdown',
+                    'values'    => [
+                        'yes'   => trans('common.yes'),
+                        'no'    => trans('common.no'),
+                    ],
+                    'default'   => trans('common.yes')
+                ],
+                'paypal_email'  => [
+                    'type'      => 'Text',
+                    'default'   => 'paypal@domain.com'
+                ],
+                'authorizedotnet_allowed' => [
+                    'type'      => 'Dropdown',
+                    'values'    => [
+                        'yes'   => trans('common.yes'),
+                        'no'    => trans('common.no'),
+                    ],
+                    'default'   => trans('common.no')
+                ],
+                'cash_allowed'  => [
+                    'type'      => 'Dropdown',
+                    'values'    => [
+                        'yes'   => trans('common.yes'),
+                        'no'    => trans('common.no'),
+                    ],
+                    'default'   => trans('common.yes')
+                ],
+                'credit_card_allowed'   => [
+                    'type'      => 'Dropdown',
+                    'values'    => [
+                        'yes'   => trans('common.yes'),
+                        'no'    => trans('common.no'),
+                    ],
+                    'default'   => trans('common.yes')
+                ],
             ],
         ],
     ],

@@ -55,5 +55,30 @@ return [
     ],
     'options'   => [
         'index'             => 'Asetukset',
+        'general'       => [
+            'index'             => 'Yleinen',
+            'currency'          => 'Valuutta',
+            'date_format'       => 'Päivämäärän muoto',
+            'datetime_format'   => 'Datetime format', // TODO
+            'time_format'       => 'Ajan muoto',
+            'timezone'          => 'Aikavyöhyke',
+        ],
+        'booking'       => [ // TODO
+            'index'                         => 'Bookings',
+            'price'                         => 'Booking price',
+            'length'                        => 'Booking length',
+            'hours_before'                  => 'Hours earlier',
+            'booking_type'                  => 'Booking type',
+            'group_minimum'                 => 'Group booking',
+            'booking_status'                => 'Booking status',
+            'booking_status_after_payment'  => 'Booking status after payment',
+            'page_after_paying'             => 'Page redirected after paying',
+            'payment_disable'               => 'Disable payments',
+            'paypal_allowed'                => 'Allow Paypal payments',
+            'paypal_email'                  => 'Paypal email address',
+            'authorizedotnet_allowed'       => 'Allow Authorize.net payments',
+            'cash_allowed'                  => 'Allow cash payments',
+            'credit_card_allowed'           => 'Allow credit card payments',
+        ],
     ],
 ];

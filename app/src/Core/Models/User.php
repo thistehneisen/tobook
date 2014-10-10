@@ -57,6 +57,11 @@ class User extends ConfideUser
     protected $asOptionsCache;
 
     /**
+     * Cache object to store collection of restaurant options
+     */
+    protected $rbOptionsCache;
+
+    /**
      * Get next avaiable booking slots of current user
      *
      * @param string date
@@ -419,6 +424,46 @@ class User extends ConfideUser
         $this->asOptionsCache = new \Illuminate\Support\Collection($ret);
 
         return $this->asOptionsCache;
+    }
+
+    /**
+     * Get all Restaurant options of this user
+     *
+     * @return object
+     */
+    public function getRbOptionsAttribute()
+    {
+        if (!empty($this->rbOptionsCache)) {
+            return $this->rbOptionsCache;
+        }
+
+        $ret = [];
+        $default = Config::get('restaurant.options');
+
+        // Get options from db
+        $customOptions = [];
+
+        foreach ($this->rbOptions()->get() as $item) {
+            $customOptions[$item->key] = $item->value;
+            $ret[$item->key] = $item->value;
+        }
+
+        foreach ($default as $sections) {
+            foreach ($sections as $options) {
+                foreach ($options as $name => $option) {
+                    $ret[$name] = isset($option['default']) ? $option['default'] : '';
+
+                    // Overwrite data from db
+                    if (isset($customOptions[$name])) {
+                        $ret[$name] = $customOptions[$name];
+                    }
+                }
+            }
+        }
+
+        $this->rbOptionsCache = new \Illuminate\Support\Collection($ret);
+
+        return $this->rbOptionsCache;
     }
 
     /**
