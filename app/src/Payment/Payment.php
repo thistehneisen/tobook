@@ -69,6 +69,14 @@ class Payment
         $transaction = static::current();
         $response = $gateway->purchase($transaction, ['card' => $card]);
 
+        // Update transaction with data from resposne
+        $transaction->fill([
+            'message'   => $response->getMessage(),
+            'code'      => $response->getCode(),
+            'reference' => $response->getTransactionReference(),
+        ]);
+        $transaction->save();
+
         if ($response->isSuccessful()) {
             // If the transction is succesful, we will call handler to
             // update its data

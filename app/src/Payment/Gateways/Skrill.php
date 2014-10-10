@@ -52,7 +52,7 @@ class Skrill extends Base
      */
     public function success($response)
     {
-        dd($response);
+        // Wont do anything because there's no post-back data from Skrill
     }
 
     /**
@@ -97,6 +97,7 @@ class Skrill extends Base
         $transaction->status = Transaction::STATUS_SUCCESS;
         // Not sure if this can be used as ref
         $transaction->reference = Input::get('md5sig');
+        $transaction->paygate = 'Skrill';
         $transaction->save();
 
         // Complete, exit to prevent any additional output
