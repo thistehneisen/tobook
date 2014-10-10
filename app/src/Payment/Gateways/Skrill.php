@@ -66,7 +66,6 @@ class Skrill extends Base
         // Validate data first
         $v = Validator::make(Input::all(), [
             'pay_to_email'   => 'required',
-            'merchant_id'    => 'required',
             'transaction_id' => 'required',
             'mb_amount'      => 'required',
             'mb_currency'    => 'required',
@@ -95,6 +94,10 @@ class Skrill extends Base
         }
 
         // Update relevant data
+        $transaction->status = Transaction::STATUS_SUCCESS;
+        // Not sure if this can be used as ref
+        $transaction->reference = Input::get('md5sig');
+        $transaction->save();
 
         // Complete, exit to prevent any additional output
         exit;
@@ -170,7 +173,7 @@ class Skrill extends Base
      */
     protected function isProcessed()
     {
-        $result = Input::get('status') === static::STATUS_PROCESSED;
+        $result = (int) Input::get('status') === static::STATUS_PROCESSED;
         if ($result === false) {
             Log::info('Abort because payment was not processed',
                 ['context' => 'Skrill post-back']);
