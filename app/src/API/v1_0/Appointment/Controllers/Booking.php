@@ -1,8 +1,7 @@
 <?php namespace App\API\v1_0\Appointment\Controllers;
 
-use App\Appointment\Models\Employee;
 use Confide, Input, Request, Response, Util;
-use App\Appointment\Models\Booking as BookingModel;
+use App\Appointment\Models\Employee;
 use App\Appointment\Models\BookingExtraService;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\AsConsumer;
@@ -29,7 +28,7 @@ class Booking extends Base
      */
     public function show($id)
     {
-        $booking = BookingModel::ofCurrentUser()->findOrFail($id);
+        $booking = \App\Appointment\Models\Booking::ofCurrentUser()->findOrFail($id);
 
         return Response::json([
             'error' => false,
@@ -46,7 +45,7 @@ class Booking extends Base
      */
     public function update($id)
     {
-        $existingBooking = BookingModel::ofCurrentUser()->findOrFail($id);
+        $existingBooking = \App\Appointment\Models\Booking::ofCurrentUser()->findOrFail($id);
         return $this->_storeOrUpdate($existingBooking);
     }
 
@@ -59,7 +58,7 @@ class Booking extends Base
      */
     public function destroy($id)
     {
-        $booking = BookingModel::ofCurrentUser()->findOrFail($id);
+        $booking = \App\Appointment\Models\Booking::ofCurrentUser()->findOrFail($id);
 
         $booking->delete();
 
@@ -69,7 +68,7 @@ class Booking extends Base
         ], 200);
     }
 
-    protected function _storeOrUpdate(BookingModel $existingBooking = null)
+    protected function _storeOrUpdate(\App\Appointment\Models\Booking $existingBooking = null)
     {
         // TODO: support multiple services per booking
         $user = Confide::user();
@@ -151,17 +150,22 @@ class Booking extends Base
             }
 
             $consumer = AsConsumer::handleConsumer($input, $user);
-            $booking = BookingModel::saveBooking($uuid, $user, $consumer, $input, $existingBooking);
+            $booking = \App\Appointment\Models\Booking::saveBooking($uuid, $user, $consumer, $input, $existingBooking);
 
             return Response::json([
                 'error' => false,
                 'booking' => $this->_prepareBookingData($booking),
             ], 200);
+        } catch (\InvalidArgumentException $e) {
+            return Response::json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 500);
         } catch (ValidationException $e) {
             return Response::json([
                 'error' => true,
                 'message' => $e->getMessage(),
-            ], 200);
+            ], 400);
         }
     }
 }

@@ -54,6 +54,7 @@ class Base extends \App\Core\Controllers\Base
             'booking_uuid' => $booking->uuid,
             'booking_services' => $services,
             'booking_notes' => $booking->notes,
+            'booking_status' => Booking::getStatusByValue($booking->status),
             'consumer_name' => $consumerName,
 
             'date' => $booking->date,

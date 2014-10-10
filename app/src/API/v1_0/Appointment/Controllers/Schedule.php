@@ -2,7 +2,6 @@
 
 use Config, Input, Response;
 use App\Appointment\Models\Employee;
-use App\Appointment\Models\Booking;
 use Carbon\Carbon;
 
 class Schedule extends Base

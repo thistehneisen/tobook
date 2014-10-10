@@ -4,11 +4,13 @@ namespace Appointment\Schedule;
 use \ApiTester;
 use App\Appointment\Models\EmployeeCustomTime;
 use App\Appointment\Models\EmployeeDefaultTime;
+use Appointment\Traits\Booking;
 use Appointment\Traits\Models;
 use Carbon\Carbon;
 
 class ScheduleCest
 {
+    use Booking;
     use Models;
 
     protected $endpoint = '/api/v1.0/as/schedules';
@@ -183,13 +185,9 @@ class ScheduleCest
     {
         $categories = $this->_createCategoryServiceAndExtra(1, 1, 2);
         $category = reset($categories);
-        $service = $category->services()->first();
-        $extraSevices = $service->extraServices;
+        $booking = $this->_book($I, $this->user, $category);
 
-        $tomorrow = Carbon::today()->addDay();
-        $booking = $this->_book($this->employees[0], $service, $extraSevices, $tomorrow, '12:00');
-
-        $I->sendGET($this->endpoint . '?date=' . $tomorrow->toDateString());
+        $I->sendGET($this->endpoint . '?date=' . $booking->date);
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
 
@@ -207,16 +205,7 @@ class ScheduleCest
         }
 
         $I->assertTrue(!empty($bookingSchedule), '!empty($bookingSchedule)');
-        $I->assertEquals($booking->id, $bookingSchedule['booking_id'], "\$bookingSchedule['booking_id']");
-        $I->assertEquals($booking->uuid, $bookingSchedule['booking_uuid'], "\$bookingSchedule['booking_uuid']");
-
-        $I->assertEquals(3, count($bookingSchedule['booking_services']), "count(\$bookingSchedule['booking_services'])");
-        $I->assertTrue(in_array($service->name, $bookingSchedule['booking_services']), 'service: ' . $service->name);
-        foreach ($extraSevices as $extraSevice) {
-            $I->assertTrue(in_array($extraSevice->name, $bookingSchedule['booking_services']), 'extra service: ' . $extraSevice->name);
-        }
-
-        $I->assertEquals($booking->consumer->name, $bookingSchedule['consumer_name'], "\$bookingSchedule['consumer_name']");
+        $this->_assertBooking($I, $booking, $bookingSchedule);
     }
 
     protected function _assertTimes(ApiTester $I, $times, $schedules, $employeeFreetimes = array())

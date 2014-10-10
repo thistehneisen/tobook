@@ -1,11 +1,6 @@
 <?php
 namespace Appointment\Traits;
 
-use Util;
-use App\Appointment\Models\AsConsumer;
-use App\Appointment\Models\Booking;
-use App\Appointment\Models\BookingExtraService;
-use App\Appointment\Models\BookingService;
 use App\Appointment\Models\CustomTime;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\EmployeeCustomTime;
@@ -210,30 +205,6 @@ trait Models
         }
 
         return $categories;
-    }
-
-    protected function _book(Employee $employee, Service $service, $extraServices, Carbon $dayObj, $startAt)
-    {
-        $uuid = Util::uuid();
-
-        $bookingService = BookingService::saveBookingService($uuid, $employee, $service, [
-            'booking_date' => $dayObj->toDateString(),
-            'start_time' => $startAt,
-        ]);
-
-        foreach ($extraServices as $extraService) {
-            BookingExtraService::addExtraService($uuid, $employee, $bookingService, $extraService);
-        }
-
-        $consumer = AsConsumer::handleConsumer([
-            'first_name' => 'Consumer First ' . $this->user->id,
-            'last_name' => 'Consumer Last ' . $this->user->id,
-            'email' => 'consumer_' . $this->user->id . '@varaa.com',
-            'phone' => '1234567890',
-            'hash' => '',
-        ], $this->user);
-
-        return Booking::saveBooking($uuid, $this->user, $consumer, []);
     }
 
     protected function _modelsReset()

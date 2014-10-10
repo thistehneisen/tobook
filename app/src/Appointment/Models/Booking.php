@@ -320,7 +320,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             $totalPlusTime += $bookingService->plustime;
 
             $bookingServiceStartTime = Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s', $bookingService->date, $bookingService->start_at));
-            if ($startTime === null OR $bookingServiceStartTime->diffInMinutes($startTime, false) > 0) {
+            if ($startTime === null || $bookingServiceStartTime->diffInMinutes($startTime, false) > 0) {
                 $startTime = clone $bookingServiceStartTime;
             }
         }
@@ -409,7 +409,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public static function updateBooking(Booking $booking)
     {
         // just call Booking::saveBooking with existing data and let it recalculate everything
-        return self::saveBooking($booking->uuid, $booking->consumer, [
+        return self::saveBooking($booking->uuid, $booking->user, $booking->consumer, [
             'ip' => $booking->ip,
             'notes' => $booking->notes,
             'status' => self::getStatusByValue($booking->status),
