@@ -2,12 +2,11 @@
 
 use PHPUnit_Framework_Assert as Assert;
 use Codeception\Util\Debug;
-use Test\Functional\Base;
 use App\Core\Models\Cart;
 use FunctionalTester;
 use Payment, Session;
 
-class PaymentCest extends Base
+class PaymentCest extends \Test\Functional\Base
 {
     protected $amount = 999;
     protected $userId = 1;
@@ -21,7 +20,7 @@ class PaymentCest extends Base
         Assert::assertTrue(Session::has('transaction'));
 
         $transaction = Payment::current();
-        Assert::assertSame($transaction->amount, $this->amount);
+        Assert::assertEquals($transaction->amount, $this->amount);
         Assert::assertEquals($transaction->cart->user->id, $this->userId);
     }
 }
