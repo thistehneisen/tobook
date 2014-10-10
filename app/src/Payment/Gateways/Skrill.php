@@ -1,7 +1,7 @@
 <?php namespace App\Payment\Gateways;
 
 use Omnipay\Omnipay;
-use Config, App, Validator, Input;
+use Config, App, Validator, Input, Log;
 use App\Payment\Models\Transaction;
 
 class Skrill extends Base
@@ -65,8 +65,13 @@ class Skrill extends Base
         ]);
 
         if ($v->fails()) {
+            Log::info('Abort due to missing required data',
+                ['context' => 'Skrill post-back']);
             return App::abort(400);
         }
+
+        // Log this request for later investigation
+        Log::info('Received post-back request from Skrill', Input::all());
 
         // Get transaction
         $transaction = Transaction::findOrFail(Input::get('transaction_id'));
@@ -78,7 +83,6 @@ class Skrill extends Base
             return App::abort(400);
         }
 
-        // Log this request for later investigation
         // Update relevant data
 
         // Complete, exit to prevent any additional output
@@ -101,7 +105,13 @@ class Skrill extends Base
             Input::get('status')
         ));
 
-        return Input::get('md5sig') === $hash;
+        $result = Input::get('md5sig') === $hash;
+
+        if ($result === false) {
+            Log::info('Abort due to malformed MD5 signature',
+                ['context' => 'Skrill post-back']);
+        }
+        return $result;
     }
 
     /**
@@ -111,7 +121,15 @@ class Skrill extends Base
      */
     protected function isValidEmail()
     {
-        return Input::get('pay_to_email') === Config::get('services.skrill.email');
+        $result = Input::get('pay_to_email')
+            === Config::get('services.skrill.email');
+
+        if ($result === false) {
+            Log::info('Abort due to invalid recipient email',
+                ['context' => 'Skrill post-back']);
+        }
+
+        return $result;
     }
 
     /**
@@ -125,8 +143,10 @@ class Skrill extends Base
     {
         $result = $transaction->amount === (double) Input::get('mb_amount')
             && $transaction->currency === Input::get('mb_currency');
-        if (!$result) {
-            // Log::info('Abort due to invalid amount');
+
+        if ($result === false) {
+            Log::info('Abort due to invalid amount',
+                ['context' => 'Skrill post-back']);
         }
 
         return $result;
