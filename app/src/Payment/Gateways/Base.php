@@ -29,11 +29,12 @@ abstract class Base
     /**
      * Purchase the provided transaction
      *
-     * @param array $args Arguments as required by Omnipay
+     * @param App\Payment\Models\Transaction $transaction Current Transaction object
+     * @param array                          $args        Additional params passed to individual gateway
      *
      * @return void
      */
-    abstract public function purchase($args);
+    abstract public function purchase(\App\Payment\Models\Transaction $transaction, $args = []);
 
     /**
      * When a successful payment was made

@@ -38,6 +38,7 @@ class Payment
 
             // So we need to store it eternally
             Session::set('persisted_transaction', $transaction);
+
             return $transaction;
         }
 
@@ -64,25 +65,45 @@ class Payment
 
         $gateway = GatewayFactory::make(Input::get('gateway', 'Skrill'));
 
+        $card        = static::extractCardData(Input::all());
         $transaction = static::current();
-        $token = explode('/', Input::get('exp'));
-        $response = $gateway->purchase([
-            'amount'   => $transaction->amount,
-            'currency' => $transaction->currency,
-            'card'     => [
-                'number'      => Input::get('number'),
-                'cvv'         => Input::get('cvv'),
-                'expiryMonth' => $token[0],
-                'expiryYear'  => $token[1],
-            ]
-        ]);
+        $response = $gateway->purchase($transaction, ['card' => $card]);
+
         if ($response->isSuccessful()) {
+            // If the transction is succesful, we will call handler to
+            // update its data
             return $gateway->success($response);
         } elseif ($response->isRedirect()) {
+            // Or if it redirects to elsewhere, just follow it
             return $response->redirect();
         }
 
+        // Otherwise, we have an error
         throw \Exception($response->getMessage());
+    }
+
+    /**
+     * Extract card data from user input
+     *
+     * @return array
+     */
+    protected static function extractCardData($input)
+    {
+        // To make sure that there's always a value
+        foreach (['exp', 'number', 'cvv'] as $key) {
+            $input[$key] = array_key_exists($key, $input)
+                ? $input[$key]
+                : '';
+        }
+
+        $token = explode('/', $input['exp']);
+
+        return [
+            'number'      => $input['number'],
+            'cvv'         => $input['cvv'],
+            'expiryMonth' => isset($token[0]) ? $token[0] : '',
+            'expiryYear'  => isset($token[1]) ? $token[1] : '',
+        ];
     }
 
     /**
@@ -95,6 +116,7 @@ class Payment
     public static function notify($gateway)
     {
         $gateway = GatewayFactory::make($gateway);
+
         return $gateway->notify();
     }
 
