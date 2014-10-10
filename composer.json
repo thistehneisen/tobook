@@ -14,12 +14,15 @@
         "watson/validating": "0.9.*",
         "toin0u/geocoder-laravel": "0.4.1",
         "barryvdh/laravel-debugbar": "1.7.4",
-        "mandrill/mandrill": "1.0.*"
+        "mandrill/mandrill": "1.0.*",
+        "omnipay/common": "2.3.1",
+        "alfaproject/omnipay-skrill": "2.0.x-dev#2fa2ba8"
     },
     "require-dev": {
         "codeception/codeception": "2.0.*",
         "squizlabs/php_codesniffer": "1.*",
-        "fabpot/php-cs-fixer": "0.5.*"
+        "fabpot/php-cs-fixer": "0.5.*",
+        "mockery/mockery": "0.9.2"
     },
     "autoload": {
         "classmap": [
@@ -28,7 +31,9 @@
         ],
         "psr-4": {
             "App\\": "app/src",
-            "Test\\": "app/tests",
+            "Test\\Unit\\": "app/tests/unit",
+            "Test\\Functional\\": "app/tests/functional",
+            "Test\\Acceptance\\": "app/tests/acceptance",
             "Cmd\\": "cmd/"
         }
     },

@@ -33,4 +33,10 @@ return array(
         'password' => 'varaa12'
     ],
 
+    'skrill' => [
+        'email'    => 'mikael.dacosta@varaa.com',
+        'password' => 'halloween22',
+        'secret'   => 'teqaphus6p'
+    ]
+
 );
