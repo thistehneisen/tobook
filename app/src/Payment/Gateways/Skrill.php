@@ -89,8 +89,16 @@ class Skrill extends Base
      */
     protected function isValidRequest()
     {
-        // @todo
-        return false;
+        $hash = strtoupper(md5(
+            Input::get('merchant_id').
+            Input::get('transaction_id').
+            strtoupper(md5(Config::get('services.skrill.secret'))).
+            Input::get('mb_amount').
+            Input::get('mb_currency').
+            Input::get('status')
+        ));
+
+        return Input::get('md5sig') === $hash;
     }
 
     /**

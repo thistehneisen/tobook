@@ -34,8 +34,9 @@ return array(
     ],
 
     'skrill' => [
-        'email' => 'mikael.dacosta@varaa.com',
-        'password' => 'halloween22'
+        'email'    => 'mikael.dacosta@varaa.com',
+        'password' => 'halloween22',
+        'secret'   => 'teqaphus6p'
     ]
 
 );
