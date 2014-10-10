@@ -7,6 +7,16 @@ use App\Payment\Models\Transaction;
 class Skrill extends Base
 {
     /**
+     * Predefined status constants
+     * @see Skrill Payment Gateway Integration Guide (v6.8)
+     */
+    const STATUS_FAILED    = -2;
+    const STATUS_CANCELLED = -1;
+    const STATUS_PENDING   = 0;
+    const STATUS_PROCESSED = 2;
+
+
+    /**
      * @{@inheritdoc}
      */
     public function getOmnipayGateway()
@@ -79,6 +89,7 @@ class Skrill extends Base
         // Validate logic
         if (!$this->isValidRequest()
             || !$this->isValidEmail()
+            || !$this->isProcessed()
             || !$this->isValidAmount($transaction)) {
             return App::abort(400);
         }
@@ -146,6 +157,22 @@ class Skrill extends Base
 
         if ($result === false) {
             Log::info('Abort due to invalid amount',
+                ['context' => 'Skrill post-back']);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Validate if payment has been processed
+     *
+     * @return boolean
+     */
+    protected function isProcessed()
+    {
+        $result = Input::get('status') === static::STATUS_PROCESSED;
+        if ($result === false) {
+            Log::info('Abort because payment was not processed',
                 ['context' => 'Skrill post-back']);
         }
 
