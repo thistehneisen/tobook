@@ -1,7 +1,8 @@
 <?php namespace App\Payment\Gateways;
 
 use Omnipay\Omnipay;
-use Config, App, Validator;
+use Config, App, Validator, Input;
+use App\Payment\Models\Transaction;
 
 class Skrill extends Base
 {
@@ -67,15 +68,17 @@ class Skrill extends Base
             return App::abort(400);
         }
 
+        // Get transaction
+        $transaction = Transaction::findOrFail(Input::get('transaction_id'));
+
         // Validate logic
-        if ($this->isValidRequest() === false
-            || $this->isValidEmail() === false
-            || $this->isValidAmount === false) {
+        if (!$this->isValidRequest()
+            || !$this->isValidEmail()
+            || !$this->isValidAmount($transaction)) {
             return App::abort(400);
         }
 
         // Log this request for later investigation
-        // Get transaction
         // Update relevant data
 
         // Complete, exit to prevent any additional output
@@ -108,16 +111,24 @@ class Skrill extends Base
      */
     protected function isValidEmail()
     {
-        return Input::get('pay_to_email') !== Config::get('services.skrill.email');
+        return Input::get('pay_to_email') === Config::get('services.skrill.email');
     }
 
     /**
      * Validate payment is a correct amount
      *
+     * @param App\Payment\Models\Transaction $transaction
+     *
      * @return boolean
      */
-    protected function isValidAmount()
+    protected function isValidAmount($transaction)
     {
-        return false;
+        $result = $transaction->amount === (double) Input::get('mb_amount')
+            && $transaction->currency === Input::get('mb_currency');
+        if (!$result) {
+            // Log::info('Abort due to invalid amount');
+        }
+
+        return $result;
     }
 }
