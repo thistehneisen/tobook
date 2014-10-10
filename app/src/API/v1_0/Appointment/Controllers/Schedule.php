@@ -49,13 +49,9 @@ class Schedule extends Base
             $employees = [$employee];
 
             // get requested days, default to 1 (max=7)
-            $days = intval(Input::get('days'));
-            if ($days >= 2 AND $days <= 7) {
-                for ($i = 1; $i < $days; $i++) {
-                    $newDate = clone $date;
-                    $newDate->addDays($i);
-                    $dates[] = $newDate;
-                }
+            $days = max(1, min(7, intval(Input::get('days'))));
+            for ($i = 1; $i < $days; $i++) {
+                $dates[] = with(clone $date)->addDays($i);
             }
         } else {
             // getting appointments for all employees
@@ -74,8 +70,8 @@ class Schedule extends Base
                 $employeeData['schedules'][$dateStr] = [];
                 $lastFreetimeId = 0;
                 $lastBookingId = 0;
-                foreach ($workingTimes as $hour => $minutes) {
-                    foreach ($minutes as $minute) {
+                for ($hour = 0; $hour < 24; $hour++) {
+                    for ($minute = 0; $minute < 59; $minute += 15) {
                         $slotClass = $employee->getSlotClass($dateStr, $hour, $minute);
                         if (strpos($slotClass, 'inactive') !== false) {
                             // the time slot is inactive
