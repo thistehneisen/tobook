@@ -181,19 +181,42 @@ class ScheduleCest
 
     public function testBooking(ApiTester $I)
     {
-        $categories = $this->_createCategoryServiceAndExtra(1, 1);
+        $categories = $this->_createCategoryServiceAndExtra(1, 1, 2);
         $category = reset($categories);
         $service = $category->services()->first();
+        $extraSevices = $service->extraServices;
 
         $tomorrow = Carbon::today()->addDay();
-        $this->_book($this->employees[0], $service, array(), $tomorrow, '12:00:00');
+        $booking = $this->_book($this->employees[0], $service, $extraSevices, $tomorrow, '12:00');
 
-        $I->sendGET($this->endpoint);
+        $I->sendGET($this->endpoint . '?date=' . $tomorrow->toDateString());
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
 
         $employees = $I->grabDataFromJsonResponse('employees');
         $employee = reset($employees);
+
+        $bookingSchedule = null;
+        foreach ($employee['schedules'] as $day => $daySchedules) {
+            foreach ($daySchedules as $schedule) {
+                if ($schedule['type'] == 'booking') {
+                    $I->assertNull($bookingSchedule, '$bookingSchedule');
+                    $bookingSchedule = $schedule;
+                }
+            }
+        }
+
+        $I->assertTrue(!empty($bookingSchedule), '!empty($bookingSchedule)');
+        $I->assertEquals($booking->id, $bookingSchedule['booking_id'], "\$bookingSchedule['booking_id']");
+        $I->assertEquals($booking->uuid, $bookingSchedule['booking_uuid'], "\$bookingSchedule['booking_uuid']");
+
+        $I->assertEquals(3, count($bookingSchedule['booking_services']), "count(\$bookingSchedule['booking_services'])");
+        $I->assertTrue(in_array($service->name, $bookingSchedule['booking_services']), 'service: ' . $service->name);
+        foreach ($extraSevices as $extraSevice) {
+            $I->assertTrue(in_array($extraSevice->name, $bookingSchedule['booking_services']), 'extra service: ' . $extraSevice->name);
+        }
+
+        $I->assertEquals($booking->consumer->name, $bookingSchedule['consumer_name'], "\$bookingSchedule['consumer_name']");
     }
 
     protected function _assertTimes(ApiTester $I, $times, $schedules, $employeeFreetimes = array())

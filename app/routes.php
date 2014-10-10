@@ -391,6 +391,9 @@ Route::group([
             'prefix' => 'as',
         ], function () {
             Route::get('schedules', 'App\API\v1_0\Appointment\Controllers\Schedule@getSchedules');
+            Route::resource('bookings', 'App\API\v1_0\Appointment\Controllers\Booking', [
+                'only' => ['store', 'show', 'update', 'destroy']
+            ]);
         });
         // Other modules
     });
