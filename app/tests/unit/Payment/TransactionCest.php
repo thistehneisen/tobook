@@ -3,6 +3,9 @@
 use App\Payment\Models\Transaction;
 use UnitTester;
 
+/**
+ * @group cp
+ */
 class TransactionCest
 {
     protected $item;

@@ -5,6 +5,9 @@ use Codeception\Util\Debug;
 use App\Payment\GatewayFactory;
 use UnitTester;
 
+/**
+ * @group cp
+ */
 class GatewayCest
 {
     public function getAGateway(UnitTester $I)

@@ -56,7 +56,7 @@ def sync_server_settings():
 
 
 @task(alias='t')
-def test(suite='', group='', debug=False):
+def test(suite='', group='', debug=''):
     '''
     Run the test suite
     Usage:
@@ -70,7 +70,7 @@ def test(suite='', group='', debug=False):
     '''
     if group != '':
         group = '-g {}'.format(group)
-    if debug:
+    if debug != '':
         debug = '--debug'
     local('./vendor/bin/codecept run {} {} {}'.format(suite, group, debug))
 
