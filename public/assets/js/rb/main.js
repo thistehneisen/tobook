@@ -19,4 +19,10 @@ $(document).ready(function () {
     $('.timepicker').datetimepicker({
         pickDate: false
     });
+
+    $('input.time-picker').datetimepicker({
+        pickDate: false,
+        minuteStepping: 15,
+        format: 'HH:mm',
+    });
 });

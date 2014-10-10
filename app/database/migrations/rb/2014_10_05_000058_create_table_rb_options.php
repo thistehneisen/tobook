@@ -17,7 +17,7 @@ class CreateTableRbOptions extends Migration {
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->string('key');
-            $table->string('value');
+            $table->text('value');
             $table->boolean('is_visible');
             $table->timestamps();
             $table->softDeletes();

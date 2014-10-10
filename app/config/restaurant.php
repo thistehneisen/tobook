@@ -177,6 +177,131 @@ return [
                     'default'   => trans('rb.options.booking.enquiry_content_default')
                 ],
             ],
+            'form'  => [
+                'first_name'    => [
+                    'type'      => 'Dropdown',
+                    'values'    => [
+                        'no'        => trans('common.no'),
+                        'yes'       => trans('common.yes'),
+                        'required'  => trans('rb.options.booking.required'),
+                    ],
+                    'default'   => trans('rb.options.booking.required')
+                ],
+                'last_name'    => [
+                    'type'      => 'Dropdown',
+                    'values'    => [
+                        'no'        => trans('common.no'),
+                        'yes'       => trans('common.yes'),
+                        'required'  => trans('rb.options.booking.required'),
+                    ],
+                    'default'   => trans('rb.options.booking.required')
+                ],
+                'phone'    => [
+                    'type'      => 'Dropdown',
+                    'values'    => [
+                        'no'        => trans('common.no'),
+                        'yes'       => trans('common.yes'),
+                        'required'  => trans('rb.options.booking.required'),
+                    ],
+                    'default'   => trans('rb.options.booking.required')
+                ],
+                'email'    => [
+                    'type'      => 'Dropdown',
+                    'values'    => [
+                        'no'        => trans('common.no'),
+                        'yes'       => trans('common.yes'),
+                        'required'  => trans('rb.options.booking.required'),
+                    ],
+                    'default'   => trans('rb.options.booking.required')
+                ],
+                'company'    => [
+                    'type'      => 'Dropdown',
+                    'values'    => [
+                        'no'        => trans('common.no'),
+                        'yes'       => trans('common.yes'),
+                        'required'  => trans('rb.options.booking.required'),
+                    ],
+                    'default'   => trans('common.no')
+                ],
+                'address'    => [
+                    'type'      => 'Dropdown',
+                    'values'    => [
+                        'no'        => trans('common.no'),
+                        'yes'       => trans('common.yes'),
+                        'required'  => trans('rb.options.booking.required'),
+                    ],
+                    'default'   => trans('common.no')
+                ],
+                'zip'    => [
+                    'type'      => 'Dropdown',
+                    'values'    => [
+                        'no'        => trans('common.no'),
+                        'yes'       => trans('common.yes'),
+                        'required'  => trans('rb.options.booking.required'),
+                    ],
+                    'default'   => trans('common.no')
+                ],
+                'city'    => [
+                    'type'      => 'Dropdown',
+                    'values'    => [
+                        'no'        => trans('common.no'),
+                        'yes'       => trans('common.yes'),
+                        'required'  => trans('rb.options.booking.required'),
+                    ],
+                    'default'   => trans('common.no')
+                ],
+                'country'    => [
+                    'type'      => 'Dropdown',
+                    'values'    => [
+                        'no'        => trans('common.no'),
+                        'yes'       => trans('common.yes'),
+                        'required'  => trans('rb.options.booking.required'),
+                    ],
+                    'default'   => trans('common.no')
+                ],
+                'notes'    => [
+                    'type'      => 'Dropdown',
+                    'values'    => [
+                        'no'        => trans('common.no'),
+                        'yes'       => trans('common.yes'),
+                        'required'  => trans('rb.options.booking.required'),
+                    ],
+                    'default'   => trans('common.no')
+                ],
+                'voucher'    => [
+                    'type'      => 'Dropdown',
+                    'values'    => [
+                        'no'        => trans('common.no'),
+                        'yes'       => trans('common.yes'),
+                        'required'  => trans('rb.options.booking.required'),
+                    ],
+                    'default'   => trans('common.yes')
+                ],
+                'capcha'    => [
+                    'type'      => 'Dropdown',
+                    'values'    => [
+                        'no'        => trans('common.no'),
+                        'yes'       => trans('common.yes'),
+                        'required'  => trans('rb.options.booking.required'),
+                    ],
+                    'default'   => trans('rb.options.booking.required')
+                ],
+            ],
+        ],
+        'working_time' => [
+            'index' => [
+                'working_time' => [
+                    'default' => [
+                        'mon' => ['start' => '08:00', 'end' => '20:00', 'off' => '0'],
+                        'tue' => ['start' => '08:00', 'end' => '20:00', 'off' => '0'],
+                        'wed' => ['start' => '08:00', 'end' => '20:00', 'off' => '0'],
+                        'thu' => ['start' => '08:00', 'end' => '20:00', 'off' => '0'],
+                        'fri' => ['start' => '08:00', 'end' => '20:00', 'off' => '0'],
+                        'sat' => ['start' => '08:00', 'end' => '20:00', 'off' => '0'],
+                        'sun' => ['start' => '08:00', 'end' => '20:00', 'off' => '0'],
+                    ]
+                ]
+            ]
         ],
     ],
 ];

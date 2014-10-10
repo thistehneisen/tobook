@@ -116,6 +116,7 @@ return [
     ],
     'options'   => [
         'index'             => 'Options',
+        'updated'           => 'Options updated',
         'general'       => [
             'index'             => 'General',
             'currency'          => 'Currency',
@@ -164,7 +165,28 @@ return [
             'enquiry_subject'                           => 'Enquiry email subject',
             'enquiry_subject_default'                   => 'Enquiry message',
             'enquiry_content'                           => 'Enquiry email content',
-            'enquiry_content_default'                   => $enquiryTokens
+            'enquiry_content_default'                   => $enquiryTokens,
+            'form'                                      => 'Booking Form',
+            'required'                                  => 'Yes (Required)',
+            'first_name'                                => 'First Name',
+            'last_name'                                 => 'Last Name',
+            'phone'                                     => 'Phone',
+            'email'                                     => 'Email',
+            'company'                                   => 'Company',
+            'address'                                   => 'Address',
+            'zip'                                       => 'Zip code',
+            'city'                                      => 'City',
+            'country'                                   => 'Country',
+            'notes'                                     => 'Notes',
+            'voucher'                                   => 'Voucher',
+            'capcha'                                    => 'Capcha',
+        ],
+        'working_time'  => [
+            'index'         => 'Working Time',
+            'days_of_week'  => 'Week day',
+            'start_time'    => 'Start time',
+            'end_time'      => 'End time',
+            'day_off'       => 'Day off',
         ],
     ],
 ];

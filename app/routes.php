@@ -847,6 +847,14 @@ Route::group([
         'rb.bookings'
     );
 
+    Route::get('options/working-time', [
+        'uses' => 'App\Restaurant\Controllers\Option@workingTime'
+    ]);
+
+    Route::post('options/working-time', [
+        'uses' => 'App\Restaurant\Controllers\Option@updateWorkingTime'
+    ]);
+
     Route::get('options/{page?}', [
         'as'   => 'rb.options',
         'uses' => 'App\Restaurant\Controllers\Option@index'
