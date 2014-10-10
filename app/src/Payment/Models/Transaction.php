@@ -2,6 +2,8 @@
 
 class Transaction extends \AppModel
 {
+    const STATUS_SUCCESS = 'success';
+
     public $fillable = [
         'amount',
         'currency',
@@ -66,7 +68,7 @@ class Transaction extends \AppModel
      */
     public function getFormattedAmountAttribute()
     {
-        return $this->amount.$this->currency_symbol;
+        return number_format($this->amount, 2).$this->currency_symbol;
     }
 
     /**
@@ -77,6 +79,11 @@ class Transaction extends \AppModel
     public function setAmountAttribute($value)
     {
         $this->attributes['amount'] = number_format(round($value, 2), 2);
+    }
+
+    public function getAmountAttribute()
+    {
+        return (double) $this->attributes['amount'];
     }
 
 }
