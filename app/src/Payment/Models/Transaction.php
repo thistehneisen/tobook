@@ -42,13 +42,16 @@ class Transaction extends \AppModel
             'USD' => '$',
         ];
 
-        $key = empty($this->attributes['currency'])
-            ? 'EUR'
-            : $this->attributes['currency'];
+        $key = $this->currency;
 
         return isset($map[$key]) ? $map[$key] : $key;
     }
 
+    /**
+     * If a currency is not presented, set default value to EUR
+     *
+     * @return string
+     */
     public function getCurrencyAttribute()
     {
         return !empty($this->attributes['currency'])
@@ -63,8 +66,7 @@ class Transaction extends \AppModel
      */
     public function getFormattedAmountAttribute()
     {
-        return number_format($this->attributes['amount'], 2)
-            .$this->currency_symbol;
+        return $this->amount.$this->currency_symbol;
     }
 
     /**
