@@ -38,4 +38,14 @@ class Index extends Base
     {
         return Payment::notify($gateway);
     }
+
+    /**
+     * Display success message when a payment is completed
+     *
+     * @return View
+     */
+    public function success()
+    {
+        return $this->render('success');
+    }
 }

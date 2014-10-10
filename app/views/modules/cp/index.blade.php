@@ -1,9 +1,5 @@
 @extends ('layouts.default')
 
-@section ('scripts')
-    @parent
-@stop
-
 @section('content')
 {{ Form::open(['route' => 'payment.purchase']) }}
 <div class="container">

@@ -19,6 +19,7 @@ Route::group([
         return Payment::redirect($cart, 1);
     });
 
+
     Route::post('purchase', [
         'as' => 'payment.purchase',
         'uses' => 'App\Payment\Controllers\Index@purchase'
@@ -29,4 +30,8 @@ Route::group([
         'uses' => 'App\Payment\Controllers\Index@notify'
     ]);
 
+    Route::get('success', [
+        'as' => 'payment.success',
+        'uses' => 'App\Payment\Controllers\Index@success'
+    ]);
 });

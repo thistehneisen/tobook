@@ -40,6 +40,8 @@ class Skrill extends Base
             'currency'      => $transaction->currency,
             'transactionId' => $transaction->id,
             'notifyUrl'     => route('payment.notify', ['gateway' => 'skrill']),
+            'returnUrl'     => route('payment.success'),
+            'cancelUrl'     => route('payment.index'),
             // TODO: Populate with cart details
             'details'       => ['foo' => 'bar'],
         ];
