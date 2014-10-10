@@ -10,7 +10,7 @@
 
 <ul class="nav nav-tabs" role="tablist">
     @foreach ($sections as $index => $section)
-    <li class="{{ $index === 0 ? 'active' : '' }}"><a href="#section-{{ $section }}" role="tab" data-toggle="tab">{{ trans('as.options.'.$page.'.'.$section) }}</a></li>
+    <li class="{{ $index === 0 ? 'active' : '' }}"><a href="#section-{{ $section }}" role="tab" data-toggle="tab">{{ trans('rb.options.'.$page.'.'.$section) }}</a></li>
     @endforeach
 </ul>
 <br>

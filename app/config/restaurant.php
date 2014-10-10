@@ -33,15 +33,15 @@ return [
             'index'     => [
                 'price'             => [
                     'type'              => 'Text',
-                    'default'           => trans('rb.options.booking.price_default')
+                    'default'           => 50
                 ],
                 'length'            => [
                     'type'              => 'Text',
-                    'default'           => trans('rb.options.booking.length_default')
+                    'default'           => 180
                 ],
                 'hours_before'      => [
                     'type'              => 'Text',
-                    'default'           => trans('rb.options.booking.hours_before_default')
+                    'default'           => 2
                 ],
                 'booking_type'      => [
                     'type'              => 'Dropdown',
@@ -53,7 +53,7 @@ return [
                 ],
                 'group_minimum'     => [
                     'type'              => 'Text',
-                    'default'           => trans('rb.options.booking.group_minimum_default')
+                    'default'           => 10
                 ],
                 'booking_status'    => [
                     'type'              => 'Dropdown',
@@ -120,6 +120,61 @@ return [
                         'no'    => trans('common.no'),
                     ],
                     'default'   => trans('common.yes')
+                ],
+            ],
+            'confirmation'  => [
+                'email_address' => [
+                    'type'      => 'Text',
+                    'default'   => 'info@domain.com',
+                ],
+                'confirmation_sent' => [
+                    'type'      => 'Dropdown',
+                    'values'    => [
+                        'none'          => trans('rb.options.booking.confirmation_sent_none'),
+                        'after_booking' => trans('rb.options.booking.confirmation_sent_after_booking'),
+                        'after_payment' => trans('rb.options.booking.confirmation_sent_after_payment'),
+                    ],
+                    'default'   => trans('rb.options.booking.confirmation_sent_after_booking')
+                ],
+                'confirmation_subject' => [
+                    'type'      => 'Text',
+                    'default'   => trans('rb.options.booking.confirmation_subject_default')
+                ],
+                'confirmation_content' => [
+                    'type'      => 'Textarea',
+                    'default'   => trans('rb.options.booking.confirmation_content_default')
+                ],
+                'payment_confirmation_sent' => [
+                    'type'      => 'Dropdown',
+                    'values'    => [
+                        'none'          => trans('rb.options.booking.confirmation_sent_none'),
+                        'after_payment' => trans('rb.options.booking.confirmation_sent_after_payment'),
+                    ],
+                    'default'   => trans('rb.options.booking.confirmation_sent_none')
+                ],
+                'payment_confirmation_subject'  => [
+                    'type'      => 'Text',
+                    'default'   => trans('rb.options.booking.payment_confirmation_subject_default')
+                ],
+                'payment_confirmation_content' => [
+                    'type'      => 'Textarea',
+                    'default'   => trans('rb.options.booking.payment_confirmation_content_default')
+                ],
+                'enquiry_sent' => [
+                    'type'      => 'Dropdown',
+                    'values'    => [
+                        'none'          => trans('rb.options.booking.confirmation_sent_none'),
+                        'after_booking' => trans('rb.options.booking.confirmation_sent_after_booking'),
+                    ],
+                    'default'   => trans('rb.options.booking.confirmation_sent_after_booking')
+                ],
+                'enquiry_subject'  => [
+                    'type'      => 'Text',
+                    'default'   => trans('rb.options.booking.enquiry_subject_default')
+                ],
+                'enquiry_content' => [
+                    'type'      => 'Textarea',
+                    'default'   => trans('rb.options.booking.enquiry_content_default')
                 ],
             ],
         ],
