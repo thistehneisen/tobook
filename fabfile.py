@@ -92,3 +92,19 @@ def migrate(module=''):
             'php artisan migrate --path=app/database/migrations/{}'
             .format(module)
         )
+
+
+@task(alias='cs')
+def code_sniffer(path='app'):
+    '''
+    Run PHP Code Sniffer
+    '''
+    local('./vendor/bin/phpcs -s --standard=./ruleset.xml {}'.format(path))
+
+
+@task(alias='f')
+def fix(path='app'):
+    '''
+    Run PHP Code Sniffer Fixer
+    '''
+    local('./vendor/bin/php-cs-fixer fix {}'.format(path))
