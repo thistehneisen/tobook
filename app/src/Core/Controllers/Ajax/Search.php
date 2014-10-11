@@ -6,7 +6,7 @@ use App\Core\Models\BusinessCategory;
 use App\Core\Models\User;
 use App\Appointment\Controllers\Embed\Layout;
 use App\Appointment\Models\Service;
-
+use Carbon\Carbon;
 
 class Search extends Base
 {
@@ -101,6 +101,7 @@ class Search extends Base
             'single'     => $view,
             'lat'        => $business->lat,
             'lng'        => $business->lng,
+            'now'        => Carbon::now()
         ];
 
         $data = array_merge($data, $nextSlots);

@@ -3,6 +3,7 @@
 use View, Input, DB, Util, Response, Geocoder, App, Config;
 use App\Core\Models\BusinessCategory;
 use App\Core\Models\User as BusinessModel;
+use Carbon\Carbon;
 
 class Search extends Base
 {
@@ -39,6 +40,7 @@ class Search extends Base
             'businesses' => $businesses,
             'lat'        => $geocode->getLatitude(),
             'lng'        => $geocode->getLongitude(),
+            'now'        => Carbon::now()
         ]);
     }
 }

@@ -165,6 +165,10 @@ applyCountdown($('span.countdown'));
             </p>
         @else
             @foreach ($businesses as $item)
+             <?php
+                $slots = $item->getASNextTimeSlots($now->toDateString(), $now->hour);
+                $count = 0;
+            ?>
             <div class="result-row row" data-id="{{ $item->id }}" data-url="{{ route('ajax.showBusiness', ['hash' => $item->hash, 'id' => $item->id, 'l' => 3]) }}">
                 <div class="col-md-6">
                     <img src="{{ asset($item->image) }}" alt="" class="img-responsive img-rounded">
@@ -181,6 +185,18 @@ applyCountdown($('span.countdown'));
                 <div class="col-md-6">
                     <h4>{{ $item->business_name }}</h4>
                     <p>{{ $item->full_address }}</p>
+                   @foreach ($slots as $slot)
+                    <?php if($count === 3) break;?>
+                    <a href="{{ route('business.index', [
+                        'id'          => $item->id,
+                        'slug'        => $item->slug,
+                        'service_id'  => $slot['service'],
+                        'employee_id' => $slot['employee'],
+                        'hour'        => $slot['hour'],
+                        'minute'      => $slot['minute']
+                    ])}}" class="btn btn-sm btn-default">{{ $slot['time'] }}</a>
+                    <?php $count++;?>
+                    @endforeach
                     {{--
                     <p>60-80€</p>
                     --}}
