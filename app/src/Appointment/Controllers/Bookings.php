@@ -607,6 +607,7 @@ class Bookings extends AsBase
                 'modify_time' => $bookingService->modify_time,
                 'plustime'    => $plustime,
                 'ip'          => Request::getClientIp(),
+                'source'      => 'backend'
             ]);
             //need to update end_at, total when add extra service
 

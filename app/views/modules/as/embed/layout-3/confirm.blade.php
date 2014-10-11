@@ -32,6 +32,7 @@
     <input type="hidden" name="email" value="{{ $email }}">
     <input type="hidden" name="phone" value="{{ $phone }}">
     <input type="hidden" name="cart_id" value="{{ $cartId }}">
+    <input type="hidden" name="source" value="layout3">
 
     <div class="form-group">
         <div class="col-sm-12">
