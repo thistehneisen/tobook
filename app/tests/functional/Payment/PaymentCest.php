@@ -6,10 +6,13 @@ use App\Core\Models\Cart;
 use FunctionalTester;
 use Payment, Session;
 
+/**
+ * @group cp
+ */
 class PaymentCest extends \Test\Functional\Base
 {
     protected $amount = 999;
-    protected $userId = 1;
+    protected $userId = 70;
 
     public function redirectToPaymentPage(FunctionalTester $I)
     {

@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.12)
 # Database: varaa_dev_dump
-# Generation Time: 2014-10-09 01:41:14 +0000
+# Generation Time: 2014-10-10 23:50:16 +0000
 # ************************************************************
 
 
@@ -1915,7 +1915,8 @@ VALUES
 	('2014_09_10_135300_alter_table_lc_consumers_add_unique',15),
 	('2014_10_04_124040_add_table_cart',16),
 	('2014_10_04_150244_add_table_cart_details',16),
-	('2014_10_06_145400_add_source_column_to_as_bookings_table',17);
+	('2014_10_06_145400_add_source_column_to_as_bookings_table',17),
+	('2014_10_09_133444_create_table_transactions',18);
 
 /*!40000 ALTER TABLE `varaa_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -2245,6 +2246,29 @@ VALUES
 
 /*!40000 ALTER TABLE `varaa_roles` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
+# Dump of table varaa_transactions
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `varaa_transactions`;
+
+CREATE TABLE `varaa_transactions` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `cart_id` int(10) unsigned NOT NULL,
+  `amount` double(5,2) NOT NULL,
+  `currency` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `paygate` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `status` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `message` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `code` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `reference` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 
 
 # Dump of table varaa_users
