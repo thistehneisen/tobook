@@ -176,6 +176,7 @@ trait Models
                     'name' => 'Service ' . (++$serviceCreated),
                     'length' => 15 * $serviceCreated,
                     'price' => 10 * $serviceCreated,
+                    'is_active' => 1,
                 ]);
                 $service->user()->associate($this->user);
                 $service->category()->associate($category);
@@ -183,7 +184,7 @@ trait Models
 
                 if ($employee !== null) {
                     // attach with one employee
-
+                    $service->employees()->attach($employee);
                 } else {
                     // attach with all created employee
                     foreach ($this->employees as $employee) {

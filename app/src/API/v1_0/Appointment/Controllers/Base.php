@@ -1,8 +1,11 @@
 <?php namespace App\API\v1_0\Appointment\Controllers;
 
 use Config;
+use App\Appointment\Models\Service;
+use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\Booking;
 use Carbon\Carbon;
+use Illuminate\Pagination\Paginator;
 
 class Base extends \App\Core\Controllers\Base
 {
@@ -82,6 +85,69 @@ class Base extends \App\Core\Controllers\Base
         ];
 
         return $activeData;
+    }
+
+    protected function _prepareServiceData(Service $service)
+    {
+        $times = [[
+            'service_time_id' => 'default',
+            'length' => $service->length,
+            'price' => $service->price,
+        ]];
+        foreach ($service->serviceTimes as $serviceTime) {
+            $times[] = [
+                'service_time_id' => $serviceTime->id,
+                'length' => $serviceTime->length,
+                'price' => $serviceTime->price,
+            ];
+        }
+
+        $extras = [];
+        foreach ($service->extraServices as $extraService) {
+            $extras[] = [
+                'extra_service_id' => $extraService->id,
+                'name' => $extraService->name,
+                'description' => $extraService->description,
+                'length' => $extraService->length,
+                'price' => $extraService->price,
+            ];
+        }
+
+        $serviceData = [
+            'type' => 'service',
+            'service_id' => $service->id,
+            'service_name' => $service->name,
+            'service_description' => $service->description,
+            'service_is_active' => $service->is_active,
+
+            'category_id' => $service->category_id,
+            'service_times' => $times,
+            'extra_services' => $extras,
+        ];
+
+        return $serviceData;
+    }
+
+    protected function _prepareServiceCategoryData(ServiceCategory $category)
+    {
+        $categoryData = [
+            'type' => 'service_category',
+            'category_id' => $category->id,
+            'category_name' => $category->name,
+            'category_description' => $category->description,
+        ];
+
+        return $categoryData;
+    }
+
+    protected function _preparePagination(Paginator $pagination)
+    {
+        return [
+            'total' => $pagination->getTotal(),
+            'per_page' => $pagination->getPerPage(),
+            'page' => $pagination->getCurrentPage(),
+            'last_page' => $pagination->getLastPage(),
+        ];
     }
 
     protected function _calculateDuration(Carbon $startAt, Carbon $endAt)

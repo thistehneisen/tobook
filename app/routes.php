@@ -394,6 +394,10 @@ Route::group([
             Route::resource('bookings', 'App\API\v1_0\Appointment\Controllers\Booking', [
                 'only' => ['store', 'show', 'update', 'destroy']
             ]);
+            Route::get('services', 'App\API\v1_0\Appointment\Controllers\Service@getServices');
+            Route::get('services/{id}', 'App\API\v1_0\Appointment\Controllers\Service@getService');
+            Route::get('service-categories', 'App\API\v1_0\Appointment\Controllers\Service@getCategories');
+            Route::get('service-categories/{id}', 'App\API\v1_0\Appointment\Controllers\Service@getCategory');
         });
         // Other modules
     });
