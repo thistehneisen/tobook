@@ -1,8 +1,7 @@
-<h3>{{{ $business->business_name }}}</h3>
-<p>{{{ $business->full_address }}}</p>
-
 <div class="row">
-    <div class="col-sm-5">
+    <div class="col-sm-6">
+        <h3>{{{ $business->business_name }}}</h3>
+        <p>{{{ $business->full_address }}}</p>
         <p><img src="{{ asset($business->image) }}" alt="" class="img-responsive img-rounded"></p>
 
         <!-- About -->
@@ -74,7 +73,7 @@
         @endif
     </div>
 
-    <div class="col-sm-7">
+    <div class="col-sm-6">
         <div class="box">
             @include('modules.as.embed.layout-3.main')
         </div>

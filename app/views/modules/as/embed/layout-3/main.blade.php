@@ -63,4 +63,3 @@
 </div>
 
 <input type="hidden" name="add-service-url" id="add-service-url" value="{{ route('as.bookings.service.front.add') }}">
-{{ HTML::script(asset('assets/js/as/layout-3.js').(Config::get('app.debug') ? '?v='.time() : '')) }}
