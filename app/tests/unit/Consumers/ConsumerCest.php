@@ -1,6 +1,9 @@
 <?php
 use App\Consumers\Models\Consumer;
 
+/**
+ * @group co
+ */
 class ConsumerCest
 {
     public function testGetName(UnitTester $t)

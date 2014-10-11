@@ -96,6 +96,16 @@
     @if(App::getLocale() !== 'en')
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.'.App::getLocale().'.min.js') }}
     @endif
+
+    {{-- Global --}}
+    {{ HTML::script(asset('assets/js/global.js?v=00001')) }}
+    <script>
+    VARAA.currentLocale = '{{ App::getLocale() }}';
+    $.getJSON("{{ route('ajax.jslocale') }}", function (data) {
+        VARAA._i18n = data;
+    });
+    </script>
+
     @yield('extra_js')
 
     <script src="{{ asset('assets/js/as/'.$layout.'.js').(Config::get('app.debug') ? '?v='.time() : '') }}"></script>

@@ -1,10 +1,13 @@
 <?php namespace Test\Functional\Auth;
 
-use Test\Functional\Base;
+use FunctionalTester;
 
-class ConsumerAuthCest extends Base
+/**
+ * @group core
+ */
+class ConsumerAuthCest extends \Test\Functional\Base
 {
-    public function seeConsumerRegisterPage(\FunctionalTester $i)
+    public function seeConsumerRegisterPage(FunctionalTester $i)
     {
         $i->amOnPage('consumer/register');
         $i->seeResponseCodeIs(200);

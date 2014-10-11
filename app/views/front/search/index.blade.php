@@ -113,6 +113,8 @@ applyCountdown($('span.countdown'));
 
             content.html(html);
 
+            VARAA.initLayout3();
+
             // Set current business flag
             content.data('current', $this.data('id'));
 
