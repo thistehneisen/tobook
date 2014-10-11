@@ -187,14 +187,7 @@ applyCountdown($('span.countdown'));
                     <p>{{ $item->full_address }}</p>
                    @foreach ($slots as $slot)
                     <?php if($count === 3) break;?>
-                    <a href="{{ route('business.index', [
-                        'id'          => $item->id,
-                        'slug'        => $item->slug,
-                        'service_id'  => $slot['service'],
-                        'employee_id' => $slot['employee'],
-                        'hour'        => $slot['hour'],
-                        'minute'      => $slot['minute']
-                    ])}}" class="btn btn-sm btn-default">{{ $slot['time'] }}</a>
+                     <a href="#" data-business-id="{{ $item->id }}" data-service-id="{{ $slot['service'] }}" data-employee-id="{{ $slot['employee'] }}" data-hour="{{ $slot['hour'] }}" data-minute="{{ $slot['minute'] }}" class="btn btn-sm btn-default">{{ $slot['time'] }}</a>
                     <?php $count++;?>
                     @endforeach
                     {{--

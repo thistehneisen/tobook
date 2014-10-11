@@ -6,7 +6,6 @@ use App\Core\Models\BusinessCategory;
 use App\Core\Models\User;
 use App\Appointment\Controllers\Embed\Layout;
 use App\Appointment\Models\Service;
-use Carbon\Carbon;
 
 class Search extends Base
 {
