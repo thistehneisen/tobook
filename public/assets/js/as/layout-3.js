@@ -1,15 +1,14 @@
 /*jslint browser: true, nomen: true, unparam: true, node: true*/
-/*global $, jQuery, VARAA*/
-'use strict';
-
+/*global jQuery, VARAA*/
 (function ($) {
+    'use strict';
+
     $(function () {
         VARAA.initLayout3 = function () {
             var categories = $('div.as-category'),
                 services = $('div.as-service'),
                 body = $('body'),
                 form = $('#varaa-as-bookings'),
-                //step1 = $('#as-step-1'), // unused
                 step2 = $('#as-step-2'),
                 step3 = $('#as-step-3'),
                 step4 = $('#as-step-4'),
@@ -18,25 +17,28 @@
                 title3 = $('#as-title-3'),
                 title4 = $('#as-title-4'),
                 dp = $('#as-datepicker'),
-                dataStorage = {
-                    hash: body.data('hash')
-                },
+                fnLoadTimeTable,
+                dataStorage = {hash: body.data('hash')};
 
-                fnLoadTimeTable = function () {
-                    // Show loading indicator
-                    step3.find('div.as-timetable-content').hide();
-                    step3.find('div.as-loading').show();
+            fnLoadTimeTable = function () {
+                // Show loading indicator
+                step3.find('div.as-timetable-content').hide();
+                step3.find('div.as-loading').show();
 
-                    $.ajax({
-                        url: step3.data('url'),
-                        type: 'POST',
-                        data: dataStorage
-                    }).done(function (data) {
-                        step3.find('div.panel-body').html(data);
-                        dataStorage.date = step3.find('li.active > a').data('date');
-                        step3.trigger('afterShow');
-                    });
-                };
+                $.ajax({
+                    url: step3.data('url'),
+                    type: 'POST',
+                    data: dataStorage
+                }).done(function (data) {
+                    step3.find('div.panel-body').html(data);
+                    dataStorage.date = step3.find('li.active > a').data('date');
+                    step3.trigger('afterShow');
+                });
+            };
+
+            // Attach an `inhouse` indicator
+            // If it's truthy, we'll show a login/register section in step 4
+            dataStorage.inhouse = form.data('inhouse');
 
             // Assign datepicker
             dp.datepicker({
@@ -46,7 +48,7 @@
                 todayHighlight: true,
                 weekStart: 1,
                 language: body.data('locale')
-            }).on('changeDate', function (e) {
+            }).on('changeDate', function () {
                 var date = dp.datepicker('getUTCDate');
                 if ($.trim(date) !== 'Invalid Date') {
                     dataStorage.date = date;
@@ -131,7 +133,7 @@
             });
 
             // When user clicks to select a time
-            form.on('click', 'button.btn-as-time', function (e) {
+            form.on('click', 'button.btn-as-time', function () {
                 var $this = $(this),
                     panel = step4.find('div.panel-body');
 
