@@ -82,13 +82,18 @@ App::down(function () {
 | definitions instead of putting them all in the main routes file.
 |
 */
+require app_path().'/filters.php';
 
+/*
+|--------------------------------------------------------------------------
+| Localize existing URLs
+|--------------------------------------------------------------------------
+| We want to maintain the URL in the format of
+| varaa.com/<locale>/<param1>/<param2>... and set system's locale based
+| on the request URI
+|
+*/
 App::before(function ($request) {
-    // Purpose:
-    // We want to maintain the URL in the format of
-    // varaa.com/<locale>/<param1>/<param2>... and set system's locale based
-    // on the request URI
-
     // Get default browser language
     $language = substr($request->server->get('HTTP_ACCEPT_LANGUAGE'), 0, 2);
 
@@ -135,4 +140,12 @@ App::before(function ($request) {
     $_SESSION['varaa_locale'] = $language;
 });
 
-require app_path().'/filters.php';
+/*
+|--------------------------------------------------------------------------
+| Require The Event Handlers
+|--------------------------------------------------------------------------
+| Quick way to attach event handlers
+| @todo: Refactor modules to service providers and attach in there.
+|
+*/
+require app_path().'/events.php';

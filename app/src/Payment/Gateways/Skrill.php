@@ -1,7 +1,7 @@
 <?php namespace App\Payment\Gateways;
 
 use Omnipay\Omnipay;
-use Config, App, Validator, Input, Log;
+use Config, App, Validator, Input, Log, Event;
 use App\Payment\Models\Transaction;
 
 class Skrill extends Base
@@ -101,6 +101,10 @@ class Skrill extends Base
         $transaction->reference = Input::get('md5sig');
         $transaction->paygate = 'Skrill';
         $transaction->save();
+
+        // Fire success event, so that related data know how to update
+        // themselves
+        Event::fire('payment.success', [$transaction]);
 
         // Complete, exit to prevent any additional output
         exit;

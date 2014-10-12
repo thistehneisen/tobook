@@ -474,6 +474,11 @@ Route::group([
             'uses' => 'App\Appointment\Controllers\Embed\Layout3@confirm'
         ]);
 
+        Route::post('l3/payment', [
+            'as' => 'as.embed.l3.payment',
+            'uses' => 'App\Appointment\Controllers\Embed\Layout3@payment'
+        ]);
+
         Route::get('{hash}', [
             'as' => 'as.embed.embed',
             'uses' => 'App\Appointment\Controllers\Embed\Base@index'

@@ -365,7 +365,8 @@ return [
             'service'         => 'Service',
             'employee'        => 'Employee',
             'name'            => 'Your name',
-            'empty'           => 'There is no available time on selected day.'
+            'empty'           => 'There is no available time on selected day.',
+            'payment_note'    => 'After a booking is placed, you will be redirected to payment.', // @todo
         ]
     ],
      'options' => [

@@ -29,6 +29,7 @@
     <input type="hidden" name="date" value="{{ Input::get('date') }}">
     <input type="hidden" name="time" value="{{ Input::get('time') }}">
     <input type="hidden" name="cartId" value="{{ Input::get('cartId') }}">
+    <input type="hidden" name="inhouse" value="{{ Input::get('inhouse') }}">
 
     @if ((int) $user->asOptions['terms_enabled'] > 1)
     <div class="form-group">

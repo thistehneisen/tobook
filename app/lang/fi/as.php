@@ -384,6 +384,7 @@ return [
             'employee'        => 'Henkilö',
             'name'            => 'Sinun nimi',
             'empty'           => 'There is no available time on selected day.', //@todo
+            'payment_note'    => 'After a booking is placed, you will be redirected to payment.', // @todo
         ]
     ],
     'options' => [

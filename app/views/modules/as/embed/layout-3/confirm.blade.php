@@ -1,25 +1,29 @@
+{{ Form::open(['route' => 'as.embed.l3.payment', 'id' => 'as-form-payment']) }}
+    <input type="hidden" name="cart_id" value="{{ $cartId }}">
+{{ Form::close() }}
+
 {{ Form::open(['route' => 'as.bookings.frontend.add', 'class' => 'form-horizontal', 'id' => 'as-form-confirm', 'role' => 'form']) }}
     <div class="form-group">
-        <label class="form-label col-sm-2">{{ trans('as.embed.layout_3.service') }}:</label>
-        <div class="col-sm-3">{{ $service->name }} ({{ $service->length }} {{ trans('common.minutes')}})</div>
-        <div class="col-sm-3"><i class="glyphicon glyphicon-tag"></i> {{ $service->price }}&euro;</div>
-        <div class="col-sm-4"><i class="glyphicon glyphicon-time"></i> {{ $date->format(trans('common.format.date')) }} {{ $time }}</div>
+        <label class="form-label col-md-2">{{ trans('as.embed.layout_3.service') }}:</label>
+        <div class="col-md-3">{{ $service->name }} ({{ $service->length }} {{ trans('common.minutes')}})</div>
+        <div class="col-md-3"><i class="glyphicon glyphicon-tag"></i> {{ $service->price }}&euro;</div>
+        <div class="col-md-4"><i class="glyphicon glyphicon-time"></i> {{ $date->format(trans('common.format.date')) }} {{ $time }}</div>
     </div>
 
     <div class="form-group">
-        <label class="form-label col-sm-2">{{ trans('as.embed.layout_3.employee') }}:</label>
-        <div class="col-sm-10">{{ $employee->name }}</div>
+        <label class="form-label col-md-2">{{ trans('as.embed.layout_3.employee') }}:</label>
+        <div class="col-md-10">{{ $employee->name }}</div>
     </div>
 
     <div class="form-group">
-        <label class="form-label col-sm-2">{{ trans('as.embed.layout_3.name') }}:</label>
-        <div class="col-sm-10">{{ $first_name }} {{ $last_name }}</div>
+        <label class="form-label col-md-2">{{ trans('as.embed.layout_3.name') }}:</label>
+        <div class="col-md-10">{{ $first_name }} {{ $last_name }}</div>
     </div>
 
     <div class="form-group">
-        <label class="form-label col-sm-2">{{ trans('as.embed.layout_3.contact') }}:</label>
-        <div class="col-sm-3">{{ $phone }}</div>
-        <div class="col-sm-7">{{ $email }}</div>
+        <label class="form-label col-md-2">{{ trans('as.embed.layout_3.contact') }}:</label>
+        <div class="col-md-3">{{ $phone }}</div>
+        <div class="col-md-7">{{ $email }}</div>
     </div>
 
     <input type="hidden" name="service_id" value="{{ $service->id }}">
@@ -32,10 +36,17 @@
     <input type="hidden" name="email" value="{{ $email }}">
     <input type="hidden" name="phone" value="{{ $phone }}">
     <input type="hidden" name="cart_id" value="{{ $cartId }}">
+    <input type="hidden" name="inhouse" value="{{ $inhouse }}">
     <input type="hidden" name="source" value="layout3">
 
+    @if ($inhouse)
+        <div class="alert alert-info" role="alert">
+            <p>{{ trans('as.embed.layout_3.payment_note') }}</p>
+        </div>
+    @endif
+
     <div class="form-group">
-        <div class="col-sm-12">
+        <div class="col-md-12">
             <button type="submit" id="btn-checkout-submit" class="btn btn-success">{{ trans('common.save') }}</button>
             <span class="text-success"></span>
             <span class="as-loading">

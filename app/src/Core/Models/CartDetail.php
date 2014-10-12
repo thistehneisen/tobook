@@ -44,6 +44,19 @@ class CartDetail extends Base
     }
 
     //--------------------------------------------------------------------------
+    // ATTRIBUTES
+    //--------------------------------------------------------------------------
+    public function getQuantityAttribute()
+    {
+        return (int) $this->attributes['quantity'];
+    }
+
+    public function getPriceAttribute()
+    {
+        return (double) $this->attributes['price'];
+    }
+
+    //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
     public function cart()

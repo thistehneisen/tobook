@@ -231,6 +231,13 @@
                     dataType: 'JSON'
                 }).done(function (e) {
                     if (e.success === true) {
+                        // If we're in Varaa website, submit as normal to
+                        // redirect user to paygate
+                        if (dataStorage.inhouse === 1) {
+                            $('#as-form-payment').submit();
+                            return;
+                        }
+
                         // Hide loading
                         loading.hide();
                         submit.siblings('.text-success').text(e.message);
