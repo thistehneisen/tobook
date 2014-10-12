@@ -41,7 +41,21 @@ class IndexExistingBusinessCommand extends Command {
     {
         $client = new \Elasticsearch\Client();
         $indexParams['index']  = 'businesses';    //index
-
+        $indexParams['body']['settings']['analysis']['analyzer'] = [
+            'varaa_ngrams' => [
+                'type' => 'custom',
+                'tokenizer' => 'varaa_tokenizer',
+                'filter' => ['lowercase']
+            ]
+        ];
+         $indexParams['body']['settings']['analysis']['tokenizer'] = [
+            'varaa_tokenizer' => [
+                'type'        => 'nGram',
+                'min_gram'    => '3',
+                'max_gram'    => '4',
+                'token_chars' => ['letter', 'digit']
+            ]
+        ];
         // Example Index Mapping
         $business = [
             '_source' => [
@@ -50,35 +64,35 @@ class IndexExistingBusinessCommand extends Command {
             'properties' => array(
                 'name' => [
                     'type' => 'string',
-                    'analyzer' => 'standard'
+                    'analyzer' => 'varaa_ngrams'
                 ],
                 'business_name' => [
                     'type' => 'string',
-                    'analyzer' => 'standard'
+                    'analyzer' => 'varaa_ngrams'
                 ],
                 'category_name' => [
                     'type' => 'string',
-                    'analyzer' => 'standard'
+                    'analyzer' => 'varaa_ngrams'
                 ],
                 'postcode' => [
                     'type' => 'string',
-                    'analyzer' => 'standard'
+                    'analyzer' => 'varaa_ngrams'
                 ],
                 'city' => [
                     'type' => 'string',
-                    'analyzer' => 'standard'
+                    'analyzer' => 'varaa_ngrams'
                 ],
                 'country' => [
                     'type' => 'string',
-                    'analyzer' => 'standard'
+                    'analyzer' => 'varaa_ngrams'
                 ],
                 'phone' => [
                     'type' => 'string',
-                    'analyzer' => 'standard'
+                    'analyzer' => 'varaa_ngrams'
                 ],
                 'description' => [
                     'type' => 'string',
-                    'analyzer' => 'standard'
+                    'analyzer' => 'varaa_ngrams'
                 ],
                 'location' => [
                     "type"          =>"geo_point",
