@@ -16,10 +16,11 @@ class Search extends Base
         $page     = Input::get('page', 1);
 
         $businesses = new \Illuminate\Support\Collection;
+        $data = [];
+        $total = 0;
+        $perPage = (int) Config::get('view.perPage');
 
         if(!empty($q) || !empty($location)){
-            $data = [];
-            $perPage = (int) Config::get('view.perPage');
             $params['index'] = 'businesses';
             $params['type']  = 'business';
             $params['from']  = ($page * $perPage) - $perPage;
@@ -29,6 +30,7 @@ class Search extends Base
             $query['bool']['should'][]['match']['business_name'] = $q;
             $query['bool']['should'][]['match']['category_name'] = $q;
             $query['bool']['should'][]['match']['description']   = $q;
+            $query['bool']['should'][]['match']['keywords']      = $q;
 
             $filter = [
                 'exists' => [ 'field' => 'business_name' ]
@@ -47,8 +49,9 @@ class Search extends Base
             foreach ($result['hits']['hits'] as $row) {
                 $data[] = BusinessModel::find($row['_id']);
             }
-            $businesses =  Paginator::make($data, $total, $perPage);
         }
+
+        $businesses =  Paginator::make($data, $total, $perPage);
 
         // Helsinki
         $long = '60.1733244';

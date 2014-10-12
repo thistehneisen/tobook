@@ -75,6 +75,10 @@ class IndexExistingBusinessCommand extends Command {
                     'type' => 'string',
                     'analyzer' => 'varaa_ngrams'
                 ],
+                'keywords' => [
+                    'type' => 'string',
+                    'analyzer' => 'varaa_ngrams'
+                ],
                 'postcode' => [
                     'type' => 'string',
                     'analyzer' => 'varaa_ngrams'
@@ -116,7 +120,8 @@ class IndexExistingBusinessCommand extends Command {
         $users = DB::table('users')->get();
         foreach ($users as $user) {
             $categories = DB::table('business_categories')
-                ->select(DB::raw("GROUP_CONCAT(varaa_business_categories.name SEPARATOR ', ') as names"))
+                ->select(DB::raw("GROUP_CONCAT(varaa_business_categories.name SEPARATOR ', ') as names"),
+                    DB::raw("GROUP_CONCAT(varaa_business_categories.keywords SEPARATOR ', ') as keywords"))
                 ->join('business_category_user','business_category_user.business_category_id','=','business_categories.id')
                 ->where('business_category_user.user_id','=', $user->id)->first();
 
@@ -134,6 +139,7 @@ class IndexExistingBusinessCommand extends Command {
                 'name' => $user->username,
                 'business_name' => $business_name,
                 'category_name' => str_replace('_', ' ', $categories->names),
+                'keywords' => str_replace('_', ' ', $categories->keywords),
                 'address' => $user->address,
                 'postcode' => $user->postcode,
                 'city' => $user->city,
