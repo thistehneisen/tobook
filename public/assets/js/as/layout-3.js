@@ -5,51 +5,53 @@
 
     $(function () {
         VARAA.initLayout3 = function () {
-            var categories = $('div.as-category'),
-                services = $('div.as-service'),
-                body = $('body'),
-                form = $('#varaa-as-bookings'),
-                step2 = $('#as-step-2'),
-                step3 = $('#as-step-3'),
-                step4 = $('#as-step-4'),
-                title1 = $('#as-title-1'),
-                title2 = $('#as-title-2'),
-                title3 = $('#as-title-3'),
-                title4 = $('#as-title-4'),
-                dp = $('#as-datepicker'),
+            var $categories = $('div.as-category'),
+                $services = $('div.as-service'),
+                $body = $('body'),
+                $form = $('#varaa-as-bookings'),
+                $step2 = $('#as-step-2'),
+                $step3 = $('#as-step-3'),
+                $step4 = $('#as-step-4'),
+                $title1 = $('#as-title-1'),
+                $title2 = $('#as-title-2'),
+                $title3 = $('#as-title-3'),
+                $title4 = $('#as-title-4'),
+                $dp = $('#as-datepicker'),
                 fnLoadTimeTable,
-                dataStorage = {hash: body.data('hash')};
+                dataStorage = {
+                    hash: $body.data('hash')
+                };
 
             fnLoadTimeTable = function () {
                 // Show loading indicator
-                step3.find('div.as-timetable-content').hide();
-                step3.find('div.as-loading').show();
+                $step3.find('div.as-timetable-content').hide();
+                $step3.find('div.as-loading').show();
 
                 $.ajax({
-                    url: step3.data('url'),
+                    url: $step3.data('url'),
                     type: 'POST',
                     data: dataStorage
                 }).done(function (data) {
-                    step3.find('div.panel-body').html(data);
-                    dataStorage.date = step3.find('li.active > a').data('date');
-                    step3.trigger('afterShow');
+                    $step3.find('div.panel-body').html(data);
+                    dataStorage.date = $step3.find('li.active > a').data('date');
+                    $step3.trigger('afterShow');
                 });
             };
 
             // Attach an `inhouse` indicator
             // If it's truthy, we'll show a login/register section in step 4
-            dataStorage.inhouse = form.data('inhouse');
+            dataStorage.inhouse = $form.data('inhouse');
 
             // Assign datepicker
-            dp.datepicker({
+            $dp.datepicker({
                 format: 'yyyy-mm-dd',
                 startDate: new Date(),
                 todayBtn: true,
                 todayHighlight: true,
                 weekStart: 1,
-                language: body.data('locale')
+                language: $body.data('locale')
             }).on('changeDate', function () {
-                var date = dp.datepicker('getUTCDate');
+                var date = $dp.datepicker('getUTCDate');
                 if ($.trim(date) !== 'Invalid Date') {
                     dataStorage.date = date;
                     fnLoadTimeTable();
@@ -59,7 +61,7 @@
             // Setup tooltip
             $('i[data-toggle=tooltip]').tooltip();
 
-            form.on('click', 'div.collapsable', function (e) {
+            $form.on('click', 'div.collapsable', function (e) {
                 e.preventDefault();
                 if ($(e.target).is('#as-datepicker') === false) {
                     var $this = $(this);
@@ -70,15 +72,15 @@
             // When user selects a category
             $('input[name=category_id]').on('change', function () {
                 var $this = $(this);
-                categories.hide(function () {
+                $categories.hide(function () {
                     $('#as-category-' + $this.val() + '-services').show();
                 });
             });
 
             // When user wants to return to category list
             $('p.as-back').on('click', function () {
-                services.hide(function () {
-                    categories.show();
+                $services.hide(function () {
+                    $categories.show();
                 });
             });
 
@@ -91,31 +93,31 @@
             // When user selects a service time
             $('input[name=service_id]').on('change', function () {
                 var $this = $(this);
-                title1.find('span').text($this.data('service'));
-                title1.find('i').removeClass('hide');
-                title1.addClass('collapsable');
+                $title1.find('span').text($this.data('service'));
+                $title1.find('i').removeClass('hide');
+                $title1.addClass('collapsable');
 
-                step2.collapse('show');
-                title2.addClass('collapsable');
+                $step2.collapse('show');
+                $title2.addClass('collapsable');
 
                 // Assign serviceId to dataStorage
                 dataStorage.serviceId = $this.val();
 
                 $.ajax({
-                    url: step2.data('url'),
+                    url: $step2.data('url'),
                     type: 'POST',
                     data: dataStorage
                 }).done(function (data) {
-                    step2.find('.panel-body').html(data);
+                    $step2.find('.panel-body').html(data);
                     $this.trigger('afterSelect');
                 });
             });
 
-            form.on('change', 'input[name=employee_id]', function () {
+            $form.on('change', 'input[name=employee_id]', function () {
                 var $this = $(this);
-                title2.find('i').removeClass('hide');
-                step3.collapse('show');
-                title3.addClass('collapsable');
+                $title2.find('i').removeClass('hide');
+                $step3.collapse('show');
+                $title3.addClass('collapsable');
 
                 // Asign employeeId to dataStorage
                 dataStorage.employeeId = $this.val();
@@ -123,7 +125,7 @@
             });
 
             // When user clicks on date in timetable
-            form.on('click', 'a.as-date', function (e) {
+            $form.on('click', 'a.as-date', function (e) {
                 e.preventDefault();
                 var $this = $(this);
 
@@ -133,9 +135,9 @@
             });
 
             // When user clicks to select a time
-            form.on('click', 'button.btn-as-time', function () {
+            $form.on('click', 'button.btn-as-time', function () {
                 var $this = $(this),
-                    panel = step4.find('div.panel-body');
+                    panel = $step4.find('div.panel-body');
 
                 // Assign selected time to dataStorage
                 dataStorage.time = $this.text();
@@ -168,13 +170,13 @@
 
                     // Then make a request to load the form
                     return $.ajax({
-                        url: step4.data('url'),
+                        url: $step4.data('url'),
                         type: 'POST',
                         data: dataStorage
                     });
                 }).done(function (data) {
-                    step4.collapse('show');
-                    title4.addClass('collapsable');
+                    $step4.collapse('show');
+                    $title4.addClass('collapsable');
 
                     // Empty existing content first
                     panel.empty();
@@ -182,7 +184,7 @@
                 });
             });
 
-            form.on('submit', '#as-confirm', function (e) {
+            $form.on('submit', '#as-confirm', function (e) {
                 e.preventDefault();
                 var $this = $(this);
 
@@ -192,12 +194,12 @@
                     type: $this.attr('method'),
                     data: $this.serialize()
                 }).done(function (data) {
-                    step4.find('div.panel-body').html(data);
+                    $step4.find('div.panel-body').html(data);
                 });
             });
 
             // When user submits the confirmation form
-            form.on('submit', '#as-form-confirm', function (e) {
+            $form.on('submit', '#as-form-confirm', function (e) {
                 e.preventDefault();
                 var $this = $(this),
                     data = $this.serialize(),
