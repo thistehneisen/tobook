@@ -162,6 +162,35 @@ class User extends ConfideUser
         return parent::__get($key);
     }
 
+    /**
+     * Old function to search by using SQL like
+     *
+     * @return
+     */
+    public static function search($q, $location)
+    {
+        $query = with(new self())->newQuery();
+        if (!empty($q)) {
+            $queryString = '%'.$q.'%';
+            $query = $query->whereHas(
+                'businessCategories',
+                function ($query) use ($queryString) {
+                    return $query->where('name', 'LIKE', $queryString)
+                        ->orWhere('keywords', 'LIKE', $queryString);
+                }
+            )->orWhere('business_name', 'LIKE', $queryString);
+        }
+
+        if (!empty($location)) {
+            $query = $query->where('city', 'LIKE', '%'.$location.'%');
+        }
+
+        $businesses = $query
+            ->where('business_name', '!=', '')
+            ->paginate(Config::get('view.perPage'));
+
+        return $businesses;
+    }
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 <?php namespace App\Core\Controllers;
 
-use View, Input, DB, Util, Response, Geocoder, App, Config;
+use View, Input, DB, Util, Response, Geocoder, App, Config, Es;
 use App\Core\Models\BusinessCategory;
 use App\Core\Models\User as BusinessModel;
 use Carbon\Carbon;
@@ -14,25 +14,27 @@ class Search extends Base
         $q        = e(Input::get('q'));
         $location = e(Input::get('location'));
 
-        $query = with(new BusinessModel)->newQuery();
-        if (!empty($q)) {
-            $queryString = '%'.$q.'%';
-            $query = $query->whereHas(
-                'businessCategories',
-                function ($query) use ($queryString) {
-                    return $query->where('name', 'LIKE', $queryString)
-                        ->orWhere('keywords', 'LIKE', $queryString);
-                }
-            )->orWhere('business_name', 'LIKE', $queryString);
-        }
+        $businesses = new \Illuminate\Support\Collection;
 
-        if (!empty($location)) {
-            $query = $query->where('city', 'LIKE', '%'.$location.'%');
+        if(!empty($q) || !empty($location)){
+            $data = [];
+            $keyword = $q . ' ' . $location;
+            $params['index'] = 'businesses';
+            $params['type']  = 'business';
+            $params['size']  = Config::get('view.perPage');
+            $params['body']['query']['bool']['should'][]['match']['business_name'] = $q;
+            $params['body']['query']['bool']['should'][]['match']['category_name'] = $q;
+            $params['body']['query']['bool']['should'][]['match']['name'] =  $q;
+            if(!empty($location)) {
+                $params['body']['query']['bool']['should'][]['match']['city'] = $location;
+                $params['body']['query']['bool']['should'][]['match']['city'] = $location;
+            }
+            $result = Es::search($params);
+            foreach ($result['hits']['hits'] as $row) {
+                $data[] = BusinessModel::find($row['_id']);
+            }
+            $businesses = new \Illuminate\Support\Collection($data);
         }
-
-        $businesses = $query
-            ->where('business_name', '!=', '')
-            ->paginate(Config::get('view.perPage'));
 
         $geocode = Geocoder::geocode($location ?: 'Helsinki');
 

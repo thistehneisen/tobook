@@ -128,6 +128,7 @@ return array(
         'anlutro\LaravelSettings\ServiceProvider',
         'Toin0u\Geocoder\GeocoderServiceProvider',
         'Barryvdh\Debugbar\ServiceProvider',
+        'Shift31\LaravelElasticsearch\LaravelElasticsearchServiceProvider',
 
         // Homemade
         'App\Hashids\HashidsServiceProvider',
