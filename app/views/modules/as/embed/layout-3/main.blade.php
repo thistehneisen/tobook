@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="panel-group" id="varaa-as-bookings">
+    <div class="panel-group" id="varaa-as-bookings" data-inhouse="{{ isset($inhouse) ? (int) $inhouse : 0 }}">
         <div class="panel panel-default">
             <div class="panel-heading" id="as-title-1" href="#as-step-1">
                 <h4 class="panel-title">

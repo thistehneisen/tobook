@@ -75,7 +75,8 @@
 
     <div class="col-sm-6">
         <div class="box">
-            @include('modules.as.embed.layout-3.main')
+            {{-- `$inhouse = true` means that we'll show login/register secion in step 4 --}}
+            @include('modules.as.embed.layout-3.main', ['inhouse' => true])
         </div>
 
         <div class="box">
