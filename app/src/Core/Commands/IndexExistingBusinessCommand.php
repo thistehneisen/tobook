@@ -126,9 +126,13 @@ class IndexExistingBusinessCommand extends Command {
                 ]
             ];
 
+            $business_name =   (!empty($user->business_name))
+                ?  $user->business_name
+                : null;
+
             $params['body'][] = [
                 'name' => $user->username,
-                'business_name' => $user->business_name,
+                'business_name' => $business_name,
                 'category_name' => str_replace('_', ' ', $categories->names),
                 'address' => $user->address,
                 'postcode' => $user->postcode,

@@ -199,7 +199,7 @@ applyCountdown($('span.countdown'));
         @endif
 
     @if (!isset($single))
-        {{-- $businesses->links() --}}
+        {{ $businesses->links() }}
     @endif
     </div>
 
