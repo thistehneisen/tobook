@@ -52,8 +52,8 @@ class IndexExistingBusinessCommand extends Command {
          $indexParams['body']['settings']['analysis']['tokenizer'] = [
             'varaa_tokenizer' => [
                 'type'        => 'nGram',
-                'min_gram'    => '3',
-                'max_gram'    => '4',
+                'min_gram'    => '4',
+                'max_gram'    => '8',
                 'token_chars' => ['letter', 'digit']
             ]
         ];
@@ -136,19 +136,19 @@ class IndexExistingBusinessCommand extends Command {
                 : null;
 
             $params['body'][] = [
-                'name' => $user->username,
+                'name'          => $user->username,
                 'business_name' => $business_name,
                 'category_name' => str_replace('_', ' ', $categories->names),
-                'keywords' => str_replace('_', ' ', $categories->keywords),
-                'address' => $user->address,
-                'postcode' => $user->postcode,
-                'city' => $user->city,
-                'country' => $user->country,
-                'phone' => $user->phone,
-                'description' => $user->description,
-                'location' => [
-                    'lat' => $user->lat,
-                    'lon' => $user->lng
+                'keywords'      => str_replace('_', ' ', $categories->keywords),
+                'address'       => $user->address,
+                'postcode'      => $user->postcode,
+                'city'          => $user->city,
+                'country'       => $user->country,
+                'phone'         => $user->phone,
+                'description'   => $user->description,
+                'location'      => [
+                    'lat'           => $user->lat,
+                    'lon'           => $user->lng
                 ]
             ];
 
