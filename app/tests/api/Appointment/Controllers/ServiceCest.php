@@ -42,7 +42,7 @@ class ServiceCest
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
 
-        $services = $I->grabDataFromJsonResponse('services');
+        $services = $I->grabDataFromJsonResponse('data');
         $pagination = $I->grabDataFromJsonResponse('pagination');
         $I->assertEquals(self::CATEGORY_COUNT * self::SERVICE_COUNT, $pagination['total'], "\$pagination['total']");
         $I->assertEquals($pagination['per_page'], count($services), 'count($services)');
@@ -56,7 +56,7 @@ class ServiceCest
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
 
-        $services = $I->grabDataFromJsonResponse('services');
+        $services = $I->grabDataFromJsonResponse('data');
         $pagination = $I->grabDataFromJsonResponse('pagination');
         $I->assertEquals(self::CATEGORY_COUNT * self::SERVICE_COUNT, $pagination['total'], "\$pagination['total']");
         $I->assertEquals(1, $pagination['per_page'], "\$pagination['per_page']");
@@ -68,7 +68,7 @@ class ServiceCest
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
 
-        $services = $I->grabDataFromJsonResponse('services');
+        $services = $I->grabDataFromJsonResponse('data');
         $pagination = $I->grabDataFromJsonResponse('pagination');
         $I->assertEquals(self::CATEGORY_COUNT * self::SERVICE_COUNT, $pagination['total'], "\$pagination['total']");
         $I->assertEquals(1, $pagination['per_page'], "\$pagination['per_page']");
@@ -85,7 +85,7 @@ class ServiceCest
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
 
-        $services = $I->grabDataFromJsonResponse('services');
+        $services = $I->grabDataFromJsonResponse('data');
         foreach ($services as $service) {
             $I->assertEquals($category->id, $service['category_id'], "\$service['category_id']");
         }
@@ -120,7 +120,7 @@ class ServiceCest
         $I->sendGET($this->servicesEndpoint . '?category_id=' . $category->id . '&employee_id=' . $this->employees[1]->id);
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
-        $services = $I->grabDataFromJsonResponse('services');
+        $services = $I->grabDataFromJsonResponse('data');
         foreach ($services as $service) {
             $I->assertEquals($category->id, $service['category_id'], "\$service['category_id']");
         }
@@ -143,14 +143,14 @@ class ServiceCest
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
 
-        $serviceData = $I->grabDataFromJsonResponse('service');
+        $serviceData = $I->grabDataFromJsonResponse('data');
         $I->assertEquals('service', $serviceData['type'], "\$serviceData['type']");
         $I->assertEquals($service->name, $serviceData['service_name'], "\$serviceData['service_name']");
         $I->assertEquals($service->description, $serviceData['service_description'], "\$serviceData['service_description']");
         $I->assertEquals(1, $serviceData['service_is_active'], "\$serviceData['service_is_active']");
 
         $I->assertEquals(1, count($serviceData['service_times']), "count(\$serviceData['service_times'])");
-        $I->assertEquals('default', $serviceData['service_times'][0]['service_time_id'], "\$serviceData['service_times'][0]['service_time_id']");
+        $I->assertEquals('default', $serviceData['service_times'][0]['id'], "\$serviceData['service_times'][0]['id']");
         $I->assertEquals($service->length, $serviceData['service_times'][0]['length'], "\$serviceData['service_times'][0]['length']");
         $I->assertEquals($service->price, $serviceData['service_times'][0]['price'], "\$serviceData['service_times'][0]['price']");
 
@@ -159,7 +159,7 @@ class ServiceCest
             $extraServiceDataFound = false;
 
             foreach ($serviceData['extra_services'] as $extraServiceData) {
-                if ($extraServiceData['extra_service_id'] == $extraService->id) {
+                if ($extraServiceData['id'] == $extraService->id) {
                     $I->assertEquals($extraService->name, $extraServiceData['name'], "\$extraServiceData['name']");
                     $I->assertEquals($extraService->description, $extraServiceData['description'], "\$extraServiceData['description']");
                     $I->assertEquals($extraService->length, $extraServiceData['length'], "\$extraServiceData['length']");
@@ -179,7 +179,7 @@ class ServiceCest
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
 
-        $categories = $I->grabDataFromJsonResponse('categories');
+        $categories = $I->grabDataFromJsonResponse('data');
         $pagination = $I->grabDataFromJsonResponse('pagination');
         $I->assertEquals(self::CATEGORY_COUNT, $pagination['total'], "\$pagination['total']");
         $I->assertEquals(1, $pagination['page'], "\$pagination['page']");
@@ -192,7 +192,7 @@ class ServiceCest
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
 
-        $categories = $I->grabDataFromJsonResponse('categories');
+        $categories = $I->grabDataFromJsonResponse('data');
         $pagination = $I->grabDataFromJsonResponse('pagination');
         $I->assertEquals(self::CATEGORY_COUNT, $pagination['total'], "\$pagination['total']");
         $I->assertEquals(1, $pagination['per_page'], "\$pagination['per_page']");
@@ -204,7 +204,7 @@ class ServiceCest
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
 
-        $categories = $I->grabDataFromJsonResponse('categories');
+        $categories = $I->grabDataFromJsonResponse('data');
         $pagination = $I->grabDataFromJsonResponse('pagination');
         $I->assertEquals(self::CATEGORY_COUNT, $pagination['total'], "\$pagination['total']");
         $I->assertEquals(1, $pagination['per_page'], "\$pagination['per_page']");
@@ -221,7 +221,7 @@ class ServiceCest
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
 
-        $categoryData = $I->grabDataFromJsonResponse('category');
+        $categoryData = $I->grabDataFromJsonResponse('data');
         $I->assertEquals('service_category', $categoryData['type'], "\$categoryData['type']");
         $I->assertEquals($category->name, $categoryData['category_name'], "\$categoryData['category_name']");
         $I->assertEquals($category->description, $categoryData['category_description'], "\$categoryData['category_description']");

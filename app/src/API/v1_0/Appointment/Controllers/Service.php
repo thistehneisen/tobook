@@ -34,7 +34,7 @@ class Service extends Base
 
         return Response::json([
             'error' => false,
-            'services' => $servicesData,
+            'data' => $servicesData,
             'pagination' => $this->_preparePagination($services),
         ]);
     }
@@ -45,7 +45,7 @@ class Service extends Base
 
         return Response::json([
             'error' => false,
-            'service' => $this->_prepareServiceData($service),
+            'data' => $this->_prepareServiceData($service),
         ]);
     }
 
@@ -64,7 +64,7 @@ class Service extends Base
 
         return Response::json([
             'error' => false,
-            'categories' => $categoriesData,
+            'data' => $categoriesData,
             'pagination' => $this->_preparePagination($categories),
         ]);
     }
@@ -75,7 +75,7 @@ class Service extends Base
 
         return Response::json([
             'error' => false,
-            'category' => $this->_prepareServiceCategoryData($category),
+            'data' => $this->_prepareServiceCategoryData($category),
         ]);
     }
 }

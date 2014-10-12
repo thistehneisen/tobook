@@ -40,14 +40,28 @@ class Base extends \App\Core\Controllers\Base
 
     protected function _prepareBookingData(Booking $booking)
     {
-        $services = [];
-        $bookingServices = $booking->bookingServices;
-        foreach ($bookingServices as $bookingService) {
-            $services[] = $bookingService->service->name;
-        }
-        $services = array_merge($services, $booking->getExtraServices());
+        $consumer = [
+            'id' => $booking->consumer->id,
+            'name' => $booking->consumer->name,
+        ];
 
-        $consumerName = $booking->consumer->getNameAttribute();
+        $services = [];
+        foreach ($booking->bookingServices as $bookingService) {
+            $services[] = [
+                'id' => $bookingService->service->id,
+                'name' => $bookingService->service->name,
+                'description' => $bookingService->service->description,
+            ];
+        }
+
+        $extraServices = [];
+        foreach ($booking->extraServices as $bookingExtraService) {
+            $extraServices[] = [
+                'id' => $bookingExtraService->extraService->id,
+                'name' => $bookingExtraService->extraService->name,
+                'description' => $bookingExtraService->extraService->description,
+            ];
+        }
 
         $duration = $this->_calculateDuration($booking->getStartAt(), $booking->getEndAt());
 
@@ -55,10 +69,12 @@ class Base extends \App\Core\Controllers\Base
             'type' => 'booking',
             'booking_id' => $booking->id,
             'booking_uuid' => $booking->uuid,
-            'booking_services' => $services,
             'booking_notes' => $booking->notes,
             'booking_status' => Booking::getStatusByValue($booking->status),
-            'consumer_name' => $consumerName,
+
+            'consumer' => $consumer,
+            'booking_services' => $services,
+            'booking_extra_services' => $extraServices,
 
             'date' => $booking->date,
             'start_at' => $booking->start_at,
@@ -90,13 +106,13 @@ class Base extends \App\Core\Controllers\Base
     protected function _prepareServiceData(Service $service)
     {
         $times = [[
-            'service_time_id' => 'default',
+            'id' => 'default',
             'length' => $service->length,
             'price' => $service->price,
         ]];
         foreach ($service->serviceTimes as $serviceTime) {
             $times[] = [
-                'service_time_id' => $serviceTime->id,
+                'id' => $serviceTime->id,
                 'length' => $serviceTime->length,
                 'price' => $serviceTime->price,
             ];
@@ -105,7 +121,7 @@ class Base extends \App\Core\Controllers\Base
         $extras = [];
         foreach ($service->extraServices as $extraService) {
             $extras[] = [
-                'extra_service_id' => $extraService->id,
+                'id' => $extraService->id,
                 'name' => $extraService->name,
                 'description' => $extraService->description,
                 'length' => $extraService->length,

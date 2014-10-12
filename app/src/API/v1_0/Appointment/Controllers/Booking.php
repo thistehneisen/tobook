@@ -32,7 +32,7 @@ class Booking extends Base
 
         return Response::json([
             'error' => false,
-            'booking' => $this->_prepareBookingData($booking),
+            'data' => $this->_prepareBookingData($booking),
         ], 200);
     }
 
@@ -154,7 +154,7 @@ class Booking extends Base
 
             return Response::json([
                 'error' => false,
-                'booking' => $this->_prepareBookingData($booking),
+                'data' => $this->_prepareBookingData($booking),
             ], 200);
         } catch (\InvalidArgumentException $e) {
             return Response::json([

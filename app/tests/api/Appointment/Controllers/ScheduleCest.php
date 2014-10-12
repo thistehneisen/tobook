@@ -38,7 +38,7 @@ class ScheduleCest
             $I->seeResponseContainsJson(['employee_id' => $employee->id]);
         }
 
-        $employees = $I->grabDataFromJsonResponse('employees');
+        $employees = $I->grabDataFromJsonResponse('data');
         $I->assertEquals($employeeCount, count($employees), 'count(employees)');
 
         $today = Carbon::today();
@@ -58,7 +58,7 @@ class ScheduleCest
         $I->seeResponseContainsJson(['employee_id' => $this->employees[0]->id]);
         $I->dontSeeResponseContainsJson(['employee_id' => $this->employees[1]->id]);
 
-        $employees = $I->grabDataFromJsonResponse('employees');
+        $employees = $I->grabDataFromJsonResponse('data');
         $I->assertEquals(1, count($employees), 'count(employees)');
 
         $today = Carbon::today();
@@ -77,7 +77,7 @@ class ScheduleCest
             $I->seeResponseCodeIs(200);
             $I->seeResponseIsJson();
 
-            $employees = $I->grabDataFromJsonResponse('employees');
+            $employees = $I->grabDataFromJsonResponse('data');
             $employee = reset($employees);
             $days = array_keys($employee['schedules']);
             $I->assertEquals(1, count($days), 'count(employee.schedules)');
@@ -92,7 +92,7 @@ class ScheduleCest
             $I->seeResponseCodeIs(200);
             $I->seeResponseIsJson();
 
-            $employees = $I->grabDataFromJsonResponse('employees');
+            $employees = $I->grabDataFromJsonResponse('data');
             $employee = reset($employees);
             $days = array_keys($employee['schedules']);
             $I->assertEquals(max(1, $i), count($days), 'count(employee.schedules)');
@@ -111,7 +111,7 @@ class ScheduleCest
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
 
-        $employees = $I->grabDataFromJsonResponse('employees');
+        $employees = $I->grabDataFromJsonResponse('data');
         $employee = reset($employees);
         $days = array_keys($employee['schedules']);
         $I->assertEquals(7, count($days), 'count(employee.schedules)');
@@ -123,7 +123,7 @@ class ScheduleCest
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
 
-        $employees = $I->grabDataFromJsonResponse('employees');
+        $employees = $I->grabDataFromJsonResponse('data');
         $employee = reset($employees);
 
         $this->_assertTimes($I, $this->employees[0]->getDefaultTimes(), $employee['schedules']);
@@ -137,7 +137,7 @@ class ScheduleCest
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
 
-        $employees = $I->grabDataFromJsonResponse('employees');
+        $employees = $I->grabDataFromJsonResponse('data');
         $employee = reset($employees);
 
         $this->_assertTimes($I, $defaultTimes, $employee['schedules']);
@@ -160,7 +160,7 @@ class ScheduleCest
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
 
-        $employees = $I->grabDataFromJsonResponse('employees');
+        $employees = $I->grabDataFromJsonResponse('data');
         $employee = reset($employees);
 
         $this->_assertTimes($I, $times, $employee['schedules']);
@@ -175,7 +175,7 @@ class ScheduleCest
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
 
-        $employees = $I->grabDataFromJsonResponse('employees');
+        $employees = $I->grabDataFromJsonResponse('data');
         $employee = reset($employees);
 
         $this->_assertTimes($I, $defaultTimes, $employee['schedules'], $employeeFreetimes);
@@ -191,7 +191,7 @@ class ScheduleCest
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
 
-        $employees = $I->grabDataFromJsonResponse('employees');
+        $employees = $I->grabDataFromJsonResponse('data');
         $employee = reset($employees);
 
         $bookingSchedule = null;

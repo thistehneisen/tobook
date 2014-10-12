@@ -49,23 +49,41 @@ trait Booking
         $I->assertEquals($booking->id, $bookingData['booking_id'], "\$bookingData['booking_id']");
         $I->assertEquals($booking->uuid, $bookingData['booking_uuid'], "\$bookingData['booking_uuid']");
 
-        $serviceCount = 0;
-        $bookingServices = $booking->bookingServices;
-        foreach ($bookingServices as $bookingService) {
-            $I->assertTrue(in_array($bookingService->service->name, $bookingData['booking_services']), 'service: ' . $bookingService->service->name);
-            $serviceCount++;
+        $I->assertEquals($booking->bookingServices()->count(), count($bookingData['booking_services']), "count(\$bookingData['booking_services'])");
+        foreach ($booking->bookingServices as $bookingService) {
+            $bookingServiceDataFound = false;
+
+            foreach ($bookingData['booking_services'] as $bookingServiceData) {
+                if ($bookingServiceData['id'] == $bookingService->service->id) {
+                    $I->assertEquals($bookingService->service->name, $bookingServiceData['name'], "\$bookingServiceData['name']");
+                    $I->assertEquals($bookingService->service->description, $bookingServiceData['description'], "\$bookingServiceData['description']");
+
+                    $bookingServiceDataFound = true;
+                }
+            }
+
+            $I->assertTrue($bookingServiceDataFound, 'service: ' . $bookingService->service->name);
         }
 
-        $extraSevices = $booking->extraServices;
-        foreach ($extraSevices as $extraSevice) {
-            $I->assertTrue(in_array($extraSevice->extraService->name, $bookingData['booking_services']), 'extra: ' . $extraSevice->extraService->name);
-            $serviceCount++;
-        }
+        $I->assertEquals($booking->extraServices()->count(), count($bookingData['booking_extra_services']), "count(\$bookingData['booking_extra_services'])");
+        foreach ($booking->extraServices as $bookingExtraService) {
+            $bookingExtraServiceDataFound = false;
 
-        $I->assertEquals($serviceCount, count($bookingData['booking_services']), "count(\$bookingData['booking_services'])");
+            foreach ($bookingData['booking_extra_services'] as $bookingExtraServiceData) {
+                if ($bookingExtraServiceData['id'] == $bookingExtraService->extraService->id) {
+                    $I->assertEquals($bookingExtraService->extraService->name, $bookingExtraServiceData['name'], "\$bookingExtraServiceData['name']");
+                    $I->assertEquals($bookingExtraService->extraService->description, $bookingExtraServiceData['description'], "\$bookingExtraServiceData['description']");
+
+                    $bookingExtraServiceDataFound = true;
+                }
+            }
+
+            $I->assertTrue($bookingExtraServiceDataFound, 'extra service: ' . $bookingExtraService->extraService->name);
+        }
 
         $I->assertEquals(\App\Appointment\Models\Booking::getStatusByValue($booking->status), $bookingData['booking_status'], "\$bookingData['booking_status']");
 
-        $I->assertEquals($booking->consumer->name, $bookingData['consumer_name'], "\$bookingData['consumer_name']");
+        $I->assertEquals($booking->consumer->id, $bookingData['consumer']['id'], "\$bookingData['consumer']['id']");
+        $I->assertEquals($booking->consumer->name, $bookingData['consumer']['name'], "\$bookingData['consumer']['name']");
     }
 }

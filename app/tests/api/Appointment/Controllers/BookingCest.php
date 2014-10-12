@@ -74,7 +74,7 @@ class BookingCest
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
 
-        $bookingData = $I->grabDataFromJsonResponse('booking');
+        $bookingData = $I->grabDataFromJsonResponse('data');
         $booking = \App\Appointment\Models\Booking::find($bookingData['booking_id']);
 
         $I->assertEquals($employee->id, $booking->employee_id, 'employee_id');
@@ -111,7 +111,7 @@ class BookingCest
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(['booking_id' => $booking->id]);
 
-        $bookingData = $I->grabDataFromJsonResponse('booking');
+        $bookingData = $I->grabDataFromJsonResponse('data');
         $this->_assertBooking($I, $booking, $bookingData);
     }
 
@@ -159,7 +159,7 @@ class BookingCest
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
 
-        $bookingData = $I->grabDataFromJsonResponse('booking');
+        $bookingData = $I->grabDataFromJsonResponse('data');
         $booking = \App\Appointment\Models\Booking::find($bookingData['booking_id']);
 
         $I->assertEquals($employee->id, $booking->employee_id, 'employee_id');

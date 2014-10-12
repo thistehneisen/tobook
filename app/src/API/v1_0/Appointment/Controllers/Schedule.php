@@ -111,7 +111,7 @@ class Schedule extends Base
 
         return Response::json([
             'error' => false,
-            'employees' => $employeesData,
+            'data' => $employeesData,
         ]);
     }
 }
