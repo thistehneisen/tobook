@@ -50,12 +50,19 @@ class Search extends Base
             $businesses =  Paginator::make($data, $total, $perPage);
         }
 
-        $geocode = Geocoder::geocode($location ?: 'Helsinki');
+        // Helsinki
+        $long = '60.1733244';
+        $lat = '24.9410248';
+        if (!empty($location)) {
+            $geocode = Geocoder::geocode($location);
+            $long = $geocode->getLatitude();
+            $lat = $geocode->getLongitude();
+        }
 
         return $this->render('index', [
             'businesses' => $businesses,
-            'lat'        => $geocode->getLatitude(),
-            'lng'        => $geocode->getLongitude(),
+            'lat'        => $long,
+            'lng'        => $lat,
             'now'        => Carbon::now()
         ]);
     }

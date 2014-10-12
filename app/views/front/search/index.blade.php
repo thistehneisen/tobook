@@ -158,7 +158,7 @@ applyCountdown($('span.countdown'));
 @section('content')
 <div class="row">
     <!-- left sidebar -->
-    <div class="col-sm-4 col-md-4 col-lg-4 search-left">
+    <div class="col-sm-3 col-md-3 col-lg-3 search-left">
         @if ($businesses->count() === 0)
             <p class="alert alert-info">
                 {{ trans('search.no_result') }}
@@ -166,28 +166,20 @@ applyCountdown($('span.countdown'));
         @else
             @foreach ($businesses as $item)
              <?php
-                $slots = $item->getASNextTimeSlots($now, $now->hour);
+                //$slots = $item->getASNextTimeSlots($now, $now->hour);
+                $slots = [];
                 $count = 0;
             ?>
             <div class="result-row row" data-id="{{ $item->id }}" data-url="{{ route('ajax.showBusiness', ['hash' => $item->hash, 'id' => $item->id, 'l' => 3]) }}">
-                <div class="col-md-6">
+                <div class="col-sm-6">
                     <img src="{{ asset($item->image) }}" alt="" class="img-responsive img-rounded">
-                    {{--
-                    <div class="text-center">
-                        <ul class="list-inline">
-                            <li><i class="text-warning fa fa-star"></i></li>
-                            <li><i class="text-warning fa fa-star"></i></li>
-                            <li><i class="text-warning fa fa-star"></i></li>
-                        </ul>
-                    </div>
-                    --}}
                 </div>
-                <div class="col-md-6">
+                <div class="col-sm-6">
                     <h4>{{ $item->business_name }}</h4>
                     <p>{{ $item->full_address }}</p>
-                   @foreach ($slots as $slot)
-                    <?php if($count === 3) break;?>
-                     <a href="#" data-business-id="{{ $item->id }}" data-service-id="{{ $slot['service'] }}" data-employee-id="{{ $slot['employee'] }}" data-hour="{{ $slot['hour'] }}" data-minute="{{ $slot['minute'] }}" class="btn btn-sm btn-default">{{ $slot['time'] }}</a>
+                    @foreach ($slots as $slot)
+                        <?php if($count === 3) break;?>
+                        <a href="#" data-business-id="{{ $item->id }}" data-service-id="{{ $slot['service'] }}" data-employee-id="{{ $slot['employee'] }}" data-hour="{{ $slot['hour'] }}" data-minute="{{ $slot['minute'] }}" class="btn btn-sm btn-default">{{ $slot['time'] }}</a>
                     <?php $count++;?>
                     @endforeach
                     {{--
@@ -204,7 +196,7 @@ applyCountdown($('span.countdown'));
     </div>
 
     <!-- right content -->
-    <div class="col-sm-8 col-md-8 col-lg-8 search-right">
+    <div class="col-sm-9 col-md-9 col-lg-9 search-right">
         <div id="js-loading" class="js-loading"><i class="fa fa-spinner fa-spin fa-4x"></i></div>
         <div id="js-business-content">
             {{ isset($single) ? $single : '' }}
