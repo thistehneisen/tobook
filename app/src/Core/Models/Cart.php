@@ -74,6 +74,22 @@ class Cart extends Base
         return $this;
     }
 
+    /**
+     * Return the total amount of all items in cart
+     *
+     * @return double
+     */
+    public function getSubtotalAttribute()
+    {
+        $subtotal = 0.0;
+
+        foreach ($this->details as $detail) {
+            $subtotal += $detail->quantity * $detail->price;
+        }
+
+        return $subtotal;
+    }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
