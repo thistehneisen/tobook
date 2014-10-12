@@ -117,6 +117,7 @@ class Search extends Base
         $hour       = Input::get('hour');
         $minute     = Input::get('minute');
 
+        $categoryId = null;
         if(!empty($serviceId) && !empty($employeeId)
             && !empty($hour) && !empty($minute)){
             $service = Service::findOrFail($serviceId);
