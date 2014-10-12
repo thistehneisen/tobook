@@ -62,6 +62,8 @@ class CalendarKeeper
 
         $nextAvailable = [];
         $currentEmployeeId = 0;
+        $employeesCount = $employees->count();
+
         foreach ($employees as $employee) {
             //If current employee has no service associate with her jump to next employee
             if (empty($services[$employee->id]['length'])) {
@@ -99,8 +101,11 @@ class CalendarKeeper
                         $length = 0;
                     }
                 }
-                // Change to another employee if has new next available slots has been added
-                if (count($nextAvailable) > $count) {
+                /**
+                * Change to another employee if has new next available slots has been added.
+                * But only apply for those busineses have more than 3 employees
+                */
+                if (count($nextAvailable) > $count && ($employeesCount > 3)) {
                     break;
                 }
             }
