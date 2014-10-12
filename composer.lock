@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1f47ff064c4840b82ddbd68375a0964a",
+    "hash": "38d5ba68429f3f7dab722ff05933b08c",
     "packages": [
         {
             "name": "alfaproject/omnipay-skrill",
@@ -505,9 +505,9 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
-                    "name": "Johannes M. Schmitt",
+                    "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -1073,6 +1073,63 @@
                 "youtube"
             ],
             "time": "2014-09-09 19:31:50"
+        },
+        {
+            "name": "imagine/imagine",
+            "version": "v0.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/avalanche123/Imagine.git",
+                "reference": "725279fd560faa1c7012a80b427b31d7f08f36ff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/avalanche123/Imagine/zipball/725279fd560faa1c7012a80b427b31d7f08f36ff",
+                "reference": "725279fd560faa1c7012a80b427b31d7f08f36ff",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "sami/sami": "dev-master"
+            },
+            "suggest": {
+                "ext-gd": "to use the GD implementation",
+                "ext-gmagick": "to use the Gmagick implementation",
+                "ext-imagick": "to use the Imagick implementation"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Imagine": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bulat Shakirzyanov",
+                    "email": "mallluhuct@gmail.com",
+                    "homepage": "http://avalanche123.com"
+                }
+            ],
+            "description": "Image processing for PHP 5.3",
+            "homepage": "http://imagine.readthedocs.org/",
+            "keywords": [
+                "drawing",
+                "graphics",
+                "image manipulation",
+                "image processing"
+            ],
+            "time": "2014-06-16 20:53:48"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -1695,6 +1752,62 @@
             "time": "2014-09-17 00:38:32"
         },
         {
+            "name": "orchestra/imagine",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/orchestral/imagine.git",
+                "reference": "cfb35c12d655f36767678a9c1352fb4b041e0d34"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/orchestral/imagine/zipball/cfb35c12d655f36767678a9c1352fb4b041e0d34",
+                "reference": "cfb35c12d655f36767678a9c1352fb4b041e0d34",
+                "shasum": ""
+            },
+            "require": {
+                "imagine/imagine": "~0.5",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "illuminate/container": "5.0.*",
+                "illuminate/contracts": "5.0.*",
+                "illuminate/support": "5.0.*",
+                "mockery/mockery": "0.9.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Orchestra\\Imagine\\": "src/Imagine/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mior Muhammad Zaki",
+                    "email": "crynobone@gmail.com",
+                    "homepage": "https://github.com/crynobone"
+                }
+            ],
+            "description": "Imagine Package for Laravel",
+            "keywords": [
+                "image",
+                "image-manipulation",
+                "laravel",
+                "orchestra-platform",
+                "orchestral"
+            ],
+            "time": "2014-10-07 02:24:15"
+        },
+        {
             "name": "patchwork/utf8",
             "version": "v1.1.25",
             "source": {
@@ -1984,7 +2097,7 @@
         },
         {
             "name": "shift31/laravel-elasticsearch",
-            "version": "dev-master",
+            "version": "v1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/shift31/laravel-elasticsearch.git",
@@ -3203,16 +3316,16 @@
     "packages-dev": [
         {
             "name": "codeception/codeception",
-            "version": "2.0.6",
+            "version": "2.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "b7562022177e32a5a4c5ddc68fe3c3c2566156f5"
+                "reference": "a093950c44c570bd4d28f1fa56a0fee6d8e288d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/b7562022177e32a5a4c5ddc68fe3c3c2566156f5",
-                "reference": "b7562022177e32a5a4c5ddc68fe3c3c2566156f5",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/a093950c44c570bd4d28f1fa56a0fee6d8e288d1",
+                "reference": "a093950c44c570bd4d28f1fa56a0fee6d8e288d1",
                 "shasum": ""
             },
             "require": {
@@ -3280,7 +3393,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2014-10-07 23:19:42"
+            "time": "2014-10-12 20:41:05"
         },
         {
             "name": "doctrine/instantiator",
@@ -4374,7 +4487,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "shift31/laravel-elasticsearch": 20,
+        "orchestra/imagine": 20,
         "alfaproject/omnipay-skrill": 20
     },
     "prefer-stable": false,

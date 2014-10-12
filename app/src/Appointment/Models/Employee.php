@@ -273,6 +273,12 @@ class Employee extends \App\Appointment\Models\Base
         return (isset($this->attributes['is_active'])) ? (bool) $this->attributes['is_active'] : true;
     }
 
+
+    private function getAvatarPath()
+    {
+        return Config::get('varaa.upload_folder').'/avatars/'.$this->attributes['avatar'];
+    }
+
     /**
      * Return absolute URL of the avatar
      *
@@ -284,7 +290,7 @@ class Employee extends \App\Appointment\Models\Base
             return asset('assets/img/mm.png');
         }
 
-        return asset(Config::get('varaa.upload_folder').'/avatars/'.$this->attributes['avatar']);
+        return Util::thumbnail($this->getAvatarPath(), 200, 200);
     }
 
     //--------------------------------------------------------------------------

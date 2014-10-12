@@ -15,10 +15,10 @@
         "toin0u/geocoder-laravel": "0.4.1",
         "barryvdh/laravel-debugbar": "1.7.4",
         "mandrill/mandrill": "1.0.*",
-         "elasticsearch/elasticsearch": "~1.0",
-        "shift31/laravel-elasticsearch": "dev-master",
+        "orchestra/imagine": "3.0.*@dev",
         "omnipay/common": "2.3.1",
-        "alfaproject/omnipay-skrill": "2.0.x-dev#2fa2ba8"
+        "alfaproject/omnipay-skrill": "2.0.x-dev#2fa2ba8",
+        "shift31/laravel-elasticsearch": "1.1"
     },
     "require-dev": {
         "codeception/codeception": "2.0.*",

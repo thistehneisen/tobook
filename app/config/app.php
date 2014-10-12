@@ -129,6 +129,7 @@ return array(
         'Toin0u\Geocoder\GeocoderServiceProvider',
         'Barryvdh\Debugbar\ServiceProvider',
         'Shift31\LaravelElasticsearch\LaravelElasticsearchServiceProvider',
+        'Orchestra\Imagine\ImagineServiceProvider',
 
         // Homemade
         'App\Hashids\HashidsServiceProvider',
@@ -212,6 +213,7 @@ return array(
         'Setting'   => 'anlutro\LaravelSettings\Facade',
         'Geocoder'  => 'Toin0u\Geocoder\GeocoderFacade',
         'Debugbar'  => 'Barryvdh\Debugbar\Facade',
+        'Imagine'   => 'Orchestra\Imagine\Facade',
 
         // Homemade
         'AppController' => 'App\Core\Controllers\Base',
