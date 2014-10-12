@@ -11,18 +11,25 @@ class Payment
      *
      * @param App\Core\Models\Cart $cart
      * @param double               $amount
+     * @param bool                 $gotoPaygate Redirect to paygate directly
      *
      * @return Redirect
      */
-    public static function redirect($cart, $amount)
+    public static function redirect($cart, $amount, $gotoPaygate = false)
     {
         // Create a new transaction for this cart
         $transaction = new Models\Transaction(['amount' => $amount]);
         $transaction->cart()->associate($cart);
         $transaction->save();
 
-        return Redirect::route('payment.index')
-            ->with('transaction', $transaction);
+        // Flash current transaction
+        Session::flash('transaction', $transaction);
+        if ($gotoPaygate === true) {
+            return static::purchase();
+        }
+
+        // Otherwise, we'll show a page to confirm
+        return Redirect::route('payment.index');
     }
 
     /**
