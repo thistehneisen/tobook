@@ -108,3 +108,11 @@ def fix(path='app'):
     Run PHP Code Sniffer Fixer
     '''
     local('./vendor/bin/php-cs-fixer fix {}'.format(path))
+
+
+@task(alias='i')
+def index_business(command='index'):
+    '''
+    Shortcut for command index business
+    '''
+    local('php artisan varaa:es-index-business {}'.format(command))
