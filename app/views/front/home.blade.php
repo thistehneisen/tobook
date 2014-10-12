@@ -54,7 +54,7 @@ $(function() {
         <div class="clearfix"></div>
         @foreach ($businesses as $business)
             <?php
-                $slots = $business->getASNextTimeSlots($now->toDateString(), $now->hour);
+                $slots = $business->getASNextTimeSlots($now, $now->hour);
                 $count = 0;
             ?>
             @if(!empty($slots))
@@ -70,6 +70,7 @@ $(function() {
                             'slug'        => $business->slug,
                             'service_id'  => $slot['service'],
                             'employee_id' => $slot['employee'],
+                            'date'        => $slot['date'],
                             'hour'        => $slot['hour'],
                             'minute'      => $slot['minute']
                         ])}}" class="btn btn-sm btn-default">{{ $slot['time'] }}</a>

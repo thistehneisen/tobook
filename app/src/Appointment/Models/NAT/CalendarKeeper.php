@@ -86,7 +86,7 @@ class CalendarKeeper
                             $nextAvailable[$time] = [
                                 'user'     => $user,
                                 'employee' => $employee->id,
-                                'date'     => $date,
+                                'date'     => $date->toDateString(),
                                 'service'  => $services[$employee->id]['id'],
                                 'price'    => $services[$employee->id]['price'],
                                 'time'     => $time,

@@ -67,7 +67,15 @@ class User extends ConfideUser
      */
     public function getASNextTimeSlots($date = null, $nextHour = null, $nextService = null)
     {
-        return CalendarKeeper::nextTimeSlots($this, $date, $nextHour, $nextService);
+        for ($i = 0; $i < 3; $i++) {
+            $slots = CalendarKeeper::nextTimeSlots($this, $date, $nextHour, $nextService);
+            if (empty($slots)) {
+                $date->addDay();
+            } else {
+                break;
+            }
+        }
+        return $slots;
     }
 
 

@@ -166,7 +166,7 @@ applyCountdown($('span.countdown'));
         @else
             @foreach ($businesses as $item)
              <?php
-                $slots = $item->getASNextTimeSlots($now->toDateString(), $now->hour);
+                $slots = $item->getASNextTimeSlots($now, $now->hour);
                 $count = 0;
             ?>
             <div class="result-row row" data-id="{{ $item->id }}" data-url="{{ route('ajax.showBusiness', ['hash' => $item->hash, 'id' => $item->id, 'l' => 3]) }}">
