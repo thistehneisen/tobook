@@ -64,6 +64,10 @@ class IndexExistingBusinessCommand extends Command {
                     'type' => 'string',
                     'analyzer' => 'standard'
                 ],
+                'city' => [
+                    'type' => 'string',
+                    'analyzer' => 'standard'
+                ],
                 'country' => [
                     'type' => 'string',
                     'analyzer' => 'standard'
@@ -113,6 +117,7 @@ class IndexExistingBusinessCommand extends Command {
                 'category_name' => str_replace('_', ' ', $categories->names),
                 'address' => $user->address,
                 'postcode' => $user->postcode,
+                'city' => $user->city,
                 'country' => $user->country,
                 'phone' => $user->phone,
                 'description' => $user->description,
