@@ -9,8 +9,8 @@ use Carbon\Carbon;
  *
  * @author hung@varaa.com
  */
-class CalendarKeeper {
-
+class CalendarKeeper
+{
     protected static $instance;
 
     public static function __callStatic($method, $args)
@@ -64,7 +64,7 @@ class CalendarKeeper {
         $currentEmployeeId = 0;
         foreach ($employees as $employee) {
             //If current employee has no service associate with her jump to next employee
-            if(empty($services[$employee->id]['length'])){
+            if (empty($services[$employee->id]['length'])) {
                 continue;
             }
             $serviceLength     = $services[$employee->id]['length'];
@@ -77,7 +77,7 @@ class CalendarKeeper {
                 }
                 foreach ($minutes as $minute) {
                     $cell = $calendar[$employee->id][$hour][$minute];
-                    if($cell == 15) {
+                    if ($cell == 15) {
                         $length += $cell;
                         if ($length == $serviceLength) {
                             $time = sprintf('%d:%d', $hour, $minute);
@@ -106,12 +106,14 @@ class CalendarKeeper {
             }
         }
         //low to high
-        usort($nextAvailable, function($a, $b){
+        usort($nextAvailable, function ($a, $b) {
             if ($a['hour'] === $b['hour']) {
                 return 0;
             }
+
             return ($a['hour'] < $b['hour']) ? -1 : 1;
         });
+
         return $nextAvailable;
     }
 
@@ -126,7 +128,7 @@ class CalendarKeeper {
 
         //Get the lastest booking end time in current date
         $lastestBooking = Booking::getLastestBookingEndTime($date, $user);
-        if(!empty($lastestBooking)){
+        if (!empty($lastestBooking)) {
             $lastestEndTime = $lastestBooking->getEndAt();
             if(($lastestEndTime->hour   >= $endHour)
             && ($lastestEndTime->minute >  $endMinute))
@@ -140,24 +142,24 @@ class CalendarKeeper {
         $endHour = ($endMinute == 0) ? $endHour - 1 : $endHour;
         $endMinute = ($endMinute == 0 || $endMinute == 60) ? 45 : $endMinute;
 
-        for($i = (int) $startHour; $i<= (int)$endHour; $i++) {
-            if($i === (int)$startHour){
-                $workingTimes[$i] = range((int)$startMinute, 45, 15);
+        for ($i = (int) $startHour; $i<= (int) $endHour; $i++) {
+            if ($i === (int) $startHour) {
+                $workingTimes[$i] = range((int) $startMinute, 45, 15);
             }
-            if($i !== (int)$startHour && $i !== (int)$endHour)
-            {
+            if ($i !== (int) $startHour && $i !== (int) $endHour) {
                 $workingTimes[$i] = range(0, 45, 15);
             }
-            if($i === (int)$endHour){
-                 $workingTimes[$i] = range(0, (int)$endMinute, 15);
+            if ($i === (int) $endHour) {
+                $workingTimes[$i] = range(0, (int) $endMinute, 15);
             }
         }
+
         return $workingTimes;
     }
 
     public function findEmployees($user, $serviceId)
     {
-        if(!empty($serviceId)){
+        if (!empty($serviceId)) {
             $employees = Employee::where('user_id', $user->id)
                 ->join('as_service_employee', 'as_service_employee.employee_id', '=', 'as_employees.id')
                 ->join('as_services', 'as_service_employee.service_id', '=', 'as_services.id')
@@ -165,7 +167,7 @@ class CalendarKeeper {
                 ->where('as_services.id', $serviceId)
                 ->get();
         } else {
-             $employees = Employee::where('user_id', $user->id)
+            $employees = Employee::where('user_id', $user->id)
                 ->where('is_active', true)
                 ->get();
         }

@@ -1,11 +1,9 @@
 <?php namespace Appointment\Models;
+
 use App\Appointment\Models\Service;
-use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\Employee;
-use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
 use App\Core\Models\User;
-use App\Core\Models\Role;
 use Carbon\Carbon;
 use \UnitTester;
 use Util;

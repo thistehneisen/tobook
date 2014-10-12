@@ -1,9 +1,9 @@
 <?php namespace Appointment\Models;
-use App\Core\Models\User;
+
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;
+use App\Core\Models\User;
 use \UnitTester;
-use DB;
 
 /**
  * @group as

@@ -80,7 +80,7 @@ class User extends ConfideUser
      */
     public function getASDefaultWorkingTimes($date)
     {
-      return CalendarKeeper::getDefaultWorkingTimes($this, $date);
+        return CalendarKeeper::getDefaultWorkingTimes($this, $date);
     }
 
     /**
