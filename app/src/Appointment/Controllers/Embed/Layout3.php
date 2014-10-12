@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Controllers\Embed;
 
-use Input, Response, Carbon\Carbon, Session, Redirect;
+use Input, Response, Carbon\Carbon, Session, Redirect, Payment;
 use App\Appointment\Controllers\Embed;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\Employee;
@@ -16,7 +16,6 @@ class Layout3 extends Base
      */
     public function checkout()
     {
-
         return $this->render('checkout', [
             'user'         => $this->getUser(),
             'booking_info' => $this->getBookingInfo(),
@@ -53,5 +52,17 @@ class Layout3 extends Base
         $cart->consumer()->associate($consumer)->save();
 
         return $this->render('confirm', $data);
+    }
+
+    /**
+     * Process to payment page
+     *
+     * @return Redirect
+     */
+    public function payment()
+    {
+        $cart = Cart::findOrFail(Input::get('cart_id'));
+        $goToPaygate = true;
+        return Payment::redirect($cart, $cart->subtotal, $goToPaygate);
     }
 }
