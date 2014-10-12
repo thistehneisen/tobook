@@ -18,20 +18,31 @@ class Search extends Base
 
         if(!empty($q) || !empty($location)){
             $data = [];
-            $keyword = $q . ' ' . $location;
             $params['index'] = 'businesses';
             $params['type']  = 'business';
             $params['size']  = Config::get('view.perPage');
-            $params['body']['query']['bool']['should'][]['match']['business_name'] = $q;
-            $params['body']['query']['bool']['should'][]['match']['category_name'] = $q;
-            $params['body']['query']['bool']['should'][]['match']['name'] =  $q;
+
+            $query['bool']['should'][]['match']['name']          = $q;
+            $query['bool']['should'][]['match']['business_name'] = $q;
+            $query['bool']['should'][]['match']['category_name'] = $q;
+            $query['bool']['should'][]['match']['description']   = $q;
+
+            $filter = [];//for using later
+
             if(!empty($location)) {
-                $params['body']['query']['bool']['should'][]['match']['city'] = $location;
-                $params['body']['query']['bool']['should'][]['match']['city'] = $location;
+                $query['bool']['should'][]['match']['city'] = $location;
+                $query['bool']['should'][]['match']['country'] = $location;
             }
+            $params['body']['query']['filtered'] = [
+                "filter" => $filter,
+                "query"  => $query
+            ];
             $result = Es::search($params);
             foreach ($result['hits']['hits'] as $row) {
-                $data[] = BusinessModel::find($row['_id']);
+                //Temporary cheating for empty business name
+                if(!empty($row['_source']['business_name'])){
+                    $data[] = BusinessModel::find($row['_id']);
+                }
             }
             $businesses = new \Illuminate\Support\Collection($data);
         }

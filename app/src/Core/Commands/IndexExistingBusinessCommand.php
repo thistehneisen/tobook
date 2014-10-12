@@ -48,6 +48,7 @@ class IndexExistingBusinessCommand extends Command {
                 'filter' => ['lowercase']
             ]
         ];
+        //Index 'Hakunamatata' => 'Hak','aku','una' .etc
          $indexParams['body']['settings']['analysis']['tokenizer'] = [
             'varaa_tokenizer' => [
                 'type'        => 'nGram',
@@ -56,7 +57,7 @@ class IndexExistingBusinessCommand extends Command {
                 'token_chars' => ['letter', 'digit']
             ]
         ];
-        // Example Index Mapping
+        // Index Mapping
         $business = [
             '_source' => [
                 'enabled' => true
