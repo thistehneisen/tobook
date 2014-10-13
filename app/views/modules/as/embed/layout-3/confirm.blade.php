@@ -37,7 +37,11 @@
     <input type="hidden" name="phone" value="{{ $phone }}">
     <input type="hidden" name="cart_id" value="{{ $cartId }}">
     <input type="hidden" name="inhouse" value="{{ $inhouse }}">
+    @if($inhouse)
+    <input type="hidden" name="source" value="layout3-business">
+    @else
     <input type="hidden" name="source" value="layout3">
+    @endif
 
     @if ($inhouse)
         <div class="alert alert-info" role="alert">
