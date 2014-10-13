@@ -91,7 +91,7 @@ class Search extends Base
             return $view;
         }
 
-        Input::merge(array('l' => '3'));
+        Input::merge(array('l' => '3', 'hash' => $business->hash));
 
         $nextSlots = $this->handleNextTimeSlot();
 
