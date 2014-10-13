@@ -105,6 +105,7 @@ class User extends ConfideUser
         $users = self::orderBy(DB::raw('RAND()'))
             ->join('business_category_user', 'business_category_user.user_id', '=','users.id')
             ->where('business_category_user.business_category_id', $categoryId)
+            ->where('business_name', '!=', '')
             ->limit($quantity)->get();
         return $users;
     }

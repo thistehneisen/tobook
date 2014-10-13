@@ -57,7 +57,6 @@ $(function() {
                 $slots = $business->getASNextTimeSlots($now, $now->hour);
                 $count = 0;
             ?>
-            @if(!empty($slots))
             <div class="available-slot col-md-3 col-sm-3">
                 <img src="{{ asset('assets/img/slides/1.jpg') }}" alt="" class="img-responsive" />
                 <div class="info text-left">
@@ -78,7 +77,6 @@ $(function() {
                     @endforeach
                 </div>
             </div>
-            @endif
         @endforeach
     </div>
 
