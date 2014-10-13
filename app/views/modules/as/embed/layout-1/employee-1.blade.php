@@ -15,6 +15,9 @@ $serviceTimeId      = (!empty($serviceTime)) ? $serviceTime->id : 'default';
         {{ !empty($employee->avatar) ? '<li class="avatar"><img src="'.$employee->getAvatarUrl().'" class="img-responsive" /></li>': '' }}
         <li class="as-col-header"><strong>{{ $employee->name }}</strong></li>
         <li class="as-col-header"><a href="" title="{{ $employee->description }}" class="employee-tooltip">{{ $employee->description }}</a></li>
+        @if(!empty($service->description))
+        <li class="as-col-header"><a href="" title="{{ $service->description }}" class="employee-tooltip">{{ $service->description }}</a></li>
+        @endif
         <li class="as-col-header"><strong>{{ trans('as.embed.guide_text') }}</strong></li>
         <li class="price-tag"><a class="btn btn-success col-xs-12"><i class="glyphicon glyphicon-tag"></i> {{ $servicePrice }} &euro;</a></li>
         <li>
