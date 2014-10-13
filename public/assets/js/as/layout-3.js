@@ -161,9 +161,7 @@
                         start_time  : dataStorage.time
                     }
                 }).fail(function (e) {
-                    if (e.responseJSON.message !== undefined) {
-                        window.alert(e.responseJSON.message);
-                    }
+                    console.log(e);
                 }).then(function (data) {
                     // Attach cart ID
                     dataStorage.cartId = data.cart_id;
