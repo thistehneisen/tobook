@@ -98,9 +98,12 @@ class Util
             $imagine = new Imagine\Gd\Imagine();
             $mode = Imagine\Image\ImageInterface::THUMBNAIL_INSET;
             $size = new Imagine\Image\Box($width, $height);
-            $imagine->open($imagePath)
-                ->thumbnail($size, $mode)
-                ->save($thumbPath);
+
+            try {
+                $imagine->open($imagePath)
+                    ->thumbnail($size, $mode)
+                    ->save($thumbPath);
+            } catch (\Exception $ex) {}
         }
 
 
