@@ -13,7 +13,7 @@
                         <label class="col-md-4 col-lg-4">
                             <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="{{ $service->description }}"></i>
                             <input type="radio" name="service_id" value="{{ $service->id }}" data-service="{{ $service->name }}">
-                            {{ number_format($service->price) }}&euro;
+                            {{ $service->price }}&euro;
                         </label>
                         <span><i class="glyphicon glyphicon-time"></i> {{ $service->during }} {{ trans('common.minutes')}}</span>
                     </p>
@@ -23,7 +23,7 @@
                         <label class="col-md-4 col-lg-4">
                             <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="{{ $service->description }}"></i>
                             <input type="radio" name="service_id" value="{{ $item->id }}" data-service="{{ $service->name }}">
-                            {{ number_format($item->price) }}&euro;
+                            {{ $item->price }}&euro;
                         </label>
                         <span><i class="glyphicon glyphicon-time"></i> {{ $item->during }} {{ trans('common.minutes')}}</span>
                     </p>
