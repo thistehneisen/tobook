@@ -111,13 +111,13 @@
                     @else
                         @foreach ($businessCategories as $category)
                         <li class="dropdown">
-                            <a href="{{ route('search') }}?query={{ urlencode($category->name) }}">
+                            <a href="{{ route('search') }}?q={{ urlencode($category->name) }}">
                                 <i class="fa {{ $category->icon() }}"></i>
                                 {{ $category->name }}
                             </a>
                             <ul class="dropdown-menu">
                             @foreach ($category->children as $child)
-                                <li><a href="{{ route('search') }}?query={{ urlencode($child->name) }}">{{ $child->name }}</a></li>
+                                <li><a href="{{ route('search') }}?q={{ urlencode($child->name) }}">{{ $child->name }}</a></li>
                             @endforeach
                             </ul>
                         </li>
