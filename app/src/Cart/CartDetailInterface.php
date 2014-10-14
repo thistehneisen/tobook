@@ -17,4 +17,18 @@ interface CartDetailInterface
      */
     public function getCartDetailOriginal();
 
+    /**
+     * Get the quantity of this item
+     *
+     * @return int
+     */
+    public function getCartDetailQuantity();
+
+    /**
+     * Get the price of this item
+     *
+     * @return double
+     */
+    public function getCartDetailPrice();
+
 }
