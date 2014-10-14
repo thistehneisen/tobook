@@ -37,6 +37,7 @@ class CartCest
         $cart = Cart::make([], $this->user);
         Assert::assertTrue($cart->isEmpty());
         Assert::assertInstanceOf('App\Cart\Cart', $cart);
+        Assert::assertEquals($cart->total, 0.0);
     }
 
     public function addAnItemToCart(UnitTester $i)
@@ -52,5 +53,25 @@ class CartCest
         $cart->addDetail($item);
 
         Assert::assertFalse($cart->isEmpty());
+        Assert::assertEquals($cart->total, 999.99);
+    }
+
+    public function addMultipleItemsToCart(UnitTester $i)
+    {
+        $foo = new Item;
+        $foo->id = 1;
+        $foo->quantity = 1;
+        $foo->price = 10;
+
+        $bar = new Item;
+        $bar->id = 1;
+        $bar->quantity = 1;
+        $bar->price = 10.955;
+
+        $cart = Cart::make([], $this->user);
+        $cart->addDetails([$foo, $bar]);
+
+        Assert::assertEquals($cart->details->count(), 2, 'Total items of the cart');
+        Assert::assertEquals($cart->total, 20.96, 'Total amount of money');
     }
 }

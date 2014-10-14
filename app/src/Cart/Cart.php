@@ -11,6 +11,8 @@ class Cart extends \AppModel
     const STATUS_INIT          = 1; // 01
     const STATUS_COMPLETED     = 2; // 11
 
+    protected $total = 0.0;
+
     /**
      * Create a new cart item
      *
@@ -58,6 +60,9 @@ class Cart extends \AppModel
         $detail = CartDetail::make($item);
         $this->details()->save($detail);
 
+        // Update total
+        $this->total += $detail->price;
+
         return $this;
     }
 
@@ -70,6 +75,14 @@ class Cart extends \AppModel
     {
         array_walk($details, [$this, 'addDetail']);
         return $this;
+    }
+
+    //--------------------------------------------------------------------------
+    // RELATIONSHIPS
+    //--------------------------------------------------------------------------
+    public function getTotalAttribute()
+    {
+        return round($this->total, 2);
     }
 
     //--------------------------------------------------------------------------
