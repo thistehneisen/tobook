@@ -16,7 +16,6 @@ class CartDetail extends \AppModel
         $instance = new static;
         $instance->quantity   = $item->getCartDetailQuantity();
         $instance->price      = $item->getCartDetailPrice();
-        $instance->name       = $item->getCartDetailName();
         $instance->model_id   = $item->id;
         $instance->model_type = get_class($item);
 

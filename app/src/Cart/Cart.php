@@ -31,7 +31,7 @@ class Cart extends \AppModel
         $cart = new static();
         $cart->fill($data);
         $cart->user()->associate($user);
-        $cart->saveOrFail();
+        // $cart->saveOrFail();
 
         return $cart;
     }
@@ -44,6 +44,32 @@ class Cart extends \AppModel
     public function isEmpty()
     {
         return $this->details->isEmpty();
+    }
+
+    /**
+     * Add a detail item into cart
+     *
+     * @param CartDetailInterface $item
+     *
+     * @param array $data
+     */
+    public function addDetail(CartDetailInterface $item)
+    {
+        $detail = CartDetail::make($item);
+        $this->details()->save($detail);
+
+        return $this;
+    }
+
+    /**
+     * Add many items into cart
+     *
+     * @param array|Illuminate\Support\Collection $details
+     */
+    public function addDetails($details)
+    {
+        array_walk($details, [$this, 'addDetail']);
+        return $this;
     }
 
     //--------------------------------------------------------------------------
