@@ -8,6 +8,8 @@ $cart = Cart::make();
 $cart->addDetail($booking);
 $cart->addDetails([$deal, $voucher]);
 
+
+var_dump($cart->isEmpty());
 var_dump($cart->total);
 var_dump($cart->total_items);
 
@@ -16,12 +18,14 @@ foreach ($cart->details as $item) {
         $item->name,
         $item->price,
         $item->quantity,
+        // @TODO:
         // For example, a T-shirt might have size, color, etc.
         // a booking might have additional delivery note
         $item->options,
         // A class must implement CartDetailInterface in order to be added to
-        // Cart. `original` refers to the original object.
-        $item->original
+        // Cart. `model` refers to the original object.
+        // @see: App\Appoinment\Model\BookingService
+        $item->model
     );
 }
 ```
