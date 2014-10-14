@@ -1,8 +1,12 @@
 <?php namespace App\Cart;
 
+use App;
+
 class CartDetail extends \AppModel
 {
     public $fillable = ['model_type', 'model_id', 'quantity', 'price'];
+
+    protected $model;
 
     /**
      * Extra data from provide object and create a cart detail instance
@@ -16,6 +20,7 @@ class CartDetail extends \AppModel
         $instance = new static;
         $instance->quantity   = $item->getCartDetailQuantity();
         $instance->price      = $item->getCartDetailPrice();
+        $instance->model      = $item->getCartDetailOriginal();
         $instance->model_id   = $item->id;
         $instance->model_type = get_class($item);
 
@@ -33,6 +38,23 @@ class CartDetail extends \AppModel
     public function getPriceAttribute()
     {
         return (double) $this->attributes['price'];
+    }
+
+    public function getModelAttribute()
+    {
+        if ($this->model === null) {
+            $model = App::make($this->model_type)->find($this->model_id);
+
+            if ($model !== null) {
+                $this->model = $model->getCartDetailOriginal();
+            }
+        }
+        return $this->model;
+    }
+
+    public function setModelAttribute($value)
+    {
+        $this->model = $value;
     }
 
     //--------------------------------------------------------------------------

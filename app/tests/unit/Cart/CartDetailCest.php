@@ -14,6 +14,7 @@ class CartDetailCest
     public function createANewCartDetail(UnitTester $i)
     {
         $item = new Item;
+        $item->id       = 999;
         $item->quantity = 1;
         $item->price    = 999.99;
 
@@ -21,7 +22,8 @@ class CartDetailCest
         Assert::assertInstanceOf('App\Cart\CartDetail', $detail);
         Assert::assertEquals($detail->quantity, $item->quantity);
         Assert::assertEquals($detail->price, $item->price);
-        Assert::assertEquals($detail->model_id, null);
+        Assert::assertEquals($detail->model_id, 999);
         Assert::assertEquals($detail->model_type, 'Test\Unit\Cart\Stub\Item');
+        Assert::assertEquals($detail->model, $item);
     }
 }

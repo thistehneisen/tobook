@@ -60,12 +60,12 @@ class CartCest
     {
         $foo = new Item;
         $foo->id = 1;
-        $foo->quantity = 1;
+        $foo->quantity = 2;
         $foo->price = 10;
 
         $bar = new Item;
-        $bar->id = 1;
-        $bar->quantity = 1;
+        $bar->id = 3;
+        $bar->quantity = 4;
         $bar->price = 10.955;
 
         $cart = Cart::make([], $this->user);
@@ -73,5 +73,13 @@ class CartCest
 
         Assert::assertEquals($cart->details->count(), 2, 'Total items of the cart');
         Assert::assertEquals($cart->total, 20.96, 'Total amount of money');
+
+        // Try to get back data from database
+        $dbCart = Cart::find($cart->id);
+        $f = $dbCart->details->first();
+
+        Assert::assertEquals($f->id, $foo->id);
+        Assert::assertEquals($f->quantity, $foo->quantity);
+        Assert::assertEquals($f->price, $foo->price);
     }
 }
