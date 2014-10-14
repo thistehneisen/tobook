@@ -219,7 +219,7 @@ return array(
         'AppController' => 'App\Core\Controllers\Base',
         'AppModel'      => 'App\Core\Models\Base',
         'Consumer'      => 'App\Consumers\Models\Consumer',
-        'Cart'          => 'App\Core\Models\Cart',
+        'Cart'          => 'App\Cart\Cart',
         'Lomake'        => 'App\Lomake\Facade',
         'UrlHelper'     => 'App\Core\Helpers\Url',
         'Util'          => 'App\Core\Util',

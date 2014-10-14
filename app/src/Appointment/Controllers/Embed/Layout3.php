@@ -1,11 +1,10 @@
 <?php namespace App\Appointment\Controllers\Embed;
 
-use Input, Response, Carbon\Carbon, Session, Redirect, Payment;
+use Input, Response, Carbon\Carbon, Session, Redirect, Payment, Cart;
 use App\Appointment\Controllers\Embed;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\AsConsumer;
-use App\Core\Models\Cart;
 
 class Layout3 extends Base
 {

@@ -1,14 +1,13 @@
 <?php namespace App\Appointment\Controllers\Embed;
 
 use Hashids, Input, View, Session, Redirect, URL, Config, Validator, Event, App;
+use Cart;
 use Carbon\Carbon;
 use App\Core\Models\User;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\AsConsumer;
 use App\Consumers\Models\Consumer;
-use App\Core\Models\Cart;
-use App\Core\Models\CartDetail;
 
 class Layout1 extends Base
 {
