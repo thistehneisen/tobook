@@ -25,12 +25,6 @@
                     </div>
 
                     <div class="as-timetable-wrapper" id="as-timetable"></div>
-
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <a id="btn-book" href="{{ route('as.bookings.service.front.add') }}" class="btn btn-success disabled pull-right">{{ trans('as.embed.book') }}</a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -52,5 +46,6 @@
 <input type="hidden" name="employee-url" value="{{ route('as.embed.employees', Input::all()) }}">
 <input type="hidden" name="timetable-url" value="{{ route('as.embed.l2.timetable', Input::all()) }}">
 <input type="hidden" name="checkout-url" value="{{ route('as.embed.l2.checkout', Input::all()) }}">
+<input type="hidden" name="booking-url" value="{{ route('as.bookings.service.front.add') }}">
 @stop
 

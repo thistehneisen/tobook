@@ -8,7 +8,6 @@
         var $body = $('body'),
             $main = $('#as-main-panel'),
             $timetable = $('#as-timetable'),
-            $btnBook = $('#btn-book'),
             $elSelect = $('#as-select'),
             $elCheckout = $('#as-checkout'),
             $elSuccess = $('#as-success'),
@@ -178,18 +177,11 @@
             $timetable.find('a.as-time.active').removeClass('active');
             $this.addClass('active');
 
-            $btnBook.removeClass('disabled');
-        });
-
-        // When user clicks on Book button
-        $btnBook.on('click', function (e) {
-            e.preventDefault();
-            var $this = $(this);
 
             $body.showLoading();
             // Send AJAX request to add booking service
             $.ajax({
-                url: $this.attr('href'),
+                url: $('input[name=booking-url]').val(),
                 type: 'POST',
                 data: {
                     service_id  : dataStorage.serviceId,
