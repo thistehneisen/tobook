@@ -25,5 +25,6 @@ class CartDetailCest
         Assert::assertEquals($detail->model_id, 999);
         Assert::assertEquals($detail->model_type, 'Test\Unit\Cart\Stub\Item');
         Assert::assertEquals($detail->model, $item);
+        Assert::assertEquals($detail->name, 'Foo');
     }
 }
