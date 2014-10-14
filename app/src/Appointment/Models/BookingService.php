@@ -1,8 +1,9 @@
 <?php namespace App\Appointment\Models;
 use Carbon\Carbon;
 use App\Appointment\Models\BookingExtraService;
+use App\Cart\CartDetailInterface;
 
-class BookingService extends \App\Appointment\Models\Base
+class BookingService extends \App\Appointment\Models\Base implements CartDetailInterface
 {
     protected $table = 'as_booking_services';
 
@@ -125,4 +126,58 @@ class BookingService extends \App\Appointment\Models\Base
     {
         return $this->belongsTo('App\Core\Models\User');
     }
+
+    //--------------------------------------------------------------------------
+    // CART DETAIL
+    //--------------------------------------------------------------------------
+    /**
+     * @{@inheritdoc}
+     */
+    public function getCartDetailName()
+    {
+        // TODO
+        return '';
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
+    public function getCartDetailOriginal()
+    {
+        $price = $this->getCartDetailPrice();
+
+        return (object) [
+            'datetime'      => $this->date,
+            'price'         => $price,
+            'service_name'  => $this->service->name,
+            'employee_name' => $this->employee->name,
+            'start_at'      => $this->getCartStartAt()->format('H:i'),
+            'end_at'        => $this->getCartEndAt()->format('H:i'),
+            'uuid'          => $this->tmp_uuid
+        ];
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
+    public function getCartDetailQuantity()
+    {
+        return 1;
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
+    public function getCartDetailPrice()
+    {
+        $this->calculateExtraServices();
+        $price = (!empty($this->serviceTime->id))
+            ? $this->serviceTime->price
+            : $this->service->price;
+
+        $price += $this->getExtraServicePrice();
+
+        return $price;
+    }
+
 }
