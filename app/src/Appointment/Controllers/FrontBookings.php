@@ -169,8 +169,8 @@ class FrontBookings extends Bookings
             }
             $user = User::find($decoded[0]);
 
-            foreach ($cart->cartDetails as $detail) {
-                $bookingService = BookingService::find($detail->item);
+            foreach ($cart->details as $detail) {
+                $bookingService = $detail->model->instance;
                 $extraServices  = BookingExtraService::where('tmp_uuid', $bookingService->tmp_uuid)->get();
 
                 $service = (!empty($bookingService->serviceTime->id))
