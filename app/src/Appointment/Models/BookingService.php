@@ -153,7 +153,8 @@ class BookingService extends \App\Appointment\Models\Base implements CartDetailI
             'employee_name' => $this->employee->name,
             'start_at'      => $this->getCartStartAt()->format('H:i'),
             'end_at'        => $this->getCartEndAt()->format('H:i'),
-            'uuid'          => $this->tmp_uuid
+            'uuid'          => $this->tmp_uuid,
+            'instance'      => $this
         ];
     }
 
