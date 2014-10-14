@@ -232,6 +232,7 @@
                         // If we're in Varaa website, submit as normal to
                         // redirect user to paygate
                         if (dataStorage.inhouse === 1) {
+                            $body.css('cursor', 'progress');
                             $('#as-form-payment').submit();
                             return;
                         }
