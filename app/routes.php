@@ -32,7 +32,7 @@ Route::group([], function () {
 
     Route::get('contact', [
         'as' => 'front.contact',
-        'uses' => 'App\Core\Controllers\Front@about',
+        'uses' => 'App\Core\Controllers\Front@contact',
     ]);
 
     Route::get('partners', [
