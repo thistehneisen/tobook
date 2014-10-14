@@ -1,8 +1,14 @@
 @extends ('layouts.default')
 
+@section('styles')
+    {{ HTML::style('assets/css/intro.css') }}
+@stop
+
+@section('main-classes') intro container @stop
+
 @section('content')
 <div class="row-fluid">
-    <img src="{{ asset('assets/img/front/partners/1.jpg') }}" class="img-responsive" alt="" />
+    <img src="{{ asset('assets/img/front/partners/1.jpg') }}" class="img-responsive banner" alt="" />
     <h3>Parner with varaa.com and increase your sales by reselling our industry leading online booking systems</h3>
     <p>Varaa.com offers ready to go online booking systems for Restaurants, Salons, Beauty Centers and Sports Activities.<br>
     Whether you are a daily deal business, looking to gain visibility of your customers’ occupation rates or a service company offering added value to your client's, varaa.com has the tools you need.<br>
