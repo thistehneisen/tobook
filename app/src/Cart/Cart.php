@@ -31,7 +31,7 @@ class Cart extends \AppModel
         $cart = new static();
         $cart->fill($data);
         $cart->user()->associate($user);
-        // $cart->saveOrFail();
+        $cart->saveOrFail();
 
         return $cart;
     }

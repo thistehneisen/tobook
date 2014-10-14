@@ -19,7 +19,8 @@ class CartCest
     {
         $user = m::mock('App\Core\Models\User');
         $user->shouldReceive('find');
-        $user->shouldReceive('getAttribute');
+        // When trying to get user ID
+        $user->shouldReceive('getAttribute')->with('id')->andReturn(70);
         $user->shouldReceive('save')->andReturn(true);
 
         $this->user = $user;
@@ -41,9 +42,12 @@ class CartCest
     public function addAnItemToCart(UnitTester $i)
     {
         $item = new Item;
+        $item->id       = 1;
         $item->quantity = 1;
         $item->price    = 999.99;
 
+
+        // Should I mock the cart?
         $cart = Cart::make([], $this->user);
         $cart->addDetail($item);
 

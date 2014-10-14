@@ -1465,6 +1465,8 @@ DROP TABLE IF EXISTS `varaa_cart_details`;
 CREATE TABLE `varaa_cart_details` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `cart_id` int(10) unsigned NOT NULL,
+  `model_type` varchar(255) NOT NULL,
+  `model_id` int(10) unsigned NOT NULL,
   `item` int(10) unsigned NOT NULL,
   `variant` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `price` double NOT NULL,
