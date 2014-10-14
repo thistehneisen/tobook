@@ -74,6 +74,6 @@ class Layout3 extends Base
     {
         $cart = Cart::findOrFail(Input::get('cart_id'));
         $goToPaygate = true;
-        return Payment::redirect($cart, $cart->subtotal, $goToPaygate);
+        return Payment::redirect($cart, $cart->total, $goToPaygate);
     }
 }
