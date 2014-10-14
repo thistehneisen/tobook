@@ -38,6 +38,7 @@ class CartCest
         Assert::assertTrue($cart->isEmpty());
         Assert::assertInstanceOf('App\Cart\Cart', $cart);
         Assert::assertEquals($cart->total, 0.0);
+        Assert::assertEquals($cart->total_items, 0);
     }
 
     public function addAnItemToCart(UnitTester $i)
@@ -54,6 +55,7 @@ class CartCest
 
         Assert::assertFalse($cart->isEmpty());
         Assert::assertEquals($cart->total, 999.99);
+        Assert::assertEquals($cart->total_items, 1);
     }
 
     public function addMultipleItemsToCart(UnitTester $i)
@@ -72,7 +74,8 @@ class CartCest
         $cart->addDetails([$foo, $bar]);
 
         Assert::assertEquals($cart->details->count(), 2, 'Total items of the cart');
-        Assert::assertEquals($cart->total, 20.96, 'Total amount of money');
+        Assert::assertEquals($cart->total, 63.82, 'Total amount of money');
+        Assert::assertEquals($cart->total_items, 6, 'Total amount of money');
 
         // Try to get back data from database
         $dbCart = Cart::find($cart->id);

@@ -9,6 +9,7 @@ $cart->addDetail($booking);
 $cart->addDetails([$deal, $voucher]);
 
 var_dump($cart->total);
+var_dump($cart->total_items);
 
 foreach ($cart->details as $item) {
     var_dump(
