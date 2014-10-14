@@ -14,6 +14,18 @@
         <label class="form-label col-sm-2">{{ trans('as.embed.layout_2.email') }}:</label>
         <div class="col-sm-10">{{ $email }}</div>
     </div>
+    <?php $fields = ['address', 'postcode','city', 'country', 'notes']; ?>
+    @foreach($fields as $field)
+        @if((int)$user->asOptions[$field] >= 2)
+        <div class="form-group">
+            <label class="form-label col-sm-2">{{ trans("as.bookings.$field") }}:</label>
+            <div class="col-sm-10">
+                <?php $item = ($field === 'notes') ? $cart : $consumer; ?>
+                {{ (!empty($item->$field)) ? $item->$field : trans('as.bookings.empty')  }}
+            </div>
+        </div>
+        @endif
+    @endforeach
 
     <input type="hidden" name="hash" value="{{ $hash }}">
     <input type="hidden" name="first_name" value="{{ $first_name }}">

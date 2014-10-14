@@ -25,6 +25,27 @@
         <div class="col-md-3">{{ $phone }}</div>
         <div class="col-md-7">{{ $email }}</div>
     </div>
+    @if(!empty($fields))
+    <div class="form-group">
+        <label class="form-label col-md-2">&nbsp;</label>
+            <div class="col-md-10">
+                <ul>
+                @foreach($fields as $field)
+                    @if((int)$user->asOptions[$field] >= 2)
+                        <li>{{ $consumer->$field }}</li>
+                    @endif
+                @endforeach
+                </ul>
+            </div>
+    </div>
+    @endif
+    @if((int)$user->asOptions['notes'] >= 2)
+    <div class="form-group">
+        <label class="form-label col-md-2">{{ trans('as.embed.layout_3.notes') }}:</label>
+        <div class="col-md-10">{{ $notes }}</div>
+    </div>
+    @endif
+
 
     <input type="hidden" name="service_id" value="{{ $service->id }}">
     <input type="hidden" name="employee_id" value="{{ $employee->id }}">

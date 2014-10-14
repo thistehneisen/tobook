@@ -159,6 +159,38 @@ trait Layout
         return User::findOrFail($decoded[0]);
     }
 
+    protected function getConfirmationValidator()
+    {
+        $hash   = Input::get('hash');
+
+        $fields = [
+            'first_name' => Input::get('first_name'),
+            'last_name'  => Input::get('last_name'),
+            'phone'      => Input::get('phone'),
+            'email'      => Input::get('email'),
+        ];
+
+        $validators = [
+            'first_name' => ['required'],
+            'last_name'  => ['required'],
+            'phone'      => ['required'],
+            'email'      => ['required', 'email'],
+        ];
+
+        $extraFields = ['notes', 'address', 'city', 'country'];
+        $user = $this->getUser($hash);
+
+        foreach ($extraFields as $field) {
+            if ((int)$user->asOptions[$field] == 3) {
+                $fields[$field]     = Input::get($field);
+                $fields['country']  = str_replace(trans('common.select'), '',Input::get('country'));
+                $validators[$field] = ['required'];
+            }
+        }
+
+        return Validator::make($fields, $validators);
+    }
+
     public function getDefaultWorkingTimes($date, $hash = null)
     {
         $user = $this->getUser($hash);

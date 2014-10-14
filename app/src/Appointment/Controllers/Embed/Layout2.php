@@ -91,10 +91,14 @@ class Layout2 extends Base
     public function getCheckoutData()
     {
         $cart = Cart::findOrFail(Input::get('cartId'));
+        $hash = Input::get('hash');
+        $user = $this->getUser($hash);
+
         return [
             'hash'         => Input::get('hash'),
             'cart'         => $cart,
-            'booking_info' => $this->getBookingInfo()
+            'booking_info' => $this->getBookingInfo(),
+            'user'         => $user
         ];
     }
 
@@ -114,11 +118,17 @@ class Layout2 extends Base
                 ->with('errors', $v->errors());
         }
 
+
         $data = Input::all();
         // Handle consumer
-        $consumer   = AsConsumer::handleConsumer($data);
-        $cart       = Cart::findOrFail(Input::get('cartId'));
+        $consumer    = AsConsumer::handleConsumer($data);
+        $cart        = Cart::findOrFail(Input::get('cartId'));
+        $cart->notes = $data['notes'];
         $cart->consumer()->associate($consumer)->save();
+
+        $data['consumer'] = $consumer;
+        $data['cart']     = $cart;
+        $data['user']     = $this->getUser();
 
         return $this->render('confirm', $data);
     }

@@ -88,6 +88,58 @@ return [
                 //     'options' => ['class' => 'form-control input-sm date-picker']
                 // ]
             ],
+            'booking_form' => [
+                'notes' => [
+                    'type' => 'Dropdown',
+                    'values' => [
+                        1 => trans('common.no'),
+                        2 => trans('common.yes'),
+                        3 => trans('common.yes_required'),
+                    ],
+                    'default' => 1,
+                    'flipValues' => false
+                ],
+                'address' => [
+                    'type' => 'Dropdown',
+                    'values' => [
+                        1 => trans('common.no'),
+                        2 => trans('common.yes'),
+                        3 => trans('common.yes_required'),
+                    ],
+                    'default' => 1,
+                    'flipValues' => false
+                ],
+                'city' => [
+                    'type' => 'Dropdown',
+                    'values' => [
+                        1 => trans('common.no'),
+                        2 => trans('common.yes'),
+                        3 => trans('common.yes_required'),
+                    ],
+                    'default' => 1,
+                    'flipValues' => false
+                ],
+                'postcode' =>[
+                    'type' => 'Dropdown',
+                    'values' => [
+                        1 => trans('common.no'),
+                        2 => trans('common.yes'),
+                        3 => trans('common.yes_required'),
+                    ],
+                    'default' => 1,
+                    'flipValues' => false
+                ],
+                'country' => [
+                    'type' => 'Dropdown',
+                    'values' => [
+                        1 => trans('common.no'),
+                        2 => trans('common.yes'),
+                        3 => trans('common.yes_required'),
+                    ],
+                    'default' => 1,
+                    'flipValues' => false
+                ],
+            ],
             'confirmations' => [
                 'confirm_email_enable' => [
                     'type'   => 'Radio',

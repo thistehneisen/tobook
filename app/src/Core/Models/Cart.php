@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 
 class Cart extends Base
 {
-    public $fillable = ['status'];
+    public $fillable = ['status', 'notes'];
 
     const STATUS_INIT          = 1;//01
     const STATUS_COMPLETED     = 2;//11

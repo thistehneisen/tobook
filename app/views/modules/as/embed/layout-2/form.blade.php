@@ -21,6 +21,23 @@
         <label>{{ trans('as.bookings.phone') }}*</label>
         {{ Form::text('phone', (isset($booking_info['phone'])) ? $booking_info['phone'] : ''  , ['class' => 'form-control input-sm', 'id' => 'phone']) }}
     </div>
+    <?php $fields = ['notes', 'address', 'city']; ?>
+    @foreach($fields as $field)
+        @if((int)$user->asOptions[$field] >= 2)
+        <div class="form-group">
+           <label>{{ trans("as.bookings.$field") }} @if((int)$user->asOptions[$field] === 3)*@endif</label>
+           {{ Form::text($field, (isset($booking_info[$field])) ? $booking_info[$field] : ''  , ['class' => 'form-control input-sm', 'id' => $field]) }}
+        </div>
+        @endif
+    @endforeach
+
+    @if((int)$user->asOptions['country'] >= 2)
+    <div class="form-group">
+        <label>{{ trans('as.bookings.country') }}  @if((int)$user->asOptions['country'] === 3)(*)@endif</label>
+        {{ Form::select('country', array_combine($user->getCountryList(), $user->getCountryList()), (isset($booking_info['country'])) ? $booking_info['country'] : '', ['class' => 'form-control input-sm', 'id' => 'country']) }}
+        </div>
+    </div>
+    @endif
 
     <input type="hidden" name="hash" value="{{ Input::get('hash') }}">
     <input type="hidden" name="l" value="{{ Input::get('l') }}">

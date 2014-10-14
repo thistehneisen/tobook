@@ -207,6 +207,7 @@ class FrontBookings extends Bookings
                     'modify_time' => $bookingService->modify_time,
                     'plustime'    => $plustime,
                     'source'      => $source,
+                    'notes'       => $cart->notes,
                     'ip'          => Request::getClientIp()
                 ]);
 

@@ -44,25 +44,6 @@ class Base extends AsBase
         return $this->render('index', $data);
     }
 
-    protected function getConfirmationValidator()
-    {
-        $fields = [
-            'first_name' => Input::get('first_name'),
-            'last_name'  => Input::get('last_name'),
-            'phone'      => Input::get('phone'),
-            'email'      => Input::get('email'),
-        ];
-
-        $validators = [
-            'first_name' => ['required'],
-            'last_name'  => ['required'],
-            'phone'      => ['required'],
-            'email'      => ['required', 'email'],
-        ];
-
-        return Validator::make($fields, $validators);
-    }
-
     /**
      * Get all employees available for a service
      *

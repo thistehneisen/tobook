@@ -30,6 +30,19 @@
                     {{ Form::hidden('phone', (!empty($consumer->phone)) ? $consumer->phone :'', ['class' => 'form-control input-sm', 'id' => 'phone']) }}
                 </div>
             </div>
+            <?php $fields = ['address', 'postcode','city', 'country', 'notes']; ?>
+            @foreach($fields as $field)
+                @if((int)$user->asOptions[$field] >= 2)
+                <div class="form-group row">
+                    <div class="col-sm-2">{{ trans("as.bookings.$field") }}  @if((int)$user->asOptions[$field] === 3)(*)@endif</div>
+                    <div class="col-sm-10">
+                        <?php $item = ($field === 'notes') ? $cart : $consumer; ?>
+                        <span id="display_{{ $field }}">{{ (!empty($item->$field)) ? $item->$field : trans('as.bookings.empty')  }}</span>
+                        {{ Form::hidden($field, (!empty($consumer->$field)) ? $item->$field :'', ['class' => 'form-control input-sm', 'id' => $field]) }}
+                    </div>
+                </div>
+                @endif
+            @endforeach
             <input type="hidden" name="hash" value="{{ $hash }}">
             <input type="hidden" name="cart_id" value="{{ $cart->id }}">
             <input type="hidden" name="source" value="layout1">

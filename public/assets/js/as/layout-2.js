@@ -56,7 +56,7 @@
             var $this = $(this),
                 serviceId = $this.data('service-id'),
                 $serviceTime = $this.siblings('.as-service-time'),
-                $employee = $('#as-service-'+serviceId+'-employees');
+                $employee = $('#as-service-' + serviceId + '-employees');
 
             // Show/hide service time
             if ($serviceTime.is(':visible')) {
@@ -73,7 +73,7 @@
 
             // Show extra services if available
             $('div.as-extra-services').hide();
-            $('#as-service-'+serviceId+'-extra-services').show();
+            $('#as-service-' + serviceId + '-extra-services').show();
 
             dataStorage.serviceId = serviceId;
             // Hide all visible employee elements
