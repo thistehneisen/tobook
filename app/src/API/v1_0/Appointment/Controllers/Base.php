@@ -47,12 +47,26 @@ class Base extends \App\Core\Controllers\Base
 
         $services = [];
         foreach ($booking->bookingServices as $bookingService) {
-            $services[] = [
+            $serviceData = [
                 'id' => $bookingService->service->id,
                 'name' => $bookingService->service->name,
                 'description' => $bookingService->service->description,
                 'modify_time' => $bookingService->modify_time,
+                'price' => $bookingService->service->price,
+
+                'date' => $bookingService->date,
+                'start_at' => $bookingService->start_at,
+                'end_at' => $bookingService->end_at,
+                'duration' => $bookingService->calculateServiceLength(),
             ];
+
+            // this is weird, end_at is 00:00:00 for some records
+            // we are going to fix it in the API
+            if ($serviceData['end_at'] === '00:00:00') {
+                $serviceData['end_at'] = $bookingService->getStartAt()->addMinutes($serviceData['duration'])->toTimeString();
+            }
+
+            $services[] = $serviceData;
         }
 
         $extraServices = [];
@@ -61,6 +75,8 @@ class Base extends \App\Core\Controllers\Base
                 'id' => $bookingExtraService->extraService->id,
                 'name' => $bookingExtraService->extraService->name,
                 'description' => $bookingExtraService->extraService->description,
+                'price' => $bookingExtraService->extraService->price,
+                'duration' => $bookingExtraService->extraService->length,
             ];
         }
 

@@ -246,6 +246,7 @@ class BookingCest
     public function testPutScheduleSameEmployee(ApiTester $I)
     {
         $booking = $this->_book($I, $this->user, $this->category);
+        $duration = $booking->getEndAt()->diffInMinutes($booking->getStartAt());
 
         $date = Carbon::today();
         do {
@@ -267,12 +268,14 @@ class BookingCest
         $booking = \App\Appointment\Models\Booking::find($booking->id);
         $I->assertEquals($date->toDateString(), $booking->date, '$booking->date');
         $I->assertEquals($starAt, $booking->start_at, '$booking->start_at');
+        $I->assertEquals($duration, $booking->getEndAt()->diffInMinutes($booking->getStartAt()), '$duration');
         $I->assertEquals($employeeId, $booking->employee_id, '$booking->employee_id');
     }
 
     public function testPutScheduleDifferentEmployee(ApiTester $I)
     {
         $booking = $this->_book($I, $this->user, $this->category);
+        $duration = $booking->getEndAt()->diffInMinutes($booking->getStartAt());
 
         $date = Carbon::today();
         do {
@@ -295,12 +298,14 @@ class BookingCest
         $booking = \App\Appointment\Models\Booking::find($booking->id);
         $I->assertEquals($date->toDateString(), $booking->date, '$booking->date');
         $I->assertEquals($starAt, $booking->start_at, '$booking->start_at');
+        $I->assertEquals($duration, $booking->getEndAt()->diffInMinutes($booking->getStartAt()), '$duration');
         $I->assertEquals($employeeId, $booking->employee_id, '$booking->employee_id');
     }
 
     public function testPutScheduleWithConflict(ApiTester $I)
     {
         $booking = $this->_book($I, $this->user, $this->category, '08:00');
+        $duration = $booking->getEndAt()->diffInMinutes($booking->getStartAt());
         $booking2 = $this->_book($I, $this->user, $this->category, '14:00');
 
         $I->sendPUT($this->endpoint . '/' . $booking->id . '/schedule', [
@@ -315,6 +320,7 @@ class BookingCest
         $bookingAgain = \App\Appointment\Models\Booking::find($booking->id);
         $I->assertEquals($booking->date, $bookingAgain->date, '$bookingAgain->date');
         $I->assertEquals($booking->start_at, $bookingAgain->start_at, '$bookingAgain->start_at');
+        $I->assertEquals($duration, $bookingAgain->getEndAt()->diffInMinutes($bookingAgain->getStartAt()), '$duration');
         $I->assertEquals($booking->employee_id, $bookingAgain->employee_id, '$bookingAgain->employee_id');
     }
 }

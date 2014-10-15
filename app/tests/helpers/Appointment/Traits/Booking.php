@@ -63,6 +63,12 @@ trait Booking
                     $I->assertEquals($bookingService->service->name, $bookingServiceData['name'], "\$bookingServiceData['name']");
                     $I->assertEquals($bookingService->service->description, $bookingServiceData['description'], "\$bookingServiceData['description']");
                     $I->assertEquals($bookingService->modify_time, $bookingServiceData['modify_time'], "\$bookingServiceData['modify_time']");
+                    $I->assertEquals($bookingService->service->price, $bookingServiceData['price'], "\$bookingServiceData['price']");
+
+                    $I->assertEquals($bookingService->date, $bookingServiceData['date'], "\$bookingServiceData['date']");
+                    $I->assertEquals($bookingService->start_at, $bookingServiceData['start_at'], "\$bookingServiceData['start_at']");
+                    $I->assertEquals($bookingService->end_at, $bookingServiceData['end_at'], "\$bookingServiceData['end_at']");
+                    $I->assertEquals($bookingService->calculateServiceLength(), $bookingServiceData['duration'], "\$bookingServiceData['duration']");
 
                     $bookingServiceDataFound = true;
                 }
@@ -80,6 +86,8 @@ trait Booking
                 if ($bookingExtraServiceData['id'] == $bookingExtraService->extraService->id) {
                     $I->assertEquals($bookingExtraService->extraService->name, $bookingExtraServiceData['name'], "\$bookingExtraServiceData['name']");
                     $I->assertEquals($bookingExtraService->extraService->description, $bookingExtraServiceData['description'], "\$bookingExtraServiceData['description']");
+                    $I->assertEquals($bookingExtraService->extraService->price, $bookingExtraServiceData['price'], "\$bookingExtraServiceData['price']");
+                    $I->assertEquals($bookingExtraService->extraService->length, $bookingExtraServiceData['duration'], "\$bookingExtraServiceData['duration']");
 
                     $bookingExtraServiceDataFound = true;
                 }
