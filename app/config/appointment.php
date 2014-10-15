@@ -139,6 +139,23 @@ return [
                     'default' => 1,
                     'flipValues' => false
                 ],
+                'terms_enabled' => [
+                    'type' => 'Dropdown',
+                    'values' => [
+                        1 => trans('common.no'),
+                        2 => trans('common.yes'),
+                        3 => trans('common.yes_required'),
+                    ],
+                    'default' => 1,
+                    'flipValues' => false
+                ],
+                'terms_url' => [
+                    'type' => 'Text'
+                ],
+                'terms_body' => [
+                    'type' => 'Textarea',
+                    'values' => trans('as.options.booking.terms_body_default')
+                ],
             ],
             'confirmations' => [
                 'confirm_email_enable' => [
@@ -217,25 +234,6 @@ return [
             //         'values' => trans('as.options.booking.reminder_sms_message_default'),
             //     ],
             // ],
-            'terms' => [
-                'terms_enabled' => [
-                    'type' => 'Dropdown',
-                    'values' => [
-                        1 => trans('common.no'),
-                        2 => trans('common.yes'),
-                        3 => trans('common.yes_required'),
-                    ],
-                    'default' => 1,
-                    'flipValues' => false
-                ],
-                'terms_url' => [
-                    'type' => 'Text'
-                ],
-                'terms_body' => [
-                    'type' => 'Textarea',
-                    'values' => trans('as.options.booking.terms_body_default')
-                ]
-            ],
         ],
         'style' => [
             'index' => [
@@ -251,9 +249,6 @@ return [
                 'style_heading_background' => [
                     'type' => 'Text'
                 ],
-                // 'style_text_color' => [
-                //     'type' => 'Text'
-                // ],
                 'style_main_color' => [
                     'type' => 'Text'
                 ],
