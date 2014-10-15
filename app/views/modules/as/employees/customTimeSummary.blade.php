@@ -16,7 +16,7 @@
         <div class="col-sm-4"><a href="{{ route('as.employees.employeeCustomTime.summary', ['date'=> with(clone $current->startOfMonth())->addMonth()->format('Y-m') ])}}">{{ Str::upper(trans('common.next')) }}</a></div>
 </div>
 
-<table class="table table-striped">
+<table class="table table-striped table-bordered">
     <thead>
         <th>{{ trans('as.employees.weekday')}}</th>
         <th>{{ trans('as.employees.date')}}</th>
