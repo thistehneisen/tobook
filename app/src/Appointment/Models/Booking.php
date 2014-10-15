@@ -1,5 +1,12 @@
 <?php namespace App\Appointment\Models;
 
+use Request;
+use App\Core\Models\User;
+use App\Appointment\Models\Observer\SmsObserver;
+use Carbon\Carbon;
+use Watson\Validating\ValidationException;
+
+
 class Booking extends \App\Appointment\Models\Base implements \SplSubject
 {
     protected $table = 'as_bookings';
@@ -278,5 +285,249 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
     public function extraServices(){
          return $this->hasMany('App\Appointment\Models\BookingExtraService');
+    }
+
+    //--------------------------------------------------------------------------
+    // BUSINESS LOGIC
+    //--------------------------------------------------------------------------
+
+    /**
+     * Save booking or update an existing record. New booking services and/or extra services
+     * will be looked up and saved together with the booking record.
+     *
+     * @param string $uuid
+     * @param User $user
+     * @param Consumer $consumer
+     * @param array $input
+     * @param Booking $existingBooking
+     *
+     * @return Booking
+     *
+     * @throw \Watson\Validating\ValidationException
+     */
+    public static function saveBooking($uuid, User $user, Consumer $consumer, array $input, Booking $existingBooking = null)
+    {
+        $input = array_merge([
+            'ip' => '',
+            'notes' => '',
+            'status' => 'confirmed',
+        ], $input);
+
+        // validate input #1
+        if (empty($input['ip'])) {
+            if (!empty($existingBooking)) {
+                $input['ip'] = $existingBooking->ip;
+            } else {
+                $input['ip'] = Request::getClientIp();
+            }
+        }
+
+        // validate input #2
+        $input['status'] = self::getStatus($input['status']);
+        if ($input['status'] === self::STATUS_CANCELLED) {
+            if (empty($existingBooking)) {
+                throw new ValidationException(trans('as.bookings.error.id_not_found'));
+            }
+
+            $existingBooking->deleteOrFail();
+            return $existingBooking;
+        }
+
+        // get booking services, existing and new
+        $existingBookingServices = [];
+        if (!empty($existingBooking)) {
+            foreach ($existingBooking->bookingServices as $existingBookingService) {
+                $existingBookingServices[] = $existingBookingService;
+            }
+        }
+        $uuidBookingServices = BookingService::where('tmp_uuid', $uuid)->get();
+        $newBookingServices = [];
+        foreach ($uuidBookingServices as $bookingService) {
+            if (empty($bookingService->booking_id)) {
+                $newBookingServices[] = $bookingService;
+            }
+        }
+        $bookingServices = array_merge($existingBookingServices, $newBookingServices);
+        if (empty($bookingServices)) {
+            throw new ValidationException(trans('as.bookings.error.service_empty'));
+        }
+
+        // calculate length / price with data from services
+        $totalLength = 0;
+        $totalPrice = 0;
+        $totalModifyTime = 0;
+        $totalPlusTime = 0;
+        $startTime = null;
+        foreach ($bookingServices as $bookingService) {
+            $totalLength += $bookingService->calculateServiceLength();
+            $totalPrice += $bookingService->calculateServicePrice();
+
+            // TODO: remove fields modify_time and plustime from booking table
+            $totalModifyTime += $bookingService->modify_time;
+            $totalPlusTime += $bookingService->plustime;
+
+            $bookingServiceStartTime = Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s', $bookingService->date, $bookingService->start_at));
+            if ($startTime === null || $bookingServiceStartTime->diffInMinutes($startTime, false) > 0) {
+                $startTime = clone $bookingServiceStartTime;
+            }
+        }
+
+        // get extra services, existing and new
+        $existingBookingExtraServices = [];
+        if (!empty($existingBooking)) {
+            foreach ($existingBooking->extraServices as $existingExtraService) {
+                $existingBookingExtraServices[] = $existingExtraService;
+            }
+        }
+        $uuidBookingExtraServices = BookingExtraService::where('tmp_uuid', $uuid)->get();
+        $newBookingExtraServices = [];
+        foreach ($uuidBookingExtraServices as $bookingExtraService) {
+            if (empty($bookingExtraService->booking_id)) {
+                $newBookingExtraServices[] = $bookingExtraService;
+            }
+        };
+        $bookingExtraServices = array_merge($existingBookingExtraServices, $newBookingExtraServices);
+
+        // recalculate length / price with data from extra services, if any
+        foreach ($bookingExtraServices as $bookingExtraService) {
+            $totalLength += $bookingExtraService->extraService->length;
+            $totalPrice += $bookingExtraService->extraService->price;
+        }
+
+        // calculate end time
+        $endTime = with(clone $startTime)->addMinutes($totalLength);
+
+        if (!empty($existingBooking)) {
+            $booking = $existingBooking;
+        } else {
+            $booking = new Booking();
+        }
+
+        $booking->fill([
+            'date' => $startTime->toDateString(),
+            'start_at' => $startTime->toTimeString(),
+            'end_at' => $endTime->toTimeString(),
+            'total' => $totalLength,
+            'total_price' => $totalPrice,
+            'status' => $input['status'],
+            'notes' => $input['notes'],
+            'uuid' => $uuid,
+            'modify_time' => $totalModifyTime,
+            'plustime' => $totalPlusTime,
+            'ip' => $input['ip'],
+        ]);
+
+        $booking->consumer()->associate($consumer);
+        $booking->employee()->associate($bookingService->employee);
+        $booking->user()->associate($user);
+        $booking->saveOrFail();
+
+        foreach ($newBookingServices as $bookingService) {
+            // TODO: reset tmp_uuid?
+            $bookingService->booking()->associate($booking);
+            $bookingService->saveOrFail();
+        }
+
+        foreach ($newBookingExtraServices as $bookingExtraService) {
+            // TODO: reset tmp_uuid?
+            $bookingExtraService->booking()->associate($booking);
+            $bookingExtraService->saveOrFail();
+        }
+
+        if (empty($existingBooking)) {
+            // send sms for new booking
+            $booking->attach(new SmsObserver(true));
+            $booking->notify();
+        }
+
+        return $booking;
+    }
+
+    /**
+     * Update booking data. Useful method after deletions of booking services and/or
+     * extra services.
+     *
+     * @param Booking $booking
+     *
+     * @return Booking $booking
+     *
+     * @throw \Watson\Validating\ValidationException
+     */
+    public static function updateBooking(Booking $booking)
+    {
+        $consumer = \App\Appointment\Models\Consumer::find($booking->consumer_id);
+
+        // just call Booking::saveBooking with existing data and let it recalculate everything
+        return self::saveBooking($booking->uuid, $booking->user, $consumer, [
+            'ip' => $booking->ip,
+            'notes' => $booking->notes,
+            'status' => self::getStatusByValue($booking->status),
+        ], $booking);
+    }
+
+    /**
+     * Reschedule a booking and all of its services, extra services with another employee, at a different time
+     *
+     * @param Booking $booking
+     * @param Employee $employee
+     * @param array $input
+     *
+     * @return Booking
+     *
+     * @throw \Watson\Validating\ValidationException
+     */
+    public static function rescheduleBooking(Booking $booking, Employee $employee, array $input)
+    {
+        $input = array_merge([
+            'booking_date' => '',
+            'start_time' => '',
+        ], $input);
+
+        if ($booking->bookingServices()->count() != 1) {
+            // do not continue with unsupported booking as we only work with one service for now
+            throw new ValidationException(trans('as.bookings.reschedule_single_only'));
+        }
+
+        \DB::transaction(function() use ($booking, $employee, $input) {
+            // prepare extra service ids to keep track
+            $extraServiceIds = [];
+            foreach ($booking->extraServices as $bookingExtraService) {
+                $extraServiceIds[] = $bookingExtraService->extraService->id;
+                $bookingExtraService->delete();
+            }
+
+            // start re-booking services and extra services
+            foreach ($booking->bookingServices as $bookingService) {
+                $service = $bookingService->service;
+                $bookingServiceInput = array_merge($input, [
+                    'modify_time' => $bookingService->modify_time,
+                    'service_time' => (!empty($bookingService->service_time_id) ? $bookingService->serviceTime->id : 'default'),
+                ]);
+                $bookingService->delete();
+
+                $bookingService = BookingService::saveBookingService($booking->uuid, $employee, $service, $bookingServiceInput);
+
+                foreach ($service->extraServices as $serviceExtraService) {
+                    foreach (array_keys($extraServiceIds) as $key) {
+                        // traverse by key because there may be more than one booking for one extra service
+                        // also, we need to delete the id after successfully book it
+                        if ($serviceExtraService->id == $extraServiceIds[$key]) {
+                            BookingExtraService::addExtraService($booking->uuid, $employee, $bookingService, $serviceExtraService);
+                            unset($extraServiceIds[$key]);
+                        }
+                    }
+                }
+            }
+
+            // there are unbooked extra services, throw error
+            if (!empty($extraServiceIds)) {
+                throw new ValidationException(trans('as.bookings.error.reschedule_unbooked_extra'));
+            }
+        });
+
+        // call update booking to associate those newly booked services / extra services with the booking itself
+        $booking = Booking::find($booking->id);
+
+        return self::updateBooking($booking);
     }
 }

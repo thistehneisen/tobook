@@ -387,6 +387,21 @@ Route::group([
                 // ]);
             });
         });
+        Route::group([
+            'prefix' => 'as',
+        ], function () {
+            Route::get('schedules', 'App\API\v1_0\Appointment\Controllers\Schedule@getSchedules');
+            Route::resource('bookings', 'App\API\v1_0\Appointment\Controllers\Booking', [
+                'only' => ['store', 'show', 'update', 'destroy']
+            ]);
+            Route::put('bookings/{id}/status', 'App\API\v1_0\Appointment\Controllers\Booking@putStatus');
+            Route::put('bookings/{id}/modify_time', 'App\API\v1_0\Appointment\Controllers\Booking@putModifyTime');
+            Route::put('bookings/{id}/schedule', 'App\API\v1_0\Appointment\Controllers\Booking@putSchedule');
+            Route::get('services', 'App\API\v1_0\Appointment\Controllers\Service@getServices');
+            Route::get('services/{id}', 'App\API\v1_0\Appointment\Controllers\Service@getService');
+            Route::get('service-categories', 'App\API\v1_0\Appointment\Controllers\Service@getCategories');
+            Route::get('service-categories/{id}', 'App\API\v1_0\Appointment\Controllers\Service@getCategory');
+        });
         // Other modules
     });
 });
