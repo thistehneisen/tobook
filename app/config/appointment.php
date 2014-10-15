@@ -88,6 +88,75 @@ return [
                 //     'options' => ['class' => 'form-control input-sm date-picker']
                 // ]
             ],
+            'booking_form' => [
+                'notes' => [
+                    'type' => 'Dropdown',
+                    'values' => [
+                        1 => trans('common.no'),
+                        2 => trans('common.yes'),
+                        3 => trans('common.yes_required'),
+                    ],
+                    'default' => 1,
+                    'flipValues' => false
+                ],
+                'address' => [
+                    'type' => 'Dropdown',
+                    'values' => [
+                        1 => trans('common.no'),
+                        2 => trans('common.yes'),
+                        3 => trans('common.yes_required'),
+                    ],
+                    'default' => 1,
+                    'flipValues' => false
+                ],
+                'city' => [
+                    'type' => 'Dropdown',
+                    'values' => [
+                        1 => trans('common.no'),
+                        2 => trans('common.yes'),
+                        3 => trans('common.yes_required'),
+                    ],
+                    'default' => 1,
+                    'flipValues' => false
+                ],
+                'postcode' =>[
+                    'type' => 'Dropdown',
+                    'values' => [
+                        1 => trans('common.no'),
+                        2 => trans('common.yes'),
+                        3 => trans('common.yes_required'),
+                    ],
+                    'default' => 1,
+                    'flipValues' => false
+                ],
+                'country' => [
+                    'type' => 'Dropdown',
+                    'values' => [
+                        1 => trans('common.no'),
+                        2 => trans('common.yes'),
+                        3 => trans('common.yes_required'),
+                    ],
+                    'default' => 1,
+                    'flipValues' => false
+                ],
+                'terms_enabled' => [
+                    'type' => 'Dropdown',
+                    'values' => [
+                        1 => trans('common.no'),
+                        2 => trans('common.yes'),
+                        3 => trans('common.yes_required'),
+                    ],
+                    'default' => 1,
+                    'flipValues' => false
+                ],
+                'terms_url' => [
+                    'type' => 'Text'
+                ],
+                'terms_body' => [
+                    'type' => 'Textarea',
+                    'values' => trans('as.options.booking.terms_body_default')
+                ],
+            ],
             'confirmations' => [
                 'confirm_email_enable' => [
                     'type'   => 'Radio',
@@ -165,25 +234,6 @@ return [
             //         'values' => trans('as.options.booking.reminder_sms_message_default'),
             //     ],
             // ],
-            'terms' => [
-                'terms_enabled' => [
-                    'type' => 'Dropdown',
-                    'values' => [
-                        1 => trans('common.no'),
-                        2 => trans('common.yes'),
-                        3 => trans('common.yes_required'),
-                    ],
-                    'default' => 1,
-                    'flipValues' => false
-                ],
-                'terms_url' => [
-                    'type' => 'Text'
-                ],
-                'terms_body' => [
-                    'type' => 'Textarea',
-                    'values' => trans('as.options.booking.terms_body_default')
-                ]
-            ],
         ],
         'style' => [
             'index' => [
@@ -199,9 +249,6 @@ return [
                 'style_heading_background' => [
                     'type' => 'Text'
                 ],
-                // 'style_text_color' => [
-                //     'type' => 'Text'
-                // ],
                 'style_main_color' => [
                     'type' => 'Text'
                 ],

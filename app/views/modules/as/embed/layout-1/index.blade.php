@@ -98,18 +98,17 @@ $(document).ready(function () {
             @if(empty($cart))
                 <div class="alert alert-info">{{ trans('as.embed.empty_cart') }}</div>
                 @else
-                @foreach($cart->cartDetails as $detail)
-                <?php $item = $detail->getASBookingInfo();?>
+                @foreach($cart->details as $item)
                 <div class="panel panel-default">
-                    <div class="panel-heading">{{ $item['service_name'] }}</div>
+                    <div class="panel-heading">{{ $item->model->service_name }}</div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-sm-6">{{ $item['datetime'] }}</div>
-                            <div class="col-sm-4"><span class="price-tag"> {{ $item['price'] }} &euro;</span></div>
-                            <div class="col-sm-2"><a href="#" data-hash="{{ $hash }}" data-action-url="{{ route('as.bookings.service.remove.in.cart') }}" data-cart-id="{{ $detail->cart->id }}" data-cart-detail-id="{{ $detail->id }}" data-uuid="{{ $item['uuid'] }}" class="btn-remove-item-from-cart"><i class="glyphicon glyphicon-remove btn-danger"></i></a></div>
+                            <div class="col-sm-6">{{ $item->model->datetime }}</div>
+                            <div class="col-sm-4"><span class="price-tag"> {{ $item->price }} &euro;</span></div>
+                            <div class="col-sm-2"><a href="#" data-hash="{{ $hash }}" data-action-url="{{ route('as.bookings.service.remove.in.cart') }}" data-cart-id="{{ $cart->id }}" data-cart-detail-id="{{ $item->id }}" data-uuid="{{ $item->model->uuid }}" class="btn-remove-item-from-cart"><i class="glyphicon glyphicon-remove btn-danger"></i></a></div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12"> {{ $item['start_at'] }} : {{ $item['end_at'] }}</div>
+                            <div class="col-sm-12"> {{ $item->model->start_at }} : {{ $item->model->end_at }}</div>
                         </div>
                     </div>
                 </div>

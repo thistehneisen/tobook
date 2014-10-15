@@ -1,8 +1,7 @@
-<h3>{{{ $business->business_name }}}</h3>
-<p>{{{ $business->full_address }}}</p>
-
 <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-6">
+        <h3><a title="{{{ $business->business_name }}}" href="{{ route('business.index', ['id' => $business->id, 'slug' => $business->slug]) }}" target="_blank">{{{ $business->business_name }}}</a></h3>
+        <p>{{{ $business->full_address }}}</p>
         <p><img src="{{ asset($business->image) }}" alt="" class="img-responsive img-rounded"></p>
 
         <!-- About -->
@@ -74,9 +73,10 @@
         @endif
     </div>
 
-    <div class="col-sm-4">
-        <div class="box text-center">
-            <a href="#" class="btn btn-success btn-lg">{{ trans('common.book') }}</a>
+    <div class="col-sm-6">
+        <div class="box">
+            {{-- `$inhouse = true` means that we'll show login/register secion in step 4 --}}
+            @include('modules.as.embed.layout-3.main', ['inhouse' => true])
         </div>
 
         <div class="box">

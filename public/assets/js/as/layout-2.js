@@ -1,13 +1,13 @@
 /*jslint browser: true, nomen: true, unparam: true*/
-/*global $, jQuery */
-'use strict';
+/*global jQuery */
 
 (function ($) {
+    'use strict';
+
     $(function () {
         var $body = $('body'),
             $main = $('#as-main-panel'),
             $timetable = $('#as-timetable'),
-            $btnBook = $('#btn-book'),
             $elSelect = $('#as-select'),
             $elCheckout = $('#as-checkout'),
             $elSuccess = $('#as-success'),
@@ -38,14 +38,15 @@
         // When user clicks on a category name
         $('a.as-category').on('click', function (e) {
             e.preventDefault();
-            var $this = $(this);
+            var $this = $(this),
+                $service = $('#as-category-'+$this.data('category-id')+'-services');
 
             // Highlight it
             $('a.as-category.active').removeClass('active');
             $this.addClass('active');
 
             $('div.as-services').hide();
-            $('#as-category-'+$this.data('category-id')+'-services').slideDown();
+            $service.slideDown();
         });
 
         // When user clicks on a service
@@ -54,7 +55,7 @@
             var $this = $(this),
                 serviceId = $this.data('service-id'),
                 $serviceTime = $this.siblings('.as-service-time'),
-                $employee = $('#as-service-'+serviceId+'-employees');
+                $employee = $('#as-service-' + serviceId + '-employees');
 
             // Show/hide service time
             if ($serviceTime.is(':visible')) {
@@ -71,7 +72,7 @@
 
             // Show extra services if available
             $('div.as-extra-services').hide();
-            $('#as-service-'+serviceId+'-extra-services').show();
+            $('#as-service-' + serviceId + '-extra-services').show();
 
             dataStorage.serviceId = serviceId;
             // Hide all visible employee elements
@@ -110,7 +111,7 @@
             });
         };
 
-        $main.on('click', 'button.btn-service-time', function (e) {
+        $main.on('click', 'button.btn-service-time', function () {
             var $this = $(this);
             // Attach data
             if (typeof $this.data('service-id') !== 'undefined') {
@@ -176,18 +177,11 @@
             $timetable.find('a.as-time.active').removeClass('active');
             $this.addClass('active');
 
-            $btnBook.removeClass('disabled');
-        });
-
-        // When user clicks on Book button
-        $btnBook.on('click', function (e) {
-            e.preventDefault();
-            var $this = $(this);
 
             $body.showLoading();
             // Send AJAX request to add booking service
             $.ajax({
-                url: $this.attr('href'),
+                url: $('input[name=booking-url]').val(),
                 type: 'POST',
                 data: {
                     service_id  : dataStorage.serviceId,
@@ -200,7 +194,7 @@
                 if (typeof e.responseJSON.message !== 'undefined') {
                     alert(e.responseJSON.message);
                 }
-            }).pipe(function(e) {
+            }).then(function(e) {
                 // Get cart ID
                 dataStorage.cartId = e.cart_id;
 

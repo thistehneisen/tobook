@@ -1,11 +1,10 @@
 <?php namespace App\Appointment\Controllers;
 
-use App, View, Confide, Redirect, Input, Config, Response, DB;
+use App, View, Confide, Redirect, Input, Config, Response, DB, Cart;
 use Util, Hashids, Session, Request, Mail, Sms;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use App\Core\Models\User;
-use App\Core\Models\Cart;
 use App\Core\Models\CartDetail;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
@@ -607,6 +606,7 @@ class Bookings extends AsBase
                 'modify_time' => $bookingService->modify_time,
                 'plustime'    => $plustime,
                 'ip'          => Request::getClientIp(),
+                'source'      => 'backend'
             ]);
             //need to update end_at, total when add extra service
 

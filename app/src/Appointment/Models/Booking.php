@@ -37,6 +37,9 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     //Implement methods in SplSubject
     protected $_observers = [];
 
+    //Cache object for list of bookings
+    protected  static $bookings;
+
     public function attach(\SplObserver $observer)
     {
         $id = spl_object_hash($observer);
@@ -173,6 +176,50 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         if (!$bookings->isEmpty()) {
             return false;
+        }
+        return true;
+    }
+
+    /**
+     * Check if user can place a booking on certain employee, date, and time
+     * but only execute one query
+     *
+     * @param int $employeeId
+     * @param string $date
+     * @param Carbon\Carbon $startTime
+     * @param Carbon\Carbon $endTime
+     * @param string $uuid
+     *
+     * @return boolean
+     */
+    public static function canBook($employeeId, $date, \Carbon\Carbon $startTime, \Carbon\Carbon $endTime, $uuid = null)
+    {
+        if (empty(static::$bookings[$date])) {
+            $bookings = self::where('date', $date)
+                ->whereNull('deleted_at')
+                ->where('status','!=', self::STATUS_CANCELLED)->get();
+            static::$bookings[$date] = $bookings;
+        }
+
+        $bookings = static::$bookings[$date];
+
+        foreach ($bookings as $booking) {
+            if($booking->getStartAt() >= $startTime
+                && $booking->getStartAt() < $endTime
+                && $booking->employee->id == $employeeId
+                && $booking->uuid != $uuid){
+                return false;
+            } elseif($booking->getEndAt() > $startTime
+                && $booking->getEndAt() <= $endTime
+                && $booking->employee->id == $employeeId
+                && $booking->uuid != $uuid){
+                return false;
+            } elseif($booking->getStartAt() == $startTime
+                && $booking->getEndAt() == $endTime
+                && $booking->employee->id == $employeeId
+                && $booking->uuid != $uuid){
+                return false;
+            }
         }
         return true;
     }

@@ -1,34 +1,35 @@
 <?php namespace Test\Functional\Appointment;
 
-use Test\Functional\Base;
+use FunctionalTester;
 
-class ExtraServiceCest extends Base
+/**
+ * @group as
+ */
+class ExtraServiceCest extends \Test\Functional\Base
 {
-    const INDEX  = '/appointment-scheduler/services/extras';
-    const UPSERT = '/appointment-scheduler/services/extras/upsert';
     /**
      * @before login
      */
-    public function seePages($i)
+    public function seePages(FunctionalTester $I)
     {
-        $i->amOnPage(self::INDEX);
-        $i->seeResponseCodeIs(200);
-        $i->amOnPage(self::UPSERT);
-        $i->seeResponseCodeIs(200);
+        $I->amOnPage(route('as.services.extras.index'));
+        $I->seeResponseCodeIs(200);
+        $I->amOnPage(route('as.services.extras.upsert'));
+        $I->seeResponseCodeIs(200);
     }
 
     /**
      * @before login
      */
-    public function addNewExtraServices($i)
+    public function addNewExtraServices(FunctionalTester $I)
     {
-        $i->amOnPage(self::UPSERT);
-        $i->fillField (['name' => 'name'], 'Foo');
-        $i->fillField (['name' => 'price'], 199);
-        $i->fillField (['name' => 'length'], 15);
-        $i->fillField (['name' => '_token'], csrf_token());
-        $i->click('#form-olut-upsert button[type=submit]');
+        $I->amOnPage(route('as.services.extras.upsert'));
+        $I->fillField(['name' => 'name'], 'Foo');
+        $I->fillField(['name' => 'price'], 199);
+        $I->fillField(['name' => 'length'], 15);
+        $I->fillField(['name' => '_token'], csrf_token());
+        $I->click('button[type=submit]');
 
-        $i->haveRecord('as_extra_services', ['name' => 'Foo']);
+        $I->haveRecord('as_extra_services', ['name' => 'Foo']);
     }
 }

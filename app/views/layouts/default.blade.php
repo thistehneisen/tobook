@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
     <title>
         @section('title')
         Varaa
@@ -41,7 +42,7 @@
         @endif
     @show
 </head>
-<body data-locale="{{ App::getLocale() }}">
+<body @if(!empty($hash)) data-hash="{{ $hash }}" @endif data-locale="{{ App::getLocale() }}">
     @section('header')
     <header class="header container-fluid">
         <nav class="main-nav container">
@@ -110,13 +111,13 @@
                     @else
                         @foreach ($businessCategories as $category)
                         <li class="dropdown">
-                            <a href="{{ route('search') }}?query={{ urlencode($category->name) }}">
+                            <a href="{{ route('search') }}?q={{ urlencode($category->name) }}">
                                 <i class="fa {{ $category->icon() }}"></i>
                                 {{ $category->name }}
                             </a>
                             <ul class="dropdown-menu">
                             @foreach ($category->children as $child)
-                                <li><a href="{{ route('search') }}?query={{ urlencode($child->name) }}">{{ $child->name }}</a></li>
+                                <li><a href="{{ route('search') }}?q={{ urlencode($child->name) }}">{{ $child->name }}</a></li>
                             @endforeach
                             </ul>
                         </li>
@@ -134,7 +135,7 @@
                 <div class="form-group">
                     <div class="input-group input-group">
                         <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                        <input type="text" class="form-control typeahead" id="js-queryInput" name="q" placeholder="{{ trans('home.search.query') }}" value="{{{ Input::get('query') }}}" />
+                        <input type="text" class="form-control typeahead" id="js-queryInput" name="q" placeholder="{{ trans('home.search.query') }}" value="{{{ Input::get('q') }}}" />
                     </div>
                 </div>
                 <div class="form-group">

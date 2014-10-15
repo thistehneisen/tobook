@@ -128,6 +128,8 @@ return array(
         'anlutro\LaravelSettings\ServiceProvider',
         'Toin0u\Geocoder\GeocoderServiceProvider',
         'Barryvdh\Debugbar\ServiceProvider',
+        'Shift31\LaravelElasticsearch\LaravelElasticsearchServiceProvider',
+        'Orchestra\Imagine\ImagineServiceProvider',
 
         // Homemade
         'App\Hashids\HashidsServiceProvider',
@@ -136,6 +138,7 @@ return array(
         'App\Core\Pagination\PaginationServiceProvider',
         'App\OneApi\OneApiServiceProvider',
         'App\Olut\OlutServiceProvider',
+        'App\Payment\PaymentServiceProvider',
 
     ),
 
@@ -210,15 +213,20 @@ return array(
         'Setting'   => 'anlutro\LaravelSettings\Facade',
         'Geocoder'  => 'Toin0u\Geocoder\GeocoderFacade',
         'Debugbar'  => 'Barryvdh\Debugbar\Facade',
+        'Imagine'   => 'Orchestra\Imagine\Facade',
 
         // Homemade
-        'Consumer'  => 'App\Consumers\Models\Consumer',
-        'Lomake'    => 'App\Lomake\Facade',
-        'UrlHelper' => 'App\Core\Helpers\Url',
-        'Util'      => 'App\Core\Util',
-        'Sms'       => 'App\OneApi\Facade',
-        'Hashids'   => 'App\Hashids\Facade',
-        'CRUD'      => 'App\Olut\Olut',
+        'AppController' => 'App\Core\Controllers\Base',
+        'AppModel'      => 'App\Core\Models\Base',
+        'Consumer'      => 'App\Consumers\Models\Consumer',
+        'Cart'          => 'App\Cart\Cart',
+        'Lomake'        => 'App\Lomake\Facade',
+        'UrlHelper'     => 'App\Core\Helpers\Url',
+        'Util'          => 'App\Core\Util',
+        'Sms'           => 'App\OneApi\Facade',
+        'Hashids'       => 'App\Hashids\Facade',
+        'CRUD'          => 'App\Olut\Olut',
+        'Payment'       => 'App\Payment\Payment',
     ),
 
 );

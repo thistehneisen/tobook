@@ -15,3 +15,4 @@ Artisan::add(new App\Core\Commands\GenerateConfigsCommand());
 Artisan::add(new App\Core\Commands\CreateDummyUsersCommand());
 Artisan::add(new App\Core\Commands\CreateRoleConsumerCommand());
 Artisan::add(new App\Core\Commands\FixMissingRoleCommand());
+Artisan::add(new App\Core\Commands\IndexExistingBusinessCommand());

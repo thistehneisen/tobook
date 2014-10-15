@@ -255,6 +255,9 @@ return [
         'email'             => 'Email',
         'phone'             => 'Phone',
         'address'           => 'Address',
+        'city'              => 'City',
+        'postcode'          => 'Postcode',
+        'country'           => 'Country',
         'confirm_booking'   => 'Confirm booking',
         'service_employee'  => 'Employee',
         'date_time'         => 'Date',
@@ -361,6 +364,7 @@ return [
         'checkout'         => 'Checkout',
         'fi_version'       => 'Finnish',
         'en_version'       => 'English',
+        'book'             => 'Book',
         'loading'          => 'Now loading&hellip;',
         'success'          => 'Booking was placed. Thank you.',
         'layout_3'         => [
@@ -371,7 +375,10 @@ return [
             'service'         => 'Service',
             'employee'        => 'Employee',
             'name'            => 'Your name',
-            'empty'           => 'There is no available time on selected day.'
+            'notes'           => 'Notes', //@todo
+            'postcode'        => 'Postcode', //@todo
+            'empty'           => 'There is no available time on selected day.',
+            'payment_note'    => 'After a booking is placed, you will be redirected to payment.', // @todo
         ]
     ],
      'options' => [
@@ -422,6 +429,11 @@ return [
             'bf_state'                                       => 'State',
             'bf_terms'                                       => 'Terms',
             'bf_zip'                                         => 'Zip',
+            'notes'                                          => 'Notes', // @todo
+            'address'                                        => 'Address', // @todo
+            'city'                                           => 'City', // @todo
+            'postcode'                                       => 'Postcode', // @todo
+            'country'                                        => 'Country', // @todo
             'reminder_enable'                                => 'Enable notifications',
             'reminder_email_before'                          => 'Send email reminder',
             'reminder_subject'                               => 'Email Reminder subject',

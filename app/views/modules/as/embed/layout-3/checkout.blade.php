@@ -21,6 +21,23 @@
         <label class="form-label col-sm-2">{{ trans('as.bookings.phone') }}*</label>
         <div class="col-sm-10">{{ Form::text('phone', (isset($booking_info['phone'])) ? $booking_info['phone'] : ''  , ['class' => 'form-control input-sm', 'id' => 'phone']) }}</div>
     </div>
+    <?php $fields = ['notes', 'address', 'city', 'postcode']; ?>
+    @foreach($fields as $field)
+        @if((int)$user->asOptions[$field] >= 2)
+        <div class="form-group">
+           <label class="form-label col-sm-2">{{ trans("as.bookings.$field") }} @if((int)$user->asOptions[$field] === 3)*@endif</label>
+           <div class="col-sm-10">{{ Form::text($field, (isset($booking_info[$field])) ? $booking_info[$field] : ''  , ['class' => 'form-control input-sm', 'id' => $field]) }}</div>
+        </div>
+        @endif
+    @endforeach
+
+    @if((int)$user->asOptions['country'] >= 2)
+    <div class="form-group">
+         <label class="form-label col-sm-2">{{ trans('as.bookings.country') }}  @if((int)$user->asOptions['country'] === 3)(*)@endif</label>
+        <div class="col-sm-10">{{ Form::select('country', array_combine($user->getCountryList(), $user->getCountryList()), (isset($booking_info['country'])) ? $booking_info['country'] : '', ['class' => 'form-control input-sm', 'id' => 'country']) }}</div>
+        </div>
+    </div>
+    @endif
 
     <input type="hidden" name="hash" value="{{ Input::get('hash') }}">
     <input type="hidden" name="l" value="{{ Input::get('l') }}">
@@ -29,6 +46,7 @@
     <input type="hidden" name="date" value="{{ Input::get('date') }}">
     <input type="hidden" name="time" value="{{ Input::get('time') }}">
     <input type="hidden" name="cartId" value="{{ Input::get('cartId') }}">
+    <input type="hidden" name="inhouse" value="{{ Input::get('inhouse') }}">
 
     @if ((int) $user->asOptions['terms_enabled'] > 1)
     <div class="form-group">

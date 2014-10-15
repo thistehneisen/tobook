@@ -8,7 +8,7 @@
 
 @section('content')
 <div class="row-fluid">
-    <img src="{{ asset('assets/img/front/directories/1.jpg') }}" class="img-responsive" alt="" />
+    <img src="{{ asset('assets/img/front/directories/1.jpg') }}" class="img-responsive banner" alt="" />
     <h2 class="text-center">Varaa.com leading bookable platform</h2>
 
     <p>Take your business to new heights, we’re here to help. We provide you an innovative tool to transform your business into commercialized way and open up new door for revenue opportunities.</p>

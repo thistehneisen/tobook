@@ -9,7 +9,7 @@
 @section('content')
 <div class="row-fluid">
     <div class="text-center">
-        <img src="{{ asset('assets/img/front/about/1.jpg') }}" class="img-responsive" alt="" />
+        <img src="{{ asset('assets/img/front/about/1.jpg') }}" class="img-responsive banner" alt="" />
         <h2>The most integrated online booking system you’ll ever need.</h2>
     </div>
     <p>Varaa.com is a powerful real-time distributed service booking and reservation platform which is suitable for multiple service industries.<br>

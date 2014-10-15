@@ -1,11 +1,9 @@
 <?php namespace App\Appointment\Controllers;
 
-use App, View, Confide, Redirect, Input, Config, Response, Util, Hashids, Session, Request;
-use Carbon\Carbon;
+use App, View, Confide, Redirect, Input, Config, Response, Util, Hashids;
+use Carbon\Carbon, Cart, Session, Request;
 use Illuminate\Support\Collection;
 use App\Core\Models\User;
-use App\Core\Models\Cart;
-use App\Core\Models\CartDetail;
 use App\Consumers\Models\Consumer;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
@@ -135,14 +133,12 @@ class FrontBookings extends Bookings
         $price = (!empty($serviceTime)) ? $serviceTime->price : $service->price;
         $price += $extraServicePrice;
 
-        $cart  = Cart::make(['status' => Cart::STATUS_INIT], $this->user);
+        // Add to cart
+        $bookingService->quantity = 1;
+        $bookingService->price = $price;
 
-        $cartDetail = CartDetail::make([
-            'item'      => $bookingService->id,
-            'variant'   => get_class($bookingService),
-            'quantity'  => 1,
-            'price'     => $price
-        ], $cart);
+        $cart = Cart::make(['status' => Cart::STATUS_INIT], $this->user);
+        $cart->addDetail($bookingService);
 
          $data = [
             'datetime'      => $startTime->toDateTimeString(),
@@ -173,8 +169,8 @@ class FrontBookings extends Bookings
             }
             $user = User::find($decoded[0]);
 
-            foreach ($cart->cartDetails as $detail) {
-                $bookingService = BookingService::find($detail->item);
+            foreach ($cart->details as $detail) {
+                $bookingService = $detail->model->instance;
                 $extraServices  = BookingExtraService::where('tmp_uuid', $bookingService->tmp_uuid)->get();
 
                 $service = (!empty($bookingService->serviceTime->id))
@@ -207,6 +203,7 @@ class FrontBookings extends Bookings
                     'modify_time' => $bookingService->modify_time,
                     'plustime'    => $plustime,
                     'source'      => $source,
+                    'notes'       => $cart->notes,
                     'ip'          => Request::getClientIp()
                 ]);
 

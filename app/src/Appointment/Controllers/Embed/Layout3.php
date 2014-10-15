@@ -1,11 +1,10 @@
 <?php namespace App\Appointment\Controllers\Embed;
 
-use Input, Response, Carbon\Carbon, Session, Redirect;
+use Input, Response, Carbon\Carbon, Session, Redirect, Payment, Cart;
 use App\Appointment\Controllers\Embed;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\AsConsumer;
-use App\Core\Models\Cart;
 
 class Layout3 extends Base
 {
@@ -16,7 +15,6 @@ class Layout3 extends Base
      */
     public function checkout()
     {
-
         return $this->render('checkout', [
             'user'         => $this->getUser(),
             'booking_info' => $this->getBookingInfo(),
@@ -30,13 +28,14 @@ class Layout3 extends Base
      */
     public function confirm()
     {
-        $v = $this->getConfirmationValidator();
+        $v    = $this->getConfirmationValidator();
+        $user = $this->getUser();
         if ($v->fails()) {
             // Flash old input
             Input::flash();
 
             return $this->render('checkout', [
-                'user'         => $this->getUser(),
+                'user'         => $user,
                 'booking_info' => $this->getBookingInfo(),
             ])->with('errors', $v->errors());
         }
@@ -46,12 +45,35 @@ class Layout3 extends Base
         $data['date']     = new Carbon($data['date']);
         $data['service']  = Service::find(Input::get('serviceId'));
         $data['employee'] = Employee::findOrFail(Input::get('employeeId'));
+        $data['notes']    = Input::get('notes', '');
+        $data['user']     = $user;
 
+        $fields = ['postcode', 'address', 'city', 'country'];
+        foreach ($fields as $field) {
+            if ((int)$user->asOptions[$field] >= 2) {
+                $data['fields'][] = $field;
+            }
+        }
         // Handle consumer
-        $consumer   = AsConsumer::handleConsumer($data);
-        $cart       = Cart::findOrFail(Input::get('cartId'));
+        $consumer    = AsConsumer::handleConsumer($data);
+        $cart        = Cart::findOrFail(Input::get('cartId'));
+        $cart->notes = $data['notes'];
         $cart->consumer()->associate($consumer)->save();
 
+        $data['consumer'] = $consumer;
+
         return $this->render('confirm', $data);
+    }
+
+    /**
+     * Process to payment page
+     *
+     * @return Redirect
+     */
+    public function payment()
+    {
+        $cart = Cart::findOrFail(Input::get('cart_id'));
+        $goToPaygate = true;
+        return Payment::redirect($cart, $cart->total, $goToPaygate);
     }
 }

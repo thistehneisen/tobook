@@ -8,7 +8,10 @@
 
 @section('content')
 <div class="row-fluid">
-    <img src="{{ asset('assets/img/front/resellers/1.jpg') }}" class="img-responsive" alt="" />
+    <img src="{{ asset('assets/img/front/resellers/1.jpg') }}" class="img-responsive banner" alt="" />
+    <div class="text-center">
+        <img src="{{ asset('assets/img/front/resellers/logo.png') }}" class="img-responsive" alt="" />
+    </div>
     <h2 class="text-center">Varaa.com Reseller Network</h2>
 
     <p>Do you want have trouble to cover living expenses? Does your current job not allow you to grow or earn more? Do you want to create your own job security? Join our reseller network and blow all your worries away.</p>

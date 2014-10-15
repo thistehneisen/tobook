@@ -314,9 +314,9 @@ class Employees extends AsBase
         }
     }
 
-    public function deleteCustomTime($id, $customTimeId)
+    public function deleteCustomTime($id)
     {
-        $customTime = CustomTime::ofCurrentUser()->find($customTimeId)->delete();
+        $customTime = CustomTime::ofCurrentUser()->find($id)->delete();
 
         return Redirect::route('as.employees.customTime')
             ->with(

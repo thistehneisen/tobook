@@ -32,7 +32,7 @@ Route::group([], function () {
 
     Route::get('contact', [
         'as' => 'front.contact',
-        'uses' => 'App\Core\Controllers\Front@about',
+        'uses' => 'App\Core\Controllers\Front@contact',
     ]);
 
     Route::get('partners', [
@@ -487,6 +487,11 @@ Route::group([
         Route::post('l3/checkout/confirm', [
             'as'   => 'as.embed.checkout.confirm',
             'uses' => 'App\Appointment\Controllers\Embed\Layout3@confirm'
+        ]);
+
+        Route::post('l3/payment', [
+            'as' => 'as.embed.l3.payment',
+            'uses' => 'App\Appointment\Controllers\Embed\Layout3@payment'
         ]);
 
         Route::get('{hash}', [

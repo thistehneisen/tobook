@@ -46,12 +46,13 @@ We have another module named `Lomake` to support developer build forms faster, [
 `php artisan varaa:admin <email>`
 
 ## Tests
-- Create test config: `cp app/tests/acceptance.suite.yml.tpl app/tests/acceptance.suite.yml` then modify to match your local config
+- Create a blank database with `varaa_test` for database name, username and password in your localhost
+- Create acceptance test config: `cp app/tests/acceptance.suite.yml.tpl app/tests/acceptance.suite.yml` then modify to match your local config
 - Read http://codeception.com/docs/01-Introduction and http://codeception.com/docs/04-AcceptanceTests
 - Generate your acceptance tests in `app/tests/acceptance/` folder:
 `./vendor/bin/codecept generate:cest acceptance YourTestName`
-- Run the test: `./vendor/bin/codecept run`
-- A best practice guide http://www.sitepoint.com/ruling-the-swarm-of-tests-with-codeception/
+- Run the test: `./vendor/bin/codecept run` or `fab t`
+- 1 user in DB for testing is also having `varaa_test` as username and password
 
 
 ### Get config values of L4 in other external modules

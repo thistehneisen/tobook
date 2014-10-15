@@ -255,6 +255,9 @@ return [
         'email'             => 'Sähköposti',
         'phone'             => 'Puhelinnumero',
         'address'           => 'Osoite',
+        'city'              => 'City',//@todo
+        'postcode'          => 'Postcode',//@todo
+        'country'           => 'Country',//@todo
         'confirm_booking'   => 'Vahvista varaus',
         'service_employee'  => 'Työntekijä',
         'date_time'         => 'Päivämäärä',
@@ -362,6 +365,7 @@ return [
         'checkout'         => 'Kassalle',
         'fi_version'       => 'Suomeksi',
         'en_version'       => 'Englanniksi',
+        'book'             => 'Book',//Todo
         'success'          => 'Varauksesi on vahvistettu! Kiitos varauksestasi.',
         'confirm'          => 'Vahvista varaus',
         'layout_2'         => [
@@ -389,7 +393,10 @@ return [
             'service'         => 'Palvelu',
             'employee'        => 'Henkilö',
             'name'            => 'Sinun nimi',
+            'notes'           => 'Notes', //@todo
+            'postcode'        => 'Postcode', //@todo
             'empty'           => 'There is no available time on selected day.', //@todo
+            'payment_note'    => 'After a booking is placed, you will be redirected to payment.', // @todo
         ]
     ],
     'options' => [
@@ -440,6 +447,11 @@ return [
             'bf_state'                                       => 'Kunta',
             'bf_terms'                                       => 'Ehdot',
             'bf_zip'                                         => 'Postinumero',
+            'notes'                                          => 'Notes', // @todo
+            'address'                                        => 'Address', // @todo
+            'city'                                           => 'City', // @todo
+            'postcode'                                       => 'Postcode', // @todo
+            'country'                                        => 'Country', // @todo
             'reminder_enable'                                => 'Muistutusviestit käytössä',
             'reminder_email_before'                          => 'Lähetä muistutus sähköpostilla',
             'reminder_subject'                               => 'Muistutussähköpostiviestin otsikko',
