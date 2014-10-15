@@ -191,4 +191,21 @@ class BookingCest
         $booking = \App\Appointment\Models\Booking::find($booking->id);
         $I->assertTrue(empty($booking), 'empty($booking)');
     }
+
+    public function testPutStatus(ApiTester $I)
+    {
+        $booking = $this->_book($I, $this->user, $this->category);
+
+        $statusPaid = \App\Appointment\Models\Booking::STATUS_PAID;
+        $statusPaidApi = \App\Appointment\Models\Booking::getStatusByValue($statusPaid);
+        $I->sendPUT($this->endpoint . '/' . $booking->id . '/status', [
+            'booking_status' => $statusPaidApi,
+        ]);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['error' => false]);
+
+        $booking = \App\Appointment\Models\Booking::find($booking->id);
+        $I->assertEquals($statusPaid, $booking->status, '$booking->status');
+    }
 }

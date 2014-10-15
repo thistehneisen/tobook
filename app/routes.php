@@ -394,6 +394,7 @@ Route::group([
             Route::resource('bookings', 'App\API\v1_0\Appointment\Controllers\Booking', [
                 'only' => ['store', 'show', 'update', 'destroy']
             ]);
+            Route::put('bookings/{id}/status', 'App\API\v1_0\Appointment\Controllers\Booking@putStatus');
             Route::get('services', 'App\API\v1_0\Appointment\Controllers\Service@getServices');
             Route::get('services/{id}', 'App\API\v1_0\Appointment\Controllers\Service@getService');
             Route::get('service-categories', 'App\API\v1_0\Appointment\Controllers\Service@getCategories');

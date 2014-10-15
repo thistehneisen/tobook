@@ -68,6 +68,33 @@ class Booking extends Base
         ], 200);
     }
 
+    /**
+     * Change status of the specified booking.
+     *
+     * @param int $id
+     * @return Response
+     */
+    public function putStatus($id)
+    {
+        $booking = \App\Appointment\Models\Booking::ofCurrentUser()->findOrFail($id);
+
+        $booking->status = \App\Appointment\Models\Booking::getStatus(Input::get('booking_status'));
+
+        try {
+            $booking->saveOrFail();
+
+            return Response::json([
+                'error' => false,
+                'data' => $this->_prepareBookingData($booking),
+            ], 200);
+        } catch (ValidationException $e) {
+            return Response::json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
     protected function _storeOrUpdate(\App\Appointment\Models\Booking $existingBooking = null)
     {
         // TODO: support multiple services per booking
