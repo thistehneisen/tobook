@@ -27,6 +27,7 @@ trait Booking
         $bookingService = BookingService::saveBookingService($uuid, $employee, $service, [
             'booking_date' => $tomorrow->toDateString(),
             'start_time' => $startAt,
+            'modify_time' => rand(0, 3) * 15,
         ]);
 
         foreach ($extraServices as $extraService) {
@@ -57,6 +58,7 @@ trait Booking
                 if ($bookingServiceData['id'] == $bookingService->service->id) {
                     $I->assertEquals($bookingService->service->name, $bookingServiceData['name'], "\$bookingServiceData['name']");
                     $I->assertEquals($bookingService->service->description, $bookingServiceData['description'], "\$bookingServiceData['description']");
+                    $I->assertEquals($bookingService->modify_time, $bookingServiceData['modify_time'], "\$bookingServiceData['modify_time']");
 
                     $bookingServiceDataFound = true;
                 }

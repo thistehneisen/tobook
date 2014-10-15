@@ -51,6 +51,7 @@ class Base extends \App\Core\Controllers\Base
                 'id' => $bookingService->service->id,
                 'name' => $bookingService->service->name,
                 'description' => $bookingService->service->description,
+                'modify_time' => $bookingService->modify_time,
             ];
         }
 
