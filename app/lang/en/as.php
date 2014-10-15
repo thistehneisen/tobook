@@ -283,6 +283,12 @@ return [
             'uuid_notfound'            => 'Booking ID not found', //@todo
             'not_enough_slots'         => 'Not enough booking slots or overllaped with other booking.', //@todo
             'employee_not_servable'    => 'This employee does not serve the booking service.', //@todo
+            'id_not_found'             => 'Booking not found',
+            'start_time'               => 'Booking start time is invalid',
+            'service_time_invalid'     => 'Service time for booking not found',
+            'overlapped_with_freetime' => 'Booking is overlapped with employee freetime',
+            'reschedule_single_only'   => 'Booking with multiple services cannot be rescheduled',
+            'reschedule_unbooked_extra'=> 'Booking cannot be rescheduled',
         ],
         'warning'      => [
             'existing_user'   => 'There is an user associate with this email in our system. Do you want to use these information instead?',// @todo

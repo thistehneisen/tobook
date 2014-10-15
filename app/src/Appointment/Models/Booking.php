@@ -279,7 +279,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $input['status'] = self::getStatus($input['status']);
         if ($input['status'] === self::STATUS_CANCELLED) {
             if (empty($existingBooking)) {
-                throw new ValidationException(trans('as.bookings.booking_missing'));
+                throw new ValidationException(trans('as.bookings.error.id_not_found'));
             }
 
             $existingBooking->deleteOrFail();
@@ -302,7 +302,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         }
         $bookingServices = array_merge($existingBookingServices, $newBookingServices);
         if (empty($bookingServices)) {
-            throw new ValidationException(trans('as.bookings.missing_services'));
+            throw new ValidationException(trans('as.bookings.error.service_empty'));
         }
 
         // calculate length / price with data from services
@@ -437,7 +437,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         ], $input);
 
         if ($booking->bookingServices()->count() != 1) {
-            throw new ValidationException(trans('as.bookings.reschedule_one_service_booking_only'));
+            // do not continue with unsupported booking as we only work with one service for now
+            throw new ValidationException(trans('as.bookings.reschedule_single_only'));
         }
 
         \DB::transaction(function() use ($booking, $employee, $input) {
@@ -469,7 +470,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
             // there are unbooked extra services, throw error
             if (!empty($extraServiceIds)) {
-                throw new ValidationException(trans('as.bookings.reschedule_cannot_book_extra_service'));
+                throw new ValidationException(trans('as.bookings.error.reschedule_unbooked_extra'));
             }
 
             // new bookings for services / extra services have been made without error
