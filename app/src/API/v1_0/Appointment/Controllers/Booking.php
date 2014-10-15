@@ -10,7 +10,7 @@ use Watson\Validating\ValidationException;
 class Booking extends Base
 {
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created booking.
      *
      * @return Response
      */
@@ -21,7 +21,7 @@ class Booking extends Base
 
 
     /**
-     * Display the specified resource.
+     * Display the specified booking.
      *
      * @param  int $id
      * @return Response
@@ -38,7 +38,7 @@ class Booking extends Base
 
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified booking.
      *
      * @param  int $id
      * @return Response
@@ -51,7 +51,7 @@ class Booking extends Base
 
 
     /**
-     * Remove the specified resource from storage.
+     * Delete the specified booking.
      *
      * @param  int $id
      * @return Response
@@ -127,6 +127,39 @@ class Booking extends Base
             BookingService::saveBookingService($booking->uuid, $booking->employee, $bookingService->service, $input, $bookingService);
 
             \App\Appointment\Models\Booking::updateBooking($booking);
+
+            return Response::json([
+                'error' => false,
+                'data' => $this->_prepareBookingData($booking),
+            ], 200);
+        } catch (ValidationException $e) {
+            return Response::json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
+    /**
+     * Change schedule of the specified booking.
+     *
+     * @param int $id
+     * @return Response
+     */
+    public function putSchedule($id)
+    {
+        $booking = \App\Appointment\Models\Booking::ofCurrentUser()->findOrFail($id);
+
+        $employeeId = intval(Input::get('employee_id'));
+        $employee = Employee::ofCurrentUser()->findOrFail($employeeId);
+
+        $input = [
+            'booking_date' => Input::get('booking_date'),
+            'start_time' => Input::get('start_time'),
+        ];
+
+        try {
+            \App\Appointment\Models\Booking::rescheduleBooking($booking, $employee, $input);
 
             return Response::json([
                 'error' => false,

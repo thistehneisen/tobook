@@ -417,4 +417,72 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             'status' => self::getStatusByValue($booking->status),
         ], $booking);
     }
+
+    /**
+     * Reschedule a booking and all of its services, extra services with another employee, at a different time
+     *
+     * @param Booking $booking
+     * @param Employee $employee
+     * @param array $input
+     *
+     * @return Booking
+     *
+     * @throw \Watson\Validating\ValidationException
+     */
+    public static function rescheduleBooking(Booking $booking, Employee $employee, array $input)
+    {
+        $input = array_merge([
+            'booking_date' => '',
+            'start_time' => '',
+        ], $input);
+
+        if ($booking->bookingServices()->count() != 1) {
+            throw new ValidationException(trans('as.bookings.reschedule_one_service_booking_only'));
+        }
+
+        \DB::transaction(function() use ($booking, $employee, $input) {
+            // prepare extra service ids to keep track
+            $extraServiceIds = [];
+            foreach ($booking->extraServices as $bookingExtraService) {
+                $extraServiceIds[] = $bookingExtraService->extraService->id;
+            }
+
+            // start re-booking services and extra services
+            foreach ($booking->bookingServices as $bookingService) {
+                // do NOT pass existing booking service to avoid changing the booking
+                $bookingService = BookingService::saveBookingService($booking->uuid, $employee, $bookingService->service, array_merge($input, [
+                    'modify_time' => $bookingService->modify_time,
+                    'service_time' => (!empty($bookingService->service_time_id) ? $bookingService->serviceTime->id : 'default'),
+                ]));
+
+                foreach ($bookingService->service->extraServices as $serviceExtraService) {
+                    foreach (array_keys($extraServiceIds) as $key) {
+                        // traverse by key because there may be more than one booking for one extra service
+                        // also, we need to delete the id after successfully book it
+                        if ($serviceExtraService->id == $extraServiceIds[$key]) {
+                            BookingExtraService::addExtraService($booking->uuid, $employee, $bookingService, $serviceExtraService);
+                            unset($extraServiceIds[$key]);
+                        }
+                    }
+                }
+            }
+
+            // there are unbooked extra services, throw error
+            if (!empty($extraServiceIds)) {
+                throw new ValidationException(trans('as.bookings.reschedule_cannot_book_extra_service'));
+            }
+
+            // new bookings for services / extra services have been made without error
+            // go ahead and delete the old bookings now
+            foreach ($booking->bookingServices as $bookingService) {
+                $bookingService->delete();
+            }
+            foreach ($booking->extraServices as $bookingExtraService) {
+                $bookingExtraService->delete();
+            }
+        });
+
+        // call update booking to associate those newly booked services / extra services with the booking itself
+        return self::updateBooking($booking);
+    }
 }

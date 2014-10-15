@@ -242,4 +242,79 @@ class BookingCest
         $I->assertEquals($booking->modify_time, $bookingAgain->modify_time, '$bookingAgain->modify_time');
         $I->assertEquals($booking->end_at, $bookingAgain->end_at, '$bookingAgain->end_at');
     }
+
+    public function testPutScheduleSameEmployee(ApiTester $I)
+    {
+        $booking = $this->_book($I, $this->user, $this->category);
+
+        $date = Carbon::today();
+        do {
+            // find the next Monday
+            $date->addDay();
+        } while ($date->format('N') == 1);
+        $starAt = '10:00:00';
+        $employeeId = $booking->employee->id;
+
+        $I->sendPUT($this->endpoint . '/' . $booking->id . '/schedule', [
+            'booking_date' => $date->toDateSTring(),
+            'start_time' => $starAt,
+            'employee_id' => $employeeId,
+        ]);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['error' => false]);
+
+        $booking = \App\Appointment\Models\Booking::find($booking->id);
+        $I->assertEquals($date->toDateString(), $booking->date, '$booking->date');
+        $I->assertEquals($starAt, $booking->start_at, '$booking->start_at');
+        $I->assertEquals($employeeId, $booking->employee_id, '$booking->employee_id');
+    }
+
+    public function testPutScheduleDifferentEmployee(ApiTester $I)
+    {
+        $booking = $this->_book($I, $this->user, $this->category);
+
+        $date = Carbon::today();
+        do {
+            // find the next Monday
+            $date->addDay();
+        } while ($date->format('N') == 1);
+        $starAt = '10:00:00';
+        $employeeId = $this->employees[1]->id;
+        $I->assertNotEquals($booking->employee->id, $employeeId);
+
+        $I->sendPUT($this->endpoint . '/' . $booking->id . '/schedule', [
+            'booking_date' => $date->toDateSTring(),
+            'start_time' => $starAt,
+            'employee_id' => $employeeId,
+        ]);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['error' => false]);
+
+        $booking = \App\Appointment\Models\Booking::find($booking->id);
+        $I->assertEquals($date->toDateString(), $booking->date, '$booking->date');
+        $I->assertEquals($starAt, $booking->start_at, '$booking->start_at');
+        $I->assertEquals($employeeId, $booking->employee_id, '$booking->employee_id');
+    }
+
+    public function testPutScheduleWithConflict(ApiTester $I)
+    {
+        $booking = $this->_book($I, $this->user, $this->category, '08:00');
+        $booking2 = $this->_book($I, $this->user, $this->category, '14:00');
+
+        $I->sendPUT($this->endpoint . '/' . $booking->id . '/schedule', [
+            'booking_date' => $booking->date,
+            'start_time' => $booking2->start_at,
+            'employee_id' => $booking->employee->id,
+        ]);
+        $I->seeResponseCodeIs(400);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['error' => true]);
+
+        $bookingAgain = \App\Appointment\Models\Booking::find($booking->id);
+        $I->assertEquals($booking->date, $bookingAgain->date, '$bookingAgain->date');
+        $I->assertEquals($booking->start_at, $bookingAgain->start_at, '$bookingAgain->start_at');
+        $I->assertEquals($booking->employee_id, $bookingAgain->employee_id, '$bookingAgain->employee_id');
+    }
 }

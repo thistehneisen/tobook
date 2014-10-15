@@ -396,6 +396,7 @@ Route::group([
             ]);
             Route::put('bookings/{id}/status', 'App\API\v1_0\Appointment\Controllers\Booking@putStatus');
             Route::put('bookings/{id}/modify_time', 'App\API\v1_0\Appointment\Controllers\Booking@putModifyTime');
+            Route::put('bookings/{id}/schedule', 'App\API\v1_0\Appointment\Controllers\Booking@putSchedule');
             Route::get('services', 'App\API\v1_0\Appointment\Controllers\Service@getServices');
             Route::get('services/{id}', 'App\API\v1_0\Appointment\Controllers\Service@getService');
             Route::get('service-categories', 'App\API\v1_0\Appointment\Controllers\Service@getCategories');

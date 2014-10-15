@@ -11,7 +11,7 @@ use Carbon\Carbon;
 
 trait Booking
 {
-    protected function _book(\ApiTester $I, User $user, ServiceCategory $category)
+    protected function _book(\ApiTester $I, User $user, ServiceCategory $category, $startAt = null)
     {
         if (!Config::get('mail.pretend') || !Config::get('sms.pretend')) {
             $I->assertTrue(false, 'mail/sms pretend must be enabled');
@@ -22,7 +22,10 @@ trait Booking
         $employee = $service->employees()->first();
         $extraServices = $service->extraServices;
         $tomorrow = Carbon::today()->addDay();
-        $startAt = '12:00';
+        if (empty($startAt)) {
+            // default to book at noon
+            $startAt = '12:00';
+        }
 
         $bookingService = BookingService::saveBookingService($uuid, $employee, $service, [
             'booking_date' => $tomorrow->toDateString(),

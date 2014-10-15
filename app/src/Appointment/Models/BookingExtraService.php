@@ -30,7 +30,7 @@ class BookingExtraService extends \App\Core\Models\Base
     //--------------------------------------------------------------------------
 
     /**
-     * Adds a new extra service to an existing booking service.
+     * Add a new extra service to an existing booking service.
      * <code>App\Appointment\Models\Booking::saveBooking</code> needs to be called with the same uuid
      * to associate the new extra service with a booking record.
      *
@@ -45,11 +45,17 @@ class BookingExtraService extends \App\Core\Models\Base
      */
     public static function addExtraService($uuid, Employee $employee, BookingService $bookingService, ExtraService $extraService)
     {
-        $date = new Carbon($bookingService->date);
         $extraServiceStartTime = Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s', $bookingService->date, $bookingService->end_at));
+
+        // delay start time if existing extra services are found
+        foreach (BookingExtraService::where('tmp_uuid', '=', $uuid)->get() as $existingBookingExtraService) {
+            // TODO check for extra services of this $bookingService only (support multiple services per booking)
+            $extraServiceStartTime->addMinutes($existingBookingExtraService->extraService->length);
+        }
+
         $extraServiceEndTime = with(clone $extraServiceStartTime)->addMinutes($extraService->length);
 
-        if (!Booking::isBookable($employee->id, $date->toDateString(), $extraServiceStartTime, $extraServiceEndTime, $uuid)) {
+        if (!Booking::isBookable($employee->id, $extraServiceStartTime->toDateString(), $extraServiceStartTime, $extraServiceEndTime, $uuid)) {
             throw new ValidationException(trans('as.bookings.error.add_overlapped_booking'));
         }
 
@@ -57,7 +63,7 @@ class BookingExtraService extends \App\Core\Models\Base
 
         $bookingExtraService = new BookingExtraService;
         $bookingExtraService->fill([
-            'date' => $date->toDateString(),
+            'date' => $extraServiceStartTime->toDateString(),
             'tmp_uuid' => $uuid,
         ]);
         $bookingExtraService->extraService()->associate($extraService);
