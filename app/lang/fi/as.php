@@ -338,6 +338,7 @@ return [
         'is_day_off'          => 'Vapaapäivä',
         'workshifts'          => 'Työvuoro',
         'workshift_planning'  => 'Työvuorosuunnittelu',
+        'workshift_summary'   => 'Workshift summary', // @todo
         'from_date'           => 'From date', // @todo
         'to_date'             => 'To date', // @todo
         'weekday'             => 'Weekday', // @todo

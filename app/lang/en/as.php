@@ -338,6 +338,7 @@ return [
         'is_day_off'          => 'Day off',
         'workshifts'          => 'Workshifts',
         'workshift_planning'  => 'Workshift planning',
+        'workshift_summary'   => 'Workshift summary',
         'from_date'           => 'From date',
         'to_date'             => 'To date',
         'weekday'             => 'Weekday',

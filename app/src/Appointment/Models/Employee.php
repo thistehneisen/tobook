@@ -251,14 +251,72 @@ class Employee extends \App\Appointment\Models\Base
         return null;
     }
 
-    public function getPlustime($serviceId){
-        if(empty($this->plustime[$serviceId])){
+    public function getPlustime($serviceId)
+    {
+        if (empty($this->plustime[$serviceId])) {
             $employeeService = EmployeeService::where('employee_id', $this->id)
                     ->where('service_id', $serviceId)->first();
             $this->plustime[$serviceId] = (!empty($employeeService)) ? $employeeService->plustime : 0;
         }
         return $this->plustime[$serviceId];
     }
+
+    /**
+     * @return array
+     */
+    public function getWorkshiftPlan($date)
+    {
+
+        list($current, $startOfMonth, $endOfMonth) = $this->getWorkshiftDate($date);
+
+        $items = $this->employeeCustomTimes()
+            ->with('customTime')
+            ->where('date','>=', $startOfMonth)
+            ->where('date','<=', $endOfMonth)
+            ->orderBy('date','asc')->get();
+
+        $customTimesList = [];
+
+        foreach ($items as $item) {
+           $customTimesList[$item->date] = $item;
+        }
+
+        $currentMonths = [];
+        $startDay      = with(clone $current->startOfMonth());
+
+        foreach (range(1, $current->daysInMonth) as $day) {
+            if (!empty($customTimesList[$startDay->toDateString()])) {
+                $currentMonths[$startDay->toDateString()] = $customTimesList[$startDay->toDateString()];
+            } else {
+                $currentMonths[$startDay->toDateString()] = with(clone $startDay);
+            }
+            $startDay->addDay();
+        }
+
+        return [$customTimesList, $currentMonths];
+    }
+
+    /**
+     * Create Carbon date object for a given yyyy-mm string
+     *
+     * @return array(Carbon\Carbon, string, string)
+     */
+    public function getWorkshiftDate($date)
+    {
+        $current      = Carbon::now();
+        $startOfMonth = $current->startOfMonth()->toDateString();
+        $endOfMonth   = $current->endOfMonth()->toDateString();
+
+        if (!empty($date)) {
+            try {
+                $current = Carbon::createFromFormat('Y-m-d', $date . '-01');
+            } catch(\Exception $ex) {
+                $current = Carbon::now();
+            }
+        }
+        return [$current, $startOfMonth, $endOfMonth];
+    }
+
 
     //--------------------------------------------------------------------------
     // ATTRIBUTES

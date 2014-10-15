@@ -325,6 +325,65 @@ class Employees extends AsBase
             );
     }
 
+    /**
+     * View all workshift plan of all emploeye in a selected month
+     *
+     * @return view
+     */
+    public function employeeCustomTimeSummary($date)
+    {
+        $current      = Carbon::now();
+        $startOfMonth = $current->startOfMonth()->toDateString();
+        $endOfMonth   = $current->endOfMonth()->toDateString();
+
+        if (!empty($date)) {
+            try {
+                $current = Carbon::createFromFormat('Y-m-d', $date . '-01');
+            } catch(\Exception $ex) {
+                $current = Carbon::now();
+            }
+        }
+
+        $employees       =  Employee::ofCurrentUser()->get();
+        $customTimesList = [];
+
+        foreach ($employees as $employee) {
+            $items = $employee->employeeCustomTimes()
+                ->with('customTime')
+                ->where('date','>=', $startOfMonth)
+                ->where('date','<=', $endOfMonth)
+                ->orderBy('date','asc')->get();
+
+            foreach ($items as $item) {
+               $customTimesList[$item->date][$employee->id] = $item;
+            }
+        }
+
+        $currentMonths = [];
+        $startDay      = with(clone $current->startOfMonth());
+
+        foreach (range(1, $current->daysInMonth) as $day) {
+            if (!empty($customTimesList[$startDay->toDateString()])) {
+                $currentMonths[$startDay->toDateString()]['date'] = with(clone $startDay);
+                $currentMonths[$startDay->toDateString()]['employees'] = $customTimesList[$startDay->toDateString()];
+            } else {
+                $currentMonths[$startDay->toDateString()]['date'] = with(clone $startDay);
+                $currentMonths[$startDay->toDateString()]['employees'] = [];
+            }
+            $startDay->addDay();
+        }
+
+        return $this->render('customTimeSummary', [
+            'customTimesList' => $customTimesList,//custom time of the employee
+            'employee'        => $employee,
+            'employees'       => $employees,
+            'current'         => $current,
+            'currentMonths'   => $currentMonths,
+            'startOfMonth'    => $startOfMonth,
+            'endOfMonth'      => $endOfMonth
+        ]);
+    }
+
     public function employeeCustomTime($employeeId = null, $date = null)
     {
         $customTimes = CustomTime::ofCurrentUser()
@@ -339,39 +398,8 @@ class Employees extends AsBase
             : Employee::ofCurrentUser()->first();
 
         $employees = Employee::ofCurrentUser()->get();
-
-        $current = Carbon::now();
-        if(!empty($date)){
-            try{
-                $current = Carbon::createFromFormat('Y-m-d', $date . '-01');
-            } catch(\Exception $ex){
-                $current = Carbon::now();
-            }
-        }
-        $startOfMonth = $current->startOfMonth()->toDateString();
-        $endOfMonth   = $current->endOfMonth()->toDateString();
-
-        $items = $employee->employeeCustomTimes()
-            ->with('customTime')
-            ->where('date','>=', $startOfMonth)
-            ->where('date','<=', $endOfMonth)
-            ->orderBy('date','asc')->get();
-
-        $customTimesList = [];
-        foreach ($items as $item) {
-           $customTimesList[$item->date] = $item;
-        }
-
-        $currentMonths = [];
-        $startDay = with(clone $current->startOfMonth());
-        foreach (range(1, $current->daysInMonth) as $day) {
-            if(!empty($customTimesList[$startDay->toDateString()])){
-                $currentMonths[$startDay->toDateString()] = $customTimesList[$startDay->toDateString()];
-            } else {
-                $currentMonths[$startDay->toDateString()] = with (clone $startDay);
-            }
-            $startDay->addDay();
-        }
+        list($current, $startOfMonth, $endOfMonth) = $employee->getWorkshiftDate($date);
+        list($customTimesList, $currentMonths)     = $employee->getWorkshiftPlan($date);
 
         return $this->render('customTime', [
             'customTimes'     => $customTimes,
