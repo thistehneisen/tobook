@@ -9,7 +9,10 @@
             <div class="services" id="category-services-{{ $category->id }}">
             @foreach ($category->services as $service)
                 <div class="single">
-                    <a data-toggle="collapse" data-parent="#category-services-{{ $category->id }}" href="#service-{{ $category->id.'-'.$service->id }}"><h5 class="heading">{{ $service->name }}</h5></a>
+                    <a data-toggle="collapse" data-parent="#category-services-{{ $category->id }}" href="#service-{{ $category->id.'-'.$service->id }}"><h5 class="heading inline">{{ $service->name }}</h5></a>
+                    @if(!empty($service->description))
+                    <a href="" title="{{ $service->description }}" class="employee-tooltip"><i class="glyphicon glyphicon-info-sign info-sign"></i></a>
+                    @endif
                     <div id="service-{{ $category->id.'-'.$service->id }}" class="collapse">
                         <p>
                             <a data-service-id="{{ $service->id }}" data-service-time="default" class="btn btn-default btn-select-service-time price-tag"><i class="glyphicon glyphicon-tag"></i> &euro;{{ number_format($service->price) }}</a>
