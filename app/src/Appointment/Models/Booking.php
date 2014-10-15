@@ -493,17 +493,21 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             $extraServiceIds = [];
             foreach ($booking->extraServices as $bookingExtraService) {
                 $extraServiceIds[] = $bookingExtraService->extraService->id;
+                $bookingExtraService->delete();
             }
 
             // start re-booking services and extra services
             foreach ($booking->bookingServices as $bookingService) {
-                // do NOT pass existing booking service to avoid changing the booking
-                $bookingService = BookingService::saveBookingService($booking->uuid, $employee, $bookingService->service, array_merge($input, [
+                $service = $bookingService->service;
+                $bookingServiceInput = array_merge($input, [
                     'modify_time' => $bookingService->modify_time,
                     'service_time' => (!empty($bookingService->service_time_id) ? $bookingService->serviceTime->id : 'default'),
-                ]));
+                ]);
+                $bookingService->delete();
 
-                foreach ($bookingService->service->extraServices as $serviceExtraService) {
+                $bookingService = BookingService::saveBookingService($booking->uuid, $employee, $service, $bookingServiceInput);
+
+                foreach ($service->extraServices as $serviceExtraService) {
                     foreach (array_keys($extraServiceIds) as $key) {
                         // traverse by key because there may be more than one booking for one extra service
                         // also, we need to delete the id after successfully book it
@@ -519,18 +523,11 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             if (!empty($extraServiceIds)) {
                 throw new ValidationException(trans('as.bookings.error.reschedule_unbooked_extra'));
             }
-
-            // new bookings for services / extra services have been made without error
-            // go ahead and delete the old bookings now
-            foreach ($booking->bookingServices as $bookingService) {
-                $bookingService->delete();
-            }
-            foreach ($booking->extraServices as $bookingExtraService) {
-                $bookingExtraService->delete();
-            }
         });
 
         // call update booking to associate those newly booked services / extra services with the booking itself
+        $booking = Booking::find($booking->id);
+
         return self::updateBooking($booking);
     }
 }
