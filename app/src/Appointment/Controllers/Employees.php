@@ -375,7 +375,6 @@ class Employees extends AsBase
 
         return $this->render('customTimeSummary', [
             'customTimesList' => $customTimesList,//custom time of the employee
-            'employee'        => $employee,
             'employees'       => $employees,
             'current'         => $current,
             'currentMonths'   => $currentMonths,
