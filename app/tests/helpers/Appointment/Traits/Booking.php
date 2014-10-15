@@ -51,6 +51,7 @@ trait Booking
         $I->assertEquals($booking->uuid, $bookingData['booking_uuid'], "\$bookingData['booking_uuid']");
 
         $I->assertEquals($booking->bookingServices()->count(), count($bookingData['booking_services']), "count(\$bookingData['booking_services'])");
+        $length = 0;
         foreach ($booking->bookingServices as $bookingService) {
             $bookingServiceDataFound = false;
 
@@ -65,6 +66,7 @@ trait Booking
             }
 
             $I->assertTrue($bookingServiceDataFound, 'service: ' . $bookingService->service->name);
+            $length += $bookingService->calculateServiceLength();
         }
 
         $I->assertEquals($booking->extraServices()->count(), count($bookingData['booking_extra_services']), "count(\$bookingData['booking_extra_services'])");
@@ -81,9 +83,11 @@ trait Booking
             }
 
             $I->assertTrue($bookingExtraServiceDataFound, 'extra service: ' . $bookingExtraService->extraService->name);
+            $length += $bookingExtraService->extraService->length;
         }
 
         $I->assertEquals(\App\Appointment\Models\Booking::getStatusByValue($booking->status), $bookingData['booking_status'], "\$bookingData['booking_status']");
+        $I->assertEquals($length, $bookingData['duration'], "\$bookingData['duration']");
 
         $I->assertEquals($booking->consumer->id, $bookingData['consumer']['id'], "\$bookingData['consumer']['id']");
         $I->assertEquals($booking->consumer->name, $bookingData['consumer']['name'], "\$bookingData['consumer']['name']");

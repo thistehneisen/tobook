@@ -154,7 +154,7 @@ class BookingService extends \App\Appointment\Models\Base
     //--------------------------------------------------------------------------
 
     /**
-     * Saves booking service or updates an existing record.
+     * Save booking service or updates an existing record.
      * <code>App\Appointment\Models\Booking::saveBooking</code> needs to be called with the same uuid
      * to associate the new booking service with a booking record.
      *
@@ -182,43 +182,52 @@ class BookingService extends \App\Appointment\Models\Base
 
         // validate input #2
         try {
-            $startTime = Carbon::createFromFormat('Y-m-d H:i', sprintf('%s %s', $input['booking_date'], $input['start_time']));
+            $startTime = Carbon::createFromFormat('Y-m-d H:i', sprintf('%s %s', $input['booking_date'], substr($input['start_time'], 0, 5)));
         } catch (InvalidArgumentException $e) {
             throw new ValidationException(trans('as.bookings.error.start_time'));
         }
 
         // calculate service time
         $serviceTime = null;
+        $length = 0;
         if ($input['service_time'] === 'default') {
-            $length = $service->length;
+            $length += $service->length;
         } else {
             $serviceTime = ServiceTime::find($input['service_time']);
             if (empty($serviceTime)) {
                 throw new ValidationException(trans('as.bookings.error.service_time_invalid'));
             }
-            $length = $serviceTime->length;
+            $length += $serviceTime->length;
         }
 
         // calculate service time #2 (modify time / plus time)
-        $endTimeDelta = ($length + $input['modify_time'] + $employee->getPlustime($service->id));
-        if ($endTimeDelta < 1) {
+        $length += $input['modify_time'] + $employee->getPlustime($service->id);
+        if ($length < 1) {
             throw new ValidationException(trans('as.bookings.error.empty_total_time'));
         }
 
+        // calculate service time #3 (existing extra services)
+        $existingBookingExtraServiceLength = 0;
+        foreach (BookingExtraService::where('tmp_uuid', '=', $uuid)->get() as $existingBookingExtraService) {
+            // TODO check for extra services of this $service only (support multiple services per booking)
+            $existingBookingExtraServiceLength += $existingBookingExtraService->extraService->length;
+        }
+
         // calculate end time (finally!)
-        $endTime = with(clone $startTime)->addMinutes($endTimeDelta);
+        $endTime = with(clone $startTime)->addMinutes($length);
+        $endTimeForOverlappingCheck = with(clone $endTime)->addMinutes($existingBookingExtraServiceLength);
         $endDay = with(clone $startTime)->hour(23)->minute(59)->second(59);
-        if ($endTime > $endDay) {
+        if ($endTimeForOverlappingCheck > $endDay) {
             throw new ValidationException(trans('as.bookings.error.exceed_current_day'));
         }
 
         // check if the booking overlaps with employee's freetime
-        if ($employee->isOverllapedWithFreetime($startTime->toDateString(), $startTime, $endTime)) {
+        if ($employee->isOverllapedWithFreetime($startTime->toDateString(), $startTime, $endTimeForOverlappingCheck)) {
             throw new ValidationException(trans('as.bookings.error.overlapped_with_freetime'));
         }
 
         // check is there any existing booking with this service time
-        if (!Booking::isBookable($employee->id, $startTime->toDateString(), $startTime, $endTime, $uuid)) {
+        if (!Booking::isBookable($employee->id, $startTime->toDateString(), $startTime, $endTimeForOverlappingCheck, $uuid)) {
             throw new ValidationException(trans('as.bookings.error.add_overlapped_booking'));
         }
 

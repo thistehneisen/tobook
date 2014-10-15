@@ -95,6 +95,51 @@ class Booking extends Base
         }
     }
 
+    /**
+     * Change modify_time of the specified booking.
+     * This method only supports booking with one service for now.
+     *
+     * @param int $id
+     * @return Response
+     */
+    public function putModifyTime($id)
+    {
+        $booking = \App\Appointment\Models\Booking::ofCurrentUser()->findOrFail($id);
+        if ($booking->bookingServices()->count() != 1) {
+            return Response::json([
+                'error' => true,
+                'message' => trans('as.bookings.modify_time_one_service_booking_only')
+            ], 400);
+        } else {
+            // TODO support multiple services per booking
+            $bookingService = $booking->bookingServices()->first();
+        }
+
+        try {
+            $input = [
+                // booking service
+                'booking_date' => $bookingService->date,
+                'modify_time' => Input::get('modify_time'),
+                'service_time' => (!empty($bookingService->service_time_id) ? $bookingService->serviceTime->id : 'default'),
+                'start_time' => $bookingService->start_at,
+            ];
+
+            BookingService::saveBookingService($booking->uuid, $booking->employee, $bookingService->service, $input, $bookingService);
+
+            \App\Appointment\Models\Booking::updateBooking($booking);
+
+            return Response::json([
+                'error' => false,
+                'data' => $this->_prepareBookingData($booking),
+            ], 200);
+        } catch (ValidationException $e) {
+            return Response::json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
     protected function _storeOrUpdate(\App\Appointment\Models\Booking $existingBooking = null)
     {
         // TODO: support multiple services per booking
@@ -155,7 +200,7 @@ class Booking extends Base
 
             // booking service
             'booking_date' => Input::get('booking_date'),
-            'modify_times' => Input::get('modify_times'),
+            'modify_time' => Input::get('modify_time'),
             'service_time' => Input::get('service_time', 'default'),
             'start_time' => Input::get('start_time'),
 

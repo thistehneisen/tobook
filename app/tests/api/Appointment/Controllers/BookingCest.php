@@ -208,4 +208,38 @@ class BookingCest
         $booking = \App\Appointment\Models\Booking::find($booking->id);
         $I->assertEquals($statusPaid, $booking->status, '$booking->status');
     }
+
+    public function testPutModifyTime(ApiTester $I)
+    {
+        $booking = $this->_book($I, $this->user, $this->category);
+        $modifyTime = 120;
+
+        $I->sendPUT($this->endpoint . '/' . $booking->id . '/modify_time', [
+            'modify_time' => $modifyTime,
+        ]);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['error' => false]);
+
+        $booking = \App\Appointment\Models\Booking::find($booking->id);
+        $I->assertEquals($modifyTime, $booking->modify_time, '$booking->modify_time');
+    }
+
+    public function testPutModifyTimeWithConflict(ApiTester $I)
+    {
+        $booking = $this->_book($I, $this->user, $this->category, '08:00');
+        $booking2 = $this->_book($I, $this->user, $this->category, '14:00');
+        $modifyTime = $booking->modify_time + $booking2->getStartAt()->diffInMinutes($booking->getEndAt()) + 15;
+
+        $I->sendPUT($this->endpoint . '/' . $booking->id . '/modify_time', [
+            'modify_time' => $modifyTime,
+        ]);
+        $I->seeResponseCodeIs(400);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['error' => true]);
+
+        $bookingAgain = \App\Appointment\Models\Booking::find($booking->id);
+        $I->assertEquals($booking->modify_time, $bookingAgain->modify_time, '$bookingAgain->modify_time');
+        $I->assertEquals($booking->end_at, $bookingAgain->end_at, '$bookingAgain->end_at');
+    }
 }

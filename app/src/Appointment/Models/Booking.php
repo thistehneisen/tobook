@@ -245,7 +245,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     //--------------------------------------------------------------------------
 
     /**
-     * Saves booking or updates an existing record. New booking services and/or extra services
+     * Save booking or update an existing record. New booking services and/or extra services
      * will be looked up and saved together with the booking record.
      *
      * @param string $uuid
@@ -326,25 +326,25 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         }
 
         // get extra services, existing and new
-        $existingExtraServices = [];
+        $existingBookingExtraServices = [];
         if (!empty($existingBooking)) {
             foreach ($existingBooking->extraServices as $existingExtraService) {
-                $existingExtraServices[] = $existingExtraService;
+                $existingBookingExtraServices[] = $existingExtraService;
             }
         }
-        $uuidExtraServices = BookingExtraService::where('tmp_uuid', $uuid)->get();
-        $newExtraServices = [];
-        foreach ($uuidExtraServices as $extraService) {
-            if (empty($extraService->booking_id)) {
-                $newExtraServices[] = $extraService;
+        $uuidBookingExtraServices = BookingExtraService::where('tmp_uuid', $uuid)->get();
+        $newBookingExtraServices = [];
+        foreach ($uuidBookingExtraServices as $bookingExtraService) {
+            if (empty($bookingExtraService->booking_id)) {
+                $newBookingExtraServices[] = $bookingExtraService;
             }
-        }
-        $extraServices = array_merge($existingExtraServices, $newExtraServices);
+        };
+        $bookingExtraServices = array_merge($existingBookingExtraServices, $newBookingExtraServices);
 
         // recalculate length / price with data from extra services, if any
-        foreach ($extraServices as $extraService) {
-            $totalLength += $extraService->length;
-            $totalPrice += $extraService->price;
+        foreach ($bookingExtraServices as $bookingExtraService) {
+            $totalLength += $bookingExtraService->extraService->length;
+            $totalPrice += $bookingExtraService->extraService->price;
         }
 
         // calculate end time
@@ -381,10 +381,10 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             $bookingService->saveOrFail();
         }
 
-        foreach ($newExtraServices as $extraService) {
+        foreach ($newBookingExtraServices as $bookingExtraService) {
             // TODO: reset tmp_uuid?
-            $extraService->booking()->associate($booking);
-            $extraService->saveOrFail();
+            $bookingExtraService->booking()->associate($booking);
+            $bookingExtraService->saveOrFail();
         }
 
         if (empty($existingBooking)) {
@@ -397,7 +397,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     }
 
     /**
-     * Updates booking data. Useful after deletions of booking services and/or
+     * Update booking data. Useful method after deletions of booking services and/or
      * extra services.
      *
      * @param Booking $booking
@@ -408,8 +408,10 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      */
     public static function updateBooking(Booking $booking)
     {
+        $consumer = \App\Appointment\Models\Consumer::find($booking->consumer_id);
+
         // just call Booking::saveBooking with existing data and let it recalculate everything
-        return self::saveBooking($booking->uuid, $booking->user, $booking->consumer, [
+        return self::saveBooking($booking->uuid, $booking->user, $consumer, [
             'ip' => $booking->ip,
             'notes' => $booking->notes,
             'status' => self::getStatusByValue($booking->status),
