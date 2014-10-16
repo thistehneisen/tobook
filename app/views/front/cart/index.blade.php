@@ -14,7 +14,7 @@
     <tfoot>
         <tr>
             <td class="text-right">{{ trans('home.cart.total') }}</td>
-            <td class="text-info"><strong>{{ $cart->total }}&euro;</strong></td>
+            <td><strong>{{ $cart->total }}&euro;</strong></td>
         </tr>
     </tfoot>
 </table>

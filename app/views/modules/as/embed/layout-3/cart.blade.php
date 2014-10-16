@@ -18,7 +18,6 @@
 <input type="hidden" name="booking_date" value="{{ $date->toDateString() }}">
 <input type="hidden" name="start_time" value="{{ $time }}">
 <input type="hidden" name="hash" value="{{ $hash }}">
-<input type="hidden" name="cart_id" value="{{ $cartId }}">
 <input type="hidden" name="inhouse" value="{{ $inhouse }}">
 <input type="hidden" name="source" value="{{ ($inhouse) ? 'inhouse' : 'layout3' }}">
 

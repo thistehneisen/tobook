@@ -148,6 +148,26 @@
                 $('button.btn-as-time.btn-success').removeClass('btn-success');
                 $this.addClass('btn-success');
 
+                var fnProcessToStep4 = function (data) {
+                    $step4.collapse('show');
+                    $title4.addClass('collapsable');
+
+                    // Empty existing content first
+                    panel.empty();
+                    panel.html(data);
+                };
+
+                if (dataStorage.inhouse === 1) {
+                    // Stop right here, so that we don't have duplicate booking
+                    // in the same cart
+                    $.ajax({
+                        url: $step4.data('url'),
+                        type: 'POST',
+                        data: dataStorage
+                    }).done(fnProcessToStep4);
+                    return;
+                }
+
                 // Add selected time
                 $.ajax({
                     url: $('#add-service-url').val(),
@@ -160,8 +180,6 @@
                         booking_date: dataStorage.date,
                         start_time  : dataStorage.time
                     }
-                }).fail(function (e) {
-                    console.log(e);
                 }).then(function (data) {
                     // Attach cart ID
                     dataStorage.cartId = data.cart_id;
@@ -172,14 +190,7 @@
                         type: 'POST',
                         data: dataStorage
                     });
-                }).done(function (data) {
-                    $step4.collapse('show');
-                    $title4.addClass('collapsable');
-
-                    // Empty existing content first
-                    panel.empty();
-                    panel.html(data);
-                });
+                }).done(fnProcessToStep4);
             });
 
             $form.on('submit', '#as-confirm', function (e) {
