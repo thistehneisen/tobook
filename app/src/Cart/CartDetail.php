@@ -61,6 +61,12 @@ class CartDetail extends \AppModel
 
     public function getNameAttribute()
     {
+        if ($this->name === null) {
+            // Weird? I know
+            $this->name = $this->getModelAttribute()
+                ->instance
+                ->getCartDetailName();
+        }
         return $this->name;
     }
 

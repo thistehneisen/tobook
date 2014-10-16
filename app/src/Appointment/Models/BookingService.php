@@ -158,8 +158,10 @@ class BookingService extends \App\Appointment\Models\Base implements CartDetailI
      */
     public function getCartDetailName()
     {
-        // TODO
-        return '';
+        return sprintf('%s (%d %s)',
+            $this->service->name,
+            $this->service->length,
+            trans('common.minutes'));
     }
 
     /**
