@@ -15,10 +15,18 @@ class Layout3 extends Base
      */
     public function checkout()
     {
-        return $this->render('checkout', [
+        $data = [
             'user'         => $this->getUser(),
             'booking_info' => $this->getBookingInfo(),
-        ]);
+        ];
+
+        $tpl = 'checkout';
+        if ((bool) Input::get('inhouse')) {
+            $data = $this->getConfirmationData();
+            // Show the form to add to cart
+            $tpl = 'cart';
+        }
+        return $this->render($tpl, $data);
     }
 
     /**
@@ -41,12 +49,7 @@ class Layout3 extends Base
         }
 
         // We will show all information and ask for confirmation
-        $data             = Input::all();
-        $data['date']     = new Carbon($data['date']);
-        $data['service']  = Service::find(Input::get('serviceId'));
-        $data['employee'] = Employee::findOrFail(Input::get('employeeId'));
-        $data['notes']    = Input::get('notes', '');
-        $data['user']     = $user;
+        $data = $this->getConfirmationData();
 
         $fields = ['postcode', 'address', 'city', 'country'];
         foreach ($fields as $field) {
@@ -61,8 +64,19 @@ class Layout3 extends Base
         $cart->consumer()->associate($consumer)->save();
 
         $data['consumer'] = $consumer;
+        $data['user']     = $user;
 
         return $this->render('confirm', $data);
+    }
+
+    protected function getConfirmationData()
+    {
+        $data             = Input::all();
+        $data['date']     = new Carbon($data['date']);
+        $data['service']  = Service::find(Input::get('serviceId'));
+        $data['employee'] = Employee::findOrFail(Input::get('employeeId'));
+        $data['notes']    = Input::get('notes', '');
+        return $data;
     }
 
     /**
