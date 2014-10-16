@@ -36,5 +36,8 @@ return [
         'items'      => 'item|items',
         'empty'      => 'Empty',
         'empty_long' => 'Your cart is empty.',
+        'checkout'   => 'Checkout',
+        'total'      => 'Total',
+        'heading'    => 'Your selected products'
     ]
 ];

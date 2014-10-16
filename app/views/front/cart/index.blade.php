@@ -1,7 +1,7 @@
 @if (!$cart || $cart->isEmpty())
     <div class="alert alert-info">{{ trans('home.cart.empty') }}</div>
 @else
-<h5>Your selected products {{ $cart->id }}</h5>
+<h5>{{ trans('home.cart.heading') }}</h5>
 <table class="table table-striped">
     <tbody>
         @foreach ($cart->details as $detail)

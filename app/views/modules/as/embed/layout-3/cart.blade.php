@@ -24,7 +24,7 @@
 
 <div class="form-group row">
     <div class="col-md-12">
-        <button id="btn-add-cart" class="btn btn-success">{{ trans('common.add_to_cart') }}</button>
+        <button id="btn-add-cart" class="btn btn-success">{{ trans('home.cart.add') }}</button>
     </div>
 </div>
 
