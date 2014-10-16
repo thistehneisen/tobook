@@ -196,6 +196,14 @@
                 });
             });
 
+            // When user adds booking to cart
+            $form.on('click', '#btn-add-cart', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $('#header-cart').popover('show');
+                $(document).trigger('cart.reload');
+            });
+
             // When user submits the confirmation form
             $form.on('submit', '#as-form-confirm', function (e) {
                 e.preventDefault();

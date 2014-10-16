@@ -47,9 +47,14 @@ $(document).ready(function () {
     cart.popover({
         placement: 'bottom',
         trigger: 'manual',
+        html: true,
         content: function() {
-            return 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore quia quibusdam, esse pariatur consectetur eveniet vitae voluptate cupiditate perferendis harum recusandae aliquid, eligendi, odit eum odio ipsum, facilis sint neque.';
+            return '<i class="fa fa-2x fa-spin fa-spinner"></i>';
         }
+    }).on('shown.bs.popover', function () {
+        $(this).data('shown', true);
+    }).on('hidden.bs.popover', function () {
+        $(this).data('shown', false);
     }).on('mouseover', function () {
         var $this = $(this);
         if ($this.data('shown')) {
@@ -57,7 +62,6 @@ $(document).ready(function () {
         }
 
         $this.popover('show');
-        $this.data('shown', true);
     });
 
     $(document).on('click', function(e) {
@@ -66,7 +70,16 @@ $(document).ready(function () {
 
         if ($container.is($target) === false
             && $container.has($target).length === 0) {
-            cart.popover('hide').data('shown', false);
+            cart.popover('hide');
         }
+    });
+
+    $(document).on('cart.reload', function () {
+        $.ajax({
+            url: cart.data('cart-url'),
+            dataType: 'JSON'
+        }).done(function (e) {
+            cart.siblings('.popover').find('.popover-content').html(e.html);
+        });
     });
 });
