@@ -47,10 +47,7 @@ $(document).ready(function () {
     cart.popover({
         placement: 'bottom',
         trigger: 'manual',
-        html: true,
-        content: function() {
-            return '<i class="fa fa-2x fa-spin fa-spinner"></i>';
-        }
+        html: true
     }).on('shown.bs.popover', function () {
         $(this).data('shown', true);
     }).on('hidden.bs.popover', function () {
@@ -79,7 +76,8 @@ $(document).ready(function () {
             url: cart.data('cart-url'),
             dataType: 'JSON'
         }).done(function (e) {
-            cart.siblings('.popover').find('.popover-content').html(e.html);
+            cart.find('.content').html(e.totalItems);
+            cart.attr('data-content', e.content);
         });
     });
 });
