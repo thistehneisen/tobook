@@ -42,4 +42,31 @@ $(document).ready(function () {
         initTypeahead('#js-queryInput', 'services');
         initTypeahead('#js-locationInput', 'locations');
     }
+
+    var cart = $('#header-cart');
+    cart.popover({
+        placement: 'bottom',
+        trigger: 'manual',
+        content: function() {
+            return 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore quia quibusdam, esse pariatur consectetur eveniet vitae voluptate cupiditate perferendis harum recusandae aliquid, eligendi, odit eum odio ipsum, facilis sint neque.';
+        }
+    }).on('mouseover', function () {
+        var $this = $(this);
+        if ($this.data('shown')) {
+            return;
+        }
+
+        $this.popover('show');
+        $this.data('shown', true);
+    });
+
+    $(document).on('click', function(e) {
+        var $target = $(e.target),
+            $container = cart.siblings('.popover');
+
+        if ($container.is($target) === false
+            && $container.has($target).length === 0) {
+            cart.popover('hide').data('shown', false);
+        }
+    });
 });

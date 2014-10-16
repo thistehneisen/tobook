@@ -84,6 +84,10 @@
                     </ul>
                     @endif
 
+                    <ul class="user-top-nav nav nav-pills pull-right">
+                        <li><a href="#" id="header-cart" data-toggle="popover"><i class="fa fa-shopping-cart"></i> Empty cart</a></li>
+                    </ul>
+
                     <ul class="nav navbar-nav">
                     @if (Confide::user())
                         <li><p>
