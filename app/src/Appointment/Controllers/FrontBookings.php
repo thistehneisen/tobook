@@ -137,7 +137,10 @@ class FrontBookings extends Bookings
         $bookingService->quantity = 1;
         $bookingService->price = $price;
 
-        $cart = Cart::make(['status' => Cart::STATUS_INIT], $this->user);
+        $cart = Cart::current();
+        if ($cart === null) {
+            $cart = Cart::make(['status' => Cart::STATUS_INIT], $this->user);
+        }
         $cart->addDetail($bookingService);
 
          $data = [
