@@ -71,13 +71,17 @@ $(document).ready(function () {
         }
     });
 
-    $(document).on('cart.reload', function () {
+    $(document).on('cart.reload', function (e, showAfterFinish) {
         $.ajax({
             url: cart.data('cart-url'),
             dataType: 'JSON'
         }).done(function (e) {
             cart.find('.content').html(e.totalItems);
             cart.attr('data-content', e.content);
+            console.log(showAfterFinish);
+            if (showAfterFinish) {
+                cart.popover('show');
+            }
         });
     });
 });

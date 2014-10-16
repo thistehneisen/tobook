@@ -30,5 +30,11 @@ return [
         'business_hours'  => 'Business Hours',
         'buy'             => 'Buy',
         'book'            => 'Book',
+    ],
+    'cart' => [
+        'add'        => 'Add to cart',
+        'items'      => 'item|items',
+        'empty'      => 'Empty',
+        'empty_long' => 'Your cart is empty.',
     ]
 ];

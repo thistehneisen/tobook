@@ -1,3 +1,4 @@
+{{ Form::open(['route' => 'as.bookings.service.front.add', 'class' => 'form-horizontal', 'id' => 'as-form-confirm', 'role' => 'form']) }}
 <div class="form-group row">
     <label class="col-md-3">{{ trans('as.embed.layout_3.service') }}:</label>
     <div class="col-md-9">{{ $service->name }} ({{ $service->length }} {{ trans('common.minutes')}})</div>
@@ -26,3 +27,5 @@
         <button id="btn-add-cart" class="btn btn-success">{{ trans('common.add_to_cart') }}</button>
     </div>
 </div>
+
+{{ Form::close() }}

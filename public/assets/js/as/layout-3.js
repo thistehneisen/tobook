@@ -200,8 +200,17 @@
             $form.on('click', '#btn-add-cart', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
-                $('#header-cart').popover('show');
-                $(document).trigger('cart.reload');
+
+                var $this = $(this),
+                    $form = $this.parents('form');
+
+                $.ajax({
+                    url: $form.attr('action'),
+                    type: $form.attr('method'),
+                    data: $form.serialize()
+                }).done(function () {
+                    $(document).trigger('cart.reload', true);
+                });
             });
 
             // When user submits the confirmation form
