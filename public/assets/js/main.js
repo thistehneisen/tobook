@@ -2,7 +2,9 @@
 /*global $, jQuery, Bloodhound*/
 'use strict';
 
-$(document).ready(function () {
+$(function () {
+    var $doc = $(document);
+
     var initTypeahead = function (selector, name) {
             // init bloodhound collection
             var collection = new Bloodhound({
@@ -61,7 +63,7 @@ $(document).ready(function () {
         $this.popover('show');
     });
 
-    $(document).on('click', function(e) {
+    $doc.on('click', function(e) {
         var $target = $(e.target),
             $container = cart.siblings('.popover');
 
@@ -71,7 +73,7 @@ $(document).ready(function () {
         }
     });
 
-    $(document).on('cart.reload', function (e, showAfterFinish) {
+    $doc.on('cart.reload', function (e, showAfterFinish) {
         $.ajax({
             url: cart.data('cart-url'),
             dataType: 'JSON'
@@ -84,4 +86,7 @@ $(document).ready(function () {
             }
         });
     });
+
+    // Load cart content when page load
+    $doc.trigger('cart.reload', false);
 });

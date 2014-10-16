@@ -85,7 +85,7 @@
                     @endif
 
                     <ul class="user-top-nav nav nav-pills pull-right cart">
-                        <li><a data-cart-url="{{ route('cart.index') }}" href="#" id="header-cart" data-toggle="popover"><i class="fa fa-shopping-cart"></i> <span class="content">Empty cart </span></a></li>
+                        <li><a data-cart-url="{{ route('cart.index') }}" href="#" id="header-cart" data-toggle="popover"><i class="fa fa-shopping-cart"></i> <span class="content"><i class="fa fa-spinner fa-spin"></i></span></a></li>
                     </ul>
 
                     <ul class="nav navbar-nav">
