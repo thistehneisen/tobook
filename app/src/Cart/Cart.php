@@ -1,7 +1,6 @@
 <?php namespace App\Cart;
 
 use Session;
-use Carbon\Carbon;
 use App\Core\Models\User;
 use Illuminate\Support\Collection;
 
@@ -64,6 +63,7 @@ class Cart extends \AppModel
         $this->details()->save($detail);
 
         $this->updateSession();
+
         return $this;
     }
 
@@ -75,6 +75,7 @@ class Cart extends \AppModel
     public function addDetails($details)
     {
         array_walk($details, [$this, 'addDetail']);
+
         return $this;
     }
 
@@ -87,6 +88,7 @@ class Cart extends \AppModel
     {
         if (Session::has(static::SESSION_NAME)) {
             $cartId = Session::get(static::SESSION_NAME);
+
             return static::find($cartId);
         }
     }
@@ -98,7 +100,8 @@ class Cart extends \AppModel
      */
     public function updateSession()
     {
-        Session::set(static::SESSION_NAME, $this->id);
+        Session::put(static::SESSION_NAME, $this->id);
+
         return $this;
     }
 
@@ -113,6 +116,7 @@ class Cart extends \AppModel
                 $total += $detail->quantity * $detail->price;
             }
         }
+
         return round($total, 2);
     }
 
@@ -143,4 +147,3 @@ class Cart extends \AppModel
        return $this->belongsTo('App\Consumers\Models\Consumer');
     }
 }
-
