@@ -81,7 +81,7 @@
                 }
                 $(this).addClass('slot-selected');
                 end_time = $(this).data('start-time');
-                if ($(this).hasClass('booked')) {
+                if ($(this).hasClass('booked') || $(this).hasClass('freetime')) {
                     $('ul > li').removeClass('slot-selected');
                 }
                 slots -= 1;
