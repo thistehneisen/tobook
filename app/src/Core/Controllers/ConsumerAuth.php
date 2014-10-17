@@ -38,7 +38,7 @@ class ConsumerAuth extends Auth
      */
     public function doRegister()
     {
-        $user                        = new User;
+        $user                        = new User();
         $user->username              = e(Input::get('username'));
         $user->email                 = e(Input::get('email'));
         $user->password              = e(Input::get('password'));
@@ -57,9 +57,9 @@ class ConsumerAuth extends Auth
         $role = Role::consumer();
         $user->attachRole($role);
 
-
         $notice = trans('confide::confide.alerts.account_created')
             .' '.trans('confide::confide.alerts.instructions_sent');
+
         return Redirect::route('auth.register.done')->with('notice', $notice);
     }
 }

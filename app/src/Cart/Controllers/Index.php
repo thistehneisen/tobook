@@ -1,6 +1,6 @@
 <?php namespace App\Cart\Controllers;
 
-use Cart, Response, Lang, Confide, Redirect;
+use Cart, Response, Lang, Confide, Redirect, Session;
 
 class Index extends \AppController
 {
@@ -35,6 +35,10 @@ class Index extends \AppController
     {
         // We will force use to register as consumer or login at this point
         if (!Confide::user()) {
+            // Put the URL of cart checkout, so that when user logins/registers,
+            // he/she will continue checking out process
+            Session::put('url.intended', route('cart.checkout'));
+
             return Redirect::route('consumer.auth.register')
                 ->with(
                     'messages',
@@ -44,5 +48,7 @@ class Index extends \AppController
                     )
                 );
         }
+
+        return 'Hello';
     }
 }
