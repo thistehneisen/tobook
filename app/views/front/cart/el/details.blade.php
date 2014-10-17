@@ -1,3 +1,6 @@
+@if (!$cart || $cart->isEmpty())
+    <div class="alert alert-info">{{ trans('home.cart.empty_long') }}</div>
+@else
 <table class="table table-striped">
     <tbody>
         @foreach ($cart->details as $detail)
@@ -14,3 +17,4 @@
         </tr>
     </tfoot>
 </table>
+@endif
