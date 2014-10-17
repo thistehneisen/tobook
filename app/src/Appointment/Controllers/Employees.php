@@ -326,15 +326,13 @@ class Employees extends AsBase
     }
 
     /**
-     * View all workshift plan of all emploeye in a selected month
+     * View all workshift plan of all employee in a selected month
      *
      * @return view
      */
-    public function employeeCustomTimeSummary($date)
+    public function employeeCustomTimeSummary($date = null)
     {
         $current      = Carbon::now();
-        $startOfMonth = $current->startOfMonth()->toDateString();
-        $endOfMonth   = $current->endOfMonth()->toDateString();
 
         if (!empty($date)) {
             try {
@@ -343,8 +341,9 @@ class Employees extends AsBase
                 $current = Carbon::now();
             }
         }
-
-        $employees       =  Employee::ofCurrentUser()->get();
+        $startOfMonth    = $current->startOfMonth()->toDateString();
+        $endOfMonth      = $current->endOfMonth()->toDateString();
+        $employees       = Employee::ofCurrentUser()->get();
         $customTimesList = [];
 
         foreach ($employees as $employee) {
@@ -498,7 +497,7 @@ class Employees extends AsBase
         $message      = trans('as.crud.success_edit');
         try{
 
-            $employee = Employee::ofCurrentUser()->findOrFail($employeeId);
+            $employee = Employee::ofCurrentUser()->find($employeeId);
             $current = Carbon::now();
             foreach ($customTimes as $date => $customTimeId) {
                 $customTime = (intval($customTimeId) !== 0)  ? CustomTime::find($customTimeId) : null;

@@ -283,7 +283,6 @@ class Employee extends \App\Appointment\Models\Base
 
         $currentMonths = [];
         $startDay      = with(clone $current->startOfMonth());
-
         foreach (range(1, $current->daysInMonth) as $day) {
             if (!empty($customTimesList[$startDay->toDateString()])) {
                 $currentMonths[$startDay->toDateString()] = $customTimesList[$startDay->toDateString()];
@@ -292,7 +291,6 @@ class Employee extends \App\Appointment\Models\Base
             }
             $startDay->addDay();
         }
-
         return [$customTimesList, $currentMonths];
     }
 
@@ -304,8 +302,6 @@ class Employee extends \App\Appointment\Models\Base
     public function getWorkshiftDate($date)
     {
         $current      = Carbon::now();
-        $startOfMonth = $current->startOfMonth()->toDateString();
-        $endOfMonth   = $current->endOfMonth()->toDateString();
 
         if (!empty($date)) {
             try {
@@ -314,6 +310,8 @@ class Employee extends \App\Appointment\Models\Base
                 $current = Carbon::now();
             }
         }
+        $startOfMonth = $current->startOfMonth()->toDateString();
+        $endOfMonth   = $current->endOfMonth()->toDateString();
         return [$current, $startOfMonth, $endOfMonth];
     }
 
