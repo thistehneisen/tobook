@@ -42,7 +42,11 @@ class Base extends \App\Core\Controllers\Base
     {
         $consumer = [
             'id' => $booking->consumer->id,
-            'name' => $booking->consumer->name,
+            'first_name' => $booking->consumer->first_name,
+            'last_name' => $booking->consumer->last_name,
+            'email' => $booking->consumer->email,
+            'phone' => $booking->consumer->phone,
+            'address' => $booking->consumer->address,
         ];
 
         $services = [];
@@ -51,7 +55,9 @@ class Base extends \App\Core\Controllers\Base
                 'id' => $bookingService->service->id,
                 'name' => $bookingService->service->name,
                 'description' => $bookingService->service->description,
+                'category_id' => $bookingService->service->category_id,
                 'modify_time' => $bookingService->modify_time,
+                'service_time_id' => (empty($bookingService->service_time_id) ? 'default' : $bookingService->serviceTime->id),
                 'price' => $bookingService->service->price,
 
                 'date' => $bookingService->date,

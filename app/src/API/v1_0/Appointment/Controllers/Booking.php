@@ -224,12 +224,12 @@ class Booking extends Base
 
         $input = [
             // consumer
-            'first_name' => Input::get('first_name'),
-            'last_name' => Input::get('last_name'),
-            'email' => Input::get('email'),
-            'phone' => Input::get('phone'),
-            'address' => Input::get('address'),
-            'hash' => Input::get('hash'),
+            'first_name' => Input::get('consumer_first_name'),
+            'last_name' => Input::get('consumer_last_name'),
+            'email' => Input::get('consumer_email'),
+            'phone' => Input::get('consumer_phone'),
+            'address' => Input::get('consumer_address'),
+            'hash' => Input::get('consumer_hash'),
 
             // booking service
             'booking_date' => Input::get('booking_date'),
@@ -238,8 +238,8 @@ class Booking extends Base
             'start_time' => Input::get('start_time'),
 
             // booking
-            'notes' => Input::get('notes'),
-            'status' => Input::get('status', 'confirmed'),
+            'notes' => Input::get('booking_notes'),
+            'status' => Input::get('booking_status', 'confirmed'),
             'ip' => Request::getClientIp(),
         ];
 

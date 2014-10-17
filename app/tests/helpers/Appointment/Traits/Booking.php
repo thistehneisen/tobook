@@ -62,7 +62,15 @@ trait Booking
                 if ($bookingServiceData['id'] == $bookingService->service->id) {
                     $I->assertEquals($bookingService->service->name, $bookingServiceData['name'], "\$bookingServiceData['name']");
                     $I->assertEquals($bookingService->service->description, $bookingServiceData['description'], "\$bookingServiceData['description']");
+                    $I->assertEquals($bookingService->service->category->id, $bookingServiceData['category_id'], "\$bookingServiceData['category_id']");
                     $I->assertEquals($bookingService->modify_time, $bookingServiceData['modify_time'], "\$bookingServiceData['modify_time']");
+
+                    if ($bookingService->service_time_id > 0) {
+                        $I->assertEquals($bookingService->serviceTime->id, $bookingServiceData['service_time_id'], "\$bookingServiceData['service_time_id']");
+                    } else {
+                        $I->assertEquals('default', $bookingServiceData['service_time_id'], "\$bookingServiceData['service_time_id']");
+                    }
+
                     $I->assertEquals($bookingService->service->price, $bookingServiceData['price'], "\$bookingServiceData['price']");
 
                     $I->assertEquals($bookingService->date, $bookingServiceData['date'], "\$bookingServiceData['date']");
@@ -101,6 +109,10 @@ trait Booking
         $I->assertEquals($length, $bookingData['duration'], "\$bookingData['duration']");
 
         $I->assertEquals($booking->consumer->id, $bookingData['consumer']['id'], "\$bookingData['consumer']['id']");
-        $I->assertEquals($booking->consumer->name, $bookingData['consumer']['name'], "\$bookingData['consumer']['name']");
+        $I->assertEquals($booking->consumer->first_name, $bookingData['consumer']['first_name'], "\$bookingData['consumer']['first_name']");
+        $I->assertEquals($booking->consumer->last_name, $bookingData['consumer']['last_name'], "\$bookingData['consumer']['last_name']");
+        $I->assertEquals($booking->consumer->email, $bookingData['consumer']['email'], "\$bookingData['consumer']['email']");
+        $I->assertEquals($booking->consumer->phone, $bookingData['consumer']['phone'], "\$bookingData['consumer']['phone']");
+        $I->assertEquals($booking->consumer->address, $bookingData['consumer']['address'], "\$bookingData['consumer']['address']");
     }
 }

@@ -53,12 +53,12 @@ class BookingCest
             'extra_services' => $extraServiceIds,
 
             // consumer
-            'first_name' => $consumerFirstName,
-            'last_name' => $consumerLastName,
-            'email' => $consumerEmail,
-            'phone' => $consumerPhone,
-            'address' => $consumerAddress,
-            // 'hash' => '',
+            'consumer_first_name' => $consumerFirstName,
+            'consumer_last_name' => $consumerLastName,
+            'consumer_email' => $consumerEmail,
+            'consumer_phone' => $consumerPhone,
+            'consumer_address' => $consumerAddress,
+            // 'consumer_hash' => '',
 
             // booking service
             'booking_date' => $dayObj->toDateString(),
@@ -67,8 +67,8 @@ class BookingCest
             'start_time' => substr($startAt, 0, 5),
 
             // booking
-            // 'notes' => '',
-            // 'status' => '',
+            // 'booking_notes' => '',
+            // 'booking_status' => '',
             // 'ip' => '',
         ]);
         $I->seeResponseCodeIs(200);
@@ -138,12 +138,12 @@ class BookingCest
             'extra_services' => [$extraService->id],
 
             // consumer
-            'first_name' => $consumerFirstName,
-            'last_name' => $consumerLastName,
-            'email' => $consumerEmail,
-            'phone' => $consumerPhone,
-            'address' => $consumerAddress,
-            // 'hash' => '',
+            'consumer_first_name' => $consumerFirstName,
+            'consumer_last_name' => $consumerLastName,
+            'consumer_email' => $consumerEmail,
+            'consumer_phone' => $consumerPhone,
+            'consumer_address' => $consumerAddress,
+            // 'consumer_hash' => '',
 
             // booking service
             'booking_date' => $dayObj->toDateString(),
@@ -152,8 +152,8 @@ class BookingCest
             'start_time' => substr($startAt, 0, 5),
 
             // booking
-            // 'notes' => '',
-            // 'status' => '',
+            // 'booking_notes' => '',
+            // 'booking_status' => '',
             // 'ip' => '',
         ]);
         $I->seeResponseCodeIs(200);
