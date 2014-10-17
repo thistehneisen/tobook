@@ -1,6 +1,7 @@
 <?php
 namespace Appointment\Traits;
 
+use App\API\v1_0\Appointment\Controllers\Consumer;
 use Config, Util;
 use App\Appointment\Models\AsConsumer;
 use App\Appointment\Models\BookingExtraService;
@@ -39,8 +40,8 @@ trait Booking
 
         $consumer = AsConsumer::handleConsumer([
             'first_name' => 'Consumer First',
-            'last_name' => 'Last ' . $user->id,
-            'email' => 'consumer_' . $user->id . '@varaa.com',
+            'last_name' => 'Last ' . $bookingService->id,
+            'email' => 'consumer_' . $bookingService->id . '@varaa.com',
             'phone' => '1234567890',
             'hash' => '',
         ], $this->user);
@@ -108,11 +109,15 @@ trait Booking
         $I->assertEquals(\App\Appointment\Models\Booking::getStatusByValue($booking->status), $bookingData['booking_status'], "\$bookingData['booking_status']");
         $I->assertEquals($length, $bookingData['duration'], "\$bookingData['duration']");
 
-        $I->assertEquals($booking->consumer->id, $bookingData['consumer']['id'], "\$bookingData['consumer']['id']");
-        $I->assertEquals($booking->consumer->first_name, $bookingData['consumer']['first_name'], "\$bookingData['consumer']['first_name']");
-        $I->assertEquals($booking->consumer->last_name, $bookingData['consumer']['last_name'], "\$bookingData['consumer']['last_name']");
-        $I->assertEquals($booking->consumer->email, $bookingData['consumer']['email'], "\$bookingData['consumer']['email']");
-        $I->assertEquals($booking->consumer->phone, $bookingData['consumer']['phone'], "\$bookingData['consumer']['phone']");
-        $I->assertEquals($booking->consumer->address, $bookingData['consumer']['address'], "\$bookingData['consumer']['address']");
+        $this->_assertConsumer($I, $booking->consumer, $bookingData['consumer']);
+    }
+
+    protected function _assertConsumer(\ApiTester $I, $consumer, array $consumerData) {
+        $I->assertEquals($consumer->id, $consumerData['consumer_id'], "\$consumerData['id']");
+        $I->assertEquals($consumer->first_name, $consumerData['consumer_first_name'], "\$consumerData['first_name']");
+        $I->assertEquals($consumer->last_name, $consumerData['consumer_last_name'], "\$consumerData['last_name']");
+        $I->assertEquals($consumer->email, $consumerData['consumer_email'], "\$consumerData['email']");
+        $I->assertEquals($consumer->phone, $consumerData['consumer_phone'], "\$consumerData['phone']");
+        $I->assertEquals($consumer->address, $consumerData['consumer_address'], "\$consumerData['address']");
     }
 }

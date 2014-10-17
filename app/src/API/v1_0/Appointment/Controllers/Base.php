@@ -1,5 +1,6 @@
 <?php namespace App\API\v1_0\Appointment\Controllers;
 
+use App\Appointment\Models\Consumer;
 use Config;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;
@@ -40,15 +41,6 @@ class Base extends \App\Core\Controllers\Base
 
     protected function _prepareBookingData(Booking $booking)
     {
-        $consumer = [
-            'id' => $booking->consumer->id,
-            'first_name' => $booking->consumer->first_name,
-            'last_name' => $booking->consumer->last_name,
-            'email' => $booking->consumer->email,
-            'phone' => $booking->consumer->phone,
-            'address' => $booking->consumer->address,
-        ];
-
         $services = [];
         foreach ($booking->bookingServices as $bookingService) {
             $serviceData = [
@@ -95,7 +87,7 @@ class Base extends \App\Core\Controllers\Base
             'booking_notes' => $booking->notes,
             'booking_status' => Booking::getStatusByValue($booking->status),
 
-            'consumer' => $consumer,
+            'consumer' => $this->_prepareConsumerData($booking->consumer),
             'booking_services' => $services,
             'booking_extra_services' => $extraServices,
 
@@ -177,6 +169,20 @@ class Base extends \App\Core\Controllers\Base
         ];
 
         return $categoryData;
+    }
+
+    protected function _prepareConsumerData($consumer) {
+        $consumerData = [
+            'type' => 'consumer',
+            'consumer_id' => $consumer->id,
+            'consumer_first_name' => $consumer->first_name,
+            'consumer_last_name' => $consumer->last_name,
+            'consumer_email' => $consumer->email,
+            'consumer_phone' => $consumer->phone,
+            'consumer_address' => $consumer->address,
+        ];
+
+        return $consumerData;
     }
 
     protected function _preparePagination(Paginator $pagination)
