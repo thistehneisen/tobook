@@ -57,8 +57,9 @@ $(document).ready(function () {
             $(this).removeClass('active');
             $(this).addClass('inactive');
         }
-        var len = $(this).nextUntil('li.booked').length;
-        if(len < (totalSlots + plustime)){
+        var lenUntilBooked   = $(this).nextUntil('li.booked').length;
+        var lenUntilFreetime = $(this).nextUntil('li.freetime').length;
+        if(lenUntilBooked < (totalSlots + plustime) || lenUntilFreetime < (totalSlots + plustime)){
             $(this).removeClass('active');
             $(this).addClass('inactive');
         }

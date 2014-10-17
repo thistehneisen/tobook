@@ -341,7 +341,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             }
         }
         $uuidBookingServices = BookingService::where('tmp_uuid', $uuid)->get();
-        $newBookingServices = [];
+        $newBookingServices  = [];
         foreach ($uuidBookingServices as $bookingService) {
             if (empty($bookingService->booking_id)) {
                 $newBookingServices[] = $bookingService;
@@ -353,18 +353,18 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         }
 
         // calculate length / price with data from services
-        $totalLength = 0;
-        $totalPrice = 0;
+        $totalLength     = 0;
+        $totalPrice      = 0;
         $totalModifyTime = 0;
-        $totalPlusTime = 0;
-        $startTime = null;
+        $totalPlusTime   = 0;
+        $startTime       = null;
         foreach ($bookingServices as $bookingService) {
             $totalLength += $bookingService->calculateServiceLength();
-            $totalPrice += $bookingService->calculateServicePrice();
+            $totalPrice  += $bookingService->calculateServicePrice();
 
             // TODO: remove fields modify_time and plustime from booking table
             $totalModifyTime += $bookingService->modify_time;
-            $totalPlusTime += $bookingService->plustime;
+            $totalPlusTime   += $bookingService->plustime;
 
             $bookingServiceStartTime = Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s', $bookingService->date, $bookingService->start_at));
             if ($startTime === null || $bookingServiceStartTime->diffInMinutes($startTime, false) > 0) {
@@ -391,7 +391,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         // recalculate length / price with data from extra services, if any
         foreach ($bookingExtraServices as $bookingExtraService) {
             $totalLength += $bookingExtraService->extraService->length;
-            $totalPrice += $bookingExtraService->extraService->price;
+            $totalPrice  += $bookingExtraService->extraService->price;
         }
 
         // calculate end time
@@ -404,17 +404,17 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         }
 
         $booking->fill([
-            'date' => $startTime->toDateString(),
-            'start_at' => $startTime->toTimeString(),
-            'end_at' => $endTime->toTimeString(),
-            'total' => $totalLength,
+            'date'        => $startTime->toDateString(),
+            'start_at'    => $startTime->toTimeString(),
+            'end_at'      => $endTime->toTimeString(),
+            'total'       => $totalLength,
             'total_price' => $totalPrice,
-            'status' => $input['status'],
-            'notes' => $input['notes'],
-            'uuid' => $uuid,
+            'status'      => $input['status'],
+            'notes'       => $input['notes'],
+            'uuid'        => $uuid,
             'modify_time' => $totalModifyTime,
-            'plustime' => $totalPlusTime,
-            'ip' => $input['ip'],
+            'plustime'    => $totalPlusTime,
+            'ip'          => $input['ip'],
         ]);
 
         $booking->consumer()->associate($consumer);

@@ -714,6 +714,11 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Employees@upsertEmployeeCustomTime'
     ]);
 
+    Route::get('employees/work-shift-summary/{date?}', [
+        'as' => 'as.employees.employeeCustomTime.summary',
+        'uses' => 'App\Appointment\Controllers\Employees@employeeCustomTimeSummary'
+    ]);
+
     Route::post('employees/update-work-shift-plan/{employeedId}', [
         'as' => 'as.employees.employeeCustomTime.massiveUpdate',
         'uses' => 'App\Appointment\Controllers\Employees@massiveUpdateEmployeeCustomTime'

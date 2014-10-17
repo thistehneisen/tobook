@@ -325,6 +325,63 @@ class Employees extends AsBase
             );
     }
 
+    /**
+     * View all workshift plan of all employee in a selected month
+     *
+     * @return view
+     */
+    public function employeeCustomTimeSummary($date = null)
+    {
+        $current      = Carbon::now();
+
+        if (!empty($date)) {
+            try {
+                $current = Carbon::createFromFormat('Y-m-d', $date . '-01');
+            } catch(\Exception $ex) {
+                $current = Carbon::now();
+            }
+        }
+        $startOfMonth    = $current->startOfMonth()->toDateString();
+        $endOfMonth      = $current->endOfMonth()->toDateString();
+        $employees       = Employee::ofCurrentUser()->get();
+        $customTimesList = [];
+
+        foreach ($employees as $employee) {
+            $items = $employee->employeeCustomTimes()
+                ->with('customTime')
+                ->where('date','>=', $startOfMonth)
+                ->where('date','<=', $endOfMonth)
+                ->orderBy('date','asc')->get();
+
+            foreach ($items as $item) {
+               $customTimesList[$item->date][$employee->id] = $item;
+            }
+        }
+
+        $currentMonths = [];
+        $startDay      = with(clone $current->startOfMonth());
+
+        foreach (range(1, $current->daysInMonth) as $day) {
+            if (!empty($customTimesList[$startDay->toDateString()])) {
+                $currentMonths[$startDay->toDateString()]['date'] = with(clone $startDay);
+                $currentMonths[$startDay->toDateString()]['employees'] = $customTimesList[$startDay->toDateString()];
+            } else {
+                $currentMonths[$startDay->toDateString()]['date'] = with(clone $startDay);
+                $currentMonths[$startDay->toDateString()]['employees'] = [];
+            }
+            $startDay->addDay();
+        }
+
+        return $this->render('customTimeSummary', [
+            'customTimesList' => $customTimesList,//custom time of the employee
+            'employees'       => $employees,
+            'current'         => $current,
+            'currentMonths'   => $currentMonths,
+            'startOfMonth'    => $startOfMonth,
+            'endOfMonth'      => $endOfMonth
+        ]);
+    }
+
     public function employeeCustomTime($employeeId = null, $date = null)
     {
         $customTimes = CustomTime::ofCurrentUser()
@@ -339,39 +396,8 @@ class Employees extends AsBase
             : Employee::ofCurrentUser()->first();
 
         $employees = Employee::ofCurrentUser()->get();
-
-        $current = Carbon::now();
-        if(!empty($date)){
-            try{
-                $current = Carbon::createFromFormat('Y-m-d', $date . '-01');
-            } catch(\Exception $ex){
-                $current = Carbon::now();
-            }
-        }
-        $startOfMonth = $current->startOfMonth()->toDateString();
-        $endOfMonth   = $current->endOfMonth()->toDateString();
-
-        $items = $employee->employeeCustomTimes()
-            ->with('customTime')
-            ->where('date','>=', $startOfMonth)
-            ->where('date','<=', $endOfMonth)
-            ->orderBy('date','asc')->get();
-
-        $customTimesList = [];
-        foreach ($items as $item) {
-           $customTimesList[$item->date] = $item;
-        }
-
-        $currentMonths = [];
-        $startDay = with(clone $current->startOfMonth());
-        foreach (range(1, $current->daysInMonth) as $day) {
-            if(!empty($customTimesList[$startDay->toDateString()])){
-                $currentMonths[$startDay->toDateString()] = $customTimesList[$startDay->toDateString()];
-            } else {
-                $currentMonths[$startDay->toDateString()] = with (clone $startDay);
-            }
-            $startDay->addDay();
-        }
+        list($current, $startOfMonth, $endOfMonth) = $employee->getWorkshiftDate($date);
+        list($customTimesList, $currentMonths)     = $employee->getWorkshiftPlan($date);
 
         return $this->render('customTime', [
             'customTimes'     => $customTimes,
@@ -471,7 +497,7 @@ class Employees extends AsBase
         $message      = trans('as.crud.success_edit');
         try{
 
-            $employee = Employee::ofCurrentUser()->findOrFail($employeeId);
+            $employee = Employee::ofCurrentUser()->find($employeeId);
             $current = Carbon::now();
             foreach ($customTimes as $date => $customTimeId) {
                 $customTime = (intval($customTimeId) !== 0)  ? CustomTime::find($customTimeId) : null;
