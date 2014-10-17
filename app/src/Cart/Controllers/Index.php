@@ -52,6 +52,8 @@ class Index extends \AppController
                 ->with('fromCheckout', true);
         }
 
-        return 'Hello';
+        return $this->render('checkout', [
+            'cart' => Cart::current()
+        ]);
     }
 }

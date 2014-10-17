@@ -1,24 +1,9 @@
+<h5>{{ trans('home.cart.heading') }}</h5>
 @if (!$cart || $cart->isEmpty())
     <div class="alert alert-info">{{ trans('home.cart.empty_long') }}</div>
 @else
-<h5>{{ trans('home.cart.heading') }}</h5>
-<table class="table table-striped">
-    <tbody>
-        @foreach ($cart->details as $detail)
-        <tr>
-            <td>{{ $detail->name }}</td>
-            <td>{{ $detail->price }}&euro;</td>
-        </tr>
-        @endforeach
-    </tbody>
-    <tfoot>
-        <tr>
-            <td class="text-right">{{ trans('home.cart.total') }}</td>
-            <td><strong>{{ $cart->total }}&euro;</strong></td>
-        </tr>
-    </tfoot>
-</table>
+    @include('front.cart.el.details', ['cart' => $cart])
 <div class="text-center">
-    <a href="#" class="btn btn-sm">{{ trans('home.cart.checkout') }} <i class="fa fa-arrow-right"></i></a>
+    <a href="{{ route('cart.checkout') }}" class="btn btn-sm">{{ trans('home.cart.checkout') }} <i class="fa fa-arrow-right"></i></a>
 </div>
 @endif

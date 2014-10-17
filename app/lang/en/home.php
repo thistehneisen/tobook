@@ -41,5 +41,6 @@ return [
         'heading'     => 'Your selected products',
         'why_heading' => 'Why you should register before checking out?',
         'why_content' => 'As a registered user, you could easily manage your bookings, as well as other functionalities providede by Varaa.',
+        'process'     => 'Process to payment'
     ]
 ];
