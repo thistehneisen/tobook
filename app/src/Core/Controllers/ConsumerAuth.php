@@ -57,6 +57,23 @@ class ConsumerAuth extends Auth
         $role = Role::consumer();
         $user->attachRole($role);
 
+        // If this request is from checkout page, we will skip the confirmation,
+        // auto login and redirect user to checkout page
+        if ((bool) Input::get('fromCheckout') === true) {
+            // Confirm me, beast
+            Confide::confirm($user->getKey());
+
+            // Log me in, beast
+            Confide::logAttempt([
+                'username' => e(Input::get('username')),
+                'email'    => e(Input::get('email')),
+                'password' => e(Input::get('password')),
+            ]);
+
+            // Get me back to the page I was previously, beast
+            return Redirect::intended(route('cart.checkout'));
+        }
+
         $notice = trans('confide::confide.alerts.account_created')
             .' '.trans('confide::confide.alerts.instructions_sent');
 

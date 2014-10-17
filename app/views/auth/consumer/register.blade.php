@@ -33,6 +33,7 @@
 
             <div class="form-group">
                 <div class="col-sm-9 text-right">
+                    {{ Form::hidden('fromCheckout', Session::get('fromCheckout', Input::get('fromCheckout'))) }}
                     <button class="btn btn-lg btn-success text-uppercase comfortaa">{{ trans('common.register') }} <i class="fa fa-check-circle"></i></button>
                 </div>
             </div>

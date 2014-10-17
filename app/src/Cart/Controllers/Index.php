@@ -46,7 +46,10 @@ class Index extends \AppController
                         trans('home.cart.why_content'),
                         trans('home.cart.why_heading')
                     )
-                );
+                )
+                // Because we're thirsty for money, so the easier checkout
+                // process, the more money will come
+                ->with('fromCheckout', true);
         }
 
         return 'Hello';
