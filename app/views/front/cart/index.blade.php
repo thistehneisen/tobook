@@ -1,5 +1,5 @@
 @if (!$cart || $cart->isEmpty())
-    <div class="alert alert-info">{{ trans('home.cart.empty') }}</div>
+    <div class="alert alert-info">{{ trans('home.cart.empty_long') }}</div>
 @else
 <h5>{{ trans('home.cart.heading') }}</h5>
 <table class="table table-striped">
