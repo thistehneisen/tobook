@@ -1,12 +1,16 @@
 <?php namespace App\Cart\Controllers;
 
-use Cart;
-use Response, Lang;
+use Cart, Response, Lang, Confide, Redirect;
 
 class Index extends \AppController
 {
     protected $viewPath = 'front.cart';
 
+    /**
+     * Show the cart content via AJAX
+     *
+     * @return Response JSON
+     */
     public function index()
     {
         $cart = Cart::current();
@@ -20,5 +24,25 @@ class Index extends \AppController
         ])->render();
 
         return Response::json($json);
+    }
+
+    /**
+     * Show the cart content and prepare to checkout
+     *
+     * @return Redirect|View
+     */
+    public function checkout()
+    {
+        // We will force use to register as consumer or login at this point
+        if (!Confide::user()) {
+            return Redirect::route('consumer.auth.register')
+                ->with(
+                    'messages',
+                    $this->successMessageBag(
+                        trans('home.cart.why_content'),
+                        trans('home.cart.why_heading')
+                    )
+                );
+        }
     }
 }

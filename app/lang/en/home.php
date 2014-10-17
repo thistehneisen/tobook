@@ -32,12 +32,14 @@ return [
         'book'            => 'Book',
     ],
     'cart' => [
-        'add'        => 'Add to cart',
-        'items'      => 'item|items',
-        'empty'      => 'Empty',
-        'empty_long' => 'Your cart is empty.',
-        'checkout'   => 'Checkout',
-        'total'      => 'Total',
-        'heading'    => 'Your selected products'
+        'add'         => 'Add to cart',
+        'items'       => 'item|items',
+        'empty'       => 'Empty',
+        'empty_long'  => 'Your cart is empty.',
+        'checkout'    => 'Checkout',
+        'total'       => 'Total',
+        'heading'     => 'Your selected products',
+        'why_heading' => 'Why you should register before checking out?',
+        'why_content' => 'As a registered user, you could easily manage your bookings, as well as other functionalities providede by Varaa.',
     ]
 ];

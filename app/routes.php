@@ -534,6 +534,11 @@ Route::group([
         'uses' => 'App\Cart\Controllers\Index@index'
     ]);
 
+    Route::get('checkout', [
+        'as' => 'cart.checkout',
+        'uses' => 'App\Cart\Controllers\Index@checkout'
+    ]);
+
 });
 
 /*
