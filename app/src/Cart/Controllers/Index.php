@@ -1,6 +1,6 @@
 <?php namespace App\Cart\Controllers;
 
-use Cart, Response, Lang, Confide, Redirect, Session, Payment;
+use Cart, Response, Lang, Confide, Redirect, Session, Payment, Event;
 
 class Index extends \AppController
 {
@@ -65,6 +65,10 @@ class Index extends \AppController
     public function payment()
     {
         $cart = Cart::current();
+
+        // Fire the payment.process so that cart details could update themselves
+        Event::fire('payment.process', [$cart]);
+
         $goToPaygate = true;
 
         return Payment::redirect($cart, $cart->total, $goToPaygate);
