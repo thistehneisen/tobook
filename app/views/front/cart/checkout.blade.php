@@ -16,9 +16,11 @@
             <div class="col-sm-8 col-sm-offset-2">
                 @include('front.cart.el.details', ['cart' => $cart])
 
+                @if ($cart && $cart->isEmpty() === false)
                 <div class="text-center">
                     <button type="submit" class="btn btn-lg btn-success text-uppercase comfortaa">{{ trans('home.cart.process') }} <i class="fa fa-check-circle"></i></button>
                 </div>
+                @endif
             </div>
         </div>
         {{ Form::close() }}
