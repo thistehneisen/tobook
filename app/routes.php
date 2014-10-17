@@ -539,6 +539,11 @@ Route::group([
         'uses' => 'App\Cart\Controllers\Index@checkout'
     ]);
 
+    Route::post('payment', [
+        'as' => 'cart.payment',
+        'uses' => 'App\Cart\Controllers\Index@payment'
+    ]);
+
 });
 
 /*

@@ -1,6 +1,6 @@
 <?php namespace App\Cart\Controllers;
 
-use Cart, Response, Lang, Confide, Redirect, Session;
+use Cart, Response, Lang, Confide, Redirect, Session, Payment;
 
 class Index extends \AppController
 {
@@ -55,5 +55,18 @@ class Index extends \AppController
         return $this->render('checkout', [
             'cart' => Cart::current()
         ]);
+    }
+
+    /**
+     * Process to payment
+     *
+     * @return Redirect
+     */
+    public function payment()
+    {
+        $cart = Cart::current();
+        $goToPaygate = true;
+
+        return Payment::redirect($cart, $cart->total, $goToPaygate);
     }
 }
