@@ -39,7 +39,7 @@ class Base extends \App\Core\Controllers\Base
         return $freetimeData;
     }
 
-    protected function _prepareBookingData(Booking $booking)
+    protected function _prepareBookingData(Booking $booking, $includeEmployee = true)
     {
         $services = [];
         foreach ($booking->bookingServices as $bookingService) {
@@ -96,6 +96,10 @@ class Base extends \App\Core\Controllers\Base
             'end_at' => $booking->end_at,
             'duration' => $duration,
         ];
+
+        if ($includeEmployee) {
+            $bookingData['employee'] = $this->_prepareEmployeeData($booking->employee);
+        }
 
         return $bookingData;
     }

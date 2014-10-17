@@ -91,7 +91,7 @@ class Schedule extends Base
                         $booking = $employee->getBooked($dateStr, $hour, $minute);
                         if (!empty($booking)) {
                             if ($booking->id != $lastBookingId) {
-                                $bookingData = $this->_prepareBookingData($booking);
+                                $bookingData = $this->_prepareBookingData($booking, false);
                                 $employeeData['schedules'][$dateStr][] = $bookingData;
                                 $lastBookingId = $booking->id;
                             }
