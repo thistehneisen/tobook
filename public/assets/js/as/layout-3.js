@@ -215,10 +215,28 @@
                 var $this = $(this),
                     $form = $this.parents('form');
 
+                // Create booking service first
                 $.ajax({
-                    url: $form.attr('action'),
-                    type: $form.attr('method'),
-                    data: $form.serialize()
+                    url: $this.data('service-url'),
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: {
+                        service_id: dataStorage.serviceId,
+                        employee_id: dataStorage.employeeId,
+                        booking_date: dataStorage.date,
+                        start_time: dataStorage.time,
+                        hash: dataStorage.hash,
+                    }
+                }).then(function (e) {
+                    if (typeof e.cart_id !== 'undefined') {
+                        $form.find('input[name=cart_id]').val(e.cart_id);
+                    }
+
+                    return $.ajax({
+                        url: $form.attr('action'),
+                        type: $form.attr('method'),
+                        data: $form.serialize()
+                    });
                 }).done(function () {
                     $(document).trigger('cart.reload', true);
                 });
