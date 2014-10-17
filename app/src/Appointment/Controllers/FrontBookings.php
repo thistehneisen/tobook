@@ -48,7 +48,7 @@ class FrontBookings extends Bookings
         }
 
         $employee = Employee::find($employeeId);
-        $service = Service::find($serviceId);
+        $service  = Service::find($serviceId);
 
         $employeeService = EmployeeService::where('employee_id', $employeeId)
                 ->where('service_id', $serviceId)->first();
@@ -66,7 +66,7 @@ class FrontBookings extends Bookings
         if(!empty($extraServiceIds)){
             $extraServices = ExtraService::whereIn('id', $extraServiceIds)->get();
             foreach ($extraServices as $extraService) {
-                $extraServiceTime += $extraService->length;
+                $extraServiceTime   += $extraService->length;
                 $extraServicePrice  += $extraService->price;
             }
         }
@@ -135,7 +135,7 @@ class FrontBookings extends Bookings
 
         // Add to cart
         $bookingService->quantity = 1;
-        $bookingService->price = $price;
+        $bookingService->price    = $price;
 
         $cart = Cart::make(['status' => Cart::STATUS_INIT], $this->user);
         $cart->addDetail($bookingService);
