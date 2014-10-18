@@ -45,7 +45,7 @@ class ConsumerAuth extends Auth
         $user->password_confirmation = e(Input::get('password_confirmation'));
 
         // Now we need to check existing consumer
-        $user->validateExistingConsumer();
+        $user->attachConsumer();
 
         if (!$user->save()) {
             return Redirect::route('consumer.auth.register')
