@@ -22,6 +22,8 @@ class BookingService extends \App\Appointment\Models\Base implements CartDetailI
 
     private $extraServices;
 
+    private $employeePlustime;
+
     public function getCartStartAt()
     {
         $service = (!empty($this->serviceTime->id))
@@ -84,7 +86,10 @@ class BookingService extends \App\Appointment\Models\Base implements CartDetailI
 
     public function getEmployeePlustime()
     {
-        return $this->employee->getPlustime($this->service->id);
+        if (empty($this->employeePlustime)) {
+            $this->employeePlustime = $this->employee->getPlustime($this->service->id);
+        }
+        return $this->employeePlustime;
     }
 
     public function calculateServiceLength()
@@ -98,6 +103,42 @@ class BookingService extends \App\Appointment\Models\Base implements CartDetailI
         $length += $this->modify_time;
 
         return $length;
+    }
+
+    /**
+     * Total Length = Service length|ServiceTime length
+     *              + Employee plustime
+     *              + Total ExtraService length
+     * @return int
+     * @author hung@varaa.com
+     */
+    public function calculcateTotalLength()
+    {
+        $service = (!empty($this->serviceTime->id))
+                    ? $this->serviceTime
+                    : $this->service;
+
+        $length = $service->length;
+
+        //Add employee service plustime
+        $length += $this->getEmployeePlustime();
+        //Add extra service time
+        $length += $this->getExtraServiceTime();
+
+        return $length;
+    }
+
+    /**
+     * Calculate total price of Service|ServiceTime and ExtraService
+     *
+     * @return float
+     * @author hung@varaa.com
+     */
+    public function calculcateTotalPrice()
+    {
+        $price  = $this->calculateServicePrice();
+        $price += $this->getExtraServicePrice();
+        return $price;
     }
 
     public function calculateServicePrice()

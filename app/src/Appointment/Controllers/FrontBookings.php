@@ -93,7 +93,7 @@ class FrontBookings extends Bookings
         //TODO Check overlapped booking in user cart
 
         //Check enough timeslot in employee default working time
-         //Temporary the checking is removed
+        //Temporary the checking is removed
 
         if (!$isBookable) {
             $data['message'] = trans('as.bookings.error.add_overlapped_booking');
@@ -173,23 +173,13 @@ class FrontBookings extends Bookings
                 $bookingService = $detail->model->instance;
                 $extraServices  = BookingExtraService::where('tmp_uuid', $bookingService->tmp_uuid)->get();
 
-                $service = (!empty($bookingService->serviceTime->id))
-                    ? $bookingService->serviceTime
-                    : $bookingService->service;
-                $length = $service->length;
-
+                $length   = $bookingService->calculcateTotalLength();
                 $plustime = $bookingService->getEmployeePlustime();
-                $length += $plustime;
-                $bookingService->calculateExtraServices();
-
-                //Plus extra service time
-                $length += $bookingService->getExtraServiceTime();
-
                 $date     = $bookingService->date;
                 $start_at = $bookingService->start_at;
-                $end_at   = with(new Carbon($bookingService->start_at))->addMinutes($length);
+                $end_at   = with(new Carbon($start_at))->addMinutes($length);
 
-                $price = $service->price + $bookingService->getExtraServicePrice();
+                $price = $bookingService->calculcateTotalPrice();
 
                 $booking = new Booking();
                 $booking->fill([
