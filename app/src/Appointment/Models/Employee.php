@@ -332,7 +332,11 @@ class Employee extends \App\Appointment\Models\Base
 
     private function getAvatarPath()
     {
-        return Config::get('varaa.upload_folder').'/avatars/'.$this->attributes['avatar'];
+        if (file_exists(Config::get('varaa.upload_folder').'/avatars/'.$this->attributes['avatar'])) {
+            return Config::get('varaa.upload_folder').'/avatars/'.$this->attributes['avatar'];
+        } else {
+            return Config::get('varaa.upload_folder').'/images/'.$this->attributes['avatar'];
+        }
     }
 
     /**

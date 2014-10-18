@@ -54,8 +54,8 @@ class Employees extends AsBase
         // Update data
         if (Input::hasFile('avatar')) {
             $file            = Input::file('avatar');
-            $destinationPath = public_path(Config::get('varaa.upload_folder')).'/avatars';
-            $filename        = str_random(6) . '_' . $file->getClientOriginalName();
+            $destinationPath = public_path(Config::get('varaa.upload_folder')).'/images';
+            $filename = sprintf('%s_%s.%s', Carbon::now()->format('YmdHis'), str_random(12), $file->getClientOriginalExtension());
             $uploadSuccess   = $file->move($destinationPath, $filename);
             if ($uploadSuccess) {
                 $item->avatar = $filename;
