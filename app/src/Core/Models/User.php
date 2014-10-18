@@ -9,8 +9,6 @@ use App\Appointment\Models\NAT\CalendarKeeper;
 
 class User extends ConfideUser
 {
-    const IMAGEABLE_PATH = '/users';
-
     use SoftDeletingTrait;
     use HasRole;
 

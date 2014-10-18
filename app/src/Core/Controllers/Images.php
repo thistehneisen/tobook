@@ -16,12 +16,12 @@ class Images extends Base
             $data = Image::$method();
 
             $file     = Input::file('file');
-            $dest     = public_path(Config::get('varaa.upload_folder').$data['imageable_type']::IMAGEABLE_PATH);
+            $dest     = public_path(Config::get('varaa.upload_folder').'/images');
             $filename = $this->getRandomName($file->getClientOriginalExtension());
             $file->move($dest, $filename);
 
             // OK new record to database
-            $data['path'] = $data['imageable_type']::IMAGEABLE_PATH.'/'.$filename;
+            $data['path'] = '/images/'.$filename;
             $image = new Image($data);
             $image->user()->associate(Confide::user());
             $image->save();
