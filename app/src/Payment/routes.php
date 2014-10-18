@@ -13,13 +13,6 @@ Route::group([
         'uses' => 'App\Payment\Controllers\Index@index'
     ]);
 
-    Route::get('test', function () {
-        $cart = Cart::make([], 63);
-
-        return Payment::redirect($cart, 1);
-    });
-
-
     Route::post('purchase', [
         'as' => 'payment.purchase',
         'uses' => 'App\Payment\Controllers\Index@purchase'
@@ -33,5 +26,10 @@ Route::group([
     Route::get('success', [
         'as' => 'payment.success',
         'uses' => 'App\Payment\Controllers\Index@success'
+    ]);
+
+    Route::get('cancel/{id}', [
+        'as' => 'payment.cancel',
+        'uses' => 'App\Payment\Controllers\Index@cancel'
     ]);
 });
