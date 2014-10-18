@@ -1,4 +1,4 @@
-@if ($errors->top->isEmpty() === false)
+@if ($errors->top && $errors->top->isEmpty() === false)
     <div class="alert alert-danger">
         <p><strong>{{ trans('common.errors') }}!</strong></p>
     @foreach ($errors->top->all() as $message)
