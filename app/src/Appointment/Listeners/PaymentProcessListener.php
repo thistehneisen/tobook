@@ -1,5 +1,6 @@
 <?php namespace App\Appointment\Listeners;
 
+use Confide;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Booking;
 
@@ -30,6 +31,14 @@ class PaymentProcessListener
             // Update related bookings
             foreach ($bookingServices as $item) {
                 if ($item->booking !== null) {
+                    // There is a possibility that this current user is not
+                    // a consumer, who knows
+                    $consumer = Confide::user()->consumer;
+                    if ($consumer !== null) {
+                        // Update consumer information
+                        $item->booking->consumer()->associate($consumer);
+                    }
+
                     $item->booking->status = Booking::STATUS_CONFIRM;
                     $item->booking->save();
                 }
