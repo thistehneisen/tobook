@@ -70,6 +70,13 @@ $(function () {
         $queue.find('i').removeClass('fa-trash-o').addClass('fa-spinner fa-spin');
         $queue.find('.overlay').addClass('shown');
     });
+
+    // trigger click input file when click on Select file button
+    $('body').on('click', '.webuploader-pick', function (e) {
+        e.preventDefault();
+
+        $('.webuploader-element-invisible').trigger('click');
+    });
 });
     </script>
 @stop

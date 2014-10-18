@@ -24,7 +24,6 @@ class Image extends Base
     //--------------------------------------------------------------------------
     // SCOPES
     //--------------------------------------------------------------------------
-
     public function scopeBusinessImages($query)
     {
         return $query->where('type', static::BUSINESS_IMAGE);
@@ -48,4 +47,6 @@ class Image extends Base
             'type'           => static::BUSINESS_IMAGE
         ];
     }
+
+    // TODO: handle employee image here
 }

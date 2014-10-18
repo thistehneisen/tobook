@@ -2,6 +2,7 @@
 
 use Input, Config, Confide;
 use App\Core\Models\Image;
+use Carbon\Carbon;
 
 class Images extends Base
 {
@@ -16,7 +17,7 @@ class Images extends Base
 
             $file     = Input::file('file');
             $dest     = public_path(Config::get('varaa.upload_folder').$data['imageable_type']::IMAGEABLE_PATH);
-            $filename = str_random(6) . '_' . $file->getClientOriginalName();
+            $filename = $this->getRandomName($file->getClientOriginalExtension());
             $file->move($dest, $filename);
 
             // OK new record to database
@@ -25,6 +26,11 @@ class Images extends Base
             $image->user()->associate(Confide::user());
             $image->save();
         }
+    }
+
+    private function getRandomName($ext)
+    {
+        return sprintf('%s_%s.%s', Carbon::now()->format('YmdHis'), str_random(12), $ext);
     }
 
     /**

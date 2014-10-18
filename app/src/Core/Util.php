@@ -90,9 +90,10 @@ class Util
         $image = explode('.', $imageFile);
         $imageName = $image[0];
         $ext = $image[1];
-        $thumbPath = Config::get('varaa.upload_folder').'/thumbnails/'
-            .$imageName.'__'.$width.'x'.$height
-            .'.'.$ext;
+        $thumbPath = sprintf('%s/thumbnails/%s__%sx%s.%s',
+            Config::get('varaa.upload_folder'),
+            $imageName, $width, $height, $ext
+        );
 
         if (!file_exists($thumbPath)) {
             $imagine = new Imagine\Gd\Imagine();
