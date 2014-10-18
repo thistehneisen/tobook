@@ -3,6 +3,7 @@
 use View, Validator, Input, Redirect, Config, Session;
 use Confide;
 use App\Core\Models\User;
+use App\Core\Models\Role;
 use App\Core\Models\BusinessCategory;
 
 class Auth extends Base
