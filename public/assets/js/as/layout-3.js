@@ -215,6 +215,10 @@
                 var $this = $(this),
                     $form = $this.parents('form');
 
+                if (typeof dataStorage.hash === 'undefined') {
+                    dataStorage.hash = $('#business_hash').val();
+                }
+
                 // Create booking service first
                 $.ajax({
                     url: $this.data('service-url'),
