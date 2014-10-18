@@ -80,8 +80,7 @@ class CartCest
         // Try to get back data from database
         $dbCart = Cart::find($cart->id);
         $f = $dbCart->details->first();
-
-        Assert::assertEquals($f->id, $foo->id);
+        Assert::assertEquals($f->model_id, $foo->id);
         Assert::assertEquals($f->quantity, $foo->quantity);
         Assert::assertEquals($f->price, $foo->price);
     }

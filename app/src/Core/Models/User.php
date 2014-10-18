@@ -18,9 +18,6 @@ class User extends ConfideUser
         'email',
         'first_name',
         'last_name',
-        'phone',
-        'address',
-        'city',
     ];
 
     public $fillable = [
@@ -28,16 +25,6 @@ class User extends ConfideUser
         'email',
         'first_name',
         'last_name',
-        'phone',
-        'address',
-        'city',
-        'postcode',
-        'country',
-        'description',
-        'business_size',
-        'business_name',
-        'lat',
-        'lng'
     ];
 
     /**
@@ -110,20 +97,6 @@ class User extends ConfideUser
     }
 
     /**
-     * @{@inheritdoc}
-     */
-    public static function boot()
-    {
-        parent::boot();
-
-        // Whenever updating account, we will try to find geocode of this user
-        static::updating(function($user) {
-            $user->updateGeo();
-            return true;
-        });
-    }
-
-    /**
      * Overwrite this magic method, so that consumer user will return the correct
      * value instead
      *
@@ -138,11 +111,6 @@ class User extends ConfideUser
             'first_name' => true,
             'last_name'  => true,
             'email'      => true,
-            'phone'      => true,
-            'address'    => true,
-            'city'       => true,
-            'postcode'   => true,
-            'country'    => true,
         ];
 
         // If the requested key is not in the whitelist
@@ -162,35 +130,6 @@ class User extends ConfideUser
         return parent::__get($key);
     }
 
-    /**
-     * Old function to search by using SQL like
-     *
-     * @return
-     */
-    public static function search($q, $location)
-    {
-        $query = with(new self())->newQuery();
-        if (!empty($q)) {
-            $queryString = '%'.$q.'%';
-            $query = $query->whereHas(
-                'businessCategories',
-                function ($query) use ($queryString) {
-                    return $query->where('name', 'LIKE', $queryString)
-                        ->orWhere('keywords', 'LIKE', $queryString);
-                }
-            )->orWhere('business_name', 'LIKE', $queryString);
-        }
-
-        if (!empty($location)) {
-            $query = $query->where('city', 'LIKE', '%'.$location.'%');
-        }
-
-        $businesses = $query
-            ->where('business_name', '!=', '')
-            ->paginate(Config::get('view.perPage'));
-
-        return $businesses;
-    }
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
@@ -204,11 +143,6 @@ class User extends ConfideUser
     {
         return $this->belongsToMany('App\Consumers\Models\Consumer')
             ->withPivot('is_visible');
-    }
-
-    public function businessCategories()
-    {
-        return $this->belongsToMany('App\Core\Models\BusinessCategory');
     }
 
     public function asServiceCategories()
@@ -239,6 +173,11 @@ class User extends ConfideUser
     public function consumer()
     {
         return $this->belongsTo('App\Consumers\Models\Consumer');
+    }
+
+    public function business()
+    {
+        return $this->hasOne('App\Core\Models\Business');
     }
 
     //--------------------------------------------------------------------------
@@ -359,33 +298,6 @@ class User extends ConfideUser
         return isset($this->modules[$moduleName]);
     }
 
-    /**
-     * Update latitude and longitude of the current address
-     *
-     * @return void
-     */
-    public function updateGeo()
-    {
-        $new = $this->full_address;
-        $old = $this->getFullAddress(
-            $this->getOriginal('address'),
-            $this->getOriginal('postcode'),
-            $this->getOriginal('city'),
-            $this->getOriginal('country')
-        );
-
-        if (!empty($new) && $new !== $old) {
-            try {
-                $geocode = Geocoder::geocode($new);
-                $this->attributes['lat'] = $geocode->getLatitude();
-                $this->attributes['lng'] = $geocode->getLongitude();
-            } catch (\Exception $ex) {
-                // Silently fail
-                \Log::error($ex->getMessage(), ['context' => 'Update user profile']);
-            }
-        }
-    }
-
 
     /**
      * Check if there is an existing consumer having the same info with
@@ -454,11 +366,6 @@ class User extends ConfideUser
         return $this->asOptionsCache;
     }
 
-    public function getCountryList()
-    {
-        return [ trans("common.select") ,"Afghanistan", "Aland Islands", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla", "Antarctica", "Antigua", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Barbuda", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia", "Botswana", "Bouvet Island", "Brazil", "British Indian Ocean Trty.", "Brunei Darussalam", "Bulgaria", "Burkina Faso", "Burundi", "Caicos Islands", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Cayman Islands", "Central African Republic", "Chad", "Chile", "China", "Christmas Island", "Cocos (Keeling) Islands", "Colombia", "Comoros", "Congo", "Congo, Democratic Republic of the", "Cook Islands", "Costa Rica", "Cote d'Ivoire", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Falkland Islands (Malvinas)", "Faroe Islands", "Fiji", "Finland", "France", "French Guiana", "French Polynesia", "French Southern Territories", "Futuna Islands", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Greece", "Greenland", "Grenada", "Guadeloupe", "Guam", "Guatemala", "Guernsey", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Heard", "Herzegovina", "Holy See", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran (Islamic Republic of)", "Iraq", "Ireland", "Isle of Man", "Israel", "Italy", "Jamaica", "Jan Mayen Islands", "Japan", "Jersey", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea", "Korea (Democratic)", "Kuwait", "Kyrgyzstan", "Lao", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libyan Arab Jamahiriya", "Liechtenstein", "Lithuania", "Luxembourg", "Macao", "Macedonia", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Martinique", "Mauritania", "Mauritius", "Mayotte", "McDonald Islands", "Mexico", "Micronesia", "Miquelon", "Moldova", "Monaco", "Mongolia", "Montenegro", "Montserrat", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "Netherlands Antilles", "Nevis", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Niue", "Norfolk Island", "Northern Mariana Islands", "Norway", "Oman", "Pakistan", "Palau", "Palestinian Territory, Occupied", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Pitcairn", "Poland", "Portugal", "Principe", "Puerto Rico", "Qatar", "Reunion", "Romania", "Russian Federation", "Rwanda", "Saint Barthelemy", "Saint Helena", "Saint Kitts", "Saint Lucia", "Saint Martin (French part)", "Saint Pierre", "Saint Vincent", "Samoa", "San Marino", "Sao Tome", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Georgia", "South Sandwich Islands", "Spain", "Sri Lanka", "Sudan", "Suriname", "Svalbard", "Swaziland", "Sweden", "Switzerland", "Syrian Arab Republic", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "The Grenadines", "Timor-Leste", "Tobago", "Togo", "Tokelau", "Tonga", "Trinidad", "Tunisia", "Turkey", "Turkmenistan", "Turks Islands", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "US Minor Outlying Islands", "Uzbekistan", "Vanuatu", "Vatican City State", "Venezuela", "Vietnam", "Virgin Islands (British)", "Virgin Islands (US)", "Wallis", "Western Sahara", "Yemen", "Zambia", "Zimbabwe"];
-    }
-
     /**
      * Return the hash of this user, useful for generate embeded URLs
      *
@@ -493,36 +400,6 @@ class User extends ConfideUser
         }
 
         return $this->enabledModules;
-    }
-
-    /**
-     * Generate full address based on address fragments
-     *
-     * @param string $address
-     * @param string $postcode
-     * @param string $city
-     * @param string $country
-     *
-     * @return string
-     */
-    protected function getFullAddress($address, $postcode, $city, $country)
-    {
-        return sprintf('%s, %s %s, %s', $address, $postcode, $city, $country);
-    }
-
-    /**
-     * Return the full address of this user
-     *
-     * @return string
-     */
-    public function getFullAddressAttribute()
-    {
-        return $this->getFullAddress(
-            $this->attributes['address'],
-            $this->attributes['postcode'],
-            $this->attributes['city'],
-            $this->attributes['country']
-        );
     }
 
     public function getFullNameAttribute()

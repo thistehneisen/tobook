@@ -51,6 +51,7 @@ We have another module named `Lomake` to support developer build forms faster, [
 - Read http://codeception.com/docs/01-Introduction and http://codeception.com/docs/04-AcceptanceTests
 - Generate your acceptance tests in `app/tests/acceptance/` folder:
 `./vendor/bin/codecept generate:cest acceptance YourTestName`
+- Run migration for testing environment: `fab m:,testing`. This command will execute all migrations for all modules and seed database with some data for the tests. Most of the time you can skip this step, come back and run it later if you encounter database error during test executions.
 - Run the test: `./vendor/bin/codecept run` or `fab t`
 - 1 user in DB for testing is also having `varaa_test` as username and password
 

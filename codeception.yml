@@ -14,4 +14,4 @@ modules:
             dsn: 'mysql:host=localhost;dbname=varaa_test'
             user: 'varaa_test'
             password: 'varaa_test'
-            dump: app/tests/_data/dump.sql
+            # dump: app/tests/_data/dump.sql

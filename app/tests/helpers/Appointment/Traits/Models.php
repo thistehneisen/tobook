@@ -23,16 +23,9 @@ trait Models
             return;
         }
 
-        // hacky way to workaround https://github.com/laravel/framework/issues/1181
-        User::boot();
-
         $this->user = new User([
             'username' => 'user_' . time(),
             'email' => 'user_' . time() . '@varaa.com',
-            'address' => 'address',
-            'postcode' => 10000,
-            'city' => 'city',
-            'country' => 'country',
         ]);
         $this->user->password = 123456;
         $this->user->password_confirmation = 123456;
@@ -213,5 +206,8 @@ trait Models
         // should be the first thing to be called in _before() method
         $this->user = null;
         $this->employees = array();
+
+        // hacky way to workaround https://github.com/laravel/framework/issues/1181
+        User::boot();
     }
 }

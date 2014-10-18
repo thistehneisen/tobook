@@ -11,9 +11,6 @@ class Fixture
      */
     public static function user()
     {
-        return new User([
-            'username' => 'varaa_test',
-            'password' => 'varaa_test'
-        ]);
+        return User::find(70);
     }
 }
