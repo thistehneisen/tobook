@@ -81,12 +81,13 @@ class User extends ConfideUser
      * Get default working time range of Appointment Scheduler
      *
      * @param string date
+     * @param boolean showUntilLastestBooking : show end time up to lastest booking end time in a day
      *
      * @return array
      */
-    public function getASDefaultWorkingTimes($date)
+    public function getASDefaultWorkingTimes($date, $showUntilLastestBooking = true)
     {
-        return CalendarKeeper::getDefaultWorkingTimes($this, $date);
+        return CalendarKeeper::getDefaultWorkingTimes($this, $date, $showUntilLastestBooking);
     }
 
     /**

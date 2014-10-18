@@ -122,29 +122,32 @@ class CalendarKeeper
         return $nextAvailable;
     }
 
-    protected function getDefaultWorkingTimes($user, $date)
+    protected function getDefaultWorkingTimes($user, $date, $showUntilLastestBooking = true)
     {
+        $workingTimes        = [];
         $settingsWorkingTime = $user->asOptions->get('working_time');
-        $workingTimes = [];
-        $currentWeekDay = Util::getDayOfWeekText($date->dayOfWeek);
+        $currentWeekDay      = Util::getDayOfWeekText($date->dayOfWeek);
         $currentWorkingTimes = $settingsWorkingTime[$currentWeekDay];
-        list($startHour, $startMinute) = explode(':', $currentWorkingTimes['start']);
-        list($endHour, $endMinute)  = explode(':', $currentWorkingTimes['end']);
 
-        //Get the lastest booking end time in current date
-        $lastestBooking = Booking::getLastestBookingEndTime($date, $user);
-        if (!empty($lastestBooking)) {
-            $lastestEndTime = $lastestBooking->getEndAt();
-            if(($lastestEndTime->hour   >= $endHour)
-            && ($lastestEndTime->minute >  $endMinute))
-            {
-                $endHour   = $lastestEndTime->hour;
-                $endMinute = ($lastestEndTime->minute % 15)
-                    ? $lastestEndTime->minute + (15 - ($lastestEndTime->minute % 15))
-                    : $lastestEndTime->minute;
+        list($startHour, $startMinute) = explode(':', $currentWorkingTimes['start']);
+        list($endHour, $endMinute)     = explode(':', $currentWorkingTimes['end']);
+
+        if ($showUntilLastestBooking) {
+            //Get the lastest booking end time in current date
+            $lastestBooking = Booking::getLastestBookingEndTime($date, $user);
+            if (!empty($lastestBooking)) {
+                $lastestEndTime = $lastestBooking->getEndAt();
+                if(($lastestEndTime->hour   >= $endHour)
+                && ($lastestEndTime->minute >  $endMinute))
+                {
+                    $endHour   = $lastestEndTime->hour;
+                    $endMinute = ($lastestEndTime->minute % 15)
+                        ? $lastestEndTime->minute + (15 - ($lastestEndTime->minute % 15))
+                        : $lastestEndTime->minute;
+                }
             }
         }
-        $endHour = ($endMinute == 0) ? $endHour - 1 : $endHour;
+        $endHour   = ($endMinute == 0) ? $endHour - 1 : $endHour;
         $endMinute = ($endMinute == 0 || $endMinute == 60) ? 45 : $endMinute;
 
         for ($i = (int) $startHour; $i<= (int) $endHour; $i++) {
@@ -158,7 +161,6 @@ class CalendarKeeper
                 $workingTimes[$i] = range(0, (int) $endMinute, 15);
             }
         }
-
         return $workingTimes;
     }
 

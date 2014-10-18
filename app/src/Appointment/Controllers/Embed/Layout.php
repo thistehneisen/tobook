@@ -192,7 +192,7 @@ trait Layout
     public function getDefaultWorkingTimes($date, $hash = null)
     {
         $user = $this->getUser($hash);
-        $workingTimes = $user->getASDefaultWorkingTimes($date);
+        $workingTimes = $user->getASDefaultWorkingTimes($date, false);
         return $workingTimes;
     }
 
@@ -293,11 +293,36 @@ trait Layout
         $timetable = [];
         $workingTimes = $this->getDefaultWorkingTimes($date, Input::get('hash'));
 
+        $empCustomTime = $employee->employeeCustomTimes()
+                    ->with('customTime')
+                    ->where('date', $date)
+                    ->first();
+
+        if(!empty($empCustomTime)){
+            $end  = $empCustomTime->customTime->getEndAt();
+        }
+
         foreach ($workingTimes as $hour => $minutes) {
             foreach ($minutes as $shift) {
                 // We will check if this time bookable
+
+                $service = ($serviceTime !== null)
+                    ? $serviceTime
+                    : $service;
+
                 $startTime = $date->copy()->hour($hour)->minute($shift);
-                $endTime = $startTime->copy()->addMinutes($service->length);
+                $endTime   = $startTime->copy()->addMinutes($service->length);
+
+                if (!empty($empCustomTime)) {
+                    if(($endTime->hour * 60) + $endTime->minute > ($end->hour * 60) + $end->minute){
+                        break;
+                    }
+                }
+
+                $isOverllapedWithFreetime = $employee->isOverllapedWithFreetime($date, $startTime, $endTime);
+                if ($isOverllapedWithFreetime) {
+                   continue;
+                }
 
                 $isBookable = Booking::isBookable(
                     $employee->id,
@@ -312,15 +337,11 @@ trait Layout
                 }
 
                 if ($startTime->gt(Carbon::now())) {
-                    $formatted = sprintf('%02d:%02d', $hour, $shift);
-
+                    $startTime->subMinutes($service->before);
+                    $endTime   = $startTime->copy()->addMinutes($service->during);
+                    $formatted = sprintf('%02d:%02d', $startTime->hour, $startTime->minute);
                     if ($showEndTime) {
-                        $length = ($serviceTime !== null)
-                            ? $serviceTime->length
-                            : $service->length;
-
-                        $startTime->addMinutes($length);
-                        $formatted .= sprintf(' - %02d:%02d', $startTime->hour, $startTime->minute);
+                        $formatted .= sprintf(' - %02d:%02d', $endTime->hour, $endTime->minute);
                     }
 
                     $timetable[$formatted] = $employee;

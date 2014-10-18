@@ -149,8 +149,24 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return isset($map[$value]) ? $map[$value] : null;
     }
 
+    /**
+     * Check if user can place a booking on certain employee, date, and time
+     * but only execute one query
+     *
+     * @param int $employeeId
+     * @param string $date
+     * @param Carbon\Carbon $startTime
+     * @param Carbon\Carbon $endTime
+     * @param string $uuid
+     *
+     * @return boolean
+     */
     public static function isBookable($employeeId, $bookingDate, $startTime, $endTime, $uuid = null)
     {
+        if($bookingDate instanceof Carbon\Carbon) {
+            $bookingDate = $bookingDate->toDateString();
+        }
+
         $query = self::where('date', $bookingDate)
             ->where('employee_id', $employeeId)
             ->whereNull('deleted_at')
@@ -162,6 +178,9 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
                 })->orWhere(function ($query) use ($endTime, $startTime) {
                      return $query->where('end_at', '>', $startTime->toTimeString())
                           ->where('end_at', '<=', $endTime->toTimeString());
+                })->orWhere(function ($query) use ($startTime) {
+                     return $query->where('start_at', '<', $startTime->toTimeString())
+                          ->where('end_at', '>', $startTime->toTimeString());
                 })->orWhere(function ($query) use ($startTime, $endTime) {
                      return $query->where('start_at', '=', $startTime->toTimeString())
                           ->where('end_at', '=', $endTime->toTimeString());
