@@ -9,11 +9,11 @@
     <div class="col-xs-12">
         <h1 class="comfortaa orange text-center">{{ trans('home.cart.checkout') }}</h1>
 
-        @include ('el.messages')
-
         {{ Form::open(['route' => 'cart.payment', 'role' => 'form']) }}
         <div class="form-group row">
             <div class="col-sm-8 col-sm-offset-2">
+                @include ('el.messages')
+
                 @include('front.cart.el.details', ['cart' => $cart])
 
                 @if ($cart && $cart->isEmpty() === false)

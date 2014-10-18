@@ -66,11 +66,15 @@ class Index extends \AppController
     {
         $cart = Cart::current();
 
+        if ($cart === null || $cart->total <= 0) {
+            return Redirect::route('cart.checkout')
+                ->withErrors($this->errorMessageBag(trans('home.cart.err.zero_amount')), 'top');
+        }
+
         // Fire the payment.process so that cart details could update themselves
         Event::fire('payment.process', [$cart]);
 
         $goToPaygate = true;
-
         return Payment::redirect($cart, $cart->total, $goToPaygate);
     }
 }
