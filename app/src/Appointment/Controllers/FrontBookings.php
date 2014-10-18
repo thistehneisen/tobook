@@ -144,12 +144,13 @@ class FrontBookings extends Bookings
         $cart->addDetail($bookingService);
 
          $data = [
-            'datetime'      => $startTime->toDateTimeString(),
-            'price'         => $price,
-            'service_name'  => $service->name,
-            'employee_name' => $employee->name,
-            'uuid'          => $uuid,
-            'cart_id'       => $cart->id
+            'datetime'           => $startTime->toDateTimeString(),
+            'price'              => $price,
+            'service_name'       => $service->name,
+            'employee_name'      => $employee->name,
+            'uuid'               => $uuid,
+            'cart_id'            => $cart->id,
+            'booking_service_id' => $bookingService->id
         ];
 
         return Response::json($data);
@@ -236,6 +237,83 @@ class FrontBookings extends Bookings
             $data['message'] =  Util::getHtmlListError($ex);
             return Response::json($data, 500);
         }
+        return Response::json($data);
+    }
+
+    /**
+     * This method reflects the addFrontEndBooking() above, but less strict. To
+     * be frank, this method should not exist, really. Business logic should be
+     * encapsulated inside Model, really.
+     */
+    public function addBookingFromCart()
+    {
+        $data = [
+            'success' => true,
+            'message' => trans('as.embed.success'),
+        ];
+
+        try {
+            $cartId = Input::get('cart_id');
+            $cart   = Cart::find($cartId);
+            $user   = User::findOrFail(Input::get('business_id'));
+
+            $bookingService = BookingService::findOrFail(Input::get('booking_service_id'));
+            $length = 0;
+            $service = (!empty($bookingService->serviceTime->id))
+                ? $bookingService->serviceTime
+                : $bookingService->service;
+            $length += $service->length;
+
+            $plustime = $bookingService->getEmployeePlustime();
+            $length += $plustime;
+            $bookingService->calculateExtraServices();
+
+            //Plus extra service time
+            $length += $bookingService->getExtraServiceTime();
+
+            $date     = $bookingService->date;
+            $start_at = $bookingService->start_at;
+            $end_at   = with(new Carbon($bookingService->start_at))->addMinutes($length);
+
+            $price = $service->price + $bookingService->getExtraServicePrice();
+
+            $booking = new Booking();
+            $booking->fill([
+                'date'        => $date,
+                'start_at'    => $start_at,
+                'end_at'      => $end_at->toTimeString(),
+                'total'       => $length,
+                'uuid'        => $bookingService->tmp_uuid,
+                'total_price' => $price,
+                'modify_time' => $bookingService->modify_time,
+                'plustime'    => $plustime,
+                'notes'       => $cart->notes,
+                'ip'          => Request::getClientIp()
+            ]);
+
+            $booking->user()->associate($user);
+            $booking->employee()->associate($bookingService->employee);
+            $booking->save();
+
+            $bookingService->booking()->associate($booking);
+            $bookingService->save();
+
+            $extraServices  = BookingExtraService::where(
+                'tmp_uuid',
+                $bookingService->tmp_uuid
+            )->get();
+            foreach ($extraServices as $extraService) {
+                $extraService->booking()->associate($booking);
+                $extraService->save();
+            }
+
+            $data['booking_id'] = $booking->id;
+        } catch (\Watson\Validating\ValidationException $ex) {
+            $data['success'] = false;
+            $data['message'] =  Util::getHtmlListError($ex);
+            return Response::json($data, 500);
+        }
+
         return Response::json($data);
     }
 }

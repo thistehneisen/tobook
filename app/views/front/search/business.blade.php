@@ -76,6 +76,7 @@
     <div class="col-sm-6">
         <div class="box">
             {{-- `$inhouse = true` means that we'll show login/register secion in step 4 --}}
+            <input type="hidden" id="business_id" value="{{ $business->id }}">
             @include('modules.as.embed.layout-3.main', ['inhouse' => true])
         </div>
 

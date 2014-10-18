@@ -430,6 +430,11 @@ Route::group([
             'uses' => 'App\Appointment\Controllers\FrontBookings@addFrontEndBooking'
         ]);
 
+        Route::post('bookings/cart', [
+            'as' => 'as.booking.frontend.cart',
+            'uses' => 'App\Appointment\Controllers\FrontBookings@addBookingFromCart'
+        ]);
+
         Route::post('bookings/remove-booking-service-in-cart', [
             'as' => 'as.bookings.service.remove.in.cart',
             'uses' => 'App\Appointment\Controllers\FrontBookings@removeBookingServiceInCart'

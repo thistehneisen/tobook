@@ -229,15 +229,28 @@
                     }
                 }).then(function (e) {
                     if (typeof e.cart_id !== 'undefined') {
-                        $form.find('input[name=cart_id]').val(e.cart_id);
+                        $form.find('input[name=cart_id]')
+                            .val(e.cart_id);
                     }
+
+                    if (typeof e.booking_service_id !== 'undefined') {
+                        $form.find('input[name=booking_service_id]')
+                            .val(e.booking_service_id);
+                    }
+
+                    $form.find('input[name=business_id]')
+                            .val($('#business_id').val());
 
                     return $.ajax({
                         url: $form.attr('action'),
                         type: $form.attr('method'),
                         data: $form.serialize()
                     });
-                }).done(function () {
+                }).done(function (e) {
+                    if (typeof e.booking_id !== 'undefined') {
+                        dataStorage.bookingId = e.booking_id;
+                    }
+
                     $(document).trigger('cart.reload', true);
                 });
             });
