@@ -27,6 +27,7 @@ class User extends ConfideUser
 
     public $fillable = [
         'username',
+        'confirmed',
         'email',
         'first_name',
         'last_name',
