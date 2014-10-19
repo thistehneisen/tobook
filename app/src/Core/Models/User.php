@@ -14,17 +14,11 @@ class User extends ConfideUser
 
     public $visible = [
         'id',
-        'username',
         'email',
-        'first_name',
-        'last_name',
     ];
 
     public $fillable = [
-        'username',
         'email',
-        'first_name',
-        'last_name',
     ];
 
     /**
@@ -94,40 +88,6 @@ class User extends ConfideUser
             ->where('business_name', '!=', '')
             ->limit($quantity)->get();
         return $users;
-    }
-
-    /**
-     * Overwrite this magic method, so that consumer user will return the correct
-     * value instead
-     *
-     * @param string $key
-     *
-     * @return mixed
-     */
-    public function __get($key)
-    {
-        // The list of share attributes between a normal user and a consumer
-        $details = [
-            'first_name' => true,
-            'last_name'  => true,
-            'email'      => true,
-        ];
-
-        // If the requested key is not in the whitelist
-        if (!isset($details[$key])) {
-            // We'll just need to return it
-            return parent::__get($key);
-        }
-
-        // Otherwise, check if this user is a consumer user
-        $consumer = $this->consumer;
-        if ($consumer !== null) {
-            // Return the consumer value instead
-            return $consumer->$key;
-        }
-
-        // For users of other roles, return as usual
-        return parent::__get($key);
     }
 
     //--------------------------------------------------------------------------
@@ -318,12 +278,6 @@ class User extends ConfideUser
     // ATTRIBUTES
     //--------------------------------------------------------------------------
 
-
-    public function getNameAttribute()
-    {
-        return $this->first_name.' '.$this->last_name;
-    }
-
     /**
      * Get all options of this user
      *
@@ -402,11 +356,6 @@ class User extends ConfideUser
         return $this->enabledModules;
     }
 
-    public function getFullNameAttribute()
-    {
-        return $this->attributes['first_name'].' '.$this->attributes['last_name'];
-    }
-
 
     public function getImageAttribute()
     {
@@ -445,5 +394,17 @@ class User extends ConfideUser
     public function getIsConsumerAttribute()
     {
         return $this->hasRole(Role::CONSUMER);
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        if (isset(ConfideUser::$rules['username'])) {
+            unset(ConfideUser::$rules['username']);
+        }
     }
 }
