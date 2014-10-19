@@ -73,8 +73,7 @@ class ConsumerAuth extends Auth
         // auto login and redirect user to checkout page
         if ((bool) Input::get('fromCheckout') === true) {
             // Confirm me, beast
-            $user->confirmed = true;
-            Confide::confirm($user->getKey());
+            Confide::confirm($user->confirmation_code);
 
             // Log me in, beast
             Confide::logAttempt([
