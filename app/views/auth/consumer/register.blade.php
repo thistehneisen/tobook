@@ -45,6 +45,12 @@
 
         {{ Form::open(['id' => 'frm-login', 'route' => 'auth.login', 'class' => 'form-horizontal well', 'role' => 'form']) }}
 
+            <div class="form-group row">
+                <div class="col-sm-9 col-sm-offset-3">
+                    <p>{{ trans('user.register_already')}}</p>
+                </div>
+            </div>
+
             <div class="form-group row {{ Form::errorCSS('username', $errors) }}">
                 {{ Form::label('username', trans('user.username').'*', ['class' => 'col-sm-3 control-label']) }}
                 <div class="col-sm-8">

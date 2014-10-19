@@ -23,6 +23,9 @@ class ConsumerAuth extends Auth
                 'email'                 => ['type' => 'Email'],
                 'password'              => ['type' => 'Password'],
                 'password_confirmation' => ['type' => 'Password'],
+                'first_name'            => ['type' => 'Text'],
+                'last_name'             => ['type' => 'Text'],
+                'phone'                 => ['type' => 'Text'],
             ]
         ]);
 
@@ -43,6 +46,10 @@ class ConsumerAuth extends Auth
         $user->email                 = e(Input::get('email'));
         $user->password              = e(Input::get('password'));
         $user->password_confirmation = e(Input::get('password_confirmation'));
+        // Optional inforamtion
+        $user->first_name            = e(Input::get('first_name'));
+        $user->last_name             = e(Input::get('last_name'));
+        $user->phone                 = e(Input::get('phone'));
 
         // Now we need to check existing consumer
         $user->attachConsumer();
