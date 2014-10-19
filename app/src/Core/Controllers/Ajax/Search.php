@@ -63,23 +63,24 @@ class Search extends Base
      */
     public function showBusiness($id)
     {
-        $business = User::findOrFail($id);
-        $coupons = $business
+        $user = User::findOrFail($id);
+        $coupons = $user
             ->coupons()
             ->with('service')
             ->active()
             ->get();
 
-        $flashDeals = $business
+        $flashDeals = $user
             ->flashDeals()
             ->with('flashDeal', 'flashDeal.service')
             ->active()
             ->get();
 
-        $layout = $this->handleIndex($business->hash, $business,'layout-3');
+        $layout = $this->handleIndex($user->hash, $user,'layout-3');
 
         $data = [
-            'business'   => $business,
+            'user'       => $user,
+            'business'   => $user->business,
             'coupons'    => $coupons,
             'flashDeals' => $flashDeals
         ];
@@ -92,15 +93,15 @@ class Search extends Base
             return $view;
         }
 
-        Input::merge(array('l' => '3', 'hash' => $business->hash));
+        Input::merge(array('l' => '3', 'hash' => $user->hash));
 
         $nextSlots = $this->handleNextTimeSlot();
 
         $data = [
-            'businesses' => new \Illuminate\Support\Collection([$business]),
+            'businesses' => new \Illuminate\Support\Collection([$user->business]),
             'single'     => $view,
-            'lat'        => $business->lat,
-            'lng'        => $business->lng,
+            'lat'        => $user->business->lat,
+            'lng'        => $user->business->lng,
             'now'        => Carbon::now()
         ];
 

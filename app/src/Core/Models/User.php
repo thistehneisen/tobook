@@ -233,20 +233,6 @@ class User extends ConfideUser
     }
 
     /**
-     * Sync valid Business Categories for this user
-     *
-     * @param array $ids A list of business category IDs
-     *
-     * @return void
-     */
-    public function updateBusinessCategories($ids)
-    {
-        $all = BusinessCategory::all()->lists('id');
-        $ids = array_intersect($all, $ids);
-        $this->businessCategories()->sync($ids);
-    }
-
-    /**
      * Check if this user has the given module enabled
      *
      * @param string $moduleName

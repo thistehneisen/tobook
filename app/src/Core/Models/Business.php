@@ -1,10 +1,13 @@
 <?php namespace App\Core\Models;
 
+use App\Core\Models\Relations\BusinessBusinessCategory;
+
 class Business extends Base
 {
     public $fillable = [
         'name',
         'description',
+        'size',
         'address',
         'city',
         'postcode',
@@ -17,6 +20,7 @@ class Business extends Base
     public $rulesets = [
         'saving' => [
             'name' => 'required',
+            'size' => 'required',
             'address' => 'required',
             'city' => 'required',
             'postcode' => 'required',
@@ -35,7 +39,18 @@ class Business extends Base
 
     public function businessCategories()
     {
-        return $this->belongsToMany('App\Core\Models\BusinessCategory');
+        $relation = $this->getBelongsToManyCaller();
+        $instance = new BusinessCategory;
+        $query = $instance->newQuery();
+
+        // use our custom built relation because the `user_id` must be used instead of `id`
+        // TODO `migrate business_category_user` to `business_business_category`?
+        return new BusinessBusinessCategory($query,
+            $this,
+            'business_category_user',
+            'user_id',
+            'business_category_id',
+            $relation);
     }
 
     //--------------------------------------------------------------------------
@@ -66,6 +81,20 @@ class Business extends Base
                 \Log::error($ex->getMessage(), ['context' => 'Update user profile']);
             }
         }
+    }
+
+    /**
+     * Sync valid Business Categories for this business
+     *
+     * @param array $ids A list of business category IDs
+     *
+     * @return void
+     */
+    public function updateBusinessCategories($ids)
+    {
+        $all = BusinessCategory::all()->lists('id');
+        $ids = array_intersect($all, $ids);
+        $this->businessCategories()->sync($ids);
     }
 
     public function getCountryList()

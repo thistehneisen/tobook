@@ -1,12 +1,12 @@
 <div class="row">
     <div class="col-sm-6">
-        <h3><a title="{{{ $business->business_name }}}" href="{{ route('business.index', ['id' => $business->id, 'slug' => $business->slug]) }}" target="_blank">{{{ $business->business_name }}}</a></h3>
+        <h3><a title="{{{ $business->name }}}" href="{{ route('business.index', ['id' => $user->id, 'slug' => $business->slug]) }}" target="_blank">{{{ $business->name }}}</a></h3>
         <p>{{{ $business->full_address }}}</p>
         <p><img src="{{ asset($business->image) }}" alt="" class="img-responsive img-rounded"></p>
 
         <!-- About -->
         @if (!empty($business->description))
-        <h4>{{ trans('home.search.about') }} {{ $business->business_name }}</h4>
+        <h4>{{ trans('home.search.about') }} {{ $business->name }}</h4>
         <p>{{{ $business->description }}}</p>
         @endif
 
@@ -81,14 +81,14 @@
 
         <div class="box">
             <h4>{{ trans('home.search.locations_hours') }}</h4>
-            <div class="text-center" style="min-height: 150px;" id="js-map-{{ $business->id }}" data-lat="{{ $business->lat }}" data-lng="{{ $business->lng }}">
+            <div class="text-center" style="min-height: 150px;" id="js-map-{{ $user->id }}" data-lat="{{ $business->lat }}" data-lng="{{ $business->lng }}">
                 <i class="fa fa-spinner fa-spin fa-3x text-muted"></i>
             </div>
 
             <h5>{{ trans('home.search.business_hours') }}</h5>
             <table class="table">
                 <tbody>
-                @foreach ($business->as_options->get('working_time') as $day => $value)
+                @foreach ($user->as_options->get('working_time') as $day => $value)
                     <tr>
                         <td>{{ trans('common.'.$day) }}</td>
                         <td>{{ with(new Carbon\Carbon($value['start']))->format('H:i') }} &ndash; {{ with(new Carbon\Carbon($value['end']))->format('H:i') }}</td>

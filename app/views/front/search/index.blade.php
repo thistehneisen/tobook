@@ -5,7 +5,7 @@
     @if (!isset($single))
         {{ trans('common.search') }}
     @else
-        {{ $businesses[0]->business_name }}
+        {{ $businesses[0]->name }}
     @endif
 @stop
 
@@ -78,7 +78,7 @@ applyCountdown($('span.countdown'));
             {
                 lat: {{ $item->lat }},
                 lng: {{ $item->lng }},
-                title: '{{ $item->full_name }}'
+                title: '{{ $item->name }}'
             },
     @endforeach
         ]
@@ -140,7 +140,7 @@ applyCountdown($('span.countdown'));
     });
 @else
     renderMap(
-        '#js-map-{{ $businesses[0]->id }}',
+        '#js-map-{{ $businesses[0]->user->id }}',
         {{ $lat }},
         {{ $lng }},
         [
@@ -166,20 +166,20 @@ applyCountdown($('span.countdown'));
         @else
             @foreach ($businesses as $item)
              <?php
-                //$slots = $item->getASNextTimeSlots($now, $now->hour);
+                //$slots = $item->user->getASNextTimeSlots($now, $now->hour);
                 $slots = [];
                 $count = 0;
             ?>
-            <div class="result-row row" data-id="{{ $item->id }}" data-url="{{ route('ajax.showBusiness', ['hash' => $item->hash, 'id' => $item->id, 'l' => 3]) }}">
+            <div class="result-row row" data-id="{{ $item->user->id }}" data-url="{{ route('ajax.showBusiness', ['hash' => $item->user->hash, 'id' => $item->user->id, 'l' => 3]) }}">
                 <div class="col-sm-6">
                     <img src="{{ asset($item->image) }}" alt="" class="img-responsive img-rounded">
                 </div>
                 <div class="col-sm-6">
-                    <h4>{{ $item->business_name }}</h4>
+                    <h4>{{ $item->name }}</h4>
                     <p>{{ $item->full_address }}</p>
                     @foreach ($slots as $slot)
                         <?php if($count === 3) break;?>
-                        <a href="#" data-business-id="{{ $item->id }}" data-service-id="{{ $slot['service'] }}" data-employee-id="{{ $slot['employee'] }}" data-hour="{{ $slot['hour'] }}" data-minute="{{ $slot['minute'] }}" class="btn btn-sm btn-default">{{ $slot['time'] }}</a>
+                        <a href="#" data-business-id="{{ $item->user->id }}" data-service-id="{{ $slot['service'] }}" data-employee-id="{{ $slot['employee'] }}" data-hour="{{ $slot['hour'] }}" data-minute="{{ $slot['minute'] }}" class="btn btn-sm btn-default">{{ $slot['time'] }}</a>
                     <?php $count++;?>
                     @endforeach
                     {{--

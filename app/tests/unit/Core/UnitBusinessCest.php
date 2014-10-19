@@ -1,5 +1,6 @@
 <?php namespace Appointment\Models;
 
+use App\Core\Models\BusinessCategory;
 use App\Core\Models\User;
 use App\Core\Models\Business;
 use Appointment\Traits\Models;
@@ -65,10 +66,50 @@ class UnitBusinessCest
         $I->assertEquals($fullAddress, $business->full_address, '$business->full_address');
     }
 
+    public function testCategories(UnitTester $I)
+    {
+        $input = $this->getRequiredFieldsAndValues();
+
+        $business = new Business($input);
+        $business->user()->associate($this->user);
+        $business->save();
+
+        $categoryIds = BusinessCategory::all()->lists('id');
+        $I->assertGreaterThan(0, count($categoryIds), 'all category ids');
+        $business->updateBusinessCategories($categoryIds);
+
+        $foundIds = [];
+        foreach ($business->businessCategories as $category) {
+            $foundIds[] = $category->id;
+        }
+        $I->assertEquals(count($categoryIds), count($foundIds), 'category ids');
+    }
+
+    public function testImage(UnitTester $I)
+    {
+        $categoryName = 'hairdresser';
+
+        $input = $this->getRequiredFieldsAndValues();
+
+        $business = new Business($input);
+        $business->user()->associate($this->user);
+        $business->save();
+
+        $category = BusinessCategory::where('name', $categoryName)->first();
+        $I->assertNotNull($category, '$category');
+        $business->businessCategories()->attach($category);
+
+        $image = $business->image;
+        $I->assertNotNull($image, 'image');
+        $I->assertGreaterThan(0, strlen($image), 'strlen($image)');
+        $I->assertTrue(file_exists(public_path() . $image), 'image file exists');
+    }
+
     private function getRequiredFieldsAndValues()
     {
         return $input = [
             'name' => 'Name',
+            'size' => '1',
             'address' => 'Address',
             'city' => 'City',
             'postcode' => 10000,
