@@ -102,6 +102,7 @@
 
                 // Assign serviceId to dataStorage
                 dataStorage.serviceId = $this.val();
+                dataStorage.serviceTimeId = $this.data('service-time-id');
 
                 $.ajax({
                     url: $step2.data('url'),
@@ -174,11 +175,12 @@
                     type: 'POST',
                     dataType: 'json',
                     data: {
-                        service_id  : dataStorage.serviceId,
-                        employee_id : dataStorage.employeeId,
-                        hash        : dataStorage.hash,
-                        booking_date: dataStorage.date,
-                        start_time  : dataStorage.time
+                        service_id      : dataStorage.serviceId,
+                        service_time    : dataStorage.serviceTimeId,
+                        employee_id     : dataStorage.employeeId,
+                        hash            : dataStorage.hash,
+                        booking_date    : dataStorage.date,
+                        start_time      : dataStorage.time
                     }
                 }).then(function (data) {
                     // Attach cart ID

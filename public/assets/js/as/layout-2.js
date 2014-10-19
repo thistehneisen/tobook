@@ -54,6 +54,7 @@
             e.preventDefault();
             var $this = $(this),
                 serviceId = $this.data('service-id'),
+                serviceTimeId = $this.data('service-time-id'),
                 $serviceTime = $this.siblings('.as-service-time'),
                 $employee = $('#as-service-' + serviceId + '-employees');
 
@@ -74,7 +75,9 @@
             $('div.as-extra-services').hide();
             $('#as-service-' + serviceId + '-extra-services').show();
 
-            dataStorage.serviceId = serviceId;
+            dataStorage.serviceId     = serviceId;
+            dataStorage.serviceTimeId = serviceTimeId;
+
             // Hide all visible employee elements
             $('div.as-employees').hide();
             if ($employee.length > 0) {
@@ -184,11 +187,12 @@
                 url: $('input[name=booking-url]').val(),
                 type: 'POST',
                 data: {
-                    service_id  : dataStorage.serviceId,
-                    employee_id : dataStorage.employeeId,
-                    hash        : dataStorage.hash,
-                    booking_date: dataStorage.date,
-                    start_time  : dataStorage.time
+                    service_id   : dataStorage.serviceId,
+                    service_time : dataStorage.serviceTimeId,
+                    employee_id  : dataStorage.employeeId,
+                    hash         : dataStorage.hash,
+                    booking_date : dataStorage.date,
+                    start_time   : dataStorage.time
                 }
             }).fail(function (e) {
                 if (typeof e.responseJSON.message !== 'undefined') {
