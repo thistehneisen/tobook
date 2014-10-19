@@ -14,6 +14,11 @@ class ConsumerAuth extends Auth
      */
     public function register()
     {
+        // If there's logged in user, kick him/her out
+        if (Confide::user()) {
+            Confide::logout();
+        }
+
         $lomake = Lomake::make('App\Core\Models\User', [
             'route'      => ['consumer.auth.register'],
             'overwrite'  => true,
