@@ -122,7 +122,7 @@ class Layout2 extends Base
         // Handle consumer
         $consumer    = AsConsumer::handleConsumer($data);
         $cart        = Cart::findOrFail(Input::get('cartId'));
-        $cart->notes = $data['notes'];
+        $cart->notes = (!empty($data['notes'])) ? $data['notes'] : '';
         $cart->consumer()->associate($consumer)->save();
 
         $data['consumer'] = $consumer;

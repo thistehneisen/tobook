@@ -685,12 +685,12 @@ class Bookings extends AsBase
             $bookingService      = BookingService::where('tmp_uuid', $uuid)->delete();
             $bookingExtraService = BookingExtraService::where('tmp_uuid', $uuid)->delete();
             $cart = Cart::find($cartId);
-            $cart->delete();
+            // $cart->delete();
             $cartDetail = CartDetail::find($cartDetailId);
             $cartDetail->delete();
 
             $data['success'] = true;
-            if(empty($carts)){
+            if(empty($cart->details()->count())){
                 $data['success_url'] = route('as.embed.embed', ['hash'=> $hash]);
             }
         } catch (\Exception $ex) {

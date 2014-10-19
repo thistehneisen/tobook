@@ -156,11 +156,11 @@
 
         $('a.btn-remove-item-from-cart').click(function (e) {
             e.preventDefault();
-            var uuid = $(this).data('uuid'),
-                action_url = $(this).data('action-url'),
-                cart_id = $(this).data('cart-id'),
+            var uuid       = $(this).data('uuid'),
+                action_url     = $(this).data('action-url'),
+                cart_id        = $(this).data('cart-id'),
                 cart_detail_id = $(this).data('cart-detail-id'),
-                hash = $(this).data('hash');
+                hash           = $(this).data('hash');
             $.ajax({
                 type: 'POST',
                 url: action_url,
@@ -174,8 +174,9 @@
             }).done(function (data) {
                 if (data.success_url) {
                     window.location.href = data.success_url;
+                } else {
+                    window.location.reload();
                 }
-                window.location.reload();
             }).fail(function (data) {
                 alertify.alert(data.responseJSON.message);
             });

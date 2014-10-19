@@ -219,15 +219,19 @@
         $elCheckout.on('click', 'a.as-remove-cart', function (e) {
             e.preventDefault();
             var $this = $(this);
-
             $body.showLoading();
             $.ajax({
                 url: $this.attr('href'),
                 type: 'POST',
-                data: $this.data()
+                data: {
+                    hash           : $this.data('hash'),
+                    uuid           : $this.data('uuid'),
+                    cart_id        : $this.data('cart-id'),
+                    cart_detail_id : $this.data('cart-detail-id')
+                }
             }).done(function () {
                 $body.hideLoadding();
-                $('#as-cart-item-'+$this.data('uuid')).slideUp();
+                $('#as-cart-item-' + $this.data('cart-detail-id')).slideUp();
             });
         });
 
