@@ -38,7 +38,7 @@ class ConsumerAuth extends Auth
      */
     public function doRegister()
     {
-        $user                        = new User;
+        $user                        = Confide::user();
         $user->username              = e(Input::get('username'));
         $user->email                 = e(Input::get('email'));
         $user->password              = e(Input::get('password'));

@@ -34,7 +34,7 @@ class Search extends Base
 
             $filter = [
                 'exists' => [ 'field' => 'business_name' ]
-            ];//for using later
+            ];
 
             if(!empty($location)) {
                 $query['bool']['should'][]['match']['city'] = $location;

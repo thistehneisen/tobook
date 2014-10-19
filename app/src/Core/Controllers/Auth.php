@@ -5,6 +5,7 @@ use Confide;
 use App\Core\Models\User;
 use App\Core\Models\Role;
 use App\Core\Models\BusinessCategory;
+use App\Core\Models\Role;
 
 class Auth extends Base
 {

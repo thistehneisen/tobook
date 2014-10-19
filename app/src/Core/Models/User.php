@@ -6,6 +6,7 @@ use Zizaco\Entrust\HasRole;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 use Consumer;
 use App\Appointment\Models\NAT\CalendarKeeper;
+use App\Search;
 
 class User extends ConfideUser
 {
@@ -135,6 +136,7 @@ class User extends ConfideUser
     {
         // The list of share attributes between a normal user and a consumer
         $details = [
+            'id'         => true,
             'first_name' => true,
             'last_name'  => true,
             'email'      => true,
@@ -191,6 +193,26 @@ class User extends ConfideUser
 
         return $businesses;
     }
+
+     /**
+     * Overwrite the Confide save method. Saves model into
+     * database
+     *
+     * @param array $rules:array
+     * @param array $customMessages
+     * @param array $options
+     * @param \Closure $beforeSave
+     * @param \Closure $afterSave
+     * @return bool
+     */
+    public function save(array $rules = array(), array $customMessages = array(), array $options = array(), \Closure $beforeSave = null, \Closure $afterSave = null )
+    {
+       parent::save($rules, $customMessages, $options, $beforeSave, $afterSave);
+       if(!empty($this->id)){
+         \App\Search\Servant::getInstance()->upsertIndexForBusiness($this);
+       }
+    }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
