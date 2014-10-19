@@ -19,6 +19,7 @@
             return this;
         };
 
+        // When user clicks to view detail of a deal
         $('a.btn-fd').on('click', function (e) {
             e.preventDefault();
             var $this = $(this);
@@ -29,6 +30,28 @@
             }).done(function(content) {
                 $fdModal.changeContent(content);
             });
+        });
+
+        // When user clicks to add a deal into cart
+        $fdModal.on('click', 'button.btn-fd-cart', function(e) {
+            e.preventDefault();
+            var $this = $(this);
+
+            $.ajax({
+                url: $this.data('url'),
+                type: 'POST',
+                dataType: 'JSON',
+                data: {
+                    business_id: $this.data('business-id'),
+                    deal_id: $this.data('deal-id')
+                }
+            }).done(function () {
+                $(document).trigger('cart.reload');
+                $fdModal.modal('hide');
+            }).fail(function () {
+
+            });
+
         });
     });
 }(jQuery));

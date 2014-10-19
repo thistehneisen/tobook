@@ -1071,6 +1071,11 @@ Route::group([
         'uses' =>  'App\FlashDeal\Controllers\FlashDeals@view'
     ]);
 
+    Route::post('cart', [
+        'as'   => 'fd.cart',
+        'uses' =>  'App\FlashDeal\Controllers\FlashDeals@cart'
+    ]);
+
     Route::get('/{tab?}', [
         'as' => 'fd.index',
         'uses' => 'App\FlashDeal\Controllers\Index@index'

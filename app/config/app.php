@@ -218,6 +218,7 @@ return array(
         // Homemade
         'AppController' => 'App\Core\Controllers\Base',
         'AppModel'      => 'App\Core\Models\Base',
+        'User'          => 'App\Core\Models\User',
         'Consumer'      => 'App\Consumers\Models\Consumer',
         'Cart'          => 'App\Cart\Cart',
         'Lomake'        => 'App\Lomake\Facade',

@@ -22,7 +22,7 @@
         </div>
         <div class="col-md-4 text-center">
             <h4 class="comfortaa">{{ $item->flashDeal->discounted_price }}&euro; ({{ trans('common.normal') }} {{ $item->flashDeal->service->price }}&euro;)</h4>
-            <button class="btn btn-md btn-success text-uppercase comfortaa">{{ trans('home.cart.add') }} <i class="fa fa-shopping-cart"></i></button>
+            <button data-url="{{ route('fd.cart') }}" data-business-id="{{ $item->flashDeal->service->user->id }}" data-deal-id="{{ $item->id }}" class="btn btn-md btn-success text-uppercase comfortaa btn-fd-cart">{{ trans('home.cart.add') }} <i class="fa fa-shopping-cart"></i></button>
         </div>
     </div>
 

@@ -1,6 +1,6 @@
 <?php namespace App\FlashDeal\Controllers;
 
-use Input, View, Carbon\Carbon;
+use Input, View, Carbon\Carbon, Cart, User, Response;
 use App\Core\Controllers\Base;
 use App\FlashDeal\Models\Service;
 use App\FlashDeal\Models\FlashDeal;
@@ -109,5 +109,25 @@ class FlashDeals extends Base
         return $this->render('view', [
             'item' => $item
         ]);
+    }
+
+    /**
+     * Add a flash deal into cart
+     *
+     * @return Response
+     */
+    public function cart()
+    {
+        $deal = FlashDealDate::with('flashDeal')
+            ->findOrFail(Input::get('deal_id'));
+        $business = User::findOrFail(Input::get('business_id'));
+
+        $cart = Cart::current();
+        if (!$cart) {
+            $cart = Cart::make(['status' => Cart::STATUS_INIT], $business);
+        }
+
+        $cart->addDetail($deal);
+        return Response::json(['cart_id' => $cart->id]);
     }
 }
