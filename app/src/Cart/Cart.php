@@ -105,6 +105,19 @@ class Cart extends \AppModel
         return $this;
     }
 
+    /**
+     * Remove a detail from this cart
+     *
+     * @param int $id
+     *
+     * @return App\Cart\Cart
+     */
+    public function remove($id)
+    {
+        $this->details()->where('id', $id)->delete();
+        return $this;
+    }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------

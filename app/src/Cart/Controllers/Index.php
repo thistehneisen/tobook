@@ -81,4 +81,19 @@ class Index extends \AppController
         $goToPaygate = true;
         return Payment::redirect($cart, $cart->total, $goToPaygate);
     }
+
+    /**
+     * Remove a cart detail from cart
+     *
+     * @param int $id
+     *
+     * @return void
+     */
+    public function remove($id)
+    {
+        // Fire an event when an item was remove from cart
+        Event::fire('cart.remove', $id);
+
+        Cart::current()->remove($id);
+    }
 }

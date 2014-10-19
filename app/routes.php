@@ -544,6 +544,11 @@ Route::group([
         'uses' => 'App\Cart\Controllers\Index@checkout'
     ]);
 
+    Route::get('remove/{id}', [
+        'as' => 'cart.remove',
+        'uses' => 'App\Cart\Controllers\Index@remove'
+    ]);
+
     Route::post('payment', [
         'as' => 'cart.payment',
         'uses' => 'App\Cart\Controllers\Index@payment'

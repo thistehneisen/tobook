@@ -87,6 +87,19 @@ $(function () {
         });
     });
 
+
+    // When remove an item from cart
+    $doc.on('click', 'a.js-btn-cart-remove', function (e) {
+        e.preventDefault();
+        var $this = $(this);
+        $this.find('i.fa').removeClass('fa-close').addClass('fa-spinner fa-spin');
+        $.ajax({
+            url: $this.attr('href')
+        }).done(function (e) {
+            $('tr.cart-detail-'+$this.data('detail-id')).fadeOut();
+        });
+    });
+
     // Load cart content when page load
     $doc.trigger('cart.reload', false);
 });
