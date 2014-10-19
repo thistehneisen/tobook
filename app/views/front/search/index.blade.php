@@ -171,20 +171,18 @@ applyCountdown($('span.countdown'));
                 $count = 0;
             ?>
             <div class="result-row row" data-id="{{ $item->id }}" data-url="{{ route('ajax.showBusiness', ['hash' => $item->hash, 'id' => $item->id, 'l' => 3]) }}">
-                <div class="col-sm-6">
-                    <img src="{{ Util::thumbnail($item->businessImage, 110, 55) }}" alt="" class="img-responsive img-rounded">
-                </div>
-                <div class="col-sm-6">
-                    <h4>{{ $item->business_name }}</h4>
-                    <p>{{ $item->full_address }}</p>
-                    @foreach ($slots as $slot)
-                        <?php if($count === 3) break;?>
-                        <a href="#" data-business-id="{{ $item->id }}" data-service-id="{{ $slot['service'] }}" data-employee-id="{{ $slot['employee'] }}" data-hour="{{ $slot['hour'] }}" data-minute="{{ $slot['minute'] }}" class="btn btn-sm btn-default">{{ $slot['time'] }}</a>
-                    <?php $count++;?>
-                    @endforeach
-                    {{--
-                    <p>60-80€</p>
-                    --}}
+                <div class="col-sm-12">
+                <img src="{{ Util::thumbnail($item->businessImage, 260, 130) }}" alt="" class="img-responsive img-rounded">
+                <h4>{{ $item->business_name }}</h4>
+                <p>{{ $item->full_address }}</p>
+                @foreach ($slots as $slot)
+                    <?php if($count === 3) break;?>
+                    <a href="#" data-business-id="{{ $item->id }}" data-service-id="{{ $slot['service'] }}" data-employee-id="{{ $slot['employee'] }}" data-hour="{{ $slot['hour'] }}" data-minute="{{ $slot['minute'] }}" class="btn btn-sm btn-default">{{ $slot['time'] }}</a>
+                <?php $count++;?>
+                @endforeach
+                {{--
+                <p>60-80€</p>
+                --}}
                 </div>
             </div>
             @endforeach
