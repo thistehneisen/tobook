@@ -151,7 +151,34 @@ class FlashDealDate extends Base implements CartDetailInterface
         }
 
         // Update remaining deals
-        $this->remains = $this->remains - $quantity;
+        return $this->decrRemains($quantity);
+    }
+
+    /**
+     * Increase the numbder of remaining deals
+     *
+     * @param int $value
+     *
+     * @return App\FlashDeal\Models\FlashDealDate
+     */
+    public function incrRemains($value)
+    {
+        $this->increment('remains', $value);
         $this->save();
+        return $this;
+    }
+
+    /**
+     * Decrease the number of remaining deals
+     *
+     * @param int $value
+     *
+     * @return App\FlashDeal\Models\FlashDealDate
+     */
+    public function decrRemains($value)
+    {
+        $this->decrement('remains', $value);
+        $this->save();
+        return $this;
     }
 }
