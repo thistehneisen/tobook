@@ -114,10 +114,6 @@ $(document).ready(function () {
                     </div>
                 </div>
                 @endforeach
-
-                <p class="text-right">
-                <a href="{{ route('as.embed.embed', ['hash' => $hash, 'action' => 'checkout'])}}" class="btn btn-primary"><i class="glyphicon glyphicon-shopping-cart"></i> {{ trans('as.embed.checkout') }}</a>
-                </p>
             @endif
             </div>
         </div>
