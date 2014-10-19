@@ -4,8 +4,11 @@ use App\Appointment\Models\Employee;
 use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\Service;
 use App\Core\Models\Business;
-use App\Core\Models\User;
 use App\Core\Models\BusinessCategory;
+use App\Core\Models\Module;
+use App\Core\Models\Permission;
+use App\Core\Models\Role;
+use App\Core\Models\User;
 
 class TestingSeeder extends Seeder
 {
@@ -22,14 +25,18 @@ class TestingSeeder extends Seeder
 
         $this->_core();
         $this->_as();
+        $this->_modules();
     }
 
     private function _core()
     {
+        $this->_truncate(Role::query());
+        $this->_truncate(Permission::query());
+        $this->call('EntrustSeeder');
+
         User::where('id', 70)->delete();
         User::where('username', 'varaa_test')->delete();
         User::where('email', 'varaa_test@varaa.com')->delete();
-
         $this->user = new User([
             'username' => 'varaa_test',
             'email' => 'varaa_test@varaa.com',
@@ -38,6 +45,10 @@ class TestingSeeder extends Seeder
         $this->user->password = 'varaa_test';
         $this->user->password_confirmation = 'varaa_test';
         $this->user->save();
+        $this->user->attachRole(Role::admin());
+
+        $this->_truncate(BusinessCategory::withTrashed());
+        $this->call('BusinessCategorySeeder');
 
         $this->business = new Business([
             'name' => 'Varaa Test',
@@ -50,19 +61,8 @@ class TestingSeeder extends Seeder
         ]);
         $this->business->is_activated = true;
         $this->business->user()->associate($this->user);
+        $this->business->updateBusinessCategories(range(1, BusinessCategory::count()));
         $this->business->saveOrFail();
-
-        foreach ([
-                     ['id' => 1, 'name' => 'beauty_hair',],
-                     ['id' => 2, 'parent_id' => 1, 'name' => 'beautysalon'],
-                     ['id' => 3, 'parent_id' => 1, 'name' => 'nails'],
-                     ['id' => 4, 'parent_id' => 1, 'name' => 'hairdresser'],
-                 ] as $categoryData) {
-            BusinessCategory::where('id', $categoryData['id'])->delete();
-            $businessCategory = new BusinessCategory($categoryData);
-            $businessCategory->id = $categoryData['id'];
-            $businessCategory->saveOrFail();
-        }
     }
 
     private function _as()
@@ -101,6 +101,18 @@ class TestingSeeder extends Seeder
         $this->service->category()->associate($this->category);
         $this->service->saveOrFail();
         $this->service->employees()->attach($this->employee);
+    }
+
+    private function _modules() {
+        $this->_truncate(Module::withTrashed());
+        $this->call('ModuleSeeder');
+    }
+
+    private function _truncate($builder) {
+        foreach ($builder->get() as $model) {
+            $model->forceDelete();
+        }
+        DB::statement('ALTER TABLE ' . DB::getTablePrefix() . $builder->getModel()->getTable() . ' AUTO_INCREMENT = 1');
     }
 
 }

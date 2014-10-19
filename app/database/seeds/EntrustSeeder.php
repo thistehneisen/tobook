@@ -1,4 +1,7 @@
 <?php
+use App\Core\Models\Permission;
+use App\Core\Models\Role;
+
 class EntrustSeeder extends Seeder
 {
     /**
@@ -28,7 +31,8 @@ class EntrustSeeder extends Seeder
 
         $roles = [
             'User' => [],
-            'Admin' => ['super_user']
+            'Admin' => ['super_user'],
+            'Consumer' => [],
         ];
         foreach ($roles as $name => $permissions) {
             try {

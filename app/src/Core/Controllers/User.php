@@ -1,5 +1,6 @@
 <?php namespace App\Core\Controllers;
 
+use App\Core\Models\Business;
 use Session, Validator, Input, View, Redirect, Hash, Confide;
 use App\Core\Models\User as UserModel;
 use App\Core\Models\BusinessCategory;
@@ -9,7 +10,13 @@ class User extends Base
 {
     protected $rules = [
         'business' => [
-            'business_name' => 'required',
+            'name' => 'required',
+            'size' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'postcode' => 'required',
+            'country' => 'required',
+            'phone' => 'required',
         ],
         'profile' => [],
         'password' => [
@@ -31,18 +38,34 @@ class User extends Base
             'password_confirmation' => ['label' => trans('user.password_confirmation'), 'type' => 'password'],
         ];
 
-        // Get all business categories
+        $user = Confide::user();
+
+        $business = $user->business;
         $categories = BusinessCategory::getAll();
-        $selectedCategories = Confide::user()->businessCategories->lists('id');
+        if (!empty($business)) {
+            // Get all business categories
+            $selectedCategories = $business->businessCategories->lists('id');
+        } else {
+            $business = new Business();
+            $selectedCategories = [];
+        }
+
+        if ($user->is_consumer) {
+            $consumer = $user->consumer;
+        } else {
+            $consumer = null;
+        }
 
         // Get all images of this user
-        $images = Confide::user()->images()
+        $images = $user->images()
             ->businessImages()
             ->ofCurrentUser()
             ->get();
 
         return View::make('user.profile', [
-            'user'               => Confide::user(),
+            'user'               => $user,
+            'business'           => $business,
+            'consumer'           => $consumer,
             'fields'             => $fields,
             'validator'          => Validator::make(Input::all(), $this->rules['profile']),
             'categories'         => $categories,
@@ -94,7 +117,7 @@ class User extends Base
     /**
      * Update general information of a user
      *
-     * @return void
+     * @return Redirect
      */
     protected function updateGeneral()
     {
@@ -104,9 +127,9 @@ class User extends Base
         }
 
         $data = [
+            'email'      => e(Input::get('email')),
             'first_name' => e(Input::get('first_name')),
             'last_name'  => e(Input::get('last_name')),
-            'email'      => e(Input::get('email')),
             'phone'      => e(Input::get('phone')),
             'address'    => e(Input::get('address')),
             'city'       => e(Input::get('city')),
@@ -128,13 +151,17 @@ class User extends Base
             }
         }
 
+        // only `email` will go through to User model
         $user->fill($data);
         if (!$user->updateUniques()) {
             $errors = $user->errors();
         }
 
         if ($errors !== null) {
-            return Redirect::back()->withInput()->withErrors($errors);
+            return Redirect::back()
+                ->with('tab', 'business')
+                ->withInput()
+                ->withErrors($errors);
         }
     }
 
@@ -151,17 +178,33 @@ class User extends Base
         }
 
         $user = Confide::user();
-        $user->fill([
+
+        $business = $user->business;
+        if (empty($business)) {
+            $business = new Business();
+        }
+
+        $business->fill([
+            'name'          => e(Input::get('name')),
             'description'   => e(Input::get('description')),
-            'business_size' => e(Input::get('business_size')),
-            'business_name' => e(Input::get('business_name')),
+            'size'          => e(Input::get('size')),
+            'address'       => e(Input::get('address')),
+            'city'          => e(Input::get('city')),
+            'postcode'      => e(Input::get('postcode')),
+            'country'       => e(Input::get('country')),
+            'phone'         => e(Input::get('phone')),
         ]);
 
         // Update business categories
         if (Input::has('categories')) {
-            $user->updateBusinessCategories(Input::get('categories'));
+            $business->updateBusinessCategories(Input::get('categories'));
         }
-        $user->save();
+        $business->user()->associate($user);
+
+        if (!$business->save()) {
+            var_dump($business->getErrors());exit;
+            return Redirect::back()->withInput()->withErrors($business->getErrors());
+        }
     }
 
     /**
