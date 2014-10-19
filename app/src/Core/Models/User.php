@@ -428,6 +428,10 @@ class User extends ConfideUser
     // ATTRIBUTES
     //--------------------------------------------------------------------------
 
+    public function getBusinessUrlAttribute()
+    {
+        return route('business.index', ['id' => $this->id, 'slug' => $this->slug]);
+    }
 
     public function getNameAttribute()
     {

@@ -4,8 +4,10 @@ use Carbon\Carbon;
 use DB;
 use App\Core\Models\Base;
 use App\Core\Models\BusinessCategory;
+use App\Cart\CartDetailInterface;
+use App\FlashDeal\SoldOutException;
 
-class FlashDealDate extends Base
+class FlashDealDate extends Base implements CartDetailInterface
 {
     protected $table = 'fd_flash_deal_dates';
     public $fillable = [
@@ -88,5 +90,67 @@ class FlashDealDate extends Base
     public function user()
     {
         return $this->belongsTo('App\Core\Models\User');
+    }
+
+    //--------------------------------------------------------------------------
+    // CART DETAIL
+    //--------------------------------------------------------------------------
+    /**
+     * @{@inheritdoc}
+     */
+    public function getCartDetailName()
+    {
+        return $this->flashDeal->service->name;
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
+    public function getCartDetailOriginal()
+    {
+        return (object) [
+            'instance' => $this
+        ];
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
+    public function getCartDetailQuantity()
+    {
+        return 1;
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
+    public function getCartDetailPrice()
+    {
+        return $this->flashDeal->discounted_price;
+    }
+
+    //--------------------------------------------------------------------------
+    // CUSTOM METHODS
+    //--------------------------------------------------------------------------
+    /**
+     * Buy this flash deal
+     *
+     * @param int $quantity
+     *
+     * @return true
+     */
+    public function buy($quantity)
+    {
+        if ($this->remains <= 0) {
+            throw new SoldOutException('Unfortunately the current flash deal has been sold out');
+        }
+
+        if ($quantity >= $this->remains) {
+            $quantity = $this->remains;
+        }
+
+        // Update remaining deals
+        $this->remains = $this->remains - $quantity;
+        $this->save();
     }
 }

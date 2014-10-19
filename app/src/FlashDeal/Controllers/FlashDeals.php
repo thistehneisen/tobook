@@ -1,8 +1,9 @@
 <?php namespace App\FlashDeal\Controllers;
 
-use Input, View, Carbon\Carbon;
+use Input, View, Carbon\Carbon, Cart, User, Response;
 use App\Core\Controllers\Base;
 use App\FlashDeal\Models\Service;
+use App\FlashDeal\Models\FlashDeal;
 use App\FlashDeal\Models\FlashDealDate;
 
 class FlashDeals extends Base
@@ -92,5 +93,46 @@ class FlashDeals extends Base
         }
 
         return $item;
+    }
+
+    /**
+     * Show the detailed information of a flash deal
+     *
+     * @param int $id
+     *
+     * @return View
+     */
+    public function view($id)
+    {
+        $item = FlashDealDate::with('flashDeal', 'flashDeal.service')->find($id);
+
+        return $this->render('view', [
+            'item' => $item
+        ]);
+    }
+
+    /**
+     * Add a flash deal into cart
+     *
+     * @return Response
+     */
+    public function cart()
+    {
+        $deal = FlashDealDate::with('flashDeal')
+            ->findOrFail(Input::get('deal_id'));
+        $business = User::findOrFail(Input::get('business_id'));
+
+        $cart = Cart::current();
+        if (!$cart) {
+            $cart = Cart::make(['status' => Cart::STATUS_INIT], $business);
+        }
+
+        try {
+            $deal->buy(1);
+            $cart->addDetail($deal);
+            return Response::json(['cart_id' => $cart->id]);
+        } catch (\App\FlashDeal\SoldOutException $ex) {
+            return Response::json(['message' => trans('fd.front.err.sold_out')], 500);
+        }
     }
 }
