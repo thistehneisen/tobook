@@ -12,10 +12,10 @@ class UnitBusinessCest
 {
     use Models;
 
-    public function _before()
+    public function _before(UnitTester $I)
     {
         $this->_modelsReset();
-        $this->_createUser();
+        $this->_createUser(false);
     }
 
     public function testNewRecord(UnitTester $I)

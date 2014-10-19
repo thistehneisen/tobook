@@ -356,36 +356,6 @@ class User extends ConfideUser
         return $this->enabledModules;
     }
 
-
-    public function getImageAttribute()
-    {
-        foreach ($this->businessCategories as $cat) {
-            switch ($cat->name) {
-                case 'Beauty &amp; Hair':
-                    return '/assets/img/categories/hair/7.jpg';
-
-                case 'Hairdresser':
-                    return '/assets/img/categories/hair/2.jpg';
-
-                case 'Restaurant':
-                    return '/assets/img/categories/restaurant/1.jpg';
-                    break;
-
-                case 'Fine Dining':
-                    return '/assets/img/categories/restaurant/8.jpg';
-
-                case 'Car Wash':
-                    return '/assets/img/categories/carwash/2.jpg';
-
-                case 'Activities':
-                    return '/assets/img/categories/fitness/1.jpg';
-
-                default:
-                    break;
-            }
-        }
-    }
-
     /**
      * Check to see if this user is a consumer
      *

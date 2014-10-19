@@ -1,5 +1,6 @@
 <?php namespace App\Core\Controllers\Ajax;
 
+use App\Core\Models\Business;
 use DB, Carbon\Carbon, Request, View, Input;
 use Illuminate\Support\Collection;
 use App\Core\Models\BusinessCategory;
@@ -44,7 +45,7 @@ class Search extends Base
      */
     public function getLocations()
     {
-        $locations = DB::table(with(new User)->getTable())
+        $locations = DB::table(with(new Business)->getTable())
             ->select('city AS name')
             ->where('city', '!=', '')
             ->distinct()

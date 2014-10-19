@@ -9,6 +9,7 @@ use App\Appointment\Models\EmployeeFreetime;
 use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;
+use App\Core\Models\Business;
 use App\Core\Models\User;
 use Carbon\Carbon;
 
@@ -17,19 +18,31 @@ trait Models
     protected $user = null;
     protected $employees = array();
 
-    protected function _createUser()
+    protected function _createUser($withBusiness = true)
     {
         if (!empty($this->user)) {
             return;
         }
 
         $this->user = new User([
-            'username' => 'user_' . time(),
             'email' => 'user_' . time() . '@varaa.com',
         ]);
         $this->user->password = 123456;
         $this->user->password_confirmation = 123456;
         $this->user->save();
+
+        if ($withBusiness) {
+            $business = new Business([
+                'name' => 'Business Name',
+                'address' => 'An Address',
+                'city' => 'Some City',
+                'postcode' => 10000,
+                'country' => 'Finland',
+                'phone' => '1234567890',
+            ]);
+            $business->user()->associate($this->user);
+            $business->save();
+        }
     }
 
     protected function _createEmployee($employeeCount = 1)

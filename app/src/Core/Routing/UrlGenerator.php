@@ -10,6 +10,12 @@ class UrlGenerator extends \Illuminate\Routing\UrlGenerator
     public function route($name, $parameters = array(), $absolute = true, $route = null, $locale = null)
     {
         $result = parent::route($name, $parameters, $absolute, $route);
+
+        if (php_sapi_name() == 'cli') {
+            // do not append locale for cli requests (testing?)
+            return $result;
+        }
+
         $url = parse_url($result);
         if (!isset($url['path'])) {
             $url['path'] = '';

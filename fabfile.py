@@ -73,7 +73,10 @@ def test(suite='', group='', debug=''):
     if group != '':
         group = '-g {}'.format(group)
     if debug != '':
-        debug = '--debug'
+        debug = '--debug -vvv'
+    # rebuild the tester classes first
+    local('./vendor/bin/codecept build')
+    # then run the tests
     local('./vendor/bin/codecept run {} {} {}'.format(suite, group, debug))
 
 

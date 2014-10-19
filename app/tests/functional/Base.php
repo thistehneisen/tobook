@@ -2,7 +2,7 @@
 
 class Base
 {
-    protected function login(\FunctionalTester $I)
+    public function _before(\FunctionalTester $I)
     {
         $I->amLoggedAs(Fixture::user());
     }
