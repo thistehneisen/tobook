@@ -1,6 +1,6 @@
 <?php namespace App\Core\Controllers;
 
-use View, Validator, Input, Redirect, Config, Session;
+use View, Validator, Input, Redirect, Config, Session, Cart;
 use Confide;
 use App\Core\Models\User;
 use App\Core\Models\BusinessCategory;
@@ -294,7 +294,9 @@ class Auth extends Base
         Confide::logout();
 
         // Remove all session data, including stealthMode
+        $cart = Session::get(Cart::SESSION_NAME);
         Session::flush();
+        Session::set(Cart::SESSION_NAME, $cart);
 
         return Redirect::route('home');
     }
