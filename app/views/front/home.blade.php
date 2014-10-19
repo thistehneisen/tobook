@@ -12,6 +12,8 @@
     @parent
     {{ HTML::script(asset('packages/jquery.countdown/jquery.plugin.min.js')) }}
     {{ HTML::script(asset('packages/jquery.countdown/jquery.countdown.min.js')) }}
+    {{ HTML::script(asset('assets/js/home.js')) }}
+
     <script>
 $(function() {
     var applyCountdown = function(elems) {

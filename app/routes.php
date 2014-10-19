@@ -1035,7 +1035,7 @@ Route::group([
 
 /*
 |--------------------------------------------------------------------------
-| Module Images routes
+| Module Flash Deals routes
 |--------------------------------------------------------------------------
 */
 Route::group([
@@ -1065,6 +1065,11 @@ Route::group([
         'flash-deal-dates',
         'fd.flash_deal_dates'
     );
+
+    Route::get('view/{id}', [
+        'as' => 'fd.view',
+        'uses' =>  'App\FlashDeal\Controllers\FlashDeals@view'
+    ]);
 
     Route::get('/{tab?}', [
         'as' => 'fd.index',

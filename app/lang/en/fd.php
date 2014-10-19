@@ -46,5 +46,8 @@ return [
     'flash_deal_dates' => [
         'expire'  => 'Expire date',
         'remains' => 'Remains'
+    ],
+    'front' => [
+        'explore' => 'Explore more'
     ]
 ];

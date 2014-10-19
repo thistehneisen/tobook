@@ -93,4 +93,17 @@ class FlashDeals extends Base
 
         return $item;
     }
+
+    /**
+     * Show the detailed information of a flash deal
+     *
+     * @param int $id
+     *
+     * @return View
+     */
+    public function view($id)
+    {
+        return $this->render('view', [
+        ]);
+    }
 }
