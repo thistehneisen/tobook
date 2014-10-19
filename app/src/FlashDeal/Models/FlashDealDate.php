@@ -48,9 +48,10 @@ class FlashDealDate extends Base implements CartDetailInterface
         $tblCategory = with(new BusinessCategory)->getTable();
 
         return $query
-            ->join($tblFlashDeal, $tblFlashDeal.'.id', '=', $this->table.'.flash_deal_id')
-            ->join($tblService, $tblService.'.id', '=', $tblFlashDeal.'.service_id')
-            ->join($tblCategory, $tblCategory.'.id', '=', $tblService.'.business_category_id')
+            ->select('*', $this->table.'.id AS flash_deal_date_id')
+            ->leftJoin($tblFlashDeal, $tblFlashDeal.'.id', '=', $this->table.'.flash_deal_id')
+            ->leftJoin($tblService, $tblService.'.id', '=', $tblFlashDeal.'.service_id')
+            ->leftJoin($tblCategory, $tblCategory.'.id', '=', $tblService.'.business_category_id')
             ->whereIn($tblCategory.'.id', $categoryIds);
     }
 
