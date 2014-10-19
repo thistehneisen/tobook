@@ -102,6 +102,7 @@ return [
     'discount'       => 'Alennus',
     'book'           => 'Varaa',
     'short' => [
+        'week'=> 'vko',
         'mon' => 'Ma',
         'tue' => 'Ti',
         'wed' => 'Ke',

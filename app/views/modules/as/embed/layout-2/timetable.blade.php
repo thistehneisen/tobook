@@ -2,7 +2,9 @@
     <h3>{{ trans('as.embed.layout_2.choose') }}</h3>
     <div class="btn-group">
         @foreach ($nav as $item)
-        <a href="#" class="btn btn-default btn-as-timetable" data-date="{{ $item->start->toDateString() }}">{{ $item->start->format('d') }}. {{ trans('common.short.'.strtolower($item->start->format('M'))) }} &ndash; {{ $item->end->format('d') }}</a>
+
+        <a href="#" class="btn btn-default btn-as-timetable" data-date="{{ $item->start->toDateString() }}">
+        <div class="week-of-year">{{ trans('common.short.week') }} {{ $item->start->weekOfYear }}</div> {{ $item->start->format('d') }}. {{ trans('common.short.'.strtolower($item->start->format('M'))) }} &ndash; {{ $item->end->format('d') }}</a>
         @endforeach
     </div>
 
@@ -13,7 +15,7 @@
             <thead>
                 <tr>
                 @foreach ($dates as $date)
-                    <th><h5 class="text-muted">{{ $date->format('d-m-Y') }}</h5></th>
+                    <th><h5 class="text-muted"><div class="day-in-week">{{ Util::td($date->format('D')) }}</div>{{ $date->format('d-m-Y') }}</h5></th>
                 @endforeach
                 </tr>
             </thead>

@@ -27,7 +27,7 @@ class Layout2 extends Base
         $nav = [];
         $i = 1;
         $start = $today->copy();
-        while ($i++ <= 5) {
+        while ($i++ <= 7) {
             $end = $start->copy()->addDays(4);
             $nav[] = (object) [
                 'start' => $start->copy(),
@@ -48,7 +48,7 @@ class Layout2 extends Base
         $timetable = [];
         $dates = [];
         $i = 1;
-        while ($i++ <= 5) {
+        while ($i++ <= 7) {
             if ($employee !== null) {
                 $time = $this->getTimetableOfSingle($employee, $service, $start, $serviceTime, true);
             } else {
