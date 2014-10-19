@@ -5,7 +5,7 @@ interface CartDetailInterface
     /**
      * Return the name of item to be displayed in cart
      *
-     * @return string
+     * @return string|View
      */
     public function getCartDetailName();
 
