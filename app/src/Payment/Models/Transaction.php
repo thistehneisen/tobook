@@ -25,7 +25,7 @@ class Transaction extends \AppModel
     //--------------------------------------------------------------------------
     public function cart()
     {
-        return $this->belongsTo('App\Core\Models\Cart');
+        return $this->belongsTo('App\Cart\Cart');
     }
 
     //--------------------------------------------------------------------------

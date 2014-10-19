@@ -1,6 +1,6 @@
 <?php namespace App\Cart;
 
-use Carbon\Carbon;
+use Session;
 use App\Core\Models\User;
 use Illuminate\Support\Collection;
 
@@ -8,8 +8,9 @@ class Cart extends \AppModel
 {
     public $fillable = ['status'];
 
-    const STATUS_INIT          = 1; // 01
-    const STATUS_COMPLETED     = 2; // 11
+    const STATUS_INIT      = 1; // 01
+    const STATUS_COMPLETED = 2; // 11
+    const SESSION_NAME     = 'current.cart';
 
     /**
      * Create a new cart item
@@ -32,6 +33,9 @@ class Cart extends \AppModel
         $cart->fill($data);
         $cart->user()->associate($user);
         $cart->saveOrFail();
+
+        // Update session
+        $cart->updateSession();
 
         return $cart;
     }
@@ -58,6 +62,8 @@ class Cart extends \AppModel
         $detail = CartDetail::make($item);
         $this->details()->save($detail);
 
+        $this->updateSession();
+
         return $this;
     }
 
@@ -69,6 +75,46 @@ class Cart extends \AppModel
     public function addDetails($details)
     {
         array_walk($details, [$this, 'addDetail']);
+
+        return $this;
+    }
+
+    /**
+     * Return the current cart in session
+     *
+     * @return App\Cart\Cart;
+     */
+    public static function current()
+    {
+        if (Session::has(static::SESSION_NAME)) {
+            $cartId = Session::get(static::SESSION_NAME);
+
+            return static::find($cartId);
+        }
+    }
+
+    /**
+     * Dump the current cart into session
+     *
+     * @return App\Cart\Cart
+     */
+    public function updateSession()
+    {
+        Session::put(static::SESSION_NAME, $this->id);
+
+        return $this;
+    }
+
+    /**
+     * Remove a detail from this cart
+     *
+     * @param int $id
+     *
+     * @return App\Cart\Cart
+     */
+    public function remove($id)
+    {
+        $this->details()->where('id', $id)->delete();
         return $this;
     }
 
@@ -83,6 +129,7 @@ class Cart extends \AppModel
                 $total += $detail->quantity * $detail->price;
             }
         }
+
         return round($total, 2);
     }
 
@@ -113,4 +160,3 @@ class Cart extends \AppModel
        return $this->belongsTo('App\Consumers\Models\Consumer');
     }
 }
-

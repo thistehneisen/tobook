@@ -26,6 +26,7 @@ class User extends ConfideUser
 
     public $fillable = [
         'username',
+        'confirmed',
         'email',
         'first_name',
         'last_name',
@@ -411,17 +412,26 @@ class User extends ConfideUser
 
     /**
      * Check if there is an existing consumer having the same info with
-     * submitted data. If yes, connect them together.
+     * submitted data. If yes, connect them together. Otherwise, create a new
+     * consumer.
      *
-     * @return
+     * @return void
      */
-    public function validateExistingConsumer()
+    public function attachConsumer()
     {
         // @todo: More criteria to check existing consumer
         $consumer = Consumer::where('email', $this->attributes['email'])->first();
-        if ($consumer !== null) {
-            $this->consumer()->associate($consumer);
+        if ($consumer === null) {
+            $consumer = new Consumer([
+                'email'      => $this->attributes['email'],
+                'first_name' => !empty($this->attributes['first_name']) ? $this->attributes['first_name'] : '',
+                'last_name'  => !empty($this->attributes['last_name']) ? $this->attributes['last_name'] : '',
+                'phone'      => !empty($this->attributes['phone']) ? $this->attributes['phone'] : '',
+            ]);
+            $consumer->saveOrFail();
         }
+
+        $this->consumer()->associate($consumer);
     }
 
     //--------------------------------------------------------------------------
@@ -601,5 +611,15 @@ class User extends ConfideUser
     public function getIsConsumerAttribute()
     {
         return $this->hasRole(Role::CONSUMER);
+    }
+
+    /**
+     * Check to see if this user is a business account
+     *
+     * @return bool
+     */
+    public function getIsBusinessAttribute()
+    {
+        return $this->hasRole(Role::USER);
     }
 }

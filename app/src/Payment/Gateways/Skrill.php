@@ -41,10 +41,22 @@ class Skrill extends Base
             'transactionId' => $transaction->id,
             'notifyUrl'     => route('payment.notify', ['gateway' => 'skrill']),
             'returnUrl'     => route('payment.success'),
-            'cancelUrl'     => route('payment.index'),
+            'cancelUrl'     => route('payment.cancel', ['id' => $transaction->id]),
             // TODO: Populate with cart details
             'details'       => ['foo' => 'bar'],
         ];
+
+        // Extract consumer information from the cart and send along to Skrill
+        // server, so that our beloved consumer doesn't have to type it again
+        if ($transaction->cart && ($consumer = $transaction->cart->consumer)) {
+            $options['customerEmail']      = $consumer->email;
+            $options['customerFirstName']  = $consumer->first_name;
+            $options['customerLastName']   = $consumer->last_name;
+            $options['customerAddress1']   = $consumer->address;
+            $options['customerPhone']      = $consumer->phone;
+            $options['customerCity']       = $consumer->city;
+            $options['customerPostalCode'] = $consumer->postcode;
+        }
 
         return $this->gateway->purchase($options)->send();
     }

@@ -30,5 +30,21 @@ return [
         'business_hours'  => 'Business Hours',
         'buy'             => 'Buy',
         'book'            => 'Book',
+    ],
+    'cart' => [
+        'add'         => 'Add to cart',
+        'items'       => 'item|items',
+        'empty'       => 'Empty',
+        'empty_long'  => 'Your cart is empty.',
+        'checkout'    => 'Checkout',
+        'total'       => 'Total',
+        'heading'     => 'Your selected products',
+        'why_heading' => 'Why you should register before checking out?',
+        'why_content' => 'As a registered user, you could easily manage your bookings, as well as other functionalities providede by Varaa.',
+        'process'     => 'Process to payment',
+        'err'         => [
+            'business' => 'Currently we are not support for business account to checkout. Please login with your consumer account.',
+            'zero_amount' => 'Unable to make payment since the amount of your cart is zero',
+        ]
     ]
 ];

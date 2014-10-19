@@ -431,6 +431,11 @@ Route::group([
             'uses' => 'App\Appointment\Controllers\FrontBookings@addFrontEndBooking'
         ]);
 
+        Route::post('bookings/cart', [
+            'as' => 'as.booking.frontend.cart',
+            'uses' => 'App\Appointment\Controllers\FrontBookings@addBookingFromCart'
+        ]);
+
         Route::post('bookings/remove-booking-service-in-cart', [
             'as' => 'as.bookings.service.remove.in.cart',
             'uses' => 'App\Appointment\Controllers\FrontBookings@removeBookingServiceInCart'
@@ -519,6 +524,37 @@ Route::group([
         'as' => 'as.bookings.doCancel',
         'uses' => 'App\Appointment\Controllers\Bookings@doCancel'
     ]);
+});
+
+/*
+|-------------------------------------------------------------------------------
+| Appointment Scheduler routes
+|-------------------------------------------------------------------------------
+*/
+Route::group([
+    'prefix' => 'cart'
+], function () {
+
+    Route::get('/', [
+        'as' => 'cart.index',
+        'uses' => 'App\Cart\Controllers\Index@index'
+    ]);
+
+    Route::get('checkout', [
+        'as' => 'cart.checkout',
+        'uses' => 'App\Cart\Controllers\Index@checkout'
+    ]);
+
+    Route::get('remove/{id}', [
+        'as' => 'cart.remove',
+        'uses' => 'App\Cart\Controllers\Index@remove'
+    ]);
+
+    Route::post('payment', [
+        'as' => 'cart.payment',
+        'uses' => 'App\Cart\Controllers\Index@payment'
+    ]);
+
 });
 
 /*

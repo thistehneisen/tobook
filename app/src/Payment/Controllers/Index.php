@@ -1,6 +1,7 @@
 <?php namespace App\Payment\Controllers;
 
-use Payment;
+use Payment, Event;
+use App\Payment\Models\Transaction;
 
 class Index extends Base
 {
@@ -47,5 +48,22 @@ class Index extends Base
     public function success()
     {
         return $this->render('success');
+    }
+
+    /**
+     * When user cancelled a payment
+     *
+     * @param int $transactionId
+     *
+     * @return View
+     */
+    public function cancel($transactionId)
+    {
+        $transaction = Transaction::find($transactionId);
+        if ($transaction) {
+            Event::fire('payment.cancelled', $transaction);
+        }
+
+        return $this->render('cancelled');
     }
 }
