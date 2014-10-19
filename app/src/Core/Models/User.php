@@ -121,7 +121,12 @@ class User extends ConfideUser
         // Whenever updating account, we will try to find geocode of this user
         static::updating(function($user) {
             $user->updateGeo();
+            //$user->updateSearchIndex();
             return true;
+        });
+
+        static::saved(function ($user) {
+            //$user->updateSearchIndex();
         });
     }
 
@@ -195,23 +200,9 @@ class User extends ConfideUser
         return $businesses;
     }
 
-     /**
-     * Overwrite the Confide save method. Saves model into
-     * database
-     *
-     * @param array $rules:array
-     * @param array $customMessages
-     * @param array $options
-     * @param \Closure $beforeSave
-     * @param \Closure $afterSave
-     * @return bool
-     */
-    public function save(array $rules = array(), array $customMessages = array(), array $options = array(), \Closure $beforeSave = null, \Closure $afterSave = null )
+    public function updateSearchIndex()
     {
-       parent::save($rules, $customMessages, $options, $beforeSave, $afterSave);
-       if(!empty($this->id)){
-         \App\Search\Servant::getInstance()->upsertIndexForBusiness($this);
-       }
+        return App\Search\Servant::getInstance()->upsertIndexForBusiness($this);
     }
 
     //--------------------------------------------------------------------------
