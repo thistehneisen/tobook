@@ -56,13 +56,19 @@ class ConsumerAuth extends Auth
         $user->last_name             = e(Input::get('last_name'));
         $user->phone                 = e(Input::get('phone'));
 
-        // Now we need to check existing consumer
-        $user->attachConsumer();
+        try {
+            // Now we need to check existing consumer
+            $user->attachConsumer();
+        } catch (\Watson\Validating\ValidationException $ex) {
+            Redirect::route('consumer.auth.register')
+                ->withInput(Input::except('password'))
+                ->withErrors($ex->getMessageBag());
+        }
 
         if (!$user->save()) {
             return Redirect::route('consumer.auth.register')
                 ->withInput(Input::except('password'))
-                ->withErrors($user->errors());
+                ->withErrors($user->errors(), 'top');
         }
 
         // Assign the role
