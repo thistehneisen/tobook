@@ -2,7 +2,7 @@
 
 use View, Input, DB, Util, Response, Geocoder, App, Config, Es, Paginator;
 use App\Core\Models\BusinessCategory;
-use App\Core\Models\User as BusinessModel;
+use App\Core\Models\Business as BusinessModel;
 use Carbon\Carbon;
 
 class Search extends Base
