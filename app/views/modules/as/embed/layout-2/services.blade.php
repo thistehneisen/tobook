@@ -20,7 +20,7 @@
                 </div>
             @foreach ($service->serviceTimes as $item)
                 <div class="btn-group">
-                    <button data-service-time-id="{{ $item->id }}" type="button" class="btn btn-default btn-sm btn-service-time"><i class="glyphicon glyphicon-time"></i> {{ $item->during }} {{ trans('common.minutes') }}</button> &nbsp; {{ $service->description }}
+                    <button data-service-time-id="{{ $item->id }}" type="button" class="btn btn-default btn-sm btn-service-time"><i class="glyphicon glyphicon-time"></i> {{ $item->during }} {{ trans('common.minutes') }}</button> &nbsp; {{ $item->description }}
                 </div>
             @endforeach
             </div>
