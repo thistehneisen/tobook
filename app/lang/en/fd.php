@@ -51,8 +51,9 @@ return [
         'explore' => 'Explore more',
         'business' => 'Provided by',
         'err' => [
-            'not_found' => 'Cannot find the flash deal',
+            'not_found'      => 'Cannot find the flash deal',
             'not_found_long' => 'It might be ended or removed.',
+            'sold_out'       => 'Unfortunately the deal has been sold out.',
         ]
     ]
 ];

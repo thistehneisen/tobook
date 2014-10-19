@@ -5,6 +5,7 @@ use DB;
 use App\Core\Models\Base;
 use App\Core\Models\BusinessCategory;
 use App\Cart\CartDetailInterface;
+use App\FlashDeal\SoldOutException;
 
 class FlashDealDate extends Base implements CartDetailInterface
 {
@@ -126,5 +127,30 @@ class FlashDealDate extends Base implements CartDetailInterface
     public function getCartDetailPrice()
     {
         return $this->flashDeal->discounted_price;
+    }
+
+    //--------------------------------------------------------------------------
+    // CUSTOM METHODS
+    //--------------------------------------------------------------------------
+    /**
+     * Buy this flash deal
+     *
+     * @param int $quantity
+     *
+     * @return true
+     */
+    public function buy($quantity)
+    {
+        if ($this->remains <= 0) {
+            throw new SoldOutException('Unfortunately the current flash deal has been sold out');
+        }
+
+        if ($quantity >= $this->remains) {
+            $quantity = $this->remains;
+        }
+
+        // Update remaining deals
+        $this->remains = $this->remains - $quantity;
+        $this->save();
     }
 }

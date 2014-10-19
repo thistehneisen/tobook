@@ -127,7 +127,12 @@ class FlashDeals extends Base
             $cart = Cart::make(['status' => Cart::STATUS_INIT], $business);
         }
 
-        $cart->addDetail($deal);
-        return Response::json(['cart_id' => $cart->id]);
+        try {
+            $deal->buy(1);
+            $cart->addDetail($deal);
+            return Response::json(['cart_id' => $cart->id]);
+        } catch (\App\FlashDeal\SoldOutException $ex) {
+            return Response::json(['message' => trans('fd.front.err.sold_out')], 500);
+        }
     }
 }

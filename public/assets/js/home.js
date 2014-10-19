@@ -48,8 +48,14 @@
             }).done(function () {
                 $(document).trigger('cart.reload', true);
                 $fdModal.modal('hide');
-            }).fail(function () {
+            }).fail(function (e) {
 
+                if (typeof e.responseJSON.message !== 'undefined') {
+                    var div = $('<div/>')
+                        .addClass('alert alert-danger')
+                        .html(e.responseJSON.message);
+                    $fdModal.find('div.modal-body').html(div);
+                }
             });
 
         });
