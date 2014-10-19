@@ -84,7 +84,7 @@ class Util
      *
      * @return string
      */
-    public static function thumbnail($imagePath, $width, $height, $returnUrl = true)
+    public static function thumbnail($imagePath, $width, $height, $returnUrl = true, $hardCrop = false)
     {
         $imageFile = basename($imagePath);
         $image = explode('.', $imageFile);
@@ -98,6 +98,9 @@ class Util
         if (!file_exists($thumbPath)) {
             $imagine = new Imagine\Gd\Imagine();
             $mode = Imagine\Image\ImageInterface::THUMBNAIL_INSET;
+            if ($hardCrop) {
+                $mode = Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND;
+            }
             $size = new Imagine\Image\Box($width, $height);
 
             try {

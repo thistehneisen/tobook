@@ -172,7 +172,7 @@ applyCountdown($('span.countdown'));
             ?>
             <div class="result-row row" data-id="{{ $item->id }}" data-url="{{ route('ajax.showBusiness', ['hash' => $item->hash, 'id' => $item->id, 'l' => 3]) }}">
                 <div class="col-sm-6">
-                    <img src="{{ asset($item->image) }}" alt="" class="img-responsive img-rounded">
+                    <img src="{{ Util::thumbnail($item->businessImage, 110, 55) }}" alt="" class="img-responsive img-rounded">
                 </div>
                 <div class="col-sm-6">
                     <h4>{{ $item->business_name }}</h4>

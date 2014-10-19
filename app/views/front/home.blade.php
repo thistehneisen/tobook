@@ -58,7 +58,7 @@ $(function() {
                 $count = 0;
             ?>
             <div class="available-slot col-md-3 col-sm-3">
-                <img src="{{ asset('assets/img/slides/1.jpg') }}" alt="" class="img-responsive" />
+                <img src="{{ Util::thumbnail($business->businessImage, 270, 135, true, true) }}" alt="" class="img-responsive" />
                 <div class="info text-left">
                     <h4>{{ $business->business_name }}</h4>
                     <p>{{ $business->address }}</p>

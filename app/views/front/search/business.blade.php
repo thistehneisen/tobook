@@ -2,7 +2,7 @@
     <div class="col-sm-6">
         <h3><a title="{{{ $business->business_name }}}" href="{{ route('business.index', ['id' => $business->id, 'slug' => $business->slug]) }}" target="_blank">{{{ $business->business_name }}}</a></h3>
         <p>{{{ $business->full_address }}}</p>
-        <p><img src="{{ asset($business->image) }}" alt="" class="img-responsive img-rounded"></p>
+        <p><img src="{{ Util::thumbnail($business->businessImage, 410, 205) }}" alt="" class="img-responsive img-rounded"></p>
 
         <!-- About -->
         @if (!empty($business->description))
