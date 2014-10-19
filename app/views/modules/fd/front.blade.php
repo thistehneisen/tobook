@@ -21,7 +21,7 @@
                             <p><strong class="orange">{{{ $deal->flashDeal->service->user->business_name }}}</strong></p>
                             <p>{{{ $deal->flashDeal->service->user->full_address }}}</p>
                             <p></p>
-                            <p class="text-center"><a data-toggle="modal" data-target="#fd-modal" href="{{ route('fd.view', ['id' => $deal->id]) }}" class="btn btn-orange countdown btn-fd" data-date="{{ $deal->expire->toISO8601String() }}"></a></p>
+                            <p class="text-center"><a data-target="#fd-modal" href="#" data-url="{{ route('fd.view', ['id' => $deal->id]) }}" class="btn btn-orange countdown btn-fd" data-date="{{ $deal->expire->toISO8601String() }}"></a></p>
                         </div>
                     </li>
                     @endif
