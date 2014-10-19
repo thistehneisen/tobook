@@ -52,7 +52,7 @@ return [
         'business' => 'Provided by',
         'err' => [
             'not_found'      => 'Cannot find the flash deal',
-            'not_found_long' => 'It might be ended or removed.',
+            'not_found_long' => 'It might be sold out or removed.',
             'sold_out'       => 'Unfortunately the deal has been sold out.',
         ]
     ]

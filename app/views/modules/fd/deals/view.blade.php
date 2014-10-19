@@ -3,7 +3,7 @@
     <h4 class="modal-title" id="fd-modal-label">{{ $item->flashDeal->service->name }}</h4>
 </div>
 <div class="modal-body text-left">
-    @if (!$item)
+    @if (!$item || $item->remains <= 0)
     <div class="alert alert-danger">
         <p><strong>{{ trans('fd.front.err.not_found') }}</strong></p>
         <p>{{ trans('fd.front.err.not_found_long') }}</p>
