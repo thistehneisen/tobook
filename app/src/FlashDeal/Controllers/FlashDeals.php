@@ -1,6 +1,6 @@
 <?php namespace App\FlashDeal\Controllers;
 
-use Input, View, Carbon\Carbon, Cart, User, Response;
+use Input, View, Carbon\Carbon, Cart, User, Response, Confide;
 use App\Core\Controllers\Base;
 use App\FlashDeal\Models\Service;
 use App\FlashDeal\Models\FlashDeal;
@@ -35,8 +35,10 @@ class FlashDeals extends Base
     {
         parent::__construct();
 
-        $services = Service::ofCurrentUser()->get();
-        View::share('services', $services);
+        if (Confide::user()) {
+            $services = Service::ofCurrentUser()->get();
+            View::share('services', $services);
+        }
     }
 
     /**

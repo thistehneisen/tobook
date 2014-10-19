@@ -1040,31 +1040,41 @@ Route::group([
 */
 Route::group([
     'prefix' => 'flash-deal',
-    'before' => ['auth']
 ], function () {
 
-    // Services
-    \App\FlashDeal\Controllers\Services::crudRoutes(
-        'services',
-        'fd.services'
-    );
+    Route::group([
+        'before' => ['auth']
+    ], function() {
 
-    // Coupons
-    \App\FlashDeal\Controllers\Coupons::crudRoutes(
-        'coupons',
-        'fd.coupons'
-    );
+        // Services
+        \App\FlashDeal\Controllers\Services::crudRoutes(
+            'services',
+            'fd.services'
+        );
 
-    // Flash deals
-    \App\FlashDeal\Controllers\FlashDeals::crudRoutes(
-        'flash-deals',
-        'fd.flash_deals'
-    );
+        // Coupons
+        \App\FlashDeal\Controllers\Coupons::crudRoutes(
+            'coupons',
+            'fd.coupons'
+        );
 
-    \App\FlashDeal\Controllers\FlashDealDates::crudRoutes(
-        'flash-deal-dates',
-        'fd.flash_deal_dates'
-    );
+        // Flash deals
+        \App\FlashDeal\Controllers\FlashDeals::crudRoutes(
+            'flash-deals',
+            'fd.flash_deals'
+        );
+
+        \App\FlashDeal\Controllers\FlashDealDates::crudRoutes(
+            'flash-deal-dates',
+            'fd.flash_deal_dates'
+        );
+
+        Route::get('/{tab?}', [
+            'as' => 'fd.index',
+            'uses' => 'App\FlashDeal\Controllers\Index@index'
+        ]);
+
+    });
 
     Route::get('view/{id}', [
         'as' => 'fd.view',
@@ -1074,11 +1084,6 @@ Route::group([
     Route::post('cart', [
         'as'   => 'fd.cart',
         'uses' =>  'App\FlashDeal\Controllers\FlashDeals@cart'
-    ]);
-
-    Route::get('/{tab?}', [
-        'as' => 'fd.index',
-        'uses' => 'App\FlashDeal\Controllers\Index@index'
     ]);
 });
 
