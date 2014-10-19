@@ -53,7 +53,8 @@ class Index extends \AppController
         }
 
         return $this->render('checkout', [
-            'cart' => Cart::current()
+            'cart' => Cart::current(),
+            'user' => Confide::user()
         ]);
     }
 
@@ -71,11 +72,17 @@ class Index extends \AppController
                 ->withErrors($this->errorMessageBag(trans('home.cart.err.zero_amount')), 'top');
         }
 
+        $user = Confide::user();
+        if ($user->is_business) {
+            return Redirect::route('cart.checkout')
+                ->withErrors($this->errorMessageBag(trans('home.cart.err.business')), 'top');
+        }
+
         // Fire the payment.process so that cart details could update themselves
         Event::fire('payment.process', [$cart]);
 
         // Attach the current consumer to the cart
-        $cart->consumer()->associate(Confide::user()->consumer);
+        $cart->consumer()->associate($user->consumer);
         $cart->save();
 
         $goToPaygate = true;

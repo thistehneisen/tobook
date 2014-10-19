@@ -43,6 +43,7 @@ return [
         'why_content' => 'As a registered user, you could easily manage your bookings, as well as other functionalities providede by Varaa.',
         'process'     => 'Process to payment',
         'err'         => [
+            'business' => 'Currently we are not support for business account to checkout. Please login with your consumer account.',
             'zero_amount' => 'Unable to make payment since the amount of your cart is zero',
         ]
     ]
