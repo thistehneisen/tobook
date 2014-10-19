@@ -255,7 +255,7 @@ return [
         'email'             => 'Sähköposti',
         'phone'             => 'Puhelinnumero',
         'address'           => 'Osoite',
-        'city'              => 'City',//@todo
+        'city'              => 'Kaupunki',//@todo
         'postcode'          => 'Postcode',//@todo
         'country'           => 'Country',//@todo
         'confirm_booking'   => 'Vahvista varaus',
