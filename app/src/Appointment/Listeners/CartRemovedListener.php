@@ -22,13 +22,15 @@ class CartRemovedListener
             return;
         }
 
-        $bookingService = $cartDetail->model->instance;
-        // Remove booking first
-        if ($bookingService->booking !== null) {
-            $bookingService->booking->delete();
+        if ($cartDetail->model->instance instanceof BookingService) {
+            $bookingService = $cartDetail->model->instance;
+            // Remove booking first
+            if ($bookingService->booking !== null) {
+                $bookingService->booking->delete();
+            }
+
+            $bookingService->delete();
         }
 
-        // Self-destruct, auto cắn chym
-        $bookingService->delete();
     }
 }
