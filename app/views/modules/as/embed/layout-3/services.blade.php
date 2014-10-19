@@ -21,7 +21,7 @@
                 @foreach ($service->serviceTimes as $item)
                     <p>
                         <label class="col-md-4 col-lg-4">
-                            <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="{{ $service->description }}"></i>
+                            <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="{{ $item->description }}"></i>
                             <input type="radio" name="service_id" value="{{ $item->id }}" data-service="{{ $service->name }}">
                             {{ $item->price }}&euro;
                         </label>
