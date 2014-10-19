@@ -92,7 +92,9 @@ class Index extends \AppController
     public function remove($id)
     {
         // Fire an event when an item was remove from cart
-        Event::fire('cart.remove', $id);
+        // We must fire event first, or the data will be removed and listeners
+        // won't be able to fetch.
+        Event::fire('cart.removed', $id);
 
         Cart::current()->remove($id);
     }
