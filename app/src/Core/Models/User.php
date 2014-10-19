@@ -121,12 +121,11 @@ class User extends ConfideUser
         // Whenever updating account, we will try to find geocode of this user
         static::updating(function($user) {
             $user->updateGeo();
-            //$user->updateSearchIndex();
             return true;
         });
 
         static::saved(function ($user) {
-            //$user->updateSearchIndex();
+            $user->updateSearchIndex();
         });
     }
 
