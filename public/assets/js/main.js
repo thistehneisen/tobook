@@ -74,6 +74,7 @@ $(function () {
 
             if (showAfterFinish) {
                 cart.popover('show');
+                $(document).scrollTop(0);
             }
         });
     });

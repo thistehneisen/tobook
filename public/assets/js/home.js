@@ -46,7 +46,7 @@
                     deal_id: $this.data('deal-id')
                 }
             }).done(function () {
-                $(document).trigger('cart.reload');
+                $(document).trigger('cart.reload', true);
                 $fdModal.modal('hide');
             }).fail(function () {
 
