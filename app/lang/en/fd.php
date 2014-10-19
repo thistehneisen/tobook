@@ -48,6 +48,11 @@ return [
         'remains' => 'Remains'
     ],
     'front' => [
-        'explore' => 'Explore more'
+        'explore' => 'Explore more',
+        'business' => 'Provided by',
+        'err' => [
+            'not_found' => 'Cannot find the flash deal',
+            'not_found_long' => 'It might be ended or removed.',
+        ]
     ]
 ];

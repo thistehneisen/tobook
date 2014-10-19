@@ -3,6 +3,7 @@
 use Input, View, Carbon\Carbon;
 use App\Core\Controllers\Base;
 use App\FlashDeal\Models\Service;
+use App\FlashDeal\Models\FlashDeal;
 use App\FlashDeal\Models\FlashDealDate;
 
 class FlashDeals extends Base
@@ -103,7 +104,10 @@ class FlashDeals extends Base
      */
     public function view($id)
     {
+        $item = FlashDealDate::with('flashDeal', 'flashDeal.service')->find($id);
+
         return $this->render('view', [
+            'item' => $item
         ]);
     }
 }
