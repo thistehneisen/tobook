@@ -170,7 +170,7 @@ applyCountdown($('span.countdown'));
                 $slots = [];
                 $count = 0;
             ?>
-            <div class="result-row row" data-id="{{ $item->user->id }}" data-url="{{ route('ajax.showBusiness', ['hash' => $item->hash, 'id' => $item->user->id, 'l' => 3]) }}">
+            <div class="result-row row" data-id="{{ $item->user->id }}" data-url="{{ route('ajax.showBusiness', ['hash' => $item->user->hash, 'id' => $item->user->id, 'l' => 3]) }}">
                 <div class="col-sm-12">
                 <img src="{{ Util::thumbnail($item->image, 260, 130) }}" alt="" class="img-responsive img-rounded">
                 <h5>{{ $item->name }}</h5>
