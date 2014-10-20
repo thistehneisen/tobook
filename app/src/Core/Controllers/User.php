@@ -195,15 +195,15 @@ class User extends Base
             'phone'         => e(Input::get('phone')),
         ]);
 
-        // Update business categories
-        if (Input::has('categories')) {
-            $business->updateBusinessCategories(Input::get('categories'));
-        }
         $business->user()->associate($user);
 
         if (!$business->save()) {
-            var_dump($business->getErrors());exit;
             return Redirect::back()->withInput()->withErrors($business->getErrors());
+        }
+
+        // Update business categories
+        if (Input::has('categories')) {
+            $business->updateBusinessCategories(Input::get('categories'));
         }
     }
 

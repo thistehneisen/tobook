@@ -1,11 +1,11 @@
 <?php namespace App\Core\Controllers;
 
+use App\Core\Models\Business;
 use View, Validator, Input, Redirect, Config, Session, Cart;
 use Confide;
 use App\Core\Models\User;
 use App\Core\Models\Role;
 use App\Core\Models\BusinessCategory;
-use App\Core\Models\Role;
 
 class Auth extends Base
 {
@@ -23,6 +23,13 @@ class Auth extends Base
             'password'              => 'required|confirmed',
             'password_confirmation' => 'required',
             'email'                 => 'required|email',
+            'name'                  => 'required',
+            'size'                  => 'required',
+            'address'               => 'required',
+            'city'                  => 'required',
+            'postcode'              => 'required',
+            'country'               => 'required',
+            'phone'                 => 'required',
         ],
         'forgot' => [
             'email' => 'required|email'
@@ -180,11 +187,23 @@ class Auth extends Base
             'email'                 => ['label' => trans('user.email'), 'type' => 'email'],
             'password'              => ['label' => trans('user.password'), 'type' => 'password'],
             'password_confirmation' => ['label' => trans('user.password_confirmation'), 'type' => 'password'],
+            'name'                  => ['label' => trans('user.business.name'), 'type' => 'text'],
+            'description'           => ['label' => trans('user.business.description'), 'type' => 'text'],
+            'phone'                 => ['label' => trans('user.business.phone'), 'type' => 'text'],
+            'address'               => ['label' => trans('user.business.address'), 'type' => 'text'],
+            'city'                  => ['label' => trans('user.business.city'), 'type' => 'text'],
+            'postcode'              => ['label' => trans('user.business.postcode'), 'type' => 'text'],
+            'country'               => ['label' => trans('user.business.country'), 'type' => 'text'],
         ];
+
+        $categories = BusinessCategory::getAll();
+        $selectedCategories = [];
 
         return View::make('auth.register', [
             'fields'             => $fields,
             'validator'          => Validator::make(Input::all(), $this->rules['register']),
+            'categories'         => $categories,
+            'selectedCategories' => $selectedCategories,
         ]);
     }
 
@@ -203,16 +222,34 @@ class Auth extends Base
         }
 
         $user = new User();
-        $user->email                 = Input::get('email');
-        $user->password              = Input::get('password');
-        $user->password_confirmation = Input::get('password_confirmation');
-
+        $user->email                 = e(Input::get('email'));
+        $user->password              = e(Input::get('password'));
+        $user->password_confirmation = e(Input::get('password_confirmation'));
         $user->save();
 
         if ($user->getKey()) {
             // Assign the role
             $role = Role::user();
             $user->attachRole($role);
+
+            $business = new Business([
+                'name'          => e(Input::get('name')),
+                'description'   => e(Input::get('description')),
+                'phone'         => e(Input::get('phone')),
+                'address'       => e(Input::get('address')),
+                'city'          => e(Input::get('city')),
+                'postcode'      => e(Input::get('postcode')),
+                'country'       => e(Input::get('country')),
+                'size'          => e(Input::get('size')),
+            ]);
+            $business->user()->associate($user);
+
+            // ignore business save error
+            $business->save();
+
+            if ($business->getKey()) {
+                $business->updateBusinessCategories(Input::get('categories'));
+            }
 
             $notice = trans('confide::confide.alerts.account_created')
                 .' '.trans('confide::confide.alerts.instructions_sent');

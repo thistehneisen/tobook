@@ -31,6 +31,23 @@
             </div>
         @endforeach
 
+        <div class="form-group {{ Form::errorCSS('size', $errors) }}">
+            <label for="size" class="col-sm-2 col-sm-offset-1 control-label">
+                {{ trans('user.business.size') . Form::required('size', $validator) }}
+            </label>
+            <div class="col-sm-6">
+                {{ Form::select('size', trans('user.business.sizes'), Input::get('size'), ['class' => 'form-control']) }}
+                {{ Form::errorText('size', $errors) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 col-sm-offset-1 control-label">{{ trans('user.profile.business_categories.index') }}</label>
+            <div class="col-sm-6">
+                @include ('user.el.categories')
+            </div>
+        </div>
+
             <div class="form-group">
                 <div class="col-sm-9 col-sm-offset-3">
                     <p>{{ trans('user.accept_terms') }} <a href="#" id="link_terms">{{ trans('user.terms') }}</a></p>

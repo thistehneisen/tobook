@@ -73,7 +73,7 @@ class Business extends Base
 
         if (!empty($new) && $new !== $old) {
             try {
-                $geocode = Geocoder::geocode($new);
+                $geocode = \Geocoder::geocode($new);
                 $this->attributes['lat'] = $geocode->getLatitude();
                 $this->attributes['lng'] = $geocode->getLongitude();
             } catch (\Exception $ex) {
@@ -92,9 +92,11 @@ class Business extends Base
      */
     public function updateBusinessCategories($ids)
     {
-        $all = BusinessCategory::all()->lists('id');
-        $ids = array_intersect($all, $ids);
-        $this->businessCategories()->sync($ids);
+        if (is_array($ids)) {
+            $all = BusinessCategory::all()->lists('id');
+            $ids = array_intersect($all, $ids);
+            $this->businessCategories()->sync($ids);
+        }
     }
 
     public function getCountryList()

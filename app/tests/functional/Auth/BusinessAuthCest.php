@@ -47,7 +47,7 @@ class AuthCest
         $I->seeAuthentication();
     }
 
-    private function _register($I)
+    private function _register(FunctionalTester $I)
     {
         $I->amOnRoute('auth.register');
         $I->canSeeInField('email', '');
@@ -59,6 +59,12 @@ class AuthCest
         $I->fillField('email', $email);
         $I->fillField('password', $password);
         $I->fillField('password_confirmation', $password);
+        $I->fillField('name', 'Business Name');
+        $I->fillField('phone', '1234567890');
+        $I->fillField('address', 'Address');
+        $I->fillField('city', 'City');
+        $I->fillField('postcode', '10000');
+        $I->fillField('country', 'Finland');
         $I->click('#btn-register');
         $I->seeCurrentRouteIs('auth.register.done');
 

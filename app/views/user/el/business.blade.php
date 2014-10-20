@@ -12,7 +12,7 @@
 @endforeach
 
     <div class="form-group {{ Form::errorCSS('size', $errors) }}">
-        <label for="business_size" class="col-sm-2 col-sm-offset-1 control-label">{{ trans('user.business.size') }}</label>
+        <label for="size" class="col-sm-2 col-sm-offset-1 control-label">{{ trans('user.business.size') }}</label>
         <div class="col-sm-6">
             {{ Form::select('size', trans('user.business.sizes'), $business->size, ['class' => 'form-control']) }}
             {{ Form::errorText('size', $errors) }}
