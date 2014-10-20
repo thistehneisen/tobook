@@ -1,4 +1,4 @@
-<?php namespace Appointment\Models;
+<?php namespace Core\Models;
 
 use App\Core\Models\BusinessCategory;
 use App\Core\Models\User;
