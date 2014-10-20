@@ -78,7 +78,7 @@
             {{-- `$inhouse = true` means that we'll show login/register secion in step 4 --}}
             <input type="hidden" id="business_id" value="{{ $business->id }}">
             <input type="hidden" id="business_hash" value="{{ $business->hash }}">
-            @include('modules.as.embed.layout-3.main', ['inhouse' => true])
+            @include('modules.as.embed.layout-3.main', ['inhouse' => true, 'hash' => $business->hash])
         </div>
 
         <div class="box">
