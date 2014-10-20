@@ -61,7 +61,7 @@ $(function() {
             ?>
             <div class="available-slot col-md-3 col-sm-3">
                 <a href="{{ $business->business_url }}">
-                    <img src="{{ Util::thumbnail($business->businessImage, 270, 135, true, true) }}" alt="" class="img-responsive" />
+                    <img src="{{ Util::thumbnail($business->image, 270, 135, true, true) }}" alt="" class="img-responsive" />
                 </a>
                 <div class="info text-left">
                     <a href="{{ $business->business_url }}"><h4>{{ $business->name }}</h4></a>

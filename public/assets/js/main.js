@@ -89,6 +89,7 @@ $(function () {
             url: $this.attr('href')
         }).done(function (e) {
             $('tr.cart-detail-' + $this.data('detail-id')).fadeOut();
+            $doc.trigger('cart.reload', true);
         });
     });
 
