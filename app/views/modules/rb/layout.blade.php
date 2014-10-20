@@ -35,7 +35,17 @@
                 <li><a href="{{ route('rb.tables.index') }}"><i class="fa fa-slideshare"></i>{{ trans('rb.tables.index') }}</a></li>
                 <li><a href="{{ route('rb.menus.index') }}"><i class="fa fa-cutlery"></i> {{ trans('rb.menus.index') }}</a></li>
                 <li><a href="{{ route('rb.groups.index') }}"><i class="fa fa-users"></i> {{ trans('rb.groups.index') }}</a></li>
-                <li><a href="{{ route('rb.options') }}"><i class="fa fa-wrench"></i> {{ trans('rb.options.index') }}</a></li>
+                <li>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('as.services.index') }}">
+                        <i class="fa fa-wrench"></i> {{ trans('as.options.heading') }} <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{ route('rb.options', ['page' => 'general']) }}">{{ trans('as.options.general.index') }}</a></li>
+                        <li><a href="{{ route('rb.options', ['page' => 'working-time']) }}">{{ trans('as.options.working_time.index') }}</a></li>
+                        <li><a href="{{ route('rb.options', ['page' => 'booking']) }}">{{ trans('as.options.booking.index') }}</a></li>
+                        <li><a href="{{ route('rb.options', ['page' => 'style']) }}">{{ trans('as.options.style.index') }}</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->

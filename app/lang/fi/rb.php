@@ -63,6 +63,45 @@ Thank you, we will contact you soon.
 
 HTML;
 
+// TODO
+$reminderEmailTokens = <<< HTML
+You've just made a booking.
+
+Personal details:
+Title: {Title}
+First Name: {FirstName}
+Last Name: {LastName}
+E-Mail: {Email}
+Phone: {Phone}
+Notes: {Notes}
+Country: {Country}
+City: {City}
+State: {State}
+Zip: {Zip}
+Address: {Address}
+Company: {Company}
+
+Booking details:
+Date/Time From: {DateFrom}
+Table: {Table}
+People: {People}
+Booking ID: {BookingID}
+Unique ID: {UniqueID}
+Total: {Total}
+
+If you want to cancel your booking, please click on the following link:
+{CancelURL}
+
+Thank you, we will contact you soon.
+HTML;
+
+// TODO
+$reminderSMSTokens = <<< HTML
+{FirstName}, booking reminder
+
+{Table}
+HTML;
+
 return [
     'tables'    => [
         'index'     => 'Pöydät',
@@ -182,6 +221,22 @@ return [
             'notes'                                     => 'Notes',
             'voucher'                                   => 'Voucher',
             'capcha'                                    => 'Capcha',
+            'terms'                                     => 'Terms',
+            'terms_content'                             => 'Terms content',
+            'terms_enquiry_content'                     => 'Enquiry terms content',
+            'reminder'                                  => 'Reminder',
+            'reminder_enable'                           => 'Enable reminder',
+            'cron_script'                               => 'CRON script',
+            'send_reminder_time'                        => 'Send email reminder (X hours before)',
+            'reminder_email_subject'                    => 'Reminder email subject',
+            'reminder_email_subject_default'            => 'Booking Reminder',
+            'reminder_email_body'                       => 'Reminder email body',
+            'reminder_email_body_default'               => $reminderEmailTokens,
+            'send_sms_time'                             => 'Send SMS remidner (X hours before)',
+            'sms_country_code'                          => 'SMS country code',
+            'sms_messgage'                              => 'Reminder SMS message',
+            'reminder_sms_message_default'              => $reminderSMSTokens,
+            'form_fields'                               => 'Booking field',
         ],
         'working_time'  => [ // TODO
             'index'         => 'Working Time',
@@ -189,6 +244,17 @@ return [
             'start_time'    => 'Start time',
             'end_time'      => 'End time',
             'day_off'       => 'Day off',
+        ],
+        'style' => [
+            'index'                             => 'Front-end style',
+            'style_logo'                        => 'Logo URL',
+            'style_banner'                      => 'Banner',
+            'style_heading_color'               => 'Heading color', // @todo
+            'style_text_color'                  => 'Text color',
+            'style_background'                  => 'Background',
+            'style_custom_css'                  => 'Custom CSS', // @todo
+            'style_main_color'                  => 'Main color', // @todo
+            'style_heading_background'          => 'Heading background', // @todo
         ],
     ],
 ];

@@ -287,6 +287,132 @@ return [
                     'default'   => trans('rb.options.booking.required')
                 ],
             ],
+            'terms' => [
+                'terms_content' => [
+                    'type'  => 'Textarea',
+                ],
+                'terms_enquiry_content'   => [
+                    'type'  => 'Textarea',
+                ]
+            ],
+            'reminder'  => [
+                'reminder_enable'   => [
+                    'type'      => 'Dropdown',
+                    'values'    => [
+                        'yes'   => trans('common.yes'),
+                        'no'   => trans('common.no'),
+                    ],
+                    'default'   => trans('common.yes')
+                ],
+                'cron_script'   => [
+                    'type'      => 'Textarea',
+                    'values'    => 'You need to set up a cron job using your hosting account control panel which should execute every hour. Depending on your web server you should use either the URL or script path.
+
+Server path:
+/restaurantcron.php
+
+URL:
+./cron.php',
+                ],
+                'send_reminder_time'    => [
+                    'type'      => 'Text',
+                    'default'   => '2',
+                ],
+                'reminder_email_subject'    => [
+                    'type'      => 'Text',
+                    'values'    => trans('rb.options.booking.reminder_email_subject_default'),
+                ],
+                'reminder_email_body'       => [
+                    'type'      => 'Textarea',
+                    'default'   => trans('rb.options.booking.reminder_email_body_default'),
+                ],
+                'send_sms_time' => [
+                    'type'      => 'Text',
+                    'default'   => '1',
+                ],
+                'sms_country_code'  => [
+                    'type'      => 'Text',
+                    'default'   => '358',
+                ],
+                'sms_messgage'  => [
+                    'type'      => 'Textarea',
+                    'default'   => trans('rb.options.booking.reminder_sms_message_default'),
+                ],
+            ],
+            'form_fields'   => [
+                'first_name' => [
+                    'type'  => 'Dropdown',
+                    'values'    => [
+                        'yes'   => trans('common.yes'),
+                        'no'   => trans('common.no'),
+                    ],
+                    'default'   => trans('common.yes'),
+                ],
+                'last_name' => [
+                    'type'  => 'Dropdown',
+                    'values'    => [
+                        'yes'   => trans('common.yes'),
+                        'no'   => trans('common.no'),
+                    ],
+                    'default'   => trans('common.yes'),
+                ],
+                'phone' => [
+                    'type'  => 'Dropdown',
+                    'values'    => [
+                        'yes'   => trans('common.yes'),
+                        'no'   => trans('common.no'),
+                    ],
+                    'default'   => trans('common.yes'),
+                ],
+                'email' => [
+                    'type'  => 'Dropdown',
+                    'values'    => [
+                        'yes'   => trans('common.yes'),
+                        'no'   => trans('common.no'),
+                    ],
+                    'default'   => trans('common.yes'),
+                ],
+                'company' => [
+                    'type'  => 'Dropdown',
+                    'values'    => [
+                        'yes'   => trans('common.yes'),
+                        'no'   => trans('common.no'),
+                    ],
+                    'default'   => trans('common.no'),
+                ],
+                'address' => [
+                    'type'  => 'Dropdown',
+                    'values'    => [
+                        'yes'   => trans('common.yes'),
+                        'no'   => trans('common.no'),
+                    ],
+                    'default'   => trans('common.no'),
+                ],
+                'city' => [
+                    'type'  => 'Dropdown',
+                    'values'    => [
+                        'yes'   => trans('common.yes'),
+                        'no'   => trans('common.no'),
+                    ],
+                    'default'   => trans('common.no'),
+                ],
+                'zip' => [
+                    'type'  => 'Dropdown',
+                    'values'    => [
+                        'yes'   => trans('common.yes'),
+                        'no'   => trans('common.no'),
+                    ],
+                    'default'   => trans('common.no'),
+                ],
+                'country' => [
+                    'type'  => 'Dropdown',
+                    'values'    => [
+                        'yes'   => trans('common.yes'),
+                        'no'   => trans('common.no'),
+                    ],
+                    'default'   => trans('common.no'),
+                ],
+            ],
         ],
         'working_time' => [
             'index' => [
@@ -302,6 +428,31 @@ return [
                     ]
                 ]
             ]
+        ],
+        'style' => [
+            'index' => [
+                'style_logo' => [
+                    'type' => 'Text'
+                ],
+                'style_banner' => [
+                    'type' => 'Text'
+                ],
+                'style_heading_color' => [
+                    'type' => 'Text'
+                ],
+                'style_heading_background' => [
+                    'type' => 'Text'
+                ],
+                'style_main_color' => [
+                    'type' => 'Text'
+                ],
+                'style_background' => [
+                    'type' => 'Text'
+                ],
+                'style_custom_css' => [
+                    'type' => 'Textarea'
+                ],
+            ],
         ],
     ],
 ];
