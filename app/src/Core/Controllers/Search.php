@@ -2,7 +2,7 @@
 
 use View, Input, DB, Util, Response, Geocoder, App, Config, Es, Paginator;
 use App\Core\Models\BusinessCategory;
-use App\Core\Models\Business as BusinessModel;
+use App\Core\Models\User;
 use Carbon\Carbon;
 
 class Search extends Base
@@ -46,8 +46,17 @@ class Search extends Base
             ];
             $result = Es::search($params);
             $total = $result['hits']['total'];
+
+            // get all users at once for performance
+            $userIds = [];
             foreach ($result['hits']['hits'] as $row) {
-                $data[] = BusinessModel::find($row['_id']);
+                $userIds[] = $row['_id'];
+            }
+            $users = User::findMany($userIds);
+            foreach ($users as $user) {
+                if (!empty($user->business)) {
+                    $data[] = $user->business;
+                }
             }
         }
 
