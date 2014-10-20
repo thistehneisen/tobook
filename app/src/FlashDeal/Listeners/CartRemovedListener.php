@@ -6,8 +6,7 @@ use App\Cart\CartDetail;
 class CartRemovedListener
 {
     /**
-     * When a booking service is remove from cart, we should release that
-     * booking service and booking
+     * When a flash deal is remove from cart, we should release that flash deal
      *
      * @param int $id
      *
@@ -16,7 +15,7 @@ class CartRemovedListener
     public function handle($id)
     {
         $cartDetail = CartDetail::find($id);
-        if ($cartDetail === null) {
+        if ($cartDetail === null || $cartDetail->model === null) {
             // Nothing to do here
             return;
         }

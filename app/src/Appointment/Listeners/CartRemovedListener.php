@@ -17,13 +17,13 @@ class CartRemovedListener
     public function handle($id)
     {
         $cartDetail = CartDetail::find($id);
-        if ($cartDetail === null) {
+        if ($cartDetail === null || $cartDetail->model === null) {
             // Nothing to do here
             return;
         }
 
-        if ($cartDetail->model->instance instanceof BookingService) {
-            $bookingService = $cartDetail->model->instance;
+        $bookingService = $cartDetail->model->instance;
+        if ($bookingService instanceof BookingService) {
             // Remove booking first
             if ($bookingService->booking !== null) {
                 $bookingService->booking->delete();
