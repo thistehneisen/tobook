@@ -1,15 +1,9 @@
 {{ Form::open(['id' => 'frm-profile', 'route' => 'user.profile', 'class' => 'form-horizontal', 'role' => 'form']) }}
     <h3 class="comfortaa orange">{{ trans('user.profile.business') }}</h3>
 
-@foreach (['name', 'description', 'phone', 'address', 'city', 'postcode', 'country'] as $field)
-    <div class="form-group {{ Form::errorCSS($field, $errors) }}">
-        {{ Form::label($field, trans('user.business.'.$field).Form::required($field, $validator), ['class' => 'col-sm-2 col-sm-offset-1 control-label']) }}
-        <div class="col-sm-6">
-            {{ Form::text($field, Input::get($field, $business->$field), ['class' => 'form-control']) }}
-            {{ Form::errorText($field, $errors) }}
-        </div>
-    </div>
-@endforeach
+    @foreach ($businessLomake->fields as $field)
+        @include('varaa-lomake::fields.group')
+    @endforeach
 
     <div class="form-group {{ Form::errorCSS('size', $errors) }}">
         <label for="size" class="col-sm-2 col-sm-offset-1 control-label">{{ trans('user.business.size') }}</label>
