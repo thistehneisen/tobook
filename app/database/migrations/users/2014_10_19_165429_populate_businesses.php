@@ -17,11 +17,6 @@ class PopulateBusinesses extends Migration
     {
         $required = [
             'name',
-            'size',
-            'address',
-            'city',
-            'postcode',
-            'country',
             'phone'
         ];
 

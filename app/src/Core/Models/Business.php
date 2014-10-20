@@ -21,11 +21,6 @@ class Business extends Base
     public $rulesets = [
         'saving' => [
             'name' => 'required',
-            'size' => 'required',
-            'address' => 'required',
-            'city' => 'required',
-            'postcode' => 'required',
-            'country' => 'required',
             'phone' => 'required',
         ]
     ];
