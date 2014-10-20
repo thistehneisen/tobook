@@ -1,5 +1,6 @@
 <?php namespace App\Core\Models;
 
+use Config;
 use App\Core\Models\Relations\BusinessBusinessCategory;
 
 class Business extends Base
@@ -144,32 +145,44 @@ class Business extends Base
 
     public function getImageAttribute()
     {
-        foreach ($this->businessCategories as $cat) {
-            switch ($cat->name) {
-                case 'Beauty &amp; Hair':
-                    return '/assets/img/categories/hair/7.jpg';
+        $image = $this->user->images()->businessImages()->first();
+        if (!empty($image)) {
+            $image = Config::get('varaa.upload_folder').$image->path;
+        } else {
+            foreach ($this->businessCategories as $cat) {
+                switch ($cat->name) {
+                    case 'Beauty &amp; Hair':
+                        $image = 'assets/img/categories/beauty/beauty1.jpg';
+                        break;
 
-                case 'Hairdresser':
-                    return '/assets/img/categories/hair/2.jpg';
+                    case 'Hairdresser':
+                        $image = 'assets/img/categories/hair/hair1.jpg';
+                        break;
 
-                case 'Restaurant':
-                    return '/assets/img/categories/restaurant/1.jpg';
-                    break;
+                    case 'Restaurant':
+                        $image = 'assets/img/categories/restaurant/res2.jpg';
+                        break;
 
-                case 'Fine Dining':
-                    return '/assets/img/categories/restaurant/8.jpg';
+                    case 'Fine Dining':
+                        $image = 'assets/img/categories/restaurant/res8.jpg';
 
-                case 'Car Wash':
-                    return '/assets/img/categories/carwash/2.jpg';
+                    case 'Car Wash':
+                        $image = 'assets/img/categories/carwash/car1.jpg';
+                        break;
 
-                case 'Activities':
-                    return '/assets/img/categories/fitness/1.jpg';
+                    case 'Activities':
+                        $image = 'assets/img/categories/fitness/fitness1.jpg';
+                        break;
 
-                default:
-                    break;
+                    default:
+                        break;
+                }
             }
         }
+
+        return $image;
     }
+
 
     public function getBusinessUrlAttribute()
     {

@@ -54,9 +54,7 @@ class Search extends Base
             }
             $users = User::findMany($userIds);
             foreach ($users as $user) {
-                if (!empty($user->business)) {
-                    $data[] = $user->business;
-                }
+                $data[] = $user->business;
             }
         }
 
