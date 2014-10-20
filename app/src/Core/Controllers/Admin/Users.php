@@ -15,12 +15,7 @@ class Users extends Base
         'layout'      => 'layouts.admin',
         'langPrefix'  => 'user',
         'actionsView' => 'admin.users.actions',
-        'indexFields' => [
-            'username',
-            'full_name',
-            'email',
-            'full_address'
-        ]
+        'indexFields' => ['email']
     ];
 
     /**

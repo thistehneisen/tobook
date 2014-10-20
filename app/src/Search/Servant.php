@@ -1,5 +1,7 @@
 <?php namespace App\Search;
 
+use App\Core\Models\Business;
+
 /**
  * Indexing/searching functions to interact with ElasticSearch (atm)
  * @author Hung Nguyen <hung@varaa.com>
@@ -36,16 +38,16 @@ class Servant
     /**
      * Update ElasticSearch index businesses/business for a business user
      *
-     * @param \App\Core\Models\User $business
+     * @param \App\Core\Models\Business $business
      * @return json
      */
-    public function upsertIndexForBusiness($business)
+    public function upsertIndexForBusiness(Business $business)
     {
 
-        $params['id'] = $business->id;
+        $params['id'] = $business->user->id;
 
-        $businessName =   (!empty($business->business_name))
-                ?  $business->business_name
+        $businessName =   (!empty($business->name))
+                ?  $business->name
                 : null;
 
         $categoryNameList = [];
@@ -60,7 +62,6 @@ class Servant
         $categoryKeywords = implode(", ", $categoryKeywordList);
 
         $params['body'] = [
-            'name'          => $business->username,
             'business_name' => $businessName,
             'category_name' => $categoryNames,
             'keywords'      => $categoryKeywords,

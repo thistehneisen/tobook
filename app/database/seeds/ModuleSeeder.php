@@ -12,7 +12,6 @@ class ModuleSeeder extends Seeder
      */
     public function run()
     {
-
         $data = [
             ['name' => 'appointment', 'uri' => '/services/appointment-scheduler'],
             ['name' => 'cashier', 'uri' => '/services/cashier'],
@@ -23,12 +22,19 @@ class ModuleSeeder extends Seeder
 
         $modules = [];
         foreach ($data as $item) {
+            if (Module::where('name', $item['name'])->first()) {
+                // do not make duplicates
+                continue;
+            }
+
             $module = new Module($item);
             $module->save();
 
             $modules[] = $module->id;
         }
 
+        // TODO fix this
+        /*
         // All users
         $users = User::all();
         $start = Carbon::now();
@@ -42,6 +48,7 @@ class ModuleSeeder extends Seeder
                 'is_active' => true
             ]);
         }
+        */
     }
 
 }

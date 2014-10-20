@@ -77,6 +77,11 @@ class BusinessCategorySeeder extends Seeder
         ];
 
         foreach ($items as $item) {
+            if (BusinessCategory::where('name', $item['name'])->first()) {
+                // do not make duplicates
+                continue;
+            }
+
             $parent = new BusinessCategory(['name' => $item['name']]);
             $parent->save();
 

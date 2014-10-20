@@ -1,55 +1,67 @@
 <?php namespace Test\Functional\Auth;
 
-use Test\Elements\Auth;
+use App\Core\Models\User;
+use Appointment\Traits\Models;
 use FunctionalTester;
 
 /**
  * @group core
  */
-class AuthCest extends \Test\Functional\Base
+class AuthCest
 {
-    public function loginWithoutAnyInformation(FunctionalTester $I)
+    use Models;
+
+    public function _before(FunctionalTester $I)
     {
-        $I->amOnPage(Auth::$loginUrl);
-        $I->submitForm(Auth::$loginForm, []);
-        $I->seeElement(Auth::$loginForm.' .has-error');
+        $this->_modelsReset();
     }
 
-    public function loginWithWrongInformation(FunctionalTester $I)
+    public function testRegister(FunctionalTester $I)
     {
-        $I->amOnPage(Auth::$loginUrl);
-        $I->submitForm(Auth::$loginForm, [
-            'username' => 'foo',
-            'password' => 'bar',
-        ]);
-        $I->seeElement('.alert.alert-danger');
+        list($email,) = $this->_register($I);
+
+        $user = User::where('email', $email)->first();
+        $I->assertNotNull($user, '$user');
+        $I->assertEquals($email, $user->email, '$user->email');
+        $I->assertEquals(0, $user->confirmed, '$user->confirmed');
+        $I->assertTrue($user->is_business, '$user->is_business');
     }
 
-    public function seeRegistrationLinkInLoginPage(FunctionalTester $I)
+    public function testLogin(FunctionalTester $I)
     {
-        $I->amOnPage(Auth::$loginUrl);
-        $I->click(Auth::$loginRegisterLink);
-        $I->seeInCurrentUrl(Auth::$businessRegisterUrl);
+        list($email, $password) = $this->_register($I);
+
+        $I->dontSeeAuthentication();
+
+        $user = User::where('email', $email)->first();
+        \Confide::confirm($user->confirmation_code);
+
+        $I->amOnRoute('auth.login');
+        $I->canSeeInField('username', '');
+        $I->canSeeInField('password', '');
+
+        $I->fillField('username', $email);
+        $I->fillField('password', $password);
+        $I->click('#btn-login');
+
+        $I->seeAuthentication();
     }
 
-    public function seeForgotPasswordLinkInLoginPage(FunctionalTester $I)
+    private function _register($I)
     {
-        $I->amOnPage(Auth::$loginUrl);
-        $I->click(Auth::$loginForgotLink);
-        $I->seeInCurrentUrl(Auth::$forgotPasswordUrl);
-    }
+        $I->amOnRoute('auth.register');
+        $I->canSeeInField('email', '');
+        $I->canSeeInField('password', '');
+        $I->canSeeInField('password_confirmation', '');
 
-    public function registerWithoutAnyInformation(FunctionalTester $I)
-    {
-        $I->amOnPage(Auth::$businessRegisterUrl);
-        $I->submitForm(Auth::$registerForm, []);
-        $I->seeElement(Auth::$registerForm.' .has-error');
-    }
+        $email = 'business' . time() . '@varaa.com';
+        $password = '123456';
+        $I->fillField('email', $email);
+        $I->fillField('password', $password);
+        $I->fillField('password_confirmation', $password);
+        $I->click('#btn-register');
+        $I->seeCurrentRouteIs('auth.register.done');
 
-    public function seeLoginLinkInRegistrationPage(FunctionalTester $I)
-    {
-        $I->amOnPage(Auth::$businessRegisterUrl);
-        $I->click(Auth::$registerLinkLogin);
-        $I->seeInCurrentUrl(Auth::$loginUrl);
+        return [$email, $password];
     }
 }

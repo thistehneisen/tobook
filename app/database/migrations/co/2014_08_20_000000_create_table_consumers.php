@@ -12,6 +12,11 @@ class CreateTableConsumers extends Migration {
 	 */
 	public function up()
 	{
+        if (Schema::hasTable('consumers'))
+        {
+            return;
+        }
+
 		Schema::create('consumers', function(Blueprint $table)
 		{
 			$table->increments('id');

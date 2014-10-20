@@ -15,31 +15,11 @@ class User extends ConfideUser
 
     public $visible = [
         'id',
-        'username',
         'email',
-        'first_name',
-        'last_name',
-        'phone',
-        'address',
-        'city',
     ];
 
     public $fillable = [
-        'username',
-        'confirmed',
         'email',
-        'first_name',
-        'last_name',
-        'phone',
-        'address',
-        'city',
-        'postcode',
-        'country',
-        'description',
-        'business_size',
-        'business_name',
-        'lat',
-        'lng'
     ];
 
     /**
@@ -92,118 +72,6 @@ class User extends ConfideUser
         return CalendarKeeper::getDefaultWorkingTimes($this, $date, $showUntilLastestBooking);
     }
 
-    /**
-     * Get a number of random users
-     *
-     * @param int categoryId
-     * @param int quantity
-     *
-     * @return Illuminate\Support\Collection
-     */
-    public static function getRandomUser($categoryId, $quantity)
-    {
-        //It is not efficient to order by RAND() but we have relatively small customers base
-        $users = self::orderBy(DB::raw('RAND()'))
-            ->join('business_category_user', 'business_category_user.user_id', '=','users.id')
-            ->where('business_category_user.business_category_id', $categoryId)
-            ->where('business_name', '!=', '')
-            ->limit($quantity)->get();
-        return $users;
-    }
-
-    /**
-     * @{@inheritdoc}
-     */
-    public static function boot()
-    {
-        parent::boot();
-
-        // Whenever updating account, we will try to find geocode of this user
-        static::updating(function($user) {
-            $user->updateGeo();
-            return true;
-        });
-
-        static::saved(function ($user) {
-            $user->updateSearchIndex();
-        });
-    }
-
-    /**
-     * Overwrite this magic method, so that consumer user will return the correct
-     * value instead
-     *
-     * @param string $key
-     *
-     * @return mixed
-     */
-    public function __get($key)
-    {
-        // The list of share attributes between a normal user and a consumer
-        $details = [
-            'id'         => true,
-            'first_name' => true,
-            'last_name'  => true,
-            'email'      => true,
-            'phone'      => true,
-            'address'    => true,
-            'city'       => true,
-            'postcode'   => true,
-            'country'    => true,
-        ];
-
-        // If the requested key is not in the whitelist
-        if (!isset($details[$key])) {
-            // We'll just need to return it
-            return parent::__get($key);
-        }
-
-        // Otherwise, check if this user is a consumer user
-        $consumer = $this->consumer;
-        if ($consumer !== null) {
-            // Return the consumer value instead
-            return $consumer->$key;
-        }
-
-        // For users of other roles, return as usual
-        return parent::__get($key);
-    }
-
-    /**
-     * Old function to search by using SQL like
-     *
-     * @return
-     */
-    public static function search($q, $location)
-    {
-        $query = with(new self())->newQuery();
-        if (!empty($q)) {
-            $queryString = '%'.$q.'%';
-            $query = $query->whereHas(
-                'businessCategories',
-                function ($query) use ($queryString) {
-                    return $query->where('name', 'LIKE', $queryString)
-                        ->orWhere('keywords', 'LIKE', $queryString);
-                }
-            )->orWhere('business_name', 'LIKE', $queryString);
-        }
-
-        if (!empty($location)) {
-            $query = $query->where('city', 'LIKE', '%'.$location.'%');
-        }
-
-        $businesses = $query
-            ->where('business_name', '!=', '')
-            ->paginate(Config::get('view.perPage'));
-
-        return $businesses;
-    }
-
-    public function updateSearchIndex()
-    {
-        return App\Search\Servant::getInstance()->upsertIndexForBusiness($this);
-    }
-
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
@@ -217,11 +85,6 @@ class User extends ConfideUser
     {
         return $this->belongsToMany('App\Consumers\Models\Consumer')
             ->withPivot('is_visible');
-    }
-
-    public function businessCategories()
-    {
-        return $this->belongsToMany('App\Core\Models\BusinessCategory');
     }
 
     public function asServiceCategories()
@@ -252,6 +115,11 @@ class User extends ConfideUser
     public function consumer()
     {
         return $this->belongsTo('App\Consumers\Models\Consumer');
+    }
+
+    public function business()
+    {
+        return $this->hasOne('App\Core\Models\Business');
     }
 
     //--------------------------------------------------------------------------
@@ -347,20 +215,6 @@ class User extends ConfideUser
     }
 
     /**
-     * Sync valid Business Categories for this user
-     *
-     * @param array $ids A list of business category IDs
-     *
-     * @return void
-     */
-    public function updateBusinessCategories($ids)
-    {
-        $all = BusinessCategory::all()->lists('id');
-        $ids = array_intersect($all, $ids);
-        $this->businessCategories()->sync($ids);
-    }
-
-    /**
      * Check if this user has the given module enabled
      *
      * @param string $moduleName
@@ -370,33 +224,6 @@ class User extends ConfideUser
     public function hasModule($moduleName)
     {
         return isset($this->modules[$moduleName]);
-    }
-
-    /**
-     * Update latitude and longitude of the current address
-     *
-     * @return void
-     */
-    public function updateGeo()
-    {
-        $new = $this->full_address;
-        $old = $this->getFullAddress(
-            $this->getOriginal('address'),
-            $this->getOriginal('postcode'),
-            $this->getOriginal('city'),
-            $this->getOriginal('country')
-        );
-
-        if (!empty($new) && $new !== $old) {
-            try {
-                $geocode = Geocoder::geocode($new);
-                $this->attributes['lat'] = $geocode->getLatitude();
-                $this->attributes['lng'] = $geocode->getLongitude();
-            } catch (\Exception $ex) {
-                // Silently fail
-                \Log::error($ex->getMessage(), ['context' => 'Update user profile']);
-            }
-        }
     }
 
 
@@ -431,11 +258,6 @@ class User extends ConfideUser
     public function getBusinessUrlAttribute()
     {
         return route('business.index', ['id' => $this->id, 'slug' => $this->slug]);
-    }
-
-    public function getNameAttribute()
-    {
-        return $this->first_name.' '.$this->last_name;
     }
 
     /**
@@ -480,11 +302,6 @@ class User extends ConfideUser
         return $this->asOptionsCache;
     }
 
-    public function getCountryList()
-    {
-        return [ trans("common.select") ,"Afghanistan", "Aland Islands", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla", "Antarctica", "Antigua", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Barbuda", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia", "Botswana", "Bouvet Island", "Brazil", "British Indian Ocean Trty.", "Brunei Darussalam", "Bulgaria", "Burkina Faso", "Burundi", "Caicos Islands", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Cayman Islands", "Central African Republic", "Chad", "Chile", "China", "Christmas Island", "Cocos (Keeling) Islands", "Colombia", "Comoros", "Congo", "Congo, Democratic Republic of the", "Cook Islands", "Costa Rica", "Cote d'Ivoire", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Falkland Islands (Malvinas)", "Faroe Islands", "Fiji", "Finland", "France", "French Guiana", "French Polynesia", "French Southern Territories", "Futuna Islands", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Greece", "Greenland", "Grenada", "Guadeloupe", "Guam", "Guatemala", "Guernsey", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Heard", "Herzegovina", "Holy See", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran (Islamic Republic of)", "Iraq", "Ireland", "Isle of Man", "Israel", "Italy", "Jamaica", "Jan Mayen Islands", "Japan", "Jersey", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea", "Korea (Democratic)", "Kuwait", "Kyrgyzstan", "Lao", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libyan Arab Jamahiriya", "Liechtenstein", "Lithuania", "Luxembourg", "Macao", "Macedonia", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Martinique", "Mauritania", "Mauritius", "Mayotte", "McDonald Islands", "Mexico", "Micronesia", "Miquelon", "Moldova", "Monaco", "Mongolia", "Montenegro", "Montserrat", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "Netherlands Antilles", "Nevis", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Niue", "Norfolk Island", "Northern Mariana Islands", "Norway", "Oman", "Pakistan", "Palau", "Palestinian Territory, Occupied", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Pitcairn", "Poland", "Portugal", "Principe", "Puerto Rico", "Qatar", "Reunion", "Romania", "Russian Federation", "Rwanda", "Saint Barthelemy", "Saint Helena", "Saint Kitts", "Saint Lucia", "Saint Martin (French part)", "Saint Pierre", "Saint Vincent", "Samoa", "San Marino", "Sao Tome", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Georgia", "South Sandwich Islands", "Spain", "Sri Lanka", "Sudan", "Suriname", "Svalbard", "Swaziland", "Sweden", "Switzerland", "Syrian Arab Republic", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "The Grenadines", "Timor-Leste", "Tobago", "Togo", "Tokelau", "Tonga", "Trinidad", "Tunisia", "Turkey", "Turkmenistan", "Turks Islands", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "US Minor Outlying Islands", "Uzbekistan", "Vanuatu", "Vatican City State", "Venezuela", "Vietnam", "Virgin Islands (British)", "Virgin Islands (US)", "Wallis", "Western Sahara", "Yemen", "Zambia", "Zimbabwe"];
-    }
-
     /**
      * Return the hash of this user, useful for generate embeded URLs
      *
@@ -522,79 +339,13 @@ class User extends ConfideUser
     }
 
     /**
-     * Generate full address based on address fragments
+     * Check to see if this user is a business
      *
-     * @param string $address
-     * @param string $postcode
-     * @param string $city
-     * @param string $country
-     *
-     * @return string
+     * @return bool
      */
-    protected function getFullAddress($address, $postcode, $city, $country)
+    public function getIsBusinessAttribute()
     {
-        return sprintf('%s, %s %s, %s', $address, $postcode, $city, $country);
-    }
-
-    /**
-     * Return the full address of this user
-     *
-     * @return string
-     */
-    public function getFullAddressAttribute()
-    {
-        return $this->getFullAddress(
-            $this->attributes['address'],
-            $this->attributes['postcode'],
-            $this->attributes['city'],
-            $this->attributes['country']
-        );
-    }
-
-    public function getFullNameAttribute()
-    {
-        return $this->attributes['first_name'].' '.$this->attributes['last_name'];
-    }
-
-
-    public function getBusinessImageAttribute()
-    {
-        $image = $this->images()->businessImages()->first();
-        if (!empty($image)) {
-            $image = Config::get('varaa.upload_folder').$image->path;
-        } else {
-            foreach ($this->businessCategories as $cat) {
-                switch ($cat->name) {
-                    case 'Beauty &amp; Hair':
-                        $image = 'assets/img/categories/beauty/beauty1.jpg';
-                        break;
-
-                    case 'Hairdresser':
-                        $image = 'assets/img/categories/hair/hair1.jpg';
-                        break;
-
-                    case 'Restaurant':
-                        $image = 'assets/img/categories/restaurant/res2.jpg';
-                        break;
-
-                    case 'Fine Dining':
-                        $image = 'assets/img/categories/restaurant/res8.jpg';
-
-                    case 'Car Wash':
-                        $image = 'assets/img/categories/carwash/car1.jpg';
-                        break;
-
-                    case 'Activities':
-                        $image = 'assets/img/categories/fitness/fitness1.jpg';
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-        }
-
-        return $image;
+        return $this->hasRole(Role::USER);
     }
 
     /**
@@ -608,12 +359,14 @@ class User extends ConfideUser
     }
 
     /**
-     * Check to see if this user is a business account
-     *
-     * @return bool
+     * @{@inheritdoc}
      */
-    public function getIsBusinessAttribute()
+    public static function boot()
     {
-        return $this->hasRole(Role::USER);
+        parent::boot();
+
+        if (isset(ConfideUser::$rules['username'])) {
+            unset(ConfideUser::$rules['username']);
+        }
     }
 }

@@ -5,6 +5,7 @@ use Confide;
 use App\Core\Models\User;
 use App\Core\Models\Role;
 use App\Core\Models\BusinessCategory;
+use App\Core\Models\Role;
 
 class Auth extends Base
 {
@@ -19,13 +20,9 @@ class Auth extends Base
             'password' => 'required'
         ],
         'register' => [
-            'username'              => 'required',
             'password'              => 'required|confirmed',
             'password_confirmation' => 'required',
             'email'                 => 'required|email',
-            'phone'                 => 'required',
-            'business_name'         => 'required',
-            'categories'            => 'required',
         ],
         'forgot' => [
             'email' => 'required|email'
@@ -180,22 +177,14 @@ class Auth extends Base
     public function register()
     {
         $fields = [
-            'username'              => ['label' => trans('user.username')],
+            'email'                 => ['label' => trans('user.email'), 'type' => 'email'],
             'password'              => ['label' => trans('user.password'), 'type' => 'password'],
             'password_confirmation' => ['label' => trans('user.password_confirmation'), 'type' => 'password'],
-            'email'                 => ['label' => trans('user.email'), 'type' => 'email'],
-            'business_name'         => ['label' => trans('user.business_name')],
-            'phone'                 => ['label' => trans('user.phone')],
         ];
-
-        // Get all business categories
-        $categories = BusinessCategory::getAll();
 
         return View::make('auth.register', [
             'fields'             => $fields,
             'validator'          => Validator::make(Input::all(), $this->rules['register']),
-            'categories'         => $categories,
-            'selectedCategories' => Input::old('categories', [])
         ]);
     }
 
@@ -214,8 +203,6 @@ class Auth extends Base
         }
 
         $user = new User();
-
-        $user->username              = Input::get('username');
         $user->email                 = Input::get('email');
         $user->password              = Input::get('password');
         $user->password_confirmation = Input::get('password_confirmation');
@@ -223,9 +210,6 @@ class Auth extends Base
         $user->save();
 
         if ($user->getKey()) {
-            // Update selected business categories
-            $user->updateBusinessCategories(Input::get('categories'));
-
             // Assign the role
             $role = Role::user();
             $user->attachRole($role);

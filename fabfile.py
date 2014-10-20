@@ -1,5 +1,7 @@
 from fabric.api import cd, run, local, task, hosts, env
+import glob
 import os
+import shutil
 
 HOME = os.getenv('HOME')
 
@@ -71,7 +73,10 @@ def test(suite='', group='', debug=''):
     if group != '':
         group = '-g {}'.format(group)
     if debug != '':
-        debug = '--debug'
+        debug = '--debug -vvv'
+    # rebuild the tester classes first
+    local('./vendor/bin/codecept build')
+    # then run the tests
     local('./vendor/bin/codecept run {} {} {}'.format(suite, group, debug))
 
 
@@ -81,16 +86,31 @@ def create_migrate(table='table'):
 
 
 @task(alias='m')
-def migrate(module=''):
+def migrate(module='', env=''):
     '''
     Run migration
     '''
     if module == '':
-        local('php artisan migrate')
+        # prepare all-migrations directory for files
+        # using tempfile.mkdtemp would be better but Laravel Migrator doesn't allow that, yet
+        path = 'app/database/all-migrations'
+        if os.path.exists(path):
+            shutil.rmtree(path)
+        os.makedirs(path)
+        # get all migration files in module directories, copy to all-migrations
+        for file in glob.glob('app/database/migrations/*/*.php'):
+            shutil.copy(file, path)
+        # run migration using all-migrations now
+        local(
+            'php artisan migrate --path={} --env={}'
+            .format(path, env)
+        )
+        if env == 'testing':
+            local('php artisan db:seed --class=TestingSeeder --env=testing')
     else:
         local(
-            'php artisan migrate --path=app/database/migrations/{}'
-            .format(module)
+            'php artisan migrate --path=app/database/migrations/{} --env={}'
+            .format(module, env)
         )
 
 

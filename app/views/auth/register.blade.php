@@ -30,12 +30,6 @@
                 </div>
             </div>
         @endforeach
-            <div class="form-group {{ Form::errorCSS('business_categories', $errors) }}">
-                <label class="col-sm-2 col-sm-offset-1 control-label">{{ trans('user.profile.business_categories.index'), Form::required('categories', $validator) }}</label>
-                <div class="col-sm-6">
-                    @include ('user.el.categories')
-                </div>
-            </div>
 
             <div class="form-group">
                 <div class="col-sm-9 col-sm-offset-3">
@@ -46,7 +40,10 @@
 
             <div class="form-group">
                 <div class="col-sm-9 text-right">
-                    <button class="btn btn-lg btn-success text-uppercase comfortaa">{{ trans('common.register') }} <i class="fa fa-check-circle"></i></button>
+                    <button type="submit" id="btn-register" class="btn btn-lg btn-success text-uppercase comfortaa">
+                        {{ trans('common.register') }}
+                        <i class="fa fa-check-circle"></i>
+                    </button>
                 </div>
             </div>
         {{ Form::close() }}

@@ -33,7 +33,10 @@
             <div class="form-group">
                 <div class="col-sm-9 col-sm-offset-3">
                     {{ Form::hidden('fromCheckout', Session::get('fromCheckout', Input::get('fromCheckout'))) }}
-                    <button class="btn btn-lg btn-success text-uppercase comfortaa">{{ trans('common.register') }} <i class="fa fa-check-circle"></i></button>
+                    <button type="submit" id="btn-register" class="btn btn-lg btn-success text-uppercase comfortaa">
+                        {{ trans('common.register') }}
+                        <i class="fa fa-check-circle"></i>
+                    </button>
                 </div>
             </div>
         {{ $lomake->close() }}
