@@ -33,7 +33,10 @@
 
             <div class="form-group">
                 <div class="col-sm-9 text-right">
-                    <button class="btn btn-lg btn-success text-uppercase comfortaa">{{ trans('common.register') }} <i class="fa fa-check-circle"></i></button>
+                    <button type="submit" id="btn-register" class="btn btn-lg btn-success text-uppercase comfortaa">
+                        {{ trans('common.register') }}
+                        <i class="fa fa-check-circle"></i>
+                    </button>
                 </div>
             </div>
         {{ $lomake->close() }}

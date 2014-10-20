@@ -39,7 +39,7 @@
 
             <div class="form-group">
                 <div class="col-sm-9 text-right">
-                    <button id="btn-login" class="btn btn-lg btn-orange to-upper comfortaa">{{ trans('common.sign_in') }}</button>
+                    <button type="submit" id="btn-login" class="btn btn-lg btn-orange to-upper comfortaa">{{ trans('common.sign_in') }}</button>
                 </div>
             </div>
         {{ Form::close() }}

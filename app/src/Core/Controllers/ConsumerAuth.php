@@ -1,5 +1,6 @@
 <?php namespace App\Core\Controllers;
 
+use App\Consumers\Models\Consumer;
 use View, Validator, Input, Redirect, Config, Session;
 use Confide, Lomake;
 use App\Core\Models\User;
@@ -19,7 +20,6 @@ class ConsumerAuth extends Auth
             'overwrite'  => true,
             'langPrefix' => 'user',
             'fields'     => [
-                'username'              => ['type' => 'Text'],
                 'email'                 => ['type' => 'Email'],
                 'password'              => ['type' => 'Password'],
                 'password_confirmation' => ['type' => 'Password'],
@@ -39,7 +39,6 @@ class ConsumerAuth extends Auth
     public function doRegister()
     {
         $user                        = new User;
-        $user->username              = e(Input::get('username'));
         $user->email                 = e(Input::get('email'));
         $user->password              = e(Input::get('password'));
         $user->password_confirmation = e(Input::get('password_confirmation'));
@@ -56,7 +55,6 @@ class ConsumerAuth extends Auth
         // Assign the role
         $role = Role::consumer();
         $user->attachRole($role);
-
 
         $notice = trans('confide::confide.alerts.account_created')
             .' '.trans('confide::confide.alerts.instructions_sent');
