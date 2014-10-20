@@ -12,17 +12,16 @@
     <div class="row">
         <div class="col-md-8">
             <h3>{{ $item->flashDeal->service->name }}
-            <span class="orange"><i class="fa fa-arrow-down"></i>{{ $item->flashDeal->discount_percent }}%</span>
+            <span class="orange">-{{ $item->flashDeal->discount_percent }}%</span>
             </h3>
 
             @if (!empty($item->flashDeal->service->description))
             <div class="well">{{ $item->flashDeal->service->description }}</div>
             @endif
-
         </div>
         <div class="col-md-4 text-center">
-            <h4 class="comfortaa">{{ $item->flashDeal->discounted_price }}&euro; ({{ trans('common.normal') }} {{ $item->flashDeal->service->price }}&euro;)</h4>
-            <button data-url="{{ route('fd.cart') }}" data-business-id="{{ $item->flashDeal->service->user->id }}" data-deal-id="{{ $item->id }}" class="btn btn-md btn-success text-uppercase comfortaa btn-fd-cart">{{ trans('home.cart.add') }} <i class="fa fa-shopping-cart"></i></button>
+            <h4><span class="orange"> {{ $item->flashDeal->discounted_price }}&euro;</span> <small>({{ trans('common.normal') }} {{ $item->flashDeal->service->price }}&euro;)</small></h4>
+            <button data-url="{{ route('fd.cart') }}" data-business-id="{{ $item->flashDeal->service->user->id }}" data-deal-id="{{ $item->id }}" class="btn btn-md btn-success btn-fd-cart">{{ trans('home.cart.add') }} <i class="fa fa-shopping-cart"></i></button>
         </div>
     </div>
 

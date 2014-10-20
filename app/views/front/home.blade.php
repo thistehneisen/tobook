@@ -58,17 +58,13 @@ $(function() {
             <?php
                 $slots = $business->getASNextTimeSlots($now, $now->hour);
                 $count = 0;
-                $businessUrl = route('business.index', [
-                    'id'          => $business->id,
-                    'slug'        => $business->slug,
-                ]);
             ?>
             <div class="available-slot col-md-3 col-sm-3">
-                <a href="{{ $businessUrl }}">
+                <a href="{{ $business->business_url }}">
                     <img src="{{ Util::thumbnail($business->businessImage, 270, 135, true, true) }}" alt="" class="img-responsive" />
                 </a>
                 <div class="info text-left">
-                    <a href="{{ $businessUrl }}"><h4>{{ $business->business_name }}</h4></a>
+                    <a href="{{ $business->business_url }}"><h4>{{ $business->business_name }}</h4></a>
                     <p>{{ $business->full_address }}</p>
                     @foreach ($slots as $slot)
                         <?php if($count === 3) break;?>

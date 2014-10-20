@@ -173,7 +173,7 @@ applyCountdown($('span.countdown'));
             <div class="result-row row" data-id="{{ $item->id }}" data-url="{{ route('ajax.showBusiness', ['hash' => $item->hash, 'id' => $item->id, 'l' => 3]) }}">
                 <div class="col-sm-12">
                 <img src="{{ Util::thumbnail($item->businessImage, 260, 130) }}" alt="" class="img-responsive img-rounded">
-                <h4>{{ $item->business_name }}</h4>
+                <h5>{{ $item->business_name }}</h5>
                 <p>{{ $item->full_address }}</p>
                 @foreach ($slots as $slot)
                     <?php if($count === 3) break;?>
