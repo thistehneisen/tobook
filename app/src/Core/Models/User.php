@@ -324,6 +324,16 @@ class User extends ConfideUser
     }
 
     /**
+     * Check to see if this user is a business
+     *
+     * @return bool
+     */
+    public function getIsBusinessAttribute()
+    {
+        return $this->hasRole(Role::USER);
+    }
+
+    /**
      * Check to see if this user is a consumer
      *
      * @return bool
