@@ -205,4 +205,22 @@ class Business extends Base
 
         return $businesses;
     }
+
+    /**
+     * Get a number of random businesses
+     *
+     * @param int categoryId
+     * @param int quantity
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public static function getRandomBusinesses($categoryId, $quantity)
+    {
+        // it is not efficient to order by RAND() but we have relatively small customers base
+        return static::orderBy(\DB::raw('RAND()'))
+            ->join('business_category_user', 'business_category_user.user_id', '=','businesses.user_id')
+            ->where('business_category_user.business_category_id', $categoryId)
+            ->where('businesses.name', '!=', '')
+            ->limit($quantity)->get();
+    }
 }

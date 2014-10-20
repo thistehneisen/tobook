@@ -71,25 +71,6 @@ class User extends ConfideUser
         return CalendarKeeper::getDefaultWorkingTimes($this, $date, $showUntilLastestBooking);
     }
 
-    /**
-     * Get a number of random users
-     *
-     * @param int categoryId
-     * @param int quantity
-     *
-     * @return Illuminate\Support\Collection
-     */
-    public static function getRandomUser($categoryId, $quantity)
-    {
-        //It is not efficient to order by RAND() but we have relatively small customers base
-        $users = self::orderBy(DB::raw('RAND()'))
-            ->join('business_category_user', 'business_category_user.user_id', '=','users.id')
-            ->where('business_category_user.business_category_id', $categoryId)
-            ->where('business_name', '!=', '')
-            ->limit($quantity)->get();
-        return $users;
-    }
-
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------

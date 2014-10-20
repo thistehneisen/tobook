@@ -54,18 +54,18 @@ $(function() {
         <div class="clearfix"></div>
         @foreach ($businesses as $business)
             <?php
-                $slots = $business->getASNextTimeSlots($now, $now->hour);
+                $slots = $business->user->getASNextTimeSlots($now, $now->hour);
                 $count = 0;
             ?>
             <div class="available-slot col-md-3 col-sm-3">
                 <img src="{{ asset('assets/img/slides/1.jpg') }}" alt="" class="img-responsive" />
                 <div class="info text-left">
-                    <h4>{{ $business->business_name }}</h4>
+                    <h4>{{ $business->name }}</h4>
                     <p>{{ $business->address }}</p>
                     @foreach ($slots as $slot)
                         <?php if($count === 3) break;?>
                         <a href="{{ route('business.index', [
-                            'id'          => $business->id,
+                            'id'          => $business->user->id,
                             'slug'        => $business->slug,
                             'service_id'  => $slot['service'],
                             'employee_id' => $slot['employee'],

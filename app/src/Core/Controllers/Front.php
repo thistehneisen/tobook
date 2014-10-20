@@ -2,7 +2,7 @@
 
 use View, Confide, Redirect, Config, Input;
 use Carbon\Carbon;
-use App\Core\Models\User as Business;
+use App\Core\Models\Business;
 use App\Core\Models\BusinessCategory;
 use App\FlashDeal\Models\FlashDealDate;
 
@@ -20,8 +20,8 @@ class Front extends Base
             ? $categoryId
             : key($categories);
 
-        //Get 4 random users of selected business category
-        $businesses = Business::getRandomUser($categoryId, 4);
+        // get 4 random businesses of selected category
+        $businesses = Business::getRandomBusinesses($categoryId, 4);
 
         return View::make('front.home', [
             'deals'          => $deals,
