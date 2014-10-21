@@ -9,6 +9,7 @@ return [
     'timeslot'        => 'Timeslot Varaus',
     'appointment'     => 'Ajanvaraus',
     'loyalty'         => 'Kantiskortti',
+    'flashdeal'       => 'Äkkilähdöt',
     'marketing'       => 'Markkinointityökalut',
     'consumers'       => 'Asiakkaat',
     'my_sites'        => 'Oma Sivu',
