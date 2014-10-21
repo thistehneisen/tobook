@@ -24,6 +24,11 @@ class CalendarKeeper
 
     protected function nextTimeSlots($user, $date = null, $nextHour = null, $nextService = null)
     {
+        $defaultService = $user->asOptions->get('default_nat_service');
+        if($defaultService != -1) {
+            $nextService = $defaultService;
+        }
+
         $employees = $this->findEmployees($user, $nextService);
 
         $date = (empty($date)) ? Carbon::today() : $date;

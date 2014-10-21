@@ -21,7 +21,7 @@ class DefaultNatDropdown extends Dropdown
     }
 
     /**
-     * Print current date as values in dropdown list
+     * Prepare active services values in dropdown list
      *
      * @param array $arr
      *
@@ -33,10 +33,10 @@ class DefaultNatDropdown extends Dropdown
         $services[-1] = trans('common.select');
 
         $categories =  ServiceCategory::OfCurrentUser()
-        ->orderBy('order')
-        ->with(['services' => function ($query) {
-            return $query->where('is_active', true);
-        }])->where('is_show_front', true)->get();
+            ->orderBy('order')
+            ->with(['services' => function ($query) {
+                return $query->where('is_active', true);
+            }])->where('is_show_front', true)->get();
 
         foreach ($categories as $category) {
             foreach ($category->services as $service) {
