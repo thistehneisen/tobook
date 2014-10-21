@@ -8,6 +8,7 @@ use Test\Elements\Business;
  */
 class BusinessCest
 {
+    // TODO fix this
     public function seeDashboard(AcceptanceTester $I)
     {
         $I->seeInCurrentUrl(Business::$dashboardUrl);

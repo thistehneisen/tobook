@@ -27,6 +27,13 @@ class Lomake
     protected $fields = [];
 
     /**
+     * The list of required assets for all Lomake forms
+     *
+     * @var array
+     */
+    protected static $requiredAssets = [];
+
+    /**
      * $fields getter
      *
      * @return array
@@ -91,27 +98,36 @@ class Lomake
         $opt['form']['route'] = $opt['route'];
 
         // Generate fields
+        $fieldsData = [];
         $fields = [];
         if ($opt['overwrite'] === false) {
             foreach ($instance->fillable as $name) {
-                $field['name']       = $name;
-                $field['type']       = $this->guessInputType($name);
-                $field['required']   = $this->isRequired($instance, $name);
-                $field['model']      = $instance;
-                $field['langPrefix'] = $opt['langPrefix'];
+                $fieldData               = [];
+                $fieldData['name']       = $name;
+                $fieldData['type']       = $this->guessInputType($name);
+                $fieldData['required']   = $this->isRequired($instance, $name);
+                $fieldData['model']      = $instance;
+                $fieldData['langPrefix'] = $opt['langPrefix'];
 
-                $fields[$name] = FieldFactory::create($field);
+                $fieldsData[$name]       = $fieldData;
             }
         }
 
-        // If user wants to overwrite generated fields
-        foreach ($opt['fields'] as $name => $field) {
-            $field['name']       = $name;
-            $field['model']      = $instance;
-            $field['langPrefix'] = $opt['langPrefix'];
-            $field['required']   = $this->isRequired($instance, $name);
+        // If user wants to overwrite fields data
+        foreach ($opt['fields'] as $name => $fieldData) {
+            foreach ($fieldData as $fieldDataKey => $fieldDataValue) {
+                $fieldsData[$name][$fieldDataKey] = $fieldDataValue;
+            }
 
-            $fields[$name] = FieldFactory::create($field);
+            if (empty($fieldsData[$name]['type'])) {
+                // allow caller to disable fields from being rendered
+                unset($fieldsData[$name]);
+            }
+        }
+
+        // create fields from data
+        foreach ($fieldsData as $name => $fieldData) {
+            $fields[$name] = FieldFactory::create($fieldData);
         }
 
         // Update the fields list
@@ -165,6 +181,28 @@ class Lomake
     }
 
     /**
+     * Return HTML markup for <head /> if needed
+     *
+     * @return string
+     */
+    public function renderHead()
+    {
+        $html = '';
+
+        foreach (self::$requiredAssets as $asset) {
+            switch ($asset['type']) {
+                case 'js':
+                    if (!empty($asset['src'])) {
+                        $html .= sprintf('<script type="text/javascript" src="%s"></script>', asset($asset['src']));
+                    }
+                    break;
+            }
+        }
+
+        return $html;
+    }
+
+    /**
      * Check if this field is require
      *
      * @param Illuminate\Database\Eloquent\Model $instance
@@ -212,5 +250,17 @@ class Lomake
         }
 
         return 'text';
+    }
+
+    /**
+     * Add a requires javascript asset for the form.
+     *
+     * @param string $src
+     */
+    public static function addRequiredJs($src)
+    {
+        $asset = ['type' => 'js', 'src' => $src];
+
+        self::$requiredAssets[md5(serialize($asset))] = $asset;
     }
 }

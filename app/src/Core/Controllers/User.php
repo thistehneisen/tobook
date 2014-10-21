@@ -1,6 +1,8 @@
 <?php namespace App\Core\Controllers;
 
 use App\Core\Models\Business;
+use App\Lomake\Fields\HtmlField;
+use Lomake;
 use Session, Validator, Input, View, Redirect, Hash, Confide;
 use App\Core\Models\User as UserModel;
 use App\Core\Models\BusinessCategory;
@@ -50,6 +52,21 @@ class User extends Base
             $selectedCategories = [];
         }
 
+        if ($user->is_business) {
+            $businessLomake = Lomake::make($business, [
+                'route'             => '#',
+                'langPrefix'        => 'user.business',
+                'fields'            => [
+                    'description'   => ['type' => 'html_field', 'default' => $business->description_html],
+                    'size'          => ['type' => false],
+                    'lat'           => ['type' => false],
+                    'lng'           => ['type' => false],
+                ],
+            ]);
+        } else {
+            $businessLomake = null;
+        }
+
         if ($user->is_consumer) {
             $consumer = $user->consumer;
         } else {
@@ -65,6 +82,7 @@ class User extends Base
         return View::make('user.profile', [
             'user'               => $user,
             'business'           => $business,
+            'businessLomake'     => $businessLomake,
             'consumer'           => $consumer,
             'fields'             => $fields,
             'validator'          => Validator::make(Input::all(), $this->rules['profile']),
@@ -186,7 +204,7 @@ class User extends Base
 
         $business->fill([
             'name'          => e(Input::get('name')),
-            'description'   => e(Input::get('description')),
+            'description'   => HtmlField::filterInput(Input::all(), 'description'),
             'size'          => e(Input::get('size')),
             'address'       => e(Input::get('address')),
             'city'          => e(Input::get('city')),

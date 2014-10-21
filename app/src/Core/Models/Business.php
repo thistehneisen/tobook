@@ -180,10 +180,40 @@ class Business extends Base
         return $image;
     }
 
-
     public function getBusinessUrlAttribute()
     {
         return route('business.index', ['id' => $this->user_id, 'slug' => $this->slug]);
+    }
+
+    public function getDescriptionAttribute()
+    {
+        // this method was put as a safe guard against naive usage of the attribute
+        // for full html description, caller must use getDescriptionHtml()
+        return $this->getDescriptionPlainAttribute();
+    }
+
+    /**
+     * Get description as html
+     *
+     * @return string
+     */
+    public function getDescriptionHtmlAttribute()
+    {
+        if (empty($this->attributes['description'])) {
+            return '';
+        }
+
+        return $this->attributes['description'];
+    }
+
+    /**
+     * Get description as plain text (all html stripped out)
+     *
+     * @return string
+     */
+    public function getDescriptionPlainAttribute()
+    {
+        return strip_tags($this->getDescriptionHtmlAttribute());
     }
 
     /**
