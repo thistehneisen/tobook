@@ -1,6 +1,7 @@
 <?php namespace App\Appointment\Models\NAT;
 use Util;
 use App\Appointment\Models\Employee;
+use App\Appointment\Models\Service;
 use App\Appointment\Models\Booking;
 use Carbon\Carbon;
 
@@ -24,12 +25,12 @@ class CalendarKeeper
 
     protected function nextTimeSlots($user, $date = null, $nextHour = null, $nextService = null)
     {
-        $defaultService = $user->asOptions->get('default_nat_service');
-        if($defaultService != -1) {
-            $nextService = $defaultService;
+        $defaultServiceId = $user->asOptions->get('default_nat_service');
+        if($defaultServiceId != -1) {
+            $nextService = Service::find($defaultServiceId);
         }
 
-        $employees = $this->findEmployees($user, $nextService);
+        $employees = $this->findEmployees($user, $defaultServiceId);
 
         $date = (empty($date)) ? Carbon::today() : $date;
 
@@ -48,7 +49,7 @@ class CalendarKeeper
         //Simulate the visual calendar into 2-dimensional array
         foreach ($employees as $employee) {
             //Get the shortest service or the given nextService
-            $service = (empty($nextService))
+            $service = (empty($nextService->id))
                 ? $employee->services()->orderBy('length','asc')->first()
                 : $nextService;
 
@@ -172,9 +173,9 @@ class CalendarKeeper
     public function findEmployees($user, $serviceId)
     {
         if (!empty($serviceId)) {
-            $employees = Employee::where('user_id', $user->id)
-                ->join('as_service_employee', 'as_service_employee.employee_id', '=', 'as_employees.id')
-                ->join('as_services', 'as_service_employee.service_id', '=', 'as_services.id')
+            $employees = Employee::where('as_employees.user_id', $user->id)
+                ->join('as_employee_service', 'as_employee_service.employee_id', '=', 'as_employees.id')
+                ->join('as_services', 'as_employee_service.service_id', '=', 'as_services.id')
                 ->where('as_employees.is_active', true)
                 ->where('as_services.id', $serviceId)
                 ->get();
