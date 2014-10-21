@@ -410,5 +410,58 @@
                 }
             });
         });
+        var colHeaderTop  = -1,
+            colHeaderLeft = -1,
+            originalOffset = [],
+            scrolledLeft = false;
+
+        $(window).scroll(function () {
+
+            if(colHeaderTop === -1) {
+                colHeaderTop = $('.as-col-header').offset().top;
+            }
+
+            var top = $('.as-col-header').offset().top;
+
+            if ($(window).scrollTop() > colHeaderTop) {
+                $('.as-col-header').css('position', 'fixed');
+                $('.as-col-header').css('height', 25);
+                $('.as-col-header').css('width', 163);
+                $('.as-col-header').css('top', 0);
+            }
+
+            if ($(window).scrollTop() <= colHeaderTop) {
+                if (scrolledLeft) {
+                    if ($(window).scrollTop() === 0) {
+                        $('.as-col-header').css('top', colHeaderTop);
+                    } else {
+                        $('.as-col-header').css('top', colHeaderTop - $(window).scrollTop());
+                        $('.as-col-left-header').css('margin-top', '25px');
+                        $('#as-ul').css('margin-top', '25px');
+                    }
+                } else {
+                    $('.as-col-header').css('position', 'relative');
+                }
+            }
+        });
+
+        $('.as-calendar').scroll(function () {
+            scrolledLeft = true;
+            if ($.isEmptyObject(originalOffset)) {
+                $('.as-col-header').each(function (key, item) {
+                    originalOffset.push($(item).offset().left);
+                });
+            }
+            $('.as-col-header').each(function (key, item) {
+                var offset = parseInt(originalOffset[key], 10) -  parseInt($('.as-calendar').scrollLeft(), 10);
+                $(item).css('left', offset);
+                if (offset < 15) {
+                    $(item).css('opacity', 0.2);
+                } else {
+                    $(item).css('opacity', 1);
+                }
+                // console.log($(item).offset().left);
+            });
+        });
     });
 }(jQuery));

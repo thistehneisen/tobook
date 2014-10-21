@@ -35,10 +35,10 @@
 <div class="container-fluid row-no-padding">
     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
         <ul class="as-col-left-header">
-            <li class="as-col-header">&nbsp;</li>
+            <li id="as-left-col-header" class="as-col-header">&nbsp;</li>
             @foreach ($workingTimes as $hour => $minutes)
                 @foreach ($minutes as $minuteShift)
-                    <li>{{ sprintf('%02d', $hour) }} : {{ sprintf('%02d', $minuteShift) }}</li>
+                    <li class="as-col-time">{{ sprintf('%02d', $hour) }} : {{ sprintf('%02d', $minuteShift) }}</li>
                 @endforeach
             @endforeach
         </ul>
@@ -47,8 +47,8 @@
         @foreach ($employees as $selectedEmployee)
             @if ($selectedEmployee->is_active)
             <div class="as-col">
-            <ul>
-                <li class="as-col-header"><a href="{{ route('as.employee', ['id'=> $selectedEmployee->id ]) }}">{{ $selectedEmployee->name }}</a></li>
+            <ul id="as-ul">
+                <li class="as-col-header as-col-fixed"><a href="{{ route('as.employee', ['id'=> $selectedEmployee->id ]) }}">{{ $selectedEmployee->name }}</a></li>
                 @foreach ($workingTimes as $hour => $minutes)
                     @foreach ($minutes as $minuteShift)
                         <?php $slotClass = $selectedEmployee->getSlotClass($selectedDate, $hour, $minuteShift); ?>
