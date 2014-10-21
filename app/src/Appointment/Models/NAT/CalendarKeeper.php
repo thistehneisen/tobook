@@ -172,7 +172,7 @@ class CalendarKeeper
 
     public function findEmployees($user, $serviceId)
     {
-        if (!empty($serviceId)) {
+        if (!empty($serviceId) && $serviceId != -1) {
             $employees = Employee::where('as_employees.user_id', $user->id)
                 ->join('as_employee_service', 'as_employee_service.employee_id', '=', 'as_employees.id')
                 ->join('as_services', 'as_employee_service.service_id', '=', 'as_services.id')
