@@ -1,4 +1,4 @@
-{{ Form::open(['id' => 'frm-profile', 'route' => 'user.profile', 'class' => 'form-horizontal', 'role' => 'form']) }}
+{{ Form::open(['id' => 'business-form', 'route' => 'user.profile', 'class' => 'form-horizontal', 'role' => 'form']) }}
     <h3 class="comfortaa orange">{{ trans('user.profile.business') }}</h3>
 
     @foreach ($businessLomake->fields as $field)

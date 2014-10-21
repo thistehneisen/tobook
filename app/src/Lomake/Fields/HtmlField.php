@@ -26,7 +26,7 @@ class HtmlField extends Text
      */
     protected function init($opt)
     {
-        if (empty($opt['default'])) {
+        if (!isset($opt['default'])) {
             throw new \UnexpectedValueException('HtmlField must be configured with `default` option.');
         }
 

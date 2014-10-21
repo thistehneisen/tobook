@@ -1,4 +1,4 @@
-{{ Form::open(['id' => 'frm-profile', 'route' => 'user.profile', 'class' => 'form-horizontal', 'role' => 'form']) }}
+{{ Form::open(['id' => 'general-form', 'route' => 'user.profile', 'class' => 'form-horizontal', 'role' => 'form']) }}
     <h3 class="comfortaa orange">{{ trans('user.profile.general') }}</h3>
 
     <div class="form-group {{ Form::errorCSS('email', $errors) }}">

@@ -10,6 +10,7 @@ use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;
 use App\Core\Models\Business;
+use App\Core\Models\Role;
 use App\Core\Models\User;
 use Carbon\Carbon;
 
@@ -30,6 +31,7 @@ trait Models
         $this->user->password = 123456;
         $this->user->password_confirmation = 123456;
         $this->user->save();
+        $this->user->attachRole(Role::user());
 
         if ($withBusiness) {
             $business = new Business([
@@ -40,6 +42,7 @@ trait Models
                 'country' => 'Finland',
                 'phone' => '1234567890',
             ]);
+            $business->size = 1;
             $business->user()->associate($this->user);
             $business->save();
         }
