@@ -1,7 +1,7 @@
 <?php
 $confirmBody = <<< HTML
 <p>Hei %s,</p>
-<p>Ole hyvä ja klikkaa alla linkkiä vahvistamaan rekisteröinnisin: <br>
+<p>Ole hyvä ja klikkaa alla linkkiä vahvistaaksesi rekisteröintisi ja hyväksyeksesi käyttöehdot: <br>
 <a href="%s" title="" target="_blank">%s</a></p>
 <p>Kiitos</p>
 HTML;
