@@ -27,6 +27,13 @@ class Lomake
     protected $fields = [];
 
     /**
+     * The list of required assets for all Lomake forms
+     *
+     * @var array
+     */
+    protected static $requiredAssets = [];
+
+    /**
      * $fields getter
      *
      * @return array
@@ -174,6 +181,28 @@ class Lomake
     }
 
     /**
+     * Return HTML markup for <head /> if needed
+     *
+     * @return string
+     */
+    public function renderHead()
+    {
+        $html = '';
+
+        foreach (self::$requiredAssets as $asset) {
+            switch ($asset['type']) {
+                case 'js':
+                    if (!empty($asset['src'])) {
+                        $html .= sprintf('<script type="text/javascript" src="%s"></script>', asset($asset['src']));
+                    }
+                    break;
+            }
+        }
+
+        return $html;
+    }
+
+    /**
      * Check if this field is require
      *
      * @param Illuminate\Database\Eloquent\Model $instance
@@ -221,5 +250,17 @@ class Lomake
         }
 
         return 'text';
+    }
+
+    /**
+     * Add a requires javascript asset for the form.
+     *
+     * @param string $src
+     */
+    public static function addRequiredJs($src)
+    {
+        $asset = ['type' => 'js', 'src' => $src];
+
+        self::$requiredAssets[md5(serialize($asset))] = $asset;
     }
 }

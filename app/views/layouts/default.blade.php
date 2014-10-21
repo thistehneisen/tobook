@@ -41,6 +41,8 @@
     </script>
         @endif
     @show
+
+    {{ Lomake::renderHead() }}
 </head>
 <body @if(!empty($hash)) data-hash="{{ $hash }}" @endif data-locale="{{ App::getLocale() }}">
     @section('header')
