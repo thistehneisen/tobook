@@ -30,5 +30,21 @@ return [
         'business_hours'  => 'Aukioloajat',
         'buy'             => 'Osta',
         'book'            => 'Varaa',
+    ],
+    'cart' => [
+        'add'         => 'Varaa',
+        'items'       => 'tuote|tuotteet',
+        'empty'       => 'Tyhjä',
+        'empty_long'  => 'Sinulla ei ole varauksia.',
+        'checkout'    => 'Maksa',
+        'total'       => 'Yhteensä',
+        'heading'     => 'Valitut tuotteet',
+        'why_heading' => 'Miksi rekisteröityisin?',
+        'why_content' => 'Rekisteröityessäsi palvelu käyttäjäksi voit helposti seurata varauksiasi ja hyödyntää muita varaa.com:in tarjoamia etuja.',
+        'process'     => 'Maksua prosessoidaan',
+        'err'         => [
+            'business' => 'Valitettavasti emme tue maksuja yrityskäyttäjätunnuksen kautta. Ole ystävällinen ja rekisteröidy palveluun kuluttajana.',
+            'zero_amount' => 'Maksua ei voida suorittaa',
+        ]
     ]
 ];
