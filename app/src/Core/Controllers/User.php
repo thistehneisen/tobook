@@ -1,6 +1,7 @@
 <?php namespace App\Core\Controllers;
 
 use App\Core\Models\Business;
+use App\Lomake\Fields\HtmlField;
 use Lomake;
 use Session, Validator, Input, View, Redirect, Hash, Confide;
 use App\Core\Models\User as UserModel;
@@ -56,7 +57,7 @@ class User extends Base
                 'route'             => '#',
                 'langPrefix'        => 'user.business',
                 'fields'            => [
-                    'description'   => ['type' => 'html_field'],
+                    'description'   => ['type' => 'html_field', 'default' => $business->description_html],
                     'size'          => ['type' => false],
                     'lat'           => ['type' => false],
                     'lng'           => ['type' => false],
@@ -203,7 +204,7 @@ class User extends Base
 
         $business->fill([
             'name'          => e(Input::get('name')),
-            'description'   => e(Input::get('description')),
+            'description'   => HtmlField::filterInput(Input::all(), 'description'),
             'size'          => e(Input::get('size')),
             'address'       => e(Input::get('address')),
             'city'          => e(Input::get('city')),
