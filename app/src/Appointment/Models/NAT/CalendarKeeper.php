@@ -23,14 +23,17 @@ class CalendarKeeper
         return call_user_func_array([static::$instance, $method], $args);
     }
 
-    protected function nextTimeSlots($user, $date = null, $nextHour = null, $nextService = null)
+    protected function nextTimeSlots($user, $date = null, $nextHour = null)
     {
-        $defaultServiceId = $user->asOptions->get('default_nat_service');
-        if($defaultServiceId != -1) {
-            $nextService = Service::find($defaultServiceId);
-        }
+        $serviceId = ($user->asOptions->get('default_nat_service') !== -1)
+            ? ($user->asOptions->get('default_nat_service'))
+            : null;
 
-        $employees = $this->findEmployees($user, $defaultServiceId);
+        $service = (!empty($serviceId))
+                ? Service::find($serviceId)
+                : null;
+
+        $employees = $this->findEmployees($user, $serviceId);
 
         $date = (empty($date)) ? Carbon::today() : $date;
 
@@ -48,10 +51,10 @@ class CalendarKeeper
 
         //Simulate the visual calendar into 2-dimensional array
         foreach ($employees as $employee) {
-            //Get the shortest service or the given nextService
-            $service = (empty($nextService->id))
+            //Get the shortest service or the given service
+            $service = (empty($service->id))
                 ? $employee->services()->orderBy('length','asc')->first()
-                : $nextService;
+                : $service;
 
             foreach ($workingTimes as $hour => $minutes) {
                 foreach ($minutes as $minute) {
@@ -172,7 +175,7 @@ class CalendarKeeper
 
     public function findEmployees($user, $serviceId)
     {
-        if (!empty($serviceId) && $serviceId != -1) {
+        if (!empty($serviceId)) {
             $employees = Employee::where('as_employees.user_id', $user->id)
                 ->join('as_employee_service', 'as_employee_service.employee_id', '=', 'as_employees.id')
                 ->join('as_services', 'as_employee_service.service_id', '=', 'as_services.id')
