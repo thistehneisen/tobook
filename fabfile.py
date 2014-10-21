@@ -6,7 +6,7 @@ import shutil
 HOME = os.getenv('HOME')
 
 
-def _deploy():
+def _deploy(environment):
     env.user = 'root'
     with cd('/srv/varaa/src'):
         # pull latest source
@@ -14,11 +14,7 @@ def _deploy():
         # install dependencies
         run('composer install')
         # run migration
-        run('php artisan migrate')
-        for mod in ['co', 'modules', 'as', 'fd', 'mt']:
-            run('php artisan migrate --path=app/database/migrations/{}'.format(
-                mod
-            ))
+        run('fab m:,{}'.format(environment))
         # chmod storage again
         run('chmod -Rf 777 app/storage')
 
@@ -26,13 +22,13 @@ def _deploy():
 @task(alias='ds')
 @hosts('dev.varaa.co')
 def deploy_stag():
-    _deploy()
+    _deploy('stag')
 
 
 @task
 @hosts('klikkaaja.com')
 def deploy_prod():
-    _deploy()
+    _deploy('prod')
 
 
 @task(alias='rc')
@@ -86,13 +82,14 @@ def create_migrate(table='table'):
 
 
 @task(alias='m')
-def migrate(module='', env=''):
+def migrate(module='', environment=''):
     '''
     Run migration
     '''
     if module == '':
         # prepare all-migrations directory for files
-        # using tempfile.mkdtemp would be better but Laravel Migrator doesn't allow that, yet
+        # using tempfile.mkdtemp would be better but Laravel Migrator
+        # doesn't allow that, yet
         path = 'app/database/all-migrations'
         if os.path.exists(path):
             shutil.rmtree(path)
@@ -103,14 +100,14 @@ def migrate(module='', env=''):
         # run migration using all-migrations now
         local(
             'php artisan migrate --path={} --env={}'
-            .format(path, env)
+            .format(path, environment)
         )
-        if env == 'testing':
+        if environment == 'testing':
             local('php artisan db:seed --class=TestingSeeder --env=testing')
     else:
         local(
             'php artisan migrate --path=app/database/migrations/{} --env={}'
-            .format(module, env)
+            .format(module, environment)
         )
 
 
