@@ -86,6 +86,11 @@ class Util
      */
     public static function thumbnail($imagePath, $width, $height, $returnUrl = true, $hardCrop = false)
     {
+        if (!file_exists($imagePath)) {
+            // show the missing file to debug
+            return $returnUrl ? asset($imagePath) : $imagePath;
+        }
+
         $imageFile = basename($imagePath);
         $image = explode('.', $imageFile);
         $imageName = $image[0];
@@ -95,6 +100,7 @@ class Util
             $imageName, $width, $height, $ext
         );
 
+        // regenerate the thumbnail if needed
         if (!file_exists($thumbPath)) {
             $imagine = new Imagine\Gd\Imagine();
             $mode = Imagine\Image\ImageInterface::THUMBNAIL_INSET;
@@ -109,7 +115,6 @@ class Util
                     ->save($thumbPath);
             } catch (\Exception $ex) {}
         }
-
 
         return $returnUrl ? asset($thumbPath) : $thumbPath;
     }

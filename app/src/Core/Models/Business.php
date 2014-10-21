@@ -144,40 +144,21 @@ class Business extends Base
     {
         $image = $this->user->images()->businessImages()->first();
         if (!empty($image)) {
-            $image = Config::get('varaa.upload_folder').$image->path;
+            return Config::get('varaa.upload_folder').$image->path;
         } else {
+            $imageMap = [
+                'Beauty &amp; Hair' => 'assets/img/categories/beauty/beauty1.jpg',
+                'Hairdresser' => 'assets/img/categories/hair/hair1.jpg',
+                'Restaurant' => 'assets/img/categories/restaurant/res2.jpg',
+                'Fine Dining' => 'assets/img/categories/restaurant/res8.jpg',
+                'Car Wash' => 'assets/img/categories/carwash/car1.jpg',
+                'Activities' => 'assets/img/categories/fitness/fitness1.jpg',
+            ];
+
             foreach ($this->businessCategories as $cat) {
-                switch ($cat->name) {
-                    case 'Beauty &amp; Hair':
-                        $image = 'assets/img/categories/beauty/beauty1.jpg';
-                        break;
-
-                    case 'Hairdresser':
-                        $image = 'assets/img/categories/hair/hair1.jpg';
-                        break;
-
-                    case 'Restaurant':
-                        $image = 'assets/img/categories/restaurant/res2.jpg';
-                        break;
-
-                    case 'Fine Dining':
-                        $image = 'assets/img/categories/restaurant/res8.jpg';
-
-                    case 'Car Wash':
-                        $image = 'assets/img/categories/carwash/car1.jpg';
-                        break;
-
-                    case 'Activities':
-                        $image = 'assets/img/categories/fitness/fitness1.jpg';
-                        break;
-
-                    default:
-                        break;
-                }
+                return isset($imageMap[$cat->name]) ? $imageMap[$cat->name] : 'assets/img/categories/fitness/fitness1.jpg';
             }
         }
-
-        return $image;
     }
 
     public function getBusinessUrlAttribute()
