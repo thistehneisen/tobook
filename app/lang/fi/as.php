@@ -161,7 +161,7 @@ return [
     ],
     'services' => [
         'heading'       => 'Palvelut',
-        'edit'          => 'Edit service',//@todo
+        'edit'          => 'Muokkaa palvelua',//@todo
         'categories' => [
             'all'           => 'Kaikki kategoriat',
             'add'           => 'Lisää kategoria',
@@ -173,7 +173,7 @@ return [
             'availability'  => 'Saatavuus',
             'category_name' => 'Kategorian nimi',
             'error'         => [
-                'category_current_in_use' => 'Category is currently in use. Please delete all related services before deleting this category.'
+                'category_current_in_use' => 'Kategoria on käytössä. Ole ystävällinen ja poista kategoriaan liitetyt palvelut ennen kuin voit poistaa kategoriaa.'
             ]
         ],
         'resources' => [
@@ -203,8 +203,8 @@ return [
         'description'  => 'Kuvaus',
         'price'        => 'Hinta',
         'duration'     => 'Kesto',
-        'length'       => 'Duration',//@todo
-        'during'       => 'During',//@todo
+        'length'       => 'Kesto',//@todo
+        'during'       => 'Kesto',//@todo
         'before'       => 'Ennen',
         'after'        => 'Jälkeen',
         'total'        => 'Yhteensä',
@@ -213,7 +213,7 @@ return [
         'resource'     => 'Resurssit',
         'extra'        => 'Lisäpalvelut',
         'employees'    => 'Työntekijät',
-        'no_employees' => 'There is no employee to be selected',
+        'no_employees' => 'Työntekijää ei ole valittu',
         'error'         => [
             'service_current_in_use' => 'Services is currently in use. Please delete all related bookings before deleting this service.'
         ]
@@ -338,11 +338,11 @@ return [
         'is_day_off'          => 'Vapaapäivä',
         'workshifts'          => 'Työvuoro',
         'workshift_planning'  => 'Työvuorosuunnittelu',
-        'workshift_summary'   => 'Workshift summary', // @todo
-        'from_date'           => 'From date', // @todo
-        'to_date'             => 'To date', // @todo
-        'weekday'             => 'Weekday', // @todo
-        'employee'            => 'Employee' // @todo
+        'workshift_summary'   => 'Työvuoro kooste', // @todo
+        'from_date'           => 'Alkaen date', // @todo
+        'to_date'             => 'Päättyen date', // @todo
+        'weekday'             => 'Viikonpäivä', // @todo
+        'employee'            => 'Työntekijä' // @todo
     ],
     'embed' => [
         'heading'          => 'Otsikko',
@@ -395,8 +395,8 @@ return [
             'service'         => 'Palvelu',
             'employee'        => 'Henkilö',
             'name'            => 'Sinun nimi',
-            'notes'           => 'Notes', //@todo
-            'postcode'        => 'Postcode', //@todo
+            'notes'           => 'Lisätiedot', //@todo
+            'postcode'        => 'Postinumero', //@todo
             'empty'           => 'There is no available time on selected day.', //@todo
             'payment_note'    => 'After a booking is placed, you will be redirected to payment.', // @todo
         ]
@@ -418,8 +418,8 @@ return [
             'timezone'        => 'Aikavyöhyke',
             'week_numbers'    => 'Näytä viikkonumerot',
             'week_start'      => 'Viikon ensimmäinen päivä?',
-            'phone_number'    => 'SMS phone number', // @todo
-            'business_name'   => 'Business name', // @todo
+            'phone_number'    => 'Puhelinnumero', // @todo
+            'business_name'   => 'Yrityksen nimi', // @todo
         ],
         'booking'                                        => [
             'heading'                                        => '', // @todo
@@ -449,11 +449,11 @@ return [
             'bf_state'                                       => 'Kunta',
             'bf_terms'                                       => 'Ehdot',
             'bf_zip'                                         => 'Postinumero',
-            'notes'                                          => 'Notes', // @todo
-            'address'                                        => 'Address', // @todo
-            'city'                                           => 'City', // @todo
-            'postcode'                                       => 'Postcode', // @todo
-            'country'                                        => 'Country', // @todo
+            'notes'                                          => 'Lisätiedot', // @todo
+            'address'                                        => 'Osoite', // @todo
+            'city'                                           => 'Kaupunki', // @todo
+            'postcode'                                       => 'Postinumero', // @todo
+            'country'                                        => 'Maa', // @todo
             'reminder_enable'                                => 'Muistutusviestit käytössä',
             'reminder_email_before'                          => 'Lähetä muistutus sähköpostilla',
             'reminder_subject'                               => 'Muistutussähköpostiviestin otsikko',
@@ -479,7 +479,7 @@ return [
             'confirm_consumer_body_sms_message_default'      => $confirmConsumerMessage,
             'confirm_employee_body_sms_message_default'      => $confirmEmployeeMessage,
             'payment_subject_client'                         => 'Asiakkaan maksuvahvistuksen otsikko',
-            'payment_subject_client_default'                 => 'Payment received', // @todo
+            'payment_subject_client_default'                 => 'Maksu vastaanotettu', // @todo
             'payment_tokens_client'                          => 'Viestin sisältö',
             'payment_tokens_client_default'                  => $paymentTokensClient,
             'confirm_subject_admin'                          => 'Hallintapaneelin maksuvahvistuksen otsikko',
@@ -487,7 +487,7 @@ return [
             'confirm_tokens_admin'                           => 'Viestin sisältö',
             'confirm_tokens_admin_default'                   => $confirmTokensAdmin,
             'payment_subject_admin'                          => 'Ylläpitäjän maksuvahvistuksen otsikko',
-            'payment_subject_admin_default'                  => 'New payment received', // @todo
+            'payment_subject_admin_default'                  => 'Uusi maksu vastaanotettu', // @todo
             'payment_tokens_admin'                           => 'Viestin sisältö',
             'payment_tokens_admin_default'                   => $paymentTokensAdmin,
             'confirm_subject_employee'                       => 'Työntekijän varauksen otsikko',
@@ -495,7 +495,7 @@ return [
             'confirm_tokens_employee'                        => 'Viestin sisältö',
             'confirm_tokens_employee_default'                => $confirmTokensEmployee,
             'payment_subject_employee'                       => 'Työntekijän maksun otsikko',
-            'payment_subject_employee_default'               => 'New payment received', // @todo
+            'payment_subject_employee_default'               => 'Uusi maksu vastaanotettu', // @todo
             'payment_tokens_employee'                        => 'Viestin sisältö',
             'payment_tokens_employee_default'                => $paymentTokensEmployee,
             'terms_enabled'                                  => 'Ehdot käytössä',
@@ -535,10 +535,10 @@ return [
     'with_selected'  => 'Valitse toiminto',
     'crud' => [
         'bulk_confirm'   => 'Are you sure to carry out this action?', // @todo
-        'success_add'    => 'Item was created successfully.', // @todo
-        'success_edit'   => 'Data was updated successfully.', // @todo
-        'success_delete' => 'Item was deleted successfully.', // @todo
-        'success_bulk'   => 'Item was deleted successfully.', // @todo
-        'sortable'       => 'Drag to reorder', // @todo
+        'success_add'    => 'Tuoteen luonti onnistui.', // @todo
+        'success_edit'   => 'Tietojen päivittäminen onnistui.', // @todo
+        'success_delete' => 'Tuotteen poistaminen onnistui.', // @todo
+        'success_bulk'   => 'Tuotteen poistaminen onnistui.', // @todo
+        'sortable'       => 'Vedä uudelleen asetellaksesi uudelleen', // @todo
     ]
 ];
