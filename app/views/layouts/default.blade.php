@@ -50,75 +50,107 @@
             <a href="{{ route('home') }}" class="logo pull-left">varaa<span>.com</span></a>
             @show
 
-            <div class="language-switcher pull-left">
-                <i class="fa fa-globe"></i>
-            @foreach (Config::get('varaa.languages') as $locale)
-                <a class="{{ Config::get('app.locale') === $locale ? 'active' : '' }}" href="{{ UrlHelper::localizeCurrentUrl($locale) }}" title="">{{ strtoupper($locale) }}</a>
-            @endforeach
+            @section('main-nav')
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-menu">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
             </div>
 
-            @section('main-nav')
-            <div class="pull-right">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-menu">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
+            <div class="collapse navbar-collapse pull-right" id="main-menu">
+                <ul class="nav navbar-nav">
+                    {{-- Language switcher --}}
+                    <li>
+                        <select class="form-control">
+                            @foreach (Config::get('varaa.languages') as $locale)
+                            <option value="{{ UrlHelper::localizeCurrentUrl($locale) }}" {{ Config::get('app.locale') === $locale ? 'selected' : '' }}>{{ strtoupper($locale) }}</option>
+                            @endforeach
+                        </select>
+                    </li>
 
-                <div class="collapse navbar-collapse" id="main-menu">
-                    @if (!Confide::user())
-                    <ul class="user-top-nav nav nav-pills pull-right">
-                        <li class="dropdown active">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                {{ trans('common.for_business') }}
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="{{ route('auth.login') }}">{{ trans('common.sign_in_header') }}</a></li>
-                                <li><a href="{{ route('auth.register') }}">{{ trans('common.register') }}</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    @endif
-
-                    <ul class="user-top-nav nav nav-pills pull-right cart">
-                        <li><a data-cart-url="{{ route('cart.index') }}" href="#" id="header-cart" data-toggle="popover"><i class="fa fa-shopping-cart"></i> <span class="content"><i class="fa fa-spinner fa-spin"></i></span></a></li>
-                    </ul>
-
-                    <ul class="nav navbar-nav">
+                    {{-- Welcome message --}}
                     @if (Confide::user())
-                        <li><p>
+                    <li class="hidden-sm hidden-xs">
+                        <p>
                         @if (Session::get('stealthMode') !== null)
                             You're now login as <strong>{{ Confide::user()->username }}</strong>
                         @else
                             {{ trans('common.welcome') }}, <strong>{{ Confide::user()->username }}</strong>!
                         @endif
-                        </p></li>
-                        @if (Confide::user()->is_consumer === false)
-                        <li class="dropdown">
-                            <a href="{{ route('dashboard.index') }}">{{ trans('common.dashboard') }} <span class="caret"></span></a>
+                        </p>
+                    </li>
+                    @endif
 
-                            <ul class="dropdown-menu">
-                                @foreach (Confide::user()->modules as $module => $routeName)
-                                    <li><a href="{{ route($routeName) }}">{{ trans('dashboard.'.$module) }}</a></li>
-                                @endforeach
-                            </ul>
+                    {{-- Show cart to consumer only --}}
+                    @if (!Confide::user() || Confide::user()->is_consumer === true)
+                    <li class="cart">
+                        <a data-cart-url="{{ route('cart.index') }}" href="#" id="header-cart" data-toggle="popover">
+                            <i class="fa fa-shopping-cart"></i> <span class="content"><i class="fa fa-spinner fa-spin"></i></span>
+                        </a>
+                    </li>
+                    @endif
+
+                    {{-- Logged in --}}
+                    @if (Confide::user())
+
+                        {{-- Business user --}}
+                        @if (Confide::user()->is_consumer === false)
+                            {{-- Admin --}}
+                            @if (Entrust::hasRole('Admin') || Session::get('stealthMode') !== null)
+                            <li><a href="{{ route('admin.index') }}">
+                                <i class="fa fa-rocket"></i>
+                                {{ trans('common.admin') }}
+                            </a></li>
+                            @endif
+                            <li class="dropdown">
+                                <a href="{{ route('dashboard.index') }}">
+                                    <i class="fa fa-star"></i>
+                                    {{ trans('common.dashboard') }}
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    @foreach (Confide::user()->modules as $module => $routeName)
+                                        <li><a href="{{ route($routeName) }}">{{ trans('dashboard.'.$module) }}</a></li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                        @endif
+                        <li><a href="{{ route('user.profile') }}">
+                            <i class="fa fa-user"></i>
+                            {{ trans('common.my_account') }}
+                        </a></li>
+                        <li><a href="{{ route('auth.logout') }}">
+                            <i class="fa fa-sign-out"></i>
+                            {{ trans('common.sign_out') }}
+                        </a></li>
+
+                    @else {{-- Not logged in --}}
+
+                        <li class="dropdown">
+                            <a href="{{ route('auth.login') }}">
+                                <i class="fa fa-sign-in"></i> {{ trans('common.sign_in_header') }}
+                            </a>
                         </li>
-                        @endif
-                        <li><a href="{{ route('user.profile') }}">{{ trans('common.my_account') }}</a></li>
-                        @if (Entrust::hasRole('Admin') || Session::get('stealthMode') !== null)
-                        <li><a href="{{ route('admin.index') }}">{{ trans('common.admin') }}</a></li>
-                        @endif
-                        <li><a href="{{ route('auth.logout') }}">{{ trans('common.sign_out') }}</a></li>
-                    @else
+
+                    @endif
+                </ul>
+            </div>
+            @show
+        </nav>
+
+        <div class="search-wrapper row">
+            @section('main-search')
+                <div id="category-menu" class="hidden-sm hidden-xs">
+                    <ul class="nav navbar-nav">
                         @foreach ($businessCategories as $category)
                         <li class="dropdown">
                             <a href="{{ route('search') }}?q={{ urlencode($category->name) }}">
                                 <i class="fa {{ $category->icon() }}"></i>
                                 {{ $category->name }}
+                                <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
                             @foreach ($category->children as $child)
@@ -127,31 +159,25 @@
                             </ul>
                         </li>
                         @endforeach
-                    @endif
                     </ul>
                 </div>
-            </div>
-            @show
-        </nav>
 
-        <div class="search-wrapper row">
-        @section('main-search')
-            {{ Form::open(['route' => 'search', 'method' => 'GET', 'class' => 'form-inline']) }}
-                <div class="form-group">
-                    <div class="input-group input-group">
-                        <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                        <input type="text" class="form-control typeahead" id="js-queryInput" name="q" placeholder="{{ trans('home.search.query') }}" value="{{{ Input::get('q') }}}" />
+                {{ Form::open(['route' => 'search', 'method' => 'GET', 'class' => 'form-inline']) }}
+                    <div class="form-group">
+                        <div class="input-group input-group">
+                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                            <input type="text" class="form-control typeahead" id="js-queryInput" name="q" placeholder="{{ trans('home.search.query') }}" value="{{{ Input::get('q') }}}" />
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="input-group input-group">
-                        <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
-                        <input type="text" class="form-control" id="js-locationInput" name="location" placeholder="{{ trans('home.search.location') }}" value="{{{ Input::get('location') }}}" />
+                    <div class="form-group">
+                        <div class="input-group input-group">
+                            <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
+                            <input type="text" class="form-control" id="js-locationInput" name="location" placeholder="{{ trans('home.search.location') }}" value="{{{ Input::get('location') }}}" />
+                        </div>
                     </div>
-                </div>
-                <button type="submit" class="btn btn-success">{{ trans('common.search') }}</button>
-            {{ Form::close() }}
-        @show
+                    <button type="submit" class="btn btn-success">{{ trans('common.search') }}</button>
+                {{ Form::close() }}
+            @show
         </div>
     </header>
     @show
