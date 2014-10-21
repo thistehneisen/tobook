@@ -36,6 +36,11 @@ class Options extends AsBase
                 if (isset($userOptions[$name])) {
                     $params['default'] = $userOptions[$name];
                 }
+                if(!empty($params['values'])) {
+                    if($params['values'] instanceof \Closure) {
+                        $params['values'] = $params['values']();
+                    }
+                }
                 $allControls[] = FieldFactory::create($params);
             }
 

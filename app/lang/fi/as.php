@@ -499,6 +499,7 @@ return [
             'payment_tokens_employee'                        => 'Viestin sisältö',
             'payment_tokens_employee_default'                => $paymentTokensEmployee,
             'terms_enabled'                                  => 'Ehdot käytössä',
+            'default_nat_service'                            => 'Default next available service',//@todo
         ],
         'style' => [
             'heading'                           => '', // @todo

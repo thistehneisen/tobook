@@ -480,6 +480,7 @@ return [
             'payment_tokens_employee'                        => 'Email body',
             'payment_tokens_employee_default'                => $paymentTokensEmployee,// @todo
             'terms_enabled'                                  => 'Enable terms',
+            'default_nat_service'                            => 'Default next available service',
         ],
         'style' => [
             'heading'                           => '', // @todo

@@ -62,6 +62,10 @@ return [
                     'type' => 'Radio',
                     'default' => false
                 ],
+                'default_nat_service' => [
+                    'type' => 'DefaultNatDropdown',
+                    'default' => -1
+                ],
                 // 'status_if_not_paid' => [
                 //     'type' => 'Dropdown',
                 //     'values' => [
