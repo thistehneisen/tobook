@@ -191,7 +191,7 @@ return [
             'name'        => 'Nimi',
             'description' => 'Kuvaus',
             'price'       => 'Hinta',
-            'length'      => 'Length',
+            'length'      => 'Kesto',
             'msg_extra'   => 'Haluaisitko myös varata?',
         ],
         'all'          => 'Kaikki palvelut',
@@ -203,13 +203,13 @@ return [
         'description'  => 'Kuvaus',
         'price'        => 'Hinta',
         'duration'     => 'Kesto',
-        'length'       => 'Kesto',//@todo
-        'during'       => 'Kesto',//@todo
+        'length'       => 'Kokonaiskesto',
+        'during'       => 'Kesto',
         'before'       => 'Ennen',
         'after'        => 'Jälkeen',
         'total'        => 'Yhteensä',
         'category'     => 'Kategoria',
-        'is_active'    => 'Tila',
+        'is_active'    => 'Aktiivinen',
         'resource'     => 'Resurssit',
         'extra'        => 'Lisäpalvelut',
         'employees'    => 'Työntekijät',
@@ -232,7 +232,7 @@ return [
         'customers'         => 'Asiakkaat',
         'statistics'        => 'Statistiikka',
         'date'              => 'Päivämäärä',
-        'total'             => 'Duration', // @todo
+        'total'             => 'Kesto', // 
         'start_at'          => 'Aloitusaika',
         'end_at'            => 'Päättymisaika',
         'status'            => 'Tila',
@@ -246,7 +246,7 @@ return [
         'services'          => 'Palvelut',
         'service_time'      => 'Kesto',
         'modify_time'       => 'Muokkaa aikaa',
-        'plustime'          => 'Plustime', // @todo
+        'plustime'          => 'Lisäaika',
         'modify_duration'   => 'Muokkaa kestoa',
         'employee'          => 'Työntekijä',
         'notes'             => 'Muistiinpanoja',
@@ -255,20 +255,20 @@ return [
         'email'             => 'Sähköposti',
         'phone'             => 'Puhelinnumero',
         'address'           => 'Osoite',
-        'city'              => 'Kaupunki',//@todo
-        'postcode'          => 'Postcode',//@todo
-        'country'           => 'Country',//@todo
+        'city'              => 'Kaupunki',
+        'postcode'          => 'Postinumero',
+        'country'           => 'Maa',
         'confirm_booking'   => 'Vahvista varaus',
         'service_employee'  => 'Työntekijä',
         'date_time'         => 'Päivämäärä',
         'price'             => 'Hinta',
         'extra_service'     => 'Lisäpalvelu',
-        'keyword'           => 'Haku',//@todo
-        'edit'              => 'Edit bookings',//@todo
-        'terms'             => 'Terms',//@todo
+        'keyword'           => 'Haku',//
+        'edit'              => 'Muokkaa varausta',
+        'terms'             => 'Ehdot',//
         'terms_agree'       => 'Hyväksyn varausehdot',
         'cancel_message'    => $cancelMessage, //@todo
-        'cancel_confirm'    => 'Are you sure to cancel this booking %s?', //@todo
+        'cancel_confirm'    => 'Haluatko varmasti poistaa varauksen %s?', 
         'modify_booking'    => 'Muokkaa varausta',
         'reschedule'        => 'Siirrä',
         'confirm_reschedule'=> 'Vahvista siirto',
@@ -319,8 +319,8 @@ return [
         'status'              => 'Tila',
         'is_active'           => 'Tila',
         'avatar'              => 'Kuva',
-        'default_time'        => 'Default time', // @todo
-        'custom_time'         => 'Custome time', // @todo
+        'default_time'        => 'Oletusaika',
+        'custom_time'         => 'Räätälöidyt ajat', 
         'days_of_week'        => 'Viikonpäivä',
         'start_time'          => 'Aloitusaika',
         'end_time'            => 'Lopetusaika',
@@ -338,11 +338,11 @@ return [
         'is_day_off'          => 'Vapaapäivä',
         'workshifts'          => 'Työvuoro',
         'workshift_planning'  => 'Työvuorosuunnittelu',
-        'workshift_summary'   => 'Työvuoro kooste', // @todo
-        'from_date'           => 'Alkaen date', // @todo
-        'to_date'             => 'Päättyen date', // @todo
-        'weekday'             => 'Viikonpäivä', // @todo
-        'employee'            => 'Työntekijä' // @todo
+        'workshift_summary'   => 'Työvuoro kooste',
+        'from_date'           => 'Alkaen', //
+        'to_date'             => 'Päättyen', // 
+        'weekday'             => 'Viikonpäivä', // 
+        'employee'            => 'Työntekijä' // 
     ],
     'embed' => [
         'heading'          => 'Otsikko',
@@ -367,7 +367,7 @@ return [
         'checkout'         => 'Kassalle',
         'fi_version'       => 'Suomeksi',
         'en_version'       => 'Englanniksi',
-        'book'             => 'Book',//Todo
+        'book'             => 'Varaa',
         'success'          => 'Varauksesi on vahvistettu! Kiitos varauksestasi.',
         'confirm'          => 'Vahvista varaus',
         'layout_2'         => [
@@ -395,15 +395,15 @@ return [
             'service'         => 'Palvelu',
             'employee'        => 'Henkilö',
             'name'            => 'Sinun nimi',
-            'notes'           => 'Lisätiedot', //@todo
-            'postcode'        => 'Postinumero', //@todo
-            'empty'           => 'There is no available time on selected day.', //@todo
-            'payment_note'    => 'After a booking is placed, you will be redirected to payment.', // @todo
+            'notes'           => 'Lisätiedot', 
+            'postcode'        => 'Postinumero', 
+            'empty'           => 'Valittuna päivänä ei ole vapaita aikoja',
+            'payment_note'    => 'Vahvistuksen jälkeen sinut ohjatamaan maksamaan varaus',
         ]
     ],
     'options' => [
         'heading' => 'Asetukset',
-        'updated' => 'Options updated', // @todo
+        'updated' => 'Asetukset päivitetty', 
         'general' => [
             'index'           => 'Yleinen',
             'heading'         => 'Yleisasetukset',
@@ -434,7 +434,7 @@ return [
             'accept_bookings'                                => 'Hyväksy varauksia',
             'hide_prices'                                    => 'Piilota hinnat',
             'step'                                           => 'Askel',
-            'bookable_date'                                  => 'Bookable date',  // @todo
+            'bookable_date'                                  => 'Varattava päivä',  // @todo
             'status_if_paid'                                 => 'Oletustila maksetuille varauksille',
             'status_if_not_paid'                             => 'Oletustila maksamattomille varauksille',
             'bf_address_1'                                   => 'Osoite 1',
@@ -449,11 +449,11 @@ return [
             'bf_state'                                       => 'Kunta',
             'bf_terms'                                       => 'Ehdot',
             'bf_zip'                                         => 'Postinumero',
-            'notes'                                          => 'Lisätiedot', // @todo
-            'address'                                        => 'Osoite', // @todo
-            'city'                                           => 'Kaupunki', // @todo
-            'postcode'                                       => 'Postinumero', // @todo
-            'country'                                        => 'Maa', // @todo
+            'notes'                                          => 'Lisätiedot',
+            'address'                                        => 'Osoite', 
+            'city'                                           => 'Kaupunki', 
+            'postcode'                                       => 'Postinumero', 
+            'country'                                        => 'Maa',
             'reminder_enable'                                => 'Muistutusviestit käytössä',
             'reminder_email_before'                          => 'Lähetä muistutus sähköpostilla',
             'reminder_subject'                               => 'Muistutussähköpostiviestin otsikko',
@@ -487,7 +487,7 @@ return [
             'confirm_tokens_admin'                           => 'Viestin sisältö',
             'confirm_tokens_admin_default'                   => $confirmTokensAdmin,
             'payment_subject_admin'                          => 'Ylläpitäjän maksuvahvistuksen otsikko',
-            'payment_subject_admin_default'                  => 'Uusi maksu vastaanotettu', // @todo
+            'payment_subject_admin_default'                  => 'Uusi maksu vastaanotettu', 
             'payment_tokens_admin'                           => 'Viestin sisältö',
             'payment_tokens_admin_default'                   => $paymentTokensAdmin,
             'confirm_subject_employee'                       => 'Työntekijän varauksen otsikko',
