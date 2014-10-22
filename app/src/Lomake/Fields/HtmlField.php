@@ -9,7 +9,7 @@ class HtmlField extends Text
      */
     public function render()
     {
-        \App\Lomake\Lomake::addRequiredJs('assets/ckeditor/ckeditor.js');
+        \App\Lomake\Lomake::addRequiredJs('packages/ckeditor/ckeditor.js');
 
         $params = $this->getParams();
         $params[0] .= self::NAME_SUFFIX;
