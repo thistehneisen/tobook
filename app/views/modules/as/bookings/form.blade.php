@@ -95,7 +95,6 @@
             </div>
             <div id="collapseTwo" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <div class="clearfix">&nbsp;</div>
                     <div class="row">
                         <div class="col-sm-12">
                             <table id="added_services" class="table table-bordered" style="@if(empty($bookingService))display:none @endif">
@@ -256,9 +255,8 @@
             </div>
             <div id="collapseThree" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <div class="clearfix">&nbsp;</div>
                     <div class="row">
-                     <div class="col-sm-12">
+                        <div class="col-sm-12">
                             <table id="extra_services" class="table table-bordered">
                              <thead>
                                     <tr>
@@ -296,9 +294,9 @@
             <div class="form-group row">
                 <div class="col-sm-12">
                     @if(empty($booking))
-                    <a href="#book-form" id="btn-save-booking" class="btn btn-primary btn-sm pull-right">{{ trans('common.save') }}</a>
+                    <a href="#book-form" id="btn-save-booking" class="btn btn-lg btn-success pull-right">{{ trans('common.save') }}</a>
                     @else
-                    <a href="#book-form" id="btn-save-booking" class="btn btn-primary btn-sm pull-right">{{ trans('common.edit') }}</a>
+                    <a href="#book-form" id="btn-save-booking" class="btn btn-lg btn-primary pull-right">{{ trans('common.edit') }}</a>
                     @endif
                 </div>
             </div>

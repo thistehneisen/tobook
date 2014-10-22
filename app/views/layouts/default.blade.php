@@ -66,7 +66,7 @@
                 <ul class="nav navbar-nav">
                     {{-- Language switcher --}}
                     <li>
-                        <select class="form-control">
+                        <select id="js-languageSwitcher" class="form-control">
                             @foreach (Config::get('varaa.languages') as $locale)
                             <option value="{{ UrlHelper::localizeCurrentUrl($locale) }}" {{ Config::get('app.locale') === $locale ? 'selected' : '' }}>{{ strtoupper($locale) }}</option>
                             @endforeach
@@ -150,7 +150,7 @@
                         @foreach ($businessCategories as $category)
                         <li class="dropdown">
                             <a href="{{ route('search') }}?q={{ urlencode($category->name) }}">
-                                <i class="fa {{ $category->icon() }}"></i>
+                                <i class="fa {{ $category->icon }}"></i>
                                 {{ $category->name }}
                                 <span class="caret"></span>
                             </a>
@@ -164,7 +164,7 @@
                     </ul>
                 </div>
 
-                {{ Form::open(['route' => 'search', 'method' => 'GET', 'class' => 'form-inline']) }}
+                {{ Form::open(['route' => 'search', 'method' => 'GET', 'class' => 'form-inline', 'id' => 'main-search-form']) }}
                     <div class="form-group">
                         <div class="input-group input-group">
                             <div class="input-group-addon"><i class="fa fa-search"></i></div>

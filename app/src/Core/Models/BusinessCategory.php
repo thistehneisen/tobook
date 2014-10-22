@@ -36,15 +36,7 @@ class BusinessCategory extends Base
         return $keywords;
     }
 
-    //--------------------------------------------------------------------------
-    // CUSTOM METHODS
-    //--------------------------------------------------------------------------
-    public static function getAll()
-    {
-        return static::root()->with('children')->get();
-    }
-
-    public function icon()
+    public function getIconAttribute()
     {
         $name = $this->attributes['name'];
         $icon = '';
@@ -71,6 +63,14 @@ class BusinessCategory extends Base
                 break;
         }
         return "fa-{$icon}";
+    }
+
+    //--------------------------------------------------------------------------
+    // CUSTOM METHODS
+    //--------------------------------------------------------------------------
+    public static function getAll()
+    {
+        return static::root()->with('children')->get();
     }
 
     //--------------------------------------------------------------------------

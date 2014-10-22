@@ -47,6 +47,12 @@ $(function () {
         initTypeahead('#js-locationInput', 'locations');
     }
 
+    // change language
+    $('#js-languageSwitcher').change(function () {
+        window.location = $(this).val();
+    });
+
+    // cart
     cart = $('#header-cart');
     cart.popover({
         placement: 'bottom',
