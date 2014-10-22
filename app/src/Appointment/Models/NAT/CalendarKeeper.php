@@ -91,7 +91,7 @@ class CalendarKeeper
                     if ($cell == 15) {
                         $length += $cell;
                         if ($length == $serviceLength) {
-                            $time = sprintf('%d:%d', $hour, $minute);
+                            $time = sprintf('%02d:%02d', $hour, $minute);
                             $nextAvailable[$time] = [
                                 'user'     => $user,
                                 'employee' => $employee->id,
@@ -181,6 +181,7 @@ class CalendarKeeper
                 ->join('as_services', 'as_employee_service.service_id', '=', 'as_services.id')
                 ->where('as_employees.is_active', true)
                 ->where('as_services.id', $serviceId)
+                ->select('as_employees.*')
                 ->get();
         } else {
             $employees = Employee::where('user_id', $user->id)

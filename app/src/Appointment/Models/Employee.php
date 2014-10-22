@@ -327,6 +327,7 @@ class Employee extends \App\Appointment\Models\Base
             ->join('as_employees', 'as_employees.id', '=', 'as_employee_service.employee_id')
             ->where('as_employees.is_active', true)
             ->where('as_service_categories.is_show_front', true)
+            ->select('as_services.*')
             ->orderBy(\DB::raw('RAND()'))
             ->first();
     }
