@@ -151,7 +151,7 @@ VARAA.applyCountdown($('span.countdown'));
 @section('content')
 <div class="row">
     <!-- left sidebar -->
-    <div class="col-sm-3 col-md-3 col-lg-3 search-left @if (isset($single)) hidden-xs @endif">
+    <div class="col-sm-3 search-left @if (isset($single)) hidden-xs @endif">
         @if ($businesses->count() === 0)
             <p class="alert alert-info">
                 {{ trans('search.no_result') }}
@@ -184,12 +184,12 @@ VARAA.applyCountdown($('span.countdown'));
     </div>
 
     <!-- right content -->
-    <div class="col-sm-9 col-md-9 col-lg-9 search-right">
+    <div class="col-sm-9 search-right">
         <div id="js-loading" class="js-loading"><i class="fa fa-spinner fa-spin fa-4x"></i></div>
         <div id="js-business-content">
             {{ isset($single) ? $single : '' }}
         </div>
-        <div id="map-canvas"></div>
+        <div id="map-canvas" class="hidden-xs"></div>
     </div>
 </div>
 @stop

@@ -18,7 +18,8 @@ class Search extends Base
         $businesses = new \Illuminate\Support\Collection;
         $data = [];
         $total = 0;
-        $perPage = (int) Config::get('view.perPage');
+        //$perPage = (int) Config::get('view.perPage');
+        $perPage = 5;
 
         if(!empty($q) || !empty($location)){
             $params['index'] = 'businesses';

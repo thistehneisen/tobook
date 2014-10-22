@@ -6,43 +6,7 @@
 
 @section('content')
 <div class="row">
-    <div class="col-sm-6 col-md-6 col-lg-6">
-        <h1 class="comfortaa orange text-center">{{ trans('user.create_account') }}</h1>
-        <h4 class="comfortaa text-center">{{ trans('user.fill_fields') }}</h4>
-
-        @include ('el.messages')
-
-        {{ $lomake->open() }}
-            @foreach ($lomake->fields as $field)
-                <div class="form-group row {{ Form::errorCSS($field->name, $errors) }}">
-                    {{ Form::label($field->name, $field->label, ['class' => 'col-sm-3 control-label']) }}
-                    <div class="col-sm-8">
-                    {{ $field }}
-                    <!-- Validation error -->
-                    {{ Form::errorText($field->name, $errors) }}
-                    </div>
-                </div>
-            @endforeach
-
-            <div class="form-group">
-                <div class="col-sm-9 col-sm-offset-3">
-                    <p>{{ trans('user.accept_terms') }} <a href="#" id="link_terms">{{ trans('user.terms') }}</a></p>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-sm-9 col-sm-offset-3">
-                    {{ Form::hidden('fromCheckout', Session::get('fromCheckout', Input::get('fromCheckout'))) }}
-                    <button type="submit" id="btn-register" class="btn btn-lg btn-success text-uppercase comfortaa">
-                        {{ trans('common.register') }}
-                        <i class="fa fa-check-circle"></i>
-                    </button>
-                </div>
-            </div>
-        {{ $lomake->close() }}
-    </div>
-
-    <div class="col-sm-6 col-md-6 col-lg-6">
+    <div class="col-sm-6">
         <h1 class="comfortaa orange text-center">{{ trans('common.sign_in') }}</h1>
         <h4 class="comfortaa text-center">{{ trans('user.fill_fields') }}</h4>
 
@@ -80,6 +44,42 @@
             </div>
 
         {{ Form::close() }}
+    </div>
+
+    <div class="col-sm-6">
+        <h1 class="comfortaa orange text-center">{{ trans('user.create_account') }}</h1>
+        <h4 class="comfortaa text-center">{{ trans('user.fill_fields') }}</h4>
+
+        @include ('el.messages')
+
+        {{ $lomake->open() }}
+            @foreach ($lomake->fields as $field)
+                <div class="form-group row {{ Form::errorCSS($field->name, $errors) }}">
+                    {{ Form::label($field->name, $field->label, ['class' => 'col-sm-3 control-label']) }}
+                    <div class="col-sm-8">
+                    {{ $field }}
+                    <!-- Validation error -->
+                    {{ Form::errorText($field->name, $errors) }}
+                    </div>
+                </div>
+            @endforeach
+
+            <div class="form-group">
+                <div class="col-sm-9 col-sm-offset-3">
+                    <p>{{ trans('user.accept_terms') }} <a href="#" id="link_terms">{{ trans('user.terms') }}</a></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-9 col-sm-offset-3">
+                    {{ Form::hidden('fromCheckout', Session::get('fromCheckout', Input::get('fromCheckout'))) }}
+                    <button type="submit" id="btn-register" class="btn btn-lg btn-success text-uppercase comfortaa">
+                        {{ trans('common.register') }}
+                        <i class="fa fa-check-circle"></i>
+                    </button>
+                </div>
+            </div>
+        {{ $lomake->close() }}
     </div>
 </div>
 @stop

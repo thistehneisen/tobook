@@ -78,7 +78,7 @@ a {
 
             li select {
                 margin: 8px 15px;
-                width: auto;
+                width: 80px;
             }
 
             li > p {
@@ -220,19 +220,29 @@ a {
 // -------------------------------------------------------------------------- //
 // ------------------------------- Responsive ------------------------------- //
 // -------------------------------------------------------------------------- //
-@media (min-width: 768px) and (max-width: 1000px) {
-    .collapse {
-        display: none !important;
-    }
-}
-
 @media (max-width: 767px) {
     body {
         margin-bottom: 0;
         padding-bottom: 0 !important;
     }
+    #main-menu {
+        float: none !important;
+
+        // to have popover for cart appear
+        overflow-y: inherit;
+
+        // language switcher
+        select {
+            margin: 8px auto !important;
+        }
+    }
     .footer {
+        text-align: center;
         height: auto;
         position: relative;
+    }
+
+    .img-responsive {
+        width: 100%;
     }
 }

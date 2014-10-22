@@ -198,11 +198,9 @@
             <div class="col-sm-4">
                 <p>&copy; {{ date('Y') }} <a href="http://varaa.com">varaa.com</a></p>
                 <ul class="list-unstyled list-inline list-social-networks">
-                    <li><a href="{{ Setting::get('facebook-page') }}" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="{{ Setting::get('google-page') }}" target="_blank"><i class="fa fa-google-plus"></i></a></li>
-                    <li><a href="{{ Setting::get('rss-page') }}" target="_blank"><i class="fa fa-rss"></i></a></li>
-                    <li><a href="{{ Setting::get('pinterest-page') }}" target="_blank"><i class="fa fa-pinterest"></i></a></li>
-                    <li><a href="{{ Setting::get('linkedin-page') }}" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                    <li><a href="https://www.facebook.com/varaacom" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="https://www.linkedin.com/company/3280872" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                    <li><a href="https://www.youtube.com/user/Varaacom" target="_blank"><i class="fa fa-youtube"></i></a></li>
                 </ul>
             </div>
 
