@@ -274,6 +274,57 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return $extraServices;
     }
 
+    /**
+     * Return the tooltip content for booking in backend carlendar
+     * Writing html in model is evil, but sometimes we have to sacrifice
+     * the beauty for functionalities.
+     * @return string
+     */
+    public function getCalendarTooltip()
+    {
+        $startTime          = $this->getStartAt()->format('H:i');
+        $endTime            = $this->getEndAt()->format('H:i');
+        $consumerName       = $this->consumer->name;
+        $notes              = empty($this->notes) ? '' : '<br><br><em>'.$this->notes.'</em>';
+        $serviceDescription = $this->getServiceDescription(true);
+        $tooltip = sprintf(
+            '%s - %s <br> %s <br> %s %s',
+            $startTime, $endTime, $consumerName, $serviceDescription, $notes
+        );
+        return $tooltip;
+    }
+
+    /**
+     * Return thea all booking service information
+     * @param boolean $showLineBreak
+     * @return string
+     */
+    public function getServiceDescription($showLineBreak = false)
+    {
+        $bookingService      = $this->bookingServices()->first();
+
+        $allServices = [];
+
+        //Is there any chance for an empty service name?
+        $allServices[] = !empty($bookingService->service->name)
+            ? $bookingService->service->name
+            : '<em>' .trans('as.services.no_name') . '</em>';
+
+        $allServices = array_merge($allServices, $this->getExtraServices());
+
+        $serviceDescription = !empty($allServices)
+            ? '('.implode(' + ', $allServices).')'
+            : '';
+
+        if (!empty($bookingService->serviceTime->id)) {
+            $serviceDescription .= ($showLineBreak)
+                ? '<br>'. $bookingService->serviceTime->description
+                : $bookingService->serviceTime->description;
+        }
+
+        return $serviceDescription;
+    }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------

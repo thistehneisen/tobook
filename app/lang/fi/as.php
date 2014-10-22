@@ -214,6 +214,7 @@ return [
         'extra'        => 'Lisäpalvelut',
         'employees'    => 'Työntekijät',
         'no_employees' => 'Työntekijää ei ole valittu',
+        'no_name'      => 'Untitled',//@todo
         'error'         => [
             'service_current_in_use' => 'Services is currently in use. Please delete all related bookings before deleting this service.'
         ]
@@ -232,7 +233,7 @@ return [
         'customers'         => 'Asiakkaat',
         'statistics'        => 'Statistiikka',
         'date'              => 'Päivämäärä',
-        'total'             => 'Kesto', // 
+        'total'             => 'Kesto', //
         'start_at'          => 'Aloitusaika',
         'end_at'            => 'Päättymisaika',
         'status'            => 'Tila',
@@ -268,7 +269,7 @@ return [
         'terms'             => 'Ehdot',//
         'terms_agree'       => 'Hyväksyn varausehdot',
         'cancel_message'    => $cancelMessage, //@todo
-        'cancel_confirm'    => 'Haluatko varmasti poistaa varauksen %s?', 
+        'cancel_confirm'    => 'Haluatko varmasti poistaa varauksen %s?',
         'modify_booking'    => 'Muokkaa varausta',
         'reschedule'        => 'Siirrä',
         'confirm_reschedule'=> 'Vahvista siirto',
@@ -320,7 +321,7 @@ return [
         'is_active'           => 'Tila',
         'avatar'              => 'Kuva',
         'default_time'        => 'Oletusaika',
-        'custom_time'         => 'Räätälöidyt ajat', 
+        'custom_time'         => 'Räätälöidyt ajat',
         'days_of_week'        => 'Viikonpäivä',
         'start_time'          => 'Aloitusaika',
         'end_time'            => 'Lopetusaika',
@@ -340,9 +341,9 @@ return [
         'workshift_planning'  => 'Työvuorosuunnittelu',
         'workshift_summary'   => 'Työvuoro kooste',
         'from_date'           => 'Alkaen', //
-        'to_date'             => 'Päättyen', // 
-        'weekday'             => 'Viikonpäivä', // 
-        'employee'            => 'Työntekijä' // 
+        'to_date'             => 'Päättyen', //
+        'weekday'             => 'Viikonpäivä', //
+        'employee'            => 'Työntekijä' //
     ],
     'embed' => [
         'heading'          => 'Otsikko',
@@ -395,15 +396,15 @@ return [
             'service'         => 'Palvelu',
             'employee'        => 'Henkilö',
             'name'            => 'Sinun nimi',
-            'notes'           => 'Lisätiedot', 
-            'postcode'        => 'Postinumero', 
+            'notes'           => 'Lisätiedot',
+            'postcode'        => 'Postinumero',
             'empty'           => 'Valittuna päivänä ei ole vapaita aikoja',
             'payment_note'    => 'Vahvistuksen jälkeen sinut ohjatamaan maksamaan varaus',
         ]
     ],
     'options' => [
         'heading' => 'Asetukset',
-        'updated' => 'Asetukset päivitetty', 
+        'updated' => 'Asetukset päivitetty',
         'general' => [
             'index'           => 'Yleinen',
             'heading'         => 'Yleisasetukset',
@@ -450,9 +451,9 @@ return [
             'bf_terms'                                       => 'Ehdot',
             'bf_zip'                                         => 'Postinumero',
             'notes'                                          => 'Lisätiedot',
-            'address'                                        => 'Osoite', 
-            'city'                                           => 'Kaupunki', 
-            'postcode'                                       => 'Postinumero', 
+            'address'                                        => 'Osoite',
+            'city'                                           => 'Kaupunki',
+            'postcode'                                       => 'Postinumero',
             'country'                                        => 'Maa',
             'reminder_enable'                                => 'Muistutusviestit käytössä',
             'reminder_email_before'                          => 'Lähetä muistutus sähköpostilla',
@@ -487,7 +488,7 @@ return [
             'confirm_tokens_admin'                           => 'Viestin sisältö',
             'confirm_tokens_admin_default'                   => $confirmTokensAdmin,
             'payment_subject_admin'                          => 'Ylläpitäjän maksuvahvistuksen otsikko',
-            'payment_subject_admin_default'                  => 'Uusi maksu vastaanotettu', 
+            'payment_subject_admin_default'                  => 'Uusi maksu vastaanotettu',
             'payment_tokens_admin'                           => 'Viestin sisältö',
             'payment_tokens_admin_default'                   => $paymentTokensAdmin,
             'confirm_subject_employee'                       => 'Työntekijän varauksen otsikko',

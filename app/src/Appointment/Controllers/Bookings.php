@@ -371,14 +371,17 @@ class Bookings extends AsBase
         $status_text = Input::get('booking_status');
         $data = [];
         try{
+
             $booking = Booking::ofCurrentUser()->find($bookingId);
-            $status =  $booking->getStatus($status_text);
+            $status  =  $booking->getStatus($status_text);
             $booking->setStatus($status_text);
-            if($status === Booking::STATUS_CANCELLED){
+
+            if ($status === Booking::STATUS_CANCELLED) {
                 $booking->delete();
             } else {
                 $booking->save();
             }
+
             $data['success'] = true;
         } catch (\Exception $ex){
             $data['message'] = $ex->getMessage();

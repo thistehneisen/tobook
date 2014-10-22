@@ -214,6 +214,7 @@ return [
         'extra'        => 'Extra Service',
         'employees'    => 'Employees',
         'no_employees' => 'There is no employee to be selected',
+        'no_name'      => 'Untitled',//@todo
         'error'        => [
             'service_current_in_use' => 'Services is currently in use. Please delete all related bookings before deleting this service.'
         ]

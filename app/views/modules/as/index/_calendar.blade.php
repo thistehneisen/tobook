@@ -1,32 +1,14 @@
 <?php
-    $booking = $selectedEmployee->getBooked($selectedDate, $hour, $minuteShift);
+    $booking   = $selectedEmployee->getBooked($selectedDate, $hour, $minuteShift);
     $bookingId = !empty($booking) ? $booking->id : -1;
 ?>
 <li data-booking-date="{{ $selectedDate }}" data-employee-id="{{ $selectedEmployee->id }}" data-start-time="{{ sprintf('%02d:%02d', (int)$hour, $minuteShift) }}" href="#select-action" class="{{ $slotClass }}" @if($cutId==$bookingId) style="background-color: grey" @endif>
     @if(strpos(trim($slotClass), 'booked') === 0)
         @if($booking !== null)
-            <?php
-            $bookingStartTime = with(new Carbon\Carbon($booking->start_at))->format('H:i');
-            $bookingEndTime = with(new Carbon\Carbon($booking->end_at))->format('H:i');
-            $consumerName = $booking->consumer->getNameAttribute();
-            $bookingService = $booking->bookingServices()->first();
-            $bookingServiceArray = !empty($bookingService->service->name)
-                ? [$bookingService->service->name]
-                : [];
-            $allServices = array_merge($bookingServiceArray, $booking->getExtraServices());
-            $serviceDescription = !empty($allServices)
-                ? '('.implode(' + ', $allServices).')'
-                : '';
-            $bookingNote = empty($booking->notes) ? '' : '<br><br><em>'.$booking->notes.'</em>';
-
-            $tooltip = sprintf(
-                '%s - %s <br> %s <br> %s %s',
-                $bookingStartTime, $bookingEndTime, $consumerName, $serviceDescription, $bookingNote
-            );
-            ?>
+            <?php $tooltip = $booking->getCalendarTooltip();?>
             @if(strpos($slotClass, 'slot-booked-head') !== false)
             <a href="{{ route('as.bookings.modify-form') }}" class="btn-plus btn-popover popup-ajax customer-tooltip" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click" title="{{{ $tooltip }}}">
-                {{{ $consumerName }}} {{{ $serviceDescription }}}
+                {{ $booking->consumer->name }} {{ $booking->getServiceDescription() }}
             </a>
             @else
             <a href="{{ route('as.bookings.modify-form') }}" class="btn-popover popup-ajax" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click">&nbsp;</a>
