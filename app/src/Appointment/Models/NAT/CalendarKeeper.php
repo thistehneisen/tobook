@@ -29,7 +29,7 @@ class CalendarKeeper
             ? ($user->asOptions->get('default_nat_service'))
             : null;
 
-        $service = (!empty($serviceId))
+        $defaultService = (!empty($serviceId))
                 ? Service::find($serviceId)
                 : null;
 
@@ -52,9 +52,9 @@ class CalendarKeeper
         //Simulate the visual calendar into 2-dimensional array
         foreach ($employees as $employee) {
             //Get the shortest service or the given service
-            $service = (empty($service->id))
-                ? $employee->services()->orderBy('length','asc')->first()
-                : $service;
+            $service = (empty($defaultService->id))
+                ? $employee->getRandomActiveService()
+                : $defaultService;
 
             foreach ($workingTimes as $hour => $minutes) {
                 foreach ($minutes as $minute) {

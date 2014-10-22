@@ -315,7 +315,21 @@ class Employee extends \App\Appointment\Models\Base
         return [$current, $startOfMonth, $endOfMonth];
     }
 
-
+    /**
+     * Get random active service which is belong to a show-front category
+     * @return App\Appointment\Models\Service
+     */
+    public function getRandomActiveService()
+    {
+        return Service::where('as_services.user_id', $this->user->id)
+            ->join('as_service_categories','as_service_categories.id', '=', 'as_services.category_id')
+            ->join('as_employee_service', 'as_employee_service.service_id', '=', 'as_services.id')
+            ->join('as_employees', 'as_employees.id', '=', 'as_employee_service.employee_id')
+            ->where('as_employees.is_active', true)
+            ->where('as_service_categories.is_show_front', true)
+            ->orderBy(\DB::raw('RAND()'))
+            ->first();
+    }
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
