@@ -84,6 +84,15 @@ VARAA.applyCountdown($('span.countdown'));
         e.preventDefault();
         var $this = $(this);
 
+        // open result as a full page load instead of ajax if the browser width is too small
+        var $sidebar = $this.parent();
+        var $container = $sidebar.parent();
+        if ($sidebar.width() * 2 > $container.width()) {
+            // sidebar should be less than a third of the container!
+            window.location = $this.data('url');
+            return;
+        }
+
         // If the current content is of this business, we don't need to fire
         // another AJAX
         if (content.data('current') === $this.data('id')) {
