@@ -102,18 +102,13 @@ class UnitBusinessCest
         $image = $business->image;
         $I->assertNotNull($image, 'image');
         $I->assertGreaterThan(0, strlen($image), 'strlen($image)');
-        $I->assertTrue(file_exists(public_path() . $image), 'image file exists');
+        $I->assertTrue(file_exists(public_path() . '/' . $image), 'image file exists');
     }
 
     private function getRequiredFieldsAndValues()
     {
         return $input = [
             'name' => 'Name',
-            'size' => '1',
-            'address' => 'Address',
-            'city' => 'City',
-            'postcode' => 10000,
-            'country' => 'Finland',
             'phone' => '1234567890',
         ];
     }
