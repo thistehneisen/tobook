@@ -4,6 +4,7 @@ use App, View, Confide, Redirect, Input, Config, Response, Util, Hashids;
 use Carbon\Carbon, Cart, Session, Request;
 use Illuminate\Support\Collection;
 use App\Core\Models\User;
+use App\Core\Models\Business;
 use App\Consumers\Models\Consumer;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
@@ -243,9 +244,10 @@ class FrontBookings extends Bookings
         ];
 
         try {
-            $cartId = Input::get('cart_id');
-            $cart   = Cart::find($cartId);
-            $user   = User::findOrFail(Input::get('business_id'));
+            $cartId   = Input::get('cart_id');
+            $cart     = Cart::find($cartId);
+            $business = Business::findOrFail(Input::get('business_id'));
+            $user     = $business->user;
 
             $bookingService = BookingService::findOrFail(Input::get('booking_service_id'));
             $length = 0;
