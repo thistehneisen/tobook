@@ -1,7 +1,7 @@
 <div class="row">
     <h3 class="comfortaa">{{ trans('fd.index') }}</h3>
     @foreach ($deals as $category)
-    <div class="col-md-3">
+    <div class="col-sm-3 col-xs-6">
         <div class="panel panel-default">
             <div class="panel-heading">{{ $category->name }}</div>
             <ul class="list-group">

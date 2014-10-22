@@ -1,5 +1,5 @@
 /*jslint browser: true, nomen: true, unparam: true*/
-/*global jQuery*/
+/*global jQuery, VARAA*/
 
 (function ($) {
     'use strict';
@@ -8,12 +8,12 @@
         var $fdModal = $('#fd-modal');
         $fdModal.modal({show: false});
 
-        $fdModal.changeContent = function(content) {
+        $fdModal.changeContent = function (content) {
             $fdModal.find('div.modal-content').html(content);
             return this;
         };
 
-        $fdModal.loading = function(content) {
+        $fdModal.loading = function (content) {
             var div = $('<div/>').addClass('text-center').html('<i class="fa fa-spinner fa-spin fa-2x"></i>');
             $fdModal.find('div.modal-body').html(div);
             return this;
@@ -27,13 +27,13 @@
             $fdModal.modal('show').loading();
             $.ajax({
                 url: $this.data('url'),
-            }).done(function(content) {
+            }).done(function (content) {
                 $fdModal.changeContent(content);
             });
         });
 
         // When user clicks to add a deal into cart
-        $fdModal.on('click', 'button.btn-fd-cart', function(e) {
+        $fdModal.on('click', 'button.btn-fd-cart', function (e) {
             e.preventDefault();
             var $this = $(this);
 
@@ -50,7 +50,7 @@
                 $fdModal.modal('hide');
             }).fail(function (e) {
 
-                if (typeof e.responseJSON.message !== 'undefined') {
+                if (e.responseJSON.hasOwnProperty('message')) {
                     var div = $('<div/>')
                         .addClass('alert alert-danger')
                         .html(e.responseJSON.message);
@@ -58,6 +58,14 @@
                 }
             });
 
+        });
+
+        // init countdown
+        VARAA.applyCountdown($('a.countdown'));
+
+        // change business category
+        $('#business_category').change(function (e) {
+            window.location = $(this).val();
         });
     });
 }(jQuery));

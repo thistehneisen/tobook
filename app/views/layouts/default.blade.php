@@ -195,7 +195,7 @@
     @section('footer')
     <footer class="container-fluid footer">
         <div class="container">
-            <div class="col-md-4 col-lg-4">
+            <div class="col-sm-4">
                 <p>&copy; {{ date('Y') }} <a href="http://varaa.com">varaa.com</a></p>
                 <ul class="list-unstyled list-inline list-social-networks">
                     <li><a href="{{ Setting::get('facebook-page') }}" target="_blank"><i class="fa fa-facebook"></i></a></li>
@@ -206,14 +206,14 @@
                 </ul>
             </div>
 
-            <div class="col-md-4 col-lg-4">
+            <div class="col-sm-4">
                 <ul class="list-unstyled">
                     <li><a href="{{ route('front.about') }}">{{ trans('About us') }}</a></li>
                     <li><a href="{{ route('front.contact') }}">{{ trans('Contact us') }}</a></li>
                     <li><a href="{{ route('intro-business') }}">{{ trans('common.for_business') }}</a></li>
                 </ul>
             </div>
-            <div class="col-md-4 col-lg-4">
+            <div class="col-sm-4">
                 <ul class="list-unstyled">
                     <li><a href="{{ route('front.partners') }}">{{ trans('Partners') }}</a></li>
                     <li><a href="{{ route('front.resellers') }}">{{ trans('Resellers') }}</a></li>

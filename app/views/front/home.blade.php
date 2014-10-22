@@ -13,29 +13,6 @@
     {{ HTML::script(asset('packages/jquery.countdown/jquery.plugin.min.js')) }}
     {{ HTML::script(asset('packages/jquery.countdown/jquery.countdown.min.js')) }}
     {{ HTML::script(asset('assets/js/home.js')) }}
-
-    <script>
-$(function() {
-    var applyCountdown = function(elems) {
-        elems.each(function() {
-            var $this = $(this);
-
-            $this.countdown({
-                until: new Date($this.data('date')),
-                compact: true,
-                layout: '{hnn}{sep}{mnn}{sep}{snn}',
-            });
-        });
-    };
-
-    // Init
-    applyCountdown($('a.countdown'));
-
-    $('#business_category').change( function (e) {
-         window.location.href = $(this).val();
-    });
-});
-    </script>
 @stop
 
 @section('main-classes') container-fluid home @stop
@@ -59,7 +36,7 @@ $(function() {
                 $slots = $business->user->getASNextTimeSlots($now, $now->hour);
                 $count = 0;
             ?>
-            <div class="available-slot col-md-3 col-sm-3">
+            <div class="available-slot col-sm-3 col-xs-6">
                 <a href="{{ $business->business_url }}">
                     <img src="{{ Util::thumbnail($business->image, 270, 135, true, true) }}" alt="" class="img-responsive" />
                 </a>

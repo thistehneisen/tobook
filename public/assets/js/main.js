@@ -1,11 +1,11 @@
 /*jslint browser: true, nomen: true, unparam: true*/
-/*global $, jQuery, Bloodhound*/
+/*global $, jQuery, Bloodhound, VARAA*/
 'use strict';
 
 $(function () {
     var $doc = $(document),
-        initTypeahead,
-        cart;
+        cart,
+        initTypeahead;
 
     initTypeahead = function (selector, name) {
         // init bloodhound collection
@@ -101,4 +101,18 @@ $(function () {
 
     // Load cart content when page load
     $doc.trigger('cart.reload', false);
+
+
+    // ----------------------- Global scope functions ----------------------- //
+    VARAA.applyCountdown = function (elems) {
+        elems.each(function () {
+            var $this = $(this);
+
+            $this.countdown({
+                until: new Date($this.data('date')),
+                compact: true,
+                layout: '{hnn}{sep}{mnn}{sep}{snn}',
+            });
+        });
+    };
 });

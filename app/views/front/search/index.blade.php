@@ -39,8 +39,7 @@ $('#as-step-3').on('afterShow', function() {
 var loading = $('#js-loading'),
     content = $('#js-business-content'),
     map = $('#map-canvas'),
-    renderMap,
-    applyCountdown;
+    renderMap;
 
 
 renderMap = function(mapId, lat, lng, markers) {
@@ -60,20 +59,8 @@ renderMap = function(mapId, lat, lng, markers) {
     return gmap;
 };
 
-applyCountdown = function(elems) {
-    elems.each(function() {
-        var $this = $(this);
-
-        $this.countdown({
-            until: new Date($this.data('date')),
-            compact: true,
-            layout: '{hnn}{sep}{mnn}{sep}{snn}',
-        });
-    });
-};
-
 // Init
-applyCountdown($('span.countdown'));
+VARAA.applyCountdown($('span.countdown'));
 
 @if (!isset($single))
 
@@ -140,7 +127,7 @@ applyCountdown($('span.countdown'));
             });
 
             // Countdown
-            applyCountdown(content.find('span.countdown'));
+            VARAA.applyCountdown(content.find('span.countdown'));
         });
     });
 
@@ -164,7 +151,7 @@ applyCountdown($('span.countdown'));
 @section('content')
 <div class="row">
     <!-- left sidebar -->
-    <div class="col-sm-3 col-md-3 col-lg-3 search-left">
+    <div class="col-sm-3 col-md-3 col-lg-3 search-left @if (isset($single)) hidden-xs @endif">
         @if ($businesses->count() === 0)
             <p class="alert alert-info">
                 {{ trans('search.no_result') }}
@@ -186,9 +173,6 @@ applyCountdown($('span.countdown'));
                     <a href="#" data-business-id="{{ $item->user->id }}" data-service-id="{{ $slot['service'] }}" data-employee-id="{{ $slot['employee'] }}" data-hour="{{ $slot['hour'] }}" data-minute="{{ $slot['minute'] }}" class="btn btn-sm btn-default">{{ $slot['time'] }}</a>
                 <?php $count++;?>
                 @endforeach
-                {{--
-                <p>60-80€</p>
-                --}}
                 </div>
             </div>
             @endforeach

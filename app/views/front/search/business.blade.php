@@ -81,7 +81,7 @@
             @include('modules.as.embed.layout-3.main', ['inhouse' => true, 'hash' => $business->user->hash])
         </div>
 
-        <div class="box">
+        <div class="box hidden-xs">
             <h4>{{ trans('home.search.locations_hours') }}</h4>
             <div class="text-center" style="min-height: 150px;" id="js-map-{{ $user->id }}" data-lat="{{ $business->lat }}" data-lng="{{ $business->lng }}">
                 <i class="fa fa-spinner fa-spin fa-3x text-muted"></i>
