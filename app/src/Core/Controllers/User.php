@@ -252,6 +252,7 @@ class User extends Base
         if ($user || Hash::check(Input::get('old_password'), Confide::user()->password)) {
             // Old password OK, let's change
             Confide::user()->resetPassword([
+                // do NOT escape passwords!
                 'password'              => Input::get('password'),
                 'password_confirmation' => Input::get('password_confirmation'),
             ]);

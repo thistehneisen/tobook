@@ -223,8 +223,11 @@ class Auth extends Base
 
         $user = new User();
         $user->email                 = e(Input::get('email'));
-        $user->password              = e(Input::get('password'));
-        $user->password_confirmation = e(Input::get('password_confirmation'));
+
+        // do NOT escape passwords!
+        $user->password              = Input::get('password');
+        $user->password_confirmation = Input::get('password_confirmation');
+
         $user->save();
 
         if ($user->getKey()) {
@@ -402,6 +405,8 @@ class Auth extends Base
     {
         $input = [
             'token'                 => $token,
+
+            // do NOT escape passwords!
             'password'              => Input::get('password'),
             'password_confirmation' => Input::get('password_confirmation'),
         ];

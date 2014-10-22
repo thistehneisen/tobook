@@ -55,7 +55,7 @@ class ConsumerAuthCest
         $I->canSeeInField('password_confirmation', '');
 
         $email = 'consumer' . time() . '@varaa.com';
-        $password = '123456';
+        $password = 'Nordic characters (ä, ö, å)';
         $I->fillField('email', $email);
         $I->fillField('password', $password);
         $I->fillField('password_confirmation', $password);

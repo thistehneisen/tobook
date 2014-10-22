@@ -55,7 +55,7 @@ class AuthCest
         $I->canSeeInField('password_confirmation', '');
 
         $email = 'business' . time() . '@varaa.com';
-        $password = '123456';
+        $password = 'Nordic characters (ä, ö, å)';
         $I->fillField('email', $email);
         $I->fillField('password', $password);
         $I->fillField('password_confirmation', $password);

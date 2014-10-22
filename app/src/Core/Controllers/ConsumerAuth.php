@@ -48,8 +48,11 @@ class ConsumerAuth extends Auth
     {
         $user                        = new User();
         $user->email                 = e(Input::get('email'));
-        $user->password              = e(Input::get('password'));
-        $user->password_confirmation = e(Input::get('password_confirmation'));
+
+        // do NOT escape passwords!
+        $user->password              = Input::get('password');
+        $user->password_confirmation = Input::get('password_confirmation');
+
         // Optional inforamtion
         $user->first_name            = e(Input::get('first_name'));
         $user->last_name             = e(Input::get('last_name'));
