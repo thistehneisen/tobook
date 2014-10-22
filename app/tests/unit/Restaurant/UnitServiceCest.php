@@ -21,5 +21,26 @@ class UnitServiceCest
 
         $I->assertEquals($service->name, 'Service 1');
         $I->assertEquals($service->end_at, '09:00:00');
+
+        $I->seeRecord('rb_services', [
+            'name'      => 'Service 1',
+            'start_at'  => '05:00:00',
+            'end_at'    => '09:00:00',
+            'length'    => 2,
+            'price'     => 50,
+        ]);
+    }
+
+    public function testEditService(UnitTester $I)
+    {
+        $service = Service::find(1);
+        $service->name = 'Service Edit';
+        $service->save();
+
+        $I->assertEquals($service->name, 'Service Edit');
+
+        $I->seeRecord('rb_services', [
+            'name'      => 'Service Edit',
+        ]);
     }
 }
