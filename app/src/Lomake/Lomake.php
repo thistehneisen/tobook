@@ -115,6 +115,22 @@ class Lomake
 
         // If user wants to overwrite fields data
         foreach ($opt['fields'] as $name => $fieldData) {
+            if (!isset($fieldData['name'])) {
+                $fieldData['name'] = $name;
+            }
+            if (!isset($fieldData['type'])) {
+                $fieldData['type'] = $this->guessInputType($fieldData['name']);
+            }
+            if (!isset($fieldData['required'])) {
+                $fieldData['required'] = $this->isRequired($instance, $fieldData['name']);
+            }
+            if (!isset($fieldData['model'])) {
+                $fieldData['model'] = $instance;
+            }
+            if (!isset($fieldData['langPrefix'])) {
+                $fieldData['langPrefix'] = $opt['langPrefix'];
+            }
+
             foreach ($fieldData as $fieldDataKey => $fieldDataValue) {
                 $fieldsData[$name][$fieldDataKey] = $fieldDataValue;
             }
