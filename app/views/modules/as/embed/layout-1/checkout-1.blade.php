@@ -39,7 +39,7 @@
             <div class="form-group row">
                 <div class="col-sm-2">{{ trans('as.bookings.country') }}  @if((int)$user->asOptions['country'] === 3)(*)@endif</div>
                 <div class="col-sm-10">
-                {{ Form::select('country', array_combine($user->getCountryList(), $user->getCountryList()), (isset($booking_info['country'])) ? $booking_info['country'] : '', ['class' => 'form-control input-sm', 'id' => 'country']) }}
+                {{ Form::select('country', array_combine($user->business->getCountryList(), $user->business->getCountryList()), (isset($booking_info['country'])) ? $booking_info['country'] : '', ['class' => 'form-control input-sm', 'id' => 'country']) }}
                 </div>
             </div>
             @endif
