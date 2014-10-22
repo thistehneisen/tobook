@@ -46,7 +46,7 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 |
 */
 
-if (App::environment() !== 'local' && App::environment() !== 'staging') {
+if (App::environment() !== 'local' && App::environment() !== 'stag') {
     // We will show 404 if found non-existing data
     App::error(function (\Illuminate\Database\Eloquent\ModelNotFoundException $ex) {
         Log::error($ex->getMessage(), ['url' => URL::current()]);
