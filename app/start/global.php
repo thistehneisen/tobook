@@ -49,6 +49,7 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 if (App::environment() !== 'local') {
     // We will show 404 if found non-existing data
     App::error(function (\Illuminate\Database\Eloquent\ModelNotFoundException $ex) {
+        Log::error($ex->getMessage(), ['url' => URL::current()]);
         return Response::view('errors.missing', [], 404);
     });
 }
