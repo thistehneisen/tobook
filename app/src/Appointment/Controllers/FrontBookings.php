@@ -34,6 +34,7 @@ class FrontBookings extends Bookings
         $serviceId       = (int) Input::get('service_id');
         $employeeId      = (int) Input::get('employee_id');
         $modifyTime      = (int) Input::get('modify_times', 0);
+        $inhouse         = (boolean) Input::get('inhouse', false);
         $serviceTimeId   = Input::get('service_time', 'default');
         $extraServiceIds = Input::get('extra_services', []);
         $hash            = Input::get('hash');
@@ -58,11 +59,11 @@ class FrontBookings extends Bookings
         $length = 0;
         $during = 0;
         $startTime = Carbon::createFromFormat('Y-m-d H:i', sprintf('%s %s', $bookingDate, $startTimeStr));
-        $cartStartTime = with(clone $startTime);
+        $cartStartTime = $startTime->copy();
 
-        $extraServiceTime = 0;
+        $extraServiceTime  = 0;
         $extraServicePrice = 0;
-        $extraServices = [];
+        $extraServices     = [];
 
         if(!empty($extraServiceIds)){
             $extraServices = ExtraService::whereIn('id', $extraServiceIds)->get();
@@ -71,6 +72,7 @@ class FrontBookings extends Bookings
                 $extraServicePrice  += $extraService->price;
             }
         }
+
         if ($serviceTimeId === 'default') {
             $service = Service::find($serviceId);
             $length = $service->length;
@@ -85,8 +87,8 @@ class FrontBookings extends Bookings
 
         $lengthPlusExtraTime = $length + $extraServiceTime + $plustime;
         $duringPlusExtraTime = $during + $extraServiceTime + $plustime;
-        $endTime = with(clone $startTime)->addMinutes($lengthPlusExtraTime);
-        $cartEndTime = with(clone $cartStartTime)->addMinutes($duringPlusExtraTime);
+        $endTime     = $startTime->copy()->addMinutes($lengthPlusExtraTime);
+        $cartEndTime = $cartStartTime->copy()->addMinutes($duringPlusExtraTime);
 
         //Check is there any existed booking with this service time
 
@@ -103,7 +105,7 @@ class FrontBookings extends Bookings
         //TODO validate modify time and service time
         $bookingService = new BookingService();
         //Using uuid for retrieve it later when insert real booking
-        $bookingServiceEndTime = with(clone $startTime)->addMinutes($lengthPlusExtraTime);
+        $bookingServiceEndTime = $startTime->copy()->addMinutes($lengthPlusExtraTime);
         $bookingService->fill([
             'tmp_uuid'    => $uuid,
             'date'        => $bookingDate,
@@ -138,7 +140,10 @@ class FrontBookings extends Bookings
         $bookingService->quantity = 1;
         $bookingService->price    = $price;
 
-        $cart = Cart::current();
+        $cart = ($inhouse)
+            ? Cart::current()
+            : null;
+
         if ($cart === null) {
             $cart = Cart::make(['status' => Cart::STATUS_INIT], $this->user);
         }
@@ -294,6 +299,7 @@ class FrontBookings extends Bookings
                 'tmp_uuid',
                 $bookingService->tmp_uuid
             )->get();
+
             foreach ($extraServices as $extraService) {
                 $extraService->booking()->associate($booking);
                 $extraService->save();

@@ -232,6 +232,7 @@
                         booking_date: dataStorage.date,
                         start_time: dataStorage.time,
                         hash: dataStorage.hash,
+                        inhouse: dataStorage.inhouse
                     }
                 }).then(function (e) {
                     if (typeof e.cart_id !== 'undefined') {
