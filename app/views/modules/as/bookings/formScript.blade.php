@@ -25,7 +25,6 @@ $(function () {
                         text: data[i].name
                     })
                 );
-                servicePrices[data[i].id] = data[i].price;
             }
         });
     });
@@ -50,6 +49,7 @@ $(function () {
                         'data-length': data[i].length
                     })
                 );
+                servicePrices[data[i].id] = data[i].price;
             }
         });
     });
@@ -57,7 +57,7 @@ $(function () {
     $(document).on('change', '#service_times', function () {
         $('#added_service_name').text($('#services :selected').text());
         $('#added_booking_modify_time').text($('#modify_times').val());
-        $('#added_service_price').text(servicePrices[$('#services').val()]);
+        $('#added_service_price').text(servicePrices[$('#service_times').val()]);
     });
 
     $(document).on('change', '#modify_times', function () {
