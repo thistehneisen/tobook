@@ -35,8 +35,9 @@ class Bookings extends \App\Core\Controllers\Ajax\Base
 
         foreach ($services as $service) {
             $data[$service->id] = [
-                'id'   => $service->id,
-                'name' => $service->name
+                'id'    => $service->id,
+                'name'  => $service->name,
+                'price' => $service->price
             ];
         }
 

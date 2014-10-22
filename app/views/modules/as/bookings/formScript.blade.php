@@ -1,10 +1,12 @@
 <script>
 $(function () {
+    var servicePrices = [];
     $(document).on('change', '#service_categories', function () {
         $('#services').empty();
         $('#service_times').empty();
         var category_id = $(this).val(),
             employee_id = $('#employee_id').val();
+
         $.ajax({
             url: $('#get_services_url').val(),
             data: {
@@ -23,6 +25,7 @@ $(function () {
                         text: data[i].name
                     })
                 );
+                servicePrices[data[i].id] = data[i].price;
             }
         });
     });
@@ -52,8 +55,15 @@ $(function () {
     });
 
     $(document).on('change', '#service_times', function () {
-
+        $('#added_service_name').text($('#services :selected').text());
+        $('#added_booking_modify_time').text($('#modify_times').val());
+        $('#added_service_price').text(servicePrices[$('#services').val()]);
     });
+
+    $(document).on('change', '#modify_times', function () {
+        $('#added_booking_modify_time').text($('#modify_times').val());
+    });
+
     $('a.btn-remove-extra-service').click( function (e) {
         e.preventDefault();
         var action_url      = $(this).data('remove-url'),

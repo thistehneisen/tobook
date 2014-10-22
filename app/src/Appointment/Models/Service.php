@@ -45,6 +45,7 @@ class Service extends \App\Core\Models\Base
             'id'          => 'default',
             'name'        => $this->length,
             'length'      => $this->length,
+            'price'       => $this->price,
             'description' => $this->description
         ];
         foreach ($serviceTimes as $serviceTime) {
@@ -52,6 +53,7 @@ class Service extends \App\Core\Models\Base
                 'id'            => $serviceTime->id,
                 'name'          => $serviceTime->length,
                 'length'        => $serviceTime->length,
+                'price'         => $this->price,
                 'description'   => $serviceTime->description
             ];
         }
