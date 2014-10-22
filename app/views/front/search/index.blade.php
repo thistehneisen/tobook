@@ -36,7 +36,14 @@ $('#as-step-3').on('afterShow', function() {
 });
 @endif
 
-var renderMap = function(mapId, lat, lng, markers) {
+var loading = $('#js-loading'),
+    content = $('#js-business-content'),
+    map = $('#map-canvas'),
+    renderMap,
+    applyCountdown;
+
+
+renderMap = function(mapId, lat, lng, markers) {
     var gmap = new GMaps({
         div: mapId,
         lat: lat,
@@ -53,7 +60,7 @@ var renderMap = function(mapId, lat, lng, markers) {
     return gmap;
 };
 
-var applyCountdown = function(elems) {
+applyCountdown = function(elems) {
     elems.each(function() {
         var $this = $(this);
 
@@ -69,6 +76,8 @@ var applyCountdown = function(elems) {
 applyCountdown($('span.countdown'));
 
 @if (!isset($single))
+
+    map.show();
     renderMap(
         '#map-canvas',
         {{ $lat }},
@@ -83,10 +92,6 @@ applyCountdown($('span.countdown'));
     @endforeach
         ]
     );
-
-    var loading = $('#js-loading'),
-        content = $('#js-business-content'),
-        map = $('#map-canvas');
 
     $('div.result-row').click(function(e) {
         e.preventDefault();
@@ -138,6 +143,7 @@ applyCountdown($('span.countdown'));
             applyCountdown(content.find('span.countdown'));
         });
     });
+
 @else
     renderMap(
         '#js-map-{{ $businesses[0]->user->id }}',
