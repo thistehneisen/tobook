@@ -5,14 +5,14 @@
 @stop
 
 @section('styles')
-    {{ HTML::style('assets/css/home.css') }}
+    {{ HTML::style('assets/css/home.css?v=00002') }}
 @stop
 
 @section ('scripts')
     @parent
     {{ HTML::script(asset('packages/jquery.countdown/jquery.plugin.min.js')) }}
     {{ HTML::script(asset('packages/jquery.countdown/jquery.countdown.min.js')) }}
-    {{ HTML::script(asset('assets/js/home.js')) }}
+    {{ HTML::script(asset('assets/js/home.js?v=00002')) }}
 @stop
 
 @section('main-classes') container-fluid home @stop

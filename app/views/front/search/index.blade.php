@@ -10,7 +10,7 @@
 @stop
 
 @section('styles')
-    {{ HTML::style(asset('assets/css/search.css')) }}
+    {{ HTML::style(asset('assets/css/search.css?v=00002')) }}
     <link rel="stylesheet" href="{{ asset('assets/css/as/layout-3.css').(Config::get('app.debug') ? '?v='.time() : '') }}">
 @stop
 
