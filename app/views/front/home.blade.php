@@ -22,7 +22,7 @@
 
     <!-- Next available time slot -->
     <div class="row" id="next-available-slots">
-        <h3 class="comfortaa">{{ trans('Next available time slot') }}</h3>
+        <h3 class="comfortaa">{{ trans('home.next_timeslot') }}</h3>
         <div class="form-group col-md-4 col-md-offset-4">
         <select class="form-control input-sm" name="business_category" id="business_category">
             @foreach ($categories as $key => $value)

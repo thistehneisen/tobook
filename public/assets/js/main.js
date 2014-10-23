@@ -115,4 +115,15 @@ $(function () {
             });
         });
     };
+
+    VARAA.equalize = function (elem) {
+        var tallest = 0;
+
+        $(elem).each(function () {
+            var $this = $(this);
+            if ($this.outerHeight() > tallest) {
+                tallest = $this.outerHeight();
+            }
+        }).css({'height': tallest});
+    };
 });

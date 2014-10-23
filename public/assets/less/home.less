@@ -1,20 +1,14 @@
 @import "_vars.less";
 
 .main {
-    .available-slot, .flashdeal-item {
+    .available-slot {
         padding-bottom: 10px;
-
-        img {
-            //max-height: 150px;
-        }
-
-        .info {
-            background: @light_gray;
-            padding: 10px;
-        }
-
-        p {
-            margin: 0;
-        }
+    }
+    .available-slot .info, .flashdeal-item .info {
+        background: @light_gray;
+        padding: 10px;
+    }
+    .list-group-item {
+        padding: 0 10px;
     }
 }

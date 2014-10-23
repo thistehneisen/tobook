@@ -16,10 +16,13 @@
                                 </span>
                             </h4>
                             <h5>
-                                {{ trans('common.price') }}: {{ $deal->flashDeal->discounted_price }}&euro; ({{ trans('common.normal') }} {{ $deal->flashDeal->service->price }}&euro;)
+                                {{ trans('common.price') }}:
+                                <span class="orange">{{ $deal->flashDeal->discounted_price }}&euro;</span>
+                                ({{ trans('common.normal') }} {{ $deal->flashDeal->service->price }}&euro;)
                             </h5>
-                            <p><strong class="orange">{{{ $deal->flashDeal->service->user->business_name }}}</strong></p>
-                            <p>{{{ $deal->flashDeal->service->user->full_address }}}</p>
+                            <p>{{ trans('fd.front.business') }}: <strong class="orange">{{{ $deal->flashDeal->service->user->business_name }}}</strong></p>
+                            <p>{{ trans('user.address') }}: {{{ $deal->flashDeal->service->user->full_address }}}</p>
+                            <p>{{ trans('home.time') }}: {{{ $deal->expire->format('H:i d/m/Y') }}}</p>
                             <p class="text-center"><a data-target="#fd-modal" href="#" data-url="{{ route('fd.view', ['id' => $deal->flash_deal_date_id]) }}" class="btn btn-orange countdown btn-fd" data-date="{{ $deal->expire->toISO8601String() }}"></a></p>
                         </div>
                     </li>

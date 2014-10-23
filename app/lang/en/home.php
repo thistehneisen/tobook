@@ -17,6 +17,8 @@ return [
     'description_2'         => 'See the company\'s home page layout, and you see the shop and office space with elegance and comfort',
     'start_now'             => 'Start your free trial',
     'tagline'               => 'Everything you need for<br>easy and profitable business',
+    'next_timeslot'         => 'Next available timeslots',
+    'time'                  => 'Time',
 
     'search_tagline'        => 'Book appointments for anything',
     'search_query'          => 'Search for a service',

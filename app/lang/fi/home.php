@@ -17,6 +17,8 @@ return [
     'description_2'         => 'Panosta yrityksen kotisivun ulkoasuun, niin kuin panostat myymälän ja liiketilan tyylikkyyteen ja viihtyvyyteen',
     'start_now'             => 'Aloita ilmainen kokeilu',
     'tagline'               => 'Kaikki mitä tarvitset helppoon<br>ja kannattavaan liiketoimintaan',
+    'next_timeslot'         => 'Seuraavat vapaat ajat',
+    'time'                  => 'Aika',
 
     'search_tagline'        => 'Mitä haluat varata?',
     'search_query'          => 'Hae palvelua',

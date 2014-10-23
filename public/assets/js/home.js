@@ -1,5 +1,5 @@
 /*jslint browser: true, nomen: true, unparam: true*/
-/*global jQuery, VARAA*/
+/*global $, jQuery, VARAA*/
 
 (function ($) {
     'use strict';
@@ -67,5 +67,9 @@
         $('#business_category').change(function (e) {
             window.location = $(this).val();
         });
+
+        // make boxes equal height
+        VARAA.equalize('.available-slot .info');
+        VARAA.equalize('.list-group-item');
     });
 }(jQuery));

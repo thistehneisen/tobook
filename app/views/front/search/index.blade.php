@@ -85,9 +85,7 @@ VARAA.applyCountdown($('span.countdown'));
         var $this = $(this);
 
         // open result as a full page load instead of ajax if the browser width is too small
-        var $sidebar = $this.parent();
-        var $container = $sidebar.parent();
-        if ($sidebar.width() * 2 > $container.width()) {
+        if ($(window).width() < 768) {
             // sidebar should be less than a third of the container!
             window.location = $this.data('url');
             return;
