@@ -27,7 +27,7 @@
         @foreach ($flashDeals as $item)
             <tr>
                 <td><a href="#" title="">{{ $item->flashDeal->service->name }}</a></td>
-                <td><span class="text-danger countdown" data-date="{{ $item->expire->toISO8601String() }}"></span></td>
+                <td><span class="text-danger countdown" data-date="{{ $item->expire->format('Y-m-d\TH:i:s') }}"></span></td>
                 <td>{{ $item->flashDeal->discounted_price }}&euro; ({{ $item->flashDeal->service->price }}&euro;)</td>
                 <td>
                     <p class="text-danger"><strong>-{{ $item->flashDeal->discount_percent }}%</strong></p>
@@ -58,7 +58,7 @@
             @foreach ($coupons as $item)
                 <tr>
                     <td><a href="#" title="">{{ $item->service->name }}</a></td>
-                    <td><span class="text-danger countdown" data-date="{{ $item->valid_date->toISO8601String() }}"></span></td>
+                    <td><span class="text-danger countdown" data-date="{{ $item->valid_date->format('Y-m-d\TH:i:s') }}"></span></td>
                     <td>{{ $item->discounted_price }}&euro; ({{ $item->service->price }}&euro;)</td>
                     <td>
                         <p class="text-danger"><strong>-{{ $item->discount_percent }}%</strong></p>
