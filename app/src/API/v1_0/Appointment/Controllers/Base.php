@@ -84,7 +84,7 @@ class Base extends \App\Core\Controllers\Base
             'type' => 'booking',
             'booking_id' => $booking->id,
             'booking_uuid' => $booking->uuid,
-            'booking_notes' => $booking->notes,
+            'booking_notes' => !empty($booking->notes) ? $booking->notes : '',
             'booking_status' => Booking::getStatusByValue($booking->status),
 
             'consumer' => $this->_prepareConsumerData($booking->consumer),

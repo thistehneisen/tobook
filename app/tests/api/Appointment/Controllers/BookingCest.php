@@ -104,6 +104,7 @@ class BookingCest
 
         $I->assertEquals($dayObj->toDateString(), $booking->date, 'date');
         $I->assertEquals($startAt, $booking->start_at, 'start_at');
+        $I->assertEmpty($booking->notes, 'notes');
         $I->assertEquals(\App\Appointment\Models\Booking::STATUS_CONFIRM, $booking->status, 'status');
     }
 
@@ -145,6 +146,9 @@ class BookingCest
         $dayObj = Carbon::today()->addDay();
         $startAt = '13:00:00';
 
+        $notes = 'Notes';
+        $status = \App\Appointment\Models\Booking::STATUS_ARRIVED;
+
         $I->sendPUT($this->endpoint . '/' . $booking->id, [
             'employee_id' => $employee->id,
             'service_id' => $service->id,
@@ -158,8 +162,8 @@ class BookingCest
             'start_time' => substr($startAt, 0, 5),
 
             // booking
-            // 'booking_notes' => '',
-            // 'booking_status' => '',
+            'booking_notes' => $notes,
+            'booking_status' => \App\Appointment\Models\Booking::getStatusByValue($status),
             // 'ip' => '',
         ]);
         $I->seeResponseCodeIs(200);
@@ -183,6 +187,8 @@ class BookingCest
         $I->assertEquals($consumerAddress, $booking->consumer->address, 'consumer.address');
 
         $I->assertEquals($startAt, $booking->start_at, 'start_at');
+        $I->assertEquals($notes, $booking->notes, 'notes');
+        $I->assertEquals($status, $booking->status, 'status');
     }
 
     public function testDestroy(ApiTester $I)

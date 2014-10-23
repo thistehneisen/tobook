@@ -106,6 +106,7 @@ trait Booking
             $length += $bookingExtraService->extraService->length;
         }
 
+        $I->assertEquals('', $bookingData['booking_notes'], "\$bookingData['booking_notes']");
         $I->assertEquals(\App\Appointment\Models\Booking::getStatusByValue($booking->status), $bookingData['booking_status'], "\$bookingData['booking_status']");
         $I->assertEquals($length, $bookingData['duration'], "\$bookingData['duration']");
 
