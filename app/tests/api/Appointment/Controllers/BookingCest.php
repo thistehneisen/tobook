@@ -2,10 +2,14 @@
 namespace Appointment\Schedule;
 
 use \ApiTester;
+use App\Appointment\Models\AsConsumer;
 use Appointment\Traits\Booking;
 use Appointment\Traits\Models;
 use Carbon\Carbon;
 
+/**
+ * @group as
+ */
 class BookingCest
 {
     use Booking;
@@ -43,6 +47,14 @@ class BookingCest
         $consumerEmail = 'consumer_' . $this->user->id . '@varaa.com';
         $consumerPhone = '1234567890';
         $consumerAddress = 'address';
+        $consumer = AsConsumer::handleConsumer([
+            'first_name' => $consumerFirstName,
+            'last_name' => $consumerLastName,
+            'email' => $consumerEmail,
+            'phone' => $consumerPhone,
+            'address' => $consumerAddress,
+            'hash' => '',
+        ], $this->user);
 
         $dayObj = Carbon::today()->addDay();
         $startAt = '12:00:00';
@@ -51,14 +63,7 @@ class BookingCest
             'employee_id' => $employee->id,
             'service_id' => $service->id,
             'extra_services' => $extraServiceIds,
-
-            // consumer
-            'consumer_first_name' => $consumerFirstName,
-            'consumer_last_name' => $consumerLastName,
-            'consumer_email' => $consumerEmail,
-            'consumer_phone' => $consumerPhone,
-            'consumer_address' => $consumerAddress,
-            // 'consumer_hash' => '',
+            'consumer_id' => $consumer->id,
 
             // booking service
             'booking_date' => $dayObj->toDateString(),
@@ -128,6 +133,14 @@ class BookingCest
         $consumerEmail = $booking->consumer->email;
         $consumerPhone = '0987654321';
         $consumerAddress = 'new address';
+        $consumer = AsConsumer::handleConsumer([
+            'first_name' => $consumerFirstName,
+            'last_name' => $consumerLastName,
+            'email' => $consumerEmail,
+            'phone' => $consumerPhone,
+            'address' => $consumerAddress,
+            'hash' => '',
+        ], $this->user);
 
         $dayObj = Carbon::today()->addDay();
         $startAt = '13:00:00';
@@ -136,14 +149,7 @@ class BookingCest
             'employee_id' => $employee->id,
             'service_id' => $service->id,
             'extra_services' => [$extraService->id],
-
-            // consumer
-            'consumer_first_name' => $consumerFirstName,
-            'consumer_last_name' => $consumerLastName,
-            'consumer_email' => $consumerEmail,
-            'consumer_phone' => $consumerPhone,
-            'consumer_address' => $consumerAddress,
-            // 'consumer_hash' => '',
+            'consumer_id' => $consumer->id,
 
             // booking service
             'booking_date' => $dayObj->toDateString(),

@@ -1,5 +1,6 @@
 <?php namespace App\API\v1_0\Appointment\Controllers;
 
+use App\Appointment\Models\Consumer;
 use Confide, Input, Request, Response, Util;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\BookingExtraService;
@@ -190,6 +191,9 @@ class Booking extends Base
             $extraServices[] = $service->extraServices()->findOrFail($extraServiceId);
         }
 
+        $consumerId = intval(Input::get('consumer_id'));
+        $consumer = Consumer::ofCurrentUser()->findOrFail($consumerId);
+
         $existingBookingService = null;
         $existingExtraServiceIds = [];
         $newExtraServices = [];
@@ -223,14 +227,6 @@ class Booking extends Base
         }
 
         $input = [
-            // consumer
-            'first_name' => Input::get('consumer_first_name'),
-            'last_name' => Input::get('consumer_last_name'),
-            'email' => Input::get('consumer_email'),
-            'phone' => Input::get('consumer_phone'),
-            'address' => Input::get('consumer_address'),
-            'hash' => Input::get('consumer_hash'),
-
             // booking service
             'booking_date' => Input::get('booking_date'),
             'modify_time' => Input::get('modify_time'),
@@ -254,7 +250,6 @@ class Booking extends Base
                 BookingExtraService::addExtraService($uuid, $employee, $bookingService, $extraService);
             }
 
-            $consumer = AsConsumer::handleConsumer($input, $user);
             $booking = \App\Appointment\Models\Booking::saveBooking($uuid, $user, $consumer, $input, $existingBooking);
 
             return Response::json([

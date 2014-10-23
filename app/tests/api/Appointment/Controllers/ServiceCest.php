@@ -5,6 +5,9 @@ use \ApiTester;
 use Appointment\Traits\Models;
 use Carbon\Carbon;
 
+/**
+ * @group as
+ */
 class ServiceCest
 {
     use Models;

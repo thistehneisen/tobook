@@ -7,6 +7,9 @@ use Appointment\Traits\Booking;
 use Appointment\Traits\Models;
 use Carbon\Carbon;
 
+/**
+ * @group as
+ */
 class ConsumerCest
 {
     use Booking;
