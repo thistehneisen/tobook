@@ -184,7 +184,16 @@ class Base extends \App\Core\Controllers\Base
             'consumer_email' => $consumer->email,
             'consumer_phone' => $consumer->phone,
             'consumer_address' => $consumer->address,
+            'consumer_city' => $consumer->city,
+            'consumer_postcode' => $consumer->postcode,
+            'consumer_country' => $consumer->country,
         ];
+
+        foreach ($consumerData as &$value) {
+            if ($value === null) {
+                $value = '';
+            }
+        }
 
         return $consumerData;
     }

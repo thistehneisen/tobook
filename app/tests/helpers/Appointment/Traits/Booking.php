@@ -115,10 +115,13 @@ trait Booking
 
     protected function _assertConsumer(\ApiTester $I, $consumer, array $consumerData) {
         $I->assertEquals($consumer->id, $consumerData['consumer_id'], "\$consumerData['id']");
-        $I->assertEquals($consumer->first_name, $consumerData['consumer_first_name'], "\$consumerData['first_name']");
-        $I->assertEquals($consumer->last_name, $consumerData['consumer_last_name'], "\$consumerData['last_name']");
-        $I->assertEquals($consumer->email, $consumerData['consumer_email'], "\$consumerData['email']");
-        $I->assertEquals($consumer->phone, $consumerData['consumer_phone'], "\$consumerData['phone']");
-        $I->assertEquals($consumer->address, $consumerData['consumer_address'], "\$consumerData['address']");
+        $I->assertEquals($consumer->first_name, $consumerData['consumer_first_name'], "\$consumerData['consumer_first_name']");
+        $I->assertEquals($consumer->last_name, $consumerData['consumer_last_name'], "\$consumerData['consumer_last_name']");
+        $I->assertEquals($consumer->email, $consumerData['consumer_email'], "\$consumerData['consumer_email']");
+        $I->assertEquals($consumer->phone, $consumerData['consumer_phone'], "\$consumerData['consumer_phone']");
+        $I->assertEquals($consumer->address, $consumerData['consumer_address'], "\$consumerData['consumer_address']");
+        $I->assertEquals($consumer->city, $consumerData['consumer_city'], "\$consumerData['consumer_city']");
+        $I->assertEquals($consumer->postcode, $consumerData['consumer_postcode'], "\$consumerData['consumer_postcode']");
+        $I->assertEquals($consumer->country, $consumerData['consumer_country'], "\$consumerData['consumer_country']");
     }
 }
