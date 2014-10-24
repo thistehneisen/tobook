@@ -7,6 +7,7 @@ class Role extends EntrustRole
     const ADMIN    = 'Admin';
     const USER     = 'User';
     const CONSUMER = 'Consumer';
+    const BUSINESS = 'User';
 
     /**
      * Helper method to quickly get role Admin

@@ -27,8 +27,7 @@ App::after(function ($request, $response) {
     //
 });
 
-App::missing(function($exception)
-{
+App::missing(function ($exception) {
     return Response::view('errors.missing', array(), 404);
 });
 
@@ -107,7 +106,7 @@ Route::filter('auth.admin', function () {
     }
 });
 
-Route::filter('premium.modules', function($request, $response, $moduleName) {
+Route::filter('premium.modules', function ($request, $response, $moduleName) {
     if (Session::get('stealthMode') === null
         && !Entrust::hasRole('Admin')
         && Confide::user()->hasModule($moduleName) === false) {
@@ -118,8 +117,38 @@ Route::filter('premium.modules', function($request, $response, $moduleName) {
     }
 });
 
-Route::filter('ajax', function() {
+Route::filter('ajax', function () {
     if (Request::ajax() === false) {
+        return Redirect::route('home');
+    }
+});
+
+/*
+|--------------------------------------------------------------------------
+| Business filter
+|--------------------------------------------------------------------------
+|
+| Limit access to business accounts only
+|
+*/
+Route::filter('only.business', function () {
+    if (Confide::user()->hasRole(\App\Core\Models\Role::BUSINESS) === false) {
+        // @todo: Should we redirect to message page and show that this URL is
+        // limited to business account only?
+        return Redirect::route('home');
+    }
+});
+
+/*
+|--------------------------------------------------------------------------
+| Consumer filter
+|--------------------------------------------------------------------------
+|
+| Limit access to consumers only
+|
+*/
+Route::filter('only.consumer', function () {
+    if (Confide::user()->hasRole(\App\Core\Models\Role::CONSUMER) === false) {
         return Redirect::route('home');
     }
 });
