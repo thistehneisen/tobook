@@ -6,7 +6,7 @@
 */
 Route::group([
     'prefix' => 'loyalty-card',
-    'before' => ['auth']
+    'before' => ['auth', 'only.business']
 ], function () {
 
     \App\LoyaltyCard\Controllers\Consumer::crudRoutes(

@@ -9,7 +9,7 @@ Route::group([
 ], function () {
 
     Route::group([
-        'before' => ['auth']
+        'before' => ['auth', 'only.business']
     ], function () {
 
         // Services

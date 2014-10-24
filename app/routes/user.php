@@ -28,37 +28,20 @@ Route::group([
 
         Route::get('cashier', [
             'as'     => 'cashier.index',
-            'before' => ['premium.modules:cashier'],
+            'before' => ['premium.modules:cashier', 'only.business'],
             'uses'   => 'App\Core\Controllers\Services@cashier'
         ]);
 
         Route::get('restaurant-booking', [
             'as'     => 'restaurant.index',
-            'before' => ['premium.modules:restaurant'],
+            'before' => ['premium.modules:restaurant', 'only.business'],
             'uses'   => 'App\Core\Controllers\Services@restaurant'
         ]);
 
         Route::get('timeslot', [
             'as'     => 'timeslot.index',
-            'before' => ['premium.modules:timeslot'],
+            'before' => ['premium.modules:timeslot', 'only.business'],
             'uses'   => 'App\Core\Controllers\Services@timeslot'
-        ]);
-
-        Route::get('appointment-scheduler', [
-            'as'     => 'appointment.index',
-            'before' => ['premium.modules:appointment'],
-            'uses'   => 'App\Core\Controllers\Services@appointment'
-        ]);
-
-        Route::get('loyalty-program', [
-            'as' => 'loyalty.index',
-            'before' => ['premium.modules:loyalty'],
-            'uses' => 'App\Core\Controllers\Services@loyalty'
-        ]);
-
-        Route::get('marketing-tool', [
-            'as' => 'marketing.index',
-            'uses' => 'App\Core\Controllers\Services@marketing'
         ]);
     });
 });

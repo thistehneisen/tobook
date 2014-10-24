@@ -5,7 +5,7 @@
 |--------------------------------------------------------------------------
 */
 Route::group([
-    'before' => ['auth'],
+    'before' => ['auth', 'only.business'],
     'prefix' => 'marketing-tools'
 ], function () {
     Route::resource('campaigns', 'App\MarketingTool\Controllers\Campaign', [

@@ -132,7 +132,10 @@ Route::filter('ajax', function () {
 |
 */
 Route::filter('only.business', function () {
-    if (Confide::user()->hasRole(\App\Core\Models\Role::BUSINESS) === false) {
+    $isAdmin = Entrust::hasRole('Admin') || Session::has('stealthMode');
+    $isBusiness = Confide::user()->hasRole(\App\Core\Models\Role::BUSINESS);
+
+    if (!$isBusiness && !$isAdmin) {
         // @todo: Should we redirect to message page and show that this URL is
         // limited to business account only?
         return Redirect::route('home');
@@ -148,7 +151,9 @@ Route::filter('only.business', function () {
 |
 */
 Route::filter('only.consumer', function () {
-    if (Confide::user()->hasRole(\App\Core\Models\Role::CONSUMER) === false) {
+    $isAdmin = Entrust::hasRole('Admin') || Session::has('stealthMode');
+    $isConsumer = Confide::user()->hasRole(\App\Core\Models\Role::CONSUMER);
+    if (!$isConsumer && !$isAdmin) {
         return Redirect::route('home');
     }
 });
