@@ -81,6 +81,7 @@ class TestingSeeder extends Seeder
         ServiceCategory::where('id', 105)->delete();
         $this->category = new ServiceCategory([
             'name' => 'Service Category',
+            'is_show_front' => 1,
         ]);
         $this->category->id = 105;
         $this->category->user()->associate($this->user);
