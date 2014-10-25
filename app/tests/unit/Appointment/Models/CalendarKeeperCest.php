@@ -1,4 +1,4 @@
-<?php namespace Appointment\Models;
+<?php namespace Test\Appointment\Models;
 
 use App\Core\Models\User;
 use App\Appointment\Models\NAT\CalendarKeeper;
@@ -8,7 +8,7 @@ use \UnitTester;
 /**
  * @group as
  */
-class UnitCalendarKeeperCest
+class CalendarKeeperCest
 {
     public function testNextTimeSlots(UnitTester $t)
     {

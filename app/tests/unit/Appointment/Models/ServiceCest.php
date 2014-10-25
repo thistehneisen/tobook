@@ -1,4 +1,4 @@
-<?php namespace Appointment\Models;
+<?php namespace Test\Appointment\Models;
 
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;
