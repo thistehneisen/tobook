@@ -1,8 +1,10 @@
 <?php
 
 use App\Appointment\Models\Employee;
+use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\Service;
+use App\Consumers\Models\Consumer;
 use App\Core\Models\Business;
 use App\Core\Models\BusinessCategory;
 use App\Core\Models\Module;
@@ -34,9 +36,9 @@ class TestingSeeder extends Seeder
         $this->_truncate(Permission::query());
         $this->call('EntrustSeeder');
 
-        User::where('id', 70)->delete();
-        User::where('username', 'varaa_test')->delete();
-        User::where('email', 'varaa_test@varaa.com')->delete();
+        User::where('id', 70)->forceDelete();
+        User::where('username', 'varaa_test')->forceDelete();
+        User::where('email', 'varaa_test@varaa.com')->forceDelete();
         $this->user = new User([
             'username' => 'varaa_test',
             'email' => 'varaa_test@varaa.com',
@@ -63,11 +65,26 @@ class TestingSeeder extends Seeder
         $this->business->user()->associate($this->user);
         $this->business->updateBusinessCategories(range(1, BusinessCategory::count()));
         $this->business->saveOrFail();
+
+        Consumer::where('id', 1)->forceDelete();
+        $consumer = new Consumer([
+            'first_name' => 'First',
+            'last_name' => 'Last',
+            'email' => 'consumer@varaa.com',
+            'phone' => '1234567890',
+            'address' => 'Consumer Address',
+            'city' => 'Consumer City',
+            'postcode' => 10001,
+            'country' => 'Finland',
+        ]);
+        $consumer->id = 1;
+        $consumer->save();
+        $this->user->consumers()->attach($consumer->id, ['is_visible' => true]);
     }
 
     private function _as()
     {
-        Employee::where('id', 63)->delete();
+        Employee::where('id', 63)->forceDelete();
         $this->employee = new Employee([
             'name' => 'Employee',
             'email' => 'employee@varaa.com',
@@ -78,7 +95,7 @@ class TestingSeeder extends Seeder
         $this->employee->user()->associate($this->user);
         $this->employee->saveOrFail();
 
-        ServiceCategory::where('id', 105)->delete();
+        ServiceCategory::where('id', 105)->forceDelete();
         $this->category = new ServiceCategory([
             'name' => 'Service Category',
             'is_show_front' => 1,
@@ -87,7 +104,7 @@ class TestingSeeder extends Seeder
         $this->category->user()->associate($this->user);
         $this->category->saveOrFail();
 
-        Service::where('id', 301)->delete();
+        Service::where('id', 301)->forceDelete();
         $this->service = new Service([
             'name' => 'Klassinen hieronta',
             'description' => '30min',
@@ -102,6 +119,16 @@ class TestingSeeder extends Seeder
         $this->service->category()->associate($this->category);
         $this->service->saveOrFail();
         $this->service->employees()->attach($this->employee);
+
+        ExtraService::where('id', 1)->forceDelete();
+        $extraService = new ExtraService([
+            'name' => 'Extra Service',
+            'price' => 10,
+            'length' => 15,
+        ]);
+        $extraService->user()->associate($this->user);
+        $extraService->saveOrFail();
+        $this->service->extraServices()->attach($extraService);
     }
 
     private function _modules() {

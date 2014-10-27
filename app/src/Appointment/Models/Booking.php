@@ -154,16 +154,16 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      * but only execute one query
      *
      * @param int $employeeId
-     * @param string $date
-     * @param Carbon\Carbon $startTime
-     * @param Carbon\Carbon $endTime
+     * @param string $bookingDate
+     * @param Carbon $startTime
+     * @param Carbon $endTime
      * @param string $uuid
      *
      * @return boolean
      */
-    public static function isBookable($employeeId, $bookingDate, $startTime, $endTime, $uuid = null)
+    public static function isBookable($employeeId, $bookingDate, Carbon $startTime, Carbon $endTime, $uuid = null)
     {
-        if($bookingDate instanceof Carbon\Carbon) {
+        if($bookingDate instanceof Carbon) {
             $bookingDate = $bookingDate->toDateString();
         }
 
@@ -205,13 +205,13 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      *
      * @param int $employeeId
      * @param string $date
-     * @param Carbon\Carbon $startTime
-     * @param Carbon\Carbon $endTime
+     * @param Carbon $startTime
+     * @param Carbon $endTime
      * @param string $uuid
      *
      * @return boolean
      */
-    public static function canBook($employeeId, $date, \Carbon\Carbon $startTime, \Carbon\Carbon $endTime, $uuid = null)
+    public static function canBook($employeeId, $date, Carbon $startTime, Carbon $endTime, $uuid = null)
     {
         if (empty(static::$bookings[$date])) {
             $bookings = self::where('date', $date)
@@ -260,6 +260,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $lastestBooking = self::ofCurrentUser()
             ->where('date', '>=', $startDate)
             ->wherE('date', '<=', $endDate)
+            ->orderBy('date', 'desc')
             ->orderBy('end_at', 'desc')->first();
         return $lastestBooking;
     }
@@ -398,9 +399,6 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             if (empty($existingBooking)) {
                 throw new ValidationException(trans('as.bookings.error.id_not_found'));
             }
-
-            $existingBooking->deleteOrFail();
-            return $existingBooking;
         }
 
         // get booking services, existing and new
