@@ -110,7 +110,7 @@ class BookingCest
 
     public function testShow(ApiTester $I)
     {
-        $booking = $this->_book($I, $this->user, $this->category);
+        $booking = $this->_book($this->user, $this->category);
 
         $I->sendGET($this->endpoint . '/' . $booking->id);
         $I->seeResponseCodeIs(200);
@@ -123,7 +123,7 @@ class BookingCest
 
     public function testUpdate(ApiTester $I)
     {
-        $booking = $this->_book($I, $this->user, $this->category);
+        $booking = $this->_book($this->user, $this->category);
 
         $employee = $this->employees[1];
         $service = $this->category->services->first();
@@ -193,7 +193,7 @@ class BookingCest
 
     public function testDestroy(ApiTester $I)
     {
-        $booking = $this->_book($I, $this->user, $this->category);
+        $booking = $this->_book($this->user, $this->category);
 
         $I->sendDELETE($this->endpoint . '/' . $booking->id);
         $I->seeResponseCodeIs(200);
@@ -206,7 +206,7 @@ class BookingCest
 
     public function testPutStatus(ApiTester $I)
     {
-        $booking = $this->_book($I, $this->user, $this->category);
+        $booking = $this->_book($this->user, $this->category);
 
         $statusPaid = \App\Appointment\Models\Booking::STATUS_PAID;
         $statusPaidApi = \App\Appointment\Models\Booking::getStatusByValue($statusPaid);
@@ -223,7 +223,7 @@ class BookingCest
 
     public function testPutModifyTime(ApiTester $I)
     {
-        $booking = $this->_book($I, $this->user, $this->category);
+        $booking = $this->_book($this->user, $this->category);
         $modifyTime = 120;
 
         $I->sendPUT($this->endpoint . '/' . $booking->id . '/modify_time', [
@@ -239,8 +239,8 @@ class BookingCest
 
     public function testPutModifyTimeWithConflict(ApiTester $I)
     {
-        $booking = $this->_book($I, $this->user, $this->category, '08:00');
-        $booking2 = $this->_book($I, $this->user, $this->category, '14:00');
+        $booking = $this->_book($this->user, $this->category, $this->_getNextDate(), '08:00');
+        $booking2 = $this->_book($this->user, $this->category, $this->_getNextDate(), '14:00');
         $modifyTime = $booking->modify_time + $booking2->getStartAt()->diffInMinutes($booking->getEndAt()) + 15;
 
         $I->sendPUT($this->endpoint . '/' . $booking->id . '/modify_time', [
@@ -257,7 +257,7 @@ class BookingCest
 
     public function testPutScheduleSameEmployee(ApiTester $I)
     {
-        $booking = $this->_book($I, $this->user, $this->category);
+        $booking = $this->_book($this->user, $this->category);
         $duration = $booking->getEndAt()->diffInMinutes($booking->getStartAt());
 
         $date = Carbon::today();
@@ -286,7 +286,7 @@ class BookingCest
 
     public function testPutScheduleDifferentEmployee(ApiTester $I)
     {
-        $booking = $this->_book($I, $this->user, $this->category);
+        $booking = $this->_book($this->user, $this->category);
         $duration = $booking->getEndAt()->diffInMinutes($booking->getStartAt());
 
         $date = Carbon::today();
@@ -316,9 +316,9 @@ class BookingCest
 
     public function testPutScheduleWithConflict(ApiTester $I)
     {
-        $booking = $this->_book($I, $this->user, $this->category, '08:00');
+        $booking = $this->_book($this->user, $this->category, $this->_getNextDate(), '08:00');
         $duration = $booking->getEndAt()->diffInMinutes($booking->getStartAt());
-        $booking2 = $this->_book($I, $this->user, $this->category, '14:00');
+        $booking2 = $this->_book($this->user, $this->category, $this->_getNextDate(), '14:00');
 
         $I->sendPUT($this->endpoint . '/' . $booking->id . '/schedule', [
             'booking_date' => $booking->date,

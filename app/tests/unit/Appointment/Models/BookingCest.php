@@ -6,6 +6,7 @@ use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Consumer;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\Service;
+use App\Appointment\Models\ServiceCategory;
 use App\Core\Models\User;
 use Carbon\Carbon;
 use \UnitTester;
@@ -15,6 +16,8 @@ use \UnitTester;
  */
 class BookingCest
 {
+    use \Appointment\Traits\Booking;
+
     public function testGetClass(UnitTester $I)
     {
         $booking = new Booking();
@@ -169,18 +172,18 @@ class BookingCest
         $latestBooking = Booking::getLastestBookingEndTime($date->toDateString(), $user);
         $I->assertEmpty($latestBooking, 'no booking yet');
 
-        $booking = $this->_makeABooking(null, $date);
+        $booking = $this->_makeABooking($date);
         $latestBooking = Booking::getLastestBookingEndTime($date->toDateString(), $booking->user);
         $I->assertNotEmpty($latestBooking, 'has one booking');
         $I->assertEquals($booking->uuid, $latestBooking->uuid, '$booking->uuid');
 
-        $booking2 = $this->_makeABooking(null, $date, '08:00');
+        $booking2 = $this->_makeABooking($date, '08:00');
         $latestBooking = Booking::getLastestBookingEndTime($date->toDateString(), $booking2->user);
         $I->assertNotEmpty($latestBooking, 'has two bookings');
         $I->assertNotEquals($booking2->uuid, $latestBooking->uuid, '$booking2->uuid');
         $I->assertEquals($booking->uuid, $latestBooking->uuid, '$booking->uuid');
 
-        $booking3 = $this->_makeABooking(null, $date, '15:00');
+        $booking3 = $this->_makeABooking($date, '15:00');
         $latestBooking = Booking::getLastestBookingEndTime($date->toDateString(), $booking3->user);
         $I->assertNotEmpty($latestBooking, 'has three bookings');
         $I->assertEquals($booking3->uuid, $latestBooking->uuid, '$booking3->uuid');
@@ -194,8 +197,8 @@ class BookingCest
         $date1 = $this->_getNextDate();
         $date2 = with(clone $date1)->addDay();
 
-        $booking1 = $this->_makeABooking(null, $date1);
-        $booking2 = $this->_makeABooking(null, $date2);
+        $booking1 = $this->_makeABooking($date1);
+        $booking2 = $this->_makeABooking($date2);
 
         $lastestBooking = Booking::getLastestBookingEndTimeInRange($date1->toDateString(), $date1->toDateString());
         $I->assertNotEmpty($lastestBooking, 'within the first day');
@@ -220,7 +223,41 @@ class BookingCest
 
     public function testSaveBookingSuccess(UnitTester $I)
     {
-        $this->_makeABooking($I);
+        $uuid = \Util::uuid();
+        $user = User::find(70);
+        $employee = Employee::find(63);
+        $service = Service::find(301);
+        $consumer = Consumer::find(1);
+        $date = $this->_getNextDate();
+        $startTime = '12:00';
+        $input = [
+            'booking_date' => $date->toDateString(),
+            'start_time' => $startTime,
+        ];
+
+        $bookingService = BookingService::saveBookingService($uuid, $employee, $service, $input);
+        $total = $bookingService->calculateServiceLength();
+        $plusTime = $bookingService->plus_time;
+
+        foreach ($service->extraServices as $extraService) {
+            BookingExtraService::addExtraService($uuid, $employee, $bookingService, $extraService);
+            $total += $extraService->length;
+        }
+
+        $booking = Booking::saveBooking($uuid, $user, $consumer, $input);
+
+        if ($I !== null) {
+            $I->assertEquals($uuid, $booking->uuid, 'uuid');
+            $I->assertEquals($user->id, $booking->user_id, 'user_id');
+            $I->assertEquals($consumer->id, $booking->consumer_id, 'consumer_id');
+            $I->assertEquals($employee->id, $booking->employee_id, 'employee_id');
+            $I->assertEquals($date->toDateString(), $booking->date, 'date');
+            $I->assertEquals($total, $booking->total, 'total');
+            $I->assertEquals(0, $booking->modify_time, 'modify_time');
+            $I->assertEquals($plusTime, $booking->plus_time, 'plus_time');
+            $I->assertEquals(substr($startTime, 0, 5), substr($booking->start_at, 0, 5), 'start_at');
+            $I->assertEquals(Booking::STATUS_CONFIRM, $booking->status, 'status');
+        }
     }
 
     public function testSaveBookingCancel(UnitTester $I)
@@ -288,57 +325,11 @@ class BookingCest
             'bookable after reschedule');
     }
 
-    private function _makeABooking(UnitTester $I = null, Carbon $date = null, $startTime = '12:00')
+    private function _makeABooking(Carbon $date = null, $startTime = '12:00')
     {
-        if ($date === null) {
-            $date = $this->_getNextDate();
-        }
-
-        $uuid = \Util::uuid();
         $user = User::find(70);
-        $employee = Employee::find(63);
-        $service = Service::find(301);
-        $consumer = Consumer::find(1);
-        $input = [
-            'booking_date' => $date->toDateString(),
-            'start_time' => $startTime,
-        ];
-
-        $bookingService = BookingService::saveBookingService($uuid, $employee, $service, $input);
-        $total = $bookingService->calculateServiceLength();
-        $plusTime = $bookingService->plus_time;
-
-        foreach ($service->extraServices as $extraService) {
-            BookingExtraService::addExtraService($uuid, $employee, $bookingService, $extraService);
-            $total += $extraService->length;
-        }
-
-        $booking = Booking::saveBooking($uuid, $user, $consumer, $input);
-
-        if ($I !== null) {
-            $I->assertEquals($uuid, $booking->uuid, 'uuid');
-            $I->assertEquals($user->id, $booking->user_id, 'user_id');
-            $I->assertEquals($consumer->id, $booking->consumer_id, 'consumer_id');
-            $I->assertEquals($employee->id, $booking->employee_id, 'employee_id');
-            $I->assertEquals($date->toDateString(), $booking->date, 'date');
-            $I->assertEquals($total, $booking->total, 'total');
-            $I->assertEquals(0, $booking->modify_time, 'modify_time');
-            $I->assertEquals($plusTime, $booking->plus_time, 'plus_time');
-            $I->assertEquals(substr($startTime, 0, 5), substr($booking->start_at, 0, 5), 'start_at');
-            $I->assertEquals(Booking::STATUS_CONFIRM, $booking->status, 'status');
-        }
-
-        return $booking;
-    }
-
-    private function _getNextDate()
-    {
-        $date = Carbon::today();
-        while ($date->dayOfWeek != 1) {
-            $date->addDay();
-        }
-
-        return $date;
+        $serviceCategory = ServiceCategory::find(105);
+        return $this->_book($user, $serviceCategory, $date, $startTime);
     }
 
 }
