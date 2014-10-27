@@ -4,6 +4,7 @@ use App\Appointment\Models\Employee;
 use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\Service;
+use App\Appointment\Models\ServiceTime;
 use App\Consumers\Models\Consumer;
 use App\Core\Models\Business;
 use App\Core\Models\BusinessCategory;
@@ -95,6 +96,17 @@ class TestingSeeder extends Seeder
         $this->employee->user()->associate($this->user);
         $this->employee->saveOrFail();
 
+        Employee::where('id', 64)->forceDelete();
+        $employee2 = new Employee([
+            'name' => 'Employee 2',
+            'email' => 'employee2@varaa.com',
+            'phone' => '1234567890',
+            'is_active' => 1,
+        ]);
+        $employee2->id = 64;
+        $employee2->user()->associate($this->user);
+        $employee2->saveOrFail();
+
         ServiceCategory::where('id', 105)->forceDelete();
         $this->category = new ServiceCategory([
             'name' => 'Service Category',
@@ -119,6 +131,23 @@ class TestingSeeder extends Seeder
         $this->service->category()->associate($this->category);
         $this->service->saveOrFail();
         $this->service->employees()->attach($this->employee);
+        $this->service->employees()->attach($employee2, ['plustime' => 15]);
+
+        Service::where('id', 302)->forceDelete();
+        $service2 = new Service([
+            'name' => 'Service 2',
+            'description' => '30min',
+            'length' => 45,
+            'during' => 30,
+            'before' => 15,
+            'price' => 35,
+            'is_active' => 1,
+        ]);
+        $service2->id = 302;
+        $service2->user()->associate($this->user);
+        $service2->category()->associate($this->category);
+        $service2->saveOrFail();
+        $service2->employees()->attach($this->employee);
 
         ExtraService::where('id', 1)->forceDelete();
         $extraService = new ExtraService([
@@ -126,9 +155,22 @@ class TestingSeeder extends Seeder
             'price' => 10,
             'length' => 15,
         ]);
+        $extraService->id = 1;
         $extraService->user()->associate($this->user);
         $extraService->saveOrFail();
         $this->service->extraServices()->attach($extraService);
+
+        ServiceTime::where('id', 1)->forceDelete();
+        $serviceTime = new ServiceTime([
+            'price' => 50,
+            'length' => 160,
+            'before' => 30,
+            'during' => 100,
+            'after' => 30,
+        ]);
+        $serviceTime->id = 1;
+        $serviceTime->service()->associate($this->service);
+        $serviceTime->saveOrFail();
     }
 
     private function _modules() {

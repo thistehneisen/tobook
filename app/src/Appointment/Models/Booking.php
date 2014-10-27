@@ -260,8 +260,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $lastestBooking = self::ofCurrentUser()
             ->where('date', '>=', $startDate)
             ->wherE('date', '<=', $endDate)
-            ->orderBy('date', 'desc')
-            ->orderBy('end_at', 'desc')->first();
+            ->orderBy('end_at', 'desc')
+            ->orderBy('date', 'desc')->first();
         return $lastestBooking;
     }
 

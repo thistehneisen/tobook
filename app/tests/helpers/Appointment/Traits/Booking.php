@@ -128,6 +128,9 @@ trait Booking
         $I->assertEquals($consumer->country, $consumerData['consumer_country'], "\$consumerData['consumer_country']");
     }
 
+    /**
+     * @return Carbon
+     */
     protected function _getNextDate()
     {
         $date = Carbon::today();
