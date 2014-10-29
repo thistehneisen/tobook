@@ -170,6 +170,10 @@ trait Models
             $this->_createUser();
         }
 
+        if (empty($employee) && empty($this->employees)) {
+            $this->_createEmployee();
+        }
+
         $categories = [];
 
         for ($i = 0; $i < $categoryCount; $i++) {
@@ -184,10 +188,11 @@ trait Models
             for ($j = 0; $j < $serviceCount; $j++) {
                 $service = new Service([
                     'name' => 'Service ' . (++$serviceCreated),
-                    'length' => 15 * $serviceCreated,
+                    'during' => 15 * $serviceCreated,
                     'price' => 10 * $serviceCreated,
                     'is_active' => 1,
                 ]);
+                $service->setLength();
                 $service->user()->associate($this->user);
                 $service->category()->associate($category);
                 $service->saveOrFail();

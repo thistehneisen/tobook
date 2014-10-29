@@ -209,9 +209,9 @@ class CategoryCest
         $categories = $this->_createCategoryServiceAndExtra(2, 0, 0);
 
         $category1 = ServiceCategory::find($categories[0]->id);
-        $I->assertNotEmpty($category1, 'category2 1 has been found');
+        $I->assertNotEmpty($category1, 'category 1 has been found');
         $category2 = ServiceCategory::find($categories[1]->id);
-        $I->assertNotEmpty($category2, 'category2 2 has been found');
+        $I->assertNotEmpty($category2, 'category 2 has been found');
 
         $I->sendAjaxPostRequest(route('as.services.categories.bulk'), [
             'action' => 'destroy',
@@ -219,8 +219,8 @@ class CategoryCest
         ]);
 
         $category1 = ServiceCategory::find($categories[0]->id);
-        $I->assertEmpty($category1, 'category2 1 has been deleted');
+        $I->assertEmpty($category1, 'category 1 has been deleted');
         $category2 = ServiceCategory::find($categories[1]->id);
-        $I->assertEmpty($category2, 'category2 2 has been deleted');
+        $I->assertEmpty($category2, 'category 2 has been deleted');
     }
 }

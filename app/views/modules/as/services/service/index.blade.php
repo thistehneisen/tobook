@@ -50,7 +50,7 @@
     </thead>
     <tbody>
         @foreach ($items as $item)
-        <tr>
+        <tr id="row-{{ $item->id }}" class="service-row">
             <td><input type="checkbox"></td>
             <td>{{ $item->name }}</td>
             <td>
@@ -70,15 +70,15 @@
                 @endif
             </td>
             <td>
-                <a href="{{ route('as.services.upsert', ['id'=> $item->id ]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
-                <a href="{{ route('as.services.delete', ['id'=> $item->id ]) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
+                <a href="{{ route('as.services.upsert', ['id'=> $item->id ]) }}" class="btn btn-xs btn-success" title="" id="row-{{ $item->id }}-edit"><i class="fa fa-edit"></i></a>
+                <a href="{{ route('as.services.delete', ['id'=> $item->id ]) }}" class="btn btn-xs btn-danger" title="" id="row-{{ $item->id }}-delete"><i class="fa fa-trash-o"></i></a>
             </td>
         </tr>
         @endforeach
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="4">
+            <td colspan="2">
                 <div class="form-group">
                     <label>{{ trans('as.with_selected') }}</label>
                     <select name="" id="" class="form-control input-sm">
@@ -88,16 +88,19 @@
                 </div>
                 <button type="submit" class="btn btn-primary btn-sm">{{ trans('common.save') }}</button>
             </td>
-            <td colspan="5" class="text-right">
+            <td colspan="4" class="text-right">
+                {{  $items->appends(Input::only('perPage'))->links() }}
+            </td>
+            <td colspan="3" class="text-right">
                 <div class="dropdown">
                     <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
                     {{ trans('as.items_per_page') }} <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">10</a></li>
-                        <li><a href="#">20</a></li>
-                        <li><a href="#">50</a></li>
+                        <li><a href="{{ route($routes['index'], ['perPage' => 5]) }}" id="per-page-5">5</a></li>
+                        <li><a href="{{ route($routes['index'], ['perPage' => 10]) }}" id="per-page-10">10</a></li>
+                        <li><a href="{{ route($routes['index'], ['perPage' => 20]) }}" id="per-page-20">20</a></li>
+                        <li><a href="{{ route($routes['index'], ['perPage' => 50]) }}" id="per-page-50">50</a></li>
                     </ul>
                 </div>
             </td>

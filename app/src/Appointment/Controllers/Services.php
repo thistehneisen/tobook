@@ -140,7 +140,13 @@ class Services extends AsBase
             $resources     = Input::get('resources', []);
             $employees     = Input::get('employees', []);
             $plustimes     = Input::get('plustimes');
-            $service->employees()->detach($employees);
+
+            // detact all existing employees before attaching new one
+            $existingEmployeeIds = [];
+            foreach ($service->employees as $serviceEmployee) {
+                $existingEmployeeIds[] = $serviceEmployee->id;
+            }
+            $service->employees()->detach($existingEmployeeIds);
 
             foreach ($employees as $employeeId) {
                 $employee = Employee::ofCurrentUser()->find($employeeId);
