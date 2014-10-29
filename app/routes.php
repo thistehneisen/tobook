@@ -22,6 +22,7 @@ require app_path().'/routes/user.php';
 require app_path().'/routes/embed.php';
 require app_path().'/routes/cart.php';
 require app_path().'/routes/image.php';
+require app_path().'/routes/admin.php';
 //------------------------------------------------------------------------------
 // Modules
 //------------------------------------------------------------------------------

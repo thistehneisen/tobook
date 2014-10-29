@@ -293,8 +293,7 @@ trait Crud
      */
     public function search()
     {
-        // Escape HTML
-        $q = e(Input::get('q'));
+        $q = Input::get('q');
 
         $query = $this->getModel()->ofCurrentUser();
         // Apply query string filters

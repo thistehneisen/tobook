@@ -361,8 +361,7 @@ trait Olut
      */
     public function search()
     {
-        // Escape HTML
-        $q = e(Input::get('q'));
+        $q = Input::get('q');
 
         $query = $this->getModel();
         // Apply query string filters
