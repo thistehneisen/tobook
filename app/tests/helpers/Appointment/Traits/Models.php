@@ -175,6 +175,7 @@ trait Models
         for ($i = 0; $i < $categoryCount; $i++) {
             $category = new ServiceCategory([
                 'name' => 'Category ' . (++$categoryCreated),
+                'is_show_front' => 1,
             ]);
             $category->user()->associate($this->user);
             $category->saveOrFail();

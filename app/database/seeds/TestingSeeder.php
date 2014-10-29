@@ -119,7 +119,6 @@ class TestingSeeder extends Seeder
         Service::where('id', 301)->forceDelete();
         $this->service = new Service([
             'name' => 'Klassinen hieronta',
-            'description' => '30min',
             'length' => 45,
             'during' => 30,
             'after' => 15,
@@ -136,7 +135,6 @@ class TestingSeeder extends Seeder
         Service::where('id', 302)->forceDelete();
         $service2 = new Service([
             'name' => 'Service 2',
-            'description' => '30min',
             'length' => 45,
             'during' => 30,
             'before' => 15,
