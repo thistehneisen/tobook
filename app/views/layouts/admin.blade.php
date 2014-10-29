@@ -6,7 +6,7 @@
 
 @section('nav-admin')
 <nav class="navbar" role="navigation">
-    <div class="container-fluid">
+    <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#admin-menu">
@@ -25,7 +25,6 @@
         </div>
         <!-- /.navbar-collapse -->
     </div>
-    <!-- /.container-fluid -->
 </nav>
 @stop
 
