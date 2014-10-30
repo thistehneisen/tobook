@@ -34,7 +34,7 @@
     </thead>
     <tbody id="js-crud-tbody">
     @foreach ($items as $item)
-        <tr id="row-{{ $item->id }}" data-id="{{ $item->id }}" class="js-sortable-{{ $sortable }}" data-toggle="tooltip" data-placement="top" data-title="{{ trans('as.crud.sortable') }}">
+        <tr id="row-{{ $item->id }}" data-id="{{ $item->id }}" class="employee-row js-sortable-{{ $sortable }}" data-toggle="tooltip" data-placement="top" data-title="{{ trans('as.crud.sortable') }}">
             <td><input type="checkbox" class="checkbox" name="ids[]" value="{{ $item->id }}"></td>
         @foreach ($fields as $field)
             @if ($field === 'is_active')
@@ -61,8 +61,8 @@
         @endforeach
             <td>
             <div  class="pull-right">
-                <a href="{{ route($routes['upsert'], ['id'=> $item->id ]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
-                <a href="{{ route($routes['delete'], ['id'=> $item->id ]) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
+                <a href="{{ route($routes['upsert'], ['id'=> $item->id ]) }}" class="btn btn-xs btn-success" title="" id="row-{{ $item->id }}-edit"><i class="fa fa-edit"></i></a>
+                <a href="{{ route($routes['delete'], ['id'=> $item->id ]) }}" class="btn btn-xs btn-danger" title="" id="row-{{ $item->id }}-delete"><i class="fa fa-trash-o"></i></a>
             </div>
             </td>
         </tr>
@@ -99,10 +99,10 @@
             @lang('as.items_per_page') <span class="caret"></span>
             </button>
             <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="{{ route($routes['index'], ['perPage' => 5]) }}">5</a></li>
-                <li><a href="{{ route($routes['index'], ['perPage' => 10]) }}">10</a></li>
-                <li><a href="{{ route($routes['index'], ['perPage' => 10]) }}">20</a></li>
-                <li><a href="{{ route($routes['index'], ['perPage' => 50]) }}">50</a></li>
+                <li><a href="{{ route($routes['index'], ['perPage' => 5]) }}" id="per-page-5">5</a></li>
+                <li><a href="{{ route($routes['index'], ['perPage' => 10]) }}" id="per-page-10">10</a></li>
+                <li><a href="{{ route($routes['index'], ['perPage' => 20]) }}" id="per-page-20">20</a></li>
+                <li><a href="{{ route($routes['index'], ['perPage' => 50]) }}" id="per-page-50">50</a></li>
             </ul>
         </div>
     </div>

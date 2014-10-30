@@ -23,11 +23,11 @@
 
 {{ Form::open(['route' => ['as.employees.employeeCustomTime.upsert'], 'class' => 'form-horizontal', 'role' => 'form']) }}
  <div class="form-group row">
-        <div class="col-sm-3"><a href="{{ route('as.employees.employeeCustomTime', ['employeeId'=> $employee->id, 'date'=> with(clone $current->startOfMonth())->subMonth()->format('Y-m') ])}}">{{ Str::upper(trans('common.prev')) }}</a></div>
+        <div class="col-sm-3"><a href="{{ route('as.employees.employeeCustomTime', ['employeeId'=> $employee->id, 'date'=> with(clone $current->startOfMonth())->subMonth()->format('Y-m') ])}}" id="prev-month">{{ Str::upper(trans('common.prev')) }}</a></div>
         <div class="col-sm-3">
            {{ Str::upper($current->format('F')); }}
         </div>
-        <div class="col-sm-3"><a href="{{ route('as.employees.employeeCustomTime', ['employeeId'=> $employee->id, 'date'=> with(clone $current->startOfMonth())->addMonth()->format('Y-m') ])}}">{{ Str::upper(trans('common.next')) }}</a></div>
+        <div class="col-sm-3"><a href="{{ route('as.employees.employeeCustomTime', ['employeeId'=> $employee->id, 'date'=> with(clone $current->startOfMonth())->addMonth()->format('Y-m') ])}}" id="next-month">{{ Str::upper(trans('common.next')) }}</a></div>
         <div class="col-sm-3">
             <select id="employees" name="employees" class="form-control input-sm">
                 @foreach ($employees as $item)
@@ -75,7 +75,7 @@
     <tfoot>
         <tr>
             <td colspan="5">
-                <button type="submit" class="btn btn-primary">{{ trans('common.save') }}</button>
+                <button type="submit" class="btn btn-primary" id="btn-save">{{ trans('common.save') }}</button>
             </td>
         </tr>
     </tfoot>

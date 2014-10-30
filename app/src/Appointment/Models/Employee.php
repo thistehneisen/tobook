@@ -345,7 +345,7 @@ class Employee extends \App\Appointment\Models\Base
     }
 
 
-    private function getAvatarPath()
+    public function getAvatarPath()
     {
         if (file_exists(Config::get('varaa.upload_folder').'/avatars/'.$this->attributes['avatar'])) {
             return Config::get('varaa.upload_folder').'/avatars/'.$this->attributes['avatar'];

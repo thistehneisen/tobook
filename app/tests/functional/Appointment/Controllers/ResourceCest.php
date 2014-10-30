@@ -118,7 +118,7 @@ class ResourceCest
         $I->click('#btn-save');
 
         $I->seeCurrentRouteIs('as.services.resources.upsert');
-        $I->seeSessionHasErrors(['name']);
+        $I->seeSessionHasErrors();
 
         $resources = Resource::ofCurrentUser()->get();
         $I->assertEquals(0, count($resources), 'resources');

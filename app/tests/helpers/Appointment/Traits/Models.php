@@ -63,6 +63,7 @@ trait Models
                 'name' => 'Employee ' . $i,
                 'email' => 'employee_' . $i . $this->user->id . '@varaa.com',
                 'phone' => '1234567890',
+                'is_active' => 1,
             ]);
             $this->employees[$i]->user()->associate($this->user);
             $this->employees[$i]->saveOrFail();
