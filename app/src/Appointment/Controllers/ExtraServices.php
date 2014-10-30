@@ -4,6 +4,7 @@ use Input, Confide;
 
 class ExtraServices extends AsBase
 {
+    // TODO: why do we have both CRUD and App\Appointment\Traits\Crud?!
     use \CRUD;
 
     protected $crudOptions = [
