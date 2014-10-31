@@ -14,16 +14,6 @@ Route::group([
         'uses' => 'App\Core\Controllers\Admin\Dashboard@index'
     ]);
 
-    Route::get('settings', [
-        'as' => 'admin.settings.index',
-        'uses' => 'App\Core\Controllers\Admin\Settings@index'
-    ]);
-
-    Route::post('settings', [
-        'as' => 'admin.settings.index',
-        'uses' => 'App\Core\Controllers\Admin\Settings@doUpdate'
-    ]);
-
     App\Core\Controllers\Admin\Users::crudRoutes('users', 'admin.users');
 
     Route::get('users/login/{id}', [

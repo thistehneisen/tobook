@@ -125,7 +125,6 @@ return array(
         // Addon providers
         'Zizaco\Confide\ConfideServiceProvider',
         'Zizaco\Entrust\EntrustServiceProvider',
-        'anlutro\LaravelSettings\ServiceProvider',
         'Toin0u\Geocoder\GeocoderServiceProvider',
         'Barryvdh\Debugbar\ServiceProvider',
         'Shift31\LaravelElasticsearch\LaravelElasticsearchServiceProvider',
@@ -210,7 +209,6 @@ return array(
         // Addon facades
         'Confide'   => 'Zizaco\Confide\ConfideFacade',
         'Entrust'   => 'Zizaco\Entrust\EntrustFacade',
-        'Setting'   => 'anlutro\LaravelSettings\Facade',
         'Geocoder'  => 'Toin0u\Geocoder\GeocoderFacade',
         'Debugbar'  => 'Barryvdh\Debugbar\Facade',
         'Imagine'   => 'Orchestra\Imagine\Facade',

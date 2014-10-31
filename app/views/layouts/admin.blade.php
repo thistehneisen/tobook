@@ -20,7 +20,6 @@
         <div class="collapse navbar-collapse" id="admin-menu">
             <ul class="nav navbar-nav">
                 <li><a href="{{ route('admin.users.index') }}"><i class="fa fa-users"></i> {{ trans('admin.nav.users') }}</a></li>
-                <li><a href="{{ route('admin.settings.index') }}"><i class="fa fa-gear"></i> {{ trans('admin.nav.settings') }}</a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
