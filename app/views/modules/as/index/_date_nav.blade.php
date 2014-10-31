@@ -30,8 +30,4 @@
             <a href="{{ route($routeName, ['date'=> $endOfWeek->toDateString(), 'id'=> $employeeId]) }}" class="btn btn-default @if($dayOfWeek === Carbon\Carbon::SUNDAY) btn-primary @endif">{{ trans('common.short.sun') }}</a>
         </div>
     </div>
-
-    <div class="col-md-2 text-right hidden-print">
-        <button class="btn btn-primary" onclick="window.print();"><i class="fa fa-print"> {{ trans('as.index.print') }}</i></button>
-    </div>
 </div>
