@@ -193,7 +193,7 @@
     @yield('iframe')
 
     @section('footer')
-    <footer class="container-fluid footer">
+    <footer class="container-fluid footer hidden-print">
         <div class="container">
             <div class="col-sm-4">
                 <p>&copy; {{ date('Y') }} <a href="http://varaa.com">varaa.com</a></p>

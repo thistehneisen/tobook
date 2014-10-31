@@ -1,11 +1,11 @@
 <div class="container as-date-nav">
     <div class="col-md-2">
-        <div class="input-group">
+        <div class="input-group hidden-print">
             <input type="text" data-index-url="{{ route($routeName, ['id' => $employeeId]) }}" id="calendar_date" class="form-control" value="{{ $selectedDate }}">
             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
         </div>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-8 hidden-print">
         <a href="{{ route($routeName, ['date'=> Carbon\Carbon::today()->toDateString(), 'id'=> $employeeId]) }}" class="btn btn-default">{{ trans('as.index.today') }}</a>
         <a href="{{ route($routeName, ['date'=> Carbon\Carbon::tomorrow()->toDateString(), 'id'=> $employeeId]) }}" class="btn btn-default">{{ trans('as.index.tomorrow') }}</a>
 
@@ -16,7 +16,7 @@
             <a href="{{ route($routeName, ['date'=> with(clone $date)->addWeek()->toDateString(), 'id'=> $employeeId]) }}" class="btn btn-link"><i class="fa fa-fast-forward"></i></a>
         </div>
 
-        <div class="btn-group">
+        <div class="btn-group hidden-print">
             <?php
                 $startOfWeek = with(clone $date)->startOfWeek();
                 $endOfWeek = with(clone $date)->endOfWeek();
@@ -31,7 +31,7 @@
         </div>
     </div>
 
-    <div class="col-md-2 text-right">
+    <div class="col-md-2 text-right hidden-print">
         <button class="btn btn-primary" onclick="window.print();"><i class="fa fa-print"> {{ trans('as.index.print') }}</i></button>
     </div>
 </div>

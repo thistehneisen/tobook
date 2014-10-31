@@ -8,10 +8,11 @@
             <?php $tooltip = $booking->getCalendarTooltip();?>
             @if(strpos($slotClass, 'slot-booked-head') !== false)
             <a href="{{ route('as.bookings.modify-form') }}" class="btn-plus btn-popover popup-ajax customer-tooltip" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click" title="{{{ $tooltip }}}">
-                {{ $booking->consumer->name }} {{ $booking->getServiceDescription() }}
+                <span class="hidden-print">{{ $booking->consumer->name }} {{ $booking->getServiceDescription() }}</span>
+                <span class="visible-print">{{ $tooltip }}</span>
             </a>
             @else
-            <a href="{{ route('as.bookings.modify-form') }}" class="btn-popover popup-ajax" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click">&nbsp;</a>
+            <a href="{{ route('as.bookings.modify-form') }}" class="btn-popover popup-ajax hidden-print" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click">&nbsp;</a>
             @endif
         @endif
     @elseif(strpos(trim($slotClass), 'freetime') === 0)
