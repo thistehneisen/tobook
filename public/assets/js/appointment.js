@@ -152,6 +152,17 @@
             $('a.popup-ajax').popover('hide');
         }).popover({
             html: true,
+            placement: function (context, source) {
+                var position = $(source).position(),
+                    width    = $(source).width(),
+                    fullwidth = $('.as-calendar').width(),
+                    popover_width = $('.popover-content').width(),
+                    placement = 'right';
+                if (position.left + width + popover_width > fullwidth) {
+                    placement = 'left';
+                }
+                return placement;
+            },
             template: '<div class="popover" role="tooltip"><div class="arrow"></div><div class="popover-content"></div></div>',
             content: function () {
                 var div_id =  "tmp-id-" + $.now(),
