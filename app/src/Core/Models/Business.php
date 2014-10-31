@@ -1,7 +1,8 @@
 <?php namespace App\Core\Models;
 
-use Config;
+use Config, Log;
 use App\Core\Models\Relations\BusinessBusinessCategory;
+use Exception;
 
 class Business extends Base
 {
@@ -72,9 +73,9 @@ class Business extends Base
                 $geocode = \Geocoder::geocode($new);
                 $this->attributes['lat'] = $geocode->getLatitude();
                 $this->attributes['lng'] = $geocode->getLongitude();
-            } catch (\Exception $ex) {
+            } catch (Exception $ex) {
                 // Silently fail
-                \Log::error($ex->getMessage(), ['context' => 'Update user profile']);
+                Log::error($ex->getMessage(), ['context' => 'Update user profile']);
             }
         }
     }
@@ -118,7 +119,13 @@ class Business extends Base
 
     public function updateSearchIndex()
     {
-        return \App\Search\Servant::getInstance()->upsertIndexForBusiness($this);
+        try {
+            return \App\Search\Servant::getInstance()
+                ->upsertIndexForBusiness($this);
+        } catch (Exception $ex) {
+            // Silently failed
+            Log::error($ex->getMessage(), ['context' => 'Business registration']);
+        }
     }
 
     //--------------------------------------------------------------------------
