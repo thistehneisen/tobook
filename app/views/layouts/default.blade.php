@@ -102,7 +102,7 @@
                         @if (Confide::user()->is_consumer === false)
                             {{-- Admin --}}
                             @if (Entrust::hasRole('Admin') || Session::get('stealthMode') !== null)
-                            <li><a href="{{ route('admin.index') }}">
+                            <li><a href="{{ route('admin.users.index') }}">
                                 <i class="fa fa-rocket"></i>
                                 {{ trans('common.admin') }}
                             </a></li>

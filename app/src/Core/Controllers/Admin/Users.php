@@ -3,6 +3,7 @@
 use App, Config, Request, Redirect, Input, Confide, Session, Auth, Validator;
 use App\Core\Models\DisabledModule;
 use App\Core\Models\User;
+use App\Core\Models\Role;
 use Carbon\Carbon;
 
 class Users extends Base
@@ -15,9 +16,10 @@ class Users extends Base
         'layout'      => 'layouts.admin',
         'langPrefix'  => 'user',
         'actionsView' => 'admin.users.actions',
-        'indexFields' => ['business_name', 'email'],
+        'indexFields' => ['business_name', 'email', 'types'],
         'presenters'  => [
-            'business_name' => ['App\Core\Controllers\Admin\Users', 'presentBusinessName']
+            'business_name' => ['App\Core\Controllers\Admin\Users', 'presentBusinessName'],
+            'types'         => ['App\Core\Controllers\Admin\Users', 'presentTypes'],
         ]
     ];
 
@@ -172,5 +174,12 @@ class Users extends Base
         }
 
         return $value;
+    }
+
+    public static function presentTypes($value, $item)
+    {
+        return implode(', ', array_map(function ($r) {
+            return $r->name === 'User' ? 'Business' : $r->name;
+        }, iterator_to_array($item->roles)));
     }
 }

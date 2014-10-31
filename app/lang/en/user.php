@@ -1,5 +1,8 @@
 <?php
 return [
+    'all'                    => 'All users',
+    'add'                    => 'Add user',
+    'types'                  => 'Types',
     'change_password'        => 'Change password',
     'old_password'           => 'Old password',
     'password'               => 'Password',

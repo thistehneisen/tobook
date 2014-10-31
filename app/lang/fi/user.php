@@ -1,5 +1,8 @@
 <?php
 return [
+    'all'                    => 'Kaikki käyttäjät',
+    'add'                    => 'Lisää käyttäjiä',
+    'types'                  => 'Tyypit',
     'change_password'        => 'Muokkaa salasanaa',
     'old_password'           => 'Vanha salasana',
     'password'               => 'Salasana',
@@ -31,9 +34,9 @@ return [
     'fill_reset_password'    => 'Ole hyvä ja kirjoita sähköpostisi nollaamaan salasana',
     'reset_password'         => 'Salasanan nollaaminen',
     'enter_new_password'     => 'Kirjoita uusi salasana',
-    'premium_expired'        => 'Järjestelmän käyttöoikeus on päättynyt tai järjestelmässä on tapahtunut virhe. Ota yhteyttä asiakaspalveluumme.', 
-    'business_name'          => 'Yrityksen nimi', 
-    'business' => [ // @todo
+    'premium_expired'        => 'Järjestelmän käyttöoikeus on päättynyt tai järjestelmässä on tapahtunut virhe. Ota yhteyttä asiakaspalveluumme.',
+    'business_name'          => 'Yrityksen nimi',
+    'business' => [
         'name'               => 'Yrityksen nimi',
         'description'        => 'Yritysesittely',
         'size'               => 'Henkilömäärä',
@@ -52,17 +55,17 @@ return [
         ],
     ],
     'profile' => [
-        'index'                => 'Tietoni', 
+        'index'                => 'Tietoni',
         'general'              => 'Yleiset tiedot',
-        'images'               => 'Kuvat', 
+        'images'               => 'Kuvat',
         'no_images'            => 'Kuvia ei löytynyt, ole ystävällinen ja lataa uusia kuvia.',
-        'select_files'         => 'Valitse tiedostot', 
-        'upload'               => 'Lataa', 
-        'upload_images'        => 'Lataa uusia kuvia', 
+        'select_files'         => 'Valitse tiedostot',
+        'upload'               => 'Lataa',
+        'upload_images'        => 'Lataa uusia kuvia',
         'description'          => 'Yritysesittely',
-        'business_size'        => 'Henkilömäärä', 
+        'business_size'        => 'Henkilömäärä',
         'business'             => 'Yritys',
-        'business_size_values' => [ // @todo
+        'business_size_values' => [
             '1',
             '2-3',
             '3-5',
@@ -71,46 +74,46 @@ return [
             '50+',
         ],
         'business_categories' => [
-            'index'                  => 'Kategoria', 
+            'index'                  => 'Kategoria',
             'beauty_hair'            => 'Kauneus &amp; Hiukset',
             'restaurant'             => 'Ravintola',
             'car'                    => 'Auto',
             'wellness'               => 'Hyvinvointi',
             'activities'             => 'Toiminta',
             'home'                   => 'Koti',
-            'beautysalon'            => 'Kauneushoitola', 
+            'beautysalon'            => 'Kauneushoitola',
             'nails'                  => 'Kynnet',
-            'hairdresser'            => 'Parturi- Kampaamo', // @todo
-            'fine_dining'            => 'Fine Dining', // @todo
-            'nepalese'               => 'Nepalialainen', // @todo
-            'traditional'            => 'Perinteinen', // @todo
-            'sushi'                  => 'Sushi', // @todo
-            'thai'                   => 'Thai', // @todo
-            'italian'                => 'Italialainen', // @todo
-            'grill'                  => 'Grilli', // @todo
-            'chinese'                => 'Kiinalainen', // @todo
-            'car_wash'               => 'Autopesu', // @todo
-            'car_service'            => 'Autohuolto', // @todo
-            'bike_service'           => 'Pyörähuolto', // @todo
-            'physical_theraphy'      => 'Fysioterapia', // @todo
-            'massage'                => 'Hieronta', // @todo
-            'dentist'                => 'Hammaslääkäri', // @todo
-            'acupuncture'            => 'Akupunktio', // @todo
-            'chiropractic_treatment' => 'Kiropraktikko', // @todo
-            'teeth_whitening'        => 'Hampaiden valkaisu', // @todo
-            'bowling'                => 'Keilailu', // @todo
-            'karting'                => 'Karting', // @todo
-            'gym'                    => 'Kuntosali', // @todo
-            'dance'                  => 'Tanssi', // @todo
-            'badminton'              => 'Sulkapallo', // @todo
-            'tennis'                 => 'Tennis', // @todo
-            'personal_training'      => 'Personal Training', // @todo
-            'yoga'                   => 'Jooga', // @todo
-            'house_cleaning'         => 'Kotisiivous', // @todo
-            'handyman'               => 'Rakennuspalvelu', // @todo
-            'photography'            => 'Valokuvaus', // @todo
-            'babysitting'            => 'Lapsenvahti', // @todo
-            'snow_removal'           => 'Lumityöt', // @todo
+            'hairdresser'            => 'Parturi- Kampaamo',
+            'fine_dining'            => 'Fine Dining',
+            'nepalese'               => 'Nepalialainen',
+            'traditional'            => 'Perinteinen',
+            'sushi'                  => 'Sushi',
+            'thai'                   => 'Thai',
+            'italian'                => 'Italialainen',
+            'grill'                  => 'Grilli',
+            'chinese'                => 'Kiinalainen',
+            'car_wash'               => 'Autopesu',
+            'car_service'            => 'Autohuolto',
+            'bike_service'           => 'Pyörähuolto',
+            'physical_theraphy'      => 'Fysioterapia',
+            'massage'                => 'Hieronta',
+            'dentist'                => 'Hammaslääkäri',
+            'acupuncture'            => 'Akupunktio',
+            'chiropractic_treatment' => 'Kiropraktikko',
+            'teeth_whitening'        => 'Hampaiden valkaisu',
+            'bowling'                => 'Keilailu',
+            'karting'                => 'Karting',
+            'gym'                    => 'Kuntosali',
+            'dance'                  => 'Tanssi',
+            'badminton'              => 'Sulkapallo',
+            'tennis'                 => 'Tennis',
+            'personal_training'      => 'Personal Training',
+            'yoga'                   => 'Jooga',
+            'house_cleaning'         => 'Kotisiivous',
+            'handyman'               => 'Rakennuspalvelu',
+            'photography'            => 'Valokuvaus',
+            'babysitting'            => 'Lapsenvahti',
+            'snow_removal'           => 'Lumityöt',
         ]
     ]
 ];
