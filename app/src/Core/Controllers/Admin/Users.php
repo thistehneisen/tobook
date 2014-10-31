@@ -15,7 +15,10 @@ class Users extends Base
         'layout'      => 'layouts.admin',
         'langPrefix'  => 'user',
         'actionsView' => 'admin.users.actions',
-        'indexFields' => ['email']
+        'indexFields' => ['business_name', 'email'],
+        'presenters'  => [
+            'business_name' => ['App\Core\Controllers\Admin\Users', 'presentBusinessName']
+        ]
     ];
 
     /**
@@ -157,5 +160,17 @@ class Users extends Base
             $errors = $this->errorMessageBag(trans('common.err.unexpected'));
             return Redirect::back()->withErrors($errors);
         }
+    }
+
+    //--------------------------------------------------------------------------
+    // PRESENTERS
+    //--------------------------------------------------------------------------
+    public static function presentBusinessName($value, $item)
+    {
+        if (!empty($item->business->name)) {
+            return $item->business->name;
+        }
+
+        return $value;
     }
 }
