@@ -3,11 +3,12 @@
 use App\Core\Models\User;
 use Appointment\Traits\Models;
 use FunctionalTester;
+use Codeception\Util\Debug;
 
 /**
  * @group core
  */
-class AuthCest
+class BusinessAuthCest
 {
     use Models;
 
@@ -30,7 +31,6 @@ class AuthCest
     public function testLogin(FunctionalTester $I)
     {
         list($email, $password) = $this->_register($I);
-
         $I->dontSeeAuthentication();
 
         $user = User::where('email', $email)->first();
@@ -65,6 +65,7 @@ class AuthCest
         $I->fillField('city', 'City');
         $I->fillField('postcode', '10000');
         $I->fillField('country', 'Finland');
+        $I->fillField('_token', csrf_token());
         $I->click('#btn-register');
         $I->seeCurrentRouteIs('auth.register.done');
 
