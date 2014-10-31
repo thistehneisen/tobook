@@ -158,6 +158,29 @@ class Employee extends \App\Appointment\Models\Base
     }
 
     /**
+     * Return the effective end time of a date
+     * Consider default working time and work-shift planning time
+     *
+     * @param \Carbon\Carbon $date
+     * @return \Carbon\Carbon
+     */
+    public function getEffectiveEndAtByDate($date)
+    {
+        $defaultEndAt = $this->getTodayDefaultEndAt($date->weekday);
+
+        $empCustomTime = $this->employeeCustomTimes()
+                    ->with('customTime')
+                    ->where('date', $date->toDateString())
+                    ->first();
+
+        $endAt = (!empty($empCustomTime))
+            ? $empCustomTime->customTime->getEndAt()
+            : $defaultEndAt;
+
+        return $endAt;
+    }
+
+    /**
      * Check if the booking start time and end time overlap with
      * current employee freetime
      *

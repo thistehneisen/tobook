@@ -51,7 +51,7 @@
     <tbody>
         @foreach ($items as $item)
         <tr>
-            <td><input type="checkbox"></td>
+            <td><input type="checkbox" class="checkbox" name="ids[]" value="{{ $item->id }}"></td>
             <td>{{ $item->name }}</td>
             <td>
             @foreach ($item->employees as $e)
@@ -76,33 +76,39 @@
         </tr>
         @endforeach
     </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="4">
-                <div class="form-group">
-                    <label>{{ trans('as.with_selected') }}</label>
-                    <select name="" id="" class="form-control input-sm">
-                        <option value="">{{ trans('common.delete') }}</option>
-                        <option value="">Blahde</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm">{{ trans('common.save') }}</button>
-            </td>
-            <td colspan="5" class="text-right">
-                <div class="dropdown">
-                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-                    {{ trans('as.items_per_page') }} <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">10</a></li>
-                        <li><a href="#">20</a></li>
-                        <li><a href="#">50</a></li>
-                    </ul>
-                </div>
-            </td>
-        </tr>
-    </tfoot>
 </table>
+
+<div class="row">
+    <div class="col-md-4">
+        @if (!empty($bulkActions))
+        <div class="form-group">
+            <label>@lang('as.with_selected')</label>
+            <select name="action" id="mass-action" class="form-control input-sm">
+            @foreach ($bulkActions as $action)
+                <option value="{{ $action }}">{{ trans('common.'.$action) }}</option>
+            @endforeach
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-sm btn-submit-mass-action">{{ trans('common.save') }}</button>
+        @endif
+    </div>
+    <div class="col-md-6 text-right">
+        {{  $items->appends(Input::only('perPage'))->links() }}
+    </div>
+
+    <div class="col-md-2 text-right">
+        <div class="btn-group">
+            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+            @lang('as.items_per_page') <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li><a href="{{ route($routes['index'], ['perPage' => 5]) }}">5</a></li>
+                <li><a href="{{ route($routes['index'], ['perPage' => 10]) }}">10</a></li>
+                <li><a href="{{ route($routes['index'], ['perPage' => 10]) }}">20</a></li>
+                <li><a href="{{ route($routes['index'], ['perPage' => 50]) }}">50</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
 {{ Form::close() }}
 @stop
