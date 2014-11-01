@@ -16,6 +16,7 @@ class BookingService extends \App\Appointment\Models\Base implements CartDetailI
         'end_at',
         'modify_time',
         'service_time_id',
+        'is_requested_employee',
         'is_reminder_email',
         'is_reminder_sms'
     ];
