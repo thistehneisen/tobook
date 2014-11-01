@@ -166,14 +166,14 @@ trait Layout
         $fields = [
             'first_name' => Input::get('first_name'),
             'last_name'  => Input::get('last_name'),
-            'phone'      => Input::get('phone'),
+            'phone'      => str_replace(' ','', Input::get('phone')),
             'email'      => Input::get('email'),
         ];
 
         $validators = [
             'first_name' => ['required'],
             'last_name'  => ['required'],
-            'phone'      => ['required'],
+            'phone'      => ['required', 'numeric'],
             'email'      => ['required', 'email'],
         ];
 

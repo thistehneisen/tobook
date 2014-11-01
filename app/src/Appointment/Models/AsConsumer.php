@@ -17,7 +17,7 @@ class AsConsumer extends \App\Core\Models\Base
         $first_name = $data['first_name'];
         $last_name  = $data['last_name'];
         $email      = $data['email'];
-        $phone      = $data['phone'];
+        $phone      = trim($data['phone']);
         $hash       = $data['hash'];
 
         $consumer = Consumer::where('first_name', $first_name)
