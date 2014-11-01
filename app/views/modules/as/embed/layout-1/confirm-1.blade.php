@@ -46,9 +46,9 @@
              <div class="form-group row">
                 <div class="col-sm-offset-2 col-sm-10">
                     @if($isRequestedEmployee)
-                    <i class="glyphicon glyphicon-ok"></i> {{ trans('as.bookings.request_employee') }}
+                    <i class="glyphicon glyphicon-ok text-success"></i> {{ trans('as.bookings.request_employee') }}
                     @else
-                    <i class="glyphicon glyphicon-remove"></i> {{ trans('as.bookings.request_employee') }}
+                    <i class="glyphicon glyphicon-remove text-danger"></i> {{ trans('as.bookings.request_employee') }}
                     @endif
                 </div>
             </div>

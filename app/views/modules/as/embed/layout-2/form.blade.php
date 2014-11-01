@@ -34,10 +34,14 @@
     @if((int)$user->asOptions['country'] >= 2)
     <div class="form-group">
         <label>{{ trans('as.bookings.country') }}  @if((int)$user->asOptions['country'] === 3)(*)@endif</label>
-        {{ Form::select('country', array_combine($user->getCountryList(), $user->getCountryList()), (isset($booking_info['country'])) ? $booking_info['country'] : '', ['class' => 'form-control input-sm', 'id' => 'country']) }}
-        </div>
+        {{ Form::select('country', array_combine($user->business->getCountryList(), $user->business->getCountryList()), (isset($booking_info['country'])) ? $booking_info['country'] : '', ['class' => 'form-control input-sm', 'id' => 'country']) }}
     </div>
     @endif
+     <div class="form-group">
+          {{ Form::checkbox('is_requested_employee', 1, (isset($booking_info['is_requested_employee'])) ? $booking_info['is_requested_employee'] : '', ['id' => 'is_requested_employee']) }}
+        <label for="is_requested_employee">{{ trans('as.bookings.request_employee') }}</label>
+        </div>
+    </div>
 
     <input type="hidden" name="hash" value="{{ Input::get('hash') }}">
     <input type="hidden" name="l" value="{{ Input::get('l') }}">

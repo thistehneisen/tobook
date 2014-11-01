@@ -71,11 +71,12 @@ class Layout3 extends Base
 
     protected function getConfirmationData()
     {
-        $data             = Input::all();
-        $data['date']     = new Carbon($data['date']);
-        $data['service']  = Service::find(Input::get('serviceId'));
-        $data['employee'] = Employee::findOrFail(Input::get('employeeId'));
-        $data['notes']    = Input::get('notes', '');
+        $data                        = Input::all();
+        $data['date']                = new Carbon($data['date']);
+        $data['service']             = Service::find(Input::get('serviceId'));
+        $data['employee']            = Employee::findOrFail(Input::get('employeeId'));
+        $data['notes']               = Input::get('notes', '');
+        $data['isRequestedEmployee'] = Input::get('is_requested_employee', false);
         return $data;
     }
 

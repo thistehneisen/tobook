@@ -45,7 +45,15 @@
         <div class="col-md-10">{{ $notes }}</div>
     </div>
     @endif
-
+    <div class="form-group row">
+        <div class="col-sm-offset-2 col-sm-10">
+            @if($isRequestedEmployee)
+            <i class="glyphicon glyphicon-ok text-success"></i> {{ trans('as.bookings.request_employee') }}
+            @else
+            <i class="glyphicon glyphicon-remove text-danger"></i> {{ trans('as.bookings.request_employee') }}
+            @endif
+        </div>
+    </div>
 
     <input type="hidden" name="service_id" value="{{ $service->id }}">
     <input type="hidden" name="employee_id" value="{{ $employee->id }}">
@@ -58,6 +66,7 @@
     <input type="hidden" name="phone" value="{{ $phone }}">
     <input type="hidden" name="cart_id" value="{{ $cartId }}">
     <input type="hidden" name="inhouse" value="{{ $inhouse }}">
+    <input type="hidden" name="is_requested_employee" value="{{ $isRequestedEmployee }}">
     @if ($inhouse)
     <input type="hidden" name="source" value="inhouse">
     @else
