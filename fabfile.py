@@ -82,33 +82,13 @@ def create_migrate(table='table'):
 
 
 @task(alias='m')
-def migrate(module='', environment=''):
+def migrate(environment='local'):
     '''
     Run migration
     '''
-    if module == '':
-        # prepare all-migrations directory for files
-        # using tempfile.mkdtemp would be better but Laravel Migrator
-        # doesn't allow that, yet
-        path = 'app/database/all-migrations'
-        if os.path.exists(path):
-            shutil.rmtree(path)
-        os.makedirs(path)
-        # get all migration files in module directories, copy to all-migrations
-        for file in glob.glob('app/database/migrations/*/*.php'):
-            shutil.copy(file, path)
-        # run migration using all-migrations now
-        local(
-            'php artisan migrate --path={} --env={}'
-            .format(path, environment)
-        )
-        if environment == 'testing':
-            local('php artisan db:seed --class=TestingSeeder --env=testing')
-    else:
-        local(
-            'php artisan migrate --path=app/database/migrations/{} --env={}'
-            .format(module, environment)
-        )
+    local('php artisan migrate --env={}'.format(environment))
+    if environment == 'testing':
+        local('php artisan db:seed --class=TestingSeeder --env=testing')
 
 
 @task(alias='cs')
