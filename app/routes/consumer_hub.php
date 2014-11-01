@@ -6,7 +6,7 @@
 */
 Route::group([
     'prefix' => 'consumer-hub',
-    'before' => ['auth', 'only.business']
+    'before' => ['auth', 'only.business', 'premium.modules:consumers']
 ], function () {
     \App\Consumers\Controllers\Hub::crudRoutes(
         '/',

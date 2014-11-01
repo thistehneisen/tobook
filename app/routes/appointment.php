@@ -6,7 +6,7 @@
 */
 Route::group([
     'prefix' => 'appointment-scheduler',
-    'before' => ['auth', 'only.business']
+    'before' => ['auth', 'only.business', 'premium.modules:appointment']
 ], function () {
 
     Route::get('/employee/{id}/{date?}', [

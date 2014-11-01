@@ -16,22 +16,24 @@ Route::group([
 
     App\Core\Controllers\Admin\Users::crudRoutes('users', 'admin.users');
 
-    Route::get('users/login/{id}', [
+    Route::get('users/{id}/login', [
         'as' => 'admin.users.login',
         'uses' => 'App\Core\Controllers\Admin\Users@stealSession'
     ]);
 
+    //--------------------------------------------------------------------------
     // Premium modules
-    Route::get('users/modules/{id}', [
+    //--------------------------------------------------------------------------
+    Route::get('users/{id}/modules', [
         'as' => 'admin.users.modules',
         'uses' => 'App\Core\Controllers\Admin\Users@modules'
     ]);
 
-    Route::post('users/modules/{id}', [
+    Route::post('users/{id}/modules', [
         'uses' => 'App\Core\Controllers\Admin\Users@enableModule'
     ]);
 
-    Route::get('users/modules/activation/{userId}/{id}', [
+    Route::get('users/{userId}/modules/{id}/activation/', [
         'as'   => 'admin.users.modules.activation',
         'uses' => 'App\Core\Controllers\Admin\Users@toggleActivation'
     ]);
