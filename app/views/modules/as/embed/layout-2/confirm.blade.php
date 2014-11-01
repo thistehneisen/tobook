@@ -26,6 +26,15 @@
         </div>
         @endif
     @endforeach
+    <div class="form-group row">
+        <div class="col-sm-offset-2 col-sm-10">
+            @if($isRequestedEmployee)
+            <i class="glyphicon glyphicon-ok text-success"></i> {{ trans('as.bookings.request_employee') }}
+            @else
+            <i class="glyphicon glyphicon-remove text-danger"></i> {{ trans('as.bookings.request_employee') }}
+            @endif
+        </div>
+    </div>
 
     <input type="hidden" name="hash" value="{{ $hash }}">
     <input type="hidden" name="first_name" value="{{ $first_name }}">
@@ -34,6 +43,7 @@
     <input type="hidden" name="phone" value="{{ $phone }}">
     <input type="hidden" name="cart_id" value="{{ $cartId }}">
     <input type="hidden" name="source" value="layout2">
+    <input type="hidden" name="is_requested_employee" value="{{ $isRequestedEmployee }}">
 
     <div class="form-group">
         <div class="col-sm-12">

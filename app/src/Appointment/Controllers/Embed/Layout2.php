@@ -125,9 +125,10 @@ class Layout2 extends Base
         $cart->notes = (!empty($data['notes'])) ? $data['notes'] : '';
         $cart->consumer()->associate($consumer)->save();
 
-        $data['consumer'] = $consumer;
-        $data['cart']     = $cart;
-        $data['user']     = $this->getUser();
+        $data['consumer']            = $consumer;
+        $data['cart']                = $cart;
+        $data['user']                = $this->getUser();
+        $data['isRequestedEmployee'] = Input::get('is_requested_employee', false);
 
         return $this->render('confirm', $data);
     }
