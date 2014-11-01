@@ -34,7 +34,7 @@ return [
     'fill_reset_password'    => 'Please enter your email to reset your password',
     'reset_password'         => 'Reset password',
     'enter_new_password'     => 'Please enter your new password',
-    'premium_expired'        => 'Your active time was expired. Please contact us via email :email or phone number :phone_number to activate your service again.',
+    'premium_expired'        => 'You are no long able to use this service',
     'business_name'          => 'Business name',
     'business' => [
         'name'               => 'Business Name',
