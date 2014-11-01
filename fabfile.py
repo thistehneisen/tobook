@@ -1,7 +1,5 @@
 from fabric.api import cd, run, local, task, hosts, env
-import glob
 import os
-import shutil
 
 HOME = os.getenv('HOME')
 
