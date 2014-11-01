@@ -325,6 +325,15 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return $serviceDescription;
     }
 
+    /**
+     * Return the 1st booking service, just for convience
+     * @return App\Appointment\Models\BookingService
+     */
+    public function firstBookingService()
+    {
+        return $this->bookingServices()->first();
+    }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------

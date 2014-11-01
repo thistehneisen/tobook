@@ -397,16 +397,16 @@ class Bookings extends AsBase
      */
     public function addBookingService()
     {
-        $serviceId      = (int) Input::get('service_id');
-        $bookingId      = (int) Input::get('booking_id');//if update old booking
-        $employeeId     = (int) Input::get('employee_id');
-        $serviceTimeId  = Input::get('service_time', 'default');
-        $modifyTime     = (int) Input::get('modify_times', 0);
-        $hash           = Input::get('hash');
-        $bookingDate    = Input::get('booking_date');
-        $startTimeStr   = Input::get('start_time');
-        $uuid           = Input::get('uuid', '');// from ajax uuid
-
+        $serviceId           = (int) Input::get('service_id');
+        $bookingId           = (int) Input::get('booking_id');//if update old booking
+        $employeeId          = (int) Input::get('employee_id');
+        $serviceTimeId       = Input::get('service_time', 'default');
+        $modifyTime          = (int) Input::get('modify_times', 0);
+        $hash                = Input::get('hash');
+        $bookingDate         = Input::get('booking_date');
+        $startTimeStr        = Input::get('start_time');
+        $uuid                = Input::get('uuid', '');// from ajax uuid
+        $isRequestedEmployee = Input::get('is_requested_employee', false);
 
         if(empty($serviceId) || empty($serviceTimeId))
         {
@@ -474,11 +474,12 @@ class Bookings extends AsBase
 
             //Using uuid for retrieve it later when insert real booking
             $model->fill([
-                'tmp_uuid'    => $uuid,
-                'date'        => $bookingDate,
-                'modify_time' => $modifyTime,
-                'start_at'    => $startTimeStr,
-                'end_at'      => $endTime
+                'tmp_uuid'              => $uuid,
+                'date'                  => $bookingDate,
+                'modify_time'           => $modifyTime,
+                'start_at'              => $startTimeStr,
+                'end_at'                => $endTime,
+                'is_requested_employee' => $isRequestedEmployee
             ]);
 
             //there is no method opposite with associate
@@ -530,10 +531,11 @@ class Bookings extends AsBase
      **/
     public function upsertBooking()
     {
-        $uuid          = Input::get('booking_uuid');
-        $bookingId     = Input::get('booking_id');
-        $bookingStatus = Input::get('booking_status');
-        $notes         = Input::get('booking_notes');
+        $uuid                = Input::get('booking_uuid');
+        $bookingId           = Input::get('booking_id');
+        $bookingStatus       = Input::get('booking_status');
+        $notes               = Input::get('booking_notes');
+        $isRequestedEmployee = Input::get('is_requested_employee', false);
 
         try {
             //support multiple service time?
@@ -621,6 +623,8 @@ class Bookings extends AsBase
             } else {
                 $booking->save();
             }
+            //Users can check this option before or after save a booking service
+            $bookingService->is_requested_employee = $isRequestedEmployee;
             $bookingService->booking()->associate($booking);
             $bookingService->save();
 
