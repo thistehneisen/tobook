@@ -165,10 +165,11 @@ class FrontBookings extends Bookings
     public function addFrontEndBooking()
     {
         try {
-            $hash     = Input::get('hash');
-            $cartId   = Input::get('cart_id');
-            $source   = Input::get('source', '');
-            $cart     = Cart::find($cartId);
+            $hash                = Input::get('hash');
+            $cartId              = Input::get('cart_id');
+            $source              = Input::get('source', '');
+            $cart                = Cart::find($cartId);
+            $isRequestedEmployee = Input::get('is_requested_employee', false);
             $consumer = $cart->consumer;
 
             $length = 0;
@@ -213,6 +214,7 @@ class FrontBookings extends Bookings
                 $booking->save();
 
                 $bookingService->booking()->associate($booking);
+                $bookingService->is_requested_employee = $isRequestedEmployee;
                 $bookingService->save();
 
                 foreach ($extraServices as $extraService) {

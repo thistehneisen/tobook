@@ -275,6 +275,7 @@ return [
         'confirm_reschedule'=> 'Vahvista siirto',
         'cancel_reschedule' => 'Peru siirto',
         'own_customer'      => 'Oma asiakas',
+        'request_employee'  => 'Työntekijää ei saa vaihtaa',
         'error'             => [
             'add_overlapped_booking'   => 'Overlapped booking time!',// @todo
             'insufficient_slots'       => 'There is no enough time slots for this booking!',// @todo

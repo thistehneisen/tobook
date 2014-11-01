@@ -30,10 +30,11 @@ trait Layout
             ?   $this->getUser($hash)
             : $user;
 
-        $serviceId       = Input::get('service_id');
-        $serviceTimeId   = Input::get('service_time');
-        $extraServiceIds = Input::get('extra_services');
-        $cartId          = Input::get('cart_id');
+        $serviceId           = Input::get('service_id');
+        $serviceTimeId       = Input::get('service_time');
+        $extraServiceIds     = Input::get('extra_services');
+        $cartId              = Input::get('cart_id');
+        $isRequestedEmployee = Input::get('is_requested_employee', false);
 
         $date = (empty(Input::get('date'))) ? Carbon::today() : Input::get('date');
         $consumer = null;
@@ -106,6 +107,7 @@ trait Layout
             'user'               => $user,
             'categories'         => $categories,
             'employees'          => $employees,
+            'isRequestedEmployee'=> $isRequestedEmployee,
             'cart'               => $cart,
             'consumer'           => $consumer,
             'service'            => $service,

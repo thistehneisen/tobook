@@ -13,10 +13,11 @@ class Layout1 extends Base
 {
     public function addConfirmInfo()
     {
-        $data   = Input::all();
-        $hash   = Input::get('hash');
-        $cartId = Input::get('cart_id');
-        $notes  = Input::get('notes');
+        $data                = Input::all();
+        $hash                = Input::get('hash');
+        $cartId              = Input::get('cart_id');
+        $notes               = Input::get('notes');
+        $isRequestedEmployee = Input::get('is_requested_employee', false);
 
         $validation = $this->getConfirmationValidator();
         if ( $validation->fails() ) {
@@ -28,7 +29,7 @@ class Layout1 extends Base
         $cart->notes = $notes;
         $cart->consumer()->associate($consumer)->save();
 
-        return Redirect::route('as.embed.embed', ['hash' => $hash, 'action'=> 'confirm', 'cart_id' => $cartId]);
+        return Redirect::route('as.embed.embed', ['hash' => $hash, 'action'=> 'confirm', 'cart_id' => $cartId, 'is_requested_employee' => $isRequestedEmployee]);
     }
 
     /**

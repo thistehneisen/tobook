@@ -275,6 +275,7 @@ return [
         'confirm_reschedule'=> 'Confirm reschedule',
         'cancel_reschedule' => 'Cancel reschedule',
         'own_customer'      => 'Own customer',
+        'request_employee'  => 'Requesting for a specific employee',
         'error'             => [
             'add_overlapped_booking'   => 'Overlapped booking time!',// @todo
             'insufficient_slots'       => 'There is no enough time slots for this booking!',// @todo
