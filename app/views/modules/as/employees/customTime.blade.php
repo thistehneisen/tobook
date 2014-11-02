@@ -39,6 +39,13 @@
 {{ Form::close() }}
 
 {{ Form::open(['route' => ['as.employees.employeeCustomTime.massiveUpdate',  $employee->id], 'class' => 'form-horizontal', 'role' => 'form']) }}
+<table>
+    <tr>
+        <td>
+            <button type="submit" class="btn btn-primary">{{ trans('common.save') }}</button>
+        </td>
+    </tr>
+</table>
 <table class="table table-striped">
     <thead>
         <th>{{ trans('as.employees.weekday')}}</th>

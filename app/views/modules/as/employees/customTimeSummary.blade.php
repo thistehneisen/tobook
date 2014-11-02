@@ -18,7 +18,7 @@
              <button class="btn btn-primary pull-right" onclick="window.print();"><i class="fa fa-print"> {{ trans('as.index.print') }}</i></button>
         </div>
 </div>
-<table class="table table-striped table-bordered">
+<table id="workshift-summary" class="table table-striped table-bordered">
     <thead>
         <th>{{ trans('as.employees.weekday')}}</th>
         <th>{{ trans('as.employees.date')}}</th>
