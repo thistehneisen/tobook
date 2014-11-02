@@ -4,6 +4,15 @@
     {{ HTML::style(asset('assets/css/as/appointment.css?v=00005')) }}
 @stop
 
+@section ('scripts')
+{{ HTML::script(asset('assets/js/jquery.fixedheader.js?v=00001')) }}}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#workshift-summary').fixedHeader();
+    });
+</script>
+@stop
+
 @section ('title')
     {{ trans('as.employees.custom_time') }} :: @parent
 @stop

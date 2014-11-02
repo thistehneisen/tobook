@@ -422,17 +422,17 @@
             });
         });
         var colHeaderTop  = -1,
-            colHeaderLeft = -1,
             originalOffset = [],
             scrolledLeft = false;
 
-        $(window).scroll(function () {
-
-            if(colHeaderTop === -1) {
-                colHeaderTop = $('.as-col-header').offset().top;
+        function fixedCalendarHeader() {
+            if ($('.as-col-header').length === 0) {
+                return;
             }
 
-            var top = $('.as-col-header').offset().top;
+            if (colHeaderTop === -1) {
+                colHeaderTop = $('.as-col-header').offset().top;
+            }
 
             if ($(window).scrollTop() > colHeaderTop) {
                 $('.as-col-header').css('position', 'fixed');
@@ -454,6 +454,10 @@
                     $('.as-col-header').css('position', 'relative');
                 }
             }
+        }
+
+        $(window).scroll(function () {
+            fixedCalendarHeader();
         });
 
         $('.as-calendar').scroll(function () {
@@ -474,5 +478,6 @@
                 // console.log($(item).offset().left);
             });
         });
+        $('#workshift-summary').fixedHeader();
     });
 }(jQuery));
