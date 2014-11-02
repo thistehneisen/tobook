@@ -14,7 +14,7 @@ class MigrateBusiness extends Migration {
     public function up()
     {
         foreach (User::all() as $user) {
-            if (!empty($user->business->name)) {
+            if (!empty($user->business->name) || !empty($user->consumer_id)) {
                 continue;
             }
 
@@ -33,7 +33,7 @@ class MigrateBusiness extends Migration {
 
             array_walk($input, function (&$value, $key) {
                 if (empty($value)) {
-                    if ($key === 'phone' or $key === 'name') {
+                    if ($key === 'phone' || $key === 'name') {
                         $value = 'N/A';
                     } else {
                         $value = '';
