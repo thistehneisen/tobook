@@ -89,7 +89,7 @@ class Bookings extends AsBase
                 'as_bookings.total',
                 'as_bookings.notes',
                 'as_bookings.status',
-                'as_consumers.id as consumer_id'
+                'consumers.id as consumer_id'
             )->groupBy('as_bookings.id');
 
         return $query;
