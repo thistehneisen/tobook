@@ -1,6 +1,7 @@
 @extends ('modules.as.layout')
 @section ('styles')
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css') }}
+    {{ HTML::style(asset('assets/css/as/appointment.css?v=00005')) }}
 @stop
 
 @section ('title')
@@ -28,7 +29,7 @@
     </thead>
     <tbody>
         @foreach($currentMonths as $item)
-             <tr>
+             <tr @if($item['date']->dayOfWeek === \Carbon\Carbon::SUNDAY) class="sunday-row" @endif>
                 <td>{{ $item['date']->format('l') }}</td>
                 <td>{{ $item['date']->toDateString() }}</td>
                 @foreach ($employees as $employee)
