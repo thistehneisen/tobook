@@ -4,6 +4,8 @@
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css">
 {{ HTML::style(asset('packages/alertify/alertify.core.css')) }}
 {{ HTML::style(asset('packages/alertify/alertify.bootstrap.css')) }}
+
+@include('modules.as.embed.layout-1._style')
 @stop
 
 @section ('extra_js')

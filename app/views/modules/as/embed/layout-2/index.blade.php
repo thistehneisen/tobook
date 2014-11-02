@@ -1,5 +1,9 @@
 @extends ('modules.as.embed.embed')
 
+@section ('extra_css')
+@include('modules.as.embed.layout-2._style')
+@stop
+
 @section ('content')
 @if(!empty($user->asOptions['style_logo']) || (!empty($user->asOptions['style_banner'])))
 <header class="container-fluid as-header">
