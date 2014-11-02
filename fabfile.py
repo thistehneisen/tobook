@@ -12,7 +12,7 @@ def _deploy(environment):
         # install dependencies
         run('composer install')
         # run migration
-        run('fab m:,{}'.format(environment))
+        run('fab m:{}'.format(environment))
         # chmod storage again
         run('chmod -Rf 777 app/storage')
 
