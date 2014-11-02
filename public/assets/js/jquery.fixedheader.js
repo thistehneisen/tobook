@@ -31,7 +31,6 @@
                 self.find('thead > tr').css('width', defaultWidth);
                 self.find('thead > tr > th').each(function (key, item) {
                     $(item).css('width', parseInt(originalWidth[key], 10));
-                    $(item).css('padding', 8);
                 });
                 self.find('tbody > tr > td').each(function (key, item) {
                     $(item).css('width', parseInt(originalWidth[key], 10));
