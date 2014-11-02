@@ -10,8 +10,11 @@ class Hub extends Base
     protected $crudOptions = [
         'modelClass'    => 'App\Consumers\Models\Consumer',
         'langPrefix'    => 'co',
-        'indexFields'   => ['first_name', 'last_name', 'email', 'phone'],
-        'layout'        => 'layouts.default',
+        'indexFields'   => ['first_name', 'last_name', 'email', 'phone', 'services'],
+        'presenters'  => [
+            'services' => ['App\Consumers\Controllers\Hub', 'presentServices']
+        ],
+        'layout'        => 'modules.co.layout',
         'showTab'       => true,
         'bulkActions'   => [],
     ];
@@ -91,5 +94,16 @@ class Hub extends Base
             'service' => $service,
             'history' => $history,
         ]);
+    }
+
+    public static function presentServices($value, $item)
+    {
+        $str = '<ul class="list-unstyle">';
+        foreach ($item->getServiceAttribute() as $key => $value) {
+            $str .= '<li><a class="js-showHistory" href="'.route('consumer-hub.history').'" data-consumerid="'.$item->id.'" data-service="'.$key.'">'.$value.'</a></li>';
+        }
+        $str .= '</ul>';
+
+        return $str;
     }
 }

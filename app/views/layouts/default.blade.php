@@ -190,6 +190,8 @@
         @yield('content')
     </main>
 
+    @yield('extra_modals')
+
     @yield('iframe')
 
     @section('footer')

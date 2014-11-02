@@ -5,7 +5,7 @@
  * @author An Cao <an@varaa.com>
  */
 return [
-    'all_consumers'     => 'Kaikki asiakkaat',
+    'consumers'         => 'asiakkaat',
     'empty'             => 'Sinulla ei ole vielä aktiivisia asiakkaita.',
     'id'                => 'ID',
     'first_name'        => 'Etunimi',
