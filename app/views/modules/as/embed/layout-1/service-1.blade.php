@@ -11,20 +11,26 @@
                 <div class="single">
                     <a data-toggle="collapse" data-parent="#category-services-{{ $category->id }}" href="#service-{{ $category->id.'-'.$service->id }}"><h5 class="heading inline">{{ $service->name }}</h5></a>
                     <div id="service-{{ $category->id.'-'.$service->id }}" class="collapse">
-                        <p>
-                            <a data-service-id="{{ $service->id }}" data-service-time="default" class="btn btn-default btn-select-service-time price-tag"><i class="glyphicon glyphicon-tag"></i> &euro;{{ number_format($service->price) }}</a>
-                            <a data-service-id="{{ $service->id }}" data-service-time="default" class="btn btn-default btn-select-service-time"><i class="glyphicon glyphicon-time"></i> {{ $service->during }}  {{ trans('common.minutes')}}</a>
-                            <span class="text-muted">{{ nl2br($service->description) }}</span>
-                        </p>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <a data-service-id="{{ $service->id }}" data-service-time="default" class="btn btn-default btn-select-service-time price-tag"><i class="glyphicon glyphicon-tag"></i> &euro;{{ number_format($service->price) }}</a>
+                                <a data-service-id="{{ $service->id }}" data-service-time="default" class="btn btn-default btn-select-service-time"><i class="glyphicon glyphicon-time"></i> {{ $service->during }}  {{ trans('common.minutes')}}</a>
+                            </div>
+                            <div class="text-muted col-sm-9">{{ nl2br($service->description) }}</div>
+                        </div>
+
                         @foreach ($service->serviceTimes as $serviceTime)
-                        <p>
-                            <a data-service-id="{{ $service->id }}" data-service-time="{{ $serviceTime->id }}" class="btn btn-default btn-select-service-time price-tag"><i class="glyphicon glyphicon-tag"></i> &euro;{{ number_format($serviceTime->price) }}</a>
-                            <a data-service-id="{{ $service->id }}" data-service-time="{{ $serviceTime->id }}" class="btn btn-default btn-select-service-time"><i class="glyphicon glyphicon-time"></i> {{ $serviceTime->during }} {{ trans('common.minutes')}}</a>
-                            <span class="text-muted">{{ $serviceTime->description }}</span>
-                        </p>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <a data-service-id="{{ $service->id }}" data-service-time="{{ $serviceTime->id }}" class="btn btn-default btn-select-service-time price-tag"><i class="glyphicon glyphicon-tag"></i> &euro;{{ number_format($serviceTime->price) }}</a>
+                                <a data-service-id="{{ $service->id }}" data-service-time="{{ $serviceTime->id }}" class="btn btn-default btn-select-service-time"><i class="glyphicon glyphicon-time"></i> {{ $serviceTime->during }} {{ trans('common.minutes')}}</a>
+                            </div>
+                            <div class="text-muted col-sm-9">{{ $serviceTime->description }}</div>
+                        </div>
                         @endforeach
+
                         @if($service->extraServices()->count())
-                       <a href="#" data-hash="{{ $hash }}" data-service-id="{{ $service->id }}" class="btn btn-success btn-add-extra-service">{{ trans('as.services.categories.availability') }}</a>
+                        <a href="#" data-hash="{{ $hash }}" data-service-id="{{ $service->id }}" class="btn btn-success btn-add-extra-service">{{ trans('as.services.categories.availability') }}</a>
                         @else
                         <a id="btn-add-service-{{ $service->id }}" href="{{ route('as.embed.embed', ['hash' => $hash,'service_id' => $service->id,'service_time' => 'default' ,'date' => $date->toDateString() ])}}" class="btn btn-success btn-add-service">{{ trans('as.services.categories.availability') }}</a>
                         @endif
