@@ -27,15 +27,10 @@ class Search extends Base
             $params['from']  = ($page * $perPage) - $perPage;
             $params['size']  = $perPage;
 
-            $query['bool']['should'][]['match']['name']          = $q;
             $query['bool']['should'][]['match']['business_name'] = $q;
             $query['bool']['should'][]['match']['category_name'] = $q;
             $query['bool']['should'][]['match']['description']   = $q;
             $query['bool']['should'][]['match']['keywords']      = $q;
-
-            $filter = [
-                'exists' => [ 'field' => 'business_name' ]
-            ];
 
             if(!empty($location)) {
                 $query['bool']['should'][]['match']['city'] = $location;
