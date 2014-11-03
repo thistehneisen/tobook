@@ -1,5 +1,6 @@
 <?php namespace App\Core\Commands;
 use DB;
+use App\Core\Models\Role;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -18,7 +19,7 @@ class IndexExistingBusinessCommand extends Command {
 	 *
 	 * @var string
 	 */
-	protected $description = 'Indexing old business data to ElasticSearch';
+	protected $description = 'Indexing business data to ElasticSearch';
 
 	/**
 	 * Create a new command instance.
@@ -49,7 +50,7 @@ class IndexExistingBusinessCommand extends Command {
             ]
         ];
         //Index 'Hakunamatata' => 'Hak','aku','una' .etc
-         $indexParams['body']['settings']['analysis']['tokenizer'] = [
+        $indexParams['body']['settings']['analysis']['tokenizer'] = [
             'varaa_tokenizer' => [
                 'type'        => 'nGram',
                 'min_gram'    => '4',
@@ -63,10 +64,6 @@ class IndexExistingBusinessCommand extends Command {
                 'enabled' => true
             ],
             'properties' => array(
-                'name' => [
-                    'type' => 'string',
-                    'analyzer' => 'varaa_ngrams'
-                ],
                 'business_name' => [
                     'type' => 'string',
                     'analyzer' => 'varaa_ngrams'
@@ -117,7 +114,8 @@ class IndexExistingBusinessCommand extends Command {
         $params['index'] = 'businesses';
         $params['type']  = 'business';
 
-        $users = DB::table('users')->get();
+        // get all business users
+        $users = Role::find(1)->users()->get();
         foreach ($users as $user) {
             $categories = DB::table('business_categories')
                 ->select(DB::raw("GROUP_CONCAT(varaa_business_categories.name SEPARATOR ', ') as names"),
@@ -131,28 +129,23 @@ class IndexExistingBusinessCommand extends Command {
                 ]
             ];
 
-            $business_name =   (!empty($user->business_name))
-                ?  $user->business_name
-                : null;
-
             $params['body'][] = [
-                'name'          => $user->username,
-                'business_name' => $business_name,
+                'business_name' => $user->business->name ?: '',
                 'category_name' => str_replace('_', ' ', $categories->names),
                 'keywords'      => str_replace('_', ' ', $categories->keywords),
-                'address'       => $user->address,
-                'postcode'      => $user->postcode,
-                'city'          => $user->city,
-                'country'       => $user->country,
-                'phone'         => $user->phone,
-                'description'   => $user->description,
+                'address'       => $user->business->address ?: '',
+                'postcode'      => $user->business->postcode ?: '',
+                'city'          => $user->business->city ?: '',
+                'country'       => $user->business->country ?: '',
+                'phone'         => $user->business->phone ?: '',
+                'description'   => $user->business->description ?: '',
                 'location'      => [
-                    'lat'           => $user->lat,
-                    'lon'           => $user->lng
+                    'lat' => $user->business->lat ?: 0,
+                    'lon' => $user->business->lng ?: 0
                 ]
             ];
-
         }
+
         $responses = $client->bulk($params);
     }
 

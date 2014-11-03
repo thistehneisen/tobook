@@ -43,37 +43,32 @@ class Servant
      */
     public function upsertIndexForBusiness(Business $business)
     {
-
-        $params['id'] = $business->user->id;
-
-        $businessName =   (!empty($business->name))
-                ?  $business->name
-                : null;
-
         $categoryNameList = [];
         $categoryKeywordList = [];
 
         foreach ($business->businessCategories as $category) {
             $categoryNameList[]    = str_replace('_', ' ', $category->name);
-            $categoryKeywordList[] = implode(", " , $category->keywords);
+            $categoryKeywordList[] = implode(', ', $category->keywords);
         }
 
-        $categoryNames    = implode(", ", $categoryNameList);
-        $categoryKeywords = implode(", ", $categoryKeywordList);
+        $categoryNames    = implode(', ', $categoryNameList);
+        $categoryKeywords = implode(', ', $categoryKeywordList);
+
+        $params['id'] = $business->user->id;
 
         $params['body'] = [
-            'business_name' => $businessName,
+            'business_name' => $business->name ?: '',
             'category_name' => $categoryNames,
             'keywords'      => $categoryKeywords,
-            'address'       => $business->address,
-            'postcode'      => $business->postcode,
-            'city'          => $business->city,
-            'country'       => $business->country,
-            'phone'         => $business->phone,
-            'description'   => $business->description,
+            'address'       => $business->address ?: '',
+            'postcode'      => $business->postcode ?: '',
+            'city'          => $business->city ?: '',
+            'country'       => $business->country ?: '',
+            'phone'         => $business->phone ?: '',
+            'description'   => $business->description ?: '',
             'location'      => [
-                'lat'  => empty($business->lat) ? 0 : $business->lat,
-                'lon'  => empty($business->lng) ? 0 : $business->lng
+                'lat' => $business->lat ?: 0,
+                'lon' => $business->lng ?: 0
             ]
         ];
 
