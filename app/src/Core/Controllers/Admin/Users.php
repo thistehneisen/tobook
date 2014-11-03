@@ -188,12 +188,14 @@ class Users extends Base
     /**
      * Update business information of a user
      *
+     * @param int $id
+     *
      * @return Redirect
      */
-    public function updateBusiness()
+    public function updateBusiness($id)
     {
         $errors = null;
-        $user = Confide::user();
+        $user = User::findOrFail($id);
         $business = !empty($user->business)
             ? $user->business
             : new Business;
