@@ -209,6 +209,12 @@ trait Layout
         $date     = Input::has('date') ? new Carbon(Input::get('date')) : $today;
         $hash     = Input::get('hash');
         $service  = Service::findOrFail(Input::get('serviceId'));
+        $serviceTime = null;
+
+        if (Input::has('serviceTimeId')) {
+            $serviceTime = $service->serviceTimes()
+                ->findOrFail(Input::get('serviceTimeId'));
+        }
 
         if ($date->lt($today)) {
             $date = $today->copy();
@@ -219,7 +225,7 @@ trait Layout
             $timetable = $this->getTimetableOfAnyone($service, $date);
         } elseif ($employeeId > 0) {
             $employee = Employee::findOrFail($employeeId);
-            $timetable = $this->getTimetableOfSingle($employee, $service, $date);
+            $timetable = $this->getTimetableOfSingle($employee, $service, $date, $serviceTime);
         }
 
         $i = 1;
