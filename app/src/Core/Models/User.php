@@ -202,19 +202,6 @@ class User extends ConfideUser
     }
 
     /**
-     * Return extra action links that are displayed in admin CRUD list
-     *
-     * @return array
-     */
-    public function getExtraActionLinks()
-    {
-        return [
-            '<i class="fa fa-user"></i> Login' => route('admin.users.login', ['id' => $this->id]),
-            '<i class="fa fa-puzzle-piece"></i> Modules' => route('admin.users.modules', ['id' => $this->id])
-        ];
-    }
-
-    /**
      * Check if this user has the given module enabled
      *
      * @param string $moduleName
