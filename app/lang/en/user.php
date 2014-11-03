@@ -1,5 +1,8 @@
 <?php
 return [
+    'activate'               => 'Activate',
+    'deactivate'             => 'Deactivate',
+    'activation'             => 'Activation',
     'all'                    => 'All users',
     'add'                    => 'Add user',
     'types'                  => 'Types',

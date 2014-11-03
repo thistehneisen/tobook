@@ -19,10 +19,12 @@ class Users extends Base
         'layout'      => 'layouts.admin',
         'langPrefix'  => 'user',
         'actionsView' => 'admin.users.actions',
-        'indexFields' => ['business_name', 'email', 'types'],
+        'bulkActions' => ['activate', 'deactivate'],
+        'indexFields' => ['business_name', 'email', 'types', 'activation'],
         'presenters'  => [
             'business_name' => ['App\Core\Controllers\Admin\Users', 'presentBusinessName'],
             'types'         => ['App\Core\Controllers\Admin\Users', 'presentTypes'],
+            'activation'    => ['App\Core\Controllers\Admin\Users', 'presentActivation'],
         ]
     ];
 
@@ -208,6 +210,30 @@ class Users extends Base
         return Redirect::back()->withInput()->withErrors($errors, 'top');
     }
 
+    /**
+     * Activate a list of business users
+     *
+     * @param array $ids
+     *
+     * @return void
+     */
+    protected function activate($ids)
+    {
+        Business::whereIn('user_id', $ids)->update(['is_activated' => true]);
+    }
+
+    /**
+     * Deactivate a list of business users
+     *
+     * @param array $ids
+     *
+     * @return void
+     */
+    protected function deactivate($ids)
+    {
+        Business::whereIn('user_id', $ids)->update(['is_activated' => false]);
+    }
+
     //--------------------------------------------------------------------------
     // PRESENTERS
     //--------------------------------------------------------------------------
@@ -225,5 +251,14 @@ class Users extends Base
         return implode(', ', array_map(function ($r) {
             return $r->name === 'User' ? 'Business' : $r->name;
         }, iterator_to_array($item->roles)));
+    }
+
+    public static function presentActivation($value, $item)
+    {
+        if (!empty($item->business) && $item->business->is_activated) {
+            return '<span class="label label-success">'.trans('common.yes').'</span>';
+        }
+
+        return '<span class="label label-danger">'.trans('common.no').'</span>';
     }
 }
