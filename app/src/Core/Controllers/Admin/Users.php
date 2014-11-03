@@ -79,7 +79,20 @@ class Users extends Base
     public function upsertHandler($item)
     {
         $item->fill(Input::all());
-        $item->updateUniques();
+        if (Input::has('password') && Input::has('password_confirmation')) {
+            $item->password = Input::get('password');
+            $item->password_confirmation = Input::get('password_confirmation');
+        }
+
+        // New user, so what should we do
+        if ($item->id === null) {
+            $item->save();
+            // Send notification email
+            return Redirect::route(static::$crudRoutes['upsert'], ['id' => $item->id]);
+        } else {
+            $item->updateUniques();
+        }
+
         return $item;
     }
 

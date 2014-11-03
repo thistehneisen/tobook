@@ -307,6 +307,11 @@ trait Olut
                 : new $modelClass;
 
             $item = $this->upsertHandler($item);
+            // Sometimes you might want to do something else, for example,
+            // redirect to the next step
+            if ($item instanceof \Illuminate\Http\RedirectResponse) {
+                return $item;
+            }
 
             $message = ($id !== null)
                 ? trans('olut::olut.success_edit')
