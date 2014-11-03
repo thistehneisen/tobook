@@ -16,6 +16,7 @@ class Users extends Base
 
     protected $crudOptions = [
         'modelClass'  => 'App\Core\Models\User',
+        'prefetch'    => ['business', 'roles'],
         'layout'      => 'layouts.admin',
         'langPrefix'  => 'user',
         'actionsView' => 'admin.users.actions',

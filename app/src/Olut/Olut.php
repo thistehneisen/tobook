@@ -152,6 +152,11 @@ trait Olut
             $query = $query->orderBy('order');
         }
 
+        // Eager loading
+        if ($prefetch = $this->getOlutOptions('prefetch')) {
+            $query = $query->with($prefetch);
+        }
+
         // Pagination please
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
         $items = $query->paginate($perPage);
