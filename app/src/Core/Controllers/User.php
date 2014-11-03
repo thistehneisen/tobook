@@ -54,7 +54,7 @@ class User extends Base
 
         if ($user->is_business) {
             $businessLomake = Lomake::make($business, [
-                'route'             => '#',
+                'route'             => 'user.profile',
                 'langPrefix'        => 'user.business',
                 'fields'            => [
                     'description'   => ['type' => 'html_field', 'default' => $business->description_html],
