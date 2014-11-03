@@ -222,7 +222,7 @@ trait Layout
 
         $employeeId = (int) Input::get('employeeId');
         if ($employeeId === -1) {
-            $timetable = $this->getTimetableOfAnyone($service, $date);
+            $timetable = $this->getTimetableOfAnyone($service, $date, $serviceTime);
         } elseif ($employeeId > 0) {
             $employee = Employee::findOrFail($employeeId);
             $timetable = $this->getTimetableOfSingle($employee, $service, $date, $serviceTime);
