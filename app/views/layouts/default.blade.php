@@ -78,9 +78,20 @@
                     <li class="hidden-sm hidden-xs">
                         <p>
                         @if (Session::get('stealthMode') !== null)
-                            You're now login as <strong>{{ Confide::user()->username }}</strong>
+                            You're logged in as
+                            @if (Confide::user()->is_business)
+                                <span class="label label-bg label-success">{{ Confide::user()->business->name }}</span>
+                            @elseif (Confide::user()->is_consumer)
+                                <span class="label label-warning">{{ Confide::user()->email }}</span>
+                            @endif
                         @else
-                            {{ trans('common.welcome') }}, <strong>{{ Confide::user()->username }}</strong>!
+                            {{ trans('common.welcome') }},
+                            @if (Confide::user()->is_business)
+                                <strong>{{ Confide::user()->business->name }}</strong>
+                            @elseif (Confide::user()->is_consumer)
+                                <strong>{{ Confide::user()->first_name }}</strong>
+                            @endif
+                            !
                         @endif
                         </p>
                     </li>
@@ -97,16 +108,16 @@
 
                     {{-- Logged in --}}
                     @if (Confide::user())
+                        {{-- Admin --}}
+                        @if (Entrust::hasRole('Admin') || Session::get('stealthMode') !== null)
+                        <li><a href="{{ route('admin.users.index') }}">
+                            <i class="fa fa-rocket"></i>
+                            {{ trans('common.admin') }}
+                        </a></li>
+                        @endif
 
                         {{-- Business user --}}
                         @if (Confide::user()->is_consumer === false)
-                            {{-- Admin --}}
-                            @if (Entrust::hasRole('Admin') || Session::get('stealthMode') !== null)
-                            <li><a href="{{ route('admin.users.index') }}">
-                                <i class="fa fa-rocket"></i>
-                                {{ trans('common.admin') }}
-                            </a></li>
-                            @endif
                             <li class="dropdown">
                                 <a href="{{ route('dashboard.index') }}">
                                     <i class="fa fa-star"></i>

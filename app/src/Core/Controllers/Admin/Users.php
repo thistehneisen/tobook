@@ -300,6 +300,10 @@ class Users extends Base
 
     public static function presentActivation($value, $item)
     {
+        if ($item->hasRole(Role::CONSUMER)) {
+            return '';
+        }
+
         if (!empty($item->business) && $item->business->is_activated) {
             return '<span class="label label-success">'.trans('common.yes').'</span>';
         }
