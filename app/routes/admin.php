@@ -33,12 +33,8 @@ Route::group([
         //----------------------------------------------------------------------
         // Premium modules
         //----------------------------------------------------------------------
-        Route::get('{id}/modules', [
-            'as' => 'admin.users.modules',
-            'uses' => 'App\Core\Controllers\Admin\Users@modules'
-        ]);
-
         Route::post('{id}/modules', [
+            'as' => 'admin.users.modules',
             'uses' => 'App\Core\Controllers\Admin\Users@enableModule'
         ]);
 

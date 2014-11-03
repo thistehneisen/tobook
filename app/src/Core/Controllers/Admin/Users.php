@@ -58,14 +58,17 @@ class Users extends Base
             ]);
 
             // Get all business categories
-            $categories = BusinessCategory::getAll();
-            $data['categories'] = $categories;
+            $data['categories'] = BusinessCategory::getAll();
             // Selected business categories
             $selectedCategories = $business->businessCategories->lists('id');
             $data['selectedCategories'] = $selectedCategories;
         }
-
+        // Attach the form
         $data['businessLomake'] = $businessLomake;
+
+        // Get all modules in the system
+        $data['modules'] = Config::get('varaa.premium_modules');
+
         $view->with($data);
         return $view;
     }
@@ -136,24 +139,6 @@ class Users extends Base
     }
 
     /**
-     * Allow to edit associated modules of a user
-     *
-     * @param int $id User ID
-     *
-     * @return View
-     */
-    public function modules($id)
-    {
-        $user = User::findOrFail($id);
-        $modules = Config::get('varaa.premium_modules');
-
-        return $this->render('users.modules', [
-            'modules' => $modules,
-            'user'    => $user,
-        ]);
-    }
-
-    /**
      * Enable a service module of a user
      *
      * @param  int $id User ID
@@ -171,6 +156,8 @@ class Users extends Base
         $disabled = array_diff($modules, $selected);
 
         try {
+            // Remove all existing disabled modules
+            $user->disabledModules()->delete();
             foreach ($disabled as $name) {
                 $module = new DisabledModule(['module' => $name]);
                 $user->disabledModules()->save($module);
@@ -198,7 +185,6 @@ class Users extends Base
      */
     public function toggleActivation($userId, $id)
     {
-
         try {
             $result = Module::toggleActivation($id);
             return Redirect::route('admin.users.modules', ['id' => $userId])

@@ -35,6 +35,7 @@
     @endif
 
     <div role="tabpanel" class="tab-pane" id="tab-services">
+        @include ('admin.users.modules', ['user' => $item])
     </div> <!-- tab services -->
 </div>
 @stop
