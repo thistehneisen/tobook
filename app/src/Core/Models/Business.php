@@ -8,6 +8,7 @@ use Exception;
 class Business extends Base
 {
     public $fillable = [
+        'is_activated',
         'name',
         'description',
         'size',

@@ -88,6 +88,10 @@ class Users extends Base
         if ($item->id === null) {
             $item->save();
 
+            // Assign to group Business
+            $role = Role::user();
+            $item->attachRole($role);
+
             // Send notification email
             Mail::send(
                 'admin.users.emails.created',
