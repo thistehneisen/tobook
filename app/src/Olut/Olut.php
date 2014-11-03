@@ -255,7 +255,7 @@ trait Olut
             ? $model->findOrFail($id)
             : new $modelClass;
 
-        $view = View::exists($this->getViewPath().'.form')
+        $template = View::exists($this->getViewPath().'.form')
             ? $this->getViewPath().'.form'
             : 'olut::form';
 
@@ -277,7 +277,11 @@ trait Olut
             'lomake'     => $lomake
         ];
 
-        return View::make($view, $data);
+        $view = View::make($template, $data);
+        if (method_exists($this, 'overwrittenUpsert')) {
+            return $this->overwrittenUpsert($view, $item);
+        }
+        return $view;
     }
 
     /**
