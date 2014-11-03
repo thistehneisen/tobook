@@ -1,9 +1,12 @@
 <?php namespace App\Core\Controllers\Admin;
 
 use App, Config, Request, Redirect, Input, Confide, Session, Auth, Validator;
+use Lomake;
 use App\Core\Models\DisabledModule;
 use App\Core\Models\User;
+use App\Core\Models\Business;
 use App\Core\Models\Role;
+use App\Core\Models\BusinessCategory;
 use Carbon\Carbon;
 
 class Users extends Base
@@ -22,6 +25,50 @@ class Users extends Base
             'types'         => ['App\Core\Controllers\Admin\Users', 'presentTypes'],
         ]
     ];
+
+    /**
+     * Overwrite upsert behavior
+     *
+     * @param View $view
+     * @param Eloquent $user
+     *
+     * @return View
+     */
+    public function overwrittenUpsert($view, $user)
+    {
+        // Additional data to be passed to View
+        $data = [];
+        $businessLomake = null;
+        if ($user->is_business) {
+
+            $business = !empty($user->business)
+                ? $user->business
+                : new Business;
+            $data['business'] = $business;
+
+            $businessLomake = Lomake::make($business, [
+                'route'             => ['admin.users.business', $user->id],
+                'langPrefix'        => 'user.business',
+                'fields'            => [
+                    'description'   => ['type' => 'html_field', 'default' => $business->description_html],
+                    'size'          => ['type' => false],
+                    'lat'           => ['type' => false],
+                    'lng'           => ['type' => false],
+                ],
+            ]);
+
+            // Get all business categories
+            $categories = BusinessCategory::getAll();
+            $data['categories'] = $categories;
+            // Selected business categories
+            $selectedCategories = $business->businessCategories->lists('id');
+            $data['selectedCategories'] = $selectedCategories;
+        }
+
+        $data['businessLomake'] = $businessLomake;
+        $view->with($data);
+        return $view;
+    }
 
     /**
      * @{@inheritdoc}
