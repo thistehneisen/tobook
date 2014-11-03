@@ -293,7 +293,8 @@ trait Layout
     protected function getTimetableOfSingle(Employee $employee, Service $service, Carbon $date, $serviceTime = null, $showEndTime = false)
     {
         $timetable = [];
-        $workingTimes = $this->getDefaultWorkingTimes($date, Input::get('hash'));
+        $defaultEndTime       = null;
+        $workingTimes = $employee->getWorkingTimesByDate($date, $defaultEndTime);
 
         $empCustomTime = $employee->employeeCustomTimes()
                     ->with('customTime')
@@ -308,17 +309,21 @@ trait Layout
             foreach ($minutes as $shift) {
                 // We will check if this time bookable
 
-                $service = ($serviceTime !== null)
+                $service = (!empty($serviceTime))
                     ? $serviceTime
                     : $service;
 
                 $startTime = $date->copy()->hour($hour)->minute($shift);
                 $endTime   = $startTime->copy()->addMinutes($service->length);
 
-                if (!empty($empCustomTime)) {
+                if(!empty($empCustomTime)){
                     if(($endTime->hour * 60) + $endTime->minute > ($end->hour * 60) + $end->minute){
                         break;
                     }
+                }
+
+                if(($endTime->hour * 60) + $endTime->minute > ($defaultEndTime->hour * 60) + $defaultEndTime->minute){
+                    break;
                 }
 
                 $isOverllapedWithFreetime = $employee->isOverllapedWithFreetime($date, $startTime, $endTime);

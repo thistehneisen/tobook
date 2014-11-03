@@ -89,6 +89,79 @@ class Employee extends \App\Appointment\Models\Base
         return $this->getDefaulTimesByDay($day)->first();
     }
 
+    /**
+     * Genereate working times table this employee for using in Layout 2 and 3
+     * If default working times of an employee is empty, try to use custom time of the date
+     *
+     * @param Carbon $date
+     * @return array
+     */
+    public function getWorkingTimesByDate($date, &$end)
+    {
+        $time         = $this->getDefaulTimesByDayOfWeek($date->dayOfWeek);
+        $startTime    = null;
+        $endTime      = null;
+        $workingTimes = [];
+
+        list($startHour, $startMinute, $endHour, $endMinute) = $this->getStartTimeEndTime($time);
+
+        /* if default time is 0:00 to 0:00 try to get custom time */
+        if (($startHour + $endHour + $startMinute + $endMinute) === 0) {
+            $empCustomTime = $this->employeeCustomTimes()
+                    ->with('customTime')
+                    ->where('date', $date->toDateString())
+                    ->first();
+
+            if(!empty($empCustomTime)) {
+                list($startHour, $startMinute, $endHour, $endMinute) = $this->getStartTimeEndTime($empCustomTime->customTime);
+            }
+        }
+        //for use in Layout::getTimetableOfSingle
+        $end =  Carbon::createFromFormat('H:i', sprintf('%02d:%02d', $endHour, $endMinute));
+
+        if (($startHour + $endHour + $startMinute + $endMinute) === 0) {
+            return $workingTimes;
+        }
+
+        for ($i = $startHour; $i<= $endHour; $i++) {
+            if ($i === $startHour) {
+                $workingTimes[$i] = range($startMinute, 45, 15);
+            }
+            if ($i !== $startHour && $i !== $endHour)
+            {
+                $workingTimes[$i] = range(0, 45, 15);
+            }
+            if ($i === $endHour) {
+                 $workingTimes[$i] = range(0, $endMinute, 15);
+            }
+        }
+        return $workingTimes;
+    }
+
+    public function getStartTimeEndTime($time)
+    {
+        if(empty($time)) {
+            return [0, 0, 0, 0];
+        }
+
+        if (intval($time->is_day_off) === 0) {
+            $startTime = Carbon::createFromFormat('H:i:s', $time->start_at);
+            $endTime =  Carbon::createFromFormat('H:i:s', $time->end_at);
+        }
+
+        $startHour   = (int)!empty($startTime) ? $startTime->hour   : 0;
+        $startMinute = (int)!empty($startTime) ? $startTime->minute : 0;
+        $endHour     = (int)!empty($endTime)   ? $endTime->hour     : 0;
+        $endMinute   = (int)!empty($endTime)   ? $endTime->minute   : 0;
+
+        return [$startHour, $startMinute, $endHour, $endMinute];
+    }
+
+    /**
+     * Return default working time of an employee
+     * @param Carbon $date
+     * @return array
+     */
     public function getDefaultWorkingTimes($date = null)
     {
         $defaultTimes = $this->getDefaultTimes();
