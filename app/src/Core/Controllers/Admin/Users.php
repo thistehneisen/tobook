@@ -211,6 +211,29 @@ class Users extends Base
         }
     }
 
+    /**
+     * Update business information of a user
+     *
+     * @return Redirect
+     */
+    public function updateBusiness()
+    {
+        $errors = null;
+        $user = Confide::user();
+        $business = !empty($user->business)
+            ? $user->business
+            : new Business;
+
+        try {
+            $business->updateInformation(Input::all(), $user);
+        } catch (\Watson\Validating\ValidationException $ex) {
+            $errors = $ex->getErrors();
+        } catch (\Exception $ex) {
+            $errors = $this->errorMessageBag($ex->getMessage());
+        }
+        return Redirect::back()->withInput()->withErrors($errors, 'top');
+    }
+
     //--------------------------------------------------------------------------
     // PRESENTERS
     //--------------------------------------------------------------------------

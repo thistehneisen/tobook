@@ -19,6 +19,7 @@
 </ul>
 
 <br>
+@include ('el.messages')
 <!-- Tab panes -->
 <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="tab-general">
@@ -35,10 +36,5 @@
 
     <div role="tabpanel" class="tab-pane" id="tab-services">
     </div> <!-- tab services -->
-</div>
-
-<div class="modal-form">
-    @include ('el.messages')
-
 </div>
 @stop
