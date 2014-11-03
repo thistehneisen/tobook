@@ -19,8 +19,10 @@ class Layout2 extends Base
 
         $serviceTime = null;
         if (Input::has('serviceTimeId')) {
-            $serviceTime = $service->serviceTimes()
-                ->findOrFail(Input::get('serviceTimeId'));
+            if(Input::get('serviceTimeId') !== 'default') {
+                $serviceTime = $service->serviceTimes()
+                    ->findOrFail(Input::get('serviceTimeId'));
+            }
         }
 
         // Calculate date ranges for nav
