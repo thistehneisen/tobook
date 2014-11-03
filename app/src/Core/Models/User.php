@@ -37,6 +37,18 @@ class User extends ConfideUser
     protected $asOptionsCache;
 
     /**
+     * @{@inheritdoc}
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        if (isset(ConfideUser::$rules['username'])) {
+            unset(ConfideUser::$rules['username']);
+        }
+    }
+
+    /**
      * Get next avaiable booking slots of current user
      *
      * @param string date
@@ -238,6 +250,28 @@ class User extends ConfideUser
         $this->consumer()->associate($consumer);
     }
 
+    /**
+     * Update activated modules for user
+     *
+     * @param array $activatedModules
+     *
+     * @return App\Core\Models\User
+     */
+    public function updateDisabledModules($activatedModules)
+    {
+        $all = array_keys(Config::get('varaa.premium_modules'));
+        $disabled = array_diff($all, $activatedModules);
+
+        // Remove all existing disabled modules
+        $this->disabledModules()->delete();
+        foreach ($disabled as $name) {
+            $module = new DisabledModule(['module' => $name]);
+            $this->disabledModules()->save($module);
+        }
+
+        return $this;
+    }
+
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
@@ -343,17 +377,5 @@ class User extends ConfideUser
     public function getIsConsumerAttribute()
     {
         return $this->hasRole(Role::CONSUMER);
-    }
-
-    /**
-     * @{@inheritdoc}
-     */
-    public static function boot()
-    {
-        parent::boot();
-
-        if (isset(ConfideUser::$rules['username'])) {
-            unset(ConfideUser::$rules['username']);
-        }
     }
 }

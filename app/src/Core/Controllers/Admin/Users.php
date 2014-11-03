@@ -148,20 +148,8 @@ class Users extends Base
     public function enableModule($id)
     {
         $user =  User::findOrFail($id);
-
-        // Find disabled modules
-        $modules = array_keys(Config::get('varaa.premium_modules'));
-        $selected = Input::get('modules');
-
-        $disabled = array_diff($modules, $selected);
-
         try {
-            // Remove all existing disabled modules
-            $user->disabledModules()->delete();
-            foreach ($disabled as $name) {
-                $module = new DisabledModule(['module' => $name]);
-                $user->disabledModules()->save($module);
-            }
+            $user->updateDisabledModules(Input::get('modules'));
         } catch (\Illuminate\Database\QueryException $ex) {
             // Silently failed
         }
@@ -169,7 +157,7 @@ class Users extends Base
         return Redirect::back()
             ->with('messages', $this->successMessageBag(
                 trans('admin.modules.success_enabled', [
-                    'module' => $module->name,
+                    'module' => implode(', ', Input::get('modules')),
                     'user'   => $user->username
                 ])
             ));
