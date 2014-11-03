@@ -1,7 +1,7 @@
 <?php namespace App\Core\Controllers\Admin;
 
 use App, Config, Request, Redirect, Input, Confide, Session, Auth, Validator;
-use Lomake;
+use Lomake, Mail;
 use App\Core\Models\DisabledModule;
 use App\Core\Models\User;
 use App\Core\Models\Business;
@@ -87,10 +87,38 @@ class Users extends Base
         // New user, so what should we do
         if ($item->id === null) {
             $item->save();
+
             // Send notification email
-            return Redirect::route(static::$crudRoutes['upsert'], ['id' => $item->id]);
+            Mail::send(
+                'admin.users.emails.created',
+                ['password' => Input::get('password')],
+                function($message) {
+                    $message
+                    ->to(Input::get('email'))
+                    ->subject(trans('user.password_reminder.created.heading'));
+                }
+            );
+
+            // Redirect to edit page, so that we can enter business information
+            return Redirect::route(
+                static::$crudRoutes['upsert'],
+                ['id' => $item->id]
+            );
         } else {
             $item->updateUniques();
+
+            if (Input::has('password')) {
+                // Send notification email
+                Mail::send(
+                    'admin.users.emails.reset',
+                    ['password' => Input::get('password')],
+                    function($message) {
+                        $message
+                        ->to(Input::get('email'))
+                        ->subject(trans('user.password_reminder.reset.heading'));
+                    }
+                );
+            }
         }
 
         return $item;

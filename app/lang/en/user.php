@@ -57,6 +57,16 @@ return [
             '50+',
         ],
     ],
+    'password_reminder' => [
+        'reset' => [
+            'heading' => 'Your password has been reset',
+            'body'    => 'Your new password is :password',
+        ],
+        'created' => [
+            'heading' => 'Your new account was created',
+            'body' => 'And your password is :password',
+        ]
+    ],
     'profile' => [
         'index'                => 'My account',
         'general'              => 'General information',
@@ -117,6 +127,6 @@ return [
             'photography'            => 'Photography',
             'babysitting'            => 'Babysitting',
             'snow_removal'           => 'Snow Removal',
-        ]
+        ],
     ]
 ];

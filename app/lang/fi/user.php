@@ -36,6 +36,16 @@ return [
     'enter_new_password'     => 'Kirjoita uusi salasana',
     'premium_expired'        => 'Järjestelmän käyttöoikeus on päättynyt tai järjestelmässä on tapahtunut virhe. Ota yhteyttä asiakaspalveluumme.',
     'business_name'          => 'Yrityksen nimi',
+    'password_reminder' => [
+        'reset' => [
+            'heading' => 'Your password has been reset', // @todo
+            'body'    => 'Your new password is :password', // @todo
+        ],
+        'created' => [
+            'heading' => 'Your new account was created', // @todo
+            'body' => 'And your password is :password', // @todo
+        ]
+    ],
     'business' => [
         'name'               => 'Yrityksen nimi',
         'description'        => 'Yritysesittely',
