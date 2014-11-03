@@ -11,15 +11,6 @@ use App\Core\Models\Image;
 class User extends Base
 {
     protected $rules = [
-        'business' => [
-            'name' => 'required',
-            'size' => 'required',
-            'address' => 'required',
-            'city' => 'required',
-            'postcode' => 'required',
-            'country' => 'required',
-            'phone' => 'required',
-        ],
         'profile' => [],
         'password' => [
             'password'              => 'required_with:old_password|confirmed',
@@ -54,7 +45,7 @@ class User extends Base
 
         if ($user->is_business) {
             $businessLomake = Lomake::make($business, [
-                'route'             => '#',
+                'route'             => 'user.profile',
                 'langPrefix'        => 'user.business',
                 'fields'            => [
                     'description'   => ['type' => 'html_field', 'default' => $business->description_html],
@@ -190,39 +181,18 @@ class User extends Base
      */
     protected function updateBusiness()
     {
-        $v = Validator::make(Input::all(), $this->rules['business']);
-        if ($v->fails()) {
-            return Redirect::back()->withInput()->withErrors($v);
-        }
-
         $user = Confide::user();
+        $business = !empty($user->business) ? $user->business : new Business;
+        $errors = null;
 
-        $business = $user->business;
-        if (empty($business)) {
-            $business = new Business();
+        try {
+            $business->updateInformation(Input::all(), $user);
+        } catch (\Watson\Validating\ValidationException $ex) {
+            $errors = $ex->getErrors();
+        } catch (\Exception $ex) {
+            $errors = $this->errorMessageBag($ex->getMessage());
         }
-
-        $business->fill([
-            'name'          => e(Input::get('name')),
-            'description'   => HtmlField::filterInput(Input::all(), 'description'),
-            'size'          => e(Input::get('size')),
-            'address'       => e(Input::get('address')),
-            'city'          => e(Input::get('city')),
-            'postcode'      => e(Input::get('postcode')),
-            'country'       => e(Input::get('country')),
-            'phone'         => e(Input::get('phone')),
-        ]);
-
-        $business->user()->associate($user);
-
-        if (!$business->save()) {
-            return Redirect::back()->withInput()->withErrors($business->getErrors());
-        }
-
-        // Update business categories
-        if (Input::has('categories')) {
-            $business->updateBusinessCategories(Input::get('categories'));
-        }
+        return Redirect::back()->withInput()->withErrors($errors);
     }
 
     /**

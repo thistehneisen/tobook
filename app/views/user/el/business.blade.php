@@ -1,4 +1,4 @@
-{{ Form::open(['id' => 'business-form', 'route' => 'user.profile', 'class' => 'form-horizontal', 'role' => 'form']) }}
+{{ $businessLomake->open(['id' => 'business-form']) }}
     <h3 class="comfortaa orange">{{ trans('user.profile.business') }}</h3>
 
     @foreach ($businessLomake->fields as $field)
@@ -26,4 +26,4 @@
             <button type="submit" class="btn btn-lg btn-orange to-upper comfortaa">{{ trans('common.save') }}</button>
         </div>
     </div>
-{{ Form::close() }}
+{{ $businessLomake->close() }}

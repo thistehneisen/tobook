@@ -37,6 +37,18 @@ class User extends ConfideUser
     protected $asOptionsCache;
 
     /**
+     * @{@inheritdoc}
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        if (isset(ConfideUser::$rules['username'])) {
+            unset(ConfideUser::$rules['username']);
+        }
+    }
+
+    /**
      * Get next avaiable booking slots of current user
      *
      * @param string date
@@ -202,19 +214,6 @@ class User extends ConfideUser
     }
 
     /**
-     * Return extra action links that are displayed in admin CRUD list
-     *
-     * @return array
-     */
-    public function getExtraActionLinks()
-    {
-        return [
-            '<i class="fa fa-user"></i> Login' => route('admin.users.login', ['id' => $this->id]),
-            '<i class="fa fa-puzzle-piece"></i> Modules' => route('admin.users.modules', ['id' => $this->id])
-        ];
-    }
-
-    /**
      * Check if this user has the given module enabled
      *
      * @param string $moduleName
@@ -249,6 +248,28 @@ class User extends ConfideUser
         }
 
         $this->consumer()->associate($consumer);
+    }
+
+    /**
+     * Update activated modules for user
+     *
+     * @param array $activatedModules
+     *
+     * @return App\Core\Models\User
+     */
+    public function updateDisabledModules($activatedModules)
+    {
+        $all = array_keys(Config::get('varaa.premium_modules'));
+        $disabled = array_diff($all, $activatedModules);
+
+        // Remove all existing disabled modules
+        $this->disabledModules()->delete();
+        foreach ($disabled as $name) {
+            $module = new DisabledModule(['module' => $name]);
+            $this->disabledModules()->save($module);
+        }
+
+        return $this;
     }
 
     //--------------------------------------------------------------------------
@@ -356,17 +377,5 @@ class User extends ConfideUser
     public function getIsConsumerAttribute()
     {
         return $this->hasRole(Role::CONSUMER);
-    }
-
-    /**
-     * @{@inheritdoc}
-     */
-    public static function boot()
-    {
-        parent::boot();
-
-        if (isset(ConfideUser::$rules['username'])) {
-            unset(ConfideUser::$rules['username']);
-        }
     }
 }
