@@ -13,7 +13,7 @@
                     <i class="fa fa-check-square-o"></i>
                     @endif
                 @endif
-                {{ $booking->consumer->name }} {{ $booking->getServiceDescription() }}
+                {{ $booking->getConsumerName() }} {{ $booking->getServiceDescription() }}
             </a>
             @else
             <a href="{{ route('as.bookings.modify-form') }}" class="btn-popover popup-ajax hidden-print" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click">&nbsp;</a>

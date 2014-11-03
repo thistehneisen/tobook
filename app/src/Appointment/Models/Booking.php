@@ -284,7 +284,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
         $startTime          = $this->getStartAt()->format('H:i');
         $endTime            = $this->getEndAt()->format('H:i');
-        $consumerName       = $this->consumer->name;
+        $consumerName       = !empty($this->consumer->name) ? $this->consumer->name : '';
         $notes              = empty($this->notes) ? '' : '<br><br><em>'.$this->notes.'</em>';
         $serviceDescription = $this->getServiceDescription(true);
         $tooltip = sprintf(
@@ -332,6 +332,12 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public function firstBookingService()
     {
         return $this->bookingServices()->first();
+    }
+
+    public function getConsumerName()
+    {
+        $consumerName = !empty($this->consumer->name) ? $this->consumer->name : '';
+        return $consumerName;
     }
 
     //--------------------------------------------------------------------------
