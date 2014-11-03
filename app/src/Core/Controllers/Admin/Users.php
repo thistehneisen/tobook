@@ -41,31 +41,28 @@ class Users extends Base
     {
         // Additional data to be passed to View
         $data = [];
-        $businessLomake = null;
-        if ($user->is_business) {
+        $business = !empty($user->business)
+            ? $user->business
+            : new Business;
+        $data['business'] = $business;
 
-            $business = !empty($user->business)
-                ? $user->business
-                : new Business;
-            $data['business'] = $business;
+        $businessLomake = Lomake::make($business, [
+            'route'             => ['admin.users.business', $user->id],
+            'langPrefix'        => 'user.business',
+            'fields'            => [
+                'description'   => ['type' => 'html_field', 'default' => $business->description_html],
+                'size'          => ['type' => false],
+                'lat'           => ['type' => false],
+                'lng'           => ['type' => false],
+            ],
+        ]);
 
-            $businessLomake = Lomake::make($business, [
-                'route'             => ['admin.users.business', $user->id],
-                'langPrefix'        => 'user.business',
-                'fields'            => [
-                    'description'   => ['type' => 'html_field', 'default' => $business->description_html],
-                    'size'          => ['type' => false],
-                    'lat'           => ['type' => false],
-                    'lng'           => ['type' => false],
-                ],
-            ]);
+        // Get all business categories
+        $data['categories'] = BusinessCategory::getAll();
+        // Selected business categories
+        $selectedCategories = $business->businessCategories->lists('id');
+        $data['selectedCategories'] = $selectedCategories;
 
-            // Get all business categories
-            $data['categories'] = BusinessCategory::getAll();
-            // Selected business categories
-            $selectedCategories = $business->businessCategories->lists('id');
-            $data['selectedCategories'] = $selectedCategories;
-        }
         // Attach the form
         $data['businessLomake'] = $businessLomake;
 
