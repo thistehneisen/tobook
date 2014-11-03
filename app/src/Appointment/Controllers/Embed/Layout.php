@@ -212,8 +212,10 @@ trait Layout
         $serviceTime = null;
 
         if (Input::has('serviceTimeId')) {
-            $serviceTime = $service->serviceTimes()
-                ->findOrFail(Input::get('serviceTimeId'));
+            if(Input::get('serviceTimeId') !== 'default') {
+                $serviceTime = $service->serviceTimes()
+                    ->findOrFail(Input::get('serviceTimeId'));
+            }
         }
 
         if ($date->lt($today)) {
