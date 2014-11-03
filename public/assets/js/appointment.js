@@ -478,6 +478,5 @@
                 // console.log($(item).offset().left);
             });
         });
-        $('#workshift-summary').fixedHeader();
     });
 }(jQuery));
