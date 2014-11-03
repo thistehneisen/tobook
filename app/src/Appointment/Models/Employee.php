@@ -274,13 +274,16 @@ class Employee extends \App\Appointment\Models\Base
                 })->orWhere(function ($query) use ($endTime, $startTime) {
                      return $query->where('end_at', '>', $startTime->toTimeString())
                           ->where('end_at', '<=', $endTime->toTimeString());
+                })->orWhere(function ($query) use ($startTime) {
+                     return $query->where('start_at', '<', $startTime->toTimeString())
+                          ->where('end_at', '>', $startTime->toTimeString());
                 })->orWhere(function ($query) use ($startTime, $endTime) {
                      return $query->where('start_at', '=', $startTime->toTimeString())
                           ->where('end_at', '=', $endTime->toTimeString());
                 });
-            })->get();
+            })->first();
 
-        return (!$freetime->isEmpty()) ? true : false;
+        return (!empty($freetime)) ? true : false;
     }
 
     public function getTodayDefaultStartAt($weekday = null)

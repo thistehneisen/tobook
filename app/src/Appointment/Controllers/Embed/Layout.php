@@ -334,9 +334,9 @@ trait Layout
                     break;
                 }
 
-                $isOverllapedWithFreetime = $employee->isOverllapedWithFreetime($date, $startTime, $endTime);
+                $isOverllapedWithFreetime = $employee->isOverllapedWithFreetime($date->toDateString(), $startTime, $endTime);
                 if ($isOverllapedWithFreetime) {
-                   continue;
+                   break;
                 }
 
                 $isBookable = Booking::isBookable(
