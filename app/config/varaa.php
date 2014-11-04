@@ -1,15 +1,34 @@
 <?php
 return [
-    // Name of folder used for upload items
     'dashboard_hide_inactive' => true,
-    'upload_folder'           => 'uploads',
-    'languages'               => ['fi', 'en'],
+    'cart' => [
+        //----------------------------------------------------------------------
+        //  The maximum minutes to hold items in cart
+        //----------------------------------------------------------------------
+        'hold_time' => 15
+    ],
+    //--------------------------------------------------------------------------
+    //  Name of folder used for upload items
+    //--------------------------------------------------------------------------
+    'upload_folder' => 'uploads',
+    //--------------------------------------------------------------------------
+    //  Default languages of the site, in this order
+    //--------------------------------------------------------------------------
+    'languages' => ['fi', 'en'],
+    //--------------------------------------------------------------------------
     // Symbol of the currency applying to the whole system
-    'currency'                => '&euro;',
-    'hashid'                  => [
+    //--------------------------------------------------------------------------
+    'currency' => '&euro;',
+    //--------------------------------------------------------------------------
+    // Special settings for HashID
+    //--------------------------------------------------------------------------
+    'hashid' => [
         'length'   => 8,
         'alphabet' => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
     ],
+    //--------------------------------------------------------------------------
+    // Settings for flash deals displayed in the homepage
+    //--------------------------------------------------------------------------
     'flash_deal' => [
         // Only ID of root categories. Children IDs will be fetched later
         'categories' => [
@@ -21,6 +40,9 @@ return [
         // Number of flash deals to be shown in the frontpage
         'limit' => 8
     ],
+    //--------------------------------------------------------------------------
+    // The available modules/services that provide to customers
+    //--------------------------------------------------------------------------
     'premium_modules' => [
         'appointment' => [
             'route_name' => 'as.index',

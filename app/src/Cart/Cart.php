@@ -1,6 +1,6 @@
 <?php namespace App\Cart;
 
-use Session;
+use Session, Config, Carbon\Carbon, Log, Event;
 use App\Core\Models\User;
 use Illuminate\Support\Collection;
 
@@ -8,8 +8,9 @@ class Cart extends \AppModel
 {
     public $fillable = ['status'];
 
-    const STATUS_INIT      = 1; // 01
-    const STATUS_COMPLETED = 2; // 11
+    const STATUS_INIT      = 1;
+    const STATUS_COMPLETED = 2;
+    const STATUS_UNLOCKED  = 3;
     const SESSION_NAME     = 'current.cart';
 
     /**
@@ -118,8 +119,56 @@ class Cart extends \AppModel
         return $this;
     }
 
+    /**
+     * Release items put in the cart so that they're bookable again
+     *
+     * @return void
+     */
+    public static function unlock()
+    {
+        Log::info('Started to unlock cart items');
+
+        // Get all carts whose status is not `complete` in the last X minutes
+        // (X is the maximum time to hold an item, configurable)
+        $created_at = Carbon::now()->subMinutes(Config::get('varaa.cart.hold_time'));
+        $carts = static::where('status', '!=', static::STATUS_COMPLETED)
+            ->where('status', '!=', static::STATUS_UNLOCKED)
+            ->where('created_at', '<=', $created_at)
+            ->orderBy('id', 'desc')
+            ->get();
+
+        Log::info('Found '.$carts->count().' carts');
+
+        // Go through all cart details and release them
+        foreach ($carts as $cart) {
+            $cart->doUnlock();
+        }
+
+        Log::info('Unlocking cart items done');
+    }
+
+    /**
+     * Go through all cart detail objects and unlock
+     *
+     * @return void
+     */
+    public function doUnlock()
+    {
+        if (!$this->details->isEmpty()) {
+            foreach ($this->details as $detail) {
+                if (!empty($detail->model->instance)) {
+                    $detail->model->instance->unlockCartDetail($detail);
+                }
+            }
+        }
+
+        // Update cart status to UNLOCKED
+        $this->status = static::STATUS_UNLOCKED;
+        $this->save();
+    }
+
     //--------------------------------------------------------------------------
-    // RELATIONSHIPS
+    // ATTRIBUTES
     //--------------------------------------------------------------------------
     public function getTotalAttribute()
     {
