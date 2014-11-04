@@ -133,7 +133,8 @@ Route::filter('ajax', function () {
 */
 Route::filter('only.business', function () {
     $isAdmin = Entrust::hasRole('Admin') || Session::has('stealthMode');
-    $isBusiness = Confide::user()->hasRole(\App\Core\Models\Role::BUSINESS);
+    $user = Confide::user();
+    $isBusiness = $user->is_business && $user->business->is_activated;
 
     if (!$isBusiness && !$isAdmin) {
         // @todo: Should we redirect to message page and show that this URL is
