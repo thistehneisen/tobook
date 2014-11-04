@@ -1,10 +1,11 @@
 <?php
 return [
+    'all'                    => 'All users',
+    'add'                    => 'Add business user',
+    'edit'                   => 'Edit user',
     'activate'               => 'Activate',
     'deactivate'             => 'Deactivate',
-    'activation'             => 'Activation',
-    'all'                    => 'All users',
-    'add'                    => 'Add user',
+    'activated'              => 'Activated',
     'types'                  => 'Types',
     'change_password'        => 'Change password',
     'old_password'           => 'Old password',
@@ -40,6 +41,7 @@ return [
     'premium_expired'        => 'You are no long able to use this service',
     'business_name'          => 'Business name',
     'business' => [
+        'is_activated'       => 'Activated',
         'name'               => 'Business Name',
         'description'        => 'Business Introduction',
         'size'               => 'Business Size',

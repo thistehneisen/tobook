@@ -41,9 +41,7 @@ class Users extends Base
     {
         // Additional data to be passed to View
         $data = [];
-        $business = !empty($user->business)
-            ? $user->business
-            : new Business;
+        $business = $user->business ?: new Business;
         $data['business'] = $business;
 
         $businessLomake = Lomake::make($business, [

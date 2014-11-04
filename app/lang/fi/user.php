@@ -2,6 +2,10 @@
 return [
     'all'                    => 'Kaikki käyttäjät',
     'add'                    => 'Lisää käyttäjiä',
+    'edit'                   => 'Muokkaa',
+    'activate'               => 'Activate',
+    'deactivate'             => 'Deactivate',
+    'activated'              => 'Activated',
     'types'                  => 'Tyypit',
     'change_password'        => 'Muokkaa salasanaa',
     'old_password'           => 'Vanha salasana',
