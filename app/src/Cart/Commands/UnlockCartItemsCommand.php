@@ -53,7 +53,7 @@ class UnlockCartItemsCommand extends ScheduledCommand {
 	{
         // Sorry but because my computer is slow so I need to disable it
         if (App::environment() !== 'local') {
-            Cart::unlock();
+            Cart::scheduledUnlock();
         }
 	}
 

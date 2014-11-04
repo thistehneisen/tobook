@@ -124,7 +124,7 @@ class Cart extends \AppModel
      *
      * @return void
      */
-    public static function unlock()
+    public static function scheduledUnlock()
     {
         Log::info('Started to unlock cart items');
 
@@ -141,7 +141,7 @@ class Cart extends \AppModel
 
         // Go through all cart details and release them
         foreach ($carts as $cart) {
-            $cart->doUnlock();
+            $cart->unlock();
         }
 
         Log::info('Unlocking cart items done');
@@ -152,7 +152,7 @@ class Cart extends \AppModel
      *
      * @return void
      */
-    public function doUnlock()
+    public function unlock()
     {
         if (!$this->details->isEmpty()) {
             foreach ($this->details as $detail) {
