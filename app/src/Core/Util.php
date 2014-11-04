@@ -10,13 +10,15 @@ use Imagine;
 class Util
 {
     /**
-     * Genereate a random 12-character length string likes AZ0123456789
-     * Legacy from old source code
+     * Generate a random 36-character string for Booking UUID
      * @return string
      */
     public static function uuid()
     {
-        return chr(rand(65,90)) . chr(rand(65,90)) . time();
+        // Legacy from old source code, 12 char (not so random)
+        //return chr(rand(65,90)) . chr(rand(65,90)) . time();
+
+        return str_random(26).time();
     }
 
     /**
