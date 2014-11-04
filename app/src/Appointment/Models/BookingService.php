@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use App\Appointment\Models\BookingExtraService;
 use App\Cart\CartDetailInterface;
+use App\Cart\CartDetail;
 use Watson\Validating\ValidationException;
 
 class BookingService extends \App\Appointment\Models\Base implements CartDetailInterface
@@ -193,6 +194,7 @@ class BookingService extends \App\Appointment\Models\Base implements CartDetailI
         return $this->belongsTo('App\Core\Models\User');
     }
 
+    //--------------------------------------------------------------------------
     // CART DETAIL
     //--------------------------------------------------------------------------
     /**
@@ -246,6 +248,23 @@ class BookingService extends \App\Appointment\Models\Base implements CartDetailI
         $price += $this->getExtraServicePrice();
 
         return $price;
+    }
+
+    /**
+     * Remove the temporary booking
+     *
+     * @param CartDetail $cartDetail
+     *
+     * @return void
+     */
+    public function unlockCartDetail(CartDetail $cartDetail)
+    {
+        // Remove booking first
+        if ($this->booking !== null) {
+            $this->booking->delete();
+        }
+
+        $this->delete();
     }
 
     //--------------------------------------------------------------------------

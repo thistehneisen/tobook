@@ -129,6 +129,7 @@ return array(
         'Barryvdh\Debugbar\ServiceProvider',
         'Shift31\LaravelElasticsearch\LaravelElasticsearchServiceProvider',
         'Orchestra\Imagine\ImagineServiceProvider',
+        'Indatus\Dispatcher\ServiceProvider',
 
         // Homemade
         'App\Hashids\HashidsServiceProvider',
