@@ -12,24 +12,27 @@ use Carbon\Carbon;
 
 trait Booking
 {
-    protected function _book(\ApiTester $I, User $user, ServiceCategory $category, $startAt = null)
+    protected function _book(User $user, ServiceCategory $category, Carbon $date = null, $startAt = null)
     {
         if (!Config::get('mail.pretend') || !Config::get('sms.pretend')) {
-            $I->assertTrue(false, 'mail/sms pretend must be enabled');
+            return null;
         }
 
         $uuid = Util::uuid();
         $service = $category->services()->first();
         $employee = $service->employees()->first();
         $extraServices = $service->extraServices;
-        $tomorrow = Carbon::today()->addDay();
+
+        if (empty($date)) {
+            $date = $this->_getNextDate();
+        }
         if (empty($startAt)) {
             // default to book at noon
             $startAt = '12:00';
         }
 
         $bookingService = BookingService::saveBookingService($uuid, $employee, $service, [
-            'booking_date' => $tomorrow->toDateString(),
+            'booking_date' => $date->toDateString(),
             'start_time' => $startAt,
             'modify_time' => rand(0, 3) * 15,
         ]);
@@ -44,7 +47,7 @@ trait Booking
             'email' => 'consumer_' . $bookingService->id . '@varaa.com',
             'phone' => '1234567890',
             'hash' => '',
-        ], $this->user);
+        ], $user);
 
         return \App\Appointment\Models\Booking::saveBooking($uuid, $user, $consumer, []);
     }
@@ -123,5 +126,18 @@ trait Booking
         $I->assertEquals($consumer->city, $consumerData['consumer_city'], "\$consumerData['consumer_city']");
         $I->assertEquals($consumer->postcode, $consumerData['consumer_postcode'], "\$consumerData['consumer_postcode']");
         $I->assertEquals($consumer->country, $consumerData['consumer_country'], "\$consumerData['consumer_country']");
+    }
+
+    /**
+     * @return Carbon
+     */
+    protected function _getNextDate()
+    {
+        $date = Carbon::today();
+        while ($date->dayOfWeek != 1) {
+            $date->addDay();
+        }
+
+        return $date;
     }
 }

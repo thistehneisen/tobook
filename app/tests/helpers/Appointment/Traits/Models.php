@@ -63,6 +63,7 @@ trait Models
                 'name' => 'Employee ' . $i,
                 'email' => 'employee_' . $i . $this->user->id . '@varaa.com',
                 'phone' => '1234567890',
+                'is_active' => 1,
             ]);
             $this->employees[$i]->user()->associate($this->user);
             $this->employees[$i]->saveOrFail();
@@ -170,11 +171,16 @@ trait Models
             $this->_createUser();
         }
 
+        if (empty($employee) && empty($this->employees)) {
+            $this->_createEmployee();
+        }
+
         $categories = [];
 
         for ($i = 0; $i < $categoryCount; $i++) {
             $category = new ServiceCategory([
                 'name' => 'Category ' . (++$categoryCreated),
+                'is_show_front' => 1,
             ]);
             $category->user()->associate($this->user);
             $category->saveOrFail();
@@ -183,10 +189,11 @@ trait Models
             for ($j = 0; $j < $serviceCount; $j++) {
                 $service = new Service([
                     'name' => 'Service ' . (++$serviceCreated),
-                    'length' => 15 * $serviceCreated,
+                    'during' => 15 * $serviceCreated,
                     'price' => 10 * $serviceCreated,
                     'is_active' => 1,
                 ]);
+                $service->setLength();
                 $service->user()->associate($this->user);
                 $service->category()->associate($category);
                 $service->saveOrFail();

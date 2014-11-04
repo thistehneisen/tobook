@@ -7,7 +7,7 @@
     <!-- Action buttons -->
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-6">
-            <button type="submit" class="btn btn-sm btn-primary">{{ trans('common.save') }}</button>
+            <button type="submit" class="btn btn-sm btn-primary" id="btn-save">{{ trans('common.save') }}</button>
         </div>
     </div>
 {{ Form::close() }}

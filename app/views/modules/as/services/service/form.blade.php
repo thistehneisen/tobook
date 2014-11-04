@@ -144,7 +144,7 @@ $(function () {
             <div class="row" style="margin-bottom: 5px;">
                 <div class="col-sm-6">
                     <div class="checkbox">
-                    <label for="">{{ Form::checkbox('employees[]', $employee->id, in_array($employee->id, $selectedEmployees)); }} {{ $employee->name}}</label>
+                    <label for="">{{ Form::checkbox('employees[]', $employee->id, in_array($employee->id, $selectedEmployees), ['id' => 'employee-' . $employee->id]); }} {{ $employee->name}}</label>
                     </div>
                 </div>
                 <div class="col-sm-6">
@@ -156,7 +156,7 @@ $(function () {
     </div>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-5">
-            <button type="submit" class="btn btn-primary">{{ trans('common.save') }}</button>
+            <button type="submit" class="btn btn-primary" id="btn-save-service">{{ trans('common.save') }}</button>
         </div>
     </div>
 {{ Form::close() }}

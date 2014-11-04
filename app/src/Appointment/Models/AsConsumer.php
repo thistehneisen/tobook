@@ -1,4 +1,5 @@
 <?php namespace App\Appointment\Models;
+
 use App\Core\Models\User;
 use App\Appointment\Models\Consumer;
 use Hashids;
@@ -16,7 +17,6 @@ class AsConsumer extends \App\Core\Models\Base
     {
         $first_name = $data['first_name'];
         $last_name  = $data['last_name'];
-        $email      = $data['email'];
         $phone      = trim($data['phone']);
         $hash       = $data['hash'];
 
@@ -28,16 +28,18 @@ class AsConsumer extends \App\Core\Models\Base
 
         //In front end, user is identified from hash
         $userId = null;
-        if(empty($user)){
+        if (empty($user)) {
             $decoded = Hashids::decrypt($hash);
-            if(empty($decoded)){
+            if (empty($decoded)) {
                 return;
             }
             $user = User::find($decoded[0]);
             $userId = $decoded[0];
+        } else {
+            $userId = $user->id;
         }
 
-        try{
+        try {
             if (empty($consumer->id)) {
                 $consumer = Consumer::make($data, $userId);
                 $asConsumer->user()->associate($user);
@@ -48,7 +50,7 @@ class AsConsumer extends \App\Core\Models\Base
                 $consumer->fill($data);
                 $consumer->saveOrFail();
             }
-        } catch(\Watson\Validating\ValidationException $ex){
+        } catch (\Watson\Validating\ValidationException $ex) {
             throw $ex;
         }
         return $consumer;
@@ -64,6 +66,6 @@ class AsConsumer extends \App\Core\Models\Base
 
     public function consumer()
     {
-       return $this->belongsTo('App\Consumers\Models\Consumer');
+        return $this->belongsTo('App\Consumers\Models\Consumer');
     }
 }

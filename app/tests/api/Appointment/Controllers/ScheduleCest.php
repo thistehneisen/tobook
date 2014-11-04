@@ -188,7 +188,7 @@ class ScheduleCest
     {
         $categories = $this->_createCategoryServiceAndExtra(1, 1, 2);
         $category = reset($categories);
-        $booking = $this->_book($I, $this->user, $category);
+        $booking = $this->_book($this->user, $category);
 
         $I->sendGET($this->endpoint . '?date=' . $booking->date);
         $I->seeResponseCodeIs(200);

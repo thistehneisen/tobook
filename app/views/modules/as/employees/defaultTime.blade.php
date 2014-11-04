@@ -51,7 +51,7 @@
     <tfoot>
         <tr>
             <td colspan="4">
-                <button type="submit" class="btn btn-primary">{{ trans('common.save') }}</button>
+                <button type="submit" class="btn btn-primary" id="btn-save">{{ trans('common.save') }}</button>
             </td>
         </tr>
     </tfoot>

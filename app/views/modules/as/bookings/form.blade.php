@@ -4,7 +4,7 @@
 @else
 <h2>{{ trans('as.bookings.edit') }} <span id="loading" style="display:none"><img src="{{ asset('assets/img/busy.gif') }}"/></span></h2>
 @endif
-<form id="booking_form">
+<form id="booking_form" method="POST" action="{{ route('as.bookings.add') }}">
 <div class="bs-example">
     <div class="panel-group" id="accordion">
         <div class="panel panel-default">
@@ -189,12 +189,9 @@
                                         @if (intval($bookingServiceTime) === intval($serviceTime['id']))
                                             selected="selected"
                                         @endif
-                                            value="{{ $serviceTime['id']}}">
-                                                {{ $serviceTime['name'] }}
-                                            @if (isset($serviceTime['description']) && $serviceTime['description'])
+                                            value="{{ $serviceTime['id']}}">{{ $serviceTime['name'] }}@if (isset($serviceTime['description']) && $serviceTime['description'])
                                                 ({{ $serviceTime['description'] }})
-                                            @endif
-                                        </option>
+                                            @endif</option>
                                     @endforeach
                                 @endif
                              </select>
@@ -300,9 +297,9 @@
             <div class="form-group row">
                 <div class="col-sm-12">
                     @if(empty($booking))
-                    <a href="#book-form" id="btn-save-booking" class="btn btn-lg btn-success pull-right">{{ trans('common.save') }}</a>
+                    <input type="submit" id="btn-save-booking" class="btn btn-lg btn-success pull-right" value="{{ trans('common.save') }}" />
                     @else
-                    <a href="#book-form" id="btn-save-booking" class="btn btn-lg btn-primary pull-right">{{ trans('common.edit') }}</a>
+                    <input type="submit" id="btn-save-booking" class="btn btn-lg btn-primary pull-right" value="{{ trans('common.edit') }}" />
                     @endif
                 </div>
             </div>
