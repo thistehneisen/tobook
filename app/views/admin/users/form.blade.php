@@ -12,7 +12,7 @@
 <!-- Nav tabs -->
 <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#tab-general" role="tab" data-toggle="tab">General</a></li>
-@if ($item->id !== null)
+@if ($item->is_business)
     <li role="presentation"><a href="#tab-business" role="tab" data-toggle="tab">Business Information</a></li>
     <li role="presentation"><a href="#tab-services" role="tab" data-toggle="tab">Active Services</a></li>
 @endif
@@ -60,7 +60,7 @@
         {{ $lomake->close() }}
     </div> <!-- tab general -->
 
-@if ($item->id !== null)
+@if ($item->is_business)
     <div role="tabpanel" class="tab-pane" id="tab-business">
         @include ('user.el.business')
     </div> <!-- tab business -->
