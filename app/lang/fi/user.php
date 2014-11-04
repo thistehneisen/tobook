@@ -51,6 +51,7 @@ return [
         ]
     ],
     'business' => [
+        'is_activated'       => 'Activated',
         'name'               => 'Yrityksen nimi',
         'description'        => 'Yritysesittely',
         'size'               => 'Henkilömäärä',

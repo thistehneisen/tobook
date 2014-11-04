@@ -195,7 +195,7 @@ class BookingCest
         $I->amLoggedAs($user);
 
         $date1 = $this->_getNextDate();
-        $date2 = with(clone $date1)->addDay();
+        $date2 = with(clone $date1)->addDay(1);
 
         $booking1 = $this->_makeABooking($date1);
         $booking2 = $this->_makeABooking($date2);
