@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use App\Appointment\Models\BookingExtraService;
 use App\Cart\CartDetailInterface;
+use App\Cart\CartDetail;
 use Watson\Validating\ValidationException;
 
 class BookingService extends \App\Appointment\Models\Base implements CartDetailInterface
@@ -23,7 +24,7 @@ class BookingService extends \App\Appointment\Models\Base implements CartDetailI
 
     private $extraServices;
 
-    private $employeePlustime;
+    private $employeePlustime = null;
 
     public function getCartStartAt()
     {
@@ -61,8 +62,8 @@ class BookingService extends \App\Appointment\Models\Base implements CartDetailI
             $extraServiceTime  = 0;
             $extraServicePrice = 0;
             foreach ($extraServices as $extraService) {
-                $extraServiceTime  += $extraService->length;
-                $extraServicePrice += $extraService->length;
+                $extraServiceTime  += $extraService->extraService->length;
+                $extraServicePrice += $extraService->extraService->price;
             }
             $this->extraServices['length'] = $extraServiceTime;
             $this->extraServices['price']  = $extraServicePrice;
@@ -87,8 +88,8 @@ class BookingService extends \App\Appointment\Models\Base implements CartDetailI
 
     public function getEmployeePlustime()
     {
-        if (empty($this->employeePlustime)) {
-            $this->employeePlustime = $this->employee->getPlustime($this->service->id);
+        if ($this->employeePlustime === null) {
+            $this->employeePlustime = (int) $this->employee->getPlustime($this->service->id);
         }
         return $this->employeePlustime;
     }
@@ -193,6 +194,7 @@ class BookingService extends \App\Appointment\Models\Base implements CartDetailI
         return $this->belongsTo('App\Core\Models\User');
     }
 
+    //--------------------------------------------------------------------------
     // CART DETAIL
     //--------------------------------------------------------------------------
     /**
@@ -246,6 +248,23 @@ class BookingService extends \App\Appointment\Models\Base implements CartDetailI
         $price += $this->getExtraServicePrice();
 
         return $price;
+    }
+
+    /**
+     * Remove the temporary booking
+     *
+     * @param CartDetail $cartDetail
+     *
+     * @return void
+     */
+    public function unlockCartDetail(CartDetail $cartDetail)
+    {
+        // Remove booking first
+        if ($this->booking !== null) {
+            $this->booking->delete();
+        }
+
+        $this->delete();
     }
 
     //--------------------------------------------------------------------------

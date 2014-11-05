@@ -2,6 +2,10 @@
 return [
     'all'                    => 'Kaikki käyttäjät',
     'add'                    => 'Lisää käyttäjiä',
+    'edit'                   => 'Muokkaa',
+    'activate'               => 'Activate',
+    'deactivate'             => 'Deactivate',
+    'activated'              => 'Activated',
     'types'                  => 'Tyypit',
     'change_password'        => 'Muokkaa salasanaa',
     'old_password'           => 'Vanha salasana',
@@ -36,7 +40,18 @@ return [
     'enter_new_password'     => 'Kirjoita uusi salasana',
     'premium_expired'        => 'Järjestelmän käyttöoikeus on päättynyt tai järjestelmässä on tapahtunut virhe. Ota yhteyttä asiakaspalveluumme.',
     'business_name'          => 'Yrityksen nimi',
+    'password_reminder' => [
+        'reset' => [
+            'heading' => 'Your password has been reset', // @todo
+            'body'    => 'Your new password is :password', // @todo
+        ],
+        'created' => [
+            'heading' => 'Your new account was created', // @todo
+            'body' => 'And your password is :password', // @todo
+        ]
+    ],
     'business' => [
+        'is_activated'       => 'Activated',
         'name'               => 'Yrityksen nimi',
         'description'        => 'Yritysesittely',
         'size'               => 'Henkilömäärä',

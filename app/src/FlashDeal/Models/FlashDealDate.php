@@ -5,6 +5,7 @@ use DB;
 use App\Core\Models\Base;
 use App\Core\Models\BusinessCategory;
 use App\Cart\CartDetailInterface;
+use App\Cart\CartDetail;
 use App\FlashDeal\SoldOutException;
 
 class FlashDealDate extends Base implements CartDetailInterface
@@ -128,6 +129,19 @@ class FlashDealDate extends Base implements CartDetailInterface
     public function getCartDetailPrice()
     {
         return $this->flashDeal->discounted_price;
+    }
+
+    /**
+     * Increase the number of remaining flash deals, so that other people
+     * could buy
+     *
+     * @param CartDetail $cartDetail
+     *
+     * @return void
+     */
+    public function unlockCartDetail(CartDetail $cartDetail)
+    {
+        $this->incrRemains($cartDetail->quantity);
     }
 
     //--------------------------------------------------------------------------

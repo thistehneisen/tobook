@@ -68,6 +68,8 @@ def test(suite='', group='', debug=''):
         group = '-g {}'.format(group)
     if debug != '':
         debug = '--debug -vvv'
+    # always run migrate before test
+    migrate('testing')
     # rebuild the tester classes first
     local('./vendor/bin/codecept build')
     # then run the tests

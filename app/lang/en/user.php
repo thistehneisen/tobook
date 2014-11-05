@@ -1,7 +1,11 @@
 <?php
 return [
     'all'                    => 'All users',
-    'add'                    => 'Add user',
+    'add'                    => 'Add business user',
+    'edit'                   => 'Edit user',
+    'activate'               => 'Activate',
+    'deactivate'             => 'Deactivate',
+    'activated'              => 'Activated',
     'types'                  => 'Types',
     'change_password'        => 'Change password',
     'old_password'           => 'Old password',
@@ -37,6 +41,7 @@ return [
     'premium_expired'        => 'You are no long able to use this service',
     'business_name'          => 'Business name',
     'business' => [
+        'is_activated'       => 'Activated',
         'name'               => 'Business Name',
         'description'        => 'Business Introduction',
         'size'               => 'Business Size',
@@ -53,6 +58,16 @@ return [
             '20-50',
             '50+',
         ],
+    ],
+    'password_reminder' => [
+        'reset' => [
+            'heading' => 'Your password has been reset',
+            'body'    => 'Your new password is :password',
+        ],
+        'created' => [
+            'heading' => 'Your new account was created',
+            'body' => 'And your password is :password',
+        ]
     ],
     'profile' => [
         'index'                => 'My account',
@@ -114,6 +129,6 @@ return [
             'photography'            => 'Photography',
             'babysitting'            => 'Babysitting',
             'snow_removal'           => 'Snow Removal',
-        ]
+        ],
     ]
 ];

@@ -1,4 +1,4 @@
-<?php namespace Appointment\Models;
+<?php namespace Test\Appointment\Models;
 
 use App\Core\Models\User;
 use App\Appointment\Models\NAT\CalendarKeeper;
@@ -8,21 +8,27 @@ use \UnitTester;
 /**
  * @group as
  */
-class UnitCalendarKeeperCest
+class CalendarKeeperCest
 {
     public function testNextTimeSlots(UnitTester $t)
     {
         $user = User::find(70);
-        $date = Carbon::createFromFormat('Y-m-d', '2014-10-10');
+        $date = Carbon::today();
+        while($date->dayOfWeek != 1) {
+            $date->addDay();
+        }
         $NAT = CalendarKeeper::nextTimeSlots($user, $date);
         $t->assertGreaterThan(0, count($NAT));
-        $t->assertEquals($NAT[0]['time'], '8:15');
+        $t->assertEquals($NAT[0]['time'], '08:15');
     }
 
     public function testDefaultWorkingTimes(UnitTester $t)
     {
         $user = User::find(70);
-        $date = Carbon::createFromFormat('Y-m-d', '2014-10-10');
+        $date = Carbon::today();
+        while($date->dayOfWeek != 1) {
+            $date->addDay();
+        }
         $workingTimes = CalendarKeeper::getDefaultWorkingTimes($user, $date);
         $t->assertEquals($workingTimes, [
             8  => [0, 15, 30, 45],

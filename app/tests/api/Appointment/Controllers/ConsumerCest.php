@@ -36,7 +36,7 @@ class ConsumerCest
         $consumerCount = 3;
 
         for ($i = 0; $i < $consumerCount; $i++) {
-            $this->_book($I, $this->user, $this->categories[0], sprintf('%02d:00', 8 + $i * 2));
+            $this->_book($this->user, $this->categories[0], $this->_getNextDate(), sprintf('%02d:00', 8 + $i * 2));
         }
 
         $I->sendGET($this->consumersEndpoint);
@@ -94,7 +94,7 @@ class ConsumerCest
 
     public function testShow(ApiTester $I)
     {
-        $this->_book($I, $this->user, $this->categories[0]);
+        $this->_book($this->user, $this->categories[0]);
 
         $consumer = Consumer::ofCurrentUser()->first();
 
@@ -108,7 +108,7 @@ class ConsumerCest
 
     public function testUpdate(ApiTester $I)
     {
-        $this->_book($I, $this->user, $this->categories[0]);
+        $this->_book($this->user, $this->categories[0]);
         $consumer = Consumer::ofCurrentUser()->first();
 
         $firstName = 'First';
@@ -137,7 +137,7 @@ class ConsumerCest
 
     public function testDestroy(ApiTester $I)
     {
-        $this->_book($I, $this->user, $this->categories[0]);
+        $this->_book($this->user, $this->categories[0]);
         $consumer = Consumer::ofCurrentUser()->first();
 
         $I->sendDELETE($this->consumersEndpoint . '/' . $consumer->id);

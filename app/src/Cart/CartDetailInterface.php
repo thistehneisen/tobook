@@ -31,4 +31,13 @@ interface CartDetailInterface
      */
     public function getCartDetailPrice();
 
+    /**
+     * Invoked when a cart is released from holding bookings
+     * Business logic could be to remove temporary bookings, to increase
+     * the number of available flash deals, etc.
+     *
+     * @return void
+     */
+    public function unlockCartDetail(CartDetail $cartDetail);
+
 }

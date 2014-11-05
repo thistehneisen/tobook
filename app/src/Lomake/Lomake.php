@@ -146,12 +146,13 @@ class Lomake
             $fields[$name] = FieldFactory::create($fieldData);
         }
 
+        $instance = new self;
         // Update the fields list
-        $this->fields = $fields;
-        $this->opt = $opt;
-        $this->model = $instance;
+        $instance->fields = $fields;
+        $instance->opt = $opt;
+        $instance->model = $instance;
 
-        return $this;
+        return $instance;
     }
 
     /**

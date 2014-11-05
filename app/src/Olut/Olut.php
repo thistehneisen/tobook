@@ -152,6 +152,11 @@ trait Olut
             $query = $query->orderBy('order');
         }
 
+        // Eager loading
+        if ($prefetch = $this->getOlutOptions('prefetch')) {
+            $query = $query->with($prefetch);
+        }
+
         // Pagination please
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
         $items = $query->paginate($perPage);
@@ -255,7 +260,7 @@ trait Olut
             ? $model->findOrFail($id)
             : new $modelClass;
 
-        $view = View::exists($this->getViewPath().'.form')
+        $template = View::exists($this->getViewPath().'.form')
             ? $this->getViewPath().'.form'
             : 'olut::form';
 
@@ -277,7 +282,11 @@ trait Olut
             'lomake'     => $lomake
         ];
 
-        return View::make($view, $data);
+        $view = View::make($template, $data);
+        if (method_exists($this, 'overwrittenUpsert')) {
+            return $this->overwrittenUpsert($view, $item);
+        }
+        return $view;
     }
 
     /**
@@ -298,6 +307,11 @@ trait Olut
                 : new $modelClass;
 
             $item = $this->upsertHandler($item);
+            // Sometimes you might want to do something else, for example,
+            // redirect to the next step
+            if ($item instanceof \Illuminate\Http\RedirectResponse) {
+                return $item;
+            }
 
             $message = ($id !== null)
                 ? trans('olut::olut.success_edit')

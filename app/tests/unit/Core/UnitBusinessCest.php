@@ -56,7 +56,12 @@ class UnitBusinessCest
 
     public function testGetFullAddress(UnitTester $I)
     {
-        $input = $this->getRequiredFieldsAndValues();
+        $input = [
+            'address'   => 'abc',
+            'postcode'  => '00100',
+            'city'      => 'Helsinki',
+            'country'   => 'Finland',
+        ];
 
         $business = new Business($input);
         $business->user()->associate($this->user);

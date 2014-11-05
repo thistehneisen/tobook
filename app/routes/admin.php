@@ -14,28 +14,35 @@ Route::group([
         'uses' => 'App\Core\Controllers\Admin\Dashboard@index'
     ]);
 
+    //--------------------------------------------------------------------------
+    // Users
+    //--------------------------------------------------------------------------
     App\Core\Controllers\Admin\Users::crudRoutes('users', 'admin.users');
+    Route::group(['prefix' => 'users'], function () {
 
-    Route::get('users/{id}/login', [
-        'as' => 'admin.users.login',
-        'uses' => 'App\Core\Controllers\Admin\Users@stealSession'
-    ]);
+        Route::post('{id}/business', [
+            'as' => 'admin.users.business',
+            'uses' => 'App\Core\Controllers\Admin\Users@updateBusiness'
+        ]);
 
-    //--------------------------------------------------------------------------
-    // Premium modules
-    //--------------------------------------------------------------------------
-    Route::get('users/{id}/modules', [
-        'as' => 'admin.users.modules',
-        'uses' => 'App\Core\Controllers\Admin\Users@modules'
-    ]);
+        Route::get('{id}/login', [
+            'as' => 'admin.users.login',
+            'uses' => 'App\Core\Controllers\Admin\Users@stealSession'
+        ]);
 
-    Route::post('users/{id}/modules', [
-        'uses' => 'App\Core\Controllers\Admin\Users@enableModule'
-    ]);
+        //----------------------------------------------------------------------
+        // Premium modules
+        //----------------------------------------------------------------------
+        Route::post('{id}/modules', [
+            'as' => 'admin.users.modules',
+            'uses' => 'App\Core\Controllers\Admin\Users@enableModule'
+        ]);
 
-    Route::get('users/{userId}/modules/{id}/activation/', [
-        'as'   => 'admin.users.modules.activation',
-        'uses' => 'App\Core\Controllers\Admin\Users@toggleActivation'
-    ]);
+        Route::get('{userId}/modules/{id}/activation/', [
+            'as'   => 'admin.users.modules.activation',
+            'uses' => 'App\Core\Controllers\Admin\Users@toggleActivation'
+        ]);
+
+    });
 
 });
