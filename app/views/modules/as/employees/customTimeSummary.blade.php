@@ -5,10 +5,10 @@
 @stop
 
 @section ('scripts')
-{{ HTML::script(asset('assets/js/jquery.fixedheader.js?v=00001')) }}
+{{ HTML::script(asset('assets/js/jquery.fixedTableHeader.js?v=00001')) }}
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#workshift-summary').fixedHeader();
+        $('#workshift-summary').fixedTableHeader();
     });
 </script>
 @stop
