@@ -1,5 +1,7 @@
 from fabric.api import cd, run, local, task, hosts, env
+import fabric.utils as utils
 import os
+import subprocess
 
 HOME = os.getenv('HOME')
 
@@ -16,6 +18,9 @@ def _deploy(environment):
         # chmod storage again
         run('chmod -Rf 777 app/storage')
 
+def _which(bin):
+    (path, err) = subprocess.Popen(['which', bin], stdout=subprocess.PIPE).communicate()
+    return path
 
 @task(alias='ds')
 @hosts('dev.varaa.co')
@@ -75,6 +80,39 @@ def test(suite='', group='', debug=''):
     # then run the tests
     local('./vendor/bin/codecept run {} {} {}'.format(suite, group, debug))
 
+@task(alias='ta')
+def test_acceptance_prepare(headless=1):
+    '''
+    Prepare environment to run acceptance tests.
+    Usage:
+        fab ta => download and run Xvfb and Selenium (headless server)
+        fab ta:0 => setup Selenium only
+    '''
+    if _which('firefox') == '':
+        utils.abort('Please install Firefox\nIf you are using Ubuntu/Homestead, execute `sudo apt-get install firefox -y`')
+
+    if _which('java') == '':
+        utils.abort('Please install Java Runtime\nIf you are using Ubuntu/Homestead, execute `sudo apt-get install default-jre -y`')
+
+    if headless == 1:
+        if _which('Xvfb') == '':
+            utils.abort('Please install Xvfb\nIf you are using Ubuntu/Homestead, execute `sudo apt-get install Xvfb -y`\nRun `fab ta:0` if you are not testing with a headless server.')
+
+        if os.getenv('DISPLAY') == '':
+            utils.abort('Please pick a diplay ID (for example, 10) and execute `export DISPLAY=:10` before running `fab ta`')
+
+    ver = '2.44'
+    output = 'vendor/bin/selenium-{}.jar'.format(ver)
+    if os.path.isfile(output) == False:
+        if _which('curl') != '':
+            local('curl http://selenium-release.storage.googleapis.com/{}/selenium-server-standalone-{}.0.jar -o {}'.format(ver, ver, output))
+        elif _which('wget') != '':
+            local('wget http://selenium-release.storage.googleapis.com/{}/selenium-server-standalone-{}.0.jar -O {}'.format(ver, ver, output))
+
+    if headless == 1:
+        local('Xvfb {} -ac &'.format(os.getenv('DISPLAY')))
+
+    local('java -jar {}'.format(output))
 
 @task(alias='cm')
 def create_migrate(table='table'):
