@@ -15,6 +15,7 @@ use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\ExtraService;
+use App\Appointment\Models\Resource;
 use App\Appointment\Models\AsConsumer;
 use App\Appointment\Models\Consumer;
 use App\Appointment\Models\Observer\EmailObserver;
@@ -257,10 +258,12 @@ class Bookings extends AsBase
         }
 
         $extras = $extraServices->lists('name', 'id');
+        $resources = Resource::ofCurrentUser()->lists('name','id');
 
         return View::make('modules.as.bookings.modifyForm', [
             'booking'         => $booking,
             'extraServices'   => $extras,
+            'resources'       => $resources,
             'bookingStatuses' => $bookingStatuses,
             'modifyTime'      => $booking->modify_time
         ]);
