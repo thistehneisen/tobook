@@ -27,13 +27,13 @@ $serviceTimeId      = (!empty($serviceTime)) ? $serviceTime->id : 'default';
     <ul>
         <?php $id = 1;?>
         @foreach ($workingTimes as $hour => $minutes)
-             @foreach ($minutes as $minuteShift)
-             <?php $slotClass = $employee->getSlotClass($selectedDate, $hour, $minuteShift, 'frontend', $selectedService); ?>
-            <li data-plustime="{{ $employee->getPlustime($service->id) }}" data-employee-id="{{ $employee->id }}" data-booking-length="{{ $serviceLength }}" data-start-time="{{ sprintf('%02d:%02d', $hour, $minuteShift) }}" href="#select-action" class="slot {{ $slotClass }}">
+            @foreach ($minutes as $minuteShift)
+            <?php $slotClass = $employee->getSlotClass($selectedDate, $hour, $minuteShift, 'frontend', $selectedService); ?>
+            <li data-plustime="{{ $employee->getPlustime($service->id) }}" data-employee-id="{{ $employee->id }}" data-booking-length="{{ $serviceLength }}" data-start-time="{{ sprintf('%02d:%02d', $hour, $minuteShift) }}" href="#select-action" class="slot {{ $slotClass }}" id="btn-slot-{{ $employee->id }}-{{ sprintf('%02d%02d', $hour, $minuteShift) }}">
                 {{ sprintf('%02d:%02d', $hour, $minuteShift) }}
                 <?php $id++;?>
             </li>
-             @endforeach
+            @endforeach
         @endforeach
     </ul>
     <br>

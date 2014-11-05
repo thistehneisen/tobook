@@ -11,8 +11,8 @@ class UrlGenerator extends \Illuminate\Routing\UrlGenerator
     {
         $result = parent::route($name, $parameters, $absolute, $route);
 
-        if (php_sapi_name() == 'cli') {
-            // do not append locale for cli requests (testing?)
+        if (\App::environment() == 'testing') {
+            // do not append locale for testing env
             return $result;
         }
 

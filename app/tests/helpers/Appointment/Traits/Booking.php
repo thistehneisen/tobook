@@ -133,7 +133,7 @@ trait Booking
      */
     protected function _getNextDate()
     {
-        $date = Carbon::today();
+        $date = Carbon::today()->addDay();
         while ($date->dayOfWeek != 1) {
             $date->addDay();
         }

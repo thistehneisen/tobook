@@ -145,8 +145,8 @@ class Employee extends \App\Appointment\Models\Base
         }
 
         if (intval($time->is_day_off) === 0) {
-            $startTime = Carbon::createFromFormat('H:i:s', $time->start_at);
-            $endTime =  Carbon::createFromFormat('H:i:s', $time->end_at);
+            $startTime = Carbon::createFromFormat('H:i', substr($time->start_at, 0, 5));
+            $endTime =  Carbon::createFromFormat('H:i', substr($time->end_at, 0, 5));
         }
 
         $startHour   = (int)!empty($startTime) ? $startTime->hour   : 0;

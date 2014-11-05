@@ -51,7 +51,7 @@ trait Models
     protected function _createEmployee($employeeCount = 1)
     {
         if (empty($this->user)) {
-            $this->_createUser();
+            $this->_createUser(true);
         }
 
         for ($i = 0; $i < $employeeCount; $i++) {
@@ -93,7 +93,7 @@ trait Models
     protected function _createEmployeeCustomTimes(Employee $employee)
     {
         if (empty($this->user)) {
-            $this->_createUser();
+            $this->_createUser(true);
         }
 
         $employeeCustomTimes = [];
@@ -132,7 +132,7 @@ trait Models
     protected function _createEmployeeFreetimes(Employee $employee)
     {
         if (empty($this->user)) {
-            $this->_createUser();
+            $this->_createUser(true);
         }
 
         $employeeFreetimes = [];
@@ -168,7 +168,7 @@ trait Models
         static $extraServiceCreated = 0;
 
         if (empty($this->user)) {
-            $this->_createUser();
+            $this->_createUser(true);
         }
 
         if (empty($employee) && empty($this->employees)) {
