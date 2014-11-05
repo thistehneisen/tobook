@@ -6,6 +6,8 @@ class EmployeeCustomTime extends \Eloquent
 
     public $fillable = ['date'];
 
+    private $workingHours = -1;
+
 
     //Currently don't use attribute because can break other code
     public function getStartAt()
@@ -34,9 +36,13 @@ class EmployeeCustomTime extends \Eloquent
     public function getWorkingHours()
     {
         if ($this->customTime->is_day_off) {
-           return 0;
+           $this->workingHours = 0;
         }
-        return $this->getEndAt()->diffInHours($this->getStartAt());
+
+        if($this->workingHours === -1) {
+            $this->workingHours = $this->getEndAt()->diffInHours($this->getStartAt());
+        }
+        return $this->workingHours;
     }
 
     //--------------------------------------------------------------------------
