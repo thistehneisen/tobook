@@ -233,7 +233,7 @@ return [
         'customers'         => 'Asiakkaat',
         'statistics'        => 'Statistiikka',
         'date'              => 'Päivämäärä',
-        'total'             => 'Kesto', //
+        'total'             => 'Kesto',
         'start_at'          => 'Aloitusaika',
         'end_at'            => 'Päättymisaika',
         'status'            => 'Tila',
@@ -264,11 +264,11 @@ return [
         'date_time'         => 'Päivämäärä',
         'price'             => 'Hinta',
         'extra_service'     => 'Lisäpalvelu',
-        'keyword'           => 'Haku',//
+        'keyword'           => 'Haku',
         'edit'              => 'Muokkaa varausta',
-        'terms'             => 'Ehdot',//
+        'terms'             => 'Ehdot',
         'terms_agree'       => 'Hyväksyn varausehdot',
-        'cancel_message'    => $cancelMessage, //@todo
+        'cancel_message'    => $cancelMessage,
         'cancel_confirm'    => 'Haluatko varmasti poistaa varauksen %s?',
         'modify_booking'    => 'Muokkaa varausta',
         'reschedule'        => 'Siirrä',
@@ -342,10 +342,10 @@ return [
         'workshifts'          => 'Työvuoro',
         'workshift_planning'  => 'Työvuorosuunnittelu',
         'workshift_summary'   => 'Työvuoro kooste',
-        'from_date'           => 'Alkaen', //
-        'to_date'             => 'Päättyen', //
-        'weekday'             => 'Viikonpäivä', //
-        'employee'            => 'Työntekijä' //
+        'from_date'           => 'Alkaen',
+        'to_date'             => 'Päättyen',
+        'weekday'             => 'Viikonpäivä',
+        'employee'            => 'Työntekijä',
         'saturday_hours'      => 'Lauantai tunnit',
         'sunday_hours'        => 'Sununtai tunnit',
         'monthly_hours'       => 'Kuukauden tunnit',
@@ -424,8 +424,8 @@ return [
             'timezone'        => 'Aikavyöhyke',
             'week_numbers'    => 'Näytä viikkonumerot',
             'week_start'      => 'Viikon ensimmäinen päivä?',
-            'phone_number'    => 'Puhelinnumero', // @todo
-            'business_name'   => 'Yrityksen nimi', // @todo
+            'phone_number'    => 'Puhelinnumero',
+            'business_name'   => 'Yrityksen nimi',
         ],
         'booking'                                        => [
             'heading'                                        => '', // @todo
@@ -440,7 +440,7 @@ return [
             'accept_bookings'                                => 'Hyväksy varauksia',
             'hide_prices'                                    => 'Piilota hinnat',
             'step'                                           => 'Askel',
-            'bookable_date'                                  => 'Varattava päivä',  // @todo
+            'bookable_date'                                  => 'Varattava päivä',
             'status_if_paid'                                 => 'Oletustila maksetuille varauksille',
             'status_if_not_paid'                             => 'Oletustila maksamattomille varauksille',
             'bf_address_1'                                   => 'Osoite 1',
