@@ -81,7 +81,7 @@
 
     <div class="form-group">
         <div class="col-md-12">
-            <button type="submit" id="btn-checkout-submit" class="btn btn-success">{{ trans('common.save') }}</button>
+            <button type="submit" id="btn-confirm-submit" class="btn btn-success">{{ trans('common.save') }}</button>
             <span class="text-success"></span>
             <span class="as-loading">
                 <i class="glyphicon glyphicon-refresh text-info"></i> {{ trans('as.embed.loading') }}

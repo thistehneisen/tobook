@@ -7,8 +7,8 @@
     @foreach ($category->services as $service)
         <div class="row">
             <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-11 col-sm-11 col-md-11 col-lg-11">
-                <p class="as-service-name"><small><i class="glyphicon glyphicon-chevron-right"></i></small> {{ $service->name }}</p>
-                <div class="as-service-time">
+                <p class="as-service-name" id="btn-service-{{ $service->id }}"><small><i class="glyphicon glyphicon-chevron-right"></i></small> {{ $service->name }}</p>
+                <div class="as-service-time" id="service-times-{{ $service->id }}">
                     <p>
                         <label class="col-lg-4 col-sm-6 col-md-6">
                             <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="{{ $service->description }}"></i>
