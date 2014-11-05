@@ -345,6 +345,9 @@ class Employees extends AsBase
         $endOfMonth      = $current->endOfMonth()->toDateString();
         $employees       = Employee::ofCurrentUser()->get();
         $customTimesList = [];
+        $sarturdayHours  = [];
+        $sundayHours     = [];
+        $montlyHours     = [];
 
         foreach ($employees as $employee) {
             $items = $employee->employeeCustomTimes()
@@ -353,8 +356,19 @@ class Employees extends AsBase
                 ->where('date','<=', $endOfMonth)
                 ->orderBy('date','asc')->get();
 
+            $sarturdayHours[$employee->id] = 0;
+            $sundayHours[$employee->id]    = 0;
+            $montlyHours[$employee->id]    = 0;
+
             foreach ($items as $item) {
-               $customTimesList[$item->date][$employee->id] = $item;
+                $customTimesList[$item->date][$employee->id] = $item;
+                $dayOfWeek = $item->getDayOfWeek();
+                if ($dayOfWeek == Carbon::SATURDAY) {
+                    $sarturdayHours[$employee->id] += $item->getWorkingHours();
+                } elseif ($dayOfWeek == Carbon::SUNDAY) {
+                    $sundayHours[$employee->id] += $item->getWorkingHours();
+                }
+                $montlyHours[$employee->id] += $item->getWorkingHours();
             }
         }
 
@@ -378,7 +392,10 @@ class Employees extends AsBase
             'current'         => $current,
             'currentMonths'   => $currentMonths,
             'startOfMonth'    => $startOfMonth,
-            'endOfMonth'      => $endOfMonth
+            'endOfMonth'      => $endOfMonth,
+            'sarturdayHours'  => $sarturdayHours,
+            'sundayHours'     => $sundayHours,
+            'montlyHours'     => $montlyHours,
         ]);
     }
 

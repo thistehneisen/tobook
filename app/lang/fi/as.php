@@ -346,6 +346,9 @@ return [
         'to_date'             => 'Päättyen', //
         'weekday'             => 'Viikonpäivä', //
         'employee'            => 'Työntekijä' //
+        'saturday_hours'      => 'Lauantai tunnit',
+        'sunday_hours'        => 'Sununtai tunnit',
+        'monthly_hours'       => 'Kuukauden tunnit',
     ],
     'embed' => [
         'heading'          => 'Otsikko',

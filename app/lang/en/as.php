@@ -345,7 +345,10 @@ return [
         'from_date'           => 'From date',
         'to_date'             => 'To date',
         'weekday'             => 'Weekday',
-        'employee'            => 'Employee'
+        'employee'            => 'Employee',
+        'saturday_hours'      => 'Saturdays hours',
+        'sunday_hours'        => 'Sunday hours',
+        'monthly_hours'       => 'Monthly hours',
     ],
     'embed' => [
         'heading'          => 'Title',

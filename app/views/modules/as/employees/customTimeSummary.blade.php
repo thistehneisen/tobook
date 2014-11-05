@@ -53,5 +53,46 @@
             </tr>
         @endforeach
     </tbody>
+    <tfoot>
+        <tr>
+            <td>{{ trans('as.employees.saturday_hours') }}</td>
+            <td>&nbsp;</td>
+            @foreach ($employees as $employee)
+            <td>
+                @if(isset($sarturdayHours[$employee->id]))
+                {{ $sarturdayHours[$employee->id] }}
+                @else
+                --
+                @endif
+            </td>
+            @endforeach
+        </tr>
+        <tr>
+            <td>{{ trans('as.employees.saturday_hours') }}</td>
+            <td>&nbsp;</td>
+            @foreach ($employees as $employee)
+            <td>
+                @if(isset($sundayHours[$employee->id]))
+                {{ $sundayHours[$employee->id] }}
+                @else
+                --
+                @endif
+            </td>
+            @endforeach
+        </tr>
+        <tr>
+            <td>{{ trans('as.employees.monthly_hours') }}</td>
+            <td>&nbsp;</td>
+            @foreach ($employees as $employee)
+            <td>
+                @if(isset($montlyHours[$employee->id]))
+                {{ $montlyHours[$employee->id] }}
+                @else
+                --
+                @endif
+            </td>
+            @endforeach
+        </tr>
+    </tfoot>
 </table>
 @stop
