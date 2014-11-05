@@ -13,6 +13,11 @@ class Layout2Cest
     use Models;
     use \Appointment\Traits\Booking;
 
+    public function _before()
+    {
+        $this->_modelsReset();
+    }
+
     public function testSuccess(AcceptanceTester $I)
     {
         $categories = $this->_createCategoryServiceAndExtra();

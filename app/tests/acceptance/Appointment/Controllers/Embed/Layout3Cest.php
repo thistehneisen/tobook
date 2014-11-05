@@ -13,6 +13,11 @@ class Layout3Cest
     use Models;
     use \Appointment\Traits\Booking;
 
+    public function _before()
+    {
+        $this->_modelsReset();
+    }
+
     public function testSuccess(AcceptanceTester $I)
     {
         $categories = $this->_createCategoryServiceAndExtra();
@@ -39,7 +44,7 @@ class Layout3Cest
         $I->selectOption('input[name=employee_id]', $employee->id);
 
         $I->waitForElementVisible('#timetable');
-        while($I->grabAttributeFrom('#timetable', 'data-date') !== $date->toDateString()) {
+        while ($I->grabAttributeFrom('#timetable', 'data-date') !== $date->toDateString()) {
             $I->click('#btn-date-next');
             $I->wait(1);
         }
