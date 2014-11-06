@@ -85,8 +85,11 @@ class Layout1Cest
         $booking = $bookings[0];
         $I->assertEquals($date->toDateString(), $booking->date, 'date');
         $I->assertEquals($startAt, $booking->start_at, 'start_at');
+        $I->assertEquals(Booking::STATUS_CONFIRM, $booking->status, 'status');
+        $I->assertEquals(0, $booking->modify_times, 'modify_times');
 
         $I->assertEquals(1, $booking->bookingServices()->count(), 'booking services');
+        $I->assertEquals(0, $booking->extraServices()->count(), 'booking extra services');
 
         $bookingService = $booking->bookingServices()->first();
         $I->assertEquals($service->id, $bookingService->service_id, 'service_id');

@@ -7,7 +7,7 @@
         @if($booking !== null)
             <?php $tooltip = $booking->getCalendarTooltip();?>
             @if(strpos($slotClass, 'slot-booked-head') !== false)
-            <a href="{{ route('as.bookings.modify-form') }}" class="btn-plus btn-popover popup-ajax customer-tooltip" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click" title="{{{ $tooltip }}}">
+            <a href="{{ route('as.bookings.modify-form') }}" class="btn-plus btn-popover popup-ajax customer-tooltip" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click" title="{{{ $tooltip }}}" id="btn-booking-{{ $booking->id }}">
                 @if(!empty($booking->firstBookingService()))
                     @if($booking->firstBookingService()->is_requested_employee)
                     <i class="fa fa-check-square-o"></i>
