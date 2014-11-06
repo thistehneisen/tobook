@@ -10,7 +10,8 @@ class Cart extends \AppModel
 
     const STATUS_INIT      = 1;
     const STATUS_COMPLETED = 2;
-    const STATUS_UNLOCKED  = 3;
+    const STATUS_CANCELLED = 3;
+    const STATUS_UNLOCKED  = 4;
     const SESSION_NAME     = 'current.cart';
 
     /**
