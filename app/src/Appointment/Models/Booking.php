@@ -3,6 +3,7 @@
 use Request;
 use App\Core\Models\User;
 use App\Appointment\Models\Observer\SmsObserver;
+use App\Appointment\Models\ResourceService;
 use Carbon\Carbon;
 use Watson\Validating\ValidationException;
 
@@ -39,6 +40,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
     //Cache object for list of bookings
     protected  static $bookings;
+    protected $resources = [];
 
     public function attach(\SplObserver $observer)
     {
@@ -382,6 +384,29 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
         $consumerName = !empty($this->consumer->name) ? $this->consumer->name : '';
         return $consumerName;
+    }
+
+    /**
+     * Get array resources which is used by booking service
+     * Use this for less query to the database
+     * @return array
+     */
+    public function getBookingResources($keyOnly = false)
+    {
+        if(empty($this->resources)) {
+            $service = $this->bookingServices()->first()->service;
+            $resources = ResourceService::join('as_resources', 'as_resources.id','=', 'as_resource_service.resource_id')
+                ->where('as_resource_service.service_id', $service->id)
+                ->select('as_resources.name', 'as_resources.id')->get();
+            foreach ($resources as $resource) {
+                $this->resources[$resource->id] = $resource->name;
+            }
+        }
+
+        if($keyOnly) {
+            return array_keys($this->resources);
+        }
+        return $this->resources;
     }
 
     //--------------------------------------------------------------------------

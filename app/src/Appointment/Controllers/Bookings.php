@@ -258,7 +258,7 @@ class Bookings extends AsBase
         }
 
         $extras = $extraServices->lists('name', 'id');
-        $resources = $booking->bookingServices()->first()->service->resources->lists('name', 'id');
+        $resources = $booking->getBookingResources();
 
         return View::make('modules.as.bookings.modifyForm', [
             'booking'         => $booking,
