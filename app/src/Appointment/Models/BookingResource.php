@@ -1,9 +1,9 @@
 <?php namespace App\Appointment\Models;
 
-class ResourceBooking extends \Eloquent
+class BookingResource extends \Eloquent
 {
     public $timestamps = false;
-    protected $table = 'as_resource_booking';
+    protected $table = 'as_booking_resource';
 
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
