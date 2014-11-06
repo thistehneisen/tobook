@@ -295,6 +295,7 @@ return [
             'overlapped_with_freetime' => 'Booking is overlapped with employee freetime', //@todo
             'reschedule_single_only'   => 'Booking with multiple services cannot be rescheduled', //@todo
             'reschedule_unbooked_extra'=> 'Booking cannot be rescheduled', //@todo
+            'not_enough_resources'     => 'Required resources are not available!',
         ],
         'warning'      => [
             'existing_user'   => 'There is an user associate with this email in our system. Do you want to use these information instead?',// @todo

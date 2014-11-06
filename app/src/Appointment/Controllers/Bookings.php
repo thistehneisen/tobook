@@ -258,7 +258,7 @@ class Bookings extends AsBase
         }
 
         $extras = $extraServices->lists('name', 'id');
-        $resources = Resource::ofCurrentUser()->lists('name','id');
+        $resources = $booking->bookingServices()->first()->service->resources->lists('name', 'id');
 
         return View::make('modules.as.bookings.modifyForm', [
             'booking'         => $booking,
@@ -472,6 +472,14 @@ class Bookings extends AsBase
                 $data['message'] = trans('as.bookings.error.add_overlapped_booking');
                 return Response::json($data, 400);
             }
+
+            $isResourcesAvailable = Booking::isResourcesAvailable($employeeId, $service, $bookingDate, $startTime, $endTime);
+
+            if(!$isResourcesAvailable) {
+                $data['message'] = trans('as.bookings.error.not_enough_resources');
+                return Response::json($data, 400);
+            }
+
             //TODO validate modify time and service time
             $model = (empty($bookingService)) ? (new BookingService) : $bookingService;
 

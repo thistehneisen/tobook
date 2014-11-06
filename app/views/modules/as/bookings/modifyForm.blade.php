@@ -23,12 +23,14 @@
             </div>
         </div>
     </div>
+    @if(!empty($resources))
     <div class="form-group">
         <label for="resource" class="col-sm-4">{{ trans('as.services.resource') }}</label>
         <div class="col-sm-8">
-           {{ Form::select('resources[]', $resources, -1, ['class' => 'form-control input-sm select2', 'id' => 'resources', 'multiple' => 'multiple']) }}
+           {{ Form::select('resources[]', $resources, $booking->bookingServices()->first()->service->resources->lists('id'), ['class' => 'form-control input-sm select2', 'id' => 'resources', 'multiple' => 'multiple']) }}
         </div>
     </div>
+    @endif
 
     <div class="form-group">
     @if (!empty($extraServices))

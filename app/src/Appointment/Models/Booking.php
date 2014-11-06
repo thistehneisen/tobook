@@ -154,6 +154,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      * but only execute one query
      *
      * @param int $employeeId
+     * @param App\Appointment\Models\Service service
      * @param string $bookingDate
      * @param Carbon $startTime
      * @param Carbon $endTime
@@ -163,6 +164,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      */
     public static function isBookable($employeeId, $bookingDate, Carbon $startTime, Carbon $endTime, $uuid = null)
     {
+        $resourceIds = [];
+
         if($bookingDate instanceof Carbon) {
             $bookingDate = $bookingDate->toDateString();
         }
@@ -194,6 +197,45 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $bookings = $query->get();
 
         if (!$bookings->isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    public static function isResourcesAvailable($employeeId, $service, $bookingDate, Carbon $startTime, Carbon $endTime)
+    {
+        $resourceIds = [];
+        if(!empty($service)) {
+            $resourceIds = $service->resources->lists('id');
+        }
+        if(empty($resourceIds)) {
+            return true;
+        }
+
+         $query = self::where('as_bookings.date', $bookingDate)
+            ->whereNull('as_bookings.deleted_at')
+            ->where('as_bookings.status','!=', self::STATUS_CANCELLED)
+            ->where(function ($query) use ($startTime, $endTime) {
+                return $query->where(function ($query) use ($startTime, $endTime) {
+                    return $query->where('as_bookings.start_at', '>=', $startTime->toTimeString())
+                         ->where('as_bookings.start_at', '<', $endTime->toTimeString());
+                })->orWhere(function ($query) use ($endTime, $startTime) {
+                     return $query->where('as_bookings.end_at', '>', $startTime->toTimeString())
+                          ->where('as_bookings.end_at', '<=', $endTime->toTimeString());
+                })->orWhere(function ($query) use ($startTime) {
+                     return $query->where('as_bookings.start_at', '<', $startTime->toTimeString())
+                          ->where('as_bookings.end_at', '>', $startTime->toTimeString());
+                })->orWhere(function ($query) use ($startTime, $endTime) {
+                     return $query->where('as_bookings.start_at', '=', $startTime->toTimeString())
+                          ->where('as_bookings.end_at', '=', $endTime->toTimeString());
+                });
+            })
+            ->join('as_booking_services', 'as_booking_services.booking_id', '=','as_bookings.id')
+            ->join('as_services', 'as_services.id', '=','as_booking_services.service_id')
+            ->join('as_resource_service', 'as_resource_service.service_id', '=', 'as_services.id')
+            ->whereIn('as_resource_service.resource_id', $resourceIds)->get();
+
+        if (!$query->isEmpty()) {
             return false;
         }
         return true;
