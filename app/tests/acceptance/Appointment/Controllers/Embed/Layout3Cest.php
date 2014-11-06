@@ -73,6 +73,9 @@ class Layout3Cest
         $I->assertEquals(1, count($bookings), 'bookings');
 
         $booking = $bookings[0];
+        $I->assertEquals($date->toDateString(), $booking->date, 'date');
+        $I->assertEquals($startAt, $booking->start_at, 'start_at');
+
         $I->assertEquals(1, $booking->bookingServices()->count(), 'booking services');
 
         $bookingService = $booking->bookingServices()->first();

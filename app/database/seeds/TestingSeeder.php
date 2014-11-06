@@ -40,13 +40,12 @@ class TestingSeeder extends Seeder
         User::where('id', 70)->forceDelete();
         User::where('username', 'varaa_test')->forceDelete();
         User::where('email', 'varaa_test@varaa.com')->forceDelete();
-        $this->user = new User([
-            'username' => 'varaa_test',
-            'email' => 'varaa_test@varaa.com',
-        ]);
+        $this->user = new User([ 'email' => 'varaa_test@varaa.com', ]);
         $this->user->id = 70;
+        $this->user->username = 'varaa_test';
         $this->user->password = 'varaa_test';
         $this->user->password_confirmation = 'varaa_test';
+        $this->user->confirmed = 1;
         $this->user->save();
         $this->user->attachRole(Role::admin());
 
