@@ -8,11 +8,6 @@ Route::group([
     'before' => ['auth']
 ], function () {
 
-    Route::get('dashboard', [
-        'as' => 'dashboard.index',
-        'uses' => 'App\Core\Controllers\Dashboard@index'
-    ]);
-
     Route::get('profile', [
         'as' => 'user.profile',
         'uses' => 'App\Core\Controllers\User@profile'
@@ -20,6 +15,12 @@ Route::group([
 
     Route::post('profile', [
         'uses' => 'App\Core\Controllers\User@updateProfile'
+    ]);
+
+    Route::get('dashboard', [
+        'as' => 'dashboard.index',
+        'before' => ['only.business'],
+        'uses' => 'App\Core\Controllers\Dashboard@index'
     ]);
 
     Route::group([
