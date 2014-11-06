@@ -24,7 +24,7 @@
          */
         $body.showLoading = function () {
             $(this).css('cursor', 'progress');
-            $('.as-loading').show();
+            $('.js-loading').show();
         };
 
         /**
@@ -34,7 +34,7 @@
          */
         $body.hideLoadding = function () {
             $(this).css('cursor', 'default');
-            $('.as-loading').hide();
+            $('.js-loading').hide();
         };
 
         // When user clicks on a category name
