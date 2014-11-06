@@ -1,5 +1,6 @@
 <?php namespace App\FlashDeal\Listeners;
 
+use Cart;
 use App\Payment\Models\Transaction;
 use App\FlashDeal\Models\FlashDealDate;
 
@@ -19,6 +20,10 @@ class PaymentCancelledListener
             // No need to live in this cruel world
             return;
         }
+
+        // set cart status
+        $cart->status = Cart::STATUS_CANCELLED;
+        $cart->save();
 
         $quantity = [];
         foreach ($cart->details as $detail) {

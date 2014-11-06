@@ -129,11 +129,10 @@ class Cart extends \AppModel
     {
         Log::info('Started to unlock cart items');
 
-        // Get all carts whose status is not `complete` in the last X minutes
+        // Get all carts whose status is `init` in the last X minutes
         // (X is the maximum time to hold an item, configurable)
         $created_at = Carbon::now()->subMinutes(Config::get('varaa.cart.hold_time'));
-        $carts = static::where('status', '!=', static::STATUS_COMPLETED)
-            ->where('status', '!=', static::STATUS_ABANDONED)
+        $carts = static::where('status', '=', static::STATUS_INIT)
             ->where('created_at', '<=', $created_at)
             ->orderBy('id', 'desc')
             ->get();

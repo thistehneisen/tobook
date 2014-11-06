@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Listeners;
 
-use Confide;
+use Confide, Cart;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Booking;
 
@@ -22,6 +22,10 @@ class PaymentProcessListener
                 $ids[] = $detail->model->instance->id;
             }
         }
+
+        // set cart status
+        $cart->status = Cart::STATUS_COMPLETED;
+        $cart->save();
 
         if (!empty($ids)) {
             $bookingServices = BookingService::whereIn('id', $ids)
