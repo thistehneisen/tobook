@@ -10,8 +10,8 @@ class Cart extends \AppModel
 
     const STATUS_INIT      = 1;
     const STATUS_COMPLETED = 2;
-    const STATUS_CANCELLED = 3;
-    const STATUS_UNLOCKED  = 4;
+    const STATUS_CANCELLED = 3; // payment is cancelled
+    const STATUS_ABANDONED = 4; // cart was not touched in 15 minutes
     const SESSION_NAME     = 'current.cart';
 
     /**
@@ -133,7 +133,7 @@ class Cart extends \AppModel
         // (X is the maximum time to hold an item, configurable)
         $created_at = Carbon::now()->subMinutes(Config::get('varaa.cart.hold_time'));
         $carts = static::where('status', '!=', static::STATUS_COMPLETED)
-            ->where('status', '!=', static::STATUS_UNLOCKED)
+            ->where('status', '!=', static::STATUS_ABANDONED)
             ->where('created_at', '<=', $created_at)
             ->orderBy('id', 'desc')
             ->get();
@@ -164,7 +164,7 @@ class Cart extends \AppModel
         }
 
         // Update cart status to UNLOCKED
-        $this->status = static::STATUS_UNLOCKED;
+        $this->status = static::STATUS_ABANDONED;
         $this->save();
     }
 

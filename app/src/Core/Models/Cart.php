@@ -9,9 +9,6 @@ class Cart extends Base
 {
     public $fillable = ['status', 'notes'];
 
-    const STATUS_INIT          = 1;//01
-    const STATUS_COMPLETED     = 2;//11
-
     /**
      * Create a new cart item
      *
