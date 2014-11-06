@@ -43,10 +43,12 @@ class Layout2Cest
 
         $I->waitForElementVisible('#as-timetable');
 
-        $todayStartOfWeek = with(clone $today)->startOfWeek()->format('Ymd');
-        $dateStartOfWeek = with(clone $date)->startOfWeek()->format('Ymd');
-        if ($todayStartOfWeek !== $dateStartOfWeek) {
-            $I->click('#btn-timetable-' . $dateStartOfWeek);
+        $layoutDate = clone $today;
+        while($date->diffInDays($layoutDate) > 7) {
+            $layoutDate->addWeek();
+        }
+        if ($layoutDate->diffInDays($today) > 0) {
+            $I->click('#btn-timetable-' . $layoutDate->format('Ymd'));
             $I->wait(3);
         }
 
