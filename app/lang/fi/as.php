@@ -169,17 +169,17 @@ return [
             'name'          => 'Nimi',
             'description'   => 'Kuvaus',
             'is_show_front' => 'Varattavissa kuluttajille',
-            'no_services'   => 'Siellä ei ole palvelua tälle kategorialle',
+            'no_services'   => 'Ei palveluita valitulle kategorialle',
             'availability'  => 'Saatavuus',
             'category_name' => 'Kategorian nimi',
             'error'         => [
-                'category_current_in_use' => 'Kategoria on käytössä. Ole ystävällinen ja poista kategoriaan liitetyt palvelut ennen kuin voit poistaa kategoriaa.'
+                'category_current_in_use' => 'Kategoria on käytössä. Ole ystävällinen ja poista kategoriaan liitetyt palvelut ennen kuin voit poistaa kategorian.'
             ]
         ],
         'resources' => [
             'all'         => 'Kaikki resurssit',
             'add'         => 'Lisää resurssi',
-            'edit'        => 'Muokkaa resurssi',
+            'edit'        => 'Muokkaa resurssia',
             'name'        => 'Nimi',
             'description' => 'Kuvaus',
             'quantity'    => 'Määrä',
@@ -187,12 +187,12 @@ return [
         'extras' => [
             'all'         => 'Kaikki lisäpalvelut',
             'add'         => 'Lisää lisäpalvelu',
-            'edit'        => 'Muokkaa lisäpalvelu',
+            'edit'        => 'Muokkaa lisäpalveluita',
             'name'        => 'Nimi',
             'description' => 'Kuvaus',
             'price'       => 'Hinta',
             'length'      => 'Kesto',
-            'msg_extra'   => 'Haluaisitko myös varata?',
+            'msg_extra'   => 'Haluaisitko varata myös?',
         ],
         'all'          => 'Kaikki palvelut',
         'index'        => 'Palvelut',
@@ -216,7 +216,7 @@ return [
         'no_employees' => 'Työntekijää ei ole valittu',
         'no_name'      => 'Untitled',//@todo
         'error'         => [
-            'service_current_in_use' => 'Services is currently in use. Please delete all related bookings before deleting this service.'
+            'service_current_in_use' => 'Valitsemasi palvelu on käytössä. Ole hyvä ja poista kaikki kyseisen palvelun varaukset ennen palvelun poistamista.'
         ]
     ],
     'bookings' => [
@@ -277,30 +277,30 @@ return [
         'own_customer'      => 'Oma asiakas',
         'request_employee'  => 'Työntekijää ei saa vaihtaa',
         'error'             => [
-            'add_overlapped_booking'   => 'Overlapped booking time!',// @todo
-            'insufficient_slots'       => 'There is no enough time slots for this booking!',// @todo
-            'invalid_consumer_info'    => 'Could not save consumer info',// @todo
-            'terms'                    => 'You have to agree with our term.',//@todo
-            'service_empty'            => 'Please select service and service time!',//@todo
-            'unknown'                  => 'Something went wrong!',//@todo
-            'exceed_current_day'       => 'Booking end time cannot exceed current day',//@todo
-            'overllapped_with_freetime'=> 'Booking is overllapped with employee freetime',//@todo
-            'empty_total_time'         => 'Booking total minutes must be greater or equal 1',//@todo
-            'uuid_notfound'            => 'Booking ID not found', //@todo
-            'not_enough_slots'         => 'Not enough booking slots or overllaped with other booking.', //@todo
-            'employee_not_servable'    => 'This employee does not serve the booking service.', //@todo
-            'id_not_found'             => 'Booking not found', //@todo
-            'start_time'               => 'Booking start time is invalid', //@todo
-            'service_time_invalid'     => 'Service time for booking not found', //@todo
-            'overlapped_with_freetime' => 'Booking is overlapped with employee freetime', //@todo
-            'reschedule_single_only'   => 'Booking with multiple services cannot be rescheduled', //@todo
-            'reschedule_unbooked_extra'=> 'Booking cannot be rescheduled', //@todo
+            'add_overlapped_booking'   => 'Varauksia ei voi asettaa päällekäin!',
+            'insufficient_slots'       => 'Varaus ei mahdu valitsemaasi kohtaan.',
+            'invalid_consumer_info'    => 'Virhe asiakastietojen tallennuksessa!',
+            'terms'                    => 'Hyväksy ehdot jatkaaksesi',
+            'service_empty'            => 'Valitse palvelu & palvelun kesto!',
+            'unknown'                  => 'Hups! Jotain meni vikaan.. Yritä uudelleen!',
+            'exceed_current_day'       => 'Varaus ei voi olla kestoltaan yli vuorokauden mittainen.',
+            'overllapped_with_freetime'=> 'Varausta ei voi sijoittaa työntekijän oman vapaan päälle!',
+            'empty_total_time'         => 'Määritä varauksellesi kesto jatkaaksesi.',
+            'uuid_notfound'            => 'Varauksen yksilöllistä ID:tä ei löytynyt!',
+            'not_enough_slots'         => 'Varauksesi ei mahdu toivomaasi sijaintiin, tai se on menossa toisen varauksen päälle!',
+            'employee_not_servable'    => 'Työntekijää ei ole yhdistetty valitsemaasi palveluun!',
+            'id_not_found'             => 'Varausta ei löytynyt!',
+            'start_time'               => 'Varauksen aloitusaika ei kelpaa!',
+            'service_time_invalid'     => 'Ongelma palvelun keston kanssa!',
+            'overlapped_with_freetime' => 'Varaus on menossa työntekijän oman vapaan päälle!',
+            'reschedule_single_only'   => 'Useita palveluita sisältävää varausta ei valitettavasti voi siirtää.',
+            'reschedule_unbooked_extra'=> 'Varauksen siirto epäonnistui!',
         ],
         'warning'      => [
-            'existing_user'   => 'There is an user associate with this email in our system. Do you want to use these information instead?',// @todo
+            'existing_user'   => 'Järjestelmästä löytyy käyttäjäprofiili antamallesi sähköpostiosoitteelle. Ovatko nämä sinun tietosi?',
         ],
         'stat' => [
-            'monthly'      => 'Kuukausi kooste',
+            'monthly'      => 'Kuukausikooste',
             'bookings'     => 'Varaukset',
             'revenue'      => 'Liikevaihto',
             'working_time' => 'Työaika',
@@ -311,18 +311,18 @@ return [
     'employees' => [
         'all'                 => 'Työntekijät',
         'add'                 => 'Lisää työntekijä',
-        'edit'                => 'Muokkaa työntekijä',
+        'edit'                => 'Muokkaa työntekijää',
         'name'                => 'Nimi',
         'phone'               => 'Puhelinnumero',
         'email'               => 'Sähköpostiosoite',
         'description'         => 'Kuvaus',
-        'is_subscribed_email' => 'Lähetä sähköposti',
-        'is_subscribed_sms'   => 'Lähetä tekstiviesti',
+        'is_subscribed_email' => 'Työntekijän sähköpostivahvistukset käytössä',
+        'is_subscribed_sms'   => 'Työntekijän tekstiviestivahvistukset käytössä',
         'services'            => 'Palvelut',
         'status'              => 'Tila',
         'is_active'           => 'Tila',
         'avatar'              => 'Kuva',
-        'default_time'        => 'Oletusaika',
+        'default_time'        => 'Oletustyöajat',
         'custom_time'         => 'Räätälöidyt ajat',
         'days_of_week'        => 'Viikonpäivä',
         'start_time'          => 'Aloitusaika',
@@ -341,13 +341,13 @@ return [
         'is_day_off'          => 'Vapaapäivä',
         'workshifts'          => 'Työvuoro',
         'workshift_planning'  => 'Työvuorosuunnittelu',
-        'workshift_summary'   => 'Työvuoro kooste',
+        'workshift_summary'   => 'Työvuorokooste',
         'from_date'           => 'Alkaen',
         'to_date'             => 'Päättyen',
         'weekday'             => 'Viikonpäivä',
         'employee'            => 'Työntekijä',
-        'saturday_hours'      => 'Lauantai tunnit',
-        'sunday_hours'        => 'Sununtai tunnit',
+        'saturday_hours'      => 'Lauantaitunnit',
+        'sunday_hours'        => 'Sununtaitunnit',
         'monthly_hours'       => 'Kuukauden tunnit',
     ],
     'embed' => [
@@ -370,11 +370,11 @@ return [
         'name'             => 'Nimi',
         'email'            => 'Sähköposti',
         'phone'            => 'Puhelinnumero',
-        'checkout'         => 'Kassalle',
+        'checkout'         => 'Viimeistele varaus',
         'fi_version'       => 'Suomeksi',
         'en_version'       => 'Englanniksi',
         'book'             => 'Varaa',
-        'success'          => 'Varauksesi on vahvistettu! Kiitos varauksestasi.',
+        'success'          => 'Varauksesi on vastaanotettu onnistuneesti! Kiitos varauksestasi.',
         'confirm'          => 'Vahvista varaus',
         'layout_2'         => [
             'select_service'      => 'Valitse palvelu ja päivämäärä',
@@ -388,38 +388,38 @@ return [
             'form'                => 'Varauslomake',
             'date'                => 'Päivämäärä',
             'price'               => 'Hinta',
-            'name'                => 'Sinun nimi',
+            'name'                => 'Nimesi',
             'phone'               => 'Puhelin',
             'email'               => 'Sähköposti',
-            'thanks'              => 'Kiitos varauksestasi',
+            'thanks'              => 'Kiitos varauksestasi!',
         ],
         'layout_3'         => [
-            'select_service'  => 'Valitse palvelun tyyppi',
-            'select_employee' => 'Valitse henkilö',
+            'select_service'  => 'Valitse palvelu',
+            'select_employee' => 'Kenelle?',
             'select_datetime' => 'Valitse päivä &amp; aika',
             'contact'         => 'Yhteystietosi',
             'service'         => 'Palvelu',
             'employee'        => 'Henkilö',
-            'name'            => 'Sinun nimi',
+            'name'            => 'Nimesi',
             'notes'           => 'Lisätiedot',
             'postcode'        => 'Postinumero',
-            'empty'           => 'Valittuna päivänä ei ole vapaita aikoja',
+            'empty'           => 'Valittuna päivänä ei vapaita aikoja',
             'payment_note'    => 'Vahvistuksen jälkeen sinut ohjatamaan maksamaan varaus',
         ]
     ],
     'options' => [
         'heading' => 'Asetukset',
-        'updated' => 'Asetukset päivitetty',
+        'updated' => 'Asetukset päivitetty onnistuneesti!',
         'general' => [
             'index'           => 'Yleinen',
             'heading'         => 'Yleisasetukset',
-            'info'            => 'Säädä asetuksesi kohdalleen',
+            'info'            => 'Täällä säädät asetuksesi kohdalleen.',
             'currency'        => 'Valuutta',
             'custom_status'   => 'Custom Status',
             'datetime_format' => 'Päiväyksen muoto',
             'date_format'     => 'Päivämäärä formaatti',
             'time_format'     => 'Aikamuoto',
-            'layout'          => 'Näkymä',
+            'layout'          => 'Varausnäkymä',
             'seo_url'         => 'SEO URLs',
             'timezone'        => 'Aikavyöhyke',
             'week_numbers'    => 'Näytä viikkonumerot',
@@ -528,7 +528,7 @@ return [
         'index'     => 'Raportit',
         'employees' => 'Työntekijävakko',
         'services'  => 'Palveluvalikko',
-        'generate'  => 'Generoi',
+        'generate'  => 'Luo',
         'start'     => 'Alkaa',
         'end'       => 'Päättyy',
         'booking'   => [
@@ -541,11 +541,11 @@ return [
     'items_per_page' => 'Yksiköitä yhteensä',
     'with_selected'  => 'Valitse toiminto',
     'crud' => [
-        'bulk_confirm'   => 'Are you sure to carry out this action?', // @todo
-        'success_add'    => 'Tuoteen luonti onnistui.', // @todo
-        'success_edit'   => 'Tietojen päivittäminen onnistui.', // @todo
-        'success_delete' => 'Tuotteen poistaminen onnistui.', // @todo
-        'success_bulk'   => 'Tuotteen poistaminen onnistui.', // @todo
-        'sortable'       => 'Vedä uudelleen asetellaksesi uudelleen', // @todo
+        'bulk_confirm'   => 'Oletko varma että haluat toteuttaa tämän toiminnon?',
+        'success_add'    => 'Tuote luotu onnistuneesti!',
+        'success_edit'   => 'Tiedot päivitetty onnistuneesti!',
+        'success_delete' => 'Tuote poistettu',
+        'success_bulk'   => 'Toiminto toteutettu onnistuneesti!',
+        'sortable'       => 'Järjestä sarakkeet uudelleen nappaamalla kiinni haluamastasi sarakkeesta, ja vetämällä sitä hiirellä ylös tai alas!',
     ]
 ];
