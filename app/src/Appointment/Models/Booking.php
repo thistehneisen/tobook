@@ -394,7 +394,10 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public function getBookingResources($keyOnly = false)
     {
         if(empty($this->resources)) {
-            $service = $this->bookingServices()->first()->service;
+            if(empty($this->firstBookingService())) {
+                return [];
+            }
+            $service = $this->firstBookingService()->service;
             $resources = ResourceService::join('as_resources', 'as_resources.id','=', 'as_resource_service.resource_id')
                 ->where('as_resource_service.service_id', $service->id)
                 ->select('as_resources.name', 'as_resources.id')->get();
