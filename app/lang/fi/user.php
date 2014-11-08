@@ -38,7 +38,6 @@ return [
     'fill_reset_password'    => 'Ole hyvä ja kirjoita sähköpostisi nollaamaan salasana',
     'reset_password'         => 'Salasanan nollaaminen',
     'enter_new_password'     => 'Kirjoita uusi salasana',
-    'premium_expired'        => 'Järjestelmän käyttöoikeus on päättynyt tai järjestelmässä on tapahtunut virhe. Ota yhteyttä asiakaspalveluumme.',
     'business_name'          => 'Yrityksen nimi',
     'password_reminder' => [
         'reset' => [

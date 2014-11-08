@@ -2,6 +2,7 @@
 
 use AppModel;
 use App\Cart\CartDetailInterface;
+use App\Cart\CartDetail;
 
 class Item extends AppModel implements CartDetailInterface
 {
@@ -25,4 +26,7 @@ class Item extends AppModel implements CartDetailInterface
         return $this->price;
     }
 
+    public function unlockCartDetail(CartDetail $cartDetail)
+    {
+    }
 }

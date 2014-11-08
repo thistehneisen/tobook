@@ -109,11 +109,9 @@ Route::filter('auth.admin', function () {
 Route::filter('premium.modules', function ($request, $response, $moduleName) {
     if (Session::get('stealthMode') === null
         && !Entrust::hasRole('Admin')
-        && Confide::user()->hasModule($moduleName) === false) {
-        return View::make('front.message', [
-            'header'  => trans('common.errors'),
-            'content' => trans('user.premium_expired')
-        ]);
+        && Confide::user()->hasModule($moduleName) === false
+    ) {
+        return Redirect::route('home');
     }
 });
 
@@ -137,9 +135,10 @@ Route::filter('only.business', function () {
     $isBusiness = $user->is_business && $user->business->is_activated;
 
     if (!$isBusiness && !$isAdmin) {
-        // @todo: Should we redirect to message page and show that this URL is
-        // limited to business account only?
-        return Redirect::route('home');
+        return View::make('front.message', [
+            'header'  => trans('common.notice'),
+            'content' => trans('common.err.not_business')
+        ]);
     }
 });
 

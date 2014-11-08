@@ -135,5 +135,6 @@ return [
         'not_found'    => 'Cannot the find the requesting data. Please check the URL again.',
         'invalid'      => 'Entered information is invalid. Please try again.',
         'unauthorized' => 'You are not allowed to access this page.',
+        'not_business' => 'You do not have a business account or your account is not activated yet. Please contact our support staff via <a href="mailto:yritys@varaa.com">yritys@varaa.com</a> to activate your account.',
     ],
 ];

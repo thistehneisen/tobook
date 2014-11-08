@@ -1,5 +1,6 @@
 <?php namespace App\Appointment\Listeners;
 
+use Cart;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Booking;
 
@@ -19,6 +20,10 @@ class PaymentSuccessListener
             // Nothing to do with this
             return;
         }
+
+        // set cart status
+        $cart->status = Cart::STATUS_COMPLETED;
+        $cart->save();
 
         // Find all booking service IDs
         $bookingServiceIds = $cart->details->lists('item');

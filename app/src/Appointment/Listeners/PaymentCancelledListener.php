@@ -1,5 +1,6 @@
 <?php namespace App\Appointment\Listeners;
 
+use Cart;
 use App\Payment\Models\Transaction;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Booking;
@@ -22,6 +23,10 @@ class PaymentCancelledListener
             // No need to live in this cruel world
             return;
         }
+
+        // set cart status
+        $cart->status = Cart::STATUS_CANCELLED;
+        $cart->save();
 
         foreach ($cart->details as $detail) {
             if ($detail->model->instance

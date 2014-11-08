@@ -38,8 +38,8 @@ return [
     'delete'                => 'Delete',
     'continue'              => 'Continue',
     'cancel'                => 'Cancel',
-    'cut'                   => 'Cut',//@todo
-    'paste'                 => 'Paste',//@todo
+    'cut'                   => 'Cut',
+    'paste'                 => 'Paste',
     'active'                => 'Active',
     'inactive'              => 'Inactive',
     'mon'                   => 'Monday',
@@ -89,7 +89,7 @@ return [
     'search'                => 'Search',
     'for_business'          => 'For Business',
     'minutes'               => 'Minutes',
-    'are_you_sure'          => 'Are you sure?', // @todo
+    'are_you_sure'          => 'Are you sure?',
     'type'                  => 'Type',
     'create'                => 'Create',
     'next'                  => 'Next',
@@ -135,5 +135,6 @@ return [
         'not_found'    => 'Cannot the find the requesting data. Please check the URL again.',
         'invalid'      => 'Entered information is invalid. Please try again.',
         'unauthorized' => 'You are not allowed to access this page.',
+        'not_business' => 'You do not have a business account or your account is not activated yet. Please contact our support staff via <a href="mailto:yritys@varaa.com">yritys@varaa.com</a> to activate your account.',
     ],
 ];
