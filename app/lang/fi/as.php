@@ -346,7 +346,7 @@ return [
         'from_date'           => 'Alkaen', //
         'to_date'             => 'Päättyen', //
         'weekday'             => 'Viikonpäivä', //
-        'employee'            => 'Työntekijä' //
+        'employee'            => 'Työntekijä', //
         'saturday_hours'      => 'Lauantai tunnit',
         'sunday_hours'        => 'Sununtai tunnit',
         'monthly_hours'       => 'Kuukauden tunnit',
