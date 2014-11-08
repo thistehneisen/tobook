@@ -473,9 +473,9 @@ class Bookings extends AsBase
                 return Response::json($data, 400);
             }
 
-            $isResourcesAvailable = Booking::isResourcesAvailable($employeeId, $service, $bookingDate, $startTime, $endTime);
+            $areResourcesAvailable = Booking::areResourcesAvailable($employeeId, $service, $bookingDate, $startTime, $endTime);
 
-            if(!$isResourcesAvailable) {
+            if(!$areResourcesAvailable) {
                 $data['message'] = trans('as.bookings.error.not_enough_resources');
                 return Response::json($data, 400);
             }

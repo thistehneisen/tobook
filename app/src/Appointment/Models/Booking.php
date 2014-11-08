@@ -204,7 +204,11 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return true;
     }
 
-    public static function isResourcesAvailable($employeeId, $service, $bookingDate, Carbon $startTime, Carbon $endTime)
+    /**
+     * Check all resources are avialble for a certain booking
+     * @return boolean
+     */
+    public static function areResourcesAvailable($employeeId, $service, $bookingDate, Carbon $startTime, Carbon $endTime)
     {
         $resourceIds = [];
         if(!empty($service)) {
