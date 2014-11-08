@@ -1,29 +1,20 @@
-<?php namespace Test\Appointment\Controllers\Embed;
+<?php namespace Test\Acceptance\Appointment\Controllers\Embed;
 
 use \AcceptanceTester;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
 use App\Cart\Cart;
-use Appointment\Traits\Models;
 use Carbon\Carbon;
+use Test\Acceptance\Appointment\Controllers\AbstractBooking;
 
 /**
  * @group as
  */
-class Layout3Cest
+class Layout3Cest extends AbstractBooking
 {
-    use Models;
-    use \Appointment\Traits\Booking;
-
-    public function _before()
-    {
-        $this->_modelsReset();
-    }
-
     public function testSuccess(AcceptanceTester $I)
     {
-        $categories = $this->_createCategoryServiceAndExtra();
-        $category = $categories[0];
+        $category = $this->categories[0];
         $service = $category->services()->first();
         $employee = $this->employees[0];
 
@@ -48,7 +39,7 @@ class Layout3Cest
         $I->waitForElementVisible('#timetable');
         while ($I->grabAttributeFrom('#timetable', 'data-date') !== $date->toDateString()) {
             $I->click('#btn-date-next');
-            $I->wait(1);
+            $I->wait(2);
         }
         $I->assertEquals($date->toDateString(), $I->grabAttributeFrom('#timetable', 'data-date'));
 
@@ -95,8 +86,7 @@ class Layout3Cest
 
     public function testAbandoned(AcceptanceTester $I)
     {
-        $categories = $this->_createCategoryServiceAndExtra();
-        $category = $categories[0];
+        $category = $this->categories[0];
         $service = $category->services()->first();
         $employee = $this->employees[0];
 

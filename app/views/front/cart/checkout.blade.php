@@ -25,7 +25,7 @@
 
                 @if ($cart && $cart->isEmpty() === false && $user->is_business === false)
                 <div class="text-center">
-                    <button type="submit" class="btn btn-lg btn-success text-uppercase comfortaa">{{ trans('home.cart.process') }} <i class="fa fa-check-circle"></i></button>
+                    <button type="submit" class="btn btn-lg btn-success text-uppercase comfortaa" id="btn-submit">{{ trans('home.cart.process') }} <i class="fa fa-check-circle"></i></button>
                 </div>
                 @endif
             </div>

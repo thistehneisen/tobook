@@ -1,4 +1,4 @@
-<?php namespace Test\Appointment\Controllers;
+<?php namespace Test\Acceptance\Appointment\Controllers;
 
 use AcceptanceTester;
 use App\Appointment\Models\Booking;

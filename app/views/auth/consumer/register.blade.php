@@ -31,7 +31,7 @@
             <div class="form-group row {{ Form::errorCSS('password', $errors) }}">
                 {{ Form::label('password', trans('user.password').'*', ['class' => 'col-sm-3 control-label']) }}
                 <div class="col-sm-8">
-                {{ Form::password('password', ['class' => 'form-control']) }}
+                {{ Form::password('password', ['class' => 'form-control', 'id' => 'login-password']) }}
                 <!-- Validation error -->
                 {{ Form::errorText('password', $errors) }}
                 </div>

@@ -26,7 +26,7 @@ class ConsumerAuth extends Auth
             'langPrefix' => 'user',
             'fields'     => [
                 'email'                 => ['type' => 'Email'],
-                'password'              => ['type' => 'Password'],
+                'password'              => ['type' => 'Password', 'options' => ['id' => 'register-password']],
                 'password_confirmation' => ['type' => 'Password'],
                 'first_name'            => ['type' => 'Text'],
                 'last_name'             => ['type' => 'Text'],
