@@ -2,6 +2,8 @@
 
 use \AcceptanceTester;
 use App\Appointment\Models\Booking;
+use App\Appointment\Models\BookingService;
+use App\Cart\Cart;
 use Appointment\Traits\Models;
 use Carbon\Carbon;
 
@@ -44,7 +46,7 @@ class Layout2Cest
         $I->waitForElementVisible('#as-timetable');
 
         $layoutDate = clone $today;
-        while($date->diffInDays($layoutDate) > 7) {
+        while ($date->diffInDays($layoutDate) > 7) {
             $layoutDate->addWeek();
         }
         if ($layoutDate->diffInDays($today) > 0) {
@@ -91,5 +93,55 @@ class Layout2Cest
         $I->assertEquals($lastName, $consumer->last_name, 'consumer last name');
         $I->assertEquals($email, $consumer->email, 'consumer email');
         $I->assertEquals($phone, $consumer->phone, 'consumer phone');
+    }
+
+    public function testAbandoned(AcceptanceTester $I)
+    {
+        $categories = $this->_createCategoryServiceAndExtra();
+        $category = $categories[0];
+        $service = $category->services()->first();
+        $employee = $this->employees[0];
+
+        $today = Carbon::today();
+        $date = $this->_getNextDate();
+        $startAt = '12:00:00';
+
+        $I->amOnPage(route('as.embed.embed', ['hash' => $this->user->hash, 'l' => 2], false));
+        $I->click('#btn-category-' . $category->id);
+        $I->waitForElementVisible('#btn-service-' . $service->id);
+        $I->click('#btn-service-' . $service->id);
+        $I->waitForElementVisible('#btn-employee-' . $employee->id);
+        $I->click('#btn-employee-' . $employee->id);
+
+        $I->waitForElementVisible('#as-timetable');
+
+        $layoutDate = clone $today;
+        while ($date->diffInDays($layoutDate) > 7) {
+            $layoutDate->addWeek();
+        }
+        if ($layoutDate->diffInDays($today) > 0) {
+            $I->click('#btn-timetable-' . $layoutDate->format('Ymd'));
+            $I->wait(3);
+        }
+
+        $I->click('#btn-slot-' . $date->format('Ymd') . '-' . substr(preg_replace('#[^0-9]#', '', $startAt), 0, 4));
+        $I->waitForElementVisible('#frm-customer-info');
+
+        $bookingServices = BookingService::where('user_id', $this->user->id)
+            ->where('employee_id', $employee->id)
+            ->where('date', $date->toDateString())
+            ->where('start_at', $startAt)
+            ->get();
+        $I->assertEquals(1, count($bookingServices), 'booking services');
+
+        $bookingService = $bookingServices[0];
+        $I->assertEquals($service->id, $bookingService->service_id, 'service_id');
+        $I->assertEquals(0, $bookingService->consumer_id, 'consumer_id');
+
+        $cutoff = Carbon::today()->addDay();
+        Cart::scheduledUnlock($cutoff);
+
+        $bookingService = BookingService::find($bookingService->id);
+        $I->assertEmpty($bookingService, 'booking service has been deleted');
     }
 }

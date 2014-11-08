@@ -53,7 +53,8 @@ class UnlockCartItemsCommand extends ScheduledCommand {
 	{
         // Sorry but because my computer is slow so I need to disable it
         if (App::environment() !== 'local') {
-            Cart::scheduledUnlock();
+            $cutoff = Carbon::now()->subMinutes(Config::get('varaa.cart.hold_time'));
+            Cart::scheduledUnlock($cutoff);
         }
 	}
 

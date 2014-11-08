@@ -123,17 +123,17 @@ class Cart extends \AppModel
     /**
      * Release items put in the cart so that they're bookable again
      *
+     * @param Carbon $cutoff
      * @return void
      */
-    public static function scheduledUnlock()
+    public static function scheduledUnlock(Carbon $cutoff)
     {
         Log::info('Started to unlock cart items');
 
         // Get all carts whose status is `init` in the last X minutes
         // (X is the maximum time to hold an item, configurable)
-        $created_at = Carbon::now()->subMinutes(Config::get('varaa.cart.hold_time'));
         $carts = static::where('status', '=', static::STATUS_INIT)
-            ->where('created_at', '<=', $created_at)
+            ->where('created_at', '<=', $cutoff)
             ->orderBy('id', 'desc')
             ->get();
 

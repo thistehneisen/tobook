@@ -2,6 +2,8 @@
 
 use \AcceptanceTester;
 use App\Appointment\Models\Booking;
+use App\Appointment\Models\BookingService;
+use App\Cart\Cart;
 use Appointment\Traits\Models;
 use Carbon\Carbon;
 
@@ -89,5 +91,53 @@ class Layout3Cest
         $I->assertEquals($lastName, $consumer->last_name, 'consumer last name');
         $I->assertEquals($email, $consumer->email, 'consumer email');
         $I->assertEquals($phone, $consumer->phone, 'consumer phone');
+    }
+
+    public function testAbandoned(AcceptanceTester $I)
+    {
+        $categories = $this->_createCategoryServiceAndExtra();
+        $category = $categories[0];
+        $service = $category->services()->first();
+        $employee = $this->employees[0];
+
+        $date = $this->_getNextDate();
+        $startAt = '12:00:00';
+
+        $I->amOnPage(route('as.embed.embed', ['hash' => $this->user->hash, 'l' => 3], false));
+        $I->selectOption('input[name=category_id]', $category->id);
+        $I->waitForElementVisible('#as-category-' . $category->id . '-services');
+        $I->click('#btn-service-' . $service->id);
+        $I->waitForElementVisible('#service-times-' . $service->id);
+        $I->selectOption('input[name=service_id]', $service->id);
+
+        $I->waitForElementVisible('#as-step-2 .as-employee');
+        $I->selectOption('input[name=employee_id]', $employee->id);
+
+        $I->waitForElementVisible('#timetable');
+        while ($I->grabAttributeFrom('#timetable', 'data-date') !== $date->toDateString()) {
+            $I->click('#btn-date-next');
+            $I->wait(1);
+        }
+        $I->assertEquals($date->toDateString(), $I->grabAttributeFrom('#timetable', 'data-date'));
+
+        $I->click('#btn-slot-' . substr(preg_replace('#[^0-9]#', '', $startAt), 0, 4));
+        $I->waitForElementVisible('#as-form-checkout');
+
+        $bookingServices = BookingService::where('user_id', $this->user->id)
+            ->where('employee_id', $employee->id)
+            ->where('date', $date->toDateString())
+            ->where('start_at', $startAt)
+            ->get();
+        $I->assertEquals(1, count($bookingServices), 'booking services');
+
+        $bookingService = $bookingServices[0];
+        $I->assertEquals($service->id, $bookingService->service_id, 'service_id');
+        $I->assertEquals(0, $bookingService->consumer_id, 'consumer_id');
+
+        $cutoff = Carbon::today()->addDay();
+        Cart::scheduledUnlock($cutoff);
+
+        $bookingService = BookingService::find($bookingService->id);
+        $I->assertEmpty($bookingService, 'booking service has been deleted');
     }
 }
