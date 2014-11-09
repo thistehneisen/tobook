@@ -228,6 +228,9 @@ class FrontBookings extends Bookings
                 $booking->notify();
             }
 
+            // Complete the cart
+            $cart->complete();
+
             $data['success'] = true;
             $data['message'] = trans('as.embed.success');
         } catch (\Watson\Validating\ValidationException $ex) {
@@ -306,6 +309,9 @@ class FrontBookings extends Bookings
                 $extraService->booking()->associate($booking);
                 $extraService->save();
             }
+
+            // Update cart status
+            $cart->complete();
 
             $data['booking_id'] = $booking->id;
         } catch (\Watson\Validating\ValidationException $ex) {

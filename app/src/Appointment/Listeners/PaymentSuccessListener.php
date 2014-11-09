@@ -22,8 +22,7 @@ class PaymentSuccessListener
         }
 
         // set cart status
-        $cart->status = Cart::STATUS_COMPLETED;
-        $cart->save();
+        $cart->complete();
 
         // Find all booking service IDs
         $bookingServiceIds = $cart->details->lists('item');

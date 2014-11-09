@@ -24,8 +24,7 @@ class PaymentProcessListener
         }
 
         // set cart status
-        $cart->status = Cart::STATUS_COMPLETED;
-        $cart->save();
+        $cart->complete();
 
         if (!empty($ids)) {
             $bookingServices = BookingService::whereIn('id', $ids)

@@ -84,4 +84,12 @@ class CartCest
         Assert::assertEquals($f->quantity, $foo->quantity);
         Assert::assertEquals($f->price, $foo->price);
     }
+
+    public function completeACart(UnitTester $i)
+    {
+        $cart = Cart::make([], $this->user);
+        $cart->complete();
+
+        Assert::assertEquals($cart->status, Cart::STATUS_COMPLETED);
+    }
 }

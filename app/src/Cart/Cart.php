@@ -167,6 +167,19 @@ class Cart extends \AppModel
         $this->save();
     }
 
+    /**
+     * Set status of a cart to be completed
+     *
+     * @return App\Cart\Cart
+     */
+    public function complete()
+    {
+        $this->status = static::STATUS_COMPLETED;
+        $this->save();
+
+        return $this;
+    }
+
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
