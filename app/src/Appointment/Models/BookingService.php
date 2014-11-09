@@ -262,6 +262,7 @@ class BookingService extends \App\Appointment\Models\Base implements CartDetailI
         // Remove booking first
         if ($this->booking !== null) {
             $this->booking->delete_reason = 'Cart is set to ABANDONED';
+            $this->booking->save();
             $this->booking->delete();
         }
 
