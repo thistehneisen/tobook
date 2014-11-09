@@ -1,7 +1,9 @@
 <?php namespace App\Consumers\Models;
 
+use App\Core\Models\Role;
 use Confide, DB;
 use App\Core\Models\User;
+use Watson\Validating\ValidationException;
 
 class Consumer extends \App\Core\Models\Base
 {
@@ -128,6 +130,70 @@ class Consumer extends \App\Core\Models\Base
         $user->consumers()->attach($consumer->id, ['is_visible' => true]);
 
         return $consumer;
+    }
+
+    public static function importCsv($csvLines, User $businessUser = null)
+    {
+        $headersRow = array_shift($csvLines);
+        if (empty($headersRow)) {
+            throw new ValidationException(trans('co.import.csv_header_is_missing'));
+        }
+
+        // configurable?
+        $delimiter = ',';
+
+        $headers = explode($delimiter, $headersRow);
+        $obj = new self();
+        $fieldIndices = [];
+        foreach ($headers as $index => $header) {
+            if (in_array($header, $obj->fillable)) {
+                $fieldIndices[$header] = $index;
+            }
+        }
+        foreach ($obj->rulesets['saving'] as $field => $savingRule) {
+            if (strpos($savingRule, 'required') !== false AND !isset($fieldIndices[$field])) {
+                throw new ValidationException(trans('co.import.csv_required_field_x_is_missing', ['field' => $field]));
+            }
+        }
+
+        $rowIndex = 1;
+        $results = [];
+        while (count($csvLines) > 0) {
+            $rowIndex++;
+            $row = array_shift($csvLines);
+            $cells = explode($delimiter, $row);
+            if (count($cells) != count($headers)) {
+                // ignore all rows with mismatched number of cells
+                continue;
+            }
+
+            $newObj = new self();
+            foreach ($fieldIndices as $field => $index) {
+                $newObj->$field = $cells[$index];
+            }
+
+            try {
+                $newObj->saveOrFail();
+
+                if (!empty($businessUser)) {
+                    $newObj->users()->attach($businessUser->id);
+                }
+
+                $results[] = [
+                    'row' => $rowIndex,
+                    'success' => true,
+                    'consumer_id' => $newObj->id,
+                ];
+            } catch (ValidationException $e) {
+                $results[] = [
+                    'row' => $rowIndex,
+                    'success' => false,
+                    'error' => $newObj->getErrors()->first(),
+                ];
+            }
+        }
+
+        return $results;
     }
 
     /**

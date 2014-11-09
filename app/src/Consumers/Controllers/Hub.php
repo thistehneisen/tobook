@@ -1,6 +1,8 @@
 <?php namespace App\Consumers\Controllers;
 
+use App\Consumers\Models\Consumer;
 use Input, DB, Confide, View;
+use Redirect, Session, Lang;
 use App\Core\Controllers\Base;
 
 class Hub extends Base
@@ -8,15 +10,15 @@ class Hub extends Base
     use \CRUD;
     protected $viewPath = 'modules.co';
     protected $crudOptions = [
-        'modelClass'    => 'App\Consumers\Models\Consumer',
-        'langPrefix'    => 'co',
-        'indexFields'   => ['first_name', 'last_name', 'email', 'phone', 'services'],
-        'presenters'  => [
+        'modelClass' => 'App\Consumers\Models\Consumer',
+        'langPrefix' => 'co',
+        'indexFields' => ['first_name', 'last_name', 'email', 'phone', 'services'],
+        'presenters' => [
             'services' => ['App\Consumers\Controllers\Hub', 'presentServices']
         ],
-        'layout'        => 'modules.co.layout',
-        'showTab'       => true,
-        'bulkActions'   => [],
+        'layout' => 'modules.co.layout',
+        'showTab' => true,
+        'bulkActions' => [],
     ];
 
     protected function upsertHandler($item)
@@ -96,11 +98,65 @@ class Hub extends Base
         ]);
     }
 
+    public function import()
+    {
+        return View::make('modules.co.import');
+    }
+
+    public function doImport()
+    {
+        if (!Input::hasFile('upload')) {
+            return Redirect::back()
+                ->withErrors(['upload' => trans('co.import.upload_is_missing')]);
+        }
+
+        $upload = Input::file('upload');
+        if (!$upload->isValid()) {
+            return Redirect::back()
+                ->withErrors(['upload' => trans('co.import.upload_is_invalid')]);
+        }
+
+        try {
+            // this may have issue with large file!!!
+            // consider using this http://www.maatwebsite.nl/laravel-excel/docs maybe?
+            // $csvLines = file($upload->getRealPath());
+            $csv = file_get_contents($upload->getRealPath());
+            $csvLines = preg_split('#(\r|\n)#', $csv, -1, PREG_SPLIT_NO_EMPTY);
+
+            $importResults = Consumer::importCsv($csvLines, $this->user);
+        } catch (\Exception $e) {
+            return Redirect::back()
+                ->withErrors(['upload' => $e->getMessage()]);
+        }
+
+        $messages = [];
+        $successCount = 0;
+        foreach ($importResults as $result) {
+            if ($result['success']) {
+                $successCount++;
+            } else {
+                $messages[] = trans('co.import.save_error_row_x_y', [
+                    'row' => $result['row'],
+                    'error' => $result['error'],
+                ]);
+            }
+        }
+        if ($successCount > 0) {
+            array_unshift($messages, Lang::choice('co.import.imported_x', $successCount, ['count' => $successCount]));
+            $messageBag = $this->successMessageBag($messages);
+        } else {
+            $messageBag = $this->errorMessageBag($messages);
+        }
+
+        return Redirect::to(route('consumer-hub.import'))
+            ->with('messages', $messageBag);
+    }
+
     public static function presentServices($value, $item)
     {
         $str = '<ul class="list-unstyle">';
         foreach ($item->getServiceAttribute() as $key => $value) {
-            $str .= '<li><a class="js-showHistory" href="'.route('consumer-hub.history').'" data-consumerid="'.$item->id.'" data-service="'.$key.'">'.$value.'</a></li>';
+            $str .= '<li><a class="js-showHistory" href="' . route('consumer-hub.history') . '" data-consumerid="' . $item->id . '" data-service="' . $key . '">' . $value . '</a></li>';
         }
         $str .= '</ul>';
 

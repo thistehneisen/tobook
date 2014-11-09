@@ -203,6 +203,11 @@ trait Olut
             ? $this->getViewPath().'.index'
             : 'olut::index';
 
+        // user can overwrite default CRUD tabs template
+        $tabsView = View::exists($this->getViewPath().'.tabs')
+            ? $this->getViewPath().'.tabs'
+            : 'olut::tabs';
+
         // Get language prefix
         $langPrefix = (string) $this->getOlutOptions('langPrefix');
 
@@ -229,6 +234,7 @@ trait Olut
             'showTab'     => $this->getOlutOptions('showTab', true),
             'layout'      => $this->getOlutOptions('layout', 'olut::layout'),
             'bartender'   => $bartender,
+            'tabsView'    => $tabsView,
             'actionsView' => $actionsView
         ]);
     }
@@ -264,6 +270,11 @@ trait Olut
             ? $this->getViewPath().'.form'
             : 'olut::form';
 
+        // user can overwrite default CRUD tabs template
+        $tabsView = View::exists($this->getViewPath().'.tabs')
+            ? $this->getViewPath().'.tabs'
+            : 'olut::tabs';
+
         $langPrefix = (string) $this->getOlutOptions('langPrefix');
 
         $options = $this->getOlutOptions('lomake', []);
@@ -274,6 +285,7 @@ trait Olut
         ]);
 
         $data = [
+            'tabsView'   => $tabsView,
             'item'       => $item,
             'routes'     => static::$crudRoutes,
             'langPrefix' => $langPrefix,
