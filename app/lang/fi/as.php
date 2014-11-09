@@ -547,5 +547,7 @@ return [
         'success_delete' => 'Tuote poistettu',
         'success_bulk'   => 'Toiminto toteutettu onnistuneesti!',
         'sortable'       => 'Järjestä sarakkeet uudelleen nappaamalla kiinni haluamastasi sarakkeesta, ja vetämällä sitä hiirellä ylös tai alas!',
-    ]
+    ],
+    'delete_reason'         => 'Why is this booking deleted?', // @todo
+    'delete_reason_default' => 'On customer request', // @todo
 ];

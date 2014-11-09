@@ -528,5 +528,7 @@ return [
         'success_delete' => 'Item was deleted successfully.',
         'success_bulk'   => 'Item was deleted successfully.',
         'sortable'       => 'Drag to reorder',
-    ]
+    ],
+    'delete_reason'         => 'Why is this booking deleted?',
+    'delete_reason_default' => 'On customer request',
 ];
