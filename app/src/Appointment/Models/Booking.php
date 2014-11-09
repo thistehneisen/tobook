@@ -24,7 +24,10 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         'uuid',
         'source',//layout
         'ip',
-        'notes'
+        'notes',
+        // Why this booking is deleted. Possible reason: asked by customer,
+        // abandoned and auto-deleted by a task runner
+        'delete_reason',
     ];
 
     const STATUS_CONFIRM     = 1;

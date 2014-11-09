@@ -793,4 +793,25 @@ class Bookings extends AsBase
         }
         return Response::json($data);
     }
+
+    /**
+     * @overwrite
+     */
+    public function delete($id)
+    {
+        $item = $this->getModel()->ofCurrentUser()->findOrFail($id);
+        $item->delete_reason = Input::get('reason');
+        $item->save();
+        $item->delete();
+
+        if (Request::ajax() === true) {
+            return Response::json(['success' => true]);
+        }
+
+        return Redirect::route(static::$crudRoutes['index'])
+            ->with(
+                'messages',
+                $this->successMessageBag(trans('as.crud.success_delete'))
+            );
+    }
 }
