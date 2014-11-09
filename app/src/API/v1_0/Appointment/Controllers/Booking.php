@@ -60,7 +60,8 @@ class Booking extends Base
     public function destroy($id)
     {
         $booking = \App\Appointment\Models\Booking::ofCurrentUser()->findOrFail($id);
-
+        $booking->delete_reason = 'Deleted in API';
+        $booking->save();
         $booking->delete();
 
         return Response::json([

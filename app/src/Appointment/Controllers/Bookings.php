@@ -127,6 +127,8 @@ class Bookings extends AsBase
         try {
             $booking = Booking::where('uuid', $uuid)->first();
             $booking->status = Booking::STATUS_CANCELLED;
+            $booking->delete_reason = 'Cancelled by UUID';
+            $booking->save();
             $booking->delete();
 
             $msg = str_replace('{BookingID}', $uuid, trans('as.bookings.cancel_message'));
@@ -377,6 +379,8 @@ class Bookings extends AsBase
             $booking->setStatus($status_text);
 
             if ($status === Booking::STATUS_CANCELLED) {
+                $booking->delete_reason = 'Cancelled by admin';
+                $booking->save();
                 $booking->delete();
             } else {
                 $booking->save();
@@ -619,6 +623,8 @@ class Bookings extends AsBase
             $booking->user()->associate($this->user);
             $booking->employee()->associate($bookingService->employee);
             if($status === Booking::STATUS_CANCELLED){
+                $booking->delete_reason = 'Cancelled while updating';
+                $booking->save();
                 $booking->delete();
             } else {
                 $booking->save();
