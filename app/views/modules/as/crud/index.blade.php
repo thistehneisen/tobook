@@ -9,7 +9,7 @@
 
     <script>
 $(function() {
-    $('table.table-crud').find('a.btn-danger').click('on', function(event) {
+    $('table.table-crud').find('a.btn-danger').on('click', function(event) {
         event.preventDefault();
         var $this = $(this);
 
