@@ -23,7 +23,7 @@
 
                         @foreach ($service->serviceTimes as $serviceTime)
                         <div class="row">
-                            <div class="col-sm-3" id="btn-service-{{ $service-id }}-time-{{ $serviceTime->id }}">
+                            <div class="col-sm-3" id="btn-service-{{ $service->id }}-time-{{ $serviceTime->id }}">
                                 <a data-service-id="{{ $service->id }}" data-service-time="{{ $serviceTime->id }}" class="btn btn-default btn-select-service-time price-tag"><i class="glyphicon glyphicon-tag"></i> &euro;{{ number_format($serviceTime->price) }}</a>
                                 <a data-service-id="{{ $service->id }}" data-service-time="{{ $serviceTime->id }}" class="btn btn-default btn-select-service-time"><i class="glyphicon glyphicon-time"></i> {{ $serviceTime->during }} {{ trans('common.minutes')}}</a>
                             </div>
