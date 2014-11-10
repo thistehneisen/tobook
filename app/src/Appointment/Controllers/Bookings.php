@@ -528,10 +528,6 @@ class Bookings extends AsBase
                 'end_at'        => $endTime->format('H:i'),
                 'uuid'          => $uuid
             ];
-
-            $carts = Session::get('carts', []);
-            $carts[$uuid] = $cart;
-            Session::put('carts' , $carts);
         } catch (\Watson\Validating\ValidationException $ex){
             $data = [];
             $data['success'] = false;
@@ -651,9 +647,6 @@ class Bookings extends AsBase
                 $booking->attach(new SmsObserver(true));//true is backend
                 $booking->notify();
             }
-
-            Session::forget('carts');
-            Session::forget('booking_info');
 
             $data['success']      = true;
             $data['baseURl']     = route('as.index');
