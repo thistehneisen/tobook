@@ -17,12 +17,51 @@ class Service
      * Get the next available timeslot of a user
      *
      * @param App\Core\Models\User $user
+     * @param Carbon\Carbon $time
      *
      * @return Illuminate\Support\Collection
      */
-    public function next($user)
+    public function next($user, $time, $limit = -1)
     {
-        dd($user);
+        if ($time instanceof \Carbon\Carbon) {
+            $time = $time->timestamp;
+        }
+
+        $key = $this->key('user', $user->id, 'nat');
+        $data = $this->redis->zrangebyscore($key, $time, '+inf', 'withscores');
+        $timeline = [];
+
+        // Create the timeline. This is an array with key is the timestamp and
+        // value is the list of employee IDs
+        foreach ($data as $values) {
+            list($member, $score) = $values;
+            $employeeId = explode(':', $member)[0];
+            $timeline[$score][] = $employeeId;
+
+        }
+
+        // Cut the timeline into limited items, or we'll return the whole one
+        $counter = 0;
+        $limit = ($limit === -1) ? count($timeline) : $limit;
+        $collection = new Collection;
+        foreach ($timeline as $score => $ids) {
+            if ($counter >= $limit) {
+                break;
+            }
+
+            if (!empty($ids)) {
+                $employeeId = $ids[0];
+
+                $item = new \stdClass;
+                $item->employee = Employee::find($employeeId);
+                $item->time = Carbon::createFromTimestamp($score);
+
+                $collection->push($item);
+                $counter++;
+            }
+        }
+
+        return $collection;
     }
 
     /**
