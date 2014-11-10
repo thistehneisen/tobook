@@ -83,6 +83,14 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $this->status = $status;
     }
 
+    //--------------------------------------------------------------------------
+    // ATTRIBUTES
+    //--------------------------------------------------------------------------
+    public function getStartTimeAttribute()
+    {
+        return new \Carbon\Carbon($this->date.' '.$this->start_at);
+    }
+
     /**
      * Generate service info message for sending mail, sms, cancel booking
      *

@@ -1,6 +1,7 @@
 <?php namespace App\Appointment\NAT;
 
 use App\Appointment\Models\Employee;
+use App\Appointment\Models\Booking;
 use Illuminate\Support\Collection;
 use Redis, Carbon\Carbon, Log;
 
@@ -85,6 +86,13 @@ class Service
         foreach ($employees as $employee) {
             $this->pushWorkingTime($user, $employee, $date);
         }
+
+        //----------------------------------------------------------------------
+        // Remove booked time
+        //----------------------------------------------------------------------
+        // We will get all bookings of user in the date and remove the
+        // corresponding member in sorted list
+        $this->removeBookedTime($user, $date);
     }
 
     /**
@@ -121,6 +129,40 @@ class Service
 
         if (count($params) > 1) {
             call_user_func_array([$this->redis, 'zadd'], $params);
+        }
+    }
+
+    /**
+     * Remove all booked time of the user in the given date
+     *
+     * @param App\Core\Models\User $user
+     * @param Carbon\Carbon $date
+     *
+     * @return void
+     */
+    protected function removeBookedTime($user, $date)
+    {
+        $params = [];
+        $params[] = $this->key('user', $user->id, 'nat');
+        $bookings = Booking::ofUser($user)
+            ->where('date', $date->toDateString())
+            ->get();
+
+        foreach ($bookings as $booking) {
+            $start = 0;
+            while ($start < (int) $booking->total) {
+                $time = $booking->start_time->addMinutes($start);
+                $params[] = $this->key(
+                    $booking->employee_id,
+                    $time->timestamp
+                );
+
+                $start += 15;
+            }
+        }
+
+        if (count($params) > 1) {
+            call_user_func_array([$this->redis, 'zrem'], $params);
         }
     }
 
