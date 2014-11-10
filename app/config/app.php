@@ -139,6 +139,7 @@ return array(
         'App\OneApi\OneApiServiceProvider',
         'App\Olut\OlutServiceProvider',
         'App\Payment\PaymentServiceProvider',
+        'App\Appointment\NAT\NATServiceProvider',
 
     ),
 
@@ -227,6 +228,7 @@ return array(
         'Hashids'       => 'App\Hashids\Facade',
         'CRUD'          => 'App\Olut\Olut',
         'Payment'       => 'App\Payment\Payment',
+        'NAT'           => 'App\Appointment\NAT\Facade',
     ),
 
 );
