@@ -376,7 +376,6 @@ class Bookings extends AsBase
         $status_text = Input::get('booking_status');
         $data = [];
         try{
-
             $booking = Booking::ofCurrentUser()->find($bookingId);
             $status  =  $booking->getStatus($status_text);
             $booking->setStatus($status_text);
@@ -392,7 +391,7 @@ class Bookings extends AsBase
             $data['success'] = true;
         } catch (\Exception $ex){
             $data['message'] = $ex->getMessage();
-            $data['false'] = true;
+            $data['success'] = false;
         }
         return $data;
     }
