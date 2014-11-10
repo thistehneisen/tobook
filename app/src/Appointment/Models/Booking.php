@@ -3,6 +3,7 @@
 use Request;
 use App\Core\Models\User;
 use App\Appointment\Models\Observer\SmsObserver;
+use App\Appointment\Models\ResourceService;
 use Carbon\Carbon;
 use Watson\Validating\ValidationException;
 
@@ -42,6 +43,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
     //Cache object for list of bookings
     protected  static $bookings;
+    protected $resources = [];
 
     public function attach(\SplObserver $observer)
     {
@@ -157,6 +159,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      * but only execute one query
      *
      * @param int $employeeId
+     * @param App\Appointment\Models\Service service
      * @param string $bookingDate
      * @param Carbon $startTime
      * @param Carbon $endTime
@@ -166,6 +169,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      */
     public static function isBookable($employeeId, $bookingDate, Carbon $startTime, Carbon $endTime, $uuid = null)
     {
+        $resourceIds = [];
+
         if($bookingDate instanceof Carbon) {
             $bookingDate = $bookingDate->toDateString();
         }
@@ -197,6 +202,49 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $bookings = $query->get();
 
         if (!$bookings->isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Check all resources are avialble for a certain booking
+     * @return boolean
+     */
+    public static function areResourcesAvailable($employeeId, $service, $bookingDate, Carbon $startTime, Carbon $endTime)
+    {
+        $resourceIds = [];
+        if(!empty($service)) {
+            $resourceIds = $service->resources->lists('id');
+        }
+        if(empty($resourceIds)) {
+            return true;
+        }
+
+         $query = self::where('as_bookings.date', $bookingDate)
+            ->whereNull('as_bookings.deleted_at')
+            ->where('as_bookings.status','!=', self::STATUS_CANCELLED)
+            ->where(function ($query) use ($startTime, $endTime) {
+                return $query->where(function ($query) use ($startTime, $endTime) {
+                    return $query->where('as_bookings.start_at', '>=', $startTime->toTimeString())
+                         ->where('as_bookings.start_at', '<', $endTime->toTimeString());
+                })->orWhere(function ($query) use ($endTime, $startTime) {
+                     return $query->where('as_bookings.end_at', '>', $startTime->toTimeString())
+                          ->where('as_bookings.end_at', '<=', $endTime->toTimeString());
+                })->orWhere(function ($query) use ($startTime) {
+                     return $query->where('as_bookings.start_at', '<', $startTime->toTimeString())
+                          ->where('as_bookings.end_at', '>', $startTime->toTimeString());
+                })->orWhere(function ($query) use ($startTime, $endTime) {
+                     return $query->where('as_bookings.start_at', '=', $startTime->toTimeString())
+                          ->where('as_bookings.end_at', '=', $endTime->toTimeString());
+                });
+            })
+            ->join('as_booking_services', 'as_booking_services.booking_id', '=','as_bookings.id')
+            ->join('as_services', 'as_services.id', '=','as_booking_services.service_id')
+            ->join('as_resource_service', 'as_resource_service.service_id', '=', 'as_services.id')
+            ->whereIn('as_resource_service.resource_id', $resourceIds)->get();
+
+        if (!$query->isEmpty()) {
             return false;
         }
         return true;
@@ -343,6 +391,32 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
         $consumerName = !empty($this->consumer->name) ? $this->consumer->name : '';
         return $consumerName;
+    }
+
+    /**
+     * Get array resources which is used by booking service
+     * Use this for less query to the database
+     * @return array
+     */
+    public function getBookingResources($keyOnly = false)
+    {
+        if(empty($this->resources)) {
+            if(empty($this->firstBookingService())) {
+                return [];
+            }
+            $service = $this->firstBookingService()->service;
+            $resources = ResourceService::join('as_resources', 'as_resources.id','=', 'as_resource_service.resource_id')
+                ->where('as_resource_service.service_id', $service->id)
+                ->select('as_resources.name', 'as_resources.id')->get();
+            foreach ($resources as $resource) {
+                $this->resources[$resource->id] = $resource->name;
+            }
+        }
+
+        if($keyOnly) {
+            return array_keys($this->resources);
+        }
+        return $this->resources;
     }
 
     //--------------------------------------------------------------------------

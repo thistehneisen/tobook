@@ -28,7 +28,7 @@ $serviceTimeId      = (!empty($serviceTime)) ? $serviceTime->id : 'default';
         <?php $id = 1;?>
         @foreach ($workingTimes as $hour => $minutes)
             @foreach ($minutes as $minuteShift)
-            <?php $slotClass = $employee->getSlotClass($selectedDate, $hour, $minuteShift, 'frontend', $selectedService); ?>
+            <?php $slotClass = $employee->getSlotClass($selectedDate, $hour, $minuteShift, 'frontend', $service); ?>
             <li data-plustime="{{ $employee->getPlustime($service->id) }}" data-employee-id="{{ $employee->id }}" data-booking-length="{{ $serviceLength }}" data-start-time="{{ sprintf('%02d:%02d', $hour, $minuteShift) }}" href="#select-action" class="slot {{ $slotClass }}" id="btn-slot-{{ $employee->id }}-{{ sprintf('%02d%02d', $hour, $minuteShift) }}">
                 {{ sprintf('%02d:%02d', $hour, $minuteShift) }}
                 <?php $id++;?>

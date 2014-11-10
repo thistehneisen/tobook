@@ -15,6 +15,7 @@ use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\ExtraService;
+use App\Appointment\Models\Resource;
 use App\Appointment\Models\AsConsumer;
 use App\Appointment\Models\Consumer;
 use App\Appointment\Models\Observer\EmailObserver;
@@ -259,10 +260,12 @@ class Bookings extends AsBase
         }
 
         $extras = $extraServices->lists('name', 'id');
+        $resources = $booking->getBookingResources();
 
         return View::make('modules.as.bookings.modifyForm', [
             'booking'         => $booking,
             'extraServices'   => $extras,
+            'resources'       => $resources,
             'bookingStatuses' => $bookingStatuses,
             'modifyTime'      => $booking->modify_time
         ]);
@@ -473,6 +476,14 @@ class Bookings extends AsBase
                 $data['message'] = trans('as.bookings.error.add_overlapped_booking');
                 return Response::json($data, 400);
             }
+
+            $areResourcesAvailable = Booking::areResourcesAvailable($employeeId, $service, $bookingDate, $startTime, $endTime);
+
+            if(!$areResourcesAvailable) {
+                $data['message'] = trans('as.bookings.error.not_enough_resources');
+                return Response::json($data, 400);
+            }
+
             //TODO validate modify time and service time
             $model = (empty($bookingService)) ? (new BookingService) : $bookingService;
 

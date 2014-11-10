@@ -295,6 +295,7 @@ return [
             'overlapped_with_freetime' => 'Varaus on menossa työntekijän oman vapaan päälle!',
             'reschedule_single_only'   => 'Useita palveluita sisältävää varausta ei valitettavasti voi siirtää.',
             'reschedule_unbooked_extra'=> 'Varauksen siirto epäonnistui!',
+            'not_enough_resources'     => 'Required resources are not available!',
         ],
         'warning'      => [
             'existing_user'   => 'Järjestelmästä löytyy käyttäjäprofiili antamallesi sähköpostiosoitteelle. Ovatko nämä sinun tietosi?',

@@ -23,6 +23,14 @@
             </div>
         </div>
     </div>
+    @if(!empty($resources))
+    <div class="form-group">
+        <label for="resource" class="col-sm-4">{{ trans('as.services.resource') }}</label>
+        <div class="col-sm-8">
+           {{ Form::select('resources[]', $resources, $booking->getBookingResources(true), ['class' => 'form-control input-sm select2', 'id' => 'resources', 'multiple' => 'multiple','disabled'=>'disabled']) }}
+        </div>
+    </div>
+    @endif
 
     <div class="form-group">
     @if (!empty($extraServices))
@@ -60,6 +68,7 @@
 </form>
 <script type="text/javascript">
     $('.selectpicker').selectpicker();
+    $('select.select2').select2();
 //boostrap spinner
 (function(e){e("div.spinner").each(function(){var b=e(this),c=b.find("input"),a=+b.data("inc"),d=b.attr("data-positive"),d="undefined"===typeof d?!1:"true"===d;"number"===typeof a&&a!==a&&(a=1);b.find(".btn:first-of-type").on("click",function(){c.val(+c.val()+a)});b.find(".btn:last-of-type").on("click",function(){d&&0>+c.val()-a||c.val(+c.val()-a)})})})(jQuery);
 </script>

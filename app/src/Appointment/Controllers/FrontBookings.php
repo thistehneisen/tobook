@@ -102,6 +102,14 @@ class FrontBookings extends Bookings
             $data['message'] = trans('as.bookings.error.add_overlapped_booking');
             return Response::json($data, 400);
         }
+
+        $areResourcesAvailable = Booking::areResourcesAvailable($employeeId, $service, $bookingDate, $startTime, $endTime);
+
+        if(!$areResourcesAvailable) {
+            $data['message'] = trans('as.bookings.error.not_enough_resources');
+            return Response::json($data, 400);
+        }
+
         //TODO validate modify time and service time
         $bookingService = new BookingService();
         //Using uuid for retrieve it later when insert real booking
