@@ -206,10 +206,30 @@
     li.not_show_up {
         background-color: #a9a9a9;
     }
-    li.freetime {
+    li.freetime-head {
         background-color: @as_light_purple;
         text-align: left;
         padding: 0 10px;
+        border-bottom: 0;
+        a {
+            color: #ff0000;
+        }
+        span {
+            color: #fff;
+            position: absolute;
+            display: inline-block;
+            overflow: hidden;
+            white-space: pre-wrap;
+            max-width: 150px;
+            padding: 0 10px 0 0;
+        }
+    }
+    li.freetime-body {
+        background-color: @as_light_purple;
+        text-align: left;
+        padding: 0 10px;
+        border-top: 0;
+        border-bottom: 0;
         a {
             color: #ff0000;
         }
@@ -218,7 +238,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            width: 135px;
+            width: 160px;
             display: inline-block;
         }
     }
