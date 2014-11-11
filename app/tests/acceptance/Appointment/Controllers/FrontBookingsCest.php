@@ -17,7 +17,7 @@ class FrontBookingsCest extends AbstractBooking
         $date = $this->_getNextDate();
         $startAt = '12:00:00';
 
-        $this->_feBook($I, $this->user, $category, $date, $startAt);
+        $this->_feBook($I, $category, $date, $startAt);
 
         $I->see($category->services()->first()->name);
         $I->click('#btn-submit');
