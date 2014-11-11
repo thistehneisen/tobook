@@ -2,6 +2,7 @@
 
 use App\Consumers\Models\Consumer;
 use App\Core\Models\User;
+use App\MarketingTool\Models\ConsumerUser;
 use UnitTester;
 use Watson\Validating\ValidationException;
 
@@ -83,6 +84,8 @@ class ConsumerCest
 
         $I->assertEquals(1, $consumer->users()->count(), '1 user');
         $I->assertEquals($user->id, $consumer->users()->first()->id, 'user_id');
+
+        $I->assertEquals(1, ConsumerUser::where('consumer_id', $consumer->id)->where('user_id', $user->id)->first()->is_visible, 'is_visible');
     }
 
     public function testImportErrorNoHeader(UnitTester $I)
