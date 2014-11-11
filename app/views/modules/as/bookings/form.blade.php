@@ -9,7 +9,7 @@
     <div class="panel-group" id="accordion">
         <div class="panel panel-default">
             <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" data-target="#collapseOne">
-                <h4 class="panel-title">
+                <h4 class="panel-title" id="panel-booking-info-handle">
                     1. {{ trans('as.bookings.booking_info') }}
                 </h4>
             </div>
@@ -95,7 +95,7 @@
         </div>
         <div class="panel panel-default">
             <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" data-target="#collapseTwo">
-                <h4 class="panel-title">
+                <h4 class="panel-title" id="panel-add-service-handle">
                    2. {{ trans('as.bookings.add_service') }}
                 </h4>
             </div>

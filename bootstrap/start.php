@@ -24,9 +24,9 @@ $env = $app->detectEnvironment(function () {
         return require __DIR__.'/environment.php';
     } else {
         if (isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] === '127.0.0.1') {
-            // use testing env for 127.0.0.1 requests
+            // use acceptance env for 127.0.0.1 requests
             // for normal env (local), use localhost instead of the ip address
-            return 'testing';
+            return 'acceptance';
         } else {
             // defaults to local env
             return 'local';

@@ -14,7 +14,13 @@ class Base extends \Eloquent
     //--------------------------------------------------------------------------
     public function scopeOfCurrentUser($query)
     {
-        return $this->scopeOfUser($query, Confide::user()->id);
+        $userId = 0;
+        $user = Confide::user();
+        if (!empty($user)) {
+            $userId = $user->id;
+        }
+
+        return $this->scopeOfUser($query, $userId);
     }
 
     public function scopeOfUser($query, $userId)

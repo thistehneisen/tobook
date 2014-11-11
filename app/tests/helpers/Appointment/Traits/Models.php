@@ -30,6 +30,7 @@ trait Models
         ]);
         $this->user->password = 123456;
         $this->user->password_confirmation = 123456;
+        $this->user->confirmed = 1;
         $this->user->save();
         $this->user->attachRole(Role::user());
 
@@ -43,6 +44,7 @@ trait Models
                 'phone' => '1234567890',
             ]);
             $business->size = 1;
+            $business->is_activated = 1;
             $business->user()->associate($this->user);
             $business->save();
         }
