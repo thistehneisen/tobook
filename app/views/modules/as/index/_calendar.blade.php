@@ -1,23 +1,15 @@
 <?php
     $booking   = $selectedEmployee->getBooked($selectedDate, $hour, $minuteShift);
     $bookingId = !empty($booking) ? $booking->id : -1;
+    $slots = !empty($booking) ? round($booking->total / 15) : 0;
+    $maxHeight = !empty($booking) ? $slots * 18 : 18;
 ?>
 <li data-booking-date="{{ $selectedDate }}" data-employee-id="{{ $selectedEmployee->id }}" data-start-time="{{ sprintf('%02d:%02d', (int)$hour, $minuteShift) }}" href="#select-action" class="{{ $slotClass }}" @if($cutId==$bookingId) style="background-color: grey" @endif>
     @if(strpos(trim($slotClass), 'booked') === 0)
         @if($booking !== null)
             <?php $tooltip = $booking->getCalendarTooltip();?>
             @if(strpos($slotClass, 'slot-booked-head') !== false)
-            <a href="{{ route('as.bookings.modify-form') }}" class="btn-plus btn-popover popup-ajax customer-tooltip" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click" title="{{{ $tooltip }}}">
-                @if(!empty($booking->firstBookingService()))
-                    @if($booking->firstBookingService()->is_requested_employee)
-                    <i class="fa fa-check-square-o"></i>
-                    @endif
-                @endif
-                @if(!empty($booking->getBookingResources()))
-                    <i class="fa fa-cubes"></i>
-                @endif
-                {{ $booking->getConsumerName() }} {{ $booking->getServiceDescription() }}
-            </a>
+            <a href="{{ route('as.bookings.modify-form') }}" style="max-height: {{ $maxHeight }}px;" class="btn-plus btn-popover popup-ajax customer-tooltip" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click" title="{{{ $tooltip }}}">{{ $booking->getIcons() }}{{ $booking->getConsumerName() }} {{ $booking->getServiceDescription() }}</a>
             @else
             <a href="{{ route('as.bookings.modify-form') }}" class="btn-popover popup-ajax hidden-print" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click">&nbsp;</a>
             @endif

@@ -605,6 +605,24 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     }
 
     /**
+     * Return icons for indicating requested employee of booking resources
+     * Using if endif for easy to copy back to the template
+     * @return string
+     */
+    public function getIcons()
+    {
+        $ouput = '';
+        if(!empty($this->firstBookingService())):
+            if($this->firstBookingService()->is_requested_employee):
+                $ouput .= '<i class="fa fa-check-square-o"></i>';
+            endif;
+        endif;
+        if(!empty($this->getBookingResources())):
+            $ouput .= '<i class="fa fa-cubes"></i>';
+        endif;
+        return trim($ouput);
+    }
+    /**
      * Update booking data. Useful method after deletions of booking services and/or
      * extra services.
      *
