@@ -15,6 +15,7 @@ use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\ExtraService;
+use App\Appointment\Models\Resource;
 use App\Appointment\Models\AsConsumer;
 use App\Appointment\Models\Consumer;
 use App\Appointment\Models\Observer\EmailObserver;
@@ -127,6 +128,8 @@ class Bookings extends AsBase
         try {
             $booking = Booking::where('uuid', $uuid)->first();
             $booking->status = Booking::STATUS_CANCELLED;
+            $booking->delete_reason = 'Cancelled by UUID';
+            $booking->save();
             $booking->delete();
 
             $msg = str_replace('{BookingID}', $uuid, trans('as.bookings.cancel_message'));
@@ -257,10 +260,12 @@ class Bookings extends AsBase
         }
 
         $extras = $extraServices->lists('name', 'id');
+        $resources = $booking->getBookingResources();
 
         return View::make('modules.as.bookings.modifyForm', [
             'booking'         => $booking,
             'extraServices'   => $extras,
+            'resources'       => $resources,
             'bookingStatuses' => $bookingStatuses,
             'modifyTime'      => $booking->modify_time
         ]);
@@ -371,12 +376,13 @@ class Bookings extends AsBase
         $status_text = Input::get('booking_status');
         $data = [];
         try{
-
             $booking = Booking::ofCurrentUser()->find($bookingId);
             $status  =  $booking->getStatus($status_text);
             $booking->setStatus($status_text);
 
             if ($status === Booking::STATUS_CANCELLED) {
+                $booking->delete_reason = 'Cancelled by admin';
+                $booking->save();
                 $booking->delete();
             } else {
                 $booking->save();
@@ -385,7 +391,7 @@ class Bookings extends AsBase
             $data['success'] = true;
         } catch (\Exception $ex){
             $data['message'] = $ex->getMessage();
-            $data['false'] = true;
+            $data['success'] = false;
         }
         return $data;
     }
@@ -469,6 +475,14 @@ class Bookings extends AsBase
                 $data['message'] = trans('as.bookings.error.add_overlapped_booking');
                 return Response::json($data, 400);
             }
+
+            $areResourcesAvailable = Booking::areResourcesAvailable($employeeId, $service, $bookingDate, $startTime, $endTime);
+
+            if(!$areResourcesAvailable) {
+                $data['message'] = trans('as.bookings.error.not_enough_resources');
+                return Response::json($data, 400);
+            }
+
             //TODO validate modify time and service time
             $model = (empty($bookingService)) ? (new BookingService) : $bookingService;
 
@@ -513,10 +527,6 @@ class Bookings extends AsBase
                 'end_at'        => $endTime->format('H:i'),
                 'uuid'          => $uuid
             ];
-
-            $carts = Session::get('carts', []);
-            $carts[$uuid] = $cart;
-            Session::put('carts' , $carts);
         } catch (\Watson\Validating\ValidationException $ex){
             $data = [];
             $data['success'] = false;
@@ -619,6 +629,8 @@ class Bookings extends AsBase
             $booking->user()->associate($this->user);
             $booking->employee()->associate($bookingService->employee);
             if($status === Booking::STATUS_CANCELLED){
+                $booking->delete_reason = 'Cancelled while updating';
+                $booking->save();
                 $booking->delete();
             } else {
                 $booking->save();
@@ -634,9 +646,6 @@ class Bookings extends AsBase
                 $booking->attach(new SmsObserver(true));//true is backend
                 $booking->notify();
             }
-
-            Session::forget('carts');
-            Session::forget('booking_info');
 
             $data['success']      = true;
             $data['baseURl']     = route('as.index');
@@ -792,5 +801,26 @@ class Bookings extends AsBase
             );
         }
         return Response::json($data);
+    }
+
+    /**
+     * @overwrite
+     */
+    public function delete($id)
+    {
+        $item = $this->getModel()->ofCurrentUser()->findOrFail($id);
+        $item->delete_reason = Input::get('reason');
+        $item->save();
+        $item->delete();
+
+        if (Request::ajax() === true) {
+            return Response::json(['success' => true]);
+        }
+
+        return Redirect::route(static::$crudRoutes['index'])
+            ->with(
+                'messages',
+                $this->successMessageBag(trans('as.crud.success_delete'))
+            );
     }
 }

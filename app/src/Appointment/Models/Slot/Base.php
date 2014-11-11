@@ -15,6 +15,7 @@ class Base implements Strategy
     private $freetimesCache  = [];
     private $customTimeSlot  = [];
     private $customTimeCache = [];
+    private $resourceCache   = [];
 
 
     /**
@@ -77,12 +78,13 @@ class Base implements Strategy
     }
 
     public function determineClass($date, $hour, $minute, $employee, $service = null){
-        $this->init($date, $hour, $minute, $employee, $service = null);
+        $this->init($date, $hour, $minute, $employee, $service);
         $this->class = 'fancybox active';
         $this->defaultWorkingTimeClass();
         $this->customTimeClass();
         $this->freeTimeClass();
         $this->bookingClass();
+        $this->resourceClass();
         $employee->setBookedSlot($this->bookedSlot);
         $employee->setFreetimeSlot($this->freetimeSlot);
         $employee->setCustomTimeSlot($this->customTimeSlot);
@@ -211,16 +213,57 @@ class Base implements Strategy
         return $this->class;
     }
 
+    public function resourceClass()
+    {
+        $resourceIds = [];
+        if (empty($this->service)) {
+            return $this->class;
+        }
+
+        $resourceIds = $this->service->resources->lists('id');
+        if(empty($resourceIds)) {
+            return $this->class;
+        }
+
+        if(!isset($this->resourceCache[$this->date][$this->service->id]['query'])) {
+            $query = Booking::where('as_bookings.date', $this->date)
+                    ->whereNull('as_bookings.deleted_at')
+                    ->where('as_bookings.status','!=', Booking::STATUS_CANCELLED)
+                    ->join('as_booking_services', 'as_booking_services.booking_id', '=','as_bookings.id')
+                    ->join('as_services', 'as_services.id', '=','as_booking_services.service_id')
+                    ->join('as_resource_service', 'as_resource_service.service_id', '=', 'as_services.id')
+                    ->whereIn('as_resource_service.resource_id', $resourceIds)->get();
+            $this->resourceCache[$this->date][$this->service->id]['query'] = $query;
+        }
+
+        $this->resourceCache[$this->date][$this->service->id][$this->hour][$this->minute] = true;
+
+        foreach ($this->resourceCache[$this->date][$this->service->id]['query'] as $booking) {
+            $start = $booking->getStartAt();
+            $end   = $booking->getEndAt();
+            if ($this->rowTime >= $start && $this->rowTime <= $end) {
+                $this->resourceCache[$this->date][$this->service->id][$this->hour][$this->minute] = false;
+            }
+        }
+
+        if(!$this->resourceCache[$this->date][$this->service->id][$this->hour][$this->minute]) {
+            $this->class = $this->getValue('resource_inactive');
+        }
+
+        return $this->class;
+    }
+
     protected function getValue($key)
     {
         $map = [
-            'active'          => 'fancybox active',
-            'inactive'        => 'fancybox inactive',
-            'freetime'        => 'freetime',
-            'custom_active'   => 'custom fancybox active',
-            'custom_inactive' => 'custom fancybox inactive',
-            'booked_head'     => ' slot-booked-head',
-            'booked_body'     => ' slot-booked-body',
+            'active'            => 'fancybox active',
+            'inactive'          => 'fancybox inactive',
+            'freetime'          => 'freetime',
+            'custom_active'     => 'custom fancybox active',
+            'custom_inactive'   => 'custom fancybox inactive',
+            'resource_inactive' => 'resource fancybox inactive',
+            'booked_head'       => ' slot-booked-head',
+            'booked_body'       => ' slot-booked-body',
         ];
 
         return (isset($map[$key])) ? $map[$key] : '';

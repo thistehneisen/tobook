@@ -1,5 +1,27 @@
 @extends ('modules.as.crud.index')
 
+@section ('scripts')
+    @if ($sortable === true)
+        @include('modules.as.crud.sortable')
+    @endif
+
+    <script>
+$(function() {
+    $('table.table-crud').find('a.btn-danger').on('click', function(e) {
+        e.preventDefault();
+        var $this = $(this),
+            url = $this.attr('href');
+
+        var reason = prompt($this.data('delete-reason'), $this.data('delete-reason-default'));
+        if (reason !== null) {
+            url += '?reason='+encodeURI(reason);
+            window.location = url;
+        }
+    });
+});
+    </script>
+@stop
+
 @section ('content')
 <div class="row">
     <div class="col-md-6">
@@ -48,7 +70,7 @@
             <td>
             <div  class="pull-right">
                 <a href="{{ route($routes['upsert'], ['id'=> $item->id ]) }}" class="btn btn-xs btn-success" title="" id="row-{{ $item->id }}-edit"><i class="fa fa-edit"></i></a>
-                <a href="{{ route($routes['delete'], ['id'=> $item->id ]) }}" class="btn btn-xs btn-danger" title="" id="row-{{ $item->id }}-delete"><i class="fa fa-trash-o"></i></a>
+                <a data-delete-reason="{{ trans('as.delete_reason') }}" data-delete-reason-default="{{ trans('as.delete_reason_default') }}" href="{{ route($routes['delete'], ['id'=> $item->id ]) }}" class="btn btn-xs btn-danger" title="" id="row-{{ $item->id }}-delete"><i class="fa fa-trash-o"></i></a>
             </div>
             </td>
         </tr>

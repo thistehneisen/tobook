@@ -4,7 +4,7 @@
 
 @section ('content')
     @if ($showTab === true)
-        @include('olut::tabs', ['routes' => $routes, 'langPrefix' => $langPrefix])
+        @include($tabsView, ['routes' => $routes, 'langPrefix' => $langPrefix])
     @endif
 
 <div id="form-olut-upsert" class="modal-form">

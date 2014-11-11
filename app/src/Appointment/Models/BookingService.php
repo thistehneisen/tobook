@@ -261,6 +261,8 @@ class BookingService extends \App\Appointment\Models\Base implements CartDetailI
     {
         // Remove booking first
         if ($this->booking !== null) {
+            $this->booking->delete_reason = 'Cart is set to ABANDONED';
+            $this->booking->save();
             $this->booking->delete();
         }
 
@@ -347,6 +349,12 @@ class BookingService extends \App\Appointment\Models\Base implements CartDetailI
         // check is there any existing booking with this service time
         if (!Booking::isBookable($employee->id, $startTime->toDateString(), $startTime, $endTimeForOverlappingCheck, $uuid)) {
             throw new ValidationException(trans('as.bookings.error.add_overlapped_booking'));
+        }
+
+        $areResourcesAvailable = Booking::areResourcesAvailable($employee->id, $service, $startTime->toDateString(), $startTime, $endTimeForOverlappingCheck);
+
+        if(!$areResourcesAvailable) {
+            throw new ValidationException(trans('as.bookings.error.not_enough_resources'));
         }
 
         $bookingService = (empty($existingBookingService)) ? (new BookingService) : $existingBookingService;

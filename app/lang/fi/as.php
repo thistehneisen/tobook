@@ -295,6 +295,7 @@ return [
             'overlapped_with_freetime' => 'Varaus on menossa työntekijän oman vapaan päälle!',
             'reschedule_single_only'   => 'Useita palveluita sisältävää varausta ei valitettavasti voi siirtää.',
             'reschedule_unbooked_extra'=> 'Varauksen siirto epäonnistui!',
+            'not_enough_resources'     => 'Required resources are not available!',
         ],
         'warning'      => [
             'existing_user'   => 'Järjestelmästä löytyy käyttäjäprofiili antamallesi sähköpostiosoitteelle. Ovatko nämä sinun tietosi?',
@@ -547,5 +548,7 @@ return [
         'success_delete' => 'Tuote poistettu',
         'success_bulk'   => 'Toiminto toteutettu onnistuneesti!',
         'sortable'       => 'Järjestä sarakkeet uudelleen nappaamalla kiinni haluamastasi sarakkeesta, ja vetämällä sitä hiirellä ylös tai alas!',
-    ]
+    ],
+    'delete_reason'         => 'Why is this booking deleted?', // @todo
+    'delete_reason_default' => 'On customer request', // @todo
 ];

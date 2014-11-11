@@ -43,7 +43,7 @@ $(document).ready(function () {
     });
     $('#datepicker').datepicker('update', new Date({{ $date->year }},{{ $date->month - 1 }}, {{ $date->day }}));
     $('#txt-date').val('{{ $date->toDateString() }}');
-    var slots = (parseInt($('#booking_length').val(), 10) / 15);
+    var slots = (parseInt($('#booking_length').val(), 10) / 15) - 1;
     var beforeSlots = (parseInt($('#booking_before').val(), 10) / 15);
     var totalSlots = (parseInt($('#booking_length').val(), 10) / 15) - 1; //subtract it self
     $('li.slot').each(function () {

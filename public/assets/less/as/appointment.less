@@ -310,11 +310,13 @@ div.tooltip-inner {
 /* for using with select2 */
 .popover {
     max-width: 600px;
-    height: 190px;
+    min-height: 190px;
+    height: auto;
     width: auto;
 
     .popover_form {
         width: 350px;
+        height: auto;
 
         .form-group {
             margin: 0 0 15px 0;
@@ -328,4 +330,9 @@ div.tooltip-inner {
 
 .table > thead {
     background: #ffffff;
+}
+
+.select2-choices > li {
+    background: none;
+    border: none;
 }

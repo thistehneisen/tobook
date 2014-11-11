@@ -102,6 +102,14 @@ class FrontBookings extends Bookings
             $data['message'] = trans('as.bookings.error.add_overlapped_booking');
             return Response::json($data, 400);
         }
+
+        $areResourcesAvailable = Booking::areResourcesAvailable($employeeId, $service, $bookingDate, $startTime, $endTime);
+
+        if(!$areResourcesAvailable) {
+            $data['message'] = trans('as.bookings.error.not_enough_resources');
+            return Response::json($data, 400);
+        }
+
         //TODO validate modify time and service time
         $bookingService = new BookingService();
         //Using uuid for retrieve it later when insert real booking
@@ -228,6 +236,9 @@ class FrontBookings extends Bookings
                 $booking->notify();
             }
 
+            // Complete the cart
+            $cart->complete();
+
             $data['success'] = true;
             $data['message'] = trans('as.embed.success');
         } catch (\Watson\Validating\ValidationException $ex) {
@@ -306,6 +317,9 @@ class FrontBookings extends Bookings
                 $extraService->booking()->associate($booking);
                 $extraService->save();
             }
+
+            // Update cart status
+            $cart->complete();
 
             $data['booking_id'] = $booking->id;
         } catch (\Watson\Validating\ValidationException $ex) {

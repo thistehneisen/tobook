@@ -5,11 +5,16 @@ use App\Appointment\Models\BookingExtraService;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Consumer;
 use App\Appointment\Models\Employee;
+use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;
+use App\Appointment\Models\Resource;
+use App\Appointment\Models\ResourceService;
+use App\Appointment\Models\AsConsumer;
 use App\Core\Models\User;
 use Carbon\Carbon;
 use \UnitTester;
+use DB, Util;
 
 /**
  * @group as
@@ -330,6 +335,120 @@ class BookingCest
         $user = User::find(70);
         $serviceCategory = ServiceCategory::find(105);
         return $this->_book($user, $serviceCategory, $date, $startTime);
+    }
+
+    //./vendor/bin/codecept run app/tests/unit/Appointment/Models/BookingCest.php:testBookingWithServiceResources
+    public function testBookingWithServiceResources(UnitTester $I)
+    {
+        //Testing should not depend on certain database
+        //init category, service
+        $user = User::find(70);
+        DB::beginTransaction();
+        $serviceCategory = new ServiceCategory;
+        $serviceCategory->fill([
+            'name'          => 'Service Category 1',
+            'description'   => 'Service Category 1 Desc',
+            'is_show_front' => true
+        ]);
+        $serviceCategory->user()->associate($user);
+        $serviceCategory->save();
+
+        $service = new Service;
+        $service->fill([
+            'name'        => 'Service 1',
+            'price'       => 10,
+            'length'      => 60,
+            'before'      => 15,
+            'during'      => 30,
+            'after'       => 15,
+            'description' => 'Description',
+            'is_active'   => true
+        ]);
+        $service->category()->associate($serviceCategory);
+        $service->user()->associate($user);
+        $service->save();
+
+        $employee = new Employee;
+        $employee->fill([
+            'name' => 'Hung Nguyen',
+            'email' => 'hung@varaa.com',
+            'phone' => '0417559373',
+        ]);
+        $employee->user()->associate($user);
+        $employee->save();
+
+        $employee1 = new Employee;
+        $employee1->fill([
+            'name' => 'An Cao',
+            'email' => 'an@varaa.com',
+            'phone' => '0123456789',
+        ]);
+        $employee1->user()->associate($user);
+        $employee1->save();
+
+        $employeeService = new EmployeeService();
+        $employeeService->service()->associate($service);
+        $employeeService->employee()->associate($employee);
+        $employeeService->save();
+
+        $employeeService1 = new EmployeeService();
+        $employeeService1->service()->associate($service);
+        $employeeService1->employee()->associate($employee1);
+        $employeeService1->save();
+
+        $resource = new Resource;
+        $resource->fill(['name'=> 'Resource 1']);
+        $resource->user()->associate($user);
+        $resource->save();
+
+        $resourceService = new ResourceService;
+        $resourceService->service()->associate($service);
+        $resourceService->resource()->associate($resource);
+        $resourceService->save();
+
+        $uuid = Util::uuid();
+        $date = with(new \Carbon\Carbon())->year(2014)->month(11)->day(10);
+        $startAt = '10:00';
+        try{
+            $bookingService = BookingService::saveBookingService($uuid, $employee, $service, [
+                'booking_date' => $date->toDateString(),
+                'start_time'   => $startAt,
+                'modify_time'  => 0,
+            ]);
+
+            $consumer = AsConsumer::handleConsumer([
+                'first_name' => 'Consumer First',
+                'last_name' => 'Last ' . $bookingService->id,
+                'email' => 'consumer_' . $bookingService->id . '@varaa.com',
+                'phone' => '1234567890',
+                'hash' => '',
+            ], $user);
+
+            Booking::saveBooking($uuid, $user, $consumer, []);
+        } catch (\Exception $ex) {
+            $I->assertEquals(trans('as.bookings.error.not_enough_resources'), $ex->getMessage());
+        }
+
+        $uuid = Util::uuid();
+        try{
+            $bookingService = BookingService::saveBookingService(Util::uuid(), $employee1, $service, [
+                'booking_date' => $date->toDateString(),
+                'start_time'   => $startAt,
+                'modify_time'  => 0,
+            ]);
+            $consumer = AsConsumer::handleConsumer([
+                'first_name' => 'Consumer First',
+                'last_name' => 'Last ' . $bookingService->id,
+                'email' => 'consumer_' . $bookingService->id . '@varaa.com',
+                'phone' => '1234567890',
+                'hash' => '',
+            ], $user);
+
+            Booking::saveBooking($uuid, $user, $consumer, []);
+        } catch (\Exception $ex) {
+             $I->assertEquals(trans('as.bookings.error.not_enough_resources'), $ex->getMessage());
+        }
+        DB::rollback();
     }
 
 }

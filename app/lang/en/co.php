@@ -35,4 +35,14 @@ return [
     'notes'             => 'Notes',
     'action'            => 'Action',
     'give_points'       => 'Give :points points',
+    'import' => [
+        'import'        => 'Import',
+        'upload_csv'    => 'Upload CSV',
+        'upload_is_missing' => 'File upload is required.',
+        'upload_is_invalid' => 'Uploaded file is invalid.',
+        'save_error_row_x_y'  => 'Row :row has an error: ":error".',
+        'imported_x'    => 'Successfully imported one row.|Successfully imported :count rows.',
+        'csv_header_is_missing' => 'Header row could not be found.',
+        'csv_required_field_x_is_missing' => 'Required field `:field` could not be found.',
+    ],
 ];

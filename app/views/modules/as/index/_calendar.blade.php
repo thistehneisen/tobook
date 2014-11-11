@@ -13,6 +13,9 @@
                     <i class="fa fa-check-square-o"></i>
                     @endif
                 @endif
+                @if(!empty($booking->getBookingResources()))
+                    <i class="fa fa-cubes"></i>
+                @endif
                 {{ $booking->getConsumerName() }} {{ $booking->getServiceDescription() }}
             </a>
             @else

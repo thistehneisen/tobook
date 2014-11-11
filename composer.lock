@@ -662,16 +662,16 @@
         },
         {
             "name": "elasticsearch/elasticsearch",
-            "version": "v1.3.0",
+            "version": "v1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elasticsearch/elasticsearch-php.git",
-                "reference": "22ac00b78d50eb876e64b1063197a93ebf0db8e0"
+                "reference": "a0ae1f2f951190c598054613164fec8ec4b9123a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elasticsearch/elasticsearch-php/zipball/22ac00b78d50eb876e64b1063197a93ebf0db8e0",
-                "reference": "22ac00b78d50eb876e64b1063197a93ebf0db8e0",
+                "url": "https://api.github.com/repos/elasticsearch/elasticsearch-php/zipball/a0ae1f2f951190c598054613164fec8ec4b9123a",
+                "reference": "a0ae1f2f951190c598054613164fec8ec4b9123a",
                 "shasum": ""
             },
             "require": {
@@ -715,7 +715,7 @@
                 "elasticsearch",
                 "search"
             ],
-            "time": "2014-10-23 19:04:38"
+            "time": "2014-11-06 15:12:58"
         },
         {
             "name": "filp/whoops",
@@ -1807,12 +1807,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/imagine.git",
-                "reference": "cfb35c12d655f36767678a9c1352fb4b041e0d34"
+                "reference": "b13c992c218e044e8db2c270b060687b1a34b3d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/imagine/zipball/cfb35c12d655f36767678a9c1352fb4b041e0d34",
-                "reference": "cfb35c12d655f36767678a9c1352fb4b041e0d34",
+                "url": "https://api.github.com/repos/orchestral/imagine/zipball/b13c992c218e044e8db2c270b060687b1a34b3d9",
+                "reference": "b13c992c218e044e8db2c270b060687b1a34b3d9",
                 "shasum": ""
             },
             "require": {
@@ -1855,20 +1855,20 @@
                 "orchestra-platform",
                 "orchestral"
             ],
-            "time": "2014-10-07 02:24:15"
+            "time": "2014-11-07 00:17:12"
         },
         {
             "name": "patchwork/utf8",
-            "version": "v1.1.25",
+            "version": "v1.1.26",
             "source": {
                 "type": "git",
-                "url": "https://github.com/nicolas-grekas/Patchwork-UTF8.git",
-                "reference": "2d43bd047b120279511d45e76e61c5a9812d9a83"
+                "url": "https://github.com/tchwork/utf8.git",
+                "reference": "6b8e46603b49ee87ad6bceb314da94cc04ffcdce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nicolas-grekas/Patchwork-UTF8/zipball/2d43bd047b120279511d45e76e61c5a9812d9a83",
-                "reference": "2d43bd047b120279511d45e76e61c5a9812d9a83",
+                "url": "https://api.github.com/repos/tchwork/utf8/zipball/6b8e46603b49ee87ad6bceb314da94cc04ffcdce",
+                "reference": "6b8e46603b49ee87ad6bceb314da94cc04ffcdce",
                 "shasum": ""
             },
             "require": {
@@ -1899,19 +1899,19 @@
             "authors": [
                 {
                     "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com",
-                    "role": "Developer"
+                    "email": "p@tchwork.com"
                 }
             ],
-            "description": "Extensive, portable and performant handling of UTF-8 and grapheme clusters for PHP",
-            "homepage": "https://github.com/nicolas-grekas/Patchwork-UTF8",
+            "description": "Portable and performant UTF-8, Unicode and Grapheme Clusters for PHP",
+            "homepage": "https://github.com/tchwork/utf8",
             "keywords": [
+                "grapheme",
                 "i18n",
                 "unicode",
                 "utf-8",
                 "utf8"
             ],
-            "time": "2014-08-05 08:00:32"
+            "time": "2014-11-08 10:13:25"
         },
         {
             "name": "phpseclib/phpseclib",
@@ -3594,16 +3594,16 @@
         },
         {
             "name": "facebook/webdriver",
-            "version": "v0.5",
+            "version": "v0.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facebook/php-webdriver.git",
-                "reference": "fab0b484142430f4f598baef45680f945a60eb4f"
+                "reference": "bbcb697efb394d17bd9ec3d467e7da847cde4509"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/php-webdriver/zipball/fab0b484142430f4f598baef45680f945a60eb4f",
-                "reference": "fab0b484142430f4f598baef45680f945a60eb4f",
+                "url": "https://api.github.com/repos/facebook/php-webdriver/zipball/bbcb697efb394d17bd9ec3d467e7da847cde4509",
+                "reference": "bbcb697efb394d17bd9ec3d467e7da847cde4509",
                 "shasum": ""
             },
             "require": {
@@ -3631,7 +3631,7 @@
                 "selenium",
                 "webdriver"
             ],
-            "time": "2014-10-28 20:04:04"
+            "time": "2014-11-05 20:53:09"
         },
         {
             "name": "guzzlehttp/guzzle",
