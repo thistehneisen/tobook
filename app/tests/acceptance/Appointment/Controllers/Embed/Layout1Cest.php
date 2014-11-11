@@ -92,6 +92,10 @@ class Layout1Cest extends AbstractBooking
         $I->assertEquals($lastName, $consumer->last_name, 'consumer last name');
         $I->assertEquals($email, $consumer->email, 'consumer email');
         $I->assertEquals($phone, $consumer->phone, 'consumer phone');
+
+        $cart = Cart::where('user_id', $this->user->id)->first();
+        $I->assertNotEmpty($cart, 'cart');
+        $I->assertEquals(Cart::STATUS_COMPLETED, $cart->status, '$cart->status');
     }
 
     public function testAbandoned(AcceptanceTester $I)
