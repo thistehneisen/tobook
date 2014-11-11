@@ -4,7 +4,7 @@
     $slots = !empty($booking) ? round($booking->total / 15) : 0;
     $maxHeight = !empty($booking) ? $slots * 18 : 18;
 ?>
-<li data-booking-date="{{ $selectedDate }}" data-employee-id="{{ $selectedEmployee->id }}" data-start-time="{{ sprintf('%02d:%02d', (int)$hour, $minuteShift) }}" href="#select-action" class="{{ $slotClass }}" @if($cutId==$bookingId) style="background-color: grey" @endif>
+<li data-booking-date="{{ $selectedDate }}" data-employee-id="{{ $selectedEmployee->id }}" data-start-time="{{ sprintf('%02d:%02d', (int)$hour, $minuteShift) }}" href="#select-action" class="{{ $slotClass }}" id="btn-slot-{{ $selectedEmployee->id }}-{{ sprintf('%02d%02d', $hour, $minuteShift) }}" @if($cutId==$bookingId) style="background-color: grey" @endif>
     @if(strpos(trim($slotClass), 'booked') === 0)
         @if($booking !== null)
             <?php $tooltip = $booking->getCalendarTooltip();?>

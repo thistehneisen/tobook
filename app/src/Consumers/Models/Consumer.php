@@ -176,7 +176,7 @@ class Consumer extends \App\Core\Models\Base
                 $newObj->saveOrFail();
 
                 if (!empty($businessUser)) {
-                    $newObj->users()->attach($businessUser->id);
+                    $newObj->users()->attach($businessUser->id, ['is_visible' => 1]);
                 }
 
                 $results[] = [

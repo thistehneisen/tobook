@@ -4,7 +4,7 @@
 <table class="table table-striped">
     <tbody>
         @foreach ($cart->details as $detail)
-        <tr class="cart-detail-{{ $detail->id }}">
+        <tr class="cart-detail" id="cart-detail-{{ $detail->id }}">
             <td>{{ $detail->name }}</td>
             <td>{{ $detail->price }}&euro;</td>
             <td>

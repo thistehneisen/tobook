@@ -56,12 +56,13 @@
                 <i class="glyphicon glyphicon-pencil"></i> {{ trans('as.bookings.modify_booking') }}
             </a>
             <a style="margin-left:5px" class="js-btn-cut-booking btn btn-sm btn-default pull-left" href="#"
+                id="btn-cut-{{ $booking->id }}"
                 data-booking-id="{{ $booking->id }}"
                 data-service-id="{{ $bookingService->service->id }}"
                 data-action-url="{{ route('as.bookings.cut') }}">
                <i class="fa fa-cut"></i> {{ trans('as.bookings.reschedule') }}
             </a>
-            <a class="btn btn-danger btn-sm pull-right" style="margin-left:5px" onclick="$(this).closest('div.popover').popover('hide');" class="close" aria-hidden="true">{{ trans('common.cancel') }}</a>
+            <a id="btn-cancel-{{ $booking->id }}" class="btn btn-danger btn-sm pull-right" style="margin-left:5px" onclick="$(this).closest('div.popover').popover('hide');" class="close" aria-hidden="true">{{ trans('common.cancel') }}</a>
             <a href="#" id="btn-submit-modify-form" data-booking-id="{{ $booking->id }}" data-action-url="{{ route('as.bookings.modify-form') }}" class="btn btn-primary btn-sm pull-right">{{ trans('common.save') }}</a>
         </div>
     </div>

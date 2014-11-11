@@ -18,18 +18,27 @@ class ConsumerAuthCest
 
     public function testRegister(FunctionalTester $I)
     {
-        list($email,) = $this->_register($I);
+        $registered = $this->_register($I);
+        $email = $registered['email'];
 
         $user = User::where('email', $email)->first();
         $I->assertNotNull($user, '$user');
         $I->assertEquals($email, $user->email, '$user->email');
         $I->assertEquals(0, $user->confirmed, '$user->confirmed');
         $I->assertTrue($user->is_consumer, '$user->is_consumer');
+
+        $consumer = $user->consumer;
+        $I->assertEquals($email, $consumer->email, '$consumer->email');
+        $I->assertEquals($registered['firstName'], $consumer->first_name, '$consumer->first_name');
+        $I->assertEquals($registered['lastName'], $consumer->last_name, '$consumer->last_name');
+        $I->assertEquals($registered['phone'], $consumer->phone, '$consumer->phone');
     }
 
     public function testLogin(FunctionalTester $I)
     {
-        list($email, $password) = $this->_register($I);
+        $registered = $this->_register($I);
+        $email = $registered['email'];
+        $password = $registered['password'];
 
         $I->dontSeeAuthentication();
 
@@ -56,12 +65,26 @@ class ConsumerAuthCest
 
         $email = 'consumer' . time() . '@varaa.com';
         $password = 'Nordic characters (ä, ö, å)';
+        $firstName = 'First ' . time();
+        $lastName = 'Last ' . time();
+        $phone = time();
+
         $I->fillField('email', $email);
-        $I->fillField('password', $password);
+        $I->fillField('#register-password', $password);
         $I->fillField('password_confirmation', $password);
+        $I->fillField('first_name', $firstName);
+        $I->fillField('last_name', $lastName);
+        $I->fillField('phone', $phone);
+
         $I->click('#btn-register');
         $I->seeCurrentRouteIs('auth.register.done');
 
-        return [$email, $password];
+        return compact([
+            'email',
+            'password',
+            'firstName',
+            'lastName',
+            'phone',
+        ]);
     }
 }

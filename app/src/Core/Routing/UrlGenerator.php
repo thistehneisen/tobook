@@ -33,9 +33,17 @@ class UrlGenerator extends \Illuminate\Routing\UrlGenerator
             $url['path'] = $locale.$url['path'];
         }
 
-        $final = $url['scheme'].'://'.$url['host'].'/'.$url['path'];
-        return !empty($url['query'])
-            ? $final.'/?'.$url['query']
-            : $final;
+        $final = $url['path'];
+        if (isset($url['host'])) {
+            $final = $url['host'] . '/' . $final;
+        }
+        if (isset($url['scheme'])) {
+            $final = $url['scheme'] . '://' . $final;
+        }
+        if (isset($url['query'])) {
+            $final = rtrim($final, '/') . '/?' . $url['query'];
+        }
+
+        return $final;
     }
 }
