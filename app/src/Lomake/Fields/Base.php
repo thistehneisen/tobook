@@ -53,7 +53,7 @@ abstract class Base implements FieldInterface
     protected function init($opt)
     {
         // Merge with default options
-        $this->opt = array_merge_recursive($this->opt, $opt);
+        $this->opt = array_merge($this->opt, $opt);
         $attrs = [
             'name',
             'values',
