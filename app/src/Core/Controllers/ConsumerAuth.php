@@ -56,14 +56,13 @@ class ConsumerAuth extends Auth
         $user->password              = Input::get('password');
         $user->password_confirmation = Input::get('password_confirmation');
 
-        // Optional inforamtion
-        $user->first_name            = e(Input::get('first_name'));
-        $user->last_name             = e(Input::get('last_name'));
-        $user->phone                 = e(Input::get('phone'));
-
         try {
             // Now we need to check existing consumer
-            $user->attachConsumer();
+            $user->attachConsumer([
+                'first_name' => e(Input::get('first_name')),
+                'last_name' => e(Input::get('last_name')),
+                'phone' => e(Input::get('phone')),
+            ]);
         } catch (\Watson\Validating\ValidationException $ex) {
             Redirect::route('consumer.auth.register')
                 ->withInput(Input::except('password'))

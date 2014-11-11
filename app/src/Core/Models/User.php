@@ -231,19 +231,19 @@ class User extends ConfideUser
      * submitted data. If yes, connect them together. Otherwise, create a new
      * consumer.
      *
+     * @param array $consumerData
+     *
      * @return void
      */
-    public function attachConsumer()
+    public function attachConsumer(array $consumerData = [])
     {
         // @todo: More criteria to check existing consumer
-        $consumer = Consumer::where('email', $this->attributes['email'])->first();
-        if ($consumer === null) {
-            $consumer = new Consumer([
-                'email'      => $this->attributes['email'],
-                'first_name' => !empty($this->attributes['first_name']) ? $this->attributes['first_name'] : '',
-                'last_name'  => !empty($this->attributes['last_name']) ? $this->attributes['last_name'] : '',
-                'phone'      => !empty($this->attributes['phone']) ? $this->attributes['phone'] : '',
-            ]);
+        $consumer = Consumer::where('email', $this->email)->first();
+
+        if (empty($consumer)) {
+            $consumer = new Consumer;
+            $consumer->email = $this->email;
+            $consumer->fill($consumerData);
             $consumer->saveOrFail();
         }
 
