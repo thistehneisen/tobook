@@ -11,6 +11,7 @@ class Service
 
     public function __construct()
     {
+        // Assign Redis connection as attribute for quickly access
         $this->redis = Redis::connection();
     }
 
@@ -22,7 +23,7 @@ class Service
      *
      * @return Illuminate\Support\Collection
      */
-    public function next($user, $time, $limit = -1)
+    public function nextUser($user, $time, $limit = -1)
     {
         if ($time instanceof \Carbon\Carbon) {
             $time = $time->timestamp;
