@@ -39,7 +39,6 @@ class Service
             list($member, $score) = $values;
             $employeeId = explode(':', $member)[0];
             $timeline[$score][] = $employeeId;
-
         }
 
         // Cut the timeline into limited items, or we'll return the whole one
@@ -52,7 +51,8 @@ class Service
             }
 
             if (!empty($ids)) {
-                $employeeId = $ids[0];
+                // Pick randomly from the list of available employees
+                $employeeId = $ids[array_rand($ids)];
 
                 $item = new \stdClass;
                 $item->employee = Employee::find($employeeId);
@@ -86,17 +86,23 @@ class Service
         // remove them
         $this->removePastValues($key, $date);
 
-        $employees = Employee::ofUser($user)->with('services')->get();
+        //----------------------------------------------------------------------
+        // Build working time of all employees
+        //----------------------------------------------------------------------
+        // We'll first build the ideal working time of an employee. This
+        // calendar takes default working time of business, default working
+        // time of employee, custom working time and free time into account.
+        $employees = Employee::ofUser($user)->get();
         foreach ($employees as $employee) {
-            $this->pushWorkingTime($user, $employee, $date);
+            $this->pushWorkingTime($key, $employee, $date);
         }
 
         //----------------------------------------------------------------------
         // Remove booked time
         //----------------------------------------------------------------------
-        // We will get all bookings of user in the date and remove the
-        // corresponding member in sorted list
-        $this->removeBookedTime($user, $date);
+        // Get all bookings of user in the date and remove the corresponding
+        // member in sorted list
+        $this->removeBookedTime($key, $user, $date);
     }
 
     /**
@@ -117,31 +123,31 @@ class Service
      * Push the working time of an employee and its timestamp to the sorted
      * set of user
      *
-     * @param App\Core\Models\User $user
+     * @param string $key Key of sorted set
      * @param App\Appointment\Models\Employee $employee
      * @param Carbon\Carbon $date
      *
      * @return void
      */
-    protected function pushWorkingTime($user, $employee, $date)
+    protected function pushWorkingTime($key, $employee, $date)
     {
-        $zsetKey = $this->key('user', $user->id, 'nat');
         $params = [];
-        $params[] = $zsetKey;
+        $params[] = $key;
 
-        $defaultEndTime = null;
-        $workingTime = $employee->getWorkingTimesByDate($date, $defaultEndTime);
+        $_ = null;
+        $workingTime = $employee->getWorkingTimesByDate($date, $_);
         foreach ($workingTime as $hour => $minutes) {
             foreach ($minutes as $minute) {
                 $time = $date->hour($hour)->minute($minute);
-                // Here is the score
+                // We'll use timestamp as score. This could help to get members
+                // chronically
                 $params[] = $time->timestamp;
 
-                // And the key
-                $params[] = $this->key(
-                    $employee->id,
-                    $time->timestamp
-                );
+                // The member name is followed this format `$userId:$timestamp`
+                // Because if an employee could be available at many specific
+                // time and sorted set doesn't allow a member to have many
+                // scores.
+                $params[] = $this->key($employee->id, $time->timestamp);
             }
         }
 
@@ -153,15 +159,16 @@ class Service
     /**
      * Remove all booked time of the user in the given date
      *
+     * @param string $key
      * @param App\Core\Models\User $user
      * @param Carbon\Carbon $date
      *
      * @return void
      */
-    protected function removeBookedTime($user, $date)
+    protected function removeBookedTime($key, $user, $date)
     {
         $params = [];
-        $params[] = $this->key('user', $user->id, 'nat');
+        $params[] = $key;
         $bookings = Booking::ofUser($user)
             ->where('date', $date->toDateString())
             ->get();
@@ -175,6 +182,7 @@ class Service
                     $time->timestamp
                 );
 
+                // @TODO: Magic number
                 $start += 15;
             }
         }
