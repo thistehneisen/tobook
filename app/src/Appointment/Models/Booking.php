@@ -371,8 +371,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         if (!empty($bookingService->serviceTime->id)) {
             $serviceDescription .= ($showLineBreak)
-                ? '<br>'. $bookingService->serviceTime->description
-                : $bookingService->serviceTime->description;
+                ? '<br>' . $bookingService->serviceTime->description
+                : ' ' . $bookingService->serviceTime->description;
         }
 
         return $serviceDescription;
@@ -614,11 +614,11 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $ouput = '';
         if(!empty($this->firstBookingService())):
             if($this->firstBookingService()->is_requested_employee):
-                $ouput .= '<i class="fa fa-check-square-o"></i>';
+                $ouput .= '<i class="fa fa-check-square-o"></i>&nbsp;';
             endif;
         endif;
         if(!empty($this->getBookingResources())):
-            $ouput .= '<i class="fa fa-cubes"></i>';
+            $ouput .= '<i class="fa fa-cubes"></i>&nbsp;';
         endif;
         return trim($ouput);
     }
