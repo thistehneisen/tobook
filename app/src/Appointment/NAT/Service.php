@@ -81,7 +81,10 @@ class Service
             return;
         }
 
-        // @TODO: Remove members having score of the past
+        $key = $this->key('user', $user->id, 'nat');
+        // Since we don't use members whose score is in the past, we should
+        // remove them
+        $this->removePastValues($key, $date);
 
         $employees = Employee::ofUser($user)->with('services')->get();
         foreach ($employees as $employee) {
@@ -94,6 +97,20 @@ class Service
         // We will get all bookings of user in the date and remove the
         // corresponding member in sorted list
         $this->removeBookedTime($user, $date);
+    }
+
+    /**
+     * Remove all members of sorted set that have scores less than the given
+     * date
+     *
+     * @param string $key The key of sorted set
+     * @param Carbon\Carbon $date
+     *
+     * @return void
+     */
+    protected function removePastValues($key, $date)
+    {
+        $this->redis->zremrangebyscore($key, '-inf', $date->timestamp);
     }
 
     /**
