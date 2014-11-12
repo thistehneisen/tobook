@@ -1,5 +1,6 @@
 <?php namespace App\Appointment\NAT;
 
+use App\Core\Models\User;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\Booking;
 use Illuminate\Support\Collection;
@@ -13,6 +14,30 @@ class Service
     {
         // Assign Redis connection as attribute for quickly access
         $this->redis = Redis::connection();
+    }
+
+    /**
+     * This method will be run in queue to build NAT of a user
+     *
+     * @param  $job
+     * @param array $data
+     *
+     * @return void
+     */
+    public function scheduledBuild($job, $data)
+    {
+        Log::info('Start to build NAT', $data);
+
+        $user = User::find($data['userId']);
+        $date = new Carbon($data['date']);
+
+        if ($user !== null) {
+            $this->build($user, $date);
+        }
+
+        Log::info('Finish building NAT', $data);
+        // Done
+        $job->delete();
     }
 
     /**
