@@ -44,12 +44,15 @@ class Service
      * Get the next available timeslot of a user
      *
      * @param App\Core\Models\User $user
-     * @param Carbon\Carbon $time
+     * @param Carbon\Carbon        $time
+     * @param int                  $limit
      *
      * @return Illuminate\Support\Collection
      */
     public function nextUser($user, $time, $limit = -1)
     {
+        Log::info('Get NAT', ['user' => $user->id, 'time' => $time->toDateTimeString()]);
+
         if ($time instanceof \Carbon\Carbon) {
             $time = $time->timestamp;
         }
@@ -78,10 +81,23 @@ class Service
             if (!empty($ids)) {
                 // Pick randomly from the list of available employees
                 $employeeId = $ids[array_rand($ids)];
+                $date = Carbon::createFromTimestamp($score);
 
-                $item = new \stdClass;
-                $item->employee = Employee::find($employeeId);
-                $item->time = Carbon::createFromTimestamp($score);
+                // Pick a random service
+                $employee = Employee::find($employeeId);
+                $service = $employee->services()
+                    ->where('is_active', true)
+                    ->get()
+                    ->random();
+
+                $item = [];
+                $item['employee'] = $employeeId;
+                $item['date']     = $date->toDateString();
+                $item['time']     = $date->toTimeString();
+                $item['hour']     = $date->hour;
+                $item['minute']   = $date->minute;
+                $item['service']  = $service->id;
+                $item['price']    = $service->price;
 
                 $collection->push($item);
                 $counter++;

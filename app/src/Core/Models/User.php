@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait;
 use Consumer;
 use App\Appointment\Models\NAT\CalendarKeeper;
 use App\Search;
+use NAT;
 
 class User extends ConfideUser
 {
@@ -59,6 +60,11 @@ class User extends ConfideUser
      */
     public function getASNextTimeSlots($date = null, $nextHour = null, $nextService = null)
     {
+        $slots = NAT::nextUser($this, with(new Carbon($date))->copy());
+        if ($slots->isEmpty() === false) {
+            return $slots->toArray();
+        }
+
         for ($i = 0; $i < 3; $i++) {
             $slots = CalendarKeeper::nextTimeSlots($this, $date, $nextHour, $nextService);
             if (empty($slots)) {
