@@ -367,8 +367,39 @@ class Service
             $start = $start->addMinutes(Booking::STEP);
         }
 
-        Log::debug('Run command ZREM', $params);
-        call_user_func_array([$this->redis, 'zrem'], $params);
+        if (count($params) > 1) {
+            Log::debug('Run command ZREM', $params);
+            call_user_func_array([$this->redis, 'zrem'], $params);
+        }
+    }
+
+    /**
+     * When a free time of an employee was removed, restore available slots
+     *
+     * @param App\Appointment\Models\EmployeeFreeTime $freetime
+     *
+     * @return void
+     */
+    public function restoreEmployeeFreeTime($freetime)
+    {
+        Log::debug('Employee free time has been removed, restore NAT slots', $freetime->toArray());
+
+        $start = $freetime->start_time->copy();
+        $end = $freetime->end_time->copy();
+
+        $params = [];
+        $params[] = $this->key('user', $freetime->user->id, 'nat');
+
+        while ($start->lt($end)) {
+            // Score
+            $params[] = $start->timestamp;
+            // Member
+            $params[] = $this->key($freetime->employee->id, $start->timestamp);
+            $start = $start->addMinutes(Booking::STEP);
+        }
+
+        Log::debug('Run command ZADD', $params);
+        $this->addToSortedSet($params);
     }
 
     /**

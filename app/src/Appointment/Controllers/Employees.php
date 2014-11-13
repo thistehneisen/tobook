@@ -224,6 +224,10 @@ class Employees extends AsBase
         $data = [];
         try {
             $freetime = EmployeeFreetime::find($freetimeId);
+
+            // Remove NAT slots since employee has freetime
+            NAT::restoreEmployeeFreeTime($freetime);
+
             $freetime->delete();
             $data['success'] = true;
         } catch (\Exception $ex) {
