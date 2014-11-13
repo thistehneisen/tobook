@@ -24,8 +24,6 @@ class AsConsumer extends \App\Core\Models\Base
             ->where('last_name', $last_name)
             ->where('phone', $phone)->first();
 
-        $asConsumer = new AsConsumer();
-
         //In front end, user is identified from hash
         $userId = null;
         if (empty($user)) {
@@ -40,15 +38,25 @@ class AsConsumer extends \App\Core\Models\Base
         }
 
         try {
+            $asConsumer = null;
+
             if (empty($consumer->id)) {
                 $consumer = Consumer::make($data, $userId);
-                $asConsumer->user()->associate($user);
-                $asConsumer->consumer()->associate($consumer);
-                $asConsumer->save();
             } else {
                 //TODO update consumer
                 $consumer->fill($data);
                 $consumer->saveOrFail();
+
+                $asConsumer = AsConsumer::where('user_id', $user->id)
+                    ->where('consumer_id', $consumer->id)
+                    ->first();
+            }
+
+            if (empty($asConsumer)) {
+                $asConsumer = new AsConsumer();
+                $asConsumer->user()->associate($user);
+                $asConsumer->consumer()->associate($consumer);
+                $asConsumer->saveOrFail();
             }
         } catch (\Watson\Validating\ValidationException $ex) {
             throw $ex;

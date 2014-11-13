@@ -1,4 +1,4 @@
-<?php namespace Test\Appointment\Models;
+<?php namespace Test\Unit\Appointment\Models;
 
 use App\Appointment\Models\AsConsumer;
 use App\Appointment\Models\Consumer;
@@ -33,6 +33,11 @@ class AsConsumerCest
         $I->assertEquals($lastName, $consumer->last_name, 'last_name');
         $I->assertEquals($phone, $consumer->phone, 'phone');
         $I->assertNotEmpty($consumer->users()->find($user->id), '$consumer <-> $user');
+
+        $asConsumer = AsConsumer::where('user_id', $user->id)
+            ->where('consumer_id', $consumer->id)
+            ->first();
+        $I->assertNotEmpty($asConsumer, '$asConsumer');
     }
 
     public function testUpdateConsumer(UnitTester $I)
@@ -65,6 +70,11 @@ class AsConsumerCest
         $I->assertEquals($consumer->phone, $consumerNew->phone, 'phone');
         $I->assertNotEquals($consumer->email, $consumerNew->email, 'email');
         $I->assertEquals($emailNew, $consumerNew->email, 'email');
+
+        $asConsumer = AsConsumer::where('user_id', $user->id)
+            ->where('consumer_id', $consumer->id)
+            ->first();
+        $I->assertNotEmpty($asConsumer, '$asConsumer');
     }
 
     public function testFromHash(UnitTester $I)
