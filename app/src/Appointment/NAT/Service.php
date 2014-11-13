@@ -4,16 +4,34 @@ use App\Core\Models\User;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\Booking;
 use Illuminate\Support\Collection;
-use Redis, Carbon\Carbon, Log;
+use Redis, Carbon\Carbon, Log, Queue;
 
 class Service
 {
+    const QUEUE = 'varaa:nat';
     protected $redis;
 
     public function __construct()
     {
         // Assign Redis connection as attribute for quickly access
         $this->redis = Redis::connection();
+    }
+
+    /**
+     * Enqueue to build NAT for business user in the given date
+     *
+     * @param App\Core\Models\User $user
+     * @param Carbon\Carbon $date
+     *
+     * @return void
+     */
+    public function enqueueToBuild($user, $date)
+    {
+        // Push this job into the special queue called 'varaa:nat'
+        Queue::push('App\Appointment\NAT\Service@scheduledBuild', [
+            'date'   => $date->toDateTimeString(),
+            'userId' => $user->id,
+        ], static::QUEUE);
     }
 
     /**

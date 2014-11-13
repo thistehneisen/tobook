@@ -45,11 +45,8 @@ class ScheduledBuild extends ScheduledCommand {
         $businesses = Business::with('user')->get();
         $today = Carbon::today();
         foreach ($businesses as $business) {
-            // Push this job into the special queue called 'varaa:nat'
-            Queue::push('App\Appointment\NAT\Service@scheduledBuild', [
-                'date'   => $today->toDateTimeString(),
-                'userId' => $business->user->id,
-            ], 'varaa:nat');
+            // Push user and the date into queue to build NAT calendar
+            NAT::enqueueToBuild($business->user, $today);
         }
     }
 
