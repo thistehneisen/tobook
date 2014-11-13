@@ -60,7 +60,7 @@ class User extends ConfideUser
      */
     public function getASNextTimeSlots($date = null, $nextHour = null, $nextService = null)
     {
-        $slots = NAT::nextUser($this, with(new Carbon($date))->copy());
+        $slots = NAT::nextUser($this, $date);
         if ($slots->isEmpty() === false) {
             return $slots->toArray();
         }
