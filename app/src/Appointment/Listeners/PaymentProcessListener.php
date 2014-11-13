@@ -44,9 +44,6 @@ class PaymentProcessListener
 
                     $item->booking->status = Booking::STATUS_CONFIRM;
                     $item->booking->save();
-
-                    // Update this booking slot is not available
-                    NAT::removeBookedTime($item->booking);
                 }
             }
         }

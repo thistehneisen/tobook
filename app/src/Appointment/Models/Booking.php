@@ -1,9 +1,8 @@
 <?php namespace App\Appointment\Models;
 
-use Request;
+use Request, Carbon\Carbon, NAT;
 use App\Core\Models\User;
 use App\Appointment\Models\Observer\SmsObserver;
-use Carbon\Carbon;
 use Watson\Validating\ValidationException;
 
 
@@ -81,6 +80,34 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public function setStatus($text){
         $status = self::getStatus($text);
         $this->status = $status;
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
+    public static function boot()
+    {
+        parent::boot();
+        static::saving(function($booking) {
+            $booking->updateNAT();
+        });
+    }
+
+    /**
+     * If status of this booking changed to CONFIRM, we'll remove the available
+     * slots
+     *
+     * @return void
+     */
+    public function updateNAT()
+    {
+        // @TODO: If change from CONFIRM to other status, need to rebuild the
+        // available timeslot
+
+        if ($this->getOriginal('status') !== static::STATUS_CONFIRM
+            && $this->status === static::STATUS_CONFIRM) {
+            NAT::removeBookedTime($this);
+        }
     }
 
     //--------------------------------------------------------------------------
