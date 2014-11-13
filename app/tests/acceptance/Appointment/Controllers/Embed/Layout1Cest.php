@@ -65,7 +65,7 @@ class Layout1Cest extends AbstractBooking
         $I->seeCurrentUrlMatches('#action=confirm#');
         $I->click('#btn-confirm-booking');
 
-        $I->wait(1);
+        $I->wait(3);
 
         $bookings = Booking::where('source', 'layout1')
             ->where('user_id', $this->user->id)
