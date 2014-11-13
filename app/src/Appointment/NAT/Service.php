@@ -108,10 +108,14 @@ class Service
                     ->get()
                     ->random();
 
+                if ($service === null) {
+                    continue;
+                }
+
                 $item = [];
                 $item['employee'] = $employeeId;
                 $item['date']     = $date->toDateString();
-                $item['time']     = $date->toTimeString();
+                $item['time']     = $date->format('H:i');
                 $item['hour']     = $date->hour;
                 $item['minute']   = $date->minute;
                 $item['service']  = $service->id;
