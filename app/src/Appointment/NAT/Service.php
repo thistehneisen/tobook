@@ -209,6 +209,7 @@ class Service
             $this->pushWorkingTime($key, $employee, $date);
         }
 
+
         //----------------------------------------------------------------------
         // Remove booked time
         //----------------------------------------------------------------------
@@ -278,6 +279,10 @@ class Service
     {
         $bookings = Booking::ofUser($user)
             ->where('date', $date->toDateString())
+            ->where(function($query) {
+                return $query->where('status', Booking::STATUS_CONFIRM)
+                    ->where('status', Booking::STATUS_PAID);
+            })
             ->get();
         $this->removeBookedTime($bookings);
     }
