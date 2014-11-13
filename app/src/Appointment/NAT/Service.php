@@ -165,7 +165,7 @@ class Service
         //----------------------------------------------------------------------
         // Get all bookings of user in the date and remove the corresponding
         // member in sorted list
-        $this->removeBookedTime($key, $user, $date);
+        $this->removeAllBookedTime($user, $date);
     }
 
     /**
@@ -222,21 +222,43 @@ class Service
     /**
      * Remove all booked time of the user in the given date
      *
-     * @param string $key
      * @param App\Core\Models\User $user
      * @param Carbon\Carbon $date
      *
      * @return void
      */
-    protected function removeBookedTime($key, $user, $date)
+    public function removeAllBookedTime($user, $date)
     {
-        $params = [];
-        $params[] = $key;
         $bookings = Booking::ofUser($user)
             ->where('date', $date->toDateString())
             ->get();
+        $this->removeBookedTime($bookings);
+    }
 
-        foreach ($bookings as $booking) {
+    /**
+     * Remove slots in NAT calendar based on booking time
+     *
+     * @param Illuminate\Support\Collection |
+     *        App\Appointment\Models\Booking $bookings
+     *
+     * @return void
+     */
+    public function removeBookedTime($bookings)
+    {
+        $collection = [];
+        if ($bookings instanceof \App\Appointment\Models\Booking) {
+            $collection[] = $bookings;
+        } elseif ($bookings instanceof \Illuminate\Support\Collection) {
+            $collection = $bookings;
+        }
+
+        $paramSet = [];
+        foreach ($collection as $booking) {
+            $params = [];
+            // Firstly, the name of sorted set holding NAT calendar of user
+            $params[] = $this->key('user', $booking->user_id, 'nat');
+
+            // Generate members of this sorted set
             $start = 0;
             while ($start < (int) $booking->total) {
                 $time = $booking->start_time->addMinutes($start);
@@ -248,11 +270,32 @@ class Service
                 // @TODO: Magic number
                 $start += 15;
             }
+
+            // Now we have a list of params like this:
+            //      user:75:nat
+            //      91:1415862000
+            //      91:1415862900
+            //      91:1415863800
+            //      91:1415864700
+            //      91:1415865600
+            //      92:1415865600
+            //      91:1415866500
+            //      92:1415866500
+            //      91:1415867400
+            //      92:1415867400
+            //      91:1415868300
+
+            if (count($params) > 1) {
+                $paramSet[] = $params;
+            }
         }
 
-        if (count($params) > 1) {
-            call_user_func_array([$this->redis, 'zrem'], $params);
-        }
+        // Use pipeline to send multiple command in one shot
+        Redis::pipeline(function($pipe) use ($paramSet) {
+            foreach ($paramSet as $params) {
+                call_user_func_array([$pipe, 'zrem'], $params);
+            }
+        });
     }
 
     /**
