@@ -32,7 +32,11 @@ class ScheduledBuild extends ScheduledCommand {
      */
     public function schedule(Schedulable $scheduler)
     {
-        return $scheduler->daily();
+        // Because we calculate NAT of 4 days in advance
+        return $scheduler->daysOfTheWeek([
+            Scheduler::MONDAY,
+            Scheduler::FRIDAY
+        ]);
     }
 
     /**
@@ -44,9 +48,15 @@ class ScheduledBuild extends ScheduledCommand {
     {
         $businesses = Business::with('user')->get();
         $today = Carbon::today();
-        foreach ($businesses as $business) {
-            // Push user and the date into queue to build NAT calendar
-            NAT::enqueueToBuild($business->user, $today);
+        $i = 0;
+        while ($i < 4) {
+            foreach ($businesses as $business) {
+                // Push user and the date into queue to build NAT calendar
+                NAT::enqueueToBuild($business->user, $today);
+            }
+
+            $today = $today->addDays($i);
+            $i++;
         }
     }
 
