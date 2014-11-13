@@ -3,6 +3,7 @@
 use App\Core\Models\User;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\Booking;
+use App\Appointment\Models\Service as AppointmentService;
 use Illuminate\Support\Collection;
 use Redis, Carbon\Carbon, Log, Queue;
 
@@ -128,11 +129,7 @@ class Service
 
                 // Pick a random service
                 $employee = Employee::find($employeeId);
-                $service = $employee->services()
-                    ->where('is_active', true)
-                    ->get()
-                    ->random();
-
+                $service = $this->getService($user, $employee);
                 if ($service === null) {
                     continue;
                 }
@@ -152,6 +149,33 @@ class Service
         }
 
         return $collection;
+    }
+
+    /**
+     * Get the default service from user setting
+     * Or randomly pick one
+     *
+     * @param App\Core\Models\User $user
+     * @param App\Appointment\Models\Employee $employee
+     *
+     * @return App\Appointment\Models\Service|null
+     */
+    protected function getService($user, $employee)
+    {
+        $service = null;
+        $serviceId = ($user->asOptions->get('default_nat_service') !== -1)
+            ? ($user->asOptions->get('default_nat_service'))
+            : null;
+
+        if (!empty($serviceId) && ($service = AppointmentService::find($serviceId))) {
+            return $service;
+        }
+
+        // null may be returned from here
+        return $employee->services()
+            ->where('is_active', true)
+            ->get()
+            ->random();
     }
 
     /**
