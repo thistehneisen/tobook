@@ -18,6 +18,24 @@ class Service
     }
 
     /**
+     * Enqueue to rebuild the NAT calendar of user, in case working time changed
+     *
+     * @param App\Core\Models\User $user
+     *
+     * @return void
+     */
+    public function enqueueToRebuild($user)
+    {
+        // Remove the old key, no need to keep it anymore
+        $key = $this->key('user', $user->id, 'nat');
+        $this->redis->del($key);
+
+        // Queue to rebuild
+        Log::info('Rebuild NAT calendar of user', [$user->id]);
+        $this->enqueueToBuild($user, Carbon::today());
+    }
+
+    /**
      * Enqueue to build NAT for business user in the given date
      *
      * @param App\Core\Models\User $user
