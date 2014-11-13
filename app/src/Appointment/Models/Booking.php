@@ -36,6 +36,11 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     const STATUS_PAID        = 5;
     const STATUS_NOT_SHOW_UP = 6;
 
+    // Minutes to step between two possible booking time. For examples, bookable
+    // time could be 8:00, 8:15, 8:30, etc. with default step of 15.
+    const STEP = 15;
+
+
     //Implement methods in SplSubject
     protected $_observers = [];
 
@@ -101,8 +106,10 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      */
     public function updateNAT()
     {
-        // @TODO: If change from CONFIRM to other status, need to rebuild the
-        // available timeslot
+        // If this booking is cancelled, we need to restore its available slots
+        if ($this->status === static::STATUS_CANCELLED) {
+            NAT::restoreBookedTime($this);
+        }
 
         if ($this->getOriginal('status') !== static::STATUS_CONFIRM
             && $this->status === static::STATUS_CONFIRM) {

@@ -214,9 +214,7 @@ class Service
             }
         }
 
-        if (count($params) > 1) {
-            call_user_func_array([$this->redis, 'zadd'], $params);
-        }
+        $this->addToSortedSet($params);
     }
 
     /**
@@ -262,13 +260,9 @@ class Service
             $start = 0;
             while ($start < (int) $booking->total) {
                 $time = $booking->start_time->addMinutes($start);
-                $params[] = $this->key(
-                    $booking->employee_id,
-                    $time->timestamp
-                );
+                $params[] = $this->key($booking->employee_id, $time->timestamp);
 
-                // @TODO: Magic number
-                $start += 15;
+                $start += Booking::STEP;
             }
 
             // Now we have a list of params like this:
@@ -299,6 +293,34 @@ class Service
     }
 
     /**
+     * Restore available NAT slots based on provided booking
+     *
+     * @param App\Appointment\Models\Booking $booking
+     *
+     * @return void
+     */
+    public function restoreBookedTime($booking)
+    {
+        Log::debug('Restore slots of booking', [$booking->id]);
+        $params = [];
+        $params[] = $this->key('user', $booking->id, 'nat');
+
+        $start = 0;
+        while ($start < (int) $booking->total) {
+            $time = $booking->start_time->addMinutes($start);
+            // Score
+            $params[] = $time->timestamp;
+            // Memeber
+            $params[] = $this->key($booking->employee_id, $time->timestamp);
+
+            // Go to the next step
+            $start += Booking::STEP;
+        }
+
+        $this->addToSortedSet($params);
+    }
+
+    /**
      * Generate key for Redis and Cache
      *
      * @return string
@@ -306,5 +328,17 @@ class Service
     protected function key()
     {
         return implode(':', func_get_args());
+    }
+
+    /**
+     * Add the sequence of params to sorted set
+     *
+     * @param array $params
+     */
+    protected function addToSortedSet($params)
+    {
+        if (count($params) > 1) {
+            call_user_func_array([$this->redis, 'zadd'], $params);
+        }
     }
 }
