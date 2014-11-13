@@ -346,6 +346,32 @@ class Service
     }
 
     /**
+     * When an employee have freetime, we'll remove his/her available slots
+     *
+     * @param App\Appointment\Models\EmployeeFreeTime $freetime
+     *
+     * @return void
+     */
+    public function removeEmployeeFreeTime($freetime)
+    {
+        Log::debug('Employee has freetime, remove NAT slots', $freetime->toArray());
+
+        $start = $freetime->start_time->copy();
+        $end = $freetime->end_time->copy();
+
+        $params = [];
+        $params[] = $this->key('user', $freetime->user->id, 'nat');
+
+        while ($start->lt($end)) {
+            $params[] = $this->key($freetime->employee->id, $start->timestamp);
+            $start = $start->addMinutes(Booking::STEP);
+        }
+
+        Log::debug('Run command ZREM', $params);
+        call_user_func_array([$this->redis, 'zrem'], $params);
+    }
+
+    /**
      * Generate key for Redis and Cache
      *
      * @return string

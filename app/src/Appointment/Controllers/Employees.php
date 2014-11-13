@@ -204,6 +204,9 @@ class Employees extends AsBase
             $employeeFreetime->employee()->associate($employee);
             $employeeFreetime->save();
             $data['success'] = true;
+
+            // Remove NAT slots since employee has freetime
+            NAT::removeEmployeeFreeTime($employeeFreetime);
         } catch (\Exception $ex) {
             $data['success'] = false;
             $data['message'] = $ex->getMessage();
