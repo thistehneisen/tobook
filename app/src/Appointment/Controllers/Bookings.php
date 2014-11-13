@@ -778,15 +778,14 @@ class Bookings extends AsBase
     public function searchConsumer()
     {
         $keyword = Input::get('keyword');
-        $consumers = Consumer::join('as_consumers', 'as_consumers.consumer_id', '=', 'consumers.id')
-                    ->where('as_consumers.user_id', Confide::user()->id)
+        $consumers = Confide::user()->consumers()
+                    ->where('is_visible', 1)
                     ->where(function($q) use ($keyword) {
                         $q->where('consumers.first_name', 'like', '%' . $keyword . '%')
                             ->orWhere('consumers.last_name', 'like', '%' . $keyword . '%')
                             ->orWhere('consumers.email', 'like', '%' . $keyword . '%')
                             ->orWhere('consumers.phone', 'like', '%' . $keyword . '%');
                     })
-                ->select('as_consumers.id', 'consumers.first_name', 'consumers.last_name', 'consumers.email', 'consumers.phone', 'as_consumers.updated_at')
                 ->get();
         $data = [];
         foreach($consumers as $consumer){
