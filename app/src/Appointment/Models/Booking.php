@@ -96,6 +96,11 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         static::saving(function($booking) {
             $booking->updateNAT();
         });
+
+        static::deleting(function($booking) {
+            // When deleting a booking, we'll restore the available NAT slots
+            NAT::restoreBookedTime($booking);
+        });
     }
 
     /**
