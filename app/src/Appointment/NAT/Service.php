@@ -209,6 +209,9 @@ class Service
             $this->pushWorkingTime($key, $employee, $date);
         }
 
+        if ($employees->isEmpty() === false) {
+            $this->pushBusinessCategory($user);
+        }
 
         //----------------------------------------------------------------------
         // Remove booked time
@@ -265,6 +268,25 @@ class Service
         }
 
         $this->addToSortedSet($params);
+    }
+
+    /**
+     * Push business categories of this user into a set, so that we can fast
+     * randomly pick businesses that possibly have NAT
+     *
+     * @param App\Core\Models\User $user
+     *
+     * @return void
+     */
+    public function pushBusinessCategory($user)
+    {
+        foreach ($user->business->businessCategories as $category) {
+            $key = $this->key('business_category', $category->id, 'businesses');
+            $this->redis->sadd($key, $user->id);
+        }
+
+        $key = $this->key('business_category', 'businesses');
+        $this->redis->sadd($key, $user->id);
     }
 
     /**
