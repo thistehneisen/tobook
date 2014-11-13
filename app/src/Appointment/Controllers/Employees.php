@@ -145,6 +145,9 @@ class Employees extends AsBase
                 $defaultTime->employee()->associate($employee);
                 $defaultTime->save();
             }
+
+            // We need to rebuild the NAT calendar
+            NAT::enqueueToRebuild($this->user);
         } catch (\Watson\Validating\ValidationException $ex) {
             return Redirect::route('as.services.categories')
                 ->with('messages', $this->successMessageBag($ex->getErrors()));
