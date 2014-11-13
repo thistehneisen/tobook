@@ -2,6 +2,7 @@
 
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\ServiceCategory;
+use App\Consumers\Models\Consumer;
 use App\Core\Models\User;
 use Carbon\Carbon;
 use \FunctionalTester;
@@ -271,5 +272,85 @@ class BookingCest
         $I->assertEmpty($booking1, 'booking 1 has been deleted');
         $booking2 = Booking::find($booking2->id);
         $I->assertEmpty($booking2, 'booking 2 has been deleted');
+    }
+
+    public function testSearchConsumer(FunctionalTester $I)
+    {
+        $firstName = md5(time());
+        $lastName = strrev($firstName);
+        $email = $firstName . '@varaa.com';
+        $phone = time();
+
+        $consumer = new Consumer([
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'email' => $email,
+            'phone' => $phone,
+        ]);
+        $consumer->saveOrFail();
+        User::find(70)->consumers()->attach($consumer->id, ['is_visible' => true]);
+
+        foreach ([
+                     $firstName,
+                     $lastName,
+                     $email,
+                     $phone,
+                     substr($firstName, 5, 10),
+                     substr($lastName, 5, 10),
+                 ] as $fieldValue) {
+            $I->sendGET(route('as.bookings.search-consumer'), ['keyword' => $fieldValue]);
+            $I->seeResponseCodeIs(200);
+            $I->canSeeResponseIsJson();
+
+            $response = $I->grabResponse();
+            $I->assertNotEmpty($response, 'response is not empty');
+            $json = json_decode($response, true);
+            $I->assertTrue(is_array($json), 'json is array');
+            $I->assertEquals(1, count($json), 'json array has one element');
+
+            $result = reset($json);
+            $I->assertEquals($consumer->id, $result['id'], "\$result['id']");
+            $I->assertEquals($consumer->name, $result['text'], "\$result['text']");
+            $I->assertEquals($consumer->first_name, $result['first_name'], "\$result['first_name']");
+            $I->assertEquals($consumer->last_name, $result['last_name'], "\$result['last_name']");
+            $I->assertEquals($consumer->email, $result['email'], "\$result['email']");
+            $I->assertEquals($consumer->phone, $result['phone'], "\$result['phone']");
+        }
+    }
+
+    public function testSearchConsumerNotVisible(FunctionalTester $I)
+    {
+        $firstName = md5(time());
+        $lastName = strrev($firstName);
+        $email = $firstName . '@varaa.com';
+        $phone = time();
+
+        $consumer = new Consumer([
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'email' => $email,
+            'phone' => $phone,
+        ]);
+        $consumer->saveOrFail();
+        User::find(70)->consumers()->attach($consumer->id, ['is_visible' => false]);
+
+        foreach ([
+                     $firstName,
+                     $lastName,
+                     $email,
+                     $phone,
+                     substr($firstName, 5, 10),
+                     substr($lastName, 5, 10),
+                 ] as $fieldValue) {
+            $I->sendGET(route('as.bookings.search-consumer'), ['keyword' => $fieldValue]);
+            $I->seeResponseCodeIs(200);
+            $I->canSeeResponseIsJson();
+
+            $response = $I->grabResponse();
+            $I->assertNotEmpty($response, 'response is not empty');
+            $json = json_decode($response, true);
+            $I->assertTrue(is_array($json), 'json is array');
+            $I->assertEquals(0, count($json), 'json array has no elements');
+        }
     }
 }
