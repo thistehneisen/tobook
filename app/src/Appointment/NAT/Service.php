@@ -45,11 +45,18 @@ class Service
      */
     public function enqueueToBuild($user, $date)
     {
-        // Push this job into the special queue called 'varaa:nat'
-        Queue::push('App\Appointment\NAT\Service@scheduledBuild', [
-            'date'   => $date->toDateTimeString(),
-            'userId' => $user->id,
-        ], static::QUEUE);
+        // For God's sake, we need to build NAT for 4 days in advance
+        $i = 0;
+        while ($i < 4) {
+            // Push this job into the special queue called 'varaa:nat'
+            Queue::push('App\Appointment\NAT\Service@scheduledBuild', [
+                'date'   => $date->toDateTimeString(),
+                'userId' => $user->id,
+            ], static::QUEUE);
+
+            $date = $date->addDay();
+            $i++;
+        }
     }
 
     /**

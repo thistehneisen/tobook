@@ -48,15 +48,9 @@ class ScheduledBuild extends ScheduledCommand {
     {
         $businesses = Business::with('user')->get();
         $today = Carbon::today();
-        $i = 0;
-        while ($i < 4) {
-            foreach ($businesses as $business) {
-                // Push user and the date into queue to build NAT calendar
-                NAT::enqueueToBuild($business->user, $today);
-            }
-
-            $today = $today->addDays($i);
-            $i++;
+        foreach ($businesses as $business) {
+            // Push user and the date into queue to build NAT calendar
+            NAT::enqueueToBuild($business->user, $today);
         }
     }
 
