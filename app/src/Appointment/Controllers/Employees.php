@@ -1,7 +1,7 @@
 <?php namespace App\Appointment\Controllers;
 
 use App, View, Confide, Redirect, Input, Config, Util, Response, Validator;
-use Carbon\Carbon;
+use Carbon\Carbon, NAT;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\EmployeeDefaultTime;
 use App\Appointment\Models\EmployeeFreetime;
@@ -534,6 +534,10 @@ class Employees extends AsBase
                 }
                 $current = Carbon::createFromFormat('Y-m-d', $date);
             }
+
+            // We need to rebuild the NAT calendar
+            NAT::enqueueToRebuild($this->user);
+
             return Redirect::route('as.employees.employeeCustomTime', ['employeeId' => $employeeId, 'date' => $current->format('Y-m')])
                 ->with(
                     'messages',
