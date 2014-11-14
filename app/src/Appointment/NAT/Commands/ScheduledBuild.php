@@ -32,11 +32,9 @@ class ScheduledBuild extends ScheduledCommand {
      */
     public function schedule(Schedulable $scheduler)
     {
-        // Because we calculate NAT of 4 days in advance
-        return $scheduler->daysOfTheWeek([
-            Scheduler::MONDAY,
-            Scheduler::FRIDAY
-        ]);
+        // Because we calculate NAT of 4 days in advance, so we need to run this
+        // task every 96 hours
+        return $scheduler->everyHours(96);
     }
 
     /**
