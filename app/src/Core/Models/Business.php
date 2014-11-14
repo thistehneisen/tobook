@@ -300,6 +300,11 @@ class Business extends Base
      */
     public static function getRandomBusinesses($categoryId, $quantity)
     {
+        $ids = \Redis::connection()->srandmember('business_category:'.$categoryId.':businesses', $quantity);
+        if (!empty($ids)) {
+            return static::whereIn('user_id', $ids)->get();
+        }
+
         // it is not efficient to order by RAND() but we have relatively small customers base
         return static::orderBy(\DB::raw('RAND()'))
             ->join('business_category_user', 'business_category_user.user_id', '=','businesses.user_id')
