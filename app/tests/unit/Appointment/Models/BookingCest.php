@@ -87,6 +87,17 @@ class BookingCest
         }
     }
 
+    public function testGetStartTime(UnitTester $I)
+    {
+        $booking = new Booking();
+        $booking->date = '2014-11-15';
+        $booking->start_at = '08:00';
+
+        $I->assertTrue($booking->start_time instanceof \Carbon\Carbon);
+        $I->assertEquals($booking->start_time->toTimeString(), '08:00:00');
+        $I->assertEquals($booking->start_time->toDateString(), '2014-11-15');
+    }
+
     public function testGetServiceInfo(UnitTester $I)
     {
         $booking = $this->_makeABooking();
