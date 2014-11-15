@@ -1,6 +1,6 @@
 <?php namespace App\Core\Models;
 
-use Config, Log;
+use Config, Log, NAT;
 use App\Core\Models\Relations\BusinessBusinessCategory;
 use App\Lomake\Fields\HtmlField;
 use Exception;
@@ -300,7 +300,7 @@ class Business extends Base
      */
     public static function getRandomBusinesses($categoryId, $quantity)
     {
-        $ids = \Redis::connection()->srandmember('business_category:'.$categoryId.':businesses', $quantity);
+        $ids = NAT::getRandomBusinesses($categoryId, $quantity);
         if (!empty($ids)) {
             return static::whereIn('user_id', $ids)->get();
         }

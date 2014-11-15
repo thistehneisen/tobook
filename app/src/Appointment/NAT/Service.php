@@ -476,4 +476,21 @@ class Service
             call_user_func_array([$this->redis, 'zadd'], $params);
         }
     }
+
+    /**
+     * Get random businesses in given category that possibly have NAT
+     *
+     * @param int $category
+     * @param int $limit
+     *
+     * @return array
+     */
+    public function getRandomBusinesses($categoryId, $limit)
+    {
+        return $this->redis->srandmember($this->key(
+            'business_category',
+            $categoryId,
+            'businesses'
+        ), $limit);
+    }
 }
