@@ -33,7 +33,7 @@
         <div class="clearfix"></div>
         @foreach ($businesses as $business)
             <?php
-                $slots = $business->user->getASNextTimeSlots($now, $now->hour);
+                $slots = $business->user->getASNextTimeSlots($now->copy(), $now->hour);
                 $count = 0;
             ?>
             <div class="available-slot col-sm-3 col-xs-6">

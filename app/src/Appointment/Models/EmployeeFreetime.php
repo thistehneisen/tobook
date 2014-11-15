@@ -12,6 +12,19 @@ class EmployeeFreetime extends \App\Appointment\Models\Base
        return (int) $this->getStartAt()->diffInMinutes($this->getEndAt());
     }
     //--------------------------------------------------------------------------
+    // ATTRIBUTES
+    //--------------------------------------------------------------------------
+    public function getStartTimeAttribute()
+    {
+        return new Carbon($this->attributes['date'].' '.$this->attributes['start_at']);
+    }
+
+    public function getEndTimeAttribute()
+    {
+        return new Carbon($this->attributes['date'].' '.$this->attributes['end_at']);
+    }
+
+    //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
     public function user()

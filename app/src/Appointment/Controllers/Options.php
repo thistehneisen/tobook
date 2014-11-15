@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Controllers;
 
-use App, View, Confide, Redirect, Input, Config;
+use App, View, Confide, Redirect, Input, Config, NAT;
 use App\Lomake\FieldFactory;
 use App\Appointment\Models\Option;
 
@@ -130,6 +130,9 @@ class Options extends AsBase
             ]);
 
             $this->user->asOptions()->save($option);
+
+            // Rebuild the NAT calendar of this user
+            NAT::enqueueToRebuild($this->user);
         }
 
         return Redirect::back()->with(
