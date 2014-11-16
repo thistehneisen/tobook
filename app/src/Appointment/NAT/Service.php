@@ -472,7 +472,7 @@ class Service
      */
     protected function addToSortedSet($params)
     {
-        if (count($params) > 1) {
+        if (count($params) > 3) {
             call_user_func_array([$this->redis, 'zadd'], $params);
         }
     }
