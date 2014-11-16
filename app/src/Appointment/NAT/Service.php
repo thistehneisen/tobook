@@ -381,7 +381,7 @@ class Service
     {
         Log::debug('Restore slots of booking', [$booking->id]);
         $params = [];
-        $params[] = $this->key('user', $booking->id, 'nat');
+        $params[] = $this->key('user', $booking->user_id, 'nat');
 
         $start = 0;
         while ($start < (int) $booking->total) {
