@@ -1,22 +1,35 @@
 @extends ('modules.as.crud.index')
 
+@section ('styles')
+    @parent
+    {{ HTML::style(asset('packages/alertify/css/alertify.min.css')) }}
+    {{ HTML::style(asset('packages/alertify/css/themes/default.min.css')) }}
+@stop
+
 @section ('scripts')
     @if ($sortable === true)
         @include('modules.as.crud.sortable')
     @endif
-
+{{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
     <script>
 $(function() {
     $('table.table-crud').find('a.btn-danger').on('click', function(e) {
         e.preventDefault();
         var $this = $(this),
             url = $this.attr('href');
+        // var reason = prompt($this.data('delete-reason'), $this.data('delete-reason-default'));
 
-        var reason = prompt($this.data('delete-reason'), $this.data('delete-reason-default'));
-        if (reason !== null) {
-            url += '?reason='+encodeURI(reason);
-            window.location = url;
-        }
+        alertify.prompt("Prompt", $this.data('delete-reason'), $this.data('delete-reason-default'),
+          function(evt, value ){
+            alertify.success('OK: ' + value);
+            if (value !== null) {
+                url += '?reason='+encodeURI(value);
+                window.location = url;
+            }
+          },
+          function(){
+            alertify.error('Cancel');
+        });
     });
 });
     </script>

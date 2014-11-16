@@ -45,7 +45,7 @@
                     alertify.alert('Something went wrong');
                 });
             }, function () {
-                //do cancel action
+                alertify.error('Cancel');
             });
         });
 

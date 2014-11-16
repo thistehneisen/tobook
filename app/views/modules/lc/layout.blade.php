@@ -24,7 +24,7 @@
                 window.location = $this.attr('href');
               },
               function(){
-                //do cancel action
+                alertify.error('Cancel');
             });
         });
     });

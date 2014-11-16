@@ -293,7 +293,7 @@ class Bookings extends AsBase
             // TODO: this error message is for debugging since it can be various cases
             return Response::json([
                 'success'=> false,
-                'message'=> $resultExtraServices['message'],
+                'message'=> $resultStatus['message'],
             ]);
         }
     }
@@ -342,29 +342,34 @@ class Bookings extends AsBase
         $isBookable = Booking::isBookable($booking->employee->id, $date, $endTime, $newEndTime, $booking->uuid);
 
         $data['success'] = true;
-
+        $data['message'] = '';
         if ($isBookable) {
-            $booking->total              = $total;
-            $booking->total_price        = $booking->total_price + $extraServicePrice;
-            $booking->end_at             = $newEndTime->toTimeString();
-            $booking->modify_time        = $modifyTime;
-            $bookingService->modify_time = $modifyTime;
-            $booking->save();
-            $bookingService->save();
+            try {
+                $booking->total              = $total;
+                $booking->total_price        = $booking->total_price + $extraServicePrice;
+                $booking->end_at             = $newEndTime->toTimeString();
+                $booking->modify_time        = $modifyTime;
+                $bookingService->modify_time = $modifyTime;
+                $booking->save();
+                $bookingService->save();
 
-            foreach ($extraServices as $extraService) {
-                $bookingExtraService = new BookingExtraService;
-                $bookingExtraService->fill([
-                    'date'     => $booking->date,
-                    'tmp_uuid' => $booking->uuid,
-                ]);
-                $bookingExtraService->booking()->associate($booking);
-                $bookingExtraService->extraService()->associate($extraService);
-                $bookingExtraService->save();
+                foreach ($extraServices as $extraService) {
+                    $bookingExtraService = new BookingExtraService;
+                    $bookingExtraService->fill([
+                        'date'     => $booking->date,
+                        'tmp_uuid' => $booking->uuid,
+                    ]);
+                    $bookingExtraService->booking()->associate($booking);
+                    $bookingExtraService->extraService()->associate($extraService);
+                    $bookingExtraService->save();
+                }
+            } catch(\Exception $ex){
+                $data['success'] = false;
+                $data['message'] = $ex->getMessage();
             }
         } else {
             $data['success'] = false;
-            $data['message'] =  trans('as.bookings.error.not_enough_slots');
+            $data['message'] = trans('as.bookings.error.not_enough_slots');
             $data['status']  = 500;
         }
         return $data;
