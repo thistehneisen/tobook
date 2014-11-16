@@ -36,7 +36,7 @@ class Search extends Base
                 $query['bool']['should'][]['match']['city'] = $location;
                 $query['bool']['should'][]['match']['country'] = $location;
             }
-            //Filter out empty business name
+            //Filter out empty business name, only work with null value, does not work with ''
             $filter = [
                  'exists' => [ 'field' => 'business_name' ]
             ];
@@ -45,6 +45,7 @@ class Search extends Base
                 "filter" => $filter,
                 "query"  => $query
             ];
+
             $result = Es::search($params);
             $total = $result['hits']['total'];
 

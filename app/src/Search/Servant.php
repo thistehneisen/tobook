@@ -57,7 +57,8 @@ class Servant
         $params['id'] = $business->user->id;
 
         $params['body'] = [
-            'business_name' => $business->name ?: '',
+            // 'business_name' => $business->name ?: '',
+            'business_name' => $business->name,// filter exists only works with null value, so let it be null
             'category_name' => $categoryNames,
             'keywords'      => $categoryKeywords,
             'address'       => $business->address ?: '',
