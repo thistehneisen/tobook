@@ -30,6 +30,38 @@ class Users extends Base
     ];
 
     /**
+     * @{@inheritdoc}
+     */
+    public function index()
+    {
+        // To make sure that we only show records of current user
+        $query = $this->getModel();
+
+        // Allow to filter results in query string
+        $query = $this->applyQueryStringFilter($query);
+
+        // If this controller is sortable
+        if ($this->getOlutOptions('sortable') === true) {
+            $query = $query->orderBy('order');
+        }
+
+        // Eager loading
+        if ($prefetch = $this->getOlutOptions('prefetch')) {
+            $query = $query->with($prefetch);
+        }
+
+        // Don't know why model User doesn't take SoftDeleteTrait, so this
+        // would fix temporarily.
+        $query = $query->whereNull('deleted_at');
+
+        // Pagination please
+        $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
+        $items = $query->paginate($perPage);
+
+        return $this->renderList($items);
+    }
+
+    /**
      * Overwrite upsert behavior
      *
      * @param View $view
