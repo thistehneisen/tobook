@@ -36,6 +36,11 @@ class Search extends Base
                 $query['bool']['should'][]['match']['city'] = $location;
                 $query['bool']['should'][]['match']['country'] = $location;
             }
+            //Filter out empty business name
+            $filter = [
+                 'exists' => [ 'field' => 'business_name' ]
+            ];
+
             $params['body']['query']['filtered'] = [
                 "filter" => $filter,
                 "query"  => $query
