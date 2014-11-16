@@ -81,10 +81,14 @@ $(function () {
             if(data.success){
                 $('#extra-service-'+extra_service).remove();
             } else {
-                alertify.alert(data.message);
+                alertify.alert('Alert', data.message, function() {
+                    alertify.message("OK");
+                });
             }
         }).fail(function (data) {
-            alertify.alert(data.responseJSON.message);
+            alertify.alert('Alert', data.responseJSON.message, function() {
+                alertify.message("OK");
+            });
         });
     });
     $("#keyword").select2({

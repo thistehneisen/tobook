@@ -8,8 +8,8 @@
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.css') }}
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/css/bootstrap-select.min.css') }}
     {{ HTML::style(asset('packages/bootstrap-spinner/bootstrap-spinner.min.css')) }}
-    {{ HTML::style(asset('packages/alertify/alertify.core.css')) }}
-    {{ HTML::style(asset('packages/alertify/alertify.bootstrap.css')) }}
+    {{ HTML::style(asset('packages/alertify/css/alertify.min.css')) }}
+    {{ HTML::style(asset('packages/alertify/css/themes/default.min.css')) }}
     {{ HTML::style(asset('assets/css/as/appointment.css?v=00005')) }}
 <style>
 .pagination { margin: 0 !important; }
