@@ -12,7 +12,7 @@
         @if($booking !== null)
             <?php $tooltip = $booking->getCalendarTooltip();?>
             @if(strpos($slotClass, 'slot-booked-head') !== false)
-            <a href="{{ route('as.bookings.modify-form') }}" style="max-height: {{ $maxHeight }}px;" class="btn-plus btn-popover popup-ajax customer-tooltip" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click" title="{{{ $tooltip }}}">{{ $booking->getIcons() }}{{ $booking->getConsumerName() }} {{ $booking->getServiceDescription() }}</a>
+            <a href="{{ route('as.bookings.modify-form') }}" style="max-height: {{ $maxHeight }}px;" class="btn-plus btn-popover popup-ajax customer-tooltip" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click" title="{{{ $tooltip }}}">{{ $booking->getIcons() }} {{ $booking->getConsumerName() }} {{ $booking->getServiceDescription() }}</a>
             @else
             <a href="{{ route('as.bookings.modify-form') }}" class="btn-popover popup-ajax hidden-print" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click">&nbsp;</a>
             @endif
@@ -20,7 +20,7 @@
     @elseif(strpos(trim($slotClass), 'freetime') !== false)
         @if($freetime !== null)
             @if(strval($freetime->start_at) === sprintf('%02d:%02d:00', $hour, $minuteShift))
-                 <span style="max-height: {{ $maxFreetimeHeight }}px;@if(intval($maxFreetimeHeight)===18)white-space: nowrap; text-overflow: ellipsis;@endif"><a href="#" data-confirm="{{ trans('as.employees.confirm.delete_freetime') }}" data-action-url="{{ route('as.employees.freetime.delete') }}" data-freetime-id="{{ $freetime->id }}" class="btn-delete-employee-freetime"><i class="fa fa-remove"></i></a> {{ $freetime->description !== '' ? $freetime->description : trans('as.employees.free_time') }}</span>
+                <span style="max-height: {{ $maxFreetimeHeight }}px;@if(intval($maxFreetimeHeight)===18)white-space: nowrap; text-overflow: ellipsis;@endif"><a href="#" data-confirm="{{ trans('as.employees.confirm.delete_freetime') }}" data-action-url="{{ route('as.employees.freetime.delete') }}" data-freetime-id="{{ $freetime->id }}" class="btn-delete-employee-freetime"><i class="fa fa-remove"></i></a> {{ $freetime->description !== '' ? $freetime->description : trans('as.employees.free_time') }}</span>
             @else
                 <span>&nbsp;</span>
             @endif

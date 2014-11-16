@@ -1,7 +1,7 @@
 <?php namespace App\Appointment\Controllers;
 
 use App, View, Confide, Redirect, Input, Config, Util, Response, Validator;
-use Carbon\Carbon;
+use Carbon\Carbon, NAT;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\EmployeeDefaultTime;
 use App\Appointment\Models\EmployeeFreetime;
@@ -145,6 +145,9 @@ class Employees extends AsBase
                 $defaultTime->employee()->associate($employee);
                 $defaultTime->save();
             }
+
+            // We need to rebuild the NAT calendar
+            NAT::enqueueToRebuild($this->user);
         } catch (\Watson\Validating\ValidationException $ex) {
             return Redirect::route('as.services.categories')
                 ->with('messages', $this->successMessageBag($ex->getErrors()));
@@ -204,6 +207,9 @@ class Employees extends AsBase
             $employeeFreetime->employee()->associate($employee);
             $employeeFreetime->save();
             $data['success'] = true;
+
+            // Remove NAT slots since employee has freetime
+            NAT::removeEmployeeFreeTime($employeeFreetime);
         } catch (\Exception $ex) {
             $data['success'] = false;
             $data['message'] = $ex->getMessage();
@@ -221,6 +227,10 @@ class Employees extends AsBase
         $data = [];
         try {
             $freetime = EmployeeFreetime::find($freetimeId);
+
+            // Remove NAT slots since employee has freetime
+            NAT::restoreEmployeeFreeTime($freetime);
+
             $freetime->delete();
             $data['success'] = true;
         } catch (\Exception $ex) {
@@ -534,6 +544,10 @@ class Employees extends AsBase
                 }
                 $current = Carbon::createFromFormat('Y-m-d', $date);
             }
+
+            // We need to rebuild the NAT calendar
+            NAT::enqueueToRebuild($this->user);
+
             return Redirect::route('as.employees.employeeCustomTime', ['employeeId' => $employeeId, 'date' => $current->format('Y-m')])
                 ->with(
                     'messages',
