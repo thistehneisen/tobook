@@ -18,15 +18,12 @@
 
     <script>
 $(function() {
-    $('table.table-crud').find('a.btn-danger').click('on', function(event) {
-        event.preventDefault();
+    $('table.table-crud').find('a.btn-danger').click('on', function(e) {
+        e.preventDefault();
         var $this = $(this);
-
-        alertify.confirm('{{ trans('olut::olut.confirm') }}', function (e) {
-            if (e) {
-                window.location = $this.attr('href');
-            }
-        });
+        if (confirm('{{ trans('olut::olut.confirm') }}')) {
+            window.location = $this.attr('href');
+        }
     });
 });
     </script>
