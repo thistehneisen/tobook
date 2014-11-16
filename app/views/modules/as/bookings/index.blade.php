@@ -60,7 +60,6 @@ $(function() {
 <table class="table table-hover table-crud">
     <thead>
         <tr>
-            <th><input type="checkbox" class="toggle-check-all-boxes" data-checkbox-class="checkbox"></th>
             <th>{{ trans('as.bookings.uuid') }}</th>
             <th>{{ trans('as.bookings.date') }}</th>
             <th>{{ trans('as.bookings.customers') }}</th>
@@ -73,7 +72,6 @@ $(function() {
     <tbody id="js-crud-tbody">
     @foreach ($items as $item)
         <tr id="row-{{ $item->id }}" data-id="{{ $item->id }}" class="booking-row js-sortable-{{ $sortable }}" data-toggle="tooltip" data-placement="top" data-title="{{ trans('as.crud.sortable') }}">
-            <td><input type="checkbox" class="checkbox" name="ids[]" value="{{ $item->id }}"></td>
             <td>{{ $item->uuid }}</td>
             <td>{{ $item->date }}</td>
             <td>@if(!empty($item->consumer->name)) {{ $item->consumer->name }} @endif</td>
@@ -98,17 +96,7 @@ $(function() {
 
 <div class="row">
     <div class="col-md-4">
-        @if (!empty($bulkActions))
-        <div class="form-group">
-            <label>@lang('as.with_selected')</label>
-            <select name="action" id="mass-action" class="form-control input-sm">
-            @foreach ($bulkActions as $action)
-                <option value="{{ $action }}">{{ trans('common.'.$action) }}</option>
-            @endforeach
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary btn-sm btn-submit-mass-action">{{ trans('common.save') }}</button>
-        @endif
+        &nbsp;
     </div>
     <div class="col-md-6 text-right">
         {{  $items->appends(Input::only('perPage'))->links() }}
