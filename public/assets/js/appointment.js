@@ -255,7 +255,9 @@
                 $('#added_service_price').text(data.price);
                 $('#added_services').show();
             }).fail(function (data) {
-                alertify.alert(data.responseJSON.message);
+                alertify.alert('Alert', data.responseJSON.message, function () {
+                    alertify.message("OK");
+                });
             });
         });
         $(document).on('click', '#btn-save-booking', function (e) {
