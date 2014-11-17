@@ -224,22 +224,9 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $query = self::where('date', $bookingDate)
             ->where('employee_id', $employeeId)
             ->whereNull('deleted_at')
-            ->where('status','!=', self::STATUS_CANCELLED)
-            ->where(function ($query) use ($startTime, $endTime) {
-                return $query->where(function ($query) use ($startTime, $endTime) {
-                    return $query->where('start_at', '>=', $startTime->toTimeString())
-                         ->where('start_at', '<', $endTime->toTimeString());
-                })->orWhere(function ($query) use ($endTime, $startTime) {
-                     return $query->where('end_at', '>', $startTime->toTimeString())
-                          ->where('end_at', '<=', $endTime->toTimeString());
-                })->orWhere(function ($query) use ($startTime) {
-                     return $query->where('start_at', '<', $startTime->toTimeString())
-                          ->where('end_at', '>', $startTime->toTimeString());
-                })->orWhere(function ($query) use ($startTime, $endTime) {
-                     return $query->where('start_at', '=', $startTime->toTimeString())
-                          ->where('end_at', '=', $endTime->toTimeString());
-                });
-            });
+            ->where('status','!=', self::STATUS_CANCELLED);
+
+        $query = self::applyDuplicateFilter($query, $startTime, $endTime);
 
         if(!empty($uuid)){
             $query->where('uuid','!=', $uuid);
@@ -267,25 +254,13 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             return true;
         }
 
-         $query = self::where('as_bookings.date', $bookingDate)
+        $query = self::where('as_bookings.date', $bookingDate)
             ->whereNull('as_bookings.deleted_at')
-            ->where('as_bookings.status','!=', self::STATUS_CANCELLED)
-            ->where(function ($query) use ($startTime, $endTime) {
-                return $query->where(function ($query) use ($startTime, $endTime) {
-                    return $query->where('as_bookings.start_at', '>=', $startTime->toTimeString())
-                         ->where('as_bookings.start_at', '<', $endTime->toTimeString());
-                })->orWhere(function ($query) use ($endTime, $startTime) {
-                     return $query->where('as_bookings.end_at', '>', $startTime->toTimeString())
-                          ->where('as_bookings.end_at', '<=', $endTime->toTimeString());
-                })->orWhere(function ($query) use ($startTime) {
-                     return $query->where('as_bookings.start_at', '<', $startTime->toTimeString())
-                          ->where('as_bookings.end_at', '>', $startTime->toTimeString());
-                })->orWhere(function ($query) use ($startTime, $endTime) {
-                     return $query->where('as_bookings.start_at', '=', $startTime->toTimeString())
-                          ->where('as_bookings.end_at', '=', $endTime->toTimeString());
-                });
-            })
-            ->join('as_booking_services', 'as_booking_services.booking_id', '=','as_bookings.id')
+            ->where('as_bookings.status','!=', self::STATUS_CANCELLED);
+
+        $query = self::applyDuplicateFilter($query, $startTime, $endTime);
+
+        $query->join('as_booking_services', 'as_booking_services.booking_id', '=','as_bookings.id')
             ->join('as_services', 'as_services.id', '=','as_booking_services.service_id')
             ->join('as_resource_service', 'as_resource_service.service_id', '=', 'as_services.id')
             ->whereIn('as_resource_service.resource_id', $resourceIds)->get();
@@ -294,6 +269,29 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             return false;
         }
         return true;
+    }
+
+    /**
+     * Return a query with conditions for checking duplicate booking
+     * @return Illuminate\Database\Query\Builder
+     */
+    public static function applyDuplicateFilter($query, $startTime, $endTime)
+    {
+        return $query->where(function ($query) use ($startTime, $endTime) {
+            return $query->where(function ($query) use ($startTime, $endTime) {
+                return $query->where('as_bookings.start_at', '>=', $startTime->toTimeString())
+                     ->where('as_bookings.start_at', '<', $endTime->toTimeString());
+            })->orWhere(function ($query) use ($endTime, $startTime) {
+                 return $query->where('as_bookings.end_at', '>', $startTime->toTimeString())
+                      ->where('as_bookings.end_at', '<=', $endTime->toTimeString());
+            })->orWhere(function ($query) use ($startTime) {
+                 return $query->where('as_bookings.start_at', '<', $startTime->toTimeString())
+                      ->where('as_bookings.end_at', '>', $startTime->toTimeString());
+            })->orWhere(function ($query) use ($startTime, $endTime) {
+                 return $query->where('as_bookings.start_at', '=', $startTime->toTimeString())
+                      ->where('as_bookings.end_at', '=', $endTime->toTimeString());
+            });
+        });
     }
 
     /**
