@@ -61,7 +61,14 @@ This command is scheduled to run every 96 hours (4 days).
 
 ## How to deploy?
 
-Just run this into the terminal.
+Install Redis (tested with Redis server v=2.8.17 sha=00000000:0 malloc=jemalloc-3.6.0 bits=64 build=b700a3585c1549ae)
+```
+sudo add-apt-repository ppa:chris-lea/redis-server
+sudo apt-get update
+sudo apt-get install redis-server
+```
+
+Run this in the terminal.
 `nohup php /path/to/artisan queue:work --queue=varaa:nat --daemon > /dev/null 2>&1 &`
 
 
