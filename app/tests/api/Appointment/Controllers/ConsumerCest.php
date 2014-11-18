@@ -1,5 +1,4 @@
-<?php
-namespace Appointment\Schedule;
+<?php namespace Test\Api\Appointment\Controllers;
 
 use \ApiTester;
 use App\Appointment\Models\Consumer;
@@ -35,8 +34,12 @@ class ConsumerCest
     {
         $consumerCount = 3;
 
-        for ($i = 0; $i < $consumerCount; $i++) {
-            $this->_book($this->user, $this->categories[0], $this->_getNextDate(), sprintf('%02d:00', 8 + $i * 2));
+        $categories = $this->_createCategoryServiceAndExtra($consumerCount - 1);
+        $categories[] = $this->categories[0];
+        $date = $this->_getNextDate();
+
+        foreach ($categories as $category) {
+            $this->_book($this->user, $category, $date->addDay());
         }
 
         $I->sendGET($this->consumersEndpoint);

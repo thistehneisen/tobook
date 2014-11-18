@@ -1,5 +1,4 @@
-<?php
-namespace Appointment\Schedule;
+<?php namespace Test\Api\Appointment\Controllers;
 
 use \ApiTester;
 use App\Appointment\Models\EmployeeCustomTime;
