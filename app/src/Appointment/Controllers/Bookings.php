@@ -153,8 +153,8 @@ class Bookings extends AsBase
 
         $categories = $this->getCategories($services);
 
-        $bookingCategoryId   = (!empty($bookingService->service->category)) ? $bookingService->service->category->id : null;
-        $bookingServiceId    = (!empty($bookingService->service)) ? $bookingService->service->id : null;
+        $bookingCategoryId   = (!empty($bookingService->service->category->id)) ? $bookingService->service->category->id : null;
+        $bookingServiceId    = (!empty($bookingService->service->id)) ? $bookingService->service->id : null;
         $bookingServices     = $employee->services()->where('category_id', $bookingCategoryId)->lists('name','id');
         $bookingServices[-1] = trans('common.select');
         ksort($bookingServices);//sort selected services by key
@@ -239,9 +239,10 @@ class Bookings extends AsBase
 
         foreach ($services as $service) {
             //for getting distinct categories
-            if(!empty($service->category->id)) {
-                $categories[$service->category->id] = $service->category->name;
+            if(empty($service->category->id)) {
+                continue;
             }
+            $categories[$service->category->id] = $service->category->name;
         }
         return $categories;
     }
