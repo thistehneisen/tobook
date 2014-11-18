@@ -260,7 +260,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         $query = self::applyDuplicateFilter($query, $startTime, $endTime);
 
-        $query->join('as_booking_services', 'as_booking_services.booking_id', '=','as_bookings.id')
+        $query = $query->join('as_booking_services', 'as_booking_services.booking_id', '=','as_bookings.id')
             ->join('as_services', 'as_services.id', '=','as_booking_services.service_id')
             ->join('as_resource_service', 'as_resource_service.service_id', '=', 'as_services.id')
             ->whereIn('as_resource_service.resource_id', $resourceIds)->get();
