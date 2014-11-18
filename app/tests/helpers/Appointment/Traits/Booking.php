@@ -43,8 +43,8 @@ trait Booking
 
         $consumer = AsConsumer::handleConsumer([
             'first_name' => 'Consumer First',
-            'last_name' => 'Last ' . $bookingService->id,
-            'email' => 'consumer_' . $bookingService->id . '@varaa.com',
+            'last_name' => 'Last ' . $category->id,
+            'email' => 'consumer_' . $category->id . '@varaa.com',
             'phone' => '1234567890',
             'hash' => '',
         ], $user);
