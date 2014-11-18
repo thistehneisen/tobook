@@ -158,7 +158,11 @@ class Base implements Strategy
             $end   = $freetime->getEndAt()->subMinutes(15);//TODO is always 15?
 
             if ($this->rowTime >= $start && $this->rowTime <= $end) {
-                $this->class = $this->getValue('freetime');
+                if ($this->rowTime == $start) {
+                    $this->class .= $this->getValue('freetime_head');
+                } else {
+                    $this->class .= $this->getValue('freetime_body');
+                }
                 $this->freetimeSlot[$this->date][$this->hour][$this->minute] = $freetime;
             }
         }
@@ -258,7 +262,8 @@ class Base implements Strategy
         $map = [
             'active'            => 'fancybox active',
             'inactive'          => 'fancybox inactive',
-            'freetime'          => 'freetime',
+            'freetime_head'     => 'freetime freetime-head',
+            'freetime_body'     => 'freetime freetime-body',
             'custom_active'     => 'custom fancybox active',
             'custom_inactive'   => 'custom fancybox inactive',
             'resource_inactive' => 'resource fancybox inactive',

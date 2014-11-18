@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Listeners;
 
-use Confide, Cart;
+use Confide, Cart, NAT;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Booking;
 

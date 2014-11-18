@@ -2,8 +2,8 @@
 
 @section ('styles')
     @parent
-    {{ HTML::style(asset('packages/alertify/alertify.core.css')) }}
-    {{ HTML::style(asset('packages/alertify/alertify.bootstrap.css')) }}
+    {{ HTML::style(asset('packages/alertify/css/alertify.min.css')) }}
+    {{ HTML::style(asset('packages/alertify/css/themes/default.min.css')) }}
     <style>
     .main { margin: 0 auto; }
     </style>
@@ -19,10 +19,12 @@
             event.preventDefault();
             var $this = $(this);
 
-            alertify.confirm('{{ trans('olut::olut.confirm') }}', function (e) {
-                if (e) {
-                    window.location = $this.attr('href');
-                }
+            alertify.confirm('Confirm', '{{ trans('common.are_you_sure') }}',
+              function(){
+                window.location = $this.attr('href');
+              },
+              function(){
+                alertify.error('Cancel');
             });
         });
     });

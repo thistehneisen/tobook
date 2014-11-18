@@ -27,25 +27,25 @@
         $('#form-bulk').on('submit', function (e) {
             e.preventDefault();
             var $this = $(this);
-            alertify.confirm($this.data('confirm'), function (e) {
-                if (e) {
-                    // user clicked "ok"
-                    $.ajax({
-                        type: 'POST',
-                        url: $this.attr('action'),
-                        data: $this.serialize(),
-                        dataType: 'json'
-                    }).done(function () {
-                        alertify.alert('OK');
-                        if ($('#mass-action').val() === 'destroy') {
-                            $("#form-bulk [type=checkbox]:checked").each(function () {
-                                $('#row-' + $(this).val()).remove();
-                            });
-                        }
-                    }).fail(function () {
-                        alertify.alert('Something went wrong');
-                    });
-                }
+            alertify.confirm('Confirm', $this.data('confirm'), function () {
+                // user clicked "ok"
+                $.ajax({
+                    type: 'POST',
+                    url: $this.attr('action'),
+                    data: $this.serialize(),
+                    dataType: 'json'
+                }).done(function () {
+                    alertify.alert('OK');
+                    if ($('#mass-action').val() === 'destroy') {
+                        $("#form-bulk [type=checkbox]:checked").each(function () {
+                            $('#row-' + $(this).val()).remove();
+                        });
+                    }
+                }).fail(function () {
+                    alertify.alert('Something went wrong');
+                });
+            }, function () {
+                alertify.error('Cancel');
             });
         });
 
@@ -255,7 +255,9 @@
                 $('#added_service_price').text(data.price);
                 $('#added_services').show();
             }).fail(function (data) {
-                alertify.alert(data.responseJSON.message);
+                alertify.alert('Alert', data.responseJSON.message, function () {
+                    alertify.message("OK");
+                });
             });
         });
         $(document).on('click', '#btn-save-booking', function (e) {

@@ -182,7 +182,7 @@ class User extends Base
     protected function updateBusiness()
     {
         $user = Confide::user();
-        $business = !empty($user->business) ? $user->business : new Business;
+        $business = $user->business !== null ? $user->business : new Business;
         $errors = null;
 
         try {

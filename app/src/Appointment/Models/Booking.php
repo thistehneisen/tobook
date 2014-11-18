@@ -1,10 +1,9 @@
 <?php namespace App\Appointment\Models;
 
-use Request;
+use Request, Carbon\Carbon, NAT;
 use App\Core\Models\User;
 use App\Appointment\Models\Observer\SmsObserver;
 use App\Appointment\Models\ResourceService;
-use Carbon\Carbon;
 use Watson\Validating\ValidationException;
 
 
@@ -37,6 +36,11 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     const STATUS_ARRIVED     = 4;
     const STATUS_PAID        = 5;
     const STATUS_NOT_SHOW_UP = 6;
+
+    // Minutes to step between two possible booking time. For examples, bookable
+    // time could be 8:00, 8:15, 8:30, etc. with default step of 15.
+    const STEP = 15;
+
 
     //Implement methods in SplSubject
     protected $_observers = [];
@@ -83,6 +87,49 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public function setStatus($text){
         $status = self::getStatus($text);
         $this->status = $status;
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
+    public static function boot()
+    {
+        parent::boot();
+        static::saving(function($booking) {
+            $booking->updateNAT();
+        });
+
+        static::deleting(function($booking) {
+            // When deleting a booking, we'll restore the available NAT slots
+            NAT::restoreBookedTime($booking);
+        });
+    }
+
+    /**
+     * If status of this booking changed to CONFIRM, we'll remove the available
+     * slots
+     *
+     * @return void
+     */
+    public function updateNAT()
+    {
+        // If this booking is cancelled, we need to restore its available slots
+        if ($this->status === static::STATUS_CANCELLED) {
+            NAT::restoreBookedTime($this);
+        }
+
+        if ($this->getOriginal('status') !== static::STATUS_CONFIRM
+            && $this->status === static::STATUS_CONFIRM) {
+            NAT::removeBookedTime($this);
+        }
+    }
+
+    //--------------------------------------------------------------------------
+    // ATTRIBUTES
+    //--------------------------------------------------------------------------
+    public function getStartTimeAttribute()
+    {
+        return new \Carbon\Carbon($this->date.' '.$this->start_at);
     }
 
     /**
@@ -159,7 +206,6 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      * but only execute one query
      *
      * @param int $employeeId
-     * @param App\Appointment\Models\Service service
      * @param string $bookingDate
      * @param Carbon $startTime
      * @param Carbon $endTime
@@ -178,22 +224,9 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $query = self::where('date', $bookingDate)
             ->where('employee_id', $employeeId)
             ->whereNull('deleted_at')
-            ->where('status','!=', self::STATUS_CANCELLED)
-            ->where(function ($query) use ($startTime, $endTime) {
-                return $query->where(function ($query) use ($startTime, $endTime) {
-                    return $query->where('start_at', '>=', $startTime->toTimeString())
-                         ->where('start_at', '<', $endTime->toTimeString());
-                })->orWhere(function ($query) use ($endTime, $startTime) {
-                     return $query->where('end_at', '>', $startTime->toTimeString())
-                          ->where('end_at', '<=', $endTime->toTimeString());
-                })->orWhere(function ($query) use ($startTime) {
-                     return $query->where('start_at', '<', $startTime->toTimeString())
-                          ->where('end_at', '>', $startTime->toTimeString());
-                })->orWhere(function ($query) use ($startTime, $endTime) {
-                     return $query->where('start_at', '=', $startTime->toTimeString())
-                          ->where('end_at', '=', $endTime->toTimeString());
-                });
-            });
+            ->where('status','!=', self::STATUS_CANCELLED);
+
+        $query = self::applyDuplicateFilter($query, $startTime, $endTime);
 
         if(!empty($uuid)){
             $query->where('uuid','!=', $uuid);
@@ -221,25 +254,13 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             return true;
         }
 
-         $query = self::where('as_bookings.date', $bookingDate)
+        $query = self::where('as_bookings.date', $bookingDate)
             ->whereNull('as_bookings.deleted_at')
-            ->where('as_bookings.status','!=', self::STATUS_CANCELLED)
-            ->where(function ($query) use ($startTime, $endTime) {
-                return $query->where(function ($query) use ($startTime, $endTime) {
-                    return $query->where('as_bookings.start_at', '>=', $startTime->toTimeString())
-                         ->where('as_bookings.start_at', '<', $endTime->toTimeString());
-                })->orWhere(function ($query) use ($endTime, $startTime) {
-                     return $query->where('as_bookings.end_at', '>', $startTime->toTimeString())
-                          ->where('as_bookings.end_at', '<=', $endTime->toTimeString());
-                })->orWhere(function ($query) use ($startTime) {
-                     return $query->where('as_bookings.start_at', '<', $startTime->toTimeString())
-                          ->where('as_bookings.end_at', '>', $startTime->toTimeString());
-                })->orWhere(function ($query) use ($startTime, $endTime) {
-                     return $query->where('as_bookings.start_at', '=', $startTime->toTimeString())
-                          ->where('as_bookings.end_at', '=', $endTime->toTimeString());
-                });
-            })
-            ->join('as_booking_services', 'as_booking_services.booking_id', '=','as_bookings.id')
+            ->where('as_bookings.status','!=', self::STATUS_CANCELLED);
+
+        $query = self::applyDuplicateFilter($query, $startTime, $endTime);
+
+        $query->join('as_booking_services', 'as_booking_services.booking_id', '=','as_bookings.id')
             ->join('as_services', 'as_services.id', '=','as_booking_services.service_id')
             ->join('as_resource_service', 'as_resource_service.service_id', '=', 'as_services.id')
             ->whereIn('as_resource_service.resource_id', $resourceIds)->get();
@@ -248,6 +269,29 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             return false;
         }
         return true;
+    }
+
+    /**
+     * Return a query with conditions for checking duplicate booking
+     * @return Illuminate\Database\Query\Builder
+     */
+    public static function applyDuplicateFilter($query, $startTime, $endTime)
+    {
+        return $query->where(function ($query) use ($startTime, $endTime) {
+            return $query->where(function ($query) use ($startTime, $endTime) {
+                return $query->where('as_bookings.start_at', '>=', $startTime->toTimeString())
+                     ->where('as_bookings.start_at', '<', $endTime->toTimeString());
+            })->orWhere(function ($query) use ($endTime, $startTime) {
+                 return $query->where('as_bookings.end_at', '>', $startTime->toTimeString())
+                      ->where('as_bookings.end_at', '<=', $endTime->toTimeString());
+            })->orWhere(function ($query) use ($startTime) {
+                 return $query->where('as_bookings.start_at', '<', $startTime->toTimeString())
+                      ->where('as_bookings.end_at', '>', $startTime->toTimeString());
+            })->orWhere(function ($query) use ($startTime, $endTime) {
+                 return $query->where('as_bookings.start_at', '=', $startTime->toTimeString())
+                      ->where('as_bookings.end_at', '=', $endTime->toTimeString());
+            });
+        });
     }
 
     /**
@@ -371,8 +415,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         if (!empty($bookingService->serviceTime->id)) {
             $serviceDescription .= ($showLineBreak)
-                ? '<br>'. $bookingService->serviceTime->description
-                : $bookingService->serviceTime->description;
+                ? '<br>' . $bookingService->serviceTime->description
+                : ' ' . $bookingService->serviceTime->description;
         }
 
         return $serviceDescription;
@@ -604,6 +648,24 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return $booking;
     }
 
+    /**
+     * Return icons for indicating requested employee of booking resources
+     * Using if endif for easy to copy back to the template
+     * @return string
+     */
+    public function getIcons()
+    {
+        $ouput = '';
+        if(!empty($this->firstBookingService())):
+            if($this->firstBookingService()->is_requested_employee):
+                $ouput .= '<i class="fa fa-check-square-o"></i>&nbsp;';
+            endif;
+        endif;
+        if(!empty($this->getBookingResources())):
+            $ouput .= '<i class="fa fa-cubes"></i>&nbsp;';
+        endif;
+        return trim($ouput);
+    }
     /**
      * Update booking data. Useful method after deletions of booking services and/or
      * extra services.

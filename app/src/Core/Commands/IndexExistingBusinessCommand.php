@@ -130,7 +130,8 @@ class IndexExistingBusinessCommand extends Command {
             ];
 
             $params['body'][] = [
-                'business_name' => $user->business->name ?: '',
+                // 'business_name' => $user->business->name ?: '',
+                'business_name' => $user->business->name,// filter exists only works with null value, so let it be null
                 'category_name' => str_replace('_', ' ', $categories->names),
                 'keywords'      => str_replace('_', ' ', $categories->keywords),
                 'address'       => $user->business->address ?: '',

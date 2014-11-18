@@ -2,8 +2,8 @@
 
 @section ('styles')
     @parent
-    {{ HTML::style(asset('packages/alertify/alertify.core.css')) }}
-    {{ HTML::style(asset('packages/alertify/alertify.bootstrap.css')) }}
+    {{ HTML::style(asset('packages/alertify/css/alertify.min.css')) }}
+    {{ HTML::style(asset('packages/alertify/css/themes/default.min.css')) }}
 @stop
 
 @section ('scripts')

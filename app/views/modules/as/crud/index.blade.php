@@ -13,10 +13,12 @@ $(function() {
         event.preventDefault();
         var $this = $(this);
 
-        alertify.confirm('{{ trans('common.are_you_sure') }}', function (e) {
-            if (e) {
-                window.location = $this.attr('href');
-            }
+        alertify.confirm("Confirm", '{{ trans('common.are_you_sure') }}',
+          function(){
+            window.location = $this.attr('href');
+          },
+          function(){
+            alertify.error('Cancel');
         });
     });
 });

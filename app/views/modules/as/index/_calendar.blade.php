@@ -1,33 +1,28 @@
 <?php
     $booking   = $selectedEmployee->getBooked($selectedDate, $hour, $minuteShift);
+    $freetime  = $selectedEmployee->getFreetime($selectedDate, $hour, $minuteShift);
     $bookingId = !empty($booking) ? $booking->id : -1;
+    $slots = !empty($booking) ? round($booking->total / 15) : 0;
+    $freetimeSlots = (int) !empty($freetime) ? round($freetime->getLength() / 15) : 0;
+    $maxHeight = !empty($booking) ? $slots * 18 : 18;
+    $maxFreetimeHeight = !empty($freetime) ? $freetimeSlots * 18 : 18;
 ?>
 <li data-booking-date="{{ $selectedDate }}" data-employee-id="{{ $selectedEmployee->id }}" data-start-time="{{ sprintf('%02d:%02d', (int)$hour, $minuteShift) }}" href="#select-action" class="{{ $slotClass }}" id="btn-slot-{{ $selectedEmployee->id }}-{{ sprintf('%02d%02d', $hour, $minuteShift) }}" @if($cutId==$bookingId) style="background-color: grey" @endif>
     @if(strpos(trim($slotClass), 'booked') === 0)
         @if($booking !== null)
             <?php $tooltip = $booking->getCalendarTooltip();?>
             @if(strpos($slotClass, 'slot-booked-head') !== false)
-            <a href="{{ route('as.bookings.modify-form') }}" class="btn-plus btn-popover popup-ajax customer-tooltip" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click" title="{{{ $tooltip }}}" id="btn-booking-{{ $booking->id }}">
-                @if(!empty($booking->firstBookingService()))
-                    @if($booking->firstBookingService()->is_requested_employee)
-                    <i class="fa fa-check-square-o"></i>
-                    @endif
-                @endif
-                @if(!empty($booking->getBookingResources()))
-                    <i class="fa fa-cubes"></i>
-                @endif
-                {{ $booking->getConsumerName() }} {{ $booking->getServiceDescription() }}
-            </a>
+            <a href="{{ route('as.bookings.modify-form') }}" style="max-height: {{ $maxHeight }}px;" class="btn-plus btn-popover popup-ajax customer-tooltip" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click" title="{{{ $tooltip }}}">{{ $booking->getIcons() }} {{ $booking->getConsumerName() }} {{ $booking->getServiceDescription() }}</a>
             @else
             <a href="{{ route('as.bookings.modify-form') }}" class="btn-popover popup-ajax hidden-print" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click">&nbsp;</a>
             @endif
         @endif
-    @elseif(strpos(trim($slotClass), 'freetime') === 0)
-        <?php $freetime = $selectedEmployee->getFreetime($selectedDate, $hour, $minuteShift); ?>
+    @elseif(strpos(trim($slotClass), 'freetime') !== false)
         @if($freetime !== null)
-            <span>{{ $freetime->description !== '' ? $freetime->description : trans('as.employees.free_time') }}</span>
             @if(strval($freetime->start_at) === sprintf('%02d:%02d:00', $hour, $minuteShift))
-                <a href="#" data-confirm="{{ trans('as.employees.confirm.delete_freetime') }}" data-action-url="{{ route('as.employees.freetime.delete') }}" data-freetime-id="{{ $freetime->id }}" class="btn-delete-employee-freetime"><i class="fa fa-remove"></i></a>
+                <span style="max-height: {{ $maxFreetimeHeight }}px;@if(intval($maxFreetimeHeight)===18)white-space: nowrap; text-overflow: ellipsis;@endif"><a href="#" data-confirm="{{ trans('as.employees.confirm.delete_freetime') }}" data-action-url="{{ route('as.employees.freetime.delete') }}" data-freetime-id="{{ $freetime->id }}" class="btn-delete-employee-freetime"><i class="fa fa-remove"></i></a> {{ $freetime->description !== '' ? $freetime->description : trans('as.employees.free_time') }}</span>
+            @else
+                <span>&nbsp;</span>
             @endif
         @endif
     @endif
