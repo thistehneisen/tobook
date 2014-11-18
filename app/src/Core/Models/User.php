@@ -60,20 +60,21 @@ class User extends ConfideUser
      */
     public function getASNextTimeSlots($date = null, $nextHour = null, $nextService = null)
     {
-        $slots = NAT::nextUser($this, $date);
-        if ($slots->isEmpty() === false) {
-            return $slots->toArray();
-        }
+        // $slots = NAT::nextUser($this, $date);
+        // if ($slots->isEmpty() === false) {
+        //     return $slots->toArray();
+        // }
 
-        for ($i = 0; $i < 3; $i++) {
-            $slots = CalendarKeeper::nextTimeSlots($this, $date, $nextHour, $nextService);
-            if (empty($slots)) {
-                $date->addDay();
-            } else {
-                break;
-            }
-        }
-        return $slots;
+        // for ($i = 0; $i < 3; $i++) {
+        //     $slots = CalendarKeeper::nextTimeSlots($this, $date, $nextHour, $nextService);
+        //     if (empty($slots)) {
+        //         $date->addDay();
+        //     } else {
+        //         break;
+        //     }
+        // }
+        // return $slots;
+        return NAT::nextUser($this, $date)->toArray();
     }
 
 
