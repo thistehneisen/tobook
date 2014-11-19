@@ -180,11 +180,15 @@ class Lomake
     /**
      * Return Form::open of this form
      *
+     * @param array $options
+     *
      * @return string
      */
-    public function open()
+    public function open(array $options = array())
     {
-        return Form::open($this->opt['form']);
+        $options = array_merge($this->opt['form'], $options);
+
+        return Form::open($options);
     }
 
     /**
