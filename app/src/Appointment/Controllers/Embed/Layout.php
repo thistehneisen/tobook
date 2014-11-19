@@ -310,12 +310,17 @@ trait Layout
                     ->first();
 
         if(!empty($empCustomTime)){
-            $end  = $empCustomTime->customTime->getEndAt();
+            $end   = $empCustomTime->customTime->getEndAt();
+            $start = $empCustomTime->customTime->getStartAt();
         }
 
         foreach ($workingTimes as $hour => $minutes) {
             foreach ($minutes as $shift) {
                 // We will check if this time bookable
+
+                if($hour < $start->hour) {
+                    continue;
+                }
 
                 $service = (!empty($serviceTime))
                     ? $serviceTime
