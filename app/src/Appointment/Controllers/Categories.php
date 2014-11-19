@@ -11,6 +11,7 @@ class Categories extends AsBase
     protected $langPrefix = 'as.services.categories';
     protected $modelClass = 'App\Appointment\Models\ServiceCategory';
     protected $crudSortable = true;
+    protected $bulkActions = [];
 
     /**
      * {@inheritdoc}

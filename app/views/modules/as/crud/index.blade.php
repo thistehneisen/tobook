@@ -37,7 +37,9 @@ $(function() {
 <table class="table table-hover table-crud">
     <thead>
         <tr>
+            @if (!empty($bulkActions))
             <th><input type="checkbox" class="toggle-check-all-boxes" data-checkbox-class="checkbox"></th>
+            @endif
         @foreach ($fields as $field)
             <th>{{ trans($langPrefix.'.'.$field) }}</th>
         @endforeach
@@ -47,7 +49,7 @@ $(function() {
     <tbody id="js-crud-tbody">
     @foreach ($items as $item)
         <tr id="row-{{ $item->id }}" data-id="{{ $item->id }}" class="item-row js-sortable-{{ $sortable }}" data-toggle="tooltip" data-placement="top" data-title="{{ trans('as.crud.sortable') }}">
-            <td><input type="checkbox" class="checkbox" name="ids[]" value="{{ $item->id }}"></td>
+            @if (!empty($bulkActions))<td><input type="checkbox" class="checkbox" name="ids[]" value="{{ $item->id }}"></td>@endif
         @foreach ($fields as $field)
             @if (starts_with($field, 'is_'))
                 <td>

@@ -185,7 +185,9 @@ trait Crud
      */
     protected function getBulkActions()
     {
-        return ['destroy'];
+        return (isset($this->bulkActions) && $this->bulkActions !== null)
+            ? $this->bulkActions
+            : ['destroy'];
     }
 
     /**
