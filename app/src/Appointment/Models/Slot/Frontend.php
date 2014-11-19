@@ -11,8 +11,8 @@ class Frontend extends Base implements Strategy
         $map = [
             'active'            => 'active',
             'inactive'          => 'inactive',
-            'freetime_head'     => 'freetime freetime-head',
-            'freetime_body'     => 'freetime freetime-body',
+            'freetime_head'     => ' freetime freetime-head',
+            'freetime_body'     => ' freetime freetime-body',
             'resource_inactive' => 'resource fancybox inactive',
             'custom_active'     => 'custom active',
             'custom_inactive'   => 'custom inactive',
