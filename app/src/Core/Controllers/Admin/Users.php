@@ -2,12 +2,10 @@
 
 use App, Config, Request, Redirect, Input, Confide, Session, Auth, Validator;
 use Lomake, Mail;
-use App\Core\Models\DisabledModule;
 use App\Core\Models\User;
 use App\Core\Models\Business;
 use App\Core\Models\Role;
 use App\Core\Models\BusinessCategory;
-use Carbon\Carbon;
 
 class Users extends Base
 {
@@ -64,7 +62,7 @@ class Users extends Base
     /**
      * Overwrite upsert behavior
      *
-     * @param View $view
+     * @param View     $view
      * @param Eloquent $user
      *
      * @return View
@@ -73,7 +71,7 @@ class Users extends Base
     {
         // Additional data to be passed to View
         $data = [];
-        $business = $user->business ?: new Business;
+        $business = $user->business ?: new Business();
         $data['business'] = $business;
 
         $businessLomake = Lomake::make($business, [
@@ -100,6 +98,7 @@ class Users extends Base
         $data['modules'] = Config::get('varaa.premium_modules');
 
         $view->with($data);
+
         return $view;
     }
 
@@ -126,7 +125,7 @@ class Users extends Base
             Mail::send(
                 'admin.users.emails.created',
                 ['password' => Input::get('password')],
-                function($message) {
+                function ($message) {
                     $message
                     ->to(Input::get('email'))
                     ->subject(trans('user.password_reminder.created.heading'));
@@ -146,7 +145,7 @@ class Users extends Base
                 Mail::send(
                     'admin.users.emails.reset',
                     ['password' => Input::get('password')],
-                    function($message) {
+                    function ($message) {
                         $message
                         ->to(Input::get('email'))
                         ->subject(trans('user.password_reminder.reset.heading'));
@@ -216,7 +215,7 @@ class Users extends Base
     /**
      * Enable a service module of a user
      *
-     * @param  int $id User ID
+     * @param int $id User ID
      *
      * @return Redirect
      */
@@ -242,7 +241,7 @@ class Users extends Base
      * Toggle activation of a module
      *
      * @param int $userId
-     * @param int $id ID in the pivot table
+     * @param int $id     ID in the pivot table
      *
      * @return Redirect
      */
@@ -250,12 +249,14 @@ class Users extends Base
     {
         try {
             $result = Module::toggleActivation($id);
+
             return Redirect::route('admin.users.modules', ['id' => $userId])
                 ->with('messages', $this->successMessageBag(
                     trans('admin.modules.success_activation')
                 ));
         } catch (\Exception $ex) {
             $errors = $this->errorMessageBag(trans('common.err.unexpected'));
+
             return Redirect::back()->withErrors($errors);
         }
     }
@@ -271,9 +272,9 @@ class Users extends Base
     {
         $errors = null;
         $user = User::findOrFail($id);
-        $business = !empty($user->business)
+        $business = $user->business !== null
             ? $user->business
-            : new Business;
+            : new Business();
 
         try {
             $business->updateInformation(Input::all(), $user);
@@ -282,6 +283,7 @@ class Users extends Base
         } catch (\Exception $ex) {
             $errors = $this->errorMessageBag($ex->getMessage());
         }
+
         return Redirect::back()->withInput()->withErrors($errors, 'top');
     }
 
