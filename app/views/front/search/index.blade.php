@@ -165,7 +165,7 @@ VARAA.applyCountdown($('span.countdown'));
             </p>
         @else
             @foreach ($businesses as $item)
-             <?php
+            <?php
                 //$slots = $item->user->getASNextTimeSlots($now, $now->hour);
                 $slots = [];
                 $count = 0;
