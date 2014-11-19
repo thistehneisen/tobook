@@ -300,10 +300,10 @@ class Business extends Base
      */
     public static function getRandomBusinesses($categoryId, $quantity)
     {
-        $ids = NAT::getRandomBusinesses($categoryId, $quantity);
-        if (!empty($ids)) {
-            return static::whereIn('user_id', $ids)->get();
-        }
+        // $ids = NAT::getRandomBusinesses($categoryId, $quantity);
+        // if (!empty($ids)) {
+        //     return static::whereIn('user_id', $ids)->get();
+        // }
 
         // it is not efficient to order by RAND() but we have relatively small customers base
         return static::orderBy(\DB::raw('RAND()'))
