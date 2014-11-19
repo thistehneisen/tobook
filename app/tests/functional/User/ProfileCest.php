@@ -44,8 +44,9 @@ class ProfileCest
         $I->submitForm('#business-form', $formParams);
 
         $newUser = User::find($this->user->id);
+        $I->assertEquals($this->user->business->id, $newUser->business->id, 'business_id');
         foreach ($formParams as $field => $value) {
-            $I->assertEquals($value, $newUser->business->$field);
+            $I->assertEquals($value, $newUser->business->$field, '$business->' . $field);
         }
     }
 
