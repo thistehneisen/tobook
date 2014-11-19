@@ -318,8 +318,10 @@ trait Layout
             foreach ($minutes as $shift) {
                 // We will check if this time bookable
 
-                if($hour < $start->hour) {
-                    continue;
+                if(!empty($empCustomTime)){
+                    if($hour < $start->hour) {
+                        continue;
+                    }
                 }
 
                 $service = (!empty($serviceTime))
