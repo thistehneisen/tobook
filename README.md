@@ -72,3 +72,10 @@ Feel free to add more features (sending email, storing cache, etc.) to that Brid
 - At the root folder of project, run `npm install` to install dependencies
 - Run `grunt` to start. By default, it'll watch the LESS folder and compile to
 CSS automatically.
+
+
+## Development flow
+
+- Use TDD as much as possible when developing new features
+- Whenever you receive a bug report, write test to replicate that bug first then fix it and run the test suite for that module / group again to verify anything is good
+- Code without tests is considered incomplete
