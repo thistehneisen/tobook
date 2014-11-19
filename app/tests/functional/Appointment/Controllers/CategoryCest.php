@@ -2,6 +2,10 @@
 
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;
+use App\Appointment\Models\ServiceTime;
+use App\Appointment\Models\ExtraService;
+use App\Appointment\Models\Booking;
+use App\Appointment\Models\Employee;
 use App\Core\Models\User;
 use \FunctionalTester;
 use Config;
@@ -12,6 +16,7 @@ use Config;
 class CategoryCest
 {
     use \Appointment\Traits\Models;
+    use \Appointment\Traits\Booking;
 
     private $categories = [];
 
@@ -204,6 +209,25 @@ class CategoryCest
         $I->assertEmpty($category, 'category has been deleted');
     }
 
+    /**
+     * This test check if we can delete an category which has service(s) or not
+     * If it is deleted, the test is failed
+     */
+    public function testDeleteCategoryHasService(FunctionalTester $I)
+    {
+        $user = User::find(70);
+        $this->initCategory();
+        $category = ServiceCategory::find(189);//see initCategory function
+
+        $I->amOnRoute('as.services.categories.delete', ['id' => $category->id]);
+        $I->seeCurrentRouteIs('as.services.categories.index');
+        $I->dontSee('div.alert-success');
+        $I->seeElement('div.alert-danger');
+
+        $category = ServiceCategory::find($category->id);
+        $I->assertNotEmpty($category, 'category 1 has been found');
+    }
+
     public function testBulkDelete(FunctionalTester $I)
     {
         $categories = $this->_createCategoryServiceAndExtra(2, 0, 0);
@@ -222,5 +246,40 @@ class CategoryCest
         $I->assertEmpty($category1, 'category 1 has been deleted');
         $category2 = ServiceCategory::find($categories[1]->id);
         $I->assertEmpty($category2, 'category 2 has been deleted');
+    }
+
+    private function initCategory()
+    {
+        $employee = new Employee([
+            'name' => 'Employee',
+            'email' => 'employee@varaa.com',
+            'phone' => '1234567890',
+            'is_active' => 1,
+        ]);
+        $employee->user()->associate($this->user);
+        $employee->saveOrFail();
+
+        ServiceCategory::where('id', 189)->forceDelete();
+        $category = new ServiceCategory([
+            'name' => 'Service Category',
+            'is_show_front' => 1,
+        ]);
+        $category->id = 189;
+        $category->user()->associate($this->user);
+        $category->saveOrFail();
+
+        $service = new Service([
+            'name' => 'Klassinen hieronta',
+            'length' => 45,
+            'during' => 30,
+            'after' => 15,
+            'price' => 35,
+            'is_active' => 1,
+        ]);
+
+        $service->user()->associate($this->user);
+        $service->category()->associate($category);
+        $service->saveOrFail();
+        $service->employees()->attach($employee);
     }
 }
