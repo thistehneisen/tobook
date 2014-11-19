@@ -210,8 +210,8 @@ class CategoryCest
     }
 
     /**
-     * This test check if we can delete an category which has service(s) or not
-     * If it is deleted, the test is failed
+     * This test check if we can delete a category which has a service or not
+     * If the category is deletable, the test is failed
      */
     public function testDeleteCategoryHasService(FunctionalTester $I)
     {
@@ -248,6 +248,9 @@ class CategoryCest
         $I->assertEmpty($category2, 'category 2 has been deleted');
     }
 
+    /**
+     * Create a category which has one service
+     */
     private function initCategory()
     {
         $employee = new Employee([
