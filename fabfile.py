@@ -132,11 +132,11 @@ def test_acceptance_prepare(headless=1):
         fab ta => download and run Xvfb and Selenium (headless server)
         fab ta:0 => setup Selenium only
     '''
-    if _which('firefox') == '':
-        utils.abort(
-            'Please install Firefox\nIf you are using Ubuntu/Homestead,'
-            ' execute `sudo apt-get install firefox -y`'
-        )
+    # if _which('firefox') == '':
+    #     utils.abort(
+    #         'Please install Firefox\nIf you are using Ubuntu/Homestead,'
+    #         ' execute `sudo apt-get install firefox -y`'
+    #     )
 
     if _which('java') == '':
         utils.abort(
@@ -180,3 +180,19 @@ def test_acceptance_prepare(headless=1):
         local('Xvfb {} -ac &'.format(os.getenv('DISPLAY')))
 
     local('java -jar {}'.format(output))
+
+
+@task(alias='r')
+def run_whatever():
+    '''
+    Super command to run whatever it needs in local
+    '''
+    # grunt madafaka
+    local('grunt &')
+    # up up up ES
+    local('elasticsearch &')
+    # then redis and NAT daemon
+    local('redis-server &')
+    local('php artisan queue:work --queue=varaa:nat --daemon &')
+    # last, the selenium, you don't even need it but whatever
+    test_acceptance_prepare()
