@@ -10,22 +10,35 @@
                 <p class="as-service-name" id="btn-service-{{ $service->id }}"><small><i class="glyphicon glyphicon-chevron-right"></i></small> {{ $service->name }}</p>
                 <div class="as-service-time" id="service-times-{{ $service->id }}">
                     <p>
-                        <label class="col-lg-4 col-sm-6 col-md-6">
+                        <?php $col = ((bool)$user->asOptions['hide_prices'] === false) ? 4 : 12;?>
+                        <label class="col-lg-{{$col}} col-sm-6 col-md-6">
                             <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="{{ $service->description }}"></i>
                             <input type="radio" name="service_id" data-service-time-id="default" value="{{ $service->id }}" data-service="{{ $service->name }}">
-                            {{ $service->price }}&euro;
+                            @if((bool)$user->asOptions['hide_prices'] === false)
+                                {{ $service->price }}&euro;
+                            @else
+                                &nbsp;<i class="glyphicon glyphicon-time"></i> {{ $service->during }} {{ trans('common.minutes')}}
+                            @endif
                         </label>
+                        @if((bool)$user->asOptions['hide_prices'] === false)
                         <span><i class="glyphicon glyphicon-time"></i> {{ $service->during }} {{ trans('common.minutes')}}</span>
+                        @endif
                     </p>
 
                 @foreach ($service->serviceTimes as $item)
                     <p>
-                        <label class="col-lg-4 col-sm-6 col-md-6">
+                        <label class="col-lg-{{$col}} col-sm-6 col-md-6">
                             <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="{{ $item->description }}"></i>
                             <input type="radio" name="service_id" data-service-time-id="{{ $item->id }}" value="{{ $service->id }}" data-service="{{ $service->name }}">
-                            {{ $item->price }}&euro;
+                            @if((bool)$user->asOptions['hide_prices'] === false)
+                                {{ $service->price }}&euro;
+                            @else
+                                &nbsp;<i class="glyphicon glyphicon-time"></i> {{ $item->during }} {{ trans('common.minutes')}}
+                            @endif
                         </label>
+                        @if((bool)$user->asOptions['hide_prices'] === false)
                         <span><i class="glyphicon glyphicon-time"></i> {{ $item->during }} {{ trans('common.minutes')}}</span>
+                        @endif
                     </p>
                 @endforeach
                 </div>
