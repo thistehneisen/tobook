@@ -30,7 +30,7 @@ trait ElasticSearchTrait
      */
     public function getSearchIndexName()
     {
-
+        return strtolower(str_plural(class_basename(__CLASS__)));
     }
 
     /**
