@@ -19,4 +19,17 @@ class ElasticSearchTraitCest
         $model = new Model();
         $i->assertEquals($model->getSearchIndexType(), 'model');
     }
+
+    public function testGetSearchDocument(UnitTester $i)
+    {
+        $attr = [
+            'foo' => 'Hello World',
+            'bar' => true
+        ];
+        $model = new Model($attr);
+        $doc = $model->getSearchDocument();
+
+        $i->assertEquals($attr['foo'], $doc['foo']);
+        $i->assertEquals($attr['bar'], $doc['bar']);
+    }
 }

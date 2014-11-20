@@ -6,4 +6,6 @@ use App\Search\ElasticSearchTrait;
 class Model extends Eloquent
 {
     use ElasticSearchTrait;
+
+    protected $fillable = ['foo', 'bar'];
 }

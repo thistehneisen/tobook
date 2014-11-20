@@ -18,11 +18,13 @@ trait ElasticSearchTrait
     }
 
     /**
-     * @{@inheritdoc}
+     * By default, all fillable fields should be searchable.
+     * If there're some special needs for a particular model, developers are
+     * encouraged to reimplement this method by themselves.
      */
     public function getSearchDocument()
     {
-
+        return $this->toArray();
     }
 
     /**
