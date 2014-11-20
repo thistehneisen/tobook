@@ -40,4 +40,13 @@ interface SearchableInterface
      * @return string
      */
     public function getSearchDocumentId();
+
+    /**
+     * Call to update index
+     *
+     * @param App\Search\ProviderInterface $client
+     *
+     * @return void
+     */
+    public function updateSearchIndex(ProviderInterface $client);
 }

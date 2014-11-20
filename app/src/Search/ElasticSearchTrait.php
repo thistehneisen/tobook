@@ -51,4 +51,17 @@ trait ElasticSearchTrait
         return $this->id;
     }
 
+    /**
+     * @{@inheritdoc}
+     */
+    public function updateSearchIndex(ProviderInterface $provider)
+    {
+        $params = [];
+        $params['index'] = $this->getSearchIndexName();
+        $params['type']  = $this->getSearchIndexType();
+        $params['id']    = $this->getSearchDocumentId();
+        $params['body']  = $this->getSearchDocument();
+
+        return $provider->index($params);
+    }
 }

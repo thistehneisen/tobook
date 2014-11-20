@@ -2,12 +2,18 @@
 
 use Test\Unit\Search\Stub\Model;
 use UnitTester;
+use Mockery as m;
 
 /**
  * @group search
  */
 class ElasticSearchTraitCest
 {
+    public function _after()
+    {
+        m::close();
+    }
+
     public function testGetSearchIndexName(UnitTester $i)
     {
         $model = new Model();
@@ -39,5 +45,15 @@ class ElasticSearchTraitCest
         $model->id = 999;
 
         $i->assertEquals($model->getSearchDocumentId(), 999);
+    }
+
+    public function testUpdateSearchIndex(UnitTester $i)
+    {
+        $mock = m::mock('\App\Search\ProviderInterface')
+            ->shouldReceive('index')->once()
+            ->getMock();
+
+        $model = new Model();
+        $model->updateSearchIndex($mock);
     }
 }
