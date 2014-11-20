@@ -2,6 +2,7 @@
 
 use App\Appointment\Models\AsConsumer;
 use App\Consumers\Models\Consumer;
+use App\Consumers\Models\Group;
 use App\Core\Models\Role;
 use Appointment\Traits\Booking;
 use Appointment\Traits\Models;
@@ -144,5 +145,72 @@ class HubCest
 
         $count = $this->user->consumers()->count();
         $I->assertEquals(0, $count, 'number of consumers');
+    }
+
+    public function testBulkGroup(FunctionalTester $I)
+    {
+        $consumer = new Consumer([
+            'first_name' => 'First ' . time(),
+            'last_name' => 'Last',
+            'email' => 'consumer_' . time() . '@varaa.com',
+            'phone' => time(),
+            'hash' => '',
+        ]);
+        $consumer->saveOrFail();
+        $this->user->consumers()->attach($consumer->id);
+
+        $consumer2 = new Consumer([
+            'first_name' => 'First2 ' . time(),
+            'last_name' => 'Last2',
+            'email' => 'consumer2_' . time() . '@varaa.com',
+            'phone' => time(),
+            'hash' => '',
+        ]);
+        $consumer2->saveOrFail();
+        $this->user->consumers()->attach($consumer2->id);
+
+        $consumer3 = new Consumer([
+            'first_name' => 'First3 ' . time(),
+            'last_name' => 'Last3',
+            'email' => 'consumer3_' . time() . '@varaa.com',
+            'phone' => time(),
+            'hash' => '',
+        ]);
+        $consumer3->saveOrFail();
+        $this->user->consumers()->attach($consumer3->id);
+
+        $I->amOnRoute('consumer-hub');
+        $I->checkOption('#bulk-item-' . $consumer->id);
+        $I->checkOption('#bulk-item-' . $consumer2->id);
+        $I->selectOption('action', 'group');
+        $I->click('#btn-bulk');
+
+        $groupName = 'Group ' . time();
+        $I->fillField('new_group_name', $groupName);
+        $I->click('#btn-submit');
+
+        $groups = Group::ofCurrentUser()->get();
+        $I->assertEquals(1, count($groups), 'count($groups)');
+
+        $group = $groups[0];
+        $I->assertEquals($groupName, $group->name, '$group->name');
+
+        $I->assertEquals(2, $group->consumers()->count(), '$group->consumers()->count()');
+
+        $groupConsumerIds = $group->consumers->lists('id');
+        $I->assertTrue(in_array($consumer->id, $groupConsumerIds), '$consumer->id found');
+        $I->assertTrue(in_array($consumer2->id, $groupConsumerIds), '$consumer2->id found');
+
+        // do another test to add consumers to existing group
+        $I->amOnRoute('consumer-hub');
+        $I->checkOption('#bulk-item-' . $consumer3->id);
+        $I->selectOption('action', 'group');
+        $I->click('#btn-bulk');
+        $I->selectOption('group_id', $group->id);
+        $I->click('#btn-submit');
+        $group = Group::find($group->id);
+        $I->assertEquals(3, $group->consumers()->count(), '$group->consumers()->count()');
+        $groupConsumer3 = $group->consumers()->find($consumer3->id);
+        $I->assertNotEmpty($groupConsumer3, '$consumer3->id found');
     }
 }

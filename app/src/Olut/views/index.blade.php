@@ -68,7 +68,7 @@ $(function() {
     <tbody id="js-crud-tbody">
     @foreach ($items as $item)
         <tr id="row-{{ $item->id }}" data-id="{{ $item->id }}" class="item-row js-sortable-{{ $sortable }}" data-toggle="tooltip" data-placement="top" data-title="{{ trans('olut::olut.sortable') }}">
-            <td><input type="checkbox" class="checkbox" name="ids[]" value="{{ $item->id }}"></td>
+            <td><input type="checkbox" class="checkbox" name="ids[]" value="{{ $item->id }}" id="bulk-item-{{ $item->id }}"></td>
         @foreach ($fields as $field)
             <td>{{ $bartender->mix($field, $item) }}</td>
         @endforeach
@@ -102,7 +102,7 @@ $(function() {
             @endforeach
             </select>
         </div>
-        <button type="submit" class="btn btn-primary btn-sm btn-submit-mass-action">{{ trans('olut::olut.submit') }}</button>
+        <button type="submit" class="btn btn-primary btn-sm btn-submit-mass-action" id="btn-bulk">{{ trans('olut::olut.submit') }}</button>
         @endif
     </div>
     <div class="col-md-6 text-right">
