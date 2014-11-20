@@ -71,6 +71,7 @@ sudo apt-get install redis-server
 Run this in the terminal.
 `nohup php /path/to/artisan queue:work --queue=varaa:nat --daemon > /dev/null 2>&1 &`
 
+If you encounter `Call to undefined method Redis::connection()` error message, make sure the PHP Redis extension is not installed or enabled.
 
 ## Factors that could change NAT calendar:
 
