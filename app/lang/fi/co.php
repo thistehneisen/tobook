@@ -46,4 +46,14 @@ return [
         'csv_header_is_missing' => 'Header row could not be found.',
         'csv_required_field_x_is_missing' => 'Required field `:field` could not be found.',
     ],
+    'group'             => 'Add To Group', // @todo
+    'groups' => [ // @todo
+        'all'           => 'Groups',
+        'add'           => 'Add Group',
+        'edit'          => 'Edit Group',
+        'name'          => 'Group Name',
+        'consumers'     => 'Group Members',
+        'existing_group'=> 'Existing Group',
+        'new_group'     => 'New Group',
+    ],
 ];
