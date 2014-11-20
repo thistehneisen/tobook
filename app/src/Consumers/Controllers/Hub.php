@@ -1,9 +1,15 @@
 <?php namespace App\Consumers\Controllers;
 
 use App\Consumers\Models\Consumer;
-use Input, DB, Confide, View;
-use Redirect, Session, Lang;
+use App\Consumers\Models\Group;
 use App\Core\Controllers\Base;
+use Confide;
+use DB;
+use Input;
+use Lang;
+use Redirect;
+use Session;
+use View;
 
 class Hub extends Base
 {
@@ -18,7 +24,9 @@ class Hub extends Base
         ],
         'layout' => 'modules.co.layout',
         'showTab' => true,
-        'bulkActions' => [],
+        'bulkActions' => [
+            'group',
+        ],
     ];
 
     protected function upsertHandler($item)
@@ -150,6 +158,47 @@ class Hub extends Base
 
         return Redirect::to(route('consumer-hub.import'))
             ->with('messages', $messageBag);
+    }
+
+    public function group($ids)
+    {
+        $consumers = Consumer::ofCurrentUser()->whereIn('id', $ids)->get();
+
+        $group = null;
+        $groupId = intval(Input::get('group_id'));
+        if (!empty($groupId)) {
+            $group = Group::ofCurrentUser()->findOrFail($groupId);
+        } else {
+            $newGroupName = Input::get('new_group_name');
+
+            if (!empty($newGroupName)) {
+                $group = new Group([
+                    'name' => $newGroupName,
+                ]);
+                $group->user()->associate($this->user);
+                $group->saveOrFail();
+            }
+        }
+
+        if (!empty($group)) {
+            foreach ($consumers as $consumer) {
+                $group->consumers()->attach($consumer->id);
+            }
+
+            return Redirect::to(route('consumer-hub.groups.index'));
+        }
+
+        $groups = Group::ofCurrentUser()->get();
+        $groupPairs = [];
+        foreach ($groups as $group) {
+            $groupPairs[trans('co.groups.existing_group')][$group->id] = $group->name;
+        }
+        $groupPairs[0] = trans('co.groups.new_group');
+
+        return View::make('modules.co.group', [
+            'groupPairs' => $groupPairs,
+            'consumers' => $consumers,
+        ]);
     }
 
     public static function presentServices($value, $item)

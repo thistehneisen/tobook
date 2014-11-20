@@ -437,7 +437,10 @@ trait Olut
             throw new \InvalidArgumentException('Method is not allowed');
         }
 
-        call_user_func([$this, $action], Input::get('ids'));
+        $response = call_user_func([$this, $action], Input::get('ids'));
+        if (is_object($response)) {
+            return $response;
+        }
 
         if (Request::ajax()) {
             return Response::json(['message' => trans('olut::olut.success_bulk')]);

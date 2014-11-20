@@ -13,6 +13,11 @@ Route::group([
         'consumer-hub'
     );
 
+    \App\Consumers\Controllers\Group::crudRoutes(
+        'groups',
+        'consumer-hub.groups'
+    );
+
     Route::get('history', [
         'as' => 'consumer-hub.history',
         'uses' => 'App\Consumers\Controllers\Hub@getHistory',
