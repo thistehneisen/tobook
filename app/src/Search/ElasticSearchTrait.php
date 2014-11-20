@@ -43,4 +43,12 @@ trait ElasticSearchTrait
         return strtolower(class_basename(__CLASS__));
     }
 
+    /**
+     * @{@inheritdoc}
+     */
+    public function getSearchDocumentId()
+    {
+        return $this->id;
+    }
+
 }

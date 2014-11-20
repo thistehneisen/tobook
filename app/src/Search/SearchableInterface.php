@@ -33,4 +33,11 @@ interface SearchableInterface
      * @return string
      */
     public function getSearchIndexType();
+
+    /**
+     * Return the ID used for `_id` in ElasticSearch
+     *
+     * @return string
+     */
+    public function getSearchDocumentId();
 }

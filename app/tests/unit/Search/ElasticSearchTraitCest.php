@@ -32,4 +32,12 @@ class ElasticSearchTraitCest
         $i->assertEquals($attr['foo'], $doc['foo']);
         $i->assertEquals($attr['bar'], $doc['bar']);
     }
+
+    public function testGetSearchDocumentId(UnitTester $i)
+    {
+        $model = new Model();
+        $model->id = 999;
+
+        $i->assertEquals($model->getSearchDocumentId(), 999);
+    }
 }
