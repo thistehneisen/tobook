@@ -13,4 +13,10 @@ class ElasticSearchTraitCest
         $model = new Model();
         $i->assertEquals($model->getSearchIndexName(), 'models');
     }
+
+    public function testGetSearchIndexType(UnitTester $i)
+    {
+        $model = new Model();
+        $i->assertEquals($model->getSearchIndexType(), 'model');
+    }
 }
