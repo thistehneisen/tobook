@@ -11,6 +11,7 @@ use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;
 use App\Consumers\Models\Campaign;
 use App\Consumers\Models\Consumer;
+use App\Consumers\Models\Group;
 use App\Core\Models\Business;
 use App\Core\Models\Role;
 use App\Core\Models\User;
@@ -247,6 +248,25 @@ trait Models
 
         $i++;
         return $consumer;
+    }
+
+    protected function _createConsumerGroup(User $user, $consumersCount = 2)
+    {
+        static $i = 0;
+
+        $group = new Group([
+            'name' => sprintf('Consumer Group %d', $i),
+        ]);
+        $group->user()->associate($user);
+        $group->saveOrFail();
+
+        for ($j = 0; $j < $consumersCount; $j++) {
+            $consumer = $this->_createConsumer($user);
+            $group->consumers()->attach($consumer->id);
+        }
+
+        $i++;
+        return $group;
     }
 
     protected function _createCampaign(User $user)
