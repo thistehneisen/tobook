@@ -21,7 +21,7 @@ use DB, Util;
  */
 class BookingCest
 {
-    use \Appointment\Traits\Booking;
+    use \Test\Traits\Booking;
 
     public function testGetClass(UnitTester $I)
     {

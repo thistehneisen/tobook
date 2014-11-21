@@ -1,13 +1,12 @@
 <?php namespace Test\Consumers\Controllers;
 
 use App\Appointment\Models\AsConsumer;
-use App\Consumers\Models\Consumer;
 use App\Consumers\Models\Group;
 use App\Core\Models\Role;
-use Appointment\Traits\Booking;
-use Appointment\Traits\Models;
 use FunctionalTester;
 use Lang;
+use Test\Traits\Booking;
+use Test\Traits\Models;
 
 /**
  * @group co
@@ -90,14 +89,7 @@ class HubCest
     {
         // TODO: tests with data
 
-        $consumer = new Consumer([
-            'first_name' => 'First ' . time(),
-            'last_name' => 'Last',
-            'email' => 'consumer_' . time() . '@varaa.com',
-            'phone' => time(),
-            'hash' => '',
-        ]);
-        $consumer->saveOrFail();
+        $consumer = $this->_createConsumer($this->user);
 
         $lcConsumer = new \App\LoyaltyCard\Models\Consumer();
         $lcConsumer->consumer()->associate($consumer);
@@ -149,35 +141,9 @@ class HubCest
 
     public function testBulkGroup(FunctionalTester $I)
     {
-        $consumer = new Consumer([
-            'first_name' => 'First ' . time(),
-            'last_name' => 'Last',
-            'email' => 'consumer_' . time() . '@varaa.com',
-            'phone' => time(),
-            'hash' => '',
-        ]);
-        $consumer->saveOrFail();
-        $this->user->consumers()->attach($consumer->id);
-
-        $consumer2 = new Consumer([
-            'first_name' => 'First2 ' . time(),
-            'last_name' => 'Last2',
-            'email' => 'consumer2_' . time() . '@varaa.com',
-            'phone' => time(),
-            'hash' => '',
-        ]);
-        $consumer2->saveOrFail();
-        $this->user->consumers()->attach($consumer2->id);
-
-        $consumer3 = new Consumer([
-            'first_name' => 'First3 ' . time(),
-            'last_name' => 'Last3',
-            'email' => 'consumer3_' . time() . '@varaa.com',
-            'phone' => time(),
-            'hash' => '',
-        ]);
-        $consumer3->saveOrFail();
-        $this->user->consumers()->attach($consumer3->id);
+        $consumer = $this->_createConsumer($this->user);
+        $consumer2 = $this->_createConsumer($this->user);
+        $consumer3 = $this->_createConsumer($this->user);
 
         $I->amOnRoute('consumer-hub');
         $I->checkOption('#bulk-item-' . $consumer->id);

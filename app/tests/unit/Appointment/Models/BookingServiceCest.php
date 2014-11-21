@@ -17,7 +17,7 @@ use Util;
  */
 class BookingServiceCest
 {
-    use \Appointment\Traits\Booking;
+    use \Test\Traits\Booking;
 
     public function testGetCartStartAt(UnitTester $I)
     {

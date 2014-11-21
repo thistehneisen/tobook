@@ -11,7 +11,7 @@ use \UnitTester;
  */
 class BookingExtraServiceCest
 {
-    use \Appointment\Traits\Booking;
+    use \Test\Traits\Booking;
 
     public function testAddExtraServiceSuccess(UnitTester $I)
     {

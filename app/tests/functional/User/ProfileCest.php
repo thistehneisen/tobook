@@ -1,7 +1,7 @@
 <?php
 
 use App\Core\Models\User;
-use \Appointment\Traits\Models;
+use Test\Traits\Models;
 
 /**
  * @group core

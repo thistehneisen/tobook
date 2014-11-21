@@ -12,7 +12,7 @@ use Config;
  */
 class ExtraServiceCest
 {
-    use \Appointment\Traits\Models;
+    use \Test\Traits\Models;
 
     /**
      * @var Service

@@ -2,8 +2,8 @@
 
 use \ApiTester;
 use App\Appointment\Models\AsConsumer;
-use Appointment\Traits\Booking;
-use Appointment\Traits\Models;
+use Test\Traits\Booking;
+use Test\Traits\Models;
 use Carbon\Carbon;
 
 /**

@@ -1,5 +1,5 @@
 <?php
-namespace Appointment\Traits;
+namespace Test\Traits;
 
 use App\Appointment\Models\CustomTime;
 use App\Appointment\Models\Employee;
@@ -9,6 +9,8 @@ use App\Appointment\Models\EmployeeFreetime;
 use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;
+use App\Consumers\Models\Campaign;
+use App\Consumers\Models\Consumer;
 use App\Core\Models\Business;
 use App\Core\Models\Role;
 use App\Core\Models\User;
@@ -224,6 +226,41 @@ trait Models
         }
 
         return $categories;
+    }
+
+    protected function _createConsumer(User $user = null)
+    {
+        static $i = 0;
+
+        $consumer = new Consumer([
+            'first_name' => sprintf('First_%d %d', $i, time()),
+            'last_name' => 'Last',
+            'email' => sprintf('consumer_%d_%d@varaa.com', $i, time()),
+            'phone' => time(),
+            'hash' => '',
+        ]);
+        $consumer->saveOrFail();
+
+        if ($user != null) {
+            $user->consumers()->attach($consumer->id);
+        }
+
+        $i++;
+        return $consumer;
+    }
+
+    protected function _createCampaign(User $user)
+    {
+        $campaign = new Campaign([
+            'subject' => 'Campaign Subject',
+            'content' => 'Campaign Content',
+            'from_email' => 'campaign@varaa.com',
+            'from_name' => 'Varaa',
+        ]);
+        $campaign->user()->associate($user);
+        $campaign->saveOrFail();
+
+        return $campaign;
     }
 
     protected function _modelsReset()

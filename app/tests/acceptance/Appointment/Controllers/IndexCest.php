@@ -3,7 +3,7 @@
 use AcceptanceTester;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\ExtraService;
-use Appointment\Traits\Models;
+use Test\Traits\Models;
 
 /**
  * @group as
@@ -11,7 +11,7 @@ use Appointment\Traits\Models;
 class IndexCest
 {
     use Models;
-    use \Appointment\Traits\Booking;
+    use \Test\Traits\Booking;
 
     private $categories = [];
 

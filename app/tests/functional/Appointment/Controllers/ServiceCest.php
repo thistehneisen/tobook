@@ -10,7 +10,7 @@ use Config;
  */
 class ServiceCest
 {
-    use \Appointment\Traits\Models;
+    use \Test\Traits\Models;
 
     /**
      * @var Service

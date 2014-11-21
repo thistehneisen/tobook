@@ -1,7 +1,7 @@
 <?php namespace Test\Functional\Auth;
 
 use App\Core\Models\User;
-use Appointment\Traits\Models;
+use Test\Traits\Models;
 use FunctionalTester;
 use Codeception\Util\Debug;
 

@@ -12,7 +12,7 @@ use Config;
  */
 class ResourceCest
 {
-    use \Appointment\Traits\Models;
+    use \Test\Traits\Models;
 
     /**
      * @var Service

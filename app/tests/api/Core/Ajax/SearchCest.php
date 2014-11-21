@@ -1,7 +1,7 @@
 <?php namespace Test\Functional\Core\Ajax;
 
 use App\Core\Models\Business;
-use Appointment\Traits\Models;
+use Test\Traits\Models;
 
 /**
  * @group core
