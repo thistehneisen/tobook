@@ -1,5 +1,6 @@
 <?php namespace App\Consumers\Controllers;
 
+use App\Consumers\Models\Campaign;
 use App\Consumers\Models\Consumer;
 use App\Consumers\Models\Group;
 use App\Core\Controllers\Base;
@@ -23,9 +24,10 @@ class Hub extends Base
             'services' => ['App\Consumers\Controllers\Hub', 'presentServices']
         ],
         'layout' => 'modules.co.layout',
-        'showTab' => true,
+        'showTab' => false,
         'bulkActions' => [
             'group',
+            'send_campaign',
         ],
     ];
 
@@ -160,7 +162,7 @@ class Hub extends Base
             ->with('messages', $messageBag);
     }
 
-    public function group($ids)
+    public function bulkGroup($ids)
     {
         $consumers = Consumer::ofCurrentUser()->whereIn('id', $ids)->get();
 
@@ -195,8 +197,36 @@ class Hub extends Base
         }
         $groupPairs[0] = trans('co.groups.new_group');
 
-        return View::make('modules.co.group', [
+        return View::make('modules.co.bulk_group', [
             'groupPairs' => $groupPairs,
+            'consumers' => $consumers,
+        ]);
+    }
+
+    public function bulkSendCampaign($ids)
+    {
+        $campaign = null;
+        $campaignId = intval(Input::get('campaign_id'));
+        if (!empty($campaignId)) {
+            $campaign = Campaign::ofCurrentUser()->findOrFail($campaignId);
+        }
+
+        if (!empty($campaign)) {
+            Campaign::sendConsumers($campaign, $ids);
+
+            return true;
+        }
+
+        $campaigns = Campaign::ofCurrentUser()->get();
+        $campaignPairs = [];
+        foreach ($campaigns as $campaign) {
+            $campaignPairs[$campaign->id] = $campaign->subject;
+        }
+
+        $consumers = Consumer::ofCurrentUser()->whereIn('id', $ids)->get();
+
+        return View::make('modules.co.bulk_send_campaign', [
+            'campaignPairs' => $campaignPairs,
             'consumers' => $consumers,
         ]);
     }

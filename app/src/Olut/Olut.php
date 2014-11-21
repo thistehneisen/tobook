@@ -434,6 +434,10 @@ trait Olut
 
         $action = Input::get('action');
         if (!method_exists($this, $action)) {
+            // an alternative $action
+            $action = 'bulk' . str_replace(' ', '', ucwords(str_replace('_', ' ', $action)));
+        }
+        if (!method_exists($this, $action)) {
             throw new \InvalidArgumentException('Method is not allowed');
         }
 

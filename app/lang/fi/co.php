@@ -5,7 +5,7 @@
  * @author An Cao <an@varaa.com>
  */
 return [
-    'consumers'         => 'asiakkaat',
+    'consumers'         => 'Asiakkaat',
     'empty'             => 'Sinulla ei ole vielä aktiivisia asiakkaita.',
     'id'                => 'ID',
     'first_name'        => 'Etunimi',
@@ -46,6 +46,7 @@ return [
         'csv_header_is_missing' => 'Header row could not be found.',
         'csv_required_field_x_is_missing' => 'Required field `:field` could not be found.',
     ],
+    'x_consumers'       => ':count consumer|:count consumers', // @todo
     'group'             => 'Add To Group', // @todo
     'groups' => [ // @todo
         'all'           => 'Groups',
@@ -55,5 +56,17 @@ return [
         'consumers'     => 'Group Members',
         'existing_group'=> 'Existing Group',
         'new_group'     => 'New Group',
+        'send_campaign' => 'Send Campaign',
+        'groups'        => 'Groups',
+    ],
+    'send_campaign'     => 'Send Campaign', // @todo
+    'campaigns' => [ // @todo
+        'all'           => 'Campaigns',
+        'subject'       => 'Subject',
+        'content'       => 'Content',
+        'from_email'    => 'From Email',
+        'from_name'     => 'From Name',
+        'add'           => 'Add Campaign',
+        'edit'          => 'Edit Campaign',
     ],
 ];
