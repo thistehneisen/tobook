@@ -6,6 +6,7 @@ use App\Core\Models\Role;
 use FunctionalTester;
 use Lang;
 use Test\Traits\Booking;
+use Test\Traits\Mail;
 use Test\Traits\Models;
 
 /**
@@ -15,6 +16,7 @@ class HubCest
 {
     use Models;
     use Booking;
+    use Mail;
 
     public function _before(FunctionalTester $I)
     {
@@ -178,5 +180,45 @@ class HubCest
         $I->assertEquals(3, $group->consumers()->count(), '$group->consumers()->count()');
         $groupConsumer3 = $group->consumers()->find($consumer3->id);
         $I->assertNotEmpty($groupConsumer3, '$consumer3->id found');
+    }
+
+    public function testBulkSendCampaign(FunctionalTester $I)
+    {
+        $consumer = $this->_createConsumer($this->user);
+        $consumer2 = $this->_createConsumer($this->user);
+        $campaign = $this->_createCampaign($this->user);
+
+        $toAddresses = [
+            $consumer->email => false,
+            $consumer2->email => false
+        ];
+        $this->_mockMailSend(function (array $message) use ($I, $campaign, &$toAddresses) {
+            $I->assertEquals($campaign->subject, $message['subject'], '$message["subject"]');
+
+            $I->assertEquals(1, count($message['to']), 'count($message["to"])');
+
+            $firstAddress = $message['toFirstAddress'];
+            $I->assertTrue(isset($toAddresses[$firstAddress]), 'first address');
+            unset($toAddresses[$firstAddress]);
+        });
+
+        $I->amOnRoute('consumer-hub');
+        $I->checkOption('#bulk-item-' . $consumer->id);
+        $I->checkOption('#bulk-item-' . $consumer2->id);
+        $I->selectOption('action', 'send_campaign');
+        $I->click('#btn-bulk');
+
+        $I->selectOption('campaign_id', $campaign->id);
+        $I->click('#btn-submit');
+
+        $historiesCount = $campaign->histories()->count();
+        $I->assertEquals(2, $historiesCount, '$historiesCount');
+
+        $historyConsumer = $campaign->histories()->where('consumer_id', $consumer->id)->first();
+        $I->assertNotEmpty($historyConsumer, 'consumer found');
+        $historyConsumer2 = $campaign->histories()->where('consumer_id', $consumer2->id)->first();
+        $I->assertNotEmpty($historyConsumer2, 'consumer 2 found');
+
+        $I->assertEquals(0, count($toAddresses), 'count($toAddresses)');
     }
 }

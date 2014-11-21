@@ -29,6 +29,11 @@ class Campaign extends \App\Core\Models\Base
         return $this->belongsTo('App\Core\Models\User');
     }
 
+    public function histories()
+    {
+        return $this->hasMany('App\Consumers\Models\History');
+    }
+
     //--------------------------------------------------------------------------
     // CUSTOM METHODS
     //--------------------------------------------------------------------------
