@@ -1,6 +1,6 @@
 <?php namespace App\Core\Models;
 
-use Config, Log, NAT;
+use Config, Log, NAT, Input;
 use App\Core\Models\Relations\BusinessBusinessCategory;
 use App\Lomake\Fields\HtmlField;
 use Exception;
@@ -269,6 +269,13 @@ class Business extends Base
     //--------------------------------------------------------------------------
     // SEARCH
     //--------------------------------------------------------------------------
+    /**
+     * @{@inheritdoc}
+     */
+    public function getSearchDocumentId()
+    {
+        return $this->user_id;
+    }
 
     /**
      * @{@inheritdoc}
@@ -300,5 +307,54 @@ class Business extends Base
                 'lon' => $this->lng ?: 0
             ]
         ];
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
+    protected static function buildSearchQuery($keywords, $fields = null)
+    {
+        $query = [];
+        $query['bool']['should'][]['match']['business_name'] = $keywords;
+        $query['bool']['should'][]['match']['category_name'] = $keywords;
+        $query['bool']['should'][]['match']['description']   = $keywords;
+        $query['bool']['should'][]['match']['keywords']      = $keywords;
+
+        $location = e(Input::get('location'));
+        if (!empty($location)) {
+            $query['bool']['should'][]['match']['city'] = $location;
+            $query['bool']['should'][]['match']['country'] = $location;
+        }
+
+        return $query;
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
+    protected static function buildSearchFilter()
+    {
+        return [
+            'exists' => [ 'field' => 'business_name' ]
+        ];
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
+    public static function transformSearchResult($result)
+    {
+        if (empty($result)) {
+            return $result;
+        }
+
+        $ids = [];
+        foreach ($result as $row) {
+            $ids[] = $row['_id'];
+        }
+
+        $users = User::with('business')->findMany($ids);
+
+        return $users->lists('business');
     }
 }
