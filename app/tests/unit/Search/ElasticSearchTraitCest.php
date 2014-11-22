@@ -16,14 +16,13 @@ class ElasticSearchTraitCest
 
     public function testGetSearchIndexName(UnitTester $i)
     {
-        $model = new Model();
-        $i->assertEquals($model->getSearchIndexName(), 'models');
+        $i->assertEquals(Model::getSearchIndexName(), 'models');
     }
 
     public function testGetSearchIndexType(UnitTester $i)
     {
         $model = new Model();
-        $i->assertEquals($model->getSearchIndexType(), 'model');
+        $i->assertEquals(Model::getSearchIndexType(), 'model');
     }
 
     public function testGetSearchDocument(UnitTester $i)
@@ -70,8 +69,7 @@ class ElasticSearchTraitCest
 
     public function testDefaultTransformSearchResult(UnitTester $i)
     {
-        $model = new Model();
-        $result = $model->transformSearchResult(true);
+        $result = Model::transformSearchResult(true);
         $i->assertEquals($result, true);
     }
 

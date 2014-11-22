@@ -10,7 +10,7 @@ interface SearchableInterface
      *
      * @return Illuminate\Pagination\Paginator
      */
-    public function search($keyword, array $options = []);
+    public static function search($keyword, array $options = []);
 
     /**
      * Get document (in associate array) to be indexed in ElasticSearch
@@ -25,7 +25,7 @@ interface SearchableInterface
      * @see  http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/_basic_concepts.html#_index
      * @return string
      */
-    public function getSearchIndexName();
+    public static function getSearchIndexName();
 
     /**
      * Return the name that is used as type in ElasticSearch
@@ -33,7 +33,7 @@ interface SearchableInterface
      * @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/_basic_concepts.html#_type     *
      * @return string
      */
-    public function getSearchIndexType();
+    public static function getSearchIndexType();
 
     /**
      * Return the ID used for `_id` in ElasticSearch

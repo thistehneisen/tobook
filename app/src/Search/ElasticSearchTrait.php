@@ -18,21 +18,19 @@ trait ElasticSearchTrait
      */
     public static function search($keywords, array $options = [])
     {
-        $instance = new static();
-
         // Default params
         $size = Config::get('view.perPage');
         $params = [
-            'index' => $instance->getSearchIndexName(),
-            'type'  => $instance->getSearchIndexType(),
+            'index' => static::getSearchIndexName(),
+            'type'  => static::getSearchIndexType(),
             'from'  => Input::get('page', 1) * $size - $size,
             'size'  => $size,
         ];
 
         // Attach filter and query
         $params['body']['query']['filtered'] = [
-            'filter' => $instance->buildSearchFilter(),
-            'query' => $instance->buildSearchQuery($keywords)
+            'filter' => static::buildSearchFilter(),
+            'query' => static::buildSearchQuery($keywords)
         ];
 
         // Merge default options with user's option
@@ -41,7 +39,7 @@ trait ElasticSearchTrait
         $result = Es::search($params);
 
         return Paginator::make(
-            $instance->transformSearchResult($result['hits']['hits']),
+            static::transformSearchResult($result['hits']['hits']),
             $result['hits']['total'],
             $size
         );
@@ -52,7 +50,7 @@ trait ElasticSearchTrait
      *
      * @return array
      */
-    protected function buildSearchFilter()
+    protected static function buildSearchFilter()
     {
         $filter = [];
 
@@ -66,10 +64,11 @@ trait ElasticSearchTrait
      *
      * @return array
      */
-    protected function buildSearchQuery($keywords, $fields = null)
+    protected static function buildSearchQuery($keywords, $fields = null)
     {
         if (empty($fields)) {
-            $fields = $this->fillable;
+            $instance = new static();
+            $fields = $instance->getFillable();
         }
 
         $query = [];
@@ -88,7 +87,7 @@ trait ElasticSearchTrait
      *
      * @return array
      */
-    public function transformSearchResult($result)
+    public static function transformSearchResult($result)
     {
         return $result;
     }
@@ -106,15 +105,15 @@ trait ElasticSearchTrait
     /**
      * @{@inheritdoc}
      */
-    public function getSearchIndexName()
+    public static function getSearchIndexName()
     {
-        return str_plural($this->getSearchIndexType());
+        return str_plural(static::getSearchIndexType());
     }
 
     /**
      * @{@inheritdoc}
      */
-    public function getSearchIndexType()
+    public static function getSearchIndexType()
     {
         return strtolower(class_basename(get_called_class()));
     }
