@@ -56,4 +56,15 @@ class ElasticSearchTraitCest
         $model = new Model();
         $model->updateSearchIndex($mock);
     }
+
+    public function testNotUpdateSearchIndexIfNotSearchable(UnitTester $i)
+    {
+        $mock = m::mock('\App\Search\ProviderInterface')
+            ->shouldReceive('index')->never()
+            ->getMock();
+
+        $model = new Model();
+        $model->isSearchable = false;
+        $model->updateSearchIndex($mock);
+    }
 }

@@ -56,6 +56,11 @@ trait ElasticSearchTrait
      */
     public function updateSearchIndex(ProviderInterface $provider)
     {
+        // If this model is not searchable, return as soon as possible
+        if ($this->isSearchable === false) {
+            return;
+        }
+
         $params = [];
         $params['index'] = $this->getSearchIndexName();
         $params['type']  = $this->getSearchIndexType();
