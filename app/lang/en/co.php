@@ -78,5 +78,7 @@ return [
         'content'       => 'Content',
         'add'           => 'Add SMS',
         'edit'          => 'Edit SMS',
+        'history'       => 'History',
+        'sent_at'       => 'Sent At',
     ],
 ];

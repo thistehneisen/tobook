@@ -82,6 +82,7 @@
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="{{ route('consumer-hub.sms.index')}}">{{ trans('co.sms.all') }}</a></li>
                         <li><a href="{{ route('consumer-hub.sms.upsert')}}">{{ trans('co.sms.add') }}</a></li>
+                        <li><a href="{{ route('consumer-hub.sms.history')}}">{{ trans('co.sms.history') }}</a></li>
                     </ul>
                 </li>
             </ul>

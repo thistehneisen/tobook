@@ -1,8 +1,9 @@
 <?php namespace App\Consumers\Controllers;
 
+use App\Consumers\Models\History;
 use App\Core\Controllers\Base;
-use App\Lomake\Fields\HtmlField;
 use Confide;
+use Config;
 use DB;
 use Input;
 use Lang;
@@ -20,6 +21,7 @@ class Sms extends Base
         'langPrefix' => 'co.sms',
         'indexFields' => ['title', 'content'],
         'layout' => 'modules.co.layout',
+        'actionsView' => 'modules.co.sms.actions',
         'showTab' => false,
     ];
 
@@ -33,5 +35,29 @@ class Sms extends Base
         $item->saveOrFail();
 
         return $item;
+    }
+
+    public function history()
+    {
+        $historyQuery = null;
+
+        $smsId = intval(Input::get('sms_id', 0));
+        if (!empty($smsId)) {
+            $sms = \App\Consumers\Models\Sms::ofCurrentUser()->findOrFail($smsId);
+            $historyQuery = $sms->histories();
+        } else {
+            $historyQuery = History::ofCurrentUser();
+        }
+
+        $historyQuery->orderBy('created_at', 'desc');
+        $historyQuery->with(['group', 'consumer', 'sms']);
+        $historyQuery->whereNotNull('sms_id');
+
+        $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
+        $histories = $historyQuery->paginate($perPage);
+
+        return View::make('modules.co.sms.history', [
+            'histories'   => $histories,
+        ]);
     }
 }
