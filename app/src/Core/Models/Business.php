@@ -265,4 +265,40 @@ class Business extends Base
             ->where('businesses.name', '!=', '')
             ->limit($quantity)->get();
     }
+
+    //--------------------------------------------------------------------------
+    // SEARCH
+    //--------------------------------------------------------------------------
+
+    /**
+     * @{@inheritdoc}
+     */
+    public function getSearchDocument()
+    {
+        $names = [];
+        $keywords = [];
+
+        $categories = $this->businessCategories;
+        foreach ($categories as $item) {
+            $names[] = $item->nice_original_name;
+            $keywords = array_merge($keywords, $item->keywords);
+        }
+
+        return [
+            // Filter exists only works with null value, so let it be null
+            'business_name' => $this->name,
+            'category_name' => implode(', ', $names),
+            'keywords'      => implode(', ', $keywords),
+            'address'       => $this->address ?: '',
+            'postcode'      => $this->postcode ?: '',
+            'city'          => $this->city ?: '',
+            'country'       => $this->country ?: '',
+            'phone'         => $this->phone ?: '',
+            'description'   => $this->description ?: '',
+            'location'      => [
+                'lat' => $this->lat ?: 0,
+                'lon' => $this->lng ?: 0
+            ]
+        ];
+    }
 }

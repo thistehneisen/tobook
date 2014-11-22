@@ -19,6 +19,11 @@ class BusinessCategory extends Base
         $this->attributes['name'] = snake_case($value);
     }
 
+    public function getNiceOriginalNameAttribute()
+    {
+        return str_replace('_', ' ', $this->attributes['name']);
+    }
+
     public function getNameAttribute()
     {
         return trans('user.profile.business_categories.'.$this->attributes['name']);
@@ -33,6 +38,7 @@ class BusinessCategory extends Base
                 $keywords[] = trim($keyword);
             }
         }
+
         return $keywords;
     }
 
@@ -62,6 +68,7 @@ class BusinessCategory extends Base
             default:
                 break;
         }
+
         return "fa-{$icon}";
     }
 
