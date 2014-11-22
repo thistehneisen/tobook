@@ -40,7 +40,7 @@ trait ElasticSearchTrait
      */
     public function getSearchIndexType()
     {
-        return strtolower(class_basename(__CLASS__));
+        return strtolower(class_basename(get_called_class()));
     }
 
     /**

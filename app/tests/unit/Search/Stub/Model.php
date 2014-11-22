@@ -1,12 +1,8 @@
 <?php namespace Test\Unit\Search\Stub;
 
-use Eloquent;
-use App\Search\ElasticSearchTrait;
-use App\Search\SearchableInterface;
+use AppModel;
 
-class Model extends Eloquent implements SearchableInterface
+class Model extends AppModel
 {
-    use ElasticSearchTrait;
-
     protected $fillable = ['foo', 'bar'];
 }
