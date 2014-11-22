@@ -1,5 +1,7 @@
 <?php namespace App\Search;
 
+use Es, Paginator, Config, Input;
+
 trait ElasticSearchTrait
 {
     /**
@@ -11,10 +13,84 @@ trait ElasticSearchTrait
 
     /**
      * @{@inheritdoc}
+     *
+     * @author Hung Nguyen <hung@varaa.com>
      */
-    public function search($keyword)
+    public static function search($keywords, array $options = [])
     {
-        return true;
+        $instance = new static();
+
+        // Default params
+        $size = Config::get('view.perPage');
+        $params = [
+            'index' => $instance->getSearchIndexName(),
+            'type'  => $instance->getSearchIndexType(),
+            'from'  => Input::get('page', 1) * $size - $size,
+            'size'  => $size,
+        ];
+
+        // Attach filter and query
+        $params['body']['query']['filtered'] = [
+            'filter' => $instance->buildSearchFilter(),
+            'query' => $instance->buildSearchQuery($keywords)
+        ];
+
+        // Merge default options with user's option
+        $params = array_merge($params, $options);
+
+        $result = Es::search($params);
+
+        return Paginator::make(
+            $instance->transformSearchResult($result['hits']['hits']),
+            $result['hits']['total'],
+            $size
+        );
+    }
+
+    /**
+     * Return an array containing compatible ES filter parameters
+     *
+     * @return array
+     */
+    protected function buildSearchFilter()
+    {
+        $filter = [];
+
+        return $filter;
+    }
+
+    /**
+     * Build search query based on provided field
+     *
+     * @param array $fields
+     *
+     * @return array
+     */
+    protected function buildSearchQuery($keywords, $fields = null)
+    {
+        if (empty($fields)) {
+            $fields = $this->fillable;
+        }
+
+        $query = [];
+        foreach ($fields as $field) {
+            $query['bool']['should'][]['match'][$field] = $keywords;
+        }
+
+        return $query;
+    }
+
+    /**
+     * How the search result will be transform to, for example, Eloquent models.
+     * By default, it does nothing.
+     *
+     * @param array $result
+     *
+     * @return array
+     */
+    public function transformSearchResult($result)
+    {
+        return $result;
     }
 
     /**

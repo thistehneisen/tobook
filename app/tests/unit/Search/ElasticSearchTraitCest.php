@@ -67,4 +67,26 @@ class ElasticSearchTraitCest
         $model->isSearchable = false;
         $model->updateSearchIndex($mock);
     }
+
+    public function testDefaultTransformSearchResult(UnitTester $i)
+    {
+        $model = new Model();
+        $result = $model->transformSearchResult(true);
+        $i->assertEquals($result, true);
+    }
+
+    public function testSearch(UnitTester $i)
+    {
+        \Es::shouldReceive('search')->once()->andReturn([
+            'hits' => [
+                'hits' => [],
+                'total' => 0
+            ]
+        ]);
+
+        $result = Model::search('foo');
+        $i->assertTrue($result instanceof \Illuminate\Pagination\Paginator);
+        $i->assertEquals($result->getTotal(), 0);
+        $i->assertEquals($result->getItems(), []);
+    }
 }

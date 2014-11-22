@@ -6,10 +6,11 @@ interface SearchableInterface
      * Search data based on the provided keyword
      *
      * @param string $keyword
+     * @param array  $options
      *
-     * @return Illuminate\Support\Collection
+     * @return Illuminate\Pagination\Paginator
      */
-    public function search($keyword);
+    public function search($keyword, array $options = []);
 
     /**
      * Get document (in associate array) to be indexed in ElasticSearch
