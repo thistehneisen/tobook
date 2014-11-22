@@ -27,6 +27,8 @@
 - Create a new local DB and import `db/dev_dump.sql`
 - Generate your local config files with: `php artisan varaa:generate-configs`
 and change your database config to match your local setup in `app/config/local/database.php`
+- Run `fab r` to start all needed dependancies: redis-server, ElasticSearch, grunt...
+- Start hacking!
 
 ## Project layout
 We are not using the "standard" L4 project layout with `models` and `controllers` folder in `app/`. Instead, the main source code are stored in `app/src/` and separated into different modules. Each module contains its own models, controllers and commands, any shared controllers or models will be moved into `app/src/Core`.
@@ -47,13 +49,15 @@ We have another module named `Lomake` to support developer build forms faster, [
 
 ## Tests
 - Create a blank database with `varaa_test` for database name, username and password in your localhost
-- Create acceptance test config: `cp app/tests/acceptance.suite.yml.tpl app/tests/acceptance.suite.yml` then modify to match your local config
-- Read http://codeception.com/docs/01-Introduction and http://codeception.com/docs/04-AcceptanceTests
-- Generate your acceptance tests in `app/tests/acceptance/` folder:
-`./vendor/bin/codecept generate:cest acceptance YourTestName`
-- Run migration for testing environment: `fab m:,testing`. This command will execute all migrations for all modules and seed database with some data for the tests. Most of the time you can skip this step, come back and run it later if you encounter database error during test executions.
+- Read about Codeception docs: http://codeception.com/docs/
 - Run the test: `./vendor/bin/codecept run` or `fab t`
-- 1 user in DB for testing is also having `varaa_test` as username and password
+- Command `fab t` provides shortcut to run tests, format is `fab t:{suite},{module},{debug}`
+    + `fab t:unit` will run all unit tests
+    + `fab t:functional,as` will run all functional tests belong to AS module
+    + `fab t:unit,,1` will run all unit tests in debug mode
+- NOTE: we are using Selenium to run acceptance tests, so there are some steps you have to do to prepare for that:
+    + Setup a domain for testing: `varaa.test`
+    + Run `fab ta` or `fab r` to download selenium and run it before running acceptance test suite
 
 
 ### Get config values of L4 in other external modules
@@ -77,5 +81,5 @@ CSS automatically.
 ## Development flow
 
 - Use TDD as much as possible when developing new features
-- Whenever you receive a bug report, write test to replicate that bug first then fix it and run the test suite for that module / group again to verify anything is good
+- Whenever you receive a bug report, write test to replicate that bug first then fix it and run the test suite for that module / group again to verify everything works
 - Code without tests is considered incomplete

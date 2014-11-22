@@ -1,0 +1,11 @@
+class_name: AcceptanceTester
+modules:
+    enabled: [Laravel4, WebDriver, Asserts]
+    config:
+        Laravel4:
+            environment: 'testing'
+            cleanup: false
+        WebDriver:
+            url: 'http://varaa.test'
+            browser: 'firefox'
+            restart: true
