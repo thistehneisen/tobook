@@ -44,32 +44,18 @@ class BusinessCategory extends Base
 
     public function getIconAttribute()
     {
-        $name = $this->attributes['name'];
-        $icon = '';
-        switch ($name) {
-            case 'home':
-                $icon = 'home';
-                break;
-            case 'car':
-                $icon = 'car';
-                break;
-            case 'restaurant':
-                $icon = 'cutlery';
-                break;
-            case 'wellness':
-                $icon = 'heart';
-                break;
-            case 'activities':
-                $icon = 'futbol-o';
-                break;
-            case 'beauty_hair':
-                $icon = 'smile-o';
-                break;
-            default:
-                break;
-        }
+        $map = [
+            'home'        => 'fa-home',
+            'car'         => 'fa-car',
+            'restaurant'  => 'fa-cutlery',
+            'wellness'    => 'fa-heart',
+            'activities'  => 'fa-futbol-o',
+            'beauty_hair' => 'fa-smile-o',
+        ];
 
-        return "fa-{$icon}";
+        return isset($map[$this->attributes['name']])
+            ? $map[$this->attributes['name']]
+            : '';
     }
 
     //--------------------------------------------------------------------------

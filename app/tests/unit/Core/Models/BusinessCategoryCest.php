@@ -22,4 +22,12 @@ class BusinessCategoryCest
     {
         $i->assertEquals($this->item->nice_original_name, 'this is the name');
     }
+
+    public function testGetIcon(UnitTester $i)
+    {
+        $i->assertEquals($this->item->icon, '');
+
+        $this->item->name = 'home';
+        $i->assertEquals($this->item->icon, 'fa-home');
+    }
 }
