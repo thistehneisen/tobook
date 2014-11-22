@@ -8,6 +8,7 @@ use Lang;
 use Test\Traits\Booking;
 use Test\Traits\Mail;
 use Test\Traits\Models;
+use Test\Traits\Sms;
 
 /**
  * @group co
@@ -17,6 +18,7 @@ class HubCest
     use Models;
     use Booking;
     use Mail;
+    use Sms;
 
     public function _before(FunctionalTester $I)
     {
@@ -220,5 +222,45 @@ class HubCest
         $I->assertNotEmpty($historyConsumer2, 'consumer 2 found');
 
         $I->assertEquals(0, count($toAddresses), 'count($toAddresses)');
+    }
+
+    public function testBulkSendSms(FunctionalTester $I)
+    {
+        $consumer = $this->_createConsumer($this->user);
+        $consumer2 = $this->_createConsumer($this->user);
+        $sms = $this->_createSms($this->user);
+
+        $phones = [
+            $consumer->phone => false,
+            $consumer2->phone => false
+        ];
+        $this->_mockSmsSend(function (array $message) use ($I, $sms, &$phones) {
+            $I->assertEquals($sms->content, $message['content'], '$message["content"]');
+
+            $phoneNumbers = array_keys($phones);
+            $phoneNumber = reset($phoneNumbers);
+            $I->assertEquals($phoneNumber, $message['to'], '$message["to"]');
+
+            unset($phones[$phoneNumber]);
+        });
+
+        $I->amOnRoute('consumer-hub');
+        $I->checkOption('#bulk-item-' . $consumer->id);
+        $I->checkOption('#bulk-item-' . $consumer2->id);
+        $I->selectOption('action', 'send_sms');
+        $I->click('#btn-bulk');
+
+        $I->selectOption('sms_id', $sms->id);
+        $I->click('#btn-submit');
+
+        $historiesCount = $sms->histories()->count();
+        $I->assertEquals(2, $historiesCount, '$historiesCount');
+
+        $historyConsumer = $sms->histories()->where('consumer_id', $consumer->id)->first();
+        $I->assertNotEmpty($historyConsumer, 'consumer found');
+        $historyConsumer2 = $sms->histories()->where('consumer_id', $consumer2->id)->first();
+        $I->assertNotEmpty($historyConsumer2, 'consumer 2 found');
+
+        $I->assertEquals(0, count($phones), 'count($phones)');
     }
 }

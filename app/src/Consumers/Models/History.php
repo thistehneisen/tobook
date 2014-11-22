@@ -5,6 +5,7 @@ use App\Core\Models\User;
 use App\Consumers\Models\Campaign;
 use App\Consumers\Models\Consumer;
 use App\Consumers\Models\Group;
+use App\Consumers\Models\Sms;
 
 class History extends \App\Core\Models\Base
 {
@@ -35,12 +36,17 @@ class History extends \App\Core\Models\Base
         return $this->belongsTo('App\Consumers\Models\Campaign');
     }
 
+    public function sms()
+    {
+        return $this->belongsTo('App\Consumers\Models\Sms');
+    }
+
     //--------------------------------------------------------------------------
     // CUSTOM METHODS
     //--------------------------------------------------------------------------
     /**
      * @param User $user
-     * @param Campaign $campaignOrSms
+     * @param Campaign|Sms $campaignOrSms
      * @param Consumer $consumer
      * @param Group $group
      *
@@ -54,6 +60,8 @@ class History extends \App\Core\Models\Base
 
         if ($campaignOrSms instanceof Campaign) {
             $history->campaign()->associate($campaignOrSms);
+        } elseif ($campaignOrSms instanceof Sms) {
+            $history->sms()->associate($campaignOrSms);
         } else {
             // TODO: add support for Sms
             throw new \InvalidArgumentException('$campaignOrSms must be a valid instance');

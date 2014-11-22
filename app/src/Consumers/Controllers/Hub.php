@@ -3,6 +3,7 @@
 use App\Consumers\Models\Campaign;
 use App\Consumers\Models\Consumer;
 use App\Consumers\Models\Group;
+use App\Consumers\Models\Sms;
 use App\Core\Controllers\Base;
 use Confide;
 use DB;
@@ -28,6 +29,7 @@ class Hub extends Base
         'bulkActions' => [
             'group',
             'send_campaign',
+            'send_sms',
         ],
     ];
 
@@ -227,6 +229,34 @@ class Hub extends Base
 
         return View::make('modules.co.bulk_send_campaign', [
             'campaignPairs' => $campaignPairs,
+            'consumers' => $consumers,
+        ]);
+    }
+
+    public function bulkSendSms($ids)
+    {
+        $sms = null;
+        $smsId = intval(Input::get('sms_id'));
+        if (!empty($smsId)) {
+            $sms = Sms::ofCurrentUser()->findOrFail($smsId);
+        }
+
+        if (!empty($sms)) {
+            Sms::sendConsumers($sms, $ids);
+
+            return true;
+        }
+
+        $smsAll = Sms::ofCurrentUser()->get();
+        $smsPairs = [];
+        foreach ($smsAll as $sms) {
+            $smsPairs[$sms->id] = $sms->title;
+        }
+
+        $consumers = Consumer::ofCurrentUser()->whereIn('id', $ids)->get();
+
+        return View::make('modules.co.bulk_send_sms', [
+            'smsPairs' => $smsPairs,
             'consumers' => $consumers,
         ]);
     }

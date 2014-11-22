@@ -12,6 +12,7 @@ use App\Appointment\Models\ServiceCategory;
 use App\Consumers\Models\Campaign;
 use App\Consumers\Models\Consumer;
 use App\Consumers\Models\Group;
+use App\Consumers\Models\Sms;
 use App\Core\Models\Business;
 use App\Core\Models\Role;
 use App\Core\Models\User;
@@ -237,7 +238,7 @@ trait Models
             'first_name' => sprintf('First_%d %d', $i, time()),
             'last_name' => 'Last',
             'email' => sprintf('consumer_%d_%d@varaa.com', $i, time()),
-            'phone' => time(),
+            'phone' => time() . $i,
             'hash' => '',
         ]);
         $consumer->saveOrFail();
@@ -281,6 +282,18 @@ trait Models
         $campaign->saveOrFail();
 
         return $campaign;
+    }
+
+    protected function _createSms(User $user)
+    {
+        $sms = new Sms([
+            'title' => 'SMS Title',
+            'content' => 'SMS Content',
+        ]);
+        $sms->user()->associate($user);
+        $sms->saveOrFail();
+
+        return $sms;
     }
 
     protected function _modelsReset()
