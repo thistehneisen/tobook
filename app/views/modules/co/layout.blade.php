@@ -70,6 +70,7 @@
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="{{ route('consumer-hub.campaigns.index')}}">{{ trans('co.campaigns.all') }}</a></li>
                         <li><a href="{{ route('consumer-hub.campaigns.upsert')}}">{{ trans('co.campaigns.add') }}</a></li>
+                        <li><a href="{{ route('consumer-hub.campaigns.history')}}">{{ trans('co.campaigns.history') }}</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">

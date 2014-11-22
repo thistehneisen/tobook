@@ -22,6 +22,10 @@ Route::group([
         'campaigns',
         'consumer-hub.campaigns'
     );
+    Route::get('campaigns/history', [
+        'as' => 'consumer-hub.campaigns.history',
+        'uses' => 'App\Consumers\Controllers\Campaign@history',
+    ]);
 
     \App\Consumers\Controllers\Sms::crudRoutes(
         'sms',

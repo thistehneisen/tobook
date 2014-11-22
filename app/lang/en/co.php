@@ -68,6 +68,8 @@ return [
         'from_name'     => 'From Name',
         'add'           => 'Add Campaign',
         'edit'          => 'Edit Campaign',
+        'history'       => 'History',
+        'sent_at'       => 'Sent At',
     ],
     'send_sms'     => 'Send SMS',
     'sms' => [

@@ -1,8 +1,10 @@
 <?php namespace App\Consumers\Controllers;
 
+use App\Consumers\Models\History;
 use App\Core\Controllers\Base;
 use App\Lomake\Fields\HtmlField;
 use Confide;
+use Config;
 use DB;
 use Input;
 use Lang;
@@ -25,6 +27,7 @@ class Campaign extends Base
             ],
         ],
         'layout' => 'modules.co.layout',
+        'actionsView' => 'modules.co.campaigns.actions',
         'showTab' => false,
     ];
 
@@ -40,5 +43,29 @@ class Campaign extends Base
         $item->saveOrFail();
 
         return $item;
+    }
+
+    public function history()
+    {
+        $historyQuery = null;
+
+        $campaignId = intval(Input::get('campaign_id', 0));
+        if (!empty($campaignId)) {
+            $campaign = \App\Consumers\Models\Campaign::ofCurrentUser()->findOrFail($campaignId);
+            $historyQuery = $campaign->histories();
+        } else {
+            $historyQuery = History::ofCurrentUser();
+        }
+
+        $historyQuery->orderBy('created_at', 'desc');
+        $historyQuery->with(['group', 'consumer', 'campaign']);
+        $historyQuery->whereNotNull('campaign_id');
+
+        $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
+        $histories = $historyQuery->paginate($perPage);
+
+        return View::make('modules.co.campaigns.history', [
+            'histories'   => $histories,
+        ]);
     }
 }
