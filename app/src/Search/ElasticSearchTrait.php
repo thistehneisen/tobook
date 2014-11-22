@@ -18,6 +18,26 @@ trait ElasticSearchTrait
      */
     public static function search($keywords, array $options = [])
     {
+        $params = static::buildSearchParams($keywords, $options);
+        $result = Es::search($params);
+
+        return Paginator::make(
+            static::transformSearchResult($result['hits']['hits']),
+            $result['hits']['total'],
+            $params['size']
+        );
+    }
+
+    /**
+     * Build ES params
+     *
+     * @param string $keywords
+     * @param array  $options
+     *
+     * @return array
+     */
+    protected static function buildSearchParams($keywords, array $options)
+    {
         // Default params
         $size = Config::get('view.perPage');
         $params = [
@@ -34,15 +54,11 @@ trait ElasticSearchTrait
         ];
 
         // Merge default options with user's option
-        $params = array_merge($params, $options);
+        if (!empty($options)) {
+            $params = array_merge($params, $options);
+        }
 
-        $result = Es::search($params);
-
-        return Paginator::make(
-            static::transformSearchResult($result['hits']['hits']),
-            $result['hits']['total'],
-            $size
-        );
+        return $params;
     }
 
     /**

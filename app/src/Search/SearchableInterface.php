@@ -6,7 +6,7 @@ interface SearchableInterface
      * Search data based on the provided keyword
      *
      * @param string $keyword
-     * @param array  $options
+     * @param array  $options Params required by search provider
      *
      * @return Illuminate\Pagination\Paginator
      */
