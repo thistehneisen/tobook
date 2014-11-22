@@ -27,6 +27,21 @@ class Business extends Base
         ]
     ];
 
+    /**
+     * @{@inheritdoc}
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        // whenever updating account, we will try to find geocode of this business
+        static::updating(function ($business) {
+            $business->updateGeo();
+
+            return true;
+        });
+    }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
@@ -38,7 +53,7 @@ class Business extends Base
     public function businessCategories()
     {
         $relation = $this->getBelongsToManyCaller();
-        $instance = new BusinessCategory;
+        $instance = new BusinessCategory();
         $query = $instance->newQuery();
 
         // use our custom built relation because the `user_id` must be used instead of `id`
@@ -100,7 +115,7 @@ class Business extends Base
     /**
      * Update information of this business
      *
-     * @param array $input
+     * @param array                $input
      * @param App\Core\Models\User $user
      *
      * @return Business
@@ -152,18 +167,6 @@ class Business extends Base
         return sprintf('%s, %s %s, %s', $address, $postcode, $city, $country);
     }
 
-
-    public function updateSearchIndex()
-    {
-        try {
-            return \App\Search\Servant::getInstance()
-                ->upsertIndexForBusiness($this);
-        } catch (Exception $ex) {
-            // Silently failed
-            Log::error($ex->getMessage(), ['context' => 'Business registration']);
-        }
-    }
-
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
@@ -197,7 +200,6 @@ class Business extends Base
                 'car_wash' => 'assets/img/categories/carwash/car1.jpg',
                 'activities' => 'assets/img/categories/fitness/fitness1.jpg',
             ];
-
 
             foreach ($this->businessCategories as $cat) {
                 return isset($imageMap[$cat->name]) ? $imageMap[$cat->name] : 'assets/img/categories/beauty/beauty1.jpg';
@@ -239,55 +241,6 @@ class Business extends Base
     public function getDescriptionPlainAttribute()
     {
         return strip_tags($this->getDescriptionHtmlAttribute());
-    }
-
-    /**
-     * @{@inheritdoc}
-     */
-    public static function boot()
-    {
-        parent::boot();
-
-        // whenever updating account, we will try to find geocode of this business
-        static::updating(function ($business) {
-            $business->updateGeo();
-
-            return true;
-        });
-
-        static::saved(function ($user) {
-            $user->updateSearchIndex();
-        });
-    }
-
-    /**
-     * Old function to search by using SQL like
-     *
-     * @return
-     */
-    public static function search($q, $location)
-    {
-        $query = with(new self())->newQuery();
-        if (!empty($q)) {
-            $queryString = '%' . $q . '%';
-            $query = $query->whereHas(
-                'businessCategories',
-                function ($query) use ($queryString) {
-                    return $query->where('name', 'LIKE', $queryString)
-                        ->orWhere('keywords', 'LIKE', $queryString);
-                }
-            )->orWhere('name', 'LIKE', $queryString);
-        }
-
-        if (!empty($location)) {
-            $query = $query->where('city', 'LIKE', '%' . $location . '%');
-        }
-
-        $businesses = $query
-            ->where('name', '!=', '')
-            ->paginate(Config::get('view.perPage'));
-
-        return $businesses;
     }
 
     /**

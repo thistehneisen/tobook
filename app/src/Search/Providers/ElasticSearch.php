@@ -2,6 +2,7 @@
 
 use App\Search\ProviderInterface;
 use Elasticsearch\Client;
+use Log;
 
 class ElasticSearch implements ProviderInterface
 {
@@ -25,6 +26,7 @@ class ElasticSearch implements ProviderInterface
      */
     public function index($params)
     {
+        Log::info('Indexing model', $params);
         $this->client->index($params);
     }
 }
