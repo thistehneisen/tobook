@@ -2,7 +2,7 @@
 
 use App\Search\ProviderInterface;
 use Elasticsearch\Client;
-use Log;
+use Log, Es;
 
 class ElasticSearch implements ProviderInterface
 {
@@ -33,5 +33,13 @@ class ElasticSearch implements ProviderInterface
             // Silently failed. Life sucks
             Log::error($ex->getMessage());
         }
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
+    public function search($params)
+    {
+        return Es::search($params);
     }
 }

@@ -1,6 +1,6 @@
 <?php namespace App\Search;
 
-use Es, Paginator, Config, Input;
+use Es, Paginator, Config, Input, App;
 
 trait ElasticSearchTrait
 {
@@ -19,7 +19,8 @@ trait ElasticSearchTrait
     public static function search($keywords, array $options = [])
     {
         $params = static::buildSearchParams($keywords, $options);
-        $result = Es::search($params);
+        $provider = App::make('App\Search\ProviderInterface');
+        $result = $provider->search($params);
 
         return Paginator::make(
             static::transformSearchResult($result['hits']['hits']),
@@ -145,7 +146,7 @@ trait ElasticSearchTrait
     /**
      * @{@inheritdoc}
      */
-    public function updateSearchIndex(ProviderInterface $provider)
+    public function updateSearchIndex()
     {
         // If this model is not searchable, return as soon as possible
         if ($this->isSearchable === false) {
@@ -157,6 +158,8 @@ trait ElasticSearchTrait
         $params['type']  = $this->getSearchIndexType();
         $params['id']    = $this->getSearchDocumentId();
         $params['body']  = $this->getSearchDocument();
+
+        $provider = App::make('App\Search\ProviderInterface');
 
         return $provider->index($params);
     }

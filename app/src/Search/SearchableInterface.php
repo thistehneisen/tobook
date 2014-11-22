@@ -45,9 +45,7 @@ interface SearchableInterface
     /**
      * Call to update index
      *
-     * @param App\Search\ProviderInterface $client
-     *
      * @return void
      */
-    public function updateSearchIndex(ProviderInterface $client);
+    public function updateSearchIndex();
 }

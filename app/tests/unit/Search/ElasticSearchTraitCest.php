@@ -3,6 +3,7 @@
 use Test\Unit\Search\Stub\Model;
 use UnitTester;
 use Mockery as m;
+use App;
 
 /**
  * @group search
@@ -52,6 +53,9 @@ class ElasticSearchTraitCest
             ->shouldReceive('index')->once()
             ->getMock();
 
+        // I don't want to actually hit ES, so I provide it a mock
+        App::instance('App\Search\ProviderInterface', $mock);
+
         $model = new Model();
         $model->updateSearchIndex($mock);
     }
@@ -75,13 +79,18 @@ class ElasticSearchTraitCest
 
     public function testSearch(UnitTester $i)
     {
-        \Es::shouldReceive('search')->once()->andReturn([
-            'hits' => [
-                'hits' => [],
-                'total' => 0
-            ]
-        ]);
+        $mock = m::mock('\App\Search\ProviderInterface')
+            ->shouldReceive('search')
+            ->once()
+            ->andReturn([
+                'hits' => [
+                    'hits' => [],
+                    'total' => 0
+                ]
+            ])
+            ->getMock();
 
+        App::instance('App\Search\ProviderInterface', $mock);
         $result = Model::search('foo');
         $i->assertTrue($result instanceof \Illuminate\Pagination\Paginator);
         $i->assertEquals($result->getTotal(), 0);

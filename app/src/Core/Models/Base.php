@@ -1,11 +1,10 @@
 <?php namespace App\Core\Models;
 
-use Confide;
+use Confide, App;
 use Watson\Validating\ValidatingTrait;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 use App\Search\SearchableInterface;
 use App\Search\ElasticSearchTrait;
-use App\Search\Providers\ElasticSearch;
 
 class Base extends \Eloquent implements SearchableInterface
 {
@@ -22,7 +21,7 @@ class Base extends \Eloquent implements SearchableInterface
 
         static::saved(function ($model) {
             // Send data of this model to ES for indexing
-            $model->updateSearchIndex(new ElasticSearch());
+            $model->updateSearchIndex();
         });
     }
 

@@ -10,4 +10,13 @@ interface ProviderInterface
      * @return void
      */
     public function index($params);
+
+    /**
+     * Perform searching on given params
+     *
+     * @param array $params
+     *
+     * @return array
+     */
+    public function search($params);
 }
