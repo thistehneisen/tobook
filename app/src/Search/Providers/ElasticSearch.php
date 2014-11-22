@@ -27,6 +27,11 @@ class ElasticSearch implements ProviderInterface
     public function index($params)
     {
         Log::info('Indexing model', $params);
-        $this->client->index($params);
+        try {
+            $this->client->index($params);
+        } catch (\Exception $ex) {
+            // Silently failed. Life sucks
+            Log::error($ex->getMessage());
+        }
     }
 }
