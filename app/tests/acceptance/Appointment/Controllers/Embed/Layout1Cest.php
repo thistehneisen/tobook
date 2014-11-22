@@ -3,9 +3,11 @@
 use \AcceptanceTester;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
+use App\Core\Models\User;
 use App\Cart\Cart;
 use Carbon\Carbon;
 use Test\Acceptance\Appointment\Controllers\AbstractBooking;
+use Config;
 
 /**
  * @group as
@@ -153,5 +155,36 @@ class Layout1Cest extends AbstractBooking
 
         $bookingService = BookingService::find($bookingService->id);
         $I->assertEmpty($bookingService, 'booking service has been deleted');
+    }
+
+    public function testEndTime(AcceptanceTester $I)
+    {
+        $user = User::find(70);
+        $category = $this->categories[0];
+        $service = $category->services()->first();
+        $employee = $this->employees[0];
+
+        $today = Carbon::today();
+        $date = $this->_getNextDate();
+        $startAt = '12:00:00';
+
+        $firstName = 'First';
+        $lastName = 'Last';
+        $email = 'consumer' . time() . '@varaa.com';
+        $phone = time();
+
+        $I->amOnPage(route('as.embed.embed', ['hash' => $user->hash, 'date'=> $date->toDateString()], false));
+
+        // $I->seeCurrentUrlMatches('?date=' . $date->toDateString());
+        $I->click('#btn-category-' . $category->id);
+
+        $I->waitForElementVisible('#category-services-' . $category->id);
+        $I->click('#btn-service-' . $service->id);
+
+        $I->waitForElementVisible('#service-' . $category->id . '-' . $service->id);
+        $I->click('#btn-service-' . $service->id . '-time-default');
+
+        $I->seeCurrentUrlMatches('#service_id=\d+?&service_time=default&date=' . $date->toDateString() . '#');
+        $I->click('#btn-slot-' . $employee->id . '-' . substr(preg_replace('#[^0-9]#', '', $startAt), 0, 4));
     }
 }
