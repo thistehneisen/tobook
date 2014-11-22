@@ -72,6 +72,17 @@
                         <li><a href="{{ route('consumer-hub.campaigns.upsert')}}">{{ trans('co.campaigns.add') }}</a></li>
                     </ul>
                 </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('consumer-hub.sms.index') }}">
+                        <i class="fa fa-mobile"></i>
+                        {{ trans('co.sms.all') }}
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{ route('consumer-hub.sms.index')}}">{{ trans('co.sms.all') }}</a></li>
+                        <li><a href="{{ route('consumer-hub.sms.upsert')}}">{{ trans('co.sms.add') }}</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->

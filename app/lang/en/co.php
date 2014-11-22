@@ -68,4 +68,12 @@ return [
         'add'           => 'Add Campaign',
         'edit'          => 'Edit Campaign',
     ],
+    'send_sms'     => 'Send SMS',
+    'sms' => [
+        'all'           => 'SMS',
+        'title'         => 'Title',
+        'content'       => 'Content',
+        'add'           => 'Add SMS',
+        'edit'          => 'Edit SMS',
+    ],
 ];

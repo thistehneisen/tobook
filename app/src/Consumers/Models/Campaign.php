@@ -49,7 +49,7 @@ class Campaign extends \App\Core\Models\Base
                 continue;
             }
 
-            // check for marketing email opt-out maybe?
+            // check for marketing material opt-out maybe?
 
             Mail::send('modules.co.campaigns.email', [
                 'subject' => $campaign->subject,
@@ -90,7 +90,7 @@ class Campaign extends \App\Core\Models\Base
                 $consumerIds[$consumerId] = $group->id;
             }
 
-            $count += self::sendConsumers($campaign, $uniqueConsumerIds, $group);
+            $count += static::sendConsumers($campaign, $uniqueConsumerIds, $group);
         }
 
         return $count;
