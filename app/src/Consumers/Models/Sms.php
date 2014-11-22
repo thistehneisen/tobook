@@ -58,4 +58,32 @@ class Sms extends \App\Core\Models\Base
 
         return $count;
     }
+
+    public static function sendGroups(Sms $sms, array $groupIds)
+    {
+        $count = 0;
+        $consumerIds = [];
+
+        $groups = Group::where('user_id', $sms->user_id)
+            ->whereIn('id', $groupIds)
+            ->get();
+
+        foreach ($groups as $group) {
+            $groupConsumerIds = $group->consumers->lists('id');
+            $uniqueConsumerIds = [];
+
+            foreach($groupConsumerIds as $consumerId) {
+                if (isset($consumerIds[$consumerId])) {
+                    continue;
+                }
+
+                $uniqueConsumerIds[] = $consumerId;
+                $consumerIds[$consumerId] = $group->id;
+            }
+
+            $count += static::sendConsumers($sms, $uniqueConsumerIds, $group);
+        }
+
+        return $count;
+    }
 }

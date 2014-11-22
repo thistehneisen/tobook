@@ -55,8 +55,9 @@ return [
         'consumers'     => 'Group Members',
         'existing_group'=> 'Existing Group',
         'new_group'     => 'New Group',
-        'send_campaign' => 'Send Campaign',
+        'send_campaign' => 'Send Group Campaign',
         'groups'        => 'Groups',
+        'send_sms'      => 'Send Group SMS',
     ],
     'send_campaign'     => 'Send Campaign',
     'campaigns' => [

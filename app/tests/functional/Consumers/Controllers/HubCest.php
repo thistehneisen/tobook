@@ -237,10 +237,8 @@ class HubCest
         $this->_mockSmsSend(function (array $message) use ($I, $sms, &$phones) {
             $I->assertEquals($sms->content, $message['content'], '$message["content"]');
 
-            $phoneNumbers = array_keys($phones);
-            $phoneNumber = reset($phoneNumbers);
-            $I->assertEquals($phoneNumber, $message['to'], '$message["to"]');
-
+            $phoneNumber = $message['to'];
+            $I->assertTrue(isset($phones[$phoneNumber]), 'phone number');
             unset($phones[$phoneNumber]);
         });
 
