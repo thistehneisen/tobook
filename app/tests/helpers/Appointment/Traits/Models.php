@@ -19,6 +19,10 @@ trait Models
     protected $user = null;
     protected $employees = array();
 
+    protected $employee = null;
+    protected $category = null;
+    protected $service  = null;
+
     protected function _createUser($withBusiness = true)
     {
         if (!empty($this->user)) {
@@ -234,5 +238,80 @@ trait Models
 
         // hacky way to workaround https://github.com/laravel/framework/issues/1181
         User::boot();
+    }
+
+    public function initData()
+    {
+        $this->user = User::find(70);
+        Employee::where('id', 63)->forceDelete();
+        $this->employee = new Employee([
+            'name' => 'Anne K',
+            'email' => 'annek@varaa.com',
+            'phone' => '1234567890',
+            'is_active' => 1,
+        ]);
+        $this->employee->id = 63;
+        $this->employee->user()->associate($this->user);
+        $this->employee->saveOrFail();
+
+        ServiceCategory::where('id', 106)->forceDelete();
+        $this->category = new ServiceCategory([
+            'name' => 'Hiusjuuritutkimus',
+            'is_show_front' => 1,
+        ]);
+        $this->category->id = 106;
+        $this->category->user()->associate($this->user);
+        $this->category->saveOrFail();
+
+        $this->service = new Service([
+            'name' => 'Hiusjuuritutkimus',
+            'length' => 60,
+            'during' => 45,
+            'after' => 15,
+            'price' => 35,
+            'is_active' => 1,
+        ]);
+
+        $this->service->user()->associate($this->user);
+        $this->service->category()->associate($this->category);
+        $this->service->saveOrFail();
+        $this->service->employees()->attach($this->employee);
+    }
+
+    public function initCustomTime()
+    {
+         //Init custome time
+        $customTime = new CustomTime;
+
+        $customTime->fill([
+                'name'       => '9:00 to 17:00',
+                'start_at'   => '09:00',
+                'end_at'     => '17:00',
+                'is_day_off' => false
+            ]);
+        $customTime->user()->associate($this->user);
+        $customTime->save();
+
+        //Add employee custom time
+
+        $employeeCustomTime =  EmployeeCustomTime::getUpsertModel($this->employee->id, '2014-11-24 00:00:00');
+        $employeeCustomTime->fill([
+            'date' =>  '2014-11-24 00:00:00'
+        ]);
+        $employeeCustomTime->employee()->associate($this->employee);
+        $employeeCustomTime->customTime()->associate($customTime);
+        $employeeCustomTime->save();
+
+        //Add employee freetime
+        $employeeFreetime = new EmployeeFreetime();
+        $employeeFreetime->fill([
+            'date' => '2014-11-24',
+            'start_at' => '13:00',
+            'end_at'=>'14:00',
+            'description' => ''
+        ]);
+        $employeeFreetime->user()->associate($this->user);
+        $employeeFreetime->employee()->associate($this->employee);
+        $employeeFreetime->save();
     }
 }
