@@ -157,6 +157,10 @@ class Layout1Cest extends AbstractBooking
         $I->assertEmpty($bookingService, 'booking service has been deleted');
     }
 
+    /**
+     * Using selenium as a service
+     * http://pietervogelaar.nl/ubuntu-14-04-install-selenium-as-service-headless
+     */
     public function testEndTime(AcceptanceTester $I)
     {
         $user = User::find(70);
@@ -173,18 +177,14 @@ class Layout1Cest extends AbstractBooking
         $email = 'consumer' . time() . '@varaa.com';
         $phone = time();
 
-        $I->amOnPage(route('as.embed.embed', ['hash' => $user->hash, 'date'=> $date->toDateString()], false));
-
-        // $I->seeCurrentUrlMatches('?date=' . $date->toDateString());
+        $I->amOnPage(route('as.embed.embed', ['hash' => $this->user->hash, 'date'=> $date->toDateString()], false));
         $I->click('#btn-category-' . $category->id);
-
-        $I->waitForElementVisible('#category-services-' . $category->id);
-        $I->click('#btn-service-' . $service->id);
-
-        $I->waitForElementVisible('#service-' . $category->id . '-' . $service->id);
-        $I->click('#btn-service-' . $service->id . '-time-default');
-
-        $I->seeCurrentUrlMatches('#service_id=\d+?&service_time=default&date=' . $date->toDateString() . '#');
+        $I->wait(1);
+        $I->see("Category 1");
+        $I->waitForElementVisible('#btn-add-service-'. $service->id);
+        $I->click('#btn-add-service-' . $service->id);
+        $I->wait(1);
+        $I->seeInCurrentUrl(sprintf('service_id=%d?&service_time=default&date=%s', $service->id, $date->toDateString()));
         $I->click('#btn-slot-' . $employee->id . '-' . substr(preg_replace('#[^0-9]#', '', $startAt), 0, 4));
     }
 }
