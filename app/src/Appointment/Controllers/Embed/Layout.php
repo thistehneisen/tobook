@@ -298,11 +298,11 @@ trait Layout
      *
      * @return array
      */
-    protected function getTimetableOfSingle(Employee $employee, Service $service, Carbon $date, $serviceTime = null, $showEndTime = false)
+    public function getTimetableOfSingle(Employee $employee, Service $service, Carbon $date, $serviceTime = null, $showEndTime = false)
     {
         $timetable = [];
-        $defaultEndTime       = null;
-        $workingTimes = $employee->getWorkingTimesByDate($date, $defaultEndTime);
+        $defaultEndTime = null;
+        $workingTimes   = $employee->getWorkingTimesByDate($date, $defaultEndTime);
 
         $empCustomTime = $employee->employeeCustomTimes()
                     ->with('customTime')
