@@ -15,11 +15,6 @@ class EmployeeCest
 {
     use \Appointment\Traits\Models;
 
-    /**
-     * @var Employee
-     */
-    private $employee = null;
-
     public function _before(FunctionalTester $I)
     {
         $this->_modelsReset();

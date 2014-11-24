@@ -21,6 +21,10 @@ trait Models
 
     protected $employee = null;
     protected $category = null;
+
+    /**
+     * @var Service
+     */
     protected $service  = null;
 
     protected function _createUser($withBusiness = true)

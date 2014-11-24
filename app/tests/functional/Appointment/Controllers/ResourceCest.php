@@ -14,11 +14,6 @@ class ResourceCest
 {
     use \Appointment\Traits\Models;
 
-    /**
-     * @var Service
-     */
-    private $service = null;
-
     public function _before(FunctionalTester $I)
     {
         $this->_modelsReset();

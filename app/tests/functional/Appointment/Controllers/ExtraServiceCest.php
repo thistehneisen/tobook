@@ -15,11 +15,6 @@ class ExtraServiceCest
     use \Appointment\Traits\Models;
 
     /**
-     * @var Service
-     */
-    private $service = null;
-
-    /**
      * @var ExtraService
      */
     private $extraService = null;
