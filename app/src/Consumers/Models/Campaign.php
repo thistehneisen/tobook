@@ -93,6 +93,6 @@ class Campaign extends \App\Core\Models\Base
             $count += static::sendConsumers($campaign, $uniqueConsumerIds, $group);
         }
 
-        return $count;
+        return array($count, count($consumerIds));
     }
 }

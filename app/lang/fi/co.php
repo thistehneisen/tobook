@@ -71,6 +71,7 @@ return [
         'edit'          => 'Edit Campaign',
         'history'       => 'History',
         'sent_at'       => 'Sent At',
+        'sent_to_x_of_y'=> 'Sent email to :sent out of :total consumers',
     ],
     'send_sms'     => 'Send SMS', // @todo
     'sms' => [ // @todo
@@ -81,5 +82,6 @@ return [
         'edit'          => 'Edit SMS',
         'history'       => 'History',
         'sent_at'       => 'Sent At',
+        'sent_to_x_of_y'=> 'Sent SMS to :sent out of :total consumers',
     ],
 ];

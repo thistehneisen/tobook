@@ -66,6 +66,12 @@ class GroupCest
         $I->selectOption('campaign_id', $campaign->id);
         $I->click('#btn-submit');
 
+        $I->seeCurrentRouteIs('consumer-hub.campaigns.history', ['campaign_id' => $campaign->id]);
+        $I->see(trans('co.campaigns.sent_to_x_of_y', [
+            'sent' => count($consumerIds),
+            'total' => count($consumerIds),
+        ]));
+
         $historiesCount = $campaign->histories()->count();
         $I->assertEquals(count($consumerIds), $historiesCount, '$historiesCount');
 
@@ -116,6 +122,12 @@ class GroupCest
 
         $I->selectOption('sms_id', $sms->id);
         $I->click('#btn-submit');
+
+        $I->seeCurrentRouteIs('consumer-hub.sms.history', ['sms_id' => $sms->id]);
+        $I->see(trans('co.sms.sent_to_x_of_y', [
+            'sent' => count($consumerIds),
+            'total' => count($consumerIds),
+        ]));
 
         $historiesCount = $sms->histories()->count();
         $I->assertEquals(count($consumerIds), $historiesCount, '$historiesCount');

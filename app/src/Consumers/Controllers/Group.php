@@ -7,6 +7,7 @@ use Confide;
 use DB;
 use Input;
 use Lang;
+use Redirect;
 use Session;
 use View;
 
@@ -41,9 +42,15 @@ class Group extends Base
         }
 
         if (!empty($campaign)) {
-            Campaign::sendGroups($campaign, $ids);
+            list($sent, $total) = Campaign::sendGroups($campaign, $ids);
 
-            return true;
+            return Redirect::route('consumer-hub.campaigns.history', ['campaign_id' => $campaign->id])
+                ->with('messages', $this->successMessageBag(
+                    trans('co.campaigns.sent_to_x_of_y', [
+                        'sent' => $sent,
+                        'total' => $total,
+                    ])
+                ));
         }
 
         $campaigns = Campaign::ofCurrentUser()->get();
@@ -69,9 +76,15 @@ class Group extends Base
         }
 
         if (!empty($sms)) {
-            Sms::sendGroups($sms, $ids);
+            list($sent, $total) = Sms::sendGroups($sms, $ids);
 
-            return true;
+            return Redirect::route('consumer-hub.sms.history', ['sms_id' => $sms->id])
+                ->with('messages', $this->successMessageBag(
+                    trans('co.sms.sent_to_x_of_y', [
+                        'sent' => $sent,
+                        'total' => $total,
+                    ])
+                ));
         }
 
         $smsAll = Sms::ofCurrentUser()->get();

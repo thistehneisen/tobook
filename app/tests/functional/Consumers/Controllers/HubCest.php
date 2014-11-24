@@ -213,6 +213,12 @@ class HubCest
         $I->selectOption('campaign_id', $campaign->id);
         $I->click('#btn-submit');
 
+        $I->seeCurrentRouteIs('consumer-hub.campaigns.history', ['campaign_id' => $campaign->id]);
+        $I->see(trans('co.campaigns.sent_to_x_of_y', [
+            'sent' => 2,
+            'total' => 2,
+        ]));
+
         $historiesCount = $campaign->histories()->count();
         $I->assertEquals(2, $historiesCount, '$historiesCount');
 
@@ -250,6 +256,12 @@ class HubCest
 
         $I->selectOption('sms_id', $sms->id);
         $I->click('#btn-submit');
+
+        $I->seeCurrentRouteIs('consumer-hub.sms.history', ['sms_id' => $sms->id]);
+        $I->see(trans('co.sms.sent_to_x_of_y', [
+            'sent' => 2,
+            'total' => 2,
+        ]));
 
         $historiesCount = $sms->histories()->count();
         $I->assertEquals(2, $historiesCount, '$historiesCount');

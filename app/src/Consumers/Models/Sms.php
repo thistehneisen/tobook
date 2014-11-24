@@ -84,6 +84,6 @@ class Sms extends \App\Core\Models\Base
             $count += static::sendConsumers($sms, $uniqueConsumerIds, $group);
         }
 
-        return $count;
+        return array($count, count($consumerIds));
     }
 }

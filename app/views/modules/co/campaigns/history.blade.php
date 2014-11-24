@@ -1,6 +1,7 @@
 @extends ('modules.co.layout')
 
 @section ('content')
+    @include ('el.messages')
 
 {{ Form::open(['route' => 'consumer-hub.campaigns.history', 'class' => 'form-inline form-table', 'id' => 'form-bulk']) }}
 <table class="table table-hover table-crud">

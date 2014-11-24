@@ -214,9 +214,15 @@ class Hub extends Base
         }
 
         if (!empty($campaign)) {
-            Campaign::sendConsumers($campaign, $ids);
+            $sent = Campaign::sendConsumers($campaign, $ids);
 
-            return true;
+            return Redirect::route('consumer-hub.campaigns.history', ['campaign_id' => $campaign->id])
+                ->with('messages', $this->successMessageBag(
+                    trans('co.campaigns.sent_to_x_of_y', [
+                        'sent' => $sent,
+                        'total' => count($ids),
+                    ])
+                ));
         }
 
         $campaigns = Campaign::ofCurrentUser()->get();
@@ -242,9 +248,15 @@ class Hub extends Base
         }
 
         if (!empty($sms)) {
-            Sms::sendConsumers($sms, $ids);
+            $sent = Sms::sendConsumers($sms, $ids);
 
-            return true;
+            return Redirect::route('consumer-hub.sms.history', ['sms_id' => $sms->id])
+                ->with('messages', $this->successMessageBag(
+                    trans('co.sms.sent_to_x_of_y', [
+                        'sent' => $sent,
+                        'total' => count($ids),
+                    ])
+                ));
         }
 
         $smsAll = Sms::ofCurrentUser()->get();
