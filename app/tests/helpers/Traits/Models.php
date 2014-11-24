@@ -1,5 +1,5 @@
 <?php
-namespace Appointment\Traits;
+namespace Test\Traits;
 
 use App\Appointment\Models\CustomTime;
 use App\Appointment\Models\Employee;
@@ -9,6 +9,10 @@ use App\Appointment\Models\EmployeeFreetime;
 use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;
+use App\Consumers\Models\Campaign;
+use App\Consumers\Models\Consumer;
+use App\Consumers\Models\Group;
+use App\Consumers\Models\Sms;
 use App\Core\Models\Business;
 use App\Core\Models\Role;
 use App\Core\Models\User;
@@ -232,6 +236,72 @@ trait Models
         }
 
         return $categories;
+    }
+
+    protected function _createConsumer(User $user = null)
+    {
+        static $i = 0;
+
+        $consumer = new Consumer([
+            'first_name' => sprintf('First_%d %d', $i, time()),
+            'last_name' => 'Last',
+            'email' => sprintf('consumer_%d_%d@varaa.com', $i, time()),
+            'phone' => time() . $i,
+            'hash' => '',
+        ]);
+        $consumer->saveOrFail();
+
+        if ($user != null) {
+            $user->consumers()->attach($consumer->id);
+        }
+
+        $i++;
+        return $consumer;
+    }
+
+    protected function _createConsumerGroup(User $user, $consumersCount = 2)
+    {
+        static $i = 0;
+
+        $group = new Group([
+            'name' => sprintf('Consumer Group %d', $i),
+        ]);
+        $group->user()->associate($user);
+        $group->saveOrFail();
+
+        for ($j = 0; $j < $consumersCount; $j++) {
+            $consumer = $this->_createConsumer($user);
+            $group->consumers()->attach($consumer->id);
+        }
+
+        $i++;
+        return $group;
+    }
+
+    protected function _createCampaign(User $user)
+    {
+        $campaign = new Campaign([
+            'subject' => 'Campaign Subject',
+            'content' => 'Campaign Content',
+            'from_email' => 'campaign@varaa.com',
+            'from_name' => 'Varaa',
+        ]);
+        $campaign->user()->associate($user);
+        $campaign->saveOrFail();
+
+        return $campaign;
+    }
+
+    protected function _createSms(User $user)
+    {
+        $sms = new Sms([
+            'title' => 'SMS Title',
+            'content' => 'SMS Content',
+        ]);
+        $sms->user()->associate($user);
+        $sms->saveOrFail();
+
+        return $sms;
     }
 
     protected function _modelsReset()

@@ -1,13 +1,14 @@
-<?php namespace Test\Consumers\Controllers;
+<?php namespace Test\Functional\Consumers\Controllers;
 
 use App\Appointment\Models\AsConsumer;
-use App\Consumers\Models\Consumer;
 use App\Consumers\Models\Group;
 use App\Core\Models\Role;
-use Appointment\Traits\Booking;
-use Appointment\Traits\Models;
 use FunctionalTester;
 use Lang;
+use Test\Traits\Booking;
+use Test\Traits\Mail;
+use Test\Traits\Models;
+use Test\Traits\Sms;
 
 /**
  * @group co
@@ -16,6 +17,8 @@ class HubCest
 {
     use Models;
     use Booking;
+    use Mail;
+    use Sms;
 
     public function _before(FunctionalTester $I)
     {
@@ -90,14 +93,7 @@ class HubCest
     {
         // TODO: tests with data
 
-        $consumer = new Consumer([
-            'first_name' => 'First ' . time(),
-            'last_name' => 'Last',
-            'email' => 'consumer_' . time() . '@varaa.com',
-            'phone' => time(),
-            'hash' => '',
-        ]);
-        $consumer->saveOrFail();
+        $consumer = $this->_createConsumer($this->user);
 
         $lcConsumer = new \App\LoyaltyCard\Models\Consumer();
         $lcConsumer->consumer()->associate($consumer);
@@ -149,35 +145,9 @@ class HubCest
 
     public function testBulkGroup(FunctionalTester $I)
     {
-        $consumer = new Consumer([
-            'first_name' => 'First ' . time(),
-            'last_name' => 'Last',
-            'email' => 'consumer_' . time() . '@varaa.com',
-            'phone' => time(),
-            'hash' => '',
-        ]);
-        $consumer->saveOrFail();
-        $this->user->consumers()->attach($consumer->id);
-
-        $consumer2 = new Consumer([
-            'first_name' => 'First2 ' . time(),
-            'last_name' => 'Last2',
-            'email' => 'consumer2_' . time() . '@varaa.com',
-            'phone' => time(),
-            'hash' => '',
-        ]);
-        $consumer2->saveOrFail();
-        $this->user->consumers()->attach($consumer2->id);
-
-        $consumer3 = new Consumer([
-            'first_name' => 'First3 ' . time(),
-            'last_name' => 'Last3',
-            'email' => 'consumer3_' . time() . '@varaa.com',
-            'phone' => time(),
-            'hash' => '',
-        ]);
-        $consumer3->saveOrFail();
-        $this->user->consumers()->attach($consumer3->id);
+        $consumer = $this->_createConsumer($this->user);
+        $consumer2 = $this->_createConsumer($this->user);
+        $consumer3 = $this->_createConsumer($this->user);
 
         $I->amOnRoute('consumer-hub');
         $I->checkOption('#bulk-item-' . $consumer->id);
@@ -212,5 +182,95 @@ class HubCest
         $I->assertEquals(3, $group->consumers()->count(), '$group->consumers()->count()');
         $groupConsumer3 = $group->consumers()->find($consumer3->id);
         $I->assertNotEmpty($groupConsumer3, '$consumer3->id found');
+    }
+
+    public function testBulkSendCampaign(FunctionalTester $I)
+    {
+        $consumer = $this->_createConsumer($this->user);
+        $consumer2 = $this->_createConsumer($this->user);
+        $campaign = $this->_createCampaign($this->user);
+
+        $toAddresses = [
+            $consumer->email => false,
+            $consumer2->email => false
+        ];
+        $this->_mockMailSend(function (array $message) use ($I, $campaign, &$toAddresses) {
+            $I->assertEquals($campaign->subject, $message['subject'], '$message["subject"]');
+
+            $I->assertEquals(1, count($message['to']), 'count($message["to"])');
+
+            $firstAddress = $message['toFirstAddress'];
+            $I->assertTrue(isset($toAddresses[$firstAddress]), 'first address');
+            unset($toAddresses[$firstAddress]);
+        });
+
+        $I->amOnRoute('consumer-hub');
+        $I->checkOption('#bulk-item-' . $consumer->id);
+        $I->checkOption('#bulk-item-' . $consumer2->id);
+        $I->selectOption('action', 'send_campaign');
+        $I->click('#btn-bulk');
+
+        $I->selectOption('campaign_id', $campaign->id);
+        $I->click('#btn-submit');
+
+        $I->seeCurrentRouteIs('consumer-hub.campaigns.history', ['campaign_id' => $campaign->id]);
+        $I->see(trans('co.campaigns.sent_to_x_of_y', [
+            'sent' => 2,
+            'total' => 2,
+        ]));
+
+        $historiesCount = $campaign->histories()->count();
+        $I->assertEquals(2, $historiesCount, '$historiesCount');
+
+        $historyConsumer = $campaign->histories()->where('consumer_id', $consumer->id)->first();
+        $I->assertNotEmpty($historyConsumer, 'consumer found');
+        $historyConsumer2 = $campaign->histories()->where('consumer_id', $consumer2->id)->first();
+        $I->assertNotEmpty($historyConsumer2, 'consumer 2 found');
+
+        $I->assertEquals(0, count($toAddresses), 'count($toAddresses)');
+    }
+
+    public function testBulkSendSms(FunctionalTester $I)
+    {
+        $consumer = $this->_createConsumer($this->user);
+        $consumer2 = $this->_createConsumer($this->user);
+        $sms = $this->_createSms($this->user);
+
+        $phones = [
+            $consumer->phone => false,
+            $consumer2->phone => false
+        ];
+        $this->_mockSmsSend(function (array $message) use ($I, $sms, &$phones) {
+            $I->assertEquals($sms->content, $message['content'], '$message["content"]');
+
+            $phoneNumber = $message['to'];
+            $I->assertTrue(isset($phones[$phoneNumber]), 'phone number');
+            unset($phones[$phoneNumber]);
+        });
+
+        $I->amOnRoute('consumer-hub');
+        $I->checkOption('#bulk-item-' . $consumer->id);
+        $I->checkOption('#bulk-item-' . $consumer2->id);
+        $I->selectOption('action', 'send_sms');
+        $I->click('#btn-bulk');
+
+        $I->selectOption('sms_id', $sms->id);
+        $I->click('#btn-submit');
+
+        $I->seeCurrentRouteIs('consumer-hub.sms.history', ['sms_id' => $sms->id]);
+        $I->see(trans('co.sms.sent_to_x_of_y', [
+            'sent' => 2,
+            'total' => 2,
+        ]));
+
+        $historiesCount = $sms->histories()->count();
+        $I->assertEquals(2, $historiesCount, '$historiesCount');
+
+        $historyConsumer = $sms->histories()->where('consumer_id', $consumer->id)->first();
+        $I->assertNotEmpty($historyConsumer, 'consumer found');
+        $historyConsumer2 = $sms->histories()->where('consumer_id', $consumer2->id)->first();
+        $I->assertNotEmpty($historyConsumer2, 'consumer 2 found');
+
+        $I->assertEquals(0, count($phones), 'count($phones)');
     }
 }

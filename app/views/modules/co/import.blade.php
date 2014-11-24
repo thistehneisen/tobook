@@ -1,8 +1,6 @@
 @extends ('modules.co.layout')
 
 @section ('content')
-    @include('modules.co.tabs')
-
     @include ('el.messages')
 
 {{ Form::open(['route' => ['consumer-hub.doImport'], 'class' => 'form-horizontal well', 'role' => 'form', 'files' => true]) }}

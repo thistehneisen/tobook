@@ -1,5 +1,5 @@
 <?php
-namespace Appointment\Traits;
+namespace Test\Traits;
 
 use App\API\v1_0\Appointment\Controllers\Consumer;
 use Config, Util;

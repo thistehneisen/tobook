@@ -15,8 +15,8 @@ use Config;
  */
 class CategoryCest
 {
-    use \Appointment\Traits\Models;
-    use \Appointment\Traits\Booking;
+    use \Test\Traits\Models;
+    use \Test\Traits\Booking;
 
     private $categories = [];
 

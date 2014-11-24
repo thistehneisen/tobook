@@ -18,6 +18,24 @@ Route::group([
         'consumer-hub.groups'
     );
 
+    \App\Consumers\Controllers\Campaign::crudRoutes(
+        'campaigns',
+        'consumer-hub.campaigns'
+    );
+    Route::get('campaigns/history', [
+        'as' => 'consumer-hub.campaigns.history',
+        'uses' => 'App\Consumers\Controllers\Campaign@history',
+    ]);
+
+    \App\Consumers\Controllers\Sms::crudRoutes(
+        'sms',
+        'consumer-hub.sms'
+    );
+    Route::get('sms/history', [
+        'as' => 'consumer-hub.sms.history',
+        'uses' => 'App\Consumers\Controllers\Sms@history',
+    ]);
+
     Route::get('history', [
         'as' => 'consumer-hub.history',
         'uses' => 'App\Consumers\Controllers\Hub@getHistory',

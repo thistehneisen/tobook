@@ -1,4 +1,4 @@
-<?php namespace Test\Consumers\Models;
+<?php namespace Test\Unit\Consumers\Models;
 
 use App\Consumers\Models\Consumer;
 use App\Core\Models\User;

@@ -1,8 +1,6 @@
 <?php
 namespace App\Consumers\Models;
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
-
 class Group extends \App\Core\Models\Base
 {
     public $fillable = ['name'];

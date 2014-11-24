@@ -13,7 +13,7 @@ use Config;
  */
 class BookingCest
 {
-    use \Appointment\Traits\Booking;
+    use \Test\Traits\Booking;
 
     public function _before(FunctionalTester $I)
     {

@@ -13,7 +13,7 @@ use Config;
  */
 class EmployeeCest
 {
-    use \Appointment\Traits\Models;
+    use \Test\Traits\Models;
 
     public function _before(FunctionalTester $I)
     {

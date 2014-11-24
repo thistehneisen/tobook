@@ -5,7 +5,7 @@
  * @author An Cao <an@varaa.com>
  */
 return [
-    'consumers'         => 'consumers',
+    'consumers'         => 'Consumers',
     'empty'             => 'You do not have any consumers yet. Consumers are created in your active services.',
     'id'                => 'ID',
     'first_name'        => 'First Name',
@@ -45,6 +45,7 @@ return [
         'csv_header_is_missing' => 'Header row could not be found.',
         'csv_required_field_x_is_missing' => 'Required field `:field` could not be found.',
     ],
+    'x_consumers'       => ':count consumer|:count consumers',
     'group'             => 'Add To Group',
     'groups' => [
         'all'           => 'Groups',
@@ -54,5 +55,32 @@ return [
         'consumers'     => 'Group Members',
         'existing_group'=> 'Existing Group',
         'new_group'     => 'New Group',
+        'send_campaign' => 'Send Group Campaign',
+        'groups'        => 'Groups',
+        'send_sms'      => 'Send Group SMS',
+    ],
+    'send_campaign'     => 'Send Campaign',
+    'campaigns' => [
+        'all'           => 'Campaigns',
+        'subject'       => 'Subject',
+        'content'       => 'Content',
+        'from_email'    => 'From Email',
+        'from_name'     => 'From Name',
+        'add'           => 'Add Campaign',
+        'edit'          => 'Edit Campaign',
+        'history'       => 'History',
+        'sent_at'       => 'Sent At',
+        'sent_to_x_of_y'=> 'Sent email to :sent out of :total consumers',
+    ],
+    'send_sms'     => 'Send SMS',
+    'sms' => [
+        'all'           => 'SMS',
+        'title'         => 'Title',
+        'content'       => 'Content',
+        'add'           => 'Add SMS',
+        'edit'          => 'Edit SMS',
+        'history'       => 'History',
+        'sent_at'       => 'Sent At',
+        'sent_to_x_of_y'=> 'Sent SMS to :sent out of :total consumers',
     ],
 ];

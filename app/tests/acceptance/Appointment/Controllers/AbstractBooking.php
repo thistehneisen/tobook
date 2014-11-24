@@ -1,7 +1,7 @@
 <?php namespace Test\Acceptance\Appointment\Controllers;
 
-use Appointment\Traits\Booking;
-use Appointment\Traits\Models;
+use Test\Traits\Booking;
+use Test\Traits\Models;
 
 /**
  * @group as

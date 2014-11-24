@@ -3,7 +3,7 @@
 use App\Core\Models\BusinessCategory;
 use App\Core\Models\User;
 use App\Core\Models\Business;
-use Appointment\Traits\Models;
+use Test\Traits\Models;
 use \UnitTester;
 
 /**
