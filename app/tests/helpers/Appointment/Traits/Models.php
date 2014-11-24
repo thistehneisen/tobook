@@ -280,7 +280,15 @@ trait Models
 
     public function initCustomTime()
     {
-         //Init custome time
+        if(empty($this->user)) {
+            $this->user = User::find(70);
+        }
+
+        if(empty($this->employee)) {
+            $this->initData();
+        }
+
+        //Init custome time
         $customTime = new CustomTime;
 
         $customTime->fill([
