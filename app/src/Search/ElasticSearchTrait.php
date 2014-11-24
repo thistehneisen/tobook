@@ -12,6 +12,13 @@ trait ElasticSearchTrait
     public $isSearchable = true;
 
     /**
+     * Search params customized per request
+     *
+     * @var array
+     */
+    protected static $customSearchParams = [];
+
+    /**
      * @{@inheritdoc}
      *
      * @author Hung Nguyen <hung@varaa.com>
@@ -39,7 +46,7 @@ trait ElasticSearchTrait
      */
     protected static function buildSearchParams($keywords, array $options)
     {
-        // Default params
+        // Default params by trait
         $size = Config::get('view.perPage');
         $params = [
             'index' => static::getSearchIndexName(),
@@ -54,9 +61,18 @@ trait ElasticSearchTrait
             'query' => static::buildSearchQuery($keywords)
         ];
 
-        // Merge default options with user's option
+        // Set custom search params by model
+        static::setCustomSearchParams();
+
         if (!empty($options)) {
-            $params = array_merge($params, $options);
+            // This allows user to pass custom params for this request only
+            // Default params for next requests remain intact
+            $params = array_merge($params, $customParams);
+        } elseif (!empty(static::$customSearchParams)) {
+            // If we don't have specific options for the request, and the model
+            // using this trait has set static::$customSearchParams via
+            // setCustomSearchParams(), we'll merge them.
+            $params = array_merge($params, static::$customSearchParams);
         }
 
         return $params;
@@ -94,6 +110,14 @@ trait ElasticSearchTrait
         }
 
         return $query;
+    }
+
+    /**
+     * Model using the trait could overwrite this method to set some default
+     * params for searching, for example, the default `size`
+     */
+    protected static function setCustomSearchParams()
+    {
     }
 
     /**

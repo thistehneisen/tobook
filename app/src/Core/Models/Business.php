@@ -357,4 +357,15 @@ class Business extends Base
 
         return $users->lists('business');
     }
+
+    /**
+     * @{@inheritdoc}
+     */
+    protected static function setCustomSearchParams()
+    {
+        // We'll show only 5 businesses by default
+        static::$customSearchParams = [
+            'size' => 5
+        ];
+    }
 }
