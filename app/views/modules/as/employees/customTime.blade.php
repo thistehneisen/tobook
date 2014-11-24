@@ -72,7 +72,7 @@
                 <td>
                     {{ $item->date }}
                 </td>
-                <td>{{ Form::select("custom_times[" . $item->date. "]", $customTimes, $item->customTime->id, ['class' => 'form-control input-sm', 'id' => 'custom_times']) }}</td>
+                <td>{{ Form::select("custom_times[" . $item->date. "]", $customTimes, (!empty($item->customTime)) ? $item->customTime->id : '', ['class' => 'form-control input-sm', 'id' => 'custom_times']) }}</td>
                 <td>{{ $employee->name }}</td>
                 <td>&nbsp;</td>
             </tr>
