@@ -17,7 +17,7 @@ use Carbon\Carbon;
 class UnitLayout3Cest
 {
 
-    use \Appointment\Traits\Models;
+    use \Test\Traits\Models;
 
     public function testTimetableOfSingleCustom(UnitTester $t)
     {

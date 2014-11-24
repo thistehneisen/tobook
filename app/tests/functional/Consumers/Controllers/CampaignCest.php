@@ -50,7 +50,7 @@ class CampaignCest
         $consumersCount = $group->consumers()->count();
         $I->assertEquals(4, $consumersCount);
 
-        Campaign::sendConsumers($campaign, [$group->id]);
+        Campaign::sendGroups($campaign, [$group->id]);
 
         $I->amOnRoute('consumer-hub.campaigns.history');
         $I->seeNumberOfElements('.item-row', $consumersCount);

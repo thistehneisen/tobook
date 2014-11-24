@@ -17,8 +17,8 @@ use Carbon\Carbon;
 class UnitLayout1Cest
 {
 
-    use \Appointment\Traits\Models;
-    use \Appointment\Traits\Booking;
+    use \Test\Traits\Models;
+    use \Test\Traits\Booking;
 
     public function testSlotsClassCustom(UnitTester $t)
     {

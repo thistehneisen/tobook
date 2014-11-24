@@ -50,7 +50,7 @@ class SmsCest
         $consumersCount = $group->consumers()->count();
         $I->assertEquals(4, $consumersCount);
 
-        Sms::sendConsumers($sms, [$group->id]);
+        Sms::sendGroups($sms, [$group->id]);
 
         $I->amOnRoute('consumer-hub.sms.history');
         $I->seeNumberOfElements('.item-row', $consumersCount);
