@@ -125,6 +125,9 @@ class Base implements Strategy
         }
 
         foreach ($this->customTimeCache as $empCustomTime) {
+            if(empty($empCustomTime->customTime)) {
+                continue;
+            }
             $start =  $empCustomTime->customTime->getStartAt();
             $end   =  $empCustomTime->customTime->getEndAt();
 
