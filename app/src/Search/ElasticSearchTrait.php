@@ -47,12 +47,10 @@ trait ElasticSearchTrait
     protected static function buildSearchParams($keywords, array $options)
     {
         // Default params by trait
-        $size = Config::get('view.perPage');
         $params = [
             'index' => static::getSearchIndexName(),
             'type'  => static::getSearchIndexType(),
-            'from'  => Input::get('page', 1) * $size - $size,
-            'size'  => $size,
+            'size'  => Config::get('view.perPage'),
         ];
 
         // Attach filter and query
@@ -74,6 +72,10 @@ trait ElasticSearchTrait
             // setCustomSearchParams(), we'll merge them.
             $params = array_merge($params, static::$customSearchParams);
         }
+
+        // Pagination
+        $size = $params['size'];
+        $params['from'] = Input::get('page', 1) * $size - $size;
 
         return $params;
     }
