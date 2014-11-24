@@ -19,11 +19,16 @@ trait ElasticSearchTrait
     protected static $customSearchParams = [];
 
     /**
-     * @{@inheritdoc}
+     * Search using ElasticSearch (obviously :|)
      *
      * @author Hung Nguyen <hung@varaa.com>
+     *
+     * @param string $keywords
+     * @param array  $options
+     *
+     * @return Illuminate\Pagination\Paginator
      */
-    public static function search($keywords, array $options = [])
+    public static function serviceSearch($keywords, array $options = [])
     {
         $params = static::buildSearchParams($keywords, $options);
         $provider = App::make('App\Search\ProviderInterface');

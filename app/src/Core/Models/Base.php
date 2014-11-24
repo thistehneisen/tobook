@@ -1,6 +1,6 @@
 <?php namespace App\Core\Models;
 
-use Confide, App;
+use Confide, App, Log;
 use Watson\Validating\ValidatingTrait;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 use App\Search\SearchableInterface;
@@ -21,6 +21,7 @@ class Base extends \Eloquent implements SearchableInterface
 
         static::saved(function ($model) {
             // Send data of this model to ES for indexing
+            // This method is from ElasticSearchTrait
             $model->updateSearchIndex();
         });
     }
@@ -74,5 +75,49 @@ class Base extends \Eloquent implements SearchableInterface
         }
 
         return $query;
+    }
+
+    //--------------------------------------------------------------------------
+    // SearchableInterface
+    //--------------------------------------------------------------------------
+
+    /**
+     * Search data with provided keyword
+     *
+     * @param string $keyword
+     *
+     * @return Illuminate\Pagination\Paginator
+     */
+    public static function search($keyword, array $options = [])
+    {
+        // First, try to search with search service
+        try {
+            return static::serviceSearch($keyword, $options);
+        } catch (\Exception $ex) {
+            // Silently failed baby
+            Log::error('Failed to search using service: '.$ex->getMessage());
+        }
+
+        //----------------------------------------------------------------------
+        // Fallback to traditional search ._.
+        //----------------------------------------------------------------------
+
+        $query = $this->applyQueryStringFilter($query);
+
+        // Get fillable fields of this model
+        $fillable = $this->getFillable();
+        // Add ID to be candicate for searching
+        $fillable[] = 'id';
+        $query = $query->where(function ($q) use ($fillable, $q) {
+            foreach ($fillable as $field) {
+                $q = $q->orWhere($field, 'LIKE', '%'.$q.'%');
+            }
+
+            return $q;
+        });
+
+        $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
+
+        return $query->paginate($perPage);
     }
 }
