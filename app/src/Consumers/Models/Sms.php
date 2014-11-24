@@ -36,9 +36,21 @@ class Sms extends \App\Core\Models\Base
     public static function sendConsumers(Sms $sms, array $consumerIds, Group $group = null)
     {
         $count = 0;
-        $consumers = $sms->user->consumers()
-            ->whereIn('id', $consumerIds)
-            ->get();
+
+        $sentConsumerIds = $sms->histories()->lists('consumer_id');
+        $unsentConsumerIds = [];
+        foreach ($consumerIds as $consumerId) {
+            if (!in_array($consumerId, $sentConsumerIds)) {
+                $unsentConsumerIds[] = $consumerId;
+            }
+        }
+        if (!empty($unsentConsumerIds)) {
+            $consumers = $sms->user->consumers()
+                ->whereIn('id', $unsentConsumerIds)
+                ->get();
+        } else {
+            $consumers = [];
+        }
 
         foreach ($consumers as $consumer) {
             if (empty($consumer->phone)) {
@@ -72,7 +84,7 @@ class Sms extends \App\Core\Models\Base
             $groupConsumerIds = $group->consumers->lists('id');
             $uniqueConsumerIds = [];
 
-            foreach($groupConsumerIds as $consumerId) {
+            foreach ($groupConsumerIds as $consumerId) {
                 if (isset($consumerIds[$consumerId])) {
                     continue;
                 }

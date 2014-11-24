@@ -1,4 +1,4 @@
-<?php namespace Test\Consumers\Controllers;
+<?php namespace Test\Functional\Consumers\Controllers;
 
 use App\Appointment\Models\AsConsumer;
 use App\Consumers\Models\Group;

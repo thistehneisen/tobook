@@ -1,4 +1,4 @@
-<?php namespace Test\Consumers\Controllers;
+<?php namespace Test\Functional\Consumers\Controllers;
 
 use Test\Traits\Mail;
 use Test\Traits\Models;

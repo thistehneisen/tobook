@@ -1,4 +1,4 @@
-<?php namespace Test\Consumers\Controllers;
+<?php namespace Test\Functional\Consumers\Controllers;
 
 use App\Consumers\Models\Sms;
 use FunctionalTester;
@@ -50,7 +50,7 @@ class SmsCest
         $consumersCount = $group->consumers()->count();
         $I->assertEquals(4, $consumersCount);
 
-        Sms::sendConsumers($sms, $group->consumers()->lists('consumer_id'), $group);
+        Sms::sendConsumers($sms, [$group->id]);
 
         $I->amOnRoute('consumer-hub.sms.history');
         $I->seeNumberOfElements('.item-row', $consumersCount);

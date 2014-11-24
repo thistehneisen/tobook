@@ -1,4 +1,4 @@
-<?php namespace Test\Consumers\Controllers;
+<?php namespace Test\Functional\Consumers\Controllers;
 
 use App\Consumers\Models\Campaign;
 use FunctionalTester;
@@ -50,7 +50,7 @@ class CampaignCest
         $consumersCount = $group->consumers()->count();
         $I->assertEquals(4, $consumersCount);
 
-        Campaign::sendConsumers($campaign, $group->consumers()->lists('consumer_id'), $group);
+        Campaign::sendConsumers($campaign, [$group->id]);
 
         $I->amOnRoute('consumer-hub.campaigns.history');
         $I->seeNumberOfElements('.item-row', $consumersCount);
