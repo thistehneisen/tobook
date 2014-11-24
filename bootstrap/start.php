@@ -24,8 +24,9 @@ $env = $app->detectEnvironment(function () {
         return require __DIR__.'/environment.php';
     } else {
         if (isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] === 'varaa.test') {
-            // if domain is varaa.test, then use 'testing' env
-            return 'testing';
+            // if domain is varaa.test, then use 'acceptance' env
+            // since we need all filters enabled
+            return 'acceptance';
         } else {
             // defaults to 'local' env
             return 'local';
