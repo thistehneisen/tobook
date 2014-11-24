@@ -328,6 +328,8 @@ class Employees extends AsBase
     {
         $customTime = CustomTime::ofCurrentUser()->find($id)->delete();
 
+        EmployeeCustomTime::where('custom_time_id', $id)->delete();
+
         return Redirect::route('as.employees.customTime')
             ->with(
                 'messages',

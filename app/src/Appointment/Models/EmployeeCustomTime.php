@@ -12,6 +12,9 @@ class EmployeeCustomTime extends \Eloquent
     //Currently don't use attribute because can break other code
     public function getStartAt()
     {
+        if(empty($this->customTime)) {
+            return Carbon\Carbon::now();
+        }
         $startAt =  \Carbon\Carbon::createFromFormat('H:i:s', $this->customTime->start_at, Config::get('app.timezone'));
         return $startAt;
     }
@@ -19,6 +22,9 @@ class EmployeeCustomTime extends \Eloquent
     //Currently  don't use attribute because can break other code
     public function getEndAt()
     {
+        if(empty($this->customTime)) {
+            return Carbon\Carbon::now();
+        }
         $endAt =  \Carbon\Carbon::createFromFormat('H:i:s', $this->customTime->end_at, Config::get('app.timezone'));
         return $endAt;
     }
@@ -35,8 +41,10 @@ class EmployeeCustomTime extends \Eloquent
 
     public function getWorkingHours()
     {
-        if ($this->customTime->is_day_off) {
-           $this->workingHours = 0;
+        if(!empty($this->customTime)) {
+            if ($this->customTime->is_day_off) {
+               $this->workingHours = 0;
+            }
         }
 
         if($this->workingHours === -1) {

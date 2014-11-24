@@ -43,7 +43,7 @@
                 <td>{{ $item['date']->toDateString() }}</td>
                 @foreach ($employees as $employee)
                 <td>
-                    @if(!empty($item['employees'][$employee->id]))
+                    @if(!empty($item['employees'][$employee->id]->customTime))
                     {{ $item['employees'][$employee->id]->customTime->name }}
                     @else
                     --
