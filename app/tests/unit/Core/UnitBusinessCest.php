@@ -17,6 +17,8 @@ class UnitBusinessCest
     {
         $this->_modelsReset();
         $this->_createUser(false);
+
+        Business::boot();
     }
 
     public function testNewRecordSuccess(UnitTester $I)
@@ -42,18 +44,18 @@ class UnitBusinessCest
             // unable to create business record (missing required field)
             $businessMissing = new Business($inputMissing);
             $businessMissing->user()->associate($this->user);
-            $businessMissing->save();
-            $I->assertNull($businessMissing->id, '$businessMissing' . ucwords($key) . '->id');
+            $result = $businessMissing->saveOrReturn();
+            $I->assertFalse($result, '$businessMissing' . ucwords($key) . '->id');
         }
 
         // unable to create business record (missing user)
         $businessMissingUser = new Business($input);
         try {
-            $businessMissingUser->save();
+            $result = $businessMissingUser->saveOrReturn();
+            $I->assertFalse($result, '$businessMissingUser->id');
         } catch (\Exception $e) {
             // ignore
         }
-        $I->assertNull($businessMissingUser->id, '$businessMissingUser->id');
     }
 
     public function testGetFullAddress(UnitTester $I)
