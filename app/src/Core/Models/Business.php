@@ -23,7 +23,7 @@ class Business extends Base
     public $rulesets = [
         'saving' => [
             'name' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|numeric',
         ]
     ];
 

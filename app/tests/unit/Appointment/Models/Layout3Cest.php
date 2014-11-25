@@ -29,7 +29,7 @@ class UnitLayout3Cest
         $timeTable = $layout3->getTimetableOfSingle($this->employee, $this->service, $date);
         // Expected result with custome time and freetime
         // Custom time from 9:00 to 17:00 and have freetime from 13:00 to 14:00
-        $result = [
+        $expectedResult = [
             '09:00',
             '09:15',
             '09:30',
@@ -53,7 +53,7 @@ class UnitLayout3Cest
             '15:45',
             '16:00',
         ];
-        $t->assertEquals(array_keys($timeTable), $result);
+        $t->assertEquals(array_diff(array_keys($timeTable), $expectedResult), []);
     }
 
     public function testTimetableOfSingleDefault(UnitTester $t)
@@ -62,7 +62,7 @@ class UnitLayout3Cest
         $layout3 = new Layout3;
         $date = new Carbon('2014-11-24 00:00:00');
         $timeTable = $layout3->getTimetableOfSingle($this->employee, $this->service, $date);
-        $result = [
+        $expectedResult = [
             '08:00',
             '08:15',
             '08:30',
@@ -101,6 +101,6 @@ class UnitLayout3Cest
             '16:45',
             '17:00',
         ];
-        $t->assertEquals(array_keys($timeTable), $result);
+        $t->assertEquals(array_diff(array_keys($timeTable), $expectedResult), []);
     }
 }

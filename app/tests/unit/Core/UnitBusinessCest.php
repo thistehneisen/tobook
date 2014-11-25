@@ -19,11 +19,9 @@ class UnitBusinessCest
         $this->_createUser(false);
     }
 
-    public function testNewRecord(UnitTester $I)
+    public function testNewRecordSuccess(UnitTester $I)
     {
         $input = $this->getRequiredFieldsAndValues();
-
-        // create business record
         $business = new Business($input);
         $business->user()->associate($this->user);
         $business->save();
@@ -32,7 +30,11 @@ class UnitBusinessCest
         foreach ($input as $key => $value) {
             $I->assertEquals($business->$key, $value, '$business->' . $key);
         }
+    }
 
+    public function testNewRecordFailure(UnitTester $I)
+    {
+        $input = $this->getRequiredFieldsAndValues();
         foreach ($input as $key => $value) {
             $inputMissing = $input;
             unset($inputMissing[$key]);
