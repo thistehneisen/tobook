@@ -1,6 +1,6 @@
 <?php namespace App\Core\Models;
 
-use Confide, App, Log;
+use Confide, App, Log, Input, Config;
 use Watson\Validating\ValidatingTrait;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 use App\Search\SearchableInterface;
@@ -102,15 +102,15 @@ class Base extends \Eloquent implements SearchableInterface
         // Fallback to traditional search ._.
         //----------------------------------------------------------------------
 
-        $query = $this->applyQueryStringFilter($query);
-
         // Get fillable fields of this model
-        $fillable = $this->getFillable();
+        $model = new static();
+        $fillable = $model->getFillable();
+
         // Add ID to be candicate for searching
         $fillable[] = 'id';
-        $query = $query->where(function ($q) use ($fillable, $q) {
+        $query = static::where(function ($q) use ($fillable, $keyword) {
             foreach ($fillable as $field) {
-                $q = $q->orWhere($field, 'LIKE', '%'.$q.'%');
+                $q = $q->orWhere($field, 'LIKE', '%'.$keyword.'%');
             }
 
             return $q;
