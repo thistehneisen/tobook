@@ -83,7 +83,7 @@ trait ElasticSearchTrait
         if (!empty($options)) {
             // This allows user to pass custom params for this request only
             // Default params for next requests remain intact
-            $params = array_merge($params, $customParams);
+            $params = array_merge($params, $options);
         } elseif (!empty(static::$customSearchParams)) {
             // If we don't have specific options for the request, and the model
             // using this trait has set static::$customSearchParams via
