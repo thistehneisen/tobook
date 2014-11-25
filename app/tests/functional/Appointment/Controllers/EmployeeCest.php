@@ -448,6 +448,57 @@ class EmployeeCest
         $I->assertNotEmpty($employeeCustomTime, 'employee custom time has been created');
     }
 
+    public function testEmployeeCustomTimeAfterDelete(FunctionalTester $I)
+    {
+        $startAt = '08:00:00';
+        $endAt = '18:00:00';
+        $employee = $this->employee;
+        $date = Carbon::today()->addMonth();
+        $customTime = $this->_createCustomTime($startAt, $endAt);
+
+        $I->amOnRoute('as.employees.employeeCustomTime', [
+            'employeeId' => $employee->id,
+            'date' => $date->format('Y-m'),
+        ]);
+        $I->seeOptionIsSelected('employees', $employee->name);
+        $selector = 'custom_times[' . $date->toDateString() . ']';
+        $I->seeOptionIsSelected($selector, trans('common.select'));
+        $I->selectOption($selector, $customTime->id);
+        $I->click('#btn-save');
+
+        $employeeCustomTime = EmployeeCustomTime::where('custom_time_id', $customTime->id)
+            ->where('employee_id', $employee->id)
+            ->first();
+        $I->assertNotEmpty($employeeCustomTime, 'employee custom time has been created');
+
+        //Delete the custome time above
+
+        $I->amOnRoute('as.employees.customTime.delete', [
+            'customTimeId' => $customTime->id
+        ]);
+
+        $testCustomTime = CustomTime::find($customTime->id);
+        $I->assertEmpty($testCustomTime, 'custom time has been deleted');
+
+        $employeeCustomTimes = EmployeeCustomTime::where('custom_time_id', $customTime->id)->get();
+        $I->assertEmpty($employeeCustomTimes);
+
+        //After delete check can we access the employee work-shift planning or not
+        $I->amOnRoute('as.employees.employeeCustomTime', [
+            'employeeId' => $employee->id,
+            'date' => $date->format('Y-m'),
+        ]);
+
+        $I->seeOptionIsSelected('employees', $employee->name);
+        $I->seeOptionIsSelected($selector, trans('common.select'));
+
+        $I->amOnRoute('as.employee', [
+            'employeeId' => $employee->id,
+            'date' => $date->format('Y-m-d'),
+        ]);
+
+    }
+
     public function testEmployeeCustomTimeReplace(FunctionalTester $I)
     {
         $startAt = '08:00:00';
