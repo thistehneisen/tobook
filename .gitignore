@@ -30,6 +30,7 @@
 *.BASE*
 *.LOCAL*
 *.REMOTE*
+dump.rdb
 
 # OS generated files #
 ######################

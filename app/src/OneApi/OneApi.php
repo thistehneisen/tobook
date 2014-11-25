@@ -5,7 +5,19 @@ use Config, Log;
 
 class OneApi
 {
-    public function send($from, $to, $message)
+    public function formatNumber($phone, $countryCode = '')
+    {
+        if (strpos($phone, '0') === 0) {
+            $phone = ltrim($phone, '0');
+        }
+
+        // TODO: this should be user config?
+        $countryCode = $countryCode ?: '358';
+        $phone = $countryCode . $phone;
+        return $phone;
+    }
+
+    public function send($from, $to, $message, $countryCode = '')
     {
         $pretending = Config::get('sms.pretend');
         if ($pretending === true) {
@@ -25,7 +37,7 @@ class OneApi
         // Prepare message
         $smsMessage = new \SMSRequest();
         $smsMessage->senderAddress = $from;
-        $smsMessage->address       = $to;
+        $smsMessage->address       = static::formatNumber($to, $countryCode);
         $smsMessage->message       = $message;
 
         // Send

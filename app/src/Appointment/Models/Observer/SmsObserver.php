@@ -60,17 +60,8 @@ class SmsObserver implements \SplObserver {
 
     public function setCode($subject)
     {
-       $this->code =  $subject->user->asOptions['confirm_sms_country_code'];
+       $this->code = $subject->user->asOptions['confirm_sms_country_code'];
        return $this;
-    }
-
-    public function getSendNumber($phone)
-    {
-        if (strpos($phone, '0') === 0 ) {
-            $phone = ltrim($phone, '0');
-        }
-        $phone = (empty($this->code)) ? $this->code . $phone : '358' . $phone;
-        return $phone;
     }
 
     protected function setServiceInfo($subject)
@@ -97,11 +88,10 @@ class SmsObserver implements \SplObserver {
     protected function sendToConsumer($subject)
     {
         $msg = $subject->user->asOptions['confirm_consumer_sms_message'];
-        $to  = $this->getSendNumber($subject->consumer->phone);
         $cancelURL = route('as.bookings.cancel', ['uuid' => $subject->uuid]);
         $msg = str_replace('{Services}', $this->serviceInfo, $msg);
         $msg = str_replace('{CancelURL}', $cancelURL, $msg);
-        Sms::send($this->from, $to, $msg);
+        Sms::send($this->from, $subject->consumer->phone, $msg, $this->code);
     }
 
     protected function sendToEmployee($subject)
@@ -112,11 +102,10 @@ class SmsObserver implements \SplObserver {
         }
 
         if ($subject->employee->is_subscribed_sms) {
-            $to  = $this->getSendNumber($subject->employee->phone);
             $msg = $subject->user->asOptions['confirm_employee_sms_message'];
             $msg = str_replace('{Services}', $this->serviceInfo, $msg);
             $msg = str_replace('{Consumer}', $subject->consumer->name, $msg);
-            Sms::send($this->from, $to, $msg);
+            Sms::send($this->from, $subject->employee->phone, $msg, $this->code);
         }
     }
 }
