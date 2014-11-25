@@ -120,4 +120,20 @@ class Base extends \Eloquent implements SearchableInterface
 
         return $query->paginate($perPage);
     }
+
+    /**
+     * @{@inheritdoc}
+     */
+    public static function transformSearchResult($results)
+    {
+        $data = [];
+        foreach ($results as $result) {
+            $item = static::find($result['_id']);
+            if ($item !== null) {
+                $data[] = $item;
+            }
+        }
+
+        return $data;
+    }
 }
