@@ -19,6 +19,19 @@ trait ElasticSearchTrait
     protected static $customSearchParams = [];
 
     /**
+     * Attach event observers into the model
+     *
+     * @return void
+     */
+    protected static function bootElasticSearchTrait()
+    {
+        // Send data of this model to ES for indexing
+        static::saved(function ($model) {
+            $model->updateSearchIndex();
+        });
+    }
+
+    /**
      * Search using ElasticSearch (obviously :|)
      *
      * @author Hung Nguyen <hung@varaa.com>

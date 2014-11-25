@@ -12,20 +12,6 @@ class Base extends \Eloquent implements SearchableInterface
     use SoftDeletingTrait;
     use ElasticSearchTrait;
 
-    /**
-     * @{@inheritdoc}
-     */
-    public static function boot()
-    {
-        parent::boot();
-
-        static::saved(function ($model) {
-            // Send data of this model to ES for indexing
-            // This method is from ElasticSearchTrait
-            $model->updateSearchIndex();
-        });
-    }
-
     //--------------------------------------------------------------------------
     // SCOPES
     //--------------------------------------------------------------------------
