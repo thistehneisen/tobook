@@ -353,4 +353,28 @@ class BookingCest
             $I->assertEquals(0, count($json), 'json array has no elements');
         }
     }
+
+    /**
+     * This test is only valid to check when category is accidentally deleted.
+     * Because we don't allow user delete a category which has bookings
+     */
+    public function testOpenDeletedCategoryBooking(FunctionalTester $I)
+    {
+        $user = User::find(70);
+        $category = ServiceCategory::find(105);
+        $booking = $this->_book($user, $category);
+        $booking = Booking::find($booking->id);
+        $I->assertNotEmpty($booking, 'booking has been found');
+        $I->sendGET(route('as.bookings.modify-form', ['booking_id'=> $booking->id]));
+        $I->seeResponseCodeIs(200);
+        $I->sendGET(route('as.bookings.form', ['booking_id'=> $booking->id]));
+        $I->seeResponseCodeIs(200);
+        //delete the category
+        $category->delete();
+        //try to access again
+        $I->sendGET(route('as.bookings.modify-form', ['booking_id'=> $booking->id]));
+        $I->seeResponseCodeIs(200);
+        $I->sendGET(route('as.bookings.form', ['booking_id'=> $booking->id]));
+        $I->seeResponseCodeIs(200);
+    }
 }
