@@ -52,8 +52,15 @@ Route::filter('auth', function () {
     }
 });
 
-Route::filter('auth.basic', function () {
-    return Auth::basic('username');
+Route::filter('auth-api', function () {
+    Config::set('session.driver', 'array');
+
+    /** @var \Symfony\Component\HttpFoundation\Request $request */
+    $request = Auth::getRequest();
+    $user = $request->getUser();
+    $field = (strpos($user, '@') === false ? 'username' : 'email');
+
+    return Auth::onceBasic($field);
 });
 
 Route::filter('auth-lc', function () {

@@ -6,7 +6,7 @@
 */
 Route::group([
     'prefix' => 'api',
-    'before' => 'auth.basic',
+    'before' => 'auth-api',
 ], function () {
     Route::group([
         'prefix' => 'v1.0',
