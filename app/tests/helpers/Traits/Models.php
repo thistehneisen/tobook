@@ -203,7 +203,7 @@ trait Models
             for ($j = 0; $j < $serviceCount; $j++) {
                 $service = new Service([
                     'name' => 'Service ' . (++$serviceCreated),
-                    'during' => 15 * $serviceCreated,
+                    'during' => 15 * (int)$serviceCreated,
                     'price' => 10 * $serviceCreated,
                     'is_active' => 1,
                 ]);

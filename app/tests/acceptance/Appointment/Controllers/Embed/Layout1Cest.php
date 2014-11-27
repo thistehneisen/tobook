@@ -168,6 +168,12 @@ class Layout1Cest extends AbstractBooking
         $service = $category->services()->first();
         $employee = $this->employees[0];
 
+        $service->during = 60;
+        $service->setLength();
+        $service->save();
+
+        $I->assertEquals($service->length, 60);
+
         $today = Carbon::today();
         $date = $this->_getNextDate();
         $startAt = '12:00:00';
@@ -176,15 +182,19 @@ class Layout1Cest extends AbstractBooking
         $lastName = 'Last';
         $email = 'consumer' . time() . '@varaa.com';
         $phone = time();
-
+        $I->assertEquals($category->user->id, $this->user->id);
         $I->amOnPage(route('as.embed.embed', ['hash' => $this->user->hash, 'date'=> $date->toDateString()], false));
         $I->click('#btn-category-' . $category->id);
         $I->wait(1);
         $I->see("Category 1");
+        $I->click('#btn-service-' . $service->id);
         $I->waitForElementVisible('#btn-add-service-'. $service->id);
         $I->click('#btn-add-service-' . $service->id);
         $I->wait(1);
-        $I->seeInCurrentUrl(sprintf('service_id=%d?&service_time=default&date=%s', $service->id, $date->toDateString()));
+        $I->seeInCurrentUrl(sprintf('service_id=%d&service_time=default&date=%s', $service->id, $date->toDateString()));
         $I->click('#btn-slot-' . $employee->id . '-' . substr(preg_replace('#[^0-9]#', '', $startAt), 0, 4));
+        $I->click(sprintf('//*[@id="btn-slot-%s-%s"]', $employee->id, '1200'));
+        $I->see("12:00", sprintf('//span[@class="start-time-%s"]', $employee->id));
+        $I->see("13:00", sprintf('//span[@class="end-time-%s"]', $employee->id));
     }
 }
