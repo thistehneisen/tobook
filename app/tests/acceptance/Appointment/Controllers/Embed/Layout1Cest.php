@@ -179,8 +179,8 @@ class Layout1Cest extends AbstractBooking
         $I->assertEquals($service->after, 15);
 
         $today = Carbon::today();
-        $date = $this->_getNextDate();
-        $startAt = '1700';
+        $date = new Carbon('2014-11-24');
+        $startAt = '1600';
 
         $firstName = 'First';
         $lastName = 'Last';
@@ -197,7 +197,7 @@ class Layout1Cest extends AbstractBooking
         $I->wait(1);
         $I->seeInCurrentUrl(sprintf('service_id=%d&service_time=default&date=%s', $service->id, $date->toDateString()));
         $I->click(sprintf('//*[@id="btn-slot-%s-%s"]', $employee->id, $startAt));
-        $I->see("17:00", sprintf('//span[@class="start-time-%s"]', $employee->id));
-        $I->see("17:45", sprintf('//span[@class="end-time-%s"]', $employee->id));
+        $I->see("16:00", sprintf('//span[@class="start-time-%s"]', $employee->id));
+        $I->see("16:45", sprintf('//span[@class="end-time-%s"]', $employee->id));
     }
 }
