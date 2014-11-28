@@ -56,7 +56,7 @@ class Service extends Base
     {
         return [
             'name'     => $this->name,
-            'price'    => $price,
+            'price'    => $this->price,
             'category' => $this->businessCategory->name ?: ''
         ];
     }

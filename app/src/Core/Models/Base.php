@@ -87,6 +87,7 @@ class Base extends \Eloquent implements SearchableInterface
         //----------------------------------------------------------------------
         // Fallback to traditional search ._.
         //----------------------------------------------------------------------
+        Log::info('Fallback to MySQL search');
 
         // Get fillable fields of this model
         $model = new static();
