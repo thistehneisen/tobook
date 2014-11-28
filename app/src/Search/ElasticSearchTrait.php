@@ -34,6 +34,11 @@ trait ElasticSearchTrait
         static::deleted(function ($model) {
             $model->deleteSearchIndex();
         });
+
+        // When a trashed model is restored, update its index
+        static::restored(function ($model) {
+            $model->updateSearchIndex();
+        });
     }
 
     /**
