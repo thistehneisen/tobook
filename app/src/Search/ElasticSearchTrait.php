@@ -29,6 +29,11 @@ trait ElasticSearchTrait
         static::saved(function ($model) {
             $model->updateSearchIndex();
         });
+
+        // Remove the document index when the model was deleted
+        static::deleted(function ($model) {
+            $model->deleteSearchIndex();
+        });
     }
 
     /**
@@ -208,5 +213,25 @@ trait ElasticSearchTrait
         $provider = App::make('App\Search\ProviderInterface');
 
         return $provider->index($params);
+    }
+
+    /**
+     * Remove document index
+     *
+     * @return void
+     */
+    public function deleteSearchIndex()
+    {
+        if ($this->isSearchable === false) {
+            return;
+        }
+
+        $provider = App::make('App\Search\ProviderInterface');
+
+        return $provider->delete([
+            'index' => $this->getSearchIndexName(),
+            'type'  => $this->getSearchIndexType(),
+            'id'    => $this->getSearchDocumentId(),
+        ]);
     }
 }

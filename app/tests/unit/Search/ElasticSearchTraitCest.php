@@ -57,7 +57,19 @@ class ElasticSearchTraitCest
         App::instance('App\Search\ProviderInterface', $mock);
 
         $model = new Model();
-        $model->updateSearchIndex($mock);
+        $model->updateSearchIndex();
+    }
+
+    public function testDeleteSearchIndex(UnitTester $i)
+    {
+        $mock = m::mock('\App\Search\ProviderInterface')
+            ->shouldReceive('delete')->once()
+            ->getMock();
+
+        App::instance('App\Search\ProviderInterface', $mock);
+        $model = new Model();
+        $model->id = 999;
+        $model->deleteSearchIndex();
     }
 
     public function testNotUpdateSearchIndexIfNotSearchable(UnitTester $i)

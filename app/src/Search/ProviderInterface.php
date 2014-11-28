@@ -19,4 +19,13 @@ interface ProviderInterface
      * @return array
      */
     public function search($params);
+
+    /**
+     * Remove the index of a document
+     *
+     * @param array $params
+     *
+     * @return void
+     */
+    public function delete($params);
 }

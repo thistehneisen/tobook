@@ -42,4 +42,17 @@ class ElasticSearch implements ProviderInterface
     {
         return Es::search($params);
     }
+
+    /**
+     * @{@inheritdoc}
+     */
+    public function delete($params)
+    {
+        Log::info('Delting an index');
+        try {
+            $this->client->indicies()->delete($params);
+        } catch (\Exception $ex) {
+            Log::error($ex->getMessage());
+        }
+    }
 }
