@@ -162,6 +162,7 @@ class Bookings extends AsBase
         $serviceTimes = (!empty($bookingService)) ? $bookingService->service->serviceTimes : [];
         $length = (!empty($bookingService)) ? $bookingService->service->length : 0;
         $description = (!empty($bookingService)) ? $bookingService->service->description : '';
+        $plustime = (!empty($bookingServiceId)) ? $employee->getPlustime($bookingServiceId) : 0;
 
         $serviceTimesList = $bookingService->service->getServiceTimesData();
 
@@ -189,6 +190,7 @@ class Bookings extends AsBase
             'categories'            => $categories,
             'services'              => $bookingServices,
             'serviceTimes'          => $serviceTimesList,
+            'plustime'              => $plustime
         ];
     }
 

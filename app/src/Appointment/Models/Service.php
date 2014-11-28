@@ -29,10 +29,17 @@ class Service extends \App\Core\Models\Base
      *
      * @return array
      */
-    public function getServiceTimesData()
+    public function getServiceTimesData($employeeId = null)
     {
         $serviceTimes = $this->serviceTimes;
         $data = [];
+        $employee = (!empty($employeeId))
+            ? $this->employees()->where('employee_id', $employeeId)->first()
+            : null;
+
+        $plustime = (!empty($employee))
+            ? $employee->getPlustime($this->id)
+            : 0;
 
         $data[-1] = [
             'id'          => -1,
@@ -41,18 +48,21 @@ class Service extends \App\Core\Models\Base
             'description' => ''
         ];
 
+        $serviceLength = $this->length + $plustime;
+
         $data['default'] = [
             'id'          => 'default',
-            'name'        => $this->length,
-            'length'      => $this->length,
+            'name'        => $serviceLength,
+            'length'      => $serviceLength,
             'price'       => $this->price,
             'description' => $this->description
         ];
         foreach ($serviceTimes as $serviceTime) {
+            $serviceTimeLength = $serviceTime->length + $plustime;
             $data[$serviceTime->id] = [
                 'id'            => $serviceTime->id,
-                'name'          => $serviceTime->length,
-                'length'        => $serviceTime->length,
+                'name'          => $serviceTimeLength,
+                'length'        => $serviceTimeLength,
                 'price'         => $this->price,
                 'description'   => $serviceTime->description
             ];

@@ -31,11 +31,13 @@ $(function () {
 
     $(document).on('change', '#services', function () {
         $('#service_times').empty();
-        var service_id = $(this).val();
+        var service_id  = $(this).val(),
+            employee_id = $('#employee_id').val();
          $.ajax({
             url: $('#get_service_times_url').val(),
             data: {
-                service_id : service_id
+                service_id  : service_id,
+                employee_id : employee_id
             },
             dataType: 'json'
         }).done(function (data) {

@@ -184,12 +184,12 @@
                                     @foreach ($serviceTimes as $serviceTime)
                                         <option
                                         @if (isset($serviceTime['length']))
-                                            data-length="{{ $serviceTime['length'] }}"
+                                            data-length="{{ (int) $serviceTime['length'] + $plustime}}"
                                         @endif
                                         @if (intval($bookingServiceTime) === intval($serviceTime['id']))
                                             selected="selected"
                                         @endif
-                                            value="{{ $serviceTime['id']}}">{{ $serviceTime['name'] }}@if (isset($serviceTime['description']) && $serviceTime['description'])
+                                            value="{{ $serviceTime['id']}}">{{ (int) ($serviceTime['name'] + $plustime) }}@if (isset($serviceTime['description']) && $serviceTime['description'])
                                                 ({{ $serviceTime['description'] }})
                                             @endif</option>
                                     @endforeach
