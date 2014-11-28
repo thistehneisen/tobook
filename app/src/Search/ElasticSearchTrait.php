@@ -176,7 +176,9 @@ trait ElasticSearchTrait
      */
     public static function getSearchIndexType()
     {
-        return strtolower(class_basename(get_called_class()));
+        $model = new static();
+
+        return $model->getTable();
     }
 
     /**

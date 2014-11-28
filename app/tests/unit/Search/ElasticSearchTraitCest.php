@@ -17,13 +17,13 @@ class ElasticSearchTraitCest
 
     public function testGetSearchIndexName(UnitTester $i)
     {
-        $i->assertEquals(Model::getSearchIndexName(), 'models');
+        $i->assertEquals(Model::getSearchIndexName(), 'prefix_models');
     }
 
     public function testGetSearchIndexType(UnitTester $i)
     {
         $model = new Model();
-        $i->assertEquals(Model::getSearchIndexType(), 'model');
+        $i->assertEquals(Model::getSearchIndexType(), 'prefix_model');
     }
 
     public function testGetSearchDocument(UnitTester $i)

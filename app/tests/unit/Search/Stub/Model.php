@@ -1,8 +1,15 @@
 <?php namespace Test\Unit\Search\Stub;
 
-use AppModel;
-
-class Model extends AppModel
+class Model extends \Eloquent implements \App\Search\SearchableInterface
 {
+    use \App\Search\ElasticSearchTrait;
+
+    public $table = 'prefix_model';
+
     protected $fillable = ['foo', 'bar'];
+
+    public static function search($keyword, array $options = [])
+    {
+        return static::serviceSearch($keyword, $options);
+    }
 }
