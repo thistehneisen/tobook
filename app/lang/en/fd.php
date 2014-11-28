@@ -13,7 +13,8 @@ return [
         'price'                => 'Normal price',
         'quantity'             => 'Quantity',
         'description'          => 'Description',
-        'business_category_id' => 'Business category'
+        'business_category_id' => 'Business category',
+        'deleted'              => 'Deleted service', // @todo
     ],
     'coupons' => [
         'index'            => 'Coupons',
