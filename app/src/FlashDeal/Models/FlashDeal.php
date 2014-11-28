@@ -24,6 +24,7 @@ class FlashDeal extends Base
     public function getDiscountPercentAttribute()
     {
         $servicePrice = $this->service->price;
+
         return round(($servicePrice - $this->attributes['discounted_price']) * 100 / $servicePrice, 2);
     }
 
@@ -43,5 +44,21 @@ class FlashDeal extends Base
     public function user()
     {
         return $this->belongsTo('App\Core\Models\User');
+    }
+    //--------------------------------------------------------------------------
+    // SEARCH
+    //--------------------------------------------------------------------------
+
+    /**
+     * @{@inheritdoc}
+     */
+    public function getSearchDocument()
+    {
+        $data = $this->toArray();
+        if ($this->service !== null) {
+            $data['service'] = $this->service->name_with_price;
+        }
+
+        return $data;
     }
 }
