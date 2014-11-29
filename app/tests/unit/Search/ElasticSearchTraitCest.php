@@ -85,8 +85,19 @@ class ElasticSearchTraitCest
 
     public function testDefaultTransformSearchResult(UnitTester $i)
     {
-        $result = Model::transformSearchResult(true);
-        $i->assertEquals($result, true);
+        $model = new Model();
+        $model->id = 999;
+
+        $mock = m::mock('Test\Unit\Search\Stub\Model[find]');
+        $mock->shouldReceive('find')->once()->andReturn($model);
+
+        $results = $mock->transformSearchResult([
+            ['_id' => $model->id]
+        ]);
+
+        $i->assertTrue(!empty($results));
+        $i->assertTrue($results[0] instanceof \Test\Unit\Search\Stub\Model);
+        $i->assertEquals($results[0]->id, 999);
     }
 
     public function testSearch(UnitTester $i)

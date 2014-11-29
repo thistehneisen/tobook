@@ -25,20 +25,20 @@ trait ElasticSearchTrait
      */
     protected static function bootElasticSearchTrait()
     {
-        // Send data of this model to ES for indexing
-        static::saved(function ($model) {
-            $model->updateSearchIndex();
-        });
+        // // Send data of this model to ES for indexing
+        // static::saved(function ($model) {
+        //     $model->updateSearchIndex();
+        // });
 
-        // Remove the document index when the model was deleted
-        static::deleted(function ($model) {
-            $model->deleteSearchIndex();
-        });
+        // // Remove the document index when the model was deleted
+        // static::deleted(function ($model) {
+        //     $model->deleteSearchIndex();
+        // });
 
-        // When a trashed model is restored, update its index
-        static::restored(function ($model) {
-            $model->updateSearchIndex();
-        });
+        // // When a trashed model is restored, update its index
+        // static::restored(function ($model) {
+        //     $model->updateSearchIndex();
+        // });
     }
 
     /**
@@ -152,15 +152,23 @@ trait ElasticSearchTrait
 
     /**
      * How the search result will be transform to, for example, Eloquent models.
-     * By default, it does nothing.
+     * By default, it will auto convert to Eloquent model using `_id` value
      *
-     * @param array $result
+     * @param array $results
      *
-     * @return array
+     * @return array We'll pass the result to Paginator, so no collection required.
      */
-    public static function transformSearchResult($result)
+    public static function transformSearchResult($results)
     {
-        return $result;
+        $data = [];
+        foreach ($results as $result) {
+            $item = static::find($result['_id']);
+            if ($item !== null) {
+                $data[] = $item;
+            }
+        }
+
+        return $data;
     }
 
     /**

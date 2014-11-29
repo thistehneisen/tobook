@@ -420,20 +420,4 @@ class User extends ConfideUser implements SearchableInterface
 
         return $data;
     }
-
-    /**
-     * @{@inheritdoc}
-     */
-    public static function transformSearchResult($results)
-    {
-        $data = [];
-        foreach ($results as $result) {
-            $item = static::find($result['_id']);
-            if ($item !== null) {
-                $data[] = $item;
-            }
-        }
-
-        return $data;
-    }
 }
