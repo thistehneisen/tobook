@@ -105,17 +105,16 @@ class Employee extends \App\Appointment\Models\Base
 
         list($startHour, $startMinute, $endHour, $endMinute) = $this->getStartTimeEndTime($time);
 
-        /* if default time is 0:00 to 0:00 try to get custom time */
-        if (($startHour + $endHour + $startMinute + $endMinute) === 0) {
-            $empCustomTime = $this->employeeCustomTimes()
-                    ->with('customTime')
-                    ->where('date', $date->toDateString())
-                    ->first();
+        //Always checking custom time
+        $empCustomTime = $this->employeeCustomTimes()
+                ->with('customTime')
+                ->where('date', $date->toDateString())
+                ->first();
 
-            if(!empty($empCustomTime)) {
-                list($startHour, $startMinute, $endHour, $endMinute) = $this->getStartTimeEndTime($empCustomTime->customTime);
-            }
+        if(!empty($empCustomTime)) {
+            list($startHour, $startMinute, $endHour, $endMinute) = $this->getStartTimeEndTime($empCustomTime->customTime);
         }
+
         //for use in Layout::getTimetableOfSingle
         $end =  Carbon::createFromFormat('H:i', sprintf('%02d:%02d', $endHour, $endMinute));
 
@@ -146,7 +145,7 @@ class Employee extends \App\Appointment\Models\Base
 
         if (intval($time->is_day_off) === 0) {
             $startTime = Carbon::createFromFormat('H:i', substr($time->start_at, 0, 5));
-            $endTime =  Carbon::createFromFormat('H:i', substr($time->end_at, 0, 5));
+            $endTime   = Carbon::createFromFormat('H:i', substr($time->end_at, 0, 5));
         }
 
         $startHour   = (int)!empty($startTime) ? $startTime->hour   : 0;
