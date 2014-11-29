@@ -186,7 +186,9 @@ trait ElasticSearchTrait
      */
     public static function getSearchIndexName()
     {
-        return str_plural(static::getSearchIndexType());
+        $model = new static();
+
+        return $model->getTable();
     }
 
     /**
@@ -194,9 +196,7 @@ trait ElasticSearchTrait
      */
     public static function getSearchIndexType()
     {
-        $model = new static();
-
-        return $model->getTable();
+        return str_singular(static::getSearchIndexName());
     }
 
     /**
