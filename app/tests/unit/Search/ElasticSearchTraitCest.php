@@ -10,6 +10,12 @@ use App;
  */
 class ElasticSearchTraitCest
 {
+    public function _before()
+    {
+        // Work-around to trigger model events in test environment
+        Model::boot();
+    }
+
     public function _after()
     {
         m::close();
