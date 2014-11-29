@@ -28,6 +28,7 @@ class BuildSearchIndecesCommand extends Command
     public function fire()
     {
         $default = [
+            'App\Core\Models\User',
             'App\FlashDeal\Models\Service',
             'App\FlashDeal\Models\FlashDeal',
         ];
