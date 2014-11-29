@@ -35,3 +35,7 @@ of that model in database, and push to the default queue to rebuild the index.
 For this command to work, the default queue should be run
 
 `nohup php /path/to/artisan queue:work --daemon > /dev/null 2>&1 &`
+
+## Remove all indices in ES
+
+`curl -XDELETE '127.0.0.1:9200/_all'`
