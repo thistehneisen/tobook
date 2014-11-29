@@ -1,11 +1,10 @@
 <?php
-
 use Monolog\Logger;
 
 return [
-    'hosts' => [
-        'localhost:9200'
-     ],
-    'logPath' => 'path/to/your/elasticsearch/log',
-    'logLevel' => Logger::INFO
+    'logPath'  => storage_path().'/logs/elasticsearch.log',
+    'logLevel' => Logger::INFO,
+    'hosts'    => [
+        '127.0.0.1:9200'
+    ],
 ];

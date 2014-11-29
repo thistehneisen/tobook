@@ -264,7 +264,7 @@ trait Olut
         $modelClass = $this->getModelClass();
         $item = ($id !== null)
             ? $model->findOrFail($id)
-            : new $modelClass;
+            : new $modelClass();
 
         $template = View::exists($this->getViewPath().'.form')
             ? $this->getViewPath().'.form'
@@ -298,6 +298,7 @@ trait Olut
         if (method_exists($this, 'overwrittenUpsert')) {
             return $this->overwrittenUpsert($view, $item);
         }
+
         return $view;
     }
 
@@ -316,7 +317,7 @@ trait Olut
         try {
             $item = ($id !== null)
                 ? $model->findOrFail($id)
-                : new $modelClass;
+                : new $modelClass();
 
             $item = $this->upsertHandler($item);
             // Sometimes you might want to do something else, for example,
@@ -387,30 +388,40 @@ trait Olut
      */
     public function search()
     {
-        $q = Input::get('q');
+        $keyword = Input::get('q');
 
-        $query = $this->getModel();
-        // Apply query string filters
-        $query = $this->applyQueryStringFilter($query);
+        // Call static search method of this model
+        $model = $this->getModel();
 
-        $fillable = $this->getFillable();
-        // Add ID to be candicate for searching
-        $fillable[] = 'id';
-        $query = $query->where(function ($subQuery) use ($fillable, $q) {
-            foreach ($fillable as $field) {
-                $subQuery = $subQuery->orWhere($field, 'LIKE', '%'.$q.'%');
-            }
+        $options['body']['query']['filtered']['query'] = $this->buildElasticSearchParams($keyword);
 
-            return $subQuery;
-        });
-
-        $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
-        $items = $query->paginate($perPage);
+        $className = $this->getModelClass();
+        $items = $className::search($keyword, $options);
 
         // Disable sorting items
         $this->crudSortable = false;
 
         return $this->renderList($items);
+    }
+
+    /**
+     * Build params to be passed to Elastic Search
+     *
+     * @param string $keyword
+     *
+     * @return array
+     */
+    protected function buildElasticSearchParams($keyword)
+    {
+        // All viewable fields are also searchable
+        $fields = $this->getViewableFields();
+
+        $query = [];
+        foreach ($fields as $field) {
+            $query['bool']['should'][]['match'][$field] = $keyword;
+        }
+
+        return $query;
     }
 
     /**

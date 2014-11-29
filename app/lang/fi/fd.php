@@ -13,7 +13,8 @@ return [
         'price'                => 'Normaali hinta',
         'quantity'             => 'Määrä',
         'description'          => 'Kuvaus',
-        'business_category_id' => 'Kategoria'
+        'business_category_id' => 'Kategoria',
+        'deleted'              => 'Deleted service', // @todo
     ],
     'coupons' => [
         'index'            => 'Tarjous',

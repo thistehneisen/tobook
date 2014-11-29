@@ -42,6 +42,22 @@ class Service extends Base
     public function getNameWithPriceAttribute()
     {
         $price = $this->attributes['price'];
+
         return $this->attributes['name']." (&euro;$price)";
+    }
+
+    //--------------------------------------------------------------------------
+    // SEARCH
+    //--------------------------------------------------------------------------
+    /**
+     * @{@inheritdoc}
+     */
+    public function getSearchDocument()
+    {
+        return [
+            'name'     => $this->name,
+            'price'    => $this->price,
+            'category' => $this->businessCategory->name ?: ''
+        ];
     }
 }

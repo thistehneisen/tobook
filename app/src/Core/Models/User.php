@@ -1,18 +1,19 @@
 <?php namespace App\Core\Models;
 
 use App, DB, Hashids, Config, Carbon\Carbon, Geocoder, Util;
+use Consumer, Log, NAT;
 use Zizaco\Confide\ConfideUser;
 use Zizaco\Entrust\HasRole;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
-use Consumer;
 use App\Appointment\Models\NAT\CalendarKeeper;
-use App\Search;
-use NAT;
+use App\Search\SearchableInterface;
+use App\Search\ElasticSearchTrait;
 
-class User extends ConfideUser
+class User extends ConfideUser implements SearchableInterface
 {
     use SoftDeletingTrait;
     use HasRole;
+    use ElasticSearchTrait;
 
     public $visible = [
         'id',
@@ -76,7 +77,6 @@ class User extends ConfideUser
         // return $slots;
         return NAT::nextUser($this, $date)->toArray();
     }
-
 
     /**
      * Get default working time range of Appointment Scheduler
@@ -232,7 +232,6 @@ class User extends ConfideUser
         return isset($this->modules[$moduleName]);
     }
 
-
     /**
      * Check if there is an existing consumer having the same info with
      * submitted data. If yes, connect them together. Otherwise, create a new
@@ -248,7 +247,7 @@ class User extends ConfideUser
         $consumer = Consumer::where('email', $this->email)->first();
 
         if (empty($consumer)) {
-            $consumer = new Consumer;
+            $consumer = new Consumer();
             $consumer->email = $this->email;
             $consumer->fill($consumerData);
             $consumer->saveOrFail();
@@ -295,7 +294,7 @@ class User extends ConfideUser
      */
     public function getAsOptionsAttribute()
     {
-        if(!empty($this->asOptionsCache)){
+        if (!empty($this->asOptionsCache)) {
             return $this->asOptionsCache;
         }
 
@@ -384,5 +383,28 @@ class User extends ConfideUser
     public function getIsConsumerAttribute()
     {
         return $this->hasRole(Role::CONSUMER);
+    }
+
+    //--------------------------------------------------------------------------
+    // SEARCH
+    //--------------------------------------------------------------------------
+
+    /**
+     * @{@inheritdoc}
+     */
+    public function getSearchDocument()
+    {
+        $data = [
+            'email' => $this->email,
+        ];
+        // Check if this user is a business user
+        // Pull out business information
+        if ($this->is_business) {
+            $data['business'] = $this->business->getSearchDocument();
+        } elseif ($this->is_consumer) {
+            $data['consumer'] = $this->consumer->getSearchDocument();
+        }
+
+        return $data;
     }
 }

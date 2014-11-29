@@ -1,7 +1,6 @@
 <?php namespace App\FlashDeal\Presenters;
 
 use App\Olut\Presenters\Base;
-use View;
 
 class ServicePresenter extends Base
 {
@@ -10,6 +9,10 @@ class ServicePresenter extends Base
      */
     public function render($service, $item)
     {
-        return $service->name." ({$service->price}&euro;)";
+        if ($service) {
+            return $service->name." ({$service->price}&euro;)";
+        }
+
+        return '<em>'.trans('fd.services.deleted').'</em>';
     }
 }

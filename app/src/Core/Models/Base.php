@@ -1,17 +1,27 @@
 <?php namespace App\Core\Models;
 
-use Confide;
+use Confide, App, Log, Input, Config;
 use Watson\Validating\ValidatingTrait;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use App\Search\SearchableInterface;
+use App\Search\ElasticSearchTrait;
 
-class Base extends \Eloquent
+class Base extends \Eloquent implements SearchableInterface
 {
     use ValidatingTrait;
     use SoftDeletingTrait;
+    use ElasticSearchTrait;
 
     //--------------------------------------------------------------------------
     // SCOPES
     //--------------------------------------------------------------------------
+    /**
+     * Return records that belong to the current logged-in user
+     *
+     * @param Illuminate\Database\Query\Builder $query
+     *
+     * @return Illuminate\Database\Query\Builder
+     */
     public function scopeOfCurrentUser($query)
     {
         $userId = 0;
@@ -23,6 +33,14 @@ class Base extends \Eloquent
         return $this->scopeOfUser($query, $userId);
     }
 
+    /**
+     * Return records that belong to the provided user
+     *
+     * @param Illuminate\Database\Query\Builder $query
+     * @param App\Core\Models\User|int          $userId
+     *
+     * @return Illuminate\Database\Query\Builder
+     */
     public function scopeOfUser($query, $userId)
     {
         $table = $this->getTable();
@@ -37,7 +55,7 @@ class Base extends \Eloquent
                 $table = $this->users()->getTable();
             }
 
-            return $query->whereHas('users', function($query) use ($userId, $table) {
+            return $query->whereHas('users', function ($query) use ($userId, $table) {
                 return $query->where($table.'.user_id', $userId);
             });
         }

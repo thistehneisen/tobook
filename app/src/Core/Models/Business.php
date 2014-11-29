@@ -1,6 +1,6 @@
 <?php namespace App\Core\Models;
 
-use Config, Log, NAT;
+use Config, Log, NAT, Input;
 use App\Core\Models\Relations\BusinessBusinessCategory;
 use App\Lomake\Fields\HtmlField;
 use Exception;
@@ -27,6 +27,21 @@ class Business extends Base
         ]
     ];
 
+    /**
+     * @{@inheritdoc}
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        // whenever updating account, we will try to find geocode of this business
+        static::updating(function ($business) {
+            $business->updateGeo();
+
+            return true;
+        });
+    }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
@@ -38,7 +53,7 @@ class Business extends Base
     public function businessCategories()
     {
         $relation = $this->getBelongsToManyCaller();
-        $instance = new BusinessCategory;
+        $instance = new BusinessCategory();
         $query = $instance->newQuery();
 
         // use our custom built relation because the `user_id` must be used instead of `id`
@@ -100,7 +115,7 @@ class Business extends Base
     /**
      * Update information of this business
      *
-     * @param array $input
+     * @param array                $input
      * @param App\Core\Models\User $user
      *
      * @return Business
@@ -152,18 +167,6 @@ class Business extends Base
         return sprintf('%s, %s %s, %s', $address, $postcode, $city, $country);
     }
 
-
-    public function updateSearchIndex()
-    {
-        try {
-            return \App\Search\Servant::getInstance()
-                ->upsertIndexForBusiness($this);
-        } catch (Exception $ex) {
-            // Silently failed
-            Log::error($ex->getMessage(), ['context' => 'Business registration']);
-        }
-    }
-
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
@@ -197,7 +200,6 @@ class Business extends Base
                 'car_wash' => 'assets/img/categories/carwash/car1.jpg',
                 'activities' => 'assets/img/categories/fitness/fitness1.jpg',
             ];
-
 
             foreach ($this->businessCategories as $cat) {
                 return isset($imageMap[$cat->name]) ? $imageMap[$cat->name] : 'assets/img/categories/beauty/beauty1.jpg';
@@ -242,55 +244,6 @@ class Business extends Base
     }
 
     /**
-     * @{@inheritdoc}
-     */
-    public static function boot()
-    {
-        parent::boot();
-
-        // whenever updating account, we will try to find geocode of this business
-        static::updating(function ($business) {
-            $business->updateGeo();
-
-            return true;
-        });
-
-        static::saved(function ($user) {
-            $user->updateSearchIndex();
-        });
-    }
-
-    /**
-     * Old function to search by using SQL like
-     *
-     * @return
-     */
-    public static function search($q, $location)
-    {
-        $query = with(new self())->newQuery();
-        if (!empty($q)) {
-            $queryString = '%' . $q . '%';
-            $query = $query->whereHas(
-                'businessCategories',
-                function ($query) use ($queryString) {
-                    return $query->where('name', 'LIKE', $queryString)
-                        ->orWhere('keywords', 'LIKE', $queryString);
-                }
-            )->orWhere('name', 'LIKE', $queryString);
-        }
-
-        if (!empty($location)) {
-            $query = $query->where('city', 'LIKE', '%' . $location . '%');
-        }
-
-        $businesses = $query
-            ->where('name', '!=', '')
-            ->paginate(Config::get('view.perPage'));
-
-        return $businesses;
-    }
-
-    /**
      * Get a number of random businesses
      *
      * @param int categoryId
@@ -311,5 +264,108 @@ class Business extends Base
             ->where('business_category_user.business_category_id', $categoryId)
             ->where('businesses.name', '!=', '')
             ->limit($quantity)->get();
+    }
+
+    //--------------------------------------------------------------------------
+    // SEARCH
+    //--------------------------------------------------------------------------
+    /**
+     * @{@inheritdoc}
+     */
+    public function getSearchDocumentId()
+    {
+        return $this->user_id;
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
+    public function getSearchDocument()
+    {
+        $names = [];
+        $keywords = [];
+
+        $categories = $this->businessCategories;
+        foreach ($categories as $item) {
+            $names[] = $item->nice_original_name;
+            $keywords = array_merge($keywords, $item->keywords);
+        }
+
+        return [
+            // Filter exists only works with null value, so let it be null
+            'business_name' => $this->name,
+            'category_name' => implode(', ', $names),
+            'keywords'      => implode(', ', $keywords),
+            'address'       => $this->address ?: '',
+            'postcode'      => $this->postcode ?: '',
+            'city'          => $this->city ?: '',
+            'country'       => $this->country ?: '',
+            'phone'         => $this->phone ?: '',
+            'description'   => $this->description ?: '',
+            'location'      => [
+                'lat' => $this->lat ?: 0,
+                'lon' => $this->lng ?: 0
+            ]
+        ];
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
+    protected static function buildSearchQuery($keywords, $fields = null)
+    {
+        $query = [];
+        $query['bool']['should'][]['match']['business_name'] = $keywords;
+        $query['bool']['should'][]['match']['category_name'] = $keywords;
+        $query['bool']['should'][]['match']['description']   = $keywords;
+        $query['bool']['should'][]['match']['keywords']      = $keywords;
+
+        $location = e(Input::get('location'));
+        if (!empty($location)) {
+            $query['bool']['should'][]['match']['city'] = $location;
+            $query['bool']['should'][]['match']['country'] = $location;
+        }
+
+        return $query;
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
+    protected static function buildSearchFilter()
+    {
+        return [
+            'exists' => [ 'field' => 'business_name' ]
+        ];
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
+    public static function transformSearchResult($result)
+    {
+        if (empty($result)) {
+            return $result;
+        }
+
+        $ids = [];
+        foreach ($result as $row) {
+            $ids[] = $row['_id'];
+        }
+
+        $users = User::with('business')->findMany($ids);
+
+        return $users->lists('business');
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
+    protected static function setCustomSearchParams()
+    {
+        // We'll show only 5 businesses by default
+        static::$customSearchParams = [
+            'size' => 5
+        ];
     }
 }

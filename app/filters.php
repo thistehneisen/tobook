@@ -2,11 +2,12 @@
 
 /*
 |--------------------------------------------------------------------------
-| [Varaa] Register Form macros
+| [Varaa] Register Form macros, View composers, and IoC containers
 |--------------------------------------------------------------------------
 */
 require app_path().'/macros.php';
 require app_path().'/composers.php';
+require app_path().'/ioc.php';
 
 /*
 |--------------------------------------------------------------------------
