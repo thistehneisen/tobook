@@ -392,19 +392,6 @@ class User extends ConfideUser implements SearchableInterface
     /**
      * @{@inheritdoc}
      */
-    public static function search($keyword, array $options = [])
-    {
-        try {
-            return static::serviceSearch($keyword, $options);
-        } catch (\Exception $ex) {
-            // Silently failed baby
-            Log::error('Failed to search using service: '.$ex->getMessage());
-        }
-    }
-
-    /**
-     * @{@inheritdoc}
-     */
     public function getSearchDocument()
     {
         $data = [

@@ -62,49 +62,4 @@ class Base extends \Eloquent implements SearchableInterface
 
         return $query;
     }
-
-    //--------------------------------------------------------------------------
-    // SearchableInterface
-    //--------------------------------------------------------------------------
-
-    /**
-     * Search data with provided keyword
-     *
-     * @param string $keyword
-     *
-     * @return Illuminate\Pagination\Paginator
-     */
-    public static function search($keyword, array $options = [])
-    {
-        // First, try to search with search service
-        try {
-            return static::serviceSearch($keyword, $options);
-        } catch (\Exception $ex) {
-            // Silently failed baby
-            Log::error('Failed to search using service: '.$ex->getMessage());
-        }
-
-        //----------------------------------------------------------------------
-        // Fallback to traditional search ._.
-        //----------------------------------------------------------------------
-        Log::info('Fallback to MySQL search');
-
-        // Get fillable fields of this model
-        $model = new static();
-        $fillable = $model->getFillable();
-
-        // Add ID to be candicate for searching
-        $fillable[] = 'id';
-        $query = static::where(function ($q) use ($fillable, $keyword) {
-            foreach ($fillable as $field) {
-                $q = $q->orWhere($field, 'LIKE', '%'.$keyword.'%');
-            }
-
-            return $q;
-        });
-
-        $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
-
-        return $query->paginate($perPage);
-    }
 }
