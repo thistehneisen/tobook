@@ -6,6 +6,7 @@ use App\Appointment\Models\Employee;
 use App\Appointment\Models\EmployeeCustomTime;
 use App\Appointment\Models\EmployeeDefaultTime;
 use App\Appointment\Models\EmployeeFreetime;
+use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;

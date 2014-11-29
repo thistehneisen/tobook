@@ -212,11 +212,14 @@ class BookingCest
         $I->seeOptionIsSelected('service_categories', $category->name);
 
         $service = $category->services()->first();
+        $employee = $service->employees()->first();
+        $plustime = $employee->getPlustime($service->id);
+
         $I->seeOptionIsSelected('services', $service->name);
 
         $serviceTime = $service->serviceTimes()->first();
-        $I->seeOptionIsSelected('service_times', $service->length);
-        $I->selectOption('service_times', $serviceTime->length);
+        $I->seeOptionIsSelected('service_times', intval($service->length) + $plustime);
+        $I->selectOption('service_times', $serviceTime->length + $plustime);
 
         $I->sendAjaxPostRequest(route('as.bookings.service.add'), [
             'service_id' => $service->id,
