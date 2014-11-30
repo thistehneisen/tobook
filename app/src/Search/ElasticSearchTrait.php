@@ -1,6 +1,6 @@
 <?php namespace App\Search;
 
-use Es, Paginator, Config, Input, App;
+use Es, Paginator, Config, Input, App, Log;
 
 trait ElasticSearchTrait
 {

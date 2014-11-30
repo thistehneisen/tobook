@@ -191,8 +191,9 @@ def run_whatever():
     local('grunt &')
     # up up up ES
     local('elasticsearch &')
-    # then redis and NAT daemon
+    # then redis
     local('redis-server &')
-    local('php artisan queue:work --queue=varaa:nat --daemon &')
+    # run queue daemon
+    local('php artisan queue:work --daemon &')
     # last, the selenium, you don't even need it but whatever
     test_acceptance_prepare()
