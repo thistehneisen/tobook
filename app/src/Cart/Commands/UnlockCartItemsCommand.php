@@ -6,7 +6,7 @@ use Indatus\Dispatcher\Drivers\Cron\Scheduler;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Carbon\Carbon;
-use Cart, App;
+use Cart, App, Config;
 
 class UnlockCartItemsCommand extends ScheduledCommand {
 
