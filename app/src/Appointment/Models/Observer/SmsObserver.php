@@ -54,7 +54,7 @@ class SmsObserver implements \SplObserver {
 
     public function setIsEnabled($subject)
     {
-        $this->isEnabled = (bool) $subject->user->asOptions['confirm_email_enable'];
+        $this->isEnabled = (bool) $subject->user->asOptions['confirm_sms_enable'];
         return $this;
     }
 
