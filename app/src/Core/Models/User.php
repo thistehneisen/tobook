@@ -399,7 +399,7 @@ class User extends ConfideUser implements SearchableInterface
         ];
         // Check if this user is a business user
         // Pull out business information
-        if ($this->is_business) {
+        if ($this->is_business && !empty($this->business)) {
             $data['business'] = $this->business->getSearchDocument();
         } elseif ($this->is_consumer) {
             $data['consumer'] = $this->consumer->getSearchDocument();
