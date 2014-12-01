@@ -83,7 +83,7 @@ class Bookings extends AsBase
                     $subQuery = $subQuery->orWhere($table  . '.' . $field, 'LIKE', '%'.$q.'%');
                 }
                 return $subQuery;
-            })->select(
+            })->whereNULL('as_bookings.deleted_at')->select(
                 'as_bookings.id',
                 'as_bookings.uuid',
                 'as_bookings.date',
