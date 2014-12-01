@@ -48,9 +48,9 @@ class ElasticSearch implements ProviderInterface
      */
     public function delete($params)
     {
-        Log::info('Delting an index');
+        Log::info('Deleting an index');
         try {
-            $this->client->indicies()->delete($params);
+            $this->client->indices()->delete($params);
         } catch (\Exception $ex) {
             Log::error($ex->getMessage());
         }
