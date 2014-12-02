@@ -219,7 +219,14 @@ trait ElasticSearchTrait
      */
     public function getSearchDocument()
     {
-        return $this->toArray();
+        $data = [];
+
+        $fields = $this->getFillable();
+        foreach ($fields as $field) {
+            $data[$field] = $this->$field;
+        }
+
+        return $data;
     }
 
     /**
