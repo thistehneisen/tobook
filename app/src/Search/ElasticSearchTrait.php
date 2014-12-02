@@ -170,9 +170,11 @@ trait ElasticSearchTrait
      */
     protected static function buildSearchQuery($keywords, $fields = null)
     {
+        // Since we already has a document mapping, we can just use all fields
+        // for matching
         if (empty($fields)) {
             $instance = new static();
-            $fields = $instance->getFillable();
+            $fields = array_keys($instance->getSearchMapping());
         }
 
         $query = [];
