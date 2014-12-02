@@ -106,6 +106,17 @@ class ElasticSearchTraitCest
         $i->assertEquals($results[0]->id, 999);
     }
 
+    public function testGetSearchMapping(UnitTester $i)
+    {
+        $model = new Model();
+        $map = $model->getSearchMapping();
+
+        $i->assertEquals($map, [
+            'foo' => ['type' => 'string'],
+            'bar' => ['type' => 'string'],
+        ]);
+    }
+
     public function testSearch(UnitTester $i)
     {
         $mock = m::mock('\App\Search\ProviderInterface')

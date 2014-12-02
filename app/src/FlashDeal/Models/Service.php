@@ -60,4 +60,16 @@ class Service extends Base
             'category' => $this->businessCategory->name ?: ''
         ];
     }
+
+    /**
+     * @{@inheritdoc}
+     */
+    public function getSearchMapping()
+    {
+        return [
+            'name'     => ['type' => 'string'],
+            'price'    => ['type' => 'double'],
+            'category' => ['type' => 'string'],
+        ];
+    }
 }

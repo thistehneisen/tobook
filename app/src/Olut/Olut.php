@@ -391,37 +391,13 @@ trait Olut
         $keyword = Input::get('q');
 
         // Call static search method of this model
-        $model = $this->getModel();
-
-        $options['body']['query']['filtered']['query'] = $this->buildElasticSearchParams($keyword);
-
         $className = $this->getModelClass();
-        $items = $className::search($keyword, $options);
+        $items = $className::search($keyword);
 
         // Disable sorting items
         $this->crudSortable = false;
 
         return $this->renderList($items);
-    }
-
-    /**
-     * Build params to be passed to Elastic Search
-     *
-     * @param string $keyword
-     *
-     * @return array
-     */
-    protected function buildElasticSearchParams($keyword)
-    {
-        // All viewable fields are also searchable
-        $fields = $this->getViewableFields();
-
-        $query = [];
-        foreach ($fields as $field) {
-            $query['bool']['should'][]['match'][$field] = $keyword;
-        }
-
-        return $query;
     }
 
     /**

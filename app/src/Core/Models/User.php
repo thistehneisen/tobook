@@ -394,17 +394,28 @@ class User extends ConfideUser implements SearchableInterface
      */
     public function getSearchDocument()
     {
-        $data = [
-            'email' => $this->email,
-        ];
+        $data = ['email' => $this->email];
+
         // Check if this user is a business user
         // Pull out business information
-        if ($this->is_business && !empty($this->business)) {
-            $data['business'] = $this->business->getSearchDocument();
+        if ($this->is_business && $this->business !== null) {
+            $data['business'] = $this->business->name;
         } elseif ($this->is_consumer) {
-            $data['consumer'] = $this->consumer->getSearchDocument();
+            $data['consumer'] = $this->consumer->name;
         }
 
         return $data;
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
+    public function getSearchMapping()
+    {
+        return [
+            'email'    => ['type' => 'string'],
+            'business' => ['type' => 'string'],
+            'consumer' => ['type' => 'string'],
+        ];
     }
 }

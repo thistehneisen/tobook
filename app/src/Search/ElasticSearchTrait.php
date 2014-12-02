@@ -170,9 +170,11 @@ trait ElasticSearchTrait
      */
     protected static function buildSearchQuery($keywords, $fields = null)
     {
+        // Since we already has a document mapping, we can just use all fields
+        // for matching
         if (empty($fields)) {
             $instance = new static();
-            $fields = $instance->getFillable();
+            $fields = array_keys($instance->getSearchMapping());
         }
 
         $query = [];
@@ -219,7 +221,14 @@ trait ElasticSearchTrait
      */
     public function getSearchDocument()
     {
-        return $this->toArray();
+        $data = [];
+
+        $fields = $this->getFillable();
+        foreach ($fields as $field) {
+            $data[$field] = $this->$field;
+        }
+
+        return $data;
     }
 
     /**
@@ -246,6 +255,29 @@ trait ElasticSearchTrait
     public function getSearchDocumentId()
     {
         return $this->id;
+    }
+
+    /**
+     * Return the schema of this model, used in data mapping of ES while
+     * creating new index
+     *
+     * @see http://www.elasticsearch.org/guide/en/elasticsearch/guide/current/mapping-analysis.html
+     *
+     * @return void
+     */
+    public function getSearchMapping()
+    {
+        // By default, we will map all fillable fields
+        $map = [];
+
+        $fields = $this->getFillable();
+        foreach ($fields as $field) {
+            $map[$field] = [
+                'type' => 'string'
+            ];
+        }
+
+        return $map;
     }
 
     /**

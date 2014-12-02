@@ -282,27 +282,26 @@ class Business extends Base
      */
     public function getSearchDocument()
     {
-        $names = [];
+        $categories = [];
         $keywords = [];
 
-        $categories = $this->businessCategories;
-        foreach ($categories as $item) {
-            $names[] = $item->nice_original_name;
+        foreach ($this->businessCategories as $item) {
+            $categories[] = $item->nice_original_name;
             $keywords = array_merge($keywords, $item->keywords);
         }
 
         return [
             // Filter exists only works with null value, so let it be null
-            'business_name' => $this->name,
-            'category_name' => implode(', ', $names),
-            'keywords'      => implode(', ', $keywords),
-            'address'       => $this->address ?: '',
-            'postcode'      => $this->postcode ?: '',
-            'city'          => $this->city ?: '',
-            'country'       => $this->country ?: '',
-            'phone'         => $this->phone ?: '',
-            'description'   => $this->description ?: '',
-            'location'      => [
+            'name'        => $this->name,
+            'categories'  => $categories,
+            'keywords'    => $keywords,
+            'address'     => $this->address ?: '',
+            'postcode'    => $this->postcode ?: '',
+            'city'        => $this->city ?: '',
+            'country'     => $this->country ?: '',
+            'phone'       => $this->phone ?: '',
+            'description' => $this->description ?: '',
+            'location'    => [
                 'lat' => $this->lat ?: 0,
                 'lon' => $this->lng ?: 0
             ]
@@ -312,13 +311,32 @@ class Business extends Base
     /**
      * @{@inheritdoc}
      */
+    public function getSearchMapping()
+    {
+        return [
+            'name'        => ['type' => 'string'],
+            'categories'  => ['type' => 'string', 'index_name' => 'category'],
+            'keywords'    => ['type' => 'string', 'index_name' => 'keyword'],
+            'address'     => ['type' => 'string'],
+            'postcode'    => ['type' => 'string'],
+            'city'        => ['type' => 'string'],
+            'country'     => ['type' => 'string'],
+            'phone'       => ['type' => 'string'],
+            'description' => ['type' => 'string'],
+            'location'    => ['type' => 'geo_point'],
+        ];
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
     protected static function buildSearchQuery($keywords, $fields = null)
     {
         $query = [];
-        $query['bool']['should'][]['match']['business_name'] = $keywords;
-        $query['bool']['should'][]['match']['category_name'] = $keywords;
-        $query['bool']['should'][]['match']['description']   = $keywords;
-        $query['bool']['should'][]['match']['keywords']      = $keywords;
+        $query['bool']['should'][]['match']['name']        = $keywords;
+        $query['bool']['should'][]['match']['categories']  = $keywords;
+        $query['bool']['should'][]['match']['description'] = $keywords;
+        $query['bool']['should'][]['match']['keywords']    = $keywords;
 
         $location = e(Input::get('location'));
         if (!empty($location)) {
@@ -335,7 +353,7 @@ class Business extends Base
     protected static function buildSearchFilter()
     {
         return [
-            'exists' => [ 'field' => 'business_name' ]
+            'exists' => [ 'field' => 'name' ]
         ];
     }
 
