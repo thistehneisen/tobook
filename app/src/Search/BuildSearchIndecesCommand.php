@@ -86,9 +86,10 @@ class BuildSearchIndecesCommand extends Command
         // Build a custom tokenizer
         $params['body']['settings']['analysis']['analyzer'] = [
             'varaa_ngrams' => [
-                'type' => 'custom',
-                'tokenizer' => 'varaa_tokenizer',
-                'filter' => ['lowercase']
+                'type'        => 'custom',
+                'tokenizer'   => 'varaa_tokenizer',
+                'char_filter' => ['html_strip'],
+                'filter'      => ['lowercase'],
             ]
         ];
 
