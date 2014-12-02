@@ -380,4 +380,25 @@ class BookingCest
         $I->sendGET(route('as.bookings.form', ['booking_id'=> $booking->id]));
         $I->seeResponseCodeIs(200);
     }
+
+    public function testSearchForDeletedBooking(FunctionalTester $I)
+    {
+        $user = User::find(70);
+        $category = ServiceCategory::find(105);
+        $booking = $this->_book($user, $category);
+        $booking = Booking::find($booking->id);
+        $I->assertNotEmpty($booking, 'booking has been found');
+
+        //try to access again
+        $I->sendGET(route('as.bookings.index'));
+        $I->seeResponseCodeIs(200);
+        //Search for the lastest booking
+        //delete booking
+        $I->sendGET(route('as.bookings.delete', ['bookingId' => $booking->id]));
+        $I->seeResponseCodeIs(200);
+
+        $I->sendGET(route('as.bookings.search', ['q' => $booking->consumer->first_name]));
+        $I->seeResponseCodeIs(200);
+        $I->dontSeeElement('#row-' .  $booking->id);
+    }
 }
