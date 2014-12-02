@@ -19,6 +19,7 @@ class CartCest
     {
         $user = m::mock('App\Core\Models\User');
         $user->shouldReceive('find');
+        $user->shouldReceive('toArray');
         // When trying to get user ID
         $user->shouldReceive('getAttribute')->with('id')->andReturn(70);
         $user->shouldReceive('save')->andReturn(true);

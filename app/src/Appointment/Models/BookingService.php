@@ -259,14 +259,11 @@ class BookingService extends \App\Appointment\Models\Base implements CartDetailI
      */
     public function unlockCartDetail(CartDetail $cartDetail)
     {
-        // Remove booking first
-        if ($this->booking !== null) {
-            $this->booking->delete_reason = 'Cart is set to ABANDONED';
-            $this->booking->save();
-            $this->booking->delete();
+        // only delete the booking service if it's not attach to any booking
+        // if there is booking, it means the booking process went through correctly
+        if (empty($this->booking)) {
+            $this->delete();
         }
-
-        $this->delete();
     }
 
     //--------------------------------------------------------------------------
