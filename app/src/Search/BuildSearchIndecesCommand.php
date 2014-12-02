@@ -102,18 +102,24 @@ class BuildSearchIndecesCommand extends Command
             ]
         ];
 
-        // Auto mapping all fillable fields of that model to use
-        $map = ['_source' => ['enabled' => true]];
-
-        // Get all fillable fields
+        // Get search map of this model
         $instance = new $model();
-        foreach ($instance->getFillable() as $field) {
-            $map['properties'][$field] = [
-                'type' => 'string',
-                'analyzer' => 'varaa_ngrams'
-            ];
+        $properties = $instance->getSearchMapping();
+
+        // Go to each field and check if there's a analyzer set.
+        // If not, use our custom analyzer
+        foreach ($properties as &$field) {
+            if (!isset($field['analyzer'])) {
+                $field['analyzer'] = 'varaa_ngrams';
+            }
         }
-        $params['body']['mappings'][$model::getSearchIndexType()] = $map;
+
+        $params['body']['mappings'][$model::getSearchIndexType()] = [
+            '_source' => [
+                'enabled' => true
+            ],
+            'properties' => $properties
+        ];
 
         $this->client->indices()->create($params);
     }

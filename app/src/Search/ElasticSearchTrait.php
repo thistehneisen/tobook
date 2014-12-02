@@ -256,6 +256,29 @@ trait ElasticSearchTrait
     }
 
     /**
+     * Return the schema of this model, used in data mapping of ES while
+     * creating new index
+     *
+     * @see http://www.elasticsearch.org/guide/en/elasticsearch/guide/current/mapping-analysis.html
+     *
+     * @return void
+     */
+    public function getSearchMapping()
+    {
+        // By default, we will map all fillable fields
+        $map = [];
+
+        $fields = $this->getFillable();
+        foreach ($fields as $field) {
+            $map[$field] = [
+                'type' => 'string'
+            ];
+        }
+
+        return $map;
+    }
+
+    /**
      * @{@inheritdoc}
      */
     public function updateSearchIndex()
