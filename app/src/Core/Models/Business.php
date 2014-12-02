@@ -18,12 +18,13 @@ class Business extends Base
         'phone',
         'lat',
         'lng',
+        'note',
     ];
 
     public $rulesets = [
         'saving' => [
             'name' => 'required',
-            'phone' => 'required|numeric',
+            'phone' => 'required',
         ]
     ];
 
@@ -123,14 +124,15 @@ class Business extends Base
     public function updateInformation($input, $user)
     {
         $this->fill([
-            'name'          => e($input['name']),
-            'description'   => HtmlField::filterInput($input, 'description'),
-            'size'          => e($input['size']),
-            'address'       => e($input['address']),
-            'city'          => e($input['city']),
-            'postcode'      => e($input['postcode']),
-            'country'       => e($input['country']),
-            'phone'         => e($input['phone']),
+            'name'        => $input['name'],
+            'description' => HtmlField::filterInput($input, 'description'),
+            'size'        => $input['size'],
+            'address'     => $input['address'],
+            'city'        => $input['city'],
+            'postcode'    => $input['postcode'],
+            'country'     => $input['country'],
+            'phone'       => $input['phone'],
+            'note'        => $input['note'],
         ]);
         $this->user()->associate($user);
         $this->saveOrFail();

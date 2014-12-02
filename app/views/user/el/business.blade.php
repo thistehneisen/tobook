@@ -20,6 +20,15 @@
         </div>
     </div>
 
+    @if (Entrust::hasRole(App\Core\Models\Role::ADMIN))
+    <div class="form-group">
+        <label class="col-sm-2 col-sm-offset-1 control-label">{{ trans('user.business.note') }}</label>
+        <div class="col-sm-6">
+            {{ Form::textarea('note', Input::get('note', $business->note), ['class' => 'form-control']) }}
+        </div>
+    </div>
+    @endif
+
     <div class="form-group">
         <div class="col-sm-9 text-right">
             <input type="hidden" name="tab" value="business">
