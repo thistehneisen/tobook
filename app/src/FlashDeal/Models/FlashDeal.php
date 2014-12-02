@@ -54,11 +54,27 @@ class FlashDeal extends Base
      */
     public function getSearchDocument()
     {
-        $data = $this->toArray();
+        $data = [
+            'discounted_price' => $this->discounted_price,
+            'quantity'         => $this->quantity,
+        ];
+
         if ($this->service !== null) {
             $data['service'] = $this->service->name_with_price;
         }
 
         return $data;
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
+    public function getSearchMapping()
+    {
+        return [
+            'discounted_price' => ['type' => 'double'],
+            'quantity'         => ['type' => 'integer'],
+            'service'          => ['type' => 'string'],
+        ];
     }
 }

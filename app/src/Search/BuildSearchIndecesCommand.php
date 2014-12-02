@@ -109,7 +109,7 @@ class BuildSearchIndecesCommand extends Command
         // Go to each field and check if there's a analyzer set.
         // If not, use our custom analyzer
         foreach ($properties as &$field) {
-            if (!isset($field['analyzer'])) {
+            if (!isset($field['analyzer']) && $field['type'] === 'string') {
                 $field['analyzer'] = 'varaa_ngrams';
             }
         }
