@@ -77,6 +77,10 @@ trait ElasticSearchTrait
             return $q;
         });
 
+        if (method_exists($model, 'scopeOfCurrentUser')) {
+            $query = $query->ofCurrentUser();
+        }
+
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
 
         return $query->paginate($perPage);
