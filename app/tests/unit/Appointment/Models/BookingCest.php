@@ -137,6 +137,13 @@ class BookingCest
                 $booking->getStartAt()->subMinutes(15), $booking->getEndAt()->addMinutes(15)),
             'existing booking, +15 minutes each way');
 
+        //Check overlappin end time and start time 15 mins (10:30:11:30 and 11:15:12:00 for example)
+        $newStartTime = $booking->getEndAt()->subMinutes(15);
+        $newEndTime = $newStartTime->copy()->addMinutes($booking->total);
+        $I->assertTrue($newStartTime < $booking->getEndAt(), 'New start time is before old end time');
+        $I->assertFalse(Booking::isBookable($booking->employee->id, $booking->date,
+                $newStartTime, $newEndTime), 'existing booking, overlapp 15 minutes');
+
         $I->assertTrue(Booking::isBookable($booking->employee->id, $booking->date,
                 $booking->getStartAt(), $booking->getEndAt(), $booking->uuid),
             'existing booking, check for itself');
