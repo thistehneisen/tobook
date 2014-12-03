@@ -429,6 +429,93 @@ class Employee extends \App\Appointment\Models\Base
             ->orderBy(\DB::raw('RAND()'))
             ->first();
     }
+
+    /**
+     * Get timetable of this employee
+     * @return array
+     */
+    public function getTimeTable(Service $service, Carbon $date, $serviceTime = null, $extraServices, $showEndTime = false)
+    {
+        $timetable = [];
+        $defaultEndTime = null;
+        $workingTimes  = $this->getWorkingTimesByDate($date, $defaultEndTime);
+
+        $empCustomTime = $this->employeeCustomTimes()
+                    ->with('customTime')
+                    ->where('date', $date)
+                    ->first();
+
+        if(!empty($empCustomTime)){
+            $end   = $empCustomTime->customTime->getEndAt();
+            $start = $empCustomTime->customTime->getStartAt();
+        }
+
+        $service = (!empty($serviceTime))
+                    ? $serviceTime
+                    : $service;
+
+        $serviceLength = $service->length;
+        if(is_array($extraServices)) {
+            foreach ($extraServices as $extraService) {
+                $serviceLength += $extraService->length;
+            }
+        }
+
+        foreach ($workingTimes as $hour => $minutes) {
+            foreach ($minutes as $shift) {
+                // We will check if this time bookable
+
+                if(!empty($empCustomTime)){
+                    if($hour < $start->hour) {
+                        continue;
+                    }
+                }
+
+                $startTime = $date->copy()->hour($hour)->minute($shift);
+                $endTime   = $startTime->copy()->addMinutes($serviceLength);
+
+                if(!empty($empCustomTime)){
+                    if(($endTime->hour * 60) + $endTime->minute > ($end->hour * 60) + $end->minute){
+                        break;
+                    }
+                }
+
+                if(($endTime->hour * 60) + $endTime->minute > ($defaultEndTime->hour * 60) + $defaultEndTime->minute){
+                    break;
+                }
+
+                $isOverllapedWithFreetime = $this->isOverllapedWithFreetime($date->toDateString(), $startTime, $endTime);
+                if ($isOverllapedWithFreetime) {
+                   break;
+                }
+
+                $isBookable = Booking::isBookable(
+                    $this->id,
+                    $date,
+                    $startTime,
+                    $endTime
+                );
+
+                // If not, move to the next one
+                if ($isBookable === false) {
+                    continue;
+                }
+
+                if ($startTime->gt(Carbon::now())) {
+                    $startTime->subMinutes($service->before);
+                    $endTime   = $startTime->copy()->addMinutes($service->during);
+                    $formatted = sprintf('%02d:%02d', $startTime->hour, $startTime->minute);
+                    if ($showEndTime) {
+                        $formatted .= sprintf(' - %02d:%02d', $endTime->hour, $endTime->minute);
+                    }
+
+                    $timetable[$formatted] = $this;
+                }
+            }
+        }
+        return $timetable;
+    }
+
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
