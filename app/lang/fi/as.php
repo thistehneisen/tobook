@@ -350,6 +350,9 @@ return [
         'saturday_hours'      => 'Lauantaitunnit',
         'sunday_hours'        => 'Sununtaitunnit',
         'monthly_hours'       => 'Kuukauden tunnit',
+        'error'               => [
+            'freetime_overlapped_with_booking' => 'Freetime is overlapped with a booking'
+        ],
     ],
     'embed' => [
         'heading'          => 'Otsikko',

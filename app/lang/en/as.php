@@ -350,6 +350,9 @@ return [
         'saturday_hours'      => 'Saturdays hours',
         'sunday_hours'        => 'Sunday hours',
         'monthly_hours'       => 'Monthly hours',
+        'error'               => [
+            'freetime_overlapped_with_booking' => 'Freetime is overlapped with a booking'
+        ],
     ],
     'embed' => [
         'heading'          => 'Title',

@@ -3,6 +3,9 @@
 use App\Appointment\Models\CustomTime;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\EmployeeCustomTime;
+use App\Appointment\Models\EmployeeFreetime;
+use App\Appointment\Models\Booking;
+use App\Appointment\Models\ServiceCategory;
 use App\Core\Models\User;
 use Carbon\Carbon;
 use \FunctionalTester;
@@ -14,6 +17,7 @@ use Config;
 class EmployeeCest
 {
     use \Test\Traits\Models;
+    use \Test\Traits\Booking;
 
     public function _before(FunctionalTester $I)
     {
@@ -548,6 +552,37 @@ class EmployeeCest
             ->where('employee_id', $employee->id)
             ->first();
         $I->assertEmpty($employeeCustomTime, 'employee custom time has been deleted');
+    }
+
+    /**
+     * This test is used for preventing create a freetime which is overllapped with a booking
+     * Related to issue #237
+     */
+    public function testAddEmployeeFreeTime(FunctionalTester $I)
+    {
+        $user = User::find(70);
+        $I->amLoggedAs($user);
+        $category = ServiceCategory::find(105);
+        $booking = $this->_book($user, $category);
+        $I->assertNotEmpty($booking, 'booking has been found');
+        //get employee of the booking above
+        $employee = $booking->firstBookingService()->employee;
+        $I->assertNotEmpty($employee, 'employee has been found');
+
+        $inputs = [
+            'date' => $booking->date,
+            'employees' => $employee->id,
+            'start_at' => $booking->start_at,
+            'end_at'   => $booking->end_at,
+        ];
+
+        $I->sendPOST(route('as.employees.freetime.add'), $inputs);
+        $I->seeResponseCodeIs(200);
+        $I->canSeeResponseIsJson();
+        $json = $I->grabDataFromJsonResponse();
+        $I->assertNotEmpty($json, 'json not empty');
+        $I->assertFalse($json['success'], 'You shall not pass');
+        $I->assertNotEmpty($json['message']);
     }
 
     /**

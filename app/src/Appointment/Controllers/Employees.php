@@ -6,6 +6,7 @@ use App\Appointment\Models\Employee;
 use App\Appointment\Models\EmployeeDefaultTime;
 use App\Appointment\Models\EmployeeFreetime;
 use App\Appointment\Models\EmployeeCustomTime;
+use App\Appointment\Models\Booking;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\CustomTime;
 
@@ -200,16 +201,26 @@ class Employees extends AsBase
         $employeeId = Input::get('employees');
         $data = [];
         try {
-            $employeeFreetime = new EmployeeFreetime();
-            $employeeFreetime->fill(Input::all());
-            $employee = Employee::ofCurrentUser()->find($employeeId);
-            $employeeFreetime->user()->associate($this->user);
-            $employeeFreetime->employee()->associate($employee);
-            $employeeFreetime->save();
-            $data['success'] = true;
+            $startAt = new Carbon(Input::get('start_at'));
+            $endAt = new Carbon(Input::get('end_at'));
+            $date =  Input::get('date');
+            //Checking if freetime overlaps with any booking or not
+            $canPlacedFreeTime = Booking::isBookable($employeeId, $date, $startAt, $endAt);
+            if($canPlacedFreeTime) {
+                $employeeFreetime = new EmployeeFreetime();
+                $employeeFreetime->fill(Input::all());
+                $employee = Employee::ofCurrentUser()->find($employeeId);
+                $employeeFreetime->user()->associate($this->user);
+                $employeeFreetime->employee()->associate($employee);
+                $employeeFreetime->save();
+                $data['success'] = true;
 
-            // Remove NAT slots since employee has freetime
-            NAT::removeEmployeeFreeTime($employeeFreetime);
+                // Remove NAT slots since employee has freetime
+                NAT::removeEmployeeFreeTime($employeeFreetime);
+            } else {
+                $data['success'] = false;
+                $data['message'] = trans('as.employees.error.freetime_overlapped_with_booking');
+            }
         } catch (\Exception $ex) {
             $data['success'] = false;
             $data['message'] = $ex->getMessage();

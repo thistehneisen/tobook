@@ -200,8 +200,12 @@
                 url: $('#add_freetime_url').val(),
                 data: $('#freetime_form').serialize(),
                 dataType: 'json'
-            }).done(function () {
-                location.reload();
+            }).done(function (data) {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alertify.alert(data.message);
+                }
             });
         });
         $('.btn-delete-employee-freetime').click(function (e) {
