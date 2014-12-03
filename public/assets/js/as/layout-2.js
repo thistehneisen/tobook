@@ -138,6 +138,28 @@
             }
         });
 
+        $main.on('click', 'input[name="extra_service_id[]"]', function (e) {
+            var $this = $(this),
+                selected = $(this).val();
+
+            if ($.isArray(dataStorage.extraServiceId) === false) {
+                dataStorage.extraServiceId = new Array();
+            }
+
+            // Assign data
+            if ($this.is(':checked')) {
+                if (dataStorage.extraServiceId.indexOf(selected)) {
+                    dataStorage.extraServiceId.push(selected);
+                }
+            } else {
+                dataStorage.extraServiceId.splice(dataStorage.extraServiceId.indexOf(selected), 1);
+            }
+
+            if ($timetable.is(':empty') === false) {
+                fnLoadTimetable();
+            }
+        });
+
         // When user clicks on an employee
         $main.on('click', 'a.as-employee', function (e) {
             e.preventDefault();

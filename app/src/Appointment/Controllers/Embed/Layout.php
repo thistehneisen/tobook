@@ -222,7 +222,6 @@ trait Layout
             $date = $today->copy();
         }
 
-        $employeeId = (int) Input::get('employeeId');
         if ($employeeId === -1) {
             $timetable = $this->getTimetableOfAnyone($service, $date, $serviceTime);
         } elseif ($employeeId > 0) {
@@ -314,6 +313,27 @@ trait Layout
             $start = $empCustomTime->customTime->getStartAt();
         }
 
+
+        $extraServiceIds = Input::get('extraServiceId');
+        $extraServices = [];
+        if(!empty($extraServiceIds)) {
+            foreach ($extraServiceIds as $extraServiceId) {
+                $extraService = ExtraService::findOrFail($extraServiceId);
+                $extraServices[] = $extraService;
+            }
+        }
+
+        $service = (!empty($serviceTime))
+                    ? $serviceTime
+                    : $service;
+
+        $serviceLength = $service->length;
+        if(is_array($extraServices)) {
+            foreach ($extraServices as $extraService) {
+                $serviceLength += $extraService->length;
+            }
+        }
+
         foreach ($workingTimes as $hour => $minutes) {
             foreach ($minutes as $shift) {
                 // We will check if this time bookable
@@ -324,12 +344,8 @@ trait Layout
                     }
                 }
 
-                $service = (!empty($serviceTime))
-                    ? $serviceTime
-                    : $service;
-
                 $startTime = $date->copy()->hour($hour)->minute($shift);
-                $endTime   = $startTime->copy()->addMinutes($service->length);
+                $endTime   = $startTime->copy()->addMinutes($serviceLength);
 
                 if(!empty($empCustomTime)){
                     if(($endTime->hour * 60) + $endTime->minute > ($end->hour * 60) + $end->minute){
