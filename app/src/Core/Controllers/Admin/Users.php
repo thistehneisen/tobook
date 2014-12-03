@@ -19,10 +19,9 @@ class Users extends Base
         'langPrefix'  => 'user',
         'actionsView' => 'admin.users.actions',
         'bulkActions' => ['activate', 'deactivate'],
-        'indexFields' => ['business_name', 'email', 'types', 'activation'],
+        'indexFields' => ['business_name', 'email', 'activation'],
         'presenters'  => [
             'business_name' => ['App\Core\Controllers\Admin\Users', 'presentBusinessName'],
-            'types'         => ['App\Core\Controllers\Admin\Users', 'presentTypes'],
             'activation'    => ['App\Core\Controllers\Admin\Users', 'presentActivation'],
         ]
     ];
@@ -329,13 +328,6 @@ class Users extends Base
         }
 
         return $value;
-    }
-
-    public static function presentTypes($value, $item)
-    {
-        return implode(', ', array_map(function ($r) {
-            return $r->name === 'User' ? 'Business' : $r->name;
-        }, iterator_to_array($item->roles)));
     }
 
     public static function presentActivation($value, $item)
