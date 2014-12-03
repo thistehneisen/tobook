@@ -2,7 +2,7 @@
 return [
     'admin' => 'Admin',
     'nav' => [
-        'users'    => 'Users',
+        'users'    => 'Businesses',
         'settings' => 'Settings',
         'modules'  => 'Modules',
     ],
