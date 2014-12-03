@@ -2,8 +2,12 @@
 
 class Base
 {
+    protected $user;
+
     public function _before(\FunctionalTester $I)
     {
-        $I->amLoggedAs(Fixture::user());
+        $this->user = Fixture::user();
+
+        $I->amLoggedAs($this->user);
     }
 }
