@@ -17,7 +17,7 @@
             <div class="as-service-time">
                 <div class="btn-group service-time">
                     <div class="col-lg-12"><button data-service-time-id="default" data-service-id="{{ $service->id }}" type="button" class="btn btn-default btn-sm btn-service-time"><i class="glyphicon glyphicon-time"></i> {{ $service->during }} {{ trans('common.minutes') }}</button></div>
-                    <div class="visible-xs col-lg-12">&nbsp;</div>
+                    <div class="col-lg-12">{{ $service->description }}</div>
                 </div>
             @foreach ($service->serviceTimes as $item)
                 <div class="btn-group service-time">
