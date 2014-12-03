@@ -211,12 +211,13 @@
                 url: $('input[name=booking-url]').val(),
                 type: 'POST',
                 data: {
-                    service_id   : dataStorage.serviceId,
-                    service_time : dataStorage.serviceTimeId,
-                    employee_id  : dataStorage.employeeId,
-                    hash         : dataStorage.hash,
-                    booking_date : dataStorage.date,
-                    start_time   : dataStorage.time
+                    service_id     : dataStorage.serviceId,
+                    service_time   : dataStorage.serviceTimeId,
+                    employee_id    : dataStorage.employeeId,
+                    hash           : dataStorage.hash,
+                    booking_date   : dataStorage.date,
+                    start_time     : dataStorage.time,
+                    extra_services : dataStorage.extraServiceId
                 }
             }).fail(function (e) {
                 if (typeof e.responseJSON.message !== 'undefined') {
