@@ -16,9 +16,13 @@
         @include('olut::sortable')
     @endif
 
+    @if (!empty($scripts))
+        @include($scripts)
+    @endif
+
     <script>
-$(function() {
-    $('table.table-crud').find('a.btn-danger').click('on', function(e) {
+$(function () {
+    $('table.table-crud').find('a.btn-danger').click('on', function (e) {
         e.preventDefault();
         var $this = $(this);
         if (confirm('{{ trans('olut::olut.confirm') }}')) {

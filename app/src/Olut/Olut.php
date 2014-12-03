@@ -224,6 +224,12 @@ trait Olut
             $actionsView = $this->getOlutOptions('actionsView');
         }
 
+        // If there is an additional scripts.blade.php in the view folder,
+        // we'll include it
+        $scriptsView = View::exists($this->getViewPath().'.scripts')
+            ? $this->getViewPath().'.scripts'
+            : '';
+
         return View::make($view, [
             'items'       => $items,
             'routes'      => static::$crudRoutes,
@@ -235,7 +241,8 @@ trait Olut
             'layout'      => $this->getOlutOptions('layout', 'olut::layout'),
             'bartender'   => $bartender,
             'tabsView'    => $tabsView,
-            'actionsView' => $actionsView
+            'actionsView' => $actionsView,
+            'scripts'     => $scriptsView
         ]);
     }
 
