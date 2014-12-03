@@ -583,6 +583,8 @@ class EmployeeCest
         $I->assertNotEmpty($json, 'json not empty');
         $I->assertFalse($json['success'], 'You shall not pass');
         $I->assertNotEmpty($json['message']);
+        //for other test
+        $I->amLoggedAs($this->user);
     }
 
     /**
