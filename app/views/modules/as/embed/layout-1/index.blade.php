@@ -107,7 +107,11 @@ $(document).ready(function () {
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-sm-6">{{ $item->model->datetime }}</div>
-                            <div class="col-sm-4"><span class="price-tag"> {{ $item->price }} &euro;</span></div>
+                            <div class="col-sm-4">
+                                @if ((bool)$user->asOptions['hide_prices'] === false)
+                                {{ $item->price }} &euro;
+                                @endif
+                            </div>
                             <div class="col-sm-2"><a href="#" data-hash="{{ $hash }}" data-action-url="{{ route('as.bookings.service.remove.in.cart') }}" data-cart-id="{{ $cart->id }}" data-cart-detail-id="{{ $item->id }}" data-uuid="{{ $item->model->uuid }}" class="btn-remove-item-from-cart"><i class="glyphicon glyphicon-remove btn-danger"></i></a></div>
                         </div>
                         <div class="row">

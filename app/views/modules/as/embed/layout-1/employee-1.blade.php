@@ -16,7 +16,9 @@ $serviceTimeId      = (!empty($serviceTime)) ? $serviceTime->id : 'default';
         <li class="as-col-header"><strong>{{ $employee->name }}</strong></li>
         <li class="as-col-header"><strong>{{ $employee->description }}</strong></li>
         <li class="as-col-header"><strong>{{ trans('as.embed.guide_text') }}</strong></li>
-        <li class="price-tag"><a class="btn btn-success col-xs-12"><i class="glyphicon glyphicon-tag"></i> {{ $servicePrice }} &euro;</a></li>
+        @if ((bool)$user->asOptions['hide_prices'] === false)
+        <li><a class="btn btn-success col-xs-12"><i class="glyphicon glyphicon-tag"></i> {{ $servicePrice }} &euro;</a></li>
+        @endif
         <li>
             <a class="btn btn-success col-xs-12"><i class="glyphicon glyphicon-time"></i>
                 {{ $serviceLength + $employee->getPlustime($service->id) }} {{ trans('common.minutes')}}

@@ -15,8 +15,8 @@
                     <div id="service-{{ $category->id.'-'.$service->id }}" class="collapse">
                         <div class="row">
                             <div class="col-sm-3" id="btn-service-{{ $service->id }}-time-default">
-                                @if((bool)$user->asOptions['hide_prices'] === false)
-                                <a data-service-id="{{ $service->id }}" data-service-time="default" class="btn btn-default btn-select-service-time price-tag"><i class="glyphicon glyphicon-tag"></i> &euro;{{ number_format($service->price) }}</a>
+                                @if ((bool)$user->asOptions['hide_prices'] === false)
+                                <a data-service-id="{{ $service->id }}" data-service-time="default" class="btn btn-default btn-select-service-time"><i class="glyphicon glyphicon-tag"></i> &euro;{{ $service->price }}</a>
                                 @endif
                                 <a data-service-id="{{ $service->id }}" data-service-time="default" class="btn btn-default btn-select-service-time"><i class="glyphicon glyphicon-time"></i> {{ $service->during }}  {{ trans('common.minutes')}}</a>
                             </div>
@@ -26,8 +26,8 @@
                         @foreach ($service->serviceTimes as $serviceTime)
                         <div class="row">
                             <div class="col-sm-3" id="btn-service-{{ $service->id }}-time-{{ $serviceTime->id }}">
-                                @if((bool)$user->asOptions['hide_prices'] === false)
-                                <a data-service-id="{{ $service->id }}" data-service-time="{{ $serviceTime->id }}" class="btn btn-default btn-select-service-time price-tag"><i class="glyphicon glyphicon-tag"></i> &euro;{{ number_format($serviceTime->price) }}</a>
+                                @if ((bool)$user->asOptions['hide_prices'] === false)
+                                <a data-service-id="{{ $service->id }}" data-service-time="{{ $serviceTime->id }}" class="btn btn-default btn-select-service-tim"><i class="glyphicon glyphicon-tag"></i> &euro;{{ $serviceTime->price }}</a>
                                 @endif
                                 <a data-service-id="{{ $service->id }}" data-service-time="{{ $serviceTime->id }}" class="btn btn-default btn-select-service-time"><i class="glyphicon glyphicon-time"></i> {{ $serviceTime->during }} {{ trans('common.minutes')}}</a>
                             </div>
