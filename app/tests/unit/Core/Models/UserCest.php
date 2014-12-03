@@ -19,7 +19,9 @@ class UserCest
         $email = 'foo@bar.dev';
 
         $business = m::mock('App\Core\Models\Business')
-            ->shouldReceive('getSearchDocument')->once()->andReturn([])
+            ->shouldReceive('getSearchDocument')
+            ->shouldReceive('getAttribute')
+            ->once()->andReturn([])
             ->getMock();
 
         $user = m::mock('App\Core\Models\User[getIsBusinessAttribute]');
@@ -43,7 +45,9 @@ class UserCest
         $user->email = $email;
 
         $consumer = m::mock('App\Consumers\Models\Consumer')
-            ->shouldReceive('getSearchDocument')->once()->andReturn([])
+            ->shouldReceive('getSearchDocument')
+            ->shouldReceive('getAttribute')
+            ->once()->andReturn([])
             ->getMock();
         $user->consumer = $consumer;
 
