@@ -16,6 +16,8 @@ class Base extends \App\Core\Controllers\Base
             'type' => 'employee',
             'employee_id' => $employee->id,
             'employee_name' => $employee->name,
+            'employee_email' => $employee->email,
+            'employee_phone' => $employee->phone,
         ];
 
         return $employeeData;
