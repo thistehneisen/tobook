@@ -52,6 +52,11 @@ class Users extends Base
         // would fix temporarily.
         $query = $query->whereNull('deleted_at');
 
+        // Show only Business user
+        $query = $query->whereHas('roles', function ($query) {
+            return $query->where('name', Role::BUSINESS);
+        });
+
         // Pagination please
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
         $items = $query->paginate($perPage);
