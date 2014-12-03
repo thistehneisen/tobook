@@ -1,7 +1,7 @@
 <?php namespace App\Core\Controllers\Admin;
 
 use App, Config, Request, Redirect, Input, Confide, Session, Auth, Validator;
-use Lomake, Mail;
+use Lomake, Mail, View;
 use App\Core\Models\User;
 use App\Core\Models\Business;
 use App\Core\Models\Role;
@@ -317,8 +317,10 @@ class Users extends Base
     //--------------------------------------------------------------------------
     public static function presentBusinessName($value, $item)
     {
-        if (!empty($item->business->name)) {
-            return $item->business->name;
+        if ($item->business !== null) {
+            return View::make('admin.users.el.business_name', [
+                'business' => $item->business
+            ]);
         }
 
         return $value;

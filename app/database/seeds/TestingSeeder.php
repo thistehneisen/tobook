@@ -53,13 +53,14 @@ class TestingSeeder extends Seeder
         $this->call('BusinessCategorySeeder');
 
         $this->business = new Business([
-            'name' => 'Varaa Test',
-            'size' => 1,
-            'address' => 'Address',
-            'city' => 'City',
+            'name'     => 'Varaa Test',
+            'size'     => 1,
+            'address'  => 'Address',
+            'city'     => 'City',
             'postcode' => 10000,
-            'country' => 'Finland',
-            'phone' => '1234567890',
+            'country'  => 'Finland',
+            'phone'    => '1234567890',
+            'note'     => 'Sample note'
         ]);
         $this->business->is_activated = true;
         $this->business->user()->associate($this->user);

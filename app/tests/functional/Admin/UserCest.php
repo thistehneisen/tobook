@@ -8,11 +8,13 @@ use FunctionalTester;
 class UserCest extends \Test\Functional\Base
 {
     protected $editUrl;
+    protected $indexUrl;
 
     public function _before(FunctionalTester $i)
     {
         parent::_before($i);
         $this->editUrl = route('admin.users.upsert', ['id' => $this->user->id]);
+        $this->indexUrl = route('admin.users.index');
     }
 
     public function seePageToEditBusiness(FunctionalTester $i)
@@ -36,5 +38,13 @@ class UserCest extends \Test\Functional\Base
         foreach ($input as $field => $value) {
             $i->seeInField('[name='.$field.']', $value);
         }
+    }
+
+    public function seeBusinessNoteIndication(FunctionalTester $i)
+    {
+        $selector = sprintf('#row-%d .business-note', $this->user->id);
+
+        $i->amOnPage($this->indexUrl);
+        $i->seeElement($selector);
     }
 }
