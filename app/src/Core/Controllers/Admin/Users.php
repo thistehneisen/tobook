@@ -19,10 +19,9 @@ class Users extends Base
         'langPrefix'  => 'user',
         'actionsView' => 'admin.users.actions',
         'bulkActions' => ['activate', 'deactivate'],
-        'indexFields' => ['business_name', 'email', 'types', 'activation'],
+        'indexFields' => ['business_name', 'email', 'activation'],
         'presenters'  => [
             'business_name' => ['App\Core\Controllers\Admin\Users', 'presentBusinessName'],
-            'types'         => ['App\Core\Controllers\Admin\Users', 'presentTypes'],
             'activation'    => ['App\Core\Controllers\Admin\Users', 'presentActivation'],
         ]
     ];
@@ -51,6 +50,11 @@ class Users extends Base
         // Don't know why model User doesn't take SoftDeleteTrait, so this
         // would fix temporarily.
         $query = $query->whereNull('deleted_at');
+
+        // Show only Business user
+        $query = $query->whereHas('roles', function ($query) {
+            return $query->where('name', Role::BUSINESS);
+        });
 
         // Pagination please
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
@@ -324,13 +328,6 @@ class Users extends Base
         }
 
         return $value;
-    }
-
-    public static function presentTypes($value, $item)
-    {
-        return implode(', ', array_map(function ($r) {
-            return $r->name === 'User' ? 'Business' : $r->name;
-        }, iterator_to_array($item->roles)));
     }
 
     public static function presentActivation($value, $item)
