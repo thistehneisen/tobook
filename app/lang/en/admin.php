@@ -20,6 +20,9 @@ return [
     'enable'             => 'Enable',
     'activate'           => 'Activate',
     'deactivate'         => 'Deactivate',
+    'commissions'        => 'Commissions',
+    'paid'               => 'Paid',
+    'total'              => 'Total',
     'modules'            => [
         'modules'               => 'Services',
         'active_time'           => 'Active time',
