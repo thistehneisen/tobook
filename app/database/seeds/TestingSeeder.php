@@ -66,6 +66,10 @@ class TestingSeeder extends Seeder
         $this->business->updateBusinessCategories(range(1, BusinessCategory::count()));
         $this->business->saveOrFail();
 
+        // @TODO: Should separate into distinct users with their own role
+        // Mixing roles like this could result side effects of permission.
+        $this->user->attachRole(Role::business());
+
         Consumer::where('id', 1)->forceDelete();
         $consumer = new Consumer([
             'first_name' => 'First',
@@ -170,12 +174,14 @@ class TestingSeeder extends Seeder
         $serviceTime->saveOrFail();
     }
 
-    private function _modules() {
+    private function _modules()
+    {
         $this->_truncate(Module::withTrashed());
         $this->call('ModuleSeeder');
     }
 
-    private function _truncate($builder) {
+    private function _truncate($builder)
+    {
         foreach ($builder->get() as $model) {
             $model->forceDelete();
         }

@@ -40,6 +40,16 @@ class Role extends EntrustRole
     }
 
     /**
+     * Helper method to return role Business
+     *
+     * @return App\Core\Models\Role
+     */
+    public static function business()
+    {
+        return static::getRole(static::BUSINESS);
+    }
+
+    /**
      * Get a role by its name
      *
      * @param string $name
