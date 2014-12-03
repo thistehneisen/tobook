@@ -9,6 +9,6 @@ class Email extends Base
      */
     public function render($value, $item)
     {
-        return HTML::mailto($value);
+        return $value ? HTML::mailto($value) : '';
     }
 }
