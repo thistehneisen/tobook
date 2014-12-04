@@ -1,13 +1,17 @@
 (($) ->
     'use strict'
     $ ->
+        $chart = $ '#fd-chart'
         # Chart
         new Morris.Line
             element: 'fd-chart'
             data: DataSet.totalSold
             xkey: 'date'
             ykeys: ['revenue', 'total']
-            labels: ['Revenue', 'Total']
+            labels: [
+                $chart.data 'label-revenue'
+                $chart.data 'label-total'
+            ]
 
         # Activate datepicker
         $('.datepicker').datetimepicker pickTime: false

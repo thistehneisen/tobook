@@ -22,7 +22,7 @@ DataSet.totalSold = {{ json_encode($dataset) }};
 @stop
 
 @section('content')
-<h3>Flash Deals Statistics</h3>
+<h3>{{ trans('admin.stats.fd.heading') }}</h3>
 
 <form method="GET" class="form-inline" role="form">
     <div class="form-group">
@@ -38,7 +38,7 @@ DataSet.totalSold = {{ json_encode($dataset) }};
     </div>
 </form>
 
-<div id="fd-chart" style="height: 300px;"></div>
+<div id="fd-chart" style="height: 300px;" data-label-total="{{ trans('admin.stats.fd.labels.total') }}" data-label-revenue="{{ trans('admin.stats.fd.labels.revenue') }}"></div>
 
 <h3>Sold flash deals</h3>
 <table class="table table-hovered table-stripped">

@@ -1,13 +1,14 @@
 (function($) {
   'use strict';
   return $(function() {
-    var $from, $to;
+    var $chart, $from, $to;
+    $chart = $('#fd-chart');
     new Morris.Line({
       element: 'fd-chart',
       data: DataSet.totalSold,
       xkey: 'date',
       ykeys: ['revenue', 'total'],
-      labels: ['Revenue', 'Total']
+      labels: [$chart.data('label-revenue'), $chart.data('label-total')]
     });
     $('.datepicker').datetimepicker({
       pickTime: false

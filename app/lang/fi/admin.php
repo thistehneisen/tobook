@@ -33,5 +33,14 @@ return [
         'success_activation'    => 'Module status changed successfully',
         'err_overlapped'        => 'The selected period is overlapped with existing ones. Please recheck and try again.',
         'err_time_passed'       => 'The active time has passed',
+    ],
+    'stats' => [
+        'fd' => [
+            'heading' => 'Flash Deals Statistics',
+            'labels' => [
+                'revenue' => 'Revenue',
+                'total'   => 'Total'
+            ]
+        ]
     ]
 ];
