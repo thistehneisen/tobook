@@ -2,9 +2,11 @@
 return [
     'admin' => 'Admin',
     'nav' => [
-        'users'    => 'Businesses',
-        'settings' => 'Settings',
-        'modules'  => 'Modules',
+        'users'       => 'Businesses',
+        'settings'    => 'Settings',
+        'modules'     => 'Modules',
+        'stats'       => 'Statistics',
+        'flash_deals' => 'Flash Deals',
     ],
     'edit_heading'       => 'Edit :model #:id',
     'create_heading'     => 'Create a new :model',

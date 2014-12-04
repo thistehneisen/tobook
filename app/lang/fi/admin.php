@@ -2,9 +2,11 @@
 return [
     'admin' => 'Admin',
     'nav' => [
-        'users'    => 'Käyttäjät',
-        'settings' => 'Asetukset',
-        'modules'  => 'Modules',
+        'users'       => 'Käyttäjät',
+        'settings'    => 'Asetukset',
+        'modules'     => 'Modules',
+        'stats'       => 'Statistics',
+        'flash_deals' => 'Flash Deals',
     ],
     'edit_heading'       => 'Edit :model #:id',
     'create_heading'     => 'Create a new :model',
