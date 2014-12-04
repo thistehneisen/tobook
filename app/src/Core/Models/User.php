@@ -425,10 +425,8 @@ class User extends ConfideUser implements SearchableInterface
     protected static function buildSearchQuery($keyword, $fields = null)
     {
         $query = [];
-        $query['bool']['should'][]['match']= [
-            'email'    => $keyword,
-            'business' => $keyword,
-        ];
+        $query['bool']['should'][]['match']['email'] = $keyword;
+        $query['bool']['should'][]['match']['business'] = $keyword;
 
         return $query;
     }
