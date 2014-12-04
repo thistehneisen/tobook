@@ -52,7 +52,7 @@ DataSet.totalSold = {{ json_encode($dataset) }};
     <tbody>
     @foreach ($sold as $item)
         <tr>
-            <td>{{ $item->business->name }}</td>
+            <td><a href="{{ $item->business->business_url }}">{{ $item->business->name }}</a></td>
             <td>{{ $item->total }}</td>
             <td>&euro;{{ $item->revenue }}</td>
         </tr>
