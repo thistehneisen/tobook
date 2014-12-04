@@ -4,15 +4,10 @@
         # Chart
         new Morris.Line
             element: 'fd-chart'
-            data: [
-                { year: '2008', value: 20 }
-                { year: '2009', value: 9 }
-                { year: '2010', value: 11 }
-                { year: '2011', value: 25 }
-            ]
-            xkey: 'year'
-            ykeys: ['value']
-            labels: ['Values']
+            data: DataSet.totalSold
+            xkey: 'date'
+            ykeys: ['revenue', 'total']
+            labels: ['Revenue', 'Total']
 
         # Activate datepicker
         $('.datepicker').datetimepicker pickTime: false
