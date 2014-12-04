@@ -8,6 +8,11 @@ class FlashDeals extends Base
 {
     protected $viewPath = 'admin.stats';
 
+    /**
+     * The main page of flash deal statistics
+     *
+     * @return View
+     */
     public function index()
     {
         try {
@@ -19,8 +24,11 @@ class FlashDeals extends Base
             $from = $to->copy()->subDays(60);
         }
 
+        $stat = new FlashDeal();
+
         return $this->render('flash_deals', [
-            'dataset' => with(new FlashDeal())->getTotalSoldByDays($from, $to)
+            'dataset' => $stat->getTotalSoldByDays($from, $to),
+            'sold'    => $stat->getTotalSoldByBusinesses($from, $to)
         ]);
     }
 }

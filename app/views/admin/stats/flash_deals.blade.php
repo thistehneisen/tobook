@@ -40,19 +40,23 @@ DataSet.totalSold = {{ json_encode($dataset) }};
 
 <div id="fd-chart" style="height: 300px;" data-label-total="{{ trans('admin.stats.fd.labels.total') }}" data-label-revenue="{{ trans('admin.stats.fd.labels.revenue') }}"></div>
 
-<h3>Sold flash deals</h3>
+<h3>{{ trans('admin.stats.fd.sold') }}</h3>
 <table class="table table-hovered table-stripped">
     <thead>
         <tr>
-            <th>Deal</th>
-            <th>Business</th>
+            <th>{{ trans('admin.stats.fd.business') }}</th>
+            <th>{{ trans('admin.stats.fd.labels.total') }}</th>
+            <th>{{ trans('admin.stats.fd.labels.revenue') }}</th>
         </tr>
     </thead>
     <tbody>
+    @foreach ($sold as $item)
         <tr>
-            <td>abc</td>
-            <td>ja</td>
+            <td>{{ $item->business->name }}</td>
+            <td>{{ $item->total }}</td>
+            <td>&euro;{{ $item->revenue }}</td>
         </tr>
+    @endforeach
     </tbody>
 </table>
 @stop

@@ -37,6 +37,8 @@ return [
     'stats' => [
         'fd' => [
             'heading' => 'Flash Deals Statistics',
+            'sold' => 'Sold flash deals',
+            'business' => 'Business',
             'labels' => [
                 'revenue' => 'Revenue',
                 'total'   => 'Total'
