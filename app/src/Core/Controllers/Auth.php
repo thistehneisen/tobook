@@ -118,7 +118,12 @@ class Auth extends Base
             Confide::user()->dumpToSession();
 
             // Go to Dashboard, yahoo!
-            return Redirect::intended(route('dashboard.index'));
+            if (Confide::user()->is_business) {
+                return Redirect::intended(route('dashboard.index'));
+            } elseif (Confide::user()->is_consumer) {
+                return Redirect::intended(route('home'));
+            }
+
         }
 
         // Failed, now get the reason
