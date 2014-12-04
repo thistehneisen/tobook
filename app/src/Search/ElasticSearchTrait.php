@@ -25,6 +25,12 @@ trait ElasticSearchTrait
      */
     protected static function bootElasticSearchTrait()
     {
+        // If we're in testing other models, we might not need to trigger ES
+        // observers
+        if (App::environment() === 'testing') {
+            return;
+        }
+
         // Send data of this model to ES for indexing
         static::saved(function ($model) {
             $model->updateSearchIndex();
