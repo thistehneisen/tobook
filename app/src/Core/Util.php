@@ -18,7 +18,7 @@ class Util
         // Legacy from old source code, 12 char (not so random)
         //return chr(rand(65,90)) . chr(rand(65,90)) . time();
 
-        return str_random(26).time();
+        return uniqid(str_random(5));
     }
 
     /**
