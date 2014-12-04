@@ -1,34 +1,27 @@
 <?php
-use \AcceptanceTester;
-use Test\Elements\Auth;
-use Test\Elements\Business;
-
+use App\Core\Models\User;
+use Test\Traits\Models;
 /**
  * @group core
  */
 class BusinessCest
 {
-    // TODO fix this
-    public function seeDashboard(AcceptanceTester $I)
+    use Models;
+
+    public function _before(FunctionalTester $I)
     {
-        $I->seeInCurrentUrl(Business::$dashboardUrl);
+        $this->_modelsReset();
+        $this->_createUser();
+
+        $I->amLoggedAs($this->user);
+        $I->seeAuthentication();
     }
 
-    public function changePasswordWithoutAnyInformation(AcceptanceTester $I)
+    public function seeModules(FunctionalTester $I)
     {
-        $I->amOnPage(Business::$changeProfileUrl);
-        $I->submitForm(Business::$changeProfileForm, []);
-        $I->seeElement(Business::$changeProfileForm.' .has-error');
-    }
-
-    public function changePasswordWithWrongOldPassword(AcceptanceTester $I)
-    {
-        $I->amOnPage(Business::$changeProfileUrl);
-        $I->submitForm(Business::$changeProfileForm, [
-            'old_password'          => 'matkhaucu',
-            'password'              => 'daylamatkhau',
-            'password_confirmation' => 'daylamatkhau',
-        ]);
-        $I->seeElement('.alert.alert-danger');
+        $I->amOnRoute('dashboard.index');
+        $I->seeElement('ul.dashboard-services');
+        $I->see('Ajanvaraus', 'h4');
+        $I->see('Asiakkaat', 'h4');
     }
 }
