@@ -27,7 +27,7 @@
 - Create a new local DB and import `db/dev_dump.sql`
 - Generate your local config files with: `php artisan varaa:generate-configs`
 and change your database config to match your local setup in `app/config/local/database.php`
-- Run `inv` (Python's Fabric and Invoke required) to start all needed dependancies: redis-server, ElasticSearch, grunt...
+- Run `fab r` (Python's Fabric required) to start all needed dependancies: redis-server, ElasticSearch, grunt...
 - Start hacking!
 
 ## Project layout

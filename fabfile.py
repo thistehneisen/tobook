@@ -1,7 +1,9 @@
 from fabric.api import cd, run, local, task, hosts, env
 from fabric import utils
+
 import os
 import subprocess
+import threading
 
 HOME = os.getenv('HOME')
 
@@ -180,3 +182,20 @@ def test_acceptance_prepare(headless=1):
         local('Xvfb {} -ac &'.format(os.getenv('DISPLAY')))
 
     local('java -jar {}'.format(output))
+
+
+@task(alias='r')
+def run_all():
+    threads = map(
+        lambda x: threading.Thread(target=x), (
+            lambda: local('grunt'),
+            lambda: local('elasticsearch'),
+            lambda: local('php artisan queue:work --daemon'),
+            lambda: local('redis-server'),
+            test_acceptance_prepare
+        )
+    )
+    # Start
+    [x.start() for x in threads]
+    # Wait for Ctrl+C
+    [x.join() for x in threads]
