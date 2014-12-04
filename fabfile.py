@@ -180,20 +180,3 @@ def test_acceptance_prepare(headless=1):
         local('Xvfb {} -ac &'.format(os.getenv('DISPLAY')))
 
     local('java -jar {}'.format(output))
-
-
-@task(alias='r')
-def run_whatever():
-    '''
-    Super command to run whatever it needs in local
-    '''
-    # grunt madafaka
-    local('grunt &')
-    # up up up ES
-    local('elasticsearch &')
-    # then redis
-    local('redis-server &')
-    # run queue daemon
-    local('php artisan queue:work --daemon &')
-    # last, the selenium, you don't even need it but whatever
-    test_acceptance_prepare()

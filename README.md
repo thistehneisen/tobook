@@ -27,7 +27,7 @@
 - Create a new local DB and import `db/dev_dump.sql`
 - Generate your local config files with: `php artisan varaa:generate-configs`
 and change your database config to match your local setup in `app/config/local/database.php`
-- Run `fab r` to start all needed dependancies: redis-server, ElasticSearch, grunt...
+- Run `inv` (Python's Fabric and Invoke required) to start all needed dependancies: redis-server, ElasticSearch, grunt...
 - Start hacking!
 
 ## Project layout
@@ -74,7 +74,7 @@ Feel free to add more features (sending email, storing cache, etc.) to that Brid
 - Install node.js
 - Install `grunt-cli` with `npm install -g grunt-cli`
 - At the root folder of project, run `npm install` to install dependencies
-- Run `grunt` to start. By default, it'll watch the LESS folder and compile to
+- Run `grunt` or `inv` to start. By default, it'll watch the LESS folder and compile to
 CSS automatically.
 
 
