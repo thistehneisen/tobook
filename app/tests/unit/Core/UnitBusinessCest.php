@@ -1,4 +1,4 @@
-<?php namespace Core\Models;
+<?php namespace Test\Unit\Core\Models;
 
 use App\Core\Models\BusinessCategory;
 use App\Core\Models\User;
@@ -112,6 +112,12 @@ class UnitBusinessCest
         $I->assertNotNull($image, 'image');
         $I->assertGreaterThan(0, strlen($image), 'strlen($image)');
         $I->assertTrue(file_exists(public_path() . '/' . $image), 'image file exists');
+    }
+
+    public function testGetSlug(UnitTester $i)
+    {
+        $business = new Business(['name' => 'This is a name']);
+        $i->assertEquals($business->slug, 'this-is-a-name');
     }
 
     private function getRequiredFieldsAndValues()

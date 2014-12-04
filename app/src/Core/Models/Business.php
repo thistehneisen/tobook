@@ -1,6 +1,6 @@
 <?php namespace App\Core\Models;
 
-use Config, Log, NAT, Input;
+use Config, Log, NAT, Input, Str;
 use App\Core\Models\Relations\BusinessBusinessCategory;
 use App\Lomake\Fields\HtmlField;
 use Exception;
@@ -243,6 +243,16 @@ class Business extends Base
     public function getDescriptionPlainAttribute()
     {
         return strip_tags($this->getDescriptionHtmlAttribute());
+    }
+
+    /**
+     * Automatically set slug when a name is given
+     *
+     * @param string $value
+     */
+    public function getSlugAttribute($value)
+    {
+        return Str::slug($this->attributes['name']);
     }
 
     /**
