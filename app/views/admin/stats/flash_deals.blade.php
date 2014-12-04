@@ -24,7 +24,7 @@ DataSet.totalSold = {{ json_encode($dataset) }};
 @section('content')
 <h3>Flash Deals Statistics</h3>
 
-<form action="" class="form-inline" role="form">
+<form method="GET" class="form-inline" role="form">
     <div class="form-group">
         <label class="sr-only" for="from">{{ trans('admin.stats.from') }}</label>
         {{ Form::text('from', Input::get('from'), ['data-date-format' => 'DD-MM-YYYY', 'class' => 'form-control datepicker', 'placeholder' => trans('admin.stats.from')]) }}
