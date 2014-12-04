@@ -418,4 +418,18 @@ class User extends ConfideUser implements SearchableInterface
             'consumer' => ['type' => 'string'],
         ];
     }
+
+    /**
+     * @{@inheritdoc}
+     */
+    protected static function buildSearchQuery($keyword, $fields = null)
+    {
+        $query = [];
+        $query['bool']['should'][]['match']= [
+            'email'    => $keyword,
+            'business' => $keyword,
+        ];
+
+        return $query;
+    }
 }
