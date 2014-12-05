@@ -17,9 +17,9 @@ class Employee extends Base
         $service = null;
         if ($serviceId > 0) {
             $service = Service::ofCurrentUser()->findOrFail($serviceId);
-            $employees = $service->employees();
+            $employees = $service->employees()->where('is_active', '=', 1);
         } else {
-            $employees = \App\Appointment\Models\Employee::ofCurrentUser();
+            $employees = \App\Appointment\Models\Employee::ofCurrentUser()->where('is_active', '=', 1);
         }
 
         $perPage = max(1, intval(Input::get('per_page', 15)));

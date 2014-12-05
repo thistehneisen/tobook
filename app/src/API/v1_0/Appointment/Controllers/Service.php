@@ -14,7 +14,7 @@ class Service extends Base
             $employee = Employee::ofCurrentUser()->findOrFail($employeeId);
             $services = $employee->services()->where('is_active', '=', 1);
         } else {
-            $services = \App\Appointment\Models\Service::ofCurrentUser();
+            $services = \App\Appointment\Models\Service::ofCurrentUser()->where('is_active', '=', 1);
         }
 
         $categoryId = intval(Input::get('category_id'));

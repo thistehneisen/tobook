@@ -53,6 +53,20 @@ class EmployeeCest
         }
     }
 
+    public function testIsInactive(ApiTester $I)
+    {
+        $employeeCount = 3;
+        $this->_createEmployee($employeeCount);
+
+        $lastEmployee = $this->employees[$employeeCount - 1];
+        $lastEmployee->is_active = 0;
+        $lastEmployee->saveOrFail();
+
+        $I->sendGET($this->employeesEndpoint);
+        $employeesData = $I->grabDataFromJsonResponse('data');
+        $I->assertEquals($employeeCount - 1, count($employeesData), 'count($employeesData)');
+    }
+
     public function testEmployeesByServiceId(ApiTester $I)
     {
         $employeeCount = 3;
