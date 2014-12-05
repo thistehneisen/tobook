@@ -52,7 +52,7 @@ class ElasticSearch implements ProviderInterface
         try {
             $this->client->delete($params);
         } catch (\Exception $ex) {
-            Log::error($ex->getMessage());
+            Log::debug($ex->getMessage());
         }
     }
 }
