@@ -25,7 +25,7 @@
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js') }}
     {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
     {{ HTML::script(asset('packages/bootstrap-spinner/bootstrap-spinner.min.js')) }}
-    {{ HTML::script(asset('assets/js/appointment.js?v=00009')) }}
+    {{ HTML::script(asset('assets/js/appointment.js?v=00010')) }}
 @stop
 
 @section('main-classes') container as-wrapper @stop

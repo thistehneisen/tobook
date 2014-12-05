@@ -1,9 +1,11 @@
 /*jslint browser: true, nomen: true, unparam: true, node: true*/
-/*global $, jQuery, document, alertify, location, window*/
+/*global $, jQuery, alertify, location, window, trans*/
 'use strict';
 
 (function ($) {
     $(function () {
+        var $doc = $(document);
+
         $('.customer-tooltip').tooltip({
             selector: '',
             placement: 'top',
@@ -19,7 +21,7 @@
             $('.' + checkboxClass).prop('checked', this.checked);
         });
 
-        $(document).bind("ajaxSend", function () {
+        $doc.bind("ajaxSend", function () {
             $("#loading").show();
         }).bind("ajaxComplete", function () {
             $("#loading").hide();
@@ -61,7 +63,7 @@
         });
 
         // Date picker
-        $(document).on('focus', '.date-picker', function () {
+        $doc.on('focus', '.date-picker', function () {
             $(this).datepicker({
                 format: 'yyyy-mm-dd',
                 weekStart: 1,
@@ -118,8 +120,7 @@
             var _this = $(this),
                 start_time = _this.data('start-time');
 
-            //TODO: get text Varaa from somewhere else
-            _this.append('<span class="hover">{0} {1}</span>'.format('Varaa', start_time));
+            _this.append('<span class="hover">{0} {1}</span>'.format(trans('common.book'), start_time));
         }, function () {
             $(this).find('.hover').remove();
         });
@@ -176,7 +177,7 @@
                 $('.popover .arrow').css('top', '15px');
             }
         });
-        $(document).on('click', '#btn-submit-modify-form', function (e) {
+        $doc.on('click', '#btn-submit-modify-form', function (e) {
             e.preventDefault();
             var booking_id = $(this).data('booking-id'),
                 url = $(this).data('action-url');
@@ -193,7 +194,7 @@
                 }
             });
         });
-        $(document).on('click', '#btn-add-employee-freetime', function (e) {
+        $doc.on('click', '#btn-add-employee-freetime', function (e) {
             e.preventDefault();
             $.ajax({
                 type: 'POST',
@@ -226,7 +227,7 @@
                 }
             });
         });
-        $(document).on('click', '#btn-add-service', function (e) {
+        $doc.on('click', '#btn-add-service', function (e) {
             e.preventDefault();
             var service_id = $('#services').val(),
                 employee_id = $('#employee_id').val(),
@@ -264,7 +265,7 @@
                 });
             });
         });
-        $(document).on('click', '#btn-save-booking', function (e) {
+        $doc.on('click', '#btn-save-booking', function (e) {
             e.preventDefault();
             var postData = $('#booking_form').serializeArray();
             postData.push({
@@ -289,7 +290,9 @@
             var employee_id = $('#employee_id').val(),
                 booking_date    = $('#date').val(),
                 start_time      = $('#start_time').val(),
-                selected_action = $('input[name="action_type"]:checked').val();
+                selected_action = $('input[name="action_type"]:checked').val(),
+                action_url;
+
             if (selected_action === 'book') {
                 $.fancybox.open({
                     padding: 5,
@@ -345,7 +348,7 @@
                     autoCenter: false
                 });
             } else if (selected_action === 'paste_booking') {
-                var action_url = $('#get_paste_booking_url').val();
+                action_url = $('#get_paste_booking_url').val();
                 $.ajax({
                     type: 'POST',
                     url: action_url,
@@ -363,7 +366,7 @@
                     }
                 });
             } else if (selected_action === 'discard_cut_booking') {
-                var action_url = $('#get_discard_cut_booking_url').val();
+                action_url = $('#get_discard_cut_booking_url').val();
                 $.ajax({
                     type: 'POST',
                     url: action_url,
@@ -377,7 +380,8 @@
                 });
             }
         });
-        $(document).on('click', 'a.js-btn-view-booking', function (e) {
+
+        $doc.on('click', 'a.js-btn-view-booking', function (e) {
             e.preventDefault();
             var booking_id = $(this).data('booking-id');
             $('#employee_id').val($(this).data('employee-id'));
@@ -407,7 +411,7 @@
                 autoCenter: false
             });
         });
-        $(document).on('click', 'a.js-btn-cut-booking', function (e) {
+        $doc.on('click', 'a.js-btn-cut-booking', function (e) {
             e.preventDefault();
             var booking_id = $(this).data('booking-id'),
                 action_url = $(this).data('action-url');
@@ -427,6 +431,7 @@
                 }
             });
         });
+
         var colHeaderTop  = -1,
             originalOffset = [],
             scrolledLeft = false;

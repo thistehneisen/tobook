@@ -5,5 +5,6 @@ return [
     // IMPORTANT: add only the one you need because this will affect the performance
     'keys' => [
         'common.homepage',
+        'common.book',
     ]
 ];
