@@ -200,14 +200,23 @@ class Base extends \App\Core\Controllers\Base
         return $consumerData;
     }
 
-    protected function _preparePagination(Paginator $pagination)
+    protected function _preparePagination($pagination)
     {
-        return [
-            'total' => $pagination->getTotal(),
-            'per_page' => $pagination->getPerPage(),
-            'page' => $pagination->getCurrentPage(),
-            'last_page' => $pagination->getLastPage(),
-        ];
+        if ($pagination instanceof Paginator) {
+            return [
+                'total' => $pagination->getTotal(),
+                'per_page' => $pagination->getPerPage(),
+                'page' => $pagination->getCurrentPage(),
+                'last_page' => $pagination->getLastPage(),
+            ];
+        } else {
+            return [
+                'total' => count($pagination),
+                'per_page' => count($pagination),
+                'page' => 1,
+                'last_page' => 1,
+            ];
+        }
     }
 
     protected function _calculateDuration(Carbon $startAt, Carbon $endAt)

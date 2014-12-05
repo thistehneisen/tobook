@@ -22,8 +22,12 @@ class Employee extends Base
             $employees = \App\Appointment\Models\Employee::ofCurrentUser()->where('is_active', '=', 1);
         }
 
-        $perPage = max(1, intval(Input::get('per_page', 15)));
-        $employees = $employees->paginate($perPage);
+        $perPage = intval(Input::get('per_page', 15));
+        if ($perPage > 0) {
+            $employees = $employees->paginate($perPage);
+        } else {
+            $employees = $employees->get();
+        }
 
         $employeesData = [];
         foreach ($employees as $employee) {
