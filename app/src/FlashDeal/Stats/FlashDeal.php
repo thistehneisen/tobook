@@ -23,7 +23,7 @@ class FlashDeal
                 DB::raw('DATE(created_at) AS date')
             )
             ->where('model_type', 'App\FlashDeal\Models\FlashDealDate')
-            ->whereHas('cart', function ($query) use ($from, $to) {
+            ->whereHas('cart', function ($query) {
                 return $query->completed();
             })
             ->where('created_at', '>=', $from)
@@ -47,11 +47,11 @@ class FlashDeal
                 DB::raw('SUM(quantity) AS total'),
                 DB::raw('user_id')
             )
-            ->where('model_type', 'App\FlashDeal\Models\FlashDealDate')
-            ->whereHas('cart', function ($query) use ($from, $to) {
+            ->where('model_type', 'App\\FlashDeal\\Models\\FlashDealDate')
+            ->whereHas('cart', function ($query) {
                 return $query->completed();
             })
-            ->join('carts', 'cart_details.id', '=', 'carts.id')
+            ->join('carts', 'cart_details.cart_id', '=', 'carts.id')
             ->where('cart_details.created_at', '>=', $from)
             ->where('cart_details.created_at', '<=', $to)
             ->groupBy('carts.user_id')
