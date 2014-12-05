@@ -434,7 +434,7 @@ class Employee extends \App\Appointment\Models\Base
      * Get timetable of this employee
      * @return array
      */
-    public function getTimeTable(Service $service, Carbon $date, $serviceTime = null, $extraServices, $showEndTime = false)
+    public function getTimeTable(Service $service, Carbon $date, $serviceTime = null, $extraServices, $showEndTime = false, $isTest = false)
     {
         $timetable = [];
         $defaultEndTime = null;
@@ -471,22 +471,23 @@ class Employee extends \App\Appointment\Models\Base
                     }
                 }
 
-                $startTime = $date->copy()->hour($hour)->minute($shift);
-                $endTime   = $startTime->copy()->addMinutes($serviceLength);
+                //Checking overlapp maybe go wrong in the edge with extra seconds: 11:30:40.000000
+                $startTime = $date->copy()->hour($hour)->minute($shift)->second(0);
+                $endTime   = $startTime->copy()->addMinutes($serviceLength)->second(0);
 
                 if(!empty($empCustomTime)){
                     if(($endTime->hour * 60) + $endTime->minute > ($end->hour * 60) + $end->minute){
                         break;
                     }
-                }
-
-                if(($endTime->hour * 60) + $endTime->minute > ($defaultEndTime->hour * 60) + $defaultEndTime->minute){
-                    break;
+                } else {
+                    if(($endTime->hour * 60) + $endTime->minute > ($defaultEndTime->hour * 60) + $defaultEndTime->minute){
+                        break;
+                    }
                 }
 
                 $isOverllapedWithFreetime = $this->isOverllapedWithFreetime($date->toDateString(), $startTime, $endTime);
-                if ($isOverllapedWithFreetime) {
-                   break;
+                if ($isOverllapedWithFreetime === true) {
+                   continue;
                 }
 
                 $isBookable = Booking::isBookable(
@@ -501,9 +502,9 @@ class Employee extends \App\Appointment\Models\Base
                     continue;
                 }
 
-                if ($startTime->gt(Carbon::now())) {
+                if ($startTime->gt(Carbon::now()) || $isTest) {
                     $startTime->subMinutes($service->before);
-                    $endTime   = $startTime->copy()->addMinutes($service->during);
+                    $endTime   = $startTime->copy()->addMinutes($serviceLength)->subMinutes($service->after);
                     $formatted = sprintf('%02d:%02d', $startTime->hour, $startTime->minute);
                     if ($showEndTime) {
                         $formatted .= sprintf(' - %02d:%02d', $endTime->hour, $endTime->minute);

@@ -27,6 +27,8 @@ trait Models
     protected $employee = null;
     protected $category = null;
 
+    protected $extraServices = array();
+
     /**
      * @var Service
      */
@@ -351,6 +353,28 @@ trait Models
         $this->service->category()->associate($this->category);
         $this->service->saveOrFail();
         $this->service->employees()->attach($this->employee);
+
+        $extraService1 = new ExtraService([
+                'name' => 'Extra service 1',
+                'price' => 10,
+                'length' => 15,
+        ]);
+        $extraService1->user()->associate($this->user);
+        $extraService1->save();
+
+        $extraService2 = new ExtraService([
+                'name' => 'Extra service 2',
+                'price' => 10,
+                'length' => 15,
+        ]);
+        $extraService2->user()->associate($this->user);
+        $extraService2->save();
+
+        $this->extraServices[] = $extraService1;
+        $this->extraServices[] = $extraService2;
+
+        $this->service->extraServices()->attach($extraService1);
+        $this->service->extraServices()->attach($extraService2);
     }
 
     public function initCustomTime()
@@ -396,5 +420,26 @@ trait Models
         $employeeFreetime->user()->associate($this->user);
         $employeeFreetime->employee()->associate($this->employee);
         $employeeFreetime->save();
+
+
+        $employeeCustomTime1 =  EmployeeCustomTime::getUpsertModel($this->employee->id, Carbon::now()->toDateString());
+        $employeeCustomTime1->fill([
+            'date' => Carbon::now()->toDateString()
+        ]);
+        $employeeCustomTime1->employee()->associate($this->employee);
+        $employeeCustomTime1->customTime()->associate($customTime);
+        $employeeCustomTime1->save();
+
+        //Add employee freetime
+        $employeeFreetime1 = new EmployeeFreetime();
+        $employeeFreetime1->fill([
+            'date' => Carbon::now()->toDateString(),
+            'start_at' => '13:00',
+            'end_at'=>'14:00',
+            'description' => ''
+        ]);
+        $employeeFreetime1->user()->associate($this->user);
+        $employeeFreetime1->employee()->associate($this->employee);
+        $employeeFreetime1->save();
     }
 }
