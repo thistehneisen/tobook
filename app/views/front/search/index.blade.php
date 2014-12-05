@@ -1,11 +1,18 @@
 @extends ('layouts.default')
 
+@section ('meta')
+    @parent
+    @if (isset($single))
+    <meta name="description" content="{{ $businesses[0]->meta_description }}">
+    <meta name="title" content="{{ $businesses[0]->meta_title }}">
+    <meta name="keywords" content="{{ $businesses[0]->meta_keywords }}">
+    @endif
+@stop
+
 @section('title')
     @parent ::
-    @if (!isset($single))
-        {{ trans('common.search') }}
-    @else
-        {{ $businesses[0]->name }}
+    @if (!isset($single)) {{ trans('common.search') }}
+    @else {{ $businesses[0]->name }}
     @endif
 @stop
 
@@ -22,7 +29,7 @@
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js') }}
     {{ HTML::script(asset('assets/js/as/layout-3.js').(Config::get('app.debug') ? '?v='.time() : '')) }}
     <script>
-$(function() {
+$(function () {
 
 @if(!empty($categoryId) && !empty($serviceId))
 $('input:radio[name=category_id][value={{ $categoryId }}], input:radio[name=service_id][value={{ $serviceId }}]').click();
@@ -31,7 +38,7 @@ $('input[name=service_id]').on('afterSelect', function () {
     $('input:radio[name=employee_id][value="{{ $employeeId }}"]').click();
 });
 
-$('#as-step-3').on('afterShow', function() {
+$('#as-step-3').on('afterShow', function () {
     $('button[data-time="{{ $time }}"]').click();
 });
 @endif
@@ -42,7 +49,7 @@ var loading = $('#js-loading'),
     renderMap;
 
 
-renderMap = function(mapId, lat, lng, markers) {
+renderMap = function (mapId, lat, lng, markers) {
     var gmap = new GMaps({
         div: mapId,
         lat: lat,
@@ -70,8 +77,7 @@ VARAA.applyCountdown($('span.countdown'));
         {{ $lat }},
         {{ $lng }},
         [
-    @foreach ($businesses as $item)
-            {
+    @foreach ($businesses as $item) {
                 lat: {{ $item->lat }},
                 lng: {{ $item->lng }},
                 title: '{{ $item->name }}'
@@ -80,7 +86,7 @@ VARAA.applyCountdown($('span.countdown'));
         ]
     );
 
-    $('div.result-row').click(function(e) {
+    $('div.result-row').click(function (e) {
         e.preventDefault();
         var $this = $(this);
 
@@ -88,6 +94,7 @@ VARAA.applyCountdown($('span.countdown'));
         if ($(window).width() < 768) {
             // sidebar should be less than a third of the container!
             window.location = $this.data('url');
+
             return;
         }
 
@@ -106,7 +113,7 @@ VARAA.applyCountdown($('span.countdown'));
         $.ajax({
             url: $this.data('url'),
             type: 'GET'
-        }).done(function(html) {
+        }).done(function (html) {
             loading.hide();
             map.hide();
 
@@ -185,8 +192,7 @@ VARAA.applyCountdown($('span.countdown'));
             @endforeach
         @endif
 
-    @if (!isset($single))
-        {{ $businesses->links() }}
+    @if (!isset($single)) {{ $businesses->links() }}
     @endif
     </div>
 
