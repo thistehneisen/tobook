@@ -15,18 +15,23 @@ class FlashDeals extends Base
      */
     public function index()
     {
+        $to = Carbon::today();
+        $from = $to->copy()->subDays(60);
+
         try {
-            $from = new Carbon(Input::get('from'));
-            $to = new Carbon(Input::get('to'));
-        } catch (\InvalidArgumentException $ex) {
-            // Cannot get data from query string, use default
-            $to = Carbon::today();
-            $from = $to->copy()->subDays(60);
+            if (Input::has('from') && Input::has('to')) {
+                $from = new Carbon(Input::get('from'));
+                $to = new Carbon(Input::get('to'));
+            }
+        } catch (\Exception $ex) {
+            // Invalid format or something else, skip
         }
 
         $stat = new FlashDeal();
 
         return $this->render('flash_deals', [
+            'from'    => $from,
+            'to'      => $to,
             'dataset' => $stat->getTotalSoldByDays($from, $to),
             'sold'    => $stat->getTotalSoldByBusinesses($from, $to)
         ]);

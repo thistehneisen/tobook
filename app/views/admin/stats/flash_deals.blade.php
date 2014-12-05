@@ -18,7 +18,6 @@
 var DataSet = DataSet || {};
 DataSet.totalSold = {{ json_encode($dataset) }};
     </script>
-
 @stop
 
 @section('content')
@@ -27,11 +26,11 @@ DataSet.totalSold = {{ json_encode($dataset) }};
 <form method="GET" class="form-inline" role="form">
     <div class="form-group">
         <label class="sr-only" for="from">{{ trans('admin.stats.from') }}</label>
-        {{ Form::text('from', Input::get('from'), ['data-date-format' => 'DD-MM-YYYY', 'class' => 'form-control datepicker', 'placeholder' => trans('admin.stats.from')]) }}
+        {{ Form::text('from', Input::get('from', $from->toDateString()), ['data-date-format' => 'YYYY-MM-DD', 'class' => 'form-control datepicker', 'placeholder' => trans('admin.stats.from')]) }}
     </div>
     <div class="form-group">
         <label class="sr-only" for="to">{{ trans('admin.stats.to') }}</label>
-        {{ Form::text('to', Input::get('to'), ['data-date-format' => 'DD-MM-YYYY', 'class' => 'form-control datepicker', 'placeholder' => trans('admin.stats.to')]) }}
+        {{ Form::text('to', Input::get('to', $to->toDateString()), ['data-date-format' => 'YYYY-MM-DD', 'class' => 'form-control datepicker', 'placeholder' => trans('admin.stats.to')]) }}
     </div>
     <div class="form-group">
         <button class="btn btn-primary">{{ trans('common.submit') }}</button>
