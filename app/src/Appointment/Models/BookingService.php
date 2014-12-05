@@ -1,12 +1,11 @@
 <?php namespace App\Appointment\Models;
 
 use Carbon\Carbon;
-use App\Appointment\Models\BookingExtraService;
 use App\Cart\CartDetailInterface;
 use App\Cart\CartDetail;
 use Watson\Validating\ValidationException;
 
-class BookingService extends \App\Appointment\Models\Base implements CartDetailInterface
+class BookingService extends Base implements CartDetailInterface
 {
     protected $table = 'as_booking_services';
 
@@ -33,6 +32,7 @@ class BookingService extends \App\Appointment\Models\Base implements CartDetailI
             : $this->service;
         $startTime = $this->getStartAt();
         $startTime->addMinutes($service->before);
+
         return $startTime;
     }
 
@@ -44,20 +44,20 @@ class BookingService extends \App\Appointment\Models\Base implements CartDetailI
         //Total include extra services and plus time
         $total = 0;
         $plustime = $this->employee->getPlustime($service->id);
-        if(empty($this->extraServices)){
+        if (empty($this->extraServices)) {
             $this->calculateExtraServices();
         }
         $extraServiceTime = $this->extraServices['length'];
         $total = $extraServiceTime + $service->during + $plustime;
         $startTime = $this->getCartStartAt();
         $endTime = with(clone $startTime)->addMinutes($total);
+
         return $endTime;
     }
 
     public function calculateExtraServices()
     {
-        if(empty($this->extraServices))
-        {
+        if (empty($this->extraServices)) {
             $extraServices     = BookingExtraService::where('tmp_uuid', $this->tmp_uuid)->get();
             $extraServiceTime  = 0;
             $extraServicePrice = 0;
@@ -72,17 +72,19 @@ class BookingService extends \App\Appointment\Models\Base implements CartDetailI
 
     public function getExtraServicePrice()
     {
-        if(empty($this->extraServices)){
+        if (empty($this->extraServices)) {
             $this->calculateExtraServices();
         }
+
         return (int) $this->extraServices['price'];
     }
 
     public function getExtraServiceTime()
     {
-        if(empty($this->extraServices)){
+        if (empty($this->extraServices)) {
             $this->calculateExtraServices();
         }
+
         return (int) $this->extraServices['length'];
     }
 
@@ -91,6 +93,7 @@ class BookingService extends \App\Appointment\Models\Base implements CartDetailI
         if ($this->employeePlustime === null) {
             $this->employeePlustime = (int) $this->employee->getPlustime($this->service->id);
         }
+
         return $this->employeePlustime;
     }
 
@@ -140,6 +143,7 @@ class BookingService extends \App\Appointment\Models\Base implements CartDetailI
     {
         $price  = $this->calculateServicePrice();
         $price += $this->getExtraServicePrice();
+
         return $price;
     }
 
@@ -275,10 +279,10 @@ class BookingService extends \App\Appointment\Models\Base implements CartDetailI
      * <code>App\Appointment\Models\Booking::saveBooking</code> needs to be called with the same uuid
      * to associate the new booking service with a booking record.
      *
-     * @param string $uuid
-     * @param Employee $employee
-     * @param Service $service
-     * @param array $input
+     * @param string         $uuid
+     * @param Employee       $employee
+     * @param Service        $service
+     * @param array          $input
      * @param BookingService $existingBookingService
      *
      * @return BookingService
@@ -350,11 +354,11 @@ class BookingService extends \App\Appointment\Models\Base implements CartDetailI
 
         $areResourcesAvailable = Booking::areResourcesAvailable($employee->id, $service, $startTime->toDateString(), $startTime, $endTimeForOverlappingCheck);
 
-        if(!$areResourcesAvailable) {
+        if (!$areResourcesAvailable) {
             throw new ValidationException(trans('as.bookings.error.not_enough_resources'));
         }
 
-        $bookingService = (empty($existingBookingService)) ? (new BookingService) : $existingBookingService;
+        $bookingService = (empty($existingBookingService)) ? (new BookingService()) : $existingBookingService;
 
         $bookingService->fill([
             'tmp_uuid' => $uuid,
@@ -376,5 +380,37 @@ class BookingService extends \App\Appointment\Models\Base implements CartDetailI
         $bookingService->saveOrFail();
 
         return $bookingService;
+    }
+
+    //--------------------------------------------------------------------------
+    // SEARCH
+    //--------------------------------------------------------------------------
+    public function getSearchDocument()
+    {
+        $data = [
+            'tmp_uuid'     => $this->tmp_uuid,
+            'date'         => $this->date instanceof Carbon ? $this->date->toDateString() : $this->date,
+            'start_at'     => $this->start_at instanceof Carbon ? $this->start_at->toDateTimeString() : $this->start_at,
+            'end_at'       => $this->end_at instanceof Carbon ? $this->end_at->toDateTimeString() : $this->end_at,
+            'modify_time'  => $this->modify_time
+        ];
+
+        if ($this->serviceTime !== null) {
+            $data['service_time'] = $this->serviceTime->description;
+        }
+
+        return $data;
+    }
+
+    public function getSearchMapping()
+    {
+        return [
+            'tmp_uuid'     => ['type' => 'string'],
+            'date'         => ['type' => 'date'],
+            'start_at'     => ['type' => 'date'],
+            'end_at'       => ['type' => 'date'],
+            'modify_time'  => ['type' => 'integer'],
+            'service_time' => ['type' => 'string'],
+        ];
     }
 }

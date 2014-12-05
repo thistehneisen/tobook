@@ -385,12 +385,60 @@ class BookingServiceCest
         $freetime->employee()->associate($employee);
         $freetime->saveOrFail();
 
-        $e = null;
         try {
             BookingService::saveBookingService($uuid, $employee, $service, $input);
-        } catch (\Watson\Validating\ValidationException $wvve) {
-            $e = $wvve;
+        } catch (\Exception $ex) {
+            $I->assertTrue($ex instanceof \Watson\Validating\ValidationException, 'Validating exception');
         }
-        $I->assertNotEmpty($e, 'exception');
+    }
+
+    public function testGetSearchDocument(UnitTester $i)
+    {
+        $date = new \Carbon\Carbon('2014-12-05 9:00');
+        $serviceTime = new ServiceTime([
+            'description' => 'Lorem Ipsum'
+        ]);
+
+        $model = new BookingService([
+            'tmp_uuid'     => 'ABC123',
+            'date'         => $date,
+            'start_at'     => $date,
+            'end_at'       => $date->copy()->addMinutes(45),
+            'modify_time'  => 0,
+        ]);
+        $model->serviceTime = $serviceTime;
+
+        $doc = $model->getSearchDocument();
+        $i->assertEquals($doc['tmp_uuid'], 'ABC123');
+        $i->assertEquals($doc['date'], '2014-12-05');
+        $i->assertEquals($doc['start_at'], '2014-12-05 09:00:00');
+        $i->assertEquals($doc['end_at'], '2014-12-05 09:45:00');
+        $i->assertEquals($doc['modify_time'], 0);
+        $i->assertEquals($doc['service_time'], 'Lorem Ipsum');
+    }
+
+    public function testGetSearchMapping(UnitTester $i)
+    {
+        $date = new \Carbon\Carbon('2014-12-05 9:00');
+        $serviceTime = new ServiceTime([
+            'description' => 'Lorem Ipsum'
+        ]);
+
+        $model = new BookingService([
+            'tmp_uuid'     => 'ABC123',
+            'date'         => $date,
+            'start_at'     => $date,
+            'end_at'       => $date->copy()->addMinutes(45),
+            'modify_time'  => 0,
+        ]);
+        $model->serviceTime = $serviceTime;
+
+        $mapping = $model->getSearchDocument();
+        $i->assertTrue(array_key_exists('tmp_uuid', $mapping), 'tmp_uuid exists');
+        $i->assertTrue(array_key_exists('date', $mapping), 'date exists');
+        $i->assertTrue(array_key_exists('start_at', $mapping), 'start_at exists');
+        $i->assertTrue(array_key_exists('end_at', $mapping), 'end_at exists');
+        $i->assertTrue(array_key_exists('modify_time', $mapping), 'modify_time exists');
+        $i->assertTrue(array_key_exists('service_time', $mapping), 'service_time exists');
     }
 }
