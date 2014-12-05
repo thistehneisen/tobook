@@ -50,17 +50,20 @@ return [
         ]
     ],
     'business' => [
-        'is_activated' => 'Activated',
-        'name'         => 'Yrityksen nimi',
-        'description'  => 'Yritysesittely',
-        'size'         => 'Henkilömäärä',
-        'phone'        => 'Puhelin',
-        'address'      => 'Osoite',
-        'city'         => 'Kaupunki',
-        'postcode'     => 'Postinumero',
-        'country'      => 'Maa',
-        'note'         => 'Huomautus',
-        'sizes'        => [
+        'is_activated'     => 'Activated',
+        'name'             => 'Yrityksen nimi',
+        'description'      => 'Yritysesittely',
+        'size'             => 'Henkilömäärä',
+        'phone'            => 'Puhelin',
+        'address'          => 'Osoite',
+        'city'             => 'Kaupunki',
+        'postcode'         => 'Postinumero',
+        'country'          => 'Maa',
+        'note'             => 'Huomautus',
+        'meta_title'       => 'Meta title', // @todo
+        'meta_description' => 'Meta description', // @todo
+        'meta_keywords'    => 'Meta keywords', // @todo
+        'sizes'            => [
             '1',
             '2-3',
             '3-5',

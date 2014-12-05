@@ -1,6 +1,7 @@
 <?php namespace Test\Functional\Admin;
 
 use FunctionalTester;
+use App\Core\Models\Business;
 
 /**
  * @group core
@@ -26,17 +27,20 @@ class UserCest extends \Test\Functional\Base
     public function editBusinessInformation(FunctionalTester $i)
     {
         $input = [
-            'note'  => 'Lorem',
-            'name'  => 'Foo',
-            'phone' => '123 456 789'
+            'note'             => 'Lorem',
+            'name'             => 'Foo',
+            'phone'            => '123 456 789',
+            'meta_title'       => 'Meta title',
+            'meta_keywords'    => 'Meta keywords',
+            'meta_description' => 'Meta description',
         ];
 
         $i->amOnPage($this->editUrl);
-        $i->click('a[href="#tab-business"]');
-        $i->submitForm('#business-form', $input);
+        $i->submitForm('#business-form', $input + ['_token' => csrf_token()]);
 
+        $business = Business::find($this->user->business->id);
         foreach ($input as $field => $value) {
-            $i->seeInField('[name='.$field.']', $value);
+            $i->assertEquals($business->$field, $value);
         }
     }
 
@@ -46,5 +50,13 @@ class UserCest extends \Test\Functional\Base
 
         $i->amOnPage($this->indexUrl);
         $i->seeElement($selector);
+    }
+
+    public function seeFieldsToEnterBusinessMetadata(FunctionalTester $i)
+    {
+        $i->amOnPage($this->editUrl);
+        $i->seeElement('[name=meta_title]');
+        $i->seeElement('[name=meta_keywords]');
+        $i->seeElement('[name=meta_description]');
     }
 }
