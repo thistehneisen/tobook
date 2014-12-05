@@ -1,7 +1,7 @@
 <?php namespace App\Appointment\Controllers;
 
-use App, View, Confide, Redirect, Input, Config, Util, Response, Validator;
-use Carbon\Carbon, NAT;
+use App, View, Confide, Redirect, Input, Config, Util, Response, Validator, DB, NAT;
+use Carbon\Carbon;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\EmployeeDefaultTime;
 use App\Appointment\Models\EmployeeFreetime;
@@ -261,7 +261,8 @@ class Employees extends AsBase
         $fields      = with(new CustomTime)->fillable;
         $perPage     = (int) Input::get('perPage', Config::get('view.perPage'));
         $customTimes = CustomTime::ofCurrentUser()
-            ->orderBy('id', 'desc')
+            ->orderBy('start_at')
+            ->orderBy('end_at')
             ->paginate($perPage);
 
         return $this->render('customTime.index', [
@@ -355,7 +356,7 @@ class Employees extends AsBase
      */
     public function employeeCustomTimeSummary($date = null)
     {
-        $current      = Carbon::now();
+        $current = Carbon::now();
 
         if (!empty($date)) {
             try {
@@ -425,11 +426,20 @@ class Employees extends AsBase
     public function employeeCustomTime($employeeId = null, $date = null)
     {
         $customTimes = CustomTime::ofCurrentUser()
-            ->orderBy('id', 'desc')->lists('name','id');
+            ->orderBy('start_at')
+            ->orderBy('end_at')
+            ->lists(
+                DB::raw('CONCAT(
+                    name,
+                    " (",
+                    TIME_FORMAT(start_at, "%H:%i"),
+                    " - ",
+                    TIME_FORMAT(end_at, "%H:%i"),
+                    ")")'),
+                'id'
+            );
 
-        $customTimes = [
-            0  => trans('common.select'),
-        ] + $customTimes;
+        $customTimes = [0 => trans('common.options_select')] + $customTimes;
 
         $employee =  (!empty($employeeId))
             ? Employee::ofCurrentUser()->find($employeeId)
