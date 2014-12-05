@@ -1,5 +1,6 @@
 <?php namespace App\API\v1_0\Appointment\Controllers;
 
+use App\Appointment\Models\Service;
 use Input;
 use Response;
 
@@ -12,7 +13,15 @@ class Employee extends Base
      */
     public function index()
     {
-        $employees = \App\Appointment\Models\Employee::ofCurrentUser();
+        $serviceId = intval(Input::get('service_id'));
+        $service = null;
+        if ($serviceId > 0) {
+            $service = Service::ofCurrentUser()->findOrFail($serviceId);
+            $employees = $service->employees();
+        } else {
+            $employees = \App\Appointment\Models\Employee::ofCurrentUser();
+        }
+
         $perPage = max(1, intval(Input::get('per_page', 15)));
         $employees = $employees->paginate($perPage);
 

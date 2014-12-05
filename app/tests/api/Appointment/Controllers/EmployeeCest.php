@@ -1,16 +1,14 @@
 <?php namespace Test\Api\Appointment\Controllers;
 
-use \ApiTester;
+use ApiTester;
 use App\Appointment\Models\Employee;
-use Test\Traits\Models;
-use Carbon\Carbon;
 
 /**
  * @group as
  */
 class EmployeeCest
 {
-    use Models;
+    use \Test\Traits\Models;
 
     protected $employeesEndpoint = '/api/v1.0/as/employees';
 
@@ -55,10 +53,41 @@ class EmployeeCest
         }
     }
 
+    public function testEmployeesByServiceId(ApiTester $I)
+    {
+        $employeeCount = 3;
+        $this->_createEmployee($employeeCount - 1);
+        $categories = $this->_createCategoryServiceAndExtra(1, 2);
+        $this->_createEmployee($employeeCount);
+
+        $service = $categories[0]->services()->first();
+        $serviceEmployees = $service->employees;
+        $I->assertEquals($employeeCount - 1, count($serviceEmployees), 'count($serviceEmployees)');
+
+        $I->sendGET($this->employeesEndpoint);
+        $employeesData = $I->grabDataFromJsonResponse('data');
+        $I->assertEquals($employeeCount, count($employeesData), 'count($employeesData)');
+
+        $I->sendGET($this->employeesEndpoint, ['service_id' => $service->id]);
+        $employeesData = $I->grabDataFromJsonResponse('data');
+        $I->assertEquals(count($serviceEmployees), count($employeesData), 'count($employeesData)');
+        foreach ($serviceEmployees as $employee) {
+            $employeeDataFound = false;
+
+            foreach ($employeesData as $employeeData) {
+                if ($employee->id == $employeeData['employee_id']) {
+                    $employeeDataFound = true;
+                }
+            }
+
+            $I->assertTrue($employeeDataFound, '$employeeDataFound');
+        }
+    }
+
     public function testStore(ApiTester $I)
     {
         $name = 'Employee ' . time();
-        $email = 'employee'. time() . '@varaa.com';
+        $email = 'employee' . time() . '@varaa.com';
         $phone = time();
 
         $I->sendPOST($this->employeesEndpoint, [
@@ -134,7 +163,8 @@ class EmployeeCest
         $I->assertEmpty($employee, '$employee');
     }
 
-    protected function _assertEmployee(\ApiTester $I, Employee $employee, array $employeeData) {
+    protected function _assertEmployee(\ApiTester $I, Employee $employee, array $employeeData)
+    {
         $I->assertEquals($employee->name, $employeeData['employee_name'], "\$employeeData['employee_name']");
         $I->assertEquals($employee->email, $employeeData['employee_email'], "\$employeeData['employee_email']");
         $I->assertEquals($employee->phone, $employeeData['employee_phone'], "\$employeeData['employee_phone']");
