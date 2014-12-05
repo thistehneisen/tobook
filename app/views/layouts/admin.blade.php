@@ -23,7 +23,7 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-bar-chart"></i> {{ trans('admin.nav.stats') }} <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="{{ route('admin.stats.fd') }}">{{ trans('admin.nav.flash_deals') }}</a></li>
+                        <li><a href="{{ route('admin.stats.fd') }}"><i class="fa fa-flash"></i> {{ trans('admin.nav.flash_deals') }}</a></li>
                     </ul>
                 </li>
             </ul>
