@@ -6,7 +6,6 @@ use App\Appointment\Models\Employee;
 use App\Appointment\Models\EmployeeCustomTime;
 use App\Appointment\Models\EmployeeDefaultTime;
 use App\Appointment\Models\EmployeeFreetime;
-use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;
@@ -51,12 +50,15 @@ trait Models
 
         if ($withBusiness) {
             $business = new Business([
-                'name' => 'Business Name',
-                'address' => 'An Address',
-                'city' => 'Some City',
-                'postcode' => 10000,
-                'country' => 'Finland',
-                'phone' => '1234567890',
+                'name'             => 'Business Name',
+                'address'          => 'An Address',
+                'city'             => 'Some City',
+                'postcode'         => 10000,
+                'country'          => 'Finland',
+                'phone'            => '1234567890',
+                'meta_title'       => 'dummy meta_title',
+                'meta_keywords'    => 'dummy meta_keywords',
+                'meta_description' => 'dummy meta_description',
             ]);
             $business->size = 1;
             $business->is_activated = 1;
@@ -206,7 +208,7 @@ trait Models
             for ($j = 0; $j < $serviceCount; $j++) {
                 $service = new Service([
                     'name' => 'Service ' . (++$serviceCreated),
-                    'during' => 15 * (int)$serviceCreated,
+                    'during' => 15 * (int) $serviceCreated,
                     'price' => 10 * $serviceCreated,
                     'is_active' => 1,
                 ]);
@@ -259,6 +261,7 @@ trait Models
         }
 
         $i++;
+
         return $consumer;
     }
 
@@ -278,6 +281,7 @@ trait Models
         }
 
         $i++;
+
         return $group;
     }
 
@@ -379,16 +383,16 @@ trait Models
 
     public function initCustomTime()
     {
-        if(empty($this->user)) {
+        if (empty($this->user)) {
             $this->user = User::find(70);
         }
 
-        if(empty($this->employee)) {
+        if (empty($this->employee)) {
             $this->initData();
         }
 
         //Init custome time
-        $customTime = new CustomTime;
+        $customTime = new CustomTime();
 
         $customTime->fill([
                 'name'       => '9:00 to 17:00',
@@ -420,7 +424,6 @@ trait Models
         $employeeFreetime->user()->associate($this->user);
         $employeeFreetime->employee()->associate($this->employee);
         $employeeFreetime->save();
-
 
         $employeeCustomTime1 =  EmployeeCustomTime::getUpsertModel($this->employee->id, Carbon::now()->toDateString());
         $employeeCustomTime1->fill([

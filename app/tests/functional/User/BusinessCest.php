@@ -24,4 +24,12 @@ class BusinessCest
         $I->see('Ajanvaraus', 'h4');
         $I->see('Asiakkaat', 'h4');
     }
+
+    public function seeMetaInformationInBusinessPage(FunctionalTester $i)
+    {
+        $i->amOnPage($this->user->business->business_url);
+        $i->grabAttributeFrom('meta[name=description]', 'content', $this->user->business->meta_description);
+        $i->grabAttributeFrom('meta[name=title]', 'content', $this->user->business->meta_title);
+        $i->grabAttributeFrom('meta[name=keywords]', 'content', $this->user->business->meta_keywords);
+    }
 }
