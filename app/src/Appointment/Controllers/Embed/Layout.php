@@ -205,10 +205,11 @@ trait Layout
      */
     public function getTimetable()
     {
-        $today    = Carbon::today();
-        $date     = Input::has('date') ? new Carbon(Input::get('date')) : $today;
-        $hash     = Input::get('hash');
-        $service  = Service::findOrFail(Input::get('serviceId'));
+        $today      = Carbon::today();
+        $date       = Input::has('date') ? new Carbon(Input::get('date')) : $today;
+        $hash       = Input::get('hash');
+        $service    = Service::findOrFail(Input::get('serviceId'));
+        $employeeId = (int) Input::get('employeeId');
         $serviceTime = null;
 
         if (Input::has('serviceTimeId')) {
@@ -221,7 +222,7 @@ trait Layout
         if ($date->lt($today)) {
             $date = $today->copy();
         }
-
+        $timetable = [];
         if ($employeeId === -1) {
             $timetable = $this->getTimetableOfAnyone($service, $date, $serviceTime);
         } elseif ($employeeId > 0) {

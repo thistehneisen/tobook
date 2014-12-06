@@ -15,8 +15,8 @@ class AsConsumer extends \App\Core\Models\Base
      */
     public static function handleConsumer($data, $user = null)
     {
-        $first_name = $data['first_name'];
-        $last_name  = $data['last_name'];
+        $first_name = trim($data['first_name']);
+        $last_name  = trim($data['last_name']);
         $phone      = trim($data['phone']);
         $hash       = $data['hash'];
 

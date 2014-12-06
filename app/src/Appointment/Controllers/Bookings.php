@@ -438,7 +438,7 @@ class Bookings extends AsBase
 
         try{
             $employee = Employee::ofCurrentUser()->find($employeeId);
-            $service = Service::ofCurrentUser()->find($serviceId);
+            $service  = Service::ofCurrentUser()->find($serviceId);
 
             $length = 0;
             $serviceTime = null;
@@ -588,7 +588,7 @@ class Bookings extends AsBase
             $status = Booking::getStatus($bookingStatus);
 
             $total = $length + $plustime + $bookingService->modify_time;
-            $total_price = $price;
+            $totalPrice = $price;
 
             $booking = new Booking();
             $startTime = null;
@@ -612,9 +612,9 @@ class Bookings extends AsBase
                 $startTime = Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s', $booking->date, $booking->start_at));
 
                 $total = $length + $plustime + $extraServiceTime + $bookingService->modify_time;
-                $total_price = $price + $extraServicePrice;
+                $totalPrice = $price + $extraServicePrice;
 
-                $endTime= with(clone $startTime)->addMinutes($total);
+                $endTime= $startTime->copy()->addMinutes($total);
             } else {
                 $startTime = Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s', $bookingService->date, $bookingService->start_at));
                 $endTime   = Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s', $bookingService->date, $bookingService->end_at));
@@ -625,7 +625,7 @@ class Bookings extends AsBase
                 'start_at'    => $startTime->toTimeString(),
                 'end_at'      => $endTime->toTimeString(),
                 'total'       => $total,
-                'total_price' => $total_price,
+                'total_price' => $totalPrice,
                 'status'      => $status,
                 'notes'       => $notes,
                 'uuid'        => $uuid,
