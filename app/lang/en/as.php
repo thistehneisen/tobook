@@ -296,7 +296,8 @@ return [
             'reschedule_single_only'   => 'Booking with multiple services cannot be rescheduled',
             'reschedule_unbooked_extra'=> 'Booking cannot be rescheduled',
             'not_enough_resources'     => 'Required resources are not available!',
-            'empty_start_time'         => 'Booking start time cannot be empty'
+            'empty_start_time'         => 'Booking start time cannot be empty',
+            'booking_not_found'        => 'Booking not found!',
         ],
         'warning'      => [
             'existing_user'   => 'There is an user associate with this email in our system. Do you want to use these information instead?',// @todo

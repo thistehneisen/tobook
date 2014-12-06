@@ -385,6 +385,7 @@ class Bookings extends AsBase
     {
         $bookingId   = Input::get('booking_id');
         $status_text = Input::get('booking_status');
+        $cutId       = Session::get('cutId', null);
         $data = [];
         try{
             $booking = Booking::ofCurrentUser()->find($bookingId);
@@ -395,6 +396,12 @@ class Bookings extends AsBase
                 $booking->delete_reason = 'Cancelled by admin';
                 $booking->save();
                 $booking->delete();
+
+                //Preventing user confirm reschedule an deleted booking
+                if(!empty($cutId) && ($booking->id == $cutId)) {
+                    Session::forget('cutId');
+                }
+
             } else {
                 $booking->save();
             }

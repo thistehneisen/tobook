@@ -86,8 +86,16 @@ class Bookings extends \App\Core\Controllers\Ajax\Base
             return Response::json(['success' => false]);
         }
 
-        $booking = Booking::find($cutId);
         // TODO: handle error here if it can't find the booking
+        try {
+            $booking = Booking::findOrFail($cutId);
+        } catch(\Exception $ex){
+            return Response::json([
+                'success' => false,
+                'message' => trans('as.bookings.error.booking_not_found')
+            ]);
+        }
+
         $bookingService   = $booking->bookingServices()->first();
         $bookingServiceId = $bookingService->id;
         $serviceId        = $bookingService->service->id;
