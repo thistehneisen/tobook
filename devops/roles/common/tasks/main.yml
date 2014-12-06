@@ -18,6 +18,7 @@
     - sendmail
     - openjdk-7-jre-headless
     - redis-server
+    - php5-mysqlnd
 
 - name: remove default apache site
   action: file path=/etc/apache2/sites-available/000-default.conf state=absent
