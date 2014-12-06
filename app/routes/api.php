@@ -38,6 +38,7 @@ Route::group([
                 'only' => ['store', 'show', 'update', 'destroy']
             ]);
             Route::resource('consumers', 'App\API\v1_0\Appointment\Controllers\Consumer');
+            Route::resource('employees', 'App\API\v1_0\Appointment\Controllers\Employee');
             Route::put('bookings/{id}/status', 'App\API\v1_0\Appointment\Controllers\Booking@putStatus');
             Route::put('bookings/{id}/modify_time', 'App\API\v1_0\Appointment\Controllers\Booking@putModifyTime');
             Route::put('bookings/{id}/schedule', 'App\API\v1_0\Appointment\Controllers\Booking@putSchedule');

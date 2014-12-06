@@ -1,15 +1,13 @@
 <?php namespace Test\Api\Appointment\Controllers;
 
-use \ApiTester;
-use Test\Traits\Models;
-use Carbon\Carbon;
+use ApiTester;
 
 /**
  * @group as
  */
 class ServiceCest
 {
-    use Models;
+    use \Test\Traits\Models;
 
     const CATEGORY_COUNT = 5;
     const SERVICE_COUNT = 10;
@@ -50,6 +48,20 @@ class ServiceCest
         $I->assertEquals($pagination['per_page'], count($services), 'count($services)');
         $I->assertEquals(1, $pagination['page'], "\$pagination['page']");
         $I->assertEquals(ceil(self::CATEGORY_COUNT * self::SERVICE_COUNT / count($services)), $pagination['last_page'], "\$pagination['last_page']");
+    }
+
+    public function testServicesIsInactive(ApiTester $I)
+    {
+        $category = $this->categories[0];
+        $service = $category->services()->first();
+        $service->is_active = 0;
+        $service->saveOrFail();
+
+        $serviceCount = self::CATEGORY_COUNT * self::SERVICE_COUNT;
+
+        $I->sendGET($this->servicesEndpoint);
+        $pagination = $I->grabDataFromJsonResponse('pagination');
+        $I->assertEquals($serviceCount - 1, $pagination['total'], "\$pagination['total']");
     }
 
     public function testServicesPagination(ApiTester $I)
