@@ -298,6 +298,7 @@ return [
             'not_enough_resources'     => 'Required resources are not available!',
             'empty_start_time'         => 'Booking start time cannot be empty',
             'booking_not_found'        => 'Booking not found!',
+            'past_booking'             => 'Cannot make booking in the past!'
         ],
         'warning'      => [
             'existing_user'   => 'Järjestelmästä löytyy käyttäjäprofiili antamallesi sähköpostiosoitteelle. Ovatko nämä sinun tietosi?',

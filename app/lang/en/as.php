@@ -298,6 +298,7 @@ return [
             'not_enough_resources'     => 'Required resources are not available!',
             'empty_start_time'         => 'Booking start time cannot be empty',
             'booking_not_found'        => 'Booking not found!',
+            'past_booking'             => 'Cannot make booking in the past!'
         ],
         'warning'      => [
             'existing_user'   => 'There is an user associate with this email in our system. Do you want to use these information instead?',// @todo
