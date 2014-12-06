@@ -87,6 +87,7 @@ class Bookings extends \App\Core\Controllers\Ajax\Base
         }
 
         $booking = Booking::find($cutId);
+        // TODO: handle error here if it can't find the booking
         $bookingService   = $booking->bookingServices()->first();
         $bookingServiceId = $bookingService->id;
         $serviceId        = $bookingService->service->id;

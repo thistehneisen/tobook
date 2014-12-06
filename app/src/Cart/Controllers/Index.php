@@ -103,6 +103,7 @@ class Index extends \AppController
         // won't be able to fetch.
         Event::fire('cart.removed', $id);
 
+        // TODO: handle error here if Cart::current() contains nothing
         Cart::current()->remove($id);
     }
 }

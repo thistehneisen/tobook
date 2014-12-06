@@ -255,6 +255,7 @@ class Bookings extends AsBase
         $booking = Booking::ofCurrentUser()->find($bookingId);
         $bookingStatuses = Booking::getStatuses();
 
+        // TODO: guard booking here
         $bookingExtraServices = $booking->extraServices()->lists('extra_service_id');
 
         $extraServices = $booking->bookingServices()
