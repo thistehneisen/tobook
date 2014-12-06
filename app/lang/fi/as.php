@@ -296,6 +296,7 @@ return [
             'reschedule_single_only'   => 'Useita palveluita sisältävää varausta ei valitettavasti voi siirtää.',
             'reschedule_unbooked_extra'=> 'Varauksen siirto epäonnistui!',
             'not_enough_resources'     => 'Required resources are not available!',
+            'empty_start_time'         => 'Booking start time cannot be empty'
         ],
         'warning'      => [
             'existing_user'   => 'Järjestelmästä löytyy käyttäjäprofiili antamallesi sähköpostiosoitteelle. Ovatko nämä sinun tietosi?',

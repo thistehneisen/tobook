@@ -39,7 +39,7 @@ class FrontBookings extends Bookings
         $extraServiceIds = Input::get('extra_services', []);
         $hash            = Input::get('hash');
         $bookingDate     = Input::get('booking_date');
-        $startTimeStr    = Input::get('start_time');
+        $startTimeStr    = trim(Input::get('start_time'));
         $uuid            = Input::get('uuid', Util::uuid());
 
         //Use for front-end booking
@@ -47,6 +47,11 @@ class FrontBookings extends Bookings
             //TODO check if is there any potential error
             $decoded = Hashids::decrypt($hash);
             $this->user = User::find($decoded[0]);
+        }
+
+        if(empty($startTimeStr)) {
+            $data['message'] = trans('as.bookings.error.empty_start_time');
+            return Response::json($data, 400);
         }
 
         $employee = Employee::find($employeeId);
