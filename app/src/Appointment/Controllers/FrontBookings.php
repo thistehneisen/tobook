@@ -66,6 +66,12 @@ class FrontBookings extends Bookings
         $startTime = Carbon::createFromFormat('Y-m-d H:i', sprintf('%s %s', $bookingDate, $startTimeStr));
         $cartStartTime = $startTime->copy();
 
+        if($startTime < Carbon::now())
+        {
+            $data['message'] = trans('as.bookings.error.past_booking');
+            return Response::json($data, 400);
+        }
+
         $extraServiceTime  = 0;
         $extraServicePrice = 0;
         $extraServices     = [];

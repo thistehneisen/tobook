@@ -475,6 +475,12 @@ class Bookings extends AsBase
             $endTime   = with(clone $startTime)->addMinutes($endTimeDelta);
             $endDay    = with(clone $startTime)->hour(23)->minute(59)->second(59);
 
+            if($startTime < Carbon::now())
+            {
+                $data['message'] = trans('as.bookings.error.past_booking');
+                return Response::json($data, 400);
+            }
+
             //Check if the overbook end time exceed the current working day.
             if($endTime > $endDay)
             {
