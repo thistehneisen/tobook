@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Controllers\Embed;
 
-use Hashids, Input, Session, Redirect, URL, Config, Validator, App, Cart;
+use Hashids, Input, Session, Redirect, URL, Config, Validator, App, Cart, Response;
 use Carbon\Carbon;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
