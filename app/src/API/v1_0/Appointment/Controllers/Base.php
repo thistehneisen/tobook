@@ -14,10 +14,10 @@ class Base extends \App\Core\Controllers\Base
     {
         $employeeData = [
             'type' => 'employee',
-            'employee_id' => $employee->id,
-            'employee_name' => $employee->name,
-            'employee_email' => $employee->email,
-            'employee_phone' => $employee->phone,
+            'employee_id' => intval($employee->id),
+            'employee_name' => strval($employee->name),
+            'employee_email' => strval($employee->email),
+            'employee_phone' => strval($employee->phone),
         ];
 
         return $employeeData;
@@ -29,13 +29,13 @@ class Base extends \App\Core\Controllers\Base
 
         $freetimeData = [
             'type' => 'freetime',
-            'freetime_id' => $freetime->id,
-            'freetime_description' => $freetime->description,
+            'freetime_id' => intval($freetime->id),
+            'freetime_description' => strval($freetime->description),
 
-            'date' => $freetime->date,
-            'start_at' => $freetime->start_at,
-            'end_at' => $freetime->end_at,
-            'duration' => $duration,
+            'date' => strval($freetime->date),
+            'start_at' => strval($freetime->start_at),
+            'end_at' => strval($freetime->end_at),
+            'duration' => intval($duration),
         ];
 
         return $freetimeData;
@@ -46,18 +46,18 @@ class Base extends \App\Core\Controllers\Base
         $services = [];
         foreach ($booking->bookingServices as $bookingService) {
             $serviceData = [
-                'id' => $bookingService->service->id,
-                'name' => $bookingService->service->name,
-                'description' => $bookingService->service->description,
-                'category_id' => $bookingService->service->category_id,
-                'modify_time' => $bookingService->modify_time,
-                'service_time_id' => (empty($bookingService->service_time_id) ? 'default' : $bookingService->serviceTime->id),
-                'price' => $bookingService->service->price,
+                'id' => intval($bookingService->service->id),
+                'name' => strval($bookingService->service->name),
+                'description' => strval($bookingService->service->description),
+                'category_id' => intval($bookingService->service->category_id),
+                'modify_time' => intval($bookingService->modify_time),
+                'service_time_id' => (empty($bookingService->service_time_id) ? 'default' : strval($bookingService->serviceTime->id)),
+                'price' => doubleval($bookingService->service->price),
 
-                'date' => $bookingService->date,
-                'start_at' => $bookingService->start_at,
-                'end_at' => $bookingService->end_at,
-                'duration' => $bookingService->calculateServiceLength(),
+                'date' => strval($bookingService->date),
+                'start_at' => strval($bookingService->start_at),
+                'end_at' => strval($bookingService->end_at),
+                'duration' => intval($bookingService->calculateServiceLength()),
             ];
 
             // this is weird, end_at is 00:00:00 for some records
@@ -72,11 +72,11 @@ class Base extends \App\Core\Controllers\Base
         $extraServices = [];
         foreach ($booking->extraServices as $bookingExtraService) {
             $extraServices[] = [
-                'id' => $bookingExtraService->extraService->id,
-                'name' => $bookingExtraService->extraService->name,
-                'description' => $bookingExtraService->extraService->description,
-                'price' => $bookingExtraService->extraService->price,
-                'duration' => $bookingExtraService->extraService->length,
+                'id' => intval($bookingExtraService->extraService->id),
+                'name' => strval($bookingExtraService->extraService->name),
+                'description' => strval($bookingExtraService->extraService->description),
+                'price' => doubleval($bookingExtraService->extraService->price),
+                'duration' => intval($bookingExtraService->extraService->length),
             ];
         }
 
@@ -84,19 +84,19 @@ class Base extends \App\Core\Controllers\Base
 
         $bookingData = [
             'type' => 'booking',
-            'booking_id' => $booking->id,
-            'booking_uuid' => $booking->uuid,
-            'booking_notes' => !empty($booking->notes) ? $booking->notes : '',
+            'booking_id' => intval($booking->id),
+            'booking_uuid' => strval($booking->uuid),
+            'booking_notes' => !empty($booking->notes) ? strval($booking->notes) : '',
             'booking_status' => Booking::getStatusByValue($booking->status),
 
             'consumer' => $this->_prepareConsumerData($booking->consumer),
             'booking_services' => $services,
             'booking_extra_services' => $extraServices,
 
-            'date' => $booking->date,
-            'start_at' => $booking->start_at,
-            'end_at' => $booking->end_at,
-            'duration' => $duration,
+            'date' => strval($booking->date),
+            'start_at' => strval($booking->start_at),
+            'end_at' => strval($booking->end_at),
+            'duration' => intval($duration),
         ];
 
         if ($includeEmployee) {
@@ -115,10 +115,10 @@ class Base extends \App\Core\Controllers\Base
 
         $activeData = [
             'type' => 'active',
-            'date' => $date->toDateString(),
-            'start_at' => $activeStartAt->toTimeString(),
-            'end_at' => $activeStartAt->addMinutes($duration)->toTimeString(),
-            'duration' => $duration,
+            'date' => strval($date->toDateString()),
+            'start_at' => strval($activeStartAt->toTimeString()),
+            'end_at' => strval($activeStartAt->addMinutes($duration)->toTimeString()),
+            'duration' => intval($duration),
         ];
 
         return $activeData;
@@ -128,36 +128,36 @@ class Base extends \App\Core\Controllers\Base
     {
         $times = [[
             'id' => 'default',
-            'length' => $service->length,
-            'price' => $service->price,
+            'length' => intval($service->length),
+            'price' => doubleval($service->price),
         ]];
         foreach ($service->serviceTimes as $serviceTime) {
             $times[] = [
-                'id' => $serviceTime->id,
-                'length' => $serviceTime->length,
-                'price' => $serviceTime->price,
+                'id' => strval($serviceTime->id),
+                'length' => intval($serviceTime->length),
+                'price' => doubleval($serviceTime->price),
             ];
         }
 
         $extras = [];
         foreach ($service->extraServices as $extraService) {
             $extras[] = [
-                'id' => $extraService->id,
-                'name' => $extraService->name,
-                'description' => $extraService->description,
-                'length' => $extraService->length,
-                'price' => $extraService->price,
+                'id' => intval($extraService->id),
+                'name' => strval($extraService->name),
+                'description' => strval($extraService->description),
+                'length' => intval($extraService->length),
+                'price' => doubleval($extraService->price),
             ];
         }
 
         $serviceData = [
             'type' => 'service',
-            'service_id' => $service->id,
-            'service_name' => $service->name,
-            'service_description' => $service->description,
-            'service_is_active' => $service->is_active,
+            'service_id' => intval($service->id),
+            'service_name' => strval($service->name),
+            'service_description' => strval($service->description),
+            'service_is_active' => !empty($service->is_active),
 
-            'category_id' => $service->category_id,
+            'category_id' => intval($service->category_id),
             'service_times' => $times,
             'extra_services' => $extras,
         ];
@@ -169,9 +169,9 @@ class Base extends \App\Core\Controllers\Base
     {
         $categoryData = [
             'type' => 'service_category',
-            'category_id' => $category->id,
-            'category_name' => $category->name,
-            'category_description' => $category->description,
+            'category_id' => intval($category->id),
+            'category_name' => strval($category->name),
+            'category_description' => strval($category->description),
         ];
 
         return $categoryData;
@@ -180,22 +180,16 @@ class Base extends \App\Core\Controllers\Base
     protected function _prepareConsumerData($consumer) {
         $consumerData = [
             'type' => 'consumer',
-            'consumer_id' => $consumer->id,
-            'consumer_first_name' => $consumer->first_name,
-            'consumer_last_name' => $consumer->last_name,
-            'consumer_email' => $consumer->email,
-            'consumer_phone' => $consumer->phone,
-            'consumer_address' => $consumer->address,
-            'consumer_city' => $consumer->city,
-            'consumer_postcode' => $consumer->postcode,
-            'consumer_country' => $consumer->country,
+            'consumer_id' => intval($consumer->id),
+            'consumer_first_name' => strval($consumer->first_name),
+            'consumer_last_name' => strval($consumer->last_name),
+            'consumer_email' => strval($consumer->email),
+            'consumer_phone' => strval($consumer->phone),
+            'consumer_address' => strval($consumer->address),
+            'consumer_city' => strval($consumer->city),
+            'consumer_postcode' => strval($consumer->postcode),
+            'consumer_country' => strval($consumer->country),
         ];
-
-        foreach ($consumerData as &$value) {
-            if ($value === null) {
-                $value = '';
-            }
-        }
 
         return $consumerData;
     }
@@ -204,10 +198,10 @@ class Base extends \App\Core\Controllers\Base
     {
         if ($pagination instanceof Paginator) {
             return [
-                'total' => $pagination->getTotal(),
-                'per_page' => $pagination->getPerPage(),
-                'page' => $pagination->getCurrentPage(),
-                'last_page' => $pagination->getLastPage(),
+                'total' => intval($pagination->getTotal()),
+                'per_page' => intval($pagination->getPerPage()),
+                'page' => intval($pagination->getCurrentPage()),
+                'last_page' => intval($pagination->getLastPage()),
             ];
         } else {
             return [
