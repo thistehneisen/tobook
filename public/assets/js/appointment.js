@@ -144,6 +144,10 @@
                 success: function (response) {
                     $('#' + div_id).html(response);
                 }
+            }).fail(function (data) {
+                alertify.alert('Alert', data.responseJSON.message, function () {
+                    alertify.message("OK");
+                });
             });
             return '<div class="popover_form" id="' + div_id + '"><img src="/assets/img/busy.gif"></div>';
         }

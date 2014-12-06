@@ -252,10 +252,16 @@ class Bookings extends AsBase
     public function getModifyBookingForm()
     {
         $bookingId = Input::get('booking_id');
-        $booking = Booking::ofCurrentUser()->find($bookingId);
+
+        try {
+            $booking = Booking::ofCurrentUser()->findOrFail($bookingId);
+        } catch(\Exception $ex) {
+            $data['message'] = trans('as.bookings.error.booking_not_found');
+            return Response::json($data, 400);
+        }
+
         $bookingStatuses = Booking::getStatuses();
 
-        // TODO: guard booking here
         $bookingExtraServices = $booking->extraServices()->lists('extra_service_id');
 
         $extraServices = $booking->bookingServices()
