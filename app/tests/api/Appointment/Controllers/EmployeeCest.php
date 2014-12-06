@@ -53,6 +53,16 @@ class EmployeeCest
         }
     }
 
+    public function testPaginationDisabled(ApiTester $I)
+    {
+        $employeeCount = 3;
+        $this->_createEmployee($employeeCount);
+
+        $I->sendGET($this->employeesEndpoint, ['per_page' => 0]);
+        $employeesData = $I->grabDataFromJsonResponse('data');
+        $I->assertEquals($employeeCount, count($employeesData), 'count($employeesData)');
+    }
+
     public function testIsInactive(ApiTester $I)
     {
         $employeeCount = 3;
