@@ -118,6 +118,7 @@ class EmployeeCest
             'name' => $name,
             'email' => $email,
             'phone' => $phone,
+            'is_active' => 1,
         ]);
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
@@ -126,10 +127,27 @@ class EmployeeCest
         $I->assertEquals($name, $employeeData['employee_name'], "\$employeeData['employee_name']");
         $I->assertEquals($email, $employeeData['employee_email'], "\$employeeData['employee_email']");
         $I->assertEquals($phone, $employeeData['employee_phone'], "\$employeeData['employee_phone']");
+        $I->assertTrue($employeeData['employee_is_active'], "\$employeeData['employee_is_active']");
 
         $employee = Employee::ofCurrentUser()->findOrFail($employeeData['employee_id']);
         $I->assertNotEmpty($employee);
         $this->_assertEmployee($I, $employee, $employeeData);
+    }
+
+    public function testStoreInactive(ApiTester $I)
+    {
+        $name = 'Employee ' . time();
+        $email = 'employee' . time() . '@varaa.com';
+        $phone = time();
+
+        $I->sendPOST($this->employeesEndpoint, [
+            'name' => $name,
+            'email' => $email,
+            'phone' => $phone,
+            'is_active' => 0,
+        ]);
+        $employeeData = $I->grabDataFromJsonResponse('data');
+        $I->assertFalse($employeeData['employee_is_active'], "\$employeeData['employee_is_active']");
     }
 
     public function testShow(ApiTester $I)

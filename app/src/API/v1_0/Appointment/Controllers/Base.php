@@ -18,6 +18,7 @@ class Base extends \App\Core\Controllers\Base
             'employee_name' => strval($employee->name),
             'employee_email' => strval($employee->email),
             'employee_phone' => strval($employee->phone),
+            'employee_is_active' => !empty($employee->is_active),
         ];
 
         return $employeeData;
