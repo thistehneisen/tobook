@@ -4,4 +4,4 @@ require_once realpath(__DIR__.'/../../vendor/autoload.php');
 
 \Codeception\Util\Autoload::registerSuffix('Group', __DIR__.DIRECTORY_SEPARATOR.'_groups');
 \Codeception\Util\Autoload::register('Test\Traits', '', __DIR__ . DIRECTORY_SEPARATOR . 'helpers/Traits');
-
+\Codeception\Util\Autoload::register('Test\Helpers', '', __DIR__ . DIRECTORY_SEPARATOR . 'helpers');

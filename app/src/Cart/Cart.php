@@ -117,13 +117,14 @@ class Cart extends \AppModel
     public function remove($id)
     {
         $this->details()->where('id', $id)->delete();
+
         return $this;
     }
 
     /**
      * Release items put in the cart so that they're bookable again
      *
-     * @param Carbon $cutoff
+     * @param  Carbon $cutoff
      * @return void
      */
     public static function scheduledUnlock(Carbon $cutoff)
@@ -220,5 +221,13 @@ class Cart extends \AppModel
     public function consumer()
     {
        return $this->belongsTo('App\Consumers\Models\Consumer');
+    }
+
+    //--------------------------------------------------------------------------
+    // SCOPES
+    //--------------------------------------------------------------------------
+    public function scopeCompleted($query)
+    {
+        return $query->where('status', static::STATUS_COMPLETED);
     }
 }
