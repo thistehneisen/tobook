@@ -263,6 +263,7 @@ class FrontBookings extends Bookings
 
         try {
             $cartId   = Input::get('cart_id');
+            $source   = Input::get('source', 'inhouse');
             $cart     = Cart::find($cartId);
             $business = Business::findOrFail(Input::get('business_id'));
             $user     = $business->user;
@@ -298,6 +299,7 @@ class FrontBookings extends Bookings
                 'modify_time' => $bookingService->modify_time,
                 'plustime'    => $plustime,
                 'notes'       => $cart->notes,
+                'source'      => $source,
                 'ip'          => Request::getClientIp()
             ]);
 
