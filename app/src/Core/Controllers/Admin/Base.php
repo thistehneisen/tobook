@@ -1,9 +1,5 @@
 <?php namespace App\Core\Controllers\Admin;
 
-class Base extends \App\Core\Controllers\Base
+class Base extends \AppController
 {
-    protected function render($path, $data = [])
-    {
-        return \View::make('admin.'.$path, $data);
-    }
 }
