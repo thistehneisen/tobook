@@ -58,9 +58,9 @@ class MergeComsumersCommand extends Command
                     $consumer->last_name,
                     $consumer->phone));
 
-                // Reallocate consumer
+                // Relocate consumer
                 foreach ($list as $duplicated) {
-                    $this->reallocate($consumer, $duplicated);
+                    $this->relocate($consumer, $duplicated);
                 }
             }
         }
@@ -78,14 +78,14 @@ class MergeComsumersCommand extends Command
     }
 
     /**
-     * Reallocate a duplicated consumer
+     * Relocate a duplicated consumer
      *
      * @param App\Consumers\Models\Consumer $consumer
      * @param App\Consumers\Models\Consumer $duplicated
      *
      * @return void
      */
-    protected function reallocate($consumer, $duplicated)
+    protected function relocate($consumer, $duplicated)
     {
         // Compare two phone numbers, if they're not similar, then just quit
         if ($this->isSimilarPhoneNumber($consumer->phone, $duplicated->phone) === false) {
