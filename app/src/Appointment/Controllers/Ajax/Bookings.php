@@ -83,7 +83,10 @@ class Bookings extends \App\Core\Controllers\Ajax\Base
         $employeeId   = (int) Input::get('employee_id');
 
         if (empty($cutId)) {
-            return Response::json(['success' => false]);
+            return Response::json([
+                'success' => false,
+                'message' => trans('as.bookings.error.booking_not_found')
+            ]);
         }
 
         // TODO: handle error here if it can't find the booking

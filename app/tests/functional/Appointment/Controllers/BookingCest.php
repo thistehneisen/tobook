@@ -421,4 +421,47 @@ class BookingCest
         $message = $I->grabDataFromJsonResponse('message');
         $I->assertEquals(trans('as.bookings.error.empty_start_time'), $message);
     }
+
+    public function testRescheduleAnDeletedBooking(FunctionalTester $I)
+    {
+        $user = User::find(70);
+        $category = ServiceCategory::find(105);
+        $service  = $category->services()->first();
+        $employee = $service->employees()->first();
+        $date = Carbon::now();
+
+        $booking = $this->_book($user, $category);
+        $booking = Booking::find($booking->id);
+        $I->assertNotEmpty($booking, 'booking has been found');
+
+
+        //try cut the booking
+        $I->sendAjaxPostRequest(route('as.bookings.cut', ['booking_id' => $booking->id]));
+        $I->seeResponseCodeIs(200);
+
+        //delete booking
+        $I->sendPOST(route('as.bookings.change-status', [
+            'booking_id' => $booking->id,
+            'booking_status' => 'cancelled'
+        ]));
+        $I->seeResponseCodeIs(200);
+        $success = $I->grabDataFromJsonResponse('success');
+        $I->assertTrue($success);
+        $booking = Booking::find($booking->id);
+        $I->assertEmpty($booking);
+
+        //try to paste the deleted booking, you must not pass
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPOST(route('as.bookings.paste', [
+            'booking_date' => $date->toDateString(),
+            'start_time' => '12:00',
+            'employee_id' => $employee->id,
+        ]));
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $success = $I->grabDataFromJsonResponse('success');
+        $message = $I->grabDataFromJsonResponse('message');
+        $I->assertFalse($success);
+        $I->assertEquals($message, trans('as.bookings.error.booking_not_found'));
+    }
 }
