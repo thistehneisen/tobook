@@ -163,10 +163,12 @@ class Layout1Cest extends AbstractBooking
      */
     public function testEndTime(AcceptanceTester $I)
     {
-        if(empty($this->category)) {
-            $this->initData();
-            $this->initCustomTime();
-        }
+        $this->category = null;
+        $this->service = null;
+
+        $this->initData(false);
+        $this->initCustomTime();
+
         $user = User::find(70);
         $category = $this->category;
         $service = $category->services()->first();
@@ -178,8 +180,12 @@ class Layout1Cest extends AbstractBooking
         //This service has 15 mins after the actual service length
         $I->assertEquals($service->after, 15);
 
-        $today = Carbon::today();
-        $date = new Carbon('2014-11-24');
+        $date = Carbon::today();
+        if($date->dayOfWeek == Carbon::SUNDAY) {
+            $date->addDays(1);
+        } else if($date->dayOfWeek == Carbon::SATURDAY) {
+            $date->addDays(2);
+        }
         $startAt = '1600';
 
         $firstName = 'First';
@@ -187,13 +193,13 @@ class Layout1Cest extends AbstractBooking
         $email = 'consumer' . time() . '@varaa.com';
         $phone = time();
         $I->assertEquals($category->user->id, $user->id);
-        $I->amOnPage(route('as.embed.embed', ['hash' => $this->user->hash, 'date'=> $date->toDateString()], false));
+        $I->amOnPage(route('as.embed.embed', ['hash' => $user->hash, 'date'=> $date->toDateString()], false));
         $I->click('#btn-category-' . $category->id);
         $I->wait(1);
         $I->see("Hiusjuuritutkimus");
         $I->click('#btn-service-' . $service->id);
-        $I->waitForElementVisible('#btn-add-service-'. $service->id);
-        $I->click('#btn-add-service-' . $service->id);
+        $I->click(sprintf('//a[@data-service-id=%s][@data-service-time="default"]', $service->id));
+        $I->click(sprintf('#btn-add-service-%s', $service->id));
         $I->wait(1);
         $I->seeInCurrentUrl(sprintf('service_id=%d&service_time=default&date=%s', $service->id, $date->toDateString()));
         $I->click(sprintf('//*[@id="btn-slot-%s-%s"]', $employee->id, $startAt));

@@ -321,7 +321,7 @@ trait Models
         User::boot();
     }
 
-    public function initData()
+    public function initData($initExtraServices = true)
     {
         $this->user = User::find(70);
         Employee::where('id', 63)->forceDelete();
@@ -358,31 +358,40 @@ trait Models
         $this->service->saveOrFail();
         $this->service->employees()->attach($this->employee);
 
-        $extraService1 = new ExtraService([
+        if($initExtraServices) {
+            $extraService1 = new ExtraService([
                 'name' => 'Extra service 1',
                 'price' => 10,
                 'length' => 15,
-        ]);
-        $extraService1->user()->associate($this->user);
-        $extraService1->save();
+            ]);
+            $extraService1->user()->associate($this->user);
+            $extraService1->save();
 
-        $extraService2 = new ExtraService([
+            $extraService2 = new ExtraService([
                 'name' => 'Extra service 2',
                 'price' => 10,
                 'length' => 15,
-        ]);
-        $extraService2->user()->associate($this->user);
-        $extraService2->save();
+            ]);
+            $extraService2->user()->associate($this->user);
+            $extraService2->save();
 
-        $this->extraServices[] = $extraService1;
-        $this->extraServices[] = $extraService2;
+            $this->extraServices[] = $extraService1;
+            $this->extraServices[] = $extraService2;
 
-        $this->service->extraServices()->attach($extraService1);
-        $this->service->extraServices()->attach($extraService2);
+            $this->service->extraServices()->attach($extraService1);
+            $this->service->extraServices()->attach($extraService2);
+        }
     }
 
     public function initCustomTime()
     {
+        $date = Carbon::today();
+        if($date->dayOfWeek == Carbon::SUNDAY) {
+            $date->addDays(1);
+        } else if($date->dayOfWeek == Carbon::SATURDAY) {
+            $date->addDays(2);
+        }
+
         if (empty($this->user)) {
             $this->user = User::find(70);
         }
@@ -407,7 +416,7 @@ trait Models
 
         $employeeCustomTime =  EmployeeCustomTime::getUpsertModel($this->employee->id, '2014-11-24 00:00:00');
         $employeeCustomTime->fill([
-            'date' =>  '2014-11-24 00:00:00'
+            'date' =>  $date->toDateString()
         ]);
         $employeeCustomTime->employee()->associate($this->employee);
         $employeeCustomTime->customTime()->associate($customTime);
@@ -416,7 +425,7 @@ trait Models
         //Add employee freetime
         $employeeFreetime = new EmployeeFreetime();
         $employeeFreetime->fill([
-            'date' => '2014-11-24',
+            'date' => $date->toDateString(),
             'start_at' => '13:00',
             'end_at'=>'14:00',
             'description' => ''
