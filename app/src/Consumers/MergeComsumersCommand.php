@@ -34,10 +34,17 @@ class MergeComsumersCommand extends Command
             return;
         }
 
+        $noPhoneCounter = [];
+
         $user = User::findOrFail($userId);
         $this->info('Merging consumers of user '.$userId);
         $consumers = $user->consumers()->orderBy('id', 'ASC')->get();
         foreach ($consumers as $consumer) {
+            if (empty($consumer->phone)) {
+                $noPhoneCounter[] = $consumer;
+                continue;
+            }
+
             // Find other consumers that have the same first name and last name
             $list = $user->consumers()->where('first_name', $consumer->first_name)
                 ->where('last_name', $consumer->last_name)
@@ -56,7 +63,17 @@ class MergeComsumersCommand extends Command
                     $this->reallocate($consumer, $duplicated);
                 }
             }
+        }
 
+        $this->question('There are '.count($noPhoneCounter).' consumers without phone numbers:');
+        foreach ($noPhoneCounter as $consumer) {
+            $this->line(sprintf(
+                "\t %d %s %s %s",
+                $consumer->id,
+                $consumer->first_name,
+                $consumer->last_name,
+                $consumer->phone
+            ));
         }
     }
 
