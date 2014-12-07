@@ -464,4 +464,31 @@ class BookingCest
         $I->assertFalse($success);
         $I->assertEquals($message, trans('as.bookings.error.booking_not_found'));
     }
+
+    public function testOpenModifyFormOfADeletedBooking(FunctionalTester $I)
+    {
+        $user = User::find(70);
+        $category = ServiceCategory::find(105);
+        $service  = $category->services()->first();
+        $employee = $service->employees()->first();
+        $date = Carbon::now();
+
+        $booking = $this->_book($user, $category);
+        $booking = Booking::find($booking->id);
+        $I->assertNotEmpty($booking, 'booking has been found');
+        //delete booking
+        $I->sendPOST(route('as.bookings.change-status', [
+            'booking_id' => $booking->id,
+            'booking_status' => 'cancelled'
+        ]));
+        $I->seeResponseCodeIs(200);
+
+        $I->sendGET(route('as.bookings.modify-form', [
+            'booking_id' => $booking->id
+        ]));
+        $I->seeResponseCodeIs(400);
+        $I->seeResponseIsJson();
+        $message = $I->grabDataFromJsonResponse('message');
+        $I->assertEquals($message, trans('as.bookings.error.booking_not_found'));
+    }
 }
