@@ -22,6 +22,13 @@ class MergeComsumersCommand extends Command
     protected $description = 'Merge duplicated consumers of the given user, or all users';
 
     /**
+     * List of processed consumers
+     *
+     * @var array
+     */
+    protected $processed = [];
+
+    /**
      * Execute the console command.
      *
      * @return mixed
@@ -38,8 +45,17 @@ class MergeComsumersCommand extends Command
 
         $user = User::findOrFail($userId);
         $this->info('Merging consumers of user '.$userId);
-        $consumers = $user->consumers()->orderBy('id', 'ASC')->get();
+        $consumers = $user->consumers()
+            ->where('is_visible', 1)
+            ->orderBy('id', 'ASC')
+            ->get();
         foreach ($consumers as $consumer) {
+            // If this consumer is already processed, skip
+            if (isset($this->processed[$consumer->id])) {
+                continue;
+            }
+
+            // Also skip who doesn't have phone
             if (empty($consumer->phone)) {
                 $noPhoneCounter[] = $consumer;
                 continue;
@@ -60,6 +76,8 @@ class MergeComsumersCommand extends Command
 
                 // Relocate consumer
                 foreach ($list as $duplicated) {
+                    // Mark as processed
+                    $this->processed[$duplicated->id] = true;
                     $this->relocate($consumer, $duplicated);
                 }
             }
