@@ -401,4 +401,24 @@ class BookingCest
         $I->seeResponseCodeIs(200);
         $I->dontSeeElement('#row-' .  $booking->id);
     }
+
+    public function testBookingWithEmptyStartTime(FunctionalTester $I)
+    {
+        $user = User::find(70);
+        $category = ServiceCategory::find(105);
+        $service  = $category->services()->first();
+        $employee = $service->employees()->first();
+        $date = Carbon::now();
+
+        $I->sendPOST(route('as.bookings.service.front.add', [
+            'service_id' => $service->id,
+            'employee_id' => $employee->id,
+            'hash' => $user->hash,
+            'booking_date' => $date->toDateString(),
+        ]));
+        $I->seeResponseCodeIs(400);
+        $I->seeResponseIsJson();
+        $message = $I->grabDataFromJsonResponse('message');
+        $I->assertEquals(trans('as.bookings.error.empty_start_time'), $message);
+    }
 }
