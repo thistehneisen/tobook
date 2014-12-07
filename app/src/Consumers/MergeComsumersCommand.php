@@ -78,7 +78,7 @@ class MergeComsumersCommand extends Command
                 foreach ($list as $duplicated) {
                     // Mark as processed
                     $this->processed[$duplicated->id] = true;
-                    $this->relocate($consumer, $duplicated);
+                    $this->relocate($user, $consumer, $duplicated);
                 }
             }
         }
@@ -98,12 +98,13 @@ class MergeComsumersCommand extends Command
     /**
      * Relocate a duplicated consumer
      *
+     * @param App\Consumers\Models\User     $user
      * @param App\Consumers\Models\Consumer $consumer
      * @param App\Consumers\Models\Consumer $duplicated
      *
      * @return void
      */
-    protected function relocate($consumer, $duplicated)
+    protected function relocate($user, $consumer, $duplicated)
     {
         // Compare two phone numbers, if they're not similar, then just quit
         if ($this->isSimilarPhoneNumber($consumer->phone, $duplicated->phone) === false) {
@@ -127,8 +128,8 @@ class MergeComsumersCommand extends Command
 
         // Break the chain
         DB::table('consumer_user')->where('consumer_id', $duplicated->id)
-            ->where('user_id', $consumer->id)
-            ->update(['is_visible' => 0]);
+            ->where('user_id', $user->id)
+            ->delete();
     }
 
     protected function isSimilarPhoneNumber($a, $b)
