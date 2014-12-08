@@ -549,15 +549,6 @@ class Bookings extends AsBase
                 'uuid'          => $uuid
             ];
 
-            $cart = [
-                'datetime'      => $startTime->toDateString(),
-                'price'         => $price,
-                'service_name'  => $service->name,
-                'employee_name' => $employee->name,
-                'start_at'      => $startTimeStr,
-                'end_at'        => $endTime->format('H:i'),
-                'uuid'          => $uuid
-            ];
         } catch (\Watson\Validating\ValidationException $ex){
             $data = [];
             $data['success'] = false;

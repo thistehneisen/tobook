@@ -9,30 +9,39 @@ use Exception;
 
 abstract class Receptionist implements ReceptionistInterface
 {
-    protected $id                  = null;
+    protected $bookingId           = null;
     protected $date                = null;
     protected $startTime           = null;
     protected $endTime             = null;
     protected $uuid                = null;
     protected $serviceId           = null;
     protected $serviceTimeId       = null;
+    protected $bookingService      = null;
     protected $selectedService     = null;
     protected $baseLength          = null;
     protected $total               = null;
+    protected $price               = null;
     protected $employeeId          = null;
     protected $employee            = null;
+    protected $plustime            = null;
+    protected $user                = null;
     protected $isRequestedEmployee = false;
 
     public function setBookingId(int $bookingId)
     {
-        $this->id = $bookingId;
+        $this->bookingId = $bookingId;
 
         return $this;
     }
 
     public function getBookingId()
     {
-        return $this->id;
+        return $this->bookingId;
+    }
+
+    public function setUser($user)
+    {
+        $this->user = $user;
     }
 
     public function setBookingDate(string $date)
@@ -40,6 +49,15 @@ abstract class Receptionist implements ReceptionistInterface
         $this->date = $date;
 
         return $this;
+    }
+
+    public function findBookingService()
+    {
+        $this->bookingService = (empty($this->bookingId))
+            ? BookingService::where('tmp_uuid', $this->uuid)->first()
+            : BookingService::where('booking_id', $this->bookingId)->first();
+
+        return $this->bookingService;
     }
 
     public function getBookingDate()
@@ -107,11 +125,10 @@ abstract class Receptionist implements ReceptionistInterface
         return $this;
     }
 
-    public function setTotal()
+    public function computeLength()
     {
-        $plustime = $this->employee->getPlustime($this->serviceId);
-        $this->total = ($this->baseLength + $this->modifyTime + $plustime);
-
+        $this->plustime = $this->employee->getPlustime($this->serviceId);
+        $this->total    = ($this->baseLength + $this->modifyTime + $this->plustime);
         return $this->total;
     }
 
@@ -121,7 +138,7 @@ abstract class Receptionist implements ReceptionistInterface
             $this->setBaseLength();
         }
 
-        $this->setTotal();
+        $this->computeLength();
 
         if ($this->total < 1) {
             throw new Exception(trans('as.bookings.error.empty_total_time'), 1);
@@ -158,8 +175,8 @@ abstract class Receptionist implements ReceptionistInterface
             $this->date,
             $this->startTime,
             $this->endTime
-        )
-        ;
+        );
+
         if ($isOverllapedWithFreetime) {
             throw new Exception(trans('as.bookings.error.overllapped_with_freetime'), 1);
         }
@@ -202,6 +219,51 @@ abstract class Receptionist implements ReceptionistInterface
         return true;
     }
 
+    public function upsertBookingService()
+    {
+        //TODO validate modify time and service time
+        $model = (empty($this->bookingService)) ? (new BookingService) : $this->bookingService;
+
+        //Using uuid for retrieve it later when insert real booking
+        $model->fill([
+            'tmp_uuid'              => $this->uuid,
+            'date'                  => $this->bookingDate,
+            'modify_time'           => $this->modifyTime,
+            'start_at'              => $this->date,
+            'end_at'                => $endTime,
+            'is_requested_employee' => $this->isRequestedEmployee
+        ]);
+
+        //there is no method opposite with associate
+        $model->service_time_id = null;
+
+        if (!empty($this->serviceTime)) {
+            $model->serviceTime()->associate($this->serviceTime);
+        }
+        $model->service()->associate($this->service);
+        $model->user()->associate($this->user);
+        $model->employee()->associate($this->employee);
+        $model->save();
+    }
+
+    public function getResponseData()
+    {
+        if(empty($this->price)) {
+            $this->computeTotalPrice();
+        }
+
+        $data = [
+            'datetime'      => $this->startTime->toDateTimeString(),
+            'price'         => $this->price,
+            'service_name'  => $this->service->name,
+            'modify_time'   => $this->modifyTime,
+            'plustime'      => $this->plustime,
+            'employee_name' => $this->employee->name,
+            'uuid'          => $this->uuid
+        ];
+        return $data;
+    }
+
     public function setIsRequestedEmployee(bool $isRequestedEmployee)
     {
         $this->setRequestedEmployee = $isRequestedEmployee;
@@ -214,8 +276,7 @@ abstract class Receptionist implements ReceptionistInterface
         return $this->isRequestedEmployee;
     }
 
-    abstract public function computeLength();
-
+    abstract public function computeTotalPrice();
     abstract public function validateData();
     abstract public function validateBooking();
 
