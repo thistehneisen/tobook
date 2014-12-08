@@ -14,19 +14,19 @@ return [
 	|
 	*/
 
-    'mailgun' => array(
+    'mailgun' => [
         'domain' => '',
         'secret' => '',
-    ),
+    ],
 
-    'mandrill' => array(
+    'mandrill' => [
         'secret' => '',
-    ),
+    ],
 
-    'stripe' => array(
+    'stripe' => [
         'model'  => 'User',
         'secret' => '',
-    ),
+    ],
 
     'oneapi' => [
         'username' => 'varaa6',
