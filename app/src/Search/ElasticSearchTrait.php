@@ -56,12 +56,15 @@ trait ElasticSearchTrait
      */
     public static function search($keyword, array $options = [])
     {
+        $model = new static();
         // First, try to search with search service
-        try {
-            return static::serviceSearch($keyword, $options);
-        } catch (\Exception $ex) {
-            // Silently failed baby
-            Log::error('Failed to search using service: '.$ex->getMessage());
+        if ($model->isSearchable === true) {
+            try {
+                return static::serviceSearch($keyword, $options);
+            } catch (\Exception $ex) {
+                // Silently failed baby
+                Log::error('Failed to search using service: '.$ex->getMessage());
+            }
         }
 
         //----------------------------------------------------------------------
