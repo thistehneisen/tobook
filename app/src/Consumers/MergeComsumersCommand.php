@@ -22,13 +22,6 @@ class MergeComsumersCommand extends Command
     protected $description = 'Merge duplicated consumers of the given user, or all users';
 
     /**
-     * List of processed consumers
-     *
-     * @var array
-     */
-    protected $processed = [];
-
-    /**
      * Execute the console command.
      *
      * @return mixed
@@ -41,30 +34,41 @@ class MergeComsumersCommand extends Command
             return;
         }
 
-        $noPhoneCounter = [];
-
         $user = User::findOrFail($userId);
-        $this->info('Merging consumers of user '.$userId);
+        // $this->mergeConsumersHavingPhone($user);
+        $this->mergeConsumersHavingNoPhone($user);
+    }
+
+    protected function mergeConsumersHavingPhone($user)
+    {
+        $processed = [];
+        $this->info('Merging consumers of user '.$user->id);
+
         $consumers = $user->consumers()
             ->where('is_visible', 1)
+            ->where(function ($query) {
+                return $query->where('consumers.phone', '!=', '')
+                    ->orWhereNotNull('consumers.phone');
+            })
             ->orderBy('id', 'ASC')
             ->get();
+
         foreach ($consumers as $consumer) {
             // If this consumer is already processed, skip
-            if (isset($this->processed[$consumer->id])) {
+            if (isset($processed[$consumer->id])) {
                 continue;
             }
 
             // Also skip who doesn't have phone
             if (empty($consumer->phone)) {
-                $noPhoneCounter[] = $consumer;
+                $noPhoneConsumers[] = $consumer;
                 continue;
             }
 
             // Find other consumers that have the same first name and last name
-            $list = $user->consumers()->where('first_name', $consumer->first_name)
-                ->where('last_name', $consumer->last_name)
-                ->where('id', '!=', $consumer->id)
+            $list = $user->consumers()->where('consumers.first_name', $consumer->first_name)
+                ->where('consumers.last_name', $consumer->last_name)
+                ->where('consumers.id', '!=', $consumer->id)
                 ->get();
 
             if ($list->isEmpty() === false) {
@@ -76,22 +80,60 @@ class MergeComsumersCommand extends Command
 
                 // Relocate consumer
                 foreach ($list as $duplicated) {
+                    // Compare two phone numbers, if they're not similar, then just quit
+                    $similar = $this->isSimilarPhoneNumber(
+                        $consumer->phone,
+                        $duplicated->phone
+                    );
+                    if (!$similar) {
+                        continue;
+                    }
+
                     // Mark as processed
-                    $this->processed[$duplicated->id] = true;
+                    $processed[$duplicated->id] = true;
                     $this->relocate($user, $consumer, $duplicated);
                 }
             }
         }
+    }
 
-        $this->question('There are '.count($noPhoneCounter).' consumers without phone numbers:');
-        foreach ($noPhoneCounter as $consumer) {
-            $this->line(sprintf(
-                "\t %d %s %s %s",
-                $consumer->id,
+    protected function mergeConsumersHavingNoPhone($user)
+    {
+        $processed = [];
+
+        $noPhoneConsumers = $user->consumers()->where('consumers.phone', '')
+            ->orWhereNull('consumers.phone')
+            ->orderBy('consumers.id', 'asc')
+            ->get();
+
+        $this->question('There are '.count($noPhoneConsumers).' consumers having no phone numbers:');
+        foreach ($noPhoneConsumers as $consumer) {
+            if (isset($processed[$consumer->id])) {
+                continue;
+            }
+
+            $list = $user->consumers()
+                ->where('consumers.first_name', $consumer->first_name)
+                ->where('consumers.last_name', $consumer->last_name)
+                ->where('consumers.id', '!=', $consumer->id)
+                ->where(function ($query) {
+                    return $query->where('consumers.phone', '')
+                        ->orWhereNull('consumers.phone');
+                })
+                ->orderBy('consumers.id', 'asc')
+                ->get();
+
+            $this->info(sprintf('Found %d: %s %s',
+                $list->count(),
                 $consumer->first_name,
-                $consumer->last_name,
-                $consumer->phone
-            ));
+                $consumer->last_name));
+
+            if ($list->isEmpty() === false) {
+                foreach ($list as $duplicated) {
+                    $processed[$duplicated->id] = true;
+                    $this->relocate($user, $consumer, $duplicated);
+                }
+            }
         }
     }
 
@@ -106,13 +148,8 @@ class MergeComsumersCommand extends Command
      */
     protected function relocate($user, $consumer, $duplicated)
     {
-        // Compare two phone numbers, if they're not similar, then just quit
-        if ($this->isSimilarPhoneNumber($consumer->phone, $duplicated->phone) === false) {
-            return;
-        }
-
         // *sign* Time to merge
-        $this->comment(sprintf("\tRelocating %d (%s) -> %d", $duplicated->id, $duplicated->phone, $consumer->id));
+        $this->comment(sprintf("\tRelocating %d \t (%s) -> %d", $duplicated->id, $duplicated->phone, $consumer->id));
 
         $tables = [
             'lc_transactions',
