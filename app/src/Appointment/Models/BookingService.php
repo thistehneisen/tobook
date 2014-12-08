@@ -382,6 +382,11 @@ class BookingService extends Base implements CartDetailInterface
         return $bookingService;
     }
 
+    public function handleBookingService(IReceptionist $receptionist)
+    {
+
+    }
+
     //--------------------------------------------------------------------------
     // SEARCH
     //--------------------------------------------------------------------------

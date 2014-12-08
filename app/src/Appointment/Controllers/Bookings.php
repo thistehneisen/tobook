@@ -20,6 +20,7 @@ use App\Appointment\Models\AsConsumer;
 use App\Appointment\Models\Consumer;
 use App\Appointment\Models\Observer\EmailObserver;
 use App\Appointment\Models\Observer\SmsObserver;
+use App\Appointment\Models\Reception\BackednReceptionist;
 
 class Bookings extends AsBase
 {
