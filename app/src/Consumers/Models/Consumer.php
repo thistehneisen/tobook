@@ -1,6 +1,5 @@
 <?php namespace App\Consumers\Models;
 
-use App\Core\Models\Role;
 use Confide, DB;
 use App\Core\Models\User;
 use Watson\Validating\ValidationException;
@@ -26,6 +25,13 @@ class Consumer extends \App\Core\Models\Base
             // 'phone'         => 'required|numeric'
         ]
     ];
+
+    /**
+     * Temporarily disable search using ES on model Consumer
+     *
+     * @var boolean
+     */
+    public $isSearchable = false;
 
     //--------------------------------------------------------------------------
     // ATTRIBUTES
@@ -151,7 +157,7 @@ class Consumer extends \App\Core\Models\Base
             }
         }
         foreach ($obj->rulesets['saving'] as $field => $savingRule) {
-            if (strpos($savingRule, 'required') !== false AND !isset($fieldIndices[$field])) {
+            if (strpos($savingRule, 'required') !== false and !isset($fieldIndices[$field])) {
                 throw new ValidationException(trans('co.import.csv_required_field_x_is_missing', ['field' => $field]));
             }
         }

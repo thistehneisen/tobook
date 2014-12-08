@@ -348,7 +348,7 @@ class Business extends Base
     /**
      * @{@inheritdoc}
      */
-    protected static function buildSearchQuery($keywords, $fields = null)
+    protected function buildSearchQuery($keywords, $fields = null)
     {
         $query = [];
         $query['bool']['should'][]['match']['name']        = $keywords;
@@ -368,7 +368,7 @@ class Business extends Base
     /**
      * @{@inheritdoc}
      */
-    protected static function buildSearchFilter()
+    protected function buildSearchFilter()
     {
         return [
             'exists' => [ 'field' => 'name' ]
@@ -378,7 +378,7 @@ class Business extends Base
     /**
      * @{@inheritdoc}
      */
-    public static function transformSearchResult($result)
+    public function transformSearchResult($result)
     {
         if (empty($result)) {
             return $result;
@@ -397,10 +397,10 @@ class Business extends Base
     /**
      * @{@inheritdoc}
      */
-    protected static function setCustomSearchParams()
+    protected function setCustomSearchParams()
     {
         // We'll show only 5 businesses by default
-        static::$customSearchParams = [
+        $this->customSearchParams = [
             'size' => 5
         ];
     }

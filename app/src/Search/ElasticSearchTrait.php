@@ -16,7 +16,7 @@ trait ElasticSearchTrait
      *
      * @var array
      */
-    protected static $customSearchParams = [];
+    protected $customSearchParams = [];
 
     /**
      * Attach event observers into the model
@@ -56,12 +56,15 @@ trait ElasticSearchTrait
      */
     public static function search($keyword, array $options = [])
     {
+        $model = new static();
         // First, try to search with search service
-        try {
-            return static::serviceSearch($keyword, $options);
-        } catch (\Exception $ex) {
-            // Silently failed baby
-            Log::error('Failed to search using service: '.$ex->getMessage());
+        if ($model->isSearchable === true) {
+            try {
+                return $model->serviceSearch($keyword, $options);
+            } catch (\Exception $ex) {
+                // Silently failed baby
+                Log::error('Failed to search using service: '.$ex->getMessage());
+            }
         }
 
         //----------------------------------------------------------------------
@@ -70,7 +73,6 @@ trait ElasticSearchTrait
         Log::info('Fallback to MySQL search');
 
         // Get fillable fields of this model
-        $model = new static();
         $fillable = $model->getFillable();
 
         // Add ID to be candicate for searching
@@ -102,14 +104,14 @@ trait ElasticSearchTrait
      *
      * @return Illuminate\Pagination\Paginator
      */
-    public static function serviceSearch($keywords, array $options = [])
+    public function serviceSearch($keywords, array $options = [])
     {
-        $params = static::buildSearchParams($keywords, $options);
+        $params = $this->buildSearchParams($keywords, $options);
         $provider = App::make('App\Search\ProviderInterface');
         $result = $provider->search($params);
 
         return Paginator::make(
-            static::transformSearchResult($result['hits']['hits']),
+            $this->transformSearchResult($result['hits']['hits']),
             $result['hits']['total'],
             $params['size']
         );
@@ -123,33 +125,33 @@ trait ElasticSearchTrait
      *
      * @return array
      */
-    protected static function buildSearchParams($keywords, array $options)
+    protected function buildSearchParams($keywords, array $options)
     {
         // Default params by trait
         $params = [
-            'index' => static::getSearchIndexName(),
-            'type'  => static::getSearchIndexType(),
+            'index' => $this->getSearchIndexName(),
+            'type'  => $this->getSearchIndexType(),
             'size'  => Config::get('view.perPage'),
         ];
 
         // Attach filter and query
         $params['body']['query']['filtered'] = [
-            'filter' => static::buildSearchFilter(),
-            'query' => static::buildSearchQuery($keywords)
+            'filter' => $this->buildSearchFilter(),
+            'query' => $this->buildSearchQuery($keywords)
         ];
 
         // Set custom search params by model
-        static::setCustomSearchParams();
+        $this->setCustomSearchParams();
 
         if (!empty($options)) {
             // This allows user to pass custom params for this request only
             // Default params for next requests remain intact
             $params = array_merge($params, $options);
-        } elseif (!empty(static::$customSearchParams)) {
+        } elseif (!empty($this->customSearchParams)) {
             // If we don't have specific options for the request, and the model
-            // using this trait has set static::$customSearchParams via
+            // using this trait has set $this->customSearchParams via
             // setCustomSearchParams(), we'll merge them.
-            $params = array_merge($params, static::$customSearchParams);
+            $params = array_merge($params, $this->customSearchParams);
         }
 
         // Pagination
@@ -164,7 +166,7 @@ trait ElasticSearchTrait
      *
      * @return array
      */
-    protected static function buildSearchFilter()
+    protected function buildSearchFilter()
     {
         $filter = [];
 
@@ -178,13 +180,12 @@ trait ElasticSearchTrait
      *
      * @return array
      */
-    protected static function buildSearchQuery($keywords, $fields = null)
+    protected function buildSearchQuery($keywords, $fields = null)
     {
         // Since we already has a document mapping, we can just use all fields
         // for matching
         if (empty($fields)) {
-            $instance = new static();
-            $fields = array_keys($instance->getSearchMapping());
+            $fields = array_keys($this->getSearchMapping());
         }
 
         $query = [];
@@ -199,7 +200,7 @@ trait ElasticSearchTrait
      * Model using the trait could overwrite this method to set some default
      * params for searching, for example, the default `size`
      */
-    protected static function setCustomSearchParams()
+    protected function setCustomSearchParams()
     {
     }
 
@@ -211,7 +212,7 @@ trait ElasticSearchTrait
      *
      * @return array We'll pass the result to Paginator, so no collection required.
      */
-    public static function transformSearchResult($results)
+    public function transformSearchResult($results)
     {
         $data = [];
         foreach ($results as $result) {
@@ -244,19 +245,17 @@ trait ElasticSearchTrait
     /**
      * @{@inheritdoc}
      */
-    public static function getSearchIndexName()
+    public function getSearchIndexName()
     {
-        $model = new static();
-
-        return $model->getTable();
+        return $this->getTable();
     }
 
     /**
      * @{@inheritdoc}
      */
-    public static function getSearchIndexType()
+    public function getSearchIndexType()
     {
-        return str_singular(static::getSearchIndexName());
+        return str_singular($this->getSearchIndexName());
     }
 
     /**
