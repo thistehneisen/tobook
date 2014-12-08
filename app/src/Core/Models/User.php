@@ -422,7 +422,7 @@ class User extends ConfideUser implements SearchableInterface
     /**
      * @{@inheritdoc}
      */
-    protected static function buildSearchQuery($keyword, $fields = null)
+    protected function buildSearchQuery($keyword, $fields = null)
     {
         $query = [];
         $query['bool']['should'][]['match']['email'] = $keyword;
@@ -434,7 +434,7 @@ class User extends ConfideUser implements SearchableInterface
     /**
      * @{@inheritdoc}
      */
-    public static function transformSearchResult($results)
+    public function transformSearchResult($results)
     {
         $data = [];
         foreach ($results as $result) {
