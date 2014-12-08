@@ -4,6 +4,7 @@ use Carbon\Carbon;
 use App\Cart\CartDetailInterface;
 use App\Cart\CartDetail;
 use Watson\Validating\ValidationException;
+use App\Appointment\Models\Reception\ReceptionistInterface;
 
 class BookingService extends Base implements CartDetailInterface
 {
@@ -382,7 +383,7 @@ class BookingService extends Base implements CartDetailInterface
         return $bookingService;
     }
 
-    public function handleBookingService(IReceptionist $receptionist)
+    public function handleBookingService(ReceptionistInterface $receptionist)
     {
 
     }

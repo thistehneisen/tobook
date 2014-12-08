@@ -1,17 +1,12 @@
 <?php namespace App\Appointment\Models\Reception;
+
 use Carbon\Carbon;
 use App\Appointment\Models\Booking;
-use App\Appointment\Models\BookingService;
-use App\Appointment\Models\BookingExtraService;
 use App\Appointment\Models\Employee;
-use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\Service;
-use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\ServiceTime;
-use App\Appointment\Models\ExtraService;
-use App\Appointment\Models\Resource;
 
-abstract class Receptionist implements IReceptionist
+abstract class Receptionist implements ReceptionistInterface
 {
     protected $id                  = null;
     protected $date                = null;
@@ -25,12 +20,12 @@ abstract class Receptionist implements IReceptionist
     protected $total               = null;
     protected $employeeId          = null;
     protected $employee            = null;
-    protected $uuid                = null
     protected $isRequestedEmployee = false;
 
     public function setBookingId(int $bookingId)
     {
         $this->id = $bookingId;
+
         return $this;
     }
 
@@ -42,6 +37,7 @@ abstract class Receptionist implements IReceptionist
     public function setBookingDate(string $date)
     {
         $this->date = $date;
+
         return $this;
     }
 
@@ -54,6 +50,7 @@ abstract class Receptionist implements IReceptionist
     {
         $startTime = Carbon::createFromFormat('Y-m-d H:i', sprintf('%s %s', $this->date, $strStartTime));
         $this->startTime = $startTime;
+
         return $this;
     }
 
@@ -65,6 +62,7 @@ abstract class Receptionist implements IReceptionist
     public function setUUID(string $uuid)
     {
         $this->uuid = $uuid;
+
         return $this;
     }
 
@@ -76,6 +74,7 @@ abstract class Receptionist implements IReceptionist
     public function setServiceId(int $serviceId)
     {
         $this->serviceId = $serviceId;
+
         return $this;
     }
 
@@ -87,6 +86,7 @@ abstract class Receptionist implements IReceptionist
     public function setServiceTimeId(int $serviceTimeId)
     {
         $this->serviceTimeId = $serviceTimeId;
+
         return $this;
     }
 
@@ -110,6 +110,7 @@ abstract class Receptionist implements IReceptionist
     {
         $plustime = $this->employee->getPlustime($this->serviceId);
         $this->total = ($this->baseLength + $this->modifyTime + $plustime);
+
         return $this->total;
     }
 
@@ -124,24 +125,25 @@ abstract class Receptionist implements IReceptionist
         if ($this->total < 1) {
             throw new Exception(trans('as.bookings.error.empty_total_time'), 1);
         }
+
         return true;
     }
 
     public function validateBookingEndTime()
     {
-        if(empty($this->total)) {
+        if (empty($this->total)) {
             $this->setTotal();
         }
 
         $this->endTime = $this->startTime->copy()->addMinutes($this->total);
         $endDay        = $this->startTime->copy()->endOfDay();
 
-        if($this->startTime->lt(Carbon::now())) {
+        if ($this->startTime->lt(Carbon::now())) {
             throw new Exception(trans('as.bookings.error.past_booking'), 1);
         }
 
         //Check if the overbook end time exceed the current working day.
-        if($this->endTime->gt($endDay)) {
+        if ($this->endTime->gt($endDay)) {
             throw new Exception(trans('as.bookings.error.exceed_current_day'), 1);
         }
 
@@ -160,6 +162,7 @@ abstract class Receptionist implements IReceptionist
         if ($isOverllapedWithFreetime) {
             throw new Exception(trans('as.bookings.error.overllapped_with_freetime'), 1);
         }
+
         return true;
     }
 
@@ -177,6 +180,7 @@ abstract class Receptionist implements IReceptionist
         if (!$isBookable) {
             throw new Exception(trans('as.bookings.error.add_overlapped_booking'), 1);
         }
+
         return true;
     }
 
@@ -190,15 +194,17 @@ abstract class Receptionist implements IReceptionist
             $this->endTime
         );
 
-        if(!$areResourcesAvailable) {
+        if (!$areResourcesAvailable) {
             throw new Exception(trans('as.bookings.error.not_enough_resources'), 1);
         }
+
         return true;
     }
 
     public function setIsRequestedEmployee(bool $isRequestedEmployee)
     {
         $this->setRequestedEmployee = $isRequestedEmployee;
+
         return $this;
     }
 
@@ -207,10 +213,9 @@ abstract class Receptionist implements IReceptionist
         return $this->isRequestedEmployee;
     }
 
+    abstract public function computeLength();
 
-    public abstract function computeLength();
-
-    public abstract function validateData();
-    public abstract function validateBooking();
+    abstract public function validateData();
+    abstract public function validateBooking();
 
 }

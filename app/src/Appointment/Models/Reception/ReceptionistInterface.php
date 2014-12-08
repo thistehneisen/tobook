@@ -1,7 +1,6 @@
 <?php namespace App\Appointment\Models\Reception;
-use Carbon\Carbon;
 
-interface IReceptionist
+interface ReceptionistInterface
 {
     public function setBookingId(int $bookingId);
     public function getBookingId();
@@ -24,11 +23,9 @@ interface IReceptionist
     public function setIsRequestedEmployee(bool $isRequestedEmployee);
     public function getIsRequestedEmployee();
 
-
     public function computeLength();
 
     public function validateData();
     public function validateBooking();
-
 
 }
