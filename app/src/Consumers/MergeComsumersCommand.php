@@ -35,7 +35,7 @@ class MergeComsumersCommand extends Command
         }
 
         $user = User::findOrFail($userId);
-        // $this->mergeConsumersHavingPhone($user);
+        $this->mergeConsumersHavingPhone($user);
         $this->mergeConsumersHavingNoPhone($user);
     }
 
