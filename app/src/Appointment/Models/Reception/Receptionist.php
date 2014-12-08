@@ -5,6 +5,7 @@ use App\Appointment\Models\Booking;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
+use Exception;
 
 abstract class Receptionist implements ReceptionistInterface
 {
