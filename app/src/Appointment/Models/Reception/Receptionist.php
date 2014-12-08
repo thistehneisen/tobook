@@ -40,8 +40,9 @@ abstract class Receptionist implements IReceptionist
         return $this->date;
     }
 
-    public function setStartTime(string $startTime)
+    public function setStartTime(string $strStartTime)
     {
+        $startTime = Carbon::createFromFormat('Y-m-d H:i', sprintf('%s %s', $this->date, $strStartTime));
         $this->startTime = $startTime;
         return $this;
     }
@@ -122,20 +123,67 @@ abstract class Receptionist implements IReceptionist
             $this->setTotal();
         }
 
-        $startTime = Carbon::createFromFormat('Y-m-d H:i', sprintf('%s %s', $this->date, $this->startTime));
-        $endTime   = $startTime->copy()->addMinutes($this->total);
-        $endDay    = $startTime->copy()->endOfDay();
+        $this->endTime = $this->startTime->copy()->addMinutes($this->total);
+        $endDay        = $this->startTime->copy()->endOfDay();
 
-        if($startTime->lt(Carbon::now()))
-        {
+        if($this->startTime->lt(Carbon::now())) {
             throw new Exception(trans('as.bookings.error.past_booking'), 1);
         }
 
         //Check if the overbook end time exceed the current working day.
-        if($endTime->gt($endDay))
-        {
+        if($this->endTime->gt($endDay)) {
             throw new Exception(trans('as.bookings.error.exceed_current_day'), 1);
         }
+
+        return true;
+    }
+
+    public function validateWithEmployeeFreetime()
+    {
+        //Check if the book overllap with employee freetime
+        $isOverllapedWithFreetime = $employee->isOverllapedWithFreetime(
+            $this->date,
+            $this->startTime,
+            $this->endTime
+        )
+        ;
+        if ($isOverllapedWithFreetime) {
+            throw new Exception(trans('as.bookings.error.overllapped_with_freetime'), 1);
+        }
+        return true;
+    }
+
+    public function validateWithExistingBooking()
+    {
+        //Check is there any existed booking with this service time
+        $isBookable = Booking::isBookable(
+            $this->employeeId,
+            $this->date,
+            $this->startTime,
+            $this->endTime,
+            $this->uuid
+        );
+
+        if (!$isBookable) {
+            throw new Exception(trans('as.bookings.error.add_overlapped_booking'), 1);
+        }
+        return true;
+    }
+
+    public function validateWithResources()
+    {
+        $areResourcesAvailable = Booking::areResourcesAvailable(
+            $this->employeeId,
+            $this->service,
+            $this->date,
+            $this->startTime,
+            $this->endTime
+        );
+
+        if(!$areResourcesAvailable) {
+            throw new Exception(trans('as.bookings.error.not_enough_resources'), 1);
+        }
+        return true;
     }
 
     public function setIsRequestedEmployee(bool $isRequestedEmployee)

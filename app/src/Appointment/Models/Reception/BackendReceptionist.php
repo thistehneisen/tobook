@@ -8,7 +8,12 @@ class BackendReceptionist extends Receptionist
 
     }
 
-    public function validate()
+    public function validateData()
+    {
+
+    }
+
+    public function validateBooking()
     {
 
     }
