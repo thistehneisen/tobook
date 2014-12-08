@@ -102,8 +102,7 @@ class User extends ConfideUser implements SearchableInterface
 
     public function consumers()
     {
-        return $this->belongsToMany('App\Consumers\Models\Consumer')
-            ->withPivot('is_visible');
+        return $this->belongsToMany('App\Consumers\Models\Consumer');
     }
 
     public function asServiceCategories()

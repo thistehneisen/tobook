@@ -4,7 +4,6 @@ use View, Input, Confide, Config, Request, Response;
 use App\Core\Controllers\Base;
 use App\LoyaltyCard\Controllers\ConsumerRepository as ConsumerRepository;
 use App\Consumers\Models\Consumer as Core;
-use App\LoyaltyCard\Models\Consumer as Model;
 use App\LoyaltyCard\Models\Voucher as VoucherModel;
 use App\LoyaltyCard\Models\Offer as OfferModel;
 
@@ -58,7 +57,7 @@ class Consumer extends Base
                 $core->users()->detach($this->user->id);
             }
 
-            $core->users()->attach($this->user, ['is_visible' => true]);
+            $core->users()->attach($this->user);
             $item->total_points = 0;
             $item->total_stamps = '';
             $item->user()->associate(Confide::user());
@@ -86,7 +85,8 @@ class Consumer extends Base
      * Index for app
      * @return Response
      */
-    public function appIndex() {
+    public function appIndex()
+    {
         return $this->viewIndex(Input::get('search'), true);
     }
 
@@ -94,7 +94,8 @@ class Consumer extends Base
      * Make view index for both app and BE
      * @return View
      */
-    private function viewIndex($search = '', $isApp = false) {
+    private function viewIndex($search = '', $isApp = false)
+    {
         // To make sure that we only show records of current user
         $query = $this->getModel();
 
@@ -175,8 +176,8 @@ class Consumer extends Base
 
     /**
      * Receive AJAX request to add point to consumer
-     * @param  int $consumerId
-     * @param  int $points
+     * @param  int      $consumerId
+     * @param  int      $points
      * @return Response
      */
     private function ajaxAddPoint($consumerId, $points)
@@ -199,8 +200,8 @@ class Consumer extends Base
 
     /**
      * Receive AJAX request to use voucher with point
-     * @param  int $consumerId
-     * @param  int $voucherId
+     * @param  int      $consumerId
+     * @param  int      $voucherId
      * @return Response
      */
     private function ajaxUsePoint($consumerId, $voucherId)
@@ -216,8 +217,8 @@ class Consumer extends Base
 
     /**
      * Receive AJAX request to add stamp to consumer
-     * @param  int $consumerId
-     * @param  int $offerId
+     * @param  int      $consumerId
+     * @param  int      $offerId
      * @return Response
      */
     private function ajaxAddStamp($consumerId, $offerId)
@@ -233,8 +234,8 @@ class Consumer extends Base
 
     /**
      * Receive AJAX request to use offer with stamp
-     * @param  int $consumerId
-     * @param  int $offerId
+     * @param  int      $consumerId
+     * @param  int      $offerId
      * @return Response
      */
     private function ajaxUseOffer($consumerId, $offerId)
@@ -258,7 +259,7 @@ class Consumer extends Base
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param  int      $id
      * @return Response
      */
     public function update($id)

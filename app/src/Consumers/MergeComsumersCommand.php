@@ -45,7 +45,6 @@ class MergeComsumersCommand extends Command
         $this->info('Merging consumers of user '.$user->id);
 
         $consumers = $user->consumers()
-            ->where('is_visible', 1)
             ->where(function ($query) {
                 return $query->where('consumers.phone', '!=', '')
                     ->orWhereNotNull('consumers.phone');

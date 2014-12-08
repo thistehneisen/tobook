@@ -3,22 +3,17 @@
 use App, View, Confide, Redirect, Input, Config, Response, DB, Cart;
 use Util, Hashids, Session, Request, Mail, Sms;
 use Carbon\Carbon;
-use Illuminate\Support\Collection;
 use App\Core\Models\User;
 use App\Core\Models\CartDetail;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\BookingExtraService;
 use App\Appointment\Models\Employee;
-use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\Service;
-use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\ExtraService;
-use App\Appointment\Models\Resource;
 use App\Appointment\Models\AsConsumer;
 use App\Appointment\Models\Consumer;
-use App\Appointment\Models\Observer\EmailObserver;
 use App\Appointment\Models\Observer\SmsObserver;
 
 class Bookings extends AsBase
@@ -74,14 +69,15 @@ class Bookings extends AsBase
      */
     public function applyExtraSearch($query, $q)
     {
-        $fillable = with(new Consumer)->fillable;
-        $table    = with(new Consumer)->getTable();
+        $fillable = with(new Consumer())->fillable;
+        $table    = with(new Consumer())->getTable();
         $query->join('as_consumers', 'as_consumers.consumer_id', '=', 'as_bookings.consumer_id')
             ->join('consumers', 'consumers.id', '=','as_consumers.consumer_id')
-            ->orWhere(function($subQuery) use ($fillable, $q, $table){
+            ->orWhere(function ($subQuery) use ($fillable, $q, $table) {
                 foreach ($fillable as $field) {
                     $subQuery = $subQuery->orWhere($table  . '.' . $field, 'LIKE', '%'.$q.'%');
                 }
+
                 return $subQuery;
             })->whereNULL('as_bookings.deleted_at')->select(
                 'as_bookings.id',
@@ -203,7 +199,7 @@ class Bookings extends AsBase
     {
         $bookingId   = (int) Input::get('booking_id', 0);
 
-        if(empty($bookingId)){
+        if (empty($bookingId)) {
             return $this->getBlankBookingForm();
         }
 
@@ -241,11 +237,12 @@ class Bookings extends AsBase
 
         foreach ($services as $service) {
             //for getting distinct categories
-            if(empty($service->category->id)) {
+            if (empty($service->category->id)) {
                 continue;
             }
             $categories[$service->category->id] = $service->category->name;
         }
+
         return $categories;
     }
 
@@ -255,8 +252,9 @@ class Bookings extends AsBase
 
         try {
             $booking = Booking::ofCurrentUser()->findOrFail($bookingId);
-        } catch(\Exception $ex) {
+        } catch (\Exception $ex) {
             $data['message'] = trans('as.bookings.error.booking_not_found');
+
             return Response::json($data, 400);
         }
 
@@ -267,7 +265,7 @@ class Bookings extends AsBase
         $extraServices = $booking->bookingServices()
                             ->first()->service
                             ->extraServices();
-        if(!empty($bookingExtraServices)){
+        if (!empty($bookingExtraServices)) {
             $data = $extraServices->whereNotIn('as_extra_services.id', $bookingExtraServices);
         }
 
@@ -366,7 +364,7 @@ class Bookings extends AsBase
                 $bookingService->save();
 
                 foreach ($extraServices as $extraService) {
-                    $bookingExtraService = new BookingExtraService;
+                    $bookingExtraService = new BookingExtraService();
                     $bookingExtraService->fill([
                         'date'     => $booking->date,
                         'tmp_uuid' => $booking->uuid,
@@ -375,7 +373,7 @@ class Bookings extends AsBase
                     $bookingExtraService->extraService()->associate($extraService);
                     $bookingExtraService->save();
                 }
-            } catch(\Exception $ex){
+            } catch (\Exception $ex) {
                 $data['success'] = false;
                 $data['message'] = $ex->getMessage();
             }
@@ -384,6 +382,7 @@ class Bookings extends AsBase
             $data['message'] = trans('as.bookings.error.not_enough_slots');
             $data['status']  = 500;
         }
+
         return $data;
     }
 
@@ -393,7 +392,7 @@ class Bookings extends AsBase
         $status_text = Input::get('booking_status');
         $cutId       = Session::get('cutId', null);
         $data = [];
-        try{
+        try {
             $booking = Booking::ofCurrentUser()->find($bookingId);
             $status  =  $booking->getStatus($status_text);
             $booking->setStatus($status_text);
@@ -404,7 +403,7 @@ class Bookings extends AsBase
                 $booking->delete();
 
                 //Preventing user confirm reschedule an deleted booking
-                if(!empty($cutId) && ($booking->id == $cutId)) {
+                if (!empty($cutId) && ($booking->id == $cutId)) {
                     Session::forget('cutId');
                 }
 
@@ -413,10 +412,11 @@ class Bookings extends AsBase
             }
 
             $data['success'] = true;
-        } catch (\Exception $ex){
+        } catch (\Exception $ex) {
             $data['message'] = $ex->getMessage();
             $data['success'] = false;
         }
+
         return $data;
     }
 
@@ -438,10 +438,10 @@ class Bookings extends AsBase
         $uuid                = Input::get('uuid', '');// from ajax uuid
         $isRequestedEmployee = Input::get('is_requested_employee', false);
 
-        if(empty($serviceId) || empty($serviceTimeId))
-        {
+        if (empty($serviceId) || empty($serviceTimeId)) {
             $data['success'] = false;
             $data['message'] = trans('as.bookings.error.service_empty');
+
             return Response::json($data, 500);
         }
 
@@ -449,7 +449,7 @@ class Bookings extends AsBase
             ? BookingService::where('tmp_uuid', $uuid)->first()
             : BookingService::where('booking_id', $bookingId)->first();
 
-        try{
+        try {
             $employee = Employee::ofCurrentUser()->find($employeeId);
             $service  = Service::ofCurrentUser()->find($serviceId);
 
@@ -468,6 +468,7 @@ class Bookings extends AsBase
             $endTimeDelta = ($length + $modifyTime + $plustime);
             if ($endTimeDelta < 1) {
                 $data['message'] = trans('as.bookings.error.empty_total_time');
+
                 return Response::json($data, 400);
             }
 
@@ -475,24 +476,24 @@ class Bookings extends AsBase
             $endTime   = with(clone $startTime)->addMinutes($endTimeDelta);
             $endDay    = with(clone $startTime)->hour(23)->minute(59)->second(59);
 
-            if($startTime < Carbon::now())
-            {
+            if ($startTime < Carbon::now()) {
                 $data['message'] = trans('as.bookings.error.past_booking');
+
                 return Response::json($data, 400);
             }
 
             //Check if the overbook end time exceed the current working day.
-            if($endTime > $endDay)
-            {
+            if ($endTime > $endDay) {
                 $data['message'] = trans('as.bookings.error.exceed_current_day');
+
                 return Response::json($data, 400);
             }
 
             //Check if the book overllap with employee freetime
             $isOverllapedWithFreetime = $employee->isOverllapedWithFreetime($bookingDate, $startTime, $endTime);
-            if($isOverllapedWithFreetime)
-            {
+            if ($isOverllapedWithFreetime) {
                 $data['message'] = trans('as.bookings.error.overllapped_with_freetime');
+
                 return Response::json($data, 400);
             }
 
@@ -503,18 +504,20 @@ class Bookings extends AsBase
 
             if (!$isBookable) {
                 $data['message'] = trans('as.bookings.error.add_overlapped_booking');
+
                 return Response::json($data, 400);
             }
 
             $areResourcesAvailable = Booking::areResourcesAvailable($employeeId, $service, $bookingDate, $startTime, $endTime);
 
-            if(!$areResourcesAvailable) {
+            if (!$areResourcesAvailable) {
                 $data['message'] = trans('as.bookings.error.not_enough_resources');
+
                 return Response::json($data, 400);
             }
 
             //TODO validate modify time and service time
-            $model = (empty($bookingService)) ? (new BookingService) : $bookingService;
+            $model = (empty($bookingService)) ? (new BookingService()) : $bookingService;
 
             //Using uuid for retrieve it later when insert real booking
             $model->fill([
@@ -557,11 +560,12 @@ class Bookings extends AsBase
                 'end_at'        => $endTime->format('H:i'),
                 'uuid'          => $uuid
             ];
-        } catch (\Watson\Validating\ValidationException $ex){
+        } catch (\Watson\Validating\ValidationException $ex) {
             $data = [];
             $data['success'] = false;
             $data['message'] = $ex->getErrors();
         }
+
         return Response::json($data);
     }
 
@@ -584,9 +588,10 @@ class Bookings extends AsBase
                 : BookingService::where('booking_id',$bookingId)->first();
             $data = [];
 
-            if(empty($bookingService)){
+            if (empty($bookingService)) {
                 $data['success'] = false;
                 $data['message'] = trans('as.bookings.missing_services');
+
                 return Response::json($data);
             }
             $employee = $bookingService->employee;
@@ -613,7 +618,7 @@ class Bookings extends AsBase
             $startTime = null;
             $endTime = null;
 
-            if(!empty($bookingId)){
+            if (!empty($bookingId)) {
                 $booking = Booking::find($bookingId);
                 $bookingExtraServices = $booking->extraServices;
 
@@ -658,7 +663,7 @@ class Bookings extends AsBase
             $booking->consumer()->associate($consumer);
             $booking->user()->associate($this->user);
             $booking->employee()->associate($bookingService->employee);
-            if($status === Booking::STATUS_CANCELLED){
+            if ($status === Booking::STATUS_CANCELLED) {
                 $booking->delete_reason = 'Cancelled while updating';
                 $booking->save();
                 $booking->delete();
@@ -671,7 +676,7 @@ class Bookings extends AsBase
             $bookingService->save();
 
             //Don't send sms when update booking
-            if(empty($bookingId)){
+            if (empty($bookingId)) {
                 //Only can send sms after insert booking service
                 $booking->attach(new SmsObserver(true));//true is backend
                 $booking->notify();
@@ -736,16 +741,17 @@ class Bookings extends AsBase
             $cartDetail->delete();
 
             $data['success'] = true;
-            if(empty($cart->details()->count())){
+            if (empty($cart->details()->count())) {
                 $data['success_url'] = route('as.embed.embed', ['hash'=> $hash]);
             }
         } catch (\Exception $ex) {
             $data['message'] = $ex->getMessage();
+
             return Response::json($data, 400);
         }
+
         return Response::json($data);
     }
-
 
     public function removeExtraService()
     {
@@ -758,13 +764,13 @@ class Bookings extends AsBase
                 ->where('booking_id', $bookingId)
                 ->firstOrFail();
 
-            if(!empty($bookingExtraService)){
+            if (!empty($bookingExtraService)) {
                 $bookingExtraService->delete();
             }
             $bookingService = $booking->bookingServices()->first();
             //Recalculate end time and total price
             $total = $price = 0;
-            if(!empty($bookingService)){
+            if (!empty($bookingService)) {
                 $total = (!empty($bookingService->serviceTime->length))
                         ? $bookingService->serviceTime->length
                         : $bookingService->service->length;
@@ -794,8 +800,10 @@ class Bookings extends AsBase
         } catch (\Exception $ex) {
             $data['success'] = false;
             $data['message'] = $ex->getMessage();
+
             return Response::json($data, 500);
         }
+
         return Response::json($data);
     }
 
@@ -809,8 +817,7 @@ class Bookings extends AsBase
     {
         $keyword = Input::get('keyword');
         $consumers = Confide::user()->consumers()
-                    ->where('is_visible', 1)
-                    ->where(function($q) use ($keyword) {
+                    ->where(function ($q) use ($keyword) {
                         $q->where('consumers.first_name', 'like', '%' . $keyword . '%')
                             ->orWhere('consumers.last_name', 'like', '%' . $keyword . '%')
                             ->orWhere('consumers.email', 'like', '%' . $keyword . '%')
@@ -818,7 +825,7 @@ class Bookings extends AsBase
                     })
                 ->get();
         $data = [];
-        foreach($consumers as $consumer){
+        foreach ($consumers as $consumer) {
             $data[] = array(
                 'id'         => $consumer->id,
                 'text'       => $consumer->name,
@@ -829,6 +836,7 @@ class Bookings extends AsBase
                 'address'    => $consumer->address
             );
         }
+
         return Response::json($data);
     }
 
