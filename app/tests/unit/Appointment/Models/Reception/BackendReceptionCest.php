@@ -58,8 +58,55 @@ class BackednReceptionCest
             ->setEmployeeId($employee->id)
             ->setServiceTimeId('default');
 
-        $selectedService = $receptionist->setSelectedService();
-
         $I->assertEquals($service->price, $receptionist->computeTotalPrice());
+    }
+
+    public function testValidateData(UnitTester $I)
+    {
+        if(empty($this->service)) {
+            $this->initData();
+            $this->initCustomTime();
+        }
+
+        $user      = User::find(70);
+        $employee  = $this->employee;
+        $service   = $this->service;
+        $uuid      = \Util::uuid();
+
+        $date      = Carbon::today();
+        $startTime = '10:00';
+
+        $I->amLoggedAs($user);
+        $I->assertEquals($service->length, 60);
+
+        $receptionist = new BackendReceptionist();
+        $receptionist->setBookingId(0)
+            ->setUUID($uuid)
+            ->setUser($user)
+            ->setBookingDate($date->toDateString())
+            ->setStartTime($startTime)
+            ->setServiceId($service->id)
+            ->setEmployeeId($employee->id)
+            ->setServiceTimeId('default')
+            ->setModifyTime(-60);
+        $exception = array();
+
+        try {
+           $receptionist->validateBookingTotal();
+        } catch(\Exception $ex) {
+            $exception[] = $ex->getMessage();
+        }
+
+        $I->assertEquals($exception[0], trans('as.bookings.error.empty_total_time'));
+
+        $receptionist->setModifyTime(0)->setStartTime('23:30');
+
+        try {
+           $receptionist->validateBookingEndTime();
+        } catch(\Exception $ex) {
+            $exception[] = $ex->getMessage();
+        }
+
+        $I->assertEquals($exception[1], trans('as.bookings.error.exceed_current_day'));
     }
 }

@@ -2,7 +2,6 @@
 
 class BackendReceptionist extends Receptionist
 {
-
     public function computeTotalPrice()
     {
         if(empty($this->selectedService)) {

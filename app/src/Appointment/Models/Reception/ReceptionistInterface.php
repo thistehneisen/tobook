@@ -23,9 +23,26 @@ interface ReceptionistInterface
     public function setIsRequestedEmployee($isRequestedEmployee);
     public function getIsRequestedEmployee();
 
+    /**
+     * Calculate the total length of the booking based on given data
+     *
+     * Total length =
+     *      (service length | service time length) +
+     *          [employee plustime] + [modify time] + [extra service(s) time]
+     */
     public function computeLength();
 
+    /**
+     * Validate the general correctness, meaningfulness of given data
+     */
     public function validateData();
+
+    /**
+     * Validate the ability to make the booking by checking these conditions:
+     *  - Is it overlapping with existing booking?
+     *  - Is it overlapping with employee free time?
+     *  - Do we have enough resources (room, equipments etc) for the booking?
+     */
     public function validateBooking();
 
 }

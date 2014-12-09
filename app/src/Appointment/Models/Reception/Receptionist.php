@@ -119,7 +119,7 @@ abstract class Receptionist implements ReceptionistInterface
         return $this->serviceTimeId;
     }
 
-    public function setModifyTime(\int $modifyTime)
+    public function setModifyTime($modifyTime)
     {
         $this->modifyTime = $modifyTime;
 
@@ -138,6 +138,15 @@ abstract class Receptionist implements ReceptionistInterface
         $this->selectedService = ($this->serviceTimeId === 'default')
             ? Service::ofCurrentUser()->find($this->serviceId)
             : ServiceTime::ofCurrentUser()->find($this->serviceTimeId);
+
+        return $this;
+    }
+
+    public function setBookingService()
+    {
+        $this->bookingService = (empty($this->bookingId))
+            ? BookingService::where('tmp_uuid', $this->uuid)->first()
+            : BookingService::where('booking_id', $this->bookingId)->first();
 
         return $this;
     }
@@ -182,7 +191,7 @@ abstract class Receptionist implements ReceptionistInterface
     public function validateBookingEndTime()
     {
         if (empty($this->total)) {
-            $this->setTotal();
+            $this->computeLength();
         }
 
         $this->endTime = $this->startTime->copy()->addMinutes($this->total);
@@ -276,6 +285,8 @@ abstract class Receptionist implements ReceptionistInterface
         $model->user()->associate($this->user);
         $model->employee()->associate($this->employee);
         $model->save();
+
+        return $model;
     }
 
     public function getResponseData()
