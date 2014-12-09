@@ -173,6 +173,15 @@ abstract class Receptionist implements ReceptionistInterface
         return $this->total;
     }
 
+    public function computeEndTime()
+    {
+        if (empty($this->total)) {
+            $this->computeLength();
+        }
+
+        $this->endTime = $this->startTime->copy()->addMinutes($this->total);
+    }
+
     public function validateBookingTotal()
     {
         if (empty($this->selectedService)) {
@@ -190,12 +199,11 @@ abstract class Receptionist implements ReceptionistInterface
 
     public function validateBookingEndTime()
     {
-        if (empty($this->total)) {
-            $this->computeLength();
+        if($empty($this->endTime)) {
+            $this->computeEndTime();
         }
 
-        $this->endTime = $this->startTime->copy()->addMinutes($this->total);
-        $endDay        = $this->startTime->copy()->endOfDay();
+        $endDay  = $this->startTime->copy()->endOfDay();
 
         if ($this->startTime->lt(Carbon::now())) {
             throw new Exception(trans('as.bookings.error.past_booking'), 1);
@@ -211,8 +219,12 @@ abstract class Receptionist implements ReceptionistInterface
 
     public function validateWithEmployeeFreetime()
     {
+        if(empty($this->endTime)) {
+            $this->computeEndTime();
+        }
+
         //Check if the book overllap with employee freetime
-        $isOverllapedWithFreetime = $employee->isOverllapedWithFreetime(
+        $isOverllapedWithFreetime = $this->employee->isOverllapedWithFreetime(
             $this->date,
             $this->startTime,
             $this->endTime

@@ -414,7 +414,7 @@ trait Models
 
         //Add employee custom time
 
-        $employeeCustomTime =  EmployeeCustomTime::getUpsertModel($this->employee->id, '2014-11-24 00:00:00');
+        $employeeCustomTime =  EmployeeCustomTime::getUpsertModel($this->employee->id, $date->toDateString());
         $employeeCustomTime->fill([
             'date' =>  $date->toDateString()
         ]);
