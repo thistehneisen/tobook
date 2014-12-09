@@ -2,6 +2,7 @@
 
 use Carbon\Carbon;
 use App\Appointment\Models\Booking;
+use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
@@ -98,7 +99,7 @@ abstract class Receptionist implements ReceptionistInterface
     public function setServiceId($serviceId)
     {
         $this->serviceId = $serviceId;
-
+        $this->service   = Service::ofCurrentUser()->find($this->serviceId);
         return $this;
     }
 
@@ -110,7 +111,9 @@ abstract class Receptionist implements ReceptionistInterface
     public function setServiceTimeId($serviceTimeId)
     {
         $this->serviceTimeId = $serviceTimeId;
-
+        $this->serviceTime   = ($this->serviceTimeId !== 'default')
+            ? ServiceTime::ofCurrentUser()->find($this->serviceTimeId)
+            : null;
         return $this;
     }
 
@@ -274,16 +277,20 @@ abstract class Receptionist implements ReceptionistInterface
 
     public function upsertBookingService()
     {
+        if(empty($this->endTime)) {
+            $this->computeEndTime();
+        }
+
         //TODO validate modify time and service time
         $model = (empty($this->bookingService)) ? (new BookingService) : $this->bookingService;
 
         //Using uuid for retrieve it later when insert real booking
         $model->fill([
             'tmp_uuid'              => $this->uuid,
-            'date'                  => $this->bookingDate,
+            'date'                  => $this->date,
             'modify_time'           => $this->modifyTime,
-            'start_at'              => $this->date,
-            'end_at'                => $endTime,
+            'start_at'              => $this->startTime,
+            'end_at'                => $this->endTime,
             'is_requested_employee' => $this->isRequestedEmployee
         ]);
 

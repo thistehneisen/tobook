@@ -152,4 +152,49 @@ class BackednReceptionCest
         $I->assertNotEmpty($exception[0]);
         $I->assertEquals($exception[0], trans('as.bookings.error.overllapped_with_freetime'));
     }
+
+    public function testResponseData(UnitTester $I)
+    {
+        if(empty($this->service)) {
+            $this->initData();
+            $this->initCustomTime();
+        }
+
+        $user      = User::find(70);
+        $employee  = $this->employee;
+        $service   = $this->service;
+        $uuid      = \Util::uuid();
+
+        $date      = Carbon::today();
+        $startTime = '14:00';
+
+        $I->amLoggedAs($user);
+        $I->assertEquals($service->length, 60);
+
+        $receptionist = new BackendReceptionist();
+        $receptionist->setBookingId(0)
+            ->setUUID($uuid)
+            ->setUser($user)
+            ->setBookingDate($date->toDateString())
+            ->setStartTime($startTime)
+            ->setServiceId($service->id)
+            ->setEmployeeId($employee->id)
+            ->setServiceTimeId('default');
+
+        $receptionist->upsertBookingService();
+        $response = $receptionist->getResponseData();
+        $plustime = $employee->getPlustime($service->id);
+
+        $cooked = [
+            'datetime'      => $date->hour(14)->toDateTimeString(),
+            'price'         => $service->price,
+            'service_name'  => $service->name,
+            'modify_time'   => 0,
+            'plustime'      => $plustime,
+            'employee_name' => $employee->name,
+            'uuid'          => $uuid
+        ];
+
+        $I->assertEquals($response, $cooked);
+    }
 }
