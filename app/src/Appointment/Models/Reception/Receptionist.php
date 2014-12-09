@@ -15,7 +15,9 @@ abstract class Receptionist implements ReceptionistInterface
     protected $endTime             = null;
     protected $uuid                = null;
     protected $serviceId           = null;
+    protected $service             = null;
     protected $serviceTimeId       = null;
+    protected $serviceTime         = null;
     protected $bookingService      = null;
     protected $selectedService     = null;
     protected $baseLength          = null;
@@ -24,10 +26,11 @@ abstract class Receptionist implements ReceptionistInterface
     protected $employeeId          = null;
     protected $employee            = null;
     protected $plustime            = null;
+    protected $modifyTime          = null;
     protected $user                = null;
     protected $isRequestedEmployee = false;
 
-    public function setBookingId(int $bookingId)
+    public function setBookingId($bookingId)
     {
         $this->bookingId = $bookingId;
 
@@ -42,9 +45,11 @@ abstract class Receptionist implements ReceptionistInterface
     public function setUser($user)
     {
         $this->user = $user;
+
+        return $this;
     }
 
-    public function setBookingDate(string $date)
+    public function setBookingDate($date)
     {
         $this->date = $date;
 
@@ -65,7 +70,7 @@ abstract class Receptionist implements ReceptionistInterface
         return $this->date;
     }
 
-    public function setStartTime(string $strStartTime)
+    public function setStartTime($strStartTime)
     {
         $startTime = Carbon::createFromFormat('Y-m-d H:i', sprintf('%s %s', $this->date, $strStartTime));
         $this->startTime = $startTime;
@@ -78,7 +83,7 @@ abstract class Receptionist implements ReceptionistInterface
         return $this->startTime;
     }
 
-    public function setUUID(string $uuid)
+    public function setUUID($uuid)
     {
         $this->uuid = $uuid;
 
@@ -90,7 +95,7 @@ abstract class Receptionist implements ReceptionistInterface
         return $this->uuid;
     }
 
-    public function setServiceId(int $serviceId)
+    public function setServiceId($serviceId)
     {
         $this->serviceId = $serviceId;
 
@@ -102,7 +107,7 @@ abstract class Receptionist implements ReceptionistInterface
         return $this->serviceId;
     }
 
-    public function setServiceTimeId(int $serviceTimeId)
+    public function setServiceTimeId($serviceTimeId)
     {
         $this->serviceTimeId = $serviceTimeId;
 
@@ -114,11 +119,34 @@ abstract class Receptionist implements ReceptionistInterface
         return $this->serviceTimeId;
     }
 
-    public function setBaseLength()
+    public function setModifyTime(\int $modifyTime)
+    {
+        $this->modifyTime = $modifyTime;
+
+        return $this;
+    }
+
+    public function setEmployeeId($employeeId)
+    {
+        $this->employee = Employee::ofCurrentUser()->find($employeeId);
+
+        return $this;
+    }
+
+    public function setSelectedService()
     {
         $this->selectedService = ($this->serviceTimeId === 'default')
-            ? Service::ofCurrentUser()->find($$this->serviceId)
-            : ServiceTime::find($this->serviceTimeId);
+            ? Service::ofCurrentUser()->find($this->serviceId)
+            : ServiceTime::ofCurrentUser()->find($this->serviceTimeId);
+
+        return $this;
+    }
+
+    public function setBaseLength()
+    {
+        if(empty($this->selectedService)) {
+            $this->setSelectedService();
+        }
 
         $this->baseLength = $this->selectedService->length;
 
@@ -127,6 +155,10 @@ abstract class Receptionist implements ReceptionistInterface
 
     public function computeLength()
     {
+        if(empty($this->baseLength)) {
+            $this->setBaseLength();
+        }
+
         $this->plustime = $this->employee->getPlustime($this->serviceId);
         $this->total    = ($this->baseLength + $this->modifyTime + $this->plustime);
         return $this->total;
@@ -264,7 +296,7 @@ abstract class Receptionist implements ReceptionistInterface
         return $data;
     }
 
-    public function setIsRequestedEmployee(bool $isRequestedEmployee)
+    public function setIsRequestedEmployee($isRequestedEmployee)
     {
         $this->setRequestedEmployee = $isRequestedEmployee;
 

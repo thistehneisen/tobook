@@ -3,9 +3,15 @@
 class BackendReceptionist extends Receptionist
 {
 
-    public function computeLength()
+    public function computeTotalPrice()
     {
+        if(empty($this->selectedService)) {
+            $this->setSelectedService();
+        }
 
+        $this->price = $this->selectedService->price;
+
+        return $this->price;
     }
 
     public function validateData()

@@ -2,25 +2,25 @@
 
 interface ReceptionistInterface
 {
-    public function setBookingId(int $bookingId);
+    public function setBookingId($bookingId);
     public function getBookingId();
 
-    public function setBookingDate(string $date);
+    public function setBookingDate($date);
     public function getBookingDate();
 
-    public function setStartTime(string $startTime);
+    public function setStartTime($startTime);
     public function getStartTime();
 
-    public function setUUID(string $uuid);
+    public function setUUID($uuid);
     public function getUUID();
 
-    public function setServiceId(int $serviceId);
+    public function setServiceId($serviceId);
     public function getServiceId();
 
-    public function setServiceTimeId(int $serviceTimeId);
+    public function setServiceTimeId($serviceTimeId);
     public function getServiceTimeId();
 
-    public function setIsRequestedEmployee(bool $isRequestedEmployee);
+    public function setIsRequestedEmployee($isRequestedEmployee);
     public function getIsRequestedEmployee();
 
     public function computeLength();
