@@ -89,9 +89,23 @@ trait ElasticSearchTrait
             $query = $query->ofCurrentUser();
         }
 
+        $query = $model->getCustomSearchQuery($query);
+
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
 
         return $query->paginate($perPage);
+    }
+
+    /**
+     * Allow model to hook on behaviors of internal search
+     *
+     * @param Illuminate\Database\Eloquent\QueryBuilder $query
+     *
+     * @return Illuminate\Database\Eloquent\QueryBuilder
+     */
+    public function getCustomSearchQuery($query)
+    {
+        return $query;
     }
 
     /**
