@@ -48,7 +48,7 @@ class Consumer extends \App\Consumers\Models\Consumer
             throw $ex;
         }
 
-        $user->consumers()->attach($consumer->id, ['is_visible' => true]);
+        $user->consumers()->attach($consumer->id);
 
         return $consumer;
     }

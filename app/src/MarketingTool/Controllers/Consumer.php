@@ -7,8 +7,8 @@ use App\MarketingTool\Models\ConsumerUser as ConsumerUserModel;
 use App\MarketingTool\Models\Sms as SmsModel;
 use Confide;
 
-class Consumer extends \App\Core\Controllers\Base {
-
+class Consumer extends \App\Core\Controllers\Base
+{
     /**
      * Display a listing of the resource.
      *
@@ -19,9 +19,8 @@ class Consumer extends \App\Core\Controllers\Base {
         // get all the consumers
         $consumers = ConsumerUserModel::join('consumers', 'consumer_user.consumer_id', '=', 'consumers.id')
                 ->where('consumer_user.user_id', Confide::user()->id)
-                ->where('consumer_user.is_visible', true)
                 ->paginate(20);
-        
+
         $campaigns = CampaignModel::where('user_id', '=', Confide::user()->id)
                         ->where('status', '=', 'DRAFT')
                         ->get();
@@ -39,7 +38,7 @@ class Consumer extends \App\Core\Controllers\Base {
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int      $id
      * @return Response
      */
     public function show($id)

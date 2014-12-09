@@ -133,7 +133,7 @@ class Consumer extends \App\Core\Models\Base
             throw $ex;
         }
 
-        $user->consumers()->attach($consumer->id, ['is_visible' => true]);
+        $user->consumers()->attach($consumer->id);
 
         return $consumer;
     }
@@ -182,7 +182,7 @@ class Consumer extends \App\Core\Models\Base
                 $newObj->saveOrFail();
 
                 if (!empty($businessUser)) {
-                    $newObj->users()->attach($businessUser->id, ['is_visible' => 1]);
+                    $newObj->users()->attach($businessUser->id);
                 }
 
                 $results[] = [
@@ -212,9 +212,7 @@ class Consumer extends \App\Core\Models\Base
     public function hide($userId)
     {
         return $this->users()
-            ->updateExistingPivot($userId, [
-                'is_visible' => false
-            ]);
+            ->updateExistingPivot($userId);
     }
 
     //--------------------------------------------------------------------------
@@ -227,17 +225,6 @@ class Consumer extends \App\Core\Models\Base
      */
     public function users()
     {
-        return $this->belongsToMany('App\Core\Models\User')
-            ->withPivot('is_visible');
-    }
-
-    //--------------------------------------------------------------------------
-    // SCOPES
-    //--------------------------------------------------------------------------
-    public function scopeVisible($query)
-    {
-        return $query->whereHas('users', function ($q) {
-            return $q->where('is_visible', true);
-        });
+        return $this->belongsToMany('App\Core\Models\User');
     }
 }

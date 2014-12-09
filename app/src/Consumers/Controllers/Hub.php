@@ -10,7 +10,6 @@ use DB;
 use Input;
 use Lang;
 use Redirect;
-use Session;
 use View;
 
 class Hub extends Base
@@ -38,7 +37,7 @@ class Hub extends Base
         $item->fill(Input::all());
         $item->saveOrFail();
         $item->users()->detach($this->user->id);
-        $item->users()->attach($this->user, ['is_visible' => true]);
+        $item->users()->attach($this->user);
 
         return $item;
     }

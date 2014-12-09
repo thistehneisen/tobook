@@ -11,8 +11,8 @@ class ConsumerRepository
 {
     /**
      * Return all consumers
-     * @param  string $search
-     * @param  bool $isApi
+     * @param  string   $search
+     * @param  bool     $isApi
      * @return Consumer
      */
     public function getAllConsumers($search = '', $perPage = 10, $isApi = false)
@@ -29,7 +29,7 @@ class ConsumerRepository
                                 ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
                                 ->where('consumer_user.user_id', Confide::user()->id)
                                 ->where('lc_consumers.user_id', Confide::user()->id)
-                                ->where(function($q) use ($search) {
+                                ->where(function ($q) use ($search) {
                                     $q->where('consumers.first_name', 'like', '%' . $search . '%')
                                         ->orWhere('consumers.last_name', 'like', '%' . $search . '%')
                                         ->orWhere('consumers.email', 'like', '%' . $search . '%')
@@ -78,7 +78,7 @@ class ConsumerRepository
 
     /**
      * Store consumer to storage
-     * @param  bool $isApi
+     * @param  bool     $isApi
      * @return Consumer
      */
     public function storeConsumer($isApi = false)
@@ -91,7 +91,7 @@ class ConsumerRepository
             return false;
         } elseif ($existConsumer) {
             $core = Core::find($existConsumer->id);
-            Confide::user()->consumers()->attach($core->id, ['is_visible' => true]);
+            Confide::user()->consumers()->attach($core->id);
         } else {
             $data = [
                 'first_name'    => $isApi ? Request::get('first_name') : Input::get('first_name'),
@@ -107,7 +107,7 @@ class ConsumerRepository
             $core = $isApi ? Core::make($data, Auth::user()->id) : Core::make($data, Confide::user()->id);
         }
 
-        $consumer = new Model;
+        $consumer = new Model();
         $consumer->total_points = 0;
         $consumer->total_stamps = '';
         $consumer->consumer_id = $core->id;
@@ -120,8 +120,8 @@ class ConsumerRepository
 
     /**
      * Show consumer information
-     * @param  int $consumerId
-     * @param  bool $isApi
+     * @param  int      $consumerId
+     * @param  bool     $isApi
      * @return Consumer
      */
     public function showConsumer($consumerId, $isApi = false)
@@ -141,9 +141,9 @@ class ConsumerRepository
 
     /**
      * Add point to consumer
-     * @param int $consumerId
-     * @param int $points
-     * @param bool $isApi
+     * @param  int      $consumerId
+     * @param  int      $points
+     * @param  bool     $isApi
      * @return Consumer
      */
     public function addPoint($consumerId, $points)
@@ -168,7 +168,7 @@ class ConsumerRepository
             $consumer->total_points += $points;
             $consumer->save();
 
-            $transaction = new TransactionModel;
+            $transaction = new TransactionModel();
             $transaction->user_id = Confide::user()->id;
             $transaction->consumer_id = $consumerId;
             $transaction->point = $points;
@@ -180,8 +180,8 @@ class ConsumerRepository
 
     /**
      * Use voucher with point
-     * @param  int $consumerId
-     * @param  int $voucherId
+     * @param  int      $consumerId
+     * @param  int      $voucherId
      * @return Consumer
      */
     public function usePoint($consumerId, $voucherId)
@@ -198,7 +198,7 @@ class ConsumerRepository
         $consumer->total_points -= $voucher->required;
         $consumer->save();
 
-        $transaction = new TransactionModel;
+        $transaction = new TransactionModel();
         $transaction->user_id = Confide::user()->id;
         $transaction->consumer_id = $consumerId;
         $transaction->voucher_id = $voucherId;
@@ -210,16 +210,16 @@ class ConsumerRepository
 
     /**
      * Add stamp to consumer
-     * @param int $consumerId
-     * @param int $offerId
-     * @param bool $isApi
+     * @param  int  $consumerId
+     * @param  int  $offerId
+     * @param  bool $isApi
      * @return int
      */
     public function addStamp($consumerId, $offerId, $isApi)
     {
         $userId = $isApi ? Auth::user()->id : Confide::user()->id;
 
-        $transaction = new TransactionModel;
+        $transaction = new TransactionModel();
         $transaction->user_id = $isApi ? Auth::user()->id : Confide::user()->id;
         $transaction->consumer_id = $consumerId;
         $transaction->offer_id = $offerId;
@@ -258,8 +258,8 @@ class ConsumerRepository
 
     /**
      * Use offer with stamp
-     * @param  int $consumerId
-     * @param  int $offerId
+     * @param  int  $consumerId
+     * @param  int  $offerId
      * @param  bool $isApi
      * @return int
      */
@@ -269,7 +269,7 @@ class ConsumerRepository
 
         $offer = OfferModel::find($offerId);
 
-        $transaction = new TransactionModel;
+        $transaction = new TransactionModel();
         $transaction->user_id = $isApi ? Auth::user()->id : Confide::user()->id;
         $transaction->consumer_id = $consumerId;
         $transaction->offer_id = $offerId;
