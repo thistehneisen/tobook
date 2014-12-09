@@ -434,7 +434,7 @@ class BookingCest
             'service_id' => $service->id,
             'employee_id' => $employee->id,
             'hash' => $user->hash,
-            'booking_date' => $date->toDateString(),
+            'booking_date' => $date->subDays(1)->toDateString(),
             'start_time' => '12:00'
         ]));
         $I->seeResponseCodeIs(400);
@@ -455,7 +455,7 @@ class BookingCest
             'service_id' => $service->id,
             'employee_id' => $employee->id,
             'hash' => $user->hash,
-            'booking_date' => $date->toDateString(),
+            'booking_date' => $date->subDays(1)->toDateString(),
             'start_time' => '12:00'
         ]));
         $I->seeResponseCodeIs(400);
