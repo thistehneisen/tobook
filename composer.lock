@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "789827e421da8f29b41296ffef7acff1",
+    "hash": "b8da50d10c996e554beff76a978b02b3",
     "packages": [
         {
             "name": "alfaproject/omnipay-skrill",
@@ -160,6 +160,57 @@
                 "preload"
             ],
             "time": "2014-03-12 00:05:31"
+        },
+        {
+            "name": "clowdy/laravel-raven",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/clowdy/laravel-raven.git",
+                "reference": "a3f2b354921bb9b1d95e23bbfbe173460826372d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/clowdy/laravel-raven/zipball/a3f2b354921bb9b1d95e23bbfbe173460826372d",
+                "reference": "a3f2b354921bb9b1d95e23bbfbe173460826372d",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "4.*",
+                "php": ">=5.4",
+                "raven/raven": "0.9.*"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9.0",
+                "phpunit/phpunit": "~4.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Clowdy\\Raven\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pulkit Jalan",
+                    "homepage": "https://github.com/pulkitjalan"
+                }
+            ],
+            "description": "Sentry (Raven) error monitoring for Laravel with send in background",
+            "keywords": [
+                "error",
+                "getsentry",
+                "laravel",
+                "logging",
+                "monitoring",
+                "raven",
+                "sentry"
+            ],
+            "time": "2014-08-28 10:53:33"
         },
         {
             "name": "d11wtq/boris",
@@ -1183,57 +1234,6 @@
             "time": "2014-11-20 16:49:30"
         },
         {
-            "name": "jenssegers/raven",
-            "version": "v1.2.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jenssegers/laravel-raven.git",
-                "reference": "c6cd607d2d85cb0d8e20fd59f6d8e90d1a7ad0fe"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jenssegers/laravel-raven/zipball/c6cd607d2d85cb0d8e20fd59f6d8e90d1a7ad0fe",
-                "reference": "c6cd607d2d85cb0d8e20fd59f6d8e90d1a7ad0fe",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "4.*",
-                "php": ">=5.3",
-                "raven/raven": "0.9.*"
-            },
-            "require-dev": {
-                "mockery/mockery": "*",
-                "orchestra/testbench": "2.1.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Jenssegers\\Raven\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jens Segers",
-                    "homepage": "http://jenssegers.be"
-                }
-            ],
-            "description": "Sentry (Raven) error monitoring integration for Laravel projects",
-            "keywords": [
-                "error",
-                "getsentry",
-                "laravel",
-                "logging",
-                "monitoring",
-                "raven",
-                "sentry"
-            ],
-            "time": "2014-06-15 14:08:00"
-        },
-        {
             "name": "jeremeamia/SuperClosure",
             "version": "1.0.1",
             "source": {
@@ -1857,16 +1857,16 @@
         },
         {
             "name": "orchestra/imagine",
-            "version": "dev-master",
+            "version": "v2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/imagine.git",
-                "reference": "77f07e60c52beb0ee7905eb2a762e870a19cc6b7"
+                "reference": "99865f4cee9df4a37b51dd0e5c9876ecf6b11483"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/imagine/zipball/77f07e60c52beb0ee7905eb2a762e870a19cc6b7",
-                "reference": "77f07e60c52beb0ee7905eb2a762e870a19cc6b7",
+                "url": "https://api.github.com/repos/orchestral/imagine/zipball/99865f4cee9df4a37b51dd0e5c9876ecf6b11483",
+                "reference": "99865f4cee9df4a37b51dd0e5c9876ecf6b11483",
                 "shasum": ""
             },
             "require": {
@@ -1874,15 +1874,14 @@
                 "php": ">=5.4.0"
             },
             "require-dev": {
-                "illuminate/container": "5.0.*",
-                "illuminate/contracts": "5.0.*",
-                "illuminate/support": "5.0.*",
+                "illuminate/container": "4.2.*",
+                "illuminate/support": "4.2.*",
                 "mockery/mockery": "0.9.*"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "2.3-dev"
                 }
             },
             "autoload": {
@@ -1901,7 +1900,7 @@
                     "homepage": "https://github.com/crynobone"
                 }
             ],
-            "description": "Imagine Package for Laravel",
+            "description": "Imagine Package for Laravel 4",
             "keywords": [
                 "image",
                 "image-manipulation",
@@ -1909,7 +1908,7 @@
                 "orchestra-platform",
                 "orchestral"
             ],
-            "time": "2014-12-04 03:35:32"
+            "time": "2014-06-19 01:20:09"
         },
         {
             "name": "patchwork/utf8",
@@ -4821,7 +4820,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "orchestra/imagine": 20,
         "alfaproject/omnipay-skrill": 20
     },
     "prefer-stable": false,

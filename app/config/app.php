@@ -130,7 +130,7 @@ return array(
         'Shift31\LaravelElasticsearch\LaravelElasticsearchServiceProvider',
         'Orchestra\Imagine\ImagineServiceProvider',
         'Indatus\Dispatcher\ServiceProvider',
-        'Jenssegers\Raven\RavenServiceProvider',
+        'Clowdy\Raven\RavenServiceProvider',
 
         // Homemade
         'App\Hashids\HashidsServiceProvider',
@@ -215,7 +215,7 @@ return array(
         'Geocoder'  => 'Toin0u\Geocoder\GeocoderFacade',
         'Debugbar'  => 'Barryvdh\Debugbar\Facade',
         'Imagine'   => 'Orchestra\Imagine\Facade',
-        'Raven'     => 'Jenssegers\Raven\Facades\Raven',
+        'Raven'     => 'Clowdy\Raven\Facades\Raven',
 
         // Homemade
         'AppController' => 'App\Core\Controllers\Base',

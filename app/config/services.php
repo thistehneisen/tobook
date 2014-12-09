@@ -38,9 +38,4 @@ return [
         'password' => 'halloween22',
         'secret'   => 'teqaphus6p'
     ],
-
-    'raven' => [
-        'dsn'   => 'https://fe0de91c9a1c43db821016b2183f53e8:26ca78fdb8584dcc8951c411556f884f@app.getsentry.com/34333',
-        'level' => 'error'
-    ],
 ];
