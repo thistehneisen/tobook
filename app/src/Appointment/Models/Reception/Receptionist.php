@@ -202,7 +202,7 @@ abstract class Receptionist implements ReceptionistInterface
 
     public function validateBookingEndTime()
     {
-        if($empty($this->endTime)) {
+        if(empty($this->endTime)) {
             $this->computeEndTime();
         }
 
@@ -277,6 +277,9 @@ abstract class Receptionist implements ReceptionistInterface
 
     public function upsertBookingService()
     {
+        $this->validateData();
+        $this->validateBooking();
+
         if(empty($this->endTime)) {
             $this->computeEndTime();
         }

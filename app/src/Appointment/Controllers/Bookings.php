@@ -20,7 +20,7 @@ use App\Appointment\Models\AsConsumer;
 use App\Appointment\Models\Consumer;
 use App\Appointment\Models\Observer\EmailObserver;
 use App\Appointment\Models\Observer\SmsObserver;
-use App\Appointment\Models\Reception\BackednReceptionist;
+use App\Appointment\Models\Reception\BackendReceptionist;
 
 class Bookings extends AsBase
 {
@@ -429,7 +429,7 @@ class Bookings extends AsBase
     public function addBookingService()
     {
         $serviceId           = (int) Input::get('service_id');
-        $bookingId           = (int) Input::get('booking_id');//if update old booking
+        $bookingId           = (int) Input::get('booking_id', 0);//if update old booking
         $employeeId          = (int) Input::get('employee_id');
         $serviceTimeId       = Input::get('service_time', 'default');
         $modifyTime          = (int) Input::get('modify_times', 0);
@@ -446,113 +446,28 @@ class Bookings extends AsBase
             return Response::json($data, 500);
         }
 
-        $bookingService = (empty($bookingId))
-            ? BookingService::where('tmp_uuid', $uuid)->first()
-            : BookingService::where('booking_id', $bookingId)->first();
-
         try{
-            $employee = Employee::ofCurrentUser()->find($employeeId);
-            $service  = Service::ofCurrentUser()->find($serviceId);
 
-            $length = 0;
-            $serviceTime = null;
-            if ($serviceTimeId === 'default') {
-                $service = Service::ofCurrentUser()->find($serviceId);
-                $length = $service->length;
-            } else {
-                $serviceTime = ServiceTime::find($serviceTimeId);
-                $length = $serviceTime->length;
-            }
+            $receptionist = new BackendReceptionist();
+            $receptionist->setBookingId($bookingId)
+                ->setUUID($uuid)
+                ->setUser($this->user)
+                ->setBookingDate($bookingDate)
+                ->setStartTime($startTimeStr)
+                ->setServiceId($serviceId)
+                ->setEmployeeId($employeeId)
+                ->setServiceTimeId($serviceTimeId)
+                ->setModifyTime($modifyTime)
+                ->setIsRequestedEmployee($isRequestedEmployee);
 
-            $plustime = $employee->getPlustime($service->id);
+            $receptionist->upsertBookingService();
+            $data = $receptionist->getResponseData();
 
-            $endTimeDelta = ($length + $modifyTime + $plustime);
-            if ($endTimeDelta < 1) {
-                $data['message'] = trans('as.bookings.error.empty_total_time');
-                return Response::json($data, 400);
-            }
-
-            $startTime = Carbon::createFromFormat('Y-m-d H:i', sprintf('%s %s', $bookingDate, $startTimeStr));
-            $endTime   = with(clone $startTime)->addMinutes($endTimeDelta);
-            $endDay    = with(clone $startTime)->hour(23)->minute(59)->second(59);
-
-            if($startTime < Carbon::now())
-            {
-                $data['message'] = trans('as.bookings.error.past_booking');
-                return Response::json($data, 400);
-            }
-
-            //Check if the overbook end time exceed the current working day.
-            if($endTime > $endDay)
-            {
-                $data['message'] = trans('as.bookings.error.exceed_current_day');
-                return Response::json($data, 400);
-            }
-
-            //Check if the book overllap with employee freetime
-            $isOverllapedWithFreetime = $employee->isOverllapedWithFreetime($bookingDate, $startTime, $endTime);
-            if($isOverllapedWithFreetime)
-            {
-                $data['message'] = trans('as.bookings.error.overllapped_with_freetime');
-                return Response::json($data, 400);
-            }
-
-            //Check is there any existed booking with this service time
-            $isBookable = Booking::isBookable($employeeId, $bookingDate, $startTime, $endTime, $uuid);
-
-            //TODO Check overlapped booking in user cart
-
-            if (!$isBookable) {
-                $data['message'] = trans('as.bookings.error.add_overlapped_booking');
-                return Response::json($data, 400);
-            }
-
-            $areResourcesAvailable = Booking::areResourcesAvailable($employeeId, $service, $bookingDate, $startTime, $endTime);
-
-            if(!$areResourcesAvailable) {
-                $data['message'] = trans('as.bookings.error.not_enough_resources');
-                return Response::json($data, 400);
-            }
-
-            //TODO validate modify time and service time
-            $model = (empty($bookingService)) ? (new BookingService) : $bookingService;
-
-            //Using uuid for retrieve it later when insert real booking
-            $model->fill([
-                'tmp_uuid'              => $uuid,
-                'date'                  => $bookingDate,
-                'modify_time'           => $modifyTime,
-                'start_at'              => $startTimeStr,
-                'end_at'                => $endTime,
-                'is_requested_employee' => $isRequestedEmployee
-            ]);
-
-            //there is no method opposite with associate
-            $model->service_time_id = null;
-
-            if (!empty($serviceTime)) {
-                $model->serviceTime()->associate($serviceTime);
-            }
-            $model->service()->associate($service);
-            $model->user()->associate($this->user);
-            $model->employee()->associate($employee);
-            $model->save();
-            $price = isset($service) ? $service->price : $serviceTime->price;
-
-            $data = [
-                'datetime'      => $startTime->toDateTimeString(),
-                'price'         => $price,
-                'service_name'  => $service->name,
-                'modify_time'   => $modifyTime,
-                'plustime'      => $plustime,
-                'employee_name' => $employee->name,
-                'uuid'          => $uuid
-            ];
-
-        } catch (\Watson\Validating\ValidationException $ex){
+        } catch (\Exception $ex){
             $data = [];
             $data['success'] = false;
-            $data['message'] = $ex->getErrors();
+            $data['message'] = $ex->getMessage();
+            return Response::json($data, 500);
         }
         return Response::json($data);
     }
