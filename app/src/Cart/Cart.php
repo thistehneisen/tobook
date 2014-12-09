@@ -129,7 +129,7 @@ class Cart extends \AppModel
      */
     public static function scheduledUnlock(Carbon $cutoff)
     {
-        //Log::info('Started to unlock cart items');
+        Log::info('Started to unlock cart items');
 
         // Get all carts whose status is `init` in the last X minutes
         // (X is the maximum time to hold an item, configurable)
@@ -138,14 +138,14 @@ class Cart extends \AppModel
             ->orderBy('id', 'desc')
             ->get();
 
-        //Log::info('Found '.$carts->count().' carts');
+        Log::info('Found '.$carts->count().' carts');
 
         // Go through all cart details and release them
         foreach ($carts as $cart) {
             $cart->unlock();
         }
 
-        //Log::info('Unlocking cart items done');
+        Log::info('Unlocking cart items done');
     }
 
     /**
