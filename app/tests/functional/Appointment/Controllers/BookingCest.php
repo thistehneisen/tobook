@@ -422,6 +422,48 @@ class BookingCest
         $I->assertEquals(trans('as.bookings.error.empty_start_time'), $message);
     }
 
+    public function testFrontBookingInThePast(FunctionalTester $I)
+    {
+        $user = User::find(70);
+        $category = ServiceCategory::find(105);
+        $service  = $category->services()->first();
+        $employee = $service->employees()->first();
+        $date = Carbon::now();
+
+        $I->sendPOST(route('as.bookings.service.front.add', [
+            'service_id' => $service->id,
+            'employee_id' => $employee->id,
+            'hash' => $user->hash,
+            'booking_date' => $date->toDateString(),
+            'start_time' => '12:00'
+        ]));
+        $I->seeResponseCodeIs(400);
+        $I->seeResponseIsJson();
+        $message = $I->grabDataFromJsonResponse('message');
+        $I->assertEquals(trans('as.bookings.error.past_booking'), $message);
+    }
+
+    public function testBackBookingInThePast(FunctionalTester $I)
+    {
+        $user = User::find(70);
+        $category = ServiceCategory::find(105);
+        $service  = $category->services()->first();
+        $employee = $service->employees()->first();
+        $date = Carbon::now();
+
+        $I->sendPOST(route('as.bookings.service.add', [
+            'service_id' => $service->id,
+            'employee_id' => $employee->id,
+            'hash' => $user->hash,
+            'booking_date' => $date->toDateString(),
+            'start_time' => '12:00'
+        ]));
+        $I->seeResponseCodeIs(400);
+        $I->seeResponseIsJson();
+        $message = $I->grabDataFromJsonResponse('message');
+        $I->assertEquals(trans('as.bookings.error.past_booking'), $message);
+    }
+
     public function testRescheduleAnDeletedBooking(FunctionalTester $I)
     {
         $user = User::find(70);
