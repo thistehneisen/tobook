@@ -49,7 +49,7 @@ class Service
         // For God's sake, we need to build NAT for 4 days in advance
         $i = 0;
         while ($i < 4) {
-            Log::debug('Queue to build NAT', ['userId' => $user->id, 'date' => $date->toDateString()]);
+            //Log::debug('Queue to build NAT', ['userId' => $user->id, 'date' => $date->toDateString()]);
 
             // Push this job into the special queue called 'varaa:nat'
             Queue::push('App\Appointment\NAT\Service@scheduledBuild', [
