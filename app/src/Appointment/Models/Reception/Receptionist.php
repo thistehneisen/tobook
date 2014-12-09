@@ -98,6 +98,10 @@ abstract class Receptionist implements ReceptionistInterface
 
     public function setServiceId($serviceId)
     {
+        if(empty($serviceId)) {
+            throw new Exception(trans('as.bookings.error.service_empty'), 1);
+        }
+
         $this->serviceId = $serviceId;
         $this->service   = Service::ofCurrentUser()->find($this->serviceId);
         return $this;

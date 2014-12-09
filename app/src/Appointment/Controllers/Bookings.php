@@ -439,13 +439,6 @@ class Bookings extends AsBase
         $uuid                = Input::get('uuid', '');// from ajax uuid
         $isRequestedEmployee = Input::get('is_requested_employee', false);
 
-        if(empty($serviceId) || empty($serviceTimeId))
-        {
-            $data['success'] = false;
-            $data['message'] = trans('as.bookings.error.service_empty');
-            return Response::json($data, 500);
-        }
-
         try{
 
             $receptionist = new BackendReceptionist();
