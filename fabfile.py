@@ -19,6 +19,8 @@ def _deploy(environment):
         run('fab m:{}'.format(environment))
         # chmod storage again
         run('chmod -Rf 777 app/storage')
+        # restart supervisor processes
+        run('supervisorctl restart all')
 
 
 @task(alias='ds')

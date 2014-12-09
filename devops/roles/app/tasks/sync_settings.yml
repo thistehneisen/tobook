@@ -24,6 +24,13 @@
 #  notify:
 #    - restart apache2
 
+- name: create supervisor program config
+  action: template src=supervisor.conf dest=/etc/supervisor/conf.d/{{ app_name }}.conf
+  tags: templated_settings
+  notify:
+    - update supervisor
+    - reload supervisor
+
 - name: apache2 config
   action: template src=apache2.conf dest=/etc/apache2/apache2.conf
   tags: templated_settings

@@ -4,3 +4,9 @@
 
 - name: restart mysql
   shell: service mysql restart
+
+- name: update supervisor
+  shell: supervisorctl reread
+
+- name: reload supervisor
+  shell: supervisorctl reload

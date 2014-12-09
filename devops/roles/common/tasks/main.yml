@@ -19,6 +19,7 @@
     - openjdk-7-jre-headless
     - redis-server
     - php5-mysqlnd
+    - supervisor
 
 - name: remove default apache site
   action: file path=/etc/apache2/sites-available/000-default.conf state=absent
@@ -46,3 +47,6 @@
 
 - name: start redis
   action: service name=redis-server state=started enabled=yes
+
+- name: start supervisor
+  action: service name=supervisor state=started enabled=yes
