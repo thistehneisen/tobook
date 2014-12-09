@@ -157,6 +157,8 @@ trait Olut
             $query = $query->with($prefetch);
         }
 
+        $query = $this->oulutCustomIndexQuery($query);
+
         // Pagination please
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
         $items = $query->paginate($perPage);
@@ -183,6 +185,18 @@ trait Olut
             }
         }
 
+        return $query;
+    }
+
+    /**
+     * Allow to modify the query used to get all records
+     *
+     * @param Illuminate\Database\Eloquent\Builder $query
+     *
+     * @return Illuminate\Database\Eloquent\Builder
+     */
+    public function oulutCustomIndexQuery($query)
+    {
         return $query;
     }
 
