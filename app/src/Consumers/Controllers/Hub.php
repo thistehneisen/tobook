@@ -32,6 +32,9 @@ class Hub extends Base
         ],
     ];
 
+    /**
+     * @{@inheritdoc}
+     */
     protected function upsertHandler($item)
     {
         $item->fill(Input::all());
@@ -40,6 +43,15 @@ class Hub extends Base
         $item->users()->attach($this->user);
 
         return $item;
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
+    public function oulutCustomIndexQuery($query)
+    {
+        return $query->orderBy('first_name', 'ASC')
+            ->orderBy('last_name', 'ASC');
     }
 
     public function getHistory()

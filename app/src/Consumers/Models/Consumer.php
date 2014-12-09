@@ -227,4 +227,16 @@ class Consumer extends \App\Core\Models\Base
     {
         return $this->belongsToMany('App\Core\Models\User');
     }
+
+    //--------------------------------------------------------------------------
+    // SEARCH
+    //--------------------------------------------------------------------------
+    /**
+     * @{@inheritdoc}
+     */
+    public function getCustomSearchQuery($query)
+    {
+        return $query->orderBy('first_name', 'ASC')
+            ->orderBy('last_name', 'ASC');
+    }
 }

@@ -22,12 +22,17 @@
 
     <script>
 $(function () {
-    $('table.table-crud').find('a.btn-danger').click('on', function (e) {
+    var $table = $('table.table-crud');
+    $table.find('a.btn-danger').click('on', function (e) {
         e.preventDefault();
         var $this = $(this);
         if (confirm('{{ trans('olut::olut.confirm') }}')) {
             window.location = $this.attr('href');
         }
+    });
+
+    $table.find('input.check-all').on('click', function () {
+        $table.find('input.checkbox').prop('checked', $(this).prop('checked'));
     });
 });
     </script>
@@ -62,7 +67,7 @@ $(function () {
 <table class="table table-hover table-crud">
     <thead>
         <tr>
-            <th><input type="checkbox" class="toggle-check-all-boxes" data-checkbox-class="checkbox"></th>
+            <th><input type="checkbox" class="toggle-check-all-boxes check-all" data-checkbox-class="checkbox"></th>
         @foreach ($fields as $field)
             <th>{{ trans($langPrefix.'.'.$field) }}</th>
         @endforeach
