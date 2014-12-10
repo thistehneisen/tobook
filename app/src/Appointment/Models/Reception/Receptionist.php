@@ -4,6 +4,7 @@ use Carbon\Carbon;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Employee;
+use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
 use Exception;
@@ -19,6 +20,10 @@ abstract class Receptionist implements ReceptionistInterface
     protected $service             = null;
     protected $serviceTimeId       = null;
     protected $serviceTime         = null;
+    protected $extraServiceIds     = null;
+    protected $extraServices       = null;
+    protected $extraServicePrice   = 0;
+    protected $extraServiceLength  = 0;
     protected $bookingService      = null;
     protected $selectedService     = null;
     protected $baseLength          = null;
@@ -26,8 +31,8 @@ abstract class Receptionist implements ReceptionistInterface
     protected $price               = null;
     protected $employeeId          = null;
     protected $employee            = null;
-    protected $plustime            = null;
-    protected $modifyTime          = null;
+    protected $plustime            = 0;
+    protected $modifyTime          = 0;
     protected $user                = null;
     protected $isRequestedEmployee = false;
 
@@ -126,6 +131,18 @@ abstract class Receptionist implements ReceptionistInterface
         return $this->serviceTimeId;
     }
 
+    public function setExtraServiceIds($extraServiceIds)
+    {
+
+        $this->extraServiceIds = $extraServiceIds;
+
+        if (!empty($this->extraServiceIds)) {
+            $this->extraServices = ExtraService::whereIn('id', $extraServiceIds)->get();
+        }
+
+        return $this;
+    }
+
     public function setModifyTime($modifyTime)
     {
         $this->modifyTime = $modifyTime;
@@ -143,8 +160,8 @@ abstract class Receptionist implements ReceptionistInterface
     public function setSelectedService()
     {
         $this->selectedService = ($this->serviceTimeId === 'default')
-            ? Service::ofCurrentUser()->find($this->serviceId)
-            : ServiceTime::ofCurrentUser()->find($this->serviceTimeId);
+            ? Service::ofCurrentUser()->findOrFail($this->serviceId)
+            : ServiceTime::ofCurrentUser()->findOrFail($this->serviceTimeId);
 
         return $this;
     }
@@ -176,7 +193,17 @@ abstract class Receptionist implements ReceptionistInterface
         }
 
         $this->plustime = $this->employee->getPlustime($this->serviceId);
-        $this->total    = ($this->baseLength + $this->modifyTime + $this->plustime);
+
+        $this->total = ($this->baseLength + $this->modifyTime + $this->plustime);
+
+        if (is_array($this->extraServices)) {
+            foreach ($this->extraServices as $extraService) {
+                $this->extraServiceLength = $extraService->length;
+            }
+        }
+
+        $this->total += $this->extraServiceLength;
+
         return $this->total;
     }
 
@@ -345,7 +372,24 @@ abstract class Receptionist implements ReceptionistInterface
         return $this->isRequestedEmployee;
     }
 
-    abstract public function computeTotalPrice();
+    public function computeTotalPrice()
+    {
+        if(empty($this->selectedService)) {
+            $this->setSelectedService();
+        }
+
+        //to avoid warning
+        if (is_array($this->extraServices)) {
+            foreach ($this->extraServices as $extraService) {
+                $this->extraServicePrice  += $extraService->price;
+            }
+        }
+
+        $this->price = $this->selectedService->price + $this->extraServicePrice;
+
+        return $this->price;
+    }
+
     abstract public function validateData();
     abstract public function validateBooking();
 

@@ -34,10 +34,8 @@ class BackednReceptionCest
 
     public function testBookingServicePrice(UnitTester $I)
     {
-        if(empty($this->service)) {
-            $this->initData();
-            $this->initCustomTime();
-        }
+        $this->initData();
+        $this->initCustomTime();
 
         $user      = User::find(70);
         $employee  = $this->employee;
@@ -64,10 +62,8 @@ class BackednReceptionCest
 
     public function testValidateData(UnitTester $I)
     {
-        if(empty($this->service)) {
-            $this->initData();
-            $this->initCustomTime();
-        }
+        $this->initData();
+        $this->initCustomTime();
 
         $user      = User::find(70);
         $employee  = $this->employee;
@@ -79,6 +75,8 @@ class BackednReceptionCest
 
         $I->amLoggedAs($user);
         $I->assertEquals($service->length, 60);
+        $I->assertNotEmpty($service);
+        $I->assertNotEmpty($employee);
 
         $receptionist = new BackendReceptionist();
         $receptionist->setBookingId(0)
@@ -89,7 +87,8 @@ class BackednReceptionCest
             ->setServiceId($service->id)
             ->setEmployeeId($employee->id)
             ->setServiceTimeId('default')
-            ->setModifyTime(-60);
+            ->setModifyTime(-60)
+            ->setIsRequestedEmployee(false);
 
         $exception = array();
 
@@ -115,10 +114,10 @@ class BackednReceptionCest
 
     public function testValidateBooking(UnitTester $I)
     {
-        if(empty($this->service)) {
-            $this->initData();
-            $this->initCustomTime();
-        }
+
+        $this->initData();
+        $this->initCustomTime();
+
 
         $user      = User::find(70);
         $employee  = $this->employee;
@@ -155,10 +154,8 @@ class BackednReceptionCest
 
     public function testResponseData(UnitTester $I)
     {
-        if(empty($this->service)) {
-            $this->initData();
-            $this->initCustomTime();
-        }
+        $this->initData();
+        $this->initCustomTime();
 
         $user      = User::find(70);
         $employee  = $this->employee;
