@@ -192,7 +192,7 @@ def run_all():
         lambda x: threading.Thread(target=x), (
             lambda: local('grunt'),
             lambda: local('elasticsearch'),
-            lambda: local('php artisan queue:work --daemon'),
+            lambda: local('php artisan queue:listen'),
             lambda: local('redis-server'),
             test_acceptance_prepare
         )
