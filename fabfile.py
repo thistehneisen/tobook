@@ -19,6 +19,8 @@ def _deploy(environment):
         run('fab m:{}'.format(environment))
         # chmod storage again
         run('chmod -Rf 777 app/storage')
+        # clear all application cache
+        run('php artisan cache:clear')
         # restart supervisor processes
         run('supervisorctl restart all')
 
