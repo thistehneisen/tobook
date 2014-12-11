@@ -27,22 +27,10 @@ Route::group([
         'prefix' => 'services'
     ], function () {
 
-        Route::get('cashier', [
-            'as'     => 'cashier.index',
-            'before' => ['premium.modules:cashier', 'only.business'],
-            'uses'   => 'App\Core\Controllers\Services@cashier'
-        ]);
-
         Route::get('restaurant-booking', [
             'as'     => 'restaurant.index',
             'before' => ['premium.modules:restaurant', 'only.business'],
             'uses'   => 'App\Core\Controllers\Services@restaurant'
-        ]);
-
-        Route::get('timeslot', [
-            'as'     => 'timeslot.index',
-            'before' => ['premium.modules:timeslot', 'only.business'],
-            'uses'   => 'App\Core\Controllers\Services@timeslot'
         ]);
     });
 });

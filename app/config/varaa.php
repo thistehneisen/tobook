@@ -48,16 +48,8 @@ return [
             'route_name' => 'as.index',
             'enable' => true,
         ],
-        'cashier' => [
-            'route_name' => 'cashier.index',
-            'enable' => true,
-        ],
         'restaurant' => [
             'route_name' => 'restaurant.index',
-            'enable' => true,
-        ],
-        'timeslot' => [
-            'route_name' => 'timeslot.index',
             'enable' => true,
         ],
         'loyalty' => [
