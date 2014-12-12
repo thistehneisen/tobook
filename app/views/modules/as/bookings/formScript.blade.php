@@ -118,10 +118,11 @@ $(function () {
     });
     $("#keyword").select2({
         placeholder: "Search for a consumer",
-        minimumInputLength: 4,
+        minimumInputLength: 3,
         ajax: {
             url: "{{ route('as.bookings.search-consumer') }}",
             dataType: 'json',
+            quietMillis: 200,
             data: function (term, page) {
                 return {
                    keyword : term
