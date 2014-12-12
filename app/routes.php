@@ -30,7 +30,7 @@ require app_path().'/routes/api.php';
 require app_path().'/routes/consumer_hub.php';
 require app_path().'/routes/appointment.php';
 require app_path().'/routes/loyalty_card.php';
-require app_path().'/routes/marketing_tool.php';
+//require app_path().'/routes/marketing_tool.php';
 require app_path().'/routes/flash_deal.php';
 
 /*
