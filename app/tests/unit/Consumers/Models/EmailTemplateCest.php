@@ -1,12 +1,12 @@
 <?php namespace Test\Unit\Consumers\Models;
 
-use App\Consumers\Models\Campaign;
+use App\Consumers\Models\EmailTemplate;
 use UnitTester;
 
 /**
  * @group co
  */
-class CampaignCest
+class EmailTemplateCest
 {
     use \Test\Traits\Models;
 
@@ -27,24 +27,24 @@ class CampaignCest
 
     public function testSendConsumers(UnitTester $I)
     {
-        $campaign = $this->_createCampaign($this->user);
+        $campaign = $this->_createEmailTemplate($this->user);
         $consumer = $this->groups[0]->consumers()->first();
 
-        $sent = Campaign::sendConsumers($campaign, [$consumer->id]);
+        $sent = EmailTemplate::sendConsumers($campaign, [$consumer->id]);
         $I->assertEquals(1, $sent, '$sent');
 
-        $sent = Campaign::sendConsumers($campaign, [$consumer->id]);
+        $sent = EmailTemplate::sendConsumers($campaign, [$consumer->id]);
         $I->assertEquals(0, $sent, '$sent again');
     }
 
     public function testSendGroups(UnitTester $I)
     {
-        $campaign = $this->_createCampaign($this->user);
+        $campaign = $this->_createEmailTemplate($this->user);
         $group = $this->groups[0];
         $consumersCount = $group->consumers()->count();
         $I->assertEquals(3, $consumersCount);
 
-        list($sent, $total) = Campaign::sendGroups($campaign, [$group->id]);
+        list($sent, $total) = EmailTemplate::sendGroups($campaign, [$group->id]);
         $I->assertEquals($consumersCount, $sent, '$sent');
         $I->assertEquals($consumersCount, $total, '$total');
 
@@ -52,7 +52,7 @@ class CampaignCest
         $consumersCount = $group->consumers()->count();
         $I->assertEquals(4, $consumersCount);
 
-        list($sent, $total) = Campaign::sendGroups($campaign, [$group->id]);
+        list($sent, $total) = EmailTemplate::sendGroups($campaign, [$group->id]);
         $I->assertEquals($consumersCount - 1, $sent, '$sent again');
         $I->assertEquals($consumersCount, $total, '$total again');
     }

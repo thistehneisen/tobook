@@ -9,7 +9,7 @@ use App\Appointment\Models\EmployeeFreetime;
 use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;
-use App\Consumers\Models\Campaign;
+use App\Consumers\Models\EmailTemplate;
 use App\Consumers\Models\Consumer;
 use App\Consumers\Models\Group;
 use App\Consumers\Models\Sms;
@@ -285,9 +285,9 @@ trait Models
         return $group;
     }
 
-    protected function _createCampaign(User $user)
+    protected function _createEmailTemplate(User $user)
     {
-        $campaign = new Campaign([
+        $campaign = new EmailTemplate([
             'subject' => 'Campaign Subject',
             'content' => 'Campaign Content',
             'from_email' => 'campaign@varaa.com',

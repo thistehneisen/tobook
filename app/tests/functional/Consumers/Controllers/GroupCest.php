@@ -66,8 +66,8 @@ class GroupCest
         $I->selectOption('campaign_id', $campaign->id);
         $I->click('#btn-submit');
 
-        $I->seeCurrentRouteIs('consumer-hub.campaigns.history', ['campaign_id' => $campaign->id]);
-        $I->see(trans('co.campaigns.sent_to_x_of_y', [
+        $I->seeCurrentRouteIs('consumer-hub.email_templates.history', ['campaign_id' => $campaign->id]);
+        $I->see(trans('co.email_templates.sent_to_x_of_y', [
             'sent' => count($consumerIds),
             'total' => count($consumerIds),
         ]));
@@ -123,7 +123,7 @@ class GroupCest
         $I->selectOption('sms_id', $sms->id);
         $I->click('#btn-submit');
 
-        $I->seeCurrentRouteIs('consumer-hub.sms.history', ['sms_id' => $sms->id]);
+        $I->seeCurrentRouteIs('consumer-hub.history.sms', ['sms_id' => $sms->id]);
         $I->see(trans('co.sms.sent_to_x_of_y', [
             'sent' => count($consumerIds),
             'total' => count($consumerIds),

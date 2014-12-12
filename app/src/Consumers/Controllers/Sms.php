@@ -56,7 +56,7 @@ class Sms extends Base
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
         $histories = $historyQuery->paginate($perPage);
 
-        return View::make('modules.co.sms.history', [
+        return View::make('modules.co.history.sms', [
             'histories'   => $histories,
         ]);
     }

@@ -1,6 +1,6 @@
 <?php namespace App\Consumers\Controllers;
 
-use App\Consumers\Models\Campaign;
+use App\Consumers\Models\EmailTemplate;
 use App\Consumers\Models\Consumer;
 use App\Consumers\Models\Group;
 use App\Consumers\Models\Sms;
@@ -227,9 +227,9 @@ class Hub extends Base
         if (!empty($campaign)) {
             $sent = Campaign::sendConsumers($campaign, $ids);
 
-            return Redirect::route('consumer-hub.campaigns.history', ['campaign_id' => $campaign->id])
+            return Redirect::route('consumer-hub.email_templates.history', ['campaign_id' => $campaign->id])
                 ->with('messages', $this->successMessageBag(
-                    trans('co.campaigns.sent_to_x_of_y', [
+                    trans('co.email_templates.sent_to_x_of_y', [
                         'sent' => $sent,
                         'total' => count($ids),
                     ])
@@ -261,7 +261,7 @@ class Hub extends Base
         if (!empty($sms)) {
             $sent = Sms::sendConsumers($sms, $ids);
 
-            return Redirect::route('consumer-hub.sms.history', ['sms_id' => $sms->id])
+            return Redirect::route('consumer-hub.history.sms', ['sms_id' => $sms->id])
                 ->with('messages', $this->successMessageBag(
                     trans('co.sms.sent_to_x_of_y', [
                         'sent' => $sent,

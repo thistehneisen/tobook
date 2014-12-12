@@ -37,7 +37,7 @@ class SmsCest
 
         Sms::sendConsumers($sms, [$consumer->id]);
 
-        $I->amOnRoute('consumer-hub.sms.history');
+        $I->amOnRoute('consumer-hub.history.sms');
         $I->seeNumberOfElements('.item-row', 1);
         $I->see($sms->title);
         $I->see($consumer->phone);
@@ -52,7 +52,7 @@ class SmsCest
 
         Sms::sendGroups($sms, [$group->id]);
 
-        $I->amOnRoute('consumer-hub.sms.history');
+        $I->amOnRoute('consumer-hub.history.sms');
         $I->seeNumberOfElements('.item-row', $consumersCount);
         $I->see($sms->title);
         $I->see($group->name);
@@ -73,7 +73,7 @@ class SmsCest
             Sms::sendConsumers($sms, [$consumer->id]);
         }
 
-        $I->amOnRoute('consumer-hub.sms.history');
+        $I->amOnRoute('consumer-hub.history.sms');
         $I->seeNumberOfElements('.item-row', count($smsAll));
         foreach ($smsAll as $sms) {
             $I->see($sms->title);
@@ -81,7 +81,7 @@ class SmsCest
         $I->see($consumer->phone);
 
         foreach ($smsAll as $sms) {
-            $I->amOnRoute('consumer-hub.sms.history', ['sms_id' => $sms->id]);
+            $I->amOnRoute('consumer-hub.history.sms', ['sms_id' => $sms->id]);
             $I->seeNumberOfElements('.item-row', 1);
             $I->see($sms->title);
             $I->see($consumer->phone);

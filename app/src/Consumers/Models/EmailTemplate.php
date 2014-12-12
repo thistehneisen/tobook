@@ -3,7 +3,7 @@ namespace App\Consumers\Models;
 
 use Mail;
 
-class Campaign extends \App\Core\Models\Base
+class EmailTemplate extends \App\Core\Models\Base
 {
     public $fillable = [
         'subject',
@@ -37,7 +37,7 @@ class Campaign extends \App\Core\Models\Base
     //--------------------------------------------------------------------------
     // CUSTOM METHODS
     //--------------------------------------------------------------------------
-    public static function sendConsumers(Campaign $campaign, array $consumerIds, Group $group = null)
+    public static function sendConsumers(EmailTemplate $campaign, array $consumerIds, Group $group = null)
     {
         $count = 0;
 
@@ -63,7 +63,7 @@ class Campaign extends \App\Core\Models\Base
 
             // check for marketing material opt-out maybe?
 
-            Mail::send('modules.co.campaigns.email', [
+            Mail::send('modules.co.email_templates.email', [
                 'subject' => $campaign->subject,
                 'content' => $campaign->content,
             ], function ($message) use ($campaign, $consumer, $group) {
@@ -80,7 +80,7 @@ class Campaign extends \App\Core\Models\Base
         return $count;
     }
 
-    public static function sendGroups(Campaign $campaign, array $groupIds)
+    public static function sendGroups(EmailTemplate $campaign, array $groupIds)
     {
         $count = 0;
         $consumerIds = [];

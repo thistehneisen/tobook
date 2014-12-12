@@ -18,28 +18,34 @@ Route::group([
         'consumer-hub.groups'
     );
 
-    \App\Consumers\Controllers\Campaign::crudRoutes(
-        'campaigns',
-        'consumer-hub.campaigns'
+    \App\Consumers\Controllers\EmailTemplate::crudRoutes(
+        'email-templates',
+        'consumer-hub.email_templates'
     );
-    Route::get('campaigns/history', [
-        'as' => 'consumer-hub.campaigns.history',
-        'uses' => 'App\Consumers\Controllers\Campaign@history',
-    ]);
 
     \App\Consumers\Controllers\Sms::crudRoutes(
         'sms',
         'consumer-hub.sms'
     );
-    Route::get('sms/history', [
-        'as' => 'consumer-hub.sms.history',
-        'uses' => 'App\Consumers\Controllers\Sms@history',
-    ]);
 
-    Route::get('history', [
-        'as' => 'consumer-hub.history',
-        'uses' => 'App\Consumers\Controllers\Hub@getHistory',
-    ]);
+    Route::group([
+        'prefix' => 'history',
+    ], function () {
+        Route::get('/', [
+            'as' => 'consumer-hub.history',
+            'uses' => 'App\Consumers\Controllers\Hub@getHistory',
+        ]);
+
+        Route::get('email', [
+            'as' => 'consumer-hub.history.email',
+            'uses' => 'App\Consumers\Controllers\EmailTemplate@history',
+        ]);
+
+        Route::get('email', [
+            'as' => 'consumer-hub.history.sms',
+            'uses' => 'App\Consumers\Controllers\Sms@history',
+        ]);
+    });
 
     Route::get('import', [
         'before' => ['auth.admin'],

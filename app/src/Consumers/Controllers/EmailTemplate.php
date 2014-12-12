@@ -11,15 +11,15 @@ use Lang;
 use Session;
 use View;
 
-class Campaign extends Base
+class EmailTemplate extends Base
 {
     use \CRUD;
 
-    protected $viewPath = 'modules.co.campaigns';
+    protected $viewPath = 'modules.co.email_templates';
 
     protected $crudOptions = [
-        'modelClass' => 'App\Consumers\Models\Campaign',
-        'langPrefix' => 'co.campaigns',
+        'modelClass' => 'App\Consumers\Models\EmailTemplate',
+        'langPrefix' => 'co.email_templates',
         'indexFields' => ['subject', 'from_email', 'from_name'],
         'lomake' => [
             'content' => [
@@ -27,7 +27,7 @@ class Campaign extends Base
             ],
         ],
         'layout' => 'modules.co.layout',
-        'actionsView' => 'modules.co.campaigns.actions',
+        'actionsView' => 'modules.co.email_templates.actions',
         'showTab' => false,
     ];
 
@@ -51,7 +51,7 @@ class Campaign extends Base
 
         $campaignId = intval(Input::get('campaign_id', 0));
         if (!empty($campaignId)) {
-            $campaign = \App\Consumers\Models\Campaign::ofCurrentUser()->findOrFail($campaignId);
+            $campaign = \App\Consumers\Models\EmailTemplate::ofCurrentUser()->findOrFail($campaignId);
             $historyQuery = $campaign->histories();
         } else {
             $historyQuery = History::ofCurrentUser();
@@ -64,7 +64,7 @@ class Campaign extends Base
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
         $histories = $historyQuery->paginate($perPage);
 
-        return View::make('modules.co.campaigns.history', [
+        return View::make('modules.co.email_templates.history', [
             'histories'   => $histories,
         ]);
     }

@@ -62,15 +62,14 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('consumer-hub.campaigns.index') }}">
-                        <i class="fa fa-rss"></i>
-                        {{ trans('co.campaigns.all') }}
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('consumer-hub.email_templates.index') }}">
+                        <i class="fa fa-envelope"></i>
+                        {{ trans('co.email_templates.all') }}
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="{{ route('consumer-hub.campaigns.index')}}">{{ trans('co.campaigns.all') }}</a></li>
-                        <li><a href="{{ route('consumer-hub.campaigns.upsert')}}">{{ trans('co.campaigns.add') }}</a></li>
-                        <li><a href="{{ route('consumer-hub.campaigns.history')}}">{{ trans('co.campaigns.history') }}</a></li>
+                        <li><a href="{{ route('consumer-hub.email_templates.index')}}">{{ trans('co.email_templates.all') }}</a></li>
+                        <li><a href="{{ route('consumer-hub.email_templates.upsert')}}">{{ trans('co.email_templates.add') }}</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -82,7 +81,17 @@
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="{{ route('consumer-hub.sms.index')}}">{{ trans('co.sms.all') }}</a></li>
                         <li><a href="{{ route('consumer-hub.sms.upsert')}}">{{ trans('co.sms.add') }}</a></li>
-                        <li><a href="{{ route('consumer-hub.sms.history')}}">{{ trans('co.sms.history') }}</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-mobile"></i>
+                        {{ trans('co.history.index') }}
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{ route('consumer-hub.history.email')}}">{{ trans('co.history.email') }}</a></li>
+                        <li><a href="{{ route('consumer-hub.history.email')}}">{{ trans('co.history.sms') }}</a></li>
                     </ul>
                 </li>
             </ul>

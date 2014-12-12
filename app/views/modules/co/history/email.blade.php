@@ -3,15 +3,15 @@
 @section ('content')
     @include ('el.messages')
 
-{{ Form::open(['route' => 'consumer-hub.sms.history', 'class' => 'form-inline form-table', 'id' => 'form-bulk']) }}
+{{ Form::open(['route' => 'consumer-hub.email_templates.history', 'class' => 'form-inline form-table', 'id' => 'form-bulk']) }}
 <table class="table table-hover table-crud">
     <thead>
         <tr>
             <th><input type="checkbox" class="toggle-check-all-boxes" data-checkbox-class="checkbox"></th>
-            <th>{{ trans('co.sms.title') }}</th>
+            <th>{{ trans('co.email_templates.subject') }}</th>
             <th>{{ trans('co.groups.name') }}</th>
-            <th>{{ trans('co.phone') }}</th>
-            <th>{{ trans('co.sms.sent_at') }}</th>
+            <th>{{ trans('co.email') }}</th>
+            <th>{{ trans('co.email_templates.sent_at') }}</th>
             <th>&nbsp;</th>
         </tr>
     </thead>
@@ -20,8 +20,8 @@
         <tr id="row-{{ $history->id }}" data-id="{{ $history->id }}" class="item-row">
             <td><input type="checkbox" class="checkbox" name="ids[]" value="{{ $history->id }}" id="bulk-item-{{ $history->id }}"></td>
             <td>
-                <a href="{{ route('consumer-hub.sms.upsert', [$history->sms->id]) }}" target="_blank">
-                    {{ $history->sms->title }}
+                <a href="{{ route('consumer-hub.email_templates.upsert', [$history->campaign->id]) }}" target="_blank">
+                    {{ $history->campaign->subject }}
                 </a>
             </td>
             <td>
@@ -34,7 +34,7 @@
             <td>
             @if ($history->consumer)
                 <a href="{{ route('consumer-hub.upsert', [$history->consumer->id]) }}" target="_blank">
-                    {{ $history->consumer->phone }}
+                    {{ $history->consumer->email }}
                 </a>
                 ({{ $history->consumer->name }})
             @endif
@@ -58,10 +58,10 @@
             {{ trans('olut::olut.per_page') }} <span class="caret"></span>
             </button>
             <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="{{ route('consumer-hub.sms.history', ['perPage' => 5]) }}" id="per-page-5">5</a></li>
-                <li><a href="{{ route('consumer-hub.sms.history', ['perPage' => 10]) }}" id="per-page-10">10</a></li>
-                <li><a href="{{ route('consumer-hub.sms.history', ['perPage' => 20]) }}" id="per-page-20">20</a></li>
-                <li><a href="{{ route('consumer-hub.sms.history', ['perPage' => 50]) }}" id="per-page-50">50</a></li>
+                <li><a href="{{ route('consumer-hub.email_templates.history', ['perPage' => 5]) }}" id="per-page-5">5</a></li>
+                <li><a href="{{ route('consumer-hub.email_templates.history', ['perPage' => 10]) }}" id="per-page-10">10</a></li>
+                <li><a href="{{ route('consumer-hub.email_templates.history', ['perPage' => 20]) }}" id="per-page-20">20</a></li>
+                <li><a href="{{ route('consumer-hub.email_templates.history', ['perPage' => 50]) }}" id="per-page-50">50</a></li>
             </ul>
         </div>
     </div>

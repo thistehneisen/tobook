@@ -1,7 +1,7 @@
 <?php namespace App\Consumers\Controllers;
 
 use App\Core\Controllers\Base;
-use App\Consumers\Models\Campaign;
+use App\Consumers\Models\EmailTemplate;
 use App\Consumers\Models\Sms;
 use Confide;
 use DB;
@@ -38,22 +38,22 @@ class Group extends Base
         $campaign = null;
         $campaignId = intval(Input::get('campaign_id'));
         if (!empty($campaignId)) {
-            $campaign = Campaign::ofCurrentUser()->findOrFail($campaignId);
+            $campaign = EmailTemplate::ofCurrentUser()->findOrFail($campaignId);
         }
 
         if (!empty($campaign)) {
-            list($sent, $total) = Campaign::sendGroups($campaign, $ids);
+            list($sent, $total) = EmailTemplate::sendGroups($campaign, $ids);
 
-            return Redirect::route('consumer-hub.campaigns.history', ['campaign_id' => $campaign->id])
+            return Redirect::route('consumer-hub.email_templates.history', ['campaign_id' => $campaign->id])
                 ->with('messages', $this->successMessageBag(
-                    trans('co.campaigns.sent_to_x_of_y', [
+                    trans('co.email_templates.sent_to_x_of_y', [
                         'sent' => $sent,
                         'total' => $total,
                     ])
                 ));
         }
 
-        $campaigns = Campaign::ofCurrentUser()->get();
+        $campaigns = EmailTemplate::ofCurrentUser()->get();
         $campaignPairs = [];
         foreach ($campaigns as $campaign) {
             $campaignPairs[$campaign->id] = $campaign->subject;
@@ -78,7 +78,7 @@ class Group extends Base
         if (!empty($sms)) {
             list($sent, $total) = Sms::sendGroups($sms, $ids);
 
-            return Redirect::route('consumer-hub.sms.history', ['sms_id' => $sms->id])
+            return Redirect::route('consumer-hub.history.sms', ['sms_id' => $sms->id])
                 ->with('messages', $this->successMessageBag(
                     trans('co.sms.sent_to_x_of_y', [
                         'sent' => $sent,

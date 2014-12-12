@@ -60,16 +60,16 @@ return [
         'send_sms'      => 'Send Group SMS',
     ],
     'send_campaign'     => 'Send Campaign',
-    'campaigns' => [
-        'all'           => 'Campaigns',
+    'email_templates' => [
+        'all'           => 'Email templates',
         'subject'       => 'Subject',
         'content'       => 'Content',
-        'from_email'    => 'From Email',
-        'from_name'     => 'From Name',
-        'add'           => 'Add Campaign',
-        'edit'          => 'Edit Campaign',
-        'history'       => 'History',
-        'sent_at'       => 'Sent At',
+        'from_email'    => 'From email',
+        'from_name'     => 'From name',
+        'add'           => 'Add email template',
+        'edit'          => 'Edit email template',
+
+        'sent_at'       => 'Sent at',
         'sent_to_x_of_y'=> 'Sent email to :sent out of :total consumers',
     ],
     'send_sms'     => 'Send SMS',
@@ -79,8 +79,12 @@ return [
         'content'       => 'Content',
         'add'           => 'Add SMS',
         'edit'          => 'Edit SMS',
-        'history'       => 'History',
         'sent_at'       => 'Sent At',
         'sent_to_x_of_y'=> 'Sent SMS to :sent out of :total consumers',
     ],
+    'history' => [
+        'index'         => 'History',
+        'email'         => 'Email history',
+        'sms'           => 'SMS history',
+    ]
 ];

@@ -2,7 +2,7 @@
 namespace App\Consumers\Models;
 
 use App\Core\Models\User;
-use App\Consumers\Models\Campaign;
+use App\Consumers\Models\EmailTemplate;
 use App\Consumers\Models\Consumer;
 use App\Consumers\Models\Group;
 use App\Consumers\Models\Sms;

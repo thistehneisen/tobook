@@ -1,6 +1,6 @@
 <?php namespace Test\Functional\Consumers\Controllers;
 
-use App\Consumers\Models\Campaign;
+use App\Consumers\Models\EmailTemplate;
 use FunctionalTester;
 use Test\Traits\Models;
 
@@ -37,7 +37,7 @@ class CampaignCest
 
         Campaign::sendConsumers($campaign, [$consumer->id]);
 
-        $I->amOnRoute('consumer-hub.campaigns.history');
+        $I->amOnRoute('consumer-hub.email_templates.history');
         $I->seeNumberOfElements('.item-row', 1);
         $I->see($campaign->subject);
         $I->see($consumer->email);
@@ -52,7 +52,7 @@ class CampaignCest
 
         Campaign::sendGroups($campaign, [$group->id]);
 
-        $I->amOnRoute('consumer-hub.campaigns.history');
+        $I->amOnRoute('consumer-hub.email_templates.history');
         $I->seeNumberOfElements('.item-row', $consumersCount);
         $I->see($campaign->subject);
         $I->see($group->name);
@@ -73,7 +73,7 @@ class CampaignCest
             Campaign::sendConsumers($campaign, [$consumer->id]);
         }
 
-        $I->amOnRoute('consumer-hub.campaigns.history');
+        $I->amOnRoute('consumer-hub.email_templates.history');
         $I->seeNumberOfElements('.item-row', count($campaigns));
         foreach ($campaigns as $campaign) {
             $I->see($campaign->subject);
@@ -81,7 +81,7 @@ class CampaignCest
         $I->see($consumer->email);
 
         foreach ($campaigns as $campaign) {
-            $I->amOnRoute('consumer-hub.campaigns.history', ['campaign_id' => $campaign->id]);
+            $I->amOnRoute('consumer-hub.email_templates.history', ['campaign_id' => $campaign->id]);
             $I->seeNumberOfElements('.item-row', 1);
             $I->see($campaign->subject);
             $I->see($consumer->email);
