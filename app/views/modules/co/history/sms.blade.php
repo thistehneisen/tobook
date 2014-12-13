@@ -8,10 +8,10 @@
     <thead>
         <tr>
             <th><input type="checkbox" class="toggle-check-all-boxes" data-checkbox-class="checkbox"></th>
-            <th>{{ trans('co.sms.title') }}</th>
+            <th>{{ trans('co.sms_templates.title') }}</th>
             <th>{{ trans('co.groups.name') }}</th>
             <th>{{ trans('co.phone') }}</th>
-            <th>{{ trans('co.sms.sent_at') }}</th>
+            <th>{{ trans('co.sms_templates.sent_at') }}</th>
             <th>&nbsp;</th>
         </tr>
     </thead>
@@ -20,7 +20,7 @@
         <tr id="row-{{ $history->id }}" data-id="{{ $history->id }}" class="item-row">
             <td><input type="checkbox" class="checkbox" name="ids[]" value="{{ $history->id }}" id="bulk-item-{{ $history->id }}"></td>
             <td>
-                <a href="{{ route('consumer-hub.sms.upsert', [$history->sms->id]) }}" target="_blank">
+                <a href="{{ route('consumer-hub.sms_templates.upsert', [$history->sms->id]) }}" target="_blank">
                     {{ $history->sms->title }}
                 </a>
             </td>

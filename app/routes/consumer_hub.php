@@ -23,9 +23,9 @@ Route::group([
         'consumer-hub.email_templates'
     );
 
-    \App\Consumers\Controllers\Sms::crudRoutes(
-        'sms',
-        'consumer-hub.sms'
+    \App\Consumers\Controllers\SmsTemplate::crudRoutes(
+        'sms-templates',
+        'consumer-hub.sms_templates'
     );
 
     Route::group([
@@ -43,7 +43,7 @@ Route::group([
 
         Route::get('email', [
             'as' => 'consumer-hub.history.sms',
-            'uses' => 'App\Consumers\Controllers\Sms@history',
+            'uses' => 'App\Consumers\Controllers\SmsTemplate@history',
         ]);
     });
 

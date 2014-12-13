@@ -5,7 +5,7 @@ use App\Core\Models\User;
 use App\Consumers\Models\EmailTemplate;
 use App\Consumers\Models\Consumer;
 use App\Consumers\Models\Group;
-use App\Consumers\Models\Sms;
+use App\Consumers\Models\SmsTemplate;
 
 class History extends \App\Core\Models\Base
 {
@@ -38,7 +38,7 @@ class History extends \App\Core\Models\Base
 
     public function sms()
     {
-        return $this->belongsTo('App\Consumers\Models\Sms');
+        return $this->belongsTo('App\Consumers\Models\SmsTemplate', 'sms_id');
     }
 
     //--------------------------------------------------------------------------
@@ -46,7 +46,7 @@ class History extends \App\Core\Models\Base
     //--------------------------------------------------------------------------
     /**
      * @param User $user
-     * @param EmailTemplate|Sms $campaignOrSms
+     * @param EmailTemplate|SmsTemplate $campaignOrSms
      * @param Consumer $consumer
      * @param Group $group
      *
@@ -60,7 +60,7 @@ class History extends \App\Core\Models\Base
 
         if ($campaignOrSms instanceof EmailTemplate) {
             $history->email()->associate($campaignOrSms);
-        } elseif ($campaignOrSms instanceof Sms) {
+        } elseif ($campaignOrSms instanceof SmsTemplate) {
             $history->sms()->associate($campaignOrSms);
         } else {
             // TODO: add support for Sms

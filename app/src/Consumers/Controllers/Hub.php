@@ -3,7 +3,7 @@
 use App\Consumers\Models\EmailTemplate;
 use App\Consumers\Models\Consumer;
 use App\Consumers\Models\Group;
-use App\Consumers\Models\Sms;
+use App\Consumers\Models\SmsTemplate;
 use App\Core\Controllers\Base;
 use Confide;
 use DB;
@@ -244,7 +244,7 @@ class Hub extends Base
 
         $consumers = Consumer::ofCurrentUser()->whereIn('id', $ids)->get();
 
-        return View::make('modules.co.bulk_send_campaign', [
+        return View::make('modules.co.bulk_send_email', [
             'campaignPairs' => $campaignPairs,
             'consumers' => $consumers,
         ]);
@@ -255,22 +255,22 @@ class Hub extends Base
         $sms = null;
         $smsId = intval(Input::get('sms_id'));
         if (!empty($smsId)) {
-            $sms = Sms::ofCurrentUser()->findOrFail($smsId);
+            $sms = SmsTemplate::ofCurrentUser()->findOrFail($smsId);
         }
 
         if (!empty($sms)) {
-            $sent = Sms::sendConsumers($sms, $ids);
+            $sent = SmsTemplate::sendConsumers($sms, $ids);
 
             return Redirect::route('consumer-hub.history.sms', ['sms_id' => $sms->id])
                 ->with('messages', $this->successMessageBag(
-                    trans('co.sms.sent_to_x_of_y', [
+                    trans('co.sms_templates.sent_to_x_of_y', [
                         'sent' => $sent,
                         'total' => count($ids),
                     ])
                 ));
         }
 
-        $smsAll = Sms::ofCurrentUser()->get();
+        $smsAll = SmsTemplate::ofCurrentUser()->get();
         $smsPairs = [];
         foreach ($smsAll as $sms) {
             $smsPairs[$sms->id] = $sms->title;

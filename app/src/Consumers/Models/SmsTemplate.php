@@ -3,7 +3,7 @@ namespace App\Consumers\Models;
 
 use Mail;
 
-class Sms extends \App\Core\Models\Base
+class SmsTemplate extends \App\Core\Models\Base
 {
     public $fillable = [
         'title',
@@ -27,13 +27,13 @@ class Sms extends \App\Core\Models\Base
 
     public function histories()
     {
-        return $this->hasMany('App\Consumers\Models\History');
+        return $this->hasMany('App\Consumers\Models\History', 'sms_id');
     }
 
     //--------------------------------------------------------------------------
     // CUSTOM METHODS
     //--------------------------------------------------------------------------
-    public static function sendConsumers(Sms $sms, array $consumerIds, Group $group = null)
+    public static function sendConsumers(SmsTemplate $sms, array $consumerIds, Group $group = null)
     {
         $count = 0;
 
@@ -71,7 +71,7 @@ class Sms extends \App\Core\Models\Base
         return $count;
     }
 
-    public static function sendGroups(Sms $sms, array $groupIds)
+    public static function sendGroups(SmsTemplate $sms, array $groupIds)
     {
         $count = 0;
         $consumerIds = [];

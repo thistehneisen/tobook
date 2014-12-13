@@ -258,7 +258,7 @@ class HubCest
         $I->click('#btn-submit');
 
         $I->seeCurrentRouteIs('consumer-hub.history.sms', ['sms_id' => $sms->id]);
-        $I->see(trans('co.sms.sent_to_x_of_y', [
+        $I->see(trans('co.sms_templates.sent_to_x_of_y', [
             'sent' => 2,
             'total' => 2,
         ]));

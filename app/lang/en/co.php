@@ -73,13 +73,13 @@ return [
         'sent_to_x_of_y'=> 'Sent email to :sent out of :total consumers',
     ],
     'send_sms'     => 'Send SMS',
-    'sms' => [
-        'all'           => 'SMS',
+    'sms_templates' => [
+        'all'           => 'SMS templates',
         'title'         => 'Title',
         'content'       => 'Content',
-        'add'           => 'Add SMS',
-        'edit'          => 'Edit SMS',
-        'sent_at'       => 'Sent At',
+        'add'           => 'Add SMS template',
+        'edit'          => 'Edit SMS template',
+        'sent_at'       => 'Sent at',
         'sent_to_x_of_y'=> 'Sent SMS to :sent out of :total consumers',
     ],
     'history' => [

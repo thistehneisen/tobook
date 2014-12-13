@@ -10,18 +10,18 @@ use Lang;
 use Session;
 use View;
 
-class Sms extends Base
+class SmsTemplate extends Base
 {
     use \CRUD;
 
-    protected $viewPath = 'modules.co.sms';
+    protected $viewPath = 'modules.co.sms_templates';
 
     protected $crudOptions = [
-        'modelClass' => 'App\Consumers\Models\Sms',
-        'langPrefix' => 'co.sms',
+        'modelClass' => 'App\Consumers\Models\SmsTemplate',
+        'langPrefix' => 'co.sms_templates',
         'indexFields' => ['title', 'content'],
         'layout' => 'modules.co.layout',
-        'actionsView' => 'modules.co.sms.actions',
+        'actionsView' => 'modules.co.sms_templates.actions',
         'showTab' => false,
     ];
 
@@ -43,7 +43,7 @@ class Sms extends Base
 
         $smsId = intval(Input::get('sms_id', 0));
         if (!empty($smsId)) {
-            $sms = \App\Consumers\Models\Sms::ofCurrentUser()->findOrFail($smsId);
+            $sms = \App\Consumers\Models\SmsTemplate::ofCurrentUser()->findOrFail($smsId);
             $historyQuery = $sms->histories();
         } else {
             $historyQuery = History::ofCurrentUser();

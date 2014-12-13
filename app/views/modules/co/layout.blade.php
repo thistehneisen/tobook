@@ -73,14 +73,14 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('consumer-hub.sms.index') }}">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('consumer-hub.sms_templates.index') }}">
                         <i class="fa fa-mobile"></i>
-                        {{ trans('co.sms.all') }}
+                        {{ trans('co.sms_templates.all') }}
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="{{ route('consumer-hub.sms.index')}}">{{ trans('co.sms.all') }}</a></li>
-                        <li><a href="{{ route('consumer-hub.sms.upsert')}}">{{ trans('co.sms.add') }}</a></li>
+                        <li><a href="{{ route('consumer-hub.sms_templates.index')}}">{{ trans('co.sms_templates.all') }}</a></li>
+                        <li><a href="{{ route('consumer-hub.sms_templates.upsert')}}">{{ trans('co.sms_templates.add') }}</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">

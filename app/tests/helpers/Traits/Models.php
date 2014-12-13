@@ -12,7 +12,7 @@ use App\Appointment\Models\ServiceCategory;
 use App\Consumers\Models\EmailTemplate;
 use App\Consumers\Models\Consumer;
 use App\Consumers\Models\Group;
-use App\Consumers\Models\Sms;
+use App\Consumers\Models\SmsTemplate;
 use App\Core\Models\Business;
 use App\Core\Models\Role;
 use App\Core\Models\User;
@@ -301,7 +301,7 @@ trait Models
 
     protected function _createSms(User $user)
     {
-        $sms = new Sms([
+        $sms = new SmsTemplate([
             'title' => 'SMS Title',
             'content' => 'SMS Content',
         ]);

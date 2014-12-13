@@ -1,6 +1,6 @@
 <?php namespace Test\Unit\Consumers\Models;
 
-use App\Consumers\Models\Sms;
+use App\Consumers\Models\SmsTemplate;
 use UnitTester;
 
 /**
@@ -30,11 +30,11 @@ class SmsCest
         $sms = $this->_createSms($this->user);
         $consumer = $this->groups[0]->consumers()->first();
 
-        $sent = Sms::sendConsumers($sms, [$consumer->id]);
+        $sent = SmsTemplate::sendConsumers($sms, [$consumer->id]);
         $I->assertEquals(1, $sent, '$sent');
 
         // send to the same consumer again
-        $sent = Sms::sendConsumers($sms, [$consumer->id]);
+        $sent = SmsTemplate::sendConsumers($sms, [$consumer->id]);
         $I->assertEquals(0, $sent, '$sent again');
     }
 
@@ -45,7 +45,7 @@ class SmsCest
         $consumersCount = $group->consumers()->count();
         $I->assertEquals(3, $consumersCount);
 
-        list($sent, $total) = Sms::sendGroups($sms, [$group->id]);
+        list($sent, $total) = SmsTemplate::sendGroups($sms, [$group->id]);
         $I->assertEquals($consumersCount, $sent, '$sent');
         $I->assertEquals($consumersCount, $total, '$total');
 
@@ -53,7 +53,7 @@ class SmsCest
         $consumersCount = $group->consumers()->count();
         $I->assertEquals(4, $consumersCount);
 
-        list($sent, $total) = Sms::sendGroups($sms, [$group->id]);
+        list($sent, $total) = SmsTemplate::sendGroups($sms, [$group->id]);
         $I->assertEquals($consumersCount - 1, $sent, '$sent again');
         $I->assertEquals($consumersCount, $total, '$total again');
     }
