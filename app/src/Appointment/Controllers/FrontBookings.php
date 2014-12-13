@@ -17,6 +17,8 @@ use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\AsConsumer;
 use App\Appointment\Models\Observer\EmailObserver;
 use App\Appointment\Models\Observer\SmsObserver;
+use App\Appointment\Models\Reception\FrontendReceptionist;
+
 
 class FrontBookings extends Bookings
 {
@@ -78,9 +80,9 @@ class FrontBookings extends Bookings
 
         $data = [
             'datetime'           => $bookingService->plainStartTime->toDateTimeString(),
-            'price'              => $price,
-            'service_name'       => $service->name,
-            'employee_name'      => $employee->name,
+            'price'              => $bookingService->calculcateTotalPrice(),
+            'service_name'       => $bookingService->selectedService->name,
+            'employee_name'      => $bookingService->employee->name,
             'uuid'               => $uuid,
             'cart_id'            => $cart->id,
             'booking_service_id' => $bookingService->id

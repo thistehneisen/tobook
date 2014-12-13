@@ -389,8 +389,6 @@ abstract class Receptionist implements ReceptionistInterface
             $model->serviceTime()->associate($this->serviceTime);
         }
 
-        $model->quantity = 1;
-        $model->price = $this->price;
         $model->service()->associate($this->service);
         $model->user()->associate($this->user);
         $model->employee()->associate($this->employee);
