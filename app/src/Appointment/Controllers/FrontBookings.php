@@ -111,50 +111,18 @@ class FrontBookings extends Bookings
 
             foreach ($cart->details as $detail) {
                 $bookingService = $detail->model->instance;
-                $extraServices  = BookingExtraService::where('tmp_uuid', $bookingService->tmp_uuid)->get();
 
-                $length   = $bookingService->calculcateTotalLength();
-                $plustime = $bookingService->getEmployeePlustime();
-                $date     = $bookingService->date;
-                $start_at = $bookingService->start_at;
-                $end_at   = with(new Carbon($start_at))->addMinutes($length);
+                $receptionist = new FrontendReceptionist();
+                $receptionist->setBookingId(null)
+                    ->setUUID($bookingService->tmp_uuid)
+                    ->setUser($user)
+                    ->setNotes($cart->notes)
+                    ->setIsRequestedEmployee($isRequestedEmployee)
+                    ->setConsumer($consumer)
+                    ->setClientIP(Request::getClientIp())
+                    ->setSource($source);
 
-                $price = $bookingService->calculcateTotalPrice();
-
-                $booking = new Booking();
-                $booking->fill([
-                    'date'        => $date,
-                    'start_at'    => $start_at,
-                    'end_at'      => $end_at->toTimeString(),
-                    'total'       => $length,
-                    'status'      => Booking::STATUS_CONFIRM,
-                    'uuid'        => $bookingService->tmp_uuid,
-                    'total_price' => $price,
-                    'modify_time' => $bookingService->modify_time,
-                    'plustime'    => $plustime,
-                    'source'      => $source,
-                    'notes'       => $cart->notes,
-                    'ip'          => Request::getClientIp()
-                ]);
-
-                $booking->consumer()->associate($consumer);
-                $booking->user()->associate($user);
-                $booking->employee()->associate($bookingService->employee);
-                $booking->save();
-
-                $bookingService->booking()->associate($booking);
-                $bookingService->is_requested_employee = $isRequestedEmployee;
-                $bookingService->save();
-
-                foreach ($extraServices as $extraService) {
-                    $extraService->booking()->associate($booking);
-                    $extraService->save();
-                }
-
-                //Send notification email and SMSs
-                $booking->attach(new EmailObserver());
-                $booking->attach(new SmsObserver());
-                $booking->notify();
+                $booking = $receptionist->upsertBooking();
             }
 
             // Complete the cart
@@ -162,9 +130,9 @@ class FrontBookings extends Bookings
 
             $data['success'] = true;
             $data['message'] = trans('as.embed.success');
-        } catch (\Watson\Validating\ValidationException $ex) {
+        } catch (\Exception $ex) {
             $data['success'] = false;
-            $data['message'] =  Util::getHtmlListError($ex);
+            $data['message'] = Util::getHtmlListError($ex);
             return Response::json($data, 500);
         }
         return Response::json($data);

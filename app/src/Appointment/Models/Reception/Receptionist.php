@@ -144,6 +144,21 @@ abstract class Receptionist implements ReceptionistInterface
         return $this;
     }
 
+    public function setExtraServices()
+    {
+        $this->extraServices  = BookingExtraService::where('tmp_uuid', $this->uuid)->get();
+        return $this;
+    }
+
+    public function getExtraServices()
+    {
+        if(empty($this->extraServices)) {
+            $this->setExtraServices();
+        }
+
+        return $this->extraServices;
+    }
+
     public function setModifyTime($modifyTime)
     {
         $this->modifyTime = $modifyTime;
