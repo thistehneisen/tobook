@@ -154,6 +154,25 @@ class BackednReceptionCest
 
     public function testResponseData(UnitTester $I)
     {
+
+        $response = $receptionist->getResponseData();
+        $plustime = $employee->getPlustime($service->id);
+
+        $cooked = [
+            'datetime'      => $date->hour(14)->toDateTimeString(),
+            'price'         => $service->price,
+            'service_name'  => $service->name,
+            'modify_time'   => 0,
+            'plustime'      => $plustime,
+            'employee_name' => $employee->name,
+            'uuid'          => $uuid
+        ];
+
+        $I->assertEquals($response, $cooked);
+    }
+
+    public function testUpsertBooking(UnitTester $I)
+    {
         $this->initData();
         $this->initCustomTime();
 
@@ -179,19 +198,30 @@ class BackednReceptionCest
             ->setServiceTimeId('default');
 
         $receptionist->upsertBookingService();
-        $response = $receptionist->getResponseData();
-        $plustime = $employee->getPlustime($service->id);
 
-        $cooked = [
-            'datetime'      => $date->hour(14)->toDateTimeString(),
-            'price'         => $service->price,
-            'service_name'  => $service->name,
-            'modify_time'   => 0,
-            'plustime'      => $plustime,
-            'employee_name' => $employee->name,
-            'uuid'          => $uuid
-        ];
+        $consumer = AsConsumer::handleConsumer([
+            'first_name' => 'Consumer First',
+            'last_name' => 'Last ' . $this->service->id,
+            'email' => 'consumer_' . $this->service->id . '@varaa.com',
+            'phone' => '1234567890',
+            'hash' => '',
+        ], $user);
 
-        $I->assertEquals($response, $cooked);
+        $receptionist = new BackendReceptionist();
+        $receptionist->setBookingId(null)
+            ->setUUID($uuid)
+            ->setUser($user)
+            ->setStatus('confirmed')
+            ->setNotes('')
+            ->setIsRequestedEmployee(true)
+            ->setConsumer($consumer)
+            ->setClientIP('192.168.1.1')
+            ->setSource('backend');
+
+        $booking = $receptionist->upsertBooking();
+        $I->assertNotEmpty($booking);
+        $I->assertEquals($booking->total, 60);
+        $I->assertEquals($booking->startTime, Carbon::today()->hour(14)->minute(0)->second(0));
+        $I->assertEquals($booking->endTime, Carbon::today()->hour(15)->minute(0)->second(0));
     }
 }

@@ -160,16 +160,15 @@ class BookingService extends Base implements CartDetailInterface
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
-    //TODO convert string to Carbon object
-    // public function getStartAtAttribute()
-    // {
+    public function getStartTimeAttribute()
+    {
+        return new \Carbon\Carbon($this->date.' '.$this->start_at);
+    }
 
-    // }
-
-    // public function getEndAtAttribute()
-    // {
-
-    // }
+    public function getEndTimeAttribute()
+    {
+        return new \Carbon\Carbon($this->date.' '.$this->end_at);
+    }
 
     //--------------------------------------------------------------------------
     // RELATIONSHIPS

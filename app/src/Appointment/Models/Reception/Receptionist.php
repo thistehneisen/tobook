@@ -35,6 +35,11 @@ abstract class Receptionist implements ReceptionistInterface
     protected $modifyTime          = 0;
     protected $user                = null;
     protected $isRequestedEmployee = false;
+    protected $clientIP            = null;
+    protected $consumer            = null;
+    protected $source              = null;
+    protected $status              = null;
+    protected $notes               = null;
 
     public function setBookingId($bookingId)
     {
@@ -60,15 +65,6 @@ abstract class Receptionist implements ReceptionistInterface
         $this->date = $date;
 
         return $this;
-    }
-
-    public function findBookingService()
-    {
-        $this->bookingService = (empty($this->bookingId))
-            ? BookingService::where('tmp_uuid', $this->uuid)->first()
-            : BookingService::where('booking_id', $this->bookingId)->first();
-
-        return $this->bookingService;
     }
 
     public function getBookingDate()
@@ -166,12 +162,61 @@ abstract class Receptionist implements ReceptionistInterface
         return $this;
     }
 
-    public function setBookingService()
+    public function setBookingService($notNull = false)
     {
         $this->bookingService = (empty($this->bookingId))
             ? BookingService::where('tmp_uuid', $this->uuid)->first()
             : BookingService::where('booking_id', $this->bookingId)->first();
 
+        if(empty($this->bookingService) && $notNull){
+            throw new Exception(trans('as.bookings.missing_services'), 1);
+        }
+
+        return $this;
+    }
+
+    public function setClientIP($ip)
+    {
+        $this->clientIP = $ip;
+        return $this;
+    }
+
+    public function getClientIP()
+    {
+        return $this->clientIP;
+    }
+
+    public function setConsumer($consumer)
+    {
+        $this->consumer = $consumer;
+        return $this;
+    }
+
+    public function getConsumer()
+    {
+        return $this->consumer;
+    }
+
+    public function setSource($source)
+    {
+        $this->source = $source;
+        return $this;
+    }
+
+    public function getSource()
+    {
+        return $this->source;
+    }
+
+    public function setNotes($notes)
+    {
+        $this->notes = $notes;
+        return $this;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = Booking::getStatus($status);
         return $this;
     }
 
@@ -237,7 +282,7 @@ abstract class Receptionist implements ReceptionistInterface
             $this->computeEndTime();
         }
 
-        $endDay  = $this->startTime->copy()->endOfDay();
+        $endDay = $this->startTime->copy()->endOfDay();
 
         if ($this->startTime->lt(Carbon::now())) {
             throw new Exception(trans('as.bookings.error.past_booking'), 1);
@@ -390,6 +435,7 @@ abstract class Receptionist implements ReceptionistInterface
         return $this->price;
     }
 
+    abstract function upsertBooking();
     abstract public function validateData();
     abstract public function validateBooking();
 

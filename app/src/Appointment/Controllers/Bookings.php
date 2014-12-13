@@ -478,106 +478,23 @@ class Bookings extends AsBase
         $isRequestedEmployee = Input::get('is_requested_employee', false);
 
         try {
-            //support multiple service time?
-            $bookingService = (empty($bookingId))
-                ? BookingService::where('tmp_uuid', $uuid)->first()
-                : BookingService::where('booking_id',$bookingId)->first();
-            $data = [];
-
-            if(empty($bookingService)){
-                $data['success'] = false;
-                $data['message'] = trans('as.bookings.missing_services');
-                return Response::json($data);
-            }
-            $employee = $bookingService->employee;
-            $service  = $bookingService->service;
 
             $consumer = $this->handleConsumer();
 
-            $length = (!empty($bookingService->serviceTime->length))
-                    ? $bookingService->serviceTime->length
-                    : $bookingService->service->length;
+            $receptionist = new BackendReceptionist();
+            $receptionist->setBookingId($bookingId)
+                ->setUUID($uuid)
+                ->setUser($this->user)
+                ->setStatus($bookingStatus)
+                ->setNotes($notes)
+                ->setIsRequestedEmployee($isRequestedEmployee)
+                ->setConsumer($consumer)
+                ->setClientIP(Request::getClientIp())
+                ->setSource('backend');
 
-            $price = (!empty($bookingService->serviceTime->price))
-                    ? $bookingService->serviceTime->price
-                    : $bookingService->service->price;
+            $booking = $receptionist->upsertBooking();
 
-            $plustime = $employee->getPlustime($service->id);
-
-            $status = Booking::getStatus($bookingStatus);
-
-            $total = $length + $plustime + $bookingService->modify_time;
-            $totalPrice = $price;
-
-            $booking = new Booking();
-            $startTime = null;
-            $endTime = null;
-
-            if(!empty($bookingId)){
-                $booking = Booking::find($bookingId);
-                $bookingExtraServices = $booking->extraServices;
-
-                $extraServiceTime  = 0;
-                $extraServicePrice = 0;
-                $extraServices = [];
-
-                foreach ($bookingExtraServices as $extraService) {
-                    $extraServiceTime  += $extraService->length;
-                    $extraServicePrice += $extraService->price;
-                    $extraServices[] = $extraService;
-                }
-
-                $date      = new Carbon($booking->date);
-                $startTime = Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s', $booking->date, $booking->start_at));
-
-                $total = $length + $plustime + $extraServiceTime + $bookingService->modify_time;
-                $totalPrice = $price + $extraServicePrice;
-
-                $endTime= $startTime->copy()->addMinutes($total);
-            } else {
-                $startTime = Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s', $bookingService->date, $bookingService->start_at));
-                $endTime   = Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s', $bookingService->date, $bookingService->end_at));
-            }
-
-            $booking->fill([
-                'date'        => $bookingService->date,
-                'start_at'    => $startTime->toTimeString(),
-                'end_at'      => $endTime->toTimeString(),
-                'total'       => $total,
-                'total_price' => $totalPrice,
-                'status'      => $status,
-                'notes'       => $notes,
-                'uuid'        => $uuid,
-                'modify_time' => $bookingService->modify_time,
-                'plustime'    => $plustime,
-                'ip'          => Request::getClientIp(),
-                'source'      => 'backend'
-            ]);
-            //need to update end_at, total when add extra service
-
-            $booking->consumer()->associate($consumer);
-            $booking->user()->associate($this->user);
-            $booking->employee()->associate($bookingService->employee);
-            if($status === Booking::STATUS_CANCELLED){
-                $booking->delete_reason = 'Cancelled while updating';
-                $booking->save();
-                $booking->delete();
-            } else {
-                $booking->save();
-            }
-            //Users can check this option before or after save a booking service
-            $bookingService->is_requested_employee = $isRequestedEmployee;
-            $bookingService->booking()->associate($booking);
-            $bookingService->save();
-
-            //Don't send sms when update booking
-            if(empty($bookingId)){
-                //Only can send sms after insert booking service
-                $booking->attach(new SmsObserver(true));//true is backend
-                $booking->notify();
-            }
-
-            $data['success']      = true;
+            $data['success']     = true;
             $data['baseURl']     = route('as.index');
             $data['bookingDate'] = $booking->date;
         } catch (\Watson\Validating\ValidationException $ex) {
