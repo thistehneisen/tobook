@@ -31,9 +31,9 @@ class History extends \App\Core\Models\Base
         return $this->belongsTo('App\Consumers\Models\Consumer');
     }
 
-    public function campaign()
+    public function email()
     {
-        return $this->belongsTo('App\Consumers\Models\Campaign');
+        return $this->belongsTo('App\Consumers\Models\EmailTemplate', 'campaign_id');
     }
 
     public function sms()
@@ -46,7 +46,7 @@ class History extends \App\Core\Models\Base
     //--------------------------------------------------------------------------
     /**
      * @param User $user
-     * @param Campaign|Sms $campaignOrSms
+     * @param EmailTemplate|Sms $campaignOrSms
      * @param Consumer $consumer
      * @param Group $group
      *
@@ -58,8 +58,8 @@ class History extends \App\Core\Models\Base
         $history->user()->associate($user);
         $history->consumer()->associate($consumer);
 
-        if ($campaignOrSms instanceof Campaign) {
-            $history->campaign()->associate($campaignOrSms);
+        if ($campaignOrSms instanceof EmailTemplate) {
+            $history->email()->associate($campaignOrSms);
         } elseif ($campaignOrSms instanceof Sms) {
             $history->sms()->associate($campaignOrSms);
         } else {

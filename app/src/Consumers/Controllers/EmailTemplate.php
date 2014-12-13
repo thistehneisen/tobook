@@ -64,8 +64,8 @@ class EmailTemplate extends Base
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
         $histories = $historyQuery->paginate($perPage);
 
-        return View::make('modules.co.email_templates.history', [
-            'histories'   => $histories,
+        return View::make('modules.co.history.email', [
+            'histories' => $histories,
         ]);
     }
 }

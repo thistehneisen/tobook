@@ -31,7 +31,7 @@ class EmailTemplate extends \App\Core\Models\Base
 
     public function histories()
     {
-        return $this->hasMany('App\Consumers\Models\History');
+        return $this->hasMany('App\Consumers\Models\History', 'campaign_id');
     }
 
     //--------------------------------------------------------------------------

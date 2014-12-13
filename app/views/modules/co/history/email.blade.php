@@ -3,7 +3,7 @@
 @section ('content')
     @include ('el.messages')
 
-{{ Form::open(['route' => 'consumer-hub.email_templates.history', 'class' => 'form-inline form-table', 'id' => 'form-bulk']) }}
+{{ Form::open(['route' => 'consumer-hub.history.email', 'class' => 'form-inline form-table', 'id' => 'form-bulk']) }}
 <table class="table table-hover table-crud">
     <thead>
         <tr>
@@ -58,10 +58,10 @@
             {{ trans('olut::olut.per_page') }} <span class="caret"></span>
             </button>
             <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="{{ route('consumer-hub.email_templates.history', ['perPage' => 5]) }}" id="per-page-5">5</a></li>
-                <li><a href="{{ route('consumer-hub.email_templates.history', ['perPage' => 10]) }}" id="per-page-10">10</a></li>
-                <li><a href="{{ route('consumer-hub.email_templates.history', ['perPage' => 20]) }}" id="per-page-20">20</a></li>
-                <li><a href="{{ route('consumer-hub.email_templates.history', ['perPage' => 50]) }}" id="per-page-50">50</a></li>
+                <li><a href="{{ route('consumer-hub.history.email', ['perPage' => 5]) }}" id="per-page-5">5</a></li>
+                <li><a href="{{ route('consumer-hub.history.email', ['perPage' => 10]) }}" id="per-page-10">10</a></li>
+                <li><a href="{{ route('consumer-hub.history.email', ['perPage' => 20]) }}" id="per-page-20">20</a></li>
+                <li><a href="{{ route('consumer-hub.history.email', ['perPage' => 50]) }}" id="per-page-50">50</a></li>
             </ul>
         </div>
     </div>

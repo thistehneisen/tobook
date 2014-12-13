@@ -216,18 +216,18 @@ class Hub extends Base
         ]);
     }
 
-    public function bulkSendCampaign($ids)
+    public function bulkSendEmail($ids)
     {
         $campaign = null;
         $campaignId = intval(Input::get('campaign_id'));
         if (!empty($campaignId)) {
-            $campaign = Campaign::ofCurrentUser()->findOrFail($campaignId);
+            $campaign = EmailTemplate::ofCurrentUser()->findOrFail($campaignId);
         }
 
         if (!empty($campaign)) {
-            $sent = Campaign::sendConsumers($campaign, $ids);
+            $sent = EmailTemplate::sendConsumers($campaign, $ids);
 
-            return Redirect::route('consumer-hub.email_templates.history', ['campaign_id' => $campaign->id])
+            return Redirect::route('consumer-hub.history.email', ['campaign_id' => $campaign->id])
                 ->with('messages', $this->successMessageBag(
                     trans('co.email_templates.sent_to_x_of_y', [
                         'sent' => $sent,
@@ -236,7 +236,7 @@ class Hub extends Base
                 ));
         }
 
-        $campaigns = Campaign::ofCurrentUser()->get();
+        $campaigns = EmailTemplate::ofCurrentUser()->get();
         $campaignPairs = [];
         foreach ($campaigns as $campaign) {
             $campaignPairs[$campaign->id] = $campaign->subject;

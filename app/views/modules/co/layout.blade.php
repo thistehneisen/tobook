@@ -84,8 +84,8 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-mobile"></i>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-history"></i>
                         {{ trans('co.history.index') }}
                         <span class="caret"></span>
                     </a>

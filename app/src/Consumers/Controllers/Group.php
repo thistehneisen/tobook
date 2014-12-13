@@ -33,7 +33,7 @@ class Group extends Base
         ],
     ];
 
-    public function bulkSendCampaign($ids)
+    public function bulkSendEmail($ids)
     {
         $campaign = null;
         $campaignId = intval(Input::get('campaign_id'));
@@ -44,7 +44,7 @@ class Group extends Base
         if (!empty($campaign)) {
             list($sent, $total) = EmailTemplate::sendGroups($campaign, $ids);
 
-            return Redirect::route('consumer-hub.email_templates.history', ['campaign_id' => $campaign->id])
+            return Redirect::route('consumer-hub.history.email', ['campaign_id' => $campaign->id])
                 ->with('messages', $this->successMessageBag(
                     trans('co.email_templates.sent_to_x_of_y', [
                         'sent' => $sent,
