@@ -385,7 +385,7 @@ trait Models
 
     public function initCustomTime()
     {
-        $date = Carbon::today();
+        $date = Carbon::today()->addDays(1);
         if($date->dayOfWeek == Carbon::SUNDAY) {
             $date->addDays(1);
         } else if($date->dayOfWeek == Carbon::SATURDAY) {
@@ -453,5 +453,16 @@ trait Models
         $employeeFreetime1->user()->associate($this->user);
         $employeeFreetime1->employee()->associate($this->employee);
         $employeeFreetime1->save();
+    }
+
+    public function getDate()
+    {
+        $date = Carbon::today()->addDays(1);
+        if($date->dayOfWeek == Carbon::SUNDAY) {
+            $date->addDays(1);
+        } else if($date->dayOfWeek == Carbon::SATURDAY) {
+            $date->addDays(2);
+        }
+        return $date;
     }
 }

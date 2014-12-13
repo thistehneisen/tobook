@@ -18,7 +18,7 @@ class BackendReceptionist extends Receptionist
     public function validateData()
     {
         $this->validateBookingTotal();
-        $this->validateBookingEndTime();
+        $this->validateBookingTime();
     }
 
     public function validateBooking()

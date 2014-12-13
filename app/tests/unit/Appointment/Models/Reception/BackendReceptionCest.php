@@ -21,7 +21,7 @@ use Test\Traits\Models;
 /**
  * @group as
  */
-class BackednReceptionCest
+class BackendReceptionCest
 {
     use Models;
 
@@ -42,7 +42,7 @@ class BackednReceptionCest
         $service   = $this->service;
         $uuid      = \Util::uuid();
 
-        $date      = Carbon::today();
+        $date      = $this->getDate();
         $startTime = '10:00';
 
         $I->amLoggedAs($user);
@@ -70,7 +70,7 @@ class BackednReceptionCest
         $service   = $this->service;
         $uuid      = \Util::uuid();
 
-        $date      = Carbon::today();
+        $date      = $this->getDate();
         $startTime = '10:00';
 
         $I->amLoggedAs($user);
@@ -104,7 +104,7 @@ class BackednReceptionCest
         $receptionist->setModifyTime(0)->setStartTime('23:30');
 
         try {
-           $receptionist->validateBookingEndTime();
+           $receptionist->validateBookingTime();
         } catch(\Exception $ex) {
             $exception[] = $ex->getMessage();
         }
@@ -118,13 +118,12 @@ class BackednReceptionCest
         $this->initData();
         $this->initCustomTime();
 
-
         $user      = User::find(70);
         $employee  = $this->employee;
         $service   = $this->service;
         $uuid      = \Util::uuid();
 
-        $date      = Carbon::today();
+        $date      = $this->getDate();
         $startTime = '13:00';
 
         $I->amLoggedAs($user);
@@ -154,6 +153,29 @@ class BackednReceptionCest
 
     public function testResponseData(UnitTester $I)
     {
+        $this->initData();
+        $this->initCustomTime();
+
+        $user      = User::find(70);
+        $employee  = $this->employee;
+        $service   = $this->service;
+        $uuid      = \Util::uuid();
+
+        $date      = $this->getDate();
+        $startTime = '14:00';
+
+        $I->amLoggedAs($user);
+        $I->assertEquals($service->length, 60);
+
+        $receptionist = new BackendReceptionist();
+        $receptionist->setBookingId(0)
+            ->setUUID($uuid)
+            ->setUser($user)
+            ->setBookingDate($date->toDateString())
+            ->setStartTime($startTime)
+            ->setServiceId($service->id)
+            ->setEmployeeId($employee->id)
+            ->setServiceTimeId('default');
 
         $response = $receptionist->getResponseData();
         $plustime = $employee->getPlustime($service->id);
@@ -163,7 +185,7 @@ class BackednReceptionCest
             'price'         => $service->price,
             'service_name'  => $service->name,
             'modify_time'   => 0,
-            'plustime'      => $plustime,
+            'plustime'      => intval($plustime),
             'employee_name' => $employee->name,
             'uuid'          => $uuid
         ];
@@ -181,7 +203,7 @@ class BackednReceptionCest
         $service   = $this->service;
         $uuid      = \Util::uuid();
 
-        $date      = Carbon::today();
+        $date      = $this->getDate();
         $startTime = '14:00';
 
         $I->amLoggedAs($user);
@@ -221,7 +243,7 @@ class BackednReceptionCest
         $booking = $receptionist->upsertBooking();
         $I->assertNotEmpty($booking);
         $I->assertEquals($booking->total, 60);
-        $I->assertEquals($booking->startTime, Carbon::today()->hour(14)->minute(0)->second(0));
-        $I->assertEquals($booking->endTime, Carbon::today()->hour(15)->minute(0)->second(0));
+        $I->assertEquals($booking->startTime, $date->hour(14)->minute(0)->second(0));
+        $I->assertEquals($booking->endTime, $date->hour(15)->minute(0)->second(0));
     }
 }

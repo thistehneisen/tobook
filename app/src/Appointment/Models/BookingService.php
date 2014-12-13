@@ -118,13 +118,15 @@ class BookingService extends Base implements CartDetailInterface
      * @return int
      * @author hung@varaa.com
      */
-    public function calculcateTotalLength()
+    public function calculcateTotalLength($plain = false)
     {
         $service = (!empty($this->serviceTime->id))
                     ? $this->serviceTime
                     : $this->service;
 
-        $length = $service->length;
+        $length = ($plain)
+            ? $service->during
+            : $service->length;
 
         //Add employee service plustime
         $length += $this->getEmployeePlustime();
@@ -168,6 +170,25 @@ class BookingService extends Base implements CartDetailInterface
     public function getEndTimeAttribute()
     {
         return new \Carbon\Carbon($this->date.' '.$this->end_at);
+    }
+
+    public function getSelectedServiceAttribute()
+    {
+        $service = (!empty($this->serviceTime->id))
+            ? $this->serviceTime
+            : $this->service;
+
+        return $service;
+    }
+
+    public function getPlainStartTimeAttribute()
+    {
+        return $this->startTime->addMinutes($this->selectedService->before);
+    }
+
+    public function getPlainEndTimeAttribute()
+    {
+        return $this->startTime->addMinutes($this->calculcateTotalLength(true));
     }
 
     //--------------------------------------------------------------------------

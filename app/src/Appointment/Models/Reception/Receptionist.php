@@ -5,6 +5,7 @@ use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\ExtraService;
+use App\Appointment\Models\BookingExtraService;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
 use Exception;
@@ -74,6 +75,10 @@ abstract class Receptionist implements ReceptionistInterface
 
     public function setStartTime($strStartTime)
     {
+        if(empty($strStartTime)) {
+            throw new Exception(trans('as.bookings.error.empty_start_time'), 1);
+        }
+
         $startTime = Carbon::createFromFormat('Y-m-d H:i', sprintf('%s %s', $this->date, $strStartTime));
         $this->startTime = $startTime;
 
@@ -276,7 +281,7 @@ abstract class Receptionist implements ReceptionistInterface
         return true;
     }
 
-    public function validateBookingEndTime()
+    public function validateBookingTime()
     {
         if(empty($this->endTime)) {
             $this->computeEndTime();
@@ -360,6 +365,10 @@ abstract class Receptionist implements ReceptionistInterface
             $this->computeEndTime();
         }
 
+        if(empty($this->price)) {
+            $this->computeTotalPrice();
+        }
+
         //TODO validate modify time and service time
         $model = (empty($this->bookingService)) ? (new BookingService) : $this->bookingService;
 
@@ -379,10 +388,26 @@ abstract class Receptionist implements ReceptionistInterface
         if (!empty($this->serviceTime)) {
             $model->serviceTime()->associate($this->serviceTime);
         }
+
+        $model->quantity = 1;
+        $model->price = $this->price;
         $model->service()->associate($this->service);
         $model->user()->associate($this->user);
         $model->employee()->associate($this->employee);
         $model->save();
+
+        if(is_array($this->extraServices)) {
+            foreach ($this->extraServices as $extraService) {
+                $bookingExtraService = new BookingExtraService;
+                $bookingExtraService->fill([
+                    'date'     => $this->date->toDateTimeString(),
+                    'tmp_uuid' => $this->uuid
+                ]);
+
+                $bookingExtraService->extraService()->associate($extraService);
+                $bookingExtraService->save();
+            }
+        }
 
         return $model;
     }

@@ -49,115 +49,23 @@ class FrontBookings extends Bookings
             $this->user = User::find($decoded[0]);
         }
 
-        if(empty($startTimeStr)) {
-            $data['message'] = trans('as.bookings.error.empty_start_time');
+        try{
+            $receptionist = new FrontendReceptionist();
+            $receptionist->setBookingId(null)
+                ->setUUID($uuid)
+                ->setUser($this->user)
+                ->setBookingDate($bookingDate)
+                ->setStartTime($startTimeStr)
+                ->setServiceId($serviceId)
+                ->setEmployeeId($employeeId)
+                ->setServiceTimeId($serviceTimeId)
+                ->setModifyTime($modifyTime);
+
+            $bookingService = $receptionist->upsertBookingService();
+        } catch(\Exception $ex) {
+            $data['message'] = $ex->getMessage();
             return Response::json($data, 400);
         }
-
-        $employee = Employee::find($employeeId);
-        $service  = Service::find($serviceId);
-
-        $employeeService = EmployeeService::where('employee_id', $employeeId)
-                ->where('service_id', $serviceId)->first();
-        $plustime = (!empty($employeeService)) ? $employeeService->plustime : 0;
-
-        $length = 0;
-        $during = 0;
-        $startTime = Carbon::createFromFormat('Y-m-d H:i', sprintf('%s %s', $bookingDate, $startTimeStr));
-        $cartStartTime = $startTime->copy();
-
-        if($startTime < Carbon::now())
-        {
-            $data['message'] = trans('as.bookings.error.past_booking');
-            return Response::json($data, 400);
-        }
-
-        $extraServiceTime  = 0;
-        $extraServicePrice = 0;
-        $extraServices     = [];
-
-        if(!empty($extraServiceIds)){
-            $extraServices = ExtraService::whereIn('id', $extraServiceIds)->get();
-            foreach ($extraServices as $extraService) {
-                $extraServiceTime   += $extraService->length;
-                $extraServicePrice  += $extraService->price;
-            }
-        }
-
-        if ($serviceTimeId === 'default') {
-            $service = Service::find($serviceId);
-            $length = $service->length;
-            $during = $service->during;
-            $startTime->subMinutes($service->before);
-        } else {
-            $serviceTime = ServiceTime::find($serviceTimeId);
-            $length = $serviceTime->length;
-            $during = $serviceTime->during;
-            $startTime->subMinutes($serviceTime->before);
-        }
-
-        $lengthPlusExtraTime = $length + $extraServiceTime + $plustime;
-        $duringPlusExtraTime = $during + $extraServiceTime + $plustime;
-        $endTime     = $startTime->copy()->addMinutes($lengthPlusExtraTime);
-        $cartEndTime = $cartStartTime->copy()->addMinutes($duringPlusExtraTime);
-
-        //Check is there any existed booking with this service time
-
-        $isBookable = Booking::isBookable($employeeId, $bookingDate, $startTime, $endTime);
-        //TODO Check overlapped booking in user cart
-
-        //Check enough timeslot in employee default working time
-        //Temporary the checking is removed
-
-        if (!$isBookable) {
-            $data['message'] = trans('as.bookings.error.add_overlapped_booking');
-            return Response::json($data, 400);
-        }
-
-        $areResourcesAvailable = Booking::areResourcesAvailable($employeeId, $service, $bookingDate, $startTime, $endTime);
-
-        if(!$areResourcesAvailable) {
-            $data['message'] = trans('as.bookings.error.not_enough_resources');
-            return Response::json($data, 400);
-        }
-
-        //TODO validate modify time and service time
-        $bookingService = new BookingService();
-        //Using uuid for retrieve it later when insert real booking
-        $bookingServiceEndTime = $startTime->copy()->addMinutes($lengthPlusExtraTime);
-        $bookingService->fill([
-            'tmp_uuid'    => $uuid,
-            'date'        => $bookingDate,
-            'modify_time' => $modifyTime,
-            'start_at'    => $startTime->toTimeString(),
-            'end_at'      => $bookingServiceEndTime->toTimeString()
-        ]);
-
-        if (!empty($serviceTime)) {
-            $bookingService->serviceTime()->associate($serviceTime);
-        }
-        $bookingService->service()->associate($service);
-        $bookingService->user()->associate($this->user);
-        $bookingService->employee()->associate($employee);
-        $bookingService->save();
-
-        foreach ($extraServices as $extraService) {
-            $bookingExtraService = new BookingExtraService;
-            $bookingExtraService->fill([
-                'date'     => $bookingDate,
-                'tmp_uuid' => $uuid
-            ]);
-
-            $bookingExtraService->extraService()->associate($extraService);
-            $bookingExtraService->save();
-        }
-
-        $price = (!empty($serviceTime)) ? $serviceTime->price : $service->price;
-        $price += $extraServicePrice;
-
-        // Add to cart
-        $bookingService->quantity = 1;
-        $bookingService->price    = $price;
 
         $cart = ($inhouse)
             ? Cart::current()
@@ -168,8 +76,8 @@ class FrontBookings extends Bookings
         }
         $cart->addDetail($bookingService);
 
-         $data = [
-            'datetime'           => $startTime->toDateTimeString(),
+        $data = [
+            'datetime'           => $bookingService->plainStartTime->toDateTimeString(),
             'price'              => $price,
             'service_name'       => $service->name,
             'employee_name'      => $employee->name,

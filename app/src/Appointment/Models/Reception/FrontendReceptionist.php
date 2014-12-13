@@ -5,7 +5,7 @@ class FrontendReceptionist extends Receptionist
     public function validateData()
     {
         $this->validateBookingTotal();
-        $this->validateBookingEndTime();
+        $this->validateBookingTime();
     }
 
     public function validateBooking()
@@ -13,5 +13,10 @@ class FrontendReceptionist extends Receptionist
         $this->validateWithEmployeeFreetime();
         $this->validateWithExistingBooking();
         $this->validateWithResources();
+    }
+
+    public function upsertBooking()
+    {
+
     }
 }
