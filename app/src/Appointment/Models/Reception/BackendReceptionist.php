@@ -36,14 +36,6 @@ class BackendReceptionist extends Receptionist
             ? new Booking()
             : Booking::find($this->bookingId);
 
-        $startTime = (!empty($this->bookingId))
-            ? $booking->startTime
-            : $this->bookingService->startTime;
-
-        $endTime = (!empty($this->bookingId))
-            ? $booking->endTime
-            : $this->bookingService->endTime;
-
         $this->employee = $this->bookingService->employee;
         $this->extraServices = (!empty($this->bookingId))
             ? $booking->extraServices
@@ -51,8 +43,8 @@ class BackendReceptionist extends Receptionist
 
         $booking->fill([
             'date'        => $this->bookingService->date,
-            'start_at'    => $startTime->toTimeString(),
-            'end_at'      => $endTime->toTimeString(),
+            'start_at'    => $this->bookingService->startTime,
+            'end_at'      => $this->bookingService->endTime,
             'total'       => $this->bookingService->calculcateTotalLength(),
             'total_price' => $this->bookingService->calculcateTotalPrice(),
             'status'      => $this->status,

@@ -359,6 +359,7 @@ abstract class Receptionist implements ReceptionistInterface
         $areResourcesAvailable = Booking::areResourcesAvailable(
             $this->employeeId,
             $this->service,
+            $this->uuid,
             $this->date,
             $this->startTime,
             $this->endTime
@@ -375,6 +376,7 @@ abstract class Receptionist implements ReceptionistInterface
     {
         $this->validateData();
         $this->validateBooking();
+        $this->setBookingService();
 
         if(empty($this->endTime)) {
             $this->computeEndTime();
@@ -385,7 +387,7 @@ abstract class Receptionist implements ReceptionistInterface
         }
 
         //TODO validate modify time and service time
-        $model = (empty($this->bookingService)) ? (new BookingService) : $this->bookingService;
+        $model = (empty($this->bookingService->id)) ? (new BookingService) : $this->bookingService;
 
         //Using uuid for retrieve it later when insert real booking
         $model->fill([

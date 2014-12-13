@@ -164,12 +164,12 @@ class BookingService extends Base implements CartDetailInterface
     //--------------------------------------------------------------------------
     public function getStartTimeAttribute()
     {
-        return $this->start_at;
+        return new \Carbon\Carbon($this->start_at);
     }
 
     public function getEndTimeAttribute()
     {
-        return $this->end_at;
+        return new \Carbon\Carbon($this->end_at);
     }
 
     public function getSelectedServiceAttribute()
