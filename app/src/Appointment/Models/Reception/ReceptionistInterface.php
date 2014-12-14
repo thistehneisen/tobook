@@ -30,7 +30,7 @@ interface ReceptionistInterface
      *      (service length | service time length) +
      *          [employee plustime] + [modify time] + [extra service(s) time]
      */
-    public function computeLength();
+    public function getLength();
 
     /**
      * Validate the general correctness, meaningfulness of given data

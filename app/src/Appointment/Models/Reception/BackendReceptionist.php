@@ -43,8 +43,8 @@ class BackendReceptionist extends Receptionist
 
         $booking->fill([
             'date'        => $this->bookingService->date,
-            'start_at'    => $this->bookingService->startTime,
-            'end_at'      => $this->bookingService->endTime,
+            'start_at'    => $this->bookingService->startTime->toTimeString(),
+            'end_at'      => $this->bookingService->endTime->toTimeString(),
             'total'       => $this->bookingService->calculcateTotalLength(),
             'total_price' => $this->bookingService->calculcateTotalPrice(),
             'status'      => $this->status,

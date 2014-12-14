@@ -132,7 +132,7 @@ class FrontBookings extends Bookings
             $data['message'] = trans('as.embed.success');
         } catch (\Exception $ex) {
             $data['success'] = false;
-            $data['message'] = Util::getHtmlListError($ex);
+            $data['message'] = $ex->getMessage();
             return Response::json($data, 500);
         }
         return Response::json($data);

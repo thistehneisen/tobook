@@ -14,6 +14,26 @@ use Exception;
 
 class FrontendReceptionist extends Receptionist
 {
+
+    /**
+     * This is real start time of an booking
+     * because in frontend we don't show the `before` time
+     */
+    public function getStartTime()
+    {
+        return $this->startTime->copy()->subMinutes($this->getSelectedService()->before);
+    }
+
+    /**
+     * This is real end time of an booking
+     *  because in frontend we don't show the `after` time
+     */
+    public function getEndTime()
+    {
+        $this->endTime = $this->getStartTime()->copy()->addMinutes($this->getLength());
+        return $this->endTime;
+    }
+
     public function validateData()
     {
         $this->validateBookingTotal();
@@ -35,8 +55,8 @@ class FrontendReceptionist extends Receptionist
 
         $booking->fill([
             'date'        => $this->bookingService->date,
-            'start_at'    => $this->bookingService->startTime,
-            'end_at'      => $this->bookingService->endTime,
+            'start_at'    => $this->bookingService->startTime->toTimeString(),
+            'end_at'      => $this->bookingService->endTime->toTimeString(),
             'total'       => $this->bookingService->calculcateTotalLength(),
             'total_price' => $this->bookingService->calculcateTotalPrice(),
             'uuid'        => $this->bookingService->tmp_uuid,

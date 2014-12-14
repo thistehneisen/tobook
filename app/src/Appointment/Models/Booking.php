@@ -129,12 +129,18 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     //--------------------------------------------------------------------------
     public function getStartTimeAttribute()
     {
-        return new \Carbon\Carbon($this->start_at);
+        if($this->start_at instanceof Carbon) {
+            return $this->start_at;
+        }
+        return new \Carbon\Carbon($this->date . ' ' . $this->start_at);
     }
 
     public function getEndTimeAttribute()
     {
-        return new \Carbon\Carbon($this->end_at);
+        if($this->start_at instanceof Carbon) {
+            return $this->end_at;
+        }
+        return new \Carbon\Carbon($this->date . ' ' . $this->end_at);
     }
 
 

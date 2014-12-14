@@ -173,13 +173,14 @@ abstract class Receptionist implements ReceptionistInterface
         return $this;
     }
 
-    public function setSelectedService()
+    public function getSelectedService()
     {
-        $this->selectedService = ($this->serviceTimeId === 'default')
-            ? Service::ofCurrentUser()->findOrFail($this->serviceId)
-            : ServiceTime::ofCurrentUser()->findOrFail($this->serviceTimeId);
-
-        return $this;
+        if(empty($this->selectedService)) {
+            $this->selectedService = ($this->serviceTimeId === 'default')
+                ? Service::ofCurrentUser()->findOrFail($this->serviceId)
+                : ServiceTime::ofCurrentUser()->findOrFail($this->serviceTimeId);
+        }
+        return $this->selectedService;
     }
 
     public function setBookingService($notNull = false)
@@ -240,76 +241,56 @@ abstract class Receptionist implements ReceptionistInterface
         return $this;
     }
 
-    public function setBaseLength()
+    public function getBaseLength()
     {
-        if(empty($this->selectedService)) {
-            $this->setSelectedService();
-        }
+        $this->baseLength = $this->getSelectedService()->length;
 
-        $this->baseLength = $this->selectedService->length;
-
-        return $this;
+        return $this->baseLength;
     }
 
-    public function computeLength()
+    public function getLength($force = false)
     {
-        if(empty($this->baseLength)) {
-            $this->setBaseLength();
-        }
+        if(empty($this->total) || $force) {
+            $this->plustime = $this->employee->getPlustime($this->serviceId);
 
-        $this->plustime = $this->employee->getPlustime($this->serviceId);
+            $this->total = ($this->getBaseLength() + $this->modifyTime + $this->plustime);
 
-        $this->total = ($this->baseLength + $this->modifyTime + $this->plustime);
-
-        if (is_array($this->extraServices)) {
-            foreach ($this->extraServices as $extraService) {
-                $this->extraServiceLength = $extraService->length;
+            if (is_array($this->extraServices)) {
+                foreach ($this->extraServices as $extraService) {
+                    $this->extraServiceLength = $extraService->length;
+                }
             }
+
+            $this->total += $this->extraServiceLength;
         }
-
-        $this->total += $this->extraServiceLength;
-
         return $this->total;
     }
 
-    public function computeEndTime()
+    public function getEndTime()
     {
-        if (empty($this->total)) {
-            $this->computeLength();
-        }
+        $this->endTime = $this->getStartTime()->copy()->addMinutes($this->getLength());
 
-        $this->endTime = $this->startTime->copy()->addMinutes($this->total);
+        return $this->endTime;
     }
 
     public function validateBookingTotal()
     {
-        if (empty($this->selectedService)) {
-            $this->setBaseLength();
-        }
-
-        $this->computeLength();
-
-        if ($this->total < 1) {
+        if ($this->getLength() < 1) {
             throw new Exception(trans('as.bookings.error.empty_total_time'), 1);
         }
-
         return true;
     }
 
     public function validateBookingTime()
     {
-        if(empty($this->endTime)) {
-            $this->computeEndTime();
-        }
+        $endDay = $this->getStartTime()->copy()->endOfDay();
 
-        $endDay = $this->startTime->copy()->endOfDay();
-
-        if ($this->startTime->lt(Carbon::now())) {
+        if ($this->getStartTime()->lt(Carbon::now())) {
             throw new Exception(trans('as.bookings.error.past_booking'), 1);
         }
 
         //Check if the overbook end time exceed the current working day.
-        if ($this->endTime->gt($endDay)) {
+        if ($this->getEndTime()->gt($endDay)) {
             throw new Exception(trans('as.bookings.error.exceed_current_day'), 1);
         }
 
@@ -318,15 +299,11 @@ abstract class Receptionist implements ReceptionistInterface
 
     public function validateWithEmployeeFreetime()
     {
-        if(empty($this->endTime)) {
-            $this->computeEndTime();
-        }
-
         //Check if the book overllap with employee freetime
         $isOverllapedWithFreetime = $this->employee->isOverllapedWithFreetime(
             $this->date,
-            $this->startTime,
-            $this->endTime
+            $this->getStartTime(),
+            $this->getEndTime()
         );
 
         if ($isOverllapedWithFreetime) {
@@ -378,14 +355,6 @@ abstract class Receptionist implements ReceptionistInterface
         $this->validateBooking();
         $this->setBookingService();
 
-        if(empty($this->endTime)) {
-            $this->computeEndTime();
-        }
-
-        if(empty($this->price)) {
-            $this->computeTotalPrice();
-        }
-
         //TODO validate modify time and service time
         $model = (empty($this->bookingService->id)) ? (new BookingService) : $this->bookingService;
 
@@ -394,8 +363,8 @@ abstract class Receptionist implements ReceptionistInterface
             'tmp_uuid'              => $this->uuid,
             'date'                  => $this->date,
             'modify_time'           => $this->modifyTime,
-            'start_at'              => $this->startTime,
-            'end_at'                => $this->endTime,
+            'start_at'              => $this->getStartTime()->toTimeString(),
+            'end_at'                => $this->getEndTime()->toTimeString(),
             'is_requested_employee' => $this->isRequestedEmployee
         ]);
 
@@ -459,10 +428,6 @@ abstract class Receptionist implements ReceptionistInterface
 
     public function computeTotalPrice()
     {
-        if(empty($this->selectedService)) {
-            $this->setSelectedService();
-        }
-
         //to avoid warning
         if (is_array($this->extraServices)) {
             foreach ($this->extraServices as $extraService) {
@@ -470,7 +435,7 @@ abstract class Receptionist implements ReceptionistInterface
             }
         }
 
-        $this->price = $this->selectedService->price + $this->extraServicePrice;
+        $this->price = $this->getSelectedService()->price + $this->extraServicePrice;
 
         return $this->price;
     }

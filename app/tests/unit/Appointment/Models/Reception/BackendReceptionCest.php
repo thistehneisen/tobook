@@ -219,7 +219,9 @@ class BackendReceptionCest
             ->setEmployeeId($employee->id)
             ->setServiceTimeId('default');
 
-        $receptionist->upsertBookingService();
+        $bookingService = $receptionist->upsertBookingService();
+        $I->assertEquals($bookingService->startTime, $date->hour(14)->minute(0)->second(0));
+        $I->assertEquals($bookingService->endTime, $date->hour(15)->minute(0)->second(0));
 
         $consumer = AsConsumer::handleConsumer([
             'first_name' => 'Consumer First',
