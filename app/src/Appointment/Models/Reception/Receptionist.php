@@ -109,7 +109,7 @@ abstract class Receptionist implements ReceptionistInterface
         }
 
         $this->serviceId = $serviceId;
-        $this->service   = Service::ofCurrentUser()->find($this->serviceId);
+        $this->service   = Service::ofUser($this->user->id)->find($this->serviceId);
         return $this;
     }
 
@@ -122,7 +122,7 @@ abstract class Receptionist implements ReceptionistInterface
     {
         $this->serviceTimeId = $serviceTimeId;
         $this->serviceTime   = ($this->serviceTimeId !== 'default')
-            ? ServiceTime::ofCurrentUser()->find($this->serviceTimeId)
+            ? ServiceTime::ofUser($this->user->id)->find($this->serviceTimeId)
             : null;
         return $this;
     }
@@ -168,7 +168,7 @@ abstract class Receptionist implements ReceptionistInterface
 
     public function setEmployeeId($employeeId)
     {
-        $this->employee = Employee::ofCurrentUser()->find($employeeId);
+        $this->employee = Employee::ofUser($this->user->id)->find($employeeId);
 
         return $this;
     }
@@ -177,8 +177,8 @@ abstract class Receptionist implements ReceptionistInterface
     {
         if(empty($this->selectedService)) {
             $this->selectedService = ($this->serviceTimeId === 'default')
-                ? Service::ofCurrentUser()->findOrFail($this->serviceId)
-                : ServiceTime::ofCurrentUser()->findOrFail($this->serviceTimeId);
+                ? Service::ofUser($this->user->id)->findOrFail($this->serviceId)
+                : ServiceTime::ofUser($this->user->id)->findOrFail($this->serviceTimeId);
         }
         return $this->selectedService;
     }

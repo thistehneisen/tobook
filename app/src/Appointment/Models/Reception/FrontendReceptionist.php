@@ -68,7 +68,10 @@ class FrontendReceptionist extends Receptionist
             'source'      => $this->getSource()
         ]);
 
-        $booking->consumer()->associate($this->consumer);
+        if($this->getSource() !== 'inhouse') {
+            $booking->consumer()->associate($this->consumer);
+        }
+
         $booking->user()->associate($this->user);
         $booking->employee()->associate($this->bookingService->employee);
         $booking->save();
@@ -84,11 +87,13 @@ class FrontendReceptionist extends Receptionist
             $extraService->save();
         }
 
-        //Send notification email and SMSs
-        $booking->attach(new EmailObserver());
-        $booking->attach(new SmsObserver());
-        $booking->notify();
-
+        //Because we don't have consumer if source = inhouse in this phase
+        if($this->getSource() !== 'inhouse') {
+            //Send notification email and SMSs
+            $booking->attach(new EmailObserver());
+            $booking->attach(new SmsObserver());
+            $booking->notify();
+        }
         return $booking;
     }
 }

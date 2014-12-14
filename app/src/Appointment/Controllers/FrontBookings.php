@@ -151,63 +151,24 @@ class FrontBookings extends Bookings
         ];
 
         try {
-            $cartId   = Input::get('cart_id');
-            $source   = Input::get('source', 'inhouse');
-            $cart     = Cart::find($cartId);
-            $business = Business::findOrFail(Input::get('business_id'));
-            $user     = $business->user;
-
+            $cartId         = Input::get('cart_id');
+            $source         = Input::get('source', 'inhouse');
+            $cart           = Cart::find($cartId);
+            $business       = Business::findOrFail(Input::get('business_id'));
             $bookingService = BookingService::findOrFail(Input::get('booking_service_id'));
-            $length = 0;
-            $service = (!empty($bookingService->serviceTime->id))
-                ? $bookingService->serviceTime
-                : $bookingService->service;
-            $length += $service->length;
+            $user           = $business->user;
 
-            $plustime = $bookingService->getEmployeePlustime();
-            $length += $plustime;
-            $bookingService->calculateExtraServices();
+            //The main different with addFrontEndBooking is: no $consumer
+            $receptionist = new FrontendReceptionist();
+                $receptionist->setBookingId(null)
+                ->setUUID($bookingService->tmp_uuid)
+                ->setUser($user)
+                ->setNotes($cart->notes)
+                ->setIsRequestedEmployee(false)
+                ->setClientIP(Request::getClientIp())
+                ->setSource($source);
 
-            //Plus extra service time
-            $length += $bookingService->getExtraServiceTime();
-
-            $date     = $bookingService->date;
-            $start_at = $bookingService->start_at;
-            $end_at   = with(new Carbon($bookingService->start_at))->addMinutes($length);
-
-            $price = $service->price + $bookingService->getExtraServicePrice();
-
-            $booking = new Booking();
-            $booking->fill([
-                'date'        => $date,
-                'start_at'    => $start_at,
-                'end_at'      => $end_at->toTimeString(),
-                'total'       => $length,
-                'uuid'        => $bookingService->tmp_uuid,
-                'total_price' => $price,
-                'modify_time' => $bookingService->modify_time,
-                'plustime'    => $plustime,
-                'notes'       => $cart->notes,
-                'source'      => $source,
-                'ip'          => Request::getClientIp()
-            ]);
-
-            $booking->user()->associate($user);
-            $booking->employee()->associate($bookingService->employee);
-            $booking->save();
-
-            $bookingService->booking()->associate($booking);
-            $bookingService->save();
-
-            $extraServices  = BookingExtraService::where(
-                'tmp_uuid',
-                $bookingService->tmp_uuid
-            )->get();
-
-            foreach ($extraServices as $extraService) {
-                $extraService->booking()->associate($booking);
-                $extraService->save();
-            }
+            $booking = $receptionist->upsertBooking();
 
             // Update cart status
             $cart->complete();
