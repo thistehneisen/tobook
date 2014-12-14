@@ -48,19 +48,19 @@
             <ul class="nav navbar-nav nav-admin nav-co">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('consumer-hub.index') }}">
-                        <i class="fa fa-users"></i>
+                        <i class="fa fa-user"></i>
                         {{ trans('co.all') }}
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="{{ route('consumer-hub.index')}}">{{ trans('co.all') }}</a></li>
-                        <li><a href="{{ route('consumer-hub.groups.index')}}">{{ trans('co.groups.all') }}</a></li>
                         <li><a href="{{ route('consumer-hub.upsert')}}">{{ trans('co.add') }}</a></li>
                         @if (Entrust::hasRole('Admin') || Session::get('stealthMode') !== null)
                             <li><a href="{{ route('consumer-hub.import')}}">{{ trans('co.import.import') }}</a></li>
                         @endif
                     </ul>
                 </li>
+                <li><a href="{{ route('consumer-hub.groups.index')}}"><i class="fa fa-users"></i> {{ trans('co.groups.all') }}</a></li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('consumer-hub.email_templates.index') }}">
                         <i class="fa fa-envelope"></i>

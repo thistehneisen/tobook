@@ -47,6 +47,8 @@ return [
     ],
     'x_consumers'       => ':count consumer|:count consumers',
     'group'             => 'Add to group',
+    'send_email'        => 'Send email',
+    'send_sms'          => 'Send SMS',
     'groups' => [
         'all'           => 'Groups',
         'add'           => 'Add group',

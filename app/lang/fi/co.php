@@ -36,7 +36,8 @@ return [
     'notes'             => 'Muistiot',
     'action'            => 'Toiminto',
     'give_points'       => 'Anna :points pistetta',
-    'import' => [ // @todo
+
+    'import' => [
         'import'        => 'Import',
         'upload_csv'    => 'Upload CSV',
         'upload_is_missing' => 'File upload is required.',
@@ -46,42 +47,47 @@ return [
         'csv_header_is_missing' => 'Header row could not be found.',
         'csv_required_field_x_is_missing' => 'Required field `:field` could not be found.',
     ],
-    'x_consumers'       => ':count consumer|:count consumers', // @todo
-    'group'             => 'Add To Group', // @todo
-    'groups' => [ // @todo
+    'x_consumers'       => ':count consumer|:count consumers',
+    'group'             => 'Add to group',
+    'send_email'        => 'Send email',
+    'send_sms'          => 'Send SMS',
+    'groups' => [
         'all'           => 'Groups',
-        'add'           => 'Add Group',
-        'edit'          => 'Edit Group',
-        'name'          => 'Group Name',
-        'consumers'     => 'Group Members',
-        'existing_group'=> 'Existing Group',
-        'new_group'     => 'New Group',
-        'send_email' => 'Send Group Campaign',
+        'add'           => 'Add group',
+        'edit'          => 'Edit group',
+        'name'          => 'Group name',
+        'consumers'     => 'Group members',
+        'existing_group'=> 'Existing group',
+        'new_group'     => 'New group',
+        'send_email'    => 'Send group email',
         'groups'        => 'Groups',
-        'send_sms'      => 'Send Group SMS',
+        'send_sms'      => 'Send group SMS',
     ],
-    'send_email'     => 'Send Campaign', // @todo
-    'campaigns' => [ // @todo
-        'all'           => 'Campaigns',
+    'email_templates' => [
+        'all'           => 'Email templates',
+        'single'        => 'Email template',
         'subject'       => 'Subject',
         'content'       => 'Content',
-        'from_email'    => 'From Email',
-        'from_name'     => 'From Name',
-        'add'           => 'Add Campaign',
-        'edit'          => 'Edit Campaign',
-        'history'       => 'History',
-        'sent_at'       => 'Sent At',
+        'from_email'    => 'From email',
+        'from_name'     => 'From name',
+        'add'           => 'Add email template',
+        'edit'          => 'Edit email template',
+        'sent_at'       => 'Sent at',
         'sent_to_x_of_y'=> 'Sent email to :sent out of :total consumers',
     ],
-    'send_sms'     => 'Send SMS', // @todo
-    'sms' => [ // @todo
-        'all'           => 'SMS',
+    'sms_templates' => [
+        'all'           => 'SMS templates',
+        'single'        => 'SMS template',
         'title'         => 'Title',
         'content'       => 'Content',
-        'add'           => 'Add SMS',
-        'edit'          => 'Edit SMS',
-        'history'       => 'History',
-        'sent_at'       => 'Sent At',
+        'add'           => 'Add SMS template',
+        'edit'          => 'Edit SMS template',
+        'sent_at'       => 'Sent at',
         'sent_to_x_of_y'=> 'Sent SMS to :sent out of :total consumers',
     ],
+    'history' => [
+        'index'         => 'History',
+        'email'         => 'Email history',
+        'sms'           => 'SMS history',
+    ]
 ];
