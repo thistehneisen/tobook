@@ -56,11 +56,11 @@ return [
         'consumers'     => 'Group Members',
         'existing_group'=> 'Existing Group',
         'new_group'     => 'New Group',
-        'send_campaign' => 'Send Group Campaign',
+        'send_email' => 'Send Group Campaign',
         'groups'        => 'Groups',
         'send_sms'      => 'Send Group SMS',
     ],
-    'send_campaign'     => 'Send Campaign', // @todo
+    'send_email'     => 'Send Campaign', // @todo
     'campaigns' => [ // @todo
         'all'           => 'Campaigns',
         'subject'       => 'Subject',

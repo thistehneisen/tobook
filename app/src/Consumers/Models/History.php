@@ -3,9 +3,9 @@ namespace App\Consumers\Models;
 
 use App\Core\Models\User;
 use App\Consumers\Models\EmailTemplate;
+use App\Consumers\Models\SmsTemplate;
 use App\Consumers\Models\Consumer;
 use App\Consumers\Models\Group;
-use App\Consumers\Models\SmsTemplate;
 
 class History extends \App\Core\Models\Base
 {
@@ -46,25 +46,25 @@ class History extends \App\Core\Models\Base
     //--------------------------------------------------------------------------
     /**
      * @param User $user
-     * @param EmailTemplate|SmsTemplate $campaignOrSms
+     * @param EmailTemplate|SmsTemplate $template
      * @param Consumer $consumer
      * @param Group $group
      *
      * @return History
      */
-    public static function quickSave(User $user, $campaignOrSms, Consumer $consumer, Group $group = null)
+    public static function quickSave(User $user, $template, Consumer $consumer, Group $group = null)
     {
         $history = new static();
         $history->user()->associate($user);
         $history->consumer()->associate($consumer);
 
-        if ($campaignOrSms instanceof EmailTemplate) {
-            $history->email()->associate($campaignOrSms);
-        } elseif ($campaignOrSms instanceof SmsTemplate) {
-            $history->sms()->associate($campaignOrSms);
+        if ($template instanceof EmailTemplate) {
+            $history->email()->associate($template);
+        } elseif ($template instanceof SmsTemplate) {
+            $history->sms()->associate($template);
         } else {
             // TODO: add support for Sms
-            throw new \InvalidArgumentException('$campaignOrSms must be a valid instance');
+            throw new \InvalidArgumentException('$template must be a valid instance');
         }
 
         if (!empty($group)) {

@@ -24,7 +24,7 @@ class GroupCest
 
     // TODO: crud tests
 
-    public function testBulkSendCampaign(FunctionalTester $I)
+    public function testBulkSendEmail(FunctionalTester $I)
     {
         $groups = [];
         $groups[] = $this->_createConsumerGroup($this->user, 2);
@@ -34,7 +34,7 @@ class GroupCest
         $groups[0]->consumers()->attach($anotherConsumer->id);
         $groups[1]->consumers()->attach($anotherConsumer->id);
 
-        $campaign = $this->_createCampaign($this->user);
+        $campaign = $this->_createEmailTemplate($this->user);
 
         $toAddresses = [];
         $consumerIds = [];
@@ -60,7 +60,7 @@ class GroupCest
         $I->amOnRoute('consumer-hub.groups.index');
         $I->checkOption('#bulk-item-' . $groups[0]->id);
         $I->checkOption('#bulk-item-' . $groups[1]->id);
-        $I->selectOption('action', 'send_campaign');
+        $I->selectOption('action', 'send_email');
         $I->click('#btn-bulk');
 
         $I->selectOption('campaign_id', $campaign->id);

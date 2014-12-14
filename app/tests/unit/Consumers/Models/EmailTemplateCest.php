@@ -1,6 +1,7 @@
 <?php namespace Test\Unit\Consumers\Models;
 
 use App\Consumers\Models\EmailTemplate;
+use App\Consumers\Models\History;
 use UnitTester;
 
 /**
@@ -32,9 +33,11 @@ class EmailTemplateCest
 
         $sent = EmailTemplate::sendConsumers($campaign, [$consumer->id]);
         $I->assertEquals(1, $sent, '$sent');
+        $I->assertEquals([$consumer->id], $campaign->histories()->lists('consumer_id'), 'history');
 
         $sent = EmailTemplate::sendConsumers($campaign, [$consumer->id]);
         $I->assertEquals(0, $sent, '$sent again');
+        $I->assertEquals([$consumer->id], $campaign->histories()->lists('consumer_id'), 'history');
     }
 
     public function testSendGroups(UnitTester $I)
@@ -47,6 +50,7 @@ class EmailTemplateCest
         list($sent, $total) = EmailTemplate::sendGroups($campaign, [$group->id]);
         $I->assertEquals($consumersCount, $sent, '$sent');
         $I->assertEquals($consumersCount, $total, '$total');
+        //$I->assertEquals([$group->id], $campaign->histories()->lists('group_id'), 'history');
 
         $group = $this->groups[1];
         $consumersCount = $group->consumers()->count();
@@ -55,5 +59,6 @@ class EmailTemplateCest
         list($sent, $total) = EmailTemplate::sendGroups($campaign, [$group->id]);
         $I->assertEquals($consumersCount - 1, $sent, '$sent again');
         $I->assertEquals($consumersCount, $total, '$total again');
+        // $I->assertEquals($this->groups, $campaign->histories()->lists('group_id'), 'history');
     }
 }

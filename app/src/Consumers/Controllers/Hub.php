@@ -27,7 +27,7 @@ class Hub extends Base
         'showTab' => false,
         'bulkActions' => [
             'group',
-            'send_campaign',
+            'send_email',
             'send_sms',
         ],
     ];
@@ -37,10 +37,11 @@ class Hub extends Base
      */
     protected function upsertHandler($item)
     {
-        $item->fill(Input::all());
-        $item->saveOrFail();
-        $item->users()->detach($this->user->id);
-        $item->users()->attach($this->user);
+        // print_r($item);
+        // $item->fill(Input::all());
+        // $item->saveOrFail();
+        // $item->users()->detach($this->user->id);
+        // $item->users()->attach($this->user);
 
         return $item;
     }

@@ -1,13 +1,13 @@
 <?php namespace Test\Functional\Consumers\Controllers;
 
-use App\Consumers\Models\Sms;
+use App\Consumers\Models\EmailTemplate;
 use FunctionalTester;
 use Test\Traits\Models;
 
 /**
  * @group co
  */
-class SmsCest
+class EmailTemplateCest
 {
     use Models;
 
@@ -32,59 +32,59 @@ class SmsCest
 
     public function testHistorySentToConsumer(FunctionalTester $I)
     {
-        $sms = $this->_createSms($this->user);
+        $campaign = $this->_createEmailTemplate($this->user);
         $consumer = $this->groups[0]->consumers()->first();
 
-        Sms::sendConsumers($sms, [$consumer->id]);
+        EmailTemplate::sendConsumers($campaign, [$consumer->id]);
 
-        $I->amOnRoute('consumer-hub.history.sms');
+        $I->amOnRoute('consumer-hub.history.email');
         $I->seeNumberOfElements('.item-row', 1);
-        $I->see($sms->title);
-        $I->see($consumer->phone);
+        $I->see($campaign->subject);
+        $I->see($consumer->email);
     }
 
     public function testHistorySentToGroup(FunctionalTester $I)
     {
-        $sms = $this->_createSms($this->user);
+        $campaign = $this->_createEmailTemplate($this->user);
         $group = $this->groups[1];
         $consumersCount = $group->consumers()->count();
         $I->assertEquals(4, $consumersCount);
 
-        Sms::sendGroups($sms, [$group->id]);
+        EmailTemplate::sendGroups($campaign, [$group->id]);
 
-        $I->amOnRoute('consumer-hub.history.sms');
+        $I->amOnRoute('consumer-hub.history.email');
         $I->seeNumberOfElements('.item-row', $consumersCount);
-        $I->see($sms->title);
+        $I->see($campaign->subject);
         $I->see($group->name);
 
         foreach ($group->consumers as $consumer) {
-            $I->see($consumer->phone);
+            $I->see($consumer->email);
         }
     }
 
     public function testHistoryByCampaign(FunctionalTester $I)
     {
-        $smsAll = [];
-        $smsAll[] = $this->_createSms($this->user);
-        $smsAll[] = $this->_createSms($this->user);
+        $campaigns = [];
+        $campaigns[] = $this->_createEmailTemplate($this->user);
+        $campaigns[] = $this->_createEmailTemplate($this->user);
         $consumer = $this->groups[0]->consumers()->first();
 
-        foreach ($smsAll as $sms) {
-            Sms::sendConsumers($sms, [$consumer->id]);
+        foreach ($campaigns as $campaign) {
+            EmailTemplate::sendConsumers($campaign, [$consumer->id]);
         }
 
-        $I->amOnRoute('consumer-hub.history.sms');
-        $I->seeNumberOfElements('.item-row', count($smsAll));
-        foreach ($smsAll as $sms) {
-            $I->see($sms->title);
+        $I->amOnRoute('consumer-hub.history.email');
+        $I->seeNumberOfElements('.item-row', count($campaigns));
+        foreach ($campaigns as $campaign) {
+            $I->see($campaign->subject);
         }
-        $I->see($consumer->phone);
+        $I->see($consumer->email);
 
-        foreach ($smsAll as $sms) {
-            $I->amOnRoute('consumer-hub.history.sms', ['sms_id' => $sms->id]);
+        foreach ($campaigns as $campaign) {
+            $I->amOnRoute('consumer-hub.history.email', ['campaign_id' => $campaign->id]);
             $I->seeNumberOfElements('.item-row', 1);
-            $I->see($sms->title);
-            $I->see($consumer->phone);
+            $I->see($campaign->subject);
+            $I->see($consumer->email);
         }
     }
 }

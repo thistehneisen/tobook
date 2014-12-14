@@ -41,7 +41,7 @@ Route::group([
             'uses' => 'App\Consumers\Controllers\EmailTemplate@history',
         ]);
 
-        Route::get('email', [
+        Route::get('sms', [
             'as' => 'consumer-hub.history.sms',
             'uses' => 'App\Consumers\Controllers\SmsTemplate@history',
         ]);

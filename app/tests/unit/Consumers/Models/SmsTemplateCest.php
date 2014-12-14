@@ -6,7 +6,7 @@ use UnitTester;
 /**
  * @group co
  */
-class SmsCest
+class SmsTemplateCest
 {
     use \Test\Traits\Models;
 

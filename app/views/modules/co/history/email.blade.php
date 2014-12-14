@@ -20,8 +20,8 @@
         <tr id="row-{{ $history->id }}" data-id="{{ $history->id }}" class="item-row">
             <td><input type="checkbox" class="checkbox" name="ids[]" value="{{ $history->id }}" id="bulk-item-{{ $history->id }}"></td>
             <td>
-                <a href="{{ route('consumer-hub.email_templates.upsert', [$history->campaign->id]) }}" target="_blank">
-                    {{ $history->campaign->subject }}
+                <a href="{{ route('consumer-hub.email_templates.upsert', [$history->email->id]) }}" target="_blank">
+                    {{ $history->email->subject }}
                 </a>
             </td>
             <td>

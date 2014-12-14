@@ -58,7 +58,7 @@ class EmailTemplate extends Base
         }
 
         $historyQuery->orderBy('created_at', 'desc');
-        $historyQuery->with(['group', 'consumer', 'campaign']);
+        $historyQuery->with(['group', 'consumer', 'email']);
         $historyQuery->whereNotNull('campaign_id');
 
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));

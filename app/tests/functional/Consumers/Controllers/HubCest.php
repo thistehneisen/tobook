@@ -188,7 +188,7 @@ class HubCest
     {
         $consumer = $this->_createConsumer($this->user);
         $consumer2 = $this->_createConsumer($this->user);
-        $campaign = $this->_createCampaign($this->user);
+        $campaign = $this->_createEmailTemplate($this->user);
 
         $toAddresses = [
             $consumer->email => false,
@@ -207,7 +207,7 @@ class HubCest
         $I->amOnRoute('consumer-hub');
         $I->checkOption('#bulk-item-' . $consumer->id);
         $I->checkOption('#bulk-item-' . $consumer2->id);
-        $I->selectOption('action', 'send_campaign');
+        $I->selectOption('action', 'send_email');
         $I->click('#btn-bulk');
 
         $I->selectOption('campaign_id', $campaign->id);

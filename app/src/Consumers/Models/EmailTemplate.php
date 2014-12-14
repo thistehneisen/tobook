@@ -58,6 +58,7 @@ class EmailTemplate extends \App\Core\Models\Base
 
         foreach ($consumers as $consumer) {
             if (empty($consumer->email)) {
+                \Log::info('huh');
                 continue;
             }
 

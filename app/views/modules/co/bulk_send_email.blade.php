@@ -3,16 +3,15 @@
 @section ('content')
     @include ('el.messages')
 
-{{ Form::open(['route' => ['consumer-hub.groups.bulk'], 'class' => 'form-horizontal', 'role' => 'form', 'id' => 'form-bulk']) }}
+{{ Form::open(['route' => ['consumer-hub.bulk'], 'class' => 'form-horizontal', 'role' => 'form', 'id' => 'form-bulk']) }}
     <div class="form-group">
-        <label for="upload" class="col-sm-2 control-label">{{ trans('co.groups.groups') }}</label>
+        <label for="upload" class="col-sm-2 control-label">{{ trans('co.consumers') }}</label>
         <div class="col-sm-5">
             <ul>
-                @foreach($groups as $group)
+                @foreach($consumers as $consumer)
                     <li>
-                        {{{ $group->name }}}
-                        ({{ Lang::choice('co.x_consumers', $group->consumers()->count(), ['count' => $group->consumers()->count()]) }})
-                        {{ Form::hidden('ids[]', $group->id) }}
+                        {{{ $consumer->name }}}
+                        {{ Form::hidden('ids[]', $consumer->id) }}
                     </li>
                 @endforeach
             </ul>
@@ -20,7 +19,7 @@
     </div>
 
     <div class="form-group {{ Form::errorCSS('campaign_id', $errors) }}">
-        <label for="group_id" class="col-sm-2 control-label">{{ trans('co.groups.send_campaign') }}</label>
+        <label for="group_id" class="col-sm-2 control-label">{{ trans('co.email_templates.single') }}</label>
         <div class="col-sm-5">
            {{ Form::select('campaign_id', $campaignPairs, 0, ['id' => 'campaign_id', 'class' => 'form-control']) }}
            {{ Form::errorText('campaign_id', $errors) }}
@@ -33,7 +32,7 @@
         </div>
     </div>
 
-    {{ Form::hidden('action', 'send_campaign') }}
+    {{ Form::hidden('action', 'send_email') }}
 {{ Form::close() }}
 
 @stop

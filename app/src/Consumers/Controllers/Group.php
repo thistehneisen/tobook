@@ -25,7 +25,7 @@ class Group extends Base
         'showTab' => false,
         'bulkActions' => [
             'destroy',
-            'send_campaign',
+            'send_email',
             'send_sms',
         ],
         'presenters' => [
