@@ -62,10 +62,10 @@ class Employee extends \App\Appointment\Models\Base
     {
         $defaultTimes = $this->defaultTimes;
         if ($defaultTimes->isEmpty()) {
-            $defaultTimeConfig = Config::get('employee.default_time');
+            $defaultTimeConfig = Config::get('appointment.employee.default_time');
             $data = [];
             foreach ($defaultTimeConfig as $time) {
-                $obj= (object) $time;
+                $obj = (object) $time;
                 $obj->default = true;
                 $data[] = $obj;
             }

@@ -4,15 +4,15 @@ return [
         'general' => [
             // Index section
             'index' => [
-                'layout'          => [
-                    'type'         => 'Dropdown',
-                    'values'       => [1 => 'Layout 1', 2 => 'Layout 2', 3 => 'Layout 3'],
-                    'default'      => 1,
+                'layout' => [
+                    'type' => 'Dropdown',
+                    'values' => [1 => 'Layout 1', 2 => 'Layout 2', 3 => 'Layout 3'],
+                    'default' => 1,
                     'flipValues' => false
                 ],
-                'currency'        => [
-                    'type'    => 'Dropdown',
-                    'values'  => ['AED', 'AFN', 'ALL', 'AMD', 'ANG', 'AOA', 'ARS', 'AUD', 'AWG', 'AZN', 'BAM', 'BBD', 'BDT', 'BGN', 'BHD', 'BIF', 'BMD', 'BND', 'BOB', 'BOV', 'BRL', 'BSD', 'BTN', 'BWP', 'BYR', 'BZD', 'CAD', 'CDF', 'CHE', 'CHF', 'CHW', 'CLF', 'CLP', 'CNY', 'COP', 'COU', 'CRC', 'CUC', 'CUP', 'CVE', 'CZK', 'DJF', 'DKK', 'DOP', 'DZD', 'EEK', 'EGP', 'ERN', 'ETB', 'EUR', 'FJD', 'FKP', 'GBP', 'GEL', 'GHS', 'GIP', 'GMD', 'GNF', 'GTQ', 'GYD', 'HKD', 'HNL', 'HRK', 'HTG', 'HUF', 'IDR', 'ILS', 'INR', 'IQD', 'IRR', 'ISK', 'JMD', 'JOD', 'JPY', 'KES', 'KGS', 'KHR', 'KMF', 'KPW', 'KRW', 'KWD', 'KYD', 'KZT', 'LAK', 'LBP', 'LKR', 'LRD', 'LSL', 'LTL', 'LVL', 'LYD', 'MAD', 'MDL', 'MGA', 'MKD', 'MMK', 'MNT', 'MOP', 'MRO', 'MUR', 'MVR', 'MWK', 'MXN', 'MXV', 'MYR', 'MZN', 'NAD', 'NGN', 'NIO', 'NOK', 'NPR', 'NZD', 'OMR', 'PAB', 'PEN', 'PGK', 'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RSD', 'RUB', 'RWF', 'SAR', 'SBD', 'SCR', 'SDG', 'SEK', 'SGD', 'SHP', 'SLL', 'SOS', 'SRD', 'STD', 'SYP', 'SZL', 'THB', 'TJS', 'TMT', 'TND', 'TOP', 'TRY', 'TTD', 'TWD', 'TZS', 'UAH', 'UGX', 'USD', 'USN', 'USS', 'UYU', 'UZS', 'VEF', 'VND', 'VUV', 'WST', 'XAF', 'XAG', 'XAU', 'XBA', 'XBB', 'XBC', 'XBD', 'XCD', 'XDR', 'XFU', 'XOF', 'XPD', 'XPF', 'XPT', 'XTS', 'XXX', 'YER', 'ZAR', 'ZMK', 'ZWL'],
+                'currency' => [
+                    'type'   => 'Dropdown',
+                    'values' => ['AED', 'AFN', 'ALL', 'AMD', 'ANG', 'AOA', 'ARS', 'AUD', 'AWG', 'AZN', 'BAM', 'BBD', 'BDT', 'BGN', 'BHD', 'BIF', 'BMD', 'BND', 'BOB', 'BOV', 'BRL', 'BSD', 'BTN', 'BWP', 'BYR', 'BZD', 'CAD', 'CDF', 'CHE', 'CHF', 'CHW', 'CLF', 'CLP', 'CNY', 'COP', 'COU', 'CRC', 'CUC', 'CUP', 'CVE', 'CZK', 'DJF', 'DKK', 'DOP', 'DZD', 'EEK', 'EGP', 'ERN', 'ETB', 'EUR', 'FJD', 'FKP', 'GBP', 'GEL', 'GHS', 'GIP', 'GMD', 'GNF', 'GTQ', 'GYD', 'HKD', 'HNL', 'HRK', 'HTG', 'HUF', 'IDR', 'ILS', 'INR', 'IQD', 'IRR', 'ISK', 'JMD', 'JOD', 'JPY', 'KES', 'KGS', 'KHR', 'KMF', 'KPW', 'KRW', 'KWD', 'KYD', 'KZT', 'LAK', 'LBP', 'LKR', 'LRD', 'LSL', 'LTL', 'LVL', 'LYD', 'MAD', 'MDL', 'MGA', 'MKD', 'MMK', 'MNT', 'MOP', 'MRO', 'MUR', 'MVR', 'MWK', 'MXN', 'MXV', 'MYR', 'MZN', 'NAD', 'NGN', 'NIO', 'NOK', 'NPR', 'NZD', 'OMR', 'PAB', 'PEN', 'PGK', 'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RSD', 'RUB', 'RWF', 'SAR', 'SBD', 'SCR', 'SDG', 'SEK', 'SGD', 'SHP', 'SLL', 'SOS', 'SRD', 'STD', 'SYP', 'SZL', 'THB', 'TJS', 'TMT', 'TND', 'TOP', 'TRY', 'TTD', 'TWD', 'TZS', 'UAH', 'UGX', 'USD', 'USN', 'USS', 'UYU', 'UZS', 'VEF', 'VND', 'VUV', 'WST', 'XAF', 'XAG', 'XAU', 'XBA', 'XBB', 'XBC', 'XBD', 'XCD', 'XDR', 'XFU', 'XOF', 'XPD', 'XPF', 'XPT', 'XTS', 'XXX', 'YER', 'ZAR', 'ZMK', 'ZWL'],
                     'default' => 'EUR',
                 ],
                 'timezone' => [
@@ -55,9 +55,6 @@ return [
         ],
         'booking' => [
             'index' => [
-                // 'accept_bookings' => [
-                //     'type' => 'Radio',
-                // ],
                 'hide_prices' => [
                     'type' => 'Radio',
                     'default' => false
@@ -66,31 +63,6 @@ return [
                     'type' => 'DefaultNatDropdown',
                     'default' => -1
                 ],
-                // 'status_if_not_paid' => [
-                //     'type' => 'Dropdown',
-                //     'values' => [
-                //         'confirmed' => trans('as.options.booking.confirmed'),
-                //         'pending'   => trans('as.options.booking.pending')
-                //     ],
-                //     'default' => 'confirmed'
-                // ],
-                // 'status_if_paid' => [
-                //     'type' => 'Dropdown',
-                //     'values' => [
-                //         'confirmed' => trans('as.options.booking.confirmed'),
-                //         'pending'   => trans('as.options.booking.pending')
-                //     ],
-                //     'default' => 'confirmed'
-                // ],
-                // 'step' => [
-                //     'type' => 'Dropdown',
-                //     'values' => [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60],
-                //     'default' => 15
-                // ],
-                // 'bookable_date' => [
-                //     'type' => 'Text',
-                //     'options' => ['class' => 'form-control input-sm date-picker']
-                // ]
             ],
             'booking_form' => [
                 'notes' => [
@@ -280,5 +252,18 @@ return [
                 ]
             ]
         ],
-    ]
+    ],
+
+    // employee configs
+    'employee' => [
+        'default_time' => [
+            ['type' => 'mon', 'start_at' => '08:00', 'end_at' => '18:00', 'is_day_off' => false],
+            ['type' => 'tue', 'start_at' => '08:00', 'end_at' => '18:00', 'is_day_off' => false],
+            ['type' => 'wed', 'start_at' => '08:00', 'end_at' => '18:00', 'is_day_off' => false],
+            ['type' => 'thu', 'start_at' => '08:00', 'end_at' => '18:00', 'is_day_off' => false],
+            ['type' => 'fri', 'start_at' => '08:00', 'end_at' => '18:00', 'is_day_off' => false],
+            ['type' => 'sat', 'start_at' => '08:00', 'end_at' => '18:00', 'is_day_off' => false],
+            ['type' => 'sun', 'start_at' => '08:00', 'end_at' => '18:00', 'is_day_off' => false],
+        ]
+    ],
 ];
