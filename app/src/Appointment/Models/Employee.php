@@ -467,7 +467,7 @@ class Employee extends \App\Appointment\Models\Base
 
                 if(!empty($empCustomTime)){
                     if($hour < $start->hour) {
-                        continue;
+                        break;
                     }
                 }
 
@@ -503,8 +503,11 @@ class Employee extends \App\Appointment\Models\Base
                 }
 
                 if ($startTime->gt(Carbon::now()) || $isTest) {
-                    $startTime->subMinutes($service->before);
-                    $endTime   = $startTime->copy()->addMinutes($serviceLength)->subMinutes($service->after);
+                    $startTime->addMinutes($service->before);
+                    $endTime   = $startTime->copy()->addMinutes($serviceLength)
+                        ->subMinutes($service->before)
+                        ->subMinutes($service->after);
+
                     $formatted = sprintf('%02d:%02d', $startTime->hour, $startTime->minute);
                     if ($showEndTime) {
                         $formatted .= sprintf(' - %02d:%02d', $endTime->hour, $endTime->minute);

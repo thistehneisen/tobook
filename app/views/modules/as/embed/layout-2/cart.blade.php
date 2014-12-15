@@ -10,7 +10,7 @@
             <h5>{{ $item->model->employee_name }}</h5>
             <dl class="dl-horizontal">
                 <dt>{{ trans('as.embed.layout_2.date') }}</dt>
-                <dd>{{ $item->model->datetime }}, {{ $item->model->start_at }} &ndash; {{ $item->model->end_at }}</dd>
+                <dd>{{ $item->model->datetime }}, {{ $item->model->instance->plainStartTime->format('h:i') }} &ndash; {{ $item->model->instance->plainEndTime->format('h:i') }}</dd>
                 <dt>{{ trans('as.embed.layout_2.price') }}</dt>
                 <dd>{{ $item->price }}&euro;</dd>
             </dl>

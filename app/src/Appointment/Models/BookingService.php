@@ -4,6 +4,7 @@ use Carbon\Carbon;
 use App\Cart\CartDetailInterface;
 use App\Cart\CartDetail;
 use Watson\Validating\ValidationException;
+use App\Appointment\Models\Reception\ReceptionistInterface;
 
 class BookingService extends Base implements CartDetailInterface
 {
@@ -117,13 +118,15 @@ class BookingService extends Base implements CartDetailInterface
      * @return int
      * @author hung@varaa.com
      */
-    public function calculcateTotalLength()
+    public function calculcateTotalLength($plain = false)
     {
         $service = (!empty($this->serviceTime->id))
                     ? $this->serviceTime
                     : $this->service;
 
-        $length = $service->length;
+        $length = ($plain)
+            ? $service->during
+            : $service->length;
 
         //Add employee service plustime
         $length += $this->getEmployeePlustime();
@@ -159,16 +162,34 @@ class BookingService extends Base implements CartDetailInterface
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
-    //TODO convert string to Carbon object
-    // public function getStartAtAttribute()
-    // {
+    public function getStartTimeAttribute()
+    {
+        return new \Carbon\Carbon($this->date . ' ' . $this->start_at);
+    }
 
-    // }
+    public function getEndTimeAttribute()
+    {
+        return new \Carbon\Carbon($this->date . ' ' . $this->end_at);
+    }
 
-    // public function getEndAtAttribute()
-    // {
+    public function getSelectedServiceAttribute()
+    {
+        $service = (!empty($this->serviceTime->id))
+            ? $this->serviceTime
+            : $this->service;
 
-    // }
+        return $service;
+    }
+
+    public function getPlainStartTimeAttribute()
+    {
+        return $this->startTime->addMinutes($this->selectedService->before);
+    }
+
+    public function getPlainEndTimeAttribute()
+    {
+        return $this->plainStartTime->addMinutes($this->calculcateTotalLength(true));
+    }
 
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
@@ -352,7 +373,7 @@ class BookingService extends Base implements CartDetailInterface
             throw new ValidationException(trans('as.bookings.error.add_overlapped_booking'));
         }
 
-        $areResourcesAvailable = Booking::areResourcesAvailable($employee->id, $service, $startTime->toDateString(), $startTime, $endTimeForOverlappingCheck);
+        $areResourcesAvailable = Booking::areResourcesAvailable($employee->id, $service, $uuid, $startTime->toDateString(), $startTime, $endTimeForOverlappingCheck);
 
         if (!$areResourcesAvailable) {
             throw new ValidationException(trans('as.bookings.error.not_enough_resources'));
@@ -380,6 +401,11 @@ class BookingService extends Base implements CartDetailInterface
         $bookingService->saveOrFail();
 
         return $bookingService;
+    }
+
+    public function handleBookingService(ReceptionistInterface $receptionist)
+    {
+
     }
 
     //--------------------------------------------------------------------------

@@ -129,8 +129,20 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     //--------------------------------------------------------------------------
     public function getStartTimeAttribute()
     {
-        return new \Carbon\Carbon($this->date.' '.$this->start_at);
+        if($this->start_at instanceof Carbon) {
+            return $this->start_at;
+        }
+        return new \Carbon\Carbon($this->date . ' ' . $this->start_at);
     }
+
+    public function getEndTimeAttribute()
+    {
+        if($this->start_at instanceof Carbon) {
+            return $this->end_at;
+        }
+        return new \Carbon\Carbon($this->date . ' ' . $this->end_at);
+    }
+
 
     /**
      * Generate service info message for sending mail, sms, cancel booking
@@ -244,7 +256,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      * Check all resources are avialble for a certain booking
      * @return boolean
      */
-    public static function areResourcesAvailable($employeeId, $service, $bookingDate, Carbon $startTime, Carbon $endTime)
+    public static function areResourcesAvailable($employeeId, $service, $uuid, $bookingDate, Carbon $startTime, Carbon $endTime)
     {
         $resourceIds = [];
         if(!empty($service)) {
@@ -256,7 +268,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         $query = self::where('as_bookings.date', $bookingDate)
             ->whereNull('as_bookings.deleted_at')
-            ->where('as_bookings.status','!=', self::STATUS_CANCELLED);
+            ->where('as_bookings.status','!=', self::STATUS_CANCELLED)
+            ->where('as_bookings.uuid', '!=', $uuid);
 
         $query = self::applyDuplicateFilter($query, $startTime, $endTime);
 
