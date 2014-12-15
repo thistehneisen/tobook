@@ -467,7 +467,7 @@ class Employee extends \App\Appointment\Models\Base
 
                 if(!empty($empCustomTime)){
                     if($hour < $start->hour) {
-                        continue;
+                        break;
                     }
                 }
 

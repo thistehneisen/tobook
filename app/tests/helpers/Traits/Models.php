@@ -25,6 +25,7 @@ trait Models
 
     protected $employee = null;
     protected $category = null;
+    protected $customTime = null;
 
     protected $extraServices = array();
 
@@ -385,12 +386,7 @@ trait Models
 
     public function initCustomTime()
     {
-        $date = Carbon::today()->addDays(1);
-        if($date->dayOfWeek == Carbon::SUNDAY) {
-            $date->addDays(1);
-        } else if($date->dayOfWeek == Carbon::SATURDAY) {
-            $date->addDays(2);
-        }
+        $date = $this->getDate();
 
         if (empty($this->user)) {
             $this->user = User::find(70);
@@ -401,25 +397,25 @@ trait Models
         }
 
         //Init custome time
-        $customTime = new CustomTime();
+        $this->customTime = new CustomTime();
 
-        $customTime->fill([
+        $this->customTime->fill([
                 'name'       => '9:00 to 17:00',
                 'start_at'   => '09:00',
                 'end_at'     => '17:00',
                 'is_day_off' => false
             ]);
-        $customTime->user()->associate($this->user);
-        $customTime->save();
+        $this->customTime->user()->associate($this->user);
+        $this->customTime->save();
 
         //Add employee custom time
 
-        $employeeCustomTime =  EmployeeCustomTime::getUpsertModel($this->employee->id, $date->toDateString());
+        $employeeCustomTime =  new EmployeeCustomTime;
         $employeeCustomTime->fill([
             'date' =>  $date->toDateString()
         ]);
         $employeeCustomTime->employee()->associate($this->employee);
-        $employeeCustomTime->customTime()->associate($customTime);
+        $employeeCustomTime->customTime()->associate($this->customTime);
         $employeeCustomTime->save();
 
         //Add employee freetime
@@ -434,25 +430,25 @@ trait Models
         $employeeFreetime->employee()->associate($this->employee);
         $employeeFreetime->save();
 
-        $employeeCustomTime1 =  EmployeeCustomTime::getUpsertModel($this->employee->id, Carbon::now()->toDateString());
-        $employeeCustomTime1->fill([
-            'date' => Carbon::now()->toDateString()
-        ]);
-        $employeeCustomTime1->employee()->associate($this->employee);
-        $employeeCustomTime1->customTime()->associate($customTime);
-        $employeeCustomTime1->save();
+        // $employeeCustomTime1 =  new EmployeeCustomTime;
+        // $employeeCustomTime1->fill([
+        //     'date' => $date->toDateString()
+        // ]);
+        // $employeeCustomTime1->employee()->associate($this->employee);
+        // $employeeCustomTime1->customTime()->associate($this->customTime);
+        // $employeeCustomTime1->save();
 
         //Add employee freetime
-        $employeeFreetime1 = new EmployeeFreetime();
-        $employeeFreetime1->fill([
-            'date' => Carbon::now()->toDateString(),
-            'start_at' => '13:00',
-            'end_at'=>'14:00',
-            'description' => ''
-        ]);
-        $employeeFreetime1->user()->associate($this->user);
-        $employeeFreetime1->employee()->associate($this->employee);
-        $employeeFreetime1->save();
+        // $employeeFreetime1 = new EmployeeFreetime();
+        // $employeeFreetime1->fill([
+        //     'date' => $date->toDateString(),
+        //     'start_at' => '13:00',
+        //     'end_at'=>'14:00',
+        //     'description' => ''
+        // ]);
+        // $employeeFreetime1->user()->associate($this->user);
+        // $employeeFreetime1->employee()->associate($this->employee);
+        // $employeeFreetime1->save();
     }
 
     public function getDate()

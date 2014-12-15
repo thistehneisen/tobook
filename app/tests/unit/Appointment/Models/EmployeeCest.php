@@ -22,8 +22,9 @@ class EmployeeCest
             $this->initCustomTime();
         }
         $user = User::find(70);
+        $I->amLoggedAs($user);
         $employee = $this->employee;
-        $date = new \Carbon\Carbon('2014-11-24');
+        $date = $this->getDate();
         $defaultEndTime = null;
         $workingTimes  = $employee->getWorkingTimesByDate($date, $defaultEndTime);
 
@@ -46,11 +47,14 @@ class EmployeeCest
     {
         if(empty($this->service)) {
             $this->initData();
-            $this->initCustomTime();
         }
+
+        $this->initCustomTime();
+
         $user = User::find(70);
+        $I->amLoggedAs($user);
         $employee = $this->employee;
-        $date = \Carbon\Carbon::now();
+        $date = $this->getDate();
         $I->assertEquals(count($this->extraServices), 2);
 
         $cooked = array(
@@ -65,6 +69,12 @@ class EmployeeCest
             17 => array(0),
         );
         $defaultEndTime = null;
+        $empCustomTime = $employee->employeeCustomTimes()
+                    ->with('customTime')
+                    ->where('date', $date)
+                    ->first();
+        $I->assertNotEmpty($empCustomTime);
+
         $workingTimes = $employee->getWorkingTimesByDate($date, $defaultEndTime);
         $I->assertEquals($workingTimes, $cooked);
         $x = $employee->isOverllapedWithFreetime($date->toDateString(), with(new \Carbon\Carbon('11:30')), with(new \Carbon\Carbon('13:00')));
