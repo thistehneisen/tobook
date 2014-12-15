@@ -24,7 +24,7 @@ class UnitLayout1Cest
     {
         $this->initData();
         $this->initCustomTime();
-        $date = '2014-11-24';
+        $date = $this->getDate()->toDateString();
 
         $hour = 8;
         $minute = 0;
@@ -59,7 +59,7 @@ class UnitLayout1Cest
     public function testSlotsClassDefault(UnitTester $t)
     {
         $this->initData();
-        $date = '2014-11-24';
+        $date = $this->getDate()->toDateString();
 
         $hour = 8;
         $minute = 0;
@@ -89,9 +89,9 @@ class UnitLayout1Cest
     {
         $this->initData();
         $this->initCustomTime();
-        $date = new Carbon('2014-11-24');
+        $date = $this->getDate();
         $booking = $this->_book($this->user, $this->category, $date, '14:00');
-        $t->assertEquals($booking->date, '2014-11-24');
+        $t->assertEquals($booking->date, $date->toDateString());
 
         $hour = 13;
         $minute = 0;
