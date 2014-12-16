@@ -161,73 +161,73 @@ class Employee extends \App\Appointment\Models\Base
      * @param Carbon $date
      * @return array
      */
-    public function getDefaultWorkingTimes($date = null)
-    {
-        $defaultTimes = $this->getDefaultTimes();
-        $startTimes   = [];
-        $endTimes     = [];
+    // public function getDefaultWorkingTimes($date = null)
+    // {
+    //     $defaultTimes = $this->getDefaultTimes();
+    //     $startTimes   = [];
+    //     $endTimes     = [];
 
-        foreach ($defaultTimes as $time) {
-            if ($time->is_day_off === 0) {
-                $startTimes[] = Carbon::createFromFormat('H:i:s', $time->start_at);
-                $endTimes[] =  Carbon::createFromFormat('H:i:s', $time->end_at);
-            }
-        }
+    //     foreach ($defaultTimes as $time) {
+    //         if ($time->is_day_off === 0) {
+    //             $startTimes[] = Carbon::createFromFormat('H:i:s', $time->start_at);
+    //             $endTimes[] =  Carbon::createFromFormat('H:i:s', $time->end_at);
+    //         }
+    //     }
 
-        //low to high
-        usort($startTimes, function($a, $b){
-            if ($a === $b) {
-                return 0;
-            }
-            return ($a < $b) ? -1 : 1;
-        });
+    //     //low to high
+    //     usort($startTimes, function($a, $b){
+    //         if ($a === $b) {
+    //             return 0;
+    //         }
+    //         return ($a < $b) ? -1 : 1;
+    //     });
 
-        //high to low
-        usort($endTimes, function($a, $b){
-            if ($a === $b) {
-                return 0;
-            }
-            return ($a > $b) ? -1 : 1;
-        });
+    //     //high to low
+    //     usort($endTimes, function($a, $b){
+    //         if ($a === $b) {
+    //             return 0;
+    //         }
+    //         return ($a > $b) ? -1 : 1;
+    //     });
 
-        $workingTimes = [];
-        $startHour   = (int)isset($startTimes[0]) ? $startTimes[0]->hour : 7;
-        $startMinute = (int)isset($startTimes[0]) ? $startTimes[0]->minute: 0;
-        $endHour     = (int)isset($endTimes[0]) ? $endTimes[0]->hour : 21;
-        $endMinute   = (int)isset($endTimes[0]) ? $endTimes[0]->minute : 0;
+    //     $workingTimes = [];
+    //     $startHour   = (int)isset($startTimes[0]) ? $startTimes[0]->hour : 7;
+    //     $startMinute = (int)isset($startTimes[0]) ? $startTimes[0]->minute: 0;
+    //     $endHour     = (int)isset($endTimes[0]) ? $endTimes[0]->hour : 21;
+    //     $endMinute   = (int)isset($endTimes[0]) ? $endTimes[0]->minute : 0;
 
-        if(!empty($date)){
-            $startDate      = $date;
-            $endDate        = with(clone $date)->addDays(6);
-            $lastestBooking = Booking::getLastestBookingEndTimeInRange($startDate->toDateString(), $endDate->toDateString());
-            if(!empty($lastestBooking)){
-                $lastestEndTime = $lastestBooking->getEndAt();
-                if(($lastestEndTime->hour   >= $endHour)
-                && ($lastestEndTime->minute >  $endMinute))
-                {
-                    $endHour   = $lastestEndTime->hour;
-                    $endMinute = ($lastestEndTime->minute % 15)
-                        ? $lastestEndTime->minute + (15 - ($lastestEndTime->minute % 15))
-                        : $lastestEndTime->minute;
-                }
-            }
-        }
-        $endHour   = ($endMinute == 0) ? $endHour - 1 : $endHour;
-        $endMinute = ($endMinute == 0 || $endMinute == 60) ? 45 : $endMinute;
-        for ($i = $startHour; $i<= $endHour; $i++) {
-            if ($i === $startHour) {
-                $workingTimes[$i] = range($startMinute, 45, 15);
-            }
-            if ($i !== $startHour && $i !== $endHour)
-            {
-                $workingTimes[$i] = range(0, 45, 15);
-            }
-            if ($i === $endHour) {
-                 $workingTimes[$i] = range(0, $endMinute, 15);
-            }
-        }
-        return $workingTimes;
-    }
+    //     if(!empty($date)){
+    //         $startDate      = $date;
+    //         $endDate        = with(clone $date)->addDays(6);
+    //         $lastestBooking = Booking::getLastestBookingEndTimeInRange($startDate->toDateString(), $endDate->toDateString());
+    //         if(!empty($lastestBooking)){
+    //             $lastestEndTime = $lastestBooking->getEndAt();
+    //             if(($lastestEndTime->hour   >= $endHour)
+    //             && ($lastestEndTime->minute >  $endMinute))
+    //             {
+    //                 $endHour   = $lastestEndTime->hour;
+    //                 $endMinute = ($lastestEndTime->minute % 15)
+    //                     ? $lastestEndTime->minute + (15 - ($lastestEndTime->minute % 15))
+    //                     : $lastestEndTime->minute;
+    //             }
+    //         }
+    //     }
+    //     $endHour   = ($endMinute == 0) ? $endHour - 1 : $endHour;
+    //     $endMinute = ($endMinute == 0 || $endMinute == 60) ? 45 : $endMinute;
+    //     for ($i = $startHour; $i<= $endHour; $i++) {
+    //         if ($i === $startHour) {
+    //             $workingTimes[$i] = range($startMinute, 45, 15);
+    //         }
+    //         if ($i !== $startHour && $i !== $endHour)
+    //         {
+    //             $workingTimes[$i] = range(0, 45, 15);
+    //         }
+    //         if ($i === $endHour) {
+    //              $workingTimes[$i] = range(0, $endMinute, 15);
+    //         }
+    //     }
+    //     return $workingTimes;
+    // }
 
     /**
      * Return the effective end time of a date

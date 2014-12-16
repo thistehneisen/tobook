@@ -62,7 +62,7 @@ class Schedule extends Base
             $employeeData['schedules'] = array();
 
             foreach ($dates as $date) {
-                $workingTimes = $employee->getDefaultWorkingTimes($date);
+                $workingTimes = $employee->getWorkingTimesByDate($date);
                 $dateStr = $date->toDateString();
 
                 $employeeData['schedules'][$dateStr] = [];
