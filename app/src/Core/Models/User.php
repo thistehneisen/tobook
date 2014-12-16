@@ -5,7 +5,6 @@ use Consumer, Log, NAT;
 use Zizaco\Confide\ConfideUser;
 use Zizaco\Entrust\HasRole;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
-use App\Appointment\Models\NAT\CalendarKeeper;
 use App\Search\SearchableInterface;
 use App\Search\ElasticSearchTrait;
 
@@ -76,19 +75,6 @@ class User extends ConfideUser implements SearchableInterface
         // }
         // return $slots;
         return NAT::nextUser($this, $date)->toArray();
-    }
-
-    /**
-     * Get default working time range of Appointment Scheduler
-     *
-     * @param string date
-     * @param boolean showUntilLastestBooking : show end time up to lastest booking end time in a day
-     *
-     * @return array
-     */
-    public function getASDefaultWorkingTimes($date, $showUntilLastestBooking = true)
-    {
-        return CalendarKeeper::getDefaultWorkingTimes($this, $date, $showUntilLastestBooking);
     }
 
     //--------------------------------------------------------------------------

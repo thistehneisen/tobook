@@ -14,6 +14,7 @@ use App\Appointment\Models\AsConsumer;
 use App\Consumers\Models\Consumer;
 use App\Core\Models\User;
 use App\Appointment\Controllers\AsBase;
+use App\Appointment\Models\NAT\CalendarKeeper;
 
 trait Layout
 {
@@ -194,7 +195,7 @@ trait Layout
     public function getDefaultWorkingTimes($date, $hash = null)
     {
         $user = $this->getUser($hash);
-        $workingTimes = $user->getASDefaultWorkingTimes($date, false);
+        $workingTimes = CalendarKeeper::getDefaultWorkingTimes($user, $date, false);
         return $workingTimes;
     }
 
