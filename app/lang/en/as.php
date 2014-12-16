@@ -411,6 +411,7 @@ return [
             'postcode'        => 'Postcode', //@todo
             'empty'           => 'There is no available time on selected day.',
             'payment_note'    => 'After a booking is placed, you will be redirected to payment.', // @todo
+            'confirm_service' => 'Confirm booking service',// @todo
         ]
     ],
      'options' => [

@@ -65,8 +65,13 @@ class Layout3 extends Base
 
         $data['consumer'] = $consumer;
         $data['user']     = $user;
+        $data['layout']   = $this->getLayout();
 
-        return $this->render('confirm', $data);
+        $tpl = 'confirm';
+        if ((bool) Input::get('inhouse')) {
+            $tpl = 'confirm-plain';
+        }
+        return $this->render($tpl, $data);
     }
 
     protected function getConfirmationData()
