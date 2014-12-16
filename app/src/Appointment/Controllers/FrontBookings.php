@@ -44,12 +44,11 @@ class FrontBookings extends Bookings
         $startTimeStr    = trim(Input::get('start_time'));
         $uuid            = Input::get('uuid', Util::uuid());
 
-        //Use for front-end booking
-        if(empty($this->user)){
-            //TODO check if is there any potential error
-            $decoded = Hashids::decrypt($hash);
-            $this->user = User::find($decoded[0]);
-        }
+
+        //TODO check if is there any potential error
+        //Always get user from hash in front end
+        $decoded = Hashids::decrypt($hash);
+        $this->user = User::find($decoded[0]);
 
         try{
             $receptionist = new FrontendReceptionist();
