@@ -496,9 +496,11 @@ class Bookings extends AsBase
             $data['success']     = true;
             $data['baseURl']     = route('as.index');
             $data['bookingDate'] = $booking->date;
-        } catch (\Watson\Validating\ValidationException $ex) {
+        } catch (\Exception $ex) {
             $data['success'] = false;
-            $data['message'] = Util::getHtmlListError($ex);
+            $data['message'] = ($ex instanceof \Watson\Validating\ValidationException)
+                ? Util::getHtmlListError($ex)
+                : $ex->getMessage();
         }
 
         return Response::json($data);

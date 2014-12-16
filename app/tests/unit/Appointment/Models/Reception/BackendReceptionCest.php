@@ -242,6 +242,12 @@ class BackendReceptionCest
             ->setClientIP('192.168.1.1')
             ->setSource('backend');
 
+        $receptionist->setBookingService();
+
+        $bookingService = $receptionist->getBookingService();
+        $I->assertEquals($bookingService->startTime, $date->hour(14)->minute(0)->second(0));
+        $I->assertEquals($bookingService->endTime, $date->hour(15)->minute(0)->second(0));
+
         $booking = $receptionist->upsertBooking();
         $I->assertNotEmpty($booking);
         $I->assertEquals($booking->total, 60);

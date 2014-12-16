@@ -174,9 +174,11 @@ class FrontBookings extends Bookings
             $cart->complete();
 
             $data['booking_id'] = $booking->id;
-        } catch (\Watson\Validating\ValidationException $ex) {
+        } catch (\Exception $ex) {
             $data['success'] = false;
-            $data['message'] =  Util::getHtmlListError($ex);
+            $data['message'] = ($ex instanceof \Watson\Validating\ValidationException)
+                ? Util::getHtmlListError($ex)
+                : $ex->getMessage();
             return Response::json($data, 500);
         }
 

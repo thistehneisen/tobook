@@ -30,7 +30,7 @@ class BackendReceptionist extends Receptionist
 
     public function upsertBooking()
     {
-        $this->setBookingService();
+        $this->setBookingService(true);
 
         $booking = (empty($this->bookingId))
             ? new Booking()

@@ -196,6 +196,11 @@ abstract class Receptionist implements ReceptionistInterface
         return $this;
     }
 
+    public function getBookingService()
+    {
+        return $this->bookingService;
+    }
+
     public function setClientIP($ip)
     {
         $this->clientIP = $ip;
