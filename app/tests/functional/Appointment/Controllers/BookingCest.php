@@ -422,7 +422,7 @@ class BookingCest
             'booking_date' => $date->subDays(1)->toDateString(),
             'start_time' => '12:00'
         ]));
-        $I->seeResponseCodeIs(400);
+        $I->seeResponseCodeIs(500);
         $I->seeResponseIsJson();
         $message = $I->grabDataFromJsonResponse('message');
         $I->assertEquals(trans('as.bookings.error.past_booking'), $message);

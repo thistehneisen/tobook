@@ -35,6 +35,7 @@ trait Layout
         $serviceTimeId       = Input::get('service_time');
         $extraServiceIds     = Input::get('extra_services');
         $cartId              = Input::get('cart_id');
+        $inhouse             = Input::get('inhouse');
         $isRequestedEmployee = Input::get('is_requested_employee', false);
 
         $date = (empty(Input::get('date'))) ? Carbon::today() : Input::get('date');
@@ -105,6 +106,7 @@ trait Layout
 
         return [
             'layout'             => $layout,
+            'inhouse'            => $inhouse,
             'user'               => $user,
             'categories'         => $categories,
             'employees'          => $employees,
