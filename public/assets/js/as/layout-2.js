@@ -1,5 +1,5 @@
 /*jslint browser: true, nomen: true, unparam: true*/
-/*global jQuery */
+/*global jQuery, alert */
 
 (function ($) {
     'use strict';
@@ -41,7 +41,7 @@
         $('a.as-category').on('click', function (e) {
             e.preventDefault();
             var $this = $(this),
-                $service = $('#as-category-'+$this.data('category-id')+'-services');
+                $service = $('#as-category-' + $this.data('category-id') + '-services');
 
             // Highlight it
             $('a.as-category.active').removeClass('active');
@@ -94,8 +94,6 @@
                 }).done(function (data) {
                     $main.append(data);
                     $body.hideLoadding();
-                }).fail(function () {
-
                 });
             }
         });
@@ -110,7 +108,7 @@
                 $body.hideLoadding();
                 $timetable.html(data);
                 var startDate = $timetable.find('input[name=start-date]').val();
-                $timetable.find('a.btn-as-timetable[data-date='+startDate+']')
+                $timetable.find('a.btn-as-timetable[data-date=' + startDate + ']')
                     .removeClass('btn-default')
                     .addClass('btn-selected');
             });
@@ -119,11 +117,11 @@
         $main.on('click', 'button.btn-service-time', function () {
             var $this = $(this);
             // Attach data
-            if (typeof $this.data('service-id') !== 'undefined') {
+            if ($this.data('service-id') !== undefined) {
                 dataStorage.serviceId = $this.data('service-id');
             }
 
-            if (typeof $this.data('service-time-id') !== 'undefined') {
+            if ($this.data('service-time-id') !== undefined) {
                 dataStorage.serviceTimeId = $this.data('service-time-id');
             }
 
@@ -143,12 +141,12 @@
                 selected = $(this).val();
 
             if ($.isArray(dataStorage.extraServiceId) === false) {
-                dataStorage.extraServiceId = new Array();
+                dataStorage.extraServiceId = [];
             }
 
             // Assign data
             if ($this.is(':checked')) {
-                if (dataStorage.extraServiceId.indexOf(selected)) {
+                if (dataStorage.extraServiceId.indexOf(selected) !== -1) {
                     dataStorage.extraServiceId.push(selected);
                 }
             } else {
@@ -220,10 +218,10 @@
                     extra_services : dataStorage.extraServiceId
                 }
             }).fail(function (e) {
-                if (typeof e.responseJSON.message !== 'undefined') {
+                if (e.responseJSON.message !== undefined) {
                     alert(e.responseJSON.message);
                 }
-            }).then(function(e) {
+            }).then(function (e) {
                 // Get cart ID
                 dataStorage.cartId = e.cart_id;
 
