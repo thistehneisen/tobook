@@ -514,6 +514,20 @@ class Employee extends \App\Appointment\Models\Base
                     continue;
                 }
 
+                //Check if there are enough resources for the booking
+                $areResourcesAvailable = Booking::areResourcesAvailable(
+                    $this->id,
+                    $service,
+                    null,
+                    $date,
+                    $startTime,
+                    $endTime
+                );
+
+                if (!$areResourcesAvailable) {
+                    continue;
+                }
+
                 if ($startTime->gt(Carbon::now()) || $isTest) {
                     $startTime->addMinutes($service->before);
                     $endTime   = $startTime->copy()->addMinutes($serviceLength)

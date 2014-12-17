@@ -268,8 +268,12 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         $query = self::where('as_bookings.date', $bookingDate)
             ->whereNull('as_bookings.deleted_at')
-            ->where('as_bookings.status','!=', self::STATUS_CANCELLED)
-            ->where('as_bookings.uuid', '!=', $uuid);
+            ->where('as_bookings.status','!=', self::STATUS_CANCELLED);
+
+        //for inhouse layout
+        if(!empty($uuid)) {
+            $query->where('as_bookings.uuid', '!=', $uuid);
+        }
 
         $query = self::applyDuplicateFilter($query, $startTime, $endTime);
 
