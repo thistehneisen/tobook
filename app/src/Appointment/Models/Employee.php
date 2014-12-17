@@ -94,29 +94,16 @@ class Employee extends \App\Appointment\Models\Base
      * If default working times of an employee is empty, try to use custom time of the date
      *
      * @param Carbon $date
-     * @return array
+     * @return Array
      */
     public function getWorkingTimesByDate($date, &$end)
     {
-        $time         = $this->getDefaulTimesByDayOfWeek($date->dayOfWeek);
-        $startTime    = null;
-        $endTime      = null;
         $workingTimes = [];
 
-        list($startHour, $startMinute, $endHour, $endMinute) = $this->getStartTimeEndTime($time);
+        list($startHour, $startMinute, $endHour, $endMinute) = $this->getStartTimeEndTimeByDate($date);
 
-        //Always checking custom time
-        $empCustomTime = $this->employeeCustomTimes()
-                ->with('customTime')
-                ->where('date', $date->toDateString())
-                ->first();
-
-        if(!empty($empCustomTime)) {
-            list($startHour, $startMinute, $endHour, $endMinute) = $this->getStartTimeEndTime($empCustomTime->customTime);
-        }
-
-        //for use in Layout::getTimetableOfSingle
-        $end =  Carbon::createFromFormat('H:i', sprintf('%02d:%02d', $endHour, $endMinute));
+        // for use in Layout::getTimetableOfSingle
+        $end = Carbon::createFromFormat('H:i', sprintf('%02d:%02d', $endHour, $endMinute));
 
         if (($startHour + $endHour + $startMinute + $endMinute) === 0) {
             return $workingTimes;
@@ -137,9 +124,34 @@ class Employee extends \App\Appointment\Models\Base
         return $workingTimes;
     }
 
+    /**
+     * Return the start and end time of the employee in a specific date
+     *
+     * @param  Carbon $date
+     * @return Array
+     */
+    public function getStartTimeEndTimeByDate($date)
+    {
+        $time = $this->getDefaulTimesByDayOfWeek($date->dayOfWeek);
+
+        $workingTimes = $this->getStartTimeEndTime($time);
+
+        // Always checking custom time
+        $empCustomTime = $this->employeeCustomTimes()
+                ->with('customTime')
+                ->where('date', $date->toDateString())
+                ->first();
+
+        if (!empty($empCustomTime)) {
+            $workingTimes = $this->getStartTimeEndTime($empCustomTime->customTime);
+        }
+
+        return $workingTimes;
+    }
+
     public function getStartTimeEndTime($time)
     {
-        if(empty($time)) {
+        if (empty($time)) {
             return [0, 0, 0, 0];
         }
 

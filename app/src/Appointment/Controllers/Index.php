@@ -51,7 +51,7 @@ class Index extends AsBase
                 $date = Carbon::today();
             }
         }
-        $workingTimes = $this->getDefaultWorkingTimes($date);
+        $workingTimes = $this->getDefaultWorkingTimes($date, null, $employee);
 
         $cloneDate = with(clone $date);
         foreach (range(1, 7) as $day) {

@@ -131,49 +131,87 @@ class CalendarKeeper
         return $nextAvailable;
     }
 
-    protected function getDefaultWorkingTimes($user, $date, $showUntilLastestBooking = true)
+    /**
+     * calculate the default working time for Calendar
+     * @param User $user
+     * @param Carbon $date
+     * @param boolean $showUntilLastestBooking: for BE calendar to show all bookings in range
+     * @param Employee $employee: if $employee is specified, the min and max value
+     *                            for start and end time will be calculated based on his/her working times
+     *                            otherwise all employees' working times will be taken into account
+     * @return Array
+     */
+    protected function getDefaultWorkingTimes($user, $date, $showUntilLastestBooking = true, $employee = null)
     {
         $workingTimes        = [];
         $settingsWorkingTime = $user->asOptions->get('working_time');
         $currentWeekDay      = Util::getDayOfWeekText($date->dayOfWeek);
         $currentWorkingTimes = $settingsWorkingTime[$currentWeekDay];
 
-        list($startHour, $startMinute) = explode(':', $currentWorkingTimes['start']);
-        list($endHour, $endMinute)     = explode(':', $currentWorkingTimes['end']);
+        list($startHour, $startMinute) = array_map('intval', explode(':', $currentWorkingTimes['start']));
+        list($endHour, $endMinute) = array_map('intval', explode(':', $currentWorkingTimes['end']));
+
+        // get employees' start and end time
+        $employees = empty($employee) ? $this->findEmployees($user) : [$employee];
+        list($startHour, $startMinute, $endHour, $endMinute) = $this->getMinMaxTime($employees, $date, $startHour, $startMinute, $endHour, $endMinute);
 
         if ($showUntilLastestBooking) {
-            //Get the lastest booking end time in current date
+            // get the lastest booking end time in current date
             $lastestBooking = Booking::getLastestBookingEndTime($date, $user);
             if (!empty($lastestBooking)) {
                 $lastestEndTime = $lastestBooking->getEndAt();
-                if(($lastestEndTime->hour   >= $endHour)
-                && ($lastestEndTime->minute >  $endMinute))
-                {
-                    $endHour   = $lastestEndTime->hour;
+                $latestHour = intval($lastestEndTime->hour);
+                $latestMinute = intval($lastestEndTime->minute);
+
+                if (($latestHour >= $endHour) && ($latestMinute > $endMinute)) {
+                    $endHour = $latestHour;
                     $endMinute = ($lastestEndTime->minute % 15)
-                        ? $lastestEndTime->minute + (15 - ($lastestEndTime->minute % 15))
-                        : $lastestEndTime->minute;
+                        ? $latestMinute + (15 - ($latestMinute % 15))
+                        : $latestMinute;
                 }
             }
         }
-        $endHour   = ($endMinute == 0) ? $endHour - 1 : $endHour;
-        $endMinute = ($endMinute == 0 || $endMinute == 60) ? 45 : $endMinute;
+        $endHour = ($endMinute === 0) ? $endHour - 1 : $endHour;
+        $endMinute = ($endMinute === 0 || $endMinute === 60) ? 45 : $endMinute;
 
-        for ($i = (int) $startHour; $i<= (int) $endHour; $i++) {
-            if ($i === (int) $startHour) {
-                $workingTimes[$i] = range((int) $startMinute, 45, 15);
+        for ($i = $startHour; $i<= $endHour; $i++) {
+            if ($i === $startHour) {
+                $workingTimes[$i] = range($startMinute, 45, 15);
             }
-            if ($i !== (int) $startHour && $i !== (int) $endHour) {
+            if ($i !== $startHour && $i !== $endHour) {
                 $workingTimes[$i] = range(0, 45, 15);
             }
-            if ($i === (int) $endHour) {
-                $workingTimes[$i] = range(0, (int) $endMinute, 15);
+            if ($i === $endHour) {
+                $workingTimes[$i] = range(0, $endMinute, 15);
             }
         }
         return $workingTimes;
     }
 
-    public function findEmployees($user, $serviceId)
+    private function getMinMaxTime($employees, $date, $minSHour, $minSMin, $maxEHour, $maxEMin)
+    {
+        $i = 0;
+        foreach ($employees as $employee) {
+            list($sHour, $sMin, $eHour, $eMin) = $employee->getStartTimeEndTimeByDate($date);
+            if ($sHour < $minSHour) {
+                $minSHour = $sHour;
+                $minSMin = $sMin;
+            } else if ($sHour === $minSMin && $sMin < $minSMin) {
+                $minSMin = $sMin;
+            }
+            if ($eHour > $maxEHour) {
+                $maxEHour = $eHour;
+                $maxEMin = $eMin;
+            } else if ($eHour === $maxEHour && $eMin > $maxEMin) {
+                $maxEMin = $eMin;
+            }
+            $i += 1;
+        }
+
+        return [$minSHour, $minSMin, $maxEHour, $maxEMin];
+    }
+
+    private function findEmployees($user, $serviceId = null)
     {
         if (!empty($serviceId)) {
             $employees = Employee::where('as_employees.user_id', $user->id)

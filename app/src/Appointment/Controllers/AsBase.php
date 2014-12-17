@@ -12,7 +12,7 @@ class AsBase extends \App\Core\Controllers\Base
         parent::__construct();
     }
 
-    public function getDefaultWorkingTimes($date, $hash = null)
+    public function getDefaultWorkingTimes($date, $hash = null, $employee = null)
     {
         if (!empty($this->user)) {
             $user = $this->user;
@@ -20,7 +20,7 @@ class AsBase extends \App\Core\Controllers\Base
             $decoded = Hashids::decrypt($hash);
             $user = User::find($decoded[0]);
         }
-        $workingTimes = CalendarKeeper::getDefaultWorkingTimes($user, $date);
+        $workingTimes = CalendarKeeper::getDefaultWorkingTimes($user, $date, true, $employee);
         return $workingTimes;
     }
 }
