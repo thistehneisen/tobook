@@ -60,7 +60,7 @@
     </div>
     <br>
     <div class="form-group row">
-        <div class="col-sm-6"><a href="{{ route('as.embed.embed', ['hash' => $hash, 'action' => 'checkout']) }}" class="btn btn-default">{{ trans('common.cancel') }}</a></div>
+        <div class="col-sm-6"><a href="{{ route('as.embed.embed', ['hash' => $hash, 'action' => 'checkout', 'cart_id' => $cart->id, 'is_requested_employee' => $isRequestedEmployee]) }}" class="btn btn-default">{{ trans('common.cancel') }}</a></div>
         <div class="col-sm-6">
             <button data-success-msg="Varauksesi on vahvistettu! Kiitos varauksestasi." data-success-url="{{ route('as.embed.embed', ['hash'=> $hash]) }}" data-action-url="{{ route('as.bookings.frontend.add') }}" id="btn-confirm-booking" class="btn btn-success pull-right">{{ trans('as.bookings.confirm_booking') }}</button>
         </div>
