@@ -50,12 +50,9 @@
                 todayHighlight: true,
                 weekStart: 1,
                 language: $body.data('locale')
-            }).on('changeDate', function () {
-                var date = $dp.datepicker('getUTCDate');
-                if ($.trim(date) !== 'Invalid Date') {
-                    dataStorage.date = date.toISOString();
-                    fnLoadTimeTable();
-                }
+            }).on('changeDate', function (e) {
+                dataStorage.date = e.format(0, 'yyyy-mm-dd');
+                fnLoadTimeTable();
             });
 
             // Setup tooltip
@@ -138,7 +135,8 @@
             // When user clicks to select a time
             $form.on('click', 'button.btn-as-time', function () {
                 var $this = $(this),
-                    panel = $step4.find('div.panel-body');
+                    panel = $step4.find('div.panel-body'),
+                    fnProcessToStep4;
 
                 // Assign selected time to dataStorage
                 dataStorage.time = $this.text();
@@ -149,7 +147,7 @@
                 $('button.btn-as-time.btn-success').removeClass('btn-success');
                 $this.addClass('btn-success');
 
-                var fnProcessToStep4 = function (data) {
+                fnProcessToStep4 = function (data) {
                     $step4.collapse('show');
                     $title4.addClass('collapsable');
 
@@ -215,9 +213,9 @@
                 e.stopPropagation();
 
                 var $this = $(this),
-                    $form = $this.parents('form');
+                    $outerform = $this.parents('form');
 
-                if (typeof dataStorage.hash === 'undefined') {
+                if (dataStorage.hash === undefined) {
                     dataStorage.hash = $('#business_hash').val();
                 }
 
@@ -235,26 +233,26 @@
                         inhouse: dataStorage.inhouse
                     }
                 }).then(function (e) {
-                    if (typeof e.cart_id !== 'undefined') {
-                        $form.find('input[name=cart_id]')
+                    if (e.cart_id !== undefined) {
+                        $outerform.find('input[name=cart_id]')
                             .val(e.cart_id);
                     }
 
-                    if (typeof e.booking_service_id !== 'undefined') {
-                        $form.find('input[name=booking_service_id]')
+                    if (e.booking_service_id !== undefined) {
+                        $outerform.find('input[name=booking_service_id]')
                             .val(e.booking_service_id);
                     }
 
-                    $form.find('input[name=business_id]')
+                    $outerform.find('input[name=business_id]')
                             .val($('#business_id').val());
 
                     return $.ajax({
-                        url: $form.attr('action'),
-                        type: $form.attr('method'),
-                        data: $form.serialize()
+                        url: $outerform.attr('action'),
+                        type: $outerform.attr('method'),
+                        data: $outerform.serialize()
                     });
                 }).done(function (e) {
-                    if (typeof e.booking_id !== 'undefined') {
+                    if (e.booking_id !== undefined) {
                         dataStorage.bookingId = e.booking_id;
                     }
 
