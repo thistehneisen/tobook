@@ -53,7 +53,7 @@
             }).on('changeDate', function () {
                 var date = $dp.datepicker('getUTCDate');
                 if ($.trim(date) !== 'Invalid Date') {
-                    dataStorage.date = date;
+                    dataStorage.date = date.toISOString();
                     fnLoadTimeTable();
                 }
             });
