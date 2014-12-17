@@ -190,9 +190,11 @@ class CalendarKeeper
 
     private function getMinMaxTime($employees, $date, $minSHour, $minSMin, $maxEHour, $maxEMin)
     {
-        $i = 0;
         foreach ($employees as $employee) {
             list($sHour, $sMin, $eHour, $eMin) = $employee->getStartTimeEndTimeByDate($date);
+            if ($sHour === 0 && $sMin === 0) {
+                continue;
+            }
             if ($sHour < $minSHour) {
                 $minSHour = $sHour;
                 $minSMin = $sMin;
@@ -205,7 +207,6 @@ class CalendarKeeper
             } else if ($eHour === $maxEHour && $eMin > $maxEMin) {
                 $maxEMin = $eMin;
             }
-            $i += 1;
         }
 
         return [$minSHour, $minSMin, $maxEHour, $maxEMin];
