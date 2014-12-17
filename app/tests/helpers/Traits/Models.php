@@ -8,6 +8,8 @@ use App\Appointment\Models\EmployeeDefaultTime;
 use App\Appointment\Models\EmployeeFreetime;
 use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\Service;
+use App\Appointment\Models\Resource;
+use App\Appointment\Models\ResourceService;
 use App\Appointment\Models\ServiceCategory;
 use App\Consumers\Models\EmailTemplate;
 use App\Consumers\Models\Consumer;
@@ -322,7 +324,7 @@ trait Models
         User::boot();
     }
 
-    public function initData($initExtraServices = true)
+    public function initData($initExtraServices = true, $initResource = false)
     {
         $this->user = User::find(70);
         Employee::where('id', 63)->forceDelete();
@@ -335,6 +337,17 @@ trait Models
         $this->employee->id = 63;
         $this->employee->user()->associate($this->user);
         $this->employee->saveOrFail();
+
+        Employee::where('id', 64)->forceDelete();
+        $employee1 = new Employee([
+            'name' => 'Hung',
+            'email' => 'hung@varaa.com',
+            'phone' => '1234567890',
+            'is_active' => 1,
+        ]);
+        $employee1->id = 64;
+        $employee1->user()->associate($this->user);
+        $employee1->saveOrFail();
 
         ServiceCategory::where('id', 106)->forceDelete();
         $this->category = new ServiceCategory([
@@ -357,7 +370,23 @@ trait Models
         $this->service->user()->associate($this->user);
         $this->service->category()->associate($this->category);
         $this->service->saveOrFail();
+
         $this->service->employees()->attach($this->employee);
+        $this->service->employees()->attach($employee1);
+
+        if($initResource) {
+            $resource = new Resource;
+            $resource->name = 'Resource 1';
+            $resource->quantity = 1;
+            $resource->description = 'Description';
+            $resource->user()->associate($this->user);
+            $resource->save();
+
+            $resourceService = new ResourceService;
+            $resourceService->service()->associate($this->service);
+            $resourceService->resource()->associate($resource);
+            $resourceService->save();
+        }
 
         if($initExtraServices) {
             $extraService1 = new ExtraService([

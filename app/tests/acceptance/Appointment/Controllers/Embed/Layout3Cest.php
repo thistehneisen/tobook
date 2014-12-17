@@ -2,6 +2,7 @@
 
 use \AcceptanceTester;
 use App\Appointment\Models\Booking;
+use App\Appointment\Models\Employee;
 use App\Appointment\Models\BookingService;
 use App\Cart\Cart;
 use Carbon\Carbon;
@@ -138,5 +139,40 @@ class Layout3Cest extends AbstractBooking
 
         // $bookingService = BookingService::find($bookingService->id);
         // $I->assertEmpty($bookingService, 'booking service has been deleted');
+    }
+
+    public function testBookingResource(AcceptanceTester $I)
+    {
+        // $this->initData(false, true);//init resource with service
+        // $this->initCustomTime();
+        // $date = $this->_getNextDate();
+        // $category = $this->category;
+        // $service = $category->services()->first();
+
+        // $employee = Employee::find(64);
+        // $this->_book($this->user, $this->category, $date, '9:00', $employee);
+
+        // $startAt = '09:00';
+
+        // $I->amOnPage(route('as.embed.embed', ['hash' => $this->user->hash, 'l' => 3], false));
+
+        // $I->selectOption('input[name=category_id]', strval($category->id));
+        // $I->waitForElementVisible('#btn-service-'. $service->id);
+        // $I->click('#btn-service-' . $service->id);
+        // $I->waitForElementVisible('#service-times-' . strval($service->id));
+        // $I->checkOption('input[name=service_id]', strval($service->id));
+
+        // $I->waitForElementVisible('#as-step-2 .as-employee');
+        // $I->checkOption('input[name=employee_id]', strval($employee->id));
+
+        // $I->waitForElementVisible('#timetable');
+        // while ($I->grabAttributeFrom('#timetable', 'data-date') !== $date->toDateString()) {
+        //     $I->click('#btn-date-next');
+        //     $I->wait(2);
+        // }
+        // $I->assertEquals($date->toDateString(), $I->grabAttributeFrom('#timetable', 'data-date'));
+
+        // $I->dontSeeElement('#btn-slot-'.$startAt);
+        //$I->click('#btn-slot-' . substr(preg_replace('#[^0-9]#', '', $startAt), 0, 4));
     }
 }

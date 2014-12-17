@@ -12,7 +12,7 @@ use Carbon\Carbon;
 
 trait Booking
 {
-    protected function _book(User $user, ServiceCategory $category, Carbon $date = null, $startAt = null)
+    protected function _book(User $user, ServiceCategory $category, Carbon $date = null, $startAt = null, $employee = null)
     {
         if (!Config::get('mail.pretend') || !Config::get('sms.pretend')) {
             return null;
@@ -20,7 +20,11 @@ trait Booking
 
         $uuid = Util::uuid();
         $service = $category->services()->first();
-        $employee = $service->employees()->first();
+
+        $employee =  (empty($employee))
+            ? $service->employees()->first()
+            : $employee;
+
         $extraServices = $service->extraServices;
 
         if (empty($date)) {
