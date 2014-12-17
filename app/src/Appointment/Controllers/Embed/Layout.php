@@ -192,7 +192,7 @@ trait Layout
         return Validator::make($fields, $validators);
     }
 
-    public function getDefaultWorkingTimes($date, $hash = null)
+    public function getDefaultWorkingTimes($date, $hash = null, $employee = null)
     {
         $user = $this->getUser($hash);
         $workingTimes = CalendarKeeper::getDefaultWorkingTimes($user, $date, false);
