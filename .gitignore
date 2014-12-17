@@ -53,6 +53,9 @@ workarea/*
 # generated test output
 tests/_output/*
 
+# phpstorm project folder
+.idea/*
+
 # Laravel
 /vendor
 /bootstrap/compiled.php
