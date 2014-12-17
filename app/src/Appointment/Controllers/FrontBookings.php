@@ -134,6 +134,18 @@ class FrontBookings extends Bookings
             $data['message'] = $ex->getMessage();
             return Response::json($data, 500);
         }
+
+        //TODO maybe change to use Event instead of Observer
+        if($source !== 'inhouse' && !empty($booking)) {
+            //Send notification email and SMSs
+            try {
+                $booking->attach(new EmailObserver());
+                $booking->attach(new SmsObserver());
+                $booking->notify();
+            } catch (\Exception $ex) {
+                Log::info('Could not send sms or email:' . $ex->getMessage());
+            }
+        }
         return Response::json($data);
     }
 

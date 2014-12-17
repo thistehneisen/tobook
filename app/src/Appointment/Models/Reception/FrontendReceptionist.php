@@ -87,13 +87,6 @@ class FrontendReceptionist extends Receptionist
             $extraService->save();
         }
 
-        //Because we don't have consumer if source = inhouse in this phase
-        if($this->getSource() !== 'inhouse') {
-            //Send notification email and SMSs
-            $booking->attach(new EmailObserver());
-            $booking->attach(new SmsObserver());
-            $booking->notify();
-        }
         return $booking;
     }
 }
