@@ -39,7 +39,9 @@ class Base extends AsBase
     public function index($hash)
     {
         $data = $this->handleIndex($hash);
-        return $this->render('index', $data);
+        return empty($data)
+            ? Redirect::route('as.embed.embed', ['hash' => $hash])
+            : $this->render('index', $data);
     }
 
     /**

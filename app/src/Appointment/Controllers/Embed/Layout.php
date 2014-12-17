@@ -46,14 +46,14 @@ trait Layout
         //If carts is empty, user cannot checkout
         if($action === 'checkout' || $action === 'confirm'){
             if(empty($cartId)){
-                return Redirect::route('as.embed.embed', ['hash' => $hash]);
+                return null;
             }
         }
 
         if(!empty($cartId)){
             $cart = Cart::find($cartId);
             if (empty($cart)) {
-                return Redirect::route('as.embed.embed', ['hash' => $hash]);
+                return null;
             }
         }
 
