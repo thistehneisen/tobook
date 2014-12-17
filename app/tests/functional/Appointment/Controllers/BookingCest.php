@@ -321,42 +321,6 @@ class BookingCest
         }
     }
 
-    public function testSearchConsumerNotVisible(FunctionalTester $I)
-    {
-        $firstName = md5(time());
-        $lastName = strrev($firstName);
-        $email = $firstName . '@varaa.com';
-        $phone = time();
-
-        $consumer = new Consumer([
-            'first_name' => $firstName,
-            'last_name' => $lastName,
-            'email' => $email,
-            'phone' => $phone,
-        ]);
-        $consumer->saveOrFail();
-        User::find(70)->consumers()->attach($consumer->id, ['is_visible' => false]);
-
-        foreach ([
-                     $firstName,
-                     $lastName,
-                     $email,
-                     $phone,
-                     substr($firstName, 5, 10),
-                     substr($lastName, 5, 10),
-                 ] as $fieldValue) {
-            $I->sendGET(route('as.bookings.search-consumer'), ['keyword' => $fieldValue]);
-            $I->seeResponseCodeIs(200);
-            $I->canSeeResponseIsJson();
-
-            $response = $I->grabResponse();
-            $I->assertNotEmpty($response, 'response is not empty');
-            $json = json_decode($response, true);
-            $I->assertTrue(is_array($json), 'json is array');
-            $I->assertEquals(0, count($json), 'json array has no elements');
-        }
-    }
-
     /**
      * This test is only valid to check when category is accidentally deleted.
      * Because we don't allow user delete a category which has bookings
