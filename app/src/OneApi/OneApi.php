@@ -7,6 +7,11 @@ class OneApi
 {
     public function formatNumber($phone, $countryCode = '')
     {
+        // formatted numbers
+        if (strpos($phone, '+') === 0 || strpos($phone, '00') === 0) {
+            return $phone;
+        }
+
         if (strpos($phone, '0') === 0) {
             $phone = ltrim($phone, '0');
         }
