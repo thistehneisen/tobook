@@ -354,10 +354,20 @@ abstract class Receptionist implements ReceptionistInterface
         return true;
     }
 
+    public function validateEmployee()
+    {
+        if(empty($this->employee)) {
+            throw new Exception(trans('as.bookings.error.employee_not_found'), 1);
+        }
+        return true;
+    }
+
     public function upsertBookingService()
     {
         $this->validateData();
         $this->validateBooking();
+        $this->validateEmployee();
+
         $this->setBookingService();
 
         //TODO validate modify time and service time
