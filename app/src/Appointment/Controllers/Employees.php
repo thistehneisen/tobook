@@ -206,7 +206,7 @@ class Employees extends AsBase
             $date =  Input::get('date');
             //Checking if freetime overlaps with any booking or not
             $canPlacedFreeTime = Booking::isBookable($employeeId, $date, $startAt, $endAt);
-            if($canPlacedFreeTime) {
+            if ($canPlacedFreeTime) {
                 $employeeFreetime = new EmployeeFreetime();
                 $employeeFreetime->fill(Input::all());
                 $employee = Employee::ofCurrentUser()->find($employeeId);
@@ -237,7 +237,7 @@ class Employees extends AsBase
         $freetimeId = Input::get('freetime_id');
         $data = [];
         try {
-            $freetime = EmployeeFreetime::find($freetimeId);
+            $freetime = EmployeeFreetime::findOrFail($freetimeId);
 
             // Remove NAT slots since employee has freetime
             NAT::restoreEmployeeFreeTime($freetime);
@@ -258,7 +258,7 @@ class Employees extends AsBase
      */
     public function customTime()
     {
-        $fields      = with(new CustomTime)->fillable;
+        $fields      = with(new CustomTime())->fillable;
         $perPage     = (int) Input::get('perPage', Config::get('view.perPage'));
         $customTimes = CustomTime::ofCurrentUser()
             ->orderBy('start_at')
@@ -304,7 +304,6 @@ class Employees extends AsBase
             $message = ($customTimeId !== null)
                 ? trans('as.crud.success_edit')
                 : trans('as.crud.success_add');
-
 
             // Check duplicate
             $customTime = CustomTime::ofCurrentUser()->find($customTimeId);
@@ -361,7 +360,7 @@ class Employees extends AsBase
         if (!empty($date)) {
             try {
                 $current = Carbon::createFromFormat('Y-m-d', $date . '-01');
-            } catch(\Exception $ex) {
+            } catch (\Exception $ex) {
                 $current = Carbon::now();
             }
         }
@@ -472,14 +471,14 @@ class Employees extends AsBase
         $employeeId   = Input::get('employees');
         $message      = trans('as.crud.success_add');
 
-        try{
+        try {
             $employee = Employee::ofCurrentUser()->findOrFail($employeeId);
             $customTime = CustomTime::ofCurrentUser()->findOrFail($customTimeId);
 
             $fromDate     = new Carbon($fromDateStr);
             $toDate       = (!empty($toDateStr)) ? (new Carbon($toDateStr)) : $fromDate;
 
-            if($fromDate > $toDate) {
+            if ($fromDate > $toDate) {
                 return Redirect::back()->withInput()->withErrors(trans('as.employees.error.invalid_date_range'));
             }
 
@@ -487,8 +486,8 @@ class Employees extends AsBase
                         ? $fromDate->diffInDays($toDate) + 1
                         : 0;
 
-            if($dateRange){
-                while($dateRange){
+            if ($dateRange) {
+                while ($dateRange) {
                     $employeeCustomTime =  EmployeeCustomTime::getUpsertModel($employeeId, $fromDate->toDateString());
                     $employeeCustomTime->fill([
                         'date' =>  $fromDate->toDateString()
@@ -515,7 +514,7 @@ class Employees extends AsBase
                     $this->successMessageBag($message)
                 );
 
-        } catch (\Watson\Validating\ValidationException $ex){
+        } catch (\Watson\Validating\ValidationException $ex) {
              return Redirect::back()->withInput()->withErrors($ex->getErrors());
         }
 
@@ -524,15 +523,16 @@ class Employees extends AsBase
     public function deleteEmployeeCustomTime($employeeId)
     {
         $empCustomTimeId = Input::get('employee_custom_time_id');
-        try{
+        try {
             //for checking permission
             $employee = Employee::ofCurrentUser()->findOrFail($employeeId);
             $customTime = EmployeeCustomTime::find($empCustomTimeId)->delete();
             $data['success'] = true;
-        } catch (\Exception $ex){
+        } catch (\Exception $ex) {
             $data['success'] = false;
             $data['message'] = $ex->getMessage();
         }
+
         return Response::json($data);
     }
 
@@ -545,14 +545,14 @@ class Employees extends AsBase
     {
         $customTimes = Input::get('custom_times');
         $message      = trans('as.crud.success_edit');
-        try{
+        try {
 
             $employee = Employee::ofCurrentUser()->find($employeeId);
             $current = Carbon::now();
             foreach ($customTimes as $date => $customTimeId) {
                 $customTime = (intval($customTimeId) !== 0)  ? CustomTime::find($customTimeId) : null;
                 $employeeCustomTime = EmployeeCustomTime::getUpsertModel($employeeId, $date);
-                if(!empty($customTime)){
+                if (!empty($customTime)) {
                     $employeeCustomTime->fill([
                         'date' =>  $date
                     ]);
@@ -561,7 +561,7 @@ class Employees extends AsBase
                     $employeeCustomTime->save();
                 } else {
                     //Delete existing row in db, otherwise do nothing
-                    if(!empty($employeeCustomTime->date)){
+                    if (!empty($employeeCustomTime->date)) {
                         $employeeCustomTime->delete();
                     }
                 }
@@ -576,7 +576,7 @@ class Employees extends AsBase
                     'messages',
                     $this->successMessageBag($message)
                 );
-        } catch (\Watson\Validating\ValidationException $ex){
+        } catch (\Watson\Validating\ValidationException $ex) {
              return Redirect::back()->withInput()->withErrors($ex->getErrors());
         }
     }
