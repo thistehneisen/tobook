@@ -5,6 +5,7 @@ use App\Appointment\Controllers\Embed;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\AsConsumer;
+use Illuminate\Support\ViewErrorBag;
 
 class Layout3 extends Base
 {
@@ -20,7 +21,7 @@ class Layout3 extends Base
             'booking_info' => $this->getBookingInfo(),
         ];
 
-        $tpl = 'checkout';
+        $tpl = 'checkout-plain';
         if ((bool) Input::get('inhouse')) {
             $data = $this->getConfirmationData();
             // Show the form to add to cart
@@ -41,11 +42,14 @@ class Layout3 extends Base
         if ($v->fails()) {
             // Flash old input
             Input::flash();
-
+            $viewErrorBag = new ViewErrorBag;
+            $viewErrorBag->put('errors', $v->errors());
             return $this->render('checkout', [
                 'user'         => $user,
                 'booking_info' => $this->getBookingInfo(),
-            ])->with('errors', $v->errors());
+                'layout'       => $this->getLayout(),
+                'hash'         => Input::get('hash')
+            ])->with('errors', $viewErrorBag);
         }
 
         // We will show all information and ask for confirmation
