@@ -286,7 +286,7 @@
             $body.showLoading();
             $.ajax({
                 url: $this.attr('action'),
-                type: $this.attr('method'),
+                type: 'POST',
                 data: $this.serialize(),
                 dataType: 'json'
             }).done(function (data) {

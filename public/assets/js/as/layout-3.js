@@ -288,9 +288,9 @@
                 // Create booking service
                 $.ajax({
                     url: $this.attr('action'),
-                    type: $this.attr('method'),
+                    type: 'POST',
                     data: data,
-                    dataType: 'JSON'
+                    dataType: 'json'
                 }).done(function (e) {
                     if (e.success === true) {
                         // If we're in Varaa website, submit as normal to
