@@ -1,6 +1,6 @@
 <?php namespace App\Core\Controllers;
 
-use View, Input, DB, Util, Response, Geocoder, App, Config, Es, Paginator;
+use View, Input, DB, Util, Response, Geocoder, App, Config, Es, Paginator, Log;
 use App\Core\Models\Business;
 use Carbon\Carbon;
 
@@ -15,11 +15,15 @@ class Search extends Base
         // Helsinki
         $long = '60.1733244';
         $lat = '24.9410248';
-        $location = e(Input::get('location'));
+        $location = Input::get('location');
         if (!empty($location)) {
-            $geocode = Geocoder::geocode($location);
-            $long = $geocode->getLatitude();
-            $lat = $geocode->getLongitude();
+            try {
+                $geocode = Geocoder::geocode($location);
+                $long = $geocode->getLatitude();
+                $lat = $geocode->getLongitude();
+            } catch (\Exception $ex) {
+                Log::info('Cannot search location', $location);
+            }
         }
 
         return $this->render('index', [
