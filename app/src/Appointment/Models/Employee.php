@@ -462,6 +462,7 @@ class Employee extends \App\Appointment\Models\Base
             $start = $empCustomTime->customTime->getStartAt();
         }
 
+        $basicService = $service;
         $service = (!empty($serviceTime))
                     ? $serviceTime
                     : $service;
@@ -517,7 +518,7 @@ class Employee extends \App\Appointment\Models\Base
                 //Check if there are enough resources for the booking
                 $areResourcesAvailable = Booking::areResourcesAvailable(
                     $this->id,
-                    $service,
+                    $basicService,
                     null,
                     $date,
                     $startTime,
