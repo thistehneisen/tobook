@@ -19,10 +19,16 @@ class SmsTemplate extends Base
     protected $crudOptions = [
         'modelClass' => 'App\Consumers\Models\SmsTemplate',
         'langPrefix' => 'co.sms_templates',
-        'indexFields' => ['title', 'content'],
+        'indexFields' => ['title', 'content', 'from_name'],
         'layout' => 'modules.co.layout',
         'actionsView' => 'modules.co.sms_templates.actions',
         'showTab' => false,
+        'lomake' => [
+            'content' => [
+                'type' => 'textarea',
+                'options' => ['class' => 'form-control', 'maxlength' => 160, 'rows' => 5]
+            ]
+        ]
     ];
 
     protected function upsertHandler($item)
@@ -30,6 +36,7 @@ class SmsTemplate extends Base
         $item->fill([
             'title' => Input::get('title'),
             'content' => Input::get('content'),
+            'from_name' => Input::get('from_name'),
         ]);
         $item->user()->associate($this->user);
         $item->saveOrFail();

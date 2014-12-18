@@ -8,13 +8,15 @@ class SmsTemplate extends \App\Core\Models\Base
     public $fillable = [
         'title',
         'content',
+        'from_name'
     ];
 
     protected $table = 'mt_sms';
 
     protected $rulesets = ['saving' => [
         'title' => 'required',
-        'content' => 'required',
+        'content' => 'required|max:160',
+        'from_name' => 'required||max:10|alpha_num',
     ]];
 
     //--------------------------------------------------------------------------
@@ -60,7 +62,7 @@ class SmsTemplate extends \App\Core\Models\Base
             // check for marketing material opt-out maybe?
 
             // configurable?
-            $from = 'varaa.com';
+            $from = $sms->from_name ?: 'varaa.com';
 
             \Sms::send($from, $consumer->phone, $sms->content);
             History::quickSave($sms->user, $sms, $consumer, $group);

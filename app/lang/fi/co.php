@@ -80,6 +80,7 @@ return [
         'single'        => 'SMS template',
         'title'         => 'Title',
         'content'       => 'Content',
+        'from_name'     => 'From name',
         'add'           => 'Add SMS template',
         'edit'          => 'Edit SMS template',
         'sent_at'       => 'Sent at',

@@ -274,7 +274,7 @@ class Hub extends Base
         $smsAll = SmsTemplate::ofCurrentUser()->get();
         $smsPairs = [];
         foreach ($smsAll as $sms) {
-            $smsPairs[$sms->id] = $sms->title;
+            $smsPairs[$sms->id] = sprintf('%s (%s: %s)', $sms->title, trans('co.sms_templates.from_name'), $sms->from_name ?: 'varaa.com');
         }
 
         $consumers = Consumer::ofCurrentUser()->whereIn('id', $ids)->get();

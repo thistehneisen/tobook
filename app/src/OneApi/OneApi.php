@@ -27,7 +27,7 @@ class OneApi
         $pretending = Config::get('sms.pretend');
         if ($pretending === true) {
             // Log
-            Log::info("Pretending to send SMS to: {$to}");
+            Log::info("Pretending to send SMS from {$from} to {$to}");
             return;
         }
 

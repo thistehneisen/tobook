@@ -307,6 +307,7 @@ trait Models
         $sms = new SmsTemplate([
             'title' => 'SMS Title',
             'content' => 'SMS Content',
+            'from_name' => 'SMSSender',
         ]);
         $sms->user()->associate($user);
         $sms->saveOrFail();
