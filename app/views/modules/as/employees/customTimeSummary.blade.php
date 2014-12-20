@@ -68,7 +68,7 @@
             @endforeach
         </tr>
         <tr>
-            <td>{{ trans('as.employees.saturday_hours') }}</td>
+            <td>{{ trans('as.employees.sunday_hours') }}</td>
             <td>&nbsp;</td>
             @foreach ($employees as $employee)
             <td>
