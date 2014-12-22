@@ -5,11 +5,13 @@ use App\Core\Models\Base;
 class Service extends Base
 {
     protected $table = 'fd_services';
+
     public $fillable = [
         'name',
         'price',
         'description',
     ];
+
     protected $rulesets = [
         'saving' => [
             'business_category_id' => 'required',
@@ -17,6 +19,11 @@ class Service extends Base
             'price'                => 'required|numeric',
         ]
     ];
+
+    /**
+     * @{@inheritdoc}
+     */
+    public $isSearchable = true;
 
     //--------------------------------------------------------------------------
     // RELATIONSHIPS

@@ -9,7 +9,7 @@ trait ElasticSearchTrait
      *
      * @var boolean
      */
-    public $isSearchable = true;
+    public $isSearchable = false;
 
     /**
      * Search params customized per request
