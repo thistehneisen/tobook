@@ -6,10 +6,12 @@ use App\Core\Models\Base;
 class FlashDeal extends Base
 {
     protected $table = 'fd_flash_deals';
+
     public $fillable = [
         'discounted_price',
         'quantity',
     ];
+
     protected $rulesets = [
         'saving' => [
             'service_id'       => 'required',
@@ -17,6 +19,11 @@ class FlashDeal extends Base
             'quantity'         => 'required|numeric',
         ]
     ];
+
+    /**
+     * @{@inheritdoc}
+     */
+    public $isSearchable = true;
 
     //--------------------------------------------------------------------------
     // ATTRIBUTES

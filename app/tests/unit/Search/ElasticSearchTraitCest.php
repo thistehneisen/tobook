@@ -118,6 +118,16 @@ class ElasticSearchTraitCest
         ]);
     }
 
+    public function testFallbackToDatabaseSearch(UnitTester $i)
+    {
+        $mock = m::mock('Test\Unit\Search\Stub\Model[databaseSearch]');
+        $mock->shouldReceive('databaseSearch')->once()->andReturn(true);
+
+        App::instance('Test\Unit\Search\Stub\Model', $mock);
+        $result = Model::search('foo');
+        $i->assertTrue($result);
+    }
+
     public function testSearch(UnitTester $i)
     {
         $mock = m::mock('\App\Search\ProviderInterface')

@@ -34,6 +34,11 @@ class Business extends Base
     /**
      * @{@inheritdoc}
      */
+    public $isSearchable = true;
+
+    /**
+     * @{@inheritdoc}
+     */
     public static function boot()
     {
         parent::boot();

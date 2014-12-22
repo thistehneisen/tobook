@@ -24,6 +24,11 @@ class User extends ConfideUser implements SearchableInterface
     ];
 
     /**
+     * @{@inheritdoc}
+     */
+    public $isSearchable = true;
+
+    /**
      * List of enabled premium modules for this user
      *
      * @var array
