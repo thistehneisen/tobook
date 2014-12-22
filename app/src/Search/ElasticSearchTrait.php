@@ -51,7 +51,10 @@ trait ElasticSearchTrait
     {
         // Use App::make() to create the instance so that mock object could be
         // easily swapped in when testing
-        $model = App::make(__CLASS__);
+        // Because inside a trait, __CLASS__ will return the class name used it,
+        // so we need to workaround to get name of inherited class. Possible
+        // caveat: memory leak ._.
+        $model = App::make(get_class(new static()));
 
         // First, try to search with search service
         if ($model->isSearchable === true) {
@@ -110,7 +113,7 @@ trait ElasticSearchTrait
      */
     public function databaseSearch($keyword)
     {
-        $model = new static();
+        $model = App::make(get_class(new static()));
         //----------------------------------------------------------------------
         // Fallback to traditional search ._.
         //----------------------------------------------------------------------
