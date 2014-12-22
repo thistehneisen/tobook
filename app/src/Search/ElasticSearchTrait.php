@@ -5,13 +5,6 @@ use Es, Paginator, Config, Input, App, Log;
 trait ElasticSearchTrait
 {
     /**
-     * Set this to `false` to disable searching/indexing in the model
-     *
-     * @var boolean
-     */
-    public $isSearchable = false;
-
-    /**
      * Search params customized per request
      *
      * @var array
@@ -56,7 +49,10 @@ trait ElasticSearchTrait
      */
     public static function search($keyword, array $options = [])
     {
-        $model = new static();
+        // Use App::make() to create the instance so that mock object could be
+        // easily swapped in when testing
+        $model = App::make(__CLASS__);
+
         // First, try to search with search service
         if ($model->isSearchable === true) {
             try {
@@ -67,6 +63,54 @@ trait ElasticSearchTrait
             }
         }
 
+        return $model->databaseSearch($keyword);
+    }
+
+    /**
+     * Allow model to hook on behaviors of internal search
+     *
+     * @param Illuminate\Database\Eloquent\QueryBuilder $query
+     *
+     * @return Illuminate\Database\Eloquent\QueryBuilder
+     */
+    public function getCustomSearchQuery($query)
+    {
+        return $query;
+    }
+
+    /**
+     * Search using ElasticSearch (obviously :|)
+     *
+     * @author Hung Nguyen <hung@varaa.com>
+     *
+     * @param string $keyword
+     * @param array  $options
+     *
+     * @return Illuminate\Pagination\Paginator
+     */
+    public function serviceSearch($keyword, array $options = [])
+    {
+        $params = $this->buildSearchParams($keyword, $options);
+        $provider = App::make('App\Search\ProviderInterface');
+        $result = $provider->search($params);
+
+        return Paginator::make(
+            $this->transformSearchResult($result['hits']['hits']),
+            $result['hits']['total'],
+            $params['size']
+        );
+    }
+
+    /**
+     * Search using database
+     *
+     * @param string $keyword
+     *
+     * @return Illuminate\Pagination\Paginator
+     */
+    public function databaseSearch($keyword)
+    {
+        $model = new static();
         //----------------------------------------------------------------------
         // Fallback to traditional search ._.
         //----------------------------------------------------------------------
@@ -94,41 +138,6 @@ trait ElasticSearchTrait
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
 
         return $query->paginate($perPage);
-    }
-
-    /**
-     * Allow model to hook on behaviors of internal search
-     *
-     * @param Illuminate\Database\Eloquent\QueryBuilder $query
-     *
-     * @return Illuminate\Database\Eloquent\QueryBuilder
-     */
-    public function getCustomSearchQuery($query)
-    {
-        return $query;
-    }
-
-    /**
-     * Search using ElasticSearch (obviously :|)
-     *
-     * @author Hung Nguyen <hung@varaa.com>
-     *
-     * @param string $keywords
-     * @param array  $options
-     *
-     * @return Illuminate\Pagination\Paginator
-     */
-    public function serviceSearch($keywords, array $options = [])
-    {
-        $params = $this->buildSearchParams($keywords, $options);
-        $provider = App::make('App\Search\ProviderInterface');
-        $result = $provider->search($params);
-
-        return Paginator::make(
-            $this->transformSearchResult($result['hits']['hits']),
-            $result['hits']['total'],
-            $params['size']
-        );
     }
 
     /**
