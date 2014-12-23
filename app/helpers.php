@@ -10,11 +10,20 @@ if (!function_exists('asset_path')) {
      */
     function asset_path($filename)
     {
-        $manifest = base_path('rev-manifest.json');
+        // @TODO: Think about caching of reading file
+        $files = [
+            'script-manifest.json',
+            'style-manifest.json'
+        ];
 
-        $manifest = file_exists($manifest)
-            ? json_decode(file_get_contents($manifest), true)
-            : [];
+        $manifest = [];
+        foreach ($files as $file) {
+            $path = public_path('built/'.$file);
+            $files = file_exists($path)
+                ? json_decode(file_get_contents($path), true)
+                : [];
+            $manifest = array_merge($manifest, $files);
+        }
 
         return array_key_exists($filename, $manifest)
             ? asset('built/'.$manifest[$filename])
