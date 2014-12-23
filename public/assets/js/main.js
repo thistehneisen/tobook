@@ -1,129 +1,107 @@
-/*jslint browser: true, nomen: true, unparam: true*/
-/*global $, jQuery, Bloodhound, VARAA*/
-'use strict';
-
-$(function () {
-    var $doc = $(document),
-        cart,
-        initTypeahead;
-
-    initTypeahead = function (selector, name) {
-        // init bloodhound collection
-        var collection = new Bloodhound({
-            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-            queryTokenizer: Bloodhound.tokenizers.whitespace,
-            limit: 10,
-            prefetch: {
-                url: '/search/' + name + '.json',
-                filter: function (list) {
-                    if (typeof (list[0]) === 'string') {
-                        return $.map(list, function (item) {
-                            return {
-                                name: item
-                            };
-                        });
-                    }
-                    return list;
-                }
-            }
-        });
-        collection.clearPrefetchCache();
-        collection.initialize();
-
-        // init typeahead
-        $(selector).typeahead({
-            highlight: true,
-            hint: true,
-        }, {
-            name: name,
-            displayKey: 'name',
-            source: collection.ttAdapter()
-        });
-    };
-
-    // add 2 typeahead
-    if ($('#js-queryInput').length && $('#js-locationInput').length) {
-        initTypeahead('#js-queryInput', 'services');
-        initTypeahead('#js-locationInput', 'locations');
-    }
-
-    // change language
-    $('#js-languageSwitcher').change(function () {
-        window.location = $(this).val();
-    });
-
-    // cart
-    cart = $('#header-cart');
-    cart.popover({
-        placement: 'bottom',
-        trigger: 'click',
-        html: true
-    });
-
-    $doc.on('click', function (e) {
-        var $target = $(e.target);
-
-        if ($target.data('toggle') !== 'popover'
-                && $target.parents('#header-cart').length === 0
-                && $target.parents('.popover.in').length === 0) {
-            cart.popover('hide');
-        }
-    });
-
-    $doc.on('cart.reload', function (e, showAfterFinish) {
-        $.ajax({
-            url: cart.data('cart-url'),
-            dataType: 'JSON'
-        }).done(function (e) {
-            cart.find('.content').html(e.totalItems);
-            cart.attr('data-content', e.content);
-
-            if (showAfterFinish) {
-                cart.popover('show');
-                $(document).scrollTop(0);
-            }
-        });
-    });
-
-
-    // When remove an item from cart
-    $doc.on('click', 'a.js-btn-cart-remove', function (e) {
-        e.preventDefault();
-        var $this = $(this);
-        $this.find('i.fa').removeClass('fa-close').addClass('fa-spinner fa-spin');
-        $.ajax({
-            url: $this.attr('href')
-        }).done(function (e) {
-            $('tr.cart-detail-' + $this.data('detail-id')).fadeOut();
-            $doc.trigger('cart.reload', true);
-        });
-    });
-
-    // Load cart content when page load
-    $doc.trigger('cart.reload', false);
-
-
-    // ----------------------- Global scope functions ----------------------- //
-    VARAA.applyCountdown = function (elems) {
-        elems.each(function () {
-            var $this = $(this);
-
-            $this.countdown({
-                until: new Date($this.data('date')),
-                compact: true,
-                layout: '{hnn}{sep}{mnn}{sep}{snn}',
+$(function() {
+  'use strict';
+  var $cart, $document, $languageSwitcher, $locationInput, $searchInput, initTypeahead;
+  $document = $(document);
+  $searchInput = $('#js-queryInput');
+  $locationInput = $('#js-locationInput');
+  $languageSwitcher = $('#js-languageSwitcher');
+  $cart = $('#header-cart');
+  initTypeahead = function(selector, name) {
+    var collection;
+    collection = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      limit: 10,
+      prefetch: {
+        url: '/search/' + name + '.json',
+        filter: function(list) {
+          if (typeof list[0] === 'string') {
+            return $.map(list, function(item) {
+              return {
+                name: item
+              };
             });
-        });
-    };
-
-    VARAA.equalize = function (elem) {
-        var tallest = 0;
-
-        $(elem).each(function () {
-            var $this = $(this);
-            if ($this.outerHeight() > tallest) {
-                tallest = $this.outerHeight();
-            }
-        }).css({'height': tallest});
-    };
+          }
+          return list;
+        }
+      }
+    });
+    collection.clearPrefetchCache();
+    collection.initialize();
+    return selector.typeahead({
+      highlight: true,
+      hint: true
+    }, {
+      name: name,
+      displayKey: 'name',
+      source: collection.ttAdapter()
+    });
+  };
+  if ($searchInput.length && $locationInput.length) {
+    initTypeahead($searchInput, 'services');
+    initTypeahead($locationInput, 'locations');
+  }
+  $languageSwitcher.change(function() {
+    return window.location = this.value;
+  });
+  $cart.popover({
+    placement: 'bottom',
+    trigger: 'click',
+    html: true
+  });
+  $document.on('click', function(e) {
+    var $target;
+    $target = $(e.target);
+    if ($target.data('toggle' !== 'popover' && $target.parents('#header-cart').length === 0 && $target.parents('.popover.in').length === 0)) {
+      return $cart.popover('hide');
+    }
+  });
+  $document.on('cart.reload', function(e, showAfterFinish) {
+    return $.ajax({
+      url: $cart.data('cart-url'),
+      dataType: 'JSON'
+    }).done(function(e) {
+      $cart.find('.content').html(e.totalItems);
+      $cart.attr('data-content', e.content);
+      if (showAfterFinish) {
+        $cart.popover('show');
+        return $document.scrollTop(0);
+      }
+    });
+  });
+  $document.on('click', 'a.js-btn-cart-remove', function(e) {
+    var self;
+    e.preventDefault();
+    self = $(this);
+    self.find('i.fa').removeClass('fa-close').addClass('fa-spinner fa-spin');
+    return $.ajax({
+      url: self.attr('href')
+    }).done(function(e) {
+      $('tr.cart-detail-' + $this.data('detail-id')).fadeOut();
+      return $document.trigger('cart.reload', true);
+    });
+  });
+  $document.trigger('cart.reload', false);
+  VARAA.applyCountdown = function(elems) {
+    return elems.each(function() {
+      var self;
+      self = $(this);
+      return self.countdown({
+        until: new Date(self.data('date')),
+        compact: true,
+        layout: '{hnn}{sep}{mnn}{sep}{snn}'
+      });
+    });
+  };
+  return VARAA.equalize = function(elem) {
+    var tallest;
+    tallest = 0;
+    return $(elem).each(function() {
+      var h;
+      h = $(this).outerHeight();
+      if (h > tallest) {
+        return tallest = h;
+      }
+    }).css('height', tallest);
+  };
 });
