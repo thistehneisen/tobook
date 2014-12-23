@@ -12,24 +12,30 @@ class Search extends Base
     {
         $businesses = Business::search(e(Input::get('q')));
 
-        // Helsinki
-        $long = '60.1733244';
-        $lat = '24.9410248';
-        $location = Input::get('location');
-        if (!empty($location)) {
-            try {
-                $geocode = Geocoder::geocode($location);
-                $long = $geocode->getLatitude();
-                $lat = $geocode->getLongitude();
-            } catch (\Exception $ex) {
-                Log::info('Cannot search location', $location);
+        $lat = e(Input::get('lat'));
+        $lng = e(Input::get('lng'));
+
+        if (!($lat && $lng)) {
+            // Helsinki
+            $lng = '60.1733244';
+            $lat = '24.9410248';
+
+            $location = Input::get('location');
+            if (!empty($location)) {
+                try {
+                    $geocode = Geocoder::geocode($location);
+                    $lat = $geocode->getLatitude();
+                    $lng = $geocode->getLongitude();
+                } catch (\Exception $ex) {
+                    Log::info('Cannot search location', $location);
+                }
             }
         }
 
         return $this->render('index', [
             'businesses' => $businesses,
-            'lat'        => $long,
-            'lng'        => $lat,
+            'lat'        => $lat,
+            'lng'        => $lng,
             'now'        => Carbon::now()
         ]);
     }
