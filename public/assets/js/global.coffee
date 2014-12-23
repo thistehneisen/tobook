@@ -16,7 +16,6 @@ unless String::routeformat
     @replace /\{(\w+)\}/g, (match, key) ->
       (if args[0][key] isnt `undefined` then args[0][key] else match)
 
-
 # routes
 VARAA.routes = {}
 VARAA.addRoute = (routeName, url) ->

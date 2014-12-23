@@ -182,15 +182,29 @@
                             <input type="text" class="form-control typeahead" id="js-queryInput" name="q" placeholder="{{ trans('home.search.query') }}" value="{{{ Input::get('q') }}}" />
                         </div>
                     </div>
+
                     <div class="form-group">
                         <div class="input-group input-group">
                             <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
                             <input type="text" class="form-control" id="js-locationInput" name="location" placeholder="{{ trans('home.search.location') }}" value="{{{ Input::get('location') }}}" />
                         </div>
                     </div>
+
+                    {{ Form::hidden('lat') }}
+                    {{ Form::hidden('lng') }}
+
                     <button type="submit" class="btn btn-success">{{ trans('common.search') }}</button>
                 {{ Form::close() }}
+
             @show
+        </div>
+
+        <div class="row" id="js-geolocation-info" style="display: none;">
+            <div class="col-sm-offset-4 col-sm-4">
+                <div class="alert alert-info" style="margin-top: 10px;">
+                    <p><i class="fa fa-info-circle"></i> <span class="content">{{ trans('home.search.geo.info') }}</span></p>
+                </div>
+            </div>
         </div>
     </header>
     @show

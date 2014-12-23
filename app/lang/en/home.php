@@ -32,6 +32,9 @@ return [
         'business_hours'  => 'Business Hours',
         'buy'             => 'Buy',
         'book'            => 'Book',
+        'geo'             => [
+            'info' => 'We will ask for your current location to display results that are close to you.'
+        ]
     ],
     'cart' => [
         'add'         => 'Add to cart',
