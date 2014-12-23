@@ -76,8 +76,10 @@ class BuildSearchIndecesCommand extends Command
      */
     protected function createIndex($model)
     {
+        $instance = new $model();
+
         $params = [];
-        $params['index'] = $model::getSearchIndexName();
+        $params['index'] = $instance->getSearchIndexName();
         // If it exists already, return ASAP
         if ($this->client->indices()->exists($params)) {
             return;
@@ -104,7 +106,6 @@ class BuildSearchIndecesCommand extends Command
         ];
 
         // Get search map of this model
-        $instance = new $model();
         $properties = $instance->getSearchMapping();
 
         // Go to each field and check if there's a analyzer set.
@@ -115,7 +116,7 @@ class BuildSearchIndecesCommand extends Command
             }
         }
 
-        $params['body']['mappings'][$model::getSearchIndexType()] = [
+        $params['body']['mappings'][$instance->getSearchIndexType()] = [
             '_source' => [
                 'enabled' => true
             ],
