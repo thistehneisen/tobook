@@ -46,7 +46,7 @@
 
     {{ Lomake::renderHead() }}
 </head>
-<body @if(!empty($hash)) data-hash="{{ $hash }}" @endif data-locale="{{ App::getLocale() }}">
+<body @if(!empty($hash)) data-hash="{{ $hash }}" @endif data-locale="{{ App::getLocale() }}" data-js-locale="{{ route('ajax.jslocale') }}">
     @section('header')
     <header class="header container-fluid">
         <nav class="main-nav container">
@@ -240,18 +240,12 @@
     {{ HTML::script('//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js') }}
     {{ HTML::script('//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js') }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.4/typeahead.bundle.min.js') }}
-
-    {{-- Global --}}
-    {{ HTML::script(asset('assets/js/global.js?v=00001')) }}
     <script>
-    VARAA.currentLocale = '{{ App::getLocale() }}';
-    $.getJSON("{{ route('ajax.jslocale') }}", function (data) {
-        VARAA._i18n = data;
-    });
+window.VARAA = window.VARAA || {};
     </script>
+    {{ HTML::script(asset_path('js/global.js')) }}
+    {{ HTML::script(asset_path('js/main.js')) }}
 
-    {{-- Others --}}
-    {{ HTML::script(asset('assets/js/main.js?v=00002')) }}
     @yield('scripts')
 
     {{-- Freshchat --}}
