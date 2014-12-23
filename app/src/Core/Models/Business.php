@@ -375,9 +375,21 @@ class Business extends Base
      */
     protected function buildSearchFilter()
     {
-        return [
-            'exists' => [ 'field' => 'name' ]
-        ];
+        $filters = [];
+        $filters['exists'] = ['field' => 'name'];
+
+        // If there are lat and lng provided
+        $lat = e(Input::get('lat'));
+        $lng = e(Input::get('lng'));
+
+        if ($lat && $lng) {
+            $filters['geo_distance'] = [
+                'distance' => Config::get('varaa.search.geo_distance', '5km'),
+                'location' => ['lat' => $lat, 'lng' => $lng]
+            ];
+        }
+
+        return $filters;
     }
 
     /**
