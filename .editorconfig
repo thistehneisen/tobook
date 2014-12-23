@@ -3,10 +3,6 @@
 # top-most EditorConfig file
 root = true
 
-[public/assets/js/**.js]
-indent_style = space
-indent_size = 4
-
 # Unix-style newlines with a newline ending every file
 [*]
 end_of_line = lf
@@ -14,3 +10,11 @@ insert_final_newline = true
 indent_style = space
 indent_size = 4
 trim_trailing_whitespace = true
+
+[public/assets/js/**.js]
+indent_style = space
+indent_size = 4
+
+[public/assets/js/**/*.coffee]
+indent_style = space
+indent_size = 2
