@@ -4,6 +4,7 @@ use Config, Log, NAT, Input, Str;
 use App\Core\Models\Relations\BusinessBusinessCategory;
 use App\Lomake\Fields\HtmlField;
 use Exception;
+use Illuminate\Support\Collection;
 
 class Business extends Base
 {
@@ -417,12 +418,10 @@ class Business extends Base
             return $result;
         }
 
-        $ids = [];
+        $users = new Collection();
         foreach ($result as $row) {
-            $ids[] = $row['_id'];
+            $users->push(User::with('business')->find($row['_id']));
         }
-
-        $users = User::with('business')->findMany($ids);
 
         return $users->lists('business');
     }

@@ -169,7 +169,7 @@ trait ElasticSearchTrait
         // Sort the result
         $sortParams = $this->buildSearchSortParams();
         if (!empty($sortParams)) {
-            $params['sort'] = $sortParams;
+            $params['body']['sort'] = $sortParams;
         }
 
         // Set custom search params by model
