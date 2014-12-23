@@ -163,8 +163,14 @@ trait ElasticSearchTrait
         // Attach filter and query
         $params['body']['query']['filtered'] = [
             'filter' => $this->buildSearchFilter(),
-            'query' => $this->buildSearchQuery($keywords)
+            'query' => $this->buildSearchQuery($keywords),
         ];
+
+        // Sort the result
+        $sortParams = $this->buildSearchSortParams();
+        if (!empty($sortParams)) {
+            $params['sort'] = $sortParams;
+        }
 
         // Set custom search params by model
         $this->setCustomSearchParams();
@@ -197,6 +203,16 @@ trait ElasticSearchTrait
         $filter = [];
 
         return $filter;
+    }
+
+    /**
+     * Options used for sorting results
+     *
+     * @return array
+     */
+    protected function buildSearchSortParams()
+    {
+        return ['_score'];
     }
 
     /**

@@ -17,8 +17,8 @@ class Search extends Base
 
         if (!($lat && $lng)) {
             // Helsinki
-            $lng = '60.1733244';
-            $lat = '24.9410248';
+            $lat = '60.1733244';
+            $lng = '24.9410248';
 
             $location = Input::get('location');
             if (!empty($location)) {
