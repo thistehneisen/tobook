@@ -14,6 +14,7 @@ use Config;
 class BookingCest
 {
     use \Test\Traits\Booking;
+    use \Test\Traits\Models;
 
     public function _before(FunctionalTester $I)
     {
@@ -496,5 +497,38 @@ class BookingCest
         $I->seeResponseIsJson();
         $message = $I->grabDataFromJsonResponse('message');
         $I->assertEquals($message, trans('as.bookings.error.booking_not_found'));
+    }
+
+    public function testCancelForm(FunctionalTester $I)
+    {
+        $this->initData(false);
+        $this->initCustomTime();
+
+        $user = User::find(70);
+        $category = $this->category;
+        $service  = $category->services()->first();
+        $employee = $service->employees()->first();
+        $date = Carbon::now();
+        $I->assertNotEmpty($service);
+        $I->assertNotEmpty($employee);
+
+        $I->sendPOST(route('as.bookings.service.front.add', [
+            'service_id' => $service->id,
+            'employee_id' => $employee->id,
+            'hash' => $user->hash,
+            'booking_date' => $date->toDateString(),
+            'start_time' => '12:00'
+        ]));
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $cart_id = $I->grabDataFromJsonResponse('cart_id');
+        $I->assertNotEmpty($cart_id);
+
+        $I->amOnPage(route('as.embed.embed', ['hash' => $this->user->hash, 'cart_id' => $cart_id, 'action'=>'confirm'], false));
+        $I->click('#btn-cancel');
+        $I->seeCurrentUrlEquals(route('as.embed.embed', ['hash' => $this->user->hash,'action'=>'checkout',  'cart_id' => $cart_id,  'is_requested_employee' => 0], false));
+
+        $I->amOnPage(route('as.embed.embed', ['hash' => $this->user->hash, 'action'=>'checkout'], false));
+        $I->seeCurrentUrlEquals(route('as.embed.embed', ['hash' => $this->user->hash], false));
     }
 }
