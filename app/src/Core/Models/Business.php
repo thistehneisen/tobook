@@ -1,6 +1,6 @@
 <?php namespace App\Core\Models;
 
-use Config, Log, NAT, Input, Str;
+use Config, Log, NAT, Input, Str, Util;
 use App\Core\Models\Relations\BusinessBusinessCategory;
 use App\Lomake\Fields\HtmlField;
 use Exception;
@@ -96,12 +96,11 @@ class Business extends Base
 
         if (!empty($new) && $new !== $old) {
             try {
-                $geocode = \Geocoder::geocode($new);
-                $this->attributes['lat'] = $geocode->getLatitude();
-                $this->attributes['lng'] = $geocode->getLongitude();
+                list($lat, $lng) = Util::geocoder($new);
+                $this->attributes['lat'] = $lat;
+                $this->attributes['lng'] = $lng;
             } catch (Exception $ex) {
                 // Silently fail
-                Log::error($ex->getMessage(), ['context' => 'Update user profile']);
             }
         }
     }

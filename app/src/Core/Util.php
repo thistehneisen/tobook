@@ -1,8 +1,7 @@
 <?php namespace App\Core;
 
-use DB, Str, App, Config;
-use Carbon\Carbon;
-use Imagine;
+use DB, Str, App, Config, Geocoder, Cache, Log, Imagine, Carbon\Carbon;
+use Exception, InvalidArgumentException;
 
 /**
  * Providing a set of utility functions
@@ -17,7 +16,6 @@ class Util
     {
         // Legacy from old source code, 12 char (not so random)
         //return chr(rand(65,90)) . chr(rand(65,90)) . time();
-
         return uniqid(str_random(5));
     }
 
@@ -55,6 +53,7 @@ class Util
                 $dayOfWeek = self::getDayOfWeekText(Carbon::now()->dayOfWeek);
                 break;
         }
+
         return $dayOfWeek;
     }
 
@@ -68,6 +67,7 @@ class Util
         if (App::getLocale() !== 'en') {
             return trans('common.'.Str::lower($string));
         }
+
         return $string;
     }
 
@@ -119,5 +119,46 @@ class Util
         }
 
         return $returnUrl ? asset($thumbPath) : $thumbPath;
+    }
+
+    /**
+     * Decode lat, lng coords of the given location
+     *
+     * @param string $location
+     *
+     * @return array
+     */
+    public static function geocoder($location)
+    {
+        $location = trim($location);
+
+        if (empty($location)) {
+            throw new InvalidArgumentException('A location must be provided to be geo-located');
+        }
+
+        // I don't want to have whitespaces and/or other special characters as
+        // cache key
+        $key = 'geocoder.'.md5($location);
+        $pair = Cache::get($key);
+        if (!empty($pair)) {
+            return $pair;
+        }
+
+        try {
+            $geocode = Geocoder::geocode($location);
+            $pair = [
+                $geocode->getLatitude(),
+                $geocode->getLongitude()
+            ];
+
+            // Save into cache
+            Cache::forever($key, $pair);
+
+            return $pair;
+        } catch (\Exception $ex) {
+            Log::info('Cannot geocode location: '.$ex->getMessage());
+            // We don't want to handle this, just logging and throw it away
+            throw $ex;
+        }
     }
 }

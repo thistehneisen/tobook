@@ -1,6 +1,6 @@
 <?php namespace App\Core\Controllers;
 
-use View, Input, DB, Util, Response, Geocoder, App, Config, Es, Paginator, Log;
+use View, Input, DB, Util, Response, App, Config, Es, Paginator, Log;
 use App\Core\Models\Business;
 use Carbon\Carbon, Session;
 
@@ -26,14 +26,10 @@ class Search extends Base
             $lng = '24.9410248';
 
             $location = Input::get('location');
-            if (!empty($location)) {
-                try {
-                    $geocode = Geocoder::geocode($location);
-                    $lat = $geocode->getLatitude();
-                    $lng = $geocode->getLongitude();
-                } catch (\Exception $ex) {
-                    Log::info('Cannot search location', $location);
-                }
+            try {
+                list($lat, $lng) = Util::geocoder($location);
+            } catch (\Exception $ex) {
+                // Silently failed
             }
         }
 
