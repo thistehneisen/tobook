@@ -380,7 +380,7 @@ abstract class Receptionist implements ReceptionistInterface
             'modify_time'           => $this->modifyTime,
             'start_at'              => $this->getStartTime()->toTimeString(),
             'end_at'                => $this->getEndTime()->toTimeString(),
-            'is_requested_employee' => $this->isRequestedEmployee
+            'is_requested_employee' => $this->getIsRequestedEmployee()
         ]);
 
         //there is no method opposite with associate
@@ -431,7 +431,7 @@ abstract class Receptionist implements ReceptionistInterface
 
     public function setIsRequestedEmployee($isRequestedEmployee)
     {
-        $this->setRequestedEmployee = $isRequestedEmployee;
+        $this->isRequestedEmployee = $isRequestedEmployee;
 
         return $this;
     }

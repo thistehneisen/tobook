@@ -115,5 +115,6 @@ class FrontendReceptionCest
         $I->assertEquals($booking->total, 60);
         $I->assertEquals($booking->startTime, $date->hour(14)->minute(0)->second(0));
         $I->assertEquals($booking->endTime, $date->hour(15)->minute(0)->second(0));
+        $I->assertEquals($booking->firstBookingService()->is_requested_employee, true);
     }
 }

@@ -77,7 +77,7 @@ class FrontendReceptionist extends Receptionist
         $booking->save();
 
         $this->bookingService->booking()->associate($booking);
-        $this->bookingService->is_requested_employee = $this->isRequestedEmployee;
+        $this->bookingService->is_requested_employee = $this->getIsRequestedEmployee();
         $this->bookingService->save();
 
         $this->setExtraServices();
