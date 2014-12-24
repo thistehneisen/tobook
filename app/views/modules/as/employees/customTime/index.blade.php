@@ -62,32 +62,7 @@ $(function () {
             </td>
         </tr>
     @endforeach
-      @if (empty($items->getTotal()))
-        <tr>
-            <td colspan="{{ count($fields) + 1 }}">{{ trans('common.no_records') }}</td>
-        </tr>
-        @endif
     </tbody>
 </table>
-
-<div class="row">
-    <div class="col-md-10 text-right">
-        {{  $items->appends(Input::only('perPage'))->links() }}
-    </div>
-
-    <div class="col-md-2 text-right">
-        <div class="btn-group">
-            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-            @lang('as.items_per_page') <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="{{ route('as.employees.customTime', ['perPage' => 5]) }}" id="per-page-5">5</a></li>
-                <li><a href="{{ route('as.employees.customTime', ['perPage' => 10]) }}" id="per-page-10">10</a></li>
-                <li><a href="{{ route('as.employees.customTime', ['perPage' => 20]) }}" id="per-page-20">20</a></li>
-                <li><a href="{{ route('as.employees.customTime', ['perPage' => 50]) }}" id="per-page-50">50</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
 
 @stop

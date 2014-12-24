@@ -259,11 +259,10 @@ class Employees extends AsBase
     public function customTime()
     {
         $fields      = with(new CustomTime())->fillable;
-        $perPage     = (int) Input::get('perPage', Config::get('view.perPage'));
         $customTimes = CustomTime::ofCurrentUser()
             ->orderBy('start_at')
             ->orderBy('end_at')
-            ->paginate($perPage);
+            ->get();
 
         return $this->render('customTime.index', [
             'items'      => $customTimes,
