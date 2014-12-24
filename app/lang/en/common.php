@@ -138,4 +138,7 @@ return [
         'unauthorized' => 'You are not allowed to access this page.',
         'not_business' => 'You do not have a business account or your account is not activated yet. Please contact our support staff via <a href="mailto:yritys@varaa.com">yritys@varaa.com</a> to activate your account.',
     ],
+    'with_selected' => 'With selected',
+    'per_page'      => 'Items per page',
+    'show_all'      => 'Show all',
 ];

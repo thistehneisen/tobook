@@ -115,7 +115,7 @@ $(function () {
         @endif
     </div>
     <div class="col-md-6 text-right">
-        {{  $items->links() }}
+        {{ $items->links() }}
     </div>
 
     <div class="col-md-2 text-right">
@@ -128,6 +128,9 @@ $(function () {
                 <li><a href="{{ route($routes['index'], ['perPage' => 10]) }}" id="per-page-10">10</a></li>
                 <li><a href="{{ route($routes['index'], ['perPage' => 20]) }}" id="per-page-20">20</a></li>
                 <li><a href="{{ route($routes['index'], ['perPage' => 50]) }}" id="per-page-50">50</a></li>
+                @if ($paginAll)
+                <li><a href="{{ route($routes['index'], ['perPage' => 0]) }}">{{ trans('olut::olut.show_all') }}</a></li>
+                @endif
             </ul>
         </div>
     </div>

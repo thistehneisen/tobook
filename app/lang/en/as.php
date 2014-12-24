@@ -545,8 +545,6 @@ return [
             'cancelled'   => 'Cancelled bookings',
         ]
     ],
-    'items_per_page' => 'Items per page',
-    'with_selected'  => 'With selected',
     'crud' => [
         'bulk_confirm'   => 'Are you sure to carry out this action?',
         'success_add'    => 'Item was created successfully.',

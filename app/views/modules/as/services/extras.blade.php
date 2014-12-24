@@ -39,7 +39,7 @@
         <tr>
             <td colspan="4">
                 <div class="form-group">
-                    <label>{{ trans('as.with_selected') }}</label>
+                    <label>{{ trans('common.with_selected') }}</label>
                     <select name="" id="mass-action" class="form-control input-sm">
                         <option value="{{ route('as.services.resources.destroy') }}" data-action-name="delete all selected resources">{{ trans('common.delete') }}</option>
                         <option value="">Blahde</option>
@@ -50,7 +50,7 @@
             <td colspan="5" class="text-right">
                 <div class="dropdown">
                     <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-                    {{ trans('as.items_per_page') }} <span class="caret"></span>
+                    {{ trans('common.per_page') }} <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right">
                         <li><a href="{{ route('as.services.resources', ['perPage' => 5]) }}">5</a></li>

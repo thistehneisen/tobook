@@ -60,7 +60,7 @@
     <div class="col-md-4">
         @if (!empty($bulkActions))
         <div class="form-group">
-            <label>@lang('as.with_selected')</label>
+            <label>{{ trans('common.with_selected') }}</label>
             <select name="action" id="mass-action" class="form-control input-sm">
             @foreach ($bulkActions as $action)
                 <option value="{{ $action }}">{{ trans('common.'.$action) }}</option>
@@ -77,7 +77,7 @@
     <div class="col-md-2 text-right">
         <div class="btn-group">
             <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-            @lang('as.items_per_page') <span class="caret"></span>
+            {{ trans('common.per_page') }} <span class="caret"></span>
             </button>
             <ul class="dropdown-menu dropdown-menu-right">
                 <li><a href="{{ route($routes['index'], ['perPage' => 5]) }}">5</a></li>

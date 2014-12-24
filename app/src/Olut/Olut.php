@@ -161,7 +161,13 @@ trait Olut
 
         // Pagination please
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
-        $items = $query->paginate($perPage);
+
+        if ($perPage === 0 && $this->getOlutOptions('paginationShowAll', false)) {
+            // banana
+            $items = $query->paginate(99999);
+        } else {
+            $items = $query->paginate($perPage);
+        }
 
         return $this->renderList($items);
     }
@@ -256,7 +262,8 @@ trait Olut
             'bartender'   => $bartender,
             'tabsView'    => $tabsView,
             'actionsView' => $actionsView,
-            'scripts'     => $scriptsView
+            'scripts'     => $scriptsView,
+            'paginAll'    => $this->getOlutOptions('paginationShowAll', false),
         ]);
     }
 

@@ -30,6 +30,7 @@ class Hub extends Base
             'send_email',
             'send_sms',
         ],
+        'paginationShowAll' => false,
     ];
 
     /**

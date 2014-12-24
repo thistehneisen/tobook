@@ -546,8 +546,6 @@ return [
             'cancelled'   => 'Peruutetut varaukset',
         ]
     ],
-    'items_per_page' => 'Yksiköitä yhteensä',
-    'with_selected'  => 'Valitse toiminto',
     'crud' => [
         'bulk_confirm'   => 'Oletko varma että haluat toteuttaa tämän toiminnon?',
         'success_add'    => 'Tuote luotu onnistuneesti!',
