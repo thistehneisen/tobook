@@ -143,7 +143,7 @@ class FrontBookings extends Bookings
                 $booking->attach(new SmsObserver());
                 $booking->notify();
             } catch (\Exception $ex) {
-                Log::info('Could not send sms or email:' . $ex->getMessage());
+                \Log::info('Could not send sms or email:' . $ex->getMessage());
             }
         }
         return Response::json($data);
