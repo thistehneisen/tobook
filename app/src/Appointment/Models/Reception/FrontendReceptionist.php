@@ -53,6 +53,10 @@ class FrontendReceptionist extends Receptionist
 
         $booking = new Booking();
 
+        $status = ($this->getSource() === 'inhouse')
+            ? Booking::STATUS_PENDING
+            : Booking::STATUS_CONFIRM;
+
         $booking->fill([
             'date'        => $this->bookingService->date,
             'start_at'    => $this->bookingService->startTime->toTimeString(),
@@ -63,7 +67,7 @@ class FrontendReceptionist extends Receptionist
             'modify_time' => $this->bookingService->modify_time,
             'plustime'    => $this->bookingService->getEmployeePlustime(),
             'notes'       => $this->notes,
-            'status'      => Booking::STATUS_CONFIRM,
+            'status'      => $status,
             'ip'          => $this->getClientIp(),
             'source'      => $this->getSource()
         ]);

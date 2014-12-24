@@ -288,6 +288,13 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return true;
     }
 
+    public function isShowModifyPopup()
+    {
+       return ($this->source ==='inhouse' && $this->getConsumerName() === '')
+        ? false
+        : true;
+    }
+
     /**
      * Return a query with conditions for checking duplicate booking
      * @return Illuminate\Database\Query\Builder
