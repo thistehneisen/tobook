@@ -2,7 +2,7 @@
 namespace Test\Traits;
 
 use App\API\v1_0\Appointment\Controllers\Consumer;
-use Config, Util;
+use Config;
 use App\Appointment\Models\AsConsumer;
 use App\Appointment\Models\BookingExtraService;
 use App\Appointment\Models\BookingService;
@@ -18,7 +18,7 @@ trait Booking
             return null;
         }
 
-        $uuid = Util::uuid();
+        $uuid = \App\Appointment\Models\Booking::uuid();
         $service = $category->services()->first();
 
         $employee =  (empty($employee))

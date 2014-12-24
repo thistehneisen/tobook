@@ -1,5 +1,6 @@
 <?php namespace Test\Appointment\Models;
 
+use App\Appointment\Models\Booking;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\EmployeeFreetime;
 use App\Appointment\Models\ExtraService;
@@ -10,7 +11,6 @@ use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\ServiceTime;
 use App\Core\Models\User;
 use \UnitTester;
-use Util;
 
 /**
  * @group as
@@ -45,7 +45,7 @@ class BookingServiceCest
     public function testGetCartEndAt(UnitTester $I)
     {
         $bookingService = new BookingService([
-            'tmp_uuid' => Util::uuid(),
+            'tmp_uuid' => Booking::uuid(),
             'start_at' => '12:00:00',
         ]);
         $bookingService->employee()->associate(Employee::find(63));
@@ -68,7 +68,7 @@ class BookingServiceCest
 
         // service #301 with employee #64 with 15 minute plus time
         $bookingService = new BookingService([
-            'tmp_uuid' => Util::uuid(),
+            'tmp_uuid' => Booking::uuid(),
             'start_at' => '12:00:00',
         ]);
         $bookingService->employee()->associate(Employee::find(64));
@@ -79,7 +79,7 @@ class BookingServiceCest
 
     public function testGetExtraServices(UnitTester $I)
     {
-        $uuid = Util::uuid();
+        $uuid = Booking::uuid();
         $extraService = ExtraService::find(1);
 
         for ($i = 0; $i < 3; $i++) {
@@ -104,7 +104,7 @@ class BookingServiceCest
     public function testGetEmployeePlustime(UnitTester $I)
     {
         $bookingService = new BookingService([
-            'tmp_uuid' => Util::uuid(),
+            'tmp_uuid' => Booking::uuid(),
             'start_at' => '12:00:00',
         ]);
         $bookingService->service()->associate(Service::find(301));
@@ -117,7 +117,7 @@ class BookingServiceCest
         $I->assertEquals(0, $plustime, 'plus time but result cached');
 
         $bookingService = new BookingService([
-            'tmp_uuid' => Util::uuid(),
+            'tmp_uuid' => Booking::uuid(),
             'start_at' => '12:00:00',
         ]);
         $bookingService->service()->associate(Service::find(301));
@@ -172,7 +172,7 @@ class BookingServiceCest
 
     public function testSaveBookingServiceSuccess(UnitTester $I)
     {
-        $uuid = \Util::uuid();
+        $uuid = Booking::uuid();
         $employee = Employee::find(63);
         $service = Service::find(301);
         $date = $this->_getNextDate();
@@ -199,7 +199,7 @@ class BookingServiceCest
 
     public function testSaveBookingServiceDateTimeFormatting(UnitTester $I)
     {
-        $uuid = \Util::uuid();
+        $uuid = Booking::uuid();
         $employee = Employee::find(63);
         $service = Service::find(301);
 
@@ -236,7 +236,7 @@ class BookingServiceCest
 
     public function testSaveBookingServiceServiceTime(UnitTester $I)
     {
-        $uuid = \Util::uuid();
+        $uuid = Booking::uuid();
         $employee = Employee::find(63);
         $service = Service::find(301);
         $date = $this->_getNextDate();
@@ -257,7 +257,7 @@ class BookingServiceCest
 
     public function testSaveBookingServiceModifyTime(UnitTester $I)
     {
-        $uuid = \Util::uuid();
+        $uuid = Booking::uuid();
         $employee = Employee::find(63);
         $service = Service::find(301);
         $date = $this->_getNextDate();
@@ -278,7 +278,7 @@ class BookingServiceCest
 
     public function testSaveBookingServicePlustime(UnitTester $I)
     {
-        $uuid = \Util::uuid();
+        $uuid = Booking::uuid();
         $employee = Employee::find(64);
         $service = Service::find(301);
         $date = $this->_getNextDate();
@@ -307,7 +307,7 @@ class BookingServiceCest
         $booking = $this->_book($user, $category, $date, $startTime);
         $I->assertNotEmpty($booking, 'booking');
 
-        $uuid = Util::uuid();
+        $uuid = Booking::uuid();
         $service = $category->services()->first();
 
         // the 1 minute overlap should trigger the exception
@@ -334,7 +334,7 @@ class BookingServiceCest
         $booking = $this->_book($user, $category, $date, $startTime);
         $I->assertNotEmpty($booking, 'booking');
 
-        $uuid = Util::uuid();
+        $uuid = Booking::uuid();
         $service = $category->services()->first();
         $extraService = $service->extraServices()->first();
         $input = [
@@ -366,7 +366,7 @@ class BookingServiceCest
 
     public function testSaveBookingServiceOverlapEmployeeFreetime(UnitTester $I)
     {
-        $uuid = \Util::uuid();
+        $uuid = Booking::uuid();
         $employee = Employee::find(63);
         $service = Service::find(301);
         $date = $this->_getNextDate();

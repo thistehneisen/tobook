@@ -42,7 +42,7 @@ class FrontBookings extends Bookings
         $hash            = Input::get('hash');
         $bookingDate     = Input::get('booking_date');
         $startTimeStr    = trim(Input::get('start_time'));
-        $uuid            = Input::get('uuid', Util::uuid());
+        $uuid            = Input::get('uuid', Booking::uuid());
 
 
         //TODO check if is there any potential error

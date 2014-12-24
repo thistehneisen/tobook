@@ -14,7 +14,7 @@ use App\Appointment\Models\AsConsumer;
 use App\Core\Models\User;
 use Carbon\Carbon;
 use \UnitTester;
-use DB, Util;
+use DB;
 
 /**
  * @group as
@@ -246,7 +246,7 @@ class BookingCest
 
     public function testSaveBookingSuccess(UnitTester $I)
     {
-        $uuid = \Util::uuid();
+        $uuid = Booking::uuid();
         $user = User::find(70);
         $employee = Employee::find(63);
         $service = Service::find(301);
@@ -310,7 +310,7 @@ class BookingCest
 
     public function testSaveBookingNoServices(UnitTester $I)
     {
-        $uuid = \Util::uuid();
+        $uuid = Booking::uuid();
         $user = User::find(70);
         $consumer = Consumer::find(1);
         $input = [];
@@ -374,7 +374,7 @@ class BookingCest
 
         $date = with(new \Carbon\Carbon())->year(2014)->month(11)->day(10);
         foreach ([$employee1, $employee2] as $employee) {
-            $uuid = Util::uuid();
+            $uuid = Booking::uuid();
 
             // try only the part can fail
             try {

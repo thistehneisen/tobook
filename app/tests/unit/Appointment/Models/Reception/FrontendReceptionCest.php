@@ -15,7 +15,7 @@ use App\Appointment\Models\Reception\FrontendReceptionist;
 use App\Core\Models\User;
 use Carbon\Carbon;
 use \UnitTester;
-use DB, Util;
+use DB;
 use Test\Traits\Models;
 
 /**
@@ -40,7 +40,7 @@ class FrontendReceptionCest
         $user      = User::find(70);
         $employee  = $this->employee;
         $service   = $this->service;
-        $uuid      = \Util::uuid();
+        $uuid      = Booking::uuid();
 
         $date      = $this->getDate();
         $startTime = '14:00';
@@ -70,7 +70,7 @@ class FrontendReceptionCest
         $user      = User::find(70);
         $employee  = $this->employee;
         $service   = $this->service;
-        $uuid      = \Util::uuid();
+        $uuid      = Booking::uuid();
 
         $date      = $this->getDate();
         $startTime = '14:00';

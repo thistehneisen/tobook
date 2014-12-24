@@ -1,8 +1,9 @@
 <?php namespace App\API\v1_0\Appointment\Controllers;
 
 use App\Appointment\Models\Consumer;
-use Confide, Input, Request, Response, Util;
+use Confide, Input, Request, Response;
 use App\Appointment\Models\Employee;
+use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingExtraService;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\AsConsumer;
@@ -219,7 +220,7 @@ class Booking extends Base
                 }
             }
         } else {
-            $uuid = Util::uuid();
+            $uuid = Booking::uuid();
 
             foreach ($extraServices as $extraService) {
                 // all extra services are new

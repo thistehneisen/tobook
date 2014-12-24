@@ -10,15 +10,17 @@ use Imagine;
 class Util
 {
     /**
-     * Generate a random 36-character string for Booking UUID
+     * Generate a random 16-character string for booking UUID
+     * NOTE: there should be module specific method to wrap around this method
+     * to guarantee each uuid generate is unique
+     * Check example in \App\Appointment\Models\Booking::uuid()
+     *
      * @return string
      */
-    public static function uuid()
+    public static function uuid($length = 16)
     {
-        // Legacy from old source code, 12 char (not so random)
-        //return chr(rand(65,90)) . chr(rand(65,90)) . time();
-
-        return uniqid(str_random(5));
+        // use quickRandom for faster performance
+        return Str::quickRandom($length);
     }
 
     /**

@@ -223,7 +223,7 @@ class Bookings extends AsBase
         $categories = $this->getCategories($services);
 
         return View::make('modules.as.bookings.form', [
-            'uuid'            => Util::uuid(),
+            'uuid'            => Booking::uuid(),
             'employee'        => $employee,
             'categories'      => $categories,
             'bookingDate'     => $bookingDate,

@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Models;
 
-use Request, Carbon\Carbon, NAT;
+use Request, Carbon\Carbon, NAT, Util;
 use App\Core\Models\User;
 use App\Appointment\Models\Observer\SmsObserver;
 use App\Appointment\Models\ResourceService;
@@ -769,5 +769,20 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $booking = Booking::find($booking->id);
 
         return self::updateBooking($booking);
+    }
+
+    /**
+     * Generate a random 16-character string for Booking UUID
+     *
+     * @return string
+     */
+    public static function uuid()
+    {
+        while (true) {
+            $uuid = Util::uuid();
+            if (is_null(self::where('uuid', '=', $uuid)->first())) {
+                return $uuid;
+            }
+        }
     }
 }
