@@ -54,40 +54,6 @@ class ServiceCest
         $I->see(trans('common.inactive'), $rowSelector . ' > *');
     }
 
-    public function testPagination(FunctionalTester $I)
-    {
-        $categories = $this->_createCategoryServiceAndExtra(1, 49, 0);
-        $services = [];
-        $services[] = $this->service;
-        foreach ($categories[0]->services as $service) {
-            $services[] = $service;
-        }
-
-        $I->amOnRoute('as.services.index');
-        $I->seeNumberOfElements('.service-row', min(count($services), Config::get('view.perPage')));
-
-        foreach ([5, 10, 20, 50] as $perPage) {
-            $I->click('#per-page-' . $perPage);
-            $I->seeCurrentRouteIs('as.services.index', ['perPage' => $perPage]);
-            $I->seeNumberOfElements('.service-row', $perPage);
-
-            $page = 1;
-            $servicesCopy = $services;
-            do {
-                if ($page > 1) {
-                    $I->amOnRoute('as.services.index', ['perPage' => $perPage, 'page' => $page]);
-                }
-
-                for ($i = 0; $i < $perPage; $i++) {
-                    $service = array_shift($servicesCopy);
-                    $I->seeElement('#row-' . $service->id);
-                }
-
-                $page++;
-            } while ($page <= count($services) / $perPage);
-        }
-    }
-
     public function testAdd(FunctionalTester $I)
     {
         $name = 'Service ' . time();

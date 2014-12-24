@@ -88,35 +88,6 @@ class EmployeeCest
         $I->seeElement('#row-' . $this->employees[1]->id);
     }
 
-    public function testPagination(FunctionalTester $I)
-    {
-        $this->_createEmployee(50);
-
-        $I->amOnRoute('as.employees.index');
-        $I->seeNumberOfElements('.employee-row', min(count($this->employees), Config::get('view.perPage')));
-
-        foreach ([5, 10, 20, 50] as $perPage) {
-            $I->click('#per-page-' . $perPage);
-            $I->seeCurrentRouteIs('as.employees.index', ['perPage' => $perPage]);
-            $I->seeNumberOfElements('.employee-row', $perPage);
-
-            $page = 1;
-            $employeesCopy = $this->employees;
-            do {
-                if ($page > 1) {
-                    $I->amOnRoute('as.employees.index', ['perPage' => $perPage, 'page' => $page]);
-                }
-
-                for ($i = 0; $i < $perPage; $i++) {
-                    $employee = array_shift($employeesCopy);
-                    $I->seeElement('#row-' . $employee->id);
-                }
-
-                $page++;
-            } while ($page <= count($this->employees) / $perPage);
-        }
-    }
-
     public function testAddSuccess(FunctionalTester $I)
     {
         $name = 'Employee ' . time();
@@ -301,38 +272,6 @@ class EmployeeCest
         $I->see(trans('common.no'), $rowSelector . ' > *');
         $I->seeElement($rowSelector . '-edit');
         $I->seeElement($rowSelector . '-delete');
-    }
-
-    public function testCustomTimePagination(FunctionalTester $I)
-    {
-        $customTimes = [];
-        for ($i = 0; $i < 50; $i++) {
-            $customTimes[] = $this->_createCustomTime(sprintf('%02d:%02d:00', $i % 10, $i));
-        }
-
-        $I->amOnRoute('as.employees.customTime');
-        $I->seeNumberOfElements('.custom-time-row', min(count($customTimes), Config::get('view.perPage')));
-
-        foreach ([5, 10, 20, 50] as $perPage) {
-            $I->click('#per-page-' . $perPage);
-            $I->seeCurrentRouteIs('as.employees.customTime', ['perPage' => $perPage]);
-            $I->seeNumberOfElements('.custom-time-row', $perPage);
-
-            $page = 1;
-            $customTimesCopy = $customTimes;
-            do {
-                if ($page > 1) {
-                    $I->amOnRoute('as.employees.customTime', ['perPage' => $perPage, 'page' => $page]);
-                }
-
-                for ($i = 0; $i < $perPage; $i++) {
-                    $customTime = array_pop($customTimesCopy);
-                    $I->seeElement('#row-' . $customTime->id);
-                }
-
-                $page++;
-            } while ($page <= count($customTimes) / $perPage);
-        }
     }
 
     public function testCustomTimeAdd(FunctionalTester $I)

@@ -45,38 +45,6 @@ class ResourceCest
         $I->seeElement($rowSelector . '-delete');
     }
 
-    public function testPagination(FunctionalTester $I)
-    {
-        $resources = [];
-        for ($i = 0; $i < 50; $i++) {
-            $resources[$i] = $this->_createResource($this->service);
-        }
-
-        $I->amOnRoute('as.services.resources.index');
-        $I->seeNumberOfElements('.item-row', min(count($resources), Config::get('view.perPage')));
-
-        foreach ([5, 10, 20, 50] as $perPage) {
-            $I->click('#per-page-' . $perPage);
-            $I->seeCurrentRouteIs('as.services.resources.index', ['perPage' => $perPage]);
-            $I->seeNumberOfElements('.item-row', $perPage);
-
-            $page = 1;
-            $resourcesCopy = $resources;
-            do {
-                if ($page > 1) {
-                    $I->amOnRoute('as.services.resources.index', ['perPage' => $perPage, 'page' => $page]);
-                }
-
-                for ($i = 0; $i < $perPage; $i++) {
-                    $resource = array_shift($resourcesCopy);
-                    $I->seeElement('#row-' . $resource->id);
-                }
-
-                $page++;
-            } while ($page <= count($resources) / $perPage);
-        }
-    }
-
     public function testAddSuccess(FunctionalTester $I)
     {
         $name = 'Resource ' . time();

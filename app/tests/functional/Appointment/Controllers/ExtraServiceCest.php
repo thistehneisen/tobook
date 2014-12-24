@@ -50,39 +50,6 @@ class ExtraServiceCest
         $I->seeElement($rowSelector . '-delete');
     }
 
-    public function testPagination(FunctionalTester $I)
-    {
-        $categories = $this->_createCategoryServiceAndExtra(1, 1, 49);
-        $extraServices = [$this->extraService];
-        foreach ($categories[0]->services()->first()->extraServices as $extraService) {
-            $extraServices[] = $extraService;
-        }
-
-        $I->amOnRoute('as.services.extras.index');
-        $I->seeNumberOfElements('.item-row', min(count($extraServices), Config::get('view.perPage')));
-
-        foreach ([5, 10, 20, 50] as $perPage) {
-            $I->click('#per-page-' . $perPage);
-            $I->seeCurrentRouteIs('as.services.extras.index', ['perPage' => $perPage]);
-            $I->seeNumberOfElements('.item-row', $perPage);
-
-            $page = 1;
-            $extraServicesCopy = $extraServices;
-            do {
-                if ($page > 1) {
-                    $I->amOnRoute('as.services.extras.index', ['perPage' => $perPage, 'page' => $page]);
-                }
-
-                for ($i = 0; $i < $perPage; $i++) {
-                    $extraService = array_shift($extraServicesCopy);
-                    $I->seeElement('#row-' . $extraService->id);
-                }
-
-                $page++;
-            } while ($page <= count($extraServices) / $perPage);
-        }
-    }
-
     public function testAddSuccess(FunctionalTester $I)
     {
         $name = 'Resource ' . time();

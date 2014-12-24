@@ -61,35 +61,6 @@ class CategoryCest
         $I->see(trans('common.no'), $rowSelector . ' > *');
     }
 
-    public function testPagination(FunctionalTester $I)
-    {
-        $this->categories = array_merge($this->categories, $this->_createCategoryServiceAndExtra(49, 0, 0, $this->employees[0]));
-
-        $I->amOnRoute('as.services.categories.index');
-        $I->seeNumberOfElements('.item-row', min(count($this->categories), Config::get('view.perPage')));
-
-        foreach ([5, 10, 20, 50] as $perPage) {
-            $I->click('#per-page-' . $perPage);
-            $I->seeCurrentRouteIs('as.services.categories.index', ['perPage' => $perPage]);
-            $I->seeNumberOfElements('.item-row', $perPage);
-
-            $page = 1;
-            $categories = $this->categories;
-            do {
-                if ($page > 1) {
-                    $I->amOnRoute('as.services.categories.index', ['perPage' => $perPage, 'page' => $page]);
-                }
-
-                for ($i = 0; $i < $perPage; $i++) {
-                    $category = array_shift($categories);
-                    $I->seeElement('#row-' . $category->id);
-                }
-
-                $page++;
-            } while ($page <= count($this->categories) / $perPage);
-        }
-    }
-
     public function testAddIsShowFrontTrue(FunctionalTester $I)
     {
         $name = 'Category ' . time();
