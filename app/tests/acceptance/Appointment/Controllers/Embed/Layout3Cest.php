@@ -6,6 +6,7 @@ use App\Appointment\Models\Employee;
 use App\Appointment\Models\BookingService;
 use App\Cart\Cart;
 use Carbon\Carbon;
+use Validator;
 use Test\Acceptance\Appointment\Controllers\AbstractBooking;
 
 /**
@@ -174,5 +175,69 @@ class Layout3Cest extends AbstractBooking
 
         // $I->dontSeeElement('#btn-slot-'.$startAt);
         //$I->click('#btn-slot-' . substr(preg_replace('#[^0-9]#', '', $startAt), 0, 4));
+    }
+
+    public function testEnterNothingInStep4(AcceptanceTester $I)
+    {
+        $category = $this->categories[0];
+        $service = $category->services()->first();
+        $employee = $this->employees[0];
+
+        $date = $this->_getNextDate();
+        $startAt = '12:00:00';
+
+        $firstName = 'First';
+        $lastName = 'Last';
+        $email = 'consumer' . time() . '@varaa.com';
+        $phone = time();
+
+        $I->amOnPage(route('as.embed.embed', ['hash' => $this->user->hash, 'l' => 3], false));
+        $I->checkOption('input[name=category_id]', strval($category->id));
+        $I->waitForElementVisible('#as-category-' . $category->id . '-services');
+        $I->click('#btn-service-' . $service->id);
+        $I->waitForElementVisible('#service-times-' . strval($service->id));
+        $I->checkOption('input[name=service_id]', strval($service->id));
+
+        $I->waitForElementVisible('#as-step-2 .as-employee');
+        $I->checkOption('input[name=employee_id]', strval($employee->id));
+
+        $I->waitForElementVisible('#timetable');
+        while ($I->grabAttributeFrom('#timetable', 'data-date') !== $date->toDateString()) {
+            $I->click('#btn-date-next');
+            $I->wait(2);
+        }
+        $I->assertEquals($date->toDateString(), $I->grabAttributeFrom('#timetable', 'data-date'));
+
+        $I->click('#btn-slot-' . substr(preg_replace('#[^0-9]#', '', $startAt), 0, 4));
+
+        $I->waitForElementVisible('#as-form-checkout');
+        $I->appendField('first_name', '');
+        $I->appendField('last_name', '');
+        $I->appendField('email', '');
+        $I->appendField('phone', '');
+        $I->click('#btn-checkout-submit');
+
+        $fields = [
+            'first_name' => '',
+            'last_name'  => '',
+            'phone'      => '',
+            'email'      => '',
+        ];
+
+        $validators = [
+            'first_name' => ['required'],
+            'last_name'  => ['required'],
+            'phone'      => ['required', 'numeric'],
+            'email'      => ['required', 'email'],
+        ];
+
+        $validator = Validator::make($fields, $validators);
+        $v = $validator->errors();
+        // $I->see('Yhteystietosi');
+        // $I->assertEquals('first name kenttä on pakollinen.', $v->get('first_name')[0]);
+        $I->see($v->get('first_name')[0]);
+        $I->see($v->get('last_name')[0]);
+        $I->see($v->get('phone')[0]);
+        $I->see($v->get('email')[0]);
     }
 }
