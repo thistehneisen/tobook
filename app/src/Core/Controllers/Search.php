@@ -2,7 +2,7 @@
 
 use View, Input, DB, Util, Response, Geocoder, App, Config, Es, Paginator, Log;
 use App\Core\Models\Business;
-use Carbon\Carbon;
+use Carbon\Carbon, Session;
 
 class Search extends Base
 {
@@ -15,7 +15,12 @@ class Search extends Base
         $lat = e(Input::get('lat'));
         $lng = e(Input::get('lng'));
 
-        if (!($lat && $lng)) {
+        // If there is lat and lng values, we'll store in Session so that we
+        // don't need to as again
+        if ($lat && $lng) {
+            Session::set('lat', $lat);
+            Session::set('lng', $lng);
+        } else {
             // Helsinki
             $lat = '60.1733244';
             $lng = '24.9410248';

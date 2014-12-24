@@ -190,8 +190,8 @@
                         </div>
                     </div>
 
-                    {{ Form::hidden('lat') }}
-                    {{ Form::hidden('lng') }}
+                    {{ Form::hidden('lat', Session::get('lat')) }}
+                    {{ Form::hidden('lng', Session::get('lng')) }}
 
                     <button type="submit" class="btn btn-success">{{ trans('common.search') }}</button>
                 {{ Form::close() }}

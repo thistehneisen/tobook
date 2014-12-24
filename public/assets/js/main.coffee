@@ -38,9 +38,15 @@ $ ->
     initTypeahead $searchInput, 'services'
     initTypeahead $locationInput, 'locations'
 
-  askGeolocation = true
+  # Determine if we should ask for location
+  $form = $ '#main-search-form'
+  $latInput = $form.find '[name=lat]'
+  $lngInput = $form.find '[name=lng]'
+  console.log $latInput.val(), $lngInput.val()
+  shouldAskGeolocation = not ($latInput.val().length > 0 and $lngInput.val().length > 0)
+
   $searchInput.on 'focus', (e) ->
-    unless navigator.geolocation and askGeolocation
+    unless navigator.geolocation and shouldAskGeolocation
       return
 
     $info = $ '#js-geolocation-info'
@@ -48,11 +54,8 @@ $ ->
     $info.slideDown()
 
     success = (position) ->
-      $form = $ '#main-search-form'
-      $form.find '[name=lat]'
-        .val position.coords.latitude
-      $form.find '[name=lng]'
-        .val position.coords.longitude
+      $latInput.val position.coords.latitude
+      $lngInput.val position.coords.longitude
       # Hide the information since we've already get the coords
       $info.slideUp()
 
@@ -61,7 +64,7 @@ $ ->
 
     navigator.geolocation.getCurrentPosition success, error, timeout: 10000
     # We only ask for once
-    askGeolocation = false
+    shouldAskGeolocation = false
 
   #-------------------------------------------------
   # Change language
