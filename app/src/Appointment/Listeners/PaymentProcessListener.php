@@ -42,7 +42,6 @@ class PaymentProcessListener
                         $item->booking->consumer()->associate($consumer);
                     }
 
-                    $item->booking->status = Booking::STATUS_CONFIRM;
                     $item->booking->save();
                 }
             }
