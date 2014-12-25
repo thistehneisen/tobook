@@ -22,144 +22,27 @@
 @stop
 
 @section('scripts')
+    <script>
+    // Dump inline data
+    VARAA.Search = VARAA.Search || {};
+    VARAA.Search.businesses = {{ $businessesJson }};
+    VARAA.Search.lat = {{ $lat }};
+    VARAA.Search.lng = {{ $lng }};
+@if(!empty($categoryId) && !empty($serviceId))
+    VARAA.Search.categoryId = {{ $categoryId }};
+    VARAA.Search.serviceId = {{ $serviceId }};
+    VARAA.Search.employeeId = {{ $employeeId }};
+    VARAA.Search.time = {{ $time }};
+@endif
+    </script>
+
     {{ HTML::script('//maps.googleapis.com/maps/api/js?v=3.exp&language='.App::getLocale()) }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.12/gmaps.min.js') }}
     {{ HTML::script(asset('packages/jquery.countdown/jquery.plugin.min.js')) }}
     {{ HTML::script(asset('packages/jquery.countdown/jquery.countdown.min.js')) }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js') }}
     {{ HTML::script(asset('assets/js/as/layout-3.js').(Config::get('app.debug') ? '?v='.time() : '')) }}
-    <script>
-$(function () {
-
-@if(!empty($categoryId) && !empty($serviceId))
-$('input:radio[name=category_id][value={{ $categoryId }}], input:radio[name=service_id][value={{ $serviceId }}]').click();
-
-$('input[name=service_id]').on('afterSelect', function () {
-    $('input:radio[name=employee_id][value="{{ $employeeId }}"]').click();
-});
-
-$('#as-step-3').on('afterShow', function () {
-    $('button[data-time="{{ $time }}"]').click();
-});
-@endif
-
-var loading = $('#js-loading'),
-    content = $('#js-business-content'),
-    map = $('#map-canvas'),
-    renderMap;
-
-
-renderMap = function (mapId, lat, lng, markers) {
-    var gmap = new GMaps({
-        div: mapId,
-        lat: lat,
-        lng: lng,
-        zoom: 8
-    });
-
-    if (typeof markers !== 'undefined') {
-        for (var i in markers) {
-            gmap.addMarker(markers[i]);
-        }
-    }
-
-    return gmap;
-};
-
-// Init
-VARAA.applyCountdown($('span.countdown'));
-
-@if (!isset($single))
-
-    map.show();
-    renderMap(
-        '#map-canvas',
-        {{ $lat }},
-        {{ $lng }},
-        [
-    @foreach ($businesses as $item) {
-                lat: {{ $item->lat }},
-                lng: {{ $item->lng }},
-                title: '{{ $item->name }}'
-            },
-    @endforeach
-        ]
-    );
-
-    $('div.result-row').click(function (e) {
-        e.preventDefault();
-        var $this = $(this);
-
-        // open result as a full page load instead of ajax if the browser width is too small
-        if ($(window).width() < 768) {
-            // sidebar should be less than a third of the container!
-            window.location = $this.data('url');
-
-            return;
-        }
-
-        // If the current content is of this business, we don't need to fire
-        // another AJAX
-        if (content.data('current') === $this.data('id')) {
-            return;
-        }
-
-        // Highlight selected row
-        $('div.result-row').removeClass('selected');
-        $this.addClass('selected');
-
-        loading.show();
-
-        $.ajax({
-            url: $this.data('url'),
-            type: 'GET'
-        }).done(function (html) {
-            loading.hide();
-            map.hide();
-
-            content.html(html);
-
-            VARAA.initLayout3();
-
-            // Set current business flag
-            content.data('current', $this.data('id'));
-
-            // Now render the map
-            var mapId = '#js-map-'+$this.data('id'),
-                lat = $(mapId).data('lat'),
-                lng = $(mapId).data('lng');
-
-            var gmap = new GMaps({
-                div: mapId,
-                lat: lat,
-                lng: lng,
-                zoom: 8
-            });
-            gmap.addMarker({
-                lat: lat,
-                lng: lng
-            });
-
-            // Countdown
-            VARAA.applyCountdown(content.find('span.countdown'));
-        });
-    });
-
-@else
-    renderMap(
-        '#js-map-{{ $businesses[0]->user->id }}',
-        {{ $lat }},
-        {{ $lng }},
-        [
-            {
-                lat: {{ $lat }},
-                lng: {{ $lng }}
-            }
-        ]
-    );
-@endif
-});
-    </script>
+    {{ HTML::script(asset_path('js/search.js')) }}
 @stop
 
 @section('content')

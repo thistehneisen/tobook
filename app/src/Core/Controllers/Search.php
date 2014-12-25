@@ -34,10 +34,11 @@ class Search extends Base
         }
 
         return $this->render('index', [
-            'businesses' => $businesses,
-            'lat'        => $lat,
-            'lng'        => $lng,
-            'now'        => Carbon::now()
+            'businesses'     => $businesses,
+            'lat'            => $lat,
+            'lng'            => $lng,
+            'now'            => Carbon::now(),
+            'businessesJson' => json_encode($businesses->getItems()),
         ]);
     }
 }

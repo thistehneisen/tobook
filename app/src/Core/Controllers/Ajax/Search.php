@@ -45,7 +45,7 @@ class Search extends Base
      */
     public function getLocations()
     {
-        $locations = DB::table(with(new Business)->getTable())
+        $locations = DB::table(with(new Business())->getTable())
             ->select('city AS name')
             ->where('city', '!=', '')
             ->distinct()
@@ -97,12 +97,14 @@ class Search extends Base
 
         $nextSlots = $this->handleNextTimeSlot();
 
+        $collection = new \Illuminate\Support\Collection([$user->business]);
         $data = [
-            'businesses' => new \Illuminate\Support\Collection([$user->business]),
-            'single'     => $view,
-            'lat'        => $user->business->lat,
-            'lng'        => $user->business->lng,
-            'now'        => Carbon::now()
+            'businesses'     => $collection,
+            'single'         => $view,
+            'lat'            => $user->business->lat,
+            'lng'            => $user->business->lng,
+            'now'            => Carbon::now(),
+            'businessesJson' => $collection->toJson(),
         ];
 
         $data = array_merge($data, $nextSlots);
