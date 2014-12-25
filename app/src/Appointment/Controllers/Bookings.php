@@ -71,7 +71,7 @@ class Bookings extends AsBase
     {
         $fillable = with(new Consumer())->fillable;
         $table    = with(new Consumer())->getTable();
-        $query->join('consumers', 'consumers.id', '=','as_consumers.consumer_id')
+        $query->join('consumers', 'consumers.id', '=','as_bookings.consumer_id')
             ->orWhere(function ($subQuery) use ($fillable, $q, $table) {
                 foreach ($fillable as $field) {
                     $subQuery = $subQuery->orWhere($table  . '.' . $field, 'LIKE', '%'.$q.'%');

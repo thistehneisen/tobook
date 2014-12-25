@@ -556,7 +556,7 @@ class BookingCest
         $category = $this->category;
         $service  = $category->services()->first();
         $employee = $service->employees()->first();
-        $date = Carbon::now();
+        $date = $this->getDate();
         $I->assertNotEmpty($service);
         $I->assertNotEmpty($employee);
 
