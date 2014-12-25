@@ -3,7 +3,7 @@ namespace Test\Traits;
 
 use App\API\v1_0\Appointment\Controllers\Consumer;
 use Config;
-use App\Appointment\Models\AsConsumer;
+use App\Appointment\Models\Consumer as AsConsumer;
 use App\Appointment\Models\BookingExtraService;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\ServiceCategory;
@@ -37,8 +37,8 @@ trait Booking
 
         $bookingService = BookingService::saveBookingService($uuid, $employee, $service, [
             'booking_date' => $date->toDateString(),
-            'start_time' => $startAt,
-            'modify_time' => rand(0, 3) * 15,
+            'start_time'   => $startAt,
+            'modify_time'  => rand(0, 3) * 15,
         ]);
 
         foreach ($extraServices as $extraService) {

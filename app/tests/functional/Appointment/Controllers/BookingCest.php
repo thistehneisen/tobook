@@ -28,8 +28,11 @@ class BookingCest
         $I->seeNumberOfElements('.booking-row', 0);
         $I->see(trans('common.no_records'));
 
+        $this->initData(false);
+        $this->initCustomTime();
         $user = User::find(70);
-        $category = ServiceCategory::find(105);
+        $category = $this->category;
+
         $booking = $this->_book($user, $category);
         $I->amOnRoute('as.bookings.index');
         $I->seeNumberOfElements('.booking-row', 1);
@@ -46,8 +49,13 @@ class BookingCest
 
     public function testSearch(FunctionalTester $I)
     {
+        $this->initData(false);
+        $this->initCustomTime();
         $user = User::find(70);
-        $category = ServiceCategory::find(105);
+        $category = $this->category;
+        $service  = $category->services()->first();
+        $employee = $service->employees()->first();
+
         $date = $this->_getNextDate();
         $startTime = '12:00:00';
         $booking1 = $this->_book($user, $category, $date, $startTime);
@@ -89,8 +97,11 @@ class BookingCest
 
     public function testPagination(FunctionalTester $I)
     {
+        $this->initData(false);
+        $this->initCustomTime();
         $user = User::find(70);
-        $category = ServiceCategory::find(105);
+        $category = $this->category;
+
         $date = $this->_getNextDate();
         $bookings = [];
         for ($i = 0; $i < 50; $i++) {
@@ -125,8 +136,11 @@ class BookingCest
 
     public function testEditStatus(FunctionalTester $I)
     {
+        $this->initData(false);
+        $this->initCustomTime();
         $user = User::find(70);
-        $category = ServiceCategory::find(105);
+        $category = $this->category;
+
         $booking = $this->_book($user, $category);
         $statuses = Booking::getStatuses();
 
@@ -153,8 +167,11 @@ class BookingCest
 
     public function testEditNotes(FunctionalTester $I)
     {
+        $this->initData(false);
+        $this->initCustomTime();
         $user = User::find(70);
-        $category = ServiceCategory::find(105);
+        $category = $this->category;
+
         $booking = $this->_book($user, $category);
 
         $I->amOnRoute('as.bookings.upsert', ['id' => $booking->id]);
@@ -171,8 +188,11 @@ class BookingCest
 
     public function testEditConsumer(FunctionalTester $I)
     {
+        $this->initData(false);
+        $this->initCustomTime();
         $user = User::find(70);
-        $category = ServiceCategory::find(105);
+        $category = $this->category;
+
         $booking = $this->_book($user, $category);
 
         $I->amOnRoute('as.bookings.upsert', ['id' => $booking->id]);
@@ -203,8 +223,11 @@ class BookingCest
 
     public function testEditServiceTime(FunctionalTester $I)
     {
+        $this->initData(false);
+        $this->initCustomTime();
         $user = User::find(70);
-        $category = ServiceCategory::find(105);
+        $category = $this->category;
+
         $booking = $this->_book($user, $category);
 
         $I->amOnRoute('as.bookings.upsert', ['id' => $booking->id]);
@@ -219,18 +242,19 @@ class BookingCest
         $I->seeOptionIsSelected('services', $service->name);
 
         $serviceTime = $service->serviceTimes()->first();
+        $I->assertNotEmpty($serviceTime);
         $I->seeOptionIsSelected('service_times', intval($service->length) + $plustime);
         $I->selectOption('service_times', $serviceTime->length + $plustime);
 
         $I->sendAjaxPostRequest(route('as.bookings.service.add'), [
-            'service_id' => $service->id,
-            'employee_id' => $I->grabValueFrom('#employee_id'),
+            'service_id'   => $service->id,
+            'employee_id'  => $I->grabValueFrom('#employee_id'),
             'service_time' => $serviceTime->id,
             'modify_times' => $I->grabValueFrom('#modify_times'),
             'booking_date' => $I->grabValueFrom('#booking_date'),
-            'start_time' => $I->grabValueFrom('#start_time'),
-            'uuid' => $I->grabValueFrom('#uuid'),
-            'booking_id' => $I->grabValueFrom('#booking_id'),
+            'start_time'   => $I->grabValueFrom('#start_time'),
+            'uuid'         => $I->grabValueFrom('#uuid'),
+            'booking_id'   => $I->grabValueFrom('#booking_id'),
         ]);
         $I->click('#btn-save-booking');
         $booking = Booking::find($booking->id);
@@ -240,8 +264,11 @@ class BookingCest
 
     public function testDelete(FunctionalTester $I)
     {
+        $this->initData(false);
+        $this->initCustomTime();
         $user = User::find(70);
-        $category = ServiceCategory::find(105);
+        $category = $this->category;
+
         $booking = $this->_book($user, $category);
 
         $booking = Booking::find($booking->id);
@@ -256,8 +283,11 @@ class BookingCest
 
     public function testBulkDelete(FunctionalTester $I)
     {
+        $this->initData(false);
+        $this->initCustomTime();
         $user = User::find(70);
-        $category = ServiceCategory::find(105);
+        $category = $this->category;
+
         $date = $this->_getNextDate();
         $booking1 = $this->_book($user, $category, $date);
         $booking2 = $this->_book($user, $category, $date->addDay());
@@ -328,8 +358,11 @@ class BookingCest
      */
     public function testOpenDeletedCategoryBooking(FunctionalTester $I)
     {
+        $this->initData(false);
+        $this->initCustomTime();
         $user = User::find(70);
-        $category = ServiceCategory::find(105);
+        $category = $this->category;
+
         $booking = $this->_book($user, $category);
         $booking = Booking::find($booking->id);
         $I->assertNotEmpty($booking, 'booking has been found');
@@ -348,8 +381,11 @@ class BookingCest
 
     public function testSearchForDeletedBooking(FunctionalTester $I)
     {
+        $this->initData(false);
+        $this->initCustomTime();
         $user = User::find(70);
-        $category = ServiceCategory::find(105);
+        $category = $this->category;
+
         $booking = $this->_book($user, $category);
         $booking = Booking::find($booking->id);
         $I->assertNotEmpty($booking, 'booking has been found');
@@ -369,8 +405,10 @@ class BookingCest
 
     public function testBookingWithEmptyStartTime(FunctionalTester $I)
     {
+        $this->initData(false);
+        $this->initCustomTime();
         $user = User::find(70);
-        $category = ServiceCategory::find(105);
+        $category = $this->category;
         $service  = $category->services()->first();
         $employee = $service->employees()->first();
         $date = Carbon::now();
@@ -389,8 +427,10 @@ class BookingCest
 
     public function testFrontBookingInThePast(FunctionalTester $I)
     {
+        $this->initData(false);
+        $this->initCustomTime();
         $user = User::find(70);
-        $category = ServiceCategory::find(105);
+        $category = $this->category;
         $service  = $category->services()->first();
         $employee = $service->employees()->first();
         $date = Carbon::now();
@@ -410,8 +450,11 @@ class BookingCest
 
     public function testBackBookingInThePast(FunctionalTester $I)
     {
+        $this->initData(false);
+        $this->initCustomTime();
         $user = User::find(70);
-        $category = ServiceCategory::find(105);
+        $category = $this->category;
+
         $service  = $category->services()->first();
         $employee = $service->employees()->first();
         $date = Carbon::now();
@@ -431,8 +474,11 @@ class BookingCest
 
     public function testRescheduleAnDeletedBooking(FunctionalTester $I)
     {
+        $this->initData(false);
+        $this->initCustomTime();
         $user = User::find(70);
-        $category = ServiceCategory::find(105);
+        $category = $this->category;
+
         $service  = $category->services()->first();
         $employee = $service->employees()->first();
         $date = Carbon::now();
@@ -474,8 +520,10 @@ class BookingCest
 
     public function testOpenModifyFormOfADeletedBooking(FunctionalTester $I)
     {
+        $this->initData(false);
+        $this->initCustomTime();
         $user = User::find(70);
-        $category = ServiceCategory::find(105);
+        $category = $this->category;
         $service  = $category->services()->first();
         $employee = $service->employees()->first();
         $date = Carbon::now();

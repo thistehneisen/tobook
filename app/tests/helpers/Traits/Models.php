@@ -8,6 +8,7 @@ use App\Appointment\Models\EmployeeDefaultTime;
 use App\Appointment\Models\EmployeeFreetime;
 use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\Service;
+use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\Resource;
 use App\Appointment\Models\ResourceService;
 use App\Appointment\Models\ServiceCategory;
@@ -374,6 +375,20 @@ trait Models
 
         $this->service->employees()->attach($this->employee);
         $this->service->employees()->attach($employee1);
+
+        $serviceTime = new ServiceTime;
+
+        $serviceTime->fill([
+            'price'       => 30,
+            'before'      => 0,
+            'during'      => 60,
+            'after'       => 0,
+            'description' => '',
+        ]);
+
+        $serviceTime->setLength();
+        $serviceTime->service()->associate($this->service);
+        $serviceTime->save();
 
         if($initResource) {
             $resource = new Resource;
