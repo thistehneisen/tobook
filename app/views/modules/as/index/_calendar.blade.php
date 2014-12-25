@@ -10,11 +10,17 @@
 <li data-booking-date="{{ $selectedDate }}" data-employee-id="{{ $selectedEmployee->id }}" data-start-time="{{ sprintf('%02d:%02d', (int)$hour, $minuteShift) }}" href="#select-action" class="{{ $slotClass }}" id="btn-slot-{{ $selectedEmployee->id }}-{{ sprintf('%02d%02d', $hour, $minuteShift) }}" @if($cutId==$bookingId) style="background-color: grey" @endif>
     @if(strpos(trim($slotClass), 'booked') === 0)
         @if($booking !== null)
-            <?php $tooltip = $booking->getCalendarTooltip();?>
-            @if(strpos($slotClass, 'slot-booked-head') !== false)
-            <a href="{{ route('as.bookings.modify-form') }}" style="max-height: {{ $maxHeight }}px;" class="btn-plus btn-popover popup-ajax customer-tooltip" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click" title="{{{ $tooltip }}}">{{ $booking->getIcons() }} {{ $booking->getConsumerName() }} {{ $booking->getServiceDescription() }}</a>
+            @if ($booking->isShowModifyPopup())
+                <?php $tooltip = $booking->getCalendarTooltip();?>
+                @if(strpos($slotClass, 'slot-booked-head') !== false)
+                <a href="{{ route('as.bookings.modify-form') }}" style="max-height: {{ $maxHeight }}px;" class="btn-plus btn-popover popup-ajax customer-tooltip" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click" title="{{{ $tooltip }}}">{{ $booking->getIcons() }} {{ $booking->getConsumerName() }} {{ $booking->getServiceDescription() }}</a>
+                @else
+                <a href="{{ route('as.bookings.modify-form') }}" class="btn-popover popup-ajax hidden-print" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click">&nbsp;</a>
+                @endif
             @else
-            <a href="{{ route('as.bookings.modify-form') }}" class="btn-popover popup-ajax hidden-print" data-booking-id="{{ $booking->id }}" data-toggle="popover" data-trigger="click">&nbsp;</a>
+                @if(strpos($slotClass, 'slot-booked-head') !== false)
+                <a href="javascript:void(0);">{{ $booking->getConsumerName() }} {{ $booking->getServiceDescription() }}</a>
+                @endif
             @endif
         @endif
     @elseif(strpos(trim($slotClass), 'freetime') !== false)

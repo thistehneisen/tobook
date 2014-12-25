@@ -49,14 +49,12 @@
                 $bookingService = $booking->bookingServices()->first();
                 $employee = $bookingService->employee;
             ?>
-            <?php if($booking->isShowModifyPopup()):?>
             <a class="js-btn-view-booking btn btn-sm btn-default pull-left" href="#"
                 data-start-time="{{ $bookingStartTime }}"
                 data-booking-id="{{ $booking->id }}"
                 data-employee-id="{{ $employee->id }}">
                 <i class="glyphicon glyphicon-pencil"></i> {{ trans('as.bookings.modify_booking') }}
             </a>
-            <?php endif;?>
             <a style="margin-left:5px" class="js-btn-cut-booking btn btn-sm btn-default pull-left" href="#"
                 id="btn-cut-{{ $booking->id }}"
                 data-booking-id="{{ $booking->id }}"
