@@ -385,7 +385,8 @@ trait Models
             'after'       => 0,
             'description' => '',
         ]);
-
+        ServiceTime::where('id', 1047)->forceDelete();
+        $serviceTime->id = 1047;
         $serviceTime->setLength();
         $serviceTime->service()->associate($this->service);
         $serviceTime->save();

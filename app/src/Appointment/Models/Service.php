@@ -63,7 +63,7 @@ class Service extends \App\Core\Models\Base
                 'id'            => $serviceTime->id,
                 'name'          => $serviceTimeLength,
                 'length'        => $serviceTimeLength,
-                'price'         => $this->price,
+                'price'         => $serviceTime->price,
                 'description'   => $serviceTime->description
             ];
         }

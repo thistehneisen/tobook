@@ -34,14 +34,13 @@ class UnitServiceCest
 
     public function testServiceTime(UnitTester $t)
     {
-        if(empty($this->category)) {
-            $this->initData();
-            $this->initCustomTime();
-        }
+        $this->initData(false, false);
+        $this->initCustomTime();
+
         $user = User::find(70);
         $category = $this->category;
         $service = $category->services()->first();
-        $employee = $this->employee;
+        $employee = $service->employees()->first();
 
         $t->assertEquals($service->length, 60);
         $t->assertEquals($service->before, 0);
@@ -51,6 +50,7 @@ class UnitServiceCest
         $cooked = array(
             array('id'=> -1, 'name'=> '-- Valitse --', 'length'=> 0, 'description'=> ''),
             array('id'=> 'default', 'name'=> 60, 'length'=> 60, 'price' =>35, 'description'=> ''),
+            array('id'=> '1047', 'name'=> 60, 'length'=> 60, 'price' =>30, 'description'=> ''),
         );
 
         $service = Service::find($service->id);
@@ -70,6 +70,7 @@ class UnitServiceCest
         $cooked = array(
             array('id'=> -1, 'name'=> '-- Valitse --', 'length'=> 0, 'description'=> ''),
             array('id'=> 'default', 'name'=> 60+$plustime, 'length'=> 60+$plustime, 'price' =>35, 'description'=> ''),
+            array('id'=> '1047', 'name'=> 60+$plustime, 'length'=> 60+$plustime, 'price' =>30, 'description'=> ''),
         );
 
         $data = $service->getServiceTimesData($employee->id);
