@@ -55,36 +55,23 @@ class Consumer extends \App\Core\Models\Base
         $this->attributes['phone'] = $value;
     }
 
-    private function checkService($table)
-    {
-        $service = DB::table($table)
-                    ->where('user_id', Confide::user()->id)
-                    ->where('consumer_id', $this->id)
-                    ->first();
-
-        if ($service) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public function getServiceAttribute()
     {
-        $service = [];
+        $services = [];
 
-        $services = [
-            'as_consumers' => trans('dashboard.appointment'),
-            'lc_consumers' => trans('dashboard.loyalty'),
-        ];
-
-        foreach ($services as $key => $value) {
-            if ($this->checkService($key)) {
-                $service[substr($key, 0, 2)] = $value;
-            }
+        if (\App\Appointment\Models\Booking::ofCurrentUser()
+                ->where('consumer_id', $this->id)
+                ->first() !== null) {
+            $services['as'] = trans('dashboard.appointment');
         }
 
-        return $service;
+        if (\App\LoyaltyCard\Models\Consumer::ofCurrentUser()
+                ->where('consumer_id', $this->id)
+                ->first() !== null) {
+            $services['lc'] = trans('dashboard.loyalty');
+        }
+
+        return $services;
     }
 
     //--------------------------------------------------------------------------
