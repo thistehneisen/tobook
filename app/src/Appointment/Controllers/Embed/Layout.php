@@ -78,7 +78,10 @@ trait Layout
                 ? ServiceTime::find($serviceTimeId)
                 : null;
 
-            $employees = $service->employees()->where('is_active', true)->get();
+            if (!empty($service)) {
+                $employees = $service->employees()->where('is_active', true)->get();
+            }
+
         }
         $extraServices = [];
         if(!empty($extraServiceIds)){
