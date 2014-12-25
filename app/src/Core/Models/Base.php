@@ -12,6 +12,14 @@ class Base extends \Eloquent implements SearchableInterface
     use SoftDeletingTrait;
     use ElasticSearchTrait;
 
+    /**
+     * By default we'll disable ES index in all models and only enable in some
+     * specific models manually
+     *
+     * @var boolean
+     */
+    public $isSearchable = false;
+
     //--------------------------------------------------------------------------
     // SCOPES
     //--------------------------------------------------------------------------
