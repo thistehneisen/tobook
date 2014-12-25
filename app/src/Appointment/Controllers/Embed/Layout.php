@@ -10,7 +10,6 @@ use App\Appointment\Models\Employee;
 use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
-use App\Appointment\Models\AsConsumer;
 use App\Consumers\Models\Consumer;
 use App\Core\Models\User;
 use App\Appointment\Controllers\AsBase;

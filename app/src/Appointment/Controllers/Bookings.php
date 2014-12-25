@@ -12,7 +12,6 @@ use App\Appointment\Models\Employee;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\ExtraService;
-use App\Appointment\Models\AsConsumer;
 use App\Appointment\Models\Consumer;
 use App\Appointment\Models\Observer\SmsObserver;
 use App\Appointment\Models\Reception\BackendReceptionist;
@@ -533,7 +532,7 @@ class Bookings extends AsBase
             'hash'       => $hash
         ];
 
-        $consumer = AsConsumer::handleConsumer($data, $this->user);
+        $consumer = Consumer::handleConsumer($data, $this->user);
 
         return $consumer;
     }

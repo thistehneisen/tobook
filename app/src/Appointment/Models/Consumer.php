@@ -2,6 +2,7 @@
 
 use Confide, DB;
 use App\Core\Models\User;
+use Hashids;
 
 class Consumer extends \App\Consumers\Models\Consumer
 {
@@ -50,6 +51,50 @@ class Consumer extends \App\Consumers\Models\Consumer
 
         $user->consumers()->attach($consumer->id);
 
+        return $consumer;
+    }
+
+    /**
+     * @param $data
+     * @param null $user
+     * @return \App\Appointment\Models\Consumer
+     */
+    public static function handleConsumer($data, $user = null)
+    {
+        $first_name = trim($data['first_name']);
+        $last_name  = trim($data['last_name']);
+        $phone      = trim($data['phone']);
+        $hash       = $data['hash'];
+
+        $consumer = self::where('first_name', $first_name)
+            ->where('last_name', $last_name)
+            ->where('phone', $phone)->first();
+
+        //In front end, user is identified from hash
+        $userId = null;
+        if (empty($user)) {
+            $decoded = Hashids::decrypt($hash);
+            if (empty($decoded)) {
+                return;
+            }
+            $user = User::find($decoded[0]);
+            $userId = $decoded[0];
+        } else {
+            $userId = $user->id;
+        }
+
+        try {
+
+            if (empty($consumer->id)) {
+                $consumer = self::make($data, $userId);
+            } else {
+                //TODO update consumer
+                $consumer->fill($data);
+                $consumer->saveOrFail();
+            }
+        } catch (\Watson\Validating\ValidationException $ex) {
+            throw $ex;
+        }
         return $consumer;
     }
 }

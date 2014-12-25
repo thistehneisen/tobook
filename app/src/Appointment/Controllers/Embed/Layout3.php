@@ -4,7 +4,7 @@ use Input, Response, Carbon\Carbon, Session, Redirect, Payment, Cart;
 use App\Appointment\Controllers\Embed;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\Employee;
-use App\Appointment\Models\AsConsumer;
+use App\Appointment\Models\Consumer;
 use Illuminate\Support\ViewErrorBag;
 
 class Layout3 extends Base
@@ -62,7 +62,7 @@ class Layout3 extends Base
             }
         }
         // Handle consumer
-        $consumer    = AsConsumer::handleConsumer($data);
+        $consumer    = Consumer::handleConsumer($data);
         $cart        = Cart::findOrFail(Input::get('cartId'));
         $cart->notes = $data['notes'];
         $cart->consumer()->associate($consumer)->save();

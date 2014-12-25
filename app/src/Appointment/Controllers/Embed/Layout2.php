@@ -3,7 +3,7 @@
 use Input, Response, Carbon\Carbon, Session, Redirect, Cart;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\Employee;
-use App\Appointment\Models\AsConsumer;
+use App\Appointment\Models\Consumer;
 
 class Layout2 extends Base
 {
@@ -122,7 +122,7 @@ class Layout2 extends Base
 
         $data = Input::all();
         // Handle consumer
-        $consumer    = AsConsumer::handleConsumer($data);
+        $consumer    = Consumer::handleConsumer($data);
         $cart        = Cart::findOrFail(Input::get('cartId'));
         $cart->notes = (!empty($data['notes'])) ? $data['notes'] : '';
         $cart->consumer()->associate($consumer)->save();

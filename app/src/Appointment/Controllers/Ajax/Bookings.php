@@ -10,7 +10,7 @@ use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\ExtraService;
-use App\Appointment\Models\AsConsumer;
+use App\Appointment\Models\Consumer;
 use Carbon\Carbon;
 
 class Bookings extends \App\Core\Controllers\Ajax\Base
