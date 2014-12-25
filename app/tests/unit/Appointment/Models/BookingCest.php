@@ -10,7 +10,6 @@ use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\Resource;
 use App\Appointment\Models\ResourceService;
-use App\Appointment\Models\AsConsumer;
 use App\Core\Models\User;
 use Carbon\Carbon;
 use \UnitTester;

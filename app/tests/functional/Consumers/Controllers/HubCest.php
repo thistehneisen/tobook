@@ -1,6 +1,6 @@
 <?php namespace Test\Functional\Consumers\Controllers;
 
-use App\Appointment\Models\AsConsumer;
+use App\Appointment\Models\Consumer;
 use App\Consumers\Models\Group;
 use App\Core\Models\Role;
 use FunctionalTester;
@@ -75,7 +75,7 @@ class HubCest
         $I->seeNumberOfElements('tr', 2);
 
         // test with consumer with no booking
-        $consumerNoBookings = AsConsumer::handleConsumer([
+        $consumerNoBookings = Consumer::handleConsumer([
             'first_name' => 'First ' . time(),
             'last_name' => 'Last',
             'email' => 'consumer_' . time() . '@varaa.com',

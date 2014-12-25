@@ -3,10 +3,9 @@
 use App\Appointment\Models\Consumer;
 use Confide, Input, Request, Response;
 use App\Appointment\Models\Employee;
-use App\Appointment\Models\Booking;
+use App\Appointment\Models\Booking as BookingModel;
 use App\Appointment\Models\BookingExtraService;
 use App\Appointment\Models\BookingService;
-use App\Appointment\Models\AsConsumer;
 use Watson\Validating\ValidationException;
 
 class Booking extends Base
@@ -30,7 +29,7 @@ class Booking extends Base
      */
     public function show($id)
     {
-        $booking = \App\Appointment\Models\Booking::ofCurrentUser()->findOrFail($id);
+        $booking = BookingModel::ofCurrentUser()->findOrFail($id);
 
         return Response::json([
             'error' => false,
@@ -47,7 +46,7 @@ class Booking extends Base
      */
     public function update($id)
     {
-        $existingBooking = \App\Appointment\Models\Booking::ofCurrentUser()->findOrFail($id);
+        $existingBooking = BookingModel::ofCurrentUser()->findOrFail($id);
         return $this->_storeOrUpdate($existingBooking);
     }
 
@@ -60,7 +59,7 @@ class Booking extends Base
      */
     public function destroy($id)
     {
-        $booking = \App\Appointment\Models\Booking::ofCurrentUser()->findOrFail($id);
+        $booking = BookingModel::ofCurrentUser()->findOrFail($id);
         $booking->delete_reason = 'Deleted in API';
         $booking->save();
         $booking->delete();
@@ -79,9 +78,9 @@ class Booking extends Base
      */
     public function putStatus($id)
     {
-        $booking = \App\Appointment\Models\Booking::ofCurrentUser()->findOrFail($id);
+        $booking = BookingModel::ofCurrentUser()->findOrFail($id);
 
-        $booking->status = \App\Appointment\Models\Booking::getStatus(Input::get('booking_status'));
+        $booking->status = BookingModel::getStatus(Input::get('booking_status'));
 
         try {
             $booking->saveOrFail();
@@ -107,7 +106,7 @@ class Booking extends Base
      */
     public function putModifyTime($id)
     {
-        $booking = \App\Appointment\Models\Booking::ofCurrentUser()->findOrFail($id);
+        $booking = BookingModel::ofCurrentUser()->findOrFail($id);
         if ($booking->bookingServices()->count() != 1) {
             return Response::json([
                 'error' => true,
@@ -129,7 +128,7 @@ class Booking extends Base
 
             BookingService::saveBookingService($booking->uuid, $booking->employee, $bookingService->service, $input, $bookingService);
 
-            \App\Appointment\Models\Booking::updateBooking($booking);
+            BookingModel::updateBooking($booking);
 
             return Response::json([
                 'error' => false,
@@ -151,7 +150,7 @@ class Booking extends Base
      */
     public function putSchedule($id)
     {
-        $booking = \App\Appointment\Models\Booking::ofCurrentUser()->findOrFail($id);
+        $booking = BookingModel::ofCurrentUser()->findOrFail($id);
 
         $employeeId = intval(Input::get('employee_id'));
         $employee = Employee::ofCurrentUser()->findOrFail($employeeId);
@@ -162,7 +161,7 @@ class Booking extends Base
         ];
 
         try {
-            \App\Appointment\Models\Booking::rescheduleBooking($booking, $employee, $input);
+            BookingModel::rescheduleBooking($booking, $employee, $input);
 
             return Response::json([
                 'error' => false,
@@ -176,7 +175,7 @@ class Booking extends Base
         }
     }
 
-    protected function _storeOrUpdate(\App\Appointment\Models\Booking $existingBooking = null)
+    protected function _storeOrUpdate(BookingModel $existingBooking = null)
     {
         // TODO: support multiple services per booking
         $user = Confide::user();
@@ -252,7 +251,7 @@ class Booking extends Base
                 BookingExtraService::addExtraService($uuid, $employee, $bookingService, $extraService);
             }
 
-            $booking = \App\Appointment\Models\Booking::saveBooking($uuid, $user, $consumer, $input, $existingBooking);
+            $booking = BookingModel::saveBooking($uuid, $user, $consumer, $input, $existingBooking);
 
             return Response::json([
                 'error' => false,

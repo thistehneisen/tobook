@@ -43,7 +43,6 @@ class UnitServiceCest
         $service = $category->services()->first();
         $employee = $this->employee;
 
-
         $t->assertEquals($service->length, 60);
         $t->assertEquals($service->before, 0);
         //This service has 15 mins after the actual service length

@@ -1,9 +1,8 @@
 <?php
 namespace Test\Traits;
 
-use App\API\v1_0\Appointment\Controllers\Consumer;
 use Config;
-use App\Appointment\Models\Consumer as AsConsumer;
+use App\Appointment\Models\Consumer;
 use App\Appointment\Models\BookingExtraService;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\ServiceCategory;
@@ -45,7 +44,7 @@ trait Booking
             BookingExtraService::addExtraService($uuid, $employee, $bookingService, $extraService);
         }
 
-        $consumer = AsConsumer::handleConsumer([
+        $consumer = Consumer::handleConsumer([
             'first_name' => 'Consumer First',
             'last_name' => 'Last ' . $category->id,
             'email' => 'consumer_' . $category->id . '@varaa.com',

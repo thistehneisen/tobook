@@ -10,7 +10,6 @@ use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\Resource;
 use App\Appointment\Models\ResourceService;
-use App\Appointment\Models\AsConsumer;
 use App\Appointment\Models\Reception\FrontendReceptionist;
 use App\Core\Models\User;
 use Carbon\Carbon;
@@ -91,7 +90,7 @@ class FrontendReceptionCest
 
         $bookingService = $receptionist->upsertBookingService();
 
-        $consumer = AsConsumer::handleConsumer([
+        $consumer = Consumer::handleConsumer([
             'first_name' => 'Consumer First',
             'last_name' => 'Last ' . $this->service->id,
             'email' => 'consumer_' . $this->service->id . '@varaa.com',

@@ -10,7 +10,6 @@ use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\Resource;
 use App\Appointment\Models\ResourceService;
-use App\Appointment\Models\AsConsumer;
 use App\Appointment\Models\Reception\BackendReceptionist;
 use App\Core\Models\User;
 use Carbon\Carbon;
@@ -223,7 +222,7 @@ class BackendReceptionCest
         $I->assertEquals($bookingService->startTime, $date->hour(14)->minute(0)->second(0));
         $I->assertEquals($bookingService->endTime, $date->hour(15)->minute(0)->second(0));
 
-        $consumer = AsConsumer::handleConsumer([
+        $consumer = Consumer::handleConsumer([
             'first_name' => 'Consumer First',
             'last_name' => 'Last ' . $this->service->id,
             'email' => 'consumer_' . $this->service->id . '@varaa.com',

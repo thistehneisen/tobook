@@ -1,7 +1,7 @@
 <?php namespace Test\Api\Appointment\Controllers;
 
 use \ApiTester;
-use App\Appointment\Models\AsConsumer;
+use App\Appointment\Models\Consumer;
 use Test\Traits\Booking;
 use Test\Traits\Models;
 use Carbon\Carbon;
@@ -46,7 +46,7 @@ class BookingCest
         $consumerEmail = 'consumer_' . $this->user->id . '@varaa.com';
         $consumerPhone = '1234567890';
         $consumerAddress = 'address';
-        $consumer = AsConsumer::handleConsumer([
+        $consumer = Consumer::handleConsumer([
             'first_name' => $consumerFirstName,
             'last_name' => $consumerLastName,
             'email' => $consumerEmail,
@@ -133,7 +133,7 @@ class BookingCest
         $consumerEmail = $booking->consumer->email;
         $consumerPhone = '0987654321';
         $consumerAddress = 'new address';
-        $consumer = AsConsumer::handleConsumer([
+        $consumer = Consumer::handleConsumer([
             'first_name' => $consumerFirstName,
             'last_name' => $consumerLastName,
             'email' => $consumerEmail,
