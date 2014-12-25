@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use App\Cart\CartDetailInterface;
 use App\Cart\CartDetail;
+use App\Appointment\Models\Booking;
 use Watson\Validating\ValidationException;
 use App\Appointment\Models\Reception\ReceptionistInterface;
 
@@ -284,10 +285,19 @@ class BookingService extends Base implements CartDetailInterface
      */
     public function unlockCartDetail(CartDetail $cartDetail)
     {
-        // only delete the booking service if it's not attach to any booking
-        // if there is booking, it means the booking process went through correctly
-        if (empty($this->booking)) {
+        // delete the booking service if it's not attached to any booking
+        if (is_null($this->booking)) {
             $this->delete();
+        } else {
+            // otherwise check if this is a PENDING booking and source = 'inhouse'
+            // then delete the attached booking
+            if ($this->booking->status === Booking::STATUS_PENDING
+                    && $this->booking->source === 'inhouse') {
+                $this->booking->delete_reason = 'Cart is set to ABANDONED';
+                $this->booking->save();
+                $this->booking->delete();
+                $this->delete();
+            }
         }
     }
 
