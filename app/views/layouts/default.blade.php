@@ -46,7 +46,7 @@
 
     {{ Lomake::renderHead() }}
 </head>
-<body @if(!empty($hash)) data-hash="{{ $hash }}" @endif data-locale="{{ App::getLocale() }}">
+<body @if(!empty($hash)) data-hash="{{ $hash }}" @endif data-locale="{{ App::getLocale() }}" data-js-locale="{{ route('ajax.jslocale') }}">
     @section('header')
     <header class="header container-fluid">
         <nav class="main-nav container">
@@ -182,15 +182,29 @@
                             <input type="text" class="form-control typeahead" id="js-queryInput" name="q" placeholder="{{ trans('home.search.query') }}" value="{{{ Input::get('q') }}}" />
                         </div>
                     </div>
+
                     <div class="form-group">
                         <div class="input-group input-group">
                             <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
                             <input type="text" class="form-control" id="js-locationInput" name="location" placeholder="{{ trans('home.search.location') }}" value="{{{ Input::get('location') }}}" />
                         </div>
                     </div>
+
+                    {{ Form::hidden('lat', Session::get('lat')) }}
+                    {{ Form::hidden('lng', Session::get('lng')) }}
+
                     <button type="submit" class="btn btn-success">{{ trans('common.search') }}</button>
                 {{ Form::close() }}
+
             @show
+        </div>
+
+        <div class="row" id="js-geolocation-info" style="display: none;">
+            <div class="col-sm-offset-4 col-sm-4">
+                <div class="alert alert-info" style="margin-top: 10px;">
+                    <p><i class="fa fa-info-circle"></i> <span class="content">{{ trans('home.search.geo.info') }}</span></p>
+                </div>
+            </div>
         </div>
     </header>
     @show
@@ -240,18 +254,12 @@
     {{ HTML::script('//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js') }}
     {{ HTML::script('//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js') }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.4/typeahead.bundle.min.js') }}
-
-    {{-- Global --}}
-    {{ HTML::script(asset('assets/js/global.js?v=00001')) }}
     <script>
-    VARAA.currentLocale = '{{ App::getLocale() }}';
-    $.getJSON("{{ route('ajax.jslocale') }}", function (data) {
-        VARAA._i18n = data;
-    });
+window.VARAA = window.VARAA || {};
     </script>
+    {{ HTML::script(asset_path('js/global.js')) }}
+    {{ HTML::script(asset_path('js/main.js')) }}
 
-    {{-- Others --}}
-    {{ HTML::script(asset('assets/js/main.js?v=00002')) }}
     @yield('scripts')
 
     {{-- Freshchat --}}

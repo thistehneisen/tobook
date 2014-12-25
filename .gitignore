@@ -70,3 +70,6 @@ composer.phar
 
 # Node.js module
 node_modules/
+
+# Built assets
+public/built

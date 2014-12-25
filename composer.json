@@ -28,6 +28,7 @@
         "mockery/mockery": "0.9.2"
     },
     "autoload": {
+        "files": ["app/helpers.php"],
         "classmap": [
             "app/database/migrations",
             "app/database/seeds"

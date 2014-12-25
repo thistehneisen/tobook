@@ -1,9 +1,10 @@
 <?php namespace App\Core\Models;
 
-use Config, Log, NAT, Input, Str;
+use Config, Log, NAT, Input, Str, Util;
 use App\Core\Models\Relations\BusinessBusinessCategory;
 use App\Lomake\Fields\HtmlField;
 use Exception;
+use Illuminate\Support\Collection;
 
 class Business extends Base
 {
@@ -95,12 +96,11 @@ class Business extends Base
 
         if (!empty($new) && $new !== $old) {
             try {
-                $geocode = \Geocoder::geocode($new);
-                $this->attributes['lat'] = $geocode->getLatitude();
-                $this->attributes['lng'] = $geocode->getLongitude();
+                list($lat, $lng) = Util::geocoder($new);
+                $this->attributes['lat'] = $lat;
+                $this->attributes['lng'] = $lng;
             } catch (Exception $ex) {
                 // Silently fail
-                Log::error($ex->getMessage(), ['context' => 'Update user profile']);
             }
         }
     }
@@ -375,9 +375,37 @@ class Business extends Base
      */
     protected function buildSearchFilter()
     {
-        return [
-            'exists' => [ 'field' => 'name' ]
-        ];
+        $filters = [];
+        $filters['exists'] = ['field' => 'name'];
+
+        return $filters;
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
+    protected function buildSearchSortParams()
+    {
+        $sort = [];
+
+        // Then if there are lat and lng provided, we'll try to use them
+        $lat = e(Input::get('lat'));
+        $lng = e(Input::get('lng'));
+        if ($lat && $lng) {
+            $sort[] = [
+                '_geo_distance' => [
+                    'order'    => 'asc',
+                    'unit'     => 'km',
+                    'mode'     => 'min',
+                    'location' => [
+                        'lat' => $lat,
+                        'lon' => $lng,
+                    ],
+                ]
+            ];
+        }
+
+        return $sort;
     }
 
     /**
@@ -389,12 +417,10 @@ class Business extends Base
             return $result;
         }
 
-        $ids = [];
+        $users = new Collection();
         foreach ($result as $row) {
-            $ids[] = $row['_id'];
+            $users->push(User::with('business')->find($row['_id']));
         }
-
-        $users = User::with('business')->findMany($ids);
 
         return $users->lists('business');
     }
