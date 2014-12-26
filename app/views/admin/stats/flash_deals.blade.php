@@ -12,7 +12,7 @@
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/js/bootstrap-datetimepicker.min.js') }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js') }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js') }}
-    {{ HTML::script(asset('assets/js/admin/stats.js')) }}
+    {{ HTML::script(asset_path('core/scripts/admin/stats.js')) }}
 
     <script>
 var DataSet = DataSet || {};
