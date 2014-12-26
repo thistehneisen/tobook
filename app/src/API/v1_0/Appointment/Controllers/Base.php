@@ -59,6 +59,8 @@ class Base extends \App\Core\Controllers\Base
                 'start_at' => strval($bookingService->start_at),
                 'end_at' => strval($bookingService->end_at),
                 'duration' => intval($bookingService->calculateServiceLength()),
+
+                'is_requested_employee' => !!$bookingService->is_requested_employee,
             ];
 
             // this is weird, end_at is 00:00:00 for some records
@@ -81,6 +83,14 @@ class Base extends \App\Core\Controllers\Base
             ];
         }
 
+        $resources = array();
+        foreach ($booking->getBookingResources() as $resourceId => $resourceName) {
+            $resources[] = [
+                'id' => intval($resourceId),
+                'name' => strval($resourceName),
+            ];
+        }
+
         $duration = $this->_calculateDuration($booking->getStartAt(), $booking->getEndAt());
 
         $bookingData = [
@@ -93,6 +103,7 @@ class Base extends \App\Core\Controllers\Base
             'consumer' => $this->_prepareConsumerData($booking->consumer),
             'booking_services' => $services,
             'booking_extra_services' => $extraServices,
+            'booking_resources' => $resources,
 
             'date' => strval($booking->date),
             'start_at' => strval($booking->start_at),
