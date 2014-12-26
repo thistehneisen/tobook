@@ -28,6 +28,9 @@ Route::group([
         'consumer-hub.sms_templates'
     );
 
+    Route::get('bulk', function () {});
+    Route::get('groups/bulk', function () {});
+
     Route::group([
         'prefix' => 'history',
     ], function () {
@@ -57,10 +60,5 @@ Route::group([
         'before' => ['auth.admin'],
         'as' => 'consumer-hub.doImport',
         'uses' => 'App\Consumers\Controllers\Hub@doImport',
-    ]);
-
-    Route::get('/{tab?}', [
-        'as' => 'consumer-hub',
-        'uses' => 'App\Consumers\Controllers\Hub@upsertHandler',
     ]);
 });

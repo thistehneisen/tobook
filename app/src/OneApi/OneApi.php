@@ -1,7 +1,7 @@
 <?php namespace App\OneApi;
 require __DIR__.'/lib/oneapi/client.php';
 
-use Config, Log;
+use Config, Log, Queue;
 
 class OneApi
 {
@@ -31,21 +31,40 @@ class OneApi
             return;
         }
 
-        $smsClient = new \SmsClient(
-            Config::get('services.oneapi.username'),
-            Config::get('services.oneapi.password')
-        );
+        try {
+            $smsClient = new \SmsClient(
+                Config::get('services.oneapi.username'),
+                Config::get('services.oneapi.password')
+            );
 
-        // Login
-        $smsClient->login();
+            // Login
+            $smsClient->login();
 
-        // Prepare message
-        $smsMessage = new \SMSRequest();
-        $smsMessage->senderAddress = $from;
-        $smsMessage->address       = static::formatNumber($to, $countryCode);
-        $smsMessage->message       = $message;
+            // Prepare message
+            $smsMessage = new \SMSRequest();
+            $smsMessage->senderAddress = $from;
+            $smsMessage->address       = static::formatNumber($to, $countryCode);
+            $smsMessage->message       = $message;
 
-        // Send
-        $smsMessageSendResult = $smsClient->sendSMS($smsMessage);
+            // Send
+            $smsMessageSendResult = $smsClient->sendSMS($smsMessage);
+        } catch (\Exception $ex) {
+            Log::warning("Can't send SMS to: {$smsMessage->address}", [$ex]);
+        }
+    }
+
+    public function scheduledSend($job, $data)
+    {
+        list($from, $to, $message, $countryCode) = $data;
+        static::send($from, $to, $message, $countryCode);
+
+        $job->delete();
+    }
+
+    public function queue($from, $to, $message, $countryCode = '')
+    {
+        Queue::push('App\OneApi\OneApi@scheduledSend', [
+            $from, $to, $message, $countryCode
+        ]);
     }
 }
