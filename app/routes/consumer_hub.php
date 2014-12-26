@@ -28,7 +28,7 @@ Route::group([
         'consumer-hub.sms_templates'
     );
 
-    Route::get('bulk', function () {});
+    Route::get('bulk', ['as' => 'consumer-hub.bulk', function () {}]);
     Route::get('groups/bulk', function () {});
 
     Route::group([

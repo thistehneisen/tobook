@@ -78,7 +78,7 @@ class UtilCest
             ->shouldReceive('forever')
             ->andReturn(true);
 
-        Log::shouldReceive('info')
+        Log::shouldReceive('warning')
             ->once();
 
         Geocoder::shouldReceive('geocode')
