@@ -257,8 +257,8 @@
     <script>
 window.VARAA = window.VARAA || {};
     </script>
-    {{ HTML::script(asset_path('js/global.js')) }}
-    {{ HTML::script(asset_path('js/main.js')) }}
+    {{ HTML::script(asset_path('core/scripts/global.js')) }}
+    {{ HTML::script(asset_path('core/scripts/main.js')) }}
 
     @yield('scripts')
 
