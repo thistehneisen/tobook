@@ -88,7 +88,7 @@ class Skrill extends Base
         ]);
 
         if ($v->fails()) {
-            Log::info('Abort due to missing required data',
+            Log::warning('Abort due to missing required data',
                 ['context' => 'Skrill post-back']);
             return App::abort(400);
         }
@@ -141,7 +141,7 @@ class Skrill extends Base
         $result = Input::get('md5sig') === $hash;
 
         if ($result === false) {
-            Log::info('Abort due to malformed MD5 signature',
+            Log::warning('Abort due to malformed MD5 signature',
                 ['context' => 'Skrill post-back']);
         }
         return $result;
@@ -158,7 +158,7 @@ class Skrill extends Base
             === Config::get('services.skrill.email');
 
         if ($result === false) {
-            Log::info('Abort due to invalid recipient email',
+            Log::warning('Abort due to invalid recipient email',
                 ['context' => 'Skrill post-back']);
         }
 
@@ -178,7 +178,7 @@ class Skrill extends Base
             && $transaction->currency === Input::get('mb_currency');
 
         if ($result === false) {
-            Log::info('Abort due to invalid amount',
+            Log::warning('Abort due to invalid amount',
                 ['context' => 'Skrill post-back']);
         }
 
@@ -194,7 +194,7 @@ class Skrill extends Base
     {
         $result = (int) Input::get('status') === static::STATUS_PROCESSED;
         if ($result === false) {
-            Log::info('Abort because payment was not processed',
+            Log::warning('Abort because payment was not processed',
                 ['context' => 'Skrill post-back']);
         }
 

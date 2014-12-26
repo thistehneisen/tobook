@@ -159,7 +159,7 @@ class Util
 
             return $pair;
         } catch (\Exception $ex) {
-            Log::info('Cannot geocode location: '.$ex->getMessage());
+            Log::warning('Cannot geocode location: '.$ex->getMessage());
             // We don't want to handle this, just logging and throw it away
             throw $ex;
         }
