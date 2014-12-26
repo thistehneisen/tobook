@@ -1,5 +1,5 @@
 /*jslint browser: true, nomen: true, unparam: true, node: true*/
-/*global $, jQuery, alertify, location, window, trans*/
+/*global $, jQuery, alertify, location, window, VARAA*/
 'use strict';
 
 (function ($) {
@@ -120,7 +120,7 @@
             var _this = $(this),
                 start_time = _this.data('start-time');
 
-            _this.append('<span class="hover">{0} {1}</span>'.format(trans('common.book'), start_time));
+            _this.append('<span class="hover">{0} {1}</span>'.format(VARAA.trans('common.book'), start_time));
         }, function () {
             $(this).find('.hover').remove();
         });

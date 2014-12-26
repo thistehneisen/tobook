@@ -40,6 +40,6 @@ $.getJSON $body.data('js-locale'), (data) ->
   return
 
 # I hate global var but this is faster to type and also consistent with Laravel
-trans = (key) ->
+VARAA.trans = (key) ->
   return VARAA._i18n[key]  if VARAA._i18n.hasOwnProperty(key)
   key
