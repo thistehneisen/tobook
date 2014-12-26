@@ -35,8 +35,13 @@ gulp.task 'less', ->
     .pipe plugins.rev.manifest path: 'style-manifest.json'
     .pipe gulp.dest paths.dest
 
+# Clean the built directory
+gulp.task 'clean', ->
+    gulp.src paths.dest, read: false
+        .pipe plugins.clean()
+
 # Build assets to be ready for production
-gulp.task 'build', ['coffee', 'less']
+gulp.task 'build', ['clean', 'coffee', 'less']
 
 # For development
 # Watch file changes run related tasks
