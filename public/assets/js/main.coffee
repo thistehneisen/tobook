@@ -34,37 +34,37 @@ $ ->
       source: collection.ttAdapter()
 
   # Init typeahead
-  if ($searchInput.length and $locationInput.length)
+  if ($searchInput? and $locationInput? and $searchInput.length > 0 and $locationInput.length > 0)
     initTypeahead $searchInput, 'services'
     initTypeahead $locationInput, 'locations'
 
   # Determine if we should ask for location
   $form = $ '#main-search-form'
-  $latInput = $form.find '[name=lat]'
-  $lngInput = $form.find '[name=lng]'
-  console.log $latInput.val(), $lngInput.val()
-  shouldAskGeolocation = not ($latInput.val().length > 0 and $lngInput.val().length > 0)
+  if $form? and $form.length > 0
+    $latInput = $form.find '[name=lat]'
+    $lngInput = $form.find '[name=lng]'
+    shouldAskGeolocation = not ($latInput.val().length > 0 and $lngInput.val().length > 0)
 
-  $searchInput.on 'focus', (e) ->
-    unless navigator.geolocation and shouldAskGeolocation
-      return
+    $searchInput.on 'focus', (e) ->
+      unless navigator.geolocation and shouldAskGeolocation
+        return
 
-    $info = $ '#js-geolocation-info'
-    # Show the information panel
-    $info.slideDown()
+      $info = $ '#js-geolocation-info'
+      # Show the information panel
+      $info.slideDown()
 
-    success = (position) ->
-      $latInput.val position.coords.latitude
-      $lngInput.val position.coords.longitude
-      # Hide the information since we've already get the coords
-      $info.slideUp()
+      success = (position) ->
+        $latInput.val position.coords.latitude
+        $lngInput.val position.coords.longitude
+        # Hide the information since we've already get the coords
+        $info.slideUp()
 
-    error = (err) ->
-      console.log err
+      error = (err) ->
+        console.log err
 
-    navigator.geolocation.getCurrentPosition success, error, timeout: 10000
-    # We only ask for once
-    shouldAskGeolocation = false
+      navigator.geolocation.getCurrentPosition success, error, timeout: 10000
+      # We only ask for once
+      shouldAskGeolocation = false
 
   #-------------------------------------------------
   # Change language
