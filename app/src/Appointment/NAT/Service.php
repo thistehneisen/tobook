@@ -5,7 +5,7 @@ use App\Appointment\Models\Employee;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\Service as AppointmentService;
 use Illuminate\Support\Collection;
-use Redis, Carbon\Carbon, Log, Queue;
+use Redis, Carbon\Carbon, Log, Queue, App;
 
 class Service
 {
@@ -40,7 +40,7 @@ class Service
      * Enqueue to build NAT for business user in the given date
      *
      * @param App\Core\Models\User $user
-     * @param Carbon\Carbon $date
+     * @param Carbon\Carbon        $date
      *
      * @return void
      */
@@ -118,7 +118,7 @@ class Service
         // Cut the timeline into limited items, or we'll return the whole one
         $counter = 0;
         $limit = ($limit === -1) ? count($timeline) : $limit;
-        $collection = new Collection;
+        $collection = new Collection();
         foreach ($timeline as $score => $ids) {
             if ($counter >= $limit) {
                 break;
@@ -126,16 +126,20 @@ class Service
 
             if (!empty($ids)) {
                 // Pick randomly from the list of available employees
-                $employeeId = $ids[array_rand($ids)];
-                $date = Carbon::createFromTimestamp($score);
+                $employee = $this->getEmployeeObject($ids);
+                if ($employee === null) {
+                    // Life sucks, this business may not have any employee
+                    // available
+                    break;
+                }
 
                 // Pick a random service
-                $employee = Employee::find($employeeId);
                 $service = $this->getService($user, $employee);
                 if ($service === null) {
                     continue;
                 }
 
+                $date = Carbon::createFromTimestamp($score);
                 $item = [];
                 $item['employee'] = $employeeId;
                 $item['date']     = $date->toDateString();
@@ -154,10 +158,30 @@ class Service
     }
 
     /**
+     * Get a working employee object from the list of Emloyee IDs
+     *
+     * @param array $ids
+     *
+     * @return App\Appointment\Models\Employee
+     */
+    public function getEmployeeObject($ids)
+    {
+        $employee = null;
+        foreach ($ids as $id) {
+            $employee = App::make('App\Appointment\Models\Employee')->find($id);
+            if ($employee !== null) {
+                break;
+            }
+        }
+
+        return $employee;
+    }
+
+    /**
      * Get the default service from user setting
      * Or randomly pick one
      *
-     * @param App\Core\Models\User $user
+     * @param App\Core\Models\User            $user
      * @param App\Appointment\Models\Employee $employee
      *
      * @return App\Appointment\Models\Service|null
@@ -184,7 +208,7 @@ class Service
      * Build the calendar of business users in the given date
      *
      * @param App\Core\Models\User $user
-     * @param Carbon\Carbon $date
+     * @param Carbon\Carbon        $date
      *
      * @return void
      */
@@ -192,6 +216,7 @@ class Service
     {
         if ($user->is_business === false) {
             Log::error('Build NAT for non-business user', ['user_id' => $user->id]);
+
             return;
         }
 
@@ -227,7 +252,7 @@ class Service
      * Remove all members of sorted set that have scores less than the given
      * date
      *
-     * @param string $key The key of sorted set
+     * @param string        $key  The key of sorted set
      * @param Carbon\Carbon $date
      *
      * @return void
@@ -241,9 +266,9 @@ class Service
      * Push the working time of an employee and its timestamp to the sorted
      * set of user
      *
-     * @param string $key Key of sorted set
+     * @param string                          $key      Key of sorted set
      * @param App\Appointment\Models\Employee $employee
-     * @param Carbon\Carbon $date
+     * @param Carbon\Carbon                   $date
      *
      * @return void
      */
@@ -295,7 +320,7 @@ class Service
      * Remove all booked time of the user in the given date
      *
      * @param App\Core\Models\User $user
-     * @param Carbon\Carbon $date
+     * @param Carbon\Carbon        $date
      *
      * @return void
      */
@@ -303,7 +328,7 @@ class Service
     {
         $bookings = Booking::ofUser($user)
             ->where('date', $date->toDateString())
-            ->where(function($query) {
+            ->where(function ($query) {
                 return $query->where('status', Booking::STATUS_CONFIRM)
                     ->where('status', Booking::STATUS_PAID);
             })
@@ -363,7 +388,7 @@ class Service
         }
 
         // Use pipeline to send multiple command in one shot
-        Redis::pipeline(function($pipe) use ($paramSet) {
+        Redis::pipeline(function ($pipe) use ($paramSet) {
             foreach ($paramSet as $params) {
                 call_user_func_array([$pipe, 'zrem'], $params);
             }
