@@ -8,7 +8,7 @@
 
 @section ('scripts')
     @parent
-    {{ HTML::script(asset('assets/js/modules/co.js')) }}
+    {{ HTML::script(asset_path('co/scripts/main.js')) }}
     {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
 @stop
 
