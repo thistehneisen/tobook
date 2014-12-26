@@ -218,6 +218,7 @@ return [
         'category'     => 'Kategoria',
         'is_active'    => 'Aktiivinen',
         'resource'     => 'Resurssit',
+        'room'         => 'Huoneet',
         'extra'        => 'Lisäpalvelut',
         'employees'    => 'Työntekijät',
         'no_employees' => 'Työntekijää ei ole valittu',

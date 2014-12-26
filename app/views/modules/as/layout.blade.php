@@ -69,6 +69,7 @@
                         <li><a href="{{ route('as.services.upsert') }}">{{ trans('as.services.add') }}</a></li>
                         <li><a href="{{ route('as.services.categories.index') }}">{{ trans('as.services.categories.all') }}</a></li>
                         <li><a href="{{ route('as.services.resources.index') }}">{{ trans('as.services.resources.all') }}</a></li>
+                        <li><a href="{{ route('as.services.rooms.index') }}">{{ trans('as.services.rooms.all') }}</a></li>
                         <li><a href="{{ route('as.services.extras.index') }}">{{ trans('as.services.extras.add') }}</a></li>
                     </ul>
                 </li>

@@ -218,6 +218,7 @@ return [
         'category'     => 'Category',
         'is_active'    => 'Status',
         'resource'     => 'Resource',
+        'room'         => 'Room',
         'extra'        => 'Extra Service',
         'employees'    => 'Employees',
         'no_employees' => 'There is no employee to be selected',

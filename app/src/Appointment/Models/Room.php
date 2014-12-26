@@ -1,4 +1,6 @@
 <?php namespace App\Appointment\Models;
+use DB;
+use App\Appointment\Models\RoomService;
 
 class Room extends \App\Core\Models\Base
 {
@@ -11,6 +13,25 @@ class Room extends \App\Core\Models\Base
             'name' => 'required'
         ]
     ];
+
+    /**
+     * Link rooms to a certain service
+     */
+    public static function associateWithService($roomIds, $service)
+    {
+        //Delete old room services;
+        DB::table('as_room_service')
+            ->where('service_id', $service->id)
+            ->delete();
+
+        foreach ($roomIds as $roomId) {
+            $room = self::find($roomId);
+            $roomService = new RoomService;
+            $roomService->service()->associate($service);
+            $roomService->room()->associate($room);
+            $roomService->save();
+        }
+    }
 
     //--------------------------------------------------------------------------
     // RELATIONSHIPS

@@ -125,6 +125,14 @@ class Service extends \App\Core\Models\Base
         );
     }
 
+    public function rooms()
+    {
+        return $this->belongsToMany(
+            'App\Appointment\Models\Room',
+            'as_room_service'
+        );
+    }
+
     /**
      * @see http://laravel.com/docs/eloquent#many-to-many
      */
