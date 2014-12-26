@@ -184,6 +184,13 @@ return [
             'description' => 'Kuvaus',
             'quantity'    => 'Määrä',
         ],
+        'rooms' => [
+            'all'         => 'All rooms',
+            'add'         => 'Add room',
+            'edit'        => 'Muokkaa room',
+            'name'        => 'Nimi',
+            'description' => 'Kuvaus',
+        ],
         'extras' => [
             'all'         => 'Kaikki lisäpalvelut',
             'add'         => 'Lisää lisäpalvelu',

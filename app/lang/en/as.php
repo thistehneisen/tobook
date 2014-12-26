@@ -184,6 +184,13 @@ return [
             'description' => 'Description',
             'quantity'    => 'Quantity',
         ],
+        'rooms' => [
+            'all'         => 'All rooms',
+            'add'         => 'Add room',
+            'edit'        => 'Muokkaa room',
+            'name'        => 'Nimi',
+            'description' => 'Kuvaus',
+        ],
         'extras' => [
             'all'         => 'All extra services',
             'add'         => 'Add new extra service',

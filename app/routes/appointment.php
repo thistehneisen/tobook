@@ -141,6 +141,12 @@ Route::group([
         'as.services.resources'
     );
 
+    // Service Room
+    \App\Appointment\Controllers\Rooms::crudRoutes(
+        'services/rooms',
+        'as.services.rooms'
+    );
+
     // Employee
     \App\Appointment\Controllers\Employees::crudRoutes(
         'employees',

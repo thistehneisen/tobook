@@ -2,7 +2,7 @@
 
 class Room extends \App\Core\Models\Base
 {
-    protected $table = 'as_resources';
+    protected $table = 'as_rooms';
 
     public $fillable = ['name', 'description'];
 
