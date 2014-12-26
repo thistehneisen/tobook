@@ -1,6 +1,6 @@
 {
-  "js/global.js": "js/global-93bccf1d.js",
-  "js/main.js": "js/main-e783c0d0.js",
-  "js/search.js": "js/search-3b98428f.js",
-  "js/admin/stats.js": "js/admin/stats-099b4319.js"
+  "core/scripts/admin.js": "core/scripts/admin-099b4319.js",
+  "core/scripts/global.js": "core/scripts/global-93bccf1d.js",
+  "core/scripts/main.js": "core/scripts/main-e783c0d0.js",
+  "core/scripts/search.js": "core/scripts/search-3b98428f.js"
 }

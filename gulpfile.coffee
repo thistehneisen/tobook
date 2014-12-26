@@ -5,11 +5,11 @@ plugins = gulpLoadPlugins()
 
 paths =
   dest: 'public/built/'
-  base: __dirname + '/public/assets'
+  base: __dirname + '/resources'
   img: 'public/assets/img/**/*'
   js: ['public/assets/js/**/*.js', '!assets/js/**/*.min.js']
-  coffee: ['public/assets/js/**/*.coffee']
-  less: ['public/assets/less/**/*.less']
+  coffee: ['resources/**/scripts/**/*.coffee']
+  less: ['resources/**/styles/**/main.less']
 
 gulp.task 'img', ->
   gulp.src paths.img
@@ -30,7 +30,6 @@ gulp.task 'less', ['clean'], ->
   gulp.src paths.less, base: paths.base
     .pipe plugins.less()
     .pipe plugins.cssmin()
-    .pipe plugins.concat 'css/style.css'
     .pipe plugins.rev()
     .pipe gulp.dest paths.dest
     .pipe plugins.rev.manifest path: 'style-manifest.json'
@@ -38,7 +37,8 @@ gulp.task 'less', ['clean'], ->
 
 # Clean the built directory
 gulp.task 'clean', ->
-    del [paths.dest]
+    # Use del.sync to make sure that built directory is empty
+    del.sync [paths.dest]
 
 # Build assets to be ready for production
 gulp.task 'build', ['coffee', 'less']
