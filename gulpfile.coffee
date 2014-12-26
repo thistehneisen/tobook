@@ -1,4 +1,5 @@
 gulp = require 'gulp'
+del = require 'del'
 gulpLoadPlugins = require 'gulp-load-plugins'
 plugins = gulpLoadPlugins()
 
@@ -15,7 +16,7 @@ gulp.task 'img', ->
     .pipe gulp.dest paths.dest + 'img'
 
 # Compile CoffeeScript
-gulp.task 'coffee', ->
+gulp.task 'coffee', ['clean'], ->
   gulp.src paths.coffee, base: paths.base
     .pipe plugins.coffee()
     .pipe plugins.uglify()
@@ -25,7 +26,7 @@ gulp.task 'coffee', ->
     .pipe gulp.dest paths.dest
 
 # Compile LESS
-gulp.task 'less', ->
+gulp.task 'less', ['clean'], ->
   gulp.src paths.less, base: paths.base
     .pipe plugins.less()
     .pipe plugins.cssmin()
@@ -37,11 +38,10 @@ gulp.task 'less', ->
 
 # Clean the built directory
 gulp.task 'clean', ->
-    gulp.src paths.dest, read: false
-        .pipe plugins.clean()
+    del [paths.dest]
 
 # Build assets to be ready for production
-gulp.task 'build', ['clean', 'coffee', 'less']
+gulp.task 'build', ['coffee', 'less']
 
 # For development
 # Watch file changes run related tasks

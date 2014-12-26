@@ -4,8 +4,6 @@ $ ->
   $document = $ document
   $searchInput = $ '#js-queryInput'
   $locationInput = $ '#js-locationInput'
-  $languageSwitcher = $ '#js-languageSwitcher'
-  $cart = $ '#header-cart'
 
   #-------------------------------------------------
   # Typeahead
@@ -69,12 +67,14 @@ $ ->
   #-------------------------------------------------
   # Change language
   #-------------------------------------------------
+  $languageSwitcher = $ '#js-languageSwitcher'
   $languageSwitcher.change ->
     window.location = @.value
 
   #-------------------------------------------------
   # Cart
   #-------------------------------------------------
+  $cart = $ '#header-cart'
   $cart.popover
     placement: 'bottom'
     trigger: 'click'
@@ -82,8 +82,8 @@ $ ->
 
   $document.on 'click', (e) ->
     $target = $ e.target
-    if $target.data 'toggle' != 'popover' and $target.parents('#header-cart').length == 0 and $target.parents('.popover.in').length == 0
-      $cart.popover 'hide'
+    $cart.popover 'hide' if $target.data('toggle') isnt 'popover' and $target.parents('#header-cart').length is 0 and $target.parents('.popover.in').length is 0
+    return
 
   # When an item added to cart, we need to reload it
   $document.on 'cart.reload', (e, showAfterFinish) ->
@@ -97,21 +97,22 @@ $ ->
       $cart.attr 'data-content', e.content
 
       if showAfterFinish
+        # Show the cart content
         $cart.popover 'show'
         $document.scrollTop 0
 
   $document.on 'click', 'a.js-btn-cart-remove', (e) ->
     e.preventDefault()
-    self = $ @
+    $$ = $ @
 
-    self.find 'i.fa'
+    $$.find 'i.fa'
       .removeClass 'fa-close'
       .addClass 'fa-spinner fa-spin'
 
     $.ajax
-      url: self.attr 'href'
+      url: $$.attr 'href'
     .done (e) ->
-      $('tr.cart-detail-' + $this.data 'detail-id').fadeOut()
+      $('tr.cart-detail-' + $$.data 'detail-id').fadeOut()
       $document.trigger 'cart.reload', true
 
   # Load cart content when page load
@@ -122,9 +123,9 @@ $ ->
   #-------------------------------------------------
   VARAA.applyCountdown = (elems) ->
     elems.each ->
-      self = $ @
-      self.countdown
-        until: new Date self.data 'date'
+      $$ = $ @
+      $$.countdown
+        until: new Date $$.data 'date'
         compact: true
         layout: '{hnn}{sep}{mnn}{sep}{snn}'
 
