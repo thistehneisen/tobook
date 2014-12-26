@@ -58,13 +58,11 @@ class EmailTemplate extends \App\Core\Models\Base
 
         foreach ($consumers as $consumer) {
             if (empty($consumer->email)) {
-                \Log::info('huh');
                 continue;
             }
 
             // check for marketing material opt-out maybe?
-
-            Mail::send('modules.co.email_templates.email', [
+            Mail::queue('modules.co.email_templates.email', [
                 'subject' => $campaign->subject,
                 'content' => $campaign->content,
             ], function ($message) use ($campaign, $consumer, $group) {
