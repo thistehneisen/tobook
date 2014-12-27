@@ -294,11 +294,12 @@ class Base implements Strategy
             if ($this->rowTime >= $start && $this->rowTime <= $end) {
                 if(!isset($this->roomCache[$this->date][$this->service->id][$this->hour][$this->minute])) {
                     $this->roomCache[$this->date][$this->service->id][$this->hour][$this->minute] = $totalRooms;
-                } else {
-                    if($this->roomCache[$this->date][$this->service->id][$this->hour][$this->minute] > 0) {
-                        $this->roomCache[$this->date][$this->service->id][$this->hour][$this->minute] -= 1;
-                    }
                 }
+
+                if($this->roomCache[$this->date][$this->service->id][$this->hour][$this->minute] > 0) {
+                    $this->roomCache[$this->date][$this->service->id][$this->hour][$this->minute] -= 1;
+                }
+
             }
         }
 
