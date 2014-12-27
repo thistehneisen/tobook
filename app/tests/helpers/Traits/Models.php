@@ -11,6 +11,8 @@ use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\Resource;
 use App\Appointment\Models\ResourceService;
+use App\Appointment\Models\Room;
+use App\Appointment\Models\RoomService;
 use App\Appointment\Models\ServiceCategory;
 use App\Consumers\Models\EmailTemplate;
 use App\Consumers\Models\Consumer;
@@ -326,7 +328,7 @@ trait Models
         User::boot();
     }
 
-    public function initData($initExtraServices = true, $initResource = false)
+    public function initData($initExtraServices = true, $initResource = false, $initRoom = false)
     {
         $this->user = User::find(70);
         Employee::where('id', 63)->forceDelete();
@@ -403,6 +405,34 @@ trait Models
             $resourceService->service()->associate($this->service);
             $resourceService->resource()->associate($resource);
             $resourceService->save();
+        }
+
+        if($initRoom) {
+            Room::where('id', 1)->forceDelete();
+            $room = new Room;
+            $room->id   = 1;
+            $room->name = 'room 1';
+            $room->description = 'Description';
+            $room->user()->associate($this->user);
+            $room->save();
+
+            $roomService = new RoomService;
+            $roomService->service()->associate($this->service);
+            $roomService->room()->associate($room);
+            $roomService->save();
+
+            // Room::where('id', 2)->forceDelete();
+            // $room1 = new Room;
+            // $room1->id   = 2;
+            // $room1->name = 'room 2';
+            // $room1->description = 'Description';
+            // $room1->user()->associate($this->user);
+            // $room1->save();
+
+            // $roomService = new RoomService;
+            // $roomService->service()->associate($this->service);
+            // $roomService->room()->associate($room1);
+            // $roomService->save();
         }
 
         if($initExtraServices) {

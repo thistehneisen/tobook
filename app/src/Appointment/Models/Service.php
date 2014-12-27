@@ -24,6 +24,11 @@ class Service extends \App\Core\Models\Base
         return ($bookings->isEmpty()) ? true : false;
     }
 
+    public function requireRoom()
+    {
+        return ($this->rooms()->count()) ? true : false;
+    }
+
     /**
      * Generate service times for displaying on booking form
      *

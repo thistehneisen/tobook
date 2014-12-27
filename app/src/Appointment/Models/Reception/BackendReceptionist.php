@@ -24,6 +24,7 @@ class BackendReceptionist extends Receptionist
         $this->validateWithEmployeeFreetime();
         $this->validateWithExistingBooking();
         $this->validateWithResources();
+        $this->validateWithRooms();
     }
 
     public function upsertBooking()

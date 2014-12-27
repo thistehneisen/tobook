@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Models;
 
-class BookingServiceRoom
+class BookingServiceRoom extends \App\Appointment\Models\Base
 {
     public $timestamps = false;
     protected $table = 'as_booking_service_rooms';
