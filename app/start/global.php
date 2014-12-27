@@ -46,16 +46,13 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 |
 */
 
-if (App::environment() !== 'local' && App::environment() !== 'stag') {
-    // We will show 404 if found non-existing data
-    App::error(function (\Illuminate\Database\Eloquent\ModelNotFoundException $ex) {
-        Log::warning($ex->getMessage(), ['url' => URL::current()]);
-        return Response::view('errors.missing', [], 404);
-    });
-}
-
 App::error(function (Exception $exception, $code) {
-    Log::error($exception);
+    if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
+        Log::warning($exception->getMessage(), ['url' => URL::current()]);
+        return Response::view('errors.missing', [], 404);
+    } else {
+        Log::error($exception);
+    }
 });
 
 /*
