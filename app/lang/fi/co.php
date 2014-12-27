@@ -16,6 +16,8 @@ return [
     'country'           => 'Maa',
     'address'           => 'Osoite',
     'postcode'          => 'Postinumero',
+    'receive_email'     => 'Receive email',
+    'receive_sms'       => 'Receive SMS',
     'joined'            => 'Lisätty',
     'active_services'   => 'Aktiiviset palvelut',
     'with_selected'     => 'Valittu',

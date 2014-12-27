@@ -55,11 +55,9 @@ class SmsTemplate extends \App\Core\Models\Base
         }
 
         foreach ($consumers as $consumer) {
-            if (empty($consumer->phone)) {
+            if (empty($consumer->phone) || !$consumer->receive_sms) {
                 continue;
             }
-
-            // check for marketing material opt-out maybe?
 
             // configurable?
             $from = $sms->from_name ?: 'varaa.com';

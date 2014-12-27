@@ -16,6 +16,8 @@ return [
     'country'           => 'Country',
     'address'           => 'Address',
     'postcode'          => 'Post Code',
+    'receive_email'     => 'Receive email',
+    'receive_sms'       => 'Receive SMS',
     'joined'            => 'Joined',
     'active_services'   => 'Active Services',
     'with_selected'     => 'With selected',

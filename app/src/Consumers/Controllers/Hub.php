@@ -19,9 +19,19 @@ class Hub extends Base
     protected $crudOptions = [
         'modelClass' => 'App\Consumers\Models\Consumer',
         'langPrefix' => 'co',
-        'indexFields' => ['first_name', 'last_name', 'email', 'phone', 'services'],
+        'indexFields' => ['first_name', 'last_name', 'email', 'phone', 'receive_email', 'receive_sms', 'services'],
         'presenters' => [
+            'receive_email' => ['App\Olut\Presenters\Bool', 'render'],
+            'receive_sms' => ['App\Olut\Presenters\Bool', 'render'],
             'services' => ['App\Consumers\Controllers\Hub', 'presentServices']
+        ],
+        'lomake' => [
+            'receive_email' => [
+                'type' => 'radio',
+            ],
+            'receive_sms' => [
+                'type' => 'radio',
+            ],
         ],
         'layout' => 'modules.co.layout',
         'showTab' => false,
@@ -222,7 +232,7 @@ class Hub extends Base
     public function bulkSendEmail($ids)
     {
         $sendAll = false;
-        if ($ids === ['all']) {
+        if (in_array('all', $ids)) {
             $sendAll = true;
             $ids = Consumer::ofCurrentUser()->lists('id');
         }
@@ -263,7 +273,7 @@ class Hub extends Base
     public function bulkSendSms($ids)
     {
         $sendAll = false;
-        if ($ids === ['all']) {
+        if (in_array('all', $ids)) {
             $sendAll = true;
             $ids = Consumer::ofCurrentUser()->lists('id');
         }
