@@ -49,6 +49,8 @@ return [
     'group'             => 'Add to group',
     'send_email'        => 'Send email',
     'send_sms'          => 'Send SMS',
+    'send_all_email'    => 'Send email to all consumers',
+    'send_all_sms'      => 'Send SMS to all consumers',
     'groups' => [
         'all'           => 'Groups',
         'add'           => 'Add group',

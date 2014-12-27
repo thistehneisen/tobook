@@ -7,6 +7,10 @@
     <div class="form-group">
         <label for="upload" class="col-sm-2 control-label">{{ trans('co.consumers') }}</label>
         <div class="col-sm-5">
+            @if ($sendAll)
+                {{ trans('common.all') }}
+                {{ Form::hidden('ids[]', 'all') }}
+            @endif
             <ul>
                 @foreach($consumers as $consumer)
                     <li>

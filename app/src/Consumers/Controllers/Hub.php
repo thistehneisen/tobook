@@ -29,6 +29,8 @@ class Hub extends Base
             'group',
             'send_email',
             'send_sms',
+            'send_all_email',
+            'send_all_sms',
         ],
         'paginationShowAll' => false,
     ];
@@ -219,6 +221,12 @@ class Hub extends Base
 
     public function bulkSendEmail($ids)
     {
+        $sendAll = false;
+        if ($ids === ['all']) {
+            $sendAll = true;
+            $ids = Consumer::ofCurrentUser()->lists('id');
+        }
+
         $campaign = null;
         $campaignId = intval(Input::get('campaign_id'));
         if (!empty($campaignId)) {
@@ -243,16 +251,23 @@ class Hub extends Base
             $campaignPairs[$campaign->id] = $campaign->subject;
         }
 
-        $consumers = Consumer::ofCurrentUser()->whereIn('id', $ids)->get();
+        $consumers = $sendAll ? [] : Consumer::ofCurrentUser()->whereIn('id', $ids)->get();
 
         return View::make('modules.co.bulk_send_email', [
             'campaignPairs' => $campaignPairs,
             'consumers' => $consumers,
+            'sendAll' => $sendAll,
         ]);
     }
 
     public function bulkSendSms($ids)
     {
+        $sendAll = false;
+        if ($ids === ['all']) {
+            $sendAll = true;
+            $ids = Consumer::ofCurrentUser()->lists('id');
+        }
+
         $sms = null;
         $smsId = intval(Input::get('sms_id'));
         if (!empty($smsId)) {
@@ -277,12 +292,23 @@ class Hub extends Base
             $smsPairs[$sms->id] = sprintf('%s (%s: %s)', $sms->title, trans('co.sms_templates.from_name'), $sms->from_name ?: 'varaa.com');
         }
 
-        $consumers = Consumer::ofCurrentUser()->whereIn('id', $ids)->get();
+        $consumers = $sendAll ? [] : Consumer::ofCurrentUser()->whereIn('id', $ids)->get();
 
         return View::make('modules.co.bulk_send_sms', [
             'smsPairs' => $smsPairs,
             'consumers' => $consumers,
+            'sendAll' => $sendAll,
         ]);
+    }
+
+    public function bulkSendAllEmail($ids)
+    {
+        return static::bulkSendEmail($ids);
+    }
+
+    public function bulkSendAllSms($ids)
+    {
+        return static::bulkSendSms($ids);
     }
 
     public static function presentServices($value, $item)

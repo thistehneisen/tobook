@@ -8,7 +8,7 @@
 
 @section ('scripts')
     @parent
-    {{ HTML::script(asset('assets/js/modules/co.js')) }}
+    {{ HTML::script(asset('assets/js/modules/co.js?v=00001')) }}
     {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
 @stop
 
@@ -91,7 +91,7 @@
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="{{ route('consumer-hub.history.email')}}">{{ trans('co.history.email') }}</a></li>
-                        <li><a href="{{ route('consumer-hub.history.email')}}">{{ trans('co.history.sms') }}</a></li>
+                        <li><a href="{{ route('consumer-hub.history.sms')}}">{{ trans('co.history.sms') }}</a></li>
                     </ul>
                 </li>
             </ul>

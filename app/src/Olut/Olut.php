@@ -233,7 +233,6 @@ trait Olut
 
         // List of methods that can handle bulk actions
         $bulkActions = $this->getOlutOptions('bulkActions', ['destroy']);
-        debug($bulkActions);
 
         // Bartender will take care the output of fields
         $bartender = new Bartender($this->getOlutOptions('presenters', []));

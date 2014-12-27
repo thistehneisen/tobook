@@ -19,4 +19,15 @@ $(document).ready(function () {
             }
         });
     });
+
+    // inject ids input to bypass bulk validation
+    $('#olut-mass-action').on('change', function () {
+        var $this = $(this);
+
+        if ($this.val() === 'send_all_email' || $this.val() === 'send_all_sms') {
+            $this.after('<input id="all_ids" type="hidden" name="ids[]" value="all" />');
+        } else {
+            $('#all_ids').remove();
+        }
+    });
 });
