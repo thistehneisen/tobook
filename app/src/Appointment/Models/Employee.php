@@ -529,6 +529,21 @@ class Employee extends \App\Appointment\Models\Base
                     continue;
                 }
 
+                if($basicService->requireRoom()) {
+                    $availableRoom = Booking::getAvailableRoom(
+                        $this->id,
+                        $basicService,
+                        null,
+                        $date,
+                        $startTime,
+                        $endTime
+                    );
+
+                    if (empty($availableRoom->id)) {
+                        continue;
+                    }
+                }
+
                 if ($startTime->gt(Carbon::now()) || $isTest) {
                     $startTime->addMinutes($service->before);
                     $endTime   = $startTime->copy()->addMinutes($serviceLength)

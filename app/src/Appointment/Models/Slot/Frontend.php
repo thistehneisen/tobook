@@ -24,6 +24,7 @@ class Frontend extends Base implements Strategy
             'freetime_head'     => ' freetime freetime-head',
             'freetime_body'     => ' freetime freetime-body',
             'resource_inactive' => 'resource fancybox inactive',
+            'room_inactive'     => 'room fancybox inactive',
             'custom_active'     => 'custom active',
             'custom_inactive'   => 'custom inactive',
             'booked_head'       => ' slot-booked-head',

@@ -16,6 +16,7 @@ class Base implements Strategy
     private $customTimeSlot  = [];
     private $customTimeCache = [];
     private $resourceCache   = [];
+    private $roomCache       = [];
 
 
     /**
@@ -85,6 +86,7 @@ class Base implements Strategy
         $this->freeTimeClass();
         $this->bookingClass();
         $this->resourceClass();
+        $this->roomClass();
         $employee->setBookedSlot($this->bookedSlot);
         $employee->setFreetimeSlot($this->freetimeSlot);
         $employee->setCustomTimeSlot($this->customTimeSlot);
@@ -260,6 +262,53 @@ class Base implements Strategy
         return $this->class;
     }
 
+    public function roomClass()
+    {
+        $roomIds = [];
+        if (empty($this->service)) {
+            return $this->class;
+        }
+
+        $roomIds = $this->service->rooms->lists('id');
+        $totalRooms = count($roomIds);
+
+        if(empty($roomIds)) {
+            return $this->class;
+        }
+
+        if(!isset($this->resourceCache[$this->date][$this->service->id]['query'])) {
+            $query = Booking::where('as_bookings.date', $this->date)
+                    ->whereNull('as_bookings.deleted_at')
+                    ->where('as_bookings.status','!=', Booking::STATUS_CANCELLED)
+                    ->join('as_booking_services', 'as_booking_services.booking_id', '=','as_bookings.id')
+                    ->join('as_booking_service_rooms', 'as_booking_service_rooms.booking_service_id', '=', 'as_booking_services.id')
+                    ->whereIn('as_booking_service_rooms.room_id', $roomIds)->get();
+            $this->roomCache[$this->date][$this->service->id]['query'] = $query;
+        }
+
+        $this->roomCache[$this->date][$this->service->id][$this->hour][$this->minute] = true;
+
+        foreach ($this->roomCache[$this->date][$this->service->id]['query'] as $booking) {
+            $start = $booking->getStartAt();
+            $end   = $booking->getEndAt();
+            if ($this->rowTime >= $start && $this->rowTime <= $end) {
+                if(!isset($this->roomCache[$this->date][$this->service->id][$this->hour][$this->minute])) {
+                    $this->roomCache[$this->date][$this->service->id][$this->hour][$this->minute] = $totalRooms;
+                } else {
+                    if($this->roomCache[$this->date][$this->service->id][$this->hour][$this->minute] > 0) {
+                        $this->roomCache[$this->date][$this->service->id][$this->hour][$this->minute] -= 1;
+                    }
+                }
+            }
+        }
+
+        if(!$this->roomCache[$this->date][$this->service->id][$this->hour][$this->minute]) {
+            $this->class = $this->getValue('room_inactive');
+        }
+
+        return $this->class;
+    }
+
     protected function getValue($key)
     {
         $map = [
@@ -270,6 +319,7 @@ class Base implements Strategy
             'custom_active'     => 'custom fancybox active',
             'custom_inactive'   => 'custom fancybox inactive',
             'resource_inactive' => 'resource fancybox inactive',
+            'room_inactive'     => 'room fancybox inactive',
             'booked_head'       => ' slot-booked-head',
             'booked_body'       => ' slot-booked-body',
         ];
