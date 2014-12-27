@@ -128,9 +128,7 @@ $(function () {
                 <li><a href="{{ route($routes['index'], ['perPage' => 10]) }}" id="per-page-10">10</a></li>
                 <li><a href="{{ route($routes['index'], ['perPage' => 20]) }}" id="per-page-20">20</a></li>
                 <li><a href="{{ route($routes['index'], ['perPage' => 50]) }}" id="per-page-50">50</a></li>
-                @if ($paginAll)
-                <li><a href="{{ route($routes['index'], ['perPage' => 0]) }}">{{ trans('olut::olut.show_all') }}</a></li>
-                @endif
+                <li><a href="{{ route($routes['index'], ['perPage' => 500]) }}" id="per-page-500">500</a></li>
             </ul>
         </div>
     </div>

@@ -4,6 +4,11 @@
     @parent
     {{ HTML::style(asset('packages/alertify/css/alertify.min.css')) }}
     {{ HTML::style(asset('packages/alertify/css/themes/default.min.css')) }}
+    <style>
+    .main {
+        padding-top: 0;
+    }
+    </style>
 @stop
 
 @section ('scripts')
