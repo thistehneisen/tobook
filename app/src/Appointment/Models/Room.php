@@ -24,8 +24,8 @@ class Room extends \App\Core\Models\Base
             ->where('service_id', $service->id)
             ->delete();
 
-        foreach ($roomIds as $roomId) {
-            $room = self::find($roomId);
+        foreach ($roomIds as $key => $id) {
+            $room = self::find($id);
             $roomService = new RoomService;
             $roomService->service()->associate($service);
             $roomService->room()->associate($room);

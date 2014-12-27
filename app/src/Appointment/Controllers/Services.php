@@ -186,7 +186,6 @@ class Services extends AsBase
                 $resourceService->resource()->associate($resource);
                 $resourceService->save();
             }
-
             Room::associateWithService($rooms, $service);
 
         } catch(\Watson\Validating\ValidationException $ex) {

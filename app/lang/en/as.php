@@ -304,6 +304,7 @@ return [
             'reschedule_single_only'   => 'Booking with multiple services cannot be rescheduled',
             'reschedule_unbooked_extra'=> 'Booking cannot be rescheduled',
             'not_enough_resources'     => 'Required resources are not available!',
+            'not_enough_rooms'         => 'There are not enough room!',
             'empty_start_time'         => 'Booking start time cannot be empty',
             'booking_not_found'        => 'Booking not found!',
             'past_booking'             => 'Cannot make booking in the past!'

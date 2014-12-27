@@ -716,6 +716,9 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             if($this->firstBookingService()->is_requested_employee):
                 $ouput .= '<i class="fa fa-check-square-o"></i>&nbsp;';
             endif;
+            if($this->firstBookingService()->service->requireRoom()):
+                $ouput .= '<i class="fa fa-square-o"></i>&nbsp;';
+            endif;
         endif;
         if(!empty($this->getBookingResources())):
             $ouput .= '<i class="fa fa-cubes"></i>&nbsp;';
