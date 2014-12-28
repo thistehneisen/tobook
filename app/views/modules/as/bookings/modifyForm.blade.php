@@ -1,7 +1,6 @@
-<form id="modify_booking_form_{{ $booking->id }}" class="popover_form form-horizontal @if(!empty($extraServices)) has-extra-services @endif" action="">
-    {{--
+<form id="modify_booking_form_{{ $booking->id }}" class="popover_form form-horizontal @if (!empty($extraServices)) { has-extra-services @endif" action="">{--
     <div>
-          <span class="text-info"><strong>{{ trans('as.bookings.modify_booking')}}</strong><span id="loading" style="display:none"><img src="{{ asset('assets/img/busy.gif') }}"/></span></span><button type="button" onclick="$(this).closest('div.popover').popover('hide');" class="close" data-dismiss="popover">&times;</button>
+          <span class="text-info"><strong>{{ trans('as.bookings.modify_booking')}}</strong><span id="loading" style="display:none"><img src="{{ asset_path('core/img/busy.gif') }}"/></span></span><button type="button" onclick="$(this).closest('div.popover').popover('hide');" class="close" data-dismiss="popover">&times;</button>
             <hr>
     </div>
     --}}
@@ -71,5 +70,5 @@
     $('.selectpicker').selectpicker();
     $('select.select2').select2();
 //boostrap spinner
-(function(e){e("div.spinner").each(function(){var b=e(this),c=b.find("input"),a=+b.data("inc"),d=b.attr("data-positive"),d="undefined"===typeof d?!1:"true"===d;"number"===typeof a&&a!==a&&(a=1);b.find(".btn:first-of-type").on("click",function(){c.val(+c.val()+a)});b.find(".btn:last-of-type").on("click",function(){d&&0>+c.val()-a||c.val(+c.val()-a)})})})(jQuery);
+(function (e) {e("div.spinner").each(function () {var b=e(this),c=b.find("input"),a=+b.data("inc"),d=b.attr("data-positive"),d="undefined"===typeof d?!1:"true"===d;"number"===typeof a&&a!==a&&(a=1);b.find(".btn:first-of-type").on("click",function () {c.val(+c.val()+a)});b.find(".btn:last-of-type").on("click",function () {d&&0>+c.val()-a||c.val(+c.val()-a)})})})(jQuery);
 </script>

@@ -10,6 +10,8 @@ if (!function_exists('asset_path')) {
      */
     function asset_path($filename)
     {
+        $folder = 'built/';
+
         // @TODO: Think about caching of reading file
         $files = [
             'script-manifest.json',
@@ -19,7 +21,7 @@ if (!function_exists('asset_path')) {
 
         $manifest = [];
         foreach ($files as $file) {
-            $path = public_path('built/'.$file);
+            $path = public_path($folder.$file);
             $files = file_exists($path)
                 ? json_decode(file_get_contents($path), true)
                 : [];
@@ -27,7 +29,7 @@ if (!function_exists('asset_path')) {
         }
 
         return array_key_exists($filename, $manifest)
-            ? asset('built/'.$manifest[$filename])
-            : $filename;
+            ? asset($folder.$manifest[$filename])
+            : asset($folder.$filename);
     }
 }

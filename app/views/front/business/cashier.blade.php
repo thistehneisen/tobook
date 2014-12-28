@@ -16,43 +16,43 @@
 <div class="loyalty-general-info">
     <div class="loyalty-general-info-column">
         <div class="loyalty-general-info-row">
-            <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+            <img src="{{ asset_path('core/img/iconArrow.png') }}" class="loyalty-bullet" />&nbsp;
             <span>{{ trans('intro.cashier_guide_3') }}</span>
         </div>
         <div class="loyalty-general-info-row margin">
-            <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+            <img src="{{ asset_path('core/img/iconArrow.png') }}" class="loyalty-bullet" />&nbsp;
             <span>{{ trans('intro.cashier_guide_4') }}</span>
         </div>
         <div class="loyalty-general-info-row margin">
-            <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+            <img src="{{ asset_path('core/img/iconArrow.png') }}" class="loyalty-bullet" />&nbsp;
             <span>{{ trans('intro.cashier_guide_5') }}</span>
         </div>
     </div>
     <div class="loyalty-general-info-column">
         <div class="loyalty-general-info-row">
-            <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+            <img src="{{ asset_path('core/img/iconArrow.png') }}" class="loyalty-bullet" />&nbsp;
             <span>{{ trans('intro.cashier_guide_6') }}</span>
         </div>
         <div class="loyalty-general-info-row margin">
-            <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+            <img src="{{ asset_path('core/img/iconArrow.png') }}" class="loyalty-bullet" />&nbsp;
             <span>{{ trans('intro.loyalty_guide8') }}</span>
         </div>
         <div class="loyalty-general-info-row margin">
-            <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+            <img src="{{ asset_path('core/img/iconArrow.png') }}" class="loyalty-bullet" />&nbsp;
             <span>{{ trans('intro.cashier_guide_7') }}</span>
         </div>
     </div>
     <div class="loyalty-general-info-column">
         <div class="loyalty-general-info-row">
-            <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+            <img src="{{ asset_path('core/img/iconArrow.png') }}" class="loyalty-bullet" />&nbsp;
             <span>{{ trans('intro.cashier_guide_8') }}</span>
         </div>
         <div class="loyalty-general-info-row margin">
-            <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+            <img src="{{ asset_path('core/img/iconArrow.png') }}" class="loyalty-bullet" />&nbsp;
             <span>{{ trans('intro.cashier_guide_9') }}</span>
         </div>
         <div class="loyalty-general-info-row margin">
-            <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+            <img src="{{ asset_path('core/img/iconArrow.png') }}" class="loyalty-bullet" />&nbsp;
             <span>{{ trans('intro.cashier_guide_10') }}</span>
         </div>
     </div>
@@ -77,7 +77,7 @@
     <span class="cashier-background02-header">{{ trans('intro.cashier_guide14') }}</span>
     <div class="cashier-background02-content">
         <div class="cashier-background02-content-image">
-            <img src="/assets/img/cashierBack02.png">
+            <img src="{{ asset_path('core/img/cashierBack02.png') }}">
         </div>
         <div class="cashier-background02-content-circle">
             <div class="cashier-background02-content-circle-header">{{ trans('intro.cashier_guide_6') }}</div>

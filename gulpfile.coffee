@@ -6,13 +6,15 @@ plugins = gulpLoadPlugins()
 paths =
   dest: 'public/built/'
   base: __dirname + '/resources'
+  img: ['resources/**/img/**/*.*']
   js: ['resources/**/scripts/**/*.js', '!resources/**/scripts/**/*.min.js']
   coffee: ['resources/**/scripts/**/*.coffee']
   less: ['resources/**/styles/**/*.less', '!resources/**/styles/**/*.import.less']
 
+# Do nothing, just copy images to proper folders
 gulp.task 'img', ->
   gulp.src paths.img
-    .pipe gulp.dest paths.dest + 'img'
+    .pipe gulp.dest paths.dest
 
 # Rev JS files
 gulp.task 'js', ->
@@ -48,7 +50,7 @@ gulp.task 'clean', ->
     del.sync [paths.dest]
 
 # Build assets to be ready for production
-gulp.task 'build', ['coffee', 'less']
+gulp.task 'build', ['coffee', 'less', 'img']
 
 # For development
 # Watch file changes run related tasks

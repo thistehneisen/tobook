@@ -4,9 +4,9 @@
 
 @section('content')
 <div class="row-fluid">
-    <img src="{{ asset('assets/img/front/resellers/1.jpg') }}" class="img-responsive banner" alt="" />
+    <img src="{{ asset_path('core/img/front/resellers/1.jpg') }}" class="img-responsive banner" alt="" />
     <div class="text-center">
-        <img src="{{ asset('assets/img/front/resellers/logo.png') }}" class="img-responsive" alt="" />
+        <img src="{{ asset_path('core/img/front/resellers/logo.png') }}" class="img-responsive" alt="" />
     </div>
     <h2 class="text-center">Varaa.com Reseller Network</h2>
 
@@ -26,7 +26,7 @@
             </ul>
         </div>
         <div class="col-lg-3 col-sm-4">
-            <img src="{{ asset('assets/img/front/resellers/2.png') }}" class="img-responsive" alt="" />
+            <img src="{{ asset_path('core/img/front/resellers/2.png') }}" class="img-responsive" alt="" />
         </div>
     </div>
 

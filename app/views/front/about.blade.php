@@ -5,7 +5,7 @@
 @section('content')
 <div class="row-fluid">
     <div class="text-center">
-        <img src="{{ asset('assets/img/front/about/1.jpg') }}" class="img-responsive banner" alt="" />
+        <img src="{{ asset_path('core/img/front/about/1.jpg') }}" class="img-responsive banner" alt="" />
         <h2>The most integrated online booking system you’ll ever need.</h2>
     </div>
     <p>Varaa.com is a powerful real-time distributed service booking and reservation platform which is suitable for multiple service industries.<br>
@@ -19,18 +19,18 @@
 </div>
 <div class="row-fluid">
     <div class="col-lg-4 col-sm-4 text-center">
-        <img src="{{ asset('assets/img/front/about/2.jpg') }}" class="img-responsive" alt="">
+        <img src="{{ asset_path('core/img/front/about/2.jpg') }}" class="img-responsive" alt="">
         <h4>Sell more</h4>
         <p>Maximize your reservations.<br>
         Fulfill your bookings even when you are sleeping.</p>
     </div>
     <div class="col-lg-4 col-sm-4 text-center">
-        <img src="{{ asset('assets/img/front/about/3.jpg') }}" class="img-responsive" alt="">
+        <img src="{{ asset_path('core/img/front/about/3.jpg') }}" class="img-responsive" alt="">
         <h4>Save time</h4>
         <p>Easy up life for your staff by getting rid of unnecessary administration work.</p>
     </div>
     <div class="col-lg-4 col-sm-4 text-center">
-        <img src="{{ asset('assets/img/front/about/4.jpg') }}" class="img-responsive" alt="">
+        <img src="{{ asset_path('core/img/front/about/4.jpg') }}" class="img-responsive" alt="">
         <h4>Grow more</h4>
         <p>Cut cost and get more money by quick online transaction and accurate management system.</p>
     </div>

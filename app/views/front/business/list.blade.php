@@ -33,112 +33,112 @@
 <div id="weblistItems" class="list-head">
     <a href="#">
         <div class="weblist-item-icon">
-            <img src="/assets/img/homeWeb01.png"/>
+            <img src="{{ asset_path('core/img/homeWeb01.png') }}"/>
             <p>Rauman Keskus-Apteekki</p>
-            <div class="weblist-item-icon-thumb"><img src="/assets/img/thumbWeb01.png" /></div>
+            <div class="weblist-item-icon-thumb"><img src="{{ asset_path('core/img/thumbWeb01.png') }}" /></div>
         </div>
     </a>
     <a href="#">
         <div class="weblist-item-icon">
-            <img src="/assets/img/homeWeb02.png" style="width:60%;"/>
+            <img src="{{ asset_path('core/img/homeWeb02.png') }}" style="width:60%;"/>
             <p>Boutique Cameo</p>
-            <div class="weblist-item-icon-thumb"><img src="/assets/img/thumbWeb02.png" /></div>
+            <div class="weblist-item-icon-thumb"><img src="{{ asset_path('core/img/thumbWeb02.png') }}" /></div>
         </div>
     </a>
     <a href="#">
         <div class="weblist-item-icon">
-            <img src="/assets/img/homeWeb03.png" style="width:60%;"/>
+            <img src="{{ asset_path('core/img/homeWeb03.png') }}" style="width:60%;"/>
             <p>Ravintola Torni</p>
-            <div class="weblist-item-icon-thumb"><img src="/assets/img/thumbWeb01.png" /></div>
+            <div class="weblist-item-icon-thumb"><img src="{{ asset_path('core/img/thumbWeb01.png') }}" /></div>
         </div>
     </a>
     <a href="#">
         <div class="weblist-item-icon">
-            <img src="/assets/img/homeWeb04.png" style="width:60%;"/>
+            <img src="{{ asset_path('core/img/homeWeb04.png') }}" style="width:60%;"/>
             <p>West Beverly Ravintola</p>
-            <div class="weblist-item-icon-thumb"><img src="/assets/img/thumbWeb01.png" /></div>
+            <div class="weblist-item-icon-thumb"><img src="{{ asset_path('core/img/thumbWeb01.png') }}" /></div>
         </div>
     </a>
     <a href="#">
         <div class="weblist-item-icon">
-            <img src="/assets/img/homeWeb05.png" style="width:60%;"/>
+            <img src="{{ asset_path('core/img/homeWeb05.png') }}" style="width:60%;"/>
             <p>Trattoria Il Faro</p>
-            <div class="weblist-item-icon-thumb"><img src="/assets/img/thumbWeb05.png" /></div>
+            <div class="weblist-item-icon-thumb"><img src="{{ asset_path('core/img/thumbWeb05.png') }}" /></div>
         </div>
     </a>
     <a href="#">
         <div class="weblist-item-icon">
-            <img src="/assets/img/homeWeb06.png" style="width:60%;"/>
+            <img src="{{ asset_path('core/img/homeWeb06.png') }}" style="width:60%;"/>
             <p>BM Day Spa</p>
-            <div class="weblist-item-icon-thumb"><img src="/assets/img/thumbWeb06.png" /></div>
+            <div class="weblist-item-icon-thumb"><img src="{{ asset_path('core/img/thumbWeb06.png') }}" /></div>
         </div>
     </a>
     <a href="#">
         <div class="weblist-item-icon">
-            <img src="/assets/img/homeWeb07.png" style="width:60%;"/>
+            <img src="{{ asset_path('core/img/homeWeb07.png') }}" style="width:60%;"/>
             <p>Myllypuron Apteekki</p>
-            <div class="weblist-item-icon-thumb"><img src="/assets/img/thumbWeb07.png" /></div>
+            <div class="weblist-item-icon-thumb"><img src="{{ asset_path('core/img/thumbWeb07.png') }}" /></div>
         </div>
     </a>
     <a href="#">
         <div class="weblist-item-icon">
-            <img src="/assets/img/homeWeb08.png" style="width:60%;"/>
+            <img src="{{ asset_path('core/img/homeWeb08.png') }}" style="width:60%;"/>
             <p>Kauneushuone Rilla</p>
-            <div class="weblist-item-icon-thumb"><img src="/assets/img/thumbWeb01.png" /></div>
+            <div class="weblist-item-icon-thumb"><img src="{{ asset_path('core/img/thumbWeb01.png') }}" /></div>
         </div>
     </a>
     <a href="#">
         <div class="weblist-item-icon">
-            <img src="/assets/img/homeWeb09.png" style="width:60%;"/>
+            <img src="{{ asset_path('core/img/homeWeb09.png') }}" style="width:60%;"/>
             <p>Pasilan Hiuspiste</p>
-            <div class="weblist-item-icon-thumb"><img src="/assets/img/thumbWeb09.png" /></div>
+            <div class="weblist-item-icon-thumb"><img src="{{ asset_path('core/img/thumbWeb09.png') }}" /></div>
         </div>
     </a>
     <a href="#">
         <div class="weblist-item-icon">
-            <img src="/assets/img/homeWeb10.png" style="width:60%;"/>
+            <img src="{{ asset_path('core/img/homeWeb10.png') }}" style="width:60%;"/>
             <p>Ravintola Thalassa</p>
-            <div class="weblist-item-icon-thumb"><img src="/assets/img/thumbWeb01.png" /></div>
+            <div class="weblist-item-icon-thumb"><img src="{{ asset_path('core/img/thumbWeb01.png') }}" /></div>
         </div>
     </a>
     <a href="#">
         <div class="weblist-item-icon">
-            <img src="/assets/img/homeWeb11.png" style="width:60%;"/>
+            <img src="{{ asset_path('core/img/homeWeb11.png') }}" style="width:60%;"/>
             <p>Hiustrendi</p>
-            <div class="weblist-item-icon-thumb"><img src="/assets/img/thumbWeb11.png" /></div>
+            <div class="weblist-item-icon-thumb"><img src="{{ asset_path('core/img/thumbWeb11.png') }}" /></div>
         </div>
     </a>
     <a href="#">
         <div class="weblist-item-icon">
-            <img src="/assets/img/homeWeb12.png" style="width:60%;"/>
+            <img src="{{ asset_path('core/img/homeWeb12.png') }}" style="width:60%;"/>
             <p>Riitan Salonki</p>
-            <div class="weblist-item-icon-thumb"><img src="/assets/img/thumbWeb12.png" /></div>
+            <div class="weblist-item-icon-thumb"><img src="{{ asset_path('core/img/thumbWeb12.png') }}" /></div>
         </div>
     </a>
 
     <a href="#">
         <div class="weblist-item-icon">
-            <img src="/assets/img/homeWeb13.png" style="width:60%;"/>
+            <img src="{{ asset_path('core/img/homeWeb13.png') }}" style="width:60%;"/>
             <p>M.Sport Liikuntakeskus</p>
-            <div class="weblist-item-icon-thumb"><img src="/assets/img/thumbWeb13.png" /></div>
+            <div class="weblist-item-icon-thumb"><img src="{{ asset_path('core/img/thumbWeb13.png') }}" /></div>
         </div>
     </a>
     <a href="#">
         <div class="weblist-item-icon">
-            <img src="/assets/img/homeWeb14.png" style="width:60%;"/>
-            <div class="weblist-item-icon-thumb"><img src="/assets/img/thumbWeb14.png" /></div>
+            <img src="{{ asset_path('core/img/homeWeb14.png') }}" style="width:60%;"/>
+            <div class="weblist-item-icon-thumb"><img src="{{ asset_path('core/img/thumbWeb14.png') }}" /></div>
         </div>
     </a>
     <a href="#">
         <div class="weblist-item-icon">
-            <img src="/assets/img/homeWeb15.png" style="width:60%;"/>
-            <div class="weblist-item-icon-thumb"><img src="/assets/img/thumbWeb15.png" /></div>
+            <img src="{{ asset_path('core/img/homeWeb15.png') }}" style="width:60%;"/>
+            <div class="weblist-item-icon-thumb"><img src="{{ asset_path('core/img/thumbWeb15.png') }}" /></div>
         </div>
     </a>
     <a href="#">
         <div class="weblist-item-icon">
-            <img src="/assets/img/homeWeb16.png" style="width:60%;"/>
-            <div class="weblist-item-icon-thumb"><img src="/assets/img/thumbWeb16.png" /></div>
+            <img src="{{ asset_path('core/img/homeWeb16.png') }}" style="width:60%;"/>
+            <div class="weblist-item-icon-thumb"><img src="{{ asset_path('core/img/thumbWeb16.png') }}" /></div>
         </div>
     </a>
     <div class="clear-both"></div>
