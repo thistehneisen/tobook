@@ -1,9 +1,4 @@
-<form id="modify_booking_form_{{ $booking->id }}" class="popover_form form-horizontal @if (!empty($extraServices)) { has-extra-services @endif" action="">{--
-    <div>
-          <span class="text-info"><strong>{{ trans('as.bookings.modify_booking')}}</strong><span id="loading" style="display:none"><img src="{{ asset_path('core/img/busy.gif') }}"/></span></span><button type="button" onclick="$(this).closest('div.popover').popover('hide');" class="close" data-dismiss="popover">&times;</button>
-            <hr>
-    </div>
-    --}}
+<form id="modify_booking_form_{{ $booking->id }}" class="popover_form form-horizontal @if (!empty($extraServices)) { has-extra-services @endif" action="">
     <div class="form-group">
         <label for="booking_status" class="col-sm-4">{{ trans('as.bookings.status') }}</label>
         <div class="col-sm-8">
