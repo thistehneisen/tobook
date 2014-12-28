@@ -10,7 +10,7 @@
     {{ HTML::style(asset('packages/bootstrap-spinner/bootstrap-spinner.min.css')) }}
     {{ HTML::style(asset('packages/alertify/css/alertify.min.css')) }}
     {{ HTML::style(asset('packages/alertify/css/themes/default.min.css')) }}
-    {{ HTML::style(asset('assets/css/as/appointment.css?v=00005')) }}
+    {{ HTML::style(asset_path('as/styles/main.css')) }}
 <style>
 .pagination { margin: 0 !important; }
 </style>
@@ -18,14 +18,13 @@
 
 @section ('scripts')
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js') }}
-    @if (App::getLocale() !== 'en')
-    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.'.App::getLocale().'.min.js') }}
+    @if (App::getLocale() !== 'en') {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.'.App::getLocale().'.min.js') }}
     @endif
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js') }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js') }}
     {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
     {{ HTML::script(asset('packages/bootstrap-spinner/bootstrap-spinner.min.js')) }}
-    {{ HTML::script(asset('assets/js/appointment.js?v=00010')) }}
+    {{ HTML::script(asset_path('as/scripts/main.js')) }}
 @stop
 
 @section('main-classes') container as-wrapper @stop

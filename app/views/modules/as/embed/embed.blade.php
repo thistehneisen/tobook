@@ -7,7 +7,7 @@
     @yield('extra_css')
     @include('modules.as.embed._style')
 
-    <link rel="stylesheet" href="{{ asset('assets/css/as/'.$layout.'.css').(Config::get('app.debug') ? '?v='.time() : '') }}">
+    <link rel="stylesheet" href="{{ asset_path('as/styles/'.$layout.'.css') }}">
 
     @section('analytics-tracking')
         @if (App::environment('prod'))
@@ -45,6 +45,6 @@
 
     @yield('extra_js')
 
-    <script src="{{ asset('assets/js/as/'.$layout.'.js').(Config::get('app.debug') ? '?v='.time() : '') }}"></script>
+    <script src="{{ asset_path('as/scripts/'.$layout.'.js') }}"></script>
 </body>
 </html>

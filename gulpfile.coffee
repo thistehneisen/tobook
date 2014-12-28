@@ -6,8 +6,7 @@ plugins = gulpLoadPlugins()
 paths =
   dest: 'public/built/'
   base: __dirname + '/resources'
-  img: 'public/assets/img/**/*'
-  js: ['public/assets/js/**/*.js', '!assets/js/**/*.min.js']
+  js: ['resources/**/scripts/**/*.js', '!resources/**/scripts/**/*.min.js']
   coffee: ['resources/**/scripts/**/*.coffee']
   less: ['resources/**/styles/**/main.less']
 
@@ -15,8 +14,16 @@ gulp.task 'img', ->
   gulp.src paths.img
     .pipe gulp.dest paths.dest + 'img'
 
+# Rev JS files
+gulp.task 'js', ->
+  gulp.src paths.js, base: paths.base
+    .pipe plugins.rev()
+    .pipe gulp.dest paths.dest
+    .pipe plugins.rev.manifest path: 'js-manifest.json'
+    .pipe gulp.dest paths.dest
+
 # Compile CoffeeScript
-gulp.task 'coffee', ['clean'], ->
+gulp.task 'coffee', ['clean', 'js'], ->
   gulp.src paths.coffee, base: paths.base
     .pipe plugins.coffee()
     .pipe plugins.uglify()

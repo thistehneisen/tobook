@@ -13,7 +13,8 @@ if (!function_exists('asset_path')) {
         // @TODO: Think about caching of reading file
         $files = [
             'script-manifest.json',
-            'style-manifest.json'
+            'style-manifest.json',
+            'js-manifest.json',
         ];
 
         $manifest = [];
