@@ -149,7 +149,7 @@
                     alertify.message("OK");
                 });
             });
-            return '<div class="popover_form" id="' + div_id + '"><img src="/assets/img/busy.gif"></div>';
+            return '<div class="popover_form" id="' + div_id + '"><img src="/built/core/img/busy.gif"></div>';
         }
         $('a.popup-ajax').click(function (e) {
             e.preventDefault();
