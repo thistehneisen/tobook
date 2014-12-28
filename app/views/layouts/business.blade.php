@@ -1,9 +1,5 @@
 @extends ('layouts.default')
 
-@section('styles')
-    {{ HTML::style('assets/css/intro.css') }}
-@stop
-
 @section('main-classes') container-fluid intro @stop
 
 @section('content')

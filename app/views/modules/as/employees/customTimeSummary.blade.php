@@ -1,7 +1,7 @@
 @extends ('modules.as.layout')
 @section ('styles')
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css') }}
-    {{ HTML::style(asset('assets/css/as/appointment.css?v=00005')) }}
+    {{ HTML::style(asset_path('as/styles/main.css')) }}
 @stop
 
 @section ('scripts')
@@ -43,8 +43,7 @@
                 <td>{{ $item['date']->toDateString() }}</td>
                 @foreach ($employees as $employee)
                 <td>
-                    @if(!empty($item['employees'][$employee->id]->customTime))
-                    {{ $item['employees'][$employee->id]->customTime->name }}
+                    @if (!empty($item['employees'][$employee->id]->customTime)) {{ $item['employees'][$employee->id]->customTime->name }}
                     @else
                     --
                     @endif
@@ -59,8 +58,7 @@
             <td>&nbsp;</td>
             @foreach ($employees as $employee)
             <td>
-                @if(isset($sarturdayHours[$employee->id]))
-                {{ $sarturdayHours[$employee->id] }}
+                @if (isset($sarturdayHours[$employee->id])) {{ $sarturdayHours[$employee->id] }}
                 @else
                 --
                 @endif
@@ -72,8 +70,7 @@
             <td>&nbsp;</td>
             @foreach ($employees as $employee)
             <td>
-                @if(isset($sundayHours[$employee->id]))
-                {{ $sundayHours[$employee->id] }}
+                @if (isset($sundayHours[$employee->id])) {{ $sundayHours[$employee->id] }}
                 @else
                 --
                 @endif
@@ -85,8 +82,7 @@
             <td>&nbsp;</td>
             @foreach ($employees as $employee)
             <td>
-                @if(isset($montlyHours[$employee->id]))
-                {{ $montlyHours[$employee->id] }}
+                @if (isset($montlyHours[$employee->id])) {{ $montlyHours[$employee->id] }}
                 @else
                 --
                 @endif
