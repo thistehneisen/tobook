@@ -1,14 +1,10 @@
 @extends ('layouts.default')
 
-@section('styles')
-    {{ HTML::style('assets/css/intro.css') }}
-@stop
-
 @section('main-classes') intro container @stop
 
 @section('content')
 <div class="row-fluid">
-    <img src="{{ asset('assets/img/front/media/1.jpg') }}" class="img-responsive banner" alt="" />
+    <img src="{{ asset_path('core/img/front/media/1.jpg') }}" class="img-responsive banner" alt="" />
     <h2 class="text-center">Varaa.com Media Solutions</h2>
 
     <p>Stay ahead in the e-commerce era, we are here to help you achieve your targets. Our expertise team will build for you a tailored solution that leverages your revenue and attract customers.</p>
@@ -28,7 +24,7 @@
             </ul>
         </div>
         <div class="col-lg-3 col-sm-4">
-            <img src="{{ asset('assets/img/front/media/2.png') }}" class="img-responsive" alt="" />
+            <img src="{{ asset_path('core/img/front/media/2.png') }}" class="img-responsive" alt="" />
         </div>
     </div>
 </div>

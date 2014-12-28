@@ -5,7 +5,7 @@
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css') }}
     {{ HTML::style(asset('packages/alertify/alertify.core.css')) }}
     {{ HTML::style(asset('packages/alertify/alertify.bootstrap.css')) }}
-    {{ HTML::style(asset('assets/css/fd/main.css')) }}
+    {{ HTML::style(asset_path('fd/styles/main.css')) }}
 <style>
 .pagination { margin: 0 !important; }
 </style>
@@ -14,11 +14,10 @@
 @section ('scripts')
     @parent
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js') }}
-    @if (App::getLocale() !== 'en')
-    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.'.App::getLocale().'.min.js') }}
+    @if (App::getLocale() !== 'en') {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.'.App::getLocale().'.min.js') }}
     @endif
     {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
-    {{ HTML::script(asset('assets/js/fd/main.js')) }}
+    {{ HTML::script(asset_path('fd/scripts/main.js')) }}
 @stop
 
 @section('main-classes') container as-wrapper @stop

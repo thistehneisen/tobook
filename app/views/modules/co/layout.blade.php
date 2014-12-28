@@ -13,7 +13,7 @@
 
 @section ('scripts')
     @parent
-    {{ HTML::script(asset('assets/js/modules/co.js?v=00001')) }}
+    {{ HTML::script(asset('assets/js/modules/co.js')) }}
     {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
 @stop
 

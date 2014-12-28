@@ -16,43 +16,43 @@
 <div class="loyalty-general-info">
     <div class="loyalty-general-info-column">
         <div class="loyalty-general-info-row">
-            <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+            <img src="{{ asset_path('core/img/iconArrow.png') }}" class="loyalty-bullet" />&nbsp;
             <span>{{ trans('intro.marketing_guide_3') }}</span>
         </div>
         <div class="loyalty-general-info-row margin">
-            <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+            <img src="{{ asset_path('core/img/iconArrow.png') }}" class="loyalty-bullet" />&nbsp;
             <span>{{ trans('intro.marketing_guide_4') }}</span>
         </div>
         <div class="loyalty-general-info-row margin">
-            <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+            <img src="{{ asset_path('core/img/iconArrow.png') }}" class="loyalty-bullet" />&nbsp;
             <span>{{ trans('intro.marketing_guide_5') }}</span>
         </div>
     </div>
     <div class="loyalty-general-info-column">
         <div class="loyalty-general-info-row">
-            <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+            <img src="{{ asset_path('core/img/iconArrow.png') }}" class="loyalty-bullet" />&nbsp;
             <span>{{ trans('intro.marketing_guide_6') }}</span>
         </div>
         <div class="loyalty-general-info-row margin">
-            <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+            <img src="{{ asset_path('core/img/iconArrow.png') }}" class="loyalty-bullet" />&nbsp;
             <span>{{ trans('intro.marketing_guide_7') }}</span>
         </div>
         <div class="loyalty-general-info-row margin">
-            <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+            <img src="{{ asset_path('core/img/iconArrow.png') }}" class="loyalty-bullet" />&nbsp;
             <span>{{ trans('intro.marketing_guide_8') }}</span>
         </div>
     </div>
     <div class="loyalty-general-info-column">
         <div class="loyalty-general-info-row">
-            <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+            <img src="{{ asset_path('core/img/iconArrow.png') }}" class="loyalty-bullet" />&nbsp;
             <span>{{ trans('intro.loyalty_guide10') }}</span>
         </div>
         <div class="loyalty-general-info-row margin">
-            <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+            <img src="{{ asset_path('core/img/iconArrow.png') }}" class="loyalty-bullet" />&nbsp;
             <span>{{ trans('intro.marketing_guide_9') }}</span>
         </div>
         <div class="loyalty-general-info-row margin">
-            <img src="/assets/img/iconArrow.png" class="loyalty-bullet" />&nbsp;
+            <img src="{{ asset_path('core/img/iconArrow.png') }}" class="loyalty-bullet" />&nbsp;
             <span>{{ trans('intro.marketing_guide_10') }}</span>
         </div>
     </div>
@@ -71,7 +71,7 @@
 
 <div class="marketing-background01">
     <div class="marketing-background01-image">
-        <img src="/assets/img/marketingBack01.png"/>
+        <img src="{{ asset_path('core/img/marketingBack01.png') }}"/>
     </div>
     <div class="marketing-background01-text">
         <div class="marketing-background01-text-header">
@@ -96,7 +96,7 @@
 
 <div class="marketing-background01">
     <div class="marketing-background01-image">
-        <img src="/assets/img/marketingBack03.png" />
+        <img src="{{ asset_path('core/img/marketingBack03.png') }}" />
     </div>
     <div class="marketing-background01-text">
         <div class="marketing-background01-text-header">

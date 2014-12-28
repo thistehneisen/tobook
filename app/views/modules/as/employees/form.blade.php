@@ -87,7 +87,7 @@ $(function () {
          <div class="form-group">
             <label class="col-sm-2 control-label">{{  trans('as.employees.avatar') }} {{ Form::required('avatar', $employee) }}</label>
             <div class="col-sm-5">
-                <p><img src="{{ !empty($employee->avatar) ? $employee->getAvatarUrl() : asset('assets/img/avatar.jpg') }}" width="100" alt="" class="img-thumbnail"></p>
+                <p><img src="{{ !empty($employee->avatar) ? $employee->getAvatarUrl() : asset_path('core/img/avatar.jpg') }}" width="100" alt="" class="img-thumbnail"></p>
                 {{ Form::file('avatar','',array('id'=>'','class'=>'')) }}
             </div>
         </div>

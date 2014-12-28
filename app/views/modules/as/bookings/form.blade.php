@@ -1,8 +1,8 @@
 <div id="book-form" class="@if(isset($upsert)) as-edit-booking @else as-calendar-book @endif">
 @if(empty($booking))
-<h2>{{ trans('as.bookings.add') }} <span id="loading" style="display:none"><img src="{{ asset('assets/img/busy.gif') }}"/></span></h2>
+<h2>{{ trans('as.bookings.add') }} <span id="loading" style="display:none"><img src="{{ asset_path('core/img/busy.gif') }}"/></span></h2>
 @else
-<h2>{{ trans('as.bookings.edit') }} <span id="loading" style="display:none"><img src="{{ asset('assets/img/busy.gif') }}"/></span></h2>
+<h2>{{ trans('as.bookings.edit') }} <span id="loading" style="display:none"><img src="{{ asset_path('core/img/busy.gif') }}"/></span></h2>
 @endif
 <form id="booking_form" method="POST" action="{{ route('as.bookings.add') }}">
 <div class="bs-example">
@@ -117,42 +117,36 @@
                                     <tr>
                                         <td>
                                             <span id="added_service_name">
-                                                @if(!empty($bookingService))
-                                                    {{ $bookingService->service->name }}
+                                                @if (!empty($bookingService)) {{ $bookingService->service->name }}
                                                 @endif
                                             </span>
                                             <br>
                                             <span id="added_employee_name">
-                                                @if(!empty($bookingService))
-                                                    {{ $booking->employee->name }}
+                                                @if (!empty($bookingService)) {{ $booking->employee->name }}
                                                 @endif
                                             </span>
                                         </td>
                                         <td>
                                             <span id="added_booking_modify_time">
-                                                @if(!empty($bookingService))
-                                                    {{ $booking->modify_time }}
+                                                @if (!empty($bookingService)) {{ $booking->modify_time }}
                                                 @endif
                                             </span>
                                         </td>
                                         <td>
                                             <span id="added_booking_plustime">
-                                                @if(!empty($bookingService))
-                                                    {{ $booking->plustime }}
+                                                @if (!empty($bookingService)) {{ $booking->plustime }}
                                                 @endif
                                             </span>
                                         </td>
                                         <td>
                                             <span id="added_booking_date">
-                                                @if(!empty($bookingService))
-                                                    {{ $booking->date }}
+                                                @if (!empty($bookingService)) {{ $booking->date }}
                                                 @endif
                                             </span>
                                         </td>
                                         <td class="align_right">
                                             <span id="added_service_price">
-                                                @if(!empty($bookingService))
-                                                    {{ $booking->total_price }}
+                                                @if (!empty($bookingService)) {{ $booking->total_price }}
                                                 @endif
                                             </span>
                                         </td>
@@ -317,4 +311,3 @@
 @if(!isset($upsert))
     @include ('modules.as.bookings.formScript')
 @endif
-

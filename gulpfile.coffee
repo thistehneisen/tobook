@@ -5,18 +5,27 @@ plugins = gulpLoadPlugins()
 
 paths =
   dest: 'public/built/'
-  base: __dirname + '/public/assets'
-  img: 'public/assets/img/**/*'
-  js: ['public/assets/js/**/*.js', '!assets/js/**/*.min.js']
-  coffee: ['public/assets/js/**/*.coffee']
-  less: ['public/assets/less/**/*.less']
+  base: __dirname + '/resources'
+  img: ['resources/**/img/**/*.*']
+  js: ['resources/**/scripts/**/*.js', '!resources/**/scripts/**/*.min.js']
+  coffee: ['resources/**/scripts/**/*.coffee']
+  less: ['resources/**/styles/**/*.less', '!resources/**/styles/**/*.import.less']
 
+# Do nothing, just copy images to proper folders
 gulp.task 'img', ->
   gulp.src paths.img
-    .pipe gulp.dest paths.dest + 'img'
+    .pipe gulp.dest paths.dest
+
+# Rev JS files
+gulp.task 'js', ->
+  gulp.src paths.js, base: paths.base
+    .pipe plugins.rev()
+    .pipe gulp.dest paths.dest
+    .pipe plugins.rev.manifest path: 'js-manifest.json'
+    .pipe gulp.dest paths.dest
 
 # Compile CoffeeScript
-gulp.task 'coffee', ['clean'], ->
+gulp.task 'coffee', ['clean', 'js'], ->
   gulp.src paths.coffee, base: paths.base
     .pipe plugins.coffee()
     .pipe plugins.uglify()
@@ -30,7 +39,6 @@ gulp.task 'less', ['clean'], ->
   gulp.src paths.less, base: paths.base
     .pipe plugins.less()
     .pipe plugins.cssmin()
-    .pipe plugins.concat 'css/style.css'
     .pipe plugins.rev()
     .pipe gulp.dest paths.dest
     .pipe plugins.rev.manifest path: 'style-manifest.json'
@@ -38,10 +46,11 @@ gulp.task 'less', ['clean'], ->
 
 # Clean the built directory
 gulp.task 'clean', ->
-    del [paths.dest]
+    # Use del.sync to make sure that built directory is empty
+    del.sync [paths.dest]
 
 # Build assets to be ready for production
-gulp.task 'build', ['coffee', 'less']
+gulp.task 'build', ['coffee', 'less', 'img']
 
 # For development
 # Watch file changes run related tasks
