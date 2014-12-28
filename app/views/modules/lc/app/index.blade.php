@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
 @section ('styles')
-@parent
-{{ HTML::style(asset_path('lc/styles/main.css')) }}
+    @parent
+    {{ HTML::style(asset_path('lc/styles/main.css')) }}
 @stop
 
 @section ('scripts')
-@parent
+    @parent
 <script>
     VARAA.addRoute('consumers', "{{ route('app.lc.show') }}");
 </script>
-{{ HTML::script(asset('lc/scripts/main.js')) }}
+    {{ HTML::script(asset_path('lc/scripts/main.js')) }}
 @stop
 
 @section ('title')
