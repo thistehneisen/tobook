@@ -5,7 +5,7 @@
 @stop
 
 @section ('scripts')
-{{ HTML::script(asset('assets/js/jquery.fixedTableHeader.js?v=00001')) }}
+{{ HTML::script(asset_path('core/scripts/jquery.fixedTableHeader.js')) }}
 <script type="text/javascript">
     $(document).ready(function () {
         $('#workshift-summary').fixedTableHeader();
