@@ -192,7 +192,7 @@ def test_acceptance_prepare(headless=1):
 def run_all():
     threads = map(
         lambda x: threading.Thread(target=x), (
-            lambda: local('grunt'),
+            lambda: local('gulp'),
             lambda: local('elasticsearch'),
             lambda: local('php artisan queue:listen --tries=5'),
             lambda: local('redis-server'),
