@@ -8,7 +8,7 @@ paths =
   base: __dirname + '/resources'
   js: ['resources/**/scripts/**/*.js', '!resources/**/scripts/**/*.min.js']
   coffee: ['resources/**/scripts/**/*.coffee']
-  less: ['resources/**/styles/**/main.less']
+  less: ['resources/**/styles/**/*.less', '!resources/**/styles/**/*.import.less']
 
 gulp.task 'img', ->
   gulp.src paths.img
