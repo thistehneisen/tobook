@@ -40,7 +40,7 @@
     {{ HTML::script(asset('packages/jquery.countdown/jquery.plugin.min.js')) }}
     {{ HTML::script(asset('packages/jquery.countdown/jquery.countdown.min.js')) }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js') }}
-    {{ HTML::script(asset_path('as/scripts/layout-3.js') }}
+    {{ HTML::script(asset_path('as/scripts/layout-3.js')) }}
     {{ HTML::script(asset_path('core/scripts/search.js')) }}
 @stop
 
