@@ -295,7 +295,6 @@ class Base implements Strategy
                 if(!isset($this->roomCache[$this->date][$this->service->id][$this->hour][$this->minute])) {
                     $this->roomCache[$this->date][$this->service->id][$this->hour][$this->minute] = $totalRooms;
                 }
-
                 if($this->roomCache[$this->date][$this->service->id][$this->hour][$this->minute] > 0) {
                     $this->roomCache[$this->date][$this->service->id][$this->hour][$this->minute] -= 1;
                 }

@@ -1,6 +1,7 @@
 <?php namespace Test\Acceptance\Appointment\Controllers\Embed;
 
 use \AcceptanceTester;
+use App\Appointment\Models\Employee;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
 use App\Cart\Cart;
@@ -141,7 +142,7 @@ class Layout2Cest extends AbstractBooking
         $I->assertEmpty($bookingService, 'booking service has been deleted');
     }
 
-     public function testResourceBooking(AcceptanceTester $I)
+    public function testResourceBooking(AcceptanceTester $I)
     {
         $this->user = User::find(70);
         $this->initData(false, true);//init resources
@@ -222,5 +223,52 @@ class Layout2Cest extends AbstractBooking
         $cart = Cart::where('user_id', $this->user->id)->first();
         $I->assertNotEmpty($cart, 'cart');
         $I->assertEquals(Cart::STATUS_COMPLETED, $cart->status, '$cart->status');
+    }
+
+    public function testBookingWithRooms(AcceptanceTester $I)
+    {
+        $user = User::find(70);
+        $this->initData(false, false, true);//init resources
+        $this->initCustomTime();
+
+        $category = $this->category;
+        $employee  = Employee::find(63);
+        $employee2 = Employee::find(64);
+        $service   = $this->service;
+
+        $I->amLoggedAs($user);
+        $date = $this->getDate();
+        $startTime = '09:00';
+        $booking = $this->makeBooking($date, $startTime, $service, $employee);
+        $I->assertEquals($date->toDateString(), $booking->date);
+
+
+        $I->amOnPage(route('as.embed.embed', ['hash' => $this->user->hash, 'l' => 2], false));
+        $I->click('#btn-category-' . $category->id);
+        $I->waitForElementVisible('#btn-service-' . $service->id);
+        $I->click('#btn-service-' . $service->id);
+        $I->waitForElementVisible('#btn-employee-' . $employee2->id);
+        $I->click('#btn-employee-' . $employee2->id);
+
+        $I->waitForElementVisible('#as-timetable');
+
+        $I->dontSeeElement('a', ['id'=> 'btn-slot-' . $date->format('Ymd') .'-0900']);
+
+
+        //Add more room and the time will be available
+        $this->addMoreRoom($user, $service);
+        $I->assertEquals($service->rooms()->count(), 2);
+        $availableRoom = Booking::getAvailableRoom(64, $service, null, $date->toDateString(), $date->copy()->hour(12)->minute(0), $date->copy()->hour(13)->minute(0));
+        $I->assertNotEmpty($availableRoom);
+        $I->amOnPage(route('as.embed.embed', ['hash' => $this->user->hash, 'l' => 2, 'x'=> 2], false));
+        $I->click('#btn-category-' . $category->id);
+        $I->waitForElementVisible('#btn-service-' . $service->id);
+        $I->click('#btn-service-' . $service->id);
+        $I->waitForElementVisible('#btn-employee-' . $employee2->id);
+        $I->click('#btn-employee-' . $employee2->id);
+
+        $I->waitForElementVisible('#as-timetable');
+
+        $I->seeElement('a', ['id'=> 'btn-slot-' . $date->format('Ymd') .'-0900']);
     }
 }

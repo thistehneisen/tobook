@@ -539,7 +539,7 @@ class Employee extends \App\Appointment\Models\Base
                         $endTime
                     );
 
-                    if (empty($availableRoom->id)) {
+                    if (empty($availableRoom)) {
                         continue;
                     }
                 }

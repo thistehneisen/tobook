@@ -310,6 +310,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             ->join('as_services', 'as_services.id', '=','as_booking_services.service_id')
             ->join('as_room_service', 'as_room_service.service_id', '=', 'as_services.id')
             ->join('as_booking_service_rooms', 'as_booking_service_rooms.booking_service_id', '=','as_booking_services.id')
+            ->where('as_booking_services.service_id', $service->id)
             ->select('as_booking_service_rooms.room_id');
 
 

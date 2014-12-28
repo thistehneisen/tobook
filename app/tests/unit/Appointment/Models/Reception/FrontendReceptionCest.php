@@ -8,6 +8,7 @@ use App\Appointment\Models\Employee;
 use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;
+use App\Appointment\Models\Booking;
 use App\Appointment\Models\Resource;
 use App\Appointment\Models\ResourceService;
 use App\Appointment\Models\Reception\FrontendReceptionist;
