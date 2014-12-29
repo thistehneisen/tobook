@@ -41,16 +41,16 @@ return [
     'business_name'          => 'Yrityksen nimi',
     'password_reminder' => [
         'reset' => [
-            'heading' => 'Your password has been reset', // @todo
-            'body'    => 'Your new password is :password', // @todo
+            'heading' => 'Salasanasi on resetoitu', // @todo
+            'body'    => 'Uusi salasanasi on :password', // @todo
         ],
         'created' => [
-            'heading' => 'Your new account was created', // @todo
-            'body' => 'And your password is :password', // @todo
+            'heading' => 'Uusi tunnus on luotu', // @todo
+            'body' => 'Salasanasi on :password', // @todo
         ]
     ],
     'business' => [
-        'is_activated'     => 'Activated',
+        'is_activated'     => 'Aktivoitu',
         'name'             => 'Yrityksen nimi',
         'description'      => 'Yritysesittely',
         'size'             => 'Henkilömäärä',
