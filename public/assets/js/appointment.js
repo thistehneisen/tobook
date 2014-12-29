@@ -475,22 +475,28 @@
             fixedCalendarHeader();
         });
 
-        $('.as-calendar').scroll(function () {
-            scrolledLeft = true;
-            if ($.isEmptyObject(originalOffset)) {
-                $('.as-col-header').each(function (key, item) {
-                    originalOffset.push($(item).offset().left);
-                });
-            }
-            $('.as-col-header').each(function (key, item) {
-                var offset = parseInt(originalOffset[key], 10) -  parseInt($('.as-calendar').scrollLeft(), 10);
-                $(item).css('left', offset);
-                if (offset < 15) {
-                    $(item).css('opacity', 0.2);
-                } else {
-                    $(item).css('opacity', 1);
+        //Only allow user scroll when full page is loaded
+        $("body").css("overflow", "hidden");
+
+        $(window).load(function(){
+            $("body").css("overflow", "auto");
+            $('.as-calendar').scroll(function () {
+                scrolledLeft = true;
+                if ($.isEmptyObject(originalOffset)) {
+                    $('.as-col-header').each(function (key, item) {
+                        originalOffset.push($(item).offset().left);
+                    });
                 }
-                // console.log($(item).offset().left);
+                $('.as-col-header').each(function (key, item) {
+                    var offset = parseInt(originalOffset[key], 10) -  parseInt($('.as-calendar').scrollLeft(), 10);
+                    $(item).css('left', offset);
+                    if (offset < 15) {
+                        $(item).css('opacity', 0.2);
+                    } else {
+                        $(item).css('opacity', 1);
+                    }
+                    // console.log($(item).offset().left);
+                });
             });
         });
     });
