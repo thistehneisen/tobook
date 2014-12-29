@@ -46,7 +46,7 @@ return [
     'auto_add'              => 'Lisää automaattisesti',
     'active'                => 'Aktiivinen',
     'finish'                => 'Valmista',
-    'voucher_name'          => 'Leimakampanjan nimi',
+    'voucher_name'          => 'Pistekampanjan nimi',
     'discount'              => 'Alennus',
     'voucher_list'          => 'Pistekampanjalista',
     'percent'               => 'Prosentti',
