@@ -297,8 +297,8 @@ return [
             'reschedule_unbooked_extra'=> 'Varauksen siirto epäonnistui!',
             'not_enough_resources'     => 'Required resources are not available!',
             'empty_start_time'         => 'Booking start time cannot be empty',
-            'booking_not_found'        => 'Booking not found!',
-            'past_booking'             => 'Cannot make booking in the past!'
+            'booking_not_found'        => 'Varausta ei löytynyt!',
+            'past_booking'             => 'Et voi tehdä varausta menneisyyteen!'
         ],
         'warning'      => [
             'existing_user'   => 'Järjestelmästä löytyy käyttäjäprofiili antamallesi sähköpostiosoitteelle. Ovatko nämä sinun tietosi?',
@@ -333,7 +333,7 @@ return [
         'end_time'            => 'Lopetusaika',
         'day_off'             => 'Vapaapäivä',
         'confirm'             => [
-            'delete_freetime' => 'Oletko varma, että haluat poistaa valitun vapaa ajan kalenterista?'
+            'delete_freetime' => 'Oletko varma, että haluat poistaa valitun vapaa-ajan kalenterista?'
         ],
         'free_time'           => 'Vapaa',
         'free_times'          => 'Vapaat',
@@ -354,7 +354,7 @@ return [
         'sunday_hours'        => 'Sununtaitunnit',
         'monthly_hours'       => 'Kuukauden tunnit',
         'error'               => [
-            'freetime_overlapped_with_booking' => 'Freetime is overlapped with a booking'
+            'freetime_overlapped_with_booking' => 'Vapaa menee varauksen päälle'
         ],
     ],
     'embed' => [
@@ -412,7 +412,7 @@ return [
             'postcode'        => 'Postinumero',
             'empty'           => 'Valittuna päivänä ei vapaita aikoja',
             'payment_note'    => 'Vahvistuksen jälkeen sinut ohjatamaan maksamaan varaus',
-            'confirm_service' => 'Confirm booking service', // @todo
+            'confirm_service' => 'Vahvista varauksen palvelu', // @todo
         ]
     ],
     'options' => [
@@ -525,8 +525,8 @@ return [
             'style_text_color'                  => 'Tekstin väri',
             'style_background'                  => 'Tausta',
             'style_custom_css'                  => 'Custom CSS', // @todo
-            'style_main_color'                  => 'Main color', // @todo
-            'style_heading_background'          => 'Heading background', // @todo
+            'style_main_color'                  => 'Pääväri', // @todo
+            'style_heading_background'          => 'Otsikon tausta', // @todo
         ],
         'working_time' => [
             'index' => 'Working time',
@@ -534,7 +534,7 @@ return [
     ],
     'reports' => [
         'index'     => 'Raportit',
-        'employees' => 'Työntekijävakko',
+        'employees' => 'Varausmäärät',
         'services'  => 'Palveluvalikko',
         'generate'  => 'Luo',
         'start'     => 'Alkaa',
@@ -554,6 +554,6 @@ return [
         'success_bulk'   => 'Toiminto toteutettu onnistuneesti!',
         'sortable'       => 'Järjestä sarakkeet uudelleen nappaamalla kiinni haluamastasi sarakkeesta, ja vetämällä sitä hiirellä ylös tai alas!',
     ],
-    'delete_reason'         => 'Why is this booking deleted?', // @todo
-    'delete_reason_default' => 'On customer request', // @todo
+    'delete_reason'         => 'Miksi haluat poistaa?', // @todo
+    'delete_reason_default' => 'Asiakkaan pyynnöstä', // @todo
 ];
