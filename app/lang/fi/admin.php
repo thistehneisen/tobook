@@ -4,7 +4,7 @@ return [
     'nav' => [
         'users'       => 'Käyttäjät',
         'settings'    => 'Asetukset',
-        'modules'     => 'Modules',
+        'modules'     => 'Moduulit',
         'stats'       => 'Statistics',
         'flash_deals' => 'Flash Deals',
     ],
@@ -12,23 +12,23 @@ return [
     'create_heading'     => 'Create a new :model',
     'index_heading'      => 'List of :model',
     'search_placeholder' => 'Enter anything you want to search',
-    'search'             => 'Search',
+    'search'             => 'Etsi',
     'create'             => 'Create',
     'actions'            => 'Actions',
-    'edit'               => 'Edit',
-    'delete'             => 'Delete',
+    'edit'               => 'Muokkaa',
+    'delete'             => 'Poista',
     'enable'             => 'Enable',
-    'activate'           => 'Activate',
-    'deactivate'         => 'Deactivate',
+    'activate'           => 'Aktivoi',
+    'deactivate'         => 'Deaktivoi',
     'modules'            => [
-        'modules'               => 'Services',
+        'modules'               => 'Moduulit',
         'active_time'           => 'Active time',
-        'all_modules'           => 'All modules',
-        'enabled_modules'       => 'Active services',
-        'enable_module_heading' => 'Add new service',
-        'name'                  => 'Name',
-        'start'                 => 'Start',
-        'end'                   => 'End',
+        'all_modules'           => 'Kaikki moduulit',
+        'enabled_modules'       => 'Aktiiviset moduulit',
+        'enable_module_heading' => 'Lisää uusi palvelu',
+        'name'                  => 'Nimi',
+        'start'                 => 'Alku',
+        'end'                   => 'Loppu',
         'success_enabled'       => 'Module <strong>:module</strong> is now available for user <strong>:user</strong>',
         'success_activation'    => 'Module status changed successfully',
         'err_overlapped'        => 'The selected period is overlapped with existing ones. Please recheck and try again.',
@@ -36,12 +36,12 @@ return [
     ],
     'stats' => [
         'fd' => [
-            'heading' => 'Flash Deals Statistics',
-            'sold' => 'Sold flash deals',
+            'heading' => 'Äkkilähtö statistiikka',
+            'sold' => 'Myydyt äkkilähdöt',
             'business' => 'Business',
             'labels' => [
-                'revenue' => 'Revenue',
-                'total'   => 'Total'
+                'revenue' => 'Liikevaihto',
+                'total'   => 'Yhteensä'
             ]
         ]
     ]
