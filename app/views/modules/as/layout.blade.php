@@ -25,7 +25,7 @@
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js') }}
     {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
     {{ HTML::script(asset('packages/bootstrap-spinner/bootstrap-spinner.min.js')) }}
-    {{ HTML::script(asset('assets/js/appointment.js?v=00010')) }}
+    {{ HTML::script(asset('assets/js/appointment.js?v=00011')) }}
 @stop
 
 @section('main-classes') container as-wrapper @stop
@@ -91,12 +91,12 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('as.services.index') }}">
                         <i class="fa fa-wrench"></i> {{ trans('as.options.heading') }} <span class="caret"></span>
                     </a>
-					<ul class="dropdown-menu" role="menu">
-					    <li><a href="{{ route('as.options', ['page' => 'general']) }}">{{ trans('as.options.general.index') }}</a></li>
-					    <li><a href="{{ route('as.options', ['page' => 'working-time']) }}">{{ trans('as.options.working_time.index') }}</a></li>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{ route('as.options', ['page' => 'general']) }}">{{ trans('as.options.general.index') }}</a></li>
+                        <li><a href="{{ route('as.options', ['page' => 'working-time']) }}">{{ trans('as.options.working_time.index') }}</a></li>
                         <li><a href="{{ route('as.options', ['page' => 'booking']) }}">{{ trans('as.options.booking.index') }}</a></li>
-					    <li><a href="{{ route('as.options', ['page' => 'style']) }}">{{ trans('as.options.style.index') }}</a></li>
-					</ul>
+                        <li><a href="{{ route('as.options', ['page' => 'style']) }}">{{ trans('as.options.style.index') }}</a></li>
+                    </ul>
                 </li>
                 <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('as.services.index') }}">
