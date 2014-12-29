@@ -62,7 +62,7 @@ return [
     'stamps'                => 'Leimat',
     'add_stamp'             => 'Lisää Leima',
     'use_offer'             => 'Käytä',
-    'use_voucher'           => 'Käytä Leimakampanja',
+    'use_voucher'           => 'Käytä Pistekampanja',
     'write_card'            => 'Alusta asiakkaalle kantiskortti',
     'shop'                  => 'Kauppa',
     'all'                   => 'Kaikki',
