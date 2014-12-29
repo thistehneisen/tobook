@@ -13,20 +13,10 @@ if (!function_exists('asset_path')) {
         $folder = 'built/';
 
         // @TODO: Think about caching of reading file
-        $files = [
-            'script-manifest.json',
-            'style-manifest.json',
-            'js-manifest.json',
-        ];
-
-        $manifest = [];
-        foreach ($files as $file) {
-            $path = public_path($folder.$file);
-            $files = file_exists($path)
-                ? json_decode(file_get_contents($path), true)
-                : [];
-            $manifest = array_merge($manifest, $files);
-        }
+        $path = base_path('rev-manifest.json');
+        $manifest = file_exists($path)
+            ? json_decode(file_get_contents($path), true)
+            : [];
 
         return array_key_exists($filename, $manifest)
             ? asset($folder.$manifest[$filename])

@@ -1,5 +1,6 @@
 gulp = require 'gulp'
 del = require 'del'
+_ = require 'lodash'
 gulpLoadPlugins = require 'gulp-load-plugins'
 plugins = gulpLoadPlugins()
 
@@ -50,7 +51,16 @@ gulp.task 'clean', ->
     del.sync [paths.dest]
 
 # Build assets to be ready for production
-gulp.task 'build', ['coffee', 'less', 'img']
+gulp.task 'build', ['coffee', 'less', 'img'], ->
+  # Concat all manifest files
+  manifests = {}
+  for type in ['js', 'script', 'style']
+    do ->
+      _.merge manifests, require "./#{paths.dest}#{type}-manifest.json"
+
+  # Write the file
+  require 'fs'
+    .writeFile "#{__dirname}/rev-manifest.json", JSON.stringify manifests, null, '  '
 
 # For development
 # Watch file changes run related tasks
