@@ -19,11 +19,11 @@ return [
     'select'                => 'Valitse',
     'options_select'        => '-- Valitse -- ',
     'register'              => 'Rekisteröidy',
-    'no_records'            => 'Anteeksi, ennätys ei löytynyt!',
+    'no_records'            => 'Ei hakutuloksia',
     'save'                  => 'Tallenna',
     'destroy'               => 'Poistaa',
     'warning'               => 'Varoitus',
-    'success'               => 'Menestys',
+    'success'               => 'Päivitetty onnistuneesti',
     'errors'                => 'Virheet',
     'thank_you'             => 'Kiitoksia!',
     'notice'                => 'Huomautus',
@@ -38,8 +38,8 @@ return [
     'delete'                => 'Poista',
     'continue'              => 'Jatka',
     'cancel'                => 'Peruuta',
-    'cut'                   => 'Cut',//@todo
-    'paste'                 => 'Paste',//@todo
+    'cut'                   => 'Leikkaa',//@todo
+    'paste'                 => 'Liitä',//@todo
     'active'                => 'Aktiivinen',
     'inactive'              => 'Ei aktiivinen',
     'mon'                   => 'Maanantai',
@@ -72,11 +72,11 @@ return [
     'updated_at'            => 'Päivitetty',
     'title'                 => 'Otsikko',
     'name'                  => 'Nimi',
-    'module_type'           => 'Module Type',
-    'appointment_scheduler' => 'Appointment Scheduler',
-    'restaurant_booking'    => 'Restaurant Booking',
-    'timeslot_booking'      => 'Timeslot Booking',
-    'select_module'         => 'Select Module',
+    'module_type'           => 'Moduuli Tyyppi',
+    'appointment_scheduler' => 'Ajanvaraus',
+    'restaurant_booking'    => 'Ravintola ajanvaraus',
+    'timeslot_booking'      => 'Timeslot ajanvaraus',
+    'select_module'         => 'Valitse moduuli',
     'first_name'            => 'Etunimi',
     'last_name'             => 'Sukunimi',
     'email'                 => 'Sähköposti',
@@ -101,7 +101,7 @@ return [
     'normal'                => 'Normaali',
     'discount'              => 'Alennus',
     'book'                  => 'Varaa',
-    'submit'                => 'Submit', // @todo
+    'submit'                => 'Hyväksy', // @todo
     'short' => [
         'week'=> 'vko',
         'mon' => 'Ma',
@@ -132,13 +132,13 @@ return [
     'saturday'  => 'lauantai',
     'sunday'    => 'sunnuntai',
     'err' => [
-        'unexpected'   => 'An unexpected error has occurred. Please try again later.',
-        'not_found'    => 'Cannot the find the requesting data. Please check the URL again.',
-        'invalid'      => 'Entered information is invalid. Please try again.',
-        'unauthorized' => 'You are not allowed to access this page.',
-        'not_business' => 'You do not have a business account or your account is not activated yet. Please contact our support staff via <a href="mailto:yritys@varaa.com">yritys@varaa.com</a> to activate your account.',
+        'unexpected'   => 'Odottamaton virhe, yritä myöhemmin uudestaan.',
+        'not_found'    => 'Hakemaasi tietoa ei löytynyt. Tarkista URL uudestaan.',
+        'invalid'      => 'Antamasi tiedot ova väärin. Kokeile uudestaan.',
+        'unauthorized' => 'Sinulla ei ole oikeuksia tälle sivulle.',
+        'not_business' => 'Tiliäsi ei ole vielä aktivoitu. Ole yhteydessä meihin <a href="mailto:yritys@varaa.com">yritys@varaa.com</a> to activate your account.',
     ],
     'with_selected' => 'Valitse toiminto',
     'per_page'      => 'Yksiköitä yhteensä',
-    'show_all'      => 'Show all',
+    'show_all'      => 'Näytä kaikki',
 ];
