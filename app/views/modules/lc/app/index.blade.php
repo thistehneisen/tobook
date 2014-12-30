@@ -45,11 +45,11 @@ NFC Desktop App
             <table class="table table-hover" id="consumer-table">
                 <thead>
                     <tr>
-                        <th class="no-display">{{ trans('loyalty-card.number') }}</th>
-                        <th>{{ trans('loyalty-card.consumer.index') }}</th>
+                        <th class="no-display">{{ trans('lc.number') }}</th>
+                        <th>{{ trans('lc.consumer.index') }}</th>
                         <th class="no-display">{{ trans('co.email') }}</th>
                         <th class="no-display">{{ trans('co.phone') }}</th>
-                        <th>{{ trans('loyalty-card.last_visited') }}</th>
+                        <th>{{ trans('lc.last_visited') }}</th>
                         <th class="no-display">{{{ trans('common.edit') }}}</th>
                         <th class="no-display">{{ trans('common.delete') }}</th>
                     </tr>
@@ -59,13 +59,13 @@ NFC Desktop App
                     <tr data-consumerid="{{{ $value->id }}}">
                         <td class="no-display">{{ $value->id }}</td>
                         <td>
-                            {{ $value->consumer->first_name }} {{ $value->consumer->last_name }}
+                            {{ $value->first_name }} {{ $value->last_name }}
                         </td>
                         <td class="no-display">
-                            {{ $value->consumer->email }}
+                            {{ $value->email }}
                         </td>
                         <td class="no-display">
-                            {{ $value->consumer->phone }}
+                            {{ $value->phone }}
                         </td>
                         <td>
                             {{ $value->updated_at }}
@@ -102,7 +102,7 @@ NFC Desktop App
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">{{ trans('loyalty-card.consumer_info') }}</h4>
+                    <h4 class="modal-title">{{ trans('lc.consumer_info') }}</h4>
                 </div>
                 <div class="modal-body">
                     <div id="js-alert" class="alert alert-danger hidden"></div>
@@ -134,15 +134,16 @@ NFC Desktop App
         </div>
     </div>
 
-    {{-- <div class="modal fade" id="js-confirmDeleteModal" role="dialog" aria-labelledby="js-confirmDeleteModalLabel" aria-hidden="true">
+    {{--
+    <div class="modal fade" id="js-confirmDeleteModal" role="dialog" aria-labelledby="js-confirmDeleteModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">{{ trans('loyalty-card.delete_confirmation') }}</h4>
+                    <h4 class="modal-title">{{ trans('lc.delete_confirmation') }}</h4>
                 </div>
                 <div class="modal-body">
-                    <p>{{ trans('loyalty-card.delete_question') }}</p>
+                    <p>{{ trans('lc.delete_question') }}</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('common.cancel') }}</button>
@@ -150,7 +151,8 @@ NFC Desktop App
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
+    --}}
 
     <div class="modal fade" id="js-givePointModal" role="dialog" aria-labelledby="js-givePointModalLabel" aria-hidden="true">
         <div class="modal-dialog">

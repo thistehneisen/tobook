@@ -15,8 +15,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="admin-menu">
             <ul class="nav navbar-nav nav-admin nav-as">
-                <li><a href="{{ route('lc.offers.index') }}"><i class="fa fa-gift"></i> {{ trans('loyalty-card.offer.index') }}</a></li>
-                <li><a href="{{ route('lc.vouchers.index') }}"><i class="fa fa-money"></i> {{ trans('loyalty-card.voucher.index') }}</a></li>
+                <li><a href="{{ route('lc.offers.index') }}"><i class="fa fa-gift"></i> {{ trans('lc.offer.index') }}</a></li>
+                <li><a href="{{ route('lc.vouchers.index') }}"><i class="fa fa-money"></i> {{ trans('lc.voucher.index') }}</a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->

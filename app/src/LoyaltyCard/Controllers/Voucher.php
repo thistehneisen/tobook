@@ -9,18 +9,27 @@ class Voucher extends Base
 
     protected $crudOptions = [
         'modelClass'    => 'App\LoyaltyCard\Models\Voucher',
-        'langPrefix'    => 'loyalty-card.voucher',
+        'langPrefix'    => 'lc.voucher',
         'layout'        => 'modules.lc.layout',
         'indexFields'   => ['name', 'required', 'value', 'type', 'is_active'],
         'lomake' => [
             'type' => [
-                'type' => 'App\Core\Fields\TypeDropdown'
+                'type' => 'Dropdown',
             ],
         ],
     ];
 
+    public function __construct() {
+        parent::__construct();
+        $this->crudOptions['lomake']['type']['values'] =[
+            'Percent' => trans('lc.percent'),
+            'Cash' => trans('lc.cash')
+        ];
+    }
+
     protected function upsertHandler($item)
     {
+
         $item->fill(Input::all());
         $item->total_used = 0;
         $item->user()->associate($this->user);

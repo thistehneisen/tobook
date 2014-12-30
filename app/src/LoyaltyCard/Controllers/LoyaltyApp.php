@@ -14,7 +14,7 @@ class LoyaltyApp extends Base
     protected $consumerRepository;
     protected $crudOptions = [
         'modelClass'    => 'App\LoyaltyCard\Models\Consumer',
-        'langPrefix'    => 'loyalty-card.consumer',
+        'langPrefix'    => 'lc.consumer',
         'layout'        => 'layouts.default',
         'indexFields'   => ['name', 'email', 'phone', 'updated_at'],
     ];
@@ -90,8 +90,8 @@ class LoyaltyApp extends Base
 
         if (Request::ajax()) {
             if ($consumer) {
-                $vouchers = VoucherModel::where('user_id', Confide::user()->id)->get();
-                $offers = OfferModel::where('user_id', Confide::user()->id)->get();
+                $vouchers = VoucherModel::ofCurrentUser()->where('is_active', true)->get();
+                $offers = OfferModel::ofCurrentUser()->where('is_active', true)->get();
                 $consumerTotalStamps = $consumer->total_stamps;
 
                 if ($consumerTotalStamps === '') {

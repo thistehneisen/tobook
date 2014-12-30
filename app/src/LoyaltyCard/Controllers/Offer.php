@@ -9,7 +9,7 @@ class Offer extends Base
 
     protected $crudOptions = [
         'modelClass'    => 'App\LoyaltyCard\Models\Offer',
-        'langPrefix'    => 'loyalty-card.offer',
+        'langPrefix'    => 'lc.offer',
         'layout'        => 'modules.lc.layout',
         'indexFields'   => ['name', 'required', 'is_auto_add', 'is_active'],
     ];

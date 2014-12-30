@@ -12,7 +12,7 @@
         @elseif ($service === 'lc')
             <th>{{ trans('co.date') }}</th>
             <th>{{ trans('co.action') }}</th>
-            <th>{{ trans('loyalty-card.shop') }}</th>
+            <th>{{ trans('lc.shop') }}</th>
         @endif
         </tr>
     </thead>
@@ -36,11 +36,11 @@
                 @if ($value->offer_id === null && $value->voucher_id === null)
                 <td>{{ trans('co.give_points', ['points' => $value->point]) }}</td>
                 @elseif ($value->offer_id === null && $value->point < 0)
-                <td>{{ trans('loyalty-card.use_voucher') }} {{ $value->name }}</td>
+                <td>{{ trans('lc.use_voucher') }} {{ $value->name }}</td>
                 @elseif ($value->voucher_id === null && $value->stamp === 1)
-                <td>{{ trans('loyalty-card.add_stamp') }} {{ $value->name }}
+                <td>{{ trans('lc.add_stamp') }} {{ $value->name }}
                 @else
-                <td>{{ trans('loyalty-card.use_offer') }} {{ $value->name }}
+                <td>{{ trans('lc.use_offer') }} {{ $value->name }}
                 @endif
                 <td>{{  $value->business_name }} </td>
             </tr>

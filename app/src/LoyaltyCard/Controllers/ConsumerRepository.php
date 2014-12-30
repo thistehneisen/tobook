@@ -2,7 +2,7 @@
 
 use Auth, Confide, Validator, Request, Input;
 use App\LoyaltyCard\Models\Consumer as Model;
-use App\Consumers\Models\Consumer as Core;
+use App\Consumers\Models\Consumer as CoreConsumer;
 use App\LoyaltyCard\Models\Voucher as VoucherModel;
 use App\LoyaltyCard\Models\Offer as OfferModel;
 use App\LoyaltyCard\Models\Transaction as TransactionModel;
@@ -17,63 +17,48 @@ class ConsumerRepository
      */
     public function getAllConsumers($search = '', $perPage = 10, $isApi = false)
     {
+        $consumers = CoreConsumer::ofCurrentUser();
+
         if ($isApi) {
-            $consumers = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-                        ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-                        ->where('consumer_user.user_id', Auth::user()->id)
-                        ->where('lc_consumers.user_id', Auth::user()->id)
-                        ->get();
+            return $consumers->get();
         } else {
             if ($search !== '') {
-                $consumers = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-                                ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-                                ->where('consumer_user.user_id', Confide::user()->id)
-                                ->where('lc_consumers.user_id', Confide::user()->id)
-                                ->where(function ($q) use ($search) {
-                                    $q->where('consumers.first_name', 'like', '%' . $search . '%')
-                                        ->orWhere('consumers.last_name', 'like', '%' . $search . '%')
-                                        ->orWhere('consumers.email', 'like', '%' . $search . '%')
-                                        ->orWhere('consumers.phone', 'like', '%' . $search . '%');
-                                })
-                                ->select('lc_consumers.id', 'lc_consumers.consumer_id', 'lc_consumers.updated_at')
-                                ->paginate($perPage);
-            } else {
-                $consumers = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-                                ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-                                ->where('consumer_user.user_id', Confide::user()->id)
-                                ->where('lc_consumers.user_id', Confide::user()->id)
-                                ->select('lc_consumers.id', 'lc_consumers.consumer_id', 'lc_consumers.updated_at')
-                                ->paginate($perPage);
+                $consumers = $consumers->where(function ($q) use ($search) {
+                    $q->where('consumers.first_name', 'like', '%' . $search . '%')
+                        ->orWhere('consumers.last_name', 'like', '%' . $search . '%')
+                        ->orWhere('consumers.email', 'like', '%' . $search . '%')
+                        ->orWhere('consumers.phone', 'like', '%' . $search . '%');
+                });
             }
-        }
 
-        return $consumers;
+            return $consumers->paginate($perPage);
+        }
     }
 
     public function getDuplicatedConsumer()
     {
         return Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-                    ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-                    ->where('consumer_user.user_id', Confide::user()->id)
-                    ->where('lc_consumers.user_id', Confide::user()->id)
-                    ->where('consumers.first_name', Input::get('first_name'))
-                    ->where('consumers.last_name', Input::get('last_name'))
-                    ->where('consumers.email', Input::get('email'))
-                    ->where('consumers.phone', Input::get('phone'))
-                    ->select('consumers.id')
-                    ->first();
+            ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
+            ->where('consumer_user.user_id', Confide::user()->id)
+            ->where('lc_consumers.user_id', Confide::user()->id)
+            ->where('consumers.first_name', Input::get('first_name'))
+            ->where('consumers.last_name', Input::get('last_name'))
+            ->where('consumers.email', Input::get('email'))
+            ->where('consumers.phone', Input::get('phone'))
+            ->select('consumers.id')
+            ->first();
     }
 
     public function getExistedConsumer()
     {
         return Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-                    ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-                    ->where('consumers.first_name', Input::get('first_name'))
-                    ->where('consumers.last_name', Input::get('last_name'))
-                    ->where('consumers.email', Input::get('email'))
-                    ->where('consumers.phone', Input::get('phone'))
-                    ->select('consumers.id')
-                    ->first();
+            ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
+            ->where('consumers.first_name', Input::get('first_name'))
+            ->where('consumers.last_name', Input::get('last_name'))
+            ->where('consumers.email', Input::get('email'))
+            ->where('consumers.phone', Input::get('phone'))
+            ->select('consumers.id')
+            ->first();
     }
 
     /**
@@ -90,7 +75,7 @@ class ConsumerRepository
         if ($duplicatedConsumer) {
             return false;
         } elseif ($existConsumer) {
-            $core = Core::find($existConsumer->id);
+            $core = CoreConsumer::find($existConsumer->id);
             Confide::user()->consumers()->attach($core->id);
         } else {
             $data = [
@@ -104,14 +89,14 @@ class ConsumerRepository
                 'country'       => $isApi ? Request::get('country') : Input::get('country'),
             ];
 
-            $core = $isApi ? Core::make($data, Auth::user()->id) : Core::make($data, Confide::user()->id);
+            $core = $isApi ? CoreConsumer::make($data, Auth::user()->id) : CoreConsumer::make($data, Confide::user()->id);
         }
 
         $consumer = new Model();
         $consumer->total_points = 0;
         $consumer->total_stamps = '';
         $consumer->consumer_id = $core->id;
-        $consumer->user_id = $isApi ? Core::user()->id : Confide::user()->id;
+        $consumer->user_id = $isApi ? CoreConsumer::user()->id : Confide::user()->id;
         $consumer->consumer()->associate($core);
         $consumer->save();
 
@@ -126,17 +111,9 @@ class ConsumerRepository
      */
     public function showConsumer($consumerId, $isApi = false)
     {
-        $userId = $isApi ? Auth::user()->id : Confide::user()->id;
-
-        $consumer = Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-                        ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-                        ->where('lc_consumers.id', $consumerId)
-                        ->where('consumer_user.user_id', $userId)
-                        ->where('lc_consumers.user_id', $userId)
-                        ->select('lc_consumers.id', 'consumers.first_name', 'consumers.last_name', 'consumers.email', 'consumers.phone', 'lc_consumers.total_points', 'lc_consumers.total_stamps', 'lc_consumers.updated_at')
-                        ->first();
-
-        return $consumer;
+        //$userId = $isApi ? Auth::user()->id : Confide::user()->id;
+        // TODO: check if belong to this user?
+        return CoreConsumer::find($consumerId);
     }
 
     /**
@@ -160,10 +137,10 @@ class ConsumerRepository
             return $validator->errors()->toArray();
         } else {
             $consumer = Model::join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-                        ->where('consumer_user.user_id', $userId)
-                        ->where('lc_consumers.user_id', $userId)
-                        ->where('lc_consumers.id', $consumerId)
-                        ->first();
+                ->where('consumer_user.user_id', $userId)
+                ->where('lc_consumers.user_id', $userId)
+                ->where('lc_consumers.id', $consumerId)
+                ->first();
 
             $consumer->total_points += $points;
             $consumer->save();
@@ -191,10 +168,10 @@ class ConsumerRepository
         $voucher = VoucherModel::find($voucherId);
 
         $consumer = Model::join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-                        ->where('consumer_user.user_id', $userId)
-                        ->where('lc_consumers.user_id', $userId)
-                        ->where('lc_consumers.id', $consumerId)
-                        ->first();
+            ->where('consumer_user.user_id', $userId)
+            ->where('lc_consumers.user_id', $userId)
+            ->where('lc_consumers.id', $consumerId)
+            ->first();
         $consumer->total_points -= $voucher->required;
         $consumer->save();
 
@@ -225,10 +202,10 @@ class ConsumerRepository
         $transaction->offer_id = $offerId;
 
         $consumer = Model::join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-                        ->where('consumer_user.user_id', $userId)
-                        ->where('lc_consumers.user_id', $userId)
-                        ->where('lc_consumers.id', $consumerId)
-                        ->first();
+            ->where('consumer_user.user_id', $userId)
+            ->where('lc_consumers.user_id', $userId)
+            ->where('lc_consumers.id', $consumerId)
+            ->first();
         $consumerTotalStamps = $consumer->total_stamps;
 
         if ($consumerTotalStamps !== '') {
@@ -275,10 +252,10 @@ class ConsumerRepository
         $transaction->offer_id = $offerId;
 
         $consumer = Model::join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-                        ->where('consumer_user.user_id', $userId)
-                        ->where('lc_consumers.user_id', $userId)
-                        ->where('lc_consumers.id', $consumerId)
-                        ->first();
+            ->where('consumer_user.user_id', $userId)
+            ->where('lc_consumers.user_id', $userId)
+            ->where('lc_consumers.id', $consumerId)
+            ->first();
 
         $consumerTotalStamps = $consumer->total_stamps;
 

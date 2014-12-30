@@ -21,10 +21,9 @@ class Consumer extends \App\Core\Models\Base
 
     protected $rulesets = [
         'saving' => [
-            'email'         => 'required|email',
-            // 'first_name'    => 'required',
-            // 'last_name'     => 'required',
-            // 'phone'         => 'required|numeric'
+            'first_name'    => 'required',
+            'last_name'     => 'required',
+            'phone'         => 'required|numeric'
         ]
     ];
 

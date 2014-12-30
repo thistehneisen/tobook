@@ -8,12 +8,6 @@ Route::group([
     'prefix' => 'loyalty-card',
     'before' => ['auth', 'only.business', 'premium.modules:loyalty']
 ], function () {
-
-    \App\LoyaltyCard\Controllers\LoyaltyApp::crudRoutes(
-        'consumers',
-        'lc.consumers'
-    );
-
     \App\LoyaltyCard\Controllers\Offer::crudRoutes(
         'offers',
         'lc.offers'
@@ -48,6 +42,11 @@ Route::group([
     Route::group([
         'prefix' => 'lc',
     ], function () {
+        \App\LoyaltyCard\Controllers\LoyaltyApp::crudRoutes(
+            'consumers',
+            'lc.consumers'
+        );
+
         Route::get('/', [
             'as' => 'app.lc.index',
             'uses' => 'App\LoyaltyCard\Controllers\LoyaltyApp@index',
