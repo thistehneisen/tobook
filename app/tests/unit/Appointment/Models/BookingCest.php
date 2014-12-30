@@ -5,15 +5,13 @@ use App\Appointment\Models\BookingExtraService;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Consumer;
 use App\Appointment\Models\Employee;
-use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\Resource;
 use App\Appointment\Models\ResourceService;
 use App\Core\Models\User;
 use Carbon\Carbon;
-use \UnitTester;
-use DB;
+use UnitTester;
 
 /**
  * @group as
@@ -351,6 +349,7 @@ class BookingCest
     {
         $user = User::find(70);
         $serviceCategory = ServiceCategory::find(105);
+
         return $this->_book($user, $serviceCategory, $date, $startTime);
     }
 
@@ -362,11 +361,11 @@ class BookingCest
         $employee2 = Employee::find(64);
 
         // setup resource
-        $resource = new Resource;
+        $resource = new Resource();
         $resource->fill(['name'=> 'Resource 1']);
         $resource->user()->associate($user);
         $resource->save();
-        $resourceService = new ResourceService;
+        $resourceService = new ResourceService();
         $resourceService->service()->associate($service);
         $resourceService->resource()->associate($resource);
         $resourceService->save();
@@ -390,4 +389,20 @@ class BookingCest
         }
     }
 
+    public function testCalculateCommissions(UnitTester $i)
+    {
+        $user = User::find(70);
+        $data = [
+            ['total' => 22, 'uuid' => uniqid(), 'status' => \App\Appointment\Models\Booking::STATUS_PAID],
+            ['total' => 20, 'uuid' => uniqid(), 'status' => \App\Appointment\Models\Booking::STATUS_PAID],
+        ];
+
+        foreach ($data as $input) {
+            $booking = new Booking($input);
+            $booking->user()->associate($user);
+            $booking->save();
+        }
+
+        $i->assertEquals(12.6, Booking::calculateCommissions($user));
+    }
 }

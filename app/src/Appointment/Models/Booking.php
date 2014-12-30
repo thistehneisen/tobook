@@ -1,11 +1,9 @@
 <?php namespace App\Appointment\Models;
 
-use Request, Carbon\Carbon, NAT, Util;
+use Request, Carbon\Carbon, NAT, Util, Config;
 use App\Core\Models\User;
 use App\Appointment\Models\Observer\SmsObserver;
-use App\Appointment\Models\ResourceService;
 use Watson\Validating\ValidationException;
-
 
 class Booking extends \App\Appointment\Models\Base implements \SplSubject
 {
@@ -41,12 +39,11 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     // time could be 8:00, 8:15, 8:30, etc. with default step of 15.
     const STEP = 15;
 
-
     //Implement methods in SplSubject
     protected $_observers = [];
 
     //Cache object for list of bookings
-    protected  static $bookings;
+    protected static $bookings;
     protected $resources = [];
 
     public function attach(\SplObserver $observer)
@@ -71,20 +68,25 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         }
     }
 
-    public function getClass(){
+    public function getClass()
+    {
         $prefix = 'booked ';
+
         return $prefix . $this->getStatusText();
     }
 
-    public function getStatusText(){
+    public function getStatusText()
+    {
         return self::getStatusByValue($this->status);
     }
 
-    public function getStatusTextAttribute(){
+    public function getStatusTextAttribute()
+    {
         return trans('as.bookings.' . self::getStatusByValue($this->status));
     }
 
-    public function setStatus($text){
+    public function setStatus($text)
+    {
         $status = self::getStatus($text);
         $this->status = $status;
     }
@@ -95,11 +97,11 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public static function boot()
     {
         parent::boot();
-        static::saving(function($booking) {
+        static::saving(function ($booking) {
             $booking->updateNAT();
         });
 
-        static::deleting(function($booking) {
+        static::deleting(function ($booking) {
             // When deleting a booking, we'll restore the available NAT slots
             NAT::restoreBookedTime($booking);
         });
@@ -125,24 +127,33 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     }
 
     //--------------------------------------------------------------------------
+    // SCOPES
+    //--------------------------------------------------------------------------
+    public function scopeHasStatus($query, $status)
+    {
+        return $query->where('status', $status);
+    }
+
+    //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
     public function getStartTimeAttribute()
     {
-        if($this->start_at instanceof Carbon) {
+        if ($this->start_at instanceof Carbon) {
             return $this->start_at;
         }
+
         return new \Carbon\Carbon($this->date . ' ' . $this->start_at);
     }
 
     public function getEndTimeAttribute()
     {
-        if($this->start_at instanceof Carbon) {
+        if ($this->start_at instanceof Carbon) {
             return $this->end_at;
         }
+
         return new \Carbon\Carbon($this->date . ' ' . $this->end_at);
     }
-
 
     /**
      * Generate service info message for sending mail, sms, cancel booking
@@ -152,7 +163,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public function getServiceInfo()
     {
         $before = $after = 0;
-        if(!empty($this->bookingServices()->first()->serviceTime->id)){
+        if (!empty($this->bookingServices()->first()->serviceTime->id)) {
             $serviceTime = $this->bookingServices()->first()->serviceTime;
             $before      = $serviceTime->before;
             $after       = $serviceTime->after;
@@ -217,7 +228,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      * Check if user can place a booking on certain employee, date, and time
      * but only execute one query
      *
-     * @param int $employeeId
+     * @param int    $employeeId
      * @param string $bookingDate
      * @param Carbon $startTime
      * @param Carbon $endTime
@@ -229,7 +240,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     {
         $resourceIds = [];
 
-        if($bookingDate instanceof Carbon) {
+        if ($bookingDate instanceof Carbon) {
             $bookingDate = $bookingDate->toDateString();
         }
 
@@ -240,7 +251,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         $query = self::applyDuplicateFilter($query, $startTime, $endTime);
 
-        if(!empty($uuid)){
+        if (!empty($uuid)) {
             $query->where('uuid','!=', $uuid);
         }
 
@@ -249,6 +260,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         if (!$bookings->isEmpty()) {
             return false;
         }
+
         return true;
     }
 
@@ -259,10 +271,10 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public static function areResourcesAvailable($employeeId, $service, $uuid, $bookingDate, Carbon $startTime, Carbon $endTime)
     {
         $resourceIds = [];
-        if(!empty($service)) {
+        if (!empty($service)) {
             $resourceIds = $service->resources->lists('id');
         }
-        if(empty($resourceIds)) {
+        if (empty($resourceIds)) {
             return true;
         }
 
@@ -271,7 +283,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             ->where('as_bookings.status','!=', self::STATUS_CANCELLED);
 
         //for inhouse layout
-        if(!empty($uuid)) {
+        if (!empty($uuid)) {
             $query->where('as_bookings.uuid', '!=', $uuid);
         }
 
@@ -285,6 +297,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         if (!$query->isEmpty()) {
             return false;
         }
+
         return true;
     }
 
@@ -322,7 +335,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      * Check if user can place a booking on certain employee, date, and time
      * but only execute one query
      *
-     * @param int $employeeId
+     * @param int    $employeeId
      * @param string $date
      * @param Carbon $startTime
      * @param Carbon $endTime
@@ -359,6 +372,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
                 return false;
             }
         }
+
         return true;
     }
 
@@ -382,6 +396,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             ->orderBy('date', 'desc')
             ->orderBy('end_at', 'desc')
             ->first();
+
         return $lastestBooking;
     }
 
@@ -412,12 +427,13 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             '%s - %s <br> %s <br> %s %s',
             $startTime, $endTime, $consumerName, $serviceDescription, $notes
         );
+
         return $tooltip;
     }
 
     /**
      * Return thea all booking service information
-     * @param boolean $showLineBreak
+     * @param  boolean $showLineBreak
      * @return string
      */
     public function getServiceDescription($showLineBreak = false)
@@ -458,6 +474,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public function getConsumerName()
     {
         $consumerName = !empty($this->consumer->name) ? $this->consumer->name : '';
+
         return $consumerName;
     }
 
@@ -468,8 +485,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      */
     public function getBookingResources($keyOnly = false)
     {
-        if(empty($this->resources)) {
-            if(empty($this->firstBookingService())) {
+        if (empty($this->resources)) {
+            if (empty($this->firstBookingService())) {
                 return [];
             }
             $service = $this->firstBookingService()->service;
@@ -481,9 +498,10 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             }
         }
 
-        if($keyOnly) {
+        if ($keyOnly) {
             return array_keys($this->resources);
         }
+
         return $this->resources;
     }
 
@@ -515,7 +533,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return $this->hasMany('App\Appointment\Models\BookingService');
     }
 
-    public function extraServices(){
+    public function extraServices()
+    {
          return $this->hasMany('App\Appointment\Models\BookingExtraService');
     }
 
@@ -527,11 +546,11 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      * Save booking or update an existing record. New booking services and/or extra services
      * will be looked up and saved together with the booking record.
      *
-     * @param string $uuid
-     * @param User $user
+     * @param string   $uuid
+     * @param User     $user
      * @param Consumer $consumer
-     * @param array $input
-     * @param Booking $existingBooking
+     * @param array    $input
+     * @param Booking  $existingBooking
      *
      * @return Booking
      *
@@ -688,6 +707,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         if(!empty($this->getBookingResources())):
             $ouput .= '<i class="fa fa-cubes"></i>&nbsp;';
         endif;
+
         return trim($ouput);
     }
     /**
@@ -715,9 +735,9 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     /**
      * Reschedule a booking and all of its services, extra services with another employee, at a different time
      *
-     * @param Booking $booking
+     * @param Booking  $booking
      * @param Employee $employee
-     * @param array $input
+     * @param array    $input
      *
      * @return Booking
      *
@@ -735,7 +755,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             throw new ValidationException(trans('as.bookings.reschedule_single_only'));
         }
 
-        \DB::transaction(function() use ($booking, $employee, $input) {
+        \DB::transaction(function () use ($booking, $employee, $input) {
             // prepare extra service ids to keep track
             $extraServiceIds = [];
             foreach ($booking->extraServices as $bookingExtraService) {
@@ -791,5 +811,23 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
                 return $uuid;
             }
         }
+    }
+
+    /**
+     * Calculate the total commissions of paid bookings of a user
+     *
+     * @param App\Core\Models\User $user
+     *
+     * @return double
+     */
+    public static function calculateCommissions(User $user)
+    {
+        $total = static::hasStatus(static::STATUS_PAID)
+            ->ofUser($user)
+            ->sum('total');
+
+        // \Codeception\Util\Debug::debug($total);
+        // 2-decimal place
+        return round($total * Config::get('varaa.commission_rate'), 2);
     }
 }
