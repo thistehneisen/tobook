@@ -348,12 +348,14 @@ class Users extends Base
      * Show controls to send/display related payments of a business
      *
      * @param string               $value
-     * @param App\Core\Models\User $item
+     * @param App\Core\Models\User $user
      *
      * @return View|string
      */
-    public static function presentPayments($value, $item)
+    public static function presentPayments($value, $user)
     {
-        return View::make('admin.users.el.payments');
+        return View::make('admin.users.el.payments', [
+            'user' => $user
+        ]);
     }
 }

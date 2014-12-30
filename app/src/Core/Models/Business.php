@@ -5,6 +5,7 @@ use App\Core\Models\Relations\BusinessBusinessCategory;
 use App\Lomake\Fields\HtmlField;
 use Exception;
 use Illuminate\Support\Collection;
+use App\Appointment\Models\Booking;
 
 class Business extends Base
 {
@@ -185,6 +186,14 @@ class Business extends Base
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
+
+    public function getTotalCommissionAttribute()
+    {
+        $value = \App::make('\App\Appointment\Models\Booking')
+            ->calculateCommissions($this->user);
+
+        return $value > 0 ? number_format($value, 2) : null;
+    }
 
     /**
      * Return the full address of this user
