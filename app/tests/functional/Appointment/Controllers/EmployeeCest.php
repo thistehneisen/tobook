@@ -335,14 +335,14 @@ class EmployeeCest
         $endAt = new Carbon('18:00:00');
         $employee = $this->employees[1];
         $date = Carbon::today()->addMonth();
-        $customTime = $this->_createCustomTime($startAt->format('h:i:s'), $endAt->format('h:i:s'), $employee, $date);
+        $customTime = $this->_createCustomTime($startAt->format('H:i:s'), $endAt->format('H:i:s'), $employee, $date);
 
         $I->amOnRoute('as.employees.employeeCustomTime', [
             'employeeId' => $employee->id,
             'date' => $date->format('Y-m'),
         ]);
         $I->seeOptionIsSelected('employees', $employee->name);
-        $I->seeOptionIsSelected('custom_times[' . $date->toDateString() . ']', $customTime->name . sprintf(' (%s - %s)', $startAt->format('h:i'),  $endAt->format('h:i')));
+        $I->seeOptionIsSelected('custom_times[' . $date->toDateString() . ']', $customTime->name . sprintf(' (%s - %s)', $startAt->format('H:i'),  $endAt->format('H:i')));
 
         $firstOfMonth = with(clone $date)->firstOfMonth();
         for ($i = 0; $i < $date->daysInMonth; $i++) {
@@ -448,7 +448,7 @@ class EmployeeCest
         $endAt = new Carbon('18:00:00');
         $employee = $this->employee;
         $date = Carbon::today()->addMonth();
-        $customTime = $this->_createCustomTime($startAt->format('h:i:s'), $endAt->format('h:i:s'), $employee, $date);
+        $customTime = $this->_createCustomTime($startAt->format('H:i:s'), $endAt->format('H:i:s'), $employee, $date);
 
         $startAt2 = '13:00:00';
         $customTime2 = $this->_createCustomTime($startAt2, $endAt);
@@ -459,7 +459,7 @@ class EmployeeCest
         ]);
         $I->seeOptionIsSelected('employees', $employee->name);
         $selector = 'custom_times[' . $date->toDateString() . ']';
-        $I->seeOptionIsSelected($selector, $customTime->name . sprintf(' (%s - %s)', $startAt->format('h:i'),  $endAt->format('h:i')));
+        $I->seeOptionIsSelected($selector, $customTime->name . sprintf(' (%s - %s)', $startAt->format('H:i'),  $endAt->format('H:i')));
         $I->selectOption($selector, $customTime2->id);
         $I->click('#btn-save');
 
@@ -475,7 +475,7 @@ class EmployeeCest
         $endAt = new Carbon('18:00:00');
         $employee = $this->employee;
         $date = Carbon::today()->addMonth();
-        $customTime = $this->_createCustomTime($startAt->format('h:i:s'), $endAt->format('h:i:s'), $employee, $date);
+        $customTime = $this->_createCustomTime($startAt->format('H:i:s'), $endAt->format('H:i:s'), $employee, $date);
 
         $I->amOnRoute('as.employees.employeeCustomTime', [
             'employeeId' => $employee->id,
@@ -483,7 +483,7 @@ class EmployeeCest
         ]);
         $I->seeOptionIsSelected('employees', $employee->name);
         $selector = 'custom_times[' . $date->toDateString() . ']';
-        $I->seeOptionIsSelected($selector, $customTime->name . sprintf(' (%s - %s)', $startAt->format('h:i'),  $endAt->format('h:i')));
+        $I->seeOptionIsSelected($selector, $customTime->name . sprintf(' (%s - %s)', $startAt->format('H:i'),  $endAt->format('H:i')));
         $I->selectOption($selector, 0);
         $I->click('#btn-save');
 

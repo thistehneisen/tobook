@@ -115,7 +115,7 @@ $(document).ready(function () {
                             <div class="col-sm-2"><a href="#" data-hash="{{ $hash }}" data-action-url="{{ route('as.bookings.service.remove.in.cart') }}" data-cart-id="{{ $cart->id }}" data-cart-detail-id="{{ $item->id }}" data-uuid="{{ $item->model->uuid }}" class="btn-remove-item-from-cart"><i class="glyphicon glyphicon-remove btn-danger"></i></a></div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12"> {{ $item->model->instance->plainStartTime->format('h:i') }} : {{ $item->model->instance->plainEndTime->format('h:i') }}</div>
+                            <div class="col-sm-12"> {{ $item->model->instance->plainStartTime->format('H:i') }} : {{ $item->model->instance->plainEndTime->format('H:i') }}</div>
                         </div>
                     </div>
                 </div>
