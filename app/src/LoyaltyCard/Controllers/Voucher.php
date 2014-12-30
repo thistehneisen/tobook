@@ -7,7 +7,6 @@ class Voucher extends Base
 {
     use \CRUD;
 
-    // protected $viewPath = 'modules.lc.vouchers';
     protected $crudOptions = [
         'modelClass'    => 'App\LoyaltyCard\Models\Voucher',
         'langPrefix'    => 'loyalty-card.voucher',

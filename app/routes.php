@@ -23,6 +23,7 @@ require app_path().'/routes/embed.php';
 require app_path().'/routes/cart.php';
 require app_path().'/routes/image.php';
 require app_path().'/routes/admin.php';
+
 //------------------------------------------------------------------------------
 // Modules
 //------------------------------------------------------------------------------
@@ -31,53 +32,3 @@ require app_path().'/routes/consumer_hub.php';
 require app_path().'/routes/appointment.php';
 require app_path().'/routes/loyalty_card.php';
 require app_path().'/routes/flash_deal.php';
-
-/*
-|--------------------------------------------------------------------------
-| App routes
-|--------------------------------------------------------------------------
-*/
-Route::group(['prefix' => 'auth-lc'], function () {
-    Route::get('login', [
-        'as' => 'app.lc.login',
-        'uses' => 'App\Core\Controllers\Auth@appLogin'
-    ]);
-
-    Route::post('login', [
-        'uses' => 'App\Core\Controllers\Auth@doAppLogin'
-    ]);
-
-    Route::get('logout', [
-        'as' => 'app.lc.logout',
-        'uses' => 'App\Core\Controllers\Auth@appLogout'
-    ]);
-});
-
-Route::group([
-    'prefix' => 'app',
-    'before' => ['auth-lc'],
-], function () {
-    Route::group([
-        'prefix' => 'lc',
-    ], function () {
-        Route::get('/', [
-            'as' => 'app.lc.index',
-            'uses' => 'App\LoyaltyCard\Controllers\Consumer@appIndex',
-        ]);
-
-        Route::get('consumers/{id}', [
-            'as' => 'app.lc.show',
-            'uses' => 'App\LoyaltyCard\Controllers\Consumer@show',
-        ]);
-
-        Route::post('consumers', [
-            'as' => 'app.lc.store',
-            'uses' => 'App\LoyaltyCard\Controllers\Consumer@store',
-        ]);
-
-        Route::put('consumers/{id}', [
-            'as' => 'app.lc.update',
-            'uses' => 'App\LoyaltyCard\Controllers\Consumer@update',
-        ]);
-    });
-});

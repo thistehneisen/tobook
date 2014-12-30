@@ -7,7 +7,6 @@ class Offer extends Base
 {
     use \CRUD;
 
-    protected $viewPath = 'modules.lc.offers';
     protected $crudOptions = [
         'modelClass'    => 'App\LoyaltyCard\Models\Offer',
         'langPrefix'    => 'loyalty-card.offer',

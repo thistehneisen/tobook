@@ -59,7 +59,7 @@ return [
             'enable' => true,
         ],
         'loyalty' => [
-            'route_name' => 'lc.consumers.index',
+            'route_name' => 'lc.offers.index',
             'enable' => true,
         ],
         'flashdeal' => [

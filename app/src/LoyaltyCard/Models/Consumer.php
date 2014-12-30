@@ -12,11 +12,6 @@ class Consumer extends Base
         'saving' => []
     ];
 
-    /**
-     * Define the parent relationship of this consumer
-     *
-     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
     public function consumer()
     {
         return $this->belongsTo('App\Consumers\Models\Consumer');

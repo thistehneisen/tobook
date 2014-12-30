@@ -2,17 +2,16 @@
 
 use View, Input, Confide, Config, Request, Response;
 use App\Core\Controllers\Base;
-use App\LoyaltyCard\Controllers\ConsumerRepository as ConsumerRepository;
+use App\LoyaltyCard\Controllers\ConsumerRepository;
 use App\Consumers\Models\Consumer as Core;
 use App\LoyaltyCard\Models\Voucher as VoucherModel;
 use App\LoyaltyCard\Models\Offer as OfferModel;
 
-class Consumer extends Base
+class LoyaltyApp extends Base
 {
     use \CRUD;
 
     protected $consumerRepository;
-    protected $viewPath = 'modules.lc.consumers';
     protected $crudOptions = [
         'modelClass'    => 'App\LoyaltyCard\Models\Consumer',
         'langPrefix'    => 'loyalty-card.consumer',
@@ -24,20 +23,6 @@ class Consumer extends Base
     {
         parent::__construct();
         $this->consumerRepository = $consumerRp;
-    }
-
-    public function search()
-    {
-        $q = e(Input::get('q'));
-
-        $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
-
-        $items = $this->consumerRepository->getAllConsumers($q, $perPage);
-
-        // Disable sorting items
-        $this->crudSortable = false;
-
-        return $this->renderList($items);
     }
 
     protected function upsertHandler($item)
@@ -72,29 +57,10 @@ class Consumer extends Base
     }
 
     /**
-     * Display list of consumers.
-     *
+     * View index for app
      * @return View
      */
-    public function index()
-    {
-        return $this->viewIndex();
-    }
-
-    /**
-     * Index for app
-     * @return Response
-     */
-    public function appIndex()
-    {
-        return $this->viewIndex(Input::get('search'), true);
-    }
-
-    /**
-     * Make view index for both app and BE
-     * @return View
-     */
-    private function viewIndex($search = '', $isApp = false)
+    protected function index()
     {
         // To make sure that we only show records of current user
         $query = $this->getModel();
@@ -102,23 +68,14 @@ class Consumer extends Base
         // Allow to filter results in query string
         $query = $this->applyQueryStringFilter($query);
 
-        // If this controller is sortable
-        if ($this->getOlutOptions('sortable') === true) {
-            $query = $query->orderBy('order');
-        }
-
         // Pagination please
         $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
         $items = $query->paginate($perPage);
 
-        if ($isApp) {
-            $items = $this->consumerRepository->getAllConsumers($search);
+        $items = $this->consumerRepository->getAllConsumers(Input::get('search'));
 
-            return View::make('modules.lc.app.index')
-                        ->with('items', $items);
-        } else {
-            return $this->renderList($items);
-        }
+        return View::make('modules.lc.app.index')
+            ->with('items', $items);
     }
 
     /**
@@ -127,7 +84,7 @@ class Consumer extends Base
      * @param  int  $id
      * @return View
      */
-    public function show($id)
+    protected function show($id)
     {
         $consumer = $this->consumerRepository->showConsumer($id, false);
 
@@ -155,8 +112,6 @@ class Consumer extends Base
 
             return View::make('modules.lc.app.show', $data);
         }
-
-        // what if it's not AJAX?
     }
 
     /**
