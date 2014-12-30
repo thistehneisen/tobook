@@ -63,6 +63,7 @@ return [
         'meta_title'       => 'Meta title', // @todo
         'meta_description' => 'Meta description', // @todo
         'meta_keywords'    => 'Meta keywords', // @todo
+        'bank_account'     => 'Bank account', // @todo
         'sizes'            => [
             '1',
             '2-3',

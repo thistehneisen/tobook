@@ -20,6 +20,7 @@ class Business extends Base
         'lat',
         'lng',
         'note',
+        'bank_account',
         'meta_title',
         'meta_keywords',
         'meta_description',
@@ -144,6 +145,7 @@ class Business extends Base
             'meta_title'       => $input['meta_title'],
             'meta_keywords'    => $input['meta_keywords'],
             'meta_description' => $input['meta_description'],
+            'bank_account'     => $input['bank_account'],
         ]);
         $this->user()->associate($user);
         $this->saveOrFail();

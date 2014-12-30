@@ -55,6 +55,7 @@ return [
         'meta_title'       => 'Meta title',
         'meta_description' => 'Meta description',
         'meta_keywords'    => 'Meta keywords',
+        'bank_account'     => 'Bank account',
         'sizes'            => [
             '1',
             '2-3',
