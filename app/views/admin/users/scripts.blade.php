@@ -1,6 +1,6 @@
 <script>
 $(function () {
     $('[data-toggle="popover"]').popover();
-    $('[data-toggle="tooltip"]').tooltip();
+    $('.js-show-tooltip').tooltip();
 });
 </script>
