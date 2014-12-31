@@ -1,6 +1,6 @@
 <?php namespace App\Core\Models;
 
-use Config, Log, NAT, Input, Str, Util;
+use Config, Log, NAT, Input, Str, Util, App;
 use App\Core\Models\Relations\BusinessBusinessCategory;
 use App\Lomake\Fields\HtmlField;
 use Exception;
@@ -189,10 +189,18 @@ class Business extends Base
 
     public function getTotalCommissionAttribute()
     {
-        $value = \App::make('\App\Appointment\Models\Booking')
+        $value = App::make('\App\Appointment\Models\Booking')
             ->calculateCommissions($this->user);
 
         return $value > 0 ? number_format($value, 2) : null;
+    }
+
+    public function getPaidCommissionAttribute()
+    {
+        $model = App::make('\App\Core\Models\CommissionLog');
+        $value = $model->calculatePaid($this->user);
+
+        return number_format($value, 2);
     }
 
     /**

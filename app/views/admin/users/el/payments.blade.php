@@ -1,6 +1,6 @@
 @if (!empty($user->business->total_commission))
 <code>
-    <span data-toggle="tooltip" data-placement="top" title="{{ trans('admin.paid') }}">0&euro;</span> /
+    <span data-toggle="tooltip" data-placement="top" title="{{ trans('admin.paid') }}">{{ $user->business->paid_commission }}&euro;</span> /
     <span data-toggle="tooltip" data-placement="top" title="{{ trans('admin.total') }}">{{ $user->business->total_commission }}&euro;</span>
 </code>
 

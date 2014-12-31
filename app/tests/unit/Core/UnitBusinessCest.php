@@ -138,10 +138,21 @@ class UnitBusinessCest
     {
         $mock = m::mock('\App\Appointment\Models\Booking[calculateCommissions]');
         $mock->shouldReceive('calculateCommissions')->andReturn(10);
-
         \App::instance('\App\Appointment\Models\Booking', $mock);
+
         $business = new Business();
         $business->user()->associate($this->user);
         $i->assertEquals($business->total_commission, '10.00');
+    }
+
+    public function testGetPaidCommission(UnitTester $i)
+    {
+        $mock = m::mock('\App\Core\Models\CommissionLog[calculatePaid]');
+        $mock->shouldReceive('calculatePaid')->andReturn(17.8);
+        \App::instance('\App\Core\Models\CommissionLog', $mock);
+
+        $business = new Business();
+        $business->user()->associate($this->user);
+        $i->assertEquals($business->paid_commission, '17.80');
     }
 }
