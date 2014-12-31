@@ -41,7 +41,18 @@
         {{ Form::checkbox('is_requested_employee', 1, (isset($booking_info['is_requested_employee'])) ? $booking_info['is_requested_employee'] : '', ['id' => 'is_requested_employee']) }}
         <label for="is_requested_employee">{{ trans('as.bookings.request_employee') }}</label>
     </div>
-
+    @if((int)$user->asOptions['terms_enabled'] > 1)
+    <div class="form-group">
+        @if((int)$user->asOptions['terms_enabled'] == 3)
+        <label for="terms">{{ Form::checkbox('terms', 0, 0,['id'=>'terms']); }} <a href="#" id="toggle_term">{{ trans('as.bookings.terms_agree') }}</a></label>
+        @else
+        <label><a href="#" id="toggle_term">{{ trans('as.bookings.terms') }}</a></label>
+        @endif
+     </div>
+    <div class="form-group" id="terms_body" style="display:none">
+        {{ nl2br($user->asOptions['terms_body']) }}
+     </div>
+    @endif
     <input type="hidden" name="hash" value="{{ Input::get('hash') }}">
     <input type="hidden" name="l" value="{{ Input::get('l') }}">
     <input type="hidden" name="cartId" value="{{ Input::get('cartId') }}">
@@ -49,7 +60,7 @@
     <div class="row">
         <div class="col-sm-12">
             <a href="#" class="btn btn-default btn-as-cancel">{{ trans('as.embed.back') }}</a>
-            <button type="submit" class="btn btn-success pull-right" id="btn-book">{{ trans('as.embed.book') }}</button>
+            <button type="submit" class="btn btn-success pull-right" id="btn-book" data-term-error-msg="{{ trans('as.bookings.error.terms')}}" data-term-enabled="{{ $user->asOptions['terms_enabled'] }}" >{{ trans('as.embed.book') }}</button>
         </div>
     </div>
 {{ Form::close() }}

@@ -1,7 +1,13 @@
 @extends ('modules.as.embed.embed')
 
+@section ('extra_js')
+{{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
+@stop
+
 @section ('extra_css')
 @include('modules.as.embed.layout-2._style')
+{{ HTML::style(asset('packages/alertify/css/alertify.min.css')) }}
+{{ HTML::style(asset('packages/alertify/css/themes/bootstrap.min.css')) }}
 @stop
 
 @section ('content')
