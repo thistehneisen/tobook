@@ -22,7 +22,7 @@ a {
 }
 
 .navbar-toggle {
-    background: @orange;
+    background: @primary_color;
 
     .icon-bar {
         background: #fff;
@@ -32,11 +32,11 @@ a {
 // --------------------------------- Buttons -------------------------------- //
 // -------------------------------------------------------------------------- //
 .btn-orange {
-    background-color: @orange;
+    background-color: @primary_color;
     color: #fff;
 
     &:hover {
-        background-color: darken(@orange, 8%);
+        background-color: darken(@primary_color, 8%);
         color: #fff;
     }
 }
@@ -54,15 +54,11 @@ a {
 
     nav.main-nav {
         .logo {
-            .comfortaa;
-            .orange;
-            font-size: 35px;
-
-            span {
-                color: @light_black;
+            img {
+                height: 50px;
             }
 
-            &:hover, &:active {
+            &:hover, &:active, &:focus {
                 text-decoration: none;
             }
         }
@@ -92,7 +88,7 @@ a {
     }
 
     .search-wrapper {
-        background: @orange;
+        background: @primary_color;
         padding-bottom: 10px;
 
         #category-menu .navbar-nav {
@@ -123,7 +119,7 @@ a {
 
             &:hover {
                 color: #fff;
-                background: lighten(@orange, 10%);
+                background: lighten(@primary_color, 10%);
             }
         }
     }

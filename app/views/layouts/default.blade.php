@@ -51,7 +51,9 @@
     <header class="header container-fluid">
         <nav class="main-nav container">
             @section('header-logo')
-            <a href="{{ route('home') }}" class="logo pull-left hidden-print">varaa<span>.com</span></a>
+            <a href="{{ route('home') }}" class="logo pull-left hidden-print">
+                <img src="{{ asset_path('core/img/logo.png') }}" alt="">
+            </a>
             @show
 
             @section('main-nav')
