@@ -66,5 +66,5 @@ gulp.task 'build', ['coffee', 'less', 'img'], ->
 # Watch file changes run related tasks
 gulp.task 'default', ->
   # Watch CoffeeScript
-  gulp.watch paths.coffee, ['coffee']
-  gulp.watch paths.less, ['less']
+  gulp.watch paths.coffee, ['build']
+  gulp.watch paths.less, ['build']

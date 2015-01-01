@@ -4,7 +4,7 @@
     <span class="js-show-tooltip" data-toggle="tooltip" data-placement="top" title="{{ trans('admin.total') }}">{{ $user->business->total_commission }}&euro;</span>
 </code>
 
-<a href=""><i class="fa fa-plus-circle"></i></a>
-<a href=""><i class="fa fa-minus-circle"></i></a>
-<a href=""><i class="fa fa-arrow-circle-down"></i></a>
+<a class="js-commission-add" href=""><i class="fa fa-plus-circle"></i></a>
+<a class="js-commission-subtract" href=""><i class="fa fa-minus-circle"></i></a>
+<a class="js-commission-history" href=""><i class="fa fa-history"></i></a>
 @endif
