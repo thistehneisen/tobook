@@ -1,10 +1,18 @@
 {
-  "co/scripts/main.js": "co/scripts/main-ebf8fed5.js",
-  "core/scripts/global.js": "core/scripts/global-93bccf1d.js",
-  "core/scripts/home.js": "core/scripts/home-06420e3b.js",
-  "core/scripts/main.js": "core/scripts/main-e783c0d0.js",
-  "core/scripts/search.js": "core/scripts/search-3b98428f.js",
-  "fd/scripts/main.js": "fd/scripts/main-f7b80047.js",
-  "lc/scripts/main.js": "lc/scripts/main-3e7d25d9.js",
-  "core/scripts/admin/stats.js": "core/scripts/admin/stats-099b4319.js"
+  "clearbooking/co/scripts/main.js": "clearbooking/co/scripts/main-ebf8fed5.js",
+  "clearbooking/core/scripts/global.js": "clearbooking/core/scripts/global-93bccf1d.js",
+  "clearbooking/core/scripts/home.js": "clearbooking/core/scripts/home-06420e3b.js",
+  "clearbooking/core/scripts/main.js": "clearbooking/core/scripts/main-e783c0d0.js",
+  "clearbooking/core/scripts/search.js": "clearbooking/core/scripts/search-3b98428f.js",
+  "clearbooking/fd/scripts/main.js": "clearbooking/fd/scripts/main-f7b80047.js",
+  "clearbooking/lc/scripts/main.js": "clearbooking/lc/scripts/main-3e7d25d9.js",
+  "varaa/co/scripts/main.js": "varaa/co/scripts/main-ebf8fed5.js",
+  "varaa/core/scripts/global.js": "varaa/core/scripts/global-93bccf1d.js",
+  "varaa/core/scripts/home.js": "varaa/core/scripts/home-06420e3b.js",
+  "varaa/core/scripts/main.js": "varaa/core/scripts/main-e783c0d0.js",
+  "varaa/core/scripts/search.js": "varaa/core/scripts/search-3b98428f.js",
+  "varaa/fd/scripts/main.js": "varaa/fd/scripts/main-f7b80047.js",
+  "varaa/lc/scripts/main.js": "varaa/lc/scripts/main-3e7d25d9.js",
+  "clearbooking/core/scripts/admin/stats.js": "clearbooking/core/scripts/admin/stats-099b4319.js",
+  "varaa/core/scripts/admin/stats.js": "varaa/core/scripts/admin/stats-099b4319.js"
 }
