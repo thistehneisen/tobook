@@ -310,7 +310,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             ->join('as_services', 'as_services.id', '=','as_booking_services.service_id')
             ->join('as_room_service', 'as_room_service.service_id', '=', 'as_services.id')
             ->join('as_booking_service_rooms', 'as_booking_service_rooms.booking_service_id', '=','as_booking_services.id')
-            ->where('as_booking_services.service_id', $service->id)
+            ->whereIn('as_booking_service_rooms.room_id',  $service->rooms()->lists('id'))
             ->select('as_booking_service_rooms.room_id');
 
 
@@ -455,7 +455,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      */
     public function getServiceDescription($showLineBreak = false)
     {
-        $bookingService      = $this->bookingServices()->first();
+        $bookingService  = $this->bookingServices()->first();
 
         $allServices = [];
 
@@ -474,6 +474,11 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             $serviceDescription .= ($showLineBreak)
                 ? '<br>' . $bookingService->serviceTime->description
                 : ' ' . $bookingService->serviceTime->description;
+        }
+
+        $room  = $bookingService->rooms()->first();
+        if(!empty($room)) {
+            $serviceDescription .= '<br>' . $room->name;
         }
 
         return $serviceDescription;
