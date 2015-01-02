@@ -234,38 +234,43 @@ class Layout2Cest extends AbstractBooking
         $category = $this->category;
         $employee  = Employee::find(63);
         $employee2 = Employee::find(64);
+        $employee3 = Employee::find(65);
         $service   = $this->service;
 
         $I->amLoggedAs($user);
         $date = $this->getDate();
         $startTime = '09:00';
-        $booking = $this->makeBooking($date, $startTime, $service, $employee);
-        $I->assertEquals($date->toDateString(), $booking->date);
+        $booking1 = $this->makeBooking($date, $startTime, $service, $employee);
+        $booking2 = $this->makeBooking($date, $startTime, $service, $employee2);
+        $I->assertEquals($date->toDateString(), $booking1->date);
+        $I->assertEquals($date->toDateString(), $booking2->date);
 
+        $I->assertEquals($service->rooms()->count(), 2);
 
         $I->amOnPage(route('as.embed.embed', ['hash' => $this->user->hash, 'l' => 2], false));
         $I->click('#btn-category-' . $category->id);
         $I->waitForElementVisible('#btn-service-' . $service->id);
         $I->click('#btn-service-' . $service->id);
-        $I->waitForElementVisible('#btn-employee-' . $employee2->id);
-        $I->click('#btn-employee-' . $employee2->id);
+        $I->waitForElementVisible('#btn-employee-' . $employee3->id);
+        $I->click('#btn-employee-' . $employee3->id);
 
         $I->waitForElementVisible('#as-timetable');
 
         $I->dontSeeElement('a', ['id'=> 'btn-slot-' . $date->format('Ymd') .'-0900']);
 
-
         //Add more room and the time will be available
         $this->addMoreRoom($user, $service);
-        $I->assertEquals($service->rooms()->count(), 2);
+
+        $I->assertEquals($service->rooms()->count(), 3);
+
         $availableRoom = Booking::getAvailableRoom(64, $service, null, $date->toDateString(), $date->copy()->hour(12)->minute(0), $date->copy()->hour(13)->minute(0));
         $I->assertNotEmpty($availableRoom);
         $I->amOnPage(route('as.embed.embed', ['hash' => $this->user->hash, 'l' => 2, 'x'=> 2], false));
         $I->click('#btn-category-' . $category->id);
         $I->waitForElementVisible('#btn-service-' . $service->id);
         $I->click('#btn-service-' . $service->id);
-        $I->waitForElementVisible('#btn-employee-' . $employee2->id);
-        $I->click('#btn-employee-' . $employee2->id);
+        $I->waitForElementVisible('#btn-employee-' . $employee3->id);
+        $I->click('#btn-employee-' . $employee3->id);
 
         $I->waitForElementVisible('#as-timetable');
 

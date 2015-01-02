@@ -355,6 +355,17 @@ trait Models
         $employee1->user()->associate($this->user);
         $employee1->saveOrFail();
 
+        Employee::where('id', 65)->forceDelete();
+        $employee2 = new Employee([
+            'name' => 'An',
+            'email' => 'an@varaa.com',
+            'phone' => '1234567890',
+            'is_active' => 1,
+        ]);
+        $employee2->id = 65;
+        $employee2->user()->associate($this->user);
+        $employee2->saveOrFail();
+
         ServiceCategory::where('id', 106)->forceDelete();
         $this->category = new ServiceCategory([
             'name' => 'Hiusjuuritutkimus',
@@ -379,6 +390,7 @@ trait Models
 
         $this->service->employees()->attach($this->employee);
         $this->service->employees()->attach($employee1);
+        $this->service->employees()->attach($employee2);
 
         $serviceTime = new ServiceTime;
 
@@ -423,18 +435,18 @@ trait Models
             $roomService->room()->associate($room);
             $roomService->save();
 
-            // Room::where('id', 2)->forceDelete();
-            // $room1 = new Room;
-            // $room1->id   = 2;
-            // $room1->name = 'room 2';
-            // $room1->description = 'Description';
-            // $room1->user()->associate($this->user);
-            // $room1->save();
+            Room::where('id', 2)->forceDelete();
+            $room1 = new Room;
+            $room1->id   = 2;
+            $room1->name = 'room 2';
+            $room1->description = 'Description';
+            $room1->user()->associate($this->user);
+            $room1->save();
 
-            // $roomService = new RoomService;
-            // $roomService->service()->associate($this->service);
-            // $roomService->room()->associate($room1);
-            // $roomService->save();
+            $roomService = new RoomService;
+            $roomService->service()->associate($this->service);
+            $roomService->room()->associate($room1);
+            $roomService->save();
         }
 
         if($initExtraServices) {

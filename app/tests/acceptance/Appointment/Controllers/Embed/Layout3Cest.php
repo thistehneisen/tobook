@@ -251,13 +251,18 @@ class Layout3Cest extends AbstractBooking
         $category = $this->category;
         $employee  = Employee::find(63);
         $employee2 = Employee::find(64);
+        $employee3 = Employee::find(65);
         $service   = $this->service;
 
         $I->amLoggedAs($user);
         $date = $this->getDate();
         $startTime = '09:00';
-        $booking = $this->makeBooking($date, $startTime, $service, $employee);
-        $I->assertEquals($date->toDateString(), $booking->date);
+        $booking1 = $this->makeBooking($date, $startTime, $service, $employee);
+        $booking2 = $this->makeBooking($date, $startTime, $service, $employee2);
+        $I->assertEquals($date->toDateString(), $booking1->date);
+        $I->assertEquals($date->toDateString(), $booking2->date);
+
+        $I->assertEquals($service->rooms()->count(), 2);
 
 
         $I->amOnPage(route('as.embed.embed', ['hash' => $user->hash, 'l' => 3], false));
@@ -282,7 +287,7 @@ class Layout3Cest extends AbstractBooking
 
         //Add more room and the time will be available
         $this->addMoreRoom($user, $service);
-        $I->assertEquals($service->rooms()->count(), 2);
+        $I->assertEquals($service->rooms()->count(), 3);
         $availableRoom = Booking::getAvailableRoom(64, $service, null, $date->toDateString(), $date->copy()->hour(12)->minute(0), $date->copy()->hour(13)->minute(0));
         $I->assertNotEmpty($availableRoom);
 
@@ -294,7 +299,7 @@ class Layout3Cest extends AbstractBooking
         $I->checkOption(sprintf('//*[@id="service-times-%s"]/p/label/input', $service->id));
 
         $I->waitForElementVisible('#as-step-2 .as-employee');
-        $I->checkOption('//*[@name="employee_id"]', strval($employee->id));
+        $I->checkOption('//*[@name="employee_id"]', strval($employee3->id));
 
         $I->waitForElementVisible('#timetable');
         while ($I->grabAttributeFrom('#timetable', 'data-date') !== $date->toDateString()) {
