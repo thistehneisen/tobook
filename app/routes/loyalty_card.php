@@ -43,14 +43,9 @@ Route::group([
         'prefix' => 'lc',
     ], function () {
         \App\LoyaltyCard\Controllers\LoyaltyApp::crudRoutes(
-            'consumers',
-            'lc.consumers'
+            '/',
+            'app.lc'
         );
-
-        Route::get('/', [
-            'as' => 'app.lc.index',
-            'uses' => 'App\LoyaltyCard\Controllers\LoyaltyApp@index',
-        ]);
 
         Route::get('consumers/{id}', [
             'as' => 'app.lc.show',

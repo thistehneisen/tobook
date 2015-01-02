@@ -1,7 +1,7 @@
 <?php namespace App\LoyaltyCard\Controllers;
 
 use Auth, Confide, Validator, Request, Input;
-use App\LoyaltyCard\Models\Consumer as Model;
+use App\LoyaltyCard\Models\Consumer as LcConsumer;
 use App\Consumers\Models\Consumer as CoreConsumer;
 use App\LoyaltyCard\Models\Voucher as VoucherModel;
 use App\LoyaltyCard\Models\Offer as OfferModel;
@@ -9,17 +9,26 @@ use App\LoyaltyCard\Models\Transaction as TransactionModel;
 
 class ConsumerRepository
 {
+    private $isApi;
+    private $userId;
+
+    public function __construct($isApi = false)
+    {
+        $this->isApi = $isApi;
+        $this->userId = $isApi ? Auth::user()->id : Confide::user()->id;
+    }
+
     /**
      * Return all consumers
-     * @param  string   $search
-     * @param  bool     $isApi
+     * @param  string $search
+     * @param  int    $perPage
      * @return Consumer
      */
-    public function getAllConsumers($search = '', $perPage = 10, $isApi = false)
+    public function getConsumers($search = '', $perPage = 10)
     {
         $consumers = CoreConsumer::ofCurrentUser();
 
-        if ($isApi) {
+        if ($this->isApi) {
             return $consumers->get();
         } else {
             if ($search !== '') {
@@ -35,49 +44,48 @@ class ConsumerRepository
         }
     }
 
-    public function getDuplicatedConsumer()
-    {
-        return Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-            ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-            ->where('consumer_user.user_id', Confide::user()->id)
-            ->where('lc_consumers.user_id', Confide::user()->id)
-            ->where('consumers.first_name', Input::get('first_name'))
-            ->where('consumers.last_name', Input::get('last_name'))
-            ->where('consumers.email', Input::get('email'))
-            ->where('consumers.phone', Input::get('phone'))
-            ->select('consumers.id')
-            ->first();
-    }
+    // public function getDuplicatedConsumer()
+    // {
+    //     return Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
+    //         ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
+    //         ->where('consumer_user.user_id', Confide::user()->id)
+    //         ->where('lc_consumers.user_id', Confide::user()->id)
+    //         ->where('consumers.first_name', Input::get('first_name'))
+    //         ->where('consumers.last_name', Input::get('last_name'))
+    //         ->where('consumers.email', Input::get('email'))
+    //         ->where('consumers.phone', Input::get('phone'))
+    //         ->select('consumers.id')
+    //         ->first();
+    // }
 
-    public function getExistedConsumer()
-    {
-        return Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-            ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-            ->where('consumers.first_name', Input::get('first_name'))
-            ->where('consumers.last_name', Input::get('last_name'))
-            ->where('consumers.email', Input::get('email'))
-            ->where('consumers.phone', Input::get('phone'))
-            ->select('consumers.id')
-            ->first();
-    }
+    // public function getExistedConsumer()
+    // {
+    //     return Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
+    //         ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
+    //         ->where('consumers.first_name', Input::get('first_name'))
+    //         ->where('consumers.last_name', Input::get('last_name'))
+    //         ->where('consumers.email', Input::get('email'))
+    //         ->where('consumers.phone', Input::get('phone'))
+    //         ->select('consumers.id')
+    //         ->first();
+    // }
 
     /**
      * Store consumer to storage
      * @param  bool     $isApi
      * @return Consumer
      */
-    public function storeConsumer($isApi = false)
+    public function storeConsumer()
     {
-        $userId = $isApi ? Auth::user()->id : Confide::user()->id;
-        $duplicatedConsumer = $this->getDuplicatedConsumer();
-        $existConsumer = $this->getExistedConsumer();
+        // $duplicatedConsumer = $this->getDuplicatedConsumer();
+        // $existConsumer = $this->getExistedConsumer();
 
-        if ($duplicatedConsumer) {
-            return false;
-        } elseif ($existConsumer) {
-            $core = CoreConsumer::find($existConsumer->id);
-            Confide::user()->consumers()->attach($core->id);
-        } else {
+        // if ($duplicatedConsumer) {
+        //     return false;
+        // } elseif ($existConsumer) {
+        //     $core = CoreConsumer::find($existConsumer->id);
+        //     Confide::user()->consumers()->attach($core->id);
+        // } else {
             $data = [
                 'first_name'    => $isApi ? Request::get('first_name') : Input::get('first_name'),
                 'last_name'     => $isApi ? Request::get('last_name') : Input::get('last_name'),
@@ -89,44 +97,22 @@ class ConsumerRepository
                 'country'       => $isApi ? Request::get('country') : Input::get('country'),
             ];
 
-            $core = $isApi ? CoreConsumer::make($data, Auth::user()->id) : CoreConsumer::make($data, Confide::user()->id);
-        }
+            $core = CoreConsumer::make($data, $this->userId);
+        // }
 
-        $consumer = new Model();
-        $consumer->total_points = 0;
-        $consumer->total_stamps = '';
-        $consumer->consumer_id = $core->id;
-        $consumer->user_id = $isApi ? CoreConsumer::user()->id : Confide::user()->id;
-        $consumer->consumer()->associate($core);
-        $consumer->save();
+        $consumer = LcConsumer::make($core->id, $this->userId);
 
         return true;
-    }
-
-    /**
-     * Show consumer information
-     * @param  int      $consumerId
-     * @param  bool     $isApi
-     * @return Consumer
-     */
-    public function showConsumer($consumerId, $isApi = false)
-    {
-        //$userId = $isApi ? Auth::user()->id : Confide::user()->id;
-        // TODO: check if belong to this user?
-        return CoreConsumer::find($consumerId);
     }
 
     /**
      * Add point to consumer
      * @param  int      $consumerId
      * @param  int      $points
-     * @param  bool     $isApi
      * @return Consumer
      */
     public function addPoint($consumerId, $points)
     {
-        $userId = Confide::user()->id;
-
         $rules = [
             'points' => 'required|numeric',
         ];
@@ -136,18 +122,16 @@ class ConsumerRepository
         if ($validator->fails()) {
             return $validator->errors()->toArray();
         } else {
-            $consumer = Model::join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-                ->where('consumer_user.user_id', $userId)
-                ->where('lc_consumers.user_id', $userId)
-                ->where('lc_consumers.id', $consumerId)
-                ->first();
+            $consumer = CoreConsumer::find($consumerId);
+            $consumer->lc = $consumer->lc ?: LcConsumer::make($consumer->id, $this->userId);
 
-            $consumer->total_points += $points;
-            $consumer->save();
+            $consumer->lc->total_points += $points;
+            $consumer->lc->save();
 
+            // TODO elegant way to save transaction
             $transaction = new TransactionModel();
-            $transaction->user_id = Confide::user()->id;
-            $transaction->consumer_id = $consumerId;
+            $transaction->user_id = $this->userId;
+            $transaction->consumer_id = $consumer->lc->id;
             $transaction->point = $points;
             $transaction->save();
 
@@ -163,21 +147,16 @@ class ConsumerRepository
      */
     public function usePoint($consumerId, $voucherId)
     {
-        $userId = Confide::user()->id;
-
         $voucher = VoucherModel::find($voucherId);
+        $consumer = CoreConsumer::find($consumerId);
+        $consumer->lc = $consumer->lc ?: LcConsumer::make($consumer->id, $this->userId);
 
-        $consumer = Model::join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-            ->where('consumer_user.user_id', $userId)
-            ->where('lc_consumers.user_id', $userId)
-            ->where('lc_consumers.id', $consumerId)
-            ->first();
-        $consumer->total_points -= $voucher->required;
-        $consumer->save();
+        $consumer->lc->total_points -= $voucher->required;
+        $consumer->lc->save();
 
         $transaction = new TransactionModel();
-        $transaction->user_id = Confide::user()->id;
-        $transaction->consumer_id = $consumerId;
+        $transaction->user_id = $this->userId;
+        $transaction->consumer_id = $consumer->lc->id;
         $transaction->voucher_id = $voucherId;
         $transaction->point = $voucher->required * -1;
         $transaction->save();
@@ -189,24 +168,13 @@ class ConsumerRepository
      * Add stamp to consumer
      * @param  int  $consumerId
      * @param  int  $offerId
-     * @param  bool $isApi
      * @return int
      */
-    public function addStamp($consumerId, $offerId, $isApi)
+    public function addStamp($consumerId, $offerId)
     {
-        $userId = $isApi ? Auth::user()->id : Confide::user()->id;
-
-        $transaction = new TransactionModel();
-        $transaction->user_id = $isApi ? Auth::user()->id : Confide::user()->id;
-        $transaction->consumer_id = $consumerId;
-        $transaction->offer_id = $offerId;
-
-        $consumer = Model::join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-            ->where('consumer_user.user_id', $userId)
-            ->where('lc_consumers.user_id', $userId)
-            ->where('lc_consumers.id', $consumerId)
-            ->first();
-        $consumerTotalStamps = $consumer->total_stamps;
+        $consumer = CoreConsumer::find($consumerId);
+        $consumer->lc = $consumer->lc ?: LcConsumer::make($consumer->id, $this->userId);
+        $consumerTotalStamps = $consumer->lc->total_stamps;
 
         if ($consumerTotalStamps !== '') {
             $consumerTotalStamps = json_decode($consumerTotalStamps, true);
@@ -225,10 +193,15 @@ class ConsumerRepository
             $consumerTotalStamps = json_encode([$offerId => 1]);
         }
 
+        $consumer->lc->total_stamps = $consumerTotalStamps;
+        $consumer->lc->save();
+
+        $transaction = new TransactionModel();
+        $transaction->user_id = $this->userId;
+        $transaction->consumer_id = $consumer->lc->id;
+        $transaction->offer_id = $offerId;
         $transaction->stamp = 1;
         $transaction->save();
-        $consumer->total_stamps = $consumerTotalStamps;
-        $consumer->save();
 
         return $consumerNoOfStamps;
     }
@@ -237,27 +210,14 @@ class ConsumerRepository
      * Use offer with stamp
      * @param  int  $consumerId
      * @param  int  $offerId
-     * @param  bool $isApi
      * @return int
      */
     public function useOffer($consumerId, $offerId, $isApi)
     {
-        $userId = $isApi ? Auth::user()->id : Confide::user()->id;
-
         $offer = OfferModel::find($offerId);
-
-        $transaction = new TransactionModel();
-        $transaction->user_id = $isApi ? Auth::user()->id : Confide::user()->id;
-        $transaction->consumer_id = $consumerId;
-        $transaction->offer_id = $offerId;
-
-        $consumer = Model::join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-            ->where('consumer_user.user_id', $userId)
-            ->where('lc_consumers.user_id', $userId)
-            ->where('lc_consumers.id', $consumerId)
-            ->first();
-
-        $consumerTotalStamps = $consumer->total_stamps;
+        $consumer = CoreConsumer::find($consumerId);
+        $consumer->lc = $consumer->lc ?: LcConsumer::make($consumer->id, $this->userId);
+        $consumerTotalStamps = $consumer->lc->total_stamps;
 
         if ($consumerTotalStamps !== '') {
             $consumerTotalStamps = json_decode($consumerTotalStamps, true);
@@ -271,11 +231,16 @@ class ConsumerRepository
                     $consumerTotalStamps[$offerId] = $consumerNoOfStamps;
                     $consumerTotalStamps = json_encode($consumerTotalStamps);
 
+                    $consumer->lc->total_stamps = $consumerTotalStamps;
+                    $consumer->lc->save();
+
+                    $transaction = new TransactionModel();
+                    $transaction->user_id = $this->userId;
+                    $transaction->consumer_id = $consumer->lc->id;
+                    $transaction->offer_id = $offerId;
                     $transaction->offer_id = $offerId;
                     $transaction->stamp = $offer->required * -1;
                     $transaction->save();
-                    $consumer->total_stamps = $consumerTotalStamps;
-                    $consumer->save();
 
                     return $consumerNoOfStamps;
                 } else {

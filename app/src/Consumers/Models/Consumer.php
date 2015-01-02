@@ -216,6 +216,11 @@ class Consumer extends \App\Core\Models\Base
         return $this->belongsToMany('App\Core\Models\User');
     }
 
+    public function lc()
+    {
+        return $this->hasOne('App\LoyaltyCard\Models\Consumer', 'consumer_id');
+    }
+
     //--------------------------------------------------------------------------
     // SEARCH
     //--------------------------------------------------------------------------

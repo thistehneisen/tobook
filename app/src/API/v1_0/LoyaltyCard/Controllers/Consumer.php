@@ -6,15 +6,15 @@ use App\LoyaltyCard\Models\Consumer as Model;
 use App\LoyaltyCard\Models\Offer as OfferModel;
 use App\LoyaltyCard\Models\Transaction as TransactionModel;
 use App\Core\Controllers\Base as Base;
-use App\LoyaltyCard\Controllers\ConsumerRepository as ConsumerRepository;
+use App\LoyaltyCard\Controllers\ConsumerRepository;
 
 class Consumer extends Base
 {
-    protected $consumerRepository;
+    private $consumerRepository;
 
-    public function __construct(ConsumerRepository $consumerRp)
+    public function __construct()
     {
-        $this->consumerRepository = $consumerRp;
+        $this->consumerRepository = new ConsumerRepository(true);
     }
 
     /**
@@ -24,7 +24,7 @@ class Consumer extends Base
      */
     public function index()
     {
-        $consumers = $this->consumerRepository->getAllConsumers(true);
+        $consumers = $this->consumerRepository->getConsumers();
 
         if ($consumers->toArray()) {
             return Response::json([
@@ -46,7 +46,7 @@ class Consumer extends Base
      */
     public function store()
     {
-        $result = $this->consumerRepository->storeConsumer(true);
+        $result = $this->consumerRepository->storeConsumer();
 
         if (is_array($result)) {
             return Response::json([
@@ -71,7 +71,7 @@ class Consumer extends Base
     public function show($id)
     {
         // $consumer = Model::find($id);
-        $consumer = $this->consumerRepository->showConsumer(true, $id);
+        $consumer = $this->consumerRepository->showConsumer($id);
 
         if ($consumer) {
             return Response::json([

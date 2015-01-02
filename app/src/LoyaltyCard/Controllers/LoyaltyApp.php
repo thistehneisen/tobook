@@ -3,7 +3,7 @@
 use View, Input, Confide, Config, Request, Response;
 use App\Core\Controllers\Base;
 use App\LoyaltyCard\Controllers\ConsumerRepository;
-use App\Consumers\Models\Consumer as Core;
+use App\Consumers\Models\Consumer as CoreConsumer;
 use App\LoyaltyCard\Models\Voucher as VoucherModel;
 use App\LoyaltyCard\Models\Offer as OfferModel;
 
@@ -11,7 +11,7 @@ class LoyaltyApp extends Base
 {
     use \CRUD;
 
-    protected $consumerRepository;
+    private $consumerRepository;
     protected $crudOptions = [
         'modelClass'    => 'App\LoyaltyCard\Models\Consumer',
         'langPrefix'    => 'lc.consumer',
@@ -19,10 +19,10 @@ class LoyaltyApp extends Base
         'indexFields'   => ['name', 'email', 'phone', 'updated_at'],
     ];
 
-    public function __construct(ConsumerRepository $consumerRp)
+    public function __construct()
     {
         parent::__construct();
-        $this->consumerRepository = $consumerRp;
+        $this->consumerRepository = new ConsumerRepository();
     }
 
     protected function upsertHandler($item)
@@ -30,17 +30,17 @@ class LoyaltyApp extends Base
         $core = $item->consumer;
 
         if ($core === null) {
-            $duplicatedConsumer = $this->consumerRepository->getDuplicatedConsumer();
-            $existedConsumer = $this->consumerRepository->getExistedConsumer();
+            //$duplicatedConsumer = $this->consumerRepository->getDuplicatedConsumer();
+            //$existedConsumer = $this->consumerRepository->getExistedConsumer();
 
-            if ($duplicatedConsumer) {
-                return;
-            } elseif ($existedConsumer) {
-                $core = Core::find($existedConsumer->id);
-            } else {
-                $core = Core::make(Input::all());
+            // if ($duplicatedConsumer) {
+            //     return;
+            // } elseif ($existedConsumer) {
+            //     $core = Core::find($existedConsumer->id);
+            // } else {
+                $core = CoreConsumer::make(Input::all());
                 $core->users()->detach($this->user->id);
-            }
+            //}
 
             $core->users()->attach($this->user);
             $item->total_points = 0;
@@ -62,17 +62,7 @@ class LoyaltyApp extends Base
      */
     protected function index()
     {
-        // To make sure that we only show records of current user
-        $query = $this->getModel();
-
-        // Allow to filter results in query string
-        $query = $this->applyQueryStringFilter($query);
-
-        // Pagination please
-        $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
-        $items = $query->paginate($perPage);
-
-        $items = $this->consumerRepository->getAllConsumers(Input::get('search'));
+        $items = $this->consumerRepository->getConsumers(Input::get('search'));
 
         return View::make('modules.lc.app.index')
             ->with('items', $items);
@@ -86,25 +76,21 @@ class LoyaltyApp extends Base
      */
     protected function show($id)
     {
-        $consumer = $this->consumerRepository->showConsumer($id, false);
+        $consumer = CoreConsumer::find($id);
 
         if (Request::ajax()) {
             if ($consumer) {
                 $vouchers = VoucherModel::ofCurrentUser()->where('is_active', true)->get();
                 $offers = OfferModel::ofCurrentUser()->where('is_active', true)->get();
-                $consumerTotalStamps = $consumer->total_stamps;
-
-                if ($consumerTotalStamps === '') {
-                    $stampInfo = null;
-                } else {
-                    $stampInfo = json_decode($consumerTotalStamps, true);
-                }
+                $stampInfo = $consumer->lc->total_stamps ? json_decode($consumer->lc->total_stamps, true) : null;
+                $pointInfo = $consumer->lc->total_points ?: 0;
 
                 $data = [
                     'consumer' => $consumer,
                     'offers' => $offers,
                     'vouchers' => $vouchers,
                     'stampInfo' => $stampInfo,
+                    'pointInfo' => $pointInfo
                 ];
             } else {
                 $data = ['error' => trans('This customer does not exist')];
@@ -121,7 +107,7 @@ class LoyaltyApp extends Base
      */
     public function store()
     {
-        $result = $this->consumerRepository->storeConsumer(false);
+        $result = $this->consumerRepository->storeConsumer();
 
         return Response::json([
             'success'   => true,
@@ -137,7 +123,7 @@ class LoyaltyApp extends Base
      */
     private function ajaxAddPoint($consumerId, $points)
     {
-        $result = $this->consumerRepository->addPoint($consumerId, $points, false);
+        $result = $this->consumerRepository->addPoint($consumerId, $points);
 
         if (is_array($result)) {
             return Response::json([
@@ -148,7 +134,7 @@ class LoyaltyApp extends Base
             return Response::json([
                 'success' => true,
                 'message' => 'Point added successfully',
-                'points'  => $result->total_points,
+                'points'  => $result->lc->total_points,
             ]);
         }
     }
@@ -161,12 +147,12 @@ class LoyaltyApp extends Base
      */
     private function ajaxUsePoint($consumerId, $voucherId)
     {
-        $consumer = $this->consumerRepository->usePoint($consumerId, $voucherId, false);
+        $consumer = $this->consumerRepository->usePoint($consumerId, $voucherId);
 
         return Response::json([
             'success' => true,
             'message' => 'Point used successfully',
-            'points'  => $consumer->total_points,
+            'points'  => $consumer->lc->total_points,
         ]);
     }
 
@@ -178,7 +164,7 @@ class LoyaltyApp extends Base
      */
     private function ajaxAddStamp($consumerId, $offerId)
     {
-        $consumerNoOfStamps = $this->consumerRepository->addStamp($consumerId, $offerId, false);
+        $consumerNoOfStamps = $this->consumerRepository->addStamp($consumerId, $offerId);
 
         return Response::json([
             'success' => true,
@@ -195,7 +181,7 @@ class LoyaltyApp extends Base
      */
     private function ajaxUseOffer($consumerId, $offerId)
     {
-        $consumerNoOfStamps = $this->consumerRepository->useOffer($consumerId, $offerId, false);
+        $consumerNoOfStamps = $this->consumerRepository->useOffer($consumerId, $offerId);
 
         if ($consumerNoOfStamps === null) {
             return Response::json([

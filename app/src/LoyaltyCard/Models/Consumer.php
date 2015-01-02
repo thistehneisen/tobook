@@ -8,9 +8,6 @@ class Consumer extends Base
     protected $guarded = ['id'];
     protected $dates = ['deleted_at'];
     public $fillable = ['total_points', 'total_stamps'];
-    protected $rulesets = [
-        'saving' => []
-    ];
 
     public function consumer()
     {
@@ -20,5 +17,17 @@ class Consumer extends Base
     public function user()
     {
         return $this->belongsTo('App\Core\Models\User');
+    }
+
+    public static function make($consumerId, $userId)
+    {
+        $consumer = new self();
+        $consumer->total_points = 0;
+        $consumer->total_stamps = '';
+        $consumer->consumer_id = $consumerId;
+        $consumer->user_id = $userId;
+        $consumer->save();
+
+        return $consumer;
     }
 }

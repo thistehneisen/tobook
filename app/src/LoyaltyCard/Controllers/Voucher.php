@@ -12,18 +12,16 @@ class Voucher extends Base
         'langPrefix'    => 'lc.voucher',
         'layout'        => 'modules.lc.layout',
         'indexFields'   => ['name', 'required', 'value', 'type', 'is_active'],
-        'lomake' => [
-            'type' => [
-                'type' => 'Dropdown',
-            ],
-        ],
     ];
 
     public function __construct() {
         parent::__construct();
-        $this->crudOptions['lomake']['type']['values'] =[
-            'Percent' => trans('lc.percent'),
-            'Cash' => trans('lc.cash')
+        $this->crudOptions['lomake']['type'] = [
+            'type' => 'Dropdown',
+            'values' => [
+                'Percent' => trans('lc.percent'),
+                'Cash' => trans('lc.cash')
+            ]
         ];
     }
 
