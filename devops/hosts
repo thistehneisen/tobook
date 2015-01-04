@@ -1,13 +1,9 @@
 [webservers]
 prod1 ansible_ssh_host=klikkaaja.com ansible_ssh_user=root
 stag1 ansible_ssh_host=dev.varaa.co ansible_ssh_user=root
+clearbooking1 ansible_ssh_host=clearbooking.se ansible_ssh_user=root
 
 [dbservers]
 prod1 ansible_ssh_host=klikkaaja.com ansible_ssh_user=root
 stag1 ansible_ssh_host=dev.varaa.co ansible_ssh_user=root
-
-[production]
-prod1 ansible_ssh_host=klikkaaja.com ansible_ssh_user=root
-
-[staging]
-stag1 ansible_ssh_host=dev.varaa.co ansible_ssh_user=root
+clearbooking1 ansible_ssh_host=clearbooking.se ansible_ssh_user=root

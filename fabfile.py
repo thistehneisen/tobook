@@ -16,7 +16,7 @@ def _deploy(environment):
         # install dependencies
         run('composer install')
         # run migration
-        run('fab m:{}'.format(environment))
+        run('php artisan migrate --env={}'.format(environment))
         # chmod storage again
         run('chmod -Rf 777 app/storage')
         # clear all application cache
@@ -35,6 +35,12 @@ def deploy_stag():
 @hosts('klikkaaja.com')
 def deploy_prod():
     _deploy('prod')
+
+
+@task
+@hosts('clearbooking.se')
+def deploy_cs():
+    _deploy('clearbooking')
 
 
 @task(alias='rc')

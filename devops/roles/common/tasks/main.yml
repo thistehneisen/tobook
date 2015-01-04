@@ -20,6 +20,7 @@
     - redis-server
     - php5-mysqlnd
     - supervisor
+    - fabric
 
 - name: remove default apache site
   action: file path=/etc/apache2/sites-available/000-default.conf state=absent
@@ -35,6 +36,12 @@
 
 - name: enable composer
   shell: mv composer.phar /usr/local/bin/composer
+
+- name: enable mcrypt
+  shell: php5enmod mcrypt
+
+- name: enable mod_rewrite
+  shell: a2enmod rewrite
 
 - name: download eslasticsearch package
   get_url: url=https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.3.4.deb dest=/tmp/elasticsearch.deb
