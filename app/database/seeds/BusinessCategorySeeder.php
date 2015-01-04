@@ -10,6 +10,13 @@ class BusinessCategorySeeder extends Seeder
      */
     public function run()
     {
+        $all = BusinessCategory::all();
+        if ($all->isEmpty() === false) {
+            $this->command->info('BusinessCategorySeeder is already seeded');
+
+            return;
+        }
+
         $items = [
             [
                 'name' => 'beauty_hair',

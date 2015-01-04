@@ -11,6 +11,15 @@ class EntrustSeeder extends Seeder
      */
     public function run()
     {
+        // We'll not seed if there is existing data
+        $all = Permission::all();
+
+        if ($all->isEmpty() === false) {
+            $this->command->info('EntrustSeeder is already seeded');
+
+            return;
+        }
+
         $permissions = [
             'super_user' => 'Super User'
         ];

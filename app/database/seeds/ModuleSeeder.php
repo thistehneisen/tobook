@@ -12,6 +12,13 @@ class ModuleSeeder extends Seeder
      */
     public function run()
     {
+        $all = Module::all();
+        if ($all->isEmpty() === false) {
+            $this->command->info('ModuleSeeder is already seeded');
+
+            return;
+        }
+
         $data = [
             ['name' => 'appointment', 'uri' => '/services/appointment-scheduler'],
             ['name' => 'cashier', 'uri' => '/services/cashier'],
