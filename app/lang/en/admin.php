@@ -21,6 +21,8 @@ return [
     'activate'           => 'Activate',
     'deactivate'         => 'Deactivate',
     'commissions'        => 'Commissions',
+    'commission_done'    => 'Record has been saved',
+    'commission_fail'    => 'Cannot save record. Please check your input.',
     'paid'               => 'Paid',
     'total'              => 'Total',
     'modules'            => [

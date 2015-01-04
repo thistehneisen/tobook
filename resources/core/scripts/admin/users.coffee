@@ -25,4 +25,6 @@ do ($ = jQuery) ->
           note: note
       .done (res) ->
         alertify.success res.message
+      .fail (res) ->
+        alertify.error res.responseJSON.message
 

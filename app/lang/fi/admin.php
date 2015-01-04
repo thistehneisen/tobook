@@ -20,6 +20,11 @@ return [
     'enable'             => 'Enable',
     'activate'           => 'Aktivoi',
     'deactivate'         => 'Deaktivoi',
+    'commissions'        => 'Commissions', // @todo
+    'commission_done'    => 'Record has been saved', // @todo
+    'commission_fail'    => 'Cannot save record. Please check your input.', // @todo
+    'paid'               => 'Paid', // @todo
+    'total'              => 'Total', // @todo
     'modules'            => [
         'modules'               => 'Moduulit',
         'active_time'           => 'Active time',

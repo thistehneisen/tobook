@@ -1,6 +1,6 @@
 <?php namespace App\Core\Controllers\Admin;
 
-use Input, Response;
+use Input, Response, Log;
 use App\Core\Models\CommissionLog;
 use App\Core\Models\User;
 
@@ -50,9 +50,14 @@ class Commissions extends Base
             $item->user()->associate($user);
             $item->saveOrFail();
 
-            return Response::json(['message' => 'OK']);
+            return Response::json(['message' => trans('admin.commission_done')]);
         } catch (\Exception $ex) {
-            return Response::json(['message' => $ex->getMessage()]);
+            Log::warning($ex->getMessage(), [
+                'context' => 'admin.users.commissions',
+                'user' => $userId
+            ]);
+
+            return Response::json(['message' => trans('admin.commission_fail')], 500);
         }
     }
 
