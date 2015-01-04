@@ -4,9 +4,9 @@ do ($ = jQuery) ->
   'use strict'
 
   # global function to be accessed from the desktop app
-  window.showConsumerInfo = (consumerId) ->
+  window.showConsumerInfo = (consumerId, coreConsumerId = 0) ->
     $.ajax
-      url: VARAA.getRoute 'consumers', id: consumerId
+      url: VARAA.getRoute 'consumers', {id: consumerId, coreid: coreConsumerId}
       dataType: 'html'
       type: 'GET'
     .done (data) ->
@@ -32,7 +32,9 @@ do ($ = jQuery) ->
         consumerTr.removeClass 'selected'
         $me.addClass 'selected'
 
-        showConsumerInfo $me.data 'consumerid'
+        consumerId = $me.data('consumerid') or 0
+        coreConsumerId = $me.data('coreconsumerid')
+        showConsumerInfo consumerId, coreConsumerId
 
     # Create consumer
     $form.bootstrapValidator

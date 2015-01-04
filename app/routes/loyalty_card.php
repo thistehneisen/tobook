@@ -47,7 +47,7 @@ Route::group([
             'app.lc'
         );
 
-        Route::get('consumers/{id}', [
+        Route::get('consumers/{id}/{coreid}', [
             'as' => 'app.lc.show',
             'uses' => 'App\LoyaltyCard\Controllers\LoyaltyApp@show',
         ]);

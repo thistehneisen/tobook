@@ -6,6 +6,7 @@ use App\LoyaltyCard\Controllers\ConsumerRepository;
 use App\Consumers\Models\Consumer as CoreConsumer;
 use App\LoyaltyCard\Models\Voucher as VoucherModel;
 use App\LoyaltyCard\Models\Offer as OfferModel;
+use App\LoyaltyCard\Models\Consumer as LcConsumer;
 
 class LoyaltyApp extends Base
 {
@@ -43,9 +44,14 @@ class LoyaltyApp extends Base
      * @param  int  $id
      * @return View
      */
-    protected function show($id)
+    protected function show($id, $coreId)
     {
-        $consumer = CoreConsumer::find($id);
+        if ($coreId > 0) {
+            $consumer = CoreConsumer::find($coreId);
+        } else {
+            $lcConsumer = LcConsumer::find($id);
+            $consumer = $lcConsumer->consumer;
+        }
 
         if (Request::ajax()) {
             if ($consumer) {

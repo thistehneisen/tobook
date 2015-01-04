@@ -45,27 +45,15 @@ NFC Desktop App
             <table class="table table-hover" id="consumer-table">
                 <thead>
                     <tr>
-                        <th class="no-display">{{ trans('lc.number') }}</th>
                         <th>{{ trans('lc.consumer.index') }}</th>
-                        <th class="no-display">{{ trans('co.email') }}</th>
-                        <th class="no-display">{{ trans('co.phone') }}</th>
                         <th>{{ trans('lc.last_visited') }}</th>
-                        <th class="no-display">{{{ trans('common.edit') }}}</th>
-                        <th class="no-display">{{ trans('common.delete') }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($items as $key => $value)
-                    <tr data-consumerid="{{{ $value->id }}}">
-                        <td class="no-display">{{ $value->id }}</td>
+                    <tr data-consumerid="{{{ $value->lc->id }}}" data-coreconsumerid="{{{ $value->id }}}">
                         <td>
                             {{ $value->first_name }} {{ $value->last_name }}
-                        </td>
-                        <td class="no-display">
-                            {{ $value->email }}
-                        </td>
-                        <td class="no-display">
-                            {{ $value->phone }}
                         </td>
                         <td>
                             {{ $value->updated_at }}
