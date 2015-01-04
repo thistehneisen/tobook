@@ -6,6 +6,14 @@ return [
             'route_name' => 'as.index',
             'enable' => true,
         ],
+        'restaurant' => [
+            'route_name' => 'restaurant.index',
+            'enable' => false,
+        ],
+        'loyalty' => [
+            'route_name' => 'lc.offers.index',
+            'enable' => false,
+        ],
         'flashdeal' => [
             'route_name' => 'fd.index',
             'enable' => true,
