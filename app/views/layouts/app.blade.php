@@ -28,5 +28,7 @@
 @stop
 
 @section('header-logo')
-<a href="{{ route('app.lc.index') }}" class="logo pull-left">varaa<span>.com</span></a>
+<a href="{{ route('app.lc.index') }}" class="logo pull-left">
+    <img src="{{ asset_path('core/img/mainlogo.png') }}" alt="">
+</a>
 @stop
