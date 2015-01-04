@@ -1,1 +1,0 @@
-(function(){!function(o){return o('[data-toggle="popover"]').popover(),o(".js-show-tooltip").tooltip(),o("a.js-commission-add").on("click",function(o){return o.preventDefault(),alertify.prompt("Prompt","Enter the commission amount",function(o,t){return console.log(t),alertify.prompt("Prompt","Enter note (optional)",function(o,t){return console.log(t)})})})}(jQuery)}).call(this);

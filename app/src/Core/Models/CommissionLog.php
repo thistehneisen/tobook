@@ -11,6 +11,13 @@ class CommissionLog extends \AppModel
         'note',
     ];
 
+    public $rulesets = [
+        'saving' => [
+            'action' => 'required',
+            'amount' => 'required|numeric',
+        ]
+    ];
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
