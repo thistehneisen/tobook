@@ -117,10 +117,17 @@ class Users extends Base
             $item->password = Input::get('password');
             $item->password_confirmation = Input::get('password_confirmation');
         }
-
         // New user, so what should we do
         if ($item->id === null) {
-            $item->save();
+            $result = $item->save();
+
+            // Duplicated or something
+            if ($result === false) {
+                return Redirect::route(
+                    static::$crudRoutes['upsert'],
+                    ['id' => $item->id]
+                )->withErrors($item->errors(), 'top');
+            }
 
             // Assign to group Business
             $role = Role::user();

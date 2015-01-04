@@ -1,7 +1,6 @@
 <?php namespace App\Lomake;
 
 use App, View, Form;
-use App\Lomake\FieldFactory;
 
 class Lomake
 {
@@ -84,7 +83,7 @@ class Lomake
 
         // Merge default options with values from user
         $opt = array_merge([
-            'form'       => ['class' => 'form-horizontal well', 'role' => 'form', 'enctype' => 'multipart/form-data'],
+            'form'       => ['class' => 'form-horizontal well', 'role' => 'form', 'enctype' => 'multipart/form-data', 'id' => 'lomake-form'],
             'template'   => 'varaa-lomake::form',
             'fields'     => [],
             'overwrite'  => false,
@@ -146,7 +145,7 @@ class Lomake
             $fields[$name] = FieldFactory::create($fieldData);
         }
 
-        $instance = new self;
+        $instance = new self();
         // Update the fields list
         $instance->fields = $fields;
         $instance->opt = $opt;

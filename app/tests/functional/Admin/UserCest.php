@@ -2,6 +2,7 @@
 
 use FunctionalTester;
 use App\Core\Models\Business;
+use App\Core\Models\User;
 
 /**
  * @group core
@@ -15,6 +16,7 @@ class UserCest extends \Test\Functional\Base
     public function _before(FunctionalTester $i)
     {
         parent::_before($i);
+        $this->createUrl = route('admin.users.upsert');
         $this->editUrl = route('admin.users.upsert', ['id' => $this->user->id]);
         $this->indexUrl = route('admin.users.index');
         $this->stub = [
@@ -67,5 +69,20 @@ class UserCest extends \Test\Functional\Base
 
         $business = Business::ofUser($this->user->id);
         $i->assertTrue($business->count() === 1, 'no duplicated business');
+    }
+
+    public function seeErrorIfDuplicatingEmailBusiness(FunctionalTester $i)
+    {
+        $email = 'varaa_test@varaa.com';
+
+        $i->amOnPage($this->createUrl);
+        $i->submitForm('#lomake-form', [
+            'email'                 => $email,
+            'password'              => '1234567890',
+            'password_confirmation' => '1234567890',
+        ]);
+
+        $user = User::where('email', $email)->get()->first();
+        $i->assertTrue($user != null);
     }
 }
