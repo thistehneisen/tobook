@@ -1,4 +1,4 @@
-<?php namespace App\Search;
+<?php namespace App\Search\Commands;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
