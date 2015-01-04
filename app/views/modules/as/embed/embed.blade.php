@@ -9,21 +9,7 @@
 
     <link rel="stylesheet" href="{{ asset_path('as/styles/'.$layout.'.css') }}">
 
-    @section('analytics-tracking')
-        @if (App::environment('prod'))
-    <script>
-        (function (i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function () {
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-        ga('create', 'UA-53959606-1', 'auto');
-        ga('require', 'displayfeatures');
-        ga('send', 'pageview');
-
-    </script>
-        @endif
-    @show
+    {{ Config::get('varaa.head_script') }}
 </head>
 <body data-hash="{{ $hash }}" data-locale="{{ App::getLocale() }}" class="style-{{ $user->id }}">
     @yield('content')
@@ -35,7 +21,7 @@
     @endif
 
     <script>
-window.VARAA = window.VARAA || {};
+    window.VARAA = window.VARAA || {};
     </script>
 
     {{-- Global --}}
