@@ -18,5 +18,5 @@ Artisan::add(new App\Core\Commands\FixMissingRoleCommand());
 Artisan::add(new App\Core\Commands\IndexExistingBusinessCommand());
 Artisan::add(new App\Cart\Commands\UnlockCartItemsCommand());
 Artisan::add(new App\Appointment\NAT\Commands\ScheduledBuild());
-Artisan::add(new App\Search\BuildSearchIndecesCommand());
-Artisan::add(new App\Consumers\MergeComsumersCommand());
+Artisan::add(new App\Search\Commands\BuildSearchIndecesCommand());
+Artisan::add(new App\Consumers\Commands\MergeComsumersCommand());

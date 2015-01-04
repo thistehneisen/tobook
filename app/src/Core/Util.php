@@ -164,4 +164,28 @@ class Util
             throw $ex;
         }
     }
+
+    /**
+     * Check if 2 phone numbers are similar
+     * @param  string  $a
+     * @param  string  $b
+     * @return boolean
+     */
+    public static function isSimilarPhoneNumber($a, $b)
+    {
+        // First we'll trim and remove non-numeric characters in both arguments
+        $a = preg_replace('/[^0-9]+/', '', $a);
+        $b = preg_replace('/[^0-9]+/', '', $b);
+
+        // Then test if the longer phone number contain the shorter phone number
+        $shorter = $a;
+        $longer  = $b;
+
+        if (strlen($a) > strlen($b)) {
+            $shorter = $b;
+            $longer = $a;
+        }
+
+        return str_contains($longer, $shorter);
+    }
 }
