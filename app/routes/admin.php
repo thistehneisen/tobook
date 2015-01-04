@@ -43,6 +43,24 @@ Route::group([
             'uses' => 'App\Core\Controllers\Admin\Users@toggleActivation'
         ]);
 
+        //----------------------------------------------------------------------
+        // Commissions
+        //----------------------------------------------------------------------
+        Route::post('{id}/commissions/add', [
+            'as' => 'admin.users.commissions.add',
+            'uses' => 'App\Core\Controllers\Admin\Commissions@add'
+        ]);
+
+        Route::post('{id}/commissions/subtract', [
+            'as' => 'admin.users.commissions.subtract',
+            'uses' => 'App\Core\Controllers\Admin\Commissions@subtract'
+        ]);
+
+        Route::post('{id}/commissions', [
+            'as' => 'admin.users.commissions',
+            'uses' => 'App\Core\Controllers\Admin\Commissions@index'
+        ]);
+
     });
 
     //--------------------------------------------------------------------------
