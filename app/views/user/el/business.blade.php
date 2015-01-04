@@ -1,3 +1,4 @@
+@if ($businessLomake)
 {{ $businessLomake->open(['id' => 'business-form']) }}
     <h3 class="comfortaa orange">{{ trans('user.profile.business') }}</h3>
 
@@ -45,3 +46,4 @@
         </div>
     </div>
 {{ $businessLomake->close() }}
+@endif

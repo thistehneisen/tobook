@@ -17,6 +17,8 @@ def _deploy(environment):
         run('composer install')
         # run migration
         run('php artisan migrate --env={}'.format(environment))
+        # run seeder
+        run('php artisan db:seed')
         # chmod storage again
         run('chmod -Rf 777 app/storage')
         # clear all application cache
