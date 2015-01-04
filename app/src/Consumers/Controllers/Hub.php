@@ -49,10 +49,14 @@ class Hub extends Base
      */
     protected function upsertHandler($item)
     {
-        $item->fill(Input::all());
-        $item->saveOrFail();
-        $item->users()->detach($this->user->id);
-        $item->users()->attach($this->user);
+        if ($item->id) {
+            $item->fill(Input::all());
+            $item->saveOrFail();
+            $item->users()->detach($this->user->id);
+            $item->users()->attach($this->user);
+        } else {
+            $item = Consumer::make(Input::all());
+        }
 
         return $item;
     }

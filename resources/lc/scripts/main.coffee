@@ -52,8 +52,6 @@ do ($ = jQuery) ->
               message: 'Last name is required'
         email:
           validators:
-            notEmpty:
-              message: 'Email is required'
             emailAddress:
               message: 'Not valid email address'
         phone:
@@ -82,12 +80,8 @@ do ($ = jQuery) ->
         type: 'post'
         data: $me.serialize()
       .done (data) ->
-        if data.result is true
+        if data.success is true
           window.location.reload()
-        else
-          $ '#js-alert'
-            .text 'This customer already exists'
-            .removeClass 'hidden'
 
     # Hide consumer info
     $consumerInfo = $ '#consumer-info'

@@ -19,7 +19,7 @@ class ConsumerRepository
     }
 
     /**
-     * Return all consumers
+     * Return all consumers or search consumers
      * @param  string $search
      * @param  int    $perPage
      * @return Consumer
@@ -27,82 +27,34 @@ class ConsumerRepository
     public function getConsumers($search = '', $perPage = 10)
     {
         $consumers = CoreConsumer::ofCurrentUser();
+        if ($search !== '') {
+            $consumers = $consumers->where(function ($q) use ($search) {
+                $q->where('consumers.first_name', 'like', '%' . $search . '%')
+                    ->orWhere('consumers.last_name', 'like', '%' . $search . '%')
+                    ->orWhere('consumers.email', 'like', '%' . $search . '%')
+                    ->orWhere('consumers.phone', 'like', '%' . $search . '%');
+            });
+        }
 
         if ($this->isApi) {
+            // no pagination if this is API
             return $consumers->get();
         } else {
-            if ($search !== '') {
-                $consumers = $consumers->where(function ($q) use ($search) {
-                    $q->where('consumers.first_name', 'like', '%' . $search . '%')
-                        ->orWhere('consumers.last_name', 'like', '%' . $search . '%')
-                        ->orWhere('consumers.email', 'like', '%' . $search . '%')
-                        ->orWhere('consumers.phone', 'like', '%' . $search . '%');
-                });
-            }
-
             return $consumers->paginate($perPage);
         }
     }
 
-    // public function getDuplicatedConsumer()
-    // {
-    //     return Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-    //         ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-    //         ->where('consumer_user.user_id', Confide::user()->id)
-    //         ->where('lc_consumers.user_id', Confide::user()->id)
-    //         ->where('consumers.first_name', Input::get('first_name'))
-    //         ->where('consumers.last_name', Input::get('last_name'))
-    //         ->where('consumers.email', Input::get('email'))
-    //         ->where('consumers.phone', Input::get('phone'))
-    //         ->select('consumers.id')
-    //         ->first();
-    // }
-
-    // public function getExistedConsumer()
-    // {
-    //     return Model::join('consumers', 'lc_consumers.consumer_id', '=', 'consumers.id')
-    //         ->join('consumer_user', 'lc_consumers.consumer_id', '=', 'consumer_user.consumer_id')
-    //         ->where('consumers.first_name', Input::get('first_name'))
-    //         ->where('consumers.last_name', Input::get('last_name'))
-    //         ->where('consumers.email', Input::get('email'))
-    //         ->where('consumers.phone', Input::get('phone'))
-    //         ->select('consumers.id')
-    //         ->first();
-    // }
-
     /**
-     * Store consumer to storage
-     * @param  bool     $isApi
+     * Store consumer to DB
+     * @param  array $data
      * @return Consumer
      */
-    public function storeConsumer()
+    public function storeConsumer($data)
     {
-        // $duplicatedConsumer = $this->getDuplicatedConsumer();
-        // $existConsumer = $this->getExistedConsumer();
+        $consumer = CoreConsumer::make($data, $this->userId);
+        $lcConsumer = $consumer->lc ?: LcConsumer::make($consumer->id, $this->userId);
 
-        // if ($duplicatedConsumer) {
-        //     return false;
-        // } elseif ($existConsumer) {
-        //     $core = CoreConsumer::find($existConsumer->id);
-        //     Confide::user()->consumers()->attach($core->id);
-        // } else {
-            $data = [
-                'first_name'    => $isApi ? Request::get('first_name') : Input::get('first_name'),
-                'last_name'     => $isApi ? Request::get('last_name') : Input::get('last_name'),
-                'email'         => $isApi ? Request::get('email') : Input::get('email'),
-                'phone'         => $isApi ? Request::get('phone') : Input::get('phone'),
-                'address'       => $isApi ? Request::get('address') : Input::get('address'),
-                'postcode'      => $isApi ? Request::get('postcode') : Input::get('postcode'),
-                'city'          => $isApi ? Request::get('city') : Input::get('city'),
-                'country'       => $isApi ? Request::get('country') : Input::get('country'),
-            ];
-
-            $core = CoreConsumer::make($data, $this->userId);
-        // }
-
-        $consumer = LcConsumer::make($core->id, $this->userId);
-
-        return true;
+        return $lcConsumer;
     }
 
     /**
@@ -123,6 +75,8 @@ class ConsumerRepository
             return $validator->errors()->toArray();
         } else {
             $consumer = CoreConsumer::find($consumerId);
+            // TODO: double check if this is the correct way to do it
+            // Example: what if the existing LC consumer is not for current logged user
             $consumer->lc = $consumer->lc ?: LcConsumer::make($consumer->id, $this->userId);
 
             $consumer->lc->total_points += $points;

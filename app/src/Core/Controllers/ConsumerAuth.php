@@ -50,7 +50,7 @@ class ConsumerAuth extends Auth
     public function doRegister()
     {
         $user                        = new User();
-        $user->email                 = e(Input::get('email'));
+        $user->email                 = Input::get('email');
 
         // do NOT escape passwords!
         $user->password              = Input::get('password');
@@ -59,9 +59,10 @@ class ConsumerAuth extends Auth
         try {
             // Now we need to check existing consumer
             $user->attachConsumer([
-                'first_name' => e(Input::get('first_name')),
-                'last_name' => e(Input::get('last_name')),
-                'phone' => e(Input::get('phone')),
+                'email'         => Input::get('email'),
+                'first_name'    => Input::get('first_name'),
+                'last_name'     => Input::get('last_name'),
+                'phone'         => Input::get('phone'),
             ]);
         } catch (\Watson\Validating\ValidationException $ex) {
             Redirect::route('consumer.auth.register')
@@ -87,9 +88,8 @@ class ConsumerAuth extends Auth
 
             // Log me in, beast
             Confide::logAttempt([
-                'username' => e(Input::get('username')),
-                'email'    => e(Input::get('email')),
-                'password' => e(Input::get('password')),
+                'email'    => Input::get('email'),
+                'password' => Input::get('password'),
             ]);
 
             // Get me back to the page I was previously, beast

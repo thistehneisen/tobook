@@ -11,6 +11,29 @@ use Watson\Validating\ValidationException;
  */
 class ConsumerCest
 {
+    public function testMake(UnitTester $I)
+    {
+        $user = User::find(70);
+        $data1 = [
+            'first_name' => 'First',
+            'last_name' => 'Last',
+            'phone' => '123',
+            'email' => 'consumer' . time() . '@varaa.com'
+        ];
+
+        $consumer1 = Consumer::make($data1, $user);
+        $I->assertNotEmpty($consumer1);
+        $data2 = [
+            'first_name' => 'first',
+            'last_name' => 'last',
+            'phone' => '00123',
+            'email' => 'consumer' . time() . '@varaa.com'
+        ];
+        $consumer2 = Consumer::make($data2, $user);
+        $I->assertNotEmpty($consumer2);
+        //$I->assertEquals($consumer1, $consumer2);
+    }
+
     public function testImportCsvSuccess(UnitTester $I)
     {
         $firstName = 'First';

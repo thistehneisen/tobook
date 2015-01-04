@@ -70,13 +70,7 @@ NFC Desktop App
                         <td>
                             {{ $value->updated_at }}
                         </td>
-                        <td class="no-display">
-                            <a href="{{ URL::route('app.lc.upsert', ['id' => $value->id]) }}">
-                                <button class="btn btn-sm btn-success" type="button">
-                                    <span class="glyphicon glyphicon-pencil"></span> {{ trans('common.edit') }}
-                                </button>
-                            </a>
-                        </td>
+                        {{--
                         <td class="no-display">
                             <a data-href="{{ URL::route('app.lc.delete', ['id' => $value->id]) }}" data-toggle="modal" data-target="#js-confirmDeleteModal" href="#">
                                 <button class="btn btn-sm btn-danger" type="button">
@@ -84,6 +78,7 @@ NFC Desktop App
                                 </button>
                             </a>
                         </td>
+                        --}}
                     </tr>
                     @endforeach
                 </tbody>

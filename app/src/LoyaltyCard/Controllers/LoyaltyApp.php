@@ -25,37 +25,6 @@ class LoyaltyApp extends Base
         $this->consumerRepository = new ConsumerRepository();
     }
 
-    protected function upsertHandler($item)
-    {
-        $core = $item->consumer;
-
-        if ($core === null) {
-            //$duplicatedConsumer = $this->consumerRepository->getDuplicatedConsumer();
-            //$existedConsumer = $this->consumerRepository->getExistedConsumer();
-
-            // if ($duplicatedConsumer) {
-            //     return;
-            // } elseif ($existedConsumer) {
-            //     $core = Core::find($existedConsumer->id);
-            // } else {
-                $core = CoreConsumer::make(Input::all());
-                $core->users()->detach($this->user->id);
-            //}
-
-            $core->users()->attach($this->user);
-            $item->total_points = 0;
-            $item->total_stamps = '';
-            $item->user()->associate(Confide::user());
-            $item->consumer()->associate($core);
-            $item->saveOrFail();
-        } else {
-            $core->fill(Input::all());
-            $core->save();
-        }
-
-        return $item;
-    }
-
     /**
      * View index for app
      * @return View
@@ -107,7 +76,7 @@ class LoyaltyApp extends Base
      */
     public function store()
     {
-        $result = $this->consumerRepository->storeConsumer();
+        $result = $this->consumerRepository->storeConsumer(Input::all());
 
         return Response::json([
             'success'   => true,

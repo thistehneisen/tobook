@@ -1,6 +1,6 @@
 <?php namespace App\Consumers\Models;
 
-use Confide, DB;
+use Confide, DB, Util;
 use App\Core\Models\User;
 use Watson\Validating\ValidationException;
 
@@ -21,9 +21,10 @@ class Consumer extends \App\Core\Models\Base
 
     protected $rulesets = [
         'saving' => [
+            'email'         => 'email',
             'first_name'    => 'required',
             'last_name'     => 'required',
-            'phone'         => 'required|numeric'
+            'phone'         => 'required'
         ]
     ];
 
@@ -79,21 +80,19 @@ class Consumer extends \App\Core\Models\Base
     // CUSTOM METHODS
     //--------------------------------------------------------------------------
     /**
-     * Create a new consumer
+     * Create a new consumer or get the existing one
      *
      * @param array                    $data   Consumer's information will be saved
      * @param int|App\Core\Models\User $userId The ID of user this consumer
      *                                         belongs to
      *
      * @throws Watson\Validating\ValidationException If validation is not passed
-     * @throws App\Consumers\DuplicatedException     If there is existing consumer with the same email
-     * @throws Illuminate\Database\QueryException    If there are database errors
      *
-     * @return App\Consumers\Model
+     * @return App\Consumers\Model\Consumer
      */
     public static function make($data, $userId = null)
     {
-        // If there is no information passed, get the current user
+        // if there is no information passed, get the current user
         $user = Confide::user();
         if ($userId instanceof \App\Core\Models\User) {
             $user = $userId;
@@ -101,27 +100,41 @@ class Consumer extends \App\Core\Models\Base
             $user = User::findOrFail($userId);
         }
 
-        if (empty($data['email'])) {
-            $data['email'] = '';
+        // validate input data by creating draft consumer, banana?
+        $draft = new self();
+        $draft->fill($data);
+        $draft->saveOrFail();
+
+        // check duplicated / existing consumer here
+        // since users don't want to share consumers with other businesses
+        // consumer should be unique within 1 user based only
+        // duplicated consumers DB-wise is fine
+        $similarConsumers = self::ofCurrentUser()
+            ->where('first_name', $data['first_name'])
+            ->where('last_name', $data['last_name'])
+            ->get();
+
+        $consumer = null;
+        if ($similarConsumers !== null) {
+            foreach ($similarConsumers as $c) {
+                if (Util::isSimilarPhoneNumber($c->phone, $data['phone'])) {
+                    $consumer = $c;
+                    break;
+                }
+            }
+        }
+
+        // if can't find any match then return the draft consumer
+        if ($consumer === null) {
+            $consumer = $draft;
+        } else {
+        // otherwise, remove the draft for good
+            $draft->forceDelete();
         }
 
         try {
-            $consumer = new self();
-            $consumer->fill($data);
-            $consumer->saveOrFail();
-        } catch (\Illuminate\Database\QueryException $ex) {
-            // Check if there's existing consumer with the same email
-            $consumer = self::where('email', $data['email'])->first();
-            if ($consumer !== null) {
-                $ex = new \App\Consumers\DuplicatedException('There is already a consumer with email '.$data['email']);
-                $ex->setDuplicated($consumer);
-                throw $ex;
-            }
-            // Maybe other database erorrs, so we pass it to other handlers
-            throw $ex;
-        }
-
-        $user->consumers()->attach($consumer->id);
+            $user->consumers()->attach($consumer->id);
+        } catch (\Exception $ex) {}
 
         return $consumer;
     }
@@ -218,7 +231,8 @@ class Consumer extends \App\Core\Models\Base
 
     public function lc()
     {
-        return $this->hasOne('App\LoyaltyCard\Models\Consumer', 'consumer_id');
+        return $this->hasOne('App\LoyaltyCard\Models\Consumer', 'consumer_id')
+            ->ofCurrentUser();
     }
 
     //--------------------------------------------------------------------------
