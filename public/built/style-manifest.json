@@ -1,16 +1,16 @@
 {
-  "clearbooking/as/styles/layout-1.css": "clearbooking/as/styles/layout-1-f9daa554.css",
-  "clearbooking/as/styles/layout-2.css": "clearbooking/as/styles/layout-2-0b2f79db.css",
-  "clearbooking/as/styles/layout-3.css": "clearbooking/as/styles/layout-3-9d6eb87b.css",
-  "clearbooking/as/styles/main.css": "clearbooking/as/styles/main-47cb8f54.css",
-  "clearbooking/fd/styles/main.css": "clearbooking/fd/styles/main-836b957d.css",
-  "clearbooking/core/styles/main.css": "clearbooking/core/styles/main-7fe8da6b.css",
-  "clearbooking/lc/styles/main.css": "clearbooking/lc/styles/main-bb234393.css",
+  "varaa/core/styles/main.css": "varaa/core/styles/main-2aeb0ad6.css",
   "varaa/as/styles/layout-1.css": "varaa/as/styles/layout-1-f9daa554.css",
   "varaa/as/styles/layout-2.css": "varaa/as/styles/layout-2-0b2f79db.css",
   "varaa/as/styles/layout-3.css": "varaa/as/styles/layout-3-9d6eb87b.css",
   "varaa/as/styles/main.css": "varaa/as/styles/main-17e4944a.css",
-  "varaa/core/styles/main.css": "varaa/core/styles/main-2aeb0ad6.css",
   "varaa/fd/styles/main.css": "varaa/fd/styles/main-836b957d.css",
-  "varaa/lc/styles/main.css": "varaa/lc/styles/main-da455408.css"
+  "varaa/lc/styles/main.css": "varaa/lc/styles/main-da455408.css",
+  "clearbooking/as/styles/layout-1.css": "clearbooking/as/styles/layout-1-f9daa554.css",
+  "clearbooking/as/styles/layout-2.css": "clearbooking/as/styles/layout-2-0b2f79db.css",
+  "clearbooking/as/styles/layout-3.css": "clearbooking/as/styles/layout-3-9d6eb87b.css",
+  "clearbooking/as/styles/main.css": "clearbooking/as/styles/main-47cb8f54.css",
+  "clearbooking/core/styles/main.css": "clearbooking/core/styles/main-7fe8da6b.css",
+  "clearbooking/fd/styles/main.css": "clearbooking/fd/styles/main-836b957d.css",
+  "clearbooking/lc/styles/main.css": "clearbooking/lc/styles/main-bb234393.css"
 }
