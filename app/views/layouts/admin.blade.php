@@ -19,6 +19,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="admin-menu">
             <ul class="nav navbar-nav">
+                <li><a href="{{ route('admin.create') }}"><i class="fa fa-plus"></i> {{ trans('admin.nav.admin') }}</a></li>
                 <li><a href="{{ route('admin.users.index') }}"><i class="fa fa-users"></i> {{ trans('admin.nav.users') }}</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-bar-chart"></i> {{ trans('admin.nav.stats') }} <span class="caret"></span></a>

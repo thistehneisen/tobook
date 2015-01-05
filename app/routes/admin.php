@@ -15,6 +15,18 @@ Route::group([
     ]);
 
     //--------------------------------------------------------------------------
+    // Admin
+    //--------------------------------------------------------------------------
+    Route::get('admin/create', [
+        'as'   => 'admin.create',
+        'uses' => 'App\Core\Controllers\Admin\Admin@create'
+    ]);
+
+    Route::post('admin/create', [
+        'uses' => 'App\Core\Controllers\Admin\Admin@doCreate'
+    ]);
+
+    //--------------------------------------------------------------------------
     // Users
     //--------------------------------------------------------------------------
     App\Core\Controllers\Admin\Users::crudRoutes('users', 'admin.users');

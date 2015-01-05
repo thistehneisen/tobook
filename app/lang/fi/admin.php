@@ -2,6 +2,7 @@
 return [
     'admin' => 'Admin',
     'nav' => [
+        'admin'       => 'New admin', // @todo
         'users'       => 'Käyttäjät',
         'settings'    => 'Asetukset',
         'modules'     => 'Moduulit',

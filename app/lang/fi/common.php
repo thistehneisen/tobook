@@ -80,6 +80,7 @@ return [
     'first_name'            => 'Etunimi',
     'last_name'             => 'Sukunimi',
     'email'                 => 'Sähköposti',
+    'password'              => 'Password', // @todo
     'phone'                 => 'Puhelin numero',
     'address'               => 'Osoite',
     'city'                  => 'Postitoimipaikka',
