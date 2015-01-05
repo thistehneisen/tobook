@@ -5,6 +5,7 @@ use Util, Hashids, Session, Request, Mail, Sms;
 use Carbon\Carbon;
 use App\Core\Models\User;
 use App\Core\Models\CartDetail;
+use App\Consumers\Models\Consumer;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\BookingExtraService;
@@ -12,7 +13,6 @@ use App\Appointment\Models\Employee;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\ExtraService;
-use App\Appointment\Models\Consumer;
 use App\Appointment\Models\Observer\SmsObserver;
 use App\Appointment\Models\Reception\BackendReceptionist;
 

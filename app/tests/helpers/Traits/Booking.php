@@ -2,11 +2,11 @@
 namespace Test\Traits;
 
 use Config;
-use App\Appointment\Models\Consumer;
 use App\Appointment\Models\BookingExtraService;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\ServiceCategory;
 use App\Core\Models\User;
+use App\Consumers\Models\Consumer;
 use Carbon\Carbon;
 
 trait Booking

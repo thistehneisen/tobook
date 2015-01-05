@@ -1,6 +1,5 @@
 <?php namespace Test\Unit\Appointment\Models;
 
-use App\Appointment\Models\Consumer;
 use App\Appointment\Models\Booking;
 use App\Core\Models\User;
 use \UnitTester;

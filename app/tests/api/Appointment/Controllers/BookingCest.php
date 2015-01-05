@@ -1,7 +1,7 @@
 <?php namespace Test\Api\Appointment\Controllers;
 
 use \ApiTester;
-use App\Appointment\Models\Consumer;
+use App\Consumers\Models\Consumer;
 use Test\Traits\Booking;
 use Test\Traits\Models;
 use Carbon\Carbon;

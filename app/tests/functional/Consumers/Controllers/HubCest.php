@@ -1,6 +1,6 @@
 <?php namespace Test\Functional\Consumers\Controllers;
 
-use App\Appointment\Models\Consumer;
+use App\Consumers\Models\Consumer;
 use App\Consumers\Models\Group;
 use App\Core\Models\Role;
 use FunctionalTester;

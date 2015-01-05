@@ -4,7 +4,7 @@ use Input, Response, Carbon\Carbon, Session, Redirect, Payment, Cart;
 use App\Appointment\Controllers\Embed;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\Employee;
-use App\Appointment\Models\Consumer;
+use App\Consumers\Models\Consumer;
 use Illuminate\Support\ViewErrorBag;
 
 class Layout3 extends Base

@@ -3,7 +3,7 @@
 use Input, Response, Carbon\Carbon, Session, Redirect, Cart;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\Employee;
-use App\Appointment\Models\Consumer;
+use App\Consumers\Models\Consumer;
 
 class Layout2 extends Base
 {

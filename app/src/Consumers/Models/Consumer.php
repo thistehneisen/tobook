@@ -1,6 +1,6 @@
 <?php namespace App\Consumers\Models;
 
-use Confide, DB, Util;
+use Confide, DB, Util, Hashids;
 use App\Core\Models\User;
 use Watson\Validating\ValidationException;
 
@@ -110,14 +110,14 @@ class Consumer extends \App\Core\Models\Base
         // consumer should be unique within 1 user based only
         // duplicated consumers DB-wise is fine
         $similarConsumers = self::ofCurrentUser()
-            ->where('first_name', $data['first_name'])
-            ->where('last_name', $data['last_name'])
+            ->where('first_name', trim($data['first_name']))
+            ->where('last_name', trim($data['last_name']))
             ->get();
 
         $consumer = null;
         if ($similarConsumers !== null) {
             foreach ($similarConsumers as $c) {
-                if (Util::isSimilarPhoneNumber($c->phone, $data['phone'])) {
+                if (Util::isSimilarPhoneNumber($c->phone, trim($data['phone']))) {
                     $consumer = $c;
                     break;
                 }
@@ -137,6 +137,28 @@ class Consumer extends \App\Core\Models\Base
         } catch (\Exception $ex) {}
 
         return $consumer;
+    }
+
+    /**
+     * Handle creating consumer
+     *
+     * @param array $data
+     * @param App\Core\Models\User $user
+     *
+     * @return App\Consumers\Model\Consumer
+     */
+    public static function handleConsumer($data, $user = null)
+    {
+        if (empty($user)) {
+            $decoded = Hashids::decrypt($data['hash']);
+            if (empty($decoded)) {
+                return;
+            }
+            $user = User::find($decoded[0]);
+        }
+
+        unset($data['hash']);
+        return self::make($data, $user);
     }
 
     public static function importCsv($csvLines, User $businessUser = null)

@@ -75,6 +75,7 @@ class BookingCest
         $I->dontSeeElement('#row-' . $booking2->id);
 
         // search by booking 2's date
+        $I->amOnRoute('as.bookings.index');
         $I->submitForm('#form-search', [
             'q' => $booking2->date,
         ]);
@@ -85,6 +86,7 @@ class BookingCest
         $I->seeElement('#row-' . $booking2->id);
 
         // search by start time (should return both bookings)
+        $I->amOnRoute('as.bookings.index');
         $I->submitForm('#form-search', [
             'q' => $startTime,
         ]);

@@ -2,6 +2,7 @@
 
 use Request, Carbon\Carbon, NAT, Util;
 use App\Core\Models\User;
+use App\Consumers\Models\Consumer;
 use App\Appointment\Models\Observer\SmsObserver;
 use App\Appointment\Models\ResourceService;
 use Watson\Validating\ValidationException;
@@ -500,11 +501,6 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
        return $this->belongsTo('App\Consumers\Models\Consumer');
     }
 
-    public function asConsumer()
-    {
-       return $this->belongsTo('App\Appointment\Models\Consumer');
-    }
-
     public function employee()
     {
         return $this->belongsTo('App\Appointment\Models\Employee');
@@ -702,7 +698,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      */
     public static function updateBooking(Booking $booking)
     {
-        $consumer = \App\Appointment\Models\Consumer::find($booking->consumer_id);
+        $consumer = Consumer::find($booking->consumer_id);
 
         // just call Booking::saveBooking with existing data and let it recalculate everything
         return self::saveBooking($booking->uuid, $booking->user, $consumer, [

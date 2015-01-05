@@ -1,6 +1,5 @@
 <?php namespace App\API\v1_0\Appointment\Controllers;
 
-use App\Appointment\Models\Consumer;
 use Config;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;

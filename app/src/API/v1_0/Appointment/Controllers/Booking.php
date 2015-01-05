@@ -1,11 +1,11 @@
 <?php namespace App\API\v1_0\Appointment\Controllers;
 
-use App\Appointment\Models\Consumer;
 use Confide, Input, Request, Response;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\Booking as BookingModel;
 use App\Appointment\Models\BookingExtraService;
 use App\Appointment\Models\BookingService;
+use App\Consumers\Models\Consumer;
 use Watson\Validating\ValidationException;
 
 class Booking extends Base

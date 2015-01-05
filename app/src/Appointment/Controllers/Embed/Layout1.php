@@ -4,9 +4,9 @@ use Hashids, Input, View, Session, Redirect, URL, Config, Validator, Event, App;
 use Cart;
 use Carbon\Carbon;
 use App\Core\Models\User;
+use App\Consumers\Models\Consumer;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
-use App\Appointment\Models\Consumer;
 
 class Layout1 extends Base
 {
