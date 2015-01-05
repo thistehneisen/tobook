@@ -54,3 +54,7 @@
   tags: templated_settings
   notify:
     - restart mysql
+
+- cron: setup cronjob for dispatcher
+  tags: templated_settings
+  cron: name="run dispatcher" job="php /srv/varaa/src/artisan scheduled:run 1>> /dev/null 2>&1"
