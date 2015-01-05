@@ -79,6 +79,8 @@
                                 <strong>{{ Confide::user()->business->name }}</strong>
                             @elseif (Confide::user()->is_consumer)
                                 <strong>{{ Confide::user()->first_name }}</strong>
+                            @else
+                                <strong>{{ Confide::user()->email }}</strong>
                             @endif
                             !
                         @endif
@@ -105,7 +107,7 @@
                         @endif
 
                         {{-- Business user --}}
-                        @if (Confide::user()->is_consumer === false)
+                        @if (Confide::user()->is_business)
                             <li class="dropdown">
                                 <a href="{{ route('dashboard.index') }}">
                                     <i class="fa fa-star"></i>

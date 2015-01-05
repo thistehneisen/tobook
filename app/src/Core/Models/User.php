@@ -375,6 +375,16 @@ class User extends ConfideUser implements SearchableInterface
         return $this->hasRole(Role::CONSUMER);
     }
 
+    /**
+     * Check to see if this user is an admin
+     *
+     * @return bool
+     */
+    public function getIsAdminAttribute()
+    {
+        return $this->hasRole(Role::ADMIN);
+    }
+
     //--------------------------------------------------------------------------
     // SEARCH
     //--------------------------------------------------------------------------

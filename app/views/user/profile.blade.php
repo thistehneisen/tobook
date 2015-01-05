@@ -32,7 +32,7 @@ $(function () {
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
             <li {{ $activeTab === 'general' ? 'class="active"' : '' }}><a href="#tab-general" role="tab" data-toggle="tab">{{ trans('user.profile.general') }}</a></li>
-        @if (empty($consumer))
+        @if ($user->is_business)
             <li {{ $activeTab === 'business' ? 'class="active"' : '' }}><a href="#tab-business" role="tab" data-toggle="tab">{{ trans('user.profile.business') }}</a></li>
             <li {{ $activeTab === 'images' ? 'class="active"' : '' }}><a href="#tab-images" role="tab" data-toggle="tab">{{ trans('user.profile.images') }}</a></li>
         @endif
@@ -47,7 +47,7 @@ $(function () {
                 @include ('user.el.general')
             </div> <!-- General information -->
 
-        @if (empty($consumer))
+        @if ($user->is_business)
             <div class="tab-pane {{ $activeTab === 'business' ? 'active' : '' }}" id="tab-business">
                 @include ('user.el.business')
             </div> <!-- Images -->
