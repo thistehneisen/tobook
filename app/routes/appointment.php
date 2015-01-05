@@ -99,21 +99,6 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Bookings@customers'
     ]);
 
-    Route::get('bookings/statistics', [
-        'as' => 'as.bookings.statistics',
-        'uses' => 'App\Appointment\Controllers\Stat@index'
-    ]);
-
-    Route::get('bookings/statistics/calendar', [
-        'as' => 'as.bookings.statistics.calendar',
-        'uses' => 'App\Appointment\Controllers\Stat@calendar'
-    ]);
-
-    Route::get('bookings/statistics/monthly', [
-        'as' => 'as.bookings.statistics.monthly',
-        'uses' => 'App\Appointment\Controllers\Stat@monthly'
-    ]);
-
     Route::post('bookings/cut', [
         'as' => 'as.bookings.cut',
         'uses' => 'App\Appointment\Controllers\Ajax\Bookings@cut'
@@ -312,9 +297,24 @@ Route::group([
     ]);
 
     // Report
-    Route::get('reports', [
-        'as' => 'as.reports.employees',
-        'uses' => 'App\Appointment\Controllers\Reports@employees'
+    Route::get('reports/statistics', [
+        'as' => 'as.reports.statistics',
+        'uses' => 'App\Appointment\Controllers\Reports@statistics'
+    ]);
+
+    Route::get('reports/monthly', [
+        'as' => 'as.reports.monthly',
+        'uses' => 'App\Appointment\Controllers\Stat@index'
+    ]);
+
+    Route::get('reports/monthly/calendar', [
+        'as' => 'as.reports.monthly.calendar',
+        'uses' => 'App\Appointment\Controllers\Stat@calendar'
+    ]);
+
+    Route::get('reports/monthly/monthly', [
+        'as' => 'as.reports.monthly.monthly',
+        'uses' => 'App\Appointment\Controllers\Stat@monthly'
     ]);
 
     // Catch-all route should always be at the bottom

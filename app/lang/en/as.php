@@ -80,7 +80,7 @@ Tervetuloa!
 Palvelun tarjoaa varaa.com
 HTML;
 
-// @todo
+
 $paymentTokensClient = <<< HTML
 We've received the payment for your booking and it is now confirmed.
 
@@ -109,7 +109,7 @@ Lisätiedot:
 {Notes}
 HTML;
 
-// @todo
+
 $paymentTokensAdmin = <<< HTML
 Booking deposit has been paid.
 
@@ -135,14 +135,14 @@ Lisätiedot:
 {Notes}
 HTML;
 
-// @todo
+
 $paymentTokensEmployee = <<< HTML
 Booking deposit has been paid.
 
 ID: {BookingID}
 HTML;
 
-// @todo
+
 $cancelMessage = <<< HTML
 You have cancelled the booking {BookingID}
 
@@ -152,7 +152,7 @@ HTML;
 return [
     'index' => [
         'heading'       => 'Welcome',
-        'description'   => 'You can view the calendar of all created employees. Green time is bookable for consumers and grey is not bookable.', // @todo
+        'description'   => 'You can view the calendar of all created employees. Green time is bookable for consumers and grey is not bookable.',
         'today'         => 'Today',
         'tomorrow'      => 'Tomorrow',
         'print'         => 'Print',
@@ -195,8 +195,8 @@ return [
             'msg_extra'   => 'Do you also want to reserve?',
         ],
         'all'          => 'All services',
-        'index'        => 'Services', // @todo
-        'desc'         => 'Here you can edit or add new services', // @todo
+        'index'        => 'Services',
+        'desc'         => 'Here you can edit or add new services',
         'add'          => 'Add new service',
         'add_desc'     => 'Add a new employee by adding service name and description, you can also connect services to employees',
         'name'         => 'Name',
@@ -231,7 +231,6 @@ return [
         'add'               => 'Add new booking',
         'invoices'          => 'Invoices',
         'customers'         => 'Customers',
-        'statistics'        => 'Statistics',
         'date'              => 'Date',
         'total'             => 'Duration',
         'start_at'          => 'Start at',
@@ -247,7 +246,7 @@ return [
         'services'          => 'Services',
         'service_time'      => 'Service time',
         'modify_time'       => 'Modify time',
-        'plustime'          => 'Plustime', // @todo
+        'plustime'          => 'Plustime',
         'modify_duration'   => 'Modify duration',
         'employee'          => 'Employee',
         'notes'             => 'Notes',
@@ -277,9 +276,9 @@ return [
         'own_customer'      => 'Own customer',
         'request_employee'  => 'Requesting for a specific employee',
         'error'             => [
-            'add_overlapped_booking'   => 'Overlapped booking time!',// @todo
-            'insufficient_slots'       => 'There is no enough time slots for this booking!',// @todo
-            'invalid_consumer_info'    => 'Could not save consumer info',// @todo
+            'add_overlapped_booking'   => 'Overlapped booking time!',
+            'insufficient_slots'       => 'There is no enough time slots for this booking!',
+            'invalid_consumer_info'    => 'Could not save consumer info',
             'terms'                    => 'You have to agree with our term.',//@todo
             'service_empty'            => 'Please select service and service time!',//@todo
             'unknown'                  => 'Something went wrong!',//@todo
@@ -301,16 +300,8 @@ return [
             'past_booking'             => 'Cannot make booking in the past!'
         ],
         'warning'      => [
-            'existing_user'   => 'There is an user associate with this email in our system. Do you want to use these information instead?',// @todo
+            'existing_user'   => 'There is an user associate with this email in our system. Do you want to use these information instead?',
         ],
-        'stat' => [
-            'monthly'      => 'Monthly review', // @todo
-            'bookings'     => 'Bookings',
-            'revenue'      => 'Revenue',
-            'working_time' => 'Working time',
-            'booked_time'  => 'Booked time',
-            'occupation'   => 'Occupation %'
-        ]
     ],
     'employees' => [
         'all'                 => 'Employees',
@@ -410,8 +401,8 @@ return [
             'notes'           => 'Notes', //@todo
             'postcode'        => 'Postcode', //@todo
             'empty'           => 'There is no available time on selected day.',
-            'payment_note'    => 'After a booking is placed, you will be redirected to payment.', // @todo
-            'confirm_service' => 'Confirm booking service',// @todo
+            'payment_note'    => 'After a booking is placed, you will be redirected to payment.',
+            'confirm_service' => 'Confirm booking service',
         ]
     ],
      'options' => [
@@ -431,25 +422,25 @@ return [
             'timezone'        => 'Timezone',
             'week_numbers'    => 'Näytä viikkonumerot',
             'week_start'      => 'Show week numbers?',
-            'phone_number'    => 'SMS phone number', // @todo
-            'business_name'   => 'Business name', // @todo
+            'phone_number'    => 'SMS phone number',
+            'business_name'   => 'Business name',
         ],
         'booking'   => [
-            'heading'                                        => '', // @todo
-            'info'                                           => '', // @todo
-            'index'                                          => 'Bookings',// @todo
+            'heading'                                        => '',
+            'info'                                           => '',
+            'index'                                          => 'Bookings',
             'booking_form'                                   => 'Booking Form',
             'reminders'                                      => 'Reminder',
-            'confirmations'                                  => 'Confirmation',// @todo
-            'terms'                                          => 'Terms',// @todo
-            'confirmed'                                      => 'Confirmed',// @todo
-            'pending'                                        => 'Pending',// @todo
-            'accept_bookings'                                => 'Accept bookings',// @todo
-            'hide_prices'                                    => 'Hide prices',// @todo
-            'step'                                           => 'Step',// @todo
-            'bookable_date'                                  => 'Bookable date',  // @todo
-            'status_if_paid'                                 => 'Default mode for paid bookings',// @todo
-            'status_if_not_paid'                             => 'Default mode for unpaid bookings',// @todo
+            'confirmations'                                  => 'Confirmation',
+            'terms'                                          => 'Terms',
+            'confirmed'                                      => 'Confirmed',
+            'pending'                                        => 'Pending',
+            'accept_bookings'                                => 'Accept bookings',
+            'hide_prices'                                    => 'Hide prices',
+            'step'                                           => 'Step',
+            'bookable_date'                                  => 'Bookable date',
+            'status_if_paid'                                 => 'Default mode for paid bookings',
+            'status_if_not_paid'                             => 'Default mode for unpaid bookings',
             'bf_address_1'                                   => 'Address 1',
             'bf_address_2'                                   => 'Address 2',
             'bf_captcha'                                     => 'Captcha',
@@ -462,70 +453,70 @@ return [
             'bf_state'                                       => 'State',
             'bf_terms'                                       => 'Terms',
             'bf_zip'                                         => 'Zip',
-            'notes'                                          => 'Notes', // @todo
-            'address'                                        => 'Address', // @todo
-            'city'                                           => 'City', // @todo
-            'postcode'                                       => 'Postcode', // @todo
-            'country'                                        => 'Country', // @todo
+            'notes'                                          => 'Notes',
+            'address'                                        => 'Address',
+            'city'                                           => 'City',
+            'postcode'                                       => 'Postcode',
+            'country'                                        => 'Country',
             'reminder_enable'                                => 'Enable notifications',
             'reminder_email_before'                          => 'Send email reminder',
             'reminder_subject'                               => 'Email Reminder subject',
-            'reminder_subject_default'                       => 'Muistutus varauksestasi',// @todo
+            'reminder_subject_default'                       => 'Muistutus varauksestasi',
             'reminder_body'                                  => 'Email Reminder body',
-            'reminder_body_default'                          => $reminderBody,// @todo
+            'reminder_body_default'                          => $reminderBody,
             'reminder_sms_hours'                             => 'Send SMS reminder',
             'reminder_sms_country_code'                      => 'SMS country code',
             'reminder_sms_message'                           => 'SMS message',
             'reminder_sms_message_default'                   => $reminderSmsMessage,
-            'terms_url'                                      => 'Booking terms URL',// @todo
-            'terms_body'                                     => 'Booking terms content', // @todo
-            'terms_body_default'                             => $termBody,// @todo
-            'confirm_subject_client'                         => 'Client confirmation title',// @todo
-            'confirm_subject_client_default'                 => 'Kiitos varauksestasi',// @todo
-            'confirm_tokens_client'                          => 'Email body',// @todo
-            'confirm_tokens_client_default'                  => $confirmTokensClient,// @todo
-            'confirm_email_enable'                           => 'Enable email',// @todo
-            'confirm_sms_enable'                             => 'Enable sms',// @todo
-            'confirm_sms_country_code'                       => 'Code',// @todo
-            'confirm_consumer_sms_message'                   => 'Consumer sms',// @todo
-            'confirm_employee_sms_message'                   => 'Employee sms',// @todo
+            'terms_url'                                      => 'Booking terms URL',
+            'terms_body'                                     => 'Booking terms content',
+            'terms_body_default'                             => $termBody,
+            'confirm_subject_client'                         => 'Client confirmation title',
+            'confirm_subject_client_default'                 => 'Kiitos varauksestasi',
+            'confirm_tokens_client'                          => 'Email body',
+            'confirm_tokens_client_default'                  => $confirmTokensClient,
+            'confirm_email_enable'                           => 'Enable email',
+            'confirm_sms_enable'                             => 'Enable sms',
+            'confirm_sms_country_code'                       => 'Code',
+            'confirm_consumer_sms_message'                   => 'Consumer sms',
+            'confirm_employee_sms_message'                   => 'Employee sms',
             'confirm_consumer_body_sms_message_default'      => $confirmConsumerMessage,
             'confirm_employee_body_sms_message_default'      => $confirmEmployeeMessage,
             'payment_subject_client'                         => 'Client payment title',
-            'payment_subject_client_default'                 => 'Payment received', // @todo
+            'payment_subject_client_default'                 => 'Payment received',
             'payment_tokens_client'                          => 'Email body',
             'payment_tokens_client_default'                  => $paymentTokensClient,
-            'confirm_subject_admin'                          => 'Admin confirmation title',// @todo
-            'confirm_subject_admin_default'                  => 'Uusi varaus on saapunut',// @todo
-            'confirm_tokens_admin'                           => 'Email body',// @todo
-            'confirm_tokens_admin_default'                   => $confirmTokensAdmin,// @todo
+            'confirm_subject_admin'                          => 'Admin confirmation title',
+            'confirm_subject_admin_default'                  => 'Uusi varaus on saapunut',
+            'confirm_tokens_admin'                           => 'Email body',
+            'confirm_tokens_admin_default'                   => $confirmTokensAdmin,
             'payment_subject_admin'                          => 'Admin payment title',
-            'payment_subject_admin_default'                  => 'New payment received', // @todo
+            'payment_subject_admin_default'                  => 'New payment received',
             'payment_tokens_admin'                           => 'Email body',
-            'payment_tokens_admin_default'                   => $paymentTokensAdmin,// @todo
-            'confirm_subject_employee'                       => 'Employee confirmation title',// @todo
-            'confirm_subject_employee_default'               => 'Uusi varaus on saapunut',// @todo
-            'confirm_tokens_employee'                        => 'Email body',// @todo
-            'confirm_tokens_employee_default'                => $confirmTokensEmployee,// @todo
+            'payment_tokens_admin_default'                   => $paymentTokensAdmin,
+            'confirm_subject_employee'                       => 'Employee confirmation title',
+            'confirm_subject_employee_default'               => 'Uusi varaus on saapunut',
+            'confirm_tokens_employee'                        => 'Email body',
+            'confirm_tokens_employee_default'                => $confirmTokensEmployee,
             'payment_subject_employee'                       => 'Employee payment title',
-            'payment_subject_employee_default'               => 'New payment received', // @todo
+            'payment_subject_employee_default'               => 'New payment received',
             'payment_tokens_employee'                        => 'Email body',
-            'payment_tokens_employee_default'                => $paymentTokensEmployee,// @todo
+            'payment_tokens_employee_default'                => $paymentTokensEmployee,
             'terms_enabled'                                  => 'Enable terms',
             'default_nat_service'                            => 'Default next available service',
         ],
         'style' => [
-            'heading'                           => '', // @todo
-            'info'                              => '', // @todo
+            'heading'                           => '',
+            'info'                              => '',
             'index'                             => 'Front-end style',
             'style_logo'                        => 'Logo URL',
             'style_banner'                      => 'Banner',
-            'style_heading_color'               => 'Heading color', // @todo
+            'style_heading_color'               => 'Heading color',
             'style_text_color'                  => 'Text color',
             'style_background'                  => 'Background',
-            'style_custom_css'                  => 'Custom CSS', // @todo
-            'style_main_color'                  => 'Main color', // @todo
-            'style_heading_background'          => 'Heading background', // @todo
+            'style_custom_css'                  => 'Custom CSS',
+            'style_main_color'                  => 'Main color',
+            'style_heading_background'          => 'Heading background',
         ],
         'working_time' => [
             'index' => 'Working time',
@@ -543,6 +534,16 @@ return [
             'confirmed'   => 'Confirmed bookings',
             'unconfirmed' => 'Unconfirmed bookings',
             'cancelled'   => 'Cancelled bookings',
+        ],
+        'statistics'=> 'Statistics',
+        'monthly'   => 'Monthly report',
+        'stat' => [
+            'monthly'      => 'Monthly review',
+            'bookings'     => 'Bookings',
+            'revenue'      => 'Revenue',
+            'working_time' => 'Working time',
+            'booked_time'  => 'Booked time',
+            'occupation'   => 'Occupation %'
         ]
     ],
     'crud' => [

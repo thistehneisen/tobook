@@ -7,13 +7,13 @@ class Reports extends AsBase
 {
     protected $viewPath = 'modules.as.reports';
 
-    public function employees()
+    public function statistics()
     {
         $services = Service::ofCurrentUser()->get();
 
         return $this->render('employees', [
             'services' => array_combine($services->lists('id'), $services->lists('name')),
-            'report'     => new EmployeeReport()
+            'report'   => new EmployeeReport()
         ]);
     }
 }

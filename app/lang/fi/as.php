@@ -80,7 +80,7 @@ Tervetuloa!
 Palvelun tarjoaa varaa.com
 HTML;
 
-// @todo
+
 $paymentTokensClient = <<< HTML
 We've received the payment for your booking and it is now confirmed.
 
@@ -109,7 +109,7 @@ Lisätiedot:
 {Notes}
 HTML;
 
-// @todo
+
 $paymentTokensAdmin = <<< HTML
 Booking deposit has been paid.
 
@@ -135,7 +135,7 @@ Lisätiedot:
 {Notes}
 HTML;
 
-// @todo
+
 $paymentTokensEmployee = <<< HTML
 Booking deposit has been paid.
 
@@ -143,7 +143,7 @@ ID: {BookingID}
 HTML;
 
 
-// @todo
+
 $cancelMessage = <<< HTML
 You have cancelled the booking {BookingID}
 
@@ -231,7 +231,6 @@ return [
         'add'               => 'Tee varaus',
         'invoices'          => 'Laskut',
         'customers'         => 'Asiakkaat',
-        'statistics'        => 'Statistiikka',
         'date'              => 'Päivämäärä',
         'total'             => 'Kesto',
         'start_at'          => 'Aloitusaika',
@@ -303,14 +302,6 @@ return [
         'warning'      => [
             'existing_user'   => 'Järjestelmästä löytyy käyttäjäprofiili antamallesi sähköpostiosoitteelle. Ovatko nämä sinun tietosi?',
         ],
-        'stat' => [
-            'monthly'      => 'Kuukausikooste',
-            'bookings'     => 'Varaukset',
-            'revenue'      => 'Liikevaihto',
-            'working_time' => 'Työaika',
-            'booked_time'  => 'Varattu aika',
-            'occupation'   => 'Varaus %',
-        ]
     ],
     'employees' => [
         'all'                 => 'Työntekijät',
@@ -412,7 +403,7 @@ return [
             'postcode'        => 'Postinumero',
             'empty'           => 'Valittuna päivänä ei vapaita aikoja',
             'payment_note'    => 'Vahvistuksen jälkeen sinut ohjatamaan maksamaan varaus',
-            'confirm_service' => 'Vahvista varauksen palvelu', // @todo
+            'confirm_service' => 'Vahvista varauksen palvelu',
         ]
     ],
     'options' => [
@@ -436,8 +427,8 @@ return [
             'business_name'   => 'Yrityksen nimi',
         ],
         'booking'                                        => [
-            'heading'                                        => '', // @todo
-            'info'                                           => '', // @todo
+            'heading'                                        => '',
+            'info'                                           => '',
             'index'                                          => 'Varaukset',
             'booking_form'                                   => 'Varauslomake',
             'reminders'                                      => 'Muistutus',
@@ -493,7 +484,7 @@ return [
             'confirm_consumer_body_sms_message_default'      => $confirmConsumerMessage,
             'confirm_employee_body_sms_message_default'      => $confirmEmployeeMessage,
             'payment_subject_client'                         => 'Asiakkaan maksuvahvistuksen otsikko',
-            'payment_subject_client_default'                 => 'Maksu vastaanotettu', // @todo
+            'payment_subject_client_default'                 => 'Maksu vastaanotettu',
             'payment_tokens_client'                          => 'Viestin sisältö',
             'payment_tokens_client_default'                  => $paymentTokensClient,
             'confirm_subject_admin'                          => 'Hallintapaneelin maksuvahvistuksen otsikko',
@@ -509,24 +500,24 @@ return [
             'confirm_tokens_employee'                        => 'Viestin sisältö',
             'confirm_tokens_employee_default'                => $confirmTokensEmployee,
             'payment_subject_employee'                       => 'Työntekijän maksun otsikko',
-            'payment_subject_employee_default'               => 'Uusi maksu vastaanotettu', // @todo
+            'payment_subject_employee_default'               => 'Uusi maksu vastaanotettu',
             'payment_tokens_employee'                        => 'Viestin sisältö',
             'payment_tokens_employee_default'                => $paymentTokensEmployee,
             'terms_enabled'                                  => 'Ehdot käytössä',
             'default_nat_service'                            => 'Default next available service',//@todo
         ],
         'style' => [
-            'heading'                           => '', // @todo
-            'info'                              => '', // @todo
+            'heading'                           => '',
+            'info'                              => '',
             'index'                             => 'Tyyli',
             'style_logo'                        => 'Logo URL',
             'style_banner'                      => 'Banneri',
-            'style_heading_color'               => 'Otsikon väri', // @todo
+            'style_heading_color'               => 'Otsikon väri',
             'style_text_color'                  => 'Tekstin väri',
             'style_background'                  => 'Tausta',
-            'style_custom_css'                  => 'Custom CSS', // @todo
-            'style_main_color'                  => 'Pääväri', // @todo
-            'style_heading_background'          => 'Otsikon tausta', // @todo
+            'style_custom_css'                  => 'Custom CSS',
+            'style_main_color'                  => 'Pääväri',
+            'style_heading_background'          => 'Otsikon tausta',
         ],
         'working_time' => [
             'index' => 'Working time',
@@ -544,6 +535,16 @@ return [
             'confirmed'   => 'Vahvistetut varaukset',
             'unconfirmed' => 'Vahvistamattomat varaukset',
             'cancelled'   => 'Peruutetut varaukset',
+        ],
+        'statistics'=> 'Statistiikka',
+        'monthly'   => 'Monthly report',
+        'stat' => [
+            'monthly'      => 'Kuukausikooste',
+            'bookings'     => 'Varaukset',
+            'revenue'      => 'Liikevaihto',
+            'working_time' => 'Työaika',
+            'booked_time'  => 'Varattu aika',
+            'occupation'   => 'Varaus %',
         ]
     ],
     'crud' => [
@@ -554,6 +555,6 @@ return [
         'success_bulk'   => 'Toiminto toteutettu onnistuneesti!',
         'sortable'       => 'Järjestä sarakkeet uudelleen nappaamalla kiinni haluamastasi sarakkeesta, ja vetämällä sitä hiirellä ylös tai alas!',
     ],
-    'delete_reason'         => 'Miksi haluat poistaa?', // @todo
-    'delete_reason_default' => 'Asiakkaan pyynnöstä', // @todo
+    'delete_reason'         => 'Miksi haluat poistaa?',
+    'delete_reason_default' => 'Asiakkaan pyynnöstä',
 ];

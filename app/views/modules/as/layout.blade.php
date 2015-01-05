@@ -45,19 +45,8 @@
         <div class="collapse navbar-collapse" id="admin-menu">
             <ul class="nav navbar-nav nav-admin nav-as">
                 <li @if (!Request::segment(2)) {{ 'class="active"' }} @endif><a href="{{ route('as.index') }}"><i class="fa fa-calendar"></i> {{ trans('as.index.calendar') }}</a></li>
-                <li @if (Request::segment(2) === 'bookings') {{ 'class="active"' }} @endif class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('as.services.index') }}">
-                        <i class="fa fa-bookmark"></i> {{ trans('as.bookings.all') }} <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="{{ route('as.bookings.index') }}">{{ trans('as.bookings.all') }}</a></li>
-                        {{--
-                        <li><a href="{{ route('as.bookings.upsert') }}">{{ trans('as.bookings.add') }}</a></li>
-                        <li><a href="{{ route('as.bookings.invoices') }}">{{ trans('as.bookings.invoices') }}</a></li>
-                        <li><a href="{{ route('as.bookings.customers') }}">{{ trans('as.bookings.customers') }}</a></li>
-                        --}}
-                        <li><a href="{{ route('as.bookings.statistics') }}">{{ trans('as.bookings.statistics') }}</a></li>
-                    </ul>
+                <li @if (Request::segment(2) === 'bookings') {{ 'class="active"' }} @endif>
+                    <a href="{{ route('as.bookings.index') }}"><i class="fa fa-bookmark"></i> {{ trans('as.bookings.all') }}</a>
                 </li>
                 <li @if (Request::segment(2) === 'services') {{ 'class="active"' }} @endif class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('as.services.index') }}">
@@ -78,9 +67,6 @@
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="{{ route('as.employees.index') }}">{{ trans('as.employees.all') }}</a></li>
                         <li><a href="{{ route('as.employees.upsert') }}">{{ trans('as.employees.add') }}</a></li>
-                        {{--
-                        <li><a href="{{ route('as.employees.freetime') }}">{{ trans('as.employees.free_times') }}</a>
-                        --}}
                         <li><a href="{{ route('as.employees.customTime') }}">{{ trans('as.employees.workshift_planning') }}</a></li>
                         <li><a href="{{ route('as.employees.employeeCustomTime.summary') }}">{{ trans('as.employees.workshift_summary') }}</a></li>
                     </ul>
@@ -96,15 +82,13 @@
 					    <li><a href="{{ route('as.options', ['page' => 'style']) }}">{{ trans('as.options.style.index') }}</a></li>
 					</ul>
                 </li>
-                <li @if (Request::segment(2) === '') {{ 'class="active"' }} @endif class="dropdown">
+                <li @if (Request::segment(2) === 'reports') {{ 'class="active"' }} @endif class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('as.services.index') }}">
                         <i class="fa fa-line-chart"></i> {{ trans('as.reports.index') }} <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="{{ route('as.reports.employees') }}">{{ trans('as.reports.employees') }}</a></li>
-                        {{--
-                        <li><a href="#">{{ trans('as.reports.services') }}</a></li>
-                        --}}
+                        <li><a href="{{ route('as.reports.statistics') }}">{{ trans('as.reports.statistics') }}</a></li>
+                        <li><a href="{{ route('as.reports.monthly') }}">{{ trans('as.reports.monthly') }}</a></li>
                     </ul>
                 </li>
                 <li @if (Request::segment(2) === 'embed') {{ 'class="active"' }} @endif><a href="{{ route('as.embed.index') }}"><i class="fa fa-arrow-down"></i> {{ trans('as.embed.embed') }}</a></li>
