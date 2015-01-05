@@ -307,6 +307,11 @@
                     }
                 }).fail(fnFail);
             });
+
+            $form.on('click', '#toggle_term', function (e) {
+                e.preventDefault();
+                $('#terms_body').toggle();
+            });
         };
 
         VARAA.initLayout3();
