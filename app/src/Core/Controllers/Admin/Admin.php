@@ -1,6 +1,6 @@
 <?php namespace App\Core\Controllers\Admin;
 
-use Input, Redirect, Confide;
+use Input, Redirect, Confide, Config;
 use App\Core\Models\User;
 use App\Core\Models\Role;
 
@@ -26,6 +26,9 @@ class Admin extends Base
     public function doCreate()
     {
         try {
+            // Turn off email confirmation
+            Config::set('confide::signup_email', false);
+
             $user = new User();
             $user->email                 = Input::get('email');
             $user->password              = Input::get('password');
@@ -33,7 +36,7 @@ class Admin extends Base
             $user->save();
 
             $user->attachRole(Role::admin());
-            // Confirm
+            // Automatically confirm
             Confide::confirm($user->confirmation_code);
 
             return Redirect::route('admin.create')
