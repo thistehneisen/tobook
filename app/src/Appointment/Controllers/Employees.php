@@ -426,16 +426,15 @@ class Employees extends AsBase
         $customTimes = CustomTime::ofCurrentUser()
             ->orderBy('start_at')
             ->orderBy('end_at')
-            ->lists(
-                DB::raw('CONCAT(
-                    name,
-                    " (",
-                    TIME_FORMAT(start_at, "%H:%i"),
-                    " - ",
-                    TIME_FORMAT(end_at, "%H:%i"),
-                    ")")'),
+            ->select(
+                DB::raw(
+                    'CONCAT(name, " (",
+                    TIME_FORMAT(start_at, "%H:%i"), " - ",
+                    TIME_FORMAT(end_at, "%H:%i"),")") AS name'
+                ),
                 'id'
-            );
+                )
+            ->lists('name', 'id');
 
         $customTimes = [0 => trans('common.options_select')] + $customTimes;
 
