@@ -9,7 +9,7 @@ class Currency extends Base
      *
      * @return mixed
      */
-    public function render($value, $item)
+    public static function render($value, $item)
     {
         return $value.'&euro;';
     }

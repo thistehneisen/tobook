@@ -7,7 +7,7 @@ class Email extends Base
     /**
      * @{@inheritdoc}
      */
-    public function render($value, $item)
+    public static function render($value, $item)
     {
         return $value ? HTML::mailto($value) : '';
     }

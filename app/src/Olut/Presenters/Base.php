@@ -10,7 +10,7 @@ class Base
      *
      * @return mixed
      */
-    public function render($value, $item)
+    public static function render($value, $item)
     {
         // In case we have an array, join all elements
         if (is_array($value)) {

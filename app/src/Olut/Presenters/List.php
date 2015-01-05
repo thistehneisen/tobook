@@ -7,7 +7,7 @@ class List extends Base
     /**
      * @{@inheritdoc}
      */
-    public function render($value, $item)
+    public static function render($value, $item)
     {
         return View::make('olut::presenters.list', ['items' => $value]);
     }

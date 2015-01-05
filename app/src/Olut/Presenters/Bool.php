@@ -7,7 +7,7 @@ class Bool extends Base
     /**
      * @{@inheritdoc}
      */
-    public function render($value, $item)
+    public static function render($value, $item)
     {
         return View::make('olut::presenters.bool', ['value' => (bool) $value]);
     }
