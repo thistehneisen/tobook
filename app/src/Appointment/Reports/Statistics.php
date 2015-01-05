@@ -285,7 +285,9 @@ class Statistics extends Base
             }
 
             $item['working_time'] = ($this->employeeId === null)
-                ? array_sum($item['working_time'])
+                ? (isset($item['working_time'])
+                    ? array_sum($item['working_time'])
+                    : 0)
                 : $item['working_time'][$this->employeeId];
         }
 
