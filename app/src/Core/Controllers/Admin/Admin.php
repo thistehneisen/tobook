@@ -1,6 +1,6 @@
 <?php namespace App\Core\Controllers\Admin;
 
-use Input, Redirect, Confide, Config;
+use Input, Redirect, Confide, Config, Mail;
 use App\Core\Models\User;
 use App\Core\Models\Role;
 
@@ -34,10 +34,21 @@ class Admin extends Base
             $user->password              = Input::get('password');
             $user->password_confirmation = Input::get('password');
             $user->save();
-
             $user->attachRole(Role::admin());
+
             // Automatically confirm
             Confide::confirm($user->confirmation_code);
+
+            // Send email with plain password
+            Mail::send(
+                'admin.users.emails.created',
+                ['password' => Input::get('password')],
+                function ($message) {
+                    $message
+                    ->to(Input::get('email'))
+                    ->subject(trans('user.password_reminder.created.heading'));
+                }
+            );
 
             return Redirect::route('admin.create')
                 ->with('messages', $this->successMessageBag(
