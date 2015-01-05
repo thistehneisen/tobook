@@ -1,11 +1,14 @@
 <div class="text-center">
     <h3>{{ trans('as.embed.layout_2.choose') }}</h3>
     <div class="btn-group">
+        @if($prev >= $today)
+        <a href="#" id="btn-date-prev" class="btn btn-lg btn-as-timetable" data-date="{{ $prev->toDateString() }}" id="btn-date-prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+        @endif
         @foreach ($nav as $item)
-
         <a href="#" class="btn btn-default btn-as-timetable" data-date="{{ $item->start->toDateString() }}" id="btn-timetable-{{ $item->start->format('Ymd') }}">
         <div class="week-of-year">{{ trans('common.short.week') }} {{ $item->start->weekOfYear }}</div> {{ $item->start->format('d') }}. {{ trans('common.short.'.strtolower($item->start->format('M'))) }} &ndash; {{ $item->end->format('d') }}</a>
         @endforeach
+        <a href="#" id="btn-date-next" class="btn btn-lg btn-as-timetable" data-date="{{ $next->toDateString() }}" id="btn-date-next"><i class="glyphicon glyphicon-chevron-right"></i></a>
     </div>
 
     <input type="hidden" name="start-date" value="{{ $date->toDateString() }}">

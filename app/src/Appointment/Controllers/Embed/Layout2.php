@@ -29,8 +29,15 @@ class Layout2 extends Base
         $nav = [];
         $i = 1;
         $start = $today->copy();
+
+        //if the selected day is not inside the fourth week in the list then use today
+        if($date->copy()->subDays(21) >= $today) {
+            $start = $date->copy();
+            $start->subDays(21);
+        }
+
         while ($i++ <= 7) {
-            $end = $start->copy()->addDays(4);
+            $end = $start->copy()->addDays(6);
             $nav[] = (object) [
                 'start' => $start->copy(),
                 'end'   => $end->copy()
@@ -68,7 +75,10 @@ class Layout2 extends Base
 
         return $this->render('timetable', [
             'date'      => $date,
+            'today'     => $today,
             'nav'       => $nav,
+            'prev'      => $date->copy()->subDays(7),
+            'next'      => $date->copy()->addDays(7),
             'timetable' => $timetable,
             'dates'     => $dates
         ]);
