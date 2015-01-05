@@ -1,6 +1,6 @@
 <?php namespace App\Core\Controllers\Admin;
 
-use Input, Redirect;
+use Input, Redirect, Confide;
 use App\Core\Models\User;
 use App\Core\Models\Role;
 
@@ -33,6 +33,8 @@ class Admin extends Base
             $user->save();
 
             $user->attachRole(Role::admin());
+            // Confirm
+            Confide::confirm($user->confirmation_code);
 
             return Redirect::route('admin.create')
                 ->with('messages', $this->successMessageBag(
