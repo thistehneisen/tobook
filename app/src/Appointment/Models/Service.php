@@ -24,6 +24,11 @@ class Service extends \App\Core\Models\Base
         return ($bookings->isEmpty()) ? true : false;
     }
 
+    public function requireRoom()
+    {
+        return ($this->rooms()->count()) ? true : false;
+    }
+
     /**
      * Generate service times for displaying on booking form
      *
@@ -122,6 +127,14 @@ class Service extends \App\Core\Models\Base
         return $this->belongsToMany(
             'App\Appointment\Models\Resource',
             'as_resource_service'
+        );
+    }
+
+    public function rooms()
+    {
+        return $this->belongsToMany(
+            'App\Appointment\Models\Room',
+            'as_room_service'
         );
     }
 

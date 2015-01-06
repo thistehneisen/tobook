@@ -4,7 +4,7 @@ class Resource extends \App\Core\Models\Base
 {
     protected $table = 'as_resources';
 
-    public $fillable = ['name', 'description', 'quantity'];
+    public $fillable = ['name', 'description'];
 
     protected $rulesets = [
         'saving' => [

@@ -3,6 +3,7 @@
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingExtraService;
 use App\Appointment\Models\BookingService;
+use App\Appointment\Models\Consumer;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\Service;
@@ -11,7 +12,6 @@ use App\Appointment\Models\Resource;
 use App\Appointment\Models\ResourceService;
 use App\Appointment\Models\Reception\FrontendReceptionist;
 use App\Core\Models\User;
-use App\Consumers\Models\Consumer;
 use Carbon\Carbon;
 use \UnitTester;
 use DB;
@@ -117,9 +117,9 @@ class FrontendReceptionCest
         $I->assertEquals($booking->firstBookingService()->is_requested_employee, true);
     }
 
-    public function testBookingWithExtraServices(UnitTester $I)
+    public function testValidateWithRoom(UnitTester $I)
     {
-        $this->initData();
+        $this->initData(true, false, true);
         $this->initCustomTime();
 
         $user      = User::find(70);
@@ -128,24 +128,26 @@ class FrontendReceptionCest
         $uuid      = Booking::uuid();
 
         $date      = $this->getDate();
-        $startTime = '14:00';
+        $startTime = '09:00';
 
         $I->amLoggedAs($user);
         $I->assertEquals($service->length, 60);
 
         $receptionist = new FrontendReceptionist();
-        $receptionist->setBookingId(null)
+        $receptionist->setBookingId(0)
             ->setUUID($uuid)
             ->setUser($user)
             ->setBookingDate($date->toDateString())
             ->setStartTime($startTime)
             ->setServiceId($service->id)
             ->setEmployeeId($employee->id)
-            ->setServiceTimeId('default')
-            ->setExtraServiceIds([10, 11])//see helpers/Traits/Models.php
-            ->setModifyTime(0);
+            ->setServiceTimeId('default');
 
-        $bookingService = $receptionist->upsertBookingService();
+        $receptionist->validateWithRooms();
+
+        $I->assertEquals($receptionist->getRoomId(), 1);
+
+        $receptionist->upsertBookingService();
 
         $consumer = Consumer::handleConsumer([
             'first_name' => 'Consumer First',
@@ -159,18 +161,35 @@ class FrontendReceptionCest
         $receptionist->setBookingId(null)
             ->setUUID($uuid)
             ->setUser($user)
-            ->setNotes('notes')
+            ->setStatus('confirmed')
+            ->setNotes('')
             ->setIsRequestedEmployee(true)
             ->setConsumer($consumer)
             ->setClientIP('192.168.1.1')
-            ->setSource('inhouse');
+            ->setSource('backend');
+
+        $receptionist->setBookingService();
 
         $booking = $receptionist->upsertBooking();
 
-        $I->assertNotEmpty($booking);
-        $I->assertEquals($booking->total, 60+15+15);
-        $I->assertEquals($booking->startTime, $date->hour(14)->minute(0)->second(0));
-        $I->assertEquals($booking->endTime, $date->hour(15)->minute(30)->second(0));
-        $I->assertEquals($booking->firstBookingService()->is_requested_employee, true);
+        $receptionist = new FrontendReceptionist();
+        $receptionist->setBookingId(0)
+            ->setUUID(Booking::uuid())
+            ->setUser($user)
+            ->setBookingDate($date->toDateString())
+            ->setStartTime($startTime)
+            ->setServiceId($service->id)
+            ->setEmployeeId(64)
+            ->setServiceTimeId('default');
+
+        $exception = array();
+        try {
+           $receptionist->validateWithRooms();
+        } catch(\Exception $ex) {
+            $exception[] = $ex->getMessage();
+        }
+
+        $I->assertNotEmpty($exception[0]);
+        $I->assertEquals($exception[0], trans('as.bookings.error.not_enough_rooms'));
     }
 }

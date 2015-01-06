@@ -9,6 +9,7 @@ use App\Appointment\Models\ServiceExtraService;
 use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\Resource;
+use App\Appointment\Models\Room;
 use App\Appointment\Models\ResourceService;
 use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\Employee;
@@ -49,6 +50,7 @@ class Services extends AsBase
             : new Service();
         $categories = ServiceCategory::ofCurrentUser()->lists('name','id');
         $resources  = Resource::ofCurrentUser()->lists('name', 'id');
+        $rooms      = Room::ofCurrentUser()->lists('name', 'id');
         $extras     = ExtraService::ofCurrentUser()->lists('name', 'id');
         $employees  = Employee::ofCurrentUser()->get();
 
@@ -56,6 +58,7 @@ class Services extends AsBase
             'service'    => $service,
             'categories' => $categories,
             'resources'  => $resources,
+            'rooms'      => $rooms,
             'extras'     => $extras,
             'employees'  => $employees
         ]);
@@ -138,6 +141,7 @@ class Services extends AsBase
 
             $extraServices = Input::get('extras', []);
             $resources     = Input::get('resources', []);
+            $rooms         = Input::get('rooms', []);
             $employees     = Input::get('employees', []);
             $plustimes     = Input::get('plustimes');
 
@@ -182,6 +186,8 @@ class Services extends AsBase
                 $resourceService->resource()->associate($resource);
                 $resourceService->save();
             }
+            Room::associateWithService($rooms, $service);
+
         } catch(\Watson\Validating\ValidationException $ex) {
            throw $ex;
         }

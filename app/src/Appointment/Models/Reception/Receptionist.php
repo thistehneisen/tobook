@@ -6,6 +6,8 @@ use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\BookingExtraService;
+use App\Appointment\Models\Room;
+use App\Appointment\Models\BookingServiceRoom;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
 use Exception;
@@ -41,6 +43,7 @@ abstract class Receptionist implements ReceptionistInterface
     protected $source              = null;
     protected $status              = null;
     protected $notes               = null;
+    protected $roomId              = null;
 
     public function setBookingId($bookingId)
     {
@@ -234,6 +237,11 @@ abstract class Receptionist implements ReceptionistInterface
         return $this->source;
     }
 
+    public function getRoomId()
+    {
+        return $this->roomId;
+    }
+
     public function setNotes($notes)
     {
         $this->notes = $notes;
@@ -355,6 +363,27 @@ abstract class Receptionist implements ReceptionistInterface
         return true;
     }
 
+    public function validateWithRooms()
+    {
+        if($this->service->requireRoom()) {
+            $availableRoom = Booking::getAvailableRoom(
+                $this->employeeId,
+                $this->service,
+                $this->uuid,
+                $this->date,
+                $this->getStartTime(),
+                $this->getEndTime()
+            );
+
+            if (empty($availableRoom->id)) {
+                throw new Exception(trans('as.bookings.error.not_enough_rooms'), 1);
+            }
+
+            $this->roomId = $availableRoom->id;
+        }
+        return true;
+    }
+
     public function validateEmployee()
     {
         if(empty($this->employee)) {
@@ -368,6 +397,7 @@ abstract class Receptionist implements ReceptionistInterface
         $this->validateData();
         $this->validateBooking();
         $this->validateEmployee();
+        $this->validateWithRooms();
 
         $this->setBookingService();
 
@@ -396,7 +426,15 @@ abstract class Receptionist implements ReceptionistInterface
         $model->employee()->associate($this->employee);
         $model->save();
 
-        if(!empty($this->extraServices)) {
+        if (!empty($this->getRoomId())) {
+            $room = Room::findOrFail($this->getRoomId());
+            $bookingServiceRoom = new BookingServiceRoom;
+            $bookingServiceRoom->bookingService()->associate($model);
+            $bookingServiceRoom->room()->associate($room);
+            $bookingServiceRoom->save();
+        }
+
+        if (is_array($this->extraServices)) {
             foreach ($this->extraServices as $extraService) {
                 $bookingExtraService = new BookingExtraService;
                 $bookingExtraService->fill([

@@ -220,6 +220,14 @@ class BookingService extends Base implements CartDetailInterface
         return $this->belongsTo('App\Core\Models\User');
     }
 
+    public function rooms()
+    {
+        return $this->belongsToMany(
+            'App\Appointment\Models\Room',
+            'as_booking_service_rooms'
+        );
+    }
+
     //--------------------------------------------------------------------------
     // CART DETAIL
     //--------------------------------------------------------------------------

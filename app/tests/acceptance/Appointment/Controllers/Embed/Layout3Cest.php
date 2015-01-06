@@ -5,6 +5,7 @@ use App\Appointment\Models\Booking;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\BookingService;
 use App\Cart\Cart;
+use App\Core\Models\User;
 use Carbon\Carbon;
 use Validator;
 use Test\Acceptance\Appointment\Controllers\AbstractBooking;
@@ -239,5 +240,74 @@ class Layout3Cest extends AbstractBooking
         $I->see($v->get('last_name')[0]);
         $I->see($v->get('phone')[0]);
         $I->see($v->get('email')[0]);
+    }
+
+    public function testBookingWithRooms(AcceptanceTester $I)
+    {
+        $user = User::find(70);
+        $this->initData(false, false, true);//init resources
+        $this->initCustomTime();
+
+        $category = $this->category;
+        $employee  = Employee::find(63);
+        $employee2 = Employee::find(64);
+        $employee3 = Employee::find(65);
+        $service   = $this->service;
+
+        $I->amLoggedAs($user);
+        $date = $this->getDate();
+        $startTime = '09:00';
+        $booking1 = $this->makeBooking($date, $startTime, $service, $employee);
+        $booking2 = $this->makeBooking($date, $startTime, $service, $employee2);
+        $I->assertEquals($date->toDateString(), $booking1->date);
+        $I->assertEquals($date->toDateString(), $booking2->date);
+
+        $I->assertEquals($service->rooms()->count(), 2);
+
+
+        $I->amOnPage(route('as.embed.embed', ['hash' => $user->hash, 'l' => 3], false));
+        $I->checkOption(sprintf('//*[@id="as-category-%s"]/label/input', $category->id));
+        $I->waitForElementVisible('#as-category-' . $category->id . '-services');
+        $I->click('#btn-service-' . $service->id);
+        $I->waitForElementVisible('#service-times-' . strval($service->id));
+        $I->checkOption(sprintf('//*[@id="service-times-%s"]/p/label/input', $service->id));
+
+        $I->waitForElementVisible('#as-step-2 .as-employee');
+        $I->checkOption('//*[@name="employee_id"]', strval($employee->id));
+
+        $I->waitForElementVisible('#timetable');
+        while ($I->grabAttributeFrom('#timetable', 'data-date') !== $date->toDateString()) {
+            $I->click('#btn-date-next');
+            $I->wait(2);
+        }
+        $I->assertEquals($date->toDateString(), $I->grabAttributeFrom('#timetable', 'data-date'));
+
+        $I->dontSeeElement('button', ['id'=> 'btn-slot-0900']);
+
+
+        //Add more room and the time will be available
+        $this->addMoreRoom($user, $service);
+        $I->assertEquals($service->rooms()->count(), 3);
+        $availableRoom = Booking::getAvailableRoom(64, $service, null, $date->toDateString(), $date->copy()->hour(12)->minute(0), $date->copy()->hour(13)->minute(0));
+        $I->assertNotEmpty($availableRoom);
+
+        $I->amOnPage(route('as.embed.embed', ['hash' => $user->hash, 'l' => 3], false));
+        $I->checkOption(sprintf('//*[@id="as-category-%s"]/label/input', $category->id));
+        $I->waitForElementVisible('#as-category-' . $category->id . '-services');
+        $I->click('#btn-service-' . $service->id);
+        $I->waitForElementVisible('#service-times-' . strval($service->id));
+        $I->checkOption(sprintf('//*[@id="service-times-%s"]/p/label/input', $service->id));
+
+        $I->waitForElementVisible('#as-step-2 .as-employee');
+        $I->checkOption('//*[@name="employee_id"]', strval($employee3->id));
+
+        $I->waitForElementVisible('#timetable');
+        while ($I->grabAttributeFrom('#timetable', 'data-date') !== $date->toDateString()) {
+            $I->click('#btn-date-next');
+            $I->wait(2);
+        }
+        $I->assertEquals($date->toDateString(), $I->grabAttributeFrom('#timetable', 'data-date'));
+
+        $I->seeElement('button', ['id'=> 'btn-slot-0900']);
     }
 }

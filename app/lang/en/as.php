@@ -184,6 +184,13 @@ return [
             'description' => 'Description',
             'quantity'    => 'Quantity',
         ],
+        'rooms' => [
+            'all'         => 'All rooms',
+            'add'         => 'Add room',
+            'edit'        => 'Muokkaa room',
+            'name'        => 'Nimi',
+            'description' => 'Kuvaus',
+        ],
         'extras' => [
             'all'         => 'All extra services',
             'add'         => 'Add new extra service',
@@ -211,6 +218,7 @@ return [
         'category'     => 'Category',
         'is_active'    => 'Status',
         'resource'     => 'Resource',
+        'room'         => 'Room',
         'extra'        => 'Extra Service',
         'employees'    => 'Employees',
         'no_employees' => 'There is no employee to be selected',
@@ -295,6 +303,7 @@ return [
             'reschedule_single_only'   => 'Booking with multiple services cannot be rescheduled',
             'reschedule_unbooked_extra'=> 'Booking cannot be rescheduled',
             'not_enough_resources'     => 'Required resources are not available!',
+            'not_enough_rooms'         => 'There are not enough room!',
             'empty_start_time'         => 'Booking start time cannot be empty',
             'booking_not_found'        => 'Booking not found!',
             'past_booking'             => 'Cannot make booking in the past!'

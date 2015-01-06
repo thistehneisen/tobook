@@ -128,6 +128,12 @@ $(function () {
         </div>
     </div>
     <div class="form-group">
+        <label for="room" class="col-sm-2 control-label">{{ trans('as.services.room') }}</label>
+        <div class="col-sm-5">
+           {{ Form::select('rooms[]', $rooms, $service->rooms->lists('id'), ['class' => 'form-control input-sm select2', 'id' => 'rooms', 'multiple' => 'multiple']) }}
+    </div>
+    </div>
+    <div class="form-group">
         <label for="extras" class="col-sm-2 control-label">{{ trans('as.services.extra') }}</label>
         <div class="col-sm-5">
             {{ Form::select('extras[]', $extras, $service->extraServices()->lists('id'), ['class' => 'form-control input-sm select2', 'id' => 'extra', 'multiple' => 'multiple']) }}

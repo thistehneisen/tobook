@@ -184,6 +184,13 @@ return [
             'description' => 'Kuvaus',
             'quantity'    => 'Määrä',
         ],
+        'rooms' => [
+            'all'         => 'All rooms',
+            'add'         => 'Add room',
+            'edit'        => 'Muokkaa room',
+            'name'        => 'Nimi',
+            'description' => 'Kuvaus',
+        ],
         'extras' => [
             'all'         => 'Kaikki lisäpalvelut',
             'add'         => 'Lisää lisäpalvelu',
@@ -211,6 +218,7 @@ return [
         'category'     => 'Kategoria',
         'is_active'    => 'Aktiivinen',
         'resource'     => 'Resurssit',
+        'room'         => 'Huoneet',
         'extra'        => 'Lisäpalvelut',
         'employees'    => 'Työntekijät',
         'no_employees' => 'Työntekijää ei ole valittu',
@@ -295,6 +303,7 @@ return [
             'reschedule_single_only'   => 'Useita palveluita sisältävää varausta ei valitettavasti voi siirtää.',
             'reschedule_unbooked_extra'=> 'Varauksen siirto epäonnistui!',
             'not_enough_resources'     => 'Required resources are not available!',
+            'not_enough_rooms'         => 'There are not enough room!',
             'empty_start_time'         => 'Booking start time cannot be empty',
             'booking_not_found'        => 'Varausta ei löytynyt!',
             'past_booking'             => 'Et voi tehdä varausta menneisyyteen!'

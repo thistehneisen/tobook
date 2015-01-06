@@ -57,6 +57,7 @@
                         <li><a href="{{ route('as.services.upsert') }}">{{ trans('as.services.add') }}</a></li>
                         <li><a href="{{ route('as.services.categories.index') }}">{{ trans('as.services.categories.all') }}</a></li>
                         <li><a href="{{ route('as.services.resources.index') }}">{{ trans('as.services.resources.all') }}</a></li>
+                        <li><a href="{{ route('as.services.rooms.index') }}">{{ trans('as.services.rooms.all') }}</a></li>
                         <li><a href="{{ route('as.services.extras.index') }}">{{ trans('as.services.extras.add') }}</a></li>
                     </ul>
                 </li>
@@ -75,12 +76,12 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('as.services.index') }}">
                         <i class="fa fa-wrench"></i> {{ trans('as.options.heading') }} <span class="caret"></span>
                     </a>
-					<ul class="dropdown-menu" role="menu">
-					    <li><a href="{{ route('as.options', ['page' => 'general']) }}">{{ trans('as.options.general.index') }}</a></li>
-					    <li><a href="{{ route('as.options', ['page' => 'working-time']) }}">{{ trans('as.options.working_time.index') }}</a></li>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{ route('as.options', ['page' => 'general']) }}">{{ trans('as.options.general.index') }}</a></li>
+                        <li><a href="{{ route('as.options', ['page' => 'working-time']) }}">{{ trans('as.options.working_time.index') }}</a></li>
                         <li><a href="{{ route('as.options', ['page' => 'booking']) }}">{{ trans('as.options.booking.index') }}</a></li>
-					    <li><a href="{{ route('as.options', ['page' => 'style']) }}">{{ trans('as.options.style.index') }}</a></li>
-					</ul>
+                        <li><a href="{{ route('as.options', ['page' => 'style']) }}">{{ trans('as.options.style.index') }}</a></li>
+                    </ul>
                 </li>
                 <li @if (Request::segment(2) === 'reports') {{ 'class="active"' }} @endif class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('as.services.index') }}">

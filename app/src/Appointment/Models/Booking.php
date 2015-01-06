@@ -296,6 +296,39 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return true;
     }
 
+    /**
+     * Get available rooms for booking
+     * @return array
+     */
+    public static function getAvailableRoom($employeeId, $service, $uuid, $bookingDate, Carbon $startTime, Carbon $endTime)
+    {
+
+        $query = self::where('as_bookings.date', $bookingDate)
+            ->whereNull('as_bookings.deleted_at')
+            ->where('as_bookings.status','!=', self::STATUS_CANCELLED);
+
+        //for inhouse layout
+        if(!empty($uuid)) {
+            $query->where('as_bookings.uuid', '!=', $uuid);
+        }
+
+        $query = self::applyDuplicateFilter($query, $startTime, $endTime);
+
+        $query = $query->join('as_booking_services', 'as_booking_services.booking_id', '=','as_bookings.id')
+            ->join('as_services', 'as_services.id', '=','as_booking_services.service_id')
+            ->join('as_room_service', 'as_room_service.service_id', '=', 'as_services.id')
+            ->join('as_booking_service_rooms', 'as_booking_service_rooms.booking_service_id', '=','as_booking_services.id')
+            ->whereIn('as_booking_service_rooms.room_id',  $service->rooms()->lists('id'))
+            ->select('as_booking_service_rooms.room_id');
+
+
+        $availableRoom = (!empty($query->get()->toArray()))
+            ? $service->rooms()->whereNotIn('room_id', $query->get()->toArray())->first()
+            : $service->rooms()->first();
+
+        return $availableRoom;
+    }
+
     public function isShowModifyPopup()
     {
        return ($this->source ==='inhouse' && $this->getConsumerName() === '')
@@ -430,7 +463,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      */
     public function getServiceDescription($showLineBreak = false)
     {
-        $bookingService      = $this->bookingServices()->first();
+        $bookingService  = $this->bookingServices()->first();
 
         $allServices = [];
 
@@ -449,6 +482,11 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             $serviceDescription .= ($showLineBreak)
                 ? '<br>' . $bookingService->serviceTime->description
                 : ' ' . $bookingService->serviceTime->description;
+        }
+
+        $room  = $bookingService->rooms()->first();
+        if(!empty($room)) {
+            $serviceDescription .= '<br>' . $room->name;
         }
 
         return $serviceDescription;
@@ -686,6 +724,9 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         if(!empty($this->firstBookingService())):
             if($this->firstBookingService()->is_requested_employee):
                 $ouput .= '<i class="fa fa-check-square-o"></i>&nbsp;';
+            endif;
+            if($this->firstBookingService()->service->requireRoom()):
+                $ouput .= '<i class="fa fa-square-o"></i>&nbsp;';
             endif;
         endif;
         if(!empty($this->getBookingResources())):

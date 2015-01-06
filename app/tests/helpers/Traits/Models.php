@@ -2,6 +2,7 @@
 namespace Test\Traits;
 
 use App\Appointment\Models\CustomTime;
+use App\Appointment\Models\Booking;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\EmployeeCustomTime;
 use App\Appointment\Models\EmployeeDefaultTime;
@@ -11,11 +12,14 @@ use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\Resource;
 use App\Appointment\Models\ResourceService;
+use App\Appointment\Models\Room;
+use App\Appointment\Models\RoomService;
 use App\Appointment\Models\ServiceCategory;
 use App\Consumers\Models\EmailTemplate;
-use App\Consumers\Models\Consumer;
+use App\Appointment\Models\Consumer;
 use App\Consumers\Models\Group;
 use App\Consumers\Models\SmsTemplate;
+use App\Appointment\Models\Reception\FrontendReceptionist;
 use App\Core\Models\Business;
 use App\Core\Models\Role;
 use App\Core\Models\User;
@@ -326,7 +330,7 @@ trait Models
         User::boot();
     }
 
-    public function initData($initExtraServices = true, $initResource = false)
+    public function initData($initExtraServices = true, $initResource = false, $initRoom = false)
     {
         $this->user = User::find(70);
         Employee::where('id', 63)->forceDelete();
@@ -351,6 +355,17 @@ trait Models
         $employee1->user()->associate($this->user);
         $employee1->saveOrFail();
 
+        Employee::where('id', 65)->forceDelete();
+        $employee2 = new Employee([
+            'name' => 'An',
+            'email' => 'an@varaa.com',
+            'phone' => '1234567890',
+            'is_active' => 1,
+        ]);
+        $employee2->id = 65;
+        $employee2->user()->associate($this->user);
+        $employee2->saveOrFail();
+
         ServiceCategory::where('id', 106)->forceDelete();
         $this->category = new ServiceCategory([
             'name' => 'Hiusjuuritutkimus',
@@ -361,11 +376,11 @@ trait Models
         $this->category->saveOrFail();
 
         $this->service = new Service([
-            'name' => 'Hiusjuuritutkimus',
-            'length' => 60,
-            'during' => 45,
-            'after' => 15,
-            'price' => 35,
+            'name'      => 'Hiusjuuritutkimus',
+            'length'    => 60,
+            'during'    => 45,
+            'after'     => 15,
+            'price'     => 35,
             'is_active' => 1,
         ]);
 
@@ -375,6 +390,7 @@ trait Models
 
         $this->service->employees()->attach($this->employee);
         $this->service->employees()->attach($employee1);
+        $this->service->employees()->attach($employee2);
 
         $serviceTime = new ServiceTime;
 
@@ -403,6 +419,34 @@ trait Models
             $resourceService->service()->associate($this->service);
             $resourceService->resource()->associate($resource);
             $resourceService->save();
+        }
+
+        if($initRoom) {
+            Room::where('id', 1)->forceDelete();
+            $room = new Room;
+            $room->id   = 1;
+            $room->name = 'room 1';
+            $room->description = 'Description';
+            $room->user()->associate($this->user);
+            $room->save();
+
+            $roomService = new RoomService;
+            $roomService->service()->associate($this->service);
+            $roomService->room()->associate($room);
+            $roomService->save();
+
+            Room::where('id', 2)->forceDelete();
+            $room1 = new Room;
+            $room1->id   = 2;
+            $room1->name = 'room 2';
+            $room1->description = 'Description';
+            $room1->user()->associate($this->user);
+            $room1->save();
+
+            $roomService = new RoomService;
+            $roomService->service()->associate($this->service);
+            $roomService->room()->associate($room1);
+            $roomService->save();
         }
 
         if($initExtraServices) {
@@ -499,6 +543,63 @@ trait Models
         // $employeeFreetime1->user()->associate($this->user);
         // $employeeFreetime1->employee()->associate($this->employee);
         // $employeeFreetime1->save();
+    }
+
+    public function addMoreRoom($user, $service)
+    {
+        $room1 = new Room;
+        $room1->name = 'room';
+        $room1->description = 'Description';
+        $room1->user()->associate($user);
+        $room1->save();
+
+        $roomService = new RoomService;
+        $roomService->service()->associate($service);
+        $roomService->room()->associate($room1);
+        $roomService->save();
+    }
+
+    public function makeBooking($date, $startTime, $service, $employee)
+    {
+        $user      = User::find(70);
+        $employee  = $this->employee;
+        $service   = $this->service;
+        $uuid      = Booking::uuid();
+
+        $receptionist = new FrontendReceptionist();
+        $receptionist->setBookingId(null)
+            ->setUUID($uuid)
+            ->setUser($user)
+            ->setBookingDate($date->toDateString())
+            ->setStartTime($startTime)
+            ->setServiceId($service->id)
+            ->setEmployeeId($employee->id)
+            ->setServiceTimeId('default')
+            ->setModifyTime(0);
+
+        $bookingService = $receptionist->upsertBookingService();
+
+        $consumer = Consumer::handleConsumer([
+            'first_name' => 'Consumer First',
+            'last_name' => 'Last ' . $this->service->id,
+            'email' => 'consumer_' . $this->service->id . '@varaa.com',
+            'phone' => '1234567890',
+            'hash' => '',
+        ], $user);
+
+        $receptionist = new FrontendReceptionist();
+        $receptionist->setBookingId(null)
+            ->setUUID($uuid)
+            ->setUser($user)
+            ->setNotes('notes')
+            ->setIsRequestedEmployee(true)
+            ->setConsumer($consumer)
+            ->setClientIP('192.168.1.1')
+            ->setSource('inhouse');
+
+        $booking = $receptionist->upsertBooking();
+
+        return $booking;
     }
 
     public function getDate()
