@@ -116,4 +116,61 @@ class FrontendReceptionCest
         $I->assertEquals($booking->endTime, $date->hour(15)->minute(0)->second(0));
         $I->assertEquals($booking->firstBookingService()->is_requested_employee, true);
     }
+
+    public function testBookingWithExtraServices(UnitTester $I)
+    {
+        $this->initData();
+        $this->initCustomTime();
+
+        $user      = User::find(70);
+        $employee  = $this->employee;
+        $service   = $this->service;
+        $uuid      = Booking::uuid();
+
+        $date      = $this->getDate();
+        $startTime = '14:00';
+
+        $I->amLoggedAs($user);
+        $I->assertEquals($service->length, 60);
+
+        $receptionist = new FrontendReceptionist();
+        $receptionist->setBookingId(null)
+            ->setUUID($uuid)
+            ->setUser($user)
+            ->setBookingDate($date->toDateString())
+            ->setStartTime($startTime)
+            ->setServiceId($service->id)
+            ->setEmployeeId($employee->id)
+            ->setServiceTimeId('default')
+            ->setExtraServiceIds([10, 11])//see helpers/Traits/Models.php
+            ->setModifyTime(0);
+
+        $bookingService = $receptionist->upsertBookingService();
+
+        $consumer = Consumer::handleConsumer([
+            'first_name' => 'Consumer First',
+            'last_name' => 'Last ' . $this->service->id,
+            'email' => 'consumer_' . $this->service->id . '@varaa.com',
+            'phone' => '1234567890',
+            'hash' => '',
+        ], $user);
+
+        $receptionist = new FrontendReceptionist();
+        $receptionist->setBookingId(null)
+            ->setUUID($uuid)
+            ->setUser($user)
+            ->setNotes('notes')
+            ->setIsRequestedEmployee(true)
+            ->setConsumer($consumer)
+            ->setClientIP('192.168.1.1')
+            ->setSource('inhouse');
+
+        $booking = $receptionist->upsertBooking();
+
+        $I->assertNotEmpty($booking);
+        $I->assertEquals($booking->total, 60+15+15);
+        $I->assertEquals($booking->startTime, $date->hour(14)->minute(0)->second(0));
+        $I->assertEquals($booking->endTime, $date->hour(15)->minute(30)->second(0));
+        $I->assertEquals($booking->firstBookingService()->is_requested_employee, true);
+    }
 }

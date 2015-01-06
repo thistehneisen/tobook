@@ -260,9 +260,10 @@ abstract class Receptionist implements ReceptionistInterface
 
             $this->total = ($this->getBaseLength() + $this->modifyTime + $this->plustime);
 
-            if (is_array($this->extraServices)) {
+            //To prevent Exception: Invalid argument supplied for foreach()
+            if(!empty($this->extraServices)) {
                 foreach ($this->extraServices as $extraService) {
-                    $this->extraServiceLength = $extraService->length;
+                    $this->extraServiceLength += $extraService->length;
                 }
             }
 

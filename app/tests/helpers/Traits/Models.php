@@ -406,19 +406,23 @@ trait Models
         }
 
         if($initExtraServices) {
+            ExtraService::where('id', 10)->forceDelete();
             $extraService1 = new ExtraService([
                 'name' => 'Extra service 1',
                 'price' => 10,
                 'length' => 15,
             ]);
+            $extraService1->id = 10;
             $extraService1->user()->associate($this->user);
             $extraService1->save();
 
+            ExtraService::where('id', 11)->forceDelete();
             $extraService2 = new ExtraService([
                 'name' => 'Extra service 2',
                 'price' => 10,
                 'length' => 15,
             ]);
+            $extraService2->id = 11;
             $extraService2->user()->associate($this->user);
             $extraService2->save();
 
