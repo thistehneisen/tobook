@@ -1,48 +1,42 @@
-from fabric.api import cd, run, local, task, hosts, env
+from fabric.api import cd, run, local, task, hosts, env, settings
 from fabric import utils
-
 import os
 import subprocess
 import threading
 
-HOME = os.getenv('HOME')
 
-
-def _deploy(environment):
+def _deploy(environment, host):
     env.user = 'root'
-    with cd('/srv/varaa/src'):
-        # pull latest source
-        run('git pull')
-        # install dependencies
-        run('composer install')
-        # run migration
-        run('php artisan migrate --env={}'.format(environment))
-        # run seeder
-        run('php artisan db:seed')
-        # chmod storage again
-        run('chmod -Rf 777 app/storage')
-        # clear all application cache
-        run('php artisan cache:clear')
-        # restart supervisor processes
-        run('supervisorctl restart all')
-
-
-@task(alias='ds')
-@hosts('dev.varaa.co')
-def deploy_stag():
-    _deploy('stag')
+    with settings(host_string=host):
+        with cd('/srv/varaa/src'):
+            # pull latest source
+            run('git pull')
+            # install dependencies
+            run('composer install')
+            # run migration
+            run('php artisan migrate --env={}'.format(environment))
+            # run seeder
+            run('php artisan db:seed')
+            # chmod storage again
+            run('chmod -Rf 777 app/storage')
+            # clear all application cache
+            run('php artisan cache:clear')
+            # restart supervisor processes
+            run('supervisorctl restart all')
 
 
 @task
-@hosts('klikkaaja.com')
-def deploy_prod():
-    _deploy('prod')
-
-
-@task
-@hosts('clearbooking.se')
-def deploy_cs():
-    _deploy('clearbooking')
+def deploy(instance=''):
+    instance_dict = {
+        'stag': 'dev.varaa.co',
+        'prod': 'klikkaaja.com',
+        'clearbooking': 'clearbooking.se',
+    }
+    if instance in instance_dict:
+        _deploy(instance, instance_dict[instance])
+    elif instance == 'all':
+        for inst in instance_dict:
+            _deploy(inst, instance_dict[inst])
 
 
 @task(alias='rc')
