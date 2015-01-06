@@ -3,6 +3,7 @@
 use \AcceptanceTester;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
+use App\Appointment\Models\Option;
 use App\Core\Models\User;
 use App\Cart\Cart;
 use Carbon\Carbon;
@@ -15,6 +16,11 @@ use Config;
 class Layout1Cest extends AbstractBooking
 {
     public function testSuccess(AcceptanceTester $I)
+    {
+        $this->basicSuccess($I);
+    }
+
+    protected function basicSuccess(AcceptanceTester $I)
     {
         $category = $this->categories[0];
         $service = $category->services()->first();
@@ -50,12 +56,12 @@ class Layout1Cest extends AbstractBooking
 
         $I->click('#btn-add-service-' . $service->id);
 
-        $I->wait(1);
+        $I->wait(2);
         $I->seeCurrentUrlMatches('#service_id=\d+?&service_time=default&date=' . $date->toDateString() . '#');
         $I->click('#btn-slot-' . $employee->id . '-' . substr(preg_replace('#[^0-9]#', '', $startAt), 0, 4));
         $I->click(trans('as.embed.make_appointment'));
 
-        $I->wait(1);
+        $I->wait(5);
         $I->seeCurrentUrlMatches('#action=checkout#');
         $I->appendField('first_name', $firstName);
         $I->appendField('last_name', $lastName);
@@ -205,5 +211,149 @@ class Layout1Cest extends AbstractBooking
         $I->click(sprintf('//*[@id="btn-slot-%s-%s"]', $employee->id, $startAt));
         $I->see("16:00", sprintf('//span[@class="start-time-%s"]', $employee->id));
         $I->see("16:45", sprintf('//span[@class="end-time-%s"]', $employee->id));
+    }
+
+    public function testSetEmailToNotRequired(AcceptanceTester $I)
+    {
+        $user = User::find(70);
+        $this->user = $user;
+        $this->setEmailOption(2);
+        $this->setTestWithEmailOption($I, 2);
+    }
+
+    public function testSetEmailRequired(AcceptanceTester $I)
+    {
+        $user = User::find(70);
+        $this->user = $user;
+        $this->setEmailOption(3);
+        $this->setTestWithEmailOption($I, 3);
+    }
+
+    public function testSetEmailDisabled(AcceptanceTester $I)
+    {
+        $user = User::find(70);
+        $this->user = $user;
+        $this->setEmailOption(1);
+        $this->setTestWithEmailOption($I, 1);
+    }
+
+    protected function setTestWithEmailOption(AcceptanceTester $I, $emailOption = 2)
+    {
+        $this->category = null;
+        $this->service = null;
+
+        $this->initData(false);
+        $this->initCustomTime();
+
+
+        $category = $this->category;
+        $service = $category->services()->first();
+        $employee = $this->employee;
+
+        $today = Carbon::today();
+        $date = $this->_getNextDate();
+        $startAt = '12:00:00';
+
+        $firstName = 'First';
+        $lastName = 'Last';
+        $emails = [
+            1 => '',
+            2 => '',
+            3 => 'consumer' . time() . '@varaa.com',
+        ];
+        $phone = time();
+
+        $I->amOnPage(route('as.embed.embed', ['hash' => $this->user->hash], false));
+        if ($today->month == $date->month) {
+            $I->click(sprintf('//td[normalize-space()=\'%s\']', $date->day));
+        } else {
+            $I->click('//th[contains(@class, \'next\')]');
+            $I->wait(1);
+            $I->click(sprintf('//td[normalize-space()=\'%s\']', $date->day));
+        }
+
+        $I->wait(1);
+        $I->seeCurrentUrlMatches('#date=' . $date->toDateString() . '#');
+        $I->click('#btn-category-' . $category->id);
+
+        $I->waitForElementVisible('#category-services-' . $category->id);
+        $I->click('#btn-service-' . $service->id);
+
+        $I->waitForElementVisible('#service-' . $category->id . '-' . $service->id);
+        $I->click('#btn-service-' . $service->id . '-time-default');
+
+        $I->click('#btn-add-service-' . $service->id);
+
+        $I->wait(2);
+        $I->seeCurrentUrlMatches('#service_id=\d+?&service_time=default&date=' . $date->toDateString() . '#');
+        $I->click('#btn-slot-' . $employee->id . '-' . substr(preg_replace('#[^0-9]#', '', $startAt), 0, 4));
+        $I->click(trans('as.embed.make_appointment'));
+
+        $I->wait(5);
+        $I->seeCurrentUrlMatches('#action=checkout#');
+        $I->appendField('first_name', $firstName);
+        $I->appendField('last_name', $lastName);
+
+        if($emailOption === 2){
+            $I->appendField('email', $emails[$emailOption]);
+        } else if($emailOption === 3){
+            $I->appendField('email', $emails[$emailOption]);
+        } else  {
+            $I->dontSee('input[name=email]');
+        }
+        $I->appendField('phone', $phone);
+        $I->click('#btn-checkout-submit');
+
+        $I->wait(2);
+        $I->seeCurrentUrlMatches('#action=confirm#');
+        $I->click('#btn-confirm-booking');
+
+        $I->wait(5);
+
+        $bookings = Booking::where('source', 'layout1')
+            ->where('user_id', $this->user->id)
+            ->where('employee_id', $employee->id)
+            ->where('date', $date->toDateString())
+            ->where('start_at', $startAt)
+            ->get();
+        $I->assertEquals(1, count($bookings), 'bookings');
+
+        $booking = $bookings[0];
+        $I->assertEquals($date->toDateString(), $booking->date, 'date');
+        $I->assertEquals($startAt, $booking->start_at, 'start_at');
+        $I->assertEquals(Booking::STATUS_CONFIRM, $booking->status, 'status');
+        $I->assertEquals(0, $booking->modify_times, 'modify_times');
+
+        $I->assertEquals(1, $booking->bookingServices()->count(), 'booking services');
+        $I->assertEquals(0, $booking->extraServices()->count(), 'booking extra services');
+
+        $bookingService = $booking->bookingServices()->first();
+        $I->assertEquals($service->id, $bookingService->service_id, 'service_id');
+
+        $consumer = $booking->consumer;
+        $I->assertEquals($firstName, $consumer->first_name, 'consumer first name');
+        $I->assertEquals($lastName, $consumer->last_name, 'consumer last name');
+        if($emailOption >= 2){
+            $I->assertEquals($emails[$emailOption], $consumer->email, 'consumer email');
+        }
+        $I->assertEquals($phone, $consumer->phone, 'consumer phone');
+    }
+
+    public function setEmailOption($emailOption = 2)
+    {
+        $option = $this->user->asOptions()
+                ->where('key', 'email')
+                ->first();
+
+        if(empty($option)){
+            $option = new Option;
+            $option->key = 'email';
+            $option->value  = $emailOption;
+            $options[] = $option;
+            $this->user->asOptions()->saveMany($options);
+        } else {
+            $option->value = $emailOption;
+            $option->save();
+        }
     }
 }
