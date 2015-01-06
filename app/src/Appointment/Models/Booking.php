@@ -165,8 +165,15 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $start = $this->getStartAt()->addMinutes($before);
         $end   = $this->getEndAt()->subMinutes($after);
 
+        $allServices[] = $this->bookingServices()->first()->service->name;
+        $allServices = array_merge($allServices, $this->getExtraServices());
+
+        $serviceDescription = !empty($allServices)
+            ? implode(' + ', $allServices)
+            : '';
+
         $serviceInfo = "{service}, {date} ({start} - {end})";
-        $serviceInfo = str_replace('{service}', $this->bookingServices()->first()->service->name, $serviceInfo);
+        $serviceInfo = str_replace('{service}', $serviceDescription, $serviceInfo);
         $serviceInfo = str_replace('{date}', $this->date, $serviceInfo);
         $serviceInfo = str_replace('{start}', $start->toTimeString(), $serviceInfo);
         $serviceInfo = str_replace('{end}', $end->toTimeString(), $serviceInfo);
