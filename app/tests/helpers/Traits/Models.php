@@ -2,7 +2,7 @@
 namespace Test\Traits;
 
 use App\Appointment\Models\CustomTime;
-use App\Appointment\Models\Booking;
+use App\Appointment\Models\Booking as BookingModel;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\EmployeeCustomTime;
 use App\Appointment\Models\EmployeeDefaultTime;
@@ -16,7 +16,7 @@ use App\Appointment\Models\Room;
 use App\Appointment\Models\RoomService;
 use App\Appointment\Models\ServiceCategory;
 use App\Consumers\Models\EmailTemplate;
-use App\Appointment\Models\Consumer;
+use App\Consumers\Models\Consumer;
 use App\Consumers\Models\Group;
 use App\Consumers\Models\SmsTemplate;
 use App\Appointment\Models\Reception\FrontendReceptionist;
@@ -564,7 +564,7 @@ trait Models
         $user      = User::find(70);
         $employee  = $this->employee;
         $service   = $this->service;
-        $uuid      = Booking::uuid();
+        $uuid      = BookingModel::uuid();
 
         $receptionist = new FrontendReceptionist();
         $receptionist->setBookingId(null)

@@ -3,7 +3,6 @@
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingExtraService;
 use App\Appointment\Models\BookingService;
-use App\Appointment\Models\Consumer;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\Service;
@@ -12,6 +11,7 @@ use App\Appointment\Models\Resource;
 use App\Appointment\Models\ResourceService;
 use App\Appointment\Models\Reception\FrontendReceptionist;
 use App\Core\Models\User;
+use App\Consumers\Models\Consumer;
 use Carbon\Carbon;
 use \UnitTester;
 use DB;
