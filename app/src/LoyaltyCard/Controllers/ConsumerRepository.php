@@ -52,7 +52,7 @@ class ConsumerRepository
     public function storeConsumer($data)
     {
         $consumer = CoreConsumer::make($data, $this->userId);
-        $lcConsumer = $consumer->lc ?: LcConsumer::make($consumer->id, $this->userId);
+        $lcConsumer = LcConsumer::makeOrGet($consumer, $this->userId);
 
         return $lcConsumer;
     }
@@ -75,9 +75,6 @@ class ConsumerRepository
             return $validator->errors()->toArray();
         } else {
             $consumer = CoreConsumer::find($consumerId);
-            // TODO: double check if this is the correct way to do it
-            // Example: what if the existing LC consumer is not for current logged user
-            $consumer->lc = $consumer->lc ?: LcConsumer::make($consumer->id, $this->userId);
 
             $consumer->lc->total_points += $points;
             $consumer->lc->save();
@@ -103,7 +100,6 @@ class ConsumerRepository
     {
         $voucher = VoucherModel::find($voucherId);
         $consumer = CoreConsumer::find($consumerId);
-        $consumer->lc = $consumer->lc ?: LcConsumer::make($consumer->id, $this->userId);
 
         $consumer->lc->total_points -= $voucher->required;
         $consumer->lc->save();
@@ -127,7 +123,6 @@ class ConsumerRepository
     public function addStamp($consumerId, $offerId)
     {
         $consumer = CoreConsumer::find($consumerId);
-        $consumer->lc = $consumer->lc ?: LcConsumer::make($consumer->id, $this->userId);
         $consumerTotalStamps = $consumer->lc->total_stamps;
 
         if ($consumerTotalStamps !== '') {
@@ -166,11 +161,10 @@ class ConsumerRepository
      * @param  int  $offerId
      * @return int
      */
-    public function useOffer($consumerId, $offerId, $isApi)
+    public function useOffer($consumerId, $offerId)
     {
         $offer = OfferModel::find($offerId);
         $consumer = CoreConsumer::find($consumerId);
-        $consumer->lc = $consumer->lc ?: LcConsumer::make($consumer->id, $this->userId);
         $consumerTotalStamps = $consumer->lc->total_stamps;
 
         if ($consumerTotalStamps !== '') {

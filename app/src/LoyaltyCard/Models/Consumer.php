@@ -19,15 +19,19 @@ class Consumer extends Base
         return $this->belongsTo('App\Core\Models\User');
     }
 
-    public static function make($consumerId, $userId)
+    public static function makeOrGet($consumer, $userId)
     {
-        $consumer = new self();
-        $consumer->total_points = 0;
-        $consumer->total_stamps = '';
-        $consumer->consumer_id = $consumerId;
-        $consumer->user_id = $userId;
-        $consumer->save();
+        if ($consumer->lc !== null) {
+            return $consumer->lc;
+        }
 
-        return $consumer;
+        $lcConsumer = new self();
+        $lcConsumer->total_points = 0;
+        $lcConsumer->total_stamps = '';
+        $lcConsumer->consumer_id = $consumer->id;
+        $lcConsumer->user_id = $userId;
+        $lcConsumer->save();
+
+        return $lcConsumer;
     }
 }

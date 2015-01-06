@@ -13,7 +13,7 @@
             <p><i class="fa fa-envelope"></i> {{ $consumer->email }}</p>
             <p><i class="fa fa-phone"></i> {{ $consumer->phone }}</p>
             <p><i class="fa fa-star"></i> {{ trans('lc.points') }}: <span id="js-currentPoint">{{ $pointInfo }}</span></p>
-            <button class="btn btn-success btn-block" id="js-writeCard" data-consumerid="{{{ $consumer->id }}}">{{ trans('lc.write_card') }}</button>
+            <button class="btn btn-success btn-block" id="js-writeCard" data-consumerid="{{{ $lcConsumer->id }}}">{{ trans('lc.write_card') }}</button>
             <hr>
 
             @if ($offers->count() > 0)

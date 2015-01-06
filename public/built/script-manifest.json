@@ -4,15 +4,15 @@
   "clearbooking/core/scripts/home.js": "clearbooking/core/scripts/home-06420e3b.js",
   "clearbooking/core/scripts/main.js": "clearbooking/core/scripts/main-e783c0d0.js",
   "clearbooking/core/scripts/search.js": "clearbooking/core/scripts/search-3b98428f.js",
-  "clearbooking/lc/scripts/main.js": "clearbooking/lc/scripts/main-7f1c62bc.js",
   "clearbooking/fd/scripts/main.js": "clearbooking/fd/scripts/main-f7b80047.js",
+  "clearbooking/lc/scripts/main.js": "clearbooking/lc/scripts/main-d11f859d.js",
   "varaa/co/scripts/main.js": "varaa/co/scripts/main-ebf8fed5.js",
   "varaa/core/scripts/global.js": "varaa/core/scripts/global-93bccf1d.js",
   "varaa/core/scripts/home.js": "varaa/core/scripts/home-06420e3b.js",
   "varaa/core/scripts/main.js": "varaa/core/scripts/main-e783c0d0.js",
   "varaa/core/scripts/search.js": "varaa/core/scripts/search-3b98428f.js",
   "varaa/fd/scripts/main.js": "varaa/fd/scripts/main-f7b80047.js",
-  "varaa/lc/scripts/main.js": "varaa/lc/scripts/main-7f1c62bc.js",
+  "varaa/lc/scripts/main.js": "varaa/lc/scripts/main-d11f859d.js",
   "clearbooking/core/scripts/admin/stats.js": "clearbooking/core/scripts/admin/stats-099b4319.js",
   "varaa/core/scripts/admin/stats.js": "varaa/core/scripts/admin/stats-099b4319.js"
 }

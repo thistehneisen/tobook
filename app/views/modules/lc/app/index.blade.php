@@ -51,7 +51,7 @@ NFC Desktop App
                 </thead>
                 <tbody>
                     @foreach ($items as $key => $value)
-                    <tr data-consumerid="{{{ $value->lc->id }}}" data-coreconsumerid="{{{ $value->id }}}">
+                    <tr data-consumerid="{{{ $value->lc ? $value->lc->id : 0 }}}" data-coreconsumerid="{{{ $value->id }}}">
                         <td>
                             {{ $value->first_name }} {{ $value->last_name }}
                         </td>

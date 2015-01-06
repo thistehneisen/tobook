@@ -32,7 +32,7 @@ do ($ = jQuery) ->
         consumerTr.removeClass 'selected'
         $me.addClass 'selected'
 
-        consumerId = $me.data('consumerid') or 0
+        consumerId = $me.data('consumerid')
         coreConsumerId = $me.data('coreconsumerid')
         showConsumerInfo consumerId, coreConsumerId
 
