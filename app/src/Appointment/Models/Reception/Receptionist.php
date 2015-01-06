@@ -395,11 +395,11 @@ abstract class Receptionist implements ReceptionistInterface
         $model->employee()->associate($this->employee);
         $model->save();
 
-        if(is_array($this->extraServices)) {
+        if(!empty($this->extraServices)) {
             foreach ($this->extraServices as $extraService) {
                 $bookingExtraService = new BookingExtraService;
                 $bookingExtraService->fill([
-                    'date'     => $this->date->toDateTimeString(),
+                    'date'     => $this->date,
                     'tmp_uuid' => $this->uuid
                 ]);
 

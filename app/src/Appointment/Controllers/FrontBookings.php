@@ -58,6 +58,7 @@ class FrontBookings extends Bookings
                 ->setServiceId($serviceId)
                 ->setEmployeeId($employeeId)
                 ->setServiceTimeId($serviceTimeId)
+                ->setExtraServiceIds($extraServiceIds)
                 ->setModifyTime($modifyTime);
 
             $bookingService = $receptionist->upsertBookingService();
