@@ -57,8 +57,9 @@
         @endforeach
     </div>
 
-
-    <!-- Flash deals -->
-    @include ('modules.fd.front', ['deals' => $deals])
+    @if (Config::get('varaa.flash_deal.show_front_page'))
+        <!-- Flash deals -->
+        @include ('modules.fd.front', ['deals' => $deals])
+    @endif
 </div>
 @stop

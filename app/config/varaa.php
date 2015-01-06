@@ -10,6 +10,9 @@ return [
     //  Hide inactive module in dashboard
     //--------------------------------------------------------------------------
     'dashboard_hide_inactive' => true,
+    //--------------------------------------------------------------------------
+    //  Shopping cart
+    //--------------------------------------------------------------------------
     'cart' => [
         //----------------------------------------------------------------------
         //  The maximum minutes to hold items in cart
@@ -53,7 +56,9 @@ return [
             25,  // activities
         ],
         // Number of flash deals to be shown in the frontpage
-        'limit' => 8
+        'limit' => 8,
+        // Show in frontpage
+        'show_front_page' => true
     ],
     //--------------------------------------------------------------------------
     // The available modules/services that provide to customers

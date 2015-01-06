@@ -23,5 +23,8 @@ return [
             'route_name' => 'consumer-hub.index',
             'enable' => true,
         ]
-    ]
+    ],
+    'flash_deal' => [
+        'show_front_page' => false
+    ],
 ];
