@@ -5,7 +5,7 @@ use View;
 
 class DatesPresenter extends Base
 {
-    public function render($value, $item)
+    public static function render($value, $item)
     {
         return View::make('modules.fd.presenters.dates', [
             'dates' => $value

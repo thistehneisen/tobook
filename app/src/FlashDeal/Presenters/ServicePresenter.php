@@ -7,7 +7,7 @@ class ServicePresenter extends Base
     /**
      * @{@inheritdoc}
      */
-    public function render($service, $item)
+    public static function render($service, $item)
     {
         if ($service) {
             return $service->name." ({$service->price}&euro;)";
