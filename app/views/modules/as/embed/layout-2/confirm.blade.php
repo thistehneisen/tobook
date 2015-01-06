@@ -10,10 +10,13 @@
         <div class="col-sm-10">{{ $phone }}</div>
     </div>
 
+    @if((int)$user->asOptions['email'] >= 2)
     <div class="form-group">
         <label class="form-label col-sm-2">{{ trans('as.embed.layout_2.email') }}:</label>
         <div class="col-sm-10">{{ $email }}</div>
     </div>
+    @endif
+
     <?php $fields = ['address', 'postcode','city', 'country', 'notes']; ?>
     @foreach($fields as $field)
         @if((int)$user->asOptions[$field] >= 2)

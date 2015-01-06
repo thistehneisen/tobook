@@ -172,25 +172,28 @@ trait Layout
             'first_name' => Input::get('first_name'),
             'last_name'  => Input::get('last_name'),
             'phone'      => str_replace(' ','', Input::get('phone')),
-            'email'      => Input::get('email'),
         ];
 
         $validators = [
             'first_name' => ['required'],
             'last_name'  => ['required'],
             'phone'      => ['required', 'numeric'],
-            'email'      => ['required', 'email'],
         ];
 
-        $extraFields = ['notes', 'address', 'city', 'country'];
+        $extraFields = ['email', 'notes', 'address', 'city', 'country'];
         $user = $this->getUser($hash);
 
         foreach ($extraFields as $field) {
             if ((int)$user->asOptions[$field] == 3) {
                 $fields[$field]     = Input::get($field);
                 $fields['country']  = str_replace(trans('common.select'), '',Input::get('country'));
-                $validators[$field] = ['required'];
+                $validators[$field] = ($field !== 'email') ? ['required'] : ['required', 'email'];
             }
+        }
+
+        if((int)$user->asOptions['email'] == 2) {
+            $fields['email']     = Input::get('email');
+            $validators['email'] = ['email'];
         }
 
         return Validator::make($fields, $validators);

@@ -13,10 +13,12 @@
         <label>{{ trans('as.bookings.last_name') }}*</label>
         {{ Form::text('last_name', (isset($booking_info['last_name'])) ? $booking_info['last_name'] : ''  , ['class' => 'form-control input-sm', 'id' => 'last_name']) }}
     </div>
+    @if((int)$user->asOptions['email'] >= 2)
     <div class="form-group">
-        <label>{{ trans('as.bookings.email') }}*</label>
+        <label>{{ trans('as.bookings.email') }}@if((int)$user->asOptions['email'] === 3)*@endif</label>
         {{ Form::text('email', (isset($booking_info['email'])) ? $booking_info['email'] : ''  , ['class' => 'form-control input-sm', 'id' => 'email']) }}
     </div>
+    @endif
     <div class="form-group">
         <label>{{ trans('as.bookings.phone') }}*</label>
         {{ Form::text('phone', (isset($booking_info['phone'])) ? $booking_info['phone'] : ''  , ['class' => 'form-control input-sm', 'id' => 'phone']) }}

@@ -65,6 +65,16 @@ return [
                 ],
             ],
             'booking_form' => [
+                'email' => [
+                    'type' => 'Dropdown',
+                    'values' => [
+                        1 => trans('common.no'),
+                        2 => trans('common.yes'),
+                        3 => trans('common.yes_required'),
+                    ],
+                    'default' => 2,
+                    'flipValues' => false
+                ],
                 'notes' => [
                     'type' => 'Dropdown',
                     'values' => [

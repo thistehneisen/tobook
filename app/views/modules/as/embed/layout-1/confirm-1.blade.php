@@ -16,13 +16,15 @@
                     {{ Form::hidden('last_name', (!empty($consumer->last_name)) ? $consumer->last_name :'', ['class' => 'form-control input-sm', 'id' => 'last_name']) }}
                 </div>
             </div>
+            @if((int)$user->asOptions['email'] >= 2)
             <div class="form-group row">
-                <div class="col-sm-2">{{ trans('as.bookings.email') }} (*)</div>
+                <div class="col-sm-2">{{ trans('as.bookings.email') }} @if((int)$user->asOptions['email'] === 3)(*)@endif</div>
                 <div class="col-sm-10">
                     <span id="display_email">{{ (!empty($consumer->email)) ? $consumer->email : trans('as.bookings.empty')  }}</span>
                     {{ Form::hidden('email', (!empty($consumer->email)) ? $consumer->email :'', ['class' => 'form-control input-sm', 'id' => 'email']) }}
                 </div>
             </div>
+            @endif
             <div class="form-group row">
                 <div class="col-sm-2">{{ trans('as.bookings.phone') }} (*)</div>
                 <div class="col-sm-10">

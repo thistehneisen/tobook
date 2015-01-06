@@ -23,7 +23,9 @@
     <div class="form-group">
         <label class="form-label col-md-2">{{ trans('as.embed.layout_3.contact') }}:</label>
         <div class="col-md-3">{{ $phone }}</div>
+        @if((int)$user->asOptions['email'] >= 2)
         <div class="col-md-7">{{ $email }}</div>
+        @endif
     </div>
     @if(!empty($fields))
     <div class="form-group">
@@ -62,7 +64,9 @@
     <input type="hidden" name="hash" value="{{ $hash }}">
     <input type="hidden" name="first_name" value="{{ $first_name }}">
     <input type="hidden" name="last_name" value="{{ $last_name }}">
+    @if((int)$user->asOptions['email'] >= 2)
     <input type="hidden" name="email" value="{{ $email }}">
+    @endif
     <input type="hidden" name="phone" value="{{ $phone }}">
     <input type="hidden" name="cart_id" value="{{ $cartId }}">
     <input type="hidden" name="inhouse" value="{{ $inhouse }}">

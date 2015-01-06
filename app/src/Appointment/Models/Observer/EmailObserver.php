@@ -72,6 +72,10 @@ class EmailObserver implements \SplObserver
         $email['title'] = $emailSubject;
         $email['body']  = nl2br($body);
 
+        if(empty($subject->consumer->email)){
+            return;
+        }
+
         Mail::send('modules.as.emails.confirm', $email, function($message) use($subject, $emailSubject)
         {
             $message->to($subject->consumer->email, $subject->consumer->name)->subject($emailSubject);
@@ -88,6 +92,10 @@ class EmailObserver implements \SplObserver
         $email['body']  = nl2br($body);
 
         $employee = $subject->bookingServices()->first()->employee;
+
+        if(empty($subject->consumer->email)){
+            return;
+        }
 
         if ($employee->is_subscribed_email) {
             Mail::send('modules.as.emails.confirm', $email, function($message) use($employee, $emailSubject)
