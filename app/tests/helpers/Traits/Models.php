@@ -545,7 +545,7 @@ trait Models
         // $employeeFreetime1->save();
     }
 
-    public function addMoreRoom($user, $service)
+    protected function addMoreRoom($user, $service)
     {
         $room1 = new Room;
         $room1->name = 'room';
@@ -559,7 +559,7 @@ trait Models
         $roomService->save();
     }
 
-    public function makeBooking($date, $startTime, $service, $employee)
+    protected function makeBooking($date, $startTime, $service, $employee)
     {
         $user      = User::find(70);
         $employee  = $this->employee;
