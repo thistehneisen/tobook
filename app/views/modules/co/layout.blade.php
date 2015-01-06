@@ -1,22 +1,5 @@
 @extends ('layouts.dashboard')
 
-@section ('styles')
-    @parent
-    {{ HTML::style(asset('packages/alertify/css/alertify.min.css')) }}
-    {{ HTML::style(asset('packages/alertify/css/themes/default.min.css')) }}
-    <style>
-    .main {
-        padding-top: 0;
-    }
-    </style>
-@stop
-
-@section ('scripts')
-    @parent
-    {{ HTML::script(asset('assets/js/modules/co.js')) }}
-    {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
-@stop
-
 @section('extra_modals')
 <!-- History Modal Dialog -->
 <div class="modal fade" id="js-historyModal" role="dialog" aria-labelledby="js-historyModalLabel" aria-hidden="true">

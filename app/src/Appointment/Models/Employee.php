@@ -578,7 +578,7 @@ class Employee extends \App\Appointment\Models\Base
     public function getAvatarUrl()
     {
         if (empty($this->attributes['avatar'])) {
-            return asset('assets/img/mm.png');
+            return asset_path('core/img/mm.png');
         }
 
         return Util::thumbnail($this->getAvatarPath(), 200, 200);
