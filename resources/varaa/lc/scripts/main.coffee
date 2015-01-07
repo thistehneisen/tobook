@@ -54,7 +54,8 @@ do ($ = jQuery) ->
               message: 'Last name is required'
         email:
           validators:
-            emailAddress:
+            regexp:
+              regexp: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
               message: 'Not valid email address'
         phone:
           validators:
