@@ -30,7 +30,9 @@ new Morris.Bar({
     '{{ trans('as.reports.booking.cancelled') }}',
   ],
   // turn all x labels some degrees to show all labels
-  xLabelAngle: 30
+  xLabelAngle: 30,
+  // hide the hover box on mouse out
+  hideHover: true
 });
 });
     </script>
