@@ -365,7 +365,7 @@ abstract class Receptionist implements ReceptionistInterface
 
     public function validateWithRooms()
     {
-        if($this->service->requireRoom()) {
+        if ($this->service->requireRoom()) {
             $availableRoom = Booking::getAvailableRoom(
                 $this->employeeId,
                 $this->service,

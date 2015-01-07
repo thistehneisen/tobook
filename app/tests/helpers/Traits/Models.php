@@ -435,18 +435,18 @@ trait Models
             $roomService->room()->associate($room);
             $roomService->save();
 
-            Room::where('id', 2)->forceDelete();
-            $room1 = new Room;
-            $room1->id   = 2;
-            $room1->name = 'room 2';
-            $room1->description = 'Description';
-            $room1->user()->associate($this->user);
-            $room1->save();
+            // Room::where('id', 2)->forceDelete();
+            // $room1 = new Room;
+            // $room1->id   = 2;
+            // $room1->name = 'room 2';
+            // $room1->description = 'Description';
+            // $room1->user()->associate($this->user);
+            // $room1->save();
 
-            $roomService = new RoomService;
-            $roomService->service()->associate($this->service);
-            $roomService->room()->associate($room1);
-            $roomService->save();
+            // $roomService = new RoomService;
+            // $roomService->service()->associate($this->service);
+            // $roomService->room()->associate($room1);
+            // $roomService->save();
         }
 
         if($initExtraServices) {

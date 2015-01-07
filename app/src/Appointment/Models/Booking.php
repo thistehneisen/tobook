@@ -302,13 +302,12 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      */
     public static function getAvailableRoom($employeeId, $service, $uuid, $bookingDate, Carbon $startTime, Carbon $endTime)
     {
-
         $query = self::where('as_bookings.date', $bookingDate)
             ->whereNull('as_bookings.deleted_at')
             ->where('as_bookings.status','!=', self::STATUS_CANCELLED);
 
         //for inhouse layout
-        if(!empty($uuid)) {
+        if (!empty($uuid)) {
             $query->where('as_bookings.uuid', '!=', $uuid);
         }
 
@@ -319,11 +318,11 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             ->join('as_room_service', 'as_room_service.service_id', '=', 'as_services.id')
             ->join('as_booking_service_rooms', 'as_booking_service_rooms.booking_service_id', '=','as_booking_services.id')
             ->whereIn('as_booking_service_rooms.room_id',  $service->rooms()->lists('id'))
-            ->select('as_booking_service_rooms.room_id');
+            ->select('as_booking_service_rooms.room_id AS room')
+            ->lists('room');
 
-
-        $availableRoom = (!empty($query->get()->toArray()))
-            ? $service->rooms()->whereNotIn('room_id', $query->get()->toArray())->first()
+        $availableRoom = (!empty($query))
+            ? $service->rooms()->whereNotIn('room_id', $query)->first()
             : $service->rooms()->first();
 
         return $availableRoom;
@@ -331,9 +330,9 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
     public function isShowModifyPopup()
     {
-       return ($this->source ==='inhouse' && $this->getConsumerName() === '')
-        ? false
-        : true;
+        return ($this->source ==='inhouse' && $this->getConsumerName() === '')
+            ? false
+            : true;
     }
 
     /**
