@@ -165,7 +165,7 @@ return [
         'categories' => [
             'all'           => 'Kaikki kategoriat',
             'add'           => 'Lisää kategoria',
-            'edit'          => 'Muokkaa kategoria',
+            'edit'          => 'Muokkaa kategorioita',
             'name'          => 'Nimi',
             'description'   => 'Kuvaus',
             'is_show_front' => 'Varattavissa kuluttajille',
@@ -185,16 +185,16 @@ return [
             'quantity'    => 'Määrä',
         ],
         'rooms' => [
-            'all'         => 'All rooms',
-            'add'         => 'Add room',
-            'edit'        => 'Muokkaa room',
+            'all'         => 'Huoneet',
+            'add'         => 'Lisää huone',
+            'edit'        => 'Muokkaa huonetta',
             'name'        => 'Nimi',
             'description' => 'Kuvaus',
         ],
         'extras' => [
-            'all'         => 'Kaikki lisäpalvelut',
+            'all'         => 'Lisäpalvelut',
             'add'         => 'Lisää lisäpalvelu',
-            'edit'        => 'Muokkaa lisäpalveluita',
+            'edit'        => 'Muokkaa lisäpalvelua',
             'name'        => 'Nimi',
             'description' => 'Kuvaus',
             'price'       => 'Hinta',
@@ -302,9 +302,9 @@ return [
             'overlapped_with_freetime' => 'Varaus on menossa työntekijän oman vapaan päälle!',
             'reschedule_single_only'   => 'Useita palveluita sisältävää varausta ei valitettavasti voi siirtää.',
             'reschedule_unbooked_extra'=> 'Varauksen siirto epäonnistui!',
-            'not_enough_resources'     => 'Required resources are not available!',
-            'not_enough_rooms'         => 'There are not enough room!',
-            'empty_start_time'         => 'Booking start time cannot be empty',
+            'not_enough_resources'     => 'Palvelun vaatima resurssi on jo varattu',
+            'not_enough_rooms'         => 'Ei tarpeeksi vapaita huoneita',
+            'empty_start_time'         => 'Alkamisajankohta -kenttä ei voi olla tyhjä',
             'booking_not_found'        => 'Varausta ei löytynyt!',
             'past_booking'             => 'Et voi tehdä varausta menneisyyteen!'
         ],
@@ -354,7 +354,7 @@ return [
         'sunday_hours'        => 'Sununtaitunnit',
         'monthly_hours'       => 'Kuukauden tunnit',
         'error'               => [
-            'freetime_overlapped_with_booking' => 'Vapaa menee varauksen päälle'
+            'freetime_overlapped_with_booking' => 'Vapaa-aika menossa varauksen päälle!'
         ],
     ],
     'embed' => [
@@ -529,7 +529,7 @@ return [
             'style_heading_background'          => 'Otsikon tausta',
         ],
         'working_time' => [
-            'index' => 'Working time',
+            'index' => 'Kalenterinäkymä',
         ]
     ],
     'reports' => [
@@ -546,14 +546,14 @@ return [
             'cancelled'   => 'Peruutetut varaukset',
         ],
         'statistics'=> 'Statistiikka',
-        'monthly'   => 'Monthly report',
+        'monthly'   => 'Kuukausiraportti',
         'stat' => [
             'monthly'      => 'Kuukausikooste',
             'bookings'     => 'Varaukset',
             'revenue'      => 'Liikevaihto',
             'working_time' => 'Työaika',
             'booked_time'  => 'Varattu aika',
-            'occupation'   => 'Varaus %',
+            'occupation'   => 'Täyttöaste',
         ]
     ],
     'crud' => [
@@ -564,6 +564,6 @@ return [
         'success_bulk'   => 'Toiminto toteutettu onnistuneesti!',
         'sortable'       => 'Järjestä sarakkeet uudelleen nappaamalla kiinni haluamastasi sarakkeesta, ja vetämällä sitä hiirellä ylös tai alas!',
     ],
-    'delete_reason'         => 'Miksi haluat poistaa?',
+    'delete_reason'         => 'Miksi haluat poistaa varauksen?',
     'delete_reason_default' => 'Asiakkaan pyynnöstä',
 ];
