@@ -1,1 +1,0 @@
-(function(){!function(t){"use strict";return t(function(){return t(".js-showHistory").on("click",function(r){var n;return r.preventDefault(),n=t(this),t.ajax({url:n.prop("href"),type:"GET",data:{id:n.data("consumerid"),service:n.data("service")}}).done(function(r){var n;return n=t("#js-historyModal"),n.find(".modal-body").html(r),n.modal("show")})})})}(jQuery)}).call(this);

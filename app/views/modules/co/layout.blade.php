@@ -1,5 +1,11 @@
 @extends ('layouts.dashboard')
 
+@section ('scripts')
+    @parent
+    {{ HTML::script(asset_path('co/scripts/main.js')) }}
+@stop
+
+
 @section('extra_modals')
 <!-- History Modal Dialog -->
 <div class="modal fade" id="js-historyModal" role="dialog" aria-labelledby="js-historyModalLabel" aria-hidden="true">
