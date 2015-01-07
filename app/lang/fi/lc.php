@@ -73,4 +73,14 @@ return [
     'is_active'             => 'Käytössä',
     'edit'                  => 'Muokkaa',
     'is_auto_add'           => 'Automaattisestilisäys',
+    'error' => [
+        'consumer_not_exist' => 'This consumer does not exist',
+        'not_enough_point'   => 'Not enough stamp for this offer',
+    ],
+    'success' => [
+        'point_added' => 'Point added successfully',
+        'point_used'  => 'Point used successfully',
+        'stamp_added' => 'Stamp added successfully',
+        'offer_used'  => 'Offer used successfully',
+    ]
 ];

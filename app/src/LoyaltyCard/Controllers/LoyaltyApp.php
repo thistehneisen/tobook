@@ -48,10 +48,12 @@ class LoyaltyApp extends Base
     {
         $lcConsumer = null;
         if ($coreId > 0) {
-            $consumer = CoreConsumer::find($coreId);
+            $consumer = CoreConsumer::ofCurrentUser()->find($coreId);
         } else {
-            $lcConsumer = LcConsumer::find($id);
-            $consumer = $lcConsumer->consumer;
+            $lcConsumer = LcConsumer::ofCurrentUser()->find($id);
+            if (!empty($lcConsumer)) {
+                $consumer = $lcConsumer->consumer;
+            }
         }
 
         if (Request::ajax()) {
@@ -73,7 +75,7 @@ class LoyaltyApp extends Base
                     'pointInfo' => $pointInfo
                 ];
             } else {
-                $data = ['error' => trans('This customer does not exist')];
+                $data = ['error' => trans('lc.error.consumer_not_exist')];
             }
 
             return View::make('modules.lc.app.show', $data);
@@ -113,7 +115,7 @@ class LoyaltyApp extends Base
         } elseif (is_object($result)) {
             return Response::json([
                 'success' => true,
-                'message' => 'Point added successfully',
+                'message' => trans('lc.success.point_added'),
                 'points'  => $result->lc->total_points,
             ]);
         }
@@ -131,7 +133,7 @@ class LoyaltyApp extends Base
 
         return Response::json([
             'success' => true,
-            'message' => 'Point used successfully',
+            'message' => trans('lc.success.point_used'),
             'points'  => $consumer->lc->total_points,
         ]);
     }
@@ -148,7 +150,7 @@ class LoyaltyApp extends Base
 
         return Response::json([
             'success' => true,
-            'message' => 'Stamp added successfully',
+            'message' => trans('lc.success.stamp_added'),
             'stamps'  => $consumerNoOfStamps,
         ]);
     }
@@ -166,12 +168,12 @@ class LoyaltyApp extends Base
         if ($consumerNoOfStamps === null) {
             return Response::json([
                 'success' => false,
-                'message' => 'Not enough stamp for this offer',
+                'message' => trans('lc.error.not_enough_point'),
             ]);
         } else {
             return Response::json([
                 'success' => true,
-                'message' => 'Offer used successfully',
+                'message' => trans('lc.success.offer_used'),
                 'stamps'  => $consumerNoOfStamps,
             ]);
         }
