@@ -528,7 +528,7 @@ return [
             'style_heading_background'          => 'Heading background',
         ],
         'working_time' => [
-            'index' => 'Working time',
+            'index' => 'Calendar view',
         ]
     ],
     'reports' => [
