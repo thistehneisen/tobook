@@ -152,7 +152,7 @@ HTML;
 
 return [
     'index' => [
-        'heading'       => 'Etusivu',
+        'heading'       => 'Etusivu (asiakastukemme: yritys@varaa.com / puh. 045 146 3755)',
         'description'   => 'Näkymässä näet kaikkien työntekijöiden kalenterin. Kuluttajille varattavat ajat vihreällä. Voit tehdä halutessasi varauksia myös harmaalle alueelle joka näkyy kuluttajille suljettuna.',
         'today'         => 'Tänään',
         'tomorrow'      => 'Huomenna',
