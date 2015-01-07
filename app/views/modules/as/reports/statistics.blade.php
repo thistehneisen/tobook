@@ -34,22 +34,16 @@ new Morris.Bar({
     </script>
 @stop
 
-@section ('title')
-    {{ trans('as.reports.employees') }} :: @parent
-@stop
-
 @section ('content')
-    <h2>{{ trans('as.reports.employees') }}</h2>
-
     {{ Form::open(['class' => 'form-inline', 'role' => 'form', 'method' => 'GET']) }}
         <div class="form-group">
             <label class="sr-only" for="services">{{ trans('as.reports.services') }}</label>
             {{ Form::select('service', $services, null, ['class' => 'form-control input-sm']) }}
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label class="sr-only" for="index">{{ trans('as.reports.idx') }}</label>
             {{ Form::select('service', ['count' => trans('as.reports.count'), 'quantity' => trans('as.reports.quantity')], null, ['class' => 'form-control input-sm']) }}
-        </div>
+        </div> -->
         <div class="form-group">
             <div class="input-daterange input-group date-picker">
                 <input type="text" class="input-sm form-control" name="start" placeholder="{{ trans('as.reports.start') }}">

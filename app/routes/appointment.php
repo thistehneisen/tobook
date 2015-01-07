@@ -310,17 +310,17 @@ Route::group([
 
     Route::get('reports/monthly', [
         'as' => 'as.reports.monthly',
-        'uses' => 'App\Appointment\Controllers\Stat@index'
+        'uses' => 'App\Appointment\Controllers\Reports@monthlyReport'
     ]);
 
     Route::get('reports/monthly/calendar', [
         'as' => 'as.reports.monthly.calendar',
-        'uses' => 'App\Appointment\Controllers\Stat@calendar'
+        'uses' => 'App\Appointment\Controllers\Reports@calendar'
     ]);
 
     Route::get('reports/monthly/monthly', [
         'as' => 'as.reports.monthly.monthly',
-        'uses' => 'App\Appointment\Controllers\Stat@monthly'
+        'uses' => 'App\Appointment\Controllers\Reports@monthly'
     ]);
 
     // Catch-all route should always be at the bottom
