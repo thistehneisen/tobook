@@ -4,8 +4,8 @@ use Input, View, Request;
 use Carbon\Carbon;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\Employee;
-use App\Appointment\Reports\Employee as EmployeeReport;
 use App\Appointment\Reports\Statistics;
+use App\Appointment\Reports\MonthlyReport;
 use App\Appointment\Reports\MonthlyStatistics;
 
 class Reports extends AsBase
@@ -27,11 +27,23 @@ class Reports extends AsBase
      */
     public function statistics()
     {
-        $services = Service::ofCurrentUser()->get();
+        $today = Carbon::now();
+        $start = Input::has('start')
+            ? new Carbon(Input::get('start'))
+            : with(clone $today)->subMonth();
+        $end = Input::has('end')
+            ? new Carbon(Input::get('end'))
+            : $today;
+        $selectedService = (int) Input::get('service', 0);
+
+        $serviceOptions = [0 => trans('common.options_all')] + Service::ofCurrentUser()->lists('name', 'id');
 
         return $this->render('statistics', [
-            'services' => array_combine($services->lists('id'), $services->lists('name')),
-            'report'   => new EmployeeReport()
+            'serviceOptions'    => $serviceOptions,
+            'selectedService'   => $selectedService,
+            'start'             => $start->toDateString(),
+            'end'               => $end->toDateString(),
+            'report'            => new Statistics($selectedService, $start, $end)
         ]);
     }
 
@@ -61,7 +73,7 @@ class Reports extends AsBase
         $employeeId = Input::get('employee');
 
         $calendar = $this->generateCalendar($date);
-        $report = new Statistics($date, $employeeId);
+        $report = new MonthlyReport($date, $employeeId);
 
         $next = with(clone $date)->addMonth();
         $prev = with(clone $date)->subMonth();

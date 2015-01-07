@@ -18,6 +18,7 @@ return [
     'sign_in'               => 'Kirjaudu sisään',
     'select'                => 'Valitse',
     'options_select'        => '-- Valitse -- ',
+    'options_all'           => '-- Kaikki -- ',
     'register'              => 'Rekisteröidy',
     'no_records'            => 'Ei hakutuloksia',
     'save'                  => 'Tallenna',

@@ -18,6 +18,7 @@ return [
     'sign_in'               => 'Sign in',
     'select'                => 'Select',
     'options_select'        => '-- Select -- ',
+    'options_all'           => '-- All -- ',
     'register'              => 'Register',
     'no_records'            => 'Sorry, no records found!',
     'save'                  => 'Save',

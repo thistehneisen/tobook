@@ -28,7 +28,9 @@ new Morris.Bar({
     '{{ trans('as.reports.booking.confirmed') }}',
     '{{ trans('as.reports.booking.unconfirmed') }}',
     '{{ trans('as.reports.booking.cancelled') }}',
-  ]
+  ],
+  // turn all x labels some degrees to show all labels
+  xLabelAngle: 30
 });
 });
     </script>
@@ -38,23 +40,19 @@ new Morris.Bar({
     {{ Form::open(['class' => 'form-inline', 'role' => 'form', 'method' => 'GET']) }}
         <div class="form-group">
             <label class="sr-only" for="services">{{ trans('as.reports.services') }}</label>
-            {{ Form::select('service', $services, null, ['class' => 'form-control input-sm']) }}
+            {{ Form::select('service', $serviceOptions, $selectedService, ['class' => 'form-control input-sm']) }}
         </div>
-        <!-- <div class="form-group">
-            <label class="sr-only" for="index">{{ trans('as.reports.idx') }}</label>
-            {{ Form::select('service', ['count' => trans('as.reports.count'), 'quantity' => trans('as.reports.quantity')], null, ['class' => 'form-control input-sm']) }}
-        </div> -->
         <div class="form-group">
             <div class="input-daterange input-group date-picker">
-                <input type="text" class="input-sm form-control" name="start" placeholder="{{ trans('as.reports.start') }}">
+                <input type="text" class="input-sm form-control" name="start" placeholder="{{ trans('as.reports.start') }}" value="{{{ $start }}}">
                 <span class="input-group-addon">&ndash;</span>
-                <input type="text" class="input-sm form-control" name="end" placeholder="{{ trans('as.reports.end') }}">
+                <input type="text" class="input-sm form-control" name="end" placeholder="{{ trans('as.reports.end') }}" value="{{{ $end }}}">
             </div>
         </div>
         <button type="submit" class="btn btn-primary btn-sm">{{ trans('as.reports.generate') }}</button>
     {{ Form::close() }}
 
-    <div id="employees-chart" style="height: 350px;"></div>
+    <div id="employees-chart" style="height: 350px; padding-bottom: 50px"></div>
 
     <table class="table table-stripped table-bordered">
         <thead>
@@ -69,7 +67,7 @@ new Morris.Bar({
         <tbody>
         @foreach ($report->get() as $item)
             <tr>
-                <td>{{ $item['employee']->name }}</td>
+                <td>{{ $item['employee'] }}</td>
                 <td>{{ $item['total'] }}</td>
                 <td>{{ isset($item['confirmed']) ? $item['confirmed'] : 0 }}</td>
                 <td>{{ isset($item['pending']) ? $item['pending'] : 0 }}</td>
