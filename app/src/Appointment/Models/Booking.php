@@ -463,19 +463,19 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      */
     public function getServiceDescription($showLineBreak = false)
     {
-        $bookingService  = $this->bookingServices()->first();
+        $bookingService = $this->bookingServices()->first();
 
         $allServices = [];
 
         //Is there any chance for an empty service name?
         $allServices[] = !empty($bookingService->service->name)
             ? $bookingService->service->name
-            : '<em>' .trans('as.services.no_name') . '</em>';
+            : '<em>' . trans('as.services.no_name') . '</em>';
 
         $allServices = array_merge($allServices, $this->getExtraServices());
 
         $serviceDescription = !empty($allServices)
-            ? '('.implode(' + ', $allServices).')'
+            ? '(' . implode(' + ', $allServices) . ')'
             : '';
 
         if (!empty($bookingService->serviceTime->id)) {
@@ -484,8 +484,11 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
                 : ' ' . $bookingService->serviceTime->description;
         }
 
-        $room  = $bookingService->rooms()->first();
-        if(!empty($room)) {
+        if (!empty($bookingService)) {
+            $room = $bookingService->rooms()->first();
+        }
+
+        if (!empty($room)) {
             $serviceDescription .= '<br>' . $room->name;
         }
 
