@@ -1,7 +1,7 @@
 <?php
 return [
     'name' => 'ClearBooking',
-    //'languages' => ['en', 'fi'],
+    'languages' => ['sv', 'en'],
     'premium_modules' => [
         'appointment' => [
             'route_name' => 'as.index',

@@ -1,9 +1,4 @@
 <?php
-/**
- * Language keys for module Consumers
- *
- * @author An Cao <an@varaa.com>
- */
 return [
     'consumers'         => 'Asiakkaat',
     'empty'             => 'Sinulla ei ole vielä aktiivisia asiakkaita.',
