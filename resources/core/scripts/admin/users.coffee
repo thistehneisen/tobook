@@ -14,7 +14,7 @@ do ($ = jQuery) ->
   $commissionModal = $ '#js-commission-modal'
 
   # When admin clicks on +/- button
-  $ 'a.js-commission-action'
+  $ 'a.js-commission'
     .on 'click', (e) ->
       e.preventDefault()
       $me = $ @

@@ -70,4 +70,16 @@ class Base extends \Eloquent implements SearchableInterface
 
         return $query;
     }
+
+    /**
+     * Sort records by creation time
+     *
+     * @param Illuminate\Database\Query\Builder $query
+     *
+     * @return Illuminate\Database\Query\Builder
+     */
+    public function scopeLatest($query)
+    {
+        return $query->orderBy('created_at', 'desc');
+    }
 }

@@ -19,6 +19,20 @@ class CommissionLog extends \AppModel
     ];
 
     //--------------------------------------------------------------------------
+    // ATTRIBUTES
+    //--------------------------------------------------------------------------
+    public function getSignedAmountAttribute()
+    {
+        $map = [
+            'add' => '+',
+            'subtract' => '-',
+        ];
+
+        return $map[$this->attributes['action']] .
+            number_format($this->attributes['amount'], 2);
+    }
+
+    //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
     public function user()

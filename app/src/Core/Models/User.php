@@ -131,6 +131,11 @@ class User extends ConfideUser implements SearchableInterface
         return $this->hasOne('App\Core\Models\Business');
     }
 
+    public function commissions()
+    {
+        return $this->hasMany('App\Core\Models\CommissionLog');
+    }
+
     //--------------------------------------------------------------------------
     // SCOPES
     //--------------------------------------------------------------------------

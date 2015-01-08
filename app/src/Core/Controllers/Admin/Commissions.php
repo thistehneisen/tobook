@@ -55,8 +55,19 @@ class Commissions extends Base
         }
     }
 
+    /**
+     * Show all commissions of a single user
+     *
+     * @param int $userId
+     *
+     * @return view
+     */
     public function index($userId)
     {
+        $user = User::findOrFail($userId);
 
+        return $this->render('index', [
+            'commissions' => $user->commissions()->latest()->get()
+        ]);
     }
 }

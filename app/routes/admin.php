@@ -55,7 +55,7 @@ Route::group([
             'uses' => 'App\Core\Controllers\Admin\Commissions@doAction'
         ]);
 
-        Route::post('{id}/commissions', [
+        Route::get('{id}/commissions', [
             'as' => 'admin.users.commissions',
             'uses' => 'App\Core\Controllers\Admin\Commissions@index'
         ]);

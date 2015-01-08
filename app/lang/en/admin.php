@@ -53,5 +53,6 @@ return [
         'fail'   => 'Cannot save data. Please check your input and try again.',
         'amount' => 'Amount',
         'note'   => 'Note (optional)',
+        'date'   => 'Date'
     ],
 ];
