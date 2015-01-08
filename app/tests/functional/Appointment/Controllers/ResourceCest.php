@@ -54,7 +54,6 @@ class ResourceCest
         $I->amOnRoute('as.services.resources.upsert');
         $I->fillField('name', $name);
         $I->fillField('description', $description);
-        $I->fillField('quantity', $quantity);
         $I->click('#btn-save');
 
         $I->seeCurrentRouteIs('as.services.resources.index');
@@ -65,7 +64,6 @@ class ResourceCest
         foreach ($resources as $resource) {
             $I->assertEquals($name, $resource->name, 'name');
             $I->assertEquals($description, $resource->description, 'description');
-            $I->assertEquals($quantity, $resource->quantity, 'quantity');
         }
     }
 
@@ -77,7 +75,6 @@ class ResourceCest
 
         $I->amOnRoute('as.services.resources.upsert');
         $I->fillField('description', $description);
-        $I->fillField('quantity', $quantity);
         $I->click('#btn-save');
 
         $I->seeCurrentRouteIs('as.services.resources.upsert');
