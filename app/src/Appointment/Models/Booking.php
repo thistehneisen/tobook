@@ -462,15 +462,14 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      */
     public function getServiceDescription($showLineBreak = false)
     {
-        $bookingService = $this->bookingServices()->first();
-
         $allServices = [];
 
         //Is there any chance for an empty service name?
-        $allServices[] = !empty($bookingService->service->name)
-            ? $bookingService->service->name
-            : '<em>' . trans('as.services.no_name') . '</em>';
-
+        foreach ($this->bookingServices as $bookingService) {
+            $allServices[] = !empty($bookingService->service->name)
+                ? $bookingService->service->name
+                : '<em>' . trans('as.services.no_name') . '</em>';
+        }
         $allServices = array_merge($allServices, $this->getExtraServices());
 
         $serviceDescription = !empty($allServices)
@@ -483,12 +482,12 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
                 : ' ' . $bookingService->serviceTime->description;
         }
 
-        if (!empty($bookingService)) {
+        foreach ($this->bookingServices as $bookingService) {
             $room = $bookingService->rooms()->first();
-        }
 
-        if (!empty($room)) {
-            $serviceDescription .= '<br>' . $room->name;
+            if (!empty($room)) {
+                $serviceDescription .= '<br>' . $room->name;
+            }
         }
 
         return $serviceDescription;

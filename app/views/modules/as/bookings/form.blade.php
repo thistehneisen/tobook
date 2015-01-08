@@ -130,13 +130,13 @@
                                         </td>
                                         <td>
                                             <span class="added_booking_modify_time">
-                                                @if (!empty($bookingService)) {{ $booking->modify_time }}
+                                                @if (!empty($bookingService)) {{ $bookingService->modify_time }}
                                                 @endif
                                             </span>
                                         </td>
                                         <td>
                                             <span class="added_booking_plustime">
-                                                @if (!empty($bookingService)) {{ $booking->plustime }}
+                                                @if (!empty($bookingService)) {{ $bookingService->getEmployeePlustime() }}
                                                 @endif
                                             </span>
                                         </td>
@@ -148,12 +148,12 @@
                                         </td>
                                         <td class="align_right">
                                             <span class="added_service_price">
-                                                @if (!empty($bookingService)) {{ $booking->total_price }}
+                                                @if (!empty($bookingService)) {{ $bookingService->calculcateTotalPrice() }}
                                                 @endif
                                             </span>
                                         </td>
                                          <td class="align_right">
-                                            <a href="#">{{ trans('common.edit') }}</a>
+                                            <a href="#" class="btn-edit-booking-service" data-booking-service-id="{{ $bookingService->id }}"><i class="fa fa-edit"></i></a>
                                         </td>
                                     </tr>
                                     @endforeach

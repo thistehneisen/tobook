@@ -329,4 +329,73 @@ class BackendReceptionCest
         $I->assertEquals($booking->startTime, $date->hour(14)->minute(0)->second(0));
         $I->assertEquals($booking->endTime, $date->hour(15)->minute(0)->second(0));
     }
+
+    public function testMultipleBookingServices(UnitTester $I)
+    {
+        $this->initData();
+        $this->initCustomTime();
+
+        $user      = User::find(70);
+        $employee  = $this->employee;
+        $service   = $this->service;
+        $uuid      = Booking::uuid();
+
+        $date      = $this->getDate();
+        $startTime = '14:00';
+
+        $I->amLoggedAs($user);
+        $I->assertEquals($service->length, 60);
+
+        $bookingService1 = $this->makeBookingService($uuid, $user, $date, $startTime, $service, $employee);
+
+        $I->assertEquals($bookingService1->startTime, $date->hour(14)->minute(0)->second(0));
+        $I->assertEquals($bookingService1->endTime, $date->hour(15)->minute(0)->second(0));
+
+        $bookingService2 = $this->makeBookingService($uuid, $user, $date, '15:00', $this->services[1], $employee);
+
+        $I->assertEquals($bookingService2->startTime, $date->hour(15)->minute(0)->second(0));
+        $I->assertEquals($bookingService2->endTime, $date->hour(16)->minute(0)->second(0));
+
+        $consumer = Consumer::handleConsumer([
+            'first_name' => 'Consumer First',
+            'last_name' => 'Last ' . $this->service->id,
+            'email' => 'consumer_' . $this->service->id . '@varaa.com',
+            'phone' => '1234567890',
+            'hash' => '',
+        ], $user);
+
+        $receptionist = new BackendReceptionist();
+        $receptionist->setBookingId(null)
+            ->setUUID($uuid)
+            ->setUser($user)
+            ->setStatus('confirmed')
+            ->setNotes('')
+            ->setIsRequestedEmployee(true)
+            ->setConsumer($consumer)
+            ->setClientIP('192.168.1.1')
+            ->setSource('backend');
+        // $bs = BookingService::where('tmp_uuid', $uuid)->orderBy('start_at')->get();
+        // $I->assertEmpty($bs);
+
+        $booking = $receptionist->upsertBooking();
+        $I->assertNotEmpty($booking);
+        $I->assertEquals($booking->total, 60);
+        $I->assertEquals($booking->startTime, $date->hour(14)->minute(0)->second(0));
+        $I->assertEquals($booking->endTime, $date->hour(16)->minute(0)->second(0));
+    }
+
+    protected function makeBookingService($uuid, $user, $date, $startTime, $service, $employee)
+    {
+        $receptionist = new BackendReceptionist();
+        $receptionist->setBookingId(0)
+            ->setUUID($uuid)
+            ->setUser($user)
+            ->setBookingDate($date->toDateString())
+            ->setStartTime($startTime)
+            ->setServiceId($service->id)
+            ->setEmployeeId($employee->id)
+            ->setServiceTimeId('default');
+
+        return $receptionist->upsertBookingService();
+    }
 }
