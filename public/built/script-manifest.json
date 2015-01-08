@@ -14,5 +14,7 @@
   "varaa/fd/scripts/main.js": "varaa/fd/scripts/main-f7b80047.js",
   "varaa/lc/scripts/main.js": "varaa/lc/scripts/main-17e80b73.js",
   "clearbooking/core/scripts/admin/stats.js": "clearbooking/core/scripts/admin/stats-099b4319.js",
-  "varaa/core/scripts/admin/stats.js": "varaa/core/scripts/admin/stats-099b4319.js"
+  "clearbooking/core/scripts/admin/users.js": "clearbooking/core/scripts/admin/users-5703b969.js",
+  "varaa/core/scripts/admin/stats.js": "varaa/core/scripts/admin/stats-099b4319.js",
+  "varaa/core/scripts/admin/users.js": "varaa/core/scripts/admin/users-5703b969.js"
 }
