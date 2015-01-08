@@ -9,6 +9,8 @@ def _deploy(environment, host):
     env.user = 'root'
     with settings(host_string=host):
         with cd('/srv/varaa/src'):
+            # set it to maintenance mode
+            run('php artisan down')
             # pull latest source
             run('git pull')
             # install dependencies
@@ -23,6 +25,8 @@ def _deploy(environment, host):
             run('php artisan cache:clear')
             # restart supervisor processes
             run('supervisorctl restart all')
+            # set it to live mode again
+            run('php artisan up')
 
 
 @task
