@@ -20,11 +20,6 @@ return [
     'enable'             => 'Enable',
     'activate'           => 'Aktivoi',
     'deactivate'         => 'Deaktivoi',
-    'commissions'        => 'Commissions', // @todo
-    'commission_done'    => 'Record has been saved', // @todo
-    'commission_fail'    => 'Cannot save record. Please check your input.', // @todo
-    'paid'               => 'Paid', // @todo
-    'total'              => 'Total', // @todo
     'modules'            => [
         'modules'               => 'Moduulit',
         'active_time'           => 'Active time',
@@ -49,5 +44,13 @@ return [
                 'total'   => 'Yhteensä'
             ]
         ]
-    ]
+    ],
+    // @todo
+    'commissions'        => [
+        'index'  => 'Commissions',
+        'done'   => 'Record has been saved',
+        'fail'   => 'Cannot save record. Please check your input.',
+        'amount' => 'Amount',
+        'note'   => 'Note (optional)',
+    ],
 ];

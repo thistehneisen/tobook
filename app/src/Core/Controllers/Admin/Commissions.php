@@ -6,6 +6,23 @@ use App\Core\Models\User;
 
 class Commissions extends Base
 {
+    protected $viewPath = 'admin.commissions';
+
+    /**
+     * Show the modal to enter user commission
+     *
+     * @param int    $userId
+     * @param string $action
+     *
+     * @return View
+     */
+    public function show($userId, $action)
+    {
+        return $this->render('modal', [
+            'userId' => $userId
+        ]);
+    }
+
     /**
      * Add a new commission to user
      *

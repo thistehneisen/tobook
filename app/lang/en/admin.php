@@ -20,9 +20,6 @@ return [
     'enable'             => 'Enable',
     'activate'           => 'Activate',
     'deactivate'         => 'Deactivate',
-    'commissions'        => 'Commissions',
-    'commission_done'    => 'Record has been saved',
-    'commission_fail'    => 'Cannot save record. Please check your input.',
     'paid'               => 'Paid',
     'total'              => 'Total',
     'modules'            => [
@@ -49,5 +46,12 @@ return [
                 'total'   => 'Total'
             ]
         ]
-    ]
+    ],
+    'commissions'        => [
+        'index'  => 'Commissions',
+        'done'   => 'Record has been saved',
+        'fail'   => 'Cannot save record. Please check your input.',
+        'amount' => 'Amount',
+        'note'   => 'Note (optional)',
+    ],
 ];

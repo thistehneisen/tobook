@@ -46,6 +46,11 @@ Route::group([
         //----------------------------------------------------------------------
         // Commissions
         //----------------------------------------------------------------------
+        Route::get('{id}/commissions/{action}', [
+            'as' => 'admin.users.commissions.show',
+            'uses' => 'App\Core\Controllers\Admin\Commissions@show'
+        ]);
+
         Route::post('{id}/commissions/add', [
             'as' => 'admin.users.commissions.add',
             'uses' => 'App\Core\Controllers\Admin\Commissions@add'

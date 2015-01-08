@@ -7,24 +7,27 @@ do ($ = jQuery) ->
   #-----------------------------------------------------------------------------
   # Business commissions
   #-----------------------------------------------------------------------------
+
+  # Create a DIV to contain commission modal
+  $ 'body'
+    .append $('<div/>').attr 'id', 'js-commission-modal'
+  $commissionModal = $ '#js-commission-modal'
+
   $ 'a.js-commission-action'
     .on 'click', (e) ->
       e.preventDefault()
       $me = $ @
 
-      # Prompt to ask about amount and note
-      amount = prompt('Amount, e.g. 10.99')
-      note = prompt('Note') unless amount is null
+      notifier = alertify.notify '<i class="fa fa-2x fa-spinner fa-spin"></i>'
 
+      # Get the modal form
       $.ajax
         url: $me.attr 'href'
-        type: 'POST'
-        dataType: 'JSON'
-        data:
-          amount: amount
-          note: note
+        type: 'GET'
       .done (res) ->
-        alertify.success res.message
-      .fail (res) ->
-        alertify.error res.responseJSON.message
+        $commissionModal.html res
+        $commissionModal.children '.modal'
+          .modal show: true
+
+        notifier.dismiss()
 
