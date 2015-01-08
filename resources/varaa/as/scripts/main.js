@@ -271,25 +271,37 @@
                 var $tr = $('<tr/>', {
                     id : 'booking-service-id-' + data.booking_service_id
                 }).appendTo($tbody);
-                var $td1 = $('<td/>').appendTo($tr);
-                $('<span>', { class : 'added_service_name'}).appendTo($td1);
-                var $td2 = $('<td/>').appendTo($tr);
-                $('<span>', { class : 'added_employee_name'}).appendTo($td2);
-                var $td3 = $('<td/>').appendTo($tr);
-                $('<span>', { class : 'added_booking_date'}).appendTo($td3);
-                var $td4 = $('<td/>').appendTo($tr);
-                $('<span>', { class : 'added_booking_modify_time'}).appendTo($td4);
-                var $td5 = $('<td/>').appendTo($tr);
-                $('<span>', { class : 'added_booking_plustime'}).appendTo($td5);
-                var $td6 = $('<td/>').appendTo($tr);
-                $('<span>', { class : 'added_service_price'}).appendTo($td6);
+
+                var $td = $('<td/>').appendTo($tr);
+                $('<span>', { class : 'added_service_name'}).appendTo($td);
+                $('<br>').appendTo($td);
+                $('<span>', { class : 'added_employee_name'}).appendTo($td);
+
+                var classes = [
+                    'added_booking_modify_time',
+                    'added_booking_plustime',
+                    'added_booking_date',
+                    'added_service_price'
+                ];
+
+                for (var i =  0; i < classes.length; i++) {
+                    var $td = $('<td/>').appendTo($tr);
+                    $('<span>', { class : classes[i]}).appendTo($td);
+                };
+
+                var $td = $('<td/>').appendTo($tr);
+                $('<a>', {
+                    'href'  : '#',
+                    'class' : 'btn-edit-booking-service',
+                    'data-booking-service-id': data.booking_service_id,
+                }).append('<i class="fa fa-edit"></i>').appendTo($td);
             }
             var $tds = $('#booking-service-id-' + data.booking_service_id + ' > td');
             $tds.find('span.added_service_name').text(data.service_name);
             $tds.find('span.added_employee_name').text(data.employee_name);
-            $tds.find('span.added_booking_date').text(data.datetime);
             $tds.find('span.added_booking_modify_time').text(data.modify_time);
             $tds.find('span.added_booking_plustime').text(data.plustime);
+            $tds.find('span.added_booking_date').text(data.datetime);
             $tds.find('span.added_service_price').text(data.price);
             $('#added_services').show();
         }

@@ -41,6 +41,11 @@ trait Models
      */
     protected $service  = null;
 
+    /**
+     * @var Service
+     */
+    protected $services  = [];
+
     protected function _createUser($withBusiness = true)
     {
         if (!empty($this->user)) {
@@ -391,7 +396,15 @@ trait Models
         $this->service->employees()->attach($this->employee);
         $this->service->employees()->attach($employee1);
         $this->service->employees()->attach($employee2);
+        $this->services[] = $this->service;
 
+        $employees = [
+            $this->employee,
+            $employee1,
+            $employee2
+        ];
+
+        $this->addServices(1, $employees);
         $serviceTime = new ServiceTime;
 
         $serviceTime->fill([
@@ -475,6 +488,28 @@ trait Models
 
             $this->service->extraServices()->attach($extraService1);
             $this->service->extraServices()->attach($extraService2);
+        }
+    }
+
+    protected function addServices($numberOfServices = 1, $employees = [])
+    {
+        for ($i=0; $i < $numberOfServices; $i++) {
+            $service = new Service([
+                'name'      => 'Hung Service ' . $i,
+                'length'    => 60,
+                'during'    => 45,
+                'after'     => 15,
+                'price'     => 35,
+                'is_active' => 1,
+            ]);
+
+            $service->user()->associate($this->user);
+            $service->category()->associate($this->category);
+            $service->saveOrFail();
+            foreach ($employees as $employee) {
+                $service->employees()->attach($employee);
+            }
+            $this->services[] = $service;
         }
     }
 

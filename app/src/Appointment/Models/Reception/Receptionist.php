@@ -28,6 +28,7 @@ abstract class Receptionist implements ReceptionistInterface
     protected $extraServicePrice   = 0;
     protected $extraServiceLength  = 0;
     protected $bookingService      = null;
+    protected $bookingServices     = null;
     protected $bookingServiceId    = null;
     protected $selectedService     = null;
     protected $baseLength          = null;
@@ -91,6 +92,11 @@ abstract class Receptionist implements ReceptionistInterface
 
     public function getStartTime()
     {
+        if(!empty($this->bookingServices)) {
+            return ($this->bookingServices->last())
+                ? $this->bookingServices->last()->endTime
+                : $this->startTime;
+        }
         return $this->startTime;
     }
 
@@ -193,9 +199,9 @@ abstract class Receptionist implements ReceptionistInterface
         return $this;
     }
 
-    public function setBookingService($notNull = false)
+    public function setBookingService()
     {
-        if(empty($this->bookingServiceId)) {
+        if(!empty($this->bookingServiceId)) {
             $this->bookingService = (empty($this->bookingId))
                 ? BookingService::where('tmp_uuid', $this->uuid)->first()
                 : BookingService::where('booking_id', $this->bookingId)->first();
@@ -203,16 +209,32 @@ abstract class Receptionist implements ReceptionistInterface
             $this->bookingService = BookingService::find($this->bookingServiceId);
         }
 
-        if(empty($this->bookingService) && $notNull){
-            throw new Exception(trans('as.bookings.missing_services'), 1);
-        }
+        $this->bookingServices = (empty($this->bookingId))
+                ? BookingService::where('tmp_uuid', $this->uuid)->orderBy('start_at')->get()
+                : BookingService::where('booking_id', $this->bookingId)->orderBy('start_at')->get();
 
         return $this;
+    }
+
+    public function validateEmptyBookingService()
+    {
+        $this->bookingService = (empty($this->bookingId))
+                ? BookingService::where('tmp_uuid', $this->uuid)->first()
+                : BookingService::where('booking_id', $this->bookingId)->first();
+
+        if (empty($this->bookingService)) {
+            throw new Exception(trans('as.bookings.missing_services'), 1);
+        }
     }
 
     public function getBookingService()
     {
         return $this->bookingService;
+    }
+
+    public function getBookingServices()
+    {
+        return $this->bookingServices;
     }
 
     public function setClientIP($ip)

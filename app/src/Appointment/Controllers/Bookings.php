@@ -433,6 +433,7 @@ class Bookings extends AsBase
         $bookingId           = (int) Input::get('booking_id', 0);//if update old booking
         $employeeId          = (int) Input::get('employee_id');
         $serviceTimeId       = Input::get('service_time', 'default');
+        $bookingServiceId    = Input::get('booking_service_id', 0);
         $modifyTime          = (int) Input::get('modify_times', 0);
         $hash                = Input::get('hash');
         $bookingDate         = Input::get('booking_date');
@@ -450,6 +451,7 @@ class Bookings extends AsBase
                 ->setServiceId($serviceId)
                 ->setEmployeeId($employeeId)
                 ->setServiceTimeId($serviceTimeId)
+                ->setBookingServiceId($bookingServiceId)
                 ->setModifyTime($modifyTime)
                 ->setIsRequestedEmployee($isRequestedEmployee);
 
