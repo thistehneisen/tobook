@@ -28,6 +28,7 @@ abstract class Receptionist implements ReceptionistInterface
     protected $extraServicePrice   = 0;
     protected $extraServiceLength  = 0;
     protected $bookingService      = null;
+    protected $bookingServiceId    = null;
     protected $selectedService     = null;
     protected $baseLength          = null;
     protected $total               = null;
@@ -186,11 +187,21 @@ abstract class Receptionist implements ReceptionistInterface
         return $this->selectedService;
     }
 
+    public function setBookingServiceId($bookingServiceId)
+    {
+        $this->bookingServiceId = $bookingServiceId;
+        return $this;
+    }
+
     public function setBookingService($notNull = false)
     {
-        $this->bookingService = (empty($this->bookingId))
-            ? BookingService::where('tmp_uuid', $this->uuid)->first()
-            : BookingService::where('booking_id', $this->bookingId)->first();
+        if(empty($this->bookingServiceId)) {
+            $this->bookingService = (empty($this->bookingId))
+                ? BookingService::where('tmp_uuid', $this->uuid)->first()
+                : BookingService::where('booking_id', $this->bookingId)->first();
+        } else {
+            $this->bookingService = BookingService::find($this->bookingServiceId);
+        }
 
         if(empty($this->bookingService) && $notNull){
             throw new Exception(trans('as.bookings.missing_services'), 1);
@@ -447,7 +458,7 @@ abstract class Receptionist implements ReceptionistInterface
                 $bookingExtraService->save();
             }
         }
-
+        $this->bookingServiceId = $model->id;
         return $model;
     }
 
@@ -458,13 +469,14 @@ abstract class Receptionist implements ReceptionistInterface
         }
 
         $data = [
-            'datetime'      => $this->startTime->toDateTimeString(),
-            'price'         => $this->price,
-            'service_name'  => $this->service->name,
-            'modify_time'   => $this->modifyTime,
-            'plustime'      => $this->plustime,
-            'employee_name' => $this->employee->name,
-            'uuid'          => $this->uuid
+            'datetime'           => $this->startTime->toDateTimeString(),
+            'booking_service_id' => $this->bookingServiceId,
+            'price'              => $this->price,
+            'service_name'       => $this->service->name,
+            'modify_time'        => $this->modifyTime,
+            'plustime'           => $this->plustime,
+            'employee_name'      => $this->employee->name,
+            'uuid'               => $this->uuid
         ];
         return $data;
     }
