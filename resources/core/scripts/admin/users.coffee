@@ -13,6 +13,7 @@ do ($ = jQuery) ->
     .append $('<div/>').attr 'id', 'js-commission-modal'
   $commissionModal = $ '#js-commission-modal'
 
+  # When admin clicks on +/- button
   $ 'a.js-commission-action'
     .on 'click', (e) ->
       e.preventDefault()
@@ -28,6 +29,22 @@ do ($ = jQuery) ->
         $commissionModal.html res
         $commissionModal.children '.modal'
           .modal show: true
-
         notifier.dismiss()
 
+  # When admin submits the form to modify user's commissions
+  $commissionModal.on 'submit', '#js-commission-form', (e) ->
+    e.preventDefault()
+    $me = $ @
+
+    $.ajax
+      url: $me.attr 'action'
+      type: $me.attr 'method'
+      dataType: 'JSON'
+      data: $me.serialize()
+    .done (res) ->
+      alertify.success res.message
+    .fail (res) ->
+      alertify.error res.responseJSON.message
+    .always ->
+      $commissionModal.children '.modal'
+        .modal 'hide'

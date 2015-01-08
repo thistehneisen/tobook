@@ -5,7 +5,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">{{ trans('admin.commissions.index') }}</h4>
             </div>
-        {{ Form::open() }}
+        {{ Form::open(['route' => ['admin.users.commissions.show', $userId, $action], 'id' => 'js-commission-form']) }}
             <div class="modal-body">
                 <div class="form-group">
                     <label for="amount">{{ trans('admin.commissions.amount') }}</label>

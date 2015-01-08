@@ -19,43 +19,20 @@ class Commissions extends Base
     public function show($userId, $action)
     {
         return $this->render('modal', [
-            'userId' => $userId
+            'userId' => $userId,
+            'action' => $action
         ]);
     }
 
     /**
-     * Add a new commission to user
+     * Add/substract a new commission to user
      *
-     * @param int $userId
-     *
-     * @return Response
-     */
-    public function add($userId)
-    {
-        return $this->performAction('add', $userId);
-    }
-
-    /**
-     * Subtract/refund to a user
-     *
-     * @param int $userId
-     *
-     * @return Response
-     */
-    public function subtract($userId)
-    {
-        return $this->performAction('subtract', $userId);
-    }
-
-    /**
-     * Auxilary function to perform action on user's commissions
-     *
-     * @param string $action
      * @param int    $userId
+     * @param string $action
      *
      * @return Response
      */
-    protected function performAction($action, $userId)
+    public function doAction($userId, $action)
     {
         $user = User::findOrFail($userId);
 
@@ -67,14 +44,14 @@ class Commissions extends Base
             $item->user()->associate($user);
             $item->saveOrFail();
 
-            return Response::json(['message' => trans('admin.commission_done')]);
+            return Response::json(['message' => trans('admin.commissions.done')]);
         } catch (\Exception $ex) {
             Log::warning($ex->getMessage(), [
                 'context' => 'admin.users.commissions',
                 'user' => $userId
             ]);
 
-            return Response::json(['message' => trans('admin.commission_fail')], 500);
+            return Response::json(['message' => trans('admin.commissions.fail')], 500);
         }
     }
 

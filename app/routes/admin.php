@@ -51,14 +51,8 @@ Route::group([
             'uses' => 'App\Core\Controllers\Admin\Commissions@show'
         ]);
 
-        Route::post('{id}/commissions/add', [
-            'as' => 'admin.users.commissions.add',
-            'uses' => 'App\Core\Controllers\Admin\Commissions@add'
-        ]);
-
-        Route::post('{id}/commissions/subtract', [
-            'as' => 'admin.users.commissions.subtract',
-            'uses' => 'App\Core\Controllers\Admin\Commissions@subtract'
+        Route::post('{id}/commissions/{action}', [
+            'uses' => 'App\Core\Controllers\Admin\Commissions@doAction'
         ]);
 
         Route::post('{id}/commissions', [

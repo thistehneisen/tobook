@@ -45,12 +45,11 @@ return [
             ]
         ]
     ],
-    // @todo
     'commissions'        => [
-        'index'  => 'Commissions',
-        'done'   => 'Record has been saved',
-        'fail'   => 'Cannot save record. Please check your input.',
-        'amount' => 'Amount',
-        'note'   => 'Note (optional)',
+        'index'  => 'Commissions', // @todo
+        'done'   => 'Commission has been saved', // @todo
+        'fail'   => 'Cannot save data. Please check your input and try again.', // @todo
+        'amount' => 'Amount', // @todo
+        'note'   => 'Note (optional)', // @todo
     ],
 ];

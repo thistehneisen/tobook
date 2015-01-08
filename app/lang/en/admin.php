@@ -49,8 +49,8 @@ return [
     ],
     'commissions'        => [
         'index'  => 'Commissions',
-        'done'   => 'Record has been saved',
-        'fail'   => 'Cannot save record. Please check your input.',
+        'done'   => 'Commission has been saved',
+        'fail'   => 'Cannot save data. Please check your input and try again.',
         'amount' => 'Amount',
         'note'   => 'Note (optional)',
     ],
