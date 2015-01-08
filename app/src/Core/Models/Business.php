@@ -1,10 +1,11 @@
 <?php namespace App\Core\Models;
 
-use Config, Log, NAT, Input, Str, Util;
+use Config, Log, NAT, Input, Str, Util, App;
 use App\Core\Models\Relations\BusinessBusinessCategory;
 use App\Lomake\Fields\HtmlField;
 use Exception;
 use Illuminate\Support\Collection;
+use App\Appointment\Models\Booking;
 
 class Business extends Base
 {
@@ -20,6 +21,7 @@ class Business extends Base
         'lat',
         'lng',
         'note',
+        'bank_account',
         'meta_title',
         'meta_keywords',
         'meta_description',
@@ -144,6 +146,7 @@ class Business extends Base
             'meta_title'       => $input['meta_title'],
             'meta_keywords'    => $input['meta_keywords'],
             'meta_description' => $input['meta_description'],
+            'bank_account'     => $input['bank_account'],
         ]);
         $this->user()->associate($user);
         $this->saveOrFail();
@@ -183,6 +186,22 @@ class Business extends Base
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
+
+    public function getTotalCommissionAttribute()
+    {
+        $value = App::make('\App\Appointment\Models\Booking')
+            ->calculateCommissions($this->user);
+
+        return $value > 0 ? number_format($value, 2) : null;
+    }
+
+    public function getPaidCommissionAttribute()
+    {
+        $model = App::make('\App\Core\Models\CommissionLog');
+        $value = $model->calculatePaid($this->user);
+
+        return number_format($value, 2);
+    }
 
     /**
      * Return the full address of this user

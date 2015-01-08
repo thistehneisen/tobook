@@ -19,10 +19,11 @@ class Users extends Base
         'langPrefix'  => 'user',
         'actionsView' => 'admin.users.actions',
         'bulkActions' => ['activate', 'deactivate'],
-        'indexFields' => ['business_name', 'email', 'activation'],
+        'indexFields' => ['business_name', 'email', 'payments', 'activation'],
         'presenters'  => [
             'business_name' => ['App\Core\Controllers\Admin\Users', 'presentBusinessName'],
             'activation'    => ['App\Core\Controllers\Admin\Users', 'presentActivation'],
+            'payments'      => ['App\Core\Controllers\Admin\Users', 'presentPayments'],
         ]
     ];
 
@@ -348,5 +349,20 @@ class Users extends Base
         }
 
         return '<span class="label label-danger">'.trans('common.no').'</span>';
+    }
+
+    /**
+     * Show controls to send/display related payments of a business
+     *
+     * @param string               $value
+     * @param App\Core\Models\User $user
+     *
+     * @return View|string
+     */
+    public static function presentPayments($value, $user)
+    {
+        return View::make('admin.users.el.payments', [
+            'user' => $user
+        ]);
     }
 }

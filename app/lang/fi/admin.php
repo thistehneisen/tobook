@@ -45,5 +45,12 @@ return [
                 'total'   => 'Yhteensä'
             ]
         ]
-    ]
+    ],
+    'commissions'        => [
+        'index'  => 'Commissions', // @todo
+        'done'   => 'Commission has been saved', // @todo
+        'fail'   => 'Cannot save data. Please check your input and try again.', // @todo
+        'amount' => 'Amount', // @todo
+        'note'   => 'Note (optional)', // @todo
+    ],
 ];

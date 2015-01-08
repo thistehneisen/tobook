@@ -39,6 +39,8 @@ return [
     'reset_password'         => 'Reset password',
     'enter_new_password'     => 'Please enter your new password',
     'business_name'          => 'Business name',
+    'activation'             => 'Activated?',
+    'payments'               => 'Payments',
     'business' => [
         'is_activated'     => 'Activated',
         'name'             => 'Business Name',
@@ -53,6 +55,7 @@ return [
         'meta_title'       => 'Meta title',
         'meta_description' => 'Meta description',
         'meta_keywords'    => 'Meta keywords',
+        'bank_account'     => 'Bank account',
         'sizes'            => [
             '1',
             '2-3',

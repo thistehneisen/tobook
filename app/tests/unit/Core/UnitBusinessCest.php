@@ -4,7 +4,8 @@ use App\Core\Models\BusinessCategory;
 use App\Core\Models\User;
 use App\Core\Models\Business;
 use Test\Traits\Models;
-use \UnitTester;
+use UnitTester;
+use Mockery as m;
 
 /**
  * @group core
@@ -19,6 +20,11 @@ class UnitBusinessCest
         $this->_createUser(false);
 
         Business::boot();
+    }
+
+    public function _after()
+    {
+        m::close();
     }
 
     public function testNewRecordSuccess(UnitTester $I)
@@ -126,5 +132,27 @@ class UnitBusinessCest
             'name' => 'Name',
             'phone' => '1234567890',
         ];
+    }
+
+    public function testGetTotalCommission(UnitTester $i)
+    {
+        $mock = m::mock('\App\Appointment\Models\Booking[calculateCommissions]');
+        $mock->shouldReceive('calculateCommissions')->andReturn(10);
+        \App::instance('\App\Appointment\Models\Booking', $mock);
+
+        $business = new Business();
+        $business->user()->associate($this->user);
+        $i->assertEquals($business->total_commission, '10.00');
+    }
+
+    public function testGetPaidCommission(UnitTester $i)
+    {
+        $mock = m::mock('\App\Core\Models\CommissionLog[calculatePaid]');
+        $mock->shouldReceive('calculatePaid')->andReturn(17.8);
+        \App::instance('\App\Core\Models\CommissionLog', $mock);
+
+        $business = new Business();
+        $business->user()->associate($this->user);
+        $i->assertEquals($business->paid_commission, '17.80');
     }
 }

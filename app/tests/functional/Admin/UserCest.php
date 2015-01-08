@@ -26,6 +26,7 @@ class UserCest extends \Test\Functional\Base
             'meta_title'       => 'Meta title',
             'meta_keywords'    => 'Meta keywords',
             'meta_description' => 'Meta description',
+            'bank_account'     => 'FI12 345 67890'
         ];
     }
 
