@@ -434,7 +434,8 @@ abstract class Receptionist implements ReceptionistInterface
             $bookingServiceRoom->save();
         }
 
-        if (is_array($this->extraServices)) {
+        //to avoid warning
+        if (!empty($this->extraServices)) {
             foreach ($this->extraServices as $extraService) {
                 $bookingExtraService = new BookingExtraService;
                 $bookingExtraService->fill([
@@ -483,7 +484,7 @@ abstract class Receptionist implements ReceptionistInterface
     public function computeTotalPrice()
     {
         //to avoid warning
-        if (is_array($this->extraServices)) {
+        if (!empty($this->extraServices)) {
             foreach ($this->extraServices as $extraService) {
                 $this->extraServicePrice  += $extraService->price;
             }
