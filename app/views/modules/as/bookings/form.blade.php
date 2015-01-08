@@ -83,7 +83,7 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-offset-4 col-sm-8">
-                                    <label for="is_requested_employee">{{ Form::checkbox('is_requested_employee', 1, (isset($bookingService)) ? $bookingService->is_requested_employee : false, ['id' => 'is_requested_employee']) }} {{ trans('as.bookings.own_customer') }}
+                                    <label for="is_requested_employee">{{ Form::checkbox('is_requested_employee', 1, (isset($firstBookingService)) ? $firstBookingService->is_requested_employee : false, ['id' => 'is_requested_employee']) }} {{ trans('as.bookings.own_customer') }}
                                     </label>
                                 </div>
                             </div>
@@ -103,7 +103,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-12">
-                            <table id="added_services" class="table table-bordered" style="@if(empty($bookingService))display:none @endif">
+                            <table id="added_services" class="table table-bordered" style="@if(empty($bookingServices))display:none @endif">
                                 <thead>
                                     <tr>
                                         <th>{{ trans('as.bookings.service_employee') }}</th>
@@ -111,46 +111,52 @@
                                         <th>{{ trans('as.bookings.plustime') }}</th>
                                         <th>{{ trans('as.bookings.date_time') }}</th>
                                         <th>{{ trans('as.bookings.price') }}</th>
+                                        <th>&nbsp;</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    @foreach($bookingServices as $bookingService)
+                                    <tr id="booking-service-id-{{ $bookingService->id }}" data-booking-service-id="{{ $bookingService->id }}">
                                         <td>
-                                            <span id="added_service_name">
+                                            <span class="added_service_name">
                                                 @if (!empty($bookingService)) {{ $bookingService->service->name }}
                                                 @endif
                                             </span>
                                             <br>
-                                            <span id="added_employee_name">
+                                            <span class="added_employee_name">
                                                 @if (!empty($bookingService)) {{ $booking->employee->name }}
                                                 @endif
                                             </span>
                                         </td>
                                         <td>
-                                            <span id="added_booking_modify_time">
+                                            <span class="added_booking_modify_time">
                                                 @if (!empty($bookingService)) {{ $booking->modify_time }}
                                                 @endif
                                             </span>
                                         </td>
                                         <td>
-                                            <span id="added_booking_plustime">
+                                            <span class="added_booking_plustime">
                                                 @if (!empty($bookingService)) {{ $booking->plustime }}
                                                 @endif
                                             </span>
                                         </td>
                                         <td>
-                                            <span id="added_booking_date">
+                                            <span class="added_booking_date">
                                                 @if (!empty($bookingService)) {{ $booking->date }}
                                                 @endif
                                             </span>
                                         </td>
                                         <td class="align_right">
-                                            <span id="added_service_price">
+                                            <span class="added_service_price">
                                                 @if (!empty($bookingService)) {{ $booking->total_price }}
                                                 @endif
                                             </span>
                                         </td>
+                                         <td class="align_right">
+                                            <a href="#">{{ trans('common.edit') }}</a>
+                                        </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

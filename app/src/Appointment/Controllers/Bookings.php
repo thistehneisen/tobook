@@ -143,23 +143,24 @@ class Bookings extends AsBase
         $bookingStatuses      = Booking::getStatuses();
         $employee             = $booking->employee;
         $services             = $employee->services;
-        $bookingService       = $booking->bookingServices()->first();
+        $bookingServices      = $booking->bookingServices;
+        $firstBookingService  = $booking->bookingServices()->first();
         $bookingExtraServices = $booking->extraServices()->get();
 
         $categories = $this->getCategories($services);
 
-        $bookingCategoryId   = (!empty($bookingService->service->category->id)) ? $bookingService->service->category->id : null;
-        $bookingServiceId    = (!empty($bookingService->service->id)) ? $bookingService->service->id : null;
-        $bookingServices     = $employee->services()->where('category_id', $bookingCategoryId)->lists('name','id');
-        $bookingServices[-1] = trans('common.select');
-        ksort($bookingServices);//sort selected services by key
+        $bookingCategoryId       = (!empty($firstBookingService->service->category->id)) ? $firstBookingService->service->category->id : null;
+        $bookingServiceId        = (!empty($firstBookingService->service->id)) ? $firstBookingService->service->id : null;
+        $bookingServicesList     = $employee->services()->where('category_id', $bookingCategoryId)->lists('name','id');
+        $bookingServicesList[-1] = trans('common.select');
+        ksort($bookingServicesList);//sort selected services by key
 
-        $serviceTimes = (!empty($bookingService)) ? $bookingService->service->serviceTimes : [];
-        $length = (!empty($bookingService)) ? $bookingService->service->length : 0;
-        $description = (!empty($bookingService)) ? $bookingService->service->description : '';
+        $serviceTimes = (!empty($firstBookingService)) ? $firstBookingService->service->serviceTimes : [];
+        $length = (!empty($firstBookingService)) ? $firstBookingService->service->length : 0;
+        $description = (!empty($firstBookingService)) ? $firstBookingService->service->description : '';
         $plustime = (!empty($bookingServiceId)) ? $employee->getPlustime($bookingServiceId) : 0;
 
-        $serviceTimesList = $bookingService->service->getServiceTimesData();
+        $serviceTimesList = $firstBookingService->service->getServiceTimesData();
 
         $bookingServiceTime = (!empty($booking->bookingServices()->first()->serviceTime->id))
                             ? $booking->bookingServices()->first()->serviceTime->id
@@ -176,14 +177,15 @@ class Bookings extends AsBase
             'startTime'             => $startAt,
             'endTime'               => $endAt,
             'bookingStatuses'       => $bookingStatuses,
-            'bookingService'        => $bookingService,
+            'firstBookingService'   => $firstBookingService,
             'bookingServiceTime'    => $bookingServiceTime,
             'bookingExtraServices'  => $bookingExtraServices,
             'employee'              => $employee,
             'category_id'           => $bookingCategoryId,
             'service_id'            => $bookingServiceId,
             'categories'            => $categories,
-            'services'              => $bookingServices,
+            'services'              => $bookingServicesList,
+            'bookingServices'       => $bookingServices,
             'serviceTimes'          => $serviceTimesList,
             'plustime'              => $plustime
         ];
@@ -225,6 +227,7 @@ class Bookings extends AsBase
             'employee'        => $employee,
             'categories'      => $categories,
             'bookingDate'     => $bookingDate,
+            'bookingServices' => [],
             'startTime'       => $startTime,
             'bookingStatuses' => $bookingStatuses
         ]);
