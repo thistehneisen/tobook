@@ -211,31 +211,14 @@
 
     @section('footer')
     <footer class="container-fluid footer hidden-print">
-        <div class="container">
-            <div class="col-sm-4">
-                <p>&copy; {{ date('Y') }} <a href="http://varaa.com">varaa.com</a></p>
-                <ul class="list-unstyled list-inline list-social-networks">
-                    <li><a href="https://www.facebook.com/varaacom" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="https://www.linkedin.com/company/3280872" target="_blank"><i class="fa fa-linkedin"></i></a></li>
-                    <li><a href="https://www.youtube.com/user/Varaacom" target="_blank"><i class="fa fa-youtube"></i></a></li>
-                </ul>
-            </div>
+        <div class="container text-center">
 
-            <div class="col-sm-4">
-                <ul class="list-unstyled">
-                    <li><a href="{{ route('front.about') }}">{{ trans('About us') }}</a></li>
-                    <li><a href="{{ route('front.contact') }}">{{ trans('Contact us') }}</a></li>
-                    <li><a href="{{ route('intro-business') }}">{{ trans('common.for_business') }}</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-4">
-                <ul class="list-unstyled">
-                    <li><a href="{{ route('front.partners') }}">{{ trans('Partners') }}</a></li>
-                    <li><a href="{{ route('front.resellers') }}">{{ trans('Resellers') }}</a></li>
-                    <li><a href="{{ route('front.media') }}">{{ trans('Media companies') }}</a></li>
-                    <li><a href="{{ route('front.directories') }}">{{ trans('Directories') }}</a></li>
-                </ul>
-            </div>
+            <p>&copy; {{ date('Y') }} <a href="http://varaa.com">varaa.com</a></p>
+            <ul class="list-unstyled list-inline list-social-networks">
+                <li><a href="https://www.facebook.com/varaacom" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="https://www.linkedin.com/company/3280872" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                <li><a href="https://www.youtube.com/user/Varaacom" target="_blank"><i class="fa fa-youtube"></i></a></li>
+            </ul>
         </div>
     </footer>
     @show

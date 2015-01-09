@@ -14,7 +14,6 @@ Route::pattern('slug', '[a-z0-9-]+');
 |
 */
 
-require app_path().'/routes/home.php';
 require app_path().'/routes/search.php';
 require app_path().'/routes/auth.php';
 require app_path().'/routes/business.php';
@@ -32,3 +31,20 @@ require app_path().'/routes/consumer_hub.php';
 require app_path().'/routes/appointment.php';
 require app_path().'/routes/loyalty_card.php';
 require app_path().'/routes/flash_deal.php';
+
+//------------------------------------------------------------------------------
+// Others
+//------------------------------------------------------------------------------
+// Home
+Route::group([], function () {
+    Route::get('/', [
+        'as'    => 'home',
+        'uses'  => 'App\Core\Controllers\Front@home'
+    ]);
+});
+
+// JS localization
+Route::get('jslocale.json', [
+    'as'    => 'ajax.jslocale',
+    'uses'  => 'App\Core\Controllers\Ajax\JsLocale@getJsLocale'
+]);
