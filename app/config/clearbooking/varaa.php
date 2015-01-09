@@ -2,6 +2,18 @@
 return [
     'name' => 'ClearBooking',
     'languages' => ['sv', 'en', 'fi'],
+    'footer' => [
+        'copyright' => [
+            'name' => 'Clearsense',
+            'url' => 'http://www.clearsense.se',
+        ],
+        'social' => [
+            'facebook'      => 'https://facebook.com/ClearSenseSE',
+            'linkedin'      => 'https://www.linkedin.com/company/clearsense-sverige',
+            'google-plus'   => 'https://plus.google.com/+lokaldelen/posts',
+            'youtube'       => '',
+        ]
+    ],
     'premium_modules' => [
         'appointment' => [
             'route_name' => 'as.index',

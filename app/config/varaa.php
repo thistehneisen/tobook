@@ -6,6 +6,17 @@ return [
     'name' => 'Varaa',
     'head_script' => '',
     'bottom_script' => '',
+    'footer' => [
+        'copyright' => [
+            'name' => 'Varaa.com Digital Oy',
+            'url' => 'http://varaa.com',
+        ],
+        'social' => [
+            'facebook' => 'https://www.facebook.com/varaacom',
+            'linkedin' => 'https://www.linkedin.com/company/3280872',
+            'youtube'  => 'https://www.youtube.com/user/Varaacom',
+        ]
+    ],
     //--------------------------------------------------------------------------
     //  Hide inactive module in dashboard
     //--------------------------------------------------------------------------

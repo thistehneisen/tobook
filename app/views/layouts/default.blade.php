@@ -212,12 +212,13 @@
     @section('footer')
     <footer class="container-fluid footer hidden-print">
         <div class="container text-center">
-
-            <p>&copy; {{ date('Y') }} <a href="http://varaa.com">varaa.com</a></p>
+            <p>&copy; {{ date('Y') }} <a href="{{{ Config::get('varaa.footer.copyright.url') }}}">{{{ Config::get('varaa.footer.copyright.name') }}}</a></p>
             <ul class="list-unstyled list-inline list-social-networks">
-                <li><a href="https://www.facebook.com/varaacom" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="https://www.linkedin.com/company/3280872" target="_blank"><i class="fa fa-linkedin"></i></a></li>
-                <li><a href="https://www.youtube.com/user/Varaacom" target="_blank"><i class="fa fa-youtube"></i></a></li>
+                @foreach (Config::get('varaa.footer.social') as $name => $url)
+                    @if ($url)
+                    <li><a href="{{{ $url }}}" target="_blank"><i class="fa fa-{{{ $name }}}"></i></a></li>
+                    @endif
+                @endforeach
             </ul>
         </div>
     </footer>
