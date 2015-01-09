@@ -109,14 +109,20 @@
 
         $('.btn-select-service-time').click(function (e) {
             e.preventDefault();
+            var _this = $(this),
+                url,
+                service_time;
+
+            // active class
             $('.btn-select-service-time').removeClass('active');
-            $(this).parent().find('a').addClass('active');
-            $("body").data("service-time", $(this).data('service-time'));
-            if ($('#btn-add-service-' + $(this).data('service-id')).length) {
-                var url = $('#btn-add-service-' + $(this).data('service-id')).prop('href'),
-                    service_time = purl(url).param('service_time');
-                url = url.replace("service_time=" + service_time, "service_time=" + $(this).data('service-time'));
-                $('#btn-add-service-' + $(this).data('service-id')).prop('href', url);
+            _this.parent().find('a').addClass('active');
+
+            $("body").data("service-time", _this.data('service-time'));
+            if ($('#btn-add-service-' + _this.data('service-id')).length) {
+                url = $('#btn-add-service-' + _this.data('service-id')).prop('href');
+                service_time = purl(url).param('service_time');
+                url = url.replace("service_time=" + service_time, "service_time=" + _this.data('service-time'));
+                $('#btn-add-service-' + _this.data('service-id')).prop('href', url);
             }
         });
 
