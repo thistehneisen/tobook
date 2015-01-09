@@ -30,7 +30,6 @@ VARAA.getRoute = (routeName, params) ->
   console.log "Error getting route \"{0}\"".format(routeName)
   return
 
-
 # langs
 $body = $ 'body'
 VARAA.currentLocale = if $body.data 'locale' isnt `undefined` then $body.data 'locale' else 'en'
@@ -43,3 +42,7 @@ $.getJSON $body.data('js-locale'), (data) ->
 VARAA.trans = (key) ->
   return VARAA._i18n[key]  if VARAA._i18n.hasOwnProperty(key)
   key
+
+# regex email validation pattern
+# http://stackoverflow.com/questions/2507030/email-validation-using-jquery
+VARAA.regex_email_validation = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/
