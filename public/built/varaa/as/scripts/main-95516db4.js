@@ -5,7 +5,7 @@
 (function ($) {
     $(function () {
         var $doc = $(document),
-            dataStorage = {};
+            dataStorage = { booking_service_id : 0};
 
         $('.customer-tooltip').tooltip({
             selector: '',
@@ -232,29 +232,28 @@
                 }
             });
         });
+
+        $doc.on('click', '.btn-edit-booking-service', function (e) {
+            e.preventDefault();
+            var booking_service_id = $(this).data('booking-service-id');
+            dataStorage.booking_service_id = booking_service_id;
+            $('#booking-service-id-' + booking_service_id).css('background-color', 'pink');
+        });
+
         $doc.on('click', '#btn-add-service', function (e) {
             e.preventDefault();
-            var service_id = $('#services').val(),
-                employee_id = $('#employee_id').val(),
-                service_time = $('#service_times').val(),
-                modify_times = $('#modify_times').val(),
-                booking_date = $('#booking_date').val(),
-                start_time = $('#start_time').val(),
-                uuid = $('#booking_uuid').val(),
-                booking_id = $('#booking_id').val();
+            dataStorage.service_id   = $('#services').val();
+            dataStorage.employee_id  = $('#employee_id').val();
+            dataStorage.service_time = $('#service_times').val();
+            dataStorage.modify_times = $('#modify_times').val();
+            dataStorage.booking_date = $('#booking_date').val();
+            dataStorage.start_time   = $('#start_time').val();
+            dataStorage.uuid         = $('#booking_uuid').val();
+            dataStorage.booking_id   = $('#booking_id').val();
             $.ajax({
                 type: 'POST',
                 url: $('#add_service_url').val(),
-                data: {
-                    service_id: service_id,
-                    service_time: service_time,
-                    employee_id: employee_id,
-                    booking_id : booking_id,
-                    modify_times: modify_times,
-                    booking_date: booking_date,
-                    start_time: start_time,
-                    uuid: uuid
-                },
+                data: dataStorage,
                 dataType: 'json'
             }).done(function (data) {
                 showBookingServiceResult(data);
@@ -267,7 +266,7 @@
 
         var showBookingServiceResult = function(data) {
             var $tbody = $('#added_services').find('tbody');
-            if ($tbody.find('#booking-service-id-'+data.booking_service_id) !== true) {
+            if (!$tbody.find('#booking-service-id-'+data.booking_service_id).length) {
                 var $tr = $('<tr/>', {
                     id : 'booking-service-id-' + data.booking_service_id
                 }).appendTo($tbody);
