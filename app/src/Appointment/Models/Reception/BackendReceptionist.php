@@ -32,10 +32,10 @@ class BackendReceptionist extends Receptionist
         $startTime = $endTime = $modifyTime = $plustime = $totalPrice = $totalLength = null;
 
         foreach ($this->bookingServices as $bookingService) {
-            $totalLength = $bookingService->calculcateTotalLength();
-            $totalPrice  = $bookingService->calculcateTotalPrice();
-            $modifyTime  = $bookingService->modify_time;
-            $plustime    = $bookingService->getEmployeePlustime();
+            $totalLength += $bookingService->calculcateTotalLength();
+            $totalPrice  += $bookingService->calculcateTotalPrice();
+            $modifyTime  += $bookingService->modify_time;
+            $plustime    += $bookingService->getEmployeePlustime();
         }
 
         $date      = $this->bookingServices->first()->date;

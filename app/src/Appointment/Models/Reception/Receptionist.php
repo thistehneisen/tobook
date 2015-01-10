@@ -92,10 +92,22 @@ abstract class Receptionist implements ReceptionistInterface
 
     public function getStartTime()
     {
-        if(!empty($this->bookingServices)) {
-            return ($this->bookingServices->last())
-                ? $this->bookingServices->last()->endTime
-                : $this->startTime;
+        if(!empty($this->bookingServices) && !$this->bookingServices->isEmpty()) {
+            if(!empty($this->bookingServiceId)) {
+                $previousBookingService = null;
+                foreach ($this->bookingServices as $bookingService) {
+                    if($bookingService->id === $this->bookingServiceId) {
+                        break;
+                    } else {
+                        $previousBookingService = $bookingService;
+                    }
+                }
+                $this->startTime = $previousBookingService->endTime;
+            } else {
+                $this->startTime =  ($this->bookingServices->last())
+                    ? $this->bookingServices->last()->endTime
+                    : $this->startTime;
+            }
         }
         return $this->startTime;
     }
@@ -202,16 +214,15 @@ abstract class Receptionist implements ReceptionistInterface
     public function setBookingService()
     {
         if(!empty($this->bookingServiceId)) {
-            $this->bookingService = (empty($this->bookingId))
-                ? BookingService::where('tmp_uuid', $this->uuid)->first()
-                : BookingService::where('booking_id', $this->bookingId)->first();
-        } else {
+            // $this->bookingService = (empty($this->bookingId))
+            //     ? BookingService::where('tmp_uuid', $this->uuid)->first()
+            //     : BookingService::where('booking_id', $this->bookingId)->first();
             $this->bookingService = BookingService::find($this->bookingServiceId);
         }
 
         $this->bookingServices = (empty($this->bookingId))
-                ? BookingService::where('tmp_uuid', $this->uuid)->orderBy('start_at')->get()
-                : BookingService::where('booking_id', $this->bookingId)->orderBy('start_at')->get();
+                ? BookingService::where('tmp_uuid', $this->uuid)->whereNull('deleted_at')->orderBy('start_at')->get()
+                : BookingService::where('booking_id', $this->bookingId)->whereNull('deleted_at')->orderBy('start_at')->get();
 
         return $this;
     }
