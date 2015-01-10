@@ -1,6 +1,6 @@
-<?php namespace App\Core\Workers;
+<?php namespace App\LoyaltyCard;
 
-class MoveLcWorker
+class OldDataMover
 {
     public function fire($job, $data)
     {
