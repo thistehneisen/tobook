@@ -472,6 +472,27 @@ class Bookings extends AsBase
     }
 
     /**
+     * Delete selected booking service
+     */
+    public function deleteBookingService()
+    {
+        //@TODO check can delete the booking service or not?
+        $data = [];
+        try {
+            if (Request::ajax() === true) {
+                $bookingServiceId  = Input::get('booking_service_id', 0);
+                $bookingService = BookingService::ofCurrentUser()->find($bookingServiceId);
+                $bookingService->delete();
+            }
+        }catch(\Exception $ex){
+            $data = ['success' => false, 'message' => $ex->getMessage()];
+            return Response::json($data, 500);
+        }
+        $data = ['success' => true];
+        return Response::json($data);
+    }
+
+    /**
      * Add/Edit a booking
      *
      **/

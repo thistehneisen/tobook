@@ -252,6 +252,24 @@
             $('#booking-service-id-' + booking_service_id).css('background-color', 'pink');
         });
 
+        $doc.on('click', '.btn-delete-booking-service', function (e) {
+            e.preventDefault();
+            var booking_service_id = $(this).data('booking-service-id');
+            dataStorage.booking_service_id = booking_service_id;
+            $.ajax({
+                type: 'POST',
+                url: $('#delete_booking_service_url').val(),
+                data: dataStorage,
+                dataType: 'json'
+            }).done(function (data) {
+                $('#booking-service-id-'+booking_service_id).remove();
+            }).fail(function (data) {
+                alertify.alert('Alert', data.responseJSON.message, function () {
+                    alertify.message("OK");
+                });
+            });
+        });
+
         $doc.on('click', '#btn-add-service', function (e) {
             e.preventDefault();
             dataStorage.service_id   = $('#services').val();
@@ -305,6 +323,10 @@
                     'href'  : '#',
                     'class' : 'btn-edit-booking-service',
                     'data-booking-service-id': data.booking_service_id,
+                    'data-service-id': data.service_id,
+                    'data-category-id': data.category_id,
+                    'data-service-time-id': data.service_time,
+                    'data-modify-times': data.modify_time,
                 }).append('<i class="fa fa-edit"></i>').appendTo($td);
             }
             var $tds = $('#booking-service-id-' + data.booking_service_id + ' > td');
