@@ -268,6 +268,11 @@ Route::group([
         'uses' => 'App\Appointment\Controllers\Bookings@addBookingService'
     ]);
 
+    Route::post('bookings/delete-booking-service', [
+        'as' => 'as.bookings.service.delete',
+        'uses' => 'App\Appointment\Controllers\Bookings@deleteBookingService'
+    ]);
+
     Route::post('bookings/add-booking', [
         'as' => 'as.bookings.add',
         'uses' => 'App\Appointment\Controllers\Bookings@upsertBooking'

@@ -154,6 +154,7 @@
                                         </td>
                                          <td class="align_right">
                                             <a href="#" class="btn-edit-booking-service" data-booking-service-id="{{ $bookingService->id }}" data-service-id="{{ $bookingService->service->id }}" data-category-id="{{ $bookingService->service->category->id }}" data-service-time-id="{{ $bookingService->getFormServiceTime() }}" data-modify-times="{{ $bookingService->modify_time }}" data-edit-text="{{ trans('common.edit') }}"><i class="fa fa-edit"></i></a>
+                                            <a href="#" class="btn-delete-booking-service" data-booking-service-id="{{ $bookingService->id }}"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -309,6 +310,7 @@
 <input type="hidden" value="{{ $booking->id }}" name="booking_id">
 <input type="hidden" value="{{ $booking->employee->id }}" name="employee_id" id="employee_id">
 <input type="hidden" value="{{ route('as.bookings.add') }}" name="add_booking_url" id="add_booking_url">
+<input type="hidden" value="{{ route('as.bookings.service.delete') }}" name="delete_booking_service_url" id="delete_booking_service_url">
 <input type="hidden" id="add_service_url" value="{{ route('as.bookings.service.add') }}">
 @endif
 </form>
