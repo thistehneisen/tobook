@@ -99,6 +99,14 @@ class BookingService extends Base implements CartDetailInterface
         return $this->employeePlustime;
     }
 
+    /**
+     * Reuturn booking service time for data attribute in booking form BE
+     */
+    public function getFormServiceTime()
+    {
+        return (!empty($this->serviceTime->id)) ? $this->serviceTime->id : 'default';
+    }
+
     public function calculateServiceLength()
     {
         $length = (!empty($this->serviceTime->length))

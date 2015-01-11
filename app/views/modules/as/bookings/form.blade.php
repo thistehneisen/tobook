@@ -153,7 +153,7 @@
                                             </span>
                                         </td>
                                          <td class="align_right">
-                                            <a href="#" class="btn-edit-booking-service" data-booking-service-id="{{ $bookingService->id }}"><i class="fa fa-edit"></i></a>
+                                            <a href="#" class="btn-edit-booking-service" data-booking-service-id="{{ $bookingService->id }}" data-service-id="{{ $bookingService->service->id }}" data-category-id="{{ $bookingService->service->category->id }}" data-service-time-id="{{ $bookingService->getFormServiceTime() }}" data-modify-times="{{ $bookingService->modify_time }}" data-edit-text="{{ trans('common.edit') }}"><i class="fa fa-edit"></i></a>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -211,10 +211,10 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-12">
-                                @if(!empty($booking))
-                                <button id="btn-add-service" class="btn btn-primary btn-sm pull-right">{{ trans('common.edit') }}</button>
-                                @else
+                                @if(empty($booking))
                                 <button id="btn-add-service" class="btn btn-primary btn-sm pull-right">{{ trans('common.add') }}</button>
+                                @else
+                                <button id="btn-add-service" class="btn btn-primary btn-sm pull-right">{{ trans('common.edit') }}</button>
                                 @endif
                             </div>
                         </div>

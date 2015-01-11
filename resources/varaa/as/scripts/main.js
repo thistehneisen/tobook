@@ -235,8 +235,20 @@
 
         $doc.on('click', '.btn-edit-booking-service', function (e) {
             e.preventDefault();
-            var booking_service_id = $(this).data('booking-service-id');
-            dataStorage.booking_service_id = booking_service_id;
+            var booking_service_id = $(this).data('booking-service-id'),
+                category_id = $(this).data('category-id'),
+                service_id = $(this).data('service-id'),
+                service_time_id =$(this).data('service-time-id'),
+                modify_times = $(this).data('modify_times');
+
+                dataStorage.booking_service_id = booking_service_id;
+                dataStorage.category_id = category_id;
+                dataStorage.service_id = service_id;
+                dataStorage.service_time_id = service_time_id;
+                dataStorage.modify_times = modify_times;
+
+            $('#service_categories').val(category_id).trigger('change');
+            $('#added_services').find('tbody').find('tr').removeAttr('style');
             $('#booking-service-id-' + booking_service_id).css('background-color', 'pink');
         });
 
@@ -293,6 +305,10 @@
                     'href'  : '#',
                     'class' : 'btn-edit-booking-service',
                     'data-booking-service-id': data.booking_service_id,
+                    'data-service-id': data.service_id,
+                    'data-category-id': data.category_id,
+                    'data-service-time-id': data.service_time,
+                    'data-modify-times': data.modify_time,
                 }).append('<i class="fa fa-edit"></i>').appendTo($td);
             }
             var $tds = $('#booking-service-id-' + data.booking_service_id + ' > td');
