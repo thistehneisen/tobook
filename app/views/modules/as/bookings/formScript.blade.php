@@ -3,7 +3,26 @@ $(function () {
     var servicePrices = [],
         $doc = $(document),
         $services = $('#services'),
-        $service_times = $('#service_times');
+        $service_times = $('#service_times'),
+        dataStorage = { booking_service_id : 0};
+
+    $doc.on('click', '.btn-edit-booking-service', function (e) {
+        e.preventDefault();
+        var booking_service_id = $(this).data('booking-service-id'),
+            category_id = $(this).data('category-id'),
+            service_id = $(this).data('service-id'),
+            service_time_id =$(this).data('service-time-id'),
+            modify_times = $(this).data('modify_times');
+
+        dataStorage.booking_service_id = booking_service_id;
+        dataStorage.category_id = category_id;
+        dataStorage.service_id = service_id;
+        dataStorage.service_time_id = service_time_id;
+        dataStorage.modify_times = modify_times;
+        $('#service_categories').val(category_id).trigger('change');
+        $('#modify_times').val(modify_times);
+        $('#btn-add-service').text($(this).data('edit-text'));
+    });
 
     $doc.on('change', '#service_categories', function () {
         var category_id = $(this).val(),
@@ -32,10 +51,13 @@ $(function () {
                         })
                     );
                 });
-
-                // auto-select the 2nd option (1st option is "- Select -")
-                // then trigger change to auto select service time
-                $services.val($services.find('option:eq(1)').val()).trigger('change');
+                if(dataStorage.service_id == 'undefined') {
+                    // auto-select the 2nd option (1st option is "- Select -")
+                    // then trigger change to auto select service time
+                    $services.val($services.find('option:eq(1)').val()).trigger('change');
+                } else {
+                    $services.val(dataStorage.service_id).trigger('change');
+                }
             });
         } else {
             $services.empty();
@@ -71,8 +93,12 @@ $(function () {
                     servicePrices[value.id] = value.price;
                 });
 
-                // auto-select the 2nd option (1st option is "- Select -")
-                $service_times.val($service_times.find('option:eq(1)').val());
+                if(dataStorage.service_time_id == 'undefined') {
+                    // auto-select the 2nd option (1st option is "- Select -")
+                    $service_times.val($service_times.find('option:eq(1)').val());
+                } else {
+                    $service_times.val(dataStorage.service_time_id);
+                }
             });
         } else {
             $service_times.empty();

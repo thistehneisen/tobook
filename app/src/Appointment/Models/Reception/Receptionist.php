@@ -501,11 +501,16 @@ abstract class Receptionist implements ReceptionistInterface
             $this->computeTotalPrice();
         }
 
+        $this->bookingService = BookingService::find($this->bookingServiceId);
+
         $data = [
             'datetime'           => $this->startTime->toDateTimeString(),
             'booking_service_id' => $this->bookingServiceId,
             'price'              => $this->price,
+            'category_id'        => $this->service->category->id,
+            'service_id'         => $this->service->id,
             'service_name'       => $this->service->name,
+            'service_time'       => $this->bookingService->getFormServiceTime(),
             'modify_time'        => $this->modifyTime,
             'plustime'           => $this->plustime,
             'employee_name'      => $this->employee->name,
@@ -534,8 +539,12 @@ abstract class Receptionist implements ReceptionistInterface
                 $this->extraServicePrice  += $extraService->price;
             }
         }
+        $totalPrice = 0;
+        foreach ($this->bookingServices as $bookingService) {
+            $totalPrice  += $bookingService->calculcateTotalPrice();
+        }
 
-        $this->price = $this->getSelectedService()->price + $this->extraServicePrice;
+        $this->price = $totalPrice + $this->extraServicePrice;
 
         return $this->price;
     }

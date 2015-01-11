@@ -165,6 +165,9 @@ class Bookings extends AsBase
         $bookingServiceTime = (!empty($booking->bookingServices()->first()->serviceTime->id))
                             ? $booking->bookingServices()->first()->serviceTime->id
                             : 'default';
+        $modifyTime  =  (!empty($booking->bookingServices()->first()))
+                            ? $booking->bookingServices()->first()->modify_time
+                            : 0;
 
         $startAt = with(new Carbon($booking->start_at))->format('H:i');
         $endAt   = with(new Carbon($booking->end_at))->format('H:i');
@@ -172,7 +175,7 @@ class Bookings extends AsBase
         return [
             'booking'               => $booking,
             'uuid'                  => $booking->uuid,
-            'modifyTime'            => $booking->modify_time,
+            'modifyTime'            => $modifyTime,
             'bookingDate'           => $booking->date,
             'startTime'             => $startAt,
             'endTime'               => $endAt,
