@@ -5,9 +5,11 @@ use Consumer;
 use App\Core\Models\User;
 use App\LoyaltyCard\Models\Offer;
 use App\LoyaltyCard\Models\Voucher;
+use App\LoyaltyCard\Models\Transaction;
 
 class OldDataMover
 {
+    protected $userId;
     protected $db;
     protected $consumerMap = [];
     protected $stampMap = [];
@@ -16,6 +18,8 @@ class OldDataMover
     public function fire($job, $data)
     {
         list ($username, $oldUserId, $newUserId) = $data;
+        $this->userId = $newUserId;
+
         Log::info('Moving LC data of user: '.$username);
 
         // Find the user
@@ -73,19 +77,22 @@ class OldDataMover
             // Map IDs
             $this->pointMap[$item->id] = $voucher->id;
         }
+
+        // Move stamp history
+        $this->moveStampHistory($oldUserId, $user);
     }
 
     /**
      * Auxilary method to move old consumers
      *
-     * @param int                  $oldId
+     * @param int                  $oldUserId
      * @param App\Core\Models\User $user
      *
      * @return void
      */
-    protected function moveCustomers($oldId, $user)
+    protected function moveCustomers($oldUserId, $user)
     {
-        $table = $oldId.'_sm_clients';
+        $table = $oldUserId.'_sm_clients';
         $result = $this->db->table($table)->get();
         foreach ($result as $item) {
             // Check if there's a consumer with this email
@@ -106,5 +113,47 @@ class OldDataMover
 
             $this->consumerMap[$item->id] = $consumer->id;
         }
+    }
+
+    /**
+     * Auxilary method to move stamp data to new system
+     *
+     * @param int                  $oldUserId
+     * @param App\Core\Models\User $user
+     *
+     * @return void
+     */
+    protected function moveStampHistory($oldUserId, $user)
+    {
+        $now = Carbon::now();
+        $data = [];
+
+        // Get all stamp history of this user
+        $table = $oldUserId.'_userstamps';
+        $result = $this->db->table($table)->get();
+        foreach ($result as $item) {
+            $consumerId = isset($this->consumerMap[$item->userid])
+                ? $this->consumerMap[$item->userid]
+                : null;
+
+            if ($consumerId === null) {
+                continue;
+            }
+
+            $data[] = [
+                'user_id'     => $user->id,
+                'consumer_id' => $consumerId,
+                'voucher_id'  => null,
+                'offer_id'    => $this->stampMap[$item->stmpid],
+                'point'       => 0,
+                'stamp'       => $item->currstm,
+                'created_at'  => $now,
+                'updated_at'  => $now,
+            ];
+        }
+
+        DB::table(
+            with(new Transaction())->getTable()
+        )->insert($data);
     }
 }
