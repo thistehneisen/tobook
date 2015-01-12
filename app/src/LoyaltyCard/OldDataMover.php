@@ -33,52 +33,10 @@ class OldDataMover
         // Prepare the database connection
         $this->db = DB::connection('old');
 
-        // Move consumer data first
+        // Start moving data
         $this->moveCustomers($oldUserId, $user);
-
-        // Move stamp campaigns
-        Log::info('Moving stamp campaigns...');
-
-        $table = $oldUserId.'_stamps';
-        $result = $this->db->table($table)->get();
-        foreach ($result as $item) {
-            // The corresponding "stamp campaigns" is "offers"
-            $offer = new Offer([
-                'name'        => $item->title,
-                'required'    => $item->stmreq,
-                'is_active'   => true,
-                'is_auto_add' => true
-            ]);
-            $offer->user = $user;
-            $offer->created_at = new Carbon($item->dateadded);
-            $offer->save();
-
-            // Map old and new ID
-            $this->stampMap[$item->id] = $offer->id;
-        }
-
-        // Move point campaigns
-        Log::info('Moving point campaigns...');
-
-        $table = $oldUserId.'_giftavailable';
-        $result = $this->db->table($table)->get();
-        foreach ($result as $item) {
-            // Likewise, "point campaigns" are "vouchers"
-            $voucher = new Voucher([
-                'name'      => $item->giftname,
-                'required'  => $item->point,
-                'value'     => $item->discount,
-                'type'      => 'Percent',
-                'is_active' => true,
-            ]);
-            $voucher->user = $user;
-            $voucher->save();
-
-            // Map IDs
-            $this->pointMap[$item->id] = $voucher->id;
-        }
-
-        // Move stamp history
+        $this->moveStamps($oldUserId, $user);
+        $this->movePoints($oldUserId, $user);
         $this->moveStampHistory($oldUserId, $user);
     }
 
@@ -112,6 +70,69 @@ class OldDataMover
             }
 
             $this->consumerMap[$item->id] = $consumer->id;
+        }
+    }
+
+    /**
+     * Move stamp campaigns
+     *
+     * @param int                  $oldUserId
+     * @param App\Core\Models\User $user
+     *
+     * @return void
+     */
+    public function moveStamps($oldUserId, $user)
+    {
+        // Move stamp campaigns
+        Log::info('Moving stamp campaigns...');
+
+        $table = $oldUserId.'_stamps';
+        $result = $this->db->table($table)->get();
+        foreach ($result as $item) {
+            // The corresponding "stamp campaigns" is "offers"
+            $offer = new Offer([
+                'name'        => $item->title,
+                'required'    => $item->stmreq,
+                'is_active'   => true,
+                'is_auto_add' => true
+            ]);
+            $offer->user = $user;
+            $offer->created_at = new Carbon($item->dateadded);
+            $offer->save();
+
+            // Map old and new ID
+            $this->stampMap[$item->id] = $offer->id;
+        }
+    }
+
+    /**
+     * Move point campaigns
+     *
+     * @param int                  $oldUserId
+     * @param App\Core\Models\User $user
+     *
+     * @return void
+     */
+    public function movePoints($oldUserId, $user)
+    {
+        Log::info('Moving point campaigns...');
+
+        $table = $oldUserId.'_giftavailable';
+        $result = $this->db->table($table)->get();
+        foreach ($result as $item) {
+            // Likewise, "point campaigns" are "vouchers"
+            $voucher = new Voucher([
+                'name'      => $item->giftname,
+                'required'  => $item->point,
+                'value'     => $item->discount,
+                'type'      => 'Percent',
+                'is_active' => true,
+            ]);
+            $voucher->user = $user;
+            $voucher->save();
+
+            // Map IDs
+            $this->pointMap[$item->id] = $voucher->id;
         }
     }
 
