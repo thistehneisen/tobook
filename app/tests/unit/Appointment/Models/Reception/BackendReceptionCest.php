@@ -384,6 +384,53 @@ class BackendReceptionCest
         $I->assertEquals($booking->endTime, $date->hour(16)->minute(0)->second(0));
     }
 
+    public function testEditBookingServiceBeforeSaveBooking(UnitTester $I)
+    {
+        $this->initData();
+        $this->initCustomTime();
+
+        $user      = User::find(70);
+        $employee  = $this->employee;
+        $service   = $this->service;
+        $uuid      = Booking::uuid();
+
+        $date      = $this->getDate();
+        $startTime = '14:00';
+
+        $I->amLoggedAs($user);
+        $I->assertEquals($service->length, 60);
+
+        $bookingService1 = $this->makeBookingService($uuid, $user, $date, $startTime, $service, $employee);
+
+        $I->assertEquals($bookingService1->startTime, $date->hour(14)->minute(0)->second(0));
+        $I->assertEquals($bookingService1->endTime, $date->hour(15)->minute(0)->second(0));
+
+        // $I->assertEmpty($bookingService1->id);
+
+        $receptionist = new BackendReceptionist();
+        $receptionist->setBookingId(0)
+            ->setUUID($uuid)
+            ->setUser($user)
+            ->setBookingDate($date->toDateString())
+            ->setStartTime($startTime)
+            ->setBookingServiceId($bookingService1->id)
+            ->setServiceId($this->services[1]->id)
+            ->setEmployeeId($employee->id)
+            ->setServiceTimeId('default')
+            ->setModifyTime(0)
+            ->setIsRequestedEmployee(false);
+
+        $bookingService1 = $receptionist->upsertBookingService();
+
+        $bookingServices = BookingService::where('tmp_uuid', $uuid)
+            ->whereNull('deleted_at')->orderBy('start_at')->get();
+        $I->assertEquals($bookingServices->count(), 1);
+
+        $I->assertEquals($bookingService1->startTime, $date->hour(14)->minute(0)->second(0));
+        $I->assertEquals($bookingService1->endTime, $date->hour(15)->minute(0)->second(0));
+        $I->assertEquals($bookingService1->service->id, $this->services[1]->id);
+    }
+
     protected function makeBookingService($uuid, $user, $date, $startTime, $service, $employee)
     {
         $receptionist = new BackendReceptionist();

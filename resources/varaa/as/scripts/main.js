@@ -250,12 +250,24 @@
             $('#service_categories').val(category_id).trigger('change');
             $('#added_services').find('tbody').find('tr').removeAttr('style');
             $('#booking-service-id-' + booking_service_id).css('background-color', 'pink');
+            $('#btn-add-service').text($(this).data('edit-text'))
+        });
+
+        $doc.on('click', '#btn-add-new-booking-service', function (e) {
+            e.preventDefault();
+            dataStorage.booking_service_id = 0;
+            var $services = $('#service_categories');
+            $services.val($services.find('option:eq(1)').val()).trigger('change');
+            $('#added_services').find('tbody').find('tr').removeAttr('style');
         });
 
         $doc.on('click', '.btn-delete-booking-service', function (e) {
             e.preventDefault();
-            var booking_service_id = $(this).data('booking-service-id');
+            var booking_service_id = $(this).data('booking-service-id'),
+                uuid = $(this).data('uuid');
             dataStorage.booking_service_id = booking_service_id;
+            dataStorage.uuid = uuid;
+
             $.ajax({
                 type: 'POST',
                 url: $('#delete_booking_service_url').val(),
@@ -328,6 +340,13 @@
                     'data-service-time-id': data.service_time,
                     'data-modify-times': data.modify_time,
                 }).append('<i class="fa fa-edit"></i>').appendTo($td);
+
+                 $('<a>', {
+                    'href'  : '#',
+                    'class' : 'btn-delete-booking-service',
+                    'data-booking-service-id': data.booking_service_id,
+                    'data-booking-id': data.booking_id,
+                }).append('<i class="fa fa-trash"></i>').appendTo($td);
             }
             var $tds = $('#booking-service-id-' + data.booking_service_id + ' > td');
             $tds.find('span.added_service_name').text(data.service_name);

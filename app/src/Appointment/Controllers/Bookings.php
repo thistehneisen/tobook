@@ -480,9 +480,14 @@ class Bookings extends AsBase
         $data = [];
         try {
             if (Request::ajax() === true) {
-                $bookingServiceId  = Input::get('booking_service_id', 0);
-                $bookingService = BookingService::ofCurrentUser()->find($bookingServiceId);
+                $bookingId        = Input::get('booking_id', 0);
+                $bookingServiceId = Input::get('booking_service_id', 0);
+                $bookingService   = BookingService::find($bookingServiceId);
                 $bookingService->delete();
+
+                $receptionist = new BackendReceptionist();
+                $receptionist->setBookingId($bookingId);
+                $receptionist->updateBookingServicesTime();
             }
         }catch(\Exception $ex){
             $data = ['success' => false, 'message' => $ex->getMessage()];
