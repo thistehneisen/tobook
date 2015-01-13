@@ -27,6 +27,46 @@ class BackendReceptionist extends Receptionist
         $this->validateWithRooms();
     }
 
+    /**
+     * Using for update booking service times where user delete one of them
+     */
+    public function updateBookingServicesTime()
+    {
+        $booking = Booking::find($this->bookingId);
+
+        $first = BookingService::where('booking_id', $this->bookingId)
+            ->whereNull('deleted_at')->orderBy('start_at')->get();
+
+        if(empty($first)) {
+            $first->startTime = $booking->starTime;
+            $first->save();
+
+            $bookingServices = BookingService::where('booking_id', $this->bookingId)
+                ->whereNull('deleted_at')->orderBy('start_at')->get();
+
+            $previousBookingService[] = [];
+
+            foreach ($bookingServices as $bookingService) {
+                $lastBookingService = null;
+
+                if(count($previousBookingService) > 1){
+                    $lastBookingService = $previousBookingService[count($previousBookingService)];
+                }
+
+                $previousBookingService[] = $bookingService;
+
+                if($first->id == $bookingService->id) {
+                    continue;
+                }
+
+                if($bookingService->id !== $lastBookingService->id){
+                    $bookingService->startTime = $lastBookingService->endTime;
+                    $bookingService->save();
+                }
+            }
+        }
+    }
+
     public function calculateMultipleBookingServices()
     {
         $startTime = $endTime = $modifyTime = $plustime = $totalPrice = $totalLength = null;

@@ -102,7 +102,10 @@ abstract class Receptionist implements ReceptionistInterface
                         $previousBookingService = $bookingService;
                     }
                 }
-                $this->startTime = $previousBookingService->endTime;
+
+                if(!empty($previousBookingService) && $this->bookingServiceId !== $previousBookingService->id) {
+                    $this->startTime = $previousBookingService->endTime;
+                }
             } else {
                 $this->startTime =  ($this->bookingServices->last())
                     ? $this->bookingServices->last()->endTime
@@ -214,24 +217,20 @@ abstract class Receptionist implements ReceptionistInterface
     public function setBookingService()
     {
         if(!empty($this->bookingServiceId)) {
-            // $this->bookingService = (empty($this->bookingId))
-            //     ? BookingService::where('tmp_uuid', $this->uuid)->first()
-            //     : BookingService::where('booking_id', $this->bookingId)->first();
             $this->bookingService = BookingService::find($this->bookingServiceId);
         }
 
-        $this->bookingServices = (empty($this->bookingId))
-                ? BookingService::where('tmp_uuid', $this->uuid)->whereNull('deleted_at')->orderBy('start_at')->get()
-                : BookingService::where('booking_id', $this->bookingId)->whereNull('deleted_at')->orderBy('start_at')->get();
+        $this->bookingServices = BookingService::where('tmp_uuid', $this->uuid)
+            ->whereNull('deleted_at')->orderBy('start_at')->get();
 
         return $this;
     }
 
     public function validateEmptyBookingService()
     {
-        $this->bookingService = (empty($this->bookingId))
-                ? BookingService::where('tmp_uuid', $this->uuid)->first()
-                : BookingService::where('booking_id', $this->bookingId)->first();
+        $this->bookingService = BookingService::where('tmp_uuid', $this->uuid)
+            ->whereNull('deleted_at')
+            ->orderBy('start_at')->first();
 
         if (empty($this->bookingService)) {
             throw new Exception(trans('as.bookings.missing_services'), 1);
@@ -506,6 +505,7 @@ abstract class Receptionist implements ReceptionistInterface
         $data = [
             'datetime'           => $this->startTime->toDateTimeString(),
             'booking_service_id' => $this->bookingServiceId,
+            'booking_id'         => $this->bookingId,
             'price'              => $this->price,
             'category_id'        => $this->service->category->id,
             'service_id'         => $this->service->id,
