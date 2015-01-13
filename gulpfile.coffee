@@ -9,19 +9,20 @@ plugins = gulpLoadPlugins()
 paths =
   dest: 'public/built/'
   base: __dirname + '/resources'
-  img: ['resources/**/img/**/*.*']
-  js: ['resources/**/scripts/**/*.js', '!resources/**/scripts/**/*.min.js']
-  coffee: ['resources/**/scripts/**/*.coffee']
-  less: ['resources/**/styles/**/*.less', '!resources/**/styles/**/*.import.less']
+  tmp: __dirname + '/resources/tmp'
+  img: ['resources/tmp/**/img/**/*.*']
+  js: ['resources/tmp/**/scripts/**/*.js', '!resources/tmp/**/scripts/**/*.min.js']
+  coffee: ['resources/tmp/**/scripts/**/*.coffee']
+  less: ['resources/tmp/**/styles/**/*.less', '!resources/tmp/**/styles/**/*.import.less']
 
 # Do nothing, just copy images to proper folders
 gulp.task 'img', ->
-  gulp.src paths.img
+  gulp.src paths.img, base: paths.tmp
     .pipe gulp.dest paths.dest
 
 # Rev JS files
 gulp.task 'js', ->
-  gulp.src paths.js, base: paths.base
+  gulp.src paths.js, base: paths.tmp
     .pipe plugins.rev()
     .pipe gulp.dest paths.dest
     .pipe plugins.rev.manifest path: 'js-manifest.json'
@@ -29,7 +30,7 @@ gulp.task 'js', ->
 
 # Compile CoffeeScript
 gulp.task 'coffee', ['clean', 'js'], ->
-  gulp.src paths.coffee, base: paths.base
+  gulp.src paths.coffee, base: paths.tmp
     .pipe plugins.coffee()
     .pipe plugins.uglify()
     .pipe plugins.rev()
@@ -39,7 +40,7 @@ gulp.task 'coffee', ['clean', 'js'], ->
 
 # Compile LESS
 gulp.task 'less', ['clean'], ->
-  gulp.src paths.less, base: paths.base
+  gulp.src paths.less, base: paths.tmp
     .pipe plugins.less()
     .pipe plugins.cssmin()
     .pipe plugins.rev()
@@ -57,14 +58,17 @@ gulp.task 'clone', ->
   files = fs.readdirSync paths.base
   for folder in files
     do ->
-      target = "#{paths.dest}tmp/#{folder}"
+      # Skip tmp folder
+      return if folder is 'tmp'
+
+      target = "#{paths.base}/tmp/#{folder}"
       base   = gulp.src "#{paths.base}/varaa/**/*.*"
       ext    = gulp.src "#{paths.base}/#{folder}/**/*.*"
       streamqueue objectMode: true, base, ext
         .pipe gulp.dest target
 
 # Build assets to be ready for production
-gulp.task 'build', ['coffee', 'less', 'img'], ->
+gulp.task 'build', ['clone', 'coffee', 'less', 'img'], ->
   # Folder `resources` has this structure
   # ```
   #   varaa            <---------------- Based assets
