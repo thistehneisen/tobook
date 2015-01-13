@@ -38,6 +38,7 @@ class OldDataMover
         $this->moveStamps($oldUserId, $user);
         $this->movePoints($oldUserId, $user);
         $this->moveStampHistory($oldUserId, $user);
+        $this->movePointHistory($oldUserId, $user);
     }
 
     /**
@@ -176,5 +177,45 @@ class OldDataMover
         DB::table(
             with(new Transaction())->getTable()
         )->insert($data);
+    }
+
+    /**
+     * Move point histories of a user
+     *
+     * @param int                  $oldUserId
+     * @param App\Core\Models\user $user
+     *
+     * @return void
+     */
+    protected function movePointHistory($oldUserId, $user)
+    {
+        $now = Carbon::now();
+        $data = [];
+
+        $rows = $this->db->table('userpointhistory')
+            ->where('idblog', $oldUserId)
+            ->get();
+        foreach ($rows as $row) {
+            $consumerId = isset($this->consumerMap[$row->userid])
+                ? $this->consumerMap[$row->userid]
+                : null;
+
+            if ($consumerId === null) {
+                continue;
+            }
+
+            $data[] = [
+                'user_id'     => $user->id,
+                'consumer_id' => $consumerId,
+                'voucher_id'  => $this->pointMap[$row->idgift],
+                'offer_id'    => null,
+                'point'       => $this->point,
+                'stamp'       => 0,
+                'created_at'  => $now,
+                'updated_at'  => $now,
+            ];
+        }
+
+        DB::table(with(new Transaction())->getTable())->insert($data);
     }
 }
