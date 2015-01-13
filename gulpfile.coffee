@@ -1,6 +1,8 @@
 gulp = require 'gulp'
 del = require 'del'
 _ = require 'lodash'
+fs = require 'fs'
+streamqueue = require 'streamqueue'
 gulpLoadPlugins = require 'gulp-load-plugins'
 plugins = gulpLoadPlugins()
 
@@ -50,8 +52,30 @@ gulp.task 'clean', ->
     # Use del.sync to make sure that built directory is empty
     del.sync [paths.dest]
 
+# Clone the resources to every instance
+gulp.task 'clone', ->
+  files = fs.readdirSync paths.base
+  for folder in files
+    do ->
+      target = "#{paths.dest}tmp/#{folder}"
+      base   = gulp.src "#{paths.base}/varaa/**/*.*"
+      ext    = gulp.src "#{paths.base}/#{folder}/**/*.*"
+      streamqueue objectMode: true, base, ext
+        .pipe gulp.dest target
+
 # Build assets to be ready for production
 gulp.task 'build', ['coffee', 'less', 'img'], ->
+  # Folder `resources` has this structure
+  # ```
+  #   varaa            <---------------- Based assets
+  #   clearbooking     <------
+  #   foo              <------ Other instances
+  #   bar              <------
+  # ```
+  # Folder `varaa` acts as the root folder and other folders just need to make
+  # changes that are not presenting in `varaa`. While building, assets in
+  # `varaa` will be cloned to all instances
+
   # Concat all manifest files
   manifests = {}
   for type in ['js', 'script', 'style']
@@ -59,8 +83,7 @@ gulp.task 'build', ['coffee', 'less', 'img'], ->
       _.merge manifests, require "./#{paths.dest}#{type}-manifest.json"
 
   # Write the file
-  require 'fs'
-    .writeFile "#{__dirname}/rev-manifest.json", JSON.stringify manifests, null, '  '
+  fs.writeFile "#{__dirname}/rev-manifest.json", JSON.stringify manifests, null, '  '
 
 # For development
 # Watch file changes run related tasks
