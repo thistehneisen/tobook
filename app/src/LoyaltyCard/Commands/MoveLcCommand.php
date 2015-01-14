@@ -1,10 +1,11 @@
 <?php namespace App\LoyaltyCard\Commands;
 
-use DB, Confide;
+use DB, Confide, Queue;
 use Illuminate\Console\Command;
 use App\Core\Models\User;
 use App\Core\Models\Role;
 use App\Core\Models\Business;
+use App\LoyaltyCard\OldDataMover;
 
 class MoveLcCommand extends Command
 {
@@ -31,6 +32,7 @@ class MoveLcCommand extends Command
     {
         // @see: https://github.com/varaa/varaa/issues/281
         $users = [
+            667     => 'steennaveby',
             217     => 'automan',
             9593    => 'bcare',
             1470    => 'blackpanther',
@@ -59,6 +61,14 @@ class MoveLcCommand extends Command
             324     => 'tkbodybalance',
             1001381 => 'vanhakassu',
         ];
+        $mover = new OldDataMover();
+        $mover->fire(new \stdClass(), [
+            'steennaveby',
+            667,
+            338
+        ]);
+
+        return;
 
         // Check if there's existing business with the given username
         // If not, create a new one
@@ -90,6 +100,14 @@ class MoveLcCommand extends Command
                 ]);
                 $business->user()->associate($user);
                 $business->save();
+
+                // Create new moving job
+                Queue::push('\App\LoyaltyCard\OldDataMover', [
+                    $username,
+                    $oldId,
+                    // New user ID
+                    $user->id
+                ]);
             }
         }
     }
