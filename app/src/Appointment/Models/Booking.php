@@ -742,16 +742,16 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public function getIcons()
     {
         $ouput = '';
-        if(!empty($this->firstBookingService())):
-            if($this->firstBookingService()->is_requested_employee):
+        if (!empty($this->firstBookingService()) && !empty($this->firstBookingService()->service)):
+            if ($this->firstBookingService()->is_requested_employee):
                 $ouput .= '<i class="fa fa-check-square-o"></i>&nbsp;';
             endif;
-            if($this->firstBookingService()->service->requireRoom()):
+            if ($this->firstBookingService()->service->requireRoom()):
                 $ouput .= '<i class="fa fa-square-o"></i>&nbsp;';
             endif;
-        endif;
-        if(!empty($this->getBookingResources())):
-            $ouput .= '<i class="fa fa-cubes"></i>&nbsp;';
+            if (!empty($this->getBookingResources())):
+                $ouput .= '<i class="fa fa-cubes"></i>&nbsp;';
+            endif;
         endif;
 
         return trim($ouput);
