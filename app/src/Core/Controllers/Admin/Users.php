@@ -27,6 +27,52 @@ class Users extends Base
         ]
     ];
 
+    //--------------------------------------------------------------------------
+    // PRESENTERS
+    //--------------------------------------------------------------------------
+    public static function presentBusinessName($value, $item)
+    {
+        if ($item->business !== null) {
+            return View::make('admin.users.el.business_name', [
+                'business' => $item->business
+            ]);
+        }
+
+        return $value;
+    }
+
+    public static function presentActivation($value, $item)
+    {
+        if ($item->hasRole(Role::CONSUMER)) {
+            return '';
+        }
+
+        if (!empty($item->business) && $item->business->is_activated) {
+            return '<span class="label label-success">'.trans('common.yes').'</span>';
+        }
+
+        return '<span class="label label-danger">'.trans('common.no').'</span>';
+    }
+
+    /**
+     * Show controls to send/display related payments of a business
+     *
+     * @param string               $value
+     * @param App\Core\Models\User $user
+     *
+     * @return View|string
+     */
+    public static function presentPayments($value, $user)
+    {
+        return View::make('admin.users.el.payments', [
+            'user' => $user
+        ]);
+    }
+
+    //--------------------------------------------------------------------------
+    // CUSTOM METHODS
+    //--------------------------------------------------------------------------
+
     /**
      * @{@inheritdoc}
      */
@@ -328,45 +374,19 @@ class Users extends Base
         Business::whereIn('user_id', $ids)->update(['is_activated' => false]);
     }
 
-    //--------------------------------------------------------------------------
-    // PRESENTERS
-    //--------------------------------------------------------------------------
-    public static function presentBusinessName($value, $item)
-    {
-        if ($item->business !== null) {
-            return View::make('admin.users.el.business_name', [
-                'business' => $item->business
-            ]);
-        }
-
-        return $value;
-    }
-
-    public static function presentActivation($value, $item)
-    {
-        if ($item->hasRole(Role::CONSUMER)) {
-            return '';
-        }
-
-        if (!empty($item->business) && $item->business->is_activated) {
-            return '<span class="label label-success">'.trans('common.yes').'</span>';
-        }
-
-        return '<span class="label label-danger">'.trans('common.no').'</span>';
-    }
-
     /**
-     * Show controls to send/display related payments of a business
+     * Show the list of deleted users
      *
-     * @param string               $value
-     * @param App\Core\Models\User $user
-     *
-     * @return View|string
+     * @return View
      */
-    public static function presentPayments($value, $user)
+    public function deleted()
     {
-        return View::make('admin.users.el.payments', [
-            'user' => $user
-        ]);
+        $this->crudOptions['bulkActions'] = array_merge(
+            $this->crudOptions['bulkActions'],
+            ['restore']
+        );
+        $users = User::onlyTrashed()->paginate(Config::get('view.perPage'));
+
+        return $this->renderList($users);
     }
 }

@@ -37,7 +37,7 @@ Route::group([
         //----------------------------------------------------------------------
         Route::get('deleted', [
             'as' => 'admin.users.deleted',
-            'uses' => 'App\Core\Controllers\Admin\DeletedUsers@index'
+            'uses' => 'App\Core\Controllers\Admin\Users@deleted'
         ]);
 
         //----------------------------------------------------------------------
