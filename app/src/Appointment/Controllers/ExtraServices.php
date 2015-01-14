@@ -14,8 +14,11 @@ class ExtraServices extends AsBase
         'lomake' => [
             'length' => [
                 'type' => 'Spinner',
-                'values' => 10,
-                'options' => ['class' => 'form-control input-sm spinner', 'data-positive' => 'true', 'data-inc' => 5]
+                'options' => [
+                    'class' => 'form-control input-sm spinner',
+                    'data-positive' => 'true',
+                    'data-inc' => 5
+                ]
             ],
         ]
     ];
