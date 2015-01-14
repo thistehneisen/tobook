@@ -281,6 +281,49 @@ class BackendReceptionCest
         $date      = $this->getDate();
         $startTime = '14:00';
 
+        $this->_makeBooking($I, $user, $employee, $uuid, $service, $date, $startTime);
+    }
+
+    public function testOverllapedBooking(UnitTester $I)
+    {
+        $this->initData();
+        $this->initCustomTime();
+
+        $user      = User::find(70);
+        $employee  = $this->employee;
+        $service   = $this->service;
+        $uuid      = Booking::uuid();
+
+        $date      = $this->getDate();
+        $startTime = '14:00';
+
+        $this->_makeBooking($I, $user, $employee, $uuid, $service, $date, $startTime);
+
+        //new booking
+        $uuid = Booking::uuid();
+        $receptionist = new BackendReceptionist();
+        $receptionist->setBookingId(0)
+            ->setUUID($uuid)
+            ->setUser($user)
+            ->setBookingDate($date->toDateString())
+            ->setStartTime($startTime)
+            ->setServiceId($service->id)
+            ->setEmployeeId($employee->id)
+            ->setServiceTimeId('default');
+
+        $exception = array();
+
+        try{
+            $bookingService = $receptionist->upsertBookingService();
+        } catch(\Exception $ex) {
+            $exception[] = $ex->getMessage();
+        }
+        $I->assertNotEmpty($exception[0]);
+        $I->assertEquals($exception[0], trans('as.bookings.error.add_overlapped_booking'));
+    }
+
+    private function _makeBooking($I, $user, $employee, $uuid, $service, $date, $startTime)
+    {
         $I->amLoggedAs($user);
         $I->assertEquals($service->length, 60);
 
