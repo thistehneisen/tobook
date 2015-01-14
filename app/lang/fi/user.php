@@ -2,6 +2,7 @@
 return [
     'all'                    => 'Kaikki käyttäjät',
     'add'                    => 'Lisää käyttäjiä',
+    'deleted'                => 'Deleted users', // @todo
     'edit'                   => 'Muokkaa',
     'activate'               => 'Activate',
     'deactivate'             => 'Deactivate',

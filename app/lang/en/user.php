@@ -2,6 +2,7 @@
 return [
     'all'                    => 'All users',
     'add'                    => 'Add business user',
+    'deleted'                => 'Deleted users',
     'edit'                   => 'Edit user',
     'activate'               => 'Activate',
     'deactivate'             => 'Deactivate',
