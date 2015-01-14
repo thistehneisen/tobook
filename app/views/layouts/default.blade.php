@@ -68,7 +68,7 @@
                     <li class="hidden-sm hidden-xs">
                         <p>
                         @if (Session::get('stealthMode') !== null)
-                            You're logged in as
+                            {{ trans('common.logged_in_as') }}
                             @if (Confide::user()->is_business)
                                 <span class="label label-bg label-success">{{ Confide::user()->business->name }}</span>
                             @elseif (Confide::user()->is_consumer)

@@ -143,4 +143,5 @@ return [
     'with_selected' => 'Valitse toiminto',
     'per_page'      => 'Yksiköitä yhteensä',
     'show_all'      => 'Näytä kaikki',
+    'logged_in_as'  => 'Logged in as',
 ];

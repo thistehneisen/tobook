@@ -143,4 +143,5 @@ return [
     'with_selected' => 'With selected',
     'per_page'      => 'Items per page',
     'show_all'      => 'Show all',
+    'logged_in_as'  => 'Logged in as',
 ];

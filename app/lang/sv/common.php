@@ -138,4 +138,8 @@ return [
         'unauthorized' => 'Du saknar behörighet för den här sidan.',
         'not_business' => 'Du har inget företagskonto, eller så är ditt konto inte aktivt. Kontakta oss på <a href="mailto:kundservice@clearsense.se">kundservice@clearsense.se</a> för att aktivera ditt konto.',
     ],
+    'with_selected' => 'With selected',
+    'per_page'      => 'Items per page',
+    'show_all'      => 'Show all',
+    'logged_in_as'  => 'Logged in as',
 ];
