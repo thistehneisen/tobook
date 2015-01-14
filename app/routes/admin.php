@@ -32,6 +32,18 @@ Route::group([
     App\Core\Controllers\Admin\Users::crudRoutes('users', 'admin.users');
     Route::group(['prefix' => 'users'], function () {
 
+        //----------------------------------------------------------------------
+        // Deleted users
+        //----------------------------------------------------------------------
+        Route::get('deleted', [
+            'as' => 'admin.users.deleted',
+            'uses' => 'App\Core\Controllers\Admin\Users@deleted'
+        ]);
+
+        //----------------------------------------------------------------------
+        // Core
+        //----------------------------------------------------------------------
+
         Route::post('{id}/business', [
             'as' => 'admin.users.business',
             'uses' => 'App\Core\Controllers\Admin\Users@updateBusiness'
