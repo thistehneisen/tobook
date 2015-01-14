@@ -39,6 +39,9 @@ class OldDataMover
         $this->movePoints($oldUserId, $user);
         $this->moveStampHistory($oldUserId, $user);
         $this->movePointHistory($oldUserId, $user);
+
+        // Done the job
+        // $job->delete();
     }
 
     /**
@@ -51,14 +54,24 @@ class OldDataMover
      */
     protected function moveCustomers($oldUserId, $user)
     {
+        Log::info('Moving customers');
+
         $table = $oldUserId.'_sm_clients';
+        $tableConsumer = with(new Consumer())->getTable();
+
         $result = $this->db->table($table)->get();
         foreach ($result as $item) {
+            // Skip duplicated email
+            if (isset($this->consumerMap[$item->email])) {
+                continue;
+            }
+
             // Check if there's a consumer with this email
-            $consumer = Consumer::where('email', trim($item->email))->find();
-            if ($consumer === null) {
+            $consumerId = Consumer::where('email', trim($item->email))
+                    ->pluck('id');
+            if ($consumerId === null) {
                 // Create a new consumer
-                $consumer = Consumer::make([
+                $consumerId = DB::table($tableConsumer)->insertGetId([
                     'first_name' => $item->name,
                     'last_name'  => $item->lastname,
                     'email'      => $item->email,
@@ -67,11 +80,15 @@ class OldDataMover
                     'city'       => $item->city,
                     'postcode'   => $item->postalcode,
                     'country'    => $item->country,
-                ], $user);
+                ]);
             }
 
-            $this->consumerMap[$item->id] = $consumer->id;
+            // Map email and old ID to new consumer ID
+            $this->consumerMap[$item->email] = $consumerId;
+            $this->consumerMap[$item->id] = $consumerId;
         }
+
+        Log::info('There are '.count($this->consumerMap).' consumers');
     }
 
     /**
@@ -85,7 +102,7 @@ class OldDataMover
     public function moveStamps($oldUserId, $user)
     {
         // Move stamp campaigns
-        Log::info('Moving stamp campaigns...');
+        Log::info('Move stamp campaigns...');
 
         $table = $oldUserId.'_stamps';
         $result = $this->db->table($table)->get();
@@ -97,8 +114,8 @@ class OldDataMover
                 'is_active'   => true,
                 'is_auto_add' => true
             ]);
-            $offer->user = $user;
-            $offer->created_at = new Carbon($item->dateadded);
+            $offer->user()->associate($user);
+            $offer->created_at = Carbon::createFromTimeStamp($item->dateadded);
             $offer->save();
 
             // Map old and new ID
@@ -116,7 +133,7 @@ class OldDataMover
      */
     public function movePoints($oldUserId, $user)
     {
-        Log::info('Moving point campaigns...');
+        Log::info('Move point campaigns...');
 
         $table = $oldUserId.'_giftavailable';
         $result = $this->db->table($table)->get();
@@ -129,7 +146,7 @@ class OldDataMover
                 'type'      => 'Percent',
                 'is_active' => true,
             ]);
-            $voucher->user = $user;
+            $voucher->user()->associate($user);
             $voucher->save();
 
             // Map IDs
@@ -147,6 +164,7 @@ class OldDataMover
      */
     protected function moveStampHistory($oldUserId, $user)
     {
+        Log::info('Move stamp history');
         $now = Carbon::now();
         $data = [];
 
@@ -174,9 +192,10 @@ class OldDataMover
             ];
         }
 
-        DB::table(
-            with(new Transaction())->getTable()
-        )->insert($data);
+        if (!empty($data)) {
+            DB::table(with(new Transaction())->getTable())
+                ->insert($data);
+        }
     }
 
     /**
@@ -189,6 +208,8 @@ class OldDataMover
      */
     protected function movePointHistory($oldUserId, $user)
     {
+        Log::info('Move point history');
+
         $now = Carbon::now();
         $data = [];
 
@@ -216,6 +237,9 @@ class OldDataMover
             ];
         }
 
-        DB::table(with(new Transaction())->getTable())->insert($data);
+        if (!empty($data)) {
+            DB::table(with(new Transaction())->getTable())
+                ->insert($data);
+        }
     }
 }
