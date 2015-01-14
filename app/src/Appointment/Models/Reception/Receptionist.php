@@ -171,8 +171,8 @@ abstract class Receptionist implements ReceptionistInterface
 
     public function setEmployeeId($employeeId)
     {
-        $this->employee = Employee::ofUser($this->user->id)->find($employeeId);
-
+        $this->employeeId = $employeeId;
+        $this->employee   = Employee::ofUser($this->user->id)->find($employeeId);
         return $this;
     }
 
