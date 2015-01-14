@@ -29,7 +29,7 @@
         </div>
     </div>
 
-    @foreach (['meta_title', 'meta_description', 'meta_keywords'] as $field)
+    @foreach (['meta_title', 'meta_description', 'meta_keywords', 'bank_account'] as $field)
     <div class="form-group">
         <label class="col-sm-2 col-sm-offset-1 control-label">{{ trans('user.business.'.$field) }}</label>
         <div class="col-sm-6">

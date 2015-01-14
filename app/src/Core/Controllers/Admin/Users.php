@@ -83,11 +83,15 @@ class Users extends Base
             'route'             => ['admin.users.business', $user->id],
             'langPrefix'        => 'user.business',
             'fields'            => [
-                'description' => ['type' => 'html_field', 'default' => $business->description_html],
-                'size'        => ['type' => false],
-                'lat'         => ['type' => false],
-                'lng'         => ['type' => false],
-                'note'        => ['type' => false],
+                'description'       => ['type' => 'html_field', 'default' => $business->description_html],
+                'size'              => ['type' => false],
+                'lat'               => ['type' => false],
+                'lng'               => ['type' => false],
+                'note'              => ['type' => false],
+                'bank_account'      => ['type' => false],
+                'meta_title'        => ['type' => false],
+                'meta_description'  => ['type' => false],
+                'meta_keywords'     => ['type' => false],
             ],
         ]);
 
