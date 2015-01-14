@@ -381,12 +381,29 @@ class Users extends Base
      */
     public function deleted()
     {
+        // We'll add a new option to bulk restore deleted users
         $this->crudOptions['bulkActions'] = array_merge(
             $this->crudOptions['bulkActions'],
             ['restore']
         );
+
+        // Show only business name and email
+        $this->crudOptions['indexFields'] = ['business_name', 'email'];
         $users = User::onlyTrashed()->paginate(Config::get('view.perPage'));
 
         return $this->renderList($users);
+    }
+
+    /**
+     * Restore a list of deleted users
+     *
+     * @param array $ids
+     *
+     * @return void
+     */
+    protected function restore($ids)
+    {
+        User::whereIn('id', $ids)
+            ->update(['deleted_at' => null]);
     }
 }
