@@ -103,7 +103,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-12">
-                            <table id="added_services" class="table table-bordered" style="@if(empty($bookingServices))display:none @endif">
+                            <table id="added_services" class="table table-bordered" style="@if(empty($bookingServices))display:none @endif" data-edit-text="{{ trans('common.edit') }}" data-add-text="{{ trans('common.add') }}">
                                 <thead>
                                     <tr>
                                         <th>{{ trans('as.bookings.service_employee') }}</th>
@@ -154,7 +154,7 @@
                                         </td>
                                          <td class="align_right">
                                             <a href="#" class="btn-edit-booking-service" data-booking-service-id="{{ $bookingService->id }}" data-service-id="{{ $bookingService->service->id }}" data-category-id="{{ $bookingService->service->category->id }}" data-service-time-id="{{ $bookingService->getFormServiceTime() }}" data-modify-times="{{ $bookingService->modify_time }}" data-edit-text="{{ trans('common.edit') }}"><i class="fa fa-edit"></i></a>
-                                            <a href="#" class="btn-delete-booking-service" data-booking-service-id="{{ $bookingService->id }}" data-booking-id="{{ $bookingService->booking_id }}"><i class="fa fa-trash"></i></a>
+                                            <a href="#" class="btn-delete-booking-service" data-booking-service-id="{{ $bookingService->id }}" data-booking-id="{{ $bookingService->booking_id }}" data-uuid="{{ $bookingService->tmp_uuid }}"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                     @endforeach

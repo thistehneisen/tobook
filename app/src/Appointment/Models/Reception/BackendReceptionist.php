@@ -34,20 +34,22 @@ class BackendReceptionist extends Receptionist
     {
         $booking = Booking::find($this->bookingId);
 
-        $first = BookingService::where('booking_id', $this->bookingId)
-            ->whereNull('deleted_at')->orderBy('start_at')->get();
+        $first = BookingService::where('tmp_uuid', $this->uuid)
+            ->whereNull('deleted_at')->orderBy('start_at')->first();
 
-        if(empty($first)) {
-            $first->startTime = $booking->starTime;
+        if(!empty($first)) {
+            $first->startTime = $booking->startTime;
+            $first->endTime = $booking->startTime->copy()->addMinutes($first->calculcateTotalLength());
             $first->save();
 
-            $bookingServices = BookingService::where('booking_id', $this->bookingId)
+            $bookingServices = BookingService::where('tmp_uuid', $this->uuid)
                 ->whereNull('deleted_at')->orderBy('start_at')->get();
 
-            $previousBookingService[] = [];
-
+            $previousBookingService = [];
+            $lastBookingService = null;
+            //Update the sequence of booking service
+            //The next start time = the previous end time
             foreach ($bookingServices as $bookingService) {
-                $lastBookingService = null;
 
                 if(count($previousBookingService) > 1){
                     $lastBookingService = $previousBookingService[count($previousBookingService)];
@@ -59,8 +61,10 @@ class BackendReceptionist extends Receptionist
                     continue;
                 }
 
-                if($bookingService->id !== $lastBookingService->id){
+                if(!empty($lastBookingService) && $bookingService->id !== $lastBookingService->id){
                     $bookingService->startTime = $lastBookingService->endTime;
+                    $bookingService->endTime = $lastBookingService->endTime
+                        ->copy()->addMinutes($bookingService->calculcateTotalLength());
                     $bookingService->save();
                 }
             }

@@ -250,7 +250,7 @@
             $('#service_categories').val(category_id).trigger('change');
             $('#added_services').find('tbody').find('tr').removeAttr('style');
             $('#booking-service-id-' + booking_service_id).css('background-color', 'pink');
-            $('#btn-add-service').text($(this).data('edit-text'))
+            $('#btn-add-service').text($(this).data('edit-text'));
         });
 
         $doc.on('click', '#btn-add-new-booking-service', function (e) {
@@ -264,8 +264,11 @@
         $doc.on('click', '.btn-delete-booking-service', function (e) {
             e.preventDefault();
             var booking_service_id = $(this).data('booking-service-id'),
-                uuid = $(this).data('uuid');
+                booking_id = $(this).data('booking-id'),
+                uuid = $(this).data('uuid'),
+                $table = $('#added_services');
             dataStorage.booking_service_id = booking_service_id;
+            dataStorage.booking_id = booking_id;
             dataStorage.uuid = uuid;
 
             $.ajax({
@@ -275,6 +278,8 @@
                 dataType: 'json'
             }).done(function (data) {
                 $('#booking-service-id-'+booking_service_id).remove();
+                $('#btn-add-service').text($table.data('add-text'));
+                dataStorage.booking_service_id = 0;
             }).fail(function (data) {
                 alertify.alert('Alert', data.responseJSON.message, function () {
                     alertify.message("OK");
@@ -307,7 +312,8 @@
         });
 
         var showBookingServiceResult = function(data) {
-            var $tbody = $('#added_services').find('tbody');
+            var $table = $('#added_services'),
+                $tbody = $table.find('tbody');
             if (!$tbody.find('#booking-service-id-'+data.booking_service_id).length) {
                 var $tr = $('<tr/>', {
                     id : 'booking-service-id-' + data.booking_service_id
@@ -339,6 +345,7 @@
                     'data-category-id': data.category_id,
                     'data-service-time-id': data.service_time,
                     'data-modify-times': data.modify_time,
+                    'data-edit-text': $table.data('edit-text'),
                 }).append('<i class="fa fa-edit"></i>').appendTo($td);
 
                  $('<a>', {
@@ -346,6 +353,7 @@
                     'class' : 'btn-delete-booking-service',
                     'data-booking-service-id': data.booking_service_id,
                     'data-booking-id': data.booking_id,
+                    'data-uuid': data.uuid,
                 }).append('<i class="fa fa-trash"></i>').appendTo($td);
             }
             var $tds = $('#booking-service-id-' + data.booking_service_id + ' > td');
