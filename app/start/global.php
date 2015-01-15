@@ -48,15 +48,10 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 
 App::error(function (Exception $exception, $code) {
     if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
-        Log::warning($exception->getMessage(), [
-            'url' => URL::current(),
-            'user' => Confide::user()
-        ]);
+        Log::warning($exception->getMessage(), ['url' => URL::current()]);
         return Response::view('errors.missing', [], 404);
     } else {
-        Log::error($exception, [
-            'user' => Confide::user()
-        ]);
+        Log::error($exception);
     }
 });
 
