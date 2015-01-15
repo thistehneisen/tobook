@@ -487,7 +487,7 @@ trait Olut
     {
         $orders = Input::get('orders');
         foreach ($orders as $order => $id) {
-            DB::table($this->getModel()->getTable())
+            $this->getModel()
                 ->where('id', $id)
                 ->update(['order' => $order]);
         }

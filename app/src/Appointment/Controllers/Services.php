@@ -22,7 +22,6 @@ class Services extends AsBase
         'modelClass' => 'App\Appointment\Models\Service',
         'langPrefix' => 'as.services',
         'layout' => 'modules.as.layout',
-        'showTab' => true,
         'bulkActions' => [],
         'indexFields' => [
             'name', 'employees', 'price', 'during', 'length', 'category', 'is_active'
@@ -32,6 +31,21 @@ class Services extends AsBase
             'category' => ['App\Appointment\Controllers\Services', 'presentCategory'],
         ],
     ];
+
+    public static function presentEmployees($value, $item)
+    {
+        $str = '';
+        foreach ($item->employees as $e) {
+            $str .= $e->name . ', ';
+        }
+
+        return $str;
+    }
+
+    public static function presentCategory($value, $item)
+    {
+        return $item->category->name;
+    }
 
     /**
      * {@inheritdoc}
@@ -259,20 +273,5 @@ class Services extends AsBase
                 'messages',
                 $this->successMessageBag(trans('as.crud.success_delete'))
             );
-    }
-
-    public static function presentEmployees($value, $item)
-    {
-        $str = '';
-        foreach ($item->employees as $e) {
-            $str .= $e->name . ', ';
-        }
-
-        return $str;
-    }
-
-    public static function presentCategory($value, $item)
-    {
-        return $item->category->name;
     }
 }

@@ -35,18 +35,18 @@ class EmployeeCest
     {
         $I->amOnRoute('as.employees.index');
         $I->canSeeResponseCodeIs(200);
-        $I->seeNumberOfElements('.employee-row', 1);
+        $I->seeNumberOfElements('.item-row', 1);
 
         $rowSelector = '#row-' . $this->employee->id;
         $I->seeElement($rowSelector);
         $I->see($this->employee->name, $rowSelector . ' > *');
         $I->see($this->employee->email, $rowSelector . ' > *');
         $I->see($this->employee->phone, $rowSelector . ' > *');
-        $I->see(trans('common.active'), $rowSelector . ' > *');
+        $I->see(trans('common.yes'), $rowSelector . ' > *');
         $I->seeElement($rowSelector . '-edit');
         $I->seeElement($rowSelector . '-delete');
 
-        $I->see(trans('common.all'), '.active');
+        //$I->see(trans('common.all'), '.active');
     }
 
     public function testIndexInactive(FunctionalTester $I)
@@ -55,11 +55,11 @@ class EmployeeCest
         $this->employee->saveOrFail();
 
         $I->amOnRoute('as.employees.index');
-        $I->seeNumberOfElements('.employee-row', 1);
+        $I->seeNumberOfElements('.item-row', 1);
 
         $rowSelector = '#row-' . $this->employee->id;
         $I->seeElement($rowSelector);
-        $I->see(trans('common.inactive'), $rowSelector . ' > *');
+        $I->see(trans('common.no'), $rowSelector . ' > *');
     }
 
     public function testIndexActiveOnly(FunctionalTester $I)
@@ -69,9 +69,9 @@ class EmployeeCest
         $this->employees[1]->saveOrFail();
 
         $I->amOnRoute('as.employees.index', ['is_active' => 1]);
-        $I->see(trans('common.active'), '.active');
+        //$I->see(trans('common.yes'), '.active');
 
-        $I->seeNumberOfElements('.employee-row', 1);
+        $I->seeNumberOfElements('.item-row', 1);
         $I->seeElement('#row-' . $this->employee->id);
     }
 
@@ -82,9 +82,9 @@ class EmployeeCest
         $this->employees[1]->saveOrFail();
 
         $I->amOnRoute('as.employees.index', ['is_active' => 0]);
-        $I->see(trans('common.inactive'), '.active');
+        //$I->see(trans('common.no'), '.active');
 
-        $I->seeNumberOfElements('.employee-row', 1);
+        $I->seeNumberOfElements('.item-row', 1);
         $I->seeElement('#row-' . $this->employees[1]->id);
     }
 
@@ -104,7 +104,7 @@ class EmployeeCest
         $I->click('#btn-save-employee');
 
         $I->seeCurrentRouteIs('as.employees.index');
-        $I->seeNumberOfElements('.employee-row', 2);
+        $I->seeNumberOfElements('.item-row', 2);
 
         $employees = Employee::ofCurrentUser()->where('id', '<>', $this->employee->id)->get();
         $I->assertEquals(1, count($employees), 'employees');

@@ -11,12 +11,9 @@ class Categories extends AsBase
         'modelClass' => 'App\Appointment\Models\ServiceCategory',
         'langPrefix' => 'as.services.categories',
         'layout' => 'modules.as.layout',
-        'showTab' => true,
         'bulkActions' => [],
-        'crudSortable' => true,
-        'indexFields' => [
-            'name', 'description', 'is_show_front',
-        ],
+        'sortable' => true,
+        'indexFields' => ['name', 'description', 'is_show_front'],
     ];
 
     /**

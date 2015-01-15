@@ -187,9 +187,9 @@ return [
         'rooms' => [
             'all'         => 'All rooms',
             'add'         => 'Add room',
-            'edit'        => 'Muokkaa room',
-            'name'        => 'Nimi',
-            'description' => 'Kuvaus',
+            'edit'        => 'Edit room',
+            'name'        => 'Name',
+            'description' => 'Description',
         ],
         'extras' => [
             'all'         => 'All extra services',

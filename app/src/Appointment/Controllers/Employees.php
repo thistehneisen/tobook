@@ -12,12 +12,24 @@ use App\Appointment\Models\CustomTime;
 
 class Employees extends AsBase
 {
-    use App\Appointment\Traits\Crud;
-
+    use \CRUD;
     protected $viewPath = 'modules.as.employees';
-    protected $langPrefix = 'as.employees';
-    protected $crudIndexFields = ['avatar', 'name', 'email', 'phone', 'is_active'];
-    protected $crudSortable = true;
+    protected $crudOptions = [
+        'modelClass' => 'App\Appointment\Models\Employee',
+        'langPrefix' => 'as.employees',
+        'layout' => 'modules.as.layout',
+        'bulkActions' => [],
+        'sortable' => true,
+        'indexFields' => ['avatar', 'name', 'email', 'phone', 'is_active'],
+        'presenters' => [
+            'avatar' => ['App\Appointment\Controllers\Employees', 'presentAvatar'],
+        ],
+    ];
+
+    public static function presentAvatar($value, $item)
+    {
+        return '<img src="' . $item->getAvatarUrl() . '" alt="" class="img-rounded" />';
+    }
 
     /**
      * {@inheritdoc}
@@ -32,7 +44,7 @@ class Employees extends AsBase
         return $this->render('form', [
             'services' => $services,
             'employee' => $employee,
-            'employeeId'=> $employee->id
+            'employeeId' => $employee->id
         ]);
     }
 
@@ -267,7 +279,7 @@ class Employees extends AsBase
         return $this->render('customTime.index', [
             'items'      => $customTimes,
             'fields'     => $fields,
-            'langPrefix' => $this->langPrefix,
+            'langPrefix' => $this->crudOptions['langPrefix'],
             'now'        => Carbon::now()
         ]);
     }
