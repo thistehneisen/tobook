@@ -25,8 +25,8 @@ class BookingCest
     {
         $I->amOnRoute('as.bookings.index');
         $I->canSeeResponseCodeIs(200);
-        $I->seeNumberOfElements('.booking-row', 0);
-        $I->see(trans('common.no_records'));
+        $I->seeNumberOfElements('.item-row', 0);
+        //$I->see(trans('common.no_records'));
 
         $this->initData(false);
         $this->initCustomTime();
@@ -35,7 +35,7 @@ class BookingCest
 
         $booking = $this->_book($user, $category);
         $I->amOnRoute('as.bookings.index');
-        $I->seeNumberOfElements('.booking-row', 1);
+        $I->seeNumberOfElements('.item-row', 1);
 
         $rowSelector = '#row-' . $booking->id;
         $I->seeElement($rowSelector);
@@ -70,7 +70,7 @@ class BookingCest
         ]);
         $I->seeCurrentRouteIs('as.bookings.search', ['q' => $booking1->uuid]);
         $I->seeInField('q', $booking1->uuid);
-        $I->seeNumberOfElements('.booking-row', 1);
+        $I->seeNumberOfElements('.item-row', 1);
         $I->seeElement('#row-' . $booking1->id);
         $I->dontSeeElement('#row-' . $booking2->id);
 
@@ -81,7 +81,7 @@ class BookingCest
         ]);
         $I->seeCurrentRouteIs('as.bookings.search', ['q' => $booking2->date]);
         $I->seeInField('q', $booking2->date);
-        $I->seeNumberOfElements('.booking-row', 1);
+        $I->seeNumberOfElements('.item-row', 1);
         $I->dontSeeElement('#row-' . $booking1->id);
         $I->seeElement('#row-' . $booking2->id);
 
@@ -92,7 +92,7 @@ class BookingCest
         ]);
         $I->seeCurrentRouteIs('as.bookings.search', ['q' => $startTime]);
         $I->seeInField('q', $startTime);
-        $I->seeNumberOfElements('.booking-row', 2);
+        $I->seeNumberOfElements('.item-row', 2);
         $I->seeElement('#row-' . $booking1->id);
         $I->seeElement('#row-' . $booking2->id);
     }
@@ -112,12 +112,12 @@ class BookingCest
         }
 
         $I->amOnRoute('as.bookings.index');
-        $I->seeNumberOfElements('.booking-row', min(count($bookings), Config::get('view.perPage')));
+        $I->seeNumberOfElements('.item-row', min(count($bookings), Config::get('view.perPage')));
 
         foreach ([5, 10, 20, 50] as $perPage) {
             $I->click('#per-page-' . $perPage);
             $I->seeCurrentRouteIs('as.bookings.index', ['perPage' => $perPage]);
-            $I->seeNumberOfElements('.booking-row', $perPage);
+            $I->seeNumberOfElements('.item-row', $perPage);
 
             $page = 1;
             $bookingsCopied = $bookings;

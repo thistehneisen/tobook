@@ -229,7 +229,7 @@ return [
         'all'               => 'Bokningar',
         'add'               => 'Lägg till ny bokning',
         'invoices'          => 'Fakturor',
-        'customers'         => 'Kunder',
+        'consumer'          => 'Kund',
         'statistics'        => 'Statistik',
         'date'              => 'Datum',
         'total'             => 'Längd (tid)',

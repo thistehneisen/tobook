@@ -18,10 +18,30 @@ use App\Appointment\Models\Reception\BackendReceptionist;
 
 class Bookings extends AsBase
 {
-    use App\Appointment\Traits\Crud;
-    protected $viewPath   = 'modules.as.bookings';
-    protected $langPrefix = 'as.bookings';
-    protected $crudShowTab = false;
+    use \CRUD;
+    protected $viewPath = 'modules.as.bookings';
+    protected $crudOptions = [
+        'modelClass' => 'App\Appointment\Models\Booking',
+        'langPrefix' => 'as.bookings',
+        'layout' => 'modules.as.layout',
+        'showTab' => false,
+        'bulkActions' => [],
+        'indexFields' => ['uuid', 'date', 'consumer', 'total', 'notes', 'status'],
+        'presenters' => [
+            'consumer' => ['App\Appointment\Controllers\Bookings', 'presentConsumer'],
+            'status' => ['App\Appointment\Controllers\Bookings', 'presentStatus'],
+        ],
+    ];
+
+    public static function presentConsumer($value, $item)
+    {
+        return isset($item->consumer->name) ? $item->consumer->name : '';
+    }
+
+    public static function presentStatus($value, $item)
+    {
+        return trans('as.bookings.' . Booking::getStatusByValue($value));
+    }
 
     /**
      * {@inheritdoc}

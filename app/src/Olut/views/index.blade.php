@@ -48,7 +48,7 @@ $(function () {
 
 <div class="row">
     <div class="col-md-6">
-        {{ Form::open(['route' => $routes['search'], 'method' => 'GET', 'class' => 'form-inline', 'role' => 'form']) }}
+        {{ Form::open(['route' => $routes['search'], 'method' => 'GET', 'class' => 'form-inline', 'id' => 'form-search', 'role' => 'form']) }}
         <div class="form-group">
             <div class="input-group">
                 {{ Form::text('q', Input::get('q'), ['class' => 'form-control input-sm', 'placeholder' => trans('common.search')]) }}
