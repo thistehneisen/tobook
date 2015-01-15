@@ -48,7 +48,7 @@ HTML;
 $confirmConsumerMessage = <<< HTML
 Hej,
 
-Tack för att du bokat: 
+Tack för att du bokat:
 
 {Services}
 
@@ -208,7 +208,7 @@ return [
         'after'        => 'Efter',
         'total'        => 'Total längd',
         'category'     => 'Kategori',
-        'is_active'    => 'Status',
+        'is_active'    => 'Aktiv',
         'resource'     => 'Resurs',
         'extra'        => 'Tilläggstjänst',
         'employees'    => 'Personal',

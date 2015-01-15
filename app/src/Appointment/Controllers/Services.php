@@ -16,29 +16,21 @@ use App\Appointment\Models\Employee;
 
 class Services extends AsBase
 {
-    use App\Appointment\Traits\Crud;
+    use \CRUD;
     protected $viewPath = 'modules.as.services.service';
-    protected $langPrefix = 'as.services';
-
-    /**
-     * {@inheritdoc}
-     */
-    public function index()
-    {
-        $query = $this->getModel()->ofCurrentUser();
-        $query = $this->applyQueryStringFilter($query);
-
-        // If this controller is sortable
-        if (isset($this->crudSortable) && $this->crudSortable === true) {
-            $query = $query->orderBy('order');
-        }
-
-        // Pagination please
-        $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
-        $items = $query->with('category')->with('employees')->paginate($perPage);
-
-        return $this->renderList($items);
-    }
+    protected $crudOptions = [
+        'modelClass' => 'App\Appointment\Models\Service',
+        'langPrefix' => 'as.services',
+        'layout' => 'modules.as.layout',
+        'showTab' => true,
+        'indexFields' => [
+            'name', 'employees', 'price', 'during', 'length', 'category', 'is_active'
+        ],
+        'presenters' => [
+            'employees' => ['App\Appointment\Controllers\Services', 'presentEmployees'],
+            'category' => ['App\Appointment\Controllers\Services', 'presentCategory'],
+        ],
+    ];
 
     /**
      * {@inheritdoc}
@@ -62,63 +54,6 @@ class Services extends AsBase
             'extras'     => $extras,
             'employees'  => $employees
         ]);
-    }
-
-     /**
-     * {@inheritdoc}
-     */
-    public function delete($id)
-    {
-
-        $service = Service::ofCurrentUser()->findOrFail($id);
-
-         //Cannot delete this service if is there any undeleted booking use it
-        if(!$service->isDeletable()){
-            //if there are bookings, redirect back
-            $errors = $this->errorMessageBag(trans('as.services.error.service_current_in_use'));
-            return Redirect::route(static::$crudRoutes['index'])
-                ->withInput()->withErrors($errors, 'top');
-        }
-
-        $service->delete();
-
-        if (Request::ajax() === true) {
-            return Response::json(['success' => true]);
-        }
-
-        return Redirect::route(static::$crudRoutes['index'])
-            ->with(
-                'messages',
-                $this->successMessageBag(trans('as.crud.success_delete'))
-            );
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function doUpsert($id = null)
-    {
-        $model = $this->getModel();
-        try {
-            $item = ($id !== null)
-                ? $model->findOrFail($id)
-                : new $model();
-
-            $item = $this->upsertHandler($item);
-
-            $message = ($id !== null)
-                ? trans('as.crud.success_edit')
-                : trans('as.crud.success_add');
-
-            return Redirect::route(static::$crudRoutes['index'])
-                ->with('messages', $this->successMessageBag($message));
-        } catch (\Watson\Validating\ValidationException $ex) {
-            return Redirect::route('as.services.upsert')->withInput()->withErrors($ex->getErrors());
-        }
-
-        $errors = $this->errorMessageBag(trans('common.err.unexpected'));
-
-        return Redirect::back()->withInput()->withErrors($errors, 'top');
     }
 
     /**
@@ -192,6 +127,35 @@ class Services extends AsBase
            throw $ex;
         }
         return $service;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function delete($id)
+    {
+
+        $service = Service::ofCurrentUser()->findOrFail($id);
+
+        //Cannot delete this service if is there any undeleted booking use it
+        if (!$service->isDeletable()) {
+            //if there are bookings, redirect back
+            $errors = $this->errorMessageBag(trans('as.services.error.service_current_in_use'));
+            return Redirect::route(static::$crudRoutes['index'])
+                ->withInput()->withErrors($errors, 'top');
+        }
+
+        $service->delete();
+
+        if (Request::ajax() === true) {
+            return Response::json(['success' => true]);
+        }
+
+        return Redirect::route(static::$crudRoutes['index'])
+            ->with(
+                'messages',
+                $this->successMessageBag(trans('as.crud.success_delete'))
+            );
     }
 
     /**
@@ -274,9 +238,9 @@ class Services extends AsBase
             $serviceTime->save();
 
             return Redirect::route('as.services.customTime', ['id' => $id])
-            ->with(
-                'messages',
-                $this->successMessageBag($message)
+                ->with(
+                    'messages',
+                    $this->successMessageBag($message)
                 );
         } catch (\Watson\Validating\ValidationException $ex) {
             return Redirect::back()->withInput()->withErrors($ex->getErrors());
@@ -294,5 +258,20 @@ class Services extends AsBase
                 'messages',
                 $this->successMessageBag(trans('as.crud.success_delete'))
             );
+    }
+
+    public static function presentEmployees($value, $item)
+    {
+        $str = '';
+        foreach ($item->employees as $e) {
+            $str .= $e->name . ', ';
+        }
+
+        return $str;
+    }
+
+    public static function presentCategory($value, $item)
+    {
+        return $item->category->name;
     }
 }

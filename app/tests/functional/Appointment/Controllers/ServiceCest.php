@@ -26,7 +26,7 @@ class ServiceCest
     {
         $I->amOnRoute('as.services.index');
         $I->canSeeResponseCodeIs(200);
-        $I->seeNumberOfElements('.service-row', 1);
+        $I->seeNumberOfElements('.item-row', 1);
 
         $rowSelector = '#row-' . $this->service->id;
         $I->seeElement($rowSelector);
@@ -36,7 +36,7 @@ class ServiceCest
         $I->see($this->service->during, $rowSelector . ' > *');
         $I->see($this->service->length, $rowSelector . ' > *');
         $I->see($this->service->category->name, $rowSelector . ' > *');
-        $I->see(trans('common.active'), $rowSelector . ' > *');
+        $I->see(trans('common.yes'), $rowSelector . ' > *');
         $I->seeElement($rowSelector . '-edit');
         $I->seeElement($rowSelector . '-delete');
     }
@@ -47,11 +47,11 @@ class ServiceCest
         $this->service->saveOrFail();
 
         $I->amOnRoute('as.services.index');
-        $I->seeNumberOfElements('.service-row', 1);
+        $I->seeNumberOfElements('.item-row', 1);
 
         $rowSelector = '#row-' . $this->service->id;
         $I->seeElement($rowSelector);
-        $I->see(trans('common.inactive'), $rowSelector . ' > *');
+        $I->see(trans('common.no'), $rowSelector . ' > *');
     }
 
     public function testAdd(FunctionalTester $I)
@@ -79,7 +79,7 @@ class ServiceCest
         $I->click('#btn-save-service');
 
         $I->seeCurrentRouteIs('as.services.index');
-        $I->seeNumberOfElements('.service-row', 2);
+        $I->seeNumberOfElements('.item-row', 2);
 
         $services = Service::ofCurrentUser()->where('id', '<>', $this->service->id)->get();
         $I->assertEquals(1, count($services), 'services');

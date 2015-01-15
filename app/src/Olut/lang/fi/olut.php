@@ -11,8 +11,8 @@ return [
     'save'           => 'Save',
     'submit'         => 'Submit',
     'reset'          => 'Reset',
-    'yes'            => 'Yes',
-    'no'             => 'No',
+    'yes'            => 'Kyllä',
+    'no'             => 'Ei',
     'destroy'        => 'Delete',
     'empty'          => 'There is no records found',
     'err'            => [
