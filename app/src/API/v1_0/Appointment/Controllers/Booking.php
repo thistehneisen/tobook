@@ -219,7 +219,7 @@ class Booking extends Base
                 }
             }
         } else {
-            $uuid = Booking::uuid();
+            $uuid = BookingModel::uuid();
 
             foreach ($extraServices as $extraService) {
                 // all extra services are new

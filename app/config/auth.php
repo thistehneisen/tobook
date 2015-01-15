@@ -12,10 +12,13 @@ return array(
 	| attempting to get access to protected areas of your application.
 	|
 	| Supported: "database", "eloquent"
+    |
+    | Or "varaa-legacy" which is a custom driver with support for old password.
+    | The stored data is just a md5 hash which should be replaced asap.
 	|
 	*/
 
-    'driver' => 'eloquent',
+    'driver' => 'varaa-legacy',
 
     /*
 	|--------------------------------------------------------------------------

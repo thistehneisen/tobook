@@ -15,7 +15,9 @@ class BookingCest
     use Models;
 
     protected $endpoint = '/api/v1.0/as/bookings';
-    protected $category = null;
+
+    // commented out to avoid conflict with Test\Traits\Models::$category
+    // protected $category = null;
 
     public function _before(ApiTester $I)
     {

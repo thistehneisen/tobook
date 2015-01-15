@@ -85,6 +85,8 @@ trait Booking
                     $I->assertEquals($bookingService->end_at, $bookingServiceData['end_at'], "\$bookingServiceData['end_at']");
                     $I->assertEquals($bookingService->calculateServiceLength(), $bookingServiceData['duration'], "\$bookingServiceData['duration']");
 
+                    $I->assertEquals(!!$bookingService->is_requested_employee, $bookingServiceData['is_requested_employee'], "\$bookingServiceData['is_requested_employee']");
+
                     $bookingServiceDataFound = true;
                 }
             }
@@ -111,6 +113,8 @@ trait Booking
             $I->assertTrue($bookingExtraServiceDataFound, 'extra service: ' . $bookingExtraService->extraService->name);
             $length += $bookingExtraService->extraService->length;
         }
+
+        $I->assertEquals(count($booking->getBookingResources()), count($bookingData['booking_resources']), "count(\$bookingData['booking_resources'])");
 
         $I->assertEquals('', $bookingData['booking_notes'], "\$bookingData['booking_notes']");
         $I->assertEquals(\App\Appointment\Models\Booking::getStatusByValue($booking->status), $bookingData['booking_status'], "\$bookingData['booking_status']");

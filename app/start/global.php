@@ -152,3 +152,9 @@ App::before(function ($request) {
 |
 */
 require app_path().'/events.php';
+
+// use varaa-legacy auth driver for old password support
+Auth::extend('varaa-legacy', function($app) {
+    $model = $app['config']['auth.model'];
+    return new App\Core\UserProvider($app['hash'], $model);
+});
