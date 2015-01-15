@@ -23,6 +23,7 @@ class Services extends AsBase
         'langPrefix' => 'as.services',
         'layout' => 'modules.as.layout',
         'showTab' => true,
+        'bulkActions' => [],
         'indexFields' => [
             'name', 'employees', 'price', 'during', 'length', 'category', 'is_active'
         ],

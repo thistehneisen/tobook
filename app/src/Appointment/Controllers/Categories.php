@@ -5,13 +5,19 @@ use App\Appointment\Models\ServiceCategory;
 
 class Categories extends AsBase
 {
-    use App\Appointment\Traits\Crud;
-
+    use \CRUD;
     protected $viewPath = 'modules.as.services.category';
-    protected $langPrefix = 'as.services.categories';
-    protected $modelClass = 'App\Appointment\Models\ServiceCategory';
-    protected $crudSortable = true;
-    protected $bulkActions = [];
+    protected $crudOptions = [
+        'modelClass' => 'App\Appointment\Models\ServiceCategory',
+        'langPrefix' => 'as.services.categories',
+        'layout' => 'modules.as.layout',
+        'showTab' => true,
+        'bulkActions' => [],
+        'crudSortable' => true,
+        'indexFields' => [
+            'name', 'description', 'is_show_front',
+        ],
+    ];
 
     /**
      * {@inheritdoc}
