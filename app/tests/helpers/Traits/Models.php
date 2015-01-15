@@ -48,6 +48,11 @@ trait Models
         ]);
         $this->user->password = 123456;
         $this->user->password_confirmation = 123456;
+
+        // for legacy tests
+        $this->user->username = 'user_' . time();
+        $this->user->old_password = md5('654321');
+
         $this->user->confirmed = 1;
         $this->user->save();
         $this->user->attachRole(Role::user());
