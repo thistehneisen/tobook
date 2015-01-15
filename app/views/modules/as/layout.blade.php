@@ -66,7 +66,6 @@
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="{{ route('as.employees.index') }}">{{ trans('as.employees.all') }}</a></li>
-                        <li><a href="{{ route('as.employees.upsert') }}">{{ trans('as.employees.add') }}</a></li>
                         <li><a href="{{ route('as.employees.customTime') }}">{{ trans('as.employees.workshift_planning') }}</a></li>
                         <li><a href="{{ route('as.employees.employeeCustomTime.summary') }}">{{ trans('as.employees.workshift_summary') }}</a></li>
                     </ul>
