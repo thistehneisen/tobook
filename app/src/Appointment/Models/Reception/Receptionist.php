@@ -496,6 +496,9 @@ abstract class Receptionist implements ReceptionistInterface
 
     public function getResponseData()
     {
+
+        $this->setBookingService();
+
         if(empty($this->price)) {
             $this->computeTotalPrice();
         }
@@ -503,9 +506,10 @@ abstract class Receptionist implements ReceptionistInterface
         $this->bookingService = BookingService::find($this->bookingServiceId);
 
         $data = [
-            'datetime'           => $this->startTime->toDateTimeString(),
+            'datetime'           => $this->startTime->toDateString(),
             'booking_service_id' => $this->bookingServiceId,
             'booking_id'         => $this->bookingId,
+            'start_time'         => $this->startTime->format('H:i'),
             'price'              => $this->price,
             'category_id'        => $this->service->category->id,
             'service_id'         => $this->service->id,

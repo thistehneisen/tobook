@@ -38,8 +38,8 @@ class BackendReceptionist extends Receptionist
             ->whereNull('deleted_at')->orderBy('start_at')->first();
 
         if(!empty($first)) {
-            $first->startTime = $booking->startTime;
-            $first->endTime = $booking->startTime->copy()->addMinutes($first->calculcateTotalLength());
+            $first->start_at = (!empty($booking)) ? $booking->startTime->toTimeString() : $this->startTime->toTimeString();
+            $first->end_at = $first->startTime->copy()->addMinutes($first->calculcateTotalLength())->toTimeString();
             $first->save();
 
             $bookingServices = BookingService::where('tmp_uuid', $this->uuid)
@@ -62,9 +62,9 @@ class BackendReceptionist extends Receptionist
                 }
 
                 if(!empty($lastBookingService) && $bookingService->id !== $lastBookingService->id){
-                    $bookingService->startTime = $lastBookingService->endTime;
-                    $bookingService->endTime = $lastBookingService->endTime
-                        ->copy()->addMinutes($bookingService->calculcateTotalLength());
+                    $bookingService->start_at = $lastBookingService->endTime->toTimeString();
+                    $bookingService->end_at = $lastBookingService->endTime
+                        ->copy()->addMinutes($bookingService->calculcateTotalLength())->toTimeString();
                     $bookingService->save();
                 }
             }

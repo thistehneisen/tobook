@@ -259,6 +259,7 @@
             var $services = $('#service_categories');
             $services.val($services.find('option:eq(1)').val()).trigger('change');
             $('#added_services').find('tbody').find('tr').removeAttr('style');
+            $('#btn-add-service').text($(this).data('add-text'));
         });
 
         $doc.on('click', '.btn-delete-booking-service', function (e) {
@@ -266,11 +267,12 @@
             var booking_service_id = $(this).data('booking-service-id'),
                 booking_id = $(this).data('booking-id'),
                 uuid = $(this).data('uuid'),
+                start_time = $(this).data('start-time'),
                 $table = $('#added_services');
             dataStorage.booking_service_id = booking_service_id;
             dataStorage.booking_id = booking_id;
             dataStorage.uuid = uuid;
-
+            dataStorage.start_time = start_time;
             $.ajax({
                 type: 'POST',
                 url: $('#delete_booking_service_url').val(),
@@ -353,6 +355,7 @@
                     'class' : 'btn-delete-booking-service',
                     'data-booking-service-id': data.booking_service_id,
                     'data-booking-id': data.booking_id,
+                    'data-start-time': data.start_time,
                     'data-uuid': data.uuid,
                 }).append('<i class="fa fa-trash"></i>').appendTo($td);
             }

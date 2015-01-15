@@ -481,18 +481,22 @@ class Bookings extends AsBase
         try {
             if (Request::ajax() === true) {
                 $uuid             = Input::get('uuid', 0);
+                $startTime        = Input::get('start_time');
                 $bookingId        = Input::get('booking_id', 0);
                 $bookingServiceId = Input::get('booking_service_id', 0);
                 $bookingService   = BookingService::find($bookingServiceId);
+                $date = $bookingService->date;
                 $bookingService->delete();
 
                 $receptionist = new BackendReceptionist();
                 $receptionist->setUUID($uuid);
+                $receptionist->setBookingDate($date);
+                $receptionist->setStartTime($startTime);
                 $receptionist->setBookingId($bookingId);
                 $receptionist->updateBookingServicesTime();
             }
         }catch(\Exception $ex){
-            $data = ['success' => false, 'message' => $ex->getMessage()];
+            $data = ['success' => false, 'message' => $ex->getTrace()];
             return Response::json($data, 500);
         }
         $data = ['success' => true];
