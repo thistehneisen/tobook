@@ -25,10 +25,30 @@ $(function () {
     var $table = $('table.table-crud');
     $table.find('a.btn-danger').click('on', function (e) {
         e.preventDefault();
-        var $this = $(this);
-        if (confirm('{{ trans('olut::olut.confirm') }}')) {
-            window.location = $this.attr('href');
-        }
+        var $this = $(this)
+            url = $this.attr('href');
+
+        @if ($deleteReason)
+            alertify.prompt(
+                '{{ trans('olut::olut.delete_reason') }}',
+                '',
+                '{{ trans('olut::olut.delete_reason_default') }}',
+                function (evt, value) {
+                    alertify.success('OK: ' + value);
+                    if (value !== null) {
+                        url += '?reason='+encodeURI(value);
+                        window.location = url;
+                    }
+                },
+                function () {
+                    alertify.error('{{ trans('olut::olut.cancel') }}');
+                }
+            );
+        @else
+            if (confirm('{{ trans('olut::olut.confirm') }}')) {
+                window.location = url;
+            }
+        @endif
     });
 
     $table.find('input.check-all').on('click', function () {

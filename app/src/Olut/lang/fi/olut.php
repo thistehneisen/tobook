@@ -19,4 +19,7 @@ return [
         'unexpected' => 'An unexpected error has occurred. Please try again later.'
     ],
     'show_all'       => 'Show all',
+    'cancel'         => 'Cancel',
+    'delete_reason'         => 'Miksi haluat poistaa varauksen?',
+    'delete_reason_default' => 'Asiakkaan pyynnöstä',
 ];

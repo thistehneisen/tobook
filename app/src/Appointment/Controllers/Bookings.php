@@ -25,6 +25,7 @@ class Bookings extends AsBase
         'langPrefix' => 'as.bookings',
         'layout' => 'modules.as.layout',
         'showTab' => false,
+        'deleteReason' => true,
         'bulkActions' => [],
         'indexFields' => ['uuid', 'date', 'consumer', 'total', 'notes', 'status'],
         'presenters' => [

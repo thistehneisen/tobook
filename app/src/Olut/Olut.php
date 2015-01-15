@@ -252,6 +252,7 @@ trait Olut
             'bulkActions' => $bulkActions,
             'sortable'    => $this->getOlutOptions('sortable', false),
             'showTab'     => $this->getOlutOptions('showTab', true),
+            'deleteReason'=> $this->getOlutOptions('deleteReason', false),
             'layout'      => $this->getOlutOptions('layout', 'olut::layout'),
             'bartender'   => $bartender,
             'tabsView'    => $tabsView,

@@ -564,6 +564,4 @@ return [
         'success_bulk'   => 'Toiminto toteutettu onnistuneesti!',
         'sortable'       => 'Järjestä sarakkeet uudelleen nappaamalla kiinni haluamastasi sarakkeesta, ja vetämällä sitä hiirellä ylös tai alas!',
     ],
-    'delete_reason'         => 'Miksi haluat poistaa varauksen?',
-    'delete_reason_default' => 'Asiakkaan pyynnöstä',
 ];
