@@ -161,7 +161,7 @@ return [
     ],
     'services' => [
         'heading'       => 'Palvelut',
-        'edit'          => 'Muokkaa palvelua',//@todo
+        'edit'          => 'Muokkaa palvelua',
         'categories' => [
             'all'           => 'Kaikki kategoriat',
             'add'           => 'Lisää kategoria',
@@ -222,7 +222,7 @@ return [
         'extra'        => 'Lisäpalvelut',
         'employees'    => 'Työntekijät',
         'no_employees' => 'Työntekijää ei ole valittu',
-        'no_name'      => 'Untitled',//@todo
+        'no_name'      => 'Untitled',
         'error'         => [
             'service_current_in_use' => 'Valitsemasi palvelu on käytössä. Ole hyvä ja poista kaikki kyseisen palvelun varaukset ennen palvelun poistamista.'
         ]
@@ -322,7 +322,7 @@ return [
         'description'                      => 'Kuvaus',
         'is_subscribed_email'              => 'Työntekijän sähköpostivahvistukset käytössä',
         'is_subscribed_sms'                => 'Työntekijän tekstiviestivahvistukset käytössä',
-        'is_received_calendar_invitation'  => 'Is received calendar invitation',//@todo
+        'is_received_calendar_invitation'  => 'Is received calendar invitation',
         'services'                         => 'Palvelut',
         'status'                           => 'Tila',
         'is_active'                        => 'Tila',
@@ -452,23 +452,12 @@ return [
             'bookable_date'                                  => 'Varattava päivä',
             'status_if_paid'                                 => 'Oletustila maksetuille varauksille',
             'status_if_not_paid'                             => 'Oletustila maksamattomille varauksille',
-            'bf_address_1'                                   => 'Osoite 1',
-            'bf_address_2'                                   => 'Osoite 2',
-            'bf_captcha'                                     => 'Tunniste',
-            'bf_city'                                        => 'Kaupunki',
-            'bf_country'                                     => 'Maa',
-            'bf_email'                                       => 'Sähköposti',
-            'bf_name'                                        => 'Nimi',
-            'bf_notes'                                       => 'Muistiinpanoja',
-            'bf_phone'                                       => 'Puhelinnumero',
-            'bf_state'                                       => 'Kunta',
-            'bf_terms'                                       => 'Ehdot',
-            'bf_zip'                                         => 'Postinumero',
             'notes'                                          => 'Lisätiedot',
             'address'                                        => 'Osoite',
             'city'                                           => 'Kaupunki',
             'postcode'                                       => 'Postinumero',
             'country'                                        => 'Maa',
+            'email'                                          => 'Sähköposti',
             'reminder_enable'                                => 'Muistutusviestit käytössä',
             'reminder_email_before'                          => 'Lähetä muistutus sähköpostilla',
             'reminder_subject'                               => 'Muistutussähköpostiviestin otsikko',
@@ -514,7 +503,7 @@ return [
             'payment_tokens_employee'                        => 'Viestin sisältö',
             'payment_tokens_employee_default'                => $paymentTokensEmployee,
             'terms_enabled'                                  => 'Ehdot käytössä',
-            'default_nat_service'                            => 'Default next available service',//@todo
+            'default_nat_service'                            => 'Default next available service',
         ],
         'style' => [
             'heading'                           => '',

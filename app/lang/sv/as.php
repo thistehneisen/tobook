@@ -80,7 +80,7 @@ Välkommen!
 Tjänsten tillhandahålls av ClearSense
 HTML;
 
-// @todo
+
 $paymentTokensClient = <<< HTML
 Vi har mottagit betalning och bekräftat din bokning.
 
@@ -108,7 +108,7 @@ Ytterligare information:
 {Notes}
 HTML;
 
-// @todo
+
 $paymentTokensAdmin = <<< HTML
 Depositionen för bokningen är betald.
 
@@ -134,14 +134,14 @@ Ytterligare information:
 {Notes}
 HTML;
 
-// @todo
+
 $paymentTokensEmployee = <<< HTML
 Depositionen för bokningen är betald.
 
 ID: {BookingID}
 HTML;
 
-// @todo
+
 $cancelMessage = <<< HTML
 Du har avbokat bokning {BookingID}
 
@@ -151,7 +151,7 @@ HTML;
 return [
     'index' => [
         'heading'       => 'Välkommen',
-        'description'   => 'Du kan se kalender och bokningar för alla i personalen. Grönt indikerar lediga tider och grått indikerar att tiden inte går att boka.', // @todo
+        'description'   => 'Du kan se kalender och bokningar för alla i personalen. Grönt indikerar lediga tider och grått indikerar att tiden inte går att boka.',
         'today'         => 'Idag',
         'tomorrow'      => 'Imorgon',
         'print'         => 'Skriv ut',
@@ -159,8 +159,8 @@ return [
     ],
     'services' => [
         'heading'       => 'Tjänster',
-        'edit'          => 'Redigera tjänst',//@todo
-        'custom_time'   => 'Anpassad tid',//@todo
+        'edit'          => 'Redigera tjänst',
+        'custom_time'   => 'Anpassad tid',
         'categories' => [
             'all'           => 'Alla kategorier',
             'add'           => 'Lägg till ny kategori',
@@ -194,8 +194,8 @@ return [
             'msg_extra'   => 'Vill du reservera?',
         ],
         'all'          => 'Alla tjänster',
-        'index'        => 'Tjänster', // @todo
-        'desc'         => 'Här kan du redigera eller lägga till nya tjänster.', // @todo
+        'index'        => 'Tjänster',
+        'desc'         => 'Här kan du redigera eller lägga till nya tjänster.',
         'add'          => 'Lägg till ny tjänst',
         'add_desc'     => 'Lägg till ny personal genom att ange namn och beskrivning. Du kan också koppla tjänster till din personal.',
         'name'         => 'Namn',
@@ -213,7 +213,7 @@ return [
         'extra'        => 'Tilläggstjänst',
         'employees'    => 'Personal',
         'no_employees' => 'Det finns ingen personal att välja',
-        'no_name'      => 'Untitled',//@todo
+        'no_name'      => 'Untitled',
         'error'        => [
             'service_current_in_use' => 'Den här tjänsten används. Radera alla relaterade bokningar och ta sedan bort tjänsten.'
         ]
@@ -246,7 +246,7 @@ return [
         'services'          => 'Tjänster',
         'service_time'      => 'Service time',
         'modify_time'       => 'Modify time',
-        'plustime'          => 'Plustime', // @todo
+        'plustime'          => 'Plustime',
         'modify_duration'   => 'Modify duration',
         'employee'          => 'Employee',
         'notes'             => 'Anteckingar',
@@ -276,18 +276,18 @@ return [
         'own_customer'      => 'Egen kund',
         'request_employee'  => 'Önskat personal',
         'error'             => [
-            'add_overlapped_booking'   => 'Tiden för bokningen överlappar!',// @todo
-            'insufficient_slots'       => 'Det finns inte tillräckligt med ledig tid för den här bokningen!',// @todo
-            'invalid_consumer_info'    => 'Kunde inte spara kundinformation',// @todo
-            'terms'                    => 'Du måste godkänna villkoren för att komma vidare.',//@todo
-            'service_empty'            => 'Välj tjänst och tid!',//@todo
-            'unknown'                  => 'Oj! Något gick snett. Vänligen försök igen.',//@todo
-            'exceed_current_day'       => 'Tiden för bokningen kan inte sträcka sig utanför dagens öppettider',//@todo
-            'overllapped_with_freetime'=> 'Bokningen krockar med ej bokningsbar tid.',//@todo
-            'empty_total_time'         => 'Bokningen måste vara i minst 1 minut.',//@todo
-            'uuid_notfound'            => 'Kunde inte hitta boknings ID', //@todo
-            'not_enough_slots'         => 'Bokningen krockar med annan bokning, eller så finns inte tillräckligt med bokningsbar tid.', //@todo
-            'employee_not_servable'    => 'Den här personen kan ej bokas för den här tjänsten.', //@todo
+            'add_overlapped_booking'   => 'Tiden för bokningen överlappar!',
+            'insufficient_slots'       => 'Det finns inte tillräckligt med ledig tid för den här bokningen!',
+            'invalid_consumer_info'    => 'Kunde inte spara kundinformation',
+            'terms'                    => 'Du måste godkänna villkoren för att komma vidare.',
+            'service_empty'            => 'Välj tjänst och tid!',
+            'unknown'                  => 'Oj! Något gick snett. Vänligen försök igen.',
+            'exceed_current_day'       => 'Tiden för bokningen kan inte sträcka sig utanför dagens öppettider',
+            'overllapped_with_freetime'=> 'Bokningen krockar med ej bokningsbar tid.',
+            'empty_total_time'         => 'Bokningen måste vara i minst 1 minut.',
+            'uuid_notfound'            => 'Kunde inte hitta boknings ID',
+            'not_enough_slots'         => 'Bokningen krockar med annan bokning, eller så finns inte tillräckligt med bokningsbar tid.',
+            'employee_not_servable'    => 'Den här personen kan ej bokas för den här tjänsten.',
             'id_not_found'             => 'Kunde inte hitta bokningen',
             'start_time'               => 'Fel starttid',
             'service_time_invalid'     => 'Tid för den här tjänsten kunde inte hittas.',
@@ -300,10 +300,10 @@ return [
             'past_booking'             => 'Tiden eller datumet för bokningen har passerat!'
         ],
         'warning'      => [
-            'existing_user'   => 'Det finns redan en användare med den här e-postadressen. Vill du använda den istället?',// @todo
+            'existing_user'   => 'Det finns redan en användare med den här e-postadressen. Vill du använda den istället?',
         ],
         'stat' => [
-            'monthly'      => 'Månadssammanställning', // @todo
+            'monthly'      => 'Månadssammanställning',
             'bookings'     => 'Bokningar',
             'revenue'      => 'Intäkter',
             'working_time' => 'Arbetstid',
@@ -406,10 +406,10 @@ return [
             'service'         => 'Tjänst',
             'employee'        => 'Personal',
             'name'            => 'Ditt namn',
-            'notes'           => 'Anteckningar', //@todo
-            'postcode'        => 'Postnummer', //@todo
+            'notes'           => 'Anteckningar',
+            'postcode'        => 'Postnummer',
             'empty'           => 'Det finns inga tillgängliga tider den valda dagen.',
-            'payment_note'    => 'När bokningen är gjord kommer du att skickas vidare till kassan.', // @todo
+            'payment_note'    => 'När bokningen är gjord kommer du att skickas vidare till kassan.',
         ]
     ],
      'options' => [
@@ -429,101 +429,90 @@ return [
             'timezone'        => 'Tidszon',
             'week_numbers'    => 'Veckonummer',
             'week_start'      => 'Visa veckonummer?',
-            'phone_number'    => 'Telefonnummer SMS', // @todo
-            'business_name'   => 'Företagsnamn', // @todo
+            'phone_number'    => 'Telefonnummer SMS',
+            'business_name'   => 'Företagsnamn',
         ],
         'booking'   => [
-            'heading'                                        => '', // @todo
-            'info'                                           => '', // @todo
-            'index'                                          => 'Bokningar',// @todo
+            'heading'                                        => '',
+            'info'                                           => '',
+            'index'                                          => 'Bokningar',
             'booking_form'                                   => 'Bokningsformulär',
             'reminders'                                      => 'Påminnelse',
-            'confirmations'                                  => 'Bekräftelse',// @todo
-            'terms'                                          => 'Villkor',// @todo
-            'confirmed'                                      => 'Bekräftad',// @todo
-            'pending'                                        => 'Ej bekräftad',// @todo
-            'accept_bookings'                                => 'Godkänn bokningar',// @todo
-            'hide_prices'                                    => 'Dölj priser',// @todo
-            'step'                                           => 'Steg',// @todo
-            'bookable_date'                                  => 'Bokningsbart datum',  // @todo
-            'status_if_paid'                                 => 'Default mode for paid bookings',// @todo
-            'status_if_not_paid'                             => 'Default mode for unpaid bookings',// @todo
-            'bf_address_1'                                   => 'Adress 1',
-            'bf_address_2'                                   => 'Adress 2',
-            'bf_captcha'                                     => 'Captcha',
-            'bf_city'                                        => 'Ort',
-            'bf_country'                                     => 'Land',
-            'bf_email'                                       => 'E-post',
-            'bf_name'                                        => 'Namn',
-            'bf_notes'                                       => 'Anteckningar',
-            'bf_phone'                                       => 'Telefon',
-            'bf_state'                                       => 'Stat',
-            'bf_terms'                                       => 'Villkor',
-            'bf_zip'                                         => 'Postnummer',
-            'notes'                                          => 'Anteckingar', // @todo
-            'address'                                        => 'Adress', // @todo
-            'city'                                           => 'Ort', // @todo
-            'postcode'                                       => 'Postnummer', // @todo
-            'country'                                        => 'Land', // @todo
+            'confirmations'                                  => 'Bekräftelse',
+            'terms'                                          => 'Villkor',
+            'confirmed'                                      => 'Bekräftad',
+            'pending'                                        => 'Ej bekräftad',
+            'accept_bookings'                                => 'Godkänn bokningar',
+            'hide_prices'                                    => 'Dölj priser',
+            'step'                                           => 'Steg',
+            'bookable_date'                                  => 'Bokningsbart datum',
+            'status_if_paid'                                 => 'Default mode for paid bookings',
+            'status_if_not_paid'                             => 'Default mode for unpaid bookings',
+            'notes'                                          => 'Anteckingar',
+            'address'                                        => 'Adress',
+            'city'                                           => 'Ort',
+            'postcode'                                       => 'Postnummer',
+            'country'                                        => 'Land',
+            'email'                                          => 'E-post',
             'reminder_enable'                                => 'Aktivera notiser/påminnelser',
             'reminder_email_before'                          => 'Skicka påminnelse via e-post',
             'reminder_subject'                               => 'Ämne för påminnelse',
-            'reminder_subject_default'                       => 'Påminnelse om din bokning',// @todo
+            'reminder_subject_default'                       => 'Påminnelse om din bokning',
             'reminder_body'                                  => 'Meddelande för påminnelse',
-            'reminder_body_default'                          => $reminderBody,// @todo
+            'reminder_body_default'                          => $reminderBody,
             'reminder_sms_hours'                             => 'Skicka påminnelse via SMS',
             'reminder_sms_country_code'                      => 'SMS landskod (t.ex. +46)',
             'reminder_sms_message'                           => 'SMS Meddelande',
             'reminder_sms_message_default'                   => $reminderSmsMessage,
-            'terms_url'                                      => 'Bokningsvillkor URL',// @todo
-            'terms_body'                                     => 'Bokningsvillkor innehåll', // @todo
-            'terms_body_default'                             => $termBody,// @todo
-            'confirm_subject_client'                         => 'Bekräftelse till kund - Rubrik',// @todo
-            'confirm_subject_client_default'                 => 'Tack för din bokning',// @todo
-            'confirm_tokens_client'                          => 'Innehåll e-post',// @todo
-            'confirm_tokens_client_default'                  => $confirmTokensClient,// @todo
-            'confirm_email_enable'                           => 'Aktivera e-post',// @todo
-            'confirm_sms_enable'                             => 'Aktivera SMS',// @todo
-            'confirm_sms_country_code'                       => 'Kod',// @todo
-            'confirm_consumer_sms_message'                   => 'Kund SMS',// @todo
-            'confirm_employee_sms_message'                   => 'Personal SMS',// @todo
+            'terms_url'                                      => 'Bokningsvillkor URL',
+            'terms_body'                                     => 'Bokningsvillkor innehåll',
+            'terms_body_default'                             => $termBody,
+            'confirm_subject_client'                         => 'Bekräftelse till kund - Rubrik',
+            'confirm_subject_client_default'                 => 'Tack för din bokning',
+            'confirm_tokens_client'                          => 'Innehåll e-post',
+            'confirm_tokens_client_default'                  => $confirmTokensClient,
+            'confirm_email_enable'                           => 'Aktivera e-post',
+            'confirm_sms_enable'                             => 'Aktivera SMS',
+            'confirm_sms_country_code'                       => 'Kod',
+            'confirm_consumer_sms_message'                   => 'Kund SMS',
+            'confirm_employee_sms_message'                   => 'Personal SMS',
             'confirm_consumer_body_sms_message_default'      => $confirmConsumerMessage,
             'confirm_employee_body_sms_message_default'      => $confirmEmployeeMessage,
             'payment_subject_client'                         => 'Rubrik betalningsmeddelande',
-            'payment_subject_client_default'                 => 'Betalning mottagen', // @todo
+            'payment_subject_client_default'                 => 'Betalning mottagen',
             'payment_tokens_client'                          => 'E-post meddelande',
             'payment_tokens_client_default'                  => $paymentTokensClient,
-            'confirm_subject_admin'                          => 'Bekräftelse till admin - Rubrik',// @todo
-            'confirm_subject_admin_default'                  => 'Ny bokning',// @todo
-            'confirm_tokens_admin'                           => 'E-post meddelande',// @todo
-            'confirm_tokens_admin_default'                   => $confirmTokensAdmin,// @todo
+            'confirm_subject_admin'                          => 'Bekräftelse till admin - Rubrik',
+            'confirm_subject_admin_default'                  => 'Ny bokning',
+            'confirm_tokens_admin'                           => 'E-post meddelande',
+            'confirm_tokens_admin_default'                   => $confirmTokensAdmin,
             'payment_subject_admin'                          => 'Betalning admin - Rubrik',
-            'payment_subject_admin_default'                  => 'Ny betalning mottagen', // @todo
+            'payment_subject_admin_default'                  => 'Ny betalning mottagen',
             'payment_tokens_admin'                           => 'Innehåll e-post',
-            'payment_tokens_admin_default'                   => $paymentTokensAdmin,// @todo
-            'confirm_subject_employee'                       => 'Bekräftelse personal - Rubrik',// @todo
-            'confirm_subject_employee_default'               => 'Ny bokning',// @todo
-            'confirm_tokens_employee'                        => 'Innehåll e-post',// @todo
-            'confirm_tokens_employee_default'                => $confirmTokensEmployee,// @todo
+            'payment_tokens_admin_default'                   => $paymentTokensAdmin,
+            'confirm_subject_employee'                       => 'Bekräftelse personal - Rubrik',
+            'confirm_subject_employee_default'               => 'Ny bokning',
+            'confirm_tokens_employee'                        => 'Innehåll e-post',
+            'confirm_tokens_employee_default'                => $confirmTokensEmployee,
             'payment_subject_employee'                       => 'Rubrik betalning personal',
-            'payment_subject_employee_default'               => 'Ny betalning mottagen', // @todo
+            'payment_subject_employee_default'               => 'Ny betalning mottagen',
             'payment_tokens_employee'                        => 'E-post meddelande',
-            'payment_tokens_employee_default'                => $paymentTokensEmployee,// @todo
+            'payment_tokens_employee_default'                => $paymentTokensEmployee,
             'terms_enabled'                                  => 'Aktivera villkor',
             'default_nat_service'                            => 'Nästa tillgängliga tjänst',
         ],
         'style' => [
-            'heading'                           => '', // @todo
-            'info'                              => '', // @todo
+            'heading'                           => '',
+            'info'                              => '',
             'index'                             => 'Utseende',
             'style_logo'                        => 'Logotyp URL',
             'style_banner'                      => 'Banner',
-            'style_heading_color'               => 'Textfärg Rubrik', // @todo
+            'style_heading_color'               => 'Textfärg Rubrik',
             'style_text_color'                  => 'Textfärg',
             'style_background'                  => 'Bakgrundsfärg',
-            'style_custom_css'                  => 'Anpassad CSS', // @todo
-            'style_main_color'                  => 'Huvudsaklig färg', // @todo
-            'style_heading_background'          => 'Rubrik bakgrund', // @todo
+            'style_custom_css'                  => 'Anpassad CSS',
+            'style_main_color'                  => 'Huvudsaklig färg',
+            'style_heading_background'          => 'Rubrik bakgrund',
         ],
         'working_time' => [
             'index' => 'Arbetstid',

@@ -33,7 +33,7 @@ return [
         'buy'             => 'Osta',
         'book'            => 'Varaa',
         'geo'             => [
-            // @todo
+
             'info' => 'We will ask for your current location to display results that are close to you.'
         ]
     ],

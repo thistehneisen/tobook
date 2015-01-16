@@ -2,7 +2,7 @@
 return [
     'admin' => 'Admin',
     'nav' => [
-        'admin'       => 'New admin', // @todo
+        'admin'       => 'New admin',
         'users'       => 'Käyttäjät',
         'settings'    => 'Asetukset',
         'modules'     => 'Moduulit',
@@ -47,10 +47,10 @@ return [
         ]
     ],
     'commissions'        => [
-        'index'  => 'Commissions', // @todo
-        'done'   => 'Commission has been saved', // @todo
-        'fail'   => 'Cannot save data. Please check your input and try again.', // @todo
-        'amount' => 'Amount', // @todo
-        'note'   => 'Note (optional)', // @todo
+        'index'  => 'Commissions',
+        'done'   => 'Commission has been saved',
+        'fail'   => 'Cannot save data. Please check your input and try again.',
+        'amount' => 'Amount',
+        'note'   => 'Note (optional)',
     ],
 ];

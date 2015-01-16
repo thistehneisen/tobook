@@ -39,8 +39,8 @@ return [
     'delete'                => 'Poista',
     'continue'              => 'Jatka',
     'cancel'                => 'Peruuta',
-    'cut'                   => 'Leikkaa',//@todo
-    'paste'                 => 'Liitä',//@todo
+    'cut'                   => 'Leikkaa',
+    'paste'                 => 'Liitä',
     'active'                => 'Aktiivinen',
     'inactive'              => 'Ei aktiivinen',
     'mon'                   => 'Maanantai',
@@ -81,7 +81,7 @@ return [
     'first_name'            => 'Etunimi',
     'last_name'             => 'Sukunimi',
     'email'                 => 'Sähköposti',
-    'password'              => 'Password', // @todo
+    'password'              => 'Password',
     'phone'                 => 'Puhelin numero',
     'address'               => 'Osoite',
     'city'                  => 'Postitoimipaikka',
@@ -103,7 +103,7 @@ return [
     'normal'                => 'Normaali',
     'discount'              => 'Alennus',
     'book'                  => 'Varaa',
-    'submit'                => 'Hyväksy', // @todo
+    'submit'                => 'Hyväksy',
     'short' => [
         'week'=> 'vko',
         'mon' => 'Ma',

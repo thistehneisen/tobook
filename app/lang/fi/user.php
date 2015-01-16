@@ -2,8 +2,8 @@
 return [
     'all'                    => 'Kaikki käyttäjät',
     'add'                    => 'Lisää käyttäjiä',
-    'deleted'                => 'Deleted users', // @todo
-    'restore'                => 'Restore', // @todo
+    'deleted'                => 'Deleted users',
+    'restore'                => 'Restore',
     'edit'                   => 'Muokkaa',
     'activate'               => 'Activate',
     'deactivate'             => 'Deactivate',
@@ -43,12 +43,12 @@ return [
     'business_name'          => 'Yrityksen nimi',
     'password_reminder' => [
         'reset' => [
-            'heading' => 'Salasanasi on resetoitu', // @todo
-            'body'    => 'Uusi salasanasi on :password', // @todo
+            'heading' => 'Salasanasi on resetoitu',
+            'body'    => 'Uusi salasanasi on :password',
         ],
         'created' => [
-            'heading' => 'Uusi tunnus on luotu', // @todo
-            'body' => 'Salasanasi on :password', // @todo
+            'heading' => 'Uusi tunnus on luotu',
+            'body' => 'Salasanasi on :password',
         ]
     ],
     'business' => [
@@ -62,10 +62,10 @@ return [
         'postcode'         => 'Postinumero',
         'country'          => 'Maa',
         'note'             => 'Huomautus',
-        'meta_title'       => 'Meta title', // @todo
-        'meta_description' => 'Meta description', // @todo
-        'meta_keywords'    => 'Meta keywords', // @todo
-        'bank_account'     => 'Bank account', // @todo
+        'meta_title'       => 'Meta title',
+        'meta_description' => 'Meta description',
+        'meta_keywords'    => 'Meta keywords',
+        'bank_account'     => 'Bank account',
         'sizes'            => [
             '1',
             '2-3',

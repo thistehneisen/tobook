@@ -14,7 +14,7 @@ return [
         'quantity'             => 'Määrä',
         'description'          => 'Kuvaus',
         'business_category_id' => 'Kategoria',
-        'deleted'              => 'Poistettu palvelu', // @todo
+        'deleted'              => 'Poistettu palvelu',
     ],
     'coupons' => [
         'index'            => 'Tarjous',

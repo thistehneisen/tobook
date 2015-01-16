@@ -14,7 +14,7 @@ return [
         'quantity'             => 'Quantity',
         'description'          => 'Description',
         'business_category_id' => 'Business category',
-        'deleted'              => 'Deleted service', // @todo
+        'deleted'              => 'Deleted service',
     ],
     'coupons' => [
         'index'            => 'Coupons',
