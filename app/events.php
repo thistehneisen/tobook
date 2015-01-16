@@ -7,3 +7,5 @@ Event::listen('payment.cancelled', 'App\FlashDeal\Listeners\PaymentCancelledList
 
 Event::listen('cart.removed', 'App\Appointment\Listeners\CartRemovedListener');
 Event::listen('cart.removed', 'App\FlashDeal\Listeners\CartRemovedListener');
+
+Event::listen('employee.calendar.invitation.send', 'App\Appointment\Listeners\EmployeeCalendarInvidationListener');

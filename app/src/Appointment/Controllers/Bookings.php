@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Controllers;
 
-use App, View, Confide, Redirect, Input, Config, Response, DB, Cart;
+use App, View, Confide, Redirect, Input, Config, Response, DB, Cart, Event;
 use Util, Hashids, Session, Request, Mail, Sms;
 use Carbon\Carbon;
 use App\Core\Models\User;
@@ -511,6 +511,8 @@ class Bookings extends AsBase
                 ->setSource('backend');
 
             $booking = $receptionist->upsertBooking();
+
+            Event::fire('employee.calendar.invitation.send', array($booking));
 
             $data['success']     = true;
             $data['baseURl']     = route('as.index');

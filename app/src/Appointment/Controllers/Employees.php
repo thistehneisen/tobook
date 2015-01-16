@@ -55,13 +55,14 @@ class Employees extends AsBase
     {
         // Fill general information
         $item->fill([
-            'name'                => Input::get('name'),
-            'email'               => Input::get('email'),
-            'phone'               => Input::get('phone'),
-            'description'         => Input::get('description'),
-            'is_subscribed_email' => Input::get('is_subscribed_email', false),
-            'is_subscribed_sms'   => Input::get('is_subscribed_sms', false),
-            'is_active'           => Input::get('is_active')
+            'name'                            => Input::get('name'),
+            'email'                           => Input::get('email'),
+            'phone'                           => Input::get('phone'),
+            'description'                     => Input::get('description'),
+            'is_subscribed_email'             => Input::get('is_subscribed_email', false),
+            'is_subscribed_sms'               => Input::get('is_subscribed_sms', false),
+            'is_received_calendar_invitation' => Input::get('is_received_calendar_invitation', false),
+            'is_active'                       => Input::get('is_active')
         ]);
 
         // Update data

@@ -71,6 +71,9 @@ $(function () {
             <div class="col-sm-5">
                 {{ Form::textarea('description', (isset($employee)) ? $employee->description:'', ['class' => 'form-control input-sm', 'id' => 'description']) }}
             </div>
+            <div class="checkbox col-sm-5">
+                <label> {{ Form::checkbox('is_received_calendar_invitation', 1, (isset($employee)) ? $employee->is_received_calendar_invitation: false ); }} {{  trans('as.employees.is_received_calendar_invitation') }} {{ Form::required('is_received_calendar_invitation', $employee) }}</label>
+            </div>
         </div>
          <div class="form-group">
             <label class="col-sm-2 control-label">{{  trans('as.employees.services') }} {{ Form::required('services', $employee) }}</label>
