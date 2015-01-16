@@ -189,7 +189,9 @@ class Cart extends \AppModel
         $total = 0.0;
         if ($this->details !== null) {
             foreach ($this->details as $detail) {
-                $total += $detail->quantity * $detail->price;
+                if ($detail->model !== null) {
+                    $total += $detail->quantity * $detail->price;
+                }
             }
         }
 

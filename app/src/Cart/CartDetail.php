@@ -49,6 +49,8 @@ class CartDetail extends \AppModel
 
             if ($model !== null) {
                 $this->model = $model->getCartDetailOriginal();
+            } else {
+                $this->delete();
             }
         }
         return $this->model;
@@ -62,10 +64,10 @@ class CartDetail extends \AppModel
     public function getNameAttribute()
     {
         if ($this->name === null) {
-            // Weird? I know
-            $this->name = $this->getModelAttribute()
-                ->instance
-                ->getCartDetailName();
+            $model = $this->getModelAttribute();
+            if (!empty($model)) {
+                $this->name = $model->instance->getCartDetailName();
+            }
         }
         return $this->name;
     }

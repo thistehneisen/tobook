@@ -4,13 +4,15 @@
 <table class="table table-striped">
     <tbody>
         @foreach ($cart->details as $detail)
-        <tr class="cart-detail" id="cart-detail-{{ $detail->id }}">
-            <td>{{ $detail->name }}</td>
-            <td>{{ $detail->price }}&euro;</td>
-            <td>
-                <a class="js-btn-cart-remove" data-detail-id="{{ $detail->id }}" href="{{ route('cart.remove', ['id' => $detail->id]) }}"><i class="fa fa-close text-danger"></i></a>
-            </td>
-        </tr>
+            @if ($detail->model !== null)
+            <tr class="cart-detail" id="cart-detail-{{ $detail->id }}">
+                <td>{{ $detail->name }}</td>
+                <td>{{ $detail->price }}&euro;</td>
+                <td>
+                    <a class="js-btn-cart-remove" data-detail-id="{{ $detail->id }}" href="{{ route('cart.remove', ['id' => $detail->id]) }}"><i class="fa fa-close text-danger"></i></a>
+                </td>
+            </tr>
+            @endif
         @endforeach
     </tbody>
     <tfoot>
