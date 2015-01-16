@@ -190,7 +190,7 @@ class Services extends AsBase
             'items'      => $serviceTimes,
             'service'    => $service,
             'fields'     => $fields,
-            'langPrefix' => $this->langPrefix,
+            'langPrefix' => $this->crudOptions['langPrefix'],
             'now'        => Carbon::now()
         ]);
     }
