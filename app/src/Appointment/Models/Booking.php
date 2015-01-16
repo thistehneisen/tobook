@@ -534,7 +534,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public function getBookingResources($keyOnly = false)
     {
         if (empty($this->resources)) {
-            if (empty($this->firstBookingService())) {
+            if (empty($this->firstBookingService()) || empty($this->firstBookingService()->service)) {
                 return [];
             }
             $service = $this->firstBookingService()->service;
@@ -736,23 +736,22 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
     /**
      * Return icons for indicating requested employee of booking resources
-     * Using if endif for easy to copy back to the template
      * @return string
      */
     public function getIcons()
     {
         $ouput = '';
-        if (!empty($this->firstBookingService()) && !empty($this->firstBookingService()->service)):
-            if ($this->firstBookingService()->is_requested_employee):
+        if (!empty($this->firstBookingService())) {
+            if ($this->firstBookingService()->is_requested_employee) {
                 $ouput .= '<i class="fa fa-check-square-o"></i>&nbsp;';
-            endif;
-            if ($this->firstBookingService()->service->requireRoom()):
+            }
+            if (!empty($this->firstBookingService()->service) && $this->firstBookingService()->service->requireRoom()) {
                 $ouput .= '<i class="fa fa-square-o"></i>&nbsp;';
-            endif;
-            if (!empty($this->getBookingResources())):
+            }
+            if (!empty($this->getBookingResources())) {
                 $ouput .= '<i class="fa fa-cubes"></i>&nbsp;';
-            endif;
-        endif;
+            }
+        }
 
         return trim($ouput);
     }
