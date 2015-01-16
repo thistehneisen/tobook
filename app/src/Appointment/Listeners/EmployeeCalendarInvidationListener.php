@@ -17,7 +17,7 @@ class EmployeeCalendarInvidationListener
     public function handle($booking)
     {
         //If booking is not valid
-        if(!($booking instanceof Booking)) {
+        if (!($booking instanceof Booking)) {
             return;
         }
 
@@ -26,11 +26,10 @@ class EmployeeCalendarInvidationListener
         $icsFile        = $booking->generateIcsFile();
         $email['title'] = $emailSubject;
         $email['body']  = nl2br($body);
-        $employee = $booking->bookingServices()->first()->employee;
+        $employee       = $booking->firstBookingService()->employee;
 
         if ($employee->is_received_calendar_invitation) {
-            Mail::send('modules.as.emails.confirm', $email, function($message) use($employee, $icsFile, $emailSubject)
-            {
+            Mail::send('modules.as.emails.confirm', $email, function($message) use ($employee, $icsFile, $emailSubject) {
                 $message->to($employee->email, $employee->name)->subject($emailSubject);
                 $message->attach($icsFile, array('mime' => "text/calendar"));
             });

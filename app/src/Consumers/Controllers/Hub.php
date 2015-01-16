@@ -5,7 +5,7 @@ use App\Consumers\Models\Consumer;
 use App\Consumers\Models\Group;
 use App\Consumers\Models\SmsTemplate;
 use App\Core\Controllers\Base;
-use Confide;
+use Confide, Config;
 use DB;
 use Input;
 use Lang;
@@ -304,7 +304,12 @@ class Hub extends Base
         $smsAll = SmsTemplate::ofCurrentUser()->get();
         $smsPairs = [];
         foreach ($smsAll as $sms) {
-            $smsPairs[$sms->id] = sprintf('%s (%s: %s)', $sms->title, trans('co.sms_templates.from_name'), $sms->from_name ?: 'varaa.com');
+            $smsPairs[$sms->id] = sprintf(
+                '%s (%s: %s)',
+                $sms->title,
+                trans('co.sms_templates.from_name'),
+                $sms->from_name ?: Config::get('varaa.name')
+            );
         }
 
         $consumers = $sendAll ? [] : Consumer::ofCurrentUser()->whereIn('id', $ids)->get();

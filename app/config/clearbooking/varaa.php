@@ -1,6 +1,6 @@
 <?php
 return [
-    'name' => 'ClearBooking',
+    'name' => 'ClearSense',
     'languages' => ['sv', 'en', 'fi'],
     'footer' => [
         'copyright' => [

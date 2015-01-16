@@ -3,7 +3,7 @@
 use App\Core\Controllers\Base;
 use App\Consumers\Models\EmailTemplate;
 use App\Consumers\Models\SmsTemplate;
-use Confide;
+use Confide, Config;
 use DB;
 use Input;
 use Lang;
@@ -90,7 +90,12 @@ class Group extends Base
         $smsAll = SmsTemplate::ofCurrentUser()->get();
         $smsPairs = [];
         foreach ($smsAll as $sms) {
-            $smsPairs[$sms->id] = sprintf('%s (%s: %s)', $sms->title, trans('co.sms_templates.from_name'), $sms->from_name ?: 'varaa.com');
+            $smsPairs[$sms->id] = sprintf(
+                '%s (%s: %s)',
+                $sms->title,
+                trans('co.sms_templates.from_name'),
+                $sms->from_name ?: Config::get('varaa.name')
+            );
         }
 
         $groups = \App\Consumers\Models\Group::ofCurrentUser()->whereIn('id', $ids)->get();

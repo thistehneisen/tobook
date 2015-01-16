@@ -512,7 +512,7 @@ class Bookings extends AsBase
 
             $booking = $receptionist->upsertBooking();
 
-            Event::fire('employee.calendar.invitation.send', array($booking));
+            Event::fire('employee.calendar.invitation.send', [$booking]);
 
             $data['success']     = true;
             $data['baseURl']     = route('as.index');

@@ -1,7 +1,7 @@
 <?php
 namespace App\Consumers\Models;
 
-use Sms;
+use Sms, Config;
 
 class SmsTemplate extends \App\Core\Models\Base
 {
@@ -59,8 +59,7 @@ class SmsTemplate extends \App\Core\Models\Base
                 continue;
             }
 
-            // configurable?
-            $from = $sms->from_name ?: 'varaa.com';
+            $from = $sms->from_name ?: Config::get('varaa.name');
 
             Sms::queue($from, $consumer->phone, $sms->content);
             History::quickSave($sms->user, $sms, $consumer, $group);
