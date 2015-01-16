@@ -16,6 +16,11 @@ class EmployeeCalendarInvidationListener
      */
     public function handle($booking)
     {
+        //If booking is not valid
+        if(!($booking instanceof Booking)) {
+            return;
+        }
+
         $emailSubject   = $booking->user->asOptions['confirm_subject_employee'];
         $body           = $booking->getEmailBody();
         $icsFile        = $booking->generateIcsFile();

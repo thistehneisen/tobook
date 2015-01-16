@@ -901,8 +901,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         //add event to canlendar
         $calendar->addComponent($event);
 
-        $tmpfname = tempnam("/tmp", "isc");
-        file_put_contents($tmpfname, $calendar->render());
-        return $tmpfname;
+        $filename = public_path() . '/tmp/' . 'isc_' . $this->startTime->format('YmdHis');
+        file_put_contents($filename, $calendar->render());
+        return $filename;
     }
 }
