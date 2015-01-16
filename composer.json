@@ -19,7 +19,8 @@
         "alfaproject/omnipay-skrill": "2.0.x-dev#2fa2ba8",
         "shift31/laravel-elasticsearch": "1.1",
         "indatus/dispatcher": "1.*",
-        "clowdy/laravel-raven": "0.1.0"
+        "clowdy/laravel-raven": "0.1.0",
+        "eluceo/ical": "0.6.1"
     },
     "require-dev": {
         "codeception/codeception": "2.0.*",

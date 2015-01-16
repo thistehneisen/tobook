@@ -23,6 +23,7 @@ class Employee extends \App\Appointment\Models\Base
         'description',
         'is_subscribed_email',
         'is_subscribed_sms',
+        'is_received_calendar_invitation',
         'is_active'
     ];
 

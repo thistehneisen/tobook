@@ -875,4 +875,34 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         // 2-decimal place
         return round($total * Config::get('varaa.commission_rate'), 2);
     }
+
+    public function getEmailBody()
+    {
+        $body  = $this->user->asOptions['confirm_tokens_employee'];
+        $body  = str_replace('{Services}', $this->getServiceInfo(), $body);
+        $body  = str_replace('{Name}',$this->consumer->name, $body);
+        $body  = str_replace('{BookingID}', $this->uuid, $body);
+        $body  = str_replace('{Phone}', $this->consumer->phone, $body);
+        $body  = str_replace('{Email}', $this->consumer->email, $body);
+        $body  = str_replace('{Notes}', $this->notes, $body);
+        return $body;
+    }
+
+    public function generateIcsFile()
+    {
+        date_default_timezone_set('Europe/Helsinki');
+        $calendar = new \Eluceo\iCal\Component\Calendar('www.varaa.com');
+        $event = new \Eluceo\iCal\Component\Event();
+        $event->setDtStart($this->startTime)
+            ->setDtEnd($this->endtime)
+            ->setSummary($this->getServiceInfo());
+        $event->setUseTimezone(true);
+
+        //add event to canlendar
+        $calendar->addComponent($event);
+
+        $tmpfname = tempnam("/tmp", "isc");
+        file_put_contents($tmpfname, $calendar->render());
+        return $tmpfname;
+    }
 }
