@@ -890,8 +890,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
     public function generateIcsFile()
     {
-        date_default_timezone_set('Europe/Helsinki');
-        $calendar = new \Eluceo\iCal\Component\Calendar('www.varaa.com');
+        date_default_timezone_set(Config::get('app.timezone'));
+        $calendar = new \Eluceo\iCal\Component\Calendar(Config::get('app.url'));
         $event = new \Eluceo\iCal\Component\Event();
         $event->setDtStart($this->startTime)
             ->setDtEnd($this->endtime)
