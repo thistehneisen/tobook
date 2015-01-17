@@ -4,7 +4,7 @@ $(function () {
         $doc = $(document),
         $services = $('#services'),
         $service_times = $('#service_times'),
-        dataStorage = { booking_service_id : 0};
+        dataStorage = { booking_service_id : 0, service_id: 0, service_time_id : 0};
 
     $doc.on('click', '.btn-edit-booking-service', function (e) {
         e.preventDefault();
@@ -22,6 +22,7 @@ $(function () {
         $('#service_categories').val(category_id).trigger('change');
         $('#modify_times').val(modify_times);
         $('#btn-add-service').text($(this).data('edit-text'));
+        $('#btn-add-service').addClass('btn-success');
     });
 
     $doc.on('change', '#service_categories', function () {
@@ -51,7 +52,7 @@ $(function () {
                         })
                     );
                 });
-                if(dataStorage.service_id == 'undefined') {
+                if(dataStorage.service_id == 0) {
                     // auto-select the 2nd option (1st option is "- Select -")
                     // then trigger change to auto select service time
                     $services.val($services.find('option:eq(1)').val()).trigger('change');
@@ -93,7 +94,7 @@ $(function () {
                     servicePrices[value.id] = value.price;
                 });
 
-                if(dataStorage.service_time_id == 'undefined') {
+                if(dataStorage.service_time_id == 0) {
                     // auto-select the 2nd option (1st option is "- Select -")
                     $service_times.val($service_times.find('option:eq(1)').val());
                 } else {

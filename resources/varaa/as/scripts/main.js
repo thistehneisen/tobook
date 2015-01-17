@@ -251,6 +251,7 @@
             $('#added_services').find('tbody').find('tr').removeAttr('style');
             $('#booking-service-id-' + booking_service_id).css('background-color', 'pink');
             $('#btn-add-service').text($(this).data('edit-text'));
+            $('#btn-add-service').addClass('btn-success');
         });
 
         $doc.on('click', '#btn-add-new-booking-service', function (e) {
@@ -260,6 +261,7 @@
             $services.val($services.find('option:eq(1)').val()).trigger('change');
             $('#added_services').find('tbody').find('tr').removeAttr('style');
             $('#btn-add-service').text($(this).data('add-text'));
+            $('#btn-add-service').removeClass('btn-success');
         });
 
         $doc.on('click', '.btn-delete-booking-service', function (e) {
