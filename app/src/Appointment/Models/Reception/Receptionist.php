@@ -149,7 +149,7 @@ abstract class Receptionist implements ReceptionistInterface
 
     public function setExtraServices()
     {
-        $this->extraServices  = BookingExtraService::where('tmp_uuid', $this->uuid)->get();
+        $this->extraServices  = BookingExtraService::where('tmp_uuid', $this->uuid)->whereNull('deleted_at')->get();
         return $this;
     }
 
@@ -278,6 +278,20 @@ abstract class Receptionist implements ReceptionistInterface
             $this->total += $this->extraServiceLength;
         }
         return $this->total;
+    }
+
+    public function getExtraServicesLength()
+    {
+
+        $this->setExtraServices();
+
+        $this->extraServiceLength = 0;
+        if(!empty($this->extraServices)) {
+            foreach ($this->extraServices as $extraService) {
+                $this->extraServiceLength += $extraService->length;
+            }
+        }
+        return $this->extraServiceLength;
     }
 
     public function getEndTime()

@@ -40,6 +40,11 @@ class BackendReceptionist extends Receptionist
             ? $booking->extraServices
             : array();
 
+        //recalculate booking service end time
+        if(!empty($this->bookingId)) {
+            $this->bookingService->recalculateEndtime();
+        }
+
         $booking->fill([
             'date'        => $this->bookingService->date,
             'start_at'    => $this->bookingService->startTime->toTimeString(),

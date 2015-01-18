@@ -4,6 +4,7 @@ use Carbon\Carbon;
 use App\Cart\CartDetailInterface;
 use App\Cart\CartDetail;
 use App\Appointment\Models\Booking;
+use App\Appointment\Models\BookingExtraService;
 use Watson\Validating\ValidationException;
 use App\Appointment\Models\Reception\ReceptionistInterface;
 
@@ -60,7 +61,7 @@ class BookingService extends Base implements CartDetailInterface
     public function calculateExtraServices()
     {
         if (empty($this->extraServices)) {
-            $extraServices     = BookingExtraService::where('tmp_uuid', $this->tmp_uuid)->get();
+            $extraServices     = BookingExtraService::where('tmp_uuid', $this->tmp_uuid)->whereNull('deleted_at')->get();
             $extraServiceTime  = 0;
             $extraServicePrice = 0;
             foreach ($extraServices as $extraService) {
@@ -158,6 +159,13 @@ class BookingService extends Base implements CartDetailInterface
             : $this->service->price;
 
         return $price;
+    }
+
+    public function recalculateEndtime()
+    {
+        $total        = $this->calculcateTotalLength();
+        $this->end_at = $this->startTime->copy()->addMinutes($total)->toTimeString();
+        $this->save();
     }
 
     //--------------------------------------------------------------------------
