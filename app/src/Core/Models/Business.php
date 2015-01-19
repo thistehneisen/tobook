@@ -288,6 +288,56 @@ class Business extends Base
     }
 
     /**
+     * Check if business is using AS
+     *
+     * @return bool
+     */
+    public function getIsUsingAsAttribute()
+    {
+        return \App\Appointment\Models\Employee::where('user_id', $this->user->id)->first();
+    }
+
+    /**
+     * Check if business is using LC
+     *
+     * @return bool
+     */
+    public function getIsUsingLcAttribute()
+    {
+        return \App\LoyaltyCard\Models\Offer::where('user_id', $this->user->id)->first()
+            || \App\LoyaltyCard\Models\Voucher::where('user_id', $this->user->id)->first();
+    }
+
+    /**
+     * Check if business is using FD
+     *
+     * @return bool
+     */
+    public function getIsUsingFdAttribute()
+    {
+        return \App\FlashDeal\Models\FlashDeal::where('user_id', $this->user->id)->first()
+            || \App\FlashDeal\Models\Coupon::where('user_id', $this->user->id)->first();
+    }
+
+    public function getIconsAttribute()
+    {
+        $map = [
+            'As' => 'fa-calendar',
+            'Lc' => 'fa-heart',
+            'Fd' => 'fa-bolt'
+        ];
+        $str = '';
+
+        foreach ($map as $key => $value) {
+            if (call_user_func([$this, 'getIsUsing'.$key.'Attribute'])) {
+                $str .= ' <i class="fa '.$value.'"></i>';
+            }
+        }
+
+        return $str;
+    }
+
+    /**
      * Get a number of random businesses
      *
      * @param int categoryId

@@ -74,23 +74,25 @@
     </div>
 
     <div class="col-sm-6">
+        @if ($business->isUsingAs)
         <div class="box">
             {{-- `$inhouse = true` means that we'll show login/register secion in step 4 --}}
             <input type="hidden" id="business_id" value="{{ $business->id }}">
             <input type="hidden" id="business_hash" value="{{ $business->user->hash }}">
             @include('modules.as.embed.layout-3.main', ['inhouse' => true, 'hash' => $business->user->hash])
         </div>
+        @endif
 
         <div class="box hidden-xs">
             <h4>{{ trans('home.search.locations_hours') }}</h4>
-            <div class="text-center" style="min-height: 150px;" id="js-map-{{ $user->id }}" data-lat="{{ $business->lat }}" data-lng="{{ $business->lng }}">
+            <div class="text-center" style="min-height: 150px;" id="js-map-{{ $business->user->id }}" data-lat="{{ $business->lat }}" data-lng="{{ $business->lng }}">
                 <i class="fa fa-spinner fa-spin fa-3x text-muted"></i>
             </div>
 
             <h5>{{ trans('home.search.business_hours') }}</h5>
             <table class="table">
                 <tbody>
-                @foreach ($user->as_options->get('working_time') as $day => $value)
+                @foreach ($business->user->as_options->get('working_time') as $day => $value)
                     <tr>
                         <td>{{ trans('common.'.$day) }}</td>
                         <td>{{ with(new Carbon\Carbon($value['start']))->format('H:i') }} &ndash; {{ with(new Carbon\Carbon($value['end']))->format('H:i') }}</td>
