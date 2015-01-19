@@ -62,7 +62,7 @@ return [
     'nov'                   => 'November',
     'dec'                   => 'December',
     'all'                   => 'Alla',
-    'anyone'                => 'Någon',
+    'anyone'                => 'Vem som helst',
     'edit'                  => 'Redigera',
     'back'                  => 'Tillbaka',
     'content'               => 'Innehåll',
