@@ -407,24 +407,18 @@ class Business extends Base
      */
     protected function buildSearchSortParams()
     {
-        $sort = [];
-
-        // Then if there are lat and lng provided, we'll try to use them
-        $lat = e(Input::get('lat'));
-        $lng = e(Input::get('lng'));
-        if ($lat && $lng) {
-            $sort[] = [
-                '_geo_distance' => [
-                    'order'    => 'asc',
-                    'unit'     => 'km',
-                    'mode'     => 'min',
-                    'location' => [
-                        'lat' => $lat,
-                        'lon' => $lng,
-                    ],
-                ]
-            ];
-        }
+        list($lat, $lng) = Util::getCoordinates();
+        $sort = [
+            '_geo_distance' => [
+                'order'    => 'asc',
+                'unit'     => 'km',
+                'mode'     => 'min',
+                'location' => [
+                    'lat' => $lat,
+                    'lon' => $lng,
+                ],
+            ]
+        ];
 
         return $sort;
     }

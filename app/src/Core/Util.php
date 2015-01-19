@@ -1,6 +1,6 @@
 <?php namespace App\Core;
 
-use DB, Str, App, Config, Geocoder, Cache, Log, Imagine, Carbon\Carbon;
+use DB, Str, App, Config, Geocoder, Cache, Log, Imagine, Input, Session, Carbon\Carbon;
 use Exception, InvalidArgumentException;
 
 /**
@@ -163,6 +163,36 @@ class Util
             // We don't want to handle this, just logging and throw it away
             throw $ex;
         }
+    }
+
+    /**
+     * Get current coordinates
+     * @return array: [$lat, $lng]
+     */
+    public static function getCoordinates()
+    {
+        $lat = e(Input::get('lat'));
+        $lng = e(Input::get('lng'));
+
+        // If there is lat and lng values, we'll store in Session so that we
+        // don't need to as again
+        if ($lat && $lng) {
+            Session::set('lat', $lat);
+            Session::set('lng', $lng);
+        } else {
+            // Helsinki
+            $lat = '60.1733244';
+            $lng = '24.9410248';
+        }
+
+        $location = Input::get('location');
+        try {
+            list($lat, $lng) = self::geocoder($location);
+        } catch (\Exception $ex) {
+            // Silently failed
+        }
+
+        return [$lat, $lng];
     }
 
     /**
