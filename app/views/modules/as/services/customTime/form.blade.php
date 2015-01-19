@@ -3,7 +3,7 @@
         <label for="price" class="col-sm-2 control-label">{{ trans('as.services.price') }}</label>
         <div class="col-sm-5">
             <div class="input-group">
-                <span class="input-group-addon">&euro;</span>
+                <span class="input-group-addon">{{ Config::get('varaa.currency') }}</span>
                 {{ Form::text('price', isset($serviceTime->price) ? $serviceTime->price : '', ['class' => 'form-control input-sm', 'id' => 'price']) }}
             </div>
         </div>

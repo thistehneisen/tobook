@@ -1,6 +1,7 @@
 <?php namespace App\FlashDeal\Presenters;
 
 use App\Olut\Presenters\Base;
+use Config;
 
 class ServicePresenter extends Base
 {
@@ -10,7 +11,7 @@ class ServicePresenter extends Base
     public static function render($service, $item)
     {
         if ($service) {
-            return $service->name." ({$service->price}&euro;)";
+            return sprintf('%s (%s%s)', $service->name, $service->price, Config::get('varaa.currency'));
         }
 
         return '<em>'.trans('fd.services.deleted').'</em>';

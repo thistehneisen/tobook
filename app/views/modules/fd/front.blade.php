@@ -17,8 +17,8 @@
                             </h4>
                             <h5>
                                 {{ trans('common.price') }}:
-                                <span class="orange">{{ $deal->flashDeal->discounted_price }}&euro;</span>
-                                ({{ trans('common.normal') }} {{ $deal->flashDeal->service->price }}&euro;)
+                                <span class="orange">{{ $deal->flashDeal->discounted_price }}{{ Config::get('varaa.currency') }}</span>
+                                ({{ trans('common.normal') }} {{ $deal->flashDeal->service->price }}{{ Config::get('varaa.currency') }})
                             </h5>
                             <p>{{ trans('fd.front.business') }}: <strong class="orange">{{{ $deal->flashDeal->service->user->business_name }}}</strong></p>
                             <p>{{ trans('user.address') }}: {{{ $deal->flashDeal->service->user->full_address }}}</p>

@@ -36,7 +36,7 @@
             <td>
             @if ($data !== null)
                 <div class="date">{{ $data['day'] }}</div>
-                <p>{{ trans('as.reports.stat.revenue') }} <span class="pull-right">&euro;{{ $data['revenue'] }}</span></p>
+                <p>{{ trans('as.reports.stat.revenue') }} <span class="pull-right">{{ $data['revenue'] }}{{ Config::get('varaa.currency') }}</span></p>
                 <p>{{ trans('as.reports.stat.bookings') }} <span class="pull-right">{{ $data['bookings'] }}</span></p>
                 <p>{{ trans('as.reports.stat.working_time') }} <span class="pull-right">{{ $data['working_time'] }}</span></p>
                 <p>{{ trans('as.reports.stat.booked_time') }} <span class="pull-right">{{ $data['booked_time'] }}</span></p>

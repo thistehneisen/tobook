@@ -16,7 +16,7 @@
                         <div class="row">
                             <div class="col-sm-3" id="btn-service-{{ $service->id }}-time-default">
                                 @if ((bool)$user->asOptions['hide_prices'] === false)
-                                <a data-service-id="{{ $service->id }}" data-service-time="default" class="btn btn-default btn-select-service-time"><i class="glyphicon glyphicon-tag"></i> &euro;{{ $service->price }}</a>
+                                <a data-service-id="{{ $service->id }}" data-service-time="default" class="btn btn-default btn-select-service-time"><i class="glyphicon glyphicon-tag"></i> {{ $service->price }}{{ Config::get('varaa.currency') }}</a>
                                 @endif
                                 <a data-service-id="{{ $service->id }}" data-service-time="default" class="btn btn-default btn-select-service-time"><i class="glyphicon glyphicon-time"></i> {{ $service->during }}  {{ trans('common.minutes')}}</a>
                             </div>
@@ -27,7 +27,7 @@
                         <div class="row">
                             <div class="col-sm-3" id="btn-service-{{ $service->id }}-time-{{ $serviceTime->id }}">
                                 @if ((bool)$user->asOptions['hide_prices'] === false)
-                                <a data-service-id="{{ $service->id }}" data-service-time="{{ $serviceTime->id }}" class="btn btn-default btn-select-service-time"><i class="glyphicon glyphicon-tag"></i> &euro;{{ $serviceTime->price }}</a>
+                                <a data-service-id="{{ $service->id }}" data-service-time="{{ $serviceTime->id }}" class="btn btn-default btn-select-service-time"><i class="glyphicon glyphicon-tag"></i> {{ $serviceTime->price }}{{ Config::get('varaa.currency') }}</a>
                                 @endif
                                 <a data-service-id="{{ $service->id }}" data-service-time="{{ $serviceTime->id }}" class="btn btn-default btn-select-service-time"><i class="glyphicon glyphicon-time"></i> {{ $serviceTime->during }} {{ trans('common.minutes')}}</a>
                             </div>

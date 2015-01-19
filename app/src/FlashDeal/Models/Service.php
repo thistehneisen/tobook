@@ -1,6 +1,7 @@
 <?php namespace App\FlashDeal\Models;
 
 use App\Core\Models\Base;
+use Config;
 
 class Service extends Base
 {
@@ -50,7 +51,7 @@ class Service extends Base
     {
         $price = $this->attributes['price'];
 
-        return $this->attributes['name']." (&euro;$price)";
+        return sprintf('%s (%s%s)', $this->attributes['name'], $price, Config::get('varaa.currency'));
     }
 
     //--------------------------------------------------------------------------

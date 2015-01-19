@@ -12,7 +12,7 @@
                 <dt>{{ trans('as.embed.layout_2.date') }}</dt>
                 <dd>{{ $item->model->datetime }}, {{ $item->model->instance->plainStartTime->format('H:i') }} &ndash; {{ $item->model->instance->plainEndTime->format('H:i') }}</dd>
                 <dt>{{ trans('as.embed.layout_2.price') }}</dt>
-                <dd>{{ $item->price }}&euro;</dd>
+                <dd>{{ $item->price }}{{ Config::get('varaa.currency') }}</dd>
             </dl>
             @endif
         </div>

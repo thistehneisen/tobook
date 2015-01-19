@@ -28,7 +28,7 @@
             <tr>
                 <td><a href="#" title="">{{ $item->flashDeal->service->name }}</a></td>
                 <td><span class="text-danger countdown" data-date="{{ $item->expire->format('Y-m-d\TH:i:s') }}"></span></td>
-                <td>{{ $item->flashDeal->discounted_price }}&euro; ({{ $item->flashDeal->service->price }}&euro;)</td>
+                <td>{{ $item->flashDeal->discounted_price }}{{ Config::get('varaa.currency') }} ({{ $item->flashDeal->service->price }}{{ Config::get('varaa.currency') }})</td>
                 <td>
                     <p class="text-danger"><strong>-{{ $item->flashDeal->discount_percent }}%</strong></p>
                 </td>
@@ -59,7 +59,7 @@
                 <tr>
                     <td><a href="#" title="">{{ $item->service->name }}</a></td>
                     <td><span class="text-danger countdown" data-date="{{ $item->valid_date->format('Y-m-d\TH:i:s') }}"></span></td>
-                    <td>{{ $item->discounted_price }}&euro; ({{ $item->service->price }}&euro;)</td>
+                    <td>{{ $item->discounted_price }}{{ Config::get('varaa.currency') }} ({{ $item->service->price }}{{ Config::get('varaa.currency') }})</td>
                     <td>
                         <p class="text-danger"><strong>-{{ $item->discount_percent }}%</strong></p>
                     </td>

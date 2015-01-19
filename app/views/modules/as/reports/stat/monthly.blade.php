@@ -26,12 +26,12 @@
                     <h3 class="panel-title text-center">{{ $report['month'] }}</h3>
                 </div>
                 <div class="panel-body">
-                    <p>{{ trans('as.reports.stat.revenue') }} <span class="pull-right">&euro;{{ $report['revenue'] }}
+                    <p>{{ trans('as.reports.stat.revenue') }} <span class="pull-right">{{ $report['revenue'] }}{{ Config::get('varaa.currency') }}
                         @if (isset($report['gap']['revenue']))
                             @if ($report['gap']['revenue'] > 0)
-                                <small class="text-success"><i class="fa fa-arrow-up"></i> <strong>&euro;{{ $report['gap']['revenue'] }}</strong></small>
+                                <small class="text-success"><i class="fa fa-arrow-up"></i> <strong>{{ $report['gap']['revenue'] }}{{ Config::get('varaa.currency') }}</strong></small>
                             @elseif (($report['gap']['revenue'] < 0))
-                                <small class="text-danger"><i class="fa fa-arrow-down"></i> <strong>&euro;{{ $report['gap']['revenue'] }}</strong></small>
+                                <small class="text-danger"><i class="fa fa-arrow-down"></i> <strong>{{ $report['gap']['revenue'] }}{{ Config::get('varaa.currency') }}</strong></small>
                             @endif
                         @endif
                     </span></p>

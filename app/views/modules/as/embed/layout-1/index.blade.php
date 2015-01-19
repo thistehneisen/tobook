@@ -109,7 +109,7 @@ $(document).ready(function () {
                             <div class="col-sm-6">{{ $item->model->datetime }}</div>
                             <div class="col-sm-4">
                                 @if ((bool)$user->asOptions['hide_prices'] === false)
-                                {{ $item->price }} &euro;
+                                {{ $item->price }}{{ Config::get('varaa.currency') }}
                                 @endif
                             </div>
                             <div class="col-sm-2"><a href="#" data-hash="{{ $hash }}" data-action-url="{{ route('as.bookings.service.remove.in.cart') }}" data-cart-id="{{ $cart->id }}" data-cart-detail-id="{{ $item->id }}" data-uuid="{{ $item->model->uuid }}" class="btn-remove-item-from-cart"><i class="glyphicon glyphicon-remove btn-danger"></i></a></div>

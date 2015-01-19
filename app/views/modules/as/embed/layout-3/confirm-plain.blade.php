@@ -6,7 +6,7 @@
     <div class="form-group">
         <label class="form-label col-md-2">{{ trans('as.embed.layout_3.service') }}:</label>
         <div class="col-md-3">{{ $service->name }} ({{ $service->length }} {{ trans('common.minutes')}})</div>
-        <div class="col-md-3"><i class="glyphicon glyphicon-tag"></i> {{ $service->price }}&euro;</div>
+        <div class="col-md-3"><i class="glyphicon glyphicon-tag"></i> {{ $service->price }}{{ Config::get('varaa.currency') }}</div>
         <div class="col-md-4"><i class="glyphicon glyphicon-time"></i> {{ $date->format(trans('common.format.date')) }} {{ $time }}</div>
     </div>
 
