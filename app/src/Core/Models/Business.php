@@ -180,7 +180,7 @@ class Business extends Base
      */
     protected function getFullAddress($address, $postcode, $city, $country)
     {
-        return sprintf('%s, %s %s, %s', $address, $postcode, $city, $country);
+        return $address ? sprintf('%s, %s %s, %s', $address, $postcode, $city, $country) : '';
     }
 
     //--------------------------------------------------------------------------
