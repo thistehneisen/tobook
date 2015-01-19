@@ -1,6 +1,6 @@
 <?php
 return [
-    'name' => 'ClearSense',
+    'name' => 'Din bokning | EnklareBokning',
     'languages' => ['sv', 'en', 'fi'],
     'footer' => [
         'copyright' => [

@@ -212,7 +212,7 @@
     @section('footer')
     <footer class="container-fluid footer hidden-print">
         <div class="container text-center">
-            <p>&copy; {{ date('Y') }} <a href="{{{ Config::get('varaa.footer.copyright.url') }}}">{{{ Config::get('varaa.footer.copyright.name') }}}</a></p>
+            <p>&copy; {{ date('Y') }} <a href="{{{ Config::get('varaa.footer.copyright.url') }}}" target="_blank">{{{ Config::get('varaa.footer.copyright.name') }}}</a></p>
             <ul class="list-unstyled list-inline list-social-networks">
                 @foreach (Config::get('varaa.footer.social') as $name => $url)
                     @if ($url)
