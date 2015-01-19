@@ -183,6 +183,13 @@ return [
             'description' => 'Beskrivning',
             'quantity'    => 'Antal',
         ],
+        'rooms' => [
+            'all'         => 'Alla rum',
+            'add'         => 'Lägg rum',
+            'edit'        => 'Redigera rum',
+            'name'        => 'Namn',
+            'description' => 'Beskrivning',
+        ],
         'extras' => [
             'all'         => 'Alla tilläggstjänster',
             'add'         => 'Lägg till ny tilläggstjänst',
@@ -319,8 +326,9 @@ return [
         'phone'               => 'Telefon',
         'email'               => 'E-post',
         'description'         => 'Beskrivning',
-        'is_subscribed_email' => 'E-post aktiverad?',
-        'is_subscribed_sms'   => 'SMS aktiverat?',
+        'is_subscribed_email' => 'Aktivera notifiering via e-post',
+        'is_subscribed_sms'   => 'Aktivera notifiering via SMS',
+        'is_received_calendar_invitation'  => 'Aktivera kalender inbjudan',
         'services'            => 'Tjänster',
         'status'              => 'Status',
         'is_active'           => 'Status',
@@ -379,7 +387,7 @@ return [
         'en_version'       => 'Engelska',
         'book'             => 'Boka',
         'loading'          => 'Laddar;',
-        'success'          => 'Din bokning är genomförd. Tack!.',
+        'success'          => 'Tack för din bokning. En bekräftelse kommer på mailen!',
         'confirm'          => 'Bekräfta bokning',
         'layout_2'         => [
             'select_service'      => 'Välj tjänst och datum',
@@ -410,6 +418,7 @@ return [
             'postcode'        => 'Postnummer',
             'empty'           => 'Det finns inga tillgängliga tider den valda dagen.',
             'payment_note'    => 'När bokningen är gjord kommer du att skickas vidare till kassan.',
+            'confirm_service' => 'Bekräfta bokning',
         ]
     ],
      'options' => [
@@ -446,8 +455,8 @@ return [
             'hide_prices'                                    => 'Dölj priser',
             'step'                                           => 'Steg',
             'bookable_date'                                  => 'Bokningsbart datum',
-            'status_if_paid'                                 => 'Default mode for paid bookings',
-            'status_if_not_paid'                             => 'Default mode for unpaid bookings',
+            'status_if_paid'                                 => 'Standardläge för betalda bokningar',
+            'status_if_not_paid'                             => 'Standardläge för obetalda bokningar',
             'notes'                                          => 'Anteckingar',
             'address'                                        => 'Adress',
             'city'                                           => 'Ort',
@@ -530,6 +539,16 @@ return [
             'confirmed'   => 'Bekräftade bokningar',
             'unconfirmed' => 'Ej bekräftade bokningar',
             'cancelled'   => 'Avbokningar',
+        ],
+        'statistics'=> 'Statistik',
+        'monthly'   => 'Månadsrapport',
+        'stat' => [
+            'monthly'      => 'Månadsöversikt',
+            'bookings'     => 'Bokningar',
+            'revenue'      => 'Intäkter',
+            'working_time' => 'Arbetstid',
+            'booked_time'  => 'Bokad tid',
+            'occupation'   => 'Yrke %'
         ]
     ],
     'items_per_page' => 'Reslutat per sida',
