@@ -1,6 +1,7 @@
 <?php namespace App\API\v1_0\Appointment\Controllers;
 
 use Input, Response;
+use \App\Consumers\Models\Consumer as CoreConsumer;
 
 class Consumer extends Base
 {
@@ -11,7 +12,7 @@ class Consumer extends Base
      */
     public function index()
     {
-        $consumers = \App\Appointment\Models\Consumer::ofCurrentUser();
+        $consumers = CoreConsumer::ofCurrentUser();
         $perPage = max(1, intval(Input::get('per_page', 15)));
         $consumers = $consumers->paginate($perPage);
 
@@ -34,12 +35,9 @@ class Consumer extends Base
      */
     public function store()
     {
-        $consumer = new \App\Appointment\Models\Consumer(Input::all());
-        $consumer->save();
+        $consumer = CoreConsumer::make(Input::all(), $this->user);
 
         if ($consumer->id) {
-            $consumer->users()->attach($this->user);
-
             return Response::json([
                 'error' => false,
                 'data' => $this->_prepareConsumerData($consumer),
@@ -61,7 +59,7 @@ class Consumer extends Base
      */
     public function show($id)
     {
-        $consumer = \App\Appointment\Models\Consumer::ofCurrentUser()->findOrFail($id);
+        $consumer = CoreConsumer::ofCurrentUser()->findOrFail($id);
 
         return Response::json([
             'error' => false,
@@ -78,7 +76,7 @@ class Consumer extends Base
      */
     public function update($id)
     {
-        $consumer = \App\Appointment\Models\Consumer::ofCurrentUser()->findOrFail($id);
+        $consumer = CoreConsumer::ofCurrentUser()->findOrFail($id);
 
         $consumer->fill(Input::all());
 
@@ -103,7 +101,7 @@ class Consumer extends Base
      */
     public function destroy($id)
     {
-        $consumer = \App\Appointment\Models\Consumer::ofCurrentUser()->findOrFail($id);
+        $consumer = CoreConsumer::ofCurrentUser()->findOrFail($id);
 
         $consumer->delete();
 
