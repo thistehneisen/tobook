@@ -51,9 +51,9 @@ class MonthlyReport extends Base
         $data = $this->prepareData();
 
         // Get revenue of each day
-        $data = $this->process($data, $this->getRevenue(), 'revenue');
-        $data = $this->process($data, $this->getTotalBookings(), 'bookings');
-        $data = $this->process($data, $this->getBookedTime(), 'booked_time');
+        $data = $this->process($data, $this->doQuery('revenue'), 'revenue');
+        $data = $this->process($data, $this->doQuery('total_bookings'), 'bookings');
+        $data = $this->process($data, $this->doQuery('booked_time'), 'booked_time');
         $data = $this->calculateWorkingTime($data);
 
         // Final format
@@ -105,70 +105,45 @@ class MonthlyReport extends Base
         return $data;
     }
 
-    /**
-     * Get all revenues of all days in a month
-     *
-     * @return array
-     */
-    protected function getRevenue()
+    protected function doQuery($type, $groupByDate = true)
     {
         $query = DB::table('as_bookings')
-            ->select(DB::raw('SUM(total_price) AS revenue'), DB::raw('DAYOFMONTH(created_at) as day'))
-            ->where('created_at', '>=', $this->start)
-            ->where('created_at', '<=', $this->end)
+            ->where('date', '>=', $this->start)
+            ->where('date', '<=', $this->end)
             ->where('user_id', Confide::user()->id)
-            ->groupBy(DB::raw('DATE(created_at)'));
+            ->where('status', '!=', 3)
+            ->whereNull('deleted_at');
+
+        $select = '';
+        switch ($type) {
+            case 'revenue':
+                $select = DB::raw('SUM(total_price) AS revenue');
+                break;
+
+            case 'total_bookings':
+                $select = DB::raw('COUNT(id) AS total_bookings');
+                break;
+
+            case 'booked_time':
+                $select = DB::raw('SUM(total) AS booked_time');
+                break;
+
+            default:
+                break;
+        }
 
         if ($this->employeeId !== null) {
             $query = $query->where('employee_id', $this->employeeId);
         }
 
-        $result = $query->get();
-        return array_combine(array_pluck($result, 'day'), array_pluck($result, 'revenue'));
-    }
-
-    /**
-     * Count all bookings of all days in a month
-     *
-     * @return array
-     */
-    protected function getTotalBookings()
-    {
-        $query = DB::table('as_bookings')
-            ->select(DB::raw('COUNT(id) AS total'), DB::raw('DAYOFMONTH(created_at) as day'))
-            ->where('created_at', '>=', $this->start)
-            ->where('created_at', '<=', $this->end)
-            ->where('user_id', Confide::user()->id)
-            ->groupBy(DB::raw('DATE(created_at)'));
-
-        if ($this->employeeId !== null) {
-            $query = $query->where('employee_id', $this->employeeId);
+        if ($groupByDate) {
+            $result = $query->groupBy('date')
+                ->select($select, DB::raw('DAYOFMONTH(date) as day'))
+                ->get();
+            return array_combine(array_pluck($result, 'day'), array_pluck($result, $type));
+        } else {
+            return $query->select($select)->first();
         }
-
-        $result = $query->get();
-        return array_combine(array_pluck($result, 'day'), array_pluck($result, 'total'));
-    }
-
-    /**
-     * Get total booked time in days
-     *
-     * @return array
-     */
-    protected function getBookedTime()
-    {
-        $query = DB::table('as_bookings')
-            ->select(DB::raw('SUM(total) AS booked_time'), DB::raw('DAYOFMONTH(created_at) as day'))
-            ->where('created_at', '>=', $this->start)
-            ->where('created_at', '<=', $this->end)
-            ->where('user_id', Confide::user()->id)
-            ->groupBy(DB::raw('DATE(created_at)'));
-
-        if ($this->employeeId !== null) {
-            $query = $query->where('employee_id', $this->employeeId);
-        }
-
-        $result = $query->get();
-        return array_combine(array_pluck($result, 'day'), array_pluck($result, 'booked_time'));
     }
 
     /**
@@ -245,10 +220,11 @@ class MonthlyReport extends Base
         return [$custom, $default, $freetime];
     }
 
-    protected function calculateWorkingTime($data)
+    protected function calculateWorkingTime($data, $returnTotal = false)
     {
         list($custom, $default, $freetime) = $this->getWorkingTime();
 
+        $totalWorkingTime = 0;
         $map = [
             Carbon::MONDAY    => 'mon',
             Carbon::TUESDAY   => 'tue',
@@ -259,7 +235,6 @@ class MonthlyReport extends Base
             Carbon::SUNDAY    => 'sun',
         ];
 
-        $ret = [];
         $employeeIds = array_keys($default);
         foreach ($data as $day => &$item) {
             foreach ($employeeIds as $employeeId) {
@@ -282,6 +257,8 @@ class MonthlyReport extends Base
                 }
 
                 $item['working_time'][$employeeId] = $total;
+
+                $totalWorkingTime += $total;
             }
 
             $item['working_time'] = ($this->employeeId === null)
@@ -291,7 +268,12 @@ class MonthlyReport extends Base
                 : $item['working_time'][$this->employeeId];
         }
 
-        return $data;
+        if ($returnTotal) {
+            return $totalWorkingTime;
+        } else {
+            return $data;
+        }
+
     }
 
     /**

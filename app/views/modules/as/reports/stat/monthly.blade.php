@@ -10,9 +10,9 @@
         </div>
         <div class="col-md-3">
             <select name="employee" class="form-control input-sm" rel="js-monthly-stat">
-                <option data-url="{{ route('as.reports.monthly.monthly', ['employee' => Input::get('employee'), 'date' => Input::get('date')]) }}">-- {{ trans('common.all') }} --</option>
+                <option data-url="{{ route('as.reports.monthly.monthly', ['date' => Input::get('date')]) }}">{{ trans('common.options_all') }}</option>
             @foreach ($employees as $employee)
-                <option data-url="{{ route('as.reports.monthly.monthly', ['employee' => $employee->id, 'date' => Input::get('date')]) }}" {{ Input::get('employee') === $employee->id ? 'selected' : '' }}>{{ $employee->name }}</option>
+                <option data-url="{{ route('as.reports.monthly.monthly', ['employee' => $employee->id, 'date' => Input::get('date')]) }}" {{ intval(Input::get('employee')) === $employee->id ? 'selected' : '' }}>{{ $employee->name }}</option>
             @endforeach
             </select>
         </div>
@@ -26,12 +26,12 @@
                     <h3 class="panel-title text-center">{{ $report['month'] }}</h3>
                 </div>
                 <div class="panel-body">
-                    <p>{{ trans('as.reports.stat.revenue') }} <span class="pull-right">{{ $report['revenue'] }}{{ Config::get('varaa.currency') }}
+                    <p>{{ trans('as.reports.stat.revenue') }} <span class="pull-right">{{ number_format($report['revenue'], 1) }}{{ Config::get('varaa.currency') }}
                         @if (isset($report['gap']['revenue']))
                             @if ($report['gap']['revenue'] > 0)
-                                <small class="text-success"><i class="fa fa-arrow-up"></i> <strong>{{ $report['gap']['revenue'] }}{{ Config::get('varaa.currency') }}</strong></small>
+                                <small class="text-success"><i class="fa fa-arrow-up"></i> <strong>{{ number_format($report['gap']['revenue'], 1) }}{{ Config::get('varaa.currency') }}</strong></small>
                             @elseif (($report['gap']['revenue'] < 0))
-                                <small class="text-danger"><i class="fa fa-arrow-down"></i> <strong>{{ $report['gap']['revenue'] }}{{ Config::get('varaa.currency') }}</strong></small>
+                                <small class="text-danger"><i class="fa fa-arrow-down"></i> <strong>{{ number_format($report['gap']['revenue'], 1) }}{{ Config::get('varaa.currency') }}</strong></small>
                             @endif
                         @endif
                     </span></p>

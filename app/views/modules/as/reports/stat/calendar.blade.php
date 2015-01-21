@@ -10,7 +10,7 @@
     </div>
     <div class="col-md-3">
         <select name="employee" class="form-control input-sm" rel="js-calendar-stat">
-            <option data-url="{{ route('as.reports.monthly.calendar', ['date' => Input::get('date')]) }}">-- {{ trans('common.all') }} --</option>
+            <option data-url="{{ route('as.reports.monthly.calendar', ['date' => Input::get('date')]) }}">{{ trans('common.options_all') }}</option>
         @foreach ($employees as $employee)
             <option data-url="{{ route('as.reports.monthly.calendar', ['employee' => $employee->id, 'date' => Input::get('date')]) }}" {{ intval(Input::get('employee')) === $employee->id ? 'selected' : '' }}>{{ $employee->name }}</option>
         @endforeach
@@ -36,7 +36,7 @@
             <td>
             @if ($data !== null)
                 <div class="date">{{ $data['day'] }}</div>
-                <p>{{ trans('as.reports.stat.revenue') }} <span class="pull-right">{{ $data['revenue'] }}{{ Config::get('varaa.currency') }}</span></p>
+                <p>{{ trans('as.reports.stat.revenue') }} <span class="pull-right">{{ number_format($data['revenue'], 1) }}{{ Config::get('varaa.currency') }}</span></p>
                 <p>{{ trans('as.reports.stat.bookings') }} <span class="pull-right">{{ $data['bookings'] }}</span></p>
                 <p>{{ trans('as.reports.stat.working_time') }} <span class="pull-right">{{ $data['working_time'] }}</span></p>
                 <p>{{ trans('as.reports.stat.booked_time') }} <span class="pull-right">{{ $data['booked_time'] }}</span></p>
