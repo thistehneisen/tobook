@@ -4,7 +4,7 @@ use Carbon\Carbon;
 use DB;
 use Confide;
 
-class MonthlyStatistics extends MonthlyReport
+class MonthlyStatistics extends MonthlyCalendar
 {
     /**
      * @{@inheritdoc}

@@ -5,7 +5,7 @@ use DB;
 use Confide;
 use App\Appointment\Models\Employee;
 
-class MonthlyReport extends Base
+class MonthlyCalendar extends Base
 {
     /**
      * If not null, generate statistics data of this employee only

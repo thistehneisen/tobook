@@ -5,7 +5,7 @@ use Carbon\Carbon;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\Employee;
 use App\Appointment\Reports\Statistics;
-use App\Appointment\Reports\MonthlyReport;
+use App\Appointment\Reports\MonthlyCalendar;
 use App\Appointment\Reports\MonthlyStatistics;
 
 class Reports extends AsBase
@@ -73,7 +73,7 @@ class Reports extends AsBase
         $employeeId = Input::get('employee');
 
         $calendar = $this->generateCalendar($date);
-        $report = new MonthlyReport($date, $employeeId);
+        $report = new MonthlyCalendar($date, $employeeId);
 
         $next = with(clone $date)->addMonth();
         $prev = with(clone $date)->subMonth();
