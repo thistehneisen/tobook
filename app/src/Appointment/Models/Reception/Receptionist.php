@@ -17,6 +17,7 @@ abstract class Receptionist implements ReceptionistInterface
     protected $bookingId           = null;
     protected $date                = null;
     protected $startTime           = null;
+    protected $bookingStartTime    = null;
     protected $endTime             = null;
     protected $uuid                = null;
     protected $serviceId           = null;
@@ -86,7 +87,7 @@ abstract class Receptionist implements ReceptionistInterface
 
         $startTime = Carbon::createFromFormat('Y-m-d H:i', sprintf('%s %s', $this->date, $strStartTime));
         $this->startTime = $startTime;
-
+        $this->bookingStartTime = $startTime;
         return $this;
     }
 
@@ -509,7 +510,7 @@ abstract class Receptionist implements ReceptionistInterface
             'datetime'           => $this->startTime->toDateString(),
             'booking_service_id' => $this->bookingServiceId,
             'booking_id'         => $this->bookingId,
-            'start_time'         => $this->startTime->format('H:i'),
+            'start_time'         => $this->bookingStartTime->format('H:i'),
             'price'              => $this->price,
             'category_id'        => $this->service->category->id,
             'service_id'         => $this->service->id,

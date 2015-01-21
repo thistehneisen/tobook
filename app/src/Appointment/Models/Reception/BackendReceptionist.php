@@ -32,36 +32,30 @@ class BackendReceptionist extends Receptionist
      */
     public function updateBookingServicesTime()
     {
-        $booking = Booking::find($this->bookingId);
-
         $first = BookingService::where('tmp_uuid', $this->uuid)
-            ->whereNull('deleted_at')->orderBy('start_at')->first();
+            ->whereNull('deleted_at')->orderBy('start_at', 'ASC')->first();
 
         if(!empty($first)) {
-            $first->start_at = (!empty($booking)) ? $booking->startTime->toTimeString() : $this->startTime->toTimeString();
+            $first->start_at = $this->startTime->toTimeString();
             $first->end_at = $first->startTime->copy()->addMinutes($first->calculcateTotalLength())->toTimeString();
             $first->save();
 
             $bookingServices = BookingService::where('tmp_uuid', $this->uuid)
-                ->whereNull('deleted_at')->orderBy('start_at')->get();
+                ->whereNull('deleted_at')->orderBy('start_at', 'ASC')->get();
 
             $previousBookingService = [];
             $lastBookingService = null;
             //Update the sequence of booking service
             //The next start time = the previous end time
             foreach ($bookingServices as $bookingService) {
-
-                if(count($previousBookingService) > 1){
-                    $lastBookingService = $previousBookingService[count($previousBookingService)];
-                }
-
-                $previousBookingService[] = $bookingService;
-
-                if($first->id == $bookingService->id) {
+                if(empty($previousBookingService)){
+                    $previousBookingService[] = $bookingService;
                     continue;
+                } else {
+                    $lastBookingService = $previousBookingService[count($previousBookingService) - 1];
                 }
 
-                if(!empty($lastBookingService) && $bookingService->id !== $lastBookingService->id){
+                if(!empty($lastBookingService)){
                     $bookingService->start_at = $lastBookingService->endTime->toTimeString();
                     $bookingService->end_at = $lastBookingService->endTime
                         ->copy()->addMinutes($bookingService->calculcateTotalLength())->toTimeString();
