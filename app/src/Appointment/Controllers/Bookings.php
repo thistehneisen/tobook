@@ -484,6 +484,15 @@ class Bookings extends AsBase
                 $startTime        = Input::get('start_time');
                 $bookingId        = Input::get('booking_id', 0);
                 $bookingServiceId = Input::get('booking_service_id', 0);
+
+                //Prevent user delete all booking service when booking was already placed
+                if(!empty($bookingId)) {
+                    $countBookingService = BookingService::where('tmp_uuid', $uuid)->whereNull('deleted_at')->count();
+                    if($countBookingService === 1) {
+                        throw new \Exception(trans('as.bookings.error.delete_last_booking_service'));
+                    }
+                }
+
                 $bookingService   = BookingService::find($bookingServiceId);
                 $date = $bookingService->date;
                 $bookingService->delete();
@@ -496,7 +505,7 @@ class Bookings extends AsBase
                 $receptionist->updateBookingServicesTime();
             }
         }catch(\Exception $ex){
-            $data = ['success' => false, 'message' => $ex->getTrace()];
+            $data = ['success' => false, 'message' => $ex->getMessage()];
             return Response::json($data, 500);
         }
         $data = ['success' => true];
