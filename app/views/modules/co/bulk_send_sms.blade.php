@@ -12,7 +12,7 @@
                 {{ Form::hidden('ids[]', 'all') }}
             @endif
             <ul>
-                @foreach($consumers as $consumer)
+                @foreach($targets as $consumer)
                     <li>
                         {{{ $consumer->name }}}
                         {{ Form::hidden('ids[]', $consumer->id) }}

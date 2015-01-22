@@ -48,7 +48,6 @@
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="{{ route('consumer-hub.index')}}">{{ trans('co.all') }}</a></li>
-                        <li><a href="{{ route('consumer-hub.upsert')}}">{{ trans('co.add') }}</a></li>
                         @if (Entrust::hasRole('Admin') || Session::get('stealthMode') !== null)
                             <li><a href="{{ route('consumer-hub.import')}}">{{ trans('co.import.import') }}</a></li>
                         @endif

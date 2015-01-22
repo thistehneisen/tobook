@@ -2,13 +2,7 @@
 
 use App\Consumers\Models\History;
 use App\Core\Controllers\Base;
-use Confide;
-use Config;
-use DB;
-use Input;
-use Lang;
-use Session;
-use View;
+use Confide, Config, DB, Input, Lang, Redirect, View, Session;
 
 class SmsTemplate extends Base
 {

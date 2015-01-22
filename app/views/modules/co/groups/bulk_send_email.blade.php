@@ -8,7 +8,7 @@
         <label for="upload" class="col-sm-2 control-label">{{ trans('co.groups.groups') }}</label>
         <div class="col-sm-5">
             <ul>
-                @foreach($groups as $group)
+                @foreach($targets as $group)
                     <li>
                         {{{ $group->name }}}
                         ({{ Lang::choice('co.x_consumers', $group->consumers()->count(), ['count' => $group->consumers()->count()]) }})

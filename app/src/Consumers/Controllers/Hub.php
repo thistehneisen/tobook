@@ -5,16 +5,13 @@ use App\Consumers\Models\Consumer;
 use App\Consumers\Models\Group;
 use App\Consumers\Models\SmsTemplate;
 use App\Core\Controllers\Base;
-use Confide, Config;
-use DB;
-use Input;
-use Lang;
-use Redirect;
-use View;
+use Confide, DB, Input, Lang, Redirect, View;
 
 class Hub extends Base
 {
     use \CRUD;
+    use \App\Consumers\Traits\Marketing;
+
     protected $viewPath = 'modules.co';
     protected $crudOptions = [
         'modelClass' => 'App\Consumers\Models\Consumer',
@@ -36,7 +33,6 @@ class Hub extends Base
             ],
         ],
         'layout' => 'modules.co.layout',
-        'showTab' => false,
         'bulkActions' => [
             'group',
             'send_email',
@@ -45,6 +41,17 @@ class Hub extends Base
             'send_all_sms',
         ],
     ];
+
+    public static function presentServices($value, $item)
+    {
+        $str = '<ul class="list-unstyle">';
+        foreach ($item->getServiceAttribute() as $key => $value) {
+            $str .= '<li><a class="js-showHistory" href="' . route('consumer-hub.history') . '" data-consumerid="' . $item->id . '" data-service="' . $key . '">' . $value . '</a></li>';
+        }
+        $str .= '</ul>';
+
+        return $str;
+    }
 
     /**
      * @{@inheritdoc}
@@ -236,89 +243,12 @@ class Hub extends Base
 
     public function bulkSendEmail($ids)
     {
-        $sendAll = false;
-        if (in_array('all', $ids)) {
-            $sendAll = true;
-            $ids = Consumer::ofCurrentUser()->lists('id');
-        }
-
-        $campaign = null;
-        $campaignId = intval(Input::get('campaign_id'));
-        if (!empty($campaignId)) {
-            $campaign = EmailTemplate::ofCurrentUser()->findOrFail($campaignId);
-        }
-
-        if (!empty($campaign)) {
-            $sent = EmailTemplate::sendConsumers($campaign, $ids);
-
-            return Redirect::route('consumer-hub.history.email', ['campaign_id' => $campaign->id])
-                ->with('messages', $this->successMessageBag(
-                    trans('co.email_templates.sent_to_x_of_y', [
-                        'sent' => $sent,
-                        'total' => count($ids),
-                    ])
-                ));
-        }
-
-        $campaigns = EmailTemplate::ofCurrentUser()->get();
-        $campaignPairs = [];
-        foreach ($campaigns as $campaign) {
-            $campaignPairs[$campaign->id] = $campaign->subject;
-        }
-
-        $consumers = $sendAll ? [] : Consumer::ofCurrentUser()->whereIn('id', $ids)->get();
-
-        return View::make('modules.co.bulk_send_email', [
-            'campaignPairs' => $campaignPairs,
-            'consumers' => $consumers,
-            'sendAll' => $sendAll,
-        ]);
+        return View::make('modules.co.bulk_send_email', static::sendEmails($ids));
     }
 
     public function bulkSendSms($ids)
     {
-        $sendAll = false;
-        if (in_array('all', $ids)) {
-            $sendAll = true;
-            $ids = Consumer::ofCurrentUser()->lists('id');
-        }
-
-        $sms = null;
-        $smsId = intval(Input::get('sms_id'));
-        if (!empty($smsId)) {
-            $sms = SmsTemplate::ofCurrentUser()->findOrFail($smsId);
-        }
-
-        if (!empty($sms)) {
-            $sent = SmsTemplate::sendConsumers($sms, $ids);
-
-            return Redirect::route('consumer-hub.history.sms', ['sms_id' => $sms->id])
-                ->with('messages', $this->successMessageBag(
-                    trans('co.sms_templates.sent_to_x_of_y', [
-                        'sent' => $sent,
-                        'total' => count($ids),
-                    ])
-                ));
-        }
-
-        $smsAll = SmsTemplate::ofCurrentUser()->get();
-        $smsPairs = [];
-        foreach ($smsAll as $sms) {
-            $smsPairs[$sms->id] = sprintf(
-                '%s (%s: %s)',
-                $sms->title,
-                trans('co.sms_templates.from_name'),
-                $sms->from_name ?: Config::get('varaa.name')
-            );
-        }
-
-        $consumers = $sendAll ? [] : Consumer::ofCurrentUser()->whereIn('id', $ids)->get();
-
-        return View::make('modules.co.bulk_send_sms', [
-            'smsPairs' => $smsPairs,
-            'consumers' => $consumers,
-            'sendAll' => $sendAll,
-        ]);
+        return View::make('modules.co.bulk_send_sms', static::sendSms($ids));
     }
 
     public function bulkSendAllEmail($ids)
@@ -329,16 +259,5 @@ class Hub extends Base
     public function bulkSendAllSms($ids)
     {
         return static::bulkSendSms($ids);
-    }
-
-    public static function presentServices($value, $item)
-    {
-        $str = '<ul class="list-unstyle">';
-        foreach ($item->getServiceAttribute() as $key => $value) {
-            $str .= '<li><a class="js-showHistory" href="' . route('consumer-hub.history') . '" data-consumerid="' . $item->id . '" data-service="' . $key . '">' . $value . '</a></li>';
-        }
-        $str .= '</ul>';
-
-        return $str;
     }
 }
