@@ -89,8 +89,8 @@ class Statistics extends Base
     protected function countTotalBookings($groupByStatus = false)
     {
         $count = Booking::ofCurrentUser()
-            ->where('as_bookings.created_at', '>=', $this->start)
-            ->where('as_bookings.created_at', '<=', $this->end);
+            ->where('as_bookings.date', '>=', $this->start)
+            ->where('as_bookings.date', '<=', $this->end);
 
         if ($this->serviceId !== 0) {
             $count = $count->join('as_booking_services', function ($join) {
