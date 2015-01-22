@@ -583,9 +583,12 @@ abstract class Receptionist implements ReceptionistInterface
     public function getFormTotalLength()
     {
         $totalLength = $this->computeTotalLength();
+        $hourText = (($totalLength / 60) >= 2)
+            ? trans('common.short.hours')
+            : trans('common.short.hour');
 
-        $ret = ($totalLength > 60)
-            ? sprintf("%d (%s %s)", $totalLength, ($totalLength / 60), trans('common.short.hour'))
+        $ret = ($totalLength >= 60)
+            ? sprintf("%d (%s %s)", $totalLength, ($totalLength / 60), $hourText)
             : sprintf("%d", $totalLength);
 
         return $ret;

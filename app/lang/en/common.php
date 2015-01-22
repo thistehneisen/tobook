@@ -107,6 +107,7 @@ return [
     'short' => [
         'week'  => 'week',
         'hour'  => 'hr',
+        'hours' => 'hrs',
         'mon'   => 'Mon',
         'tue'   => 'Tue',
         'wed'   => 'Wed',
