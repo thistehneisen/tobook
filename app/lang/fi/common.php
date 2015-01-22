@@ -106,6 +106,7 @@ return [
     'submit'                => 'Hyväksy', // @todo
     'short' => [
         'week'=> 'vko',
+        'hour'=> 'hr',//@todo
         'mon' => 'Ma',
         'tue' => 'Ti',
         'wed' => 'Ke',

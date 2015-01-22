@@ -181,6 +181,15 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return $serviceInfo;
     }
 
+    public function getFormTotalLength()
+    {
+        $ret = ($this->total > 60)
+            ? sprintf("%d (%s %s)", $this->total, ($this->total / 60), trans('common.short.hour'))
+            : sprintf("%d", $this->total);
+
+        return $ret;
+    }
+
     public static function getStatuses()
     {
         return [

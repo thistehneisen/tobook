@@ -255,6 +255,7 @@ return [
         'service_time'      => 'Kesto',
         'modify_time'       => 'Muokkaa aikaa',
         'plustime'          => 'Lisäaika',
+        'total_length'      => 'Total length',//@todo
         'modify_duration'   => 'Muokkaa kestoa',
         'employee'          => 'Työntekijä',
         'notes'             => 'Muistiinpanoja',
@@ -307,7 +308,7 @@ return [
             'empty_start_time'            => 'Alkamisajankohta -kenttä ei voi olla tyhjä',
             'booking_not_found'           => 'Varausta ei löytynyt!',
             'past_booking'                => 'Et voi tehdä varausta menneisyyteen!',
-            'delete_last_booking_service' => 'You cannot delete the last booking service'
+            'delete_last_booking_service' => 'You cannot delete the last booking service'//@todo
         ],
         'warning'      => [
             'existing_user'   => 'Järjestelmästä löytyy käyttäjäprofiili antamallesi sähköpostiosoitteelle. Ovatko nämä sinun tietosi?',

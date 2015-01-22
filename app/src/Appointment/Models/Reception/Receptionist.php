@@ -511,11 +511,14 @@ abstract class Receptionist implements ReceptionistInterface
             'booking_service_id' => $this->bookingServiceId,
             'booking_id'         => $this->bookingId,
             'start_time'         => $this->bookingStartTime->format('H:i'),
-            'price'              => $this->price,
+            'price'              => $this->bookingService->selectedService->price,
+            'total_price'        => $this->price,
+            'total_length'       => $this->computeTotalLength(),
             'category_id'        => $this->service->category->id,
             'service_id'         => $this->service->id,
             'service_name'       => $this->service->name,
             'service_time'       => $this->bookingService->getFormServiceTime(),
+            'service_length'     => $this->bookingService->selectedService->length,
             'modify_time'        => $this->modifyTime,
             'plustime'           => $this->plustime,
             'employee_name'      => $this->employee->name,
@@ -538,12 +541,6 @@ abstract class Receptionist implements ReceptionistInterface
 
     public function computeTotalPrice()
     {
-        //to avoid warning
-        if (!empty($this->extraServices)) {
-            foreach ($this->extraServices as $extraService) {
-                $this->extraServicePrice  += $extraService->price;
-            }
-        }
         $totalPrice = 0;
         foreach ($this->bookingServices as $bookingService) {
             $totalPrice  += $bookingService->calculcateTotalPrice();
@@ -552,6 +549,15 @@ abstract class Receptionist implements ReceptionistInterface
         $this->price = $totalPrice + $this->extraServicePrice;
 
         return $this->price;
+    }
+
+    public function computeTotalLength()
+    {
+        $totalLength = 0;
+        foreach ($this->bookingServices as $bookingService) {
+            $totalLength  += $bookingService->calculcateTotalLength();
+        }
+        return $totalLength;
     }
 
     abstract function upsertBooking();

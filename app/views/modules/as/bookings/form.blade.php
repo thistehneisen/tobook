@@ -109,6 +109,7 @@
                                         <th>{{ trans('as.bookings.service_employee') }}</th>
                                         <th>{{ trans('as.bookings.modify_time') }}</th>
                                         <th>{{ trans('as.bookings.plustime') }}</th>
+                                        <th>{{ trans('as.bookings.service_time') }}</th>
                                         <th>{{ trans('as.bookings.date_time') }}</th>
                                         <th>{{ trans('as.bookings.price') }}</th>
                                         <th>&nbsp;</th>
@@ -137,6 +138,12 @@
                                         <td>
                                             <span class="added_booking_plustime">
                                                 @if (!empty($bookingService)) {{ $bookingService->getEmployeePlustime() }}
+                                                @endif
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="added_booking_service_length">
+                                                @if (!empty($bookingService)) {{ $bookingService->selectedService->length }}
                                                 @endif
                                             </span>
                                         </td>
@@ -238,9 +245,15 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="end_time" class="col-sm-4 control-label">{{ trans('as.bookings.end_at') }}</label>
+                                <label for="total_length" class="col-sm-4 control-label">{{ trans('as.bookings.total_length') }}</label>
                                 <div class="col-sm-8">
-                                    {{ Form::text('end_time', isset($endTime) ? $endTime : '', ['class' => 'form-control input-sm', 'id' => 'end_time', 'disabled'=>'disabled']) }}
+                                    {{ Form::text('total_length', isset($totalLength) ? $totalLength : '', ['class' => 'form-control input-sm', 'id' => 'total_length', 'disabled'=>'disabled']) }}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="total_price" class="col-sm-4 control-label">{{ trans('as.bookings.total_price') }}</label>
+                                <div class="col-sm-8">
+                                    {{ Form::text('total_price', isset($totalPrice) ? $totalPrice : '', ['class' => 'form-control input-sm', 'id' => 'total_price', 'disabled'=>'disabled']) }}
                                 </div>
                             </div>
                         </div>

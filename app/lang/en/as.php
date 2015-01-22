@@ -255,6 +255,7 @@ return [
         'service_time'      => 'Service time',
         'modify_time'       => 'Modify time',
         'plustime'          => 'Plustime',
+        'total_length'      => 'Total length',
         'modify_duration'   => 'Modify duration',
         'employee'          => 'Employee',
         'notes'             => 'Notes',

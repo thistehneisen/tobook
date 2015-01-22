@@ -179,6 +179,8 @@ class Bookings extends AsBase
             'bookingDate'           => $booking->date,
             'startTime'             => $startAt,
             'endTime'               => $endAt,
+            'totalLength'           => $booking->getFormTotalLength(),
+            'totalPrice'            => $booking->total_price,
             'bookingStatuses'       => $bookingStatuses,
             'firstBookingService'   => $firstBookingService,
             'bookingServiceTime'    => $bookingServiceTime,
