@@ -513,7 +513,7 @@ abstract class Receptionist implements ReceptionistInterface
             'start_time'         => $this->bookingStartTime->format('H:i'),
             'price'              => $this->bookingService->selectedService->price,
             'total_price'        => $this->price,
-            'total_length'       => $this->computeTotalLength(),
+            'total_length'       => $this->getFormTotalLength(),
             'category_id'        => $this->service->category->id,
             'service_id'         => $this->service->id,
             'service_name'       => $this->service->name,
@@ -523,6 +523,16 @@ abstract class Receptionist implements ReceptionistInterface
             'plustime'           => $this->plustime,
             'employee_name'      => $this->employee->name,
             'uuid'               => $this->uuid
+        ];
+        return $data;
+    }
+
+    public function getDeleteResponseData()
+    {
+        $data = [
+            'success'      => true,
+            'total_price'  => $this->computeTotalPrice(),
+            'total_length' => $this->getFormTotalLength()
         ];
         return $data;
     }
@@ -542,6 +552,11 @@ abstract class Receptionist implements ReceptionistInterface
     public function computeTotalPrice()
     {
         $totalPrice = 0;
+
+        if(empty($this->bookingServices)) {
+            $this->setBookingService();
+        }
+
         foreach ($this->bookingServices as $bookingService) {
             $totalPrice  += $bookingService->calculcateTotalPrice();
         }
@@ -554,10 +569,26 @@ abstract class Receptionist implements ReceptionistInterface
     public function computeTotalLength()
     {
         $totalLength = 0;
+
+        if(empty($this->bookingServices)) {
+            $this->setBookingService();
+        }
+
         foreach ($this->bookingServices as $bookingService) {
             $totalLength  += $bookingService->calculcateTotalLength();
         }
         return $totalLength;
+    }
+
+    public function getFormTotalLength()
+    {
+        $totalLength = $this->computeTotalLength();
+
+        $ret = ($totalLength > 60)
+            ? sprintf("%d (%s %s)", $totalLength, ($totalLength / 60), trans('common.short.hour'))
+            : sprintf("%d", $totalLength);
+
+        return $ret;
     }
 
     abstract function upsertBooking();

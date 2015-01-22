@@ -283,12 +283,14 @@
             }).done(function (data) {
                 $('#booking-service-id-'+booking_service_id).remove();
                 $('#btn-add-service').text($table.data('add-text'));
-                dataStorage.booking_service_id = 0;
+                $('#total_length').val(data.total_length);
+                $('#total_price').val(data.total_price);
             }).fail(function (data) {
                 alertify.alert('Alert', data.responseJSON.message, function () {
                     alertify.message("OK");
                 });
             });
+            dataStorage.booking_service_id = 0;
         });
 
         $doc.on('click', '#btn-add-service', function (e) {

@@ -505,12 +505,12 @@ class Bookings extends AsBase
                 $receptionist->setStartTime($startTime);
                 $receptionist->setBookingId($bookingId);
                 $receptionist->updateBookingServicesTime();
+                $data = $receptionist->getDeleteResponseData();
             }
         }catch(\Exception $ex){
             $data = ['success' => false, 'message' => $ex->getMessage()];
             return Response::json($data, 500);
         }
-        $data = ['success' => true];
         return Response::json($data);
     }
 

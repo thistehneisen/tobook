@@ -283,12 +283,14 @@
             }).done(function (data) {
                 $('#booking-service-id-'+booking_service_id).remove();
                 $('#btn-add-service').text($table.data('add-text'));
-                dataStorage.booking_service_id = 0;
+                $('#total_length').val(data.total_length);
+                $('#total_price').val(data.total_price);
             }).fail(function (data) {
                 alertify.alert('Alert', data.responseJSON.message, function () {
                     alertify.message("OK");
                 });
             });
+            dataStorage.booking_service_id = 0;
         });
 
         $doc.on('click', '#btn-add-service', function (e) {
@@ -331,6 +333,7 @@
                 var classes = [
                     'added_booking_modify_time',
                     'added_booking_plustime',
+                    'added_booking_service_length',
                     'added_booking_date',
                     'added_service_price'
                 ];
@@ -366,8 +369,11 @@
             $tds.find('span.added_employee_name').text(data.employee_name);
             $tds.find('span.added_booking_modify_time').text(data.modify_time);
             $tds.find('span.added_booking_plustime').text(data.plustime);
+            $tds.find('span.added_booking_service_length').text(data.service_length);
             $tds.find('span.added_booking_date').text(data.datetime);
             $tds.find('span.added_service_price').text(data.price);
+            $('#total_length').val(data.total_length);
+            $('#total_price').val(data.total_price);
             $('#added_services').show();
         }
 
