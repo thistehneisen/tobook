@@ -1,6 +1,8 @@
 <?php namespace App\Appointment\Models\Observer;
+
 use App, View, Confide, Mail, Log;
 use Carbon\Carbon;
+
 class EmailObserver implements \SplObserver
 {
 
@@ -53,55 +55,52 @@ class EmailObserver implements \SplObserver
     public function getEmailBody($subject, $body)
     {
         $cancelURL = route('as.bookings.cancel', ['uuid' => $subject->uuid]);
-        $body  = str_replace('{Services}', $this->serviceInfo, $body);
-        $body  = str_replace('{Name}',$subject->consumer->name, $body);
-        $body  = str_replace('{BookingID}', $subject->uuid, $body);
-        $body  = str_replace('{Phone}', $subject->consumer->phone, $body);
-        $body  = str_replace('{Email}', $subject->consumer->email, $body);
-        $body  = str_replace('{Notes}', $subject->notes, $body);
-        $body  = str_replace('{CancelURL}', $cancelURL, $body);
+        $body = str_replace('{Services}', $this->serviceInfo, $body);
+        $body = str_replace('{Name}',$subject->consumer->name, $body);
+        $body = str_replace('{BookingID}', $subject->uuid, $body);
+        $body = str_replace('{Phone}', $subject->consumer->phone, $body);
+        $body = str_replace('{Email}', $subject->consumer->email, $body);
+        $body = str_replace('{Notes}', $subject->notes, $body);
+        $body = str_replace('{CancelURL}', $cancelURL, $body);
         return $body;
     }
 
     public function sendConsumerEmail($subject)
     {
-        $emailSubject   = $subject->user->asOptions['confirm_subject_client'];
-        $body           = $subject->user->asOptions['confirm_tokens_client'];
-        $body           = $this->getEmailBody($subject, $body);
-
-        $email['title'] = $emailSubject;
-        $email['body']  = nl2br($body);
-
-        if(empty($subject->consumer->email)){
+        if (empty($subject->consumer->email) || (!$subject->consumer->receive_email)) {
             return;
         }
 
-        Mail::send('modules.as.emails.confirm', $email, function($message) use($subject, $emailSubject)
-        {
-            $message->to($subject->consumer->email, $subject->consumer->name)->subject($emailSubject);
+        $emailSubject = $subject->user->asOptions['confirm_subject_client'];
+        $body = $subject->user->asOptions['confirm_tokens_client'];
+        $body = $this->getEmailBody($subject, $body);
+
+        Mail::send('modules.as.emails.confirm', [
+            'title' => $emailSubject,
+            'body' => nl2br($body)
+        ], function ($message) use ($subject, $emailSubject) {
+            $message->subject($emailSubject);
+            $message->to($subject->consumer->email, $subject->consumer->name);
         });
     }
 
     public function sendEmployeeEmail($subject)
     {
-        $emailSubject   = $subject->user->asOptions['confirm_subject_employee'];
-        $body           = $subject->user->asOptions['confirm_tokens_employee'];
-        $body           = $this->getEmailBody($subject, $body);
-
-        $email['title'] = $emailSubject;
-        $email['body']  = nl2br($body);
-
         $employee = $subject->bookingServices()->first()->employee;
-
-        if(empty($subject->consumer->email)){
+        if (empty($employee->email) || (!$employee->is_subscribed_email)) {
             return;
         }
 
-        if ($employee->is_subscribed_email) {
-            Mail::send('modules.as.emails.confirm', $email, function($message) use($employee, $emailSubject)
-            {
-                $message->to($employee->email, $employee->name)->subject($emailSubject);
-            });
-        }
+        $emailSubject = $subject->user->asOptions['confirm_subject_employee'];
+        $body = $subject->user->asOptions['confirm_tokens_employee'];
+        $body = $this->getEmailBody($subject, $body);
+
+        Mail::send('modules.as.emails.confirm', [
+            'title' => $emailSubject,
+            'body' => nl2br($body)
+        ], function($message) use ($employee, $emailSubject) {
+            $message->subject($emailSubject);
+            $message->to($employee->email, $employee->name);
+        });
     }
 }

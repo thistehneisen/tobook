@@ -1,4 +1,5 @@
 <?php namespace App\Appointment\Models\Observer;
+
 use App, View, Confide, Sms, Log, Config;
 use Carbon\Carbon;
 
@@ -71,8 +72,7 @@ class SmsObserver implements \SplObserver {
     public function update(\SplSubject $subject)
     {
         $this->init($subject);
-
-        if($this->isEnabled){
+        if ($this->isEnabled) {
             //Init service info for message
             $this->setServiceInfo($subject);
             //Send SMS to consumer
@@ -85,6 +85,10 @@ class SmsObserver implements \SplObserver {
 
     protected function sendToConsumer($subject)
     {
+        if (empty($subject->consumer->phone) || (!$subject->consumer->receive_sms)) {
+            return;
+        }
+
         $msg = $subject->user->asOptions['confirm_consumer_sms_message'];
         $cancelURL = route('as.bookings.cancel', ['uuid' => $subject->uuid]);
         $msg = str_replace('{Services}', $this->serviceInfo, $msg);
@@ -94,16 +98,14 @@ class SmsObserver implements \SplObserver {
 
     protected function sendToEmployee($subject)
     {
-        //Does not send sms for employee in backend
-        if ($this->isBackend) {
+        // Does not send sms for employee in backend
+        if ($this->isBackend || (!$subject->employee->is_subscribed_sms)) {
             return;
         }
 
-        if ($subject->employee->is_subscribed_sms) {
-            $msg = $subject->user->asOptions['confirm_employee_sms_message'];
-            $msg = str_replace('{Services}', $this->serviceInfo, $msg);
-            $msg = str_replace('{Consumer}', $subject->consumer->name, $msg);
-            Sms::send(Config::get('varaa.name'), $subject->employee->phone, $msg, $this->code);
-        }
+        $msg = $subject->user->asOptions['confirm_employee_sms_message'];
+        $msg = str_replace('{Services}', $this->serviceInfo, $msg);
+        $msg = str_replace('{Consumer}', $subject->consumer->name, $msg);
+        Sms::send(Config::get('varaa.name'), $subject->employee->phone, $msg, $this->code);
     }
 }
