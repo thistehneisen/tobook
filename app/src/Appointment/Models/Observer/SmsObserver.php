@@ -93,7 +93,7 @@ class SmsObserver implements \SplObserver {
         $cancelURL = route('as.bookings.cancel', ['uuid' => $subject->uuid]);
         $msg = str_replace('{Services}', $this->serviceInfo, $msg);
         $msg = str_replace('{CancelURL}', $cancelURL, $msg);
-        Sms::send(Config::get('varaa.name'), $subject->consumer->phone, $msg, $this->code);
+        Sms::send(Config::get('sms.from'), $subject->consumer->phone, $msg, $this->code);
     }
 
     protected function sendToEmployee($subject)
@@ -106,6 +106,6 @@ class SmsObserver implements \SplObserver {
         $msg = $subject->user->asOptions['confirm_employee_sms_message'];
         $msg = str_replace('{Services}', $this->serviceInfo, $msg);
         $msg = str_replace('{Consumer}', $subject->consumer->name, $msg);
-        Sms::send(Config::get('varaa.name'), $subject->employee->phone, $msg, $this->code);
+        Sms::send(Config::get('sms.from'), $subject->employee->phone, $msg, $this->code);
     }
 }

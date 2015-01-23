@@ -60,7 +60,7 @@ class SmsTemplate extends \App\Core\Models\Base
                 continue;
             }
 
-            $from = $sms->from_name ?: Config::get('varaa.name');
+            $from = $sms->from_name ?: Config::get('sms.from');
 
             Sms::queue($from, $consumer->phone, $sms->content);
             History::quickSave($sms->user, $sms, $consumer, $group);

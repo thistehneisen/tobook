@@ -87,7 +87,7 @@ trait Marketing
                 '%s (%s: %s)',
                 $sms->title,
                 trans('co.sms_templates.from_name'),
-                $sms->from_name ?: Config::get('varaa.name')
+                $sms->from_name ?: Config::get('sms.from')
             );
         }
 

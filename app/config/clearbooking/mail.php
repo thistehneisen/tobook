@@ -4,6 +4,6 @@ return [
     'password' => $_ENV['MANDRILL_PASSWORD'],
     'from' => [
         'address' => 'no-reply@clearsense.se',
-        'name' => 'ClearSense'
+        'name' => 'Din bokning | EnklareBokning'
     ],
 ];

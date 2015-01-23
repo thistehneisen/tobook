@@ -1,6 +1,6 @@
 <?php
 return [
-    'name' => 'Din bokning | EnklareBokning',
+    'name' => 'EnklareBokning',
     'languages' => ['sv', 'en', 'fi'],
     'footer' => [
         'copyright' => [
