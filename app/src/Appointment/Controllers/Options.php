@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Controllers;
 
-use App, View, Confide, Redirect, Input, Config, NAT;
+use App, View, Confide, Redirect, Input, Config, NAT, Closure;
 use App\Lomake\FieldFactory;
 use App\Appointment\Models\Option;
 
@@ -36,8 +36,8 @@ class Options extends AsBase
                 if (isset($userOptions[$name])) {
                     $params['default'] = $userOptions[$name];
                 }
-                if(!empty($params['values'])) {
-                    if($params['values'] instanceof \Closure) {
+                if (!empty($params['values'])) {
+                    if ($params['values'] instanceof Closure) {
                         $params['values'] = $params['values']();
                     }
                 }

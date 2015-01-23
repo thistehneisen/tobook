@@ -140,7 +140,7 @@ return [
                 ],
                 'terms_body' => [
                     'type' => 'Textarea',
-                    'values' => trans('as.options.booking.terms_body_default')
+                    'default' => trans('as.options.booking.terms_body_default')
                 ],
             ],
             'confirmations' => [
