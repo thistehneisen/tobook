@@ -15,7 +15,7 @@
 
     {{ HTML::style('//fonts.googleapis.com/css?family=Roboto:400,300,600') }}
     {{ HTML::style('//fonts.googleapis.com/css?family=Comfortaa:400,300,700') }}
-    {{ HTML::style('//maxcdn.bootstrapcdn.com/bootstrap/3.2.2/css/bootstrap.min.css') }}
+    {{ HTML::style('//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css') }}
     {{ HTML::style('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css') }}
     @yield('styles')
 
@@ -226,7 +226,7 @@
 
     {{-- External libs --}}
     {{ HTML::script('//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js') }}
-    {{ HTML::script('//maxcdn.bootstrapcdn.com/bootstrap/3.2.2/js/bootstrap.min.js') }}
+    {{ HTML::script('//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js') }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.4/typeahead.bundle.min.js') }}
     <script>
     window.VARAA = window.VARAA || {};
