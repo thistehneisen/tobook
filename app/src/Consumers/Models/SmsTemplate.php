@@ -49,6 +49,7 @@ class SmsTemplate extends \App\Core\Models\Base
         if (!empty($unsentConsumerIds)) {
             $consumers = $sms->user->consumers()
                 ->whereIn('id', $unsentConsumerIds)
+                ->where('receive_sms', true)
                 ->get();
         } else {
             $consumers = [];

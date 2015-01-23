@@ -43,11 +43,25 @@ class Group extends Base
 
     public function bulkSendEmail($ids)
     {
-        return View::make('modules.co.groups.bulk_send_email', static::sendEmails($ids, true));
+        $result = static::sendEmails($ids, true);
+        if (in_array('template_id', $result)) {
+            return Redirect::route('consumer-hub.history.email', ['campaign_id' => $result['template_id']])
+                ->with('messages', $this->successMessageBag(
+                    trans('co.email_templates.sent_to_x_of_y', $result)
+                ));
+        }
+        return View::make('modules.co.groups.bulk_send_email', $result);
     }
 
     public function bulkSendSms($ids)
     {
-        return View::make('modules.co.groups.bulk_send_sms', static::sendSms($ids, true));
+        $result = static::sendSms($ids, true);
+        if (in_array('template_id', $result)) {
+            return Redirect::route('consumer-hub.history.sms', ['sms_id' => $result['template_id']])
+                ->with('messages', $this->successMessageBag(
+                    trans('co.sms_templates.sent_to_x_of_y', $result)
+                ));
+        }
+        return View::make('modules.co.groups.bulk_send_sms', $result);
     }
 }

@@ -51,6 +51,7 @@ class EmailTemplate extends \App\Core\Models\Base
         if (!empty($unsentConsumerIds)) {
             $consumers = $campaign->user->consumers()
                 ->whereIn('id', $unsentConsumerIds)
+                ->where('receive_email', true)
                 ->get();
         } else {
             $consumers = [];

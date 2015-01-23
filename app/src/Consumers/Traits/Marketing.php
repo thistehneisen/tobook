@@ -28,13 +28,11 @@ trait Marketing
                 ? EmailTemplate::sendGroups($campaign, $ids)
                 : EmailTemplate::sendConsumers($campaign, $ids);
 
-            return Redirect::route('consumer-hub.history.email', ['campaign_id' => $campaign->id])
-                ->with('messages', $this->successMessageBag(
-                    trans('co.email_templates.sent_to_x_of_y', [
-                        'sent' => $sent,
-                        'total' => count($ids),
-                    ])
-                ));
+            return [
+                'template_id' => $campaign->id,
+                'sent' => $sent,
+                'total' => count($ids),
+            ];
         }
 
         $campaigns = EmailTemplate::ofCurrentUser()->get();
@@ -75,13 +73,11 @@ trait Marketing
                 ? SmsTemplate::sendGroups($sms, $ids)
                 : SmsTemplate::sendConsumers($sms, $ids);
 
-            return Redirect::route('consumer-hub.history.sms', ['sms_id' => $sms->id])
-                ->with('messages', $this->successMessageBag(
-                    trans('co.sms_templates.sent_to_x_of_y', [
-                        'sent' => $sent,
-                        'total' => count($ids),
-                    ])
-                ));
+            return [
+                'template_id' => $sms->id,
+                'sent' => $sent,
+                'total' => count($ids),
+            ];
         }
 
         $smsAll = SmsTemplate::ofCurrentUser()->get();
