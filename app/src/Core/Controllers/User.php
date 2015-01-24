@@ -1,7 +1,6 @@
 <?php namespace App\Core\Controllers;
 
 use App\Core\Models\Business;
-use App\Lomake\Fields\HtmlField;
 use Lomake;
 use Session, Validator, Input, View, Redirect, Hash, Confide;
 use App\Core\Models\User as UserModel;
@@ -141,16 +140,15 @@ class User extends Base
         }
 
         $data = [
-            'email'      => e(Input::get('email')),
-            'first_name' => e(Input::get('first_name')),
-            'last_name'  => e(Input::get('last_name')),
-            'phone'      => e(Input::get('phone')),
-            'address'    => e(Input::get('address')),
-            'city'       => e(Input::get('city')),
-            'postcode'   => e(Input::get('postcode')),
-            'country'    => e(Input::get('country')),
+            'email'      => Input::get('email'),
+            'first_name' => Input::get('first_name'),
+            'last_name'  => Input::get('last_name'),
+            'phone'      => Input::get('phone'),
+            'address'    => Input::get('address'),
+            'city'       => Input::get('city'),
+            'postcode'   => Input::get('postcode'),
+            'country'    => Input::get('country'),
         ];
-
 
         $errors = null;
         $user = Confide::user();
@@ -187,7 +185,7 @@ class User extends Base
     protected function updateBusiness()
     {
         $user = Confide::user();
-        $business = $user->business !== null ? $user->business : new Business;
+        $business = $user->business !== null ? $user->business : new Business();
         $errors = null;
 
         try {
@@ -197,6 +195,7 @@ class User extends Base
         } catch (\Exception $ex) {
             $errors = $this->errorMessageBag($ex->getMessage());
         }
+
         return Redirect::back()->withInput()->withErrors($errors);
     }
 

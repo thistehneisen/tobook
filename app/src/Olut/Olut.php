@@ -182,7 +182,7 @@ trait Olut
         // If present, limit the return results
         foreach (Request::instance()->query->all() as $key => $value) {
             if (in_array($key, $fillable)) {
-                $query = $query->where(e($key), e($value));
+                $query = $query->where($key, $value);
             }
         }
 

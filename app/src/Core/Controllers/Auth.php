@@ -227,12 +227,9 @@ class Auth extends Base
         }
 
         $user = new User();
-        $user->email                 = e(Input::get('email'));
-
-        // do NOT escape passwords!
+        $user->email                 = Input::get('email');
         $user->password              = Input::get('password');
         $user->password_confirmation = Input::get('password_confirmation');
-
         $user->save();
 
         if ($user->getKey()) {
@@ -241,14 +238,14 @@ class Auth extends Base
             $user->attachRole($role);
 
             $business = new Business([
-                'name'          => e(Input::get('name')),
-                'description'   => e(Input::get('description')),
-                'phone'         => e(Input::get('phone')),
-                'address'       => e(Input::get('address')),
-                'city'          => e(Input::get('city')),
-                'postcode'      => e(Input::get('postcode')),
-                'country'       => e(Input::get('country')),
-                'size'          => e(Input::get('size')),
+                'name'        => Input::get('name'),
+                'description' => Input::get('description'),
+                'phone'       => Input::get('phone'),
+                'address'     => Input::get('address'),
+                'city'        => Input::get('city'),
+                'postcode'    => Input::get('postcode'),
+                'country'     => Input::get('country'),
+                'size'        => Input::get('size'),
             ]);
             $business->user()->associate($user);
 
