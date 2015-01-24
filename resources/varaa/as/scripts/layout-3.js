@@ -23,19 +23,21 @@
                 };
 
             fnLoadTimeTable = function () {
-                // Show loading indicator
-                $step3.find('div.as-timetable-content').hide();
-                $step3.find('div.as-loading').show();
+                if (dataStorage.hasOwnProperty('serviceId')) {
+                    // Show loading indicator
+                    $step3.find('div.as-timetable-content').hide();
+                    $step3.find('div.as-loading').show();
 
-                $.ajax({
-                    url: $step3.data('url'),
-                    type: 'POST',
-                    data: dataStorage
-                }).done(function (data) {
-                    $step3.find('div.panel-body').html(data);
-                    dataStorage.date = $step3.find('li.active > a').data('date');
-                    $step3.trigger('afterShow');
-                });
+                    $.ajax({
+                        url: $step3.data('url'),
+                        type: 'POST',
+                        data: dataStorage
+                    }).done(function (data) {
+                        $step3.find('div.panel-body').html(data);
+                        dataStorage.date = $step3.find('li.active > a').data('date');
+                        $step3.trigger('afterShow');
+                    });
+                }
             };
 
             // Attach an `inhouse` indicator
@@ -48,6 +50,7 @@
                 startDate: new Date(),
                 todayBtn: true,
                 todayHighlight: true,
+                autoclose: true,
                 weekStart: 1,
                 language: $body.data('locale')
             }).on('changeDate', function (e) {
