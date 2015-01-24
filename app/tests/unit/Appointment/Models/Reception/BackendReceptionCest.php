@@ -281,7 +281,12 @@ class BackendReceptionCest
         $date      = $this->getDate();
         $startTime = '14:00';
 
-        $this->_makeBooking($I, $user, $employee, $uuid, $service, $date, $startTime);
+        $booking = $this->_makeBooking($I, $user, $employee, $uuid, $service, $date, $startTime);
+
+        $I->assertNotEmpty($booking);
+        $I->assertEquals($booking->total, 60);
+        $I->assertEquals($booking->startTime, $date->hour(14)->minute(0)->second(0));
+        $I->assertEquals($booking->endTime, $date->hour(15)->minute(0)->second(0));
     }
 
     public function testOverllapedBooking(UnitTester $I)
@@ -322,7 +327,7 @@ class BackendReceptionCest
         $I->assertEquals($exception[0], trans('as.bookings.error.add_overlapped_booking'));
     }
 
-    private function _makeBooking($I, $user, $employee, $uuid, $service, $date, $startTime)
+    private function _makeBooking($I, $user, $employee, $uuid, $service, $date, $startTime, $extraServices = [])
     {
         $I->amLoggedAs($user);
         $I->assertEquals($service->length, 60);
@@ -335,11 +340,10 @@ class BackendReceptionCest
             ->setStartTime($startTime)
             ->setServiceId($service->id)
             ->setEmployeeId($employee->id)
-            ->setServiceTimeId('default');
+            ->setServiceTimeId('default')
+            ->setExtraServiceIds($extraServices);
 
         $bookingService = $receptionist->upsertBookingService();
-        $I->assertEquals($bookingService->startTime, $date->hour(14)->minute(0)->second(0));
-        $I->assertEquals($bookingService->endTime, $date->hour(15)->minute(0)->second(0));
 
         $consumer = Consumer::handleConsumer([
             'first_name' => 'Consumer First',
@@ -363,8 +367,61 @@ class BackendReceptionCest
         $receptionist->setBookingService();
 
         $bookingService = $receptionist->getBookingService();
-        $I->assertEquals($bookingService->startTime, $date->hour(14)->minute(0)->second(0));
-        $I->assertEquals($bookingService->endTime, $date->hour(15)->minute(0)->second(0));
+
+        $booking = $receptionist->upsertBooking();
+        return $booking;
+    }
+
+    public function testDeleteExtraServices(UnitTester $I)
+    {
+        $this->initData();
+        $this->initCustomTime();
+
+        $user      = User::find(70);
+        $employee  = $this->employee;
+        $service   = $this->service;
+        $uuid      = Booking::uuid();
+
+        $date      = $this->getDate();
+        $startTime = '14:00';
+
+        $extraServicesIds = array(10, 11);
+        $booking = $this->_makeBooking($I, $user, $employee, $uuid, $service, $date, $startTime, $extraServicesIds);
+
+        $I->assertNotEmpty($booking);
+        $I->assertEquals($booking->total, 60+30);
+        $I->assertEquals($booking->startTime, $date->hour(14)->minute(0)->second(0));
+        $I->assertEquals($booking->endTime, $date->hour(15)->minute(30)->second(0));
+
+
+        //delete extra services
+        foreach ($extraServicesIds as $key => $extraServiceId) {
+            $bookingExtraService = BookingExtraService::where('extra_service_id', $extraServiceId)
+                ->firstOrFail();
+
+            if (!empty($bookingExtraService)) {
+                $bookingExtraService->delete();
+            }
+        }
+
+         $consumer = Consumer::handleConsumer([
+            'first_name' => 'Consumer First',
+            'last_name' => 'Last ' . $this->service->id,
+            'email' => 'consumer_' . $this->service->id . '@varaa.com',
+            'phone' => '1234567890',
+            'hash' => '',
+        ], $user);
+
+        $receptionist = new BackendReceptionist();
+        $receptionist->setBookingId($booking->id)
+            ->setUUID($uuid)
+            ->setUser($user)
+            ->setStatus('confirmed')
+            ->setNotes('')
+            ->setIsRequestedEmployee(true)
+            ->setConsumer($consumer)
+            ->setClientIP('192.168.1.1')
+            ->setSource('backend');
 
         $booking = $receptionist->upsertBooking();
         $I->assertNotEmpty($booking);
