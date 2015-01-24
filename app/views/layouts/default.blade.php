@@ -19,7 +19,6 @@
     {{ HTML::style('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css') }}
     @yield('styles')
 
-    {{-- Increment the version number to force clear cache --}}
     {{ HTML::style(asset_path('core/styles/main.css')) }}
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -67,20 +66,19 @@
                     @if (Confide::user())
                     <li class="hidden-sm hidden-xs">
                         <p>
-                        @if (Session::get('stealthMode') !== null)
-                            {{ trans('common.logged_in_as') }}
+                        @if (Session::get('stealthMode') !== null) {{ trans('common.logged_in_as') }}
                             @if (Confide::user()->is_business)
-                                <span class="label label-bg label-success">{{ Confide::user()->business->name }}</span>
+                                <span class="label label-bg label-success">{{{ Confide::user()->business->name }}}</span>
                             @elseif (Confide::user()->is_consumer)
-                                <span class="label label-warning">{{ Confide::user()->email }}</span>
+                                <span class="label label-warning">{{{ Confide::user()->email }}}</span>
                             @endif
                         @else {{ trans('common.welcome') }},
                             @if (Confide::user()->is_business)
-                                <strong>{{ Confide::user()->business->name }}</strong>
+                                <strong>{{{ Confide::user()->business->name }}}</strong>
                             @elseif (Confide::user()->is_consumer)
-                                <strong>{{ Confide::user()->first_name }}</strong>
+                                <strong>{{{ Confide::user()->first_name }}}</strong>
                             @else
-                                <strong>{{ Confide::user()->email }}</strong>
+                                <strong>{{{ Confide::user()->email }}}</strong>
                             @endif
                             !
                         @endif
