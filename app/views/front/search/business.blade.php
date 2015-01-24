@@ -6,8 +6,8 @@
 
         <!-- About -->
         @if (!empty($business->description))
-        <h4>{{ trans('home.search.about') }} {{ $business->name }}</h4>
-        <div>{{ $business->description_html }}</div>
+        <h4>{{ trans('home.search.about') }} {{{ $business->name }}}</h4>
+        <div>{{{ $business->description_html }}}</div>
         @endif
 
         <!-- Flash deals -->
@@ -26,7 +26,7 @@
             <tbody>
         @foreach ($flashDeals as $item)
             <tr>
-                <td><a href="#" title="">{{ $item->flashDeal->service->name }}</a></td>
+                <td><a href="#" title="">{{{ $item->flashDeal->service->name }}}</a></td>
                 <td><span class="text-danger countdown" data-date="{{ $item->expire->format('Y-m-d\TH:i:s') }}"></span></td>
                 <td>{{ $item->flashDeal->discounted_price }}{{ Config::get('varaa.currency') }} ({{ $item->flashDeal->service->price }}{{ Config::get('varaa.currency') }})</td>
                 <td>
@@ -57,9 +57,9 @@
             <tbody>
             @foreach ($coupons as $item)
                 <tr>
-                    <td><a href="#" title="">{{ $item->service->name }}</a></td>
+                    <td><a href="#" title="">{{{ $item->service->name }}}</a></td>
                     <td><span class="text-danger countdown" data-date="{{ $item->valid_date->format('Y-m-d\TH:i:s') }}"></span></td>
-                    <td>{{ $item->discounted_price }}{{ Config::get('varaa.currency') }} ({{ $item->service->price }}{{ Config::get('varaa.currency') }})</td>
+                    <td>{{ $item->discounted_price }}{{ Config::get('varaa.currency') }} ({{{ $item->service->price }}}{{ Config::get('varaa.currency') }})</td>
                     <td>
                         <p class="text-danger"><strong>-{{ $item->discount_percent }}%</strong></p>
                     </td>
