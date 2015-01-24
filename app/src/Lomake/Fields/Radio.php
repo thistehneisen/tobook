@@ -9,12 +9,13 @@ class Radio extends Base
             'values'  => $this->values,
             'default' => $this->default,
             'options' => $this->options,
+            'model'   => $this->model,
         ];
 
         if (empty($params['values'])) {
             $params['values'] = [
-                trans('common.no'),
-                trans('common.yes'),
+                0 => trans('common.no'),
+                1 => trans('common.yes'),
             ];
         }
 

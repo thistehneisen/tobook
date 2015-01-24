@@ -25,11 +25,11 @@ class Hub extends Base
         'lomake' => [
             'receive_email' => [
                 'type' => 'radio',
-                'default' => true,
+                'default' => 1,
             ],
             'receive_sms' => [
                 'type' => 'radio',
-                'default' => true,
+                'default' => 1,
             ],
         ],
         'layout' => 'modules.co.layout',
