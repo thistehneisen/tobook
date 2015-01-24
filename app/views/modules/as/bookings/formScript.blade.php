@@ -12,7 +12,7 @@ $(function () {
         $services.empty();
         $service_times.empty();
 
-        if (category_id !== '-1') {
+        if (category_id !== '-1' && category_id !== '') {
             $.ajax({
                 url: $('#get_services_url').val(),
                 data: {
@@ -49,7 +49,7 @@ $(function () {
 
             $service_times.empty();
 
-        if (service_id !== '-1') {
+        if (service_id !== '-1' && service_id !== '') {
             $.ajax({
                 url: $('#get_service_times_url').val(),
                 data: {

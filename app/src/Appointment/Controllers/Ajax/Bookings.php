@@ -50,10 +50,9 @@ class Bookings extends \App\Core\Controllers\Ajax\Base
      **/
     public function getServiceTimes()
     {
-        $serviceId    = (int) Input::get('service_id');
-        $employeeId   = (int) Input::get('employee_id');
-        $service      = Service::ofCurrentUser()->find($serviceId);
-
+        $serviceId = (int) Input::get('service_id');
+        $employeeId = (int) Input::get('employee_id');
+        $service = Service::ofCurrentUser()->find($serviceId);
         $data = $service->getServiceTimesData($employeeId);
 
         return Response::json($data);
