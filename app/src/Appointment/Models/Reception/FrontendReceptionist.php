@@ -48,7 +48,8 @@ class FrontendReceptionist extends Receptionist
 
     public function upsertBooking()
     {
-        $this->setBookingService(true);
+        $this->setBookingService();
+        $this->validateEmptyBookingService();
 
         $booking = new Booking();
 

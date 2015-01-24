@@ -164,27 +164,31 @@ class Bookings extends AsBase
         $bookingStatuses      = Booking::getStatuses();
         $employee             = $booking->employee;
         $services             = $employee->services;
-        $bookingService       = $booking->bookingServices()->first();
+        $bookingServices      = $booking->bookingServices;
+        $firstBookingService  = $booking->bookingServices()->first();
         $bookingExtraServices = $booking->extraServices()->get();
 
         $categories = $this->getCategories($services);
 
-        $bookingCategoryId   = (!empty($bookingService->service->category->id)) ? $bookingService->service->category->id : null;
-        $bookingServiceId    = (!empty($bookingService->service->id)) ? $bookingService->service->id : null;
-        $bookingServices     = $employee->services()->where('category_id', $bookingCategoryId)->lists('name','id');
-        $bookingServices[-1] = trans('common.select');
-        ksort($bookingServices);//sort selected services by key
+        $bookingCategoryId       = (!empty($firstBookingService->service->category->id)) ? $firstBookingService->service->category->id : null;
+        $bookingServiceId        = (!empty($firstBookingService->service->id)) ? $firstBookingService->service->id : null;
+        $bookingServicesList     = $employee->services()->where('category_id', $bookingCategoryId)->lists('name','id');
+        $bookingServicesList[-1] = trans('common.select');
+        ksort($bookingServicesList);//sort selected services by key
 
-        $serviceTimes = (!empty($bookingService)) ? $bookingService->service->serviceTimes : [];
-        $length = (!empty($bookingService)) ? $bookingService->service->length : 0;
-        $description = (!empty($bookingService)) ? $bookingService->service->description : '';
+        $serviceTimes = (!empty($firstBookingService)) ? $firstBookingService->service->serviceTimes : [];
+        $length = (!empty($firstBookingService)) ? $firstBookingService->service->length : 0;
+        $description = (!empty($firstBookingService)) ? $firstBookingService->service->description : '';
         $plustime = (!empty($bookingServiceId)) ? $employee->getPlustime($bookingServiceId) : 0;
 
-        $serviceTimesList = $bookingService->service->getServiceTimesData();
+        $serviceTimesList = $firstBookingService->service->getServiceTimesData();
 
         $bookingServiceTime = (!empty($booking->bookingServices()->first()->serviceTime->id))
                             ? $booking->bookingServices()->first()->serviceTime->id
                             : 'default';
+        $modifyTime  =  (!empty($booking->bookingServices()->first()))
+                            ? $booking->bookingServices()->first()->modify_time
+                            : 0;
 
         $startAt = with(new Carbon($booking->start_at))->format('H:i');
         $endAt   = with(new Carbon($booking->end_at))->format('H:i');
@@ -192,19 +196,22 @@ class Bookings extends AsBase
         return [
             'booking'               => $booking,
             'uuid'                  => $booking->uuid,
-            'modifyTime'            => $booking->modify_time,
+            'modifyTime'            => $modifyTime,
             'bookingDate'           => $booking->date,
             'startTime'             => $startAt,
             'endTime'               => $endAt,
+            'totalLength'           => $booking->getFormTotalLength(),
+            'totalPrice'            => $booking->total_price,
             'bookingStatuses'       => $bookingStatuses,
-            'bookingService'        => $bookingService,
+            'firstBookingService'   => $firstBookingService,
             'bookingServiceTime'    => $bookingServiceTime,
             'bookingExtraServices'  => $bookingExtraServices,
             'employee'              => $employee,
             'category_id'           => $bookingCategoryId,
             'service_id'            => $bookingServiceId,
             'categories'            => $categories,
-            'services'              => $bookingServices,
+            'services'              => $bookingServicesList,
+            'bookingServices'       => $bookingServices,
             'serviceTimes'          => $serviceTimesList,
             'plustime'              => $plustime
         ];
@@ -246,6 +253,7 @@ class Bookings extends AsBase
             'employee'        => $employee,
             'categories'      => $categories,
             'bookingDate'     => $bookingDate,
+            'bookingServices' => [],
             'startTime'       => $startTime,
             'bookingStatuses' => $bookingStatuses
         ]);
@@ -451,6 +459,7 @@ class Bookings extends AsBase
         $bookingId           = (int) Input::get('booking_id', 0);//if update old booking
         $employeeId          = (int) Input::get('employee_id');
         $serviceTimeId       = Input::get('service_time', 'default');
+        $bookingServiceId    = Input::get('booking_service_id', 0);
         $modifyTime          = (int) Input::get('modify_times', 0);
         $hash                = Input::get('hash');
         $bookingDate         = Input::get('booking_date');
@@ -468,6 +477,7 @@ class Bookings extends AsBase
                 ->setServiceId($serviceId)
                 ->setEmployeeId($employeeId)
                 ->setServiceTimeId($serviceTimeId)
+                ->setBookingServiceId($bookingServiceId)
                 ->setModifyTime($modifyTime)
                 ->setIsRequestedEmployee($isRequestedEmployee);
 
@@ -481,6 +491,47 @@ class Bookings extends AsBase
             return Response::json($data, 500);
         }
 
+        return Response::json($data);
+    }
+
+    /**
+     * Delete selected booking service
+     */
+    public function deleteBookingService()
+    {
+        //@TODO check can delete the booking service or not?
+        $data = [];
+        try {
+            if (Request::ajax() === true) {
+                $uuid             = Input::get('uuid', 0);
+                $startTime        = Input::get('start_time');
+                $bookingId        = Input::get('booking_id', 0);
+                $bookingServiceId = Input::get('booking_service_id', 0);
+
+                //Prevent user delete all booking service when booking was already placed
+                if(!empty($bookingId)) {
+                    $countBookingService = BookingService::where('tmp_uuid', $uuid)->whereNull('deleted_at')->count();
+                    if($countBookingService === 1) {
+                        throw new \Exception(trans('as.bookings.error.delete_last_booking_service'));
+                    }
+                }
+
+                $bookingService   = BookingService::find($bookingServiceId);
+                $date = $bookingService->date;
+                $bookingService->delete();
+
+                $receptionist = new BackendReceptionist();
+                $receptionist->setUUID($uuid);
+                $receptionist->setBookingDate($date);
+                $receptionist->setStartTime($startTime);
+                $receptionist->setBookingId($bookingId);
+                $receptionist->updateBookingServicesTime();
+                $data = $receptionist->getDeleteResponseData();
+            }
+        }catch(\Exception $ex){
+            $data = ['success' => false, 'message' => $ex->getMessage()];
+            return Response::json($data, 500);
+        }
         return Response::json($data);
     }
 

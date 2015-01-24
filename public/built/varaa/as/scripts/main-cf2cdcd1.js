@@ -4,7 +4,8 @@
 
 (function ($) {
     $(function () {
-        var $doc = $(document);
+        var $doc = $(document),
+            dataStorage = { booking_service_id : 0};
 
         $('.customer-tooltip').tooltip({
             selector: '',
@@ -231,44 +232,151 @@
                 }
             });
         });
+
+        $doc.on('click', '.btn-edit-booking-service', function (e) {
+            e.preventDefault();
+            var booking_service_id = $(this).data('booking-service-id'),
+                category_id = $(this).data('category-id'),
+                service_id = $(this).data('service-id'),
+                service_time_id =$(this).data('service-time-id'),
+                modify_times = $(this).data('modify_times');
+
+                dataStorage.booking_service_id = booking_service_id;
+                dataStorage.category_id = category_id;
+                dataStorage.service_id = service_id;
+                dataStorage.service_time_id = service_time_id;
+                dataStorage.modify_times = modify_times;
+
+            $('#service_categories').val(category_id).trigger('change');
+            $('#added_services').find('tbody').find('tr').removeAttr('style');
+            $('#booking-service-id-' + booking_service_id).css('background-color', 'pink');
+            $('#btn-add-service').text($(this).data('edit-text'));
+            $('#btn-add-service').addClass('btn-success');
+        });
+
+        $doc.on('click', '#btn-add-new-booking-service', function (e) {
+            e.preventDefault();
+            dataStorage.booking_service_id = 0;
+            var $services = $('#service_categories');
+            $services.val($services.find('option:eq(1)').val()).trigger('change');
+            $('#added_services').find('tbody').find('tr').removeAttr('style');
+            $('#btn-add-service').text($(this).data('add-text'));
+            $('#btn-add-service').removeClass('btn-success');
+        });
+
+        $doc.on('click', '.btn-delete-booking-service', function (e) {
+            e.preventDefault();
+            var booking_service_id = $(this).data('booking-service-id'),
+                booking_id = $(this).data('booking-id'),
+                uuid = $(this).data('uuid'),
+                start_time = $(this).data('start-time'),
+                $table = $('#added_services');
+            dataStorage.booking_service_id = booking_service_id;
+            dataStorage.booking_id = booking_id;
+            dataStorage.uuid = uuid;
+            dataStorage.start_time = start_time;
+            $.ajax({
+                type: 'POST',
+                url: $('#delete_booking_service_url').val(),
+                data: dataStorage,
+                dataType: 'json'
+            }).done(function (data) {
+                $('#booking-service-id-'+booking_service_id).remove();
+                $('#btn-add-service').text($table.data('add-text'));
+                $('#total_length').val(data.total_length);
+                $('#total_price').val(data.total_price);
+            }).fail(function (data) {
+                alertify.alert('Alert', data.responseJSON.message, function () {
+                    alertify.message("OK");
+                });
+            });
+            dataStorage.booking_service_id = 0;
+        });
+
         $doc.on('click', '#btn-add-service', function (e) {
             e.preventDefault();
-            var service_id = $('#services').val(),
-                employee_id = $('#employee_id').val(),
-                service_time = $('#service_times').val(),
-                modify_times = $('#modify_times').val(),
-                booking_date = $('#booking_date').val(),
-                start_time = $('#start_time').val(),
-                uuid = $('#booking_uuid').val(),
-                booking_id = $('#booking_id').val();
+            dataStorage.service_id   = $('#services').val();
+            dataStorage.employee_id  = $('#employee_id').val();
+            dataStorage.service_time = $('#service_times').val();
+            dataStorage.modify_times = $('#modify_times').val();
+            dataStorage.booking_date = $('#booking_date').val();
+            dataStorage.start_time   = $('#start_time').val();
+            dataStorage.uuid         = $('#booking_uuid').val();
+            dataStorage.booking_id   = $('#booking_id').val();
             $.ajax({
                 type: 'POST',
                 url: $('#add_service_url').val(),
-                data: {
-                    service_id: service_id,
-                    service_time: service_time,
-                    employee_id: employee_id,
-                    booking_id : booking_id,
-                    modify_times: modify_times,
-                    booking_date: booking_date,
-                    start_time: start_time,
-                    uuid: uuid
-                },
+                data: dataStorage,
                 dataType: 'json'
             }).done(function (data) {
-                $('#added_service_name').text(data.service_name);
-                $('#added_employee_name').text(data.employee_name);
-                $('#added_booking_date').text(data.datetime);
-                $('#added_booking_modify_time').text(data.modify_time);
-                $('#added_booking_plustime').text(data.plustime);
-                $('#added_service_price').text(data.price);
-                $('#added_services').show();
+                showBookingServiceResult(data);
             }).fail(function (data) {
                 alertify.alert('Alert', data.responseJSON.message, function () {
                     alertify.message("OK");
                 });
             });
         });
+
+        var showBookingServiceResult = function(data) {
+            var $table = $('#added_services'),
+                $tbody = $table.find('tbody');
+            if (!$tbody.find('#booking-service-id-'+data.booking_service_id).length) {
+                var $tr = $('<tr/>', {
+                    id : 'booking-service-id-' + data.booking_service_id
+                }).appendTo($tbody);
+
+                var $td = $('<td/>').appendTo($tr);
+                $('<span>', { class : 'added_service_name'}).appendTo($td);
+                $('<br>').appendTo($td);
+                $('<span>', { class : 'added_employee_name'}).appendTo($td);
+
+                var classes = [
+                    'added_booking_modify_time',
+                    'added_booking_plustime',
+                    'added_booking_service_length',
+                    'added_booking_date',
+                    'added_service_price'
+                ];
+
+                for (var i =  0; i < classes.length; i++) {
+                    var $td = $('<td/>').appendTo($tr);
+                    $('<span>', { class : classes[i]}).appendTo($td);
+                };
+
+                var $td = $('<td/>').appendTo($tr);
+                $('<a>', {
+                    'href'  : '#',
+                    'class' : 'btn-edit-booking-service',
+                    'data-booking-service-id': data.booking_service_id,
+                    'data-service-id': data.service_id,
+                    'data-category-id': data.category_id,
+                    'data-service-time-id': data.service_time,
+                    'data-modify-times': data.modify_time,
+                    'data-edit-text': $table.data('edit-text'),
+                }).append('<i class="fa fa-edit"></i>').appendTo($td);
+
+                 $('<a>', {
+                    'href'  : '#',
+                    'class' : 'btn-delete-booking-service',
+                    'data-booking-service-id': data.booking_service_id,
+                    'data-booking-id': data.booking_id,
+                    'data-start-time': data.start_time,
+                    'data-uuid': data.uuid,
+                }).append('<i class="fa fa-trash"></i>').appendTo($td);
+            }
+            var $tds = $('#booking-service-id-' + data.booking_service_id + ' > td');
+            $tds.find('span.added_service_name').text(data.service_name);
+            $tds.find('span.added_employee_name').text(data.employee_name);
+            $tds.find('span.added_booking_modify_time').text(data.modify_time);
+            $tds.find('span.added_booking_plustime').text(data.plustime);
+            $tds.find('span.added_booking_service_length').text(data.service_length);
+            $tds.find('span.added_booking_date').text(data.datetime);
+            $tds.find('span.added_service_price').text(data.price);
+            $('#total_length').val(data.total_length);
+            $('#total_price').val(data.total_price);
+            $('#added_services').show();
+        }
+
         $doc.on('click', '#btn-save-booking', function (e) {
             e.preventDefault();
             var postData = $('#booking_form').serializeArray();

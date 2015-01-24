@@ -17,6 +17,7 @@ abstract class Receptionist implements ReceptionistInterface
     protected $bookingId           = null;
     protected $date                = null;
     protected $startTime           = null;
+    protected $bookingStartTime    = null;
     protected $endTime             = null;
     protected $uuid                = null;
     protected $serviceId           = null;
@@ -28,6 +29,8 @@ abstract class Receptionist implements ReceptionistInterface
     protected $extraServicePrice   = 0;
     protected $extraServiceLength  = 0;
     protected $bookingService      = null;
+    protected $bookingServices     = null;
+    protected $bookingServiceId    = null;
     protected $selectedService     = null;
     protected $baseLength          = null;
     protected $total               = null;
@@ -84,12 +87,32 @@ abstract class Receptionist implements ReceptionistInterface
 
         $startTime = Carbon::createFromFormat('Y-m-d H:i', sprintf('%s %s', $this->date, $strStartTime));
         $this->startTime = $startTime;
-
+        $this->bookingStartTime = $startTime;
         return $this;
     }
 
     public function getStartTime()
     {
+        if(!empty($this->bookingServices) && !$this->bookingServices->isEmpty()) {
+            if(!empty($this->bookingServiceId)) {
+                $previousBookingService = null;
+                foreach ($this->bookingServices as $bookingService) {
+                    if($bookingService->id === $this->bookingServiceId) {
+                        break;
+                    } else {
+                        $previousBookingService = $bookingService;
+                    }
+                }
+
+                if(!empty($previousBookingService) && $this->bookingServiceId !== $previousBookingService->id) {
+                    $this->startTime = $previousBookingService->endTime;
+                }
+            } else {
+                $this->startTime =  ($this->bookingServices->last())
+                    ? $this->bookingServices->last()->endTime
+                    : $this->startTime;
+            }
+        }
         return $this->startTime;
     }
 
@@ -186,22 +209,43 @@ abstract class Receptionist implements ReceptionistInterface
         return $this->selectedService;
     }
 
-    public function setBookingService($notNull = false)
+    public function setBookingServiceId($bookingServiceId)
     {
-        $this->bookingService = (empty($this->bookingId))
-            ? BookingService::where('tmp_uuid', $this->uuid)->first()
-            : BookingService::where('booking_id', $this->bookingId)->first();
+        $this->bookingServiceId = $bookingServiceId;
+        return $this;
+    }
 
-        if(empty($this->bookingService) && $notNull){
-            throw new Exception(trans('as.bookings.missing_services'), 1);
+    public function setBookingService()
+    {
+        if(!empty($this->bookingServiceId)) {
+            $this->bookingService = BookingService::find($this->bookingServiceId);
         }
 
+        $this->bookingServices = BookingService::where('tmp_uuid', $this->uuid)
+            ->whereNull('deleted_at')->orderBy('start_at')->get();
+
         return $this;
+    }
+
+    public function validateEmptyBookingService()
+    {
+        $this->bookingService = BookingService::where('tmp_uuid', $this->uuid)
+            ->whereNull('deleted_at')
+            ->orderBy('start_at')->first();
+
+        if (empty($this->bookingService)) {
+            throw new Exception(trans('as.bookings.missing_services'), 1);
+        }
     }
 
     public function getBookingService()
     {
         return $this->bookingService;
+    }
+
+    public function getBookingServices()
+    {
+        return $this->bookingServices;
     }
 
     public function setClientIP($ip)
@@ -461,24 +505,48 @@ abstract class Receptionist implements ReceptionistInterface
                 $bookingExtraService->save();
             }
         }
-
+        $this->bookingServiceId = $model->id;
         return $model;
     }
 
     public function getResponseData()
     {
+
+        $this->setBookingService();
+
         if(empty($this->price)) {
             $this->computeTotalPrice();
         }
 
+        $this->bookingService = BookingService::find($this->bookingServiceId);
+
         $data = [
-            'datetime'      => $this->startTime->toDateTimeString(),
-            'price'         => $this->price,
-            'service_name'  => $this->service->name,
-            'modify_time'   => $this->modifyTime,
-            'plustime'      => $this->plustime,
-            'employee_name' => $this->employee->name,
-            'uuid'          => $this->uuid
+            'datetime'           => $this->startTime->toDateString(),
+            'booking_service_id' => $this->bookingServiceId,
+            'booking_id'         => $this->bookingId,
+            'start_time'         => $this->bookingStartTime->format('H:i'),
+            'price'              => $this->bookingService->selectedService->price,
+            'total_price'        => $this->price,
+            'total_length'       => $this->getFormTotalLength(),
+            'category_id'        => $this->service->category->id,
+            'service_id'         => $this->service->id,
+            'service_name'       => $this->service->name,
+            'service_time'       => $this->bookingService->getFormServiceTime(),
+            'service_length'     => $this->bookingService->selectedService->length,
+            'modify_time'        => $this->modifyTime,
+            'plustime'           => $this->plustime,
+            'employee_name'      => $this->employee->name,
+            'uuid'               => $this->uuid
+        ];
+        return $data;
+    }
+
+    public function getDeleteResponseData()
+    {
+        $data = [
+            'success'      => true,
+            'total_price'  => $this->computeTotalPrice(),
+            'total_length' => $this->getFormTotalLength()
         ];
         return $data;
     }
@@ -497,16 +565,47 @@ abstract class Receptionist implements ReceptionistInterface
 
     public function computeTotalPrice()
     {
-        //to avoid warning
-        if (!empty($this->extraServices)) {
-            foreach ($this->extraServices as $extraService) {
-                $this->extraServicePrice  += $extraService->price;
-            }
+        $totalPrice = 0;
+
+        if(empty($this->bookingServices)) {
+            $this->setBookingService();
         }
 
-        $this->price = $this->getSelectedService()->price + $this->extraServicePrice;
+        foreach ($this->bookingServices as $bookingService) {
+            $totalPrice  += $bookingService->calculcateTotalPrice();
+        }
+
+        $this->price = $totalPrice + $this->extraServicePrice;
 
         return $this->price;
+    }
+
+    public function computeTotalLength()
+    {
+        $totalLength = 0;
+
+        if(empty($this->bookingServices)) {
+            $this->setBookingService();
+        }
+
+        foreach ($this->bookingServices as $bookingService) {
+            $totalLength  += $bookingService->calculcateTotalLength();
+        }
+        return $totalLength;
+    }
+
+    public function getFormTotalLength()
+    {
+        $totalLength = $this->computeTotalLength();
+        $hourText = (($totalLength / 60) >= 2)
+            ? trans('common.short.hours')
+            : trans('common.short.hour');
+
+        $ret = ($totalLength >= 60)
+            ? sprintf("%d (%s %s)", $totalLength, ($totalLength / 60), $hourText)
+            : sprintf("%d", $totalLength);
+
+        return $ret;
     }
 
     abstract function upsertBooking();

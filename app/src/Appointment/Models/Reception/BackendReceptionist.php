@@ -27,9 +27,66 @@ class BackendReceptionist extends Receptionist
         $this->validateWithRooms();
     }
 
+    /**
+     * Using for update booking service times where user delete one of them
+     */
+    public function updateBookingServicesTime()
+    {
+        $first = BookingService::where('tmp_uuid', $this->uuid)
+            ->whereNull('deleted_at')->orderBy('start_at', 'ASC')->first();
+
+        if(!empty($first)) {
+            $first->start_at = $this->startTime->toTimeString();
+            $first->end_at = $first->startTime->copy()->addMinutes($first->calculcateTotalLength())->toTimeString();
+            $first->save();
+
+            $bookingServices = BookingService::where('tmp_uuid', $this->uuid)
+                ->whereNull('deleted_at')->orderBy('start_at', 'ASC')->get();
+
+            $previousBookingService = [];
+            $lastBookingService = null;
+            //Update the sequence of booking service
+            //The next start time = the previous end time
+            foreach ($bookingServices as $bookingService) {
+                if(empty($previousBookingService)){
+                    $previousBookingService[] = $bookingService;
+                    continue;
+                } else {
+                    $lastBookingService = $previousBookingService[count($previousBookingService) - 1];
+                }
+
+                if(!empty($lastBookingService)){
+                    $bookingService->start_at = $lastBookingService->endTime->toTimeString();
+                    $bookingService->end_at = $lastBookingService->endTime
+                        ->copy()->addMinutes($bookingService->calculcateTotalLength())->toTimeString();
+                    $bookingService->save();
+                }
+            }
+        }
+    }
+
+    public function calculateMultipleBookingServices()
+    {
+        $startTime = $endTime = $modifyTime = $plustime = $totalPrice = $totalLength = null;
+
+        foreach ($this->bookingServices as $bookingService) {
+            $totalLength += $bookingService->calculcateTotalLength();
+            $totalPrice  += $bookingService->calculcateTotalPrice();
+            $modifyTime  += $bookingService->modify_time;
+            $plustime    += $bookingService->getEmployeePlustime();
+        }
+
+        $date      = $this->bookingServices->first()->date;
+        $startTime = $this->bookingServices->first()->startTime;
+        $endTime   = $this->bookingServices->last()->endTime;
+
+        return array($date, $startTime, $endTime, $modifyTime, $plustime, $totalLength, $totalPrice);
+    }
+
     public function upsertBooking()
     {
-        $this->setBookingService(true);
+        $this->setBookingService();
+        $this->validateEmptyBookingService();
 
         $booking = (empty($this->bookingId))
             ? new Booking()
@@ -40,22 +97,19 @@ class BackendReceptionist extends Receptionist
             ? $booking->extraServices
             : array();
 
-        //recalculate booking service end time
-        if(!empty($this->bookingId)) {
-            $this->bookingService->recalculateEndtime();
-        }
+        list($date, $startTime, $endTime, $modifyTime, $plustime, $totalLength, $totalPrice) = $this->calculateMultipleBookingServices();
 
         $booking->fill([
-            'date'        => $this->bookingService->date,
-            'start_at'    => $this->bookingService->startTime->toTimeString(),
-            'end_at'      => $this->bookingService->endTime->toTimeString(),
-            'total'       => $this->bookingService->calculcateTotalLength(),
-            'total_price' => $this->bookingService->calculcateTotalPrice(),
+            'date'        => $date,
+            'start_at'    => $startTime->toTimeString(),
+            'end_at'      => $endTime->toTimeString(),
+            'total'       => $totalLength,
+            'total_price' => $totalPrice,
             'status'      => $this->status,
             'notes'       => $this->notes,
             'uuid'        => $this->uuid,
-            'modify_time' => $this->bookingService->modify_time,
-            'plustime'    => $this->bookingService->getEmployeePlustime(),
+            'modify_time' => $modifyTime,
+            'plustime'    => $plustime,
             'ip'          => $this->getClientIp(),
             'source'      => $this->getSource()
         ]);
@@ -63,6 +117,7 @@ class BackendReceptionist extends Receptionist
         $booking->consumer()->associate($this->consumer);
         $booking->user()->associate($this->user);
         $booking->employee()->associate($this->employee);
+
         if($this->status === Booking::STATUS_CANCELLED){
             $booking->delete_reason = 'Cancelled while updating';
             $booking->save();
@@ -70,10 +125,13 @@ class BackendReceptionist extends Receptionist
         } else {
             $booking->save();
         }
+
         //Users can check this option before or after save a booking service
-        $this->bookingService->is_requested_employee = $this->isRequestedEmployee;
-        $this->bookingService->booking()->associate($booking);
-        $this->bookingService->save();
+        foreach ($this->bookingServices as $bookingService) {
+            $bookingService->is_requested_employee = $this->isRequestedEmployee;
+            $bookingService->booking()->associate($booking);
+            $bookingService->save();
+        }
 
         //Don't send sms when update booking
         if(empty($this->bookingId)){
