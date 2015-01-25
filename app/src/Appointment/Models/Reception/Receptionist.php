@@ -567,9 +567,7 @@ abstract class Receptionist implements ReceptionistInterface
     {
         $totalPrice = 0;
 
-        if(empty($this->bookingServices)) {
-            $this->setBookingService();
-        }
+        $this->setBookingService();
 
         foreach ($this->bookingServices as $bookingService) {
             $totalPrice  += $bookingService->calculcateTotalPrice();

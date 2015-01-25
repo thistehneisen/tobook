@@ -640,46 +640,31 @@ class Bookings extends AsBase
 
     public function removeExtraService()
     {
-        $extraServiceId  = Input::get('extra_service');
-        $bookingId       = Input::get('booking_id');
-        $booking         = Booking::ofCurrentUser()->find($bookingId);
+        $extraServiceId = Input::get('extra_service');
+        $bookingId      = Input::get('booking_id');
         $data = [];
         try {
+            $booking  = Booking::findOrFail($bookingId);
             $bookingExtraService = BookingExtraService::where('extra_service_id', $extraServiceId)
-                ->where('booking_id', $bookingId)
+                ->where('tmp_uuid', $booking->uuid)
                 ->firstOrFail();
 
             if (!empty($bookingExtraService)) {
                 $bookingExtraService->delete();
             }
-            $bookingService = $booking->bookingServices()->first();
-            //Recalculate end time and total price
-            $total = $price = 0;
-            if (!empty($bookingService)) {
-                $total = (!empty($bookingService->serviceTime->length))
-                        ? $bookingService->serviceTime->length
-                        : $bookingService->service->length;
 
-                $total += $bookingService->modify_time;
+            $receptionist = new BackendReceptionist();
+            $receptionist->setUUID($booking->uuid)
+                ->setBookingId($booking->id)
+                ->setStatus($booking->status)
+                ->setUser($this->user)
+                ->setBookingDate($booking->date)
+                ->setStartTime($booking->startTime->format('H:i'))
+                ->setBookingId($bookingId)
+                ->setConsumer($booking->consumer)
+                ->updateBookingServicesTime();
 
-                $price = (!empty($bookingService->serviceTime->price))
-                        ? $bookingService->serviceTime->price
-                        : $bookingService->service->price;
-            }
-
-            $extraServices = $booking->extraServices;
-            foreach ($extraServices as $extraService) {
-                $total += $extraService->length;
-                $price  += $extraService->price;
-            }
-
-            $startTime   = Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s', $booking->date, $booking->start_at));
-            $newEndTime= with(clone $startTime)->addMinutes($total);
-
-            $booking->total        = $total;
-            $booking->total_price  = $price;
-            $booking->end_at       = $newEndTime->toTimeString();
-            $booking->save();
+             $receptionist->upsertBooking();
 
             $data['success'] = true;
         } catch (\Exception $ex) {

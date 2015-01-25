@@ -56,6 +56,8 @@ class BackendReceptionCest
             ->setEmployeeId($employee->id)
             ->setServiceTimeId('default');
 
+        $bookingService = $receptionist->upsertBookingService();
+        $I->assertEmpty($receptionist->getBookingServices());
         $I->assertEquals($service->price, $receptionist->computeTotalPrice());
     }
 
@@ -252,17 +254,28 @@ class BackendReceptionCest
             ->setEmployeeId($employee->id)
             ->setServiceTimeId('default');
 
+        $bookingService = $receptionist->upsertBookingService();
         $response = $receptionist->getResponseData();
+
         $plustime = $employee->getPlustime($service->id);
 
         $cooked = [
-            'datetime'      => $date->hour(14)->toDateTimeString(),
-            'price'         => $service->price,
-            'service_name'  => $service->name,
-            'modify_time'   => 0,
-            'plustime'      => intval($plustime),
-            'employee_name' => $employee->name,
-            'uuid'          => $uuid
+            'datetime'           => $date->hour(14)->toDateString(),
+            'booking_service_id' => $bookingService->id,
+            'booking_id'         => 0,
+            'start_time'         => $startTime,
+            'price'              => $service->price,
+            'total_price'        => $service->price,
+            'total_length'       => '60 (1 hr)',
+            'category_id'        => $service->category->id,
+            'service_id'         => $service->id,
+            'service_name'       => $service->name,
+            'service_time'       => 'default',
+            'service_length'     => $service->length,
+            'modify_time'        => 0,
+            'plustime'           => intval($plustime),
+            'employee_name'      => $employee->name,
+            'uuid'               => $uuid
         ];
 
         $I->assertEquals($response, $cooked);
@@ -393,18 +406,31 @@ class BackendReceptionCest
         $I->assertEquals($booking->startTime, $date->hour(14)->minute(0)->second(0));
         $I->assertEquals($booking->endTime, $date->hour(15)->minute(30)->second(0));
 
-
+        $I->assertNotEmpty($booking->id);
         //delete extra services
-        foreach ($extraServicesIds as $key => $extraServiceId) {
-            $bookingExtraService = BookingExtraService::where('extra_service_id', $extraServiceId)
-                ->firstOrFail();
-
-            if (!empty($bookingExtraService)) {
-                $bookingExtraService->delete();
-            }
+        $bookingExtraServices = BookingExtraService::whereIn('extra_service_id', $extraServicesIds)
+                ->where('tmp_uuid', $uuid)
+                ->get();
+        $I->assertNotEmpty($bookingExtraServices);
+        foreach ($bookingExtraServices  as $bookingExtraService) {
+            $bookingExtraService->delete();
         }
 
-         $consumer = Consumer::handleConsumer([
+        $bookingExtraServices = BookingExtraService::whereIn('extra_service_id', $extraServicesIds)
+                ->where('tmp_uuid', $uuid)
+                ->get();
+
+        $I->assertEquals(0, $bookingExtraServices->count());
+        $I->assertEmpty($bookingExtraServices);
+
+        $receptionist = new BackendReceptionist();
+        $receptionist->setUUID($uuid)
+            ->setBookingDate($date->toDateString())
+            ->setStartTime($startTime)
+            ->setBookingId($booking->id)
+            ->updateBookingServicesTime();
+
+        $consumer = Consumer::handleConsumer([
             'first_name' => 'Consumer First',
             'last_name' => 'Last ' . $this->service->id,
             'email' => 'consumer_' . $this->service->id . '@varaa.com',
@@ -424,6 +450,7 @@ class BackendReceptionCest
             ->setSource('backend');
 
         $booking = $receptionist->upsertBooking();
+
         $I->assertNotEmpty($booking);
         $I->assertEquals($booking->total, 60);
         $I->assertEquals($booking->startTime, $date->hour(14)->minute(0)->second(0));
