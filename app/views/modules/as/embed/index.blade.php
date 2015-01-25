@@ -10,7 +10,11 @@
     @foreach ($links as $lang => $link)
     <div class="col-sm-12">
         <h3>{{ trans("as.embed.{$lang}_version") }}</h3>
-        <textarea class="form-control" cols="30" rows="2" style="font-family: monospace;"><iframe width="100%" height="1000px" src="{{ $link }}"></iframe></textarea>
+
+        @foreach (range(1, 3) as $layout)
+            <h5>{{ trans('as.options.general.layout') }} {{{ $layout }}}</h5>
+            <textarea class="form-control" cols="30" rows="2" style="font-family: monospace;" readonly="true"><iframe width="100%" height="1000px" src="{{{ $link }}}?l={{{ $layout }}}"></iframe></textarea>
+        @endforeach
     </div>
     @endforeach
 </div>

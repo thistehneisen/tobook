@@ -385,6 +385,7 @@ return [
         'checkout'         => 'Gå vidare',
         'fi_version'       => 'Finska',
         'en_version'       => 'Engelska',
+        'sv_version'       => 'Svenska',
         'book'             => 'Boka',
         'loading'          => 'Laddar;',
         'success'          => 'Tack för din bokning. En bekräftelse kommer på mailen!',

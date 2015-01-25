@@ -383,6 +383,7 @@ return [
         'checkout'         => 'Viimeistele varaus',
         'fi_version'       => 'Suomeksi',
         'en_version'       => 'Englanniksi',
+        'sv_version'       => 'Ruotsiksi',
         'book'             => 'Varaa',
         'success'          => 'Varauksesi on vastaanotettu onnistuneesti! Kiitos varauksestasi.',
         'confirm'          => 'Vahvista varaus',

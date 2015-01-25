@@ -381,6 +381,7 @@ return [
         'checkout'         => 'Checkout',
         'fi_version'       => 'Finnish',
         'en_version'       => 'English',
+        'sv_version'       => 'Swedish',
         'book'             => 'Book',
         'loading'          => 'Now loading&hellip;',
         'success'          => 'Booking was placed. Thank you.',
