@@ -479,7 +479,7 @@ class BackendReceptionCest
         $I->assertEquals($bookingService1->endTime, $date->hour(15)->minute(0)->second(0));
 
         $bookingService2 = $this->makeBookingService($uuid, $user, $date, '15:00', $this->services[1], $employee);
-
+        $I->assertEquals($this->services[1]->length, 60);
         $I->assertEquals($bookingService2->startTime, $date->hour(15)->minute(0)->second(0));
         $I->assertEquals($bookingService2->endTime, $date->hour(16)->minute(0)->second(0));
 
@@ -506,7 +506,7 @@ class BackendReceptionCest
 
         $booking = $receptionist->upsertBooking();
         $I->assertNotEmpty($booking);
-        $I->assertEquals($booking->total, 60);
+        $I->assertEquals($booking->total, 120);
         $I->assertEquals($booking->startTime, $date->hour(14)->minute(0)->second(0));
         $I->assertEquals($booking->endTime, $date->hour(16)->minute(0)->second(0));
     }
