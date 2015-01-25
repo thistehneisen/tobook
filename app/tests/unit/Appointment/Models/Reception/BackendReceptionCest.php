@@ -478,7 +478,22 @@ class BackendReceptionCest
         $I->assertEquals($bookingService1->startTime, $date->hour(14)->minute(0)->second(0));
         $I->assertEquals($bookingService1->endTime, $date->hour(15)->minute(0)->second(0));
 
-        $bookingService2 = $this->makeBookingService($uuid, $user, $date, '15:00', $this->services[1], $employee);
+        $service1 = new Service([
+            'name'      => 'Hiusjuuritutkimus',
+            'length'    => 60,
+            'during'    => 45,
+            'after'     => 15,
+            'price'     => 35,
+            'is_active' => 1,
+        ]);
+        $category = ServiceCategory::findOrFail(106);
+        $service1->user()->associate($user);
+        $service1->category()->associate($category);
+        $service1->saveOrFail();
+
+        $service1->employees()->attach($employee);
+
+        $bookingService2 = $this->makeBookingService($uuid, $user, $date, '15:00', $service1, $employee);
         $I->assertEquals($this->services[1]->length, 60);
         $I->assertEquals($bookingService2->startTime, $date->hour(15)->minute(0)->second(0));
         $I->assertEquals($bookingService2->endTime, $date->hour(16)->minute(0)->second(0));
@@ -532,7 +547,22 @@ class BackendReceptionCest
         $I->assertEquals($bookingService1->startTime, $date->hour(14)->minute(0)->second(0));
         $I->assertEquals($bookingService1->endTime, $date->hour(15)->minute(0)->second(0));
 
-        // $I->assertEmpty($bookingService1->id);
+        $I->assertNotEmpty($bookingService1->id);
+
+        $service1 = new Service([
+            'name'      => 'Hiusjuuritutkimus',
+            'length'    => 60,
+            'during'    => 45,
+            'after'     => 15,
+            'price'     => 35,
+            'is_active' => 1,
+        ]);
+        $category = ServiceCategory::findOrFail(106);
+        $service1->user()->associate($user);
+        $service1->category()->associate($category);
+        $service1->saveOrFail();
+
+        $service1->employees()->attach($employee);
 
         $receptionist = new BackendReceptionist();
         $receptionist->setBookingId(0)
@@ -541,21 +571,25 @@ class BackendReceptionCest
             ->setBookingDate($date->toDateString())
             ->setStartTime($startTime)
             ->setBookingServiceId($bookingService1->id)
-            ->setServiceId($this->services[1]->id)
+            ->setServiceId($service1->id)
             ->setEmployeeId($employee->id)
             ->setServiceTimeId('default')
             ->setModifyTime(0)
             ->setIsRequestedEmployee(false);
 
-        $bookingService1 = $receptionist->upsertBookingService();
+        try{
+            $bookingService2 = $receptionist->upsertBookingService();
+        }catch(\Exception $ex) {
+            $I->assertEmpty($ex);
+        }
 
         $bookingServices = BookingService::where('tmp_uuid', $uuid)
             ->whereNull('deleted_at')->orderBy('start_at')->get();
         $I->assertEquals($bookingServices->count(), 1);
 
-        $I->assertEquals($bookingService1->startTime, $date->hour(14)->minute(0)->second(0));
-        $I->assertEquals($bookingService1->endTime, $date->hour(15)->minute(0)->second(0));
-        $I->assertEquals($bookingService1->service->id, $this->services[1]->id);
+        $I->assertEquals($bookingService2->startTime, $date->hour(14)->minute(0)->second(0));
+        $I->assertEquals($bookingService2->endTime, $date->hour(15)->minute(0)->second(0));
+        $I->assertEquals($bookingService2->service->id,  $service1->id);
     }
 
     protected function makeBookingService($uuid, $user, $date, $startTime, $service, $employee)

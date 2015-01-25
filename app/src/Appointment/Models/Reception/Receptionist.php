@@ -97,7 +97,7 @@ abstract class Receptionist implements ReceptionistInterface
             if(!empty($this->bookingServiceId)) {
                 $previousBookingService = null;
                 foreach ($this->bookingServices as $bookingService) {
-                    if($bookingService->id === $this->bookingServiceId) {
+                    if(intval($bookingService->id) === $this->bookingServiceId) {
                         break;
                     } else {
                         $previousBookingService = $bookingService;
