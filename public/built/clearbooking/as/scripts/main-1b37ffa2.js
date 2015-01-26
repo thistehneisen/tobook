@@ -322,6 +322,8 @@
                     $('<span>', { class : classes[i]}).appendTo($td);
                 };
 
+                var $td = $('<td/>').appendTo($tr);
+
                 $('<a>', {
                     'href'  : '#',
                     'class' : 'btn-delete-booking-service',

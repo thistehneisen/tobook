@@ -134,8 +134,10 @@ do ($ = jQuery) ->
         .find '.modal-footer #js-confirmGivePoint'
         .data 'url', $(e.relatedTarget).data 'url'
 
-    $givePointModal.on 'click', '#js-confirmGivePoint', ->
+    $givePointModal.on 'click', '#js-confirmGivePoint', (e) ->
+      e.preventDefault()
       $me = $ @
+
       $.ajax
         url: $me.data 'url'
         type: 'PUT',

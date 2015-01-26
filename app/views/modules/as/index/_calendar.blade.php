@@ -2,7 +2,7 @@
     $booking   = $selectedEmployee->getBooked($selectedDate, $hour, $minuteShift);
     $freetime  = $selectedEmployee->getFreetime($selectedDate, $hour, $minuteShift);
     $bookingId = !empty($booking) ? $booking->id : -1;
-    $slots = !empty($booking) ? round($booking->total / 15) : 0;
+    $slots = !empty($booking) ? round(($booking->total + $booking->modify_time) / 15) : 0;
     $freetimeSlots = (int) !empty($freetime) ? round($freetime->getLength() / 15) : 0;
     $maxHeight = !empty($booking) ? $slots * 18 : 18;
     $maxFreetimeHeight = !empty($freetime) ? $freetimeSlots * 18 : 18;
