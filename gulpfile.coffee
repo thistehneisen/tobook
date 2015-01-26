@@ -2,6 +2,7 @@ gulp = require 'gulp'
 del = require 'del'
 _ = require 'lodash'
 fs = require 'fs'
+chmod = require 'gulp-chmod'
 streamqueue = require 'streamqueue'
 gulpLoadPlugins = require 'gulp-load-plugins'
 plugins = gulpLoadPlugins()
@@ -18,12 +19,14 @@ paths =
 # Do nothing, just copy images to proper folders
 gulp.task 'img', ->
   gulp.src paths.img, base: paths.tmp
+    .pipe chmod 755
     .pipe gulp.dest paths.dest
 
 # Rev JS files
 gulp.task 'js', ->
   gulp.src paths.js, base: paths.tmp
     .pipe plugins.rev()
+    .pipe chmod 755
     .pipe gulp.dest paths.dest
     .pipe plugins.rev.manifest path: 'js-manifest.json'
     .pipe gulp.dest paths.dest
@@ -34,6 +37,7 @@ gulp.task 'coffee', ['clean', 'js'], ->
     .pipe plugins.coffee()
     .pipe plugins.uglify()
     .pipe plugins.rev()
+    .pipe chmod 755
     .pipe gulp.dest paths.dest
     .pipe plugins.rev.manifest path: 'script-manifest.json'
     .pipe gulp.dest paths.dest
@@ -44,6 +48,7 @@ gulp.task 'less', ['clean'], ->
     .pipe plugins.less()
     .pipe plugins.cssmin()
     .pipe plugins.rev()
+    .pipe chmod 755
     .pipe gulp.dest paths.dest
     .pipe plugins.rev.manifest path: 'style-manifest.json'
     .pipe gulp.dest paths.dest
@@ -65,6 +70,7 @@ gulp.task 'clone', ->
       base   = gulp.src "#{paths.base}/varaa/**/*.*"
       ext    = gulp.src "#{paths.base}/#{folder}/**/*.*"
       streamqueue objectMode: true, base, ext
+        .pipe chmod 755
         .pipe gulp.dest target
 
 # Build assets to be ready for production
