@@ -166,8 +166,6 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            <br>
-                            <button id="btn-add-new-booking-service" data-add-text="{{ trans('common.add') }}"class="btn btn-primary btn-sm pull-right"><i class="fa fa-plus"></i></button>
                         </div>
                     </div>
                     <div class="clearfix">&nbsp;</div>
