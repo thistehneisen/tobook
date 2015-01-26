@@ -160,7 +160,6 @@
                                             </span>
                                         </td>
                                          <td class="align_right">
-                                            <a href="#" class="btn-edit-booking-service" data-booking-service-id="{{ $bookingService->id }}" data-service-id="{{ $bookingService->service->id }}" data-category-id="{{ $bookingService->service->category->id }}" data-service-time-id="{{ $bookingService->getFormServiceTime() }}" data-modify-times="{{ $bookingService->modify_time }}" data-edit-text="{{ trans('common.edit') }}"><i class="fa fa-edit"></i></a>
                                             <a href="#" class="btn-delete-booking-service" data-booking-service-id="{{ $bookingService->id }}" data-booking-id="{{ $bookingService->booking_id }}" data-start-time="{{ $booking->startTime->format('H:i') }}" data-uuid="{{ $bookingService->tmp_uuid }}"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
