@@ -13,8 +13,8 @@ $serviceTimeId      = (!empty($serviceTime)) ? $serviceTime->id : 'default';
 <div class="as-col">
     <ul class="header-info">
         {{ !empty($employee->avatar) ? '<li class="avatar"><img src="'.$employee->getAvatarUrl().'" class="img-responsive" /></li>': '' }}
-        <li class="as-col-header"><strong>{{ $employee->name }}</strong></li>
-        <li class="as-col-header"><strong>{{ $employee->description }}</strong></li>
+        <li class="as-col-header"><strong>{{{ $employee->name }}}</strong></li>
+        <li class="as-col-header"><strong>{{{ $employee->description }}}</strong></li>
         <li class="as-col-header"><strong>{{ trans('as.embed.guide_text') }}</strong></li>
         @if ((bool)$user->asOptions['hide_prices'] === false)
         <li><a class="btn btn-success col-xs-12"><i class="glyphicon glyphicon-tag"></i> {{ $servicePrice }}{{ Config::get('varaa.currency') }}</a></li>
@@ -45,9 +45,9 @@ $serviceTimeId      = (!empty($serviceTime)) ? $serviceTime->id : 'default';
         <input type="hidden" name="start_time" id="start_time-{{ $employee->id }}" value="">
         <input type="hidden" name="service_id" id="service_id" value="{{ $service->id }}">
         <input type="hidden" name="service_time" id="service_time" value="{{ $serviceTimeId }}">
-        @foreach($extraServices as $extraService)
+    @foreach($extraServices as $extraService)
         <input type="hidden" name="extra_services[]" id="extra_services" value="{{ $extraService->id }}">
-        @endforeach
+    @endforeach
         <input type="hidden" name="employee_id" id="employee_id" value="{{ $employee->id }}">
         <input type="hidden" name="hash" id="hash" value="{{ $hash }}">
         </form>

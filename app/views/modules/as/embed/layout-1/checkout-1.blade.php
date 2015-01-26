@@ -65,7 +65,7 @@
             <div class="form-group row" id="terms_body" style="display:none">
                 <div class="col-sm-2">&nbsp;</div>
                 <div class="col-sm-10">
-                {{ nl2br($user->asOptions['terms_body']) }}
+                {{{ nl2br($user->asOptions['terms_body']) }}}
                 </div>
              </div>
             @endif

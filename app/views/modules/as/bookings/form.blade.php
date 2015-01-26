@@ -116,39 +116,20 @@
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <span id="added_service_name">
-                                                @if (!empty($bookingService)) {{ $bookingService->service->name }}
-                                                @endif
-                                            </span>
-                                            <br>
-                                            <span id="added_employee_name">
-                                                @if (!empty($bookingService)) {{ $booking->employee->name }}
-                                                @endif
-                                            </span>
+                                            <span id="added_service_name">@if (!empty($bookingService)) {{{ $bookingService->service->name }}} @endif</span> <br>
+                                            <span id="added_employee_name">@if (!empty($bookingService)) {{{ $booking->employee->name }}} @endif</span>
                                         </td>
                                         <td>
-                                            <span id="added_booking_modify_time">
-                                                @if (!empty($bookingService)) {{ $booking->modify_time }}
-                                                @endif
-                                            </span>
+                                            <span id="added_booking_modify_time">@if (!empty($bookingService)) {{{ $booking->modify_time }}} @endif</span>
                                         </td>
                                         <td>
-                                            <span id="added_booking_plustime">
-                                                @if (!empty($bookingService)) {{ $booking->plustime }}
-                                                @endif
-                                            </span>
+                                            <span id="added_booking_plustime">@if (!empty($bookingService)) {{{ $booking->plustime }}} @endif</span>
                                         </td>
                                         <td>
-                                            <span id="added_booking_date">
-                                                @if (!empty($bookingService)) {{ $booking->date }}
-                                                @endif
-                                            </span>
+                                            <span id="added_booking_date">@if (!empty($bookingService)) {{{ $booking->date }}} @endif</span>
                                         </td>
                                         <td class="align_right">
-                                            <span id="added_service_price">
-                                                @if (!empty($bookingService)) {{ $booking->total_price }}
-                                                @endif
-                                            </span>
+                                            <span id="added_service_price">@if (!empty($bookingService)) {{{ $booking->total_price }}}@endif</span>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -267,10 +248,10 @@
                                     @foreach($bookingExtraServices as $bookingExtraService)
                                     <tr id="extra-service-{{ $bookingExtraService->extraService->id }}">
                                         <td>
-                                            {{ $bookingExtraService->extraService->name }} {{ $bookingExtraService->extraService->description }}
+                                            {{{ $bookingExtraService->extraService->name }}} {{{ $bookingExtraService->extraService->description }}}
                                         </td>
-                                        <td>{{ $bookingExtraService->extraService->length }}</td>
-                                        <td class="align_right"> {{ $bookingExtraService->extraService->price }}</td>
+                                        <td>{{{ $bookingExtraService->extraService->length }}}</td>
+                                        <td class="align_right"> {{{ $bookingExtraService->extraService->price }}}</td>
                                         <td>
                                            <a href="#" class="btn btn-default btn-remove-extra-service" data-remove-url="{{ route('as.bookings.remove-extra-service') }}" data-extra-service-id="{{ $bookingExtraService->extraService->id }}" data-booking-id="{{ $booking->id }}"><i class="glyphicon glyphicon-remove"></i></a>
                                         </td>
