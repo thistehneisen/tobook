@@ -124,7 +124,9 @@ class FrontBookings extends Bookings
             }
 
             // Complete the cart
-            $cart->complete();
+            if ($source !== 'inhouse' && !empty($booking)) {
+                $cart->complete();
+            }
 
             $data['success'] = true;
             $data['message'] = trans('as.embed.success');
@@ -135,7 +137,7 @@ class FrontBookings extends Bookings
         }
 
         //TODO maybe change to use Event instead of Observer
-        if($source !== 'inhouse' && !empty($booking)) {
+        if ($source !== 'inhouse' && !empty($booking)) {
             //Send notification email and SMSs
             try {
                 $booking->attach(new EmailObserver());
@@ -180,8 +182,10 @@ class FrontBookings extends Bookings
 
             $booking = $receptionist->upsertBooking();
 
-            // Update cart status
-            $cart->complete();
+            // Complete the cart
+            if ($source !== 'inhouse' && !empty($booking)) {
+                $cart->complete();
+            }
 
             $data['booking_id'] = $booking->id;
         } catch (\Exception $ex) {
