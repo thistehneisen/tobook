@@ -506,6 +506,8 @@ return [
             'payment_tokens_employee_default'                => $paymentTokensEmployee,
             'terms_enabled'                                  => 'Enable terms',
             'default_nat_service'                            => 'Default next available service',
+            'min_distance'                                   => 'Min distance',//@todo
+            'max_distance'                                   => 'Max distance',//@todo
         ],
         'style' => [
             'heading'                           => '',

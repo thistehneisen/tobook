@@ -63,6 +63,16 @@ return [
                     'type' => 'DefaultNatDropdown',
                     'default' => -1
                 ],
+                'min_distance' => [
+                    'type' => 'Spinner',
+                    'default' => '0',
+                    'options' => ['class' => 'form-control input-sm spinner', 'data-positive' => 'true']
+                ],
+                'max_distance' => [
+                    'type' => 'Spinner',
+                    'default' => '90',
+                    'options' => ['class' => 'form-control input-sm spinner', 'data-positive' => 'true']
+                ],
             ],
             'booking_form' => [
                 'email' => [
