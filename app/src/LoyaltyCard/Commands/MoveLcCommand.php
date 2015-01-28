@@ -32,7 +32,6 @@ class MoveLcCommand extends Command
     {
         // @see: https://github.com/varaa/varaa/issues/281
         $users = [
-            667     => 'steennaveby',
             217     => 'automan',
             9593    => 'bcare',
             1470    => 'blackpanther',
@@ -61,14 +60,6 @@ class MoveLcCommand extends Command
             324     => 'tkbodybalance',
             1001381 => 'vanhakassu',
         ];
-        $mover = new OldDataMover();
-        $mover->fire(new \stdClass(), [
-            'steennaveby',
-            667,
-            338
-        ]);
-
-        return;
 
         // Get role User first, so that we don't need to hit the database again
         $role = Role::user();

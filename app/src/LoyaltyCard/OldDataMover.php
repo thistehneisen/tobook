@@ -42,7 +42,7 @@ class OldDataMover
         $this->movePointHistory($oldUserId, $user);
 
         // Done the job
-        // $job->delete();
+        $job->delete();
     }
 
     /**
