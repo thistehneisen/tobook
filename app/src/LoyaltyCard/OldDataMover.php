@@ -6,6 +6,7 @@ use App\Core\Models\User;
 use App\LoyaltyCard\Models\Offer;
 use App\LoyaltyCard\Models\Voucher;
 use App\LoyaltyCard\Models\Transaction;
+use App\LoyaltyCard\Models\Consumer as LcConsumer;
 
 class OldDataMover
 {
@@ -141,6 +142,9 @@ class OldDataMover
         $now = Carbon::now();
         $data = [];
 
+        // Use to collect total stamps of a consumer
+        $collector = [];
+
         // Get all stamp history of this user
         $table = $oldUserId.'_userstamps';
         $result = $this->db->table($table)->get();
@@ -150,25 +154,45 @@ class OldDataMover
                 : null;
 
             // Skip if we cannot find the new corresponding consumer ID
-            if ($consumerId === null) {
+            if ($consumerId === null
+                || !isset($this->stampMap[$item->stmpid])) {
                 continue;
             }
 
+            $offerId = $this->stampMap[$item->stmpid];
             $data[] = [
                 'user_id'     => $user->id,
                 'consumer_id' => $consumerId,
                 'voucher_id'  => null,
-                'offer_id'    => $this->stampMap[$item->stmpid],
+                'offer_id'    => $offerId,
                 'point'       => 0,
                 'stamp'       => $item->currstm,
                 'created_at'  => $now,
                 'updated_at'  => $now,
             ];
+
+            // Collect total stamps
+            $collector[$consumerId] = !isset($collector[$consumerId])
+                ? []
+                : $collector[$consumerId];
+
+            if (!isset($collector[$consumerId][$offerId])) {
+                $collector[$consumerId][$offerId] = 0;
+            }
+
+            $collector[$consumerId][$offerId] += (int) $item->currstm;
         }
 
         if (!empty($data)) {
             DB::table(with(new Transaction())->getTable())
                 ->insert($data);
+        }
+
+        // Update lc_consumers total stamps
+        foreach ($collector as $consumerId => $totalStamps) {
+            $consumer = LcConsumer::where('consumer_id', $consumerId)->first();
+            $consumer->total_stamps = json_encode($totalStamps);
+            $consumer->save();
         }
     }
 
@@ -217,6 +241,9 @@ class OldDataMover
 
         $data = [];
 
+        // Use to calculate the total points a customer has
+        $collector = [];
+
         $rows = $this->db->table($oldUserId.'_usergift')
             ->where('userid', $oldUserId)
             ->get();
@@ -241,11 +268,24 @@ class OldDataMover
                 'created_at'  => $time,
                 'updated_at'  => $time,
             ];
+
+            // Calculate the total point
+            $collector[$consumerId] = !isset($collector[$consumerId])
+                ? 0
+                : $collector[$consumerId];
+            $collector[$consumerId] += $point;
         }
 
         if (!empty($data)) {
             DB::table(with(new Transaction())->getTable())
                 ->insert($data);
+        }
+
+        // Update lc_consumer data
+        foreach ($collector as $consumerId => $totalPoints) {
+            $consumer = LcConsumer::where('consumer_id', $consumerId)->first();
+            $consumer->total_points = $totalPoints;
+            $consumer->save();
         }
     }
 }
