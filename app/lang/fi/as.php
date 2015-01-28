@@ -308,7 +308,9 @@ return [
             'empty_start_time'            => 'Alkamisajankohta -kenttä ei voi olla tyhjä',
             'booking_not_found'           => 'Varausta ei löytynyt!',
             'past_booking'                => 'Et voi tehdä varausta menneisyyteen!',
-            'delete_last_booking_service' => 'You cannot delete the last booking service'//@todo
+            'delete_last_booking_service' => 'You cannot delete the last booking service',//@todo
+            'before_min_distance'         => 'You cannot make a booking before the min distance day',//@todo
+            'after_max_distance'          => 'You cannot make a booking after the max distance day',//@todo
         ],
         'warning'      => [
             'existing_user'   => 'Järjestelmästä löytyy käyttäjäprofiili antamallesi sähköpostiosoitteelle. Ovatko nämä sinun tietosi?',

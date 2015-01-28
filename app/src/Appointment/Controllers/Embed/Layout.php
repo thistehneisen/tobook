@@ -349,7 +349,8 @@ trait Layout
 
     public function getMinMaxDistanceDay($hash)
     {
-        $user = empty($user)
+        $today = Carbon::today();
+        $user  = empty($user)
             ? $this->getUser($hash)
             : $user;
 

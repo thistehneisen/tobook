@@ -44,6 +44,27 @@ class FrontendReceptionist extends Receptionist
         $this->validateWithExistingBooking();
         $this->validateWithResources();
         $this->validateWithRooms();
+        $this->validateMinMaxDistance();
+    }
+
+
+    /**
+     * Validate booking date with min and max distance
+     * @see https://github.com/varaa/varaa/issues/192
+     */
+    public function validateMinMaxDistance()
+    {
+        $today = Carbon::today();
+        $minDistance = (int)$this->user->asOptions['min_distance'];
+        $maxDistance = (int)$this->user->asOptions['max_distance'];
+        $start  = $today->copy()->addDays($minDistance);
+        $final  = $today->copy()->addDays($maxDistance);
+
+        if($this->getStartTime()->lt($start)) {
+            throw new Exception(trans('as.bookings.error.before_min_distance'), 1);
+        } else if ($this->getStartTime()->gt($final)) {
+            throw new Exception(trans('as.bookings.error.after_max_distance'), 1);
+        }
     }
 
     public function upsertBooking()

@@ -308,7 +308,9 @@ return [
             'empty_start_time'            => 'Booking start time cannot be empty',
             'booking_not_found'           => 'Booking not found!',
             'past_booking'                => 'Cannot make booking in the past!',
-            'delete_last_booking_service' => 'You cannot delete the last booking service'
+            'delete_last_booking_service' => 'You cannot delete the last booking service',
+            'before_min_distance'         => 'You cannot make a booking before the min distance day',//@todo
+            'after_max_distance'          => 'You cannot make a booking after the max distance day',//@todo
         ],
         'warning'      => [
             'existing_user'   => 'There is an user associate with this email in our system. Do you want to use these information instead?',
