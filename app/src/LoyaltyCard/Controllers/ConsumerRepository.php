@@ -20,8 +20,8 @@ class ConsumerRepository
 
     /**
      * Return all consumers or search consumers
-     * @param  string $search
-     * @param  int    $perPage
+     * @param  string   $search
+     * @param  int      $perPage
      * @return Consumer
      */
     public function getConsumers($search = '', $perPage = 10)
@@ -46,7 +46,7 @@ class ConsumerRepository
 
     /**
      * Store consumer to DB
-     * @param  array $data
+     * @param  array    $data
      * @return Consumer
      */
     public function storeConsumer($data)
@@ -82,7 +82,7 @@ class ConsumerRepository
             // TODO elegant way to save transaction
             $transaction = new TransactionModel();
             $transaction->user_id = $this->userId;
-            $transaction->consumer_id = $consumer->lc->id;
+            $transaction->consumer_id = $consumer->id;
             $transaction->point = $points;
             $transaction->save();
 
@@ -106,7 +106,7 @@ class ConsumerRepository
 
         $transaction = new TransactionModel();
         $transaction->user_id = $this->userId;
-        $transaction->consumer_id = $consumer->lc->id;
+        $transaction->consumer_id = $consumer->id;
         $transaction->voucher_id = $voucherId;
         $transaction->point = $voucher->required * -1;
         $transaction->save();
@@ -116,8 +116,8 @@ class ConsumerRepository
 
     /**
      * Add stamp to consumer
-     * @param  int  $consumerId
-     * @param  int  $offerId
+     * @param  int $consumerId
+     * @param  int $offerId
      * @return int
      */
     public function addStamp($consumerId, $offerId)
@@ -147,7 +147,7 @@ class ConsumerRepository
 
         $transaction = new TransactionModel();
         $transaction->user_id = $this->userId;
-        $transaction->consumer_id = $consumer->lc->id;
+        $transaction->consumer_id = $consumer->id;
         $transaction->offer_id = $offerId;
         $transaction->stamp = 1;
         $transaction->save();
@@ -157,8 +157,8 @@ class ConsumerRepository
 
     /**
      * Use offer with stamp
-     * @param  int  $consumerId
-     * @param  int  $offerId
+     * @param  int $consumerId
+     * @param  int $offerId
      * @return int
      */
     public function useOffer($consumerId, $offerId)
@@ -184,7 +184,7 @@ class ConsumerRepository
 
                     $transaction = new TransactionModel();
                     $transaction->user_id = $this->userId;
-                    $transaction->consumer_id = $consumer->lc->id;
+                    $transaction->consumer_id = $consumer->id;
                     $transaction->offer_id = $offerId;
                     $transaction->offer_id = $offerId;
                     $transaction->stamp = $offer->required * -1;
