@@ -75,12 +75,16 @@ class OldDataMover
             $consumerId = Consumer::where('email', $item->email)
                     ->pluck('id');
             if ($consumerId === null) {
+                $phone = !empty($item->telephone)
+                    ? $item->telephone
+                    : $item->mobile;
+
                 // Create a new consumer
                 $consumerId = DB::table($tableConsumer)->insertGetId([
                     'first_name' => $item->name,
                     'last_name'  => $item->lastname,
                     'email'      => $item->email,
-                    'phone'      => $item->telephone,
+                    'phone'      => $phone,
                     'address'    => $item->addressLine1,
                     'city'       => $item->city,
                     'postcode'   => $item->postalcode,
@@ -139,7 +143,6 @@ class OldDataMover
     protected function moveStampHistory($oldUserId, $user)
     {
         Log::info('Move stamp history of user '.$user->email);
-        $now = Carbon::now();
         $data = [];
 
         // Use to collect total stamps of a consumer
@@ -160,6 +163,7 @@ class OldDataMover
             }
 
             $offerId = $this->stampMap[$item->stmpid];
+            $time = Carbon::createFromTimeStamp($item->lastdate);
             $data[] = [
                 'user_id'     => $user->id,
                 'consumer_id' => $consumerId,
@@ -167,8 +171,8 @@ class OldDataMover
                 'offer_id'    => $offerId,
                 'point'       => 0,
                 'stamp'       => $item->currstm,
-                'created_at'  => $now,
-                'updated_at'  => $now,
+                'created_at'  => $time,
+                'updated_at'  => $time,
             ];
 
             // Collect total stamps
