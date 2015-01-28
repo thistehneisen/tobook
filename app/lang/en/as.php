@@ -359,7 +359,7 @@ return [
         'sunday_hours'                     => 'Sunday hours',
         'monthly_hours'                    => 'Monthly hours',
         'error'                            => [
-        'freetime_overlapped_with_booking' => 'Freetime is overlapped with a booking'
+        'freetime_overlapped_with_booking' => 'Freetime is overlapped with with booking(s)',
         ],
     ],
     'embed' => [
