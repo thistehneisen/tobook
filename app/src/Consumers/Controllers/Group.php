@@ -44,7 +44,7 @@ class Group extends Base
     public function bulkSendEmail($ids)
     {
         $result = static::sendEmails($ids, true);
-        if (in_array('template_id', $result)) {
+        if (array_key_exists('template_id', $result)) {
             return Redirect::route('consumer-hub.history.email', ['campaign_id' => $result['template_id']])
                 ->with('messages', $this->successMessageBag(
                     trans('co.email_templates.sent_to_x_of_y', $result)
@@ -56,7 +56,7 @@ class Group extends Base
     public function bulkSendSms($ids)
     {
         $result = static::sendSms($ids, true);
-        if (in_array('template_id', $result)) {
+        if (array_key_exists('template_id', $result)) {
             return Redirect::route('consumer-hub.history.sms', ['sms_id' => $result['template_id']])
                 ->with('messages', $this->successMessageBag(
                     trans('co.sms_templates.sent_to_x_of_y', $result)
