@@ -54,20 +54,24 @@ class OldDataMover
      */
     protected function moveCustomers($oldUserId, $user)
     {
-        Log::info('Moving customers');
+        Log::info('Moving customers of '.$user->email);
 
         $table = $oldUserId.'_sm_clients';
         $tableConsumer = with(new Consumer())->getTable();
 
+        // Get all old customers
         $result = $this->db->table($table)->get();
         foreach ($result as $item) {
-            // Skip duplicated email
+            // If the current email has been added, we'll skip
             if (isset($this->consumerMap[$item->email])) {
                 continue;
             }
 
+            // For safety
+            $item->email = trim($item->email);
+
             // Check if there's a consumer with this email
-            $consumerId = Consumer::where('email', trim($item->email))
+            $consumerId = Consumer::where('email', $item->email)
                     ->pluck('id');
             if ($consumerId === null) {
                 // Create a new consumer
@@ -102,7 +106,7 @@ class OldDataMover
     public function moveStamps($oldUserId, $user)
     {
         // Move stamp campaigns
-        Log::info('Move stamp campaigns...');
+        Log::info('Move stamp campaigns of user '.$user->email);
 
         $table = $oldUserId.'_stamps';
         $result = $this->db->table($table)->get();
@@ -124,37 +128,6 @@ class OldDataMover
     }
 
     /**
-     * Move point campaigns
-     *
-     * @param int                  $oldUserId
-     * @param App\Core\Models\User $user
-     *
-     * @return void
-     */
-    public function movePoints($oldUserId, $user)
-    {
-        Log::info('Move point campaigns...');
-
-        $table = $oldUserId.'_giftavailable';
-        $result = $this->db->table($table)->get();
-        foreach ($result as $item) {
-            // Likewise, "point campaigns" are "vouchers"
-            $voucher = new Voucher([
-                'name'      => $item->giftname,
-                'required'  => $item->point,
-                'value'     => $item->discount,
-                'type'      => 'Percent',
-                'is_active' => true,
-            ]);
-            $voucher->user()->associate($user);
-            $voucher->save();
-
-            // Map IDs
-            $this->pointMap[$item->id] = $voucher->id;
-        }
-    }
-
-    /**
      * Auxilary method to move stamp data to new system
      *
      * @param int                  $oldUserId
@@ -164,7 +137,7 @@ class OldDataMover
      */
     protected function moveStampHistory($oldUserId, $user)
     {
-        Log::info('Move stamp history');
+        Log::info('Move stamp history of user '.$user->email);
         $now = Carbon::now();
         $data = [];
 
@@ -176,6 +149,7 @@ class OldDataMover
                 ? $this->consumerMap[$item->userid]
                 : null;
 
+            // Skip if we cannot find the new corresponding consumer ID
             if ($consumerId === null) {
                 continue;
             }
@@ -199,6 +173,37 @@ class OldDataMover
     }
 
     /**
+     * Move point campaigns
+     *
+     * @param int                  $oldUserId
+     * @param App\Core\Models\User $user
+     *
+     * @return void
+     */
+    public function movePoints($oldUserId, $user)
+    {
+        Log::info('Move point campaigns of '.$user->email);
+
+        $table = $oldUserId.'_giftavailable';
+        $result = $this->db->table($table)->get();
+        foreach ($result as $item) {
+            // Likewise, "point campaigns" are "vouchers"
+            $voucher = new Voucher([
+                'name'      => $item->giftname,
+                'required'  => $item->point,
+                'value'     => $item->discount,
+                'type'      => 'Percent',
+                'is_active' => true,
+            ]);
+            $voucher->user()->associate($user);
+            $voucher->save();
+
+            // Map IDs
+            $this->pointMap[$item->id] = $voucher->id;
+        }
+    }
+
+    /**
      * Move point histories of a user
      *
      * @param int                  $oldUserId
@@ -208,32 +213,33 @@ class OldDataMover
      */
     protected function movePointHistory($oldUserId, $user)
     {
-        Log::info('Move point history');
+        Log::info('Move point history of '.$user->email);
 
-        $now = Carbon::now();
         $data = [];
 
-        $rows = $this->db->table('userpointhistory')
-            ->where('idblog', $oldUserId)
+        $rows = $this->db->table($oldUserId.'_usergift')
+            ->where('userid', $oldUserId)
             ->get();
         foreach ($rows as $row) {
             $consumerId = isset($this->consumerMap[$row->userid])
                 ? $this->consumerMap[$row->userid]
                 : null;
 
-            if ($consumerId === null) {
+            if ($consumerId === null
+                || !isset($this->pointMap[$row->idgift])) {
                 continue;
             }
 
+            $time = Carbon::createFromTimeStamp($row->timewon);
             $data[] = [
                 'user_id'     => $user->id,
                 'consumer_id' => $consumerId,
                 'voucher_id'  => $this->pointMap[$row->idgift],
                 'offer_id'    => null,
-                'point'       => $this->point,
+                'point'       => $row->point,
                 'stamp'       => 0,
-                'created_at'  => $now,
-                'updated_at'  => $now,
+                'created_at'  => $time,
+                'updated_at'  => $time,
             ];
         }
 
