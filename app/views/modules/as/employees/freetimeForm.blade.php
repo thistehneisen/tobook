@@ -13,9 +13,9 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group row">
-                                   <label for="date" class="col-sm-4 control-label">{{ trans('as.bookings.date') }}</label>
-                                   <div class="col-sm-8">
-                                    {{ Form::text('date', $bookingDate , ['class' => 'form-control date-picker', 'id' => 'date']) }}
+                                    <label for="description" class="col-sm-4 control-label">{{ trans('as.employees.description') }}</label>
+                                    <div class="col-sm-8">
+                                        {{ Form::textarea('description', '', ['class' => 'form-control input-sm', 'id' => 'description']) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -46,12 +46,6 @@
                                     <label for="to_date" class="col-sm-4 control-label">{{ trans('as.employees.to_date') }}</label>
                                     <div class="col-sm-8">
                                         {{ Form::text('to_date', $bookingDate, ['class' => 'datepicker form-control input-sm', 'id' => 'to_date']) }}
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="description" class="col-sm-4 control-label">{{ trans('as.employees.description') }}</label>
-                                    <div class="col-sm-8">
-                                        {{ Form::textarea('description', '', ['class' => 'form-control input-sm', 'id' => 'description']) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
