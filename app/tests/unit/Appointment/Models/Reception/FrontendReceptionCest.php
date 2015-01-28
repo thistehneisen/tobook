@@ -240,4 +240,89 @@ class FrontendReceptionCest
         $I->assertEquals($booking->endTime, $date->hour(15)->minute(30)->second(0));
         $I->assertEquals($booking->firstBookingService()->is_requested_employee, true);
     }
+
+    public function testBookingWithMinMaxDistance(UnitTester $I)
+    {
+        $this->initData();
+        $this->initCustomTime();
+        $user      = User::find(70);
+
+        $employee  = $this->employee;
+        $service   = $this->service;
+        $uuid      = Booking::uuid();
+        //set max distance
+        $user->asOptions['max_distance'] = 15;
+        $date      = Carbon::today()->addDays(16);//default max distance is 90 days since today
+        $startTime = '14:00';
+        $I->amLoggedAs($user);
+        $I->assertEquals($service->length, 60);
+        $receptionist = new FrontendReceptionist();
+        $receptionist->setBookingId(null)
+            ->setUUID($uuid)
+            ->setUser($user)
+            ->setBookingDate($date->toDateString())
+            ->setStartTime($startTime)
+            ->setServiceId($service->id)
+            ->setEmployeeId($employee->id)
+            ->setServiceTimeId('default')
+            ->setExtraServiceIds([10, 11])//see helpers/Traits/Models.php
+            ->setModifyTime(0);
+
+        $exception = array();
+        try {
+            $bookingService = $receptionist->upsertBookingService();
+        } catch(\Exception $ex) {
+            $exception[] = $ex->getMessage();
+        }
+
+        $I->assertNotEmpty($exception[0]);
+        $I->assertEquals($exception[0], trans('as.bookings.error.after_max_distance'));
+
+        //set min distance
+        $user->asOptions['min_distance'] = 2;
+        $date = Carbon::today();
+        $receptionist = new FrontendReceptionist();
+        $receptionist->setBookingId(null)
+            ->setUUID($uuid)
+            ->setUser($user)
+            ->setBookingDate($date->toDateString())
+            ->setStartTime($startTime)
+            ->setServiceId($service->id)
+            ->setEmployeeId($employee->id)
+            ->setServiceTimeId('default')
+            ->setExtraServiceIds([10, 11])//see helpers/Traits/Models.php
+            ->setModifyTime(0);
+
+        $exception = array();
+        try {
+            $bookingService = $receptionist->upsertBookingService();
+        } catch(\Exception $ex) {
+            $exception[] = $ex->getMessage();
+        }
+
+        $I->assertNotEmpty($exception[0]);
+        $I->assertEquals($exception[0], trans('as.bookings.error.before_min_distance'));
+
+        $date = Carbon::today()->addDays(3);
+        $receptionist = new FrontendReceptionist();
+        $receptionist->setBookingId(null)
+            ->setUUID($uuid)
+            ->setUser($user)
+            ->setBookingDate($date->toDateString())
+            ->setStartTime($startTime)
+            ->setServiceId($service->id)
+            ->setEmployeeId($employee->id)
+            ->setServiceTimeId('default')
+            ->setExtraServiceIds([10, 11])//see helpers/Traits/Models.php
+            ->setModifyTime(0);
+
+        $exception = array();
+        try {
+            $bookingService = $receptionist->upsertBookingService();
+        } catch(\Exception $ex) {
+            $exception[] = $ex->getMessage();
+        }
+
+        $I->assertEmpty($exception);
+    }
 }
