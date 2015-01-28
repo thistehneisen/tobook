@@ -6,7 +6,7 @@ class Consumer extends Base
 {
     protected $table = 'lc_consumers';
     protected $dates = ['deleted_at'];
-    public $fillable = ['total_points', 'total_stamps'];
+    public $fillable = ['total_points', 'total_stamps', 'consumer_id'];
 
     //--------------------------------------------------------------------------
     // RELATIONSHIPS

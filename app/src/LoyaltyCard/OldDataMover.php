@@ -57,11 +57,17 @@ class OldDataMover
     {
         Log::info('Moving customers of '.$user->email);
 
+        $now = Carbon::now();
+
         $table = $oldUserId.'_sm_clients';
         $tableConsumer = with(new Consumer())->getTable();
 
-        // Get all old customers
-        $result = $this->db->table($table)->get();
+        // Select all customers having email
+        $result = $this->db->table($table)
+            ->select('users.ID AS wpId', $table.'.*')
+            ->leftJoin('users', 'users.user_email', '=', $table.'.email')
+            ->where('email', '!=', '')
+            ->get();
         foreach ($result as $item) {
             // If the current email has been added, we'll skip
             if (isset($this->consumerMap[$item->email])) {
@@ -89,12 +95,16 @@ class OldDataMover
                     'city'       => $item->city,
                     'postcode'   => $item->postalcode,
                     'country'    => $item->country,
+                    'created_at' => $now,
+                    'updated_at' => $now,
                 ]);
             }
 
             // Map email and old ID to new consumer ID
             $this->consumerMap[$item->email] = $consumerId;
-            $this->consumerMap[$item->id] = $consumerId;
+            // We will user wpId since this is the ID used in stamp and point
+            // history tables
+            $this->consumerMap[$item->wpId] = $consumerId;
         }
 
         Log::info('There are '.count($this->consumerMap).' consumers');
@@ -195,6 +205,11 @@ class OldDataMover
         // Update lc_consumers total stamps
         foreach ($collector as $consumerId => $totalStamps) {
             $consumer = LcConsumer::where('consumer_id', $consumerId)->first();
+            if (!$consumer) {
+                $consumer = new LcConsumer();
+                $consumer->consumer_id = $consumerId;
+                $consumer->user()->associate($user);
+            }
             $consumer->total_stamps = json_encode($totalStamps);
             $consumer->save();
         }
@@ -288,6 +303,11 @@ class OldDataMover
         // Update lc_consumer data
         foreach ($collector as $consumerId => $totalPoints) {
             $consumer = LcConsumer::where('consumer_id', $consumerId)->first();
+            if (!$consumer) {
+                $consumer = new LcConsumer();
+                $consumer->consumer_id = $consumerId;
+                $consumer->user()->associate($user);
+            }
             $consumer->total_points = $totalPoints;
             $consumer->save();
         }
