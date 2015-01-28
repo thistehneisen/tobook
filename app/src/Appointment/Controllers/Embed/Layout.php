@@ -106,6 +106,14 @@ trait Layout
             ? $this->getLayout()
             : $layout;
 
+        $minDistance = ((int)$user->asOptions['min_distance'])
+            ? sprintf('+%dd', (int)$user->asOptions['min_distance'])
+            : 0;
+
+        $maxDistance = ((int)$user->asOptions['max_distance'])
+            ? sprintf('+%dd', (int)$user->asOptions['max_distance'])
+            : 0;
+
         return [
             'layout'             => $layout,
             'inhouse'            => $inhouse,
@@ -123,6 +131,8 @@ trait Layout
             'workingTimes'       => $workingTimes,
             'hash'               => $hash,
             'date'               => $date,
+            'minDistance'        => $minDistance,
+            'maxDistance'        => $maxDistance,
             'action'             => $action
         ];
     }
@@ -227,9 +237,13 @@ trait Layout
             }
         }
 
-        if ($date->lt($today)) {
-            $date = $today->copy();
+        //Withdrawal time feature
+        list($start, $final, $maxWeeks) = $this->getMinMaxDistanceDay($hash);
+
+        if ($date->lt($start)) {
+            $date = $start->copy();
         }
+
         $timetable = [];
         if ($employeeId === -1) {
             $timetable = $this->getTimetableOfAnyone($service, $date, $serviceTime);
@@ -250,12 +264,21 @@ trait Layout
             $i++;
         }
 
+        $next = ($date->copy()->addDay()->gt($final))
+            ? $final
+            : $date->copy()->addDay();
+
+        $prev = ($date->copy()->subDay()->lt($final))
+            ? $start
+            : $date->copy()->subDay();
+
         return $this->render('timetable', [
-            'date'      => $date,
-            'startDate' => $startDate,
-            'prev'      => $date->copy()->subDay(),
-            'next'      => $date->copy()->addDay(),
-            'timetable' => $timetable
+            'date'        => $date,
+            'startDate'   => $startDate,
+            'prev'        => $prev,
+            'next'        => $next,
+            'final'       => $final,
+            'timetable'   => $timetable
         ]);
     }
 
@@ -322,5 +345,22 @@ trait Layout
         ksort($timetable, SORT_STRING);
 
         return $timetable;
+    }
+
+    public function getMinMaxDistanceDay($hash)
+    {
+        $user = empty($user)
+            ? $this->getUser($hash)
+            : $user;
+
+        $minDistance = (int)$user->asOptions['min_distance'];
+        $maxDistance = (int)$user->asOptions['max_distance'];
+        $start       = $today->copy()->addDays($minDistance);
+        $final       = $today->copy()->addDays($maxDistance);
+        $maxWeeks    = (ceil($maxDistance / 7) <= 7)
+                    ? ceil($maxDistance / 7)
+                    : 7;
+
+        return array($start, $final, $maxWeeks);
     }
 }

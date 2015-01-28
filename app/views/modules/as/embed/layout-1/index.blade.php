@@ -30,7 +30,9 @@ $(document).ready(function () {
         todayBtn: true,
         todayHighlight: true,
         weekStart: 1,
-        language: '{{ App::getLocale() }}'
+        language: '{{ App::getLocale() }}',
+        startDate: '{{ $minDistance }}',
+        endDate: '{{ $maxDistance }}'
     }).on('changeDate', function (e) {
         if (e.format() !== '') {
             selected_date = e.format();

@@ -3,9 +3,13 @@
     <?php $i = 0; ?>
     @while ($i < 5)
         <li @if ($startDate->toDateString() === $date->toDateString()) class="active" @endif>
+            <?php if($startDate <= $final):?>
             <a href="#" class="as-date" data-date="{{ $startDate->toDateString() }}" id="btn-date-{{ $startDate->format('Ymd') }}">{{ trans('common.short.'.strtolower($startDate->format('D'))) }} <br>
             {{ $startDate->format('d.m') }}
             </a>
+            <?php else: ?>
+                {{ trans('common.short.'.strtolower($startDate->format('D'))) }} <br> {{ $startDate->format('d.m') }}
+            <?php endif;?>
         </li>
         <?php $startDate = $startDate->addDay(); $i++; ?>
     @endwhile

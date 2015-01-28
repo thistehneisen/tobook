@@ -17,6 +17,10 @@ class Layout2 extends Base
         $hash     = Input::get('hash');
         $service  = Service::findOrFail(Input::get('serviceId'));
 
+        $user = empty($user)
+            ? $this->getUser($hash)
+            : $user;
+
         $serviceTime = null;
         if (Input::has('serviceTimeId')) {
             if(Input::get('serviceTimeId') !== 'default') {
@@ -28,7 +32,9 @@ class Layout2 extends Base
         // Calculate date ranges for nav
         $nav = [];
         $i = 1;
-        $start = $today->copy();
+
+        //Withdrawal time feature
+        list($start, $final, $maxWeeks) = $this->getMinMaxDistanceDay($hash);
 
         //if the selected day is not inside the fourth week in the list then use today
         if($date->copy()->subDays(21) >= $today) {
@@ -36,8 +42,14 @@ class Layout2 extends Base
             $start->subDays(21);
         }
 
-        while ($i++ <= 7) {
-            $end = $start->copy()->addDays(6);
+        while ($i++ <= $maxWeeks) {
+            $j = 0;
+            while($j++ <= 6){
+                $end = $start->copy()->addDays($j);
+                if($end >= $final) {
+                    break;
+                }
+            }
             $nav[] = (object) [
                 'start' => $start->copy(),
                 'end'   => $end->copy()
