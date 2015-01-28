@@ -5,10 +5,12 @@ use App\Core\Models\Base;
 class Consumer extends Base
 {
     protected $table = 'lc_consumers';
-    protected $guarded = ['id'];
     protected $dates = ['deleted_at'];
     public $fillable = ['total_points', 'total_stamps'];
 
+    //--------------------------------------------------------------------------
+    // RELATIONSHIPS
+    //--------------------------------------------------------------------------
     public function consumer()
     {
         return $this->belongsTo('App\Consumers\Models\Consumer');
@@ -19,6 +21,9 @@ class Consumer extends Base
         return $this->belongsTo('App\Core\Models\User');
     }
 
+    //--------------------------------------------------------------------------
+    // CUSTOM METHODS
+    //--------------------------------------------------------------------------
     public static function makeOrGet($consumer, $userId)
     {
         if ($consumer->lc !== null) {

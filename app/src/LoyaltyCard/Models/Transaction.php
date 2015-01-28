@@ -4,5 +4,14 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Transaction extends Eloquent
 {
     protected $table = 'lc_transactions';
-    protected $guarded = ['id'];
+
+    public $fillable = ['consumer_id'];
+
+    //--------------------------------------------------------------------------
+    // RELATIONSHIPS
+    //--------------------------------------------------------------------------
+    public function consumer()
+    {
+        return $this->belongsTo('App\Consumers\Models\Consumer');
+    }
 }
