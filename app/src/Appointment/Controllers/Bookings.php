@@ -425,7 +425,7 @@ class Bookings extends AsBase
             $status  =  $booking->getStatus($status_text);
             $booking->setStatus($status_text);
 
-            if ($status === Booking::STATUS_CANCELLED) {
+            if ((int) $status === Booking::STATUS_CANCELLED) {
                 $booking->delete_reason = 'Cancelled by admin';
                 $booking->save();
                 $booking->delete();

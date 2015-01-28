@@ -315,7 +315,7 @@ class BookingService extends Base implements CartDetailInterface
         } else {
             // otherwise check if this is a PENDING booking and source = 'inhouse'
             // then delete the attached booking
-            if ($this->booking->status === Booking::STATUS_PENDING
+            if ((int) $this->booking->status === Booking::STATUS_PENDING
                     && $this->booking->source === 'inhouse') {
                 $this->booking->delete_reason = 'Cart is set to ABANDONED';
                 $this->booking->save();

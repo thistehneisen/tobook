@@ -118,7 +118,7 @@ class BackendReceptionist extends Receptionist
         $booking->user()->associate($this->user);
         $booking->employee()->associate($this->employee);
 
-        if($this->status === Booking::STATUS_CANCELLED){
+        if ((int) $this->status === Booking::STATUS_CANCELLED){
             $booking->delete_reason = 'Cancelled while updating';
             $booking->save();
             $booking->delete();
