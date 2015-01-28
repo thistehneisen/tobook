@@ -70,24 +70,28 @@ class MoveLcCommand extends Command
 
         return;
 
-        // Check if there's existing business with the given username
-        // If not, create a new one
-        // Then push into the queue to migrate their data
+        // Get role User first, so that we don't need to hit the database again
         $role = Role::user();
         foreach ($users as $oldId => $username) {
+
+            // Check if there's existing business with the given username
+            // Because users could login by using bot username and email, need
+            // to check those two fields
             $user = User::where(DB::raw('LOWER(username)'), $username)
                 ->orWhere(DB::raw('LOWER(email)'), $username.'@varaa.com')
                 ->first();
 
+            // If not, create a new one
             if ($user === null) {
-                $this->info('Creating '.$username);
+                $this->info('Creating new user as: '.$username);
 
                 $user = new User();
                 $user->email                 = $username.'@varaa.com';
-                $user->password              = $username.'n0tSoF@st';
-                $user->password_confirmation = $username.'n0tSoF@st';
+                $user->password              = $username.'2mfPdEiy';
+                $user->password_confirmation = $username.'2mfPdEiy';
                 if (!$user->save()) {
-                    dd($user->errors()->all());
+                    $this->error('Cannot create user as: '.$username);
+                    continue;
                 }
                 $user->attachRole($role);
 
@@ -101,12 +105,11 @@ class MoveLcCommand extends Command
                 $business->user()->associate($user);
                 $business->save();
 
-                // Create new moving job
+                // Then push into the queue to migrate their data
                 Queue::push('\App\LoyaltyCard\OldDataMover', [
                     $username,
                     $oldId,
-                    // New user ID
-                    $user->id
+                    $user->id, // New user ID
                 ]);
             }
         }
