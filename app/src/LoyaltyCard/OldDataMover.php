@@ -34,6 +34,15 @@ class OldDataMover
         // Prepare the database connection
         $this->db = DB::connection('old');
 
+        // Check if old data existed
+        try {
+            $row = $this->db->table($oldUserId.'_sm_clients')->take(1)->get();
+        } catch (\Exception $ex) {
+            Log::error('It seems there is no existing tables for user '.$oldUserId);
+
+            return;
+        }
+
         // Start moving data
         $this->moveCustomers($oldUserId, $user);
         $this->moveStamps($oldUserId, $user);
