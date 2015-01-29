@@ -214,25 +214,55 @@ class Employees extends AsBase
         $employeeId = Input::get('employees');
         $data = [];
         try {
-            $startAt = new Carbon(Input::get('start_at'));
-            $endAt = new Carbon(Input::get('end_at'));
-            $date =  Input::get('date');
+            $startAt     = new Carbon(Input::get('start_at'));
+            $endAt       = new Carbon(Input::get('end_at'));
+            $fromDate    = new Carbon(Input::get('from_date'));
+            $toDate      = new Carbon(Input::get('to_date'));
+            $description = Input::get('description');
+
+            if($fromDate->gt($toDate)) {
+                throw new \Exception(trans('as.employees.error.from_date_greater_than_to_date'), 1);
+
+            }
+            $days = (int) $fromDate->diffInDays($toDate)+1;
+            $bookings = array();
+            for($day = 0; $day < $days; $day++) {
+                $date = $fromDate->copy()->addDays($day);
+                $overlaps = Booking::getOverlappedBookings($employeeId, $date, $startAt, $endAt);
+                foreach ($overlaps as $booking) {
+                    $bookings[] = $booking;
+                }
+            }
+
             //Checking if freetime overlaps with any booking or not
-            $canPlacedFreeTime = Booking::isBookable($employeeId, $date, $startAt, $endAt);
-            if ($canPlacedFreeTime) {
+            if(!empty($bookings)) {
+                $data['success'] = false;
+                $data['message'] = trans('as.employees.error.freetime_overlapped_with_booking');
+                $data['message'] .= '<ul>';
+                foreach ($bookings as $booking) {
+                    $data['message'] .= '<li>' . $booking->startTime->toDateTimeString() . '</li>';
+                }
+                $data['message'] .= '</ul>';
+                return Response::json($data);
+            }
+
+            for ($day = 0; $day < $days; $day++) {
                 $employeeFreetime = new EmployeeFreetime();
-                $employeeFreetime->fill(Input::all());
+                $date = $fromDate->copy()->addDays($day);
+                $employeeFreetime->fill([
+                    'date' => $date->toDateString(),
+                    'start_at' => $startAt->toTimeString(),
+                    'end_at' => $endAt->toTimeString(),
+                    'description' => $description
+                ]);
+
                 $employee = Employee::ofCurrentUser()->find($employeeId);
                 $employeeFreetime->user()->associate($this->user);
                 $employeeFreetime->employee()->associate($employee);
                 $employeeFreetime->save();
                 $data['success'] = true;
-
                 // Remove NAT slots since employee has freetime
                 NAT::removeEmployeeFreeTime($employeeFreetime);
-            } else {
-                $data['success'] = false;
-                $data['message'] = trans('as.employees.error.freetime_overlapped_with_booking');
             }
         } catch (\Exception $ex) {
             $data['success'] = false;

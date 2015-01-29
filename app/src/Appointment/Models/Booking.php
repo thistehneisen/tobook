@@ -259,7 +259,29 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      */
     public static function isBookable($employeeId, $bookingDate, Carbon $startTime, Carbon $endTime, $uuid = null)
     {
-        $resourceIds = [];
+        $bookings = self::getOverlappedBookings($employeeId, $bookingDate, $startTime, $endTime, $uuid = null);
+
+        if (!$bookings->isEmpty()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Get list of overlapped booking
+     * Using in add freetime from
+     *
+     * @param int    $employeeId
+     * @param string $bookingDate
+     * @param Carbon $startTime
+     * @param Carbon $endTime
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public static function getOverlappedBookings($employeeId, $bookingDate, Carbon $startTime, Carbon $endTime, $uuid = null)
+    {
+        $bookings = null;
 
         if ($bookingDate instanceof Carbon) {
             $bookingDate = $bookingDate->toDateString();
@@ -278,11 +300,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         $bookings = $query->get();
 
-        if (!$bookings->isEmpty()) {
-            return false;
-        }
-
-        return true;
+        return $bookings;
     }
 
     /**
