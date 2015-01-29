@@ -31,10 +31,11 @@ class RelocateConsumersCommand extends Command
         foreach ($transactions as $transaction) {
             $consumer = Consumer::find($transaction->consumer_id);
             if ($consumer === null) {
-                continue;
+                $transaction->consumer_id = 0;
+            } else {
+                $transaction->consumer_id = $consumer->consumer_id;
             }
 
-            $transaction->consumer_id = $consumer->consumer_id;
             $transaction->save();
             $this->output->write('.');
         }
