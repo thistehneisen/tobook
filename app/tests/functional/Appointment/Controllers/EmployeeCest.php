@@ -539,6 +539,27 @@ class EmployeeCest
         $I->assertNotEmpty($json['message']);
         $message = explode('<li>', $json['message']);
         $I->assertEquals(count($message)-1, 3);
+
+        //test success add free time
+        $booking->delete();
+        $booking1->delete();
+        $booking2->delete();
+
+        $inputs = [
+            'from_date' => $booking->date,
+            'to_date'   => $dateObj->addDays(3),
+            'employees' => $employee->id,
+            'start_at'  => $booking->start_at,
+            'end_at'    => $booking->end_at,
+            'description'=> '',
+        ];
+
+        $I->sendPOST(route('as.employees.freetime.add'), $inputs);
+        $I->seeResponseCodeIs(200);
+        $I->canSeeResponseIsJson();
+        $json = $I->grabDataFromJsonResponse();
+        $I->assertNotEmpty($json, 'json not empty');
+        $I->assertTrue($json['success'], 'You need pass through this test');
     }
 
     /**
