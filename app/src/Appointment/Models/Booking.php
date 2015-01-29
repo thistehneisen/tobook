@@ -259,7 +259,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
      */
     public static function isBookable($employeeId, $bookingDate, Carbon $startTime, Carbon $endTime, $uuid = null)
     {
-        $bookings = self::getOverlappedBookings($employeeId, $bookingDate, $startTime, $endTime, $uuid = null);
+        $bookings = self::getOverlappedBookings($employeeId, $bookingDate, $startTime, $endTime, $uuid);
 
         if (!$bookings->isEmpty()) {
             return false;

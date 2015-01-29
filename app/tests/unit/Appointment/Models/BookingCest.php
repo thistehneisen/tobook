@@ -19,6 +19,7 @@ use UnitTester;
 class BookingCest
 {
     use \Test\Traits\Booking;
+    use \Test\Traits\Models;
 
     public function testGetClass(UnitTester $I)
     {
@@ -102,6 +103,8 @@ class BookingCest
 
     public function testGetServiceInfo(UnitTester $I)
     {
+        $this->initData();
+
         $booking = $this->_makeABooking();
         $service = $booking->bookingServices()->first()->service;
 
@@ -116,6 +119,8 @@ class BookingCest
 
     public function testIsBookable(UnitTester $I)
     {
+        $this->initData();
+
         $booking = $this->_makeABooking();
 
         $I->assertFalse(Booking::isBookable($booking->employee->id, $booking->date,
@@ -350,7 +355,7 @@ class BookingCest
         $user = User::find(70);
         $serviceCategory = ServiceCategory::find(105);
 
-        return $this->_book($user, $serviceCategory, $date, $startTime);
+        return $this->_book($user, $serviceCategory, $date, $startTime, $this->employee);
     }
 
     public function testBookingWithServiceResources(UnitTester $I)
