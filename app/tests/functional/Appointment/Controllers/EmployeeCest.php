@@ -493,26 +493,41 @@ class EmployeeCest
         $I->assertEmpty($employeeCustomTime, 'employee custom time has been deleted');
     }
 
-    /**
-     * This test is used for preventing create a freetime which is overllapped with a booking
-     * Related to issue #237
-     */
-    public function testAddEmployeeFreeTime(FunctionalTester $I)
+    public function testAddEmployeeFreeTimeInDateRange(FunctionalTester $I)
     {
+        /* begin */
+
+        $this->initData();
+        $this->initCustomTime();
+
+        $user      = User::find(70);
+        $employee  = $this->employee;
+        $service   = $this->service;
+        $uuid      = Booking::uuid();
+
+        $date      = $this->getDate();
+        $startTime = '14:00';
+
         $user = User::find(70);
         $I->amLoggedAs($user);
-        $category = ServiceCategory::find(105);
-        $booking = $this->_book($user, $category);
+
+        $dateObj = new Carbon($date);
+        $booking = $this->makeBooking($date, $startTime, $service, $employee);
+        $booking1 = $this->makeBooking($dateObj->addDay(), $startTime, $service, $employee);
+        $booking2 = $this->makeBooking($dateObj->addDay(), $startTime, $service, $employee);
         $I->assertNotEmpty($booking, 'booking has been found');
+
         //get employee of the booking above
         $employee = $booking->firstBookingService()->employee;
         $I->assertNotEmpty($employee, 'employee has been found');
 
+
         $inputs = [
-            'date' => $booking->date,
+            'from_date' => $booking->date,
+            'to_date'   => $dateObj->addDays(3),
             'employees' => $employee->id,
-            'start_at' => $booking->start_at,
-            'end_at'   => $booking->end_at,
+            'start_at'  => $booking->start_at,
+            'end_at'    => $booking->end_at,
         ];
 
         $I->sendPOST(route('as.employees.freetime.add'), $inputs);
@@ -522,8 +537,8 @@ class EmployeeCest
         $I->assertNotEmpty($json, 'json not empty');
         $I->assertFalse($json['success'], 'You shall not pass');
         $I->assertNotEmpty($json['message']);
-        //for other test
-        $I->amLoggedAs($this->user);
+        $message = explode('<li>', $json['message']);
+        $I->assertEquals(count($message)-1, 3);
     }
 
     /**
