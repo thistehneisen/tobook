@@ -578,16 +578,16 @@ class Employees extends AsBase
     }
 
     /**
-     * Upsert work-shift for an employee in one month
+     * Upsert work-shifts for an employee in one month
      *
      *  @return Redirect
      */
-    public function massiveUpdateEmployeeCustomTime($employeeId)
+    public function massUpdateWorkShift($employeeId)
     {
         $customTimes = Input::get('custom_times');
-        $message      = trans('as.crud.success_edit');
-        try {
+        $message = trans('as.crud.success_edit');
 
+        try {
             $employee = Employee::ofCurrentUser()->find($employeeId);
             $current = Carbon::now();
             foreach ($customTimes as $date => $customTimeId) {
@@ -612,11 +612,13 @@ class Employees extends AsBase
             // We need to rebuild the NAT calendar
             NAT::enqueueToRebuild($this->user);
 
-            return Redirect::route('as.employees.employeeCustomTime', ['employeeId' => $employeeId, 'date' => $current->format('Y-m')])
-                ->with(
-                    'messages',
-                    $this->successMessageBag($message)
-                );
+            return Redirect::route(
+                'as.employees.employeeCustomTime',
+                ['employeeId' => $employeeId, 'date' => $current->format('Y-m')]
+            )->with(
+                'messages',
+                $this->successMessageBag($message)
+            );
         } catch (\Watson\Validating\ValidationException $ex) {
              return Redirect::back()->withInput()->withErrors($ex->getErrors());
         }

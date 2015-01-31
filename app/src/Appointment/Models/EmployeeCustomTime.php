@@ -1,5 +1,7 @@
 <?php namespace App\Appointment\Models;
+
 use Config, Carbon;
+
 class EmployeeCustomTime extends \App\Appointment\Models\Base
 {
     protected $table = 'as_employee_custom_time';

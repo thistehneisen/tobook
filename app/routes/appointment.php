@@ -130,8 +130,8 @@ Route::group([
         ]);
 
         Route::post('update-work-shift-plan/{employeedId}', [
-            'as' => 'as.employees.employeeCustomTime.massiveUpdate',
-            'uses' => 'App\Appointment\Controllers\Employees@massiveUpdateEmployeeCustomTime'
+            'as' => 'as.employees.employeeCustomTime.massUpdate',
+            'uses' => 'App\Appointment\Controllers\Employees@massUpdateWorkShift'
         ]);
 
         Route::post('employee-delete-work-shift/{employeedId}', [

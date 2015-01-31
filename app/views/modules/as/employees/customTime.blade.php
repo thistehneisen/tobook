@@ -38,7 +38,9 @@
 </div>
 {{ Form::close() }}
 
-{{ Form::open(['route' => ['as.employees.employeeCustomTime.massiveUpdate',  $employee->id], 'class' => 'form-horizontal', 'role' => 'form']) }}
+@include ('el.messages')
+
+{{ Form::open(['route' => ['as.employees.employeeCustomTime.massUpdate', $employee->id], 'class' => 'form-horizontal', 'role' => 'form']) }}
 <table>
     <tr>
         <td>
