@@ -31,7 +31,7 @@ trait Booking
         }
         if (empty($startAt)) {
             // default to book at noon
-            $startAt = '12:00';
+            $startAt = '08:00';
         }
 
         $bookingService = BookingService::saveBookingService($uuid, $employee, $service, [

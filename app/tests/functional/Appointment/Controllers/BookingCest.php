@@ -100,7 +100,7 @@ class BookingCest
     public function testPagination(FunctionalTester $I)
     {
         $this->initData(false);
-        $this->initCustomTime();
+        // $this->initCustomTime();
         $user = User::find(70);
         $category = $this->category;
 
@@ -247,20 +247,22 @@ class BookingCest
         $I->assertNotEmpty($serviceTime);
         $I->seeOptionIsSelected('service_times', intval($service->length) + $plustime);
         $I->selectOption('service_times', $serviceTime->length + $plustime);
-
+        $bookingServiceId = $booking->bookingServices()->first()->id;
         $I->sendAjaxPostRequest(route('as.bookings.service.add'), [
-            'service_id'   => $service->id,
-            'employee_id'  => $I->grabValueFrom('#employee_id'),
-            'service_time' => $serviceTime->id,
-            'modify_times' => $I->grabValueFrom('#modify_times'),
-            'booking_date' => $I->grabValueFrom('#booking_date'),
-            'start_time'   => $I->grabValueFrom('#start_time'),
-            'uuid'         => $I->grabValueFrom('#uuid'),
-            'booking_id'   => $I->grabValueFrom('#booking_id'),
+            'service_id'         => strval($service->id),
+            'service_time'       => strval($serviceTime->id),
+            'employee_id'        => $I->grabValueFrom('#employee_id'),
+            'modify_times'       => $I->grabValueFrom('#modify_times'),
+            'booking_date'       => $I->grabValueFrom('#booking_date'),
+            'start_time'         => $I->grabValueFrom('#start_time'),
+            'uuid'               => $I->grabValueFrom('#uuid'),
+            'booking_id'         => $I->grabValueFrom('#booking_id'),
+            'booking_service_id' => $bookingServiceId,
         ]);
         $I->click('#btn-save-booking');
         $booking = Booking::find($booking->id);
-
+        $I->assertNotEmpty($booking);
+        $I->assertNotEmpty($booking->bookingServices()->first());
         $I->assertEquals($serviceTime->id, $booking->bookingServices()->first()->service_time_id, 'service_time_id');
     }
 
