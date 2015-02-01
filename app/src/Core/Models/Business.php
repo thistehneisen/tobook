@@ -25,6 +25,7 @@ class Business extends Base
         'meta_title',
         'meta_keywords',
         'meta_description',
+        'is_hidden',
     ];
 
     public $rulesets = [
