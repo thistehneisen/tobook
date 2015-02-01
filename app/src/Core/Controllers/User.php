@@ -62,11 +62,9 @@ class User extends Base
             $businessLomake = null;
         }
 
-        if ($user->is_consumer) {
-            $consumer = $user->consumer;
-        } else {
-            $consumer = null;
-        }
+        $consumer = $user->is_consumer
+            ? $user->consumer
+            : null;
 
         // Get all images of this user
         $images = $user->images()

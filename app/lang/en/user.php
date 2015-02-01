@@ -58,6 +58,7 @@ return [
         'meta_description' => 'Meta description',
         'meta_keywords'    => 'Meta keywords',
         'bank_account'     => 'Bank account',
+        'is_hidden'        => 'Is hidden business?',
         'sizes'            => [
             '1',
             '2-3',

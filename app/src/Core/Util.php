@@ -220,4 +220,15 @@ class Util
 
         return str_contains($longer, $shorter);
     }
+
+    /**
+     * Check if the current user is in stealth mode
+     *
+     * @return bool
+     */
+    public static function inStealthMode()
+    {
+        return \Entrust::hasRole(App\Core\Models\Role::ADMIN)
+         || \Session::has('stealthMode');
+    }
 }

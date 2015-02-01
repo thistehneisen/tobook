@@ -25,6 +25,7 @@ class Business extends Base
         'meta_title',
         'meta_keywords',
         'meta_description',
+        'is_hidden',
     ];
 
     public $rulesets = [
@@ -186,6 +187,11 @@ class Business extends Base
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
+
+    public function getIsHiddenAttribute()
+    {
+        return (bool) $this->attributes['is_hidden'];
+    }
 
     public function getTotalCommissionAttribute()
     {
@@ -357,6 +363,7 @@ class Business extends Base
             ->join('business_category_user', 'business_category_user.user_id', '=','businesses.user_id')
             ->where('business_category_user.business_category_id', $categoryId)
             ->where('businesses.name', '!=', '')
+            ->where('businesses.is_hidden', 0)
             ->limit($quantity)->get();
     }
 
@@ -484,7 +491,13 @@ class Business extends Base
 
         $users = new Collection();
         foreach ($result as $row) {
-            $users->push(User::with('business')->find($row['_id']));
+            $user = User::with('business')->find($row['_id']);
+            // Do not add hidden business into the result list
+            if ($user->business->is_hidden === true) {
+                continue;
+            }
+
+            $users->push($user);
         }
 
         return $users->lists('business');
