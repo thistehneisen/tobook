@@ -188,6 +188,11 @@ class Business extends Base
     // ATTRIBUTES
     //--------------------------------------------------------------------------
 
+    public function getIsHiddenAttribute()
+    {
+        return (bool) $this->attributes['is_hidden'];
+    }
+
     public function getTotalCommissionAttribute()
     {
         $value = App::make('\App\Appointment\Models\Booking')
