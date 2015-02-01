@@ -112,7 +112,7 @@ trait Layout
 
         $maxDistance = ((int)$user->asOptions['max_distance'])
             ? sprintf('+%dd', (int)$user->asOptions['max_distance'])
-            : 0;
+            : null;
 
         return [
             'layout'             => $layout,
@@ -355,10 +355,13 @@ trait Layout
             : $user;
 
         $minDistance = (int)$user->asOptions['min_distance'];
-        $maxDistance = (int)$user->asOptions['max_distance'];
-        $start       = $today->copy()->addDays($minDistance);
-        $final       = $today->copy()->addDays($maxDistance);
-        $maxWeeks    = (ceil($maxDistance / 7) <= 7)
+        $maxDistance = (int)$user->asOptions['max_distance']
+            ? (int)$user->asOptions['max_distance']
+            : 3650;
+        $start = $today->copy()->addDays($minDistance);
+        $final = $today->copy()->addDays($maxDistance);
+
+        $maxWeeks = (ceil($maxDistance / 7) <= 7)
                     ? ceil($maxDistance / 7)
                     : 7;
 

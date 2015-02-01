@@ -70,7 +70,7 @@ return [
                 ],
                 'max_distance' => [
                     'type' => 'Spinner',
-                    'default' => '90',
+                    'default' => '0',
                     'options' => ['class' => 'form-control input-sm spinner', 'data-positive' => 'true']
                 ],
             ],

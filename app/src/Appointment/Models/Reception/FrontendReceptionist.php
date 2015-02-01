@@ -57,12 +57,17 @@ class FrontendReceptionist extends Receptionist
         $today = Carbon::today();
         $minDistance = (int)$this->user->asOptions['min_distance'];
         $maxDistance = (int)$this->user->asOptions['max_distance'];
+
         $start  = $today->copy()->addDays($minDistance);
-        $final  = $today->copy()->addDays($maxDistance);
+        $final  = ($maxDistance)
+            ? $today->copy()->addDays($maxDistance)
+            : $today->copy()->addDays(3650);
 
         if($this->getStartTime()->lt($start)) {
             throw new Exception(trans('as.bookings.error.before_min_distance'), 1);
-        } else if ($this->getStartTime()->gt($final)) {
+        }
+
+        if ($this->getStartTime()->gt($final)) {
             throw new Exception(trans('as.bookings.error.after_max_distance'), 1);
         }
     }
