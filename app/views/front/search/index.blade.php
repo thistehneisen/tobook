@@ -3,16 +3,16 @@
 @section ('meta')
     @parent
     @if (isset($single))
-    <meta name="description" content="{{ $businesses[0]->meta_description }}">
-    <meta name="title" content="{{ $businesses[0]->meta_title }}">
-    <meta name="keywords" content="{{ $businesses[0]->meta_keywords }}">
+    <meta name="description" content="{{{ $businesses[0]->meta_description }}}">
+    <meta name="title" content="{{{ $businesses[0]->meta_title }}}">
+    <meta name="keywords" content="{{{ $businesses[0]->meta_keywords }}}">
     @endif
 @stop
 
 @section('title')
     @parent ::
     @if (!isset($single)) {{ trans('common.search') }}
-    @else {{ $businesses[0]->name }}
+    @else {{{ $businesses[0]->name }}}
     @endif
 @stop
 
@@ -58,19 +58,18 @@
         @else
             @foreach ($businesses as $item)
             <?php
-                //$slots = $item->user->getASNextTimeSlots($now, $now->hour);
                 $slots = [];
                 $count = 0;
             ?>
             <div class="result-row row" data-id="{{ $item->user->id }}" data-url="{{ route('ajax.showBusiness', ['hash' => $item->user->hash, 'id' => $item->user->id, 'l' => 3]) }}">
                 <div class="col-sm-12">
                 <img src="{{ Util::thumbnail($item->image, 260, 130) }}" alt="" class="img-responsive img-rounded">
-                <h5>{{ $item->name }} {{ $item->icons }}</h5>
-                <p>{{ $item->full_address }}</p>
+                <h5>{{{ $item->name }}} {{ $item->icons }}</h5>
+                <p>{{{ $item->full_address }}}</p>
                 @foreach ($slots as $slot)
-                    <?php if($count === 3) break;?>
+                    <?php if($count === 3) break; ?>
                     <a href="#" data-business-id="{{ $item->user->id }}" data-service-id="{{ $slot['service'] }}" data-employee-id="{{ $slot['employee'] }}" data-hour="{{ $slot['hour'] }}" data-minute="{{ $slot['minute'] }}" class="btn btn-sm btn-default">{{ $slot['time'] }}</a>
-                <?php $count++;?>
+                    <?php $count++; ?>
                 @endforeach
                 </div>
             </div>

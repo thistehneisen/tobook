@@ -167,12 +167,13 @@ class Util
 
     /**
      * Get current coordinates
+     *
      * @return array: [$lat, $lng]
      */
     public static function getCoordinates()
     {
-        $lat = e(Input::get('lat'));
-        $lng = e(Input::get('lng'));
+        $lat = Input::get('lat');
+        $lng = Input::get('lng');
 
         // If there is lat and lng values, we'll store in Session so that we
         // don't need to as again
@@ -197,6 +198,7 @@ class Util
 
     /**
      * Check if 2 phone numbers are similar
+     *
      * @param  string  $a
      * @param  string  $b
      * @return boolean

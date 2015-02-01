@@ -63,7 +63,7 @@ $(document).ready(function () {
         }
         var lenUntilBooked   = $(this).nextUntil('li.booked').length;
         var lenUntilFreetime = $(this).nextUntil('li.freetime').length;
-        if(lenUntilBooked < (totalSlots + plustime) || lenUntilFreetime < (totalSlots + plustime)){
+        if (lenUntilBooked < (totalSlots + plustime) || lenUntilFreetime < (totalSlots + plustime)) {
             $(this).removeClass('active');
             $(this).addClass('inactive');
         }
@@ -105,13 +105,12 @@ $(document).ready(function () {
                 @else
                 @foreach($cart->details as $item)
                 <div class="panel panel-default">
-                    <div class="panel-heading">{{ $item->model->service_name }}</div>
+                    <div class="panel-heading">{{{ $item->model->service_name }}}</div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-sm-6">{{ $item->model->datetime }}</div>
                             <div class="col-sm-4">
-                                @if ((bool)$user->asOptions['hide_prices'] === false)
-                                {{ $item->price }}{{ Config::get('varaa.currency') }}
+                                @if ((bool)$user->asOptions['hide_prices'] === false) {{ $item->price }}{{ Config::get('varaa.currency') }}
                                 @endif
                             </div>
                             <div class="col-sm-2"><a href="#" data-hash="{{ $hash }}" data-action-url="{{ route('as.bookings.service.remove.in.cart') }}" data-cart-id="{{ $cart->id }}" data-cart-detail-id="{{ $item->id }}" data-uuid="{{ $item->model->uuid }}" class="btn-remove-item-from-cart"><i class="glyphicon glyphicon-remove btn-danger"></i></a></div>
@@ -131,15 +130,11 @@ $(document).ready(function () {
     <div class="col-lg-9 col-md-8 col-sm-8">
         <div class="panel panel-default">
             <div class="panel-heading">
-                @if($action === 'checkout')
-                    {{ trans('as.embed.booking_form') }}
-                @elseif($action === 'confirm')
-                    {{ trans('as.embed.booking_form') }}
+                @if ($action === 'checkout') {{ trans('as.embed.booking_form') }}
+                @elseif ($action === 'confirm') {{ trans('as.embed.booking_form') }}
                 @else
-                    @if(empty($service))
-                    {{ trans('as.embed.select_service') }} {{ $date->format('d/m/Y') }}
-                    @else
-                    {{ $service->name }} {{ $date->format('d/m/Y') }} <a href="{{ route('as.embed.embed', [ 'hash' => $hash ])}}">({{ trans('as.embed.back_to_services') }})</a>
+                    @if (empty($service)) {{ trans('as.embed.select_service') }} {{ $date->format('d/m/Y') }}
+                    @else {{ $service->name }} {{ $date->format('d/m/Y') }} <a href="{{ route('as.embed.embed', [ 'hash' => $hash ])}}">({{ trans('as.embed.back_to_services') }})</a>
                     @endif
                 @endif
             </div>

@@ -37,8 +37,8 @@
                     <img src="{{ Util::thumbnail($business->image, 270, 135, true, true) }}" alt="" class="img-responsive" />
                 </a>
                 <div class="info text-left">
-                    <a href="{{ $business->business_url }}"><h4>{{ $business->name }}</h4></a>
-                    <p>{{ $business->full_address }}</p>
+                    <a href="{{{ $business->business_url }}}"><h4>{{{ $business->name }}}</h4></a>
+                    <p>{{{ $business->full_address }}}</p>
                     @foreach ($slots as $slot)
                         <?php if($count === 3) break;?>
                         <a href="{{ route('business.index', [

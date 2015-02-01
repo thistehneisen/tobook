@@ -432,7 +432,7 @@ class Business extends Base
         $query['bool']['should'][]['match']['description'] = $keywords;
         $query['bool']['should'][]['match']['keywords']    = $keywords;
 
-        $location = e(Input::get('location'));
+        $location = Input::get('location');
         if (!empty($location)) {
             $query['bool']['should'][]['match']['city'] = $location;
             $query['bool']['should'][]['match']['country'] = $location;

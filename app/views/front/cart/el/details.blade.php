@@ -6,8 +6,8 @@
         @foreach ($cart->details as $detail)
             @if ($detail->model !== null)
             <tr class="cart-detail" id="cart-detail-{{ $detail->id }}">
-                <td>{{ $detail->name }}</td>
-                <td>{{ $detail->price }}{{ Config::get('varaa.currency') }}</td>
+                <td>{{{ $detail->name }}}</td>
+                <td>{{{ $detail->price }}}{{ Config::get('varaa.currency') }}</td>
                 <td>
                     <a class="js-btn-cart-remove" data-detail-id="{{ $detail->id }}" href="{{ route('cart.remove', ['id' => $detail->id]) }}"><i class="fa fa-close text-danger"></i></a>
                 </td>
