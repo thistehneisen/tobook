@@ -16,7 +16,7 @@ $(function () {
                 url: $this.attr('href'),
                 type: 'GET'
             }).done(function () {
-                $this.parent().fadeOut(1000, function() {
+                $this.parent().fadeOut(1000, function () {
                     $(this).remove();
                 });
             });
@@ -30,6 +30,7 @@ $(function () {
 <div class="row">
     <div class="col-xs-12">
         <!-- Nav tabs -->
+        <br>
         <ul class="nav nav-tabs" role="tablist">
             <li {{ $activeTab === 'general' ? 'class="active"' : '' }}><a href="#tab-general" role="tab" data-toggle="tab">{{ trans('user.profile.general') }}</a></li>
         @if ($user->is_business)
