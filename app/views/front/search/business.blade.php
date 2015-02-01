@@ -96,6 +96,10 @@
                     <tr>
                         <td>{{ trans('common.'.$day) }}</td>
                         <td>{{ with(new Carbon\Carbon($value['start']))->format('H:i') }} &ndash; {{ with(new Carbon\Carbon($value['end']))->format('H:i') }}</td>
+                        <td>
+                            @if (!empty($value['extra'])) {{{ $value['extra'] }}}
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>
