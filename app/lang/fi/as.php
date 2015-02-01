@@ -80,7 +80,6 @@ Tervetuloa!
 Palvelun tarjoaa varaa.com
 HTML;
 
-
 $paymentTokensClient = <<< HTML
 We've received the payment for your booking and it is now confirmed.
 
@@ -109,7 +108,6 @@ Lisätiedot:
 {Notes}
 HTML;
 
-
 $paymentTokensAdmin = <<< HTML
 Booking deposit has been paid.
 
@@ -135,14 +133,11 @@ Lisätiedot:
 {Notes}
 HTML;
 
-
 $paymentTokensEmployee = <<< HTML
 Booking deposit has been paid.
 
 ID: {BookingID}
 HTML;
-
-
 
 $cancelMessage = <<< HTML
 You have cancelled the booking {BookingID}
@@ -336,6 +331,7 @@ return [
         'days_of_week'                     => 'Viikonpäivä',
         'start_time'                       => 'Aloitusaika',
         'end_time'                         => 'Lopetusaika',
+        'extra'                            => 'Additional info', // @todo
         'day_off'                          => 'Vapaapäivä',
         'confirm'                          => [
         'delete_freetime'                  => 'Oletko varma, että haluat poistaa valitun vapaa-ajan kalenterista?'
