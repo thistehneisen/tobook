@@ -490,7 +490,13 @@ class Business extends Base
 
         $users = new Collection();
         foreach ($result as $row) {
-            $users->push(User::with('business')->find($row['_id']));
+            $user = User::with('business')->find($row['_id']);
+            // Do not add hidden business into the result list
+            if ($user->business->is_hidden === true) {
+                continue;
+            }
+
+            $users->push($user);
         }
 
         return $users->lists('business');
