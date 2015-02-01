@@ -1,12 +1,12 @@
 {
-  "varaa/as/scripts/layout-1.js": "varaa/as/scripts/layout-1-75a79c5b.js",
-  "varaa/as/scripts/layout-2.js": "varaa/as/scripts/layout-2-719fa487.js",
-  "varaa/as/scripts/layout-3.js": "varaa/as/scripts/layout-3-94f5deea.js",
-  "varaa/as/scripts/main.js": "varaa/as/scripts/main-1b37ffa2.js",
-  "varaa/core/scripts/jquery.fixedTableHeader.js": "varaa/core/scripts/jquery.fixedTableHeader-9301fea0.js",
   "clearbooking/as/scripts/layout-1.js": "clearbooking/as/scripts/layout-1-75a79c5b.js",
-  "clearbooking/as/scripts/layout-2.js": "clearbooking/as/scripts/layout-2-719fa487.js",
+  "clearbooking/as/scripts/layout-2.js": "clearbooking/as/scripts/layout-2-67155ae2.js",
   "clearbooking/as/scripts/layout-3.js": "clearbooking/as/scripts/layout-3-94f5deea.js",
   "clearbooking/as/scripts/main.js": "clearbooking/as/scripts/main-1b37ffa2.js",
-  "clearbooking/core/scripts/jquery.fixedTableHeader.js": "clearbooking/core/scripts/jquery.fixedTableHeader-9301fea0.js"
+  "clearbooking/core/scripts/jquery.fixedTableHeader.js": "clearbooking/core/scripts/jquery.fixedTableHeader-9301fea0.js",
+  "varaa/as/scripts/layout-1.js": "varaa/as/scripts/layout-1-75a79c5b.js",
+  "varaa/as/scripts/layout-2.js": "varaa/as/scripts/layout-2-67155ae2.js",
+  "varaa/as/scripts/layout-3.js": "varaa/as/scripts/layout-3-94f5deea.js",
+  "varaa/as/scripts/main.js": "varaa/as/scripts/main-1b37ffa2.js",
+  "varaa/core/scripts/jquery.fixedTableHeader.js": "varaa/core/scripts/jquery.fixedTableHeader-9301fea0.js"
 }

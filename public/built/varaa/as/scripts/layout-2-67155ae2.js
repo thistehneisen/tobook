@@ -12,7 +12,6 @@
             $elCheckout = $('#as-checkout'),
             $elSuccess = $('#as-success'),
             dataStorage = {hash: $body.data('hash')},
-            extraServiceIds = [],
             fnLoadTimetable;
 
         //----------------------------------------------------------------------
@@ -141,20 +140,18 @@
             var $this = $(this),
                 selected = $(this).val();
 
-            if ($.isArray(extraServiceIds) === false) {
-                extraServiceIds = [];
+            if ($.isArray(dataStorage.extraServiceId) === false) {
+                dataStorage.extraServiceId = [];
             }
 
             // Assign data
             if ($this.is(':checked')) {
-                if (extraServiceIds.indexOf(selected) == -1) {
-                    extraServiceIds.push(selected);
+                if (dataStorage.extraServiceId.indexOf(selected) == -1) {
+                    dataStorage.extraServiceId.push(selected);
                 }
             } else {
-                extraServiceIds.splice(extraServiceIds.indexOf(selected), 1);
+                dataStorage.extraServiceId.splice(dataStorage.extraServiceId.indexOf(selected), 1);
             }
-
-            dataStorage.extraServiceId = extraServiceIds
 
             if ($timetable.is(':empty') === false) {
                 fnLoadTimetable();
