@@ -146,7 +146,7 @@
 
             // Assign data
             if ($this.is(':checked')) {
-                if (dataStorage.extraServiceId.indexOf(selected) !== -1) {
+                if (dataStorage.extraServiceId.indexOf(selected) == -1) {
                     dataStorage.extraServiceId.push(selected);
                 }
             } else {
