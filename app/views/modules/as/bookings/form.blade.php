@@ -218,11 +218,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-12">
-                                @if(!empty($booking))
-                                <button id="btn-add-service" class="btn btn-primary btn-sm pull-right">{{ trans('common.edit') }}</button>
-                                @else
                                 <button id="btn-add-service" class="btn btn-primary btn-sm pull-right">{{ trans('common.add') }}</button>
-                                @endif
                             </div>
                         </div>
                     </div>
