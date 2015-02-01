@@ -363,6 +363,7 @@ class Business extends Base
             ->join('business_category_user', 'business_category_user.user_id', '=','businesses.user_id')
             ->where('business_category_user.business_category_id', $categoryId)
             ->where('businesses.name', '!=', '')
+            ->where('businesses.is_hidden', 0)
             ->limit($quantity)->get();
     }
 
