@@ -33,6 +33,7 @@ $(function () {
             <th>{{ trans('as.employees.days_of_week') }}</th>
             <th>{{ trans('as.employees.start_time') }}</th>
             <th>{{ trans('as.employees.end_time') }}</th>
+            <th>{{ trans('as.employees.extra') }}</th>
         </tr>
     </thead>
 
@@ -45,6 +46,9 @@ $(function () {
             </td>
             <td>
                 {{ Form::text("working_time[$day][end]", $option['end'], ['class' => 'form-control input-sm time-picker', 'data-time-format' => 'hh:mm']) }}
+            </td>
+            <td>
+                {{ Form::text("working_time[$day][extra]", isset($option['extra']) ? $option['extra'] : '', ['class' => 'form-control input-sm']) }}
             </td>
         </tr>
     @endforeach
