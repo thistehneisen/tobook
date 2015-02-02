@@ -14,6 +14,7 @@ return [
             'youtube'       => '',
         ]
     ],
+    'currency' => 'SEK',
     'premium_modules' => [
         'appointment' => [
             'route_name' => 'as.index',
