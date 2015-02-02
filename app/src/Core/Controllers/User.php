@@ -42,6 +42,7 @@ class User extends Base
             $selectedCategories = [];
         }
 
+        $businessLomake = null;
         if ($user->is_business) {
             $businessLomake = Lomake::make($business, [
                 'route'             => 'user.profile',
@@ -59,8 +60,6 @@ class User extends Base
                     'is_hidden'        => ['type' => false],
                 ],
             ]);
-        } else {
-            $businessLomake = null;
         }
 
         $consumer = $user->is_consumer

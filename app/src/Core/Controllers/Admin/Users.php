@@ -120,6 +120,7 @@ class Users extends Base
      */
     public function overwrittenUpsert($view, $user)
     {
+        // @TODO: DUPLICATED WITH Core\Controllers\User@profile
         // Additional data to be passed to View
         $data = [];
         $business = $user->business ?: new Business();
@@ -129,15 +130,16 @@ class Users extends Base
             'route'             => ['admin.users.business', $user->id],
             'langPrefix'        => 'user.business',
             'fields'            => [
-                'description'       => ['type' => 'html_field', 'default' => $business->description_html],
-                'size'              => ['type' => false],
-                'lat'               => ['type' => false],
-                'lng'               => ['type' => false],
-                'note'              => ['type' => false],
-                'bank_account'      => ['type' => false],
-                'meta_title'        => ['type' => false],
-                'meta_description'  => ['type' => false],
-                'meta_keywords'     => ['type' => false],
+                'description'      => ['type' => 'html_field', 'default' => $business->description_html],
+                'size'             => ['type' => false],
+                'lat'              => ['type' => false],
+                'lng'              => ['type' => false],
+                'note'             => ['type' => false],
+                'bank_account'     => ['type' => false],
+                'meta_title'       => ['type' => false],
+                'meta_description' => ['type' => false],
+                'meta_keywords'    => ['type' => false],
+                'is_hidden'        => ['type' => false],
             ],
         ]);
 
