@@ -7,8 +7,12 @@ class OneApi
 {
     public function formatNumber($phone, $countryCode = '')
     {
+        $countryCode = $countryCode ?: Config::get('varaa.phone_country_code');
+
         // formatted numbers
-        if (strpos($phone, '+') === 0 || strpos($phone, '00') === 0) {
+        if (strpos($phone, '+') === 0
+                || strpos($phone, '00') === 0
+                || strpos($phone, $countryCode) === 0) {
             return $phone;
         }
 
@@ -16,9 +20,7 @@ class OneApi
             $phone = ltrim($phone, '0');
         }
 
-        // TODO: this should be user config?
-        $countryCode = $countryCode ?: '358';
-        $phone = $countryCode . $phone;
+        $phone = $countryCode.$phone;
         return $phone;
     }
 
@@ -49,7 +51,7 @@ class OneApi
             // Send
             $smsMessageSendResult = $smsClient->sendSMS($smsMessage);
         } catch (\Exception $ex) {
-            Log::warning("Can't send SMS to: {$smsMessage->address}", [$ex]);
+            Log::warning("Can't send SMS to: {$to}", [$ex]);
         }
     }
 
