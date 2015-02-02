@@ -1,58 +1,97 @@
 <?php
+
+//---------------------------- Confirmation ----------------------------//
+$confirmEmailConsumer = <<< HTML
+Hei!
+
+Kiitos varauksestasi!
+
+Valitut palvelut:
+{Services}
+
+**Mikäli peruutat varauksen se tulee tehdä 48 tuntia ennen varattua aikaa.
+
+Tervetuloa!
+
+
+
+Palvelun tarjoaa varaa.com
+HTML;
+
+$confirmEmailEmployee = <<< HTML
+Hei!
+
+Olet saanut uuden varauksen
+
+ID: {BookingID}
+
+Palvelut
+{Services}
+
+Asiakkaan tiedot
+Nimi: {Name}
+Puhelin: {Phone}
+Email: {Email}
+
+Lisätiedot:
+{Notes}
+HTML;
+
+$confirmSmsConsumer = <<< HTML
+Hei,
+
+Kiitos varauksestasi palveluun:
+
+{Services}
+
+Terveisin,
+HTML;
+
+$confirmSmsEmployee = <<< HTML
+Hei,
+
+Sinulle on uusi varaus asiakkaalta {Consumer} palveluun {Services}
+
+Terveisin,
+HTML;
+
+//---------------------------- Reminder ----------------------------//
+$reminderEmail = <<< HTML
+Hei {Name},
+Tämä on muistutusviesti varauksestasi!
+
+Varaus id: {BookingID}
+
+Palvelut
+
+{Services}
+
+Terveisin,
+HTML;
+
+$reminderSms = <<< HTML
+Hei,
+
+Kiitos varauksestasi palveluun:
+
+{Services}
+
+Terveisin,
+HTML;
+
+//---------------------------- Terms ----------------------------//
+$terms = <<< HTML
+Varausehdot
+
+Varaus tulee sitovasti voimaan, kun asiakas on tehnyt varauksen ja saanut siitä vahvistuksen joko puhelimitse tai kirjallisesti sähköpostitse. Palveluntarjoaja kantaa kaiken vastuun palvelun tuottamisesta ja hoitaa tarvittaessa kaiken yhteydenpidon asiakkaisiin.
+
+Peruutusehdot
+
+Varaajalla on oikeus peruutus- ja varausehtojen puitteissa peruuttaa varauksensa ilmoittamalla siitä puhelimitse vähintään 48h ennen palveluajan alkamista. Muutoin paikalle saapumatta jättämisestä voi palveluntarjoaja halutessaan periä voimassaolevan hinnastonsa mukaisen palvelukorvauksen.
+HTML;
+
 return [
     'options' => [
-        // 'general' => [
-        //     // Index section
-        //     'index' => [
-        //         // 'layout' => [
-        //         //     'type' => 'Dropdown',
-        //         //     'values' => [1 => 'Layout 1', 2 => 'Layout 2', 3 => 'Layout 3'],
-        //         //     'default' => 1,
-        //         //     'flipValues' => false
-        //         // ],
-        //         // 'currency' => [
-        //         //     'type'   => 'Dropdown',
-        //         //     'values' => ['AED', 'AFN', 'ALL', 'AMD', 'ANG', 'AOA', 'ARS', 'AUD', 'AWG', 'AZN', 'BAM', 'BBD', 'BDT', 'BGN', 'BHD', 'BIF', 'BMD', 'BND', 'BOB', 'BOV', 'BRL', 'BSD', 'BTN', 'BWP', 'BYR', 'BZD', 'CAD', 'CDF', 'CHE', 'CHF', 'CHW', 'CLF', 'CLP', 'CNY', 'COP', 'COU', 'CRC', 'CUC', 'CUP', 'CVE', 'CZK', 'DJF', 'DKK', 'DOP', 'DZD', 'EEK', 'EGP', 'ERN', 'ETB', 'EUR', 'FJD', 'FKP', 'GBP', 'GEL', 'GHS', 'GIP', 'GMD', 'GNF', 'GTQ', 'GYD', 'HKD', 'HNL', 'HRK', 'HTG', 'HUF', 'IDR', 'ILS', 'INR', 'IQD', 'IRR', 'ISK', 'JMD', 'JOD', 'JPY', 'KES', 'KGS', 'KHR', 'KMF', 'KPW', 'KRW', 'KWD', 'KYD', 'KZT', 'LAK', 'LBP', 'LKR', 'LRD', 'LSL', 'LTL', 'LVL', 'LYD', 'MAD', 'MDL', 'MGA', 'MKD', 'MMK', 'MNT', 'MOP', 'MRO', 'MUR', 'MVR', 'MWK', 'MXN', 'MXV', 'MYR', 'MZN', 'NAD', 'NGN', 'NIO', 'NOK', 'NPR', 'NZD', 'OMR', 'PAB', 'PEN', 'PGK', 'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RSD', 'RUB', 'RWF', 'SAR', 'SBD', 'SCR', 'SDG', 'SEK', 'SGD', 'SHP', 'SLL', 'SOS', 'SRD', 'STD', 'SYP', 'SZL', 'THB', 'TJS', 'TMT', 'TND', 'TOP', 'TRY', 'TTD', 'TWD', 'TZS', 'UAH', 'UGX', 'USD', 'USN', 'USS', 'UYU', 'UZS', 'VEF', 'VND', 'VUV', 'WST', 'XAF', 'XAG', 'XAU', 'XBA', 'XBB', 'XBC', 'XBD', 'XCD', 'XDR', 'XFU', 'XOF', 'XPD', 'XPF', 'XPT', 'XTS', 'XXX', 'YER', 'ZAR', 'ZMK', 'ZWL'],
-        //         //     'default' => 'EUR',
-        //         // ],
-        //         // 'timezone' => [
-        //         //     'type' => 'TimezoneDropdown',
-        //         //     'default' => 'Europe/Helsinki'
-        //         // ],
-        //         // 'datetime_format' => [
-        //         //     'type'    => 'DateTimeDropdown',
-        //         //     'values'  => ['d.m.Y, H:i', 'd.m.Y, H:i:s', 'm.d.Y, H:i', 'm.d.Y, H:i:s', 'Y.m.d, H:i', 'Y.m.d, H:i:s', 'j.n.Y, H:i', 'j.n.Y, H:i:s', 'n.j.Y, H:i', 'n.j.Y, H:i:s', 'Y.n.j, H:i', 'Y.n.j, H:i:s', 'd/m/Y, H:i', 'd/m/Y, H:i:s', 'm/d/Y, H:i', 'm/d/Y, H:i:s', 'Y/m/d, H:i', 'Y/m/d, H:i:s', 'j/n/Y, H:i', 'j/n/Y, H:i:s', 'n/j/Y, H:i', 'n/j/Y, H:i:s', 'Y/n/j, H:i', 'Y/n/j, H:i:s', 'd-m-Y, H:i', 'd-m-Y, H:i:s', 'm-d-Y, H:i', 'm-d-Y, H:i:s', 'Y-m-d, H:i', 'Y-m-d, H:i:s', 'j-n-Y, H:i', 'j-n-Y, H:i:s', 'n-j-Y, H:i', 'n-j-Y, H:i:s', 'Y-n-j, H:i', 'Y-n-j, H:i:s'],
-        //         //     'default' => 'j/n/Y, H:i'
-        //         // ],
-        //         // 'date_format'     => [
-        //         //     'type' => 'DateTimeDropdown',
-        //         //     'values' => ['d.m.Y', 'm.d.Y', 'Y.m.d', 'j.n.Y', 'n.j.Y', 'Y.n.j', 'd/m/Y', 'm/d/Y', 'Y/m/d', 'j/n/Y', 'n/j/Y', 'Y/n/j', 'd-m-Y', 'm-d-Y', 'Y-m-d', 'j-n-Y', 'n-j-Y', 'Y-n-j'],
-        //         //     'default' => 'd-m-Y',
-        //         // ],
-        //         // 'time_format' => [
-        //         //     'type' => 'DateTimeDropdown',
-        //         //     'values' => ['H:i', 'G:i', 'h:i', 'h:i a', 'h:i A', 'g:i', 'g:i a', 'g:i A'],
-        //         //     'default' => 'H:i',
-        //         // ],
-        //         // 'week_numbers' => [
-        //         //     'type' => 'Radio'
-        //         // ],
-        //         // 'week_start' => [
-        //         //     'type' => 'Dropdown',
-        //         //     'values' => [
-        //         //         trans('common.sun'),
-        //         //         trans('common.mon'),
-        //         //         trans('common.tue'),
-        //         //         trans('common.wed'),
-        //         //         trans('common.thu'),
-        //         //         trans('common.fri'),
-        //         //         trans('common.sat'),
-        //         //     ],
-        //         //     'default' => 1,
-        //         //     'flipValues' => false
-        //         // ],
-        //     ]
-        // ],
         'booking' => [
             'index' => [
                 'hide_prices' => [
@@ -150,7 +189,7 @@ return [
                 ],
                 'terms_body' => [
                     'type' => 'Textarea',
-                    'default' => trans('as.options.booking.terms_body_default')
+                    'default' => $terms
                 ],
             ],
             'confirmations' => [
@@ -164,39 +203,31 @@ return [
                 ],
                 'confirm_subject_client' => [
                     'type' => 'Text',
-                    'default' => trans('as.options.booking.confirm_subject_client_default')
+                    'default' => 'Kiitos varauksestasi'
                 ],
                 'confirm_tokens_client' => [
                     'type' => 'Textarea',
-                    'default' => trans('as.options.booking.confirm_tokens_client_default')
+                    'default' => $confirmEmailConsumer
                 ],
                 'confirm_subject_employee' => [
                     'type' => 'Text',
-                    'default' => trans('as.options.booking.confirm_subject_employee_default')
+                    'default' => 'Uusi varaus on saapunut'
                 ],
                 'confirm_tokens_employee' => [
                     'type' => 'Textarea',
-                    'default' => trans('as.options.booking.confirm_tokens_employee_default')
-                ],
-                'confirm_subject_admin' => [
-                    'type' => 'Text',
-                    'default' => trans('as.options.booking.confirm_subject_admin_default')
-                ],
-                'confirm_tokens_admin' => [
-                    'type' => 'Textarea',
-                    'default' => trans('as.options.booking.confirm_tokens_admin_default')
+                    'default' => $confirmEmailEmployee
                 ],
                 'confirm_sms_country_code' => [
                     'type' => 'Text',
-                    'default' => '358',
+                    'default' => Config::get('varaa.phone_country_code'),
                 ],
                 'confirm_consumer_sms_message' => [
                     'type' => 'Textarea',
-                    'default' => trans('as.options.booking.confirm_consumer_body_sms_message_default'),
+                    'default' => $confirmSmsConsumer,
                 ],
                 'confirm_employee_sms_message' => [
                     'type' => 'Textarea',
-                    'default' => trans('as.options.booking.confirm_employee_body_sms_message_default'),
+                    'default' => $confirmSmsEmployee
                 ],
             ],
             // 'reminders' => [
@@ -210,11 +241,11 @@ return [
             //     ],
             //     'reminder_subject' => [
             //         'type' => 'Text',
-            //         'values' => trans('as.options.booking.reminder_subject_default')
+            //         'values' => 'Muistutus varauksestasi'
             //     ],
             //     'reminder_body' => [
             //         'type' => 'Textarea',
-            //         'values' => trans('as.options.booking.reminder_body_default')
+            //         'values' => $reminderEmail
             //     ],
             //     'reminder_sms_hours' => [
             //         'type' => 'Spinner',
@@ -227,7 +258,7 @@ return [
             //     ],
             //     'reminder_sms_message' => [
             //         'type' => 'Textarea',
-            //         'values' => trans('as.options.booking.reminder_sms_message_default'),
+            //         'values' => $reminderSms,
             //     ],
             // ],
         ],
