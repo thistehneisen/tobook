@@ -29,7 +29,7 @@ return [
     'country'                => 'Land',
     'accept_terms'           => 'Acceptera villkoren genom att klicka på  &quot;Register&quot;',
     'terms'                  => 'Villkor',
-    'register_already'       => 'Du är redan registrerad',  
+    'register_already'       => 'Du är redan registrerad',
     'new_customers'          => 'Nya kunder',
     'register_here'          => 'Registrera här',
     'forgot_password'        => 'Glömt lösenord',
@@ -83,6 +83,10 @@ return [
         'description'          => 'Företagspresentation',
         'business_size'        => 'Företagets storlek',
         'business'             => 'Företag',
+        'working_hours'        => 'Working hours', // @todo
+        'days_of_week'         => 'Days of week', // @todo
+        'start_time'           => 'Start time', // @todo
+        'end_time'             => 'End time', // @todo
         'business_size_values' => [
             '1',
             '2-3',
@@ -120,7 +124,7 @@ return [
             'chiropractic_treatment' => 'Kiropraktor',
             'teeth_whitening'        => 'Tandblekning',
             'bowling'                => 'Bowling',
-            'karting'                => 'Karting',            
+            'karting'                => 'Karting',
             'gym'                    => 'Gym',
             'dance'                  => 'Dans',
             'badminton'              => 'Badminton',

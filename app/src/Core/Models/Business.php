@@ -188,6 +188,24 @@ class Business extends Base
     // ATTRIBUTES
     //--------------------------------------------------------------------------
 
+    public function getWorkingHoursAttribute()
+    {
+        if (empty($this->working_hours)) {
+            // Default working hours
+            return [
+                'mon' => ['start' => '09:00', 'end' => '20:00'],
+                'tue' => ['start' => '08:00', 'end' => '20:00'],
+                'wed' => ['start' => '08:00', 'end' => '20:00'],
+                'thu' => ['start' => '08:00', 'end' => '20:00'],
+                'fri' => ['start' => '08:00', 'end' => '20:00'],
+                'sat' => ['start' => '08:00', 'end' => '20:00'],
+                'sun' => ['start' => '08:00', 'end' => '20:00'],
+            ];
+        }
+
+        return json_encode($this->working_hours);
+    }
+
     public function getIsHiddenAttribute()
     {
         return isset($this->attributes['is_hidden'])
