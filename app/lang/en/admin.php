@@ -15,6 +15,7 @@ return [
     'search_placeholder' => 'Enter anything you want to search',
     'search'             => 'Search',
     'create'             => 'Create',
+    'create_note'        => 'New password will be sent to user.',
     'actions'            => 'Actions',
     'edit'               => 'Edit',
     'delete'             => 'Delete',

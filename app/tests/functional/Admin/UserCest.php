@@ -84,13 +84,15 @@ class UserCest extends \Test\Functional\Base
             'email'                 => $email,
             'password'              => '1234567890',
             'password_confirmation' => '1234567890',
+            'business_name'         => 'foo',
+            'business_phone'        => 'bar',
         ]);
 
         $user = User::where('email', $email)->with('business')->first();
         $business = $user->business;
         $i->assertTrue($business->id !== null, 'Business exists');
-        $i->assertEquals($business->name, '', 'Business name is empty');
-        $i->assertEquals($business->phone, '', 'Phone is empty');
+        $i->assertEquals($business->name, 'foo', 'Business name');
+        $i->assertEquals($business->phone, 'bar', 'Business phone');
     }
 
     public function seeErrorIfDuplicatingEmailBusiness(FunctionalTester $i)
