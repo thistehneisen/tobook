@@ -332,7 +332,6 @@ return [
         'days_of_week'                     => 'Days of week',
         'start_time'                       => 'Start time',
         'end_time'                         => 'End time',
-        'extra'                            => 'Additional info',
         'day_off'                          => 'Is day off?',
         'confirm'                          => [
             'delete_freetime' => 'Are you sure to delete selected free time from the calendar?'

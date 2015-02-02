@@ -331,7 +331,6 @@ return [
         'days_of_week'                     => 'Viikonpäivä',
         'start_time'                       => 'Aloitusaika',
         'end_time'                         => 'Lopetusaika',
-        'extra'                            => 'Additional info', // @todo
         'day_off'                          => 'Vapaapäivä',
         'confirm'                          => [
         'delete_freetime'                  => 'Oletko varma, että haluat poistaa valitun vapaa-ajan kalenterista?'
