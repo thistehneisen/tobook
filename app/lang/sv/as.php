@@ -1,146 +1,4 @@
 <?php
-$termBody = <<< HTML
-Villkor för bokning
-
-En bokning träder i kraft när kunden har gjort en reservation och fått en bekräftelse via telefon eller e-post. Leverantören förväntas tillhandahålla den tjänst kunden bokat och, i annat fall, kommunicera detta till kunden.
-
-Villkor för avbokning
-
-Avbokning ska ske senast 48 timmar innan den reserverade tiden. I annat fall förbehåller vi oss rätten att ta ut full betalning för tjänsten enligt aktuell prislista.
-HTML;
-
-$reminderBody = <<< HTML
-Hej, {Name},
-Detta är en påminnelse om din bokning:
-
-Boknings ID: {BookingID}
-
-Tjänster
-
-{Services}
-
-Hälsningar,
-HTML;
-
-$confirmBody = <<< HTML
-Hej, {Name},
-Detta är en påminnelse om din bokning:
-
-Boknings ID: {BookingID}
-
-Tjänster
-
-{Services}
-
-Hälsningar,
-HTML;
-
-$reminderSmsMessage = <<< HTML
-Hej,
-
-Tack för att du bokat:
-
-{Services}
-
-Hälsningar,
-HTML;
-
-$confirmConsumerMessage = <<< HTML
-Hej,
-
-Tack för att du bokat:
-
-{Services}
-
-Hälsningar,
-HTML;
-
-$confirmEmployeeMessage = <<< HTML
-Hej,
-
-Du har en ny bokning med {Consumer}. Tjänst: {Services}
-
-Hälsningar,
-HTML;
-
-$confirmTokensClient = <<< HTML
-Hej!
-
-Tack för din bokning!
-
-Valda tjänster:
-{Services}
-
-**Avbokning måste ske senast 48 timmar innan den reserverade tiden.
-
-Välkommen!
-
-
-
-Tjänsten tillhandahålls av ClearSense
-HTML;
-
-
-$paymentTokensClient = <<< HTML
-Vi har mottagit betalning och bekräftat din bokning.
-
-ID: {BookingID}
-
-Hälsningar,
-HTML;
-
-$confirmTokensAdmin = <<< HTML
-Hej!
-
-Du har fått en ny bokning:
-
-ID: {BookingID}
-
-Tjänster:
-{Services}
-
-Kundinformation:
-Namn: {Name}
-Telefon: {Phone}
-E-post: {Email}
-
-Ytterligare information:
-{Notes}
-HTML;
-
-
-$paymentTokensAdmin = <<< HTML
-Depositionen för bokningen är betald.
-
-ID: {BookingID}
-HTML;
-
-$confirmTokensEmployee = <<< HTML
-Hej!
-
-Du har fått en ny bokning:
-
-ID: {BookingID}
-
-Tjänster:
-{Services}
-
-Kundinformation
-Namn: {Name}
-Telefon: {Phone}
-E-post: {Email}
-
-Ytterligare information:
-{Notes}
-HTML;
-
-
-$paymentTokensEmployee = <<< HTML
-Depositionen för bokningen är betald.
-
-ID: {BookingID}
-HTML;
-
 
 $cancelMessage = <<< HTML
 Du har avbokat bokning {BookingID}
@@ -275,7 +133,7 @@ return [
         'terms'             => 'Villkor',
         'terms_agree'       => 'Jag har läst och godkänner villkoren',
         'cancel_message'    => $cancelMessage,
-         'cancel_confirm'    => 'Är du säker på att du vill avboka %s?',
+        'cancel_confirm'    => 'Är du säker på att du vill avboka %s?',
         'modify_booking'    => 'Ändra bokning',
         'reschedule'        => 'Boka om',
         'confirm_reschedule'=> 'Bekräfta ombokning',
@@ -469,45 +327,20 @@ return [
             'reminder_subject'                               => 'Ämne för påminnelse',
             'reminder_subject_default'                       => 'Påminnelse om din bokning',
             'reminder_body'                                  => 'Meddelande för påminnelse',
-            'reminder_body_default'                          => $reminderBody,
             'reminder_sms_hours'                             => 'Skicka påminnelse via SMS',
             'reminder_sms_country_code'                      => 'SMS landskod (t.ex. +46)',
             'reminder_sms_message'                           => 'SMS Meddelande',
-            'reminder_sms_message_default'                   => $reminderSmsMessage,
             'terms_url'                                      => 'Bokningsvillkor URL',
             'terms_body'                                     => 'Bokningsvillkor innehåll',
-            'terms_body_default'                             => $termBody,
             'confirm_subject_client'                         => 'Bekräftelse till kund - Rubrik',
-            'confirm_subject_client_default'                 => 'Tack för din bokning',
             'confirm_tokens_client'                          => 'Innehåll e-post',
-            'confirm_tokens_client_default'                  => $confirmTokensClient,
             'confirm_email_enable'                           => 'Aktivera e-post',
             'confirm_sms_enable'                             => 'Aktivera SMS',
             'confirm_sms_country_code'                       => 'Kod',
             'confirm_consumer_sms_message'                   => 'Kund SMS',
             'confirm_employee_sms_message'                   => 'Personal SMS',
-            'confirm_consumer_body_sms_message_default'      => $confirmConsumerMessage,
-            'confirm_employee_body_sms_message_default'      => $confirmEmployeeMessage,
-            'payment_subject_client'                         => 'Rubrik betalningsmeddelande',
-            'payment_subject_client_default'                 => 'Betalning mottagen',
-            'payment_tokens_client'                          => 'E-post meddelande',
-            'payment_tokens_client_default'                  => $paymentTokensClient,
-            'confirm_subject_admin'                          => 'Bekräftelse till admin - Rubrik',
-            'confirm_subject_admin_default'                  => 'Ny bokning',
-            'confirm_tokens_admin'                           => 'E-post meddelande',
-            'confirm_tokens_admin_default'                   => $confirmTokensAdmin,
-            'payment_subject_admin'                          => 'Betalning admin - Rubrik',
-            'payment_subject_admin_default'                  => 'Ny betalning mottagen',
-            'payment_tokens_admin'                           => 'Innehåll e-post',
-            'payment_tokens_admin_default'                   => $paymentTokensAdmin,
             'confirm_subject_employee'                       => 'Bekräftelse personal - Rubrik',
-            'confirm_subject_employee_default'               => 'Ny bokning',
             'confirm_tokens_employee'                        => 'Innehåll e-post',
-            'confirm_tokens_employee_default'                => $confirmTokensEmployee,
-            'payment_subject_employee'                       => 'Rubrik betalning personal',
-            'payment_subject_employee_default'               => 'Ny betalning mottagen',
-            'payment_tokens_employee'                        => 'E-post meddelande',
-            'payment_tokens_employee_default'                => $paymentTokensEmployee,
             'terms_enabled'                                  => 'Aktivera villkor',
             'default_nat_service'                            => 'Nästa tillgängliga tjänst',
         ],

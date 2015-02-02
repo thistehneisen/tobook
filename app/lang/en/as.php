@@ -1,143 +1,4 @@
 <?php
-$termBody = <<< HTML
-Varausehdot
-
-Varaus tulee sitovasti voimaan, kun asiakas on tehnyt varauksen ja saanut siitä vahvistuksen joko puhelimitse tai kirjallisesti sähköpostitse. Palveluntarjoaja kantaa kaiken vastuun palvelun tuottamisesta ja hoitaa tarvittaessa kaiken yhteydenpidon asiakkaisiin.
-
-Peruutusehdot
-
-Varaajalla on oikeus peruutus- ja varausehtojen puitteissa peruuttaa varauksensa ilmoittamalla siitä puhelimitse vähintään 48h ennen palveluajan alkamista. Muutoin paikalle saapumatta jättämisestä voi palveluntarjoaja halutessaan periä voimassaolevan hinnastonsa mukaisen palvelukorvauksen.
-HTML;
-
-$reminderBody = <<< HTML
-Hei {Name},
-Tämä on muistutusviesti varauksestasi!
-
-Varaus id: {BookingID}
-
-Palvelut
-
-{Services}
-
-Terveisin,
-HTML;
-
-$confirmBody = <<< HTML
-Hei {Name},
-Tämä on muistutusviesti varauksestasi!
-
-Varaus id: {BookingID}
-
-Palvelut
-
-{Services}
-
-Terveisin,
-HTML;
-
-$reminderSmsMessage = <<< HTML
-Hei,
-
-Kiitos varauksestasi palveluun:
-
-{Services}
-
-Terveisin,
-HTML;
-
-$confirmConsumerMessage = <<< HTML
-Hei,
-
-Kiitos varauksestasi palveluun:
-
-{Services}
-
-Terveisin,
-HTML;
-
-$confirmEmployeeMessage = <<< HTML
-Hei,
-
-Sinulle on uusi varaus asiakkaalta {Consumer} palveluun {Services}
-
-Terveisin,
-HTML;
-
-$confirmTokensClient = <<< HTML
-Hei!
-
-Kiitos varauksestasi!
-
-Valitut palvelut:
-{Services}
-
-**Mikäli peruutat varauksen se tulee tehdä 48 tuntia ennen varattua aikaa.
-
-Tervetuloa!
-
-
-
-Palvelun tarjoaa varaa.com
-HTML;
-
-$paymentTokensClient = <<< HTML
-We've received the payment for your booking and it is now confirmed.
-
-ID: {BookingID}
-
-Thank you,
-The Management
-HTML;
-
-$confirmTokensAdmin = <<< HTML
-Hei!
-
-Olet saanut uuden varauksen
-
-ID: {BookingID}
-
-Palvelut
-{Services}
-
-Asiakkaan tiedot
-Nimi: {Name}
-Puhelin: {Phone}
-Email: {Email}
-
-Lisätiedot:
-{Notes}
-HTML;
-
-$paymentTokensAdmin = <<< HTML
-Booking deposit has been paid.
-
-ID: {BookingID}
-HTML;
-
-$confirmTokensEmployee = <<< HTML
-Hei!
-
-Olet saanut uuden varauksen
-
-ID: {BookingID}
-
-Palvelut
-{Services}
-
-Asiakkaan tiedot
-Nimi: {Name}
-Puhelin: {Phone}
-Email: {Email}
-
-Lisätiedot:
-{Notes}
-HTML;
-
-$paymentTokensEmployee = <<< HTML
-Booking deposit has been paid.
-
-ID: {BookingID}
-HTML;
 
 $cancelMessage = <<< HTML
 You have cancelled the booking {BookingID}
@@ -284,15 +145,15 @@ return [
             'add_overlapped_booking'      => 'Overlapped booking time!',
             'insufficient_slots'          => 'There is no enough time slots for this booking!',
             'invalid_consumer_info'       => 'Could not save consumer info',
-            'terms'                       => 'You have to agree with our term.',//@todo
-            'service_empty'               => 'Please select service and service time!',//@todo
-            'unknown'                     => 'Something went wrong!',//@todo
-            'exceed_current_day'          => 'Booking end time cannot exceed current day',//@todo
-            'overllapped_with_freetime'   => 'Booking is overllapped with employee freetime',//@todo
-            'empty_total_time'            => 'Booking total minutes must be greater or equal 1',//@todo
-            'uuid_notfound'               => 'Booking ID not found', //@todo
-            'not_enough_slots'            => 'Not enough booking slots or overllaped with other booking.', //@todo
-            'employee_not_servable'       => 'This employee does not serve the booking service.', //@todo
+            'terms'                       => 'You have to agree with our term.',
+            'service_empty'               => 'Please select service and service time!',
+            'unknown'                     => 'Something went wrong!',
+            'exceed_current_day'          => 'Booking end time cannot exceed current day',
+            'overllapped_with_freetime'   => 'Booking is overllapped with employee freetime',
+            'empty_total_time'            => 'Booking total minutes must be greater or equal 1',
+            'uuid_notfound'               => 'Booking ID not found',
+            'not_enough_slots'            => 'Not enough booking slots or overllaped with other booking.',
+            'employee_not_servable'       => 'This employee does not serve the booking service.',
             'id_not_found'                => 'Booking not found',
             'start_time'                  => 'Booking start time is invalid',
             'service_time_invalid'        => 'Service time for booking not found',
@@ -305,8 +166,8 @@ return [
             'booking_not_found'           => 'Booking not found!',
             'past_booking'                => 'Cannot make booking in the past!',
             'delete_last_booking_service' => 'You cannot delete the last booking service',
-            'before_min_distance'         => 'You cannot make a booking before the min distance day',//@todo
-            'after_max_distance'          => 'You cannot make a booking after the max distance day',//@todo
+            'before_min_distance'         => 'You cannot make a booking before the min distance day',
+            'after_max_distance'          => 'You cannot make a booking after the max distance day',
         ],
         'warning'      => [
             'existing_user'   => 'There is an user associate with this email in our system. Do you want to use these information instead?',
@@ -463,49 +324,24 @@ return [
             'reminder_subject'                               => 'Email Reminder subject',
             'reminder_subject_default'                       => 'Muistutus varauksestasi',
             'reminder_body'                                  => 'Email Reminder body',
-            'reminder_body_default'                          => $reminderBody,
             'reminder_sms_hours'                             => 'Send SMS reminder',
             'reminder_sms_country_code'                      => 'SMS country code',
             'reminder_sms_message'                           => 'SMS message',
-            'reminder_sms_message_default'                   => $reminderSmsMessage,
             'terms_url'                                      => 'Booking terms URL',
             'terms_body'                                     => 'Booking terms content',
-            'terms_body_default'                             => $termBody,
             'confirm_subject_client'                         => 'Client confirmation title',
-            'confirm_subject_client_default'                 => 'Kiitos varauksestasi',
             'confirm_tokens_client'                          => 'Email body',
-            'confirm_tokens_client_default'                  => $confirmTokensClient,
             'confirm_email_enable'                           => 'Enable email',
             'confirm_sms_enable'                             => 'Enable sms',
             'confirm_sms_country_code'                       => 'Code',
             'confirm_consumer_sms_message'                   => 'Consumer sms',
             'confirm_employee_sms_message'                   => 'Employee sms',
-            'confirm_consumer_body_sms_message_default'      => $confirmConsumerMessage,
-            'confirm_employee_body_sms_message_default'      => $confirmEmployeeMessage,
-            'payment_subject_client'                         => 'Client payment title',
-            'payment_subject_client_default'                 => 'Payment received',
-            'payment_tokens_client'                          => 'Email body',
-            'payment_tokens_client_default'                  => $paymentTokensClient,
-            'confirm_subject_admin'                          => 'Admin confirmation title',
-            'confirm_subject_admin_default'                  => 'Uusi varaus on saapunut',
-            'confirm_tokens_admin'                           => 'Email body',
-            'confirm_tokens_admin_default'                   => $confirmTokensAdmin,
-            'payment_subject_admin'                          => 'Admin payment title',
-            'payment_subject_admin_default'                  => 'New payment received',
-            'payment_tokens_admin'                           => 'Email body',
-            'payment_tokens_admin_default'                   => $paymentTokensAdmin,
             'confirm_subject_employee'                       => 'Employee confirmation title',
-            'confirm_subject_employee_default'               => 'Uusi varaus on saapunut',
             'confirm_tokens_employee'                        => 'Email body',
-            'confirm_tokens_employee_default'                => $confirmTokensEmployee,
-            'payment_subject_employee'                       => 'Employee payment title',
-            'payment_subject_employee_default'               => 'New payment received',
-            'payment_tokens_employee'                        => 'Email body',
-            'payment_tokens_employee_default'                => $paymentTokensEmployee,
             'terms_enabled'                                  => 'Enable terms',
             'default_nat_service'                            => 'Default next available service',
-            'min_distance'                                   => 'Min distance',//@todo
-            'max_distance'                                   => 'Max distance',//@todo
+            'min_distance'                                   => 'Min distance',
+            'max_distance'                                   => 'Max distance',
         ],
         'style' => [
             'heading'                           => '',

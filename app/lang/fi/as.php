@@ -1,143 +1,4 @@
 <?php
-$termBody = <<< HTML
-Varausehdot
-
-Varaus tulee sitovasti voimaan, kun asiakas on tehnyt varauksen ja saanut siitä vahvistuksen joko puhelimitse tai kirjallisesti sähköpostitse. Palveluntarjoaja kantaa kaiken vastuun palvelun tuottamisesta ja hoitaa tarvittaessa kaiken yhteydenpidon asiakkaisiin.
-
-Peruutusehdot
-
-Varaajalla on oikeus peruutus- ja varausehtojen puitteissa peruuttaa varauksensa ilmoittamalla siitä puhelimitse vähintään 48h ennen palveluajan alkamista. Muutoin paikalle saapumatta jättämisestä voi palveluntarjoaja halutessaan periä voimassaolevan hinnastonsa mukaisen palvelukorvauksen.
-HTML;
-
-$reminderBody = <<< HTML
-Hei {Name},
-Tämä on muistutusviesti varauksestasi!
-
-Varaus id: {BookingID}
-
-Palvelut
-
-{Services}
-
-Terveisin,
-HTML;
-
-$confirmBody = <<< HTML
-Hei {Name},
-Tämä on muistutusviesti varauksestasi!
-
-Varaus id: {BookingID}
-
-Palvelut
-
-{Services}
-
-Terveisin,
-HTML;
-
-$reminderSmsMessage = <<< HTML
-Hei,
-
-Kiitos varauksestasi palveluun:
-
-{Services}
-
-Terveisin,
-HTML;
-
-$confirmConsumerMessage = <<< HTML
-Hei,
-
-Kiitos varauksestasi palveluun:
-
-{Services}
-
-Terveisin,
-HTML;
-
-$confirmEmployeeMessage = <<< HTML
-Hei,
-
-Sinulle on uusi varaus asiakkaalta {Consumer} palveluun {Services}
-
-Terveisin,
-HTML;
-
-$confirmTokensClient = <<< HTML
-Hei!
-
-Kiitos varauksestasi!
-
-Valitut palvelut:
-{Services}
-
-**Mikäli peruutat varauksen se tulee tehdä 48 tuntia ennen varattua aikaa.
-
-Tervetuloa!
-
-
-
-Palvelun tarjoaa varaa.com
-HTML;
-
-$paymentTokensClient = <<< HTML
-We've received the payment for your booking and it is now confirmed.
-
-ID: {BookingID}
-
-Thank you,
-The Management
-HTML;
-
-$confirmTokensAdmin = <<< HTML
-Hei!
-
-Olet saanut uuden varauksen
-
-ID: {BookingID}
-
-Palvelut
-{Services}
-
-Asiakkaan tiedot
-Nimi: {Name}
-Puhelin: {Phone}
-Email: {Email}
-
-Lisätiedot:
-{Notes}
-HTML;
-
-$paymentTokensAdmin = <<< HTML
-Booking deposit has been paid.
-
-ID: {BookingID}
-HTML;
-
-$confirmTokensEmployee = <<< HTML
-Hei!
-
-Olet saanut uuden varauksen
-
-ID: {BookingID}
-
-Palvelut
-{Services}
-
-Asiakkaan tiedot
-Nimi: {Name}
-Puhelin: {Phone}
-Email: {Email}
-
-Lisätiedot:
-{Notes}
-HTML;
-
-$paymentTokensEmployee = <<< HTML
-Booking deposit has been paid.
-
-ID: {BookingID}
-HTML;
 
 $cancelMessage = <<< HTML
 You have cancelled the booking {BookingID}
@@ -461,47 +322,21 @@ return [
             'reminder_enable'                                => 'Muistutusviestit käytössä',
             'reminder_email_before'                          => 'Lähetä muistutus sähköpostilla',
             'reminder_subject'                               => 'Muistutussähköpostiviestin otsikko',
-            'reminder_subject_default'                       => 'Muistutus varauksestasi',
             'reminder_body'                                  => 'Sähköpostimuistutuksen runko',
-            'reminder_body_default'                          => $reminderBody,
             'reminder_sms_hours'                             => 'Lähetä muistutus tekstiviestillä',
             'reminder_sms_country_code'                      => 'SMS Maatunnus',
             'reminder_sms_message'                           => 'Tekstiviesti',
-            'reminder_sms_message_default'                   => $reminderSmsMessage,
             'terms_url'                                      => 'URL osoite ehdoille',
             'terms_body'                                     => 'Varauksen ehtojen sisältö',
-            'terms_body_default'                             => $termBody,
             'confirm_subject_client'                         => 'Asiakkaan vahvistuksen otsikko',
-            'confirm_subject_client_default'                 => 'Kiitos varauksestasi',
             'confirm_tokens_client'                          => 'Viestin sisältö',
-            'confirm_tokens_client_default'                  => $confirmTokensClient,
             'confirm_email_enable'                           => 'Sähköposti käytössä',
             'confirm_sms_enable'                             => 'SMS käytössä',
             'confirm_sms_country_code'                       => 'Koodi',
             'confirm_consumer_sms_message'                   => 'Asiakkaan tekstiviesti',
             'confirm_employee_sms_message'                   => 'Työntekijän tekstiviesti',
-            'confirm_consumer_body_sms_message_default'      => $confirmConsumerMessage,
-            'confirm_employee_body_sms_message_default'      => $confirmEmployeeMessage,
-            'payment_subject_client'                         => 'Asiakkaan maksuvahvistuksen otsikko',
-            'payment_subject_client_default'                 => 'Maksu vastaanotettu',
-            'payment_tokens_client'                          => 'Viestin sisältö',
-            'payment_tokens_client_default'                  => $paymentTokensClient,
-            'confirm_subject_admin'                          => 'Hallintapaneelin maksuvahvistuksen otsikko',
-            'confirm_subject_admin_default'                  => 'Uusi varaus on saapunut',
-            'confirm_tokens_admin'                           => 'Viestin sisältö',
-            'confirm_tokens_admin_default'                   => $confirmTokensAdmin,
-            'payment_subject_admin'                          => 'Ylläpitäjän maksuvahvistuksen otsikko',
-            'payment_subject_admin_default'                  => 'Uusi maksu vastaanotettu',
-            'payment_tokens_admin'                           => 'Viestin sisältö',
-            'payment_tokens_admin_default'                   => $paymentTokensAdmin,
             'confirm_subject_employee'                       => 'Työntekijän varauksen otsikko',
-            'confirm_subject_employee_default'               => 'Uusi varaus on saapunut',
             'confirm_tokens_employee'                        => 'Viestin sisältö',
-            'confirm_tokens_employee_default'                => $confirmTokensEmployee,
-            'payment_subject_employee'                       => 'Työntekijän maksun otsikko',
-            'payment_subject_employee_default'               => 'Uusi maksu vastaanotettu',
-            'payment_tokens_employee'                        => 'Viestin sisältö',
-            'payment_tokens_employee_default'                => $paymentTokensEmployee,
             'terms_enabled'                                  => 'Ehdot käytössä',
             'default_nat_service'                            => 'Default next available service',
             'min_distance'                                   => 'Min distance',//@todo
