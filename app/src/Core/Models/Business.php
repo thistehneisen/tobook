@@ -190,7 +190,9 @@ class Business extends Base
 
     public function getIsHiddenAttribute()
     {
-        return (bool) $this->attributes['is_hidden'];
+        return isset($this->attributes['is_hidden'])
+            ? (bool) $this->attributes['is_hidden']
+            : false ;
     }
 
     public function getTotalCommissionAttribute()
