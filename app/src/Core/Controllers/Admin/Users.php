@@ -186,6 +186,18 @@ class Users extends Base
             $role = Role::user();
             $user->attachRole($role);
 
+            // Create business entry
+            $business = new Business([
+                'name'  => Input::get('business_name'),
+                'phone' => Input::get('business_phone'),
+            ]);
+            $business->user()->associate($user);
+            try {
+                $business->saveOrFail();
+            } catch (\Watson\Validating\ValidationException $ex) {
+                $business->forceSave();
+            }
+
             // Send notification email
             Mail::send(
                 'admin.users.emails.created',
@@ -196,11 +208,6 @@ class Users extends Base
                     ->subject(trans('user.password_reminder.created.heading'));
                 }
             );
-
-            // Create business entry
-            $business = new Business();
-            $business->user()->associate($user);
-            $business->forceSave();
 
             // Redirect to edit page, so that we can enter business information
             return Redirect::route(

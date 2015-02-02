@@ -32,22 +32,36 @@
         <div class="row">
             <div class="col-sm-offset-3 col-sm-6">
                 <div class="alert alert-info">
-                    <p>New password will be sent to user.</p>
+                    <p>{{ trans('admin.create_note') }}</p>
                 </div>
             </div>
         </div>
 
         <div class="form-group">
-            <label for="password" class="col-sm-2 col-sm-offset-1 control-label">Password</label>
+            <label for="password" class="col-sm-2 col-sm-offset-1 control-label">{{ @trans('user.password') }}*</label>
             <div class="col-sm-6">
                 {{ Form::password('password', ['class' => 'form-control', 'id' => 'password']) }}
             </div>
         </div>
 
         <div class="form-group">
-            <label for="password_confirmation" class="col-sm-2 col-sm-offset-1 control-label">Confirm Password</label>
+            <label for="password_confirmation" class="col-sm-2 col-sm-offset-1 control-label">{{ @trans('user.password_confirmation') }}*</label>
             <div class="col-sm-6">
                 {{ Form::password('password_confirmation', ['class' => 'form-control', 'id' => 'password_confirmation']) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="business_name" class="col-sm-2 col-sm-offset-1 control-label">{{ @trans('user.business.name') }}*</label>
+            <div class="col-sm-6">
+                {{ Form::text('business_name', Input::get('business_name'), ['class' => 'form-control', 'id' => 'business_name']) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="business_phone" class="col-sm-2 col-sm-offset-1 control-label">{{ @trans('user.business.phone') }}*</label>
+            <div class="col-sm-6">
+                {{ Form::text('business_phone', Input::get('business_phone'), ['class' => 'form-control', 'id' => 'business_phone']) }}
             </div>
         </div>
 
