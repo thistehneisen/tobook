@@ -72,6 +72,27 @@ class UserCest extends \Test\Functional\Base
         $i->assertTrue($business->count() === 1, 'no duplicated business');
     }
 
+    public function createNewBusiness(FunctionalTester $i)
+    {
+        // Work-around to trigger model events in test environment
+        User::boot();
+
+        $email = uniqid().'@varaa.com';
+
+        $i->amOnPage($this->createUrl);
+        $i->submitForm('#lomake-form', [
+            'email'                 => $email,
+            'password'              => '1234567890',
+            'password_confirmation' => '1234567890',
+        ]);
+
+        $user = User::where('email', $email)->with('business')->first();
+        $business = $user->business;
+        $i->assertTrue($business->id !== null, 'Business exists');
+        $i->assertEquals($business->name, '', 'Business name is empty');
+        $i->assertEquals($business->phone, '', 'Phone is empty');
+    }
+
     public function seeErrorIfDuplicatingEmailBusiness(FunctionalTester $i)
     {
         $email = 'varaa_test@varaa.com';

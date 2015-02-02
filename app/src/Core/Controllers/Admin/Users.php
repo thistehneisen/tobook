@@ -161,28 +161,28 @@ class Users extends Base
     /**
      * @{@inheritdoc}
      */
-    public function upsertHandler($item)
+    public function upsertHandler($user)
     {
-        $item->fill(Input::all());
+        $user->fill(Input::all());
         if (Input::has('password') && Input::has('password_confirmation')) {
-            $item->password = Input::get('password');
-            $item->password_confirmation = Input::get('password_confirmation');
+            $user->password              = Input::get('password');
+            $user->password_confirmation = Input::get('password_confirmation');
         }
         // New user, so what should we do
-        if ($item->id === null) {
-            $result = $item->save();
+        if ($user->id === null) {
+            $result = $user->save();
 
             // Duplicated or something
             if ($result === false) {
                 return Redirect::route(
                     static::$crudRoutes['upsert'],
-                    ['id' => $item->id]
-                )->withErrors($item->errors(), 'top');
+                    ['id' => $user->id]
+                )->withErrors($user->errors(), 'top');
             }
 
             // Assign to group Business
             $role = Role::user();
-            $item->attachRole($role);
+            $user->attachRole($role);
 
             // Send notification email
             Mail::send(
@@ -195,13 +195,18 @@ class Users extends Base
                 }
             );
 
+            // Create business entry
+            $business = new Business();
+            $business->user()->associate($user);
+            $business->forceSave();
+
             // Redirect to edit page, so that we can enter business information
             return Redirect::route(
                 static::$crudRoutes['upsert'],
-                ['id' => $item->id]
+                ['id' => $user->id]
             );
         } else {
-            $item->updateUniques();
+            $user->updateUniques();
 
             if (Input::has('password')) {
                 // Send notification email
@@ -217,7 +222,7 @@ class Users extends Base
             }
         }
 
-        return $item;
+        return $user;
     }
 
     /**
