@@ -33,20 +33,20 @@ class Layout2 extends Base
         $nav = [];
         $i = 1;
 
-        //Withdrawal time feature
+        // Withdrawal time feature
         list($start, $final, $maxWeeks) = $this->getMinMaxDistanceDay($hash);
 
-        //if the selected day is not inside the fourth week in the list then use today
-        if($date->copy()->subDays(21) >= $today) {
+        // if the selected day is not inside the fourth week in the list then use today
+        if ($date->copy()->subDays(21) >= $today) {
             $start = $date->copy();
             $start->subDays(21);
         }
 
         while ($i++ <= $maxWeeks) {
             $j = 0;
-            while($j++ <= 6){
+            while ($j++ <= 5){
                 $end = $start->copy()->addDays($j);
-                if($end >= $final) {
+                if ($end >= $final) {
                     break;
                 }
             }
