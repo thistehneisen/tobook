@@ -6,7 +6,7 @@ return [
             'confirmations' => [
                 'confirm_sms_country_code' => [
                     'type' => 'Text',
-                    'default' => '358',
+                    'default' => '46',
                 ],
             ]
         ]

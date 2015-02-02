@@ -15,6 +15,7 @@ return [
         ]
     ],
     'currency' => 'SEK',
+    'phone_country_code' => '46',
     'premium_modules' => [
         'appointment' => [
             'route_name' => 'as.index',
