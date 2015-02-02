@@ -1,5 +1,4 @@
-@if ($businessLomake)
-{{ $businessLomake->open(['id' => 'business-form']) }}
+@if ($businessLomake) {{ $businessLomake->open(['id' => 'business-form']) }}
     <h3 class="comfortaa orange">{{ trans('user.profile.business') }}</h3>
 
     @foreach ($businessLomake->fields as $field)
@@ -22,6 +21,18 @@
     </div>
 
     @if (Entrust::hasRole(App\Core\Models\Role::ADMIN) || Session::has('stealthMode'))
+    <div class="form-group">
+        <label class="col-sm-2 col-sm-offset-1 control-label">{{ trans('user.business.is_hidden') }}</label>
+        <div class="col-sm-6">
+            <div class="radio">
+                <label>{{ Form::radio('is_hidden', 0, $business->is_hidden === false) }} {{ trans('common.no') }}</label>
+            </div>
+            <div class="radio">
+                <label>{{ Form::radio('is_hidden', 1, $business->is_hidden === true) }} {{ trans('common.yes') }}</label>
+            </div>
+        </div>
+    </div>
+
     <div class="form-group">
         <label class="col-sm-2 col-sm-offset-1 control-label">{{ trans('user.business.note') }}</label>
         <div class="col-sm-6">
