@@ -376,6 +376,17 @@ trait Models
         $employee2->user()->associate($this->user);
         $employee2->saveOrFail();
 
+        Employee::where('id', 66)->forceDelete();
+        $employee3 = new Employee([
+            'name' => 'Viet',
+            'email' => 'viet@varaa.com',
+            'phone' => '1234567890',
+            'is_active' => 1,
+        ]);
+        $employee3->id = 66;
+        $employee3->user()->associate($this->user);
+        $employee3->saveOrFail();
+
         ServiceCategory::where('id', 106)->forceDelete();
         $this->category = new ServiceCategory([
             'name' => 'Hiusjuuritutkimus',
@@ -406,7 +417,8 @@ trait Models
         $employees = [
             $this->employee,
             $employee1,
-            $employee2
+            $employee2,
+            $employee3,
         ];
 
         $this->addServices(1, $employees);
@@ -428,7 +440,7 @@ trait Models
         if($initResource) {
             $resource = new Resource;
             $resource->name = 'Resource 1';
-            $resource->quantity = 1;
+            $resource->quantity = 3;
             $resource->description = 'Description';
             $resource->user()->associate($this->user);
             $resource->save();
