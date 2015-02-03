@@ -272,11 +272,11 @@ class Base implements Strategy
         $roomIds = $this->service->rooms->lists('id');
         $totalRooms = count($roomIds);
 
-        if(empty($roomIds)) {
+        if (empty($roomIds)) {
             return $this->class;
         }
 
-        if(!isset($this->resourceCache[$this->date][$this->service->id]['query'])) {
+        if (!isset($this->resourceCache[$this->date][$this->service->id]['query'])) {
             $query = Booking::where('as_bookings.date', $this->date)
                     ->whereNull('as_bookings.deleted_at')
                     ->where('as_bookings.status','!=', Booking::STATUS_CANCELLED)
@@ -288,21 +288,23 @@ class Base implements Strategy
 
         $this->roomCache[$this->date][$this->service->id][$this->hour][$this->minute] = true;
 
-        foreach ($this->roomCache[$this->date][$this->service->id]['query'] as $booking) {
-            $start = $booking->getStartAt();
-            $end   = $booking->getEndAt();
-            if ($this->rowTime >= $start && $this->rowTime <= $end) {
-                if(!isset($this->roomCache[$this->date][$this->service->id][$this->hour][$this->minute])) {
-                    $this->roomCache[$this->date][$this->service->id][$this->hour][$this->minute] = $totalRooms;
-                }
-                if($this->roomCache[$this->date][$this->service->id][$this->hour][$this->minute] > 0) {
-                    $this->roomCache[$this->date][$this->service->id][$this->hour][$this->minute] -= 1;
-                }
+        if (isset($this->roomCache[$this->date][$this->service->id]['query'])) {
+            foreach ($this->roomCache[$this->date][$this->service->id]['query'] as $booking) {
+                $start = $booking->getStartAt();
+                $end   = $booking->getEndAt();
+                if ($this->rowTime >= $start && $this->rowTime <= $end) {
+                    if (!isset($this->roomCache[$this->date][$this->service->id][$this->hour][$this->minute])) {
+                        $this->roomCache[$this->date][$this->service->id][$this->hour][$this->minute] = $totalRooms;
+                    }
+                    if ($this->roomCache[$this->date][$this->service->id][$this->hour][$this->minute] > 0) {
+                        $this->roomCache[$this->date][$this->service->id][$this->hour][$this->minute] -= 1;
+                    }
 
+                }
             }
         }
 
-        if(!$this->roomCache[$this->date][$this->service->id][$this->hour][$this->minute]) {
+        if (!$this->roomCache[$this->date][$this->service->id][$this->hour][$this->minute]) {
             $this->class = $this->getValue('room_inactive');
         }
 
