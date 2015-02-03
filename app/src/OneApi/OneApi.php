@@ -9,19 +9,20 @@ class OneApi
     {
         $countryCode = $countryCode ?: Config::get('varaa.phone_country_code');
 
-        // formatted numbers
-        if (strpos($phone, '+') === 0
-                || strpos($phone, '00') === 0
-                || strpos($phone, $countryCode) === 0) {
-            return $phone;
+        // avoid formatted numbers
+        if (strpos($phone, '+') !== 0
+                && strpos($phone, '00') !== 0
+                && strpos($phone, $countryCode) !== 0) {
+
+            if (strpos($phone, '0') === 0) {
+                $phone = ltrim($phone, '0');
+            }
+
+            $phone = $countryCode.$phone;
         }
 
-        if (strpos($phone, '0') === 0) {
-            $phone = ltrim($phone, '0');
-        }
-
-        $phone = $countryCode.$phone;
-        return $phone;
+        // remove all non-numeric characters
+        return preg_replace('/[^0-9]/s', '', $phone);
     }
 
     public function send($from, $to, $message, $countryCode = '')
@@ -43,15 +44,19 @@ class OneApi
             $smsClient->login();
 
             // Prepare message
+            $phone = static::formatNumber($to, $countryCode);
             $smsMessage = new \SMSRequest();
             $smsMessage->senderAddress = $from;
-            $smsMessage->address       = static::formatNumber($to, $countryCode);
-            $smsMessage->message       = $message;
+            $smsMessage->address = $phone;
+            $smsMessage->message = $message;
 
             // Send
             $smsMessageSendResult = $smsClient->sendSMS($smsMessage);
         } catch (\Exception $ex) {
-            Log::warning("Can't send SMS to: {$to}", [$ex]);
+            Log::warning("Can't send SMS", [
+                'phone' => $phone,
+                'raw' => $to
+            ]);
         }
     }
 
