@@ -13,6 +13,16 @@ class Resources extends AsBase
         'showTab' => true,
         'bulkActions' => [],
         'indexFields' => ['name', 'description'],
+        'lomake' => [
+            'quantity' => [
+                'type' => 'Spinner',
+                'options' => [
+                    'class' => 'form-control input-sm spinner',
+                    'data-positive' => 'true',
+                    'data-inc' => 1
+                ]
+            ],
+        ]
     ];
 
     /**
