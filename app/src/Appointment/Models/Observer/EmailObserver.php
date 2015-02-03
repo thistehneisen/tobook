@@ -55,6 +55,11 @@ class EmailObserver implements \SplObserver
     public function getEmailBody($subject, $body)
     {
         $cancelURL = route('as.bookings.cancel', ['uuid' => $subject->uuid]);
+        $address = sprintf('%s, %s %s',
+            $subject->consumer->address,
+            $subject->consumer->city,
+            $subject->consumer->postcode);
+
         $body = str_replace('{Services}', $this->serviceInfo, $body);
         $body = str_replace('{Name}',$subject->consumer->name, $body);
         $body = str_replace('{BookingID}', $subject->uuid, $body);
@@ -62,6 +67,7 @@ class EmailObserver implements \SplObserver
         $body = str_replace('{Email}', $subject->consumer->email, $body);
         $body = str_replace('{Notes}', $subject->notes, $body);
         $body = str_replace('{CancelURL}', $cancelURL, $body);
+        $body = str_replace('{Address}', $address, $body);
         return $body;
     }
 
