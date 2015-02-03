@@ -20,7 +20,7 @@ return [
     'options_select'        => '-- Välj -- ',
     'register'              => 'Registrera',
     'no_records'            => 'Kunde inte hittas',
-    'save'                  => 'Spara',
+    'save'                  => 'Bekräfta',
     'destroy'               => 'Ta bort',
     'warning'               => 'Varning',
     'success'               => 'OK!',
