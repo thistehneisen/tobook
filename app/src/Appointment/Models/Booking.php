@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Models;
 
-use Request, Carbon\Carbon, NAT, Util, Config;
+use Request, Carbon\Carbon, NAT, Util, Config, DB;
 use App\Core\Models\User;
 use App\Consumers\Models\Consumer;
 use App\Appointment\Models\Observer\SmsObserver;
@@ -328,13 +328,24 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         $query = self::applyDuplicateFilter($query, $startTime, $endTime);
 
-        $query = $query->join('as_booking_services', 'as_booking_services.booking_id', '=','as_bookings.id')
+        $result = $query->join('as_booking_services', 'as_booking_services.booking_id', '=','as_bookings.id')
             ->join('as_services', 'as_services.id', '=','as_booking_services.service_id')
             ->join('as_resource_service', 'as_resource_service.service_id', '=', 'as_services.id')
-            ->whereIn('as_resource_service.resource_id', $resourceIds)->get();
+            ->join('as_resources', 'as_resource_service.resource_id', '=', 'as_resources.id')
+            ->whereIn('as_resource_service.resource_id', $resourceIds)
+            ->select(array('as_resource_service.resource_id as resource_id','as_resources.quantity', DB::raw('COUNT(varaa_as_resource_service.resource_id) as occupied')))
+            ->groupBy('as_resource_service.resource_id')
+            ->get();
 
-        if (!$query->isEmpty()) {
-            return false;
+        if ($result->isEmpty()) {
+            return true;
+        }
+
+        //If resources are not enough, return false
+        foreach ($result as $item) {
+            if($item->occupied >= $item->quantity) {
+                return false;
+            }
         }
 
         return true;
