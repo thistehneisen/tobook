@@ -606,4 +606,72 @@ class BackendReceptionCest
 
         return $receptionist->upsertBookingService();
     }
+
+    public function testBookingResourcesQuantity(UnitTester $I)
+    {
+        $this->initData(true, true);
+        $this->initCustomTime();
+
+        $user      = User::find(70);
+        $employee  = $this->employee;
+        $employee1 = Employee::find(64);
+        $employee2 = Employee::find(65);
+        $employee3 = Employee::find(66);
+
+        $service   = $this->service;
+        $uuid      = Booking::uuid();
+
+        $date      = $this->getDate();
+        $startTime = '14:00';
+
+        $booking1 = $this->_makeBooking($I, $user, $employee,  $uuid, $service, $date, $startTime);
+        $uuid1     = Booking::uuid();
+        $booking2 = $this->_makeBooking($I, $user, $employee1, $uuid1, $service, $date, $startTime);
+        $uuid2     = Booking::uuid();
+        $booking3 = $this->_makeBooking($I, $user, $employee2, $uuid2, $service, $date, $startTime);
+
+        //new booking
+        $uuid3 = Booking::uuid();
+        $receptionist = new BackendReceptionist();
+        $receptionist->setBookingId(0)
+            ->setUUID($uuid3)
+            ->setUser($user)
+            ->setBookingDate($date->toDateString())
+            ->setStartTime($startTime)
+            ->setServiceId($service->id)
+            ->setEmployeeId($employee3->id)
+            ->setServiceTimeId('default');
+
+        $exception = array();
+
+        try{
+            $bookingService = $receptionist->upsertBookingService();
+        } catch(\Exception $ex) {
+            $exception[] = $ex->getMessage();
+        }
+        $I->assertNotEmpty($exception[0]);
+        $I->assertEquals($exception[0], trans('as.bookings.error.not_enough_resources'));
+        //remove one booking for available resource
+        $booking3->delete();
+
+        $uuid4 = Booking::uuid();
+        $receptionist = new BackendReceptionist();
+        $receptionist->setBookingId(0)
+            ->setUUID($uuid4)
+            ->setUser($user)
+            ->setBookingDate($date->toDateString())
+            ->setStartTime($startTime)
+            ->setServiceId($service->id)
+            ->setEmployeeId($employee3->id)
+            ->setServiceTimeId('default');
+
+        $exception = array();
+
+        try{
+            $bookingService = $receptionist->upsertBookingService();
+        } catch(\Exception $ex) {
+            $exception[] = $ex->getMessage();
+        }
+        $I->assertEmpty($exception);
+    }
 }
