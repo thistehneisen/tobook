@@ -4,11 +4,12 @@ class Resource extends \App\Core\Models\Base
 {
     protected $table = 'as_resources';
 
-    public $fillable = ['name', 'description'];
+    public $fillable = ['name', 'quantity', 'description'];
 
     protected $rulesets = [
         'saving' => [
-            'name' => 'required'
+            'name'     => 'required',
+            'quantity' => 'numeric'
         ]
     ];
 
