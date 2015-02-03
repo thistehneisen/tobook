@@ -112,6 +112,7 @@ class BookingCest
 
         $I->assertNotEmpty($info, 'getServiceInfo()');
         $I->assertTrue(strpos($info, $service->name) !== false, '$service->name');
+        $I->assertTrue(strpos($info, $booking->employee->name) !== false, 'employee_name');
         $I->assertTrue(strpos($info, $booking->date) !== false, 'date');
         $I->assertTrue(strpos($info, $booking->getStartAt()->addMinutes($service->before)->toTimeString()) !== false, 'start_at');
         $I->assertTrue(strpos($info, $booking->getEndAt()->subMinutes($service->after)->toTimeString()) !== false, 'end_at');
