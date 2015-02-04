@@ -16,12 +16,20 @@
             <a data-service-id="{{ $service->id }}" href="#" class="as-service" id="btn-service-{{ $service->id }}"><small><i class="glyphicon glyphicon-chevron-right"></i></small> {{ $service->name }}</a>
             <div class="as-service-time">
                 <div class="btn-group service-time">
-                    <div class="col-lg-12"><button data-service-time-id="default" data-service-id="{{ $service->id }}" type="button" class="btn btn-default btn-sm btn-service-time"><i class="glyphicon glyphicon-time"></i> {{ $service->during }} {{ trans('common.minutes') }}</button></div>
+                    <div class="col-lg-12"><button data-service-time-id="default" data-service-id="{{ $service->id }}" type="button" class="btn btn-default btn-sm btn-service-time"><i class="glyphicon glyphicon-time"></i> {{ $service->during }} {{ trans('common.minutes') }}
+                        @if ((bool)$user->asOptions['hide_prices'] === false)
+                            {{{ $service->price }}}{{ Config::get('varaa.currency') }}
+                        @endif
+                    </button></div>
                     <div class="col-lg-12">{{ $service->description }}</div>
                 </div>
             @foreach ($service->serviceTimes as $item)
                 <div class="btn-group service-time">
-                    <div class="col-lg-12"><button data-service-id="{{ $service->id }}" data-service-time-id="{{ $item->id }}" type="button" class="btn btn-default btn-sm btn-service-time"><i class="glyphicon glyphicon-time"></i> {{ $item->during }} {{ trans('common.minutes') }}</button></div>
+                    <div class="col-lg-12"><button data-service-id="{{ $service->id }}" data-service-time-id="{{ $item->id }}" type="button" class="btn btn-default btn-sm btn-service-time"><i class="glyphicon glyphicon-time"></i> {{ $item->during }} {{ trans('common.minutes') }}
+                        @if ((bool)$user->asOptions['hide_prices'] === false)
+                            {{ $item->price }}{{ Config::get('varaa.currency') }}
+                        @endif
+                    </button></div>
                     <div class="col-lg-12">{{ $item->description }}</div>
                 </div>
             @endforeach
