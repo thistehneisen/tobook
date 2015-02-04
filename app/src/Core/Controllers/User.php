@@ -240,4 +240,17 @@ class User extends Base
 
         throw new \Exception(trans('user.incorrect_old_password'));
     }
+
+    /**
+     * Update working hours of a business
+     *
+     * @return void
+     */
+    protected function updateWorkingHours()
+    {
+        // Get business of this user
+        $business = Confide::user()->business;
+        $business->working_hours = Input::get('working_hours');
+        $business->saveOrFail();
+    }
 }

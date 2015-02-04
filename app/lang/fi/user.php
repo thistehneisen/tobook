@@ -87,6 +87,11 @@ return [
         'description'          => 'Yritysesittely',
         'business_size'        => 'Henkilömäärä',
         'business'             => 'Yritys',
+        'working_hours'        => 'Working hours', // @todo
+        'days_of_week'         => 'Days of week', // @todo
+        'start_time'           => 'Start time', // @todo
+        'end_time'             => 'End time', // @todo
+        'extra'                => 'Additional information', // @todo
         'business_size_values' => [
             '1',
             '2-3',

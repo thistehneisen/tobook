@@ -92,10 +92,14 @@
             <h5>{{ trans('home.search.business_hours') }}</h5>
             <table class="table">
                 <tbody>
-                @foreach ($business->user->as_options->get('working_time') as $day => $value)
+                @foreach ($business->working_hours_array as $day => $value)
                     <tr>
                         <td>{{ trans('common.'.$day) }}</td>
                         <td>{{ with(new Carbon\Carbon($value['start']))->format('H:i') }} &ndash; {{ with(new Carbon\Carbon($value['end']))->format('H:i') }}</td>
+                        <td>
+                            @if (!empty($value['extra'])) {{{ $value['extra'] }}}
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>
