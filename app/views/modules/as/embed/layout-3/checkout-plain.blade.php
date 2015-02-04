@@ -57,21 +57,26 @@
     <input type="hidden" name="inhouse" value="{{ Input::get('inhouse') }}">
 
     @if ((int) $user->asOptions['terms_enabled'] > 1)
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-6 {{ Form::errorCSS('is_day_off', $errors) }}">
-            @if ((int) $user->asOptions['terms_enabled'] === 3)
-            <label>{{ Form::checkbox('terms', 0, 0,['id'=>'terms']); }} <a href="#" id="toggle_term">{{ trans('as.bookings.terms_agree') }}</a></label>
-            @else
-            <label><a href="#" id="toggle_term">{{ trans('as.bookings.terms') }}</a></label>
-            @endif
+        <?php
+        $terms_class = empty($user->asOptions['terms_url'])
+            ? 'href="#" id="toggle_term"'
+            : 'href="'.$user->asOptions['terms_url'].'" target="_blank"';
+        ?>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-6 {{ Form::errorCSS('is_day_off', $errors) }}">
+                @if ((int) $user->asOptions['terms_enabled'] === 3)
+                <label>{{ Form::checkbox('terms', 0, 0,['id'=>'terms']); }} <a {{ $terms_class }}>{{ trans('as.bookings.terms_agree') }}</a></label>
+                @else
+                <label><a {{ $terms_class }}>{{ trans('as.bookings.terms') }}</a></label>
+                @endif
+            </div>
         </div>
-    </div>
-    <div class="form-group" id="terms_body" style="display:none">
-        <div class="col-sm-2">&nbsp;</div>
-        <div class="col-sm-10">
-        {{ nl2br($user->asOptions['terms_body']) }}
+        <div class="form-group" id="terms_body" style="display:none">
+            <div class="col-sm-2">&nbsp;</div>
+            <div class="col-sm-10">
+            {{ nl2br($user->asOptions['terms_body']) }}
+            </div>
         </div>
-    </div>
     @endif
     <br>
 
