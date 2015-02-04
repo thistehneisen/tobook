@@ -59,7 +59,7 @@ $(function () {
 
         <!-- Tab panes -->
         <div class="tab-content">
-            <div class="tab-pane active" id="tab-general">
+            <div class="tab-pane {{ empty($activeTab) || $activeTab === 'general' ? 'active' : '' }}" id="tab-general">
                 @include ('user.el.general')
             </div> <!-- General information -->
 
@@ -69,7 +69,7 @@ $(function () {
             </div> <!-- Business information -->
 
             <div class="tab-pane {{ $activeTab === 'working-hours' ? 'active' : '' }}" id="tab-working-hours">
-                @include ('user.el.working_hours', ['working_hours' => $business->working_hours])
+                @include ('user.el.working_hours', ['working_hours' => $business->working_hours_array])
             </div> <!-- Working hours -->
 
             <div class="tab-pane {{ $activeTab === 'images' ? 'active' : '' }}" id="tab-images">
