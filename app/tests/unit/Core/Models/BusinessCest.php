@@ -166,4 +166,15 @@ class BusinessCest
         $i->assertEquals($business->working_hours['fri']['end'], '20:00');
         $i->assertEquals($business->working_hours['fri']['extra'], '');
     }
+
+    public function testSetWorkingHours(UnitTester $i)
+    {
+        $data = [
+            'mon' => ['start' => '09:00', 'end' => '20:30', 'extra' => 'empty'],
+        ];
+        $business = new Business();
+        $business->working_hours = $data;
+
+        $i->assertEquals($business->working_hours, $data);
+    }
 }

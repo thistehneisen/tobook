@@ -190,7 +190,7 @@ class Business extends Base
 
     public function getWorkingHoursAttribute()
     {
-        if (empty($this->working_hours)) {
+        if (empty($this->attributes['working_hours'])) {
             // Default working hours
             return [
                 'mon' => ['start' => '08:00', 'end' => '20:00', 'extra' => ''],
@@ -203,7 +203,12 @@ class Business extends Base
             ];
         }
 
-        return json_encode($this->working_hours);
+        return json_decode($this->attributes['working_hours'], true);
+    }
+
+    public function setWorkingHoursAttribute($value)
+    {
+        $this->attributes['working_hours'] = json_encode($value);
     }
 
     public function getIsHiddenAttribute()
