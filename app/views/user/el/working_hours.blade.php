@@ -29,7 +29,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="3">
+            <td colspan="4">
                 <input type="hidden" name="tab" value="working-hours">
                 <button type="submit" class="btn btn-primary">{{ trans('common.save') }}</button>
             </td>
