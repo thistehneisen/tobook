@@ -91,8 +91,14 @@ class SmsObserver implements \SplObserver {
 
         $msg = $subject->user->asOptions['confirm_consumer_sms_message'];
         $cancelURL = route('as.bookings.cancel', ['uuid' => $subject->uuid]);
+        $address = sprintf('%s, %s %s',
+            $subject->consumer->address,
+            $subject->consumer->city,
+            $subject->consumer->postcode);
         $msg = str_replace('{Services}', $this->serviceInfo, $msg);
         $msg = str_replace('{CancelURL}', $cancelURL, $msg);
+        $msg = str_replace('{Address}', $address, $msg);
+
         Sms::send(Config::get('sms.from'), $subject->consumer->phone, $msg, $this->code);
     }
 
