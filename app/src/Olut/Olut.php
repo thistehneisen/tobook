@@ -240,8 +240,8 @@ trait Olut
 
         // If there is an additional scripts.blade.php in the view folder,
         // we'll include it
-        $scriptsView = View::exists($this->getViewPath().'.scripts')
-            ? $this->getViewPath().'.scripts'
+        $scriptsView = View::exists($this->getViewPath().'.index_scripts')
+            ? $this->getViewPath().'.index_scripts'
             : '';
 
         return View::make($view, [
@@ -306,6 +306,12 @@ trait Olut
             'langPrefix' => $langPrefix,
         ]);
 
+        // If there is an additional scripts.blade.php in the view folder,
+        // we'll include it
+        $scriptsView = View::exists($this->getViewPath().'.form_scripts')
+            ? $this->getViewPath().'.form_scripts'
+            : '';
+
         $data = [
             'tabsView'   => $tabsView,
             'item'       => $item,
@@ -313,7 +319,8 @@ trait Olut
             'langPrefix' => $langPrefix,
             'layout'     => $this->getOlutOptions('layout', 'olut::layout'),
             'showTab'    => $this->getOlutOptions('showTab', true),
-            'lomake'     => $lomake
+            'lomake'     => $lomake,
+            'scripts'    => $scriptsView,
         ];
 
         $view = View::make($template, $data);

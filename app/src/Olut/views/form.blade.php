@@ -2,6 +2,14 @@
     @extends ($layout)
 @endif
 
+@section ('scripts')
+    @parent
+
+    @if (!empty($scripts))
+        @include($scripts)
+    @endif
+@stop
+
 @section ('content')
     @if ($showTab === true)
         @include($tabsView, ['routes' => $routes, 'langPrefix' => $langPrefix])
