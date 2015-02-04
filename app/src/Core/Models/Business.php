@@ -193,13 +193,13 @@ class Business extends Base
         if (empty($this->working_hours)) {
             // Default working hours
             return [
-                'mon' => ['start' => '09:00', 'end' => '20:00'],
-                'tue' => ['start' => '08:00', 'end' => '20:00'],
-                'wed' => ['start' => '08:00', 'end' => '20:00'],
-                'thu' => ['start' => '08:00', 'end' => '20:00'],
-                'fri' => ['start' => '08:00', 'end' => '20:00'],
-                'sat' => ['start' => '08:00', 'end' => '20:00'],
-                'sun' => ['start' => '08:00', 'end' => '20:00'],
+                'mon' => ['start' => '08:00', 'end' => '20:00', 'extra' => ''],
+                'tue' => ['start' => '08:00', 'end' => '20:00', 'extra' => ''],
+                'wed' => ['start' => '08:00', 'end' => '20:00', 'extra' => ''],
+                'thu' => ['start' => '08:00', 'end' => '20:00', 'extra' => ''],
+                'fri' => ['start' => '08:00', 'end' => '20:00', 'extra' => ''],
+                'sat' => ['start' => '08:00', 'end' => '20:00', 'extra' => ''],
+                'sun' => ['start' => '08:00', 'end' => '20:00', 'extra' => ''],
             ];
         }
 
