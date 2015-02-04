@@ -155,16 +155,17 @@ class BusinessCest
         $i->assertEquals($business->paid_commission, '17.80');
     }
 
-    public function testGetDefaultWorkingHours(UnitTester $i)
+    public function testGetWorkingHoursArray(UnitTester $i)
     {
         $business = new Business();
-        $i->assertTrue(is_array($business->working_hours), 'Working hours exists');
+        $working_hours = $business->working_hours_array;
+        $i->assertTrue(is_array($working_hours), 'Working hours exists');
         foreach (['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] as $day) {
-            $i->assertTrue(isset($business->working_hours[$day]), $day.' exists');
+            $i->assertTrue(isset($working_hours[$day]), $day.' exists');
         }
-        $i->assertEquals($business->working_hours['fri']['start'], '08:00');
-        $i->assertEquals($business->working_hours['fri']['end'], '20:00');
-        $i->assertEquals($business->working_hours['fri']['extra'], '');
+        $i->assertEquals($working_hours['fri']['start'], '08:00');
+        $i->assertEquals($working_hours['fri']['end'], '20:00');
+        $i->assertEquals($working_hours['fri']['extra'], '');
     }
 
     public function testSetWorkingHours(UnitTester $i)
@@ -175,6 +176,7 @@ class BusinessCest
         $business = new Business();
         $business->working_hours = $data;
 
-        $i->assertEquals($business->working_hours, $data);
+        $i->assertEquals($business->working_hours,
+            '{"mon":{"start":"09:00","end":"20:30","extra":"empty"}}');
     }
 }

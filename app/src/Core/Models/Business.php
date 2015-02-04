@@ -188,7 +188,7 @@ class Business extends Base
     // ATTRIBUTES
     //--------------------------------------------------------------------------
 
-    public function getWorkingHoursAttribute()
+    public function getWorkingHoursArrayAttribute()
     {
         if (empty($this->attributes['working_hours'])) {
             // Default working hours
