@@ -2,12 +2,12 @@
 
 @section ('styles')
     @parent
-    {{ HTML::style('//cdn.jsdelivr.net/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css') }}
+    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css') }}
 @stop
 
 @section ('scripts')
     @parent
-    {{ HTML::script('//cdn.jsdelivr.net/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js') }}
+    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js') }}
 @stop
 
 @section('main-nav')
