@@ -10,7 +10,7 @@ use Mockery as m;
 /**
  * @group core
  */
-class UnitBusinessCest
+class BusinessCest
 {
     use Models;
 
@@ -117,7 +117,6 @@ class UnitBusinessCest
         $image = $business->image;
         $I->assertNotNull($image, 'image');
         $I->assertGreaterThan(0, strlen($image), 'strlen($image)');
-        $I->assertTrue(file_exists(public_path() . '/' . $image), 'image file exists');
     }
 
     public function testGetSlug(UnitTester $i)
@@ -154,5 +153,17 @@ class UnitBusinessCest
         $business = new Business();
         $business->user()->associate($this->user);
         $i->assertEquals($business->paid_commission, '17.80');
+    }
+
+    public function testGetDefaultWorkingHours(UnitTester $i)
+    {
+        $business = new Business();
+        $i->assertTrue(is_array($business->working_hours), 'Working hours exists');
+        foreach (['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] as $day) {
+            $i->assertTrue(isset($business->working_hours[$day]), $day.' exists');
+        }
+        $i->assertEquals($business->working_hours['fri']['start'], '08:00');
+        $i->assertEquals($business->working_hours['fri']['end'], '20:00');
+        $i->assertEquals($business->working_hours['fri']['extra'], '');
     }
 }
