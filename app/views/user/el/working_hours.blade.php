@@ -1,6 +1,6 @@
 <h3 class="comfortaa orange">{{ trans('user.profile.working_hours') }}</h3>
 
-{{ Form::open(['id' => 'frm-profile', 'route' => 'user.profile', 'class' => 'form-horizontal', 'role' => 'form']) }}
+{{ Form::open(['id' => 'frm-working-hours', 'route' => 'user.profile', 'class' => 'form-horizontal', 'role' => 'form']) }}
 <table class="table table-striped table-condensed">
     <thead>
         <tr>

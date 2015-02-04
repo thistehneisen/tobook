@@ -64,4 +64,19 @@ class ProfileCest
         $newUser = User::find($this->user->id);
         $I->assertEquals($htmlFiltered, $newUser->business->description_html);
     }
+
+    public function testEditWorkingHours(FunctionalTester $i)
+    {
+        $i->amOnRoute('user.profile');
+        $i->submitForm('#frm-working-hours', [
+            'working_hours[mon][start]' => '12:00',
+            'working_hours[mon][end]'   => '18:00',
+            'working_hours[mon][extra]' => 'foo bar',
+        ]);
+
+        $business = $this->user->business;
+        $i->assertEquals($business->working_hours_array['mon']['start'], '12:00');
+        $i->assertEquals($business->working_hours_array['mon']['end'], '18:00');
+        $i->assertEquals($business->working_hours_array['mon']['extra'], 'foo bar');
+    }
 }
