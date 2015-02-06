@@ -6,7 +6,7 @@
         <div class="panel panel-default">
             <div class="panel-heading" id="as-title-1" href="#as-step-1">
                 <h4 class="panel-title">
-                   4. <span>{{ trans('as.embed.layout_3.contact') }}</span> <i class="glyphicon glyphicon-ok text-success pull-right hide"></i>
+                   @if((bool)$user->asOptions['auto_select_employee']) 3 @else 4 @endif. <span>{{ trans('as.embed.layout_3.contact') }}</span> <i class="glyphicon glyphicon-ok text-success pull-right hide"></i>
                 </h4>
             </div>
             <div id="as-step-1" data-parent="#varaa-as-bookings" class="panel-collapse collapse in">

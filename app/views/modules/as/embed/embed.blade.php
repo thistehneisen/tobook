@@ -38,5 +38,20 @@
     @yield('extra_js')
 
     <script src="{{ asset_path('as/scripts/'.$layout.'.js') }}"></script>
+    @if($layout !== 'layout-1')
+    <script type="text/javascript">
+        $(document).ready(function(){
+            @if($layout === 'layout-2')
+            VARAA.initLayout2({
+                isAutoSelectEmployee: <?php echo ($user->asOptions['auto_select_employee']) ? 'true' : 'false';?>
+            });
+            @elseif($layout === 'layout-3')
+            VARAA.initLayout3({
+                isAutoSelectEmployee: <?php echo ($user->asOptions['auto_select_employee']) ? 'true' : 'false';?>
+            });
+            @endif
+        });
+    </script>
+    @endif
 </body>
 </html>

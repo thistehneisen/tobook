@@ -1,10 +1,11 @@
+
 /*jslint browser: true, nomen: true, unparam: true, node: true*/
 /*global jQuery, VARAA*/
 (function ($) {
     'use strict';
 
     $(function () {
-        VARAA.initLayout3 = function () {
+        VARAA.initLayout3 = function (settings) {
             var $categories = $('div.as-category'),
                 $services = $('div.as-service'),
                 $body = $('body'),
@@ -18,6 +19,7 @@
                 $title4 = $('#as-title-4'),
                 $dp = $('#as-datepicker'),
                 fnLoadTimeTable,
+                settings = settings || { isAutoSelectEmployee : false},
                 dataStorage = {
                     hash: $body.data('hash')
                 };
@@ -97,21 +99,28 @@
                 $title1.find('i').removeClass('hide');
                 $title1.addClass('collapsable');
 
-                $step2.collapse('show');
-                $title2.addClass('collapsable');
-
                 // Assign serviceId to dataStorage
                 dataStorage.serviceId = $this.val();
                 dataStorage.serviceTimeId = $this.data('service-time-id');
 
-                $.ajax({
-                    url: $step2.data('url'),
-                    type: 'POST',
-                    data: dataStorage
-                }).done(function (data) {
-                    $step2.find('.panel-body').html(data);
-                    $this.trigger('afterSelect');
-                });
+                if(settings.isAutoSelectEmployee || $('#auto-select-employee').val()){
+                    $step3.collapse('show');
+                    $title3.addClass('collapsable');
+                    dataStorage.employeeId = '-1';
+                    fnLoadTimeTable();
+                } else {
+                    $step2.collapse('show');
+                    $title2.addClass('collapsable');
+
+                    $.ajax({
+                        url: $step2.data('url'),
+                        type: 'POST',
+                        data: dataStorage
+                    }).done(function (data) {
+                        $step2.find('.panel-body').html(data);
+                        $this.trigger('afterSelect');
+                    });
+                }
             });
 
             $form.on('change', 'input[name=employee_id]', function () {
@@ -316,7 +325,5 @@
                 $('#terms_body').toggle();
             });
         };
-
-        VARAA.initLayout3();
     });
 }(jQuery));

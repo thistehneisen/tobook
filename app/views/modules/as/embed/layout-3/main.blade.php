@@ -13,6 +13,7 @@
             </div>
         </div>
 
+        @if((bool)$user->asOptions['auto_select_employee'] === false)
         <div class="panel panel-default">
             <div class="panel-heading" id="as-title-2" href="#as-step-2">
                 <h4 class="panel-title">
@@ -27,11 +28,12 @@
                 </div>
             </div>
         </div>
+        @endif
 
         <div class="panel panel-default">
             <div class="panel-heading" id="as-title-3" href="#as-step-3">
                 <h4 class="panel-title">
-                    3. <span>{{ trans('as.embed.layout_3.select_datetime') }}</span>
+                    @if((bool)$user->asOptions['auto_select_employee']) 2 @else 3 @endif. <span>{{ trans('as.embed.layout_3.select_datetime') }}</span>
                     <i class="glyphicon glyphicon-ok text-success pull-right hide"></i>
                     <i id="as-datepicker" class="glyphicon glyphicon-calendar pull-right"></i>
                 </h4>
@@ -48,7 +50,7 @@
         <div class="panel panel-default">
             <div class="panel-heading" id="as-title-4" href="#as-step-4">
                 <h4 class="panel-title">
-                    4. <span>{{ trans('as.embed.layout_3.contact') }}</span> <i class="glyphicon glyphicon-ok text-success pull-right hide"></i>
+                    @if((bool)$user->asOptions['auto_select_employee']) 3 @else 4 @endif. <span>{{ trans('as.embed.layout_3.contact') }}</span> <i class="glyphicon glyphicon-ok text-success pull-right hide"></i>
                 </h4>
             </div>
             <div id="as-step-4" data-parent="#varaa-as-bookings" class="panel-collapse collapse" data-url="{{ route('as.embed.checkout', Input::all()) }}">
@@ -63,3 +65,5 @@
 </div>
 
 <input type="hidden" name="add-service-url" id="add-service-url" value="{{ route('as.bookings.service.front.add', Input::all()) }}">
+<?php $isInhouse = isset($inhouse) ? (int) $inhouse : 0;?>
+<input type="hidden" name="auto-select-employee" id="auto-select-employee" value="<?php echo ($user->asOptions['auto_select_employee']) ? 'true' : 'false';?>">
