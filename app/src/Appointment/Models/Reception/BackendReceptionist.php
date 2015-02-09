@@ -78,7 +78,7 @@ class BackendReceptionist extends Receptionist
 
         $date      = $this->bookingServices->first()->date;
         $startTime = $this->bookingServices->first()->startTime;
-        $endTime   = $this->bookingServices->last()->endTime;
+        $endTime   = $this->bookingServices->last()->endTime->copy()->addMinutes($modifyTime);
 
         return array($date, $startTime, $endTime, $modifyTime, $plustime, $totalLength, $totalPrice);
     }
