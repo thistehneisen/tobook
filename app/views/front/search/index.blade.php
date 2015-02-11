@@ -44,6 +44,15 @@
     @if (App::getLocale() !== 'en') {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.'.App::getLocale().'.min.js') }}
     @endif
     {{ HTML::script(asset_path('as/scripts/layout-3.js')) }}
+    @if(isset($user))
+    <script type="text/javascript">
+        $(document).ready(function(){
+            VARAA.initLayout3({
+                isAutoSelectEmployee: <?php echo ($user->asOptions['auto_select_employee']) ? 'true' : 'false';?>
+            });
+        });
+    </script>
+    @endif
     {{ HTML::script(asset_path('core/scripts/search.js')) }}
 @stop
 

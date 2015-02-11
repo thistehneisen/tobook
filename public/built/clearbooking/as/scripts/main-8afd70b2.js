@@ -277,7 +277,6 @@
             dataStorage.service_id   = $('#services').val();
             dataStorage.employee_id  = $('#employee_id').val();
             dataStorage.service_time = $('#service_times').val();
-            dataStorage.modify_times = $('#modify_times').val();
             dataStorage.booking_date = $('#booking_date').val();
             dataStorage.start_time   = $('#start_time').val();
             dataStorage.uuid         = $('#booking_uuid').val();
@@ -310,7 +309,6 @@
                 $('<span>', { class : 'added_employee_name'}).appendTo($td);
 
                 var classes = [
-                    'added_booking_modify_time',
                     'added_booking_plustime',
                     'added_booking_service_length',
                     'added_booking_date',
@@ -336,7 +334,6 @@
             var $tds = $('#booking-service-id-' + data.booking_service_id + ' > td');
             $tds.find('span.added_service_name').text(data.service_name);
             $tds.find('span.added_employee_name').text(data.employee_name);
-            $tds.find('span.added_booking_modify_time').text(data.modify_time);
             $tds.find('span.added_booking_plustime').text(data.plustime);
             $tds.find('span.added_booking_service_length').text(data.service_length);
             $tds.find('span.added_booking_date').text(data.datetime);
