@@ -81,6 +81,10 @@ class BackendReceptionist extends Receptionist
         $this->endTime    = $endTime   = $this->bookingServices->last()->endTime->copy()->addMinutes($this->modifyTime);
         $this->date       = $this->bookingServices->first()->startTime->toDateString();
         $this->employeeId = $this->bookingServices->first()->employee_id;
+
+        if($endTime <= $startTime) {
+            throw new \Exception(trans('as.bookings.error.empty_total_time'), 1);
+        }
         return array($date, $startTime, $endTime, $plustime, $totalLength, $totalPrice);
     }
 
