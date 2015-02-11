@@ -526,6 +526,11 @@ class BackendReceptionCest
         $I->assertEquals($booking->endTime, $date->hour(16)->minute(0)->second(0));
     }
 
+    public function editBookingHasModifyTime(UnitTester $I)
+    {
+
+    }
+
     public function testEditBookingServiceBeforeSaveBooking(UnitTester $I)
     {
         $this->initData();

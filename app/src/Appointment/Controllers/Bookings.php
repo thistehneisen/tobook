@@ -186,9 +186,6 @@ class Bookings extends AsBase
         $bookingServiceTime = (!empty($booking->bookingServices()->first()->serviceTime->id))
                             ? $booking->bookingServices()->first()->serviceTime->id
                             : 'default';
-        $modifyTime  =  (!empty($booking->bookingServices()->first()))
-                            ? $booking->bookingServices()->first()->modify_time
-                            : 0;
 
         $startAt = with(new Carbon($booking->start_at))->format('H:i');
         $endAt   = with(new Carbon($booking->end_at))->format('H:i');
@@ -196,7 +193,7 @@ class Bookings extends AsBase
         return [
             'booking'               => $booking,
             'uuid'                  => $booking->uuid,
-            'modifyTime'            => $modifyTime,
+            'modifyTime'            => $booking->modify_time,
             'bookingDate'           => $booking->date,
             'startTime'             => $startAt,
             'endTime'               => $endAt,
@@ -338,77 +335,38 @@ class Bookings extends AsBase
 
     public function handleExtraModifiedTimes()
     {
-        $extraServiceIds = Input::get('extra_services', []);
-        $bookingId       = Input::get('booking_id');
-        $modifyTime      = Input::get('modify_times');
-        $booking         = Booking::ofCurrentUser()->find($bookingId);
+        $bookingId  = Input::get('booking_id');
+        $modifyTime = Input::get('modify_times');
+        try {
+            $booking  = Booking::findOrFail($bookingId);
+            $bookingService = $booking->bookingServices()->first();
+            $bookingService->modify_time = $modifyTime;
+            $bookingService->save();
 
-        $bookingService = BookingService::where('booking_id', $bookingId)->first();
-        $employee = $bookingService->employee;
-        $service  = $bookingService->service;
+            $receptionist = new BackendReceptionist();
+            $receptionist->setBookingId($bookingId)
+                ->setUUID($booking->uuid)
+                ->setUser($this->user)
+                ->setStatus($booking->getStatusText())
+                ->setNotes($booking->notes)
+                ->setModifyTime($modifyTime)
+                ->setIsRequestedEmployee($booking->isRequestedEmployee)
+                ->setConsumer($booking->consumer)
+                ->setClientIP(Request::getClientIp())
+                ->setSource('backend');
 
-        $extraServiceTime  = 0;
-        $extraServicePrice = 0;
-        $extraServices = [];
+            $booking = $receptionist->upsertBooking();
 
-        foreach ($extraServiceIds as $id) {
-            $extraService = ExtraService::find($id);
-            $extraServiceTime  += $extraService->length;
-            $extraServicePrice += $extraService->price;
-            $extraServices[] = $extraService;
-        }
+            Event::fire('employee.calendar.invitation.send', [$booking]);
 
-        $length = (!empty($bookingService->serviceTime->length))
-                    ? $bookingService->serviceTime->length
-                    : $bookingService->service->length;
-
-        $plustime = $employee->getPlustime($service->id);
-
-        $total = $length + $plustime + $extraServiceTime + $modifyTime;
-        if ($total < 1) {
-            return [
-                'success' => false,
-                'message' => trans('as.bookings.error.empty_total_time')
-            ];
-        }
-
-        $date        = new Carbon($booking->date);
-        $startTime   = Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s', $booking->date, $booking->start_at));
-        $endTime     = Carbon::createFromFormat('Y-m-d H:i:s', sprintf('%s %s', $booking->date, $booking->end_at));
-        $newEndTime  = with(clone $startTime)->addMinutes($total);
-
-        $isBookable = Booking::isBookable($booking->employee->id, $date, $endTime, $newEndTime, $booking->uuid);
-
-        $data['success'] = true;
-        $data['message'] = '';
-        if ($isBookable) {
-            try {
-                $booking->total              = $total;
-                $booking->total_price        = $booking->total_price + $extraServicePrice;
-                $booking->end_at             = $newEndTime->toTimeString();
-                $booking->modify_time        = $modifyTime;
-                $bookingService->modify_time = $modifyTime;
-                $booking->save();
-                $bookingService->save();
-
-                foreach ($extraServices as $extraService) {
-                    $bookingExtraService = new BookingExtraService();
-                    $bookingExtraService->fill([
-                        'date'     => $booking->date,
-                        'tmp_uuid' => $booking->uuid,
-                    ]);
-                    $bookingExtraService->booking()->associate($booking);
-                    $bookingExtraService->extraService()->associate($extraService);
-                    $bookingExtraService->save();
-                }
-            } catch (\Exception $ex) {
-                $data['success'] = false;
-                $data['message'] = $ex->getMessage();
-            }
-        } else {
+            $data['success']     = true;
+            $data['baseURl']     = route('as.index');
+            $data['bookingDate'] = $booking->date;
+        } catch (\Exception $ex) {
             $data['success'] = false;
-            $data['message'] = trans('as.bookings.error.not_enough_slots');
-            $data['status']  = 500;
+            $data['message'] = ($ex instanceof \Watson\Validating\ValidationException)
+                ? Util::getHtmlListError($ex)
+                : $ex->getMessage();
         }
 
         return $data;
@@ -460,7 +418,6 @@ class Bookings extends AsBase
         $employeeId          = (int) Input::get('employee_id');
         $serviceTimeId       = Input::get('service_time', 'default');
         $bookingServiceId    = Input::get('booking_service_id', 0);
-        $modifyTime          = (int) Input::get('modify_times', 0);
         $hash                = Input::get('hash');
         $bookingDate         = Input::get('booking_date');
         $startTimeStr        = Input::get('start_time');
@@ -478,7 +435,6 @@ class Bookings extends AsBase
                 ->setEmployeeId($employeeId)
                 ->setServiceTimeId($serviceTimeId)
                 ->setBookingServiceId($bookingServiceId)
-                ->setModifyTime($modifyTime)
                 ->setIsRequestedEmployee($isRequestedEmployee);
 
             $receptionist->upsertBookingService();
@@ -544,6 +500,7 @@ class Bookings extends AsBase
         $uuid                = Input::get('booking_uuid');
         $bookingId           = Input::get('booking_id');
         $bookingStatus       = Input::get('booking_status');
+        $modifyTime          = (int) Input::get('modify_times', 0);
         $notes               = Input::get('booking_notes');
         $isRequestedEmployee = Input::get('is_requested_employee', false);
 
@@ -558,6 +515,7 @@ class Bookings extends AsBase
                 ->setNotes($notes)
                 ->setIsRequestedEmployee($isRequestedEmployee)
                 ->setConsumer($consumer)
+                ->setModifyTime($modifyTime)
                 ->setClientIP(Request::getClientIp())
                 ->setSource('backend');
 

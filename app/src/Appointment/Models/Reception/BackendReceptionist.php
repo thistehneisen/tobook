@@ -67,20 +67,20 @@ class BackendReceptionist extends Receptionist
 
     public function calculateMultipleBookingServices()
     {
-        $startTime = $endTime = $modifyTime = $plustime = $totalPrice = $totalLength = null;
+        $startTime = $endTime = $plustime = $totalPrice = $totalLength = null;
 
         foreach ($this->bookingServices as $bookingService) {
             $totalLength += $bookingService->calculcateTotalLength();
             $totalPrice  += $bookingService->calculcateTotalPrice();
-            $modifyTime  += $bookingService->modify_time;
             $plustime    += $bookingService->getEmployeePlustime();
         }
+        $totalLength += $this->modifyTime;
 
         $date      = $this->bookingServices->first()->date;
         $startTime = $this->bookingServices->first()->startTime;
-        $endTime   = $this->bookingServices->last()->endTime->copy()->addMinutes($modifyTime);
+        $endTime   = $this->bookingServices->last()->endTime->copy()->addMinutes($this->modifyTime);
 
-        return array($date, $startTime, $endTime, $modifyTime, $plustime, $totalLength, $totalPrice);
+        return array($date, $startTime, $endTime, $plustime, $totalLength, $totalPrice);
     }
 
     public function upsertBooking()
@@ -97,7 +97,7 @@ class BackendReceptionist extends Receptionist
             ? $booking->extraServices
             : array();
 
-        list($date, $startTime, $endTime, $modifyTime, $plustime, $totalLength, $totalPrice) = $this->calculateMultipleBookingServices();
+        list($date, $startTime, $endTime, $plustime, $totalLength, $totalPrice) = $this->calculateMultipleBookingServices();
 
         $booking->fill([
             'date'        => $date,
@@ -108,7 +108,7 @@ class BackendReceptionist extends Receptionist
             'status'      => $this->status,
             'notes'       => $this->notes,
             'uuid'        => $this->uuid,
-            'modify_time' => $modifyTime,
+            'modify_time' => $this->modifyTime,
             'plustime'    => $plustime,
             'ip'          => $this->getClientIp(),
             'source'      => $this->getSource()

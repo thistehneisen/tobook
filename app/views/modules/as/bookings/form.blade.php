@@ -107,7 +107,6 @@
                                 <thead>
                                     <tr>
                                         <th>{{ trans('as.bookings.service_employee') }}</th>
-                                        <th>{{ trans('as.bookings.modify_time') }}</th>
                                         <th>{{ trans('as.bookings.plustime') }}</th>
                                         <th>{{ trans('as.bookings.service_time') }}</th>
                                         <th>{{ trans('as.bookings.date_time') }}</th>
@@ -126,12 +125,6 @@
                                             <br>
                                             <span class="added_employee_name">
                                                 @if (!empty($bookingService)) {{ $booking->employee->name }}
-                                                @endif
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span class="added_booking_modify_time">
-                                                @if (!empty($bookingService)) {{ $bookingService->modify_time }}
                                                 @endif
                                             </span>
                                         </td>
