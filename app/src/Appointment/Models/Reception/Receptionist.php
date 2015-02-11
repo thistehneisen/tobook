@@ -533,7 +533,6 @@ abstract class Receptionist implements ReceptionistInterface
             'service_name'       => $this->service->name,
             'service_time'       => $this->bookingService->getFormServiceTime(),
             'service_length'     => $this->bookingService->selectedService->length,
-            'modify_time'        => $this->modifyTime,
             'plustime'           => $this->plustime,
             'employee_name'      => $this->employee->name,
             'uuid'               => $this->uuid
