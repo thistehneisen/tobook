@@ -76,10 +76,11 @@ class BackendReceptionist extends Receptionist
         }
         $totalLength += $this->modifyTime;
 
-        $date      = $this->bookingServices->first()->date;
-        $startTime = $this->bookingServices->first()->startTime;
-        $endTime   = $this->bookingServices->last()->endTime->copy()->addMinutes($this->modifyTime);
-
+        $date             = $this->bookingServices->first()->date;
+        $this->startTime  = $startTime = $this->bookingServices->first()->startTime;
+        $this->endTime    = $endTime   = $this->bookingServices->last()->endTime->copy()->addMinutes($this->modifyTime);
+        $this->date       = $this->bookingServices->first()->startTime->toDateString();
+        $this->employeeId = $this->bookingServices->first()->employee_id;
         return array($date, $startTime, $endTime, $plustime, $totalLength, $totalPrice);
     }
 
@@ -98,6 +99,8 @@ class BackendReceptionist extends Receptionist
             : array();
 
         list($date, $startTime, $endTime, $plustime, $totalLength, $totalPrice) = $this->calculateMultipleBookingServices();
+
+        $this->validateWithExistingBooking();
 
         $booking->fill([
             'date'        => $date,

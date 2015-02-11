@@ -325,10 +325,14 @@ class Bookings extends AsBase
                 'message'=> trans('as.bookings.modify_booking_successful'),
             ]);
         } else {
+            $message = (!empty($resultStatus['message']))
+                ? $resultStatus['message']
+                : $resultExtraServices['message'];
+
             // TODO: this error message is for debugging since it can be various cases
             return Response::json([
                 'success'=> false,
-                'message'=> $resultStatus['message'],
+                'message'=> $message,
             ]);
         }
     }
