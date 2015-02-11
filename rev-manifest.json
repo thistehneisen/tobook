@@ -1,12 +1,12 @@
 {
   "clearbooking/as/scripts/layout-1.js": "clearbooking/as/scripts/layout-1-75a79c5b.js",
   "clearbooking/as/scripts/layout-2.js": "clearbooking/as/scripts/layout-2-e97c6c36.js",
-  "clearbooking/as/scripts/layout-3.js": "clearbooking/as/scripts/layout-3-945dafa9.js",
+  "clearbooking/as/scripts/layout-3.js": "clearbooking/as/scripts/layout-3-f3b59201.js",
   "clearbooking/as/scripts/main.js": "clearbooking/as/scripts/main-1b37ffa2.js",
   "clearbooking/core/scripts/jquery.fixedTableHeader.js": "clearbooking/core/scripts/jquery.fixedTableHeader-9301fea0.js",
   "varaa/as/scripts/layout-1.js": "varaa/as/scripts/layout-1-75a79c5b.js",
   "varaa/as/scripts/layout-2.js": "varaa/as/scripts/layout-2-e97c6c36.js",
-  "varaa/as/scripts/layout-3.js": "varaa/as/scripts/layout-3-945dafa9.js",
+  "varaa/as/scripts/layout-3.js": "varaa/as/scripts/layout-3-2ad8180e.js",
   "varaa/as/scripts/main.js": "varaa/as/scripts/main-1b37ffa2.js",
   "varaa/core/scripts/jquery.fixedTableHeader.js": "varaa/core/scripts/jquery.fixedTableHeader-9301fea0.js",
   "clearbooking/co/scripts/main.js": "clearbooking/co/scripts/main-dd70f3e3.js",
@@ -34,11 +34,11 @@
   "clearbooking/fd/styles/main.css": "clearbooking/fd/styles/main-836b957d.css",
   "clearbooking/core/styles/main.css": "clearbooking/core/styles/main-f946ac41.css",
   "clearbooking/lc/styles/main.css": "clearbooking/lc/styles/main-bb234393.css",
+  "varaa/core/styles/main.css": "varaa/core/styles/main-ce107532.css",
   "varaa/as/styles/layout-1.css": "varaa/as/styles/layout-1-f9daa554.css",
   "varaa/as/styles/layout-2.css": "varaa/as/styles/layout-2-9c168568.css",
   "varaa/as/styles/layout-3.css": "varaa/as/styles/layout-3-9d6eb87b.css",
   "varaa/as/styles/main.css": "varaa/as/styles/main-17e4944a.css",
-  "varaa/core/styles/main.css": "varaa/core/styles/main-ce107532.css",
   "varaa/fd/styles/main.css": "varaa/fd/styles/main-836b957d.css",
   "varaa/lc/styles/main.css": "varaa/lc/styles/main-da455408.css"
 }

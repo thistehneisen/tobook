@@ -103,7 +103,7 @@
                 dataStorage.serviceId = $this.val();
                 dataStorage.serviceTimeId = $this.data('service-time-id');
 
-                if(settings.isAutoSelectEmployee || $('#auto-select-employee').val()){
+                if(settings.isAutoSelectEmployee || ($('#auto-select-employee').val() === 'true')){
                     $step3.collapse('show');
                     $title3.addClass('collapsable');
                     dataStorage.employeeId = '-1';
