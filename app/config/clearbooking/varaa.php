@@ -14,6 +14,7 @@ return [
             'youtube'       => '',
         ]
     ],
+    'allow_robots' => true,
     'currency' => 'SEK',
     'phone_country_code' => '46',
     'premium_modules' => [

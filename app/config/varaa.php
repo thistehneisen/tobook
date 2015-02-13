@@ -6,6 +6,7 @@ return [
     'name' => 'Varaa.com',
     'head_script' => '',
     'bottom_script' => '',
+    'allow_robots' => false,
     'footer' => [
         'copyright' => [
             'name' => 'Varaa.com Digital Oy',

@@ -1,6 +1,6 @@
 <?php namespace App\Core\Controllers;
 
-use View, Confide, Redirect, Config, Input;
+use View, Confide, Redirect, Config, Input, Response;
 use Carbon\Carbon;
 use App\Core\Models\Business;
 use App\Core\Models\BusinessCategory;
@@ -30,6 +30,19 @@ class Front extends Base
             'businesses'     => $businesses,
             'now'            => Carbon::now()
         ]);
+    }
+
+    public function robots()
+    {
+        $str = "User-agent: *\n";
+        $str .= "Disallow: ";
+
+        if (!Config::get('varaa.allow_robots')) {
+            $str .= "/";
+        }
+
+        $response = Response::make($str, 200)->header('Content-Type', 'text/plain');
+        return $response;
     }
 
     /**

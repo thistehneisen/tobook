@@ -41,6 +41,11 @@ Route::group([], function () {
         'as'    => 'home',
         'uses'  => 'App\Core\Controllers\Front@home'
     ]);
+
+    Route::get('robots.txt', [
+        'as'    => 'robots',
+        'uses'  => 'App\Core\Controllers\Front@robots'
+    ]);
 });
 
 // JS localization
