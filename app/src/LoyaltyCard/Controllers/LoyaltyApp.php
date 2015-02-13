@@ -47,6 +47,7 @@ class LoyaltyApp extends Base
     protected function show($id, $coreId)
     {
         $lcConsumer = null;
+        $consumer = null;
         if ($coreId > 0) {
             $consumer = CoreConsumer::ofCurrentUser()->find($coreId);
         } else {
@@ -60,7 +61,6 @@ class LoyaltyApp extends Base
             if ($consumer) {
                 // create LC consumer if needed
                 $lcConsumer = LcConsumer::makeOrGet($consumer, Confide::user()->id);
-                debug($lcConsumer);
                 $vouchers = VoucherModel::ofCurrentUser()->where('is_active', true)->get();
                 $offers = OfferModel::ofCurrentUser()->where('is_active', true)->get();
                 $stampInfo = json_decode($lcConsumer->total_stamps, true);
