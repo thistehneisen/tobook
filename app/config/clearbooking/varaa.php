@@ -2,6 +2,11 @@
 return [
     'name' => 'EnklareBokning',
     'languages' => ['sv', 'en', 'fi'],
+    'meta' => [
+        'title' => 'EnklareBokning | Boka tid för allt',
+        'description' => 'Boka tid för massage, klippning, däckbyte, m.m. Sök bland anslutna företag på din ort. Tillhandahålls av ClearSense.',
+        'keywords' => 'EnklareBokning, ClearSense, Tidsbokning, Bokningssystem',
+    ],
     'footer' => [
         'copyright' => [
             'name' => 'Clearsense',

@@ -5,11 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    @yield('meta')
+    @section('meta')
+        @foreach (['title', 'description', 'keywords'] as $tag)
+        <meta name="{{{ $tag }}}" content="{{{ Config::get('varaa.meta.'.$tag) }}}">
+        @endforeach
+    @show
 
     <title>
         @section('title')
-        {{ Config::get('varaa.name') }}
+        {{ Config::get('varaa.meta.title') }}
         @show
     </title>
 

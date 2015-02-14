@@ -1,7 +1,6 @@
-@extends ('layouts.default')
+@extends('layouts.default')
 
-@section ('meta')
-    @parent
+@section('meta')
     @if (isset($single))
     <meta name="description" content="{{{ $businesses[0]->meta_description }}}">
     <meta name="title" content="{{{ $businesses[0]->meta_title }}}">
