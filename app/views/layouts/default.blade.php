@@ -91,7 +91,7 @@
                     @endif
 
                     {{-- Show cart to consumer only --}}
-                    @if (!Confide::user() || Confide::user()->is_consumer === true)
+                    @if ((!Confide::user() || Confide::user()->is_consumer) && Config::get('varaa.enable_cart'))
                     <li class="cart">
                         <a data-cart-url="{{ route('cart.index') }}" href="#" id="header-cart" data-toggle="popover">
                             <i class="fa fa-shopping-cart"></i> <span class="content"><i class="fa fa-spinner fa-spin"></i></span>
