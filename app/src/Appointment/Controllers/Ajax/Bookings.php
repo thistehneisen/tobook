@@ -98,7 +98,7 @@ class Bookings extends \App\Core\Controllers\Ajax\Base
                 ->setBookingDate($bookingDate)
                 ->setStartTime($startTimeStr);
 
-            $receptionist->reschedule();
+            $booking = $receptionist->reschedule();
 
             Event::fire('employee.calendar.invitation.send', [$booking]);
             Session::forget('cutId');

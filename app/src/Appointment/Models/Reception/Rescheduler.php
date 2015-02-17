@@ -193,6 +193,8 @@ class Rescheduler extends Receptionist
 
         $this->booking->employee()->associate($this->employee);
         $this->booking->save();
+
+        return $this->booking;
     }
 
     public function upsertBooking()
