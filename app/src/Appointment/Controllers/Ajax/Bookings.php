@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Controllers\Ajax;
 
-use App, View, Redirect, Response, Request, Input, Config, Session;
+use App, View, Redirect, Response, Request, Input, Config, Session, Event;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\BookingExtraService;
@@ -10,6 +10,7 @@ use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\ExtraService;
+use App\Appointment\Models\Reception\Rescheduler;
 use Carbon\Carbon;
 
 class Bookings extends \App\Core\Controllers\Ajax\Base
@@ -87,56 +88,27 @@ class Bookings extends \App\Core\Controllers\Ajax\Base
             ]);
         }
 
-        // TODO: handle error here if it can't find the booking
         try {
             $booking = Booking::findOrFail($cutId);
+            $receptionist = new Rescheduler();
+            $receptionist->setBookingId($cutId)
+                ->setUUID($booking->uuid)
+                ->setUser($this->user)
+                ->setEmployeeId($employeeId)
+                ->setBookingDate($bookingDate)
+                ->setStartTime($startTimeStr);
+
+            $receptionist->reschedule();
+
+            Event::fire('employee.calendar.invitation.send', [$booking]);
+            Session::forget('cutId');
+            return Response::json(['success' => true]);
         } catch(\Exception $ex){
             return Response::json([
                 'success' => false,
-                'message' => trans('as.bookings.error.booking_not_found')
+                'message' => $ex->getMessage()
             ]);
         }
-
-        $bookingService   = $booking->bookingServices()->first();
-        $bookingServiceId = $bookingService->id;
-        $serviceId        = $bookingService->service->id;
-        //Check if employee serve that service in booking and employee plustime
-        $employee = Employee::find($employeeId);
-        $employeeService = $employee->services()->where('service_id', $serviceId)->first();
-
-        if (empty($employeeService)) {
-            return Response::json([
-                'success' => false,
-                'message' => trans('as.bookings.error.employee_not_servable')
-            ]);
-        }
-
-        $plustime = $employee->getPlustime($serviceId);
-        $startTime = Carbon::createFromFormat('Y-m-d H:i', sprintf('%s %s', $bookingDate, $startTimeStr));
-        //Each emloyee has different plustime;
-        $total = $booking->total - $booking->plustime + $plustime;
-        $endTime   = with(clone $startTime)->addMinutes($total);
-
-        //Check if there are enough slots for the cut booking
-        $isBookable = Booking::isBookable($employeeId, $bookingDate, $startTime, $endTime);
-
-        if (!$isBookable) {
-            return Response::json([
-                'success' => false,
-                'message' => trans('as.bookings.error.add_overlapped_booking')
-            ]);
-        }
-
-        $booking->start_at = $startTime->toTimeString();
-        $booking->end_at   = $endTime->toTimeString();
-        $booking->date     = $startTime->toDateString();
-        $booking->employee()->associate($employee);
-        $booking->save();
-        $bookingService->employee()->associate($employee);
-        $bookingService->date = $startTime->toDateString();
-        $bookingService->save();
-        Session::forget('cutId');
-        return Response::json(['success' => true]);
     }
 
 }

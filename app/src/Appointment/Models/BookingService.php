@@ -110,13 +110,17 @@ class BookingService extends Base implements CartDetailInterface
 
     public function calculateServiceLength()
     {
+        $length = $this->getServiceBaseLength();
+        $length += $this->getEmployeePlustime();
+        $length += $this->modify_time;
+        return $length;
+    }
+
+    public function getServiceBaseLength()
+    {
         $length = (!empty($this->serviceTime->length))
             ? $this->serviceTime->length
             : $this->service->length;
-
-        $length += $this->getEmployeePlustime();
-
-        $length += $this->modify_time;
 
         return $length;
     }
