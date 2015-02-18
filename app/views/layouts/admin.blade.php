@@ -27,6 +27,7 @@
                         <li><a href="{{ route('admin.stats.fd') }}"><i class="fa fa-flash"></i> {{ trans('admin.nav.flash_deals') }}</a></li>
                     </ul>
                 </li>
+                <li><a href="{{ route('admin.settings') }}"><i class="fa fa-cog"></i> {{ trans('admin.nav.settings') }}</a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->

@@ -20,7 +20,7 @@
             @endif
         </div>
         <div class="col-md-4 text-center">
-            <h4><span class="orange"> {{ $item->flashDeal->discounted_price }}{{ Config::get('varaa.currency') }}</span> <small>({{ trans('common.normal') }} {{ $item->flashDeal->service->price }}{{ Config::get('varaa.currency') }})</small></h4>
+            <h4><span class="orange"> {{ $item->flashDeal->discounted_price }}{{ Settings::get('currency') }}</span> <small>({{ trans('common.normal') }} {{ $item->flashDeal->service->price }}{{ Settings::get('currency') }})</small></h4>
             <button data-url="{{ route('fd.cart') }}" data-business-id="{{ $item->flashDeal->service->user->id }}" data-deal-id="{{ $item->id }}" class="btn btn-md btn-success btn-fd-cart">{{ trans('home.cart.add') }} <i class="fa fa-shopping-cart"></i></button>
         </div>
     </div>

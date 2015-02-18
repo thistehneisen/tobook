@@ -1,6 +1,6 @@
 <?php namespace App\Olut\Presenters;
 
-use Config;
+use Settings;
 
 class Currency extends Base
 {
@@ -13,6 +13,6 @@ class Currency extends Base
      */
     public static function render($value, $item)
     {
-        return $value.Config::get('varaa.currency');
+        return $value.Settings::get('currency');
     }
 }

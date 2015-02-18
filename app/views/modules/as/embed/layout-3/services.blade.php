@@ -15,7 +15,7 @@
                             <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="{{ $service->description }}"></i>
                             <input type="radio" name="service_id" data-service-time-id="default" value="{{ $service->id }}" data-service="{{ $service->name }}">
                             @if ((bool)$user->asOptions['hide_prices'] === false)
-                                {{ $service->price }}{{ Config::get('varaa.currency') }}
+                                {{ $service->price }}{{ Settings::get('currency') }}
                             @else
                                 &nbsp;<i class="glyphicon glyphicon-time"></i> {{ $service->during }} {{ trans('common.minutes')}}
                             @endif
@@ -31,7 +31,7 @@
                             <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="{{ $item->description }}"></i>
                             <input type="radio" name="service_id" data-service-time-id="{{ $item->id }}" value="{{ $service->id }}" data-service="{{ $service->name }}">
                             @if ((bool)$user->asOptions['hide_prices'] === false)
-                                {{ $item->price }}{{ Config::get('varaa.currency') }}
+                                {{ $item->price }}{{ Settings::get('currency') }}
                             @else
                                 &nbsp;<i class="glyphicon glyphicon-time"></i> {{ $item->during }} {{ trans('common.minutes')}}
                             @endif

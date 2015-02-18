@@ -91,11 +91,21 @@ Route::group([
     //--------------------------------------------------------------------------
 
     Route::group(['prefix' => 'stats'], function () {
-
         Route::get('flash-deals', [
             'as' => 'admin.stats.fd',
             'uses' => 'App\Core\Controllers\Admin\Stats\FlashDeals@index'
         ]);
-
     });
+
+    //--------------------------------------------------------------------------
+    // Settings
+    //--------------------------------------------------------------------------
+    Route::get('settings', [
+        'as' => 'admin.settings',
+        'uses' => 'App\Core\Controllers\Admin\Settings@index'
+    ]);
+
+    Route::post('settings', [
+        'uses' => 'App\Core\Controllers\Admin\Settings@save'
+    ]);
 });

@@ -231,6 +231,7 @@ return array(
         'CRUD'          => 'App\Olut\Olut',
         'Payment'       => 'App\Payment\Payment',
         'NAT'           => 'App\Appointment\NAT\Facade',
+        'Settings'      => 'App\Core\Settings',
     ),
 
 );

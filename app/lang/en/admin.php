@@ -57,4 +57,22 @@ return [
         'note'   => 'Note (optional)',
         'date'   => 'Date'
     ],
+    'settings' => [
+        'site_name'          => 'Site Name',
+        'head_script'        => 'Script inserted in &lt;/HEAD&gt;',
+        'bottom_script'      => 'Script inserted before &lt;/BODY&gt;',
+        'allow_robots'       => 'Allow search engine robots',
+        'meta_title'         => 'Meta title',
+        'meta_description'   => 'Meta description',
+        'meta_keywords'      => 'Meta keywords',
+        'social_facebook'    => 'Facebook',
+        'social_linkedin'    => 'Linkedin',
+        'social_youtube'     => 'Youtube',
+        'copyright_name'     => 'Company name for footer copyright',
+        'copyright_url'      => 'URL for footer copyright',
+        'enable_cart'        => 'Enable shopping cart',
+        'phone_country_code' => 'Phone country code',
+        'currency'           => 'Currency symbol',
+        'commission_rate'    => 'Commission rate taken from businesses, e.g. 30% = 0.3',
+    ],
 ];

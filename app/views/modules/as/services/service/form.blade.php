@@ -50,7 +50,7 @@ $(function () {
         <label for="price" class="col-sm-2 control-label">{{ trans('as.services.price') }}</label>
         <div class="col-sm-5">
             <div class="input-group">
-                <span class="input-group-addon">{{ Config::get('varaa.currency') }}</span>
+                <span class="input-group-addon">{{ Settings::get('currency') }}</span>
                 {{ Form::text('price', isset($service->price) ? $service->price : '', ['class' => 'form-control input-sm', 'id' => 'price']) }}
             </div>
         </div>

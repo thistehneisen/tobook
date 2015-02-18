@@ -18,7 +18,7 @@
                 <div class="btn-group service-time">
                     <div class="col-lg-12"><button data-service-time-id="default" data-service-id="{{ $service->id }}" type="button" class="btn btn-default btn-sm btn-service-time"><i class="glyphicon glyphicon-time"></i> {{ $service->during }} {{ trans('common.minutes') }}
                         @if ((bool)$user->asOptions['hide_prices'] === false)
-                            {{{ $service->price }}}{{ Config::get('varaa.currency') }}
+                            {{{ $service->price }}}{{ Settings::get('currency') }}
                         @endif
                     </button></div>
                     <div class="col-lg-12">{{ $service->description }}</div>
@@ -27,7 +27,7 @@
                 <div class="btn-group service-time">
                     <div class="col-lg-12"><button data-service-id="{{ $service->id }}" data-service-time-id="{{ $item->id }}" type="button" class="btn btn-default btn-sm btn-service-time"><i class="glyphicon glyphicon-time"></i> {{ $item->during }} {{ trans('common.minutes') }}
                         @if ((bool)$user->asOptions['hide_prices'] === false)
-                            {{ $item->price }}{{ Config::get('varaa.currency') }}
+                            {{ $item->price }}{{ Settings::get('currency') }}
                         @endif
                     </button></div>
                     <div class="col-lg-12">{{ $item->description }}</div>

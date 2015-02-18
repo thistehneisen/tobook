@@ -1,13 +1,13 @@
 <?php namespace App\OneApi;
 require __DIR__.'/lib/oneapi/client.php';
 
-use Config, Log, Queue;
+use Config, Log, Queue, Settings;
 
 class OneApi
 {
     public function formatNumber($phone, $countryCode = '')
     {
-        $countryCode = $countryCode ?: Config::get('varaa.phone_country_code');
+        $countryCode = $countryCode ?: Settings::get('phone_country_code');
 
         // avoid formatted numbers
         if (strpos($phone, '+') !== 0

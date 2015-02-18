@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Models;
 
-use Config;
+use Settings;
 
 class ServiceTime extends \App\Core\Models\Base
 {
@@ -21,7 +21,7 @@ class ServiceTime extends \App\Core\Models\Base
     public function getFormattedPriceAttribute()
     {
         return number_format($this->attributes['price'], 2)
-            .Config::get('varaa.currency');
+            .Settings::get('currency');
     }
 
     //--------------------------------------------------------------------------

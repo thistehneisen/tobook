@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     @section('meta')
-        @foreach (['title', 'description', 'keywords'] as $tag)
-        <meta name="{{{ $tag }}}" content="{{{ Config::get('varaa.meta.'.$tag) }}}">
+        @foreach (Settings::group('meta') as $tag => $content)
+    <meta name="{{{ $tag }}}" content="{{{ $content }}}">
         @endforeach
     @show
 
     <title>
         @section('title')
-        {{ Config::get('varaa.meta.title') }}
+        {{{ Settings::get('meta_title') }}}
         @show
     </title>
 
@@ -31,7 +31,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    {{ Config::get('varaa.head_script') }}
+    {{ Settings::get('head_script') }}
 
     {{ Lomake::renderHead() }}
 </head>
@@ -91,7 +91,7 @@
                     @endif
 
                     {{-- Show cart to consumer only --}}
-                    @if ((!Confide::user() || Confide::user()->is_consumer) && Config::get('varaa.enable_cart'))
+                    @if ((!Confide::user() || Confide::user()->is_consumer) && Settings::get('enable_cart'))
                     <li class="cart">
                         <a data-cart-url="{{ route('cart.index') }}" href="#" id="header-cart" data-toggle="popover">
                             <i class="fa fa-shopping-cart"></i> <span class="content"><i class="fa fa-spinner fa-spin"></i></span>
@@ -214,9 +214,9 @@
     @section('footer')
     <footer class="container-fluid footer hidden-print">
         <div class="container text-center">
-            <p>&copy; {{ date('Y') }} <a href="{{{ Config::get('varaa.footer.copyright.url') }}}" target="_blank">{{{ Config::get('varaa.footer.copyright.name') }}}</a></p>
+            <p>&copy; {{ date('Y') }} <a href="{{{ Settings::get('copyright_url') }}}" target="_blank">{{{ Settings::get('copyright_name') }}}</a></p>
             <ul class="list-unstyled list-inline list-social-networks">
-                @foreach (Config::get('varaa.footer.social') as $name => $url)
+                @foreach (Settings::group('social') as $name => $url)
                     @if ($url)
                     <li><a href="{{{ $url }}}" target="_blank"><i class="fa fa-{{{ $name }}}"></i></a></li>
                     @endif
@@ -238,6 +238,6 @@
 
     @yield('scripts')
 
-    {{ Config::get('varaa.bottom_script') }}
+    {{ Settings::get('bottom_script') }}
 </body>
 </html>

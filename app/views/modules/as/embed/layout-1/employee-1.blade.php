@@ -17,7 +17,7 @@ $serviceTimeId      = (!empty($serviceTime)) ? $serviceTime->id : 'default';
         <li class="as-col-header"><strong>{{{ $employee->description }}}</strong></li>
         <li class="as-col-header"><strong>{{ trans('as.embed.guide_text') }}</strong></li>
         @if ((bool)$user->asOptions['hide_prices'] === false)
-        <li><a class="btn btn-success col-xs-12"><i class="glyphicon glyphicon-tag"></i> {{ $servicePrice }}{{ Config::get('varaa.currency') }}</a></li>
+        <li><a class="btn btn-success col-xs-12"><i class="glyphicon glyphicon-tag"></i> {{ $servicePrice }}{{ Settings::get('currency') }}</a></li>
         @endif
         <li>
             <a class="btn btn-success col-xs-12"><i class="glyphicon glyphicon-time"></i>

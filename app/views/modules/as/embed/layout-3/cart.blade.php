@@ -4,7 +4,7 @@
     <div class="col-md-9">{{ $service->name }} ({{ $service->length }} {{ trans('common.minutes')}})</div>
 </div>
 <div class="form-group row">
-    <div class="col-md-4 col-md-offset-3"><i class="glyphicon glyphicon-tag"></i> {{ $service->price }}{{ Config::get('varaa.currency') }}</div>
+    <div class="col-md-4 col-md-offset-3"><i class="glyphicon glyphicon-tag"></i> {{ $service->price }}{{ Settings::get('currency') }}</div>
     <div class="col-md-5"><i class="glyphicon glyphicon-time"></i> {{ $date->format(trans('common.format.date')) }} {{ $time }}</div>
 </div>
 
