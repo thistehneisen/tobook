@@ -44,6 +44,7 @@ return [
     'activation'             => 'Activated?',
     'payments'               => 'Payments',
     'business' => [
+        'auto_confirm'     => 'Auto confirm this business?',
         'is_activated'     => 'Activated',
         'name'             => 'Business Name',
         'description'      => 'Business Introduction',

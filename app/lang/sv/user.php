@@ -40,6 +40,7 @@ return [
     'enter_new_password'     => 'Ange ditt nya lösenord',
     'business_name'          => 'Företagsnamn',
     'business' => [
+        'auto_confirm'     => 'Auto confirm this business?', // @todo
         'is_activated'     => 'Aktiverat',
         'name'             => 'Företagsnamn',
         'description'      => 'Företagspresentation',

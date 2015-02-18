@@ -52,6 +52,7 @@ return [
         ]
     ],
     'business' => [
+        'auto_confirm'     => 'Auto confirm this business?', // @todo
         'is_activated'     => 'Aktivoitu',
         'name'             => 'Yrityksen nimi',
         'description'      => 'Yritysesittely',

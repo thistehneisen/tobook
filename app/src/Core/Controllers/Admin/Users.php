@@ -187,7 +187,9 @@ class Users extends Base
             $user->attachRole($role);
 
             // Auto-confirm
-            Confide::confirm($user->confirmation_code);
+            if (Input::has('auto_confirm')) {
+                Confide::confirm($user->confirmation_code);
+            }
 
             // Create business entry
             $business = new Business([

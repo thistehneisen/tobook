@@ -66,6 +66,16 @@
         </div>
 
         <div class="form-group">
+            <div class="col-sm-6 col-sm-offset-3">
+            <div class="checkbox">
+                <label>
+                {{ Form::checkbox('auto_confirm', 1, Input::get('auto_confirm') == 1) }}
+                {{ @trans('user.business.auto_confirm') }}</label>
+            </div>
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-sm-offset-3 col-sm-9">
                 <button type="submit" class="btn btn-primary">{{ trans('common.save') }}</button>
             </div>

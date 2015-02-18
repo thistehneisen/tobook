@@ -28,6 +28,8 @@ class UserCest extends \Test\Functional\Base
             'meta_description' => 'Meta description',
             'bank_account'     => 'FI12 345 67890'
         ];
+        // Work-around to trigger model events in test environment
+        User::boot();
     }
 
     public function seePageToEditBusiness(FunctionalTester $i)
@@ -49,7 +51,13 @@ class UserCest extends \Test\Functional\Base
 
     public function seeBusinessNoteIndication(FunctionalTester $i)
     {
-        $selector = sprintf('#row-%d .business-note', $this->user->id);
+        // Find the first user
+        $user = User::orderBy('id', 'asc')->first();
+        $url = route('admin.users.upsert', ['id' => $user->id]);
+
+        $i->amOnPage($url);
+        $i->submitForm('#business-form', $this->stub + ['_token' => csrf_token()]);
+        $selector = sprintf('#row-%d .business-note', $user->id);
 
         $i->amOnPage($this->indexUrl);
         $i->seeElement($selector);
@@ -74,8 +82,30 @@ class UserCest extends \Test\Functional\Base
 
     public function createNewBusiness(FunctionalTester $i)
     {
-        // Work-around to trigger model events in test environment
-        User::boot();
+
+        $email = uniqid().'@varaa.com';
+
+        $i->amOnPage($this->createUrl);
+        $i->submitForm('#lomake-form', [
+            'email'                 => $email,
+            'password'              => '1234567890',
+            'password_confirmation' => '1234567890',
+            'business_name'         => 'foo',
+            'business_phone'        => 'bar',
+            'auto_confirm'          => '1',
+        ]);
+
+        $user = User::where('email', $email)->with('business')->first();
+        $business = $user->business;
+        $i->assertTrue($business->id !== null, 'Business exists');
+        $i->assertEquals($business->name, 'foo', 'Business name');
+        $i->assertEquals($business->phone, 'bar', 'Business phone');
+        // Confirmation code will be empty if this user has been activated
+        $i->assertTrue((bool) $user->confirmed, 'Confirmed');
+    }
+
+    public function seeNewBusinessWasNotAutoConfirmed(FunctionalTester $i)
+    {
 
         $email = uniqid().'@varaa.com';
 
@@ -89,10 +119,8 @@ class UserCest extends \Test\Functional\Base
         ]);
 
         $user = User::where('email', $email)->with('business')->first();
-        $business = $user->business;
-        $i->assertTrue($business->id !== null, 'Business exists');
-        $i->assertEquals($business->name, 'foo', 'Business name');
-        $i->assertEquals($business->phone, 'bar', 'Business phone');
+        // Confirmation code will be empty if this user has been activated
+        $i->assertTrue(!$user->confirmed, 'Not empty confirmation code');
     }
 
     public function seeErrorIfDuplicatingEmailBusiness(FunctionalTester $i)
