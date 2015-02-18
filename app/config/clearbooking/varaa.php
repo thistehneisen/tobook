@@ -21,6 +21,7 @@ return [
     ],
     'allow_robots' => true,
     'currency' => 'SEK',
+    'enable_cart' => false,
     'phone_country_code' => '46',
     'premium_modules' => [
         'appointment' => [
