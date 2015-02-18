@@ -115,4 +115,20 @@ return [
     //  Globally enable shopping cart
     //--------------------------------------------------------------------------
     'enable_cart' => true,
+
+    'settings' => [
+        'name'             => ['type' => 'Text', 'default' => 'Varaa.com'],
+        'head_script'      => ['type' => 'Textarea'],
+        'bottom_script'    => ['type' => 'Textarea'],
+        'allow_robots'     => ['type' => 'Radio', 'default' => false],
+        'meta.title'       => ['type' => 'Text', 'default' => 'Varaa.com'],
+        'meta.description' => ['type' => 'Text'],
+        'meta.keywords'    => ['type' => 'Text'],
+        'social.facebook'  => ['type' => 'Text', 'default' => 'https://www.facebook.com/varaacom'],
+        'social.linkedin'  => ['type' => 'Text', 'default' => 'https://www.linkedin.com/company/3280872'],
+        'social.youtube'   => ['type' => 'Text', 'default' => 'https://www.youtube.com/user/Varaacom'],
+        'copyright.name'   => ['type' => 'Text', 'default' => 'Varaa.com Digital Oy'],
+        'copyright.url'    => ['type' => 'Text', 'default' => 'http://varaa.com'],
+        'enable_cart'      => ['type' => 'Radio', 'default' => true],
+    ]
 ];

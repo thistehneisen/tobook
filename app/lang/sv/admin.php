@@ -44,5 +44,26 @@ return [
                 'total'   => 'Totalt'
             ]
         ]
-    ]
+    ],
+    'settings' => [
+        'name'          => 'Site Name',
+        'head_script'   => 'Script inserted in &lt;/HEAD&gt;',
+        'bottom_script' => 'Script inserted before &lt;/BODY&gt;',
+        'allow_robots'  => 'Allow search engine robots',
+        'meta'          => [
+            'title'       => 'Meta title',
+            'description' => 'Meta description',
+            'keywords'    => 'Meta keywords',
+        ],
+        'social'        => [
+            'facebook' => 'Facebook',
+            'linkedin' => 'Linkedin',
+            'youtube'  => 'Youtube',
+        ],
+        'copyright'     => [
+            'name' => 'Company name for footer copyright',
+            'url' => 'URL for footer copyright',
+        ],
+        'enable_cart'   => 'Enable shopping cart',
+    ],
 ];
