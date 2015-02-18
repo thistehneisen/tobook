@@ -1,36 +1,9 @@
 <?php
 return [
     //--------------------------------------------------------------------------
-    //  Instance config
-    //--------------------------------------------------------------------------
-    'name' => 'Varaa.com',
-    'head_script' => '',
-    'bottom_script' => '',
-    'allow_robots' => false,
-    'meta' => [
-        'title' => 'Varaa.com',
-        'description' => '',
-        'keywords' => '',
-    ],
-    'footer' => [
-        'copyright' => [
-            'name' => 'Varaa.com Digital Oy',
-            'url' => 'http://varaa.com',
-        ],
-        'social' => [
-            'facebook' => 'https://www.facebook.com/varaacom',
-            'linkedin' => 'https://www.linkedin.com/company/3280872',
-            'youtube'  => 'https://www.youtube.com/user/Varaacom',
-        ]
-    ],
-    //--------------------------------------------------------------------------
     //  Hide inactive module in dashboard
     //--------------------------------------------------------------------------
     'dashboard_hide_inactive' => true,
-    //--------------------------------------------------------------------------
-    //  Country code
-    //--------------------------------------------------------------------------
-    'phone_country_code' => '358',
     //--------------------------------------------------------------------------
     //  Shopping cart
     //--------------------------------------------------------------------------
@@ -40,11 +13,6 @@ return [
         //----------------------------------------------------------------------
         'hold_time' => 15
     ],
-    //----------------------------------------------------------------------
-    //  The commission rate that takes from businesses
-    //  Default is 30%
-    //----------------------------------------------------------------------
-    'commission_rate' => 0.3,
     //--------------------------------------------------------------------------
     //  Name of folder used for upload items
     //--------------------------------------------------------------------------
@@ -53,10 +21,6 @@ return [
     //  Default languages of the site, in this order
     //--------------------------------------------------------------------------
     'languages' => ['fi', 'en', 'sv'],
-    //--------------------------------------------------------------------------
-    // Symbol of the currency applying to the whole system
-    //--------------------------------------------------------------------------
-    'currency' => '&euro;',
     //--------------------------------------------------------------------------
     // Search
     //--------------------------------------------------------------------------
@@ -111,28 +75,33 @@ return [
             'enable' => true,
         ]
     ],
-    //--------------------------------------------------------------------------
-    //  Globally enable shopping cart
-    //--------------------------------------------------------------------------
-    'enable_cart' => true,
 
     'settings' => [
         'site_name'        => ['type' => 'Text', 'default' => 'Varaa.com'],
         'head_script'      => ['type' => 'Textarea'],
         'bottom_script'    => ['type' => 'Textarea'],
         'allow_robots'     => ['type' => 'Radio', 'default' => false],
-        'meta_title'       => ['type' => 'Text', 'default' => 'Varaa.com'],
-        'meta_description' => ['type' => 'Text'],
-        'meta_keywords'    => ['type' => 'Text'],
-        'social_facebook'  => ['type' => 'Text', 'default' => 'https://www.facebook.com/varaacom'],
-        'social_linkedin'  => ['type' => 'Text', 'default' => 'https://www.linkedin.com/company/3280872'],
-        'social_youtube'   => ['type' => 'Text', 'default' => 'https://www.youtube.com/user/Varaacom'],
-        'copyright_name'   => ['type' => 'Text', 'default' => 'Varaa.com Digital Oy'],
-        'copyright_url'    => ['type' => 'Text', 'default' => 'http://varaa.com'],
         //----------------------------------------------------------------------
         //  Country code
         //----------------------------------------------------------------------
         'phone_country_code' => ['type' => 'Text', 'default' => '358'],
+        //----------------------------------------------------------------------
+        //  Meta data
+        //----------------------------------------------------------------------
+        'meta_title'       => ['type' => 'Text', 'default' => 'Varaa.com'],
+        'meta_description' => ['type' => 'Text'],
+        'meta_keywords'    => ['type' => 'Text'],
+        //----------------------------------------------------------------------
+        //  Social configuration
+        //----------------------------------------------------------------------
+        'social_facebook'  => ['type' => 'Text', 'default' => 'https://www.facebook.com/varaacom'],
+        'social_linkedin'  => ['type' => 'Text', 'default' => 'https://www.linkedin.com/company/3280872'],
+        'social_youtube'   => ['type' => 'Text', 'default' => 'https://www.youtube.com/user/Varaacom'],
+        //----------------------------------------------------------------------
+        //  Footer copyright info
+        //----------------------------------------------------------------------
+        'copyright_name'   => ['type' => 'Text', 'default' => 'Varaa.com Digital Oy'],
+        'copyright_url'    => ['type' => 'Text', 'default' => 'http://varaa.com'],
         //----------------------------------------------------------------------
         // Symbol of the currency applying to the whole system
         //----------------------------------------------------------------------

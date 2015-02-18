@@ -1,6 +1,7 @@
 <?php namespace App\Appointment\Models;
 
 use Request, Carbon\Carbon, NAT, Util, Config, DB;
+use Settings;
 use App\Core\Models\User;
 use App\Consumers\Models\Consumer;
 use App\Appointment\Models\Observer\SmsObserver;
@@ -913,9 +914,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             ->ofUser($user)
             ->sum('total');
 
-        // \Codeception\Util\Debug::debug($total);
         // 2-decimal place
-        return round($total * Config::get('varaa.commission_rate'), 2);
+        return round($total * (double) Settings::get('commission_rate'), 2);
     }
 
     public function getEmailBody()
@@ -933,7 +933,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     public function generateIcsFile()
     {
         date_default_timezone_set(Config::get('app.timezone'));
-        $calendar = new \Eluceo\iCal\Component\Calendar(Config::get('varaa.name'));
+        $calendar = new \Eluceo\iCal\Component\Calendar(Settings::get('site_name'));
         $event = new \Eluceo\iCal\Component\Event();
         $event->setDtStart($this->startTime)
             ->setDtEnd($this->endtime)

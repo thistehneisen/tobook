@@ -1,6 +1,6 @@
 <?php namespace App\Core\Controllers;
 
-use View, Confide, Redirect, Config, Input, Response;
+use View, Confide, Redirect, Config, Input, Response, Settings;
 use Carbon\Carbon;
 use App\Core\Models\Business;
 use App\Core\Models\BusinessCategory;
@@ -37,7 +37,7 @@ class Front extends Base
         $str = "User-agent: *\n";
         $str .= "Disallow: ";
 
-        if (!Config::get('varaa.allow_robots')) {
+        if (!Settings::get('allow_robots')) {
             $str .= "/";
         }
 
