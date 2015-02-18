@@ -1,7 +1,10 @@
 <?php namespace App\Core\Controllers\Admin;
 
+use App\Core\Models\Setting;
 use App\Lomake\FieldFactory;
 use Config;
+use Input;
+use Redirect;
 
 class Settings extends Base
 {
@@ -25,5 +28,26 @@ class Settings extends Base
         return $this->render('index', [
             'controls' => $controls
         ]);
+    }
+
+    /**
+     * Save system settings
+     *
+     * @return Redirect
+     */
+    public function save()
+    {
+        // Don't use CSRF token
+        $input = Input::except('_token');
+
+        // Save all input as
+        foreach ($input as $key => $value) {
+            $setting = Setting::findOrNew($key);
+            $setting->key   = $key;
+            $setting->value = $value;
+            $setting->save();
+        }
+
+        return Redirect::route('admin.settings');
     }
 }

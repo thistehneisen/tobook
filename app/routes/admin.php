@@ -100,10 +100,12 @@ Route::group([
     //--------------------------------------------------------------------------
     // Settings
     //--------------------------------------------------------------------------
-    Route::group(['prefix' => 'settings'], function() {
-        Route::get('/', [
-            'as' => 'admin.settings',
-            'uses' => 'App\Core\Controllers\Admin\Settings@index'
-        ]);
-    });
+    Route::get('settings', [
+        'as' => 'admin.settings',
+        'uses' => 'App\Core\Controllers\Admin\Settings@index'
+    ]);
+
+    Route::post('settings', [
+        'uses' => 'App\Core\Controllers\Admin\Settings@save'
+    ]);
 });
