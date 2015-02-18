@@ -10,7 +10,7 @@
 
     <link rel="stylesheet" href="{{ asset_path('as/styles/'.$layout.'.css') }}">
 
-    {{ Config::get('varaa.head_script') }}
+    {{ Settings::get('head_script') }}
 </head>
 <body data-hash="{{ $hash }}" data-locale="{{ App::getLocale() }}" class="style-{{ $user->id }}">
     @yield('content')

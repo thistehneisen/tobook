@@ -53,7 +53,7 @@ DataSet.totalSold = {{ json_encode($dataset) }};
         <tr>
             <td><a href="{{ $item->business->business_url }}">{{ $item->business->name }}</a></td>
             <td>{{ $item->total }}</td>
-            <td>{{ $item->revenue }}{{ Config::get('varaa.currency') }}</td>
+            <td>{{ $item->revenue }}{{ Settings::get('currency') }}</td>
         </tr>
     @endforeach
     </tbody>

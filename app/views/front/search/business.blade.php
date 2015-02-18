@@ -28,7 +28,7 @@
             <tr>
                 <td><a href="#" title="">{{{ $item->flashDeal->service->name }}}</a></td>
                 <td><span class="text-danger countdown" data-date="{{ $item->expire->format('Y-m-d\TH:i:s') }}"></span></td>
-                <td>{{ $item->flashDeal->discounted_price }}{{ Config::get('varaa.currency') }} ({{ $item->flashDeal->service->price }}{{ Config::get('varaa.currency') }})</td>
+                <td>{{ $item->flashDeal->discounted_price }}{{ Settings::get('currency') }} ({{ $item->flashDeal->service->price }}{{ Settings::get('currency') }})</td>
                 <td>
                     <p class="text-danger"><strong>-{{ $item->flashDeal->discount_percent }}%</strong></p>
                 </td>
@@ -59,7 +59,7 @@
                 <tr>
                     <td><a href="#" title="">{{{ $item->service->name }}}</a></td>
                     <td><span class="text-danger countdown" data-date="{{ $item->valid_date->format('Y-m-d\TH:i:s') }}"></span></td>
-                    <td>{{ $item->discounted_price }}{{ Config::get('varaa.currency') }} ({{{ $item->service->price }}}{{ Config::get('varaa.currency') }})</td>
+                    <td>{{ $item->discounted_price }}{{ Settings::get('currency') }} ({{{ $item->service->price }}}{{ Settings::get('currency') }})</td>
                     <td>
                         <p class="text-danger"><strong>-{{ $item->discount_percent }}%</strong></p>
                     </td>
@@ -79,7 +79,7 @@
             {{-- `$inhouse = true` means that we'll show login/register secion in step 4 --}}
             <input type="hidden" id="business_id" value="{{ $business->id }}">
             <input type="hidden" id="business_hash" value="{{ $business->user->hash }}">
-            @include('modules.as.embed.layout-3.main', ['inhouse' => Config::get('varaa.enable_cart'), 'hash' => $business->user->hash])
+            @include('modules.as.embed.layout-3.main', ['inhouse' => Settings::get('enable_cart'), 'hash' => $business->user->hash])
         </div>
         @endif
 

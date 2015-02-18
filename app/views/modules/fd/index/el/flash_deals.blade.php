@@ -15,8 +15,8 @@
         <tr>
             <td>{{ $item->flashDeal->service->name }}</td>
             <td>{{ $item->expire->format(trans('common.format.date_time')) }}</td>
-            <td>{{ $item->flashDeal->service->price }}{{ Config::get('varaa.currency') }}</td>
-            <td>{{ $item->flashDeal->discounted_price }}{{ Config::get('varaa.currency') }} <span class="text-danger">(<i class="fa fa-caret-down"></i> {{ $item->flashDeal->discount_percent }}%)</span></td>
+            <td>{{ $item->flashDeal->service->price }}{{ Settings::get('currency') }}</td>
+            <td>{{ $item->flashDeal->discounted_price }}{{ Settings::get('currency') }} <span class="text-danger">(<i class="fa fa-caret-down"></i> {{ $item->flashDeal->discount_percent }}%)</span></td>
             <td>{{ $item->flashDeal->quantity }}</td>
             <td>{{ $item->remains }}</td>
         </tr>
