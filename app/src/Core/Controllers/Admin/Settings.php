@@ -22,6 +22,11 @@ class Settings extends Base
 
         foreach ($definitions as $name => $def) {
             $def['name'] = $name;
+            // Overwrite with settings in database
+            $def['default'] = \Settings::get($name) !== null
+                ? \Settings::get($name)
+                : $def['default'];
+
             $controls[] = FieldFactory::create($def);
         }
 
