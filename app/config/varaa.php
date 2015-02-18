@@ -129,6 +129,22 @@ return [
         'social_youtube'   => ['type' => 'Text', 'default' => 'https://www.youtube.com/user/Varaacom'],
         'copyright_name'   => ['type' => 'Text', 'default' => 'Varaa.com Digital Oy'],
         'copyright_url'    => ['type' => 'Text', 'default' => 'http://varaa.com'],
-        'enable_cart'      => ['type' => 'Radio', 'default' => true],
+        //----------------------------------------------------------------------
+        //  Country code
+        //----------------------------------------------------------------------
+        'phone_country_code' => ['type' => 'Text', 'default' => '358'],
+        //----------------------------------------------------------------------
+        // Symbol of the currency applying to the whole system
+        //----------------------------------------------------------------------
+        'currency'           => ['type' => 'Text', 'default' => '&euro;'],
+        //----------------------------------------------------------------------
+        // Globally enable shopping cart
+        //----------------------------------------------------------------------
+        'enable_cart'        => ['type' => 'Radio', 'default' => true],
+        //----------------------------------------------------------------------
+        //  The commission rate that takes from businesses
+        //  Default is 30%
+        //----------------------------------------------------------------------
+        'commission_rate'    => ['type' => 'Text', 'default' => 0.3],
     ]
 ];
