@@ -6,6 +6,7 @@ class Settings
 {
     protected static $instance;
     public $settings = [];
+    public $groups = [];
 
     public function __construct()
     {
@@ -32,5 +33,37 @@ class Settings
         }
 
         return $instance->settings[$key];
+    }
+
+    /**
+     * Get a group of settings having the same prefix
+     *
+     * @param  string $name Group's name
+     *
+     * @return array
+     */
+    public static function group($name, $default = [])
+    {
+        $instance = self::getInstance();
+        if (isset($instance->groups[$name])) {
+            return $instance->groups[$name];
+        }
+
+        // Get settings by group
+        $group = [];
+        foreach ($instance->settings as $key => $value) {
+            $pattern = $name.'_';
+            if (strpos($key, $pattern) === 0) {
+                $group[str_replace($pattern, '', $key)] = $value;
+            }
+        }
+
+        $instance->groups[$name] = $group;
+
+        if (empty($group)) {
+            return $default;
+        }
+
+        return $group;
     }
 }
