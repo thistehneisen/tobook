@@ -343,9 +343,6 @@ class Bookings extends AsBase
         $modifyTime = Input::get('modify_times');
         try {
             $booking  = Booking::findOrFail($bookingId);
-            $bookingService = $booking->bookingServices()->first();
-            $bookingService->modify_time = $modifyTime;
-            $bookingService->save();
 
             $receptionist = new BackendReceptionist();
             $receptionist->setBookingId($bookingId)
