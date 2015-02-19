@@ -249,11 +249,13 @@
                 booking_id = $(this).data('booking-id'),
                 uuid = $(this).data('uuid'),
                 start_time = $(this).data('start-time'),
+                modify_time = $('#modify_times').val(),
                 $table = $('#added_services');
             dataStorage.booking_service_id = booking_service_id;
             dataStorage.booking_id = booking_id;
             dataStorage.uuid = uuid;
             dataStorage.start_time = start_time;
+            dataStorage.modify_time = modify_time;
             $.ajax({
                 type: 'POST',
                 url: $('#delete_booking_service_url').val(),
@@ -281,7 +283,6 @@
             dataStorage.start_time   = $('#start_time').val();
             dataStorage.uuid         = $('#booking_uuid').val();
             dataStorage.booking_id   = $('#booking_id').val();
-            dataStorage.modify_time  = $('#modify_times').val();
             $.ajax({
                 type: 'POST',
                 url: $('#add_service_url').val(),

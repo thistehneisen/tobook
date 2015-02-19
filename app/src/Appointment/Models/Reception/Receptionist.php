@@ -387,6 +387,14 @@ abstract class Receptionist implements ReceptionistInterface
 
     public function validateWithExistingBooking()
     {
+        //upsert booking service
+        if(!empty($this->serviceId)) {
+            $bookingServicesCount = BookingService::where('tmp_uuid', $this->uuid)
+                ->whereNull('deleted_at')->orderBy('start_at', 'ASC')->count();
+            if($bookingServicesCount == 0) {
+                $this->endTime->addMinutes($this->modifyTime);
+            }
+        }
         //Check is there any existed booking with this service time
         $isBookable = Booking::isBookable(
             $this->employeeId,
