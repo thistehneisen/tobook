@@ -66,7 +66,7 @@ return [
     'settings' => [
         'site_name'        => ['type' => 'Text', 'default' => 'EnklareBokning'],
         'head_script'      => ['type' => 'Textarea', 'default' => $head_script],
-        'bottom_script'    => ['type' => 'Textarea'],
+        'bottom_script'    => ['type' => 'Textarea', 'default' => ''],
         'allow_robots'     => ['type' => 'Radio', 'default' => true],
         //----------------------------------------------------------------------
         //  Country code
