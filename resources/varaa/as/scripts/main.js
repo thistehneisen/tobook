@@ -150,20 +150,21 @@
                     alertify.message("OK");
                 });
             });
-            return '<div class="popover_form" id="' + div_id + '"><img src="/built/core/img/busy.gif"></div>';
+            return '<div class="popover_form" id="' + div_id + '"><img src="/built/varaa/core/img/busy.gif"></div>';
         }
         $('a.popup-ajax').click(function (e) {
             e.preventDefault();
             // Hide previous open popover
-            $('a.popup-ajax').popover('hide');
+            //$('a.popup-ajax').popover('hide');
         }).popover({
             html: true,
             placement: function (context, source) {
                 var position = $(source).position(),
-                    width    = $(source).width(),
+                    width = $(source).width(),
                     fullwidth = $('.as-calendar').width(),
                     popover_width = $('.popover-content').width(),
                     placement = 'right';
+
                 if (position.left + width + popover_width > fullwidth) {
                     placement = 'left';
                 }
