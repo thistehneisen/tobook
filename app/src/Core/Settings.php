@@ -1,6 +1,7 @@
 <?php namespace App\Core;
 
 use App;
+use Config;
 
 class Settings
 {
@@ -27,8 +28,13 @@ class Settings
 
     public static function get($key, $default = null)
     {
+
         $instance = self::getInstance();
         if (!isset($instance->settings[$key])) {
+            // Get default value from configuration file
+            if ($default === null) {
+                $default = Config::get('varaa.settings.'.$key.'.default', null);
+            }
             return $default;
         }
 
