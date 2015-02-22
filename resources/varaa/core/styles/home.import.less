@@ -234,10 +234,14 @@
     }
 
     .search-results {
+        margin-top: 15px;
+
         .heading {
             font-weight: 300;
+            color: @text_dark;
+
             .keyword, .results {
-                font-weight: 700;
+                font-weight: 400;
             }
         }
 
@@ -251,6 +255,19 @@
         .map {
             height: 500px;
         }
+
+        .small-map {
+            height: 200px;
+        }
+    }
+
+    .sub-heading {
+        font-family: "Bariol", "Roboto", sans-serif;
+        color: @primary_color;
+    }
+
+    .table-working-hours td:nth-child(2n+1) {
+        font-weight: 700;
     }
 
 }

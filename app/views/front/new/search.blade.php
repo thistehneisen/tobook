@@ -35,13 +35,13 @@ $(function() {
 
 @section('content')
 <div class="container search-results">
-    <h3 class="heading">
+    <h4 class="heading">
         <span class="keyword">Frizētava</span>,
         <span class="location">Centrs</span>,
         jebkurā dienā,
         jebkurā laikā:
         <span class="results">38 rezultāti</span>
-    </h3>
+    </h4>
 
     <div class="row">
         {{-- left sidebar --}}
