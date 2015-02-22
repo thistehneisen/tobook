@@ -3,9 +3,11 @@
 Route::pattern('id', '[0-9]+');
 Route::pattern('slug', '[a-z0-9-]+');
 
-Route::get('new', function() {
-    return View::make('front.new.home');
+Route::get('new/{page?}', function($page = null) {
+    if ($page === null) $page = 'home';
+    return View::make('front.new.'.$page);
 });
+
 
 /*
 |--------------------------------------------------------------------------

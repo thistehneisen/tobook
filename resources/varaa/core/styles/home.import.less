@@ -11,6 +11,29 @@
     }
 }
 
+.front-nav {
+    padding-top: 15px;
+
+    li {
+        margin-right: 40px;
+        a {
+            text-transform: uppercase;
+            color: @text_light;
+            text-decoration: none;
+            font-size: 1.45em;
+            font-weight: 400;
+        }
+    }
+
+
+    li:last-child a {
+        color: @primary_color;
+        background-color: rgba(255,255,255,.8);
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+}
+
 .front {
     .hero-form {
         .img-bg {
@@ -35,6 +58,12 @@
         .fa-fw {
             font-size: 1.4em;
             color: @primary_color;
+        }
+
+        .btn:focus, .form-control:focus {
+            outline: none;
+            box-shadow: none;
+            border: none;
         }
 
         .heading {
@@ -73,6 +102,7 @@
         .heading {
             text-transform: uppercase;
             color: @primary_color;
+            margin: 25px auto;
         }
 
         .list-categories {

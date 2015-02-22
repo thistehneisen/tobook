@@ -6,6 +6,10 @@
 
 @section('main-classes') front @stop
 
+@section('search')
+    @include ('el.search.front')
+@stop
+
 @section('content')
 <div class="hero-form">
     <div class="img-bg">
