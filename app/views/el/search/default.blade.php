@@ -1,4 +1,5 @@
-<div class="search-wrapper container-fluid">
+<div class="search-wrapper">
+<div class="container-fluid">
     <div class="row">
     @section('main-search')
         <div id="category-menu" class="hidden-sm hidden-xs">
@@ -6,7 +7,7 @@
                 @foreach ($businessCategories as $category)
                 <li class="dropdown">
                     <a href="{{ route('search') }}?q={{ urlencode($category->name) }}">
-                        <i class="fa {{ $category->icon }}"></i>
+                        <img src="{{ asset_path('core/img/new/icons/small/'.$category->icon.'.png') }}" alt="">
                         {{ $category->name }}
                         <span class="caret"></span>
                     </a>
@@ -20,27 +21,38 @@
             </ul>
         </div>
 
-        {{ Form::open(['route' => 'search', 'method' => 'GET', 'class' => 'form-inline', 'id' => 'main-search-form']) }}
-            <div class="form-group">
-                <div class="input-group input-group">
-                    <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                    <input type="text" class="form-control typeahead" id="js-queryInput" name="q" placeholder="{{ trans('home.search.query') }}" value="{{{ Input::get('q') }}}" />
+        {{ Form::open(['route' => 'search', 'method' => 'GET', 'class' => 'form-inline default-search-form', 'id' => 'main-search-form']) }}
+            <div class="form-group row">
+                <div class="input-group margin-bottom-md">
+                    <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
+                    <input class="form-control" type="text" id="js-queryInput" name="q" placeholder="{{ trans('home.search.query') }}" value="{{{ Input::get('q') }}}">
                 </div>
+
+                <div class="input-group margin-bottom-md">
+                    <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
+                    <input type="text" class="form-control" id="js-locationInput" name="location" placeholder="{{ trans('home.search.location') }}" value="{{{ Input::get('location') }}}">
+                </div>
+
+                <button type="submit" class="btn btn-success">{{ trans('common.search') }}</button>
             </div>
 
-            <div class="form-group">
-                <div class="input-group input-group">
-                    <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
-                    <input type="text" class="form-control" id="js-locationInput" name="location" placeholder="{{ trans('home.search.location') }}" value="{{{ Input::get('location') }}}" />
-                </div>
+            <div class="datetime-wrapper row">
+                <a href="#" class="datetime">
+                    <i class="fa fa-calendar fa-big"></i> Date
+                    <i class="fa fa-chevron-down fa-small"></i>
+                </a>
+
+                <a href="#" class="datetime">
+                    <i class="fa fa-clock-o fa-big"></i> Time
+                    <i class="fa fa-chevron-down fa-small"></i>
+                </a>
             </div>
 
             {{ Form::hidden('lat', Session::get('lat')) }}
             {{ Form::hidden('lng', Session::get('lng')) }}
-
-            <button type="submit" class="btn btn-success">{{ trans('common.search') }}</button>
         {{ Form::close() }}
 
     @show
     </div>
+</div>
 </div>

@@ -34,8 +34,48 @@
     }
 }
 
+.default-search-form {
+    .input-group-addon {
+        background-color: #fff;
+    }
+    .fa-fw {
+        font-size: 1.4em;
+        color: @primary_color;
+    }
+
+    .datetime-wrapper {
+        margin: 15px 0 5px 0;
+    }
+
+    .datetime {
+        color: @text_light;
+        margin-right: 50px;
+
+        .fa-big {
+            font-size: 1.4em;
+            margin-right: 10px;
+        }
+
+        .fa-small {
+            font-size: 0.8em;
+            margin-left: 5px;
+        }
+    }
+}
+
 .front {
     .hero-form {
+        .default-search-form();
+        .input-group .form-control:last-child {
+            border-left: 0;
+        }
+
+        .btn:focus, .form-control:focus {
+            outline: none;
+            box-shadow: none;
+            border: none;
+        }
+
         .img-bg {
             background: transparent url(../img/new/hero.jpg) center center no-repeat;
             min-height: 457px;
@@ -48,24 +88,6 @@
             margin-top: 60px;
         }
 
-        .input-group-addon {
-            background-color: #fff;
-        }
-        .input-group .form-control:last-child {
-            border-left: 0;
-        }
-
-        .fa-fw {
-            font-size: 1.4em;
-            color: @primary_color;
-        }
-
-        .btn:focus, .form-control:focus {
-            outline: none;
-            box-shadow: none;
-            border: none;
-        }
-
         .heading {
             font-family: "Bariol", "Roboto", sans-serif;
             color: @text_light;
@@ -76,21 +98,6 @@
         .btn-submit {
             font-family: "Bariol", "Roboto", sans-serif;
             text-transform: uppercase;
-        }
-
-        .datetime {
-            color: @text_light;
-            margin-right: 50px;
-
-            .fa-big {
-                font-size: 1.4em;
-                margin-right: 10px;
-            }
-
-            .fa-small {
-                font-size: 0.8em;
-                margin-left: 5px;
-            }
         }
     }
 
@@ -253,6 +260,7 @@
         }
 
         .map {
+            margin-top: 15px;
             height: 500px;
         }
 
