@@ -145,7 +145,14 @@ class OldDataMover
         Log::info('Move stamp campaigns of user '.$user->email);
 
         $table = $oldUserId.'_stamps';
-        $result = $this->db->table($table)->get();
+
+        $result = [];
+        try {
+            $result = $this->db->table($table)->get();
+        } catch (\Illuminate\Database\QueryException $ex) {
+            Log::error('User did not have table _stamps', ['user' => $user->email]);
+            return;
+        }
         foreach ($result as $item) {
             // The corresponding "stamp campaigns" is "offers"
             $offer = new Offer([
@@ -181,7 +188,13 @@ class OldDataMover
 
         // Get all stamp history of this user
         $table = $oldUserId.'_userstamps';
-        $result = $this->db->table($table)->get();
+        $result = [];
+        try {
+            $result = $this->db->table($table)->get();
+        } catch (\Illuminate\Database\QueryException $ex) {
+            Log::error('User did not have table _userstamps', ['user' => $user->email]);
+            return;
+        }
         foreach ($result as $item) {
             $consumerId = isset($this->consumerMap[$item->userid])
                 ? $this->consumerMap[$item->userid]
@@ -249,7 +262,13 @@ class OldDataMover
         Log::info('Move point campaigns of '.$user->email);
 
         $table = $oldUserId.'_giftavailable';
-        $result = $this->db->table($table)->get();
+        $result = [];
+        try {
+            $result = $this->db->table($table)->get();
+        } catch (\Illuminate\Database\QueryException $ex) {
+            Log::error('User did not have table _giftavailable', ['user' => $user->email]);
+            return;
+        }
         foreach ($result as $item) {
             // Likewise, "point campaigns" are "vouchers"
             $voucher = new Voucher([
@@ -283,10 +302,18 @@ class OldDataMover
 
         // Use to calculate the total points a customer has
         $collector = [];
+        $rows = [];
 
-        $rows = $this->db->table($oldUserId.'_usergift')
-            ->where('userid', $oldUserId)
-            ->get();
+        try {
+            $rows = $this->db->table($oldUserId.'_usergift')
+                ->where('userid', $oldUserId)
+                ->get();
+        } catch (\Illuminate\Database\QueryException $ex) {
+            Log::error('User did not have table _usergift', ['user' => $user->email]);
+
+            return;
+        }
+
         foreach ($rows as $row) {
             $consumerId = isset($this->consumerMap[$row->userid])
                 ? $this->consumerMap[$row->userid]
