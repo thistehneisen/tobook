@@ -10,3 +10,196 @@
         padding: 0 10px;
     }
 }
+
+.front {
+    .hero-form {
+        .img-bg {
+            background: transparent url(../img/new/hero.jpg) center center no-repeat;
+            min-height: 457px;
+            margin: 0;
+            padding: 0;
+            background-size: cover;
+        }
+
+        .form-search {
+            margin-top: 60px;
+        }
+
+        .input-group-addon {
+            background-color: #fff;
+        }
+        .input-group .form-control:last-child {
+            border-left: 0;
+        }
+
+        .fa-fw {
+            font-size: 1.4em;
+            color: @primary_color;
+        }
+
+        .heading {
+            font-family: "Bariol", "Roboto", sans-serif;
+            color: @text_light;
+            font-weight: 300;
+            font-size: 3em;
+        }
+
+        .btn-submit {
+            font-family: "Bariol", "Roboto", sans-serif;
+            text-transform: uppercase;
+        }
+
+        .datetime {
+            color: @text_light;
+            margin-right: 50px;
+
+            .fa-big {
+                font-size: 1.4em;
+                margin-right: 10px;
+            }
+
+            .fa-small {
+                font-size: 0.8em;
+                margin-left: 5px;
+            }
+        }
+    }
+
+    .categories {
+        margin-top: 70px;
+        margin-bottom: 150px;
+        text-align: center;
+
+        .heading {
+            text-transform: uppercase;
+            color: @primary_color;
+        }
+
+        .list-categories {
+            padding: 0;
+            list-style: none;
+
+            a {
+                color: #898989;
+            }
+
+            li:last-child {
+                margin-top: 20px;
+
+                a {
+                    color: @text_dark;
+                    font-weight: 700;
+                }
+            }
+        }
+    }
+
+    .hot-offers {
+        >.heading {
+            font-family: "Bariol", "Roboto", sans-serif;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+
+        .filters {
+            >li {
+                font-weight: 700;
+                >ul {
+                    list-style-type: none;
+                    >li {
+                        margin: 8px 0;
+                        a {
+                            color: @text_dark;
+                            font-weight: 400;
+                        }
+                    }
+                }
+            }
+        }
+
+        .offer {
+            padding: 0 15px 15px 15px;
+
+            .image {
+                .badge-wrapper {
+                    width: 100px;
+                    height: 100px;
+                    overflow: hidden;
+                    position: absolute;
+                    top: -1px;
+                    right: -3px;
+                }
+
+                .badge {
+                    font: 300 1.7em sans-serif;
+                    position: relative;
+                    padding: 35px 0 15px 0;
+                    left: 15px;
+                    top: -20px;
+                    width: 137px;
+                    background-color: @primary_color;
+                    color: #fff;
+                    text-align: center;
+                    -webkit-transform: rotate(45deg);
+                    -moz-transform:    rotate(45deg);
+                    -ms-transform:     rotate(45deg);
+                    -o-transform:      rotate(45deg);
+                }
+            }
+
+            .normal-price {
+                position: relative;
+                margin-right: 25px;
+                color: #aaa;
+
+                &:before {
+                  position: absolute;
+                  content: "";
+                  left: 0;
+                  top: 50%;
+                  right: 0;
+                  border-top: 1px solid;
+                  border-color: inherit;
+
+                  -webkit-transform:rotate(-5deg);
+                  -moz-transform:rotate(-5deg);
+                  -ms-transform:rotate(-5deg);
+                  -o-transform:rotate(-5deg);
+                  transform:rotate(-5deg);
+                }
+            }
+
+            .offered-price {
+                color: @primary_color;
+                font-weight: 700;
+
+                em {
+                    font-size: 1.5em;
+                    font-style: normal;
+                }
+            }
+
+            .title {
+                font-weight: 700;
+                border-top: 1px solid #ddd;
+                padding-top: 10px;
+            }
+
+            .desc {
+                display: block; /* Fallback for non-webkit */
+                display: -webkit-box;
+                display: -moz-box;
+                display: -ms-flexbox;
+                // max-width: 400px;
+                height: 39.2px; /* Fallback for non-webkit */
+                // margin: 0 auto;
+                // font-size: $font-size;
+                // line-height: $line-height;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+    }
+}
