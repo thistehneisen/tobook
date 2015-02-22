@@ -35,20 +35,32 @@ class OldDataMover
         $this->db = DB::connection('old');
 
         // Check if old data existed
+        $blogId = null;
         try {
-            $row = $this->db->table($oldUserId.'_sm_clients')->take(1)->get();
+            $row = $this->db->table('blogs')
+                ->where('domain', 'LIKE', '%'.$username.'%')
+                ->first();
+            $blogId = $row->blog_id;
         } catch (\Exception $ex) {
             Log::error('It seems there is no existing tables for user '.$oldUserId);
 
+            $job->delete();
+            return;
+        }
+
+        if ($blogId === null) {
+            Log::error('Cannot find the blog ID of user '.$oldUserId);
+
+            $job->delete();
             return;
         }
 
         // Start moving data
-        $this->moveCustomers($oldUserId, $user);
-        $this->moveStamps($oldUserId, $user);
-        $this->movePoints($oldUserId, $user);
-        $this->moveStampHistory($oldUserId, $user);
-        $this->movePointHistory($oldUserId, $user);
+        $this->moveCustomers($blogId, $user);
+        $this->moveStamps($blogId, $user);
+        $this->movePoints($blogId, $user);
+        $this->moveStampHistory($blogId, $user);
+        $this->movePointHistory($blogId, $user);
 
         // Done the job
         $job->delete();
