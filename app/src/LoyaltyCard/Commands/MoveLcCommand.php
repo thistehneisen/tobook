@@ -117,7 +117,7 @@ class MoveLcCommand extends Command
                 $user->id, // User ID in the new system
             ]);
 
-            $this->warning('Enqueue to move data for '.$username);
+            $this->info('Enqueue to move data for '.$username);
         }
     }
 }
