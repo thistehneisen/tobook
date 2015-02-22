@@ -12,5 +12,15 @@ return [
             'collation' => 'utf8_unicode_ci',
             'prefix'    => 'varaa_',
         ],
+        'old' => [
+            'driver'    => 'mysql',
+            'host'      => 'varaa.com',
+            'database'  => 'varaa_wpdb',
+            'username'  => 'varaa_userdb',
+            'password'  => 'E$7iS6Km)TNM',
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => 'wp_',
+        ]
     ],
 ];
