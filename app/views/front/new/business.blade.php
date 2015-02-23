@@ -60,11 +60,11 @@ $(function() {
     <a href="/new/search">
         <h4 class="heading">
             <i class="fa fa-chevron-left"></i>
-            <span class="keyword">Frizētava</span>,
-            <span class="location">Centrs</span>,
-            jebkurā dienā,
-            jebkurā laikā:
-            <span class="results">38 rezultāti</span>
+            <span class="keyword">Barber shop</span>,
+            <span class="location">Center</span>,
+            any date,
+            any time:
+            <span class="results">38 results</span>
         </h4>
     </a>
 
@@ -79,7 +79,7 @@ $(function() {
             </div>
 
         @if (!empty($business->description))
-            <h3 class="sub-heading">Par mums</h3>
+            <h3 class="sub-heading">About</h3>
             <div class="description">
                 {{{ $business->description_html }}}
             </div>

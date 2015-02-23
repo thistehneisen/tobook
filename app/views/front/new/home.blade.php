@@ -17,10 +17,10 @@
             {{ Form::open(['url' => '/new/search', 'class' => 'form-search', 'method' => 'GET']) }}
                 <div class="form-group row">
                     <div class="col-sm-4 col-md-4">
-                        <h2 class="heading">Pieraksties pakalpojumam!</h2>
+                        <h2 class="heading">Looking for a service</h2>
                         <div class="input-group margin-bottom-lg">
                             <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
-                            <input class="form-control input-lg" type="text" placeholder="Pakalpojums vai uzņēmums">
+                            <input class="form-control input-lg" type="text" placeholder="Service or company">
                         </div>
                     </div>
                 </div>
@@ -29,12 +29,12 @@
                     <div class="col-sm-3 col-md-3">
                         <div class="input-group margin-bottom-lg">
                             <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
-                            <input class="form-control input-lg" type="text" placeholder="Riga">
+                            <input class="form-control input-lg" type="text" placeholder="Helsinki">
                         </div>
                     </div>
 
                     <div class="col-sm-1 col-md-1">
-                        <button type="submit" class="btn btn-lg btn-success pull-right">Meklēt</button>
+                        <button type="submit" class="btn btn-lg btn-success pull-right">Search</button>
                     </div>
                 </div>
 
@@ -58,76 +58,23 @@
 
 <div class="container">
     <div class="row categories">
+        @foreach (\App\Core\Models\BusinessCategory::getAll() as $category)
             <div class="col-sm-2 col-md-2">
-                <p><img src="{{ asset_path('core/img/new/icons/beauty.png') }}" alt=""></p>
-                <h4 class="heading">Skaistums</h4>
+                <p><img src="{{ asset_path('core/img/new/icons/'.$category->new_icon.'.png') }}" alt=""></p>
+                <h4 class="heading">{{{ $category->name }}}</h4>
                 <ul class="list-categories">
-                    <li><a href="#">Skaitums</a></li>
-                    <li><a href="#">Skaitums</a></li>
-                    <li><a href="#">Skaitums</a></li>
-                    <li><a href="#">Skaitums <i class="fa fa-chevron-right"></i></a></li>
+                @foreach ($category->children as $child)
+                    <li><a href="#">{{{ $child->name }}}</a></li>
+                @endforeach
+                    <li><a href="#">View all <i class="fa fa-chevron-right"></i></a></li>
                 </ul>
             </div>
-
-            <div class="col-sm-2 col-md-2">
-                <p><img src="{{ asset_path('core/img/new/icons/auto.png') }}" alt=""></p>
-                <h4 class="heading">Skaistums</h4>
-                <ul class="list-categories">
-                    <li><a href="#">Skaitums</a></li>
-                    <li><a href="#">Skaitums</a></li>
-                    <li><a href="#">Skaitums</a></li>
-                    <li><a href="#">Skaitums <i class="fa fa-chevron-right"></i></a></li>
-                </ul>
-            </div>
-
-            <div class="col-sm-2 col-md-2">
-                <p><img src="{{ asset_path('core/img/new/icons/home.png') }}" alt=""></p>
-                <h4 class="heading">Skaistums</h4>
-                <ul class="list-categories">
-                    <li><a href="#">Skaitums</a></li>
-                    <li><a href="#">Skaitums</a></li>
-                    <li><a href="#">Skaitums</a></li>
-                    <li><a href="#">Skaitums <i class="fa fa-chevron-right"></i></a></li>
-                </ul>
-            </div>
-
-            <div class="col-sm-2 col-md-2">
-                <p><img src="{{ asset_path('core/img/new/icons/activities.png') }}" alt=""></p>
-                <h4 class="heading">Skaistums</h4>
-                <ul class="list-categories">
-                    <li><a href="#">Skaitums</a></li>
-                    <li><a href="#">Skaitums</a></li>
-                    <li><a href="#">Skaitums</a></li>
-                    <li><a href="#">Skaitums <i class="fa fa-chevron-right"></i></a></li>
-                </ul>
-            </div>
-
-            <div class="col-sm-2 col-md-2">
-                <p><img src="{{ asset_path('core/img/new/icons/fitness.png') }}" alt=""></p>
-                <h4 class="heading">Skaistums</h4>
-                <ul class="list-categories">
-                    <li><a href="#">Skaitums</a></li>
-                    <li><a href="#">Skaitums</a></li>
-                    <li><a href="#">Skaitums</a></li>
-                    <li><a href="#">Skaitums <i class="fa fa-chevron-right"></i></a></li>
-                </ul>
-            </div>
-
-            <div class="col-sm-2 col-md-2">
-                <p><img src="{{ asset_path('core/img/new/icons/wellness.png') }}" alt=""></p>
-                <h4 class="heading">Skaistums</h4>
-                <ul class="list-categories">
-                    <li><a href="#">Skaitums</a></li>
-                    <li><a href="#">Skaitums</a></li>
-                    <li><a href="#">Skaitums</a></li>
-                    <li><a href="#">Skaitums <i class="fa fa-chevron-right"></i></a></li>
-                </ul>
-            </div>
+        @endforeach
     </div>
 
     <div class="row">
         <div class="hot-offers">
-            <h1 class="heading">Izdevīgākie piedāvājumi (96)</h1>
+            <h1 class="heading">Hot deals (96)</h1>
             <div class="col-sm-4 col-md-4">
                 <ul class="list-unstyled filters">
                     <li>Kategorija

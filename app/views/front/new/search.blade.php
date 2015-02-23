@@ -40,11 +40,11 @@ $(function() {
 @section('content')
 <div class="container search-results">
     <h4 class="heading">
-        <span class="keyword">Frizētava</span>,
-        <span class="location">Centrs</span>,
-        jebkurā dienā,
-        jebkurā laikā:
-        <span class="results">38 rezultāti</span>
+        <span class="keyword">Barber shop</span>,
+        <span class="location">Center</span>,
+        any date,
+        any time:
+        <span class="results">38 results</span>
     </h4>
 
     <div class="row">
