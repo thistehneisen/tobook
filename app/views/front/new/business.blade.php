@@ -4,6 +4,10 @@
     @parent :: {{{ $business->name }}}
 @stop
 
+@section('search')
+    @include ('el.search.newdefault', ['businessCategories' => \App\Core\Models\BusinessCategory::getAll()])
+@stop
+
 @section('scripts')
     <script>
     // Dump inline data
