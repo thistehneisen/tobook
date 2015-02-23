@@ -12,6 +12,7 @@ paths =
   base: __dirname + '/resources'
   tmp: __dirname + '/resources/tmp'
   img: ['resources/tmp/**/img/**/*.*']
+  fonts: ['resources/tmp/**/fonts/**/*.*']
   js: ['resources/tmp/**/scripts/**/*.js', '!resources/tmp/**/scripts/**/*.min.js']
   coffee: ['resources/tmp/**/scripts/**/*.coffee']
   less: ['resources/tmp/**/styles/**/*.less', '!resources/tmp/**/styles/**/*.import.less']
@@ -19,6 +20,11 @@ paths =
 # Do nothing, just copy images to proper folders
 gulp.task 'img', ->
   gulp.src paths.img, base: paths.tmp
+    .pipe chmod 755
+    .pipe gulp.dest paths.dest
+
+gulp.task 'fonts', ->
+  gulp.src paths.fonts, base: paths.tmp
     .pipe chmod 755
     .pipe gulp.dest paths.dest
 
@@ -74,7 +80,7 @@ gulp.task 'clone', ->
         .pipe gulp.dest target
 
 # Build assets to be ready for production
-gulp.task 'build', ['clone', 'coffee', 'less', 'img'], ->
+gulp.task 'build', ['clone', 'coffee', 'less', 'img', 'fonts'], ->
   # Folder `resources` has this structure
   # ```
   #   varaa            <---------------- Based assets
