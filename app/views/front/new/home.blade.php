@@ -14,7 +14,7 @@
 <div class="hero-form">
     <div class="img-bg">
         <div class="container">
-            <form action="#" class="form-search">
+            {{ Form::open(['url' => '/new/search', 'class' => 'form-search', 'method' => 'GET']) }}
                 <div class="form-group row">
                     <div class="col-sm-4 col-md-4">
                         <h2 class="heading">Pieraksties pakalpojumam!</h2>
@@ -51,7 +51,7 @@
                         </a>
                     </div>
                 </div>
-            </form>
+            {{ Form::close() }}
         </div>
     </div>
 </div>
