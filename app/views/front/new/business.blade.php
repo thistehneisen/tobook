@@ -35,7 +35,7 @@ $(function() {
 
 @section('content')
 <div class="container search-results">
-    <a href="#">
+    <a href="/new/search">
         <h4 class="heading">
             <i class="fa fa-chevron-left"></i>
             <span class="keyword">Frizētava</span>,

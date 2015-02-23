@@ -166,7 +166,7 @@
                         <span class="normal-price">100 EUR</span>
                         <span class="offered-price"><em>50</em>,99 EUR</span>
                     </p>
-                    <h4 class="title">Viesnīca «Baltvilla»</h4>
+                    <h4 class="title"><a href="/new/search" title="">Viesnīca «Baltvilla»</a></h4>
                     <p class="desc">Vienvietīgie numuri par vienu nakti - 50,99 EUR, divvietīgie numuri par vienu nakti Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error pariatur aperiam perspiciatis tenetur cum ratione quo dignissimos, recusandae, animi quod et nulla officia facilis perferendis maxime iusto. Nobis, culpa, ea.</p>
                 </div>
 
@@ -176,7 +176,7 @@
                         <span class="normal-price">100 EUR</span>
                         <span class="offered-price"><em>50</em>,99 EUR</span>
                     </p>
-                    <h4 class="title">Viesnīca «Baltvilla»</h4>
+                    <h4 class="title"><a href="/new/search" title="">Viesnīca «Baltvilla»</a></h4>
                     <p class="desc">Vienvietīgie numuri par vienu nakti - 50,99 EUR, divvietīgie numuri par vienu nakti Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus doloremque quod eius! Accusantium, dolor adipisci nulla magnam sed rerum assumenda perspiciatis, doloremque error ab totam nam provident, laboriosam, cum sequi.</p>
                 </div>
             </div>
@@ -188,7 +188,7 @@
                         <span class="normal-price">100 EUR</span>
                         <span class="offered-price"><em>50</em>,99 EUR</span>
                     </p>
-                    <h4 class="title">Viesnīca «Baltvilla»</h4>
+                    <h4 class="title"><a href="/new/search" title="">Viesnīca «Baltvilla»</a></h4>
                     <p class="desc">Vienvietīgie numuri par vienu nakti - 50,99 EUR, divvietīgie numuri par vienu nakti Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium illum veniam nostrum deserunt id, est quos, rerum at minima molestiae laboriosam autem quod temporibus corporis, aliquid eos commodi voluptatem nobis.</p>
                 </div>
 
@@ -198,7 +198,7 @@
                         <span class="normal-price">100 EUR</span>
                         <span class="offered-price"><em>50</em>,99 EUR</span>
                     </p>
-                    <h4 class="title">Viesnīca «Baltvilla»</h4>
+                    <h4 class="title"><a href="/new/search" title="">Viesnīca «Baltvilla»</a></h4>
                     <p class="desc">Vienvietīgie numuri par vienu nakti - 50,99 EUR, divvietīgie numuri par vienu nakti Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse saepe vel aliquam iusto error mollitia, voluptas ratione inventore. Vitae, ullam, voluptatem ipsa debitis rerum autem natus aliquid provident optio in!</p>
                 </div>
             </div>
@@ -218,7 +218,7 @@
                     <span class="normal-price">100 EUR</span>
                     <span class="offered-price"><em>50</em>,99 EUR</span>
                 </p>
-                <h4 class="title">Viesnīca «Baltvilla»</h4>
+                <h4 class="title"><a href="/new/search" title="">Viesnīca «Baltvilla»</a></h4>
                 <p class="desc">Vienvietīgie numuri par vienu nakti - 50,99 EUR, divvietīgie numuri par vienu nakti Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error pariatur aperiam perspiciatis tenetur cum ratione quo dignissimos, recusandae, animi quod et nulla officia facilis perferendis maxime iusto. Nobis, culpa, ea.</p>
             </div>
 
@@ -228,7 +228,7 @@
                     <span class="normal-price">100 EUR</span>
                     <span class="offered-price"><em>50</em>,99 EUR</span>
                 </p>
-                <h4 class="title">Viesnīca «Baltvilla»</h4>
+                <h4 class="title"><a href="/new/search" title="">Viesnīca «Baltvilla»</a></h4>
                 <p class="desc">Vienvietīgie numuri par vienu nakti - 50,99 EUR, divvietīgie numuri par vienu nakti Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus doloremque quod eius! Accusantium, dolor adipisci nulla magnam sed rerum assumenda perspiciatis, doloremque error ab totam nam provident, laboriosam, cum sequi.</p>
             </div>
         </div>
@@ -245,7 +245,7 @@
                     <span class="normal-price">100 EUR</span>
                     <span class="offered-price"><em>50</em>,99 EUR</span>
                 </p>
-                <h4 class="title">Viesnīca «Baltvilla»</h4>
+                <h4 class="title"><a href="/new/search" title="">Viesnīca «Baltvilla»</a></h4>
                 <p class="desc">Vienvietīgie numuri par vienu nakti - 50,99 EUR, divvietīgie numuri par vienu nakti Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error pariatur aperiam perspiciatis tenetur cum ratione quo dignissimos, recusandae, animi quod et nulla officia facilis perferendis maxime iusto. Nobis, culpa, ea.</p>
             </div>
 
@@ -255,7 +255,7 @@
                     <span class="normal-price">100 EUR</span>
                     <span class="offered-price"><em>50</em>,99 EUR</span>
                 </p>
-                <h4 class="title">Viesnīca «Baltvilla»</h4>
+                <h4 class="title"><a href="/new/search" title="">Viesnīca «Baltvilla»</a></h4>
                 <p class="desc">Vienvietīgie numuri par vienu nakti - 50,99 EUR, divvietīgie numuri par vienu nakti Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus doloremque quod eius! Accusantium, dolor adipisci nulla magnam sed rerum assumenda perspiciatis, doloremque error ab totam nam provident, laboriosam, cum sequi.</p>
             </div>
         </div>
@@ -269,7 +269,7 @@
                     <span class="normal-price">100 EUR</span>
                     <span class="offered-price"><em>50</em>,99 EUR</span>
                 </p>
-                <h4 class="title">Viesnīca «Baltvilla»</h4>
+                <h4 class="title"><a href="/new/search" title="">Viesnīca «Baltvilla»</a></h4>
                 <p class="desc">Vienvietīgie numuri par vienu nakti - 50,99 EUR, divvietīgie numuri par vienu nakti Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error pariatur aperiam perspiciatis tenetur cum ratione quo dignissimos, recusandae, animi quod et nulla officia facilis perferendis maxime iusto. Nobis, culpa, ea.</p>
             </div>
 
@@ -279,7 +279,7 @@
                     <span class="normal-price">100 EUR</span>
                     <span class="offered-price"><em>50</em>,99 EUR</span>
                 </p>
-                <h4 class="title">Viesnīca «Baltvilla»</h4>
+                <h4 class="title"><a href="/new/search" title="">Viesnīca «Baltvilla»</a></h4>
                 <p class="desc">Vienvietīgie numuri par vienu nakti - 50,99 EUR, divvietīgie numuri par vienu nakti Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus doloremque quod eius! Accusantium, dolor adipisci nulla magnam sed rerum assumenda perspiciatis, doloremque error ab totam nam provident, laboriosam, cum sequi.</p>
             </div>
         </div>
