@@ -1,10 +1,23 @@
 @extends ('layouts.default')
 
 @section('title')
-    @parent :: {{ trans('common.home') }}
+    @parent :: {{{ $business->name }}}
 @stop
 
 @section('scripts')
+    <script>
+    // Dump inline data
+    VARAA.Search = VARAA.Search || {};
+    VARAA.Search.businesses = {{ $businessesJson }};
+    VARAA.Search.lat = {{ $lat }};
+    VARAA.Search.lng = {{ $lng }};
+@if(!empty($categoryId) && !empty($serviceId))
+    VARAA.Search.categoryId = {{ $categoryId }};
+    VARAA.Search.serviceId = {{ $serviceId }};
+    VARAA.Search.employeeId = {{ $employeeId }};
+    VARAA.Search.time = {{ $time }};
+@endif
+    </script>
 
     {{ HTML::script('//maps.googleapis.com/maps/api/js?v=3.exp&language='.App::getLocale()) }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.12/gmaps.min.js') }}
@@ -19,11 +32,16 @@
 $(function() {
     new GMaps({
       div: '#map-canvas',
-      lat: -12.043333,
-      lng: -77.028333
+      lat: {{ $lat }},
+      lng: {{ $lng }}
+    });
+
+    VARAA.initLayout3({
+        isAutoSelectEmployee: false
     });
 });
     </script>
+    {{ HTML::script(asset_path('core/scripts/search.js')) }}
 @stop
 
 @section('styles')
@@ -49,22 +67,32 @@ $(function() {
     <div class="row">
         {{-- left sidebar --}}
         <div class="col-sm-8 col-md-8">
-            <h1>Seules Salons</h1>
-            <address>Brīvības iela 18, Rīga</address>
+            <h1>{{{ $business->name }}}</h1>
+            <address>{{{ $business->full_address }}}</address>
 
             <div class="slideshow">
                 <p><img src="{{ asset_path('core/img/new/business.jpg') }}" alt=""></p>
             </div>
 
+        @if (!empty($business->description))
             <h3 class="sub-heading">Par mums</h3>
             <div class="description">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit accusantium saepe, ipsum voluptas aliquam, unde totam officia distinctio recusandae voluptates ipsam, quam hic odit illo voluptatum praesentium quod minus tempore.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus repudiandae error dolores inventore distinctio dolorem in tempora autem amet pariatur! Ratione obcaecati suscipit expedita molestias asperiores laudantium, tenetur mollitia debitis!</p>
+                {{{ $business->description_html }}}
             </div>
+        @endif
         </div>
 
         {{-- right sidebar --}}
         <div class="col-sm-4 col-md-4">
+            @if ($business->isUsingAs)
+            <div class="box">
+                {{-- `$inhouse = true` means that we'll show login/register secion in step 4 --}}
+                <input type="hidden" id="business_id" value="{{ $business->id }}">
+                <input type="hidden" id="business_hash" value="{{ $business->user->hash }}">
+                @include('modules.as.embed.layout-3.main', ['inhouse' => Settings::get('enable_cart'), 'hash' => $business->user->hash])
+            </div>
+            @endif
+
             <h3 class="sub-heading">Map</h3>
             <div id="map-canvas" class="small-map"></div>
 
@@ -73,37 +101,27 @@ $(function() {
                     <h3 class="sub-heading">Openning hours</h3>
                     <table class="table table-working-hours">
                         <tbody>
+                        @foreach ($business->working_hours_array as $day => $value)
                             <tr>
-                                <td>Mon</td>
-                                <td>10:00 - 19:00</td>
+                                <td>{{ trans('common.short.'.$day) }}</td>
+                                <td>{{ with(new Carbon\Carbon($value['start']))->format('H:i') }} &ndash; {{ with(new Carbon\Carbon($value['end']))->format('H:i') }}</td>
+                                <td>
+                                    @if (!empty($value['extra'])) {{{ $value['extra'] }}}
+                                    @endif
+                                </td>
                             </tr>
-                            <tr>
-                                <td>Tue</td>
-                                <td>10:00 - 19:00</td>
-                            </tr>
-                            <tr>
-                                <td>Wed</td>
-                                <td>10:00 - 19:00</td>
-                            </tr>
-                            <tr>
-                                <td>Thu</td>
-                                <td>10:00 - 19:00</td>
-                            </tr>
-
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
                 <div class="col-sm-6 col-md-6">
                     <h3 class="sub-heading">Contact</h3>
-                    <p><strong>Administratore:</strong></p>
-                    <p>123456 789</p>
-                    <p>123456 789</p>
 
-                    <p><strong>Mobilais:</strong></p>
-                    <p>123 456 789</p>
+                    <p><strong>Phone:</strong></p>
+                    <p>{{{ $business->phone }}}</p>
 
                     <p><strong>E-mail</strong></p>
-                    <p>abak@alnal.com</p>
+                    <p>{{{ $business->user->email }}}</p>
                 </div>
             </div>
         </div>

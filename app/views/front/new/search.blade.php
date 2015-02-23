@@ -49,7 +49,7 @@ $(function() {
             <div class="businesses">
                 <div class="business">
                     <p><img src="{{ asset_path('core/img/categories/beauty/beauty1.jpg') }}" alt="" class="img-responsive"></p>
-                    <h4><a href="/new/business" title="">Saules salons</a> <small>
+                    <h4><a href="/new/business/70" title="">Saules salons</a> <small>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
@@ -59,7 +59,7 @@ $(function() {
 
                 <div class="business">
                     <p><img src="{{ asset_path('core/img/categories/beauty/beauty1.jpg') }}" alt="" class="img-responsive"></p>
-                    <h4><a href="/new/business" title="">Saules salons</a> <small>
+                    <h4><a href="/new/business/70" title="">Saules salons</a> <small>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
@@ -69,7 +69,7 @@ $(function() {
 
                 <div class="business">
                     <p><img src="{{ asset_path('core/img/categories/beauty/beauty1.jpg') }}" alt="" class="img-responsive"></p>
-                    <h4><a href="/new/business" title="">Saules salons</a> <small>
+                    <h4><a href="/new/business/70" title="">Saules salons</a> <small>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
@@ -79,7 +79,7 @@ $(function() {
 
                 <div class="business">
                     <p><img src="{{ asset_path('core/img/categories/beauty/beauty1.jpg') }}" alt="" class="img-responsive"></p>
-                    <h4><a href="/new/business" title="">Saules salons</a> <small>
+                    <h4><a href="/new/business/70" title="">Saules salons</a> <small>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
@@ -130,7 +130,7 @@ $(function() {
                                 <span class="offered-price"><em>50</em>,
                                 9 EUR</span>
                             </p>
-                            <h4 class="title"><a href="/new/business" title="">Viesnīca «Baltvilla»</a></h4>
+                            <h4 class="title"><a href="/new/business/70" title="">Viesnīca «Baltvilla»</a></h4>
                             <p class="desc">Vienvietīgie numuri par vienu nakti - 50,99 EUR, divvietīgie numuri par vienu nakti Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error pariatur aperiam perspiciatis tenetur cum ratione quo dignissimos, recusandae, animi quod et nulla officia facilis perferendis maxime iusto. Nobis, culpa, ea.</p>
                         </div>
 
@@ -140,7 +140,7 @@ $(function() {
                                 <span class="normal-price">100 EUR</span>
                                 <span class="offered-price"><em>50</em>,99 EUR</span>
                             </p>
-                            <h4 class="title"><a href="/new/business" title="">Viesnīca «Baltvilla»</a></h4>
+                            <h4 class="title"><a href="/new/business/70" title="">Viesnīca «Baltvilla»</a></h4>
                             <p class="desc">Vienvietīgie numuri par vienu nakti - 50,99 EUR, divvietīgie numuri par vienu nakti Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus doloremque quod eius! Accusantium, dolor adipisci nulla magnam sed rerum assumenda perspiciatis, doloremque error ab totam nam provident, laboriosam, cum sequi.</p>
                         </div>
                     </div>
@@ -157,7 +157,7 @@ $(function() {
                                 <span class="normal-price">100 EUR</span>
                                 <span class="offered-price"><em>50</em>,99 EUR</span>
                             </p>
-                            <h4 class="title"><a href="/new/business" title="">Viesnīca «Baltvilla»</a></h4>
+                            <h4 class="title"><a href="/new/business/70" title="">Viesnīca «Baltvilla»</a></h4>
                             <p class="desc">Vienvietīgie numuri par vienu nakti - 50,99 EUR, divvietīgie numuri par vienu nakti Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error pariatur aperiam perspiciatis tenetur cum ratione quo dignissimos, recusandae, animi quod et nulla officia facilis perferendis maxime iusto. Nobis, culpa, ea.</p>
                         </div>
 
@@ -167,7 +167,7 @@ $(function() {
                                 <span class="normal-price">100 EUR</span>
                                 <span class="offered-price"><em>50</em>,99 EUR</span>
                             </p>
-                            <h4 class="title"><a href="/new/business" title="">Viesnīca «Baltvilla»</a></h4>
+                            <h4 class="title"><a href="/new/business/70" title="">Viesnīca «Baltvilla»</a></h4>
                             <p class="desc">Vienvietīgie numuri par vienu nakti - 50,99 EUR, divvietīgie numuri par vienu nakti Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus doloremque quod eius! Accusantium, dolor adipisci nulla magnam sed rerum assumenda perspiciatis, doloremque error ab totam nam provident, laboriosam, cum sequi.</p>
                         </div>
                     </div>
@@ -181,7 +181,7 @@ $(function() {
                                 <span class="normal-price">100 EUR</span>
                                 <span class="offered-price"><em>50</em>,99 EUR</span>
                             </p>
-                            <h4 class="title"><a href="/new/business" title="">Viesnīca «Baltvilla»</a></h4>
+                            <h4 class="title"><a href="/new/business/70" title="">Viesnīca «Baltvilla»</a></h4>
                             <p class="desc">Vienvietīgie numuri par vienu nakti - 50,99 EUR, divvietīgie numuri par vienu nakti Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error pariatur aperiam perspiciatis tenetur cum ratione quo dignissimos, recusandae, animi quod et nulla officia facilis perferendis maxime iusto. Nobis, culpa, ea.</p>
                         </div>
 
@@ -191,7 +191,7 @@ $(function() {
                                 <span class="normal-price">100 EUR</span>
                                 <span class="offered-price"><em>50</em>,99 EUR</span>
                             </p>
-                            <h4 class="title"><a href="/new/business" title="">Viesnīca «Baltvilla»</a></h4>
+                            <h4 class="title"><a href="/new/business/70" title="">Viesnīca «Baltvilla»</a></h4>
                             <p class="desc">Vienvietīgie numuri par vienu nakti - 50,99 EUR, divvietīgie numuri par vienu nakti Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus doloremque quod eius! Accusantium, dolor adipisci nulla magnam sed rerum assumenda perspiciatis, doloremque error ab totam nam provident, laboriosam, cum sequi.</p>
                         </div>
                     </div>
