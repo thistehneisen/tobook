@@ -16,6 +16,12 @@ class Index extends AsBase
     public function index($date = null)
     {
         $employees = Employee::ofCurrentUser()->orderBy('order')->get();
+
+        // show employee view by default if business has only 1 employee
+        if (count($employees) === 1) {
+            return $this->employee($employees[0]->id, $date);
+        }
+
         $date = (empty($date)) ? Carbon::today() : $date;
 
         if (!$date instanceof Carbon) {
@@ -31,7 +37,7 @@ class Index extends AsBase
         //TODO settings for day off such as Sunday
 
         return View::make('modules.as.index.index', [
-                'employeeId'   => null,//because use the same view with employee
+                'employeeId'   => null, //because use the same view with employee
                 'employees'    => $employees,
                 'workingTimes' => $workingTimes,
                 'date'         => $date,
