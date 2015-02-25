@@ -5,7 +5,12 @@
 (function ($) {
     $(function () {
         var $doc = $(document),
-            dataStorage = { booking_service_id : 0};
+            dataStorage = { booking_service_id : 0},
+            colHeaderTop  = -1,
+            originalOffset = [],
+            scrolledLeft = false,
+            showBookingServiceResult,
+            fixedCalendarHeader;
 
         $('.customer-tooltip').tooltip({
             selector: '',
@@ -261,7 +266,7 @@
                 data: dataStorage,
                 dataType: 'json'
             }).done(function (data) {
-                $('#booking-service-id-'+booking_service_id).remove();
+                $('#booking-service-id-' + booking_service_id).remove();
                 $('#btn-add-service').text($table.data('add-text'));
                 $('#total_length').val(data.total_length);
                 $('#total_price').val(data.total_price);
@@ -272,6 +277,59 @@
             });
             dataStorage.booking_service_id = 0;
         });
+
+        showBookingServiceResult = function (data) {
+            var $table = $('#added_services'),
+                $tbody = $table.find('tbody'),
+                $tr,
+                $td,
+                $tds,
+                i,
+                classes = [
+                    'added_booking_plustime',
+                    'added_booking_service_length',
+                    'added_booking_date',
+                    'added_service_price'
+                ];
+
+            if (!$tbody.find('#booking-service-id-' + data.booking_service_id).length) {
+                $tr = $('<tr/>', {
+                    id : 'booking-service-id-' + data.booking_service_id
+                }).appendTo($tbody);
+
+                $td = $('<td/>').appendTo($tr);
+                $('<span>', { class : 'added_service_name'}).appendTo($td);
+                $('<br>').appendTo($td);
+                $('<span>', { class : 'added_employee_name'}).appendTo($td);
+
+                for (i =  0; i < classes.length; i += 1) {
+                    $td = $('<td/>').appendTo($tr);
+                    $('<span>', { class : classes[i]}).appendTo($td);
+                }
+
+                $td = $('<td/>').appendTo($tr);
+
+                $('<a>', {
+                    'href'  : '#',
+                    'class' : 'btn-delete-booking-service',
+                    'data-booking-service-id': data.booking_service_id,
+                    'data-booking-id': data.booking_id,
+                    'data-start-time': data.start_time,
+                    'data-uuid': data.uuid,
+                }).append('<i class="fa fa-trash"></i>').appendTo($td);
+            }
+
+            $tds = $('#booking-service-id-' + data.booking_service_id + ' > td');
+            $tds.find('span.added_service_name').text(data.service_name);
+            $tds.find('span.added_employee_name').text(data.employee_name);
+            $tds.find('span.added_booking_plustime').text(data.plustime);
+            $tds.find('span.added_booking_service_length').text(data.service_length);
+            $tds.find('span.added_booking_date').text(data.datetime);
+            $tds.find('span.added_service_price').text(data.price);
+            $('#total_length').val(data.total_length);
+            $('#total_price').val(data.total_price);
+            $('#added_services').show();
+        };
 
         $doc.on('click', '#btn-add-service', function (e) {
             e.preventDefault();
@@ -296,54 +354,6 @@
                 });
             });
         });
-
-        var showBookingServiceResult = function(data) {
-            var $table = $('#added_services'),
-                $tbody = $table.find('tbody');
-            if (!$tbody.find('#booking-service-id-'+data.booking_service_id).length) {
-                var $tr = $('<tr/>', {
-                    id : 'booking-service-id-' + data.booking_service_id
-                }).appendTo($tbody);
-
-                var $td = $('<td/>').appendTo($tr);
-                $('<span>', { class : 'added_service_name'}).appendTo($td);
-                $('<br>').appendTo($td);
-                $('<span>', { class : 'added_employee_name'}).appendTo($td);
-
-                var classes = [
-                    'added_booking_plustime',
-                    'added_booking_service_length',
-                    'added_booking_date',
-                    'added_service_price'
-                ];
-
-                for (var i =  0; i < classes.length; i++) {
-                    var $td = $('<td/>').appendTo($tr);
-                    $('<span>', { class : classes[i]}).appendTo($td);
-                };
-
-                var $td = $('<td/>').appendTo($tr);
-
-                $('<a>', {
-                    'href'  : '#',
-                    'class' : 'btn-delete-booking-service',
-                    'data-booking-service-id': data.booking_service_id,
-                    'data-booking-id': data.booking_id,
-                    'data-start-time': data.start_time,
-                    'data-uuid': data.uuid,
-                }).append('<i class="fa fa-trash"></i>').appendTo($td);
-            }
-            var $tds = $('#booking-service-id-' + data.booking_service_id + ' > td');
-            $tds.find('span.added_service_name').text(data.service_name);
-            $tds.find('span.added_employee_name').text(data.employee_name);
-            $tds.find('span.added_booking_plustime').text(data.plustime);
-            $tds.find('span.added_booking_service_length').text(data.service_length);
-            $tds.find('span.added_booking_date').text(data.datetime);
-            $tds.find('span.added_service_price').text(data.price);
-            $('#total_length').val(data.total_length);
-            $('#total_price').val(data.total_price);
-            $('#added_services').show();
-        }
 
         $doc.on('click', '#btn-save-booking', function (e) {
             e.preventDefault();
@@ -512,11 +522,7 @@
             });
         });
 
-        var colHeaderTop  = -1,
-            originalOffset = [],
-            scrolledLeft = false;
-
-        function fixedCalendarHeader() {
+        fixedCalendarHeader = function () {
             if ($('.as-col-header').length === 0) {
                 return;
             }
@@ -545,7 +551,7 @@
                     $('.as-col-header').css('position', 'relative');
                 }
             }
-        }
+        };
 
         $(window).scroll(function () {
             fixedCalendarHeader();
