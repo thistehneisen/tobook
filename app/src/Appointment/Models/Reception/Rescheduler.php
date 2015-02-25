@@ -97,6 +97,7 @@ class Rescheduler extends Receptionist
             $bookingService->start_at = $newStartTime->toTimeString();
             $bookingService->end_at = $newEndTime->toTimeString();
             $bookingService->date = $this->date;
+            $bookingService->employee()->associate($this->employee);
             $bookingService->save();
         }
 
