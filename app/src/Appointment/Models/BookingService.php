@@ -132,7 +132,7 @@ class BookingService extends Base implements CartDetailInterface
      * @return int
      * @author hung@varaa.com
      */
-    public function calculcateTotalLength($plain = false)
+    public function calculcateTotalLength($plain = false, $accountExtraService = true)
     {
         $service = (!empty($this->serviceTime->id))
                     ? $this->serviceTime
@@ -144,8 +144,11 @@ class BookingService extends Base implements CartDetailInterface
 
         //Add employee service plustime
         $length += $this->getEmployeePlustime();
+
         //Add extra service time
-        $length += $this->getExtraServiceTime();
+        if($accountExtraService) {
+            $length += $this->getExtraServiceTime();
+        }
 
         return $length;
     }
@@ -156,10 +159,13 @@ class BookingService extends Base implements CartDetailInterface
      * @return float
      * @author hung@varaa.com
      */
-    public function calculcateTotalPrice()
+    public function calculcateTotalPrice($accountExtraService = true)
     {
         $price  = $this->calculateServicePrice();
-        $price += $this->getExtraServicePrice();
+
+        if($accountExtraService) {
+            $price += $this->getExtraServicePrice();
+        }
 
         return $price;
     }

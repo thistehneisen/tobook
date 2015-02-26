@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
+use App\Appointment\Models\BookingExtraService;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\Service;
@@ -69,11 +70,36 @@ class BackendReceptionist extends Receptionist
     {
         $startTime = $endTime = $plustime = $totalPrice = $totalLength = null;
 
+        $booking = Booking::find($this->bookingId);
+
         foreach ($this->bookingServices as $bookingService) {
-            $totalLength += $bookingService->calculcateTotalLength();
-            $totalPrice  += $bookingService->calculcateTotalPrice();
+            $totalLength += $bookingService->calculcateTotalLength(false, false);
+            $totalPrice  += $bookingService->calculcateTotalPrice(false);
             $plustime    += $bookingService->getEmployeePlustime();
         }
+
+        //Add new booking extra services if needed
+        if(!empty($this->extraServiceIds)) {
+            foreach ($this->extraServiceIds as $extraServiceId) {
+                $extraService = ExtraService::find($extraServiceId);
+                $bookingExtraService = new BookingExtraService;
+                $bookingExtraService->fill([
+                    'date'     => $this->date,
+                    'tmp_uuid' => $this->uuid
+                ]);
+                $bookingExtraService->extraService()->associate($extraService);
+                $bookingExtraService->booking()->associate($booking);
+                $bookingExtraService->save();
+            }
+        }
+
+        //Calculate extra services price and time which is associated with current booking
+        $this->setExtraServices();
+        foreach ($this->extraServices as $bookingExtraService) {
+            $totalLength += $bookingExtraService->extraService->length;
+            $totalPrice  += $bookingExtraService->extraService->price;
+        }
+
         $totalLength += $this->modifyTime;
 
         $date             = $this->bookingServices->first()->date;

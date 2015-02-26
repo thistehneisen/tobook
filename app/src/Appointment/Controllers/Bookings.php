@@ -286,23 +286,31 @@ class Bookings extends AsBase
         $bookingStatuses = Booking::getStatuses();
 
         $bookingExtraServices = $booking->extraServices()->lists('extra_service_id');
+        $extraServices = new \Illuminate\Database\Eloquent\Collection;
 
-        $extraServices = $booking->bookingServices()
-                            ->first()->service
-                            ->extraServices();
+        //Find all extra services of all booking services
+        foreach ($booking->bookingServices as $bookingService) {
+            foreach ($bookingService->service->extraServices as $extraService) {
+                $extraServices->push($extraService);
+            }
+        }
+
+        //Exclude existing extra services associated with current booking
         if (!empty($bookingExtraServices)) {
-            $data = $extraServices->whereNotIn('as_extra_services.id', $bookingExtraServices);
+            $extraServices = $extraServices->filter(function($item) use($bookingExtraServices) {
+                return !in_array($item->id, $bookingExtraServices);
+            });
         }
 
         $extras = $extraServices->lists('name', 'id');
         $resources = $booking->getBookingResources();
 
         return View::make('modules.as.bookings.modifyForm', [
-            'booking'         => $booking,
-            'extraServices'   => $extras,
-            'resources'       => $resources,
-            'bookingStatuses' => $bookingStatuses,
-            'modifyTime'      => $booking->modify_time
+            'booking'              => $booking,
+            'extraServices'        => $extras,
+            'resources'            => $resources,
+            'bookingStatuses'      => $bookingStatuses,
+            'modifyTime'           => $booking->modify_time
         ]);
     }
 
@@ -339,8 +347,9 @@ class Bookings extends AsBase
 
     public function handleExtraModifiedTimes()
     {
-        $bookingId  = Input::get('booking_id');
-        $modifyTime = Input::get('modify_times');
+        $bookingId       = Input::get('booking_id');
+        $modifyTime      = Input::get('modify_times');
+        $extraServiceIds = Input::get('extra_services');
         try {
             $booking  = Booking::findOrFail($bookingId);
 
@@ -350,9 +359,11 @@ class Bookings extends AsBase
                 ->setUser($this->user)
                 ->setStatus($booking->getStatusText())
                 ->setNotes($booking->notes)
+                ->setBookingDate($booking->date)
                 ->setModifyTime($modifyTime)
                 ->setIsRequestedEmployee($booking->isRequestedEmployee)
                 ->setConsumer($booking->consumer)
+                ->setExtraServiceIds($extraServiceIds)
                 ->setClientIP(Request::getClientIp())
                 ->setSource('backend');
 
