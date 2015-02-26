@@ -54,22 +54,29 @@ class Rescheduler extends Receptionist
         return $this->timeGap;
     }
 
+    private function getNewStartEndTime($bookingService)
+    {
+        $newStartTime = ($this->booking->startTime < $this->newTime)
+            ? (new \Carbon\Carbon($this->date . ' ' . $bookingService->start_at))->addMinutes($this->timeGap)
+            : (new \Carbon\Carbon($this->date . ' ' . $bookingService->start_at))->subMinutes($this->timeGap);
+
+        $oldPlustime = $bookingService->getEmployeePlustime();
+        $newPlustime = $this->employee->getPlustime($bookingService->service_id);
+
+        $newEndTime = ($this->booking->startTime < $this->newTime)
+            ? (new \Carbon\Carbon($this->date . ' ' . $bookingService->end_at))->addMinutes($this->timeGap)->subMinutes($oldPlustime)->addMinutes($newPlustime)
+            : (new \Carbon\Carbon($this->date . ' ' . $bookingService->end_at))->subMinutes($this->timeGap)->subMinutes($oldPlustime)->addMinutes($newPlustime);
+
+        return [$newStartTime, $newEndTime];
+    }
+
     public function checkingNewBookingServices()
     {
         $bookingServices = BookingService::where('tmp_uuid', $this->uuid)
             ->whereNull('deleted_at')->orderBy('start_at', 'ASC')->get();
 
         foreach ($bookingServices as $bookingService) {
-            $newStartTime = ($this->booking->startTime < $this->newTime)
-                 ? (new \Carbon\Carbon($this->date . ' ' . $bookingService->start_at))->addMinutes($this->timeGap)
-                 : (new \Carbon\Carbon($this->date . ' ' . $bookingService->start_at))->subMinutes($this->timeGap);
-
-            $oldPlustime = $bookingService->getEmployeePlustime();
-            $newPlustime = $this->employee->getPlustime($bookingService->service_id);
-
-            $newEndTime = ($this->booking->startTime < $this->newTime)
-                ? (new \Carbon\Carbon($this->date . ' ' . $bookingService->end_at))->addMinutes($this->timeGap)->subMinutes($oldPlustime)->addMinutes($newPlustime)
-                : (new \Carbon\Carbon($this->date . ' ' . $bookingService->end_at))->subMinutes($this->timeGap)->subMinutes($oldPlustime)->addMinutes($newPlustime);
+            list($newStartTime, $newEndTime) = $this->getNewStartEndTime($bookingService);
 
             $this->validateWithEmployeeFreetime($newStartTime, $newEndTime);
             $this->validateWithResources($newStartTime, $newEndTime);
@@ -83,16 +90,7 @@ class Rescheduler extends Receptionist
             ->whereNull('deleted_at')->orderBy('start_at', 'ASC')->get();
 
         foreach ($bookingServices as $bookingService) {
-            $newStartTime = ($this->booking->startTime < $this->newTime)
-                 ? (new \Carbon\Carbon($this->date . ' ' . $bookingService->start_at))->addMinutes($this->timeGap)
-                 : (new \Carbon\Carbon($this->date . ' ' . $bookingService->start_at))->subMinutes($this->timeGap);
-
-            $oldPlustime = $bookingService->getEmployeePlustime();
-            $newPlustime = $this->employee->getPlustime($bookingService->service_id);
-
-            $newEndTime = ($this->booking->startTime < $this->newTime)
-                ? (new \Carbon\Carbon($this->date . ' ' . $bookingService->end_at))->addMinutes($this->timeGap)->subMinutes($oldPlustime)->addMinutes($newPlustime)
-                : (new \Carbon\Carbon($this->date . ' ' . $bookingService->end_at))->subMinutes($this->timeGap)->subMinutes($oldPlustime)->addMinutes($newPlustime);
+            list($newStartTime, $newEndTime) = $this->getNewStartEndTime($bookingService);
 
             $bookingService->start_at = $newStartTime->toTimeString();
             $bookingService->end_at = $newEndTime->toTimeString();
