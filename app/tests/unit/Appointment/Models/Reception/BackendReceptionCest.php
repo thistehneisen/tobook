@@ -272,7 +272,6 @@ class BackendReceptionCest
             'service_name'       => $service->name,
             'service_time'       => 'default',
             'service_length'     => $service->length,
-            'modify_time'        => 0,
             'plustime'           => intval($plustime),
             'employee_name'      => $employee->name,
             'uuid'               => $uuid
