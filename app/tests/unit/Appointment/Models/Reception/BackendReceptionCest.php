@@ -678,4 +678,52 @@ class BackendReceptionCest
         }
         $I->assertEmpty($exception);
     }
+
+    public function testAddExtraServices(UnitTester $I)
+    {
+        $this->initData(true, true);
+        $this->initCustomTime();
+
+        $user      = User::find(70);
+        $employee  = $this->employee;
+
+        $service   = $this->service;
+        $uuid      = Booking::uuid();
+        $date      = $this->getDate();
+        $startTime = '14:00';
+        $booking = $this->_makeBooking($I, $user, $employee,  $uuid, $service, $date, $startTime);
+
+        $I->assertNotEmpty($booking);
+        $I->assertEquals($booking->total, 60);
+        $I->assertEquals($booking->startTime, $date->hour(14)->minute(0)->second(0));
+        $I->assertEquals($booking->endTime, $date->hour(15)->minute(0)->second(0));
+
+        $extraServiceIds = array(10, 11);
+
+        $receptionist = new BackendReceptionist();
+        $receptionist->setBookingId($booking->id)
+                ->setUUID($booking->uuid)
+                ->setUser($user)
+                ->setStatus($booking->getStatusText())
+                ->setNotes($booking->notes)
+                ->setBookingDate($booking->date)
+                ->setModifyTime(0)
+                ->setIsRequestedEmployee($booking->isRequestedEmployee)
+                ->setConsumer($booking->consumer)
+                ->setExtraServiceIds($extraServiceIds)
+                ->setClientIP('127.0.0.1')
+                ->setSource('backend');
+
+        $booking = $receptionist->upsertBooking();
+
+        $bookingServices = BookingExtraService::where('tmp_uuid', $booking->uuid)->whereNull('deleted_at')->count();
+        $I->assertEquals($bookingServices, 2);
+
+
+        $I->assertNotEmpty($booking);
+        $I->assertEquals($booking->total, 60+15+15);
+        $I->assertEquals($booking->startTime, $date->hour(14)->minute(0)->second(0));
+        $I->assertEquals($booking->endTime, $date->hour(15)->minute(30)->second(0));
+
+    }
 }
