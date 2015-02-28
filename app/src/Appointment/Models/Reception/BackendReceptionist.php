@@ -174,4 +174,11 @@ class BackendReceptionist extends Receptionist
         }
         return $booking;
     }
+
+    public function rollBack()
+    {
+        if(!empty($this->extraServiceIds)) {
+            BookingExtraService::whereIn('extra_service_id',$this->extraServiceIds)->delete();
+        }
+    }
 }
