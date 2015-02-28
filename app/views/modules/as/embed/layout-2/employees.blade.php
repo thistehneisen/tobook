@@ -1,5 +1,11 @@
 <div class="as-employees col-sm-3" id="as-service-{{ $service->id }}-employees">
-    <h5>{{ trans('as.embed.layout_2.employees') }} </h5>
+    <h5>
+        @if (empty($user->asOptions['factor']))
+            {{ trans('as.embed.layout_2.employees') }}
+        @else
+            {{ $user->asOptions['factor'] }}
+        @endif
+    </h5>
     <div class="better">
         <div class="js-loading"><i class="fa fa-refresh fa-spin fa-5x"></i></div>
         <div class="as-employees-row">

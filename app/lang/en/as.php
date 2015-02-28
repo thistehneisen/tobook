@@ -343,6 +343,7 @@ return [
             'min_distance'                                   => 'Min distance',
             'max_distance'                                   => 'Max distance',
             'auto_select_employee'                           => 'Auto select an employee',
+            'factor'                                         => 'Factor'
         ],
         'style' => [
             'heading'                           => '',

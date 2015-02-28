@@ -50,6 +50,7 @@ class Base extends AsBase
      */
     public function getEmployees()
     {
+        $hash = Input::get('hash');
         $serviceId = Input::get('serviceId');
         if ($serviceId === null) {
             return Response::json(['message' => 'Missing service ID'], 400);
@@ -58,9 +59,14 @@ class Base extends AsBase
         $service = Service::with('employees')->findOrFail($serviceId);
         $employees = $this->getEmployeesOfService($service);
 
+        $user = empty($user)
+            ? $this->getUser($hash)
+            : $user;
+
         return $this->render('employees', [
             'employees' => $employees,
-            'service'   => $service
+            'service'   => $service,
+            'user'      => $user
         ]);
     }
 

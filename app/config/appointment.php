@@ -191,6 +191,9 @@ return [
                 'terms_url' => [
                     'type' => 'Text'
                 ],
+                'factor' => [
+                    'type' => 'Text',
+                ],
                 'terms_body' => [
                     'type' => 'Textarea',
                     'default' => $terms
