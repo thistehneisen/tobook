@@ -7,7 +7,7 @@
         <!-- About -->
         @if (!empty($business->description))
         <h4>{{ trans('home.search.about') }} {{{ $business->name }}}</h4>
-        <div>{{{ $business->description_html }}}</div>
+        <div>{{ $business->description_html }}</div>
         @endif
 
         <!-- Flash deals -->
