@@ -20,18 +20,21 @@ return [
     'next_timeslot'         => 'Nâkamie rezervâcijai pieejamie laiki',
     'time'                  => 'Laiks',
 
-    'search_tagline'        => 'Rezervç it visu!',
-    'search_query'          => 'Meklç pakalpojumu',
-    'search_place'          => 'Rîga',
+    'search_tagline'        => 'What do you want to book?', // @todo
+    'search_query'          => 'Enter city or keyword', // @todo
+    'search_place'          => 'Helsinki, FI', // @todo
     'search'        => [
-        'tagline'         => 'Rezervç, ko vçlies',
-        'query'           => 'Meklç pakalpojumu',
-        'location'        => 'Atraðanâs vieta',
+        'tagline'         => 'What do you want to book?', // @todo
+        'query'           => 'Enter city or keyword', // @todo
+        'location'        => 'Helsinki, FI', // @todo
         'about'           => 'Ap',
         'locations_hours' => 'Atraðanâs vieta &amp; darba laiks',
         'business_hours'  => 'Darba laiks',
         'buy'             => 'Pirkt',
         'book'            => 'Rezervçt',
+        'button'          => 'Search', // @todo
+        'date'            => 'Date', // @todo
+        'time'            => 'Time', // @todo
         'geo'             => [
             'info' => 'Lûdzu, norâdiet savu atraðanâs vietu, lai varam piemeklçt atbilstoðus piedâvâjumus Jûsu apkaimç.'
         ]
@@ -51,5 +54,12 @@ return [
             'business' => 'Ðobrîd nepiedâvâjam iespçju izmantot nereìistrçtu biznesa kontu. Lûdzu, ienâciet sistçmâ ar savu reìistrçto lietotâjvârdu.',
             'zero_amount' => 'Maksâjums nav iespçjams, jo Jûsu rezervâciju sarakstâ nav pasûtîjumu.',
         ]
-    ]
+    ],
+    'choose_category'  => 'Choose category', // @todo
+    'how_does_it_work' => 'How does it work?', // @todo
+    'businesses'       => 'Businesses', // @todo
+    'more'             => 'More', // @todo
+    'companies_offers' => 'Companies with offers', // @todo
+    'categories'       => 'Categories', // @todo
+    'best_offers'      => 'Best offers', // @todo
 ];

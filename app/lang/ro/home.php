@@ -20,18 +20,21 @@ return [
     'next_timeslot'         => 'Urmatoarele intervale de timp disponibile',
     'time'                  => 'Timp',
 
-    'search_tagline'        => 'Rezervati o programare pentru orice',
-    'search_query'          => 'Cautati un serviciu',
-    'search_place'          => 'Bucuresti, RO',
+    'search_tagline'        => 'What do you want to book?', // @todo
+    'search_query'          => 'Enter city or keyword', // @todo
+    'search_place'          => 'Helsinki, FI', // @todo
     'search'        => [
-        'tagline'         => 'Rezervati o programare pentru orice',
-        'query'           => 'Cautati un serviciu',
-        'location'        => 'Locatie',
+        'tagline'         => 'What do you want to book?', // @todo
+        'query'           => 'Enter city or keyword', // @todo
+        'location'        => 'Helsinki, FI', // @todo
         'about'           => 'Despre',
         'locations_hours' => 'Locatii &amp; Ore',
         'business_hours'  => 'Program',
         'buy'             => 'Cumpara',
         'book'            => 'Rezerva',
+        'button'          => 'Search', // @todo
+        'date'            => 'Date', // @todo
+        'time'            => 'Time', // @todo
         'geo'             => [
             'info' => 'Va vom cere locatia curenta pentru a afisa rezultate care sunt aproape de dvs.'
         ]
@@ -51,5 +54,12 @@ return [
             'business' => 'Momentan nu acceptam validarea cu un cont de afaceri. Va rugam sa va conectati cu contul dvs. de client.',
             'zero_amount' => 'Plata nu poate fi validata deoarece contul dvs. este gol.',
         ]
-    ]
+    ],
+    'choose_category'  => 'Choose category', // @todo
+    'how_does_it_work' => 'How does it work?', // @todo
+    'businesses'       => 'Businesses', // @todo
+    'more'             => 'More', // @todo
+    'companies_offers' => 'Companies with offers', // @todo
+    'categories'       => 'Categories', // @todo
+    'best_offers'      => 'Best offers', // @todo
 ];

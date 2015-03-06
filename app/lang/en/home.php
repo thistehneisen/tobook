@@ -19,19 +19,21 @@ return [
     'tagline'               => 'Everything you need for<br>easy and profitable business',
     'next_timeslot'         => 'Next available timeslots',
     'time'                  => 'Time',
-
-    'search_tagline'        => 'Book appointments for anything',
-    'search_query'          => 'Search for a service',
-    'search_place'          => 'Helsinki, FI',
+    'search_tagline'        => 'What do you want to book?', // @todo
+    'search_query'          => 'Enter city or keyword', // @todo
+    'search_place'          => 'Helsinki, FI', // @todo
     'search'        => [
-        'tagline'         => 'Book appointments for anything',
-        'query'           => 'Search for a service',
-        'location'        => 'Location',
+        'tagline'         => 'What do you want to book?', // @todo
+        'query'           => 'Enter city or keyword', // @todo
+        'location'        => 'Helsinki, FI', // @todo
         'about'           => 'About',
         'locations_hours' => 'Locations &amp; Hours',
         'business_hours'  => 'Business Hours',
         'buy'             => 'Buy',
         'book'            => 'Book',
+        'button'          => 'Search', // @todo
+        'date'            => 'Date', // @todo
+        'time'            => 'Time', // @todo
         'geo'             => [
             'info' => 'We will ask for your current location to display results that are close to you.'
         ]
@@ -51,5 +53,12 @@ return [
             'business' => 'Currently we are not support for business account to checkout. Please login with your consumer account.',
             'zero_amount' => 'Unable to make payment since the amount of your cart is zero',
         ]
-    ]
+    ],
+    'choose_category'  => 'Choose category', // @todo
+    'how_does_it_work' => 'How does it work?', // @todo
+    'businesses'       => 'Businesses', // @todo
+    'more'             => 'More', // @todo
+    'companies_offers' => 'Companies with offers', // @todo
+    'categories'       => 'Categories', // @todo
+    'best_offers'      => 'Best offers', // @todo
 ];

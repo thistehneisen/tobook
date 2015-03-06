@@ -17,10 +17,10 @@
             {{ Form::open(['url' => '/new/search', 'class' => 'form-search', 'method' => 'GET']) }}
                 <div class="form-group row">
                     <div class="col-sm-4 col-md-4">
-                        <h2 class="heading">Looking for a service</h2>
+                        <h2 class="heading">{{ trans('home.search.tagline') }}</h2>
                         <div class="input-group margin-bottom-lg">
                             <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
-                            <input class="form-control input-lg" type="text" placeholder="Service or company">
+                            <input class="form-control input-lg" type="text" placeholder="{{ trans('home.search.query') }}">
                         </div>
                     </div>
                 </div>
@@ -29,24 +29,24 @@
                     <div class="col-sm-3 col-md-3">
                         <div class="input-group margin-bottom-lg">
                             <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
-                            <input class="form-control input-lg" type="text" placeholder="Helsinki">
+                            <input class="form-control input-lg" type="text" placeholder="{{ trans('home.search.location') }}">
                         </div>
                     </div>
 
                     <div class="col-sm-1 col-md-1">
-                        <button type="submit" class="btn btn-lg btn-success pull-right">Search</button>
+                        <button type="submit" class="btn btn-lg btn-success pull-right">{{ trans('home.search.button') }}</button>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <div class="col-sm-4 col-md-4">
                         <a href="#" class="datetime">
-                            <i class="fa fa-calendar fa-big"></i> Date
+                            <i class="fa fa-calendar fa-big"></i> {{ trans('home.search.date') }}
                             <i class="fa fa-chevron-down fa-small"></i>
                         </a>
 
                         <a href="#" class="datetime">
-                            <i class="fa fa-clock-o fa-big"></i> Time
+                            <i class="fa fa-clock-o fa-big"></i> {{ trans('home.search.time') }}
                             <i class="fa fa-chevron-down fa-small"></i>
                         </a>
                     </div>
@@ -66,7 +66,7 @@
                 @foreach ($category->children as $child)
                     <li><a href="#">{{{ $child->name }}}</a></li>
                 @endforeach
-                    <li><a href="#">View all <i class="fa fa-chevron-right"></i></a></li>
+                    <li><a href="#">{{ trans('home.more') }} <i class="fa fa-chevron-right"></i></a></li>
                 </ul>
             </div>
         @endforeach
@@ -74,10 +74,10 @@
 
     <div class="row">
         <div class="hot-offers">
-            <h1 class="heading">Hot deals (96)</h1>
+            <h1 class="heading">{{ trans('home.best_offers') }} (96)</h1>
             <div class="col-sm-4 col-md-4">
                 <ul class="list-unstyled filters">
-                    <li>Kategorija
+                    <li>{{ trans('home.categories') }}
                         <ul>
                             <li><a href="#">Skaistumkopšana, frizētavas (61)</a></li>
                             <li><a href="#">Auto aprūpe (44)</a></li>
@@ -87,7 +87,7 @@
                             <li><a href="#">Sports un fitness (3)</a></li>
                         </ul>
                     </li>
-                    <li>Uzņēmums
+                    <li>{{ trans('home.companies_offers') }}
                         <ul>
                             <li><a href="#">Live Active (87)</a></li>
                             <li><a href="#">TOP SHOP (52)</a></li>

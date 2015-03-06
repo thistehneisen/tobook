@@ -20,20 +20,22 @@ return [
     'next_timeslot'         => 'Seuraavat vapaat ajat',
     'time'                  => 'Aika',
 
-    'search_tagline'        => 'Mitä haluat varata?',
-    'search_query'          => 'Hae palvelua',
-    'search_place'          => 'Helsinki, FI',
+    'search_tagline'        => 'What do you want to book?', // @todo
+    'search_query'          => 'Enter city or keyword', // @todo
+    'search_place'          => 'Helsinki, FI', // @todo
     'search'        => [
-        'tagline'         => 'Mitä haluat varata?',
-        'query'           => 'Hae palvelua',
-        'location'        => 'Sijainti',
+        'tagline'         => 'What do you want to book?', // @todo
+        'query'           => 'Enter city or keyword', // @todo
+        'location'        => 'Helsinki, FI', // @todo
         'about'           => 'Esittely',
         'locations_hours' => 'Sijainti &amp; Aukioloajat',
         'business_hours'  => 'Aukioloajat',
         'buy'             => 'Osta',
         'book'            => 'Varaa',
+        'button'          => 'Search', // @todo
+        'date'            => 'Date', // @todo
+        'time'            => 'Time', // @todo
         'geo'             => [
-
             'info' => 'We will ask for your current location to display results that are close to you.'
         ]
     ],
@@ -52,5 +54,12 @@ return [
             'business' => 'Valitettavasti emme tue maksuja yrityskäyttäjätunnuksen kautta. Ole ystävällinen ja rekisteröidy palveluun kuluttajana.',
             'zero_amount' => 'Maksua ei voida suorittaa',
         ]
-    ]
+    ],
+    'choose_category'  => 'Choose category', // @todo
+    'how_does_it_work' => 'How does it work?', // @todo
+    'businesses'       => 'Businesses', // @todo
+    'more'             => 'More', // @todo
+    'companies_offers' => 'Companies with offers', // @todo
+    'categories'       => 'Categories', // @todo
+    'best_offers'      => 'Best offers', // @todo
 ];

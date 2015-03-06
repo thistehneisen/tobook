@@ -20,18 +20,21 @@ return [
     'next_timeslot'         => 'Следующие доступные "окна"',
     'time'                  => 'Время',
 
-    'search_tagline'        => 'Запишись на любую услугу',
-    'search_query'          => 'Запишись на любую услугу',
-    'search_place'          => 'Хельсинки, FI',
+    'search_tagline'        => 'What do you want to book?', // @todo
+    'search_query'          => 'Enter city or keyword', // @todo
+    'search_place'          => 'Helsinki, FI', // @todo
     'search'        => [
-        'tagline'         => 'Запишись на любую услугу',
-        'query'           => 'Поиск услуг',
-        'location'        => 'Местоположение',
+        'tagline'         => 'What do you want to book?', // @todo
+        'query'           => 'Enter city or keyword', // @todo
+        'location'        => 'Helsinki, FI', // @todo
         'about'           => 'Подробнее',
         'locations_hours' => 'Места &amp; время',
         'business_hours'  => 'Время работы',
         'buy'             => 'Купить',
         'book'            => 'Записаться',
+        'button'          => 'Search', // @todo
+        'date'            => 'Date', // @todo
+        'time'            => 'Time', // @todo
         'geo'             => [
             'info' => 'Ваше местоположение нужно для того, чтобы показывать близкие к вам результаты поиска.'
         ]
@@ -51,5 +54,12 @@ return [
             'business' => 'Мы пока не поддерживаем бизнес-профили при облате. Покдлючитесь, пожалуйста, как клиент.',
             'zero_amount' => 'Покупка невозможна, поскольку в вашей корзине ничего нет',
         ]
-    ]
+    ],
+    'choose_category'  => 'Choose category', // @todo
+    'how_does_it_work' => 'How does it work?', // @todo
+    'businesses'       => 'Businesses', // @todo
+    'more'             => 'More', // @todo
+    'companies_offers' => 'Companies with offers', // @todo
+    'categories'       => 'Categories', // @todo
+    'best_offers'      => 'Best offers', // @todo
 ];
