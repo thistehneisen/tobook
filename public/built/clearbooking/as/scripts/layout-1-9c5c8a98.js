@@ -204,7 +204,7 @@
         });
 
         $(document).ready(function(){
-            var descriptions = $('.as-employee-description');
+            var descriptions = document.getElementsByClassName('as-employee-description');
             var maxHeight = 0;
             for(var i = 0; i < descriptions.length; i++){
               if(descriptions[i].offsetHeight > maxHeight) {

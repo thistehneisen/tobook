@@ -14,7 +14,7 @@ $serviceTimeId      = (!empty($serviceTime)) ? $serviceTime->id : 'default';
     <ul class="header-info">
         {{ !empty($employee->avatar) ? '<li class="avatar"><img src="'.$employee->getAvatarUrl().'" class="img-responsive" /></li>': '' }}
         <li class="as-col-header"><strong>{{{ $employee->name }}}</strong></li>
-        <li class="as-col-header"><strong>{{{ $employee->description }}}</strong></li>
+        <li class="as-col-header as-employee-description"><strong>{{{ $employee->description }}}</strong></li>
         <li class="as-col-header"><strong>{{ trans('as.embed.guide_text') }}</strong></li>
         @if ((bool)$user->asOptions['hide_prices'] === false)
         <li><a class="btn btn-success col-xs-12"><i class="glyphicon glyphicon-tag"></i> {{ $servicePrice }}{{ Settings::get('currency') }}</a></li>
