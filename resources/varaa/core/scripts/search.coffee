@@ -18,8 +18,8 @@ class VaraaSearch
     if @categoryId and @serviceId
       @selectBookingForm()
 
-    # Just show the map of this business and done
-    if @businesses.length == 1
+    # Check if this is a business page or a search result with a sole business
+    if $("#js-map-#{@single.user_id}").length
       @showSingleBusiness()
     # Else this is the search result page, we should render the map
     # and set markers of all businesses

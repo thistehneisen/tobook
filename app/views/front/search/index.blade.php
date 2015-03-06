@@ -47,7 +47,7 @@
     <script type="text/javascript">
         $(document).ready(function(){
             VARAA.initLayout3({
-                isAutoSelectEmployee: <?php echo ($user->asOptions['auto_select_employee']) ? 'true' : 'false';?>
+                isAutoSelectEmployee: {{ $user->asOptions['auto_select_employee'] ? 'true' : 'false' }}
             });
         });
     </script>
