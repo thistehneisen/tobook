@@ -59,6 +59,7 @@ return [
     'how_does_it_work' => 'How does it work?', // @todo
     'businesses'       => 'Businesses', // @todo
     'more'             => 'More', // @todo
+    'less'             => 'Less', // @todo
     'companies_offers' => 'Companies with offers', // @todo
     'categories'       => 'Categories', // @todo
     'best_offers'      => 'Best offers', // @todo

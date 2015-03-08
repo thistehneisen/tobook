@@ -120,12 +120,17 @@
                 color: #898989;
             }
 
-            li:last-child {
-                margin-top: 20px;
+            li {
+                display: none;
 
-                a {
-                    color: @text_dark;
-                    font-weight: 700;
+                &.arrow {
+                    margin-top: 20px;
+
+                    a {
+                        color: @text_dark;
+                        font-weight: 700;
+                    }
+
                 }
             }
         }

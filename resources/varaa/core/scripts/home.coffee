@@ -67,3 +67,26 @@ do ($ = jQuery) ->
     # Make boxes to have equal heights
     VARAA.equalize '.available-slot .info'
     VARAA.equalize '.list-group-item'
+
+    # Show only first 3 business categories
+    $ 'ul.list-categories'
+      .each (i, item) ->
+        $item = $ item
+        $first = $item.find 'li:lt(3)'
+        $rest = $item.find 'li:gt(3)'
+        $arrow = $item.find '.arrow'
+        $more = $item.find '.more'
+
+        # Show the first 3 sub-categories
+        $first.show()
+        # If a category has more than 3 sub-categories, show link to toggle
+        # the rest
+        $more.show() if $rest.length > 3
+
+        $arrow.on 'click', (e) ->
+          e.preventDefault()
+          $this = $ this
+          $rest.slideToggle()
+          $this.hide()
+          $this.siblings '.arrow'
+            .show()

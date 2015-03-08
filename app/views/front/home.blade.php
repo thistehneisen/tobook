@@ -73,7 +73,8 @@
                 @foreach ($category->children as $child)
                     <li><a href="#">{{{ $child->name }}}</a></li>
                 @endforeach
-                    <li><a href="#">{{ trans('home.more') }} <i class="fa fa-chevron-right"></i></a></li>
+                    <li class="arrow more"><a href="#">{{ trans('home.more') }} <i class="fa fa-chevron-right"></i></a></li>
+                    <li class="arrow less"><a href="#">{{ trans('home.less') }} <i class="fa fa-chevron-up"></i></a></li>
                 </ul>
             </div>
         @endforeach
