@@ -8,27 +8,19 @@ use App\FlashDeal\Models\FlashDealDate;
 
 class Front extends Base
 {
+    protected $viewPath = 'front';
+
+    /**
+     * Front page of the site
+     *
+     * @return View
+     */
     public function home()
     {
-        $deals = $this->getFlashDeals();
-        $categoryId = Input::get('category', 0);
-        $categories = BusinessCategory::lists('name', 'id');
+        $categories = BusinessCategory::getAll();
 
-        //rewind array pointer to the beginning
-        reset($categories);
-        $categoryId = (!empty($categoryId))
-            ? $categoryId
-            : key($categories);
-
-        // get 4 random businesses of selected category
-        $businesses = Business::getRandomBusinesses($categoryId, 4);
-
-        return View::make('front.home', [
-            'deals'          => $deals,
-            'categories'     => $categories,
-            'categoryId'     => $categoryId,
-            'businesses'     => $businesses,
-            'now'            => Carbon::now()
+        return $this->render('home', [
+            'categories' => $categories,
         ]);
     }
 
