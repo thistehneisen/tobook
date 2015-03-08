@@ -78,7 +78,7 @@ gulp.task 'clean', ['clone'], ->
   copy paths.img, paths.dest
 
 # Build assets to be ready for production
-gulp.task 'build', ['clean', 'less', 'coffee'], ->
+gulp.task 'build', ['less', 'coffee'], ->
   # Folder `resources` has this structure
   # ```
   #   varaa            <---------------- Based assets
