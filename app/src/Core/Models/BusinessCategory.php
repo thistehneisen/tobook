@@ -79,7 +79,12 @@ class BusinessCategory extends Base
     //--------------------------------------------------------------------------
     public static function getAll()
     {
-        return static::root()->with('children')->get();
+        return static::root()
+            ->orderBy('name')
+            ->with(['children' => function ($query) {
+                return $query->orderBy('name');
+            }])
+            ->get();
     }
 
     //--------------------------------------------------------------------------
