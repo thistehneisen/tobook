@@ -44,23 +44,93 @@
     }
 
     .datetime-wrapper {
-        margin: 15px 0 5px 0;
-    }
+        position: relative;
+        display: inline;
 
-    .datetime {
-        color: @text_light;
-        margin-right: 50px;
+        .datetime-link {
+            color: @text_light;
+            margin-right: 50px;
 
-        .fa-big {
-            font-size: 1.4em;
-            margin-right: 10px;
+            &:focus {
+                text-decoration: none;
+            }
+
+            .fa-big {
+                font-size: 1.4em;
+                margin-right: 10px;
+            }
+
+            .fa-small {
+                font-size: 0.8em;
+                margin-left: 5px;
+            }
         }
 
-        .fa-small {
-            font-size: 0.8em;
-            margin-left: 5px;
+
+        .datetime-control {
+            position: absolute;
+            display: none;
+            top: 25px;
+            left: 0;
+            background-color: #23252b;
+            z-index: 1;
+            color: #fff;
+            border-radius: 5px;
+
+            .bootstrap-datetimepicker-widget {
+                table {
+                    thead tr:first-child {
+                        background-color: #a4a3a3;
+
+                        th {
+                            border-radius: 0;
+                            padding: 12px;
+
+                            &:hover {
+                                color: @text_dark;
+                            }
+
+                            &:first-child {
+                                border-top-left-radius: 5px;
+                            }
+
+                            &:last-child {
+                                border-top-right-radius: 5px;
+                            }
+                        }
+                    }
+
+                    td {
+                        &.day {
+                            padding: 12px;
+                            &:hover {
+                                color: @text_dark;
+                            }
+
+                            &.active {
+                                background-color: #3bb247;
+                            }
+                        }
+
+                        &.old, &.new {
+                            color: #444953;
+                        }
+
+                        span {
+                            &:hover {
+                                color: @text_dark;
+                            }
+
+                            &.active {
+                                background-color: #3bb247;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
+
 }
 
 .front {

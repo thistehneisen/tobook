@@ -68,6 +68,26 @@ do ($ = jQuery) ->
     VARAA.equalize '.available-slot .info'
     VARAA.equalize '.list-group-item'
 
+    # Prepare datetime picker for search form
+    $ 'div.datetime-control'
+      .each (_, item) ->
+        $ item
+        .datetimepicker
+          format: $(this).data 'format'
+          inline: true
+          stepping: 15
+          minDate: new Date()
+
+    $ '.datetime-link'
+      .on 'focus', (e) ->
+        e.preventDefault()
+        $(this).siblings '.datetime-control'
+          .show()
+      .on 'blur', (e) ->
+        e.preventDefault()
+        $(this).siblings '.datetime-control'
+          .hide()
+
     # Show only first 3 business categories
     $ 'ul.list-categories'
       .each (i, item) ->

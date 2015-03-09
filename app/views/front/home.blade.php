@@ -4,10 +4,17 @@
     @parent :: {{ trans('common.home') }}
 @stop
 
+@section ('styles')
+    @parent
+    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css') }}
+@stop
+
 @section ('scripts')
     @parent
     {{ HTML::script(asset('packages/jquery.countdown/jquery.plugin.min.js')) }}
     {{ HTML::script(asset('packages/jquery.countdown/jquery.countdown.min.js')) }}
+    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment-with-locales.min.js') }}
+    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js') }}
     {{ HTML::script(asset_path('core/scripts/home.js')) }}
 @stop
 
@@ -47,15 +54,25 @@
 
                 <div class="form-group row">
                     <div class="col-sm-4 col-md-4">
-                        <a href="#" class="datetime">
-                            <i class="fa fa-calendar fa-big"></i> {{ trans('home.search.date') }}
-                            <i class="fa fa-chevron-down fa-small"></i>
-                        </a>
+                        <div class="datetime-wrapper">
+                            <a href="#" class="datetime-link">
+                                <i class="fa fa-calendar fa-big"></i> {{ trans('home.search.date') }}
+                                <i class="fa fa-chevron-down fa-small"></i>
+                            </a>
+                            <div class="datetime-control" data-format="YYYY-MM-DD" id="search-select-date">
+                                <input type="hidden" name="date">
+                            </div>
+                        </div>
 
-                        <a href="#" class="datetime">
-                            <i class="fa fa-clock-o fa-big"></i> {{ trans('home.search.time') }}
-                            <i class="fa fa-chevron-down fa-small"></i>
-                        </a>
+                        <div class="datetime-wrapper">
+                            <a href="#" class="datetime-link">
+                                <i class="fa fa-clock-o fa-big"></i> {{ trans('home.search.time') }}
+                                <i class="fa fa-chevron-down fa-small"></i>
+                            </a>
+                            <div class="datetime-control" data-format="HH:mm" id="search-select-time">
+                                <input type="hidden" name="time">
+                            </div>
+                        </div>
                     </div>
                 </div>
             {{ Form::close() }}

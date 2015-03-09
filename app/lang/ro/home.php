@@ -33,8 +33,8 @@ return [
         'buy'             => 'Cumpara',
         'book'            => 'Rezerva',
         'button'          => 'Search', // @todo
-        'date'            => 'Date', // @todo
-        'time'            => 'Time', // @todo
+        'date'            => 'Any date', // @todo
+        'time'            => 'Any time', // @todo
         'geo'             => [
             'info' => 'Va vom cere locatia curenta pentru a afisa rezultate care sunt aproape de dvs.'
         ]

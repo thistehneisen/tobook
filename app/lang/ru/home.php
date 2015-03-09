@@ -33,8 +33,8 @@ return [
         'buy'             => 'Купить',
         'book'            => 'Записаться',
         'button'          => 'Search', // @todo
-        'date'            => 'Date', // @todo
-        'time'            => 'Time', // @todo
+        'date'            => 'Any date', // @todo
+        'time'            => 'Any time', // @todo
         'geo'             => [
             'info' => 'Ваше местоположение нужно для того, чтобы показывать близкие к вам результаты поиска.'
         ]
