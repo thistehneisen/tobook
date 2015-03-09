@@ -29,6 +29,11 @@ class BusinessCategory extends Base
         return trans('user.profile.business_categories.'.$this->attributes['name']);
     }
 
+    public function getSlugAttribute()
+    {
+        return \Str::slug($this->attributes['name']);
+    }
+
     public function getKeywordsAttribute()
     {
         $keywords = [];

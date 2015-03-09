@@ -54,11 +54,6 @@ Route::get('/', [
     'uses'  => 'App\Core\Controllers\Front@home'
 ]);
 
-Route::get('businesses', [
-    'as'    => 'businesses',
-    'uses'  => 'App\Core\Controllers\Front@businesses'
-]);
-
 Route::get('robots.txt', [
     'as'    => 'robots',
     'uses'  => 'App\Core\Controllers\Front@robots'

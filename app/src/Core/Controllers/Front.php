@@ -34,12 +34,37 @@ class Front extends Base
     {
         // Get all businesses
         $businesses = Business::with('user.images')->paginate();
+
+        // Get deals from businesses
         $deals = $this->getDeals($businesses);
 
         return $this->render('businesses', [
             'businesses' => $businesses,
+            'pagination' => $businesses->links(),
             'deals'      => $deals,
             'heading'    => trans('home.businesses'),
+        ]);
+    }
+
+    /**
+     * Show businesses of a category
+     *
+     * @param  int $categoryId
+     * @param  string $slug
+     *
+     * @return View
+     */
+    public function category($categoryId, $slug)
+    {
+        $category = BusinessCategory::findOrFail($categoryId);
+        $businesses = $category->users()->has('business')->paginate();
+
+        $deals = $this->getDeals($businesses);
+        return $this->render('businesses', [
+            'businesses' => $businesses->lists('business'),
+            'pagination' => $businesses->links(),
+            'deals'      => $deals,
+            'heading'    => trans('home.businesses_category', ['category' => $category->name]),
         ]);
     }
 

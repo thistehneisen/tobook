@@ -88,7 +88,7 @@
                 <h4 class="heading">{{{ $category->name }}}</h4>
                 <ul class="list-categories">
                 @foreach ($category->children as $child)
-                    <li><a href="#">{{{ $child->name }}}</a></li>
+                    <li><a href="{{ route('business.category', ['id' => $child->id, 'slug' => $child->slug]) }}">{{{ $child->name }}}</a></li>
                 @endforeach
                     <li class="arrow more"><a href="#">{{ trans('home.more') }} <i class="fa fa-chevron-right"></i></a></li>
                     <li class="arrow less"><a href="#">{{ trans('home.less') }} <i class="fa fa-chevron-up"></i></a></li>

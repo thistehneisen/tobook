@@ -56,6 +56,23 @@ class Business extends Base
     }
 
     //--------------------------------------------------------------------------
+    // SCOPES
+    //--------------------------------------------------------------------------
+
+    /**
+     * Return businesses of a specific category
+     *
+     * @param  Illuminate\Database\Eloquent\Builder $query
+     * @param  int $categoryId
+     *
+     * @return Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOfCategory($query, $categoryId)
+    {
+        return $query->has('businessCategories', $categoryId);
+    }
+
+    //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
     public function user()

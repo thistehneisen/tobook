@@ -62,7 +62,7 @@ $(function() {
             </div>
 
             <nav class="text-center">
-                {{ $businesses->links() }}
+                {{ $pagination }}
             </nav>
         </div>
 
