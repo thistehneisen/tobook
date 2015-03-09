@@ -99,75 +99,20 @@ class Search extends Base
 
         $nextSlots = $this->handleNextTimeSlot();
 
-        $collection = new \Illuminate\Support\Collection([$user->business]);
         $data = [
-            'businesses'     => $collection,
+            'business'       => $user->business,
             'single'         => $view,
             'lat'            => $user->business->lat,
             'lng'            => $user->business->lng,
             'now'            => Carbon::now(),
-            'businessesJson' => $collection->toJson(),
+            'businessesJson' => json_encode([$user->business]),
         ];
 
         $data = array_merge($data, $nextSlots);
 
         $viewData = array_merge($data, $layout);
 
-        return View::make('front.search.index', $viewData);
-    }
-
-    public function newShowBusiness($id)
-    {
-        $user = User::findOrFail($id);
-        $coupons = $user
-            ->coupons()
-            ->with('service')
-            ->active()
-            ->get();
-
-        $flashDeals = $user
-            ->flashDeals()
-            ->with('flashDeal', 'flashDeal.service')
-            ->active()
-            ->get();
-
-        $layout = $this->handleIndex($user->hash, $user,'layout-3');
-
-        $data = [
-            'user'       => $user,
-            'business'   => $user->business,
-            'coupons'    => $coupons,
-            'flashDeals' => $flashDeals
-        ];
-
-        $viewData = array_merge($data, $layout);
-
-        $view = $this->view('front.search.business', $viewData);
-
-        if (Request::ajax()) {
-            return $view;
-        }
-
-        Input::merge(array('l' => '3', 'hash' => $user->hash));
-
-        $nextSlots = $this->handleNextTimeSlot();
-
-        $collection = new \Illuminate\Support\Collection([$user->business]);
-        $data = [
-            'businesses'     => $collection,
-            'single'         => $view,
-            'lat'            => $user->business->lat,
-            'lng'            => $user->business->lng,
-            'now'            => Carbon::now(),
-            'businessesJson' => $collection->toJson(),
-            'business' => $user->business,
-        ];
-
-        $data = array_merge($data, $nextSlots);
-
-        $viewData = array_merge($data, $layout);
-
-        return View::make('front.new.business', $viewData);
+        return View::make('front.business', $viewData);
     }
 
     public function handleNextTimeSlot()
