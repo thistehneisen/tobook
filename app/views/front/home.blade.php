@@ -126,136 +126,32 @@
                 </ul>
             </div>
 
+        @if ($firstDeals->isEmpty() === false)
             <div class="col-sm-4 col-md-4">
-                <div class="offer">
-                    <p class="image">
-                        <img class="img-responsive" src="{{ asset_path('core/img/new/offer.jpg') }}" alt="">
-                        <span class="badge-wrapper">
-                            <em class="badge">-40%</em>
-                        </span>
-                    </p>
-                    <p>
-                        <span class="normal-price">100 EUR</span>
-                        <span class="offered-price"><em>50</em>,99 EUR</span>
-                    </p>
-                    <h4 class="title"><a href="/new/search" title="">Viesnīca «Baltvilla»</a></h4>
-                    <p class="desc">Vienvietīgie numuri par vienu nakti - 50,99 EUR, divvietīgie numuri par vienu nakti Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error pariatur aperiam perspiciatis tenetur cum ratione quo dignissimos, recusandae, animi quod et nulla officia facilis perferendis maxime iusto. Nobis, culpa, ea.</p>
-                </div>
+            <?php $counter = 1; ?>
+            @foreach ($firstDeals as $deal)
+                @include ('front.el.deal', ['deal' => $deal])
 
-                <div class="offer">
-                    <p><img class="img-responsive" src="{{ asset_path('core/img/new/offer.jpg') }}" alt=""></p>
-                    <p>
-                        <span class="normal-price">100 EUR</span>
-                        <span class="offered-price"><em>50</em>,99 EUR</span>
-                    </p>
-                    <h4 class="title"><a href="/new/search" title="">Viesnīca «Baltvilla»</a></h4>
-                    <p class="desc">Vienvietīgie numuri par vienu nakti - 50,99 EUR, divvietīgie numuri par vienu nakti Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus doloremque quod eius! Accusantium, dolor adipisci nulla magnam sed rerum assumenda perspiciatis, doloremque error ab totam nam provident, laboriosam, cum sequi.</p>
+                @if ($counter++ % 2 === 0)
                 </div>
+                <div class="col-sm-4 col-md-4">
+                @endif
+            @endforeach
             </div>
-
-            <div class="col-sm-4 col-md-4">
-                <div class="offer">
-                    <p><img class="img-responsive" src="{{ asset_path('core/img/new/offer.jpg') }}" alt=""></p>
-                    <p>
-                        <span class="normal-price">100 EUR</span>
-                        <span class="offered-price"><em>50</em>,99 EUR</span>
-                    </p>
-                    <h4 class="title"><a href="/new/search" title="">Viesnīca «Baltvilla»</a></h4>
-                    <p class="desc">Vienvietīgie numuri par vienu nakti - 50,99 EUR, divvietīgie numuri par vienu nakti Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium illum veniam nostrum deserunt id, est quos, rerum at minima molestiae laboriosam autem quod temporibus corporis, aliquid eos commodi voluptatem nobis.</p>
-                </div>
-
-                <div class="offer">
-                    <p><img class="img-responsive" src="{{ asset_path('core/img/new/offer.jpg') }}" alt=""></p>
-                    <p>
-                        <span class="normal-price">100 EUR</span>
-                        <span class="offered-price"><em>50</em>,99 EUR</span>
-                    </p>
-                    <h4 class="title"><a href="/new/search" title="">Viesnīca «Baltvilla»</a></h4>
-                    <p class="desc">Vienvietīgie numuri par vienu nakti - 50,99 EUR, divvietīgie numuri par vienu nakti Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse saepe vel aliquam iusto error mollitia, voluptas ratione inventore. Vitae, ullam, voluptatem ipsa debitis rerum autem natus aliquid provident optio in!</p>
-                </div>
-            </div>
+        @endif
         </div>
     </div>
 
-    <div class="row hot-offers">
-        <div class="col-sm-4 col-md-4">
-            <div class="offer">
-                <p class="image">
-                    <img class="img-responsive" src="{{ asset_path('core/img/new/offer.jpg') }}" alt="">
-                    <span class="badge-wrapper">
-                        <em class="badge">-40%</em>
-                    </span>
-                </p>
-                <p>
-                    <span class="normal-price">100 EUR</span>
-                    <span class="offered-price"><em>50</em>,99 EUR</span>
-                </p>
-                <h4 class="title"><a href="/new/search" title="">Viesnīca «Baltvilla»</a></h4>
-                <p class="desc">Vienvietīgie numuri par vienu nakti - 50,99 EUR, divvietīgie numuri par vienu nakti Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error pariatur aperiam perspiciatis tenetur cum ratione quo dignissimos, recusandae, animi quod et nulla officia facilis perferendis maxime iusto. Nobis, culpa, ea.</p>
-            </div>
-
-            <div class="offer">
-                <p><img class="img-responsive" src="{{ asset_path('core/img/new/offer.jpg') }}" alt=""></p>
-                <p>
-                    <span class="normal-price">100 EUR</span>
-                    <span class="offered-price"><em>50</em>,99 EUR</span>
-                </p>
-                <h4 class="title"><a href="/new/search" title="">Viesnīca «Baltvilla»</a></h4>
-                <p class="desc">Vienvietīgie numuri par vienu nakti - 50,99 EUR, divvietīgie numuri par vienu nakti Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus doloremque quod eius! Accusantium, dolor adipisci nulla magnam sed rerum assumenda perspiciatis, doloremque error ab totam nam provident, laboriosam, cum sequi.</p>
-            </div>
+    @if ($restDeals->isEmpty() === false)
+    <div class="row">
+        <div class="hot-offers">
+            @foreach ($restDeals as $deal)
+                <div class="col-sm-4 col-md-4">
+                @include ('front.el.deal', ['deal' => $deal])
+                </div>
+            @endforeach
         </div>
-
-        <div class="col-sm-4 col-md-4">
-            <div class="offer">
-                <p class="image">
-                    <img class="img-responsive" src="{{ asset_path('core/img/new/offer.jpg') }}" alt="">
-                    <span class="badge-wrapper">
-                        <em class="badge">-40%</em>
-                    </span>
-                </p>
-                <p>
-                    <span class="normal-price">100 EUR</span>
-                    <span class="offered-price"><em>50</em>,99 EUR</span>
-                </p>
-                <h4 class="title"><a href="/new/search" title="">Viesnīca «Baltvilla»</a></h4>
-                <p class="desc">Vienvietīgie numuri par vienu nakti - 50,99 EUR, divvietīgie numuri par vienu nakti Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error pariatur aperiam perspiciatis tenetur cum ratione quo dignissimos, recusandae, animi quod et nulla officia facilis perferendis maxime iusto. Nobis, culpa, ea.</p>
-            </div>
-
-            <div class="offer">
-                <p><img class="img-responsive" src="{{ asset_path('core/img/new/offer.jpg') }}" alt=""></p>
-                <p>
-                    <span class="normal-price">100 EUR</span>
-                    <span class="offered-price"><em>50</em>,99 EUR</span>
-                </p>
-                <h4 class="title"><a href="/new/search" title="">Viesnīca «Baltvilla»</a></h4>
-                <p class="desc">Vienvietīgie numuri par vienu nakti - 50,99 EUR, divvietīgie numuri par vienu nakti Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus doloremque quod eius! Accusantium, dolor adipisci nulla magnam sed rerum assumenda perspiciatis, doloremque error ab totam nam provident, laboriosam, cum sequi.</p>
-            </div>
-        </div>
-
-        <div class="col-sm-4 col-md-4">
-            <div class="offer">
-                <p class="image">
-                    <img class="img-responsive" src="{{ asset_path('core/img/new/offer.jpg') }}" alt="">
-                </p>
-                <p>
-                    <span class="normal-price">100 EUR</span>
-                    <span class="offered-price"><em>50</em>,99 EUR</span>
-                </p>
-                <h4 class="title"><a href="/new/search" title="">Viesnīca «Baltvilla»</a></h4>
-                <p class="desc">Vienvietīgie numuri par vienu nakti - 50,99 EUR, divvietīgie numuri par vienu nakti Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error pariatur aperiam perspiciatis tenetur cum ratione quo dignissimos, recusandae, animi quod et nulla officia facilis perferendis maxime iusto. Nobis, culpa, ea.</p>
-            </div>
-
-            <div class="offer">
-                <p><img class="img-responsive" src="{{ asset_path('core/img/new/offer.jpg') }}" alt=""></p>
-                <p>
-                    <span class="normal-price">100 EUR</span>
-                    <span class="offered-price"><em>50</em>,99 EUR</span>
-                </p>
-                <h4 class="title"><a href="/new/search" title="">Viesnīca «Baltvilla»</a></h4>
-                <p class="desc">Vienvietīgie numuri par vienu nakti - 50,99 EUR, divvietīgie numuri par vienu nakti Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus doloremque quod eius! Accusantium, dolor adipisci nulla magnam sed rerum assumenda perspiciatis, doloremque error ab totam nam provident, laboriosam, cum sequi.</p>
-            </div>
-        </div>
-
     </div>
+    @endif
 </div>
 @stop

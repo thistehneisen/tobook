@@ -19,10 +19,40 @@ class Front extends Base
     public function home()
     {
         $categories = BusinessCategory::getAll();
+        $deals = $this->getDeals();
+
+        // Because of the layout, we need to split deals into smaller parts
+        $firstDeals = $deals->splice(0, 4);
+        $restDeals = $deals->splice(4);
 
         return $this->render('home', [
             'categories' => $categories,
+            'deals'      => $deals,
+            'firstDeals' => $firstDeals,
+            'restDeals'  => $restDeals,
         ]);
+    }
+
+    /**
+     * Get active deals in database
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function getDeals()
+    {
+        $deals = FlashDealDate::active()
+            ->distinct()
+            ->orderBy('expire')
+            ->with('flashDeal')
+            ->take(50) // @TODO: Remove hard-code
+            ->get();
+
+        $deals->each(function (&$item) {
+            // @TODO: Slow!!!
+            $item = $item->attachBusiness($item->user->business);
+        });
+
+        return $deals;
     }
 
     /**
@@ -36,7 +66,7 @@ class Front extends Base
         $businesses = Business::with('user.images')->paginate();
 
         // Get deals from businesses
-        $deals = $this->getDeals($businesses);
+        $deals = $this->getDealsOfBusinesses($businesses);
 
         return $this->render('businesses', [
             'businesses' => $businesses,
@@ -59,7 +89,7 @@ class Front extends Base
         $category = BusinessCategory::findOrFail($categoryId);
         $businesses = $category->users()->has('business')->paginate();
 
-        $deals = $this->getDeals($businesses);
+        $deals = $this->getDealsOfBusinesses($businesses);
         return $this->render('businesses', [
             'businesses' => $businesses->lists('business'),
             'pagination' => $businesses->links(),
@@ -75,7 +105,7 @@ class Front extends Base
      *
      * @return Illuminate\Support\Collection
      */
-    protected function getDeals($businesses)
+    protected function getDealsOfBusinesses($businesses)
     {
         $deals = new Collection();
         foreach ($businesses as $business) {
