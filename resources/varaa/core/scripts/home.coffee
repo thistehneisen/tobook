@@ -79,6 +79,8 @@ do ($ = jQuery) ->
           minDate: new Date()
 
     $ '.datetime-link'
+      .on 'click', (e) ->
+        e.preventDefault()
       .on 'focus', (e) ->
         e.preventDefault()
         $(this).siblings '.datetime-control'
