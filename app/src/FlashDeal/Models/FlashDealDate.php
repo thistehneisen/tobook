@@ -35,25 +35,16 @@ class FlashDealDate extends Base implements CartDetailInterface
     //--------------------------------------------------------------------------
 
     /**
-     * Get flash deals belonging to this business category
+     * Get flash deals of a business
      *
-     * @param object $query
-     * @param int $categoryIds
+     * @param  Illuminate\Database\Eloquent\Builder $query
+     * @param  App\Core\Models\Business $business
      *
-     * @return object
+     * @return Illuminate\Support\Collection
      */
-    public function scopeOfBusinessCategory($query, $categoryIds)
+    public function scopeOfBusiness($query, $business)
     {
-        $tblFlashDeal =with(new FlashDeal)->getTable();
-        $tblService = with(new Service)->getTable();
-        $tblCategory = with(new BusinessCategory)->getTable();
-
-        return $query
-            ->select('*', $this->table.'.id AS flash_deal_date_id')
-            ->leftJoin($tblFlashDeal, $tblFlashDeal.'.id', '=', $this->table.'.flash_deal_id')
-            ->leftJoin($tblService, $tblService.'.id', '=', $tblFlashDeal.'.service_id')
-            ->leftJoin($tblCategory, $tblCategory.'.id', '=', $tblService.'.business_category_id')
-            ->whereIn($tblCategory.'.id', $categoryIds);
+        return $query->where('user_id', $business->user_id);
     }
 
     /**
@@ -193,6 +184,19 @@ class FlashDealDate extends Base implements CartDetailInterface
     {
         $this->decrement('remains', $value);
         $this->save();
+        return $this;
+    }
+
+    /**
+     * Attach a Business object as attribute of this model
+     *
+     * @param  App\Core\Models\Business $business
+     *
+     * @return App\FlashDeal\Models\FlashDealDate
+     */
+    public function attachBusiness(\App\Core\Models\Business $business)
+    {
+        $this->business = $business;
         return $this;
     }
 }

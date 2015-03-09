@@ -32,7 +32,12 @@ class FlashDeal extends Base
     {
         $servicePrice = $this->service->price;
 
-        return round(($servicePrice - $this->attributes['discounted_price']) * 100 / $servicePrice, 2);
+        return round(($servicePrice - $this->attributes['discounted_price']) * 100 / $servicePrice, 0);
+    }
+
+    public function getNormalPriceAttribute()
+    {
+        return $this->service->price;
     }
 
     //--------------------------------------------------------------------------

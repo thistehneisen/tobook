@@ -62,4 +62,5 @@ return [
     'companies_offers' => 'Companies with offers', // @todo
     'categories'       => 'Categories', // @todo
     'best_offers'      => 'Best offers', // @todo
+    'no_offers'        => 'There is no offer available.', // @todo
 ];

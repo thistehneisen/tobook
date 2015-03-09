@@ -5,6 +5,7 @@ use Carbon\Carbon;
 use App\Core\Models\Business;
 use App\Core\Models\BusinessCategory;
 use App\FlashDeal\Models\FlashDealDate;
+use Illuminate\Support\Collection;
 
 class Front extends Base
 {
@@ -32,12 +33,39 @@ class Front extends Base
     public function businesses()
     {
         // Get all businesses
-        $businesses = Business::paginate();
+        $businesses = Business::with('user.images')->paginate();
+        $deals = $this->getDeals($businesses);
 
         return $this->render('businesses', [
             'businesses' => $businesses,
+            'deals'      => $deals,
             'heading'    => trans('home.businesses'),
         ]);
+    }
+
+    /**
+     * Get active deals of provided businesses
+     *
+     * @param  Illuminate\Support\Collection $businesses
+     *
+     * @return Illuminate\Support\Collection
+     */
+    protected function getDeals($businesses)
+    {
+        $deals = new Collection();
+        foreach ($businesses as $business) {
+            $items = FlashDealDate::active()
+                ->ofBusiness($business)
+                ->with(['flashDeal', 'flashDeal.service'])
+                ->orderBy('expire')
+                ->get();
+            $items->each(function (&$item) use ($business) {
+                $item = $item->attachBusiness($business);
+            });
+
+            $deals = $deals->merge($items);
+        }
+        return $deals;
     }
 
     /**
@@ -56,30 +84,5 @@ class Front extends Base
 
         $response = Response::make($str, 200)->header('Content-Type', 'text/plain');
         return $response;
-    }
-
-    /**
-     * Get all available flash deals in the system
-     *
-     * @return array
-     */
-    protected function getFlashDeals()
-    {
-        // Which categories?
-        $categories = BusinessCategory::whereIn(
-            'id',
-            Config::get('varaa.flash_deal.categories')
-        )->with('children')->get();
-
-        foreach ($categories as &$category) {
-            $category->deals = FlashDealDate::ofBusinessCategory(
-                    $category->children->lists('id')
-                )
-                ->active()
-                ->orderBy('expire', 'ASC')
-                ->take(Config::get('varaa.flash_deal.limit'))
-                ->get();
-        }
-        return $categories;
     }
 }
