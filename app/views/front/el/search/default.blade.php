@@ -13,7 +13,7 @@
                     </a>
                     <ul class="dropdown-menu">
                     @foreach ($category->children as $child)
-                        <li><a href="{{ route('search') }}?q={{ urlencode($child->name) }}">{{ $child->name }}</a></li>
+                        <li><a href="{{ route('business.category', ['id' => $child->id, 'slug' => $child->slug]) }}">{{ $child->name }}</a></li>
                     @endforeach
                     </ul>
                 </li>
