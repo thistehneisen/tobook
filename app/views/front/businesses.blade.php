@@ -4,6 +4,12 @@
     @parent :: {{ trans('common.home') }}
 @stop
 
+@section ('styles')
+    @parent
+    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css') }}
+    {{ HTML::style(asset_path('as/styles/layout-3.css')) }}
+@stop
+
 @section('search')
     @include ('front.el.search.default', ['businessCategories' => \App\Core\Models\BusinessCategory::getAll()])
 @stop
@@ -14,9 +20,9 @@
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.12/gmaps.min.js') }}
     {{ HTML::script(asset('packages/jquery.countdown/jquery.plugin.min.js')) }}
     {{ HTML::script(asset('packages/jquery.countdown/jquery.countdown.min.js')) }}
-    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js') }}
-    @if (App::getLocale() !== 'en') {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.'.App::getLocale().'.min.js') }}
-    @endif
+    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment-with-locales.min.js') }}
+    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js') }}
+    {{ HTML::script(asset_path('core/scripts/home.js')) }}
     {{ HTML::script(asset_path('as/scripts/layout-3.js')) }}
 
     <script>
@@ -30,86 +36,33 @@ $(function() {
     </script>
 @stop
 
-@section('styles')
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css">
-    <link rel="stylesheet" href="{{ asset_path('as/styles/layout-3.css') }}">
-@stop
-
 @section('main-classes') front @stop
 
 @section('content')
 <div class="container search-results">
-    <h4 class="heading">
-        <span class="keyword">Barber shop</span>,
-        <span class="location">Center</span>,
-        any date,
-        any time:
-        <span class="results">38 results</span>
-    </h4>
+    <h4 class="heading">{{ $heading }}</h4>
 
     <div class="row">
         {{-- left sidebar --}}
         <div class="col-sm-3 col-md-3">
             <div class="businesses">
+            @foreach ($businesses as $business)
                 <div class="business">
-                    <p><img src="{{ asset_path('core/img/categories/beauty/beauty1.jpg') }}" alt="" class="img-responsive"></p>
-                    <h4><a href="/new/business/70" title="">Saules salons</a> <small>
+                    <p><img src="{{ $business->image }}" alt="" class="img-responsive"></p>
+                    <h4><a href="{{ $business->business_url }}" title="">{{{ $business->name }}}</a>
+                    {{-- <small>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
-                    </small></h4>
-                    <address>Brīvības iela 18, Rīga</address>
+                    </small> --}}
+                    </h4>
+                    <address>{{{ $business->full_address }}}</address>
                 </div>
-
-                <div class="business">
-                    <p><img src="{{ asset_path('core/img/categories/beauty/beauty1.jpg') }}" alt="" class="img-responsive"></p>
-                    <h4><a href="/new/business/70" title="">Saules salons</a> <small>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </small></h4>
-                    <address>Brīvības iela 18, Rīga</address>
-                </div>
-
-                <div class="business">
-                    <p><img src="{{ asset_path('core/img/categories/beauty/beauty1.jpg') }}" alt="" class="img-responsive"></p>
-                    <h4><a href="/new/business/70" title="">Saules salons</a> <small>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </small></h4>
-                    <address>Brīvības iela 18, Rīga</address>
-                </div>
-
-                <div class="business">
-                    <p><img src="{{ asset_path('core/img/categories/beauty/beauty1.jpg') }}" alt="" class="img-responsive"></p>
-                    <h4><a href="/new/business/70" title="">Saules salons</a> <small>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </small></h4>
-                    <address>Brīvības iela 18, Rīga</address>
-                </div>
+            @endforeach
             </div>
 
             <nav class="text-center">
-                <ul class="pagination">
-                    <li>
-                        <a href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li>
-                        <a href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
+                {{ $businesses->links() }}
             </nav>
         </div>
 

@@ -31,8 +31,12 @@ class Front extends Base
      */
     public function businesses()
     {
-        return $this->render('businesses', [
+        // Get all businesses
+        $businesses = Business::paginate();
 
+        return $this->render('businesses', [
+            'businesses' => $businesses,
+            'heading'    => trans('home.businesses'),
         ]);
     }
 
