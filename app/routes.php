@@ -49,17 +49,20 @@ require app_path().'/routes/flash_deal.php';
 // Others
 //------------------------------------------------------------------------------
 // Home
-Route::group([], function () {
-    Route::get('/', [
-        'as'    => 'home',
-        'uses'  => 'App\Core\Controllers\Front@home'
-    ]);
+Route::get('/', [
+    'as'    => 'home',
+    'uses'  => 'App\Core\Controllers\Front@home'
+]);
 
-    Route::get('robots.txt', [
-        'as'    => 'robots',
-        'uses'  => 'App\Core\Controllers\Front@robots'
-    ]);
-});
+Route::get('businesses', [
+    'as'    => 'businesses',
+    'uses'  => 'App\Core\Controllers\Front@businesses'
+]);
+
+Route::get('robots.txt', [
+    'as'    => 'robots',
+    'uses'  => 'App\Core\Controllers\Front@robots'
+]);
 
 // JS localization
 Route::get('jslocale.json', [

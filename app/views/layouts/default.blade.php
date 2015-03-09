@@ -147,7 +147,7 @@
         </nav>
 
         @section('search')
-            @include ('el.search.default')
+            @include ('front.el.search.default')
         @show
 
         <div class="row" id="js-geolocation-info" style="display: none;">

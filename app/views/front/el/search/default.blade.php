@@ -36,16 +36,28 @@
                 <button type="submit" class="btn btn-success">{{ trans('common.search') }}</button>
             </div>
 
-            <div class="datetime-wrapper row">
-                <a href="#" class="datetime">
-                    <i class="fa fa-calendar fa-big"></i> Date
-                    <i class="fa fa-chevron-down fa-small"></i>
-                </a>
+            <div class="row datetime-selector">
+                <div class="col-sm-12">
+                    <div class="datetime-wrapper">
+                        <a href="#" class="datetime-link">
+                            <i class="fa fa-calendar fa-big"></i> {{ trans('home.search.date') }}
+                            <i class="fa fa-chevron-down fa-small"></i>
+                        </a>
+                        <div class="datetime-control" data-format="YYYY-MM-DD" id="search-select-date">
+                            <input type="hidden" name="date">
+                        </div>
+                    </div>
 
-                <a href="#" class="datetime">
-                    <i class="fa fa-clock-o fa-big"></i> Time
-                    <i class="fa fa-chevron-down fa-small"></i>
-                </a>
+                    <div class="datetime-wrapper">
+                        <a href="#" class="datetime-link">
+                            <i class="fa fa-clock-o fa-big"></i> {{ trans('home.search.time') }}
+                            <i class="fa fa-chevron-down fa-small"></i>
+                        </a>
+                        <div class="datetime-control" data-format="HH:mm" id="search-select-time">
+                            <input type="hidden" name="time">
+                        </div>
+                    </div>
+                </div>
             </div>
 
             {{ Form::hidden('lat', Session::get('lat')) }}

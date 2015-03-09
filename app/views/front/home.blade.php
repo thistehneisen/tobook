@@ -21,7 +21,7 @@
 @section('main-classes') front @stop
 
 @section('search')
-    @include ('el.search.front')
+    @include ('front.el.search.front')
 @stop
 
 @section('content')

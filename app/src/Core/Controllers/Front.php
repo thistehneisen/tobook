@@ -24,6 +24,23 @@ class Front extends Base
         ]);
     }
 
+    /**
+     * Show the list of all businesses in the site
+     *
+     * @return View
+     */
+    public function businesses()
+    {
+        return $this->render('businesses', [
+
+        ]);
+    }
+
+    /**
+     * Dynamically create robots.txt file based on user setting
+     *
+     * @return View
+     */
     public function robots()
     {
         $str = "User-agent: *\n";
