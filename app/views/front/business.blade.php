@@ -4,10 +4,6 @@
     @parent :: {{{ $business->name }}}
 @stop
 
-@section('search')
-    @include ('front.el.search.default', ['businessCategories' => \App\Core\Models\BusinessCategory::getAll()])
-@stop
-
 @section('scripts')
     <script>
     // Dump inline data

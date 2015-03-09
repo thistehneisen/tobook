@@ -10,10 +10,6 @@
     {{ HTML::style(asset_path('as/styles/layout-3.css')) }}
 @stop
 
-@section('search')
-    @include ('front.el.search.default', ['businessCategories' => \App\Core\Models\BusinessCategory::getAll()])
-@stop
-
 @section('scripts')
 
     {{ HTML::script('//maps.googleapis.com/maps/api/js?v=3.exp&language='.App::getLocale()) }}
