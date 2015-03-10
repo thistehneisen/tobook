@@ -229,6 +229,15 @@
                         a {
                             color: @text_dark;
                             font-weight: 400;
+
+                            &:focus {
+                                text-decoration: none;
+                            }
+
+                            &.active {
+                                color: @primary_color;
+                                font-weight: 700;
+                            }
                         }
 
                         &.toggle {

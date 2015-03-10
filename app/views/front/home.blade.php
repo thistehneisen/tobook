@@ -106,7 +106,7 @@
                     <li>{{ trans('home.categories') }}
                         <ul id="js-category-filter">
                         @foreach ($dealCategories as $category)
-                            <li><a href="#">{{{ $category->name }}} ({{ $category->totalDeals }})</a></li>
+                            <li><a class="js-filter-link" data-id="{{ $category->id }}" href="#">{{{ $category->name }}} ({{ $category->totalDeals }})</a></li>
                         @endforeach
                             <li class="toggle more"><a href="#">{{ trans('home.more') }} <i class="fa fa-angle-double-right"></i></a></li>
                             <li class="toggle less"><a href="#">{{ trans('home.less') }} <i class="fa fa-angle-double-up"></i></a></li>
@@ -116,14 +116,14 @@
             </div>
 
             @foreach ($head as $deal)
-                <div class="col-sm-4 col-md-4">
+                <div class="col-sm-4 col-md-4 js-deal js-deal-category-{{ $deal->service->businessCategory->id }}">
                 @include ('front.el.deal', ['deal' => $deal])
                 </div>
             @endforeach
 
         @if ($tail->isEmpty() === false)
             @foreach ($tail as $deal)
-                <div class="col-sm-4 col-md-4">
+                <div class="col-sm-4 col-md-4 js-deal js-deal-category-{{ $deal->service->businessCategory->id }}">
                 @include ('front.el.deal', ['deal' => $deal])
                 </div>
             @endforeach

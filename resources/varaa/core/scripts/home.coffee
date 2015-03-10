@@ -132,3 +132,32 @@ do ($ = jQuery) ->
 
     # Show only first 6 items in category filter
     applyToogleList $('#js-category-filter'), 6
+
+    # We get all deal elements
+    $allDeals = $ '.js-deal'
+
+    # When clicking on a filter link
+    $ 'a.js-filter-link'
+      .on 'click', (e) ->
+        e.preventDefault()
+        $this = $ this
+
+        # Mark this filter as enabled
+        $this.toggleClass 'active'
+        # Get all active filters
+        $active = $ 'a.js-filter-link.active'
+
+        # If we have active filters
+        if $active.length
+          # Hide all deals
+          $allDeals.hide()
+
+          # Then go through all filters and enable corresponding deals
+          $active.each (i, item) ->
+            $item = $ item
+            id = $item.data 'id'
+            deals = $ ".js-deal-category-#{id}"
+            deals.fadeIn()
+        else
+          # If we don't have any active filters, just show all deals
+          $allDeals.show()
