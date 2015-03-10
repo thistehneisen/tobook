@@ -4,6 +4,7 @@ use Input, Response, Carbon\Carbon, Session, Redirect, Cart;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\Employee;
 use App\Consumers\Models\Consumer;
+use Illuminate\Support\ViewErrorBag;
 
 class Layout2 extends Base
 {
@@ -136,9 +137,10 @@ class Layout2 extends Base
         if ($v->fails()) {
             // Flash old input
             Input::flash();
-
+            $viewErrorBag = new ViewErrorBag;
+            $viewErrorBag->put('errors', $v->errors());
             return $this->render('form', $this->getCheckoutData())
-                ->with('errors', $v->errors());
+                ->with('errors', $viewErrorBag );
         }
 
 

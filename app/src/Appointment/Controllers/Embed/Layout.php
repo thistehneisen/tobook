@@ -206,6 +206,11 @@ trait Layout
             $validators['email'] = ['email'];
         }
 
+        if((int)$user->asOptions['terms_enabled'] == 3) {
+            $fields['terms']     = Input::get('terms');
+            $validators['terms'] = ['required'];
+        }
+
         return Validator::make($fields, $validators);
     }
 
