@@ -97,6 +97,7 @@
         @endforeach
     </div>
 
+@if ($head->isEmpty() === false)
     <div class="row">
         <div class="hot-offers">
             <h1 class="heading">{{ trans('home.best_offers') }} ({{ $totalDeals }})</h1>
@@ -113,7 +114,6 @@
                 </ul>
             </div>
 
-        @if ($head->isEmpty() === false)
             <div class="col-sm-4 col-md-4">
             <?php $counter = 1; ?>
             @foreach ($head as $deal)
@@ -125,9 +125,9 @@
                 @endif
             @endforeach
             </div>
-        @endif
         </div>
     </div>
+@endif
 
     @if ($tail->isEmpty() === false)
     <div class="row">
