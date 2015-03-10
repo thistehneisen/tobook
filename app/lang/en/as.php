@@ -230,6 +230,8 @@ return [
         'guide_text'       => 'Click on available time',
         'make_appointment' => 'Make appointment',
         'cancel'           => 'Cancel',
+        'back'             => 'Back',
+        'book'             => 'Book',
         'empty_cart'       => 'Your cart is empty',
         'start_time'       => 'Start time',
         'end_time'         => 'End time',
