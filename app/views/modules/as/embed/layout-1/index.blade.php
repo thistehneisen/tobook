@@ -68,6 +68,9 @@ $(document).ready(function () {
             $(this).addClass('inactive');
         }
     });
+    @if((bool)$user->asOptions['auto_expand_all_categories'] === true)
+    $('.services').slideToggle('fast');//auto expand all categories
+    @endif
 });
 </script>
 @stop
