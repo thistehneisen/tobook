@@ -90,25 +90,45 @@ do ($ = jQuery) ->
         $(this).siblings '.datetime-control'
           .hide()
 
+    #
+    # Auxilary function to apply toggle function to list
+    #
+    # @param object $el   jQuery instance of an UL
+    # @param int    limit Number of LI children to be shown
+    #
+    applyToogleList = ($el, limit) ->
+      # First we split the LI children into 2 parts
+      $head = $el.find 'li:not(.toggle):lt('+limit+')'
+      $tail = $el.find 'li:not(.toggle):gt('+(limit-1)+')'
+
+      # Including "More" and "Less"
+      $toggle = $el.find '.toggle'
+
+      # The link to show "More"
+      $more = $el.find '.more'
+
+      # We show the first part
+      $head.show()
+      # Then show More link if the tail part has items
+      $more.show() if $tail.length > 0
+
+      # When clicking on the toggle links
+      $toggle.on 'click', (e) ->
+        e.preventDefault()
+        $me = $ this
+
+        # Show the rest
+        $tail.slideToggle()
+        # Hide the current link
+        $me.hide()
+        # Toggle the counterpart link
+        $me.siblings '.toggle'
+          .show()
+
     # Show only first 3 business categories
     $ 'ul.list-categories'
       .each (i, item) ->
-        $item = $ item
-        $first = $item.find 'li:lt(3)'
-        $rest = $item.find 'li:gt(3)'
-        $arrow = $item.find '.arrow'
-        $more = $item.find '.more'
+        applyToogleList $(item), 3
 
-        # Show the first 3 sub-categories
-        $first.show()
-        # If a category has more than 3 sub-categories, show link to toggle
-        # the rest
-        $more.show() if $rest.length > 3
-
-        $arrow.on 'click', (e) ->
-          e.preventDefault()
-          $this = $ this
-          $rest.slideToggle()
-          $this.hide()
-          $this.siblings '.arrow'
-            .show()
+    # Show only first 6 items in category filter
+    applyToogleList $('#js-category-filter'), 6

@@ -90,8 +90,8 @@
                 @foreach ($category->children as $child)
                     <li><a href="{{ route('business.category', ['id' => $child->id, 'slug' => $child->slug]) }}">{{{ $child->name }}}</a></li>
                 @endforeach
-                    <li class="arrow more"><a href="#">{{ trans('home.more') }} <i class="fa fa-angle-double-right"></i></a></li>
-                    <li class="arrow less"><a href="#">{{ trans('home.less') }} <i class="fa fa-angle-double-up"></i></a></li>
+                    <li class="toggle more"><a href="#">{{ trans('home.more') }} <i class="fa fa-angle-double-right"></i></a></li>
+                    <li class="toggle less"><a href="#">{{ trans('home.less') }} <i class="fa fa-angle-double-up"></i></a></li>
                 </ul>
             </div>
         @endforeach
@@ -104,11 +104,12 @@
             <div class="col-sm-4 col-md-4">
                 <ul class="list-unstyled filters">
                     <li>{{ trans('home.categories') }}
-                        <ul>
+                        <ul id="js-category-filter">
                         @foreach ($dealCategories as $category)
                             <li><a href="#">{{{ $category->name }}} ({{ $category->totalDeals }})</a></li>
                         @endforeach
-                            <li><a href="#">{{ trans('home.more') }} <i class="fa fa-angle-double-right"></i></a></li>
+                            <li class="toggle more"><a href="#">{{ trans('home.more') }} <i class="fa fa-angle-double-right"></i></a></li>
+                            <li class="toggle less"><a href="#">{{ trans('home.less') }} <i class="fa fa-angle-double-up"></i></a></li>
                         </ul>
                     </li>
                 </ul>

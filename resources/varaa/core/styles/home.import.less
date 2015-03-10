@@ -197,7 +197,7 @@
             li {
                 display: none;
 
-                &.arrow {
+                &.toggle {
                     margin-top: 20px;
 
                     a {
@@ -224,9 +224,18 @@
                     list-style-type: none;
                     >li {
                         margin: 8px 0;
+                        display: none;
+
                         a {
                             color: @text_dark;
                             font-weight: 400;
+                        }
+
+                        &.toggle {
+                            margin-top: 15px;
+                            a {
+                                font-weight: 700;
+                            }
                         }
                     }
                 }
