@@ -19,32 +19,24 @@ class Front extends Base
     public function home()
     {
         $categories = BusinessCategory::getAll();
-        $deals = $this->getDeals();
+        $deals = FlashDeal::getActiveDeals();
+
+        // Count number of active deals
+        $totalDeals = $deals->count();
+
+        // Extract deal categories and its counters
+        $dealCategories = FlashDeal::getDealCategories($deals);
 
         // Because of the layout, we need to split deals into smaller parts
         $head = $deals->splice(0, 4);
 
         return $this->render('home', [
-            'categories' => $categories,
-            'head'       => $head,
-            'tail'       => $deals,
+            'categories'     => $categories,
+            'head'           => $head,
+            'tail'           => $deals,
+            'totalDeals'     => $totalDeals,
+            'dealCategories' => $dealCategories,
         ]);
-    }
-
-    /**
-     * Get active deals in database
-     *
-     * @return Illuminate\Support\Collection
-     */
-    public function getDeals()
-    {
-        $deals = FlashDeal::whereHas('dates', function($query) {
-                return $query->active()->orderBy('expire');
-            })
-            ->with('user.business')
-            ->get();
-
-        return $deals;
     }
 
     /**

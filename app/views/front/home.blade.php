@@ -90,8 +90,8 @@
                 @foreach ($category->children as $child)
                     <li><a href="{{ route('business.category', ['id' => $child->id, 'slug' => $child->slug]) }}">{{{ $child->name }}}</a></li>
                 @endforeach
-                    <li class="arrow more"><a href="#">{{ trans('home.more') }} <i class="fa fa-chevron-right"></i></a></li>
-                    <li class="arrow less"><a href="#">{{ trans('home.less') }} <i class="fa fa-chevron-up"></i></a></li>
+                    <li class="arrow more"><a href="#">{{ trans('home.more') }} <i class="fa fa-angle-double-right"></i></a></li>
+                    <li class="arrow less"><a href="#">{{ trans('home.less') }} <i class="fa fa-angle-double-up"></i></a></li>
                 </ul>
             </div>
         @endforeach
@@ -99,28 +99,15 @@
 
     <div class="row">
         <div class="hot-offers">
-            <h1 class="heading">{{ trans('home.best_offers') }} (96)</h1>
+            <h1 class="heading">{{ trans('home.best_offers') }} ({{ $totalDeals }})</h1>
             <div class="col-sm-4 col-md-4">
                 <ul class="list-unstyled filters">
                     <li>{{ trans('home.categories') }}
                         <ul>
-                            <li><a href="#">Skaistumkopšana, frizētavas (61)</a></li>
-                            <li><a href="#">Auto aprūpe (44)</a></li>
-                            <li><a href="#">Veselības aprūpe, zobārstniecība (31)</a></li>
-                            <li><a href="#">Atpūta un brūivais laiks (8)</a></li>
-                            <li><a href="#">Dzīvnieki (5)</a></li>
-                            <li><a href="#">Sports un fitness (3)</a></li>
-                        </ul>
-                    </li>
-                    <li>{{ trans('home.companies_offers') }}
-                        <ul>
-                            <li><a href="#">Live Active (87)</a></li>
-                            <li><a href="#">TOP SHOP (52)</a></li>
-                            <li><a href="#">Daces Masules zobārstniecība (22)</a></li>
-                            <li><a href="#">Gandrs (9)</a></li>
-                            <li><a href="#">Veselības pasaule (5)</a></li>
-                            <li><a href="#">ARKOLAT (3)</a></li>
-                            <li><a href="#">Optisports (3)</a></li>
+                        @foreach ($dealCategories as $category)
+                            <li><a href="#">{{{ $category->name }}} ({{ $category->totalDeals }})</a></li>
+                        @endforeach
+                            <li><a href="#">{{ trans('home.more') }} <i class="fa fa-angle-double-right"></i></a></li>
                         </ul>
                     </li>
                 </ul>

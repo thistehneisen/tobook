@@ -1,7 +1,9 @@
 <?php namespace App\FlashDeal\Models;
 
-use Carbon\Carbon, DB;
 use App\Core\Models\Base;
+use Carbon\Carbon;
+use DB;
+use Illuminate\Support\Collection;
 
 class FlashDeal extends Base
 {
@@ -106,5 +108,47 @@ class FlashDeal extends Base
             'quantity'         => ['type' => 'integer'],
             'service'          => ['type' => 'string'],
         ];
+    }
+
+    //--------------------------------------------------------------------------
+    // CUSTOM METHODS
+    //--------------------------------------------------------------------------
+
+    /**
+     * Get active deals to display in front page
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public static function getActiveDeals()
+    {
+        return static::whereHas('dates', function($query) {
+            return $query->active()->orderBy('expire');
+        })
+        ->with(['user.business', 'service', 'service.businessCategory'])
+        ->get();
+    }
+
+    /**
+     * Get the list of categories that have active offers
+     *
+     * @param Illuminate\Support\Collection $deals Collection of deals
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public static function getDealCategories($deals)
+    {
+        $data = [];
+        foreach ($deals as $deal) {
+            $category = $deal->service->businessCategory;
+            if (!isset($data[$category->id])) {
+                $data[$category->id] = $category;
+            }
+
+            $data[$category->id]->totalDeals = isset($data[$category->id]->totalDeals)
+                ? $data[$category->id]->totalDeals + 1
+                : 1;
+        }
+
+        return new Collection($data);
     }
 }
