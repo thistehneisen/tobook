@@ -115,31 +115,21 @@
                 </ul>
             </div>
 
-            <div class="col-sm-4 col-md-4">
-            <?php $counter = 1; ?>
             @foreach ($head as $deal)
-                @include ('front.el.deal', ['deal' => $deal])
-
-                @if ($counter++ % 2 === 0)
-                </div>
                 <div class="col-sm-4 col-md-4">
-                @endif
+                @include ('front.el.deal', ['deal' => $deal])
+                </div>
             @endforeach
-            </div>
-        </div>
-    </div>
-@endif
 
-    @if ($tail->isEmpty() === false)
-    <div class="row">
-        <div class="hot-offers">
+        @if ($tail->isEmpty() === false)
             @foreach ($tail as $deal)
                 <div class="col-sm-4 col-md-4">
                 @include ('front.el.deal', ['deal' => $deal])
                 </div>
             @endforeach
+        @endif
         </div>
     </div>
-    @endif
+@endif
 </div>
 @stop
