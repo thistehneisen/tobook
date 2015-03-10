@@ -250,7 +250,7 @@ class Base implements Strategy
         foreach ($this->resourceCache[$this->date][$this->service->id]['query'] as $booking) {
             $start = $booking->getStartAt();
             $end   = $booking->getEndAt();
-            if ($this->rowTime >= $start && $this->rowTime <= $end) {
+            if ($this->rowTime >= $start && $this->rowTime < $end) {
                 $this->resourceCache[$this->date][$this->service->id][$this->hour][$this->minute] = false;
             }
         }
