@@ -57,6 +57,24 @@ class FlashDeal extends Base
     {
         return $this->belongsTo('App\Core\Models\User');
     }
+
+    //--------------------------------------------------------------------------
+    // SCOPES
+    //--------------------------------------------------------------------------
+
+    /**
+     * Get flash deals of a business
+     *
+     * @param  Illuminate\Database\Eloquent\Builder $query
+     * @param  App\Core\Models\Business $business
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function scopeOfBusiness($query, $business)
+    {
+        return $query->where('user_id', $business->id);
+    }
+
     //--------------------------------------------------------------------------
     // SEARCH
     //--------------------------------------------------------------------------

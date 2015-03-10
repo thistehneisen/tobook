@@ -35,19 +35,6 @@ class FlashDealDate extends Base implements CartDetailInterface
     //--------------------------------------------------------------------------
 
     /**
-     * Get flash deals of a business
-     *
-     * @param  Illuminate\Database\Eloquent\Builder $query
-     * @param  App\Core\Models\Business $business
-     *
-     * @return Illuminate\Support\Collection
-     */
-    public function scopeOfBusiness($query, $business)
-    {
-        return $query->where('user_id', $business->user_id);
-    }
-
-    /**
      * Get active flash deal dates
      *
      * @param Illuminate\Database\Query\Builder $query
@@ -184,19 +171,6 @@ class FlashDealDate extends Base implements CartDetailInterface
     {
         $this->decrement('remains', $value);
         $this->save();
-        return $this;
-    }
-
-    /**
-     * Attach a Business object as attribute of this model
-     *
-     * @param  App\Core\Models\Business $business
-     *
-     * @return App\FlashDeal\Models\FlashDealDate
-     */
-    public function attachBusiness(\App\Core\Models\Business $business)
-    {
-        $this->business = $business;
         return $this;
     }
 }

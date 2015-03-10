@@ -4,7 +4,7 @@ use View, Confide, Redirect, Config, Input, Response, Settings;
 use Carbon\Carbon;
 use App\Core\Models\Business;
 use App\Core\Models\BusinessCategory;
-use App\FlashDeal\Models\FlashDealDate;
+use App\FlashDeal\Models\FlashDeal;
 use Illuminate\Support\Collection;
 
 class Front extends Base
@@ -38,17 +38,11 @@ class Front extends Base
      */
     public function getDeals()
     {
-        $deals = FlashDealDate::active()
-            ->distinct()
-            ->orderBy('expire')
-            ->with('flashDeal')
-            ->take(50) // @TODO: Remove hard-code
+        $deals = FlashDeal::whereHas('dates', function($query) {
+                return $query->active()->orderBy('expire');
+            })
+            ->with('user.business')
             ->get();
-
-        $deals->each(function (&$item) {
-            // @TODO: Slow!!!
-            $item = $item->attachBusiness($item->user->business);
-        });
 
         return $deals;
     }
@@ -107,14 +101,12 @@ class Front extends Base
     {
         $deals = new Collection();
         foreach ($businesses as $business) {
-            $items = FlashDealDate::active()
-                ->ofBusiness($business)
-                ->with(['flashDeal', 'flashDeal.service'])
-                ->orderBy('expire')
+            $items = FlashDeal::ofBusiness($business)
+                ->whereHas('dates', function ($query){
+                    return $query->active()->orderBy('expire');
+                })
+                ->with('user.business')
                 ->get();
-            $items->each(function (&$item) use ($business) {
-                $item = $item->attachBusiness($business);
-            });
 
             $deals = $deals->merge($items);
         }
