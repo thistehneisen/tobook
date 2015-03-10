@@ -22,14 +22,12 @@ class Front extends Base
         $deals = $this->getDeals();
 
         // Because of the layout, we need to split deals into smaller parts
-        $firstDeals = $deals->splice(0, 4);
-        $restDeals = $deals->splice(4);
+        $head = $deals->splice(0, 4);
 
         return $this->render('home', [
             'categories' => $categories,
-            'deals'      => $deals,
-            'firstDeals' => $firstDeals,
-            'restDeals'  => $restDeals,
+            'head'       => $head,
+            'tail'       => $deals,
         ]);
     }
 

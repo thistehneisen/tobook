@@ -126,10 +126,10 @@
                 </ul>
             </div>
 
-        @if ($firstDeals->isEmpty() === false)
+        @if ($head->isEmpty() === false)
             <div class="col-sm-4 col-md-4">
             <?php $counter = 1; ?>
-            @foreach ($firstDeals as $deal)
+            @foreach ($head as $deal)
                 @include ('front.el.deal', ['deal' => $deal])
 
                 @if ($counter++ % 2 === 0)
@@ -142,10 +142,10 @@
         </div>
     </div>
 
-    @if ($restDeals->isEmpty() === false)
+    @if ($tail->isEmpty() === false)
     <div class="row">
         <div class="hot-offers">
-            @foreach ($restDeals as $deal)
+            @foreach ($tail as $deal)
                 <div class="col-sm-4 col-md-4">
                 @include ('front.el.deal', ['deal' => $deal])
                 </div>
