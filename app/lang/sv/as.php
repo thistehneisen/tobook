@@ -343,6 +343,7 @@ return [
             'confirm_tokens_employee'                        => 'Innehåll e-post',
             'terms_enabled'                                  => 'Aktivera villkor',
             'default_nat_service'                            => 'Nästa tillgängliga tjänst',
+            'auto_expand_all_categories'                     => 'Auto expand all categories',//@todo
         ],
         'style' => [
             'heading'                           => '',

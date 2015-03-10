@@ -343,6 +343,7 @@ return [
             'min_distance'                                   => 'Distanta min',
             'max_distance'                                   => 'Distanta max',
             'auto_select_employee'                           => 'Selecteaza automat un angajat',
+            'auto_expand_all_categories'                     => 'Auto expand all categories',//@todo
         ],
         'style' => [
             'heading'                           => '',

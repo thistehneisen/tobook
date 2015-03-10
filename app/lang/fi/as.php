@@ -342,6 +342,7 @@ return [
             'min_distance'                                   => 'Min distance',//@todo
             'max_distance'                                   => 'Max distance',//@todo
             'auto_select_employee'                           => 'Auto select an employee',//@todo
+            'auto_expand_all_categories'                     => 'Auto expand all categories',//@todo
             'factor'                                         => 'Factor',//@todo
         ],
         'style' => [

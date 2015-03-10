@@ -343,6 +343,7 @@ return [
             'min_distance'                                   => 'Мин. расстояние',
             'max_distance'                                   => 'Макс. расстояние',
             'auto_select_employee'                           => 'Автоматический выбор работника',
+            'auto_expand_all_categories'                     => 'Auto expand all categories',//@todo
         ],
         'style' => [
             'heading'                           => '',

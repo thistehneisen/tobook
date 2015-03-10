@@ -102,6 +102,10 @@ return [
                     'type' => 'Radio',
                     'default' => false
                 ],
+                'auto_expand_all_categories' => [
+                    'type' => 'Radio',
+                    'default' => false
+                ],
                 'default_nat_service' => [
                     'type' => 'DefaultNatDropdown',
                     'default' => -1
