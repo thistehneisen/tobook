@@ -16,6 +16,7 @@ class Layout1 extends Base
         $hash                = Input::get('hash');
         $cartId              = Input::get('cart_id');
         $notes               = Input::get('notes');
+        $user                = $this->getUser($hash);
         $isRequestedEmployee = Input::get('is_requested_employee', false);
 
         $validation = $this->getConfirmationValidator();
@@ -28,7 +29,7 @@ class Layout1 extends Base
         $cart->notes = $notes;
         $cart->consumer()->associate($consumer)->save();
 
-        return Redirect::route('as.embed.embed', ['hash' => $hash, 'action'=> 'confirm', 'cart_id' => $cartId, 'is_requested_employee' => $isRequestedEmployee]);
+        return Redirect::route('as.embed.embed', ['hash' => $hash, 'action'=> 'confirm', 'user'=> $user, 'cart_id' => $cartId, 'is_requested_employee' => $isRequestedEmployee]);
     }
 
     /**

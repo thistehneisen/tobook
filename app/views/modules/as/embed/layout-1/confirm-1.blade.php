@@ -45,7 +45,8 @@
                 </div>
                 @endif
             @endforeach
-             <div class="form-group row">
+            @if((bool)$user->asOptions['show_employee_request'] == true)
+            <div class="form-group row">
                 <div class="col-sm-offset-2 col-sm-10">
                     @if($isRequestedEmployee)
                     <i class="glyphicon glyphicon-ok text-success"></i> {{ trans('as.bookings.request_employee') }}
@@ -54,6 +55,7 @@
                     @endif
                 </div>
             </div>
+             @endif
             <input type="hidden" name="hash" value="{{ $hash }}">
             <input type="hidden" name="cart_id" value="{{ $cart->id }}">
             <input type="hidden" name="source" value="layout1">

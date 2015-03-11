@@ -344,6 +344,7 @@ return [
             'max_distance'                                   => 'Distanta max',
             'auto_select_employee'                           => 'Selecteaza automat un angajat',
             'auto_expand_all_categories'                     => 'Auto expand all categories',//@todo
+            'show_employee_request'                          => 'Show option requesting for an employee',//@todo
         ],
         'style' => [
             'heading'                           => '',

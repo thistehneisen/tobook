@@ -29,6 +29,7 @@
         </div>
         @endif
     @endforeach
+    @if((bool)$user->asOptions['show_employee_request'])
     <div class="form-group row">
         <div class="col-sm-offset-2 col-sm-10">
             @if($isRequestedEmployee)
@@ -38,6 +39,7 @@
             @endif
         </div>
     </div>
+    @endif
 
     <input type="hidden" name="hash" value="{{ $hash }}">
     <input type="hidden" name="first_name" value="{{ $first_name }}">

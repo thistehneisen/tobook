@@ -344,6 +344,7 @@ return [
             'max_distance'                                   => 'Макс. расстояние',
             'auto_select_employee'                           => 'Автоматический выбор работника',
             'auto_expand_all_categories'                     => 'Auto expand all categories',//@todo
+            'show_employee_request'                          => 'Show option requesting for an employee',//@todo
         ],
         'style' => [
             'heading'                           => '',

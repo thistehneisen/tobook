@@ -45,11 +45,13 @@
                 </div>
             </div>
             @endif
+            @if((bool)$user->asOptions['show_employee_request'])
             <div class="form-group row">
                 <div class="col-sm-offset-2 col-sm-10">
                   <label for="is_requested_employee">{{ Form::checkbox('is_requested_employee', 1, (isset($booking_info['is_requested_employee'])) ? $booking_info['is_requested_employee'] : '', ['id' => 'is_requested_employee']) }} {{ trans('as.bookings.request_employee') }}</label>
                 </div>
             </div>
+            @endif
             <input type="hidden" name="hash" value="{{ $hash }}">
             <input type="hidden" name="cart_id" value="{{ $cart->id }}">
             @if ((int)$user->asOptions['terms_enabled'] > 1)

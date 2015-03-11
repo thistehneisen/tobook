@@ -47,6 +47,8 @@
         <div class="col-md-10">{{ $notes }}</div>
     </div>
     @endif
+
+    @if((bool)$user->asOptions['show_employee_request'])
     <div class="form-group row">
         <div class="col-sm-offset-2 col-sm-10">
             @if($isRequestedEmployee)
@@ -56,6 +58,7 @@
             @endif
         </div>
     </div>
+    @endif
 
     <input type="hidden" name="service_id" value="{{ $service->id }}">
     <input type="hidden" name="employee_id" value="{{ $employee->id }}">

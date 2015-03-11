@@ -346,6 +346,7 @@ return [
             'max_distance'                                   => 'Max distance',
             'auto_select_employee'                           => 'Auto select an employee',
             'auto_expand_all_categories'                     => 'Auto expand all categories',
+            'show_employee_request'                          => 'Show option requesting for an employee',
             'factor'                                         => 'Factor'
         ],
         'style' => [

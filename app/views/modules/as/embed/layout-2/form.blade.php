@@ -39,10 +39,12 @@
         {{ Form::select('country', array_combine($user->business->getCountryList(), $user->business->getCountryList()), (isset($booking_info['country'])) ? $booking_info['country'] : '', ['class' => 'form-control input-sm', 'id' => 'country']) }}
     </div>
     @endif
+    @if((bool)$user->asOptions['show_employee_request'])
     <div class="form-group">
         {{ Form::checkbox('is_requested_employee', 1, (isset($booking_info['is_requested_employee'])) ? $booking_info['is_requested_employee'] : '', ['id' => 'is_requested_employee']) }}
         <label for="is_requested_employee">{{ trans('as.bookings.request_employee') }}</label>
     </div>
+    @endif
 
     @if ((int)$user->asOptions['terms_enabled'] > 1)
     <?php
