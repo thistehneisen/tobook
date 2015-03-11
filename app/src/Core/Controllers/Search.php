@@ -28,7 +28,7 @@ class Search extends Front
         return $this->render('businesses', [
             'businesses' => $businesses,
             'pagination' => $businesses->links(),
-            'deals' => $deals,
+            'deals'      => $deals,
             'lat'        => $lat,
             'lng'        => $lng,
             'heading'    => trans('home.search.results', ['keyword' => $keyword])

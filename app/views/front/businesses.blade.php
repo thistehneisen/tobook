@@ -11,6 +11,18 @@
 @stop
 
 @section('scripts')
+    <script>
+    VARAA.Search = VARAA.Search || {};
+    VARAA.Search.businesses = {{ json_encode($businesses) }};
+    VARAA.Search.lat = {{ $lat or 0 }};
+    VARAA.Search.lng = {{ $lng or 0 }};
+@if(!empty($categoryId) && !empty($serviceId))
+    VARAA.Search.categoryId = {{ $categoryId }};
+    VARAA.Search.serviceId = {{ $serviceId }};
+    VARAA.Search.employeeId = {{ $employeeId }};
+    VARAA.Search.time = {{ $time }};
+@endif
+    </script>
 
     {{ HTML::script('//maps.googleapis.com/maps/api/js?v=3.exp&language='.App::getLocale()) }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.12/gmaps.min.js') }}
@@ -19,6 +31,7 @@
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment-with-locales.min.js') }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js') }}
     {{ HTML::script(asset_path('core/scripts/home.js')) }}
+    {{ HTML::script(asset_path('core/scripts/search.js')) }}
     {{ HTML::script(asset_path('as/scripts/layout-3.js')) }}
 @stop
 
