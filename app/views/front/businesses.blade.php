@@ -20,16 +20,6 @@
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js') }}
     {{ HTML::script(asset_path('core/scripts/home.js')) }}
     {{ HTML::script(asset_path('as/scripts/layout-3.js')) }}
-
-    <script>
-$(function() {
-    new GMaps({
-      div: '#map-canvas',
-      lat: -12.043333,
-      lng: -77.028333
-    });
-});
-    </script>
 @stop
 
 @section('main-classes') front @stop
@@ -37,7 +27,7 @@ $(function() {
 @section('content')
 <div class="container search-results">
     <h4 class="heading">{{ $heading }}</h4>
-@if ($businesses->isEmpty())
+@if (empty($businesses))
     <div class="row">
         <div class="col-sm-offset-2 col-sm-8">
             <div class="alert alert-danger">

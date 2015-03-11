@@ -20,11 +20,11 @@ return [
     'next_timeslot'         => 'Next available timeslots',
     'time'                  => 'Time',
     'search_tagline'        => 'What do you want to book?', // @todo
-    'search_query'          => 'Enter city or keyword', // @todo
+    'search_query'          => 'Enter business name or service', // @todo
     'search_place'          => 'Helsinki, FI', // @todo
     'search'        => [
         'tagline'         => 'What do you want to book?', // @todo
-        'query'           => 'Enter city or keyword', // @todo
+        'query'           => 'Enter business name or service', // @todo
         'location'        => 'Helsinki, FI', // @todo
         'about'           => 'About',
         'locations_hours' => 'Locations &amp; Hours',
