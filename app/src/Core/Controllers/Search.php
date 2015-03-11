@@ -26,7 +26,7 @@ class Search extends Front
         list($lat, $lng) = Util::getCoordinates();
 
         return $this->render('businesses', [
-            'businesses' => $businesses,
+            'businesses' => $businesses->getItems(),
             'pagination' => $businesses->links(),
             'deals'      => $deals,
             'lat'        => $lat,

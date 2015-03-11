@@ -73,7 +73,7 @@ do ($ = jQuery) ->
       .each (_, item) ->
         $ item
         .datetimepicker
-          format: $(this).data 'format'
+          format: $(@).data 'format'
           inline: true
           stepping: 15
           minDate: new Date()
@@ -83,11 +83,11 @@ do ($ = jQuery) ->
         e.preventDefault()
       .on 'focus', (e) ->
         e.preventDefault()
-        $(this).siblings '.datetime-control'
+        $(@).siblings '.datetime-control'
           .show()
       .on 'blur', (e) ->
         e.preventDefault()
-        $(this).siblings '.datetime-control'
+        $(@).siblings '.datetime-control'
           .hide()
 
     #
@@ -115,7 +115,7 @@ do ($ = jQuery) ->
       # When clicking on the toggle links
       $toggle.on 'click', (e) ->
         e.preventDefault()
-        $me = $ this
+        $me = $ @
 
         # Show the rest
         $tail.slideToggle()
@@ -140,10 +140,10 @@ do ($ = jQuery) ->
     $ 'a.js-filter-link'
       .on 'click', (e) ->
         e.preventDefault()
-        $this = $ this
+        $me = $ @
 
         # Mark this filter as enabled
-        $this.toggleClass 'active'
+        $me.toggleClass 'active'
         # Get all active filters
         $active = $ 'a.js-filter-link.active'
 

@@ -74,11 +74,7 @@ class FlashDeal extends Base
      */
     public function scopeOfBusiness($query, $business)
     {
-        $id = $business instanceof \App\Core\Models\Business
-            ? $business->user_id
-            : $business->id;
-
-        return $query->where('user_id', $id);
+        return $query->where('user_id', $business->id);
     }
 
     //--------------------------------------------------------------------------
