@@ -35,6 +35,15 @@ class Business extends Base
         ]
     ];
 
+    public $hidden = [
+        'note',
+        'bank_account',
+        'meta_title',
+        'meta_keywords',
+        'meta_description',
+        'is_hidden',
+    ];
+
     /**
      * @{@inheritdoc}
      */
