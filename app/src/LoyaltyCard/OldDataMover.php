@@ -57,10 +57,10 @@ class OldDataMover
 
         // Start moving data
         $this->moveCustomers($blogId, $user);
-        $this->moveStamps($blogId, $user);
-        $this->movePoints($blogId, $user);
-        $this->moveStampHistory($blogId, $user);
-        $this->movePointHistory($blogId, $user);
+        // $this->moveStamps($blogId, $user);
+        // $this->movePoints($blogId, $user);
+        // $this->moveStampHistory($blogId, $user);
+        // $this->movePointHistory($blogId, $user);
 
         // Done the job
         $job->delete();
@@ -121,6 +121,10 @@ class OldDataMover
                 ]);
             }
 
+            // link to current user
+            try {
+                $user->consumers()->attach($consumerId);
+            } catch (\Exception $ex) {}
             // Map email and old ID to new consumer ID
             $this->consumerMap[$item->email] = $consumerId;
             // We will user wpId since this is the ID used in stamp and point

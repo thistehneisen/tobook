@@ -32,33 +32,22 @@ class MoveLcCommand extends Command
     {
         // @see: https://github.com/varaa/varaa/issues/281
         $users = [
-            217     => 'automan',
-            9593    => 'bcare',
-            1470    => 'blackpanther',
-            1001374 => 'blinit',
-            161     => 'carboys',
-            5749    => 'cawell',
-            //6429    => 'eastasiamart',
-            //4700    => 'espoontoripyora',
-            1001194 => 'flamingoclub',
-            //3242    => 'glosspoint',
+            1001374 => 'blini',
             6043    => 'halfblock',
             6051    => 'halfblockkuopio',
-            7270    => 'in-style',
-            1001162 => 'kauneushoitolamikkeli',
             2729    => 'khmaarit',
             1001818 => 'khmikkeli',
-            5701    => 'korsonhius',
+            5701    => 'korsonhiussalonki',
             1528    => 'koulutettuhierojamarika',
-            //5770    => 'lahdenhiusk',
             597     => 'scorpiobarbers',
-            //1002392 => 'sinnestore',
-            //8927    => 'strhuolto',
             1912    => 'studiowoman',
-            //362     => 'tammerfix',
             1001257 => 'tittis',
-            324     => 'tkbodybalance',
             1001381 => 'vanhakassu',
+        ];
+
+        $systemMap = [
+            'blini' => 'blinit',
+            'korsonhiussalonki' => 'korsonhius',
         ];
 
         // Database handler to interact with old WP db
@@ -66,7 +55,12 @@ class MoveLcCommand extends Command
 
         // Get role User first, so that we don't need to hit the database again
         $role = Role::user();
-        foreach ($users as $oldId => $username) {
+        foreach ($users as $oldId => $oldUsername) {
+            // get username in new system
+            $username = array_key_exists($oldUsername, $systemMap)
+                ? $systemMap[$oldUsername]
+                : $oldUsername;
+
             // Default email
             // We will try to get the real email soon
             $email = $username.'@customers.varaa.com';
@@ -112,7 +106,7 @@ class MoveLcCommand extends Command
 
             // Then push into the queue to migrate their data
             Queue::push('\App\LoyaltyCard\OldDataMover', [
-                $username,
+                $oldUsername,
                 $oldId,
                 $user->id, // User ID in the new system
             ]);
