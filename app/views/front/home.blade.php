@@ -28,13 +28,13 @@
 <div class="hero-form">
     <div class="img-bg">
         <div class="container">
-            {{ Form::open(['url' => '/new/search', 'class' => 'form-search', 'method' => 'GET']) }}
+            {{ Form::open(['route' => 'search', 'class' => 'form-search', 'method' => 'GET']) }}
                 <div class="form-group row">
                     <div class="col-sm-4 col-md-4">
                         <h2 class="heading">{{ trans('home.search.tagline') }}</h2>
                         <div class="input-group margin-bottom-lg">
                             <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
-                            <input class="form-control input-lg" type="text" placeholder="{{ trans('home.search.query') }}">
+                            <input name="q" class="form-control input-lg" type="text" placeholder="{{ trans('home.search.query') }}">
                         </div>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                     <div class="col-sm-3 col-md-3">
                         <div class="input-group margin-bottom-lg">
                             <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
-                            <input class="form-control input-lg" type="text" placeholder="{{ trans('home.search.location') }}">
+                            <input name="location" class="form-control input-lg" type="text" placeholder="{{ trans('home.search.location') }}">
                         </div>
                     </div>
 

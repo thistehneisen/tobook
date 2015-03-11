@@ -34,6 +34,7 @@ return [
         'button'          => 'Search', // @todo
         'date'            => 'Any date', // @todo
         'time'            => 'Any time', // @todo
+        'results'         => 'Search results for &ldquo;<strong>:keyword</strong>&rdquo;', // @todo
         'geo'             => [
             'info' => 'We will ask for your current location to display results that are close to you.'
         ]

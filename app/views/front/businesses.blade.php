@@ -37,7 +37,15 @@ $(function() {
 @section('content')
 <div class="container search-results">
     <h4 class="heading">{{ $heading }}</h4>
-
+@if ($businesses->isEmpty())
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-8">
+            <div class="alert alert-danger">
+                <p>{{ trans('common.no_records') }}</p>
+            </div>
+        </div>
+    </div>
+@else
     <div class="row">
         {{-- left sidebar --}}
         <div class="col-sm-3 col-md-3">
@@ -83,5 +91,6 @@ $(function() {
             </div>
         </div>
     </div>
+@endif
 </div>
 @stop
