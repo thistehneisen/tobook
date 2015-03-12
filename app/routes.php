@@ -3,19 +3,6 @@
 Route::pattern('id', '[0-9]+');
 Route::pattern('slug', '[a-z0-9-]+');
 
-Route::group(['prefix' => 'new'], function() {
-    Route::get('business/{id}', [
-        'uses' => 'App\Core\Controllers\Ajax\Search@newShowBusiness'
-    ]);
-
-    Route::get('{page?}', function($page = null) {
-        if ($page === null) $page = 'home';
-        return View::make('front.new.'.$page);
-    });
-});
-
-
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
