@@ -3,16 +3,12 @@
 use App\Core\Models\Business;
 use App\Core\Models\BusinessCategory;
 use App\FlashDeal\Models\FlashDeal;
-use Carbon\Carbon;
-use Confide;
-use Config;
 use Illuminate\Support\Collection;
 use Input;
-use Redirect;
 use Response;
 use Session;
 use Settings;
-use View;
+use Util;
 
 class Front extends Base
 {
@@ -59,12 +55,23 @@ class Front extends Base
         // Get deals from businesses
         $deals = $this->getDealsOfBusinesses($businesses);
 
+        // Get lat and lng to show the map
+        $lat = Session::get('lat');
+        $lng = Session::get('lng');
+        if (empty($lat) && empty($lng)) {
+            try {
+                list($lat, $lng) = Util::geocoder(
+                    Settings::get('default_location')
+                );
+            } catch (\Exception $ex) { /* Silently failed */ }
+        }
+
         return $this->render('businesses', [
             'businesses' => $businesses,
             'pagination' => $businesses->links(),
             'deals'      => $deals,
-            'lat'        => Session::get('lat'),
-            'lng'        => Session::get('lng'),
+            'lat'        => $lat,
+            'lng'        => $lng,
             'heading'    => trans('home.businesses'),
         ]);
     }
