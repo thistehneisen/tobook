@@ -38,7 +38,7 @@ $ ->
 
   # Determine if we should ask for location
   $form = $ '#main-search-form'
-  if $form? and $form.length > 0
+  if $form.length
     $latInput = $form.find '[name=lat]'
     $lngInput = $form.find '[name=lng]'
     shouldAskGeolocation = not ($latInput.val().length > 0 and $lngInput.val().length > 0)
@@ -49,13 +49,11 @@ $ ->
 
       $info = $ '#js-geolocation-info'
       # Show the information panel
-      $info.slideDown()
+      $info.show() if shouldAskGeolocation
 
       success = (position) ->
         $latInput.val position.coords.latitude
         $lngInput.val position.coords.longitude
-        # Hide the information since we've already get the coords
-        $info.slideUp()
 
       error = (err) ->
         console.log err

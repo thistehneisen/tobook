@@ -10,21 +10,12 @@ class VaraaSearch
     @employeeId = input.employeeId if input.employeeId?
     @time = input.time if input.time?
 
-    # Take out the first business in the list. This will be use in single
-    # business page
-    @single = @businesses[0] if @businesses[0]?
-
   run: ->
     if @categoryId and @serviceId
       @selectBookingForm()
 
-    # Check if this is a business page or a search result with a sole business
-    if $("#js-map-#{@single.user_id}").length
-      @showSingleBusiness()
-    # Else this is the search result page, we should render the map
-    # and set markers of all businesses
-    else
-      @showBusinesses()
+    # Dislay businesses on the map
+    @showBusinesses()
 
   selectBookingForm: ->
     $ "input:radio[name=category_id][value=#{@categoryId}], input:radio[name=service_id][value=#{@serviceId}]"
@@ -39,19 +30,33 @@ class VaraaSearch
       .on 'afterShow', ->
         $ "button[data-time=#{@time}]"
           .click()
-
-  renderMap: (mapId, lat, lng, markers) ->
+  ###*
+   * Render the map
+   *
+   * @param  {string|jQuery} domId
+   * @param  {double} lat
+   * @param  {double} lng
+   * @param  {array} markers Array of pairs of lat/lng
+   *
+   * @return {void}
+  ###
+  renderMap: (domId, lat, lng, markers) ->
     gmap = new GMaps
-      div: mapId
+      div: domId
       lat: lat
       lng: lng
       zoom: 8
 
-    if typeof markers isnt `undefined`
+    if markers?
       for marker in markers
         gmap.addMarkers markers
     gmap
 
+  ###*
+   * Display businesses on the map
+   *
+   * @return {void}
+  ###
   showBusinesses: ->
     $loading = $ '#js-loading'
     $businessContent = $ '#js-business-content'
@@ -112,9 +117,13 @@ class VaraaSearch
             zoom: 15
 
           gmap.addMarkers [lat: lat, lng: lng]
-          # Apply countdown for flash deals
-          VARAA.applyCountdown $businessContent.find 'span.countdown'
-
+  ###*
+   * Extract pairs of lat and lng values to be show as markers on the map
+   *
+   * @param  {array} businesses Array of business objects
+   *
+   * @return {array}
+  ###
   extractMarkers: (businesses) ->
     markers = []
     for business in businesses
@@ -123,9 +132,6 @@ class VaraaSearch
         lng: business.lng
         title: business.name
     markers
-
-  showSingleBusiness: ->
-    @renderMap "#js-map-#{@single.user_id}", @lat, @lng, [lat: @lat, lng: @lng]
 
 # Start the game
 search = new VaraaSearch VARAA.Search

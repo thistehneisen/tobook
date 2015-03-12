@@ -30,7 +30,7 @@
                 <i class="fa fa-chevron-down fa-small"></i>
             </a>
             <div class="datetime-control" data-format="YYYY-MM-DD" id="search-select-date">
-                <input type="hidden" name="date">
+                <input type="hidden" name="d">
             </div>
         </div>
 
@@ -40,7 +40,7 @@
                 <i class="fa fa-chevron-down fa-small"></i>
             </a>
             <div class="datetime-control" data-format="HH:mm" id="search-select-time">
-                <input type="hidden" name="time">
+                <input type="hidden" name="t">
             </div>
         </div>
     </div>
