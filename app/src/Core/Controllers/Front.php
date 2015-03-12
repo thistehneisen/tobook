@@ -67,7 +67,7 @@ class Front extends Base
         }
 
         return $this->render('businesses', [
-            'businesses' => $businesses,
+            'businesses' => $businesses->getItems(),
             'pagination' => $businesses->links(),
             'deals'      => $deals,
             'lat'        => $lat,
