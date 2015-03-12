@@ -30,7 +30,7 @@
                         </div>
                     </div>
 
-                    {{ Form::open(['route' => 'search', 'method' => 'GET', 'class' => 'form-inline default-search-form', 'id' => 'main-search-form']) }}
+                    {{ Form::open(['route' => 'search', 'method' => 'GET', 'class' => 'form-inline default-search-form', 'id' => 'main-search-form', 'data-update-location-url' => route('search.location')]) }}
                         <div class="form-group row">
                             <div class="input-group margin-bottom-md">
                                 <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>

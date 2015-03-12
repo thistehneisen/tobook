@@ -1,11 +1,18 @@
 <?php namespace App\Core\Controllers;
 
-use View, Confide, Redirect, Config, Input, Response, Settings;
-use Carbon\Carbon;
 use App\Core\Models\Business;
 use App\Core\Models\BusinessCategory;
 use App\FlashDeal\Models\FlashDeal;
+use Carbon\Carbon;
+use Confide;
+use Config;
 use Illuminate\Support\Collection;
+use Input;
+use Redirect;
+use Response;
+use Session;
+use Settings;
+use View;
 
 class Front extends Base
 {
@@ -56,6 +63,8 @@ class Front extends Base
             'businesses' => $businesses,
             'pagination' => $businesses->links(),
             'deals'      => $deals,
+            'lat'        => Session::get('lat'),
+            'lng'        => Session::get('lng'),
             'heading'    => trans('home.businesses'),
         ]);
     }

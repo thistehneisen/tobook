@@ -4,6 +4,7 @@ use App\Core\Models\Business;
 use Carbon\Carbon;
 use Input;
 use Settings;
+use Session;
 use Util;
 
 class Search extends Front
@@ -46,5 +47,20 @@ class Search extends Front
             'lng'        => $lng,
             'heading'    => $heading,
         ]);
+    }
+
+    /**
+     * Receive lat and lng value, update to Session so users won't be ask again
+     *
+     * @return void
+     */
+    public function updateLocation()
+    {
+        $lat = Input::get('lat');
+        $lng = Input::get('lng');
+        if (!empty($lat) && !empty($lng)) {
+            Session::set('lat', $lat);
+            Session::set('lng', $lng);
+        }
     }
 }

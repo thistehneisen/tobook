@@ -52,8 +52,18 @@ $ ->
       $info.show() if shouldAskGeolocation
 
       success = (position) ->
-        $latInput.val position.coords.latitude
-        $lngInput.val position.coords.longitude
+        lat = position.coords.latitude
+        lng = position.coords.longitude
+        # Update hidden inputs
+        $latInput.val lat
+        $lngInput.val lng
+        # Update location values in Session, so that users won't be asked again
+        $.ajax
+          url: $form.data 'update-location-url'
+          type: 'POST'
+          data:
+            lat: lat
+            lng: lng
 
       error = (err) ->
         console.log err
