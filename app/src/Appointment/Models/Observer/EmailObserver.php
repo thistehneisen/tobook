@@ -93,20 +93,22 @@ class EmailObserver implements \SplObserver
     public function sendEmployeeEmail($subject)
     {
         $employee = $subject->bookingServices()->first()->employee;
-        if (empty($employee->email) || (!$employee->is_subscribed_email)) {
-            return;
+        if (!$employee->is_received_calendar_invitation) {
+            if (empty($employee->email) || (!$employee->is_subscribed_email)) {
+                return;
+            }
+
+            $emailSubject = $subject->user->asOptions['confirm_subject_employee'];
+            $body = $subject->user->asOptions['confirm_tokens_employee'];
+            $body = $this->getEmailBody($subject, $body);
+
+            Mail::send('modules.as.emails.confirm', [
+                'title' => $emailSubject,
+                'body' => nl2br($body)
+            ], function($message) use ($employee, $emailSubject) {
+                $message->subject($emailSubject);
+                $message->to($employee->email, $employee->name);
+            });
         }
-
-        $emailSubject = $subject->user->asOptions['confirm_subject_employee'];
-        $body = $subject->user->asOptions['confirm_tokens_employee'];
-        $body = $this->getEmailBody($subject, $body);
-
-        Mail::send('modules.as.emails.confirm', [
-            'title' => $emailSubject,
-            'body' => nl2br($body)
-        ], function($message) use ($employee, $emailSubject) {
-            $message->subject($emailSubject);
-            $message->to($employee->email, $employee->name);
-        });
     }
 }

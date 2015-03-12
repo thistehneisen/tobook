@@ -170,6 +170,7 @@ class BackendReceptionist extends Receptionist
         if(empty($this->bookingId)){
             //Only can send sms after insert booking service
             $booking->attach(new SmsObserver(true));//true is backend
+            $booking->attach(new EmailObserver());
             $booking->notify();
         }
         return $booking;
