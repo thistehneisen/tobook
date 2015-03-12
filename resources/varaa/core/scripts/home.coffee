@@ -76,7 +76,6 @@ do ($ = jQuery) ->
           format: $(@).data 'format'
           inline: true
           stepping: 15
-          minDate: new Date()
 
     $ '.datetime-link'
       .on 'click', (e) ->
