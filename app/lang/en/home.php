@@ -25,7 +25,7 @@ return [
     'search'        => [
         'tagline'         => 'What do you want to book?', // @todo
         'query'           => 'Enter business name or service', // @todo
-        'location'        => 'Helsinki, FI', // @todo
+        'location'        => Settings::get('default_location'), // @todo
         'about'           => 'About',
         'locations_hours' => 'Locations &amp; Hours',
         'business_hours'  => 'Business Hours',
@@ -34,7 +34,7 @@ return [
         'button'          => 'Search', // @todo
         'date'            => 'Any date', // @todo
         'time'            => 'Any time', // @todo
-        'results'         => 'Search results for &ldquo;<strong>:keyword</strong>&rdquo;', // @todo
+        'results'         => '<span class="keyword">&ldquo;:keyword&rdquo;</span>, <span class="location">:location</span>, :date, :time, <span class="results">:total results</span>', // @todo
         'geo'             => [
             'info' => 'We will ask for your current location to display results that are close to you.'
         ]
