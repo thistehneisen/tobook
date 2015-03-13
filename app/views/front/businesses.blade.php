@@ -70,7 +70,7 @@
         <div class="col-sm-3 col-md-3 panel" data-direction="left">
             <div class="businesses">
             @foreach ($businesses as $business)
-                <div class="business js-business" data-id="{{ $business->user_id }}" data-url="{{ $business->business_url }}?src={{ $source or '' }}">
+                <div class="business js-business" data-id="{{ $business->user_id }}" data-url="{{ $business->business_url }}">
                     <p><img src="{{ $business->image }}" alt="" class="img-responsive"></p>
                     <h4><a href="{{ $business->business_url }}" title="">{{{ $business->name }}}</a>
                     {{-- <small>
