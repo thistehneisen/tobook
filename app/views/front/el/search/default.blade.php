@@ -44,7 +44,7 @@
 
                             <button type="submit" class="btn btn-success">{{ trans('common.search') }}</button>
                         </div>
-
+{{--
                         <div class="row datetime-selector">
                             <div class="col-sm-12">
                                 <div class="datetime-wrapper">
@@ -68,7 +68,7 @@
                                 </div>
                             </div>
                         </div>
-
+--}}
                         {{ Form::hidden('lat', Session::get('lat')) }}
                         {{ Form::hidden('lng', Session::get('lng')) }}
                     {{ Form::close() }}

@@ -21,7 +21,7 @@
         <button type="submit" class="btn btn-lg btn-success pull-right">{{ trans('home.search.button') }}</button>
     </div>
 </div>
-
+{{--
 <div class="form-group row">
     <div class="col-sm-4 col-md-4">
         <div class="datetime-wrapper">
@@ -45,4 +45,5 @@
         </div>
     </div>
 </div>
+--}}
 {{ Form::close() }}
