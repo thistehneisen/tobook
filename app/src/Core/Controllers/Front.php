@@ -56,6 +56,25 @@ class Front extends Base
         $deals = $this->getDealsOfBusinesses($businesses);
 
         // Get lat and lng to show the map
+        list($lat, $lng) = $this->extractLatLng();
+
+        return $this->render('businesses', [
+            'businesses' => $businesses->getItems(),
+            'pagination' => $businesses->links(),
+            'deals'      => $deals,
+            'lat'        => $lat,
+            'lng'        => $lng,
+            'heading'    => trans('home.businesses'),
+        ]);
+    }
+
+    /**
+     * Extract lat/lng values from Session and system settings
+     *
+     * @return array
+     */
+    protected function extractLatLng()
+    {
         $lat = Session::get('lat');
         $lng = Session::get('lng');
         if (empty($lat) && empty($lng)) {
@@ -66,14 +85,7 @@ class Front extends Base
             } catch (\Exception $ex) { /* Silently failed */ }
         }
 
-        return $this->render('businesses', [
-            'businesses' => $businesses->getItems(),
-            'pagination' => $businesses->links(),
-            'deals'      => $deals,
-            'lat'        => $lat,
-            'lng'        => $lng,
-            'heading'    => trans('home.businesses'),
-        ]);
+        return [$lat, $lng];
     }
 
     /**
@@ -90,10 +102,15 @@ class Front extends Base
         $businesses = $category->users()->has('business')->paginate();
 
         $deals = $this->getDealsOfBusinesses($businesses);
+
+        list($lat, $lng) = $this->extractLatLng();
+
         return $this->render('businesses', [
             'businesses' => $businesses->lists('business'),
             'pagination' => $businesses->links(),
             'deals'      => $deals,
+            'lat'        => $lat,
+            'lng'        => $lng,
             'heading'    => trans('home.businesses_category', ['category' => $category->name]),
         ]);
     }
