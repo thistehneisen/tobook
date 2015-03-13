@@ -46,6 +46,7 @@ class Search extends Front
             'lat'        => $lat,
             'lng'        => $lng,
             'heading'    => $heading,
+            'source'     => 'search', // Indicator to toggle correct
         ]);
     }
 

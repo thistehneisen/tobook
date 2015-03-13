@@ -8,6 +8,7 @@
     @parent
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css') }}
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css') }}
+    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.3/animate.min.css') }}
     {{ HTML::style(asset_path('as/styles/layout-3.css')) }}
 @stop
 
@@ -26,6 +27,7 @@
     </script>
 
     {{ HTML::script('//maps.googleapis.com/maps/api/js?v=3.exp&language='.App::getLocale()) }}
+    {{ HTML::script('//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js') }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.12/gmaps.min.js') }}
     {{ HTML::script(asset('packages/jquery.countdown/jquery.plugin.min.js')) }}
     {{ HTML::script(asset('packages/jquery.countdown/jquery.countdown.min.js')) }}
@@ -42,8 +44,14 @@
 @section('main-classes') front @stop
 
 @section('content')
-<div class="container search-results">
-    <h4 class="heading">{{ $heading }}</h4>
+<div class="container search-results" id="js-search-results">
+    <a href="#" id="js-business-heading">
+        <h4 class="heading">
+            <i class="fa fa-chevron-left" style="display: none;"></i>
+            {{ $heading }}
+        </h4>
+    </a>
+
 @if (empty($businesses))
     <div class="row">
         <div class="col-sm-offset-2 col-sm-8">
@@ -59,10 +67,10 @@
 
     <div class="row" id="js-business-list">
         {{-- left sidebar --}}
-        <div class="col-sm-3 col-md-3">
+        <div class="col-sm-3 col-md-3 panel" data-direction="left">
             <div class="businesses">
             @foreach ($businesses as $business)
-                <div class="business js-business" data-id="{{ $business->user_id }}" data-url="{{ $business->business_url }}">
+                <div class="business js-business" data-id="{{ $business->user_id }}" data-url="{{ $business->business_url }}?src={{ $source or '' }}">
                     <p><img src="{{ $business->image }}" alt="" class="img-responsive"></p>
                     <h4><a href="{{ $business->business_url }}" title="">{{{ $business->name }}}</a>
                     {{-- <small>
@@ -82,7 +90,7 @@
         </div>
 
         {{-- right sidebar --}}
-        <div class="col-sm-9 col-md-9">
+        <div class="col-sm-9 col-md-9 panel" data-direction="right">
 
             <div class="hot-offers">
                 <div id="js-map-canvas" class="map hidden-xs"></div>
@@ -103,7 +111,7 @@
         </div>
     </div>
 
-    <div id="js-business-single"></div>
+    <div id="js-business-single" style="display: none;"></div>
 @endif
 </div>
 @stop

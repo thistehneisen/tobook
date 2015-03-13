@@ -58,16 +58,29 @@ class VaraaSearch
    * @return {void}
   ###
   showBusinesses: ->
-    self = @
+    self     = @
     $loading = $ '#js-loading'
-    $list = $ '#js-business-list'
-    $map = $ '#js-map-canvas'
-    $single = $ '#js-business-single'
+    $list    = $ '#js-business-list'
+    $map     = $ '#js-map-canvas'
+    $single  = $ '#js-business-single'
+    $heading = $ '#js-business-heading'
 
     $map.show()
     # Render the map
     markers = @extractMarkers @businesses
     @renderMap $map.attr('id'), @lat, @lng, markers
+
+    # When user clicks on the heading to return back to business listing
+    $heading.on 'click', (e) ->
+      e.preventDefault()
+      $single.hide()
+      $list.find '.panel'
+        .each ->
+          $$ = $ @
+          $$.show 'slide', direction: $$.data('direction'), 700
+
+      $heading.find 'i'
+        .hide()
 
     # Attach event handler
     $ 'div.js-business'
@@ -100,20 +113,30 @@ class VaraaSearch
           type: 'GET'
         .done (html) ->
           $loading.hide()
-          # Replace the whole page with business page
-          $list.hide()
-          $single.html html
+          $list.find '.panel'
+            .each ->
+              $$ = $ @
+              $$.hide 'slide', direction: $$.data('direction'), 700
 
-          VARAA.initLayout3()
+          delay = (ms, fn) -> setTimeout fn, ms
+          delay 700, ->
+            # Replace the whole page with business page
+            $single.html html
+            $single.show 'fade'
+            # Show chevron as indicator to click back
+            $heading.find 'i'
+              .show()
 
-          # Set current business flag
-          $list.data 'current-business-id', businessId
+            VARAA.initLayout3()
 
-          # Render the map
-          $bmap = $ "#js-map-#{businessId}"
-          lat = $bmap.data 'lat'
-          lng = $bmap.data 'lng'
-          self.renderMap $bmap.attr('id'), lat, lng, [lat: lat, lng: lng]
+            # Set current business flag
+            $list.data 'current-business-id', businessId
+
+            # Render the map
+            $bmap = $ "#js-map-#{businessId}"
+            lat = $bmap.data 'lat'
+            lng = $bmap.data 'lng'
+            self.renderMap $bmap.attr('id'), lat, lng, [lat: lat, lng: lng]
   ###*
    * Extract pairs of lat and lng values to be show as markers on the map
    *

@@ -57,7 +57,7 @@ return [
     ],
     'choose_category'     => 'Choose category', // @todo
     'how_does_it_work'    => 'How does it work?', // @todo
-    'businesses'          => 'Businesses', // @todo
+    'businesses'          => 'All businesses', // @todo
     'businesses_category' => 'Businesses of <strong>:category</strong>', // @todo
     'more'                => 'More', // @todo
     'less'                => 'Less', // @todo

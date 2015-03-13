@@ -1,14 +1,3 @@
-<a href="/new/search">
-    <h4 class="heading">
-        <i class="fa fa-chevron-left"></i>
-        <span class="keyword">Barber shop</span>,
-        <span class="location">Center</span>,
-        any date,
-        any time:
-        <span class="results">38 results</span>
-    </h4>
-</a>
-
 <div class="row">
     {{-- left sidebar --}}
     <div class="col-sm-8 col-md-8">
