@@ -1,6 +1,6 @@
 <div class="offer">
     <p class="image">
-        <img class="img-responsive" src="{{ asset_path('core/img/new/offer.jpg') }}" alt="">
+        <img class="img-responsive" src="{{ $deal->user->business->image }}" alt="">
         <span class="badge-wrapper">
             <em class="badge">&ndash;{{ $deal->discount_percent }}%</em>
         </span>
