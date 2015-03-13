@@ -111,7 +111,6 @@ class VaraaSearch
 
           # Render the map
           $bmap = $ "#js-map-#{businessId}"
-          console.log "#js-map-#{businessId}", $bmap
           lat = $bmap.data 'lat'
           lng = $bmap.data 'lng'
           self.renderMap $bmap.attr('id'), lat, lng, [lat: lat, lng: lng]

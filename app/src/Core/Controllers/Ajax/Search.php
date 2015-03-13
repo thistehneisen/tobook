@@ -65,7 +65,7 @@ class Search extends Base
      */
     public function showBusiness($id)
     {
-        $user = User::findOrFail($id);
+        $user = User::with('business')->findOrFail($id);
         $coupons = $user
             ->coupons()
             ->with('service')
@@ -80,42 +80,34 @@ class Search extends Base
 
         $layout = $this->handleIndex($user->hash, $user,'layout-3');
 
-        $data = [
-            'user'       => $user,
+        // Data to be passed to view
+        $data = array_merge([
             'business'   => $user->business,
             'coupons'    => $coupons,
             'flashDeals' => $flashDeals
-        ];
-
-        $viewData = array_merge($data, $layout);
-
-        $view = $this->view('front.search.business', $viewData);
+        ], $layout);
 
         if (Request::ajax()) {
-            return $view;
+            return View::make('front.el.business', $data);
         }
 
         Input::merge(array('l' => '3', 'hash' => $user->hash));
 
-        $nextSlots = $this->handleNextTimeSlot();
-
         $data = [
             'business'       => $user->business,
-            'single'         => $view,
             'lat'            => $user->business->lat,
             'lng'            => $user->business->lng,
-            'now'            => Carbon::now(),
             'businessesJson' => json_encode([$user->business]),
         ];
 
-        $data = array_merge($data, $nextSlots);
+        $data = array_merge($data, $this->getNextTimeSlotData());
 
         $viewData = array_merge($data, $layout);
 
         return View::make('front.business', $viewData);
     }
 
-    public function handleNextTimeSlot()
+    public function getNextTimeSlotData()
     {
         $serviceId  = Input::get('service_id', 0);
         $employeeId = Input::get('employee_id', 0);
