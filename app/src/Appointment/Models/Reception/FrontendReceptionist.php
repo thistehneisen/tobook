@@ -117,10 +117,6 @@ class FrontendReceptionist extends Receptionist
             $extraService->save();
         }
 
-        $booking->attach(new SmsObserver());
-        $booking->attach(new EmailObserver());
-        $booking->notify();
-
         return $booking;
     }
 }
