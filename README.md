@@ -73,8 +73,7 @@ Feel free to add more features (sending email, storing cache, etc.) to that Brid
 
 - Install node.js (https://github.com/joyent/node/wiki/Installation)
 - At the root folder of project, run `npm install` to install dependencies
-- Run `gulp build`
-
+- Run `gulp clean && gulp build`
 
 ## Development flow
 

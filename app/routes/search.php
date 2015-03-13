@@ -10,6 +10,11 @@ Route::group(['prefix' => 'search'], function () {
         'uses'  => 'App\Core\Controllers\Search@index'
     ]);
 
+    Route::post('location', [
+        'as'   => 'search.location',
+        'uses' => 'App\Core\Controllers\Search@updateLocation'
+    ]);
+
     Route::get('services.json', [
         'as'    => 'ajax.services',
         'uses'  => 'App\Core\Controllers\Ajax\Search@getServices'

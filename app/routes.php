@@ -3,19 +3,6 @@
 Route::pattern('id', '[0-9]+');
 Route::pattern('slug', '[a-z0-9-]+');
 
-Route::group(['prefix' => 'new'], function() {
-    Route::get('business/{id}', [
-        'uses' => 'App\Core\Controllers\Ajax\Search@newShowBusiness'
-    ]);
-
-    Route::get('{page?}', function($page = null) {
-        if ($page === null) $page = 'home';
-        return View::make('front.new.'.$page);
-    });
-});
-
-
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -49,17 +36,15 @@ require app_path().'/routes/flash_deal.php';
 // Others
 //------------------------------------------------------------------------------
 // Home
-Route::group([], function () {
-    Route::get('/', [
-        'as'    => 'home',
-        'uses'  => 'App\Core\Controllers\Front@home'
-    ]);
+Route::get('/', [
+    'as'    => 'home',
+    'uses'  => 'App\Core\Controllers\Front@home'
+]);
 
-    Route::get('robots.txt', [
-        'as'    => 'robots',
-        'uses'  => 'App\Core\Controllers\Front@robots'
-    ]);
-});
+Route::get('robots.txt', [
+    'as'    => 'robots',
+    'uses'  => 'App\Core\Controllers\Front@robots'
+]);
 
 // JS localization
 Route::get('jslocale.json', [

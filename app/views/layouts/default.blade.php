@@ -147,16 +147,8 @@
         </nav>
 
         @section('search')
-            @include ('el.search.default')
+            @include ('front.el.search.default')
         @show
-
-        <div class="row" id="js-geolocation-info" style="display: none;">
-            <div class="col-sm-offset-4 col-sm-4">
-                <div class="alert alert-info" style="margin-top: 10px;">
-                    <p><i class="fa fa-info-circle"></i> <span class="content">{{ trans('home.search.geo.info') }}</span></p>
-                </div>
-            </div>
-        </div>
     </header>
     @show
 

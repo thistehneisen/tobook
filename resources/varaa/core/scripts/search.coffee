@@ -10,21 +10,12 @@ class VaraaSearch
     @employeeId = input.employeeId if input.employeeId?
     @time = input.time if input.time?
 
-    # Take out the first business in the list. This will be use in single
-    # business page
-    @single = @businesses[0] if @businesses[0]?
-
   run: ->
     if @categoryId and @serviceId
       @selectBookingForm()
 
-    # Check if this is a business page or a search result with a sole business
-    if $("#js-map-#{@single.user_id}").length
-      @showSingleBusiness()
-    # Else this is the search result page, we should render the map
-    # and set markers of all businesses
-    else
-      @showBusinesses()
+    # Dislay businesses on the map
+    @showBusinesses()
 
   selectBookingForm: ->
     $ "input:radio[name=category_id][value=#{@categoryId}], input:radio[name=service_id][value=#{@serviceId}]"
@@ -39,34 +30,64 @@ class VaraaSearch
       .on 'afterShow', ->
         $ "button[data-time=#{@time}]"
           .click()
-
-  renderMap: (mapId, lat, lng, markers) ->
+  ###*
+   * Render the map
+   *
+   * @param  {string|jQuery} domId
+   * @param  {double} lat
+   * @param  {double} lng
+   * @param  {array} markers Array of pairs of lat/lng
+   *
+   * @return {void}
+  ###
+  renderMap: (domId, lat, lng, markers) ->
     gmap = new GMaps
-      div: mapId
+      div: domId
       lat: lat
       lng: lng
       zoom: 8
 
-    if typeof markers isnt `undefined`
+    if markers?
       for marker in markers
         gmap.addMarkers markers
     gmap
 
+  ###*
+   * Display businesses on the map
+   *
+   * @return {void}
+  ###
   showBusinesses: ->
+    self     = @
     $loading = $ '#js-loading'
-    $businessContent = $ '#js-business-content'
-    $map = $ '#map-canvas'
+    $list    = $ '#js-business-list'
+    $map     = $ '#js-map-canvas'
+    $single  = $ '#js-business-single'
+    $heading = $ '#js-business-heading'
 
     $map.show()
     # Render the map
     markers = @extractMarkers @businesses
-    @renderMap '#map-canvas', @lat, @lng, markers
+    @renderMap $map.attr('id'), @lat, @lng, markers
+
+    # When user clicks on the heading to return back to business listing
+    $heading.on 'click', (e) ->
+      e.preventDefault()
+      $single.hide()
+      $list.find '.panel'
+        .each ->
+          $$ = $ @
+          $$.show 'slide', direction: $$.data('direction'), 700
+
+      $heading.find 'i'
+        .hide()
 
     # Attach event handler
-    $ 'div.result-row'
+    $ 'div.js-business'
       .on 'click', (e) ->
         $$ = $ @
-        e.preventDefault();
+        businessId = $$.data 'id'
+        e.preventDefault()
 
         # open result as a full page load instead of ajax if the browser width
         # is too small
@@ -77,10 +98,10 @@ class VaraaSearch
 
         # If the current content is of this business, we don't need to fire
         # another AJAX
-        return true if $businessContent.data('currentBusiness') == $$.data 'id'
+        return true if $list.data('current-business-id') == businessId
 
         # Highlight selected row
-        $ 'div.result-row'
+        $ 'div.js-business'
           .removeClass 'selected'
         $$.addClass 'selected'
 
@@ -92,29 +113,37 @@ class VaraaSearch
           type: 'GET'
         .done (html) ->
           $loading.hide()
-          $map.hide()
-          $businessContent.html html
+          $list.find '.panel'
+            .each ->
+              $$ = $ @
+              $$.hide 'slide', direction: $$.data('direction'), 700
 
-          VARAA.initLayout3()
+          delay = (ms, fn) -> setTimeout fn, ms
+          delay 700, ->
+            # Replace the whole page with business page
+            $single.html html
+            $single.show 'fade'
+            # Show chevron as indicator to click back
+            $heading.find 'i'
+              .show()
 
-          # Set current business flag
-          $businessContent.data 'currentBusiness', $$.data 'id'
+            VARAA.initLayout3()
 
-          # Render the map
-          mapId = '#js-map-' + $$.data 'id'
-          lat = $(mapId).data 'lat'
-          lng = $(mapId).data 'lng'
+            # Set current business flag
+            $list.data 'current-business-id', businessId
 
-          gmap = new GMaps
-            div: mapId
-            lat: lat
-            lng: lng
-            zoom: 15
-
-          gmap.addMarkers [lat: lat, lng: lng]
-          # Apply countdown for flash deals
-          VARAA.applyCountdown $businessContent.find 'span.countdown'
-
+            # Render the map
+            $bmap = $ "#js-map-#{businessId}"
+            lat = $bmap.data 'lat'
+            lng = $bmap.data 'lng'
+            self.renderMap $bmap.attr('id'), lat, lng, [lat: lat, lng: lng]
+  ###*
+   * Extract pairs of lat and lng values to be show as markers on the map
+   *
+   * @param  {array} businesses Array of business objects
+   *
+   * @return {array}
+  ###
   extractMarkers: (businesses) ->
     markers = []
     for business in businesses
@@ -123,9 +152,6 @@ class VaraaSearch
         lng: business.lng
         title: business.name
     markers
-
-  showSingleBusiness: ->
-    @renderMap "#js-map-#{@single.user_id}", @lat, @lng, [lat: @lat, lng: @lng]
 
 # Start the game
 search = new VaraaSearch VARAA.Search

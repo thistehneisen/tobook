@@ -33,8 +33,8 @@ return [
         'buy'             => 'Osta',
         'book'            => 'Varaa',
         'button'          => 'Search', // @todo
-        'date'            => 'Date', // @todo
-        'time'            => 'Time', // @todo
+        'date'            => 'Any date', // @todo
+        'time'            => 'Any time', // @todo
         'geo'             => [
             'info' => 'We will ask for your current location to display results that are close to you.'
         ]
@@ -59,6 +59,7 @@ return [
     'how_does_it_work' => 'How does it work?', // @todo
     'businesses'       => 'Businesses', // @todo
     'more'             => 'More', // @todo
+    'less'             => 'Less', // @todo
     'companies_offers' => 'Companies with offers', // @todo
     'categories'       => 'Categories', // @todo
     'best_offers'      => 'Best offers', // @todo

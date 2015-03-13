@@ -107,6 +107,11 @@ return [
         //----------------------------------------------------------------------
         'currency'           => ['type' => 'Text', 'default' => '&euro;'],
         //----------------------------------------------------------------------
+        // Default location to be displayed in front page, also shown in the map
+        // of business search
+        //----------------------------------------------------------------------
+        'default_location'   => ['type' => 'Text', 'default' => 'Helsinki, FI'],
+        //----------------------------------------------------------------------
         // Globally enable shopping cart
         //----------------------------------------------------------------------
         'enable_cart'        => ['type' => 'Radio', 'default' => true],

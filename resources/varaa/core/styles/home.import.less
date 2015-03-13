@@ -43,24 +43,98 @@
         color: @primary_color;
     }
 
+    .datetime-selector {
+        margin-top: 15px;
+    }
+
     .datetime-wrapper {
-        margin: 15px 0 5px 0;
-    }
+        position: relative;
+        display: inline;
 
-    .datetime {
-        color: @text_light;
-        margin-right: 50px;
+        .datetime-link {
+            color: @text_light;
+            margin-right: 50px;
 
-        .fa-big {
-            font-size: 1.4em;
-            margin-right: 10px;
+            &:focus {
+                text-decoration: none;
+            }
+
+            .fa-big {
+                font-size: 1.4em;
+                margin-right: 10px;
+            }
+
+            .fa-small {
+                font-size: 0.8em;
+                margin-left: 5px;
+            }
         }
 
-        .fa-small {
-            font-size: 0.8em;
-            margin-left: 5px;
+
+        .datetime-control {
+            position: absolute;
+            display: none;
+            top: 25px;
+            left: 0;
+            background-color: #23252b;
+            z-index: 1;
+            color: #fff;
+            border-radius: 5px;
+
+            .bootstrap-datetimepicker-widget {
+                table {
+                    thead tr:first-child {
+                        background-color: #a4a3a3;
+
+                        th {
+                            border-radius: 0;
+                            padding: 12px;
+
+                            &:hover {
+                                color: @text_dark;
+                            }
+
+                            &:first-child {
+                                border-top-left-radius: 5px;
+                            }
+
+                            &:last-child {
+                                border-top-right-radius: 5px;
+                            }
+                        }
+                    }
+
+                    td {
+                        &.day {
+                            padding: 12px;
+                            &:hover {
+                                color: @text_dark;
+                            }
+
+                            &.active {
+                                background-color: #3bb247;
+                            }
+                        }
+
+                        &.old, &.new {
+                            color: #444953;
+                        }
+
+                        span {
+                            &:hover {
+                                color: @text_dark;
+                            }
+
+                            &.active {
+                                background-color: #3bb247;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
+
 }
 
 .front {
@@ -120,12 +194,17 @@
                 color: #898989;
             }
 
-            li:last-child {
-                margin-top: 20px;
+            li {
+                display: none;
 
-                a {
-                    color: @text_dark;
-                    font-weight: 700;
+                &.toggle {
+                    margin-top: 20px;
+
+                    a {
+                        color: @text_dark;
+                        font-weight: 700;
+                    }
+
                 }
             }
         }
@@ -145,9 +224,27 @@
                     list-style-type: none;
                     >li {
                         margin: 8px 0;
+                        display: none;
+
                         a {
                             color: @text_dark;
                             font-weight: 400;
+
+                            &:focus {
+                                text-decoration: none;
+                            }
+
+                            &.active {
+                                color: @primary_color;
+                                font-weight: 700;
+                            }
+                        }
+
+                        &.toggle {
+                            margin-top: 15px;
+                            a {
+                                font-weight: 700;
+                            }
                         }
                     }
                 }
@@ -158,6 +255,8 @@
             padding: 0 15px 15px 15px;
 
             .image {
+                position: relative;
+
                 .badge-wrapper {
                     width: 100px;
                     height: 100px;
@@ -242,6 +341,18 @@
 
     .search-results {
         margin-top: 15px;
+        position: relative;
+
+        .loading {
+            display: none;
+            position: absolute;
+            z-index: 3;
+            background-color: rgba(238, 238, 238, 0.55);
+            width: 100%;
+            height: 99%;
+            text-align: center;
+            padding-top: 20%;
+        }
 
         .heading {
             font-weight: 300;
@@ -256,6 +367,7 @@
             .business {
                 padding-top: 15px;
                 border-bottom: 1px solid #ddd;
+                cursor: pointer;
             }
         }
 

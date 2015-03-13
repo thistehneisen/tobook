@@ -1,37 +1,148 @@
 <?php namespace App\Core\Controllers;
 
-use View, Confide, Redirect, Config, Input, Response, Settings;
-use Carbon\Carbon;
 use App\Core\Models\Business;
 use App\Core\Models\BusinessCategory;
-use App\FlashDeal\Models\FlashDealDate;
+use App\FlashDeal\Models\FlashDeal;
+use Illuminate\Support\Collection;
+use Input;
+use Response;
+use Session;
+use Settings;
+use Util;
 
 class Front extends Base
 {
+    protected $viewPath = 'front';
+
+    /**
+     * Front page of the site
+     *
+     * @return View
+     */
     public function home()
     {
-        $deals = $this->getFlashDeals();
-        $categoryId = Input::get('category', 0);
-        $categories = BusinessCategory::lists('name', 'id');
+        $categories = BusinessCategory::getAll();
+        $deals = FlashDeal::getActiveDeals();
 
-        //rewind array pointer to the beginning
-        reset($categories);
-        $categoryId = (!empty($categoryId))
-            ? $categoryId
-            : key($categories);
+        // Count number of active deals
+        $totalDeals = $deals->count();
 
-        // get 4 random businesses of selected category
-        $businesses = Business::getRandomBusinesses($categoryId, 4);
+        // Extract deal categories and its counters
+        $dealCategories = FlashDeal::getDealCategories($deals);
 
-        return View::make('front.home', [
-            'deals'          => $deals,
+        // Because of the layout, we need to split deals into smaller parts
+        $head = $deals->splice(0, 4);
+
+        return $this->render('home', [
             'categories'     => $categories,
-            'categoryId'     => $categoryId,
-            'businesses'     => $businesses,
-            'now'            => Carbon::now()
+            'head'           => $head,
+            'tail'           => $deals,
+            'totalDeals'     => $totalDeals,
+            'dealCategories' => $dealCategories,
         ]);
     }
 
+    /**
+     * Show the list of all businesses in the site
+     *
+     * @return View
+     */
+    public function businesses()
+    {
+        // Get all businesses
+        $businesses = Business::with('user.images')->paginate();
+
+        // Get deals from businesses
+        $deals = $this->getDealsOfBusinesses($businesses);
+
+        // Get lat and lng to show the map
+        list($lat, $lng) = $this->extractLatLng();
+
+        return $this->render('businesses', [
+            'businesses' => $businesses->getItems(),
+            'pagination' => $businesses->links(),
+            'deals'      => $deals,
+            'lat'        => $lat,
+            'lng'        => $lng,
+            'heading'    => trans('home.businesses'),
+        ]);
+    }
+
+    /**
+     * Extract lat/lng values from Session and system settings
+     *
+     * @return array
+     */
+    protected function extractLatLng()
+    {
+        $lat = Session::get('lat');
+        $lng = Session::get('lng');
+        if (empty($lat) && empty($lng)) {
+            try {
+                list($lat, $lng) = Util::geocoder(
+                    Settings::get('default_location')
+                );
+            } catch (\Exception $ex) { /* Silently failed */ }
+        }
+
+        return [$lat, $lng];
+    }
+
+    /**
+     * Show businesses of a category
+     *
+     * @param  int $categoryId
+     * @param  string $slug
+     *
+     * @return View
+     */
+    public function category($categoryId, $slug)
+    {
+        $category = BusinessCategory::findOrFail($categoryId);
+        $businesses = $category->users()->has('business')->paginate();
+
+        $deals = $this->getDealsOfBusinesses($businesses);
+
+        list($lat, $lng) = $this->extractLatLng();
+
+        return $this->render('businesses', [
+            'businesses' => $businesses->lists('business'),
+            'pagination' => $businesses->links(),
+            'deals'      => $deals,
+            'lat'        => $lat,
+            'lng'        => $lng,
+            'heading'    => trans('home.businesses_category', ['category' => $category->name]),
+        ]);
+    }
+
+    /**
+     * Get active deals of provided businesses
+     *
+     * @param  Illuminate\Support\Collection $businesses
+     *
+     * @return Illuminate\Support\Collection
+     */
+    protected function getDealsOfBusinesses($businesses)
+    {
+        $deals = new Collection();
+        foreach ($businesses as $business) {
+            $items = FlashDeal::ofBusiness($business)
+                ->whereHas('dates', function ($query){
+                    return $query->active()->orderBy('expire');
+                })
+                ->with('user.business')
+                ->get();
+
+            $deals = $deals->merge($items);
+        }
+        return $deals;
+    }
+
+    /**
+     * Dynamically create robots.txt file based on user setting
+     *
+     * @return View
+     */
     public function robots()
     {
         $str = "User-agent: *\n";
@@ -43,30 +154,5 @@ class Front extends Base
 
         $response = Response::make($str, 200)->header('Content-Type', 'text/plain');
         return $response;
-    }
-
-    /**
-     * Get all available flash deals in the system
-     *
-     * @return array
-     */
-    protected function getFlashDeals()
-    {
-        // Which categories?
-        $categories = BusinessCategory::whereIn(
-            'id',
-            Config::get('varaa.flash_deal.categories')
-        )->with('children')->get();
-
-        foreach ($categories as &$category) {
-            $category->deals = FlashDealDate::ofBusinessCategory(
-                    $category->children->lists('id')
-                )
-                ->active()
-                ->orderBy('expire', 'ASC')
-                ->take(Config::get('varaa.flash_deal.limit'))
-                ->get();
-        }
-        return $categories;
     }
 }

@@ -35,28 +35,6 @@ class FlashDealDate extends Base implements CartDetailInterface
     //--------------------------------------------------------------------------
 
     /**
-     * Get flash deals belonging to this business category
-     *
-     * @param object $query
-     * @param int $categoryIds
-     *
-     * @return object
-     */
-    public function scopeOfBusinessCategory($query, $categoryIds)
-    {
-        $tblFlashDeal =with(new FlashDeal)->getTable();
-        $tblService = with(new Service)->getTable();
-        $tblCategory = with(new BusinessCategory)->getTable();
-
-        return $query
-            ->select('*', $this->table.'.id AS flash_deal_date_id')
-            ->leftJoin($tblFlashDeal, $tblFlashDeal.'.id', '=', $this->table.'.flash_deal_id')
-            ->leftJoin($tblService, $tblService.'.id', '=', $tblFlashDeal.'.service_id')
-            ->leftJoin($tblCategory, $tblCategory.'.id', '=', $tblService.'.business_category_id')
-            ->whereIn($tblCategory.'.id', $categoryIds);
-    }
-
-    /**
      * Get active flash deal dates
      *
      * @param Illuminate\Database\Query\Builder $query

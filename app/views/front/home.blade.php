@@ -4,62 +4,85 @@
     @parent :: {{ trans('common.home') }}
 @stop
 
+@section ('styles')
+    @parent
+    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css') }}
+@stop
+
 @section ('scripts')
     @parent
     {{ HTML::script(asset('packages/jquery.countdown/jquery.plugin.min.js')) }}
     {{ HTML::script(asset('packages/jquery.countdown/jquery.countdown.min.js')) }}
+    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment-with-locales.min.js') }}
+    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js') }}
     {{ HTML::script(asset_path('core/scripts/home.js')) }}
 @stop
 
-@section('main-classes') container-fluid home @stop
+@section('main-classes') front @stop
+
+@section('search')
+    @include ('front.el.search.front')
+@stop
 
 @section('content')
-<div class="container text-center">
-
-    <!-- Next available time slot -->
-    <div class="row" id="next-available-slots">
-        <h3 class="comfortaa">{{ trans('home.next_timeslot') }}</h3>
-        <div class="form-group col-md-4 col-md-offset-4">
-        <select class="form-control input-sm" name="business_category" id="business_category">
-            @foreach ($categories as $key => $value)
-            <option @if($categoryId==$key) selected="selected" @endif value="{{ route('home', ['category_id' => $key ]) }}">{{ $value }}</option>
-            @endforeach
-        </select>
+<div class="hero-form">
+    <div class="img-bg">
+        <div class="container">
+            @include ('front.el.search.form')
         </div>
-        <div class="clearfix"></div>
-        @foreach ($businesses as $business)
-            <?php
-                $slots = $business->user->getASNextTimeSlots($now->copy(), $now->hour);
-                $count = 0;
-            ?>
-            <div class="available-slot col-sm-3 col-xs-6">
-                <a href="{{ $business->business_url }}">
-                    <img src="{{ Util::thumbnail($business->image, 270, 135, true, true) }}" alt="" class="img-responsive" />
-                </a>
-                <div class="info text-left">
-                    <a href="{{{ $business->business_url }}}"><h4>{{{ $business->name }}}</h4></a>
-                    <p>{{{ $business->full_address }}}</p>
-                    @foreach ($slots as $slot)
-                        <?php if($count === 3) break;?>
-                        <a href="{{ route('business.index', [
-                            'id'          => $business->user->id,
-                            'slug'        => $business->slug,
-                            'service_id'  => $slot['service'],
-                            'employee_id' => $slot['employee'],
-                            'date'        => $slot['date'],
-                            'hour'        => $slot['hour'],
-                            'minute'      => $slot['minute']
-                        ])}}" class="btn btn-sm btn-default">{{ $slot['time'] }}</a>
-                        <?php $count++;?>
-                    @endforeach
-                </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row categories">
+        @foreach ($categories as $category)
+            <div class="col-sm-2 col-md-2">
+                <p><img src="{{ asset_path('core/img/new/icons/'.$category->new_icon.'.png') }}" alt=""></p>
+                <h4 class="heading">{{{ $category->name }}}</h4>
+                <ul class="list-categories">
+                @foreach ($category->children as $child)
+                    <li><a href="{{ route('business.category', ['id' => $child->id, 'slug' => $child->slug]) }}">{{{ $child->name }}}</a></li>
+                @endforeach
+                    <li class="toggle more"><a href="#">{{ trans('home.more') }} <i class="fa fa-angle-double-right"></i></a></li>
+                    <li class="toggle less"><a href="#">{{ trans('home.less') }} <i class="fa fa-angle-double-up"></i></a></li>
+                </ul>
             </div>
         @endforeach
     </div>
 
-    @if (Config::get('varaa.flash_deal.show_front_page'))
-        <!-- Flash deals -->
-        @include ('modules.fd.front', ['deals' => $deals])
-    @endif
+@if ($head->isEmpty() === false)
+    <div class="row">
+        <div class="hot-offers">
+            <h1 class="heading">{{ trans('home.best_offers') }} ({{ $totalDeals }})</h1>
+            <div class="col-sm-4 col-md-4">
+                <ul class="list-unstyled filters">
+                    <li>{{ trans('home.categories') }}
+                        <ul id="js-category-filter">
+                        @foreach ($dealCategories as $category)
+                            <li><a class="js-filter-link" data-id="{{ $category->id }}" href="#">{{{ $category->name }}} ({{ $category->totalDeals }})</a></li>
+                        @endforeach
+                            <li class="toggle more"><a href="#">{{ trans('home.more') }} <i class="fa fa-angle-double-right"></i></a></li>
+                            <li class="toggle less"><a href="#">{{ trans('home.less') }} <i class="fa fa-angle-double-up"></i></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            @foreach ($head as $deal)
+                <div class="col-sm-4 col-md-4 js-deal js-deal-category-{{ $deal->service->businessCategory->id }}">
+                @include ('front.el.deal', ['deal' => $deal])
+                </div>
+            @endforeach
+
+        @if ($tail->isEmpty() === false)
+            @foreach ($tail as $deal)
+                <div class="col-sm-4 col-md-4 js-deal js-deal-category-{{ $deal->service->businessCategory->id }}">
+                @include ('front.el.deal', ['deal' => $deal])
+                </div>
+            @endforeach
+        @endif
+        </div>
+    </div>
+@endif
 </div>
 @stop
