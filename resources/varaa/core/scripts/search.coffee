@@ -58,20 +58,23 @@ class VaraaSearch
    * @return {void}
   ###
   showBusinesses: ->
+    self = @
     $loading = $ '#js-loading'
-    $businessContent = $ '#js-business-content'
-    $map = $ '#map-canvas'
+    $list = $ '#js-business-list'
+    $map = $ '#js-map-canvas'
+    $single = $ '#js-business-single'
 
     $map.show()
     # Render the map
     markers = @extractMarkers @businesses
-    @renderMap '#map-canvas', @lat, @lng, markers
+    @renderMap $map.attr('id'), @lat, @lng, markers
 
     # Attach event handler
-    $ 'div.result-row'
+    $ 'div.js-business'
       .on 'click', (e) ->
         $$ = $ @
-        e.preventDefault();
+        businessId = $$.data 'id'
+        e.preventDefault()
 
         # open result as a full page load instead of ajax if the browser width
         # is too small
@@ -82,10 +85,10 @@ class VaraaSearch
 
         # If the current content is of this business, we don't need to fire
         # another AJAX
-        return true if $businessContent.data('currentBusiness') == $$.data 'id'
+        return true if $list.data('current-business-id') == businessId
 
         # Highlight selected row
-        $ 'div.result-row'
+        $ 'div.js-business'
           .removeClass 'selected'
         $$.addClass 'selected'
 
@@ -97,26 +100,21 @@ class VaraaSearch
           type: 'GET'
         .done (html) ->
           $loading.hide()
-          $map.hide()
-          $businessContent.html html
+          # Replace the whole page with business page
+          $list.hide()
+          $single.html html
 
           VARAA.initLayout3()
 
           # Set current business flag
-          $businessContent.data 'currentBusiness', $$.data 'id'
+          $list.data 'current-business-id', businessId
 
           # Render the map
-          mapId = '#js-map-' + $$.data 'id'
-          lat = $(mapId).data 'lat'
-          lng = $(mapId).data 'lng'
-
-          gmap = new GMaps
-            div: mapId
-            lat: lat
-            lng: lng
-            zoom: 15
-
-          gmap.addMarkers [lat: lat, lng: lng]
+          $bmap = $ "#js-map-#{businessId}"
+          console.log "#js-map-#{businessId}", $bmap
+          lat = $bmap.data 'lat'
+          lng = $bmap.data 'lng'
+          self.renderMap $bmap.attr('id'), lat, lng, [lat: lat, lng: lng]
   ###*
    * Extract pairs of lat and lng values to be show as markers on the map
    *

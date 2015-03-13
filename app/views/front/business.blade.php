@@ -94,7 +94,7 @@ $(function() {
         @endif
 
             <h3 class="sub-heading">Map</h3>
-            <div id="map-canvas" class="small-map"></div>
+            <div data-lat="{{ $business->lat }}" data-lng="{{ $business->lng }}" id="js-map-{{ $business->id }}" class="small-map"></div>
 
             <div class="row">
                 <div class="col-sm-6 col-md-6">
