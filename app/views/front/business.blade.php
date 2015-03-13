@@ -31,7 +31,7 @@
     <script>
 $(function() {
     new GMaps({
-      div: '#map-canvas',
+      div: '#js-map-{{ $business->user_id }}',
       lat: {{ $lat }},
       lng: {{ $lng }}
     });
@@ -41,7 +41,6 @@ $(function() {
     });
 });
     </script>
-    {{ HTML::script(asset_path('core/scripts/search.js')) }}
 @stop
 
 @section('styles')
