@@ -57,10 +57,10 @@ class OldDataMover
 
         // Start moving data
         $this->moveCustomers($blogId, $user);
-        // $this->moveStamps($blogId, $user);
-        // $this->movePoints($blogId, $user);
-        // $this->moveStampHistory($blogId, $user);
-        // $this->movePointHistory($blogId, $user);
+        $this->moveStamps($blogId, $user);
+        $this->movePoints($blogId, $user);
+        $this->moveStampHistory($blogId, $user);
+        $this->movePointHistory($blogId, $user);
 
         // Done the job
         $job->delete();

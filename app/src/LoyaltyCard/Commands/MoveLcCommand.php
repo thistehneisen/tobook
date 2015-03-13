@@ -48,6 +48,7 @@ class MoveLcCommand extends Command
         $systemMap = [
             'blini' => 'blinit',
             'korsonhiussalonki' => 'korsonhius',
+            'koulutettuhierojamarika' => 'marikarajala'
         ];
 
         // Database handler to interact with old WP db
@@ -75,6 +76,7 @@ class MoveLcCommand extends Command
             // Because users could login by using bot username and email, need
             // to check those two fields
             $user = User::where(DB::raw('LOWER(username)'), $username)
+                ->orWhere(DB::raw('LOWER(email)'), 'LIKE', $username.'%')
                 ->orWhere(DB::raw('LOWER(email)'), $email)
                 ->first();
 
