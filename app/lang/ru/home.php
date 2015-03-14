@@ -19,14 +19,13 @@ return [
     'tagline'               => 'Все, что вам нужно <br>для удобного и прибыльного бизнеса',
     'next_timeslot'         => 'Следующие доступные "окна"',
     'time'                  => 'Время',
-
     'search_tagline'        => 'What do you want to book?', // @todo
-    'search_query'          => 'Enter city or keyword', // @todo
+    'search_query'          => 'Enter business name or service', // @todo
     'search_place'          => 'Helsinki, FI', // @todo
     'search'        => [
         'tagline'         => 'What do you want to book?', // @todo
-        'query'           => 'Enter city or keyword', // @todo
-        'location'        => 'Helsinki, FI', // @todo
+        'query'           => 'Enter business name or service', // @todo
+        'location'        => Settings::get('default_location'), // @todo
         'about'           => 'Подробнее',
         'locations_hours' => 'Места &amp; время',
         'business_hours'  => 'Время работы',
@@ -55,12 +54,14 @@ return [
             'zero_amount' => 'Покупка невозможна, поскольку в вашей корзине ничего нет',
         ]
     ],
-    'choose_category'  => 'Choose category', // @todo
-    'how_does_it_work' => 'How does it work?', // @todo
-    'businesses'       => 'Businesses', // @todo
-    'more'             => 'More', // @todo
-    'less'             => 'Less', // @todo
-    'companies_offers' => 'Companies with offers', // @todo
-    'categories'       => 'Categories', // @todo
-    'best_offers'      => 'Best offers', // @todo
+    'choose_category'     => 'Choose category', // @todo
+    'how_does_it_work'    => 'How does it work?', // @todo
+    'businesses'          => 'All businesses', // @todo
+    'businesses_category' => 'Businesses of <strong>:category</strong>', // @todo
+    'more'                => 'More', // @todo
+    'less'                => 'Less', // @todo
+    'companies_offers'    => 'Companies with offers', // @todo
+    'categories'          => 'Categories', // @todo
+    'best_offers'         => 'Best offers', // @todo
+    'no_offers'           => 'There is no offer available.', // @todo
 ];
