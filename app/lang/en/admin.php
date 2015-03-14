@@ -74,5 +74,6 @@ return [
         'phone_country_code' => 'Phone country code',
         'currency'           => 'Currency symbol',
         'commission_rate'    => 'Commission rate taken from businesses, e.g. 30% = 0.3',
+        'default_location'   => 'Default location to show in front page, e.g. Helsinki, FI',
     ],
 ];

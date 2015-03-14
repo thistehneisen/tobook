@@ -54,21 +54,22 @@ return [
         'note'   => 'Note (optional)',
     ],
     'settings' => [
-        'site_name'          => 'Site Name',
-        'head_script'        => 'Script inserted in &lt;/HEAD&gt;',
-        'bottom_script'      => 'Script inserted before &lt;/BODY&gt;',
-        'allow_robots'       => 'Allow search engine robots',
-        'meta_title'         => 'Meta title',
-        'meta_description'   => 'Meta description',
-        'meta_keywords'      => 'Meta keywords',
-        'social_facebook'    => 'Facebook',
-        'social_linkedin'    => 'Linkedin',
-        'social_youtube'     => 'Youtube',
-        'copyright_name'     => 'Company name for footer copyright',
-        'copyright_url'      => 'URL for footer copyright',
-        'enable_cart'        => 'Enable shopping cart',
-        'phone_country_code' => 'Phone country code',
-        'currency'           => 'Currency symbol',
-        'commission_rate'    => 'Commission rate taken from businesses, e.g. 30% = 0.3',
+        'site_name'          => 'Site Name', // @todo
+        'head_script'        => 'Script inserted in &lt;/HEAD&gt;', // @todo
+        'bottom_script'      => 'Script inserted before &lt;/BODY&gt;', // @todo
+        'allow_robots'       => 'Allow search engine robots', // @todo
+        'meta_title'         => 'Meta title', // @todo
+        'meta_description'   => 'Meta description', // @todo
+        'meta_keywords'      => 'Meta keywords', // @todo
+        'social_facebook'    => 'Facebook', // @todo
+        'social_linkedin'    => 'Linkedin', // @todo
+        'social_youtube'     => 'Youtube', // @todo
+        'copyright_name'     => 'Company name for footer copyright', // @todo
+        'copyright_url'      => 'URL for footer copyright', // @todo
+        'enable_cart'        => 'Enable shopping cart', // @todo
+        'phone_country_code' => 'Phone country code', // @todo
+        'currency'           => 'Currency symbol', // @todo
+        'commission_rate'    => 'Commission rate taken from businesses, e.g. 30% = 0.3', // @todo
+        'default_location'   => 'Default location to show in front page, e.g. Helsinki, FI', // @todo
     ],
 ];
