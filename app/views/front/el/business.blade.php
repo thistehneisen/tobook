@@ -5,7 +5,7 @@
         <address>{{{ $business->full_address }}}</address>
 
         <div class="slideshow">
-            <p><img src="{{ asset_path('core/img/new/business.jpg') }}" alt=""></p>
+            <p><img src="{{ $business->image }}" alt=""></p>
         </div>
 
     @if (!empty($business->description))
