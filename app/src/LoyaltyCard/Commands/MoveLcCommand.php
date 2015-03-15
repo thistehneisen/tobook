@@ -32,17 +32,18 @@ class MoveLcCommand extends Command
     {
         // @see: https://github.com/varaa/varaa/issues/281
         $users = [
-            1001374 => 'blini',
-            6043    => 'halfblock',
-            6051    => 'halfblockkuopio',
-            2729    => 'khmaarit',
-            1001818 => 'khmikkeli',
-            5701    => 'korsonhiussalonki',
-            1528    => 'koulutettuhierojamarika',
-            597     => 'scorpiobarbers',
-            1912    => 'studiowoman',
-            1001257 => 'tittis',
-            1001381 => 'vanhakassu',
+            // 1001374 => 'blini',
+            // 6043    => 'halfblock',
+            // 6051    => 'halfblockkuopio',
+            // 2729    => 'khmaarit',
+            // 1001818 => 'khmikkeli',
+            // 5701    => 'korsonhiussalonki',
+            // 1528    => 'koulutettuhierojamarika',
+            // 597     => 'scorpiobarbers',
+            // 1912    => 'studiowoman',
+            // 1001257 => 'tittis',
+            // 1001381 => 'vanhakassu',
+            119 => 'kic'
         ];
 
         $systemMap = [
