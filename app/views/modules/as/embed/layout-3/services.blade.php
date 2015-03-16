@@ -13,7 +13,7 @@
                         <?php $col = ((bool)$user->asOptions['hide_prices'] === false) ? 4 : 12;?>
                         <label class="col-lg-{{$col}} col-sm-6 col-md-6">
                             <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="{{ $service->description }}"></i>
-                            <input type="radio" name="service_id" data-service-time-id="default" value="{{ $service->id }}" data-service="{{ $service->name }}">
+                            <input type="radio" name="service_id" data-service-time-id="default" value="{{ $service->id }}" data-service="{{ $service->name }}" data-hash="{{ $user->hash }}">
                             @if ((bool)$user->asOptions['hide_prices'] === false)
                                 {{ $service->price }}{{ Settings::get('currency') }}
                             @else
