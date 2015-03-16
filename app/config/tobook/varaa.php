@@ -31,44 +31,36 @@ return [
     //--------------------------------------------------------------------------
     // Admin Setting Form
     //--------------------------------------------------------------------------
-    // 'settings' => [
-    //     'site_name'        => ['type' => 'Text', 'default' => 'EnklareBokning'],
-    //     'head_script'      => ['type' => 'Textarea', 'default' => $head_script],
-    //     'bottom_script'    => ['type' => 'Textarea', 'default' => ''],
-    //     'allow_robots'     => ['type' => 'Radio', 'default' => true],
-    //     //----------------------------------------------------------------------
-    //     //  Country code
-    //     //----------------------------------------------------------------------
-    //     'phone_country_code' => ['type' => 'Text', 'default' => '46'],
-    //     //----------------------------------------------------------------------
-    //     //  Meta data
-    //     //----------------------------------------------------------------------
-    //     'meta_title'       => ['type' => 'Text', 'default' => 'EnklareBokning | Boka tid för allt'],
-    //     'meta_description' => ['type' => 'Text', 'default' => 'Boka tid för massage, klippning, däckbyte, m.m. Sök bland anslutna företag på din ort. Tillhandahålls av ClearSense.'],
-    //     'meta_keywords'    => ['type' => 'Text', 'default' => 'EnklareBokning, ClearSense, Tidsbokning, Bokningssystem'],
-    //     //----------------------------------------------------------------------
-    //     //  Social configuration
-    //     //----------------------------------------------------------------------
-    //     'social_facebook'    => ['type' => 'Text', 'default' => 'https://facebook.com/ClearSenseSE'],
-    //     'social_linkedin'    => ['type' => 'Text', 'default' => 'https://www.linkedin.com/company/clearsense-sverige'],
-    //     'social_google-plus' => ['type' => 'Text', 'default' => 'https://plus.google.com/+lokaldelen/posts'],
-    //     //----------------------------------------------------------------------
-    //     //  Footer copyright info
-    //     //----------------------------------------------------------------------
-    //     'copyright_name'   => ['type' => 'Text', 'default' => 'Clearsense'],
-    //     'copyright_url'    => ['type' => 'Text', 'default' => 'http://www.clearsense.se'],
-    //     //----------------------------------------------------------------------
-    //     // Symbol of the currency applying to the whole system
-    //     //----------------------------------------------------------------------
-    //     'currency'           => ['type' => 'Text', 'default' => 'SEK'],
-    //     //----------------------------------------------------------------------
-    //     // Globally enable shopping cart
-    //     //----------------------------------------------------------------------
-    //     'enable_cart'        => ['type' => 'Radio', 'default' => false],
-    //     //----------------------------------------------------------------------
-    //     //  The commission rate that takes from businesses
-    //     //  Default is 30%
-    //     //----------------------------------------------------------------------
-    //     'commission_rate'    => ['type' => 'Text', 'default' => 0.3],
-    // ]
+    'settings' => [
+        'site_name'        => ['type' => 'Text', 'default' => 'ToBook.lv'],
+        'head_script'      => ['type' => 'Textarea', 'default' => ''],
+        'bottom_script'    => ['type' => 'Textarea', 'default' => ''],
+        'allow_robots'     => ['type' => 'Radio', 'default' => true],
+        //----------------------------------------------------------------------
+        //  Country code
+        //----------------------------------------------------------------------
+        'phone_country_code' => ['type' => 'Text', 'default' => '371'],
+        //----------------------------------------------------------------------
+        //  Meta data
+        //----------------------------------------------------------------------
+        'meta_title'       => ['type' => 'Text', 'default' => 'ToBook.lv'],
+        'meta_description' => ['type' => 'Text', 'default' => ''],
+        'meta_keywords'    => ['type' => 'Text', 'default' => ''],
+        //----------------------------------------------------------------------
+        //  Social configuration
+        //----------------------------------------------------------------------
+        'social_facebook'    => ['type' => 'Text', 'default' => ''],
+        'social_linkedin'    => ['type' => 'Text', 'default' => ''],
+        'social_google-plus' => ['type' => 'Text', 'default' => ''],
+        //----------------------------------------------------------------------
+        //  Footer copyright info
+        //----------------------------------------------------------------------
+        'copyright_name'   => ['type' => 'Text', 'default' => 'ToBook.lv'],
+        'copyright_url'    => ['type' => 'Text', 'default' => 'http://www.tobook.lv'],
+        //----------------------------------------------------------------------
+        //  The commission rate that takes from businesses
+        //  Default is 30%
+        //----------------------------------------------------------------------
+        'commission_rate'    => ['type' => 'Text', 'default' => 0.3],
+    ]
 ];
