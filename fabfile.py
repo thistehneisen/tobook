@@ -32,9 +32,10 @@ def _deploy(environment, host):
 @task
 def deploy(instance=''):
     instance_dict = {
-        'stag': 'dev.varaa.co',
+        # 'stag': 'dev.varaa.co',
         'prod': 'klikkaaja.com',
         'clearbooking': 'clearbooking.se',
+        'tobook': '188.166.43.60'
     }
     if instance in instance_dict:
         _deploy(instance, instance_dict[instance])
