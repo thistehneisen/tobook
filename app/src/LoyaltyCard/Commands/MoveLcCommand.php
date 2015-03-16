@@ -38,12 +38,12 @@ class MoveLcCommand extends Command
             // 2729    => 'khmaarit',
             // 1001818 => 'khmikkeli',
             // 5701    => 'korsonhiussalonki',
-            // 1528    => 'koulutettuhierojamarika',
+            1528    => 'koulutettuhierojamarika',
             // 597     => 'scorpiobarbers',
             // 1912    => 'studiowoman',
             // 1001257 => 'tittis',
             // 1001381 => 'vanhakassu',
-            119 => 'kic'
+            // 119 => 'kic'
         ];
 
         $systemMap = [

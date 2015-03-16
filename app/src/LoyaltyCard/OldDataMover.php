@@ -242,14 +242,11 @@ class OldDataMover
 
         // Update lc_consumers total stamps
         foreach ($collector as $consumerId => $totalStamps) {
-            $consumer = LcConsumer::where('consumer_id', $consumerId)->first();
-            if (!$consumer) {
-                $consumer = new LcConsumer();
-                $consumer->consumer_id = $consumerId;
-                $consumer->user()->associate($user);
-            }
-            $consumer->total_stamps = json_encode($totalStamps);
-            $consumer->save();
+            $consumer = Consumer::find($consumerId);
+            $lcConsumer = LcConsumer::makeOrGet($consumer, $user->id);
+
+            $lcConsumer->total_stamps = json_encode($totalStamps);
+            $lcConsumer->save();
         }
     }
 
