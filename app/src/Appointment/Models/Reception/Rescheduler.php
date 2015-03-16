@@ -60,12 +60,9 @@ class Rescheduler extends Receptionist
             ? (new \Carbon\Carbon($this->date . ' ' . $bookingService->start_at))->addMinutes($this->timeGap)
             : (new \Carbon\Carbon($this->date . ' ' . $bookingService->start_at))->subMinutes($this->timeGap);
 
-        $oldPlustime = $bookingService->getEmployeePlustime();
-        $newPlustime = $this->employee->getPlustime($bookingService->service_id);
-
         $newEndTime = ($this->booking->startTime < $this->newTime)
-            ? (new \Carbon\Carbon($this->date . ' ' . $bookingService->end_at))->addMinutes($this->timeGap)->subMinutes($oldPlustime)->addMinutes($newPlustime)
-            : (new \Carbon\Carbon($this->date . ' ' . $bookingService->end_at))->subMinutes($this->timeGap)->subMinutes($oldPlustime)->addMinutes($newPlustime);
+            ? (new \Carbon\Carbon($this->date . ' ' . $bookingService->end_at))->addMinutes($this->timeGap)
+            : (new \Carbon\Carbon($this->date . ' ' . $bookingService->end_at))->subMinutes($this->timeGap);
 
         return [$newStartTime, $newEndTime];
     }
