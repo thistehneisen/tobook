@@ -1,0 +1,78 @@
+.panel-heading {
+    cursor: pointer;
+}
+
+.as-service-category {
+    display: block;
+    cursor: pointer;
+    padding: 3px 0;
+    font-weight: 400;
+}
+.as-service {
+    display: none;
+
+    label {
+        font-weight: 400;
+        cursor: pointer;
+    }
+}
+
+.as-service-name {
+    cursor: pointer;
+}
+
+.as-service-time {
+    display: none;
+}
+
+.as-back {
+    display: block;
+    cursor: pointer;
+}
+
+.datepicker-dropdown:before,
+.datepicker-dropdown:after {
+    content: none;
+}
+
+.btn-as-time {
+    margin: 0 5px 5px 0;
+}
+
+.as-calendar {
+    text-align: center;
+
+    li {
+        border-right: 1px solid #eee;
+        padding: 0 2px;
+        a {
+            padding: 5px 5px;
+            display: block;
+            text-align: center;
+        }
+
+        &:nth-child(2) {
+            border-left: 1px solid #eee;
+        }
+        &:first-child,
+        &:last-child {
+            border-right: none;
+            a {
+                vertical-align: middle;
+                display: table-cell;
+            }
+        }
+
+        &.active {
+            a {
+                background-color: #30C454;
+                color: #fff;
+                border-radius: 5px;
+            }
+        }
+    }
+}
+
+.as-loading {
+    display: none;
+}
