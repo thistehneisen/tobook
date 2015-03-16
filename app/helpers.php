@@ -28,17 +28,6 @@ if (!function_exists('asset_path')) {
 
         $filepath = $instance.'/'.$filename;
 
-        // if (array_key_exists($filepath, $manifest)) {
-        //     return asset($folder.$manifest[$filepath]);
-        // } else {
-        //     // @HACK: hack for tobook.lv for now
-        //     if (!file_exists($folder.$filepath)) {
-        //         return asset($folder.'varaa/'.$filename);
-        //     }
-        //     return asset($folder.$filepath);
-        //     //-- end HACK
-        // }
-
         return array_key_exists($filepath, $manifest)
             ? asset($folder.$manifest[$filepath])
             : asset($folder.$filepath);
