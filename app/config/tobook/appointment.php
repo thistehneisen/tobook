@@ -2,57 +2,42 @@
 
 //---------------------------- Confirmation ----------------------------//
 $confirmEmailConsumer = <<< HTML
-Hej!
+Hi!
 
-Tack för din bokning!
+Thank you for booking an appointment!
 
-Valda tjänster:
-{Services}
+Service: {Services}
 
-**Avbokning måste ske senast 48 timmar innan den reserverade tiden.
+Welcome!
 
-Välkommen!
-
-
-
-Tjänsten tillhandahålls av ClearSense
+This service is provided by Tobook.lv
 HTML;
 
 $confirmEmailEmployee = <<< HTML
-Hej!
+Hi!
 
-Du har fått en ny bokning:
+You have a new booking:
 
-ID: {BookingID}
-
-Tjänster:
+Service:
 {Services}
 
-Kundinformation
-Namn: {Name}
-Telefon: {Phone}
-E-post: {Email}
+Consumer information:
+Name: {Name}
+Phone: {Phone}
+Email: {Email}
 
-Ytterligare information:
+Notes:
 {Notes}
 HTML;
 
 $confirmSmsConsumer = <<< HTML
-Hej,
+Hi!
 
-Tack för att du bokat:
+Thank you for booking an appointment!
 
 {Services}
 
-Hälsningar,
-HTML;
-
-$confirmSmsEmployee = <<< HTML
-Hej,
-
-Du har en ny bokning med {Consumer}. Tjänst: {Services}
-
-Hälsningar,
+Best Regards.
 HTML;
 
 //---------------------------- Reminder ----------------------------//
