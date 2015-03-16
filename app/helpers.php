@@ -26,10 +26,21 @@ if (!function_exists('asset_path')) {
             ? json_decode(file_get_contents($path), true)
             : [];
 
-        $filename = $instance.'/'.$filename;
-        // dd($filename, $manifest);
-        return array_key_exists($filename, $manifest)
-            ? asset($folder.$manifest[$filename])
-            : asset($folder.$filename);
+        $filepath = $instance.'/'.$filename;
+
+        if (array_key_exists($filepath, $manifest)) {
+            return asset($folder.$manifest[$filepath]);
+        } else {
+            // @HACK: hack for tobook.lv for now
+            if (!file_exists($folder.$filepath)) {
+                return asset($folder.'varaa/'.$filename);
+            }
+            return asset($folder.$filepath);
+            //-- end HACK
+        }
+
+        // return array_key_exists($filename, $manifest)
+        //     ? asset($folder.$manifest[$filename])
+        //     : asset($folder.$filename);
     }
 }
