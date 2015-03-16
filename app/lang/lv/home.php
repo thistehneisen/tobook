@@ -19,21 +19,21 @@ return [
     'tagline'               => 'Viss, kas nepiecieðams <br>vienkârðam un pelnoðam biznesam',
     'next_timeslot'         => 'Nâkamie rezervâcijai pieejamie laiki',
     'time'                  => 'Laiks',
-    'search_tagline'        => 'What do you want to book?', // @todo
-    'search_query'          => 'Enter business name or service', // @todo
-    'search_place'          => 'Helsinki, FI', // @todo
+    'search_tagline'        => 'Ko jūs vēlaties rezervēt?', // @todo
+    'search_query'          => 'Evadiet uzņēmuma nosaukumu vai pakalpojums', // @todo
+    'search_place'          => 'Riga, LV', // @todo
     'search'        => [
-        'tagline'         => 'What do you want to book?', // @todo
-        'query'           => 'Enter business name or service', // @todo
+        'tagline'         => 'Ko jūs vēlaties rezervēt?', // @todo
+        'query'           => 'Evadiet uzņēmuma nosaukumu vai pakalpojums', // @todo
         'location'        => Settings::get('default_location'), // @todo
         'about'           => 'Ap',
         'locations_hours' => 'Atraðanâs vieta &amp; darba laiks',
         'business_hours'  => 'Darba laiks',
         'buy'             => 'Pirkt',
         'book'            => 'Rezervçt',
-        'button'          => 'Search', // @todo
-        'date'            => 'Any date', // @todo
-        'time'            => 'Any time', // @todo
+        'button'          => 'Meklēšana', // @todo
+        'date'            => 'Izvēlēties datumu', // @todo
+        'time'            => 'Izvēlēties laiku', // @todo
         'geo'             => [
             'info' => 'Lûdzu, norâdiet savu atraðanâs vietu, lai varam piemeklçt atbilstoðus piedâvâjumus Jûsu apkaimç.'
         ]
@@ -54,14 +54,14 @@ return [
             'zero_amount' => 'Maksâjums nav iespçjams, jo Jûsu rezervâciju sarakstâ nav pasûtîjumu.',
         ]
     ],
-    'choose_category'     => 'Choose category', // @todo
-    'how_does_it_work'    => 'How does it work?', // @todo
-    'businesses'          => 'All businesses', // @todo
-    'businesses_category' => 'Businesses of <strong>:category</strong>', // @todo
-    'more'                => 'More', // @todo
-    'less'                => 'Less', // @todo
-    'companies_offers'    => 'Companies with offers', // @todo
-    'categories'          => 'Categories', // @todo
-    'best_offers'         => 'Best offers', // @todo
-    'no_offers'           => 'There is no offer available.', // @todo
+    'choose_category'     => 'Izvēlēties kategoriju', // @todo
+    'how_does_it_work'    => 'Kā tas darbojas?', // @todo
+    'businesses'          => 'Visiem uzņēmumiem', // @todo
+    'businesses_category' => 'Komersanti <strong>:Kategorijas</strong>', // @todo
+    'more'                => 'Vairāk', // @todo
+    'less'                => 'Mazāk', // @todo
+    'companies_offers'    => 'Uzņēmumi ar piedāvājumiem', // @todo
+    'categories'          => 'Kategorijas', // @todo
+    'best_offers'         => 'Labākie piedāvājumi', // @todo
+    'no_offers'           => 'Nav piedāvājumu pieejama', // @todo
 ];
