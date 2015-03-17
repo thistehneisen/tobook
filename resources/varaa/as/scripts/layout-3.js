@@ -105,6 +105,7 @@
                 if(!dataStorage.hash) {
                     dataStorage.hash = $this.data('hash');
                 }
+                dataStorage.l = 3;
                 if(settings.isAutoSelectEmployee || ($('#auto-select-employee').val() === 'true')){
                     $step3.collapse('show');
                     $title3.addClass('collapsable');
