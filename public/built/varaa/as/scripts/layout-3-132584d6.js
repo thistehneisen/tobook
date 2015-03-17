@@ -102,6 +102,7 @@
                 // Assign serviceId to dataStorage
                 dataStorage.serviceId = $this.val();
                 dataStorage.serviceTimeId = $this.data('service-time-id');
+                dataStorage.hash = $this.data('hash');
 
                 if(settings.isAutoSelectEmployee || ($('#auto-select-employee').val() === 'true')){
                     $step3.collapse('show');
