@@ -19,19 +19,19 @@ return [
     'tagline'               => 'Everything you need for<br>easy and profitable business',
     'next_timeslot'         => 'Nästa lediga tider',
     'time'                  => 'Tid',
-    'search_tagline'        => 'What do you want to book?', // @todo
-    'search_query'          => 'Enter business name or service', // @todo
-    'search_place'          => 'Helsinki, FI', // @todo
+    'search_tagline'        => 'Vad vill du boka?',
+    'search_query'          => 'Ange företagsnamn eller tjänst',
+    'search_place'          => 'Stockholm, SE',
     'search'        => [
-        'tagline'         => 'What do you want to book?', // @todo
-        'query'           => 'Enter business name or service', // @todo
+        'tagline'         => 'Vad vill du boka?',
+        'query'           => 'Ange företagsnamn eller tjänst',
         'location'        => Settings::get('default_location'), // @todo
         'about'           => 'Om tjänsten',
         'locations_hours' => 'Adress &amp; Öppettider',
         'business_hours'  => 'Öppettider',
         'buy'             => 'Köp',
         'book'            => 'Boka',
-        'button'          => 'Search', // @todo
+        'button'          => 'Sök',
         'date'            => 'Any date', // @todo
         'time'            => 'Any time', // @todo
         'geo'             => [
@@ -54,14 +54,14 @@ return [
             'zero_amount' => 'Betalning misslyckades, då det totala värdet är 0 kr.',
         ]
     ],
-    'choose_category'     => 'Choose category', // @todo
+    'choose_category'     => 'Välj kategori',
     'how_does_it_work'    => 'How does it work?', // @todo
-    'businesses'          => 'All businesses', // @todo
-    'businesses_category' => 'Businesses of <strong>:category</strong>', // @todo
-    'more'                => 'More', // @todo
-    'less'                => 'Less', // @todo
+    'businesses'          => 'Alla företag',
+    'businesses_category' => 'Resultat: <strong>:category</strong>',
+    'more'                => 'Mer',
+    'less'                => 'Mindre',
     'companies_offers'    => 'Companies with offers', // @todo
     'categories'          => 'Categories', // @todo
-    'best_offers'         => 'Best offers', // @todo
-    'no_offers'           => 'There is no offer available.', // @todo
+    'best_offers'         => 'Erbjudanden',
+    'no_offers'           => 'Det finns inga erbjudanden',
 ];
