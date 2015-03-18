@@ -279,15 +279,15 @@ class Business extends Base
     {
         $image = $this->user->images()->businessImages()->first();
         if (!empty($image)) {
-            return asset_path(Config::get('varaa.upload_folder').$image->path);
+            return public_path(Config::get('varaa.upload_folder').$image->path);
         } else {
             $imageMap = [
                 'beauty_hair' => asset_path('core/img/categories/beauty/beauty1.jpg'),
                 'hairdresser' => asset_path('core/img/categories/hair/hair1.jpg'),
-                'restaurant' => asset_path('core/img/categories/restaurant/res2.jpg'),
+                'restaurant'  => asset_path('core/img/categories/restaurant/res2.jpg'),
                 'fine_dining' => asset_path('core/img/categories/restaurant/res8.jpg'),
-                'car_wash' => asset_path('core/img/categories/carwash/car1.jpg'),
-                'activities' => asset_path('core/img/categories/fitness/fitness1.jpg'),
+                'car_wash'    => asset_path('core/img/categories/carwash/car1.jpg'),
+                'activities'  => asset_path('core/img/categories/fitness/fitness1.jpg'),
             ];
 
             foreach ($this->businessCategories as $cat) {
