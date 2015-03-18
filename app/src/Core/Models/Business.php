@@ -279,7 +279,7 @@ class Business extends Base
     {
         $image = $this->user->images()->businessImages()->first();
         if (!empty($image)) {
-            return public_path(Config::get('varaa.upload_folder').$image->path);
+            return asset(Config::get('varaa.upload_folder').$image->path);
         } else {
             $imageMap = [
                 'beauty_hair' => asset_path('core/img/categories/beauty/beauty1.jpg'),
