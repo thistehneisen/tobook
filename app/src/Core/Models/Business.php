@@ -71,8 +71,8 @@ class Business extends Base
     /**
      * Return businesses of a specific category
      *
-     * @param  Illuminate\Database\Eloquent\Builder $query
-     * @param  int $categoryId
+     * @param Illuminate\Database\Eloquent\Builder $query
+     * @param int                                  $categoryId
      *
      * @return Illuminate\Database\Eloquent\Builder
      */
@@ -279,7 +279,7 @@ class Business extends Base
     {
         $image = $this->user->images()->businessImages()->first();
         if (!empty($image)) {
-            return Config::get('varaa.upload_folder').$image->path;
+            return asset_path(Config::get('varaa.upload_folder').$image->path);
         } else {
             $imageMap = [
                 'beauty_hair' => asset_path('core/img/categories/beauty/beauty1.jpg'),
