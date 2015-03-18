@@ -15,6 +15,7 @@
     {{ HTML::script(asset('packages/jquery.countdown/jquery.countdown.min.js')) }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment-with-locales.min.js') }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js') }}
+    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/1.4.14/jquery.scrollTo.min.js') }}
     {{ HTML::script(asset_path('core/scripts/home.js')) }}
 @stop
 
@@ -34,7 +35,7 @@
 </div>
 
 <div class="container">
-    <div class="row categories">
+    <div class="row categories" id="js-home-categories">
         @foreach ($categories as $category)
             <div class="col-sm-2 col-md-2">
                 <p><img src="{{ asset_path('core/img/new/icons/'.$category->new_icon.'.png') }}" alt=""></p>

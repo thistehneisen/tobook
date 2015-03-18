@@ -89,6 +89,13 @@ do ($ = jQuery) ->
         $(@).siblings '.datetime-control'
           .hide()
 
+    # If user clicks on "Choose category" in navigation, scroll to the list of
+    # categories
+    $ '#js-choose-category'
+      .on 'click', (e) ->
+        e.preventDefault()
+        $.scrollTo '#js-home-categories', duration: 1000
+
     #
     # Auxilary function to apply toggle function to list
     #
