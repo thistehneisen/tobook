@@ -44,7 +44,7 @@
   shell: a2enmod rewrite
 
 - name: download eslasticsearch package
-  get_url: url=https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.3.4.deb dest=/tmp/elasticsearch.deb
+  get_url: url=https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.4.4.deb dest=/tmp/elasticsearch.deb
 
 - name: install elasticsearch
   apt: deb=/tmp/elasticsearch.deb state=installed
