@@ -35,7 +35,7 @@ return [
         'date'            => 'Any date', // @todo
         'time'            => 'Any time', // @todo
         'geo'             => [
-            'info' => 'We will ask for your current location to display results that are close to you.'
+            'info' => 'Genom att ange din position kan vi presentera företag som är verksamma i ditt närområde.'
         ]
     ],
     'cart' => [
