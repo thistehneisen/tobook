@@ -1,11 +1,11 @@
 [webservers]
-prod1 ansible_ssh_host=klikkaaja.com ansible_ssh_user=root
+clearbooking-prod ansible_ssh_host=178.62.52.193 ansible_ssh_user=root
+klikkaaja-prod ansible_ssh_host=178.62.37.23 ansible_ssh_user=root
 stag1 ansible_ssh_host=dev.varaa.co ansible_ssh_user=root
-clearbooking1 ansible_ssh_host=clearbooking.se ansible_ssh_user=root
 tobook1 ansible_ssh_host=188.166.43.60 ansible_ssh_user=root
 
 [dbservers]
-prod1 ansible_ssh_host=klikkaaja.com ansible_ssh_user=root
 stag1 ansible_ssh_host=dev.varaa.co ansible_ssh_user=root
-clearbooking1 ansible_ssh_host=clearbooking.se ansible_ssh_user=root
 tobook1 ansible_ssh_host=188.166.43.60 ansible_ssh_user=root
+clearbooking-prod ansible_ssh_host=178.62.52.193 ansible_ssh_user=root
+klikkaaja-prod ansible_ssh_host=178.62.37.23 ansible_ssh_user=root
