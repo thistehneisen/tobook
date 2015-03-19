@@ -80,7 +80,7 @@ return array(
     |
     */
 
-    'username' => 'hieu@varaa.com',
+    'username' => 'dev@varaa.com',
 
     /*
     |--------------------------------------------------------------------------
