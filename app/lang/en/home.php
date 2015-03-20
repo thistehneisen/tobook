@@ -65,4 +65,15 @@ return [
     'categories'          => 'Categories', // @todo
     'best_offers'         => 'Best offers', // @todo
     'no_offers'           => 'There is no offer available.', // @todo
+    // Business
+    'business' => [
+        'contact' => [
+            'heading' => 'Contact us', // @todo
+            'name'    => 'Name*', // @todo
+            'email'   => 'Email*', // @todo
+            'phone'   => 'Phone', // @todo
+            'captcha' => 'Please enter the characters below*', // @todo
+            'message' => 'Message*', // @todo
+        ]
+    ]
 ];
