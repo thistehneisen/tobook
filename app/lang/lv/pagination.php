@@ -1,5 +1,5 @@
 <?php
 return [
-    'previous' => '&laquo; Iepriekðçjâ',
-    'next'     => 'Nâkamâ&raquo;',
+    'previous' => '&laquo; Iepriekšējā',
+    'next'     => 'Nākamā&raquo;',
 ];

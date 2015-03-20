@@ -1,8 +1,8 @@
 <?php
 // Consumer Payment
 return [
-    'success'          => 'Maksâjums veiksmîgi pabeigts!',
-    'success_notice'   => 'Paldies par sadarbîbu',
-    'cancelled'        => 'Maksâjums atsaukts.',
-    'cancelled_notice' => 'Izvçlçtâs rezervâcijas un produkti tiks dzçsti no Jûsu pasûtîjuma.',
+    'success'          => 'Maksājums veiksmīgi pabeigts!',
+    'success_notice'   => 'Paldies par sadarbību',
+    'cancelled'        => 'Maksājums atsaukts.',
+    'cancelled_notice' => 'Izvēlētās rezervācijas un produkti tiks dzēsti no Jūsu pasūtījuma.',
 ];
