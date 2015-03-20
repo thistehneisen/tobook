@@ -1,5 +1,7 @@
 <h3 class="sub-heading">{{ trans('home.business.contact.heading') }}</h3>
 
+@include ('el.messages')
+
 {{ Form::open(['route' => ['business.contact', $business->user_id, $business->slug], 'class' => 'form-vertical']) }}
 
     <div class="form-group {{ Form::errorCSS('name', $errors) }}">

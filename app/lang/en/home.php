@@ -1,4 +1,14 @@
 <?php
+$contactEmail = <<< HTML
+Hello,
+
+Visitor <strong>:name</strong> (:phone) from :email has sent you a message:
+------------------
+:message
+------------------
+:footer
+HTML;
+
 return [
     'customer_websites'     => 'Customer homepages',
     'description'           => 'Create a stunning looking responsive websites!',
@@ -74,6 +84,9 @@ return [
             'phone'   => 'Phone', // @todo
             'captcha' => 'Please enter the characters below*', // @todo
             'message' => 'Message*', // @todo
+            'sent'    => 'Your message has been sent',
+            'subject' => 'You got a contact message',
+            'mail'    => $contactEmail,
         ]
     ]
 ];
