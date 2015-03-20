@@ -169,11 +169,12 @@ class Business extends Base
             'postcode'         => $input['postcode'],
             'country'          => $input['country'],
             'phone'            => $input['phone'],
-            'note'             => $input['note'],
-            'meta_title'       => $input['meta_title'],
-            'meta_keywords'    => $input['meta_keywords'],
-            'meta_description' => $input['meta_description'],
-            'bank_account'     => $input['bank_account'],
+            'note'             => isset($input['note'])             ? $input['note'] : '',
+            'meta_title'       => isset($input['meta_title'])       ? $input['meta_title'] : '',
+            'meta_keywords'    => isset($input['meta_keywords'])    ? $input['meta_keywords'] : '',
+            'meta_description' => isset($input['meta_description']) ? $input['meta_description'] : '',
+            'bank_account'     => isset($input['bank_account'])     ? $input['bank_account'] : '',
+            'is_hidden'        => isset($input['is_hidden'])        ? $input['is_hidden'] : '',
         ]);
         $this->user()->associate($user);
         $this->saveOrFail();

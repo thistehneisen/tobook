@@ -2,7 +2,7 @@
 
 use App\Core\Models\Business;
 use Lomake;
-use Session, Validator, Input, View, Redirect, Hash, Confide;
+use Session, Validator, Input, View, Redirect, Hash, Confide, Log;
 use App\Core\Models\User as UserModel;
 use App\Core\Models\BusinessCategory;
 use App\Core\Models\Image;
@@ -191,7 +191,9 @@ class User extends Base
         } catch (\Watson\Validating\ValidationException $ex) {
             $errors = $ex->getErrors();
         } catch (\Exception $ex) {
-            $errors = $this->errorMessageBag($ex->getMessage());
+            // Silently fail
+            Log::error($ex->getMessage());
+            $errors = $this->errorMessageBag(trans('common.err.unexpected'));
         }
 
         return Redirect::back()->withInput()->withErrors($errors);
