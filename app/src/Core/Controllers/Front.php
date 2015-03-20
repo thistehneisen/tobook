@@ -4,7 +4,6 @@ use App\Core\Models\Business;
 use App\Core\Models\BusinessCategory;
 use App\FlashDeal\Models\FlashDeal;
 use Illuminate\Support\Collection;
-use Input;
 use Response;
 use Session;
 use Settings;
@@ -50,7 +49,7 @@ class Front extends Base
     public function businesses()
     {
         // Get all businesses
-        $businesses = Business::with('user.images')->paginate();
+        $businesses = Business::notHidden()->with('user.images')->paginate();
 
         // Get deals from businesses
         $deals = $this->getDealsOfBusinesses($businesses);
@@ -91,15 +90,17 @@ class Front extends Base
     /**
      * Show businesses of a category
      *
-     * @param  int $categoryId
-     * @param  string $slug
+     * @param int    $categoryId
+     * @param string $slug
      *
      * @return View
      */
     public function category($categoryId, $slug)
     {
         $category = BusinessCategory::findOrFail($categoryId);
-        $businesses = $category->users()->has('business')->paginate();
+        $businesses = $category->users()->whereHas('business', function ($query) {
+            $query->notHidden();
+        })->paginate();
 
         $deals = $this->getDealsOfBusinesses($businesses);
 
@@ -118,7 +119,7 @@ class Front extends Base
     /**
      * Get active deals of provided businesses
      *
-     * @param  Illuminate\Support\Collection $businesses
+     * @param Illuminate\Support\Collection $businesses
      *
      * @return Illuminate\Support\Collection
      */
@@ -127,7 +128,7 @@ class Front extends Base
         $deals = new Collection();
         foreach ($businesses as $business) {
             $items = FlashDeal::ofBusiness($business)
-                ->whereHas('dates', function ($query){
+                ->whereHas('dates', function ($query) {
                     return $query->active()->orderBy('expire');
                 })
                 ->with('user.business')
@@ -135,6 +136,7 @@ class Front extends Base
 
             $deals = $deals->merge($items);
         }
+
         return $deals;
     }
 
@@ -153,6 +155,7 @@ class Front extends Base
         }
 
         $response = Response::make($str, 200)->header('Content-Type', 'text/plain');
+
         return $response;
     }
 }

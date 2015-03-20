@@ -81,6 +81,18 @@ class Business extends Base
         return $query->has('businessCategories', $categoryId);
     }
 
+    /**
+     * Return businesses that are not hidden
+     *
+     * @param Illuminate\Database\Eloquent\Builder $query
+     *
+     * @return Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeNotHidden($query)
+    {
+        return $query->where('is_hidden', 0);
+    }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
