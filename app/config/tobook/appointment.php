@@ -30,6 +30,14 @@ Notes:
 {Notes}
 HTML;
 
+$confirmSmsEmployee = <<< HTML
+Hei,
+
+Sinulle on uusi varaus asiakkaalta {Consumer} palveluun {Services}
+
+Terveisin,
+HTML;
+
 $confirmSmsConsumer = <<< HTML
 Hi!
 
