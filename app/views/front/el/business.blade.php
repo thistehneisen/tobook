@@ -18,13 +18,17 @@
 
     {{-- right sidebar --}}
     <div class="col-sm-4 col-md-4">
-    @if ($business->isUsingAs)
+    @if ($business->user->asOptions->get('disable_booking'))
+        @include ('front.el.contact')
+    @else
+        @if ($business->isUsingAS)
         <div class="box">
             {{-- `$inhouse = true` means that we'll show login/register secion in step 4 --}}
             <input type="hidden" id="business_id" value="{{ $business->id }}">
             <input type="hidden" id="business_hash" value="{{ $business->user->hash }}">
             @include('modules.as.embed.layout-3.main', ['inhouse' => Settings::get('enable_cart'), 'hash' => $business->user->hash])
         </div>
+        @endif
     @endif
 
         <h3 class="sub-heading">Map</h3>
