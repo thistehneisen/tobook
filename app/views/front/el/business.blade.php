@@ -19,7 +19,7 @@
     {{-- right sidebar --}}
     <div class="col-sm-4 col-md-4">
     @if ($business->user->asOptions->get('disable_booking'))
-        @include ('front.el.contact')
+        @include ('front.el.contact', ['business' => $business])
     @else
         @if ($business->isUsingAS)
         <div class="box">
