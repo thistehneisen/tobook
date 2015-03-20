@@ -131,6 +131,7 @@ return array(
         'Orchestra\Imagine\ImagineServiceProvider',
         'Indatus\Dispatcher\ServiceProvider',
         'Clowdy\Raven\RavenServiceProvider',
+        'Mews\Captcha\CaptchaServiceProvider',
 
         // Homemade
         'App\Hashids\HashidsServiceProvider',
@@ -216,6 +217,7 @@ return array(
         'Debugbar'  => 'Barryvdh\Debugbar\Facade',
         'Imagine'   => 'Orchestra\Imagine\Facade',
         'Raven'     => 'Clowdy\Raven\Facades\Raven',
+        'Captcha'   => 'Mews\Captcha\Facades\Captcha',
 
         // Homemade
         'AppController' => 'App\Core\Controllers\Base',
