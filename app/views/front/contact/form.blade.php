@@ -2,7 +2,7 @@
 
 @include ('el.messages')
 
-{{ Form::open(['route' => ['business.contact', $business->user_id, $business->slug], 'class' => 'form-vertical']) }}
+{{ Form::open(['route' => ['business.contact', $business->user_id, $business->slug], 'class' => 'form-vertical', 'id' => 'form-contact-business']) }}
 
     <div class="form-group {{ Form::errorCSS('name', $errors) }}">
         {{ Form::label('name', trans('home.business.contact.name')) }}
@@ -36,6 +36,26 @@
     </div>
 
     <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-sm">{{ trans('common.submit') }}</button>
+        <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
+        <a href="#" id="js-business-booking-request" class="btn btn-success pull-right">{{ trans('home.business.request') }}</a>
+    </div>
+{{ Form::close() }}
+
+{{ Form::open(['id' => 'form-business-request', 'style' => 'display: none;']) }}
+    <div class="form-group {{ Form::errorCSS('name', $errors) }}">
+        {{ Form::label('name', trans('home.business.contact.name')) }}
+        {{ Form::text('name', Input::get('name'), ['class' => 'form-control']) }}
+        {{ Form::errorText('name', $errors) }}
+    </div>
+
+    <div class="form-group {{ Form::errorCSS('email', $errors) }}">
+        {{ Form::label('email', trans('home.business.contact.email')) }}
+        {{ Form::text('email', Input::get('email'), ['class' => 'form-control']) }}
+        {{ Form::errorText('email', $errors) }}
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
+        <a href="#" id="js-business-booking-request" class="btn btn-link">{{ trans('common.cancel') }}</a>
     </div>
 {{ Form::close() }}
