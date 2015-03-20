@@ -31,12 +31,12 @@
         @endif
     @endif
 
-        <h3 class="sub-heading">Map</h3>
+        <h3 class="sub-heading">{{ trans('home.business.map') }}</h3>
         <div data-lat="{{ $business->lat }}" data-lng="{{ $business->lng }}" id="js-map-{{ $business->user_id }}" class="small-map"></div>
 
         <div class="row">
             <div class="col-sm-6 col-md-6">
-                <h3 class="sub-heading">Openning hours</h3>
+                <h3 class="sub-heading">{{ trans('home.business.openning_hours') }}</h3>
                 <table class="table table-working-hours">
                     <tbody>
                     @foreach ($business->working_hours_array as $day => $value)
@@ -53,12 +53,12 @@
                 </table>
             </div>
             <div class="col-sm-6 col-md-6">
-                <h3 class="sub-heading">Contact</h3>
+                <h3 class="sub-heading">{{ trans('home.business.contact.index') }}</h3>
 
-                <p><strong>Phone:</strong></p>
+                <p><strong>{{ trans('home.business.phone') }}</strong></p>
                 <p>{{{ $business->phone }}}</p>
 
-                <p><strong>E-mail</strong></p>
+                <p><strong>{{ trans('home.business.email') }}</strong></p>
                 <p>{{{ $business->user->email }}}</p>
             </div>
         </div>
