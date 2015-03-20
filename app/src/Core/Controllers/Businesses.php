@@ -11,7 +11,7 @@ class Businesses extends Front
             'name'    => 'required',
             'email'   => 'required|email',
             'message' => 'required',
-            'captcha' => 'required',
+            // 'captcha' => 'required',
         ]);
 
         if ($v->fails()) {

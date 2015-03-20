@@ -23,6 +23,12 @@
         "eluceo/ical": "0.6.1",
         "mews/captcha": "1.0.1"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/mauris/captcha"
+        }
+    ],
     "require-dev": {
         "codeception/codeception": "2.0.*",
         "squizlabs/php_codesniffer": "1.*",

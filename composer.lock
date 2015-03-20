@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0526efb5897ccead1b2468bcdfd21620",
+    "hash": "02f8aa62065386cfe698db2854f8a311",
     "packages": [
         {
             "name": "alfaproject/omnipay-skrill",

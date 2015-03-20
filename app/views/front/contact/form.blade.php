@@ -21,14 +21,14 @@
         {{ Form::text('phone', Input::get('phone'), ['class' => 'form-control']) }}
         {{ Form::errorText('phone', $errors) }}
     </div>
-
+{{--
     <div class="form-group {{ Form::errorCSS('captcha', $errors) }}">
         {{ Form::label('captcha', trans('home.business.contact.captcha')) }}
         <p><img src="{{ Captcha::img() }}" alt=""></p>
         {{ Form::text('captcha', '', ['class' => 'form-control']) }}
         {{ Form::errorText('captcha', $errors) }}
     </div>
-
+--}}
     <div class="form-group {{ Form::errorCSS('message', $errors) }}">
         {{ Form::label('message', trans('home.business.contact.message')) }}
         {{ Form::textarea('message', Input::get('message'), ['class' => 'form-control']) }}
