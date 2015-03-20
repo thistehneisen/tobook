@@ -81,6 +81,7 @@ return [
         'map'            => 'Map', // @todo
         'phone'          => 'Phone', // @todo
         'email'          => 'Email', // @todo
+        'request'        => 'Ask for online booking', // @todo
         'contact'        => [
             'index'   => 'Contact', // @todo
             'heading' => 'Contact us', // @todo
