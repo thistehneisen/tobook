@@ -42,9 +42,8 @@
                     @foreach ($business->working_hours_array as $day => $value)
                         <tr>
                             <td>{{ trans('common.short.'.$day) }}</td>
-                            <td>{{ with(new Carbon\Carbon($value['start']))->format('H:i') }} &ndash; {{ with(new Carbon\Carbon($value['end']))->format('H:i') }}</td>
-                            <td>
-                                @if (!empty($value['extra'])) {{{ $value['extra'] }}}
+                            <td>{{ with(new Carbon\Carbon($value['start']))->format('H:i') }} &ndash; {{ with(new Carbon\Carbon($value['end']))->format('H:i') }}
+                                @if (!empty($value['extra'])) <p><em>{{{ $value['extra'] }}}</em></p>
                                 @endif
                             </td>
                         </tr>
