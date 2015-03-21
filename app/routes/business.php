@@ -21,6 +21,11 @@ Route::group(['prefix' => 'businesses'], function () {
         'uses'  => 'App\Core\Controllers\Businesses@contact'
     ]);
 
+    Route::post('{id}-{slug?}/request', [
+        'as'    => 'business.request',
+        'uses'  => 'App\Core\Controllers\Businesses@request'
+    ]);
+
     Route::get('{id}-{slug?}', [
         'as'    => 'business.index',
         'uses'  => 'App\Core\Controllers\Ajax\Search@showBusiness'
