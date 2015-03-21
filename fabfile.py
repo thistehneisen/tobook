@@ -12,7 +12,8 @@ def _deploy(environment, host):
             # set it to maintenance mode
             run('php artisan down')
             # pull latest source
-            run('git pull')
+            branch = 'develop' if environment == 'stag' else 'master'
+            run('git pull origin {}'.format(branch))
             # install dependencies
             run('composer install')
             # run migration
@@ -32,10 +33,10 @@ def _deploy(environment, host):
 @task
 def deploy(instance=''):
     instance_dict = {
-        # 'stag': 'dev.varaa.co',
-        'prod': '178.62.37.23',
-        'clearbooking': '178.62.52.193',
-        'tobook': '188.166.43.60'
+        'stag': '46.101.49.100',
+        # 'prod': '178.62.37.23',
+        # 'clearbooking': '178.62.52.193',
+        # 'tobook': '188.166.43.60'
     }
     if instance in instance_dict:
         _deploy(instance, instance_dict[instance])
