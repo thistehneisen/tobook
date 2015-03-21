@@ -9,4 +9,8 @@
   shell: chmod -Rf 777 {{ webapps_dir }}/{{ app_name }}/src/app/storage
   tags: templated_settings
 
+- name: chown tmp folder
+  shell: chown www-data {{ webapps_dir }}/{{ app_name }}/src/public/tmp
+  tags: templated_settings
+
 - include: sync_settings.yml
