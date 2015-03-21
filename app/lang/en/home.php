@@ -1,20 +1,22 @@
 <?php
 $contactEmail = <<< HTML
-Hello,
+<p>Hello,</p>
 
-Visitor <strong>:name</strong> (:phone) from :email has sent you a message:
-------------------
-:message
-------------------
-:footer
+<p>Visitor <strong>:name</strong> (:phone) from :email has sent you a message:</p>
+
+<p>------------------</p>
+<p>:message</p>
+<p>------------------</p>
+
+<p>:footer</p>
 HTML;
 
 $requestMail = <<< HTML
-Hello,
+<p>Hello,</p>
 
-Visitor <strong>:name</strong> from :email requested you to start using our onling booking solution.
+<p>Visitor <strong>:name</strong> from :email requested you to start using our onling booking solution.</p>
 
-Start using it now! It's FREE!
+<p>Start using it now! It's FREE!</p>
 HTML;
 
 return [
