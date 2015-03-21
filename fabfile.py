@@ -34,9 +34,9 @@ def _deploy(environment, host):
 def deploy(instance=''):
     instance_dict = {
         'stag': '46.101.49.100',
-        # 'prod': '178.62.37.23',
-        # 'clearbooking': '178.62.52.193',
-        # 'tobook': '188.166.43.60'
+        'prod': '178.62.37.23',
+        'clearbooking': '178.62.52.193',
+        'tobook': '188.166.43.60'
     }
     if instance in instance_dict:
         _deploy(instance, instance_dict[instance])
