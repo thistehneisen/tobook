@@ -92,10 +92,10 @@ return [
         'phone'          => 'Phone', // @todo
         'email'          => 'Email', // @todo
         'request'        => [
-            'link' => 'Ask for online booking', // @todo
-            'info' => 'The shop owner will be asked to use our online booking system.', // @todo
+            'link'    => 'Ask for online booking', // @todo
+            'info'    => 'The shop owner will be asked to use our online booking system.', // @todo
             'subject' => 'Request to use online booking system', // @todo
-            'mail' => $requestMail, // @todo
+            'mail'    => $requestMail, // @todo
         ],
         'contact'        => [
             'index'   => 'Contact', // @todo
@@ -105,9 +105,9 @@ return [
             'phone'   => 'Phone', // @todo
             'captcha' => 'Please enter the characters below*', // @todo
             'message' => 'Message*', // @todo
-            'sent'    => 'Your message has been sent',
-            'subject' => 'You got a contact message',
-            'mail'    => $contactEmail,
+            'sent'    => 'Your message has been sent', // @todo
+            'subject' => 'You got a contact message', // @todo
+            'mail'    => $contactEmail, // @todo
         ]
-    ]
+    ],
 ];
