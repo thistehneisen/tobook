@@ -11,7 +11,7 @@
     @if (!empty($business->description))
         <h3 class="sub-heading">About</h3>
         <div class="description">
-            {{{ $business->description_html }}}
+            {{ $business->description_html }}
         </div>
     @endif
     </div>
