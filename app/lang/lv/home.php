@@ -1,4 +1,24 @@
 <?php
+$contactEmail = <<< HTML
+<p>Hello,</p>
+
+<p>Visitor <strong>:name</strong> (:phone) from :email has sent you a message:</p>
+
+<p>------------------</p>
+<p>:message</p>
+<p>------------------</p>
+
+<p>:footer</p>
+HTML;
+
+$requestMail = <<< HTML
+<p>Hello,</p>
+
+<p>Visitor <strong>:name</strong> from :email requested you to start using our onling booking solution.</p>
+
+<p>Start using it now! It's FREE!</p>
+HTML;
+
 return [
     'customer_websites'     => 'Klientu lapas',
     'description'           => 'Izveidojiet efektīvu un skaistu lapu!',
@@ -32,6 +52,9 @@ return [
         'business_hours'  => 'Darba laiks',
         'buy'             => 'Pirkt',
         'book'            => 'Rezervēt',
+        'button'          => 'Meklēšana', // @todo
+        'date'            => 'Izvēlēties datumu', // @todo
+        'time'            => 'Izvēlēties laiku', // @todo
         'geo'             => [
             'info' => 'Lūdzu, norādiet savu atrašanās vietu, lai varam piemeklēt atbilstošus piedāvājumus Jūsu apkaimē.'
         ]
@@ -51,5 +74,40 @@ return [
             'business' => 'Šobrīd nepiedāvājam iespēju izmantot nereģistrētu biznesa kontu. Lūdzu, ienāciet sistēmā ar savu reģistrēto lietotājvārdu.',
             'zero_amount' => 'Maksājums nav iespējams, jo Jūsu rezervāciju sarakstā nav pasūtījumu.',
         ]
-    ]
+    ],
+    'choose_category'     => 'Izvēlēties kategoriju', // @todo
+    'how_does_it_work'    => 'Kā tas darbojas?', // @todo
+    'businesses'          => 'Visiem uzņēmumiem', // @todo
+    'businesses_category' => 'Komersanti <strong>:Kategorijas</strong>', // @todo
+    'more'                => 'Vairāk', // @todo
+    'less'                => 'Mazāk', // @todo
+    'companies_offers'    => 'Uzņēmumi ar piedāvājumiem', // @todo
+    'categories'          => 'Kategorijas', // @todo
+    'best_offers'         => 'Labākie piedāvājumi', // @todo
+    'no_offers'           => 'Nav piedāvājumu pieejama', // @todo
+    // Business
+    'business' => [
+        'openning_hours' => 'Openning hours', // @todo
+        'map'            => 'Map', // @todo
+        'phone'          => 'Phone', // @todo
+        'email'          => 'Email', // @todo
+        'request'        => [
+            'link'    => 'Ask for online booking', // @todo
+            'info'    => 'The shop owner will be asked to use our online booking system.', // @todo
+            'subject' => 'Request to use online booking system', // @todo
+            'mail'    => $requestMail, // @todo
+        ],
+        'contact'        => [
+            'index'   => 'Contact', // @todo
+            'heading' => 'Contact us', // @todo
+            'name'    => 'Name*', // @todo
+            'email'   => 'Email*', // @todo
+            'phone'   => 'Phone', // @todo
+            'captcha' => 'Please enter the characters below*', // @todo
+            'message' => 'Message*', // @todo
+            'sent'    => 'Your message has been sent', // @todo
+            'subject' => 'You got a contact message', // @todo
+            'mail'    => $contactEmail, // @todo
+        ]
+    ],
 ];

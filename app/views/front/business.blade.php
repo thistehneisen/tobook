@@ -27,17 +27,14 @@
     @if (App::getLocale() !== 'en') {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.'.App::getLocale().'.min.js') }}
     @endif
     {{ HTML::script(asset_path('as/scripts/layout-3.js')) }}
+    {{ HTML::script(asset_path('core/scripts/business.js')) }}
 
     <script>
-$(function() {
+$(function () {
     new GMaps({
       div: '#js-map-{{ $business->user_id }}',
       lat: {{ $lat }},
       lng: {{ $lng }}
-    });
-
-    VARAA.initLayout3({
-        isAutoSelectEmployee: false
     });
 });
     </script>

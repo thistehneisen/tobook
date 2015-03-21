@@ -120,5 +120,9 @@ return [
         //  Default is 30%
         //----------------------------------------------------------------------
         'commission_rate'    => ['type' => 'Text', 'default' => 0.3],
+        //----------------------------------------------------------------------
+        //  Footer text to be included in every contact message in business page
+        //----------------------------------------------------------------------
+        'footer_contact_message' => ['type' => 'Text', 'default' => 'Start using our free online booking tool now'],
     ]
 ];
