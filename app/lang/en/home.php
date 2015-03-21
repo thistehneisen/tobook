@@ -9,6 +9,14 @@ Visitor <strong>:name</strong> (:phone) from :email has sent you a message:
 :footer
 HTML;
 
+$requestMail = <<< HTML
+Hello,
+
+Visitor <strong>:name</strong> from :email requested you to start using our onling booking solution.
+
+Start using it now! It's FREE!
+HTML;
+
 return [
     'customer_websites'     => 'Customer homepages',
     'description'           => 'Create a stunning looking responsive websites!',
@@ -81,8 +89,12 @@ return [
         'map'            => 'Map', // @todo
         'phone'          => 'Phone', // @todo
         'email'          => 'Email', // @todo
-        'request'        => 'Ask for online booking', // @todo
-        'request_info'   => 'The shop owner will be asked to use our online booking system.', // @todo
+        'request'        => [
+            'link' => 'Ask for online booking', // @todo
+            'info' => 'The shop owner will be asked to use our online booking system.', // @todo
+            'subject' => 'Request to use online booking system', // @todo
+            'mail' => $requestMail, // @todo
+        ],
         'contact'        => [
             'index'   => 'Contact', // @todo
             'heading' => 'Contact us', // @todo
