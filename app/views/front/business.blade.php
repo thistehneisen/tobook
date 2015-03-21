@@ -36,6 +36,10 @@ $(function () {
       lat: {{ $lat }},
       lng: {{ $lng }}
     });
+
+    VARAA.initLayout3({
+        isAutoSelectEmployee: false
+    });
 });
     </script>
 @stop
@@ -48,7 +52,7 @@ $(function () {
 @section('main-classes') front @stop
 
 @section('content')
-<div class="container search-results">
+<div class="container search-results" id="js-search-results">
     @include ('front.el.business')
 </div>
 @stop

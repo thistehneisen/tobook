@@ -3,19 +3,18 @@ do ($ = jQuery) ->
 
   $ ->
     # Contact form
-    formContact = $ '#form-contact-business'
-    formRequest = $ '#form-request-business'
-    $ '#js-business-booking-request'
-      .on 'click', (e) ->
-        e.preventDefault()
-        formContact.hide()
-        formRequest.show()
+    $wrapper = $ '#js-search-results'
 
-    $ '#js-cancel-business-request'
-      .on 'click', (e) ->
+    $wrapper.on 'click', '#js-business-booking-request', (e) ->
         e.preventDefault()
-        formRequest.hide()
-        formContact.show()
+        $ '#form-contact-business'
+          .hide()
+        $ '#form-request-business'
+          .show()
 
-    # Init the booking widget
-    VARAA.initLayout3 isAutoSelectEmployee: false
+    $wrapper.on 'click', '#js-cancel-business-request', (e) ->
+        e.preventDefault()
+        $ '#form-request-business'
+          .hide()
+        $ '#form-contact-business'
+          .show()
