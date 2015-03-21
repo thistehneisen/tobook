@@ -41,7 +41,8 @@
     </div>
 {{ Form::close() }}
 
-{{ Form::open(['id' => 'form-business-request', 'style' => 'display: none;']) }}
+{{ Form::open(['id' => 'form-request-business', 'style' => 'display: none;']) }}
+    <div class="alert alert-info"><p>{{ trans('home.business.request_info') }}</p></div>
     <div class="form-group {{ Form::errorCSS('name', $errors) }}">
         {{ Form::label('name', trans('home.business.contact.name')) }}
         {{ Form::text('name', Input::get('name'), ['class' => 'form-control']) }}
@@ -56,6 +57,6 @@
 
     <div class="form-group">
         <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
-        <a href="#" id="js-business-booking-request" class="btn btn-link">{{ trans('common.cancel') }}</a>
+        <a href="#" id="js-cancel-business-request" class="btn btn-link">{{ trans('common.cancel') }}</a>
     </div>
 {{ Form::close() }}

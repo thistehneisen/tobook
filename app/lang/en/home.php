@@ -82,6 +82,7 @@ return [
         'phone'          => 'Phone', // @todo
         'email'          => 'Email', // @todo
         'request'        => 'Ask for online booking', // @todo
+        'request_info'   => 'The shop owner will be asked to use our online booking system.', // @todo
         'contact'        => [
             'index'   => 'Contact', // @todo
             'heading' => 'Contact us', // @todo
