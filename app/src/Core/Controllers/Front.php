@@ -49,7 +49,12 @@ class Front extends Base
     public function businesses()
     {
         // Get all businesses
-        $businesses = Business::notHidden()->with('user.images')->paginate();
+        $businesses = Business::notHidden()
+            ->whereHas('user', function ($query) {
+                $query->whereNull('deleted_at');
+            })
+            ->with('user.images')
+            ->paginate();
 
         // Get deals from businesses
         $deals = $this->getDealsOfBusinesses($businesses);
@@ -98,9 +103,12 @@ class Front extends Base
     public function category($categoryId, $slug)
     {
         $category = BusinessCategory::findOrFail($categoryId);
-        $businesses = $category->users()->whereHas('business', function ($query) {
-            $query->notHidden();
-        })->paginate();
+        $businesses = $category->users()
+            ->whereNull('deleted_at')
+            ->whereHas('business', function ($query) {
+                $query->notHidden();
+            })
+            ->paginate();
 
         $deals = $this->getDealsOfBusinesses($businesses);
 
