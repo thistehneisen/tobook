@@ -56,7 +56,7 @@ class Business extends Base
     {
         parent::boot();
 
-        // whenever updating account, we will try to find geocode of this business
+        // Whenever saving account, we will try to find geocode of this business
         static::updating(function ($business) {
             $business->updateGeo();
 
@@ -127,22 +127,12 @@ class Business extends Base
      */
     public function updateGeo()
     {
-        $new = $this->full_address;
-        $old = $this->getFullAddress(
-            $this->getOriginal('address'),
-            $this->getOriginal('postcode'),
-            $this->getOriginal('city'),
-            $this->getOriginal('country')
-        );
-
-        if (!empty($new) && $new !== $old) {
-            try {
-                list($lat, $lng) = Util::geocoder($new);
-                $this->attributes['lat'] = $lat;
-                $this->attributes['lng'] = $lng;
-            } catch (Exception $ex) {
-                // Silently fail
-            }
+        try {
+            list($lat, $lng) = Util::geocoder($this->full_address);
+            $this->attributes['lat'] = $lat;
+            $this->attributes['lng'] = $lng;
+        } catch (Exception $ex) {
+            // Silently fail
         }
     }
 
@@ -531,14 +521,13 @@ class Business extends Base
         list($lat, $lng) = Util::getCoordinates();
         $sort = [
             '_geo_distance' => [
-                'order'    => 'asc',
                 'unit'     => 'km',
                 'mode'     => 'min',
                 'location' => [
                     'lat' => $lat,
                     'lon' => $lng,
                 ],
-            ]
+            ],
         ];
 
         return $sort;
@@ -561,8 +550,14 @@ class Business extends Base
                 continue;
             }
 
+            $user->distance = $row['sort'][1];
             $users->push($user);
         }
+
+        // Sort by distance
+        $users->sortBy(function ($item) {
+            return $item->distance;
+        });
 
         return $users->lists('business');
     }
