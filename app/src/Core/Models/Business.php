@@ -550,7 +550,9 @@ class Business extends Base
                 continue;
             }
 
-            $user->distance = $row['sort'][1];
+            if (isset($row['sort'][1])) {
+                $user->distance = $row['sort'][1];
+            }
             $users->push($user);
         }
 
