@@ -90,6 +90,7 @@ return [
         'map'            => 'Map', // @todo
         'phone'          => 'Phone', // @todo
         'email'          => 'Email', // @todo
+        'online_booking' => 'Varaa aika',
         'request'        => [
             'link'    => 'Ask for online booking', // @todo
             'info'    => 'The shop owner will be asked to use our online booking system.', // @todo
