@@ -530,6 +530,9 @@ class Business extends Base
     {
         list($lat, $lng) = Util::getCoordinates();
         $sort = [
+            '_score' => [
+                'order' => 'desc',
+            ],
             '_geo_distance' => [
                 'order'    => 'asc',
                 'unit'     => 'km',
