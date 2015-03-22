@@ -520,6 +520,9 @@ class Business extends Base
     {
         list($lat, $lng) = Util::getCoordinates();
         $sort = [
+            '_score' => [
+                'order' => 'desc',
+            ],
             '_geo_distance' => [
                 'unit'     => 'km',
                 'mode'     => 'min',
@@ -555,6 +558,13 @@ class Business extends Base
             }
             $users->push($user);
         }
+
+        // Sort to show business that do not disable booking widget
+        $users->sortBy(function ($item) {
+            return (bool) $item->asOptions->get('disable_booking') === true
+                ? 0
+                : 1;
+        });
 
         // Sort by distance
         $users->sortBy(function ($item) {
