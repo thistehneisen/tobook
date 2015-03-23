@@ -68,6 +68,7 @@ return [
         'meta_keywords'    => 'Meta keywords', // @todo
         'bank_account'     => 'Bank account', // @todo
         'is_hidden'        => 'Is hidden business?', // @todo
+        'preview'          => 'Preview your page', // @todo
         'sizes'            => [
             '1',
             '2-3',
