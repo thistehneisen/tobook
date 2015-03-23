@@ -59,6 +59,7 @@ return [
         'meta_keywords'    => 'Мета-ключевые слова',
         'bank_account'     => 'Банковский счет',
         'is_hidden'        => 'Скрытое предприятие?',
+        'preview'          => 'Preview your page', // @todo
         'sizes'            => [
             '1',
             '2-3',

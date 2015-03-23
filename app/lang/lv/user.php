@@ -59,6 +59,7 @@ return [
         'meta_keywords'    => 'Meta keywords',
         'bank_account'     => 'Bankas rekvizīti',
         'is_hidden'        => 'Slēptais uzņēmums?',
+        'preview'          => 'Preview your page', // @todo
         'sizes'            => [
             '1',
             '2-3',

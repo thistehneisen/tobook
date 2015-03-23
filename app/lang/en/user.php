@@ -60,6 +60,7 @@ return [
         'meta_keywords'    => 'Meta keywords',
         'bank_account'     => 'Bank account',
         'is_hidden'        => 'Is hidden business?',
+        'preview'          => 'Preview your page',
         'sizes'            => [
             '1',
             '2-3',

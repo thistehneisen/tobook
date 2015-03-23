@@ -59,6 +59,7 @@ return [
         'meta_keywords'    => 'Meta keywords',
         'bank_account'     => 'Cont bancar',
         'is_hidden'        => 'Este ascunsa afacerea?',
+        'preview'          => 'Preview your page', // @todo
         'sizes'            => [
             '1',
             '2-3',
