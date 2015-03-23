@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Controllers;
 
-use App, View, Confide, Redirect, Input, Config, Response, Util, Hashids;
+use App, View, Confide, Redirect, Input, Config, Response, Util, Hashids, Event;
 use Carbon\Carbon, Cart, Session, Request;
 use Illuminate\Support\Collection;
 use App\Core\Models\User;
@@ -143,6 +143,8 @@ class FrontBookings extends Bookings
                 $booking->attach(new EmailObserver());
                 $booking->attach(new SmsObserver());
                 $booking->notify();
+
+                Event::fire('employee.calendar.invitation.send', [$booking]);
             } catch (\Exception $ex) {
                 \Log::warning('Could not send sms or email:' . $ex->getMessage());
             }
