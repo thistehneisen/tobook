@@ -191,6 +191,11 @@ class Business extends Base
         $this->user()->associate($user);
         $this->saveOrFail();
 
+        // We will remove hidden businesses from indexing
+        if ($this->is_hidden) {
+            $this->deleteSearchIndex();
+        }
+
         if (!empty($input['categories'])) {
             $this->updateBusinessCategories($input['categories']);
         }
