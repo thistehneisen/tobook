@@ -141,6 +141,7 @@ return [
         'cancel_reschedule' => 'Avbryt ombokning',
         'own_customer'      => 'Egen kund',
         'request_employee'  => 'Önskat personal',
+        'flashdeal'         => 'Add new flash deal',//@todo
         'error'             => [
             'add_overlapped_booking'   => 'Tiden för bokningen överlappar!',
             'insufficient_slots'       => 'Det finns inte tillräckligt med ledig tid för den här bokningen!',

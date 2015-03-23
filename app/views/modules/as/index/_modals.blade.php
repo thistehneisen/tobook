@@ -10,6 +10,10 @@
             <td><input type="radio" id="book" value="book" name="action_type"></td>
             <td><label for="book">{{ trans('as.bookings.add') }}</label></td>
         </tr>
+        <tr>
+            <td><input type="radio" id="flashdeal" value="flashdeal" name="action_type"></td>
+            <td><label for="flashdeal">{{ trans('as.bookings.flashdeal') }}</label></td>
+        </tr>
         <tr id="row_paste_booking" style="@if(empty($cutId)) display: none @endif">
             <td><input type="radio" id="paste_booking" value="paste_booking" name="action_type"></td>
             <td><label for="paste_booking">{{ trans('as.bookings.confirm_reschedule') }}</label></td>

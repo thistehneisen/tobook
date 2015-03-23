@@ -142,6 +142,7 @@ return [
         'cancel_reschedule' => 'Anuleaza reprogramarea',
         'own_customer'      => 'Client propriu',
         'request_employee'  => 'Solicitarea pentru un anumit angajat',
+        'flashdeal'        => 'Add new flash deal',//@todo
         'error'             => [
             'add_overlapped_booking'      => 'Timp pentru rezervare suprapus!',
             'insufficient_slots'          => 'Nu exista suficiente sloturi de timp pentru aceasta rezervare!',
