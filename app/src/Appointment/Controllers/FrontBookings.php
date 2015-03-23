@@ -143,7 +143,7 @@ class FrontBookings extends Bookings
                 $booking->attach(new EmailObserver());
                 $booking->attach(new SmsObserver());
                 $booking->notify();
-
+                //Send calendar invitation to employee
                 Event::fire('employee.calendar.invitation.send', [$booking]);
             } catch (\Exception $ex) {
                 \Log::warning('Could not send sms or email:' . $ex->getMessage());

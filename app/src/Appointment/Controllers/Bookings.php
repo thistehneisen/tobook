@@ -369,6 +369,7 @@ class Bookings extends AsBase
 
             $booking = $receptionist->upsertBooking();
 
+            //Send calendar invitation to employee
             Event::fire('employee.calendar.invitation.send', [$booking]);
 
             $data['success']     = true;
