@@ -141,6 +141,7 @@ return [
         'cancel_reschedule' => 'Peru siirto',
         'own_customer'      => 'Oma asiakas',
         'request_employee'  => 'Työntekijää ei saa vaihtaa',
+        'flashdeal'         => 'Add new flash deal',//@todo
         'error'             => [
             'add_overlapped_booking'      => 'Varauksia ei voi asettaa päällekäin!',
             'insufficient_slots'          => 'Varaus ei mahdu valitsemaasi kohtaan.',

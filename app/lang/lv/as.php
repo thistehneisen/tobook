@@ -142,6 +142,7 @@ return [
         'cancel_reschedule' => 'Atcelt mainīto rezervācijas laiku',
         'own_customer'      => 'Mūsu klients',
         'request_employee'  => 'Pieprasīt konkrētu darbinieku',
+        'flashdeal'        => 'Add new flash deal',//@todo
         'error'             => [
             'add_overlapped_booking'      => 'Rezervācijas laiki pārklājas!',
             'insufficient_slots'          => 'Kalendārā nav pieejams izvēlētajai rezervācijai atbilstošs brīvais laiks!',
