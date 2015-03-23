@@ -5,6 +5,7 @@ use Carbon\Carbon;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\ServiceCategory;
+use App\Appointment\Models\MasterCategory;
 use App\Appointment\Models\ServiceExtraService;
 use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\Booking;
@@ -55,19 +56,22 @@ class Services extends AsBase
          $service = ($id !== null)
             ? Service::findOrFail($id)
             : new Service();
-        $categories = ServiceCategory::ofCurrentUser()->lists('name','id');
-        $resources  = Resource::ofCurrentUser()->lists('name', 'id');
-        $rooms      = Room::ofCurrentUser()->lists('name', 'id');
-        $extras     = ExtraService::ofCurrentUser()->lists('name', 'id');
-        $employees  = Employee::ofCurrentUser()->get();
+
+        $master_categories = MasterCategory::lists('name','id');
+        $categories        = ServiceCategory::ofCurrentUser()->lists('name','id');
+        $resources         = Resource::ofCurrentUser()->lists('name', 'id');
+        $rooms             = Room::ofCurrentUser()->lists('name', 'id');
+        $extras            = ExtraService::ofCurrentUser()->lists('name', 'id');
+        $employees         = Employee::ofCurrentUser()->get();
 
         return $this->render('form', [
-            'service'    => $service,
-            'categories' => $categories,
-            'resources'  => $resources,
-            'rooms'      => $rooms,
-            'extras'     => $extras,
-            'employees'  => $employees
+            'service'           => $service,
+            'categories'        => $categories,
+            'master_categories' => $master_categories,
+            'resources'         => $resources,
+            'rooms'             => $rooms,
+            'extras'            => $extras,
+            'employees'         => $employees
         ]);
     }
 
