@@ -468,6 +468,33 @@
                         alertify.alert(data.message);
                     }
                 });
+            } else if(selected_action === 'flashdeal') {
+                $.fancybox.open({
+                    padding: 5,
+                    width: 550,
+                    title: '',
+                    autoSize: false,
+                    autoScale: true,
+                    autoWidth: false,
+                    autoHeight: true,
+                    fitToView: false,
+                    href: $('#get_flashdeal_form_url').val(),
+                    type: 'ajax',
+                    ajax: {
+                        type: 'GET',
+                        data: {
+                            employee_id : employee_id,
+                            booking_date: booking_date,
+                            start_time  : start_time
+                        }
+                    },
+                    helpers: {
+                        overlay: {
+                            locked: false
+                        }
+                    },
+                    autoCenter: false
+                });
             }
         });
 

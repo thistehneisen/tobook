@@ -255,6 +255,17 @@ Route::group([
         ]);
     });
 
+    // Flash deals
+    Route::group([
+        'prefix' => 'flashdeal',
+    ], function () {
+
+        Route::get('get-form', [
+            'as' => 'as.flashdeal.get-form',
+            'uses' => 'App\Appointment\Controllers\FlashDeal@getFlashDealForm'
+        ]);
+
+    });
 
     // Embed
     Route::get('embed', [
