@@ -181,7 +181,7 @@ class Bookings extends AsBase
         $description = (!empty($firstBookingService)) ? $firstBookingService->service->description : '';
         $plustime = (!empty($bookingServiceId)) ? $employee->getPlustime($bookingServiceId) : 0;
 
-        $serviceTimesList = $firstBookingService->service->getServiceTimesData();
+        $serviceTimesList = (!empty($firstBookingService) ? $firstBookingService->service->getServiceTimesData() : [];
 
         $bookingServiceTime = (!empty($booking->bookingServices()->first()->serviceTime->id))
                             ? $booking->bookingServices()->first()->serviceTime->id
