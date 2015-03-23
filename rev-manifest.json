@@ -15,11 +15,18 @@
   "varaa/as/scripts/main.js": "varaa/as/scripts/main-d7ad1a94.js",
   "varaa/core/scripts/jquery.fixedTableHeader.js": "varaa/core/scripts/jquery.fixedTableHeader-9301fea0.js",
   "tobook/co/scripts/main.js": "tobook/co/scripts/main-dd70f3e3.js",
+<<<<<<< HEAD
   "tobook/core/scripts/business.js": "tobook/core/scripts/business-9e30418f.js",
   "tobook/core/scripts/global.js": "tobook/core/scripts/global-ea98412f.js",
   "tobook/core/scripts/home.js": "tobook/core/scripts/home-61ae6768.js",
   "tobook/core/scripts/main.js": "tobook/core/scripts/main-59b17510.js",
   "tobook/core/scripts/search.js": "tobook/core/scripts/search-dadeac33.js",
+=======
+  "tobook/core/scripts/global.js": "tobook/core/scripts/global-ea98412f.js",
+  "tobook/core/scripts/home.js": "tobook/core/scripts/home-2ca84e56.js",
+  "tobook/core/scripts/main.js": "tobook/core/scripts/main-59b17510.js",
+  "tobook/core/scripts/search.js": "tobook/core/scripts/search-2cc1e70e.js",
+>>>>>>> #438 Add option add flash deals in BE and show the add flash deals form
   "tobook/fd/scripts/main.js": "tobook/fd/scripts/main-f7b80047.js",
   "tobook/lc/scripts/main.js": "tobook/lc/scripts/main-1365c11e.js",
   "clearbooking/co/scripts/main.js": "clearbooking/co/scripts/main-dd70f3e3.js",
@@ -64,4 +71,8 @@
   "varaa/core/styles/main.css": "varaa/core/styles/main-10b348b6.css",
   "varaa/lc/styles/main.css": "varaa/lc/styles/main-da455408.css",
   "varaa/fd/styles/main.css": "varaa/fd/styles/main-836b957d.css"
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> #438 Add option add flash deals in BE and show the add flash deals form
