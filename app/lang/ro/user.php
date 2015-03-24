@@ -60,6 +60,7 @@ return [
         'bank_account'     => 'Cont bancar',
         'is_hidden'        => 'Este ascunsa afacerea?',
         'preview'          => 'Preview your page', // @todo
+        'is_booking_disabled' => 'Disable booking widget?', // @todo
         'sizes'            => [
             '1',
             '2-3',

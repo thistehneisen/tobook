@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    @if (Entrust::hasRole(App\Core\Models\Role::ADMIN) || Session::has('stealthMode'))
+@if (Entrust::hasRole(App\Core\Models\Role::ADMIN) || Session::has('stealthMode'))
     <div class="form-group">
         <label class="col-sm-2 col-sm-offset-1 control-label">{{ trans('user.business.is_hidden') }}</label>
         <div class="col-sm-6">
@@ -48,7 +48,7 @@
         </div>
     </div>
     @endforeach
-    @endif
+@endif
 
     <div class="form-group">
         <div class="col-sm-6 col-sm-offset-3">
