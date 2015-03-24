@@ -6,6 +6,7 @@ use App\Lomake\Fields\HtmlField;
 use Exception;
 use Illuminate\Support\Collection;
 use App\Appointment\Models\Booking;
+use Carbon\Carbon;
 
 class Business extends Base
 {
@@ -247,7 +248,22 @@ class Business extends Base
             ];
         }
 
-        return json_decode($this->attributes['working_hours'], true);
+        $data = [];
+        $workingHours = json_decode($this->attributes['working_hours'], true);
+        foreach ($workingHours as $day => $attributes) {
+            try {
+                $start = with(new Carbon($attributes['start']))->format('H:i');
+                $end = with(new Carbon($attributes['end']))->format('H:i');
+                $attributes['formatted']  = sprintf('%s &ndash; %s', $start, $end);
+            } catch (\Exception $ex) {
+                // In case we have malformed working hours value
+                $attributes['formatted']  = sprintf('%s &ndash; %s', $attributes['start'], $attributes['end']);
+            }
+
+            $data[$day] = $attributes;
+        }
+
+        return $data;
     }
 
     public function setWorkingHoursAttribute($value)
