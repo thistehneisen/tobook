@@ -18,7 +18,7 @@
 
     {{-- right sidebar --}}
     <div class="col-sm-4 col-md-4">
-    @if ($business->user->asOptions->get('disable_booking'))
+    @if ($business->is_booking_disabled)
         @include ('front.contact.form', ['business' => $business])
     @else
         @if ($business->isUsingAS)
