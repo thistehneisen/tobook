@@ -26,6 +26,7 @@ class Business extends Base
         'meta_keywords',
         'meta_description',
         'is_hidden',
+        'is_booking_disabled',
     ];
 
     public $rulesets = [
@@ -163,20 +164,21 @@ class Business extends Base
     public function updateInformation($input, $user)
     {
         $this->fill([
-            'name'             => $input['name'],
-            'description'      => HtmlField::filterInput($input, 'description'),
-            'size'             => $input['size'],
-            'address'          => $input['address'],
-            'city'             => $input['city'],
-            'postcode'         => $input['postcode'],
-            'country'          => $input['country'],
-            'phone'            => $input['phone'],
-            'note'             => isset($input['note'])             ? $input['note'] : '',
-            'meta_title'       => isset($input['meta_title'])       ? $input['meta_title'] : '',
-            'meta_keywords'    => isset($input['meta_keywords'])    ? $input['meta_keywords'] : '',
-            'meta_description' => isset($input['meta_description']) ? $input['meta_description'] : '',
-            'bank_account'     => isset($input['bank_account'])     ? $input['bank_account'] : '',
-            'is_hidden'        => isset($input['is_hidden'])        ? $input['is_hidden'] : '',
+            'name'                => $input['name'],
+            'description'         => HtmlField::filterInput($input, 'description'),
+            'size'                => $input['size'],
+            'address'             => $input['address'],
+            'city'                => $input['city'],
+            'postcode'            => $input['postcode'],
+            'country'             => $input['country'],
+            'phone'               => $input['phone'],
+            'is_booking_disabled' => $input['is_booking_disabled'],
+            'note'                => isset($input['note'])             ? $input['note'] : '',
+            'meta_title'          => isset($input['meta_title'])       ? $input['meta_title'] : '',
+            'meta_keywords'       => isset($input['meta_keywords'])    ? $input['meta_keywords'] : '',
+            'meta_description'    => isset($input['meta_description']) ? $input['meta_description'] : '',
+            'bank_account'        => isset($input['bank_account'])     ? $input['bank_account'] : '',
+            'is_hidden'           => isset($input['is_hidden'])        ? $input['is_hidden'] : '',
         ]);
         $this->user()->associate($user);
         $this->saveOrFail();

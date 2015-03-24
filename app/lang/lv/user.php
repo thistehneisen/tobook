@@ -60,6 +60,7 @@ return [
         'bank_account'     => 'Bankas rekvizīti',
         'is_hidden'        => 'Slēptais uzņēmums?',
         'preview'          => 'Preview your page', // @todo
+        'is_booking_disabled' => 'Disable booking widget?', // @todo
         'sizes'            => [
             '1',
             '2-3',

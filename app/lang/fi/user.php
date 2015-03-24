@@ -69,6 +69,7 @@ return [
         'bank_account'     => 'Bank account', // @todo
         'is_hidden'        => 'Is hidden business?', // @todo
         'preview'          => 'Preview your page', // @todo
+        'is_booking_disabled' => 'Disable booking widget?', // @todo
         'sizes'            => [
             '1',
             '2-3',

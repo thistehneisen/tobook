@@ -94,10 +94,6 @@ return [
     'options' => [
         'booking' => [
             'index' => [
-                'disable_booking' => [
-                    'type' => 'Radio',
-                    'default' => false
-                ],
                 'hide_prices' => [
                     'type' => 'Radio',
                     'default' => false
