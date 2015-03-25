@@ -85,9 +85,15 @@ class VaraaSearch
     # Attach event handler
     $ 'div.js-business'
       .on 'click', (e) ->
+        e.preventDefault()
         $$ = $ @
         businessId = $$.data 'id'
-        e.preventDefault()
+        delay = (ms, fn) -> setTimeout fn, ms
+        slidePanel = ->
+          $list.find '.panel'
+            .each ->
+              $$ = $ @
+              $$.hide 'slide', direction: $$.data('direction'), 700
 
         # open result as a full page load instead of ajax if the browser width
         # is too small
@@ -98,7 +104,14 @@ class VaraaSearch
 
         # If the current content is of this business, we don't need to fire
         # another AJAX
-        return true if $list.data('current-business-id') == businessId
+        if $list.data('current-business-id') == businessId
+          slidePanel()
+          delay 700, ->
+            $single.show 'fade'
+            # Show chevron as indicator to click back
+            $heading.find 'i'
+              .show()
+          return
 
         # Highlight selected row
         $ 'div.js-business'
@@ -113,12 +126,7 @@ class VaraaSearch
           type: 'GET'
         .done (html) ->
           $loading.hide()
-          $list.find '.panel'
-            .each ->
-              $$ = $ @
-              $$.hide 'slide', direction: $$.data('direction'), 700
-
-          delay = (ms, fn) -> setTimeout fn, ms
+          slidePanel()
           delay 700, ->
             # Replace the whole page with business page
             $single.html html
