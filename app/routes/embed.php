@@ -82,7 +82,7 @@ Route::group([
             'uses' => 'App\Appointment\Controllers\Embed\Layout3@checkout'
         ]);
 
-        Route::post('l3/checkout/confirm', [
+        Route::any('l3/checkout/confirm', [
             'as'   => 'as.embed.checkout.confirm',
             'uses' => 'App\Appointment\Controllers\Embed\Layout3@confirm'
         ]);
