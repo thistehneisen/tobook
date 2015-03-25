@@ -38,7 +38,7 @@
                     @foreach ($business->working_hours_array as $day => $value)
                         <tr>
                             <td>{{ trans('common.short.'.$day) }}</td>
-                            <td>{{ $value['formatted'] }}</td>
+                            <td>{{ $value['formatted'] or '' }}</td>
                             <td>
                                 @if (!empty($value['extra'])) {{{ $value['extra'] }}}
                                 @endif

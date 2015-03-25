@@ -235,21 +235,21 @@ class Business extends Base
 
     public function getWorkingHoursArrayAttribute()
     {
-        if (empty($this->attributes['working_hours'])) {
-            // Default working hours
-            return [
-                'mon' => ['start' => '08:00', 'end' => '20:00', 'extra' => ''],
-                'tue' => ['start' => '08:00', 'end' => '20:00', 'extra' => ''],
-                'wed' => ['start' => '08:00', 'end' => '20:00', 'extra' => ''],
-                'thu' => ['start' => '08:00', 'end' => '20:00', 'extra' => ''],
-                'fri' => ['start' => '08:00', 'end' => '20:00', 'extra' => ''],
-                'sat' => ['start' => '08:00', 'end' => '20:00', 'extra' => ''],
-                'sun' => ['start' => '08:00', 'end' => '20:00', 'extra' => ''],
-            ];
-        }
+        $default = [
+            'mon' => ['start' => '08:00', 'end' => '20:00', 'extra' => ''],
+            'tue' => ['start' => '08:00', 'end' => '20:00', 'extra' => ''],
+            'wed' => ['start' => '08:00', 'end' => '20:00', 'extra' => ''],
+            'thu' => ['start' => '08:00', 'end' => '20:00', 'extra' => ''],
+            'fri' => ['start' => '08:00', 'end' => '20:00', 'extra' => ''],
+            'sat' => ['start' => '08:00', 'end' => '20:00', 'extra' => ''],
+            'sun' => ['start' => '08:00', 'end' => '20:00', 'extra' => ''],
+        ];
+
+        $workingHours = !empty($this->attributes['working_hours'])
+            ? json_decode($this->attributes['working_hours'], true)
+            : $default;
 
         $data = [];
-        $workingHours = json_decode($this->attributes['working_hours'], true);
         foreach ($workingHours as $day => $attributes) {
             $attributes['formatted']  = sprintf('%s &ndash; %s', $attributes['start'], $attributes['end']);
 
