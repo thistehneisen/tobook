@@ -251,13 +251,15 @@ class Business extends Base
         $data = [];
         $workingHours = json_decode($this->attributes['working_hours'], true);
         foreach ($workingHours as $day => $attributes) {
+            $attributes['formatted']  = sprintf('%s &ndash; %s', $attributes['start'], $attributes['end']);
+
             try {
                 $start = with(new Carbon($attributes['start']))->format('H:i');
                 $end = with(new Carbon($attributes['end']))->format('H:i');
                 $attributes['formatted']  = sprintf('%s &ndash; %s', $start, $end);
             } catch (\Exception $ex) {
                 // In case we have malformed working hours value
-                $attributes['formatted']  = sprintf('%s &ndash; %s', $attributes['start'], $attributes['end']);
+                // Silently failed
             }
 
             $data[$day] = $attributes;
