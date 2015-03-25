@@ -261,7 +261,7 @@ class User extends ConfideUser implements SearchableInterface
     public function updateDisabledModules($activatedModules)
     {
         $all = array_keys(Config::get('varaa.premium_modules'));
-        $disabled = array_diff($all, $activatedModules);
+        $disabled = array_diff($all, (array) $activatedModules);
 
         // Remove all existing disabled modules
         $this->disabledModules()->delete();

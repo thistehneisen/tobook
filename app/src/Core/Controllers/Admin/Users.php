@@ -313,7 +313,7 @@ class Users extends Base
         return Redirect::back()
             ->with('messages', $this->successMessageBag(
                 trans('admin.modules.success_enabled', [
-                    'module' => implode(', ', Input::get('modules')),
+                    'module' => implode(', ', Input::get('modules', [])),
                     'user'   => $user->username
                 ])
             ));
