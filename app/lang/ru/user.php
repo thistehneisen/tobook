@@ -59,6 +59,8 @@ return [
         'meta_keywords'    => 'Мета-ключевые слова',
         'bank_account'     => 'Банковский счет',
         'is_hidden'        => 'Скрытое предприятие?',
+        'preview'          => 'Preview your page', // @todo
+        'is_booking_disabled' => 'Disable booking widget?', // @todo
         'sizes'            => [
             '1',
             '2-3',

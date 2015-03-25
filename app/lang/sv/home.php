@@ -1,4 +1,24 @@
 <?php
+$contactEmail = <<< HTML
+<p>Hello,</p>
+
+<p>Visitor <strong>:name</strong> (:phone) from :email has sent you a message:</p>
+
+<p>------------------</p>
+<p>:message</p>
+<p>------------------</p>
+
+<p>:footer</p>
+HTML;
+
+$requestMail = <<< HTML
+<p>Hello,</p>
+
+<p>Visitor <strong>:name</strong> from :email requested you to start using our onling booking solution.</p>
+
+<p>Start using it now! It's FREE!</p>
+HTML;
+
 return [
     'customer_websites'     => 'Kundhemsidor',
     'description'           => 'Create a stunning looking responsive websites!',
@@ -64,4 +84,30 @@ return [
     'categories'          => 'Categories', // @todo
     'best_offers'         => 'Erbjudanden',
     'no_offers'           => 'Det finns inga erbjudanden',
+    // Business
+    'business' => [
+        'openning_hours' => 'Openning hours', // @todo
+        'map'            => 'Map', // @todo
+        'phone'          => 'Phone', // @todo
+        'email'          => 'Email', // @todo
+        'online_booking' => 'Online booking', // @todo
+        'request'        => [
+            'link'    => 'Ask for online booking', // @todo
+            'info'    => 'The shop owner will be asked to use our online booking system.', // @todo
+            'subject' => 'Request to use online booking system', // @todo
+            'mail'    => $requestMail, // @todo
+        ],
+        'contact'        => [
+            'index'   => 'Contact', // @todo
+            'heading' => 'Contact us', // @todo
+            'name'    => 'Name*', // @todo
+            'email'   => 'Email*', // @todo
+            'phone'   => 'Phone', // @todo
+            'captcha' => 'Please enter the characters below*', // @todo
+            'message' => 'Message*', // @todo
+            'sent'    => 'Your message has been sent', // @todo
+            'subject' => 'You got a contact message', // @todo
+            'mail'    => $contactEmail, // @todo
+        ]
+    ],
 ];

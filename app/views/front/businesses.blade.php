@@ -36,9 +36,10 @@
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js') }}
     @if (App::getLocale() !== 'en') {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.'.App::getLocale().'.min.js') }}
     @endif
-    {{ HTML::script(asset_path('core/scripts/home.js')) }}
-    {{ HTML::script(asset_path('core/scripts/search.js')) }}
     {{ HTML::script(asset_path('as/scripts/layout-3.js')) }}
+    {{ HTML::script(asset_path('core/scripts/home.js')) }}
+    {{ HTML::script(asset_path('core/scripts/business.js')) }}
+    {{ HTML::script(asset_path('core/scripts/search.js')) }}
 @stop
 
 @section('main-classes') front @stop
@@ -73,6 +74,9 @@
                 <div class="business js-business" data-id="{{ $business->user_id }}" data-url="{{ $business->business_url }}">
                     <p><img src="{{ $business->image }}" alt="" class="img-responsive"></p>
                     <h4><a href="{{ $business->business_url }}" title="">{{{ $business->name }}}</a>
+                @if ($business->isUsingAS && (bool) $business->is_booking_disabled === false)
+                    <small><span class="label label-success"><i class="fa fa-ticket"></i> {{ trans('home.business.online_booking') }}</span></small>
+                @endif
                     {{-- <small>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>

@@ -27,6 +27,7 @@ class Business extends Base
         'meta_keywords',
         'meta_description',
         'is_hidden',
+        'is_booking_disabled',
     ];
 
     public $rulesets = [
@@ -57,7 +58,7 @@ class Business extends Base
     {
         parent::boot();
 
-        // whenever updating account, we will try to find geocode of this business
+        // Whenever saving account, we will try to find geocode of this business
         static::updating(function ($business) {
             $business->updateGeo();
 
@@ -128,22 +129,12 @@ class Business extends Base
      */
     public function updateGeo()
     {
-        $new = $this->full_address;
-        $old = $this->getFullAddress(
-            $this->getOriginal('address'),
-            $this->getOriginal('postcode'),
-            $this->getOriginal('city'),
-            $this->getOriginal('country')
-        );
-
-        if (!empty($new) && $new !== $old) {
-            try {
-                list($lat, $lng) = Util::geocoder($new);
-                $this->attributes['lat'] = $lat;
-                $this->attributes['lng'] = $lng;
-            } catch (Exception $ex) {
-                // Silently fail
-            }
+        try {
+            list($lat, $lng) = Util::geocoder($this->full_address);
+            $this->attributes['lat'] = $lat;
+            $this->attributes['lng'] = $lng;
+        } catch (Exception $ex) {
+            // Silently fail
         }
     }
 
@@ -174,20 +165,21 @@ class Business extends Base
     public function updateInformation($input, $user)
     {
         $this->fill([
-            'name'             => $input['name'],
-            'description'      => HtmlField::filterInput($input, 'description'),
-            'size'             => $input['size'],
-            'address'          => $input['address'],
-            'city'             => $input['city'],
-            'postcode'         => $input['postcode'],
-            'country'          => $input['country'],
-            'phone'            => $input['phone'],
-            'note'             => isset($input['note'])             ? $input['note'] : '',
-            'meta_title'       => isset($input['meta_title'])       ? $input['meta_title'] : '',
-            'meta_keywords'    => isset($input['meta_keywords'])    ? $input['meta_keywords'] : '',
-            'meta_description' => isset($input['meta_description']) ? $input['meta_description'] : '',
-            'bank_account'     => isset($input['bank_account'])     ? $input['bank_account'] : '',
-            'is_hidden'        => isset($input['is_hidden'])        ? $input['is_hidden'] : '',
+            'name'                => $input['name'],
+            'description'         => HtmlField::filterInput($input, 'description'),
+            'size'                => $input['size'],
+            'address'             => $input['address'],
+            'city'                => $input['city'],
+            'postcode'            => $input['postcode'],
+            'country'             => $input['country'],
+            'phone'               => $input['phone'],
+            'is_booking_disabled' => $input['is_booking_disabled'],
+            'note'                => isset($input['note'])             ? $input['note'] : '',
+            'meta_title'          => isset($input['meta_title'])       ? $input['meta_title'] : '',
+            'meta_keywords'       => isset($input['meta_keywords'])    ? $input['meta_keywords'] : '',
+            'meta_description'    => isset($input['meta_description']) ? $input['meta_description'] : '',
+            'bank_account'        => isset($input['bank_account'])     ? $input['bank_account'] : '',
+            'is_hidden'           => isset($input['is_hidden'])        ? $input['is_hidden'] : '',
         ]);
         $this->user()->associate($user);
         $this->saveOrFail();
@@ -557,14 +549,13 @@ class Business extends Base
                 'order' => 'desc',
             ],
             '_geo_distance' => [
-                'order'    => 'asc',
                 'unit'     => 'km',
                 'mode'     => 'min',
                 'location' => [
                     'lat' => $lat,
                     'lon' => $lng,
                 ],
-            ]
+            ],
         ];
 
         return $sort;
@@ -587,8 +578,23 @@ class Business extends Base
                 continue;
             }
 
+            if (isset($row['sort'][1])) {
+                $user->distance = $row['sort'][1];
+            }
             $users->push($user);
         }
+
+        // Sort to show business that do not disable booking widget
+        $users->sortBy(function ($item) {
+            return (bool) $item->asOptions->get('disable_booking') === true
+                ? 0
+                : 1;
+        });
+
+        // Sort by distance
+        $users->sortBy(function ($item) {
+            return $item->distance;
+        });
 
         return $users->lists('business');
     }

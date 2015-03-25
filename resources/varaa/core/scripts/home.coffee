@@ -58,12 +58,6 @@ do ($ = jQuery) ->
     # Apply countdown
     VARAA.applyCountdown $ 'a.countdown'
 
-    # Change business category
-    $ '#business_category'
-      .on 'change', ->
-        window.location = @.value
-        return
-
     # Make boxes to have equal heights
     VARAA.equalize '.available-slot .info'
     VARAA.equalize '.list-group-item'

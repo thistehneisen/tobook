@@ -302,6 +302,7 @@ return [
         'booking'   => [
             'heading'                                        => '',
             'info'                                           => '',
+            'disable_booking'                                => 'Disable booking widget', // @todo
             'index'                                          => 'Bookings',
             'booking_form'                                   => 'Booking Form',
             'reminders'                                      => 'Reminder',
