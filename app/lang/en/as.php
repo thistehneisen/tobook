@@ -402,7 +402,13 @@ return [
         'sortable'       => 'Drag to reorder',
     ],
     'flashdeal' => [
-        'flashdeal' => 'Flash deal',
-        'add_flashdeal' => 'Add new flash deal'
+        'flashdeal'        => 'Flash deal',
+        'add_flashdeal'    => 'Add new flash deal',
+        'discounted_price' => 'Discounted price',
+        'master_category'  => 'Master categories',
+        'services'         => 'Services',
+        'start_date'       => 'Start date',
+        'start_time'       => 'Start time',
+        'expire'           => 'Expiration date'
     ],
 ];
