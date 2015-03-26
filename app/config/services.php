@@ -38,4 +38,8 @@ return [
         'password' => 'halloween22',
         'secret'   => 'teqaphus6p'
     ],
+    'paysera' => [
+        'id'       => 63548,
+        'password' => 'e6e9d37a0f6a79c25564cade197a8e3c',
+    ],
 ];
