@@ -1,4 +1,12 @@
 {
+<<<<<<< HEAD
+=======
+  "clearbooking/as/scripts/layout-1.js": "clearbooking/as/scripts/layout-1-86e4e0b1.js",
+  "clearbooking/as/scripts/layout-2.js": "clearbooking/as/scripts/layout-2-e97c6c36.js",
+  "clearbooking/as/scripts/layout-3.js": "clearbooking/as/scripts/layout-3-c0a8ec38.js",
+  "clearbooking/as/scripts/main.js": "clearbooking/as/scripts/main-d7ad1a94.js",
+  "clearbooking/core/scripts/jquery.fixedTableHeader.js": "clearbooking/core/scripts/jquery.fixedTableHeader-9301fea0.js",
+>>>>>>> d4a18a47bd35692584d5eb4b8fd26513e033ce36
   "tobook/as/scripts/layout-1.js": "tobook/as/scripts/layout-1-86e4e0b1.js",
   "tobook/as/scripts/layout-2.js": "tobook/as/scripts/layout-2-e97c6c36.js",
   "tobook/as/scripts/layout-3.js": "tobook/as/scripts/layout-3-c0a8ec38.js",
@@ -14,6 +22,7 @@
   "varaa/as/scripts/layout-3.js": "varaa/as/scripts/layout-3-c0a8ec38.js",
   "varaa/as/scripts/main.js": "varaa/as/scripts/main-d7ad1a94.js",
   "varaa/core/scripts/jquery.fixedTableHeader.js": "varaa/core/scripts/jquery.fixedTableHeader-9301fea0.js",
+<<<<<<< HEAD
   "clearbooking/co/scripts/main.js": "clearbooking/co/scripts/main-dd70f3e3.js",
   "clearbooking/fd/scripts/main.js": "clearbooking/fd/scripts/main-f7b80047.js",
   "clearbooking/core/scripts/business.js": "clearbooking/core/scripts/business-9e30418f.js",
@@ -22,6 +31,8 @@
   "clearbooking/core/scripts/main.js": "clearbooking/core/scripts/main-59b17510.js",
   "clearbooking/core/scripts/search.js": "clearbooking/core/scripts/search-dadeac33.js",
   "clearbooking/lc/scripts/main.js": "clearbooking/lc/scripts/main-1365c11e.js",
+=======
+>>>>>>> d4a18a47bd35692584d5eb4b8fd26513e033ce36
   "tobook/co/scripts/main.js": "tobook/co/scripts/main-dd70f3e3.js",
   "tobook/core/scripts/business.js": "tobook/core/scripts/business-9e30418f.js",
   "tobook/core/scripts/global.js": "tobook/core/scripts/global-ea98412f.js",
@@ -30,6 +41,13 @@
   "tobook/core/scripts/search.js": "tobook/core/scripts/search-dadeac33.js",
   "tobook/fd/scripts/main.js": "tobook/fd/scripts/main-f7b80047.js",
   "tobook/lc/scripts/main.js": "tobook/lc/scripts/main-1365c11e.js",
+  "clearbooking/co/scripts/main.js": "clearbooking/co/scripts/main-dd70f3e3.js",
+  "clearbooking/core/scripts/global.js": "clearbooking/core/scripts/global-ea98412f.js",
+  "clearbooking/core/scripts/home.js": "clearbooking/core/scripts/home-2ca84e56.js",
+  "clearbooking/core/scripts/main.js": "clearbooking/core/scripts/main-59b17510.js",
+  "clearbooking/core/scripts/search.js": "clearbooking/core/scripts/search-2cc1e70e.js",
+  "clearbooking/fd/scripts/main.js": "clearbooking/fd/scripts/main-f7b80047.js",
+  "clearbooking/lc/scripts/main.js": "clearbooking/lc/scripts/main-1365c11e.js",
   "varaa/co/scripts/main.js": "varaa/co/scripts/main-dd70f3e3.js",
   "varaa/core/scripts/business.js": "varaa/core/scripts/business-9e30418f.js",
   "varaa/core/scripts/global.js": "varaa/core/scripts/global-ea98412f.js",
@@ -38,12 +56,22 @@
   "varaa/core/scripts/search.js": "varaa/core/scripts/search-dadeac33.js",
   "varaa/fd/scripts/main.js": "varaa/fd/scripts/main-f7b80047.js",
   "varaa/lc/scripts/main.js": "varaa/lc/scripts/main-1365c11e.js",
-  "clearbooking/core/scripts/admin/stats.js": "clearbooking/core/scripts/admin/stats-099b4319.js",
-  "clearbooking/core/scripts/admin/users.js": "clearbooking/core/scripts/admin/users-5703b969.js",
   "tobook/core/scripts/admin/stats.js": "tobook/core/scripts/admin/stats-099b4319.js",
   "tobook/core/scripts/admin/users.js": "tobook/core/scripts/admin/users-5703b969.js",
+  "clearbooking/core/scripts/admin/stats.js": "clearbooking/core/scripts/admin/stats-099b4319.js",
+  "clearbooking/core/scripts/admin/users.js": "clearbooking/core/scripts/admin/users-5703b969.js",
   "varaa/core/scripts/admin/stats.js": "varaa/core/scripts/admin/stats-099b4319.js",
   "varaa/core/scripts/admin/users.js": "varaa/core/scripts/admin/users-5703b969.js",
+<<<<<<< HEAD
+=======
+  "clearbooking/as/styles/layout-1.css": "clearbooking/as/styles/layout-1-95a67df0.css",
+  "clearbooking/as/styles/layout-2.css": "clearbooking/as/styles/layout-2-9c168568.css",
+  "clearbooking/as/styles/layout-3.css": "clearbooking/as/styles/layout-3-9d6eb87b.css",
+  "clearbooking/as/styles/main.css": "clearbooking/as/styles/main-0df5fec7.css",
+  "clearbooking/core/styles/main.css": "clearbooking/core/styles/main-ecdfdb3b.css",
+  "clearbooking/fd/styles/main.css": "clearbooking/fd/styles/main-836b957d.css",
+  "clearbooking/lc/styles/main.css": "clearbooking/lc/styles/main-bb234393.css",
+>>>>>>> d4a18a47bd35692584d5eb4b8fd26513e033ce36
   "tobook/as/styles/layout-1.css": "tobook/as/styles/layout-1-95a67df0.css",
   "tobook/as/styles/layout-2.css": "tobook/as/styles/layout-2-9c168568.css",
   "tobook/as/styles/layout-3.css": "tobook/as/styles/layout-3-9d6eb87b.css",
@@ -63,6 +91,6 @@
   "varaa/as/styles/layout-3.css": "varaa/as/styles/layout-3-9d6eb87b.css",
   "varaa/as/styles/main.css": "varaa/as/styles/main-00757699.css",
   "varaa/core/styles/main.css": "varaa/core/styles/main-10b348b6.css",
-  "varaa/fd/styles/main.css": "varaa/fd/styles/main-836b957d.css",
-  "varaa/lc/styles/main.css": "varaa/lc/styles/main-da455408.css"
+  "varaa/lc/styles/main.css": "varaa/lc/styles/main-da455408.css",
+  "varaa/fd/styles/main.css": "varaa/fd/styles/main-836b957d.css"
 }
