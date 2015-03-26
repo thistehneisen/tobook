@@ -86,9 +86,16 @@ class Services extends AsBase
             // Attach user
             $service->user()->associate($this->user);
             $categoryId = (int) Input::get('category_id');
+            $masterCategoryId = (int) Input::get('master_category_id');
+
             if (!empty($categoryId)) {
                 $category = ServiceCategory::find($categoryId);
                 $service->category()->associate($category);
+            }
+
+            if(!empty($masterCategoryId)) {
+                $masterCategory = MasterCategory::find($masterCategoryId);
+                $service->masterCategory()->associate($masterCategory);
             }
 
             $service->saveOrFail();

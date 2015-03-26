@@ -100,7 +100,7 @@ $(function () {
     <div class="form-group {{ Form::errorCSS('category_id', $errors) }}">
         <label for="category" class="col-sm-2 control-label">{{ trans('as.services.master_category') }}</label>
         <div class="col-sm-5">
-            {{ Form::select('master_category_id', [trans('common.options_select')]+$master_categories, isset($service->master_category_id) ? $service->category_id :0, ['class' => 'form-control input-sm', 'id' => 'master_category']) }}
+            {{ Form::select('master_category_id', [trans('common.options_select')]+$master_categories, isset($service->master_category_id) ? $service->master_category_id :0, ['class' => 'form-control input-sm', 'id' => 'master_category_id']) }}
             {{ Form::errorText('master_category_id', $errors) }}
         </div>
     </div>

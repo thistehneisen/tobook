@@ -43,7 +43,7 @@ class FlashDeal extends AsBase
         ];
 
         $services = $employee->services->filter(function($service) use ($masterCategoryId){
-            if(!empty($service->masterCategory)) {
+            if(!empty($service->masterCategory->id)) {
                 if($service->masterCategory->id == $masterCategoryId) {
                     return $service;
                 }
