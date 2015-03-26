@@ -56,7 +56,7 @@ Route::group(array('prefix' => $prefix), function() {
 });
 
 
-if(Config::get('app.url') === 'http://tobook.lv')
+if(Config::get('app.url') === 'http://tobook.lv') {
     Route::get('/', function(){
         echo "Under construction";
     });
