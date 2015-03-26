@@ -13,39 +13,39 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group row">
-                                    <label for="description" class="col-sm-4 control-label">{{ trans('as.employees.description') }}</label>
+                                    <label for="description" class="col-sm-4 control-label">{{ trans('as.flashdeal.master_category') }}</label>
                                     <div class="col-sm-8">
-                                        {{ Form::textarea('description', '', ['class' => 'form-control input-sm', 'id' => 'description']) }}
+                                        {{ Form::select('master_category', $master_categories, null, ['class' => 'form-control input-sm', 'id' => 'master_category']) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="employees" class="col-sm-4 control-label">{{ trans('as.bookings.employee') }}</label>
+                                    <label for="description" class="col-sm-4 control-label">{{ trans('as.flashdeal.services') }}</label>
                                     <div class="col-sm-8">
-                                        {{ Form::select('employees', [], $employee->id, ['class' => 'form-control input-sm', 'id' => 'employees']) }}
+                                        {{ Form::select('services', [], null, ['class' => 'form-control input-sm', 'id' => 'services']) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="start_time" class="col-sm-4 control-label">{{ trans('as.employees.start_time') }}</label>
+                                    <label for="description" class="col-sm-4 control-label">{{ trans('as.flashdeal.discounted_price') }}</label>
                                     <div class="col-sm-8">
-                                        {{ Form::select('start_at', [], null, ['class' => 'form-control input-sm', 'id' => 'start_time']) }}
+                                         {{ Form::text('discounted_price', '', ['class' => 'datepicker form-control input-sm', 'id' => 'discounted_price']) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="end_time" class="col-sm-4 control-label">{{ trans('as.employees.end_time') }}</label>
+                                    <label for="from_date" class="col-sm-4 control-label">{{ trans('as.flashdeal.start_date') }}</label>
                                     <div class="col-sm-8">
-                                        {{ Form::select('end_at', [], null, ['class' => 'form-control input-sm', 'id' => 'end_time']) }}
+                                        {{ Form::text('start_date', $bookingDate, ['class' => 'form-control input-sm disabled', 'id' => 'start_date']) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="from_date" class="col-sm-4 control-label">{{ trans('as.employees.from_date') }}</label>
+                                    <label for="from_date" class="col-sm-4 control-label">{{ trans('as.flashdeal.start_time') }}</label>
                                     <div class="col-sm-8">
-                                        {{ Form::text('from_date', $bookingDate, ['class' => 'datepicker form-control input-sm', 'id' => 'from_date']) }}
+                                        {{ Form::text('start_time', $startTime, ['class' => 'form-control input-sm disabled', 'id' => 'start_time']) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="to_date" class="col-sm-4 control-label">{{ trans('as.employees.to_date') }}</label>
+                                    <label for="from_date" class="col-sm-4 control-label">{{ trans('as.flashdeal.expire') }}</label>
                                     <div class="col-sm-8">
-                                        {{ Form::text('to_date', $bookingDate, ['class' => 'datepicker form-control input-sm', 'id' => 'to_date']) }}
+                                        {{ Form::text('expire', $bookingDate, ['class' => 'datepicker form-control input-sm', 'id' => 'expire']) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -63,6 +63,36 @@
 </div>
 <script>
 $(function () {
+    $(document).on('change', '#master_category', function () {
+        var master_category_id = $(this).val(),
+            $services = $('#services'),
+            employee_id = $('#employee_id').val();;
+
+        if (master_category_id !== '-1' && master_category_id !== '') {
+            $.ajax({
+                url: $('#get_services_from_master_category_url').val(),
+                data: {
+                    master_category_id: master_category_id,
+                    employee_id : employee_id
+                },
+                dataType: 'json'
+            }).done(function (data) {
+                $services.empty();
+
+                $.each(data, function (index, value) {
+                    $services.append(
+                        $('<option>', {
+                            value: value.id,
+                            text: value.name
+                        })
+                    );
+                });
+            });
+        } else {
+            $services.empty();
+        }
+    });
+
     $('.datepicker').datepicker({
         format: 'yyyy-mm-dd',
         startDate: new Date(),
