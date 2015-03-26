@@ -13,7 +13,7 @@ Route::pattern('slug', '[a-z0-9-]+');
 | and give it the Closure to execute when that URI is requested.
 |
 */
-$prefix =  (!empty($_ENV['ROUTES_PREFIX'])) ? $_ENV['ROUTES_PREFIX'] : '';
+$prefix =  (!empty($_ENV['ROUTES_PREFIX'])) ? $_ENV['ROUTES_PREFIX'] : 'site';
 
 Route::group(array('prefix' => $prefix), function() {
     require app_path().'/routes/search.php';
@@ -54,3 +54,10 @@ Route::group(array('prefix' => $prefix), function() {
         'uses'  => 'App\Core\Controllers\Ajax\JsLocale@getJsLocale'
     ]);
 });
+
+
+if(Config::get('app.url') === 'http://tobook.lv')
+    Route::get('/', function(){
+        echo "Under construction";
+    });
+}
