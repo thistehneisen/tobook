@@ -265,6 +265,11 @@ Route::group([
             'uses' => 'App\Appointment\Controllers\FlashDeal@getFlashDealForm'
         ]);
 
+        Route::get('get-services', [
+            'as' => 'as.flashdeal.get-services',
+            'uses' => 'App\Appointment\Controllers\FlashDeal@getServices'
+        ]);
+
     });
 
     // Embed
