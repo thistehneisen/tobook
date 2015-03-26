@@ -401,4 +401,8 @@ return [
         'success_bulk'   => 'Item was deleted successfully.',
         'sortable'       => 'Drag to reorder',
     ],
+    'flashdeal' => [
+        'flashdeal' => 'Flash deal',
+        'add_flashdeal' => 'Add new flash deal'
+    ],
 ];
