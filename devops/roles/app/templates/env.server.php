@@ -6,4 +6,5 @@ return [
     'DB_NAME'           => '{{ dbname }}',
     'SECRET_KEY'        => '{{ secret_key }}',
     'MANDRILL_PASSWORD' => '{{ mandrill_password }}',
+    'ROUTES_PREFIX'     => '',
 ];
