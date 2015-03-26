@@ -13,7 +13,7 @@ Route::pattern('slug', '[a-z0-9-]+');
 | and give it the Closure to execute when that URI is requested.
 |
 */
-$prefix =  (!empty($_ENV['ROUTES_PREFIX'])) ? $_ENV['ROUTES_PREFIX'] : 'site';
+$prefix =  (!empty($_ENV['ROUTES_PREFIX'])) ? $_ENV['ROUTES_PREFIX'] : '';
 
 Route::group(array('prefix' => $prefix), function() {
     require app_path().'/routes/search.php';
