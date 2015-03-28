@@ -4,7 +4,10 @@ use App;
 use App\Payment\Models\Transaction;
 use Config;
 use Exception;
+use Event;
+use Log;
 use WebToPay;
+use Input;
 
 class Paysera extends Base
 {
@@ -57,6 +60,7 @@ class Paysera extends Base
                 'projectid'     => Config::get('services.paysera.id'),
                 'sign_password' => Config::get('services.paysera.password'),
             ]);
+            Log::info('Received Paysera notification', $response);
 
             if ($response['type'] !== 'macro') {
                 Log::error('Receive Paysera transaction different from `macro`', $response);
@@ -86,9 +90,12 @@ class Paysera extends Base
             // themselves
             Event::fire('payment.success', [$transaction]);
 
+            Log::info('Payment from Paysera succeeded');
+
+            // According to Paysera's documentation
             echo 'OK';
         } catch (Exception $e) {
-            Log::error($e->getMessage(), ['context' => 'Paysera post-back']);
+            Log::error($e->getMessage(), ['context' => 'Paysera post-back', 'input' => Input::all()]);
         }
         exit;
     }
@@ -131,12 +138,16 @@ class Paysera extends Base
      */
     protected function isValidAmount($amount, $currency, $transaction)
     {
+        $expected = $transaction->amount * 100;
         $result = $currency === $transaction->currency
-            && (double) $amount === $transaction->amount;
+            && (double) $amount === $expected;
 
         if (!$result) {
-            Log::warning('Abort due to invalid amount',
-                ['context' => 'Paysera post-back']);
+            Log::warning('Abort due to invalid amount', [
+                'context'  => 'Paysera post-back',
+                'receive'  => $amount,
+                'expected' => $expected,
+            ]);
         }
 
         return $result;
