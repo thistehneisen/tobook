@@ -44,6 +44,16 @@ class Business extends Base
         'meta_keywords',
         'meta_description',
         'is_hidden',
+        'user_id',
+        'is_activated',
+        'is_booking_disabled',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    protected $appends = [
+        'full_address',
     ];
 
     /**
