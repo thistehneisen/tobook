@@ -17,7 +17,9 @@ class FlashDeal extends AsBase
         $startTime   = Input::get('start_time');
 
         $employee = Employee::ofCurrentUser()->find($employeeId);
-        $services = $employee->services()->orderBy('length')->get();
+        $services = $employee->services()
+            ->where('is_flash_deal_enabled','=', true)
+            ->orderBy('length')->get();
 
         return View::make('modules.as.flashdeal.form', [
             'employee'          => $employee,

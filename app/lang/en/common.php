@@ -146,4 +146,6 @@ return [
     'per_page'      => 'Items per page',
     'show_all'      => 'Show all',
     'logged_in_as'  => 'Logged in as',
+    'enable'        => 'Enable',
+    'disable'       => 'Disable',
 ];

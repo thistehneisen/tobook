@@ -128,6 +128,23 @@ $(function () {
             </div>
         </div>
     </div>
+     <div class="form-group">
+        <label class="col-sm-2 control-label">{{ trans('as.services.is_flash_deal_enabled') }}</label>
+        <div class="col-sm-5">
+            <div class="radio">
+                <label>
+                    {{ Form::radio('is_flash_deal_enabled', 1, Input::get('is_flash_deal_enabled', isset($service->id) ? $service->is_flash_deal_enabled : 1)) }}
+                    {{ trans('common.enable') }}
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    {{ Form::radio('is_flash_deal_enabled', 0, Input::get('is_flash_deal_enabled', isset($service->id) ? !$service->is_flash_deal_enabled : 0)) }}
+                    {{ trans('common.disable') }}
+                </label>
+            </div>
+        </div>
+    </div>
     <div class="form-group">
         <label for="resource" class="col-sm-2 control-label">{{ trans('as.services.resource') }}</label>
         <div class="col-sm-5">

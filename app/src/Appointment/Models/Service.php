@@ -6,7 +6,7 @@ class Service extends \App\Core\Models\Base
 {
     protected $table = 'as_services';
 
-    public $fillable = ['name', 'price','length','before','during', 'after', 'description', 'is_active'];
+    public $fillable = ['name', 'price','length','before','during', 'after', 'description', 'is_active', 'is_flash_deal_enabled'];
 
     protected $rulesets = [
         'saving' => [
@@ -86,6 +86,11 @@ class Service extends \App\Core\Models\Base
     public function getIsActiveAttribute()
     {
         return (bool) $this->attributes['is_active'];
+    }
+
+    public function getIsFlashDealEnabledAttribute()
+    {
+        return (bool) $this->attributes['is_flash_deal_enabled'];
     }
 
     public function getFormattedPriceAttribute()
