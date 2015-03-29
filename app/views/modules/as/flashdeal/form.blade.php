@@ -24,9 +24,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="description" class="col-sm-4 control-label">{{ trans('as.flashdeal.discounted_price') }}</label>
+                                    <label for="description" class="col-sm-4 control-label">{{ trans('as.flashdeal.discount_percentage') }}</label>
                                     <div class="col-sm-8">
-                                         {{ Form::text('discounted_price', '', ['class' => 'form-control input-sm', 'id' => 'discounted_price']) }}
+                                         {{ Form::text('discount_percentage', '', ['class' => 'form-control input-sm spinner', 'id' => 'discount_percentage', 'name' => 'discount_percentage']) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -100,6 +100,16 @@ $(function () {
         weekStart: 1,
         autoclose: true,
         language: '{{ App::getLocale() }}',
+    });
+
+  $("input[name='discount_percentage']").TouchSpin({
+        min: 0,
+        max: 100,
+        step: 1,
+        decimals: 0,
+        boostat: 15,
+        maxboostedstep: 10,
+        postfix: '%'
     });
 });
 </script>

@@ -8,6 +8,7 @@
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.css') }}
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/css/bootstrap-select.min.css') }}
     {{ HTML::style(asset('packages/bootstrap-spinner/bootstrap-spinner.min.css')) }}
+    {{ HTML::style(asset('packages/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css')) }}
     {{ HTML::style(asset('packages/alertify/css/alertify.min.css')) }}
     {{ HTML::style(asset('packages/alertify/css/themes/default.min.css')) }}
     {{ HTML::style(asset_path('as/styles/main.css')) }}
@@ -24,6 +25,7 @@
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js') }}
     {{ HTML::script(asset('packages/alertify/alertify.min.js')) }}
     {{ HTML::script(asset('packages/bootstrap-spinner/bootstrap-spinner.min.js')) }}
+    {{ HTML::script(asset('packages/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js')) }}
     {{ HTML::script(asset_path('as/scripts/main.js')) }}
 @stop
 
