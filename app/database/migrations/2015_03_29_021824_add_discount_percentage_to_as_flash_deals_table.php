@@ -14,7 +14,7 @@ class AddDiscountPercentageToAsFlashDealsTable extends Migration {
 	{
 		Schema::table('as_flash_deals', function(Blueprint $table)
         {
-            $table->boolean('discount_percentage')->after('discounted_price');
+            $table->double('discount_percentage')->after('discounted_price');
         });
 	}
 
