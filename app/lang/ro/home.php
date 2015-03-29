@@ -84,6 +84,7 @@ return [
     'categories'          => 'Categories', // @todo
     'best_offers'         => 'Best offers', // @todo
     'no_offers'           => 'There is no offer available.', // @todo
+    'map'                 => 'Map', // @todo
     // Business
     'business' => [
         'openning_hours' => 'Openning hours', // @todo

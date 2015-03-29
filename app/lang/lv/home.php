@@ -85,6 +85,7 @@ return [
     'categories'          => 'Kategorijas', // @todo
     'best_offers'         => 'Labākie piedāvājumi', // @todo
     'no_offers'           => 'Nav piedāvājumu pieejama', // @todo
+    'map'                 => 'Map', // @todo
     // Business
     'business' => [
         'openning_hours' => 'Openning hours', // @todo

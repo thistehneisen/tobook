@@ -75,17 +75,17 @@ return [
             'zero_amount' => 'Unable to make payment since the amount of your cart is zero',
         ]
     ],
-    'choose_category'     => 'Choose category', // @todo
-    'how_does_it_work'    => 'How does it work?', // @todo
-    'businesses'          => 'All businesses', // @todo
-    'businesses_category' => 'Businesses of <strong>:category</strong>', // @todo
-    'more'                => 'More', // @todo
-    'less'                => 'Less', // @todo
-    'companies_offers'    => 'Companies with offers', // @todo
-    'categories'          => 'Categories', // @todo
-    'best_offers'         => 'Best offers', // @todo
-    'map'                 => 'Map', // @todo
-    'no_offers'           => 'There is no offer available.', // @todo
+    'choose_category'     => 'Choose category',
+    'how_does_it_work'    => 'How does it work?',
+    'businesses'          => 'All businesses',
+    'businesses_category' => 'Businesses of <strong>:category</strong>',
+    'more'                => 'More',
+    'less'                => 'Less',
+    'companies_offers'    => 'Companies with offers',
+    'categories'          => 'Categories',
+    'best_offers'         => 'Best offers',
+    'map'                 => 'Map',
+    'no_offers'           => 'There is no offer available.',
     // Business
     'business'            => [
         'openning_hours' => 'Openning hours', // @todo
