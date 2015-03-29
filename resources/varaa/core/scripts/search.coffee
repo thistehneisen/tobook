@@ -155,11 +155,14 @@ class VaraaSearch
   extractMarkers: (businesses) ->
     markers = []
     for business in businesses
+      console.log business
       markers.push
         lat: business.lat
         lng: business.lng
         title: business.name
-    markers
+        infoWindow:
+          content: "<p><strong>#{business.name}</strong></p><p>#{business.full_address}</p>"
+    return markers
 
 # Start the game
 search = new VaraaSearch VARAA.Search
