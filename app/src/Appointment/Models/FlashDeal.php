@@ -11,13 +11,11 @@ class FlashDeal extends Base
     protected $table = 'as_flash_deals';
 
     public $fillable = [
-        'discounted_price',
+        'discount_percentage',
     ];
 
     protected $rulesets = [
         'saving' => [
-            'service_id'          => 'required',
-            'discounted_price'    => 'numeric',
             'discount_percentage' => 'required|numeric',
         ]
     ];

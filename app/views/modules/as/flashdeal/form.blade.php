@@ -1,6 +1,6 @@
 <div id="flashdeal-form" class="as-flashdeal-form">
     <h2>{{ trans('as.flashdeal.flashdeal') }}</h2>
-    <form id="freetime_form">
+    <form id="flash_deal_form">
         <div class="panel-group" id="accordion">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -17,7 +17,7 @@
                                     <div class="col-sm-8">
                                         @foreach ($services as $service)
                                         <div class="checkbox">
-                                            <label for="service-{{ $service->id }}">{{ Form::checkbox('service[]', $service->id,((bool)$okServices[$service->id]), ['class' => 'input-md', 'id' => 'service-' . $service->id, ((!(bool)$okServices[$service->id]) ? 'checked' : '')]) }} {{ $service->name }} - {{ $service->formattedLength }}
+                                            <label for="service-{{ $service->id }}">{{ Form::checkbox('services[]', $service->id,((bool)$okServices[$service->id]), ['class' => 'input-md', 'id' => 'service-' . $service->id, ((!(bool)$okServices[$service->id]) ? 'checked' : null)]) }} {{ $service->name }} - {{ $service->formattedLength }}
                                             </label>
                                         </div>
                                         @endforeach
@@ -56,34 +56,21 @@
 </div>
 <script>
 $(function () {
-    $(document).on('change', '#master_category', function () {
-        var master_category_id = $(this).val(),
-            $services = $('#services'),
-            employee_id = $('#employee_id').val();;
-
-        if (master_category_id !== '-1' && master_category_id !== '') {
-            $.ajax({
-                url: $('#get_services_from_master_category_url').val(),
-                data: {
-                    master_category_id: master_category_id,
-                    employee_id : employee_id
-                },
-                dataType: 'json'
-            }).done(function (data) {
-                $services.empty();
-
-                $.each(data, function (index, value) {
-                    $services.append(
-                        $('<option>', {
-                            value: value.id,
-                            text: value.name
-                        })
-                    );
-                });
-            });
-        } else {
-            $services.empty();
-        }
+    $(document).on('click', '#btn-add-flash-deal', function(e) {
+        e.preventDefault();
+        action_url = $('#upsert_flash_deal_url').val();
+        $.ajax({
+            type: 'POST',
+            url: action_url,
+            data: $('#flash_deal_form').serialize(),
+            dataType: 'json'
+        }).done(function (data) {
+            if (data.success) {
+                location.reload();
+            } else {
+                alertify.alert(data.message);
+            }
+        });
     });
 
     $('.datepicker').datepicker({
@@ -107,3 +94,4 @@ $(function () {
     });
 });
 </script>
+<input type="hidden" id="upsert_flash_deal_url" value="{{ route('as.flashdeal.upsert') }}"/>

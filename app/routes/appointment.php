@@ -265,9 +265,9 @@ Route::group([
             'uses' => 'App\Appointment\Controllers\FlashDeals@getFlashDealForm'
         ]);
 
-        Route::get('get-services', [
-            'as' => 'as.flashdeal.get-services',
-            'uses' => 'App\Appointment\Controllers\FlashDeals@getServices'
+        Route::post('upsert', [
+            'as' => 'as.flashdeal.upsert',
+            'uses' => 'App\Appointment\Controllers\FlashDeals@upsertFlashDeal'
         ]);
 
     });

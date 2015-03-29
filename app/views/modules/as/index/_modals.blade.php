@@ -76,4 +76,3 @@
 <input type="hidden" id="get_paste_booking_url" value="{{ route('as.bookings.paste') }}"/>
 <input type="hidden" id="get_discard_cut_booking_url" value="{{ route('as.bookings.discard-cut') }}"/>
 <input type="hidden" id="get_flashdeal_form_url" value="{{ route('as.flashdeal.get-form') }}"/>
-<input type="hidden" id="get_services_from_master_category_url" value="{{ route('as.flashdeal.get-services') }}"/>
