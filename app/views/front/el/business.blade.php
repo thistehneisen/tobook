@@ -42,11 +42,17 @@
                     @foreach ($business->working_hours_array as $day => $value)
                         <tr>
                             <td>{{ trans('common.short.'.$day) }}</td>
-                            <td>{{ $value['formatted'] or '' }}</td>
-                            <td>
+                        @if (isset($value['hidden']) && (bool) $value['hidden'] === true)
+                            <td colspan="2">
                                 @if (!empty($value['extra'])) {{{ $value['extra'] }}}
                                 @endif
                             </td>
+                        @else
+                            <td><p>{{ $value['formatted'] or '' }}</p>
+                                @if (!empty($value['extra'])) <span class="text-info">{{{ $value['extra'] }}}</span>
+                                @endif
+                            </td>
+                        @endif
                         </tr>
                     @endforeach
                     </tbody>
