@@ -1,6 +1,10 @@
 <?php namespace App\Payment;
 
-use Redirect, Session, Input, Validator;
+use Input;
+use Redirect;
+use Session;
+use Settings;
+use Validator;
 
 class Payment
 {
@@ -70,7 +74,7 @@ class Payment
         //         ->withErrors($v);
         // }
 
-        $gateway = GatewayFactory::make(Input::get('gateway', 'Paysera'));
+        $gateway = GatewayFactory::make(Input::get('gateway', Settings::get('default_paygate')));
 
         $card        = static::extractCardData(Input::all());
         $transaction = static::current();
