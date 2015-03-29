@@ -47,7 +47,7 @@ return [
         'tagline'         => 'Rezervē, ko vēlies',
         'query'           => 'Meklē pakalpojumu',
         'location'        => 'Atrašanās vieta',
-        'about'           => 'Ap',
+        'about'           => 'Darba laiks',
         'locations_hours' => 'Atrašanās vieta &amp; darba laiks',
         'business_hours'  => 'Darba laiks',
         'buy'             => 'Pirkt',
@@ -87,8 +87,8 @@ return [
     'no_offers'           => 'Nav piedāvājumu pieejama', // @todo
     // Business
     'business' => [
-        'openning_hours' => 'Openning hours', // @todo
-        'map'            => 'Map', // @todo
+        'openning_hours' => 'Darba laiks', // @todo
+        'map'            => 'Karte', // @todo
         'phone'          => 'Phone', // @todo
         'email'          => 'Email', // @todo
         'online_booking' => 'Online booking', // @todo
