@@ -76,5 +76,7 @@ return [
         'commission_rate'        => 'Commission rate taken from businesses, e.g. 30% = 0.3',
         'default_location'       => 'Default location to show in front page, e.g. Helsinki, FI',
         'footer_contact_message' => 'Text to be included in every contact message of business',
+        'social_google-plus'     => 'Google+',
+        'default_paygate'        => 'The default paygate',
     ],
 ];
