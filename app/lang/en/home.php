@@ -87,7 +87,7 @@ return [
     'no_offers'           => 'There is no offer available.', // @todo
     // Business
     'business' => [
-        'openning_hours' => 'Openning hours', // @todo
+        'openning_hours' => 'Opening hours', // @todo
         'map'            => 'Map', // @todo
         'phone'          => 'Phone', // @todo
         'email'          => 'Email', // @todo
