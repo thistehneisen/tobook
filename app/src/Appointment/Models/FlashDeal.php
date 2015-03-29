@@ -11,6 +11,8 @@ class FlashDeal extends Base
     protected $table = 'as_flash_deals';
 
     public $fillable = [
+        'date',
+        'start_at',
         'discount_percentage',
     ];
 

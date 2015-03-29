@@ -45,7 +45,7 @@ class FlashDeals extends AsBase
     public function upsertFlashDeal()
     {
        $employeeId  = (int) Input::get('employee_id');
-        $bookingDate = Input::get('booking_date');
+        $bookingDate = Input::get('start_date');
         $startTime   = Input::get('start_time');
         $services    = Input::get('services');
         $percentage  = Input::get('discount_percentage');
@@ -54,6 +54,8 @@ class FlashDeals extends AsBase
         try {
             $flashDeal = new FlashDeal;
             $flashDeal->fill([
+                'date' => $bookingDate,
+                'start_at' => $startTime,
                 'discount_percentage' => $percentage
             ]);
             $flashDeal->save();

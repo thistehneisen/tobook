@@ -71,6 +71,7 @@ $(function () {
                 alertify.alert(data.message);
             }
         });
+        return;
     });
 
     $('.datepicker').datepicker({
