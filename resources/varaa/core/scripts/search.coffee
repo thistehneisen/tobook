@@ -70,6 +70,10 @@ class VaraaSearch
     $single  = $ '#js-business-single'
     $heading = $ '#js-business-heading'
 
+    # Fixed top
+    $ '#js-hot-offers'
+      .sticky topSpacing: 10
+
     $map.show()
     # Render the map
     markers = @extractMarkers @businesses
@@ -87,7 +91,7 @@ class VaraaSearch
       $heading.find 'i'
         .hide()
 
-    # Attach event handler
+    # Attach event handlers
     businessOnClick = (e) ->
       e.preventDefault()
       $$ = $ @

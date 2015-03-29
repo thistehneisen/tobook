@@ -36,6 +36,7 @@
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js') }}
     @if (App::getLocale() !== 'en') {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.'.App::getLocale().'.min.js') }}
     @endif
+    {{ HTML::script(asset('packages/sticky/jquery.sticky.min.js')) }}
     {{ HTML::script(asset_path('as/scripts/layout-3.js')) }}
     {{ HTML::script(asset_path('core/scripts/home.js')) }}
     {{ HTML::script(asset_path('core/scripts/business.js')) }}
@@ -95,21 +96,32 @@
 
         {{-- right sidebar --}}
         <div class="col-sm-9 col-md-9 panel" data-direction="right">
+            <div class="hot-offers" id="js-hot-offers" role="tabpanel">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#tab-map" aria-controls="tab-map" role="tab" data-toggle="tab">{{ trans('home.map') }}</a></li>
+                    <li role="presentation"><a href="#tab-best-offers" aria-controls="tab-best-offers" role="tab" data-toggle="tab">{{ trans('home.best_offers') }}</a></li>
+                </ul>
 
-            <div class="hot-offers">
-                <div id="js-map-canvas" class="map hidden-xs"></div>
-
-                <h2 class="heading">{{ trans('home.best_offers') }}</h2>
-                <div class="row">
-                @forelse ($deals as $deal)
-                    <div class="col-sm-4 col-md-4">
-                        @include ('front.el.deal', ['deal' => $deal])
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="tab-map">
+                        <div id="js-map-canvas" class="map hidden-xs"></div>
                     </div>
-                @empty
-                        <div class="col-sm-12">
-                            <div class="alert alert-info"><p>{{ trans('home.no_offers') }}</p></div>
+
+                    <div role="tabpanel" class="tab-pane" id="tab-best-offers">
+                        <h2 class="heading">{{ trans('home.best_offers') }}</h2>
+                        <div class="row">
+                        @forelse ($deals as $deal)
+                            <div class="col-sm-4 col-md-4">
+                                @include ('front.el.deal', ['deal' => $deal])
+                            </div>
+                        @empty
+                            <div class="col-sm-12">
+                                <div class="alert alert-info"><p>{{ trans('home.no_offers') }}</p></div>
+                            </div>
+                        @endforelse
                         </div>
-                @endforelse
+                    </div>
                 </div>
             </div>
         </div>
