@@ -30,10 +30,10 @@ class ConsumerAuth extends Auth
                     'id'                => 'register-password',
                     'class'             => 'form-control',
                 ]],
-                'password_confirmation' => ['type' => 'Password'],
-                'first_name'            => ['type' => 'Text'],
-                'last_name'             => ['type' => 'Text'],
-                'phone'                 => ['type' => 'Text'],
+                'password_confirmation' => ['type' => 'Password', 'required' => true],
+                'first_name'            => ['type' => 'Text', 'required' => true],
+                'last_name'             => ['type' => 'Text', 'required' => true],
+                'phone'                 => ['type' => 'Text', 'required' => true],
             ]
         ]);
 
@@ -51,24 +51,8 @@ class ConsumerAuth extends Auth
     {
         $user                        = new User();
         $user->email                 = Input::get('email');
-
-        // do NOT escape passwords!
         $user->password              = Input::get('password');
         $user->password_confirmation = Input::get('password_confirmation');
-
-        try {
-            // Now we need to check existing consumer
-            $user->attachConsumer([
-                'email'         => Input::get('email'),
-                'first_name'    => Input::get('first_name'),
-                'last_name'     => Input::get('last_name'),
-                'phone'         => Input::get('phone'),
-            ]);
-        } catch (\Watson\Validating\ValidationException $ex) {
-            Redirect::route('consumer.auth.register')
-                ->withInput(Input::except('password'))
-                ->withErrors($ex->getMessageBag());
-        }
 
         if (!$user->save()) {
             return Redirect::route('consumer.auth.register')
@@ -79,6 +63,20 @@ class ConsumerAuth extends Auth
         // Assign the role
         $role = Role::consumer();
         $user->attachRole($role);
+
+        try {
+            // Now we need to check existing consumer
+            $user->attachConsumer([
+                'email'         => Input::get('email'),
+                'first_name'    => Input::get('first_name'),
+                'last_name'     => Input::get('last_name'),
+                'phone'         => Input::get('phone'),
+            ]);
+        } catch (\Watson\Validating\ValidationException $ex) {
+            return Redirect::route('consumer.auth.register')
+                ->withInput(Input::except('password'))
+                ->withErrors($ex->getErrors(), 'top');
+        }
 
         // If this request is from checkout page, we will skip the confirmation,
         // auto login and redirect user to checkout page
