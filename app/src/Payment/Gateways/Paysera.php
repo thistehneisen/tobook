@@ -55,12 +55,13 @@ class Paysera extends Base
      */
     public function notify()
     {
+        Log::debug('Received Paysera notification', Input::all());
         try {
             $response = WebToPay::checkResponse(Input::all(), [
                 'projectid'     => Config::get('services.paysera.id'),
                 'sign_password' => Config::get('services.paysera.password'),
             ]);
-            Log::info('Received Paysera notification', $response);
+            Log::debug('Paysera input data', $response);
 
             if ($response['type'] !== 'macro') {
                 Log::error('Receive Paysera transaction different from `macro`', $response);
