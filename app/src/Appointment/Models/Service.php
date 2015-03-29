@@ -94,6 +94,21 @@ class Service extends \App\Core\Models\Base
             .Settings::get('currency');
     }
 
+    public function getFormattedLengthAttribute()
+    {
+        $hourText = (($this->length / 60) >= 2)
+            ? trans('common.short.hours')
+            : trans('common.short.hour');
+
+        $minText = trans('common.minutes');
+
+        $ret = ($this->length >= 60)
+            ? sprintf("%d %s (%s %s)", $this->length, $minText, round($this->length / 60, 1, PHP_ROUND_HALF_UP), $hourText)
+            : sprintf("%d %s", $this->length, $minText);
+
+        return $ret;
+    }
+
     public function setLength()
     {
         $this->length = $this->after + $this->during + $this->before;

@@ -13,21 +13,20 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group row">
-                                    <label for="description" class="col-sm-4 control-label">{{ trans('as.flashdeal.master_category') }}</label>
-                                    <div class="col-sm-8">
-                                        {{ Form::select('master_category', $master_categories, null, ['class' => 'form-control input-sm', 'id' => 'master_category']) }}
-                                    </div>
-                                </div>
-                                <div class="form-group row">
                                     <label for="description" class="col-sm-4 control-label">{{ trans('as.flashdeal.services') }}</label>
                                     <div class="col-sm-8">
-                                        {{ Form::select('services', [], null, ['class' => 'form-control input-sm', 'id' => 'services']) }}
+                                        @foreach ($services as $service)
+                                        <div class="checkbox">
+                                            <label for="service-{{ $service->id }}">{{ Form::checkbox('service[]', $service->id, null, ['class' => 'input-md', 'id' => 'service-' . $service->id]) }} {{ $service->name }} - {{ $service->formattedLength }}
+                                            </label>
+                                        </div>
+                                        @endforeach
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="description" class="col-sm-4 control-label">{{ trans('as.flashdeal.discounted_price') }}</label>
                                     <div class="col-sm-8">
-                                         {{ Form::text('discounted_price', '', ['class' => 'datepicker form-control input-sm', 'id' => 'discounted_price']) }}
+                                         {{ Form::text('discounted_price', '', ['class' => 'form-control input-sm', 'id' => 'discounted_price']) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
