@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "02f8aa62065386cfe698db2854f8a311",
+    "hash": "bf09c1ceea81637e1aa1437e18521373",
     "packages": [
         {
             "name": "alfaproject/omnipay-skrill",
@@ -1199,16 +1199,16 @@
         },
         {
             "name": "indatus/dispatcher",
-            "version": "v1.4.1",
+            "version": "v1.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Indatus/dispatcher.git",
-                "reference": "42c32027e947718873af2784af5f7567e2d246f9"
+                "reference": "e406351ba302217c49310647f8fd0213399872e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Indatus/dispatcher/zipball/42c32027e947718873af2784af5f7567e2d246f9",
-                "reference": "42c32027e947718873af2784af5f7567e2d246f9",
+                "url": "https://api.github.com/repos/Indatus/dispatcher/zipball/e406351ba302217c49310647f8fd0213399872e8",
+                "reference": "e406351ba302217c49310647f8fd0213399872e8",
                 "shasum": ""
             },
             "require": {
@@ -1248,7 +1248,7 @@
                 "laravel",
                 "schedule"
             ],
-            "time": "2014-09-22 17:06:36"
+            "time": "2015-03-26 16:52:57"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -3397,6 +3397,39 @@
             "time": "2014-07-20 01:32:25"
         },
         {
+            "name": "webtopay/libwebtopay",
+            "version": "dev-default",
+            "source": {
+                "type": "hg",
+                "url": "https://bitbucket.org/paysera/libwebtopay",
+                "reference": "b62cb2f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://bitbucket.org/paysera/libwebtopay/get/b62cb2f2b418e4ef11cad0bb2ef289379eedd48f.zip",
+                "reference": "b62cb2f",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "EVP International",
+                    "homepage": "http://www.webtopay.com/"
+                }
+            ],
+            "description": "PHP Library for WebToPay provided services",
+            "time": "2015-03-17 12:55:31"
+        },
+        {
             "name": "willdurand/geocoder",
             "version": "2.8.2",
             "source": {
@@ -5106,7 +5139,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "alfaproject/omnipay-skrill": 20
+        "alfaproject/omnipay-skrill": 20,
+        "webtopay/libwebtopay": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

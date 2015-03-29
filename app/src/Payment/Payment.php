@@ -70,11 +70,15 @@ class Payment
         //         ->withErrors($v);
         // }
 
-        $gateway = GatewayFactory::make(Input::get('gateway', 'Skrill'));
+        $gateway = GatewayFactory::make(Input::get('gateway', 'Paysera'));
 
         $card        = static::extractCardData(Input::all());
         $transaction = static::current();
         $response = $gateway->purchase($transaction, ['card' => $card]);
+
+        if (!($response instanceof \Omnipay\Skrill\Message\PaymentResponse)) {
+            return;
+        }
 
         // Update transaction with data from resposne
         $transaction->fill([
