@@ -39,19 +39,19 @@ return [
     'tagline'               => 'Все, что вам нужно <br>для удобного и прибыльного бизнеса',
     'next_timeslot'         => 'Следующие доступные "окна"',
     'time'                  => 'Время',
-    'search_tagline'        => 'What do you want to book?', // @todo
+    'search_tagline'        => 'Что вы хотите заказать?', // @todo
     'search_query'          => 'Enter business name or service', // @todo
     'search_place'          => 'Helsinki, FI', // @todo
     'search'        => [
-        'tagline'         => 'What do you want to book?', // @todo
-        'query'           => 'Enter business name or service', // @todo
+        'tagline'         => 'Что вы хотите заказать?', // @todo
+        'query'           => 'Введите название предприятия или услугу', // @todo
         'location'        => Settings::get('default_location'), // @todo
         'about'           => 'Подробнее',
         'locations_hours' => 'Места &amp; время',
         'business_hours'  => 'Время работы',
         'buy'             => 'Купить',
         'book'            => 'Записаться',
-        'button'          => 'Search', // @todo
+        'button'          => 'поиск', // @todo
         'date'            => 'Any date', // @todo
         'time'            => 'Any time', // @todo
         'geo'             => [
@@ -74,9 +74,9 @@ return [
             'zero_amount' => 'Покупка невозможна, поскольку в вашей корзине ничего нет',
         ]
     ],
-    'choose_category'     => 'Choose category', // @todo
+    'choose_category'     => 'Что вы хотите заказать?', // @todo
     'how_does_it_work'    => 'How does it work?', // @todo
-    'businesses'          => 'All businesses', // @todo
+    'businesses'          => 'Что вы хотите заказать?', // @todo
     'businesses_category' => 'Businesses of <strong>:category</strong>', // @todo
     'more'                => 'More', // @todo
     'less'                => 'Less', // @todo
