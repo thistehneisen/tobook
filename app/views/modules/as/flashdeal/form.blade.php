@@ -17,7 +17,7 @@
                                     <div class="col-sm-8">
                                         @foreach ($services as $service)
                                         <div class="checkbox">
-                                            <label for="service-{{ $service->id }}">{{ Form::checkbox('service[]', $service->id, null, ['class' => 'input-md', 'id' => 'service-' . $service->id]) }} {{ $service->name }} - {{ $service->formattedLength }}
+                                            <label for="service-{{ $service->id }}">{{ Form::checkbox('service[]', $service->id,((bool)$okServices[$service->id]), ['class' => 'input-md', 'id' => 'service-' . $service->id, ((!(bool)$okServices[$service->id]) ? 'checked' : '')]) }} {{ $service->name }} - {{ $service->formattedLength }}
                                             </label>
                                         </div>
                                         @endforeach
@@ -26,7 +26,7 @@
                                 <div class="form-group row">
                                     <label for="description" class="col-sm-4 control-label">{{ trans('as.flashdeal.discount_percentage') }}</label>
                                     <div class="col-sm-8">
-                                         {{ Form::text('discount_percentage', '', ['class' => 'form-control input-sm spinner', 'id' => 'discount_percentage', 'name' => 'discount_percentage']) }}
+                                         {{ Form::text('discount_percentage', 15, ['class' => 'form-control input-sm spinner', 'id' => 'discount_percentage', 'name' => 'discount_percentage']) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -42,14 +42,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="from_date" class="col-sm-4 control-label">{{ trans('as.flashdeal.expire') }}</label>
-                                    <div class="col-sm-8">
-                                        {{ Form::text('expire', $bookingDate, ['class' => 'datepicker form-control input-sm', 'id' => 'expire']) }}
-                                    </div>
-                                </div>
-                                <div class="form-group row">
                                     <div class="col-sm-12">
-                                        <a id="btn-add-employee-freetime" class="btn btn-primary btn-sm pull-right">{{ trans('common.save') }}</a>
+                                        <a id="btn-add-flash-deal" class="btn btn-primary btn-sm pull-right">{{ trans('common.save') }}</a>
                                     </div>
                                 </div>
                             </div>

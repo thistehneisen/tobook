@@ -4,6 +4,7 @@ use App\Core\Models\Base;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Support\Collection;
+use App\Appointment\Models\Reception\BackendReceptionist;
 
 class FlashDeal extends Base
 {
@@ -15,10 +16,40 @@ class FlashDeal extends Base
 
     protected $rulesets = [
         'saving' => [
-            'service_id'       => 'required',
-            'discounted_price' => 'required|numeric'
+            'service_id'          => 'required',
+            'discounted_price'    => 'numeric',
+            'discount_percentage' => 'required|numeric',
         ]
     ];
+
+    /**
+     * Function to check if we can create a new flash deal with this service in certain date/time.
+     * It needs to check each services, since different service may require different resources
+     */
+    public static function canMakeFlashDeal($user, $employeeId, $serviceId, $bookingDate, $startTime, $length)
+    {
+        $exception = [];
+        try{
+            $receptionist = new BackendReceptionist();
+            $receptionist->setBookingId(0)
+                ->setUUID(null)
+                ->setUser($user)
+                ->setBookingDate($bookingDate)
+                ->setStartTime($startTime)
+                ->setServiceId($serviceId)
+                ->setModifyTime(0)
+                ->setEmployeeId($employeeId)
+                ->setServiceTimeId('default')
+                ->setBookingServiceId(0)
+                ->setIsRequestedEmployee(null);
+
+            $receptionist->validateBooking();
+
+        } catch(\Exception $ex){
+            $exception[] = $ex->getMessage();
+        }
+        return (empty($exception)) ? true : false;
+    }
 
     //--------------------------------------------------------------------------
     // ATTRIBUTES

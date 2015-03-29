@@ -262,12 +262,12 @@ Route::group([
 
         Route::get('get-form', [
             'as' => 'as.flashdeal.get-form',
-            'uses' => 'App\Appointment\Controllers\FlashDeal@getFlashDealForm'
+            'uses' => 'App\Appointment\Controllers\FlashDeals@getFlashDealForm'
         ]);
 
         Route::get('get-services', [
             'as' => 'as.flashdeal.get-services',
-            'uses' => 'App\Appointment\Controllers\FlashDeal@getServices'
+            'uses' => 'App\Appointment\Controllers\FlashDeals@getServices'
         ]);
 
     });
