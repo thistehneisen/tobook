@@ -86,6 +86,7 @@ return [
     'no_offers'           => 'Tarjouksia ei ole saatavilla.',
     // Business
     'business' => [
+        'about'          => 'About', // @todo
         'openning_hours' => 'Openning hours', // @todo
         'map'            => 'Map', // @todo
         'phone'          => 'Phone', // @todo
