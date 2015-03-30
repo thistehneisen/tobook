@@ -16,6 +16,7 @@ class AddDateAndStartTimeToAsFlashDealsTable extends Migration {
         {
             $table->date('date')->after('discount_percentage');
             $table->time('start_at')->after('date');
+            $table->time('end_at')->after('start_at');
         });
 	}
 
@@ -26,7 +27,11 @@ class AddDateAndStartTimeToAsFlashDealsTable extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::table('as_flash_deals', function (Blueprint $table) {
+            $table->dropColumn('date');
+            $table->dropColumn('start_at');
+            $table->dropColumn('end_at');
+        });
 	}
 
 }
