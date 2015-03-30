@@ -87,6 +87,7 @@ return [
     'no_offers'           => 'Nav piedāvājumu pieejama', // @todo
     // Business
     'business' => [
+        'about'          => 'About', // @todo
         'openning_hours' => 'Darba laiks', // @todo
         'map'            => 'Karte', // @todo
         'phone'          => 'Phone', // @todo
