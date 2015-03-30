@@ -39,6 +39,7 @@
                                     <label for="from_date" class="col-sm-4 control-label">{{ trans('as.flashdeal.start_time') }}</label>
                                     <div class="col-sm-8">
                                         {{ Form::text('start_time', $startTime, ['class' => 'form-control input-sm disabled', 'id' => 'start_time']) }}
+                                         {{ Form::hidden('end_time', $endTime) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">

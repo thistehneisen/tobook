@@ -13,6 +13,7 @@ class FlashDeal extends Base
     public $fillable = [
         'date',
         'start_at',
+        'end_at',
         'discount_percentage',
     ];
 

@@ -26,19 +26,28 @@ class FlashDeals extends AsBase
 
         $okServices = [];
 
+        $longestLength = 0;
         //Check that can create flash deal with a certain service
         foreach ($services as $service) {
-            $okServices[$service->id] = FlashDeal::canMakeFlashDeal(
+            $okForFlashDeal = FlashDeal::canMakeFlashDeal(
                 $this->user, $employeeId, $service->id, $bookingDate, $startTime, $service->length
             );
+            $okServices[$service->id] = $okForFlashDeal;
+
+            if($okForFlashDeal) {
+                $longestLength = $service->length;
+            }
         }
+        $endTime = Carbon::createFromFormat('Y-m-d H:i', sprintf('%s %s', $bookingDate, $startTime))
+            ->addMinutes($longestLength);
 
         return View::make('modules.as.flashdeal.form', [
             'employee'          => $employee,
             'okServices'        => $okServices,
             'services'          => $services,
             'bookingDate'       => $bookingDate,
-            'startTime'         => $startTime
+            'startTime'         => $startTime,
+            'endTime'           => $endTime->format('H:i')
         ]);
     }
 
@@ -47,6 +56,7 @@ class FlashDeals extends AsBase
        $employeeId  = (int) Input::get('employee_id');
         $bookingDate = Input::get('start_date');
         $startTime   = Input::get('start_time');
+        $endTime     = Input::get('end_time');
         $services    = Input::get('services');
         $percentage  = Input::get('discount_percentage');
         $employee = Employee::ofCurrentUser()->find($employeeId);
@@ -56,8 +66,10 @@ class FlashDeals extends AsBase
             $flashDeal->fill([
                 'date' => $bookingDate,
                 'start_at' => $startTime,
+                'end_at'   => $endTime,
                 'discount_percentage' => $percentage
             ]);
+            $flashDeal->user()->associate($this->user);
             $flashDeal->save();
 
             foreach ($services as $serviceId) {
