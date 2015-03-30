@@ -87,6 +87,7 @@ return [
     'map'                 => 'Kartta',
     // Business
     'business' => [
+        'about'          => 'About', // @todo
         'openning_hours' => 'Openning hours', // @todo
         'map'            => 'Map', // @todo
         'phone'          => 'Phone', // @todo

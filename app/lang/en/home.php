@@ -39,22 +39,22 @@ return [
     'tagline'               => 'Everything you need for<br>easy and profitable business',
     'next_timeslot'         => 'Next available timeslots',
     'time'                  => 'Time',
-    'search_tagline'        => 'What do you want to book?', // @todo
-    'search_query'          => 'Enter business name or service', // @todo
-    'search_place'          => 'Helsinki, FI', // @todo
+    'search_tagline'        => 'What do you want to book?',
+    'search_query'          => 'Enter business name or service',
+    'search_place'          => 'Helsinki, FI',
     'search'        => [
-        'tagline'         => 'What do you want to book?', // @todo
-        'query'           => 'Enter business name or service', // @todo
-        'location'        => Settings::get('default_location'), // @todo
+        'tagline'         => 'What do you want to book?',
+        'query'           => 'Enter business name or service',
+        'location'        => Settings::get('default_location'),
         'about'           => 'About',
         'locations_hours' => 'Locations &amp; Hours',
         'business_hours'  => 'Business Hours',
         'buy'             => 'Buy',
         'book'            => 'Book',
-        'button'          => 'Search', // @todo
-        'date'            => 'Any date', // @todo
-        'time'            => 'Any time', // @todo
-        'results'         => '<span class="keyword">&ldquo;:keyword&rdquo;</span>, <span class="location">:location</span>, :date, :time, <span class="results">:total results</span>', // @todo
+        'button'          => 'Search',
+        'date'            => 'Any date',
+        'time'            => 'Any time',
+        'results'         => '<span class="keyword">&ldquo;:keyword&rdquo;</span>, <span class="location">:location</span>, :date, :time, <span class="results">:total results</span>',
         'geo'             => [
             'info' => 'We will ask for your current location to display results that are close to you.'
         ]
@@ -87,29 +87,30 @@ return [
     'map'                 => 'Map',
     'no_offers'           => 'There is no offer available.',
     // Business
-    'business'            => [
-        'openning_hours' => 'Openning hours', // @todo
-        'map'            => 'Map', // @todo
-        'phone'          => 'Phone', // @todo
-        'email'          => 'Email', // @todo
-        'online_booking' => 'Online booking', // @todo
+    'business' => [
+        'about'          => 'About',
+        'openning_hours' => 'Openning hours',
+        'map'            => 'Map',
+        'phone'          => 'Phone',
+        'email'          => 'Email',
+        'online_booking' => 'Online booking',
         'request'        => [
-            'link'    => 'Ask for online booking', // @todo
-            'info'    => 'The shop owner will be asked to use our online booking system.', // @todo
-            'subject' => 'Request to use online booking system', // @todo
-            'mail'    => $requestMail, // @todo
+            'link'    => 'Ask for online booking',
+            'info'    => 'The shop owner will be asked to use our online booking system.',
+            'subject' => 'Request to use online booking system',
+            'mail'    => $requestMail,
         ],
         'contact'        => [
-            'index'   => 'Contact', // @todo
-            'heading' => 'Contact us', // @todo
-            'name'    => 'Name*', // @todo
-            'email'   => 'Email*', // @todo
-            'phone'   => 'Phone', // @todo
-            'captcha' => 'Please enter the characters below*', // @todo
-            'message' => 'Message*', // @todo
-            'sent'    => 'Your message has been sent', // @todo
-            'subject' => 'You got a contact message', // @todo
-            'mail'    => $contactEmail, // @todo
+            'index'   => 'Contact',
+            'heading' => 'Contact us',
+            'name'    => 'Name*',
+            'email'   => 'Email*',
+            'phone'   => 'Phone',
+            'captcha' => 'Please enter the characters below*',
+            'message' => 'Message*',
+            'sent'    => 'Your message has been sent',
+            'subject' => 'You got a contact message',
+            'mail'    => $contactEmail,
         ]
     ],
 ];

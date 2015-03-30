@@ -4,7 +4,7 @@
         <h2 class="heading">{{ trans('home.search.tagline') }}</h2>
         <div class="input-group margin-bottom-lg">
             <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
-            <input required name="q" class="form-control input-lg" type="text" placeholder="{{ trans('home.search.query') }}">
+            <input name="q" class="form-control input-lg" type="text" placeholder="{{ trans('home.search.query') }}">
         </div>
     </div>
 </div>
