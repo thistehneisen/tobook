@@ -53,7 +53,7 @@ class FlashDeals extends AsBase
 
     public function upsertFlashDeal()
     {
-       $employeeId  = (int) Input::get('employee_id');
+        $employeeId  = (int) Input::get('employee_id');
         $bookingDate = Input::get('start_date');
         $startTime   = Input::get('start_time');
         $endTime     = Input::get('end_time');
@@ -70,6 +70,7 @@ class FlashDeals extends AsBase
                 'discount_percentage' => $percentage
             ]);
             $flashDeal->user()->associate($this->user);
+            $flashDeal->employee()->associate($employee);
             $flashDeal->save();
 
             foreach ($services as $serviceId) {

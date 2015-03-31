@@ -1,12 +1,11 @@
 <?php namespace App\Appointment\Models;
 
-use App\Core\Models\Base;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Support\Collection;
 use App\Appointment\Models\Reception\BackendReceptionist;
 
-class FlashDeal extends Base
+class FlashDeal extends \App\Appointment\Models\Base
 {
     protected $table = 'as_flash_deals';
 
@@ -70,14 +69,15 @@ class FlashDeal extends Base
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
-    public function service()
-    {
-        return $this->belongsTo('App\Appointment\Models\Service');
-    }
 
     public function user()
     {
         return $this->belongsTo('App\Core\Models\User');
+    }
+
+    public function employee()
+    {
+       return $this->belongsTo('App\Appointment\Models\Employee');
     }
 
     //--------------------------------------------------------------------------
