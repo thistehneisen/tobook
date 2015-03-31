@@ -17,54 +17,54 @@ class Base implements Strategy
     private $customTimeCache = [];
     private $resourceCache   = [];
     private $roomCache       = [];
-
+    private $flashDealCache  = [];
 
     /**
      * @var string
      */
-    private $date;
+    protected $date;
 
     /**
      * Carbon object of the date
      *
      * @var Carbon\Carbon
      */
-    private $dateObj;
+    protected $dateObj;
 
     /**
      * @var int
      */
-    private $hour;
+    protected $hour;
 
      /**
      * @var int
      */
-    private $minute;
+    protected $minute;
 
     /**
      * Current row need to determined the class
      *
      * @var Carbon\Carbon
      */
-    private $rowTime;
+    protected $rowTime;
 
     /**
      * The current employee of time cell
      * @var \App\Appointment\Models\Employee
      */
-    private $employee;
+    protected $employee;
 
     /**
      * The current service for time cell
      * @var \App\Appointment\Models\Service
      */
-    private $service;
+    protected $service;
 
     /**
      * The initital class
      * @var string
      */
-    private $class = 'inactive';
+    protected $class = 'inactive';
 
     protected function init($date, $hour, $minute, $employee, $service = null)
     {
@@ -87,6 +87,7 @@ class Base implements Strategy
         $this->bookingClass();
         $this->resourceClass();
         $this->roomClass();
+        $this->flashDealClass();
         $employee->setBookedSlot($this->bookedSlot);
         $employee->setFreetimeSlot($this->freetimeSlot);
         $employee->setCustomTimeSlot($this->customTimeSlot);
@@ -311,6 +312,11 @@ class Base implements Strategy
         return $this->class;
     }
 
+    public function flashDealClass()
+    {
+
+    }
+
     protected function getValue($key)
     {
         $map = [
@@ -324,6 +330,7 @@ class Base implements Strategy
             'room_inactive'     => 'room fancybox inactive',
             'booked_head'       => ' slot-booked-head',
             'booked_body'       => ' slot-booked-body',
+            'flashdeal'         => ' flashdeal',
         ];
 
         return (isset($map[$key])) ? $map[$key] : '';
