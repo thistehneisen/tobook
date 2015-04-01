@@ -6,6 +6,7 @@ use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\ServiceCategory;
 use App\Appointment\Models\MasterCategory;
+use App\Appointment\Models\TreatmentType;
 use App\Appointment\Models\ServiceExtraService;
 use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\Booking;
@@ -58,6 +59,7 @@ class Services extends AsBase
             : new Service();
 
         $master_categories = MasterCategory::lists('name','id');
+        $treatment_types   = TreatmentType::lists('name','id');
         $categories        = ServiceCategory::ofCurrentUser()->lists('name','id');
         $resources         = Resource::ofCurrentUser()->lists('name', 'id');
         $rooms             = Room::ofCurrentUser()->lists('name', 'id');
@@ -68,6 +70,7 @@ class Services extends AsBase
             'service'           => $service,
             'categories'        => $categories,
             'master_categories' => $master_categories,
+            'treatment_types'   => $treatment_types,
             'resources'         => $resources,
             'rooms'             => $rooms,
             'extras'            => $extras,

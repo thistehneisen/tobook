@@ -74,6 +74,7 @@ return [
         'total'           => 'Kopā',
         'category'        => 'Kategorija',
         'master_category' => 'Master category',//@todo
+        'treatment_type'  => 'Treatment types',//@todo
         'is_active'       => 'Aktīva',
         'resource'        => 'Resurss',
         'room'            => 'Telpa',
@@ -394,5 +395,17 @@ return [
         'success_delete' => 'Ieraksts veiksmīgi izdzēsts.',
         'success_bulk'   => 'Ieraksts veiksmīgi izdzēsts.',
         'sortable'       => 'Velciet ar peli, lai pārkārtotu secību',
+    ],
+    'flashdeal' => [
+        'flashdeal'           => 'Flash deal',//@todo
+        'add_flashdeal'       => 'Add new flash deal',//@todo
+        'discounted_price'    => 'Discounted price',//@todo
+        'master_category'     => 'Master categories',//@todo
+        'treatment_type'      => 'Treatment types',//@todo
+        'services'            => 'Services',//@todo
+        'start_date'          => 'Start date',//@todo
+        'start_time'          => 'Start time',//@todo
+        'expire'              => 'Expiration date',//@todo
+        'discount_percentage' => 'Discount percentage',//@todo
     ],
 ];
