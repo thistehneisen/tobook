@@ -1,5 +1,5 @@
 @extends ('modules.as.embed.embed')
 
 @section ('content')
-    @include('modules.as.embed.layout-3.main')
+    @include('modules.as.embed.layout-3.main', ['allInput' => Input::all()])
 @stop
