@@ -112,6 +112,16 @@ class Service extends \App\Core\Models\Base
         return $this->belongsTo('App\Appointment\Models\ServiceCategory');
     }
 
+    public function masterCategory()
+    {
+        return $this->belongsTo('App\Appointment\Models\MasterCategory');
+    }
+
+    public function treatmentType()
+    {
+        return $this->belongsTo('App\Appointment\Models\TreatmentType');
+    }
+
     public function employees()
     {
         return $this->belongsToMany('App\Appointment\Models\Employee', 'as_employee_service')->withPivot('plustime');
