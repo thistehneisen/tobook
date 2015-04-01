@@ -19,6 +19,7 @@ class CreateVaraaAsMasterCategoriesTable extends Migration {
             $table->string('description');
             $table->unsignedInteger('order');
             $table->timestamps();
+            $table->softDeletes();
         });
 	}
 
