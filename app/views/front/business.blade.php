@@ -4,6 +4,12 @@
     @parent :: {{{ $business->name }}}
 @stop
 
+@section('meta')
+<meta name="description" content="{{{ $business->meta_description }}}">
+<meta name="keywords" content="{{{ $business->meta_keywords }}}">
+<meta name="title" content="{{{ $business->meta_title }}}">
+@stop
+
 @section('scripts')
     <script>
     // Dump inline data
