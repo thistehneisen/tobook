@@ -79,7 +79,7 @@
             {{-- `$inhouse = true` means that we'll show login/register secion in step 4 --}}
             <input type="hidden" id="business_id" value="{{ $business->id }}">
             <input type="hidden" id="business_hash" value="{{ $business->user->hash }}">
-            @include('modules.as.embed.layout-3.main', ['inhouse' => Settings::get('enable_cart'), 'hash' => $business->user->hash])
+            @include('modules.as.embed.layout-3.main', ['inhouse' => Settings::get('enable_cart'), 'hash' => $business->user->hash, 'allInput' => ['l' => 3, 'hash' => $business->user->hash]])
         </div>
         @endif
 
