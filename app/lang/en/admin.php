@@ -2,12 +2,13 @@
 return [
     'admin' => 'Admin',
     'nav' => [
-        'admin'       => 'New admin',
-        'users'       => 'Businesses',
-        'settings'    => 'Settings',
-        'modules'     => 'Modules',
-        'stats'       => 'Statistics',
-        'flash_deals' => 'Flash Deals',
+        'admin'             => 'New admin',
+        'users'             => 'Businesses',
+        'settings'          => 'Settings',
+        'modules'           => 'Modules',
+        'stats'             => 'Statistics',
+        'flash_deals'       => 'Flash Deals',
+        'master_categories' => 'Master categories',
     ],
     'edit_heading'       => 'Edit :model #:id',
     'create_heading'     => 'Create a new :model',
@@ -79,4 +80,21 @@ return [
         'social_google-plus'     => 'Google+',
         'default_paygate'        => 'The default paygate',
     ],
+    'master-cats' => [
+        'all'         => 'All master categories',
+        'edit'        => 'Edit master category',
+        'add'         => 'Add master category',
+        'name'        => 'Name',
+        'description' => 'Description',
+        'language'    => 'Language',
+        'translation_not_found' => 'Not available in current language',
+        'lang' => [
+            'fi' => 'Finnish',
+            'en' => 'English',
+            'lv' => 'Latvian',
+            'ru' => 'Russian',
+            'sv' => 'Swedish',
+            'ro' => 'Romania'
+        ]
+    ]
 ];

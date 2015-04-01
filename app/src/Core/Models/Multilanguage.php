@@ -2,8 +2,10 @@
 
 use App\Core\Models\User;
 
-class Multilanguage extends Base
+class Multilanguage extends \Eloquent
 {
+    protected $table = 'multilanguage';
+
     public $fillable = [
         'context',
         'lang',
