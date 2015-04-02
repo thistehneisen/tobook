@@ -12,13 +12,13 @@ class Business extends Base
 {
     public $fillable = [
         'name',
+        'phone',
         'description',
         'size',
         'address',
         'city',
         'postcode',
         'country',
-        'phone',
         'lat',
         'lng',
         'note',
