@@ -62,6 +62,13 @@ class Business extends Base
     public $isSearchable = true;
 
     /**
+     * Use to store data from table multilang
+     *
+     * @var array
+     */
+    protected $multilang = [];
+
+    /**
      * @{@inheritdoc}
      */
     public static function boot()
@@ -229,6 +236,29 @@ class Business extends Base
     protected function getFullAddress($address, $postcode, $city, $country)
     {
         return $address ? sprintf('%s, %s %s, %s', $address, $postcode, $city, $country) : '';
+    }
+
+    /**
+     * Get business description in a specific language
+     *
+     * @param string $language
+     *
+     * @return string
+     */
+    public function getDescriptionInLanguage($language)
+    {
+        $context = 'business_description';
+        if (!isset($this->multilang[$context])) {
+            $this->multilang[$context] =
+                Multilanguage::where('context', $context)
+                ->where('user_id', $this->user_id)
+                ->get()
+                ->toArray();
+        }
+
+        return (isset($this->multilang[$context][$language]))
+            ? $this->multilang[$context][$language]
+            : '';
     }
 
     //--------------------------------------------------------------------------

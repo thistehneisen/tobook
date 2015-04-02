@@ -18,7 +18,15 @@ class HtmlMultilang extends HtmlField
 
         $languages = Config::get('varaa.languages');
         foreach ($languages as $lang) {
+            // Change the name of each textarea to its own language
             $params[0] .= self::NAME_SUFFIX."[$lang]";
+            // Then change the content
+            $method = 'get'.studly_case($this->opt['name']).'InLanguage';
+            if (!method_exists($this->opt['model'], $method)) {
+                throw new \RuntimeException('Cannot find method '.$method.'()');
+            }
+
+            $params[1] = $this->opt['model']->$method($lang);
             $fields[] = [
                 'lang'     => $lang,
                 'title'    => trans('home.languages.'.$lang),
