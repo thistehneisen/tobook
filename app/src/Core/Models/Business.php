@@ -1,11 +1,16 @@
 <?php namespace App\Core\Models;
 
-use Config, Log, NAT, Input, Str, Util, App;
+use App;
+use App\Appointment\Models\Booking;
 use App\Core\Models\Relations\BusinessBusinessCategory;
+use Carbon\Carbon;
+use Config;
 use Exception;
 use Illuminate\Support\Collection;
-use App\Appointment\Models\Booking;
-use Carbon\Carbon;
+use Input;
+use NAT;
+use Str;
+use Util;
 
 class Business extends Base
 {
@@ -422,11 +427,14 @@ class Business extends Base
      */
     public function getDescriptionHtmlAttribute()
     {
-        if (empty($this->attributes['description'])) {
-            return '';
+        // Get of current language first
+        $desc = $this->getDescriptionInLanguage(App::getLocale());
+        // If it's empty, we'll try to get in the default language
+        if (empty($desc)) {
+            $desc = $this->getDescriptionInLanguage(Config::get('varaa.default_language'));
         }
 
-        return $this->attributes['description'];
+        return $desc;
     }
 
     /**
