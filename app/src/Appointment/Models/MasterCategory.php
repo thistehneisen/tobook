@@ -1,7 +1,7 @@
 <?php namespace App\Appointment\Models;
 
 use App\Core\Models\Multilanguage;
-use App, DB;
+use App, DB, Input, Config;
 
 class MasterCategory extends \App\Core\Models\Base
 {
@@ -15,6 +15,28 @@ class MasterCategory extends \App\Core\Models\Base
     {
         Multilanguage::saveValues($this->id, static::getContext(), 'name', $names);
         Multilanguage::saveValues($this->id, static::getContext(), 'description', $descriptions);
+    }
+
+    /**
+     * Search using database
+     *
+     * @param string $keyword
+     *
+     * @return Illuminate\Pagination\Paginator
+     */
+    public function databaseSearch($keyword, array $options = array())
+    {
+        $query =  self::join('multilanguage', 'multilanguage.context', '=', DB::raw("concat('" . MasterCategory::getContext() . "', `varaa_as_master_categories`.`id`)"))
+            ->where(function($query){
+                $query->where('multilanguage.key', 'name')
+                    ->orWhere('multilanguage.key', 'description');
+                return $query;
+            })->where('value', 'LIKE', '%'.$keyword.'%')
+            ->select('as_master_categories.id')->distinct();
+
+        $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
+
+        return $query->paginate($perPage);
     }
 
     //--------------------------------------------------------------------------
