@@ -31,7 +31,7 @@ class HtmlMultilang extends HtmlField
             $params[1] = $this->opt['model']->$method($lang);
             $fields[] = [
                 'lang'     => $lang,
-                'title'    => trans('home.languages.'.$lang),
+                'title'    => strtoupper($lang),
                 'textarea' => call_user_func_array('Form::textarea', $params),
             ];
         }
