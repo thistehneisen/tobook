@@ -13,37 +13,18 @@ class MasterCategory extends \App\Core\Models\Base
 
     public function saveMultilanguage($names, $descriptions)
     {
-        $this->saveKeyValue($this->id, $names, 'name');
-        $this->saveKeyValue($this->id, $descriptions, 'description');
+        Multilanguage::saveValues($this->id, static::getContext(), 'name', $names);
+        Multilanguage::saveValues($this->id, static::getContext(), 'description', $descriptions);
     }
 
-    public function saveKeyValue($master_category_id, $data, $key)
-    {
-        foreach ($data as $lang => $value) {
-            $multilang = Multilanguage::where('lang', '=', $lang)
-                ->where('context','=', static::getContext() . $master_category_id)
-                ->where('key', '=' , $key)->first();
-
-            if(empty($multilang)) {
-                $multilang = new Multilanguage;
-            }
-
-            $multilang->fill([
-                'context' => static::getContext() . $master_category_id,
-                'lang' => $lang,
-                'key' => $key,
-                'value' => $value
-            ]);
-
-            $multilang->save();
-        }
-    }
-
+    //--------------------------------------------------------------------------
+    // ATTRIBUTES
+    //--------------------------------------------------------------------------
     public function getNameAttribute()
     {
         $multilang = Multilanguage::where('multilanguage.lang', '=', App::getLocale())
             ->where('multilanguage.key', '=' ,'name')
-            ->where('multilanguage.context', '=', MasterCategory::getContext() . $this->id)
+            ->where('multilanguage.context', '=', self::getContext() . $this->id)
             ->first();
 
         return (!empty($multilang->value)) ? $multilang->value : trans('admin.master-cats.translation_not_found');
@@ -54,7 +35,7 @@ class MasterCategory extends \App\Core\Models\Base
 
         $multilang = Multilanguage::where('multilanguage.lang', '=', App::getLocale())
             ->where('multilanguage.key', '=' ,'description')
-            ->where('multilanguage.context', '=', MasterCategory::getContext() . $this->id)
+            ->where('multilanguage.context', '=', self::getContext() . $this->id)
             ->first();
         return (!empty($multilang->value)) ? $multilang->value : trans('admin.master-cats.translation_not_found');
     }
