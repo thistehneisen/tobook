@@ -9,6 +9,7 @@ return [
         'stats'             => 'Statistics',
         'flash_deals'       => 'Flash Deals',
         'master_categories' => 'Master categories',
+        'treatment_types'   => 'Treatment types',
     ],
     'edit_heading'       => 'Edit :model #:id',
     'create_heading'     => 'Create a new :model',
@@ -81,20 +82,12 @@ return [
         'default_paygate'        => 'The default paygate',
     ],
     'master-cats' => [
-        'all'         => 'All master categories',
-        'edit'        => 'Edit master category',
-        'add'         => 'Add master category',
+        'all'         => 'All',
+        'edit'        => 'Edit',
+        'add'         => 'Add',
         'name'        => 'Name',
         'description' => 'Description',
         'language'    => 'Language',
-        'translation_not_found' => 'Not available in current language',
-        'lang' => [
-            'fi' => 'Finnish',
-            'en' => 'English',
-            'lv' => 'Latvian',
-            'ru' => 'Russian',
-            'sv' => 'Swedish',
-            'ro' => 'Romania'
-        ]
-    ]
+        'translation_not_found' => 'Not available in current language'
+    ],
 ];
