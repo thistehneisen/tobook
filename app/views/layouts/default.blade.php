@@ -11,6 +11,10 @@
         @endforeach
     @show
 
+    @if (Config::has('services.paysera.verification'))
+    <meta name="verify-paysera" content="{{ Config::get('services.paysera.verification') }}">
+    @endif
+
     <title>
         @section('title')
         {{{ Settings::get('meta_title') }}}
