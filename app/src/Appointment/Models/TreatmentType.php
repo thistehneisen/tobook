@@ -37,8 +37,8 @@ class TreatmentType extends \App\Appointment\Models\Base
     public function getNameAttribute()
     {
         $multilang = Multilanguage::where('lang', '=', App::getLocale())
-            ->where('key', '=' ,'name')
             ->where('context', '=', self::getContext() . $this->id)
+            ->where('key', '=' ,'name')
             ->first();
 
         return (!empty($multilang->value)) ? $multilang->value : trans('admin.master-cats.translation_not_found');
@@ -48,8 +48,8 @@ class TreatmentType extends \App\Appointment\Models\Base
     {
 
         $multilang = Multilanguage::where('lang', '=', App::getLocale())
-            ->where('key', '=' ,'description')
             ->where('context', '=', self::getContext() . $this->id)
+            ->where('key', '=' ,'description')
             ->first();
         return (!empty($multilang->value)) ? $multilang->value : trans('admin.master-cats.translation_not_found');
     }

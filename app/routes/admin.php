@@ -91,6 +91,11 @@ Route::group([
     //--------------------------------------------------------------------------
     App\Core\Controllers\Admin\MasterCategories::crudRoutes('master-cats', 'admin.master-cats');
 
+    //--------------------------------------------------------------------------
+    // Treatment types
+    //--------------------------------------------------------------------------
+    App\Core\Controllers\Admin\TreatmentTypes::crudRoutes('treatment-types', 'admin.treatment-types');
+
 
     //--------------------------------------------------------------------------
     // Statistics

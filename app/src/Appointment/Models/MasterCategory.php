@@ -22,9 +22,9 @@ class MasterCategory extends \App\Core\Models\Base
     //--------------------------------------------------------------------------
     public function getNameAttribute()
     {
-        $multilang = Multilanguage::where('multilanguage.lang', '=', App::getLocale())
-            ->where('multilanguage.key', '=' ,'name')
-            ->where('multilanguage.context', '=', self::getContext() . $this->id)
+        $multilang = Multilanguage::where('lang', '=', App::getLocale())
+            ->where('context', '=', self::getContext() . $this->id)
+            ->where('key', '=' ,'name')
             ->first();
 
         return (!empty($multilang->value)) ? $multilang->value : trans('admin.master-cats.translation_not_found');
@@ -33,9 +33,9 @@ class MasterCategory extends \App\Core\Models\Base
     public function getDescriptionAttribute()
     {
 
-        $multilang = Multilanguage::where('multilanguage.lang', '=', App::getLocale())
-            ->where('multilanguage.key', '=' ,'description')
-            ->where('multilanguage.context', '=', self::getContext() . $this->id)
+        $multilang = Multilanguage::where('lang', '=', App::getLocale())
+            ->where('context', '=', self::getContext() . $this->id)
+            ->where('key', '=' ,'description')
             ->first();
         return (!empty($multilang->value)) ? $multilang->value : trans('admin.master-cats.translation_not_found');
     }

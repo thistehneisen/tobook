@@ -82,12 +82,21 @@ return [
         'default_paygate'        => 'The default paygate',
     ],
     'master-cats' => [
-        'all'         => 'All',
+        'all'         => 'All master category',
         'edit'        => 'Edit',
         'add'         => 'Add',
         'name'        => 'Name',
         'description' => 'Description',
         'language'    => 'Language',
-        'translation_not_found' => 'Not available in current language'
+        'translation_not_found' => 'Not available in current language',
+    ],
+    'treatment-types' => [
+        'all'         => 'All treatment types',
+        'edit'        => 'Edit',
+        'add'         => 'Add',
+        'name'        => 'Name',
+        'description' => 'Description',
+        'language'    => 'Language',
+        'translation_not_found' => 'Not available in current language',
     ],
 ];
