@@ -282,11 +282,15 @@ class Business extends Base
     {
         $context = 'business_description';
         if (!isset($this->multilang[$context])) {
-            $this->multilang[$context] =
-                Multilanguage::where('context', $context)
+            $results = Multilanguage::where('context', $context)
                 ->where('user_id', $this->user_id)
-                ->get()
-                ->toArray();
+                ->get();
+
+            foreach ($results as $item) {
+                $key = $item->lang;
+                $value = $item->value;
+                $this->multilang[$context][$key] = $value;
+            }
         }
 
         return (isset($this->multilang[$context][$language]))
