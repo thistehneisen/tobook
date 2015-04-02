@@ -2,7 +2,7 @@
 
 use App\Core\Models\User;
 
-class Multilanguage extends \Eloquent
+class Multilanguage extends Base
 {
     protected $table = 'multilanguage';
 
@@ -20,6 +20,14 @@ class Multilanguage extends \Eloquent
             'key' => 'required',
         ]
     ];
+
+    /**
+     * @overload
+     */
+    public static function bootSoftDeletingTrait()
+    {
+        // Overwrite to disable SoftDeleting
+    }
 
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
