@@ -2,7 +2,6 @@
 
 use Config, Log, NAT, Input, Str, Util, App;
 use App\Core\Models\Relations\BusinessBusinessCategory;
-use App\Lomake\Fields\HtmlField;
 use Exception;
 use Illuminate\Support\Collection;
 use App\Appointment\Models\Booking;
@@ -172,6 +171,38 @@ class Business extends Base
     }
 
     /**
+     * Update business description in multiple languages
+     *
+     * @param array $input
+     *
+     * @return App\Core\Models\Business
+     */
+    public function updateDescription($input)
+    {
+        $context = 'business_description';
+        foreach ($input as $lang => $value) {
+            $obj = Multilanguage::where('user_id', $this->user_id)
+                ->where('context', $context)
+                ->where('lang', $lang)
+                ->first();
+            if ($obj === null) {
+                $obj = new Multilanguage();
+            }
+
+            $obj->fill([
+                'context' => $context,
+                'lang'    => $lang,
+                'key'     => uniqid(),
+                'value'   => $value,
+            ]);
+            $obj->user()->associate($this->user);
+            $obj->save();
+        }
+
+        return $this;
+    }
+
+    /**
      * Update information of this business
      *
      * @param array                $input
@@ -183,7 +214,6 @@ class Business extends Base
     {
         $this->fill([
             'name'                => $input['name'],
-            'description'         => HtmlField::filterInput($input, 'description'),
             'size'                => $input['size'],
             'address'             => $input['address'],
             'city'                => $input['city'],
@@ -200,6 +230,9 @@ class Business extends Base
         ]);
         $this->user()->associate($user);
         $this->saveOrFail();
+
+        // Update description
+        $this->updateDescription($input['description_html']);
 
         // We will remove hidden businesses from indexing
         if ($this->is_hidden) {
