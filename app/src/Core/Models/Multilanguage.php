@@ -1,9 +1,9 @@
 <?php namespace App\Core\Models;
 
-use App\Core\Models\User;
-
 class Multilanguage extends Base
 {
+    public $table = 'multilanguage';
+
     public $fillable = [
         'context',
         'lang',
@@ -18,6 +18,14 @@ class Multilanguage extends Base
             'key' => 'required',
         ]
     ];
+
+    /**
+     * @overload
+     */
+    public static function bootSoftDeletingTrait()
+    {
+        // Overwrite to disable SoftDeleting
+    }
 
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
