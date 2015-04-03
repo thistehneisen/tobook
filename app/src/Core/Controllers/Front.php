@@ -54,7 +54,8 @@ class Front extends Base
                 $query->whereNull('deleted_at');
             })
             ->with('user.images')
-            ->paginate();
+            ->simplePaginate();
+            // dd($businesses->toJson());
 
         // Get deals from businesses
         $deals = $this->getDealsOfBusinesses($businesses);
@@ -62,13 +63,22 @@ class Front extends Base
         // Get lat and lng to show the map
         list($lat, $lng) = $this->extractLatLng();
 
+        // Calculate next page
+        $nextPageUrl = '';
+        $current = $businesses->getCurrentPage();
+        $lastPage = $businesses->getLastPage();
+        if ($current + 1 <= $lastPage) {
+            $nextPageUrl = \URL::to($businesses->getUrl($current + 1));
+        }
+
         return $this->render('businesses', [
             'businesses' => $businesses->getItems(),
-            'pagination' => $businesses->links(),
+            'pagination' => '',
             'deals'      => $deals,
             'lat'        => $lat,
             'lng'        => $lng,
             'heading'    => trans('home.businesses'),
+            'nextPageUrl' => $nextPageUrl,
         ]);
     }
 

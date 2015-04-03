@@ -67,9 +67,9 @@
         <p><i class="fa fa-2x fa-spinner fa-spin"></i></p>
     </div>
 
-    <div class="row" id="js-business-list">
+    <div class="row">
         {{-- left sidebar --}}
-        <div class="col-sm-3 col-md-3 panel" data-direction="left">
+        <div class="col-sm-3 col-md-3 panel" data-direction="left" id="js-business-list">
             <div class="businesses">
             @foreach ($businesses as $business)
                 <div class="business js-business" data-id="{{ $business->user_id }}" data-url="{{ $business->business_url }}" data-lat="{{ $business->lat }}" data-lng="{{ $business->lng }}">
@@ -89,9 +89,11 @@
             @endforeach
             </div>
 
-            <nav class="text-center">
-                {{ $pagination }}
+            @if (!empty($nextPageUrl))
+            <nav class="text-center show-more">
+                <a id="js-show-more" href="{{ $nextPageUrl }}" class="btn btn-default btn-block">Show More</a>
             </nav>
+            @endif
         </div>
 
         {{-- right sidebar --}}
