@@ -184,10 +184,11 @@ class Business extends Base
      */
     public function updateDescription($input)
     {
-        $context = 'business_description';
+        $key = 'business_description';
         foreach ($input as $lang => $value) {
             $obj = Multilanguage::where('user_id', $this->user_id)
-                ->where('context', $context)
+                ->where('context', $this->getTable())
+                ->where('key', $key)
                 ->where('lang', $lang)
                 ->first();
             if ($obj === null) {
@@ -195,9 +196,9 @@ class Business extends Base
             }
 
             $obj->fill([
-                'context' => $context,
+                'context' => $this->getTable(),
                 'lang'    => $lang,
-                'key'     => uniqid(),
+                'key'     => $key,
                 'value'   => $value,
             ]);
             $obj->user()->associate($this->user);
@@ -285,21 +286,20 @@ class Business extends Base
      */
     public function getDescriptionInLanguage($language)
     {
-        $context = 'business_description';
-        if (!isset($this->multilang[$context])) {
-            $results = Multilanguage::where('context', $context)
+        $key = 'business_description';
+        if (!isset($this->multilang[$key])) {
+            $results = Multilanguage::where('context', $this->getTable())
+                ->where('key', $key)
                 ->where('user_id', $this->user_id)
                 ->get();
 
             foreach ($results as $item) {
-                $key = $item->lang;
-                $value = $item->value;
-                $this->multilang[$context][$key] = $value;
+                $this->multilang[$key][$item->lang] = $item->value;
             }
         }
 
-        return (isset($this->multilang[$context][$language]))
-            ? $this->multilang[$context][$language]
+        return (isset($this->multilang[$key][$language]))
+            ? $this->multilang[$key][$language]
             : '';
     }
 
