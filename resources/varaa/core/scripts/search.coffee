@@ -63,12 +63,13 @@ class VaraaSearch
    * @return {void}
   ###
   showBusinesses: ->
-    self      = @
-    $loading  = $ '#js-loading'
-    $list     = $ '#js-business-list'
-    $map      = $ '#js-map-canvas'
-    $single   = $ '#js-business-single'
-    $heading  = $ '#js-business-heading'
+    self         = @
+    $loading     = $ '#js-loading'
+    $list        = $ '#js-business-list'
+    $map         = $ '#js-map-canvas'
+    $single      = $ '#js-business-single'
+    $heading     = $ '#js-business-heading'
+    $leftSidebar = $ '#js-left-sidebar'
 
     # Fixed top
     $ '#js-hot-offers'
@@ -88,13 +89,14 @@ class VaraaSearch
       $list.find '.panel'
         .each ->
           $$ = $ @
-          $$.show 'slide', direction: $$.data('direction'), 700
+          $$.show 'slide', direction: $$.data('direction'), 300
 
+      $map.show()
       $heading.find 'i'
         .hide()
 
     # When user clicks on Show more button
-    $list.on 'click', '#js-show-more', (e) ->
+    $leftSidebar.on 'click', '#js-show-more', (e) ->
       e.preventDefault()
       $$ = $ @
 
@@ -108,9 +110,9 @@ class VaraaSearch
         url: $$.attr 'href'
       .done (data) ->
         # Remove the old Show more button
-        $list.find 'nav.show-more'
+        $leftSidebar.find 'nav.show-more'
           .remove()
-        $list.append data
+        $leftSidebar.append data
 
     # Define event handlers for business in result list
 
@@ -125,12 +127,7 @@ class VaraaSearch
       e.preventDefault()
       $$ = $ @
       businessId = $$.data 'id'
-      delay = (ms, fn) -> setTimeout fn, ms
-      slidePanel = ->
-        $list.find '.panel'
-          .each ->
-            $$ = $ @
-            $$.hide 'slide', direction: $$.data('direction'), 700
+      hidePanel = -> $list.find('.panel').hide()
 
       # open result as a full page load instead of ajax if the browser width
       # is too small
@@ -142,12 +139,11 @@ class VaraaSearch
       # If the current content is of this business, we don't need to fire
       # another AJAX
       if $list.data('current-business-id') == businessId
-        slidePanel()
-        delay 700, ->
-          $single.show 'fade'
-          # Show chevron as indicator to click back
-          $heading.find 'i'
-            .show()
+        hidePanel()
+        $single.show()
+        # Show chevron as indicator to click back
+        $heading.find 'i'
+          .show()
         return
 
       # Highlight selected row
@@ -156,6 +152,7 @@ class VaraaSearch
       $$.addClass 'selected'
 
       $loading.show()
+      $map.hide()
 
       # Load information of this business
       $.ajax
@@ -163,25 +160,27 @@ class VaraaSearch
         type: 'GET'
       .done (html) ->
         $loading.hide()
-        slidePanel()
-        delay 700, ->
-          # Replace the whole page with business page
-          $single.html html
-          $single.show 'fade'
-          # Show chevron as indicator to click back
-          $heading.find 'i'
-            .show()
+        hidePanel()
+        # Replace the whole page with business page
+        $single.html html
+        $single.show()
+        # Show chevron as indicator to click back
+        $heading.find 'i'
+          .show()
 
-          VARAA.initLayout3()
+        VARAA.initLayout3()
 
-          # Set current business flag
-          $list.data 'current-business-id', businessId
+        # Set current business flag
+        $list.data 'current-business-id', businessId
 
-          # Render the map
-          $bmap = $ "#js-map-#{businessId}"
-          lat = $bmap.data 'lat'
-          lng = $bmap.data 'lng'
-          self.renderMap $bmap.attr('id'), lat, lng, [lat: lat, lng: lng]
+        # Render the map
+        $bmap = $ "#js-map-#{businessId}"
+        lat = $bmap.data 'lat'
+        lng = $bmap.data 'lng'
+        self.renderMap $bmap.attr('id'), lat, lng, [lat: lat, lng: lng]
+
+        # Scroll the page
+        $.scrollTo '#js-search-results', duration: 300
     ###*
      * Hover on a business will highlight its position on the map
      *
@@ -189,7 +188,7 @@ class VaraaSearch
      *
      * @return {void}
     ###
-    businessOnHover = (e) ->
+    busienssOnMouseEnter = (e) ->
       $$ = $ @
       lat = $$.data 'lat'
       lng = $$.data 'lng'
@@ -202,9 +201,8 @@ class VaraaSearch
 
     # Attach event handlers when user hovers or clicks on a business in the
     # result list
-    $ 'div.js-business'
-      .on 'click', businessOnClick
-      .hover businessOnHover
+    $leftSidebar.on 'click', 'div.js-business', businessOnClick
+      .on 'mouseenter', 'div.js-business', busienssOnMouseEnter
 
   ###*
    * Extract pairs of lat and lng values to be show as markers on the map

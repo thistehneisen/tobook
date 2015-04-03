@@ -36,6 +36,7 @@
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js') }}
     @if (App::getLocale() !== 'en') {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/locales/bootstrap-datepicker.'.App::getLocale().'.min.js') }}
     @endif
+    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/1.4.14/jquery.scrollTo.min.js') }}
     {{ HTML::script(asset('packages/sticky/jquery.sticky.min.js')) }}
     {{ HTML::script(asset_path('as/scripts/layout-3.js')) }}
     {{ HTML::script(asset_path('core/scripts/home.js')) }}
@@ -67,14 +68,14 @@
         <p><i class="fa fa-2x fa-spinner fa-spin"></i></p>
     </div>
 
-    <div class="row">
+    <div class="row" id="js-business-list">
         {{-- left sidebar --}}
-        <div class="col-sm-3 col-md-3 panel" data-direction="left" id="js-business-list">
+        <div class="col-sm-3 col-md-3 panel" data-direction="left" id="js-left-sidebar">
             @include ('front.el.sidebar', ['businesses' => $businesses, 'nextPageUrl' => $nextPageUrl])
         </div>
 
         {{-- right sidebar --}}
-        <div class="col-sm-9 col-md-9 panel" data-direction="right">
+        <div class="col-sm-9 col-md-9 panel" data-direction="right" id="js-right-sidebar">
             <div class="hot-offers" id="js-hot-offers" role="tabpanel">
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
