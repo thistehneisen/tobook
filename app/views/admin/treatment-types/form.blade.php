@@ -17,7 +17,7 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist" id="language-tabs">
             @foreach (Config::get('varaa.languages') as $locale)
-            <li role="presentation" class="@if ($locale === 'fi') {{ 'active' }} @endif "><a href="#{{$locale}}" aria-controls="{{$locale}}" role="tab" data-toggle="tab">{{ trans('home.languages.'.$locale)}}</a></li>
+            <li role="presentation" class="@if ($locale === App::getLocale()) {{ 'active' }} @endif "><a href="#{{$locale}}" aria-controls="{{$locale}}" role="tab" data-toggle="tab">{{ strtoupper($locale) }}</a></li>
             @endforeach
         </ul>
         {{ Form::open(['route' => ['admin.treatment-types.upsert', isset($item->id) ? $item->id : ''], 'class' => 'form-horizontal well', 'role' => 'form']) }}
@@ -31,7 +31,7 @@
                 </div>
             </div>
             @foreach (Config::get('varaa.languages') as $locale)
-                <div role="tabpanel" class="tab-pane @if ($locale === 'fi') {{ 'active' }} @endif" id="{{ $locale }}">
+                <div role="tabpanel" class="tab-pane @if ($locale === App::getLocale()) {{ 'active' }} @endif" id="{{ $locale }}">
                     <div class="form-group">
                         <label for="price" class="col-sm-2 control-label">{{ trans('admin.master-cats.name') }}</label>
                         <div class="col-sm-5">
