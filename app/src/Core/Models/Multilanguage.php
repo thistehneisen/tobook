@@ -1,8 +1,10 @@
 <?php namespace App\Core\Models;
 
 use App\Core\Models\User;
+use App, Config, DB;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class Multilanguage extends Base
+class Multilanguage extends \Eloquent
 {
     protected $table = 'multilanguage';
 
@@ -61,6 +63,32 @@ class Multilanguage extends Base
     {
         // Overwrite to disable SoftDeleting
     }
+
+    /**
+     * Remove multilanguage for specific user_id, context, language and key
+     * @param $user_id int
+     * @param $context string
+     * @param $lang string
+     * @param $key string
+     */
+    public static function remove($user_id, $context, $lang, $key)
+    {
+        $query = Multilanguage::where('context', '=', $context)->where('key', '=' , $key);
+
+        if(!empty($user_id)) {
+            $query = $query->where('user_id', '=', $user_id);
+        }
+        if(!empty($lang)){
+            $query = $query->where('lang', '=', $lang);
+        }
+
+        $multilangs = $query->get();
+
+        foreach ($multilangs as $multilang) {
+            $multilang->forceDelete();
+        }
+    }
+
 
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
