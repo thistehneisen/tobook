@@ -1,5 +1,6 @@
 <?php namespace App\Lomake\Fields;
 
+use App;
 use Config;
 
 class HtmlMultilang extends HtmlField
@@ -37,7 +38,8 @@ class HtmlMultilang extends HtmlField
         }
 
         return \View::make('varaa-lomake::fields.html_multilang', [
-            'fields' => $fields
+            'fields' => $fields,
+            'locale' => App::getLocale(),
         ])->render();
     }
 }
