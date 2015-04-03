@@ -44,6 +44,18 @@ class TreatmentType extends \App\Appointment\Models\Base
     }
 
     /**
+     * Delete this model and its translations
+     */
+    public function delete()
+    {
+        $keys = ['name', 'description'];
+        foreach ($keys as $key) {
+            Multilanguage::remove(null, self::getContext() . $this->id, null, $key);
+        }
+        parent::delete();
+    }
+
+    /**
      * Get current context for retreive correct translation in multilanguage table
      *
      * @return string
