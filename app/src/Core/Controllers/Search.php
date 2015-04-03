@@ -1,10 +1,11 @@
 <?php namespace App\Core\Controllers;
 
 use App\Core\Models\Business;
-use Carbon\Carbon;
 use Input;
-use Settings;
+use Request;
+use Response;
 use Session;
+use Settings;
 use Util;
 
 class Search extends Front
@@ -18,11 +19,24 @@ class Search extends Front
      */
     public function index()
     {
-        $keyword    = Input::get('q');
-        $date       = Input::get('date');
-        $time       = Input::get('time');
-        $location   = Input::get('location');
-        $businesses = Business::search(e($keyword));
+        $keyword     = Input::get('q');
+        $date        = Input::get('date');
+        $time        = Input::get('time');
+        $location    = Input::get('location');
+        $businesses  = Business::search(e($keyword));
+        $nextPageUrl = $this->getNextPageUrl($businesses);
+        $view        = [
+            'businesses' => $businesses->getItems(),
+            'nextPageUrl' => $nextPageUrl,
+        ];
+
+        // If this is a Show more request, return the view only
+        if (Request::ajax()) {
+            return Response::json([
+                'businesses' => $businesses->getItems(),
+                'html'       => $this->render('el.sidebar', $view)->render()
+            ]);
+        }
 
         // Get the deals from result businesses
         $deals = $this->getDealsOfBusinesses($businesses);
@@ -39,15 +53,13 @@ class Search extends Front
             'total'    => $businesses->getTotal(),
         ]);
 
-        return $this->render('businesses', [
-            'businesses' => $businesses->getItems(),
-            'pagination' => $businesses->links(),
-            'deals'      => $deals,
-            'lat'        => $lat,
-            'lng'        => $lng,
-            'heading'    => $heading,
-            'source'     => 'search', // Indicator to toggle correct
-        ]);
+        $view['deals']       = $deals;
+        $view['lat']         = $lat;
+        $view['lng']         = $lng;
+        $view['heading']     = $heading;
+        $view['source']      = 'search'; // Indicator to toggle correc;
+
+        return $this->render('businesses', $view);
     }
 
     /**

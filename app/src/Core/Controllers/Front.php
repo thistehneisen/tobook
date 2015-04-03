@@ -5,6 +5,7 @@ use App\Core\Models\BusinessCategory;
 use App\FlashDeal\Models\FlashDeal;
 use Illuminate\Support\Collection;
 use Response;
+use Request;
 use Session;
 use Settings;
 use Util;
@@ -54,7 +55,23 @@ class Front extends Base
                 $query->whereNull('deleted_at');
             })
             ->with('user.images')
-            ->paginate();
+            ->simplePaginate();
+
+        // Calculate next page
+        $nextPageUrl = $this->getNextPageUrl($businesses);
+
+        $view = [
+            'businesses' => $businesses->getItems(),
+            'nextPageUrl' => $nextPageUrl,
+        ];
+
+        // If this is a Show more request, return the view only
+        if (Request::ajax()) {
+            return Response::json([
+                'businesses' => $businesses->getItems(),
+                'html'       => $this->render('el.sidebar', $view)->render()
+            ]);
+        }
 
         // Get deals from businesses
         $deals = $this->getDealsOfBusinesses($businesses);
@@ -62,14 +79,30 @@ class Front extends Base
         // Get lat and lng to show the map
         list($lat, $lng) = $this->extractLatLng();
 
-        return $this->render('businesses', [
-            'businesses' => $businesses->getItems(),
-            'pagination' => $businesses->links(),
-            'deals'      => $deals,
-            'lat'        => $lat,
-            'lng'        => $lng,
-            'heading'    => trans('home.businesses'),
-        ]);
+        $view['deals']   = $deals;
+        $view['lat']     = $lat;
+        $view['lng']     = $lng;
+        $view['heading'] = trans('home.businesses');
+
+        return $this->render('businesses', $view);
+    }
+
+    /**
+     * Get URL for the next page in pagination
+     *
+     * @param Illuminate\Pagination\Paginator $businesses
+     *
+     * @return string
+     */
+    protected function getNextPageUrl($businesses)
+    {
+        $current = $businesses->getCurrentPage();
+        $lastPage = $businesses->getLastPage();
+        if ($current + 1 <= $lastPage) {
+            return \URL::to($businesses->getUrl($current + 1));
+        }
+
+        return '';
     }
 
     /**
@@ -110,18 +143,34 @@ class Front extends Base
             })
             ->paginate();
 
+        $items = $businesses->lists('business');
+        // Calculate next page
+        $nextPageUrl = $this->getNextPageUrl($businesses);
+
+        // Data for view
+        $view = [
+            'businesses' => $items,
+            'nextPageUrl' => $nextPageUrl,
+        ];
+
+        // If this is a Show more request, return the view only
+        if (Request::ajax()) {
+            return Response::json([
+                'businesses' => $items,
+                'html'       => $this->render('el.sidebar', $view)->render()
+            ]);
+        }
+
         $deals = $this->getDealsOfBusinesses($businesses);
 
         list($lat, $lng) = $this->extractLatLng();
 
-        return $this->render('businesses', [
-            'businesses' => $businesses->lists('business'),
-            'pagination' => $businesses->links(),
-            'deals'      => $deals,
-            'lat'        => $lat,
-            'lng'        => $lng,
-            'heading'    => trans('home.businesses_category', ['category' => $category->name]),
-        ]);
+        $view['deals']       = $deals;
+        $view['lat']         = $lat;
+        $view['lng']         = $lng;
+        $view['heading']     = trans('home.businesses_category', ['category' => $category->name]);
+
+        return $this->render('businesses', $view);
     }
 
     /**
