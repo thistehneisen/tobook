@@ -3,8 +3,8 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddTreatmentTypeIdToAsServicesTable extends Migration {
-
+class AddTreatmentTypeIdToAsServicesTable extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -12,8 +12,7 @@ class AddTreatmentTypeIdToAsServicesTable extends Migration {
      */
     public function up()
     {
-        Schema::table('as_services', function(Blueprint $table)
-        {
+        Schema::table('as_services', function (Blueprint $table) {
             $table->unsignedInteger('treatment_type_id')
                 ->after('master_category_id')
                 ->nullable();
@@ -31,7 +30,10 @@ class AddTreatmentTypeIdToAsServicesTable extends Migration {
      */
     public function down()
     {
-        //
+        Schema::table('as_services', function (Blueprint $table) {
+            $table->dropForeign('as_services_treatment_type_id_foreign');
+            $table->dropColumn('treatment_type_id');
+        });
     }
 
 }

@@ -3,8 +3,8 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColumnMasterCategoriesToAsServicesTable extends Migration {
-
+class AddColumnMasterCategoriesToAsServicesTable extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -12,8 +12,7 @@ class AddColumnMasterCategoriesToAsServicesTable extends Migration {
      */
     public function up()
     {
-        Schema::table('as_services', function(Blueprint $table)
-        {
+        Schema::table('as_services', function (Blueprint $table) {
             $table->unsignedInteger('master_category_id')
                 ->after('category_id')
                 ->nullable();
@@ -31,7 +30,10 @@ class AddColumnMasterCategoriesToAsServicesTable extends Migration {
      */
     public function down()
     {
-        //
+        Schema::table('as_services', function (Blueprint $table) {
+            $table->dropForeign('as_services_master_category_id_foreign');
+            $table->dropColumn('master_category_id');
+        });
     }
 
 }
