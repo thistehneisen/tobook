@@ -56,7 +56,7 @@ class TreatmentTypes extends Base
      */
     public function upsert($id = null)
     {
-        $masterCat  = MasterCategory::find($id);
+        $treatmentType  = TreatmentType::find($id);
         $items = TreatmentType::where('as_treatment_types.id', '=', $id)
             ->join('multilanguage', 'multilanguage.context', '=', DB::raw("concat('" . TreatmentType::getContext() . "', `varaa_as_treatment_types`.`id`)"))->get();
 
@@ -82,7 +82,7 @@ class TreatmentTypes extends Base
             : '';
 
         return View::make('admin.treatment-types.form', [
-            'item'       => $masterCat,
+            'item'       => $treatmentType,
             'data'       => $data,
             'tabsView'   => $tabsView,
             'routes'     => static::$crudRoutes,
