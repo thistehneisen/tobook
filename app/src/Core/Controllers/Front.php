@@ -56,13 +56,9 @@ class Front extends Base
             })
             ->with('user.images')
             ->simplePaginate();
+
         // Calculate next page
-        $nextPageUrl = '';
-        $current = $businesses->getCurrentPage();
-        $lastPage = $businesses->getLastPage();
-        if ($current + 1 <= $lastPage) {
-            $nextPageUrl = \URL::to($businesses->getUrl($current + 1));
-        }
+        $nextPageUrl = $this->getNextPageUrl($businesses);
 
         // If this is a Show more request, return the view only
         if (Request::ajax()) {
@@ -90,6 +86,17 @@ class Front extends Base
             'heading'    => trans('home.businesses'),
             'nextPageUrl' => $nextPageUrl,
         ]);
+    }
+
+    protected function getNextPageUrl($businesses)
+    {
+        $current = $businesses->getCurrentPage();
+        $lastPage = $businesses->getLastPage();
+        if ($current + 1 <= $lastPage) {
+            return \URL::to($businesses->getUrl($current + 1));
+        }
+
+        return '';
     }
 
     /**
@@ -130,17 +137,33 @@ class Front extends Base
             })
             ->paginate();
 
+        $items = $businesses->lists('business');
+        // Calculate next page
+        $nextPageUrl = $this->getNextPageUrl($businesses);
+
+        // If this is a Show more request, return the view only
+        if (Request::ajax()) {
+            return Response::json([
+                'businesses' => $items,
+                'html'       => $this->render('el.sidebar', [
+                    'businesses' => $items,
+                    'nextPageUrl' => $nextPageUrl
+                ])->render()
+            ]);
+        }
+
         $deals = $this->getDealsOfBusinesses($businesses);
 
         list($lat, $lng) = $this->extractLatLng();
 
         return $this->render('businesses', [
-            'businesses' => $businesses->lists('business'),
-            'pagination' => $businesses->links(),
-            'deals'      => $deals,
-            'lat'        => $lat,
-            'lng'        => $lng,
-            'heading'    => trans('home.businesses_category', ['category' => $category->name]),
+            'businesses'  => $items,
+            'pagination'  => '',
+            'nextPageUrl' => $nextPageUrl,
+            'deals'       => $deals,
+            'lat'         => $lat,
+            'lng'         => $lng,
+            'heading'     => trans('home.businesses_category', ['category' => $category->name]),
         ]);
     }
 

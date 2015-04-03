@@ -1,10 +1,11 @@
 <?php namespace App\Core\Controllers;
 
 use App\Core\Models\Business;
-use Carbon\Carbon;
 use Input;
-use Settings;
+use Request;
+use Response;
 use Session;
+use Settings;
 use Util;
 
 class Search extends Front
@@ -23,6 +24,18 @@ class Search extends Front
         $time       = Input::get('time');
         $location   = Input::get('location');
         $businesses = Business::search(e($keyword));
+        $nextPageUrl = $this->getNextPageUrl($businesses);
+
+        // If this is a Show more request, return the view only
+        if (Request::ajax()) {
+            return Response::json([
+                'businesses' => $businesses->getItems(),
+                'html'       => $this->render('el.sidebar', [
+                    'businesses' => $businesses->getItems(),
+                    'nextPageUrl' => $nextPageUrl
+                ])->render()
+            ]);
+        }
 
         // Get the deals from result businesses
         $deals = $this->getDealsOfBusinesses($businesses);
@@ -46,6 +59,7 @@ class Search extends Front
             'lat'        => $lat,
             'lng'        => $lng,
             'heading'    => $heading,
+            'nextPageUrl' => $nextPageUrl,
             'source'     => 'search', // Indicator to toggle correct
         ]);
     }
