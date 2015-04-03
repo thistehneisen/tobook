@@ -49,8 +49,13 @@ class VaraaSearch
 
     if markers?
       for marker in markers
-        gmap.addMarkers markers
-    gmap
+        do (marker) ->
+          obj = gmap.addMarker marker
+          google.maps.event.addListener gmap.map, 'center_changed', (e) ->
+            center = gmap.map.getCenter()
+            if center.equals new google.maps.LatLng marker.lat, marker.lng
+              obj.infoWindow.open gmap.map, obj
+    return gmap
 
   ###*
    * Display businesses on the map
@@ -65,10 +70,14 @@ class VaraaSearch
     $single  = $ '#js-business-single'
     $heading = $ '#js-business-heading'
 
+    # Fixed top
+    $ '#js-hot-offers'
+      .sticky topSpacing: 10
+
     $map.show()
     # Render the map
     markers = @extractMarkers @businesses
-    @renderMap $map.attr('id'), @lat, @lng, markers
+    gmap = @renderMap $map.attr('id'), @lat, @lng, markers
 
     # When user clicks on the heading to return back to business listing
     $heading.on 'click', (e) ->
@@ -82,69 +91,83 @@ class VaraaSearch
       $heading.find 'i'
         .hide()
 
-    # Attach event handler
+    # Attach event handlers
+    businessOnClick = (e) ->
+      e.preventDefault()
+      $$ = $ @
+      businessId = $$.data 'id'
+      delay = (ms, fn) -> setTimeout fn, ms
+      slidePanel = ->
+        $list.find '.panel'
+          .each ->
+            $$ = $ @
+            $$.hide 'slide', direction: $$.data('direction'), 700
+
+      # open result as a full page load instead of ajax if the browser width
+      # is too small
+      if $(window).width() < 768
+        # sidebar should be less than a third of the container!
+        window.location = $$.data 'url'
+        return
+
+      # If the current content is of this business, we don't need to fire
+      # another AJAX
+      if $list.data('current-business-id') == businessId
+        slidePanel()
+        delay 700, ->
+          $single.show 'fade'
+          # Show chevron as indicator to click back
+          $heading.find 'i'
+            .show()
+        return
+
+      # Highlight selected row
+      $ 'div.js-business'
+        .removeClass 'selected'
+      $$.addClass 'selected'
+
+      $loading.show()
+
+      # Load information of this business
+      $.ajax
+        url: $$.data 'url'
+        type: 'GET'
+      .done (html) ->
+        $loading.hide()
+        slidePanel()
+        delay 700, ->
+          # Replace the whole page with business page
+          $single.html html
+          $single.show 'fade'
+          # Show chevron as indicator to click back
+          $heading.find 'i'
+            .show()
+
+          VARAA.initLayout3()
+
+          # Set current business flag
+          $list.data 'current-business-id', businessId
+
+          # Render the map
+          $bmap = $ "#js-map-#{businessId}"
+          lat = $bmap.data 'lat'
+          lng = $bmap.data 'lng'
+          self.renderMap $bmap.attr('id'), lat, lng, [lat: lat, lng: lng]
+    businessOnHover = (e) ->
+      $$ = $ @
+      lat = $$.data 'lat'
+      lng = $$.data 'lng'
+
+      for marker in gmap.markers
+        do (marker) ->
+          marker.infoWindow.close()
+
+      gmap.setCenter lat, lng
+
     $ 'div.js-business'
-      .on 'click', (e) ->
-        e.preventDefault()
-        $$ = $ @
-        businessId = $$.data 'id'
-        delay = (ms, fn) -> setTimeout fn, ms
-        slidePanel = ->
-          $list.find '.panel'
-            .each ->
-              $$ = $ @
-              $$.hide 'slide', direction: $$.data('direction'), 700
+      .on 'click', businessOnClick
+      .hover businessOnHover
 
-        # open result as a full page load instead of ajax if the browser width
-        # is too small
-        if $(window).width() < 768
-          # sidebar should be less than a third of the container!
-          window.location = $$.data 'url'
-          return
-
-        # If the current content is of this business, we don't need to fire
-        # another AJAX
-        if $list.data('current-business-id') == businessId
-          slidePanel()
-          delay 700, ->
-            $single.show 'fade'
-            # Show chevron as indicator to click back
-            $heading.find 'i'
-              .show()
-          return
-
-        # Highlight selected row
-        $ 'div.js-business'
-          .removeClass 'selected'
-        $$.addClass 'selected'
-
-        $loading.show()
-
-        # Load information of this business
-        $.ajax
-          url: $$.data 'url'
-          type: 'GET'
-        .done (html) ->
-          $loading.hide()
-          slidePanel()
-          delay 700, ->
-            # Replace the whole page with business page
-            $single.html html
-            $single.show 'fade'
-            # Show chevron as indicator to click back
-            $heading.find 'i'
-              .show()
-
-            VARAA.initLayout3()
-
-            # Set current business flag
-            $list.data 'current-business-id', businessId
-
-            # Render the map
-            $bmap = $ "#js-map-#{businessId}"
-            lat = $bmap.data 'lat'
-            lng = $bmap.data 'lng'
-            self.renderMap $bmap.attr('id'), lat, lng, [lat: lat, lng: lng]
   ###*
    * Extract pairs of lat and lng values to be show as markers on the map
    *
@@ -159,7 +182,9 @@ class VaraaSearch
         lat: business.lat
         lng: business.lng
         title: business.name
-    markers
+        infoWindow:
+          content: "<p><strong>#{business.name}</strong></p><p>#{business.full_address}</p>"
+    return markers
 
 # Start the game
 search = new VaraaSearch VARAA.Search

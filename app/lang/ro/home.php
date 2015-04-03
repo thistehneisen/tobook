@@ -84,8 +84,10 @@ return [
     'categories'          => 'Categories', // @todo
     'best_offers'         => 'Best offers', // @todo
     'no_offers'           => 'There is no offer available.', // @todo
+    'map'                 => 'Map', // @todo
     // Business
     'business' => [
+        'about'          => 'About', // @todo
         'openning_hours' => 'Openning hours', // @todo
         'map'            => 'Map', // @todo
         'phone'          => 'Phone', // @todo

@@ -84,8 +84,10 @@ return [
     'categories'          => 'Kategoriat',
     'best_offers'         => 'Parhaat tarjoukset',
     'no_offers'           => 'Tarjouksia ei ole saatavilla.',
+    'map'                 => 'Kartta',
     // Business
     'business' => [
+        'about'          => 'About', // @todo
         'openning_hours' => 'Openning hours', // @todo
         'map'            => 'Map', // @todo
         'phone'          => 'Phone', // @todo

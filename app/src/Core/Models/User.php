@@ -248,7 +248,7 @@ class User extends ConfideUser implements SearchableInterface
             $consumer->saveOrFail();
         }
 
-        $this->consumer()->associate($consumer);
+        $this->consumer()->associate($consumer)->save();
     }
 
     /**
@@ -405,7 +405,7 @@ class User extends ConfideUser implements SearchableInterface
         // Pull out business information
         if ($this->is_business && $this->business !== null) {
             $data['business'] = $this->business->name;
-        } elseif ($this->is_consumer) {
+        } elseif ($this->is_consumer && !$this->consumer) {
             $data['consumer'] = $this->consumer->name;
         }
 

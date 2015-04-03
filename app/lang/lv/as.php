@@ -246,7 +246,7 @@ return [
         'sv_version'       => 'Swedish',
         'book'             => 'Rezervēt',
         'loading'          => 'Now loading&hellip;',
-        'success'          => 'Rezervācija ir veiksmīga. Paldies par sadarbību!',
+        'success'          => 'Paldies par rezervāciju! Rezervācijas apstiprinājums tiks nosūtīts uz Jūsu norādīto e-pastu.',
         'confirm'          => 'Apstiprināt rezervāciju',
         'layout_2'         => [
             'select_service'      => 'Izvēlieties pakalpojumu un datumu',

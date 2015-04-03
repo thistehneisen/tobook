@@ -12,7 +12,7 @@ class AddColumnMasterCategoriesToAsServicesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('as_services', function(Blueprint $table)
+        Schema::table('as_services', function(Blueprint $table)
         {
             $table->unsignedInteger('master_category_id')
                 ->after('category_id')
@@ -33,5 +33,4 @@ class AddColumnMasterCategoriesToAsServicesTable extends Migration {
 	{
 		//
 	}
-
 }

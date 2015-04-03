@@ -8,6 +8,7 @@
             <th>{{ trans('user.profile.start_time') }}</th>
             <th>{{ trans('user.profile.end_time') }}</th>
             <th>{{ trans('user.profile.extra') }}</th>
+            <th>{{ trans('user.profile.hide_working_hours') }}</th>
         </tr>
     </thead>
 
@@ -23,6 +24,9 @@
             </td>
             <td>
                 {{ Form::text("working_hours[$day][extra]", $option['extra'], ['class' => 'form-control input-sm']) }}
+            </td>
+            <td>
+                {{ Form::checkbox("working_hours[$day][hidden]", 1, isset($option['hidden']) ? (bool) $option['hidden'] : false, ['class' => 'form-control input-sm']) }}
             </td>
         </tr>
     @endforeach

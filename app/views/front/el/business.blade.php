@@ -9,7 +9,7 @@
         </div>
 
     @if (!empty($business->description))
-        <h3 class="sub-heading">About</h3>
+        <h3 class="sub-heading">{{ trans('home.business.about') }}</h3>
         <div class="description">
             {{ $business->description_html }}
         </div>
@@ -26,7 +26,7 @@
             {{-- `$inhouse = true` means that we'll show login/register secion in step 4 --}}
             <input type="hidden" id="business_id" value="{{ $business->id }}">
             <input type="hidden" id="business_hash" value="{{ $business->user->hash }}">
-            @include('modules.as.embed.layout-3.main', ['inhouse' => Settings::get('enable_cart'), 'hash' => $business->user->hash])
+            @include('modules.as.embed.layout-3.main', ['inhouse' => Settings::get('enable_cart'), 'hash' => $business->user->hash, 'allInput' => ['l' => 3, 'hash' => $business->user->hash]])
         </div>
         @endif
     @endif
@@ -42,11 +42,17 @@
                     @foreach ($business->working_hours_array as $day => $value)
                         <tr>
                             <td>{{ trans('common.short.'.$day) }}</td>
-                            <td>{{ $value['formatted'] or '' }}</td>
-                            <td>
+                        @if (isset($value['hidden']) && (bool) $value['hidden'] === true)
+                            <td colspan="2">
                                 @if (!empty($value['extra'])) {{{ $value['extra'] }}}
                                 @endif
                             </td>
+                        @else
+                            <td><p>{{ $value['formatted'] or '' }}</p>
+                                @if (!empty($value['extra'])) <span class="text-info">{{{ $value['extra'] }}}</span>
+                                @endif
+                            </td>
+                        @endif
                         </tr>
                     @endforeach
                     </tbody>

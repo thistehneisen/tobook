@@ -55,8 +55,8 @@
         {{ $lomake->open() }}
             @foreach ($lomake->fields as $field)
                 <div class="form-group row {{ Form::errorCSS($field->name, $errors) }}">
-                    {{ Form::label($field->name, $field->label, ['class' => 'col-sm-3 control-label']) }}
-                    <div class="col-sm-8">
+                    {{ Form::label($field->name, $field->label, ['class' => 'col-sm-4 control-label']) }}
+                    <div class="col-sm-7">
                     {{ $field }}
                     <!-- Validation error -->
                     {{ Form::errorText($field->name, $errors) }}

@@ -84,8 +84,10 @@ return [
     'categories'          => 'Categories', // @todo
     'best_offers'         => 'Erbjudanden',
     'no_offers'           => 'Det finns inga erbjudanden',
+    'map'                 => 'Map', // @todo
     // Business
     'business' => [
+        'about'          => 'About', // @todo
         'openning_hours' => 'Openning hours', // @todo
         'map'            => 'Map', // @todo
         'phone'          => 'Phone', // @todo

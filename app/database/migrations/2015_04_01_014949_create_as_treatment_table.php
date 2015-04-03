@@ -12,7 +12,7 @@ class CreateAsTreatmentTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('as_treatment_types', function(Blueprint $table)
+        Schema::create('as_treatment_types', function(Blueprint $table)
         {
             $table->increments('id');
             $table->unsignedInteger('master_category_id');
@@ -37,5 +37,4 @@ class CreateAsTreatmentTable extends Migration {
 	{
 		Schema::drop('as_treatment_types');
 	}
-
 }

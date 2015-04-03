@@ -17,11 +17,12 @@ class PaymentSuccessListener
     {
         $cart = $transaction->cart;
         if ($cart === null) {
+            Log::debug('Cannot complete AS booking because the cart is empty', ['transaction' => $transaction]);
             // Nothing to do with this
             return;
         }
 
-        // set cart status
+        // Complete the cart
         $cart->complete();
 
         // Find all booking service IDs
