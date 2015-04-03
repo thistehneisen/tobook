@@ -48,14 +48,17 @@ class VaraaSearch
       zoom: 8
 
     if markers?
-      for marker in markers
-        do (marker) ->
-          obj = gmap.addMarker marker
-          google.maps.event.addListener gmap.map, 'center_changed', (e) ->
-            center = gmap.map.getCenter()
-            if center.equals new google.maps.LatLng marker.lat, marker.lng
-              obj.infoWindow.open gmap.map, obj
+      @addMarkers gmap, markers
     return gmap
+
+  addMarkers: (gmap, markers) ->
+    for marker in markers
+      do (marker) ->
+        obj = gmap.addMarker marker
+        google.maps.event.addListener gmap.map, 'center_changed', (e) ->
+          center = gmap.map.getCenter()
+          if center.equals new google.maps.LatLng marker.lat, marker.lng
+            obj.infoWindow.open gmap.map, obj
 
   ###*
    * Display businesses on the map
@@ -108,11 +111,14 @@ class VaraaSearch
 
       $.ajax
         url: $$.attr 'href'
+        dataType: 'JSON'
       .done (data) ->
         # Remove the old Show more button
         $leftSidebar.find 'nav.show-more'
           .remove()
-        $leftSidebar.append data
+        $leftSidebar.append data.html
+        # Add markers on the map
+        self.addMarkers gmap, self.extractMarkers data.businesses
 
     # Define event handlers for business in result list
 

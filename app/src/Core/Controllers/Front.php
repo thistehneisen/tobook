@@ -66,9 +66,12 @@ class Front extends Base
 
         // If this is a Show more request, return the view only
         if (Request::ajax()) {
-            return $this->render('el.sidebar', [
-                'businesses' => $businesses,
-                'nextPageUrl' => $nextPageUrl
+            return Response::json([
+                'businesses' => $businesses->getItems(),
+                'html'       => $this->render('el.sidebar', [
+                    'businesses' => $businesses,
+                    'nextPageUrl' => $nextPageUrl
+                ])->render()
             ]);
         }
 
