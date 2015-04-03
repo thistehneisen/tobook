@@ -96,4 +96,9 @@ class TreatmentType extends \App\Appointment\Models\Base
     {
         return $this->hasMany('App\Appointment\Models\Service');
     }
+
+    public function masterCategory()
+    {
+        return $this->belongsTo('App\Appointment\Models\Service');
+    }
 }
