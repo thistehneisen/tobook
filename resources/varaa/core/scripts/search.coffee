@@ -98,6 +98,12 @@ class VaraaSearch
       e.preventDefault()
       $$ = $ @
 
+      # Hide the text, show the loading
+      $$.children 'span'
+        .hide()
+      $$.children 'i'
+        .show()
+
       $.ajax
         url: $$.attr 'href'
       .done (data) ->

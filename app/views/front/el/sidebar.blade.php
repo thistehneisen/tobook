@@ -19,6 +19,9 @@
 
 @if (!empty($nextPageUrl))
 <nav class="text-center show-more">
-    <a id="js-show-more" href="{{ $nextPageUrl }}" class="btn btn-default btn-block">Show More</a>
+    <a id="js-show-more" href="{{ $nextPageUrl }}" class="btn btn-default btn-block">
+    <span>Show More</span>
+    <i class="fa fa-2x fa-spinner fa-spin" style="display: none;"></i>
+    </a>
 </nav>
 @endif
