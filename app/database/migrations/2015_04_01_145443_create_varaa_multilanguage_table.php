@@ -16,6 +16,9 @@ class CreateVaraaMultilanguageTable extends Migration {
         {
             $table->increments('id');
             $table->unsignedInteger('user_id')->nullable();
+            $table->unsignedInteger('master_category_id')
+                ->after('category_id')
+                ->nullable();
             $table->string('context');
             $table->string('lang');
             $table->string('key');
@@ -29,7 +32,10 @@ class CreateVaraaMultilanguageTable extends Migration {
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
-
+            $table->foreign('master_category_id')
+                ->references('id')
+                ->on('as_master_categories')
+                ->onDelete('set null');
         });
 	}
 
