@@ -54,7 +54,6 @@ class MasterCategory extends \App\Core\Models\Base
 
     public function getDescriptionAttribute()
     {
-
         $multilang = Multilanguage::where('lang', '=', App::getLocale())
             ->where('context', '=', self::getContext() . $this->id)
             ->where('key', '=' ,'description')
