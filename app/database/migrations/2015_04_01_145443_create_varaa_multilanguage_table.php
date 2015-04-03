@@ -29,6 +29,7 @@ class CreateVaraaMultilanguageTable extends Migration {
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
+
         });
 	}
 

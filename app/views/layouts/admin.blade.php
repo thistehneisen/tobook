@@ -22,6 +22,13 @@
                 <li><a href="{{ route('admin.create') }}"><i class="fa fa-plus"></i> {{ trans('admin.nav.admin') }}</a></li>
                 <li><a href="{{ route('admin.users.index') }}"><i class="fa fa-users"></i> {{ trans('admin.nav.users') }}</a></li>
                 <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-book"></i> {{ trans('admin.nav.master_categories') }} <span class="caret"></span></a>
+                     <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{ route('admin.master-cats.index') }}"><i class="fa fa-book"></i> {{ trans('admin.nav.master_categories') }}</a></li>
+                        <li><a href="{{ route('admin.treatment-types.index') }}"><i class="fa fa-tags"></i> {{ trans('admin.nav.treatment_types') }}</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-bar-chart"></i> {{ trans('admin.nav.stats') }} <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="{{ route('admin.stats.fd') }}"><i class="fa fa-flash"></i> {{ trans('admin.nav.flash_deals') }}</a></li>
