@@ -8,12 +8,10 @@
             <p><img src="{{ $business->image }}" alt=""></p>
         </div>
 
-    @if (!empty($business->description))
         <h3 class="sub-heading">{{ trans('home.business.about') }}</h3>
         <div class="description">
             {{ $business->description_html }}
         </div>
-    @endif
     </div>
 
     {{-- right sidebar --}}

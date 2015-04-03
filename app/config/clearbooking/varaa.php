@@ -12,6 +12,7 @@ $head_script = "<script>
 return [
     'name' => 'EnklareBokning',
     'languages' => ['sv', 'en', 'fi'],
+    'default_language' => 'sv',
     'meta' => [
         'title' => 'EnklareBokning | Boka tid för allt',
         'description' => 'Boka tid för massage, klippning, däckbyte, m.m. Sök bland anslutna företag på din ort. Tillhandahålls av ClearSense.',
