@@ -56,9 +56,11 @@ class TreatmentTypes extends Base
      */
     public function upsert($id = null)
     {
-        $masterCat  = MasterCategory::find($id);
+        $treatmentType  = TreatmentType::find($id);
         $items = TreatmentType::where('as_treatment_types.id', '=', $id)
             ->join('multilanguage', 'multilanguage.context', '=', DB::raw("concat('" . TreatmentType::getContext() . "', `varaa_as_treatment_types`.`id`)"))->get();
+
+        $masterCategories = MasterCategory::get()->lists('name', 'id');
 
         $data = [];
         foreach (Config::get('varaa.languages') as $locale){
@@ -82,14 +84,15 @@ class TreatmentTypes extends Base
             : '';
 
         return View::make('admin.treatment-types.form', [
-            'item'       => $masterCat,
-            'data'       => $data,
-            'tabsView'   => $tabsView,
-            'routes'     => static::$crudRoutes,
-            'scripts'    => $scriptsView,
-            'langPrefix' => $langPrefix,
-            'showTab'    => $this->getOlutOptions('showTab', true),
-            'now'        => Carbon::now()
+            'item'             => $treatmentType,
+            'masterCategories' => $masterCategories,
+            'data'             => $data,
+            'tabsView'         => $tabsView,
+            'routes'           => static::$crudRoutes,
+            'scripts'          => $scriptsView,
+            'langPrefix'       => $langPrefix,
+            'showTab'          => $this->getOlutOptions('showTab', true),
+            'now'              => Carbon::now()
         ]);
     }
 
@@ -100,11 +103,15 @@ class TreatmentTypes extends Base
     {
         $names = Input::get('name');
         $descriptions = Input::get('description');
+        $masterCategoryId = Input::get('master_category_id');
 
         try{
+            $masterCategory = MasterCategory::find($masterCategoryId);
+
             $treatmentType->fill([
                 'order' => 1
             ]);
+            $treatmentType->masterCategory()->associate($masterCategory);
             $treatmentType->save();
             $treatmentType->saveMultilanguage($names, $descriptions);
         } catch(\Exception $ex){
