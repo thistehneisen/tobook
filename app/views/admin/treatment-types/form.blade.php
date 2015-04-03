@@ -22,6 +22,14 @@
         </ul>
         {{ Form::open(['route' => ['admin.treatment-types.upsert', isset($item->id) ? $item->id : ''], 'class' => 'form-horizontal well', 'role' => 'form']) }}
             <div class="tab-content">
+            <div class="form-group">
+                <label for="master_category" class="col-sm-2 control-label">{{ trans('admin.treatment-types.master_category') }}</label>
+                <div class="col-sm-5">
+                    <div class="input-group">
+                        {{ Form::select('master_category_id', [trans('common.options_select')]+$masterCategories, isset($item->master_category_id) ? $item->master_category_id :0, ['class' => 'form-control input-sm', 'id' => 'master_category_id']) }}
+                    </div>
+                </div>
+            </div>
             @foreach (Config::get('varaa.languages') as $locale)
                 <div role="tabpanel" class="tab-pane @if ($locale === 'fi') {{ 'active' }} @endif" id="{{ $locale }}">
                     <div class="form-group">
