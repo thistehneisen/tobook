@@ -63,18 +63,20 @@ class VaraaSearch
    * @return {void}
   ###
   showBusinesses: ->
-    self     = @
-    $loading = $ '#js-loading'
-    $list    = $ '#js-business-list'
-    $map     = $ '#js-map-canvas'
-    $single  = $ '#js-business-single'
-    $heading = $ '#js-business-heading'
+    self      = @
+    $loading  = $ '#js-loading'
+    $list     = $ '#js-business-list'
+    $map      = $ '#js-map-canvas'
+    $single   = $ '#js-business-single'
+    $heading  = $ '#js-business-heading'
 
     # Fixed top
     $ '#js-hot-offers'
       .sticky topSpacing: 10
 
+    # Show the map containing all businesses in the result
     $map.show()
+
     # Render the map
     markers = @extractMarkers @businesses
     gmap = @renderMap $map.attr('id'), @lat, @lng, markers
@@ -91,7 +93,28 @@ class VaraaSearch
       $heading.find 'i'
         .hide()
 
-    # Attach event handlers
+    # When user clicks on Show more button
+    $list.on 'click', '#js-show-more', (e) ->
+      e.preventDefault()
+      $$ = $ @
+
+      $.ajax
+        url: $$.attr 'href'
+      .done (data) ->
+        # Remove the old Show more button
+        $list.find 'nav.show-more'
+          .remove()
+        $list.append data
+
+    # Define event handlers for business in result list
+
+    ###*
+     * Click on a business will load its details and show immediately
+     *
+     * @param  {EventObject} e
+     *
+     * @return {void}
+    ###
     businessOnClick = (e) ->
       e.preventDefault()
       $$ = $ @
@@ -153,6 +176,13 @@ class VaraaSearch
           lat = $bmap.data 'lat'
           lng = $bmap.data 'lng'
           self.renderMap $bmap.attr('id'), lat, lng, [lat: lat, lng: lng]
+    ###*
+     * Hover on a business will highlight its position on the map
+     *
+     * @param  {EventObject} e
+     *
+     * @return {void}
+    ###
     businessOnHover = (e) ->
       $$ = $ @
       lat = $$.data 'lat'
@@ -164,6 +194,8 @@ class VaraaSearch
 
       gmap.setCenter lat, lng
 
+    # Attach event handlers when user hovers or clicks on a business in the
+    # result list
     $ 'div.js-business'
       .on 'click', businessOnClick
       .hover businessOnHover

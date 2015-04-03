@@ -5,6 +5,7 @@ use App\Core\Models\BusinessCategory;
 use App\FlashDeal\Models\FlashDeal;
 use Illuminate\Support\Collection;
 use Response;
+use Request;
 use Session;
 use Settings;
 use Util;
@@ -55,14 +56,6 @@ class Front extends Base
             })
             ->with('user.images')
             ->simplePaginate();
-            // dd($businesses->toJson());
-
-        // Get deals from businesses
-        $deals = $this->getDealsOfBusinesses($businesses);
-
-        // Get lat and lng to show the map
-        list($lat, $lng) = $this->extractLatLng();
-
         // Calculate next page
         $nextPageUrl = '';
         $current = $businesses->getCurrentPage();
@@ -70,6 +63,20 @@ class Front extends Base
         if ($current + 1 <= $lastPage) {
             $nextPageUrl = \URL::to($businesses->getUrl($current + 1));
         }
+
+        // If this is a Show more request, return the view only
+        if (Request::ajax()) {
+            return $this->render('el.sidebar', [
+                'businesses' => $businesses,
+                'nextPageUrl' => $nextPageUrl
+            ]);
+        }
+
+        // Get deals from businesses
+        $deals = $this->getDealsOfBusinesses($businesses);
+
+        // Get lat and lng to show the map
+        list($lat, $lng) = $this->extractLatLng();
 
         return $this->render('businesses', [
             'businesses' => $businesses->getItems(),
