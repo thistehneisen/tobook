@@ -19,21 +19,22 @@ class Search extends Front
      */
     public function index()
     {
-        $keyword    = Input::get('q');
-        $date       = Input::get('date');
-        $time       = Input::get('time');
-        $location   = Input::get('location');
-        $businesses = Business::search(e($keyword));
+        $keyword     = Input::get('q');
+        $date        = Input::get('date');
+        $time        = Input::get('time');
+        $location    = Input::get('location');
+        $businesses  = Business::search(e($keyword));
         $nextPageUrl = $this->getNextPageUrl($businesses);
+        $view        = [
+            'businesses' => $businesses->getItems(),
+            'nextPageUrl' => $nextPageUrl,
+        ];
 
         // If this is a Show more request, return the view only
         if (Request::ajax()) {
             return Response::json([
                 'businesses' => $businesses->getItems(),
-                'html'       => $this->render('el.sidebar', [
-                    'businesses' => $businesses->getItems(),
-                    'nextPageUrl' => $nextPageUrl
-                ])->render()
+                'html'       => $this->render('el.sidebar', $view)->render()
             ]);
         }
 
@@ -52,16 +53,13 @@ class Search extends Front
             'total'    => $businesses->getTotal(),
         ]);
 
-        return $this->render('businesses', [
-            'businesses' => $businesses->getItems(),
-            'pagination' => $businesses->links(),
-            'deals'      => $deals,
-            'lat'        => $lat,
-            'lng'        => $lng,
-            'heading'    => $heading,
-            'nextPageUrl' => $nextPageUrl,
-            'source'     => 'search', // Indicator to toggle correct
-        ]);
+        $view['deals']       = $deals;
+        $view['lat']         = $lat;
+        $view['lng']         = $lng;
+        $view['heading']     = $heading;
+        $view['source']      = 'search'; // Indicator to toggle correc;
+
+        return $this->render('businesses', $view);
     }
 
     /**

@@ -60,14 +60,16 @@ class Front extends Base
         // Calculate next page
         $nextPageUrl = $this->getNextPageUrl($businesses);
 
+        $view = [
+            'businesses' => $businesses->getItems(),
+            'nextPageUrl' => $nextPageUrl,
+        ];
+
         // If this is a Show more request, return the view only
         if (Request::ajax()) {
             return Response::json([
                 'businesses' => $businesses->getItems(),
-                'html'       => $this->render('el.sidebar', [
-                    'businesses' => $businesses,
-                    'nextPageUrl' => $nextPageUrl
-                ])->render()
+                'html'       => $this->render('el.sidebar', $view)->render()
             ]);
         }
 
@@ -77,17 +79,21 @@ class Front extends Base
         // Get lat and lng to show the map
         list($lat, $lng) = $this->extractLatLng();
 
-        return $this->render('businesses', [
-            'businesses' => $businesses->getItems(),
-            'pagination' => '',
-            'deals'      => $deals,
-            'lat'        => $lat,
-            'lng'        => $lng,
-            'heading'    => trans('home.businesses'),
-            'nextPageUrl' => $nextPageUrl,
-        ]);
+        $view['deals']   = $deals;
+        $view['lat']     = $lat;
+        $view['lng']     = $lng;
+        $view['heading'] = trans('home.businesses');
+
+        return $this->render('businesses', $view);
     }
 
+    /**
+     * Get URL for the next page in pagination
+     *
+     * @param Illuminate\Pagination\Paginator $businesses
+     *
+     * @return string
+     */
     protected function getNextPageUrl($businesses)
     {
         $current = $businesses->getCurrentPage();
@@ -141,14 +147,17 @@ class Front extends Base
         // Calculate next page
         $nextPageUrl = $this->getNextPageUrl($businesses);
 
+        // Data for view
+        $view = [
+            'businesses' => $items,
+            'nextPageUrl' => $nextPageUrl,
+        ];
+
         // If this is a Show more request, return the view only
         if (Request::ajax()) {
             return Response::json([
                 'businesses' => $items,
-                'html'       => $this->render('el.sidebar', [
-                    'businesses' => $items,
-                    'nextPageUrl' => $nextPageUrl
-                ])->render()
+                'html'       => $this->render('el.sidebar', $view)->render()
             ]);
         }
 
@@ -156,15 +165,12 @@ class Front extends Base
 
         list($lat, $lng) = $this->extractLatLng();
 
-        return $this->render('businesses', [
-            'businesses'  => $items,
-            'pagination'  => '',
-            'nextPageUrl' => $nextPageUrl,
-            'deals'       => $deals,
-            'lat'         => $lat,
-            'lng'         => $lng,
-            'heading'     => trans('home.businesses_category', ['category' => $category->name]),
-        ]);
+        $view['deals']       = $deals;
+        $view['lat']         = $lat;
+        $view['lng']         = $lng;
+        $view['heading']     = trans('home.businesses_category', ['category' => $category->name]);
+
+        return $this->render('businesses', $view);
     }
 
     /**
