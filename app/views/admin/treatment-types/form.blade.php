@@ -25,9 +25,7 @@
             <div class="form-group">
                 <label for="master_category" class="col-sm-2 control-label">{{ trans('admin.treatment-types.master_category') }}</label>
                 <div class="col-sm-5">
-                    <div class="input-group">
-                        {{ Form::select('master_category_id', [trans('common.options_select')]+$masterCategories, isset($item->master_category_id) ? $item->master_category_id :0, ['class' => 'form-control input-sm', 'id' => 'master_category_id']) }}
-                    </div>
+                    {{ Form::select('master_category_id', [trans('common.options_select')]+$masterCategories, isset($item->master_category_id) ? $item->master_category_id :0, ['class' => 'form-control input-sm', 'id' => 'master_category_id']) }}
                 </div>
             </div>
             @foreach (Config::get('varaa.languages') as $locale)
@@ -35,17 +33,13 @@
                     <div class="form-group">
                         <label for="price" class="col-sm-2 control-label">{{ trans('admin.master-cats.name') }}</label>
                         <div class="col-sm-5">
-                            <div class="input-group">
-                                {{ Form::text('name[' . $locale .']', !empty($data[$locale]['name']) ? ($data[$locale]['name']) : '', ['class' => 'form-control input-sm']) }}
-                            </div>
+                            {{ Form::text('name[' . $locale .']', !empty($data[$locale]['name']) ? ($data[$locale]['name']) : '', ['class' => 'form-control input-sm']) }}
                         </div>
                     </div>
                    <div class="form-group">
                         <label for="description" class="col-sm-2 control-label">{{ trans('admin.master-cats.description') }}</label>
                         <div class="col-sm-5">
-                            <div class="input-group">
-                                {{ Form::textarea('description[' . $locale .']', !empty($data[$locale]['description']) ? ($data[$locale]['description']) : '', ['class' => 'form-control input-sm']) }}
-                            </div>
+                            {{ Form::textarea('description[' . $locale .']', !empty($data[$locale]['description']) ? ($data[$locale]['description']) : '', ['class' => 'form-control input-sm']) }}
                         </div>
                     </div>
                 </div>
