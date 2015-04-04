@@ -5,6 +5,7 @@ use App, DB, Input, Config;
 use Illuminate\Support\Collection;
 use App\Core\Models\Multilanguage;
 use App\Appointment\Models\Reception\BackendReceptionist;
+use App\Core\Traits\MultilanguageTrait;
 
 class TreatmentType extends \App\Appointment\Models\Base
 {
@@ -70,22 +71,24 @@ class TreatmentType extends \App\Appointment\Models\Base
     //--------------------------------------------------------------------------
     public function getNameAttribute()
     {
-        $multilang = Multilanguage::where('lang', '=', App::getLocale())
-            ->where('context', '=', self::getContext() . $this->id)
-            ->where('key', '=' ,'name')
-            ->first();
+        $name = $this->translate('name', self::getContext() . $this->id, App::getLocale());
 
-        return (!empty($multilang->value)) ? $multilang->value : trans('admin.master-cats.translation_not_found');
+        if(empty($name)){
+            $name = $this->translate('name', self::getContext() . $this->id, Config::get('varaa.default_language'));
+        }
+
+        return (!empty($name)) ? $name : trans('admin.master-cats.translation_not_found');
     }
 
     public function getDescriptionAttribute()
     {
+        $description = $this->translate('description', self::getContext() . $this->id, App::getLocale());
 
-        $multilang = Multilanguage::where('lang', '=', App::getLocale())
-            ->where('context', '=', self::getContext() . $this->id)
-            ->where('key', '=' ,'description')
-            ->first();
-        return (!empty($multilang->value)) ? $multilang->value : trans('admin.master-cats.translation_not_found');
+        if(empty($description)){
+            $description = $this->translate('description', self::getContext() . $this->id, Config::get('varaa.default_language'));
+        }
+
+        return (!empty($description)) ? $description : trans('admin.master-cats.translation_not_found');
     }
 
     //--------------------------------------------------------------------------
