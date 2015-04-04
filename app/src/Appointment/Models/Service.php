@@ -77,7 +77,10 @@ class Service extends \App\Core\Models\Base
 
     public function getTreamentsList()
     {
-        return TreatmentType::where('master_category_id', $this->treatmentType->master_category_id)->get()->lists('name', 'id');
+        if(!empty($this->treatmentType)) {
+            return TreatmentType::where('master_category_id', $this->treatmentType->master_category_id)->get()->lists('name', 'id');
+        }
+        return[];
     }
 
     //--------------------------------------------------------------------------
