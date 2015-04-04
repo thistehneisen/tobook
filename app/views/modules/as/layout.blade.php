@@ -50,6 +50,9 @@
                 <li @if (Request::segment(2) === 'bookings') {{ 'class="active"' }} @endif>
                     <a href="{{ route('as.bookings.index') }}"><i class="fa fa-bookmark"></i> {{ trans('as.bookings.all') }}</a>
                 </li>
+                <li @if (Request::segment(2) === 'flashdeals') {{ 'class="active"' }} @endif>
+                    <a href="{{ route('as.flashdeals.index') }}"><i class="fa fa-bolt"></i> {{ trans('as.flashdeal.all') }}</a>
+                </li>
                 <li @if (Request::segment(2) === 'services') {{ 'class="active"' }} @endif class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="{{ route('as.services.index') }}">
                         <i class="fa fa-gift"></i> {{ trans('as.services.index') }} <span class="caret"></span>

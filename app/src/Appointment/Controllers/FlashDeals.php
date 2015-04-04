@@ -13,6 +13,19 @@ use App\Appointment\Models\Reception\BackendReceptionist;
 
 class FlashDeals extends AsBase
 {
+    use \CRUD;
+
+    protected $crudOptions = [
+        'modelClass' => 'App\Appointment\Models\FlashDeal',
+        'langPrefix' => 'as.flashdeals',
+        'layout' => 'modules.as.layout',
+        'bulkActions' => [],
+        'indexFields' => [
+            'date', 'start_at', 'end_at', 'discount_percentage', 'status'
+        ]
+    ];
+
+
     public function getFlashDealForm()
     {
         $employeeId  = (int) Input::get('employee_id');
@@ -55,7 +68,7 @@ class FlashDeals extends AsBase
     {
         $employeeId  = (int) Input::get('employee_id');
         $bookingDate = Input::get('start_date');
-        $startTime   = Input::get('start_time');
+        $startAt     = Input::get('start_at');
         $endTime     = Input::get('end_time');
         $services    = Input::get('services');
         $percentage  = Input::get('discount_percentage');
@@ -65,7 +78,7 @@ class FlashDeals extends AsBase
             $flashDeal = new FlashDeal;
             $flashDeal->fill([
                 'date' => $bookingDate,
-                'start_at' => $startTime,
+                'start_at' => $startAt,
                 'end_at'   => $endTime,
                 'discount_percentage' => $percentage
             ]);

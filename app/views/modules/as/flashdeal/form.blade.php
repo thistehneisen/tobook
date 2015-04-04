@@ -5,7 +5,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">{{ trans('as.flashdeal.add_flashdeal') }}</a>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">{{ trans('as.flashdeals.add_flashdeal') }}</a>
                     </h4>
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse in">
@@ -13,7 +13,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group row">
-                                    <label for="description" class="col-sm-4 control-label">{{ trans('as.flashdeal.services') }}</label>
+                                    <label for="description" class="col-sm-4 control-label">{{ trans('as.flashdeals.services') }}</label>
                                     <div class="col-sm-8">
                                         @foreach ($services as $service)
                                         <div class="checkbox">
@@ -24,21 +24,21 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="description" class="col-sm-4 control-label">{{ trans('as.flashdeal.discount_percentage') }}</label>
+                                    <label for="description" class="col-sm-4 control-label">{{ trans('as.flashdeals.discount_percentage') }}</label>
                                     <div class="col-sm-8">
                                          {{ Form::text('discount_percentage', 15, ['class' => 'form-control input-sm spinner', 'id' => 'discount_percentage', 'name' => 'discount_percentage']) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="from_date" class="col-sm-4 control-label">{{ trans('as.flashdeal.start_date') }}</label>
+                                    <label for="from_date" class="col-sm-4 control-label">{{ trans('as.flashdeals.start_date') }}</label>
                                     <div class="col-sm-8">
                                         {{ Form::text('start_date', $bookingDate, ['class' => 'form-control input-sm disabled', 'id' => 'start_date']) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="from_date" class="col-sm-4 control-label">{{ trans('as.flashdeal.start_time') }}</label>
+                                    <label for="from_date" class="col-sm-4 control-label">{{ trans('as.flashdeals.start_at') }}</label>
                                     <div class="col-sm-8">
-                                        {{ Form::text('start_time', $startTime, ['class' => 'form-control input-sm disabled', 'id' => 'start_time']) }}
+                                        {{ Form::text('start_at', $startTime, ['class' => 'form-control input-sm disabled', 'id' => 'start_at']) }}
                                          {{ Form::hidden('end_time', $endTime) }}
                                          {{ Form::hidden('employee_id', $employee->id) }}
                                     </div>
@@ -97,4 +97,4 @@ $(function () {
     });
 });
 </script>
-<input type="hidden" id="upsert_flash_deal_url" value="{{ route('as.flashdeal.upsert') }}"/>
+<input type="hidden" id="upsert_flash_deal_url" value="{{ route('as.flashdeals.fd-upsert') }}"/>

@@ -255,18 +255,24 @@ Route::group([
         ]);
     });
 
+    // Flash deals CRUD for management
+    \App\Appointment\Controllers\FlashDeals::crudRoutes(
+        'flashdeals',
+        'as.flashdeals'
+    );
+
     // Flash deals
     Route::group([
-        'prefix' => 'flashdeal',
+        'prefix' => 'flashdeals',
     ], function () {
 
         Route::get('get-form', [
-            'as' => 'as.flashdeal.get-form',
+            'as' => 'as.flashdeals.get-form',
             'uses' => 'App\Appointment\Controllers\FlashDeals@getFlashDealForm'
         ]);
 
-        Route::post('upsert', [
-            'as' => 'as.flashdeal.upsert',
+        Route::post('fd-upsert', [
+            'as' => 'as.flashdeals.fd-upsert',
             'uses' => 'App\Appointment\Controllers\FlashDeals@upsertFlashDeal'
         ]);
     });
