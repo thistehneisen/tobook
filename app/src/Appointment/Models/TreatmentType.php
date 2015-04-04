@@ -6,8 +6,10 @@ use Illuminate\Support\Collection;
 use App\Core\Models\Multilanguage;
 use App\Core\Traits\MultilanguageTrait;
 
-class TreatmentType extends Base
+class TreatmentType extends \App\Core\Models\Base
 {
+    use MultilanguageTrait;
+
     protected $table = 'as_treatment_types';
 
     public $fillable = [
