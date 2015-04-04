@@ -9,6 +9,8 @@ use App\Core\Traits\MultilanguageTrait;
 
 class TreatmentType extends \App\Appointment\Models\Base
 {
+    use MultilanguageTrait;
+
     protected $table = 'as_treatment_types';
 
     public $fillable = [
