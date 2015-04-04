@@ -59,7 +59,7 @@ class Services extends AsBase
             : new Service();
 
         $master_categories = MasterCategory::get()->lists('name','id');
-        $treatment_types   = TreatmentType::get()->lists('name','id');
+        $treatment_types   = $service->getTreamentsList();
         $categories        = ServiceCategory::ofCurrentUser()->lists('name','id');
         $resources         = Resource::ofCurrentUser()->lists('name', 'id');
         $rooms             = Room::ofCurrentUser()->lists('name', 'id');
@@ -294,4 +294,5 @@ class Services extends AsBase
                 $this->successMessageBag(trans('as.crud.success_delete'))
             );
     }
+
 }

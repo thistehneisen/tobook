@@ -75,6 +75,11 @@ class Service extends \App\Core\Models\Base
         return array_values($data);
     }
 
+    public function getTreamentsList()
+    {
+        return TreatmentType::where('master_category_id', $this->treatmentType->master_category_id)->get()->lists('name', 'id');
+    }
+
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------

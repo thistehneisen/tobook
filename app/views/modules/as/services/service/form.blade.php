@@ -180,4 +180,39 @@ $(function () {
         </div>
     </div>
 {{ Form::close() }}
+<input type="hidden" id="get_treatment_types_url" value="{{ route('as.master-cats.treatment-types')}}"/>
+@stop
+
+@section ('scripts')
+<script type="text/javascript">
+    $(function(){
+        $treatments = $('#treatment_type_id');
+        $('#master_category_id').change(function(e){
+            var master_category_id = $(this).val();
+            $treatments.empty();
+            if (master_category_id !== '-1' && master_category_id !== '') {
+                $.ajax({
+                    url: $('#get_treatment_types_url').val(),
+                    data: {
+                        master_category_id: master_category_id,
+                    },
+                    dataType: 'json'
+                }).done(function (data) {
+                    $treatments.empty();
+
+                    $.each(data, function (index, value) {
+                        $treatments.append(
+                            $('<option>', {
+                                value: value.id,
+                                text: value.name
+                            })
+                        );
+                    });
+                });
+            } else {
+                $treatments.empty();
+            }
+        });
+    });
+</script>
 @stop
