@@ -14,6 +14,7 @@ class FlashDeal extends \App\Appointment\Models\Base
         'start_at',
         'end_at',
         'discount_percentage',
+        'status'
     ];
 
     protected $rulesets = [
@@ -21,6 +22,10 @@ class FlashDeal extends \App\Appointment\Models\Base
             'discount_percentage' => 'required|numeric',
         ]
     ];
+
+    const STATUS_ACTIVE      = 1;
+    const STATUS_CLAIMED     = 2;
+    const STATUS_DELETED     = 3;
 
     /**
      * Function to check if we can create a new flash deal with this service in certain date/time.
