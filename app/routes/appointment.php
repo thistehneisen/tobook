@@ -255,6 +255,14 @@ Route::group([
         ]);
     });
 
+    Route::group([
+        'prefix' => 'master-cats',
+    ], function () {
+        Route::get('ajax/get-treatment-types', [
+            'as' => 'as.master-cats.treatment-types',
+            'uses' => 'App\Appointment\Controllers\Ajax\MasterCategories@getTreatmentTypes'
+        ]);
+    });
 
     // Embed
     Route::get('embed', [
