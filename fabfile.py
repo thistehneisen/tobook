@@ -24,6 +24,9 @@ def _deploy(environment, host):
             run('chmod -Rf 777 app/storage')
             # clear all application cache
             run('php artisan cache:clear')
+            # Connect incomplete consumers account
+            # This is run only once and will be removed in next release
+            run('php artisan varaa:connect-consumers')
             # restart supervisor processes
             run('supervisorctl restart all')
             # set it to live mode again
