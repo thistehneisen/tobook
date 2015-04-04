@@ -22,7 +22,7 @@
 @section('main-classes') front @stop
 
 @section('search')
-    @include ('front.el.search.front')
+    @include ('front.el.search.front', ['categories' => $masterCategories])
 @stop
 
 @section('content')
