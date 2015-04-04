@@ -269,7 +269,16 @@ Route::group([
             'as' => 'as.flashdeal.upsert',
             'uses' => 'App\Appointment\Controllers\FlashDeals@upsertFlashDeal'
         ]);
+    });
 
+    // BE Calendar master categories
+    Route::group([
+        'prefix' => 'master-cats',
+    ], function () {
+        Route::get('ajax/get-treatment-types', [
+            'as' => 'as.master-cats.treatment-types',
+            'uses' => 'App\Appointment\Controllers\Ajax\MasterCategories@getTreatmentTypes'
+        ]);
     });
 
     // Embed
