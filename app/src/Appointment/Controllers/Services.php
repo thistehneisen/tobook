@@ -15,8 +15,6 @@ use App\Appointment\Models\Room;
 use App\Appointment\Models\ResourceService;
 use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\Employee;
-use App\Appointment\Models\MasterCategory;
-use App\Appointment\Models\TreatmentType;
 
 class Services extends AsBase
 {
