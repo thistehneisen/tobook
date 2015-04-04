@@ -58,8 +58,8 @@ class Services extends AsBase
             ? Service::findOrFail($id)
             : new Service();
 
-        $master_categories = MasterCategory::lists('name','id');
-        $treatment_types   = TreatmentType::lists('name','id');
+        $master_categories = MasterCategory::get()->lists('name','id');
+        $treatment_types   = TreatmentType::get()->lists('name','id');
         $categories        = ServiceCategory::ofCurrentUser()->lists('name','id');
         $resources         = Resource::ofCurrentUser()->lists('name', 'id');
         $rooms             = Room::ofCurrentUser()->lists('name', 'id');

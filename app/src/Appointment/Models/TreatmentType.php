@@ -77,7 +77,6 @@ class TreatmentType extends \App\Core\Models\Base
         if(empty($name)){
             $name = $this->translate('name', self::getContext() . $this->id, Config::get('varaa.default_language'));
         }
-
         return (!empty($name)) ? $name : trans('admin.master-cats.translation_not_found');
     }
 
