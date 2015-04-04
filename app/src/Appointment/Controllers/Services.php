@@ -97,14 +97,20 @@ class Services extends AsBase
                 $service->category()->associate($category);
             }
 
-            if(!empty($masterCategoryId)) {
+            if(!empty($masterCategoryId) && $masterCategoryId > 0) {
                 $masterCategory = MasterCategory::find($masterCategoryId);
                 $service->masterCategory()->associate($masterCategory);
+            } else {
+                //Don't know why cannot use detatch method here, fix later
+                $service->master_category_id = null;
             }
 
-            if(!empty($treatmentTypeId)) {
+            if(!empty($treatmentTypeId) && $treatmentTypeId > 0) {
                 $treatmentType = TreatmentType::find($treatmentTypeId);
                 $service->treatmentType()->associate($treatmentType);
+            } else {
+                //Don't know why cannot use detatch method here, fix later
+                $service->treatment_type_id = null;
             }
 
             $service->saveOrFail();
