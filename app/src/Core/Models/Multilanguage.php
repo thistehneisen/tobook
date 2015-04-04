@@ -1,6 +1,6 @@
 <?php namespace App\Core\Models;
 
-class Multilanguage extends Base
+class Multilanguage extends \Eloquent
 {
     protected $table = 'multilanguage';
 
@@ -50,14 +50,6 @@ class Multilanguage extends Base
         ]);
 
         $multilang->save();
-    }
-
-    /**
-     * @overload
-     */
-    public static function bootSoftDeletingTrait()
-    {
-        // Overwrite to disable SoftDeleting
     }
 
     /**
