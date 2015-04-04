@@ -10,6 +10,7 @@ use App\Appointment\Models\Room;
 use App\Appointment\Models\BookingServiceRoom;
 use App\Appointment\Models\Service;
 use App\Appointment\Models\ServiceTime;
+use App\Appointment\Models\FlashDeal;
 use Exception;
 
 abstract class Receptionist implements ReceptionistInterface
@@ -611,6 +612,17 @@ abstract class Receptionist implements ReceptionistInterface
             : sprintf("%d", $totalLength);
 
         return $ret;
+    }
+
+    public function deleteFlashDeal()
+    {
+        //Check is there any existed booking with this service time
+        FlashDeal::deleteFlashDeal(
+            $this->employeeId,
+            $this->date,
+            $this->startTime,
+            $this->endTime
+        );
     }
 
     abstract function upsertBooking();

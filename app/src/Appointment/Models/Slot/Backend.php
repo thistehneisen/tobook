@@ -13,6 +13,7 @@ class Backend extends Base implements Strategy
         if (empty($this->flashDealCache[$this->date])) {
             $this->flashDealCache[$this->date] = FlashDeal::where('date', $this->date)
                 ->where('employee_id', $this->employee->id)
+                ->where('status', FlashDeal::STATUS_ACTIVE)
                 ->whereNull('deleted_at')->get();
         }
 

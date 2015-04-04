@@ -173,6 +173,10 @@ class BackendReceptionist extends Receptionist
             $booking->attach(new EmailObserver());
             $booking->notify();
         }
+
+        //Delete all active flash deals which is overllaped with this booking
+        $this->deleteFlashDeal();
+
         return $booking;
     }
 

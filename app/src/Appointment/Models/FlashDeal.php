@@ -56,6 +56,49 @@ class FlashDeal extends \App\Appointment\Models\Base
         return (empty($exception)) ? true : false;
     }
 
+    /**
+     * Delete all flash deals of an employee based on specific date, time
+     *
+     * @author hung
+     * @param int $employeeId
+     * @param string $date
+     * @param Carbon $startTime
+     * @param Carbon $endTime
+     *
+     * @return void
+     */
+    public static function deleteFlashDeal($employeeId, $date, $startTime, $endTime)
+    {
+        $query = self::where('date', $date)
+            ->where('employee_id', $employeeId)
+            ->whereNull('deleted_at')
+            ->where('status', self::STATUS_ACTIVE);
+
+        $query = $query->where(function ($query) use ($startTime, $endTime) {
+            return $query->where(function ($query) use ($startTime, $endTime) {
+                return $query->where('start_at', '>=', $startTime->toTimeString())
+                     ->where('start_at', '<', $endTime->toTimeString());
+            })->orWhere(function ($query) use ($endTime, $startTime) {
+                 return $query->where('end_at', '>', $startTime->toTimeString())
+                      ->where('end_at', '<=', $endTime->toTimeString());
+            })->orWhere(function ($query) use ($startTime) {
+                 return $query->where('start_at', '<', $startTime->toTimeString())
+                      ->where('end_at', '>', $startTime->toTimeString());
+            })->orWhere(function ($query) use ($startTime, $endTime) {
+                 return $query->where('start_at', '=', $startTime->toTimeString())
+                      ->where('end_at', '=', $endTime->toTimeString());
+            });
+        });
+
+        $flashDeals = $query->get();
+
+        foreach ($flashDeals as $flashDeal) {
+            $flashDeal->status = self::STATUS_DELETED;
+            $flashDeal->save();
+            $flashDeal->delete();
+        }
+    }
+
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
