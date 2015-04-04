@@ -2,9 +2,12 @@
 
 use App\Core\Models\Multilanguage;
 use App, DB, Input, Config;
+use App\Core\Traits\MultilanguageTrait;
 
 class MasterCategory extends \App\Core\Models\Base
 {
+    use MultilanguageTrait;
+
     protected $table = 'as_master_categories';
 
     protected $dates = ['deleted_at'];
@@ -27,9 +30,10 @@ class MasterCategory extends \App\Core\Models\Base
     public function databaseSearch($keyword, array $options = array())
     {
         $query =  self::join('multilanguage', 'multilanguage.context', '=', DB::raw("concat('" . MasterCategory::getContext() . "', `varaa_as_master_categories`.`id`)"))
-            ->where(function($query){
+            ->where(function ($query) {
                 $query->where('multilanguage.key', 'name')
                     ->orWhere('multilanguage.key', 'description');
+
                 return $query;
             })->where('value', 'LIKE', '%'.$keyword.'%')
             ->select('as_master_categories.id')->distinct();
@@ -44,21 +48,36 @@ class MasterCategory extends \App\Core\Models\Base
     //--------------------------------------------------------------------------
     public function getNameAttribute()
     {
-        $multilang = Multilanguage::where('lang', '=', App::getLocale())
-            ->where('context', '=', self::getContext() . $this->id)
-            ->where('key', '=' ,'name')
-            ->first();
+        $name = $this->translate('name', self::getContext() . $this->id, App::getLocale());
 
-        return (!empty($multilang->value)) ? $multilang->value : trans('admin.master-cats.translation_not_found');
+        if(empty($name)){
+            $name = $this->translate('name', self::getContext() . $this->id, Config::get('varaa.default_language'));
+        }
+
+        return (!empty($name)) ? $name : trans('admin.master-cats.translation_not_found');
     }
 
     public function getDescriptionAttribute()
     {
-        $multilang = Multilanguage::where('lang', '=', App::getLocale())
-            ->where('context', '=', self::getContext() . $this->id)
-            ->where('key', '=' ,'description')
-            ->first();
-        return (!empty($multilang->value)) ? $multilang->value : trans('admin.master-cats.translation_not_found');
+        $description = $this->translate('description', self::getContext() . $this->id, App::getLocale());
+
+        if(empty($description)){
+            $description = $this->translate('description', self::getContext() . $this->id, Config::get('varaa.default_language'));
+        }
+
+        return (!empty($description)) ? $description : trans('admin.master-cats.translation_not_found');
+    }
+
+    /**
+     * Get all master categories including their treatment types
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public static function getAll()
+    {
+        $all = static::with('treatments')->orderBy('order', 'asc')->get();
+
+        return $all;
     }
 
     /**
@@ -94,5 +113,10 @@ class MasterCategory extends \App\Core\Models\Base
     public function services()
     {
         return $this->hasMany('App\Appointment\Models\Service', 'master_category_id');
+    }
+
+    public function treatments()
+    {
+        return $this->hasMany('App\Appointment\Models\TreatmentType', 'master_category_id');
     }
 }

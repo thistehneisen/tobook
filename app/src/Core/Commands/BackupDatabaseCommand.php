@@ -1,10 +1,14 @@
 <?php namespace App\Core\Commands;
 
-use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
+use App;
 use Config;
+use Illuminate\Console\Command;
+use Indatus\Dispatcher\Drivers\Cron\Scheduler;
+use Indatus\Dispatcher\Scheduling\Schedulable;
+use Indatus\Dispatcher\Scheduling\ScheduledCommand;
+use Log;
 
-class BackupDatabaseCommand extends Command
+class BackupDatabaseCommand extends ScheduledCommand
 {
     /**
      * The console command name.
@@ -21,12 +25,35 @@ class BackupDatabaseCommand extends Command
     protected $description = 'Backup database and send it to backup server';
 
     /**
+     * When a command should run
+     *
+     * @param  Scheduler                                  $scheduler
+     * @return \Indatus\Dispatcher\Scheduling\Schedulable
+     */
+    public function schedule(Schedulable $scheduler)
+    {
+        // Run this backup command every 15 minutes
+        return $scheduler->everyMinutes(15);
+    }
+
+    /**
      * Execute the console command.
      *
      * @return mixed
      */
     public function fire()
     {
+        // No need to run backup in some environments
+        $env = [
+            'stag'      => true,
+            'local'     => true,
+            'testing'   => true,
+            'accepting' => true,
+        ];
+        if (isset($env[App::environment()])) {
+            return;
+        }
+
         $db_name = Config::get('database.connections.mysql.database');
         $db_user = escapeshellarg(Config::get('database.connections.mysql.username'));
         $db_pwd  = escapeshellarg(Config::get('database.connections.mysql.password'));
@@ -39,18 +66,9 @@ class BackupDatabaseCommand extends Command
         exec($copy_command);
         //Delete backup file on local server
         $backup_file = realpath('./' . $backup_name);
-        if(file_exists($backup_file)) {
+        if (file_exists($backup_file)) {
             unlink($backup_file);
         }
-    }
-
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return array();
+        Log::info('Backup was created at '.date('Y-m-d H:i:s'));
     }
 }

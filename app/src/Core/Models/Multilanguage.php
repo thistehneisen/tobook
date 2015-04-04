@@ -1,9 +1,5 @@
 <?php namespace App\Core\Models;
 
-use App\Core\Models\User;
-use App, Config, DB;
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
-
 class Multilanguage extends \Eloquent
 {
     protected $table = 'multilanguage';
@@ -42,8 +38,8 @@ class Multilanguage extends \Eloquent
                 ->where('context','=', $context . $object_id)
                 ->where('key', '=' , $key)->first();
 
-        if(empty($multilang)) {
-            $multilang = new Multilanguage;
+        if (empty($multilang)) {
+            $multilang = new Multilanguage();
         }
 
         $multilang->fill([
@@ -57,14 +53,6 @@ class Multilanguage extends \Eloquent
     }
 
     /**
-     * @overload
-     */
-    public static function bootSoftDeletingTrait()
-    {
-        // Overwrite to disable SoftDeleting
-    }
-
-    /**
      * Remove multilanguage for specific user_id, context, language and key
      * @param $user_id int
      * @param $context string
@@ -75,10 +63,10 @@ class Multilanguage extends \Eloquent
     {
         $query = Multilanguage::where('context', '=', $context)->where('key', '=' , $key);
 
-        if(!empty($user_id)) {
+        if (!empty($user_id)) {
             $query = $query->where('user_id', '=', $user_id);
         }
-        if(!empty($lang)){
+        if (!empty($lang)) {
             $query = $query->where('lang', '=', $lang);
         }
 
@@ -88,7 +76,6 @@ class Multilanguage extends \Eloquent
             $multilang->forceDelete();
         }
     }
-
 
     //--------------------------------------------------------------------------
     // RELATIONSHIPS

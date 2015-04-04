@@ -86,6 +86,7 @@ return [
     'best_offers'         => 'Labākie piedāvājumi', // @todo
     'no_offers'           => 'Nav piedāvājumu pieejama', // @todo
     'map'                 => 'Map', // @todo
+    'show_more'           => 'Show more', // @todo
     // Business
     'business' => [
         'about'          => 'About', // @todo

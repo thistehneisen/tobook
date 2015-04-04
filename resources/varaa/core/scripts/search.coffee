@@ -45,17 +45,20 @@ class VaraaSearch
       div: domId
       lat: lat
       lng: lng
-      zoom: 8
+      zoom: 13
 
     if markers?
-      for marker in markers
-        do (marker) ->
-          obj = gmap.addMarker marker
-          google.maps.event.addListener gmap.map, 'center_changed', (e) ->
-            center = gmap.map.getCenter()
-            if center.equals new google.maps.LatLng marker.lat, marker.lng
-              obj.infoWindow.open gmap.map, obj
+      @addMarkers gmap, markers
     return gmap
+
+  addMarkers: (gmap, markers) ->
+    for marker in markers
+      do (marker) ->
+        obj = gmap.addMarker marker
+        google.maps.event.addListener gmap.map, 'center_changed', (e) ->
+          center = gmap.map.getCenter()
+          if center.equals new google.maps.LatLng marker.lat, marker.lng
+            obj.infoWindow.open gmap.map, obj
 
   ###*
    * Display businesses on the map
@@ -63,18 +66,21 @@ class VaraaSearch
    * @return {void}
   ###
   showBusinesses: ->
-    self     = @
-    $loading = $ '#js-loading'
-    $list    = $ '#js-business-list'
-    $map     = $ '#js-map-canvas'
-    $single  = $ '#js-business-single'
-    $heading = $ '#js-business-heading'
+    self         = @
+    $loading     = $ '#js-loading'
+    $list        = $ '#js-business-list'
+    $map         = $ '#js-map-canvas'
+    $single      = $ '#js-business-single'
+    $heading     = $ '#js-business-heading'
+    $leftSidebar = $ '#js-left-sidebar'
 
     # Fixed top
     $ '#js-hot-offers'
       .sticky topSpacing: 10
 
+    # Show the map containing all businesses in the result
     $map.show()
+
     # Render the map
     markers = @extractMarkers @businesses
     gmap = @renderMap $map.attr('id'), @lat, @lng, markers
@@ -86,22 +92,48 @@ class VaraaSearch
       $list.find '.panel'
         .each ->
           $$ = $ @
-          $$.show 'slide', direction: $$.data('direction'), 700
+          $$.show 'slide', direction: $$.data('direction'), 300
 
+      $map.show()
       $heading.find 'i'
         .hide()
 
-    # Attach event handlers
+    # When user clicks on Show more button
+    $leftSidebar.on 'click', '#js-show-more', (e) ->
+      e.preventDefault()
+      $$ = $ @
+
+      # Hide the text, show the loading
+      $$.children 'span'
+        .hide()
+      $$.children 'i'
+        .show()
+
+      $.ajax
+        url: $$.attr 'href'
+        dataType: 'JSON'
+      .done (data) ->
+        # Remove the old Show more button
+        $leftSidebar.find 'nav.show-more'
+          .remove()
+        $leftSidebar.append data.html
+        # Add markers on the map
+        self.addMarkers gmap, self.extractMarkers data.businesses
+
+    # Define event handlers for business in result list
+
+    ###*
+     * Click on a business will load its details and show immediately
+     *
+     * @param  {EventObject} e
+     *
+     * @return {void}
+    ###
     businessOnClick = (e) ->
       e.preventDefault()
       $$ = $ @
       businessId = $$.data 'id'
-      delay = (ms, fn) -> setTimeout fn, ms
-      slidePanel = ->
-        $list.find '.panel'
-          .each ->
-            $$ = $ @
-            $$.hide 'slide', direction: $$.data('direction'), 700
+      hidePanel = -> $list.find('.panel').hide()
 
       # open result as a full page load instead of ajax if the browser width
       # is too small
@@ -113,12 +145,11 @@ class VaraaSearch
       # If the current content is of this business, we don't need to fire
       # another AJAX
       if $list.data('current-business-id') == businessId
-        slidePanel()
-        delay 700, ->
-          $single.show 'fade'
-          # Show chevron as indicator to click back
-          $heading.find 'i'
-            .show()
+        hidePanel()
+        $single.show()
+        # Show chevron as indicator to click back
+        $heading.find 'i'
+          .show()
         return
 
       # Highlight selected row
@@ -127,6 +158,7 @@ class VaraaSearch
       $$.addClass 'selected'
 
       $loading.show()
+      $map.hide()
 
       # Load information of this business
       $.ajax
@@ -134,26 +166,35 @@ class VaraaSearch
         type: 'GET'
       .done (html) ->
         $loading.hide()
-        slidePanel()
-        delay 700, ->
-          # Replace the whole page with business page
-          $single.html html
-          $single.show 'fade'
-          # Show chevron as indicator to click back
-          $heading.find 'i'
-            .show()
+        hidePanel()
+        # Replace the whole page with business page
+        $single.html html
+        $single.show()
+        # Show chevron as indicator to click back
+        $heading.find 'i'
+          .show()
 
-          VARAA.initLayout3()
+        VARAA.initLayout3()
 
-          # Set current business flag
-          $list.data 'current-business-id', businessId
+        # Set current business flag
+        $list.data 'current-business-id', businessId
 
-          # Render the map
-          $bmap = $ "#js-map-#{businessId}"
-          lat = $bmap.data 'lat'
-          lng = $bmap.data 'lng'
-          self.renderMap $bmap.attr('id'), lat, lng, [lat: lat, lng: lng]
-    businessOnHover = (e) ->
+        # Render the map
+        $bmap = $ "#js-map-#{businessId}"
+        lat = $bmap.data 'lat'
+        lng = $bmap.data 'lng'
+        self.renderMap $bmap.attr('id'), lat, lng, [lat: lat, lng: lng]
+
+        # Scroll the page
+        $.scrollTo '#js-search-results', duration: 300
+    ###*
+     * Hover on a business will highlight its position on the map
+     *
+     * @param  {EventObject} e
+     *
+     * @return {void}
+    ###
+    busienssOnMouseEnter = (e) ->
       $$ = $ @
       lat = $$.data 'lat'
       lng = $$.data 'lng'
@@ -164,9 +205,10 @@ class VaraaSearch
 
       gmap.setCenter lat, lng
 
-    $ 'div.js-business'
-      .on 'click', businessOnClick
-      .hover businessOnHover
+    # Attach event handlers when user hovers or clicks on a business in the
+    # result list
+    $leftSidebar.on 'click', 'div.js-business', businessOnClick
+      .on 'mouseenter', 'div.js-business', busienssOnMouseEnter
 
   ###*
    * Extract pairs of lat and lng values to be show as markers on the map

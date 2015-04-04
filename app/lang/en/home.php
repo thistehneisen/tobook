@@ -86,6 +86,7 @@ return [
     'best_offers'         => 'Best offers',
     'map'                 => 'Map',
     'no_offers'           => 'There is no offer available.',
+    'show_more'           => 'Show more',
     // Business
     'business' => [
         'about'          => 'About',

@@ -14,23 +14,16 @@
 .front-nav {
     padding-top: 15px;
 
-    li {
-        margin-right: 40px;
-        a {
-            text-transform: uppercase;
-            color: @text_light;
-            text-decoration: none;
-            font-size: 1.45em;
-            font-weight: 400;
-        }
+    a {
+        font-family: "Bariol", "Roboto", sans-serif;
+        font-size: 1.35em;
     }
 
-
-    li:last-child a {
-        color: @primary_color;
-        background-color: rgba(255,255,255,.8);
-        padding: 5px 10px;
-        border-radius: 5px;
+    >li {
+        >a {
+            color: @text_light;
+            text-decoration: none;
+        }
     }
 }
 
@@ -372,7 +365,15 @@
                 &:hover {
                     background-color: #eee;
                 }
+
+                &:last-child {
+                    border-bottom: none;
+                }
             }
+        }
+
+        .show-more {
+            margin-top: 10px;
         }
 
         .map {
