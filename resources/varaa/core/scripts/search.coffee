@@ -45,7 +45,7 @@ class VaraaSearch
       div: domId
       lat: lat
       lng: lng
-      zoom: 8
+      zoom: 13
 
     if markers?
       @addMarkers gmap, markers
