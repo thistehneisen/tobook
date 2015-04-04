@@ -1,10 +1,13 @@
 <?php namespace App\Core\Commands;
 
-use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Config;
+use Illuminate\Console\Command;
+use Indatus\Dispatcher\Drivers\Cron\Scheduler;
+use Indatus\Dispatcher\Scheduling\Schedulable;
+use Indatus\Dispatcher\Scheduling\ScheduledCommand;
+use Log;
 
-class BackupDatabaseCommand extends Command
+class BackupDatabaseCommand extends ScheduledCommand
 {
     /**
      * The console command name.
@@ -19,6 +22,18 @@ class BackupDatabaseCommand extends Command
      * @var string
      */
     protected $description = 'Backup database and send it to backup server';
+
+    /**
+     * When a command should run
+     *
+     * @param  Scheduler                                  $scheduler
+     * @return \Indatus\Dispatcher\Scheduling\Schedulable
+     */
+    public function schedule(Schedulable $scheduler)
+    {
+        // Run this backup command every 15 minutes
+        return $scheduler->everyMinutes(15);
+    }
 
     /**
      * Execute the console command.
@@ -39,18 +54,9 @@ class BackupDatabaseCommand extends Command
         exec($copy_command);
         //Delete backup file on local server
         $backup_file = realpath('./' . $backup_name);
-        if(file_exists($backup_file)) {
+        if (file_exists($backup_file)) {
             unlink($backup_file);
         }
-    }
-
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return array();
+        Log::info('Backup was created at '.date('Y-m-d H:i:s'));
     }
 }
