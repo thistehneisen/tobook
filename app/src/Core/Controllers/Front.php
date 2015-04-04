@@ -1,11 +1,12 @@
 <?php namespace App\Core\Controllers;
 
+use App\Appointment\Models\MasterCategory;
 use App\Core\Models\Business;
 use App\Core\Models\BusinessCategory;
 use App\FlashDeal\Models\FlashDeal;
 use Illuminate\Support\Collection;
-use Response;
 use Request;
+use Response;
 use Session;
 use Settings;
 use Util;
@@ -33,12 +34,16 @@ class Front extends Base
         // Because of the layout, we need to split deals into smaller parts
         $head = $deals->splice(0, 4);
 
+        // Master categories
+        $masterCategories = MasterCategory::getAll();
+
         return $this->render('home', [
-            'categories'     => $categories,
-            'head'           => $head,
-            'tail'           => $deals,
-            'totalDeals'     => $totalDeals,
-            'dealCategories' => $dealCategories,
+            'categories'       => $categories,
+            'head'             => $head,
+            'tail'             => $deals,
+            'totalDeals'       => $totalDeals,
+            'dealCategories'   => $dealCategories,
+            'masterCategories' => $masterCategories,
         ]);
     }
 

@@ -27,9 +27,10 @@ class MasterCategory extends \App\Core\Models\Base
     public function databaseSearch($keyword, array $options = array())
     {
         $query =  self::join('multilanguage', 'multilanguage.context', '=', DB::raw("concat('" . MasterCategory::getContext() . "', `varaa_as_master_categories`.`id`)"))
-            ->where(function($query){
+            ->where(function ($query) {
                 $query->where('multilanguage.key', 'name')
                     ->orWhere('multilanguage.key', 'description');
+
                 return $query;
             })->where('value', 'LIKE', '%'.$keyword.'%')
             ->select('as_master_categories.id')->distinct();
@@ -58,7 +59,20 @@ class MasterCategory extends \App\Core\Models\Base
             ->where('context', '=', self::getContext() . $this->id)
             ->where('key', '=' ,'description')
             ->first();
+
         return (!empty($multilang->value)) ? $multilang->value : trans('admin.master-cats.translation_not_found');
+    }
+
+    /**
+     * Get all master categories including their treatment types
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public static function getAll()
+    {
+        $all = static::with('treatments')->orderBy('order', 'asc')->get();
+
+        return $all;
     }
 
     /**
@@ -94,5 +108,10 @@ class MasterCategory extends \App\Core\Models\Base
     public function services()
     {
         return $this->hasMany('App\Appointment\Models\Service', 'master_category_id');
+    }
+
+    public function treatments()
+    {
+        return $this->hasMany('App\Appointment\Models\TreatmentType', 'master_category_id');
     }
 }
