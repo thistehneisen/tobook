@@ -1,5 +1,6 @@
 <?php namespace App\Core\Commands;
 
+use App;
 use Config;
 use Illuminate\Console\Command;
 use Indatus\Dispatcher\Drivers\Cron\Scheduler;
@@ -42,6 +43,17 @@ class BackupDatabaseCommand extends ScheduledCommand
      */
     public function fire()
     {
+        // No need to run backup in some environments
+        $env = [
+            'stag'      => true,
+            'local'     => true,
+            'testing'   => true,
+            'accepting' => true,
+        ];
+        if (isset($env[App::environment()])) {
+            return;
+        }
+
         $db_name = Config::get('database.connections.mysql.database');
         $db_user = escapeshellarg(Config::get('database.connections.mysql.username'));
         $db_pwd  = escapeshellarg(Config::get('database.connections.mysql.password'));
