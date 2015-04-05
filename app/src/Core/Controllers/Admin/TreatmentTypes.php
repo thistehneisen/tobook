@@ -104,12 +104,14 @@ class TreatmentTypes extends Base
         $names = Input::get('name');
         $descriptions = Input::get('description');
         $masterCategoryId = Input::get('master_category_id');
+        $default_language = Config::get('varaa.default_language');
 
         try{
             $masterCategory = MasterCategory::find($masterCategoryId);
-
             $treatmentType->fill([
-                'order' => 1
+                'order'       => 1,
+                'name'        => $names[$default_language],
+                'description' => $descriptions[$default_language],
             ]);
             $treatmentType->masterCategory()->associate($masterCategory);
             $treatmentType->save();

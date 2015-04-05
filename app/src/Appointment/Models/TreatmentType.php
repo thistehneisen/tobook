@@ -13,6 +13,7 @@ class TreatmentType extends \App\Core\Models\Base
     protected $table = 'as_treatment_types';
 
     public $fillable = [
+        'order',
         'name',
         'description',
     ];
