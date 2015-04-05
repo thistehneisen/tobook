@@ -6,11 +6,13 @@ from datetime import date, timedelta, datetime
 class Siivooja(object):
     path =  '/srv/backup'
     verbose = False
+    days = 14
 
-    def __init__(self, path = None, verbose = False):
+    def __init__(self, path = None, verbose = False, days = 14):
         if path:
             self.path = path
         self.verbose = verbose
+        self.days = int(days)
 
     def scan_and_remove(self):
         files = os.listdir(self.path)
@@ -35,7 +37,8 @@ class Siivooja(object):
         delta = now - created_date
         if(self.verbose):
             print "Date %s - delta days: %d" % (created_date.strftime("%Y-%m-%d %H:%M:%S") , delta.days)
-        return (delta.days >= 14)
+        print (delta.days >= self.days)
+        return (delta.days >= self.days)
 
 
     def remove(self, file):
@@ -48,12 +51,14 @@ if __name__ == "__main__":
     parser = OptionParser()
     parser.add_option("-p", "--path", dest="path",
                       help="Specify a path to scan for .sql.gz files", metavar="path")
+    parser.add_option("-d", "--days", dest="days",
+                      help="Remove files which were created X days ago", metavar="14")
     parser.add_option("-v", "--verbose",  dest="verbose", default=False,
                       help="Show debug information", metavar="True")
 
     (options, args) = parser.parse_args()
 
-    siivooja = Siivooja(options.path, options.verbose)
+    siivooja = Siivooja(options.path, options.verbose, options.days)
     siivooja.scan_and_remove()
 
 
