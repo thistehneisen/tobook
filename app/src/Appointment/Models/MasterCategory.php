@@ -1,8 +1,12 @@
 <?php namespace App\Appointment\Models;
 
+use App;
 use App\Core\Models\Multilanguage;
-use App, DB, Input, Config;
 use App\Core\Traits\MultilanguageTrait;
+use Config;
+use DB;
+use Input;
+use Str;
 
 class MasterCategory extends \App\Core\Models\Base
 {
@@ -50,7 +54,7 @@ class MasterCategory extends \App\Core\Models\Base
     {
         $name = $this->translate('name', self::getContext() . $this->id, App::getLocale());
 
-        if(empty($name)){
+        if (empty($name)) {
             $name = $this->translate('name', self::getContext() . $this->id, Config::get('varaa.default_language'));
         }
 
@@ -61,13 +65,28 @@ class MasterCategory extends \App\Core\Models\Base
     {
         $description = $this->translate('description', self::getContext() . $this->id, App::getLocale());
 
-        if(empty($description)){
+        if (empty($description)) {
             $description = $this->translate('description', self::getContext() . $this->id, Config::get('varaa.default_language'));
         }
 
         return (!empty($description)) ? $description : trans('admin.master-cats.translation_not_found');
     }
 
+    /**
+     * Return URL of asset image to be used as background
+     *
+     * @return string
+     */
+    public function getBackgroundImageAttribute()
+    {
+        $filename = Str::slug($this->getOriginal('name'));
+
+        return asset_path("core/img/bg/{$filename}.jpg");
+    }
+
+    //--------------------------------------------------------------------------
+    // CUSTOM METHODS
+    //--------------------------------------------------------------------------
     /**
      * Get all master categories including their treatment types
      *
