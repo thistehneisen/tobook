@@ -101,10 +101,13 @@ class MasterCategories extends Base
     {
         $names = Input::get('name');
         $descriptions = Input::get('description');
+        $default_language = Config::get('varaa.default_language');
 
         try{
             $masterCat->fill([
-                'order' => 1
+                'order'       => 1,
+                'name'        => $names[$default_language],
+                'description' => $descriptions[$default_language],
             ]);
             $masterCat->save();
             $masterCat->saveMultilanguage($names, $descriptions);
