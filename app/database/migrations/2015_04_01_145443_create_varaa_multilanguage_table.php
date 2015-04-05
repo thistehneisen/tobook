@@ -17,7 +17,6 @@ class CreateVaraaMultilanguageTable extends Migration {
             $table->increments('id');
             $table->unsignedInteger('user_id')->nullable();
             $table->unsignedInteger('master_category_id')
-                ->after('category_id')
                 ->nullable();
             $table->string('context');
             $table->string('lang');
