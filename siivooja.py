@@ -35,7 +35,7 @@ class Siivooja(object):
         delta = now - created_date
         if(self.verbose):
             print "Date %s - delta days: %d" % (created_date.strftime("%Y-%m-%d %H:%M:%S") , delta.days)
-        return True if delta.days >= 14 else False
+        return (delta.days >= 14)
 
 
     def remove(self, file):
