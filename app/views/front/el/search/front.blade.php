@@ -12,7 +12,7 @@
                         </a>
 
                     @if ($category->treatments->isEmpty() === false)
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu" @if(!empty($category->background_image)) style="background: transparent url({{ $category->background_image }}) center center no-repeat; background-size: cover;" @endif>
                         @foreach ($category->treatments as $treatment)
                             <li><a href="#">{{ $treatment->name }}</a></li>
                         @endforeach
