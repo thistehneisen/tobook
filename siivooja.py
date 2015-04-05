@@ -4,7 +4,7 @@ from optparse import OptionParser
 from datetime import date, timedelta, datetime
 
 class Siivooja(object):
-    path =  '/Users/hungnq/Vagrant/codebox/wwwroot'
+    path =  '/srv/backup'
     verbose = False
 
     def __init__(self, path = None, verbose = False):
