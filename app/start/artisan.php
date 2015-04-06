@@ -20,6 +20,7 @@ Artisan::add(new App\Core\Commands\IndexExistingBusinessCommand());
 Artisan::add(new App\Core\Commands\BackupDatabaseCommand());
 Artisan::add(new App\Core\Commands\MoveBusinessDescriptionCommand());
 Artisan::add(new App\Core\Commands\ConnectConsumersCommand());
+Artisan::add(new App\Core\Commands\MappingServicesMasterCategories());
 
 Artisan::add(new App\Cart\Commands\UnlockCartItemsCommand());
 
