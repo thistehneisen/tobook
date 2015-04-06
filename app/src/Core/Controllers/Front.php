@@ -2,8 +2,8 @@
 
 use App\Appointment\Models\MasterCategory;
 use App\Core\Models\Business;
-use App\Core\Models\User;
 use App\Core\Models\BusinessCategory;
+use App\Core\Models\User;
 use App\FlashDeal\Models\FlashDeal;
 use Illuminate\Support\Collection;
 use Request;
@@ -15,6 +15,25 @@ use Util;
 class Front extends Base
 {
     protected $viewPath = 'front';
+
+    /**
+     * Dynamically create robots.txt file based on user setting
+     *
+     * @return View
+     */
+    public function robots()
+    {
+        $str = "User-agent: *\n";
+        $str .= "Disallow: ";
+
+        if (!Settings::get('allow_robots')) {
+            $str .= "/";
+        }
+
+        $response = Response::make($str, 200)->header('Content-Type', 'text/plain');
+
+        return $response;
+    }
 
     /**
      * Front page of the site
@@ -59,43 +78,17 @@ class Front extends Base
     {
         $category = MasterCategory::findOrFail($id);
 
-        $businesses = User::with('business')
+        $paginator = User::with('business')
             ->whereHas('asServices', function ($q) use ($id) {
                 $q->where('master_category_id', $id);
             })
             ->simplePaginate();
 
         // Extract list of businesses
-        $items = $businesses->getCollection()->lists('business');
+        $items = $paginator->getCollection()->lists('business');
+        $heading = $category->name;
 
-        // Calculate next page
-        $nextPageUrl = $this->getNextPageUrl($businesses);
-
-        $view = [
-            'businesses' => $items,
-            'nextPageUrl' => $nextPageUrl,
-        ];
-
-        // If this is a Show more request, return the view only
-        if (Request::ajax()) {
-            return Response::json([
-                'businesses' => $items,
-                'html'       => $this->render('el.sidebar', $view)->render()
-            ]);
-        }
-
-        // Get deals from businesses
-        $deals = $this->getDealsOfBusinesses($businesses);
-
-        // Get lat and lng to show the map
-        list($lat, $lng) = $this->extractLatLng();
-
-        $view['deals']   = $deals;
-        $view['lat']     = $lat;
-        $view['lng']     = $lng;
-        $view['heading'] = $category->name;
-
-        return $this->render('businesses', $view);
+        return $this->renderBusinesses($paginator, $items, $heading);
     }
 
     /**
@@ -106,41 +99,58 @@ class Front extends Base
     public function businesses()
     {
         // Get all businesses
-        $businesses = Business::notHidden()
+        $paginator = Business::notHidden()
             ->whereHas('user', function ($query) {
                 $query->whereNull('deleted_at');
             })
             ->with('user.images')
             ->simplePaginate();
 
-        // Calculate next page
-        $nextPageUrl = $this->getNextPageUrl($businesses);
+        $heading = trans('home.businesses');
 
-        $view = [
-            'businesses' => $businesses->getItems(),
+        return $this->renderBusinesses($paginator, $paginator->getItems(), $heading);
+    }
+
+    /**
+     * Auxilary method to render the list of businesses, AJAX pagination supported
+     *
+     * @param Illuminate\Pagination\Paginator $paginator  The paginator containing
+     *                                                    list of businesses
+     * @param array                           $businesses The list of businesses extrated from paginator
+     * @param string                          $heading    The heading used in the page
+     *
+     * @return Response|View
+     */
+    protected function renderBusinesses($paginator, $businesses, $heading)
+    {
+        // Calculate next page
+        $nextPageUrl = $this->getNextPageUrl($paginator);
+
+        $viewData = [
+            'businesses' => $businesses,
             'nextPageUrl' => $nextPageUrl,
         ];
 
         // If this is a Show more request, return the view only
         if (Request::ajax()) {
             return Response::json([
-                'businesses' => $businesses->getItems(),
-                'html'       => $this->render('el.sidebar', $view)->render()
+                'businesses' => $businesses,
+                'html'       => $this->render('el.sidebar', $viewData)->render()
             ]);
         }
 
         // Get deals from businesses
-        $deals = $this->getDealsOfBusinesses($businesses);
+        $deals = $this->getDealsOfBusinesses($paginator);
 
         // Get lat and lng to show the map
         list($lat, $lng) = $this->extractLatLng();
 
-        $view['deals']   = $deals;
-        $view['lat']     = $lat;
-        $view['lng']     = $lng;
-        $view['heading'] = trans('home.businesses');
+        $viewData['deals']   = $deals;
+        $viewData['lat']     = $lat;
+        $viewData['lng']     = $lng;
+        $viewData['heading'] = $heading;
 
-        return $this->render('businesses', $view);
+        return $this->render('businesses', $viewData);
     }
 
     /**
@@ -200,33 +210,9 @@ class Front extends Base
             ->paginate();
 
         $items = $businesses->lists('business');
-        // Calculate next page
-        $nextPageUrl = $this->getNextPageUrl($businesses);
+        $heading = trans('home.businesses_category', ['category' => $category->name]);
 
-        // Data for view
-        $view = [
-            'businesses' => $items,
-            'nextPageUrl' => $nextPageUrl,
-        ];
-
-        // If this is a Show more request, return the view only
-        if (Request::ajax()) {
-            return Response::json([
-                'businesses' => $items,
-                'html'       => $this->render('el.sidebar', $view)->render()
-            ]);
-        }
-
-        $deals = $this->getDealsOfBusinesses($businesses);
-
-        list($lat, $lng) = $this->extractLatLng();
-
-        $view['deals']       = $deals;
-        $view['lat']         = $lat;
-        $view['lng']         = $lng;
-        $view['heading']     = trans('home.businesses_category', ['category' => $category->name]);
-
-        return $this->render('businesses', $view);
+        return $this->renderBusinesses($businesses, $items, $heading);
     }
 
     /**
@@ -251,24 +237,5 @@ class Front extends Base
         }
 
         return $deals;
-    }
-
-    /**
-     * Dynamically create robots.txt file based on user setting
-     *
-     * @return View
-     */
-    public function robots()
-    {
-        $str = "User-agent: *\n";
-        $str .= "Disallow: ";
-
-        if (!Settings::get('allow_robots')) {
-            $str .= "/";
-        }
-
-        $response = Response::make($str, 200)->header('Content-Type', 'text/plain');
-
-        return $response;
     }
 }
