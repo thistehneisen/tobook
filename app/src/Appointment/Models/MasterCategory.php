@@ -84,6 +84,19 @@ class MasterCategory extends \App\Core\Models\Base
         return asset_path("core/img/bg/{$filename}.jpg");
     }
 
+    /**
+     * Return the URL of this master category
+     *
+     * @return string
+     */
+    public function getUrlAttribute()
+    {
+        return route('business.master_category', [
+            'id' => $this->id,
+            'slug' => Str::slug($this->name),
+        ]);
+    }
+
     //--------------------------------------------------------------------------
     // CUSTOM METHODS
     //--------------------------------------------------------------------------
