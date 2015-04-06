@@ -4,19 +4,22 @@
             <div class="col-sm-12">
                 @section('main-search')
                     <div id="category-menu" class="hidden-sm hidden-xs">
-                        <ul class="nav navbar-nav">
-                            @foreach ($businessCategories as $category)
+                        <ul class="nav navbar-nav front-nav">
+                            @foreach ($masterCategories as $category)
                             <li class="dropdown">
-                                <a href="{{ route('search') }}?q={{ urlencode($category->name) }}">
-                                    <img src="{{ asset_path('core/img/new/icons/small/'.$category->new_icon.'.png') }}" alt="">
-                                    {{ $category->name }}
-                                    <span class="caret"></span>
+                                <a href="{{ $category->url }}" title="{{{ $category->name }}}">{{{ $category->name }}}
+                            @if ($category->treatments->isEmpty() === false)
+                                <span class="caret"></span>
+                            @endif
                                 </a>
-                                <ul class="dropdown-menu">
-                                @foreach ($category->children as $child)
-                                    <li><a href="{{ route('business.category', ['id' => $child->id, 'slug' => $child->slug]) }}">{{ $child->name }}</a></li>
+
+                            @if ($category->treatments->isEmpty() === false)
+                                <ul class="dropdown-menu" @if(!empty($category->background_image)) style="background: #fff url({{ $category->background_image }}) center center no-repeat; background-size: cover;" @endif>
+                                @foreach ($category->treatments as $treatment)
+                                    <li><a href="{{ $treatment->url }}" title="{{{ $treatment->name }}}">{{{ $treatment->name }}}</a></li>
                                 @endforeach
                                 </ul>
+                            @endif
                             </li>
                             @endforeach
                         </ul>
