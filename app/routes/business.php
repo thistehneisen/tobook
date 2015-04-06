@@ -9,6 +9,11 @@ Route::get('categories/{id}-{slug}', [
     'uses'  => 'App\Core\Controllers\Front@masterCategory'
 ]);
 
+Route::get('treatments/{id}-{slug}', [
+    'as'    => 'business.treatment',
+    'uses'  => 'App\Core\Controllers\Front@treatment'
+]);
+
 /*
 |--------------------------------------------------------------------------
 | Single business
