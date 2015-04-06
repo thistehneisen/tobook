@@ -10,38 +10,43 @@ use Config;
 
 class MappingServicesMasterCategories extends Command {
 
-	/**
-	 * The console command name.
-	 *
-	 * @var string
-	 */
-	protected $name = 'command:mapping-services-master-categories-treatments';
+    /**
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $name = 'command:mapping-services-master-categories-treatments';
 
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
-	protected $description = 'Mapping services to selected master category and treatment type';
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Mapping services to selected master category and treatment type';
 
-	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		parent::__construct();
-	}
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
-	/**
-	 * Execute the console command.
-	 *
-	 * @return mixed
-	 */
-	public function fire()
-	{
-		$path = $this->argument('path');
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function fire()
+    {
+        $path = $this->argument('path');
+
+        if(!file_exists(realpath($path))) {
+            echo "File path not found! \n";
+            return;
+        }
 
         $masterCategories = MasterCategory::get()->lists('id', 'name');
         $treatmentTypes   = TreatmentType::get()->lists('id', 'name');
@@ -57,29 +62,38 @@ class MappingServicesMasterCategories extends Command {
             }
         }
         fclose($file);
-	}
-
-    private function updateService($serviceId, $masterCategoryId, $treatmentTypeId)
-    {
-        $service        = Service::find($serviceId);
-        $masterCategory = MasterCategory::find($masterCategoryId);
-        $treatmentType  = TreatmentType::find($treatmentTypeId);
-
-        $service->masterCategory()->associate($masterCategory);
-        $service->treatmentType()->associate($treatmentType);
-        $service->save();
     }
 
-	/**
-	 * Get the console command arguments.
-	 *
-	 * @return array
-	 */
-	protected function getArguments()
-	{
-		return array(
-			array('path', InputArgument::REQUIRED, 'File path to mapping csv file.'),
-		);
-	}
+    /**
+     * Link service with specific master cagtegories and treatment type
+     *
+     * @return void
+     */
+    private function updateService($serviceId, $masterCategoryId, $treatmentTypeId)
+    {
+        try {
+            $service        = Service::findOrFail($serviceId);
+            $masterCategory = MasterCategory::findOrFail($masterCategoryId);
+            $treatmentType  = TreatmentType::findOrFail($treatmentTypeId);
+
+            $service->masterCategory()->associate($masterCategory);
+            $service->treatmentType()->associate($treatmentType);
+            $service->save();
+        } catch (\Exception $ex){
+            echo $ex->getMessage();
+        }
+    }
+
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return array(
+            array('path', InputArgument::REQUIRED, 'File path to mapping csv file.'),
+        );
+    }
 
 }
