@@ -58,7 +58,7 @@ class MasterCategory extends \App\Core\Models\Base
             $name = $this->translate('name', self::getContext() . $this->id, Config::get('varaa.default_language'));
         }
 
-        return (!empty($name)) ? $name : trans('admin.master-cats.translation_not_found');
+        return (!empty($name)) ? $name : $this->attributes['name'];
     }
 
     public function getDescriptionAttribute()
@@ -69,7 +69,7 @@ class MasterCategory extends \App\Core\Models\Base
             $description = $this->translate('description', self::getContext() . $this->id, Config::get('varaa.default_language'));
         }
 
-        return (!empty($description)) ? $description : trans('admin.master-cats.translation_not_found');
+        return (!empty($description)) ? $description : $this->attributes['description'];
     }
 
     /**

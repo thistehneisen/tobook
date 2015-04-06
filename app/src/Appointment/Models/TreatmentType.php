@@ -82,7 +82,7 @@ class TreatmentType extends \App\Appointment\Models\Base
             $name = $this->translate('name', self::getContext() . $this->id, Config::get('varaa.default_language'));
         }
 
-        return (!empty($name)) ? $name : trans('admin.master-cats.translation_not_found');
+        return (!empty($name)) ? $name : $this->attributes['name'];
     }
 
     public function getDescriptionAttribute()
@@ -93,7 +93,7 @@ class TreatmentType extends \App\Appointment\Models\Base
             $description = $this->translate('description', self::getContext() . $this->id, Config::get('varaa.default_language'));
         }
 
-        return (!empty($description)) ? $description : trans('admin.master-cats.translation_not_found');
+        return (!empty($description)) ? $description : $this->attributes['description'];
     }
 
     /**
