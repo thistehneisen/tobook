@@ -54,7 +54,7 @@ class MappingServicesMasterCategories extends Command {
         $file = fopen(realpath($path),"r");
         while (!feof($file)) {
             $data = fgetcsv($file);
-            if(!empty($masterCategories[$data[1]]) && $treatmentTypes[$data[2]]){
+            if (!empty($masterCategories[$data[1]]) && !empty($treatmentTypes[$data[2]])) {
                 $serviceId = (int) $data[0];
                 $masterCategoryId = (int) $masterCategories[trim($data[1])];
                 $treatmentTypeId = (int) $treatmentTypes[trim($data[2])];
