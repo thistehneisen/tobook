@@ -96,6 +96,11 @@ class User extends ConfideUser implements SearchableInterface
         return $this->belongsToMany('App\Consumers\Models\Consumer');
     }
 
+    public function asServices()
+    {
+        return $this->hasMany('App\Appointment\Models\Service');
+    }
+
     public function asServiceCategories()
     {
         return $this->hasMany('App\Appointment\Models\ServiceCategory');

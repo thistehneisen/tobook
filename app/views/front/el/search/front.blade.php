@@ -5,7 +5,7 @@
                 <ul class="nav navbar-nav front-nav">
                     @foreach ($categories as $category)
                     <li class="dropdown">
-                        <a href="#">{{ $category->name }}
+                        <a href="{{ $category->url }}" title="{{ $category->name }}">{{ $category->name }}
                     @if ($category->treatments->isEmpty() === false)
                         <span class="caret"></span>
                     @endif
