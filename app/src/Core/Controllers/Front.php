@@ -2,6 +2,7 @@
 
 use App\Appointment\Models\MasterCategory;
 use App\Core\Models\Business;
+use App\Core\Models\User;
 use App\Core\Models\BusinessCategory;
 use App\FlashDeal\Models\FlashDeal;
 use Illuminate\Support\Collection;
@@ -45,6 +46,56 @@ class Front extends Base
             'dealCategories'   => $dealCategories,
             'masterCategories' => $masterCategories,
         ]);
+    }
+
+    /**
+     * Show businesses in a master category
+     *
+     * @param int $id Master category's ID
+     *
+     * @return View
+     */
+    public function masterCategory($id)
+    {
+        $category = MasterCategory::findOrFail($id);
+
+        $businesses = User::with('business')
+            ->whereHas('asServices', function ($q) use ($id) {
+                $q->where('master_category_id', $id);
+            })
+            ->simplePaginate();
+
+        // Extract list of businesses
+        $items = $businesses->getCollection()->lists('business');
+
+        // Calculate next page
+        $nextPageUrl = $this->getNextPageUrl($businesses);
+
+        $view = [
+            'businesses' => $items,
+            'nextPageUrl' => $nextPageUrl,
+        ];
+
+        // If this is a Show more request, return the view only
+        if (Request::ajax()) {
+            return Response::json([
+                'businesses' => $items,
+                'html'       => $this->render('el.sidebar', $view)->render()
+            ]);
+        }
+
+        // Get deals from businesses
+        $deals = $this->getDealsOfBusinesses($businesses);
+
+        // Get lat and lng to show the map
+        list($lat, $lng) = $this->extractLatLng();
+
+        $view['deals']   = $deals;
+        $view['lat']     = $lat;
+        $view['lng']     = $lng;
+        $view['heading'] = $category->name;
+
+        return $this->render('businesses', $view);
     }
 
     /**
