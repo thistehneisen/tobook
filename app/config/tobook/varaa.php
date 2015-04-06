@@ -4,7 +4,8 @@ $head_script = '';
 
 return [
     'name' => 'ToBook.lv',
-    'languages' => ['lv', 'en', 'fi'],
+    'languages' => ['lv', 'ru', 'en'],
+    'default_language' => 'lv',
     'premium_modules' => [
         'appointment' => [
             'route_name' => 'as.index',

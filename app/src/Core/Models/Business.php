@@ -1,24 +1,28 @@
 <?php namespace App\Core\Models;
 
-use Config, Log, NAT, Input, Str, Util, App;
+use App;
+use App\Appointment\Models\Booking;
 use App\Core\Models\Relations\BusinessBusinessCategory;
-use App\Lomake\Fields\HtmlField;
+use Carbon\Carbon;
+use Config;
 use Exception;
 use Illuminate\Support\Collection;
-use App\Appointment\Models\Booking;
-use Carbon\Carbon;
+use Input;
+use NAT;
+use Str;
+use Util;
 
 class Business extends Base
 {
     public $fillable = [
         'name',
+        'phone',
         'description',
         'size',
         'address',
         'city',
         'postcode',
         'country',
-        'phone',
         'lat',
         'lng',
         'note',
@@ -44,12 +48,29 @@ class Business extends Base
         'meta_keywords',
         'meta_description',
         'is_hidden',
+        'user_id',
+        'is_activated',
+        'is_booking_disabled',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    protected $appends = [
+        'full_address',
     ];
 
     /**
      * @{@inheritdoc}
      */
     public $isSearchable = true;
+
+    /**
+     * Use to store data from table multilang
+     *
+     * @var array
+     */
+    protected $multilang = [];
 
     /**
      * @{@inheritdoc}
@@ -155,6 +176,39 @@ class Business extends Base
     }
 
     /**
+     * Update business description in multiple languages
+     *
+     * @param array $input
+     *
+     * @return App\Core\Models\Business
+     */
+    public function updateDescription($input)
+    {
+        $key = 'business_description';
+        foreach ($input as $lang => $value) {
+            $obj = Multilanguage::where('user_id', $this->user_id)
+                ->where('context', $this->getTable())
+                ->where('key', $key)
+                ->where('lang', $lang)
+                ->first();
+            if ($obj === null) {
+                $obj = new Multilanguage();
+            }
+
+            $obj->fill([
+                'context' => $this->getTable(),
+                'lang'    => $lang,
+                'key'     => $key,
+                'value'   => $value,
+            ]);
+            $obj->user()->associate($this->user);
+            $obj->save();
+        }
+
+        return $this;
+    }
+
+    /**
      * Update information of this business
      *
      * @param array                $input
@@ -166,7 +220,6 @@ class Business extends Base
     {
         $this->fill([
             'name'                => $input['name'],
-            'description'         => HtmlField::filterInput($input, 'description'),
             'size'                => $input['size'],
             'address'             => $input['address'],
             'city'                => $input['city'],
@@ -183,6 +236,9 @@ class Business extends Base
         ]);
         $this->user()->associate($user);
         $this->saveOrFail();
+
+        // Update description
+        $this->updateDescription($input['description_html']);
 
         // We will remove hidden businesses from indexing
         if ($this->is_hidden) {
@@ -219,6 +275,32 @@ class Business extends Base
     protected function getFullAddress($address, $postcode, $city, $country)
     {
         return $address ? sprintf('%s, %s %s, %s', $address, $postcode, $city, $country) : '';
+    }
+
+    /**
+     * Get business description in a specific language
+     *
+     * @param string $language
+     *
+     * @return string
+     */
+    public function getDescriptionInLanguage($language)
+    {
+        $key = 'business_description';
+        if (!isset($this->multilang[$key])) {
+            $results = Multilanguage::where('context', $this->getTable())
+                ->where('key', $key)
+                ->where('user_id', $this->user_id)
+                ->get();
+
+            foreach ($results as $item) {
+                $this->multilang[$key][$item->lang] = $item->value;
+            }
+        }
+
+        return (isset($this->multilang[$key][$language]))
+            ? $this->multilang[$key][$language]
+            : '';
     }
 
     //--------------------------------------------------------------------------
@@ -345,11 +427,14 @@ class Business extends Base
      */
     public function getDescriptionHtmlAttribute()
     {
-        if (empty($this->attributes['description'])) {
-            return '';
+        // Get of current language first
+        $desc = $this->getDescriptionInLanguage(App::getLocale());
+        // If it's empty, we'll try to get in the default language
+        if (empty($desc)) {
+            $desc = $this->getDescriptionInLanguage(Config::get('varaa.default_language'));
         }
 
-        return $this->attributes['description'];
+        return $desc;
     }
 
     /**

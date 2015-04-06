@@ -75,6 +75,14 @@ class Service extends \App\Core\Models\Base
         return array_values($data);
     }
 
+    public function getTreamentsList()
+    {
+        if(!empty($this->treatmentType->id)) {
+            return TreatmentType::where('master_category_id', $this->treatmentType->master_category_id)->get()->lists('name', 'id');
+        }
+        return[];
+    }
+
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
@@ -110,6 +118,16 @@ class Service extends \App\Core\Models\Base
     public function category()
     {
         return $this->belongsTo('App\Appointment\Models\ServiceCategory');
+    }
+
+    public function masterCategory()
+    {
+        return $this->belongsTo('App\Appointment\Models\MasterCategory');
+    }
+
+    public function treatmentType()
+    {
+        return $this->belongsTo('App\Appointment\Models\TreatmentType');
     }
 
     public function employees()

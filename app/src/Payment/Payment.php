@@ -1,6 +1,10 @@
 <?php namespace App\Payment;
 
-use Redirect, Session, Input, Validator;
+use Input;
+use Redirect;
+use Session;
+use Settings;
+use Validator;
 
 class Payment
 {
@@ -70,11 +74,15 @@ class Payment
         //         ->withErrors($v);
         // }
 
-        $gateway = GatewayFactory::make(Input::get('gateway', 'Skrill'));
+        $gateway = GatewayFactory::make(Input::get('gateway', Settings::get('default_paygate')));
 
         $card        = static::extractCardData(Input::all());
         $transaction = static::current();
         $response = $gateway->purchase($transaction, ['card' => $card]);
+
+        if (!($response instanceof \Omnipay\Skrill\Message\PaymentResponse)) {
+            return;
+        }
 
         // Update transaction with data from resposne
         $transaction->fill([

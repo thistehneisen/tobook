@@ -84,11 +84,13 @@ return [
     'companies_offers'    => 'Companies with offers',
     'categories'          => 'Categories',
     'best_offers'         => 'Best offers',
+    'map'                 => 'Map',
     'no_offers'           => 'There is no offer available.',
+    'show_more'           => 'Show more',
     // Business
     'business' => [
         'about'          => 'About',
-        'openning_hours' => 'Opening hours',
+        'openning_hours' => 'Openning hours',
         'map'            => 'Map',
         'phone'          => 'Phone',
         'email'          => 'Email',

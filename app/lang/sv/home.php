@@ -84,6 +84,8 @@ return [
     'categories'          => 'Categories', // @todo
     'best_offers'         => 'Erbjudanden',
     'no_offers'           => 'Det finns inga erbjudanden',
+    'map'                 => 'Map', // @todo
+    'show_more'           => 'Show more', // @todo
     // Business
     'business' => [
         'about'          => 'About', // @todo

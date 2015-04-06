@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call('EntrustSeeder');
         $this->call('ModuleSeeder');
         $this->call('BusinessCategorySeeder');
+        $this->call('MasterCategorySeeder');
     }
 
 }

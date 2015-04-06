@@ -20,7 +20,8 @@ return [
     //--------------------------------------------------------------------------
     //  Default languages of the site, in this order
     //--------------------------------------------------------------------------
-    'languages' => ['fi', 'en', 'sv', 'ru', 'lv', 'ro'],
+    'languages'        => [],
+    'default_language' => 'fi',
     //--------------------------------------------------------------------------
     // Search
     //--------------------------------------------------------------------------
@@ -94,9 +95,10 @@ return [
         //----------------------------------------------------------------------
         //  Social configuration
         //----------------------------------------------------------------------
-        'social_facebook'  => ['type' => 'Text', 'default' => 'https://www.facebook.com/varaacom'],
-        'social_linkedin'  => ['type' => 'Text', 'default' => 'https://www.linkedin.com/company/3280872'],
-        'social_youtube'   => ['type' => 'Text', 'default' => 'https://www.youtube.com/user/Varaacom'],
+        'social_facebook'    => ['type' => 'Text', 'default' => 'https://www.facebook.com/varaacom'],
+        'social_linkedin'    => ['type' => 'Text', 'default' => 'https://www.linkedin.com/company/3280872'],
+        'social_youtube'     => ['type' => 'Text', 'default' => 'https://www.youtube.com/user/Varaacom'],
+        'social_google-plus' => ['type' => 'Text', 'default' => ''],
         //----------------------------------------------------------------------
         //  Footer copyright info
         //----------------------------------------------------------------------
@@ -124,5 +126,9 @@ return [
         //  Footer text to be included in every contact message in business page
         //----------------------------------------------------------------------
         'footer_contact_message' => ['type' => 'Text', 'default' => 'Start using our free online booking tool now'],
+        //----------------------------------------------------------------------
+        // Default paygate for the system
+        //----------------------------------------------------------------------
+        'default_paygate' => ['type' => 'Dropdown', 'values' => ['Paysera', 'Skrill'], 'default' => 'Skrill'],
     ]
 ];
