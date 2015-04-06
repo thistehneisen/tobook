@@ -1,6 +1,7 @@
 <?php namespace App\Core\Controllers;
 
 use App\Appointment\Models\MasterCategory;
+use App\Appointment\Models\TreatmentType;
 use App\Core\Models\Business;
 use App\Core\Models\BusinessCategory;
 use App\Core\Models\User;
@@ -87,6 +88,29 @@ class Front extends Base
         // Extract list of businesses
         $items = $paginator->getCollection()->lists('business');
         $heading = $category->name;
+
+        return $this->renderBusinesses($paginator, $items, $heading);
+    }
+
+    /**
+     * Show businesses in a treatment type
+     *
+     * @param int $id
+     *
+     * @return Response|View
+     */
+    public function treatment($id)
+    {
+        $treatment = TreatmentType::findOrFail($id);
+        $paginator = User::with('business')
+            ->whereHas('asServices', function ($q) use ($id) {
+                $q->where('treatment_type_id', $id);
+            })
+            ->simplePaginate();
+
+        // Extract list of businesses
+        $items = $paginator->getCollection()->lists('business');
+        $heading = $treatment->name;
 
         return $this->renderBusinesses($paginator, $items, $heading);
     }

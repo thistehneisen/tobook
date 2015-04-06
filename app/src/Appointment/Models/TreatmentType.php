@@ -1,11 +1,12 @@
 <?php namespace App\Appointment\Models;
 
-use Carbon\Carbon;
-use App, DB, Input, Config;
-use Illuminate\Support\Collection;
+use App;
 use App\Core\Models\Multilanguage;
-use App\Appointment\Models\Reception\BackendReceptionist;
 use App\Core\Traits\MultilanguageTrait;
+use Config;
+use DB;
+use Input;
+use Str;
 
 class TreatmentType extends \App\Appointment\Models\Base
 {
@@ -35,9 +36,10 @@ class TreatmentType extends \App\Appointment\Models\Base
     public function databaseSearch($keyword, array $options = array())
     {
         $query =  self::join('multilanguage', 'multilanguage.context', '=', DB::raw("concat('" . TreatmentType::getContext() . "', `varaa_as_treatment_types`.`id`)"))
-            ->where(function($query){
+            ->where(function ($query) {
                 $query->where('multilanguage.key', 'name')
                     ->orWhere('multilanguage.key', 'description');
+
                 return $query;
             })->where('value', 'LIKE', '%'.$keyword.'%')
             ->select('as_treatment_types.id')->distinct();
@@ -76,7 +78,7 @@ class TreatmentType extends \App\Appointment\Models\Base
     {
         $name = $this->translate('name', self::getContext() . $this->id, App::getLocale());
 
-        if(empty($name)){
+        if (empty($name)) {
             $name = $this->translate('name', self::getContext() . $this->id, Config::get('varaa.default_language'));
         }
 
@@ -87,11 +89,24 @@ class TreatmentType extends \App\Appointment\Models\Base
     {
         $description = $this->translate('description', self::getContext() . $this->id, App::getLocale());
 
-        if(empty($description)){
+        if (empty($description)) {
             $description = $this->translate('description', self::getContext() . $this->id, Config::get('varaa.default_language'));
         }
 
         return (!empty($description)) ? $description : trans('admin.master-cats.translation_not_found');
+    }
+
+    /**
+     * Return the URL of this treatment type
+     *
+     * @return string
+     */
+    public function getUrlAttribute()
+    {
+        return route('business.treatment', [
+            'id'   => $this->id,
+            'slug' => Str::slug($this->name),
+        ]);
     }
 
     //--------------------------------------------------------------------------
