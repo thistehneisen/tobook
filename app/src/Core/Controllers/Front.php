@@ -71,11 +71,12 @@ class Front extends Base
     /**
      * Show businesses in a master category
      *
-     * @param int $id Master category's ID
+     * @param int    $id   Master category's ID
+     * @param string $slug
      *
      * @return View
      */
-    public function masterCategory($id)
+    public function masterCategory($id, $slug = null)
     {
         $category = MasterCategory::findOrFail($id);
 
@@ -95,11 +96,12 @@ class Front extends Base
     /**
      * Show businesses in a treatment type
      *
-     * @param int $id
+     * @param int    $id
+     * @param string $slug
      *
      * @return Response|View
      */
-    public function treatment($id)
+    public function treatment($id, $slug = null)
     {
         $treatment = TreatmentType::findOrFail($id);
         $paginator = User::with('business')
