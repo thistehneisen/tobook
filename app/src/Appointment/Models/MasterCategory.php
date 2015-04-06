@@ -93,7 +93,7 @@ class MasterCategory extends \App\Core\Models\Base
     {
         return route('business.master_category', [
             'id' => $this->id,
-            'slug' => Str::slug($this->name),
+            'slug' => Str::slug($this->getOriginal('name')),
         ]);
     }
 

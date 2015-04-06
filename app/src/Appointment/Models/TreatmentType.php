@@ -105,7 +105,7 @@ class TreatmentType extends \App\Appointment\Models\Base
     {
         return route('business.treatment', [
             'id'   => $this->id,
-            'slug' => Str::slug($this->name),
+            'slug' => Str::slug($this->getOriginal('name')),
         ]);
     }
 
