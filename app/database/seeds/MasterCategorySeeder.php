@@ -13,8 +13,9 @@ class MasterCategorySeeder extends Seeder
     {
         $data = [
             [
-                'master' => 'Kampaamopalvelut',
+                'master' => 'Hiukset',
                 'treatment' => [
+                    'Kampaamopalvelut',
                     'Parturipalvelut',
                     'Värjäykset & raidat',
                     'Hiustenpidennykset',
