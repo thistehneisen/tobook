@@ -1,4 +1,4 @@
-<div class="search-wrapper">
+<div class="search-wrapper default">
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
@@ -45,7 +45,7 @@
                                 <input type="text" class="form-control" id="js-locationInput" name="location" placeholder="{{ trans('home.search.location') }}" value="{{{ Input::get('location') }}}">
                             </div>
 
-                            <button type="submit" class="btn btn-success">{{ trans('common.search') }}</button>
+                            <button type="submit" class="btn btn-success btn-square">{{ trans('common.search') }}</button>
                         </div>
 {{--
                         <div class="row datetime-selector">

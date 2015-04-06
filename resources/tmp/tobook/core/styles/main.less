@@ -89,6 +89,10 @@ a {
     margin: 20px 0;
 }
 
+.btn-square {
+    border-radius: 0;
+}
+
 // -------------------------------------------------------------------------- //
 // --------------------------------- Layout --------------------------------- //
 // -------------------------------------------------------------------------- //
@@ -134,7 +138,9 @@ a {
 
     .search-wrapper {
         background: @primary_color;
-        padding-bottom: 10px;
+        &.default {
+            padding-bottom: 10px;
+        }
 
         #category-menu .navbar-nav {
             float:none;
