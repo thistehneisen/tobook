@@ -89,11 +89,11 @@ return [
     'show_more'           => 'Show more', // @todo
     // Business
     'business' => [
-        'about'          => 'About', // @todo
+        'about'          => 'Par uzņēmumu', // @todo
         'openning_hours' => 'Darba laiks', // @todo
         'map'            => 'Karte', // @todo
-        'phone'          => 'Phone', // @todo
-        'email'          => 'Email', // @todo
+        'phone'          => 'Telefons', // @todo
+        'email'          => 'E-pasts', // @todo
         'online_booking' => 'Online booking', // @todo
         'request'        => [
             'link'    => 'Ask for online booking', // @todo
@@ -102,11 +102,11 @@ return [
             'mail'    => $requestMail, // @todo
         ],
         'contact'        => [
-            'index'   => 'Contact', // @todo
-            'heading' => 'Contact us', // @todo
-            'name'    => 'Name*', // @todo
-            'email'   => 'Email*', // @todo
-            'phone'   => 'Phone', // @todo
+            'index'   => 'Kontakts', // @todo
+            'heading' => 'Sazinieties ar mums', // @todo
+            'name'    => 'Vārds*', // @todo
+            'email'   => 'E-pasts*', // @todo
+            'phone'   => 'Telefons', // @todo
             'captcha' => 'Please enter the characters below*', // @todo
             'message' => 'Message*', // @todo
             'sent'    => 'Your message has been sent', // @todo

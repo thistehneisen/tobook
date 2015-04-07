@@ -44,7 +44,7 @@ return [
     'search_place'          => 'Helsinki, FI', // @todo
     'search'        => [
         'tagline'         => 'Что вы хотите заказать?', // @todo
-        'query'           => 'Введите название предприятия или услугу', // @todo
+        'query'           => 'Компания или услуга', // @todo
         'location'        => Settings::get('default_location'), // @todo
         'about'           => 'Подробнее',
         'locations_hours' => 'Места &amp; время',
@@ -91,8 +91,8 @@ return [
         'about'          => 'About', // @todo
         'openning_hours' => 'Openning hours', // @todo
         'map'            => 'Map', // @todo
-        'phone'          => 'Phone', // @todo
-        'email'          => 'Email', // @todo
+        'phone'          => 'телефон', // @todo
+        'email'          => 'Электронная Почта', // @todo
         'online_booking' => 'Online booking', // @todo
         'request'        => [
             'link'    => 'Ask for online booking', // @todo
@@ -101,13 +101,13 @@ return [
             'mail'    => $requestMail, // @todo
         ],
         'contact'        => [
-            'index'   => 'Contact', // @todo
-            'heading' => 'Contact us', // @todo
-            'name'    => 'Name*', // @todo
-            'email'   => 'Email*', // @todo
-            'phone'   => 'Phone', // @todo
+            'index'   => 'связаться с нами', // @todo
+            'heading' => 'связаться с нами', // @todo
+            'name'    => 'Имя*', // @todo
+            'email'   => 'Электронная Почта*', // @todo
+            'phone'   => 'телефон', // @todo
             'captcha' => 'Please enter the characters below*', // @todo
-            'message' => 'Message*', // @todo
+            'message' => 'Сообщение*', // @todo
             'sent'    => 'Your message has been sent', // @todo
             'subject' => 'You got a contact message', // @todo
             'mail'    => $contactEmail, // @todo
