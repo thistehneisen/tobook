@@ -13,7 +13,7 @@
     <div class="col-sm-3 col-md-3">
         <div class="input-group margin-bottom-lg">
             <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
-            <input name="location" class="form-control input-lg" type="text" placeholder="{{ trans('home.search.location') }}">
+            <input name="location" class="form-control input-lg" style="@if(App::getLocale() == 'lv')width:185px;@endif" type="text" placeholder="{{ trans('home.search.location') }}">
         </div>
     </div>
 
