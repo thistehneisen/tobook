@@ -15,6 +15,8 @@
     <meta name="verify-paysera" content="{{ Config::get('services.paysera.verification') }}">
     @endif
 
+    <link rel="shortcut icon" type="image/png" href="{{ asset_path('core/img/favicon.png') }}" />
+
     <title>
         @section('title')
         {{{ Settings::get('meta_title') }}}
