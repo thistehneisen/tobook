@@ -208,9 +208,8 @@ class Front extends Base
         $lng = Session::get('lng');
         if (empty($lat) && empty($lng)) {
             try {
-                list($lat, $lng) = Util::geocoder(
-                    Settings::get('default_location')
-                );
+            // dd(Settings::get('default_location'));
+                list($lat, $lng) = Util::geocoder(Settings::get('default_location'));
             } catch (\Exception $ex) { /* Silently failed */ }
         }
 
