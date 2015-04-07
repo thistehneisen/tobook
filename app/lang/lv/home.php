@@ -85,8 +85,8 @@ return [
     'categories'          => 'Kategorijas', // @todo
     'best_offers'         => 'Labākie piedāvājumi', // @todo
     'no_offers'           => 'Nav piedāvājumu pieejama', // @todo
-    'map'                 => 'Map', // @todo
-    'show_more'           => 'Show more', // @todo
+    'map'                 => 'Karte', // @todo
+    'show_more'           => 'Parādīt vairāk', // @todo
     // Business
     'business' => [
         'about'          => 'Par uzņēmumu', // @todo
@@ -96,9 +96,9 @@ return [
         'email'          => 'E-pasts', // @todo
         'online_booking' => 'Online booking', // @todo
         'request'        => [
-            'link'    => 'Ask for online booking', // @todo
-            'info'    => 'The shop owner will be asked to use our online booking system.', // @todo
-            'subject' => 'Request to use online booking system', // @todo
+            'link'    => 'Jautāt tiešsaistes rezervācijas', // @todo
+            'info'    => 'Veikala īpašnieks tiks lūgts, lai izmantotu mūsu tiešsaistes rezervācijas sistēmu.', // @todo
+            'subject' => 'Pieprasījums izmantot tiešsaistes rezervēšanas sistēmu', // @todo
             'mail'    => $requestMail, // @todo
         ],
         'contact'        => [
@@ -107,10 +107,10 @@ return [
             'name'    => 'Vārds*', // @todo
             'email'   => 'E-pasts*', // @todo
             'phone'   => 'Telefons', // @todo
-            'captcha' => 'Please enter the characters below*', // @todo
-            'message' => 'Message*', // @todo
-            'sent'    => 'Your message has been sent', // @todo
-            'subject' => 'You got a contact message', // @todo
+            'captcha' => 'Lūdzu zemāk ievadiet simbolus*', // @todo
+            'message' => 'Ziņa*', // @todo
+            'sent'    => 'Jūsu ziņojums ir nosūtīts', // @todo
+            'subject' => 'Tev Kontakta ziņu', // @todo
             'mail'    => $contactEmail, // @todo
         ]
     ],

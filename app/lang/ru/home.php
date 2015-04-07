@@ -52,8 +52,8 @@ return [
         'buy'             => 'Купить',
         'book'            => 'Записаться',
         'button'          => 'поиск', // @todo
-        'date'            => 'Any date', // @todo
-        'time'            => 'Any time', // @todo
+        'date'            => 'Любая дата', // @todo
+        'time'            => 'любое время', // @todo
         'geo'             => [
             'info' => 'Ваше местоположение нужно для того, чтобы показывать близкие к вам результаты поиска.'
         ]
@@ -78,26 +78,26 @@ return [
     'how_does_it_work'    => 'How does it work?', // @todo
     'businesses'          => 'Что вы хотите заказать?', // @todo
     'businesses_category' => 'Businesses of <strong>:category</strong>', // @todo
-    'more'                => 'More', // @todo
-    'less'                => 'Less', // @todo
-    'companies_offers'    => 'Companies with offers', // @todo
-    'categories'          => 'Categories', // @todo
-    'best_offers'         => 'Best offers', // @todo
-    'no_offers'           => 'There is no offer available.', // @todo
-    'map'                 => 'Map', // @todo
-    'show_more'           => 'Show more', // @todo
+    'more'                => 'более', // @todo
+    'less'                => 'менее', // @todo
+    'companies_offers'    => 'Компании с предложениями', // @todo
+    'categories'          => 'категории', // @todo
+    'best_offers'         => 'Лучшие предложения', // @todo
+    'no_offers'           => 'Там нет никаких предложений доступны.', // @todo
+    'map'                 => 'карта', // @todo
+    'show_more'           => 'Показать больше', // @todo
     // Business
     'business' => [
-        'about'          => 'About', // @todo
-        'openning_hours' => 'Openning hours', // @todo
-        'map'            => 'Map', // @todo
+        'about'          => 'о нас', // @todo
+        'openning_hours' => 'время работы', // @todo
+        'map'            => 'карта', // @todo
         'phone'          => 'телефон', // @todo
         'email'          => 'Электронная Почта', // @todo
-        'online_booking' => 'Online booking', // @todo
+        'online_booking' => 'онлайн бронирование', // @todo
         'request'        => [
-            'link'    => 'Ask for online booking', // @todo
-            'info'    => 'The shop owner will be asked to use our online booking system.', // @todo
-            'subject' => 'Request to use online booking system', // @todo
+            'link'    => 'Спросите для онлайн-бронирования', // @todo
+            'info'    => 'TВладелец магазина будет предложено использовать нашу систему бронирования онлайн.', // @todo
+            'subject' => 'Запрос на использование системы онлайн-бронирования', // @todo
             'mail'    => $requestMail, // @todo
         ],
         'contact'        => [
@@ -106,10 +106,10 @@ return [
             'name'    => 'Имя*', // @todo
             'email'   => 'Электронная Почта*', // @todo
             'phone'   => 'телефон', // @todo
-            'captcha' => 'Please enter the characters below*', // @todo
+            'captcha' => 'Пожалуйста, введите символы, указанные ниже*', // @todo
             'message' => 'Сообщение*', // @todo
-            'sent'    => 'Your message has been sent', // @todo
-            'subject' => 'You got a contact message', // @todo
+            'sent'    => 'Ваше сообщение отправлено', // @todo
+            'subject' => 'Вы получили контактную', // @todo
             'mail'    => $contactEmail, // @todo
         ]
     ],
