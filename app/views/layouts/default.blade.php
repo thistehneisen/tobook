@@ -7,7 +7,8 @@
 
     @section('meta')
         @foreach (Settings::group('meta') as $tag => $content)
-    <meta name="{{{ $tag }}}" content="{{{ $content }}}">
+            @if ($tag !== 'meta_title') <meta name="{{{ $tag }}}" content="{{{ $content }}}">
+            @endif
         @endforeach
     @show
 

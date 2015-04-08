@@ -1,13 +1,12 @@
 @extends ('layouts.default')
 
 @section('title')
-    @parent :: {{{ $business->name }}}
+    @parent :: {{{ $business->meta_title or $business->name }}}
 @stop
 
 @section('meta')
 <meta name="description" content="{{{ $business->meta_description }}}">
 <meta name="keywords" content="{{{ $business->meta_keywords }}}">
-<meta name="title" content="{{{ $business->meta_title }}}">
 @stop
 
 @section('scripts')
