@@ -13,6 +13,7 @@ def _deploy(environment, host):
             run('php artisan down')
             # pull latest source
             branch = 'develop' if environment == 'stag' else 'master'
+            run('git checkout {}'.format(branch))
             run('git pull origin {}'.format(branch))
             # install dependencies
             run('composer install')
