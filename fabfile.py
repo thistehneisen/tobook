@@ -13,6 +13,7 @@ def _deploy(environment, host):
             run('php artisan down')
             # pull latest source
             branch = 'develop' if environment == 'stag' else 'master'
+            # branch = 'develop' if environment == 'stag' or environment == 'tobook' else 'master'
             run('git checkout {}'.format(branch))
             run('git pull origin {}'.format(branch))
             # install dependencies
@@ -25,9 +26,14 @@ def _deploy(environment, host):
             run('chmod -Rf 777 app/storage')
             # clear all application cache
             run('php artisan cache:clear')
+            #-------------------------------------------------------------------
+            # These commands are run once and will be removed in next release
+            #-------------------------------------------------------------------
             # Connect incomplete consumers account
-            # This is run only once and will be removed in next release
             run('php artisan varaa:connect-consumers')
+            # Move business description to the default language
+            run('php artisan varaa:move-business-description')
+            #-------------------------------------------------------------------
             # restart supervisor processes
             run('supervisorctl restart all')
             # set it to live mode again
