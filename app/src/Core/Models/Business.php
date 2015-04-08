@@ -454,7 +454,7 @@ class Business extends Base
      */
     public function getSlugAttribute($value)
     {
-        return Str::slug($this->attributes['name']);
+        return Str::slug($this->getAttribute('name'));
     }
 
     /**
