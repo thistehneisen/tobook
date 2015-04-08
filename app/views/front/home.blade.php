@@ -35,6 +35,7 @@
 </div>
 
 <div class="container">
+{{--
     <div class="row categories" id="js-home-categories">
         @foreach ($categories as $category)
             <div class="col-sm-2 col-md-2">
@@ -50,7 +51,7 @@
             </div>
         @endforeach
     </div>
-
+--}}
 @if ($head->isEmpty() === false)
     <div class="row">
         <div class="hot-offers">
