@@ -12,8 +12,8 @@ def _deploy(environment, host):
             # set it to maintenance mode
             run('php artisan down')
             # pull latest source
-            branch = 'develop' if environment == 'stag' else 'master'
-            # branch = 'develop' if environment == 'stag' or environment == 'tobook' else 'master'
+            # branch = 'develop' if environment == 'stag' else 'master'
+            branch = 'develop' if environment == 'stag' or environment == 'tobook' else 'master'
             run('git checkout {}'.format(branch))
             run('git pull origin {}'.format(branch))
             # install dependencies
