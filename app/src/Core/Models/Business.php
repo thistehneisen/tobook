@@ -303,6 +303,21 @@ class Business extends Base
             : '';
     }
 
+    /**
+     * Get all non-hidden businesses
+     *
+     * @return Illuminate\Pagination\Paginator
+     */
+    public static function getAll()
+    {
+        return static::notHidden()
+            ->whereHas('user', function ($query) {
+                $query->whereNull('deleted_at');
+            })
+            ->with('user.images')
+            ->paginate();
+    }
+
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------

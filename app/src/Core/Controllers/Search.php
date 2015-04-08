@@ -15,7 +15,7 @@ class Search extends Front
     /**
      * Show search result
      *
-     * @return [type] [description]
+     * @return View
      */
     public function index()
     {
@@ -23,7 +23,10 @@ class Search extends Front
         $date        = Input::get('date');
         $time        = Input::get('time');
         $location    = Input::get('location');
-        $businesses  = Business::search(e($keyword));
+        $businesses = empty($keyword)
+            ? Business::getAll()
+            : Business::search(e($keyword));
+
         $nextPageUrl = $this->getNextPageUrl($businesses);
         $view        = [
             'businesses' => $businesses->getItems(),
