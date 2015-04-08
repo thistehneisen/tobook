@@ -185,6 +185,7 @@ class Business extends Base
     public function updateDescription($input)
     {
         $key = 'business_description';
+        $input = (array) $input;
         foreach ($input as $lang => $value) {
             $obj = Multilanguage::where('user_id', $this->user_id)
                 ->where('context', $this->getTable())

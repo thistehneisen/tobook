@@ -130,7 +130,7 @@ class Users extends Base
             'route'             => ['admin.users.business', $user->id],
             'langPrefix'        => 'user.business',
             'fields'            => [
-                'description'      => ['type' => 'html_field', 'default' => $business->description_html],
+                'description'      => ['type' => 'html_multilang', 'default' => $business->description_html],
                 'size'             => ['type' => false],
                 'lat'              => ['type' => false],
                 'lng'              => ['type' => false],
@@ -305,7 +305,7 @@ class Users extends Base
     {
         $user =  User::findOrFail($id);
         try {
-            $user->updateDisabledModules(Input::get('modules'));
+            $user->updateDisabledModules(Input::get('modules', []));
         } catch (\Illuminate\Database\QueryException $ex) {
             // Silently failed
         }
