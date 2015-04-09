@@ -35,23 +35,28 @@
 </div>
 
 <div class="container">
-{{--
+
     <div class="row categories" id="js-home-categories">
-        @foreach ($categories as $category)
+        <?php $counter = 1; ?>
+        @foreach ($masterCategories as $category)
+            @if ($category->treatments->isEmpty() === false)
             <div class="col-sm-2 col-md-2">
-                <p><img src="{{ asset_path('core/img/new/icons/'.$category->new_icon.'.png') }}" alt=""></p>
+            @if (App::environment() === 'tobook')
+                <p><img src="{{ $category->icon_url }}" alt=""></p>
+            @endif
                 <h4 class="heading">{{{ $category->name }}}</h4>
                 <ul class="list-categories">
-                @foreach ($category->children as $child)
-                    <li><a href="{{ route('business.category', ['id' => $child->id, 'slug' => $child->slug]) }}">{{{ $child->name }}}</a></li>
+                @foreach ($category->treatments as $treatment)
+                    <li><a href="{{ $treatment->url }}">{{{ $treatment->name }}}</a></li>
                 @endforeach
                     <li class="toggle more"><a href="#">{{ trans('home.more') }} <i class="fa fa-angle-double-right"></i></a></li>
                     <li class="toggle less"><a href="#">{{ trans('home.less') }} <i class="fa fa-angle-double-up"></i></a></li>
                 </ul>
             </div>
+            @endif
         @endforeach
     </div>
---}}
+
 @if ($head->isEmpty() === false)
     <div class="row">
         <div class="hot-offers">

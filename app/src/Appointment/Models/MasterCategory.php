@@ -72,6 +72,30 @@ class MasterCategory extends \App\Core\Models\Base
         return (!empty($description)) ? $description : $this->attributes['description'];
     }
 
+    public function getIconUrlAttribute()
+    {
+        $map = [
+            'home'        => 'home',
+            'car'         => 'auto',
+            'restaurant'  => 'fitness',
+            'wellness'    => 'wellness',
+            'activities'  => 'activities',
+            'beauty_hair' => 'beauty',
+            'frizetava'   => 'hair',
+            'manikirs'    => 'nails',
+            'masaza'      => 'massage',
+            'kosmetologs' => 'comestic',
+            'spa'         => 'spa',
+            'solarijs'    => 'solarium',
+        ];
+
+        $icon = isset($map[$this->slug])
+            ? $map[$this->slug]
+            : 'hair';
+
+        return asset_path('core/img/new/icons/'.$icon.'.png');
+    }
+
     /**
      * Return URL of asset image to be used as background
      *
@@ -84,6 +108,11 @@ class MasterCategory extends \App\Core\Models\Base
         return asset_path("core/img/bg/{$filename}.jpg");
     }
 
+    public function getSlugAttribute()
+    {
+        return Str::slug($this->getOriginal('name'));
+    }
+
     /**
      * Return the URL of this master category
      *
@@ -93,7 +122,7 @@ class MasterCategory extends \App\Core\Models\Base
     {
         return route('business.master_category', [
             'id' => $this->id,
-            'slug' => Str::slug($this->getOriginal('name')),
+            'slug' => $this->slug,
         ]);
     }
 
