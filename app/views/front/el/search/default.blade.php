@@ -37,7 +37,7 @@
                         <div class="form-group row">
                             <div class="input-group margin-bottom-md">
                                 <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
-                                <input required style="width: 250px;" class="form-control" type="text" id="js-queryInput" name="q" placeholder="{{ trans('home.search.query') }}" value="{{{ Input::get('q') }}}">
+                                <input style="width: 250px;" class="form-control" type="text" id="js-queryInput" name="q" placeholder="{{ trans('home.search.query') }}" value="{{{ Input::get('q') }}}">
                             </div>
 
                             <div class="input-group margin-bottom-md">

@@ -16,10 +16,15 @@ class Search extends Front
      */
     public function index()
     {
-        $keyword     = Input::get('q');
-        $date        = Input::get('date');
-        $time        = Input::get('time');
-        $location    = Input::get('location');
+        $q        = Input::get('q');
+        $date     = Input::get('date');
+        $time     = Input::get('time');
+        $location = Input::get('location');
+
+        $keyword = (empty($q) && !empty($location))
+            ? $location
+            : $q;
+
         $paginator = empty($keyword)
             ? Business::getAll()
             : Business::search(e($keyword));
@@ -28,7 +33,7 @@ class Search extends Front
         $items = $paginator->getItems();
         // Make heading
         $heading = trans('home.search.results', [
-            'keyword'  => $keyword,
+            'keyword'  => $q,
             'date'     => !empty($date) ? $date : strtolower(trans('home.search.date')),
             'time'     => !empty($time) ? $time : strtolower(trans('home.search.time')),
             'location' => !empty($location) ? $location : Settings::get('default_location'),
