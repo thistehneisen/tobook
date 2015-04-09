@@ -61,7 +61,7 @@ return [
     ],
     'cart' => [
         'add'         => 'Pievienot manam sarakstam',
-        'items'       => 'pakalpojums|pakalpojumi',
+        'items'       => '|pakalpojumi|pakalpojums',
         'empty'       => 'Tukšs',
         'empty_long'  => 'Jūsu rezervāciju saraksts ir tukšs.',
         'checkout'    => 'Izrakstīties',
