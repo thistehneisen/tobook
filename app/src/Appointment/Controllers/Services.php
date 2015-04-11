@@ -15,6 +15,7 @@ use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\MasterCategory;
 use App\Appointment\Models\TreatmentType;
+use App\Core\Models\Multilanguage;
 
 class Services extends AsBase
 {
@@ -54,9 +55,27 @@ class Services extends AsBase
      */
     public function upsert($id = null)
     {
-         $service = ($id !== null)
+        $service = ($id !== null)
             ? Service::findOrFail($id)
             : new Service();
+
+        $defaultLanguage = Config::get('varaa.default_language');
+
+        $items = Service::where('as_services.id', '=', $id)
+            ->join('multilanguage', 'multilanguage.context', '=', DB::raw("concat('" . Service::getContext() . "', `varaa_as_services`.`id`)"))->get();
+
+        $data = [];
+        foreach (Config::get('varaa.languages') as $locale){
+            foreach ($items as $item) {
+                if($locale == $item->lang) {
+                    $data[$locale][$item->key] = $item->value;
+                }
+            }
+        }
+
+        if(empty($data[$defaultLanguage])) {
+            $data[$defaultLanguage]['name'] = $service->name;
+        }
 
         $master_categories = MasterCategory::get()->lists('name','id');
         $treatment_types   = $service->getTreamentsList();
@@ -68,6 +87,7 @@ class Services extends AsBase
 
         return $this->render('form', [
             'service'           => $service,
+            'data'              => $data,
             'categories'        => $categories,
             'master_categories' => $master_categories,
             'treatment_types'   => $treatment_types,
@@ -84,6 +104,8 @@ class Services extends AsBase
     public function upsertHandler($service)
     {
         try{
+            $names = Input::get('names');
+
             $service->fill(Input::all());
             $service->setLength();
             // Attach user
@@ -114,6 +136,8 @@ class Services extends AsBase
             }
 
             $service->saveOrFail();
+
+            Multilanguage::saveValues($service->id, Service::getContext(), 'name', $names);
 
             $extraServices = Input::get('extras', []);
             $resources     = Input::get('resources', []);

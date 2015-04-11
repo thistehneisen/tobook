@@ -47,9 +47,9 @@ $(function () {
         @foreach (Config::get('varaa.languages') as $locale)
         <div role="tabpanel" class="tab-pane @if ($locale === App::getLocale()) {{ 'active' }} @endif" id="{{ $locale }}">
             <div class="form-group {{ Form::errorCSS('name', $errors) }}">
-                <label for="name" class="col-sm-2 control-label">{{ trans('as.services.name') }}</label>
+                <label for="names" class="col-sm-2 control-label">{{ trans('as.services.name') }}</label>
                 <div class="col-sm-5">
-                    {{ Form::text('name[' . $locale .']', !empty($data[$locale]['name']) ? ($data[$locale]['name']) : '', ['class' => 'form-control input-sm']) }}
+                    {{ Form::text('names[' . $locale .']', !empty($data[$locale]['name']) ? ($data[$locale]['name']) : '', ['class' => 'form-control input-sm']) }}
                     {{ Form::errorText('name', $errors) }}
                 </div>
             </div>

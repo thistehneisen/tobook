@@ -1,9 +1,13 @@
 <?php namespace App\Appointment\Models;
 
-use Config, Settings;
+use Config, Settings, App;
+use App\Core\Models\Multilanguage;
+use App\Core\Traits\MultilanguageTrait;
 
 class Service extends \App\Core\Models\Base
 {
+    use MultilanguageTrait;
+
     protected $table = 'as_services';
 
     public $fillable = ['name', 'price','length','before','during', 'after', 'description', 'is_active'];
@@ -27,6 +31,16 @@ class Service extends \App\Core\Models\Base
     public function requireRoom()
     {
         return ($this->rooms()->count()) ? true : false;
+    }
+
+    /**
+     * Get current context for retreive correct translation in multilanguage table
+     *
+     * @return string
+     */
+    public static function getContext()
+    {
+        return "as_services_";
     }
 
     /**
@@ -83,6 +97,15 @@ class Service extends \App\Core\Models\Base
         return[];
     }
 
+    public function fill(array $attributes)
+    {
+        $defaultLanguage = Config::get('varaa.default_language');
+        $data = $attributes;
+        $data['name'] = (!empty($data['names'][ $defaultLanguage]))
+            ? $data['names'][ $defaultLanguage] : '';
+        return parent::fill($data);
+    }
+
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
@@ -105,6 +128,17 @@ class Service extends \App\Core\Models\Base
     public function setLength()
     {
         $this->length = $this->after + $this->during + $this->before;
+    }
+
+    public function getNameAttribute()
+    {
+        $name = $this->translate('name', self::getContext() . $this->id, App::getLocale());
+
+        if (empty($name)) {
+            $name = $this->translate('name', self::getContext() . $this->id, Config::get('varaa.default_language'));
+        }
+
+        return (!empty($name)) ? $name : $this->attributes['name'];
     }
 
     //--------------------------------------------------------------------------
