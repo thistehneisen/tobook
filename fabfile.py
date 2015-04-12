@@ -39,9 +39,7 @@ def _deploy(environment, host):
             # set it to live mode again
             run('php artisan up')
             # run CI
-            if environment == 'stag'
-                run('/srv/phpci/console phpci:rebuild')
-
+            if environment == 'stag': run('/srv/phpci/console phpci:rebuild')
 
 @task
 def deploy(instance=''):
