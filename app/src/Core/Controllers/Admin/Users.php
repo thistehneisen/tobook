@@ -1,11 +1,19 @@
 <?php namespace App\Core\Controllers\Admin;
 
-use App, Config, Request, Redirect, Input, Confide, Session, Auth, Validator;
-use Lomake, Mail, View;
-use App\Core\Models\User;
+use App;
 use App\Core\Models\Business;
-use App\Core\Models\Role;
 use App\Core\Models\BusinessCategory;
+use App\Core\Models\Role;
+use App\Core\Models\User;
+use Auth;
+use Confide;
+use Config;
+use Input;
+use Lomake;
+use Mail;
+use Redirect;
+use Session;
+use View;
 
 class Users extends Base
 {
@@ -126,6 +134,7 @@ class Users extends Base
         $business = $user->business ?: new Business();
         $data['business'] = $business;
 
+        $isAdmin = Confide::user()->is_admin || Session::has('stealthMode');
         $businessLomake = Lomake::make($business, [
             'route'             => ['admin.users.business', $user->id],
             'langPrefix'        => 'user.business',
@@ -134,12 +143,12 @@ class Users extends Base
                 'size'             => ['type' => false],
                 'lat'              => ['type' => false],
                 'lng'              => ['type' => false],
-                'note'             => ['type' => false],
-                'bank_account'     => ['type' => false],
-                'meta_title'       => ['type' => false],
-                'meta_description' => ['type' => false],
-                'meta_keywords'    => ['type' => false],
-                'is_hidden'        => ['type' => false],
+                'note'             => ['type' => 'textarea'      , 'hidden' => !$isAdmin],
+                'bank_account'     => ['type' => 'text'          , 'hidden' => !$isAdmin],
+                'meta_title'       => ['type' => 'text_multilang', 'hidden' => !$isAdmin],
+                'meta_description' => ['type' => 'text_multilang', 'hidden' => !$isAdmin],
+                'meta_keywords'    => ['type' => 'text_multilang', 'hidden' => !$isAdmin],
+                'is_hidden'        => ['type' => 'radio'         , 'hidden' => !$isAdmin],
             ],
         ]);
 
