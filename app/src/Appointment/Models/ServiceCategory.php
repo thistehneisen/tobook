@@ -1,4 +1,7 @@
 <?php namespace App\Appointment\Models;
+use Config;
+use App\Core\Models\Multilanguage;
+
 class ServiceCategory extends \App\Core\Models\Base
 {
     protected $table = 'as_service_categories';
@@ -13,9 +16,47 @@ class ServiceCategory extends \App\Core\Models\Base
         ]
     ];
 
+    /**
+     * @see \App\Core\Models\Base
+     */
+    public $multilingualAtrributes = ['name', 'description'];
+
+    /**
+     * Get current context for retreive correct translation in multilanguage table
+     *
+     * @return string
+     */
+    public static function getContext()
+    {
+        return "as_service_categories_";
+    }
+
     public function isDeletable()
     {
         return ($this->services->isEmpty()) ? true : false;
+    }
+
+
+    public function saveMultilanguage($names, $descriptions)
+    {
+        Multilanguage::saveValues($this->id, static::getContext(), 'name', $names);
+        Multilanguage::saveValues($this->id, static::getContext(), 'description', $descriptions);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function fill(array $attributes)
+    {
+        $defaultLanguage = Config::get('varaa.default_language');
+
+        $data = $attributes;
+
+        foreach ($this->multilingualAtrributes as $key) {
+            $data[$key] = (!empty($data[$key.'s'][ $defaultLanguage]))
+            ? $data[$key.'s'][ $defaultLanguage] : '';
+        }
+        return parent::fill($data);
     }
 
     //--------------------------------------------------------------------------

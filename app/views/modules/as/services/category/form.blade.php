@@ -5,6 +5,14 @@
         @include($tabsView, ['routes' => $routes, 'langPrefix' => $langPrefix])
     @endif
 
+@if ($errors->any())
+<div class="alert alert-warning">
+    <ul>
+        {{ implode('', $errors->all('<li>:message</li>')) }}
+    </ul>
+</div>
+@endif
+
 <div id="form-olut-upsert" class="modal-form">
     @include ('el.messages')
 
@@ -28,16 +36,17 @@
             <div class="tab-content">
             @foreach (Config::get('varaa.languages') as $locale)
                 <div role="tabpanel" class="tab-pane @if ($locale === App::getLocale()) {{ 'active' }} @endif" id="{{ $locale }}">
-                    <div class="form-group">
-                        <label for="name" class="col-sm-2 control-label">{{ trans('as.services.categories.name') }}@if ($locale === Config::get('varaa.default_language')) {{ '*' }} @endif </label>
+                    <div class="form-group {{ Form::errorCSS('name', $errors) }}">
+                        <label for="names" class="col-sm-2 control-label">{{ trans('as.services.categories.name') }}@if ($locale === Config::get('varaa.default_language')) {{ '*' }} @endif </label>
                         <div class="col-sm-5">
-                            {{ Form::text('name[' . $locale .']', !empty($data[$locale]['name']) ? ($data[$locale]['name']) : '', ['class' => 'form-control input-sm']) }}
+                            {{ Form::text('names[' . $locale .']', !empty($data[$locale]['name']) ? ($data[$locale]['name']) : '', ['class' => 'form-control input-sm']) }}
+                            {{ Form::errorText('name', $errors) }}
                         </div>
                     </div>
                    <div class="form-group">
-                        <label for="description" class="col-sm-2 control-label">{{ trans('as.services.categories.description') }}</label>
+                        <label for="descriptions" class="col-sm-2 control-label">{{ trans('as.services.categories.description') }}</label>
                         <div class="col-sm-5">
-                            {{ Form::textarea('description[' . $locale .']', !empty($data[$locale]['description']) ? ($data[$locale]['description']) : '', ['class' => 'form-control input-sm']) }}
+                            {{ Form::textarea('descriptions[' . $locale .']', !empty($data[$locale]['description']) ? ($data[$locale]['description']) : '', ['class' => 'form-control input-sm']) }}
                         </div>
                     </div>
                 </div>
