@@ -15,6 +15,9 @@ class Service extends \App\Core\Models\Base
         ]
     ];
 
+    /**
+     * @see \App\Core\Models\Base
+     */
     public $multilingualAtrributes = ['name'];
 
     public function isDeletable()

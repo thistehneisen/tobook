@@ -18,6 +18,9 @@ class TreatmentType extends \App\Core\Models\Base
         'description',
     ];
 
+    /**
+     * @see \App\Core\Models\Base
+     */
     public $multilingualAtrributes = ['name', 'description'];
 
     public function saveMultilanguage($names, $descriptions)
