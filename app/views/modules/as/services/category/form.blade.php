@@ -22,7 +22,7 @@
         <h4 class="comfortaa">{{ trans($langPrefix.'.add') }}</h4>
     @endif
     <div role="tabpanel">
-        {{ Form::open(['route' => ['as.services.categories.upsert', isset($item->id) ? $item->id : ''], 'class' => 'form-horizontal well', 'role' => 'form']) }}
+        {{ Form::open(['route' => ['as.services.categories.upsert', isset($category->id) ? $category->id : ''], 'class' => 'form-horizontal well', 'role' => 'form']) }}
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-5">
                     <!-- Nav tabs -->
