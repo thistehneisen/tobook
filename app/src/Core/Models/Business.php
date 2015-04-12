@@ -182,9 +182,22 @@ class Business extends Base
      *
      * @return App\Core\Models\Business
      */
-    public function updateDescription($input)
+    public function updateDescription(array $input)
     {
-        $key = 'business_description';
+        return $this->updateMultiligualAttribute('business_description', $input);
+    }
+
+    /**
+     * Update attribute that supports multilanguage
+     *
+     * @param string $attr
+     * @param array  $input
+     *
+     * @return App\Core\Models\Business
+     */
+    public function updateMultiligualAttribute($attr, array $input)
+    {
+        $key = $attr;
         $input = (array) $input;
         foreach ($input as $lang => $value) {
             $obj = Multilanguage::where('user_id', $this->user_id)
@@ -240,6 +253,9 @@ class Business extends Base
 
         // Update description
         $this->updateDescription($input['description_html']);
+        $this->updateMultiligualAttribute('meta_title', $input['meta_title']);
+        $this->updateMultiligualAttribute('meta_keywords', $input['meta_keywords']);
+        $this->updateMultiligualAttribute('meta_description', $input['meta_description']);
 
         // We will remove hidden businesses from indexing
         if ($this->is_hidden) {
