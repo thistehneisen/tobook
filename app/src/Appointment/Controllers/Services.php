@@ -64,18 +64,7 @@ class Services extends AsBase
         $items = Service::where('as_services.id', '=', $id)
             ->join('multilanguage', 'multilanguage.context', '=', DB::raw("concat('" . Service::getContext() . "', `varaa_as_services`.`id`)"))->get();
 
-        $data = [];
-        foreach (Config::get('varaa.languages') as $locale){
-            foreach ($items as $item) {
-                if($locale == $item->lang) {
-                    $data[$locale][$item->key] = $item->value;
-                }
-            }
-        }
-
-        if(empty($data[$defaultLanguage])) {
-            $data[$defaultLanguage]['name'] = $service->name;
-        }
+        $data = $service->getMultilingualData();
 
         $master_categories = MasterCategory::get()->lists('name','id');
         $treatment_types   = $service->getTreamentsList();
@@ -260,7 +249,7 @@ class Services extends AsBase
             ->where('id', $customTimeId)
             ->firstOrFail();
 
-        $data = $serviceTime->getTranslatedData();
+        $data = $serviceTime->getMultilingualData();
 
         return View::make('modules.as.services.customTime.upsert', [
             'service'    => $service,

@@ -130,7 +130,7 @@ class Base extends \Eloquent implements SearchableInterface
      * @author hung
      * @return array
      */
-    public function getTranslatedData()
+    public function getMultilingualData()
     {
         $defaultLanguage = Config::get('varaa.default_language');
 

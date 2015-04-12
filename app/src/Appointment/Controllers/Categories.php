@@ -31,20 +31,7 @@ class Categories extends AsBase
         $items = ServiceCategory::where('as_service_categories.id', '=', $id)
             ->join('multilanguage', 'multilanguage.context', '=', DB::raw("concat('" . ServiceCategory::getContext() . "', `varaa_as_service_categories`.`id`)"))->get();
 
-        $data = [];
-        foreach (Config::get('varaa.languages') as $locale){
-            foreach ($items as $item) {
-                if($locale == $item->lang) {
-                    $data[$locale][$item->key] = $item->value;
-                }
-            }
-        }
-
-        if(empty($data[$defaultLanguage])) {
-            foreach ($this->multilingualAtrributes as $key) {
-                $data[$defaultLanguage][$key] = $category->$key;
-            }
-        }
+        $data = $category->getMultilingualData();
 
         // user can overwrite default CRUD tabs template
         $tabsView = View::exists($this->getViewPath().'.tabs')
