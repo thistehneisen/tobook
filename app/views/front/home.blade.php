@@ -38,7 +38,7 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <h2 class="text-center orange comfortaa">{{ trans('home.hiw.headings') }}</h2>
+            <h2 class="text-center orange comfortaa">{{ trans('home.hiw.heading') }}</h2>
         </div>
     </div>
 
@@ -58,15 +58,10 @@
     </div>
 
     <div class="row">
-        <ul class="icon-categories">
-            <li class="col-sm-3"><a href="#"><span class="overlay"></span> <img src="{{ asset_path('core/img/front/eyelash.png') }}" alt="" class="img-responsive"></a></li>
-            <li class="col-sm-3"><a href="#"><span class="overlay"></span> <img src="{{ asset_path('core/img/front/massage.png') }}" alt="" class="img-responsive"></a></li>
-            <li class="col-sm-3"><a href="#"><span class="overlay"></span> <img src="{{ asset_path('core/img/front/hair.png') }}" alt="" class="img-responsive"></a></li>
-            <li class="col-sm-3"><a href="#"><span class="overlay"></span> <img src="{{ asset_path('core/img/front/body.png') }}" alt="" class="img-responsive"></a></li>
-            <li class="col-sm-3"><a href="#"><span class="overlay"></span> <img src="{{ asset_path('core/img/front/feet.png') }}" alt="" class="img-responsive"></a></li>
-            <li class="col-sm-3"><a href="#"><span class="overlay"></span> <img src="{{ asset_path('core/img/front/nails.png') }}" alt="" class="img-responsive"></a></li>
-            <li class="col-sm-3"><a href="#"><span class="overlay"></span> <img src="{{ asset_path('core/img/front/face.png') }}" alt="" class="img-responsive"></a></li>
-            <li class="col-sm-3"><a href="#"><span class="overlay"></span> <img src="{{ asset_path('core/img/front/hairremoval.png') }}" alt="" class="img-responsive"></a></li>
+        <ul class="category-imgs">
+        @foreach ($masterCategories as $category)
+            <li class="col-sm-3"><a href="{{ $category->url }}"><span class="overlay"></span> <img src="{{ asset_path('core/img/front/eyelash.png') }}" alt="" class="img-responsive"><span class="name">{{{ $category->name }}}</span></a></li>
+        @endforeach
         </ul>
     </div>
 

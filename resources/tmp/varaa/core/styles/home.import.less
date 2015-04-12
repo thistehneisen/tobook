@@ -177,7 +177,7 @@
 
     }
 
-    .icon-categories {
+    .category-imgs {
         list-style-type: none;
         margin: 0;
         padding: 0;
@@ -188,8 +188,15 @@
                 display: block;
                 position: relative;
 
-                &:hover .overlay {
-                    background-color: rgba(0, 0, 0, 0.5);
+                &:hover {
+                    .overlay {
+                        background-color: rgba(0, 0, 0, 0.5);
+                    }
+
+                    .name {
+                        color: @primary_color;
+                        font-weight: 700;
+                    }
                 }
 
                 .overlay {
@@ -198,6 +205,22 @@
                     position: absolute;
                     top: 0;
                     left: 0;
+                }
+
+                .name {
+                    .comfortaa();
+                    position: absolute;
+                    top: 40%;
+                    text-align: center;
+                    width: 100%;
+                    text-transform: uppercase;
+                    letter-spacing: 3px;
+                    font-size: 1.5em;
+                    color: #eee;
+                    word-break: break-all;
+                    word-wrap: break-word;
+                    padding-left: 3px;
+                    padding-right: 3px;
                 }
             }
         }
