@@ -38,22 +38,22 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <h2 class="text-center orange comfortaa">How it work?</h2>
+            <h2 class="text-center orange comfortaa">{{ trans('home.hiw.headings') }}</h2>
         </div>
     </div>
 
     <div class="row steps">
         <div class="col-sm-offset-3 col-sm-2">
-            <h3>Step 1</h3>
-            <p>Select a service</p>
+            <h3>{{ trans('home.hiw.steps.1') }}</h3>
+            <p>{{ trans('home.hiw.steps.1_text') }}</p>
         </div>
         <div class="col-sm-2">
-            <h3>Step 2</h3>
-            <p>Select a business</p>
+            <h3>{{ trans('home.hiw.steps.2') }}</h3>
+            <p>{{ trans('home.hiw.steps.2_text') }}</p>
         </div>
         <div class="col-sm-2">
-            <h3>Step 3</h3>
-            <p>Book a time</p>
+            <h3>{{ trans('home.hiw.steps.3') }}</h3>
+            <p>{{ trans('home.hiw.steps.3_text') }}</p>
         </div>
     </div>
 
