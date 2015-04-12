@@ -287,7 +287,20 @@ class Business extends Base
      */
     public function getDescriptionInLanguage($language)
     {
-        $key = 'business_description';
+        return $this->getAttributeInLanguage('business_description', $language);
+    }
+
+    /**
+     * Get value of an attribute in multilanguages
+     *
+     * @param string $attribute
+     * @param string $language
+     *
+     * @return mixed
+     */
+    public function getAttributeInLanguage($attribute, $language)
+    {
+        $key = $attribute;
         if (!isset($this->multilang[$key])) {
             $results = Multilanguage::where('context', $this->getTable())
                 ->where('key', $key)
