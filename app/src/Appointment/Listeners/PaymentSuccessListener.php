@@ -26,7 +26,7 @@ class PaymentSuccessListener
         $cart->complete();
 
         // Find all booking service IDs
-        $bookingServiceIds = $cart->details->lists('item');
+        $bookingServiceIds = $cart->details->lists('model_id');
         $bookingServices = BookingService::whereIn('id', $bookingServiceIds)
             ->with('booking')
             ->get();
