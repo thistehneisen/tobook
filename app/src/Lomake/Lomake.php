@@ -87,7 +87,7 @@ class Lomake
             'template'   => 'varaa-lomake::form',
             'fields'     => [],
             'overwrite'  => false,
-            'langPrefix' => ''
+            'langPrefix' => '',
         ], $opt);
 
         if (!isset($opt['route'])) {
@@ -107,6 +107,7 @@ class Lomake
                 $fieldData['required']   = $this->isRequired($instance, $name);
                 $fieldData['model']      = $instance;
                 $fieldData['langPrefix'] = $opt['langPrefix'];
+                $fieldData['hidden']     = false;
 
                 $fieldsData[$name]       = $fieldData;
             }
@@ -134,7 +135,8 @@ class Lomake
                 $fieldsData[$name][$fieldDataKey] = $fieldDataValue;
             }
 
-            if (empty($fieldsData[$name]['type'])) {
+            if (empty($fieldsData[$name]['type']) ||
+                $fieldsData[$name]['hidden'] === true) {
                 // allow caller to disable fields from being rendered
                 unset($fieldsData[$name]);
             }
