@@ -3,6 +3,10 @@ build_settings:
     ignore:
         - "vendor"
         - "app/tests"
+        - "app/database/migrations"
+        - "app/src/OneApi/lib"
+        - "public"
+        - "devops"
 setup:
     composer:
         action: "install --no-scripts"
