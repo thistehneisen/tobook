@@ -9,7 +9,7 @@
     <!-- Tab panes -->
     <div class="tab-content">
     @foreach ($fields as $input)
-        <div role="tabpanel" class="tab-pane @if ($locale === $input['lang']) active @endif" id="tab-html-multilang-{{ $input['lang'] }}">{{ $input['control'] }}</div>
+        <div role="tabpanel" class="tab-pane @if ($locale === $input['lang']) active @endif" id="tab-{{ $input['name'] }}-{{ $input['lang'] }}">{{ $input['control'] }}</div>
     @endforeach
     </div>
 

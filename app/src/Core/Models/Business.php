@@ -199,6 +199,7 @@ class Business extends Base
     {
         $key = $attr;
         $input = (array) $input;
+
         foreach ($input as $lang => $value) {
             $obj = Multilanguage::where('user_id', $this->user_id)
                 ->where('context', $this->getTable())
@@ -242,10 +243,6 @@ class Business extends Base
             'phone'               => $input['phone'],
             'is_booking_disabled' => $input['is_booking_disabled'],
             'note'                => isset($input['note'])             ? $input['note'] : '',
-            'meta_title'          => isset($input['meta_title'])       ? $input['meta_title'] : '',
-            'meta_keywords'       => isset($input['meta_keywords'])    ? $input['meta_keywords'] : '',
-            'meta_description'    => isset($input['meta_description']) ? $input['meta_description'] : '',
-            'bank_account'        => isset($input['bank_account'])     ? $input['bank_account'] : '',
             'is_hidden'           => isset($input['is_hidden'])        ? $input['is_hidden'] : '',
         ]);
         $this->user()->associate($user);
