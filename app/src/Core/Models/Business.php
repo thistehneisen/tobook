@@ -23,15 +23,15 @@ class Business extends Base
         'city',
         'postcode',
         'country',
+        'is_booking_disabled',
         'lat',
         'lng',
-        'note',
         'bank_account',
         'meta_title',
         'meta_keywords',
         'meta_description',
         'is_hidden',
-        'is_booking_disabled',
+        'note',
     ];
 
     public $rulesets = [
