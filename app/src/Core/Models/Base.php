@@ -114,7 +114,12 @@ class Base extends \Eloquent implements SearchableInterface
             if (empty($attribute)) {
                 $attribute = $this->translate($key, static::getContext() . $this->id, Config::get('varaa.default_language'));
             }
-            return (!empty($attribute)) ? $attribute : $this->attributes[$key];
+
+            if(!empty($this->attributes[$key])) {
+                return (!empty($attribute)) ? $attribute : $this->attributes[$key];
+            }
+
+            return (!empty($attribute)) ? $attribute : '';
         }
         return parent::getAttribute($key);
     }
