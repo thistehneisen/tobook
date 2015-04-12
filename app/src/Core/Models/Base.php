@@ -1,6 +1,6 @@
 <?php namespace App\Core\Models;
 
-use Confide, App, Log, Input, Config;
+use Confide, App, Log, Input, Config, DB;
 use Watson\Validating\ValidatingTrait;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 use App\Search\SearchableInterface;
@@ -122,5 +122,36 @@ class Base extends \Eloquent implements SearchableInterface
             return (!empty($attribute)) ? $attribute : '';
         }
         return parent::getAttribute($key);
+    }
+
+    /**
+     * Function to get all multilingual attributes of current model
+     *
+     * @author hung
+     * @return array
+     */
+    public function getTranslatedData()
+    {
+        $defaultLanguage = Config::get('varaa.default_language');
+
+        $items = self::where($this->table . '.id', '=', $this->id)
+            ->join('multilanguage', 'multilanguage.context', '=', DB::raw("concat('" . static::getContext() . "', `varaa_" . $this->table . "`.`id`)"))->get();
+
+        $data = [];
+        foreach (Config::get('varaa.languages') as $locale){
+            foreach ($items as $item) {
+                if($locale == $item->lang) {
+                    $data[$locale][$item->key] = $item->value;
+                }
+            }
+        }
+
+        if(empty($data[$defaultLanguage])) {
+            foreach ($this->multilingualAtrributes as $key) {
+                $data[$defaultLanguage][$key] = $this->$key;
+            }
+        }
+
+        return $data;
     }
 }
