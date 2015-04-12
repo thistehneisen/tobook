@@ -2,7 +2,6 @@
 
 use App;
 use App\Core\Models\Multilanguage;
-use App\Core\Traits\MultilanguageTrait;
 use Config;
 use DB;
 use Input;
@@ -10,13 +9,13 @@ use Str;
 
 class MasterCategory extends \App\Core\Models\Base
 {
-    use MultilanguageTrait;
-
     protected $table = 'as_master_categories';
 
     protected $dates = ['deleted_at'];
 
     public $fillable = ['name', 'description', 'order'];
+
+    public $multilingualAtrributes = ['name', 'description'];
 
     public function saveMultilanguage($names, $descriptions)
     {
@@ -50,28 +49,6 @@ class MasterCategory extends \App\Core\Models\Base
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
-    public function getNameAttribute()
-    {
-        $name = $this->translate('name', self::getContext() . $this->id, App::getLocale());
-
-        if (empty($name)) {
-            $name = $this->translate('name', self::getContext() . $this->id, Config::get('varaa.default_language'));
-        }
-
-        return (!empty($name)) ? $name : $this->attributes['name'];
-    }
-
-    public function getDescriptionAttribute()
-    {
-        $description = $this->translate('description', self::getContext() . $this->id, App::getLocale());
-
-        if (empty($description)) {
-            $description = $this->translate('description', self::getContext() . $this->id, Config::get('varaa.default_language'));
-        }
-
-        return (!empty($description)) ? $description : $this->attributes['description'];
-    }
-
     public function getIconUrlAttribute()
     {
         $map = [
