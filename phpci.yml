@@ -1,0 +1,21 @@
+build_settings:
+    clone_depth: 1 # depth of 1 is a shallow clone, remove this line to clone entire repo
+    ignore:
+        - "vendor"
+        - "app/tests"
+setup:
+    composer:
+        action: "install --no-scripts"
+test:
+    php_mess_detector:
+        rules:
+            - "cleancode"
+            - "unusedcode"
+        allow_failures: true
+        zero_config: true # do not make build as failed if something was detected
+        path: "app/src"
+    php_code_sniffer:
+        path: "app"
+        allowed_errors: -1
+        allowed_warnings: -1
+        standard: "PSR2"
