@@ -5,12 +5,15 @@ use Watson\Validating\ValidatingTrait;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 use App\Search\SearchableInterface;
 use App\Search\ElasticSearchTrait;
+use App\Core\Models\Multilanguage;
+use App\Core\Traits\MultilanguageTrait;
 
 class Base extends \Eloquent implements SearchableInterface
 {
     use ValidatingTrait;
     use SoftDeletingTrait;
     use ElasticSearchTrait;
+    use MultilanguageTrait;
 
     /**
      * By default we'll disable ES index in all models and only enable in some
@@ -19,6 +22,22 @@ class Base extends \Eloquent implements SearchableInterface
      * @var boolean
      */
     public $isSearchable = false;
+
+    /**
+     * Using to create dynamically all multilingual attributes based on this array
+     *
+     * @var array
+     */
+    public $multilingualAtrributes = [];
+
+    /**
+     *
+     * Use to get translation context for multilanguage table
+     *
+     */
+    public static function getContext() {
+       return '';
+    }
 
     //--------------------------------------------------------------------------
     // SCOPES
@@ -81,5 +100,22 @@ class Base extends \Eloquent implements SearchableInterface
     public function scopeLatest($query)
     {
         return $query->orderBy('created_at', 'desc');
+    }
+
+    /**
+     *
+     * {@inheritdoc}
+     *
+     */
+    public function getAttribute($key)
+    {
+        if(in_array($key, $this->multilingualAtrributes)) {
+            $attribute = $this->translate($key, static::getContext() . $this->id, App::getLocale());
+            if (empty($attribute)) {
+                $attribute = $this->translate($key, static::getContext() . $this->id, Config::get('varaa.default_language'));
+            }
+            return (!empty($attribute)) ? $attribute : $this->attributes[$key];
+        }
+        return parent::getAttribute($key);
     }
 }
