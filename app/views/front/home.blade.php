@@ -36,6 +36,40 @@
 
 <div class="container">
 
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 class="text-center orange comfortaa">How it work?</h2>
+        </div>
+    </div>
+
+    <div class="row steps">
+        <div class="col-sm-offset-3 col-sm-2">
+            <h3>Step 1</h3>
+            <p>Select a service</p>
+        </div>
+        <div class="col-sm-2">
+            <h3>Step 2</h3>
+            <p>Select a business</p>
+        </div>
+        <div class="col-sm-2">
+            <h3>Step 3</h3>
+            <p>Book a time</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <ul class="icon-categories">
+            <li class="col-sm-3"><a href="#"><span class="overlay"></span> <img src="{{ asset_path('core/img/front/eyelash.png') }}" alt="" class="img-responsive"></a></li>
+            <li class="col-sm-3"><a href="#"><span class="overlay"></span> <img src="{{ asset_path('core/img/front/massage.png') }}" alt="" class="img-responsive"></a></li>
+            <li class="col-sm-3"><a href="#"><span class="overlay"></span> <img src="{{ asset_path('core/img/front/hair.png') }}" alt="" class="img-responsive"></a></li>
+            <li class="col-sm-3"><a href="#"><span class="overlay"></span> <img src="{{ asset_path('core/img/front/body.png') }}" alt="" class="img-responsive"></a></li>
+            <li class="col-sm-3"><a href="#"><span class="overlay"></span> <img src="{{ asset_path('core/img/front/feet.png') }}" alt="" class="img-responsive"></a></li>
+            <li class="col-sm-3"><a href="#"><span class="overlay"></span> <img src="{{ asset_path('core/img/front/nails.png') }}" alt="" class="img-responsive"></a></li>
+            <li class="col-sm-3"><a href="#"><span class="overlay"></span> <img src="{{ asset_path('core/img/front/face.png') }}" alt="" class="img-responsive"></a></li>
+            <li class="col-sm-3"><a href="#"><span class="overlay"></span> <img src="{{ asset_path('core/img/front/hairremoval.png') }}" alt="" class="img-responsive"></a></li>
+        </ul>
+    </div>
+
     <div class="row categories" id="js-home-categories">
         <?php $counter = 1; ?>
         @foreach ($masterCategories as $category)
