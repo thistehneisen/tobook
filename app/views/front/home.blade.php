@@ -57,6 +57,7 @@
         </div>
     </div>
 
+@if (App::environment() !== 'tobook')
     <div class="row">
         <ul class="category-imgs">
         @foreach ($masterCategories as $category)
@@ -64,15 +65,15 @@
         @endforeach
         </ul>
     </div>
+@endif
 
+@if (App::environment() === 'tobook')
     <div class="row categories" id="js-home-categories">
         <?php $counter = 1; ?>
         @foreach ($masterCategories as $category)
             @if ($category->treatments->isEmpty() === false)
             <div class="col-sm-2 col-md-2">
-            @if (App::environment() === 'tobook')
                 <p><img src="{{ $category->icon_url }}" alt=""></p>
-            @endif
                 <h4 class="heading">{{{ $category->name }}}</h4>
                 <ul class="list-categories">
                 @foreach ($category->treatments as $treatment)
@@ -85,6 +86,7 @@
             @endif
         @endforeach
     </div>
+@endif
 
 @if ($head->isEmpty() === false)
     <div class="row">
