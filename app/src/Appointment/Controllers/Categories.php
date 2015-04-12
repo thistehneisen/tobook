@@ -26,11 +26,6 @@ class Categories extends AsBase
             ? ServiceCategory::findOrFail($id)
             : new ServiceCategory();
 
-        $defaultLanguage = Config::get('varaa.default_language');
-
-        $items = ServiceCategory::where('as_service_categories.id', '=', $id)
-            ->join('multilanguage', 'multilanguage.context', '=', DB::raw("concat('" . ServiceCategory::getContext() . "', `varaa_as_service_categories`.`id`)"))->get();
-
         $data = $category->getMultilingualData();
 
         // user can overwrite default CRUD tabs template

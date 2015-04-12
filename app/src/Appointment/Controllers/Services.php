@@ -59,11 +59,6 @@ class Services extends AsBase
             ? Service::findOrFail($id)
             : new Service();
 
-        $defaultLanguage = Config::get('varaa.default_language');
-
-        $items = Service::where('as_services.id', '=', $id)
-            ->join('multilanguage', 'multilanguage.context', '=', DB::raw("concat('" . Service::getContext() . "', `varaa_as_services`.`id`)"))->get();
-
         $data = $service->getMultilingualData();
 
         $master_categories = MasterCategory::get()->lists('name','id');
