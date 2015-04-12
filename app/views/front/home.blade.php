@@ -60,7 +60,7 @@
     <div class="row">
         <ul class="category-imgs">
         @foreach ($masterCategories as $category)
-            <li class="col-sm-3"><a href="{{ $category->url }}"><span class="overlay"></span> <img src="{{ asset_path('core/img/front/eyelash.png') }}" alt="" class="img-responsive"><span class="name">{{{ $category->name }}}</span></a></li>
+            <li class="col-sm-3"><a href="{{ $category->url }}"><span class="overlay"></span> <img src="{{ $category->image_url }}" alt="" class="img-responsive"><span class="name">{{{ $category->name }}}</span></a></li>
         @endforeach
         </ul>
     </div>
