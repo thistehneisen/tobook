@@ -96,6 +96,26 @@ class MasterCategory extends \App\Core\Models\Base
         return asset_path('core/img/new/icons/'.$icon.'.png');
     }
 
+    public function getImageUrlAttribute()
+    {
+        $map = [
+            'kampaamopalvelut' => 'hair',
+            'karvanpoistot'    => 'hairremoval',
+            'hieronnat'        => 'massage',
+            'jalkahoidot'      => 'feet',
+            'kasvohoidot'      => 'face',
+            'vartalohoidot'    => 'body',
+            'kynnet'           => 'nails',
+            'ripset-kulmat'    => 'eyelash',
+        ];
+
+        $icon = isset($map[$this->slug])
+            ? $map[$this->slug]
+            : 'hair';
+
+        return asset_path('core/img/front/'.$icon.'.png');
+    }
+
     /**
      * Return URL of asset image to be used as background
      *

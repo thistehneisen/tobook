@@ -36,6 +36,35 @@
 
 <div class="container">
 
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 class="text-center orange comfortaa">{{ trans('home.hiw.heading') }}</h2>
+        </div>
+    </div>
+
+    <div class="row steps">
+        <div class="col-sm-offset-3 col-sm-2">
+            <h3>{{ trans('home.hiw.steps.1') }}</h3>
+            <p>{{ trans('home.hiw.steps.1_text') }}</p>
+        </div>
+        <div class="col-sm-2">
+            <h3>{{ trans('home.hiw.steps.2') }}</h3>
+            <p>{{ trans('home.hiw.steps.2_text') }}</p>
+        </div>
+        <div class="col-sm-2">
+            <h3>{{ trans('home.hiw.steps.3') }}</h3>
+            <p>{{ trans('home.hiw.steps.3_text') }}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <ul class="category-imgs">
+        @foreach ($masterCategories as $category)
+            <li class="col-sm-3"><a href="{{ $category->url }}"><span class="overlay"></span> <img src="{{ $category->image_url }}" alt="" class="img-responsive"><span class="name">{{{ $category->name }}}</span></a></li>
+        @endforeach
+        </ul>
+    </div>
+
     <div class="row categories" id="js-home-categories">
         <?php $counter = 1; ?>
         @foreach ($masterCategories as $category)
