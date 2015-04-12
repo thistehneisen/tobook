@@ -469,14 +469,41 @@ class Business extends Base
      */
     public function getDescriptionHtmlAttribute()
     {
+        return $this->getTranslatedAttribute('business_description');
+    }
+
+    public function getMetaTitleAttribute()
+    {
+        return $this->getTranslatedAttribute('meta_title');
+    }
+
+    public function getMetaDescriptionAttribute()
+    {
+        return $this->getTranslatedAttribute('meta_description');
+    }
+
+    public function getMetaKeywordsAttribute()
+    {
+        return $this->getTranslatedAttribute('meta_keywords');
+    }
+
+    /**
+     * Get an attribute with its translation
+     *
+     * @param string $attr
+     *
+     * @return string
+     */
+    public function getTranslatedAttribute($attr)
+    {
         // Get of current language first
-        $desc = $this->getDescriptionInLanguage(App::getLocale());
+        $value = $this->getAttributeInLanguage($attr, App::getLocale());
         // If it's empty, we'll try to get in the default language
-        if (empty($desc)) {
-            $desc = $this->getDescriptionInLanguage(Config::get('varaa.default_language'));
+        if (empty($value)) {
+            $value = $this->getAttributeInLanguage($attr, Config::get('varaa.default_language'));
         }
 
-        return $desc;
+        return $value;
     }
 
     /**
