@@ -1,4 +1,4 @@
-@extends ('layouts.admin')
+@extends ('modules.as.layout')
 
 @section('content')
     @if ($showTab === true)
