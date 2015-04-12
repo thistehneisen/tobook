@@ -41,7 +41,9 @@ class Categories extends AsBase
         }
 
         if(empty($data[$defaultLanguage])) {
-            $data[$defaultLanguage]['name'] = $category->name;
+            foreach ($this->multilingualAtrributes as $key) {
+                $data[$defaultLanguage][$key] = $category->$key;
+            }
         }
 
         // user can overwrite default CRUD tabs template

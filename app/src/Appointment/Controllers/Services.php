@@ -260,9 +260,12 @@ class Services extends AsBase
             ->where('id', $customTimeId)
             ->firstOrFail();
 
+        $data = $serviceTime->getTranslatedData();
+
         return View::make('modules.as.services.customTime.upsert', [
             'service'    => $service,
             'serviceTime'=> $serviceTime,
+            'data'       => $data,
             'now'        => Carbon::now()
         ]);
     }
@@ -289,18 +292,15 @@ class Services extends AsBase
                 ->where('id', $serviceTimeId)
                 ->firstOrFail();
 
-            $serviceTime->fill([
-                'price'       => Input::get('price'),
-                'before'      => Input::get('before'),
-                'during'      => Input::get('during'),
-                'after'       => Input::get('after'),
-                'description' => Input::get('description'),
-            ]);
+            $descriptions = Input::get('descriptions');
+
+            $serviceTime->fill(Input::all());
 
             $serviceTime->setLength();
 
             $serviceTime->service()->associate($service);
             $serviceTime->save();
+            $serviceTime->saveMultilanguage($descriptions);
 
             return Redirect::route('as.services.customTime', ['id' => $id])
                 ->with(
