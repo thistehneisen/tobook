@@ -45,7 +45,7 @@ return [
     'search_place'          => 'Rīga',
     'search'        => [
         'tagline'         => 'Rezervē, ko vēlies',
-        'query'           => 'Meklē pakalpojumu',
+        'query'           => 'Meklē uzņēmumu',
         'location'        => 'Atrašanās vieta',
         'about'           => 'Darba laiks',
         'locations_hours' => 'Atrašanās vieta &amp; darba laiks',
