@@ -50,8 +50,8 @@ class MappingServicesMasterCategories extends Command {
 
         $masterCategories = MasterCategory::get()->lists('id', 'name');
         $treatmentTypes   = TreatmentType::get()->lists('id', 'name');
-        var_dump($treatmentTypes);
         $count = 0;
+        $total = 0;
         ini_set('auto_detect_line_endings',TRUE);
         $file = fopen(realpath($path), "r");
         while (($data = fgetcsv($file, 10000, ",")) !== FALSE) {
@@ -61,11 +61,13 @@ class MappingServicesMasterCategories extends Command {
                 $masterCategoryId = (int) $masterCategories[trim($data[1])];
                 $treatmentTypeId = (int) $treatmentTypes[trim($data[2])];
                 $this->updateService($serviceId, $masterCategoryId, $treatmentTypeId);
+                $total++;
             }
         }
         fclose($file);
         ini_set('auto_detect_line_endings',FALSE);
-        printf("The number of services: %d", $count);
+        printf("\nThe number of lines: %d", $count);
+        printf("\nThe number of updated services: %d", $total);
     }
 
     /**
