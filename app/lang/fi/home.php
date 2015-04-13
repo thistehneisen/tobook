@@ -85,43 +85,43 @@ return [
     'best_offers'         => 'Parhaat tarjoukset',
     'no_offers'           => 'Tarjouksia ei ole saatavilla.',
     'map'                 => 'Kartta',
-    'show_more'           => 'Show more', // @todo
+    'show_more'           => 'Näytä lisää',
     // How it works?
     'hiw' => [
-        'heading' => 'How it works?', // @todo
+        'heading' => 'Kuinka Varaa.com toimii?',
         'steps' => [
-            '1'      => 'Step 1', // @todo
-            '2'      => 'Step 2', // @todo
-            '3'      => 'Step 3', // @todo
-            '1_text' => 'Select a service', // @todo
-            '2_text' => 'Select a business', // @todo
-            '3_text' => 'Book a time', // @todo
+            '1'      => 'Askel 1',
+            '2'      => 'Askel 2',
+            '3'      => 'Askel 3',
+            '1_text' => 'Valitse palvelu',
+            '2_text' => 'Valitse yritys',
+            '3_text' => 'Varaa aika',
         ],
     ],
     // Business
     'business' => [
-        'about'          => 'About', // @todo
-        'openning_hours' => 'Openning hours', // @todo
-        'map'            => 'Map', // @todo
-        'phone'          => 'Phone', // @todo
-        'email'          => 'Email', // @todo
+        'about'          => 'Yrityksestä',
+        'openning_hours' => 'Aukioloajat',
+        'map'            => 'Osoite',
+        'phone'          => 'Puh.',
+        'email'          => 'Sähköposti',
         'online_booking' => 'Varaa aika',
         'request'        => [
-            'link'    => 'Ask for online booking', // @todo
-            'info'    => 'The shop owner will be asked to use our online booking system.', // @todo
-            'subject' => 'Request to use online booking system', // @todo
+            'link'    => 'Toivo sähköistä kalenteria',
+            'info'    => 'Yrittäjälle lähtee pyyntö ottaa ajanvarausjärjestelmä käyttöön',
+            'subject' => 'Pyyntö avata sähköinen kalenteri',
             'mail'    => $requestMail, // @todo
         ],
         'contact'        => [
-            'index'   => 'Contact', // @todo
-            'heading' => 'Contact us', // @todo
-            'name'    => 'Name*', // @todo
-            'email'   => 'Email*', // @todo
-            'phone'   => 'Phone', // @todo
-            'captcha' => 'Please enter the characters below*', // @todo
-            'message' => 'Message*', // @todo
-            'sent'    => 'Your message has been sent', // @todo
-            'subject' => 'You got a contact message', // @todo
+            'index'   => 'Yhteystiedot',
+            'heading' => 'Ota yhteyttä',
+            'name'    => 'Nimi*',
+            'email'   => 'Sähköposti*',
+            'phone'   => 'Puh.',
+            'captcha' => 'Syötä seuraavat kirjaimet*',
+            'message' => 'Viesti*',
+            'sent'    => 'Viestisi on lähetetty.',
+            'subject' => 'Olet saanut viestin Varaa.comin kautta!',
             'mail'    => $contactEmail, // @todo
         ]
     ],
