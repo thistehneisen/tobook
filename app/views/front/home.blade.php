@@ -59,6 +59,8 @@
     </div>
 </div>
 
+<h2 class="text-center orange comfortaa visible-xs visible-sm">{{ trans('home.hiw.steps.1_text') }}</h2>
+
 @if (App::environment() !== 'tobook')
     <div class="row">
         <ul class="category-imgs">
