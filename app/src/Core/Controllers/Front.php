@@ -81,6 +81,9 @@ class Front extends Base
         $category = MasterCategory::findOrFail($id);
 
         $paginator = User::with('business')
+            ->whereHas('business', function ($q) {
+                $q->notHidden();
+            })
             ->whereHas('asServices', function ($q) use ($id) {
                 $q->where('master_category_id', $id);
             })
@@ -111,6 +114,9 @@ class Front extends Base
     {
         $treatment = TreatmentType::findOrFail($id);
         $paginator = User::with('business')
+            ->whereHas('business', function ($q) {
+                $q->notHidden();
+            })
             ->whereHas('asServices', function ($q) use ($id) {
                 $q->where('treatment_type_id', $id);
             })
