@@ -51,19 +51,19 @@ class MappingServicesMasterCategories extends Command {
         $masterCategories = MasterCategory::get()->lists('id', 'name');
         $treatmentTypes   = TreatmentType::get()->lists('id', 'name');
 
-        $file = fopen(realpath($path),"r");
         $count = 0;
-        while (!feof($file)) {
-            $data = fgetcsv($file);
-            $count++;
-            if (!empty($masterCategories[$data[1]]) && !empty($treatmentTypes[$data[2]])) {
-                $serviceId = (int) $data[0];
-                $masterCategoryId = (int) $masterCategories[trim($data[1])];
-                $treatmentTypeId = (int) $treatmentTypes[trim($data[2])];
-                $this->updateService($serviceId, $masterCategoryId, $treatmentTypeId);
+        if (($file = fopen(realpath($path), "r")) !== false) {
+             while (($data = fgetcsv($file, 1000, ",")) !== false) {
+                $count++;
+                if (!empty($masterCategories[$data[1]]) && !empty($treatmentTypes[$data[2]])) {
+                    $serviceId = (int) $data[0];
+                    $masterCategoryId = (int) $masterCategories[trim($data[1])];
+                    $treatmentTypeId = (int) $treatmentTypes[trim($data[2])];
+                    $this->updateService($serviceId, $masterCategoryId, $treatmentTypeId);
+                }
             }
+            fclose($file);
         }
-        fclose($file);
         printf("The number of services: %d", $count);
     }
 
