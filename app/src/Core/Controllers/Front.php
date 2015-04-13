@@ -90,7 +90,10 @@ class Front extends Base
         $items = $paginator->getCollection()->lists('business');
         $heading = $category->name;
 
-        return $this->renderBusinesses($paginator, $items, $heading);
+        // Add meta data to this page
+        $meta['description'] = $category->description;
+
+        return $this->renderBusinesses($paginator, $items, $heading, $meta);
     }
 
     /**
@@ -114,7 +117,10 @@ class Front extends Base
         $items = $paginator->getCollection()->lists('business');
         $heading = $treatment->name;
 
-        return $this->renderBusinesses($paginator, $items, $heading);
+        // Add meta data to this page
+        $meta['description'] = $treatment->description;
+
+        return $this->renderBusinesses($paginator, $items, $heading, $meta);
     }
 
     /**
@@ -147,7 +153,7 @@ class Front extends Base
      *
      * @return Response|View
      */
-    protected function renderBusinesses($paginator, $businesses, $heading)
+    protected function renderBusinesses($paginator, $businesses, $heading, $meta = [])
     {
         // Calculate next page
         $nextPageUrl = $this->getNextPageUrl($paginator);
@@ -175,6 +181,7 @@ class Front extends Base
         $viewData['lat']     = $lat;
         $viewData['lng']     = $lng;
         $viewData['heading'] = $heading;
+        $viewData['meta']    = (array) $meta;
 
         return $this->render('businesses', $viewData);
     }

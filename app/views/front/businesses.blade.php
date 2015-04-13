@@ -1,8 +1,16 @@
 @extends ('layouts.default')
 
-@section('title')
+@section ('title')
     @parent :: {{ trans('common.home') }}
 @stop
+
+@if (!empty($meta))
+@section ('meta')
+    @foreach ($meta as $name => $content)
+    <meta name="{{ $name }}" content="{{{ $content }}}">
+    @endforeach
+@stop
+@endif
 
 @section ('styles')
     @parent
