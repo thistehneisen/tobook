@@ -89,6 +89,7 @@ class Services extends AsBase
     {
         try{
             $names = Input::get('names');
+            $descriptions = Input::get('descriptions');
 
             $service->fill(Input::all());
             $service->setLength();
@@ -120,8 +121,7 @@ class Services extends AsBase
             }
 
             $service->saveOrFail();
-
-            Multilanguage::saveValues($service->id, Service::getContext(), 'name', $names);
+            $service->saveMultilanguage($names, $descriptions);
 
             $extraServices = Input::get('extras', []);
             $resources     = Input::get('resources', []);

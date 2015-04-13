@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Models;
-
 use Config, Settings, App;
+use App\Core\Models\Multilanguage;
 
 class Service extends \App\Core\Models\Base
 {
@@ -18,7 +18,13 @@ class Service extends \App\Core\Models\Base
     /**
      * @see \App\Core\Models\Base
      */
-    public $multilingualAtrributes = ['name'];
+    public $multilingualAtrributes = ['name', 'description'];
+
+    public function saveMultilanguage($names, $descriptions)
+    {
+        Multilanguage::saveValues($this->id, static::getContext(), 'name', $names);
+        Multilanguage::saveValues($this->id, static::getContext(), 'description', $descriptions);
+    }
 
     public function isDeletable()
     {

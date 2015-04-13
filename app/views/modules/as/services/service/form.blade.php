@@ -53,14 +53,15 @@ $(function () {
                     {{ Form::errorText('name', $errors) }}
                 </div>
             </div>
+            <div class="form-group {{ Form::errorCSS('description', $errors) }}">
+                <label for="names" class="col-sm-2 control-label">{{ trans('as.services.description') }}</label>
+                <div class="col-sm-5">
+                    {{ Form::textarea('descriptions[' . $locale .']', !empty($data[$locale]['description']) ? ($data[$locale]['description']) : '', ['class' => 'form-control input-sm']) }}
+                    {{ Form::errorText('description', $errors) }}
+                </div>
+            </div>
         </div>
         @endforeach
-    </div>
-    <div class="form-group">
-        <label for="description" class="col-sm-2 control-label">{{ trans('as.services.description') }}</label>
-        <div class="col-sm-5">
-            {{ Form::textarea('description', isset($service->description) ? $service->description : '', ['class' => 'form-control input-sm', 'id' => 'description']) }}
-        </div>
     </div>
     <div class="form-group">
         <label for="price" class="col-sm-2 control-label">{{ trans('as.services.price') }}</label>
