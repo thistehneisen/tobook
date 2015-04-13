@@ -1,7 +1,7 @@
 @extends ('layouts.default')
 
 @section('title')
-    {{{ $business->meta_title or $business->name }}}
+    {{{ !empty($business->meta_title) ? $business->meta_title : $business->name }}}
 @stop
 
 @section('meta')

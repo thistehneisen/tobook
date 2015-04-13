@@ -1,4 +1,4 @@
-<div class="search-wrapper">
+<div class="search-wrapper hidden-xs hidden-sm">
     <div class="container">
         <div class="row">
             <div class="text-center">

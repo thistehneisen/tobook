@@ -50,18 +50,24 @@ class MappingServicesMasterCategories extends Command {
 
         $masterCategories = MasterCategory::get()->lists('id', 'name');
         $treatmentTypes   = TreatmentType::get()->lists('id', 'name');
-
-        $file = fopen(realpath($path),"r");
-        while (!feof($file)) {
-            $data = fgetcsv($file);
-            if (!empty($masterCategories[$data[1]]) && !empty($treatmentTypes[$data[2]])) {
+        $count = 0;
+        $total = 0;
+        ini_set('auto_detect_line_endings',TRUE);
+        $file = fopen(realpath($path), "r");
+        while (($data = fgetcsv($file, 10000, ",")) !== FALSE) {
+            $count++;
+            if (!empty($masterCategories[$data[1]])) {
                 $serviceId = (int) $data[0];
                 $masterCategoryId = (int) $masterCategories[trim($data[1])];
-                $treatmentTypeId = (int) $treatmentTypes[trim($data[2])];
+                $treatmentTypeId = ( !empty($treatmentTypes[$data[2]])) ? (int) $treatmentTypes[trim($data[2])] : 0;
                 $this->updateService($serviceId, $masterCategoryId, $treatmentTypeId);
+                $total++;
             }
         }
         fclose($file);
+        ini_set('auto_detect_line_endings',FALSE);
+        printf("\nThe number of lines: %d", $count);
+        printf("\nThe number of updated services: %d", $total);
     }
 
     /**
@@ -78,7 +84,9 @@ class MappingServicesMasterCategories extends Command {
                 $treatmentType  = TreatmentType::find($treatmentTypeId);
 
                 $service->masterCategory()->associate($masterCategory);
-                $service->treatmentType()->associate($treatmentType);
+                if(!empty($treatmentType)){
+                    $service->treatmentType()->associate($treatmentType);
+                }
                 $service->save();
             }
         } catch (\Exception $ex){
