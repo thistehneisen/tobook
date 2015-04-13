@@ -60,11 +60,11 @@ return [
         ]
     ],
     'cart' => [
-        'add'         => 'Pievienot manam sarakstam',
+        'add'         => 'Pievienot grozam',
         'items'       => '|pakalpojumi|pakalpojums',
         'empty'       => 'Tukšs',
         'empty_long'  => 'Jūsu rezervāciju saraksts ir tukšs.',
-        'checkout'    => 'Izrakstīties',
+        'checkout'    => 'Pirkt',
         'total'       => 'Kopā',
         'heading'     => 'Izvēlētie produkti',
         'why_heading' => 'Kādēļ pirms izrakstīšanās vajadzētu reģistrēties?',
