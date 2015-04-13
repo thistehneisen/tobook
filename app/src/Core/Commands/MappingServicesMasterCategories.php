@@ -56,10 +56,10 @@ class MappingServicesMasterCategories extends Command {
         $file = fopen(realpath($path), "r");
         while (($data = fgetcsv($file, 10000, ",")) !== FALSE) {
             $count++;
-            if (!empty($masterCategories[$data[1]]) && !empty($treatmentTypes[$data[2]])) {
+            if (!empty($masterCategories[$data[1]])) {
                 $serviceId = (int) $data[0];
                 $masterCategoryId = (int) $masterCategories[trim($data[1])];
-                $treatmentTypeId = (int) $treatmentTypes[trim($data[2])];
+                $treatmentTypeId = ( !empty($treatmentTypes[$data[2]])) ? (int) $treatmentTypes[trim($data[2])] : 0;
                 $this->updateService($serviceId, $masterCategoryId, $treatmentTypeId);
                 $total++;
             }
@@ -84,7 +84,9 @@ class MappingServicesMasterCategories extends Command {
                 $treatmentType  = TreatmentType::find($treatmentTypeId);
 
                 $service->masterCategory()->associate($masterCategory);
-                $service->treatmentType()->associate($treatmentType);
+                if(!empty($treatmentType)){
+                    $service->treatmentType()->associate($treatmentType);
+                }
                 $service->save();
             }
         } catch (\Exception $ex){
