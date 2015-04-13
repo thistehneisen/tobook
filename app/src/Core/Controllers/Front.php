@@ -93,7 +93,10 @@ class Front extends Base
         // Add meta data to this page
         $meta['description'] = $category->description;
 
-        return $this->renderBusinesses($paginator, $items, $heading, $meta);
+        // Change page title
+        $title = $category->name;
+
+        return $this->renderBusinesses($paginator, $items, $heading, $title, $meta);
     }
 
     /**
@@ -120,7 +123,10 @@ class Front extends Base
         // Add meta data to this page
         $meta['description'] = $treatment->description;
 
-        return $this->renderBusinesses($paginator, $items, $heading, $meta);
+        // Change title
+        $title = $treatment->name;
+
+        return $this->renderBusinesses($paginator, $items, $heading, $title, $meta);
     }
 
     /**
@@ -153,7 +159,7 @@ class Front extends Base
      *
      * @return Response|View
      */
-    protected function renderBusinesses($paginator, $businesses, $heading, $meta = [])
+    protected function renderBusinesses($paginator, $businesses, $heading, $title = '', $meta = [])
     {
         // Calculate next page
         $nextPageUrl = $this->getNextPageUrl($paginator);
@@ -182,6 +188,7 @@ class Front extends Base
         $viewData['lng']     = $lng;
         $viewData['heading'] = $heading;
         $viewData['meta']    = (array) $meta;
+        $viewData['title']   = $title ?: trans('common.home');
 
         return $this->render('businesses', $viewData);
     }

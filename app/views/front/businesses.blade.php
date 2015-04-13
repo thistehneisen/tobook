@@ -1,7 +1,7 @@
 @extends ('layouts.default')
 
 @section ('title')
-    {{ trans('common.home') }}
+    {{ $title }}
 @stop
 
 @if (!empty($meta))
