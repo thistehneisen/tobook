@@ -90,11 +90,11 @@ return [
         'description'          => 'Yritysesittely',
         'business_size'        => 'Henkilömäärä',
         'business'             => 'Yritys',
-        'working_hours'        => 'Työajat', // @todo
-        'days_of_week'         => 'Viikonpäivä', // @todo
-        'start_time'           => 'Avaamme', // @todo
-        'end_time'             => 'Suljemme', // @todo
-        'extra'                => 'Lisätiedot', // @todo
+        'working_hours'        => 'Työajat',
+        'days_of_week'         => 'Viikonpäivä',
+        'start_time'           => 'Avaamme',
+        'end_time'             => 'Suljemme',
+        'extra'                => 'Lisätiedot',
         'business_size_values' => [
             '1',
             '2-3',
