@@ -105,6 +105,14 @@ class MasterCategory extends \App\Core\Models\Base
     {
         $filename = Str::slug($this->getOriginal('name'));
 
+        $map = [
+            'hiukset' => 'kampaamopalvelut',
+        ];
+
+        $filename = isset($map[$filename])
+            ? $map[$filename]
+            : $filename;
+
         return asset_path("core/img/bg/{$filename}.jpg");
     }
 
