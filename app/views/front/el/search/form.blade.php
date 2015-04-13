@@ -18,7 +18,7 @@
     </div>
 
     <div class="col-sm-1 col-md-1">
-        <button type="submit" class="btn btn-lg btn-success pull-right">{{ trans('home.search.button') }}</button>
+        <button type="submit" class="btn btn-lg btn-success btn-search">{{ trans('home.search.button') }}</button>
     </div>
 </div>
 {{--

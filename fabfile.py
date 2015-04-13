@@ -13,7 +13,7 @@ def _deploy(environment, host):
             run('php artisan down')
             # pull latest source
             # branch = 'develop' if environment == 'stag' else 'master'
-            branch = 'develop' if environment == 'stag' or environment == 'tobook' else 'master'
+            branch = 'develop' if environment == 'stag' else 'master'
             run('git checkout {}'.format(branch))
             run('git pull origin {}'.format(branch))
             # install dependencies
@@ -33,6 +33,8 @@ def _deploy(environment, host):
             run('php artisan varaa:connect-consumers')
             # Move business description to the default language
             run('php artisan varaa:move-business-description')
+            # Move meta data of businesses
+            run('php artisan varaa:move-meta')
             #-------------------------------------------------------------------
             # restart supervisor processes
             run('supervisorctl restart all')
