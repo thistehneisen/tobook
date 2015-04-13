@@ -36,6 +36,7 @@
 
 <div class="container">
 
+<div class="hidden-xs hidden-sm">
     <div class="row">
         <div class="col-sm-12">
             <h2 class="text-center orange comfortaa">{{ trans('home.hiw.heading') }}</h2>
@@ -56,6 +57,7 @@
             <p>{{ trans('home.hiw.steps.3_text') }}</p>
         </div>
     </div>
+</div>
 
 @if (App::environment() !== 'tobook')
     <div class="row">
