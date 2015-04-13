@@ -67,4 +67,23 @@ return [
         'social_google-plus'     => 'Google+', // @todo
         'default_paygate'        => 'The default paygate', // @todo
     ],
+    'master-cats' => [
+        'all'         => 'All master category',// @todo
+        'edit'        => 'Edit',// @todo
+        'add'         => 'Add',// @todo
+        'name'        => 'Name',// @todo
+        'description' => 'Description',// @todo
+        'language'    => 'Language',// @todo
+        'translation_not_found' => 'Not available in current language',// @todo
+    ],
+    'treatment-types' => [
+        'all'             => 'All treatment types',// @todo
+        'edit'            => 'Edit',// @todo
+        'add'             => 'Add',// @todo
+        'name'            => 'Name',// @todo
+        'description'     => 'Description',// @todo
+        'language'        => 'Language',// @todo
+        'master_category' => 'Master category',// @todo
+        'translation_not_found' => 'Not available in current language',// @todo
+    ],
 ];
