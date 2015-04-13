@@ -15,6 +15,7 @@ use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\MasterCategory;
 use App\Appointment\Models\TreatmentType;
+use App\Core\Models\Multilanguage;
 
 class Services extends AsBase
 {
@@ -54,9 +55,11 @@ class Services extends AsBase
      */
     public function upsert($id = null)
     {
-         $service = ($id !== null)
+        $service = ($id !== null)
             ? Service::findOrFail($id)
             : new Service();
+
+        $data = $service->getMultilingualData();
 
         $master_categories = MasterCategory::get()->lists('name','id');
         $treatment_types   = $service->getTreamentsList();
@@ -68,6 +71,7 @@ class Services extends AsBase
 
         return $this->render('form', [
             'service'           => $service,
+            'data'              => $data,
             'categories'        => $categories,
             'master_categories' => $master_categories,
             'treatment_types'   => $treatment_types,
@@ -84,6 +88,9 @@ class Services extends AsBase
     public function upsertHandler($service)
     {
         try{
+            $names = Input::get('names');
+            $descriptions = Input::get('descriptions');
+
             $service->fill(Input::all());
             $service->setLength();
             // Attach user
@@ -114,6 +121,7 @@ class Services extends AsBase
             }
 
             $service->saveOrFail();
+            $service->saveMultilanguage($names, $descriptions);
 
             $extraServices = Input::get('extras', []);
             $resources     = Input::get('resources', []);
@@ -236,9 +244,12 @@ class Services extends AsBase
             ->where('id', $customTimeId)
             ->firstOrFail();
 
+        $data = $serviceTime->getMultilingualData();
+
         return View::make('modules.as.services.customTime.upsert', [
             'service'    => $service,
             'serviceTime'=> $serviceTime,
+            'data'       => $data,
             'now'        => Carbon::now()
         ]);
     }
@@ -265,18 +276,15 @@ class Services extends AsBase
                 ->where('id', $serviceTimeId)
                 ->firstOrFail();
 
-            $serviceTime->fill([
-                'price'       => Input::get('price'),
-                'before'      => Input::get('before'),
-                'during'      => Input::get('during'),
-                'after'       => Input::get('after'),
-                'description' => Input::get('description'),
-            ]);
+            $descriptions = Input::get('descriptions');
+
+            $serviceTime->fill(Input::all());
 
             $serviceTime->setLength();
 
             $serviceTime->service()->associate($service);
             $serviceTime->save();
+            $serviceTime->saveMultilanguage($descriptions);
 
             return Redirect::route('as.services.customTime', ['id' => $id])
                 ->with(

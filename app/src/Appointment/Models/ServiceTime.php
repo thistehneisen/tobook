@@ -1,6 +1,7 @@
 <?php namespace App\Appointment\Models;
 
-use Settings;
+use Settings, Config;
+use App\Core\Models\Multilanguage;
 
 class ServiceTime extends \App\Core\Models\Base
 {
@@ -8,10 +9,48 @@ class ServiceTime extends \App\Core\Models\Base
 
     public $fillable = ['price', 'length','before','during', 'after', 'description'];
 
+    /**
+     * @see \App\Core\Models\Base
+     */
+    public $multilingualAtrributes = ['description'];
 
     public function setLength()
     {
         $this->length = (int) $this->after + $this->during + $this->before;
+    }
+
+    /**
+     * Get current context for retreive correct translation in multilanguage table
+     *
+     * @return string
+     */
+    public static function getContext()
+    {
+        return "as_service_times_";
+    }
+
+    /**
+     * Quick and dirty, improve later
+     */
+    public function saveMultilanguage($descriptions)
+    {
+        Multilanguage::saveValues($this->id, static::getContext(), 'description', $descriptions);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function fill(array $attributes)
+    {
+        $defaultLanguage = Config::get('varaa.default_language');
+
+        $data = $attributes;
+
+        foreach ($this->multilingualAtrributes as $key) {
+            $data[$key] = (!empty($data[$key.'s'][ $defaultLanguage]))
+            ? $data[$key.'s'][ $defaultLanguage] : '';
+        }
+        return parent::fill($data);
     }
 
     //--------------------------------------------------------------------------

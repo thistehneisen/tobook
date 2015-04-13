@@ -1,7 +1,7 @@
 @extends ('layouts.default')
 
 @section('title')
-    @parent :: {{ trans('common.home') }}
+    {{ trans('common.home') }}
 @stop
 
 @section ('styles')
@@ -35,21 +35,58 @@
 </div>
 
 <div class="container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 class="text-center orange comfortaa">{{ trans('home.hiw.heading') }}</h2>
+        </div>
+    </div>
+
+    <div class="row steps">
+        <div class="col-sm-offset-3 col-sm-2">
+            <h3>{{ trans('home.hiw.steps.1') }}</h3>
+            <p>{{ trans('home.hiw.steps.1_text') }}</p>
+        </div>
+        <div class="col-sm-2">
+            <h3>{{ trans('home.hiw.steps.2') }}</h3>
+            <p>{{ trans('home.hiw.steps.2_text') }}</p>
+        </div>
+        <div class="col-sm-2">
+            <h3>{{ trans('home.hiw.steps.3') }}</h3>
+            <p>{{ trans('home.hiw.steps.3_text') }}</p>
+        </div>
+    </div>
+
+@if (App::environment() !== 'tobook')
+    <div class="row">
+        <ul class="category-imgs">
+        @foreach ($masterCategories as $category)
+            <li class="col-sm-3"><a href="{{ $category->url }}"><span class="overlay"></span> <img src="{{ $category->image_url }}" alt="" class="img-responsive"><span class="name">{{{ $category->name }}}</span></a></li>
+        @endforeach
+        </ul>
+    </div>
+@endif
+
+@if (App::environment() === 'tobook')
     <div class="row categories" id="js-home-categories">
-        @foreach ($categories as $category)
+        <?php $counter = 1; ?>
+        @foreach ($masterCategories as $category)
+            @if ($category->treatments->isEmpty() === false)
             <div class="col-sm-2 col-md-2">
-                <p><img src="{{ asset_path('core/img/new/icons/'.$category->new_icon.'.png') }}" alt=""></p>
+                <p><img src="{{ $category->icon_url }}" alt=""></p>
                 <h4 class="heading">{{{ $category->name }}}</h4>
                 <ul class="list-categories">
-                @foreach ($category->children as $child)
-                    <li><a href="{{ route('business.category', ['id' => $child->id, 'slug' => $child->slug]) }}">{{{ $child->name }}}</a></li>
+                @foreach ($category->treatments as $treatment)
+                    <li><a href="{{ $treatment->url }}">{{{ $treatment->name }}}</a></li>
                 @endforeach
                     <li class="toggle more"><a href="#">{{ trans('home.more') }} <i class="fa fa-angle-double-right"></i></a></li>
                     <li class="toggle less"><a href="#">{{ trans('home.less') }} <i class="fa fa-angle-double-up"></i></a></li>
                 </ul>
             </div>
+            @endif
         @endforeach
     </div>
+@endif
 
 @if ($head->isEmpty() === false)
     <div class="row">

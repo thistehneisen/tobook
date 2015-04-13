@@ -33,18 +33,35 @@ $(function () {
     @include ('modules.as.services.service.tab', $service)
 @endif
 {{ Form::open(['route' => ['as.services.upsert', isset($service->id) ? $service->id : ''], 'class' => 'form-horizontal well', 'role' => 'form']) }}
-    <div class="form-group {{ Form::errorCSS('category_id', $errors) }}">
-        <label for="name" class="col-sm-2 control-label">{{ trans('as.services.name') }}</label>
-        <div class="col-sm-5">
-           {{ Form::text('name', isset($service->name) ? $service->name : '', ['class' => 'form-control input-sm', 'id' => 'name']) }}
-           {{ Form::errorText('name', $errors) }}
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-5">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist" id="language-tabs">
+                @foreach (Config::get('varaa.languages') as $locale)
+                <li role="presentation" class="@if ($locale === App::getLocale()) {{ 'active' }} @endif "><a href="#{{$locale}}" aria-controls="{{$locale}}" role="tab" data-toggle="tab">{{ strtoupper($locale) }}</a></li>
+                @endforeach
+            </ul>
         </div>
     </div>
-    <div class="form-group">
-        <label for="description" class="col-sm-2 control-label">{{ trans('as.services.description') }}</label>
-        <div class="col-sm-5">
-            {{ Form::textarea('description', isset($service->description) ? $service->description : '', ['class' => 'form-control input-sm', 'id' => 'description']) }}
+    <div class="tab-content">
+        @foreach (Config::get('varaa.languages') as $locale)
+        <div role="tabpanel" class="tab-pane @if ($locale === App::getLocale()) {{ 'active' }} @endif" id="{{ $locale }}">
+            <div class="form-group {{ Form::errorCSS('name', $errors) }}">
+                <label for="names" class="col-sm-2 control-label">{{ trans('as.services.name') }}</label>
+                <div class="col-sm-5">
+                    {{ Form::text('names[' . $locale .']', !empty($data[$locale]['name']) ? ($data[$locale]['name']) : '', ['class' => 'form-control input-sm']) }}
+                    {{ Form::errorText('name', $errors) }}
+                </div>
+            </div>
+            <div class="form-group {{ Form::errorCSS('description', $errors) }}">
+                <label for="names" class="col-sm-2 control-label">{{ trans('as.services.description') }}</label>
+                <div class="col-sm-5">
+                    {{ Form::textarea('descriptions[' . $locale .']', !empty($data[$locale]['description']) ? ($data[$locale]['description']) : '', ['class' => 'form-control input-sm']) }}
+                    {{ Form::errorText('description', $errors) }}
+                </div>
+            </div>
         </div>
+        @endforeach
     </div>
     <div class="form-group">
         <label for="price" class="col-sm-2 control-label">{{ trans('as.services.price') }}</label>
@@ -212,6 +229,11 @@ $(function () {
             } else {
                 $treatments.empty();
             }
+        });
+
+        $('#language-tabs a').click(function (e) {
+          e.preventDefault()
+          $(this).tab('show')
         });
     });
 </script>

@@ -2,11 +2,8 @@
 
 use App\Core\Models\Business;
 use Input;
-use Request;
-use Response;
 use Session;
 use Settings;
-use Util;
 
 class Search extends Front
 {
@@ -15,51 +12,35 @@ class Search extends Front
     /**
      * Show search result
      *
-     * @return [type] [description]
+     * @return View
      */
     public function index()
     {
-        $keyword     = Input::get('q');
-        $date        = Input::get('date');
-        $time        = Input::get('time');
-        $location    = Input::get('location');
-        $businesses  = Business::search(e($keyword));
-        $nextPageUrl = $this->getNextPageUrl($businesses);
-        $view        = [
-            'businesses' => $businesses->getItems(),
-            'nextPageUrl' => $nextPageUrl,
-        ];
+        $q        = Input::get('q');
+        $date     = Input::get('date');
+        $time     = Input::get('time');
+        $location = Input::get('location');
 
-        // If this is a Show more request, return the view only
-        if (Request::ajax()) {
-            return Response::json([
-                'businesses' => $businesses->getItems(),
-                'html'       => $this->render('el.sidebar', $view)->render()
-            ]);
-        }
+        $keyword = (empty($q) && !empty($location))
+            ? $location
+            : $q;
 
-        // Get the deals from result businesses
-        $deals = $this->getDealsOfBusinesses($businesses);
+        $paginator = empty($keyword)
+            ? Business::getAll()
+            : Business::search(e($keyword));
 
-        // Extract coordinates from query string input
-        list($lat, $lng) = Util::getCoordinates();
-
+        // Extract list of businesses
+        $items = $paginator->getItems();
         // Make heading
         $heading = trans('home.search.results', [
-            'keyword'  => $keyword,
+            'keyword'  => $q,
             'date'     => !empty($date) ? $date : strtolower(trans('home.search.date')),
             'time'     => !empty($time) ? $time : strtolower(trans('home.search.time')),
             'location' => !empty($location) ? $location : Settings::get('default_location'),
-            'total'    => $businesses->getTotal(),
+            'total'    => $paginator->getTotal(),
         ]);
 
-        $view['deals']       = $deals;
-        $view['lat']         = $lat;
-        $view['lng']         = $lng;
-        $view['heading']     = $heading;
-        $view['source']      = 'search'; // Indicator to toggle correc;
-
-        return $this->render('businesses', $view);
+        return $this->renderBusinesses($paginator, $items, $heading);
     }
 
     /**

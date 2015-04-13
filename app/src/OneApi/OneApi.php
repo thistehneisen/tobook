@@ -31,6 +31,7 @@ class OneApi
         if ($pretending === true) {
             // Log
             Log::info("Pretending to send SMS from {$from} to {$to}");
+
             return;
         }
 
@@ -53,9 +54,10 @@ class OneApi
             // Send
             $smsMessageSendResult = $smsClient->sendSMS($smsMessage);
         } catch (\Exception $ex) {
-            Log::warning("Can't send SMS", [
-                'phone' => $phone,
-                'raw' => $to
+            Log::error('Cannot send SMS: '.$ex->getMessage(), [
+                'from'    => $from,
+                'to'      => $to,
+                'message' => $message,
             ]);
         }
     }

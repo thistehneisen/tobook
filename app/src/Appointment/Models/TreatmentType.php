@@ -2,15 +2,13 @@
 
 use App;
 use App\Core\Models\Multilanguage;
-use App\Core\Traits\MultilanguageTrait;
 use Config;
 use DB;
 use Input;
 use Str;
 
-class TreatmentType extends \App\Appointment\Models\Base
+class TreatmentType extends \App\Core\Models\Base
 {
-    use MultilanguageTrait;
 
     protected $table = 'as_treatment_types';
 
@@ -19,6 +17,11 @@ class TreatmentType extends \App\Appointment\Models\Base
         'name',
         'description',
     ];
+
+    /**
+     * @see \App\Core\Models\Base
+     */
+    public $multilingualAtrributes = ['name', 'description'];
 
     public function saveMultilanguage($names, $descriptions)
     {
@@ -74,28 +77,6 @@ class TreatmentType extends \App\Appointment\Models\Base
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
-    public function getNameAttribute()
-    {
-        $name = $this->translate('name', self::getContext() . $this->id, App::getLocale());
-
-        if (empty($name)) {
-            $name = $this->translate('name', self::getContext() . $this->id, Config::get('varaa.default_language'));
-        }
-
-        return (!empty($name)) ? $name : $this->attributes['name'];
-    }
-
-    public function getDescriptionAttribute()
-    {
-        $description = $this->translate('description', self::getContext() . $this->id, App::getLocale());
-
-        if (empty($description)) {
-            $description = $this->translate('description', self::getContext() . $this->id, Config::get('varaa.default_language'));
-        }
-
-        return (!empty($description)) ? $description : $this->attributes['description'];
-    }
-
     /**
      * Return the URL of this treatment type
      *
@@ -105,7 +86,7 @@ class TreatmentType extends \App\Appointment\Models\Base
     {
         return route('business.treatment', [
             'id'   => $this->id,
-            'slug' => Str::slug($this->name),
+            'slug' => Str::slug($this->getOriginal('name')),
         ]);
     }
 

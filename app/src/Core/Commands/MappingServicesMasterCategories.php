@@ -72,13 +72,15 @@ class MappingServicesMasterCategories extends Command {
     private function updateService($serviceId, $masterCategoryId, $treatmentTypeId)
     {
         try {
-            $service        = Service::findOrFail($serviceId);
-            $masterCategory = MasterCategory::findOrFail($masterCategoryId);
-            $treatmentType  = TreatmentType::findOrFail($treatmentTypeId);
+            $service = Service::find($serviceId);
+            if(!empty($service)) {
+                $masterCategory = MasterCategory::find($masterCategoryId);
+                $treatmentType  = TreatmentType::find($treatmentTypeId);
 
-            $service->masterCategory()->associate($masterCategory);
-            $service->treatmentType()->associate($treatmentType);
-            $service->save();
+                $service->masterCategory()->associate($masterCategory);
+                $service->treatmentType()->associate($treatmentType);
+                $service->save();
+            }
         } catch (\Exception $ex){
             echo $ex->getMessage();
         }

@@ -71,15 +71,19 @@ class Front extends Base
     /**
      * Show businesses in a master category
      *
-     * @param int $id Master category's ID
+     * @param int    $id   Master category's ID
+     * @param string $slug
      *
      * @return View
      */
-    public function masterCategory($id)
+    public function masterCategory($id, $slug = null)
     {
         $category = MasterCategory::findOrFail($id);
 
         $paginator = User::with('business')
+            ->whereHas('business', function ($q) {
+                $q->notHidden();
+            })
             ->whereHas('asServices', function ($q) use ($id) {
                 $q->where('master_category_id', $id);
             })
@@ -89,20 +93,30 @@ class Front extends Base
         $items = $paginator->getCollection()->lists('business');
         $heading = $category->name;
 
-        return $this->renderBusinesses($paginator, $items, $heading);
+        // Add meta data to this page
+        $meta['description'] = $category->description;
+
+        // Change page title
+        $title = $category->name;
+
+        return $this->renderBusinesses($paginator, $items, $heading, $title, $meta);
     }
 
     /**
      * Show businesses in a treatment type
      *
-     * @param int $id
+     * @param int    $id
+     * @param string $slug
      *
      * @return Response|View
      */
-    public function treatment($id)
+    public function treatment($id, $slug = null)
     {
         $treatment = TreatmentType::findOrFail($id);
         $paginator = User::with('business')
+            ->whereHas('business', function ($q) {
+                $q->notHidden();
+            })
             ->whereHas('asServices', function ($q) use ($id) {
                 $q->where('treatment_type_id', $id);
             })
@@ -112,7 +126,13 @@ class Front extends Base
         $items = $paginator->getCollection()->lists('business');
         $heading = $treatment->name;
 
-        return $this->renderBusinesses($paginator, $items, $heading);
+        // Add meta data to this page
+        $meta['description'] = $treatment->description;
+
+        // Change title
+        $title = $treatment->name;
+
+        return $this->renderBusinesses($paginator, $items, $heading, $title, $meta);
     }
 
     /**
@@ -145,7 +165,7 @@ class Front extends Base
      *
      * @return Response|View
      */
-    protected function renderBusinesses($paginator, $businesses, $heading)
+    protected function renderBusinesses($paginator, $businesses, $heading, $title = '', $meta = [])
     {
         // Calculate next page
         $nextPageUrl = $this->getNextPageUrl($paginator);
@@ -173,6 +193,8 @@ class Front extends Base
         $viewData['lat']     = $lat;
         $viewData['lng']     = $lng;
         $viewData['heading'] = $heading;
+        $viewData['meta']    = (array) $meta;
+        $viewData['title']   = $title ?: trans('common.home');
 
         return $this->render('businesses', $viewData);
     }
@@ -206,9 +228,8 @@ class Front extends Base
         $lng = Session::get('lng');
         if (empty($lat) && empty($lng)) {
             try {
-                list($lat, $lng) = Util::geocoder(
-                    Settings::get('default_location')
-                );
+            // dd(Settings::get('default_location'));
+                list($lat, $lng) = Util::geocoder(Settings::get('default_location'));
             } catch (\Exception $ex) { /* Silently failed */ }
         }
 

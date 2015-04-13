@@ -7,7 +7,8 @@
 
     @section('meta')
         @foreach (Settings::group('meta') as $tag => $content)
-    <meta name="{{{ $tag }}}" content="{{{ $content }}}">
+            @if ($tag !== 'title') <meta name="{{{ $tag }}}" content="{{{ $content }}}">
+            @endif
         @endforeach
     @show
 
@@ -15,11 +16,9 @@
     <meta name="verify-paysera" content="{{ Config::get('services.paysera.verification') }}">
     @endif
 
-    <title>
-        @section('title')
-        {{{ Settings::get('meta_title') }}}
-        @show
-    </title>
+    <link rel="shortcut icon" type="image/png" href="{{ asset_path('core/img/favicon.png') }}" />
+
+    <title>@yield('title') :: {{{ Settings::get('meta_title') }}}</title>
 
     {{ HTML::style('//fonts.googleapis.com/css?family=Roboto:400,300,600') }}
     {{ HTML::style('//fonts.googleapis.com/css?family=Comfortaa:400,300,700') }}

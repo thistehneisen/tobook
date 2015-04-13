@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'pretend' => true,
+    'pretend' => false,
     'from' => 'ToBook.lv',
 ];

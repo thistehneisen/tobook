@@ -2,7 +2,6 @@
 
 use App;
 use App\Core\Models\Multilanguage;
-use App\Core\Traits\MultilanguageTrait;
 use Config;
 use DB;
 use Input;
@@ -10,13 +9,16 @@ use Str;
 
 class MasterCategory extends \App\Core\Models\Base
 {
-    use MultilanguageTrait;
-
     protected $table = 'as_master_categories';
 
     protected $dates = ['deleted_at'];
 
     public $fillable = ['name', 'description', 'order'];
+
+    /**
+     * @see \App\Core\Models\Base
+     */
+    public $multilingualAtrributes = ['name', 'description'];
 
     public function saveMultilanguage($names, $descriptions)
     {
@@ -50,26 +52,48 @@ class MasterCategory extends \App\Core\Models\Base
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
-    public function getNameAttribute()
+    public function getIconUrlAttribute()
     {
-        $name = $this->translate('name', self::getContext() . $this->id, App::getLocale());
+        $map = [
+            'home'        => 'home',
+            'car'         => 'auto',
+            'restaurant'  => 'fitness',
+            'wellness'    => 'wellness',
+            'activities'  => 'activities',
+            'beauty_hair' => 'beauty',
+            'frizetava'   => 'hair',
+            'manikirs'    => 'nails',
+            'masaza'      => 'massage',
+            'kosmetologs' => 'comestic',
+            'spa'         => 'spa',
+            'solarijs'    => 'solarium',
+        ];
 
-        if (empty($name)) {
-            $name = $this->translate('name', self::getContext() . $this->id, Config::get('varaa.default_language'));
-        }
+        $icon = isset($map[$this->slug])
+            ? $map[$this->slug]
+            : 'hair';
 
-        return (!empty($name)) ? $name : $this->attributes['name'];
+        return asset_path('core/img/new/icons/'.$icon.'.png');
     }
 
-    public function getDescriptionAttribute()
+    public function getImageUrlAttribute()
     {
-        $description = $this->translate('description', self::getContext() . $this->id, App::getLocale());
+        $map = [
+            'kampaamopalvelut' => 'hair',
+            'karvanpoistot'    => 'hairremoval',
+            'hieronnat'        => 'massage',
+            'jalkahoidot'      => 'feet',
+            'kasvohoidot'      => 'face',
+            'vartalohoidot'    => 'body',
+            'kynnet'           => 'nails',
+            'ripset-kulmat'    => 'eyelash',
+        ];
 
-        if (empty($description)) {
-            $description = $this->translate('description', self::getContext() . $this->id, Config::get('varaa.default_language'));
-        }
+        $icon = isset($map[$this->slug])
+            ? $map[$this->slug]
+            : 'hair';
 
-        return (!empty($description)) ? $description : $this->attributes['description'];
+        return asset_path('core/img/front/'.$icon.'.png');
     }
 
     /**
@@ -84,6 +108,11 @@ class MasterCategory extends \App\Core\Models\Base
         return asset_path("core/img/bg/{$filename}.jpg");
     }
 
+    public function getSlugAttribute()
+    {
+        return Str::slug($this->getOriginal('name'));
+    }
+
     /**
      * Return the URL of this master category
      *
@@ -93,7 +122,7 @@ class MasterCategory extends \App\Core\Models\Base
     {
         return route('business.master_category', [
             'id' => $this->id,
-            'slug' => Str::slug($this->name),
+            'slug' => $this->slug,
         ]);
     }
 

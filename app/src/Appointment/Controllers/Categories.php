@@ -1,7 +1,8 @@
 <?php namespace App\Appointment\Controllers;
 
-use App, View, Confide, Redirect, Request, Input, Config, Response;
+use App, View, Confide, Redirect, Request, Input, Config, Response, DB;
 use App\Appointment\Models\ServiceCategory;
+use App\Core\Models\Multilanguage;
 
 class Categories extends AsBase
 {
@@ -19,11 +20,45 @@ class Categories extends AsBase
     /**
      * {@inheritdoc}
      */
+    public function upsert($id = null)
+    {
+        $category = ($id !== null)
+            ? ServiceCategory::findOrFail($id)
+            : new ServiceCategory();
+
+        $data = $category->getMultilingualData();
+
+        // user can overwrite default CRUD tabs template
+        $tabsView = View::exists($this->getViewPath().'.tabs')
+            ? $this->getViewPath().'.tabs'
+            : 'olut::tabs';
+
+
+        $langPrefix = (string) $this->getOlutOptions('langPrefix');
+
+        return $this->render('form', [
+            'category'   => $category,
+            'data'       => $data,
+            'langPrefix' => $langPrefix,
+            'tabsView'   => $tabsView,
+            'routes'     => static::$crudRoutes,
+            'showTab'    => $this->getOlutOptions('showTab', true),
+        ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     protected function upsertHandler($item)
     {
+        $names        = Input::get('names');
+        $descriptions = Input::get('descriptions');
+
         $item->fill(Input::all());
         $item->user()->associate($this->user);
         $item->saveOrFail();
+
+        $item->saveMultilanguage($names, $descriptions);
 
         return $item;
     }

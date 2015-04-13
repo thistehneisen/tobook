@@ -11,8 +11,10 @@ class Siivooja(object):
     def __init__(self, path = None, verbose = False, days = 14):
         if path:
             self.path = path
-        self.verbose = verbose
-        self.days = int(days)
+        if verbose:
+            self.verbose = verbose
+        if days:
+            self.days = int(days)
 
     def scan_and_remove(self):
         files = os.listdir(self.path)
@@ -37,7 +39,7 @@ class Siivooja(object):
         delta = now - created_date
         if(self.verbose):
             print "Date %s - delta days: %d" % (created_date.strftime("%Y-%m-%d %H:%M:%S") , delta.days)
-        print (delta.days >= self.days)
+            print (delta.days >= self.days)
         return (delta.days >= self.days)
 
 

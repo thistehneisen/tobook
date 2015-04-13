@@ -234,7 +234,7 @@ return [
                 ],
                 'confirm_sms_country_code' => [
                     'type' => 'Text',
-                    'default' => Config::get('varaa.phone_country_code'),
+                    'default' => Settings::get('phone_country_code'),
                 ],
                 'confirm_consumer_sms_message' => [
                     'type' => 'Textarea',

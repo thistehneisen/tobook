@@ -7,14 +7,14 @@
 @section ('scripts')
 {{ HTML::script(asset_path('core/scripts/jquery.fixedTableHeader.js')) }}
 <script type="text/javascript">
-    $(window).load(function() {
+    $(window).load(function () {
         $('#workshift-summary').fixedTableHeader();
     });
 </script>
 @stop
 
 @section ('title')
-    {{ trans('as.employees.custom_time') }} :: @parent
+    {{ trans('as.employees.custom_time') }}
 @stop
 
 @section ('content')

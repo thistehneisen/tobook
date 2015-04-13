@@ -34,7 +34,7 @@ class Paysera extends Base
             'accepturl'     => route('payment.success'),
             'cancelurl'     => route('payment.cancel', ['id' => $transaction->id]),
             'callbackurl'   => route('payment.notify', ['gateway' => 'paysera']),
-            'test'          => (int) Config::get('app.debug'),
+            'test'          => Config::get('services.paysera.test', 0),
         ], true);
     }
 

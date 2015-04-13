@@ -45,7 +45,7 @@ return [
     'search_place'          => 'Rīga',
     'search'        => [
         'tagline'         => 'Rezervē, ko vēlies',
-        'query'           => 'Meklē pakalpojumu',
+        'query'           => 'Meklē uzņēmumu',
         'location'        => 'Atrašanās vieta',
         'about'           => 'Darba laiks',
         'locations_hours' => 'Atrašanās vieta &amp; darba laiks',
@@ -60,11 +60,11 @@ return [
         ]
     ],
     'cart' => [
-        'add'         => 'Pievienot manam sarakstam',
-        'items'       => 'pakalpojums|pakalpojumi',
+        'add'         => 'Pievienot grozam',
+        'items'       => '|pakalpojumi|pakalpojums',
         'empty'       => 'Tukšs',
         'empty_long'  => 'Jūsu rezervāciju saraksts ir tukšs.',
-        'checkout'    => 'Izrakstīties',
+        'checkout'    => 'Pirkt',
         'total'       => 'Kopā',
         'heading'     => 'Izvēlētie produkti',
         'why_heading' => 'Kādēļ pirms izrakstīšanās vajadzētu reģistrēties?',
@@ -85,32 +85,44 @@ return [
     'categories'          => 'Kategorijas', // @todo
     'best_offers'         => 'Labākie piedāvājumi', // @todo
     'no_offers'           => 'Nav piedāvājumu pieejama', // @todo
-    'map'                 => 'Map', // @todo
-    'show_more'           => 'Show more', // @todo
+    'map'                 => 'Karte', // @todo
+    'show_more'           => 'Parādīt vairāk', // @todo
+    // How it works?
+    'hiw' => [
+        'heading' => 'How it works?', // @todo
+        'steps' => [
+            '1'      => 'Step 1', // @todo
+            '2'      => 'Step 2', // @todo
+            '3'      => 'Step 3', // @todo
+            '1_text' => 'Select a service', // @todo
+            '2_text' => 'Select a business', // @todo
+            '3_text' => 'Book a time', // @todo
+        ],
+    ],
     // Business
     'business' => [
-        'about'          => 'About', // @todo
+        'about'          => 'Par uzņēmumu', // @todo
         'openning_hours' => 'Darba laiks', // @todo
         'map'            => 'Karte', // @todo
-        'phone'          => 'Phone', // @todo
-        'email'          => 'Email', // @todo
+        'phone'          => 'Telefons', // @todo
+        'email'          => 'E-pasts', // @todo
         'online_booking' => 'Online booking', // @todo
         'request'        => [
-            'link'    => 'Ask for online booking', // @todo
-            'info'    => 'The shop owner will be asked to use our online booking system.', // @todo
-            'subject' => 'Request to use online booking system', // @todo
+            'link'    => 'Jautāt tiešsaistes rezervācijas', // @todo
+            'info'    => 'Veikala īpašnieks tiks lūgts, lai izmantotu mūsu tiešsaistes rezervācijas sistēmu.', // @todo
+            'subject' => 'Pieprasījums izmantot tiešsaistes rezervēšanas sistēmu', // @todo
             'mail'    => $requestMail, // @todo
         ],
         'contact'        => [
-            'index'   => 'Contact', // @todo
-            'heading' => 'Contact us', // @todo
-            'name'    => 'Name*', // @todo
-            'email'   => 'Email*', // @todo
-            'phone'   => 'Phone', // @todo
-            'captcha' => 'Please enter the characters below*', // @todo
-            'message' => 'Message*', // @todo
-            'sent'    => 'Your message has been sent', // @todo
-            'subject' => 'You got a contact message', // @todo
+            'index'   => 'Kontakts', // @todo
+            'heading' => 'Sazinieties ar mums', // @todo
+            'name'    => 'Vārds*', // @todo
+            'email'   => 'E-pasts*', // @todo
+            'phone'   => 'Telefons', // @todo
+            'captcha' => 'Lūdzu zemāk ievadiet simbolus*', // @todo
+            'message' => 'Ziņa*', // @todo
+            'sent'    => 'Jūsu ziņojums ir nosūtīts', // @todo
+            'subject' => 'Tev Kontakta ziņu', // @todo
             'mail'    => $contactEmail, // @todo
         ]
     ],
