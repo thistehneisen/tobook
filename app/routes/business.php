@@ -1,6 +1,21 @@
 <?php
 /*
 |--------------------------------------------------------------------------
+| Business category
+|--------------------------------------------------------------------------
+*/
+Route::get('categories/{id}-{slug?}', [
+    'as'    => 'business.master_category',
+    'uses'  => 'App\Core\Controllers\Front@masterCategory'
+]);
+
+Route::get('treatments/{id}-{slug?}', [
+    'as'    => 'business.treatment',
+    'uses'  => 'App\Core\Controllers\Front@treatment'
+]);
+
+/*
+|--------------------------------------------------------------------------
 | Single business
 |--------------------------------------------------------------------------
 */
@@ -11,7 +26,7 @@ Route::group(['prefix' => 'businesses'], function () {
         'uses'  => 'App\Core\Controllers\Front@businesses'
     ]);
 
-    Route::get('category/{id}-{slug}', [
+    Route::get('category/{id}-{slug?}', [
         'as'    => 'business.category',
         'uses'  => 'App\Core\Controllers\Front@category'
     ]);

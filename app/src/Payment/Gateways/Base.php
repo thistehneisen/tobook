@@ -44,4 +44,11 @@ abstract class Base
      * @return void
      */
     abstract public function success($response);
+
+    /**
+     * Usually receive POST requests from paygate containing order information
+     *
+     * @return void
+     */
+    abstract public function notify();
 }

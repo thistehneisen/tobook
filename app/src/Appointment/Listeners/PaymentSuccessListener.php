@@ -17,15 +17,16 @@ class PaymentSuccessListener
     {
         $cart = $transaction->cart;
         if ($cart === null) {
+            Log::debug('Cannot complete AS booking because the cart is empty', ['transaction' => $transaction]);
             // Nothing to do with this
             return;
         }
 
-        // set cart status
+        // Complete the cart
         $cart->complete();
 
         // Find all booking service IDs
-        $bookingServiceIds = $cart->details->lists('item');
+        $bookingServiceIds = $cart->details->lists('model_id');
         $bookingServices = BookingService::whereIn('id', $bookingServiceIds)
             ->with('booking')
             ->get();

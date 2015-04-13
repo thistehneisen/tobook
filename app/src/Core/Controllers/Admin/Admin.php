@@ -25,6 +25,7 @@ class Admin extends Base
      */
     public function doCreate()
     {
+        $response = Redirect::route('admin.create');
         try {
             // Turn off email confirmation
             Config::set('confide::signup_email', false);
@@ -33,11 +34,15 @@ class Admin extends Base
             $user->email                 = Input::get('email');
             $user->password              = Input::get('password');
             $user->password_confirmation = Input::get('password');
-            $user->save();
-            $user->attachRole(Role::admin());
-
+            $result = $user->save();
             // Automatically confirm
             Confide::confirm($user->confirmation_code);
+
+            if (!$result) {
+                return $response->withErrors($user->errors());
+            }
+
+            $user->attachRole(Role::admin());
 
             // Send email with plain password
             Mail::send(
@@ -50,13 +55,9 @@ class Admin extends Base
                 }
             );
 
-            return Redirect::route('admin.create')
-                ->with('messages', $this->successMessageBag(
-                    trans('common.success')
-                ));
+            return $response->with('messages', $this->successMessageBag(trans('common.success')));
         } catch (\Exception $ex) {
-            return Redirect::route('admin.create')
-                ->withErrors($this->errorMessageBag($ex->getMessage()), 'top');
+            return $response->withErrors($this->errorMessageBag($ex->getMessage()), 'top');
         }
     }
 }

@@ -10,17 +10,19 @@ $head_script = "<script>
   </script>";
 
 return [
-    'name' => 'EnklareBokning',
-    'languages' => ['sv', 'en', 'fi'],
-    'meta' => [
-        'title' => 'EnklareBokning | Boka tid för allt',
+    'name'             => 'EnklareBokning',
+    'languages'        => ['sv', 'en', 'fi'],
+    'default_language' => 'sv',
+    'default_coords'   => [59.32893, 18.06491], // Stockholm
+    'meta'             => [
+        'title'       => 'EnklareBokning | Boka tid för allt',
         'description' => 'Boka tid för massage, klippning, däckbyte, m.m. Sök bland anslutna företag på din ort. Tillhandahålls av ClearSense.',
-        'keywords' => 'EnklareBokning, ClearSense, Tidsbokning, Bokningssystem',
+        'keywords'    => 'EnklareBokning, ClearSense, Tidsbokning, Bokningssystem',
     ],
     'footer' => [
         'copyright' => [
             'name' => 'Clearsense',
-            'url' => 'http://www.clearsense.se',
+            'url'  => 'http://www.clearsense.se',
         ],
         'social' => [
             'facebook'      => 'https://facebook.com/ClearSenseSE',
@@ -68,6 +70,7 @@ return [
         'head_script'      => ['type' => 'Textarea', 'default' => $head_script],
         'bottom_script'    => ['type' => 'Textarea', 'default' => ''],
         'allow_robots'     => ['type' => 'Radio', 'default' => true],
+        'default_location'   => ['type' => 'Text', 'default' => 'Stockholm, SV'],
         //----------------------------------------------------------------------
         //  Country code
         //----------------------------------------------------------------------

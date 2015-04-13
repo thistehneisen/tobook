@@ -1,0 +1,31 @@
+build_settings:
+    clone_depth: 1 # depth of 1 is a shallow clone, remove this line to clone entire repo
+    ignore:
+        - "vendor"
+        - "app/tests"
+        - "app/database/migrations"
+        - "app/src/OneApi/lib"
+        - "public"
+        - "devops"
+setup:
+    composer:
+        action: "install --no-scripts"
+test:
+    php_mess_detector:
+        rules:
+            - "cleancode"
+            - "unusedcode"
+        allow_failures: true
+        zero_config: true # do not make build as failed if something was detected
+        path: "app/src"
+    slack_notify:
+        webhook_url: "https://hooks.slack.com/services/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"
+        room: "#varaa_dev_log"
+        username: "PHPCI"
+        icon: ":ghost:"
+        message: "%PROJECT_TITLE% - build %BUILD% completed"
+    php_code_sniffer:
+        path: "app"
+        allowed_errors: -1
+        allowed_warnings: -1
+        standard: "PSR2"

@@ -87,7 +87,7 @@ class Lomake
             'template'   => 'varaa-lomake::form',
             'fields'     => [],
             'overwrite'  => false,
-            'langPrefix' => ''
+            'langPrefix' => '',
         ], $opt);
 
         if (!isset($opt['route'])) {
@@ -134,7 +134,11 @@ class Lomake
                 $fieldsData[$name][$fieldDataKey] = $fieldDataValue;
             }
 
-            if (empty($fieldsData[$name]['type'])) {
+            $isHidden = isset($fieldsData[$name]['hidden'])
+                ? (bool) $fieldsData[$name]['hidden']
+                : false;
+
+            if (empty($fieldsData[$name]['type']) || $isHidden) {
                 // allow caller to disable fields from being rendered
                 unset($fieldsData[$name]);
             }

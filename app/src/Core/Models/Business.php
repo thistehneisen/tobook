@@ -1,33 +1,37 @@
 <?php namespace App\Core\Models;
 
-use Config, Log, NAT, Input, Str, Util, App;
+use App;
+use App\Appointment\Models\Booking;
 use App\Core\Models\Relations\BusinessBusinessCategory;
-use App\Lomake\Fields\HtmlField;
+use Carbon\Carbon;
+use Config;
 use Exception;
 use Illuminate\Support\Collection;
-use App\Appointment\Models\Booking;
-use Carbon\Carbon;
+use Input;
+use NAT;
+use Str;
+use Util;
 
 class Business extends Base
 {
     public $fillable = [
         'name',
+        'phone',
         'description',
         'size',
         'address',
         'city',
         'postcode',
         'country',
-        'phone',
+        'is_booking_disabled',
         'lat',
         'lng',
-        'note',
         'bank_account',
         'meta_title',
         'meta_keywords',
         'meta_description',
         'is_hidden',
-        'is_booking_disabled',
+        'note',
     ];
 
     public $rulesets = [
@@ -44,12 +48,29 @@ class Business extends Base
         'meta_keywords',
         'meta_description',
         'is_hidden',
+        'user_id',
+        'is_activated',
+        'is_booking_disabled',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    protected $appends = [
+        'full_address',
     ];
 
     /**
      * @{@inheritdoc}
      */
     public $isSearchable = true;
+
+    /**
+     * Use to store data from table multilang
+     *
+     * @var array
+     */
+    protected $multilang = [];
 
     /**
      * @{@inheritdoc}
@@ -155,6 +176,54 @@ class Business extends Base
     }
 
     /**
+     * Update business description in multiple languages
+     *
+     * @param array $input
+     *
+     * @return App\Core\Models\Business
+     */
+    public function updateDescription(array $input)
+    {
+        return $this->updateMultiligualAttribute('business_description', $input);
+    }
+
+    /**
+     * Update attribute that supports multilanguage
+     *
+     * @param string $attr
+     * @param array  $input
+     *
+     * @return App\Core\Models\Business
+     */
+    public function updateMultiligualAttribute($attr, array $input)
+    {
+        $key = $attr;
+        $input = (array) $input;
+
+        foreach ($input as $lang => $value) {
+            $obj = Multilanguage::where('user_id', $this->user_id)
+                ->where('context', $this->getTable())
+                ->where('key', $key)
+                ->where('lang', $lang)
+                ->first();
+            if ($obj === null) {
+                $obj = new Multilanguage();
+            }
+
+            $obj->fill([
+                'context' => $this->getTable(),
+                'lang'    => $lang,
+                'key'     => $key,
+                'value'   => $value,
+            ]);
+            $obj->user()->associate($this->user);
+            $obj->save();
+        }
+
+        return $this;
+    }
+
+    /**
      * Update information of this business
      *
      * @param array                $input
@@ -166,7 +235,6 @@ class Business extends Base
     {
         $this->fill([
             'name'                => $input['name'],
-            'description'         => HtmlField::filterInput($input, 'description'),
             'size'                => $input['size'],
             'address'             => $input['address'],
             'city'                => $input['city'],
@@ -175,14 +243,16 @@ class Business extends Base
             'phone'               => $input['phone'],
             'is_booking_disabled' => $input['is_booking_disabled'],
             'note'                => isset($input['note'])             ? $input['note'] : '',
-            'meta_title'          => isset($input['meta_title'])       ? $input['meta_title'] : '',
-            'meta_keywords'       => isset($input['meta_keywords'])    ? $input['meta_keywords'] : '',
-            'meta_description'    => isset($input['meta_description']) ? $input['meta_description'] : '',
-            'bank_account'        => isset($input['bank_account'])     ? $input['bank_account'] : '',
             'is_hidden'           => isset($input['is_hidden'])        ? $input['is_hidden'] : '',
         ]);
         $this->user()->associate($user);
         $this->saveOrFail();
+
+        // Update description
+        $this->updateDescription($input['description_html']);
+        $this->updateMultiligualAttribute('meta_title', $input['meta_title']);
+        $this->updateMultiligualAttribute('meta_keywords', $input['meta_keywords']);
+        $this->updateMultiligualAttribute('meta_description', $input['meta_description']);
 
         // We will remove hidden businesses from indexing
         if ($this->is_hidden) {
@@ -219,6 +289,60 @@ class Business extends Base
     protected function getFullAddress($address, $postcode, $city, $country)
     {
         return $address ? sprintf('%s, %s %s, %s', $address, $postcode, $city, $country) : '';
+    }
+
+    /**
+     * Get business description in a specific language
+     *
+     * @param string $language
+     *
+     * @return string
+     */
+    public function getDescriptionInLanguage($language)
+    {
+        return $this->getAttributeInLanguage('business_description', $language);
+    }
+
+    /**
+     * Get value of an attribute in multilanguages
+     *
+     * @param string $attribute
+     * @param string $language
+     *
+     * @return mixed
+     */
+    public function getAttributeInLanguage($attribute, $language)
+    {
+        $key = $attribute;
+        if (!isset($this->multilang[$key])) {
+            $results = Multilanguage::where('context', $this->getTable())
+                ->where('key', $key)
+                ->where('user_id', $this->user_id)
+                ->get();
+
+            foreach ($results as $item) {
+                $this->multilang[$key][$item->lang] = $item->value;
+            }
+        }
+
+        return (isset($this->multilang[$key][$language]))
+            ? $this->multilang[$key][$language]
+            : '';
+    }
+
+    /**
+     * Get all non-hidden businesses
+     *
+     * @return Illuminate\Pagination\Paginator
+     */
+    public static function getAll()
+    {
+        return static::notHidden()
+            ->whereHas('user', function ($query) {
+                $query->whereNull('deleted_at');
+            })
+            ->with('user.images')
+            ->paginate();
     }
 
     //--------------------------------------------------------------------------
@@ -345,11 +469,41 @@ class Business extends Base
      */
     public function getDescriptionHtmlAttribute()
     {
-        if (empty($this->attributes['description'])) {
-            return '';
+        return $this->getTranslatedAttribute('business_description');
+    }
+
+    public function getMetaTitleAttribute()
+    {
+        return $this->getTranslatedAttribute('meta_title');
+    }
+
+    public function getMetaDescriptionAttribute()
+    {
+        return $this->getTranslatedAttribute('meta_description');
+    }
+
+    public function getMetaKeywordsAttribute()
+    {
+        return $this->getTranslatedAttribute('meta_keywords');
+    }
+
+    /**
+     * Get an attribute with its translation
+     *
+     * @param string $attr
+     *
+     * @return string
+     */
+    public function getTranslatedAttribute($attr)
+    {
+        // Get of current language first
+        $value = $this->getAttributeInLanguage($attr, App::getLocale());
+        // If it's empty, we'll try to get in the default language
+        if (empty($value)) {
+            $value = $this->getAttributeInLanguage($attr, Config::get('varaa.default_language'));
         }
 
-        return $this->attributes['description'];
+        return $value;
     }
 
     /**
@@ -369,7 +523,7 @@ class Business extends Base
      */
     public function getSlugAttribute($value)
     {
-        return Str::slug($this->attributes['name']);
+        return Str::slug($this->getAttribute('name'));
     }
 
     /**

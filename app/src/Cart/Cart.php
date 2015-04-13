@@ -91,7 +91,9 @@ class Cart extends \AppModel
         if (Session::has(static::SESSION_NAME)) {
             $cartId = Session::get(static::SESSION_NAME);
 
-            return static::find($cartId);
+            // If the current cart is completed, we don't return in
+            return static::where('status', '!=', static::STATUS_COMPLETED)
+                ->find($cartId);
         }
     }
 

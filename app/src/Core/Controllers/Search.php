@@ -1,11 +1,9 @@
 <?php namespace App\Core\Controllers;
 
 use App\Core\Models\Business;
-use Carbon\Carbon;
 use Input;
-use Settings;
 use Session;
-use Util;
+use Settings;
 
 class Search extends Front
 {
@@ -14,40 +12,35 @@ class Search extends Front
     /**
      * Show search result
      *
-     * @return [type] [description]
+     * @return View
      */
     public function index()
     {
-        $keyword    = Input::get('q');
-        $date       = Input::get('date');
-        $time       = Input::get('time');
-        $location   = Input::get('location');
-        $businesses = Business::search(e($keyword));
+        $q        = Input::get('q');
+        $date     = Input::get('date');
+        $time     = Input::get('time');
+        $location = Input::get('location');
 
-        // Get the deals from result businesses
-        $deals = $this->getDealsOfBusinesses($businesses);
+        $keyword = (empty($q) && !empty($location))
+            ? $location
+            : $q;
 
-        // Extract coordinates from query string input
-        list($lat, $lng) = Util::getCoordinates();
+        $paginator = empty($keyword)
+            ? Business::getAll()
+            : Business::search(e($keyword));
 
+        // Extract list of businesses
+        $items = $paginator->getItems();
         // Make heading
         $heading = trans('home.search.results', [
-            'keyword'  => $keyword,
+            'keyword'  => $q,
             'date'     => !empty($date) ? $date : strtolower(trans('home.search.date')),
             'time'     => !empty($time) ? $time : strtolower(trans('home.search.time')),
             'location' => !empty($location) ? $location : Settings::get('default_location'),
-            'total'    => $businesses->getTotal(),
+            'total'    => $paginator->getTotal(),
         ]);
 
-        return $this->render('businesses', [
-            'businesses' => $businesses->getItems(),
-            'pagination' => $businesses->links(),
-            'deals'      => $deals,
-            'lat'        => $lat,
-            'lng'        => $lng,
-            'heading'    => $heading,
-            'source'     => 'search', // Indicator to toggle correct
-        ]);
+        return $this->renderBusinesses($paginator, $items, $heading);
     }
 
     /**

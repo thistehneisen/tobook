@@ -1,11 +1,18 @@
 <?php namespace App\Core\Controllers;
 
 use App\Core\Models\Business;
-use Lomake;
-use Session, Validator, Input, View, Redirect, Hash, Confide, Log;
-use App\Core\Models\User as UserModel;
 use App\Core\Models\BusinessCategory;
 use App\Core\Models\Image;
+use App\Core\Models\User as UserModel;
+use Confide;
+use Hash;
+use Input;
+use Log;
+use Lomake;
+use Redirect;
+use Session;
+use Validator;
+use View;
 
 class User extends Base
 {
@@ -44,20 +51,21 @@ class User extends Base
 
         $businessLomake = null;
         if ($user->is_business) {
+            $isAdmin = $user->is_admin || Session::has('stealthMode');
             $businessLomake = Lomake::make($business, [
                 'route'             => 'user.profile',
                 'langPrefix'        => 'user.business',
                 'fields'            => [
-                    'description'      => ['type' => 'html_field', 'default' => $business->description_html],
+                    'description'      => ['type' => 'html_multilang', 'default' => $business->description_html],
                     'size'             => ['type' => false],
                     'lat'              => ['type' => false],
                     'lng'              => ['type' => false],
-                    'note'             => ['type' => false],
-                    'bank_account'     => ['type' => false],
-                    'meta_title'       => ['type' => false],
-                    'meta_description' => ['type' => false],
-                    'meta_keywords'    => ['type' => false],
-                    'is_hidden'        => ['type' => false],
+                    'note'             => ['type' => 'textarea'      , 'hidden' => !$isAdmin],
+                    'bank_account'     => ['type' => 'text'          , 'hidden' => !$isAdmin],
+                    'meta_title'       => ['type' => 'text_multilang', 'hidden' => !$isAdmin],
+                    'meta_description' => ['type' => 'text_multilang', 'hidden' => !$isAdmin],
+                    'meta_keywords'    => ['type' => 'text_multilang', 'hidden' => !$isAdmin],
+                    'is_hidden'        => ['type' => 'radio'         , 'hidden' => !$isAdmin],
                 ],
             ]);
         }

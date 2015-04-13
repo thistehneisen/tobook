@@ -44,7 +44,7 @@ return [
     'search_place'          => 'Helsinki, FI', // @todo
     'search'        => [
         'tagline'         => 'Что вы хотите заказать?', // @todo
-        'query'           => 'Введите название предприятия или услугу', // @todo
+        'query'           => 'Введите компанию', // @todo
         'location'        => Settings::get('default_location'), // @todo
         'about'           => 'Подробнее',
         'locations_hours' => 'Места &amp; время',
@@ -52,8 +52,8 @@ return [
         'buy'             => 'Купить',
         'book'            => 'Записаться',
         'button'          => 'поиск', // @todo
-        'date'            => 'Any date', // @todo
-        'time'            => 'Any time', // @todo
+        'date'            => 'Любая дата', // @todo
+        'time'            => 'любое время', // @todo
         'geo'             => [
             'info' => 'Ваше местоположение нужно для того, чтобы показывать близкие к вам результаты поиска.'
         ]
@@ -78,36 +78,50 @@ return [
     'how_does_it_work'    => 'How does it work?', // @todo
     'businesses'          => 'Что вы хотите заказать?', // @todo
     'businesses_category' => 'Businesses of <strong>:category</strong>', // @todo
-    'more'                => 'More', // @todo
-    'less'                => 'Less', // @todo
-    'companies_offers'    => 'Companies with offers', // @todo
-    'categories'          => 'Categories', // @todo
-    'best_offers'         => 'Best offers', // @todo
-    'no_offers'           => 'There is no offer available.', // @todo
+    'more'                => 'более', // @todo
+    'less'                => 'менее', // @todo
+    'companies_offers'    => 'Компании с предложениями', // @todo
+    'categories'          => 'категории', // @todo
+    'best_offers'         => 'Лучшие предложения', // @todo
+    'no_offers'           => 'Там нет никаких предложений доступны.', // @todo
+    'map'                 => 'карта', // @todo
+    'show_more'           => 'Показать больше', // @todo
+    // How it works?
+    'hiw' => [
+        'heading' => 'How it works?', // @todo
+        'steps' => [
+            '1'      => 'Step 1', // @todo
+            '2'      => 'Step 2', // @todo
+            '3'      => 'Step 3', // @todo
+            '1_text' => 'Select a service', // @todo
+            '2_text' => 'Select a business', // @todo
+            '3_text' => 'Book a time', // @todo
+        ],
+    ],
     // Business
     'business' => [
-        'about'          => 'About', // @todo
-        'openning_hours' => 'Openning hours', // @todo
-        'map'            => 'Map', // @todo
-        'phone'          => 'Phone', // @todo
-        'email'          => 'Email', // @todo
-        'online_booking' => 'Online booking', // @todo
+        'about'          => 'о нас', // @todo
+        'openning_hours' => 'время работы', // @todo
+        'map'            => 'карта', // @todo
+        'phone'          => 'телефон', // @todo
+        'email'          => 'Электронная Почта', // @todo
+        'online_booking' => 'онлайн бронирование', // @todo
         'request'        => [
-            'link'    => 'Ask for online booking', // @todo
-            'info'    => 'The shop owner will be asked to use our online booking system.', // @todo
-            'subject' => 'Request to use online booking system', // @todo
+            'link'    => 'Спросите для онлайн-бронирования', // @todo
+            'info'    => 'TВладелец магазина будет предложено использовать нашу систему бронирования онлайн.', // @todo
+            'subject' => 'Запрос на использование системы онлайн-бронирования', // @todo
             'mail'    => $requestMail, // @todo
         ],
         'contact'        => [
-            'index'   => 'Contact', // @todo
-            'heading' => 'Contact us', // @todo
-            'name'    => 'Name*', // @todo
-            'email'   => 'Email*', // @todo
-            'phone'   => 'Phone', // @todo
-            'captcha' => 'Please enter the characters below*', // @todo
-            'message' => 'Message*', // @todo
-            'sent'    => 'Your message has been sent', // @todo
-            'subject' => 'You got a contact message', // @todo
+            'index'   => 'связаться с нами', // @todo
+            'heading' => 'связаться с нами', // @todo
+            'name'    => 'Имя*', // @todo
+            'email'   => 'Электронная Почта*', // @todo
+            'phone'   => 'телефон', // @todo
+            'captcha' => 'Пожалуйста, введите символы, указанные ниже*', // @todo
+            'message' => 'Сообщение*', // @todo
+            'sent'    => 'Ваше сообщение отправлено', // @todo
+            'subject' => 'Вы получили контактную', // @todo
             'mail'    => $contactEmail, // @todo
         ]
     ],

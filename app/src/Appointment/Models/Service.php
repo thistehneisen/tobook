@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Models;
-
-use Config, Settings;
+use Config, Settings, App;
+use App\Core\Models\Multilanguage;
 
 class Service extends \App\Core\Models\Base
 {
@@ -15,6 +15,17 @@ class Service extends \App\Core\Models\Base
         ]
     ];
 
+    /**
+     * @see \App\Core\Models\Base
+     */
+    public $multilingualAtrributes = ['name', 'description'];
+
+    public function saveMultilanguage($names, $descriptions)
+    {
+        Multilanguage::saveValues($this->id, static::getContext(), 'name', $names);
+        Multilanguage::saveValues($this->id, static::getContext(), 'description', $descriptions);
+    }
+
     public function isDeletable()
     {
         $bookings = Booking::join('as_booking_services','as_booking_services.booking_id','=','as_bookings.id')
@@ -27,6 +38,16 @@ class Service extends \App\Core\Models\Base
     public function requireRoom()
     {
         return ($this->rooms()->count()) ? true : false;
+    }
+
+    /**
+     * Get current context for retreive correct translation in multilanguage table
+     *
+     * @return string
+     */
+    public static function getContext()
+    {
+        return "as_services_";
     }
 
     /**
@@ -75,6 +96,30 @@ class Service extends \App\Core\Models\Base
         return array_values($data);
     }
 
+    public function getTreamentsList()
+    {
+        if(!empty($this->treatmentType->id)) {
+            return TreatmentType::where('master_category_id', $this->treatmentType->master_category_id)->get()->lists('name', 'id');
+        }
+        return[];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function fill(array $attributes)
+    {
+        $defaultLanguage = Config::get('varaa.default_language');
+
+        $data = $attributes;
+
+        foreach ($this->multilingualAtrributes as $key) {
+            $data[$key] = (!empty($data[$key.'s'][ $defaultLanguage]))
+            ? $data[$key.'s'][ $defaultLanguage] : '';
+        }
+        return parent::fill($data);
+    }
+
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
@@ -110,6 +155,16 @@ class Service extends \App\Core\Models\Base
     public function category()
     {
         return $this->belongsTo('App\Appointment\Models\ServiceCategory');
+    }
+
+    public function masterCategory()
+    {
+        return $this->belongsTo('App\Appointment\Models\MasterCategory');
+    }
+
+    public function treatmentType()
+    {
+        return $this->belongsTo('App\Appointment\Models\TreatmentType');
     }
 
     public function employees()

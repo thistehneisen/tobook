@@ -84,11 +84,25 @@ return [
     'companies_offers'    => 'Companies with offers',
     'categories'          => 'Categories',
     'best_offers'         => 'Best offers',
+    'map'                 => 'Map',
     'no_offers'           => 'There is no offer available.',
+    'show_more'           => 'Show more',
+    // How it works?
+    'hiw' => [
+        'heading' => 'How it works?',
+        'steps' => [
+            '1'      => 'Step 1',
+            '2'      => 'Step 2',
+            '3'      => 'Step 3',
+            '1_text' => 'Select a service',
+            '2_text' => 'Select a business',
+            '3_text' => 'Book a time',
+        ],
+    ],
     // Business
     'business' => [
         'about'          => 'About',
-        'openning_hours' => 'Opening hours',
+        'openning_hours' => 'Openning hours',
         'map'            => 'Map',
         'phone'          => 'Phone',
         'email'          => 'Email',

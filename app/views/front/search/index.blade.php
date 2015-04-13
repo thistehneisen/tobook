@@ -9,7 +9,6 @@
 @stop
 
 @section('title')
-    @parent ::
     @if (!isset($single)) {{ trans('common.search') }}
     @else {{{ $businesses[0]->name }}}
     @endif
@@ -45,7 +44,7 @@
     {{ HTML::script(asset_path('as/scripts/layout-3.js')) }}
     @if(isset($user))
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function () {
             VARAA.initLayout3({
                 isAutoSelectEmployee: {{ $user->asOptions['auto_select_employee'] ? 'true' : 'false' }}
             });

@@ -13,6 +13,9 @@ use App\Appointment\Models\Room;
 use App\Appointment\Models\ResourceService;
 use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\Employee;
+use App\Appointment\Models\MasterCategory;
+use App\Appointment\Models\TreatmentType;
+use App\Core\Models\Multilanguage;
 
 class Services extends AsBase
 {
@@ -52,22 +55,30 @@ class Services extends AsBase
      */
     public function upsert($id = null)
     {
-         $service = ($id !== null)
+        $service = ($id !== null)
             ? Service::findOrFail($id)
             : new Service();
-        $categories = ServiceCategory::ofCurrentUser()->lists('name','id');
-        $resources  = Resource::ofCurrentUser()->lists('name', 'id');
-        $rooms      = Room::ofCurrentUser()->lists('name', 'id');
-        $extras     = ExtraService::ofCurrentUser()->lists('name', 'id');
-        $employees  = Employee::ofCurrentUser()->get();
+
+        $data = $service->getMultilingualData();
+
+        $master_categories = MasterCategory::get()->lists('name','id');
+        $treatment_types   = $service->getTreamentsList();
+        $categories        = ServiceCategory::ofCurrentUser()->lists('name','id');
+        $resources         = Resource::ofCurrentUser()->lists('name', 'id');
+        $rooms             = Room::ofCurrentUser()->lists('name', 'id');
+        $extras            = ExtraService::ofCurrentUser()->lists('name', 'id');
+        $employees         = Employee::ofCurrentUser()->get();
 
         return $this->render('form', [
-            'service'    => $service,
-            'categories' => $categories,
-            'resources'  => $resources,
-            'rooms'      => $rooms,
-            'extras'     => $extras,
-            'employees'  => $employees
+            'service'           => $service,
+            'data'              => $data,
+            'categories'        => $categories,
+            'master_categories' => $master_categories,
+            'treatment_types'   => $treatment_types,
+            'resources'         => $resources,
+            'rooms'             => $rooms,
+            'extras'            => $extras,
+            'employees'         => $employees
         ]);
     }
 
@@ -77,17 +88,40 @@ class Services extends AsBase
     public function upsertHandler($service)
     {
         try{
+            $names = Input::get('names');
+            $descriptions = Input::get('descriptions');
+
             $service->fill(Input::all());
             $service->setLength();
             // Attach user
             $service->user()->associate($this->user);
             $categoryId = (int) Input::get('category_id');
+            $masterCategoryId = (int) Input::get('master_category_id');
+            $treatmentTypeId = (int) Input::get('treatment_type_id');
+
             if (!empty($categoryId)) {
                 $category = ServiceCategory::find($categoryId);
                 $service->category()->associate($category);
             }
 
+            if(!empty($masterCategoryId) && $masterCategoryId > 0) {
+                $masterCategory = MasterCategory::find($masterCategoryId);
+                $service->masterCategory()->associate($masterCategory);
+            } else {
+                //Don't know why cannot use detatch method here, fix later
+                $service->master_category_id = null;
+            }
+
+            if(!empty($treatmentTypeId) && $treatmentTypeId > 0) {
+                $treatmentType = TreatmentType::find($treatmentTypeId);
+                $service->treatmentType()->associate($treatmentType);
+            } else {
+                //Don't know why cannot use detatch method here, fix later
+                $service->treatment_type_id = null;
+            }
+
             $service->saveOrFail();
+            $service->saveMultilanguage($names, $descriptions);
 
             $extraServices = Input::get('extras', []);
             $resources     = Input::get('resources', []);
@@ -210,9 +244,12 @@ class Services extends AsBase
             ->where('id', $customTimeId)
             ->firstOrFail();
 
+        $data = $serviceTime->getMultilingualData();
+
         return View::make('modules.as.services.customTime.upsert', [
             'service'    => $service,
             'serviceTime'=> $serviceTime,
+            'data'       => $data,
             'now'        => Carbon::now()
         ]);
     }
@@ -239,18 +276,15 @@ class Services extends AsBase
                 ->where('id', $serviceTimeId)
                 ->firstOrFail();
 
-            $serviceTime->fill([
-                'price'       => Input::get('price'),
-                'before'      => Input::get('before'),
-                'during'      => Input::get('during'),
-                'after'       => Input::get('after'),
-                'description' => Input::get('description'),
-            ]);
+            $descriptions = Input::get('descriptions');
+
+            $serviceTime->fill(Input::all());
 
             $serviceTime->setLength();
 
             $serviceTime->service()->associate($service);
             $serviceTime->save();
+            $serviceTime->saveMultilanguage($descriptions);
 
             return Redirect::route('as.services.customTime', ['id' => $id])
                 ->with(
@@ -274,4 +308,5 @@ class Services extends AsBase
                 $this->successMessageBag(trans('as.crud.success_delete'))
             );
     }
+
 }

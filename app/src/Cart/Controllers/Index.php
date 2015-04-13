@@ -1,6 +1,7 @@
 <?php namespace App\Cart\Controllers;
 
 use Cart, Response, Lang, Confide, Redirect, Session, Payment, Event;
+use Log;
 
 class Index extends \AppController
 {
@@ -81,8 +82,14 @@ class Index extends \AppController
         // Fire the payment.process so that cart details could update themselves
         Event::fire('payment.process', [$cart]);
 
+        //@todo: create new consumer for new user
+        //hung: if there is no consumer attaching with this user, errors will happend
         // Attach the current consumer to the cart
-        $cart->consumer()->associate($user->consumer);
+        try {
+            $cart->consumer()->associate($user->consumer);
+        } catch (\Exception $ex){
+            Log::info('Cannot associate cart with consumer', [$user]);
+        }
         $cart->save();
 
         $goToPaygate = true;

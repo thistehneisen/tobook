@@ -1,7 +1,7 @@
 @extends ('layouts.default')
 
 @section('title')
-    @parent :: {{ $header }}
+    {{ $header }}
 @stop
 
 @section('page-header')

@@ -84,6 +84,20 @@ return [
     'categories'          => 'Categories', // @todo
     'best_offers'         => 'Best offers', // @todo
     'no_offers'           => 'There is no offer available.', // @todo
+    'map'                 => 'Map', // @todo
+    'show_more'           => 'Show more', // @todo
+    // How it works?
+    'hiw' => [
+        'heading' => 'How it works?', // @todo
+        'steps' => [
+            '1'      => 'Step 1', // @todo
+            '2'      => 'Step 2', // @todo
+            '3'      => 'Step 3', // @todo
+            '1_text' => 'Select a service', // @todo
+            '2_text' => 'Select a business', // @todo
+            '3_text' => 'Book a time', // @todo
+        ],
+    ],
     // Business
     'business' => [
         'about'          => 'About', // @todo

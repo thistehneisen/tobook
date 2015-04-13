@@ -1,7 +1,17 @@
 <?php namespace App\Core;
 
-use DB, Str, App, Config, Geocoder, Cache, Log, Imagine, Input, Session, Carbon\Carbon;
-use Exception, InvalidArgumentException;
+use App;
+use Cache;
+use Carbon\Carbon;
+use Config;
+use Exception;
+use Geocoder;
+use Imagine;
+use Input;
+use InvalidArgumentException;
+use Log;
+use Session;
+use Str;
 
 /**
  * Providing a set of utility functions
@@ -182,8 +192,7 @@ class Util
             Session::set('lng', $lng);
         } else {
             // Helsinki
-            $lat = '60.1733244';
-            $lng = '24.9410248';
+            list($lat, $lng) = Config::get('varaa.default_coords');
         }
 
         $location = Input::get('location');

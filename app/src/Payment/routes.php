@@ -18,7 +18,7 @@ Route::group([
         'uses' => 'App\Payment\Controllers\Index@purchase'
     ]);
 
-    Route::post('notify/{gateway}', [
+    Route::any('notify/{gateway}', [
         'as' => 'payment.notify',
         'uses' => 'App\Payment\Controllers\Index@notify'
     ]);

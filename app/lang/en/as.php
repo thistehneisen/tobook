@@ -16,9 +16,11 @@ return [
         'calendar'      => 'Calendar',
     ],
     'services' => [
-        'heading'       => 'Services',
-        'edit'          => 'Edit service',
-        'custom_time'   => 'Custom time',
+        'heading'            => 'Services',
+        'edit'               => 'Edit service',
+        'custom_time'        => 'Custom time',
+        'master_categories'  => 'Master categories',
+        'treatment_types'    => 'Treatment types',
         'categories' => [
             'all'           => 'All categories',
             'add'           => 'Add new category',

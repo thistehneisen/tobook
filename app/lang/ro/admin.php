@@ -58,22 +58,44 @@ return [
         'date'   => 'Data'
     ],
     'settings' => [
-        'site_name'          => 'Site Name', // @todo
-        'head_script'        => 'Script inserted in &lt;/HEAD&gt;', // @todo
-        'bottom_script'      => 'Script inserted before &lt;/BODY&gt;', // @todo
-        'allow_robots'       => 'Allow search engine robots', // @todo
-        'meta_title'         => 'Meta title', // @todo
-        'meta_description'   => 'Meta description', // @todo
-        'meta_keywords'      => 'Meta keywords', // @todo
-        'social_facebook'    => 'Facebook', // @todo
-        'social_linkedin'    => 'Linkedin', // @todo
-        'social_youtube'     => 'Youtube', // @todo
-        'copyright_name'     => 'Company name for footer copyright', // @todo
-        'copyright_url'      => 'URL for footer copyright', // @todo
-        'enable_cart'        => 'Enable shopping cart', // @todo
-        'phone_country_code' => 'Phone country code', // @todo
-        'currency'           => 'Currency symbol', // @todo
-        'commission_rate'    => 'Commission rate taken from businesses, e.g. 30% = 0.3', // @todo
-        'default_location'   => 'Default location to show in front page, e.g. Helsinki, FI', // @todo
+        'site_name'              => 'Site Name', // @todo
+        'head_script'            => 'Script inserted in &lt;/HEAD&gt;', // @todo
+        'bottom_script'          => 'Script inserted before &lt;/BODY&gt;', // @todo
+        'allow_robots'           => 'Allow search engine robots', // @todo
+        'meta_title'             => 'Meta title', // @todo
+        'meta_description'       => 'Meta description', // @todo
+        'meta_keywords'          => 'Meta keywords', // @todo
+        'social_facebook'        => 'Facebook', // @todo
+        'social_linkedin'        => 'Linkedin', // @todo
+        'social_youtube'         => 'Youtube', // @todo
+        'copyright_name'         => 'Company name for footer copyright', // @todo
+        'copyright_url'          => 'URL for footer copyright', // @todo
+        'enable_cart'            => 'Enable shopping cart', // @todo
+        'phone_country_code'     => 'Phone country code', // @todo
+        'currency'               => 'Currency symbol', // @todo
+        'commission_rate'        => 'Commission rate taken from businesses, e.g. 30% = 0.3', // @todo
+        'default_location'       => 'Default location to show in front page, e.g. Helsinki, FI', // @todo
+        'footer_contact_message' => 'Text to be included in every contact message of business', // @todo
+        'social_google-plus'     => 'Google+', // @todo
+        'default_paygate'        => 'The default paygate', // @todo
+    ],
+    'master-cats' => [
+        'all'         => 'All master category',// @todo
+        'edit'        => 'Edit',// @todo
+        'add'         => 'Add',// @todo
+        'name'        => 'Name',// @todo
+        'description' => 'Description',// @todo
+        'language'    => 'Language',// @todo
+        'translation_not_found' => 'Not available in current language',// @todo
+    ],
+    'treatment-types' => [
+        'all'             => 'All treatment types',// @todo
+        'edit'            => 'Edit',// @todo
+        'add'             => 'Add',// @todo
+        'name'            => 'Name',// @todo
+        'description'     => 'Description',// @todo
+        'language'        => 'Language',// @todo
+        'master_category' => 'Master category',// @todo
+        'translation_not_found' => 'Not available in current language',// @todo
     ],
 ];

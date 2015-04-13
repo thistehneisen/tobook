@@ -10,9 +10,11 @@ $head_script = "<script>
   </script>";
 
 return [
-    'name' => 'ToBook.lv',
-    'languages' => ['lv', 'en', 'fi'],
-    'premium_modules' => [
+    'name'             => 'ToBook.lv',
+    'languages'        => ['lv', 'ru', 'en'],
+    'default_language' => 'lv',
+    'default_coords'   => [56.9462031, 24.1042872], // Riga
+    'premium_modules'  => [
         'appointment' => [
             'route_name' => 'as.index',
             'enable' => true,
@@ -43,6 +45,7 @@ return [
         'head_script'      => ['type' => 'Textarea', 'default' => ''],
         'bottom_script'    => ['type' => 'Textarea', 'default' => ''],
         'allow_robots'     => ['type' => 'Radio', 'default' => true],
+        'default_location'   => ['type' => 'Text', 'default' => 'Riga, LV'],
         //----------------------------------------------------------------------
         //  Country code
         //----------------------------------------------------------------------

@@ -1,11 +1,27 @@
 <div class="search-wrapper">
     <div class="container">
-        <div class="row text-left">
-            <ul class="list-inline front-nav">
-              <li><a id="js-choose-category" href="#">{{ trans('home.choose_category') }}</a></li>
-              {{-- <li><a href="#">{{ trans('home.how_does_it_work') }}</a></li> --}}
-              <li class="pull-right"><a href="{{ route('businesses') }}">{{ trans('home.businesses') }}</a></li>
-            </ul>
+        <div class="row">
+            <div class="text-center">
+                <ul class="nav navbar-nav front-nav">
+                    @foreach ($categories as $category)
+                    <li class="dropdown">
+                        <a href="{{ $category->url }}" title="{{{ $category->name }}}">{{{ $category->name }}}
+                    @if ($category->treatments->isEmpty() === false)
+                        <span class="caret"></span>
+                    @endif
+                        </a>
+
+                    @if ($category->treatments->isEmpty() === false)
+                        <ul class="dropdown-menu" @if(!empty($category->background_image)) style="background: #fff url({{ $category->background_image }}) center center no-repeat; background-size: cover;" @endif>
+                        @foreach ($category->treatments as $treatment)
+                            <li><a href="{{ $treatment->url }}" title="{{{ $treatment->name }}}">{{{ $treatment->name }}}</a></li>
+                        @endforeach
+                        </ul>
+                    @endif
+                    </li>
+                    @endforeach
+                </ul>
+            </div>
         </div>
     </div>
 </div>

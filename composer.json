@@ -21,7 +21,8 @@
         "indatus/dispatcher": "1.*",
         "clowdy/laravel-raven": "0.1.0",
         "eluceo/ical": "0.6.1",
-        "mews/captcha": "1.0.1"
+        "mews/captcha": "1.0.1",
+        "webtopay/libwebtopay": "dev-default#b62cb2f"
     },
     "repositories": [
         {
