@@ -1,8 +1,8 @@
 <?php
 $contactEmail = <<< HTML
-<p>Hello,</p>
+<p>Hei,</p>
 
-<p>Visitor <strong>:name</strong> (:phone) from :email has sent you a message:</p>
+<p>Vierailija <strong>:name</strong> (:phone) sähköposti: :email lähetti sinulle viestin:</p>
 
 <p>------------------</p>
 <p>:message</p>
@@ -12,11 +12,11 @@ $contactEmail = <<< HTML
 HTML;
 
 $requestMail = <<< HTML
-<p>Hello,</p>
+<p>Hei,</p>
 
-<p>Visitor <strong>:name</strong> from :email requested you to start using our onling booking solution.</p>
+<p>Vieraijila <strong>:name</strong> sähköposti: :email toivoi että ottaisit sähköisen ajanvarauskalenterin käyttöön.</p>
 
-<p>Start using it now! It's FREE!</p>
+<p>Ota nyt sähköinen kalenteri käyttöön MAKSUTTA!</p>
 HTML;
 
 return [
@@ -55,7 +55,7 @@ return [
         'date'            => 'Valitse päivä',
         'time'            => 'Valitse aika',
         'geo'             => [
-            'info' => 'We will ask for your current location to display results that are close to you.'
+            'info' => 'Kysymme sijaintiasi jotta voimme järjestää hakutulokset sijaintisi perusteella.'
         ]
     ],
     'cart' => [
