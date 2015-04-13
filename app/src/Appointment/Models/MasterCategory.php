@@ -79,14 +79,14 @@ class MasterCategory extends \App\Core\Models\Base
     public function getImageUrlAttribute()
     {
         $map = [
-            'kampaamopalvelut' => 'hair',
-            'karvanpoistot'    => 'hairremoval',
-            'hieronnat'        => 'massage',
-            'jalkahoidot'      => 'feet',
-            'kasvohoidot'      => 'face',
-            'vartalohoidot'    => 'body',
-            'kynnet'           => 'nails',
-            'ripset-kulmat'    => 'eyelash',
+            'hiukset'       => 'hair',
+            'karvanpoistot' => 'hairremoval',
+            'hieronnat'     => 'massage',
+            'jalkahoidot'   => 'feet',
+            'kasvohoidot'   => 'face',
+            'vartalohoidot' => 'body',
+            'kynnet'        => 'nails',
+            'ripset-kulmat' => 'eyelash',
         ];
 
         $icon = isset($map[$this->slug])
