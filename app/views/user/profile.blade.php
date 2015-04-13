@@ -1,7 +1,7 @@
 @extends ('layouts.dashboard')
 
 @section('title')
-    @parent :: {{ trans('user.profile.index') }}
+    {{ trans('user.profile.index') }}
 @stop
 
 @section ('styles')

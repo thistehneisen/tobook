@@ -1,7 +1,7 @@
 @extends ('layouts.default')
 
 @section('title')
-    @parent :: {{ trans('common.sign_in_header') }}
+    {{ trans('common.sign_in_header') }}
 @stop
 
 @section('page-header')

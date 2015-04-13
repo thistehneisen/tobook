@@ -1,7 +1,7 @@
 @extends ('layouts.default')
 
 @section('title')
-    @parent :: {{ trans('home.cart.checkout') }}
+    {{ trans('home.cart.checkout') }}
 @stop
 
 @section('content')

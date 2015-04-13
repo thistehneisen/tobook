@@ -6,7 +6,7 @@
 @stop
 
 @section ('title')
-    {{ trans('as.employees.workshifts') }} :: @parent
+    {{ trans('as.employees.workshifts') }}
 @stop
 
 @section ('scripts')

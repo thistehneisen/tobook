@@ -18,11 +18,7 @@
 
     <link rel="shortcut icon" type="image/png" href="{{ asset_path('core/img/favicon.png') }}" />
 
-    <title>
-        @section('title')
-        {{{ Settings::get('meta_title') }}}
-        @show
-    </title>
+    <title>@yield('title') :: {{{ Settings::get('meta_title') }}}</title>
 
     {{ HTML::style('//fonts.googleapis.com/css?family=Roboto:400,300,600') }}
     {{ HTML::style('//fonts.googleapis.com/css?family=Comfortaa:400,300,700') }}

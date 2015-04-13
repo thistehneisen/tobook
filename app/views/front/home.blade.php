@@ -1,7 +1,7 @@
 @extends ('layouts.default')
 
 @section('title')
-    @parent :: {{ trans('common.home') }}
+    {{ trans('common.home') }}
 @stop
 
 @section ('styles')

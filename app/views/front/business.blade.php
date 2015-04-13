@@ -1,7 +1,7 @@
 @extends ('layouts.default')
 
 @section('title')
-    @parent :: {{{ $business->meta_title or $business->name }}}
+    {{{ $business->meta_title or $business->name }}}
 @stop
 
 @section('meta')
