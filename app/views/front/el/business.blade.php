@@ -4,6 +4,7 @@
         <h1>{{{ $business->name }}}</h1>
         <address>{{{ $business->full_address }}}</address>
 
+    @if ($business->images->isEmpty() === false)
         <!-- Slider main container -->
         <div class="slideshow swiper-container">
             <!-- Additional required wrapper -->
@@ -22,6 +23,11 @@
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
         </div>
+    @else
+        <div class="slideshow">
+            <p class="text-center"><img src="{{ $business->image }}" alt="{{{ $business->name }}}"></p>
+        </div>
+    @endif
 
         <h3 class="sub-heading">{{ trans('home.business.about') }}</h3>
         <div class="description">
