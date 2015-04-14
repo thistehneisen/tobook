@@ -190,9 +190,6 @@ class VaraaSearch
           slider = new Swiper swiper.get(),
             autoplay: 3000
             loop: true
-            pagination: '.swiper-pagination'
-            nextButton: '.swiper-button-next'
-            prevButton: '.swiper-button-prev'
             autoplayDisableOnInteraction: false
 
         slider.update().slideNext() if slider isnt null

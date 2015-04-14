@@ -6,9 +6,6 @@ do ($ = jQuery) ->
       autoplay: 3000
       loop: true
       autoplayDisableOnInteraction: false
-      pagination: '.swiper-pagination'
-      nextButton: '.swiper-button-next'
-      prevButton: '.swiper-button-prev'
 
     # Contact form
     $wrapper = $ '#js-search-results'
