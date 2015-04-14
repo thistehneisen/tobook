@@ -1,7 +1,7 @@
 @extends ('layouts.default')
 
 @section ('title')
-    @parent :: {{ trans('common.admin') }}
+    {{ trans('common.admin') }}
 @stop
 
 @section('nav-admin')
