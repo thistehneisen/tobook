@@ -89,14 +89,10 @@ class VaraaSearch
     $heading.on 'click', (e) ->
       e.preventDefault()
       $single.hide()
-      $list.find '.panel'
-        .each ->
-          $$ = $ @
-          $$.show 'slide', direction: $$.data('direction'), 300
+      $list.find('.panel').each -> $(@).show()
 
       $map.show()
-      $heading.find 'i'
-        .hide()
+      $heading.find('i').hide()
 
     # When user clicks on Show more button
     $leftSidebar.on 'click', '#js-show-more', (e) ->
