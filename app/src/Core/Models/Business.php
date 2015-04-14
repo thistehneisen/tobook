@@ -627,16 +627,14 @@ class Business extends Base
         }
 
         foreach ($this->user->asServices as $asService) {
-            if(!empty($asService->masterCategory->id)) {
+            if (!empty($asService->masterCategory->id)) {
                 $masterCategories[] = $asService->masterCategory->name;
             }
 
-            if(!empty($asService->treatmentType->id)) {
+            if (!empty($asService->treatmentType->id)) {
                 $masterCategories[] = $asService->treatmentType->name;
             }
         }
-
-        Log::info('Indexing' ,[$this]);
 
         return [
             // Filter exists only works with null value, so let it be null
