@@ -11,6 +11,7 @@ use Input;
 use NAT;
 use Str;
 use Util;
+use Log;
 
 class Business extends Base
 {
@@ -616,26 +617,38 @@ class Business extends Base
      */
     public function getSearchDocument()
     {
-        $categories = [];
-        $keywords = [];
+        $categories       = [];
+        $masterCategories = [];
+        $keywords         = [];
 
         foreach ($this->businessCategories as $item) {
             $categories[] = $item->nice_original_name;
             $keywords = array_merge($keywords, $item->keywords);
         }
 
+        foreach ($this->user->asServices as $asService) {
+            if (!empty($asService->masterCategory->id)) {
+                $masterCategories[] = $asService->masterCategory->name;
+            }
+
+            if (!empty($asService->treatmentType->id)) {
+                $masterCategories[] = $asService->treatmentType->name;
+            }
+        }
+
         return [
             // Filter exists only works with null value, so let it be null
-            'name'        => $this->name,
-            'categories'  => $categories,
-            'keywords'    => $keywords,
-            'address'     => $this->address ?: '',
-            'postcode'    => $this->postcode ?: '',
-            'city'        => $this->city ?: '',
-            'country'     => $this->country ?: '',
-            'phone'       => $this->phone ?: '',
-            'description' => $this->description ?: '',
-            'location'    => [
+            'name'              => $this->name,
+            'categories'        => $categories,
+            'master_categories' => $masterCategories,
+            'keywords'          => $keywords,
+            'address'           => $this->address ?: '',
+            'postcode'          => $this->postcode ?: '',
+            'city'              => $this->city ?: '',
+            'country'           => $this->country ?: '',
+            'phone'             => $this->phone ?: '',
+            'description'       => $this->description ?: '',
+            'location'          => [
                 'lat' => $this->lat ?: 0,
                 'lon' => $this->lng ?: 0
             ]
@@ -648,16 +661,17 @@ class Business extends Base
     public function getSearchMapping()
     {
         return [
-            'name'        => ['type' => 'string'],
-            'categories'  => ['type' => 'string', 'index_name' => 'category'],
-            'keywords'    => ['type' => 'string', 'index_name' => 'keyword'],
-            'address'     => ['type' => 'string'],
-            'postcode'    => ['type' => 'string'],
-            'city'        => ['type' => 'string'],
-            'country'     => ['type' => 'string'],
-            'phone'       => ['type' => 'string'],
-            'description' => ['type' => 'string'],
-            'location'    => ['type' => 'geo_point'],
+            'name'              => ['type' => 'string'],
+            'categories'        => ['type' => 'string', 'index_name' => 'category'],
+            'master_categories' => ['type' => 'string', 'index_name' => 'master_category'],
+            'keywords'          => ['type' => 'string', 'index_name' => 'keyword'],
+            'address'           => ['type' => 'string'],
+            'postcode'          => ['type' => 'string'],
+            'city'              => ['type' => 'string'],
+            'country'           => ['type' => 'string'],
+            'phone'             => ['type' => 'string'],
+            'description'       => ['type' => 'string'],
+            'location'          => ['type' => 'geo_point'],
         ];
     }
 
@@ -667,10 +681,11 @@ class Business extends Base
     protected function buildSearchQuery($keywords, $fields = null)
     {
         $query = [];
-        $query['bool']['should'][]['match']['name']        = $keywords;
-        $query['bool']['should'][]['match']['categories']  = $keywords;
-        $query['bool']['should'][]['match']['description'] = $keywords;
-        $query['bool']['should'][]['match']['keywords']    = $keywords;
+        $query['bool']['should'][]['match']['name']              = $keywords;
+        $query['bool']['should'][]['match']['categories']        = $keywords;
+        $query['bool']['should'][]['match']['master_categories'] = $keywords;
+        $query['bool']['should'][]['match']['description']       = $keywords;
+        $query['bool']['should'][]['match']['keywords']          = $keywords;
 
         $location = Input::get('location');
         if (!empty($location)) {
