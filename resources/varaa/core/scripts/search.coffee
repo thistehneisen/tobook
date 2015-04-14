@@ -187,6 +187,16 @@ class VaraaSearch
 
         # Scroll the page
         $.scrollTo '#js-search-results', duration: 300
+
+        swiper = $ "#js-swiper-#{businessId}"
+        console.log swiper
+        if swiper.length
+          new Swiper swiper.get(),
+            autoplay: 3000
+            loop: true
+            pagination: '.swiper-pagination'
+            nextButton: '.swiper-button-next'
+            prevButton: '.swiper-button-prev'
     ###*
      * Hover on a business will highlight its position on the map
      *
@@ -194,7 +204,7 @@ class VaraaSearch
      *
      * @return {void}
     ###
-    busienssOnMouseEnter = (e) ->
+    businessOnMouseEnter = (e) ->
       $$ = $ @
       lat = $$.data 'lat'
       lng = $$.data 'lng'
@@ -208,7 +218,7 @@ class VaraaSearch
     # Attach event handlers when user hovers or clicks on a business in the
     # result list
     $leftSidebar.on 'click', 'div.js-business', businessOnClick
-      .on 'mouseenter', 'div.js-business', busienssOnMouseEnter
+      .on 'meouseenter', 'div.js-business', businessOnMouseEnter
 
   ###*
    * Extract pairs of lat and lng values to be show as markers on the map
