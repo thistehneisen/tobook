@@ -185,14 +185,17 @@ class VaraaSearch
         $.scrollTo '#js-search-results', duration: 300
 
         swiper = $ "#js-swiper-#{businessId}"
-        console.log swiper
+        slider = null
         if swiper.length
-          new Swiper swiper.get(),
+          slider = new Swiper swiper.get(),
             autoplay: 3000
             loop: true
             pagination: '.swiper-pagination'
             nextButton: '.swiper-button-next'
             prevButton: '.swiper-button-prev'
+            autoplayDisableOnInteraction: false
+
+        slider.update().slideNext() if slider isnt null
     ###*
      * Hover on a business will highlight its position on the map
      *
