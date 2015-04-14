@@ -628,11 +628,11 @@ class Business extends Base
 
         foreach ($this->user->asServices as $asService) {
             if (!empty($asService->masterCategory->id)) {
-                $masterCategories[] = $asService->masterCategory->name;
+                $masterCategories[] = $asService->masterCategory->getAllMultilingualAttributes();
             }
 
             if (!empty($asService->treatmentType->id)) {
-                $masterCategories[] = $asService->treatmentType->name;
+                $masterCategories[] = $asService->treatmentType->getAllMultilingualAttributes();
             }
         }
 

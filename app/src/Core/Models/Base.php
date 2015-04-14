@@ -154,4 +154,43 @@ class Base extends \Eloquent implements SearchableInterface
 
         return $data;
     }
+
+    /**
+     * Return data for making search index of all languages of given key
+     *
+     * @param string $key
+     * @return string
+     */
+    public function getTranslations($key)
+    {
+        $data = array();
+
+        $items = self::where($this->table . '.id', '=', $this->id)
+            ->join('multilanguage', 'multilanguage.context', '=', DB::raw("concat('" . static::getContext() . "', `varaa_" . $this->table . "`.`id`)"))
+            ->where('multilanguage.key', '=', $key)
+            ->get();
+
+        foreach ($items as $item) {
+            if(!empty($item->value)) $data[] = $item->value;
+        }
+
+        return (!empty($data)) ? implode(",", $data) : '';
+    }
+
+    /**
+     * Return all multilingual data based on the decration fields
+     *
+     * @return string
+     */
+    public function getAllMultilingualAttributes()
+    {
+        $data = array();
+        foreach ($this->multilingualAtrributes as $attribute) {
+            $value = $this->getTranslations($attribute);
+            if (!empty($value)) {
+                $data[] = $value;
+            }
+        }
+        return (!empty($data)) ? implode(",", $data) : '';
+    }
 }
