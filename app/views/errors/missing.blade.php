@@ -1,7 +1,7 @@
 @extends ('layouts.default')
 
 @section ('title')
-    @parent :: 404
+    404
 @stop
 
 @section ('content')
