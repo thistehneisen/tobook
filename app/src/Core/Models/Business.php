@@ -11,7 +11,6 @@ use Input;
 use NAT;
 use Str;
 use Util;
-use Log;
 
 class Business extends Base
 {
@@ -428,9 +427,24 @@ class Business extends Base
         );
     }
 
+    /**
+     * Shortcut to get all images of this business
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function getImagesAttribute()
+    {
+        return $this->user->images()->businessImages()->get();
+    }
+
+    /**
+     * Get an image from the list of business image
+     *
+     * @return string
+     */
     public function getImageAttribute()
     {
-        $image = $this->user->images()->businessImages()->first();
+        $image = $this->images->first();
         if (!empty($image)) {
             return asset(Config::get('varaa.upload_folder').$image->path);
         } else {

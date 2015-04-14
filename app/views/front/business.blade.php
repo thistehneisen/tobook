@@ -9,8 +9,14 @@
 <meta name="keywords" content="{{{ $business->meta_keywords }}}">
 @stop
 
+@section('styles')
+    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css') }}
+    {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/Swiper/3.0.6/css/swiper.min.css') }}
+    {{ HTML::style(asset_path('as/styles/layout-3.css')) }}
+@stop
+
 @section('scripts')
-    <script>
+<script>
     // Dump inline data
     VARAA.Search = VARAA.Search || {};
     VARAA.Search.businesses = {{ $businessesJson }};
@@ -22,10 +28,12 @@
     VARAA.Search.employeeId = {{ $employeeId }};
     VARAA.Search.time = {{ $time }};
 @endif
-    </script>
+</script>
 
     {{ HTML::script('//maps.googleapis.com/maps/api/js?v=3.exp&language='.App::getLocale()) }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.12/gmaps.min.js') }}
+    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/Swiper/3.0.6/js/swiper.jquery.min.js') }}
+
     {{ HTML::script(asset('packages/jquery.countdown/jquery.plugin.min.js')) }}
     {{ HTML::script(asset('packages/jquery.countdown/jquery.countdown.min.js')) }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js') }}
@@ -47,11 +55,6 @@ $(function () {
     });
 });
     </script>
-@stop
-
-@section('styles')
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css">
-    <link rel="stylesheet" href="{{ asset_path('as/styles/layout-3.css') }}">
 @stop
 
 @section('main-classes') front @stop

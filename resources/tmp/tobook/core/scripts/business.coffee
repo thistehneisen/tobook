@@ -2,6 +2,13 @@ do ($ = jQuery) ->
   'use strict'
 
   $ ->
+    swiper = new Swiper '.swiper-container',
+      autoplay: 3000
+      loop: true
+      pagination: '.swiper-pagination'
+      nextButton: '.swiper-button-next'
+      prevButton: '.swiper-button-prev'
+
     # Contact form
     $wrapper = $ '#js-search-results'
 

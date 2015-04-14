@@ -4,8 +4,23 @@
         <h1>{{{ $business->name }}}</h1>
         <address>{{{ $business->full_address }}}</address>
 
-        <div class="slideshow">
-            <p><img src="{{ $business->image }}" alt=""></p>
+        <!-- Slider main container -->
+        <div class="slideshow swiper-container">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+            @foreach ($business->images as $image)
+                <div class="swiper-slide text-center">
+                    <img src="{{ $image->getPublicUrl() }}" alt="">
+                </div>
+            @endforeach
+            </div>
+            <!-- If we need pagination -->
+            <div class="swiper-pagination"></div>
+
+            <!-- If we need navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
         </div>
 
         <h3 class="sub-heading">{{ trans('home.business.about') }}</h3>
