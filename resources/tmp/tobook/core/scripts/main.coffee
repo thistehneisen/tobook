@@ -125,22 +125,3 @@ $ ->
 
   # Load cart content when page load
   $document.trigger 'cart.reload', false
-
-  #-------------------------------------------------
-  # Global methods
-  #-------------------------------------------------
-  VARAA.applyCountdown = (elems) ->
-    elems.each ->
-      $$ = $ @
-      $$.countdown
-        until: new Date $$.data 'date'
-        compact: true
-        layout: '{hnn}{sep}{mnn}{sep}{snn}'
-
-  VARAA.equalize = (elem) ->
-    tallest = 0
-    $(elem).each ->
-      h = $(@).outerHeight()
-      if h > tallest
-        tallest = h
-    .css 'height', tallest

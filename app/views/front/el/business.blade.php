@@ -4,9 +4,30 @@
         <h1>{{{ $business->name }}}</h1>
         <address>{{{ $business->full_address }}}</address>
 
-        <div class="slideshow">
-            <p><img src="{{ $business->image }}" alt=""></p>
+    @if ($business->images->isEmpty() === false)
+        <!-- Slider main container -->
+        <div class="slideshow swiper-container" id="js-swiper-{{ $business->user_id }}">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+            @foreach ($business->images as $image)
+                <div class="swiper-slide text-center">
+                    <img src="{{ $image->getPublicUrl() }}" alt="">
+                </div>
+            @endforeach
+            </div>
+            <!-- If we need pagination -->
+            <div class="swiper-pagination"></div>
+
+            <!-- If we need navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
         </div>
+    @else
+        <div class="slideshow">
+            <p class="text-center"><img src="{{ $business->image }}" alt="{{{ $business->name }}}"></p>
+        </div>
+    @endif
 
         <h3 class="sub-heading">{{ trans('home.business.about') }}</h3>
         <div class="description">
