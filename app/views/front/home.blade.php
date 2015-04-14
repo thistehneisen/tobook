@@ -71,7 +71,7 @@
     </div>
 @endif
 
-@if (App::environment() === 'prod' || App::environment() === 'local')
+@if (App::environment() === 'prod')
     <div class="row">
         <h1 class="text-center orange comfortaa">{{ trans('home.on_media') }}</h1>
         <div class="col-sm-3 col-md-3"><img class="img-responsive" alt="ess" src="{{ asset_path('core/img/logos/ess_nimio.png') }}"></div>
