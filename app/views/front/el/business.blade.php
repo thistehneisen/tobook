@@ -12,7 +12,7 @@
                 <!-- Slides -->
             @foreach ($business->images as $image)
                 <div class="swiper-slide text-center">
-                    <img src="{{ $image->getPublicUrl() }}" alt="">
+                    <img style="max-width: 100%;" src="{{ $image->getPublicUrl() }}" alt="">
                 </div>
             @endforeach
             </div>
