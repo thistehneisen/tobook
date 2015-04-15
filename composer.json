@@ -12,7 +12,6 @@
         "symfony/console": "2.5.2",
         "watson/validating": "0.9.*",
         "toin0u/geocoder-laravel": "0.4.1",
-        "barryvdh/laravel-debugbar": "1.7.4",
         "mandrill/mandrill": "1.0.*",
         "orchestra/imagine": "2.2.1",
         "omnipay/common": "2.3.1",
@@ -21,8 +20,8 @@
         "indatus/dispatcher": "1.*",
         "clowdy/laravel-raven": "0.1.0",
         "eluceo/ical": "0.6.1",
-        "mews/captcha": "1.0.1",
-        "webtopay/libwebtopay": "dev-default#b62cb2f"
+        "webtopay/libwebtopay": "dev-default#b62cb2f",
+        "maknz/slack": "1.5.0"
     },
     "repositories": [
         {
