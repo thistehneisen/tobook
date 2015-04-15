@@ -44,6 +44,8 @@ def _deploy(environment, host):
             run('supervisorctl restart all')
             # set it to live mode again
             run('php artisan up')
+            # notify everyone for fun
+            run('php artisan varaa:deployed {}'.format(environment))
             # run CI
             if environment == 'stag': run('/srv/phpci/console phpci:rebuild')
 
