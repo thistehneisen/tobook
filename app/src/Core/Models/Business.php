@@ -706,6 +706,7 @@ class Business extends Base
         if (!empty($location)) {
             $query['bool']['should'][]['match']['city'] = $location;
             $query['bool']['should'][]['match']['country'] = $location;
+            $query['bool']['should'][]['match']['address'] = $location;
         }
 
         return $query;
@@ -796,7 +797,7 @@ class Business extends Base
 
         if($this->isSearchByLocation) {
             // Sort by address matching
-            $users->sortBy(function ($item) {
+            $users->sortByDesc(function ($item) {
                 return similar_text($this->keyword, $item->business->full_address);
             });
         } else {
