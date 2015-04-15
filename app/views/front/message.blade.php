@@ -15,7 +15,7 @@
         <h4 class="comfortaa text-center">{{ $subHeader or '' }}</h4>
 
         @foreach ((array) $content as $message)
-        <p>{{{ $message }}}</p>
+        <p>{{ $message }}</p>
         @endforeach
 
     </div>
