@@ -25,9 +25,11 @@ class Search extends Front
             ? $location
             : $q;
 
+        $isSearchByLocation = (empty($q) && !empty($location)) ? true : false;
+
         $paginator = empty($keyword)
             ? Business::getAll()
-            : Business::search(e($keyword));
+            : Business::search(e($keyword), ['isSearchByLocation' => $isSearchByLocation]);
 
         // Extract list of businesses
         $items = $paginator->getItems();

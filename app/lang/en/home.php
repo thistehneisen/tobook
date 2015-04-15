@@ -42,6 +42,7 @@ return [
     'search_tagline'        => 'What do you want to book?',
     'search_query'          => 'Enter business name or service',
     'search_place'          => 'Helsinki, FI',
+    'on_media'              => 'Featured in ',
     'search'        => [
         'tagline'         => 'What do you want to book?',
         'query'           => 'Enter business name or service',

@@ -71,6 +71,17 @@
     </div>
 @endif
 
+@if (App::environment() === 'prod')
+    <div class="row">
+        <h1 class="text-center orange comfortaa">{{ trans('home.on_media') }}</h1>
+        <div class="col-sm-3 col-md-3"><img class="img-responsive" alt="ess" src="{{ asset_path('core/img/logos/ess_nimio.png') }}"></div>
+        <div class="col-sm-3 col-md-3"><img class="img-responsive" alt="kaupalehti" src="{{ asset_path('core/img/logos/kaupalehti.jpg') }}"></div>
+        <div class="col-sm-3 col-md-3"><img class="img-responsive" alt="keskisuomalainen" src="{{ asset_path('core/img/logos/ksml_logo.png') }}"></div>
+        <div class="col-sm-3 col-md-3"><img class="img-responsive" alt="lahtitieto" src="{{ asset_path('core/img/logos/lahtitieto.png') }}"></div>
+    </div>
+    <br>
+@endif
+
 @if (App::environment() === 'tobook')
     <div class="row categories" id="js-home-categories">
         <?php $counter = 1; ?>
