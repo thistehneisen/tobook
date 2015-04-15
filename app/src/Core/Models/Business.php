@@ -758,9 +758,8 @@ class Business extends Base
         $this->keyword = $keyword;
 
         //Remove this value to make sure it does not affect the buildSearchParams
-        if(!empty($options['isSearchByLocation'])) {
-            unset($options['isSearchByLocation']);
-        }
+        //But still cannot remove this by using unset(), therefore --> []
+        $options = [];
 
         return parent::serviceSearch($keyword, $options);
     }
