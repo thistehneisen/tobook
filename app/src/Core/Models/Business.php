@@ -74,6 +74,21 @@ class Business extends Base
     protected $multilang = [];
 
     /**
+     * If user search for a specific location
+     * the result should show the most matches first
+     *
+     * @var boolean
+     */
+    public $isSearchByLocation = false;
+
+    /**
+     * Use for sorting the results based on keyword in case of location
+     *
+     * @var string
+     */
+    public $keyword = '';
+
+    /**
      * @{@inheritdoc}
      */
     public static function boot()
@@ -691,6 +706,7 @@ class Business extends Base
         if (!empty($location)) {
             $query['bool']['should'][]['match']['city'] = $location;
             $query['bool']['should'][]['match']['country'] = $location;
+            $query['bool']['should'][]['match']['address'] = $location;
         }
 
         return $query;
@@ -733,6 +749,24 @@ class Business extends Base
     /**
      * @{@inheritdoc}
      */
+    public function serviceSearch($keyword, array $options = [])
+    {
+        $this->isSearchByLocation = (!empty($options['isSearchByLocation']))
+            ? (bool) $options['isSearchByLocation']
+            : false;
+
+        $this->keyword = $keyword;
+
+        //Remove this value to make sure it does not affect the buildSearchParams
+        //But still cannot remove this by using unset(), therefore --> []
+        $options = [];
+
+        return parent::serviceSearch($keyword, $options);
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
     public function transformSearchResult($result)
     {
         if (empty($result)) {
@@ -760,10 +794,18 @@ class Business extends Base
                 : 1;
         });
 
-        // Sort by distance
-        $users->sortBy(function ($item) {
-            return $item->distance;
-        });
+        if($this->isSearchByLocation) {
+            // Sort by address matching
+            $users->sortByDesc(function ($item) {
+                return similar_text($this->keyword, $item->business->full_address);
+            });
+        } else {
+            // Sort by distance
+            $users->sortBy(function ($item) {
+                return $item->distance;
+            });
+        }
+
 
         return $users->lists('business');
     }
