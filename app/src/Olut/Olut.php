@@ -466,7 +466,9 @@ trait Olut
             return Response::json(['message' => trans('olut::olut.success_bulk')]);
         }
 
-        return Redirect::route(static::$crudRoutes['index'])
+        $referer = Request::instance()->header('referer');
+
+        return Redirect::to(!empty($referer) ? $referer : static::$crudRoutes['index'])
             ->with('messages', $this->successMessageBag(
                 trans('olut::olut.success_bulk')
             ));

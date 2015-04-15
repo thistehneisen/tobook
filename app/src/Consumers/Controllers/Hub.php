@@ -1,9 +1,7 @@
 <?php namespace App\Consumers\Controllers;
 
-use App\Consumers\Models\EmailTemplate;
 use App\Consumers\Models\Consumer;
 use App\Consumers\Models\Group;
-use App\Consumers\Models\SmsTemplate;
 use App\Core\Controllers\Base;
 use Confide, DB, Input, Lang, Redirect, View;
 
@@ -39,6 +37,7 @@ class Hub extends Base
             'send_sms',
             'send_all_email',
             'send_all_sms',
+            'destroy',
         ],
     ];
 
@@ -250,6 +249,7 @@ class Hub extends Base
                     trans('co.email_templates.sent_to_x_of_y', $result)
                 ));
         }
+
         return View::make('modules.co.bulk_send_email', $result);
     }
 
@@ -262,6 +262,7 @@ class Hub extends Base
                     trans('co.sms_templates.sent_to_x_of_y', $result)
                 ));
         }
+
         return View::make('modules.co.bulk_send_sms', $result);
     }
 
