@@ -29,7 +29,7 @@ class DeployedNotificationCommand extends Command
     {
         $instance = $this->argument('instance');
 
-        Slack::to('@an')->send("Server `$instance` has been deployed.");
+        Slack::send("Server `$instance` has been deployed.");
 
     }
 
