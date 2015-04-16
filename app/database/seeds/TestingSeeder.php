@@ -113,16 +113,15 @@ class TestingSeeder extends Seeder
 
         ServiceCategory::where('id', 105)->forceDelete();
         $this->category = new ServiceCategory([
-            'name' => 'Service Category',
             'is_show_front' => 1,
         ]);
         $this->category->id = 105;
+        $this->category->name = 'Service Category';
         $this->category->user()->associate($this->user);
         $this->category->saveOrFail();
 
         Service::where('id', 301)->forceDelete();
         $this->service = new Service([
-            'name' => 'Klassinen hieronta',
             'length' => 45,
             'during' => 30,
             'after' => 15,
@@ -130,6 +129,7 @@ class TestingSeeder extends Seeder
             'is_active' => 1,
         ]);
         $this->service->id = 301;
+        $this->service->name = 'Klassinen hieronta';
         $this->service->user()->associate($this->user);
         $this->service->category()->associate($this->category);
         $this->service->saveOrFail();
@@ -138,7 +138,6 @@ class TestingSeeder extends Seeder
 
         Service::where('id', 302)->forceDelete();
         $service2 = new Service([
-            'name' => 'Service 2',
             'length' => 45,
             'during' => 30,
             'before' => 15,
@@ -146,6 +145,7 @@ class TestingSeeder extends Seeder
             'is_active' => 1,
         ]);
         $service2->id = 302;
+        $service2->name = 'Service 2';
         $service2->user()->associate($this->user);
         $service2->category()->associate($this->category);
         $service2->saveOrFail();
