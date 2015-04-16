@@ -234,7 +234,7 @@ abstract class Receptionist implements ReceptionistInterface
             ->orderBy('start_at')->first();
 
         if (empty($this->bookingService)) {
-            throw new Exception(trans('as.bookings.missing_services'), 1);
+            throw new Exception(trans('as.bookings.error.missing_services'), 1);
         }
     }
 
