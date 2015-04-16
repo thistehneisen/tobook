@@ -28,11 +28,21 @@ body {
 
 .header-content > p {
 	font-family: "PT Serif";
-	font-size: 1.2em;
+	font-size: 1.5em;
 }
 
 .header-content span.varaa {
-	font-family: "Comfortaa";
+    color:#fff;
+    font-family: "Comfortaa";
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.header-content span.com {
+    color:#000;
+    font-family: "Comfortaa";
+    font-weight: bold;
+    font-size: 1.2em;
 }
 
 .jan {
@@ -47,6 +57,14 @@ body {
 
 .jan-content {
 	margin-bottom: 30px;
+}
+
+.jan-content h2 {
+    font-weight: bold;
+}
+.jan-content p {
+    font-family: "PT Serif";
+    font-size: 1.4em;
 }
 
 .jan-cell {
