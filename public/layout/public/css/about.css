@@ -3,7 +3,7 @@ body {
 }
 
 .header {
-    background: url('../images/about-bg.png');
+    background: url('../images/about-bg.jpg');
     color: #fff;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -46,7 +46,7 @@ body {
 }
 
 .jan {
-    background: url('../images/bg1.jpg');
+    background: url('../images/business-bg1.jpg');
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;

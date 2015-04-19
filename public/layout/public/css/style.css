@@ -3,7 +3,7 @@ body {
 }
 
 .header {
-	background: url('../images/bg.jpg');
+	background: url('../images/business-bg.jpg');
 	color: #fff;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
@@ -46,7 +46,7 @@ body {
 }
 
 .jan {
-	background: url('../images/bg1.jpg');
+	background: url('../images/business-bg1.jpg');
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	background-size: cover;
@@ -93,7 +93,7 @@ h3 {
 }
 
 .mar {
-	background: url('../images/bg3.jpg');
+	background: url('../images/business-bg2.jpg');
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	background-size: cover;
@@ -125,7 +125,7 @@ h3 {
 
 .may {
 	margin-top: 0px;
-	background: url('../images/bg4.jpg');
+	background: url('../images/business-bg3.jpg');
 	text-align: center;
 }
 .may-content h1 {
@@ -169,7 +169,7 @@ h3 {
 }
 
 .square {
-	background: url('../images/square_bg.png') no-repeat;
+	background: url('../images/square-bg.jpg') no-repeat;
 	height: 139px;
 	width: 139px;
 	line-height: 139px;
