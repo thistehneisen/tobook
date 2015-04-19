@@ -25,7 +25,7 @@
  <div class="form-group row">
         <div class="col-sm-3"><a href="{{ route('as.employees.employeeCustomTime', ['employeeId'=> $employee->id, 'date'=> with(clone $current->startOfMonth())->subMonth()->format('Y-m') ])}}" id="prev-month">{{ Str::upper(trans('common.prev')) }}</a></div>
         <div class="col-sm-3">
-           {{ Str::upper($current->format('F')); }}
+           {{ Str::upper(trans(strtolower('common.' . $current->format('F')))); }}
         </div>
         <div class="col-sm-3"><a href="{{ route('as.employees.employeeCustomTime', ['employeeId'=> $employee->id, 'date'=> with(clone $current->startOfMonth())->addMonth()->format('Y-m') ])}}" id="next-month">{{ Str::upper(trans('common.next')) }}</a></div>
         <div class="col-sm-3">
@@ -60,7 +60,7 @@
         @foreach($currentMonths as $item)
             @if(empty($item->id))
              <tr>
-                <td>{{ $item->format('l') }}</td>
+                <td>{{ trans(strtolower('common.' . $item->format('l'))) }}</td>
                 <td>
                     {{ $item->toDateString() }}
                 </td>
