@@ -1,0 +1,77 @@
+body {
+    font-family: 'Roboto';
+}
+
+.header {
+    background: url('../images/about-bg.png');
+    color: #fff;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    padding: 100px 0;
+    text-align: center;
+}
+
+.header-content {
+    background: rgba(238, 121, 6, .8);
+    padding-top: 30px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    margin-top: 240px;
+}
+
+.header-content h1 {
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+
+.header-content > p {
+    font-family: "PT Serif";
+    font-size: 1.5em;
+}
+
+.header-content span.varaa {
+    color:#fff;
+    font-family: "Comfortaa";
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.header-content span.com {
+    color:#000;
+    font-family: "Comfortaa";
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.jan {
+    background: url('../images/bg1.jpg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    padding: 30px 0;
+    text-align: center;
+}
+
+.jan-content {
+    margin-bottom: 30px;
+}
+
+.jan-content h2 {
+    font-weight: bold;
+}
+.jan-content p {
+    font-family: "PT Serif";
+    font-size: 1.4em;
+}
+
+.jan-cell {
+    background: #f9f8f6;
+    padding-top: 60px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 20px;
+    min-height: 300px;
+}
