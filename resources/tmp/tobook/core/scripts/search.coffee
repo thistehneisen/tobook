@@ -10,6 +10,11 @@ class VaraaSearch
     @employeeId = input.employeeId if input.employeeId?
     @time = input.time if input.time?
 
+    # Prepare for pushState
+    History.Adapter.bind window, 'statechange', ->
+      State = History.getState()
+      return
+
   run: ->
     if @categoryId and @serviceId
       @selectBookingForm()
@@ -93,6 +98,8 @@ class VaraaSearch
 
       $map.show()
       $heading.find('i').hide()
+
+      History.back()
 
     # When user clicks on Show more button
     $leftSidebar.on 'click', '#js-show-more', (e) ->
@@ -180,6 +187,9 @@ class VaraaSearch
         lat = $bmap.data 'lat'
         lng = $bmap.data 'lng'
         self.renderMap $bmap.attr('id'), lat, lng, [lat: lat, lng: lng]
+
+        # Push state the current business
+        History.pushState {businessId: businessId}, '', $$.data('url')
 
         # Scroll the page
         $.scrollTo '#js-search-results', duration: 300

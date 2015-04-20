@@ -44,6 +44,7 @@
     @endif
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/1.4.14/jquery.scrollTo.min.js') }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/Swiper/3.0.6/js/swiper.jquery.min.js') }}
+    {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/history.js/1.8/native.history.min.js') }}
     {{ HTML::script(asset('packages/sticky/jquery.sticky.min.js')) }}
     {{ HTML::script(asset_path('as/scripts/layout-3.js')) }}
     {{ HTML::script(asset_path('core/scripts/home.js')) }}
