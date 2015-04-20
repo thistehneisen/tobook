@@ -24,7 +24,7 @@
             <div class="form-group">
                 <label class="form-label col-sm-offset-1 col-sm-2">{{ trans('user.business.'.$key) }}</label>
                 <div class="col-sm-6">
-                    <input class="form-control" name="{{ $url.'['.$lang.']['.$key.']' }}" type="text" value="">
+                    <input class="form-control" name="{{ $url.'['.$lang.']['.$key.']' }}" type="text" value="{{ $values[$url][$lang][$key] or '' }}">
                 </div>
             </div>
             @endforeach

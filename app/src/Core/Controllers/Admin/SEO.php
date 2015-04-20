@@ -23,10 +23,19 @@ class SEO extends Base
             'auth/login',
         ];
 
+        $values = [];
+        foreach ($urls as $url) {
+            $result = Multilanguage::where('context', $url)->get();
+            foreach ($result as $item) {
+                $values[$url][$item->lang][$item->key] = $item->value;
+            }
+        }
+
         return $this->render('index', [
             'urls'      => $urls,
             'languages' => Config::get('varaa.languages'),
             'locale'    => App::getLocale(),
+            'values'    => $values,
         ]);
     }
 
