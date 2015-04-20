@@ -33,12 +33,7 @@ def _deploy(environment, host):
             #-------------------------------------------------------------------
             # These commands are run once and will be removed in next release
             #-------------------------------------------------------------------
-            # Connect incomplete consumers account
-            run('php artisan varaa:connect-consumers')
-            # Move business description to the default language
-            run('php artisan varaa:move-business-description')
-            # Move meta data of businesses
-            run('php artisan varaa:move-meta')
+
             #-------------------------------------------------------------------
             # restart supervisor processes
             run('supervisorctl restart all')
