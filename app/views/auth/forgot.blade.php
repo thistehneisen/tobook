@@ -1,10 +1,10 @@
 @extends ('layouts.default')
 
+@include('el.multimeta')
+
 @section('title')
     {{ trans('user.forgot_password_title') }}
 @stop
-
-@include('el.multimeta')
 
 @section('page-header')
     <h1 class="text-header">{{ trans('user.forgot_password_title') }}</h1>
