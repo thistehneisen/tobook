@@ -10,6 +10,8 @@ class VaraaSearch
     @employeeId = input.employeeId if input.employeeId?
     @time = input.time if input.time?
 
+    @title = $('title').text()
+
     # Prepare for pushState
     History.Adapter.bind window, 'statechange', ->
       State = History.getState()
@@ -91,13 +93,15 @@ class VaraaSearch
     gmap = @renderMap $map.attr('id'), @lat, @lng, markers
 
     # When user clicks on the heading to return back to business listing
-    $heading.on 'click', (e) ->
+    $heading.on 'click', (e) =>
       e.preventDefault()
       $single.hide()
       $list.find('.panel').each -> $(@).show()
 
       $map.show()
       $heading.find('i').hide()
+
+      $('title').text @title
 
       History.back()
 
@@ -145,6 +149,9 @@ class VaraaSearch
         window.location = $$.data 'url'
         return
 
+      # Push state the current business
+      History.pushState {businessId: businessId}, '', $$.data('url')
+
       # If the current content is of this business, we don't need to fire
       # another AJAX
       if $list.data('current-business-id') == businessId
@@ -173,6 +180,7 @@ class VaraaSearch
         # Replace the whole page with business page
         $single.html html
         $single.show()
+
         # Show chevron as indicator to click back
         $heading.find 'i'
           .show()
@@ -188,8 +196,8 @@ class VaraaSearch
         lng = $bmap.data 'lng'
         self.renderMap $bmap.attr('id'), lat, lng, [lat: lat, lng: lng]
 
-        # Push state the current business
-        History.pushState {businessId: businessId}, '', $$.data('url')
+        $ 'title'
+          .text $$.data 'title'
 
         # Scroll the page
         $.scrollTo '#js-search-results', duration: 300

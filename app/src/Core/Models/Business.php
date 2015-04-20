@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Support\Collection;
 use Input;
 use NAT;
+use Settings;
 use Str;
 use Util;
 
@@ -517,6 +518,11 @@ class Business extends Base
         return $this->getTranslatedAttribute('meta_keywords');
     }
 
+    public function getTitleAttribute()
+    {
+        return sprintf('%s :: %s', $this->name, Settings::get('meta_title'));
+    }
+
     /**
      * Get an attribute with its translation
      *
@@ -808,7 +814,7 @@ class Business extends Base
                 : 1;
         });
 
-        if($this->isSearchByLocation) {
+        if ($this->isSearchByLocation) {
             // Sort by address matching
             $users->sortByDesc(function ($item) {
                 return similar_text($this->keyword, $item->business->full_address);
@@ -819,7 +825,6 @@ class Business extends Base
                 return $item->distance;
             });
         }
-
 
         return $users->lists('business');
     }
