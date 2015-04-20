@@ -35,6 +35,7 @@
                     </ul>
                 </li>
                 <li><a href="{{ route('admin.settings') }}"><i class="fa fa-cog"></i> {{ trans('admin.nav.settings') }}</a></li>
+                <li><a href="{{ route('admin.seo') }}"><i class="fa fa-sitemap"></i> {{ trans('admin.nav.seo') }}</a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->

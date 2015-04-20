@@ -10,6 +10,7 @@ return [
         'flash_deals'       => 'Flash Deals',
         'master_categories' => 'Master categories',
         'treatment_types'   => 'Treatment types',
+        'seo'               => 'SEO',
     ],
     'edit_heading'       => 'Edit :model #:id',
     'create_heading'     => 'Create a new :model',
