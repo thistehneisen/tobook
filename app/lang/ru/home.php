@@ -44,7 +44,7 @@ return [
     'search_place'          => 'Helsinki, FI', // @todo
     'search'        => [
         'tagline'         => 'Что вы хотите заказать?', // @todo
-        'query'           => 'В ведите компанию', // @todo
+        'query'           => 'Введите компанию', // @todo
         'location'        => Settings::get('default_location'), // @todo
         'about'           => 'Подробнее',
         'locations_hours' => 'Места &amp; время',
