@@ -126,4 +126,8 @@ Route::group([
         'as' => 'admin.seo',
         'uses' => 'App\Core\Controllers\Admin\SEO@index'
     ]);
+
+    Route::post('seo', [
+        'uses' => 'App\Core\Controllers\Admin\SEO@save'
+    ]);
 });

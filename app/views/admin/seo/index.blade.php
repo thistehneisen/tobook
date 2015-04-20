@@ -3,7 +3,6 @@
 @section('content')
 <h3>{{ trans('admin.nav.seo') }}</h3>
 
-{{ Form::open(['route' => 'admin.seo', 'class' => 'form-horizontal']) }}
 <div role="tabpanel">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
@@ -16,8 +15,8 @@
 
     <div class="tab-content">
     @foreach($languages as $lang)
-    <!-- Tab panes -->
-        <div role="tabpanel" class="tab-pane @if ($lang === $locale) active @endif" id="tab-{{ $lang }}">
+        <!-- Tab panes -->
+        <div role="tabpanel" class="tab-pane @if ($lang === $locale) active @endif" id="tab-{{ $lang }}">{{ Form::open(['route' => 'admin.seo', 'class' => 'form-horizontal']) }}
 
         @foreach ($urls as $url)
             <h4><code>{{ $url }}</code></h4>
@@ -25,8 +24,7 @@
             <div class="form-group">
                 <label class="form-label col-sm-offset-1 col-sm-2">{{ trans('user.business.'.$key) }}</label>
                 <div class="col-sm-6">
-                    <input class="form-control" name="{{ $key.'['.$lang.']' }}" type="text" value="">
-
+                    <input class="form-control" name="{{ $url.'['.$lang.']['.$key.']' }}" type="text" value="">
                 </div>
             </div>
             @endforeach
@@ -37,10 +35,10 @@
                     <button class="btn btn-primary" type="submit">{{ trans('common.save') }}</button>
                 </div>
             </div>
+{{ Form::close() }}
         </div>
     @endforeach
     </div>
 </div>
-{{ Form::close() }}
 
 @stop

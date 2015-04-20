@@ -4,6 +4,7 @@ use App;
 use Config;
 use Input;
 use Redirect;
+use App\Core\Models\Multilanguage;
 
 class SEO extends Base
 {
@@ -17,9 +18,9 @@ class SEO extends Base
     public function index()
     {
         $urls = [
-            '/business/register',
-            '/auth/forgot-password',
-            '/auth/login',
+            'business/register',
+            'auth/forgot-password',
+            'auth/login',
         ];
 
         return $this->render('index', [
@@ -39,14 +40,20 @@ class SEO extends Base
         // Don't use CSRF token
         $input = Input::except('_token');
 
-        // Save all input as
-        foreach ($input as $key => $value) {
-            $setting = Setting::findOrNew($key);
-            $setting->key   = $key;
-            $setting->value = $value;
-            $setting->save();
+        foreach ($input as $context => $values) {
+            foreach ($values as $lang => $keys) {
+                foreach ($keys as $key => $value) {
+                    Multilanguage::saveValue(
+                        '',
+                        $context,
+                        $lang,
+                        $key,
+                        $value
+                    );
+                }
+            }
         }
 
-        return Redirect::route('admin.settings');
+        return Redirect::route('admin.seo');
     }
 }
