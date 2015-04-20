@@ -4,6 +4,8 @@
     {{ trans('common.register') }}
 @stop
 
+@include('el.multimeta')
+
 @section('page-header')
     <h1 class="text-header">{{ trans('common.register') }}</h1>
 @stop

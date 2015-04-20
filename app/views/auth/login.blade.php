@@ -4,6 +4,8 @@
     {{ trans('common.sign_in_header') }}
 @stop
 
+@include('el.multimeta')
+
 @section('page-header')
     <h1 class="text-header">{{ trans('common.sign_in_header') }}</h1>
 @stop
