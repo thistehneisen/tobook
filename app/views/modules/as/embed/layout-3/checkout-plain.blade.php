@@ -48,10 +48,10 @@
         </div>
     </div>
     @endif
-
     <input type="hidden" name="hash" value="{{ Input::get('hash') }}">
     <input type="hidden" name="l" value="{{ Input::get('l') }}">
     <input type="hidden" name="serviceId" value="{{ Input::get('serviceId') }}">
+    <input type="hidden" name="serviceTimeId" value="{{ Input::get('serviceTimeId') }}">
     <input type="hidden" name="employeeId" value="{{ Input::get('employeeId') }}">
     <input type="hidden" name="date" value="{{ Input::get('date') }}">
     <input type="hidden" name="time" value="{{ Input::get('time') }}">

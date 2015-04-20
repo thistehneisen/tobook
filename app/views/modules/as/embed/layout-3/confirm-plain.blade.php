@@ -5,8 +5,8 @@
 {{ Form::open(['route' => 'as.bookings.frontend.add', 'class' => 'form-horizontal', 'id' => 'as-form-confirm', 'role' => 'form']) }}
     <div class="form-group">
         <label class="form-label col-md-2">{{ trans('as.embed.layout_3.service') }}:</label>
-        <div class="col-md-3">{{ $service->name }} ({{ $service->during }} {{ trans('common.minutes')}})</div>
-        <div class="col-md-3"><i class="glyphicon glyphicon-tag"></i> {{ $service->price }}{{ Settings::get('currency') }}</div>
+        <div class="col-md-3">{{ $service->name }} (@if(!empty($serviceTime)) {{ $serviceTime->during }} @else {{ $service->during }} @endif {{ trans('common.minutes')}})</div>
+        <div class="col-md-3"><i class="glyphicon glyphicon-tag"></i> @if(!empty($serviceTime)) {{ $serviceTime->price }} @else {{ $service->price }} @endif {{ Settings::get('currency') }}</div>
         <div class="col-md-4"><i class="glyphicon glyphicon-time"></i> {{ $date->format(trans('common.format.date')) }} {{ $time }}</div>
     </div>
 

@@ -3,6 +3,7 @@
 use Input, Response, Carbon\Carbon, Session, Redirect, Payment, Cart;
 use App\Appointment\Controllers\Embed;
 use App\Appointment\Models\Service;
+use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\Employee;
 use App\Consumers\Models\Consumer;
 use Illuminate\Support\ViewErrorBag;
@@ -83,6 +84,7 @@ class Layout3 extends Base
         $data                        = Input::all();
         $data['date']                = new Carbon($data['date']);
         $data['service']             = Service::find(Input::get('serviceId'));
+        $data['serviceTime']         = (Input::get('serviceTimeId')) ? ServiceTime::find(Input::get('serviceTimeId')) : null;
         $data['employee']            = Employee::findOrFail(Input::get('employeeId'));
         $data['notes']               = Input::get('notes', '');
         $data['isRequestedEmployee'] = Input::get('is_requested_employee', false);
