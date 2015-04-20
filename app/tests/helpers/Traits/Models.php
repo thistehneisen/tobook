@@ -216,20 +216,21 @@ trait Models
 
         for ($i = 0; $i < $categoryCount; $i++) {
             $category = new ServiceCategory([
-                'name' => 'Category ' . (++$categoryCreated),
                 'is_show_front' => 1,
             ]);
+            $category->name = 'Category ' . (++$categoryCreated);
             $category->user()->associate($this->user);
             $category->saveOrFail();
             $categories[] = $category;
 
             for ($j = 0; $j < $serviceCount; $j++) {
+                $serviceName = 'Service ' . (++$serviceCreated);
                 $service = new Service([
-                    'name' => 'Service ' . (++$serviceCreated),
                     'during' => 15 * (int) $serviceCreated,
                     'price' => 10 * $serviceCreated,
                     'is_active' => 1,
                 ]);
+                $service->name = $serviceName;
                 $service->setLength();
                 $service->user()->associate($this->user);
                 $service->category()->associate($category);

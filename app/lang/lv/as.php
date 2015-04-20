@@ -200,7 +200,7 @@ return [
         'free_time'                        => 'Pieejams laiks',
         'free_times'                       => 'Pieejamie laiki',
         'working_times'                    => 'Darba laiks',
-        'add_free_time'                    => 'Pievienot pieejamo laiku',
+        'add_free_time'                    => 'Pievienot savu brīvo laiku',
         'start_at'                         => 'Sākums plkst.',
         'end_at'                           => 'Beigas plkst.',
         'date'                             => 'Datums',

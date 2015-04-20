@@ -36,6 +36,7 @@
 
 <div class="container">
 
+@if (App::environment() !== 'tobook')
 <div class="hidden-xs hidden-sm">
     <div class="row">
         <div class="col-sm-12">
@@ -58,6 +59,7 @@
         </div>
     </div>
 </div>
+@endif
 
 <h2 class="text-center orange comfortaa visible-xs visible-sm">{{ trans('home.hiw.steps.1_text') }}</h2>
 
@@ -73,7 +75,7 @@
 
 @if (App::environment() === 'prod')
     <div class="row">
-        <h1 class="text-center orange comfortaa">{{ trans('home.on_media') }}</h1>
+        <h2 class="text-center orange comfortaa">{{ trans('home.on_media') }}</h2>
         <div class="col-sm-3 col-md-3"><img class="img-responsive" alt="ess" src="{{ asset_path('core/img/logos/ess_nimio.png') }}"></div>
         <div class="col-sm-3 col-md-3"><img class="img-responsive" alt="kaupalehti" src="{{ asset_path('core/img/logos/kaupalehti.jpg') }}"></div>
         <div class="col-sm-3 col-md-3"><img class="img-responsive" alt="keskisuomalainen" src="{{ asset_path('core/img/logos/ksml_logo.png') }}"></div>
