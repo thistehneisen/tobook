@@ -11,7 +11,10 @@ View::composer('layouts.default', function ($view) {
  * Replace META tags with localized texts set in Admin page
  */
 View::composer('el.multimeta', function ($view) {
-    $uri = Request::path();
+    $uri = App::environment() === 'tobook'
+        ? str_replace('site/', '', Request::path())
+        : Request::path();
+
     $result = \App\Core\Models\Multilanguage::where('context', $uri)
         ->where('lang', App::getLocale())
         ->get();
