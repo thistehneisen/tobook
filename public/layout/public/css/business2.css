@@ -5,7 +5,7 @@ body {
 }
 
 .header {
-    background: url('../images/business-bg.jpg');
+    background: url('../images/how-does-it-work-bg.jpg');
     color: #fff;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -16,7 +16,7 @@ body {
 }
 
 .header-content {
-    background: #eb8119;
+    background: rgba(238, 121, 6, .9);
     padding-top: 30px;
     padding-bottom: 10px;
     margin-bottom: 20px;
