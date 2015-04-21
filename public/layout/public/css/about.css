@@ -12,14 +12,15 @@ body {
     -o-background-size: cover;
     padding: 100px 0;
     text-align: center;
+    min-height: 650px;
 }
 
 .header-content {
-    background: rgba(238, 121, 6, .8);
+    background: rgba(238, 121, 6, .9);
     padding-top: 30px;
     padding-bottom: 10px;
     margin-bottom: 20px;
-    margin-top: 240px;
+    margin-top: 270px;
 }
 
 .header-content h1 {
@@ -30,6 +31,7 @@ body {
 .header-content > p {
     font-family: "PT Serif";
     font-size: 1.5em;
+    font-style: italic;
 }
 
 .header-content span.varaa {
@@ -54,6 +56,7 @@ body {
     -o-background-size: cover;
     padding: 30px 0;
     text-align: center;
+    padding-bottom: 75px;
 }
 
 .jan-content {
@@ -75,4 +78,19 @@ body {
     padding-right: 10px;
     padding-bottom: 20px;
     min-height: 300px;
+}
+
+/* ----------- Non-Retina Screens ----------- */
+@media only screen and (min-device-width: 1290px) and (max-device-width: 1920px) {
+    .header {
+        min-height: 1000px;
+    }
+
+    .header-content {
+        background: rgba(238, 121, 6, .9);
+        padding-top: 30px;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        margin-top: 480px;
+    }
 }
