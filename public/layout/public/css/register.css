@@ -1,5 +1,6 @@
 html {
-    font-family: 'Roboto';
+    font-family: 'Droid Serif';
+    font-style: normal;
 }
 
 .main {
@@ -20,12 +21,16 @@ html {
 
 .heading {
     text-align: center;
+    font-family: "Bitter";
 }
+
 .heading p {
     font-family: "PT Serif";
     font-size: 1.4em;
+    font-style: italic;
     color:#eb8119;
 }
+
 h2 {
     font-family: "PT Serif";
     color:#eb8119;
