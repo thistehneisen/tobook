@@ -69,63 +69,6 @@ class Front extends Base
     }
 
     /**
-     * Show businesses in a master category
-     *
-     * @param int    $id   Master category's ID
-     * @param string $slug
-     *
-     * @return View
-     */
-    public function masterCategory($id, $slug = null)
-    {
-        $category = MasterCategory::findOrFail($id);
-
-        $paginator = Business::search($category->name, [
-            'searchByCategory' => true
-        ]);
-
-        // Extract list of businesses
-        $items = $paginator->getCollection();
-        $heading = $category->name;
-
-        // Add meta data to this page
-        $meta['description'] = $category->description;
-
-        // Change page title
-        $title = $category->name;
-
-        return $this->renderBusinesses($paginator, $items, $heading, $title, $meta);
-    }
-
-    /**
-     * Show businesses in a treatment type
-     *
-     * @param int    $id
-     * @param string $slug
-     *
-     * @return Response|View
-     */
-    public function treatment($id, $slug = null)
-    {
-        $treatment = TreatmentType::findOrFail($id);
-        $paginator = Business::search($treatment->name, [
-            'searchByCategory' => true
-        ]);
-
-        // Extract list of businesses
-        $items = $paginator->getCollection();
-        $heading = $treatment->name;
-
-        // Add meta data to this page
-        $meta['description'] = $treatment->description;
-
-        // Change title
-        $title = $treatment->name;
-
-        return $this->renderBusinesses($paginator, $items, $heading, $title, $meta);
-    }
-
-    /**
      * Show the list of all businesses in the site
      *
      * @return View
@@ -229,25 +172,35 @@ class Front extends Base
     /**
      * Show businesses of a category
      *
-     * @param int    $categoryId
+     * @param int    $id
      * @param string $slug
      *
      * @return View
      */
-    public function category($categoryId, $slug)
+    public function category($id, $slug)
     {
-        $category = BusinessCategory::findOrFail($categoryId);
-        $businesses = $category->users()
-            ->whereNull('deleted_at')
-            ->whereHas('business', function ($query) {
-                $query->notHidden();
-            })
-            ->paginate();
+        // Get the correct model based on first URL segment
+        $model = Request::segment(1) === 'categories'
+            ? '\App\Appointment\Models\MasterCategory'
+            : '\App\Appointment\Models\TreatmentType';
 
-        $items = $businesses->lists('business');
-        $heading = trans('home.businesses_category', ['category' => $category->name]);
+        $instance = $model::findOrFail($id);
 
-        return $this->renderBusinesses($businesses, $items, $heading);
+        $paginator = Business::search($instance->name, [
+            'searchByCategory' => true
+        ]);
+
+        // Extract list of businesses
+        $items = $paginator->getCollection();
+        $heading = $instance->name;
+
+        // Add meta data to this page
+        $meta['description'] = $instance->description;
+
+        // Change page title
+        $title = $instance->name;
+
+        return $this->renderBusinesses($paginator, $items, $heading, $title, $meta);
     }
 
     /**
