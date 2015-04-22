@@ -40,8 +40,6 @@ class BuildSearchIndecesCommand extends Command
         $default = [
             'App\Core\Models\User',
             'App\Core\Models\Business',
-            'App\FlashDeal\Models\Service',
-            'App\FlashDeal\Models\FlashDeal',
         ];
 
         $models = $this->argument('models');
