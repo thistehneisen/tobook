@@ -39,7 +39,6 @@ class Hub extends Base
             'send_sms',
             'send_all_email',
             'send_all_sms',
-            'destroy',
         ],
     ];
 
