@@ -4,12 +4,6 @@
 | Front page
 |--------------------------------------------------------------------------
 */
-// Home
-Route::get('/', [
-    'as'    => 'home',
-    'uses'  => 'App\Core\Controllers\Front@home'
-]);
-
 
 Route::get('/about', [
     'as'    => 'home',
@@ -26,4 +20,8 @@ Route::get('/intro', [
     'uses'  => 'App\Core\Controllers\Front@intro'
 ]);
 
-
+// Home
+Route::get('/', [
+    'as'    => 'home',
+    'uses'  => 'App\Core\Controllers\Front@home'
+]);
