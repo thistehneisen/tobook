@@ -158,4 +158,7 @@ return [
     'per_page'      => 'Yksiköitä yhteensä',
     'show_all'      => 'Näytä kaikki',
     'logged_in_as'  => 'Kirjautuneena sisään käyttäjänä',
+    'about'         => 'Meistä',
+    'business'      => 'Business',
+    'intro'         => 'Introduction'
 ];

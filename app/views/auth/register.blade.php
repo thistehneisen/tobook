@@ -1,4 +1,4 @@
-@extends ('layouts.default')
+@extends ('layouts.front')
 
 @include('el.multimeta')
 
@@ -6,66 +6,67 @@
     {{ trans('common.register') }}
 @stop
 
-@section('page-header')
-    <h1 class="text-header">{{ trans('common.register') }}</h1>
+@section('css')
+{{ HTML::style(asset_path('core/styles/register.css')) }}
 @stop
 
 @section('content')
-<div class="row">
-    <div class="col-xs-12">
-        <h1 class="comfortaa orange text-center">{{ trans('user.create_account') }}</h1>
-        <h4 class="comfortaa text-center">{{ trans('user.fill_fields') }}</h4>
-
-        @include ('el.messages')
-
-        {{ Form::open(['id' => 'frm-register', 'route' => 'auth.register', 'class' => 'form-horizontal', 'role' => 'form']) }}
-
-        @foreach ($fields as $name => $field)
-            <?php $type = isset($field['type']) ? $field['type'] : 'text' ?>
-            <div class="form-group {{ Form::errorCSS($name, $errors) }}">
-                {{ Form::label($name, $field['label'].Form::required($name, $validator), ['class' => 'col-sm-2 col-sm-offset-1 control-label']) }}
-                <div class="col-sm-6">
-            @if ($type === 'password') {{ Form::$type($name, ['class' => 'form-control']) }}
-            @else {{ Form::$type($name, Input::get($name), ['class' => 'form-control']) }}
-            @endif
-                {{ Form::errorText($name, $errors) }}
-                </div>
-            </div>
-        @endforeach
-
-        <div class="form-group {{ Form::errorCSS('size', $errors) }}">
-            <label for="size" class="col-sm-2 col-sm-offset-1 control-label">
-                {{ trans('user.business.size') . Form::required('size', $validator) }}
-            </label>
-            <div class="col-sm-6">
-                {{ Form::select('size', trans('user.business.sizes'), Input::get('size'), ['class' => 'form-control']) }}
-                {{ Form::errorText('size', $errors) }}
+ <div class="main">
+    <div class="container">
+        <div class="form-row">
+            <div class="col-md-12 heading">
+                <h1>Liity joukkoomme!</h1>
+                <p>Saa uusia asiakkaita ja hallinoi olemassa olevia helpommin kun koskaan aiemmin</p>
             </div>
         </div>
-
-        <div class="form-group">
-            <label class="col-sm-2 col-sm-offset-1 control-label">{{ trans('user.profile.business_categories.index') }}</label>
-            <div class="col-sm-6">
-                @include ('user.el.categories')
+        {{ Form::open(['id' => 'frm-register', 'route' => 'auth.register', 'class' => 'register-form form-horizontal', 'role' => 'form']) }}
+            <div class="form-row">
+                <div class="col-md-offset-1 col-md-6">
+                    <div class="col-md-offset-2 col-md-10">
+                        <h2>Rekisteröidy</h2>
+                    </div>
+                </div>
+                <div class="col-md-5"><h2>Meistä</h2></div>
             </div>
-        </div>
+            <div class="form-left col-md-offset-1 col-md-6">
+                @include ('el.messages')
 
-            <div class="form-group">
-                <div class="col-sm-9 col-sm-offset-3">
-                    <p>{{ trans('user.accept_terms') }} <a href="#" id="link_terms">{{ trans('user.terms') }}</a></p>
-                    <p>{{ trans('user.register_already')}} <a href="{{ route('auth.login') }}" title="" id="link-login">{{ trans('common.sign_in') }}</a></p>
+                @foreach ($fields as $name => $field)
+                <?php $type = isset($field['type']) ? $field['type'] : 'text' ?>
+                <div class="form-group {{ Form::errorCSS($name, $errors) }}">
+                    {{ Form::label($name, $field['label'].Form::required($name, $validator), ['class' => 'col-sm-2 control-label']) }}
+                    <div class="col-sm-10">
+                        @if ($type === 'password') {{ Form::$type($name, ['class' => 'form-control']) }}
+                        @else {{ Form::$type($name, Input::get($name), ['class' => 'form-control']) }}
+                        @endif
+                    </div>
+                </div>
+                @endforeach
+                <div class="form-group">
+                     <div class="col-md-offset-2 col-sm-10">
+                     <button type="submit" id="btn-register" class="btn btn-md btn-orange" role="button">{{ trans('common.register') }}</button>
+                     </div>
                 </div>
             </div>
-
-            <div class="form-group">
-                <div class="col-sm-9 text-right">
-                    <button type="submit" id="btn-register" class="btn btn-lg btn-success text-uppercase comfortaa">
-                        {{ trans('common.register') }}
-                        <i class="fa fa-check-circle"></i>
-                    </button>
+            <div class="form-right col-md-5">
+                <div class="row guide">
+                    <div class="col-md-2"><a href="#" class="btn btn-default btn-circle">1</a></div>
+                    <div class="col-md-10 child-1">Suomen johtava ajanvarausportaali</div>
+                </div>
+                <div class="row guide">
+                    <div class="col-md-2"><a href="#" class="btn btn-default btn-circle">2</a></div>
+                    <div class="col-md-10 child-2">Varaa.com profiili parantaa yrityksesi näkyvyyttä verkossa, jotta asiakkaasi löytävät sinut entistäkin helpommin!</div>
+                </div>
+                <div class="row guide">
+                   <div class="col-md-2"><a href="#" class="btn btn-default btn-circle">3</a></div>
+                   <div class="col-md-10 child-3">Maksat vain Varaa.comin kautta tulleista varauksista. Ei ikäviä piilokuluja, ja maksat vain tuloksesta.</div>
+                </div>
+                <div class="row guide">
+                    <div class="col-md-2"><a href="#" class="btn btn-default btn-circle">4</a></div>
+                    <div class="col-md-10 child-4">Hallinnoi varauksia helpost sähköisen kalenterin avulla missä ja milloin haluat</div>
                 </div>
             </div>
-        {{ Form::close() }}
+         {{ Form::close() }}
     </div>
 </div>
 @stop
