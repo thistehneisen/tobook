@@ -24,11 +24,7 @@ class Auth extends Base
             'password_confirmation' => 'required',
             'email'                 => 'required|email',
             'name'                  => 'required',
-            'size'                  => 'required',
             'address'               => 'required',
-            'city'                  => 'required',
-            'postcode'              => 'required',
-            'country'               => 'required',
             'phone'                 => 'required',
         ],
         'forgot' => [
@@ -189,26 +185,17 @@ class Auth extends Base
     public function register()
     {
         $fields = [
+            'name'                  => ['label' => trans('user.business.name'), 'type' => 'text'],
             'email'                 => ['label' => trans('user.email'), 'type' => 'email'],
             'password'              => ['label' => trans('user.password'), 'type' => 'password'],
             'password_confirmation' => ['label' => trans('user.password_confirmation'), 'type' => 'password'],
-            'name'                  => ['label' => trans('user.business.name'), 'type' => 'text'],
-            'description'           => ['label' => trans('user.business.description'), 'type' => 'text'],
             'phone'                 => ['label' => trans('user.business.phone'), 'type' => 'text'],
             'address'               => ['label' => trans('user.business.address'), 'type' => 'text'],
-            'city'                  => ['label' => trans('user.business.city'), 'type' => 'text'],
-            'postcode'              => ['label' => trans('user.business.postcode'), 'type' => 'text'],
-            'country'               => ['label' => trans('user.business.country'), 'type' => 'text'],
         ];
-
-        $categories = BusinessCategory::getAll();
-        $selectedCategories = [];
 
         return View::make('auth.register', [
             'fields'             => $fields,
-            'validator'          => Validator::make(Input::all(), $this->rules['register']),
-            'categories'         => $categories,
-            'selectedCategories' => $selectedCategories,
+            'validator'          => Validator::make(Input::all(), $this->rules['register'])
         ]);
     }
 
@@ -239,22 +226,13 @@ class Auth extends Base
 
             $business = new Business([
                 'name'        => Input::get('name'),
-                'description' => Input::get('description'),
-                'phone'       => Input::get('phone'),
                 'address'     => Input::get('address'),
-                'city'        => Input::get('city'),
-                'postcode'    => Input::get('postcode'),
-                'country'     => Input::get('country'),
-                'size'        => Input::get('size'),
+                'phone'       => Input::get('phone')
             ]);
             $business->user()->associate($user);
 
             // ignore business save error
             $business->save();
-
-            if ($business->getKey()) {
-                $business->updateBusinessCategories(Input::get('categories'));
-            }
 
             $notice = trans('confide::confide.alerts.account_created')
                 .' '.trans('confide::confide.alerts.instructions_sent');
