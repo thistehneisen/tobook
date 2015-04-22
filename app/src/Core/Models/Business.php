@@ -716,11 +716,14 @@ class Business extends Base
     protected function buildSearchQuery($keywords, $fields = null)
     {
         $query = [];
-        $query['bool']['should'][]['match']['name']              = $keywords;
-        $query['bool']['should'][]['match']['categories']        = $keywords;
         $query['bool']['should'][]['match']['master_categories'] = $keywords;
-        $query['bool']['should'][]['match']['description']       = $keywords;
-        $query['bool']['should'][]['match']['keywords']          = $keywords;
+
+        if ($this->searchByCategory === false) {
+            $query['bool']['should'][]['match']['name']              = $keywords;
+            $query['bool']['should'][]['match']['categories']        = $keywords;
+            $query['bool']['should'][]['match']['description']       = $keywords;
+            $query['bool']['should'][]['match']['keywords']          = $keywords;
+        }
 
         $location = Input::get('location');
         if (!empty($location)) {
@@ -773,6 +776,10 @@ class Business extends Base
     {
         $this->isSearchByLocation = (!empty($options['isSearchByLocation']))
             ? (bool) $options['isSearchByLocation']
+            : false;
+
+        $this->searchByCategory = !empty($options['searchByCategory'])
+            ? (bool) $options['searchByCategory']
             : false;
 
         $this->keyword = $keyword;

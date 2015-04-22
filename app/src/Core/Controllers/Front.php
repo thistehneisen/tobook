@@ -80,17 +80,12 @@ class Front extends Base
     {
         $category = MasterCategory::findOrFail($id);
 
-        $paginator = User::with('business')
-            ->whereHas('business', function ($q) {
-                $q->notHidden();
-            })
-            ->whereHas('asServices', function ($q) use ($id) {
-                $q->where('master_category_id', $id);
-            })
-            ->simplePaginate();
+        $paginator = Business::search($category->name, [
+            'searchByCategory' => true
+        ]);
 
         // Extract list of businesses
-        $items = $paginator->getCollection()->lists('business');
+        $items = $paginator->getCollection();
         $heading = $category->name;
 
         // Add meta data to this page
@@ -113,17 +108,12 @@ class Front extends Base
     public function treatment($id, $slug = null)
     {
         $treatment = TreatmentType::findOrFail($id);
-        $paginator = User::with('business')
-            ->whereHas('business', function ($q) {
-                $q->notHidden();
-            })
-            ->whereHas('asServices', function ($q) use ($id) {
-                $q->where('treatment_type_id', $id);
-            })
-            ->simplePaginate();
+        $paginator = Business::search($treatment->name, [
+            'searchByCategory' => true
+        ]);
 
         // Extract list of businesses
-        $items = $paginator->getCollection()->lists('business');
+        $items = $paginator->getCollection();
         $heading = $treatment->name;
 
         // Add meta data to this page
