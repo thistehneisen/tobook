@@ -2,6 +2,35 @@ do ($ = jQuery) ->
   'use strict'
 
   $ ->
+    # When user clicks on navbar, we'll ask for the current location
+    $ '#js-navbar'
+      .find 'a'
+      .on 'click', (e) ->
+        e.preventDefault()
+        $$ = $ @
+        $body = $ 'body'
+        lat = $body.data 'lat'
+        lng = $body.data 'lng'
+
+        if (lat? and lng? and lat != 0 and lng != 0)
+          window.location = $$.prop 'href'
+        else
+          # Ask for location
+          success = (pos) ->
+            lat = pos.coords.latitude
+            lng = pos.coords.longitude
+
+            $.ajax
+              url: $body.data 'geo-url'
+              type: 'POST'
+              data:
+                lat: lat
+                lng: lng
+            .done ->
+              window.location = $$.prop 'href'
+
+          navigator.geolocation.getCurrentPosition success, null, timeout: 10000
+
     # Prepare datetime picker for search form
     $ 'div.datetime-control'
       .each (_, item) ->
