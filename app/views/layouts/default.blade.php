@@ -38,7 +38,7 @@
 
     {{ Lomake::renderHead() }}
 </head>
-<body @if(!empty($hash)) data-hash="{{ $hash }}" @endif data-locale="{{ App::getLocale() }}" data-js-locale="{{ route('ajax.jslocale') }}">
+<body @if(!empty($hash)) data-hash="{{ $hash }}" @endif data-locale="{{ App::getLocale() }}" data-js-locale="{{ route('ajax.jslocale') }}" data-geo-url="{{ route('search.location') }}" data-lat="{{ $lat }}" data-lng="{{ $lng }}">
     @section('header')
     <header class="header">
         <nav class="main-nav container">

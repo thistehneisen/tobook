@@ -716,11 +716,14 @@ class Business extends Base
     protected function buildSearchQuery($keywords, $fields = null)
     {
         $query = [];
-        $query['bool']['should'][]['match']['name']              = $keywords;
-        $query['bool']['should'][]['match']['categories']        = $keywords;
         $query['bool']['should'][]['match']['master_categories'] = $keywords;
-        $query['bool']['should'][]['match']['description']       = $keywords;
-        $query['bool']['should'][]['match']['keywords']          = $keywords;
+
+        if ($this->searchByCategory === false) {
+            $query['bool']['should'][]['match']['name']              = $keywords;
+            $query['bool']['should'][]['match']['categories']        = $keywords;
+            $query['bool']['should'][]['match']['description']       = $keywords;
+            $query['bool']['should'][]['match']['keywords']          = $keywords;
+        }
 
         $location = Input::get('location');
         if (!empty($location)) {
@@ -775,6 +778,10 @@ class Business extends Base
             ? (bool) $options['isSearchByLocation']
             : false;
 
+        $this->searchByCategory = !empty($options['searchByCategory'])
+            ? (bool) $options['searchByCategory']
+            : false;
+
         $this->keyword = $keyword;
 
         //Remove this value to make sure it does not affect the buildSearchParams
@@ -815,14 +822,14 @@ class Business extends Base
         });
 
         if ($this->isSearchByLocation) {
-            // Sort by address matching
-            $users->sortByDesc(function ($item) {
-                return similar_text($this->keyword, $item->business->full_address);
-            });
-        } else {
             // Sort by distance
             $users->sortBy(function ($item) {
                 return $item->distance;
+            });
+        } else {
+            // Sort by address matching
+            $users->sortByDesc(function ($item) {
+                return similar_text($this->keyword, $item->business->full_address);
             });
         }
 
@@ -836,7 +843,7 @@ class Business extends Base
     {
         // We'll show only 5 businesses by default
         $this->customSearchParams = [
-            'size' => 5
+            'size' => 15
         ];
     }
 }

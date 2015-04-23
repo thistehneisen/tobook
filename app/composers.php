@@ -5,6 +5,11 @@
 View::composer('layouts.default', function ($view) {
     $categories = \App\Appointment\Models\MasterCategory::getAll();
     $view->with('masterCategories', $categories);
+    // We will use those coordinates to see if we should ask for current
+    // location of user
+    // @see: /resources/varaa/core/scripts/home.coffee
+    $view->with('lat', Session::get('lat'));
+    $view->with('lng', Session::get('lng'));
 });
 
 /**

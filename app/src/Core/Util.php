@@ -216,16 +216,23 @@ class Util
         if ($lat && $lng) {
             Session::set('lat', $lat);
             Session::set('lng', $lng);
+        } elseif (Session::has('lat') && Session::has('lng')) {
+            $lat = Session::get('lat');
+            $lng = Session::get('lng');
         } else {
-            // Helsinki
+            // Helsinki, Stockholm or Tallinn
             list($lat, $lng) = Config::get('varaa.default_coords');
         }
 
         $location = Input::get('location');
-        try {
-            list($lat, $lng) = self::geocoder($location);
-        } catch (\Exception $ex) {
-            // Silently failed
+        // Only decode the provided location in case of not empty
+        if (!empty($location)) {
+            try {
+                list($lat, $lng) = self::geocoder($location);
+            } catch (\Exception $ex) {
+                // Silently failed
+                Log::error('Cannot geodecode '.$location);
+            }
         }
 
         return [$lat, $lng];
