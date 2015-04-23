@@ -12,7 +12,7 @@ do ($ = jQuery) ->
         lat = $body.data 'lat'
         lng = $body.data 'lng'
 
-        if (lat? and lng? and lat != 0 and lng != 0)
+        if (lat? and lng? and lat != '' and lng != '')
           window.location = $$.prop 'href'
         else
           # Ask for location
