@@ -9,7 +9,6 @@ use App\FlashDeal\Models\FlashDeal;
 use Illuminate\Support\Collection;
 use Request;
 use Response;
-use Session;
 use Settings;
 use Util;
 
@@ -120,7 +119,7 @@ class Front extends Base
         $deals = $this->getDealsOfBusinesses($paginator);
 
         // Get lat and lng to show the map
-        list($lat, $lng) = $this->extractLatLng();
+        list($lat, $lng) = Util::getCoordinates();
 
         $viewData['deals']   = $deals;
         $viewData['lat']     = $lat;
@@ -151,25 +150,6 @@ class Front extends Base
     }
 
     /**
-     * Extract lat/lng values from Session and system settings
-     *
-     * @return array
-     */
-    protected function extractLatLng()
-    {
-        $lat = Session::get('lat');
-        $lng = Session::get('lng');
-        if (empty($lat) && empty($lng)) {
-            try {
-            // dd(Settings::get('default_location'));
-                list($lat, $lng) = Util::geocoder(Settings::get('default_location'));
-            } catch (\Exception $ex) { /* Silently failed */ }
-        }
-
-        return [$lat, $lng];
-    }
-
-    /**
      * Show businesses of a category
      *
      * @param int    $id
@@ -187,7 +167,8 @@ class Front extends Base
         $instance = $model::findOrFail($id);
 
         $paginator = Business::search($instance->name, [
-            'searchByCategory' => true
+            'searchByCategory'   => true,
+            'isSearchByLocation' => true,
         ]);
 
         // Extract list of businesses
