@@ -822,14 +822,14 @@ class Business extends Base
         });
 
         if ($this->isSearchByLocation) {
-            // Sort by address matching
-            $users->sortByDesc(function ($item) {
-                return similar_text($this->keyword, $item->business->full_address);
-            });
-        } else {
             // Sort by distance
             $users->sortBy(function ($item) {
                 return $item->distance;
+            });
+        } else {
+            // Sort by address matching
+            $users->sortByDesc(function ($item) {
+                return similar_text($this->keyword, $item->business->full_address);
             });
         }
 
