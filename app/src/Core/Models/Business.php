@@ -843,7 +843,7 @@ class Business extends Base
     {
         // We'll show only 5 businesses by default
         $this->customSearchParams = [
-            'size' => 5
+            'size' => 15
         ];
     }
 }
