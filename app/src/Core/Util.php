@@ -221,20 +221,29 @@ class Util
         } elseif (Session::has('lat') && Session::has('lng')) {
             $lat = Session::get('lat');
             $lng = Session::get('lng');
-        } else {
-            // Helsinki, Stockholm or Tallinn
-            list($lat, $lng) = Config::get('varaa.default_coords');
-        }
-
-        $location = Input::get('location');
-        // Only decode the provided location in case of not empty
-        if (!empty($location)) {
+        // Try to decode location passed in query string
+        } elseif (($location = Input::get('location'))) {
             try {
                 list($lat, $lng) = self::geocoder($location);
             } catch (\Exception $ex) {
                 // Silently failed
                 Log::error('Cannot geodecode '.$location);
             }
+        } else {
+            // Try to get location based on IP
+            $data = static::decodeIp();
+            if ($data && $data->city) {
+                Session::set('lat', $data->city->lat);
+                Session::set('lng', $data->city->lon);
+
+                $lat = $data->city->lat;
+                $lng = $data->city->lon;
+            } else {
+                // Final blast, use default coords of the system
+                // Maybe Helsinki, Stockholm, Tallinn, etc.
+                list($lat, $lng) = Config::get('varaa.default_coords');
+            }
+
         }
 
         return [$lat, $lng];
@@ -285,11 +294,20 @@ class Util
      */
     public static function decodeIp()
     {
+        $ip = Request::getClientIp();
+        $key = 'ip:'.$ip;
+        if (Cache::has($key)) {
+            return Cache::get($key);
+        }
+
         $client = new Client();
-        $req = $client->get('https://api.sypexgeo.net/json/'.Request::getClientIp());
+        $req = $client->get('https://api.sypexgeo.net/json/'.$ip);
         $res = $client->send($req);
         if ($res->getStatusCode() === 200) {
-            return json_decode($res->getBody());
+            $json = json_decode($res->getBody());
+            Cache::forever($key, $json);
+
+            return $json;
         }
     }
 }
