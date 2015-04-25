@@ -14,7 +14,7 @@ return [
         ],
         'old' => [
             'driver'    => 'mysql',
-            'host'      => 'varaa.com',
+            'host'      => '213.136.71.213',
             'database'  => 'varaa_wpdb',
             'username'  => 'varaa_userdb',
             'password'  => 'E$7iS6Km)TNM',
