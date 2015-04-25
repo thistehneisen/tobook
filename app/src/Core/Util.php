@@ -6,12 +6,14 @@ use Carbon\Carbon;
 use Config;
 use Exception;
 use Geocoder;
+use Guzzle\Http\Client;
 use Imagine;
 use Input;
 use InvalidArgumentException;
 use Log;
 use Session;
 use Str;
+use Request;
 
 /**
  * Providing a set of utility functions
@@ -272,5 +274,22 @@ class Util
     {
         return \Entrust::hasRole(App\Core\Models\Role::ADMIN)
          || \Session::has('stealthMode');
+    }
+
+    /**
+     * Get the current IP and collect relevant data using Sypexgeo.net
+     *
+     * @see  https://sypexgeo.net/ru/api/ Sypexgeo API
+     *
+     * @return stdClass
+     */
+    public static function decodeIp()
+    {
+        $client = new Client();
+        $req = $client->get('https://api.sypexgeo.net/json/'.Request::getClientIp());
+        $res = $client->send($req);
+        if ($res->getStatusCode() === 200) {
+            return json_decode($res->getBody());
+        }
     }
 }
