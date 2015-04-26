@@ -33,15 +33,11 @@ Route::group(array('prefix' => $prefix), function() {
     require app_path().'/routes/appointment.php';
     require app_path().'/routes/loyalty_card.php';
     require app_path().'/routes/flash_deal.php';
+    require app_path().'/routes/home.php';
 
     //------------------------------------------------------------------------------
     // Others
     //------------------------------------------------------------------------------
-    // Home
-    Route::get('/', [
-        'as'    => 'home',
-        'uses'  => 'App\Core\Controllers\Front@home'
-    ]);
 
     Route::get('robots.txt', [
         'as'    => 'robots',

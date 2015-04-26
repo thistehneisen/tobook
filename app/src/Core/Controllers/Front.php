@@ -283,4 +283,19 @@ class Front extends Base
 
         return $deals;
     }
+
+    public function about()
+    {
+        return $this->render('about');
+    }
+
+    public function business()
+    {
+        return $this->render('business-page');
+    }
+
+    public function intro()
+    {
+        return $this->render('intro');
+    }
 }

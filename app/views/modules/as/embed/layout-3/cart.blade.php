@@ -1,10 +1,10 @@
 {{ Form::open(['route' => 'as.booking.frontend.cart', 'class' => 'form-horizontal', 'id' => 'as-form-confirm', 'role' => 'form']) }}
 <div class="form-group row">
     <label class="col-md-3">{{ trans('as.embed.layout_3.service') }}:</label>
-    <div class="col-md-9">{{ $service->name }} ({{ $service->length }} {{ trans('common.minutes')}})</div>
+    <div class="col-md-9">{{ $service->name }} (@if(!empty($serviceTime)){{ $serviceTime->during }}@else{{ $service->during }}@endif {{ trans('common.minutes')}})</div>
 </div>
 <div class="form-group row">
-    <div class="col-md-4 col-md-offset-3"><i class="glyphicon glyphicon-tag"></i> {{ $service->price }}{{ Settings::get('currency') }}</div>
+    <div class="col-md-4 col-md-offset-3"><i class="glyphicon glyphicon-tag"></i> @if(!empty($serviceTime)) {{ $serviceTime->price }} @else {{ $service->price }} @endif {{ Settings::get('currency') }}</div>
     <div class="col-md-5"><i class="glyphicon glyphicon-time"></i> {{ $date->format(trans('common.format.date')) }} {{ $time }}</div>
 </div>
 
