@@ -20,6 +20,9 @@ do ($ = jQuery) ->
             lat = pos.coords.latitude
             lng = pos.coords.longitude
 
+          failed = ->
+            window.location = $$.prop 'href'
+
             $.ajax
               url: $body.data 'geo-url'
               type: 'POST'
@@ -29,7 +32,7 @@ do ($ = jQuery) ->
             .done ->
               window.location = $$.prop 'href'
 
-          navigator.geolocation.getCurrentPosition success, null, timeout: 10000
+          navigator.geolocation.getCurrentPosition success, failed, timeout: 10000
 
     # Prepare datetime picker for search form
     $ 'div.datetime-control'
