@@ -12,6 +12,7 @@ use NAT;
 use Settings;
 use Str;
 use Util;
+use Session;
 
 class Business extends Base
 {
@@ -752,19 +753,32 @@ class Business extends Base
     protected function buildSearchSortParams()
     {
         list($lat, $lng) = Util::getCoordinates();
-        $sort = [
-            '_score' => [
-                'order' => 'desc',
-            ],
-            '_geo_distance' => [
-                'unit'     => 'km',
-                'mode'     => 'min',
-                'location' => [
-                    'lat' => $lat,
-                    'lon' => $lng,
+        if (Session::has('lat') && Session::has('lng')) {
+            $sort = [
+                '_geo_distance' => [
+                    'unit'     => 'km',
+                    'mode'     => 'min',
+                    'location' => [
+                        'lat' => $lat,
+                        'lon' => $lng,
+                    ],
                 ],
-            ],
-        ];
+            ];
+        } else {
+            $sort = [
+                '_score' => [
+                    'order' => 'desc',
+                ],
+                '_geo_distance' => [
+                    'unit'     => 'km',
+                    'mode'     => 'min',
+                    'location' => [
+                        'lat' => $lat,
+                        'lon' => $lng,
+                    ],
+                ],
+            ];
+        }
 
         return $sort;
     }
