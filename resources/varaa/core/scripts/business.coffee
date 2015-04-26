@@ -2,6 +2,11 @@ do ($ = jQuery) ->
   'use strict'
 
   $ ->
+    swiper = new Swiper '.swiper-container',
+      autoplay: 3000
+      loop: true
+      autoplayDisableOnInteraction: false
+
     # Contact form
     $wrapper = $ '#js-search-results'
 

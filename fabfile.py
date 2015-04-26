@@ -24,22 +24,23 @@ def _deploy(environment, host):
             run('php artisan db:seed')
             # chmod storage again
             run('chmod -Rf 777 app/storage')
+            # chown upload folder
+            run('chown www-data:www-data public/uploads -R')
+            # chmod 644 for files, 755 for folder
+            run('chmod ug+rwX,go+rX public/uploads -R')
             # clear all application cache
             run('php artisan cache:clear')
             #-------------------------------------------------------------------
             # These commands are run once and will be removed in next release
             #-------------------------------------------------------------------
-            # Connect incomplete consumers account
-            run('php artisan varaa:connect-consumers')
-            # Move business description to the default language
-            run('php artisan varaa:move-business-description')
-            # Move meta data of businesses
-            run('php artisan varaa:move-meta')
+
             #-------------------------------------------------------------------
             # restart supervisor processes
             run('supervisorctl restart all')
             # set it to live mode again
             run('php artisan up')
+            # notify everyone for fun
+            run('php artisan varaa:deployed {}'.format(environment))
             # run CI
             if environment == 'stag': run('/srv/phpci/console phpci:rebuild')
 

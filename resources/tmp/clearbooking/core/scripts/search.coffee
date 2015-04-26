@@ -10,6 +10,13 @@ class VaraaSearch
     @employeeId = input.employeeId if input.employeeId?
     @time = input.time if input.time?
 
+    @title = $('title').text()
+
+    # Prepare for pushState
+    History.Adapter.bind window, 'statechange', ->
+      State = History.getState()
+      return
+
   run: ->
     if @categoryId and @serviceId
       @selectBookingForm()
@@ -86,17 +93,17 @@ class VaraaSearch
     gmap = @renderMap $map.attr('id'), @lat, @lng, markers
 
     # When user clicks on the heading to return back to business listing
-    $heading.on 'click', (e) ->
+    $heading.on 'click', (e) =>
       e.preventDefault()
       $single.hide()
-      $list.find '.panel'
-        .each ->
-          $$ = $ @
-          $$.show 'slide', direction: $$.data('direction'), 300
+      $list.find('.panel').each -> $(@).show()
 
       $map.show()
-      $heading.find 'i'
-        .hide()
+      $heading.find('i').hide()
+
+      $('title').text @title
+
+      History.back()
 
     # When user clicks on Show more button
     $leftSidebar.on 'click', '#js-show-more', (e) ->
@@ -142,6 +149,9 @@ class VaraaSearch
         window.location = $$.data 'url'
         return
 
+      # Push state the current business
+      History.pushState {businessId: businessId}, '', $$.data('url')
+
       # If the current content is of this business, we don't need to fire
       # another AJAX
       if $list.data('current-business-id') == businessId
@@ -170,6 +180,7 @@ class VaraaSearch
         # Replace the whole page with business page
         $single.html html
         $single.show()
+
         # Show chevron as indicator to click back
         $heading.find 'i'
           .show()
@@ -185,8 +196,21 @@ class VaraaSearch
         lng = $bmap.data 'lng'
         self.renderMap $bmap.attr('id'), lat, lng, [lat: lat, lng: lng]
 
+        $ 'title'
+          .text $$.data 'title'
+
         # Scroll the page
         $.scrollTo '#js-search-results', duration: 300
+
+        swiper = $ "#js-swiper-#{businessId}"
+        slider = null
+        if swiper.length
+          slider = new Swiper swiper.get(),
+            autoplay: 3000
+            loop: true
+            autoplayDisableOnInteraction: false
+
+        slider.update().slideNext() if slider isnt null
     ###*
      * Hover on a business will highlight its position on the map
      *
@@ -194,7 +218,7 @@ class VaraaSearch
      *
      * @return {void}
     ###
-    busienssOnMouseEnter = (e) ->
+    businessOnMouseEnter = (e) ->
       $$ = $ @
       lat = $$.data 'lat'
       lng = $$.data 'lng'
@@ -208,7 +232,7 @@ class VaraaSearch
     # Attach event handlers when user hovers or clicks on a business in the
     # result list
     $leftSidebar.on 'click', 'div.js-business', businessOnClick
-      .on 'mouseenter', 'div.js-business', busienssOnMouseEnter
+      .on 'meouseenter', 'div.js-business', businessOnMouseEnter
 
   ###*
    * Extract pairs of lat and lng values to be show as markers on the map

@@ -96,7 +96,6 @@ Route::group([
     //--------------------------------------------------------------------------
     App\Core\Controllers\Admin\TreatmentTypes::crudRoutes('treatment-types', 'admin.treatment-types');
 
-
     //--------------------------------------------------------------------------
     // Statistics
     //--------------------------------------------------------------------------
@@ -118,5 +117,17 @@ Route::group([
 
     Route::post('settings', [
         'uses' => 'App\Core\Controllers\Admin\Settings@save'
+    ]);
+
+    //--------------------------------------------------------------------------
+    // SEO
+    //--------------------------------------------------------------------------
+    Route::get('seo', [
+        'as' => 'admin.seo',
+        'uses' => 'App\Core\Controllers\Admin\SEO@index'
+    ]);
+
+    Route::post('seo', [
+        'uses' => 'App\Core\Controllers\Admin\SEO@save'
     ]);
 });

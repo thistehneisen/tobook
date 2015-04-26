@@ -9,9 +9,10 @@ use Exception;
 use Illuminate\Support\Collection;
 use Input;
 use NAT;
+use Settings;
 use Str;
 use Util;
-use Log;
+use Session;
 
 class Business extends Base
 {
@@ -443,9 +444,24 @@ class Business extends Base
         );
     }
 
+    /**
+     * Shortcut to get all images of this business
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function getImagesAttribute()
+    {
+        return $this->user->images()->businessImages()->get();
+    }
+
+    /**
+     * Get an image from the list of business image
+     *
+     * @return string
+     */
     public function getImageAttribute()
     {
-        $image = $this->user->images()->businessImages()->first();
+        $image = $this->images->first();
         if (!empty($image)) {
             return asset(Config::get('varaa.upload_folder').$image->path);
         } else {
@@ -501,6 +517,11 @@ class Business extends Base
     public function getMetaKeywordsAttribute()
     {
         return $this->getTranslatedAttribute('meta_keywords');
+    }
+
+    public function getTitleAttribute()
+    {
+        return sprintf('%s :: %s', $this->name, Settings::get('meta_title'));
     }
 
     /**
@@ -696,11 +717,14 @@ class Business extends Base
     protected function buildSearchQuery($keywords, $fields = null)
     {
         $query = [];
-        $query['bool']['should'][]['match']['name']              = $keywords;
-        $query['bool']['should'][]['match']['categories']        = $keywords;
         $query['bool']['should'][]['match']['master_categories'] = $keywords;
-        $query['bool']['should'][]['match']['description']       = $keywords;
-        $query['bool']['should'][]['match']['keywords']          = $keywords;
+
+        if ($this->searchByCategory === false) {
+            $query['bool']['should'][]['match']['name']              = $keywords;
+            $query['bool']['should'][]['match']['categories']        = $keywords;
+            $query['bool']['should'][]['match']['description']       = $keywords;
+            $query['bool']['should'][]['match']['keywords']          = $keywords;
+        }
 
         $location = Input::get('location');
         if (!empty($location)) {
@@ -729,19 +753,32 @@ class Business extends Base
     protected function buildSearchSortParams()
     {
         list($lat, $lng) = Util::getCoordinates();
-        $sort = [
-            '_score' => [
-                'order' => 'desc',
-            ],
-            '_geo_distance' => [
-                'unit'     => 'km',
-                'mode'     => 'min',
-                'location' => [
-                    'lat' => $lat,
-                    'lon' => $lng,
+        if (Session::has('lat') && Session::has('lng')) {
+            $sort = [
+                '_geo_distance' => [
+                    'unit'     => 'km',
+                    'mode'     => 'min',
+                    'location' => [
+                        'lat' => $lat,
+                        'lon' => $lng,
+                    ],
                 ],
-            ],
-        ];
+            ];
+        } else {
+            $sort = [
+                '_score' => [
+                    'order' => 'desc',
+                ],
+                '_geo_distance' => [
+                    'unit'     => 'km',
+                    'mode'     => 'min',
+                    'location' => [
+                        'lat' => $lat,
+                        'lon' => $lng,
+                    ],
+                ],
+            ];
+        }
 
         return $sort;
     }
@@ -753,6 +790,10 @@ class Business extends Base
     {
         $this->isSearchByLocation = (!empty($options['isSearchByLocation']))
             ? (bool) $options['isSearchByLocation']
+            : false;
+
+        $this->searchByCategory = !empty($options['searchByCategory'])
+            ? (bool) $options['searchByCategory']
             : false;
 
         $this->keyword = $keyword;
@@ -794,18 +835,17 @@ class Business extends Base
                 : 1;
         });
 
-        if($this->isSearchByLocation) {
-            // Sort by address matching
-            $users->sortByDesc(function ($item) {
-                return similar_text($this->keyword, $item->business->full_address);
-            });
-        } else {
+        if ($this->isSearchByLocation) {
             // Sort by distance
             $users->sortBy(function ($item) {
                 return $item->distance;
             });
+        } else {
+            // Sort by address matching
+            $users->sortByDesc(function ($item) {
+                return similar_text($this->keyword, $item->business->full_address);
+            });
         }
-
 
         return $users->lists('business');
     }
@@ -817,7 +857,7 @@ class Business extends Base
     {
         // We'll show only 5 businesses by default
         $this->customSearchParams = [
-            'size' => 5
+            'size' => 15
         ];
     }
 }

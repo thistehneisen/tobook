@@ -1,5 +1,7 @@
 @extends ('layouts.front')
 
+@include('el.multimeta')
+
 @section('title')
     {{ trans('common.register') }}
 @stop

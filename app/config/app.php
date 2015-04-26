@@ -126,12 +126,11 @@ return array(
         'Zizaco\Confide\ConfideServiceProvider',
         'Zizaco\Entrust\EntrustServiceProvider',
         'Toin0u\Geocoder\GeocoderServiceProvider',
-        'Barryvdh\Debugbar\ServiceProvider',
         'Shift31\LaravelElasticsearch\LaravelElasticsearchServiceProvider',
         'Orchestra\Imagine\ImagineServiceProvider',
         'Indatus\Dispatcher\ServiceProvider',
         'Clowdy\Raven\RavenServiceProvider',
-        'Mews\Captcha\CaptchaServiceProvider',
+        'Maknz\Slack\SlackServiceProvider',
 
         // Homemade
         'App\Hashids\HashidsServiceProvider',
@@ -211,13 +210,12 @@ return array(
         'View'            => 'Illuminate\Support\Facades\View',
 
         // Addon facades
-        'Confide'   => 'Zizaco\Confide\ConfideFacade',
-        'Entrust'   => 'Zizaco\Entrust\EntrustFacade',
-        'Geocoder'  => 'Toin0u\Geocoder\GeocoderFacade',
-        'Debugbar'  => 'Barryvdh\Debugbar\Facade',
-        'Imagine'   => 'Orchestra\Imagine\Facade',
-        'Raven'     => 'Clowdy\Raven\Facades\Raven',
-        'Captcha'   => 'Mews\Captcha\Facades\Captcha',
+        'Confide'  => 'Zizaco\Confide\ConfideFacade',
+        'Entrust'  => 'Zizaco\Entrust\EntrustFacade',
+        'Geocoder' => 'Toin0u\Geocoder\GeocoderFacade',
+        'Imagine'  => 'Orchestra\Imagine\Facade',
+        'Raven'    => 'Clowdy\Raven\Facades\Raven',
+        'Slack'    => 'Maknz\Slack\Facades\Slack',
 
         // Homemade
         'AppController' => 'App\Core\Controllers\Base',
