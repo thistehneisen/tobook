@@ -70,7 +70,7 @@
             </tr>
             @else
             <tr id="custom-time-{{ $item->id }}">
-                <td>{{ with(new Carbon\Carbon($item->date))->format('l') }}</td>
+                <td>{{ trans(strtolower('common.' . with(new Carbon\Carbon($item->date))->format('l'))) }}</td>
                 <td>
                     {{ $item->date }}
                 </td>
