@@ -3,7 +3,7 @@
 use App\Core\Models\Business;
 use Input;
 use Session;
-use Settings;
+use Util;
 
 class Search extends Front
 {
@@ -38,7 +38,7 @@ class Search extends Front
             'keyword'  => $q,
             'date'     => !empty($date) ? $date : strtolower(trans('home.search.date')),
             'time'     => !empty($time) ? $time : strtolower(trans('home.search.time')),
-            'location' => !empty($location) ? $location : Settings::get('default_location'),
+            'location' => Util::getCurrentLocation(),
             'total'    => $paginator->getTotal(),
         ]);
 

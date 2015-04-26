@@ -11,9 +11,10 @@ use Imagine;
 use Input;
 use InvalidArgumentException;
 use Log;
-use Session;
-use Str;
 use Request;
+use Session;
+use Settings;
+use Str;
 
 /**
  * Providing a set of utility functions
@@ -309,5 +310,34 @@ class Util
 
             return $json;
         }
+    }
+
+    /**
+     * Get name of current location based on user input, IP decoding, or default
+     * system location
+     *
+     * @return string
+     */
+    public static function getCurrentLocation()
+    {
+        if (Input::has('location')) {
+            return Input::get('location');
+        }
+
+        $ipData = static::decodeIp();
+        if ($ipData && $ipData->city !== null) {
+            $field = App::getLocale() === 'ru' ? 'name_ru' : 'name_en';
+            $location = $ipData->city->$field;
+
+            if ($ipData->country !== null) {
+                return $location.', '.$ipData->country->$field;
+            }
+
+            return $location;
+        }
+
+        // If cannot get location from those two criteria, return the default
+        // location
+        return Settings::get('default_location');
     }
 }
