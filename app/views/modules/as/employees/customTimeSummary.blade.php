@@ -39,7 +39,7 @@
     <tbody>
         @foreach($currentMonths as $item)
              <tr @if($item['date']->dayOfWeek === \Carbon\Carbon::SUNDAY) class="sunday-row" @endif>
-                <td>{{ $item['date']->format('l') }}</td>
+                <td>{{ trans(strtolower('common.' . $item['date']->format('l'))) }}</td>
                 <td>{{ $item['date']->toDateString() }}</td>
                 @foreach ($employees as $employee)
                 <td>
