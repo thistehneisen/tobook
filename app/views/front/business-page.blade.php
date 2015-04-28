@@ -1,15 +1,18 @@
-@extends ('layouts.front')
+@extends ('layouts.default')
 
 @section('title')
     {{ trans('common.business') }}
 @stop
 
-@section('css')
+@section('styles')
 {{ HTML::style(asset_path('core/styles/business.css')) }}
 @stop
 
+
+@section('main-classes') nova-container @stop
+
 @section('content')
- <div class="header">
+ <div class="nova-header">
     <div class="header-content">
         <h1><span class="varaa">varaa</span><span class="com">.com</span> ajanvarausjärjestelmä</h1>
         <p>Meidän ilmainen ja helppokäyttöinen järjestelmä tulee mullistamaan liiketoimintasi</p>
