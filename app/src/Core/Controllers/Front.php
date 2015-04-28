@@ -210,7 +210,15 @@ class Front extends Base
 
     public function about()
     {
-        return $this->render('about');
+        $categories = BusinessCategory::getAll();
+
+        // Master categories
+        $masterCategories = MasterCategory::getAll();
+
+        return $this->render('about', [
+            'categories'       => $categories,
+            'masterCategories' => $masterCategories,
+        ]);
     }
 
     public function business()
