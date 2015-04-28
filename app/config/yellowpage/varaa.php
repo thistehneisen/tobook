@@ -4,7 +4,7 @@ $head_script = "";
 
 return [
     'name'             => 'Zlaté stránky',
-    'languages'        => ['sv', 'en', 'fi'],
+    'languages'        => ['sk', 'en', 'ru'],
     'default_language' => 'sv',
     'default_coords'   => [59.32893, 18.06491], // Stockholm
     'meta'             => [
