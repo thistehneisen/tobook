@@ -1,5 +1,7 @@
 <?php
 
+$head_script = "";
+
 return [
     'name'             => 'Zlaté stránky',
     'languages'        => ['sv', 'en', 'fi'],
