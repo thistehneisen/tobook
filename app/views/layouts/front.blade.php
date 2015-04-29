@@ -16,5 +16,7 @@
 </head>
 <body>
     @yield('content')
+
+    {{ Settings::get('bottom_script') }}
 </body>
 </html>
