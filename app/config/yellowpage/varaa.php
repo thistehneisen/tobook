@@ -4,23 +4,23 @@ $head_script = "";
 
 return [
     'name'             => 'Zlaté stránky',
-    'languages'        => ['sk', 'en', 'ru'],
+    'languages'        => ['sk', 'en'],
     'default_language' => 'sv',
-    'default_coords'   => [59.32893, 18.06491], // Stockholm
+    'default_coords'   => [48.13578, 17.11591], // Bratislava
     'meta'             => [
-        'title'       => 'Zlaté stránky | Boka tid för allt',
-        'description' => 'Boka tid för massage, klippning, däckbyte, m.m. Sök bland anslutna företag på din ort. Tillhandahålls av ClearSense.',
-        'keywords'    => 'Zlaté stránky, ClearSense, Tidsbokning, Bokningssystem',
+        'title'       => 'Zlaté stránky ',
+        'description' => '',
+        'keywords'    => 'Zlaté stránky',
     ],
     'footer' => [
         'copyright' => [
-            'name' => 'Clearsense',
-            'url'  => 'http://www.clearsense.se',
+            'name' => '',
+            'url'  => '',
         ],
         'social' => [
-            'facebook'      => 'https://facebook.com/ClearSenseSE',
-            'linkedin'      => 'https://www.linkedin.com/company/clearsense-sverige',
-            'google-plus'   => 'https://plus.google.com/+lokaldelen/posts',
+            'facebook'      => '',
+            'linkedin'      => '',
+            'google-plus'   => '',
             'youtube'       => '',
         ]
     ],
@@ -63,17 +63,17 @@ return [
         'head_script'      => ['type' => 'Textarea', 'default' => $head_script],
         'bottom_script'    => ['type' => 'Textarea', 'default' => ''],
         'allow_robots'     => ['type' => 'Radio', 'default' => true],
-        'default_location'   => ['type' => 'Text', 'default' => 'Stockholm, SV'],
+        'default_location' => ['type' => 'Text', 'default' => 'Bratislava, SK'],
         //----------------------------------------------------------------------
         //  Country code
         //----------------------------------------------------------------------
-        'phone_country_code' => ['type' => 'Text', 'default' => '46'],
+        'phone_country_code' => ['type' => 'Text', 'default' => '421'],
         //----------------------------------------------------------------------
         //  Meta data
         //----------------------------------------------------------------------
-        'meta_title'       => ['type' => 'Text', 'default' => 'Zlaté stránky | Boka tid för allt'],
-        'meta_description' => ['type' => 'Text', 'default' => 'Boka tid för massage, klippning, däckbyte, m.m. Sök bland anslutna företag på din ort. Tillhandahålls av ClearSense.'],
-        'meta_keywords'    => ['type' => 'Text', 'default' => 'Zlaté stránky, ClearSense, Tidsbokning, Bokningssystem'],
+        'meta_title'       => ['type' => 'Text', 'default' => 'Zlaté stránky'],
+        'meta_description' => ['type' => 'Text', 'default' => 'Zlaté stránky'],
+        'meta_keywords'    => ['type' => 'Text', 'default' => 'Zlaté stránky'],
         //----------------------------------------------------------------------
         //  Social configuration
         //----------------------------------------------------------------------
@@ -84,11 +84,11 @@ return [
         //  Footer copyright info
         //----------------------------------------------------------------------
         'copyright_name'   => ['type' => 'Text', 'default' => 'Zlaté stránky'],
-        'copyright_url'    => ['type' => 'Text', 'default' => 'http://www.clearsense.se'],
+        'copyright_url'    => ['type' => 'Text', 'default' => 'www.zlatestranky.sk'],
         //----------------------------------------------------------------------
         // Symbol of the currency applying to the whole system
         //----------------------------------------------------------------------
-        'currency'           => ['type' => 'Text', 'default' => 'SEK'],
+        'currency'           => ['type' => 'Text', 'default' => 'EUR'],
         //----------------------------------------------------------------------
         // Globally enable shopping cart
         //----------------------------------------------------------------------
