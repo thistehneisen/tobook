@@ -181,9 +181,11 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
     <footer class="container-fluid footer hidden-print">
         <div class="container text-center">
             <p>&copy; {{ date('Y') }} <a href="{{{ Settings::get('copyright_url') }}}" target="_blank">{{{ Settings::get('copyright_name') }}}</a>
+            @if(App::environment() === 'prod' || App::environment() === 'local')
             | <a href="/about" target="_blank">{{ trans('common.about') }}</a>
             | <a href="/business" target="_blank">{{ trans('common.business') }}</a>
             | <a href="/intro" target="_blank">{{ trans('common.intro') }}</a>
+            @endif
             </p>
             <ul class="list-unstyled list-inline list-social-networks">
                 @foreach (Settings::group('social') as $name => $url)
