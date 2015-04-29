@@ -14,6 +14,15 @@ $head_script = '<!--Start of Zopim Live Chat Script-->
     !function(m,y,T,i,p,s){m.myTips=function(onReadyHandler){var l=m.myTips,n=\'onReadyStack\',h=onReadyHandler;(l[n]||(l[n]=[]))&& typeof h===\'function\'&&l[n].push(h)};m.myTips.__={setup:{api_key:\'3d65838b1a3a5171858172736e1e0ddbb64516fa\'},version:\'1.1\'};T=y.createElement(\'script\'),T.type=\'text/javascript\',T.src=\'https://mytips.co/webclient/loader.js\',T.async=!0,y.head.appendChild(T)}(window,document)
     </script>
 
+    <!-- Start of CrazyEgg script -->
+    <script type="text/javascript">
+setTimeout(function(){var a=document.createElement("script");
+var b=document.getElementsByTagName("script")[0];
+a.src=document.location.protocol+"//script.crazyegg.com/pages/scripts/0033/0748.js?"+Math.floor(new Date().getTime()/3600000);
+a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+</script>
+    <!-- End of CrazyEgg script -->
+
     <script>
   (function(i,s,o,g,r,a,m){i[\'GoogleAnalyticsObject\']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
