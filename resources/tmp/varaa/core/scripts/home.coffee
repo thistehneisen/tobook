@@ -19,10 +19,6 @@ do ($ = jQuery) ->
           success = (pos) ->
             lat = pos.coords.latitude
             lng = pos.coords.longitude
-
-          failed = ->
-            window.location = $$.prop 'href'
-
             $.ajax
               url: $body.data 'geo-url'
               type: 'POST'
@@ -31,6 +27,9 @@ do ($ = jQuery) ->
                 lng: lng
             .done ->
               window.location = $$.prop 'href'
+
+          failed = ->
+            window.location = $$.prop 'href'
 
           navigator.geolocation.getCurrentPosition success, failed, timeout: 10000
 
