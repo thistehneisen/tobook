@@ -180,7 +180,7 @@
         <p>
             Olla edelläkävijä on itsensä haastamista, uuden oppimista ja tietoisten, mutta kannattavien riskien ottamista. Varaa.comin koko henkilökunta on sitoutunut olemaan tukenasi.
         </p>
-        <a class="btn btn-lg btn-orange" role="button">Rekisteröidy</a>
+        <a class="btn btn-lg btn-orange" href="{{ route('auth.register') }}" role="button">Rekisteröidy</a>
     </div>
 </div>
 @stop
