@@ -77,14 +77,14 @@ return [
         //----------------------------------------------------------------------
         //  Social configuration
         //----------------------------------------------------------------------
-        'social_facebook'    => ['type' => 'Text', 'default' => 'https://facebook.com/ClearSenseSE'],
-        'social_linkedin'    => ['type' => 'Text', 'default' => 'https://www.linkedin.com/company/clearsense-sverige'],
-        'social_google-plus' => ['type' => 'Text', 'default' => 'https://plus.google.com/+lokaldelen/posts'],
+        'social_facebook'    => ['type' => 'Text', 'default' => ''],
+        'social_linkedin'    => ['type' => 'Text', 'default' => ''],
+        'social_google-plus' => ['type' => 'Text', 'default' => ''],
         //----------------------------------------------------------------------
         //  Footer copyright info
         //----------------------------------------------------------------------
         'copyright_name'   => ['type' => 'Text', 'default' => 'Zlaté stránky'],
-        'copyright_url'    => ['type' => 'Text', 'default' => 'www.zlatestranky.sk'],
+        'copyright_url'    => ['type' => 'Text', 'default' => ''],
         //----------------------------------------------------------------------
         // Symbol of the currency applying to the whole system
         //----------------------------------------------------------------------
