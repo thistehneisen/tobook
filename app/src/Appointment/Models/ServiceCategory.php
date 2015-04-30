@@ -1,5 +1,5 @@
 <?php namespace App\Appointment\Models;
-use Config;
+use Config, Input;
 use App\Core\Models\Multilanguage;
 
 class ServiceCategory extends \App\Core\Models\Base
@@ -44,19 +44,28 @@ class ServiceCategory extends \App\Core\Models\Base
     }
 
     /**
-     * {@inheritdoc}
+     * Quick fix for saving category name
      */
-    public function fill(array $attributes)
+    public function getDefaultData($input)
     {
+        $data = $input;
         $defaultLanguage = Config::get('varaa.default_language');
-
-        $data = $attributes;
 
         foreach ($this->multilingualAtrributes as $key) {
             $data[$key] = (!empty($data[$key.'s'][ $defaultLanguage]))
             ? $data[$key.'s'][ $defaultLanguage] : '';
         }
-        return parent::fill($data);
+
+        if(empty($data['name'])) {
+            foreach ($data['names'] as $lang => $name) {
+                if(!empty($name)) {
+                    $data['name'] = $name;
+                    break;
+                }
+            }
+        }
+
+        return $data;
     }
 
     //--------------------------------------------------------------------------

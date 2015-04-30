@@ -54,7 +54,13 @@ class Categories extends AsBase
         $names        = Input::get('names');
         $descriptions = Input::get('descriptions');
 
-        $item->fill(Input::all());
+        /**
+        * Copy any avaialble category name of any language of required field
+        * to the default language in case it is empty
+        */
+        $data = $item->getDefaultData(Input::all());
+
+        $item->fill($data);
         $item->user()->associate($this->user);
         $item->saveOrFail();
 
