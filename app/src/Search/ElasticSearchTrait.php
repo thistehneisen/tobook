@@ -292,6 +292,19 @@ trait ElasticSearchTrait
         return $this->getTable();
     }
 
+
+    /**
+     * Unlike getSearchIndexName, this method return
+     * the name of index that contains index of its child elements
+     * e.g: Master categories contains many Busineses
+     * I couldn't come up with more meaningful name for this,
+     * please suggest if you have any better one.
+     */
+    public function getParentSearchIndexName()
+    {
+        return $this->getTable() . '_' . $this->id;
+    }
+
     /**
      * @{@inheritdoc}
      */
