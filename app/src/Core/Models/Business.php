@@ -860,4 +860,22 @@ class Business extends Base
             'size' => 15
         ];
     }
+
+    public function updateSearchIndex($searchIndexName = null)
+    {
+        // If this model is not searchable, return as soon as possible
+        if ($this->isSearchable === false) {
+            return;
+        }
+
+        $params = [];
+        $params['index'] = ($searchIndexName) ? $searchIndexName : $this->getSearchIndexName();
+        $params['type']  = $this->getSearchIndexType();
+        $params['id']    = $this->getSearchDocumentId();
+        $params['body']  = $this->getSearchDocument();
+
+        $provider = App::make('App\Search\ProviderInterface');
+
+        return $provider->index($params);
+    }
 }
