@@ -10,6 +10,7 @@
     @parent
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2.min.js') }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2_locale_'.App::getLocale().'.min.js') }}
+    {{ HTML::script(asset('packages/bootstrap-spinner/bootstrap-spinner.min.js')) }}
     <script>
 $(function () {
     $('select.select2').select2();
