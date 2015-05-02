@@ -104,22 +104,6 @@ class Service extends \App\Core\Models\Base
         return[];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function fill(array $attributes)
-    {
-        $defaultLanguage = Config::get('varaa.default_language');
-
-        $data = $attributes;
-
-        foreach ($this->multilingualAtrributes as $key) {
-            $data[$key] = (!empty($data[$key.'s'][ $defaultLanguage]))
-            ? $data[$key.'s'][ $defaultLanguage] : '';
-        }
-        return parent::fill($data);
-    }
-
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
