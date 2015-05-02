@@ -43,31 +43,6 @@ class ServiceCategory extends \App\Core\Models\Base
         Multilanguage::saveValues($this->id, static::getContext(), 'description', $descriptions);
     }
 
-    /**
-     * Quick fix for saving category name
-     */
-    public function getDefaultData($input)
-    {
-        $data = $input;
-        $defaultLanguage = Config::get('varaa.default_language');
-
-        foreach ($this->multilingualAtrributes as $key) {
-            $data[$key] = (!empty($data[$key.'s'][ $defaultLanguage]))
-            ? $data[$key.'s'][ $defaultLanguage] : '';
-        }
-
-        if(empty($data['name'])) {
-            foreach ($data['names'] as $lang => $name) {
-                if(!empty($name)) {
-                    $data['name'] = $name;
-                    break;
-                }
-            }
-        }
-
-        return $data;
-    }
-
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------

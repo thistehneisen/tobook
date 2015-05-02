@@ -91,7 +91,13 @@ class Services extends AsBase
             $names = Input::get('names');
             $descriptions = Input::get('descriptions');
 
-            $service->fill(Input::all());
+            /**
+            * Copy any avaialble category name of any language of required field
+            * to the default language in case it is empty
+            */
+            $data = $service->getDefaultData(Input::all());
+            $service->fill($data);
+
             $service->setLength();
             // Attach user
             $service->user()->associate($this->user);
