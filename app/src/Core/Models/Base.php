@@ -193,4 +193,55 @@ class Base extends \Eloquent implements SearchableInterface
         }
         return (!empty($data)) ? implode(",", $data) : '';
     }
+
+    /**
+     * Return the required fiels in rulesets,
+     * use to fill default language fields in case it is missing.
+     *
+     */
+    public function getRequiredAttributes()
+    {
+        $requiredFields = [];
+
+        if(!empty($this->rulesets['saving'])){
+            $savingRules = $this->rulesets['saving'];
+            foreach ($savingRules as $field => $ruleset) {
+                $rules = explode("|", $ruleset);
+                if(in_array('required', $rules)) {
+                    $requiredFields[] = $field;
+                }
+            }
+        }
+
+        return $requiredFields;
+    }
+
+    /**
+     * For saving empty default language required fields
+     */
+    public function getDefaultData($input)
+    {
+        $data = $input;
+        $defaultLanguage = Config::get('varaa.default_language');
+
+        foreach ($this->multilingualAtrributes as $key) {
+            $data[$key] = (!empty($data[$key.'s'][ $defaultLanguage]))
+            ? $data[$key.'s'][ $defaultLanguage] : '';
+        }
+
+        $requiredFields = $this->getRequiredAttributes();
+
+        foreach ($requiredFields as $field) {
+            if(empty($data[$field]) && !empty($data[$field.'s'])) {
+                foreach ($data[$field.'s'] as $lang => $name) {
+                    if(!empty($name)) {
+                        $data[$field] = $name;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return $data;
+    }
 }

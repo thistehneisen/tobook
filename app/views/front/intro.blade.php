@@ -1,15 +1,17 @@
-@extends ('layouts.front')
+@extends ('layouts.default')
 
 @section('title')
     {{ trans('common.intro') }}
 @stop
 
-@section('css')
+@section('styles')
 {{ HTML::style(asset_path('core/styles/business2.css')) }}
 @stop
 
+@section('main-classes') nova-container @stop
+
 @section('content')
-<div class="header">
+<div class="nova-header">
     <div class="header-content">
         <h1>Tarvitsetko uusia asiakkaita?</h1>
         <p>Lisää yrityksesi Suomen johtavaan ajanvarausportaaliin!</p>
@@ -178,7 +180,7 @@
         <p>
             Olla edelläkävijä on itsensä haastamista, uuden oppimista ja tietoisten, mutta kannattavien riskien ottamista. Varaa.comin koko henkilökunta on sitoutunut olemaan tukenasi.
         </p>
-        <a class="btn btn-lg btn-orange" role="button">Rekisteröidy</a>
+        <a class="btn btn-lg btn-orange" href="{{ route('auth.register') }}" role="button">Rekisteröidy</a>
     </div>
 </div>
 @stop

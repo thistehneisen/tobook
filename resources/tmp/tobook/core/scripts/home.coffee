@@ -2,65 +2,36 @@ do ($ = jQuery) ->
   'use strict'
 
   $ ->
-    # Flashdeal modal
-    $fdModal = $ '#fd-modal'
-    $fdModal.modal show: false
+    # When user clicks on navbar, we'll ask for the current location
+    $ '#js-navbar'
+      .find 'a'
+      .on 'click', (e) ->
+        e.preventDefault()
+        $$ = $ @
+        $body = $ 'body'
+        lat = $body.data 'lat'
+        lng = $body.data 'lng'
 
-    $fdModal.changeContent = (content) ->
-      $fdModal.find 'div.modal-content'
-        .html content
-      return @
+        if (lat? and lng? and lat != '' and lng != '')
+          window.location = $$.prop 'href'
+        else
+          # Ask for location
+          success = (pos) ->
+            lat = pos.coords.latitude
+            lng = pos.coords.longitude
+            $.ajax
+              url: $body.data 'geo-url'
+              type: 'POST'
+              data:
+                lat: lat
+                lng: lng
+            .done ->
+              window.location = $$.prop 'href'
 
-    $fdModal.loading = (content) ->
-      div = $ '<div/>'
-        .addClass 'text-center'
-        .html '<i class="fa fa-spinner fa-spin fa-2x"></i>'
+          failed = ->
+            window.location = $$.prop 'href'
 
-      $fdModal.find 'div.modal-body'
-        .html div
-      return @
-
-    # When user clicks to view detail of a deal
-    $('a.btn-fd').on 'click', (e) ->
-      e.preventDefault()
-      $me = $ @
-
-      $fdModal.modal 'show'
-        .loading()
-
-      $.ajax url: $me.data 'url'
-        .done (content) ->
-          $fdModal.changeContent content
-
-    # When user clicks to add a deal into cart
-    $fdModal.on 'click', 'button.btn-fd-cart', (e) ->
-      e.preventDefault()
-      $me = $ @
-
-      $.ajax
-        url: $me.data 'url'
-        type: 'POST'
-        dataType: 'JSON'
-        data:
-          business_id: $me.data 'business-id'
-          deal_id: $me.data 'deal-id'
-      .done ->
-        $(document).trigger 'cart.reload', true
-        $fdModal.modal 'hide'
-      .fail (e) ->
-        if e.responseJSON.hasOwnProperty 'message'
-          div = $ '<div/>'
-            .addClass 'alert alert-danger'
-            .html e.responseJSON.message
-          $fdModal.find 'div.modal-body'
-            .html div
-
-    # Apply countdown
-    VARAA.applyCountdown $ 'a.countdown'
-
-    # Make boxes to have equal heights
-    VARAA.equalize '.available-slot .info'
-    VARAA.equalize '.list-group-item'
+          navigator.geolocation.getCurrentPosition success, failed, timeout: 10000
 
     # Prepare datetime picker for search form
     $ 'div.datetime-control'

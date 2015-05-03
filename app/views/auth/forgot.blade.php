@@ -1,5 +1,7 @@
 @extends ('layouts.default')
 
+@include('el.multimeta')
+
 @section('title')
     {{ trans('user.forgot_password_title') }}
 @stop

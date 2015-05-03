@@ -1,0 +1,66 @@
+.varaa-uploader .dnd-area {
+    color: #eee;
+    border: 3px dashed #eee;
+    padding: 70px 0;
+    margin-bottom: 10px;
+}
+
+.varaa-thumbnails {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    img {
+        max-width: 100px;
+    }
+
+    li {
+        float: left;
+        margin: 0 10px 10px 0;
+        position: relative;
+
+        &:hover .overlay {
+            visibility: visible;
+        }
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, .2);
+        width: 100%;
+        height: 100%;
+        vertical-align: middle;
+        border-radius: 5px;
+        visibility: hidden;
+        cursor: pointer;
+
+        i {
+            position: absolute;
+            top: 30%;
+            color: #fff;
+            left: 33%;
+        }
+
+        &.shown {
+            visibility: visible;
+        }
+    }
+}
+
+.varaa-uploader .btn-upload {
+    background: #fff;
+    border: 1px solid #cfcfcf;
+    color: #565656;
+    padding: 10px 15px;
+    display: inline-block;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+    float: left;
+
+    &:hover {
+        background-color: #f0f0f0;
+    }
+}

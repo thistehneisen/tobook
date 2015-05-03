@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="text-center">
-                <ul class="nav navbar-nav front-nav">
+                <ul id="js-navbar" class="nav navbar-nav front-nav">
                     @foreach ($categories as $category)
                     <li class="dropdown">
                         <a href="{{ $category->url }}" title="{{{ $category->name }}}">{{{ $category->name }}}

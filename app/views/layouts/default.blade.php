@@ -34,11 +34,23 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    @if (Request::is('embed/*') === false && App::environment() === 'prod')
+<!--Start of Zopim Live Chat Script-->
+<script type="text/javascript">
+window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
+d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+_.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute("charset","utf-8");
+$.src="//v2.zopim.com/?1b7hTzZJGpnsLXf2RNKlDaznUTHizLMr";z.t=+new Date;$.
+type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
+</script>
+<!--End of Zopim Live Chat Script-->
+    @endif
+
     {{ Settings::get('head_script') }}
 
     {{ Lomake::renderHead() }}
 </head>
-<body @if(!empty($hash)) data-hash="{{ $hash }}" @endif data-locale="{{ App::getLocale() }}" data-js-locale="{{ route('ajax.jslocale') }}">
+<body @if(!empty($hash)) data-hash="{{ $hash }}" @endif data-locale="{{ App::getLocale() }}" data-js-locale="{{ route('ajax.jslocale') }}" data-geo-url="{{ route('search.location') }}" data-lat="{{ $lat }}" data-lng="{{ $lng }}">
     @section('header')
     <header class="header">
         <nav class="main-nav container">
@@ -169,9 +181,11 @@
     <footer class="container-fluid footer hidden-print">
         <div class="container text-center">
             <p>&copy; {{ date('Y') }} <a href="{{{ Settings::get('copyright_url') }}}" target="_blank">{{{ Settings::get('copyright_name') }}}</a>
+            @if(App::environment() === 'prod' || App::environment() === 'local')
             | <a href="/about" target="_blank">{{ trans('common.about') }}</a>
             | <a href="/business" target="_blank">{{ trans('common.business') }}</a>
             | <a href="/intro" target="_blank">{{ trans('common.intro') }}</a>
+            @endif
             </p>
             <ul class="list-unstyled list-inline list-social-networks">
                 @foreach (Settings::group('social') as $name => $url)

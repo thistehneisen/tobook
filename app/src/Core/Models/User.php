@@ -410,7 +410,7 @@ class User extends ConfideUser implements SearchableInterface
         // Pull out business information
         if ($this->is_business && $this->business !== null) {
             $data['business'] = $this->business->name;
-        } elseif ($this->is_consumer && !$this->consumer) {
+        } elseif ($this->is_consumer && $this->consumer !== null) {
             $data['consumer'] = $this->consumer->name;
         }
 
