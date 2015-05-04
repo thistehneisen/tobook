@@ -19,6 +19,11 @@ class TreatmentType extends \App\Core\Models\Base
     ];
 
     /**
+     * @{@inheritdoc}
+     */
+    public $isSearchable = true;
+
+    /**
      * @see \App\Core\Models\Base
      */
     public $multilingualAtrributes = ['name', 'description'];
