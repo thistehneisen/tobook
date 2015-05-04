@@ -13,6 +13,7 @@ use Settings;
 use Str;
 use Util;
 use Session;
+use Log;
 
 class Business extends Base
 {
@@ -869,11 +870,10 @@ class Business extends Base
         }
 
         $params = [];
-        $params['index'] = ($searchIndexName) ? $searchIndexName : $this->getSearchIndexName();
+        $params['index'] = (!empty($searchIndexName)) ? $searchIndexName : $this->getSearchIndexName();
         $params['type']  = $this->getSearchIndexType();
         $params['id']    = $this->getSearchDocumentId();
         $params['body']  = $this->getSearchDocument();
-
         $provider = App::make('App\Search\ProviderInterface');
 
         return $provider->index($params);
