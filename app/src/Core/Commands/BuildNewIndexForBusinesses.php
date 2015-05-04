@@ -9,7 +9,7 @@ use App\Appointment\Models\MasterCategory;
 use Elasticsearch\Client;
 use App\Core\Models\User;
 use App\Core\Models\Business;
-use DB;
+use DB, Log;
 use Queue;
 
 class BuildNewIndexForBusinesses extends Command{
@@ -92,6 +92,7 @@ class BuildNewIndexForBusinesses extends Command{
         foreach ($items as $item) {
             // Push into queue to reindex
             $id = $item->id;
+            // Log::info('item : ' . $item->id);
             Queue::push(function ($job) use ($model, $id) {
                 $item = $model::find($id);
                 if ($item) {
