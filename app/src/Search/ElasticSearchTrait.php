@@ -193,12 +193,6 @@ trait ElasticSearchTrait
         $searchIndexName = (!empty($customSearchIndexName))
             ? $customSearchIndexName : $this->getSearchIndexName();
 
-<<<<<<< HEAD
-        // Default params by trait
-        $params = [
-            'index' => $searchIndexName,
-            'type'  => $this->getSearchIndexType(),
-=======
         $searchIndexType = (!empty($customSearchIndexName))
             ? str_singular($customSearchIndexName) : $this->getSearchIndexType();
 
@@ -206,7 +200,6 @@ trait ElasticSearchTrait
         $params = [
             'index' => $searchIndexName,
             'type'  => $searchIndexType,
->>>>>>> create-new-index-strategy-for-master-categories
             'size'  => Config::get('view.perPage'),
         ];
 
