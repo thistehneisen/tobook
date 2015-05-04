@@ -806,10 +806,7 @@ class Business extends Base
         return parent::serviceSearch($keyword, $options);
     }
 
-    /**
-     * @{@inheritdoc}
-     */
-    public function transformSearchResult($result)
+    public function customTransformSearchResult($result)
     {
         if (empty($result)) {
             return $result;
@@ -871,7 +868,7 @@ class Business extends Base
 
         $params = [];
         $params['index'] = (!empty($searchIndexName)) ? $searchIndexName : $this->getSearchIndexName();
-        $params['type']  = $this->getSearchIndexType();
+        $params['type']  = (!empty($searchIndexName)) ? str_singular($searchIndexName) : $this->getSearchIndexType();
         $params['id']    = $this->getSearchDocumentId();
         $params['body']  = $this->getSearchDocument();
         $provider = App::make('App\Search\ProviderInterface');
