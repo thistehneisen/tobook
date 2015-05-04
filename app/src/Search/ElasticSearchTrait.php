@@ -70,6 +70,40 @@ trait ElasticSearchTrait
     }
 
     /**
+     * Search data with provided keyword using parent index
+     *
+     * @param string $keyword
+     *
+     * @return Illuminate\Pagination\Paginator
+     */
+    public static function parentSearch($keyword, $model, array $options = [])
+    {
+        if ($model->isSearchable === true) {
+            try {
+                return $model->parentServiceSearch($keyword, $options, $model->getParentSearchIndexName());
+            } catch (\Exception $ex) {
+                // Silently failed baby
+                Log::error('Failed to search using service: '.$ex->getMessage());
+            }
+        }
+
+        return $model->databaseSearch($keyword);
+    }
+
+    public function parentServiceSearch($keyword, array $options = [], $customSearchIndexName = null)
+    {
+        $params = $this->buildSearchParams($keyword, $options, $customSearchIndexName);
+        $provider = App::make('App\Search\ProviderInterface');
+        $result = $provider->search($params);
+
+        return Paginator::make(
+            $this->transformSearchResult($result['hits']['hits']),
+            $result['hits']['total'],
+            $params['size']
+        );
+    }
+
+    /**
      * Allow model to hook on behaviors of internal search
      *
      * @param Illuminate\Database\Eloquent\QueryBuilder $query
@@ -82,7 +116,7 @@ trait ElasticSearchTrait
     }
 
     /**
-     * Search using ElasticSearch (obviously :|)
+     * Search using ElasticSearch
      *
      * @author Hung Nguyen <hung@varaa.com>
      *
@@ -151,11 +185,14 @@ trait ElasticSearchTrait
      *
      * @return array
      */
-    protected function buildSearchParams($keywords, array $options)
+    protected function buildSearchParams($keywords, array $options, $customSearchIndexName = null)
     {
+        $searchIndexName = (!empty($customSearchIndexName))
+            ? $customSearchIndexName : $this->getSearchIndexName();
+
         // Default params by trait
         $params = [
-            'index' => $this->getSearchIndexName(),
+            'index' => $searchIndexName,
             'type'  => $this->getSearchIndexType(),
             'size'  => Config::get('view.perPage'),
         ];
