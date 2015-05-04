@@ -34,6 +34,9 @@ $env = $app->detectEnvironment(function () {
     }
 });
 
+$env = $app->detectEnvironment(function () {
+    return 'yellowpage';
+});
 /*
 |--------------------------------------------------------------------------
 | Bind Paths
