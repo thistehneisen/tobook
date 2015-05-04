@@ -25,7 +25,7 @@ return [
     'destroy'               => 'Vymazať',
     'warning'               => 'Varovanie',
     'success'               => 'Úspech',
-    'errors'                => 'Chyby',
+    'errors'                => 'Nastala chyba',
     'thank_you'             => 'Ďakujeme!',
     'notice'                => 'Upozornenie',
     'welcome'               => 'Vitajte',
