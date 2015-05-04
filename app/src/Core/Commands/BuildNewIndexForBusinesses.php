@@ -70,7 +70,7 @@ class BuildNewIndexForBusinesses extends Command{
             ->select('businesses.id')
             ->distinct()
             ->get();
-        $this->updateIndex($items, $model, $treatment->getSearchIndexName());
+        $this->updateIndex($items, $model, $treatment->getParentSearchIndexName());
     }
 
     public function processMasterCategoryBusinessIndex($model, $masterCategory)
@@ -84,7 +84,8 @@ class BuildNewIndexForBusinesses extends Command{
             ->select('businesses.id')
             ->distinct()
             ->get();
-        $this->updateIndex($items, $model, $masterCategory->getSearchIndexName());
+
+        $this->updateIndex($items, $model, $masterCategory->getParentSearchIndexName());
     }
 
     public function updateIndex($items, $model, $searchIndexName)
@@ -93,7 +94,8 @@ class BuildNewIndexForBusinesses extends Command{
             // Push into queue to reindex
             $id = $item->id;
             // Log::info('item : ' . $item->id);
-            Queue::push(function ($job) use ($model, $id) {
+            // Log::info('Search Index Name : ' .  $searchIndexName);
+            Queue::push(function ($job) use ($model, $id, $searchIndexName) {
                 $item = $model::find($id);
                 if ($item) {
                     $item->updateSearchIndex($searchIndexName);

@@ -78,9 +78,11 @@ trait ElasticSearchTrait
      */
     public static function parentSearch($keyword, $model, array $options = [])
     {
+        $childModel = App::make(get_class(new static()));
+
         if ($model->isSearchable === true) {
             try {
-                return $model->parentServiceSearch($keyword, $options, $model->getParentSearchIndexName());
+                return $model->parentServiceSearch($keyword, $options, $model, $childModel);
             } catch (\Exception $ex) {
                 // Silently failed baby
                 Log::error('Failed to search using service: '.$ex->getMessage());
@@ -90,14 +92,15 @@ trait ElasticSearchTrait
         return $model->databaseSearch($keyword);
     }
 
-    public function parentServiceSearch($keyword, array $options = [], $customSearchIndexName = null)
+    public function parentServiceSearch($keyword, array $options = [], $parentModel, $childModel)
     {
+        $customSearchIndexName = $parentModel->getParentSearchIndexName();
         $params = $this->buildSearchParams($keyword, $options, $customSearchIndexName);
         $provider = App::make('App\Search\ProviderInterface');
         $result = $provider->search($params);
 
         return Paginator::make(
-            $this->transformSearchResult($result['hits']['hits']),
+            $childModel->customTransformSearchResult($result['hits']['hits']),
             $result['hits']['total'],
             $params['size']
         );
@@ -190,39 +193,54 @@ trait ElasticSearchTrait
         $searchIndexName = (!empty($customSearchIndexName))
             ? $customSearchIndexName : $this->getSearchIndexName();
 
+<<<<<<< HEAD
         // Default params by trait
         $params = [
             'index' => $searchIndexName,
             'type'  => $this->getSearchIndexType(),
+=======
+        $searchIndexType = (!empty($customSearchIndexName))
+            ? str_singular($customSearchIndexName) : $this->getSearchIndexType();
+
+        // Default params by trait
+        $params = [
+            'index' => $searchIndexName,
+            'type'  => $searchIndexType,
+>>>>>>> create-new-index-strategy-for-master-categories
             'size'  => Config::get('view.perPage'),
         ];
 
-        // Attach filter and query
-        $params['body']['query']['filtered'] = [
-            'filter' => $this->buildSearchFilter(),
-            'query' => $this->buildSearchQuery($keywords),
-        ];
+        if(!empty($keywords)) {
+            // Attach filter and query
+            $params['body']['query']['filtered'] = [
+                'filter' => $this->buildSearchFilter(),
+                'query' => $this->buildSearchQuery($keywords),
+            ];
 
-        // Sort the result
-        $sortParams = $this->buildSearchSortParams();
-        if (!empty($sortParams)) {
-            $params['body']['sort'] = $sortParams;
+            // Sort the result
+            $sortParams = $this->buildSearchSortParams();
+            if (!empty($sortParams)) {
+                $params['body']['sort'] = $sortParams;
+            }
+
+            // Set custom search params by model
+            $this->setCustomSearchParams();
+
+            if (!empty($options)) {
+                // This allows user to pass custom params for this request only
+                // Default params for next requests remain intact
+                $params = array_merge($params, $options);
+            } elseif (!empty($this->customSearchParams)) {
+                // If we don't have specific options for the request, and the model
+                // using this trait has set $this->customSearchParams via
+                // setCustomSearchParams(), we'll merge them.
+                $params = array_merge($params, $this->customSearchParams);
+            }
+        } else {
+            $params['body']['query'] = [
+                'match_all' => new \stdClass,
+            ];
         }
-
-        // Set custom search params by model
-        $this->setCustomSearchParams();
-
-        if (!empty($options)) {
-            // This allows user to pass custom params for this request only
-            // Default params for next requests remain intact
-            $params = array_merge($params, $options);
-        } elseif (!empty($this->customSearchParams)) {
-            // If we don't have specific options for the request, and the model
-            // using this trait has set $this->customSearchParams via
-            // setCustomSearchParams(), we'll merge them.
-            $params = array_merge($params, $this->customSearchParams);
-        }
-
         // Pagination
         $size = $params['size'];
         $params['from'] = Input::get('page', 1) * $size - $size;
