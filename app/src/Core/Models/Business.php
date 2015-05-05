@@ -808,11 +808,10 @@ class Business extends Base
 
     public function parentServiceSearch($keyword, array $options = [], $parentModel, $childModel)
     {
-        $this->isSearchByLocation = (!empty($options['isSearchByLocation']))
+        $childModel = App::make(get_class(new static()));
+        $childModel->isSearchByLocation = (!empty($options['isSearchByLocation']))
             ? (bool) $options['isSearchByLocation']
             : false;
-
-        $childModel = App::make(get_class(new static()));
 
         $this->keyword = $keyword;
 
