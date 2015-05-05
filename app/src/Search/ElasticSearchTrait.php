@@ -82,7 +82,7 @@ trait ElasticSearchTrait
 
         if ($model->isSearchable === true) {
             try {
-                return $model->parentServiceSearch($keyword, $options, $model, $childModel);
+                return $childModel->parentServiceSearch($keyword, $options, $model, $childModel);
             } catch (\Exception $ex) {
                 // Silently failed baby
                 Log::error('Failed to search using service: '.$ex->getMessage());
@@ -209,31 +209,32 @@ trait ElasticSearchTrait
                 'filter' => $this->buildSearchFilter(),
                 'query' => $this->buildSearchQuery($keywords),
             ];
-
-            // Sort the result
-            $sortParams = $this->buildSearchSortParams();
-            if (!empty($sortParams)) {
-                $params['body']['sort'] = $sortParams;
-            }
-
-            // Set custom search params by model
-            $this->setCustomSearchParams();
-
-            if (!empty($options)) {
-                // This allows user to pass custom params for this request only
-                // Default params for next requests remain intact
-                $params = array_merge($params, $options);
-            } elseif (!empty($this->customSearchParams)) {
-                // If we don't have specific options for the request, and the model
-                // using this trait has set $this->customSearchParams via
-                // setCustomSearchParams(), we'll merge them.
-                $params = array_merge($params, $this->customSearchParams);
-            }
         } else {
             $params['body']['query'] = [
                 'match_all' => new \stdClass,
             ];
         }
+
+        // Sort the result
+        $sortParams = $this->buildSearchSortParams();
+        if (!empty($sortParams)) {
+            $params['body']['sort'] = $sortParams;
+        }
+
+        // Set custom search params by model
+        $this->setCustomSearchParams();
+
+        if (!empty($options)) {
+            // This allows user to pass custom params for this request only
+            // Default params for next requests remain intact
+            $params = array_merge($params, $options);
+        } elseif (!empty($this->customSearchParams)) {
+            // If we don't have specific options for the request, and the model
+            // using this trait has set $this->customSearchParams via
+            // setCustomSearchParams(), we'll merge them.
+            $params = array_merge($params, $this->customSearchParams);
+        }
+
         // Pagination
         $size = $params['size'];
         $params['from'] = Input::get('page', 1) * $size - $size;

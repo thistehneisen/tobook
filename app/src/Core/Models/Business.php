@@ -806,6 +806,21 @@ class Business extends Base
         return parent::serviceSearch($keyword, $options);
     }
 
+    public function parentServiceSearch($keyword, array $options = [], $parentModel, $childModel)
+    {
+        $this->isSearchByLocation = (!empty($options['isSearchByLocation']))
+            ? (bool) $options['isSearchByLocation']
+            : false;
+
+        $childModel = App::make(get_class(new static()));
+
+        $this->keyword = $keyword;
+
+        $options = [];
+
+        return parent::parentServiceSearch($keyword, $options, $parentModel, $childModel);
+    }
+
     public function customTransformSearchResult($result)
     {
         if (empty($result)) {

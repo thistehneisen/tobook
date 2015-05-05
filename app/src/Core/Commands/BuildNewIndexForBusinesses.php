@@ -84,7 +84,6 @@ class BuildNewIndexForBusinesses extends Command{
             ->select('businesses.id')
             ->distinct()
             ->get();
-
         $this->updateIndex($items, $model, $masterCategory->getParentSearchIndexName());
     }
 
@@ -93,8 +92,6 @@ class BuildNewIndexForBusinesses extends Command{
         foreach ($items as $item) {
             // Push into queue to reindex
             $id = $item->id;
-            // Log::info('item : ' . $item->id);
-            // Log::info('Search Index Name : ' .  $searchIndexName);
             Queue::push(function ($job) use ($model, $id, $searchIndexName) {
                 $item = $model::find($id);
                 if ($item) {
@@ -154,7 +151,7 @@ class BuildNewIndexForBusinesses extends Command{
             }
         }
 
-        $params['body']['mappings'][$instance->getSearchIndexType()] = [
+        $params['body']['mappings'][str_singular($parentModel->getParentSearchIndexName())] = [
             '_source' => [
                 'enabled' => true
             ],
