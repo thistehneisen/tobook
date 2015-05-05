@@ -11,7 +11,7 @@ $head_script = "<script>
 
 return [
     'name'             => 'EnklareBokning',
-    'languages'        => ['sv', 'en', 'fi'],
+    'languages'        => ['sv', 'en'],
     'default_language' => 'sv',
     'default_coords'   => [59.32893, 18.06491], // Stockholm
     'meta'             => [
