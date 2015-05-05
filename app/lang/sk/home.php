@@ -95,7 +95,7 @@ return [
             '1'      => 'Krok 1',
             '2'      => 'Krok 2',
             '3'      => 'Krok 3',
-            '1_text' => 'Vyber službu',
+            '1_text' => 'Vyberte službu',
             '2_text' => 'Vyberte si prevádzku',
             '3_text' => 'Rezervujte si čas',
         ],
