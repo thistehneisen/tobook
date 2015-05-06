@@ -16,8 +16,11 @@ return [
         'calendar'      => 'Kalenteri',
     ],
     'services' => [
-        'heading'       => 'Palvelut',
-        'edit'          => 'Muokkaa palvelua',
+        'heading'            => 'Palvelut',
+        'edit'               => 'Muokkaa palvelua',
+        'custom_time'        => 'Palvelukestot',
+        'master_categories'  => 'Kategoriatyyppi',
+        'treatment_types'    => 'Palvelutyyppi',
         'categories' => [
             'all'           => 'Kaikki kategoriat',
             'add'           => 'Lisää kategoria',
