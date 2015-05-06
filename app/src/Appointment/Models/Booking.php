@@ -194,6 +194,24 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return $serviceInfo;
     }
 
+    /**
+     * Get deposit amount of an booking
+     * @see https://github.com/varaa/varaa/issues/491
+     * @return float
+     */
+    public function depositAmount()
+    {
+        $rate = Settings::get('deposit_rate');
+        $deposit = 0;
+        if (!empty($rate)) {
+            $services = $this->bookingServices();
+            foreach ($services as $service) {
+                $deposit += $service->price * $rate;
+            }
+        }
+        return $deposit;
+    }
+
     public function getFormTotalLength()
     {
         $hourText = (($this->total / 60) >= 2)

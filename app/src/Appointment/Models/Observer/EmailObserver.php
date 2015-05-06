@@ -68,6 +68,11 @@ class EmailObserver implements \SplObserver
         $body = str_replace('{Notes}', $subject->notes, $body);
         $body = str_replace('{CancelURL}', $cancelURL, $body);
         $body = str_replace('{Address}', $address, $body);
+
+        if (!empty($subject->depositAmount())) {
+            $body = str_replace('{Deposit}', $subject->depositAmount(), $body);
+        }
+
         return $body;
     }
 
