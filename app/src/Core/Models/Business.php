@@ -13,6 +13,7 @@ use Settings;
 use Str;
 use Util;
 use Session;
+use Log;
 
 class Business extends Base
 {
@@ -805,10 +806,21 @@ class Business extends Base
         return parent::serviceSearch($keyword, $options);
     }
 
-    /**
-     * @{@inheritdoc}
-     */
-    public function transformSearchResult($result)
+    public function parentServiceSearch($keyword, array $options = [], $parentModel, $childModel)
+    {
+        $childModel = App::make(get_class(new static()));
+        $childModel->isSearchByLocation = (!empty($options['isSearchByLocation']))
+            ? (bool) $options['isSearchByLocation']
+            : false;
+
+        $this->keyword = $keyword;
+
+        $options = [];
+
+        return parent::parentServiceSearch($keyword, $options, $parentModel, $childModel);
+    }
+
+    public function customTransformSearchResult($result)
     {
         if (empty($result)) {
             return $result;
@@ -859,5 +871,22 @@ class Business extends Base
         $this->customSearchParams = [
             'size' => 15
         ];
+    }
+
+    public function updateSearchIndex($searchIndexName = null)
+    {
+        // If this model is not searchable, return as soon as possible
+        if ($this->isSearchable === false) {
+            return;
+        }
+
+        $params = [];
+        $params['index'] = (!empty($searchIndexName)) ? $searchIndexName : $this->getSearchIndexName();
+        $params['type']  = (!empty($searchIndexName)) ? str_singular($searchIndexName) : $this->getSearchIndexType();
+        $params['id']    = $this->getSearchDocumentId();
+        $params['body']  = $this->getSearchDocument();
+        $provider = App::make('App\Search\ProviderInterface');
+
+        return $provider->index($params);
     }
 }
