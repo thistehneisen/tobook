@@ -15,6 +15,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         'date',
         'total',
         'total_price',
+        'deposit', // deposit payment feature
         'modify_time',
         'plustime',//from service employee
         'start_at',

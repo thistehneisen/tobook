@@ -200,6 +200,20 @@ class Cart extends \AppModel
         return round($total, 2);
     }
 
+    public function getTotalDepositAttribute()
+    {
+        $deposit = 0.0;
+        if ($this->details !== null) {
+            foreach ($this->details as $detail) {
+                if ($detail->model !== null) {
+                    $deposit += $detail->quantity * $detail->price;
+                }
+            }
+        }
+
+        return round($deposit, 2);
+    }
+
     public function getTotalItemsAttribute()
     {
         if ($this->details !== null) {
