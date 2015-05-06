@@ -72,5 +72,6 @@ return [
         //  Default is 30%
         //----------------------------------------------------------------------
         'commission_rate'    => ['type' => 'Text', 'default' => 0.3],
+        'deposit_rate'       => ['type' => 'Text', 'default' => 0.3],
     ]
 ];

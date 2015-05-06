@@ -78,6 +78,7 @@ return [
         'footer_contact_message' => 'Text to be included in every contact message of business', // @todo
         'social_google-plus'     => 'Google+', // @todo
         'default_paygate'        => 'The default paygate', // @todo
+        'deposit_rate'           => 'Deposit rate', // @todo
     ],
     'master-cats' => [
         'all'         => 'All master category',// @todo
