@@ -158,6 +158,27 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     }
 
     /**
+     * Return a FontAwesome icon to display in backend calendar
+     *
+     * @return string
+     */
+    public function getSourceIconAttribute()
+    {
+        // No icon for bookings made from backend calendar
+        if ($this->source === 'backend') {
+            return NULL;
+        }
+
+        // For bookings make from our consumer portal
+        if ($this->source === 'inhouse') {
+            return 'fa-user-plus';
+        }
+
+        // For bookings from layout 1/2/3 embeded in customer's website
+        return 'fa-globe';
+    }
+
+    /**
      * Generate service info message for sending mail, sms, cancel booking
      *
      * @return string
@@ -345,7 +366,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         //If resources are not enough, return false
         foreach ($result as $item) {
-            if($item->occupied >= $item->quantity) {
+            if ($item->occupied >= $item->quantity) {
                 return false;
             }
         }
@@ -927,6 +948,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $body  = str_replace('{Phone}', $this->consumer->phone, $body);
         $body  = str_replace('{Email}', $this->consumer->email, $body);
         $body  = str_replace('{Notes}', $this->notes, $body);
+
         return $body;
     }
 
@@ -945,6 +967,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         $filename = public_path() . '/tmp/' . 'isc_' . $this->startTime->format('YmdHis');
         file_put_contents($filename, $calendar->render());
+
         return $filename;
     }
 }
