@@ -340,9 +340,12 @@ return [
             'confirm_tokens_employee'                        => 'E-pasta teksts',
             'terms_enabled'                                  => 'Iespējot noteikumus',
             'default_nat_service'                            => 'Nākamais pieejamais pakalpojums pēc noklusējuma',
-            'min_distance'                                   => 'Min distance',
-            'max_distance'                                   => 'Max distance',
+            'min_distance'                                   => 'Min attālums',
+            'max_distance'                                   => 'Max attālums',
             'auto_select_employee'                           => 'Automātiski izvēlēties darbinieku',
+            'auto_expand_all_categories'                     => 'Automātiksi aizpildīt visas kategorijas',
+            'show_employee_request'                          => 'Laut izvēlēties darbinieku',
+            'factor'                                         => 'Factor'
         ],
         'style' => [
             'heading'                           => '',
