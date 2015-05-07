@@ -865,6 +865,46 @@ class Business extends Base
     /**
      * @{@inheritdoc}
      */
+    public function transformSearchResult($result)
+    {
+        if (empty($result)) {
+            return $result;
+        }
+        $users = new Collection();
+        foreach ($result as $row) {
+            $user = User::with('business')->find($row['_id']);
+            // Do not add hidden business into the result list
+            if ($user->business->is_hidden === true) {
+                continue;
+            }
+            if (isset($row['sort'][1])) {
+                $user->distance = $row['sort'][1];
+            }
+            $users->push($user);
+        }
+        // Sort to show business that do not disable booking widget
+        $users->sortBy(function ($item) {
+            return (bool) $item->asOptions->get('disable_booking') === true
+                ? 0
+                : 1;
+        });
+        if ($this->isSearchByLocation) {
+            // Sort by distance
+            $users->sortBy(function ($item) {
+                return $item->distance;
+            });
+        } else {
+            // Sort by address matching
+            $users->sortByDesc(function ($item) {
+                return similar_text($this->keyword, $item->business->full_address);
+            });
+        }
+        return $users->lists('business');
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
     protected function setCustomSearchParams()
     {
         // We'll show only 5 businesses by default
