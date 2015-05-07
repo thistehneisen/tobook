@@ -826,7 +826,7 @@ class Business extends Base
                 continue;
             }
             $user = User::with('business')->find($business->user->id);
-            if(empty($user)) {
+            if(empty($user) || !empty($user->deleted_at)) {
                 continue;
             }
             // Do not add hidden business into the result list
@@ -872,6 +872,11 @@ class Business extends Base
             //from Hung: Why we need to get User with business instead of get user from business?
             //e.g: $business = Business::find($id) --> $business->user;
             $user = User::with('business')->find($row['_id']);
+
+            if(!empty($user->deleted_at)){
+                continue;
+            }
+
             // Do not add hidden business into the result list
             if ($user->business->is_hidden === true) {
                 continue;
