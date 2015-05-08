@@ -14,6 +14,9 @@ class Cart extends \AppModel
     const STATUS_ABANDONED = 4; // cart was not touched in 15 minutes
     const SESSION_NAME     = 'current.cart';
 
+    // Deposit payment flag
+    protected $isDepositPayment = false;
+
     /**
      * Create a new cart item
      *
@@ -181,6 +184,16 @@ class Cart extends \AppModel
         $this->save();
 
         return $this;
+    }
+
+    public function setIsDepositPayment($isDepositPayment)
+    {
+        $this->isDepositPayment = $isDepositPayment;
+    }
+
+    public function isDepositPayment()
+    {
+        return $this->isDepositPayment;
     }
 
     //--------------------------------------------------------------------------
