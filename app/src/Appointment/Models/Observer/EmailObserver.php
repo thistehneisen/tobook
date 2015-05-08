@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Models\Observer;
 
-use App, View, Confide, Mail, Log;
+use App, View, Confide, Mail, Log, Settings;
 use Carbon\Carbon;
 
 class EmailObserver implements \SplObserver
@@ -69,7 +69,8 @@ class EmailObserver implements \SplObserver
         $body = str_replace('{CancelURL}', $cancelURL, $body);
         $body = str_replace('{Address}', $address, $body);
 
-        if (!empty($subject->depositAmount())) {
+        $depositPayment = (bool) Settings::get('deposit_payment');
+        if ($depositPayment && !empty($subject->depositAmount())) {
             $body = str_replace('{Deposit}', $subject->depositAmount(), $body);
         }
 
