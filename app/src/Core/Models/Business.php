@@ -720,12 +720,10 @@ class Business extends Base
         $query = [];
         $query['bool']['should'][]['match']['master_categories'] = $keywords;
 
-        if ($this->searchByCategory === false) {
-            $query['bool']['should'][]['match']['name']              = $keywords;
-            $query['bool']['should'][]['match']['categories']        = $keywords;
-            $query['bool']['should'][]['match']['description']       = $keywords;
-            $query['bool']['should'][]['match']['keywords']          = $keywords;
-        }
+        $query['bool']['should'][]['match']['name']              = $keywords;
+        $query['bool']['should'][]['match']['categories']        = $keywords;
+        $query['bool']['should'][]['match']['description']       = $keywords;
+        $query['bool']['should'][]['match']['keywords']          = $keywords;
 
         $location = Input::get('location');
         if (!empty($location)) {
@@ -793,10 +791,6 @@ class Business extends Base
             ? (bool) $options['isSearchByLocation']
             : false;
 
-        $this->searchByCategory = !empty($options['searchByCategory'])
-            ? (bool) $options['searchByCategory']
-            : false;
-
         $this->keyword = $keyword;
 
         //Remove this value to make sure it does not affect the buildSearchParams
@@ -822,7 +816,47 @@ class Business extends Base
 
     public function customTransformSearchResult($result)
     {
-       return $this->transformSearchResult($result);
+        if (empty($result)) {
+            return $result;
+        }
+        $users = new Collection();
+        foreach ($result as $row) {
+            $business = Business::find($row['_id']);
+            if(empty($business)) {
+                continue;
+            }
+            $user = User::with('business')->find($business->user->id);
+            if(empty($user) || !empty($user->deleted_at)) {
+                continue;
+            }
+            // Do not add hidden business into the result list
+            if ($user->business->is_hidden === true) {
+                continue;
+            }
+            if (isset($row['sort'][1])) {
+                $user->distance = $row['sort'][1];
+            }
+            $users->push($user);
+        }
+        // Sort to show business that do not disable booking widget
+        $users->sortBy(function ($item) {
+            return (bool) $item->asOptions->get('disable_booking') === true
+                ? 0
+                : 1;
+        });
+        if ($this->isSearchByLocation) {
+            // Sort by distance
+            $users->sortBy(function ($item) {
+                return $item->distance;
+            });
+        } else {
+            // Sort by address matching
+            $users->sortByDesc(function ($item) {
+                return similar_text($this->keyword, $item->business->full_address);
+            });
+        }
+
+        return $users->lists('business');
     }
 
     /**
@@ -835,7 +869,14 @@ class Business extends Base
         }
         $users = new Collection();
         foreach ($result as $row) {
+            //from Hung: Why we need to get User with business instead of get user from business?
+            //e.g: $business = Business::find($id) --> $business->user;
             $user = User::with('business')->find($row['_id']);
+
+            if(!empty($user->deleted_at)){
+                continue;
+            }
+
             // Do not add hidden business into the result list
             if ($user->business->is_hidden === true) {
                 continue;

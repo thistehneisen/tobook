@@ -1,6 +1,6 @@
 <?php namespace App\Cart;
 
-use Session, Config, Carbon\Carbon, Log, Event;
+use Session, Config, Carbon\Carbon, Log, Event, Settings;
 use App\Core\Models\User;
 use Illuminate\Support\Collection;
 
@@ -13,6 +13,9 @@ class Cart extends \AppModel
     const STATUS_CANCELLED = 3; // payment is cancelled
     const STATUS_ABANDONED = 4; // cart was not touched in 15 minutes
     const SESSION_NAME     = 'current.cart';
+
+    // Deposit payment flag
+    protected $isDepositPayment = false;
 
     /**
      * Create a new cart item
@@ -183,6 +186,16 @@ class Cart extends \AppModel
         return $this;
     }
 
+    public function setIsDepositPayment($isDepositPayment)
+    {
+        $this->isDepositPayment = $isDepositPayment;
+    }
+
+    public function isDepositPayment()
+    {
+        return $this->isDepositPayment;
+    }
+
     //--------------------------------------------------------------------------
     // ATTRIBUTES
     //--------------------------------------------------------------------------
@@ -198,6 +211,13 @@ class Cart extends \AppModel
         }
 
         return round($total, 2);
+    }
+
+    public function getDepositTotalAttribute()
+    {
+        $depositRate  = (double) Settings::get('deposit_rate');
+        $depositTotal = $this->total * $depositRate;
+        return round($depositTotal, 2);
     }
 
     public function getTotalItemsAttribute()

@@ -1,6 +1,7 @@
 <?php namespace App\Cart;
 
 use App;
+use Settings;
 
 class CartDetail extends \AppModel
 {
@@ -40,6 +41,12 @@ class CartDetail extends \AppModel
     public function getPriceAttribute()
     {
         return (double) $this->attributes['price'];
+    }
+
+    public function getDepositAttribute()
+    {
+        $depositRate  = (double) Settings::get('deposit_rate');
+        return $this->price * $depositRate;
     }
 
     public function getModelAttribute()

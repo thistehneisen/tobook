@@ -34,7 +34,14 @@ class PaymentSuccessListener
         // Update related bookings
         foreach ($bookingServices as $item) {
             if ($item->booking !== null) {
-                $item->booking->status = Booking::STATUS_PAID;
+
+                if(!$cart->isDepositPayment()) {
+                    $item->booking->status = Booking::STATUS_PAID;
+                } else {
+                    $item->booking->status = Booking::STATUS_CONFIRM;
+                    $item->booking->deposit = $cart->depositTotal;
+                }
+
                 $item->booking->save();
             }
         }

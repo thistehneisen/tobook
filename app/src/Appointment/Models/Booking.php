@@ -15,6 +15,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         'date',
         'total',
         'total_price',
+        'deposit', // deposit payment feature
         'modify_time',
         'plustime',//from service employee
         'start_at',
@@ -213,6 +214,24 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         $serviceInfo = str_replace('{end}', $end->toTimeString(), $serviceInfo);
 
         return $serviceInfo;
+    }
+
+    /**
+     * Get deposit amount of an booking
+     * @see https://github.com/varaa/varaa/issues/491
+     * @return float
+     */
+    public function depositAmount()
+    {
+        $rate = Settings::get('deposit_rate');
+        $deposit = 0;
+        if (!empty($rate)) {
+            $services = $this->bookingServices();
+            foreach ($services as $service) {
+                $deposit += $service->price * $rate;
+            }
+        }
+        return $deposit;
     }
 
     public function getFormTotalLength()

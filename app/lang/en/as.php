@@ -143,6 +143,7 @@ return [
         'cancel_reschedule' => 'Cancel reschedule',
         'own_customer'      => 'Own customer',
         'request_employee'  => 'Requesting for a specific employee',
+        'deposit'           => 'Deposit payment',
         'error'             => [
             'add_overlapped_booking'      => 'Overlapped booking time!',
             'insufficient_slots'          => 'There is no enough time slots for this booking!',
