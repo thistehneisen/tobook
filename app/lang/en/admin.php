@@ -82,6 +82,7 @@ return [
         'social_google-plus'     => 'Google+',
         'default_paygate'        => 'The default paygate',
         'deposit_rate'           => 'Deposit rate',
+        'deposit_payment'        => 'Deposit payment',
     ],
     'master-cats' => [
         'all'         => 'All master category',
