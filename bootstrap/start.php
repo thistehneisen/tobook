@@ -34,10 +34,6 @@ $env = $app->detectEnvironment(function () {
     }
 });
 
-$env = $app->detectEnvironment(function () {
-    return 'tobook';
-});
-
 /*
 |--------------------------------------------------------------------------
 | Bind Paths

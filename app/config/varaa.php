@@ -134,5 +134,11 @@ return [
         // Default paygate for the system
         //----------------------------------------------------------------------
         'default_paygate' => ['type' => 'Dropdown', 'values' => ['Paysera', 'Skrill'], 'default' => 'Skrill'],
+        //----------------------------------------------------------------------
+        //  Deposit payment feature for booking from CP
+        //  Default reate is 30%
+        //----------------------------------------------------------------------
+        'deposit_payment'    => ['type' => 'Radio', 'default' => false],
+        'deposit_rate'       => ['type' => 'Text',  'default' => 0.3],
     ]
 ];
