@@ -65,7 +65,7 @@
             : 'href="'.$user->asOptions['terms_url'].'" target="_blank"';
         ?>
         <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-6 {{ Form::errorCSS('is_day_off', $errors) }}">
+            <div class="col-sm-offset-2 col-sm-10 {{ Form::errorCSS('is_day_off', $errors) }}">
                 @if ((int) $user->asOptions['terms_enabled'] === 3)
                 <label>{{ Form::checkbox('terms', 0, 0,['id'=>'terms']); }} <a {{ $terms_class }}>{{ trans('as.bookings.terms_agree') }}</a></label>
                 @else
