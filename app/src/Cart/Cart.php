@@ -1,6 +1,6 @@
 <?php namespace App\Cart;
 
-use Session, Config, Carbon\Carbon, Log, Event;
+use Session, Config, Carbon\Carbon, Log, Event, Settings;
 use App\Core\Models\User;
 use Illuminate\Support\Collection;
 
@@ -200,18 +200,11 @@ class Cart extends \AppModel
         return round($total, 2);
     }
 
-    public function getTotalDepositAttribute()
+    public function getDepositTotalAttribute()
     {
-        $deposit = 0.0;
-        if ($this->details !== null) {
-            foreach ($this->details as $detail) {
-                if ($detail->model !== null) {
-                    $deposit += $detail->quantity * $detail->price;
-                }
-            }
-        }
-
-        return round($deposit, 2);
+        $depositRate  = (double) Settings::get('deposit_rate');
+        $depositTotal = $this->total * $depositRate;
+        return round($depositTotal, 2);
     }
 
     public function getTotalItemsAttribute()
