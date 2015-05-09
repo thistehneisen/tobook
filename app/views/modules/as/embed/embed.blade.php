@@ -2,6 +2,7 @@
 <html>
 <head>
     <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css">
     {{ HTML::style('//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css') }}
@@ -40,7 +41,7 @@
     <script src="{{ asset_path('as/scripts/'.$layout.'.js') }}"></script>
     @if($layout !== 'layout-1')
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function () {
             @if($layout === 'layout-2')
             VARAA.initLayout2({
                 isAutoSelectEmployee: <?php echo ($user->asOptions['auto_select_employee']) ? 'true' : 'false';?>
