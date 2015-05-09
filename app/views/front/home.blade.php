@@ -74,10 +74,10 @@
 @if (App::environment() === 'prod')
     <div class="row">
         <h2 class="text-center orange comfortaa">{{ trans('home.on_media') }}</h2>
-        <div class="col-sm-3 col-md-3"><img class="img-responsive" alt="ess" src="{{ asset_path('core/img/logos/ess_nimio.png') }}"></div>
-        <div class="col-sm-3 col-md-3"><img class="img-responsive" alt="kaupalehti" src="{{ asset_path('core/img/logos/kaupalehti.jpg') }}"></div>
-        <div class="col-sm-3 col-md-3"><img class="img-responsive" alt="keskisuomalainen" src="{{ asset_path('core/img/logos/ksml_logo.png') }}"></div>
-        <div class="col-sm-3 col-md-3"><img class="img-responsive" alt="lahtitieto" src="{{ asset_path('core/img/logos/lahtitieto.png') }}"></div>
+        <div class="col-sm-3 text-center"><img alt="homeensanomat" src="{{ asset_path('core/img/logos/homeensanomat.png') }}"></div>
+        <div class="col-sm-3 text-center"><img alt="ess" src="{{ asset_path('core/img/logos/ess_nimio.png') }}"></div>
+        <div class="col-sm-3 text-center"><img alt="keskisuomalainen" src="{{ asset_path('core/img/logos/ksml_logo.png') }}"></div>
+        <div class="col-sm-3 text-center"><img alt="kaupalehti" src="{{ asset_path('core/img/logos/kaupalehti.png') }}"></div>
     </div>
     <br>
 @endif
