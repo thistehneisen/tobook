@@ -254,6 +254,9 @@ class User extends ConfideUser implements SearchableInterface
         }
 
         $this->consumer()->associate($consumer)->save();
+
+        //Cheating because ConfideUser cannot update itself
+        DB::table('users')->where('id', $this->id)->update(array('consumer_id' => $consumer->id));
     }
 
     /**
