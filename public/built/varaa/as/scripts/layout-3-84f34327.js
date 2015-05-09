@@ -242,6 +242,7 @@
                     dataType: 'JSON',
                     data: {
                         service_id: dataStorage.serviceId,
+                        service_time: dataStorage.serviceTimeId,
                         employee_id: dataStorage.employeeId,
                         booking_date: dataStorage.date,
                         start_time: dataStorage.time,

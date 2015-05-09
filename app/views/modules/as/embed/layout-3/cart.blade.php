@@ -14,6 +14,7 @@
 </div>
 
 <input type="hidden" name="service_id" value="{{ $service->id }}">
+<input type="hidden" name="service_time" value="{{ $serviceTime->id }}">
 <input type="hidden" name="employee_id" value="{{ $employee->id }}">
 <input type="hidden" name="booking_date" value="{{ $date->toDateString() }}">
 <input type="hidden" name="start_time" value="{{ $time }}">
