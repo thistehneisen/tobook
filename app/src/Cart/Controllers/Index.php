@@ -70,6 +70,7 @@ class Index extends \AppController
 
         $depositPayment = (Input::get('submit') === 'deposit_payment');
         $total = ($depositPayment) ? $cart->depositTotal : $cart->total;
+        $cart->is_deposit_payment = $depositPayment;
 
         if ($cart === null || $total <= 0) {
             return Redirect::route('cart.checkout')
