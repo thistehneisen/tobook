@@ -8,7 +8,9 @@
 <div class="row">
     <div class="col-xs-12">
         <h1 class="comfortaa orange text-center">{{ trans('home.cart.checkout') }}</h1>
-
+        @if((bool) Settings::get('deposit_payment'))
+        <h4 class="comfortaa orange text-center">{{ trans('home.cart.deposit_message') }}</h4>
+        @endif
         {{ Form::open(['route' => 'cart.payment', 'role' => 'form']) }}
         <div class="form-group row">
             <div class="col-sm-8 col-sm-offset-2">
