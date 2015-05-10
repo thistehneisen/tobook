@@ -59,16 +59,20 @@ return [
         ]
     ],
     'cart' => [
-        'add'         => 'Lägg i varukorgen',
-        'items'       => 'produkt|produkter',
-        'empty'       => 'Tom',
-        'empty_long'  => 'Varukorgen är tom.',
-        'checkout'    => 'Kassa',
-        'total'       => 'Totalt',
-        'heading'     => 'Valda produkter',
-        'why_heading' => 'Varför ska jag registrera mig innan jag går till kassan?',
-        'why_content' => 'Som registrerad användare kan du enkelt se och hantera dina bokningar.',
-        'process'     => 'Gå till kassan',
+        'add'             => 'Lägg i varukorgen',
+        'items'           => 'produkt|produkter',
+        'empty'           => 'Tom',
+        'empty_long'      => 'Varukorgen är tom.',
+        'checkout'        => 'Kassa',
+        'total'           => 'Totalt',
+        'heading'         => 'Valda produkter',
+        'why_heading'     => 'Varför ska jag registrera mig innan jag går till kassan?',
+        'why_content'     => 'Som registrerad användare kan du enkelt se och hantera dina bokningar.',
+        'process'         => 'Gå till kassan',
+        'total_deposit'   => 'Total deposit',//@todo
+        'pay_deposit'     => 'Process to deposit',//@todo
+        'pay_whole'       => 'Process to payment',//@todo
+        'deposit_message' => 'You can choose to pay the deposit, or the total sum of the booking in order to continue.',//@todo
         'err'         => [
             'business' => 'Den här tjänsten är tyvärr inte tillåten för företag. Vänligen logga in med ditt personkonto.',
             'zero_amount' => 'Betalning misslyckades, då det totala värdet är 0 kr.',

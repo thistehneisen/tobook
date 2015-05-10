@@ -59,19 +59,20 @@ return [
         ]
     ],
     'cart' => [
-        'add'           => 'В корзину',
-        'items'         => 'item|items',
-        'empty'         => 'Пусто!',
-        'empty_long'    => 'Ваша корзина пуста.',
-        'checkout'      => 'Купить',
-        'total'         => 'Итого',
-        'heading'       => 'Вы выбрали',
-        'why_heading'   => 'Зачем регистрироваться перед оплатой?',
-        'why_content'   => 'Зарегистрированные пользователи могут легко управлять своими заказами и другими возможностями системы Todo.',
-        'process'       => 'Заплатить',
-        'total_deposit' => 'Total deposit',//@todo
-        'pay_deposit'   => 'Process to deposit',//@todo
-        'pay_whole'     => 'Process to payment',//@todo
+        'add'             => 'В корзину',
+        'items'           => 'item|items',
+        'empty'           => 'Пусто!',
+        'empty_long'      => 'Ваша корзина пуста.',
+        'checkout'        => 'Купить',
+        'total'           => 'Итого',
+        'heading'         => 'Вы выбрали',
+        'why_heading'     => 'Зачем регистрироваться перед оплатой?',
+        'why_content'     => 'Зарегистрированные пользователи могут легко управлять своими заказами и другими возможностями системы Todo.',
+        'process'         => 'Заплатить',
+        'total_deposit'   => 'Total deposit',//@todo
+        'pay_deposit'     => 'Process to deposit',//@todo
+        'pay_whole'       => 'Process to payment',//@todo
+        'deposit_message' => 'You can choose to pay the deposit, or the total sum of the booking in order to continue.',//@todo
         'err'         => [
             'business' => 'Мы пока не поддерживаем бизнес-профили при облате. Покдлючитесь, пожалуйста, как клиент.',
             'zero_amount' => 'Покупка невозможна, поскольку в вашей корзине ничего нет',
