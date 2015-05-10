@@ -16,6 +16,11 @@ class MasterCategory extends \App\Core\Models\Base
     public $fillable = ['name', 'description', 'order'];
 
     /**
+     * @{@inheritdoc}
+     */
+    public $isSearchable = true;
+
+    /**
      * @see \App\Core\Models\Base
      */
     public $multilingualAtrributes = ['name', 'description'];
@@ -79,14 +84,23 @@ class MasterCategory extends \App\Core\Models\Base
     public function getImageUrlAttribute()
     {
         $map = [
-            'hiukset'       => 'hair',
-            'karvanpoistot' => 'hairremoval',
-            'hieronnat'     => 'massage',
-            'jalkahoidot'   => 'feet',
-            'kasvohoidot'   => 'face',
-            'vartalohoidot' => 'body',
-            'kynnet'        => 'nails',
-            'ripset-kulmat' => 'eyelash',
+            'hiukset'          => 'hair',
+            'karvanpoistot'    => 'hairremoval',
+            'hieronnat'        => 'massage',
+            'jalkahoidot'      => 'feet',
+            'kasvohoidot'      => 'face',
+            'vartalohoidot'    => 'body',
+            'kynnet'           => 'nails',
+            'ripset-kulmat'    => 'eyelash',
+            // Swedish
+            'harvard'          => 'hair',
+            'fotvard'          => 'feet',
+            'massage'          => 'massage',
+            'ansiktsvard'      => 'face',
+            'harborttagning'   => 'hairremoval',
+            'nagelvard'        => 'nails',
+            'ogonbryn-fransar' => 'eyelash',
+            'kroppsvard'       => 'body',
         ];
 
         $icon = isset($map[$this->slug])

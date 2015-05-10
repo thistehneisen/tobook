@@ -70,6 +70,43 @@ trait ElasticSearchTrait
     }
 
     /**
+     * Search data with provided keyword using parent index
+     *
+     * @param string $keyword
+     *
+     * @return Illuminate\Pagination\Paginator
+     */
+    public static function parentSearch($keyword, $model, array $options = [])
+    {
+        $childModel = App::make(get_class(new static()));
+
+        if ($model->isSearchable === true) {
+            try {
+                return $childModel->parentServiceSearch($keyword, $options, $model, $childModel);
+            } catch (\Exception $ex) {
+                // Silently failed baby
+                Log::error('Failed to search using service: '.$ex->getMessage());
+            }
+        }
+
+        return $model->databaseSearch($keyword);
+    }
+
+    public function parentServiceSearch($keyword, array $options = [], $parentModel, $childModel)
+    {
+        $customSearchIndexName = $parentModel->getParentSearchIndexName();
+        $params = $this->buildSearchParams($keyword, $options, $customSearchIndexName);
+        $provider = App::make('App\Search\ProviderInterface');
+        $result = $provider->search($params);
+
+        return Paginator::make(
+            $childModel->customTransformSearchResult($result['hits']['hits']),
+            $result['hits']['total'],
+            $params['size']
+        );
+    }
+
+    /**
      * Allow model to hook on behaviors of internal search
      *
      * @param Illuminate\Database\Eloquent\QueryBuilder $query
@@ -82,7 +119,7 @@ trait ElasticSearchTrait
     }
 
     /**
-     * Search using ElasticSearch (obviously :|)
+     * Search using ElasticSearch
      *
      * @author Hung Nguyen <hung@varaa.com>
      *
@@ -151,20 +188,32 @@ trait ElasticSearchTrait
      *
      * @return array
      */
-    protected function buildSearchParams($keywords, array $options)
+    protected function buildSearchParams($keywords, array $options, $customSearchIndexName = null)
     {
+        $searchIndexName = (!empty($customSearchIndexName))
+            ? $customSearchIndexName : $this->getSearchIndexName();
+
+        $searchIndexType = (!empty($customSearchIndexName))
+            ? str_singular($customSearchIndexName) : $this->getSearchIndexType();
+
         // Default params by trait
         $params = [
-            'index' => $this->getSearchIndexName(),
-            'type'  => $this->getSearchIndexType(),
+            'index' => $searchIndexName,
+            'type'  => $searchIndexType,
             'size'  => Config::get('view.perPage'),
         ];
 
-        // Attach filter and query
-        $params['body']['query']['filtered'] = [
-            'filter' => $this->buildSearchFilter(),
-            'query' => $this->buildSearchQuery($keywords),
-        ];
+        if(!empty($keywords)) {
+            // Attach filter and query
+            $params['body']['query']['filtered'] = [
+                'filter' => $this->buildSearchFilter(),
+                'query' => $this->buildSearchQuery($keywords),
+            ];
+        } else {
+            $params['body']['query'] = [
+                'match_all' => new \stdClass,
+            ];
+        }
 
         // Sort the result
         $sortParams = $this->buildSearchSortParams();
@@ -290,6 +339,19 @@ trait ElasticSearchTrait
     public function getSearchIndexName()
     {
         return $this->getTable();
+    }
+
+
+    /**
+     * Unlike getSearchIndexName, this method return
+     * the name of index that contains index of its child elements
+     * e.g: Master categories contains many Busineses
+     * I couldn't come up with more meaningful name for this,
+     * please suggest if you have any better one.
+     */
+    public function getParentSearchIndexName()
+    {
+        return $this->getTable() . '_' . $this->id;
     }
 
     /**

@@ -417,7 +417,7 @@ class Users extends Base
 
         // Show only business name and email
         $this->crudOptions['indexFields'] = ['business_name', 'email'];
-        $users = User::onlyTrashed()->paginate(Config::get('view.perPage'));
+        $users = User::onlyTrashed()->orderBy('updated_at', 'ASC')->paginate(Config::get('view.perPage'));
 
         return $this->renderList($users);
     }
