@@ -88,14 +88,14 @@ return [
     'show_more'           => 'Show more', // @todo
     // How it works?
     'hiw' => [
-        'heading' => 'How it works?', // @todo
+        'heading' => 'Hur gör jag?',
         'steps' => [
-            '1'      => 'Step 1', // @todo
-            '2'      => 'Step 2', // @todo
-            '3'      => 'Step 3', // @todo
-            '1_text' => 'Select a service', // @todo
-            '2_text' => 'Select a business', // @todo
-            '3_text' => 'Book a time', // @todo
+            '1'      => 'Steg 1',
+            '2'      => 'Steg 2',
+            '3'      => 'Steg 3',
+            '1_text' => 'Välj tjänst',
+            '2_text' => 'Välj företag',
+            '3_text' => 'Boka tid',
         ],
     ],
     // Business
