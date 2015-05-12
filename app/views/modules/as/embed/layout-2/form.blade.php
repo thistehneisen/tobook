@@ -4,7 +4,7 @@
 </div>
 @endif
 
-{{ Form::open(['route' => 'as.embed.l2.confirm', 'role' => 'form', 'id' => 'frm-customer-info']) }}
+{{ Form::open(['route' => 'as.bookings.frontend.add', 'role' => 'form', 'id' => 'frm-customer-info', 'data-term-error-msg' => trans('as.bookings.error.terms')]) }}
     <div class="form-group">
         <label>{{ trans('as.bookings.first_name') }}*</label>
         {{ Form::text('first_name', (isset($booking_info['first_name'])) ? $booking_info['first_name'] : ''  , ['class' => 'form-control input-sm', 'id' => 'first_name']) }}
@@ -65,13 +65,14 @@
     @endif
 
     <input type="hidden" name="hash" value="{{ Input::get('hash') }}">
+    <input type="hidden" name="source" value="layout2">
     <input type="hidden" name="l" value="{{ Input::get('l') }}">
-    <input type="hidden" name="cartId" value="{{ Input::get('cartId') }}">
+    <input type="hidden" name="cart_id" value="{{ Input::get('cartId') }}">
 
     <div class="row">
         <div class="col-sm-12">
             <a href="#" class="btn btn-default btn-as-cancel">{{ trans('as.embed.back') }}</a>
-            <button type="submit" class="btn btn-success pull-right" id="btn-book">{{ trans('as.embed.book') }}</button>
+            <button type="submit" class="btn btn-success pull-right">{{ trans('as.embed.book') }}</button>
         </div>
     </div>
 {{ Form::close() }}

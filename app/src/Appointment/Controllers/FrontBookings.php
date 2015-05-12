@@ -91,7 +91,7 @@ class FrontBookings extends Bookings
             $source              = Input::get('source', '');
             $cart                = Cart::find($cartId);
             $isRequestedEmployee = Input::get('is_requested_employee', false);
-            $consumer = $cart->consumer;
+            $consumer            = $cart->consumer;
 
             $length = 0;
 
@@ -126,7 +126,7 @@ class FrontBookings extends Bookings
             $data['message'] = trans('as.embed.success');
         } catch (\Exception $ex) {
             $data['success'] = false;
-            $data['message'] = $ex->getMessage();
+            $data['message'] = trans('common.err.unexpected');
 
             return Response::json($data, 500);
         }
