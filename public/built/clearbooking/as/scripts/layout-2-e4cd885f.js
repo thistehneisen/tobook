@@ -329,6 +329,10 @@
                         $elSuccess.show();
 
                         $body.hideLoadding();
+
+                        setTimeout(function () {
+                            window.location = $this.data('success-url');
+                        }, 10000);
                     }
                 }).fail(function (data) {
                     alert(data.responseJSON.message);
