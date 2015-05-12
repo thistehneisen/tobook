@@ -132,6 +132,11 @@ class BackendReceptionist extends Receptionist
 
         $this->validateWithExistingBooking();
 
+        //Don't change booking source for those bookings from frontend + inhouse
+        if(!empty($booking->source) && $booking->source !== $this->getSource()) {
+            $this->setSource($booking->source);
+        }
+
         $booking->fill([
             'date'        => $date,
             'start_at'    => $startTime->toTimeString(),
