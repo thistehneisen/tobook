@@ -4,7 +4,7 @@
 </div>
 @endif
 
-{{ Form::open(['route' => 'as.embed.checkout.confirm', 'role' => 'form', 'id' => 'as-form-checkout']) }}
+{{ Form::open(['route' => 'as.bookings.frontend.add', 'role' => 'form', 'id' => 'as-form-checkout', 'data-success-url' => route('as.embed.embed', ['hash'=> Input::get('hash'), 'l' => Input::get('l')])]) }}
     <div class="form-group">
         <label>{{ trans('as.bookings.first_name') }}*</label>
         {{ Form::text('first_name', (isset($booking_info['first_name'])) ? $booking_info['first_name'] : ''  , ['class' => 'form-control input-sm', 'id' => 'first_name']) }}
@@ -50,13 +50,14 @@
     @endif
     <input type="hidden" name="hash" value="{{ Input::get('hash') }}">
     <input type="hidden" name="l" value="{{ Input::get('l') }}">
-    <input type="hidden" name="serviceId" value="{{ Input::get('serviceId') }}">
-    <input type="hidden" name="serviceTimeId" value="{{ Input::get('serviceTimeId') }}">
-    <input type="hidden" name="employeeId" value="{{ Input::get('employeeId') }}">
+    <input type="hidden" name="service_id" value="{{ Input::get('serviceId') }}">
+    <input type="hidden" name="service_time_id" value="{{ Input::get('serviceTimeId') }}">
+    <input type="hidden" name="employee_id" value="{{ Input::get('employeeId') }}">
     <input type="hidden" name="date" value="{{ Input::get('date') }}">
     <input type="hidden" name="time" value="{{ Input::get('time') }}">
-    <input type="hidden" name="cartId" value="{{ Input::get('cartId') }}">
+    <input type="hidden" name="cart_id" value="{{ Input::get('cartId') }}">
     <input type="hidden" name="inhouse" value="{{ Input::get('inhouse') }}">
+    <input type="hidden" name="source" value="{{ Input::get('src', 'layout3') }}">
 
     @if ((int) $user->asOptions['terms_enabled'] > 1)
         <?php
@@ -82,7 +83,8 @@
     @endif
 
     <div class="form-group">
-        <button type="submit" id="btn-checkout-submit" class="btn btn-success">{{ trans('common.continue') }}</button>
+        <button type="submit" id="btn-checkout-submit" class="btn btn-success">{{ trans('as.embed.book') }}</button>
+        <span class="text-success"></span>
         <span class="as-loading">
             <i class="glyphicon glyphicon-refresh text-info"></i> {{ trans('as.embed.loading') }}
         </span>

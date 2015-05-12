@@ -4,10 +4,6 @@ use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
 use App\Appointment\Models\Employee;
 use App\Appointment\Models\ExtraService;
-use App\Appointment\Models\Service;
-use App\Appointment\Models\ServiceTime;
-use App\Appointment\Models\Observer\EmailObserver;
-use App\Appointment\Models\Observer\SmsObserver;
 use Exception;
 
 class FrontendReceptionist extends Receptionist
@@ -29,6 +25,7 @@ class FrontendReceptionist extends Receptionist
     public function getEndTime()
     {
         $this->endTime = $this->getStartTime()->copy()->addMinutes($this->getLength());
+
         return $this->endTime;
     }
 
@@ -47,7 +44,6 @@ class FrontendReceptionist extends Receptionist
         $this->validateMinMaxDistance();
     }
 
-
     /**
      * Validate booking date with min and max distance
      * @see https://github.com/varaa/varaa/issues/192
@@ -55,15 +51,15 @@ class FrontendReceptionist extends Receptionist
     public function validateMinMaxDistance()
     {
         $today = Carbon::today();
-        $minDistance = (int)$this->user->asOptions['min_distance'];
-        $maxDistance = (int)$this->user->asOptions['max_distance'];
+        $minDistance = (int) $this->user->asOptions['min_distance'];
+        $maxDistance = (int) $this->user->asOptions['max_distance'];
 
         $start  = $today->copy()->addDays($minDistance);
         $final  = ($maxDistance)
             ? $today->copy()->addDays($maxDistance)
             : $today->copy()->addDays(3650);
 
-        if($this->getStartTime()->lt($start)) {
+        if ($this->getStartTime()->lt($start)) {
             throw new Exception(trans('as.bookings.error.before_min_distance'), 1);
         }
 
@@ -98,7 +94,7 @@ class FrontendReceptionist extends Receptionist
             'source'      => $this->getSource()
         ]);
 
-        if($this->getSource() !== 'inhouse') {
+        if ($this->getSource() !== 'inhouse' && $this->consumer !== null) {
             $booking->consumer()->associate($this->consumer);
         }
 
