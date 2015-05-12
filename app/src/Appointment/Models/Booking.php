@@ -216,6 +216,19 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return $serviceInfo;
     }
 
+    public function getServiceDescription()
+    {
+        $description = '';
+        if (!empty($this->bookingServices()->first()->serviceTime->id)) {
+            $serviceTime = $this->bookingServices()->first()->serviceTime;
+            $description = $serviceTime->description;
+        } else {
+            $service = $this->bookingServices()->first()->service;
+            $description = $service->description;
+        }
+        return $description;
+    }
+
     /**
      * Get deposit amount of an booking
      * @see https://github.com/varaa/varaa/issues/491
