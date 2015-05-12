@@ -278,7 +278,7 @@
             });
 
             // When user submits the confirmation form
-            $form.on('submit', '#as-form-confirm', function (e) {
+            $form.on('submit', '#as-form-checkout', function (e) {
                 e.preventDefault();
                 var $this = $(this),
                     data = $this.serialize(),
