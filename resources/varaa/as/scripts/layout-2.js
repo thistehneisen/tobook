@@ -324,9 +324,7 @@
                     dataType: 'JSON',
                 }).done(function (data) {
                     if (data.success === true) {
-                        $elCheckout.hide();
-                        $elSuccess.find('p').html(data.message);
-                        $elSuccess.show();
+                        $('#as-overlay-message').show().html(data.message);
 
                         $body.hideLoadding();
 
