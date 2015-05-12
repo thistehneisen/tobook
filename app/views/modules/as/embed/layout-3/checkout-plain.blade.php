@@ -4,7 +4,7 @@
 </div>
 @endif
 
-{{ Form::open(['route' => 'as.bookings.frontend.add', 'role' => 'form', 'id' => 'as-form-checkout']) }}
+{{ Form::open(['route' => 'as.bookings.frontend.add', 'role' => 'form', 'id' => 'as-form-checkout', 'data-success-url' => route('as.embed.embed', ['hash'=> Input::get('hash'), 'l' => Input::get('l')])]) }}
     <div class="form-group">
         <label>{{ trans('as.bookings.first_name') }}*</label>
         {{ Form::text('first_name', (isset($booking_info['first_name'])) ? $booking_info['first_name'] : ''  , ['class' => 'form-control input-sm', 'id' => 'first_name']) }}

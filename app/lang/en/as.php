@@ -248,7 +248,7 @@ return [
         'sv_version'       => 'Swedish',
         'book'             => 'Book',
         'loading'          => 'Now loading&hellip;',
-        'success'          => 'Booking was placed. Thank you.',
+        'success'          => 'Booking was placed. You will be redirected to the front page in 10 seconds.',
         'confirm'          => 'Confirm booking',
         'layout_2'         => [
             'select_service'      => 'Choose service and date',

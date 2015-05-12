@@ -321,6 +321,9 @@
                         // Hide loading
                         loading.hide();
                         submit.siblings('.text-success').text(e.message);
+                        setTimeout(function () {
+                            window.location = $this.data('success-url');
+                        }, 10000);
                     }
                 }).fail(fnFail);
             });
