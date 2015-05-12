@@ -325,14 +325,19 @@
                 }).done(function (data) {
                     if (data.success === true) {
                         $elCheckout.hide();
-                        $elSuccess.find('p').text(data.message);
+                        $elSuccess.find('p').html(data.message);
                         $elSuccess.show();
 
                         $body.hideLoadding();
 
-                        setTimeout(function () {
-                            window.location = $this.data('success-url');
-                        }, 10000);
+                        var counter = 9;
+                        var id = setInterval(function () {
+                            $('#as-counter').html(counter);
+                            if (counter-- === 0) {
+                                clearInterval(id);
+                                window.location = $this.data('success-url');
+                            }
+                        }, 1000);
                     }
                 }).fail(function (data) {
                     alert(data.responseJSON.message);

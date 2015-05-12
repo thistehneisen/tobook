@@ -248,7 +248,7 @@ return [
         'sv_version'       => 'Swedish',
         'book'             => 'Book',
         'loading'          => 'Now loading&hellip;',
-        'success'          => 'Booking was placed. You will be redirected to the front page in 10 seconds.',
+        'success'          => 'Booking was placed. You will be redirected to the front page in <span id="as-counter">10</span> seconds.',
         'success_simple'   => 'Booking was placed. Thank you.',
         'confirm'          => 'Confirm booking',
         'layout_2'         => [
