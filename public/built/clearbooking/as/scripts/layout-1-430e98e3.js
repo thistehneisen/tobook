@@ -209,9 +209,10 @@
                 dataType: 'json'
             }).done(function (data) {
                 if (data.success) {
-                    alertify.alert('Message', data.message, function () {
+                    alertify.alert('Message', data.message);
+                    setTimeout(function () {
                         window.location = $this.data('success-url');
-                    });
+                    }, 10000);
                 }
             }).fail(function (data) {
                 alertify.alert('Error', data.responseJSON.message);
