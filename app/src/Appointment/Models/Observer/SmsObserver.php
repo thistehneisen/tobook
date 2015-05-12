@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Models\Observer;
 
-use App, View, Confide, Sms, Log, Config;
+use App, View, Confide, Sms, Log, Config, Settings;
 use Carbon\Carbon;
 
 class SmsObserver implements \SplObserver {
@@ -98,6 +98,11 @@ class SmsObserver implements \SplObserver {
         $msg = str_replace('{Services}', $this->serviceInfo, $msg);
         $msg = str_replace('{CancelURL}', $cancelURL, $msg);
         $msg = str_replace('{Address}', $address, $msg);
+
+        $depositPayment = (bool) Settings::get('deposit_payment');
+        if ($depositPayment && !empty($subject->depositAmount())) {
+            $body = str_replace('{Deposit}', $subject->depositAmount(), $msg);
+        }
 
         Sms::send(Config::get('sms.from'), $subject->consumer->phone, $msg, $this->code);
     }

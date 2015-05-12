@@ -71,6 +71,12 @@ return [
         //  The commission rate that takes from businesses
         //  Default is 30%
         //----------------------------------------------------------------------
-        'commission_rate'    => ['type' => 'Text', 'default' => 0.3],
+        'commission_rate'    => ['type' => 'Text',  'default' => 0.3],
+        //----------------------------------------------------------------------
+        //  Deposit payment feature for booking from CP
+        //  Default reate is 30%
+        //----------------------------------------------------------------------
+        'deposit_payment'    => ['type' => 'Radio', 'default' => false],
+        'deposit_rate'       => ['type' => 'Text',  'default' => 0.3],
     ]
 ];

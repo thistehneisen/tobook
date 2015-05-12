@@ -1,7 +1,7 @@
 <?php namespace App\Cart\Controllers;
 
-use Cart, Response, Lang, Confide, Redirect, Session, Payment, Event;
-use Log;
+use Cart, Response, Lang, Confide, Redirect, Session, Payment, Event, Settings;
+use Log, Input;
 
 class Index extends \AppController
 {
@@ -68,7 +68,11 @@ class Index extends \AppController
     {
         $cart = Cart::current();
 
-        if ($cart === null || $cart->total <= 0) {
+        $depositPayment = (Input::get('submit') === 'deposit_payment');
+        $total = ($depositPayment) ? $cart->depositTotal : $cart->total;
+        $cart->is_deposit_payment = $depositPayment;
+
+        if ($cart === null || $total <= 0) {
             return Redirect::route('cart.checkout')
                 ->withErrors($this->errorMessageBag(trans('home.cart.err.zero_amount')), 'top');
         }
@@ -93,7 +97,7 @@ class Index extends \AppController
         $cart->save();
 
         $goToPaygate = true;
-        return Payment::redirect($cart, $cart->total, $goToPaygate);
+        return Payment::redirect($cart, $total, $goToPaygate);
     }
 
     /**

@@ -141,6 +141,7 @@ return [
         'cancel_reschedule' => 'Отменить обновление календаря',
         'own_customer'      => 'Свой клиент',
         'request_employee'  => 'Запрос конкретного работника',
+        'deposit'           => 'Deposit payment', //@todo
         'error'             => [
             'add_overlapped_booking'      => 'Время заказа перекрывается!',
             'insufficient_slots'          => 'Для этого заказа не хватает свободных "окон"!',
