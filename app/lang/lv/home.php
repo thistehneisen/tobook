@@ -60,16 +60,20 @@ return [
         ]
     ],
     'cart' => [
-        'add'         => 'Pievienot grozam',
-        'items'       => '|pakalpojumi|pakalpojums',
-        'empty'       => 'Tukšs',
-        'empty_long'  => 'Jūsu rezervāciju saraksts ir tukšs.',
-        'checkout'    => 'Pirkt',
-        'total'       => 'Kopā',
-        'heading'     => 'Izvēlētie produkti',
-        'why_heading' => 'Kādēļ pirms izrakstīšanās vajadzētu reģistrēties?',
-        'why_content' => 'Reģistrētie lietotāji var ērti pārlūkot un organizēt savas rezervācijas, kā arī izmantot citas ToBook.lv piedāvātās iespējas.',
-        'process'     => 'Pāriet uz maksājumu lapu',
+        'add'             => 'Pievienot grozam',
+        'items'           => '|pakalpojumi|pakalpojums',
+        'empty'           => 'Tukšs',
+        'empty_long'      => 'Jūsu rezervāciju saraksts ir tukšs.',
+        'checkout'        => 'Pirkt',
+        'total'           => 'Kopā',
+        'heading'         => 'Izvēlētie produkti',
+        'why_heading'     => 'Kādēļ pirms izrakstīšanās vajadzētu reģistrēties?',
+        'why_content'     => 'Reģistrētie lietotāji var ērti pārlūkot un organizēt savas rezervācijas, kā arī izmantot citas ToBook.lv piedāvātās iespējas.',
+        'process'         => 'Pāriet uz maksājumu lapu',
+        'total_deposit'   => 'Total deposit',//@todo
+        'pay_deposit'     => 'Process to deposit',//@todo
+        'pay_whole'       => 'Process to payment',//@todo
+        'deposit_message' => 'You can choose to pay the deposit, or the total sum of the booking in order to continue.',//@todo
         'err'         => [
             'business' => 'Šobrīd nepiedāvājam iespēju izmantot nereģistrētu biznesa kontu. Lūdzu, ienāciet sistēmā ar savu reģistrēto lietotājvārdu.',
             'zero_amount' => 'Maksājums nav iespējams, jo Jūsu rezervāciju sarakstā nav pasūtījumu.',

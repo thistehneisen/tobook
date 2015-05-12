@@ -246,6 +246,14 @@
                                     {{ Form::text('total_price', isset($totalPrice) ? $totalPrice : '', ['class' => 'form-control input-sm', 'id' => 'total_price', 'disabled'=>'disabled']) }}
                                 </div>
                             </div>
+                            @if(Settings::get('deposit_payment'))
+                            <div class="form-group row">
+                                <label for="deposit" class="col-sm-4 control-label">{{ trans('as.bookings.deposit') }}</label>
+                                <div class="col-sm-8">
+                                    {{ Form::text('total_price', isset($booking) ? $booking->deposit : '0', ['class' => 'form-control input-sm', 'id' => 'total_price', 'disabled'=>'disabled']) }}
+                                </div>
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
