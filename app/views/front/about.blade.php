@@ -27,21 +27,23 @@
             <div class="row">
                 <div class="col-lg-4 col-md-4">
                     <div class="jan-cell">
+                        <i class="fa fa-level-up fa-3x"></i>
                         <h2>Missio</h2>
-                      <p>Yleensä yritykset syyttävät
-                    taloustilannetta tai muita tekijöitä
-                    ongelmistaa. Isoin yksittäinen haaste
-                    jota ei mainita ääneen on
-                    digitalisoituminen.</p>
+                        <p>Yleensä yritykset syyttävät
+                        taloustilannetta tai muita tekijöitä
+                        ongelmistaa. Isoin yksittäinen haaste
+                        jota ei mainita ääneen on
+                        digitalisoituminen.</p>
 
-                    <p>Me haluamme auttaa kauneusalan
-                    yrityksiä digitalisoitumisen murroksessa.
-                    Me tarjoamme sinulle kaikki
-                    välineet sähköiseen liiketoimintaan!</p>
+                        <p>Me haluamme auttaa kauneusalan
+                        yrityksiä digitalisoitumisen murroksessa.
+                        Me tarjoamme sinulle kaikki
+                        välineet sähköiseen liiketoimintaan!</p>
                   </div>
                 </div>
                 <div class="col-lg-4 col-md-4">
                     <div class="jan-cell">
+                        <i class="fa fa-question fa-3x"></i>
                         <h2>Keitä me olemme</h2>
                         <p>Varaa.comin takana on joukko nuoria
                         yrittäjiä jotka ymmärtävät
@@ -55,6 +57,7 @@
                </div>
                 <div class="col-lg-4 col-md-4">
                     <div class="jan-cell">
+                        <i class="fa fa-phone fa-3x"></i>
                         <h2>Yhteystiedot</h2>
                         <p>Varaa.com Digital Oy<br/>
                         Kirkonkyläntie 3A<br/>
