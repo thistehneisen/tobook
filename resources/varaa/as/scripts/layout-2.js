@@ -270,22 +270,6 @@
                 });
             });
 
-            // When user submits information form
-            $elCheckout.on('submit', '#frm-customer-info', function (e) {
-                e.preventDefault();
-                var $this = $(this);
-
-                $body.showLoading();
-                $.ajax({
-                    url: $this.attr('action'),
-                    type: $this.attr('method'),
-                    data: $this.serialize()
-                }).done(function (data) {
-                    $body.hideLoadding();
-                    $elCheckout.find('#as-frm-confirm').html(data);
-                });
-            });
-
             // When user confirms booking
             $elCheckout.on('submit', '#frm-confirm', function (e) {
                 e.preventDefault();
@@ -321,14 +305,38 @@
                 $('#terms_body').slideToggle();
             });
 
-            $elCheckout.on('click', '#btn-book', function (e) {
+            $elCheckout.on('submit', '#frm-customer-info', function (e) {
                 e.preventDefault();
-                var term_enabled = parseInt($(this).data('term-enabled'), 10);
+                var $this = $(this);
+
                 //yes and required
-                if (term_enabled === 3 && !$('#terms').is(':checked')) {
-                    return alertify.alert($(this).data('term-error-msg'));
+                var term = $this.find('input[name=terms]');
+                if (term.length && !term.is(':checked')) {
+                    alert($(this).data('term-error-msg'));
+                    return;
                 }
-                $('#frm-customer-info').submit();
+
+                $body.showLoading();
+                $.ajax({
+                    url: $this.attr('action'),
+                    type: $this.attr('method'),
+                    data: $this.serialize(),
+                    dataType: 'JSON',
+                }).done(function (data) {
+                    if (data.success === true) {
+                        $elCheckout.hide();
+                        $elSuccess.find('p').text(data.message);
+                        $elSuccess.show();
+
+                        $body.hideLoadding();
+
+                        setTimeout(function () {
+                            window.location = $this.data('success-url');
+                        }, 10000);
+                    }
+                }).fail(function (data) {
+                    alert(data.responseJSON.message);
+                });
             });
         }
     });
