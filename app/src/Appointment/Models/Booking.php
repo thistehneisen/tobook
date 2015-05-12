@@ -216,7 +216,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return $serviceInfo;
     }
 
-    public function getServiceDescription()
+    public function getServicesDescription()
     {
         $description = '';
         if (!empty($this->bookingServices()->first()->serviceTime->id)) {
