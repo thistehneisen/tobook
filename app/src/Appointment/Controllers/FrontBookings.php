@@ -93,6 +93,12 @@ class FrontBookings extends Bookings
             $isRequestedEmployee = Input::get('is_requested_employee', false);
             $consumer            = $cart->consumer;
 
+            if ($consumer === null) {
+                $consumer    = Consumer::handleConsumer(Input::all());
+                $cart->notes = Input::get('notes');
+                $cart->consumer()->associate($consumer)->save();
+            }
+
             $length = 0;
 
             $decoded = Hashids::decrypt($hash);
