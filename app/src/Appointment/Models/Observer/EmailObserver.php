@@ -61,6 +61,7 @@ class EmailObserver implements \SplObserver
             $subject->consumer->postcode);
 
         $body = str_replace('{Services}', $this->serviceInfo, $body);
+        $body = str_replace('{ServicesDescription}', $subject->getServicesDescription(), $body);
         $body = str_replace('{Name}',$subject->consumer->name, $body);
         $body = str_replace('{BookingID}', $subject->uuid, $body);
         $body = str_replace('{Phone}', $subject->consumer->phone, $body);
