@@ -123,7 +123,9 @@ class FrontBookings extends Bookings
             }
 
             $data['success'] = true;
-            $data['message'] = trans('as.embed.success');
+            $data['message'] = (Input::get('l') === '3' && $source === 'inhouse')
+                ? trans('as.embed.success_simple')
+                : trans('as.embed.success');
         } catch (\Exception $ex) {
             $data['success'] = false;
             $data['message'] = trans('common.err.unexpected');

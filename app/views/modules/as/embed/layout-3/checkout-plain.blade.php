@@ -57,7 +57,7 @@
     <input type="hidden" name="time" value="{{ Input::get('time') }}">
     <input type="hidden" name="cart_id" value="{{ Input::get('cartId') }}">
     <input type="hidden" name="inhouse" value="{{ Input::get('inhouse') }}">
-    <input type="hidden" name="source" value="{{ Input::get('inhouse') === '0' ? 'layout3' : 'inhouse' }}">
+    <input type="hidden" name="source" value="{{ Input::get('src', 'layout3') }}">
 
     @if ((int) $user->asOptions['terms_enabled'] > 1)
         <?php

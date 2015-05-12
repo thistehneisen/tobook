@@ -284,6 +284,7 @@
                     data = $this.serialize(),
                     loading = $this.find('.as-loading'),
                     submit = $this.find('button[type=submit]'),
+                    src = $this.find('input[name=source]').val(),
                     fnFail = function (e) {
                         var res = e.responseJSON,
                             message = $this.find('div.error-msg').text();
@@ -321,9 +322,12 @@
                         // Hide loading
                         loading.hide();
                         submit.siblings('.text-success').text(e.message);
-                        setTimeout(function () {
-                            window.location = $this.data('success-url');
-                        }, 10000);
+                        console.log(src);
+                        if (src !== 'inhouse') {
+                            setTimeout(function () {
+                                window.location = $this.data('success-url');
+                            }, 10000);
+                        }
                     }
                 }).fail(fnFail);
             });
