@@ -13,6 +13,14 @@
     <script>
 $(function () {
     $('select.select2').select2();
+    $('#status').change(function(e) {
+        console.log($(this).val());
+        if($(this).val() == 1) {//freelancer
+            $('.freelancer').show();
+        } else {
+            $('.freelancer').hide();
+        }
+    });
 });
     </script>
 @stop
@@ -82,9 +90,27 @@ $(function () {
             </div>
         </div>
         <div class="form-group">
+            <label class="col-sm-2 control-label">{{  trans('as.employees.activation') }} {{ Form::required('is_active', $employee) }}</label>
+              <div class="col-sm-5">
+                 {{ Form::select('is_active', [0 => trans('common.inactive'), 1 => trans('common.active')], isset($employee) ? $employee->is_active : 1, ['class' => 'form-control input-sm', 'id' => 'activation']) }}
+            </div>
+        </div>
+        <div class="form-group">
             <label class="col-sm-2 control-label">{{  trans('as.employees.status') }} {{ Form::required('is_active', $employee) }}</label>
               <div class="col-sm-5">
-                 {{ Form::select('is_active', [0 => trans('common.inactive'), 1 => trans('common.active')], isset($employee) ? $employee->is_active : 1, ['class' => 'form-control input-sm', 'id' => 'status']) }}
+                 {{ Form::select('status', [0 => trans('as.employees.employee'), 1 => trans('as.employees.freelancer')], isset($employee) ? $employee->status : 1, ['class' => 'form-control input-sm', 'id' => 'status']) }}
+            </div>
+        </div>
+        <div class="form-group freelancer" style="display: none">
+            <label class="col-sm-2 control-label">{{  trans('as.employees.business_id') }} {{ Form::required('is_active', $employee) }}</label>
+              <div class="col-sm-5">
+                 {{ Form::text('business_id', (isset($employee)) ? $employee->business_id:'', ['class' => 'form-control input-sm', 'id' => 'business_id']) }}
+            </div>
+        </div>
+        <div class="form-group freelancer" style="display: none">
+            <label class="col-sm-2 control-label">{{  trans('as.employees.account') }} {{ Form::required('is_active', $employee) }}</label>
+              <div class="col-sm-5">
+                 {{ Form::text('account', (isset($employee)) ? $employee->account:'', ['class' => 'form-control input-sm', 'id' => 'account']) }}
             </div>
         </div>
          <div class="form-group">
