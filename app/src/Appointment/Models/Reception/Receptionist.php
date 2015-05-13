@@ -47,6 +47,7 @@ abstract class Receptionist implements ReceptionistInterface
     protected $status              = null;
     protected $notes               = null;
     protected $roomId              = null;
+    protected $layout              = null;
 
     public function setBookingId($bookingId)
     {
@@ -279,6 +280,17 @@ abstract class Receptionist implements ReceptionistInterface
     public function getSource()
     {
         return $this->source;
+    }
+
+    public function setLayout($layout)
+    {
+        $this->layout = $layout;
+        return $this;
+    }
+
+    public function getLayout()
+    {
+        return $this->layout;
     }
 
     public function getRoomId()

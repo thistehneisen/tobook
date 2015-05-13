@@ -75,7 +75,7 @@ class FrontendReceptionist extends Receptionist
 
         $booking = new Booking();
 
-        $status = ($this->getSource() === 'inhouse')
+        $status = ($this->getSource() === 'inhouse' && !((int)$this->layout === 3))
             ? Booking::STATUS_PENDING
             : Booking::STATUS_CONFIRM;
 
