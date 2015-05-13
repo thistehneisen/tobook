@@ -68,6 +68,17 @@ class Employees extends AsBase
             'account'                         => Input::get('account'),
         ]);
 
+        $status      = Input::get('status');
+        $business_id = Input::get('business_id');
+        $account     = Input::get('account');
+
+        if((int)$status === Employee::STATUS_FREELANCER) {
+            $validator = Employee::getFreelancerValidator($business_id, $account);
+            if($validator->fails()) {
+
+            }
+        }
+
         // Update data
         if (Input::hasFile('avatar')) {
             $file            = Input::file('avatar');

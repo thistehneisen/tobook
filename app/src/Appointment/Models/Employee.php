@@ -606,6 +606,22 @@ class Employee extends \App\Appointment\Models\Base
         return Util::thumbnail($this->getAvatarPath(), 200, 200);
     }
 
+    public static function getFreelancerValidator($business_id, $account)
+    {
+        $validator = Validator::make(
+            array(
+                'business_id' => $business_id,
+                'account'     => $account,
+            ),
+            array(
+                'business_id' => 'required',
+                'account'     => 'required',
+            )
+        );
+
+        return $validator;
+    }
+
     //--------------------------------------------------------------------------
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
