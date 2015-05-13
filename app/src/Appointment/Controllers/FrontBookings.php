@@ -2,6 +2,7 @@
 
 use App, View, Confide, Redirect, Input, Config, Response, Util, Hashids, Event;
 use Carbon\Carbon, Cart, Session, Request;
+use Consumer;
 use App\Core\Models\User;
 use App\Core\Models\Business;
 use App\Appointment\Models\Booking;
