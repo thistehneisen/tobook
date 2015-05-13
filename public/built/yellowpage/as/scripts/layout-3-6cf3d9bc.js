@@ -321,7 +321,7 @@
 
                         // Hide loading
                         loading.hide();
-                        submit.siblings('.text-success').html(e.message);
+                        $('#as-overlay-message').show().html(e.message);
 
                         if (src !== 'inhouse') {
                             var counter = 9;

@@ -4,7 +4,7 @@
 </div>
 @endif
 
-<div id="as-overlay-message" style="display: none; position: absolute; top: 0; left: 0; width: 100%; background-color: rgba(39, 174, 96,.6);  height: 100%;  z-index: 2; color: #333; font-size: 2em; text-align: center; padding-top: 20%;"></div>
+<div id="as-overlay-message" class="as-overlay-message"></div>
 
 {{ Form::open(['route' => 'as.bookings.frontend.add', 'role' => 'form', 'id' => 'frm-customer-info', 'data-success-url' => route('as.embed.embed', ['hash'=> Input::get('hash'), 'l' => Input::get('l')]), 'data-term-error-msg' => trans('as.bookings.error.terms')]) }}
     <div class="form-group">
