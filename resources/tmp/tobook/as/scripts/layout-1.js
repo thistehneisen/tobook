@@ -210,9 +210,14 @@
             }).done(function (data) {
                 if (data.success) {
                     alertify.alert('Message', data.message);
-                    setTimeout(function () {
-                        window.location = $this.data('success-url');
-                    }, 10000);
+                    var counter = 9;
+                    var id = setInterval(function () {
+                        $('#as-counter').html(counter);
+                        if (counter-- === 0) {
+                            clearInterval(id);
+                            window.location = $this.data('success-url');
+                        }
+                    }, 1000);
                 }
             }).fail(function (data) {
                 alertify.alert('Error', data.responseJSON.message);
