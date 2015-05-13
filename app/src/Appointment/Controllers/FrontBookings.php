@@ -90,6 +90,7 @@ class FrontBookings extends Bookings
             $hash                = Input::get('hash');
             $cartId              = Input::get('cart_id');
             $source              = Input::get('source', '');
+            $layout              = Input::get('l', '');
             $cart                = Cart::find($cartId);
             $isRequestedEmployee = Input::get('is_requested_employee', false);
             $consumer            = $cart->consumer;
@@ -119,13 +120,14 @@ class FrontBookings extends Bookings
                     ->setIsRequestedEmployee($isRequestedEmployee)
                     ->setConsumer($consumer)
                     ->setClientIP(Request::getClientIp())
-                    ->setSource($source);
+                    ->setSource($source)
+                    ->setLayout($layout);
 
                 $booking = $receptionist->upsertBooking();
             }
 
             // Complete the cart
-            if ($source !== 'inhouse' && !empty($booking)) {
+            if (($source !== 'inhouse' || (Input::get('l') === '3' && $source === 'inhouse')) && !empty($booking)) {
                 $cart->complete();
             }
 
