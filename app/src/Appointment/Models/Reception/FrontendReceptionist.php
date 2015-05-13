@@ -94,7 +94,7 @@ class FrontendReceptionist extends Receptionist
             'source'      => $this->getSource()
         ]);
 
-        if ($this->getSource() !== 'inhouse' && $this->consumer !== null) {
+        if (/* $this->getSource() !== 'inhouse' && */ $this->consumer !== null) {
             $booking->consumer()->associate($this->consumer);
         }
 
