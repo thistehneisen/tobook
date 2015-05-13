@@ -54,6 +54,7 @@
                 </h4>
             </div>
             <div id="as-step-4" data-parent="#varaa-as-bookings" class="panel-collapse collapse" data-url="{{ route('as.embed.checkout', $allInput) }}">
+                <div id="as-overlay-message" class="as-overlay-message"></div>
                 <div class="panel-body">
                     <p class="loading text-center">
                         <i class="glyphicon glyphicon-refresh text-info"></i> {{ trans('as.embed.loading') }}

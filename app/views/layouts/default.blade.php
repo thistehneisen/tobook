@@ -46,7 +46,10 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 <!--End of Zopim Live Chat Script-->
     @endif
 
+    {{-- Disable user custom scripts in local environment --}}
+@if (App::environment() !== 'local')
     {{ Settings::get('head_script') }}
+@endif
 
     {{ Lomake::renderHead() }}
 </head>
@@ -210,6 +213,9 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 
     @yield('scripts')
 
+    {{-- Disable user custom scripts in local environment --}}
+@if (App::environment() !== 'local')
     {{ Settings::get('bottom_script') }}
+@endif
 </body>
 </html>
