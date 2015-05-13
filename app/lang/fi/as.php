@@ -247,7 +247,8 @@ return [
         'en_version'       => 'Englanniksi',
         'sv_version'       => 'Ruotsiksi',
         'book'             => 'Varaa',
-        'success'          => 'Varauksesi on vastaanotettu onnistuneesti! Kiitos varauksestasi.',
+        'success'          => 'Kiitos varauksestasi! Sinut ohjataan takaisin alkuun <span id="as-counter">10</span> -sekunnin kuluttua.',
+        'success_simple'   => 'Kiitos varauksestasi!',
         'confirm'          => 'Vahvista varaus',
         'layout_2'         => [
             'select_service'      => 'Valitse palvelu ja päivämäärä',
