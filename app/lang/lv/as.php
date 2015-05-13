@@ -187,7 +187,7 @@ return [
         'is_received_calendar_invitation'  => 'Vai saņem kalendāra uzaicinājumus?',
         'services'                         => 'Pakalpojumi',
         'status'                           => 'Statuss',
-        'is_active'                        => 'Statuss',
+        'is_active'                        => 'Activation',//@todo
         'avatar'                           => 'Attēls',
         'default_time'                     => 'Definētais laiks',
         'custom_time'                      => 'Brīvi izvēlēts laiks',
@@ -213,6 +213,10 @@ return [
         'to_date'                          => 'Līdz datumam',
         'weekday'                          => 'Darba diena',
         'employee'                         => 'Darbinieks',
+        'freelancer'                       => 'Freelancer',//@todoo
+        'business_id'                      => 'Business ID',//@todoo
+        'account'                          => 'Account',//@todoo
+        'activation'                       => 'Activation',//@todoo
         'saturday_hours'                   => 'Darba laiks sestdienā',
         'sunday_hours'                     => 'Darba laiks svētdienā',
         'monthly_hours'                    => 'Mēneša darba laiks',

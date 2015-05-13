@@ -188,7 +188,7 @@ return [
         'is_received_calendar_invitation'  => 'Is received calendar invitation?',
         'services'                         => 'Služby',
         'status'                           => 'Status',
-        'is_active'                        => 'Status',
+        'is_active'                        => 'Activation',
         'avatar'                           => 'Fotka',
         'default_time'                     => 'Default time',
         'custom_time'                      => 'Custom time',
@@ -214,6 +214,10 @@ return [
         'to_date'                          => 'Do',
         'weekday'                          => 'Weekday',
         'employee'                         => 'Zamestnanec',
+        'freelancer'                       => 'Freelancer',//@todo
+        'business_id'                      => 'Business ID',//@todo
+        'account'                          => 'Account',//@todo
+        'activation'                       => 'Activation',//@todo
         'saturday_hours'                   => 'Saturdays hours',
         'sunday_hours'                     => 'Sunday hours',
         'monthly_hours'                    => 'Monthly hours',
