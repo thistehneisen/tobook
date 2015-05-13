@@ -193,14 +193,35 @@
             $('#terms_body').slideToggle();
         });
 
-        $('#btn-checkout-submit').click(function (e) {
+        $('#form-confirm-booking').on('submit', function (e) {
             e.preventDefault();
             var term_enabled = parseInt($(this).data('term-enabled'), 10);
             //yes and required
             if (term_enabled === 3 && !$('#terms').is(':checked')) {
                 return alertify.alert($(this).data('term-error-msg'));
             }
-            $('#form-confirm-booking').submit();
+
+            var $this = $(this);
+            $.ajax({
+                type: 'POST',
+                url: $this.attr('action'),
+                data: $this.serialize(),
+                dataType: 'json'
+            }).done(function (data) {
+                if (data.success) {
+                    alertify.alert('Message', data.message);
+                    var counter = 9;
+                    var id = setInterval(function () {
+                        $('#as-counter').html(counter);
+                        if (counter-- === 0) {
+                            clearInterval(id);
+                            window.location = $this.data('success-url');
+                        }
+                    }, 1000);
+                }
+            }).fail(function (data) {
+                alertify.alert('Error', data.responseJSON.message);
+            });
         });
 
         $(document).ready(function(){

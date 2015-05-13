@@ -11,7 +11,9 @@
 
     <link rel="stylesheet" href="{{ asset_path('as/styles/'.$layout.'.css') }}">
 
+@if (App::environment() !== 'local')
     {{ Settings::get('head_script') }}
+@endif
 </head>
 <body data-hash="{{ $hash }}" data-locale="{{ App::getLocale() }}" class="style-{{ $user->id }}">
     @yield('content')

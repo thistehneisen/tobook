@@ -2,21 +2,16 @@
 
 use App, View, Confide, Redirect, Input, Config, Response, Util, Hashids, Event;
 use Carbon\Carbon, Cart, Session, Request;
-use Illuminate\Support\Collection;
+use Consumer;
 use App\Core\Models\User;
 use App\Core\Models\Business;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\BookingService;
-use App\Appointment\Models\BookingExtraService;
-use App\Appointment\Models\ExtraService;
 use App\Appointment\Models\Employee;
-use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\Service;
-use App\Appointment\Models\ServiceTime;
 use App\Appointment\Models\Observer\EmailObserver;
 use App\Appointment\Models\Observer\SmsObserver;
 use App\Appointment\Models\Reception\FrontendReceptionist;
-
 
 class FrontBookings extends Bookings
 {
@@ -42,13 +37,12 @@ class FrontBookings extends Bookings
         $startTimeStr    = trim(Input::get('start_time'));
         $uuid            = Input::get('uuid', Booking::uuid());
 
-
         //TODO check if is there any potential error
         //Always get user from hash in front end
         $decoded = Hashids::decrypt($hash);
         $this->user = User::find($decoded[0]);
 
-        try{
+        try {
             $receptionist = new FrontendReceptionist();
             $receptionist->setBookingId(null)
                 ->setUUID($uuid)
@@ -62,8 +56,9 @@ class FrontBookings extends Bookings
                 ->setModifyTime($modifyTime);
 
             $bookingService = $receptionist->upsertBookingService();
-        } catch(\Exception $ex) {
+        } catch (\Exception $ex) {
             $data['message'] = $ex->getMessage();
+
             return Response::json($data, 400);
         }
 
@@ -97,12 +92,18 @@ class FrontBookings extends Bookings
             $source              = Input::get('source', '');
             $cart                = Cart::find($cartId);
             $isRequestedEmployee = Input::get('is_requested_employee', false);
-            $consumer = $cart->consumer;
+            $consumer            = $cart->consumer;
+
+            if ($consumer === null) {
+                $consumer    = Consumer::handleConsumer(Input::all());
+                $cart->notes = Input::get('notes');
+                $cart->consumer()->associate($consumer)->save();
+            }
 
             $length = 0;
 
             $decoded = Hashids::decrypt($hash);
-            if(empty($decoded)){
+            if (empty($decoded)) {
                 return;
             }
             $user = User::find($decoded[0]);
@@ -129,10 +130,13 @@ class FrontBookings extends Bookings
             }
 
             $data['success'] = true;
-            $data['message'] = trans('as.embed.success');
+            $data['message'] = (Input::get('l') === '3' && $source === 'inhouse')
+                ? trans('as.embed.success_simple')
+                : trans('as.embed.success');
         } catch (\Exception $ex) {
             $data['success'] = false;
-            $data['message'] = $ex->getMessage();
+            $data['message'] = trans('common.err.unexpected');
+
             return Response::json($data, 500);
         }
 
@@ -149,6 +153,7 @@ class FrontBookings extends Bookings
                 \Log::warning('Could not send sms or email:' . $ex->getMessage());
             }
         }
+
         return Response::json($data);
     }
 
@@ -174,7 +179,7 @@ class FrontBookings extends Bookings
 
             //The main different with addFrontEndBooking is: no $consumer
             $receptionist = new FrontendReceptionist();
-                $receptionist->setBookingId(null)
+            $receptionist->setBookingId(null)
                 ->setUUID($bookingService->tmp_uuid)
                 ->setUser($user)
                 ->setNotes($cart->notes)
@@ -194,7 +199,8 @@ class FrontBookings extends Bookings
             $data['success'] = false;
             $data['message'] = ($ex instanceof \Watson\Validating\ValidationException)
                 ? Util::getHtmlListError($ex)
-                : $ex->getMessage();
+                : trans('common.err.unexpected');
+
             return Response::json($data, 500);
         }
 

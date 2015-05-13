@@ -278,12 +278,13 @@
             });
 
             // When user submits the confirmation form
-            $form.on('submit', '#as-form-confirm', function (e) {
+            $form.on('submit', '#as-form-checkout', function (e) {
                 e.preventDefault();
                 var $this = $(this),
                     data = $this.serialize(),
                     loading = $this.find('.as-loading'),
                     submit = $this.find('button[type=submit]'),
+                    src = $this.find('input[name=source]').val(),
                     fnFail = function (e) {
                         var res = e.responseJSON,
                             message = $this.find('div.error-msg').text();
@@ -320,7 +321,18 @@
 
                         // Hide loading
                         loading.hide();
-                        submit.siblings('.text-success').text(e.message);
+                        $('#as-overlay-message').show().html(e.message);
+
+                        if (src !== 'inhouse') {
+                            var counter = 9;
+                            var id = setInterval(function () {
+                                $('#as-counter').html(counter);
+                                if (counter-- === 0) {
+                                    clearInterval(id);
+                                    window.location = $this.data('success-url');
+                                }
+                            }, 1000);
+                        }
                     }
                 }).fail(fnFail);
             });

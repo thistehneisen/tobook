@@ -7,7 +7,7 @@
     </div>
     @endif
     <div class="list-group-item">
-        <form id="form-confirm-booking" action="{{ route('as.embed.confirm') }}" method="POST">
+        <form id="form-confirm-booking" action="{{ route('as.bookings.frontend.add') }}" method="POST" data-term-error-msg="{{ trans('as.bookings.error.terms')}}" data-term-enabled="{{ $user->asOptions['terms_enabled'] }}" data-success-url="{{ route('as.embed.embed', ['hash'=> $hash]) }}">
             <div class="form-group row">
                 <div class="col-sm-2">{{ trans('as.bookings.first_name') }} (*)</div>
                 <div class="col-sm-10"> {{ Form::text('first_name', (isset($booking_info['first_name'])) ? $booking_info['first_name'] : ''  , ['class' => 'form-control input-sm', 'id' => 'first_name']) }}</div>
@@ -54,6 +54,7 @@
             @endif
             <input type="hidden" name="hash" value="{{ $hash }}">
             <input type="hidden" name="cart_id" value="{{ $cart->id }}">
+            <input type="hidden" name="source" value="layout1">
             @if ((int)$user->asOptions['terms_enabled'] > 1)
                 <?php
                 $terms_class = empty($user->asOptions['terms_url'])
@@ -81,7 +82,7 @@
     <div class="form-group row">
         <div class="col-sm-6"><a href="{{ route('as.embed.embed', ['hash' => $hash]) }}" class="btn btn-default">{{ trans('common.cancel') }}</a></div>
         <div class="col-sm-6">
-            <button type="submit" id="btn-checkout-submit" data-term-error-msg="{{ trans('as.bookings.error.terms')}}" data-term-enabled="{{ $user->asOptions['terms_enabled'] }}" class="btn btn-success pull-right">{{ trans('common.continue') }}</button>
+            <button type="submit" class="btn btn-success pull-right">{{ trans('as.bookings.confirm_booking') }}</button>
         </div>
     </div>
     </form>

@@ -7,7 +7,7 @@
 
 <div class="panel panel-default">
     <div class="panel-heading to-upper"><strong>{{ trans('as.embed.layout_2.form') }}</strong></div>
-    <div class="panel-body" id="as-frm-confirm">
+    <div class="panel-body" id="as-frm-confirm" style="position: relative;">
         @include ('modules.as.embed.layout-2.form')
     </div>
 </div>

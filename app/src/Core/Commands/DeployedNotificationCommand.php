@@ -28,8 +28,9 @@ class DeployedNotificationCommand extends Command
     public function fire()
     {
         $instance = $this->argument('instance');
+        $branch = $this->argument('branch');
 
-        Slack::send("Server `$instance` has been deployed.");
+        Slack::send("Server `$instance` has been deployed at branch `$branch`.");
 
     }
 
@@ -42,6 +43,7 @@ class DeployedNotificationCommand extends Command
     {
         return array(
             array('instance', InputArgument::REQUIRED, 'Name of the deployed instance'),
+            array('branch', InputArgument::REQUIRED, 'The branch deployed'),
         );
     }
 }

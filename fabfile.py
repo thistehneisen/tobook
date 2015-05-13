@@ -40,7 +40,7 @@ def _deploy(environment, host):
             # set it to live mode again
             run('php artisan up')
             # notify everyone for fun
-            run('php artisan varaa:deployed {}'.format(environment))
+            run('php artisan varaa:deployed {} {}'.format(environment, branch))
             # run CI
             if environment == 'stag': run('/srv/phpci/console phpci:rebuild')
 
