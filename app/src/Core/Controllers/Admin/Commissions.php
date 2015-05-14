@@ -70,4 +70,19 @@ class Commissions extends Base
             'commissions' => $user->commissions()->latest()->get()
         ]);
     }
+
+    /**
+     * Show all employee commissions of a single user
+     *
+     * @param int $userId
+     *
+     * @return view
+     */
+    public function counter($userId)
+    {
+        $user = User::findOrFail($userId);
+        return $this->render('counter', [
+            'commissions' => $user->commissions()->latest()->get()
+        ]);
+    }
 }
