@@ -209,7 +209,8 @@
                 dataType: 'json'
             }).done(function (data) {
                 if (data.success) {
-                    alertify.alert('Message', data.message);
+                    $('#as-overlay-message').show().html(data.message);
+
                     var counter = 9;
                     var id = setInterval(function () {
                         $('#as-counter').html(counter);
