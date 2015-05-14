@@ -55,8 +55,8 @@ $(function () {
             <td><input type="checkbox" class="checkbox" name="ids[]" value="{{ $item->id }}" id="bulk-item-{{ $item->id }}"></td>
             <td>{{ $item->created_at->format('d.m.Y') }}</td>
             <td>{{ $item->name }}</td>
-            <td class="number">{{ $currencySymbol }}{{ $item->total_price }}</td>
-            <td class="number">{{ $currencySymbol }}{{ $item->total_price * $commissionRate }}</td>
+            <td class="number">{{ $item->total_price }}{{ $currencySymbol }}</td>
+            <td class="number">{{ $item->total_price * $commissionRate }}{{ $currencySymbol }}</td>
             <td>
                 {{ trans($langPrefix . '.status.'. $item->commisionStatus) }}
             </td>
@@ -96,5 +96,26 @@ $(function () {
             </ul>
         </div>
     </div>
+</div>
+
+<div class="center">
+    <h2>
+        {{ trans('admin.commissions.paid_this_month') }}:<br/>
+        {{ $paid }}{{ $currencySymbol }}
+    </h2>
+</div>
+<div class="center">
+    <h2>
+        {{ trans('admin.commissions.payment_pending') }}:<br/>
+        {{ $pending }}{{ $currencySymbol }}
+    </h2>
+</div>
+
+<div class="center">
+    {{ Form::open(['route' => ['as.employees.upsert'], 'class' => 'center', 'role' => 'form']) }}
+    <label>{{ trans('admin.commissions.email_monthly_report') }}:</label>
+    {{ Form::text('report_email', (isset($employee)) ? $employee->account:'', ['class' => 'form-control input-sm', 'id' => 'report_email']) }}
+    <button type="submit" class="btn btn-primary" id="btn-send-report">{{ trans('common.send') }}</button>
+    {{ Form::close() }}
 </div>
 @stop

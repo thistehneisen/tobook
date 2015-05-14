@@ -66,6 +66,9 @@ return [
         'employees'      => 'Employees',
         'booking_status' => 'Paid/Booked/Deposit',
         'notes'          => 'Notes',
+        'paid_this_month'=> 'Paid this month',
+        'payment_pending'=> 'Payment pending',
+        'email_monthly_report' => 'Email monthly report to',
         'status' => [
             'paid'      => 'Paid',
             'confirmed' => 'Booked',

@@ -124,6 +124,10 @@ class Commissions extends Base
             ->where('status', '=', Employee::STATUS_FREELANCER)
             ->get();
 
+        $needToPay = 0;
+        $paid      = 0;
+        $pending   = $needToPay - $paid;
+
         $commissionRate = Settings::get('commission_rate');
         $currencySymbol = Settings::get('currency');
 
@@ -137,6 +141,8 @@ class Commissions extends Base
             'user'           => $user,
             'freelancers'    => $freelancers,
             'employeeId'     => $employeeId,
+            'paid'           => $paid,
+            'pending'        => $pending,
             'commissionRate' => $commissionRate,
             'currencySymbol' => $currencySymbol
         ]);

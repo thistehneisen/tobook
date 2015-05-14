@@ -22,6 +22,7 @@ return [
     'register'              => 'Register',
     'no_records'            => 'Sorry, no records found!',
     'save'                  => 'Save',
+    'send'                  => 'Send',
     'destroy'               => 'Delete',
     'warning'               => 'Warning',
     'success'               => 'Success',
