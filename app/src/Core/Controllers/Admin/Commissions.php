@@ -1,6 +1,6 @@
 <?php namespace App\Core\Controllers\Admin;
 
-use Input, Response, Log, Settings, Config;
+use Input, Response, Log, Settings, Config, Util;
 use App\Core\Models\CommissionLog;
 use App\Core\Models\User;
 use App\Appointment\Models\Booking;
@@ -118,6 +118,8 @@ class Commissions extends Base
             'date', 'name', 'price', 'commission', 'booking_status', 'notes'
         ];
 
+        $months = Util::getMonthsSelection($current);
+
         $freelancers = $user->asEmployees()
             ->where('status', '=', Employee::STATUS_FREELANCER)
             ->get();
@@ -128,6 +130,8 @@ class Commissions extends Base
         return $this->render('counter', [
             'items'          => $bookings,
             'fields'         => $fields,
+            'months'         => $months,
+            'date'           => $current->format('Y-m'),
             'langPrefix'     => $langPrefix,
             'current'        => $current,
             'user'           => $user,

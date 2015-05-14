@@ -340,4 +340,31 @@ class Util
         // location
         return Settings::get('default_location');
     }
+
+    public static function getMonthsSelection(Carbon $current)
+    {
+        $labels = [
+            trans('common.january'),
+            trans('common.february'),
+            trans('common.march'),
+            trans('common.april'),
+            trans('common.may'),
+            trans('common.june'),
+            trans('common.july'),
+            trans('common.august'),
+            trans('common.september'),
+            trans('common.october'),
+            trans('common.november'),
+            trans('common.december'),
+        ];
+
+        $months = [];
+
+        for ($i=0; $i<12; $i++) {
+            $month = $i + 1;
+            $months[Carbon::createFromFormat('Y-m', $current->year . '-' . $month)->format('Y-m')] = $labels[$i];
+        }
+
+        return $months;
+    }
 }

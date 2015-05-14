@@ -1,5 +1,16 @@
 @extends ('layouts.admin')
 
+@section ('scripts')
+    @parent
+    <script>
+$(function () {
+    $('#months').change(function(e){
+        window.location = window.location + '?date=' + $(this).val();
+    });
+});
+    </script>
+@stop
+
 @section('content')
 
 <ul class="nav nav-tabs" role="tablist">
@@ -19,13 +30,15 @@
         </div>
         <div class="col-sm-3 hidden-print"><a href="{{ route('admin.users.commissions.counter', ['id'=> $user->id, 'employee'=> $employeeId, 'date'=> with(clone $current->startOfMonth())->addMonth()->format('Y-m') ])}}">{{ Str::upper(trans('common.next')) }}</a></div>
         <div class="col-sm-3 hidden-print">
-             <button class="btn btn-primary pull-right" onclick="window.print();"><i class="fa fa-print"> {{ trans('as.index.print') }}</i></button>
+            <button class="btn btn-primary pull-right" onclick="window.print();"><i class="fa fa-print"> {{ trans('as.index.print') }}</i></button>
+            {{ Form::select('months', $months, $date, ['style'=>'width:70%','class' => 'form-control input-xs', 'id' => 'months']) }}
         </div>
 </div>
 
 <table class="table table-hover table-crud">
     <thead>
         <tr>
+            <th><input type="checkbox" class="toggle-check-all-boxes check-all" data-checkbox-class="checkbox"></th>
             @foreach ($fields as $field)
             @if($field == 'price' || $field == 'commission')
             <th class="number">{{ trans($langPrefix . '.'. $field) }}</th>
@@ -39,6 +52,7 @@
      <tbody id="js-crud-tbody">
     @foreach ($items as $item)
         <tr id="row-{{ $item->id }}" data-id="{{ $item->id }}" data-toggle="tooltip" data-placement="top" data-title="{{ trans('as.crud.sortable') }}">
+            <td><input type="checkbox" class="checkbox" name="ids[]" value="{{ $item->id }}" id="bulk-item-{{ $item->id }}"></td>
             <td>{{ $item->created_at->format('d.m.Y') }}</td>
             <td>{{ $item->name }}</td>
             <td class="number">{{ $currencySymbol }}{{ $item->total_price }}</td>
