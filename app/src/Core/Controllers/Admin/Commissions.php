@@ -81,7 +81,7 @@ class Commissions extends Base
      *
      * @return view
      */
-    public function counter($userId)
+    public function counter($userId, $employeeId = null)
     {
         $current = Carbon::now();
         $langPrefix = 'admin.commissions';
@@ -98,10 +98,14 @@ class Commissions extends Base
         $endOfMonth      = $current->endOfMonth()->toDateString();
 
         $user = User::findOrFail($userId);
+        $status = (empty($employeeId))
+            ? Employee::STATUS_EMPLOYEE
+            : Employee::STATUS_FREELANCER;
 
         $bookings = Booking::getBookingsByEmployeeStatus(
             $userId,
-            Employee::STATUS_EMPLOYEE,
+            $status,
+            $employeeId,
             $startOfMonth,
             $endOfMonth
         );
@@ -110,7 +114,9 @@ class Commissions extends Base
             'date', 'name', 'price', 'commission', 'booking_status', 'notes'
         ];
 
-        $freelancers = $user->asEmployees()->where('status', '=', Employee::STATUS_FREELANCER)->get();
+        $freelancers = $user->asEmployees()
+            ->where('status', '=', Employee::STATUS_FREELANCER)
+            ->get();
 
         $commissionRate = Settings::get('commission_rate');
         $currencySymbol = Settings::get('currency');
@@ -121,6 +127,7 @@ class Commissions extends Base
             'langPrefix'     => $langPrefix,
             'user'           => $user,
             'freelancers'    => $freelancers,
+            'employeeId'     => $employeeId,
             'commissionRate' => $commissionRate,
             'currencySymbol' => $currencySymbol
         ]);

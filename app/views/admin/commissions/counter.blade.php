@@ -3,9 +3,9 @@
 @section('content')
 
 <ul class="nav nav-tabs" role="tablist">
-    <li  @if (1) {{ 'class="active"' }} @endif><a href="{{ route('admin.users.commissions.counter')}}">{{ trans($langPrefix.'.employees') }}</a></li>
+    <li  @if (empty($employeeId)) {{ 'class="active"' }} @endif><a href="{{ route('admin.users.commissions.counter', ['id'=> $user->id]) }}">{{ trans($langPrefix.'.employees') }}</a></li>
     @foreach ($freelancers as $freelancer)
-    <li  @if (0) {{ 'class="active"' }} @endif><a href="{{ route('admin.users.commissions.counter')}}">
+    <li  @if ($employeeId === $freelancer->id) {{ 'class="active"' }} @endif><a href="{{ route('admin.users.commissions.counter',['id'=> $user->id, 'employee'=> $freelancer->id])}}">
         {{ htmlspecialchars($freelancer->name) }}
     </a></li>
     @endforeach

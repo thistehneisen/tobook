@@ -1027,7 +1027,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return $filename;
     }
 
-    public static function getBookingsByEmployeeStatus($userId, $status, $start, $end)
+    public static function getBookingsByEmployeeStatus($userId, $status, $employeeId, $start, $end)
     {
         $query = self::where('as_bookings.created_at', '>', $start)
             ->where('as_bookings.created_at', '<', $end)
@@ -1035,6 +1035,10 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             ->where('as_bookings.status','!=', self::STATUS_CANCELLED)
             ->where('as_bookings.status','!=', self::STATUS_PENDING)
             ->where('as_employees.status', '=', $status);
+
+        if(!empty($employeeId)) {
+            $query = $query->where('as_employees.id', '=', $employeeId);
+        }
 
         $result = $query->join('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
             ->select(['as_bookings.*', 'as_bookings.status as booking_status', 'as_employees.*', 'as_employees.status as employee_status'])

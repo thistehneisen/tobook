@@ -87,7 +87,7 @@ Route::group([
         //----------------------------------------------------------------------
         // Commissions Counter
         //----------------------------------------------------------------------
-        Route::get('{id}/commissions-counter', [
+        Route::get('{id}/commissions-counter/{employee?}', [
             'as' => 'admin.users.commissions.counter',
             'uses' => 'App\Core\Controllers\Admin\Commissions@counter'
         ]);
