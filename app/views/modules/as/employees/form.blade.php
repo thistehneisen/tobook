@@ -21,6 +21,7 @@ $(function () {
             $('.freelancer').hide();
         }
     });
+    $('#status').trigger('change');
 });
     </script>
 @stop

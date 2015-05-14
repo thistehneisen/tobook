@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Models;
 
-use Config, Util;
+use Config, Util, Validator;
 use Carbon\Carbon;
 use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\Booking;
