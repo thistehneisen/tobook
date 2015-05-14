@@ -131,10 +131,17 @@ class FrontBookings extends Bookings
                 $cart->complete();
             }
 
+            $messages = [
+                trans('as.embed.success_line1'),
+                trans('as.embed.success_line2'),
+            ];
+
+            if ((Input::get('l') !== '3' || $source !== 'inhouse')) {
+                $messages[] = trans('as.embed.success_line3');
+            }
             $data['success'] = true;
-            $data['message'] = (Input::get('l') === '3' && $source === 'inhouse')
-                ? trans('as.embed.success_simple')
-                : trans('as.embed.success');
+            $data['message'] = $messages;
+
         } catch (\Exception $ex) {
             $data['success'] = false;
             $data['message'] = trans('common.err.unexpected');
