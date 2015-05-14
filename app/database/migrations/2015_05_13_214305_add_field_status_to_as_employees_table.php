@@ -15,7 +15,7 @@ class AddFieldStatusToAsEmployeesTable extends Migration {
         //Status for divide employees into 2 or more group (employee|freelancer)
 		Schema::table('as_employees', function(Blueprint $table)
         {
-            $table->unsignedInteger('status');
+            $table->unsignedInteger('status')->default(0);
         });
 	}
 
