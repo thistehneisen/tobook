@@ -252,7 +252,6 @@ return [
         'success_line1'    => '<h2>Thank you!</h2>',
         'success_line2'    => '<h3>Your booking was made succesfully</h3>',
         'success_line3'    => '<h3>You will be automatically redirected to the beginning in <span id="as-counter">10</span> seconds.</h3>',
-        'success_simple'   => 'Booking was placed. Thank you.',
         'confirm'          => 'Confirm booking',
         'layout_2'         => [
             'select_service'      => 'Choose service and date',
