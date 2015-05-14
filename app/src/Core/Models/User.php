@@ -86,6 +86,11 @@ class User extends ConfideUser implements SearchableInterface
     // RELATIONSHIPS
     //--------------------------------------------------------------------------
 
+    public function bookings()
+    {
+        return $this->hasMany('App\Appointment\Models\Booking');
+    }
+
     public function disabledModules()
     {
         return $this->hasMany('App\Core\Models\DisabledModule');

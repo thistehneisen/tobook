@@ -1,8 +1,11 @@
 <?php namespace App\Core\Controllers\Admin;
 
-use Input, Response, Log;
+use Input, Response, Log, Settings;
 use App\Core\Models\CommissionLog;
 use App\Core\Models\User;
+use App\Appointment\Models\Booking;
+use App\Appointment\Models\Employee;
+use Carbon\Carbon;
 
 class Commissions extends Base
 {
@@ -80,9 +83,43 @@ class Commissions extends Base
      */
     public function counter($userId)
     {
+        $current = Carbon::now();
+        $langPrefix = 'admin.commissions';
+
+        if (!empty($date)) {
+            try {
+                $current = Carbon::createFromFormat('Y-m-d', $date . '-01');
+            } catch (\Exception $ex) {
+                $current = Carbon::now();
+            }
+        }
+
+        $startOfMonth    = $current->startOfMonth()->toDateString();
+        $endOfMonth      = $current->endOfMonth()->toDateString();
+
         $user = User::findOrFail($userId);
+
+        $bookings = Booking::getBookingsByEmployeeStatus(
+            $userId,
+            Employee::STATUS_EMPLOYEE,
+            $startOfMonth,
+            $endOfMonth
+        );
+
+        $fields = [
+            'date', 'name', 'price', 'commission', 'booking_status', 'notes'
+        ];
+
+        $commissionRate = Settings::get('commission_rate');
+        $currencySymbol = Settings::get('currency');
+
         return $this->render('counter', [
-            'commissions' => $user->commissions()->latest()->get()
+            'items'          => $bookings,
+            'fields'         => $fields,
+            'langPrefix'     => $langPrefix,
+            'user'           => $user,
+            'commissionRate' => $commissionRate,
+            'currencySymbol' => $currencySymbol
         ]);
     }
 }

@@ -180,6 +180,30 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     }
 
     /**
+     * Get the commision status used in /en/xandar/users/{id}}/commissions-counter
+     * @see getBookingsByEmployeeStatus
+     * @return string $status
+     */
+    public function getCommisionStatusAttribute()
+    {
+         $map = [
+            static::STATUS_CONFIRM     => 'confirmed',
+            static::STATUS_PENDING     => 'pending',
+            static::STATUS_CANCELLED   => 'cancelled',
+            static::STATUS_ARRIVED     => 'arrived',
+            static::STATUS_PAID        => 'paid',
+            static::STATUS_NOT_SHOW_UP => 'not_show_up',
+        ];
+
+        $status = isset($map[$this->booking_status]) ? $map[$this->booking_status] : null;
+
+        if($this->booking_status === static::STATUS_CONFIRM && ($this->deposit > 0)){
+            $status = 'deposit';
+        }
+        return $status;
+    }
+
+    /**
      * Generate service info message for sending mail, sms, cancel booking
      *
      * @return string
@@ -1002,4 +1026,21 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
         return $filename;
     }
+
+    public static function getBookingsByEmployeeStatus($userId, $status, $start, $end)
+    {
+        $query = self::where('as_bookings.created_at', '>', $start)
+            ->where('as_bookings.created_at', '<', $end)
+            ->whereNull('as_bookings.deleted_at')
+            ->where('as_bookings.status','!=', self::STATUS_CANCELLED)
+            ->where('as_bookings.status','!=', self::STATUS_PENDING)
+            ->where('as_employees.status', '=', $status);
+
+        $result = $query->join('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
+            ->select(['as_bookings.*', 'as_bookings.status as booking_status', 'as_employees.*', 'as_employees.status as employee_status'])
+            ->get();
+
+        return $result;
+    }
+
 }
