@@ -9,6 +9,22 @@
         </div>
     </div>
 
+    <div class="form-group {{ Form::errorCSS('business_id', $errors) }}">
+        {{ Form::label('business_id', trans('user.business_id').Form::required('business_id', $validator), ['class' => 'col-sm-2 col-sm-offset-1 control-label']) }}
+        <div class="col-sm-6">
+            {{ Form::text('business_id', Input::get('business_id', $user->business_id), ['class' => 'form-control']) }}
+            {{ Form::errorText('business_id', $errors) }}
+        </div>
+    </div>
+
+    <div class="form-group {{ Form::errorCSS('account', $errors) }}">
+        {{ Form::label('account', trans('user.account').Form::required('account', $validator), ['class' => 'col-sm-2 col-sm-offset-1 control-label']) }}
+        <div class="col-sm-6">
+            {{ Form::text('account', Input::get('account', $user->account), ['class' => 'form-control']) }}
+            {{ Form::errorText('account', $errors) }}
+        </div>
+    </div>
+
 @if ($consumer)
 @foreach (['first_name', 'last_name', 'phone', 'address', 'city', 'postcode', 'country'] as $field)
     <div class="form-group {{ Form::errorCSS($field, $errors) }}">

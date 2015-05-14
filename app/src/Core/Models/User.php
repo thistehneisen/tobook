@@ -21,6 +21,8 @@ class User extends ConfideUser implements SearchableInterface
 
     public $fillable = [
         'email',
+        'business_id',
+        'account',
     ];
 
     /**
