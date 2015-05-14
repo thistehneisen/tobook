@@ -204,6 +204,20 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     }
 
     /**
+     * Only get 9 words to display on table
+     * @return string ingress
+     */
+    public function getIngressAttribute()
+    {
+        $ingress = explode(' ', $this->notes);
+        if(count($ingress) > 9) {
+            $ingress = array_slice($ingress, 9);
+            $ingress[] = '...';
+        }
+        return implode($ingress, ' ');
+    }
+
+    /**
      * Generate service info message for sending mail, sms, cancel booking
      *
      * @return string
@@ -1034,6 +1048,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             ->whereNull('as_bookings.deleted_at')
             ->where('as_bookings.status','!=', self::STATUS_CANCELLED)
             ->where('as_bookings.status','!=', self::STATUS_PENDING)
+            ->where('as_bookings.status','!=', self::STATUS_NOT_SHOW_UP)
             ->where('as_bookings.user_id', '=', $userId)
             ->where('as_employees.status', '=', $status);
 

@@ -46,7 +46,7 @@
             <td>
                 {{ trans($langPrefix . '.status.'. $item->commisionStatus) }}
             </td>
-            <td>{{ $item->notes }}</td>
+            <td>{{ nl2br($item->ingress) }}</td>
             <td>
                 <div  class="pull-right">
                     <a href="{{ route('admin.users.commissions.counter', ['id' => $user->id]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
