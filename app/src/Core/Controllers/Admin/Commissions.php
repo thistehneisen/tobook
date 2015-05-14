@@ -110,6 +110,8 @@ class Commissions extends Base
             'date', 'name', 'price', 'commission', 'booking_status', 'notes'
         ];
 
+        $freelancers = $user->asEmployees()->where('status', '=', Employee::STATUS_FREELANCER)->get();
+
         $commissionRate = Settings::get('commission_rate');
         $currencySymbol = Settings::get('currency');
 
@@ -118,6 +120,7 @@ class Commissions extends Base
             'fields'         => $fields,
             'langPrefix'     => $langPrefix,
             'user'           => $user,
+            'freelancers'    => $freelancers,
             'commissionRate' => $commissionRate,
             'currencySymbol' => $currencySymbol
         ]);

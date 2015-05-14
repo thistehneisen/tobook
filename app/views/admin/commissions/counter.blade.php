@@ -2,6 +2,17 @@
 
 @section('content')
 
+<ul class="nav nav-tabs" role="tablist">
+    <li  @if (1) {{ 'class="active"' }} @endif><a href="{{ route('admin.users.commissions.counter')}}">{{ trans($langPrefix.'.employees') }}</a></li>
+    @foreach ($freelancers as $freelancer)
+    <li  @if (0) {{ 'class="active"' }} @endif><a href="{{ route('admin.users.commissions.counter')}}">
+        {{ htmlspecialchars($freelancer->name) }}
+    </a></li>
+    @endforeach
+</ul>
+<br>
+
+
 <table class="table table-hover table-crud">
     <thead>
         <tr>

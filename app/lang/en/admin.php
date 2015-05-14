@@ -63,6 +63,7 @@ return [
         'price'          => 'Price',
         'commission'     => 'Commission',
         'employee'       => 'Employee',
+        'employees'      => 'Employees',
         'booking_status' => 'Paid/Booked/Deposit',
         'notes'          => 'Notes',
         'status' => [
