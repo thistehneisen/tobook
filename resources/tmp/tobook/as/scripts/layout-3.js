@@ -321,7 +321,12 @@
 
                         // Hide loading
                         loading.hide();
-                        $('#as-overlay-message').show().html(e.message);
+                        var $overlay = $('#as-overlay-message');
+                        $overlay.empty();
+                        for (var i in e.message) {
+                            $overlay.append(e.message[i]);
+                        }
+                        $overlay.show();
 
                         if (src !== 'inhouse') {
                             var counter = 9;
