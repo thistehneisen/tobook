@@ -12,6 +12,16 @@
 </ul>
 <br>
 
+ <div class="form-group row">
+        <div class="col-sm-3 hidden-print"><a href="{{ route('admin.users.commissions.counter', ['id'=> $user->id, 'employee'=> $employeeId,'date'=> with(clone $current->startOfMonth())->subMonth()->format('Y-m') ])}}">{{ Str::upper(trans('common.prev')) }}</a></div>
+        <div class="col-sm-3 hidden-print">
+           {{ Str::upper(trans(strtolower('common.' . $current->format('F')))); }}
+        </div>
+        <div class="col-sm-3 hidden-print"><a href="{{ route('admin.users.commissions.counter', ['id'=> $user->id, 'employee'=> $employeeId, 'date'=> with(clone $current->startOfMonth())->addMonth()->format('Y-m') ])}}">{{ Str::upper(trans('common.next')) }}</a></div>
+        <div class="col-sm-3 hidden-print">
+             <button class="btn btn-primary pull-right" onclick="window.print();"><i class="fa fa-print"> {{ trans('as.index.print') }}</i></button>
+        </div>
+</div>
 
 <table class="table table-hover table-crud">
     <thead>
@@ -45,11 +55,32 @@
             </td>
         </tr>
     @endforeach
-      @if (empty($items->count()))
+      @if (empty($items->getTotal()))
         <tr>
             <td colspan="{{ count($fields) + 1 }}">{{ trans('common.no_records') }}</td>
         </tr>
         @endif
     </tbody>
 </table>
+
+
+<div class="row">
+    <div class="col-md-10 text-right">
+        {{  $items->appends(Input::only('perPage'))->links() }}
+    </div>
+
+    <div class="col-md-2 text-right">
+        <div class="btn-group">
+            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+            {{ trans('common.per_page') }} <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li><a href="{{ route('admin.users.commissions.counter', ['id' => $user->id, 'employee'=> $employeeId,'perPage' => 5, 'date'=> $current->format('Y-m')]) }}">5</a></li>
+                <li><a href="{{ route('admin.users.commissions.counter', ['id' => $user->id, 'employee'=> $employeeId,'perPage' => 10, 'date'=> $current->format('Y-m')]) }}">10</a></li>
+                <li><a href="{{ route('admin.users.commissions.counter', ['id' => $user->id, 'employee'=> $employeeId,'perPage' => 20, 'date'=> $current->format('Y-m')]) }}">20</a></li>
+                <li><a href="{{ route('admin.users.commissions.counter', ['id' => $user->id, 'employee'=> $employeeId,'perPage' => 50, 'date'=> $current->format('Y-m')]) }}">50</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
 @stop

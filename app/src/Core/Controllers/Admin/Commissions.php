@@ -1,6 +1,6 @@
 <?php namespace App\Core\Controllers\Admin;
 
-use Input, Response, Log, Settings;
+use Input, Response, Log, Settings, Config;
 use App\Core\Models\CommissionLog;
 use App\Core\Models\User;
 use App\Appointment\Models\Booking;
@@ -85,6 +85,7 @@ class Commissions extends Base
     {
         $current = Carbon::now();
         $langPrefix = 'admin.commissions';
+        $date = Input::get('date');
 
         if (!empty($date)) {
             try {
@@ -102,10 +103,13 @@ class Commissions extends Base
             ? Employee::STATUS_EMPLOYEE
             : Employee::STATUS_FREELANCER;
 
+        $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
+
         $bookings = Booking::getBookingsByEmployeeStatus(
             $userId,
             $status,
             $employeeId,
+            $perPage,
             $startOfMonth,
             $endOfMonth
         );
@@ -125,6 +129,7 @@ class Commissions extends Base
             'items'          => $bookings,
             'fields'         => $fields,
             'langPrefix'     => $langPrefix,
+            'current'        => $current,
             'user'           => $user,
             'freelancers'    => $freelancers,
             'employeeId'     => $employeeId,
