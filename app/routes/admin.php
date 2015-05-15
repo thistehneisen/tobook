@@ -91,6 +91,11 @@ Route::group([
             'as' => 'admin.users.commissions.counter',
             'uses' => 'App\Core\Controllers\Admin\Commissions@counter'
         ]);
+
+        Route::get('{id}/commissions-counter/status/{booking}', [
+            'as' => 'admin.users.commissions.status',
+            'uses' => 'App\Core\Controllers\Admin\Commissions@status'
+        ]);
     });
 
     //--------------------------------------------------------------------------

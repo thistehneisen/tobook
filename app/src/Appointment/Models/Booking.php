@@ -1057,8 +1057,30 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         }
 
         $result = $query->join('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
-            ->select(['as_bookings.*', 'as_bookings.status as booking_status', 'as_employees.*', 'as_employees.status as employee_status'])
+            ->select(['as_bookings.*', 'as_bookings.id as booking_id', 'as_bookings.status as booking_status', 'as_employees.*', 'as_employees.status as employee_status'])
             ->paginate($perPage);
+
+        return $result;
+    }
+
+    public static function countCommissionNeedToPay($userId, $status, $employeeId, $perPage, $start, $end)
+    {
+        $query = self::where('as_bookings.created_at', '>', $start)
+            ->where('as_bookings.created_at', '<', $end)
+            ->whereNull('as_bookings.deleted_at')
+            ->where('as_bookings.status','!=', self::STATUS_CANCELLED)
+            ->where('as_bookings.status','!=', self::STATUS_PENDING)
+            ->where('as_bookings.status','!=', self::STATUS_NOT_SHOW_UP)
+            ->where('as_bookings.user_id', '=', $userId)
+            ->where('as_employees.status', '=', $status);
+
+        if(!empty($employeeId)) {
+            $query = $query->where('as_employees.id', '=', $employeeId);
+        }
+
+        $result = $query->join('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
+            ->select(DB::raw('SUM(varaa_as_bookings.total_price) as total'))
+            ->first();
 
         return $result;
     }

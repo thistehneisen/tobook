@@ -1,7 +1,8 @@
 <?php namespace App\Core\Controllers\Admin;
 
-use Input, Response, Log, Settings, Config, Util;
+use Input, Response, Log, Settings, Config, Util, Redirect;
 use App\Core\Models\CommissionLog;
+use App\Core\Models\BusinessCommission;
 use App\Core\Models\User;
 use App\Appointment\Models\Booking;
 use App\Appointment\Models\Employee;
@@ -124,12 +125,22 @@ class Commissions extends Base
             ->where('status', '=', Employee::STATUS_FREELANCER)
             ->get();
 
-        $needToPay = 0;
+        $needToPay = Booking::countCommissionNeedToPay(
+            $userId,
+            $status,
+            $employeeId,
+            $perPage,
+            $startOfMonth,
+            $endOfMonth
+        );
+
         $paid      = 0;
-        $pending   = $needToPay - $paid;
 
         $commissionRate = Settings::get('commission_rate');
         $currencySymbol = Settings::get('currency');
+
+
+        $pending   = ($needToPay->total * $commissionRate) - $paid;
 
         return $this->render('counter', [
             'items'          => $bookings,
@@ -146,5 +157,38 @@ class Commissions extends Base
             'commissionRate' => $commissionRate,
             'currencySymbol' => $currencySymbol
         ]);
+    }
+
+    public function status($userId, $bookingId)
+    {
+        $status = Input::get('status');
+        $validStatuses = [
+            BusinessCommission::STATUS_SUSPEND,
+            BusinessCommission::STATUS_PAID,
+            BusinessCommission::STATUS_CANCELLED
+        ];
+
+        $commissionRate = Settings::get('commission_rate');
+
+        if (in_array($status, $validStatuses)){
+            $booking            = Booking::findOrFail($bookingId);
+            $user               = User::find($userId);
+            $businessCommission = BusinessCommission::where('booking_id', $bookingId)->first();
+            $amount             = $booking->total_price * $commissionRate;
+
+            if (empty($businessCommission)) {
+                $businessCommission = new BusinessCommission();
+            }
+
+            $businessCommission->fill([
+                'status' => $status,
+                'amount' => $amount,
+            ]);
+
+            $businessCommission->user()->associate($user);
+            $businessCommission->booking()->associate($booking);
+            $businessCommission->save();
+        }
+        return Redirect::back();
     }
 }

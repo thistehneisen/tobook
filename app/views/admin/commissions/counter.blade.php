@@ -30,7 +30,7 @@ $(function () {
         </div>
         <div class="col-sm-3 hidden-print"><a href="{{ route('admin.users.commissions.counter', ['id'=> $user->id, 'employee'=> $employeeId, 'date'=> with(clone $current->startOfMonth())->addMonth()->format('Y-m') ])}}">{{ Str::upper(trans('common.next')) }}</a></div>
         <div class="col-sm-3 hidden-print">
-            <button class="btn btn-primary pull-right" onclick="window.print();"><i class="fa fa-print"> {{ trans('as.index.print') }}</i></button>
+            <button class="btn btn-primary btn-sm pull-right" onclick="window.print();"><i class="fa fa-print"> {{ trans('as.index.print') }}</i></button>
             {{ Form::select('months', $months, $date, ['style'=>'width:70%','class' => 'form-control input-xs', 'id' => 'months']) }}
         </div>
 </div>
@@ -63,8 +63,9 @@ $(function () {
             <td>{{ nl2br($item->ingress) }}</td>
             <td>
                 <div  class="pull-right">
-                    <a href="{{ route('admin.users.commissions.counter', ['id' => $user->id]) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-edit"></i></a>
-                    <a href="{{ route('admin.users.commissions.counter', ['id' => $user->id]) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-trash-o"></i></a>
+                    <a href="{{ route('admin.users.commissions.status', ['id' => $user->id, 'booking' => $item->booking_id, 'status'=> 'suspend']) }}" class="btn btn-xs btn-warning" title=""><i class="fa fa-lock"></i></a>
+                    <a href="{{ route('admin.users.commissions.status', ['id' => $user->id, 'booking' => $item->booking_id, 'status'=> 'paid']) }}" class="btn btn-xs btn-success" title=""><i class="fa fa-check"></i></a>
+                    <a href="{{ route('admin.users.commissions.status', ['id' => $user->id, 'booking' => $item->booking_id, 'status'=> 'cancelled']) }}" class="btn btn-xs btn-danger" title=""><i class="fa fa-history"></i></a>
                 </div>
             </td>
         </tr>
@@ -115,7 +116,7 @@ $(function () {
     {{ Form::open(['route' => ['as.employees.upsert'], 'class' => 'center', 'role' => 'form']) }}
     <label>{{ trans('admin.commissions.email_monthly_report') }}:</label>
     {{ Form::text('report_email', (isset($employee)) ? $employee->account:'', ['class' => 'form-control input-sm', 'id' => 'report_email']) }}
-    <button type="submit" class="btn btn-primary" id="btn-send-report">{{ trans('common.send') }}</button>
+    <button type="submit" class="btn btn-primary btn-sm" id="btn-send-report">{{ trans('common.send') }}</button>
     {{ Form::close() }}
 </div>
 @stop
