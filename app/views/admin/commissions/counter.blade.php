@@ -51,7 +51,7 @@ $(function () {
     </thead>
      <tbody id="js-crud-tbody">
     @foreach ($items as $item)
-        <tr id="row-{{ $item->id }}" data-id="{{ $item->id }}" data-toggle="tooltip" data-placement="top" data-title="{{ trans('as.crud.sortable') }}">
+        <tr @if(!empty($item->commission_status)) class="{{ $item->commission_status }}" @endif id="row-{{ $item->id }}" data-id="{{ $item->id }}" data-toggle="tooltip" data-placement="top" data-title="{{ trans('as.crud.sortable') }}">
             <td><input type="checkbox" class="checkbox" name="ids[]" value="{{ $item->id }}" id="bulk-item-{{ $item->id }}"></td>
             <td>{{ $item->created_at->format('d.m.Y') }}</td>
             <td>{{ $item->name }}</td>

@@ -1057,7 +1057,8 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         }
 
         $result = $query->join('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
-            ->select(['as_bookings.*', 'as_bookings.id as booking_id', 'as_bookings.status as booking_status', 'as_employees.*', 'as_employees.status as employee_status'])
+            ->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
+            ->select(['as_bookings.*', 'as_bookings.id as booking_id', 'as_bookings.status as booking_status', 'as_employees.*', 'as_employees.status as employee_status','business_commissions.status as commission_status'])
             ->paginate($perPage);
 
         return $result;
