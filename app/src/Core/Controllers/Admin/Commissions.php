@@ -1,8 +1,11 @@
 <?php namespace App\Core\Controllers\Admin;
 
-use Input, Response, Log;
+use Input, Response, Log, Settings, Config, Util;
 use App\Core\Models\CommissionLog;
 use App\Core\Models\User;
+use App\Appointment\Models\Booking;
+use App\Appointment\Models\Employee;
+use Carbon\Carbon;
 
 class Commissions extends Base
 {
@@ -68,6 +71,80 @@ class Commissions extends Base
 
         return $this->render('index', [
             'commissions' => $user->commissions()->latest()->get()
+        ]);
+    }
+
+    /**
+     * Show all employee commissions of a single user
+     *
+     * @param int $userId
+     *
+     * @return view
+     */
+    public function counter($userId, $employeeId = null)
+    {
+        $current = Carbon::now();
+        $langPrefix = 'admin.commissions';
+        $date = Input::get('date');
+
+        if (!empty($date)) {
+            try {
+                $current = Carbon::createFromFormat('Y-m-d', $date . '-01');
+            } catch (\Exception $ex) {
+                $current = Carbon::now();
+            }
+        }
+
+        $startOfMonth    = $current->startOfMonth()->toDateString();
+        $endOfMonth      = $current->endOfMonth()->toDateString();
+
+        $user = User::findOrFail($userId);
+        $status = (empty($employeeId))
+            ? Employee::STATUS_EMPLOYEE
+            : Employee::STATUS_FREELANCER;
+
+        $perPage = (int) Input::get('perPage', Config::get('view.perPage'));
+
+        $bookings = Booking::getBookingsByEmployeeStatus(
+            $userId,
+            $status,
+            $employeeId,
+            $perPage,
+            $startOfMonth,
+            $endOfMonth
+        );
+
+        $fields = [
+            'date', 'name', 'price', 'commission', 'booking_status', 'notes'
+        ];
+
+        $months = Util::getMonthsSelection($current);
+
+        $freelancers = $user->asEmployees()
+            ->where('status', '=', Employee::STATUS_FREELANCER)
+            ->get();
+
+        $needToPay = 0;
+        $paid      = 0;
+        $pending   = $needToPay - $paid;
+
+        $commissionRate = Settings::get('commission_rate');
+        $currencySymbol = Settings::get('currency');
+
+        return $this->render('counter', [
+            'items'          => $bookings,
+            'fields'         => $fields,
+            'months'         => $months,
+            'date'           => $current->format('Y-m'),
+            'langPrefix'     => $langPrefix,
+            'current'        => $current,
+            'user'           => $user,
+            'freelancers'    => $freelancers,
+            'employeeId'     => $employeeId,
+            'paid'           => $paid,
+            'pending'        => $pending,
+            'commissionRate' => $commissionRate,
+            'currencySymbol' => $currencySymbol
         ]);
     }
 }

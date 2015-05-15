@@ -1,6 +1,6 @@
 <?php namespace App\Appointment\Models;
 
-use Config, Util;
+use Config, Util, Validator;
 use Carbon\Carbon;
 use App\Appointment\Models\EmployeeService;
 use App\Appointment\Models\Booking;
@@ -24,7 +24,10 @@ class Employee extends \App\Appointment\Models\Base
         'is_subscribed_email',
         'is_subscribed_sms',
         'is_received_calendar_invitation',
-        'is_active'
+        'is_active',
+        'status',
+        'business_id',
+        'account'
     ];
 
     protected $rulesets = [
@@ -34,6 +37,9 @@ class Employee extends \App\Appointment\Models\Base
             'phone' => 'required'
         ]
     ];
+
+    const STATUS_EMPLOYEE   = 0;
+    const STATUS_FREELANCER = 1;
 
     /**
      * These variables to use as a dictionary to easy to get back
@@ -598,6 +604,22 @@ class Employee extends \App\Appointment\Models\Base
         }
 
         return Util::thumbnail($this->getAvatarPath(), 200, 200);
+    }
+
+    public static function getFreelancerValidator($business_id, $account)
+    {
+        $validator = Validator::make(
+            array(
+                'business_id' => $business_id,
+                'account'     => $account,
+            ),
+            array(
+                'business_id' => 'required',
+                'account'     => 'required',
+            )
+        );
+
+        return $validator;
     }
 
     //--------------------------------------------------------------------------

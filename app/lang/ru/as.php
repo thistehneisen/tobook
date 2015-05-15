@@ -187,7 +187,7 @@ return [
         'is_received_calendar_invitation'  => 'Получает приглашения через календарь?',
         'services'                         => 'Услуги',
         'status'                           => 'Статус',
-        'is_active'                        => 'Статус',
+        'is_active'                        => 'Activation',//@todo
         'avatar'                           => 'Аватар',
         'default_time'                     => 'Время по умолчанию',
         'custom_time'                      => 'Время по выбору',
@@ -213,6 +213,10 @@ return [
         'to_date'                          => 'До',
         'weekday'                          => 'Рабочий день',
         'employee'                         => 'Работник',
+        'freelancer'                       => 'Freelancer',//@todo
+        'business_id'                      => 'Business ID',//@todo
+        'account'                          => 'Account',//@todo
+        'activation'                       => 'Activation',//@todo
         'saturday_hours'                   => 'Рабочие часы в субботу',
         'sunday_hours'                     => 'Рабочие часы в воскресенье',
         'monthly_hours'                    => 'Рабочие часы за месяц',

@@ -62,8 +62,22 @@ class Employees extends AsBase
             'is_subscribed_email'             => Input::get('is_subscribed_email', false),
             'is_subscribed_sms'               => Input::get('is_subscribed_sms', false),
             'is_received_calendar_invitation' => Input::get('is_received_calendar_invitation', false),
-            'is_active'                       => Input::get('is_active')
+            'is_active'                       => Input::get('is_active'),
+            'status'                          => Input::get('status'),
+            'business_id'                     => Input::get('business_id'),
+            'account'                         => Input::get('account'),
         ]);
+
+        $status      = Input::get('status');
+        $business_id = Input::get('business_id');
+        $account     = Input::get('account');
+
+        if((int)$status === Employee::STATUS_FREELANCER) {
+            $validator = Employee::getFreelancerValidator($business_id, $account);
+            if($validator->fails()) {
+
+            }
+        }
 
         // Update data
         if (Input::hasFile('avatar')) {

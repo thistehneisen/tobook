@@ -189,7 +189,7 @@ return [
         'is_received_calendar_invitation'  => 'Aktivera kalender inbjudan',
         'services'            => 'Tjänster',
         'status'              => 'Status',
-        'is_active'           => 'Status',
+        'is_active'           => 'Activation',//@todo
         'avatar'              => 'Bild',
         'default_time'        => 'Standardtid',
         'custom_time'         => 'Anpassad tid',
@@ -215,6 +215,10 @@ return [
         'to_date'             => 'Till datum',
         'weekday'             => 'Veckodag',
         'employee'            => 'Personal',
+        'freelancer'          => 'Freelancer',//@todo
+        'business_id'         => 'Business ID',//@todo
+        'account'             => 'Account',//@todo
+        'activation'          => 'Activation',//@todo
         'saturday_hours'      => 'Timmar lördag',
         'sunday_hours'        => 'Timmar söndag',
         'monthly_hours'       => 'Timmar månad',
