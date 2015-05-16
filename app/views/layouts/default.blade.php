@@ -206,7 +206,9 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js') }}
     {{ HTML::script('//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.4/typeahead.bundle.min.js') }}
     <script>
-    window.VARAA = window.VARAA || {};
+var VARAA = VARAA || {};
+VARAA.routes = VARAA.routes || {};
+VARAA.routes.updateLocation = '{{ route('search.location') }}';
     </script>
     {{ HTML::script(asset_path('core/scripts/global.js')) }}
     {{ HTML::script(asset_path('core/scripts/main.js')) }}

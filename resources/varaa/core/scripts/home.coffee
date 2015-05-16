@@ -9,6 +9,15 @@ do ($ = jQuery) ->
         $ '#form-search-location'
           .val $(@).text()
 
+    $ '#ask-current-location'
+      .on 'click', (e) ->
+        e.preventDefault()
+        VARAA.getLocation()
+          .then (lat, lng) ->
+            $form = $ '#form-search'
+            $form.children('[name=lat]').val(lat)
+            $form.children('[name=lng]').val(lng)
+
     # When user clicks on navbar, we'll ask for the current location
     $ '#js-navbar'
       .find 'a'

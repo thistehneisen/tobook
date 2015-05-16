@@ -1,4 +1,7 @@
-{{ Form::open(['route' => 'search', 'class' => 'form-search', 'method' => 'GET']) }}
+{{ Form::open(['route' => 'search', 'class' => 'form-search', 'method' => 'GET', 'id' => 'form-search']) }}
+<input type="hidden" name="lat" value="{{ Session::get('lat') }}">
+<input type="hidden" name="lng" value="{{ Session::get('lng') }}">
+
 <div class="form-group row">
     <div class="col-sm-4 col-md-4">
         <h2 class="heading">{{ trans('home.search.tagline') }}</h2>
