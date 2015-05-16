@@ -1,9 +1,10 @@
 <?php namespace App\Core\Models;
 
-class CommissionLog extends \AppModel
+class BusinessCommission extends Base
 {
-    const ACTION_ADD = 'add';
-    const ACTION_SUBTRACT = 'subtract';
+    const STATUS_SUSPEND   = 'suspend';
+    const STATUS_PAID      = 'paid';
+    const STATUS_CANCELLED = 'cancelled';
 
     public $fillable = [
         'status',
@@ -35,7 +36,7 @@ class CommissionLog extends \AppModel
 
     public function booking()
     {
-        return $this->belongsTo('App\Core\Models\Booking');
+        return $this->belongsTo('App\Appointment\Models\Booking');
     }
 
 }
