@@ -134,13 +134,20 @@ class Commissions extends Base
             $endOfMonth
         );
 
-        $paid      = 0;
+        $paid = Booking::countCommissionPaid(
+            $userId,
+            $status,
+            $employeeId,
+            $perPage,
+            $startOfMonth,
+            $endOfMonth
+        );
 
         $commissionRate = Settings::get('commission_rate');
         $currencySymbol = Settings::get('currency');
 
 
-        $pending   = ($needToPay->total * $commissionRate) - $paid;
+        $pending   = $needToPay->total * $commissionRate;
 
         return $this->render('counter', [
             'items'          => $bookings,

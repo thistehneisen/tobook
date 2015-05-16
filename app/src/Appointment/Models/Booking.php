@@ -6,6 +6,7 @@ use App\Core\Models\User;
 use App\Consumers\Models\Consumer;
 use App\Appointment\Models\Observer\SmsObserver;
 use Watson\Validating\ValidationException;
+use App\Core\Models\BusinessCommission;
 
 class Booking extends \App\Appointment\Models\Base implements \SplSubject
 {
@@ -1043,18 +1044,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
     public static function getBookingsByEmployeeStatus($userId, $status, $employeeId, $perPage, $start, $end)
     {
-        $query = self::where('as_bookings.created_at', '>', $start)
-            ->where('as_bookings.created_at', '<', $end)
-            ->whereNull('as_bookings.deleted_at')
-            ->where('as_bookings.status','!=', self::STATUS_CANCELLED)
-            ->where('as_bookings.status','!=', self::STATUS_PENDING)
-            ->where('as_bookings.status','!=', self::STATUS_NOT_SHOW_UP)
-            ->where('as_bookings.user_id', '=', $userId)
-            ->where('as_employees.status', '=', $status);
-
-        if(!empty($employeeId)) {
-            $query = $query->where('as_employees.id', '=', $employeeId);
-        }
+        $query = static::getCommissionQuery($userId, $status, $employeeId, $perPage, $start, $end);
 
         $result = $query->join('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
             ->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
@@ -1065,6 +1055,32 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
     }
 
     public static function countCommissionNeedToPay($userId, $status, $employeeId, $perPage, $start, $end)
+    {
+        $query = static::getCommissionQuery($userId, $status, $employeeId, $perPage, $start, $end);
+        $query = $query->whereNull('business_commissions.id');
+
+        $result = $query->join('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
+            ->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
+            ->select(DB::raw('COALESCE(SUM(varaa_as_bookings.total_price),0) as total'))
+            ->first();
+
+        return $result;
+    }
+
+    public static function countCommissionPaid($userId, $status, $employeeId, $perPage, $start, $end)
+    {
+        $query = static::getCommissionQuery($userId, $status, $employeeId, $perPage, $start, $end);
+        $query = $query->where('business_commissions.status','=', BusinessCommission::STATUS_PAID);
+
+        $result = $query->join('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
+            ->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
+            ->select(DB::raw('COALESCE(SUM(varaa_business_commissions.amount),0) as total'))
+            ->first();
+
+        return $result;
+    }
+
+    protected static function getCommissionQuery($userId, $status, $employeeId, $perPage, $start, $end)
     {
         $query = self::where('as_bookings.created_at', '>', $start)
             ->where('as_bookings.created_at', '<', $end)
@@ -1079,11 +1095,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             $query = $query->where('as_employees.id', '=', $employeeId);
         }
 
-        $result = $query->join('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
-            ->select(DB::raw('SUM(varaa_as_bookings.total_price) as total'))
-            ->first();
-
-        return $result;
+        return $query;
     }
 
 }

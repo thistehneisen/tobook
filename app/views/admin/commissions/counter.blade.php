@@ -102,13 +102,13 @@ $(function () {
 <div class="center">
     <h2>
         {{ trans('admin.commissions.paid_this_month') }}:<br/>
-        {{ $paid }}{{ $currencySymbol }}
+        {{ number_format($paid->total, 2) }}{{ $currencySymbol }}
     </h2>
 </div>
 <div class="center">
     <h2>
         {{ trans('admin.commissions.payment_pending') }}:<br/>
-        {{ $pending }}{{ $currencySymbol }}
+        {{ number_format($pending, 2) }}{{ $currencySymbol }}
     </h2>
 </div>
 
