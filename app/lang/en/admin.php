@@ -62,11 +62,13 @@ return [
         'name'           => 'Name',
         'price'          => 'Price',
         'commission'     => 'Commission',
+        'customer'       => 'Customer',
         'employee'       => 'Employee',
         'employees'      => 'Employees',
         'booking_status' => 'Paid/Booked/Deposit',
         'notes'          => 'Notes',
         'paid_this_month'=> 'Paid this month',
+        'created_at'     => 'Created At',
         'payment_pending'=> 'Payment pending',
         'email_monthly_report' => 'Email monthly report to',
         'status' => [

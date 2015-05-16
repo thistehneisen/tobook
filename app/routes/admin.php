@@ -96,6 +96,11 @@ Route::group([
             'as' => 'admin.users.commissions.status',
             'uses' => 'App\Core\Controllers\Admin\Commissions@status'
         ]);
+
+        Route::get('{id}/commissions-pdf/{employee?}', [
+            'as' => 'admin.users.commissions.pdf',
+            'uses' => 'App\Core\Controllers\Admin\Commissions@pdf'
+        ]);
     });
 
     //--------------------------------------------------------------------------

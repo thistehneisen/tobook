@@ -30,8 +30,8 @@ $(function () {
         </div>
         <div class="col-sm-3 hidden-print"><a href="{{ route('admin.users.commissions.counter', ['id'=> $user->id, 'employee'=> $employeeId, 'date'=> with(clone $current->startOfMonth())->addMonth()->format('Y-m') ])}}">{{ Str::upper(trans('common.next')) }}</a></div>
         <div class="col-sm-3 hidden-print">
-            <button class="btn btn-primary btn-sm pull-right" onclick="window.print();"><i class="fa fa-print"> {{ trans('as.index.print') }}</i></button>
-            {{ Form::select('months', $months, $date, ['style'=>'width:70%','class' => 'form-control input-xs', 'id' => 'months']) }}
+            {{ Form::select('months', $months, $date, ['style'=>'width:70%','class' => 'form-control input-sm pull-right', 'id' => 'months']) }}
+            <button class="btn btn-primary btn-sm" onclick="window.print();"><i class="fa fa-print"> {{ trans('as.index.print') }}</i></button>
         </div>
 </div>
 

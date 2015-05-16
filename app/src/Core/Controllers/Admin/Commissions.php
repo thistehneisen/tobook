@@ -166,6 +166,10 @@ class Commissions extends Base
         ]);
     }
 
+    /**
+     * Change status of an booking commission
+     * @return Redirect
+     */
     public function status($userId, $bookingId)
     {
         $status = Input::get('status');
@@ -197,5 +201,81 @@ class Commissions extends Base
             $businessCommission->save();
         }
         return Redirect::back();
+    }
+
+    public function pdf($userId, $employeeId = null)
+    {
+        $current = Carbon::now();
+        $langPrefix = 'admin.commissions';
+        $date = Input::get('date');
+
+        if (!empty($date)) {
+            try {
+                $current = Carbon::createFromFormat('Y-m-d', $date . '-01');
+            } catch (\Exception $ex) {
+                $current = Carbon::now();
+            }
+        }
+
+        $startOfMonth    = $current->startOfMonth()->toDateString();
+        $endOfMonth      = $current->endOfMonth()->toDateString();
+
+        $user = User::findOrFail($userId);
+
+        $status = (empty($employeeId))
+            ? Employee::STATUS_EMPLOYEE
+            : Employee::STATUS_FREELANCER;
+        $perPage = null;
+
+        $bookings = Booking::getBookingCommisions(
+            $userId,
+            $employeeId,
+            $status,
+            $perPage,
+            $startOfMonth,
+            $endOfMonth
+        );
+
+        $fields = [
+            'created_at','date', 'employee', 'customer', 'price', 'booking_status', 'notes'
+        ];
+
+        $needToPay = Booking::countCommissionNeedToPay(
+            $userId,
+            $status,
+            $employeeId,
+            $perPage,
+            $startOfMonth,
+            $endOfMonth
+        );
+
+        $paid = Booking::countCommissionPaid(
+            $userId,
+            $status,
+            $employeeId,
+            $perPage,
+            $startOfMonth,
+            $endOfMonth
+        );
+
+        $commissionRate = Settings::get('commission_rate');
+        $currencySymbol = Settings::get('currency');
+
+
+        $pending   = $needToPay->total * $commissionRate;
+
+        return $this->render('pdf', [
+            'items'          => $bookings,
+            'fields'         => $fields,
+            'date'           => $current->format('Y-m'),
+            'langPrefix'     => $langPrefix,
+            'current'        => $current,
+            'user'           => $user,
+            'employeeId'     => $employeeId,
+            'paid'           => $paid,
+            'pending'        => $pending,
+            'commissionRate' => $commissionRate,
+            'currencySymbol' => $currencySymbol
+        ]);
     }
 }

@@ -152,7 +152,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
     public function getEndTimeAttribute()
     {
-        if ($this->start_at instanceof Carbon) {
+        if ($this->end_at instanceof Carbon) {
             return $this->end_at;
         }
 
@@ -1042,11 +1042,25 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return $filename;
     }
 
+    public static function getBookingCommisions($userId, $status, $employeeId, $perPage, $start, $end)
+    {
+        $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
+
+        $result = $query->leftJoin('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
+            ->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
+            ->leftJoin('consumers', 'consumers.id', '=', 'as_bookings.consumer_id')
+            ->select(['as_bookings.*', 'as_bookings.id as booking_id', 'as_bookings.date', 'as_bookings.status as booking_status', 'as_employees.*', 'as_employees.status as employee_status','business_commissions.status as commission_status', DB::raw("CONCAT(varaa_consumers.first_name, ' ', varaa_consumers.last_name) as consumer_name")])
+            ->get();
+
+        return $result;
+    }
+
     public static function getBookingsByEmployeeStatus($userId, $status, $employeeId, $perPage, $start, $end)
     {
-        $query = static::getCommissionQuery($userId, $status, $employeeId, $perPage, $start, $end);
+        $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
 
-        $result = $query->join('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
+        $result = $query->leftJoin('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
+            ->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
             ->leftJoin('business_commissions', 'business_commissions.booking_id', '=', 'as_bookings.id')
             ->select(['as_bookings.*', 'as_bookings.id as booking_id', 'as_bookings.status as booking_status', 'as_employees.*', 'as_employees.status as employee_status','business_commissions.status as commission_status'])
             ->paginate($perPage);
@@ -1056,7 +1070,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
     public static function countCommissionNeedToPay($userId, $status, $employeeId, $perPage, $start, $end)
     {
-        $query = static::getCommissionQuery($userId, $status, $employeeId, $perPage, $start, $end);
+        $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
         $query = $query->whereNull('business_commissions.id');
 
         $result = $query->join('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
@@ -1069,7 +1083,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
 
     public static function countCommissionPaid($userId, $status, $employeeId, $perPage, $start, $end)
     {
-        $query = static::getCommissionQuery($userId, $status, $employeeId, $perPage, $start, $end);
+        $query = static::getCommissionQuery($userId, $status, $employeeId, $start, $end);
         $query = $query->where('business_commissions.status','=', BusinessCommission::STATUS_PAID);
 
         $result = $query->join('as_employees', 'as_employees.id', '=','as_bookings.employee_id')
@@ -1080,7 +1094,7 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
         return $result;
     }
 
-    protected static function getCommissionQuery($userId, $status, $employeeId, $perPage, $start, $end)
+    protected static function getCommissionQuery($userId, $status, $employeeId, $start, $end)
     {
         $query = self::where('as_bookings.created_at', '>', $start)
             ->where('as_bookings.created_at', '<', $end)
@@ -1088,8 +1102,12 @@ class Booking extends \App\Appointment\Models\Base implements \SplSubject
             ->where('as_bookings.status','!=', self::STATUS_CANCELLED)
             ->where('as_bookings.status','!=', self::STATUS_PENDING)
             ->where('as_bookings.status','!=', self::STATUS_NOT_SHOW_UP)
-            ->where('as_bookings.user_id', '=', $userId)
-            ->where('as_employees.status', '=', $status);
+            ->where('as_bookings.user_id', '=', $userId);
+
+        //status == 0 mean empty
+        if(isset($status)){
+            $query = $query->where('as_employees.status', '=', $status);
+        }
 
         if(!empty($employeeId)) {
             $query = $query->where('as_employees.id', '=', $employeeId);
