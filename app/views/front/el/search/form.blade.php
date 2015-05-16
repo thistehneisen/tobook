@@ -17,10 +17,9 @@
             <ul id="big-cities-dropdown" class="dropdown-menu" role="menu">
                 <li role="presentation"><a href="#">Your current location</a></li>
                 <li role="presentation" class="divider"></li>
-                <li role="presentation"><a href="#">Helsinki</a></li>
-                <li role="presentation"><a href="#">Helsinki</a></li>
-                <li role="presentation"><a href="#">Helsinki</a></li>
-                <li role="presentation"><a href="#">Helsinki</a></li>
+                @foreach ($cities as $city)
+                <li role="presentation"><a href="#">{{{ $city }}}</a></li>
+                @endforeach
             </ul>
         </div>
     </div>
